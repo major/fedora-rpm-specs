@@ -3,8 +3,13 @@
 #%%global prerelease -RC1
 %bcond_without  qt5
 
+# not compatible with newer clang versions
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
+%global llvm_compat 15
+%endif
+
 Name:           openshadinglanguage
-Version:        1.12.10.0
+Version:        1.12.13.0
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 License:        BSD-3-Clause
@@ -17,11 +22,11 @@ BuildRequires:  git-core
 
 BuildRequires:  bison >= 2.7
 BuildRequires:  boost-devel >= 1.55
-BuildRequires:  clang-devel >= 3.4
+BuildRequires:  clang%{?llvm_compat}-devel
 BuildRequires:  cmake >= 3.12
 BuildRequires:  flex >= 2.5.35
 BuildRequires:  gcc-c++ >= 6.1
-BuildRequires:  llvm-devel >= 9
+BuildRequires:  llvm%{?llvm_compat}-devel
 BuildRequires:  ninja-build
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
@@ -134,6 +139,7 @@ sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
    -DCMAKE_SKIP_RPATH=TRUE \
    -DCMAKE_SKIP_INSTALL_RPATH=YES \
    -DLLVM_STATIC=0 \
+   -DLLVM_CONFIG=$(which llvm-config%{?llvm_compat:-%{llvm_compat}}) \
    -DOSL_SHADER_INSTALL_DIR:PATH=%{_datadir}/%{name}/shaders/ \
    -Dpartio_DIR=%{_prefix} \
    -DPARTIO_INCLUDE_DIR=%{_includedir} \

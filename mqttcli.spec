@@ -4,8 +4,8 @@
 # https://git.sr.ht/~spc/mqttcli
 %global goipath         git.sr.ht/~spc/mqttcli
 %global forgeurl        https://git.sr.ht/~spc/mqttcli
-Version:                0.2.4
-%global tag             0.2.4
+Version:                0.2.5
+%global tag             %{version}
 
 %gometa -f
 

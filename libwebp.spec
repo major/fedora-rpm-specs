@@ -14,7 +14,7 @@
 
 Name:          libwebp
 Version:       1.3.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           http://webmproject.org/
 Summary:       Library and tools for the WebP graphics format
 # Additional IPR is licensed as well. See PATENTS file for details
@@ -29,6 +29,8 @@ Patch1:        libwebp-mingw-libsuffix.patch
 Patch2:        libwebp-cmakedir.patch
 # Kill rpath
 Patch3:        libwebp-rpath.patch
+# Backport upstream fix for CVE-2023-5129
+Patch5:        https://github.com/webmproject/libwebp/commit/95ea5226c870449522240ccff26f0b006037c520.patch
 
 BuildRequires: cmake
 BuildRequires: freeglut-devel
@@ -285,6 +287,9 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 
 
 %changelog
+* Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 1.3.2-2
+- Backport upstream fix for CVE-2023-5129
+
 * Mon Sep 18 2023 Sandro Mani <manisandro@gmail.com> - 1.3.2-1
 - Update to 1.3.2
 

@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    612a3ee5ab0d5dd97b7cf3874a6efe24325efac3
+%global gh_commit    4f2d4f2836e7ec4e7a8625e75c6aa916004db931
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   deprecations
@@ -21,8 +21,8 @@
 %global ns_project   Deprecations
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.1.1
-Release:        2%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Thu Sep 28 2023 Remi Collet <remi@remirepo.net> - 1.1.2-1
+- update to 1.1.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

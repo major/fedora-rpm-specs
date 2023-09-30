@@ -23,7 +23,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.6.0
+Version:        3.6.1
 Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
@@ -160,6 +160,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Thu Sep 28 2023 Kalev Lember <klember@redhat.com> - 3.6.1-1
+- Update to 3.6.1
+
 * Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 3.6.0-1
 - Update to 3.6.0
 

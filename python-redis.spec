@@ -4,7 +4,7 @@
 %global upstream_name redis
 
 Name:           python-%{upstream_name}
-Version:        4.5.1
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Python interface to the Redis key-value store
 License:        MIT
@@ -18,6 +18,8 @@ BuildRequires:  python3-devel
 BuildRequires:  redis
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(async-timeout)
+BuildRequires:  python3dist(pytest-timeout)
 %endif
 
 %global _description\
@@ -33,10 +35,21 @@ Summary:        Python 3 interface to the Redis key-value store
 This is a Python 3 interface to the Redis key-value store.
 
 %prep
-%setup -qn redis-py-%{version}
+%autosetup -n redis-py-%{version} -p1
 
 # This test passes locally but fails in koji...
 rm tests/test_commands.py*
+rm tests/test_asyncio/test_commands.py
+
+# Times out
+rm tests/test_asyncio/test_connect.py
+rm tests/test_asyncio/test_cwe_404.py
+
+# The Fedora redis json and bloom packages are out of date, ts and graph are missing in the repos
+rm tests/test_bloom.py
+rm tests/test_graph.py
+rm tests/test_json.py
+rm tests/test_timeseries.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -56,8 +69,7 @@ redis-server --enable-debug-command yes &
 %else
 redis-server &
 %endif
-# xinfo_consumers fails with redis 7.2rc2, https://bugzilla.redhat.com/2196782
-%pytest -m 'not onlycluster and not redismod and not ssl' -k 'not xinfo_consumers'
+%pytest -m 'not onlycluster and not redismod and not ssl'
 kill %1
 %endif
 

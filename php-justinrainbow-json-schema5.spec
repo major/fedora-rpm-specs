@@ -1,17 +1,24 @@
 # remirepo/fedora spec file for php-justinrainbow-json-schema5
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    ad87d5a5ca981228e0e205c2bc7dfb8e24559b60
+
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+# disable test suite until recent phpunit is supported
+%bcond_with          tests
+%else
+%bcond_without       tests
+%endif
+
+%global gh_commit    fbbe7e5d79f618997bc3332a6f49246036c45793
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     justinrainbow
 %global gh_project   json-schema
 %global php_home     %{_datadir}/php
-%global with_tests   0%{!?_without_tests:1}
 %global major        5
 
 
@@ -27,8 +34,8 @@
 %global eolv2        0
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.2.12
-Release:        4%{?dist}
+Version:        5.2.13
+Release:        1%{?dist}
 Summary:        A library to validate a json schema
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
@@ -43,7 +50,7 @@ Source3:        %{name}-makesrc.sh
 Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
-%if %{with_tests}
+%if %{with tests}
 # For tests
 BuildRequires:  php(language) >= 5.3.3
 BuildRequires:  php-curl
@@ -101,7 +108,7 @@ Autoloader: %{php_home}/JsonSchema%{major}/autoload.php
 %prep
 %setup -q -n %{gh_project}-%{gh_commit} -a 1
 
-%patch0 -p1 -b .rpm
+%patch -P0 -p1 -b .rpm
 find src -name \*.rpm -delete -print
 
 cp %{SOURCE2} src/JsonSchema/autoload.php
@@ -137,7 +144,7 @@ install -Dpm 0755 bin/validate-json %{buildroot}%{_bindir}/validate-json%{major}
 
 
 %check
-%if %{with_tests}
+%if %{with tests}
 : Test suite autoloader
 cat << 'EOF' | tee vendor/autoload.php
 <?php
@@ -156,7 +163,7 @@ php bin/validate-json-test \
 
 : Upstream test suite
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
    $cmd -d memory_limit=1G %{_bindir}/phpunit -d memory_limit=1G --verbose || ret=1
   fi
@@ -177,6 +184,10 @@ exit $ret
 
 
 %changelog
+* Thu Sep 28 2023 Remi Collet <remi@remirepo.net> - 5.2.13-1
+- update to 5.2.13
+- disable test suite
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

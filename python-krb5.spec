@@ -10,6 +10,10 @@ Patch:          0001-Exclude-header-files-from-package-data.patch
 
 BuildRequires:  gcc
 BuildRequires:  krb5-devel
+# for /usr/sbin/kdb5_util in tests
+BuildRequires:  krb5-server
+# for /usr/bin/kinit in tests
+BuildRequires:  krb5-workstation
 
 %global _description %{expand:
 This library provides Python functions that wraps the Kerberos 5 C API.  Due to
@@ -24,6 +28,7 @@ python-gssapi which exposes the Kerberos authentication details through GSSAPI.}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-k5test
 
 
 %description -n python3-krb5 %_description
@@ -47,9 +52,7 @@ BuildRequires:  python3-pytest
 
 
 %check
-# The upstream tests require k5test, which isn't packaged yet.  For now, just
-# do an import check.
-%pyproject_check_import
+%pytest --verbose
 
 
 %files -n python3-krb5 -f %{pyproject_files}

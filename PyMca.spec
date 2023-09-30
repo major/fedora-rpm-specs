@@ -1,5 +1,5 @@
 Name:           PyMca
-Version:        5.9.0
+Version:        5.9.1
 Release:        %autorelease
 Summary:        X-ray Fluorescence Toolkit
 License:        GPLv2+

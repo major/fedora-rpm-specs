@@ -1,6 +1,6 @@
 %global _hardened_build   1
 
-%if 0%{?fedora} >= 33
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %global trackername tracker3
 %else
 %global trackername tracker
@@ -23,28 +23,35 @@
 %global without_openafs   1
 
 # tcp_wrappers deprecated fedora >= 28
-%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global without_tcp_wrappers 1
 %endif
 
+# buildrequire mariadb-connector-c-devel for all but el7
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%global mariadevel mariadb-connector-c-devel
+%else
+%global mariadevel mariadb-devel
+%endif
+
 # rhel 7 need to call ldconfig & set c99 flag
-%if 0%{?rhel} <= 7
+%if 0%{?rhel} && 0%{?rhel} <= 7
 %global ldconfig /sbin/ldconfig
 %global with_c99 1
 %endif
 
 # set path to python binary per fedora packaging guidelines
 %if 0%{?rhel} && 0%{?rhel} <= 7
-%global python_bin /usr/bin/python2
+%global python_bin %{python2}
 %global with_python2      1
 %else
-%global python_bin /usr/bin/python3
+%global python_bin %{python3}
 %endif
 
 Name:              netatalk
 Epoch:             5
 Version:           3.1.17
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
@@ -91,7 +98,7 @@ BuildRequires:     libtdb-devel
 %{!?with_bdb:BuildRequires:     db4-devel}
 %{?with_libevent:BuildRequires:     libevent-devel}
 %{?with_docbook:BuildRequires:     libxslt}
-%{?with_mysql:BuildRequires:     mariadb-devel}
+%{?with_mysql:BuildRequires:     %{mariadevel}}
 %{?with_ldap:BuildRequires:     openldap-devel}
 %{?with_procpsng:BuildRequires:     procps-ng}
 %{!?with_procng:BuildRequires:     procps}
@@ -224,6 +231,10 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Thu Sep 28 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.17-2
+- buildrequire mariadb-connector-c-devel for all but el7
+- minor changes to other specfile conditionals
+
 * Sun Sep 17 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.17-1
 - 3.1.17 release
 - Fixes CVE-2023-42464

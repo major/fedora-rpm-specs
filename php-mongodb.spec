@@ -9,13 +9,13 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    d4cdf057a67cb99a32db8984a16959bfa7ca7eb5
+%global gh_commit    72d80889eb7567c0da4e7d4ddbdcf66dfea90ac3
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mongodb
 %global gh_project   mongo-php-library
 %global psr0         MongoDB
 
-%global upstream_version 1.16.0
+%global upstream_version 1.16.1
 #global upstream_prever  alpha1
 #global upstream_lower   alpha1
 
@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        MongoDB driver library
 
 License:        Apache-2.0
@@ -192,6 +192,9 @@ exit $ret
 
 
 %changelog
+* Thu Sep 28 2023 Remi Collet <remi@remirepo.net> - 1.16.1-1
+- update to 1.16.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

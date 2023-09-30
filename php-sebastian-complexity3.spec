@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    c70b73893e10757af9c6a48929fa6a333b56a97a
+%global gh_commit    68cfb347a44871f01e33ab0ef8215966432f6957
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   complexity
@@ -24,7 +24,7 @@
 %global ns_project   Complexity
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.1
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        Calculating the complexity of PHP code units, version %{major}
 
@@ -114,6 +114,9 @@ exit $ret
 
 
 %changelog
+* Thu Sep 28 2023 Remi Collet <remi@remirepo.net> - 3.1.0-1
+- update to 3.1.0
+
 * Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 3.0.1-1
 - update to 3.0.1
 

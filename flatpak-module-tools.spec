@@ -3,7 +3,7 @@
 
 Name:		%{srcname}
 Version:	1.0~a9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
 License:	MIT
@@ -40,6 +40,7 @@ BuildRequires: python3-requests
 BuildRequires: python3-responses
 BuildRequires: python3-rpm
 BuildRequires: python3-yaml
+BuildRequires: zstd
 
 Requires: python3-%{srcname} = %{version}-%{release}
 Requires: python3-jinja2
@@ -74,6 +75,7 @@ Requires: python3-click
 Requires: python3-requests
 Requires: python3-rpm
 Requires: python3-yaml
+Requires: zstd
 
 # Output changed from <nvr>.oci.tar.gz to <nvr>.oci.tar
 Conflicts: koji-flatpak <= 0.2
@@ -111,6 +113,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %{python3_sitelib}/*
 
 %changelog
+* Thu Sep 28 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a9-2
+- Add a dependency on zstd tool (used to compress intermediate tarball)
+
 * Mon Sep 25 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a9-1
 - Fix tests in environments without git config set up
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-128-gbb5bbc2070
+%global glibcsrcdir glibc-2.38.9000-147-g29d4591b07
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 9
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2199,6 +2199,29 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Sep 28 2023 Patsy Griffin <patsy@redhat.com> - 2.38.9000-10
+- Auto-sync with upstream branch master,
+  commit 29d4591b07a4da53320e949557c6946c62c26bde.
+- hurd: Drop REG_GSFS and REG_ESDS from x86_64's ucontext
+- elf: Fix compile error with -DNDEBUG [BZ #18755]
+- MIPS: Add relocation types
+- MIPS: Add new section type SHT_MIPS_ABIFLAGS
+- MIPS: Add ELF file header flags
+- fegetenv_and_set_rn now uses the builtins provided by GCC.
+- io: Do not implement fstat with fstatat
+- libio: Add nonnull attribute for most FILE * arguments in stdio.h
+- AArch64: Remove -0.0 check from vector sin
+- Document CVE-2023-4806 and CVE-2023-5156 in NEWS
+- elf: Add dummy declaration of _dl_audit_objclose for !SHARED
+- Fix leak in getaddrinfo introduced by the fix for CVE-2023-4806 [BZ #30843]
+- elf: dl-lookup: Remove unused alloca.h include
+- Remove unused localedata/th_TH.in
+- Adapt collation in th_TH locale to use the iso14651_t1_common file and sync the collation with CLDR
+- Revert "LoongArch: Add glibc.cpu.hwcap support."
+- Update kernel version to 6.5 in header constant tests
+- LoongArch: Add glibc.cpu.hwcap support.
+- math: Add a no-mathvec flag for sin (-0.0)
+
 * Mon Sep 18 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-9
 - Auto-sync with upstream branch master,
   commit bb5bbc20702981c287aa3e44640e7d2f2b9a28cf:

@@ -1,15 +1,14 @@
 Summary:        Multi-library, cross-platform audio decoding in Python
 Name:           python-audioread
-Version:        3.0.0
-Release:        5%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 License:        MIT
 URL:            http://pypi.python.org/pypi/audioread/
 Source0:        https://files.pythonhosted.org/packages/source/a/audioread/audioread-%{version}.tar.gz
-Patch01:        python-audioread-3.0.0-avoid-imp.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Buildrequires:  python3-pytest-runner
+BuildRequires:  python3-gobject
+BuildRequires:  /usr/bin/ffmpeg
 %global _description \
 Decode audio files using whichever backend is available. Among\
 currently supports backends are\
@@ -22,27 +21,34 @@ currently supports backends are\
 %package    -n  python3-audioread
 Summary:        Multi-library, cross-platform audio decoding in Python
 Requires:       python3-gobject
-Requires:       gstreamer1
-Requires:       gstreamer1-plugins-base
-Requires:       gstreamer1-plugins-good
+Requires:       (/usr/bin/ffmpeg or (gstreamer1 and gstreamer1-plugins-base and gstreamer1-plugins-good))
 %{?python_provide:%python_provide python3-audioread}
 %description -n python3-audioread %_description
 
 %prep
 %autosetup -n audioread-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+
+%check
+%tox
 
 %files -n python3-audioread
 %doc README.rst decode.py
 %{python3_sitelib}/audioread/
-%{python3_sitelib}/audioread-%{version}-*.egg-info
+%{python3_sitelib}/audioread-*.dist-info/
 
 %changelog
+* Thu Sep 28 2023 Terje Rosten <terje.rosten@ntnu.no> - 3.0.1-1
+- 3.0.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

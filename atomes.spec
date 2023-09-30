@@ -60,6 +60,11 @@ step by step to achieve this crucial step.
 %autosetup -n %{upname}-%{version}
 
 %build
+%ifarch aarch64
+# Temporary fix for bug: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=111528
+#                        https://bugzilla.redhat.com/show_bug.cgi?id=2241139 
+  FCFLAGS=`echo $FCFLAGS|sed 's/-fstack-protector-strong//1'`
+%endif
 %configure
 #make %%{?_smp_mflags}
 %make_build

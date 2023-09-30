@@ -8,7 +8,7 @@
 
 Name:           vdr-epg-daemon
 Version:        1.3.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 
 License:        GPL+ and GPLv2 and BSD
@@ -33,7 +33,7 @@ BuildRequires:  libxslt-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python3-devel
-BuildRequires:  mariadb-devel
+BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  libarchive-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-units
@@ -133,6 +133,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Thu Sep 28 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.21-5
+- Build against the 'mariadb-connector-c-devel' package
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

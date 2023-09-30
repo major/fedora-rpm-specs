@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	100%{?dist}
+Release:	101%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -326,17 +326,17 @@ fi
 
 %post tools
 %systemd_post grub-boot-indeterminate.service
-%systemd_post grub-systemd-integration.service
+%systemd_post grub2-systemd-integration.service
 %systemd_user_post grub-boot-success.timer
 
 %preun tools
 %systemd_preun grub-boot-indeterminate.service
-%systemd_preun grub-systemd-integration.service
+%systemd_preun grub2-systemd-integration.service
 %systemd_user_preun grub-boot-success.timer
 
 %postun tools
 %systemd_postun_with_restart grub-boot-indeterminate.service
-%systemd_postun_with_restart grub-systemd-integration.service
+%systemd_postun_with_restart grub2-systemd-integration.service
 %systemd_user_postun_with_restart grub-boot-success.timer
 
 %posttrans common
@@ -548,6 +548,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Thu Sep 28 2023 Christian Glombek <cglombek@redhat.com> - 2.06-101
+- spec: Fix grub2-systemd-integration.service name
+
 * Wed Sep 13 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-100
 - arm64: Use proper memory type for kernel allocation
 - Resolves: #2149020

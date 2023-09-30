@@ -32,7 +32,7 @@ BuildRequires:  glibc-common
 BuildRequires:  doxygen
 
 BuildRequires:  gcc
-BuildRequires:  gcc-g++
+BuildRequires:  gcc-c++
 
 BuildRequires:  make
 BuildRequires:  libtool

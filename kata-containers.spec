@@ -28,7 +28,7 @@
 %endif
 
 # htps://github.com/kata-containers/kata-containers
-Version: 3.0.1
+Version: 3.2.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -39,7 +39,7 @@ Version: 3.0.1
 
 
 %global common_description %{expand:
-Kata Containers version 2.x repository. Kata Containers is an open source
+Kata Containers version 3.x repository. Kata Containers is an open source
 project and community working to build a standard implementation of lightweight
 Virtual Machines (VMs) that feel and perform like containers, but provide the
 workload isolation and security advantages of VMs. https://katacontainers.io/.}
@@ -53,8 +53,8 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     src/agent/README.md
 
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}.2
-Summary:    Kata Containers version 2.x repository
+Release:    1%{?rcrel}%{?dist}
+Summary:    Kata Containers version 3.x repository
 License:    ASL 2.0
 Url:        https://%{download}
 Source0:    https://%{download}/archive/%{version}%{?rcstr}/%{repo}-%{version}%{?rcstr}.tar.gz
@@ -376,6 +376,9 @@ fi
 
 
 %changelog
+* Thu Sep 28 2023 Emanuel Lima <emlima@redhat.com> - 3.2.0-1
+- kata-containers-3.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

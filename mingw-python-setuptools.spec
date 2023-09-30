@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       67.7.2
-Release:       2%{?dist}
+Version:       68.2.2
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -98,6 +98,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 68.2.2-1
+- Update to 68.2.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 67.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

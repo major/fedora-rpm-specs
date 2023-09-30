@@ -18,7 +18,7 @@
 %endif
 
 Name:           mozjs%{major}
-Version:        102.15.0
+Version:        102.15.1
 Release:        %autorelease
 Summary:        SpiderMonkey JavaScript library
 

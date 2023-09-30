@@ -32,7 +32,7 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        8.4.0
+Version:        9.0.0~a1
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 
@@ -97,12 +97,12 @@ to ansible-core.
 # to properly release and test new ansible major versions after RHEL rebases
 # ansible-core. The lower version constraints can stay in place.
 
-sed "s|ansible-core ~=|ansible-core >=|" setup.py > setup.py.bak
+sed "s|ansible-core ~=|ansible-core >=|" setup.cfg > setup.cfg.bak
 # Verify
 set -o pipefail
-grep -B1 "ansible-core >=" setup.py.bak | grep -F 'install_requires=['
+grep -B1 "ansible-core >=" setup.cfg.bak | grep -F 'install_requires ='
 %if %{defined rhel}
-mv setup.py.bak setup.py
+mv setup.cfg.bak setup.cfg
 %endif
 
 # ansible-prep.sh
@@ -168,6 +168,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Thu Sep 28 2023 Maxwell G <maxwell@gtmx.me> - 9.0.0~a1-1
+- Update to 9.0.0~a1.
+
 * Tue Sep 12 2023 Maxwell G <maxwell@gtmx.me> - 8.4.0-1
 - Update to 8.4.0.
 

@@ -8,7 +8,7 @@
 %global firefox_inst_dir %{moz_extensions}/%{firefox_app_id}
 
 Name:           mozilla-privacy-badger
-Version:        2023.6.23
+Version:        2023.9.12
 Release:        1%{?dist}
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 
@@ -17,7 +17,7 @@ URL:            https://www.eff.org/privacybadger
 Source0:        https://github.com/EFForg/privacybadger/archive/release-%{version}/privacybadger-%{version}.tar.gz
 Requires:       mozilla-filesystem
 BuildArch:      noarch
-BuildRequires:  sed
+BuildRequires:  python3
 BuildRequires:  zip
 # lib/vendor/jquery-3.5.1.min.js
 # https://jquery.com MIT
@@ -85,11 +85,13 @@ rm -rv src/data/dnt-policy.txt src/tests
 
 %build
 # https://github.com/EFForg/privacybadger/blob/master/release-utils/make-signed-xpi.sh
+PATCHER=scripts/patch_manifest.py
+
 mkdir pkg
 
-sed -i -e '/eff.software.projects@gmail.com/,+1d' -e 's/"author": {/"author": "privacybadger-owner@eff.org",/' src/manifest.json
+$PATCHER src/manifest.json 'set' 'author' 'privacybadger-owner@eff.org'
 
-sed -i -e '/"update_url": "https:\/\/clients2.google.com\/service\/update2\/crx"/,+0d' src/manifest.json
+$PATCHER src/manifest.json 'del' 'update_url'
 
 rm -fv pkg/privacybadger-%{version}.zip
 pushd src
@@ -109,6 +111,10 @@ install -Dpm644 pkg/privacybadger-%{version}.zip %{buildroot}%{firefox_inst_dir}
 %{firefox_inst_dir}/%{ext_id}.xpi
 
 %changelog
+* Thu Sep 28 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.9.12-1
+- update to 2023.9.12 (#2238923)
+- sync with upstream build process
+
 * Wed Aug 23 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.6.23-1
 - update to 2023.6.23 (#2215417)
 

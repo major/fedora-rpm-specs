@@ -9,10 +9,10 @@
 # needed for this package
 %global extension_id \{73a6fe31-595d-460b-a920-fcc0f8843232\}
 
-%global nscl_commit 7de366324a204aec9ca3b5a09aa7872683577543
+%global nscl_commit ef1ecbea27e39e255d988a8fb0233ab53c46e57c
 
 Name:           mozilla-noscript
-Version:        11.4.26
+Version:        11.4.27
 Release:        1%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
@@ -58,9 +58,9 @@ tar -xz -C src/nscl --strip-components=1 -f %{S:2}
 %patch 0 -p1 -b .f
 cp -p src/nscl/COPYING nscl.COPYING
 cp -p src/nscl/LICENSE.md nscl.LICENSE.md
-ln -s /usr/share/publicsuffix/public_suffix_list.dat ./
 
 %build
+export NSCL_TLD_DAT=/usr/share/publicsuffix/public_suffix_list.dat
 sh -x ./build.sh
 
 %install
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.m
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Thu Sep 28 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.27-1
+- update to 11.4.27 (#2238212)
+
 * Fri Aug 25 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.26-1
 - update to 11.4.26 (#2218301)
 

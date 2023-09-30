@@ -5,10 +5,12 @@
 Summary: A natural language date parser
 Name: rubygem-%{gem_name}
 Version: 0.10.2
-Release: 17%{?dist}
+Release: 19%{?dist}
 License: MIT
 URL: http://github.com/mojombo/chronic
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/mojombo/chronic/pull/414
+Patch0:  chronic-pr414-minitest-5_19-compat.patch
 
 BuildRequires: ruby
 BuildRequires: rubygems-devel
@@ -27,10 +29,12 @@ Requires:%{name} = %{version}-%{release}
 Documentation for %{name}.
 
 %prep
-%setup -q -c -T
-%gem_install -n %{SOURCE0}
+%setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
+gem build ../%{gem_name}-%{version}.gemspec
+%gem_install
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -60,6 +64,10 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Sep 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.2-19
+- Use recent gem2rpm spec style
+- Apply the upstream PR to support minitest 5.19+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

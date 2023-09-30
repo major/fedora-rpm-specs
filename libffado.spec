@@ -20,6 +20,8 @@ Patch1:         libffado-2.4.4-icon-name.patch
 Patch2:         libffado-2.4.4-scons-quirk.patch
 # Patch for python3.12 imp module removal
 Patch3:         libffado-2.4.7-python312-imp-removal.patch
+# Patch for Python 3.12 configparser changes
+Patch4:         libffado-2.4.7-configparser.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  dbus-c++-devel
@@ -83,6 +85,7 @@ Applications and utilities for use with libffado.
 %patch -P2 -p1 -b .scons-quirk
 %endif
 %patch -P3 -p1 -b .py312
+%patch -P4 -p1 -b .configparser
 
 # Fix Python shebangs
 sed -i 's|/usr/bin/.*python$|/usr/bin/python3|' \

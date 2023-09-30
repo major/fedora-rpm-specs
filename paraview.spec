@@ -7,7 +7,7 @@
 
 %global pv_maj 5
 %global pv_min 11
-%global pv_patch 1
+%global pv_patch 2
 %global pv_majmin %{pv_maj}.%{pv_min}
 #global rcsuf RC1
 %{?rcsuf:%global relsuf .%{rcsuf}}
@@ -62,8 +62,8 @@
 %global vtk_use_system_pugixml -DVTK_MODULE_USE_EXTERNAL_VTK_pugixml:BOOL=ON
 
 Name:           paraview
-Version:        5.11.1
-Release:        7%{?dist}
+Version:        %{pv_maj}.%{pv_min}.%{pv_patch}
+Release:        1%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -622,6 +622,9 @@ fi
 
 
 %changelog
+* Wed Sep 27 2023 Orion Poplawski <orion@nwra.com> - 5.11.2-1
+- Update to 5.11.2
+
 * Thu Sep 21 2023 Orion Poplawski <orion@nwra.com> - 5.11.1-7
 - Use loops for mpi builds/installs
 - Drop EL7 support

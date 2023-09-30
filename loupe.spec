@@ -34,6 +34,9 @@ Source0:        https://download.gnome.org/sources/loupe/45/loupe-%{tarball_vers
 # https://gitlab.gnome.org/GNOME/loupe/-/merge_requests/299
 Patch:          299.patch
 
+# https://gitlab.gnome.org/GNOME/loupe/-/merge_requests/302
+Patch:          302.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

@@ -1,9 +1,9 @@
 %global toolchain clang
-%global reltag 5.7.3-RELEASE
+%global reltag 5.9-RELEASE
 
 Name:           libdispatch
-Version:        5.7.3
-Release:        2%{?dist}
+Version:        5.9
+Release:        1%{?dist}
 Summary:        Apple's Grand Central Dispatch library
 License:        Apache-2.0
 URL:            https://github.com/apple/swift-corelibs-libdispatch
@@ -58,7 +58,8 @@ Development files for libdispatch
 %prep
 %setup -q -n swift-corelibs-libdispatch-swift-%{reltag}
 
-%patch0 -p0
+%patch -P0 -p0
+
 
 %build
 export CXX=clang++
@@ -86,6 +87,9 @@ chrpath --delete %{buildroot}%{_libdir}/libdispatch.so
 
 
 %changelog
+* Thu Sep 28 2023 Ron Olson <tachoknight@gmail.com> 5.9-1
+- Updated to 5.9-RELEASE
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

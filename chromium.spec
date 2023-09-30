@@ -238,8 +238,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 117.0.5938.92
-Release: 2%{?dist}
+Version: 117.0.5938.132
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1071,6 +1071,14 @@ FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -W
 FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration -Wno-unknown-attributes'
 %endif
 
+# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
+# Disable BTI until this is fixed upstream.
+%ifarch aarch64
+%if 0%{?fedora}
+FLAGS="${FLAGS/-mbranch-protection=standard/-mbranch-protection=none}"
+%endif
+%endif
+
 %if %{system_build_flags}
 CFLAGS=${CFLAGS/-g }
 CFLAGS=${CFLAGS/-fexceptions}
@@ -1687,6 +1695,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Sep 28 2023 Than Ngo <than@redhat.com> - 117.0.5938.132-1
+- update to 117.0.5938.132
+- CVE-2023-5217, heap buffer overflow in vp8 encoding in libvpx.
+- CVE-2023-5186, use after free in Passwords.
+- CVE-2023-5187, use after free in Extensions.
+￼	
 * Sat Sep 23 2023 Than Ngo <than@redhat.com> - 117.0.5938.92-2
 - backport upstream patch to fix memory leak
 

@@ -1,15 +1,13 @@
-%global commit0 49b6801c2c397c1ffd5ff61dbec83e390df6cd7e
-%global date 20230905
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global     full_version C_ICAP_%{version}
 
 Name:       c-icap
-Version:    0.5.11
-Release:    16.%{date}git%{shortcommit0}%{?dist}
+Version:    0.6.0
+Release:    1%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
 
-Source0:    https://github.com/c-icap/c-icap-server/archive/%{commit0}.tar.gz#/c-icap-server-%{shortcommit0}.tar.gz
+Source0:    https://github.com/%{name}/%{name}-server/archive/%{full_version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:    %{name}.logrotate
 Source3:    %{name}.tmpfiles.conf
 Source4:    %{name}.service
@@ -73,7 +71,7 @@ Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 The c-icap-perl package contains the Perl handler for c-icap.
 
 %prep
-%autosetup -p1 -n c-icap-server-%{commit0}
+%autosetup -p1 -n c-icap-server-%{full_version}
 
 # See RECONF
 echo "master-%{shortcommit0}" > VERSION.m4
@@ -212,6 +210,9 @@ exit 0
 %{_libdir}/c_icap/perl_handler.so
 
 %changelog
+* Thu Sep 28 2023 Simone Caronni <negativo17@gmail.com> - 0.6.0-1
+- Update to final 0.6.0 release.
+
 * Sun Sep 10 2023 Simone Caronni <negativo17@gmail.com> - 0.5.11-16.20230905git49b6801
 - Update to latest snapshot.
 

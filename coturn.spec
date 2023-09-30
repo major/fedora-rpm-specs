@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.6.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -15,13 +15,13 @@ BuildRequires:  gcc
 BuildRequires:  hiredis-devel
 BuildRequires:  libevent-devel >= 2.0.0
 BuildRequires:  make
-BuildRequires:  mariadb-devel
 BuildRequires:  openssl-devel
-BuildRequires:  postgresql-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 %if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  libpq-devel
+BuildRequires:  mariadb-connector-c-devel
 Recommends:     perl-interpreter
 Recommends:     perl(DBI)
 Recommends:     perl(HTTP::Request::Common)
@@ -29,6 +29,8 @@ Recommends:     perl(strict)
 Recommends:     perl(warnings)
 Recommends:     telnet
 %else
+BuildRequires:  postgresql-devel
+BuildRequires:  mariadb-devel
 Requires:       perl-interpreter
 Requires:       perl(DBI)
 Requires:       perl(HTTP::Request::Common)
@@ -265,6 +267,10 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 
 
 %changelog
+* Thu Sep 28 2023 Robert Scheck <robert@fedoraproject.org> - 4.6.2-4
+- Build on Fedora and modern EPEL against mariadb-connector-c-devel
+  and libpq-devel packages (#2241091, thanks to Michal Schorm)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

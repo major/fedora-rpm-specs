@@ -1,8 +1,8 @@
 Name:           python-configobj
 Version:        5.0.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Config file reading, writing, and validation
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://configobj.readthedocs.org/
 # Moved to the github release instead of the pypi one since multiple elements (License and tests)
 # are not available using pypi. Two bugs have been filled about this:
@@ -50,6 +50,9 @@ export PYTHONPATH=$(pwd)/build/lib
 %{python3_sitelib}/configobj-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Feb 04 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.0.8-5
+- SPDX fix from Daniel P. Berrange
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

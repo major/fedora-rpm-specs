@@ -10,7 +10,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.19.0
-Release:       0.16%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:       0.17%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # freeimage is tripple-licensed, see
@@ -33,6 +33,16 @@ Patch1:        FreeImage_mingw.patch
 Patch2:        freeimage-openexr3.patch
 # Proposed fix for CVE-2021-33367
 Patch4:         CVE-2021-33367.patch
+# Downstream fix for CVE-2021-40266
+Patch5:         CVE-2021-40266.patch
+# Downstream fix for CVE-2020-24292
+Patch6:         CVE-2020-24292.patch
+# Downstream fix for CVE-2020-24293
+Patch7:         CVE-2020-24293.patch
+# Downstream fix for CVE-2020-24295
+Patch8:         CVE-2020-24295.patch
+# Downstream fix for CVE-2021-40263
+Patch9:         CVE-2021-40263.patch
 
 
 BuildRequires: make
@@ -191,6 +201,9 @@ install -Dpm 0644 %{win64dir}/Dist/FreeImagePlus.h %{buildroot}%{mingw64_include
 
 
 %changelog
+* Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.17.svn1909
+- Downstream fixes for CVE-2021-40266 CVE-2020-24292 CVE-2020-24293 CVE-2020-24295 CVE-2021-40263
+
 * Mon Aug 28 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.16.svn1889
 - Update to r1909
 

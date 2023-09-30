@@ -5,7 +5,7 @@
 
 # https://github.com/nats-io/nats.go
 %global goipath         github.com/nats-io/nats.go
-Version:                1.30.1
+Version:                1.30.2
 
 %gometa -f
 

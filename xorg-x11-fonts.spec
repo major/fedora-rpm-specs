@@ -32,44 +32,68 @@ fi										\
 Summary:    X.Org X11 fonts
 Name:       xorg-x11-fonts
 Version:    7.5
-Release:    36%{?dist}
-License:    MIT and Lucida and Public Domain
+Release:    37%{?dist}
+License:    HPND AND Adobe-Utopia AND Cronyx AND MIT AND Lucida-Bitmap-Fonts AND Bitstream-Charter AND X11
 URL:        https://www.x.org
 
 BuildArch:  noarch
 
+# Not copyrightable, see fedora-license-data!394
 Source0:    https://www.x.org/pub/individual/font/encodings-1.0.5.tar.bz2
+# SPDX: HPND
 Source1:    https://www.x.org/pub/individual/font/font-adobe-100dpi-1.0.3.tar.bz2
 Source2:    https://www.x.org/pub/individual/font/font-adobe-75dpi-1.0.3.tar.bz2
+# SPDX: Adobe-Utopia
 Source3:    https://www.x.org/pub/individual/font/font-adobe-utopia-100dpi-1.0.4.tar.bz2
 Source4:    https://www.x.org/pub/individual/font/font-adobe-utopia-75dpi-1.0.4.tar.bz2
 Source5:    https://www.x.org/pub/individual/font/font-adobe-utopia-type1-1.0.4.tar.bz2
+# SPDX: Cronyx
 Source6:    https://www.x.org/pub/individual/font/font-alias-1.0.3.tar.bz2
+# SPDX: MIT
 Source7:    https://www.x.org/pub/individual/font/font-arabic-misc-1.0.3.tar.bz2
+# SPDX: Lucida-Bitmap-Fonts
 Source8:    https://www.x.org/pub/individual/font/font-bh-100dpi-1.0.3.tar.bz2
 Source9:    https://www.x.org/pub/individual/font/font-bh-75dpi-1.0.3.tar.bz2
+# Not copyrightable, see fedora-license-data#333
 Source10:   https://www.x.org/pub/individual/font/font-bh-lucidatypewriter-100dpi-1.0.3.tar.bz2
 Source11:   https://www.x.org/pub/individual/font/font-bh-lucidatypewriter-75dpi-1.0.3.tar.bz2
+# SPDX: HPND
 Source12:   https://www.x.org/pub/individual/font/font-bitstream-100dpi-1.0.3.tar.bz2
 Source13:   https://www.x.org/pub/individual/font/font-bitstream-75dpi-1.0.3.tar.bz2
+# SPDX: Bitstream-Charter
 Source14:   https://www.x.org/pub/individual/font/font-bitstream-type1-1.0.3.tar.bz2
+# SPDX: Cronyx
 Source15:   https://www.x.org/pub/individual/font/font-cronyx-cyrillic-1.0.3.tar.bz2
+# SPDX: LicenseRef-Fedora-UltraPermissive
 Source16:   https://www.x.org/pub/individual/font/font-cursor-misc-1.0.3.tar.bz2
 # Daewoo-misc has no license terms, just Copyright (#1952723)
 # Source17:   https://www.x.org/pub/individual/font/font-daewoo-misc-1.0.3.tar.bz2
+# SPDX: HPND for dec/isas
 Source18:   https://www.x.org/pub/individual/font/font-dec-misc-1.0.3.tar.bz2
 Source19:   https://www.x.org/pub/individual/font/font-isas-misc-1.0.3.tar.bz2
+# Not copyrightable, see fedora-license-data#327
 Source20:   https://www.x.org/pub/individual/font/font-jis-misc-1.0.3.tar.bz2
+# SPDX LicenseRef-Fedora-Public-Domain
 Source21:   https://www.x.org/pub/individual/font/font-micro-misc-1.0.3.tar.bz2
+# SPDX: Cronyx AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive
 Source22:   https://www.x.org/pub/individual/font/font-misc-cyrillic-1.0.3.tar.bz2
+# SPDX: MIT
 Source23:   https://www.x.org/pub/individual/font/font-misc-ethiopic-1.0.3.tar.bz2
+# SPDX LicenseRef-Fedora-Public-Domain
 Source24:   https://www.x.org/pub/individual/font/font-misc-misc-1.1.2.tar.bz2
+# SPDX: MIT
 Source25:   https://www.x.org/pub/individual/font/font-mutt-misc-1.0.3.tar.bz2
+# SPDX: HPND
 Source26:   https://www.x.org/pub/individual/font/font-schumacher-misc-1.1.2.tar.bz2
+# SPDX: Cronyx
 Source27:   https://www.x.org/pub/individual/font/font-screen-cyrillic-1.0.4.tar.bz2
+# SPDX: HPND
 Source28:   https://www.x.org/pub/individual/font/font-sony-misc-1.0.3.tar.bz2
+# MIT
 Source29:   https://www.x.org/pub/individual/font/font-sun-misc-1.0.3.tar.bz2
+# SPDX LicenseRef-Fedora-Public-Domain
 Source30:   https://www.x.org/pub/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
+# X11
 Source31:   https://www.x.org/pub/individual/font/font-xfree86-type1-1.0.4.tar.bz2
 
 # Luxi fonts are under a bad license
@@ -951,6 +975,9 @@ mkfontdir %{_x11fontdir}/cyrillic || :
 %ghost %verify(not md5 size mtime) %{_x11fontdir}/cyrillic/fonts.cache-*
 
 %changelog
+* Fri Sep 29 2023 Peter Hutterer <peter.hutterer@redhat.com> - 7.5-37
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

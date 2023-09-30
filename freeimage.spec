@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.19%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.20%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -28,6 +28,18 @@ Patch1:         FreeImage_doxygen.patch
 Patch2:         freeimage-openexr3.patch
 # Proposed fix for CVE-2021-33367
 Patch4:         CVE-2021-33367.patch
+# Downstream fix for CVE-2021-40266
+Patch5:         CVE-2021-40266.patch
+# Downstream fix for CVE-2020-24292
+Patch6:         CVE-2020-24292.patch
+# Downstream fix for CVE-2020-24293
+Patch7:         CVE-2020-24293.patch
+# Downstream fix for CVE-2020-24295
+Patch8:         CVE-2020-24295.patch
+# Downstream fix for CVE-2021-40263
+Patch9:         CVE-2021-40263.patch
+
+
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -133,11 +145,6 @@ install -Dpm 644 Wrapper/FreeImagePlus/FreeImagePlus.h %{buildroot}%{_includedir
 ldconfig -n %{buildroot}%{_libdir}
 
 
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets plus
-
-
 %files
 %license license-*.txt
 %doc Whatsnew.txt
@@ -161,6 +168,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.20.svn1909
+- Downstream fixes for CVE-2021-40266 CVE-2020-24292 CVE-2020-24293 CVE-2020-24295 CVE-2021-40263
+
 * Mon Aug 28 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.19.svn1909
 - Update to svn rev 1909
 

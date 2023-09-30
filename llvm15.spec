@@ -74,7 +74,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -372,8 +372,8 @@ ln -s ../../../%{install_includedir}/llvm-c %{buildroot}/%{pkg_includedir}/llvm-
 %multilib_fix_c_header --file %{install_includedir}/llvm/Config/llvm-config.h
 
 # Create ld.so.conf.d entry
-mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-cat >> %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf << EOF
+mkdir -p %{buildroot}/etc/ld.so.conf.d
+cat >> %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf << EOF
 %{pkg_libdir}
 EOF
 
@@ -501,7 +501,7 @@ fi
 %{_libdir}/libLLVM-%{maj_ver}.%{min_ver}*.so
 %{_libdir}/libLTO.so*
 %else
-%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
+%config(noreplace) /etc/ld.so.conf.d/%{name}-%{_arch}.conf
 %if %{with gold}
 %{_libdir}/%{name}/lib/LLVMgold.so
 %endif
@@ -567,6 +567,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 15.0.7-5
+- Fix flatpak build
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

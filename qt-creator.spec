@@ -4,14 +4,14 @@
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
-%global clangver 16.0.6
+%global clangver 17.0.1
 
 Name:           qt-creator
-Version:        11.0.2
+Version:        11.0.3
 Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
-License:        GPLv3 with exceptions
+License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://www.qt.io/ide/
 Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/11.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
@@ -223,7 +223,10 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
-* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com>
+* Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 11.0.3-1
+- Update to 11.0.3
+
+* Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 11.0.2-1
 - Update to 11.0.2
 
 * Fri Aug 04 2023 Sandro Mani <manisandro@gmail.com> - 11.0.1-1

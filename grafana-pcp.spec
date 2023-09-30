@@ -51,7 +51,7 @@ BuildRequires:  make, nodejs >= 1:14, yarnpkg, golang-github-google-jsonnet
 %endif
 
 %global         plugin_dir  %{_sharedstatedir}/grafana/plugins/performancecopilot-pcp-app
-%global         install_dir %{_datadir}/performancecopilot-pcp-app
+%global         install_dir %{_libexecdir}/grafana-pcp
 
 # grafana-pcp requires systemd-tmpfiles
 %{?systemd_requires}
@@ -153,14 +153,6 @@ cp -a dist/* %{buildroot}/%{install_dir}
 mkdir -p %{buildroot}%{_tmpfilesdir}
 echo "L+ %{plugin_dir} - - - - %{install_dir}" > %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
-# Move redis data source executable from /usr/share to /usr/libexec and create symlink
-mkdir -p %{buildroot}/%{_libexecdir}/grafana-pcp/bin 
-mv %{buildroot}/%{install_dir}/datasources/redis/pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH) %{buildroot}/%{_libexecdir}/grafana-pcp/bin/pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH)
-cd %{buildroot}/%{install_dir}/datasources/redis
-
-ln -s ../../../../libexec/grafana-pcp/bin/pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH) pcp_redis_datasource_$(go env GOOS)_$(go env GOARCH)
-
-
 %postun
 # uninstall of old package
 %systemd_postun_with_restart grafana-server.service
@@ -190,7 +182,6 @@ yarn test
 %files
 %{install_dir}
 %{_tmpfilesdir}/%{name}.conf
-%{_libexecdir}/grafana-pcp
 # remove symlink when package is uninstalled
 %ghost %{plugin_dir}
 
@@ -200,7 +191,7 @@ yarn test
 
 %changelog
 * Wed Sep 13 2023 Sam Feifer <sfeifer@redhat.com> 5.1.1-4
-- Move location of redis binary executable from /usr/share/... to /usr/libexec/....
+- Move location of plugin from /usr/share/... to /usr/libexec/... because there is a binary executable
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

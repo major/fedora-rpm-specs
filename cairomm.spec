@@ -19,7 +19,7 @@
 
 Name:           cairomm
 Summary:        C++ API for the cairo graphics library
-Version:        1.14.4
+Version:        1.14.5
 Release:        %autorelease
 
 URL:            https://www.cairographics.org
@@ -164,7 +164,7 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 %meson_install
 
 install -t %{buildroot}%{_docdir}/cairomm-%{apiver} -m 0644 -p \
-    AUTHORS ChangeLog MAINTAINERS NEWS README.md
+    ChangeLog NEWS README.md
 cp -rp examples %{buildroot}%{_docdir}/cairomm-%{apiver}/
 
 # Strip out bundled and/or pre-minified JavaScript; this degrades the browser

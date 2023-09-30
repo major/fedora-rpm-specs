@@ -1,13 +1,13 @@
 %{?mingw_package_header}
 
 Name:           mingw-cairo
-Version:        1.17.8
-Release:        2%{?dist}
+Version:        1.18.0
+Release:        1%{?dist}
 Summary:        MinGW Windows Cairo library
 
 License:        LGPL-2.1-only OR MPL-1.1
 URL:            http://cairographics.org
-Source0:        http://cairographics.org/snapshots/cairo-%{version}.tar.xz
+Source0:        https://www.cairographics.org/releases/cairo-%{version}.tar.xz
 
 BuildArch:      noarch
 
@@ -86,7 +86,7 @@ Static version of the MinGW Windows Cairo library.
 
 
 %build
-%mingw_meson --default-library both
+%mingw_meson --default-library both -Dfontconfig=enabled -Dfreetype=enabled
 %mingw_ninja
 
 
@@ -116,6 +116,7 @@ Static version of the MinGW Windows Cairo library.
 %{mingw32_libdir}/pkgconfig/cairo-png.pc
 %{mingw32_libdir}/pkgconfig/cairo-script.pc
 %{mingw32_libdir}/pkgconfig/cairo-script-interpreter.pc
+%{mingw32_libdir}/pkgconfig/cairo-tee.pc
 %{mingw32_libdir}/pkgconfig/cairo-win32.pc
 
 
@@ -146,6 +147,7 @@ Static version of the MinGW Windows Cairo library.
 %{mingw64_libdir}/pkgconfig/cairo-png.pc
 %{mingw64_libdir}/pkgconfig/cairo-script.pc
 %{mingw64_libdir}/pkgconfig/cairo-script-interpreter.pc
+%{mingw64_libdir}/pkgconfig/cairo-tee.pc
 %{mingw64_libdir}/pkgconfig/cairo-win32.pc
 
 %files -n mingw64-cairo-static
@@ -155,6 +157,9 @@ Static version of the MinGW Windows Cairo library.
 
 
 %changelog
+* Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 1.18.0-1
+- Update to 1.18.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
