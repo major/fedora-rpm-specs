@@ -1,7 +1,7 @@
 %global app_id  com.github.tchx84.Flatseal
 
 Name:           flatseal
-Version:        2.0.2
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Manage Flatpak permissions
 
@@ -11,7 +11,7 @@ Source0:        %{url}/archive/v%{version}/Flatseal-%{version}.tar.gz
 
 BuildRequires:  gettext
 BuildRequires:  gjs
-BuildRequires:  pkgconfig(libadwaita-1) >= 1.0
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.4
 BuildRequires:  pkgconfig(webkitgtk-6.0) >= 2.40
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  desktop-file-utils
@@ -19,7 +19,7 @@ BuildRequires:  libappstream-glib
 
 # loaded by imports.gi
 Requires:       gtk4
-Requires:       libadwaita >= 1.0
+Requires:       libadwaita >= 1.4
 Requires:       libappstream-glib
 Requires:       webkitgtk6.0 >= 2.40
 

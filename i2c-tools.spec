@@ -6,9 +6,11 @@
 
 Name:           i2c-tools
 Version:        4.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A heterogeneous set of I2C tools for Linux
-License:        GPLv2+
+# Note: py-symbus/ is strictly GPL-2.0 (not "or later"), lib/ is
+# LGPL-2.1+ and the rest is GPL-2.0+
+License:        GPL-2.0+
 URL:            https://i2c.wiki.kernel.org/index.php/I2C_Tools
 
 Source0:        https://www.kernel.org/pub/software/utils/i2c-tools/%{name}-%{version}.tar.xz
@@ -32,7 +34,7 @@ decoding scripts, and more.
 
 %package -n python3-i2c-tools
 Summary:        Python 3 bindings for Linux SMBus access through i2c-dev
-License:        GPLv2
+License:        GPL-2.0
 %{?python_provide:%python_provide python3-i2c-tools}
 Requires:       libi2c%{?_isa} = %{version}-%{release}
 %if %{without python2}
@@ -47,7 +49,7 @@ Python 3 bindings for Linux SMBus access through i2c-dev
 
 %package perl
 Summary:        i2c tools written in Perl
-License:        GPLv2+
+License:        GPL-2.0+
 Requires:       libi2c%{?_isa} = %{version}-%{release}
 
 %description perl
@@ -55,7 +57,7 @@ A collection of tools written in perl for use with i2c devices.
 
 %package -n libi2c
 Summary:        I2C/SMBus bus access library
-License:        LGPLv2+
+License:        LGPL-2.1+
 
 %description -n libi2c
 libi2c offers a way for applications to interact with the devices
@@ -63,7 +65,7 @@ connected to the I2C or SMBus buses of the system.
 
 %package -n libi2c-devel
 Summary:        Development files for the I2C library
-License:        LGPLv2+
+License:        LGPL-2.1+
 Requires:       libi2c%{?_isa} = %{version}-%{release}
 # Remove in F30
 Obsoletes:      i2c-tools-devel < 4.0-1
@@ -156,6 +158,9 @@ exit 0
 %{_mandir}/man3/libi2c.3.*
 
 %changelog
+* Fri Sep 29 2023 Joe Orton <jorton@redhat.com> - 4.3-8
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

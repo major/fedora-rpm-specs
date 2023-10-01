@@ -55,9 +55,11 @@ ExcludeArch: i686
 %endif
 
 %global system_ffi        1
-%global system_libvpx     0
+%global system_av1        1
+%global system_libvpx     1
 %global system_jpeg       1
 %global system_pixman     1
+%global system_webp       1
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available.
 %if 0%{?rhel}
@@ -108,8 +110,15 @@ ExcludeArch: i686
 %global cairo_version 1.13.1
 %global freetype_version 2.1.9
 %global libnotify_version 0.7.0
+%if %{?system_av1}
+%global aom_version 1.0.0
+%global dav1d_version 1.0.0
+%endif
 %if %{?system_libvpx}
-%global libvpx_version 1.8.2
+%global libvpx_version 1.10.0
+%endif
+%if %{?system_webp}
+%global libwebp_version 1.1.0
 %endif
 
 %if %{?system_nss}
@@ -159,13 +168,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        118.0
+Version:        118.0.1
 Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230925.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230929.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -242,6 +251,10 @@ Patch600:        pgo.patch
 Patch602:        mozilla-1516803.patch
 Patch603:        firefox-gcc-always-inline.patch
 
+# system AV1 patches (from Gentoo)
+Patch800:        bmo-1559213-Support-system-av1.patch
+Patch801:        bmo-1559213-fix-system-av1-libs.patch
+
 # tentative patch for RUSTFLAGS parsing issue:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2184743
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1474486
@@ -275,8 +288,16 @@ BuildRequires:  pkgconfig(dri)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  dbus-glib-devel
+%if %{?system_av1}
+BuildRequires:  pkgconfig(aom) >= %{aom_version}
+BuildRequires:  pkgconfig(dav1d) >= %{dav1d_version}
+%endif
 %if %{?system_libvpx}
 BuildRequires:  libvpx-devel >= %{libvpx_version}
+%endif
+%if %{?system_webp}
+BuildRequires:  pkgconfig(libwebp) >= %{libwebp_version}
+BuildRequires:  pkgconfig(libwebpdemux) >= %{libwebp_version}
 %endif
 BuildRequires:  autoconf213
 BuildRequires:  pkgconfig(libpulse)
@@ -520,6 +541,9 @@ This package contains results of tests executed during build.
 %endif
 %patch603 -p1 -b .inline
 
+%patch800 -p1 -b .system-av1
+%patch801 -p1 -b .system-av1-fixup
+
 %patch1200 -p1 -b .rustflags-commasplit
 
 rm -f .mozconfig
@@ -599,10 +623,22 @@ echo "ac_add_options --with-system-jpeg" >> .mozconfig
 echo "ac_add_options --enable-system-pixman" >> .mozconfig
 %endif
 
+%if %{?system_av1}
+echo "ac_add_options --with-system-av1" >> .mozconfig
+%else
+echo "ac_add_options --without-system-av1" >> .mozconfig
+%endif
+
 %if %{?system_libvpx}
 echo "ac_add_options --with-system-libvpx" >> .mozconfig
 %else
 echo "ac_add_options --without-system-libvpx" >> .mozconfig
+%endif
+
+%if %{?system_webp}
+echo "ac_add_options --with-system-webp" >> .mozconfig
+%else
+echo "ac_add_options --without-system-webp" >> .mozconfig
 %endif
 
 %ifarch s390x
@@ -801,7 +837,13 @@ DESTDIR=%{buildroot} make -C objdir install
 
 mkdir -p %{buildroot}{%{_libdir},%{_bindir},%{_datadir}/applications}
 
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE20}
+# TODO
+# We can't use desktop-file-install as it refuses to install firefox.desktop file.
+# We need to change it to org.mozilla.firefox.desktop and also update
+# gnome shell default applications.
+# 
+#desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE20}
+cp %{SOURCE20} %{buildroot}%{_datadir}/applications
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE31}
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE29}
 
@@ -1009,7 +1051,7 @@ fi
 %dir %{_sysconfdir}/%{name}/*
 %dir %{_datadir}/mozilla/extensions/*
 %dir %{_libdir}/mozilla/extensions/*
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/*.desktop
 %{_datadir}/metainfo/*.appdata.xml
 %{_datadir}/gnome-shell/search-providers/*.ini
 %{_datadir}/dbus-1/services/*
@@ -1075,6 +1117,15 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Sep 29 2023 Martin Stransky <stransky@redhat.com>- 118.0.1-2
+- Use firefox.desktop again
+
+* Fri Sep 29 2023 Martin Stransky <stransky@redhat.com>- 118.0.1-1
+- Updated to 118.0.1
+
+* Wed Sep 27 2023 Neal Gompa <ngompa@fedoraproject.org> - 118.0.1-1
+- Use system libraries for AV1, VP8, VP9, and WebP
+
 * Wed Sep 27 2023 Martin Stransky <stransky@redhat.com>- 118.0-2
 - Fixed Gnome search provider
 

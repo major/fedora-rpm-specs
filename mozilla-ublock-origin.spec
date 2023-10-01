@@ -6,7 +6,7 @@
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
 Name:           mozilla-ublock-origin
-Version:        1.51.0
+Version:        1.52.2
 Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
@@ -110,6 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Sep 29 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.52.2-1
+- update to 1.52.2 (#2238126)
+
 * Thu Aug 31 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.51.0-1
 - update to 1.51.0 (#2224682)
 - new bundled dependency: js-beautify

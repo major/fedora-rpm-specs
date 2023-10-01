@@ -4,15 +4,14 @@
 %bcond network_tests 0
 
 Name:           python-msal
-Version:        1.24.0~b1
+Version:        1.24.1
 Release:        %autorelease
 Summary:        Microsoft Authentication Library (MSAL) for Python
 
 # SPDX
 License:        MIT
 URL:            https://github.com/AzureAD/microsoft-authentication-library-for-python
-%global srcversion %(echo '%{version}' | tr -d '~')
-Source:         %{url}/archive/%{srcversion}/microsoft-authentication-library-for-python-%{srcversion}.tar.gz
+Source:         %{url}/archive/%{version}/microsoft-authentication-library-for-python-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -42,11 +41,24 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n microsoft-authentication-library-for-python-%{srcversion} -p1
+%autosetup -n microsoft-authentication-library-for-python-%{version}
+
+# - We can’t generate BR’s from a requirements file with “-e .” in it.
+# - We don’t need or want to run benchmarks (tests/test_benchmark.py), so don’t
+#   generate benchmarking dependencies.
+# - We don’t need python-dotenv if we aren’t running network tests (and on some
+#   older releases, it is too old.)
+sed -r \
+    -e 's/^\-e/# &/' \
+    -e 's/^(pytest-benchmark|perf_baseline)\b/# &/' \
+%if %{without network_tests} || 0%{?fc37} || 0%{?el9}
+    -e 's/^(python-dotenv)\b/# &/' \
+%endif
+    requirements.txt | tee requirements-filtered.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -r requirements-filtered.txt
 
 
 %build
@@ -78,12 +90,22 @@ k="${k-}${k+ and }not TestApplicationForRefreshInBehaviors"
 k="${k-}${k+ and }not TestTelemetryOnClientApplication"
 k="${k-}${k+ and }not TestTelemetryOnPublicClientApplication"
 k="${k-}${k+ and }not TestTelemetryOnConfidentialClientApplication"
-# Without network access, this even errors during test collection!
+# Without network access, these even error during test collection!
+ignore="${ignore-} --ignore=tests/test_cryptography.py"
 ignore="${ignore-} --ignore=tests/test_e2e.py"
 %else
 # This test requires browser interaction.
 k="${k-}${k+ and }not (SshCertTestCase and test_ssh_cert_for_user_should_work_with_any_account)"
+# Obviously, the python-cryptography package may sometimes lag upstream.
+k="${k-}${k+ and }not (CryptographyTestCase and test_should_be_run_with_latest_version_of_cryptography)"
+%if 0%{?fc37} || 0%{?epel9}
+# python-dotenv is too old
+ignore="${ignore-} --ignore=tests/test_e2e.py"
 %endif
+%endif
+
+# We don’t need or want to run benchmarks.
+ignore="${ignore-} --ignore=tests/test_benchmark.py"
 
 %pytest --disable-warnings tests ${ignore-} -k "${k-}" -v
 

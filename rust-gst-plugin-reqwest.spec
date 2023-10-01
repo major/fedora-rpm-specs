@@ -4,13 +4,16 @@
 %global crate gst-plugin-reqwest
 
 Name:           rust-gst-plugin-reqwest
-Version:        0.10.4
+Version:        0.11.0
 Release:        %autorelease
 Summary:        GStreamer reqwest HTTP Source Plugin
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gst-plugin-reqwest
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * downgrade cargo-c dep to the version available in Fedora
+Patch:          gst-plugin-reqwest-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

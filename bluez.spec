@@ -5,7 +5,7 @@
 %endif
 
 Name:    bluez
-Version: 5.69
+Version: 5.70
 Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
@@ -146,12 +146,13 @@ Object Exchange daemon for sharing files, contacts etc over bluetooth
 
 %build
 autoreconf -vif
-%configure --enable-tools --enable-library --disable-optimization \
+%configure --enable-tools --enable-library \
+           --enable-external-ell --disable-optimization \
 %if %{with deprecated}
            --enable-deprecated \
 %endif
            --enable-sixaxis --enable-cups --enable-nfc --enable-mesh \
-           --enable-hid2hci --enable-testing \
+           --enable-hid2hci --enable-testing --enable-experimental \
            --with-systemdsystemunitdir=%{_unitdir} \
            --with-systemduserunitdir=%{_userunitdir}
 
@@ -322,6 +323,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Sep 29 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.70-1
+- Update to 5.70
+- Enable some Bluetooth LE features
+
 * Fri Aug 25 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.69-1
 - Update to 5.69
 

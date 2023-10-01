@@ -1,7 +1,7 @@
 Summary:   NSS library for MySQL
 Name:      libnss-mysql
 Version:   1.5
-Release:   45%{?dist}
+Release:   46%{?dist}
 Source0:   http://prdownloads.sourceforge.net/libnss-mysql/libnss-mysql-%{version}.tar.gz
 Source1:   README
 Source2:   nsswitch.conf
@@ -10,7 +10,7 @@ Patch2:    libnss-mysql-mariadb10.2.patch
 URL:       http://libnss-mysql.sourceforge.net
 License:   GPLv2+
 
-BuildRequires: mariadb-devel, libtool, autoconf, automake
+BuildRequires: mariadb-connector-c-devel, libtool, autoconf, automake
 BuildRequires: make
 BuildRequires: authselect, authselect-libs
 
@@ -36,22 +36,19 @@ applications such as ls, finger, sendmail, qmail, exim, postfix, proftpd,
 X, sshd, etc. will all 'see' these users!
 
 %prep
-%setup -q -a 0
-%patch1 -p1
-%patch2 -p1
+%autosetup -p1
 
 %build
 libtoolize -f
 autoreconf -f -i
 %configure
-make %{?_smp_mflags}
+%make_build
 # remove non linux samples
 rm -rf sample/freebsd sample/solaris
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/{etc,lib}
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 
 # install authselect files
 %define authselect_vendor %{_datadir}/authselect/vendor/%{name}
@@ -80,6 +77,11 @@ cp -af %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{authselect_vendor}/
 %{_datadir}/authselect/vendor/%{name}/*
 
 %changelog
+* Fri Sep 29 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.5-46
+- Build against the 'mariadb-connector-c-devel' package (PR#1)
+- Replace setup and patchN with autosetup macro
+- Use make macros
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond_without build_lib
 
 Name:       ddcutil
-Version:    1.4.1
+Version:    2.0.0
 Release:    %autorelease
 Summary:    Query and update monitor settings
 License:    GPLv2+
@@ -23,6 +23,7 @@ BuildRequires:      pkgconfig(libudev)
 BuildRequires:      pkgconfig(xrandr)
 BuildRequires:      pkgconfig(libdrm) >= 2.4.67
 BuildRequires:      pkgconfig(libkmod)
+BuildRequires:      pkgconfig(jansson) >= 2.0
 
 Requires:   hwdata
 Requires:   i2c-tools
@@ -85,14 +86,15 @@ NOCONFIGURE=1 ./autogen.sh
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}.1.*
-%{_udevrulesdir}/60-ddcutil.rules
-
+%{_udevrulesdir}/60-ddcutil-i2c.rules
+%{_udevrulesdir}/60-ddcutil-usb.rules
+%{_modulesloaddir}/ddcutil.conf
 
 %if %{with build_lib}
 %files -n libddcutil
 %doc AUTHORS NEWS.md README.md CHANGELOG.md
 %license COPYING
-%{_libdir}/lib%{name}.so.4*
+%{_libdir}/lib%{name}.so.5*
 
 %files -n libddcutil-devel
 %{_libdir}/lib%{name}.so

@@ -7,7 +7,7 @@
 # testsuite missing deps: tasty-golden
 
 Name:           ghc-%{pkg_name}
-Version:        4.16.0.0
+Version:        4.16.2.0
 Release:        %autorelease
 Summary:        A static website compiler library
 
@@ -36,7 +36,6 @@ BuildRequires:  ghc-fsnotify-devel
 BuildRequires:  ghc-hashable-devel
 BuildRequires:  ghc-http-conduit-devel
 BuildRequires:  ghc-http-types-devel
-BuildRequires:  ghc-lifted-async-devel
 BuildRequires:  ghc-lrucache-devel
 BuildRequires:  ghc-mtl-devel
 BuildRequires:  ghc-network-uri-devel
@@ -76,7 +75,6 @@ BuildRequires:  ghc-fsnotify-prof
 BuildRequires:  ghc-hashable-prof
 BuildRequires:  ghc-http-conduit-prof
 BuildRequires:  ghc-http-types-prof
-BuildRequires:  ghc-lifted-async-prof
 BuildRequires:  ghc-lrucache-prof
 BuildRequires:  ghc-mtl-prof
 BuildRequires:  ghc-network-uri-prof

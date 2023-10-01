@@ -105,8 +105,8 @@ ExcludeArch: s390x
 %global __requires_exclude_from ^%{icecatappdir}
 
 Name:    icecat
-Epoch:   1
-Version: 102.15.0
+Epoch:   2
+Version: 115.3.1
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -154,12 +154,7 @@ Source19: run-wayland-compositor
 # Fixes installation of those addons which don't have ID on IceCat ("Cannot find id for addon" error).
 Patch1: %{name}-fix_addon_installation.patch
 Patch2: %{name}-commasplit.patch
-Patch3: mozilla-build-arm.patch
-Patch4: %{name}-build-arm-libaom.patch
 Patch5: rhbz-1219542-s390-build.patch
-
-# If cbindgen=0.24
-Patch6: mozilla-1773336.patch
 
 # With clang LLVM 16 rust-bindgen 0.56.0 is too old, combined
 # https://github.com/rust-lang/rust-bindgen/pull/2319
@@ -181,7 +176,6 @@ Patch220: firefox-nss-version.patch
 Patch221: firefox-nss-addon-hack.patch
 Patch223: %{name}-glibc-dynstack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
-Patch225: %{name}-102.7.0-fix_gcc13_build.patch
 Patch227: %{name}-rhbz-2235654.patch
 
 # ARM run-time patch
@@ -201,10 +195,6 @@ Patch423: mozilla-1512162.patch
 # PGO/LTO patches
 Patch600: %{name}-pgo.patch
 Patch602: mozilla-1516803.patch
-
-#VA-API patches
-Patch584: firefox-disable-ffvpx-with-vapi.patch
-Patch585: firefox-vaapi-extra-frames.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: autoconf213
@@ -363,12 +353,9 @@ tar -xf %{SOURCE5}
 
 %patch -P 1 -p 1 -b .fix_addon_installation
 %patch -P 2 -p 1 -b .commasplit
-%patch -P 3 -p 1 -b .build-arm-libaom
-%patch -P 4 -p 1 -b .arm
 %ifarch s390
 %patch -P 5 -p 1 -b .rhbz-1219542-s390
 %endif
-%patch -P 6 -p 1 -b .1773336
 
 %if 0%{?disable_elfhack}
 %patch -P 41 -p 1 -b .disable-elfhack
@@ -380,7 +367,6 @@ tar -xf %{SOURCE5}
 %patch -P 221 -p 1 -b .firefox-nss-addon-hack
 %endif
 %patch -P 224 -p 1 -b .glibcxx
-%patch -P 225 -p 1 -b .gcc13
 %patch -P 227 -p 1 -b .backup
 
 # ARM run-time patch
@@ -398,8 +384,6 @@ tar -xf %{SOURCE5}
 %patch -P 423 -p 1 -b .1512162
 %endif
 
-#%%patch 584 -p1 -b .firefox-disable-ffvpx-with-vapi
-#%%patch 585 -p1 -b .firefox-vaapi-extra-frames
 %patch -P 54 -p 1 -b .1669639
 
 # PGO patches
@@ -498,6 +482,9 @@ echo "ac_add_options --disable-crashreporter" >> .mozconfig
 %if 0%{?build_langpacks}
 echo "ac_add_options --with-l10n-base=$PWD/l10n" >> .mozconfig
 %endif
+
+# Clang
+echo "ac_add_options --with-libclang-path=%{_libdir}" >> .mozconfig
 
 %ifarch s390x
 echo "ac_add_options --disable-jit" >> .mozconfig

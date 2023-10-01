@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	101%{?dist}
+Release:	102%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -548,6 +548,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Fri Sep 29 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-102
+- ofdisk: Fix missing #include in ofdisk.c
+
 * Thu Sep 28 2023 Christian Glombek <cglombek@redhat.com> - 2.06-101
 - spec: Fix grub2-systemd-integration.service name
 

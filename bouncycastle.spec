@@ -4,7 +4,7 @@
 Summary:          Bouncy Castle Cryptography APIs for Java
 Name:             bouncycastle
 Version:          1.70
-Release:          9%{?dist}
+Release:          10%{?dist}
 License:          MIT
 URL:              http://www.bouncycastle.org
 
@@ -17,9 +17,10 @@ Source3:          https://repo1.maven.org/maven2/org/bouncycastle/bcpg-jdk15on/%
 Source4:          https://repo1.maven.org/maven2/org/bouncycastle/bcmail-jdk15on/%{version}/bcmail-jdk15on-%{version}.pom
 Source5:          https://repo1.maven.org/maven2/org/bouncycastle/bctls-jdk15on/%{version}/bctls-jdk15on-%{version}.pom
 Source6:          https://repo1.maven.org/maven2/org/bouncycastle/bcutil-jdk15on/%{version}/bcutil-jdk15on-%{version}.pom
+Source7:          https://repo1.maven.org/maven2/org/bouncycastle/bcjmail-jdk15on/%{version}/bcjmail-jdk15on-%{version}.pom
 
 # Script to fetch POMs from Maven Central
-Source7:          get-poms.sh
+Source8:          get-poms.sh
 
 # Backport fix for regression in bouncycastle 1.70
 Patch0:           0001-added-back-support-for-subject-key-identifier-check-.patch
@@ -30,7 +31,11 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:    aqute-bnd
 BuildRequires:    ant
 BuildRequires:    ant-junit
+#                 For bcmail
 BuildRequires:    jakarta-activation1
+BuildRequires:    jakarta-mail1
+#                 For bcjmail
+BuildRequires:    jakarta-activation
 BuildRequires:    jakarta-mail
 BuildRequires:    javapackages-local
 
@@ -70,6 +75,15 @@ be used in conjunction with a JCE/JCA provider such as the one provided with
 the Bouncy Castle Cryptography APIs. The JavaMail API and the Java activation
 framework will also be needed.
 
+%package jmail
+Summary: Bouncy Castle Jakarta S/MIME API
+
+%description jmail
+The Bouncy Castle Java S/MIME APIs for handling S/MIME protocols. The APIs can
+be used in conjunction with a JCE/JCA provider such as the one provided with
+the Bouncy Castle Cryptography APIs. The Jakarta Mail API and the Jakarta
+activation framework will also be needed.
+
 %package tls
 Summary: Bouncy Castle JSSE provider and TLS/DTLS API
 
@@ -92,7 +106,7 @@ API documentation for the Bouncy Castle Cryptography APIs.
 
 %prep
 %setup -q -n bc-java-%{gittag}
-%patch0 -p1
+%patch -P 0 -p1
 
 # Remove bundled binary libs
 find . -type f -name "*.class" -exec rm -f {} \;
@@ -101,9 +115,6 @@ find . -type f -name "*.jar" -exec rm -f {} \;
 # Relax javadoc linting and set expected source encoding
 sed -i -e '/<javadoc/aadditionalparam="-Xdoclint:none" encoding="UTF-8" source="1.8"' \
        -e '/<javac/aencoding="UTF-8"' ant/bc+-build.xml
-
-# Mail and Activation do not yet provide jakarta packages, so don't build jmail module
-sed -i -e '/target="build-jmail"/d' ant/jdk15+.xml
 
 # Not shipping lw/lcrypto (lightweight crypto) jar
 sed -i -e '/target="build-lw"/d' ant/jdk15+.xml
@@ -115,21 +126,24 @@ cp -p %{SOURCE3} bcpg.pom
 cp -p %{SOURCE4} bcmail.pom
 cp -p %{SOURCE5} bctls.pom
 cp -p %{SOURCE6} bcutil.pom
+cp -p %{SOURCE7} bcjmail.pom
 
 %build
 ant -f ant/jdk15+.xml \
   -Djunit.jar.home=$(build-classpath junit) \
-  -Dmail.jar.home=$(build-classpath jakarta-mail/jakarta.mail) \
+  -Dmail.jar.home=$(build-classpath jakarta-mail1/jakarta.mail) \
   -Dactivation.jar.home=$(build-classpath jakarta-activation1/jakarta.activation) \
+  -Djmail.jar.home=$(build-classpath jakarta-mail) \
+  -Djactivation.jar.home=$(build-classpath jakarta-activation) \
   -Drelease.debug=true -Dbc.javac.source=1.8 -Dbc.javac.target=1.8 \
   clean build-provider build #test
 
 cat > bnd.bnd <<EOF
--classpath=bcprov.jar,bcutil.jar,bcpkix.jar,bcpg.jar,bcmail.jar,bctls.jar
+-classpath=bcprov.jar,bcutil.jar,bcpkix.jar,bcpg.jar,bcmail.jar,bcjmail.jar,bctls.jar
 Export-Package: *;version=%{version}
 EOF
 
-for bc in bcprov bcutil bcpkix bcpg bcmail bctls ; do
+for bc in bcprov bcutil bcpkix bcpg bcmail bcjmail bctls ; do
   # Make into OSGi bundle
   bnd wrap -b $bc -v %{version} -p bnd.bnd -o $bc.jar build/artifacts/jdk1.5/jars/$bc-jdk15on-*.jar
 
@@ -208,6 +222,9 @@ fi
 %files mail -f .mfiles-bcmail
 %license build/artifacts/jdk1.5/bcmail-jdk15on-*/LICENSE.html
 
+%files jmail -f .mfiles-bcjmail
+%license build/artifacts/jdk1.5/bcjmail-jdk15on-*/LICENSE.html
+
 %files tls -f .mfiles-bctls
 %license build/artifacts/jdk1.5/bctls-jdk15on-*/LICENSE.html
 
@@ -218,6 +235,9 @@ fi
 %license LICENSE.html
 
 %changelog
+* Fri Sep 29 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.70-10
+- Build bcjmail (dependencies now available in Fedora)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.70-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -25,12 +25,12 @@
 %global mathjax_short               27
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
-%global rstudio_version_minor       06
-%global rstudio_version_patch       2
-%global rstudio_version_suffix      561
-%global rstudio_git_revision_hash   de44a3118f7963972e24a78b7a1ad48b4be8a217
+%global rstudio_version_minor       09
+%global rstudio_version_patch       0
+%global rstudio_version_suffix      463
+%global rstudio_git_revision_hash   b51c81cc303d4b52b010767e5b30438beb904641
+%global quarto_git_revision_hash    867949c912fc03f4f967a7142bb37a876c61e9e5
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
-%global rstudio_codename            mountain-hydrangea
 %global rstudio_flags \
     export RSTUDIO_VERSION_MAJOR=%{rstudio_version_major} ; \
     export RSTUDIO_VERSION_MINOR=%{rstudio_version_minor} ; \
@@ -54,7 +54,7 @@ ExclusiveArch:  %{java_arches}
 License:        AGPL-3.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND MIT AND BSD-3-Clause AND ISC AND W3C AND MPL-1.1 AND CPL-1.0 AND CC-BY-SA-4.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source4:        https://github.com/quarto-dev/quarto/archive/refs/heads/release/%{name}-%{rstudio_codename}.tar.gz
+Source4:        https://github.com/quarto-dev/quarto/archive/%{quarto_git_revision_hash}/quarto-%{quarto_git_revision_hash}.tar.gz
 Source5:        panmirror-cleanup.sh
 # Node dependencies to build visual editor (use nodejs-bundler.sh)
 Source1:        %{rstudio_visual_editor}-nm.tgz
@@ -79,6 +79,7 @@ BuildRequires:  make, cmake, ant
 BuildRequires:  gcc-c++, java-11-openjdk-devel, R-core-devel
 BuildRequires:  yarnpkg, jq
 BuildRequires:  pandoc
+BuildRequires:  nodejs
 BuildRequires:  mathjax
 BuildRequires:  lato-fonts, glyphography-newscycle-fonts
 BuildRequires:  boost-devel
@@ -111,6 +112,7 @@ Recommends:     git
 Recommends:     clang-devel
 Requires:       hunspell
 Requires:       pandoc
+Requires:       nodejs
 Requires:       mathjax
 Requires:       lato-fonts, glyphography-newscycle-fonts
 
@@ -170,7 +172,7 @@ This package provides the Server version, a browser-based interface to the RStud
 %prep
 %autosetup -p1 -n %{name}-%{rstudio_version}-%{rstudio_version_suffix}
 tar -xf %{SOURCE4}
-mv quarto-release-%{name}-%{rstudio_codename} src/gwt/lib/quarto
+mv quarto-%{quarto_git_revision_hash} src/gwt/lib/quarto
 pushd src/gwt/lib/quarto
     %{SOURCE5} .
     tar -xf %{SOURCE1}
@@ -249,6 +251,7 @@ install -m 0644 \
 pushd %{buildroot}%{_libexecdir}/%{name}/bin
     mkdir -p pandoc
     ln -sf %{_bindir}/pandoc pandoc/pandoc
+    ln -sf %{_bindir}/node node
 popd
 pushd %{buildroot}%{_libexecdir}/%{name}/resources
     ln -sf %{_datadir}/hunspell dictionaries
@@ -305,6 +308,7 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %{_libexecdir}/%{name}/R
 %dir %{_libexecdir}/%{name}/bin
 %{_libexecdir}/%{name}/bin/pandoc
+%{_libexecdir}/%{name}/bin/node
 %{_libexecdir}/%{name}/bin/postback
 %{_libexecdir}/%{name}/bin/r-ldpath
 %{_libexecdir}/%{name}/bin/rpostback
@@ -343,6 +347,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Thu Sep 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.09.0+463-1
+- Update to 2023.09.0+463
+
 * Fri Aug 25 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.06.2+561-1
 - Update to 2023.06.2+561
 

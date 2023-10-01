@@ -32,6 +32,10 @@ Patch2:        0001-place-Always-center-initial-setup-fedora-welcome.patch
 
 Patch4:        0001-gschema-Enable-scale-monitor-framebuffer-experimenta.patch
 
+Patch5:        0001-util-Add-way-to-print-backtraces.patch
+Patch6:        0002-clutter-Add-ms2ns-helper.patch
+Patch7:        0003-native-Stop-using-real-time-thread-if-it-stalls.patch
+
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libwacom)
@@ -175,6 +179,9 @@ the functionality of the installed %{name} package.
 %{_libdir}/mutter-%{mutter_api_version}/
 %{_libexecdir}/mutter-restart-helper
 %{_libexecdir}/mutter-x11-frames
+%{_libexecdir}/mutter-backtrace
+%{_datadir}/polkit-1/actions/org.gnome.mutter.backtrace.policy
+%{_datadir}/polkit-1/rules.d/50-mutter.rules
 %{_mandir}/man1/mutter.1*
 
 %files common

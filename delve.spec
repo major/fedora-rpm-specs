@@ -22,6 +22,7 @@ Release:        %autorelease
 Summary:        A debugger for the Go programming language
 # Detected licences
 # - Expat License at 'LICENSE'
+# It is a SPDX license already
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}

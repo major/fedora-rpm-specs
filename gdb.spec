@@ -1252,6 +1252,10 @@ fi
 %endif
 
 %changelog
+* Thu Sep 28 2023 Kevin Buettner <kevinb@redhat.com>
+- Remove gdb-6.5-sharedlibrary-path.patch, which was upstreamed in
+  commit 3ec033fab4a.
+
 * Tue Sep 19 2023 Keith Seitz <keiths@redhat.com>
 - Remove gdb-rhbz1553104-s390x-arch12-test.patch, which is more thoroughly tested
   by binutils.

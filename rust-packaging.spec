@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           rust-packaging
-Version:        25.0
+Version:        25.1
 Release:        %autorelease
 Summary:        RPM macros and generators for building Rust packages
 License:        MIT

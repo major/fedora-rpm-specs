@@ -6,7 +6,7 @@
 
 Name: fail2ban
 Version: 1.0.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -52,6 +52,16 @@ BuildRequires: python3-setuptools
 BuildRequires: /usr/bin/2to3
 # For testcases
 BuildRequires: python3-inotify
+%endif
+# using a python3_version-based conditional does not work here, so
+# this is a proxy for "Python version greater than 3.12". asyncore
+# and asynchat were dropped from cpython core in 3.12, these modules
+# make them available again. See:
+# https://github.com/fail2ban/fail2ban/issues/3487
+# https://bugzilla.redhat.com/show_bug.cgi?id=2219991
+%if 0%{?fedora} > 38
+BuildRequires: python3-pyasyncore
+BuildRequires: python3-pyasynchat
 %endif
 BuildRequires: sqlite
 BuildRequires: systemd
@@ -109,6 +119,11 @@ Requires(postun): systemd
 Requires: (%{name}-selinux if selinux-policy-%{selinuxtype})
 %else
 Requires: %{name}-selinux
+%endif
+# see note above in BuildRequires section
+%if v"0%{?python3_version}" >= v"3.12"
+Requires: python3-pyasyncore
+Requires: python3-pyasynchat
 %endif
 
 %description server
@@ -224,6 +239,11 @@ by default.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+# this test uses smtpd which is removed in Python 3.12, rewriting it
+# isn't trivial
+%if v"0%{?python3_version}" >= v"3.12"
+rm -f fail2ban/tests/action_d/test_smtp.py
+%endif
 
 # Use Fedora paths
 sed -i -e 's/^before = paths-.*/before = paths-fedora.conf/' config/jail.conf
@@ -318,7 +338,13 @@ COMPLETIONDIR=%{buildroot}$(pkg-config --variable=completionsdir bash-completion
 %if 0%{?rhel} && 0%{?rhel} < 8
 %python2 bin/fail2ban-testcases --verbosity=2 --no-network
 %else
+%if 0%{?fedora} > 38
+# testRepairDb does not work with sqlite 3.42.0+
+# https://github.com/fail2ban/fail2ban/issues/3586
+%python3 bin/fail2ban-testcases --verbosity=2 --no-network -i testRepairDb
+%else
 %python3 bin/fail2ban-testcases --verbosity=2 --no-network
+%endif
 %endif
 
 
@@ -430,6 +456,11 @@ fi
 
 
 %changelog
+* Wed Sep 27 2023 Adam Williamson <awilliam@redhat.com> - 1.0.2-9
+- Require pyasynchat and pyasyncore with Python 3.12+
+- Disable smtp tests on F39+ due to removal of smtpd from Python 3.12
+- Disable db repair test on F39+ as it's broken with sqlite 3.42.0+
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

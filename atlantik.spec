@@ -1,6 +1,6 @@
-%global commit 01397fd60153802cfce6b96af3265ee65079b50b
+%global commit 688c8fcc65d36e9698b7662b4c0610d1a79c8188
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20230806
+%global gitdate 20230916
 
 %global app_id  org.kde.atlantik
 
@@ -100,13 +100,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{app_id}.
 
 %files -f %{name}.lang
 %license COPYING
-%doc ChangeLog README TODO
+%doc ChangeLog README.md TODO
 %{_kf5_bindir}/atlantik
 %{_kf5_datadir}/%{name}/
 %{_kf5_datadir}/applications/%{app_id}.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/atlantik.*
 %{_kf5_datadir}/knotifications5/atlantik.notifyrc
-%{_kf5_datadir}/kxmlgui5/%{name}/
 %{_kf5_datadir}/qlogging-categories5/atlantik.categories
 %{_kf5_mandir}/man6/atlantik.6*
 %{_kf5_metainfodir}/%{app_id}.appdata.xml

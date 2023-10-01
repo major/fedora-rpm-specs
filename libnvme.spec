@@ -3,9 +3,9 @@
 
 Name:    libnvme
 Summary: Linux-native nvme device management library
-Version: 1.5
-Release: 3%{?dist}
-License: LGPLv2+
+Version: 1.6
+Release: 1%{?dist}
+License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 
@@ -75,9 +75,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %files
 %license COPYING ccan/licenses/*
 %{_libdir}/libnvme.so.1
-%{_libdir}/libnvme.so.1.5.0
+%{_libdir}/libnvme.so.1.6.0
 %{_libdir}/libnvme-mi.so.1
-%{_libdir}/libnvme-mi.so.1.5.0
+%{_libdir}/libnvme-mi.so.1.6.0
 
 %files devel
 %{_libdir}/libnvme.so
@@ -97,6 +97,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Fri Sep 29 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.6-1
+- Upstream v1.6 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

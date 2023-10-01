@@ -3,10 +3,10 @@
 
 Name:           %{fontname}-fonts
 Version:        6.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Monospaced font with programming ligatures
 
-License:        OFL
+License:        OFL-1.1
 URL:            https://github.com/tonsky/FiraCode
 Source0:        https://github.com/tonsky/FiraCode/releases/download/%{version}/Fira_Code_v%{version}.zip#/%{name}-%{version}.zip
 Source1:        %{name}-fontconfig.conf
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Sep 20 2023 Matej Focko <mfocko@redhat.com> - 6.2-6
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

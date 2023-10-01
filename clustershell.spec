@@ -24,8 +24,8 @@
 %global srcname ClusterShell
 
 Name:           clustershell
-Version:        1.9.1
-Release:        3%{?dist}
+Version:        1.9.2
+Release:        1%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 %if 0%{?suse_version}
@@ -223,6 +223,9 @@ install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadi
 %{vimdatadir}/syntax/groupsconf.vim
 
 %changelog
+* Fri Sep 29 2023 Stephane Thiell <sthiell@stanford.edu> 1.9.2-1
+- update to 1.9.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

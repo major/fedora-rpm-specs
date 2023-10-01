@@ -8,7 +8,7 @@
 %bcond_with tests
 
 Name:           %{pkg_name}
-Version:        0.8.9.0
+Version:        0.9.2.0
 Release:        %autorelease
 Summary:        Terminal-based presentations using Pandoc
 
@@ -131,7 +131,6 @@ This package provides the Haskell %{name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q
 # End cabal-rpm setup
-cabal-tweak-dep-ver pandoc '3.1' '3.0'
 
 
 %build

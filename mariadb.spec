@@ -1,6 +1,5 @@
-# Prefix that is used for patches
-%global pkg_name %{name}
-%global pkgnamepatch mariadb
+# Plain package name for cases, where %{name} differs (e.g. for versioned packages)
+%global pkg_name mariadb
 
 # Regression tests may take a long time (many cores recommended), skip them by
 %{!?runselftest:%global runselftest 1}
@@ -126,9 +125,9 @@
 %endif
 
 # Include systemd files
-%global daemon_name %{name}
+%global daemon_name %{pkg_name}
 %global daemon_no_prefix %{pkg_name}
-%global mysqld_pid_dir mariadb
+%global mysqld_pid_dir %{pkg_name}
 
 # We define some system's well known locations here so we can use them easily
 # later when building to another location (like SCL)
@@ -208,13 +207,13 @@ Source72:         mariadb-server-galera.te
 
 #   Patch4: Red Hat distributions specific logrotate fix
 #   it would be big unexpected change, if we start shipping it now. Better wait for MariaDB 10.2
-Patch4:           %{pkgnamepatch}-logrotate.patch
+Patch4:           %{pkg_name}-logrotate.patch
 #   Patch7: add to the CMake file all files where we want macros to be expanded
-Patch7:           %{pkgnamepatch}-scripts.patch
+Patch7:           %{pkg_name}-scripts.patch
 #   Patch9: pre-configure to comply with guidelines
-Patch9:           %{pkgnamepatch}-ownsetup.patch
+Patch9:           %{pkg_name}-ownsetup.patch
 #   Patch10: Fix cipher name in the SSL Cipher name test
-Patch10:          %{pkgnamepatch}-ssl-cipher-tests.patch
+Patch10:          %{pkg_name}-ssl-cipher-tests.patch
 Patch12:          rocksdb-6.8-gcc13.patch
 
 BuildRequires:    make
@@ -736,7 +735,7 @@ sources.
 
 
 %prep
-%setup -q -n mariadb-%{version}-downstream_modified
+%setup -q -n %{pkg_name}-%{version}-downstream_modified
 
 # Remove JAR files that upstream puts into tarball
 find . -name "*.jar" -type f -exec rm --verbose -f {} \;
@@ -783,7 +782,7 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
 %if %{with galera}
 # prepare selinux policy
 mkdir selinux
-sed 's/mariadb-server-galera/%{name}-server-galera/' %{SOURCE72} > selinux/%{name}-server-galera.te
+sed 's/mariadb-server-galera/%{pkg_name}-server-galera/' %{SOURCE72} > selinux/%{pkg_name}-server-galera.te
 %endif
 
 
@@ -848,8 +847,8 @@ fi
          -DMYSQL_DATADIR="%{dbdatadir}" \
          -DMYSQL_UNIX_ADDR="/var/lib/mysql/mysql.sock" \
          -DTMPDIR=/var/tmp \
-         -DGRN_DATA_DIR=share/%{name}-server/groonga \
-         -DGROONGA_NORMALIZER_MYSQL_PROJECT_NAME=%{name}-server/groonga-normalizer-mysql \
+         -DGRN_DATA_DIR=share/%{pkg_name}-server/groonga \
+         -DGROONGA_NORMALIZER_MYSQL_PROJECT_NAME=%{pkg_name}-server/groonga-normalizer-mysql \
          -DENABLED_LOCAL_INFILE=ON \
          -DENABLE_DTRACE=ON \
          -DSECURITY_HARDENED=OFF \
@@ -920,7 +919,7 @@ cmake -B %{_vpath_builddir} -LAH
 # build selinux policy
 %if %{with galera}
 pushd selinux
-make -f /usr/share/selinux/devel/Makefile %{name}-server-galera.pp
+make -f /usr/share/selinux/devel/Makefile %{pkg_name}-server-galera.pp
 %endif
 
 
@@ -951,7 +950,7 @@ rm %{buildroot}%{_libdir}/pkgconfig/libmariadb.pc
 %endif
 
 # install INFO_SRC, INFO_BIN into libdir (upstream thinks these are doc files,
-# but that's pretty wacko --- see also %%{name}-file-contents.patch)
+# but that's pretty wacko --- see also %%{pkg_name}-file-contents.patch)
 install -p -m 644 %{_vpath_builddir}/Docs/INFO_SRC %{buildroot}%{_libdir}/%{pkg_name}/
 install -p -m 644 %{_vpath_builddir}/Docs/INFO_BIN %{buildroot}%{_libdir}/%{pkg_name}/
 rm -r %{buildroot}%{_datadir}/doc/%{_pkgdocdirname}/MariaDB-server-%{version}/
@@ -995,19 +994,19 @@ install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-upgrade %{buildroot}%
 install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}%{_libexecdir}/mariadb-scripts-common
 
 # Install downstream version of tmpfiles
-install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{pkg_name}.conf
 %if 0%{?mysqld_pid_dir:1}
-echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{name}.conf
+echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{pkg_name}.conf
 %endif
 
 # install additional galera selinux policy
 %if %{with galera}
-install -p -m 644 -D selinux/%{name}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{name}-server-galera.pp
+install -p -m 644 -D selinux/%{pkg_name}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
 %endif
 
 # Install additional cracklib selinux policy
 %if %{with cracklib}
-mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{name}-plugin-cracklib-password-check.pp
+mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{pkg_name}-plugin-cracklib-password-check.pp
 rm %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.te
 %endif
 
@@ -1302,7 +1301,7 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 1100 ))
 
 %if %{with galera}
 %post server-galera
-%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{name}-server-galera.pp
+%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
 
 # Allow ports needed for the replication:
 # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
@@ -1319,7 +1318,7 @@ fi
 
 %postun server-galera
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s "targeted" %{name}-server-galera
+    %selinux_modules_uninstall -s "targeted" %{pkg_name}-server-galera
 
     # Delete port labeling when the package is removed
     # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
@@ -1332,11 +1331,11 @@ fi
 
 %if %{with cracklib}
 %post cracklib-password-check
-%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{name}-plugin-cracklib-password-check.pp
+%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{pkg_name}-plugin-cracklib-password-check.pp
 
 %postun cracklib-password-check
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s "targeted" %{name}-plugin-cracklib-password-check
+    %selinux_modules_uninstall -s "targeted" %{pkg_name}-plugin-cracklib-password-check
 fi
 %endif
 
@@ -1423,7 +1422,7 @@ fi
 %{_bindir}/galera_recovery
 %config(noreplace) %{_sysconfdir}/my.cnf.d/galera.cnf
 %attr(0640,root,root) %ghost %config(noreplace) %{_sysconfdir}/sysconfig/clustercheck
-%{_datadir}/selinux/packages/targeted/%{name}-server-galera.pp
+%{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
 %endif
 
 %files server
@@ -1526,10 +1525,10 @@ fi
 %{_datadir}/%{pkg_name}/mroonga/uninstall.sql
 %license %{_datadir}/%{pkg_name}/mroonga/COPYING
 %license %{_datadir}/%{pkg_name}/mroonga/AUTHORS
-%license %{_datadir}/%{name}-server/groonga-normalizer-mysql/lgpl-2.0.txt
-%license %{_datadir}/%{name}-server/groonga/COPYING
-%doc %{_datadir}/%{name}-server/groonga-normalizer-mysql/README.md
-%doc %{_datadir}/%{name}-server/groonga/README.md
+%license %{_datadir}/%{pkg_name}-server/groonga-normalizer-mysql/lgpl-2.0.txt
+%license %{_datadir}/%{pkg_name}-server/groonga/COPYING
+%doc %{_datadir}/%{pkg_name}-server/groonga-normalizer-mysql/README.md
+%doc %{_datadir}/%{pkg_name}-server/groonga/README.md
 %endif
 %if %{with galera}
 %{_datadir}/%{pkg_name}/wsrep.cnf
@@ -1556,14 +1555,14 @@ fi
 %attr(0660,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
-%{_tmpfilesdir}/%{name}.conf
-%{_sysusersdir}/%{name}.conf
+%{_tmpfilesdir}/%{pkg_name}.conf
+%{_sysusersdir}/%{pkg_name}.conf
 
 %if %{with cracklib}
 %files cracklib-password-check
 %config(noreplace) %{_sysconfdir}/my.cnf.d/cracklib_password_check.cnf
 %{_libdir}/%{pkg_name}/plugin/cracklib_password_check.so
-%{_datadir}/selinux/packages/targeted/%{name}-plugin-cracklib-password-check.pp
+%{_datadir}/selinux/packages/targeted/%{pkg_name}-plugin-cracklib-password-check.pp
 %endif
 
 %if %{with backup}

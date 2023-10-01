@@ -1,13 +1,13 @@
 Summary: Library for processing UTF-8 encoded Unicode strings
 Name:    utf8proc
 Version: 2.7.0
-Release: 5%{?dist}
-License: Unicode and MIT
+Release: 6%{?dist}
+License: MIT AND Unicode-DFS-2015
 URL:     http://julialang.org/utf8proc/
 Source:  https://github.com/JuliaLang/utf8proc/archive/v%{version}.tar.gz#/%{name}-v%{version}.tar.gz
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: perl
+BuildRequires: perl-interpreter
 
 %description
 utf8proc is a library for processing UTF-8 encoded Unicode strings.
@@ -62,6 +62,10 @@ rm %{buildroot}%{_libdir}/libutf8proc.a
 %{_libdir}/pkgconfig/libutf8proc.pc
 
 %changelog
+* Fri Sep 29 2023 Joe Orton <jorton@redhat.com> - 2.7.0-6
+- migrate to SPDX license
+- BR: perl-interpreter rather than perl
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

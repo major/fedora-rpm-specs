@@ -3,7 +3,7 @@
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
 Version: 5.27.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -15,6 +15,7 @@ URL:     https://invent.kde.org/plasma/%{base_name}
 %global stable stable
 %endif
 Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Patch:          0001-data-kde-portals.conf-Fallback-to-GTK-portals-for-Se.patch
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
@@ -48,6 +49,8 @@ BuildRequires:  cmake(KF5Declarative)
 
 BuildRequires:  qt5-qtbase-static
 Requires:       xdg-desktop-portal
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2240211
+Requires:       xdg-desktop-portal-gtk
 Supplements:    plasma-desktop
 
 %description
@@ -72,7 +75,7 @@ pieces of KDE infrastructure.
 
 
 %files -f xdg-desktop-portal-kde.lang
-%license LICENSES/* 
+%license LICENSES/*
 %{_libexecdir}/xdg-desktop-portal-kde
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.kde.service
 %{_datadir}/xdg-desktop-portal/portals/kde.portal
@@ -83,6 +86,9 @@ pieces of KDE infrastructure.
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Wed Sep 27 2023 Timothée Ravier <tim@siosm.fr> - 5.27.8-2
+- Fallback to other portals for Settings (fedora#2240211)
+
 * Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
 - 5.27.8
 

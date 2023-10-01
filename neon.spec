@@ -16,8 +16,8 @@
 Summary: An HTTP and WebDAV client library
 Name: neon
 Version: 0.32.5
-Release: 2%{?dist}
-License: LGPLv2+
+Release: 3%{?dist}
+License: LGPL-2.0-or-later
 URL: https://notroj.github.io/neon/
 Source0: https://notroj.github.io/neon/neon-%{version}.tar.gz
 Patch0: neon-0.32.2-multilib.patch
@@ -46,7 +46,7 @@ Summary: Development libraries and C header files for the neon library
 Requires: neon = %{version}-%{release}, openssl-devel, zlib-devel, expat-devel
 Requires: pkgconfig
 # Documentation is GPLv2+
-License: LGPLv2+ and GPLv2+
+License: LGPL-2.0-or-later AND GPL-2.0-or-later
 
 %description devel
 The development library for the C language HTTP and WebDAV client library.
@@ -100,6 +100,9 @@ make %{?_smp_mflags} check
 %{_libdir}/*.so
 
 %changelog
+* Fri Sep 29 2023 Joe Orton <jorton@redhat.com> - 0.32.5-3
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

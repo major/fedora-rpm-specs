@@ -82,6 +82,16 @@
 %endif
 %endif
 
+# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
+# Disable BTI until this is fixed upstream.
+%global disable_bti 0
+%ifarch aarch64
+%if 0%{?fedora}
+%global optflags %(echo %{optflags} | sed 's/-mbranch-protection=standard /-mbranch-protection=pac-ret /')
+%global disable_bti 1
+%endif
+%endif
+
 # Seems like we might need this sometimes
 # Practically, no. But it's here in case we do.
 %global use_gold 0
@@ -239,7 +249,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 117.0.5938.132
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -376,6 +386,11 @@ Patch350: chromium-116-tweak_about_gpu.patch
 
 # build error
 Patch351: chromium-117-mnemonic-error.patch
+
+# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
+# https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
+# Disable BTI until this is fixed upstream.
+Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
 
 # upstream patches
 Patch400: chromium-117-memory_leak_in_xserver.patch
@@ -992,6 +1007,10 @@ udev.
 %patch -P350 -p1 -b .tweak_about_gpu
 %patch -P351 -p1 -b .mnemonic-error
 
+%if %{disable_bti}
+%patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
+%endif
+
 %patch -P400 -p1 -b .memory_leak_in_xserver
 
 # Change shebang in all relevant files in this directory and all subdirectories
@@ -1069,14 +1088,6 @@ export LANG=en_US.UTF-8
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
 FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -Wno-unused-variable'
 FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration -Wno-unknown-attributes'
-%endif
-
-# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
-# Disable BTI until this is fixed upstream.
-%ifarch aarch64
-%if 0%{?fedora}
-FLAGS="${FLAGS/-mbranch-protection=standard/-mbranch-protection=none}"
-%endif
 %endif
 
 %if %{system_build_flags}
@@ -1695,6 +1706,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Fri Sep 29 2023 Than Ngo <than@redhat.com> - 117.0.5938.132-2
+- add workaround for the crash on BTI capable system 
+
 * Thu Sep 28 2023 Than Ngo <than@redhat.com> - 117.0.5938.132-1
 - update to 117.0.5938.132
 - CVE-2023-5217, heap buffer overflow in vp8 encoding in libvpx.

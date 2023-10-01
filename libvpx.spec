@@ -6,13 +6,17 @@
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
 Version:		1.13.0
-Release:		3%{?dist}
+Release:		5%{?dist}
 License:		BSD
+URL:			http://www.webmproject.org/code/
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
 Source1:		vpx_config.h
 # Thanks to debian.
 Source2:		libvpx.ver
-URL:			http://www.webmproject.org/code/
+# Do not disable FORTIFY_SOURCE=2
+Patch0:			libvpx-1.7.0-leave-fortify-source-on.patch
+Patch1:			update-thread-counts.patch
+Patch2:			VP8-disallow-thread-count-changes.patch
 BuildRequires:		gcc
 BuildRequires:		gcc-c++
 BuildRequires:		make
@@ -20,8 +24,6 @@ BuildRequires:		make
 BuildRequires:		yasm
 %endif
 BuildRequires:		doxygen, php-cli, perl(Getopt::Long)
-# Do not disable FORTIFY_SOURCE=2
-Patch0:			libvpx-1.7.0-leave-fortify-source-on.patch
 
 %description
 libvpx provides the VP8/VP9 SDK, which allows you to integrate your applications 
@@ -45,8 +47,7 @@ A selection of utilities and tools for VP8, including a sample encoder
 and decoder.
 
 %prep
-%setup -q -n libvpx-%{version}
-%patch0 -p1 -b .leave-fs-on
+%autosetup -n libvpx-%{version} -p1
 
 %build
 
@@ -199,6 +200,12 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Fri Sep 29 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.13.0-5
+- Minor spec cleanups
+
+* Thu Sep 28 2023 Boudhayan Bhattacharya <bbhtt.zn0i8@slmail.me> - 1.13.0-4
+- Patch for CVE-2023-5217
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -474,3 +481,4 @@ rm -rf %{buildroot}%{_prefix}/src
 
 * Wed May 19 2010 Tom "spot" Callaway <tcallawa@redhat.com> 0.9.0-1
 - Initial package for Fedora
+

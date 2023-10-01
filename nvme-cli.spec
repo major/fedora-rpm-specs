@@ -2,11 +2,11 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           nvme-cli
-Version:        2.5
-Release:        4%{?dist}
+Version:        2.6
+Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 
@@ -17,15 +17,13 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 
-BuildRequires:  libnvme-devel >= 1.5
+BuildRequires:  libnvme-devel >= 1.6
 BuildRequires:  json-c-devel >= 0.13
 
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
 
 Requires:       util-linux
-
-Patch0:         nvme-cli-2.6-fabrics-Use_corresponding_hostid_when_hostnqn_is_generated.patch
 
 %description
 nvme-cli provides NVM-Express user space tooling for Linux.
@@ -78,6 +76,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Fri Sep 29 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.6-1
+- Update to 2.6
+
 * Thu Aug 17 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.5-4
 - Mark /etc/nvme/discovery.conf as (noreplace)
 

@@ -147,6 +147,9 @@ For the most up to date manual content, use the on-line manual.
 %endif
 %patch -P6 -p1
 
+# fix building translations with gettext-0.22 (#2225711), fixed in 3.4
+sed -i -e 's|%hs|%s|g' locale/*.po
+
 %build
 %if 0%{?rhel} == 7
 export WX_CONFIG=wx-config-3.0

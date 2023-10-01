@@ -2,8 +2,8 @@
 
 Summary: Tools for searching and reading man pages
 Name: man-db
-Version: 2.11.2
-Release: 5%{?dist}
+Version: 2.12.0
+Release: 1%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
 License: GPL-2.0-or-later AND GPL-3.0-or-later
@@ -14,10 +14,6 @@ Source1: man-db.crondaily
 Source2: man-db.sysconfig
 Source3: man-db-cache-update.service
 Source4: man-db-restart-cache-update.service
-
-# https://gitlab.com/man-db/man-db/-/issues/25
-# https://gitlab.com/man-db/man-db/-/issues/26
-Patch0:  man-db-2.11.2-groff-1.23.patch
 
 Obsoletes: man < 2.0
 Provides: man = %{version}
@@ -231,6 +227,10 @@ fi
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Wed Sep 27 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.12.0-1
+- Rebase to version 2.12.0
+- Patch0 was upstreamed
+
 * Tue Jul 25 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.11.2-5
 - Release bump after added Patch0 from yselkowitz
 

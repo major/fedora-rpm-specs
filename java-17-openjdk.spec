@@ -313,7 +313,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -404,12 +404,16 @@
 
 %global rpm_state_dir %{_localstatedir}/lib/rpm-state/
 
-# For flatpack builds hard-code /usr/sbin/alternatives,
-# otherwise use %%{_sbindir} relative path.
+# For flatpack builds hard-code dependency paths,
+# otherwise use relative paths.
 %if 0%{?flatpak}
 %global alternatives_requires /usr/sbin/alternatives
+%global javazidir /usr/share/javazi-1.8
+%global portablejvmdir /usr/lib/jvm
 %else
 %global alternatives_requires %{_sbindir}/alternatives
+%global javazidir %{_datadir}/javazi-1.8
+%global portablejvmdir %{_jvmdir}
 %endif
 
 %global family %{name}.%{_arch}
@@ -1690,26 +1694,26 @@ if [ $prioritylength -ne 8 ] ; then
  exit 14
 fi
 
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
 %if %{include_normal_build}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
+#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 
@@ -1787,7 +1791,7 @@ function installjdk() {
 
         # Use system-wide tzdata
         mv ${imagepath}/lib/tzdb.dat{,.upstream}
-        ln -sv %{_datadir}/javazi-1.8/tzdb.dat ${imagepath}/lib/tzdb.dat
+        ln -sv %{javazidir}/tzdb.dat ${imagepath}/lib/tzdb.dat
 
         # Rename OpenJDK cacerts database
         mv ${imagepath}/lib/security/cacerts{,.upstream}
@@ -2100,15 +2104,11 @@ $JAVA_HOME/bin/javac -d . %{SOURCE16}
 #TODO skipped vendor check. It now points to PORTABLE version of jdk.
 #$JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" "%{oj_vendor_url}" "%{oj_vendor_bug_url}" "%{oj_vendor_version}"
 
-%if ! 0%{?flatpak}
-# Check translations are available for new timezones (during flatpak builds, the
-# tzdb.dat used by this test is not where the test expects it, so this is
-# disabled for flatpak builds)
+# Check translations are available for new timezones
 $JAVA_HOME/bin/javac -d . %{SOURCE18}
 #TODO doublecheck tzdata handling
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE || echo "TZDATA no longer can be synced with system, because we repack"
 $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR || echo "TZDATA no longer can be synced with system, because we repack"
-%endif
 
 %if %{include_staticlibs}
 # Check debug symbols in static libraries (smoke test)
@@ -2377,7 +2377,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
-* Thu Aug 08 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.8.0.7-1
+* Fri Sep 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:17.0.8.0.7-2
+- Fix flatpak build
+
+* Tue Aug 08 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.8.0.7-1
 - updated to security 17.0.8.0.7
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:17.0.7.0.7-5.1

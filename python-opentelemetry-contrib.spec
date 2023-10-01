@@ -105,11 +105,16 @@ Source11:       opentelemetry-instrument.1
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1821#issuecomment-1560136536
 Patch:          0001-Revert-Fix-expected-URL-in-aiohttp-instrumentation-t.patch
 
+# Rename azure resource detector package
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1950
+#
+# See also:
+#
 # Fix wrong package/project name for opentelemetry-resource-detector-azure
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1942
 #
 # We patch in just the fix, not the changelog entry:
-Patch:          %{url}/pull/1942/commits/1b929d99b568dfb5a5df841819327bfd969050c6.patch
+Patch:          %{url}/pull/1950.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

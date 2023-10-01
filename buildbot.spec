@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        3.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -147,6 +147,13 @@ getent passwd buildbot-master >/dev/null || \
     -c "Service account for the Buildbot master" buildbot-master
 exit 0
 
+%post master
+for master in $(systemctl list-units 'buildbot-master@*.service' --all --plain --no-legend | cut -d '@' -f 2 | cut -d '.' -f 1); do
+  systemctl stop buildbot-master@"$master".service
+  su - buildbot-master -c "buildbot upgrade-master /var/lib/buildbot/master/$master"
+  systemctl start buildbot-master@"$master".service
+done
+
 %files master
 %doc CREDITS NEWS UPGRADING
 %license COPYING
@@ -267,6 +274,11 @@ getent passwd buildbot-worker >/dev/null || \
     useradd -r -g buildbot-worker -d %{_sharedstatedir}/buildbot/worker -s /sbin/nologin \
     -c "Service account for the Buildbot worker" buildbot-worker
 exit 0
+
+%post worker
+for worker in $(systemctl list-units 'buildbot-worker@*.service' --all --plain --no-legend | cut -d '@' -f 2 | cut -d '.' -f 1); do
+  systemctl restart buildbot-worker@"$worker".service
+done
 
 %files worker
 %doc NEWS UPGRADING
@@ -398,6 +410,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Thu Sep 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.9.2-3
+- Upgrade master databases and restart masters and workers on upgrade.
+
 * Fri Sep 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.9.2-2
 - Adjust twisted pin.
 

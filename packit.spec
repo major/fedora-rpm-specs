@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.81.0
+Version:        0.82.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Sep 29 2023 Packit <hello@packit.dev> - 0.82.0-1
+- You can now specify bugs resolved by an update by `-b` or `--resolve-bug` option for `propose-downstream` and `pull-from-upstream` commands. The values will be added by default to the changelog and commit message and provided in `commit-message` and `changelog-entry` actions as `PACKIT_RESOLVED_BUGS` env variable. (#2094)
+- Resolves rhbz#2240355
+
 * Sat Sep 23 2023 Packit <hello@packit.dev> - 0.81.0-1
 - Packit now supports the `pkg_tool` option in the config (at the top-level or with specific packages when using the monorepo syntax). This option can be used for switching between `fedpkg` or `centpkg`. (#2085)
 - When updating the `Version` tag during `propose_downstream` or `pull_from_upstream`, Packit now tries to update referenced macros (if any) rather than overwriting the references. (#2087)

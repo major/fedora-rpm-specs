@@ -5,7 +5,7 @@
 %global crate gstreamer-player
 
 Name:           rust-gstreamer-player
-Version:        0.20.5
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Player library
 
@@ -47,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v1_16-devel

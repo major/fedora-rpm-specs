@@ -15,7 +15,7 @@ Summary:        Wiki using happstack, git or darcs, and pandoc
 # YUI: BSD
 # TANGOICONS: CC-BY-SA
 License:        GPL-2.0-or-later AND MIT AND BSD-3-Clause AND CC-BY-SA-2.5 AND (MIT OR GPL-2.0-or-later)
-Url:            https://hackage.haskell.org/package/%{pkg_name}
+Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
@@ -253,8 +253,8 @@ This package provides the Haskell %{name} profiling library.
 # Begin cabal-rpm install
 %ghc_lib_install
 
-# We need these for the software to work!
-#rm %{buildroot}%{_datadir}/%{pkgver}/{CHANGES,README.markdown}
+# README.markdown is needed for the software to work!
+rm %{buildroot}%{_datadir}/%{pkgver}/CHANGES
 mv %{buildroot}%{_ghcdocdir}{,-common}
 # End cabal-rpm install
 
@@ -295,7 +295,6 @@ exit 0
 # End cabal-rpm files
 %{_unitdir}/gitit.service
 %config(noreplace) %{_sysconfdir}/gitit
-%doc CHANGES README.markdown
 # We want to install /var/lib/gitit/wiki and make it owned by the
 # gitit user created in %pre... I forget if this is the best way to do that.
 # (I guess the alternative is to try and make the directories in %post).
@@ -306,7 +305,7 @@ exit 0
 %files common
 # Begin cabal-rpm files:
 %license LICENSE
-%doc CHANGES README.markdown
+%doc CHANGES
 %{_datadir}/%{pkgver}
 # End cabal-rpm files
 %license BLUETRIP-LICENSE YUI-LICENSE TANGOICONS

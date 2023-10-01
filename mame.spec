@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 258
+%global baseversion 259
 
 %undefine _auto_set_build_flags
 
@@ -16,7 +16,7 @@ Summary:        Multiple Arcade Machine Emulator
 #less restrictive licenses, as noted in their respective header
 #comments.
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://mamedev.org/
 Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion}/%{name}-%{name}0%{baseversion}.tar.gz
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt

@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    ff477832e6d838a736556d4a39a3b80f4412abfd
+%global gh_commit    d75d17c16a863438027d1d96401cddcd6aa5bb60
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.6.3
+%global upstream_version 2.6.4
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -87,7 +87,7 @@ Provides:       bundled(php-composer-pcre) = 2.1.0
 Provides:       bundled(php-composer-semver) = 3.4.0
 Provides:       bundled(php-composer-spdx-licenses) = 1.5.7
 Provides:       bundled(php-composer-xdebug-handler) = 3.0.3
-Provides:       bundled(php-justinrainbow-json-schema) = 5.2.12
+Provides:       bundled(php-justinrainbow-json-schema) = v5.2.13
 Provides:       bundled(php-psr-container) = 1.1.1
 Provides:       bundled(php-psr-log) = 1.1.4
 Provides:       bundled(php-react-promise) = v3.0.0
@@ -249,6 +249,9 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Sep 29 2023 Remi Collet <remi@remirepo.net> - 2.6.4-1
+- update to 2.6.4
+
 * Fri Sep 15 2023 Remi Collet <remi@remirepo.net> - 2.6.3-1
 - update to 2.6.3
 

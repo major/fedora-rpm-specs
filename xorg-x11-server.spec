@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   24%{?gitdate:.%{gitdate}}%{?dist}
+Release:   25%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -560,6 +560,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Fri Sep 29 2023 Orion Poplawski <orion@nwra.com> - 1.20.14-25
+- Fix xvfb-run --error-file / auth-file options
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.14-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

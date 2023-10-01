@@ -3,11 +3,11 @@
 Version:            2.304
 %forgemeta
 
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     https://jetbrains.com/mono/
 
 %global foundry           JetBrains
-%global fontlicense       OFL 1.1
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *.md
 
@@ -76,6 +76,9 @@ Source11: 58-%{fontpkgname1}.xml
 %fontfiles -a
 
 %changelog
+* Wed Sep 20 2023 Matej Focko <mfocko@redhat.com> - 2.304-4
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.304-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

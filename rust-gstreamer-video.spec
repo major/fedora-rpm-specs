@@ -5,7 +5,7 @@
 %global crate gstreamer-video
 
 Name:           rust-gstreamer-video
-Version:        0.20.7
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Video library
 
@@ -47,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+dox-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+dox-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "dox" feature of the "%{crate}" crate.
-
-%files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

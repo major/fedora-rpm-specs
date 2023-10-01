@@ -70,7 +70,7 @@ Version:        4.8.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -169,7 +169,7 @@ BuildRequires:  hdf5-devel
 BuildRequires:  openjpeg2-devel
 BuildRequires:  freetype-devel
 BuildRequires:  harfbuzz-devel
-# Module opencv_ovis disabled because of incompatible OGRE3D version < 1.10
+# Module opencv_ovis disabled because of incompatible OGRE3D version < 1.11.5
 # BuildRequires:  ogre-devel
 %{?with_vtk:BuildRequires: vtk-devel}
 %{?with_vtk:
@@ -218,15 +218,116 @@ and Computer Vision algorithms.
 Summary:        OpenCV core libraries
 Provides:       bundled(quirc) = 1.0
 Obsoletes:      python2-%{name} < %{version}
+# any removed modules should be listed here
+Obsoletes:      %{name}-contrib < 4.8.0-2
 
 %description    core
 This package contains the OpenCV C/C++ core libraries.
 
 
+%package        data
+Summary:        OpenCV data
+
+%description    data
+This package contains OpenCV data.
+
+
+%global opencv_devel_requires %{name}-core%{_isa} = %{version}-%{release}
+
+%define opencv_module_subpkg(m:d:) \
+%global opencv_devel_requires %{opencv_devel_requires} %{name}-%{-m*}%{_isa} = %{version}-%{release}\
+%define modulename %{-m:%{-m*}}%{!-m:%{error:Module name not defined}}\
+%define moduledesc %{-d:%{-d*}}%{!-d:%{-m*}}\
+%package %{modulename}\
+Summary:  OpenCV module: %{moduledesc}\
+Requires: %{name}-core%{_isa} = %{version}-%{release}\
+\
+%description %{modulename}\
+This package contains the OpenCV %{moduledesc} module runtime.\
+\
+%files %{modulename}\
+%{_libdir}/libopencv_%{modulename}.so.{%{abiver},%{version}}
+
+# main modules
+%opencv_module_subpkg -m calib3d -d %{quote:Camera Calibration and 3D Reconstruction}
+%opencv_module_subpkg -m dnn -d %{quote:Deep Neural Network}
+%opencv_module_subpkg -m features2d -d %{quote:2D Feature Detection}
+%opencv_module_subpkg -m flann -d %{quote:Clustering and Search in Multi-dimensional Space}
+%opencv_module_subpkg -m gapi -d %{quote:Graph API}
+%opencv_module_subpkg -m highgui -d %{quote:High-level GUI}
+%opencv_module_subpkg -m imgcodecs -d %{quote:Image Encoding/Decoding}
+%opencv_module_subpkg -m imgproc -d %{quote:Image Processing}
+%opencv_module_subpkg -m ml -d %{quote:Machine Learning}
+%opencv_module_subpkg -m objdetect -d %{quote:Object Detection}
+%opencv_module_subpkg -m photo -d %{quote:Computational Photography}
+%opencv_module_subpkg -m stitching -d %{quote:Images stitching}
+%opencv_module_subpkg -m video -d %{quote:Video Analysis}
+%opencv_module_subpkg -m videoio -d %{quote:Video I/O}
+# contrib/extra modules
+%opencv_module_subpkg -m alphamat -d %{quote:Alpha Matting}
+%opencv_module_subpkg -m aruco -d %{quote:Aruco Markers}
+%opencv_module_subpkg -m bgsegm -d %{quote:Background Segmentation}
+%opencv_module_subpkg -m bioinspired -d %{quote:Biologically-inspired Vision Models}
+%opencv_module_subpkg -m ccalib -d %{quote:Custom Calibration Pattern}
+%if %{with cuda}
+%opencv_module_subpkg -m cudaarithm -d %{quote:CUDA Matrix Arithmatic}
+%opencv_module_subpkg -m cudabgsegm -d %{quote:CUDA Background Segmentation}
+%opencv_module_subpkg -m cudacodec -d %{quote:CUDA Video Encoding/Decoding}
+%opencv_module_subpkg -m cudafeatures2d -d %{quote:CUDA 2D Feature Detection}
+%opencv_module_subpkg -m cudafilters -d %{quote:CUDA Image Filtering}
+%opencv_module_subpkg -m cudaimgproc -d %{quote:CUDA Image Processing}
+%opencv_module_subpkg -m cudalegacy -d %{quote:CUDA Legacy Support}
+%opencv_module_subpkg -m cudaobjdetect -d %{quote:CUDA Object Detection}
+%opencv_module_subpkg -m cudaoptflow -d %{quote:CUDA Optical Flow}
+%opencv_module_subpkg -m cudastereo -d %{quote:CUDA Stereo Correspondance}
+%opencv_module_subpkg -m cudawarping -d %{quote:CUDA Image Warping}
+%opencv_module_subpkg -m cudev -d %{quote:CUDA Device Layer}
+%endif
+%opencv_module_subpkg -m cvv -d %{quote:Interactive Computer Vision Visual Debugging}
+%opencv_module_subpkg -m datasets -d %{quote:Datasets Framework}
+%opencv_module_subpkg -m dnn_objdetect -d %{quote:Deep Neural Network Object Detection}
+%opencv_module_subpkg -m dnn_superres -d %{quote:Deep Neural Network Super Resolution}
+%opencv_module_subpkg -m dpm -d %{quote:Deformable Part-based Models}
+%opencv_module_subpkg -m face -d %{quote:Face Analysis}
+%opencv_module_subpkg -m freetype -d %{quote:Freetype/Harfbuzz UTF-8 Strings}
+%opencv_module_subpkg -m fuzzy -d %{quote:Fuzzy Math-based Image Processing}
+%opencv_module_subpkg -m hdf -d %{quote:HDF Data Format I/O}
+%opencv_module_subpkg -m hfs -d %{quote:Heirarchical Feature Selection}
+%opencv_module_subpkg -m img_hash -d %{quote:Image Hashing}
+%opencv_module_subpkg -m intensity_transform -d %{quote:Intensity Transformation}
+%opencv_module_subpkg -m line_descriptor -d %{quote:Extracted Line Binary Descriptor}
+%opencv_module_subpkg -m mcc -d %{quote:Macbeth Chart}
+%opencv_module_subpkg -m optflow -d %{quote:Optical Flow Algorithms}
+#opencv_module_subpkg -m ovis -d %%{quote:OGRE 3D Visualiser}
+%opencv_module_subpkg -m phase_unwrapping -d %{quote:Phase Unwrapping}
+%opencv_module_subpkg -m plot -d %{quote:2D Plotting}
+%opencv_module_subpkg -m quality -d %{quote:Image Quality Analysis}
+%opencv_module_subpkg -m rapid -d %{quote:Silhouette based 3D Object Tracking}
+%opencv_module_subpkg -m reg -d %{quote:Image Registration}
+%opencv_module_subpkg -m rgbd -d %{quote:RGB-Depth Processing}
+%opencv_module_subpkg -m saliency -d %{quote:Saliency}
+%opencv_module_subpkg -m shape -d %{quote:Shape Distance and Matching}
+%opencv_module_subpkg -m stereo -d %{quote:Stereo Correspondance}
+%opencv_module_subpkg -m structured_light -d %{quote:Structed Light}
+%opencv_module_subpkg -m superres -d %{quote:Super Resolution}
+%opencv_module_subpkg -m surface_matching -d %{quote:Surface Matching}
+%opencv_module_subpkg -m text -d %{quote:Text Detection and Recognition}
+%opencv_module_subpkg -m tracking -d %{quote:Tracking}
+%opencv_module_subpkg -m videostab -d %{quote:Video Stabilization}
+%if %{with vtk}
+%opencv_module_subpkg -m viz -d %{quote:3D Visualizer}
+%endif
+%opencv_module_subpkg -m wechat_qrcode -d %{quote:WeChat QR code detector}
+%opencv_module_subpkg -m ximgproc -d %{quote:Extended Image Processing}
+%opencv_module_subpkg -m xobjdetect -d %{quote:Extended Object Detection}
+%opencv_module_subpkg -m xphoto -d %{quote:Extended Photo Processing}
+
+
 %package        devel
 Summary:        Development files for using the OpenCV library
 Requires:       %{name}%{_isa} = %{version}-%{release}
-Requires:       %{name}-contrib%{_isa} = %{version}-%{release}
+Requires:       %{name}-data%{_isa} = %{version}-%{release}
+Requires:       %{opencv_devel_requires}
 
 %description    devel
 This package contains the OpenCV C/C++ library and header files, as well as
@@ -266,16 +367,6 @@ Requires:   %{name}-core%{_isa} = %{version}-%{release}
 %description java
 This package contains Java bindings for the OpenCV library.
 
-
-%package        contrib
-Summary:        OpenCV contributed functionality
-
-%description    contrib
-This package is intended for development of so-called "extra" modules, contributed
-functionality. New modules quite often do not have stable API, and they are not
-well-tested. Thus, they shouldn't be released as a part of official OpenCV
-distribution, since the library maintains binary compatibility, and tries
-to provide decent performance and stability.
 
 %prep
 # autosetup doesn't work with 2 sources
@@ -426,6 +517,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %files
 %doc README.md
 %{_bindir}/opencv_*
+
+%files data
+%license LICENSE
 %dir %{_datadir}/opencv4
 %{_datadir}/opencv4/haarcascades
 %{_datadir}/opencv4/lbpcascades
@@ -435,21 +529,7 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %files core
 %license LICENSE
 %{_datadir}/licenses/opencv4/
-%{_libdir}/libopencv_calib3d.so.{%{abiver},%{version}}
 %{_libdir}/libopencv_core.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_dnn.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_features2d.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_flann.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_gapi.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_highgui.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_imgcodecs.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_imgproc.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_ml.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_objdetect.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_photo.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_stitching.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_video.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_videoio.so.{%{abiver},%{version}}
 
 %files devel
 %dir %{_includedir}/opencv4
@@ -476,56 +556,11 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_jnidir}/opencv.jar
 %endif
 
-%files contrib
-%{_libdir}/libopencv_alphamat.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_aruco.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_bgsegm.so.{%{abiver},%{version}}
-#%%{_libdir}/libopencv_barcode.so.{#%%{abiver},#%%{version}}
-%{_libdir}/libopencv_bioinspired.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_ccalib.so.{%{abiver},%{version}}
-%{?with_cuda:
-%{_libdir}/libopencv_cuda*.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_cudev.so.{%{abiver},%{version}}
-}
-%{_libdir}/libopencv_cvv.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_datasets.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_dnn_objdetect.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_dnn_superres.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_dpm.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_face.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_freetype.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_fuzzy.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_hdf.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_hfs.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_img_hash.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_intensity_transform.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_line_descriptor.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_mcc.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_optflow.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_phase_unwrapping.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_plot.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_quality.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_rapid.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_reg.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_rgbd.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_saliency.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_shape.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_stereo.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_structured_light.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_superres.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_surface_matching.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_text.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_tracking.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_videostab.so.{%{abiver},%{version}}
-%if %{with vtk}
-%{_libdir}/libopencv_viz.so.{%{abiver},%{version}}
-%endif
-%{_libdir}/libopencv_wechat_qrcode.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_ximgproc.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_xobjdetect.so.{%{abiver},%{version}}
-%{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Thu Sep 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.8.0-2
+- Separate per-module subpackages (#1878320)
+
 * Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 4.8.0-1
 - Update opencv to 4.8.0
 - Use bundle flatbuffers, tried build with flatbuffers from system but doesn't build

@@ -286,7 +286,7 @@
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.4
+Version: %{releasever}.6
 Release: %autorelease
 License: BSD
 URL:     https://petsc.org/
@@ -609,7 +609,7 @@ popd
 
 %if %{with openmpi}
 cp -a %{name}-%{version} buildopenmpi_dir
-%if 0%{?fedora} > 38
+%if 0%{?eln} || 0%{?fedora} > 38
 cp %{SOURCE2} buildopenmpi_dir/src/binding/petsc4py/src/petsc4py/PETSc.c
 cp %{SOURCE3} buildopenmpi_dir/src/binding/petsc4py/src/petsc4py/PETSc.h
 cp %{SOURCE4} buildopenmpi_dir/src/binding/petsc4py/src/petsc4py/PETSc_api.h
@@ -618,7 +618,7 @@ cp %{SOURCE4} buildopenmpi_dir/src/binding/petsc4py/src/petsc4py/PETSc_api.h
 
 %if %{with mpich}
 cp -a %{name}-%{version} buildmpich_dir
-%if 0%{?fedora} > 38
+%if 0%{?eln} || 0%{?fedora} > 38
 cp %{SOURCE2} buildmpich_dir/src/binding/petsc4py/src/petsc4py/PETSc.c
 cp %{SOURCE3} buildmpich_dir/src/binding/petsc4py/src/petsc4py/PETSc.h
 cp %{SOURCE4} buildmpich_dir/src/binding/petsc4py/src/petsc4py/PETSc_api.h
