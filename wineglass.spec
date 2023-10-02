@@ -1,22 +1,27 @@
 %global uuid com.github.aggalex.%{name}
 
+%global commit 7b2558ef93dc90d028056aabd12790acc164818b
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20191110
+
 Name:           wineglass
 Version:        1.2.1
-Release:        %autorelease
+Release:        6.%{date}git%{shortcommit}.%autorelease
 Summary:        GUI for Wine
 
-# The entire source code is GPLv3+ except:
-#   * GPLv2+:   src/Actions.vala
-#               src/css/Css.vala
-#               src/widgets/Application.vala
-#               src/widgets/AppsList.vala
-#               src/widgets/Headerbar.vala
-#               src/widgets/MainBox.vala
-#               src/widgets/NamePopover.vala
-#               src/widgets/SettingsButton.vala
-License:        GPLv3+
+# The entire source code is GPL-3.0-or-later except:
+#   * GPL-2.0-or-later:
+#       src/Actions.vala
+#       src/css/Css.vala
+#       src/widgets/Application.vala
+#       src/widgets/AppsList.vala
+#       src/widgets/Headerbar.vala
+#       src/widgets/MainBox.vala
+#       src/widgets/NamePopover.vala
+#       src/widgets/SettingsButton.vala
+License:        GPL-3.0-or-later
 URL:            https://github.com/aggalex/Wineglass
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{version}.%{date}git%{shortcommit}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -51,7 +56,7 @@ This app is useful for running windows apps and games easily without hassle.
 
 
 %prep
-%autosetup -n Wineglass-%{version} -p1
+%autosetup -n Wineglass-%{commit} -p1
 
 
 %build

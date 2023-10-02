@@ -327,7 +327,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      2
+%global rpmrelease      3
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -401,12 +401,16 @@
 
 %global rpm_state_dir %{_localstatedir}/lib/rpm-state/
 
-# For flatpack builds hard-code /usr/sbin/alternatives,
-# otherwise use %%{_sbindir} relative path.
+# For flatpack builds hard-code dependency paths,
+# otherwise use relative paths.
 %if 0%{?flatpak}
 %global alternatives_requires /usr/sbin/alternatives
+%global javazidir /usr/share/javazi-1.8
+%global portablejvmdir /usr/lib/jvm
 %else
 %global alternatives_requires %{_sbindir}/alternatives
+%global javazidir %{_datadir}/javazi-1.8
+%global portablejvmdir %{_jvmdir}
 %endif
 
 %global family %{name}.%{_arch}
@@ -1792,18 +1796,18 @@ fi
 ln -s %{top_level_dir_name} jdk8
 
 # JDK8 portable do not build static-libs-* so that portion is skipped here too
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
 %if %{include_normal_build}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
+#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
 %endif
 %if %{include_fastdebug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jre.%{_arch}.tar.xz
 %endif
 %if %{include_debug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jre.%{_arch}.tar.xz
 %endif
 
 # Shenandoah patches
@@ -1892,7 +1896,7 @@ function installjdk() {
 
         # Use system-wide tzdata
         mv ${imagepath}/jre/lib/tzdb.dat{,.upstream}
-        ln -sv %{_datadir}/javazi-1.8/tzdb.dat ${imagepath}/jre/lib/tzdb.dat
+        ln -sv %{javazidir}/tzdb.dat ${imagepath}/jre/lib/tzdb.dat
         
         # Rename OpenJDK cacerts database
         mv ${imagepath}/jre/lib/security/cacerts{,.upstream}
@@ -2536,6 +2540,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Sep 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.8.0.382.b05-3
+- Fix flatpak build by handling different installation prefixes of package dependencies
+
 * Thu Aug 10 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.382.b05-2
 - removed .so files from full_sources
 - list executbales in same

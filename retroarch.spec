@@ -24,12 +24,13 @@ ExcludeArch: s390x
 # Assets
 # * https://github.com/libretro/retroarch-assets
 # * https://github.com/libretro/retroarch-assets/issues/414
-%global commit1     4ec80faf1b5439d1654f407805bb66141b880826
-%global date        20221024
+%global commit1     7b735ef18bcc6508b1c9a626eb237779ff787179
+%global date        20230911
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.15.0
+Version:        1.16.0.3
+%global         version_addons 1.16.0
 Release:        %autorelease
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
@@ -93,7 +94,7 @@ Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?
 # gfx/
 # libretro-common/
 #
-License:        GPLv3+ and GPLv2 and CC-BY and CC0 and BSD and ASL 2.0 and MIT
+License:        GPL-3.0-or-later and GPL-2.0-only and CC-BY-3.0 and CC-BY-4.0 and CC0-1.0 and BSD-2-Clause and BSD-3-Clause and Apache-2.0 and MIT
 
 URL:            https://www.libretro.com/
 Source0:        %{short_url}/RetroArch/archive/v%{version}/%{appname}-%{version}.tar.gz
@@ -112,22 +113,19 @@ Source1:        %{short_url}/%{appname}-assets/archive/%{commit1}/%{appname}-ass
 %dnl Source2:        https://raw.githubusercontent.com/flathub/%{uuid}/63af0e2449891e40c6ab6feae5d27845768b26fb/%{uuid}.appdata.xml
 
 # Libretro's core info
-Source3:        %{short_url}/libretro-core-info/archive/v%{version}/libretro-core-info-%{version}.tar.gz
+Source3:        %{short_url}/libretro-core-info/archive/v%{version_addons}/libretro-core-info-%{version_addons}.tar.gz
 
 # Joypad Autoconfig Files
-Source4:        %{short_url}/%{appname}-joypad-autoconfig/archive/v%{version}/%{appname}-joypad-autoconfig-%{version}.tar.gz
+Source4:        %{short_url}/%{appname}-joypad-autoconfig/archive/v%{version_addons}/%{appname}-joypad-autoconfig-%{version_addons}.tar.gz
 
 # Database files (cheatcode, content data, cursors)
-Source5:        %{short_url}/libretro-database/archive/v%{version}/libretro-database-%{version}.tar.gz
+Source5:        %{short_url}/libretro-database/archive/v%{version_addons}/libretro-database-%{version_addons}.tar.gz
 
 # Script for enabling network access which allows downloading more libretro
 # cores
 Source10:       %{name}-enable-network-access.sh
 
 Source11:       README.fedora.md
-
-# https://github.com/libretro/retroarch-assets/pull/334
-Patch0:         https://github.com/libretro/retroarch-assets/pull/334.patch#/add-executable-bit-to-script.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
@@ -228,7 +226,7 @@ Provides:       bundled(ibxm)
 # https://github.com/libretro/RetroArch/issues/8153
 Provides:       bundled(lua) = 5.3.5
 
-Provides:       bundled(rcheevos) = 10.4
+Provides:       bundled(rcheevos) = 10.7
 Provides:       bundled(SPIRV-Cross)
 Provides:       bundled(stb)
 
@@ -295,11 +293,6 @@ database of ROMs that are known to be good copies.
 %prep
 %setup -n RetroArch-%{version} -q
 %setup -n RetroArch-%{version} -q -D -T -a1
-
-pushd %{appname}-assets-%{commit1}
-%patch 0 -p1
-popd
-
 %setup -n RetroArch-%{version} -q -D -T -a3
 %setup -n RetroArch-%{version} -q -D -T -a4
 %setup -n RetroArch-%{version} -q -D -T -a5
@@ -385,13 +378,13 @@ sed -e 's|retroarch.cfg|%{name}.cfg|g'  \
 %make_build -C gfx/video_filters
 
 # Libretro's core info
-%make_build -C libretro-core-info-%{version}
+%make_build -C libretro-core-info-%{version_addons}
 
 # Joypad Autoconfig Files
-%make_build -C %{appname}-joypad-autoconfig-%{version}
+%make_build -C %{appname}-joypad-autoconfig-%{version_addons}
 
 # Database files (cheatcode, content data, cursors)
-%make_build -C libretro-database-%{version}
+%make_build -C libretro-database-%{version_addons}
 
 
 %install
@@ -426,14 +419,14 @@ rm  %{buildroot}%{_datadir}/libretro/assets%{?p_suffix}/pkg/osd-font.ttf \
     INSTALLDIR=%{_libdir}/retroarch/filters%{?p_suffix}/video
 
 # Libretro's core info
-%make_install -C libretro-core-info-%{version}      \
+%make_install -C libretro-core-info-%{version_addons} \
     INSTALLDIR=%{_datadir}/libretro/info%{?p_suffix}
 
 # AppData manifest
 %dnl install -m 0644 -Dp %{SOURCE2} %{buildroot}%{_metainfodir}/%{uuid}.appdata.xml
 
 # Joypad Autoconfig Files
-%make_install -C %{appname}-joypad-autoconfig-%{version} \
+%make_install -C %{appname}-joypad-autoconfig-%{version_addons} \
     DOC_DIR=%{_datadir}/libretro/autoconfig/doc
 %if %{with freeworld}
 mv  %{buildroot}%{_datadir}/libretro/autoconfig/ \
@@ -441,7 +434,7 @@ mv  %{buildroot}%{_datadir}/libretro/autoconfig/ \
 %endif
 
 # Database files (cheatcode, content data, cursors)
-%make_install -C libretro-database-%{version}      \
+%make_install -C libretro-database-%{version_addons} \
     INSTALLDIR=%{_datadir}/libretro/database%{?p_suffix}
 
 # Rename desktop file to UUID for compatibility

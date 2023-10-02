@@ -351,6 +351,14 @@ to run GNU IceCat native on Wayland.
 # Copy license files
 tar -xf %{SOURCE5}
 
+# Rename test files
+cp -p browser/components/icecatview/tests/browser/browser_firefoxview.js browser/components/icecatview/tests/browser/browser_icecatview.js
+cp -p browser/components/icecatview/tests/browser/browser_firefoxview_accessibility.js browser/components/icecatview/tests/browser/browser_icecatview_accessibility.js
+cp -p browser/components/icecatview/tests/browser/browser_firefoxview_feature_callout_a11y.js browser/components/icecatview/tests/browser/browser_icecatview_feature_callout_a11y.js
+cp -p browser/components/icecatview/tests/browser/browser_firefoxview_tab.js browser/components/icecatview/tests/browser/browser_icecatview_tab.js
+cp -p browser/components/icecatview/tests/browser/browser_reload_firefoxview.js browser/components/icecatview/tests/browser/browser_reload_icecatview.js
+cp -p browser/components/icecatview/firefoxview.html browser/components/icecatview/icecatview.html
+
 %patch -P 1 -p 1 -b .fix_addon_installation
 %patch -P 2 -p 1 -b .commasplit
 %ifarch s390

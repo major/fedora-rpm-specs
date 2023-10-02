@@ -1,7 +1,4 @@
-%global uuid pm.mirko.%{name}
-%global gh_name Bottles
-
-%global forgeurl https://github.com/bottlesdevs/%{gh_name}
+%global forgeurl https://github.com/bottlesdevs/Bottles
 
 Name:       bottles
 Epoch:      1
@@ -13,7 +10,6 @@ BuildArch:  noarch
 # https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
 ExcludeArch:    s390x
 
-%global tag %{version}
 %forgemeta
 
 # The following two files are licensed as MIT:
@@ -56,6 +52,7 @@ Requires:   python3-pathvalidate
 Requires:   python3-fvs
 Requires:   python3-vkbasalt-cli
 Requires:   ImageMagick             %dnl # https://bugzilla.redhat.com/show_bug.cgi?id=2227538
+Requires:   python3-chardet         %dnl # https://bugzilla.redhat.com/show_bug.cgi?id=2240292
 
 %description
 Easily manage Wine prefix in a new way! (Run Windows software and games on
@@ -93,7 +90,7 @@ Features:
 
 
 %prep
-%autosetup -n %{gh_name}-%{version}
+%forgeautosetup -p1
 
 
 %build

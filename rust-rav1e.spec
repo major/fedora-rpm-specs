@@ -577,23 +577,13 @@ echo "cargo-c"
 
 %build
 %cargo_build -f binaries,channel-api,unstable
-%__cargo cbuild --release \
-    --destdir=%{buildroot} \
-    --prefix=%{_prefix} \
-    --libdir=%{_libdir} \
-    --includedir=%{_includedir} \
-    --pkgconfigdir=%{_libdir}/pkgconfig
+%cargo_cbuild -f binaries,channel-api,unstable
 %cargo_license_summary -f binaries,channel-api,unstable
 %{cargo_license -f binaries,channel-api,unstable} > LICENSE.dependencies
 
 %install
 %cargo_install -f binaries,channel-api,unstable
-%__cargo cinstall --release \
-    --destdir=%{buildroot} \
-    --prefix=%{_prefix} \
-    --libdir=%{_libdir} \
-    --includedir=%{_includedir} \
-    --pkgconfigdir=%{_libdir}/pkgconfig
+%cargo_cinstall  -f binaries,channel-api,unstable
 rm -v %{buildroot}%{_libdir}/librav1e.a
 
 %if %{with check}

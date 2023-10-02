@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 # Git submodules
-%global qmarkdowntextedit_commit        b2926abe78a98d79290106b17016e99a251f4a8c
+%global qmarkdowntextedit_commit        235e32410d25acdd62ee9ae038e3884fda1edd45
 %global qmarkdowntextedit_shortcommit   %(c=%{qmarkdowntextedit_commit}; echo ${c:0:7})
 
 %global qttoolbareditor_commit          ca0728c9924c6464234f7e477aa9509293d0a324
@@ -28,7 +28,7 @@ ExcludeArch: %{ix86}
 %global url1    https://github.com/pbek
 
 Name:           qownnotes
-Version:        23.9.0
+Version:        23.9.7
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
 
@@ -38,13 +38,13 @@ Summary:        Plain-text file markdown note taking with Nextcloud integration
 #               qmarkdowntextedit
 #               singleapplication
 #               simplecrypt
-# MIT:          piwiktracker
-#               md4c
-# GPLv2         versionnumber
-# GPLv3+        qttoolbareditor
-# LGPLv2+       fakevim
-# ASL 2.0       diff_match_patch
-License:        MIT and BSD and GPLv2 and GPLv3+ and LGPLv2+ and ASL 2.0
+# MIT:                  piwiktracker
+#                       md4c
+# GPL-2.0-only:         versionnumber
+# GPL-3.0-or-later:     qttoolbareditor
+# LGPL-2.1-or-later:    fakevim
+# Apache-2.0:           diff_match_patch
+License:        MIT and BSD and GPL-2.0-only and GPL-3.0-or-later and LGPL-2.1-or-later and Apache-2.0
 URL:            https://www.qownnotes.org
 Source0:        %{url1}/QOwnNotes/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url1}/qmarkdowntextedit/archive/%{qmarkdowntextedit_commit}/qmarkdowntextedit-%{qmarkdowntextedit_shortcommit}.tar.gz

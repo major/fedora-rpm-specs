@@ -7,7 +7,7 @@
 %bcond_without	ispc
 
 Name:		embree
-Version:	4.2.0
+Version:	4.3.0
 Release:	%autorelease
 Summary:	Collection of high-performance ray tracing kernels
 

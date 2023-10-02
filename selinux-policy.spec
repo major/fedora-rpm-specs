@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 2eb41b7bd9949fae4421e2590e4dda01c5b43fc5
+%global commit 260611282c2559f73ea337224b2d093b506664f0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.28
+Version: 38.29
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,19 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 29 2023 Zdenek Pytela <zpytela@redhat.com> - 38.29-1
+- Allow sssd send SIGKILL to passkey_child running in ipa_otpd_t
+- Allow systemd-localed create Xserver config dirs
+- Allow sssd read symlinks in /etc/sssd
+- Label /dev/gnss[0-9] with gnss_device_t
+- Allow systemd-sleep read/write efivarfs variables
+- ci: Fix version number of packit generated srpms
+- Dontaudit rhsmcertd write memory device
+- Allow ssh_agent_type create a sockfile in /run/user/USERID
+- Set default file context of /var/lib/authselect/backups to <<none>>
+- Allow prosody read network sysctls
+- Allow cupsd_t to use bpf capability
+
 * Fri Sep 15 2023 Zdenek Pytela <zpytela@redhat.com> - 38.28-1
 - Allow sssd domain transition on passkey_child execution conditionally
 - Allow login_userdomain watch lnk_files in /usr

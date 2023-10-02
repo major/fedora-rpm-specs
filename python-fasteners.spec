@@ -1,9 +1,7 @@
 %bcond tests %{undefined rhel}
-# The python-diskcache package, used in some of the tests, has been retired.
-%bcond diskcache 0
 
 Name:           python-fasteners
-Version:        0.18
+Version:        0.19
 Release:        %autorelease
 Summary:        A python package that provides useful locks
 
@@ -11,13 +9,6 @@ License:        Apache-2.0
 URL:            https://github.com/harlowja/fasteners
 # We need to use the GitHub archive instead of the PyPI sdist to get tests.
 Source:         %{url}/archive/%{version}/fasteners-%{version}.tar.gz
-
-# Backport 80a3eaed75276faf21034e7e6c626fd19485ea39 “Move eventlet tests to
-# main folder and to child process”. Fixes “Tests hang with eventlet support”
-# https://github.com/harlowja/fasteners/issues/101. (As an alternative, we
-# could run pytest on tests/ and tests_eventlet/ in separate invocations.) See
-# https://github.com/harlowja/fasteners/issues/101#issuecomment-1249462951.
-Patch:          %{url}/commit/80a3eaed75276faf21034e7e6c626fd19485ea39.patch
 
 BuildArch:      noarch
 
@@ -43,10 +34,7 @@ Obsoletes:      python-fasteners-doc < 0.18-1
 
 
 %prep
-%autosetup -p1 -n fasteners-%{version}
-%if %{without diskcache}
-sed -r -i '/\b(diskcache)\b/d' requirements-test.txt
-%endif
+%autosetup -n fasteners-%{version}
 
 
 %generate_buildrequires
@@ -64,7 +52,7 @@ sed -r -i '/\b(diskcache)\b/d' requirements-test.txt
 
 %check
 %if %{with tests}
-%pytest %{?!with_diskcache:--ignore=tests/test_reader_writer_lock.py} -v
+%pytest -v
 %else
 %pyproject_check_import -e 'fasteners.pywin32*'
 %endif

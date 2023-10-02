@@ -4,7 +4,7 @@
 
 Name:          buildstream
 Summary:       Build/integrate software stacks
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://buildstream.build/
 
 Version:       1.6.9

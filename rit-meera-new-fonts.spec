@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
-Version:    1.5.1
-Release:    2%{?dist}
+Version:    1.5.2
+Release:    1%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
 %global foundry RIT
@@ -50,6 +50,9 @@ make otf
 
 
 %changelog
+* Sat Sep 30 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.5.2-1
+- New release, version 1.5.2
+
 * Tue Aug 22 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.5.1-2
 - Change fontconfig priority from 67 to 65
 

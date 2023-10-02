@@ -1,7 +1,7 @@
 %global pname   carla
 
 Name:           Carla
-Version:        2.5.6
+Version:        2.5.7
 Release:        1%{?dist}
 Summary:        Audio plugin host
 
@@ -225,6 +225,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Sat Sep 30 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.7-1
+- Update to 2.5.7
+
 * Sun Aug 06 2023 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.6-1
 - Update to 2.5.6
 

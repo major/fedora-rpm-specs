@@ -13,7 +13,7 @@ Summary:        Import, export, process, analyze and view triangular meshes
 # overall source, but with a different copyright statement:
 License:        MIT AND BSD-3-Clause AND Zlib
 URL:            https://trimsh.org
-Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{version}.tar.gz
+Source:         https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{version}.tar.gz
 
 # The combination of an arched package with only noarch binary packages makes
 # it easier for us to detect arch-dependent test failures, since the tests will

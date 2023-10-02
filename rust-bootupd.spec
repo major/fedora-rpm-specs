@@ -1,17 +1,16 @@
 %bcond_without check
-%global __cargo_skip_build 0
 
 %global crate bootupd
 
 Name:           rust-%{crate}
 Version:        0.2.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bootloader updater
 
-License:        ASL 2.0
-URL:            https://crates.io/crates/bootupd
-Source0:        https://github.com/coreos/bootupd/releases/download/v%{version}/bootupd-%{version}.crate
-Source1:        https://github.com/coreos/bootupd/releases/download/v%{version}/bootupd-%{version}-vendor.tar.gz
+License:        Apache-2.0
+URL:            https://github.com/coreos/bootupd
+Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
+Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.gz
 
 # For now, see upstream
 ExclusiveArch:  x86_64 aarch64
@@ -20,7 +19,7 @@ BuildRequires:  openssl-devel
 %if 0%{?rhel} && !0%{?eln}
 BuildRequires: rust-toolset
 %else
-BuildRequires: rust-packaging
+BuildRequires:  cargo-rpm-macros >= 25
 %endif
 BuildRequires:  systemd
 
@@ -30,32 +29,37 @@ Bootloader updater}
 
 %package     -n %{crate}
 Summary:        %{summary}
-License:        ASL 2.0
+# Apache-2.0
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-3-Clause
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 %{?systemd_requires}
 
 %description -n %{crate} %{_description}
 
 %files -n %{crate}
 %license LICENSE
+%license LICENSE.dependencies
+%license cargo-vendor.txt
 %doc README.md
 %{_bindir}/bootupctl
 %{_libexecdir}/bootupd
 %{_unitdir}/*
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
-tar -xv -f %{SOURCE1}
-mkdir -p .cargo
-cat >.cargo/config << EOF
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
+%autosetup -n %{crate}-%{version} -p1 -a1
+%cargo_prep -v vendor
 
 %build
 %cargo_build
+%cargo_vendor_manifest
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %make_install INSTALL="install -p -c"
@@ -70,6 +74,9 @@ EOF
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Sat Sep 30 2023 Fabio Valentini <decathorpe@gmail.com> - 0.2.11-4
+- Updates for the latest Rust packaging and license tag / SPDX guidelines.
+
 * Tue Sep 19 2023 Colin Walters <walters@verbum.org> - 0.2.11-3
 - https://github.com/coreos/bootupd/releases/tag/v0.2.11
 

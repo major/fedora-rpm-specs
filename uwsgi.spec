@@ -54,19 +54,6 @@
 %else
 %bcond_without gridfs
 %endif
-
-# Fedora 39+ ships with python 3.12, which at this point isn't supported
-# by uwsgi. To get a working python module, build against the (still
-# existing) python3.11, too
-%if 0%{?fedora} > 38
-%bcond_without python3_other
-%define python3_other_pkgversion 3.11
-%define python3_other_version 3.11
-%define python3_other_version_nodots 311
-%define __python3_other python3.11
-%define python3_other_sitelib %(RPM_BUILD_ROOT= %{__python3_other} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")
-%endif
-
 #Fedora endif
 %endif
 
@@ -215,7 +202,7 @@
 
 Name:           uwsgi
 Version:        2.0.22
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1863,6 +1850,13 @@ exit 0
 
 
 %changelog
+* Sat Sep 30 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-5
+- Rework python 3.12 patch
+
+* Tue Sep 26 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.22-4
+- Don't build the Python 3.11 module on Fedora 39+, it is not installable
+- Fixes: rhbz#2239671
+
 * Sat Sep 16 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-3
 - Extend building the python 3.11 module to rawhide
 

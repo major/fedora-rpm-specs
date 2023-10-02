@@ -1,13 +1,11 @@
 Name:           mujs
 Version:        1.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An embeddable Javascript interpreter
 License:        ISC
 URL:            https://mujs.com/
 Source0:        https://mujs.com/downloads/%{name}-%{version}.tar.gz
 
-#BuildRequires:  coreutils
-#BuildRequires:  grep
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  readline-devel
@@ -19,20 +17,28 @@ other software to extend them with scripting capabilities.
 %package devel
 Summary:        MuJS development files
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
+This package provides the MuJS shared library.
+
+%package static
+Summary:        MuJS development files using static lib
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description static
 This package provides the MuJS static library.
+
 
 %prep
 %setup -q -n %{name}-%{version}
 chmod a-x -v docs/*
 
 %build
-%make_build release CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+%make_build release CFLAGS="%{build_cflags} %{build_ldflags}"
 
 %install
-%make_install prefix="%{_prefix}" libdir="%{_libdir}" CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+%make_install prefix="%{_prefix}" libdir="%{_libdir}"
+%{__make} install-shared DESTDIR=%{?buildroot} INSTALL="%{__install} -p" prefix="%{_prefix}" libdir="%{_libdir}"
 
 
 %files
@@ -46,10 +52,17 @@ chmod a-x -v docs/*
 %doc AUTHORS README
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}.h
+%{_libdir}/lib%{name}.so{,.*}
+
+%files static
 %{_libdir}/lib%{name}.a
 
 
 %changelog
+* Sat Sep 30 2023 Alain Vigne <avigne@fedoraproject.org> 1.3.3-2
+- Install the shared library instead of default static one. Solve RHBZ#2241358
+- Add a -static subpackage
+
 * Tue Sep 19 2023 Alain Vigne <avigne@fedoraproject.org> 1.3.3-1
 - upstream release 1.3.3
 - migrated to SPDX license

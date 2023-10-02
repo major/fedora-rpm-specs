@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 7.6.1
+%global libo_version 7.6.2
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -57,7 +57,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.2
+Version:        %{libo_version}.1
 Release:        1%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
@@ -273,6 +273,7 @@ Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
 Patch4: 0001-default-to-sifr-for-gnome-light-mode.patch
 # backported
 Patch5: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
+Patch6: limit-tests-giving-dubious-results-to-x86_64.patch
 # not upstreamed
 # fix FTB in ppc64le from sharkcz
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html
@@ -2257,6 +2258,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Sat Sep 30 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.2.1-1
+- 7.6.2.1
+
 * Fri Sep 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:7.6.1.2-1
 - 7.6.1.2
 

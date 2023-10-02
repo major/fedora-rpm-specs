@@ -64,13 +64,13 @@
 %endif
 
 Name:           opencv
-Version:        4.8.0
+Version:        4.8.1
 %global javaver %(foo=%{version}; echo ${foo//./})
 %global majorver %(foo=%{version}; a=(${foo//./ }); echo ${a[0]} )
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -98,6 +98,7 @@ Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_com
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
+Patch4:         numpy.distutils_removal.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.6.3
@@ -207,6 +208,7 @@ BuildRequires:  mesa-dri-drivers
 %endif
 
 Requires:       opencv-core%{_isa} = %{version}-%{release}
+Requires:       opencv-data = %{version}-%{release}
 
 %description
 OpenCV means Intel® Open Source Computer Vision Library. It is a collection of
@@ -219,6 +221,7 @@ Summary:        OpenCV core libraries
 Provides:       bundled(quirc) = 1.0
 Obsoletes:      python2-%{name} < %{version}
 # any removed modules should be listed here
+Obsoletes:      %{name}-core < 4.8.0-2
 Obsoletes:      %{name}-contrib < 4.8.0-2
 
 %description    core
@@ -227,6 +230,7 @@ This package contains the OpenCV C/C++ core libraries.
 
 %package        data
 Summary:        OpenCV data
+BuildArch:      noarch
 
 %description    data
 This package contains OpenCV data.
@@ -326,7 +330,7 @@ This package contains the OpenCV %{moduledesc} module runtime.\
 %package        devel
 Summary:        Development files for using the OpenCV library
 Requires:       %{name}%{_isa} = %{version}-%{release}
-Requires:       %{name}-data%{_isa} = %{version}-%{release}
+Requires:       %{name}-data = %{version}-%{release}
 Requires:       %{opencv_devel_requires}
 
 %description    devel
@@ -383,6 +387,7 @@ popd &>/dev/null
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
 %patch -P 3 -p1 -b .python_install_binary
+%patch -P 4 -p1 -b .numpy.distutils_removal
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -558,6 +563,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Fri Sep 29 2023 Sérgio Basto <sergio@serjux.com> - 4.8.1-1
+- Update opencv to 4.8.1
+
 * Thu Sep 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.8.0-2
 - Separate per-module subpackages (#1878320)
 

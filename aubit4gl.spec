@@ -5,9 +5,9 @@
 %global __requires_exclude_from ^(%{_privatelibs}|%{_priv_debuginfo})$
 
 %global latestversion 1.6.1
-%global commit r12828
-%global commitdate 20230822
-%global postrelease .p2
+%global commit r12841
+%global commitdate 20230930
+%global postrelease .p3
 %global namesuffix src
 
 Name:           aubit4gl
@@ -36,7 +36,7 @@ Source1:        https://downloads.sourceforge.net/aubit4gl/Aubit4gl-manual/aubit
 #Source3:        https://aubit.com/aubit4gl/manuals/aubitqref.pdf
 # Patch the latest release to the post release
 # Changes made by the patch are listed in the commit log
-# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12828/log/?path=
+# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12841/log/?path=
 # https://sourceforge.net/p/aubit4gl/aubit4gl_code/commit_browser
 Patch0:         https://downloads.sourceforge.net/aubit4gl/SRPM/%{name}-%{version}.patch
 
@@ -73,6 +73,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %configure LDFLAGS=-pie \
            --disable-prefix-check \
            --with-smtp=no \
+           %if "%{getenv:INFORMIXDIR}" != ""
+           --with-informix=%{getenv:INFORMIXDIR} \
+           %endif
            --without-zlib
 # It does not compile with multiple threads
 %make_build -j1
@@ -100,8 +103,6 @@ rm %{buildroot}%{_libdir}/%{name}/bin/aace_4gl
 
 # Install header files
 cp -p %{buildroot}%{_libdir}/%{name}/incl/*.h %{buildroot}%{_includedir}/%{name}
-mkdir -p %{buildroot}/%{_includedir}/%{name}/dataio
-cp -p %{buildroot}%{_libdir}/%{name}/incl/dataio/*.h %{buildroot}%{_includedir}/%{name}/dataio
 rm -rf %{buildroot}%{_libdir}/%{name}/incl
 
 # Install the Aubit4GL library into the system library directory
@@ -143,10 +144,6 @@ ln -sf libLEX_C.so %{buildroot}%{_libdir}/%{name}/plugins-%{latestversion}/libLE
 # docs are installed in the system location
 rm -rf %{buildroot}%{_libdir}/%{name}/docs
 rm -f %{buildroot}%{_libdir}/%{name}/README.txt
-# These should not be included in a binary install
-rm -f %{buildroot}%{_libdir}/%{name}/Makefile
-rm -f %{buildroot}%{_libdir}/%{name}/configure
-rm -f %{buildroot}%{_libdir}/%{name}/install.sh
 
 
 %check
@@ -177,13 +174,16 @@ make -C tools/test
 
 %files devel
 %dir %{_includedir}/%{name}
-%dir %{_includedir}/%{name}/dataio
 %{_includedir}/%{name}/*.h
-%{_includedir}/%{name}/dataio/*.h
 %{_libdir}/lib%{name}.so
 
 
 %changelog
+* Sat Sep 30 2023 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p3-1
+- added configure option --with-informix
+- cleaned up include directory to match upstream
+- updated to 1.6.1.p3
+
 * Thu Sep 14 2023 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p2-1
 - updated to 1.6.1.p2
 - applied patch to latest aubit4gl version for this post release

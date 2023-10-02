@@ -12,7 +12,7 @@ in various contexts.}
 
 Name: python-scikit-learn
 Version: 1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Machine learning in Python
 # sklearn/externals/_arff.py is MIT
 # sklearn/src/liblinear is BSD
@@ -58,6 +58,8 @@ BuildRequires: python3-threadpoolctl >= 2.0.0
 %check
 # check collection crashes in armv7hl
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=74494216
+# Ignoring test in i686
+# https://github.com/scikit-learn/scikit-learn/issues/27506
 %ifarch armv7hl
 %py3_check_import sklearn
 %else
@@ -69,8 +71,8 @@ pushd %{buildroot}%{python3_sitearch}
   --deselect "sklearn/datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[False-liac-arff]" \
   --deselect "sklearn/datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[True-pandas]" \
   --deselect "sklearn/datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[False-pandas]" \
-%ifarch ppc64le
-  --deselect "neural_network/tests/test_mlp.py::test_mlp_regressor_dtypes_casting" \
+%ifarch i686
+  --deselect "sklearn/tree/tests/test_export.py::test_graphviz_toy" \
 %endif
   sklearn 
 popd
@@ -85,6 +87,9 @@ popd
 %{python3_sitearch}/scikit_learn-*.egg-info
 
 %changelog
+* Sat Sep 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.1-2
+- Skip test faillure in i686
+
 * Sat Sep 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.3.1-1
 - New upstream source (1.3.1)
 

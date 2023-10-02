@@ -1,6 +1,6 @@
 Name:           nauty
 Version:        2.8.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Graph canonical labeling and automorphism group computation
 
 %global nautytarver %(tr . _ <<< %{version})
@@ -39,6 +39,9 @@ Patch9:         %{name}-uninitialized.patch
 Patch10:        %{name}-fall-off.patch
 # Mark functions as noreturn to improve compiler diagnostics
 Patch11:        %{name}-noreturn.patch
+# Fix gentreeg bug
+# https://github.com/sagemath/sage/issues/35157
+Patch12:        %{name}-gentreeg.patch
 
 BuildRequires:  cliquer-devel
 BuildRequires:  gcc
@@ -153,6 +156,9 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Sep 30 2023 Jerry James <loganjerry@gmail.com> - 2.8.6-5
+- Add patch to fix gentreeg bug (bz 2241471)
+
 * Thu Aug 10 2023 Jerry James <loganjerry@gmail.com> - 2.8.6-4
 - Use a more reliable way of detecting CPU features
 

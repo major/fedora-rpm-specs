@@ -154,13 +154,13 @@ use the "xml" feature of the "%{crate}" crate.
 
 %build
 %cargo_build -a
-%cargo_cbuild --all-features
+%cargo_cbuild -a
 %{cargo_license_summary -a}
 %{cargo_license -a} > LICENSE.dependencies
 
 %install
 %cargo_install -a
-%cargo_cinstall --all-features
+%cargo_cinstall -a
 rm %{buildroot}/%{_libdir}/libdovi.a
 
 %if %{with check}

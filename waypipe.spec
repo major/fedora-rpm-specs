@@ -1,6 +1,6 @@
 Name:		waypipe
 Version:	0.8.6
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Wayland forwarding proxy
 
 License:	MIT
@@ -16,6 +16,11 @@ BuildRequires:	meson
 BuildRequires:	scdoc
 %endif
 BuildRequires:	pkgconfig(gbm)
+%if !0%{?rhel}
+BuildRequires:	pkgconfig(libavcodec)
+BuildRequires:	pkgconfig(libavutil)
+BuildRequires:	pkgconfig(libswscale)
+%endif
 BuildRequires:	pkgconfig(libdrm)
 BuildRequires:	pkgconfig(liblz4)
 BuildRequires:	pkgconfig(libzstd)
@@ -31,11 +36,11 @@ application forwarding similar to "ssh -X" feasible.
 
 
 %prep
-%setup -q -n %{name}-v%{version}
+%autosetup -n %{name}-v%{version}
 
 
 %build
-%meson -Dwith_video=disabled -Dwerror=false %{?rhel:-Dman-pages=disabled}
+%meson -Dwerror=false %{?rhel:-Dwith_video=disabled -Dman-pages=disabled}
 %meson_build
 
 
@@ -59,6 +64,9 @@ install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sat Sep 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.8.6-4
+- Enable video support for non-RHEL (#2241572)
+
 * Mon Sep 11 2023 Olivier Fourdan <ofourdan@redhat.com> - 0.8.6-3
 - migrated to SPDX license
 

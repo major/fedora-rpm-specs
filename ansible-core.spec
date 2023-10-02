@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: MIT
+# Copyright (C) Fedora Project Authors
+# License Text: https://spdx.org/licenses/MIT.html
+
 # several test dependencies are unwanted in RHEL
 %bcond tests %{undefined rhel}
 

@@ -1,11 +1,11 @@
-%global mod_name Flask-WTF
+%global mod_name flask_wtf
 
 Name:           python-flask-wtf
-Version:        1.1.1
-Release:        3%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Simple integration of Flask and WTForms
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/lepture/flask-wtf
 Source0:        %{pypi_source %mod_name}
 
@@ -53,6 +53,9 @@ includes optional CSRF handling for greater security.
 
 
 %changelog
+* Sat Sep 30 2023 Sandro Mani <manisandro@gmail.com> - 1.1.2-1
+- Update to 1.1.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
