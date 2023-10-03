@@ -2,8 +2,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           libsigc++20
-Version:        2.10.8
-Release:        4%{?dist}
+Version:        2.12.1
+Release:        1%{?dist}
 Summary:        Typesafe signal framework for C++
 
 License:        LGPLv2+
@@ -64,7 +64,7 @@ chmod -x NEWS
 
 %files
 %license COPYING
-%doc AUTHORS README NEWS
+%doc NEWS README.md
 %{_libdir}/libsigc-2.0.so.0*
 
 %files devel
@@ -81,6 +81,9 @@ chmod -x NEWS
 
 
 %changelog
+* Sun Oct 01 2023 Kalev Lember <klember@redhat.com> - 2.12.1-1
+- Update to 2.12.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

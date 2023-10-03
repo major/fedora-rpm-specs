@@ -4,7 +4,7 @@ Release:        2%{?dist}
 Summary:        A Discord Rich Presence Client in Python 
 License:        MIT
 URL:            https://qwertyquerty.github.io/pypresence/html/index.html
-Source0:        https://github.com/qwertyquerty/pypresence/archive/%{version}/pypresence-%{version}.tar.gz
+Source0:        https://github.com/qwertyquerty/pypresence/archive/v%{version}/pypresence-v%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

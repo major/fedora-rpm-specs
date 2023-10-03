@@ -6,8 +6,8 @@
 # Please submit bugfixes or comments to us at the above email addresses
 
 Name:           freecol
-Version:        0.11.6
-Release:        23%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Turn-based multi-player strategy game
 License:        GPL-1.0-or-later
 URL:            http://www.freecol.org/
@@ -21,21 +21,23 @@ Source4:        %{name}-imperator.metainfo.xml
 Source5:        Imperator.ttf
 # manpage courtesy of Debian
 Source6:        %{name}.6
-Patch0:         freecol-no-classpath-in-MF.patch
+Patch0:         freecol-1.1.0-no-classpath-in-MF.patch
 # texlive makeindex disallows absolute paths, and file= gets turned into one
 Patch1:         freecol-fix-makeindex-invocation.patch
 Patch2:         freecol-source-encoding.patch
 # rhbz#1271823, patch from Debian, forward ported to 0.11.6
-Patch3:         commons-cli-1.3.patch
+Patch3:         freecol-1.1.0-commons-cli-1.5.0.patch
+Patch4:         freecol-1.1.0-java-17.patch
+Patch5:         freecol-1.1.0-findbugs-annotations.patch
 BuildRequires:  ant xml-commons-apis xml-commons-resolver
 BuildRequires:  tex(tex4ht.sty) desktop-file-utils fontpackages-devel
-BuildRequires:  apache-commons-cli cortado jorbis miglayout >= 4.2
+BuildRequires:  apache-commons-cli >= 1.5.0 cortado jorbis miglayout >= 5.0
 BuildRequires:  tex(latex)
-BuildRequires:  java-devel >= 1:1.8.0
+BuildRequires:  java-devel >= 1:17.0.0
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-Requires:       java >= 1:1.8.0 jpackage-utils hicolor-icon-theme
-Requires:       apache-commons-cli cortado jorbis miglayout >= 4.2
+Requires:       java >= 1:17.0.0 jpackage-utils hicolor-icon-theme
+Requires:       apache-commons-cli >= 1.5.0 cortado jorbis miglayout >= 5.0
 Requires:       %{name}-shadowedblack-fonts
 
 %description
@@ -73,19 +75,21 @@ project to include most accented latin characters.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
 # freecol normally builds against copies shipped with the source. Remove these
 # and symlink to the system versions of these.
 rm jars/*
-ln -s %{_javadir}/commons-cli.jar jars/commons-cli-1.1.jar
+ln -s %{_javadir}/commons-cli.jar jars/commons-cli-1.5.jar
 ln -s %{_javadir}/cortado.jar jars/cortado-0.6.0.jar
 ln -s %{_javadir}/jogg.jar jars/jogg-0.0.17.jar
 ln -s %{_javadir}/jorbis.jar jars/jorbis-0.0.17.jar
-ln -s %{_javadir}/miglayout-core.jar jars/miglayout-core-4.2.jar
-ln -s %{_javadir}/miglayout-swing.jar jars/miglayout-swing-4.2.jar
+ln -s %{_javadir}/miglayout-core.jar jars/miglayout-core-5.0.jar
+ln -s %{_javadir}/miglayout-swing.jar jars/miglayout-swing-5.0.jar
 
 
 %build
@@ -146,6 +150,11 @@ install -p -m 644 packaging/common/freecol.svg \
 
 
 %changelog
+* Sun Sep 17 2023 Peter Hanecak <hany*hany.sk> - 1.1.0-1
+- New upstream release 1.1.0 (#2080698)
+- Requires java >= 17 and miglayout >= 5.0
+- Spec clean-up and updates
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:           borgmatic
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Simple Python wrapper script for borgbackup
 
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://torsion.org/borgmatic
 Source0:        https://projects.torsion.org/borgmatic-collective/borgmatic/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

@@ -1,11 +1,11 @@
 Name:           inxi
-Version:        3.3.29
+Version:        3.3.30
 Release:        1%{?dist}
 Summary:        A full featured system information script
 
 License:        GPL-3.0-or-later
-URL:            http://smxi.org/docs/inxi.htm
-Source0:        https://github.com/smxi/inxi/archive/%{version}-1/%{name}-%{version}-1.tar.gz
+URL:            https://smxi.org/docs/inxi.htm
+Source0:        https://codeberg.org/smxi/inxi/archive/%{version}-1.tar.gz
 
 BuildArch:      noarch
 
@@ -38,7 +38,7 @@ Inxi позволяет выводить различную информацию
 
 
 %prep
-%autosetup -n %{name}-%{version}-1
+%autosetup -n %{name}
 #Disable update option
 sed -i 's/my ($b_sysctl_disk,$b_update,$b_weather) = (1,1,1);/my ($b_sysctl_disk,$b_update,$b_weather) = (1,0,1);/' inxi
 #Correct shebang
@@ -61,6 +61,9 @@ install -p -D -m 644 %{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Sun Oct 01 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.30-1
+- Update to 3.3.30
+
 * Thu Aug 17 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.29-1
 - Update to 3.3.29
 

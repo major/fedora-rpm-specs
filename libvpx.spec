@@ -5,8 +5,8 @@
 
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
-Version:		1.13.0
-Release:		5%{?dist}
+Version:		1.13.1
+Release:		1%{?dist}
 License:		BSD
 URL:			http://www.webmproject.org/code/
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
@@ -15,8 +15,6 @@ Source1:		vpx_config.h
 Source2:		libvpx.ver
 # Do not disable FORTIFY_SOURCE=2
 Patch0:			libvpx-1.7.0-leave-fortify-source-on.patch
-Patch1:			update-thread-counts.patch
-Patch2:			VP8-disallow-thread-count-changes.patch
 BuildRequires:		gcc
 BuildRequires:		gcc-c++
 BuildRequires:		make
@@ -26,16 +24,16 @@ BuildRequires:		yasm
 BuildRequires:		doxygen, php-cli, perl(Getopt::Long)
 
 %description
-libvpx provides the VP8/VP9 SDK, which allows you to integrate your applications 
-with the VP8 and VP9 video codecs, high quality, royalty free, open source codecs 
-deployed on millions of computers and devices worldwide. 
+libvpx provides the VP8/VP9 SDK, which allows you to integrate your applications
+with the VP8 and VP9 video codecs, high quality, royalty free, open source codecs
+deployed on millions of computers and devices worldwide.
 
 %package devel
 Summary:		Development files for libvpx
 Requires:		%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Development libraries and headers for developing software against 
+Development libraries and headers for developing software against
 libvpx.
 
 %package utils
@@ -47,7 +45,8 @@ A selection of utilities and tools for VP8, including a sample encoder
 and decoder.
 
 %prep
-%autosetup -n libvpx-%{version} -p1
+%setup -q -n libvpx-%{version}
+%patch -P0 -p1 -b .fortify-source-on
 
 %build
 
@@ -200,6 +199,9 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Sun Oct  1 2023 Tom Callaway <spot@fedoraproject.org> - 1.13.1-1
+- update to 1.13.1
+
 * Fri Sep 29 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.13.0-5
 - Minor spec cleanups
 

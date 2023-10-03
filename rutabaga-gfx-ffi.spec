@@ -3,7 +3,7 @@
 
 Name:	    rutabaga-gfx-ffi
 Version:    0.1.2
-Release:    1.%{gitdate}git%{gitversion}%{?dist}
+Release:    2.%{gitdate}git%{gitversion}%{?dist}
 
 Summary:    Handling virtio-gpu protocols
 URL:        https://chromium.googlesource.com/crosvm/crosvm
@@ -62,7 +62,7 @@ popd
 
 %install
 pushd ffi
-install -D -m 755 target/release/librutabaga_gfx_ffi.so %{buildroot}%{_libdir}/librutabaga_gfx_ffi.so.0.1.2
+install -D -m 755 target/rpm/librutabaga_gfx_ffi.so %{buildroot}%{_libdir}/librutabaga_gfx_ffi.so.0.1.2
 ln -s librutabaga_gfx_ffi.so.0.1.2 %{buildroot}%{_libdir}/librutabaga_gfx_ffi.so.0
 ln -s librutabaga_gfx_ffi.so.0.1.2 %{buildroot}%{_libdir}/librutabaga_gfx_ffi.so
 install -D -m 644 src/share/rutabaga_gfx_ffi.pc %{buildroot}%{_libdir}/pkgconfig/rutabaga_gfx_ffi.pc
@@ -81,5 +81,8 @@ popd
 %{_libdir}/pkgconfig/rutabaga_gfx_ffi.pc
 
 %changelog
+* Sun Oct 01 2023 Fabio Valentini <decathorpe@gmail.com> - 0.1.2-2.20230913gitc3ad0e43e
+- Fix build with rust-packaging v25.
+
 * Tue Sep 12 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.1.2-1.20230912git5611439c
 - Initial packaging (rhbz#2238751)

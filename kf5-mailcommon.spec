@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail applications support library
 
 License: GPLv2
@@ -41,7 +41,6 @@ BuildRequires:  cmake(KF5ItemModels)
 BuildRequires:  cmake(KF5ItemViews)
 BuildRequires:  cmake(KF5KIO)
 BuildRequires:  cmake(KF5SyntaxHighlighting)
-BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5TextWidgets)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5WindowSystem)
@@ -112,6 +111,9 @@ Requires:       cmake(KPim5PimCommon)
 
 
 %changelog
+* Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Adjust dependencies
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

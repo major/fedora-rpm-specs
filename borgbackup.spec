@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        1.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -20,6 +20,9 @@ Source2:        gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
 # we don't need the guzzley_sphinx theme for only man page generation
 Patch1:         0002-disable-sphinx-man-page-build.patch
 
+# already available in upstream branch "1.2-maint" as git commit 39761eb
+Patch10:        %{name}-msgpack-107.patch
+
 BuildRequires:  gnupg2
 # build
 BuildRequires:  python3-Cython
@@ -29,6 +32,7 @@ BuildRequires:  python3-pkgconfig
 # test
 BuildRequires:  python3dist(python-dateutil)
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-xdist)
 
 # doc
 BuildRequires:  python3-sphinx
@@ -114,7 +118,7 @@ cd $PYTHONPATH
 # test_readonly_mount: needs fuse mount
 # exclude benchmark: not relevant for package build
 TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
-%pytest -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
+%pytest -n auto -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
 
 
 %files
@@ -139,6 +143,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Sun Oct 01 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.6-2
+- also accept msgpack 1.0.7
+
 * Tue Sep 05 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.6-1
 - update to 1.2.6 to fix CVE-2023-36811
 

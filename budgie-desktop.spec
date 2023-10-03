@@ -7,7 +7,7 @@
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.8
+Version:        10.8.1
 Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
@@ -122,6 +122,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license LICENSE
 %dir %{_datadir}/backgrounds/budgie
 %dir %{_datadir}/budgie
+%dir %{_datadir}/xdg-desktop-portal
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins/
 %dir %{_libdir}/%{name}/plugins/*
@@ -139,6 +140,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/actions/*.svg
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/icons/hicolor/scalable/status/*.svg
+%{_datadir}/xdg-desktop-portal/budgie-portals.conf
 %{_datadir}/xsessions/%{name}.desktop
 %{_libdir}/girepository-1.0/Budgie-1.0.typelib
 %{_libdir}/girepository-1.0/BudgieRaven-1.0.typelib
@@ -185,6 +187,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Oct 01 2023 Joshua Strobl <me@joshuastrobl.com> - 10.8.1-1
+- Updated to 10.8.1
+
 * Mon Aug 21 2023 Joshua Strobl <me@joshuastrobl.com> - 10.8-1
 - Updated to 10.8
 

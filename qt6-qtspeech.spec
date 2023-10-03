@@ -6,8 +6,8 @@
 
 Summary: Qt6 - Speech component
 Name:    qt6-%{qt_module}
-Version: 6.5.2
-Release: 3%{?dist}
+Version: 6.5.3
+Release: 1%{?dist}
 
 # Code can be either LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only
 # See e.g. src/plugins/speechdispatcher or src/tts
@@ -141,6 +141,9 @@ popd
 
 
 %changelog
+* Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
+- new version
+
 * Wed Aug 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.2-3
 - Separate flite and speechd subpackages
 

@@ -15,8 +15,11 @@ Version:    2.0.3
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
-License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD-3-Clause
 # See COPYRIGHT file for a description of the licenses and files covered
+# 'LicenseRef-NASA-FV-License-Agreement' (CFITSIO) headers found in:
+# - /libs/fpack/fpack.h
+# - /libs/fpack/fpackutil.c
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD-3-Clause AND ISC AND MIT AND CFITSIO
 
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
@@ -61,6 +64,10 @@ BuildRequires: pkgconfig(gmock)
 %endif
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+
+Provides: bundled(fpack) = 1.7.0
+Provides: bundled(json) = 3.10.5
+Provides: bundled(hidapi)
 
 %description
 INDI is a distributed control protocol designed to operate

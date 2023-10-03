@@ -8,7 +8,7 @@
 Name:    kaddressbook
 Summary: Contact Manager
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -45,7 +45,6 @@ BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5KCMUtils)
 BuildRequires: cmake(KF5Crash)
 BuildRequires: cmake(KF5Prison)
-BuildRequires: cmake(KF5TextAutoCorrection)
 
 BuildRequires: cmake(Gpgmepp)
 

@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE PIM library for creating and editing calendar incidences
 
 License: LGPLv2+
@@ -31,7 +31,6 @@ BuildRequires:  cmake(KGantt)
 BuildRequires:  cmake(Grantlee5)
 BuildRequires:  cmake(KPim5Akonadi)
 BuildRequires:  cmake(KPim5AkonadiMime)
-BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5CalendarCore)
 BuildRequires:  cmake(KPim5CalendarSupport)
 BuildRequires:  cmake(KPim5CalendarUtils)
@@ -104,6 +103,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Adjust dependencies
+- Adjust URL
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

@@ -1,6 +1,6 @@
 Name:		vkd3d
-Version:	1.8
-Release:	2%{?dist}
+Version:	1.9
+Release:	1%{?dist}
 Summary:	D3D12 to Vulkan translation library
 
 License:	LGPLv2+
@@ -185,6 +185,7 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 
 %files -n vkd3d-compiler
 %{_bindir}/vkd3d-compiler
+%{_bindir}/vkd3d-dxbc
 
 
 %files -n libvkd3d-shader
@@ -217,6 +218,7 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 %{mingw32_bindir}/libvkd3d-utils-1.dll
 %{mingw32_includedir}/%{name}/
 %{mingw32_bindir}/vkd3d-compiler.exe
+%{mingw32_bindir}/vkd3d-dxbc.exe
 %{mingw32_libdir}/pkgconfig/libvkd3d.pc
 %{mingw32_libdir}/pkgconfig/libvkd3d-shader.pc
 %{mingw32_libdir}/pkgconfig/libvkd3d-utils.pc
@@ -231,6 +233,7 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 %{mingw64_bindir}/libvkd3d-shader-1.dll
 %{mingw64_bindir}/libvkd3d-utils-1.dll
 %{mingw64_bindir}/vkd3d-compiler.exe
+%{mingw64_bindir}/vkd3d-dxbc.exe
 %{mingw64_includedir}/%{name}/
 %{mingw64_libdir}/pkgconfig/libvkd3d.pc
 %{mingw64_libdir}/pkgconfig/libvkd3d-shader.pc
@@ -241,6 +244,9 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 
 
 %changelog
+* Sun Oct 01 2023 - Michael Cronenworth <mike@cchtml.com> - 1.9-1
+- version update
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

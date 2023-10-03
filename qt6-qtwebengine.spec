@@ -48,8 +48,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.5.2
-Release: 2%{?dist}
+Version: 6.5.3
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -670,6 +670,9 @@ done
 
 
 %changelog
+* Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
+- new version
+
 * Tue Sep 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.2-2
 - Separate qtpdf subpackages
 

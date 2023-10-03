@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Connectivity components
 Name:    qt6-%{qt_module}
-Version: 6.5.2
-Release: 2%{?dist}
+Version: 6.5.3
+Release: 1%{?dist}
 
 # See LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -118,6 +118,9 @@ popd
 %endif
 
 %changelog
+* Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
+- new version
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

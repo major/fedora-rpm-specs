@@ -11,9 +11,6 @@ Summary:        Automatically generates Rust FFI bindings to C and C++ libraries
 License:        BSD-3-Clause
 URL:            https://crates.io/crates/bindgen-cli
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * default to linking with libclang instead of using dlopen
-Patch:          bindgen-cli-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -29,15 +26,19 @@ Summary:        %{summary}
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# ISC
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        BSD-3-Clause AND Apache-2.0 AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+License:        BSD-3-Clause AND Apache-2.0 AND ISC AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 # /usr/bin/bindgen was moved from bindgen to bindgen-cli with v0.61
 Provides:       bindgen = %{version}-%{release}
 Obsoletes:      bindgen < 0.61
+
+# /usr/bin/bindgen requires libclang.so at runtime
+Requires:       clang-libs
 
 %description -n %{crate} %{_description}
 

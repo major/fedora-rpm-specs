@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.14
+Version:        8.17
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -193,8 +193,8 @@ BuildRequires:  mingw32-libxml2
 BuildRequires:  mingw64-libxml2
 BuildRequires:  mingw32-libxslt
 BuildRequires:  mingw64-libxslt
-BuildRequires:  mingw32-vkd3d
-BuildRequires:  mingw64-vkd3d
+BuildRequires:  mingw32-vkd3d >= 1.9
+BuildRequires:  mingw64-vkd3d >= 1.9
 BuildRequires:  mingw32-vulkan-headers
 BuildRequires:  mingw64-vulkan-headers
 BuildRequires:  mingw32-zlib
@@ -327,7 +327,7 @@ Requires:  mingw32-libpng
 Requires:  mingw32-libtiff
 Requires:  mingw32-libxml2
 Requires:  mingw32-libxslt
-Requires:  mingw32-vkd3d
+Requires:  mingw32-vkd3d >= 1.9
 Requires:  mingw32-win-iconv
 Requires:  mingw32-zlib
 %endif
@@ -361,7 +361,7 @@ Requires:  mingw64-libpng
 Requires:  mingw64-libtiff
 Requires:  mingw64-libxml2
 Requires:  mingw64-libxslt
-Requires:  mingw64-vkd3d
+Requires:  mingw64-vkd3d >= 1.9
 Requires:  mingw64-win-iconv
 Requires:  mingw64-zlib
 %endif
@@ -688,7 +688,9 @@ gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
 # https://bugs.winehq.org/show_bug.cgi?id=54868
 sed -i 's/DWORD pitch_in, DWORD pitch_out/unsigned int pitch_in, unsigned int pitch_out/' patches/wined3d-WINED3DFMT_B8G8R8X8_UNORM/0001-wined3d-Implement-WINED3DFMT_B8G8R8X8_UNORM-to-WINED.patch
-staging/patchinstall.py DESTDIR="`pwd`" --all
+# https://bugs.winehq.org/show_bug.cgi?id=55695
+staging/patchinstall.py DESTDIR="`pwd`" --all \
+  -W eventfd_synchronization
 
 %endif
 # 0%%{?wine_staging}
@@ -1197,6 +1199,7 @@ fi
 %{_libdir}/wine/%{winepedir}/apisetschema.dll
 %{_libdir}/wine/%{winepedir}/apphelp.dll
 %{_libdir}/wine/%{winepedir}/appwiz.cpl
+%{_libdir}/wine/%{winepedir}/appxdeploymentclient.dll
 %{_libdir}/wine/%{winepedir}/atl.dll
 %{_libdir}/wine/%{winepedir}/atl80.dll
 %{_libdir}/wine/%{winepedir}/atl90.dll
@@ -1311,6 +1314,7 @@ fi
 %{_libdir}/wine/%{winepedir}/dwrite.dll
 %{_libdir}/wine/%{winesodir}/dwrite.so
 %{_libdir}/wine/%{winepedir}/dx8vb.dll
+%{_libdir}/wine/%{winepedir}/dxcore.dll
 %{_libdir}/wine/%{winepedir}/dxdiagn.dll
 %ghost %{_libdir}/wine/%{winepedir}/dxgi.dll
 %{_libdir}/wine/%{winepedir}/wine-dxgi.dll
@@ -1617,6 +1621,7 @@ fi
 %{_libdir}/wine/%{winepedir}/sppc.dll
 %{_libdir}/wine/%{winepedir}/srclient.dll
 %{_libdir}/wine/%{winepedir}/srvcli.dll
+%{_libdir}/wine/%{winepedir}/srvsvc.dll
 %{_libdir}/wine/%{winepedir}/sspicli.dll
 %{_libdir}/wine/%{winepedir}/stdole2.tlb
 %{_libdir}/wine/%{winepedir}/stdole32.tlb
@@ -1682,6 +1687,7 @@ fi
 %{_libdir}/wine/%{winepedir}/win32k.sys
 %endif
 %{_libdir}/wine/%{winepedir}/win32u.dll
+%{_libdir}/wine/%{winepedir}/windows.applicationmodel.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.bluetooth.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.enumeration.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.usb.dll
@@ -1724,6 +1730,7 @@ fi
 %{_libdir}/wine/%{winesodir}/winspool.so
 %{_libdir}/wine/%{winepedir}/winsta.dll
 %{_libdir}/wine/%{winepedir}/wintypes.dll
+%{_libdir}/wine/%{winepedir}/wldp.dll
 %{_libdir}/wine/%{winepedir}/wmasf.dll
 %{_libdir}/wine/%{winepedir}/wmi.dll
 %{_libdir}/wine/%{winepedir}/wmic.exe
@@ -2004,6 +2011,7 @@ fi
 %{_libdir}/wine/%{winesodir}/amstream.dll.so
 %{_libdir}/wine/%{winesodir}/apphelp.dll.so
 %{_libdir}/wine/%{winesodir}/appwiz.cpl.so
+%{_libdir}/wine/%{winesodir}/appxdeploymentclient.dll.so
 %{_libdir}/wine/%{winesodir}/atl.dll.so
 %{_libdir}/wine/%{winesodir}/atl80.dll.so
 %{_libdir}/wine/%{winesodir}/atl90.dll.so
@@ -2109,6 +2117,7 @@ fi
 %{_libdir}/wine/%{winesodir}/dwmapi.dll.so
 %{_libdir}/wine/%{winesodir}/dwrite.dll.so
 %{_libdir}/wine/%{winesodir}/dx8vb.dll.so
+%{_libdir}/wine/%{winesodir}/dxcore.dll.so
 %{_libdir}/wine/%{winesodir}/dxdiagn.dll.so
 %ghost %{_libdir}/wine/%{winesodir}/dxgi.dll.so
 %{_libdir}/wine/%{winesodir}/wine-dxgi.dll.so
@@ -2393,6 +2402,7 @@ fi
 %if 0%{?wine_staging}
 %{_libdir}/wine/%{winesodir}/srvcli.dll.so
 %endif
+%{_libdir}/wine/%{winesodir}/srvsvc.dll.so
 %{_libdir}/wine/%{winesodir}/sspicli.dll.so
 %{_libdir}/wine/%{winesodir}/sti.dll.so
 %{_libdir}/wine/%{winesodir}/strmdll.dll.so
@@ -2454,6 +2464,7 @@ fi
 %{_libdir}/wine/%{winesodir}/wimgapi.dll.so
 %{_libdir}/wine/%{winesodir}/win32k.sys.so
 %{_libdir}/wine/%{winesodir}/win32u.dll.so
+%{_libdir}/wine/%{winesodir}/windows.applicationmodel.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.bluetooth.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.enumeration.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.usb.dll.so
@@ -2487,6 +2498,7 @@ fi
 %{_libdir}/wine/%{winesodir}/winprint.dll.so
 %{_libdir}/wine/%{winesodir}/winspool.drv.so
 %{_libdir}/wine/%{winesodir}/winsta.dll.so
+%{_libdir}/wine/%{winesodir}/wldp.dll.so
 %{_libdir}/wine/%{winesodir}/wmasf.dll.so
 %{_libdir}/wine/%{winesodir}/wmic.exe.so
 %{_libdir}/wine/%{winesodir}/wmiutils.dll.so
@@ -2794,6 +2806,9 @@ fi
 %endif
 
 %changelog
+* Sun Oct 01 2023 Michael Cronenworth <mike@cchtml.com> - 8.17-1
+- version update
+
 * Tue Aug 22 2023 Michael Cronenworth <mike@cchtml.com> - 8.14-1
 - version update
 

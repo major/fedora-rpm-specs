@@ -286,11 +286,6 @@ while read -r t
 do
   k="${k-}${k+ and }not ($(sed -r 's/::/ and /' <<<"${t}"))"
 done < <(sed -r '/^[[:blank:]]*($|#)/d' <<'EOF'
-# Two new failures in tests/test_boolean.py with Blender 3.5.0
-# https://github.com/mikedh/trimesh/issues/1894
-BooleanTest::test_boolean
-BooleanTest::test_multiple
-
 %ifnarch x86_64
 # CacheTest.test_hash fails, or may fail, because xxhash is not faster than CRC
 # and/or MD5.

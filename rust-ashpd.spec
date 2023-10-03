@@ -130,6 +130,30 @@ use the "libc" feature of the "%{crate}" crate.
 %files       -n %{name}+libc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+pipewire-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pipewire-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pipewire" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pipewire-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+pw-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pw-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pw" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pw-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch

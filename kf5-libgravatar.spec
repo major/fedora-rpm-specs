@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Gravatar support library
 
 License: GPLv2
@@ -19,25 +19,22 @@ Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
 
-BuildRequires:  cmake(KF5PimTextEdit)
-BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5Network)
 BuildRequires:  cmake(Qt5Test)
 
-%global kf5_ver 5.23.0
+%global kf5_ver 5.105.0
 BuildRequires:  extra-cmake-modules >= %{kf5_ver}
 BuildRequires:  kf5-rpm-macros >= %{kf5_ver}
-BuildRequires:  kf5-ki18n-devel >= %{kf5_ver}
-BuildRequires:  kf5-kconfig-devel >= %{kf5_ver}
-BuildRequires:  kf5-kwidgetsaddons-devel >= %{kf5_ver}
-BuildRequires:  kf5-ktextwidgets-devel >= %{kf5_ver}
+BuildRequires:  cmake(KF5Config) >= %{kf5_ver}
+BuildRequires:  cmake(KF5KIO) >= %{kf5_ver}
+BuildRequires:  cmake(KF5I18n) >= %{kf5_ver}
+BuildRequires:  cmake(KF5TextWidgets) >= %{kf5_ver}
+BuildRequires:  cmake(KF5WidgetsAddons) >= %{kf5_ver}
 
-#global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
-BuildRequires:  kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
+BuildRequires:  cmake(KPim5PimCommon)
+BuildRequires:  cmake(KPim5TextEdit)
 
 Obsoletes:      kdepim-libs < 7:16.04.0
 Conflicts:      kdepim-libs < 7:16.04.0
@@ -84,6 +81,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Adjust dependencies
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

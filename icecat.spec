@@ -4,7 +4,7 @@
 
 # Set new source-code build version
 # This tag indicates a new rebuild for Fedora
-%global redhat_ver rh1
+%global redhat_ver rh2
 
 # Exclude ARM for the following error:
 #  terminate called after throwing an instance of 'std::bad_alloc'
@@ -350,14 +350,6 @@ to run GNU IceCat native on Wayland.
 
 # Copy license files
 tar -xf %{SOURCE5}
-
-# Rename test files
-cp -p browser/components/icecatview/tests/browser/browser_firefoxview.js browser/components/icecatview/tests/browser/browser_icecatview.js
-cp -p browser/components/icecatview/tests/browser/browser_firefoxview_accessibility.js browser/components/icecatview/tests/browser/browser_icecatview_accessibility.js
-cp -p browser/components/icecatview/tests/browser/browser_firefoxview_feature_callout_a11y.js browser/components/icecatview/tests/browser/browser_icecatview_feature_callout_a11y.js
-cp -p browser/components/icecatview/tests/browser/browser_firefoxview_tab.js browser/components/icecatview/tests/browser/browser_icecatview_tab.js
-cp -p browser/components/icecatview/tests/browser/browser_reload_firefoxview.js browser/components/icecatview/tests/browser/browser_reload_icecatview.js
-cp -p browser/components/icecatview/firefoxview.html browser/components/icecatview/icecatview.html
 
 %patch -P 1 -p 1 -b .fix_addon_installation
 %patch -P 2 -p 1 -b .commasplit
@@ -717,9 +709,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE9}
 
 #
 
-##Install man page
-mkdir -p %{buildroot}%{_mandir}/man1
-install -p -m 644 %{name}.1 %{buildroot}%{_mandir}/man1/
+# Install man page
+#mkdir -p %%{buildroot}%%{_mandir}/man1
+#install -p -m 644 %%{name}.1 %%{buildroot}%%{_mandir}/man1/
 
 ##Extract langpacks, make any mods needed, repack the langpack, and install it.
 %if 0%{?build_langpacks}
@@ -833,7 +825,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*x*/apps/%{name}*.png
 %{_metainfodir}/*.appdata.xml
-%{_mandir}/man1/%{name}*
+#%%{_mandir}/man1/%%{name}*
 %dir %{icecatappdir}
 %{icecatappdir}/browser/
 %{icecatappdir}/defaults/

@@ -5,16 +5,13 @@
 %global crate cssparser
 
 Name:           rust-cssparser
-Version:        0.29.6
+Version:        0.31.2
 Release:        %autorelease
 Summary:        Rust implementation of CSS Syntax Level 3
 
 License:        MPL-2.0
 URL:            https://crates.io/crates/cssparser
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax phf dependency to allow phf v0.11
-Patch:          cssparser-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

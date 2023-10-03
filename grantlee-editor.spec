@@ -10,7 +10,7 @@
 Name:    grantlee-editor
 Summary: KMail Theme Editor
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -47,21 +47,22 @@ BuildRequires: cmake(KF5DBusAddons)
 BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5NewStuff)
 BuildRequires: cmake(KF5SyntaxHighlighting)
-BuildRequires: cmake(KF5TextAutoCorrection)
 BuildRequires: cmake(KF5TextEditor)
 BuildRequires: cmake(KF5Wallet)
 BuildRequires: cmake(KF5XmlGui)
 
 # kde-apps
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires: kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-libkleo-devel >= %{majmin_ver}
-BuildRequires: kf5-messagelib-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
+BuildRequires: cmake(KF5AkonadiMime)
+BuildRequires: cmake(KF5PimTextEdit)
+BuildRequires: cmake(KPim5AkonadiContact)
+BuildRequires: cmake(KPim5ContactEditor)
+BuildRequires: cmake(KPim5GrantleeTheme)
+BuildRequires: cmake(KPim5IMAP)
+BuildRequires: cmake(KPim5Libkdepim)
 BuildRequires: cmake(KPim5MessageViewer)
+BuildRequires: cmake(KPim5Mime)
+BuildRequires: cmake(KPim5PimCommonAkonadi)
 
 %if 0%{?tests}
 BuildRequires: dbus-x11
@@ -132,6 +133,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Adjust dependencies
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

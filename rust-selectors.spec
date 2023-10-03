@@ -5,15 +5,18 @@
 %global crate selectors
 
 Name:           rust-selectors
-Version:        0.24.0
+Version:        0.25.0
 Release:        %autorelease
 Summary:        CSS Selectors matching for Rust
 
 License:        MPL-2.0
 URL:            https://crates.io/crates/selectors
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump phf dep to 0.11
+Patch:          selectors-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
 CSS Selectors matching for Rust.}

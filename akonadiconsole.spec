@@ -8,11 +8,11 @@
 Name:    akonadiconsole
 Summary: Akonadi developer tool
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
-URL:     https://userbase.kde.org/Akonadi/
+URL:     https://invent.kde.org/pim/akonadiconsole/
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -47,7 +47,6 @@ BuildRequires: cmake(KF5DBusAddons)
 BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5I18n)
 BuildRequires: cmake(KF5ItemModels)
-BuildRequires: cmake(KF5TextAutoCorrection)
 BuildRequires: cmake(KF5TextWidgets)
 BuildRequires: cmake(KF5WidgetsAddons)
 BuildRequires: cmake(KF5XmlGui)
@@ -126,6 +125,10 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Adjust dependencies
+- Adjust URL
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

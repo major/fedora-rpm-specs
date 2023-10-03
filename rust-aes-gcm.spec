@@ -5,7 +5,7 @@
 %global crate aes-gcm
 
 Name:           rust-aes-gcm
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Pure Rust implementation of the AES-GCM AEAD Cipher
 

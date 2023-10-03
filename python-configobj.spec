@@ -50,7 +50,7 @@ export PYTHONPATH=$(pwd)/build/lib
 %{python3_sitelib}/configobj-%{version}-py%{python3_version}.egg-info
 
 %changelog
-* Sat Feb 04 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.0.8-5
+* Sun Oct 01 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.0.8-5
 - SPDX fix from Daniel P. Berrange
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.8-4

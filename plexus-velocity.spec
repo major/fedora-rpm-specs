@@ -1,6 +1,6 @@
 Name:           plexus-velocity
-Version:        1.2
-Release:        19%{?dist}
+Version:        2.0
+Release:        2%{?dist}
 Summary:        Plexus Velocity Component
 License:        ASL 2.0
 URL:            https://codehaus-plexus.github.io/plexus-velocity/
@@ -50,6 +50,13 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Sun Oct 01 2023 Markku Korkeala <markku.korkeala@iki.fi> - 2.0-2
+- Update sources/lookaside cache
+
+* Sun Oct 01 2023 Markku Korkeala <markku.korkeala@iki.fi> - 2.0-1
+- Update to version 2.0
+- Resolves: rhbz#1978932
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

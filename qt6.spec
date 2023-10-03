@@ -1,7 +1,7 @@
 
 Name: qt6
-Version: 6.5.2
-Release: 3%{?dist}
+Version: 6.5.3
+Release: 1%{?dist}
 Summary: Qt6 meta package
 License: GPL-3.0-only
 URL: https://getfedora.org/
@@ -142,6 +142,9 @@ echo "- Qt6 devel meta package" > %{buildroot}%{_docdir}/qt6-devel/README
 
 
 %changelog
+* Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
+- Update to 6.5.3
+
 * Tue Sep 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.2-3
 - Fix %%qt6_qtwebengine_arches
 

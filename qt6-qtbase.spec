@@ -37,8 +37,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.5.2
-Release: 5%{?dist}
+Version: 6.5.3
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -411,7 +411,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.5.2
+Version: 6.5.3
 EOF
 
 # rpm macros
@@ -824,6 +824,9 @@ make check -k ||:
 
 
 %changelog
+* Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
+- new version
+
 * Sun Sep 03 2023 LuK1337 <priv.luk@gmail.com> - 6.5.2-5
 - Unbreak CMake Qt6::ExampleIconsPrivate package
 

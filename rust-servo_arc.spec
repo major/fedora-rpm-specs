@@ -5,13 +5,18 @@
 %global crate servo_arc
 
 Name:           rust-servo_arc
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Fork of std::sync::Arc with some extra functionality and without weak references
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/servo_arc
 Source:         %{crates_source}
+# Add license files from upstream git repo as they seem to have gone missing in the 0.3.0 crate
+# https://github.com/servo/servo/issues/30455
+Source1:        https://raw.githubusercontent.com/servo/servo/master/components/servo_arc/LICENSE-APACHE
+Source2:        https://raw.githubusercontent.com/servo/servo/master/components/servo_arc/LICENSE-MIT
 
 BuildRequires:  rust-packaging >= 21
 
@@ -85,6 +90,8 @@ use the "servo" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+cp %{SOURCE1} .
+cp %{SOURCE2} .
 %cargo_prep
 
 %generate_buildrequires

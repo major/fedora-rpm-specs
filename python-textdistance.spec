@@ -1,8 +1,6 @@
 # Not packaged in Fedora:
 # python-distance
 %bcond distance 0
-# python-pyxDamerauLevenshtein
-%bcond pdl 0
 
 %global forgeurl https://github.com/orsinium/textdistance
 %global tag %{version}
@@ -48,22 +46,19 @@ Summary:        %{summary}
 %description -n python3-textdistance %{_description}
 
 
-# We don’t choose to provide a metapackage for the “benchmark”/“benchmarks”
-# extra; besides missing dependencies, we think that it is akin to the “test”
-# and “lint” extras in not being intended for library *users*.
-
 # Both “common” and “extra” are equivalent to ”extras”, and are provided for
 # backward compatibility and to handle typos, respectively.
-%if %{with pdl}
-%{pyproject_extras_subpkg -n python3-textdistance \
-  extras common extra DamerauLevenshtein}
-%endif
-
+%pyproject_extras_subpkg -n python3-textdistance extras common extra
+%pyproject_extras_subpkg -n python3-textdistance DamerauLevenshtein
 %if %{with distance}
 %pyproject_extras_subpkg -n python3-textdistance Hamming
 %endif
-
-%pyproject_extras_subpkg -n python3-textdistance Jaro JaroWinkler Levenshtein
+%pyproject_extras_subpkg -n python3-textdistance Jaro
+%pyproject_extras_subpkg -n python3-textdistance JaroWinkler
+%pyproject_extras_subpkg -n python3-textdistance Levenshtein
+# We don’t choose to provide a metapackage for the “benchmark”/“benchmarks”
+# extra; besides missing dependencies, we think that it is akin to the “test”
+# and “lint” extras in not being intended for library *users*.
 
 
 %prep
@@ -76,11 +71,9 @@ sed -r -i 's/^([[:blank:]]*)(.*\b(isort)\b)/\1# \2/' setup.py
 %generate_buildrequires
 %pyproject_buildrequires -x test,Jaro,JaroWinkler,Levenshtein
 %{pyproject_buildrequires \
-  -x test \
-%if %{with pdl}
   -x extras -x common -x extra \
+  -x test \
   -x DamerauLevenshtein \
-%endif
 %if %{with distance}
   -x Hamming \
 %endif

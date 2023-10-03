@@ -8,8 +8,8 @@
 
 Summary: Qt6 - QuickTimeline plugin
 Name:    qt6-%{qt_module}
-Version: 6.5.2
-Release: 2%{?dist}
+Version: 6.5.3
+Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -81,6 +81,9 @@ Requires: qt6-qtdeclarative-devel%{?_isa}
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
+- new version
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

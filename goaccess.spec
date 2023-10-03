@@ -7,8 +7,8 @@
 %endif
 
 Name:           goaccess
-Version:        1.7.2
-Release:        2%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
 URL:            https://goaccess.io/
@@ -101,6 +101,9 @@ sed -i '/-pthread/d' configure.ac
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Oct 1 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 1.8-1
+- Update to 1.8, fixes rhbz#2241581
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

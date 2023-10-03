@@ -4,16 +4,15 @@
 %global debug_package %{nil}
 
 %global crate librsvg
-%global crate_version 2.57.0-beta.2
 
 Name:           rust-librsvg
-Version:        2.57.0~beta.2
+Version:        2.57.0
 Release:        %autorelease
 Summary:        Library to render SVG images to Cairo surfaces
 
 License:        LGPL-2.1-or-later
 URL:            https://crates.io/crates/librsvg
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop criterion dependency
 Patch:          librsvg-fix-metadata.diff
@@ -90,7 +89,7 @@ use the "yeslogic-fontconfig-sys" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires

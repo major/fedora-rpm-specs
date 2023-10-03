@@ -1,13 +1,13 @@
 Name:           miglayout
-Version:        4.2
-Release:        22%{?dist}
+Version:        5.0
+Release:        1%{?dist}
 Summary:        Versatile and flexible Swing layout manager
 URL:            http://www.miglayout.com/
 License:        BSD
 
 # Hidden in maven.org labyrinth, so no download URL's
-Source0:        miglayout-core-4.2-sources.jar
-Source1:        miglayout-swing-4.2-sources.jar
+Source0:        miglayout-core-%{version}-sources.jar
+Source1:        miglayout-swing-%{version}-sources.jar
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -60,6 +60,9 @@ cp -a doc %{buildroot}%{_javadocdir}/%{name}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Sun Oct  1 2023 Peter Hanecak <hany@hany.sk> - 5.0-1
+- Update to 5.0 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

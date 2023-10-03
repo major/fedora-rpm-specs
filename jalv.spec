@@ -1,29 +1,34 @@
 Name:       jalv
-Version:    1.6.4
-Release:    10%{?dist}
+Version:    1.6.8
+Release:    1%{?dist}
 Summary:    A simple but fully featured LV2 host for Jack
 
 License:    MIT
-URL:        http://drobilla.net/software/jalv/
-Source0:    http://download.drobilla.net/%{name}-%{version}.tar.bz2
+URL:        https://drobilla.net/software/%{name}.html
+Source0:    https://download.drobilla.net/%{name}-%{version}.tar.xz
 
 BuildRequires:  python3
+BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  lilv-devel >= 0.24.0
 BuildRequires:  suil-devel >= 0.10.0
-BuildRequires:  serd-devel >= 0.24.0
+BuildRequires:  serd-devel >= 0.30.0
 BuildRequires:  sord-devel >= 0.14.0
-BuildRequires:  sratom-devel >= 0.6.0
-BuildRequires:  lv2-devel >= 1.16.0
+BuildRequires:  sratom-devel >= 0.6.4
+BuildRequires:  lv2-devel >= 1.18.0
 BuildRequires:  jack-audio-connection-kit-devel >= 1.9.10
-BuildRequires:  qt-devel >= 4.0.0
 BuildRequires:  gtk2-devel >= 2.18.0
 BuildRequires:  gtk3-devel >= 3.0.0
 BuildRequires:  gtkmm24-devel >= 2.20.0
+BuildRequires:  qt5-qtbase-devel >= 5.1.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-Requires:       lv2 >= 1.16.0
+BuildRequires:  desktop-file-utils
+Requires:       lv2 >= 1.18.0
+
+# gtkmm is no longer supported
+Obsoletes:      jalv-gtkmm < 1.6.8
 
 %description
 %{name} is a simple but fully featured LV2 host for Jack. It runs LV2 plugins 
@@ -44,33 +49,20 @@ Requires:   %{name}%{_isa} = %{version}-%{release}
 %description gtk
 %{name}-gtk is an LV2 host for GTK LV2 plugins
 
-%package gtkmm
-Summary:    gtkmm implementation of %{name}
-Requires:   %{name}%{_isa} = %{version}-%{release}
-
-%description gtkmm
-%{name}-gtkmm is an LV2 host for gtkmm LV2 plugins
-
 
 %prep
-%setup -q 
+%autosetup
 
 %build
-%set_build_flags
-python3 waf configure -v \
- --prefix=%{_prefix} \
- --libdir=%{_libdir} \
- --mandir=%{_mandir} \
- --datadir=%{_datadir} \
- --configdir=%{_sysconfdir} \
- --docs 
-python3 waf build -v %{?_smp_mflags}
+%meson -Dportaudio=disabled
+%meson_build
 
 %install
-DESTDIR=%{buildroot} python3 waf install
+%meson_install
 
-# Provide a link to the default qt program
-ln -fs %{name}.qt4 %{buildroot}%{_bindir}/%{name}.qt
+%check
+%meson_test
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 %files
 %doc AUTHORS NEWS README.md
@@ -78,21 +70,22 @@ ln -fs %{name}.qt4 %{buildroot}%{_bindir}/%{name}.qt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
 %{_libdir}/jack/%{name}.so
+%{_datadir}/applications/%{name}.desktop
 
 %files qt
 %{_bindir}/%{name}.qt*
-%{_mandir}/man1/%{name}.qt.1.*
+%{_mandir}/man1/%{name}.qt*.1.*
 
 %files gtk
 %{_bindir}/%{name}.gtk
 %{_bindir}/%{name}.gtk3
 %{_mandir}/man1/%{name}.gtk.1.*
-
-%files gtkmm
-%{_bindir}/%{name}.gtkmm
-%{_mandir}/man1/%{name}.gtkmm.1.*
+%{_mandir}/man1/%{name}.gtk3.1.*
 
 %changelog
+* Wed Sep 27 2023 Guido Aulisi <guido.aulisi@gmail.com> - 1.6.4-11
+- Update to 1.6.8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

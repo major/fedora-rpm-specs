@@ -58,7 +58,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.1
-Release:        1%{?libo_prerelease}%{?dist}
+Release:        2%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -279,6 +279,8 @@ Patch6: limit-tests-giving-dubious-results-to-x86_64.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html
 Patch11: lo-7.6-ppc64le-tests.patch
 Patch500: 0001-disable-libe-book-support.patch
+# https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
+Patch501: kahansum_test_fix_for_aarc64_s390x.patch
 
 %global instdir %{_libdir}
 %global baseinstdir %{instdir}/libreoffice
@@ -1014,6 +1016,10 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 %autopatch -p1 -M 99
 %if 0%{?rhel}
 %patch500 -p1
+%endif
+
+%ifarch aarch64 s390x
+%patch501 -p1
 %endif
 
 # Temporarily disable failing tests
@@ -2258,6 +2264,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Sun Oct 01 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.2.1-2
+- Add patch 501 for failing tests on aarc64 and s390x
+
 * Sat Sep 30 2023 Mattia Verga <mattia.verga@proton.me> - 1:7.6.2.1-1
 - 7.6.2.1
 

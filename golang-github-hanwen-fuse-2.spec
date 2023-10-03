@@ -5,7 +5,7 @@
 
 # https://github.com/hanwen/go-fuse
 %global goipath         github.com/hanwen/go-fuse/v2
-Version:                2.3.0
+Version:                2.4.0
 
 %gometa -f
 

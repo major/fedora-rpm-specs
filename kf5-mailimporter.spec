@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail importer library
 
 License: GPLv2
@@ -44,7 +44,6 @@ BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
 BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
 BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
 BuildRequires:  cmake(KF5PimTextEdit)
-BuildRequires:  cmake(KF5TextAutoCorrection)
 
 Obsoletes:      kdepim-libs < 7:16.04.0
 Conflicts:      kdepim-libs < 7:16.04.0
@@ -109,6 +108,9 @@ Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Update dependencies
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 
