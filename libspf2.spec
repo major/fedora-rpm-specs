@@ -14,7 +14,7 @@
 
 Name:		libspf2
 Version:	1.2.11
-Release:	8.20210922git%{git}%{?dist}
+Release:	11.20210922git%{git}%{?dist}
 Summary:	An implementation of the SPF specification
 License:	BSD or LGPLv2+
 Url:		http://www.libspf2.org/
@@ -25,6 +25,7 @@ Url:		http://www.libspf2.org/
 Source0:	libspf2-%{version}-%{git}.tar.xz
 Patch1:	0001-remove-libreplace-unneeded-on-Linux.patch
 Patch2:	0002-add-include-string-for-memset.patch
+Patch3:	CVE-2023-42118-and-other-fixes.patch
 
 BuildRequires:	gcc
 BuildRequires:	automake autoconf libtool
@@ -100,6 +101,7 @@ Programs for making SPF queries and checking their results using libspf2.
 %setup -q -n libspf2-%{version}-%{git}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 
 %build
@@ -201,6 +203,12 @@ exit 0
 %{_mandir}/man3/Mail::SPF_XS.3pm*
 
 %changelog
+* Tue Oct  3 2023 Bojan Smojver <bojan@rexursive.com> - 1.2.11-11.20210922git4915c308
+- Add fixes from pull request 47
+
+* Mon Oct  2 2023 Bojan Smojver <bojan@rexursive.com> - 1.2.11-10.20210922git4915c308
+- CVE-2023-42118
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-8.20210922git4915c308
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

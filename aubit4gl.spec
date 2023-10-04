@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^(%{_privatelibs}|%{_priv_debuginfo})$
 
 %global latestversion 1.6.1
-%global commit r12841
-%global commitdate 20230930
+%global commit r12844
+%global commitdate 20231002
 %global postrelease .p3
 %global namesuffix src
 
@@ -36,7 +36,7 @@ Source1:        https://downloads.sourceforge.net/aubit4gl/Aubit4gl-manual/aubit
 #Source3:        https://aubit.com/aubit4gl/manuals/aubitqref.pdf
 # Patch the latest release to the post release
 # Changes made by the patch are listed in the commit log
-# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12841/log/?path=
+# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12844/log/?path=
 # https://sourceforge.net/p/aubit4gl/aubit4gl_code/commit_browser
 Patch0:         https://downloads.sourceforge.net/aubit4gl/SRPM/%{name}-%{version}.patch
 
@@ -47,7 +47,7 @@ BuildRequires: bison flex procps-ng
 Requires: gcc
 # These are not primary architectures, so not required to build on them.
 # https://fedoraproject.org/wiki/Architectures#Structure 
-ExcludeArch: i686 s390x
+ExcludeArch: i686 s390x ppc64le
 
 
 %description
@@ -179,7 +179,7 @@ make -C tools/test
 
 
 %changelog
-* Sat Sep 30 2023 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p3-1
+* Mon Oct 02 2023 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p3-1
 - added configure option --with-informix
 - cleaned up include directory to match upstream
 - updated to 1.6.1.p3

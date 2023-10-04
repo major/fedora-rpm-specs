@@ -1,5 +1,5 @@
 Name:       libime  
-Version:    1.1.1
+Version:    1.1.2
 License:    LGPLv2+ and MIT and BSD
 Release:    %autorelease
 Summary:    This is a library to support generic input method implementation
@@ -19,7 +19,7 @@ BuildRequires: python3
 BuildRequires: doxygen
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(bzip2)
-BuildRequires: pkgconfig(liblzma)
+BuildRequires: pkgconfig(libzstd)
 BuildRequires: pkgconfig(eigen3)
 Requires:      %{name}-data
 

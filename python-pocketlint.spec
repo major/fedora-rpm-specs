@@ -1,8 +1,8 @@
 %global srcname pocketlint
 
 Name:      python-%{srcname}
-Version:   0.24
-Release:   7%{?dist}
+Version:   0.25
+Release:   1%{?dist}
 Summary:   Support for running pylint against projects
 
 License:   GPL-2.0-or-later
@@ -51,6 +51,11 @@ make PYTHON=%{__python3} check
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Oct 02 2023 Vojtech Trefny <vtrefny@redhat.com> - 0.25-1
+- Remove unneeded IAstroidChecker (bcl)
+- Replace check_messages decorator with only_required_for_messages (bcl)
+- spec: Change license string to the SPDX format required by Fedora (vtrefny)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

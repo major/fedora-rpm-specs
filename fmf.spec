@@ -1,6 +1,6 @@
 Name: fmf
-Version: 1.2.1
-Release: 5%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 
 Summary: Flexible Metadata Format
 License: GPLv2+
@@ -77,17 +77,20 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.2.1-4
-- Rebuilt for Python 3.12
-
-* Mon Jan 30 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-3
-- Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Fri Sep 29 2023 Petr Šplíchal <psplicha@redhat.com> - 1.3.0-1
+- Allow case-insensitive context matching
+- Move the copr repository to the `teemtee` group
+- Fix missing file require for unit tests
+- Add callback to adjust() to make it observable by callers
+- Drop support for `el-8` and `python-3.6`
+- Fix docs building on readthedocs
+- Install `yq` needed for `tmt` integration tests
+- Include `srpm_build_deps` in the packit config
+- Remove `metadata` from Packit config
+- Add missing build job to Packit config
+- Update pre-commit checks to the latest versions
+- Require `fmf` in tests, remove obsolete coverage
+- Fix a typo in the merging minus sign documentation
 
 * Thu Jul 21 2022 Lukáš Zachar <lzachar@redhat.com> - 1.2.1-1
 - Retry if shallow clone fails

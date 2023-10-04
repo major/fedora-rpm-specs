@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        118.0.1
-Release:        2%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -1117,6 +1117,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Oct 2 2023 Martin Stransky <stransky@redhat.com>- 118.0.1-4
+- Updated man page
+
+* Mon Oct 2 2023 Martin Stransky <stransky@redhat.com>- 118.0.1-3
+- Avoid to launch Firefox by gnome-shell search
+
 * Fri Sep 29 2023 Martin Stransky <stransky@redhat.com>- 118.0.1-2
 - Use firefox.desktop again
 

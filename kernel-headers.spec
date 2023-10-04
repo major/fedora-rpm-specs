@@ -40,7 +40,7 @@
 # The next upstream release sublevel (base_sublevel+1)
 %define upstream_sublevel %(echo $((%{base_sublevel} + 1)))
 # The rc snapshot level
-%global rcrev 3
+%global rcrev 4
 # The git snapshot level
 %define gitrev 0
 # Set rpm version accordingly
@@ -170,6 +170,9 @@ done
 %{_prefix}/*-linux-gnu/*
 
 %changelog
+* Mon Oct 02 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.6.0-0.rc4.git0.1
+- Linux v6.6-rc4.git0
+
 * Mon Sep 25 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.6.0-0.rc3.git0.1
 - Linux v6.6-rc3.git0
 

@@ -7,7 +7,7 @@ URL: https://www.candlepinproject.org/
 Group: Development/Libraries/Python
 License: GPL-2.0
 %else
-License: GPLv2
+License: GPL-2.0-only
 %endif
 
 # How to create the source tarball:

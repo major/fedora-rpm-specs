@@ -32,10 +32,35 @@
 
 Name:           suitesparse
 Version:        5.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A collection of sparse matrix libraries
 
-License:        (LGPLv2+ or BSD) and LGPLv2+ and GPLv2+
+# See LICENSE.txt for a breakdown of all licenses:
+# Shipped modules licenses:
+# * AMD      - BSD-3-Clause
+# * BTF      - LGPL-2.1-or-later
+# * CAMD     - BSD-3-Clause
+# * COLAMD   - BSD-3-Clause
+# * CCOLAMD  - BSD-3-Clause
+# * CHOLMOD  - LGPL-2.1-or-later AND GPL-2.0-or-later
+# * CSparse  - LGPL-2.1-or-later AND BSD-3-Clause
+# * CXSparse - LGPL-2.1-or-later AND BSD-3-Clause
+# * KLU      - LGPL-2.1-or-later
+# * LDL      - LGPL-2.1-or-later
+# * RBio     - GPL-2.0-or-later
+# * SPQR     - GPL-2.0-or-later
+# * UMFPACK  - GPL-2.0-or-later
+#
+# Not shipped modules licenses:
+# * GPUQREngine            - GPL-2.0-or-later
+# * GraphBLAS              - Apache-2.0 AND GPL-3.0-or-later
+# * SLIP_LU                - LGPL-3.0-or-later OR GPL-2.0-or-later OR (LGPL-3.0-or-later AND GPL-2.0-or-later)
+# * MATLAB_Tools           - BSD-3-Clause AND GPL-2.0-or-later
+# * Mongoose               - GPL-3.0-only
+# * ssget                  - BSD-3-Clause
+# * SuiteSparse_GPURuntime - GPL-2.0-or-later
+
+License:        BSD-3-Clause AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            http://faculty.cse.tamu.edu/davis/suitesparse.html
 Source0:        https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 
@@ -494,6 +519,9 @@ done
 %doc SuiteSparse-%{version}/Doc/*
 
 %changelog
+* Fri Sep 15 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.13.0-4
+- migrate to SPDX license format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

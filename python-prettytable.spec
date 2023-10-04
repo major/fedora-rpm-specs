@@ -5,7 +5,7 @@ Version:        3.6.0
 Release:        %autorelease
 Summary:        Python library to display tabular data in tables
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/jazzband/prettytable
 Source0:        %{pypi_source}
 

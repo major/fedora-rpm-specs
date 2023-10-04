@@ -1,15 +1,11 @@
 Name:		lsvpd
-Version:	1.7.14
-Release:	7%{?dist}
+Version:	1.7.15
+Release:	1%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPL-2.0-or-later
 URL:    https://github.com/power-ras/%{name}/releases
 Source: https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0: lsvpd-git1ca39c.patch
-Patch1: lsvpd-git6ff86f.patch
-Patch2: lsvpd-git50e2fa.patch
 
 BuildRequires: gcc-c++
 BuildRequires: libvpd-devel >= 2.2.9
@@ -39,7 +35,6 @@ on POWER PC based systems.
 %autosetup -p1
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 ./bootstrap.sh
 %configure
 %make_build
@@ -73,6 +68,10 @@ exit 0
 %dir %{_sysconfdir}/lsvpd
 
 %changelog
+* Mon Oct 02 2023 Than Ngo <than@redhat.com> - 1.7.15-1
+- update to 1.7.15
+- drop -std=c++14 build flag
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -827,6 +827,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
 #%%{_mandir}/man1/%%{name}*
 %dir %{icecatappdir}
+%{icecatappdir}/glxtest
+%{icecatappdir}/vaapitest
 %{icecatappdir}/browser/
 %{icecatappdir}/defaults/
 %{icecatappdir}/dictionaries

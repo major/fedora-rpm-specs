@@ -57,7 +57,7 @@ Version: 13.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 9%{?dist}
+Release: 11%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1252,6 +1252,15 @@ fi
 %endif
 
 %changelog
+* Mon Oct 2 2023 Kevin Buettner <kevinb@redhat.com> - 13.2-11
+- Backport upstream commit which prevents internal error when
+  generating an overly large gdb-index file.  (RHBZ 1773651, Kevin
+  Buettner.)
+
+* Sun Oct 1 2023 Alexandra Hájková <ahajkova@redhat.com> - 13.2-10
+- Backport upstream commit d28fbc7197b which fixes RHBZ 2233965 (
+  CVE-2022-48065).
+
 * Thu Sep 28 2023 Kevin Buettner <kevinb@redhat.com>
 - Remove gdb-6.5-sharedlibrary-path.patch, which was upstreamed in
   commit 3ec033fab4a.

@@ -3,7 +3,7 @@
 
 # https://github.com/cupcakearmy/autorestic
 %global goipath         github.com/cupcakearmy/autorestic
-Version:                1.7.7
+Version:                1.7.9
 
 %gometa -f
 
@@ -22,10 +22,6 @@ Summary:        Config driven, easy backup cli for restic
 License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
-
-# Fix the cmd tests that use Println instead of Printf.
-# https://github.com/cupcakearmy/autorestic/pull/318
-Patch:          fix-println-to-printf-cmd-tests.patch
 
 %description %{common_description}
 

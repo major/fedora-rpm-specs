@@ -4,7 +4,7 @@ Version:	38.1.0
 Release:	2%{?dist}
 URL:		https://pagure.io/fedora-logos
 Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
-License:	Licensed only for approved usage, see COPYING for details.
+License:	LicenseRef-Fedora-Logos
 Provides:	redhat-logos = %{version}-%{release}
 Provides:	gnome-logos = %{version}-%{release}
 Provides:	system-logos = %{version}-%{release}

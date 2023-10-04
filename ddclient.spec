@@ -3,8 +3,8 @@
 
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
-Version:           3.9.1
-Release:           10%{?dist}
+Version:           3.10.0
+Release:           1%{?dist}
 License:           GPLv2+
 URL:               https://ddclient.net/
 Source0:           https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -13,15 +13,35 @@ Source2:           ddclient.service
 Source3:           ddclient.sysconfig
 Source4:           ddclient.NetworkManager
 Source5:           ddclient-tmpfiles.conf
+Patch0:            fix-version.patch
+Patch1:            skip-tests.patch
 
 BuildArch:         noarch
 
+BuildRequires:     autoconf
+BuildRequires:     automake
+BuildRequires:     make
 BuildRequires:     perl-generators
+BuildRequires:     perl(Sys::Hostname)
+BuildRequires:     perl(version)
 BuildRequires:     systemd
 Requires(pre):     shadow-utils
 Requires(post):    systemd
 Requires(preun):   systemd
 Requires(postun):  systemd
+
+# For tests
+BuildRequires:     iproute
+BuildRequires:     perl(HTTP::Daemon)
+BuildRequires:     perl(HTTP::Daemon::SSL)
+BuildRequires:     perl(HTTP::Message::PSGI)
+BuildRequires:     perl(HTTP::Request)
+BuildRequires:     perl(HTTP::Response)
+BuildRequires:     perl(IO::Socket::INET6)
+BuildRequires:     perl(Test::MockModule)
+BuildRequires:     perl(Test::TCP)
+BuildRequires:     perl(Test::Warnings)
+BuildRequires:     perl(Time::HiRes)
 
 Requires:          perl(Data::Validate::IP)
 Requires:          perl(Digest::SHA1)
@@ -40,23 +60,22 @@ updates for multiple addresses, MX, wildcards, abuse avoidance, retrying
 the failed updates and sending update status to syslog and through e-mail.
 
 %prep
-%setup -q
-# Move pid file location for running as non-root.
-sed -e 's|/var/run/ddclient.pid|%{rundir}/%{name}.pid|' \
-    -i sample-etc_ddclient.conf
+%autosetup -p 1
 # Send less mail by default, eg. not on every shutdown.
-sed -e 's|^mail=|#mail=|' -i sample-etc_ddclient.conf
-# Backwards compatibility from pre-3.6.6-1
-sed -e 's|/etc/ddclient/|%{_sysconfdir}/|' -i %{name}
+sed -e 's|^mail=|#mail=|' -i ddclient.conf.in
+./autogen
 
+
+%configure \
+ --runstatedir=%{rundir}
 
 %build
-#nothing to do
+make
 
 
 %install
 install -D -p -m 755 %{name} $RPM_BUILD_ROOT%{_sbindir}/%{name}
-install -D -p -m 600 sample-etc_ddclient.conf \
+install -D -p -m 600 ddclient.conf \
     $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.conf
 install -D -p -m 644 %{SOURCE1} \
     $RPM_BUILD_ROOT%{_sysconfdir}/rwtab.d/%{name}
@@ -76,6 +95,10 @@ touch $RPM_BUILD_ROOT%{cachedir}/%{name}.cache
 
 # Correct permissions for later usage in %doc
 chmod 644 sample-*
+
+
+%check
+make VERBOSE=1 check
 
 
 %pre
@@ -99,7 +122,7 @@ fi
 
 %files
 %license COPYING COPYRIGHT
-%doc README* RELEASENOTE ChangeLog Changelog.old sample-etc_ppp_ip-up.local
+%doc README* ChangeLog.md sample-etc_ppp_ip-up.local
 %doc sample-etc_dhclient-exit-hooks sample-etc_cron.d_ddclient
 %doc sample-ddclient-wrapper.sh sample-etc_dhcpc_dhcpcd-eth0.exe
 
@@ -120,8 +143,8 @@ fi
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Thu Sep 14 2023 kenneth topp <toppk@bllue.org>  - 3.10.0-1
+- Update to new upstream release 3.10.0
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

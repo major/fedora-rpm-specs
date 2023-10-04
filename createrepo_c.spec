@@ -18,8 +18,11 @@
 
 %if 0%{?rhel} && 0%{?rhel} < 7
 %bcond_with libmodulemd
+# dnf supports zstd since 8.4: https://bugzilla.redhat.com/show_bug.cgi?id=1914876
+%bcond_with zstd
 %else
 %bcond_without libmodulemd
+%bcond_without zstd
 %endif
 
 %if 0%{?rhel} && 0%{?rhel} <= 8
@@ -31,7 +34,7 @@
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -45,7 +48,6 @@ BuildRequires:  glib2-devel >= 2.22.0
 BuildRequires:  libcurl-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
-BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  rpm-devel >= 4.8.0-28
 BuildRequires:  sqlite-devel
 BuildRequires:  xz
@@ -70,6 +72,9 @@ BuildRequires:  bash-completion
 Requires: rpm >= 4.9.0
 %if %{with drpm}
 BuildRequires:  drpm-devel >= 0.4.0
+%endif
+%if %{with zstd}
+BuildRequires:  pkgconfig(libzstd)
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -121,6 +126,7 @@ pushd build-py3
       -DWITH_ZCHUNK=%{?with_zchunk:ON}%{!?with_zchunk:OFF} \
       -DWITH_LIBMODULEMD=%{?with_libmodulemd:ON}%{!?with_libmodulemd:OFF} \
       -DWITH_LEGACY_HASHES=%{?with_legacy_hashes:ON}%{!?with_legacy_hashes:OFF} \
+      -DWITH_ZSTD=%{?with_zstd:ON}%{!?with_zstd:OFF} \
       -DENABLE_DRPM=%{?with_drpm:ON}%{!?with_drpm:OFF}
   make %{?_smp_mflags} RPM_OPT_FLAGS="%{optflags}"
   # Build C documentation
@@ -189,6 +195,9 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Oct 02 2023 Petr Pisar <ppisar@redhat.com> - 1.0.0-2
+- Specify a dependency on libzstd as in an upstream
+
 * Mon Jul 31 2023 Ales Matej <amatej@redhat.com> - 1.0.0-1
 - Update to 1.0.0
 - Keep location_base on update if no baseurl defined in args

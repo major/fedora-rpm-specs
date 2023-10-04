@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-rime
-Version:        5.1.1
+Version:        5.1.2
 Release:        %autorelease
 Summary:        RIME support for Fcitx
 License:        LGPLv2+

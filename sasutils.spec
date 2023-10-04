@@ -1,6 +1,6 @@
 Name:           sasutils
-Version:        0.4.0
-Release:        3%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Serial Attached SCSI (SAS) utilities
 
 License:        ASL 2.0
@@ -40,6 +40,7 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
 %{_bindir}/sas_discover
 %{_bindir}/sas_mpath_snic_alias
 %{_bindir}/sas_sd_snic_alias
+%{_bindir}/sas_st_snic_alias
 %{_bindir}/ses_report
 %{python3_sitelib}/sasutils/
 %{python3_sitelib}/sasutils-*-py%{python3_version}.egg-info
@@ -51,6 +52,10 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
 %license LICENSE.txt
 
 %changelog
+* Mon Oct  2 2023 Stephane Thiell <sthiell@stanford.edu> 0.5.0-1
+- update version
+- add sas_st_snic_alias
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

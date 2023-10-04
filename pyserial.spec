@@ -3,7 +3,7 @@ Name: pyserial
 Version: 3.5
 Release: 6%{?dist}
 Source0: %pypi_source
-License: BSD
+License: BSD-3-Clause
 URL: http://pypi.python.org/pypi/pyserial
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools

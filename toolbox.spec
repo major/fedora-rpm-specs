@@ -11,17 +11,20 @@ Version:       0.0.99.4
 %gometa -f
 %endif
 
-Release:       3%{?dist}
+Release:       5%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
 URL:           https://containertoolbx.org/
 Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}-vendored.tar.xz
+
+# RHEL specific
 Source1:       %{name}.conf
 
 # Upstream
-Patch0:        toolbox-Don-t-use-podman-1-when-generating-the-comp.patch
-Patch1:        toolbox-Sprinkle-a-debug-log.patch
+Patch0:        toolbox-Build-fixes.patch
+Patch1:        toolbox-cmd-initContainer-Be-aware-of-security-hardened-moun.patch
+Patch2:        toolbox-Simplify-removing-the-user-s-password.patch
 
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
@@ -168,6 +171,7 @@ The %{name}-tests package contains system tests for %{name}.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %if 0%{?fedora}
 %ifnarch ppc64
@@ -184,7 +188,9 @@ The %{name}-tests package contains system tests for %{name}.
 %patch201 -p1
 %endif
 
+%if 0%{?rhel} <= 9
 %patch202 -p1
+%endif
 %endif
 
 %gomkdir -s %{_builddir}/%{extractdir}/src %{?rhel:-k}
@@ -198,7 +204,9 @@ export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_
 %meson \
 %if 0%{?rhel}
     -Dfish_completions_dir=%{_datadir}/fish/vendor_completions.d \
+%if 0%{?rhel} <= 9
     -Dmigration_path_for_coreos_toolbox=true \
+%endif
 %endif
     -Dprofile_dir=%{_sysconfdir}/profile.d \
     -Dtmpfiles_dir=%{_tmpfilesdir} \
@@ -246,6 +254,13 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Mon Oct 02 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-5
+- Drop github.com/coreos/toolbox compatibility from RHEL 10 onwards
+
+* Mon Oct 02 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-4
+- Be aware of security hardened mount points
+- Simplify removing the user's password
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.99.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,23 +5,22 @@
 
 %global incname ibmtss
 
-Name:		tss2
-Version:	1.6.0
-Release:	8%{?dist}
-Epoch:	        1
-Summary:	IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
+Name:           tss2
+Version:        2.1.1
+Release:        1%{?dist}
+Epoch:          1
+Summary:        IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
 
-License:	BSD-3-Clause AND LicenseRef-TCGL
-URL:		http://sourceforge.net/projects/ibmtpm20tss/
-Source0:	https://sourceforge.net/projects/ibmtpm20tss/files/ibmtss%{version}.tar.gz
-Patch0:         tss2-1.6.0-manpage-cleanup.patch
+License:        BSD-3-Clause AND TCGL
+URL:            http://sourceforge.net/projects/ibmtpm20tss/
+Source0:        https://sourceforge.net/projects/ibmtpm20tss/files/ibmtss%{version}.tar.gz
 
-BuildRequires: automake
-BuildRequires: autoconf
-BuildRequires: libtool
+BuildRequires:  automake
+BuildRequires:  autoconf
+BuildRequires:  libtool
 BuildRequires:  gcc
-BuildRequires:	openssl-devel
-Requires:	openssl
+BuildRequires:  openssl-devel
+Requires:       openssl
 
 %description
 TSS2 is a user space Trusted Computing Group's Software Stack (TSS) for
@@ -29,12 +28,12 @@ TPM 2.0.  It implements the functionality equivalent to the TCG TSS
 working group's ESAPI, SAPI, and TCTI layers (and perhaps more) but with
 a hopefully far simpler interface.
 
-It comes with about 80 "TPM tools" that can be used for rapid prototyping,
+It comes with about 120 "TPM tools" that can be used for rapid prototyping,
 education and debugging. 
 
 %package devel
-Summary:	Development libraries and headers for IBM's TSS 2.0
-Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Summary:        Development libraries and headers for IBM's TSS 2.0
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
 Development libraries and headers for IBM's TSS 2.0. You will need this in
@@ -56,31 +55,36 @@ find %{buildroot} -type f -name "*.la" -delete -print
 
 %ldconfig_scriptlets
 
+# files in the tss2 package
 %files
 %license LICENSE
+# becomes /usr/bin/tss*, the command line utilities
 %{_bindir}/tss*
-%{_libdir}/libibmtss.so.*
-%{_libdir}/libibmtssutils.so.*
+# becomes /usr/lib64
+%{_libdir}/libibmtss.so.2
+%{_libdir}/libibmtss.so.2.*
+%{_libdir}/libibmtssutils.so.2
+%{_libdir}/libibmtssutils.so.2.*
 %attr(0644, root, root) %{_mandir}/man1/tss*.1*
 
+# files devel is the tss2-devel package
 %files devel
+# becomes /usr/include/ibmtss, the headers
 %{_includedir}/%{incname}
+# becomes /usr/lib64
 %{_libdir}/libibmtss.so
 %{_libdir}/libibmtssutils.so
-%doc ibmtss.doc
+%doc ibmtss.docx
 
 %changelog
+
+* Fri Sep 29 2023 Ken Goldman <kgoldman@us.ibm.com> - 1:2.1.1-1
+- Updates to release 2.1
+
 * Mon Aug 21 2023 Jerry Snitselaar <jsnitsel@redhat.com> - 1:1.6.0-8
 - migrated to SPDX license
-resolves: rhbz#2219549
+- resolves: rhbz#2219549* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-5
 
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Mar 03 2023 Jerry Snitselaar <jsnitsel@redhat.com> - 1:1.6.0-6
-- Rebuild after un-retiring package.
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-4

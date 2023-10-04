@@ -30,6 +30,9 @@ Patch0002:  license.patch
 
 BuildRequires:  cargo-rpm-macros
 
+# current bindgen limitation
+ExclusiveArch: x86_64 aarch64
+
 %description
 A library for handling 2D and 3D virtio-gpu hypercalls, along with graphics
 swapchain allocation and mapping.

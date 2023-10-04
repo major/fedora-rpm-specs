@@ -63,8 +63,8 @@ Requires:       hicolor-icon-theme
 Requires:       vulkan-loader%{?_isa}
 
 Recommends:     (mangohud(x86-32) if glibc(x86-32))
-Recommends:     %{name}-mangoplot
 
+Suggests:       %{name}-mangoplot
 Suggests:       goverlay
 
 Provides:       bundled(imgui) = %{imgui_ver}
@@ -80,7 +80,7 @@ To install GUI front-end:
 
 To install local visualization "mangoplot":
 
-  # dnf install mangoplot}
+  # dnf install %{name}-mangoplot}
 
 %description %{_description}
 

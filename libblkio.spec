@@ -5,14 +5,14 @@ Version:       1.3.0
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 # To create the vendor tarball:
 #   tar xf %%{name}-v%%{version}.tar.bz2 ; pushd %%{name}-v%%{version} ; \
 #   cargo vendor && tar Jcvf ../%%{name}-v%%{version}-vendor.tar.xz vendor/ ; popd
 Source1:       %{name}-v%{version}-vendor.tar.xz
-License:       (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND MIT AND BSD-3-Clause AND Unicode-DFS-2016
+License:       (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND BSD-3-Clause
 
 # Basic build requirements.
 BuildRequires: gcc, gcc-c++
@@ -109,6 +109,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Mon Oct 02 2023 Alberto Faria <afaria@redhat.com> - 1.3.0-3
+- Update overall license
+
 * Mon Aug 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-2
 - Remove const-cstr dependency (RHBZ#2214208)
 

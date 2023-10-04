@@ -25,8 +25,15 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 5%{?dist}
-License: ASL 2.0
+Release: 6%{?dist}
+# Apache-2.0:  everything
+# RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
+#              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
+#
+# LicenseRef-Fedora-Public-Domain: crypto\crypt_blowfish.c, crypto\crypt_blowfish.h
+# Beerware:    passwd\apr_md5.c
+# OLDAP-2.7:   ldap/apr_ldap_url.c
+License: Apache-2.0 AND (Beerware AND LicenseRef-Fedora-Public-Domain AND OLDAP-2.7)
 URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
 Patch1: apr-util-1.2.7-pkgconf.patch
@@ -234,6 +241,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Oct 02 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-6
+- SPDX migration
+
 * Wed Aug 30 2023 Florian Weimer <fweimer@redhat.com> - 1.6.3-5
 - Restore configure script port to C99
 

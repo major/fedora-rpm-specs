@@ -1,5 +1,11 @@
 %bcond_without check
 
+%if 0%{?rhel}
+%global bundled_rust_deps 1
+%else
+%global bundled_rust_deps 0
+%endif
+
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           snapshot
@@ -56,15 +62,19 @@ Take pictures and videos on your computer, tablet, or phone.
 %prep
 %autosetup -p1 -n snapshot-%{tarball_version}
 
+%if ! 0%{?bundled_rust_deps}
 rm -rf vendor
 %cargo_prep
+%endif
 
 
+%if ! 0%{?bundled_rust_deps}
 %generate_buildrequires
 %cargo_generate_buildrequires
 cd aperture
 %cargo_generate_buildrequires
 cd ~-
+%endif
 
 
 %build

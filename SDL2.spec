@@ -9,8 +9,8 @@
 %global libdecor_majver 0
 
 Name:           SDL2
-Version:        2.26.5
-Release:        2%{?dist}
+Version:        2.28.4
+Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -158,6 +158,7 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 %{_libdir}/cmake/SDL2/SDL2Config*.cmake
 %{_libdir}/cmake/SDL2/SDL2Targets*.cmake
 %{_libdir}/cmake/SDL2/SDL2mainTargets*.cmake
+%{_libdir}/cmake/SDL2/sdlfind.cmake
 %{_includedir}/SDL2
 %{_datadir}/aclocal/*
 %{_libdir}/libSDL2_test.a
@@ -169,6 +170,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 %{_libdir}/cmake/SDL2/SDL2staticTargets*.cmake
 
 %changelog
+* Mon Oct  2 2023 Tom Callaway <spot@fedoraproject.org> - 2.28.4-1
+- update to 2.28.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

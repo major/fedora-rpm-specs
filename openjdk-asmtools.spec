@@ -1,23 +1,24 @@
 #Definig major and minor because Version allows only '-'
 %global major 8.0
-%global minor b02.ea
+%global minor b09
 #Using pre-release snapshot versioning from at8 branch
-%global commit c0e14f4fbe2efdbbb51cd2818880be8fdfdfc634 
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20230113
+#%%global commit c0e14f4fbe2efdbbb51cd2818880be8fdfdfc634 
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+#%%global commitdate 20230113
 
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
-Release:        0.6.%{commitdate}.git%{shortcommit}%{?dist}
+#Release:        0.6.%%{commitdate}.git%%{shortcommit}%%{?dist}
+Release:        1%{?dist}
 Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files
 
 License:        GPLv2+
 URL:            https://github.com/openjdk/asmtools
 #If we use regular versioning then Source0 looks as below
-#Source0:        https://github.com/openjdk/%%{name}/archive/%%{major}-%%{minor}.tar.gz
+Source0:        https://github.com/openjdk/asmtools/archive/%{major}-%{minor}.tar.gz
 #As we are using pre-release snapshot versioning, Source0 looks as below
 #To download source: spectool -g openjdk-asmtools.spec
-Source0:        https://github.com/openjdk/asmtools/archive/%{commit}/%{name}-%{shortcommit}.tar.xz
+#Source0:        https://github.com/openjdk/asmtools/archive/%%{commit}/%%{name}-%%{shortcommit}.tar.xz
 Source1:        openjdk-asmtools.in
 Source2:        openjdk-asmtools.1
 
@@ -51,9 +52,9 @@ This package contains the API documentation for %{name}.
 
 %prep
 #This is commented till the version on the master branch is released
-#%%setup -q -n asmtools-%%{version}
+%autosetup -n asmtools-%{major}-%{minor}
 #Added to handle pre-release version
-%autosetup -n asmtools-%{commit}
+#%%autosetup -n asmtools-%{commit}
 cd maven
 sed -i "s|ln -sv|cp -r|g" mvngen.sh
 sh mvngen.sh
@@ -68,7 +69,7 @@ cd maven
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 xmvn -version
 # there are two test failures
-%mvn_build --xmvn-javadoc
+%mvn_build --xmvn-javadoc --force
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -93,7 +94,16 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %attr(755, root, -) %{_bindir}/*
 %{_mandir}/man1/openjdk-asmtools.1*
 
+%files javadoc -f maven/.mfiles-javadoc
+%doc README.md
+%license LICENSE
+
+
 %changelog
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b09-1
+- bumped to freshly released 8.0.b09
+- javadoc reapeared
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b02.ea-0.6.20230113.gitc0e14f4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

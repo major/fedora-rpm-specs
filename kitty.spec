@@ -43,7 +43,7 @@ Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 # golang.org/x/image: BSD-3-Clause
 # golang.org/x/sys: BSD-3-Clause
 # howett.net/plist: BSD-2-Clause AND BSD-3-Clause
-License:        GPL-3.0-only AND LGPL-2.1-or-later AND Zlib AND BSD-1-Clause AND MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0 AND MPL-2.0 AND (BSD-2-Clause AND BSD-3-Clause)
+License:        GPL-3.0-only AND LGPL-2.1-or-later AND Zlib AND BSD-1-Clause
 URL:            https://sw.kovidgoyal.net/kitty
 Source0:        https://github.com/kovidgoyal/kitty/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source4:        https://github.com/kovidgoyal/kitty/releases/download/v%{version}/%{name}-%{version}.tar.xz.sig
@@ -140,6 +140,7 @@ Provides:       %{name}-fish-integration = %{version}-%{release}
 # machine.
 Requires:       %{name}-terminfo = %{version}-%{release}
 Requires:       %{name}-shell-integration = %{version}-%{release}
+Requires:       %{name}-kitten%{?_isa} = %{version}-%{release}
 
 # Very weak dependencies, these are required to enable all features of kitty's
 # "kittens" functions install separately
@@ -182,6 +183,7 @@ Suggests:       ImageMagick%{?_isa}
 # terminfo package
 %package        terminfo
 Summary:        The terminfo file for Kitty Terminal
+License:        GPL-3.0-only
 BuildArch:      noarch
 
 Requires:       ncurses-base
@@ -194,15 +196,27 @@ The terminfo file for Kitty Terminal.
 # shell-integration package
 %package        shell-integration
 Summary:        Shell integration scripts for %{name}
+License:        GPL-3.0-only AND MIT
 BuildArch:      noarch
 
+Recommends:     %{name}-kitten
+
 %description    shell-integration
+%{summary}.
+
+# kitten package
+%package        kitten
+Summary:        The kitten executable
+License:        GPL-3.0-only AND MIT AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0 AND MPL-2.0 AND (BSD-2-Clause AND BSD-3-Clause)
+
+%description    kitten
 %{summary}.
 
 # doc package
 %if %{with doc}
 %package        doc
 Summary:        Documentation for %{name}
+License:        GPL-3.0-only AND MIT
 BuildArch:      noarch
 
 BuildRequires:  python3dist(sphinx)
@@ -233,9 +247,8 @@ find -type f -name "*.py" -exec sed -e 's|/usr/bin/env python3|%{__python3}|g'  
                                     -e 's|/usr/bin/env -S kitty|/usr/bin/kitty|g' \
                                     -i "{}" \;
 
-mkdir -p src/kitty
-ln -s ../../tools src/kitty/tools
-ln -s ../../kittens src/kitty/kittens
+mkdir src
+ln -s ../ src/kitty
 
 
 %build
@@ -308,7 +321,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %endif
 %license LICENSE
 %{_bindir}/%{name}
-%{_bindir}/kitten
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.{png,svg}
 %{_libdir}/%{name}/
@@ -317,6 +329,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_mandir}/man{1,5}/*.{1,5}*
 %endif
 %{_metainfodir}/*.xml
+
+%files kitten
+%license LICENSE
+%{_bindir}/kitten
 
 %files terminfo
 %license LICENSE

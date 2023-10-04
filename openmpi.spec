@@ -59,7 +59,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -287,6 +287,10 @@ cd -
 # Create cmake dir
 mkdir -p %{buildroot}%{_libdir}/%{name}/lib/cmake/
 
+# Create directories for OpenMPI packages with development files
+mkdir -p %{buildroot}%{_libdir}/%{name}/lib/openmpi/cmake
+mkdir -p %{buildroot}%{_libdir}/%{name}/include
+
 # Remove extraneous wrapper link libraries (bug 814798)
 sed -i -e s/-ldl// -e s/-lhwloc// \
   %{buildroot}%{_libdir}/%{name}/share/openmpi/*-wrapper-data.txt
@@ -309,6 +313,8 @@ make check
 %dir %{_libdir}/%{name}/bin
 %dir %{_libdir}/%{name}/lib
 %dir %{_libdir}/%{name}/lib/openmpi
+%dir %{_libdir}/%{name}/lib/openmpi/cmake
+%dir %{_libdir}/%{name}/include
 %dir %{_mandir}/%{namearch}
 %dir %{_mandir}/%{namearch}/man*
 %config(noreplace) %{_sysconfdir}/%{namearch}/*
@@ -406,6 +412,9 @@ make check
 
 
 %changelog
+* Sat Sep 30 2023 Benson Muite <benson_muite@emailplus.org> - 4.1.5-7
+- Add include and cmake directories for development files for OpenMPI packages
+
 * Fri Sep 22 2023 Orion Poplawski <orion@nwra.com> - 4.1.5-6
 - Rebuild for pmix 4.1.3 (bz#2240042)
 

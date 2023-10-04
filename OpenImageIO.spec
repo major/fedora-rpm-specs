@@ -9,8 +9,8 @@ Summary:        Library for reading and writing images
 License:        BSD-3-Clause AND MIT
 # The included fmtlib is MIT licensed
 # src/include/OpenImageIO/fmt
-URL:            https://sites.google.com/site/openimageio/home
-Source0:        https://github.com/%{name}/oiio/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://openimageio.org/
+Source0:        https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/v%{version}/%{name}-%{version}.tar.gz
 # Images for test suite
 #Source1:        https://github.com/OpenImageIO/oiio-images/archive/master/oiio-images.tar.gz
 

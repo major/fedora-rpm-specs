@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-lua
-Version:        5.0.10
+Version:        5.0.11
 Release:        %autorelease
 Summary:        Lua support for fcitx
 License:        LGPLv2+

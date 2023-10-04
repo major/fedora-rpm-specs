@@ -20,6 +20,8 @@
 # pure PHP library
 %global pk_vendor    maxmind-db
 %global pk_project   reader
+%global _configure   ../ext/configure
+
 %if 0%{?fedora}
 %bcond_without       tests
 %else
@@ -29,7 +31,7 @@
 Summary:       MaxMind DB Reader extension
 Name:          php-maxminddb
 Version:       1.11.0
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       Apache-2.0
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
@@ -102,6 +104,8 @@ Suggests:      geolite2-city
 # From phpcompatifo report for 1.3.0
 Requires:      php-filter
 Requires:      php-spl
+# Autoloader
+Requires:      php-composer(fedora/autoloader)
 
 Provides:      php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 
@@ -127,10 +131,7 @@ Autoloader: %{_datadir}/php/MaxMind/Db/Reader/autoload.php
     --output src/MaxMind/Db/Reader/autoload.php \
     src/MaxMind/Db
 
-mv ext NTS
-
-cd NTS
-
+cd ext
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_MAXMINDDB_VERSION/{s/.* "//;s/".*$//;p}'  php_maxminddb.h)
 if test "x${extver}" != "x%{version}%{?gh_date:-dev}"; then
@@ -139,9 +140,9 @@ if test "x${extver}" != "x%{version}%{?gh_date:-dev}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# duplicate for ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Drop in the bit of configuration
@@ -152,19 +153,20 @@ EOF
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd ext
+%{__phpize}
+
+cd ../NTS
 %configure \
-    --with-php-config=%{_bindir}/php-config \
+    --with-php-config=%{__phpconfig} \
     --with-libdir=%{_lib} \
     --with-maxminddb
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
-    --with-php-config=%{_bindir}/zts-php-config \
+    --with-php-config=%{__ztsphpconfig} \
     --with-libdir=%{_lib} \
     --with-maxminddb
 make %{?_smp_mflags}
@@ -193,32 +195,27 @@ cp -pr src/MaxMind/Db   %{buildroot}%{_datadir}/php/MaxMind/Db
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_zts}
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 %endif
 ret=0
 
-cd NTS
+cd ext
 : Upstream test suite for NTS extension
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php --show-diff || ret=1
+%{__php} -n run-tests.php -q --show-diff || ret=1
 
 %if %{with_zts}
-cd ../ZTS
 : Upstream test suite for ZTS extension
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php --show-diff || ret=1
+%{__ztsphp} -n run-tests.php -q --show-diff || ret=1
 %endif
 
 %if %{with tests}
@@ -264,6 +261,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct  2 2023 Remi Collet <remi@remirepo.net> - 1.11.0-10
+- add missing dependency on fedora/autoloader
+- build out of sources tree
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

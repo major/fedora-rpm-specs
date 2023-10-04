@@ -1,5 +1,5 @@
 %define		mainver		0.7.1
-%define		baserelease	10
+%define		baserelease	11
 %define		repoid		18105
 
 
@@ -36,7 +36,12 @@ make greeting cards easily by choosing a template and changing the words.
 %patch -P0 -p1 -b .gcc41
 %patch -P1 -p1 -b .strlcpy
 
-sed -i -e 's|grep klineedit|grep -i klineedit|' configure
+cp -p configure configure.orig
+sed -i configure \
+	-e 's|grep klineedit|grep -i klineedit|' \
+	-e '\@x_direct_test_function@,\@main@s@int@#include <X11/Intrinsic.h>\nint@' \
+	-e 's|\(${x_direct_test_function}\)()|\1(0)|' \
+	%{nil}
 sed -i configure \
 	-e 's|hardcode_libdir_flag_spec=|hardcode_libdir_flag_spec_goodby=|'
 
@@ -49,10 +54,12 @@ unset QTDIR
 # explicitly source
 source ./qt.sh
 
+# Don't call autoheader
+touch -r configure \
+	config.h.in config.h
+
 %configure
 
-# Don't call autoheader
-touch config.h.in config.h
 # Remove rpath
 for f in `find . -name Makefile` ; do
 	%{__sed} -i.rpath -e 's|^\([A-Z][A-Z]*_RPATH = \).*|\1|' $f
@@ -109,6 +116,9 @@ done
 %{_defaultdocdir}/HTML/en/%{name}/
 
 %changelog
+* Mon Oct  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.1-11
+- Fix X function dection in configure with -Werror=implicit-function-declaration
+
 * Thu Jul 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.1-10
 - Fix strlcpy detection (with glibc 2.38), by fixing -pedantic-error
   with std::exit usage

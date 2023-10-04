@@ -16,7 +16,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        FTP transport adapter for python-requests
 
 License:        ASL 2.0
@@ -34,8 +34,10 @@ Patch2:         PR28-02-Adding-code-3-to-retr4ieve-status_code.patch
 Patch3:         PR28-03-fix-warning-in-interpreting-ftp-status-codes-minor-d.patch
 # 2caa427 is only test updates, tests not in pypi tarball
 # from 7321ab3
-Patch5:         PR28-05-Improve-logging-in-status-code-extraction.patch 
+Patch5:         PR28-05-Improve-logging-in-status-code-extraction.patch
 
+# Remove use of the cgi module, which is only used to implement STOR
+Patch6:         0001-Remove-use-of-the-cgi-module.patch
 
 %description
 Requests-FTP is an implementation of a very stupid FTP transport adapter for
@@ -114,6 +116,9 @@ rm -rf requests_ftp.egg-info
 %endif
 
 %changelog
+* Mon Oct  2 2023 David Shea <reallylongword@gmail.com> - 0.3.1-30
+- Remove use of the cgi module
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

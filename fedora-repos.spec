@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        40
-Release:        0.1%{?eln:.eln%{eln}}
+Release:        0.2%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -136,7 +136,9 @@ where client's system will pull OSTree updates.
 
 
 %package eln
-Summary: ELN repo definitions
+Summary:        ELN repo definitions
+Requires:       fedora-gpg-keys >= %{version}-%{release}
+Requires:       system-release(%{version})
 
 %description eln
 This package provides repository files for ELN (Enterprise Linux Next)
@@ -395,6 +397,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Wed Sep 27 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 40-0.2
+- Allow ELN installation without Rawhide repos
+
 * Tue Aug 08 2023 Samyak Jain <samyak.jn11@gmail.com> - 40-0.1
 - Setup for rawhide being F40
 

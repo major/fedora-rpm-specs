@@ -16,7 +16,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.16.0~b1
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -60,7 +60,12 @@ Obsoletes: ansible-base < 2.10.6-1
 
 BuildRequires: make
 BuildRequires: python%{python3_pkgversion}-devel
+# This is only used in %%prep to relax the required setuptools version,
+# which is not necessary in RHEL 10+.
+# Not using it in RHEL avoids unwanted dependencies.
+%if %{undefined rhel}
 BuildRequires: tomcli >= 0.3.0
+%endif
 # Needed to build manpages from source.
 BuildRequires: python%{python3_pkgversion}-docutils
 
@@ -106,9 +111,12 @@ This package installs extensive documentation for ansible-core
 
 %prep
 %autosetup -p1 -n ansible-%{uversion} -a1
-# Relax setuptools constraint
+# Relax setuptools constraint on Fedora
+# Future RHELs have new enough setuptools
+%if %{undefined rhel}
 tomcli-set pyproject.toml lists replace \
     'build-system.requires' 'setuptools >=.*' 'setuptools'
+%endif
 
 sed -i -s 's|/usr/bin/env python|%{python3}|' \
     bin/ansible-test \
@@ -263,6 +271,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Mon Oct 02 2023 Miro Hrončok <mhroncok@redhat.com> - 2.16.0~b1-2
+- Do not use tomcli in Fedora ELN, avoid pulling unwanted dependencies
+
 * Wed Sep 27 2023 Maxwell G <maxwell@gtmx.me> - 2.16.0~b1-1
 - Update to 2.16.0~b1.
 

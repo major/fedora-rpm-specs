@@ -1,8 +1,8 @@
 Summary: Utility to set/show the host name or domain name
 Name: hostname
 Version: 3.23
-Release: 9%{?dist}
-License: GPLv2+
+Release: 10%{?dist}
+License: GPL-2.0-or-later
 URL: http://packages.qa.debian.org/h/hostname.html
 Source0: http://ftp.de.debian.org/debian/pool/main/h/hostname/hostname_%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
@@ -24,7 +24,7 @@ DNS name, and to display or set its hostname or NIS domain name.
 %prep
 %setup -q -n hostname
 cp %{SOURCE1} %{SOURCE2} %{SOURCE3} .
-%patch1 -p1
+%patch -P 1 -p1
 
 %build
 make CFLAGS="%{optflags} $CFLAGS -D_GNU_SOURCE" LDFLAGS="$RPM_LD_FLAGS"
@@ -61,6 +61,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 02 2023 Martin Osvald <mosvald@redhat.com> - 3.23-10
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.23-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

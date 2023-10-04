@@ -3,17 +3,22 @@
 Summary: Tools for searching and reading man pages
 Name: man-db
 Version: 2.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 URL: http://www.nongnu.org/man-db/
 
 Source0: http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.xz
-Source1: man-db.crondaily
-Source2: man-db.sysconfig
-Source3: man-db-cache-update.service
-Source4: man-db-restart-cache-update.service
+Source1: http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.xz.asc
+# Man-db GPG key is stored in a different name which makes it hard to fetch
+# It was downloaded here: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xac0a4ff12611b6fccf01c111393587d97d86500b
+Source2: 0xac0a4ff12611b6fccf01c111393587d97d86500b
+
+Source3: man-db.crondaily
+Source4: man-db.sysconfig
+Source5: man-db-cache-update.service
+Source6: man-db-restart-cache-update.service
 
 Obsoletes: man < 2.0
 Provides: man = %{version}
@@ -27,6 +32,7 @@ BuildRequires: gcc
 BuildRequires: systemd
 BuildRequires: gdbm-devel, gettext, groff, less, libpipeline-devel, zlib-devel
 BuildRequires: po4a, perl-interpreter, perl-version
+BuildRequires: gnupg2
 Recommends: glibc-gconv-extra
 
 Requires(post): %{_sbindir}/update-alternatives
@@ -53,6 +59,7 @@ BuildArch: noarch
 This package provides periodic update of man-db cache.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -227,6 +234,9 @@ fi
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Fri Sep 29 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.12.0-2
+- Add GPG verify on the package
+
 * Wed Sep 27 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.12.0-1
 - Rebase to version 2.12.0
 - Patch0 was upstreamed

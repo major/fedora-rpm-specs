@@ -2,7 +2,7 @@ Name:           spice-vdagent
 Version:        0.22.1
 Release:        4%{?dist}
 Summary:        Agent for Spice guests
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://spice-space.org/
 Source0:        https://spice-space.org/download/releases/%{name}-%{version}.tar.bz2
 Source1:        https://spice-space.org/download/releases/%{name}-%{version}.tar.bz2.sig

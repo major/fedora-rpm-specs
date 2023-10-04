@@ -10,7 +10,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -25,10 +25,7 @@ Release: 1%{?dist}
 %global __provides_exclude ^perl\\(AnnotateInlinedCIDs\\)$
 
 Summary: A high-performance email, contacts and calendar server
-# Cannot be converted to SPDX format yet due to:
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/249
-# https://github.com/spdx/license-list-XML/issues/2044
-License: BSD
+License: BSD-Attribution-HPND-disclaimer
 URL: http://www.cyrusimap.org/
 
 Source0: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version/cyrus-imapd-%version.tar.gz
@@ -815,6 +812,9 @@ exclude+=("!Master.maxforkrate")
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Mon Oct 02 2023 Martin Osvald <mosvald@redhat.com> - 3.8.1-2
+- SPDX migration
+
 * Wed Sep 13 2023 Martin Osvald <mosvald@redhat.com> - 3.8.1-1
 - New version 3.8.1 (rhbz#2238280)
 - Small fix for libs sub-package to better conform with packaging guidelines

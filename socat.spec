@@ -3,8 +3,8 @@
 Summary: Bidirectional data relay between two data channels ('netcat++')
 Name: socat
 Version: 1.7.4.4
-Release: 3%{?dist}
-License: GPLv2
+Release: 4%{?dist}
+License: GPL-2.0-only
 Url:  http://www.dest-unreach.org/socat/
 Source: http://www.dest-unreach.org/socat/download/%{name}-%{version}.tar.gz
 
@@ -75,6 +75,9 @@ export OD_C=/usr/bin/od
 %doc %{_mandir}/man1/*
 
 %changelog
+* Mon Oct 02 2023 Martin Osvald <mosvald@redhat.com> - 1.7.4.4-4
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

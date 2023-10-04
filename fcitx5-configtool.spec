@@ -1,7 +1,7 @@
 %global translation_domain org.fcitx.fcitx5.kcm
 
 Name:           fcitx5-configtool
-Version:        5.1.0
+Version:        5.1.1
 Release:        %autorelease
 Summary:        Configuration tools used by fcitx5
 License:        GPLv2+
@@ -119,6 +119,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %files -n fcitx5-migrator
 %{_bindir}/fcitx5-migrator
 %{_libdir}/libFcitx5Migrator.so.5*
+%{_libdir}/libFcitx5Migrator.so.1
 %{_datadir}/applications/org.fcitx.fcitx5-migrator.desktop
 
 %files -n fcitx5-migrator-devel

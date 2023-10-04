@@ -2,16 +2,22 @@
 
 Name:               python-%{modname}
 Version:            0.3.5
-Release:            23%{?dist}
+Release:            24%{?dist}
 Summary:            Logging utilities
 
 License:            BSD
 URL:                https://pypi.io/project/logutils
 Source0:            https://pypi.io/packages/source/l/%{modname}/%{modname}-%{version}.tar.gz
 
+Patch0:             0001-remove-test_hashandlers.patch
+
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
+BuildRequires:      python3-setuptools
+BuildRequires:      python3-pytest
+BuildRequires:      python3-redis
+BuildRequires:      /usr/bin/redis-server
 
 %global _description\
 The logutils package provides a set of handlers for the Python standard\
@@ -38,7 +44,7 @@ recent Python releases, but are usable with older versions of Python and so
 are packaged here.
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version} -p 1
 
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
@@ -50,7 +56,8 @@ rm -rf %{modname}.egg-info
 %py3_install
 
 %check
-%{__python3} setup.py test
+
+%pytest
 
 %files -n python3-%{modname}
 %license LICENSE.txt
@@ -59,6 +66,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Mon Oct 02 2023 Justin Caratzas <jcaratzas@ibm.com> - 0.3.5-24
+- Use setuptools instead of distutils, fix unit tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

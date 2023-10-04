@@ -23,17 +23,19 @@
 %global with_tests 0%{!?_without_tests:1}
 %endif
 
-%global upstream_version 4.2.3
+%global upstream_version 4.2.4
 #global upstream_prever  RC1
+%global sources          %{proj_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/pecl_http
-Source0:        https://pecl.php.net/get/%{proj_name}-%{upstream_version}%{?upstream_prever}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 # From http://www.php.net/manual/en/http.configuration.php
 Source1:        %{proj_name}.ini
@@ -104,8 +106,7 @@ These are the files needed to compile programs using HTTP extension.
 
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
-mv %{proj_name}-%{upstream_version}%{?upstream_prever} NTS
-cd NTS
+cd %{sources}
 extver=$(sed -n '/#define PHP_PECL_HTTP_VERSION/{s/.* "//;s/".*$//;p}' php_http.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:dev}"; then
    : Error: Upstream HTTP version is now ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?gh_date:dev}.
@@ -116,9 +117,9 @@ cd ..
 
 cp %{SOURCE1} %{ini_name}
 
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
@@ -139,15 +140,17 @@ peclconf() {
   --with-php-config=$1
 grep IDNA config.h
 }
-cd NTS
-%{_bindir}/phpize
-peclconf %{_bindir}/php-config
+
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+peclconf %{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-peclconf %{_bindir}/zts-php-config
+peclconf %{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -167,7 +170,7 @@ install -Dpm644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Test & Documentation
-cd NTS
+cd %{sources}
 for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{proj_name}/$i
 done
@@ -177,18 +180,18 @@ done
 
 
 %check
-export REPORT_EXIT_STATUS=1
+cd %{sources}
 export SKIP_ONLINE_TESTS=1
 
 : ignore tests with erratic results
-rm ?TS/tests/client021.phpt
-rm ?TS/tests/client022.phpt
-rm ?TS/tests/client025.phpt
-rm ?TS/tests/client027.phpt
+rm tests/client021.phpt
+rm tests/client022.phpt
+rm tests/client025.phpt
+rm tests/client027.phpt
 # sometime on s390x
-rm ?TS/tests/client016.phpt
-rm ?TS/tests/client028.phpt
-rm ?TS/tests/etag001.phpt
+rm tests/client016.phpt
+rm tests/client028.phpt
+rm tests/etag001.phpt
 
 # Shared needed extensions
 modules=""
@@ -202,15 +205,13 @@ done
 %{__php} --no-php-ini \
     $modules \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_tests}
 : Upstream test suite NTS extension
-cd NTS
 TEST_PHP_EXECUTABLE=%{__php} \
-TEST_PHP_ARGS="-n $modules -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-%{__php} -n run-tests.php --show-diff
+TEST_PHP_ARGS="-n $modules -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
+%{__php} -n run-tests.php -q --show-diff
 %endif
 
 %if %{with_zts}
@@ -218,12 +219,12 @@ NO_INTERACTION=1 \
 %{__ztsphp} --no-php-ini \
     $modules \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 %endif
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{proj_name}
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
@@ -244,6 +245,10 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Mon Oct  2 2023 Remi Collet <remi@remirepo.net> - 4.2.4-1
+- update to 4.2.4
+- build out of sources tree
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

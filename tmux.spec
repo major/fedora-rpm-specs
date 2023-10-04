@@ -9,12 +9,10 @@ Name:           tmux
 
 Version:        3.3a
 # forge meta appends commit info
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A terminal multiplexer
 
-# Most of the source is ISC licensed; some of the files in compat/ are 2 and
-# 3 clause BSD licensed.
-License:        ISC and BSD
+License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
 URL:            https://tmux.github.io/
 Source0:        %{forgesource}
 # Examples has been removed - so include the bash_completion here
@@ -75,13 +73,16 @@ if [ "$1" = 0 ] && [ -f %{_sysconfdir}/shells ] ; then
 fi
 
 %files
-%doc CHANGES
-%doc example_tmux.conf
+%license COPYING
+%doc CHANGES README* example_tmux.conf
 %{_bindir}/tmux
 %{_mandir}/man1/tmux.1.*
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Mon Oct 02 2023 David Cantrell <dcantrell@redhat.com> - 3.3a-6.20230918gitb202a2f
+- Convert License tag to SPDX expression
+
 * Mon Sep 18 2023 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 3.3a-5.20230918gitb202a2f
 - update to snapshot
 - https://github.com/tmux/tmux/issues/3699#issuecomment-1723095544

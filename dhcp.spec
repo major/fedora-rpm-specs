@@ -15,14 +15,14 @@
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  9%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  10%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
 
 # NEVER CHANGE THE EPOCH on this package.  The previous maintainer (prior to
 # dcantrell maintaining the package) made incorrect use of the epoch and
 # that's why it is at 12 now.  It should have never been used, but it was.
 # So we are stuck with it.
 Epoch:    12
-License:  ISC and MPLv2.0
+License:  ISC AND MPL-2.0
 Url:      https://www.isc.org/dhcp/
 Source0:  https://downloads.isc.org/isc/dhcp/%{DHCPVERSION}/dhcp-%{DHCPVERSION}.tar.gz
 Source9:  https://downloads.isc.org/isc/dhcp/%{DHCPVERSION}/dhcp-%{DHCPVERSION}.tar.gz.asc
@@ -528,6 +528,9 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Mon Oct 02 2023 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-10.P1
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12:4.4.3-9.P1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

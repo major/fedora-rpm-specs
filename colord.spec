@@ -10,10 +10,11 @@
 Summary:   Color daemon
 Name:      colord
 Version:   1.4.6
-Release:   6%{?dist}
+Release:   7%{?dist}
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:       https://www.freedesktop.org/software/colord/
 Source0:   https://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
+Source1:   colord.sysusers
 
 %if !0%{?rhel}
 BuildRequires: bash-completion
@@ -42,9 +43,9 @@ BuildRequires: pkgconfig(sane-backends)
 %endif
 
 Requires: color-filesystem
-BuildRequires: systemd
+BuildRequires: systemd, systemd-rpm-macros
 %{?systemd_requires}
-Requires(pre): shadow-utils
+%{?sysusers_requires_compat}
 Requires: colord-libs%{?_isa} = %{version}-%{release}
 
 # Self-obsoletes to fix the multilib upgrade path
@@ -130,6 +131,7 @@ ulimit -Sv 2000000
 
 %install
 %meson_install
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/colord.conf
 
 # databases
 touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/mapping.db
@@ -138,11 +140,7 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/storage.db
 %find_lang %{name}
 
 %pre
-getent group colord >/dev/null || groupadd -r colord
-getent passwd colord >/dev/null || \
-    useradd -r -g colord -d /var/lib/colord -s /sbin/nologin \
-    -c "User for colord" colord
-exit 0
+%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post colord.service
@@ -178,6 +176,7 @@ exit 0
 %{_libdir}/colord-plugins
 %ghost %attr(-,colord,colord) %{_localstatedir}/lib/colord/*.db
 %{_unitdir}/colord.service
+%{_sysusersdir}/colord.conf
 
 # session helper
 %{_libexecdir}/colord-session
@@ -256,7 +255,11 @@ exit 0
 %dir %{_datadir}/installed-tests/colord
 %{_datadir}/installed-tests/colord/*
 
-%changelog
+%changelog	
+* Sun Oct 01 2023 Daan De Meyer <daan.j.demeyer@gmail.com> - 1.4.6-7
+- Provide a sysusers.d file to get user() and group() provides
+  (see https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format).
+
 * Fri Aug 18 2023 David King <amigadave@amigadave.com> - 1.4.6-6
 - Rebuild for glib2 symbol export fix (#2232723)
 

@@ -11,7 +11,7 @@
 %global build_tests 1
 
 Name:       libindi
-Version:    2.0.3
+Version:    2.0.4
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -24,6 +24,12 @@ License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
 
+# Not upstreamed
+%if 0%{?fedora}
+# Use system provided cpp-httplib in Fedora
+Patch500:       use-system-httplib.patch
+%endif
+
 BuildRequires: cmake
 BuildRequires: libev-devel
 BuildRequires: libogg-devel
@@ -31,6 +37,10 @@ BuildRequires: libnova-devel
 BuildRequires: libtheora-devel
 BuildRequires: libXISF-devel
 BuildRequires: systemd-rpm-macros
+
+%if 0%{?fedora}
+BuildRequires: cpp-httplib-static
+%endif
 
 BuildRequires: pkgconfig(cfitsio)
 BuildRequires: pkgconfig(fftw3)
@@ -68,6 +78,9 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Provides: bundled(fpack) = 1.7.0
 Provides: bundled(json) = 3.10.5
 Provides: bundled(hidapi)
+%if !0%{?fedora}
+Provides: bundled(httplib) = 0.12.4
+%endif
 
 %description
 INDI is a distributed control protocol designed to operate
@@ -116,6 +129,11 @@ Static library needed to develop a %{name} application
 sed -i 's|/lib/udev/rules.d|%{_udevrulesdir}|g' CMakeLists.txt
 chmod -x drivers/telescope/pmc8driver.h
 chmod -x drivers/telescope/pmc8driver.cpp
+
+%if 0%{?fedora}
+# Remove bundled httplib-headers and license file
+rm -rf libs/httplib*
+%endif
 
 %build
 %cmake \

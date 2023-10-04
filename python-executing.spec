@@ -1,16 +1,12 @@
 Name:           python-executing
-Version:        1.2.0
-Release:        4%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
 URL:            https://github.com/alexmojaki/executing
 # The package uses setuptools_scm, GitHub tarball will not work
 Source0:        %{pypi_source executing}
-
-# Patch was inspired by the upstream PR:
-# https://github.com/alexmojaki/executing/pull/71
-Patch:          3.12-support-for-the-PositionNodeFinder.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -29,6 +25,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n executing-%{version}
+# Remove coverage and coverage-enable-subprocess
+# from testing deps.
+sed -Ei "/coverage-?/d" setup.cfg
 
 
 %generate_buildrequires
@@ -55,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Oct 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.0-1
+- Update to 2.0.0 (rhbz#2241493)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

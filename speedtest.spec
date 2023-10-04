@@ -1,25 +1,23 @@
 %global rdnsappid xyz.ketok.Speedtest
 
 Name:           speedtest
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        A graphical librespeed client written using gtk4 + libadwaita
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/Ketok4321/speedtest
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# fix: Non-standard-executable-perm
-# https://github.com/Ketok4321/speedtest/pull/19
-Patch0:         %{url}/pull/19.patch#/fix:-Non-standard-executable-perm.patch
 
 BuildArch:      noarch
 
+BuildRequires:  blueprint-compiler >= 0.10.0
 BuildRequires:  desktop-file-utils
+BuildRequires:  git-core
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.62.0
 BuildRequires:  python3-devel
-BuildRequires:  blueprint-compiler >= 0.10.0
 
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(aiohttp)

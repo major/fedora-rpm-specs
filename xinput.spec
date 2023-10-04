@@ -1,11 +1,11 @@
 Name:       xinput
-Version:    1.6.3
-Release:    8%{?dist}
+Version:    1.6.4
+Release:    1%{?dist}
 Summary:    Utility to query X Input devices
 
 License:    MIT AND HPND-sell-variant
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  automake libtool
 BuildRequires:  gcc make
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Oct 03 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.6.4-1
+- xinput 1.6.4
+
 * Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.6.3-8
 - SPDX migration
 

@@ -1,12 +1,13 @@
-%global svnversion 4558
-%global date 20221203
+%global svnversion 4630
+%global date 20230918
 %global maj_ver 4.3
 
 Name:       skychart
-Version:    %{maj_ver}^%{date}svn%{svnversion}
+Version:    %{maj_ver}^%{date}.svn%{svnversion}
 Release:    %autorelease
 Summary:    Planetarium software for the advanced amateur astronomer
-License:    GPL-2.0-or-later
+# bgrabitmap code is licensed LGPL-3.0-only WITH LGPL-3.0-linking-exception
+License:    GPL-2.0-or-later AND LGPL-3.0-only WITH LGPL-3.0-linking-exception
 URL:        http://www.ap-i.net/skychart/
 # Upstream sources are modified to:
 # - Remove pre-built software (iridflare.exe, quicksat.exe, dll files)
@@ -17,50 +18,59 @@ URL:        http://www.ap-i.net/skychart/
 # Download upstream tarball from
 # https://sourceforge.net/projects/skychart/files/0-beta/
 # in the same directory of the script and run:
-# ./generate-tarball.sh 4.3-4558
+# ./generate-tarball.sh 4.3-4630
 Source0:    %{name}-%{maj_ver}-%{svnversion}-src-nopatents.tar.xz
 Source1:    generate-tarball.sh
+# Base source data
+Source2:    http://sourceforge.net/projects/skychart/files/4-source_data/data_spicesun.tgz
 # Source data for skychart-data-stars
-Source2:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_gcvs.tgz
-Source3:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_tycho2.tgz
-Source4:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_wds.tgz
-Source5:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_idx.tgz
+Source3:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_gcvs.tgz
+Source4:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_tycho2.tgz
+Source5:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_wds.tgz
+Source6:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_idx.tgz
 # Source data for skychart-data-dso
-Source6:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_leda.tgz
-Source7:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_barnard.tgz
-Source8:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_gcm.tgz
-Source9:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_gpn.tgz
-Source10:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_lbn.tgz
-Source11:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_ocl.tgz
-Source12:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_sh2.tgz
-Source13:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_vdb.tgz
+Source7:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_leda.tgz
+Source8:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_barnard.tgz
+Source9:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_gcm.tgz
+Source10:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog_gpn.tgz
+Source11:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_lbn.tgz
+Source12:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_ocl.tgz
+Source13:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_sh2.tgz
+Source14:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_vdb.tgz
 
 
 # Avoid stripping debuginfo from executables
 # This is Fedora specific and not reported upstream
-Patch1:     skychart-4.3-nostrip.patch
+Patch:      skychart-4.3-nostrip.patch
 
 # Disable wget in install script
 # This is Fedora specific and not reported upstream
-Patch2:     skychart-4.1-wgetdata.patch
+Patch:      skychart-4.1-wgetdata.patch
 
 # Notify the user that artificial satellites calculation
 # has been disabled in Fedora RPMs due to Fedora policies
 # This is Fedora specific and not reported upstream
-Patch3:     skychart-4.3-satmessage.patch
+Patch:      skychart-4.3-satmessage.patch
 
 # Disable software update menu item
 # This feature was asked upstream specifically for Fedora
-Patch4:     skychart-4.3-noupdatemenu.patch
+Patch:      skychart-4.3-noupdatemenu.patch
 
 
 ExclusiveArch: %{fpc_arches}
-ExcludeArch: ppc64le
+ExcludeArch: %{ix86}
 
 
 BuildRequires: make
 BuildRequires: fpc
-BuildRequires: lazarus
+%if 0%{?fedora} >= 39
+BuildRequires:  fpc-src
+BuildRequires:  lazarus-lcl-nogui
+BuildRequires:  lazarus-lcl-qt5
+BuildRequires:  lazarus-tools
+%else
+BuildRequires:  lazarus >= 1.6.2
+%endif
 BuildRequires: desktop-file-utils
 BuildRequires: dos2unix
 BuildRequires: gtk2-devel
@@ -97,7 +107,7 @@ atlas more complete than a conventional planetarium.
 
 %package doc
 Summary:        Documentation files for Skychart
-License:        CC-BY-SA or GFDL
+License:        CC-BY-SA-3.0 OR GFDL-1.3-no-invariants-or-later
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
@@ -107,7 +117,7 @@ within the program as an offline copy.
 
 %package data-stars
 Summary:        Additional star catalogs for Skychart
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
@@ -118,7 +128,7 @@ Tycho 2; General Catalogue of Variable Stars; Washington Double Stars.
 
 %package data-dso
 Summary:        Additional Deep Sky Object catalogs for Skychart
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
@@ -130,7 +140,7 @@ Barnard Catalogue of Dark Nebulae; Sharpless Catalog.
 
 %package catgen
 Summary:        Custom catalog builder for Skychart
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Provides:       catgen = %{version}-%{release}
 
 %description catgen
@@ -139,39 +149,26 @@ Custom catalog builder for Skychart.
 %prep
 %setup0 -q -n %{name}-%{maj_ver}-%{svnversion}-src
 
-%patch1 -p1
-
-%patch2 -p1
-
-%patch3 -p1
-
-%patch4 -p1
+%autopatch -p1
 
 # Fix executable bit set on sources
 find skychart -type f -print0 | xargs -0 chmod -x
 
 # Put additional catalogs files where where required for installation
-%{__cp} -p %SOURCE2 ./BaseData
-%{__cp} -p %SOURCE3 ./BaseData
-%{__cp} -p %SOURCE4 ./BaseData
-%{__cp} -p %SOURCE5 ./BaseData
-%{__cp} -p %SOURCE6 ./BaseData
-%{__cp} -p %SOURCE7 ./BaseData
-%{__cp} -p %SOURCE8 ./BaseData
-%{__cp} -p %SOURCE9 ./BaseData
-%{__cp} -p %SOURCE10 ./BaseData
-%{__cp} -p %SOURCE11 ./BaseData
-%{__cp} -p %SOURCE12 ./BaseData
-%{__cp} -p %SOURCE13 ./BaseData
 
-# Add directories to fix builds on arm and ppc architectures
-declare -a arches=("arm-linux-gtk2" "powerpc-linux-gtk2" "powerpc64-linux-gtk2")
-for arch in "${arches[@]}"
-do
-    %{__mkdir_p} ./skychart/component/lib/$arch
-    %{__mkdir_p} ./skychart/units/$arch
-    %{__mkdir_p} ./varobs/units/$arch
-done
+cp -p %SOURCE2 ./BaseData
+cp -p %SOURCE3 ./BaseData
+cp -p %SOURCE4 ./BaseData
+cp -p %SOURCE5 ./BaseData
+cp -p %SOURCE6 ./BaseData
+cp -p %SOURCE7 ./BaseData
+cp -p %SOURCE8 ./BaseData
+cp -p %SOURCE9 ./BaseData
+cp -p %SOURCE10 ./BaseData
+cp -p %SOURCE11 ./BaseData
+cp -p %SOURCE12 ./BaseData
+cp -p %SOURCE13 ./BaseData
+cp -p %SOURCE14 ./BaseData
 
 
 %build

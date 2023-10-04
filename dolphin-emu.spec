@@ -10,8 +10,8 @@
 #Dolphin uses gitsnapshots for its versions.
 #See upstream release notes for this snapshot:
 #https://dolphin-emu.org/download/dev/$commit
-%global commit 423c7c58cd8fe78eb89a3ab434cfbc958a4eef07
-%global snapnumber 19793
+%global commit 032c77b462a220016f23c5079e71bb23e0ad2adf
+%global snapnumber 19870
 #We should try to use beta whenever possible
 %global branch development
 
@@ -22,7 +22,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -41,10 +41,12 @@ Url:            https://dolphin-emu.org/
 License:        GPLv2+ and BSD and MIT and zlib
 Source0:        https://github.com/%{name}/dolphin/archive/%{commit}/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
-Source4:        https://github.com/epezent/implot/archive/refs/tags/v0.14.tar.gz#/implot-0.14.tar.gz
+Source4:        https://github.com/epezent/implot/archive/refs/tags/v0.16.tar.gz#/implot-0.16.tar.gz
 Source5:        https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/archive/refs/tags/v3.0.1.tar.gz#/VulkanMemoryAllocator-3.0.1.tar.gz
 
-Patch0:         https://github.com/dolphin-emu/dolphin/pull/11747/commits/6dad8f837285c32720efa8fcd28de4d197f27611.patch
+#Fix for newer Linux Kernels (not sure when it started):
+Patch0:         https://github.com/dolphin-emu/dolphin/pull/12218/commits/c284580bb0f0c27c4ec1ea16104895ba82533efc.patch
+
 #Quick and dirty way to get it building with fmt 10, but it breaks logging:
 %if 0%{?fedora} > 38
 Patch1:         workaroundfmt10issues.patch
@@ -64,7 +66,7 @@ Provides:       bundled(imgui) = 1.70
 Provides:       bundled(rangeset)
 ##These are not in fedora, but are easy to keep up to date (see sources):
 #https://github.com/epezent/implot
-Provides:       bundled(implot) = 0.14
+Provides:       bundled(implot) = 0.16
 #https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
 Provides:       bundled(VulkanMemoryAllocator) = 3.0.1
 ##The hard to unbundle
@@ -200,12 +202,12 @@ for d in *; do
 done
 #Fix newer gcc issue
 sed -i '/#include <cstdint>/a #include <cstdio>' \
-	VulkanMemoryAllocator/include/vk_mem_alloc.h
+    VulkanMemoryAllocator/include/vk_mem_alloc.h
 #Copy in system picojson
 mkdir picojson
 #In master, picojson has build option "PICOJSON_NOEXCEPT", but for now:
 sed "s/throw std::.*;/std::abort();/g" %{_includedir}/picojson.h > \
-	picojson/picojson.h
+    picojson/picojson.h
 
 
 %build
@@ -291,6 +293,11 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Mon Oct 02 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.19870-1
+- Update to 5.0-19870
+- Update implot to 0.16
+- Fix FTBFS RHBZ#2241350
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.19793-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

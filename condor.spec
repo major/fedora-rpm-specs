@@ -2,10 +2,12 @@
 %global version         23.0.0
 %global version_ %(tr . _ <<< %{version})
 
+%global with_vault_credmon 0
+
 #######################
 Name:           condor
 Version:        23.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTCondor: High Throughput Computing
 License:        ASL 2.0
 URL:            http://htcondor.org
@@ -180,6 +182,7 @@ Requires: httpd
 The OAuth2 credmon allows users to obtain credentials from configured
 OAuth2 endpoints and to use those credentials securely inside running jobs.
 
+%if 0%{?with_vault_credmon}
 #######################
 %package credmon-vault
 Summary: Vault credmon for HTCondor
@@ -198,6 +201,7 @@ Conflicts: %name-credmon-oauth
 The Vault credmon allows users to obtain credentials from Vault using
 htgettoken and to use those credentials securely inside running jobs.
 
+%endif
 #######################
 %package -n minicondor
 Summary: Configuration for a single-node HTCondor
@@ -345,8 +349,13 @@ mv %{buildroot}/usr/share/doc/condor/examples/condor_credmon_oauth/config/condor
 mv %{buildroot}/usr/share/doc/condor/examples/condor_credmon_oauth/config/condor/40-oauth-tokens.conf %{buildroot}/%{_sysconfdir}/condor/config.d/40-oauth-tokens.conf
 mv %{buildroot}/usr/share/doc/condor/examples/condor_credmon_oauth/README.credentials %{buildroot}/%{_var}/lib/condor/oauth_credentials/README.credentials
 
+%if 0%{?with_vault_credmon}
 # Move vault credmon config file out of examples and into config.d
 mv %{buildroot}/usr/share/doc/condor/examples/condor_credmon_oauth/config/condor/40-vault-credmon.conf %{buildroot}/%{_sysconfdir}/condor/config.d/40-vault-credmon.conf
+%else
+rm -f  %{buildroot}%{_bindir}/condor_vault_storer
+rm -f  %{buildroot}%{_sbindir}/condor_credmon_vault
+%endif
 
 # install tmpfiles.d/condor.conf
 mkdir -p %{buildroot}%{_tmpfilesdir}
@@ -833,6 +842,7 @@ done
 %ghost %_var/lib/condor/oauth_credentials/CREDMON_COMPLETE
 %ghost %_var/lib/condor/oauth_credentials/pid
 
+%if 0%{?with_vault_credmon}
 %files credmon-vault
 %doc /usr/share/doc/condor/examples/condor_credmon_oauth
 %_sbindir/condor_credmon_vault
@@ -841,6 +851,7 @@ done
 %config(noreplace) %_sysconfdir/condor/config.d/40-vault-credmon.conf
 %ghost %_var/lib/condor/oauth_credentials/CREDMON_COMPLETE
 %ghost %_var/lib/condor/oauth_credentials/pid
+%endif
 
 %files -n minicondor
 %config(noreplace) %_sysconfdir/condor/config.d/00-minicondor
@@ -858,6 +869,9 @@ done
 /sbin/ldconfig
 
 %changelog
+* Mon Oct 02 2023 Tim Theisen <ttheisen@fedoraproject.org> - 23.0.0-2
+- Drop condor-credmon-vault rhbz#2241709
+
 * Sat Sep 30 2023 Tim Theisen <ttheisen@fedoraproject.org> - 23.0.0-1
 - Update to latest upstream 23.0.0 - rhbz#1959462
 - Fix build issues - rhbz#2114520, rhbz#2172630, rhbz#2172684

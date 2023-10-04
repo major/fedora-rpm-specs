@@ -7,8 +7,8 @@
 %endif
 
 Name:           python-urllib3
-Version:        1.26.16
-Release:        3%{?dist}
+Version:        1.26.17
+Release:        1%{?dist}
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
 # SPDX
@@ -154,6 +154,9 @@ ignore="${ignore-} --ignore=test/test_no_ssl.py"
 
 
 %changelog
+* Mon Oct 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.26.17-1
+- Update to 1.26.17: fix CVE-2023-43804 (GHSA-v845-jxx5-vc9f)
+
 * Wed Aug 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.16-3
 - Use bundled six
 

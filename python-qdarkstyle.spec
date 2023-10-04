@@ -22,7 +22,7 @@
 %bcond recompile_assets 1
 
 Name:           python-qdarkstyle
-Version:        3.0.3
+Version:        3.1
 Release:        %autorelease
 Summary:        The most complete dark/light style sheet for C++/Python and Qt applications
 
@@ -102,7 +102,7 @@ dos2unix --keepdate setup.py
 %endif
 
 %if %{with recompile_assets}
-rm -vf qdarkstyle/*/style.{qrc,qss} qdarkstyle/*/_variables.scss
+rm -vf qdarkstyle/*/*style.{qrc,qss} qdarkstyle/*/_variables.scss
 %endif
 
 # We helped upstream clean up shebangs in

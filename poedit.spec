@@ -1,6 +1,6 @@
 Name:           poedit
-Version:        3.3.2
-Release:        3%{?dist}
+Version:        3.4
+Release:        1%{?dist}
 Summary:        GUI editor for GNU gettext .po files
 Summary(de):    Grafischer Editor für GNU Gettext-Dateien
 
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.%{nam
 
 
 %changelog
+* Mon Oct 02 2023 Wolfgang Stöggl <c72578@yahoo.de> - 3.4-1
+- New upstream version
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

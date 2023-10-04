@@ -4,8 +4,8 @@ Name:    libcamera
 Version: 0.1.0
 Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
-# Library is LGPLv2.1+ and the cam tool is GPLv2
-License: LGPLv2+ and GPLv2
+# see .reuse/dep5 and COPYING for details
+License: LGPL-2.1-or-later
 URL:     http://libcamera.org/
 
 # libcamera is not expected to be used in these architectures
@@ -69,6 +69,7 @@ Files for development with %{name}.
 
 %package     doc
 Summary:     Documentation for %{name}
+License:     LGPL-2.1-or-later AND CC-BY-4.0
 BuildArch:   noarch
 
 %description doc
@@ -76,6 +77,7 @@ HTML based documentation for %{name} including getting started and API.
 
 %package     ipa
 Summary:     ISP Image Processing Algorithm Plugins for %{name}
+License:     LGPL-2.1-or-later AND BSD-2-Clause
 Requires:    %{name}%{?_isa} = %{version}-%{release}
 
 %description ipa
@@ -84,6 +86,7 @@ ISPs for %{name}
 
 %package     tools
 Summary:     Tools for %{name}
+Licnese:     LGPL-2.1-or-later AND BSD-3-Clause
 Requires:    %{name}%{?_isa} = %{version}-%{release}
 
 %description tools
@@ -92,6 +95,7 @@ Command line tools for %{name}
 %if %{with qt}
 %package     qcam
 Summary:     Graphical QCam application for %{name}
+License:     GPL-2.0-or-later AND MIT
 Requires:    %{name}%{?_isa} = %{version}-%{release}
 
 %description qcam

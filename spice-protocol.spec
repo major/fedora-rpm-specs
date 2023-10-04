@@ -3,7 +3,7 @@ Version:        0.14.4
 Release:        4%{?dist}
 Summary:        Spice protocol header files
 # Main headers are BSD, controller / foreign menu are LGPL
-License:        BSD and LGPLv2+
+License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://www.spice-space.org/
 Source0:        https://www.spice-space.org/download/releases/%{name}-%{version}.tar.xz
 Source1:        https://www.spice-space.org/download/releases/%{name}-%{version}.tar.xz.sig

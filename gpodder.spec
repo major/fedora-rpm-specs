@@ -1,5 +1,5 @@
 Name:           gpodder
-Version:        3.11.2
+Version:        3.11.3
 Release:        1%{?dist}
 Summary:        Podcast receiver/catcher written in Python
 # Mostly GPL-3.0-or-later, but some files use something different
@@ -75,6 +75,9 @@ desktop-file-install --delete-original          \
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Mon Oct 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.11.3-1
+- 3.11.3
+
 * Tue Aug 15 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.11.2-1
 - 3.11.2
 
