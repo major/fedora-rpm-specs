@@ -26,7 +26,7 @@
 Summary:        Functions to write XML-RPC servers and clients
 Name:           php-pecl-%{pecl_name}
 Version:        %{upver}%{?rclower:~%{rclower}}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 # Extension is PHP
 # Library is MIT
@@ -181,6 +181,9 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.0.0~rc3-8
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Thu Aug 24 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~rc3-7
 - build out of sources tree and fix FTBFS
 

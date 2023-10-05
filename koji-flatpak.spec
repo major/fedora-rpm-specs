@@ -1,4 +1,4 @@
-%global project_version 0.3
+%global project_version 0.6
 %global flatpak_module_tools_min_version 1.0~a5
 
 Name:           koji-flatpak
@@ -97,8 +97,20 @@ install -p -m 0644 koji_flatpak/plugins/flatpak_cli_plugin.py %{buildroot}%{pyth
 
 
 %changelog
-* Tue Aug 22 2023 Owen Taylor <otaylor@redhat.com> - 0.3-1
-- Version 0.2
+* Tue Oct 3 2023 Owen Taylor <otaylor@redhat.com> - 0.6-1
+- Version 0.6
+  Fix regression with docker:// disappearing from skopeo commands
+
+* Tue Oct 3 2023 Owen Taylor <otaylor@redhat.com> - 0.5-1
+- Version 0.5
+  Fix docker:// inappropriately appearing in pull-spec strings
+
+* Tue Oct 3 2023 Owen Taylor <otaylor@redhat.com> - 0.4-1
+- Version 0.4
+  Fix problem where ~ and ^ in version would result in invalid registry tags
+
+* Mon Sep 25 2023 Owen Taylor <otaylor@redhat.com> - 0.3-1
+- Version 0.3
   Handle output tarfile being <base>.oci.tar rather than <base>.oci.tar.gz (changed
   in flatpak-module-tools-1.0a8 - current code here handles both.)
 

@@ -1,5 +1,5 @@
 Name:		python-logbook
-Version:	1.6.0
+Version:	1.7.0
 Release:	1%{?dist}
 Summary:	A logging replacement for Python
 
@@ -54,6 +54,9 @@ Logbook can do that.
 %{python3_sitearch}/logbook/
 
 %changelog
+* Tue Oct 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.7.0-1
+- 1.7.0
+
 * Mon Jul 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-1
 - 1.6.0
 

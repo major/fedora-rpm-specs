@@ -61,6 +61,8 @@ Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444
 # Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
 Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
+Patch:          https://github.com/kovidgoyal/kitty/commit/4b41a7d182e72b920ebe098778f83afc80042e59.patch#/fix-overflow.patch
+Patch:          https://github.com/kovidgoyal/kitty/commit/d9cd92d4ed5854631d904665abffdec94cbdb27d.patch#/fix-overflow-2.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

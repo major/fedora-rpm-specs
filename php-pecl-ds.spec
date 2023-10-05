@@ -33,13 +33,16 @@
 Summary:        Data Structures for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        1.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 # Only use for tests during the build, no value to be packaged separately
 # in composer.json:  "require-dev": {  "php-ds/tests": "dev-master" }
 Source1:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{gh_short}.tar.gz
+
+# Upstream patch for 8.3
+Patch0:         0001-fast_add_function-removed-in-PHP-8.3-use-add_functio.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -76,6 +79,8 @@ mv %{gh_project}-%{gh_commit} tests
 %{?_licensedir:sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml}
 
 cd NTS
+%patch -P0 -p1 -b .up
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_DS_VERSION/{s/.* "//;s/".*$//;p}' php_ds.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
@@ -185,6 +190,10 @@ done
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.4.0-7
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+- add upstream patch for PHP 8.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

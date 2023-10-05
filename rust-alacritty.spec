@@ -4,7 +4,7 @@
 %global crate alacritty
 
 Name:           rust-alacritty
-Version:        0.12.2
+Version:        0.12.3
 Release:        %autorelease
 Summary:        Fast, cross-platform, OpenGL terminal emulator
 
@@ -16,7 +16,7 @@ Patch:          alacritty-fix-metadata-auto.diff
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 A fast, cross-platform, OpenGL terminal emulator.}
@@ -30,9 +30,9 @@ Summary:        %{summary}
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
-# Artistic-2.0
 # BSD-2-Clause
 # BSD-3-Clause
+# CC0-1.0
 # ISC
 # MIT
 # MIT OR Apache-2.0
@@ -41,8 +41,8 @@ Summary:        %{summary}
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND Artistic-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT) AND Zlib
-
+License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND ISC AND MIT AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT) AND Zlib
+# LICENSE.dependencies contains a full license breakdown
 
 # libwayland-egl is dlopened when running on a wayland compositor
 Requires:       libwayland-egl
@@ -75,8 +75,8 @@ Requires:       libwayland-egl
 
 %build
 %cargo_build
-%cargo_license_summary
-%{?cargo_license} >LICENSE.dependencies
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %cargo_install

@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 %global uuid com.chatterino.chatterino
-%global chatterino_git_commit a0f9310062721e742ccd1cc869e4cc40ef626c0f
+%global chatterino_git_commit eb8c7f2d4dbe0e9bdb1dd3133a1e8370c3a75e5a
 %global chatterino_git_shortcommit %(c=%{chatterino_git_commit}; echo ${c:0:7})
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
@@ -23,10 +23,6 @@ ExcludeArch: %{ix86}
 %global commit5         bbf0a34260a3e8d6e6c48be57653840ac3fa8c30
 %global shortcommit5    %(c=%{commit5}; echo ${c:0:7})
 
-#   * qtkeychain
-%global commit8         e5b070831cf1ea3cb98c95f97fcb7439f8d79bd6
-%global shortcommit8    %(c=%{commit8}; echo ${c:0:7})
-
 #   * magic_enum
 %global commit9         e1a68e9dd3d2e9180b04c8aeacd4975db745e6b8
 %global shortcommit9    %(c=%{commit9}; echo ${c:0:7})
@@ -41,7 +37,7 @@ ExcludeArch: %{ix86}
 
 
 Name:           chatterino2
-Version:        2.4.5
+Version:        2.4.6
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 
@@ -67,7 +63,7 @@ Summary:        Chat client for https://twitch.tv
 # -----------------------------------------------
 # lib/websocketpp/
 #
-License:        MIT and Boost and BSD and zlib and GPLv2+ and LGPLv2+ and MPLv1.1
+License:        MIT and BSL-1.0 and BSD-3-Clause and zlib and GPL-2.0-or-later and LGPL-2.1-or-later and MPL-1.1
 
 URL:            https://github.com/Chatterino/chatterino2
 Source0:        %{url}/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
@@ -75,10 +71,14 @@ Source2:        https://github.com/hemirt/libcommuni/archive/%{commit2}/libcommu
 Source3:        https://github.com/pajlada/settings/archive/%{commit3}/settings-%{shortcommit3}.tar.gz
 Source4:        https://github.com/pajlada/signals/archive/%{commit4}/signals-%{shortcommit4}.tar.gz
 Source5:        https://github.com/pajlada/serialize/archive/%{commit5}/serialize-%{shortcommit5}.tar.gz
-Source8:        https://github.com/Chatterino/qtkeychain/archive/%{commit8}/qtkeychain-%{shortcommit8}.tar.gz
 Source9:        https://github.com/Neargye/magic_enum/archive/%{commit9}/magic_enum-%{shortcommit9}.tar.gz
 Source10:       https://github.com/arsenm/sanitizers-cmake/archive/%{commit10}/sanitizers-cmake-%{shortcommit10}.tar.gz
 Source11:       https://github.com/mackron/miniaudio/archive/%{commit11}/miniaudio-%{shortcommit11}.tar.gz
+
+# Patch for QT6 build
+# https://github.com/Chatterino/chatterino2/pull/4863
+# Note: this patch is modified to not include the changelog entry that the patch works
+Patch0:         https://github.com/Chatterino/chatterino2/pull/4863.patch#/chatterino2-qt6-qtkeychain.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -87,15 +87,16 @@ BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core) >= 5.12
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Keychain)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Keychain)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(RapidJSON)
 
 BuildRequires:  pkgconfig(libsecret-1)
@@ -107,14 +108,13 @@ Requires:       qt5-qtsvg
 
 # Current submodules patched so not possible to build with system packages
 #   * https://github.com/Chatterino/chatterino2/issues/1444
-Provides:       bundled(libcommuni) = 3.6.0
-Provides:       bundled(magic_enum) = 0.8.1~git%{shortcommit9}
-Provides:       bundled(miniaudio) = 0~git%{shortcommit11}
-Provides:       bundled(qtkeychain) = 0.9.1~git%{shortcommit8}
+Provides:       bundled(libcommuni) = 3.7.0
+Provides:       bundled(magic_enum) = 0.9.3~git%{shortcommit9}
+Provides:       bundled(miniaudio) = 0.11.18~git%{shortcommit11}
 Provides:       bundled(sanitizers-cmake) = 0~git%{shortcommit10}
 Provides:       bundled(serialize) = 0~git%{shortcommit5}
 Provides:       bundled(settings) = 0~git%{shortcommit3}
-Provides:       bundled(signals) = 0~git%{shortcommit4}
+Provides:       bundled(signals) = 0.1.0~git%{shortcommit4}
 
 %description
 Chatterino 2 is a chat client for Twitch.tv.
@@ -122,11 +122,11 @@ Chatterino 2 is a chat client for Twitch.tv.
 
 %prep
 %setup -n %{name}-%{tarball_version} -q
+%patch 0 -p1
 %setup -n %{name}-%{tarball_version} -q -D -T -a2
 %setup -n %{name}-%{tarball_version} -q -D -T -a3
 %setup -n %{name}-%{tarball_version} -q -D -T -a4
 %setup -n %{name}-%{tarball_version} -q -D -T -a5
-%setup -n %{name}-%{tarball_version} -q -D -T -a8
 %setup -n %{name}-%{tarball_version} -q -D -T -a9
 %setup -n %{name}-%{tarball_version} -q -D -T -a10
 %setup -n %{name}-%{tarball_version} -q -D -T -a11
@@ -135,7 +135,6 @@ mv libcommuni-%{commit2}/*  lib/libcommuni
 mv settings-%{commit3}/*    lib/settings
 mv signals-%{commit4}/*     lib/signals
 mv serialize-%{commit5}/*   lib/serialize
-mv qtkeychain-%{commit8}/*  lib/qtkeychain
 mv magic_enum-%{commit9}/*  lib/magic_enum
 mv miniaudio-%{commit11}/*  lib/miniaudio
 mv sanitizers-cmake-%{commit10}/* cmake/sanitizers-cmake
@@ -147,8 +146,10 @@ export GIT_HASH=%{chatterino_git_shortcommit}
 export GIT_RELEASE=%{version}
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DBUILD_WITH_QT6=ON \
     -DUSE_PRECOMPILED_HEADERS=0FF \
     -DUSE_SYSTEM_QTKEYCHAIN=ON \
+    -DBUILD_WITH_QTKEYCHAIN=ON \
     %{nil}
 %cmake_build
 

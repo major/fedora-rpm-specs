@@ -1,19 +1,17 @@
 %global _hardened_build 1
 
-%global upstream_version 2.0rc2
-
 
 Name: libcupsfilters
 Epoch: 1
-Version: 2.0~rc2
-Release: 2%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/libcupsfilters
-Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{version}.tar.gz
 
 
 # Patches
@@ -107,7 +105,7 @@ Development files for OpenPrinting cupsfilters library.
 
 
 %prep
-%autosetup -n %{name}-%{upstream_version} -S git
+%autosetup -S git
 
 
 %build
@@ -194,6 +192,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Tue Oct 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-1
+- 2240388 - libcupsfilters-2.0.0 is available
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0~rc2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -31,7 +31,7 @@
 Summary:        PostgreSQL client library (libpq) binding
 Name:           php-pecl-%{pecl_name}
 Version:        2.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?rcver}.tgz
@@ -223,6 +223,9 @@ exit $RET
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 2.2.2-3
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

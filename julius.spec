@@ -1,10 +1,10 @@
 %global dkcommit 1ceb4de
 
 Name:		julius
-Version:	4.5
-Release:	11%{?dist}
+Version:	4.6
+Release:	1%{?dist}
 Summary:	Large vocabulary continuous speech recognition (LVCSR) decoder software
-License:	Julius
+License:	BSD-3-Clause AND MIT
 URL:		https://github.com/julius-speech/julius
 Source0:	https://github.com/julius-speech/julius/archive/v%{version}.tar.gz
 # Source1:	http://julius.sourceforge.jp/archive/japanese-models.tar.gz
@@ -16,32 +16,37 @@ Source0:	https://github.com/julius-speech/julius/archive/v%{version}.tar.gz
 # cd ..
 # tar --exclude-vcs -cJf dictation-kit-%%{dkcommit}.tar.xz dictation-kit
 Source1:	dictation-kit-%{dkcommit}.tar.xz
-Patch0:		julius-4.5-DESTDIR.patch
+Patch0:		julius-4.6-DESTDIR.patch
 Patch1:		julius-4.5-sharedlibs.patch
 Patch2:		julius-4.5-cpuidfix.patch
 Patch3:		julius-ldflags.patch
+# https://github.com/julius-speech/julius/pull/187
+Patch4:		187.patch
+Patch5:		julius-4.6-configure-fixup.patch
+# The viz code depends on GTK1 and we don't want it
+Patch6:		julius-4.6-noviz.patch
 
 BuildRequires:	perl-generators
 BuildRequires:	perl(Jcode), alsa-lib-devel, libsndfile-devel, pulseaudio-libs-devel, zlib-devel, readline-devel
 BuildRequires:	SDL2-devel
 BuildRequires:	bison, flex, nkf
-BuildRequires:  autoconf, automake, libtool
-BuildRequires: make
-# Requires:	
+BuildRequires:	autoconf, automake, libtool, gettext-devel
+BuildRequires:	make
+# Requires:
 
 %description
-"Julius" is a high-performance, two-pass large vocabulary continuous speech 
-recognition (LVCSR) decoder software for speech-related researchers and 
-developers. Based on word N-gram and context-dependent HMM, it can perform 
-almost real-time decoding on most current PCs in 60k word dictation task. 
-Major search techniques are fully incorporated such as tree lexicon, N-gram 
-factoring, cross-word context dependency handling, enveloped beam search, 
-Gaussian pruning, Gaussian selection, etc. Besides search efficiency, it is 
-also modularized carefully to be independent from model structures, and 
-various HMM types are supported such as shared-state triphones and 
-tied-mixture models, with any number of mixtures, states, or phones. 
-Standard formats are adopted to cope with other free modeling toolkit such 
-as HTK, CMU-Cam SLM toolkit, etc. 
+"Julius" is a high-performance, two-pass large vocabulary continuous speech
+recognition (LVCSR) decoder software for speech-related researchers and
+developers. Based on word N-gram and context-dependent HMM, it can perform
+almost real-time decoding on most current PCs in 60k word dictation task.
+Major search techniques are fully incorporated such as tree lexicon, N-gram
+factoring, cross-word context dependency handling, enveloped beam search,
+Gaussian pruning, Gaussian selection, etc. Besides search efficiency, it is
+also modularized carefully to be independent from model structures, and
+various HMM types are supported such as shared-state triphones and
+tied-mixture models, with any number of mixtures, states, or phones.
+Standard formats are adopted to cope with other free modeling toolkit such
+as HTK, CMU-Cam SLM toolkit, etc.
 
 %package devel
 Requires:	julius = %{version}-%{release}
@@ -57,21 +62,35 @@ Summary:	Julius Japanese language model and acoustic models
 License:	Julius
 
 %description japanese-models
-A Japanese language model (20k-word trained by newspaper article) and acoustic 
+A Japanese language model (20k-word trained by newspaper article) and acoustic
 models (Phonetic tied-mixture triphone / monophone) for use with Julius.
 
 %prep
 %setup -q -a 1
-%patch0 -p1 -b .DESTDIR
-%patch1 -p1 -b .shared
-%patch2 -p1 -b .cpuidfix
-%patch3 -p1
+%patch -P0 -p1 -b .DESTDIR
+%patch -P1 -p1 -b .shared
+%patch -P2 -p1 -b .cpuidfix
+%patch -P3 -p1
+%patch -P4 -p1 -b .187
+%patch -P5 -p1 -b .fixup
+%patch -P6 -p1 -b .noviz
+
 # Fix end-of-line encoding
 sed -i 's/\r//' Release.txt
+cp /usr/share/gettext/config.rpath support/
+autoupdate
 autoreconf -ifv || :
 
+# remove msvc dir
+rm -rf msvc
+
 %build
+# OpenMP only seems to find all its functions on these architectures.
+%ifarch i686 x86_64
 %configure
+%else
+%configure --disable-openmp
+%endif
 # this fails
 # make %{?_smp_mflags}
 make
@@ -94,8 +113,8 @@ mv %{buildroot}%{_bindir}/jcontrol %{buildroot}%{_bindir}/julius-jcontrol
 %ldconfig_scriptlets
 
 %files
-%doc ChangeLog Release.txt Release-ja.txt
-%license LICENSE.txt
+%doc Release.txt Release-ja.txt
+%license LICENSE
 %{_bindir}/accept_check
 %{_bindir}/adinrec
 %{_bindir}/adintool
@@ -113,6 +132,7 @@ mv %{buildroot}%{_bindir}/jcontrol %{buildroot}%{_bindir}/julius-jcontrol
 %{_bindir}/mkbinhmm
 %{_bindir}/mkbinhmmlist
 %{_bindir}/mkdfa.pl
+%{_bindir}/mkdfa.py
 %{_bindir}/mkfa
 %{_bindir}/mkgshmm
 %{_bindir}/mkss
@@ -138,6 +158,9 @@ mv %{buildroot}%{_bindir}/jcontrol %{buildroot}%{_bindir}/julius-jcontrol
 %{_datadir}/julius/model/
 
 %changelog
+* Tue Oct  3 2023 Tom Callaway <spot@fedoraproject.org> - 4.6-1
+- update to 4.6
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

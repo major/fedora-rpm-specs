@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.14.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -23,6 +23,8 @@ Patch0: shadow-4.14.0-manfix.patch
 Patch1: shadow-4.2.1-date-parsing.patch
 # Audit message changes - partially upstreamed
 Patch2: shadow-4.14.0-audit-update.patch
+# https://github.com/shadow-maint/shadow/pull/812
+Patch3: shadow-4.14.0-useradd-def-usrtemplate-selinux-label.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -261,6 +263,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Tue Oct  3 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-2
+- useradd: Set proper SELinux labels for def_usrtemplate
+
 * Wed Aug 16 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-1
 - Rebase to version 4.14.0. Resolves: #2229000
 

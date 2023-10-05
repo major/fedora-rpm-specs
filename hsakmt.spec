@@ -1,18 +1,16 @@
-# ROCm doesn't actually support LTO, and it breaks with hsakmt for 5.7:
-%global _lto_cflags %nil
-
 %define __cmake_in_source_build 1
 %global rocm_release 5.7
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
-Release:        33.rocm%{rocm_version}%{?dist}
+Release:        34.rocm%{rocm_version}%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
 URL:            https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface
 Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/rocm-%{rocm_version}.tar.gz#/%{name}-rocm-%{rocm_version}.tar.gz
+Patch0:         https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/pull/90/commits/2a67c0f26a27271f62636fa2fc7b41918ccc492b.patch
 
 # Fedora builds AMD HSA kernel support for these 64bit targets:
 ExclusiveArch: x86_64 aarch64 ppc64le
@@ -77,6 +75,10 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_includedir}/hsakmttypes.h
 
 %changelog
+* Tue Oct 03 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-34.rocm5.7.0
+- Re-enable LTO, it looks like it wasn't the issue
+- Cherry-pick patch from archlinux to fix 5.7 issue
+
 * Tue Sep 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-33.rocm5.7.0
 - Disable LTO, as it causes a few symbols to get stripped in 5.7
 

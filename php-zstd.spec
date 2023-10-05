@@ -19,7 +19,7 @@
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
 Version:       0.13.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{sources}.tgz
@@ -198,6 +198,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 0.13.1-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Thu Sep  7 2023 Remi Collet <remi@remirepo.net> - 0.13.1-1
 - update to 0.13.1 (no change)
 

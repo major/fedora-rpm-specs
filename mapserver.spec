@@ -17,14 +17,16 @@
 
 Name:           mapserver
 Version:        8.0.1
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
-License:        BSD
+License:        MIT
 URL:            http://www.mapserver.org
 
 Source0:        https://github.com/%{project_owner}/%{project_name}/archive/rel-%{dashver}/%{project_name}-%{version}.tar.gz
+# Avoid implicit declarations of strlcat
+Patch0:         mapserver-implicit-declarations.patch
 
 Requires:       httpd
 Requires:       dejavu-sans-fonts
@@ -310,6 +312,12 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 8.0.1-7
+- Fix implicit declarations of strlcat
+
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 8.0.1-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

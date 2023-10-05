@@ -3,12 +3,12 @@
 %global api_version 1
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-Name:     libmks
+Name:		libmks
 Version:	0.1.5
 Release:	%autorelease
 Summary:	Mouse, Keyboard, and Screen to QEMU
 License:	LGPL-2.1-or-later
-URL:		  https://gitlab.gnome.org/GNOME/libmks
+URL:		https://gitlab.gnome.org/GNOME/libmks
 Source0:	https://download.gnome.org/sources/%{name}/0.1/%{name}-%{version}.tar.xz
 
 BuildRequires:	gcc
@@ -23,14 +23,14 @@ BuildRequires:	pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	vala
-Requires:       glib2%{?_isa} >= %{glib2_version}
-Requires:       gtk4%{?_isa} >= %{gtk4_version}
+Requires:		glib2%{?_isa} >= %{glib2_version}
+Requires:		gtk4%{?_isa} >= %{gtk4_version}
 %if 0%{?rhel} >= 9
-Requires:       qemu-kvm-ui-dbus
-Requires:       qemu-kvm-ui-opengl
+Recommends:		qemu-kvm-ui-dbus
+Recommends:		qemu-kvm-ui-opengl
 %else
-Requires:       qemu-ui-dbus
-Requires:       qemu-ui-opengl
+Recommends:		qemu-ui-dbus
+Recommends:		qemu-ui-opengl
 %endif
 
 %description
@@ -38,23 +38,23 @@ This library provides a "Mouse, Keyboard, and Screen" to QEMU using the
 D-Bus device support in QEMU and GTK 4.
 
 %package devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Recommends:     %{name}-doc = %{version}-%{release}
+Summary:		Development files for %{name}
+Requires:		%{name}%{?_isa} = %{version}-%{release}
+Recommends:		%{name}-doc = %{version}-%{release}
 
 %description devel
 This package contains the libraries and header files that are needed
 for writing applications using %{name}.
 
 %package doc
-Summary:        Documentation files for %{name}
-BuildArch:      noarch
+Summary:		Documentation files for %{name}
+BuildArch:		noarch
 
-Recommends:     %{name}-devel = %{version}-%{release}
+Recommends:		%{name}-devel = %{version}-%{release}
 # Because web fonts from upstream are not bundled in the gi-docgen package,
 # packages containing documentation generated with gi-docgen should depend on
 # this metapackage to ensure the proper system fonts are present.
-Recommends:     gi-docgen-fonts
+Recommends:		gi-docgen-fonts
 
 %description doc
 Documentation files for %{name}.
@@ -94,4 +94,3 @@ Documentation files for %{name}.
 
 %changelog
 %autochangelog
-

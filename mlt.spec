@@ -12,8 +12,8 @@
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.18.0
-Release:        3%{?dist}
+Version:        7.20.0
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -234,6 +234,12 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Tue Oct 03 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 7.20.0-1
+- Update to 7.20.0 (#2241895)
+
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 7.18.0-4
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Sat Sep 23 2023 Sérgio Basto <sergio@serjux.com> - 7.18.0-3
 - Rebuild to use new movit and vid.stab packages
 

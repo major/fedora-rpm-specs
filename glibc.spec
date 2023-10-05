@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-147-g29d4591b07
+%global glibcsrcdir glibc-2.38.9000-157-g1056e5b4c3
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 10
+%global baserelease 12
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2199,6 +2199,24 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Oct 03 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-12
+- Auto-sync with upstream branch master,
+  1056e5b4c3f2d90ed2b4a55f96add28da2f4c8fa:
+- tunables: Terminate if end of input is reached (CVE-2023-4911)
+- Propagate GLIBC_TUNABLES in setxid binaries
+
+* Tue Oct 03 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-11
+- Auto-sync with upstream branch master,
+  9e4e896f0f5a19a16c1a77567463b013a0f4952d:
+- Linux: add ST_NOSYMFOLLOW
+- resolve: Remove __res_context_query alloca usage
+- mips: dl-machine-reject-phdr: Get rid of alloca.
+- x86: Add support for AVX10 preset and vec size in cpu-features
+- resolv: Fix a comment typo in __resolv_conf_load
+- Remove unused -DRESOLVER getaddrinfo build flag
+- C2x scanf %wN, %wfN support
+- test-container: Use nftw instead of rm -rf
+
 * Thu Sep 28 2023 Patsy Griffin <patsy@redhat.com> - 2.38.9000-10
 - Auto-sync with upstream branch master,
   commit 29d4591b07a4da53320e949557c6946c62c26bde.

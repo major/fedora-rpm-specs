@@ -5,7 +5,7 @@
 %global crate smithay-client-toolkit
 
 Name:           rust-smithay-client-toolkit
-Version:        0.16.0
+Version:        0.16.1
 Release:        %autorelease
 Summary:        Toolkit for making client wayland applications
 

@@ -1,8 +1,8 @@
 Summary:        C library for portable packet creation and injection
 Name:           libnet
-Version:        1.2
-Release:        9%{?dist}
-License:        BSD-2-Clause
+Version:        1.3
+Release:        1%{?dist}
+License:        BSD-2-Clause and BSD-3-Clause
 URL:            https://github.com/libnet/libnet
 Source0:        https://github.com/libnet/libnet/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         libnet-config.patch
@@ -45,7 +45,7 @@ developing applications that use libnet.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P 0 -p1
 # Avoid library soname bump (https://github.com/libnet/libnet/issues/115)
 sed -e 's/-version-info 9:0:0/-version-info 9:0:8/' -i src/Makefile.{am,in}
 
@@ -87,6 +87,7 @@ done
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}.h
 %{_includedir}/%{name}/
+%{_mandir}/man1/%{name}*.1*
 %{_mandir}/man3/%{name}*.3*
 
 %if 0%{!?_without_doc:1}
@@ -95,6 +96,9 @@ done
 %endif
 
 %changelog
+* Tue Oct 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-1
+- 1.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,20 +7,17 @@
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
 %global pecl_name  igbinary
 %global with_zts   0%{?__ztsphp:1}
 %global ini_name   40-%{pecl_name}.ini
 
-%global upstream_version 3.2.13
+%global upstream_version 3.2.14
 #global upstream_prever  RC1
 
 Summary:        Replacement for the standard PHP serializer
 Name:           php-pecl-igbinary
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 License:        BSD-3-Clause
 
@@ -31,6 +28,7 @@ BuildRequires:  php-pear
 BuildRequires:  php-devel >= 7.0
 BuildRequires:  php-pecl-apcu-devel
 BuildRequires:  php-json
+BuildRequires:  tzdata
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -192,6 +190,9 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct  3 2023 Remi Collet <remi@remirepo.net> - 3.2.14-1
+- update to 3.2.14
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

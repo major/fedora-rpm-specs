@@ -12,7 +12,7 @@ Summary:        MinGW pthread library
 # The main license of winpthreads is MIT, but parts of this library
 # are derived from the "Posix Threads library for Microsoft Windows"
 # http://locklessinc.com/articles/pthreads_on_windows/
-License:        MIT and BSD
+License:        BSD-3-Clause AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            http://mingw-w64.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/mingw-w64/mingw-w64-v%{version}%{?pre:-%{pre}}.tar.bz2
 

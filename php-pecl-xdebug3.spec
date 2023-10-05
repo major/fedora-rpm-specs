@@ -11,18 +11,15 @@
 
 %bcond_without     tests
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  a909eb088ad9fd8c8e09fcc71d892fa54b957b31
+%global gh_commit  9b96425d0c21cdf2dc6bc658c72d0cfc65a58603
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.2.2
-#global upstream_prever  RC2
-#global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
+%global upstream_version 3.3.0
+%global upstream_prever  alpha2
+%global upstream_lower   %(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
 %global _configure       ../%{sources}/configure
 
@@ -32,7 +29,7 @@
 Name:           php-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
 License:        Xdebug-1.03
@@ -169,13 +166,13 @@ for mod in simplexml; do
 done
 
 # only check if build extension can be loaded
-%{_bindir}/php \
+%{__php} \
     --no-php-ini \
     --define zend_extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep Xdebug
 
 %if %{with_zts}
-%{_bindir}/zts-php \
+%{__ztsphp} \
     --no-php-ini \
     --define zend_extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
     --modules | grep Xdebug
@@ -193,7 +190,7 @@ rm tests/debugger/bug00998-ipv6.phpt
 # bug00886 is marked as slow as it uses a lot of disk space
 TEST_OPTS="-q -x --show-diff"
 
-TEST_PHP_EXECUTABLE=%{_bindir}/php \
+TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 REPORT_EXIT_STATUS=1 \
 %{__php} -n run-xdebug-tests.php $TEST_OPTS
@@ -217,6 +214,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct  3 2023 Remi Collet <remi@remirepo.net> - 3.3.0~alpha2-1
+- update to 3.3.0alpha2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

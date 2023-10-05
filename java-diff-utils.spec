@@ -1,7 +1,7 @@
 Name:           java-diff-utils
 Version:        4.12
-Release:        3%{?dist}
-Summary:        Java library to create and apply patches
+Release:        4%{?dist}
+Summary:        Java library for performing diff operations
 
 License:        Apache-2.0
 URL:            https://java-diff-utils.github.io/java-diff-utils/
@@ -19,10 +19,10 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 %global _desc %{expand:
-The Java Diff Utils library is an open source library for performing
-comparison operations between texts: computing diffs, applying patches,
-generating or parsing unified diffs, generating diff output for easy
-display (e.g., side-by-side view), and so on.}
+Diff Utils library is an OpenSource library for performing the comparison / diff operations 
+between texts or some kind of data: computing diffs, applying patches, generating unified 
+diffs or parsing them, generating diff output for easy future displaying (like side-by-side 
+view) and so on.}
 
 %description %_desc
 
@@ -67,6 +67,9 @@ difference algorithms.
 %files jgit -f .mfiles-java-diff-utils-jgit
 
 %changelog
+* Tue Oct 03 2023 Christiano Anderson <chris@christiano.dev> - 4.12-4
+- Updated description and rebuilt for fc40 
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

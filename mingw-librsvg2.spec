@@ -1,14 +1,14 @@
 %{?mingw_package_header}
 
 Name:           mingw-librsvg2
-Version:        2.56.92
+Version:        2.57.0
 Release:        1%{?dist}
 Summary:        SVG library based on cairo for MinGW
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/LibRsvg
 BuildArch:      noarch
-Source0:        https://download.gnome.org/sources/librsvg/2.56/librsvg-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/librsvg/2.57/librsvg-%{version}.tar.xz
 # tar xf librsvg-${version}.tar.xz
 # cd librsvg-${version}
 # cargo vendor
@@ -157,6 +157,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc/librsvg
 
 
 %changelog
+* Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 2.57.0-1
+- Update to 2.57.0
+
 * Wed Aug 23 2023 Sandro Mani <manisandro@gmail.com> - 2.56.92-1
 - Update to 2.56.92
 

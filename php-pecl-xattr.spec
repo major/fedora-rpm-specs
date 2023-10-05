@@ -20,7 +20,7 @@
 Summary:        Extended attributes
 Name:           php-pecl-%{pecl_name}
 Version:        1.4.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -162,6 +162,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.4.0-13
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

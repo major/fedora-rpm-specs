@@ -1,5 +1,5 @@
 Name:           udiskie
-Version:        2.4.2
+Version:        2.5.0
 Release:        %{autorelease}
 Summary:        Removable disk auto-mounter
 
@@ -52,6 +52,9 @@ find -name '*.py' -exec sed -i 's|^#!python|#!%{__python3}|' '{}' +
 # Make test folder into a proper module, if it already isn't
 [ -f test/__init__.py ] || touch test/__init__.py
 
+# Use Fedora patch for bash completions
+sed -i 's|bash-completions/completions|bash-completion/completions|g' setup.py
+
 %build
 %py3_build
 
@@ -90,7 +93,12 @@ done
 %{_bindir}/%{name}-mount
 %{_bindir}/%{name}-umount
 %{_bindir}/%{name}-info
+%dir %{_datadir}/zsh
+%dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/site-functions/_%{name}*
+%dir %{_datadir}/bash-completion
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/%{name}*
 
 %files -n python3-%{name}
 %doc README.rst

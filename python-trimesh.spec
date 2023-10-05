@@ -86,6 +86,9 @@ BuildRequires:  /usr/bin/blender
 Recommends:     /usr/bin/blender
 %endif
 %endif
+# trimesh.graph
+BuildRequires:  /usr/bin/dot
+Recommends:     /usr/bin/dot
 # trimesh.exchange.ply
 %ifnarch s390x
 # ExportTest.test_export fails with:

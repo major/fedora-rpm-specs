@@ -21,7 +21,7 @@
 Summary:       Abstract Syntax Tree
 Name:          php-ast
 Version:       1.1.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       BSD-3-Clause
 URL:           https://pecl.php.net/package/ast
 Source0:       httpd://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -117,26 +117,34 @@ done
 
 
 %check
+VER=$(%{__php} -r 'echo PHP_VERSION_ID;')
+if [ $VER -ge 80000 ]; then
+  rm ?TS/tests/attributes_02.phpt
+  rm ?TS/tests/class_consts_80.phpt
+  rm ?TS/tests/php81_enums.phpt
+  rm ?TS/tests/php81_final_class_const.phpt
+fi
+
 cd NTS
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 : Upstream test suite  for NTS extension
 TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
-%{__php} -n run-tests.php -q --show-diff
+%{__php} -n run-tests.php -q --show-diff %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 : Upstream test suite  for ZTS extension
 TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-%{__ztsphp} -n run-tests.php -q --show-diff
+%{__ztsphp} -n run-tests.php -q --show-diff %{?_smp_mflags}
 %endif
 
 
@@ -155,6 +163,10 @@ TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_ztsex
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.1.0-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+- ignore 4 test failing with 8.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

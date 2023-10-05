@@ -9,7 +9,7 @@
 
 Name:		php-pecl-oauth	
 Version:	2.0.7
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	PHP OAuth consumer extension
 License:	BSD-3-Clause
 URL:		https://pecl.php.net/package/oauth
@@ -53,8 +53,8 @@ sed -e 's/role="test"/role="src"/' \
 
 
 cd NTS
-%patch0 -p1 -b .up
-%patch1 -p1 -b .pr24
+%patch -P0 -p1 -b .up
+%patch -P1 -p1 -b .pr24
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_OAUTH_VERSION/{s/.* //;s/".*$//;p}' php_oauth.h)
@@ -149,6 +149,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 2.0.7-13
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

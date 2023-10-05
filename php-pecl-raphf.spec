@@ -20,7 +20,7 @@
 Summary:        Resource and persistent handles factory
 Name:           php-pecl-%{pecl_name}
 Version:        2.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        BSD-2-Clause
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -61,7 +61,7 @@ These are the files needed to compile programs using %{name}.
 mv %{pecl_name}-%{version} NTS
 
 cd NTS
-%patch0 -p1 -b .pr9
+%patch -P0 -p1 -b .pr9
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RAPHF_VERSION/{s/.* "//;s/".*$//;p}' php_raphf.h)
@@ -191,6 +191,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 2.0.1-13
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

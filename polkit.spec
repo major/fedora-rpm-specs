@@ -4,10 +4,11 @@
 Summary: An authorization framework
 Name: polkit
 Version: 123
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
+Source1: polkit.sysusers
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -16,7 +17,7 @@ BuildRequires: pam-devel
 BuildRequires: gtk-doc
 BuildRequires: gettext-devel
 BuildRequires: gobject-introspection-devel
-BuildRequires: systemd, systemd-devel
+BuildRequires: systemd, systemd-devel, systemd-rpm-macros
 BuildRequires: dbus-devel
 BuildRequires: pkgconfig(duktape)
 BuildRequires: meson
@@ -24,11 +25,8 @@ BuildRequires: git
 
 Requires: dbus, polkit-pkla-compat
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-
-Requires(pre): shadow-utils
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+%{?systemd_requires}
+%{?sysusers_requires_compat}
 
 Obsoletes: PolicyKit <= 0.10
 Provides: PolicyKit = 0.11
@@ -95,15 +93,14 @@ Libraries files for polkit.
 
 %install
 %meson_install
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/polkitd.conf
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %find_lang polkit-1
 
 %pre
-getent group polkitd >/dev/null || groupadd -r -g 114 polkitd
-getent passwd polkitd >/dev/null || useradd -r -u 114 -g polkitd -d / -s /sbin/nologin -c "User for polkitd" polkitd
-exit 0
+%sysusers_create_compat %{SOURCE1}
 
 %post
 # The implied (systemctl preset) will fail and complain, but the macro hides
@@ -132,6 +129,7 @@ exit 0
 %dir %{_sysconfdir}/polkit-1
 %{_datadir}/polkit-1/rules.d/50-default.rules
 %attr(0750,root,polkitd) %dir %{_sysconfdir}/polkit-1/rules.d
+%{_sysusersdir}/polkitd.conf
 %{_sysconfdir}/pam.d/polkit-1
 %{_bindir}/pkaction
 %{_bindir}/pkcheck
@@ -161,6 +159,10 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Thu Sep 21 2023 Christian Glombek <cglombek@redhat.com> - 123-2
+- Provide a sysusers.d file to get user() and group() provides
+  (see https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format).
+
 * Tue Aug 01 2023 Jan Rybar <jrybar@redhat.com> - 123-1
 - Rebase to version 123
 

@@ -27,6 +27,7 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-cbor2
 BuildRequires:  python3-lxml
 BuildRequires:  python3-pefile
+BuildRequires:  python3-wheel
 
 %description -n python3-%{srcname} %_description
 

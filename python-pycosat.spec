@@ -7,8 +7,8 @@ when importing pycosat, the picosat solver becomes part of the Python process \
 itself.
 
 Name:           python-%{srcname}
-Version:        0.6.4
-Release:        4%{?dist}
+Version:        0.6.6
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -38,7 +38,7 @@ sed -i -e s/distutils.core/setuptools/ setup.py
 rm picosat.*
 
 # upstream only applies proper flags when build is invoked with --inplace
-sed -i "s/if '--inplace' in sys.argv:/if True:/" setup.py
+sed -i "s/if .--inplace. in sys.argv:/if True:/" setup.py
 
 %build
 %py3_build
@@ -51,10 +51,13 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -vv
 
 %files -n python%{python3_pkgversion}-%{srcname}
 %license LICENSE
-%doc CHANGELOG README.rst
+%doc AUTHORS.md CHANGELOG.md README.rst
 %{python3_sitearch}/*
 
 %changelog
+* Wed Oct 04 2023 Orion Poplawski <orion@nwra.com> - 0.6.6-1
+- Update to 0.6.6
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

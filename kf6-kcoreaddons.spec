@@ -1,0 +1,79 @@
+%global		gitdate 20230915.130519
+%global		cmakever 5.240.0
+%global		commit0 c53eeac32da84854ac65deddbf839983078ed456
+%global		shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global		framework kcoreaddons
+
+Name:		kf6-%{framework}
+Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
+Release:	2%{?dist}
+Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtCore
+License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND MPL-1.1 AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1
+URL:		https://invent.kde.org/frameworks/%{framework}
+Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+
+BuildRequires:	cmake
+BuildRequires:	gcc-c++
+BuildRequires:	make
+BuildRequires:	extra-cmake-modules >= %{cmakever}
+BuildRequires:	kf6-rpm-macros
+BuildRequires:	qt6-qtbase-devel
+BuildRequires:	qt6-qttools-devel
+BuildRequires:	cmake(Qt6Qml)
+BuildRequires:	systemd-devel
+
+Requires:	kf6-filesystem
+
+%description
+KCoreAddons provides classes built on top of QtCore to perform various tasks
+such as manipulating mime types, autosaving files, creating backup files,
+generating random sequences, performing text manipulations such as macro
+replacement, accessing user information and many more.
+
+%package	devel
+Summary:	Development files for %{name}
+Requires:	%{name} = %{version}-%{release}
+Requires:	qt6-qtbase-devel
+%description	devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+%prep
+%autosetup -n %{framework}-%{commit0} -p1
+
+%build
+%cmake_kf6
+%cmake_build
+
+%install
+%cmake_install
+
+%find_lang_kf6 kcoreaddons6_qt
+%find_lang_kf6 kde6_xml_mimetypes
+cat *.lang > all.lang
+
+%files -f all.lang
+%doc README.md
+%license LICENSES/*.txt
+%{_kf6_datadir}/kf6/licenses/
+%{_kf6_datadir}/mime/packages/kde6.xml
+%{_kf6_datadir}/qlogging-categories6/%{framework}.*
+%{_kf6_libdir}/libKF6CoreAddons.so.*
+%{_kf6_libdir}/qt6/qml/org/kde/coreaddons/libkcoreaddonsplugin.so
+%{_kf6_libdir}/qt6/qml/org/kde/coreaddons/qmldir
+%{_datadir}/kf6/jsonschema/kpluginmetadata.schema.json
+%{_libdir}/qt6/qml/org/kde/coreaddons/kcoreaddonsplugin.qmltypes
+%{_libdir}/qt6/qml/org/kde/coreaddons/kde-qmlmodule.version
+
+%files devel
+%{_kf6_archdatadir}/mkspecs/modules/qt_KCoreAddons.pri
+%{_kf6_includedir}/KCoreAddons/
+%{_kf6_libdir}/cmake/KF6CoreAddons/
+%{_kf6_libdir}/libKF6CoreAddons.so
+
+%changelog
+* Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230915.190519.c53eeac-2
+- Fixed a spec issue with some files and missing macros
+
+* Wed Sep 27 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230915.130519.c53eeac-1
+- Initial release

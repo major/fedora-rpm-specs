@@ -1,8 +1,15 @@
+%if 0%{?rhel} >= 10
+# libgps ABI changes too frequently to be provided for other applications
+%global with_libs 0
+%global with_qt 0
+%else
+%global with_libs 1
 %global with_qt 1
+%endif
 
 Name:           gpsd
 Version:        3.25
-Release:        7%{?dist}
+Release:        8%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -34,9 +41,13 @@ BuildRequires:  qt-devel
 %endif
 BuildRequires:  libusb1-devel
 
-Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       udev
 %{?systemd_requires}
+
+%if !%{with_libs}
+Obsoletes:      gpsd-libs < %{epoch}:%{version}-%{release}
+Obsoletes:      gpsd-devel < %{epoch}:%{version}-%{release}
+%endif
 
 %description
 gpsd is a service daemon that mediates access to a GPS sensor
@@ -48,22 +59,13 @@ can share access to a GPS without contention or loss of data.  Also,
 gpsd responds to queries with a format that is substantially easier to
 parse than NMEA 0183.
 
+%if %{with_libs}
 %package libs
 Summary:        Client libraries in C for talking to a running gpsd or GPS
 
 %description libs
 This package contains the gpsd libraries that manage access
 to a GPS for applications.
-
-%package -n python3-%{name}
-Summary:        Python libraries and modules for use with gpsd
-Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:       python3-pyserial
-%{?python_provide:%python_provide python3-%{name}}
-
-%description -n python3-%{name}
-This package contains the python3 modules that manage access to a GPS for
-applications.
 
 %package devel
 Summary:        Development files for the gpsd library
@@ -72,6 +74,7 @@ Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 %description devel
 This package provides C header files for the gpsd shared libraries that
 manage access to a GPS for applications
+%endif
 
 %if %{with_qt}
 %package qt
@@ -91,6 +94,16 @@ Requires:       %{name}-qt%{?_isa} = %{epoch}:%{version}-%{release}
 This package provides the development files for the C++ and Qt bindings for use
 with the libgps library from gpsd.
 %endif
+
+%package -n python3-%{name}
+Summary:        Python libraries and modules for use with gpsd
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       python3-pyserial
+%{?python_provide:%python_provide python3-%{name}}
+
+%description -n python3-%{name}
+This package contains the python3 modules that manage access to a GPS for
+applications.
 
 %package clients
 Summary:        Clients for gpsd
@@ -199,14 +212,18 @@ chmod 644 %{buildroot}%{python3_sitearch}/gps/gps.py
 
 rm -f %{buildroot}%{_libdir}/libgpsdpacket.so
 
-# If qt build was disabled, clean up the files that may have been installed
-# anyway
+# Remove unpackaged files
+%if !%{with_libs}
+rm -f %{buildroot}%{_libdir}/lib{gps*.so,gps.so.*}
+rm -rf %{buildroot}%{_libdir}/pkgconfig
+rm -rf %{buildroot}%{_includedir}
+rm -rf %{buildroot}%{_mandir}/man{3,5}
+%endif
 %if !%{with_qt}
 rm -f %{buildroot}%{_libdir}/libQgpsmm* \
     %{buildroot}%{_libdir}/pkgconfig/Qgpsmm* \
     %{buildroot}%{_mandir}/man3/libQgpsmm.3*
 %endif
-
 rm -rf %{buildroot}%{_docdir}/gpsd
 
 %post
@@ -219,7 +236,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 # Don't restart the service
 %systemd_postun gpsd.service gpsd.socket
 
+%if %{with_libs}
 %ldconfig_scriptlets libs
+%endif
 
 %if %{with_qt}
 %ldconfig_scriptlets qt
@@ -248,12 +267,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_mandir}/man1/gpsctl.1*
 %{_mandir}/man1/ntpshmmon.1*
 
+%if %{with_libs}
 %files libs
 %{_libdir}/libgps.so.30*
-
-%files -n python3-%{name}
-%{_libdir}/libgpsdpacket.so*
-%{python3_sitearch}/gps*
 
 %files devel
 %doc TODO HACKING
@@ -264,6 +280,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_mandir}/man3/libgps.3*
 %{_mandir}/man3/libgpsmm.3*
 %{_mandir}/man5/gpsd_json.5*
+%endif
 
 %if %{with_qt}
 %files qt
@@ -275,6 +292,11 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_libdir}/pkgconfig/Qgpsmm.pc
 %{_mandir}/man3/libQgpsmm.3*
 %endif
+
+%files -n python3-%{name}
+%license COPYING
+%{_libdir}/libgpsdpacket.so*
+%{python3_sitearch}/gps*
 
 %files clients
 %{_bindir}/cgps
@@ -327,6 +349,10 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %files compat
 
 %changelog
+* Tue Oct 03 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.25-8
+- disable libs and devel subpackages on RHEL
+- don't require libs in main package
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.25-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name: eth-tools
-Version: 11.5.0.0
-Release: 174%{?dist}
+Version: 11.5.1.0
+Release: 4%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
 Url: https://github.com/intel/eth-fast-fabric
-Source: %url/releases/download/v11.5.0.0/eth-fast-fabric-11.5.0.0.tar.gz
+Source: %url/releases/download/v11.5.1.0/eth-fast-fabric-11.5.1.0.tar.gz
 ExclusiveArch: x86_64
 # The Intel(R) Ethernet Fabric Suite product line is only available on x86_64 platforms at this time.
 
@@ -41,7 +41,7 @@ BuildRequires: perl-generators
 Contains tools for managing fabric on a management node.
 
 %prep
-%autosetup -cn eth-fast-fabric-11.5.0.0
+%autosetup -cn eth-fast-fabric-11.5.1.0
 
 %build
 cd OpenIb_Host
@@ -94,8 +94,16 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.5.0.0-174
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Tue Oct 03 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.1.0-3
+- Improved help text and man page for all tools
+
+* Tue Oct 03 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.1.0-1
+- Improved to support SLES 15.5
+- Replaced fgrep and egrep with grep -F and grep -E
+- Improved ethlinkanalysis/ethfabricanalysis to use first enabled
+  plane when it's not specified
+- Fixed version comparison issue on install script that happens on
+  CUDA version components
 
 * Thu Jun 01 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-173
 - Changed FastFabric package build to use dynamically generated

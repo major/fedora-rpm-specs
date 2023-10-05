@@ -7,7 +7,7 @@
 
 Name:           perl-Test-Harness
 Epoch:          1
-Version:        3.47
+Version:        3.48
 Release:        1%{?dist}
 Summary:        Run Perl standard test scripts with statistics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -139,15 +139,26 @@ make test
 
 %files
 %doc Changes Changes-2.64 examples README
-%{perl_vendorlib}/*
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/App*
+%{perl_vendorlib}/TAP*
+%{perl_vendorlib}/Test*
+%{_bindir}/prove
+%{_mandir}/man1/prove*
+%{_mandir}/man3/App::Prove*
+%{_mandir}/man3/TAP::Base*
+%{_mandir}/man3/TAP::Formatter*
+%{_mandir}/man3/TAP::Harness*
+%{_mandir}/man3/TAP::Object*
+%{_mandir}/man3/TAP::Parser*
+%{_mandir}/man3/Test::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.48-1
+- 3.48 bump (rhbz#2241802)
+
 * Wed Aug 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.47-1
 - 3.47 bump (rhbz#2231692)
 

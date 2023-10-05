@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.12.1
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Dataproc Metastore
 

@@ -2,7 +2,7 @@
 %global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.4.15.0
+Version:        2.4.16.0
 Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
@@ -126,7 +126,7 @@ Development files for package %{name}
 
 
 %prep
-%autosetup -p1 -n oiio-%{version}
+%autosetup -p1
 
 # Remove bundled pugixml
 rm -f src/include/OpenImageIO/pugixml.hpp \
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Oct 03 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.16.0-1
+- Update to 2.4.16.0.
+
 * Sun Sep 03 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.15.0-1
 - Update to 2.4.15.0.
 - Update License tag to SPDX identifiers.

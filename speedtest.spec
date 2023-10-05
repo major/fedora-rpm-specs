@@ -1,3 +1,5 @@
+%global forgeurl https://github.com/Ketok4321/%{name}
+
 %global rdnsappid xyz.ketok.Speedtest
 
 Name:           speedtest
@@ -5,9 +7,11 @@ Version:        1.1.1
 Release:        %autorelease
 Summary:        A graphical librespeed client written using gtk4 + libadwaita
 
+%forgemeta
+
 License:        GPL-3.0-or-later
-URL:            https://github.com/Ketok4321/speedtest
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 
@@ -37,7 +41,7 @@ Requires:       python3-gobject
 
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 
 %build

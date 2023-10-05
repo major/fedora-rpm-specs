@@ -1,6 +1,6 @@
 Name:       ncid
-Version:    1.14
-Release:    4%{?dist}
+Version:    1.15
+Release:    2%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 License:    GPLv3+
@@ -160,16 +160,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_datadir}/ncid/recordings/NotInService.rmd
 %{_datadir}/ncid/extensions/hangup-calls
 %{_datadir}/ncid/extensions/hangup-closed-skel
-%{_datadir}/ncid/extensions/hangup-combo-skel
+%{_datadir}/ncid/extensions/hangup-combo
 %{_datadir}/ncid/extensions/hangup-fakenum
 %{_datadir}/ncid/extensions/hangup-fcc
 %{_datadir}/ncid/extensions/hangup-greylist
 %{_datadir}/ncid/extensions/hangup-message-skel
 %{_datadir}/ncid/extensions/hangup-nohangup
 %{_datadir}/ncid/extensions/hangup-skel
+%{_datadir}/ncid/extensions/hangup-postal-code
 %{_datadir}/ncid/plugins/check_nanpa_number
 %{_datadir}/ncid/plugins/display_ncid_variables
 %dir %{_sysconfdir}/ncid
+%config(noreplace) %{_sysconfdir}/ncid/hangup-combo.conf
+%config(noreplace) %{_sysconfdir}/ncid/postal-codes
 %config(noreplace) %{_sysconfdir}/ncid/ncidd.blacklist
 %config(noreplace) %{_sysconfdir}/ncid/ncidd.whitelist
 %config(noreplace) %{_sysconfdir}/ncid/modem2.conf
@@ -192,12 +195,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_mandir}/man1/get-fcc-list.1*
 %{_mandir}/man1/hangup-calls.1*
 %{_mandir}/man1/hangup-closed-skel.1*
-%{_mandir}/man1/hangup-combo-skel.1*
+%{_mandir}/man1/hangup-combo.1*
 %{_mandir}/man1/hangup-fakenum.1*
 %{_mandir}/man1/hangup-fcc.1*
 %{_mandir}/man1/hangup-greylist.1*
 %{_mandir}/man1/hangup-message-skel.1*
 %{_mandir}/man1/hangup-nohangup.1*
+%{_mandir}/man1/hangup-postal-code.1*
 %{_mandir}/man1/hangup-skel.1*
 %{_mandir}/man1/ncid-setup.1*
 %{_mandir}/man1/ncid-yearlog.1*
@@ -466,6 +470,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Tue Oct 3 2023 John Chmielewski <jlc@users.sourceforge.net> 1.15-1
+- updated for new upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,15 +14,11 @@
 
 %global  req_libvirt_version 1.2.13
 %global  extname             libvirt-php
-%if "%{php_version}" < "5.6"
-%global ini_name             %{extname}.ini
-%else
-%global ini_name             40-%{extname}.ini
-%endif
+%global  ini_name            40-%{extname}.ini
 
 Name:		php-libvirt
-Version:	0.5.6
-Release:	5%{?dist}
+Version:	0.5.7
+Release:	1%{?dist}
 Summary:	PHP language bindings for Libvirt
 
 # libvirt-php is under the same terms as libvirt
@@ -31,7 +27,7 @@ URL:		http://libvirt.org/php
 Source0:	http://libvirt.org/sources/php/libvirt-php-%{version}.tar.xz
 
 BuildRequires:	make
-BuildRequires:	php-devel
+BuildRequires:	php-devel >= 7.0
 BuildRequires:	libvirt-devel >= %{req_libvirt_version}
 BuildRequires:	libxml2-devel
 BuildRequires:	libxslt
@@ -80,10 +76,8 @@ This package contains the documentation for php-libvirt.
 chmod +x %{buildroot}%{php_extdir}/%{extname}.so
 
 if [ -f %{buildroot}%{php_inidir}/%{extname}.ini ]; then
-  if [ "%{extname}.ini" != "%{ini_name}" ]; then
     mv %{buildroot}%{php_inidir}/%{extname}.ini \
        %{buildroot}%{php_inidir}/%{ini_name}
-  fi
 else
   install -Dpm 644 src/libvirt-php.ini %{buildroot}%{php_inidir}/%{ini_name}
 fi
@@ -111,6 +105,11 @@ rm %{buildroot}%{php_extdir}/%{extname}.la
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 0.5.7-1
+- update to 0.5.7
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+- raise dependency on PHP 7.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,11 +12,14 @@ Requires:         dbus
 Requires:         polkit
 BuildRequires:    make
 BuildRequires:    systemd-devel
+BuildRequires:    systemd-rpm-macros
 BuildRequires:    dbus-devel >= 1.2
 BuildRequires:    libcap-devel
 BuildRequires:    polkit-devel
 BuildRequires:    autoconf automake libtool
+%{?sysusers_requires_compat}
 Source0:          http://0pointer.de/public/%{name}-%{version}.tar.xz
+Source1:          rtkit.sysusers
 Patch:            rtkit-mq_getattr.patch
 Patch:            0001-SECURITY-Pass-uid-of-caller-to-polkit.patch
 Patch:            rtkit-controlgroup.patch
@@ -49,21 +52,10 @@ autoreconf -fvi
 %install
 %make_install
 install -Dm0644 org.freedesktop.RealtimeKit1.xml %{buildroot}%{_datadir}/dbus-1/interfaces/org.freedesktop.RealtimeKit1.xml
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/rtkit.conf
 
 %pre
-getent group rtkit >/dev/null 2>&1 || groupadd \
-        -r \
-        -g 172 \
-        rtkit
-getent passwd rtkit >/dev/null 2>&1 || useradd \
-        -r -l \
-        -u 172 \
-        -g rtkit \
-        -d /proc \
-        -s /sbin/nologin \
-        -c "RealtimeKit" \
-        rtkit
-:;
+%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post rtkit-daemon.service
@@ -85,6 +77,7 @@ dbus-send --system --type=method_call --dest=org.freedesktop.DBus / org.freedesk
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/org.freedesktop.RealtimeKit1.conf
 %{_prefix}/lib/systemd/system/rtkit-daemon.service
 %{_mandir}/man8/*
+%{_sysusersdir}/rtkit.conf
 
 %changelog
 %autochangelog

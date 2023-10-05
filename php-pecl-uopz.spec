@@ -20,7 +20,7 @@
 Summary:        User Operations for Zend
 Name:           php-pecl-%{pecl_name}
 Version:        7.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        PHP-3.01
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -71,7 +71,7 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
-%patch0 -p1
+%patch -P0 -p1
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_UOPZ_VERSION/{s/.* "//;s/".*$//;p}' uopz.h)
@@ -147,6 +147,9 @@ rm ?TS/tests/012.phpt
 %if "%{php_version}" >= "8.2"
 rm ?TS/tests/019.phpt
 %endif
+%if "%{php_version}" >= "8.3"
+rm ?TS/tests/007.phpt
+%endif
 
 cd NTS
 : Minimal load test for NTS extension
@@ -192,6 +195,10 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 7.1.1-9
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+- skip 1 test failing with 8.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

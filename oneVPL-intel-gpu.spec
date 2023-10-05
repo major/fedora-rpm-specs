@@ -1,20 +1,6 @@
-# AV1 decode since libva 2.7
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%global av1_decode ON
-%else
-%global av1_decode OFF
-%endif
-
-# AV1 encode since libva 2.14
-%if 0%{?fedora} >= 36
-%global av1_encode ON
-%else
-%global av1_encode OFF
-%endif
-
 Name:           oneVPL-intel-gpu
-Version:        23.1.3
-Release:        3%{?dist}
+Version:        23.3.4
+Release:        2%{?dist}
 Summary:        Intel oneVPL GPU Runtime
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -32,7 +18,6 @@ BuildRequires:  oneVPL-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4
 # Should be >= 1.9 but fails with libva < 2.12 (VAProcFilterCap3DLUT):
 # https://github.com/oneapi-src/oneVPL-intel-gpu/issues/198
-# Once fixed, can be built on epel9 as well.
 BuildRequires:  pkgconfig(libva) >= 1.12
 
 %description
@@ -55,9 +40,7 @@ developing applications that use %{name}.
 export VPL_BUILD_DEPENDENCIES="%{_prefix}"
 %cmake \
     -DBUILD_TESTS:BOOL='OFF' \
-    -DCMAKE_BUILD_TYPE:STRING="Fedora" \
-    -DMFX_ENABLE_AV1_VIDEO_DECODE:BOOL='%{av1_decode}' \
-    -DMFX_ENABLE_AV1_VIDEO_ENCODE:BOOL='%{av1_encode}'
+    -DCMAKE_BUILD_TYPE:STRING="Fedora"
 %cmake_build
 
 %install
@@ -70,7 +53,7 @@ rm -fr %{buildroot}%{_docdir}
 %license LICENSE
 %doc README.md CONTRIBUTING.md
 %{_libdir}/libmfx-gen.so.1.2
-%{_libdir}/libmfx-gen.so.1.2.8
+%{_libdir}/libmfx-gen.so.1.2.9
 %dir %{_libdir}/libmfx-gen
 %{_libdir}/libmfx-gen/enctools.so
 
@@ -79,6 +62,13 @@ rm -fr %{buildroot}%{_docdir}
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Tue Oct 03 2023 Simone Caronni <negativo17@gmail.com> - 23.3.4-2
+- Clean up SPEC file.
+
+* Tue Oct 03 2023 Simone Caronni <negativo17@gmail.com> - 23.3.4-1
+- Update to 23.3.4.
+- Fixes #2231401.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

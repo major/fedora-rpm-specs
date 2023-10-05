@@ -100,57 +100,35 @@
 # Require 4.12 which has DsRGetForestTrustInformation access rights fixes
 %global samba_version 2:4.12.10
 
-# 3.14.5-45 or later includes a number of interfaces fixes for IPA interface
-# 36.16-1 fixes BZ#2115691
-%if 0%{?fedora} < 36
-%global selinux_policy_version 3.14.5-45
-%else
+# 38.28 or later includes passkey-related fixes
 %global selinux_policy_version 38.28-1
-%endif
+
 %global slapi_nis_version 0.56.5
 
-%if 0%{?fedora} < 38
-# Fix for CVE-2020-28196
-%global krb5_version 1.18.2-29
-%global krb5_kdb_version 8.0
-%else
-# Fix for CVE-2020-28196
-%global krb5_version 1.20.1-3
+# Require new KDB ABI
+%global krb5_version 1.21.2
 %global krb5_kdb_version 9.0
-%endif
 
 # fix for segfault in python3-ldap, https://pagure.io/freeipa/issue/7324
 %global python_ldap_version 3.1.0-1
 
-# Make sure to use 389-ds-base versions that fix https://github.com/389ds/389-ds-base/issues/4700
-# and has DNA interval enabled
-%if 0%{?fedora} < 34
-%global ds_version 1.4.4.16-1
-%else
-%global ds_version 2.0.7-1
-%endif
+# 389-ds-base version that fixes a number of crashes and performance issues
+# https://bodhi.fedoraproject.org/updates/FEDORA-2023-9133b9b669
+%global ds_version 2.4.3-1
 
 # Fix for TLS 1.3 PHA, RHBZ#1775146
 %global httpd_version 2.4.41-9
 
 # Fix for RHBZ#2117342
-%if 0%{?fedora} < 37
-%global bind_version 9.11.24-1
-%else
 %global bind_version 32:9.18.7-1
-%endif
+
 # Don't use Fedora's Python dependency generator on Fedora 30/rawhide yet.
 # Some packages don't provide new dist aliases.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/
 %{?python_disable_dependency_generator}
 
-%if 0%{?fedora} < 37
-# F35+, adds IdP integration
-%global sssd_version 2.7.0
-%else
 # Support for passkey
-%global sssd_version 2.9.0
-%endif
+%global sssd_version 2.9.2
 
 # Fedora
 %endif
@@ -212,7 +190,7 @@
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
 %define IPA_VERSION 4.11.0
 # Release candidate version -- uncomment with one percent for RC versions
-%global rc_version beta1
+#%%global rc_version
 %define AT_SIGN @
 # redefine IPA_VERSION only if its value matches the Autoconf placeholder
 %if "%{IPA_VERSION}" == "%{AT_SIGN}VERSION%{AT_SIGN}"
@@ -223,7 +201,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        4%{?rc_version:.%rc_version}%{?dist}
+Release:        5%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -247,9 +225,6 @@ Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 # header-logo.png, login-screen-background.jpg, login-screen-logo.png,
 # product-name.png
 # RHEL spec file only: END: Change branding to IPA and Identity Management
-Patch0001:      0001-ipa-client-install-enable-SELinux-for-SSSD.patch
-Patch0002:      0001-Restore-selinux-states-if-they-exist-at-uninstall-ti.patch
-Patch0003:      0002-selinux-usb-access.patch
 
 # RHEL spec file only: START
 %if %{NON_DEVELOPER_BUILD}
@@ -1764,6 +1739,11 @@ fi
 %endif
 
 %changelog
+* Tue Oct 03 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-5
+- FreeIPA 4.11.0 release
+- Simplify Fedora spec file
+- Release notes: https://www.freeipa.org/release-notes/4-11-0.html
+
 * Mon Sep 18 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-4.beta1
 - Depend on selinux-policy-38.28-1.fc39
 - Add SELinux policy for passkey_child to be used without ipa-otpd

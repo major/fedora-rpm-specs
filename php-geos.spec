@@ -23,7 +23,7 @@
 
 Name:           php-%{pecl_name}
 Version:        1.0.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 
 Summary:        PHP module for GEOS
 
@@ -164,7 +164,6 @@ REPORT_EXIT_STATUS=1 \
 : Upstream test suite for ZTS extension
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
 REPORT_EXIT_STATUS=1 \
 %{__ztsphp} -n run-tests.php -q --show-diff || ret=1
 %endif
@@ -187,6 +186,9 @@ exit $ret
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.0.0-28
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Wed Jul 26 2023 Remi Collet <remi@remirepo.net> - 1.0.0-27
 - build out of sources tree
 - ignore 3 tests failing with libgeos 3.12 #2226098

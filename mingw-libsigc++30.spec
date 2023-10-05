@@ -6,11 +6,11 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:          mingw-%{pkgname}
-Version:       3.4.0
-Release:       3%{?dist}
+Version:       3.6.0
+Release:       1%{?dist}
 Summary:       MinGW Windows sigc++ 3.0 library
 
-License:       LGPLv2+
+License:       LGPL-2.0-or-later
 BuildArch:     noarch
 URL:           https://github.com/libsigcplusplus/libsigcplusplus
 Source0:       https://download.gnome.org/sources/libsigc++/%{release_version}/libsigc++-%{version}.tar.xz
@@ -78,6 +78,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 3.6.0-1
+- Update to 3.6.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

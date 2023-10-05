@@ -1,11 +1,6 @@
 %global __provides_exclude_from ^%{_libdir}/(fcitx5|qt5)/.*\\.so$
 
-%ifarch s390x
-# Don't build fcitx5-qt6 for s390x
-%global build_qt6 0
-%else
 %global build_qt6 1
-%endif
 
 Name:           fcitx5-qt
 Version:        5.1.1

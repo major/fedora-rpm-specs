@@ -1,6 +1,6 @@
 Name:           oneVPL
-Version:        2023.1.3
-Release:        3%{?dist}
+Version:        2023.3.1
+Release:        1%{?dist}
 Summary:        oneAPI Video Processing Library
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -12,7 +12,7 @@ Patch0:         %{name}-system-analyzer.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2177912
 # Don't install stuff to /usr/etc , it's all kinds of wrong and breaks
 # ostree
-Patch1:         0001-Fix-config-install-destinations-when-prefix-is-usr-9.patch
+Patch1:         %{name}-etc.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -43,7 +43,7 @@ implementations:
 
 - oneVPL-cpu for use on CPU
 - oneVPL-intel-gpu for use on Intel Xe graphics and newer
-- Media SDK for use on legacy Intel graphics
+- intel-mediasdk for use on legacy Intel graphics
 
 %package        devel
 Summary:        Development files for %{name}
@@ -86,7 +86,7 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_libdir}/vpl/libvpl_wayland.so
 %{_bindir}/system_analyzer
 %{_libdir}/libvpl.so.2
-%{_libdir}/libvpl.so.2.8
+%{_libdir}/libvpl.so.2.9
 
 %files devel
 %{_includedir}/vpl
@@ -106,6 +106,9 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_datadir}/vpl/examples
 
 %changelog
+* Tue Oct 03 2023 Simone Caronni <negativo17@gmail.com> - 2023.3.1-1
+- Update to 2023.3.1.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

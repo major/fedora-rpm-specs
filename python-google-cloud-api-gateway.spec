@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.7.2
+Version:        1.7.3
 Release:        %autorelease
 Summary:        Python Client for Google Cloud API Gateway
 

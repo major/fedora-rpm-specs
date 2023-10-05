@@ -7,8 +7,8 @@
 #
 
 # API/ABI check
-%global apiver      20220829
-%global zendver     20220829
+%global apiver      20230831
+%global zendver     20230831
 %global pdover      20170320
 
 # we don't want -z defs linker flag
@@ -18,7 +18,7 @@
 %global _hardened_build 1
 
 # version used for php embedded library soname
-%global embed_version 8.2
+%global embed_version 8.3
 
 %global mysql_sock %(mysql_config --socket 2>/dev/null || echo /var/lib/mysql/mysql.sock)
 
@@ -64,13 +64,13 @@
 %bcond_with      imap
 %bcond_without   lmdb
 
-%global upver        8.2.11
-#global rcver        RC1
+%global upver        8.3.0
+%global rcver        RC3
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -109,16 +109,20 @@ Patch8: php-8.1.0-libdb.patch
 
 # Functional changes
 # Use system nikic/php-parser
-Patch41: php-8.2.0-parser.patch
+Patch41: php-8.3.0-parser.patch
 # use system tzdata
-Patch42: php-8.1.0-systzdata-v23.patch
+Patch42: php-8.3.0-systzdata-v24.patch
 # See http://bugs.php.net/53436
+# + display PHP version backported from 8.4
 Patch43: php-7.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
 Patch45: php-7.4.0-ldap_r.patch
 # drop "Configure command" from phpinfo output
 # and only use gcc (instead of full version)
 Patch47: php-8.1.0-phpinfo.patch
+# Always warn about missing curve_name
+# Both Fedora and RHEL do not support arbitrary EC parameters
+Patch48: php-8.3.0-openssl-ec-param.patch
 
 # Upstream fixes (100+)
 
@@ -275,7 +279,7 @@ Provides: php-date, php-date%{?_isa}
 Provides: bundled(timelib)
 Provides: php-exif, php-exif%{?_isa}
 Provides: php-fileinfo, php-fileinfo%{?_isa}
-Provides: bundled(libmagic) = 5.29
+Provides: bundled(libmagic) = 5.43
 Provides: php-filter, php-filter%{?_isa}
 Provides: php-ftp, php-ftp%{?_isa}
 Provides: php-gettext, php-gettext%{?_isa}
@@ -321,7 +325,7 @@ Requires: zlib-devel%{?_isa}
 Provides: php-zts-devel = %{version}-%{release}
 Provides: php-zts-devel%{?_isa} = %{version}-%{release}
 %endif
-Recommends: php-nikic-php-parser4 >= 4.15.1
+Recommends: php-nikic-php-parser5 >= 5.0.0~alpha3
 
 
 %description devel
@@ -332,6 +336,7 @@ need to install this package.
 %package opcache
 Summary:   The Zend OPcache
 License:   PHP-3.01
+BuildRequires: pkgconfig(capstone) >= 3.0
 Requires:  php-common%{?_isa} = %{version}-%{release}
 Provides:  php-pecl-zendopcache = %{version}
 Provides:  php-pecl-zendopcache%{?_isa} = %{version}
@@ -719,6 +724,7 @@ in pure PHP.
 %patch -P43 -p1 -b .headers
 %patch -P45 -p1 -b .ldap_r
 %patch -P47 -p1 -b .phpinfo
+%patch -P48 -p1 -b .ec-param
 
 # upstream patches
 
@@ -734,7 +740,7 @@ cp TSRM/LICENSE TSRM_LICENSE
 cp Zend/asm/LICENSE BOOST_LICENSE
 cp sapi/fpm/LICENSE fpm_LICENSE
 cp ext/mbstring/libmbfl/LICENSE libmbfl_LICENSE
-cp ext/fileinfo/libmagic/LICENSE libmagic_LICENSE
+# cp ext/fileinfo/libmagic/LICENSE libmagic_LICENSE
 cp ext/bcmath/libbcmath/LICENSE libbcmath_LICENSE
 cp ext/date/lib/LICENSE.rst timelib_LICENSE
 
@@ -760,6 +766,9 @@ rm Zend/tests/bug54268.phpt
 rm Zend/tests/bug68412.phpt
 # tar issue
 rm ext/zlib/tests/004-mb.phpt
+# Both Fedora and RHEL do not support arbitrary EC parameters
+# https://bugzilla.redhat.com/2223953
+rm ext/openssl/tests/ecc_custom_params.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
@@ -905,6 +914,7 @@ pushd build-cgi
 build --libdir=%{_libdir}/php \
       --enable-pcntl \
       --enable-opcache \
+      --with-capstone \
       --enable-phpdbg \
 %if %{with imap}
       --with-imap=shared --with-imap-ssl \
@@ -1043,6 +1053,7 @@ build --includedir=%{_includedir}/php-zts \
       --with-config-file-scan-dir=%{_sysconfdir}/php-zts.d \
       --enable-pcntl \
       --enable-opcache \
+      --with-capstone \
 %if %{with imap}
       --with-imap=shared --with-imap-ssl \
 %endif
@@ -1142,7 +1153,7 @@ export NO_INTERACTION=1 REPORT_EXIT_STATUS=1 MALLOC_CHECK_=2
 export SKIP_ONLINE_TESTS=1
 export SKIP_IO_CAPTURE_TESTS=1
 unset TZ LANG LC_ALL
-if ! make test TESTS=-j4; then
+if ! make test TESTS=%{?_smp_mflags}; then
   set +x
   for f in $(find .. -name \*.diff -type f -print); do
     if ! grep -q XFAIL "${f/.diff/.phpt}"
@@ -1406,7 +1417,7 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %files common -f files.common
 %doc EXTENSIONS NEWS UPGRADING* README.REDIST.BINS *md docs
 %license LICENSE TSRM_LICENSE ZEND_LICENSE BOOST_LICENSE
-%license libmagic_LICENSE
+#license libmagic_LICENSE
 %license timelib_LICENSE
 %doc php.ini-*
 %config(noreplace) %{_sysconfdir}/php.ini
@@ -1541,6 +1552,16 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.3.0~rc3-2
+- tzdata is required
+
+* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.3.0~rc3-1
+- update to 8.3.0RC3 https://fedoraproject.org/wiki/Changes/php83
+- add internal UTC if tzdata is missing
+- bump to final API/ABI
+- switch to nikic/php-parser version 5
+- openssl: always warn about missing curve_name
+
 * Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.2.11-1
 - Update to 8.2.11 - http://www.php.net/releases/8_2_11.php
 

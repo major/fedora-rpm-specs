@@ -4,8 +4,8 @@
 # See the file "rocclr/device/comgrctx.cpp" for reference:
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
-%global rocm_release 5.6
-%global rocm_patch 1
+%global rocm_release 5.7
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocclr
@@ -20,18 +20,9 @@ Source1:        https://github.com/ROCm-Developer-Tools/HIP/archive/refs/tags/ro
 # TODO introduce HIPCC package so I can delete this:
 Source2:        https://github.com/ROCm-Developer-Tools/HIPCC/archive/refs/tags/rocm-%{version}.tar.gz#/HIPCC-%{version}.tar.gz
 
-Patch0:         https://github.com/ROCm-Developer-Tools/clr/commit/2cda949920a2ae5e88702ceaa806f5262070824c.patch
-# Rebased upstream patch:
-#https://github.com/ROCm-Developer-Tools/clr/commit/03bfa6168453cca9ddbc6aa1bf46324db186cbb3
-Patch1:         0001-Install-.hipVersion-into-datadir-for-linux.patch
-
 # Revert patch: this causes some issues with upstream LLVM 16 (RHBZ#2207599)
 #https://github.com/ROCm-Developer-Tools/ROCclr/commit/041c00465b7adcee78085dc42253d42d1bb1f250
 Patch4:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
-
-# HIPCC fixes:
-Patch100:       https://github.com/ROCm-Developer-Tools/HIPCC/commit/a11397e769f71227cfc44353842ea90707610236.patch
-Patch101:       https://github.com/ROCm-Developer-Tools/HIPCC/commit/560bee0df3b95d9cf18d5e52d7fa99ffe6b0f488.patch
 
 # Moves FindHIP cmake to datadir, to fit better with hip-devel being noarch:
 Patch6:         0001-Move-FindHIP-to-datadir.patch
@@ -57,10 +48,9 @@ BuildRequires:  rocminfo >= %{rocm_release}
 BuildRequires:  rocm-runtime-devel >= %{rocm_release}
 BuildRequires:  zlib-devel
 
-# Only the following architectures are supported, since the kernel support only
-# exists for x86_64, aarch64, and ppc64le:
-ExclusiveArch:  x86_64 aarch64 ppc64le
+# ROCclr relise on some x86 intrinsics
 # 32bit userspace is excluded as it likely doesn't work and is not very useful
+ExclusiveArch:  x86_64
 
 # rocclr bundles OpenCL 2.2 headers
 # Some work is needed to unbundle this, as it fails to compile with latest
@@ -306,6 +296,9 @@ chmod 755 %{buildroot}%{_libdir}/lib*.so*
 %{_docdir}/hip
 
 %changelog
+* Tue Oct 03 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
+- Update to 5.7
+
 * Tue Sep 12 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.1-1
 - Update to 5.6.1
 

@@ -7,21 +7,23 @@
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
-%global pecl_name apcu
-%global with_zts  0%{?__ztsphp:1}
-%global ini_name  40-%{pecl_name}.ini
+%global pecl_name  apcu
+%global with_zts   0%{?__ztsphp:1}
+%global ini_name   40-%{pecl_name}.ini
+%global sources    %{pecl_name}-%{version}
+%global _configure ../%{sources}/configure
 
 Name:           php-pecl-apcu
 Summary:        APC User Cache
 Version:        5.1.22
 Release:        6%{?dist}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
 Source3:        %{pecl_name}.conf.php
+
+Patch0:         %{pecl_name}-php83.patch
+Patch1:         %{pecl_name}-tests.patch
 
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/APCu
@@ -79,11 +81,13 @@ configuration, available on http://localhost/apcu-panel/
 
 %prep
 %setup -qc
-mv %{pecl_name}-%{version} NTS
 
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
-cd NTS
+cd %{sources}
+%patch -P0 -p1 -b.php83
+%patch -P1 -p1 -b.pr490
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_APCU_VERSION/{s/.* "//;s/".*$//;p}' php_apc.h)
 if test "x${extver}" != "x%{version}"; then
@@ -92,30 +96,31 @@ if test "x${extver}" != "x%{version}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# duplicate for ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Fix path to configuration file
 sed -e s:apc.conf.php:%{_sysconfdir}/apcu-panel/conf.php:g \
-    -i  NTS/apc.php
+    -i  %{sources}/apc.php
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
    --enable-apcu \
-   --with-php-config=%{_bindir}/php-config
+   --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
    --enable-apcu \
-   --with-php-config=%{_bindir}/zts-php-config
+   --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -136,7 +141,7 @@ install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 # Install the Control Panel
 # Pages
-install -D -m 644 -p NTS/apc.php  \
+install -D -m 644 -p %{sources}/apc.php  \
         %{buildroot}%{_datadir}/apcu-panel/index.php
 # Apache config
 install -D -m 644 -p %{SOURCE2} \
@@ -146,7 +151,7 @@ install -D -m 644 -p %{SOURCE3} \
         %{buildroot}%{_sysconfdir}/apcu-panel/conf.php
 
 # Test & Documentation
-cd NTS
+cd %{sources}
 for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
 done
@@ -156,21 +161,20 @@ done
 
 
 %check
-cd NTS
-%{_bindir}/php -n \
+cd %{sources}
+%{__php} -n \
    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-   -m | grep 'apcu'
+   -m | grep '^apcu$'
 
 # Upstream test suite for NTS extension
-TEST_PHP_EXECUTABLE=%{_bindir}/php \
+TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
-%{_bindir}/php -n run-tests.php -q --show-diff
+%{__php} -n run-tests.php -q --show-diff
 
 %if %{with_zts}
-cd ../ZTS
 %{__ztsphp} -n \
    -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-   -m | grep 'apcu'
+   -m | grep '^apcu$'
 
 # Upstream test suite for ZTS extension
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
@@ -180,7 +184,7 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -211,6 +215,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 5.1.22-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+- build out of sources tree
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.22-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

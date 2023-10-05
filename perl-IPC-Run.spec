@@ -2,8 +2,8 @@
 %bcond_without perl_IPC_Run_enables_optional_test
 
 Name:           perl-IPC-Run
-Version:        20220807.0
-Release:        4%{?dist}
+Version:        20231003.0
+Release:        1%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
 # The Win32* modules are not part of the binary RPM package
@@ -80,11 +80,6 @@ sed -i -e '/^lib\/IPC\/Run\/Win32.*/d' MANIFEST
 rm -f t/win32_*
 sed -i -e '/^t\/win32_.*/d' MANIFEST
 
-# Fix shellbangs
-for file in eg/run_daemon eg/abuse/timers eg/abuse/blocking_debug_with_sub_coprocess ; do
-    perl -pi -e 's,^#!.*/perl,%{__perl}, if ($. == 1)' "$file"
-done
-
 # Handle optional tests
 %if !%{with perl_IPC_Run_enables_optional_test}
 rm t/readonly.t
@@ -113,6 +108,15 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Tue Oct  3 2023 Paul Howarth <paul@city-fan.org> - 20231003.0-1
+- Update to 20231003.0 (rhbz#2241845)
+  - On Windows, avoid hang under IPCRUNDEBUG (GH#157)
+  - Refresh "cpanfile" from Makefile.PL, to allow use on Windows
+  - Normalize shebangs to /usr/bin/perl (GH#163)
+  - Fix or skip all tests recently seen to fail on Windows
+  - Include t/result.t in releases
+  - Make full_result() and result() Windows behavior match non-Windows (GH#168)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220807.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

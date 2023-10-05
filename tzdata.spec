@@ -6,7 +6,7 @@ Name: tzdata
 Version: 2023c
 %define tzdata_version 2023c
 %define tzcode_version 2023c
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -46,9 +46,9 @@ This package contains timezone information for use by Java runtimes.
 %prep
 %setup -q -c -a 1
 
-%patch002 -p1
+%patch -p1 -P 2
 %if 0%{?rhel}
-%patch003 -p1
+%patch -p1 -P 3
 %endif
 
 # tzdata-2018g introduced 25:00 transition times.  This breaks OpenJDK.
@@ -69,11 +69,11 @@ tar zxf rearguard/tzdata%{version}-rearguard.tar.gz
 mkdir javazic
 tar zxf %{SOURCE3} -C javazic
 pushd javazic
-%patch100
-%patch101
-%patch102
-%patch103
-%patch104
+%patch -P 100
+%patch -P 101
+%patch -P 102
+%patch -P 103
+%patch -P 104
 
 # Hack alert! sun.tools may be defined and installed in the
 # VM. In order to guarantee that we are using IcedTea/OpenJDK
@@ -164,6 +164,9 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Tue  Oct  3 2023 David Cantrell <dcantrell@redhat.com> - 2023c-4
+- Use the new syntax for the %%patch macro in the spec file
+
 * Mon Jul 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2023c-3
 - Disable Java 6/7 data in RHEL 10 builds
 

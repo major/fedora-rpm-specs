@@ -6,7 +6,7 @@
 Summary:		Provides a wrapper to the GraphicsMagick library
 Name:		php-pecl-%peclName
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:		9%{?dist}
+Release:		10%{?dist}
 License:		PHP-3.01
 Source0:		https://pecl.php.net/get/%peclName-%{upstream_version}%{?upstream_prever}.tgz
 Source1:		%peclName.ini
@@ -32,7 +32,7 @@ images using the GraphicsMagick API.
 %prep
 %setup -qc
 cd %peclName-%{upstream_version}%{?upstream_prever}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 cd %peclName-%{upstream_version}%{?upstream_prever}
@@ -68,6 +68,9 @@ php --no-php-ini \
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/php.d/%{ini_name}
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 2.0.6~RC1-10
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6~RC1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -30,7 +30,7 @@
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD-2-Clause
@@ -245,6 +245,9 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 4.2.4-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Mon Oct  2 2023 Remi Collet <remi@remirepo.net> - 4.2.4-1
 - update to 4.2.4
 - build out of sources tree

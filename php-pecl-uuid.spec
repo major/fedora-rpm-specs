@@ -17,7 +17,7 @@
 Summary:       Universally Unique Identifier extension for PHP
 Name:          php-pecl-uuid
 Version:       1.2.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -162,6 +162,9 @@ fi
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.2.0-11
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

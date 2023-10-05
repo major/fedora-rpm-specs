@@ -202,7 +202,7 @@
 
 Name:           uwsgi
 Version:        2.0.22
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -228,6 +228,8 @@ Patch7:         uwsgi_fix_mono.patch
 # https://github.com/unbit/uwsgi/issues/2283
 Patch12:        uwsgi_fix_php8.patch
 Patch13:        uwsgi_fix_chroot_chdir.patch
+# https://github.com/unbit/uwsgi/pull/2559
+Patch14:        uwsgi_fix_php83.patch
 # https://github.com/unbit/uwsgi/issues/2552
 Patch20:        uwsgi_fix_jvm_missing_path.patch
 Patch21:        uwsgi_python312.patch
@@ -1239,23 +1241,24 @@ Fully Apache API compliant proxy module
 cp -p %{SOURCE1} buildconf/
 echo "plugin_dir = %{_libdir}/uwsgi" >> buildconf/fedora.ini
 cp -p %{SOURCE5} README.Fedora
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 %if 0%{?fedora}
-%patch5 -p1
+%patch -P5 -p1
 %endif
 %if %{with v8} && 0%{?fedora}
-%patch6 -p1
+%patch -P6 -p1
 %endif
 %if %{with mono}
-%patch7 -p1
+%patch -P7 -p1
 %endif
-%patch12 -p1
-%patch13 -p1
-%patch20 -p1
-%patch21 -p1
+%patch -P12 -p1
+%patch -P13 -p1
+%patch -P14 -p1
+%patch -P20 -p1
+%patch -P21 -p1
 
 %if %{with perl} && (%{with python3} || %{with python3_other}) && %{with perlcoro}
 %{__python} -m lib2to3 --write --nobackups plugins/coroae/uwsgiplugin.py
@@ -1850,6 +1853,11 @@ exit 0
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 2.0.22-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+- add patch for PHP 8.3 from
+  https://github.com/unbit/uwsgi/pull/2559
+
 * Sat Sep 30 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-5
 - Rework python 3.12 patch
 

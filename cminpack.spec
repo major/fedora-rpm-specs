@@ -7,7 +7,7 @@ Release:        4%{?dist}
 Summary:        Solver for nonlinear equations and nonlinear least squares problems
 
 License:        BSD
-URL:            http://devernay.free.fr/hacks/cminpack/cminpack.html
+URL:            http://devernay.free.fr/hacks/cminpack/
 Source0:        https://github.com/devernay/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Update path to cblas.h for flexiblas, and fix cmake data install paths.
 Patch1:         %{name}-1.3.8-blas.patch

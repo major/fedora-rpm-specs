@@ -14,9 +14,9 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.16.0~b1
+Version: 2.16.0~b2
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -73,10 +73,6 @@ BuildRequires: python%{python3_pkgversion}-docutils
 BuildRequires: git-core
 BuildRequires: glibc-all-langpacks
 BuildRequires: python%{python3_pkgversion}-systemd
-# test/units/modules/test_async_wrapper.py needs this.
-# Instead of patching the tests to use /usr/bin/python3,
-# just give it what it wants.
-BuildRequires: /usr/bin/python
 %endif
 
 %if %{with argcomplete}
@@ -271,6 +267,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue Oct 03 2023 Maxwell G <maxwell@gtmx.me> - 2.16.0~b2-1
+- Update to 2.16.0~b2.
+
 * Mon Oct 02 2023 Miro Hrončok <mhroncok@redhat.com> - 2.16.0~b1-2
 - Do not use tomcli in Fedora ELN, avoid pulling unwanted dependencies
 

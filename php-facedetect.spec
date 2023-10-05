@@ -12,7 +12,7 @@
 
 Name:		php-facedetect
 Version:	1.2.0
-Release:	0.33.%{commitdate}git%{shortcommit}%{?dist}
+Release:	0.34.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	PHP extension to access the OpenCV library
 License:	BSD
 URL:		http://www.xarg.org/project/php-facedetect/
@@ -70,6 +70,9 @@ php --no-php-ini \
 %{php_extdir}/facedetect.so
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.2.0-0.34.20201021git2a8974b
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Thu Sep 07 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.0-0.33.20201021git2a8974b
 - Fix overlinking of OpenCV components
 

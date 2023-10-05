@@ -19,7 +19,7 @@
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -158,6 +158,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 0.7.0-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 0.7.0-1
 - update to 0.7.0
 - build out of sources tree

@@ -7,16 +7,17 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
-# prnt/* - BSD-3-Clause - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267 - proposed as BSD-3-Clause-HP
-# base/ldif.py - unknown python license from python-ldap - reported https://gitlab.com/fedora/legal/fedora-license-data/-/issues/269
+# prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
+# base/exif.py - BSD-2-Clause - reported as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/268
+# base/ldif.py - python-ldap - reported https://gitlab.com/fedora/legal/fedora-license-data/-/issues/269
 # io/*, scan/* - MIT
 # protocol/discovery/* - LGPL-2.1-or-later
 # protocol/* - GPL2only
 # scan/sane/sane.h - Public Domain
-License: GPL-2.0-or-later AND MIT AND BSD-3-Clause-HP AND IJG AND GPL-2.0-only AND LGPL-2.1-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
+License: GPL-2.0-or-later AND MIT AND BSD-3-Clause-HP AND IJG AND GPL-2.0-only AND LGPL-2.1-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain AND python-ldap
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
 # Original source tarball
@@ -978,6 +979,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Tue Oct 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-10
+- BSD-3-Clause-HP and python-ldap are added into SPDX list
+
 * Thu Aug 24 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-9
 - hp-check: use pkgconf when checking for cups version
 

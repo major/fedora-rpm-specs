@@ -1,18 +1,16 @@
 %bcond_without tests
 
 %global         srcname     google-cloud-bigquery-reservation
-%global         forgeurl    https://github.com/googleapis/python-bigquery-reservation
-Version:        1.11.2
-%global         tag         v%{version}
-%forgemeta
+%global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
+Version:        1.11.3
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud BigQuery Reservation API
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/google-cloud-python
+Source0:        %{url}/archive/refs/tags/%{srcname}-v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -37,7 +35,10 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=3 \
+    %{reponame}-%{srcname}-v%{version}/packages/%{srcname}
 
 # Allow a slightly older protobuf.
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py

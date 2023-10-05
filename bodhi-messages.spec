@@ -1,6 +1,6 @@
 %global pypi_name bodhi-messages
 %global src_name bodhi_messages
-%global pypi_version 7.2.1
+%global pypi_version 7.2.2
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %doc README.rst
 
 %changelog
+* Tue Oct 03 2023 Mattia Verga <mattia.verga@proton.me> - 7.2.2-1
+- Update to 7.2.2
+
 * Sun Jul 30 2023 Mattia Verga <mattia.verga@proton.me> - 7.2.1-1
 - Update to 7.2.1
 

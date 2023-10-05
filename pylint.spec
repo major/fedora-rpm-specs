@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/PyCQA/pylint
 %global basever 3.0.0
-%global prever a7
-Version:        %{basever}~%{prever}
+#%%global prever b0
+Version:        %{basever}
 %forgemeta
 
 Name:           pylint
@@ -9,7 +9,7 @@ Release:        %autorelease
 Summary:        Analyzes Python code looking for bugs and signs of poor quality
 License:        GPL-2.0-or-later
 URL:            https://www.pylint.org/
-Source0:        %{forgeurl}/archive/v%{basever}%{prever}/pylint-%{basever}%{prever}.tar.gz
+Source0:        %{forgeurl}/archive/v%{basever}/pylint-%{basever}.tar.gz
 #Patch0:         7829.patch apply when rebased then re-enable tests
 BuildArch:      noarch
 
@@ -63,7 +63,7 @@ Obsoletes:      python3-pylint-gui < 1.7
 %description -n python3-%{name} %_description
 
 %prep
-%autosetup -p1 -n %{name}-%{basever}%{prever}
+%autosetup -p1 -n %{name}-%{basever}
 
 %build
 %pyproject_wheel

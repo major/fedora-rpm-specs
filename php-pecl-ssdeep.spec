@@ -17,7 +17,7 @@
 Summary:        Wrapper for libfuzzy library
 Name:           php-pecl-%{pecl_name}
 Version:        1.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -64,7 +64,7 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 pushd NTS
-%patch0 -p1 -b .pr2
+%patch -P0 -p1 -b .pr2
 
 # Sanity check, really often broken
 extver=$(sed -n '/# *define PHP_SSDEEP_VERSION/{s/.* "//;s/".*$//;p}' php_ssdeep.h)
@@ -172,6 +172,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.1.0-18
+- rebuild for https://fedoraproject.org/wiki/Changes/php83
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

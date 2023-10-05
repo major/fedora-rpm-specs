@@ -6,14 +6,12 @@
 
 Name: algol68g
 Summary: Algol 68 Genie compiler-interpreter
-Version: 3.1.0
-Release: 3%{?dist}
+Version: 3.3.24
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html
 Source: https://jmvdveer.home.xs4all.nl/%{name}-%{version}.tar.gz
 BuildRequires: gcc
-BuildRequires: autoconf
-BuildRequires: automake
 BuildRequires: pkgconfig(ncurses)
 BuildRequires: pkgconfig(gsl)
 BuildRequires: pkgconfig(readline)
@@ -39,7 +37,6 @@ that has continuing responsibility for Algol 60 and Algol 68.
 %autosetup -p1
 
 %build
-autoreconf
 %configure
 %make_build
 
@@ -52,13 +49,17 @@ autoreconf
 %files
 %{_bindir}/a68g
 %{_mandir}/man1/a68g.1*
-%license COPYING LICENSE
+%license COPYING
 %doc AUTHORS NEWS README ChangeLog
 %exclude %{_includedir}
 %exclude %{_pkgdocdir}/COPYING
 %exclude %{_pkgdocdir}/LICENSE
 
 %changelog
+* Mon Oct 02 2023 Oleg Girko <ol@infoserver.lv> - 3.3.24-1
+- Update to 3.3.24
+- Don't run autoreconf: we don't apply any patches
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -25,6 +25,9 @@ Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_
 
 Patch:          0001-keyboard-Use-new-gnome-desktop-api-for-getting-defau.patch
 
+# https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/1935/
+Patch:          fix-vpn-config.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt
 BuildRequires:  gcc
