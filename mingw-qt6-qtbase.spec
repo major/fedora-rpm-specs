@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.5.2
+Version:        6.5.3
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -44,8 +44,6 @@ Patch2:         qtbase-include-toolchain.patch
 Patch3:         qtbase-qmakeconf.patch
 # Fix mingw build
 Patch4:         qtbase-mingw.patch
-# Backport fix for CVE-2023-38197
-Patch5:         CVE-2023-38197.patch
 
 
 BuildRequires:  cmake
@@ -540,6 +538,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
+- Update to 6.5.3
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 6.5.2-1
 - Update to 6.5.2
 

@@ -1,6 +1,15 @@
+%global _description \
+rdopkg is a tool for automating RPM packaging tasks such as managing patches,\
+updating to a new version and much more.\
+\
+Although it contains several RDO-specific actions, most of rdopkg\
+functionality can be used for any RPM package following conventions\
+described in the rdopkg manual.
+
+
 Name:             rdopkg
-Version:          1.5.1
-Release:          4%{?dist}
+Version:          1.7.0
+Release:          1%{?dist}
 Summary:          RPM packaging automation tool CLI
 
 License:          ASL 2.0
@@ -16,14 +25,7 @@ BuildRequires:    make
 
 Requires:         python3-rdopkg == %{version}-%{release}
 
-%description
-rdopkg is a tool for automating RPM packaging tasks such as managing patches,
-updating to a new version and much more.
-
-Although it contains several RDO-specific actions, most of rdopkg
-functionality can be used for any RPM package following conventions
-described in the rdopkg manual.
-
+%description %{_description}
 This package contains rdopkg executable, man pages and docs.
 
 
@@ -41,14 +43,7 @@ Requires:         git-review
 Recommends:       python3-blessings
 Recommends:       rpmlint
 
-%description -n python3-rdopkg
-rdopkg is a tool for automating RPM packaging tasks such as managing patches,
-updating to a new version and much more.
-
-Although it contains several RDO-specific actions, most of rdopkg
-functionality can be used for any RPM package following conventions
-described in the rdopkg manual.
-
+%description -n python3-rdopkg %{_description}
 
 %prep
 %autosetup -n %{name}-%{version} -S git
@@ -84,6 +79,9 @@ install -p -m 644 doc/man/*.7 %{buildroot}%{_mandir}/man7/
 
 
 %changelog
+* Wed Oct 04 2023 Joel Capitao <jcapitao@redhat.com> - 1.7.0-1
+- Update to 1.7.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

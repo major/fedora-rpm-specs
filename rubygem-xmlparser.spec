@@ -3,7 +3,8 @@
 Summary: Ruby bindings to the Expat XML parsing library
 Name: rubygem-%{gem_name}
 Version: 0.7.2.1
-Release: 38%{?dist}
+Release: 40%{?dist}
+Group: Development/Languages
 # src/lib/xml/xpath.rb is GPLv2+
 # src/ext/encoding.h and the functions of encoding map are GPLv2+ or Artistic
 # All other files are Ruby or GPLv2+ or MIT
@@ -16,6 +17,8 @@ Source0: http://gems.rubyforge.org/gems/%{gem_name}-%{version}.gem
 # Thanks to Gregor Herrmann for the patch.
 # https://www.mail-archive.com/debian-bugs-rc@lists.debian.org/msg297233.html
 Patch0: rubygem-xmlparser-ftbfs-fix.patch
+Patch1: rubygem-xmlparser-enc_to_encindex-fix.patch
+BuildRequires: perl
 BuildRequires: ruby
 BuildRequires: ruby(rubygems)
 BuildRequires: ruby(release)
@@ -24,7 +27,6 @@ BuildRequires: rubygems-devel
 BuildRequires: rubygem(rake)
 BuildRequires: rubygem(mkrf)
 BuildRequires: expat-devel
-BuildRequires: perl
 
 %description
 Ruby bindings to the Expat XML parsing library. 
@@ -36,6 +38,7 @@ gem unpack %{SOURCE0}
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 %patch0 -p1
+%patch1 -p1
 
 %build
 gem build %{gem_name}.gemspec
@@ -64,54 +67,8 @@ cp -a ./%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri
 %{gem_spec}
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-38
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-37
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.2.1-36
-- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-35
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.2.1-34
-- F-36: rebuild against ruby31
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-33
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-32
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-31
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jan  6 2021 Vít Ondruch <vondruch@redhat.com> - 0.7.2.1-30
-- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.0
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-29
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-28
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jan 17 2020 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.2.1-27
-- F-32: rebuild against ruby27
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-26
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-25
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jan 17 2019 Vít Ondruch <vondruch@redhat.com> - 0.7.2.1-24
-- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_2.6
-
-* Tue Aug 07 2018 Ulrich Schwickerath  <ulrich.schwickerath@web.de> - 0.7.2.1-23
-- require perl for building
-- fix bogus dates 
+* Wed Aug 30 2023 Ulrich Schwickerath - 0.7.2.1-40
+- Add patch for undefined symbol as proposed by Antonio Terceiro for Debian
 
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
@@ -194,23 +151,23 @@ cp -a ./%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri
 - fix installation path for .so files
 - add dependency on ruby-libs which owns the ruby_sitearch directory
 
-* Tue Jul 12 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-6
+* Wed Jul 12 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-6
 - add more details about licensing
 
-* Tue Jul 12 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-5
+* Wed Jul 12 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-5
 - specify
 - fix format of changelog
 - remove ruby-sitelib
 
-* Mon Jul 11 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-4
+* Tue Jul 11 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-4
 - cleaner way to treat SOURCE
 - remove explicit dependency on expat
 - make globals conditional
 
-* Sun Jul 10 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-3
+* Mon Jul 10 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-3
 - fix build problems 
 
-* Fri Jul 08 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-2
+* Sat Jul 08 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-2
 - add dependencies
 
 * Wed Jul 06 2011 Ulrich Schwickerath <ulrich.schwickerath@web.de> - 0.6.81-1

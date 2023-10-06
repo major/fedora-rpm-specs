@@ -19,8 +19,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        23.1
-Release:        5%{?dist}
+Version:        23.2
+Release:        1%{?dist}
 Summary:        Core utilities for Python packages
 
 License:        BSD-2-Clause OR Apache-2.0
@@ -136,6 +136,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Mon Oct 02 2023 Lumír Balhar <lbalhar@redhat.com> - 23.2-1
+- Update to 23.2 (rhbz#2241653)
+
 * Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 23.1-5
 - Declare the license as an SPDX expression
 

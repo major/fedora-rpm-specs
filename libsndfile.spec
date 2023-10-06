@@ -1,12 +1,11 @@
 Summary:	Library for reading and writing sound files
 Name:		libsndfile
-Version:	1.1.0
-Release:	9%{?dist}
+Version:	1.2.2
+Release:	1%{?dist}
 License:	LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 URL:		http://libsndfile.github.io/libsndfile/
 Source0:        https://github.com/libsndfile/libsndfile/releases/download/%{version}/libsndfile-%{version}.tar.xz
 Patch0:		libsndfile-1.0.25-system-gsm.patch
-Patch1:	libsndfile-1.1.0-cefd7b59.patch
 %if %{undefined rhel}
 # used to regenerate test .c sources from .def files
 BuildRequires:  autogen
@@ -61,7 +60,6 @@ This package contains command line utilities for libsndfile.
 %prep
 %setup -q
 %patch -P0 -p1 -b .system-gsm
-%patch -P1 -p1 -b .cefd7b59
 rm -r src/GSM610
 
 %build
@@ -77,11 +75,6 @@ autoreconf -I M4 -fiv # for system-gsm patch
 # Get rid of rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-%if %{defined rhel}
-# avoid regeneration with autogen
-touch tests/*.def tests/*.c
-%endif
 
 %make_build
 
@@ -127,7 +120,7 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 %license COPYING
 # NEWS files is missing in 1.1.0, check if it was re-added
 %doc AUTHORS README
-%{_libdir}/%{name}.so.*
+%{_libdir}/%{name}.so.1{,.*}
 
 %files utils
 %{_bindir}/sndfile-cmp
@@ -161,6 +154,12 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 
 
 %changelog
+* Wed Oct 04 2023 Michal Hlavinka <mhlavink@redhat.com> - 1.2.2-1
+- updated to 1.2.2
+
+* Tue Jul 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

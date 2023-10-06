@@ -3,13 +3,13 @@
 Summary: HTTP Accept* for Ruby/Rack
 Name: rubygem-%{gem_name}
 Version: 0.4.5
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: MIT
 URL: https://github.com/mjackson/rack-accept
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(rack)
-BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(test-unit)
 BuildArch: noarch
 
 %description
@@ -36,21 +36,7 @@ cp -pa .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
-# Run the tests using minitest 5.
-ruby -Ilib -rminitest/autorun - << \EOF
-  module Kernel
-    alias orig_require require
-    remove_method :require
-
-    def require path
-      orig_require path unless path == 'test/unit'
-    end
-  end
-
-  Test = Minitest
-
-  Dir.glob "./test/**/*_test.rb", &method(:require)
-EOF
+ruby -Ilib -r ./test/helper -e "Dir.glob './test/**/*_test.rb', &method(:require)"
 popd
 
 %files
@@ -69,6 +55,9 @@ popd
 
 
 %changelog
+* Thu Oct  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.5-18
+- Use test-unit instead of minitest
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

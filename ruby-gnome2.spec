@@ -19,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -50,7 +50,7 @@ Patch13:        ruby-gnome2-implicit-int-6.patch
 Patch14:        ruby-gnome2-implicit-int-7.patch
 
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  ruby ruby-devel gtk2-devel libgnome-devel libgnomeui-devel
 # pkg-config.rb moved to rubygem-pkg-config, and now this is needed for BR
 BuildRequires:  rubygem(pkg-config)
@@ -60,29 +60,13 @@ BuildRequires:  gcc
 BuildRequires:  rubygems
 BuildRequires:  %ruby_base_req
 
+# Add system wide library (not ruby-gnome2 internal) to BR
+BuildRequires:  rubygem-glib2-devel
+
 Requires:       %ruby_base_req
 Requires:       ruby(gnomecanvas2) = %{version}-%{release}
 
 Provides:       ruby(gnome2) =  %{version}-%{release}
-
-%if 0
-Obsoletes:      ruby(gnomeprint2) <=  %{version}-%{release}
-Obsoletes:      ruby(gnomeprint2-devel) <= %{version}-%{release}
-Obsoletes:      ruby(gnomeprintui2-devel) <= %{version}-%{release}
-Obsoletes:      ruby(gnomeprintui2) <=  %{version}-%{release}
-Obsoletes:      ruby(gtkhtml2) <= %{version}-%{release}
-Obsoletes:      ruby(gtkhtml2-devel) <= %{version}-%{release}
-Obsoletes:      ruby(gtksourceview) <= %{version}-%{release}
-Obsoletes:      ruby(gtksourceview-devel) <= %{version}-%{release}
-Obsoletes:      ruby(panelapplet2) <= %{version}-%{release}
-Obsoletes:      ruby(panelapplet2-devel) <= %{version}-%{release}
-Obsoletes:      ruby(goocanvas) <=  %{version}-%{release}
-Obsoletes:      ruby(goocanvas-devel) <= %{version}-%{release}
-Obsoletes:      ruby(gstreamer) <= %{version}-%{release}
-Obsoletes:      ruby(gstreamer-devel) <= %{version}-%{release}
-Obsoletes:      ruby(gtkmozembed) <= %{version}-%{release}
-Obsoletes:      ruby(gtkmozembed-devel) <= %{version}-%{release}
-%endif
 
 %description
 Ruby/GNOME2 is a Ruby binding of libgnome/libgnomeui-2.x.
@@ -97,33 +81,6 @@ Provides:       ruby(gnome2-devel) = %{version}-%{release}
 %description devel
 Ruby/GNOME2 is a Ruby binding of libgnome/libgnomeui-2.x.
 This package provides libraries and header files for ruby-gnome2
-
-%package -n ruby-atk
-Summary:        Ruby binding of ATK-1.0.x or later
-
-BuildRequires:  ruby ruby-devel glib2-devel atk-devel 
-#BuildRequires:  ruby(glib2-devel) = %{version}
-
-Requires:       %ruby_base_req ruby(glib2) >= %{version}
-
-Provides:       ruby(atk) = %{version}-%{release}
-
-%description -n ruby-atk
-Ruby/ATK is a Ruby binding of ATK-1.0.x or later.
-
-%package -n ruby-atk-devel
-Summary:        Development libraries and header files for ruby-atk
-
-Requires:       ruby-devel ruby(atk) = %{version}-%{release} 
-Requires:       ruby(glib2-devel) >= %{version}
-Requires:       atk-devel
-Requires:       pkgconfig
-
-Provides:       ruby(atk-devel) = %{version}-%{release}
-
-%description -n ruby-atk-devel
-Ruby/ATK is a Ruby binding of ATK-1.0.x or later.
-This package provides libraries and header files for ruby-atk
 
 %package -n ruby-bonobo2
 Summary:        Ruby binding of libbonobo-2.x
@@ -154,6 +111,7 @@ Summary:        Ruby binding of libbonoboui-2.x
 
 BuildRequires:  ruby ruby-devel
 BuildRequires:  libbonoboui-devel libgnomeui-devel
+BuildRequires:  rubygem-gtk2-devel
 
 Requires:       %ruby_base_req ruby(gnome2) = %{version}-%{release}
 
@@ -195,76 +153,6 @@ Provides:       ruby(gconf2-devel) = %{version}-%{release}
 %description -n ruby-gconf2-devel
 Ruby/GConf2 is a Ruby binding of GConf-2.x.
 This package provides libraries and header files for ruby-gconf2
-
-%package -n ruby-gdkpixbuf2
-Summary:        Ruby binding of GdkPixbuf-2.x
-
-BuildRequires:  ruby ruby-devel gtk2-devel rubygem-cairo-devel
-#BuildRequires:  ruby(glib2-devel) = %{version} ruby(gtk2-devel) = %{version}
-
-Requires:       %ruby_base_req
-Requires:       ruby(glib2) >= %{version} ruby(cairo)
-
-Provides:       ruby(gdkpixbuf2) =  %{version}-%{release}
-
-%description -n ruby-gdkpixbuf2
-Ruby/GdkPixbuf2 is a Ruby binding of GdkPixbuf-2.x.
-
-%package -n ruby-gdkpixbuf2-devel
-Summary:        Development libraries and header files for ruby-gdkpixbuf2
-
-Requires:       ruby(gdkpixbuf2) = %{version}-%{release}
-Requires:       pkgconfig
-Provides:       ruby(gdkpixbuf2-devel) = %{version}-%{release}
-
-%description -n ruby-gdkpixbuf2-devel
-Ruby/GdkPixbuf2 is a Ruby binding of GdkPixbuf-2.x.
-This package provides libraries and header files for ruby-gdkpixbuf2
-
-%package -n ruby-gio2
-Summary:        Ruby binding of gio-2.0.x.
-
-Requires:       %ruby_base_req
-Requires:       ruby(glib2) >= %{version}
-Provides:       ruby(gio2) = %{version}-%{release}
-
-%description -n ruby-gio2
-Ruby/GIO2 is a Ruby binding of gio-2.0.x.
-
-%package -n ruby-gio2-devel
-Summary:        Development libraries and header files for ruby-gio2
-
-Requires:       ruby(gio2) = %{version}-%{release}
-Requires:       pkgconfig
-# Not write Provides: ruby(gio2-devel) anymore, it is just a mistake
-
-%description -n ruby-gio2-devel
-This package provides libraries and header files for ruby-gio2.
-
-%package -n ruby-glib2
-Summary:        Ruby binding of GLib-2.x
-
-BuildRequires:  ruby ruby-devel glib2-devel
-
-Requires:       %ruby_base_req
-
-Provides:       ruby(glib2) =  %{version}-%{release}
-
-%description -n ruby-glib2
-Ruby/GLib2 is a Ruby binding of GLib-2.x.
-
-%package -n ruby-glib2-devel
-Summary:        Development libraries and header files for ruby-glib2
-
-Requires:       ruby(glib2) =  %{version}-%{release}
-Requires:       ruby-devel glib2-devel
-Requires:       pkgconfig
-
-Provides:       ruby(glib2-devel) =  %{version}-%{release}
-
-%description -n ruby-glib2-devel
-Ruby/GLib2 is a Ruby binding of GLib-2.x.
-This package provides libraries and header files for ruby-glib2
 
 %package -n ruby-gnomecanvas2
 Summary:        Ruby binding of GnomeCanvas-2.x
@@ -340,36 +228,6 @@ Provides:       ruby(gnomevfs-devel) = %{version}-%{release}
 Ruby/GnomeVFS is a Ruby binding of GnomeVFS-2.0.x.
 This package provides libraries and header files for ruby-gnomevfs
 
-%package -n ruby-gtk2
-Summary:        Ruby binding of GTK+-2.0.x
-
-BuildRequires:  ruby gtk2-devel rubygem-cairo-devel
-#BuildRequires:  ruby(glib2-devel) = %{version} ruby(pango-devel) = %{version}
-
-Requires:       %{_bindir}/env
-Requires:       %ruby_base_req
-Requires:       ruby(glib2) >= %{version} ruby(atk) >= %{version}
-Requires:       ruby(pango) >=  %{version}-%{release} ruby(cairo)
-Requires:       ruby(gdkpixbuf2) >=  %{version}-%{release}
-
-Provides:       ruby(gtk2) = %{version}-%{release}
-
-%description -n ruby-gtk2
-Ruby/GTK2 is a Ruby binding of GTK+-2.0.x.
-
-%package -n ruby-gtk2-devel
-Summary:        Development libraries and header files for ruby-gtk2
-
-Requires:       ruby(gtk2) =  %{version}-%{release}
-Requires:       gtk2-devel ruby-devel ruby(glib2-devel) >= %{version}
-Requires:       pkgconfig
-
-Provides:       ruby(gtk2-devel) = %{version}-%{release}
-
-%description -n ruby-gtk2-devel
-Ruby/GTK2 is a Ruby binding of GTK+-2.0.x.
-This package provides libraries and header files for ruby-gtk2
-
 %package -n ruby-gtkglext
 Summary:        Ruby binding of GtkGLExt
 
@@ -395,31 +253,6 @@ Provides:       ruby(gtkglext-devel) = %{version}-%{release}
 %description -n ruby-gtkglext-devel
 Ruby/GtkGLExt is a Ruby binding of GtkGLExt.
 This package provides libraries and header files for ruby-gtkglext
-
-%package -n ruby-gtksourceview2
-Summary:        Ruby binding of gtksourceview-2.x
-
-#BuildRequires:  ruby ruby-devel gtksourceview2-devel
-#BuildRequires:  ruby(gnome2) = %{version}
-
-Requires:       %ruby_base_req
-Requires:       ruby(gtk2) >= %{version}
-
-Provides:       ruby(gtksourceview2) = %{version}-%{release}
-
-%description -n ruby-gtksourceview2
-Ruby/GtkSourceView2 is a Ruby binding of gtksourceview-2.x.
-
-%package -n ruby-gtksourceview2-devel
-Summary:        Development libraries and header files for ruby-gtksourceview2
-
-Requires:       ruby(gtksourceview2) = %{version}-%{release}
-Requires:       pkgconfig
-Provides:       ruby(gtksourceview2-devel) = %{version}-%{release}
-
-%description -n ruby-gtksourceview2-devel
-Ruby/GtkSourceView2 is a Ruby binding of gtksourceview-2.x.
-This package provides libraries and header files for ruby-gtksourceview2
 
 %package -n ruby-libart2
 Summary:        Ruby binding of Libart_lgpl
@@ -476,118 +309,6 @@ Provides:       ruby(libglade2-devel) = %{version}-%{release}
 Ruby/Libglade2 is a Ruby bindings of Libglade2.
 This package provides libraries and header files for ruby-libglade2
 
-%package -n ruby-pango
-Summary:        Ruby binding of pango-1.x
-
-BuildRequires:  ruby ruby-devel glib2-devel pango-devel cairo-devel rubygem-cairo-devel
-#BuildRequires:  ruby(glib2-devel) = %{version}
-
-Requires:       %ruby_base_req
-Requires:       ruby(glib2) >= %{version} ruby(cairo)
-
-Provides:       ruby(pango) = %{version}-%{release}
-
-%description -n ruby-pango
-Ruby/Pango is a Ruby binding of pango-1.x.
-
-%package -n ruby-pango-devel
-Summary:        Development libraries and header files for ruby-pango
-
-Requires:       ruby(pango) = %{version}-%{release} 
-Requires:       pango-devel ruby-devel ruby(glib2-devel) >= %{version}
-Requires:       rubygem-cairo-devel
-Requires:       pkgconfig
-
-Provides:       ruby(pango-devel) = %{version}-%{release}
-
-%description -n ruby-pango-devel
-Ruby/Pango is a Ruby binding of pango-1.x.
-This package provides libraries and header files for ruby-pango
-
-%package -n ruby-poppler
-Summary:        Ruby binding of poppler-glib
-
-BuildRequires:  ruby ruby-devel poppler-devel cairo-devel rubygem-cairo-devel
-%if 0%{?fedora} >= 9
-BuildRequires:  poppler-glib-devel
-%endif
-#BuildRequires:  ruby(glib2-devel) = %{version} ruby(gdkpixbuf2) = %{version}
-
-Requires:       %{_bindir}/env
-Requires:       %ruby_base_req
-Requires:       ruby(gdkpixbuf2) >= %{version}
-Requires:       ruby(gtk2) >= %{version} ruby(cairo)
-
-Provides:       ruby(poppler) = %{version}-%{release}
-
-%description -n ruby-poppler
-Ruby/Poppler is a Ruby binding of poppler-glib.
-
-%package -n ruby-poppler-devel
-Summary:        Development libraries and header files for ruby-poppler
-
-Requires:       ruby(poppler) = %{version}-%{release}
-Requires:       pkgconfig
-Provides:       ruby(poppler-devel) = %{version}-%{release}
-
-%description -n ruby-poppler-devel
-Ruby/Poppler is a Ruby binding of poppler-glib.
-This package provides libraries and header files for ruby-poppler
-
-%package -n ruby-rsvg
-Summary:        Ruby binding of librsvg
-
-BuildRequires:  ruby ruby-devel librsvg2-devel rubygem-cairo-devel
-#BuildRequires:  ruby(glib2-devel) = %{version} ruby(gdkpixbuf2) = %{version}
-
-Requires:       %{_bindir}/env
-Requires:       %ruby_base_req
-Requires:       ruby(gdkpixbuf2) >= %{version}
-Requires:       ruby(cairo)
-
-Provides:       ruby(rsvg) = %{version}-%{release}
-
-%description -n ruby-rsvg
-Ruby/RSVG is a Ruby binding of librsvg.
-
-%package -n ruby-rsvg-devel
-Summary:        Development libraries and header files for ruby-rsvg
-
-Requires:       ruby(rsvg) = %{version}-%{release}
-Requires:       pkgconfig
-Provides:       ruby(rsvg-devel) = %{version}-%{release}
-
-%description -n ruby-rsvg-devel
-Ruby/RSVG is a Ruby binding of librsvg.
-This package provides libraries and header files for ruby-rsvg
-
-%package -n ruby-vte
-Summary:        Ruby binding of VTE
-
-BuildRequires:  ruby ruby-devel vte-devel
-#BuildRequires:  ruby(gtk2-devel) = %{version}
-
-Requires:       %{_bindir}/env
-Requires:       %ruby_base_req
-Requires:       ruby(gtk2) >= %{version}
-
-Provides:       ruby(vte) = %{version}-%{release}
-
-%description -n ruby-vte
-Ruby/VTE is a Ruby binding of VTE.
-
-%package -n ruby-vte-devel
-Summary:        Development libraries and header files for ruby-vte
-
-Requires:       ruby(vte) = %{version}-%{release}
-Requires:       pkgconfig
-Provides:       ruby(vte-devel) = %{version}-%{release}
-
-%description -n ruby-vte-devel
-Ruby/VTE is a Ruby binding of VTE.
-This package provides libraries and header files for ruby-vte
-
-
 %prep
 %setup -q -n %{name}-all-%{version}
 #%%setup -q -n %{name}-all-%{version}-%{betaver}
@@ -637,9 +358,37 @@ grep -rl rb_cData . | xargs sed -i.ruby32 -e 's|rb_cData|rb_cObject|'
 # cleanup
 # find . -type d -path '*/sample/*.svn' | sort -r | xargs rm -rf
 
+# Remove diretories no longer going to build
+rm -rf \
+	atk \
+	gdk_pixbuf2 \
+	gio2 \
+	glib2 \
+	gtk2 \
+	gtkhtml2 \
+	panel-applet \
+	pango \
+	poppler \
+	rsvg2 \
+	vte \
+	goocanvas \
+	gstreamer \
+	gnomeprint \
+	gnomeprintui \
+	gtkmozembed \
+	gtksourceview \
+	gtksourceview2 \
+	%{nil}
+sed -i extconf.rb \
+	-e 's|^priorlibs.*$|priorlibs\t= []|'
+
+# Kill tainted feature, fix -Werror=implicit-funciton-declaration
+sed -i gnomevfs/src/gnomevfs-file.c \
+	-e 's|rb_tainted_str_new|rb_str_new|'
+
 %build
+export CFLAGS="$RPM_OPT_FLAGS -Werror=implicit-function-declaration"
 ruby extconf.rb --vendor
-export CFLAGS="$RPM_OPT_FLAGS"
 
 make %{?_smp_mflags} -k
 
@@ -664,114 +413,6 @@ install -cpm 0755 libglade/bin/ruby-glade-create-template \
     $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT/bin
 %endif
-
-# Kill dead gnome bindings as they're no longer shipped in Fedora
-# Also kill modules already converted into gem form:
-cat > KILLFILES.list <<EOF 
-# - atk
-%{ruby_vendorlibdir}/atk.rb
-%{ruby_vendorarchdir}/atk.so
-%{ruby_vendorarchdir}/rbatk.h
-%{ruby_vendorarchdir}/rbatkversion.h
-%{_libdir}/pkgconfig/ruby-atk.pc
-
-# - gdk_pixbuf2
-%{ruby_vendorlibdir}/gdk_pixbuf2.rb
-%{ruby_vendorarchdir}/gdk_pixbuf2.so
-%{_libdir}/pkgconfig/ruby-gdk-pixbuf2.pc
-
-# - gio2
-%{ruby_vendorlibdir}/gio2.rb
-%{ruby_vendorarchdir}/gio2.so
-%{_libdir}/pkgconfig/ruby-gio2.pc
-
-# - glib2
-%{ruby_vendorlibdir}/glib2.rb
-%{ruby_vendorlibdir}/glib-mkenums.rb
-%{ruby_vendorlibdir}/gnome2-win32-binary-downloader.rb
-%{ruby_vendorlibdir}/mkmf-gnome2.rb
-%{ruby_vendorarchdir}/glib2.so
-%{ruby_vendorarchdir}/rbgcompat.h
-%{ruby_vendorarchdir}/rbglib.h
-%{ruby_vendorarchdir}/rbgobject.h
-%{ruby_vendorarchdir}/rbgutil.h
-%{ruby_vendorarchdir}/glib-enum-types.h
-%{_libdir}/pkgconfig/ruby-glib2.pc
-
-# - gtk2
-%{ruby_vendorlibdir}/gtk2.rb
-%{ruby_vendorlibdir}/gtk2/base.rb
-%{ruby_vendorarchdir}/gtk2.so
-%{ruby_vendorarchdir}/rbgdk.h
-%{ruby_vendorarchdir}/rbgdkconversions.h
-%{ruby_vendorarchdir}/rbgtk.h
-%{ruby_vendorarchdir}/rbgtkconversions.h
-%{ruby_vendorarchdir}/rbgtkmacros.h
-%{_libdir}/pkgconfig/ruby-gtk2.pc
-
-# - pango
-%{ruby_vendorlibdir}/pango.rb
-%{ruby_vendorarchdir}/pango.so
-%{ruby_vendorarchdir}/rbpango.h
-%{ruby_vendorarchdir}/rbpangoversion.h
-%{_libdir}/pkgconfig/ruby-pango.pc
-
-# - poppler
-%{ruby_vendorlibdir}/poppler.rb
-%{ruby_vendorarchdir}/poppler.so
-%{_libdir}/pkgconfig/ruby-poppler.pc
-
-# - rsvg2
-%{ruby_vendorlibdir}/rsvg2.rb
-%{ruby_vendorarchdir}/rsvg2.so
-%{_libdir}/pkgconfig/ruby-rsvg2.pc
-
-# - vte
-%{ruby_vendorlibdir}/vte.rb
-%{ruby_vendorarchdir}/vte.so
-%{_libdir}/pkgconfig/ruby-vte.pc
-
-# - goocanvas
-%{ruby_vendorlibdir}/goocanvas.rb
-%{ruby_vendorarchdir}/goocanvas.so
-%{_libdir}/pkgconfig/ruby-goocanvas.pc
-
-# - gstreamer
-%{ruby_vendorlibdir}/gst.rb
-%{ruby_vendorarchdir}/gst.so
-%{_libdir}/pkgconfig/ruby-gstreamer.pc
-
-# gnomeprint
-%{ruby_vendorlibdir}/gnomeprint2.rb
-%{ruby_vendorarchdir}/gnomeprint2.so
-%{ruby_vendorarchdir}/rblibgnomeprintversion.h
-%{_libdir}/pkgconfig/ruby-gnomeprint2.pc
-%{ruby_vendorlibdir}/gnomeprintui2.rb
-%{ruby_vendorarchdir}/gnomeprintui2.so
-%{_libdir}/pkgconfig/ruby-gnomeprintui2.pc
-
-# mozembed
-%{ruby_vendorlibdir}/gtkmozembed.rb
-%{ruby_vendorarchdir}/gtkmozembed.so
-%{_libdir}/pkgconfig/ruby-gtkmozembed.pc
-
-# gtksourceview
-%{ruby_vendorlibdir}/gtksourceview.rb
-%{ruby_vendorarchdir}/gtksourceview.so
-%{_libdir}/pkgconfig/ruby-gtksourceview.pc
-
-# gtksourceview2
-%{ruby_vendorlibdir}/gtksourceview2.rb
-%{ruby_vendorarchdir}/gtksourceview2.so
-%{_libdir}/pkgconfig/ruby-gtksourceview2.pc
-
-EOF
-
-cat KILLFILES.list | grep '^%{_prefix}' | while read f
-do
-	rm -f %{buildroot}$f
-done
-
 
 %files
 %doc gnome/README gnome/ChangeLog gnome/COPYING.LIB gnome/sample
@@ -851,6 +492,10 @@ done
 
 
 %changelog
+* Wed Oct  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-14
+- Clean up subdirectories in advance no longer being built
+- No longer use tainted function and fix build with -Werror=implicit-function-declaration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

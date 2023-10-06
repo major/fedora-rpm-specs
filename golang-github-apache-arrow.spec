@@ -5,8 +5,8 @@
 
 # https://github.com/apache/arrow/go/arrow
 %global goipath         github.com/apache/arrow
-Version:                2.0.0
-%global tag             apache-arrow-2.0.0
+Version:                12.0.1
+%global tag             apache-arrow-12.0.1
 %global distprefix      %{nil}
 
 %gometa
@@ -29,21 +29,6 @@ License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
-BuildRequires:  golang(github.com/golang/protobuf/proto)
-BuildRequires:  golang(github.com/google/flatbuffers/go)
-BuildRequires:  golang(golang.org/x/xerrors)
-BuildRequires:  golang(google.golang.org/grpc)
-BuildRequires:  golang(google.golang.org/grpc/codes)
-BuildRequires:  golang(google.golang.org/grpc/metadata)
-BuildRequires:  golang(google.golang.org/grpc/status)
-BuildRequires:  golang(google.golang.org/protobuf/reflect/protoreflect)
-BuildRequires:  golang(google.golang.org/protobuf/runtime/protoimpl)
-
-%if %{with check}
-# Tests
-BuildRequires:  golang(github.com/stretchr/testify/assert)
-%endif
-
 %description
 %{common_description}
 
@@ -54,12 +39,15 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 # Remove files unrelated to the Go Library
 find ./* -maxdepth 0 -type d -not -name "go" -and -not -name "_build" -exec rm -rf "{}" \;
 
+%generate_buildrequires
+%go_generate_buildrequires
+
 %install
 %gopkginstall
 
 %if %{with check}
 %check
-%gocheck
+%gocheck -d github.com/apache/arrow/go/arrow/compute
 %endif
 
 %gopkgfiles

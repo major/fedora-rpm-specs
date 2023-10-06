@@ -2,23 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/digitalocean/godo
-%global goipath         github.com/digitalocean/godo
-Version:                1.103.0
+# https://github.com/rodaine/table
+%global goipath         github.com/rodaine/table
+Version:                1.1.0
 
 %gometa -f
 
-%global common_description %{expand:
-DigitalOcean Go API client.}
 
-%global golicenses      LICENSE.txt
-%global godocs          CHANGELOG.md CONTRIBUTING.md README.md
+%global common_description %{expand:
+Go CLI Table Generator.}
+
+%global golicenses      license
+%global godocs          readme.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        DigitalOcean Go API client
+Summary:        Go CLI Table Generator
 
-License:        MIT and BSD-3-Clause
+License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 
@@ -28,6 +29,7 @@ Source:         %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

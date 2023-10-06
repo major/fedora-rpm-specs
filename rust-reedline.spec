@@ -13,9 +13,9 @@ License:        MIT
 URL:            https://crates.io/crates/reedline
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump rstest dev-dependency from 0.16 to 0.18
 # * drop clipboard feature
-# * bump rstest to 0.17.0
-# * use rusqlite rather than rusqlite/bundled
+# * drop unavailable rusqlite feature for statically linking libsqlite3
 Patch:          reedline-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

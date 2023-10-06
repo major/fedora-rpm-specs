@@ -4,17 +4,17 @@
 
 Summary: X.Org X11 libXrandr runtime library
 Name: libXrandr
-Version: 1.5.2
-Release: 12%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.5.4
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: HPND-sell-variant
 URL: http://www.x.org
 
 %if 0%{?gitdate}
-Source0:    %{tarball}-%{gitdate}.tar.bz2
+Source0:    %{tarball}-%{gitdate}.tar.xz
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 Requires: libX11 >= 1.6.0
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Oct 05 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.5.4-1
+- libXrandr 1.5.4
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.5.2-12
 - SPDX migration
 

@@ -13,7 +13,7 @@
 
 Name:           %{srcname}
 Version:        1.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{summary}
 
 %global git_tag RELEASE_%(r=%{version}; echo $r | tr '.' '_')
@@ -73,6 +73,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       python3-requests
 Requires:       python3-requests-oauthlib
 Requires:       python3-jinja2
+Requires:       python3-lxml
 
 %description -n python3-%{srcname}
 Keycloak is an authentication server. This package contains libraries and
@@ -145,13 +146,16 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %endif
 
 %changelog
+* Wed Oct 4 2023 Tomas Halman <thalman@redhat.com> - 1.1-19
+- Resolves: rhbz#2115262 keycloak-httpd-client-install missing dependency to python-lxml
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1-17
 - Rebuilt for Python 3.12
 
-* Thu Mar 7 2023 Tomas Halman <thalman@redhat.com> - 1.1-16
+* Tue Mar 7 2023 Tomas Halman <thalman@redhat.com> - 1.1-16
 - migrated to SPDX license
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-15

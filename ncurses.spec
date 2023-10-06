@@ -1,9 +1,9 @@
-%global revision 20230520
+%global revision 20231001
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 7.%{revision}%{?dist}
-License: MIT
+Release: 8.%{revision}%{?dist}
+License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
 Source1: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz.asc
@@ -110,10 +110,10 @@ The ncurses-static package includes static libraries of the ncurses library.
 
 %setup -q -n %{name}-%{version}-%{revision}
 
-%patch8 -p1 -b .config
-%patch9 -p1 -b .libs
-%patch11 -p1 -b .urxvt
-%patch12 -p1 -b .kbs
+%patch -P8 -p1 -b .config
+%patch -P9 -p1 -b .libs
+%patch -P11 -p1 -b .urxvt
+%patch -P12 -p1 -b .kbs
 
 for f in ANNOUNCE; do
     iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -283,6 +283,11 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Wed Oct 04 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-8.20231001
+- update to 6.4-20231001
+- convert license tag to SPDX
+- switch from patchX to patch -PX
+
 * Tue Aug 22 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-7.20230520
 - ignore TERMINFO and HOME only if setuid/setgid/capability
 

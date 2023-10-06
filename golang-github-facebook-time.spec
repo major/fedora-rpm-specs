@@ -3,7 +3,7 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global commit          8413c323c787e90068357951bd03baa471c5ad4c
+%global commit          e5c45cf0ab13368352ca11ccf2b9d47915189a8b
 
 Version:        0
 %gometa
@@ -15,7 +15,7 @@ Meta's Time libraries.}
 %global godocs          CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        Meta's Time libraries
 
 # Upstream license specification: Apache-2.0
@@ -79,10 +79,16 @@ CLI and library to perform various PTP-related tasks, including:
 - mapping PHC devices to network cards and vice versa
 
 %package -n     ptp4u
-Summary:        Scalable unicast PTP server
+Summary:        Scalable unicast PTP server supporting PTP and SPTP
 
 %description -n ptp4u
-ptp4u is a scalable unicast PTP server.
+ptp4u is a scalable unicast PTP server supporting PTP and SPTP.
+
+%package -n     sptp
+Summary:        Scalable unicast SPTP client.
+
+%description -n sptp
+sptp is a scalable unicast SPTP client.
 
 %package -n     ziffy
 Summary:        CLI tool to triangulate switches that are not operating correctly as PTP Transparent Clocks.
@@ -103,7 +109,7 @@ target multiple IPs in the same /64 prefix as the destination.
 %go_generate_buildrequires
 
 %build
-for cmd in calnex c4u ntpcheck ntpresponder pshark ptpcheck ptp4u ziffy; do
+for cmd in calnex c4u ntpcheck ntpresponder pshark ptpcheck ptp4u sptp ziffy; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/cmd/$cmd
 done
 
@@ -154,6 +160,11 @@ rm timestamp/timestamp_linux_test.go
 %{_bindir}/ptp4u
 %{_bindir}/c4u
 
+%files -n sptp
+%license LICENSE
+%doc ptp/sptp/README.md
+%{_bindir}/sptp
+
 %files -n ziffy
 %license LICENSE
 %doc cmd/ziffy/README.md
@@ -162,6 +173,9 @@ rm timestamp/timestamp_linux_test.go
 %gopkgfiles
 
 %changelog
+* Wed Oct 4 2023 Oleg Obleukhov <leoleovich@gmail.com> - 0-0.14
+- Add sptp package build and rebase on new commit
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

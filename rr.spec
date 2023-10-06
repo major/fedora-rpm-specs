@@ -2,9 +2,9 @@
 %undefine __cmake_in_source_build
 
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
-%global gittag 5.6.0
+%global gittag 5.7.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 8
+%global baserelease 9
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -15,7 +15,7 @@ ExclusiveArch:  %{ix86} x86_64 aarch64
 %endif
 Summary:        Tool to record and replay execution of applications
 Name:           rr
-Version:        5.6.0
+Version:        5.7.0
 Release:        %{baserelease}%{?dist}
 # The entire source code is MIT with the exceptions of
 # files in following directories:
@@ -26,11 +26,6 @@ License:        MIT and CC0 and BSD
 URL:            http://rr-project.org
 
 Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
-#Patch1: rr-mount.patch
-Patch2: rr-time.patch
-Patch3: rr-ethtool-struct.patch
-Patch4: rr-test-include-sys-mount.patch
-Patch5: rr-cstdint.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -128,6 +123,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Wed Oct 4 2023 William Cohen <wcohen@redhat.com> - 5.7.0-9
+- Rebase to rr-5.7.0.
+
 * Tue Sep 12 2023 William Cohen <wcohen@redhat.com> - 5.6.0-8
 - Rebuild for capnproto 1.0.1
 

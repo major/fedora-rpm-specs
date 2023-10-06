@@ -3,7 +3,7 @@ Name:           libogg
 Epoch:          2
 Version:        1.3.5
 Release:        6%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.xiph.org/
 
 Source:         https://downloads.xiph.org/releases/ogg/%{name}-%{version}.tar.xz

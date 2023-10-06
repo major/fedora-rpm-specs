@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 260611282c2559f73ea337224b2d093b506664f0
+%global commit 74fd8bbaf2d8d668831c3965287cdbb9b1a04763
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.29
+Version: 40.1
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,22 @@ exit 0
 %endif
 
 %changelog
+* Tue Oct 03 2023 Zdenek Pytela <zpytela@redhat.com> - 40.1-1
+- Allow named and ndc use the io_uring api
+- Deprecate common_anon_inode_perms usage
+- Improve default file context(None) of /var/lib/authselect/backups
+- Allow udev_t to search all directories with a filesystem type
+- Implement proper anon_inode support
+- Allow targetd write to the syslog pid sock_file
+- Add ipa_pki_retrieve_key_exec() interface
+- Allow kdumpctl_t to list all directories with a filesystem type
+- Allow udev additional permissions
+- Allow udev load kernel module
+- Allow sysadm_t to mmap modules_object_t files
+- Add the unconfined_read_files() and unconfined_list_dirs() interfaces
+- Set default file context of HOME_DIR/tmp/.* to <<none>>
+- Allow kernel_generic_helper_t to execute mount(1)
+
 * Fri Sep 29 2023 Zdenek Pytela <zpytela@redhat.com> - 38.29-1
 - Allow sssd send SIGKILL to passkey_child running in ipa_otpd_t
 - Allow systemd-localed create Xserver config dirs

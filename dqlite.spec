@@ -1,5 +1,5 @@
 Name:           dqlite
-Version:        1.15.1
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        Embeddable, replicated and fault tolerant SQL engine
 
@@ -53,6 +53,9 @@ rm -f %{buildroot}%{_libdir}/libdqlite.la
 %{_includedir}/%{name}.h
 
 %changelog
+* Wed Oct 04 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 1.16.0-1
+- Update to 1.16.0.
+
 * Sun Jul 23 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 1.15.1-1
 - Update to 1.15.1.
 

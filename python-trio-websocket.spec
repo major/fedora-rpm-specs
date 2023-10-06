@@ -1,0 +1,106 @@
+%global pypi_name trio-websocket
+%global pypi_name_underscore %(echo "%{pypi_name}" | tr '-' '_')
+
+Name: python-%{pypi_name}
+Summary: WebSocket implementation focused on safety and correctness
+License: MIT
+
+Version: 0.11.1
+Release: 2%{?dist}
+
+URL: https://github.com/python-trio/trio-websocket
+Source: %{URL}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+
+BuildArch: noarch
+
+BuildRequires: attr
+BuildRequires: make
+BuildRequires: pytest
+
+BuildRequires: python3-devel
+BuildRequires: python3-pytest-trio
+BuildRequires: python3-sphinx
+BuildRequires: python3-sphinx_rtd_theme
+BuildRequires: python3-sphinxcontrib-trio
+BuildRequires: python3-trustme
+
+%global _description %{expand:
+This library implements both server and client aspects of the the WebSocket
+protocol, striving for safety, correctness, and ergonomics. It is based
+on the wsproto project, which is a Sans-IO state machine that implements
+the majority of the WebSocket protocol, including framing, codecs, and events.
+This library handles I/O using the Trio framework.
+This library passes the Autobahn Test Suite.
+}
+
+%description %_description
+
+%package -n python3-%{pypi_name}
+Summary: %{summary}
+
+%description -n python3-%{pypi_name} %_description
+
+%package doc
+Summary: Documentation for %{pypi_name}
+Provides: bundled(js-jquery)
+Provides: bundled(nodejs-underscores)
+
+%description doc
+This package contains documentation (in HTML format)
+for %{pypi_name}.
+
+
+%prep
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+export PYTHONPATH="$(pwd)"
+%make_build -C docs html PYTHON=python3 BUILDDIR=build
+rm docs/build/html/.buildinfo
+
+
+%install
+%pyproject_install
+%pyproject_save_files %{pypi_name_underscore}
+
+
+%check
+%pyproject_check_import
+%pytest
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+
+
+%files doc
+%license LICENSE
+%doc docs/build/html
+
+
+%changelog
+* Wed Oct 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.11.1-2
+- Remove buildinfo file from -doc subpackage
+
+* Mon Oct 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.11.1-1
+- Update to v0.11.1
+- Drop Patch0 (remove "exceptiongroup" dependency - made optional by upstream)
+- Add Provides for bundled JavaScript in the -doc subpackage
+- Do not duplicate the LICENSE file in main package
+
+* Thu Sep 21 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10.4-1
+- Update to v0.10.4
+- Fix LICENSE file missing from main package
+
+* Wed Sep 13 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10.3-2
+- Switch to using pyproject_xxx macros
+- Build HTML documentation and add -doc subpackage
+- Switch to using GitHub tarball as the source (needed for building the docs)
+
+* Wed Sep 06 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10.3-1
+- Initial packaging

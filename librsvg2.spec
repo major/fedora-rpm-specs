@@ -21,7 +21,22 @@ Summary:        An SVG library based on cairo
 Version:        2.57.0
 Release:        %autorelease
 
-License:        LGPLv2+
+# librsvg itself is LGPL-2.1-or-later
+SourceLicense:  LGPL-2.1-or-later
+# ... and its crate dependencies are:
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0
+# Apache-2.0 OR MIT
+# BSD-3-Clause
+# LGPL-2.1-or-later
+# MIT
+# MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR Zlib
+# MPL-2.0
+# Unlicense OR MIT
+# Zlib OR Apache-2.0 OR MIT
+License:        Apache-2.0 AND (Apache-2.0 OR MIT) AND BSD-3-Clause AND LGPL-2.1-or-later AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND MPL-2.0 AND Unicode-DFS-2016 AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
 URL:            https://wiki.gnome.org/Projects/LibRsvg
 Source0:        https://download.gnome.org/sources/librsvg/2.57/librsvg-%{version}.tar.xz
 # upstream dropped vendoring since 2.55.0 (GNOME/librsvg#718), to create:
@@ -118,6 +133,9 @@ export CARGO="%__cargo"
            --enable-vala
 %make_build
 
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+
 %install
 %make_install
 find %{buildroot} -type f -name '*.la' -print -delete
@@ -139,11 +157,10 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %files
 %doc code-of-conduct.md NEWS README.md
 %license COPYING.LIB
+%license LICENSE.dependencies
 %{_libdir}/librsvg-2.so.*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Rsvg-2.0.typelib
-%dir %{_datadir}/thumbnailers
-%{_datadir}/thumbnailers/librsvg.thumbnailer
 
 %files devel
 %{_libdir}/librsvg-2.so
@@ -158,6 +175,8 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 
 %files -n rsvg-pixbuf-loader
 %{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader-svg.so
+%dir %{_datadir}/thumbnailers
+%{_datadir}/thumbnailers/librsvg.thumbnailer
 
 %files tools
 %{_bindir}/rsvg-convert

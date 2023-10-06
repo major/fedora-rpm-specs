@@ -18,6 +18,7 @@ BuildRequires:  kf5-rpm-macros
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  qt5-qttools-static
+BuildRequires:  pkgconfig(xkbcommon)
 
 Requires:       kf5-filesystem >= %{majmin}
 

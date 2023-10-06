@@ -10,9 +10,9 @@
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
-License:	GPL+
+License:	GPL-1.0-or-later
 URL:		http://fuse.sf.net
 Source0:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fuse-%{version}.tar.gz
 Source1:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fuse-%{version}.tar.gz.sig
@@ -53,7 +53,7 @@ mount a FUSE filesystem.
 
 %package libs
 Summary:	File System in Userspace (FUSE) v3 libraries
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 %if ! 0%{?el6}
 Conflicts:	filesystem < 3
 %endif
@@ -66,7 +66,7 @@ userspace program. This package contains the FUSE v3 libraries.
 Summary:	File System in Userspace (FUSE) v3 devel files
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	pkgconfig
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 %if ! 0%{?el6}
 Conflicts:	filesystem < 3
 %endif
@@ -79,7 +79,7 @@ pgk-config) to develop FUSE v3 based applications/filesystems.
 %if ! 0%{?el6} && ! 0%{?el7}
 %package -n fuse-common
 Summary:	Common files for File System in Userspace (FUSE) v2 and v3
-License:	GPL+
+License:	GPL-1.0-or-later
 
 %description -n fuse-common
 Common files for FUSE v2 and FUSE v3.
@@ -192,6 +192,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %endif
 
 %changelog
+* Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 3.16.1-3
+- Convert License tag to SPDX format
+
 * Tue Aug 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.16.1-2
 - Skip tarball signature verification in RHEL builds
 

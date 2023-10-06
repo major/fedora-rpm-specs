@@ -1,12 +1,12 @@
 Name:           munin
-Version:        2.0.73
-Release:        2%{?dist}
+Version:        2.0.74
+Release:        1%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPLv2
 URL:            http://munin-monitoring.org/
 
-Source0:        https://sourceforge.net/projects/munin/files/stable/%{version}/%{name}-%{version}.tar.gz
-Source1:        https://sourceforge.net/projects/munin/files/stable/%{version}/%{name}-%{version}.tar.gz.asc
+Source0:        http://downloads.munin-monitoring.org/munin/stable/%{version}/%{name}-%{version}.tar.gz
+Source1:        http://downloads.munin-monitoring.org/munin/stable/%{version}/%{name}-%{version}.tar.gz.asc
 # fpr=910846ADEE4C5D67C19B3E6F0A24C05998BA4133
 # gpg --recv-keys $fpr
 # gpg -a --export-options export-minimal --export $fpr > gpgkey-$fpr.asc
@@ -38,7 +38,7 @@ Source35:       munin-cgi-html.socket
 
 # Patches
 Patch101:       21b3d860c17d7997d64267963f91ed75ca8a3e03.patch
-Patch102:       postfix-category.patch
+Patch102:       cd842e36f3ab1a55c05304d6b78dc07048bd8f84.patch
 Patch103:       munin-run_no_systemd.patch
 
 # Use some plugins from Munin 3.0 branch / Munin contrib
@@ -663,6 +663,9 @@ exit 0
 
 
 %changelog
+* Wed Oct  4 2023 Kim B. Heino <b@bbbs.net> - 2.0.74-1
+- Upgrade to 2.0.74
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.73-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

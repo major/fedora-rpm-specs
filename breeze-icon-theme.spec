@@ -9,7 +9,7 @@
 Name:    breeze-icon-theme
 Summary: Breeze icon theme
 Version: 5.110.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 License: LGPLv3+
@@ -76,6 +76,9 @@ developing applications that use %{name}.
 %if 0%{?kf5_version:1}
 sed -i -e "s|%{version}|%{kf5_version}|g" CMakeLists.txt
 %endif
+
+# Fix FTI for -devel package
+sed -e 's|\${KDE_INSTALL_CMAKEPACKAGEDIR}|%{_datadir}/cmake|g' -i CMakeLists.txt
 
 
 %build
@@ -155,7 +158,7 @@ fi
 %exclude %{_datadir}/icons/breeze-dark/breeze-icons-dark.rcc
 
 %files devel
-%{_kf5_libdir}/cmake/KF5BreezeIcons/
+%{_datadir}/cmake/KF5BreezeIcons/
 
 %files rcc
 %{_datadir}/icons/breeze/breeze-icons.rcc
@@ -163,6 +166,9 @@ fi
 
 
 %changelog
+* Wed Oct 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.110.0-2
+- Fix CMakeLists to use noarch cmake package install path
+
 * Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
 - 5.110.0
 

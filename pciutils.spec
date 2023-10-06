@@ -1,6 +1,6 @@
 Name:		pciutils
 Version:	3.10.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	PCI bus related utilities
 License:	GPL-2.0-or-later
 URL:		https://mj.ucw.cz/sw/pciutils/
@@ -19,6 +19,7 @@ Requires:	hwdata
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRequires:	gcc make sed kmod-devel
 Provides:	/sbin/lspci /sbin/setpci
+Provides:	/bin/lspci
 
 %description
 The pciutils package contains various utilities for inspecting and
@@ -59,9 +60,10 @@ make clean
 %make_build SHARED="yes" ZLIB="no" LIBKMOD=yes STRIP="" OPT="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" PREFIX="/usr" LIBDIR="%{_libdir}" IDSDIR="/usr/share/hwdata" PCI_IDS="pci.ids"
 
 %install
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man{7,8},%{_libdir},%{_libdir}/pkgconfig,%{_includedir}/pci}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_mandir}/man{7,8},%{_libdir},%{_libdir}/pkgconfig,%{_includedir}/pci}
 
 install -p lspci setpci update-pciids $RPM_BUILD_ROOT%{_sbindir}
+ln -sr $RPM_BUILD_ROOT%{_sbindir}/lspci $RPM_BUILD_ROOT%{_bindir}/lspci
 install -p -m 644 lspci.8 setpci.8 update-pciids.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install -p -m 644 pcilib.7 $RPM_BUILD_ROOT%{_mandir}/man7
 install -p lib/libpci.so.* $RPM_BUILD_ROOT%{_libdir}/
@@ -84,6 +86,7 @@ diff -u %{SOURCE2} libpci_symbols_new.lst
 
 %files
 %doc README ChangeLog pciutils.lsm
+%{_bindir}/lspci
 %{_sbindir}/lspci
 %{_sbindir}/setpci
 %{_sbindir}/update-pciids
@@ -103,6 +106,9 @@ diff -u %{SOURCE2} libpci_symbols_new.lst
 %{_mandir}/man7/*
 
 %changelog
+* Mon Sep 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.10.0-3
+- Add /usr/bin/lspci symlink to fix detection by some games (#1858437)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

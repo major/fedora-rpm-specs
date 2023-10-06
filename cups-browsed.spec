@@ -1,7 +1,5 @@
 %global _cups_serverbin %{_prefix}/lib/cups
 
-%global upstream_version 2.0rc2
-
 %if 0%{?fedora}
 %bcond_without mdns
 %else
@@ -11,19 +9,18 @@
 
 Name: cups-browsed
 Epoch: 1
-Version: 2.0~rc2
-Release: 3%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/cups-browsed
-Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
-Patch001: 0001-cups-browsed.c-Ensure-we-always-send-a-valid-name-to.patch
 
 
 # remove once CentOS Stream 10 is released, cups-browsed
@@ -89,7 +86,7 @@ broadcast, or by polling a remote print server.
 
 
 %prep
-%autosetup -n %{name}-%{upstream_version} -S git
+%autosetup -S git
 
 
 %build
@@ -139,7 +136,7 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 # put UpdateCUPSQueuesMaxPerCall and PauseBetweenCUPSQueueUpdates into cups-browsed.conf
 # for making cups-browsed work more stable for environments with many print queues
-# remove this after 1-2 releases
+# TODO make this configurable during build
 for directive in "UpdateCUPSQueuesMaxPerCall" "PauseBetweenCUPSQueueUpdates"
 do
     found=`%{_bindir}/grep "^[[:blank:]]*$directive" %{_sysconfdir}/cups/cups-browsed.conf`
@@ -177,6 +174,9 @@ done
 
 
 %changelog
+* Wed Oct 04 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-1
+- 2240317 - cups-browsed-2.0.0 is available
+
 * Tue Aug 29 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-3
 - 2150035 - [abrt] cups-filters: __strlen_avx2(): cups-browsed killed by SIGSEGV
 

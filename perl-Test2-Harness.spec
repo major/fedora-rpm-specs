@@ -2,8 +2,8 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000154
-Version:        1.0.154
+%global cpan_version 1.000155
+Version:        1.0.155
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -286,6 +286,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 04 2023 Petr Pisar <ppisar@redhat.com> - 1.0.155-1
+- 1.000155 bump
+
 * Tue Oct 03 2023 Petr Pisar <ppisar@redhat.com> - 1.0.154-1
 - 1.000154 bump
 

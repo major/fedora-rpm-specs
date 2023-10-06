@@ -42,6 +42,22 @@ URL:            https://sleef.org
 Source0:        sleef-%{version}-filtered.tar.xz
 Source1:        get_source.sh
 
+# Do not define our own mpfr_sinpi/mpfr_cospi for mpfr 4.2.0 and later
+# https://github.com/shibatch/sleef/pull/471
+#
+#   This is similar to:
+#
+# mpfr-4.2 add mpfr_cospi and mpfr_sinpi
+# https://github.com/shibatch/sleef/pull/462
+#
+#   ...but maintains backwards-compatibility with mpfr version before 4.2.0.
+#
+#   Fixes:
+#
+# Compilation fails (conflicting types) if mpfr-devel 4.2.0 is provided
+# https://github.com/shibatch/sleef/issues/458
+Patch:          https://github.com/shibatch/sleef/pull/471.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -175,7 +191,7 @@ developing applications that use sleef-quad.
 
 
 %prep
-%autosetup
+%autosetup -p1
 # The gencoef tool sources are licensed CC-BY-4.0, which is allowed for content
 # but not for code. Remove them to prove that they are not used in the build.
 rm -vrf src/gencoef

@@ -1,20 +1,24 @@
 Name:           perl-Net-IDN-Encode
 Summary:        Internationalizing Domain Names in Applications (IDNA)
 Version:        2.500
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IDN-Encode
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/Net-IDN-Encode-%{version}.tar.gz
 # Make Unicode property generator compatible with perl 5.30-RC1,
 # CPAN RT#129588, <https://github.com/cfaerber/Net-IDN-Encode/pull/8>
 Patch0:         Net-IDN-Encode-2.500-Make-generated-arrays-available-at-compile-time.patch
+# Adapt to perl-5.38.0 and stricter GCC, bug #2241714, CPAN RT#149108,
+# proposed to an upstream.
+Patch1:         Net-IDN-Encode-2.500-use_uvchr_to_utf8_flags_instead_of_uvuni_to_utf8_flags.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  glibc-common
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8.5
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
@@ -34,7 +38,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 
-
 # This isn't picked up automatically by rpmbuild
 Requires:       perl(XSLoader)
 
@@ -46,8 +49,7 @@ Internationalized Domain Names (IDNs).
 
 
 %prep
-%setup -q -n Net-IDN-Encode-%{version}
-%patch -P 0 -p1
+%autosetup -p1 -n Net-IDN-Encode-%{version}
 
 # Remove incorrect executable bits
 chmod -x lib/Net/IDN/Encode.pm \
@@ -61,30 +63,36 @@ done
 
 
 %build
-%{__perl} Build.PL installdirs=vendor optimize="%{optflags}"
+# Makefile.PL is broken, use Build.PL
+perl Build.PL installdirs=vendor optimize="%{optflags}"
 ./Build
 
 
 %install
 ./Build install destdir=%{buildroot} create_packlist=0
-find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} \;
-
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 
 %files
 %doc Changes eg README
 %license LICENSE
-%{perl_vendorarch}/auto/Net
-%{perl_vendorarch}/Net
+%dir %{perl_vendorarch}/auto/Net
+%{perl_vendorarch}/auto/Net/IDN
+%dir %{perl_vendorarch}/Net
+%{perl_vendorarch}/Net/IDN
 %{_mandir}/man3/Net::IDN::*.3pm*
 
 
 %changelog
+* Wed Oct 04 2023 Petr Pisar <ppisar@redhat.com> - 2.500-19
+- Adapt to perl-5.38.0 and stricter GCC (bug #2241714)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.500-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

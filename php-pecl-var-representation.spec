@@ -10,9 +10,6 @@
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
 %bcond_without      tests
 %global with_zts    0%{!?_without_zts:%{?__ztsphp:1}}
 %global pecl_name   var_representation
@@ -20,20 +17,24 @@
 
 %global upstream_version 0.1.4
 #global upstream_prever  RC1
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 Summary:        A compact, more readable alternative to var_export
 Name:           php-pecl-var-representation
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        BSD-3-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel >= 7.2
 BuildRequires:  php-pear
+# used by tests
+BuildRequires:  tzdata
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -54,14 +55,13 @@ properly escapes control characters.
 
 %prep
 %setup -qc
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
 
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
     -e '/COPYING/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
 # Check version as upstream often forget to update this
 extver=$(sed -n '/define PHP_VAR_REPRESENTATION_VERSION/{s/.* "//;s/".*$//;p}' php_var_representation.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
@@ -70,10 +70,9 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}
 fi
 cd ..
 
-
+mkdir NTS
 %if %{with_zts}
-# duplicate for ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Create configuration file
@@ -90,15 +89,16 @@ peclconf() {
     --with-php-config=$1
 }
 
-cd NTS
-%{_bindir}/phpize
-peclconf %{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+peclconf %{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-peclconf %{_bindir}/zts-php-config
+peclconf %{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -119,13 +119,13 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do [ -f NTS/$i ] &&  install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do [ -f %{sources}/$i ] &&  install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
 : Minimal load test for NTS extension
-%{_bindir}/php --no-php-ini \
+%{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
@@ -137,7 +137,7 @@ done
 %endif
 
 %if %{with tests}
-cd NTS
+cd %{sources}
 : Run upstream test suite
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
@@ -146,7 +146,7 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %files
-%license NTS/COPYING
+%license %{sources}/COPYING
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -160,6 +160,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Oct  4 2023 Remi Collet <remi@remirepo.net> - 0.1.4-5
+- build out of sources tree
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 0.1.4-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 

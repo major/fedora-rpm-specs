@@ -13,12 +13,14 @@
 
 %global upstream_version 3.2.14
 #global upstream_prever  RC1
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 Summary:        Replacement for the standard PHP serializer
 Name:           php-pecl-igbinary
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+Release:        2%{?dist}
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 License:        BSD-3-Clause
 
 URL:            https://pecl.php.net/package/igbinary
@@ -28,6 +30,7 @@ BuildRequires:  php-pear
 BuildRequires:  php-devel >= 7.0
 BuildRequires:  php-pecl-apcu-devel
 BuildRequires:  php-json
+# used by tests
 BuildRequires:  tzdata
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -59,11 +62,10 @@ These are the files needed to compile programs using Igbinary
 
 %prep
 %setup -q -c
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
 
 sed -e '/COPYING/s/role="doc"/role="src"/' -i package.xml
 
-cd NTS
+cd %{sources}
 # Check version
 subdir="php$(%{__php} -r 'echo (PHP_MAJOR_VERSION < 7 ? 5 : 7);')"
 extver=$(sed -n '/#define PHP_IGBINARY_VERSION/{s/.* "//;s/".*$//;p}' src/$subdir/igbinary.h)
@@ -73,8 +75,9 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-cp -r NTS ZTS
+mkdir ZTS
 %endif
 
 cat <<EOF | tee %{ini_name}
@@ -94,15 +97,16 @@ EOF
 
 
 %build
-cd NTS
-%{_bindir}/phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -121,7 +125,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Test & Documentation
-cd NTS
+cd %{sources}
 for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do [ -f $i       ] && install -Dpm 644 $i       %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
    [ -f tests/$i ] && install -Dpm 644 tests/$i %{buildroot}%{pecl_testdir}/%{pecl_name}/tests/$i
@@ -132,12 +136,13 @@ done
 
 
 %check
+cd %{sources}
 MOD=""
 # drop extension load from phpt
-sed -e '/^extension=/d' -i ?TS/tests/*phpt
+sed -e '/^extension=/d' -i tests/*phpt
 
 : simple NTS module load test, without APC, as optional
-%{_bindir}/php --no-php-ini \
+%{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
@@ -151,9 +156,8 @@ if [ -f %{php_extdir}/json.so ]; then
 fi
 
 : upstream test suite
-cd NTS
-TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
-%{_bindir}/php -n run-tests.php -x -q --show-diff %{?_smp_mflags}
+TEST_PHP_ARGS="-n $MOD -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
+%{__php} -n run-tests.php -x -q --show-diff %{?_smp_mflags}
 
 %if %{with_zts}
 : simple ZTS module load test, without APC, as optional
@@ -162,13 +166,13 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
     --modules | grep '^%{pecl_name}$'
 
 : upstream test suite
-cd ../ZTS
-TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
+TEST_PHP_ARGS="-n $MOD -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 %{__ztsphp} -n run-tests.php -x -q --show-diff %{?_smp_mflags}
 %endif
 
 
 %files
+%license %{sources}/COPYING
 %doc %{pecl_docdir}/%{pecl_name}
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
@@ -190,6 +194,9 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Oct  4 2023 Remi Collet <remi@remirepo.net> - 3.2.14-2
+- build out of sources tree
+
 * Tue Oct  3 2023 Remi Collet <remi@remirepo.net> - 3.2.14-1
 - update to 3.2.14
 

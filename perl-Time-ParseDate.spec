@@ -1,6 +1,6 @@
 Name:           perl-Time-ParseDate
 Version:        2015.103
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl modules for parsing dates and times
 # See https://fedoraproject.org/wiki/Licensing/TPDL
 License:        TPDL and Public Domain
@@ -30,6 +30,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(Time::Piece)
 BuildRequires:  perl(warnings)
+BuildRequires:  tzdata
 
 %description
 Time-ParseDate provides several Perl modules, including Time::CTime,
@@ -61,6 +62,9 @@ make test
 
 
 %changelog
+* Wed Oct 04 2023 Denis Fateyev <denis@fateyev.com> - 2015.103-25
+- Add tzdata package to testing requirements
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2015.103-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

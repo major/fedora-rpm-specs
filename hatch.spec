@@ -151,6 +151,10 @@ k="${k-}${k+ and }not (TestBuildStandard and test_default_auto_detection)"
 k="${k-}${k+ and }not test_explicit_path"
 k="${k-}${k+ and }not test_default"
 
+# tests/cli/env/test_show.py::test_context_formatting fails with packaging 23.2
+# https://github.com/pypa/hatch/issues/982
+k="${k-}${k+ and }not test_context_formatting"
+
 %pytest -k "${k-}" -vv
 %else
 %pyproject_check_import

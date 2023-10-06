@@ -1,7 +1,7 @@
 Summary: X.Org X11 libXpm runtime library
 Name: libXpm
-Version: 3.5.15
-Release: 5%{?dist}
+Version: 3.5.17
+Release: 1%{?dist}
 License: MIT AND X11-distribute-modifications-variant
 URL: http://www.x.org
 
@@ -57,6 +57,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Oct 05 2023 Peter Hutterer <peter.hutterer@redhat.com> - 3.5.17-1
+- libXpm 3.5.17
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 3.5.15-5
 - SPDX migration
 

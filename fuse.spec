@@ -1,8 +1,8 @@
 Name:		fuse
 Version:	2.9.9
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	File System in Userspace (FUSE) v2 utilities
-License:	GPL+
+License:	GPL-1.0-or-later
 URL:		http://fuse.sf.net
 Source0:	https://github.com/libfuse/libfuse/releases/download/%{name}-%{version}.tar.gz
 
@@ -39,7 +39,7 @@ mount a FUSE filesystem.
 
 %package libs
 Summary:	File System in Userspace (FUSE) v2 libraries
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 Conflicts:	filesystem < 3
 
 %description libs
@@ -50,7 +50,7 @@ userspace program. This package contains the FUSE v2 libraries.
 Summary:	File System in Userspace (FUSE) v2 devel files
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	pkgconfig
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 Conflicts:	filesystem < 3
 
 %description devel
@@ -127,6 +127,9 @@ rm -f %{buildroot}/%{_libdir}/*.a
 %{_includedir}/fuse
 
 %changelog
+* Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 2.9.9-18
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

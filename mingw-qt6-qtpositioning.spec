@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.2
+Version:        6.5.3
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Positioning component
 
@@ -172,6 +172,9 @@ cp -a src/3rdparty/clipper/LICENSE LICENSE.clipper
 
 
 %changelog
+* Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
+- Update to 6.5.3
+
 * Sun Jul 30 2023 Sandro Mani <manisandro@gmail.com> - 6.5.2-1
 - Update to 6.5.2
 

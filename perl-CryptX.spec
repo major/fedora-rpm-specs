@@ -4,7 +4,7 @@
 %bcond_without perl_CryptX_enables_optional_test
 
 Name:           perl-CryptX
-Version:        0.079
+Version:        0.080
 Release:        1%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
@@ -13,8 +13,6 @@ Summary:        Cryptographic toolkit
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unlicense
 URL:            https://metacpan.org/release/CryptX
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIK/CryptX-%{version}.tar.gz
-# https://github.com/DCIT/perl-CryptX/commit/62fde623598a7d04081fc63bc992c0d860e875df
-Patch0:         perl-CryptX-0.079-Fix_tests_with_Math_BigInt1_999840+.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -86,7 +84,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n CryptX-%{version}
-%patch -P0 -p1
+# https://github.com/DCIT/perl-CryptX/issues/96
 sed -i -e's/1\.999842/1.999840/g' t/mbi_ltm_since_1.999842.t
 # Fix permissions
 chmod -x t/data/openssl_rsa-x509.pem
@@ -156,6 +154,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 04 2023 Xavier Bachelot <xavier@bachelot.org> - 0.080-1
+- Update to 0.080 (RHBZ#2242102)
+
 * Mon Oct 02 2023 Xavier Bachelot <xavier@bachelot.org> - 0.079-1
 - Update to 0.079 (RHBZ#2241629)
   - Fix CVE-2019-17362 in bundled libtomcrypt

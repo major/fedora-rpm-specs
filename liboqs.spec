@@ -1,7 +1,7 @@
 %global oqs_version 0.8.0
 Name:       liboqs
 Version:    %{oqs_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    liboqs is an open source C library for quantum-safe cryptographic algorithms.
 
 #liboqs uses MIT license by itself but includes several files licensed under different terms.
@@ -97,6 +97,10 @@ done
 #%doc %%{_datadir}/doc/oqs/xml/*
 
 %changelog
+* Wed Oct 04 2023 Stephen Gallagher <sgallagh@redhat.com> - 0.8.0-4
+- Bump release to rebuild for ELN issue
+- https://github.com/fedora-eln/eln/issues/125
+
 * Wed Jul 26 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.8.0-3
 - The exception we get covers avx2 implementation, no need to remove it
 

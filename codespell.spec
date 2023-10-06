@@ -1,18 +1,17 @@
 Name:           codespell
-Version:        2.2.5
-Release:        3%{?dist}
+Version:        2.2.6
+Release:        1%{?dist}
 Summary:        Fix common misspellings in text files
 
 License:        GPLv2 and CC-BY-SA
 URL:            https://github.com/codespell-project/codespell/
-Source0:        https://pypi.io/packages/source/c/%{name}/%{name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
-BuildRequires:  git
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python-setuptools_scm
-BuildRequires:  python3-pytest
+# For checks
+BuildRequires:  python3dist(chardet)
+BuildRequires:  python3dist(pytest)
 
 %description
 codespell fixes common misspellings in text files. It's designed primarily for
@@ -24,22 +23,32 @@ as well.
 
 %prep
 %autosetup -n %{name}-%{version}
-# Remove bundled egg-info
-rm -rf %{name}.egg-info
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+%pyproject_save_files codespell_lib
 
-%files
+%check
+# Skip coverage tests
+sed -i -e 's/--cov=codespell_lib//' pyproject.toml
+sed -i -e 's/--cov-report=//' pyproject.toml
+%pytest
+
+%files -f %{pyproject_files}
 %doc README.rst
+%license COPYING
 %{_bindir}/codespell
-%{python3_sitelib}/codespell_lib
-%{python3_sitelib}/%{name}-%{version}.dist-info
 
 %changelog
+* Wed Oct 04 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.2.6-1
+- Update to 2.2.6 rhbz#2242071
+- Remove unneeded BuildRequires
+- Add License file
+- Enable check section and skip coverage tests
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

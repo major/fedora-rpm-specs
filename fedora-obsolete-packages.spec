@@ -168,6 +168,10 @@ Source0:    README
 %obsolete sssd-libwbclient-devel 2.3.1-3
 
 # Remove in F41
+%obsolete_ticket https://src.fedoraproject.org/rpms/giada/c/bcbd322f7822524ebd7f02cbeb5b04cc8a7cec1d?branch=rawhide
+%obsolete giada 0.22.0-5
+
+# Remove in F41
 # Removed packages with broken dependencies on Python 3.11
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2233409
 %obsolete 5minute 0.2.32-14

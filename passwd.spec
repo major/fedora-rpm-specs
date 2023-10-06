@@ -7,7 +7,7 @@
 Summary: An utility for setting or changing passwords using PAM
 Name: passwd
 Version: 0.80
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: BSD-3-Clause OR GPL-2.0-only
 URL: https://pagure.io/passwd
 Source: https://releases.pagure.org/passwd/passwd-%{version}.autotoolized.tar.bz2
@@ -35,8 +35,8 @@ Modules) library.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .manpage
-%patch1 -p1 -b .S-output
+%patch -P0 -p1 -b .manpage
+%patch -P1 -p1 -b .S-output
 
 %build
 %configure \
@@ -55,7 +55,7 @@ make DEBUG= RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/
 install -m 644 passwd.pamd $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/passwd
 %find_lang %{name}
@@ -75,6 +75,9 @@ done
 %{_mandir}/man1/passwd.1*
 
 %changelog
+* Wed Oct 04 2023 Michal Hlavinka <mhlavink@redhat.com> - 0.80-16
+- use make macro for installation (PR#2)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

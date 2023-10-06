@@ -10,7 +10,7 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    37fcd80793ef38165f6d987e66f050670e233670
+%global gh_commit    7d488cc5b3ba6802d9237a71e5ed8d72391f15e7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     alcaeus
 %global gh_project   mongo-php-adapter
@@ -18,7 +18,7 @@
 
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dist}
 Summary:        Mongo PHP Adapter
 
@@ -152,6 +152,9 @@ exit $ret
 
 
 %changelog
+* Wed Oct  4 2023 Remi Collet <remi@remirepo.net> - 1.2.4-1
+- update to 1.2.4
+
 * Fri Jul 21 2023 Remi Collet <remi@remirepo.net> - 1.2.3-1
 - update to 1.2.3
 

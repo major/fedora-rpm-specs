@@ -1,5 +1,5 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.16.7
+Version:        3.17.0
 Release:        1%{?dist}
 Summary:        Core library used by SDKs for IBM Cloud Services
 
@@ -54,6 +54,12 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
+* Wed Oct 04 2023 Packit <hello@packit.dev> - 3.17.0-1
+- chore(release): 3.17.0 release notes (semantic-release-bot)
+- Bump version: 3.16.7 → 3.17.0 (semantic-release-bot)
+- feat: bump min supported version of python to 3.8 (#175) (Phil Adams)
+- build: bump dependencies to avoid vulnerabilities (#172) (Phil Adams)
+
 * Wed Aug 02 2023 Pavel Raiskup <praiskup@redhat.com> - 3.16.7-1
 - new upstream release, per release notes:
   https://github.com/IBM/python-sdk-core/releases/tag/v3.16.7

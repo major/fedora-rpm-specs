@@ -14,6 +14,8 @@ URL:            http://mupdf.com/
 Source0:        http://mupdf.com/downloads/archive/%{name}-%{upversion}-source.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}-gl.desktop
+# https://github.com/ArtifexSoftware/mupdf/pull/42
+Patch1:		dc339ceab37d962e91527068321790768262a42c.patch
 BuildRequires:  gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:  openjpeg2-devel desktop-file-utils
 BuildRequires:  libjpeg-devel freetype-devel libXext-devel curl-devel

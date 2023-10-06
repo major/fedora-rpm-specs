@@ -5,7 +5,7 @@
 # https://github.com/moby/sys
 %global goipath         github.com/moby/sys
 Version:                0.6.2
-%global tag             mountinfo/v0.6.2
+%global tag             sequential/v0.5.0
 
 %gometa
 
@@ -19,7 +19,7 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        None
 
-License:        BSD-3-Clause and Apache-2.0
+License:        BSD-3-Clause AND Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 

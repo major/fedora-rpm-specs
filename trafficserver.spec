@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        9.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        ASL 2.0
@@ -39,14 +39,22 @@ BuildRequires:  gcc gcc-c++ perl-ExtUtils-MakeMaker
 BuildRequires:  automake libtool
 BuildRequires:  libcap-devel
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  openssl-devel
 # GCC 5 or higher is required (c++17)
+# Need OpenSSL 1.1.x for TLSv1.2 bug fixes
 %if 0%{?rhel} && 0%{?rhel} <= 7
+BuildRequires:  openssl11-devel
 BuildRequires:  devtoolset-8
+%else
+BuildRequires:  openssl-devel
 %endif
 
 Requires:       expat hwloc pcre xz ncurses pkgconfig
+# Need OpenSSL 1.1.x for TLSv1.2 bug fixes
+%if 0%{?rhel} && 0%{?rhel} <= 7
+Requires:       openssl11
+%else
 Requires:       openssl
+%endif
 # Require an OpenSSL which supports PROFILE=SYSTEM
 Conflicts:      openssl-libs < 1:1.0.1h-4
 
@@ -133,6 +141,7 @@ installations.
 %build
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
+sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /' build/ax_check_openssl.m4
 source /opt/rh/devtoolset-8/enable
 autoreconf
 %endif
@@ -298,6 +307,9 @@ fi
 
 
 %changelog
+* Wed Oct 4 2023 Jered Floyd <jered@redhat.com> 9.2.2-2
+- Use OpenSSL 1.1.x from EPEL on RHEL 7 to fix Chrome 117+ bugs
+
 * Wed Aug 9 2023 Jered Floyd <jered@redhat.com> 9.2.2-1
 - Update to upstream 9.2.2
 

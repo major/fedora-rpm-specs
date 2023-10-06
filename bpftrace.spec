@@ -1,6 +1,6 @@
 Name:           bpftrace
-Version:        0.18.0
-Release:        3%{?dist}
+Version:        0.19.1
+Release:        1%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
 
@@ -84,6 +84,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Wed Oct 04 2023 Augusto Caringi <acaringi@redhat.com> - 0.19.1-1
+- Rebased to version 0.19.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@ Summary: A library for text mode user interfaces
 Name: newt
 Version: 0.52.23
 Release: 4%{?dist}
-License: LGPLv2
+License: LGPL-2.0-only
 URL: https://pagure.io/newt
 Source: https://pagure.io/releases/newt/newt-%{version}.tar.gz
 BuildRequires: make

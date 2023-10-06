@@ -7,7 +7,7 @@
 # produce a smaller package.
 %bcond doc_pdf 0
 
-%global commit a5943544e2301aa6f5c026b48d84d32e01d9ebda
+%global commit f78c780daa7beaeb442313a36eb74bb4ab246b7e
 %global snapdate 20231003
 
 Name:           pythoncapi-compat

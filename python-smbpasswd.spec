@@ -1,17 +1,21 @@
 Name:           python-smbpasswd
 Version:        1.0.2
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Python SMB Password Hash Generator Module
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/barryp/py-smbpasswd/
 #               http://barryp.org/software/py-smbpasswd/
 #               https://github.com/barryp/py-smbpasswd/releases
-# Source0:      http://barryp.org/software/py-smbpasswd/files/py-smbpasswd-%{version}.tar.gz
+# Source0:      http://barryp.org/software/py-smbpasswd/files/py-smbpasswd-%%{version}.tar.gz
 Source0:        https://github.com/barryp/py-smbpasswd/archive/%{version}.tar.gz#/py-smbpasswd-%{version}.tar.gz
 Patch1:         python-smbpasswd-1.0.1-py3.patch
 
+# For python3 the modules using # format needs to define PY_SSIZE_T_CLEAN
+Patch2:         python-smbpasswd-1.0.2-py3.10.patch
+
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  gcc
 
 %global _description\
@@ -31,8 +35,7 @@ NT password hashes suitable to us with Samba.
 This is a ported release for python 3.
 
 %prep
-%setup -q -n py-smbpasswd-%{version}
-%patch1 -p1 -b .org
+%autosetup -n py-smbpasswd-%{version}
 
 %build
 %py3_build
@@ -47,6 +50,12 @@ This is a ported release for python 3.
 %{python3_sitearch}/*egg-info
 
 %changelog
+* Thu Oct 05 2023 Michal Ambroz <rebus at_ seznam.cz> - 1.0.2-15
+- python 3.10 fix for PY_SSIZE_T_CLEAN s# formatting
+
+* Thu Oct 05 2023 Michal Ambroz <rebus at_ seznam.cz> - 1.0.2-14
+- fix dependencies
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

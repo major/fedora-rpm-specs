@@ -3,7 +3,7 @@
 
 Name:		python-%{pypi_name}
 Version:	1.2.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:	FontAwesome icons in PyQt and PySide applications
 # MIT: QtAwesome code and the bundled phosphor and remixicon fonts
@@ -72,6 +72,12 @@ Rick Blommers.
 # Fix end of line encoding
 sed -i 's/\r//' README.md
 
+# Don't use the bundled fonts.
+# This disables verifying the checksum of font files.
+%if 0%{?fedora} > 38
+sed -i '/^SYSTEM_FONTS = /s/False/True/' qtawesome/iconic_font.py
+%endif
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -85,7 +91,7 @@ sed -i 's/\r//' README.md
 %if 0%{?fedora} > 38
 # Unbundle the fontawesome 4.x font
 rm %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome4.7-webfont.ttf
-ln -s %{_datadir}/fonts/fontawesome4/fontawesome-webfont.ttf \
+ln -s %{_datadir}/fonts/fontawesome/fontawesome-webfont.ttf \
       %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome4.7-webfont.ttf
 # Unbundle the fontawesome 5.x fonts
 # Version 6 is backwards compatible with version 5
@@ -104,6 +110,9 @@ ln -s %{_datadir}/fontawesome/webfonts/fa-solid-900.ttf \
 %{_bindir}/qta-browser
 
 %changelog
+* Tue Oct 03 2023 Alessandro Astone <ales.astone@gmail.com> - 1.2.3-4
+- Fix using the system fontawesome fonts rhbz#2241351
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

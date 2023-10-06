@@ -2,7 +2,7 @@
 
 Name:           libcomps
 Version:        0.1.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
@@ -10,7 +10,10 @@ URL:            https://github.com/rpm-software-management/libcomps
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Backported
+# https://github.com/rpm-software-management/libcomps/pull/104
 Patch:          fix-fromxml_str-segfault.patch
+# https://github.com/rpm-software-management/libcomps/pull/106
+Patch:          fix-a-crash-on-valid-xml-with-but-no-comps.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -119,6 +122,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Oct 04 2023 Mattia Verga <mattia.verga@proton.me> - 0.1.19-5
+- Backport additional patch to fix segfault in fromxml_str
+
 * Tue Sep 05 2023 Mattia Verga <mattia.verga@proton.me> - 0.1.19-4
 - Backport patch to fix segfault in fromxml_str
 

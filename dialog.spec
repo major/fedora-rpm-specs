@@ -1,9 +1,9 @@
 Summary: A utility for creating TTY dialog boxes
 Name: dialog
-%global dialogsubversion 20220526
+%global dialogsubversion 20231002
 Version: 1.3
-Release: 46.%{dialogsubversion}%{?dist}
-License: LGPLv2
+Release: 47.%{dialogsubversion}%{?dist}
+License: LGPL-2.1-only
 URL: https://invisible-island.net/dialog/dialog.html
 Source0: https://invisible-mirror.net/archives/dialog/dialog-%{version}-%{dialogsubversion}.tgz
 Source1: https://invisible-mirror.net/archives/dialog/dialog-%{version}-%{dialogsubversion}.tgz.asc
@@ -41,6 +41,7 @@ dialog library.
 %build
 %configure \
 	--enable-nls \
+	--enable-pc-files \
 	--with-libtool \
 	--with-libtool-opts="$(for opt in %{?_hardened_ldflags}; do \
 				echo -n -Xcompiler $opt ''; done)" \
@@ -75,9 +76,15 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libdialog.{,l}a
 %{_bindir}/dialog-config
 %{_includedir}/dialog
 %{_libdir}/libdialog.so
+%{_libdir}/pkgconfig/dialog.pc
 %{_mandir}/man3/dialog.*
 
 %changelog
+* Wed Oct 04 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1.3-47.20231002
+- update to 1.3-20231002
+- convert license tag to SPDX
+- package pkgconfig file
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-46.20220526
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

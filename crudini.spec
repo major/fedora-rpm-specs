@@ -1,6 +1,6 @@
 Name:           crudini
-Version:        0.9.4
-Release:        3%{?dist}
+Version:        0.9.5
+Release:        1%{?dist}
 Summary:        A utility for manipulating ini files
 
 License:        GPLv2
@@ -58,6 +58,9 @@ popd
 
 
 %changelog
+* Wed Oct 04 2023 Pádraig Brady <P@draigBrady.com> - 0.9.5-1
+- Latest upstream
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

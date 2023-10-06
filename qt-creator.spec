@@ -4,21 +4,15 @@
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
-%global clangver 17.0.1
-
 Name:           qt-creator
 Version:        11.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://www.qt.io/ide/
 Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/11.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
-
-# Bundled clang for patched libClangFormat
-Source2:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clangver}/clang-%{clangver}.src.tar.xz
-Source3:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clangver}/cmake-%{clangver}.src.tar.xz
 
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
@@ -28,12 +22,8 @@ Patch1:         qt-creator_desktop.patch
 Patch2:         qt-creator_qmake-names.patch
 # Fix debuginfod detection
 Patch3:         qt-creator-debuginfod.patch
-# QtCreator specific patch for libClangFormat
-# https://code.qt.io/cgit/clang/llvm-project.git/commit/?h=release_130-based&id=42879d1f355fde391ef46b96a659afeb4ad7814a
-Patch4:         qt-creator-clangformat.patch
-Patch5:         clangFormat.patch
 # Fix build against litehtml-0.8
-Patch6:         qt-creator-litehtml.patch
+Patch4:         qt-creator-litehtml.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -72,6 +62,7 @@ BuildRequires:  elfutils-debuginfod-client-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libffi-devel
 BuildRequires:  libxkbcommon-devel
+BuildRequires:  clang-devel
 BuildRequires:  llvm-devel
 BuildRequires:  litehtml-devel
 BuildRequires:  ninja-build
@@ -92,13 +83,11 @@ Requires:       gcc-c++
 Requires:       %{name}-data = %{version}-%{release}
 
 Provides:       qtcreator = %{version}-%{release}
-Provides:       bundled(libclangFormat) = %{clangver}
 
 # long list of private shared lib names to filter out
 %include %{SOURCE1}
 %global __provides_exclude ^(%{privlibs})\.so
 %global __requires_exclude ^(%{privlibs})\.so
-
 
 
 %description
@@ -135,9 +124,7 @@ User documentation for %{name}.
 
 
 %prep
-%autosetup -p1 -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease} -a2
-
-tar xf %{SOURCE3}
+%autosetup -p1 -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
 
 # Remove some bundled libraries to be sure
 rm -rf src/shared/qbs
@@ -147,21 +134,10 @@ rm -rf src/libs/3rdparty/yaml-cpp
 
 
 %build
-mv cmake cmake.qtcreator
-
-# Build libclangFormat
-ln -sf cmake-%{clangver}.src cmake
-pushd clang-%{clangver}.src
-%cmake -G Ninja -DBUILD_SHARED_LIBS=OFF
-%cmake_build -- clangFormat
-popd
-
-rm cmake && ln -s cmake.qtcreator cmake
-%cmake -G Ninja \
+%cmake \
     -DBUILD_PLUGIN_CLANGREFACTORING=ON \
     -DBUILD_PLUGIN_CLANGPCHMANAGER=ON \
-    -DCLANG_FORMAT_INC_DIR=$PWD/clang-%{clangver}.src/include/ \
-    -DCLANG_FORMAT_LIB_DIR=$PWD/clang-%{clangver}.src/%{_vpath_builddir}/%{_lib}/ \
+    -DCLANGTOOLING_LINK_CLANG_DYLIB=ON \
     -DWITH_DOCS=ON \
     -Djournald=ON \
     -DBUILD_DEVELOPER_DOCS=ON \
@@ -223,6 +199,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 11.0.3-2
+- Build against system clang
+
 * Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 11.0.3-1
 - Update to 11.0.3
 

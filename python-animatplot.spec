@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Making animating in Matplotlib easy
 
 License:        MIT
@@ -14,6 +14,14 @@ Patch0005:      https://github.com/boutproject/animatplot-ng/pull/10.patch#./000
 Patch0006:      0006-docs-fix.patch
 # Based on PR 12 but without black commit
 Patch0007:      0007-debug.patch
+# Based on PR https://github.com/boutproject/animatplot-ng/pull/16
+Patch0008:      0008-debug-comparison.patch
+Patch0009:      0009-debug-comparison-nicer.patch
+Patch0011:      0011-Update-refernce-image.patch
+Patch0012:      0012-Update-reference-image.patch
+Patch0013:      0013-Update-reference-image.patch
+# https://github.com/boutproject/animatplot-ng/pull/17
+Patch0015:      0015-setuptools_scm.patch
 
 BuildArch:      noarch
 
@@ -92,6 +100,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 
 %changelog
+* Wed Oct 04 2023 David Bold <davidsch@fedoraproject.org> - 0.4.3-2
+- Fix FTBFS
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

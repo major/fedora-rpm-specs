@@ -12,6 +12,9 @@ Summary:        Nushell's parser
 License:        MIT
 URL:            https://crates.io/crates/nu-parser
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump rstest dev-dependency from 0.17 to 0.18
+Patch:          nu-parser-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

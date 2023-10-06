@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.7.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     21
+%global         baserelease     22
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -123,6 +123,9 @@ Patch9:         dionaea-09_setgroups_before_setresuid.patch
 # https://github.com/DinoTools/dionaea/pull/182
 # Merged upstream in 0.7.0
 # Patch11:        dionaea-11_obsolete_m4.patch
+
+# Patch to explicitly state the python module version to the setup.py
+Patch12:        dionaea-12_py_module_version.patch
 
 
 BuildRequires:  autoconf
@@ -332,6 +335,7 @@ git commit -a -m "finished prep"
 %build
 autoreconf -vif
 # --disable-werror because of https://github.com/DinoTools/dionaea/issues/225
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %configure --enable-python --with-python=`which python3` --with-glib=glib --with-nl-include=/usr/include/libnl3 --disable-werror
 make %{?_smp_mflags} CFLAGS="%{optflags} -Wno-error -D_GNU_SOURCE -std=c99"
 cd doc
@@ -493,6 +497,9 @@ getent passwd dionaea >/dev/null || \
 
 
 %changelog
+* Thu Oct 05 2023 Michal Ambroz <rebus at, seznam.cz> 0.7.0-22
+- add version metadata to the python module to fix FTBFS
+
 * Sun Jul 23 2023 Python Maint <python-maint@redhat.com> - 0.7.0-21
 - Rebuilt for Python 3.12
 

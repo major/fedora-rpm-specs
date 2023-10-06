@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.6
+Version: 40.7
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -205,6 +205,8 @@ Requires: tmux
 Requires: gdb
 # support for installation from image and live & live image installations
 Requires: rsync
+# An addon that allows enabling kdump at install time
+Recommends: kdump-anaconda-addon
 # basic filesystem tools
 %if ! 0%{?rhel}
 Requires: btrfs-progs
@@ -234,6 +236,8 @@ Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
+# only WeakRequires in -env-
+Requires: kdump-anaconda-addon
 %if ! 0%{?rhel}
 Requires: zram-generator-defaults
 %else
@@ -440,6 +444,7 @@ rm -rf \
 
 %files webui
 %dir %{_datadir}/cockpit/anaconda-webui
+%{_datadir}/cockpit/anaconda-webui/logo.svg
 %{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
 %{_datadir}/cockpit/anaconda-webui/index.css.LEGAL.txt
 %{_datadir}/cockpit/anaconda-webui/index.html
@@ -496,6 +501,26 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 03 2023 Packit <hello@packit.dev> - 40.7-1
+- webui: tests: ignore the logo image selector in the pixel tests (kkoukiou)
+- webui: do not hardcode the required mount points in the getInitialRequests
+  (kkoukiou)
+- webui: helpers: Document storage helper methods (kkoukiou)
+- webui: reimplement checkDeviceInSubTree by re-using existing helper method
+  (kkoukiou)
+- webui: port dropdown to new PF5 implementation (akankovs)
+- Revert "tests: Run pytest in parallel on available cpu cores" (vslavik)
+- webui: add a logo to the header (akankovs)
+- install-{env,img}-deps: recommend/require kdump-anaconda-addon (awilliam)
+- Fix crash because of missing import statement (kkoukiou)
+- webui: prevent re-defining required mount points from the UI (kkoukiou)
+- Simplify keyboard layout handling, rely on localed more (awilliam)
+- tests: Run pytest in parallel on available cpu cores (vslavik)
+- tests: Don't hardcode file handle number (vslavik)
+- live: Report installation progress from rsync output (vslavik)
+- Change process return code handling in execReadlines (vslavik)
+- Count free space on btrfs subvolume mount points correctly (vslavik)
+
 * Tue Sep 26 2023 Packit <hello@packit.dev> - 40.6-1
 - webui: robustify manual partitioning request manipulation (kkoukiou)
 - webui: split long line to more lines (kkoukiou)

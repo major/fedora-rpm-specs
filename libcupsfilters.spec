@@ -11,7 +11,7 @@ Summary: Library for developing printing filters
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/libcupsfilters
-Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{version}.tar.gz
+Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
