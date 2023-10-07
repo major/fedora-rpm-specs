@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1968
+%define patchlevel 1984
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -50,7 +50,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1033,6 +1033,12 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 2:9.0.1984-2
+- rebuild for new libsodium
+
+* Thu Oct 05 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1984-1
+- patchlevel 1984
+
 * Mon Oct 02 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1968-1
 - patchlevel 1968
 

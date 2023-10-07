@@ -1,7 +1,7 @@
 %global srcname tac_plus
 %global srcversion F4.0.4.28
-%global commit 25fd8f0eae7cd3db6a218508670d9571b41b8d50
-%global date 20220905
+%global commit 4fdf17890ef777a91b4558ae39adf5ed830050a0
+%global date 20231005
 
 %global srcdir %{name}-%{srcversion}
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -13,10 +13,10 @@ Release:        %autorelease
 Summary:        Daemon to run AAA via TACACS+ Protocol via IPv4 and IPv6
 
 # tac_plus itself is MIT, do_auth.py is GPLv3
-License:        MIT and GPLv3
+License:        MIT and GPL-3.0-or-later
 URL:            https://github.com/facebook/tac_plus
 Source:         %{url}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
-Patch0:         tacacs-c99.patch
+Patch:          tacacs-c99.patch
 
 BuildRequires:  bison
 BuildRequires:  flex

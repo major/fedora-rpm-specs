@@ -50,8 +50,8 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           3.1.17
-Release:           2%{?dist}
+Version:           3.1.18
+Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
@@ -231,6 +231,10 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Thu Oct 05 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.18-1
+- 3.1.18 release
+- Fixes CVE-2022-22995
+
 * Thu Sep 28 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.17-2
 - buildrequire mariadb-connector-c-devel for all but el7
 - minor changes to other specfile conditionals

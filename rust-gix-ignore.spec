@@ -5,10 +5,9 @@
 %global crate gix-ignore
 
 Name:           rust-gix-ignore
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Gix implemenation for handling git gitignore files
-
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-ignore

@@ -1,11 +1,11 @@
 Summary: X.Org X11 libXss runtime library
 Name: libXScrnSaver
-Version: 1.2.3
-Release: 14%{?dist}
+Version: 1.2.4
+Release: 1%{?dist}
 License: X11
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros
@@ -43,7 +43,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %ldconfig_postun
 
 %files
-%doc COPYING README ChangeLog
+%doc COPYING README.md ChangeLog
 %{_libdir}/libXss.so.1
 %{_libdir}/libXss.so.1.0.0
 
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/X11/extensions/scrnsaver.h
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.2.4-1
+- libXScrnSaver 1.2.4
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.2.3-14
 - SPDX migration
 

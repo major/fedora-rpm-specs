@@ -1,11 +1,11 @@
 Summary: X Display Manager Control Protocol library
 Name: libXdmcp
-Version: 1.1.3
-Release: 12%{?dist}
+Version: 1.1.4
+Release: 1%{?dist}
 License: MIT-open-group
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_libdir}/pkgconfig/xdmcp.pc
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.4-1
+- libXdmcp 1.1.4
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.1.3-12
 - SPDX Migration
 

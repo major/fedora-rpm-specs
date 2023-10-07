@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curl
 Version:        0.9.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -16,7 +16,7 @@ BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-findlib
 BuildRequires:  libcurl-devel >= 7.28.0
 BuildRequires:  ocaml-lwt-ppx-devel
-BuildRequires:  python3
+BuildRequires:  ocaml-rpm-macros
 
 
 %description
@@ -88,6 +88,9 @@ make -C examples clean
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.2-9
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

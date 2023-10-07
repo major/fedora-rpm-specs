@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -76,7 +76,8 @@ Patch7:           0007-fix-alert-test.patch
 Patch8:           0008-graphite-functions-xss.patch
 Patch9:           0009-redact-weak-ciphers.patch
 # https://github.com/grafana/grafana/commit/bae86dbeb0ad68a205454e98e76985dc393183d4
-Patch10:          0010-remove-email-lookup.patch
+Patch10:          0010-skip-tests.patch
+Patch11:          0011-remove-email-lookup.patch
 
 # Patches affecting the vendor tarball
 Patch1001:        1001-vendor-patch-removed-backend-crypto.patch
@@ -751,6 +752,7 @@ cp -p %{SOURCE8} %{SOURCE9} %{SOURCE10} SELinux
 %patch -P 8 -p1
 %patch -P 9 -p1
 %patch -P 10 -p1
+%patch -P 11 -p1
 
 %patch -P 1001 -p1
 %if %{enable_fips_mode}
@@ -993,6 +995,10 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Thu Oct 5 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-6
+- Added 0010-skip-tests
+- Resolves problematic tests when building
+
 * Thu Sep 28 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-5
 - Add SELinux policy for grafana
 

@@ -1,11 +1,11 @@
 Summary: X.Org X11 ICE runtime library
 Name: libICE
-Version: 1.0.10
-Release: 12%{?dist}
+Version: 1.1.1
+Release: 1%{?dist}
 License: MIT-open-group
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 # Needed for pre-glibc-2.25, which at this point would mean RHEL7 but not 8
 # Patch1: 0002-Add-getentropy-emulation-through-syscall.patch
@@ -68,6 +68,9 @@ done
 %{_libdir}/pkgconfig/ice.pc
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.1-1
+- libICE 1.1.1
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.0.10-12
 - SPDX migration
 

@@ -1,6 +1,6 @@
 Name:           keysmith
 Version:        23.08.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3+
 Summary:        Convergent OTP client
 Url:            https://invent.kde.org/utilities/keysmith
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 23.08.1-2
+- rebuild for new libsodium
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

@@ -3,8 +3,8 @@
 
 Summary: X.Org X11 libfontenc runtime library
 Name: libfontenc
-Version: 1.1.6
-Release: 3%{?dist}
+Version: 1.1.7
+Release: 1%{?dist}
 # SPDX
 License: MIT
 URL: http://www.x.org
@@ -56,6 +56,9 @@ find $RPM_BUILD_ROOT -type f -name '*.la' | xargs rm -f -- || :
 %{_libdir}/pkgconfig/fontenc.pc
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.7-1
+- libfontenc 1.1.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

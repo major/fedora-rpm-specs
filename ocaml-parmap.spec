@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-parmap
 Version:        1.2.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml library for exploiting multicore architectures
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -34,12 +34,6 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n parmap-%{version}
 
-# Some tests exhaust memory on the 32-bit builders; scale them down
-# See https://github.com/rdicosmo/parmap/issues/92
-%if 0%{?__isa_bits} == 32
-sed -i 's/10000000/1000000/' tests/{float,simple}scale.ml
-%endif
-
 %build
 %dune_build
 
@@ -59,6 +53,9 @@ sed -i 's/10000000/1000000/' tests/{float,simple}scale.ml
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.5-7
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

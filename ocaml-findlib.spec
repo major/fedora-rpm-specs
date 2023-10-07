@@ -2,14 +2,12 @@
 ExcludeArch: %{ix86}
 
 %ifnarch %{ocaml_native_compiler}
-# Stripping the binary removes its bytecode payload
-%global __strip %{_bindir}/true
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-findlib
 Version:        1.9.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -24,9 +22,9 @@ BuildRequires:  ocaml-labltk-devel
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  m4, ncurses-devel
 BuildRequires:  make
-BuildRequires:  python3
 Requires:       ocaml
 
 # Do not require ocaml-compiler-libs at runtime
@@ -60,6 +58,9 @@ sed -i 's,/usr/local/man,%{_mandir},' configure
 
 # Configure bug?  dynlink_subdir is the empty string
 sed -i 's/\${dynlink_subdir}/dynlink/' configure
+
+# Build an executable that is not damaged by stripping
+sed -i 's/\(custom=\)-custom/\1-output-complete-exe/' configure
 
 
 %build
@@ -111,6 +112,12 @@ sed -i '/ocamlfind\.conf/d' .ofiles
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-6
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.9.6-5
+- Build an executable that is not damaged by stripping
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

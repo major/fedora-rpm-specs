@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlbz2
 Version:        0.7.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        OCaml bindings for bzip2
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -26,8 +26,8 @@ BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  pkgconfig(bzip2)
-BuildRequires:  python3
 
 %description
 This package contains OCaml bindings for bzip2.
@@ -76,6 +76,9 @@ make install DESTDIR=$OCAMLFIND_DESTDIR INSTALL='%{_bindir}/install -p'
 %doc doc/*
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-13
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

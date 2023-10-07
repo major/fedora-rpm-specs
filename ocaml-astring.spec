@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-astring
 Version:        0.8.5
-Release:        16%{?dist}
+Release:        18%{?dist}
 Summary:        Alternative String module for OCaml
 
 License:        ISC
@@ -19,10 +19,11 @@ Source0:        https://github.com/dbuenzli/astring/archive/v%{version}/astring-
 Patch0:         %{name}-ocaml5.patch
 
 BuildRequires:  ocaml >= 4.05.0
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel
-BuildRequires:  python3
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
@@ -71,17 +72,7 @@ done
 ocaml pkg/pkg.ml build --tests true
 
 %install
-# Install the library
-mkdir -p %{buildroot}%{ocamldir}/astring
-cp -p _build/{opam,pkg/META} %{buildroot}%{ocamldir}/astring
-%ifarch %{ocaml_native_compiler}
-cp -a _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} \
-  %{buildroot}%{ocamldir}/astring
-%else
-cp -a _build/src/*.{cma,cmi,cmt,cmti,mli} %{buildroot}%{ocamldir}/astring
-%endif
-
-%ocaml_files
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test
@@ -93,6 +84,15 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-18
+- Bump release and rebuild
+
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-17
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-16
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

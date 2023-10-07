@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-uucd
-Version:        15.0.0
+Version:        15.1.0
 Release:        %autorelease
 Summary:        Unicode character database decoder for OCaml
 
@@ -14,12 +14,13 @@ License:        ISC
 URL:            https://erratique.ch/software/uucd
 Source0:        %{url}/releases/uucd-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.01.0
+BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 BuildRequires:  ocaml-xmlm-devel
-BuildRequires:  python3
 
 %description
 Uucd is an OCaml module to decode the data of the Unicode character
@@ -48,16 +49,7 @@ files for developing applications that use %{name}.
 ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
 %install
-# Install the library
-mkdir -p %{buildroot}%{ocamldir}/uucd
-cp -p _build/{opam,pkg/META} %{buildroot}%{ocamldir}/uucd
-%ifarch %{ocaml_native_compiler}
-cp -a _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} \
-  %{buildroot}%{ocamldir}/uucd
-%else
-cp -a _build/src/*.{cma,cmi,cmt,cmti,mli} %{buildroot}%{ocamldir}/uucd
-%endif
-%ocaml_files
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test

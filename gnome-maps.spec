@@ -8,7 +8,7 @@
 
 Name:           gnome-maps
 Version:        45.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
@@ -45,6 +45,7 @@ Requires:       gsettings-desktop-schemas%{?_isa}
 Requires:       gtk4%{?_isa}
 Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
 Requires:       libgweather4%{?_isa}
+Requires:       libportal%{?_isa}
 Requires:       libshumate%{?_isa} >= %{libshumate_version}
 Requires:       libsoup3%{?_isa}
 Requires:       rest%{?_isa}
@@ -92,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Thu Oct 05 2023 Kalev Lember <klember@redhat.com> - 45.0-2
+- Add missing libportal runtime requires (rhbz#2242300)
+
 * Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
 - Update to 45.0
 - Add minimum required libadwaita version

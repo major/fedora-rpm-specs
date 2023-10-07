@@ -4,17 +4,17 @@
 
 Summary: X.Org X11 libXt runtime library
 Name: libXt
-Version: 1.2.1
-Release: 6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.3.0
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT AND HPND-sell-variant AND SMLNJ AND MIT-open-group AND X11
 URL: https://www.x.org
 
 %if 0%{?gitdate}
-Source0:    %{tarball}-%{gitdate}.tar.bz2
+Source0:    %{tarball}-%{gitdate}.tar.xz
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 Requires: libX11%{?_isa} >= 1.6
@@ -108,6 +108,9 @@ cp -p COPYING ${RPM_BUILD_ROOT}%{_datadir}/doc/%{name}/COPYING
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.3.0-1
+- libXt 1.3.0
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.2.1-6
 - SPDX migration
 

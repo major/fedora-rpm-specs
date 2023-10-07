@@ -7,14 +7,14 @@
 Name: hunspell-ur
 Summary: Urdu hunspell dictionaries
 Version: 0.64
-Release: 28%{?dist}
+Release: 29%{?dist}
 #http://urdudictionary.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=30004#DownloadId=74761
 #and click yes to agree to LGPLv2+, which stinks as a download-url :-(
 Source: UrduDictionary.xpi
+# This URL is dead now
 URL: http://urdudictionary.codeplex.com
 License: LGPL-2.1-or-later
 BuildArch: noarch
-BuildRequires: redland
 
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-ur)
@@ -26,8 +26,7 @@ Urdu hunspell dictionaries.
 %setup -q -c -n hunspell-ur
 
 %build
-rdfproc -s file hunspell-ur parse install.rdf
-rdfproc -s file hunspell-ur print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
+# nothing here
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
@@ -43,10 +42,12 @@ popd
 
 
 %files
-%doc CREDITS
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Oct 05 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.64-29
+- Drop dependency on redland by dropping CREDITS file
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

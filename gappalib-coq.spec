@@ -1,10 +1,6 @@
 # Coq's plugin architecture requires cmxs files, so:
 ExclusiveArch: %{ocaml_native_compiler}
 
-# ANTLR is unavailable on i686, so coq is also unavailable
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-#ExclusiveArch:  %%{java_arches}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -19,7 +15,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           gappalib-coq
 Version:        1.5.3
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -101,6 +97,12 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.3-6
+- OCaml 5.1 rebuild for Fedora 40
+
+* Tue Sep 12 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-5
+- Rebuild for coq 8.18.0
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-4
 - Rebuild for ocaml-zarith 1.13
 

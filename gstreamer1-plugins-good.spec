@@ -28,7 +28,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.22.5
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -223,7 +223,7 @@ to be installed.
   -D dv=%{?with_extras:enabled}%{!?with_extras:disabled} \
   -D dv1394=%{?with_extras:enabled}%{!?with_extras:disabled} \
 %endif
-%if 0%{?_module_build} && "%{_module_name}" == "flatpak-runtime"
+%if 0%{?flatpak_runtime}
   -D v4l2-gudev=disabled \
 %endif
   -D qt-egl=disabled \
@@ -353,6 +353,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Oct 05 2023 Jan Grulich <jgrulich@redhat.com> - 1.22.5-2
+- Rebuild (qt6)
+
 * Fri Jul 21 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.5-1
 - Update to 1.22.5
 - Disable qt-egl and add some BuildRequires to make things compile.

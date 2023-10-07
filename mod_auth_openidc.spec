@@ -14,13 +14,13 @@
 %global httpd_pkg_cache_dir /var/cache/httpd/mod_auth_openidc
 
 Name:		mod_auth_openidc
-Version:	2.4.13.2
-Release:	2%{?dist}
+Version:	2.4.14.3
+Release:	1%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
 License:	Apache-2.0
 URL:		https://github.com/OpenIDC/mod_auth_openidc
-Source0:	https://github.com/OpenIDC/mod_auth_openidc/archive/v%{version}.tar.gz
+Source0:	https://github.com/OpenIDC/mod_auth_openidc/releases/download/v%{version}/mod_auth_openidc-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -57,10 +57,10 @@ autoreconf -vfi
 %{make_build}
 
 # (jhrozek): temporarily disable make check to work around a FTBFS issue
-#%check
-#export MODULES_DIR=%{_httpd_moddir}
-#export APXS2_OPTS='-S LIBEXECDIR=${MODULES_DIR}'
-#%{make_build} test
+%check
+export MODULES_DIR=%{_httpd_moddir}
+export APXS2_OPTS='-S LIBEXECDIR=${MODULES_DIR}'
+%{make_build} test
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_httpd_moddir}
@@ -96,6 +96,10 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
+* Thu Oct 5 2023 Tomas Halman <thalman@redhat.com> - 2.4.14.3-1
+  Rebase to 2.4.14.3 version
+- Resolves: rhbz#2204524 - mod_auth_openidc-2.4.14.3 is available
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

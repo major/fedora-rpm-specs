@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -279,10 +279,10 @@ BuildRequires:	libcurl-devel
 BuildRequires:	libcap-devel
 BuildRequires:	libcap-ng-devel
 #BuildRequires:	fmt-devel >= 6.2.1
-%if ! (0%{?fedora} || 0%{?rhel} >= 10)
-BuildRequires:	rocksdb-devel
-Requires:	rocksdb
-%endif
+#%if ( 0%{?fedora} || 0%{?rhel} >= 10 )
+#BuildRequires:	rocksdb-devel
+#Requires:	rocksdb
+#%endif
 BuildRequires:	liburing-devel
 BuildRequires:	pkgconfig(libudev)
 BuildRequires:	libnl3-devel
@@ -1405,7 +1405,7 @@ env | sort
     -DWITH_OCF:BOOL=ON \
 %endif
 %if 0%{?fedora} || 0%{?rhel} >= 10
-    -DWITH_SYSTEM_ROCKSDB:BOOL=OFF\
+    -DWITH_SYSTEM_ROCKSDB:BOOL=OFF \
 %endif
     -DWITH_SYSTEM_LIBURING:BOOL=ON \
     -DWITH_SYSTEM_BOOST:BOOL=OFF \
@@ -2634,6 +2634,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Thu Oct 5 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.0-2
+- ceph-18.2.0, rebuild in side tag (f40-build-side-74974)
+
 * Fri Aug 4 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.0-1
 - ceph-18.2.0 GA
 

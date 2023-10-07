@@ -1,17 +1,23 @@
-%global vc_commit e37df7acc9c8a80e382917bb18b24ebf8d56df05
+%global vc_commit 77f069b71fa9042bc4b2f68d06942a43c8ecec73
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 
 %global optflags %{optflags} -w
 
+# not compatible with newer clang versions
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
+%global llvm_compat 15
+%endif
+
 Name: intel-igc
-Version: 1.0.13700.7
-Release: 2%{?dist}
+Version: 1.0.15313.1
+Release: 1%{?dist}
 Summary: Intel Graphics Compiler for OpenCL
 
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/igc-%{version}/igc-%{version}.tar.gz
 Source1: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics-%{vc_shortcommit}.tar.gz
+Patch01: 0001-Guard-getValue-dump-with-DEBUG_VERBOSE_ON.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -22,17 +28,23 @@ BuildRequires: git
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
-BuildRequires: llvm-devel
-BuildRequires: lld-devel
-BuildRequires: clang
+BuildRequires: llvm%{?llvm_compat}-devel
+BuildRequires: lld%{?llvm_compat}-devel
+BuildRequires: clang%{?llvm_compat}
 BuildRequires: flex
 BuildRequires: bison
 BuildRequires: python3
+BuildRequires: python3-mako
 BuildRequires: zlib-devel
 BuildRequires: intel-opencl-clang-devel
 BuildRequires: libunwind-devel
-BuildRequires: spirv-llvm-translator-devel
-BuildRequires: spirv-llvm-translator-tools
+%if %{?llvm_compat} == 15
+BuildRequires: spirv-llvm15.0-translator-devel
+BuildRequires: spirv-llvm15.0-translator-tools
+%else
+BuildRequires: spirv-llvm-translator%{?llvm_compat}-devel
+BuildRequires: spirv-llvm-translator%{?llvm_compat}-tools
+%endif
 BuildRequires: spirv-headers-devel
 BuildRequires: spirv-tools-devel
 
@@ -67,7 +79,7 @@ tar -xf %{SOURCE1}
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_SHARED_LIBS:BOOL=OFF \
-    -DIGC_OPTION__LLVM_PREFERRED_VERSION='%(rpm -q --qf '%%{version}' llvm-devel | cut -d. -f1 | sed "s/$/.0.0/")' \
+    -DIGC_OPTION__LLVM_PREFERRED_VERSION='%(rpm -q --qf '%%{version}' llvm%{?llvm_compat}-devel | cut -d. -f1 | sed "s/$/.0.0/")' \
     -DVC_INTRINSICS_SRC="%{_builddir}/vc-intrinsics-%{vc_commit}" \
 %ifarch x86_64
     -DIGC_OPTION__ARCHITECTURE_TARGET='Linux64' \
@@ -81,6 +93,7 @@ tar -xf %{SOURCE1}
     -DIGC_OPTION__CLANG_MODE=Prebuilds \
     -DIGC_OPTION__LLD_MODE=Prebuilds \
     -DIGC_OPTION__LLVM_MODE=Prebuilds \
+    -DLLVM_ROOT=%{_libdir}/llvm%{?llvm_compat}/ \
     -DIGC_OPTION__SPIRV_TOOLS_MODE=Prebuilds \
     -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS=ON \
     -DIGC_OPTION__VC_INTRINSICS_MODE=Source \
@@ -114,6 +127,10 @@ tar -xf %{SOURCE1}
 %{_libdir}/pkgconfig/igc-opencl.pc
 
 %changelog
+* Fri Oct 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.15313.1-1
+- intel-igc-1.0.15313.1 (fixes RHBZ#2183055)
+- Switch to llvm 17 compat package
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13700.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

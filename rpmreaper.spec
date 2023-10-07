@@ -3,7 +3,7 @@ Version:        0.2.0
 Release:        31%{?dist}
 Summary:        A tool for removing packages from system
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/mlichvar/rpmreaper
 Source0:        https://github.com/mlichvar/rpmreaper/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         rpmreaper-provfilename.patch

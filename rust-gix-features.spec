@@ -5,16 +5,13 @@
 %global crate gix-features
 
 Name:           rust-gix-features
-Version:        0.34.0
+Version:        0.35.0
 Release:        %autorelease
 Summary:        Integrate various capabilities using compile-time feature flags
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-features
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Disable feature for compatibility with zlib-ng
-Patch:          gix-features-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -145,6 +142,18 @@ This package contains library source intended for building other packages which
 use the "parallel" feature of the "%{crate}" crate.
 
 %files       -n %{name}+parallel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+prodash-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+prodash-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "prodash" feature of the "%{crate}" crate.
+
+%files       -n %{name}+prodash-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+progress-devel

@@ -1,5 +1,5 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.17.0
+Version:        3.17.1
 Release:        1%{?dist}
 Summary:        Core library used by SDKs for IBM Cloud Services
 
@@ -54,6 +54,12 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
+* Wed Oct 04 2023 Packit <hello@packit.dev> - 3.17.1-1
+- chore(release): 3.17.1 release notes (semantic-release-bot)
+- Bump version: 3.17.0 → 3.17.1 (semantic-release-bot)
+- fix: add correct support for compressing file-like objects (#174) (Norbert Biczo)
+- Resolves rhbz#2241942
+
 * Wed Oct 04 2023 Packit <hello@packit.dev> - 3.17.0-1
 - chore(release): 3.17.0 release notes (semantic-release-bot)
 - Bump version: 3.16.7 → 3.17.0 (semantic-release-bot)

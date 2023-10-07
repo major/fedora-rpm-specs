@@ -1,6 +1,6 @@
 Name:           xcb-proto
-Version:        1.14.1
-Release:        11%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        XCB protocol descriptions
 
 License:        X11-distribute-modifications-variant
@@ -51,6 +51,9 @@ autoreconf -fiv
 
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.16.0-1
+- xcb-proto 1.16.0
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.14.1-11
 - SPDX Migration
 

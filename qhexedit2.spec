@@ -16,11 +16,9 @@ Patch1:         sip5.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  qt4-devel
 BuildRequires:  qt5-qtbase-devel
-BuildRequires:  python3-pyqt4-sip
+BuildRequires:  python3-devel
 BuildRequires:  python3-pyqt5-sip
-BuildRequires:  python3-PyQt4-devel
 BuildRequires:  python3-qt5-devel
 BuildRequires:  %{py3_dist PyQt-builder}
 BuildRequires:  %{py3_dist sip} >= 5
@@ -31,22 +29,6 @@ Requires:       %{name}-qt5-libs%{?_isa} = %{version}-%{release}
 QHexEdit is a hex editor widget written in C++ for the Qt framework.
 It is a simple editor for binary data, just like QPlainTextEdit is for text
 data.
-
-
-%package libs
-Summary:        %{name} Qt4 library
-
-%description libs
-%{name} Qt4 library.
-
-
-%package        devel
-Summary:        Development files for %{name} Qt4
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name} Qt4.
 
 ###############################################################################
 
@@ -80,7 +62,6 @@ The %{name}-doc package contains the documentation and examples for %{name}.
 %package -n python3-%{name}-qt5
 Summary:        %{name} Qt5 Python3 bindings
 Requires:       %{name}-qt5-libs%{?_isa} = %{version}-%{release}
-%{?python_provide:%python_provide python3-%{srcname}-qt5}
 
 %description -n python3-%{name}-qt5
 %{name} Qt5 Python3 bindings.
@@ -90,7 +71,6 @@ Requires:       %{name}-qt5-libs%{?_isa} = %{version}-%{release}
 Summary:        Development files for the %{name} Qt5 Python3 bindings
 Requires:       python3-%{name}-qt5%{?_isa} = %{version}-%{release}
 Requires:       %{py3_dist sip} >= 5
-%{?python_provide:%python_provide python3-%{srcname}-qt5-devel}
 
 %description -n python3-%{name}-qt5-devel
 Development files for the %{name} Qt5 Python3 bindings
@@ -105,13 +85,6 @@ rm -f doc/html/installdox
 
 %build
 %set_build_flags
-
-# Build library, qt4
-mkdir build-lib-qt4
-pushd build-lib-qt4
-%qmake_qt4 ../src/qhexedit.pro
-%make_build
-popd
 
 # Build library, qt5
 mkdir build-lib-qt5
@@ -135,27 +108,13 @@ popd
 %install
 # Library and headers
 install -d %{buildroot}%{_includedir}/%{name}
-cp -a src/*.h %{buildroot}%{_includedir}/%{name}
 install -d %{buildroot}%{_libdir}
-chmod 0755 build-lib-qt4/*.so.*.*
-cp -a build-lib-qt4/*.so* %{buildroot}%{_libdir}
+cp -a src/*.h %{buildroot}%{_includedir}/%{name}
 chmod 0755 build-lib-qt5/*.so.*.*
 cp -a build-lib-qt5/*.so* %{buildroot}%{_libdir}
 
-# pkg-config files
+# pkg-config file
 install -d %{buildroot}%{_libdir}/pkgconfig/
-
-cat > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc <<EOF
-libdir=%{_libdir}
-includedir=%{_includedir}/%{name}
-
-Name: %{name}
-Description: %{summary}
-Version: %{version}
-Cflags: -I\${includedir}
-Libs: -L\${libdir} -lqhexedit
-EOF
-
 cat > %{buildroot}%{_libdir}/pkgconfig/%{name}-qt5.pc <<EOF
 libdir=%{_libdir}
 includedir=%{_includedir}/%{name}
@@ -181,16 +140,6 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE1}
 %{_bindir}/qhexedit
 %{_datadir}/applications/qhexedit.desktop
 
-%files libs
-%doc doc/release.txt
-%license src/license.txt
-%{_libdir}/libqhexedit.so.4*
-
-%files devel
-%{_includedir}/%{name}/
-%{_libdir}/libqhexedit.so
-%{_libdir}/pkgconfig/%{name}.pc
-
 %files qt5-libs
 %doc doc/release.txt
 %license src/license.txt
@@ -212,7 +161,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE1}
 %files -n python3-%{name}-qt5-devel
 %{python3_sitearch}/PyQt5/bindings/qhexedit/
 
+
 %changelog
+* Thu Oct 05 2023 Sandro Mani <manisandro@gmail.com> - 0.8.9-12
+- Drop qt4 build
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.9-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

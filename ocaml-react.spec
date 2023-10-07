@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-react
 Version:        1.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml framework for Functional Reactive Programming (FRP)
 
 License:        ISC
@@ -19,8 +19,8 @@ BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
-BuildRequires:  python3
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
@@ -64,20 +64,7 @@ ocaml pkg/pkg.ml build --tests true
 
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/ocaml/react
-for f in \
-  pkg/META \
-  opam \
-  src/react_top_init.ml \
-%ifarch %{ocaml_native_compiler}
-  src/*.{a,cmx,cmxa,cmxs} \
-%endif
-  src/*.{cma,cmi,cmt,cmti,mli}
-do
-  cp -p _build/$f $RPM_BUILD_ROOT%{_libdir}/ocaml/react/
-done
-
-%ocaml_files
+%ocaml_install
 
 
 %check
@@ -93,6 +80,12 @@ ocaml pkg/pkg.ml test
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-4
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-3
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

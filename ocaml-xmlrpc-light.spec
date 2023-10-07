@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-xmlrpc-light
 Version:        0.6.1
-Release:        74%{?dist}
+Release:        75%{?dist}
 Summary:        OCaml library for writing XML-RPC clients and servers
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -20,8 +20,8 @@ BuildRequires:  ocaml-xml-light-devel
 BuildRequires:  ocaml-ocamlnet-devel
 BuildRequires:  ocaml-ocamlnet-nethttpd-devel
 BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  dos2unix
-BuildRequires:  python3
 
 # Fix the package to work with ocamlnet 3.x.
 Patch1:         debian_patches_0002-Compile-with-ocamlnet-3.3.5.patch
@@ -91,6 +91,9 @@ mkdir -p $OCAMLFIND_DESTDIR
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1-75
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-74
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

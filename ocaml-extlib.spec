@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-extlib
 Version:        1.7.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 
@@ -19,7 +19,7 @@ BuildRequires:  ocaml >= 4.02
 BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-cppo
-BuildRequires:  python3
+BuildRequires:  ocaml-rpm-macros
 # In order to apply patches:
 BuildRequires:  git
 
@@ -87,6 +87,9 @@ make -C test all run
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.9-4
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

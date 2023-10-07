@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: 6.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -694,6 +694,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 6.6-5
+- OCaml 5.1 rebuild for Fedora 40
+
 * Tue Aug 15 2023 Adam Williamson <awilliam@redhat.com> - 6.6-4
 - Fix the Cython 3 crash and build with Cython 3 again
 

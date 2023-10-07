@@ -25,7 +25,7 @@ Version:        1.19.2
 Release:        2%{?dist}
 Summary:        A system monitor for X
 
-License:        GPLv3+
+License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
 URL:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 

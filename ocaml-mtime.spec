@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mtime
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Monotonic wall-clock time for OCaml
 
 License:        ISC
@@ -11,8 +11,10 @@ URL:            https://erratique.ch/software/mtime
 Source0:        %{url}/releases/mtime-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 BuildRequires:  python3
 
@@ -48,27 +50,7 @@ echo $'\ntrue: cclib(-lm)' >> _tags
 ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
 %install
-mkdir -p %{buildroot}%{_libdir}/ocaml/mtime/clock/os
-mkdir -p %{buildroot}%{_libdir}/ocaml/mtime/top
-%ifarch %{ocaml_native_compiler}
-cp -p _build/src/mtime.{a,cmx,cmxa,cmxs} %{buildroot}%{_libdir}/ocaml/mtime
-cp -p _build/src-clock/*.{cmx,cmxa,cmxs} \
-   %{buildroot}%{_libdir}/ocaml/mtime/clock/os
-cp -p _build/src/mtime_top.{cmx,cmxa,cmxs} \
-   %{buildroot}%{_libdir}/ocaml/mtime/top
-%endif
-cp -p _build/src/mtime.{cma,cmi,cmt,cmti,mli} _build/pkg/META _build/opam \
-   %{buildroot}%{_libdir}/ocaml/mtime
-cp -p _build/src-clock/*.{a,cma,cmi,cmt,cmti,js,mli} \
-   %{buildroot}%{_libdir}/ocaml/mtime/clock/os
-cp -p _build/src/mtime_top.{cma,cmi,cmt} %{buildroot}%{_libdir}/ocaml/mtime/top
-cp -p _build/src/mtime_top_init.ml %{buildroot}%{_libdir}/ocaml/mtime
-mkdir -p %{buildroot}%{_libdir}/ocaml/stublibs
-cp -p _build/src-clock/*.so %{buildroot}%{_libdir}/ocaml/stublibs
-%ocaml_files
-
-# The clock directory is mistakenly labeled as a devel directory
-sed -i '/%dir/d' .ofiles-devel
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test
@@ -76,7 +58,6 @@ ocaml pkg/pkg.ml test
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE.md
-%dir %{ocamldir}/mtime/clock
 
 %files devel -f .ofiles-devel
 %if %{with docs}
@@ -84,6 +65,15 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-5
+- Bump release and rebuild
+
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-4
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Sep 27 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-3
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

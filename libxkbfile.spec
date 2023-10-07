@@ -1,7 +1,7 @@
 Summary: X.Org X11 libxkbfile runtime library
 Name: libxkbfile
-Version: 1.1.1
-Release: 4%{?dist}
+Version: 1.1.2
+Release: 1%{?dist}
 License: MIT-open-group AND HPND AND SMLNJ
 URL: http://www.x.org
 
@@ -58,6 +58,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xkbfile.pc
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.2-1
+- libxkbfile 1.1.2
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.1.1-4
 - SPDX migration
 

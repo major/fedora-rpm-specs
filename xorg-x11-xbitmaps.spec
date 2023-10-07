@@ -4,13 +4,13 @@
 
 Summary: X.Org X11 application bitmaps
 Name: xorg-x11-%{pkgname}
-Version: 1.1.2
-Release: 5%{?dist}
+Version: 1.1.3
+Release: 1%{?dist}
 License: HPND AND ICU
 URL: http://www.x.org
 BuildArch: noarch
 
-Source0: https://www.x.org/pub/individual/data/xbitmaps-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/data/xbitmaps-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: automake gcc
@@ -35,6 +35,9 @@ X.Org X11 application bitmaps
 %{_datadir}/pkgconfig/xbitmaps.pc
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.3-1
+- xorg-x11-xbitmaps 1.1.3
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.1.2-5
 - SPDX Migration
 

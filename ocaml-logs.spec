@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-logs
 Version:        0.7.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Logging infrastructure for OCaml
 
 License:        ISC
@@ -17,16 +17,19 @@ Source0:        %{url}/releases/logs-%{version}.tbz
 Patch0:         %{name}-test.patch
 # Adapt to changes in ocaml-mtime 2.0.0
 Patch1:         %{name}-mtime.patch
+# Fix an error compiling the tests with OCaml 5.1.0
+Patch2:         %{name}-ocaml5.1.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cmdliner-devel
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-mtime-devel
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel
-BuildRequires:  python3
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
@@ -61,14 +64,7 @@ ocaml pkg/pkg.ml build --with-js_of_ocaml false --with-fmt true \
   --with-cmdliner true --with-lwt true --with-base-threads true --tests true
 
 %install
-mkdir -p %{buildroot}%{ocamldir}/logs
-%ifarch %{ocaml_native_compiler}
-cp -p _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/logs
-%endif
-cp -p _build/src/*.{cma,cmi,cmt,cmti,mli} _build/pkg/META _build/opam \
-   %{buildroot}%{ocamldir}/logs
-cp -p src/logs_top_init.ml %{buildroot}%{ocamldir}/logs
-%ocaml_files
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test
@@ -80,6 +76,12 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-13
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-12
+- Add patch to fix building tests with OCaml 5.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

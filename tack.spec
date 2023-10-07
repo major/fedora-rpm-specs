@@ -1,10 +1,10 @@
-%global revision 20220528
+%global revision 20230201
 Name:           tack
 Version:        1.09
-Release:        14.%{revision}%{?dist}
+Release:        15.%{revision}%{?dist}
 Summary:        Terminfo action checker
 
-License:        GPLv2+
+License:        GPL-2.0-only
 URL:            https://invisible-island.net/ncurses/tack.html
 Source0:        https://invisible-mirror.net/archives/ncurses/current/tack-%{version}-%{revision}.tgz
 
@@ -33,6 +33,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/tack.1*
 
 %changelog
+* Thu Oct 05 2023 Miroslav Lichvar <mlichvar@redhat.com> 1.09-15.20230201
+- convert license tag to SPDX
+- update to 1.09-20230201
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-14.20220528
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

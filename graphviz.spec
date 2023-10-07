@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		9.0.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -318,7 +318,7 @@ Graphviz plugin for -Tswf (flash) renderer based on ming.
 %if %{OCAML}
 %package ocaml
 Summary:		Ocaml extension for graphviz
-Requires:		%{name} = %{version}-%{release}, ocaml
+Requires:		%{name} = %{version}-%{release}
 
 %description ocaml
 Ocaml extension for graphviz.
@@ -777,6 +777,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 9.0.0-2
+- OCaml 5.1 rebuild for Fedora 40
+
 * Mon Sep 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 9.0.0-1
 - New version
   Resolves: rhbz#2238427

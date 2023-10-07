@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-SDL
 Version:        0.9.1
-Release:        62%{?dist}
+Release:        63%{?dist}
 Summary:        OCaml bindings for SDL
 License:        LGPL-2.1-or-later
 
@@ -23,7 +23,7 @@ BuildRequires:  ocaml-lablgl-devel
 BuildRequires:  SDL_gfx-devel, SDL_ttf-devel, SDL_mixer-devel, SDL_image-devel
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
-Requires:       python3
+BuildRequires:  ocaml-rpm-macros
 
 
 %description
@@ -74,6 +74,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-63
+- OCaml 5.1 rebuild for Fedora 40
+
 * Fri Aug 04 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-62
 - Further adaptions for OCaml 5
   https://bugzilla.redhat.com/show_bug.cgi?id=2225813#c8

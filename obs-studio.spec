@@ -31,7 +31,7 @@
 
 Name:           obs-studio
 Version:        30.0.0~beta3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -314,6 +314,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Oct 05 2023 Jan Grulich <jgrulich@redhat.com> - 30.0.0~beta3-3
+- Rebuild (qt6)
+
 * Fri Sep 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0~beta3-2
 - Add patch to downgrade CMake dependency to >= 3.20
 - Rebuild against libdatachannel for fixed soname dependency

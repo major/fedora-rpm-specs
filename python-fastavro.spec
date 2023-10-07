@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-fastavro
-Version:        1.8.3
+Version:        1.8.4
 Release:        %autorelease
 Summary:        Fast Avro for Python
 

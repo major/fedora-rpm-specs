@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.5
+%global general_version %{pybasever}.6
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -205,7 +205,9 @@ BuildRequires: glibc-devel
 BuildRequires: gmp-devel
 BuildRequires: gnupg2
 BuildRequires: libappstream-glib
+%if %{undefined rhel}
 BuildRequires: libb2-devel
+%endif
 BuildRequires: libffi-devel
 BuildRequires: libnsl2-devel
 BuildRequires: libtirpc-devel
@@ -434,6 +436,8 @@ This package contains /usr/bin/python - the "python" command that runs Python 3.
 
 %package -n %{pkgname}-libs
 Summary:        Python runtime libraries
+# Bundled libb2 is CC0, covered by grandfathering exception
+License:        Python-2.0.1 AND CC0-1.0
 
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
@@ -444,6 +448,10 @@ Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main libs
+
+# Bundled internal headers are used even when building with system libb2
+# last updated by https://github.com/python/cpython/pull/6286
+Provides: bundled(libb2) = 0.98.1
 
 # There are files in the standard library that have python shebang.
 # We've filtered the automatic requirement out so libs are installable without
@@ -1608,6 +1616,12 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Oct 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.11.6-2
+- Use bundled libb2 in RHEL builds
+
+* Tue Oct 03 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.6-1
+- Update to 3.11.6
+
 * Mon Aug 28 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.5-1
 - Update to 3.11.5
 

@@ -1,15 +1,9 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%ifarch %{ocaml_native_compiler}
-%global native_compiler 1
-%else
-%global native_compiler 0
-%endif
-
 Name:          ocaml-labltk
 Version:       8.06.13
-Release:       4%{?dist}
+Release:       6%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -30,7 +24,7 @@ Patch3:        ocaml-labltk-configure-c99.patch
 BuildRequires: make
 BuildRequires: ocaml
 BuildRequires: ocaml-ocamldoc
-BuildRequires: python3
+BuildRequires: ocaml-rpm-macros
 BuildRequires: tcl-devel, tk-devel
 
 %global _desc %{expand:
@@ -86,19 +80,19 @@ sed -i 's/^cclibs=.*/cclibs=/' configure
 # Build does not work in parallel.
 unset MAKEFLAGS
 
-%if !%{native_compiler}
-make byte
-%else
+%ifarch %{ocaml_native_compiler}
 make all opt \
      SHAREDCCCOMPOPTS='%{build_cflags} -fPIC' \
      TK_LINK="%{build_ldflags} $(pkg-config --libs tk)"
+%else
+make byte
 %endif
 
 # Build documentation
 # make apiref does not work
 MLIS=$(ls -1d labltk/*.mli | grep -Fv _tkgen.mli)
 mkdir apiref
-/usr/bin/ocamldoc -I +threads -I support -I labltk -I camltk \
+/usr/bin/ocamldoc -I +unix -I +threads -I support -I labltk -I camltk \
   support/fileevent.mli support/support.mli support/textvariable.mli \
   support/timer.mli support/tkthread.mli support/widget.mli $MLIS \
   labltk/tk.ml -sort -d apiref -html
@@ -135,6 +129,12 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 8.06.13-6
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 8.06.13-5
+- Depend on ocaml-rpm-macros instead of python3
+
 * Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 8.06.13-4
 - Add devel package dependency on tcl-/tk-devel
 

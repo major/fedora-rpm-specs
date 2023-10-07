@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-lablgl
 Epoch:          1
 Version:        1.07
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LablGL is an OpenGL interface for Objective Caml
 License:        BSD-3-Clause
 
@@ -22,7 +22,9 @@ BuildRequires:  freeglut-devel
 BuildRequires:  ocaml >= 4.14
 BuildRequires:  ocaml-findlib >= 1.2.1
 BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-labltk-devel
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  tcl-devel
 BuildRequires:  tk-devel
 BuildRequires:  libX11-devel
@@ -30,7 +32,6 @@ BuildRequires:  libXext-devel
 BuildRequires:  libXmu-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
-BuildRequires:  python3
 
 
 %description
@@ -132,6 +133,9 @@ popd
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.07-4
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.07-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

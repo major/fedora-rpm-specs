@@ -1,5 +1,5 @@
 Name:           mkosi
-Version:        17.1
+Version:        18
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
@@ -85,7 +85,7 @@ Recommends:     xz
 
 %description
 A fancy wrapper around "dnf --installroot", "apt-get", "pacman", "zypper", and
-"emerge" that may generate disk images with a number of bells and whistles.
+"emerge" to generate disk images with a number of bells and whistles.
 
 Generated images are tailored to the purpose. This means GPT disk labels are
 used and only systemd-based images may be generated.

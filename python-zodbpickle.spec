@@ -1,6 +1,6 @@
 Name:           python-zodbpickle
-Version:        3.0.1
-Release:        3%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        Fork of Python 2 pickle module for ZODB
 
 # Code taken from the python 3 sources is covered by the PSF-2.0 license.
@@ -55,6 +55,9 @@ rst2html --no-datestamp README.rst README.html
 %exclude %{python3_sitearch}/zodbpickle/*.c
 
 %changelog
+* Thu Oct  5 2023 Jerry James <loganjerry@gmail.com> - 3.1-1
+- Version 3.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

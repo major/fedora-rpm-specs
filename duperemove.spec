@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 
 Name:           duperemove
-Version:        0.12
+Version:        0.13
 Release:        1%{?dist}
 Summary:        Tools for deduping file systems
 License:        GPL-2.0-only
@@ -30,24 +30,6 @@ deduplication using the btrfs-extent-same ioctl.
 
 %prep
 %autosetup
-# There's some weird stuff happening to detect the version and whether it's a release,
-# so let's just hardcode this stuff
-patch -p1 << EOF
---- a/Makefile	2023-07-15 10:24:08.000000000 +0100
-+++ b/Makefile	2023-07-29 20:00:07.730500085 +0100
-@@ -1,9 +1,5 @@
--VERSION=\$(shell git describe --abbrev=4 --dirty --always --tags;)
--ifeq (\$(shell git rev-list \$(shell git describe --abbrev=0 --tags --exclude '*dev';)..HEAD --count;), 0)
--	IS_RELEASE=1
--else
--	IS_RELEASE=0
--endif
-+VERSION=%{version}
-+IS_RELEASE=1
- 
- CC ?= gcc
- CFLAGS ?= -Wall -ggdb
-EOF
 # Fix prefix
 sed -i 's@^PREFIX ?= /usr/local$@PREFIX ?= /usr@' Makefile
 # Get rid of bundled libraries
@@ -60,6 +42,8 @@ ln -s /usr/include/xxhash.h
 . /opt/rh/devtoolset-7/enable
 %endif
 export PREFIX=/usr
+export VERSION=%{version}
+export IS_RELEASE=1
 %make_build
 
 %install
@@ -78,6 +62,10 @@ export PREFIX=/usr
 %{_bindir}/show-shared-extents
 
 %changelog
+* Thu Oct  5 2023 Jonathan Dieter <jdieter@gmail.com> - 0.13-1
+- Update to 0.13 with more bugfixes improving deduplication
+  Note that the hash file format has changed and will need to be regenerated
+
 * Sat Jul 29 2023 Jonathan Dieter <jdieter@gmail.com> - 0.12-1
 - Update to 0.12 with bug fixes
 

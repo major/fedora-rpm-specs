@@ -1,6 +1,6 @@
 Name: remmina
 Version: 1.4.32
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -331,6 +331,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 1.4.32-2
+- rebuild for new libsodium
+
 * Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 1.4.32-1
 - Update to 1.4.32 rhbz#2239158
 

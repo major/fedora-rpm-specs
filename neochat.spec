@@ -1,6 +1,6 @@
 Name: neochat
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -54,6 +54,7 @@ Requires: hicolor-icon-theme
 Requires: kf5-kirigami2%{?_isa}
 Requires: kf5-kirigami2-addons%{?_isa}
 Requires: kf5-kitemmodels%{?_isa}
+Requires: kf5-kquickcharts%{?_isa}
 Requires: kf5-syntax-highlighting%{?_isa}
 Requires: kquickimageeditor%{?_isa}
 Requires: qqc2-breeze-style%{?_isa}
@@ -99,6 +100,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/qlogging-categories5/neochat.categories
 
 %changelog
+* Thu Oct 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
+- Add missing Requires BZ#2242379
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

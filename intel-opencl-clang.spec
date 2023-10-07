@@ -1,24 +1,35 @@
-%global toolchain clang
-
-%global commit c78c1f884ffe8b40e1681a90ebde1a919c08ddb1
+%global commit bc1d13ecc1c6f7aa5da3acf33165037d3fc5ed06
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
+
+# not compatible with newer clang versions
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
+%global llvm_compat 15
+%endif
 
 Name: intel-opencl-clang
 Version: 15.0.0
-Release: 4%{?dist}
+Release: %autorelease
 Summary: Library to compile OpenCL C kernels to SPIR-V modules
 
 License: NCSA
 URL:     https://github.com/intel/opencl-clang
 Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
-ExcludeArch: armv7hl
+# https://github.com/intel/opencl-clang/pull/415
+Patch01: 415.patch
 
 BuildRequires: cmake
+BuildRequires: clang%{?llvm_compat}
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: llvm-devel
-BuildRequires: clang-devel
-BuildRequires: spirv-llvm-translator-devel
+BuildRequires: llvm%{?llvm_compat}-devel
+BuildRequires: clang%{?llvm_compat}-devel
+%if %{?llvm_compat} == 15
+BuildRequires: spirv-llvm15.0-translator-devel
+%else
+BuildRequires: spirv-llvm-translator%{?llvm_compat}-devel
+%endif
 BuildRequires: zlib-devel
 
 %description
@@ -34,14 +45,26 @@ This package contains libraries and header files for
 developing against %{name}
 
 %prep
-%setup -q -n opencl-clang-%{commit}
+%autosetup -n opencl-clang-%{commit} -p1
+sed -i 's/$<TARGET_FILE:clang>/$<TARGET_FILE:clang%{?llvm_compat}>/' cl_headers/CMakeLists.txt
 
 %build
-%cmake -DPREFERRED_LLVM_VERSION='%(rpm -q --qf '%%{version}' llvm-devel | cut -d. -f1 | sed "s/$/.0.0/")'
+%cmake \
+    -DPREFERRED_LLVM_VERSION='%(rpm -q --qf '%%{version}' llvm%{?llvm_compat}-devel | cut -d. -f1 | sed "s/$/.0.0/")' \
+    -DLLVM_DIR=%{_libdir}/llvm%{?llvm_compat}/lib/cmake/llvm/
 %cmake_build
 
 %install
 %cmake_install
+
+# This is ugly, but a combined behavior of LLVM_DIR=*/lib/* and LLVM_LIBDIR_SUFFIX=64 is borked
+%ifnarch i686
+mkdir -p %{buildroot}%{_libdir}/
+cp %{buildroot}/usr/lib/libopencl-clang.so.* %{buildroot}%{_libdir}/
+cp %{buildroot}/usr/lib/libopencl-clang.so %{buildroot}%{_libdir}/
+rm %{buildroot}/usr/lib/libopencl-clang.so.*
+rm %{buildroot}/usr/lib/libopencl-clang.so
+%endif
 
 %files
 %license LICENSE
@@ -50,28 +73,9 @@ developing against %{name}
 %files devel
 %{_libdir}/libopencl-clang.so
 %{_includedir}/cclang/common_clang.h
+%{_includedir}/cclang/opencl-c.h
+%{_includedir}/cclang/opencl-c-base.h
+%{_includedir}/cclang/module.modulemap
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Sep 26 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 15.0.0-2
-- Rebuild for spirv-llvm-translator against llvm 15
-
-* Fri Sep 16 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 15.0.0-1
-- Update to llvm 15
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 08 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 14.0.0-2
-- Bump to a later commit with bunch of fixes
-
-* Thu Mar 31 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 14.0.0-1
-- Update to llvm 14
-
-* Mon Dec 06 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 13.0.0-1
-- Initial package
+%autochangelog

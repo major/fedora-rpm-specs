@@ -4,9 +4,15 @@
 %global lib_ver 2.0.0
 #global pre beta
 
+%if 0%{?rhel}
+%bcond_with qt6
+%else
+%bcond_without qt6
+%endif
+
 Name:           qcustomplot
 Version:        2.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Qt widget for plotting and data visualization
 
 License:        GPL-3.0-or-later
@@ -18,7 +24,9 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
 BuildRequires:  qt5-qtbase-devel
+%if %{with qt6}
 BuildRequires:  qt6-qtbase-devel
+%endif
 
 
 %description
@@ -52,6 +60,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name} (Qt5).
 
 
+%if %{with qt6}
 %package        qt6
 Summary:        Qt widget for plotting and data visualization
 Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
@@ -72,6 +81,7 @@ Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
 %description    qt6-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name} (Qt6).
+%endif
 
 
 %package        doc
@@ -93,23 +103,20 @@ cp -a %{SOURCE1} .
 %cmake -DQT_VER=5 -DLIB_VER=%{lib_ver}
 %cmake_build
 
+%if %{with qt6}
 %define _vpath_builddir %{_target_platform}-qt6
 %cmake -DQT_VER=6 -DLIB_VER=%{lib_ver}
 %cmake_build
+%endif
 
 
 %install
 %define _vpath_builddir %{_target_platform}-qt5
 %cmake_install
 
-%define _vpath_builddir %{_target_platform}-qt6
-%cmake_install
-
-# pkg-config files
-for qtver in -qt5 -qt6; do
-
 install -d %{buildroot}%{_libdir}/pkgconfig/
-cat > %{buildroot}%{_libdir}/pkgconfig/%{name}$qtver.pc <<EOF
+
+cat > %{buildroot}%{_libdir}/pkgconfig/%{name}-qt5.pc <<EOF
 libdir=%{_libdir}
 includedir=%{_includedir}
 
@@ -117,10 +124,24 @@ Name: %{name}
 Description: %{summary}
 Version: %{version}
 Cflags: -I\${includedir}
-Libs: -L\${libdir} -lqcustomplot$qtver
+Libs: -L\${libdir} -lqcustomplot-qt5
 EOF
 
-done
+%if %{with qt6}
+%define _vpath_builddir %{_target_platform}-qt6
+%cmake_install
+
+cat > %{buildroot}%{_libdir}/pkgconfig/%{name}-qt6.pc <<EOF
+libdir=%{_libdir}
+includedir=%{_includedir}
+
+Name: %{name}
+Description: %{summary}
+Version: %{version}
+Cflags: -I\${includedir}
+Libs: -L\${libdir} -lqcustomplot-qt6
+EOF
+%endif
 
 
 %files qt5
@@ -132,6 +153,7 @@ done
 %{_libdir}/libqcustomplot-qt5.so
 %{_libdir}/pkgconfig/%{name}-qt5.pc
 
+%if %{with qt6}
 %files qt6
 %license GPL.txt
 %{_libdir}/libqcustomplot-qt6.so.*
@@ -140,6 +162,7 @@ done
 %{_includedir}/qcustomplot.h
 %{_libdir}/libqcustomplot-qt6.so
 %{_libdir}/pkgconfig/%{name}-qt6.pc
+%endif
 
 %files doc
 %license GPL.txt
@@ -148,6 +171,9 @@ done
 
 
 %changelog
+* Thu Oct 05 2023 Sandro Mani <manisandro@gmail.com> - 2.1.1-7
+- Conditionalize qt6 build
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

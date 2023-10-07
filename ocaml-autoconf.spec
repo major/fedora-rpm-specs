@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %undefine _package_note_flags
 Name:           ocaml-autoconf
 Version:        1.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Autoconf macros for OCaml
 
 
@@ -52,6 +52,9 @@ make install \
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-36
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

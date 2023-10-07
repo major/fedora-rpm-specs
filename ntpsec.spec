@@ -3,37 +3,7 @@ Version:        1.2.2a
 Release:        1%{?dist}
 Summary:        NTP daemon and utilities
 
-# Primary license: MIT (NTP variant)
-# attic/ntpdate: BSD
-# include/{ascii,binio,ieee754io}.h: BSD
-# include/{ntp_assert,isc_*.h}: ISC
-# include/mbg_gps166.h: BSD
-# include/ntp_{debug,endian,filegen}.h: BSD
-# include/nts*.h: BSD
-# include/parse*.h: BSD
-# include/trimble.h: BSD
-# libaes_siv: ASL 2.0
-# libntp/emalloc.c: ISC
-# libntp/ntp_{c,endian,random}.c: BSD
-# libntp/pymodule*: BSD
-# libntp/python_compatibility.h: BSD
-# libntp/strl_obsd.c: ISC
-# libparse: BSD
-# ntpclients: BSD
-# ntpd/ntp_config.c: BSD
-# ntpd/ntp_dns.c: BSD
-# ntpd/ntp_filegen.c: BSD
-# ntpd/ntp_parser.y: BSD
-# ntpd/ntp_sandbox.c: BSD
-# ntpd/ntp_scanner.*: BSD
-# ntpd/nts*.c: BSD
-# ntpd/refclock_generic.c: BSD
-# ntpd/refclock_jjy.c: BSD
-# ntpd/refclock_oncore.c: Beerware (public domain)
-# ntpd/refclock_trimble.c: BSD with advertising
-# ntpfrob: BSD
-# pylib: BSD
-License:        MIT and BSD and BSD with advertising and ISC and ASL 2.0
+License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
 URL:            https://www.ntpsec.org/
 Source0:        https://ftp.ntpsec.org/pub/releases/ntpsec-%{version}.tar.gz
 Source1:        https://ftp.ntpsec.org/pub/releases/ntpsec-%{version}.tar.gz.asc

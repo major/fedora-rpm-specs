@@ -20,7 +20,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gtest-devel
 BuildRequires:  gumbo-parser-devel
 BuildRequires:  make
-BuildRequires:  /usr/bin/xxd
+BuildRequires:  xxd
 
 
 %description

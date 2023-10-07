@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        118.0.1
-Release:        4%{?pre_tag}%{?dist}
+Release:        5%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -661,7 +661,7 @@ echo "ac_add_options --with-google-safebrowsing-api-keyfile=`pwd`/google-api-key
 # https://bugzilla.redhat.com/show_bug.cgi?id=2239046
 # with clang 17 upstream's detection fails, so let's just tell it
 # where to look
-echo "ac_add_options --with-libclang-path=%{_libdir}" >> .mozconfig
+echo "ac_add_options --with-libclang-path=`llvm-config --libdir`" >> .mozconfig
 
 echo 'export NODEJS="%{_buildrootdir}/bin/node-stdout-nonblocking-wrapper"' >> .mozconfig
 
@@ -1119,6 +1119,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Oct 05 2023 Kalev Lember <klember@redhat.com> - 118.0.1-5
+- Fix flatpak build
+
 * Mon Oct 2 2023 Martin Stransky <stransky@redhat.com>- 118.0.1-4
 - Updated man page
 

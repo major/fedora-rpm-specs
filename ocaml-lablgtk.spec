@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lablgtk
 Version:        2.18.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -22,6 +22,8 @@ Patch0:         %{name}-svgz.patch
 Patch1:         %{name}-precious.patch
 # Adapt to OCaml 5
 Patch2:         %{name}-ocaml5.patch
+# Adapt to new paths to Unix library in OCaml 5.1.0
+Patch3:         %{name}-unix.patch
 
 BuildRequires:  help2man
 BuildRequires:  make
@@ -29,6 +31,7 @@ BuildRequires:  ocaml >= 4.06
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-findlib >= 1.2.1
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(gtksourceview-2.0)
 BuildRequires:  pkgconfig(gtkspell-2.0)
@@ -38,7 +41,6 @@ BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  python3
 
 %global __ocaml_requires_opts -i GtkSourceView2_types
 
@@ -149,6 +151,12 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.18.13-7
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 2.18.13-6
+- Add patch for new Unix library name in OCaml 5.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

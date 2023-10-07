@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gsl
 Version:        1.24.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
 License:        GPL-3.0-or-later
 
@@ -79,6 +79,9 @@ export GSL_CBLAS_LIB="-lflexiblas"
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.24.3-4
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

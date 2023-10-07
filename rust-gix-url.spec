@@ -6,7 +6,7 @@
 %global crate gix-url
 
 Name:           rust-gix-url
-Version:        0.23.0
+Version:        0.24.0
 Release:        %autorelease
 Summary:        Implementation of parsing and serialization of URLs for gix
 

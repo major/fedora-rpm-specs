@@ -5,7 +5,7 @@
 %global crate gix-fs
 
 Name:           rust-gix-fs
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        File system utilities for gix
 

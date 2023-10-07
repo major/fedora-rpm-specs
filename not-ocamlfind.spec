@@ -3,7 +3,7 @@
 %endif
 
 Name:           not-ocamlfind
-Version:        0.11
+Version:        0.12
 Release:        %autorelease
 Summary:        Front-end to ocamlfind that adds a few new commands
 
@@ -17,6 +17,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  m4
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib-devel >= 1.8.0
 BuildRequires:  ocaml-fmt-devel >= 0.8.8
 BuildRequires:  ocaml-ocamlgraph-devel >= 2.0.0

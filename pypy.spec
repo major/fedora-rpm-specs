@@ -4,9 +4,9 @@
 # %%{_libdir}/pypy%%{pyversion} (see e.g. pypy3.7 or pypy3.8 for inspiration).
 %global basever 7.3
 Name:           pypy
-Version:        %{basever}.12
+Version:        %{basever}.13
 %global pyversion 2.7
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Python implementation with a Just-In-Time compiler
 
 # PyPy is MIT
@@ -886,6 +886,10 @@ CheckPyPy %{name}-c-stackless
 
 
 %changelog
+* Wed Oct 04 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.13-1
+- Update to 7.3.13
+- Fixes: rhbz#2241297
+
 * Tue Aug 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 7.3.12-3
 - Security fix for CVE-2022-45061
 - Fixes: rhbz#2144428

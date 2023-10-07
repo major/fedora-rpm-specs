@@ -43,11 +43,21 @@ This is a ported release for python 3.
 %install
 %py3_install
 
+%check
+# there are no tests, let's do some sanity check ourselves
+%{py3_test_envvars} %{python3} -c '
+import smbpasswd
+lmhash = "316AEBE722192264AAD3B435B51404EE"
+nthash = "B16315C81C204B3CB1E9D00A34C13103"
+assert smbpasswd.lmhash("check") == lmhash
+assert smbpasswd.nthash("check") == nthash
+assert smbpasswd.hash("check") == (lmhash, nthash)'
+
 %files -n python3-smbpasswd
 %license COPYING.txt
 %doc README.txt
 %{python3_sitearch}/smbpasswd.cpython-3*.so
-%{python3_sitearch}/*egg-info
+%{python3_sitearch}/*egg-info/
 
 %changelog
 * Thu Oct 05 2023 Michal Ambroz <rebus at_ seznam.cz> - 1.0.2-15

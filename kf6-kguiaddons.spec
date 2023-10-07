@@ -6,7 +6,7 @@
 
 Name:		kf6-%{framework}
 Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtGui
 
 License:	BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
@@ -71,5 +71,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230916.160754.7ff692a-2
+- Rebuild for Qt Private API
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230916.160754.7ff692a-1
 - Initial release

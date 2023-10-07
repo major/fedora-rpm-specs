@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-bin-prot
 Version:        0.16.0
 Epoch:          1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Read and write OCaml values in a type-safe binary protocol
 
 # The project as a whole is MIT.
@@ -71,6 +71,9 @@ for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:0.16.0-4
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

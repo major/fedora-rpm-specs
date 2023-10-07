@@ -65,7 +65,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -502,7 +502,7 @@ if [ -x /usr/libexec/Xorg ]; then
 else
    Xorg=/usr/libexec/Xorg.bin
 fi
-$Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
+$Xorg -noreset +extension GLX +extension RANDR +extension RENDER -nolisten tcp -nolisten unix -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
 export DISPLAY=:99
 # Help bytecode-only arches find the OCaml stublib
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_libdir}
@@ -774,6 +774,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.15.0-58
+- OCaml 5.1 rebuild for Fedora 40
+
 * Fri Aug 11 2023 Tom Callaway <spot@fedoraproject.org> - 5.15.0-57
 - rebuild for new qhull
 

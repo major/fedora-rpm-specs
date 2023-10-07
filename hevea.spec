@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:		hevea
 Version:	2.36
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	LaTeX to HTML translator
 
 # QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception: the project as a whole
@@ -75,7 +75,19 @@ ulimit -s unlimited
 	LIBDIR=%{_datadir}/hevea \
 	LATEXLIBDIR=%{_texmf}/tex/latex/hevea
 
-	
+# Link, rather than copy, identical files
+rm %{buildroot}%{_datadir}/hevea/{info,text}/report.hva
+ln %{buildroot}%{_datadir}/hevea/html/report.hva \
+   %{buildroot}%{_datadir}/hevea/info/report.hva
+ln %{buildroot}%{_datadir}/hevea/html/report.hva \
+   %{buildroot}%{_datadir}/hevea/text/report.hva
+
+# Fix up the examples for installation
+rm examples/.gitignore
+rm examples/hevea.sty
+ln -s %{_texmf}/tex/latex/hevea/hevea.sty examples
+
+
 %files
 %doc README CHANGES examples %{name}-%{version}-manual.pdf
 %license LICENSE
@@ -85,6 +97,13 @@ ulimit -s unlimited
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.36-8
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 2.36-7
+- Link, rather than copy, identical files
+- Fix up the examples for installation
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

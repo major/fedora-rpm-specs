@@ -72,7 +72,7 @@
 Name:           cjdns
 # major version is cjdns protocol version:
 Version:        21.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The privacy-friendly network without borders
 # cjdns is all GPLv3 except libuv which is MIT and BSD and ISC
 # cnacl is unused except when use_embedded is true
@@ -261,10 +261,10 @@ Python peer graph tools for cjdns.
 
 %prep
 %setup -qn cjdns-%{name}-v%{version}
-%patch0 -b .selinux
+%patch -P0 -b .selinux
 
-%patch4 -b .genconf
-%patch5 -b .sbin
+%patch -P4 -b .genconf
+%patch -P5 -b .sbin
 
 cp %{SOURCE2} contrib/systemd
 
@@ -278,9 +278,9 @@ tar xvfz %{SOURCE3}
 # use system nacl library if provided.  
 if test -x %{nacl_lib}; then
 %if 0%{use_libsodium}
-%patch11 -b .sodium
+%patch -P11 -b .sodium
 %else
-%patch6 -b .dyn
+%patch -P6 -b .dyn
 %endif
   rm -rf node_build/dependencies/cnacl
 # use static library if system nacl doesn't provide dynamic
@@ -292,20 +292,20 @@ elif test -d %{_includedir}/nacl && test -r %{_libdir}/libnacl.a; then
   ln -s %{_includedir}/nacl cnacl/jsbuild/include
   cd -
 fi
-%patch12 -b .sign
+%patch -P12 -b .sign
 cd crypto/sign
 sed -i -e'/^#include / s,[<>],",g' crypto*int*.h
 cd -
 %endif
 
-%patch9 -b .man
-%patch10 -b .tools
+%patch -P9 -b .man
+%patch -P10 -b .tools
 #patch13 -b .ppc64
 #patch14 -b .entropy
 #patch15 -b .benc
 #patch16 -b .python3
 %if 0%{use_libuv}
-%patch18 -p1 -b .libuv
+%patch -P18 -p1 -b .libuv
 rm -rf node_build/dependencies/libuv
 %else
 rm -rf node_build/dependencies/libuv/build/gyp # use system gyp
@@ -318,8 +318,8 @@ sed -i -e '/optimizeLevel:/ s/-O0/-O3/' node_build/make.js
 #patch19 -p1 -b .fuzz
 #patch20 -p1 -b .sysctl
 #patch22 -b .gcc10
-%patch23 -b .flagdup
-%patch2 -b .warn
+%patch -P23 -b .flagdup
+%patch -P2 -b .warn
 
 cp %{SOURCE1} README_Fedora.md
 
@@ -723,6 +723,9 @@ fi
 %{_bindir}/graphStats
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 21.1-12
+- rebuild for new libsodium
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

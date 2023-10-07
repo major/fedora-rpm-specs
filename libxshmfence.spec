@@ -1,11 +1,11 @@
 Name:           libxshmfence
-Version:        1.3
-Release:        14%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        X11 shared memory fences
 
 License:        HPND-sell-variant
 URL:            https://www.x.org/
-Source0:        https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0:        https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 
 # upstream tarball has broken libtool because libtool is never not broken
 BuildRequires:  autoconf automake libtool xorg-x11-util-macros
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/*.so
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.3.2-1
+- libxshmfence 1.3.2
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.3-14
 - SPDX Migration
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zarith
 Version:        1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml interface to GMP
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -16,8 +16,8 @@ BuildRequires:  make
 BuildRequires:  ocaml >= 4.04.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  perl-interpreter
-BuildRequires:  python3
 
 # Replace config.guess with a more up to date version which knows about POWER.
 BuildRequires:  redhat-rpm-config
@@ -63,9 +63,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -n Zarith-release-%{version}
 
-# Replace config.guess with a more up to date version which knows about POWER.
-cp -p /usr/lib/rpm/redhat/config.guess config.guess
-
 # Fix compilation flags
 sed -i "s|^ccdef=''|ccdef='%{build_cflags}'|" configure
 sed -ri "s/(-ccopt|-shared|-failsafe)/-g &/" project.mak
@@ -108,6 +105,9 @@ make tests
 %doc Changes html
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.13-2
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 1.13-1
 - Version 1.13
 

@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.7.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     22
+%global         baserelease     23
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -127,6 +127,11 @@ Patch9:         dionaea-09_setgroups_before_setresuid.patch
 # Patch to explicitly state the python module version to the setup.py
 Patch12:        dionaea-12_py_module_version.patch
 
+# Replace deprecated PyUnicode_GetSize with PyUnicode_GetLength
+Patch13:        dionaea-13_GetSize_deprecated.patch
+
+# Trying to identify the mole
+Patch14:        dionaea-14_safe_load.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

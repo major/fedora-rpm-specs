@@ -14,8 +14,8 @@ ExcludeArch: %{ix86}
 %bcond_with dune
 
 Name:           ocaml-pp
-Version:        1.1.2
-Release:        8%{?dist}
+Version:        1.2.0
+Release:        2%{?dist}
 Summary:        Pretty printing library for OCaml
 
 License:        MIT
@@ -26,7 +26,7 @@ BuildRequires:  ocaml >= 4.04.0
 %if %{with dune}
 BuildRequires:  ocaml-dune >= 2.0
 %else
-BuildRequires:  python3
+BuildRequires:  ocaml-rpm-macros
 %endif
 
 %description
@@ -37,7 +37,7 @@ complicated and difficult to use, then Pp might be a good choice for
 you.
 
 Pp uses the same concepts of boxes and break hints, and the final
-rendering is done to formatter from the Format module.  However it
+rendering is done by formatter from the Format module.  However it
 defines its own algebra which some might find easier to work with and
 reason about.  No previous knowledge is required to start using this
 library, however the various guides for the Format module such as this
@@ -101,7 +101,7 @@ plugin(native) = "pp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/pp/dune-package << EOF
-(lang dune 3.9)
+(lang dune 3.11)
 (name pp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/pp))
@@ -159,6 +159,12 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.2.0-1
+- Version 1.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,12 @@
 # Don't add -Wl,-dT,<build dir>
 %undefine _package_note_flags
 
+# OCaml 5.1 broke building with LTO.  A file prims.c is generated with primitive
+# function declarations, all with "void" for their parameter list.  This does
+# not match the real definitions, leading to lots of -Wlto-type-mismatch
+# warnings.  These change the output of the tests, leading to many failed tests.
+%global _lto_cflags %{nil}
+
 # OCaml has a bytecode backend that works on anything with a C
 # compiler, and a native code backend available on a subset of
 # architectures.  A further subset of architectures support native
@@ -23,7 +29,7 @@ ExcludeArch: %{ix86}
 
 # These are all the architectures that the tests run on.  The tests
 # take a long time to run, so don't run them on slow machines.
-%global test_arches aarch64 %{power64} riscv64 x86_64
+%global test_arches aarch64 %{power64} riscv64 s390x x86_64
 # These are the architectures for which the tests must pass otherwise
 # the build will fail.
 #global test_arches_required aarch64 ppc64le x86_64
@@ -36,8 +42,8 @@ ExcludeArch: %{ix86}
 %global rcver %{nil}
 
 Name:           ocaml
-Version:        5.0.0
-Release:        4%{?dist}
+Version:        5.1.0
+Release:        3%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -46,6 +52,8 @@ License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://www.ocaml.org
 
 Source0:        https://github.com/ocaml/ocaml/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        macros.ocaml-rpm
+Source2:        ocaml_files.py
 
 # IMPORTANT NOTE:
 #
@@ -56,44 +64,34 @@ Source0:        https://github.com/ocaml/ocaml/archive/%{version}/%{name}-%{vers
 #
 # https://pagure.io/fedora-ocaml
 #
-# Current branch: fedora-39-5.0.0
+# Current branch: fedora-40-5.1.0
 #
 # ALTERNATIVELY add a patch to the end of the list (leaving the
 # existing patches unchanged) adding a comment to note that it should
 # be incorporated into the git repo at a later time.
 
-# Patches added after 5.0.0 was released.
-Patch: 0001-increment-version-number-after-tagging-5.0.0.patch
-Patch: 0002-Merge-pull-request-11814-from-gasche-clarify-DLS.new.patch
-Patch: 0003-Add-KC-Sivaramakrishnan-as-author.patch
-Patch: 0004-removed-set-but-unused-variables-in-yacc-reader.c-11.patch
-Patch: 0005-Merge-pull-request-11860-from-Octachron-index_for_st.patch
-Patch: 0006-Allow-installing-in-folder-with-space-in-name-11590.patch
-Patch: 0007-Detect-unused-Makefile-variables-in-workflow.patch
-Patch: 0008-Fix-incorrect-variable-from-runtime-Makefile-merge.patch
-Patch: 0009-Provide-a-default-for-OCAMLDEPFLAGS.patch
-Patch: 0010-Report-all-post-build-failures.patch
-Patch: 0011-Finish-off-removal-of-FORCE_INSTRUMENTED_RUNTIME.patch
-Patch: 0012-suppress-spurious-alert-when-compiling-stdlib-docume.patch
-Patch: 0013-Merge-pull-request-12285-from-smorimoto-update-depre.patch
-Patch: 0014-Merge-pull-request-12286-from-smorimoto-replace-set-.patch
+# Patches added after 5.1.0 was released.
+Patch:          0001-Fix-variance-composition-12623.patch
 
 # Fedora-specific patches
-Patch: 0015-Don-t-add-rpaths-to-libraries.patch
-Patch: 0016-configure-Allow-user-defined-C-compiler-flags.patch
-
-# Fix skiplist test failure
-# https://github.com/ocaml/ocaml/pull/12346
-Patch: 0017-Fix-skiplist-test-failure-12346.patch
+Patch:          0002-Don-t-add-rpaths-to-libraries.patch
+Patch:          0003-configure-Allow-user-defined-C-compiler-flags.patch
+# https://github.com/ocaml/ocaml/pull/12530
+Patch:          0004-Fix-x86_64-delivery-of-effect-related-exceptions.patch
+# https://github.com/ocaml/ocaml/pull/11594
+Patch:          0005-Update-framepointers-tests-to-avoid-false-positive-w.patch
 
 BuildRequires:  make
 BuildRequires:  git
 BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  gawk
+BuildRequires:  hardlink
+BuildRequires:  parallel
 BuildRequires:  perl-interpreter
 BuildRequires:  util-linux
 BuildRequires:  /usr/bin/annocheck
+BuildRequires:  pkgconfig(libzstd)
 
 # Documentation requirements
 BuildRequires:  asciidoc
@@ -101,17 +99,19 @@ BuildRequires:  python3-pygments
 
 # ocamlopt runs gcc to link binaries.  Because Fedora includes
 # hardening flags automatically, redhat-rpm-config is also required.
+# Compressed marshaling requires libzstd-devel.
 Requires:       gcc
 Requires:       redhat-rpm-config
+Requires:       libzstd-devel%{?_isa}
 
 # Because we pass -c flag to ocaml-find-requires (to avoid circular
 # dependencies) we also have to explicitly depend on the right version
 # of ocaml-runtime.
 Requires:       ocaml-runtime%{?_isa} = %{version}-%{release}
 
-# Force ocaml-srpm-macros to be at the latest version, since OCaml 5.0
+# Force ocaml-srpm-macros to be at the latest version, since OCaml 5.1
 # has a different set of native code generators than previous versions.
-Requires:       ocaml-srpm-macros >= 8
+Requires:       ocaml-srpm-macros >= 9
 
 # Bundles an MD5 implementation in runtime/caml/md5.h and runtime/md5.c
 Provides:       bundled(md5-plumb)
@@ -137,6 +137,10 @@ and a comprehensive library.
 
 
 %package runtime
+# LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
+# LicenseRef-Fedora-Public-Domain: the MD5 implementation in runtime/caml/md5.h
+#   and runtime/md5.c
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND LicenseRef-Fedora-Public-Domain
 Summary:        OCaml runtime environment
 Requires:       util-linux
 Provides:       ocaml(runtime) = %{version}
@@ -197,6 +201,20 @@ Note that this exposes internal details of the OCaml compiler which
 may not be portable between versions.
 
 
+%package rpm-macros
+# LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
+# BSD-3-Clause: ocaml_files.py
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND BSD-3-Clause
+Summary:        RPM macros for building OCaml packages
+BuildArch:      noarch
+Requires:       ocaml = %{version}-%{release}
+Requires:       python3
+
+
+%description rpm-macros
+This package contains macros that are useful for building OCaml RPMs.
+
+
 %prep
 %autosetup -S git -n %{name}-%{version}%{rcver}
 # Patches touch configure.ac, so rebuild it:
@@ -213,6 +231,9 @@ make=make
 
 # Set ocamlmklib default flags to include Fedora linker flags
 sed -i '/ld_opts/s|\[\]|["%{build_ldflags}"]|' tools/ocamlmklib.ml
+
+# Expose a dependency on the math library
+sed -i '/^EXTRACAMLFLAGS=/aLINKOPTS=-cclib -lm' otherlibs/unix/Makefile
 
 # Don't use %%configure macro because it sets --build, --host which
 # breaks some incorrect assumptions made by OCaml's configure.ac
@@ -295,58 +316,54 @@ echo %{version} > $RPM_BUILD_ROOT%{_libdir}/ocaml/fedora-ocaml-release
 # Remove the installed documentation.  We will install it using %%doc
 rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 
+mkdir -p $RPM_BUILD_ROOT%{rpmmacrodir}
+install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{rpmmacrodir}/macros.ocaml-rpm
+
+mkdir -p $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
+install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
+
+# Link, rather than copy, identical binaries
+hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
+
 
 %files
 %license LICENSE
 %{_bindir}/ocaml
 
 %{_bindir}/ocamlcmt
+%{_bindir}/ocamlcp
 %{_bindir}/ocamldebug
+%{_bindir}/ocamlmklib
+%{_bindir}/ocamlmktop
+%{_bindir}/ocamlprof
 %{_bindir}/ocamlyacc
 
 # symlink to either .byte or .opt version
 %{_bindir}/ocamlc
-%{_bindir}/ocamlcp
 %{_bindir}/ocamldep
 %{_bindir}/ocamllex
-%{_bindir}/ocamlmklib
-%{_bindir}/ocamlmktop
 %{_bindir}/ocamlobjinfo
-%{_bindir}/ocamloptp
-%{_bindir}/ocamlprof
 
 # bytecode versions
 %{_bindir}/ocamlc.byte
-%{_bindir}/ocamlcp.byte
 %{_bindir}/ocamldep.byte
 %{_bindir}/ocamllex.byte
-%{_bindir}/ocamlmklib.byte
-%{_bindir}/ocamlmktop.byte
 %{_bindir}/ocamlobjinfo.byte
-%{_bindir}/ocamloptp.byte
-%{_bindir}/ocamlprof.byte
 
 %if %{native_compiler}
 # native code versions
 %{_bindir}/ocamlc.opt
-%{_bindir}/ocamlcp.opt
 %{_bindir}/ocamldep.opt
 %{_bindir}/ocamllex.opt
-%{_bindir}/ocamlmklib.opt
-%{_bindir}/ocamlmktop.opt
 %{_bindir}/ocamlobjinfo.opt
-%{_bindir}/ocamloptp.opt
-%{_bindir}/ocamlprof.opt
-%endif
-
-%if %{native_compiler}
-%{_bindir}/ocamlopt
-%{_bindir}/ocamlopt.byte
-%{_bindir}/ocamlopt.opt
 %endif
 
 %if %{native_compiler}
 %{_bindir}/ocamlnat
+%{_bindir}/ocamlopt
+%{_bindir}/ocamlopt.byte
+%{_bindir}/ocamlopt.opt
+%{_bindir}/ocamloptp
 %endif
 
 %{_libdir}/ocaml/camlheader
@@ -398,9 +415,6 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 %{_libdir}/ocaml/dynlink/META
 %{_libdir}/ocaml/dynlink/*.cmi
 %{_libdir}/ocaml/dynlink/*.cma
-%dir %{_libdir}/ocaml/ocamlmktop
-%{_libdir}/ocaml/ocamlmktop/*.cmo
-%{_libdir}/ocaml/ocamlmktop/*.cmi
 %dir %{_libdir}/ocaml/profiling
 %{_libdir}/ocaml/profiling/*.cmo
 %{_libdir}/ocaml/profiling/*.cmi
@@ -448,7 +462,25 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ocaml
 %{_libdir}/ocaml/compiler-libs
 
 
+%files rpm-macros
+%{rpmmacrodir}/macros.ocaml-rpm
+%{_rpmconfigdir}/redhat/ocaml_files.py
+
+
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-3
+- Rebuild against updated ocaml-srpm-macros
+
+* Thu Oct  5 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-2
+- Add upstream patch added after 5.1.0
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 5.1.0-1
+- Version 5.1.0
+- Add LicenseRef-Fedora-Public-Domain to the runtime License field
+- New ocaml-rpm-macros subpackage
+- Depend on libzstd-devel for compressed marshaling
+- Disable LTO
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

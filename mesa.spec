@@ -73,6 +73,12 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 # Fedora opts to ignore the optional part of clause 2 and treat that code as 2 clause BSD.
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
+# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24045
+# https://bugzilla.redhat.com/show_bug.cgi?id=2238711
+# fixes a symbol name collision between iris and radeonsi drivers
+# expected to fix the crashes reported in #2238711
+Patch0:         0001-radeonsi-prefix-function-with-si_-to-prevent-name-co.patch
+
 Patch10:        gnome-shell-glthread-disable.patch
 
 BuildRequires:  meson >= 1.2.0

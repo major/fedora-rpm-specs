@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlmod
 Version:        0.0.9
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Generate OCaml modules from source files
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -30,6 +30,7 @@ BuildRequires:  ocaml
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  help2man
 
@@ -75,6 +76,9 @@ file $RPM_BUILD_ROOT%{_bindir}/ocamlmod | grep -vq "script executable"
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.0.9-35
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

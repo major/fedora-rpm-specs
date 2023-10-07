@@ -10,7 +10,7 @@
 Name:           perl-Module-ScanDeps
 Summary:        Recursively scan Perl code for dependencies
 Version:        1.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-ScanDeps
 Source0:        https://cpan.metacpan.org/authors/id/R/RS/RSCHUPP/Module-ScanDeps-%{version}.tar.gz
@@ -51,6 +51,7 @@ BuildRequires:  perl(version)
 # VMS::Filespec never used
 # Tests:
 BuildRequires:  perl(autouse)
+BuildRequires:  perl(AutoLoader)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(if)
@@ -97,6 +98,7 @@ Test/More.pm).  The values are hash references.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
+Requires:       perl(AutoLoader)
 Requires:       perl(autouse)
 Requires:       perl(Carp)
 Requires:       perl(if)
@@ -166,6 +168,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.35-1
+- Add test BR perl(AutoLoader) (rhbz#2242265)
+
 * Mon Sep 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.34-1
 - 1.34 bump (rhbz#2240459)
 

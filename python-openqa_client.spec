@@ -6,7 +6,7 @@ openQA web API, using the requests HTTP request library.
 
 %global github_owner    os-autoinst
 %global github_name     openQA-python-client
-%global github_version  4.2.2
+%global github_version  4.2.3
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
 #global github_commit   080d03858b7b12f144770af8ceb938fe6c7dbb11
 #global github_date     20170130
@@ -17,7 +17,7 @@ Version:        %{github_version}
 Release:        1%{?github_date:.%{github_date}git%{shortcommit}}%{?dist}
 Summary:        %{sum}
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/%{github_owner}/%{github_name}/
 Source0:        https://files.pythonhosted.org/packages/source/o/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
@@ -62,6 +62,10 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 
 
 %changelog
+* Thu Oct 05 2023 Adam Williamson <awilliam@redhat.com> - 4.2.3-1
+- New release 4.2.3
+- Update license to SPDX
+
 * Tue Sep 05 2023 Adam Williamson <awilliam@redhat.com> - 4.2.2-1
 - New release 4.2.2
 

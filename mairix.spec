@@ -6,7 +6,7 @@ Version:        0.24
 Release:        17.%{gitdate}git%{gitrel}%{?dist}
 Summary:        A program for indexing and searching email messages
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://www.rc0.org.uk/mairix
 #Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source0:        https://github.com/rc0/mairix/archive/%{gitver}/mairix-%{gitver}.tar.gz

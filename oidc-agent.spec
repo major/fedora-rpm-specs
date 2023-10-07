@@ -6,7 +6,7 @@
 
 Name:		oidc-agent
 Version:	5.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -197,6 +197,9 @@ update-desktop-database >/dev/null 2>&1 || :
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 5.0.1-2
+- rebuild for new libsodium
+
 * Mon Sep 04 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.0.1-1
 - Update to version 5.0.1
 - Drop patch oidc-agent-webkit.patch (previously backported

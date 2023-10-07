@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -263,6 +263,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.3-11
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-10
 - Rebuild for ocaml-zarith 1.13
 

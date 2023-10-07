@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-uuseg
-Version:        15.0.0
+Version:        15.1.0
 Release:        %autorelease
 Summary:        Unicode text segmentation for OCaml
 
@@ -14,14 +14,15 @@ License:        ISC
 URL:            https://erratique.ch/software/uuseg
 Source0:        %{url}/releases/uuseg-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.03.0
+BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
-BuildRequires:  ocaml-uucp-devel >= 15.0.0
+BuildRequires:  ocaml-uucp-devel >= 15.1.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
-BuildRequires:  python3
 BuildRequires:  unicode-ucd
 
 %description
@@ -61,19 +62,7 @@ ocaml pkg/pkg.ml build --dev-pkg false --with-uutf true --with-cmdliner true \
   --tests true
 
 %install
-# Install the library
-mkdir -p %{buildroot}%{ocamldir}/uuseg/string
-cp -p _build/{opam,pkg/META} %{buildroot}%{ocamldir}/uuseg
-%ifarch %{ocaml_native_compiler}
-cp -a _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} \
-  %{buildroot}%{ocamldir}/uuseg
-%else
-cp -a _build/src/*.{cma,cmi,cmt,cmti,mli} %{buildroot}%{ocamldir}/uuseg
-%endif
-mv %{buildroot}%{ocamldir}/uuseg/uuseg_string.* \
-   %{buildroot}%{ocamldir}/uuseg/string
-
-%ocaml_files
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test

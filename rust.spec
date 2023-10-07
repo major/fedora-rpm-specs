@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.71.0
-%global bootstrap_channel 1.71.0
-%global bootstrap_date 2023-07-13
+%global bootstrap_version 1.72.0
+%global bootstrap_channel 1.72.0
+%global bootstrap_date 2023-08-24
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -26,9 +26,7 @@
 %if 0%{?fedora}
 %global mingw_targets i686-pc-windows-gnu x86_64-pc-windows-gnu
 %endif
-%if 0%{?fedora} || 0%{?rhel} >= 8
 %global wasm_targets wasm32-unknown-unknown wasm32-wasi
-%endif
 %if 0%{?fedora} || 0%{?rhel} >= 10
 %global extra_targets x86_64-unknown-none x86_64-unknown-uefi
 %endif
@@ -57,9 +55,9 @@
 %bcond_with llvm_static
 
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
-# is insufficient.  Rust currently requires LLVM 14.0+.
-%global min_llvm_version 14.0.0
-%global bundled_llvm_version 16.0.5
+# is insufficient.  Rust currently requires LLVM 15.0+.
+%global min_llvm_version 15.0.0
+%global bundled_llvm_version 17.0.2
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.6, and not the next minor soname change.
@@ -82,22 +80,9 @@
 %bcond_with disabled_libssh2
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-%bcond_with curl_http2
-%else
-%bcond_without curl_http2
-%endif
-
-# LLDB isn't available everywhere...
-%if 0%{?rhel} && 0%{?rhel} < 8
-%bcond_with lldb
-%else
-%bcond_without lldb
-%endif
-
 Name:           rust
-Version:        1.72.1
-Release:        3%{?dist}
+Version:        1.73.0
+Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -129,21 +114,13 @@ Patch3:         0001-Let-environment-variables-override-some-default-CPUs.patch
 Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
-# Enable the profiler runtime for native hosts
-# https://github.com/rust-lang/rust/pull/114069
-Patch6:         0001-Allow-using-external-builds-of-the-compiler-rt-profi.patch
-
-# Fix --no-fail-fast
-# https://github.com/rust-lang/rust/pull/113214
-Patch7:         0001-Don-t-fail-early-if-try_run-returns-an-error.patch
-
 # The dist-src tarball doesn't include .github/
 # https://github.com/rust-lang/rust/pull/115109
-Patch8:         0001-Skip-ExpandYamlAnchors-when-the-config-is-missing.patch
+Patch6:         0001-Skip-ExpandYamlAnchors-when-the-config-is-missing.patch
 
 # wasi: round up the size for aligned_alloc
 # https://github.com/rust-lang/rust/pull/115254
-Patch9:         0001-wasi-round-up-the-size-for-aligned_alloc.patch
+Patch7:         0001-wasi-round-up-the-size-for-aligned_alloc.patch
 
 ### RHEL-specific patches below ###
 
@@ -151,11 +128,7 @@ Patch9:         0001-wasi-round-up-the-size-for-aligned_alloc.patch
 Source100:      macros.rust-toolset
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.72.0-disable-libssh2.patch
-
-# libcurl on RHEL7 doesn't have http2, but since cargo requests it, curl-sys
-# will try to build it statically -- instead we turn off the feature.
-Patch101:       rustc-1.72.0-disable-http2.patch
+Patch100:       rustc-1.73.0-disable-libssh2.patch
 
 # Get the Rust triple for any arch.
 %{lua: function rust_triple(arch)
@@ -212,12 +185,7 @@ end}
 Provides:       bundled(%{name}-bootstrap) = %{bootstrap_version}
 %else
 BuildRequires:  cargo >= %{bootstrap_version}
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:  %{name} >= %{bootstrap_version}
-BuildConflicts: %{name} > %{version}
-%else
 BuildRequires:  (%{name} >= %{bootstrap_version} with %{name} <= %{version})
-%endif
 %global local_rust_root %{_prefix}
 %endif
 
@@ -255,10 +223,6 @@ Provides:       bundled(llvm) = %{bundled_llvm_version}
 BuildRequires:  cmake >= 2.8.11
 %if 0%{?epel} == 7
 %global llvm llvm14
-%endif
-# not ready for llvm-17 yet...
-%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
-%global llvm llvm16
 %endif
 %if %defined llvm
 %global llvm_root %{_libdir}/%{llvm}
@@ -319,14 +283,7 @@ BuildRequires:  %{devtoolset_name}-gcc-c++
 # While we don't want to encourage dynamic linking to Rust shared libraries, as
 # there's no stable ABI, we still need the unallocated metadata (.rustc) to
 # support custom-derive plugins like #[proc_macro_derive(Foo)].
-%if 0%{?rhel} && 0%{?rhel} < 8
-# eu-strip is very eager by default, so we have to limit it to -g, only debugging symbols.
-%global _find_debuginfo_opts -g
-%undefine _include_minidebuginfo
-%else
-# Newer find-debuginfo.sh supports --keep-section, which is preferable. rhbz1465997
 %global _find_debuginfo_opts --keep-section .rustc
-%endif
 
 %if %{without bundled_llvm}
 %if "%{llvm_root}" == "%{_prefix}" || 0%{?scl:1}
@@ -364,10 +321,8 @@ find '%{buildroot}%{rustlibdir}'/wasm*/lib -type f -regex '.*\\.\\(a\\|rlib\\)' 
 %{nil}
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 # For profiler_builtins
 BuildRequires:  compiler-rt
-%endif
 
 # This component was removed as of Rust 1.69.0.
 # https://github.com/rust-lang/rust/pull/101841
@@ -473,8 +428,6 @@ This package includes the rust-gdb script, which allows easier debugging of Rust
 programs.
 
 
-%if %with lldb
-
 %package lldb
 Summary:        LLDB pretty printers for Rust
 BuildArch:      noarch
@@ -485,8 +438,6 @@ Requires:       %{name}-debugger-common = %{version}-%{release}
 %description lldb
 This package includes the rust-lldb script, which allows easier debugging of Rust
 programs.
-
-%endif
 
 
 %package doc
@@ -531,6 +482,9 @@ and ensure that you'll always get a repeatable build.
 Summary:        Tool to find and fix Rust formatting issues
 Requires:       cargo
 
+# /usr/bin/rustfmt is dynamically linked against internal rustc libs
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
 # The component/package was rustfmt-preview until Rust 1.31.
 Obsoletes:      rustfmt-preview < 1.0.0
 Provides:       rustfmt-preview = %{version}-%{release}
@@ -543,11 +497,7 @@ A tool for formatting Rust code according to style guidelines.
 Summary:        Rust implementation of the Language Server Protocol
 
 # The standard library sources are needed for most functionality.
-%if 0%{?rhel} && 0%{?rhel} < 8
-Requires:       %{name}-src
-%else
 Recommends:     %{name}-src
-%endif
 
 # RLS is no longer available as of Rust 1.65, but we're including the stub
 # binary that implements LSP just enough to recommend rust-analyzer.
@@ -578,11 +528,7 @@ A collection of lints to catch common mistakes and improve your Rust code.
 %package src
 Summary:        Sources for the Rust standard library
 BuildArch:      noarch
-%if 0%{?rhel} && 0%{?rhel} < 8
-Requires:       %{name}-std-static = %{version}-%{release}
-%else
 Recommends:     %{name}-std-static = %{version}-%{release}
-%endif
 
 %description src
 This package includes source files for the Rust standard library.  It may be
@@ -634,16 +580,9 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %endif
 %patch -P6 -p1
 %patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
-%endif
-
-%if %without curl_http2
-%patch -P101 -p1
-rm -rf vendor/libnghttp2-sys*/
 %endif
 
 # Use our explicit python3 first
@@ -737,13 +676,7 @@ end}
 %ifarch %{arm} %{ix86}
 # full debuginfo is exhausting memory; just do libstd for now
 # https://github.com/rust-lang/rust/issues/45854
-%if 0%{?rhel} && 0%{?rhel} < 8
-# Older rpmbuild didn't work with partial debuginfo coverage.
-%global debug_package %{nil}
-%define enable_debuginfo --debuginfo-level=0
-%else
 %define enable_debuginfo --debuginfo-level=0 --debuginfo-level-std=2
-%endif
 %else
 %define enable_debuginfo --debuginfo-level=2
 %endif
@@ -783,16 +716,14 @@ fi
 %endif
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 # Find the compiler-rt library for the Rust profiler_builtins crate.
 %if 0%{?clang_major_version} >= 17
-PROFILER='%{clang_resource_dir}/lib/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a'
+%define profiler %{clang_resource_dir}/lib/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
 %else
 # The exact profiler path is version dependent..
-PROFILER=$(echo %{_libdir}/clang/*/lib/libclang_rt.profile-%{_arch}.a)
+%define profiler %(echo %{_libdir}/clang/*/lib/libclang_rt.profile-%{_arch}.a)
 %endif
-test -r "$PROFILER"
-%endif
+test -r "%{profiler}"
 
 %configure --disable-option-checking \
   --libdir=%{common_libdir} \
@@ -802,7 +733,7 @@ test -r "$PROFILER"
   --set target.%{rust_triple}.cxx=%{__cxx} \
   --set target.%{rust_triple}.ar=%{__ar} \
   --set target.%{rust_triple}.ranlib=%{__ranlib} \
-  ${PROFILER:+--set target.%{rust_triple}.profiler="$PROFILER"} \
+  --set target.%{rust_triple}.profiler="%{profiler}" \
   %{?mingw_target_config} \
   %{?wasm_target_config} \
   --python=%{__python3} \
@@ -913,11 +844,6 @@ mkdir -p %{buildroot}%{_datadir}/cargo/registry
 mkdir -p %{buildroot}%{_docdir}/cargo
 ln -sT ../rust/html/cargo/ %{buildroot}%{_docdir}/cargo/html
 
-%if %without lldb
-rm -f %{buildroot}%{_bindir}/rust-lldb
-rm -f %{buildroot}%{rustlibdir}/etc/lldb_*
-%endif
-
 # We don't want Rust copies of LLVM tools (rust-lld, rust-llvm-dwp)
 rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
 
@@ -941,11 +867,9 @@ rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
     LD_LIBRARY_PATH="%{buildroot}%{_libdir}:$LD_LIBRARY_PATH"
   %{buildroot}%{_bindir}/cargo run --verbose
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
   # Sanity-check that code-coverage builds and runs
   env RUSTFLAGS="-Cinstrument-coverage" %{buildroot}%{_bindir}/cargo run --verbose
   test -r default_*.profraw
-%endif
 
   # Try a build sanity-check for other std-enabled targets
   for triple in %{?mingw_targets} %{?wasm_targets}; do
@@ -958,7 +882,7 @@ rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
 
 # Bootstrap is excluded because it's not something we ship, and a lot of its
 # tests are geared toward the upstream CI environment.
-%{__python3} ./x.py test --no-fail-fast --exclude src/bootstrap || :
+%{__python3} ./x.py test --no-fail-fast --skip src/bootstrap || :
 rm -rf "./build/%{rust_triple}/test/"
 
 %{__python3} ./x.py test --no-fail-fast cargo || :
@@ -1050,11 +974,9 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %exclude %{_bindir}/rust-gdbgui
 
 
-%if %with lldb
 %files lldb
 %{_bindir}/rust-lldb
 %{rustlibdir}/etc/lldb_*
-%endif
 
 
 %files doc
@@ -1071,7 +993,6 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %license src/tools/cargo/LICENSE-{APACHE,MIT,THIRD-PARTY}
 %doc src/tools/cargo/README.md
 %{_bindir}/cargo
-%{_libexecdir}/cargo*
 %{_mandir}/man1/cargo*.1*
 %{_sysconfdir}/bash_completion.d/cargo
 %{_datadir}/zsh/site-functions/_cargo
@@ -1112,6 +1033,10 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 
 %changelog
+* Thu Oct 05 2023 Josh Stone <jistone@redhat.com> - 1.73.0-1
+- Update to 1.73.0.
+- Drop el7 conditionals from the spec.
+
 * Fri Sep 29 2023 Josh Stone <jistone@redhat.com> - 1.72.1-3
 - Fix the profiler runtime with compiler-rt-17
 - Switch to unbundled wasi-libc on Fedora

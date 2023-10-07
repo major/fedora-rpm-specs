@@ -248,8 +248,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 117.0.5938.132
-Release: 2%{?dist}
+Version: 117.0.5938.149
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1211,10 +1211,6 @@ CHROMIUM_BROWSER_GN_DEFINES+=' media_use_openh264=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_h264=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_kerberos=true'
 
-%if 0%{?rhel} == 8
-CHROMIUM_BROWSER_GN_DEFINES+=' use_gnome_keyring=false use_glib=true'
-%endif
-
 %if %{use_qt}
 CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=true'
 %else
@@ -1706,6 +1702,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Oct 05 2023 Than Ngo <than@redhat.com> - 117.0.5938.149-1
+- update to 117.0.5938.149
+- fix CVE-2023-5346: Type Confusion in V8
+
 * Fri Sep 29 2023 Than Ngo <than@redhat.com> - 117.0.5938.132-2
 - add workaround for the crash on BTI capable system 
 

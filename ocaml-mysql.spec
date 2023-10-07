@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mysql
 Version:        1.2.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OCaml library for accessing MySQL databases
 License:        LGPL-2.1-or-later
 
@@ -14,6 +14,7 @@ Source1:        https://github.com/ygrek/ocaml-mysql/releases/download/v%{versio
 Source2:        KEYS
 
 # Account for the addition of custom_fixed_length to struct custom_operations
+# https://github.com/ygrek/ocaml-mysql/pull/19
 Patch0:         %{name}-custom-fixed-length.patch
 
 BuildRequires:  gnupg2
@@ -21,8 +22,8 @@ BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  mariadb-connector-c-devel
-BuildRequires:  python3
 
 
 %description
@@ -73,6 +74,9 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-6
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

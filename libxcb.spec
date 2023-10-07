@@ -1,13 +1,13 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:       libxcb
-Version:    1.13.1
-Release:    13%{?dist}
+Version:    1.16
+Release:    1%{?dist}
 Summary:    A C binding to the X11 protocol
 License:    X11
 URL:        http://xcb.freedesktop.org/
 
-Source0:    http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.bz2
+Source0:    http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.xz
 
 # This is stolen straight from the pthread-stubs source:
 # http://cgit.freedesktop.org/xcb/pthread-stubs/blob/?id=6900598192bacf5fd9a34619b11328f746a5956d
@@ -22,7 +22,7 @@ BuildRequires:  libtool
 BuildRequires:  libxslt
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(xau) >= 0.99.2
-BuildRequires:  pkgconfig(xcb-proto) >= 1.13
+BuildRequires:  pkgconfig(xcb-proto) >= 1.16
 BuildRequires:  pkgconfig(xorg-macros) >= 1.18
 BuildRequires:  python3 python3-devel
 
@@ -117,6 +117,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %{_pkgdocdir}
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.16-1
+- libxcb 1.16
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.13.1-13
 - SPDX Migration
 

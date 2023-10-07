@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -255,7 +255,9 @@ BuildRequires: glibc-devel
 BuildRequires: gmp-devel
 BuildRequires: gnupg2
 BuildRequires: libappstream-glib
+%if %{undefined rhel}
 BuildRequires: libb2-devel
+%endif
 BuildRequires: libffi-devel
 BuildRequires: libnsl2-devel
 BuildRequires: libtirpc-devel
@@ -484,14 +486,20 @@ Summary:        Python runtime libraries
 
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
+# Bundled libb2 is CC0, covered by grandfathering exception
+License: Python-2.0.1 AND CC0-1.0
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
 %pip_bundled_provides
 # License manually combined form Python + pip
-License: Python-2.0.1 AND MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+License: Python-2.0.1 AND CC0-1.0 AND MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main libs
+
+# Bundled internal headers are used even when building with system libb2
+# last updated by https://github.com/python/cpython/pull/6286
+Provides: bundled(libb2) = 0.98.1
 
 # There are files in the standard library that have python shebang.
 # We've filtered the automatic requirement out so libs are installable without
@@ -1658,6 +1666,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Oct 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.0-2
+- Use bundled libb2 in RHEL builds
+
 * Mon Oct 02 2023 Miro Hrončok <mhroncok@redhat.com> - 3.12.0-1
 - Update to 3.12.0 final
 

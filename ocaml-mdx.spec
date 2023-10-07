@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-mdx
-Version:        2.3.0
-Release:        4%{?dist}
+Version:        2.3.1
+Release:        2%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -13,6 +13,7 @@ Source0:        https://github.com/realworldocaml/mdx/releases/download/%{versio
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-astring-devel
+BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-csexp-devel >= 1.3.2
@@ -21,9 +22,13 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel >= 0.8.7
 BuildRequires:  ocaml-logs-devel >= 0.7.0
 BuildRequires:  ocaml-lwt-devel
-BuildRequires:  ocaml-odoc-parser-devel >= 1.0.0
 BuildRequires:  ocaml-re-devel >= 1.7.2
+BuildRequires:  ocaml-result-devel >= 1.5
 BuildRequires:  ocaml-version-devel >= 2.3.0
+
+# odoc-parser has been merged back into odoc
+# This package now vendors odoc-parser
+Provides:       bundled(ocaml-odoc-parser) = 2.3.0
 
 %description
 mdx enables execution of code blocks inside markdown files.  There are
@@ -46,11 +51,12 @@ is attached to.
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-astring-devel%{?_isa}
+Requires:       ocaml-camlp-streams-devel%{?_isa}
 Requires:       ocaml-csexp-devel%{?_isa}
 Requires:       ocaml-fmt-devel%{?_isa}
 Requires:       ocaml-logs-devel%{?_isa}
-Requires:       ocaml-odoc-parser-devel%{?_isa}
 Requires:       ocaml-re-devel%{?_isa}
+Requires:       ocaml-result-devel%{?_isa}
 Requires:       ocaml-version-devel%{?_isa}
 
 %description    devel
@@ -76,6 +82,13 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.1-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 2.3.1-1
+- Version 2.3.1
+- Drop dependency on ocaml-odoc-parser
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

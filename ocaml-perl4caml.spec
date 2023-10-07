@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-perl4caml
 Version:        0.9.5
-Release:        102%{?dist}
+Release:        103%{?dist}
 Summary:        OCaml library for calling Perl libraries and code
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -21,10 +21,10 @@ Patch1:         perl4caml-0.9.5-fix-use-of-camlparam-etc-macros.patch
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  perl-devel >= 5.8
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::Embed)
-BuildRequires:  python3
 
 # Perl4caml provides type-safe wrappers for these Perl modules:
 #Requires:  perl-Date-Calc
@@ -126,6 +126,9 @@ install -c -m 0755 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.5-103
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-102
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

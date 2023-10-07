@@ -18,7 +18,6 @@
 ### Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ################################################################################
 
-%global _hardened_build 1
 %global majorversion    12.3
 %global minorversion    0
 %global toolsbuild      22234872
@@ -32,7 +31,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0 AND W3C AND LGPL-2.1 AND ICU AND ISC AND MIT
 URL:              https://github.com/vmware/%{name}
@@ -43,7 +42,6 @@ Source2:          %{vgauthdaemon}.service
 Source3:          run-vmblock\x2dfuse.mount
 Source4:          open-vm-tools.conf
 Source5:          vmtoolsd.pam
-
 
 %if 0%{?rhel} >= 7
 ExclusiveArch:    x86_64 aarch64
@@ -62,7 +60,7 @@ BuildRequires:    gcc-c++
 BuildRequires:    doxygen
 # Fuse is optional and enables vmblock-fuse
 # Switching Fedora to use fuse3.   Red Hat to switch on their own schedule.
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires:    fuse3-devel
 %else
 BuildRequires:    fuse-devel
@@ -101,7 +99,7 @@ BuildRequires:    systemd
 %endif
 
 Requires:         coreutils
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 8
 Requires:         fuse3
 %else
 Requires:         fuse
@@ -420,6 +418,9 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Thu Oct 05 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 12.3.0-2
+- Use fuse3 on new RHEL
+
 * Sat Sep 9 2023 John Wolfe <jwolfe@vmware.com> - 12.3.0-1
 - Package new upstream version of open-vm-tools-12.3.0-22234872.
   - Fix for CVE-2023-20900 - a SAML token signature bypass vulnerability.

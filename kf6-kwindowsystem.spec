@@ -6,7 +6,7 @@
 
 Name:		kf6-%{framework}
 Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -71,6 +71,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6WindowSystem/
 
 %changelog
+* Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20231003.213655.0aa4d07-2
+- Rebuild for Qt Private API
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231003.213655.0aa4d07-1
 - Fix for build on s390x arch
 

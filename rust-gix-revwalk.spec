@@ -5,9 +5,9 @@
 %global crate gix-revwalk
 
 Name:           rust-gix-revwalk
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Utility library for walking the revision graph
+Summary:        Providing utilities for walking the revision graph
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-revwalk

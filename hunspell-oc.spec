@@ -5,13 +5,14 @@
 %endif
 Name: hunspell-oc
 Summary: Occitan hunspell dictionaries
-Version: 0.6.2
-Release: 15%{?dist}
-Source: https://addons.mozilla.org/firefox/downloads/file/233710/correcteur_occitan_languedocien-%{version}-tb+sm+fx.xpi
-URL: https://addons.mozilla.org/en-US/firefox/addon/8235
-License: GPL-3.0-or-later
+Version: 1.5
+Release: 1%{?dist}
+Source: https://addons.mozilla.org/firefox/downloads/file/4085695/diccionari_occitan_lengadocian-%{version}.xpi
+URL: https://addons.mozilla.org/en-US/firefox/addon/diccionari-occitan-lengadocian/
+# https://www.mozilla.org/en-US/MPL/2.0/combining-mpl-and-gpl/
+# oc_FR.aff is MPL-2.0
+License: GPL-2.0-or-later
 BuildArch: noarch
-BuildRequires: redland
 
 Requires: hunspell
 Supplements: (hunspell and langpacks-oc)
@@ -23,20 +24,20 @@ Occitan hunspell dictionaries.
 %autosetup -c -n hunspell-oc
 
 %build
-rdfproc -s file hunspell-oc parse install.rdf
-rdfproc -s file hunspell-oc print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
+# nothing here
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p dictionaries/oc-FR.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/oc_FR.aff
-cp -p dictionaries/oc-FR.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/oc_FR.dic
+cp -p dictionaries/oc_FR.aff dictionaries/oc_FR.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 
 
 %files
-%doc CREDITS
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Oct 05 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.5-1
+- Update to new upstream release 1.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

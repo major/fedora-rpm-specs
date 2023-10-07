@@ -4,14 +4,13 @@
 # dynamic linking.
 #
 # This package contains a file needed to define some RPM macros
-# which are required before any SRPM is built, and a helper python
-# script that executes common OCaml package tasks.
+# which are required before any SRPM is built.
 #
 # See also: https://bugzilla.redhat.com/show_bug.cgi?id=1087794
 
 Name:           ocaml-srpm-macros
-Version:        8
-Release:        2%{?dist}
+Version:        9
+Release:        1%{?dist}
 
 Summary:        OCaml architecture macros
 License:        GPL-2.0-or-later
@@ -19,7 +18,6 @@ License:        GPL-2.0-or-later
 BuildArch:      noarch
 
 Source0:        macros.ocaml-srpm
-Source1:        ocaml_files.py
 
 # NB. This package MUST NOT Require anything (except for dependencies
 # that RPM itself generates).
@@ -39,15 +37,17 @@ SRPMS.  It does not pull in any other OCaml dependencies.
 mkdir -p $RPM_BUILD_ROOT%{rpmmacrodir}
 install -m 0644 %{SOURCE0} $RPM_BUILD_ROOT%{rpmmacrodir}/macros.ocaml-srpm
 
-mkdir -p $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
-install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/redhat
 
 %files
 %{rpmmacrodir}/macros.ocaml-srpm
-%{_rpmconfigdir}/redhat/ocaml_files.py
 
 
 %changelog
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 9-1
+- Update OCaml native arches for OCaml 5.1
+- Remove the Python file and some macros (now in ocaml-rpm-macros)
+- Add %%ocaml_pkg macro for common declarations
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 %global neo_major 23
-%global neo_minor 05
-%global neo_build 25593.18
+%global neo_minor 35
+%global neo_build 27191.9
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Compute API support for Intel graphics
 
 %global _lto_cflags %{nil}
@@ -13,9 +13,7 @@ Summary: Compute API support for Intel graphics
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
-
-Patch01: 0001-Include-cstdint-to-fix-GCC-13-build.patch
-Patch02: 0001-GCC-13-Fixup-elf.h.patch
+Patch01: 0001-Remove-duplicate-define-of-CL_MEM_DEVICE_ID_INTEL.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -138,6 +136,7 @@ rm -rv third_party/sse2neon
 %files -n intel-level-zero
 %license LICENSE.md
 %{_libdir}/libze_intel_gpu.so.*
+%{_includedir}/level_zero/zet_intel_gpu_debug.h
 
 %files -n intel-ocloc
 %license LICENSE.md
@@ -150,6 +149,9 @@ rm -rv third_party/sse2neon
 %doc
 
 %changelog
+* Fri Oct 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 23.35.27191.9-1
+- intel-compute-runtime-23.35.27191.9 (fixes RHBZ#2184964)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.05.25593.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

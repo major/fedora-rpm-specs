@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 268
+%global baserelease 270
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -255,6 +255,12 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Thu Oct  5 2023 Florian Weimer <fweimer@redhat.com> - 270-1
+- Disable -fstack-clash-protection on riscv64 (#2242327)
+
+* Thu Oct  5 2023 Nikita Popov <npopov@redhat.com> - 269-1
+- Use correct format specifier in brp-llvm-compile-lto-elf
+
 * Fri Sep 29 2023 Nikita Popov <npopov@redhat.com> - 268-1
 - Fix brp-llvm-compile-lto-elf parallelism with hardlinks (#2234024)
 

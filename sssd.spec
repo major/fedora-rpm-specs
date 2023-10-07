@@ -43,13 +43,16 @@
 
 Name: sssd
 Version: 2.9.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
 Source0: https://github.com/SSSD/sssd/releases/download/2.9.2/sssd-2.9.2.tar.gz
 
 ### Patches ###
+Patch0001: 0001-passkey-kerberos-preauth-false-uv.patch
+Patch0002: 0002-increase-child-buffer-size.patch
+Patch0003: 0003-increase-conv-message-size.patch
 
 ### Dependencies ###
 
@@ -1058,6 +1061,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Tue Oct 03 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2.9.2-2
+- Fixes for passkey authentication
+
 * Thu Sep 07 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.2-1
 - Rebase to SSSD 2.9.2
 

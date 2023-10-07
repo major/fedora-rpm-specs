@@ -7,7 +7,7 @@ Version:        1.2.15
 Release:        6%{?dist}
 Summary:        Quick Spam Filter
 
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            http://www.ivarch.com/programs/qsf/
 Source0:        http://downloads.sourceforge.net/qsf/qsf-%{version}.tar.bz2
 

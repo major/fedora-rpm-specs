@@ -7,7 +7,7 @@ Version:	2.0.4
 Release:	24.%{git_date}git%{git_rev}%{?dist}
 Summary:	A graphical configuration editor for the Openbox window manager
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://icculus.org/openbox/index.php/ObConf:About
 #Source0:	http://icculus.org/openbox/obconf/%{name}-%{version}.tar.gz
 Source0:	https://github.com/danakj/obconf/archive/%{git_rev}/obconf-%{git_rev}.tar.gz

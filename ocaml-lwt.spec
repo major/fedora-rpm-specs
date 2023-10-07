@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-lwt
-Version:        5.6.1
-Release:        12%{?dist}
+Version:        5.7.0
+Release:        2%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -15,20 +15,12 @@ License:        MIT AND BSD-2-Clause
 URL:            https://ocsigen.org/lwt
 Source0:        https://github.com/ocsigen/lwt/archive/%{version}/lwt-%{version}.tar.gz
 
-# Fixes for OCaml 5.  See:
-# https://github.com/ocsigen/lwt/commit/63fe83808e76fedfbc60fe3edf6794f8bc9573b0
-# https://github.com/ocsigen/lwt/pull/993
-Patch0:         %{name}-ocaml5.patch
-
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 1.8.0
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-ocplib-endian-devel
-
-# lwt_luv dependencies.
-BuildRequires:  ocaml-luv-devel
 
 # lwt_react dependencies.
 BuildRequires:  ocaml-react-devel >= 1.0.0
@@ -37,7 +29,11 @@ BuildRequires:  ocaml-react-devel >= 1.0.0
 BuildRequires:  ocaml-ppxlib-devel >= 0.16.0
 BuildRequires:  ocaml-ppx-let-devel
 
+# optional dependencies.
 BuildRequires:  libev-devel
+
+# This can be removed when F43 reaches EOL
+Obsoletes:      ocaml-lwt-luv < 5.7.0
 
 
 %description
@@ -50,27 +46,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-ocplib-endian-devel%{?_isa}
 Requires:       libev-devel%{?_isa}
 
+# This can be removed when F43 reaches EOL
+Obsoletes:      ocaml-lwt-luv-devel < 5.7.0
+
 %description    devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
-
-%package        luv
-Summary:        Libuv engine for lwt
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    luv
-This package contains a libuv engine for lwt.
-
-%package        luv-devel
-Summary:        Development files for ocaml-lwt-luv
-
-Requires:       %{name}-luv%{?_isa} = %{version}-%{release}
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-Requires:       ocaml-luv-devel%{?_isa}
-
-%description    luv-devel
-The %{name}-luv-devel package contains libraries and signature files for
-developing applications that use %{name}-luv.
 
 %package        react
 Summary:        Helpers for using React with Lwt
@@ -111,12 +92,6 @@ developing applications that use %{name}-ppx.
 %prep
 %autosetup -n lwt-%{version} -p1
 
-# Fedora does not yet have domainslib.  Remove lwt_domain so we do not try to
-# build it.
-rm -rf src/domain
-rm -rf test/domain
-rm lwt_domain.opam
-
 # It looks like one test fails.
 # Actually, it looks like all the "mcast" tests fail in koji.
 # They should probably be disabled via a patch, but this works for now.
@@ -152,13 +127,6 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 %doc CHANGES README.md
 %license LICENSE.md
 
-%files luv -f .ofiles-lwt_luv
-%doc CHANGES README.md
-%license LICENSE.md
-
-%files luv-devel -f .ofiles-lwt_luv-devel
-%doc CHANGES README.md
-
 %files react -f .ofiles-lwt_react
 %doc CHANGES README.md
 %license LICENSE.md
@@ -174,6 +142,13 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.7.0-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 5.7.0-1
+- Version 5.7.0
+- Drop ocaml-luv and ocaml-luv-devel (removed upstream)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

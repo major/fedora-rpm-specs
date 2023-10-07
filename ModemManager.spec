@@ -106,6 +106,8 @@ Vala bindings for ModemManager
 # We'll just install the bash-completion file ourselves.
 %meson \
 	-Ddist_version='"%{version}-%{release}"' \
+	-Dudevdir=/usr/lib/udev \
+	-Dsystemdsystemunitdir=%{_unitdir} \
 	-Dvapi=true \
 	-Dgtk_doc=true \
 	-Dpolkit=permissive \

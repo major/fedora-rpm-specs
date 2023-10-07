@@ -7,7 +7,7 @@
 
 Name:		kf6-%{framework}
 Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 library that wraps Client and Server Wayland libraries
 
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT-CMU AND MIT
@@ -75,5 +75,8 @@ developing applications that use %{name}.
 %{_kf6_archdatadir}/mkspecs/modules/qt_KWaylandClient.pri
 
 %changelog
+* Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230922.150947.770e361-2
+- Rebuild for Qt Private API
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230922.150947.770e361-1
 - Initial release

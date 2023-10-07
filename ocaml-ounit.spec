@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ounit
 Version:        2.2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unit test framework for OCaml
 
 License:        MIT
@@ -76,11 +76,7 @@ files for developing applications that use %{name}-lwt.
 
 
 %check
-# Disabled on s390(x) because:
-# https://github.com/gildor478/ounit/issues/18
-%ifnarch s390 s390x
 %dune_check
-%endif
 
 
 %install
@@ -110,6 +106,12 @@ files for developing applications that use %{name}-lwt.
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.7-4
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 2.2.7-3
+- Enable tests for s390x, since timeout was increased in 2.2.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

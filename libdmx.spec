@@ -4,18 +4,18 @@
 
 Summary: X.Org X11 DMX runtime library
 Name: libdmx
-Version: 1.1.4
-Release: 15%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.1.5
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 # SPDX
 License: MIT
 URL: http://www.x.org
 
 %if 0%{?gitdate}
-Source0:    %{tarball}-%{gitdate}.tar.bz2
+Source0:    %{tarball}-%{gitdate}.tar.xz
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 Requires: libX11 >= 1.6.0
@@ -66,6 +66,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/X11/extensions/dmxext.h
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.5-1
+- libdmx 1.1.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

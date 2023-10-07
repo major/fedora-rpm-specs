@@ -1,11 +1,11 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global ocamlver 500
+%global ocamlver 501
 
 Name:           ocaml-merlin
-Version:        4.10
-Release:        1%{?dist}
+Version:        4.12
+Release:        2%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
@@ -31,7 +31,7 @@ BuildRequires:  emacs-auto-complete
 BuildRequires:  emacs-company-mode
 BuildRequires:  emacs-iedit
 BuildRequires:  jq
-BuildRequires:  ocaml >= 5.0
+BuildRequires:  ocaml >= 5.1
 BuildRequires:  ocaml-caml-mode
 BuildRequires:  ocaml-csexp-devel >= 1.5.1
 BuildRequires:  ocaml-dune >= 2.9.0
@@ -147,6 +147,12 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.12-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 4.12-1
+- Version 4.12
+
 * Thu Aug 24 2023 Jerry James <loganjerry@gmail.com> - 4.10-1
 - Version 4.10
 

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{libname}
 Version:        1.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A streaming XML codec
 
 License:        ISC
@@ -24,10 +24,11 @@ Source2:        test-invalid.xml
 Patch0:         xmlm-1.4.0-debug.patch
 
 BuildRequires:  ocaml >= 4.05.0
+BUildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
-BuildRequires:  python3
 
 %description
 Xmlm is an OCaml streaming codec to decode and encode the XML data
@@ -53,22 +54,7 @@ ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
 
 %install
-# These rules work if the library uses 'ocamlfind install' to install itself.
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $OCAMLFIND_DESTDIR/%{libname}
-
-%ifarch %{ocaml_native_compiler}
-install -m 755 -p _build/test/xmltrip.native $RPM_BUILD_ROOT%{_bindir}/xmltrip
-install -m 644 -p _build/src/xmlm.{a,cmxa} $OCAMLFIND_DESTDIR/%{libname}/
-install -m 755 -p _build/src/xmlm.cmxs $OCAMLFIND_DESTDIR/%{libname}/
-%else
-install -m 755 -p _build/test/xmltrip.byte $RPM_BUILD_ROOT%{_bindir}/xmltrip
-%endif
-install -m 644 -p _build/pkg/META _build/src/xmlm.{cm?,mli} $OCAMLFIND_DESTDIR/%{libname}/
-
-%ocaml_files
+%ocaml_install
 
 
 %check
@@ -94,6 +80,12 @@ grep expected invalid-err.log >/dev/null
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-4
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.4.0-3
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

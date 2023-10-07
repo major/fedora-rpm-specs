@@ -11,7 +11,7 @@ Name: libidn
 Version: 1.41
 Release: 5%{?dist}
 URL: http://www.gnu.org/software/libidn/
-License: LGPLv2+ and GPLv3+ and GFDL
+License: (LGPL-2.1-or-later OR GPL-3.0-or-later) AND GPL-3.0-or-later AND GFDL-1.3-or-later
 Source0: https://ftp.gnu.org/gnu/libidn/libidn-%{version}.tar.gz
 # Allow disabling Emacs support
 Patch0: libidn-emacsopt.patch

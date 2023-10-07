@@ -11,6 +11,8 @@ URL:            https://github.com/ocaml/opam
 Source0:        https://github.com/ocaml/opam/releases/download/%{version}/%{name}-full-%{version}.tar.gz
 Source1:        https://github.com/ocaml/opam/releases/download/%{version}/%{name}-full-%{version}.tar.gz.sig
 Source2:        https://opam.ocaml.org/opam-dev-pubkey.pgp
+# Adapt to a change in dune 3.11
+Patch0:         %{name}-dune-3.11.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  make

@@ -3,7 +3,7 @@ Version:	3.6.1
 Release:	24%{?dist}
 Summary:	A highly configurable and standards-compliant X11 window manager
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://openbox.org
 Source0:	http://openbox.org/dist/%{name}/%{name}-%{version}.tar.xz
 Source1:	http://icculus.org/openbox/tools/setlayout.c

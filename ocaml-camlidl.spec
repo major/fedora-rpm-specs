@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-camlidl
-Version:        1.11
-Release:        3%{?dist}
+Version:        1.12
+Release:        2%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -23,8 +23,7 @@ Patch2:         0002-Pass-g-option-to-ocamlmklib.patch
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-ocamldoc
-BuildRequires:  perl-interpreter
-BuildRequires:  python3
+BuildRequires:  ocaml-rpm-macros
 
 
 %description
@@ -66,19 +65,11 @@ sed -e 's|^OCAMLLIB=.*|OCAMLLIB=%{_libdir}/ocaml|' \
     < config/Makefile.unix \
     > config/Makefile
 
-%ifnarch %{ocaml_native_compiler}
-# Fix library build and install on bytecode-only architectures
-sed -e 's/\(all: \$(BYTELIB)\).*/\1/' \
-    -e 's/ \$(NATIVELIB) \$(NATIVELIB:.cmxa=\.\$(LIBEXT))//' \
-    -e '/RANLIB/d' \
-    -i lib/Makefile
-%endif
-
 # Remove files we do not want to package with the tests
 find . \( -name .cvsignore -o -name .gitignore \) -delete
 
 # Preserve timestamps
-sed -i 's/cp/cp -p/' runtime/Makefile.unix lib/Makefile
+sed -i 's/cp/cp -p/' runtime/Makefile.unix
 
 
 %build
@@ -111,6 +102,12 @@ sed '/version/adirectory = "^"' %{SOURCE1} > \
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.12-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.12-1
+- Version 1.12
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

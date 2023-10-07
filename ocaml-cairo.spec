@@ -14,13 +14,16 @@ ExcludeArch: %{ix86}
 Name:           ocaml-cairo
 Epoch:          2
 Version:        0.6.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml library for accessing cairo graphics
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/Chris00/%{name}
 
 Source0:        %{url}/releases/download/%{version}/cairo2-%{version}.tbz
+# Fix a segfault when a Cairo error occurs
+# See https://github.com/Chris00/ocaml-cairo/issues/36
+Patch0:         https://github.com/Chris00/ocaml-cairo/pull/37.patch
 
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 2.7.0
@@ -152,6 +155,12 @@ export GTK_LIBS="%{build_ldflags} $gtk_libs"
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2:0.6.4-7
+- OCaml 5.1 rebuild for Fedora 40
+
+* Sat Sep 30 2023 Jerry James <loganjerry@gmail.com> - 2:0.6.4-6
+- Add patch to fix segfault in Cairo error reporting
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.6.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

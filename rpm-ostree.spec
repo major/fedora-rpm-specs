@@ -4,7 +4,7 @@
 Summary: Hybrid image/package system
 Name: rpm-ostree
 Version: 2023.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
@@ -43,7 +43,7 @@ BuildRequires: rust
 %endif
 
 # For the autofiles bits below
-BuildRequires: /usr/bin/python3
+BuildRequires: python3-devel
 # We always run autogen.sh
 BuildRequires: autoconf automake libtool git
 # For docs
@@ -204,8 +204,8 @@ for line in sys.argv[1:]:
         else:
             sys.stderr.write('{0} did not match any files\n'.format(line))
 EOF
-PYTHON=python3
-if ! test -x /usr/bin/python3; then
+PYTHON='%{python3}'
+if ! test -x '%{python3}'; then
     PYTHON=python2
 fi
 $PYTHON autofiles.py > files \
@@ -241,6 +241,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Wed Oct 04 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.8-3
+- Update python3 macros and dependency.
+
 * Wed Sep 27 2023 Colin Walters <walters@verbum.org> - 2023.8-2
 - https://github.com/coreos/rpm-ostree/releases/tag/v2023.8
 

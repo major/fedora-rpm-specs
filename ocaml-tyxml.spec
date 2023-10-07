@@ -1,36 +1,24 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-# The 4.5.0 release does not support OCaml 5.0.  Build from git until the
-# next release.
-%global commit  407f41b2cc17ee636b4c5046b2efc16a26f27d8f
-%global date    20230622
-%global forgeurl https://github.com/ocsigen/tyxml
-
 Name:           ocaml-tyxml
-Version:        4.5.0
+Version:        4.6.0
+Release:        2%{?dist}
 Summary:        Build valid HTML and SVG documents
 
-%forgemeta
-
-Release:        19%{?dist}
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://ocsigen.org/tyxml/
-Source0:        %{forgesource}
+Source0:        https://github.com/ocsigen/tyxml/releases/download/%{version}/tyxml-%{version}.tbz
 # Fedora's OCaml is new enough that we do not need the seq shim
 Patch0:         %{name}-seq.patch
 
 BuildRequires:  ocaml >= 4.04
 BuildRequires:  ocaml-alcotest-devel
-BuildRequires:  ocaml-dune >= 2.0
+BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-markup-devel >= 0.7.2
-BuildRequires:  ocaml-ppxlib-devel
+BuildRequires:  ocaml-ppxlib-devel >= 0.18
 BuildRequires:  ocaml-re-devel >= 1.5.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
-
-# This can be removed when F36 reaches EOL
-Obsoletes:      %{name}-doc < 4.4.0-1
-Provides:       %{name}-doc = %{version}-%{release}
 
 %description
 TyXML provides a set of convenient combinators that uses the OCaml type
@@ -120,7 +108,7 @@ The %{name}-ppx-devel package contains libraries and signature files for
 developing applications that use %{name}-ppx.
 
 %prep
-%forgeautosetup -p1
+%autosetup -n tyxml-%{version} -p1
 
 %build
 %dune_build
@@ -152,6 +140,12 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.6.0-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 4.6.0-1
+- Version 4.6.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

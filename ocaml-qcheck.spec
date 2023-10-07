@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qcheck
 Version:        0.21.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -199,6 +199,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.21.2-2
+- OCaml 5.1 rebuild for Fedora 40
+
 * Fri Sep  1 2023 Jerry James <loganjerry@gmail.com> - 0.21.2-1
 - Version 0.21.2
 - Add patch to fix an asciidoc error

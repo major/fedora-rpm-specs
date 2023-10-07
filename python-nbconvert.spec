@@ -8,17 +8,13 @@
 %bcond_without check
 
 Name:           python-%{pypi_name}
-Version:        7.2.5
+Version:        7.9.1
 Release:        %autorelease
 Summary:        Converting Jupyter Notebooks
 
 License:        BSD and MIT
 URL:            http://jupyter.org
 Source0:        %pypi_source
-# See
-# https://github.com/jupyter/nbconvert/blob/main/hatch_build.py
-# https://github.com/jupyter/nbconvert/issues/1896
-Source1:        https://cdn.jupyter.org/notebook/5.4.0/style/style.min.css
 
 BuildArch:      noarch
 
@@ -64,9 +60,6 @@ sed -i '/"pytest-dependency",/d' pyproject.toml
 sed -i '/pyppeteer/d' pyproject.toml
 sed -i 's/"sphinx==.*"/"sphinx"/' pyproject.toml
 
-mkdir -p share/templates/classic/static/
-cp -v %{SOURCE1} share/templates/classic/static/style.css
-
 %generate_buildrequires
 %pyproject_buildrequires %{?with_check:-x test} %{?with_doc:-x docs}
 
@@ -90,19 +83,15 @@ chmod 755 %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
 
 %if %{with check}
 %check
-# Some tests need pyppeteer, some fail on unclosed context zmq.asyncio.Context()
-# and some run in subprocess and therefore don't have "nbconvert.tests" in PYTHONPATH
-%{__python3} -m pytest -W ignore::DeprecationWarning -k "\
-    not test_export and \
-    not test_webpdf_without_chromium and \
-    not test_webpdf_with_chromium and \
-    not test_no_input and \
-    not test_basic_execution and \
-    not test_mixed_markdown_execution and \
-    not test_populate_language_info and \
-    not test_preprocess_cell and \
+# Some tests are using templates provided by the previous
+# version of nbconvert.
+%pytest -W ignore::DeprecationWarning -k "\
     not test_convert_full_qualified_name and \
-    not test_post_processor"
+    not test_post_processor and \
+    not test_language_code_error and \
+    not test_language_code_not_set and \
+    not test_mermaid_output and \
+    not test_set_language_code"
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

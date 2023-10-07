@@ -2,7 +2,7 @@
 %global pypi_name twilio
 
 Name:           python-%{pypi_name}
-Version:        8.9.0
+Version:        8.9.1
 Release:        1%{?dist}
 Summary:        Twilio API client and TwiML generator
 
@@ -65,6 +65,14 @@ rm tests/cluster/test_cluster.py
 %doc README.md
 
 %changelog
+* Thu Oct 05 2023 Packit <hello@packit.dev> - 8.9.1-1
+- Release 8.9.1 (Twilio)
+- [Librarian] Regenerated @ a25fe2e20ee404d8f8642d6e5acceff276916c9e (Twilio)
+- chore: Drop dependency on `pytz` by using stdlib `datetime.timezone.utc` (#721) (Zac Hatfield-Dodds)
+- chore: twilio help changes (#723) (kridai)
+- Update ValidateSslCertificate method in accordance with recent changes to the security testing method (#724) (Athira Sabu)
+- Resolves rhbz#2242294
+
 * Tue Sep 26 2023 Packit <hello@packit.dev> - 8.9.0-1
 - Release 8.9.0 (Twilio)
 - [Librarian] Regenerated @ c9ac9b9736431d573d8dec29ad3095eee969cdea (Twilio)

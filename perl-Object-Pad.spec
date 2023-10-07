@@ -4,7 +4,7 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.803
+Version:        0.804
 Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -202,6 +202,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 05 2023 Petr Pisar <ppisar@redhat.com> - 0.804-1
+- 0.804 bump
+
 * Thu Sep 21 2023 Petr Pisar <ppisar@redhat.com> - 0.803-1
 - 0.803 bump
 

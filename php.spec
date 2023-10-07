@@ -70,7 +70,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1552,6 +1552,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC3-3
+- rebuild for new libsodium
+
 * Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.3.0~rc3-2
 - tzdata is required
 

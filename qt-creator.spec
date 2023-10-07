@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        11.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -199,6 +199,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com>
+- Rebuild for Qt Private API
+
 * Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 11.0.3-2
 - Build against system clang
 

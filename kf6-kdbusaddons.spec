@@ -6,7 +6,7 @@
 
 Name:			kf6-%{framework}
 Version:		%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		KDE Frameworks 6 Tier 1 addon with various classes on top of QtDBus
 License:		CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
 URL:			https://invent.kde.org/frameworks/%{framework}
@@ -61,5 +61,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230829.232927.fbb8558-2
+- Rebuild for Qt Private API
+
 * Sun Sep 24 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230829.232927.fbb8558-1
 - Initial Release

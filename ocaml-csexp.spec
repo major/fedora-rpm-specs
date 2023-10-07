@@ -15,18 +15,20 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-csexp
 Version:        1.5.2
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Parsing and printing of S-expressions in canonical form
 
 License:        MIT
 URL:            https://github.com/ocaml-dune/csexp
 Source0:        %{url}/releases/download/%{version}/csexp-%{version}.tbz
+# Fix an optimization annotation
+Patch0:         https://github.com/ocaml-dune/csexp/commit/07eb898.patch
 
 BuildRequires:  ocaml >= 4.03.0
 %if %{with dune}
 BuildRequires:  ocaml-dune >= 1.11
 %else
-BuildRequires:  python3
+BuildRequires:  ocaml-rpm-macros
 %endif
 
 %description
@@ -43,7 +45,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n csexp-%{version}
+%autosetup -n csexp-%{version} -p1
 
 %build
 %if %{with dune}
@@ -89,7 +91,7 @@ plugin(native) = "csexp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/csexp/dune-package << EOF
-(lang dune 3.9)
+(lang dune 3.11)
 (name csexp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/csexp))
@@ -147,6 +149,12 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.2-6
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-5
+- Add patch for typo in optimization annotation
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-ocamlbuild
 Version:       0.14.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
@@ -21,6 +21,7 @@ Source0:       %{url}/archive/%{version}/ocamlbuild-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: ocaml >= 4.04.0
+BuildRequires: ocaml-rpm-macros
 BuildRequires: ncurses
 BuildRequires: asciidoc
 BuildRequires: python3-pygments
@@ -106,6 +107,9 @@ popd
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.14.2-4
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

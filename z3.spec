@@ -13,7 +13,7 @@
 
 Name:           z3
 Version:        4.12.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -317,6 +317,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.12.2-7
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-6
 - Rebuild for ocaml-zarith 1.13
 

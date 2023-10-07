@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.21
 %global prever %{nil}
-Release: 1%{?dist}
+Release: 2%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -494,6 +494,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 1:2.3.21-2
+- rebuild for new libsodium
+
 * Mon Sep 18 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.21-1
 - updated to 2.3.21(2239134)
 

@@ -1,19 +1,13 @@
 %define __cmake_in_source_build 1
 
 Name:           libcomps
-Version:        0.1.19
-Release:        5%{?dist}
+Version:        0.1.20
+Release:        1%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/libcomps
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Backported
-# https://github.com/rpm-software-management/libcomps/pull/104
-Patch:          fix-fromxml_str-segfault.patch
-# https://github.com/rpm-software-management/libcomps/pull/106
-Patch:          fix-a-crash-on-valid-xml-with-but-no-comps.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -57,7 +51,7 @@ Documentation files for python bindings libcomps library.
 Summary:        Python 3 bindings for libcomps library
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires: make
+BuildRequires:  make
 %{?python_provide:%python_provide python3-%{name}}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Obsoletes:      platform-python-%{name} < %{version}-%{release}
@@ -122,6 +116,12 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Oct 05 2023 Jan Kolarik <jkolarik@redhat.com> - 0.1.20-1
+- Update to 0.1.20
+- Fixes of xml parsing
+- Fix non-optimized builds by removing inline keyword
+- Use Py_hash_t instead of long
+
 * Wed Oct 04 2023 Mattia Verga <mattia.verga@proton.me> - 0.1.19-5
 - Backport additional patch to fix segfault in fromxml_str
 

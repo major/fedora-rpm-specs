@@ -2,7 +2,7 @@ Summary: A utility for adjusting kernel time variables
 Name: adjtimex
 Version: 1.29
 Release: 28%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 Source: http://ftp.debian.org/debian/pool/main/a/adjtimex/%{name}_%{version}.orig.tar.gz
 Patch1: adjtimex-manopts.patch
 BuildRequires: gcc

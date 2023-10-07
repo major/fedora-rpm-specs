@@ -16,7 +16,7 @@ than all other static analysis frameworks for Python.}
 %global typeshed_commit     ae9d4f4b21bb5e1239816c301da7b1ea904b44c3
 
 Name:           python-jedi
-Version:        0.19.0
+Version:        0.19.1
 Release:        1%{?dist}
 Summary:        An auto completion tool for Python that can be used for text editors
 
@@ -94,6 +94,9 @@ sed -e 's/pytest<7.0.0/pytest/' \
 
 
 %changelog
+* Wed Oct 04 2023 Lumír Balhar <lbalhar@redhat.com> - 0.19.1-1
+- Update to 0.19.1 (rhbz#2241718)
+
 * Tue Aug 01 2023 Lumír Balhar <lbalhar@redhat.com> - 0.19.0-1
 - Update to 0.19.0 (rhbz#2227382)
 

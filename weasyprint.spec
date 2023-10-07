@@ -2,15 +2,13 @@
 %global srcname weasyprint
 
 Name:           weasyprint
-Version:        59.0
-Release:        3%{?dist}
+Version:        60.1
+Release:        1%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
 URL:            https://weasyprint.org/
 Source0:        %pypi_source
-# https://github.com/Kozea/WeasyPrint/issues/1902
-Patch0:         weasyprint-round-for-py312.patch
 
 BuildArch:      noarch
 
@@ -77,6 +75,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Thu Oct 05 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 60.1-1
+- update to 60.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 59.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

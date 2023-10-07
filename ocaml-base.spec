@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-base
 Version:        0.16.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jane Street standard library for OCaml
 
 # MIT: The project as a whole
@@ -71,6 +71,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.3-2
+- OCaml 5.1 rebuild for Fedora 40
+
 * Sat Aug  5 2023 Jerry James <loganjerry@gmail.com> - 0.16.3-1
 - Version 0.16.3
 

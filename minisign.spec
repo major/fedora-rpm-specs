@@ -4,7 +4,7 @@
 
 Name:           minisign
 Version:        0.11
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        A dead simple tool to sign files and verify digital signatures
 License:        ISC
 URL:            https://github.com/jedisct1/minisign
@@ -42,6 +42,9 @@ Minisign is a dead simple tool to sign files and verify signatures.
 %doc README.md
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 0.11-5
+- rebuild for new libsodium
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

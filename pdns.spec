@@ -2,7 +2,7 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.8.1
+Version: 4.8.2
 Release: 2%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
@@ -321,6 +321,15 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 4.8.2-2
+- rebuild for new libsodium
+
+* Thu Oct 05 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.8.2-1
+- Update to 4.8.2
+
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 4.8.1-3
+- rebuild for new libsodium
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

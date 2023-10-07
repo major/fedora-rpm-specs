@@ -2,12 +2,12 @@
 
 Summary: X Athena Widget Set
 Name: libXaw
-Version: 1.0.14
-Release: 6%{?dist}
+Version: 1.0.15
+Release: 1%{?dist}
 License: MIT-open-group AND X11 AND HPND AND HPND-sell-variant AND SMLNJ AND NTP
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: autoconf automake libtool
@@ -73,6 +73,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 #{_pkgdocdir}/%{name}.txt
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.0.15-1
+- libXaw 1.0.15
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.0.14-6
 - SPDX migration
 

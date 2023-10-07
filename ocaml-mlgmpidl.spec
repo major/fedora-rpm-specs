@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlgmpidl
 Version:        1.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml interface to GMP and MPFR libraries
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -19,10 +19,10 @@ BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-bigarray-compat-devel
 BuildRequires:  ocaml-camlidl-devel
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  gmp-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  perl-interpreter
-BuildRequires:  python3
 # BuildRequires for documentation build
 BuildRequires:  tex(latex)
 BuildRequires:  tex(ecrm1000.tfm)
@@ -145,6 +145,9 @@ cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-4
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

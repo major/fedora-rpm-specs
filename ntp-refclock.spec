@@ -4,9 +4,7 @@ Name:		ntp-refclock
 Version:	0.6
 Release:	2%{?dist}
 Summary:	Drivers for hardware reference clocks
-# MIT is the primary license of ntp and ntp-refclock, but some drivers
-# are licensed under BSD or BSD with advertising
-License:	MIT and BSD and BSD with advertising
+License:	BSD-2-Clause AND NTP AND BSD-3-Clause AND BSD-4-Clause AND Beerware
 URL:		https://github.com/mlichvar/ntp-refclock
 Source0:	https://github.com/mlichvar/ntp-refclock/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-%{ntp_version}.tar.gz

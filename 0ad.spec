@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	12%{?dist}
+Release:	13%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -161,18 +161,18 @@ hobbyist game developers, since 2001.
 
 %if ! %{with debug}
 # disable debug build, and "int 0x3" to trap to debugger (x86 only)
-%patch1 -p0
+%patch -P1 -p0
 %endif
-%patch2 -p0
+%patch -P2 -p0
 
 # Patch bundled mozjs for Python 3.11 and setuptools 60+ compatibility
-%patch3 -p1
+%patch -P3 -p1
 sed -e 's|__SOURCE3__|%{SOURCE3}|' \
     -e 's|__SOURCE4__|%{SOURCE4}|' \
     -i libraries/source/spidermonkey/patch.sh
 
-%patch4 -p1
-%patch5 -p1
+%patch -P4 -p1
+%patch -P5 -p1
 
 %if %{with system_nvtt}
 rm -fr libraries/source/nvtt
@@ -280,6 +280,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 0.0.26-13
+- rebuild for new libsodium
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

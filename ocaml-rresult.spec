@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
@@ -15,10 +15,11 @@ URL:            https://erratique.ch/software/rresult
 Source0:        %{url}/releases/rresult-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
-BuildRequires:  python3
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
@@ -47,13 +48,7 @@ files for developing applications that use %{name}.
 ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
 %install
-mkdir -p %{buildroot}%{ocamldir}/rresult
-%ifarch %{ocaml_native_compiler}
-cp -p _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/rresult
-%endif
-cp -p _build/src/*.{cma,cmi,cmt,cmti,mli} _build/src/rresult_top_init.ml \
-  _build/pkg/META _build/opam %{buildroot}%{ocamldir}/rresult
-%ocaml_files
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test
@@ -68,6 +63,12 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-11
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-10
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Summary: X Damage extension library
 Name: libXdamage
-Version: 1.1.5
-Release: 11%{?dist}
+Version: 1.1.6
+Release: 1%{?dist}
 License: HPND-sell-variant
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros
@@ -53,6 +53,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xdamage.pc
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.6-1
+- libXdamage 1.1.6
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.1.5-11
 - SPDX Migration
 

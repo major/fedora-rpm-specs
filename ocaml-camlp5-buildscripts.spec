@@ -14,6 +14,7 @@ Source0:        %{url}/archive/%{version}/camlp5-buildscripts-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
+BuildRequires:  asciidoc
 BuildRequires:  make
 BuildRequires:  not-ocamlfind >= 0.01
 BuildRequires:  ocaml >= 4.10.0
@@ -41,6 +42,7 @@ sed -i 's/-linkpkg/-g &/' src/Makefile
 
 %build
 %make_build
+asciidoc README.asciidoc
 
 %install
 export OCAMLFIND_DESTDIR=%{buildroot}%{ocamldir}
@@ -58,7 +60,7 @@ EOF
 make test
 
 %files
-%doc CHANGES README.asciidoc
+%doc CHANGES README.html
 %license LICENSE
 %{ocamldir}/
 

@@ -3,7 +3,7 @@
 
 Name:           zeromq
 Version:        4.3.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Software library for fast, message-based applications
 
 License:        LGPL-3.0-or-later AND BSD-3-Clause AND MIT
@@ -107,6 +107,9 @@ make check V=1 || ( cat test-suite.log && exit 1 )
 
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 4.3.4-9
+- rebuild for new libsodium
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

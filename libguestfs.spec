@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.7
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -696,6 +696,17 @@ for %{name}.
 %setup -q
 %autopatch -p1
 
+# The names of the Unix and Camlstr libraries changed in OCaml 5.1.0, and
+# linking with libzstd is now necessary
+%if 0%{?fedora} > 39
+sed -i 's/-ldl/& -lzstd/' daemon/Makefile.am
+%ifarch %{ocaml_native_compiler}
+sed -ri 's/-l(camlstr|unix)/&nat/' daemon/Makefile.am
+%else
+sed -ri 's/-l(camlstr|unix)/&byt/' daemon/Makefile.am
+%endif
+%endif
+
 %if 0%{patches_touch_autotools}
 autoreconf -i
 %endif
@@ -1093,6 +1104,13 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.7-3
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1:1.51.7-2
+- Update names of the Unix and Camlstr libraries for OCaml 5.1.0
+- Link with libzstd for OCaml 5.1.0
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1:1.51.7-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 

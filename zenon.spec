@@ -12,7 +12,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:		zenon
 Version:	0.8.5
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -99,6 +99,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-20
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-19
 - Rebuild for ocaml-zarith 1.13
 

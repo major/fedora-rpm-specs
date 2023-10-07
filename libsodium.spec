@@ -6,7 +6,7 @@
 # Please preserve changelog entries
 #
 %global libname libsodium
-%global soname  23
+%global soname  26
 
 %if 0%{?fedora}
 %bcond_without  mingw
@@ -15,8 +15,8 @@
 %endif
 
 Name:           libsodium
-Version:        1.0.18
-Release:        14%{?dist}
+Version:        1.0.19
+Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            https://libsodium.org/
@@ -97,7 +97,7 @@ for Win64 target.
 %prep
 %{?gpgverify:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
 
-%setup -q
+%setup -q -n %{name}-stable
 
 
 %build
@@ -182,6 +182,10 @@ make -C build_native check
 
 
 %changelog
+* Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 1.0.19-1
+- update to 1.0.19
+- soname is 26
+
 * Mon Aug 21 2023 Marian Koncek <mkoncek@redhat.com> - 1.0.18-14
 - Add mingw subpackages
 

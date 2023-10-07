@@ -1,6 +1,6 @@
 %global	gem_name	opengl
 
-%global	bootstrap	0
+%bcond_with bootstrap
 
 # examples/OrangeBook/: BSD
 # examples/NeHe: KILLED (license unclear)
@@ -11,7 +11,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	23%{?dist}
+Release:	24%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 License:	MIT
@@ -34,15 +34,13 @@ BuildRequires:	libGL-devel
 BuildRequires:	libGLU-devel
 BuildRequires:	freeglut-devel
 # %%check
-%if 0%{?bootstrap} < 1
+%if %{without bootstrap}
 BuildRequires:	rubygem(minitest) >= 5
 BuildRequires:	%{_bindir}/xvfb-run
 BuildRequires:	mesa-dri-drivers
 BuildRequires:	rubygem(glu)
 BuildRequires:	rubygem(glut)
-%if 0%{?fedora} >= 36
 BuildRequires:	rubygem(matrix)
-%endif
 %endif
 
 
@@ -61,16 +59,8 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-%setup -q -c -T
-
-# Gem repack
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}-clean
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}-clean
+mv ../%{gem_name}-%{version}-clean.gemspec ./%{gem_name}.gemspec
 
 find examples/ -type f -print0 | xargs --null file | \
 	grep CRLF | sed -e 's|:.*$||' | \
@@ -83,13 +73,8 @@ sed -i.minitest \
 	-e 's|MiniTest::Unit::TestCase|Minitest::Test|' \
 	lib/opengl/test_case.rb
 
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
-
 %build
+gem build %{gem_name}.gemspec
 %gem_install
 
 %install
@@ -127,22 +112,25 @@ popd
 rm -f %{buildroot}%{gem_extdir_mri}/lib/opengl/test_case.rb
 
 %check
-%if 0%{?bootstrap} < 1
+%if %{with bootstrap}
+exit 0
+%endif
+
 pushd .%{gem_instdir}
 
-cat > test/unit.rb << EOF
-gem "minitest"
-require "minitest/autorun"
-EOF
-
-xvfb-run \
-	-s "-screen 0 640x480x24" \
-	ruby \
-		-Ilib:.:./ext \
-		-e "Dir.glob('test/test_*.rb').each { |f| require f }" \
-		|| echo "please check this later"
+export RUBYLIB=%{buildroot}%{gem_extdir_mri}/:$(pwd)/lib:$(pwd)
+# try twice
+STATUS_ON_FAILURE=true
+for trial in 1 2 ; do
+	xvfb-run \
+		-s "-screen 0 640x480x24" \
+		ruby \
+			-e "Dir.glob('test/test_*.rb').each { |f| require f }" \
+			2>&1 | tee TEST.log
+	cat TEST.log | grep -q "184 runs, 1745 assertions, 6 failures, 1 errors, 14 skips" && break || $STATUS_ON_FAILURE
+	STATUS_ON_FAILURE=false
+done
 popd
-%endif
 
 %files
 %dir	%{gem_instdir}
@@ -162,6 +150,10 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Thu Oct  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-24
+- Switch to use recent spec file style
+- Actually check the count of the test failures
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

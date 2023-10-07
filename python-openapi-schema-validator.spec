@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-openapi-schema-validator
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 

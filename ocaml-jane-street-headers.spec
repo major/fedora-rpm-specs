@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{srcname}
 Version:        0.16.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jane Street header files
 
 License:        MIT
@@ -54,6 +54,9 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/%{srcname}/
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-4
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

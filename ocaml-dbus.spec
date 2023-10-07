@@ -3,17 +3,18 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-dbus
 Version:        0.30
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        OCaml library for using D-Bus
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
 URL:            https://projects.snarc.org/ocaml-dbus/
-Source0:        https://github.com/vincenthz/ocaml-dbus/archive/v0.30.tar.gz
+Source0:        https://github.com/vincenthz/ocaml-dbus/archive/v%{version}.tar.gz
 
 BuildRequires:  make
-BuildRequires:  ocaml >= 3.10.0-7, ocaml-findlib
+BuildRequires:  ocaml >= 3.10.0-7
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  dbus-devel
-BuildRequires:  python3
 
 
 %description
@@ -35,6 +36,8 @@ developing applications that use %{name}.
 %prep
 %autosetup
 
+# Explicitly depend on the Unix module for OCaml 5.x
+sed -i 's/ -o / -I +unix&/' Makefile
 
 %build
 make \
@@ -77,6 +80,13 @@ make OCAMLDESTDIR=$OCAMLFIND_DESTDIR install-byte
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.30-49
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.30-48
+- Explicitly depend on the Unix module for OCaml 5.x
+- Depend on ocaml-rpm-macros instead of python3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

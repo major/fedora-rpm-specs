@@ -8,8 +8,8 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.10.0
-Release:        1%{?dist}
+Version:        3.11.0
+Release:        3%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -31,6 +31,8 @@ Summary:        Composable build system for OCaml and Reason
 # - vendor/0install-solver
 # MIT:
 # - vendor/build_path_prefix_map
+# - vendor/fiber
+# - vendor/lwd
 # - vendor/spawn
 License:        MIT AND ISC AND LGPL-2.0-only AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND LGPL-2.1-or-later
 URL:            https://dune.build
@@ -47,8 +49,10 @@ ExcludeArch: %{ix86}
 BuildRequires:  emacs-nox
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.08
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-csexp-devel >= 1.5.0
 BuildRequires:  ocaml-pp-devel >= 1.1.0
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
@@ -63,11 +67,13 @@ BuildRequires:  ocaml-lwt-devel
 Provides:       bundled(ocaml-0install-solver) = 2.18
 Provides:       bundled(ocaml-build-path-prefix-map) = 0.3
 Provides:       bundled(ocaml-cmdliner) = 1.1.1
+Provides:       bundled(ocaml-fiber) = 3.7.0
 Provides:       bundled(ocaml-fmt) = 0.8.10
 Provides:       bundled(ocaml-incremental-cycles) = 1e2030a5d5183d84561cde142eecca40e03db2a3
 Provides:       bundled(ocaml-inotify) = 2.3
+Provides:       bundled(ocaml-lwd) = 0.3
 Provides:       bundled(ocaml-notty) = 0.2.3
-Provides:       bundled(ocaml-opam) = 2.1.4
+Provides:       bundled(ocaml-opam) = 2.1.5
 Provides:       bundled(ocaml-opam-0install) = 0.4.3
 Provides:       bundled(ocaml-opam-file-format) = 2.1.6
 Provides:       bundled(ocaml-re) = 1.9.0
@@ -78,7 +84,10 @@ Provides:       bundled(ocaml-uutf) = 1.0.3
 Provides:       dune = %{version}-%{release}
 
 # This is needed for the dune-related RPM macros
-Requires:       python3
+Requires:       ocaml-rpm-macros
+
+# The dune rules module requires Toploop
+Requires:       ocaml-compiler-libs%{?_isa}
 
 # Both packages install a binary named dune and an associated man page
 Conflicts:      wdune
@@ -91,9 +100,6 @@ Provides:       ocaml-fiber-devel = %{version}-%{release}
 
 # Install documentation in the main package doc directory
 %global _docdir_fmt %{name}
-
-# Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Topdirs -i Toploop -i Type_immediacy -i Types -i Warnings
 
 %description
 Dune is a build system designed for OCaml/Reason projects only. It focuses
@@ -567,6 +573,15 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 3.11.0-3
+- Bump release and rebuild
+
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 3.11.0-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 3.11.0-1
+- Version 3.11.0
+
 * Tue Aug  1 2023 Jerry James <loganjerry@gmail.com> - 3.10.0-1
 - Version 3.10.0
 

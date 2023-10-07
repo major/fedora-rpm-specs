@@ -2,12 +2,12 @@
 
 Summary:    X.Org X11 X Window System xinit startup scripts
 Name:       xorg-x11-%{pkgname}
-Version:    1.4.0
-Release:    19%{?dist}
+Version:    1.4.2
+Release:    1%{?dist}
 License:    X11-distribute-modifications-variant AND MIT-open-group
 URL:        https://www.x.org
 
-Source0:    https://xorg.freedesktop.org/archive/individual/app/%{pkgname}-%{version}.tar.bz2
+Source0:    https://xorg.freedesktop.org/archive/individual/app/%{pkgname}-%{version}.tar.xz
 Source10:   xinitrc-common
 Source11:   xinitrc
 Source12:   Xclients
@@ -98,7 +98,7 @@ install -p -m644 -D %{SOURCE18} $RPM_BUILD_ROOT%{_datadir}/xsessions/xinit-compa
 }
 
 %files
-%doc COPYING README ChangeLog
+%doc COPYING README.md ChangeLog
 %{_bindir}/startx
 %{_bindir}/xinit
 %dir %{_sysconfdir}/X11/xinit
@@ -119,6 +119,9 @@ install -p -m644 -D %{SOURCE18} $RPM_BUILD_ROOT%{_datadir}/xsessions/xinit-compa
 %{_datadir}/xsessions/xinit-compat.desktop
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.4.2-1
+- xorg-x11-xinit 1.4.2
+
 * Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.4.0-19
 - SPDX migration
 

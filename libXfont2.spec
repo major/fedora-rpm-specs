@@ -1,11 +1,11 @@
 Summary: X.Org X11 libXfont2 runtime library
 Name: libXfont2
-Version: 2.0.3
-Release: 16%{?dist}
+Version: 2.0.6
+Release: 1%{?dist}
 License: BSD-2-Clause AND BSD-4-Clause-UC AND HPND-sell-variant AND MIT-open-group AND SMLNJ AND X11
 URL: http://www.x.org
 
-Source0: http://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: http://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: autoconf automake libtool
@@ -46,7 +46,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %files
 %license COPYING
-%doc AUTHORS README ChangeLog
+%doc AUTHORS README.md ChangeLog
 %{_libdir}/libXfont2.so.2*
 
 %files devel
@@ -55,6 +55,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xfont2.pc
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 2.0.6-1
+- libXfont2 2.0.6
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 2.0.3-16
 - SPDX Migration
 

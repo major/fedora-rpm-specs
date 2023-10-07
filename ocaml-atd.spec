@@ -3,15 +3,12 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
 Version:        2.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Adaptable Type Definitions for cross-language data types
 
 License:        BSD-3-Clause
 URL:            https://github.com/ahrefs/atd
 Source0:        %{url}/releases/download/%{version}/atdts-%{version}.tbz
-
-# Disable flake8 tests while uninstallable.
-Patch:          ocaml-atd-disable-flake8-tests.patch
 
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel
@@ -23,8 +20,7 @@ BuildRequires:  ocaml-menhir >= 20180523
 BuildRequires:  ocaml-re-devel
 BuildRequires:  ocaml-yojson-devel >= 2.0.2
 BuildRequires:  python3-devel
-# Uninstallable in Fedora 39, may be able to fix this later.
-#BuildRequires:  %%{py3_dist flake8}
+BuildRequires:  %{py3_dist flake8}
 BuildRequires:  %{py3_dist jsonschema}
 BuildRequires:  %{py3_dist mypy}
 BuildRequires:  %{py3_dist pytest}
@@ -275,6 +271,12 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,py,s,ts}
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.12.0-4
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 2.12.0-3
+- Reenable flake8 tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

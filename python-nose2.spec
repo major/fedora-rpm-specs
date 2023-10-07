@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-nose2
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        The successor to nose, based on unittest2
 
@@ -25,11 +25,6 @@ Source1:        nose2.1
 # deprecated PyPI “mock” package (which is not actually needed for the tests on
 # modern Python versions).
 Patch:          nose2-0.11.0-tox-no-dev-extra.patch
-
-# Temporary patch to skip failing tests with Python 3.12.0b2.
-# This is a regression in CPython and it will be fixed in 3rd beta.
-# https://github.com/python/cpython/issues/105390
-Patch:          Skip-tests-failing-with-Python-3.12.0b2.patch
 
 BuildArch:      noarch
 

@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 12
+%global micro 13
 #global pre ...
 %global pyversion 3.10
 Name:           pypy%{pyversion}
@@ -10,7 +10,7 @@ Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 2
+%global baserelease 1
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -243,7 +243,7 @@ Requires: python-setuptools-wheel
 Requires: python-pip-wheel
 %else
 Provides: bundled(python3dist(pip)) = 23.0.1
-Provides: bundled(python3dist(setuptools)) = 58.1.0
+Provides: bundled(python3dist(setuptools)) = 65.5.0
 %endif
 
 # Provides for the bundled libmpdec
@@ -831,6 +831,9 @@ CheckPyPy pypy%{pyversion}-c
 
 
 %changelog
+* Tue Oct 03 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.13-1.3.10
+- Update to 7.3.13
+
 * Tue Aug 22 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.12-2.3.10
 - Make PyPy 3.10 the main PyPy 3 on Fedora 39+
 

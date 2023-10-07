@@ -21,7 +21,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-num
 Version:        1.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -34,8 +34,9 @@ Patch5:         0005-src-Add-g-flag-to-mklib.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
-BuildRequires:  python3
+BuildRequires:  ocaml-rpm-macros
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Longident -i Topdirs
@@ -93,6 +94,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4-13
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

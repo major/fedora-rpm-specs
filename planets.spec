@@ -4,7 +4,7 @@
 
 Name: planets
 Version:  0.1.13
-Release:  37%{?dist}
+Release:  38%{?dist}
 Summary: A celestial simulator  
 
 License: GPL-2.0-or-later
@@ -21,6 +21,8 @@ Patch2:  planets-0.1.13-camlp5o.patch
 Patch3:  planets-0.1.13-debuginfo.patch
 # Adapt to changes in OCaml 5.x
 Patch4:  planets-0.1.13-ocaml5.patch
+# Adapt to changed unix library name in OCaml 5.1.0
+Patch5:  planets-0.1.13-ocaml5.1.patch
 BuildRequires: make
 BuildRequires: desktop-file-utils
 BuildRequires: ocaml-camlp-streams-devel
@@ -79,6 +81,12 @@ install -p -m 644 planets.png \
 %{_mandir}/man1/planets.1.gz
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.1.13-38
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.1.13-37
+- Adapt to changed unix library name in OCaml 5.1.0
+
 * Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 0.1.13-37
 - Do not build for 32-bit x86
 - Generate usable debuginfo

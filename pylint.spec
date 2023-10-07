@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 3.0.0
+%global basever 3.0.1
 #%%global prever b0
 Version:        %{basever}
 %forgemeta

@@ -9,7 +9,7 @@
 
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
-Version: 5.70
+Version: 5.71
 Release: %autorelease
 License: GPL-2.0-or-later WITH stunnel-exception AND MIT
 URL: https://www.stunnel.org/
@@ -22,7 +22,9 @@ Source5: pop3-redirect.xinetd
 Source6: stunnel-pop3s-client.conf
 Source7: stunnel@.service
 # Upstream release signing key
-Source99: https://www.stunnel.org/pgp.asc
+# Upstream source is https://www.stunnel.org/pgp.asc; using a local URL because
+# the remote one makes packit source-git choke.
+Source99: pgp.asc
 # Apply patch stunnel-5.50-authpriv.patch
 Patch0:   stunnel-5.50-authpriv.patch
 # Apply patch stunnel-5.61-systemd-service.patch
@@ -34,14 +36,10 @@ Patch1:   stunnel-5.61-systemd-service.patch
 # platforms, OpenSSL supports the PROFILE=SYSTEM setting to use those
 # policies. Change stunnel to default to this setting.
 Patch3:   stunnel-5.69-system-ciphers.patch
-# Apply patch stunnel-5.56-coverity.patch
-Patch4:   stunnel-5.56-coverity.patch
 # Apply patch stunnel-5.69-default-tls-version.patch
 Patch5:   stunnel-5.69-default-tls-version.patch
 # Apply patch stunnel-5.56-curves-doc-update.patch
 Patch6:   stunnel-5.56-curves-doc-update.patch
-# Limit curves defaults in FIPS mode
-Patch8:   stunnel-5.62-disabled-curves.patch
 # util-linux is needed for rename
 BuildRequires: make
 BuildRequires: gcc
@@ -55,7 +53,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: /usr/bin/pod2html
 # build test requirements
 BuildRequires: /usr/bin/nc, /usr/bin/lsof, /usr/bin/ps
-BuildRequires: python3 openssl
+BuildRequires: python3 python3-cryptography openssl
 BuildRequires: systemd systemd-devel
 %{?systemd_requires}
 

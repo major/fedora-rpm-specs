@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gettext
 Version:        0.4.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        OCaml library for i18n
 
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
@@ -24,6 +24,7 @@ Source0:        https://github.com/gildor478/%{name}/archive/v%{version}.tar.gz
 # https://github.com/gildor478/ocaml-gettext/pull/24
 Patch0:         %{name}-ocaml5.patch
 # Adapt to changes in camomile 2.0
+# https://github.com/gildor478/ocaml-gettext/pull/27
 Patch1:         %{name}-camomile2.patch
 
 BuildRequires:  ocaml >= 4.03.0
@@ -151,6 +152,9 @@ cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4.2-15
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

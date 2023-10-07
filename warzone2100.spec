@@ -3,7 +3,7 @@
 
 Name:           warzone2100
 Version:        4.3.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 License:        GPLv2+ and CC-BY-SA
@@ -92,6 +92,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 4.3.5-3
+- rebuild for new libsodium
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

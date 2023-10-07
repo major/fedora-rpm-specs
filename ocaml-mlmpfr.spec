@@ -1,6 +1,6 @@
-# MPFR 4.2.0 support is upstream, but has not been released
-%global commit  14fce8a26b5db3913fef43e39ec91885ceaf7291
-%global date    20230309
+# MPFR 4.2.1 support is upstream, but has not been released
+%global commit  72fd3f3e77560e4820f2e121b85570e6237c06ef
+%global date    20230928
 %global forgeurl https://github.com/thvnx/mlmpfr
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
@@ -10,14 +10,14 @@ ExcludeArch: %{ix86}
 #%%global bugfix bugfix2
 
 Name:           ocaml-mlmpfr
-Version:        4.1.1
+Version:        4.2.0
 Summary:        OCaml bindings for MPFR
 
 %forgemeta
 
 # FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
 License:        LGPL-3.0-only
-Release:        7%{?dist}%{?bugfix:.%{bugfix}}
+Release:        3%{?dist}%{?bugfix:.%{bugfix}}
 URL:            https://github.com/thvnx/mlmpfr
 Source0:        %{forgesource}
 
@@ -68,6 +68,15 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.0-3
+- Bump release and rebuild
+
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.0-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 4.2.0-1
+- Update to git HEAD for MPFR 4.2.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

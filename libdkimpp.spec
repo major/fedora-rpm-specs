@@ -2,7 +2,7 @@
 
 Name:		libdkimpp
 Version:	2.0.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Lightweight and portable DKIM (RFC4871) library
 
 License:	LGPLv3+
@@ -64,6 +64,9 @@ chmod +x $RPM_BUILD_ROOT/%{_libdir}/*.so*
 
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 2.0.0-15
+- rebuild for new libsodium
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

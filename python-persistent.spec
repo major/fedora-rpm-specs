@@ -1,14 +1,11 @@
 Name:           python-persistent
-Version:        5.0
-Release:        4%{?dist}
+Version:        5.1
+Release:        1%{?dist}
 Summary:        Translucent persistent python objects
 
 License:        ZPL-2.1
 URL:            http://www.zodb.org/
 Source0:        https://github.com/zopefoundation/persistent/archive/%{version}/persistent-%{version}.tar.gz
-
-# Upstream patch to provide python 3.12 support
-Patch0:         https://github.com/zopefoundation/persistent/commit/2195d2e.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -70,9 +67,6 @@ Documentation for python3-persistent.
 %autopatch -p1
 %endif
 
-# Update the sphinx theme name
-sed -i "s/'default'/'classic'/" docs/conf.py
-
 # Use local objects.inv for intersphinx
 sed -i "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
 
@@ -119,6 +113,10 @@ zope-testrunner --test-path=src -vc
 %doc docs/_build/html/*
 
 %changelog
+* Thu Oct  5 2023 Jerry James <loganjerry@gmail.com> - 5.1-1
+- Version 5.1
+- Drop upstreamed python 3.12 patch
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

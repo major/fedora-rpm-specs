@@ -18,7 +18,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -84,14 +84,6 @@ Provides:       bundled(js-jquery)
 # The corresponding Provides is not generated, so filter this out
 %global __requires_exclude ocaml\\\((Driver_ast|Why3)\\\)
 
-# This can be removed when F36 reaches EOL
-Obsoletes:      why < 2.41-12
-Provides:       why = 2.41-12%{?dist}
-Obsoletes:      why-jessie < 2.41-12
-Provides:       why-jessie = 2.41-12%{?dist}
-Obsoletes:      why-pvs-support < 2.41-12
-Provides:       why-pvs-support = 2.41-12%{?dist}
-
 # This can be removed when F39 reaches EOL
 Obsoletes:      %{name}-xemacs < 1.4.0-4
 
@@ -124,10 +116,6 @@ This package contains an Emacs support file for working with %{name} files.
 Summary:        Complete Why3 software verification platform suite
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       alt-ergo coq cvc5 E gappa yices-tools z3 zenon
-
-# This can be removed when F36 reaches EOL
-Obsoletes:      why-all < 2.41-12
-Provides:       why-all = 2.41-12%{?dist}
 
 %description all
 This package provides a complete software verification platform suite
@@ -308,6 +296,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-7
+- OCaml 5.1 rebuild for Fedora 40
+
 * Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-6
 - Rebuild for ocaml-ocamlgraph 2.1.0
 

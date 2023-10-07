@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.44.0
+%global real_version 1.44.2
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -155,7 +155,7 @@
 %global split_ifcfg_rh 0
 %endif
 
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
+%if (0%{?fedora} >= 36 && 0%{?fedora} < 39) || 0%{?rhel} >= 9
 %global ifcfg_warning 1
 %else
 %global ifcfg_warning 0
@@ -201,6 +201,7 @@ Source4: 20-connectivity-fedora.conf
 Source5: 20-connectivity-redhat.conf
 Source6: 70-nm-connectivity.conf
 Source7: readme-ifcfg-rh.txt
+Source8: readme-ifcfg-rh-migrated.txt
 
 #Patch1: 0001-some.patch
 
@@ -924,6 +925,9 @@ cp %{SOURCE6} %{buildroot}%{_sysctldir}
 %if 0%{?ifcfg_warning}
 cp %{SOURCE7} %{buildroot}%{_sysconfdir}/sysconfig/network-scripts
 %endif
+%if 0%{?ifcfg_migrate}
+cp %{SOURCE8} %{buildroot}%{_sysconfdir}/sysconfig/network-scripts/readme-ifcfg-rh.txt
+%endif
 
 cp examples/dispatcher/10-ifcfg-rh-routes.sh %{buildroot}%{nmlibdir}/dispatcher.d/
 ln -s ../no-wait.d/10-ifcfg-rh-routes.sh %{buildroot}%{nmlibdir}/dispatcher.d/pre-up.d/
@@ -1115,7 +1119,7 @@ fi
 %{_unitdir}/nm-priv-helper.service
 %dir %{_datadir}/doc/NetworkManager/examples
 %{_datadir}/doc/NetworkManager/examples/server.conf
-%if 0%{?ifcfg_warning}
+%if 0%{?ifcfg_warning} || 0%{?ifcfg_migrate}
 %{_sysconfdir}/sysconfig/network-scripts/readme-ifcfg-rh.txt
 %endif
 %doc NEWS AUTHORS README.md CONTRIBUTING.md
@@ -1258,6 +1262,9 @@ fi
 
 
 %changelog
+* Tue Oct  3 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.44.2-1
+- Update to 1.44.2 release
+
 * Thu Aug 10 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.44.0-1
 - Update to 1.44.0 release
 - Enable automatic migration of ifcfg profiles to keyfile:

@@ -212,6 +212,10 @@ install -pDm0644 %{SOURCE3} %{buildroot}%{python3_sitearch}/%{name}.pth
 # Create cmake directory
 mkdir -p %{buildroot}%{_libdir}/%{name}/lib/cmake/
 
+# Create directories for MPICH application development files
+mkdir -p %{buildroot}%{_libdir}/%{name}/lib/cmake
+mkdir -p %{buildroot}%{_libdir}/%{name}/include
+
 find %{buildroot} -type f -name "*.la" -delete
 
 %check
@@ -232,6 +236,8 @@ make check VERBOSE=1 \
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/lib
 %dir %{_libdir}/%{name}/bin
+%dir %{_libdir}/%{name}/lib/cmake
+%dir %{_libdir}/%{name}/include
 %{_libdir}/%{name}/lib/*.so.*
 %{_libdir}/%{name}/bin/hydra*
 %{_libdir}/%{name}/bin/mpichversion

@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-topkg
 Version:        1.0.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The transitory OCaml software packager
 
 License:        ISC
@@ -19,9 +19,10 @@ URL:            https://erratique.ch/software/topkg/
 Source0:        https://github.com/dbuenzli/topkg/archive/v%{version}/topkg-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.05.0
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib >= 1.6.1
 BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  python3
+BuildRequires:  ocaml-rpm-macros
 
 %if %{with care}
 BuildRequires:  ocaml-bos-devel >= 0.1.5
@@ -106,43 +107,7 @@ ocaml pkg/pkg.ml build --pkg-name topkg-care --tests true
 %endif
 
 %install
-# Install the library
-mkdir -p %{buildroot}%{ocamldir}/topkg
-cp -p _build/topkg.opam %{buildroot}%{ocamldir}/topkg/opam
-cp -p _build/pkg/META %{buildroot}%{ocamldir}/topkg/META
-%ifarch %{ocaml_native_compiler}
-cp -p _build/src/topkg.{a,cma,cmi,cmti,cmxa,cmxs,mli} _build/src/*.cmx \
-  %{buildroot}%{ocamldir}/topkg
-%else
-cp -p _build/src/topkg.{cma,cmi,cmti,mli} %{buildroot}%{ocamldir}/topkg
-%endif
-
-%if %{with care}
-# Install the binary
-mkdir -p %{buildroot}%{_bindir}
-%ifarch %{ocaml_native_compiler}
-cp -p _build/src-bin/topkg_bin.native %{buildroot}%{_bindir}/topkg
-cp -p _build/src-bin/toy_github_delegate.native \
-   %{buildroot}%{_bindir}/toy_github_delegate
-%else
-cp -p _build/src-bin/topkg_bin.byte %{buildroot}%{_bindir}/topkg
-cp -p _build/src-bin/toy_github_delegate.byte \
-   %{buildroot}%{_bindir}/toy_github_delegate
-%endif
-
-# Install the CARE library
-mkdir -p %{buildroot}%{ocamldir}/topkg-care
-cp -p _build/topkg-care.opam %{buildroot}%{ocamldir}/topkg-care/opam
-%ifarch %{ocaml_native_compiler}
-cp -a _build/src-care/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} \
-  %{buildroot}%{ocamldir}/topkg-care
-%else
-cp -a _build/src-care/*.{cma,cmi,cmt,cmti,mli} \
-  %{buildroot}%{ocamldir}/topkg-care
-%endif
-%endif
-
-%ocaml_files -s
+%ocaml_install -s
 
 %if %{with care}
 %check
@@ -162,6 +127,12 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.7-6
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.0.7-5
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

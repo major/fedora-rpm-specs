@@ -6,7 +6,7 @@
 Summary:        Open Source IRC server
 Name:           unrealircd
 Version:        6.1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 # UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
 # a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
 # BSD-3-Clause: include/mempool.h and src/mempool.c
@@ -82,14 +82,14 @@ GeoIP2 C library and databases.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %if 0%{?fedora} || 0%{?rhel} >= 8
-%patch0 -p1 -b .crypto-policy
+%patch -P0 -p1 -b .crypto-policy
 touch -c -r doc/conf/examples/example.conf{.crypto-policy,}
 %endif
-%patch1 -p1 -b .geoip
+%patch -P1 -p1 -b .geoip
 touch -c -r doc/conf/modules.default.conf{.geoip,}
-%patch2 -p1 -b .unrealircdctl
+%patch -P2 -p1 -b .unrealircdctl
 %if 0%{?rhel} && 0%{?rhel} < 9
-%patch3 -p1 -b .pcre2-10.00
+%patch -P3 -p1 -b .pcre2-10.00
 %endif
 
 %build
@@ -226,6 +226,9 @@ fi
 %endif
 
 %changelog
+* Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 6.1.1.1-3
+- rebuild for new libsodium
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

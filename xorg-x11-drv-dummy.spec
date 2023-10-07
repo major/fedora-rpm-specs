@@ -6,13 +6,12 @@
 
 Summary:   Xorg X11 dummy video driver
 Name:      xorg-x11-drv-dummy
-Version:   0.3.7
-Release:   20%{?dist}
+Version:   0.4.1
+Release:   1%{?dist}
 URL:       http://www.x.org
 License:   MIT AND X11
 
-Source0:   ftp://ftp.x.org/pub/individual/driver/%{tarball}-%{version}.tar.bz2
-Patch0:    0001-Switch-to-using-dixChangeWindowProperty.patch
+Source0:   https://xorg.freedesktop.org/archive/individual/driver/%{tarball}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: xorg-x11-server-devel >= 1.10.99.902
@@ -26,7 +25,6 @@ X.Org X11 dummy video driver.
 
 %prep
 %setup -q -n %{tarball}-%{version}
-%patch0 -p1
 autoreconf -vif
 
 %build
@@ -41,10 +39,13 @@ autoreconf -vif
 find $RPM_BUILD_ROOT -regex ".*\.la$" | xargs rm -f --
 
 %files
-%doc README
+%doc README.md
 %{driverdir}/dummy_drv.so
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 0.4.1-1
+- xorg-x11-drv-dummy 0.4.1
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 0.3.7-20
 - SPDX Migration
 

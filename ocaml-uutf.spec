@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-uutf
 Version:        1.0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Non-blocking streaming Unicode codec for OCaml
 
 License:        ISC
@@ -21,6 +21,7 @@ BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-topkg-devel
 BuildRequires:  python3
 
@@ -65,15 +66,7 @@ mkdir html
 ocamldoc -html -d html -I _build/src _build/src/uutf.mli
 
 %install
-# Install the library
-mkdir -p %{buildroot}%{ocamldir}/uutf
-cp -p _build/{opam,pkg/META} %{buildroot}%{ocamldir}/uutf
-%ifarch %{ocaml_native_compiler}
-cp -a _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/uutf
-%endif
-cp -a _build/src/*.{cma,cmi,cmt,cmti,mli} %{buildroot}%{ocamldir}/uutf
-
-%ocaml_files
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test
@@ -86,6 +79,12 @@ ocaml pkg/pkg.ml test
 %doc html/*
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.3-10
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.0.3-9
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

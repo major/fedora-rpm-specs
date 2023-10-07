@@ -1,7 +1,7 @@
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -24,6 +24,10 @@ Patch2:         %{name}-csdp.patch
 # Since the jgmp library is not installed in a normal search path, add an rpath
 # to the japron library so it can find jgmp
 Patch3:         %{name}-japron-link.patch
+# Fix a japron hasVar bug
+# https://github.com/antoinemine/apron/issues/94
+# https://github.com/antoinemine/apron/pull/95
+Patch4:         %{name}-hasvar.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -278,6 +282,12 @@ test/ctest1
 %endif
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.14-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-1
+- Add upstream patch for a japron hasVar bug
+
 * Fri Sep 22 2023 Jerry James <loganjerry@gmail.com> - 0.9.14-1
 - Version 0.9.14
 - Add patch to fix japron linkage

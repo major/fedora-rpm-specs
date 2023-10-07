@@ -27,7 +27,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           coq
 Version:        8.17.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -395,6 +395,9 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 8.17.1-6
+- OCaml 5.1 rebuild for Fedora 40
+
 * Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 8.17.1-5
 - Rebuild for ocaml-zarith 1.13
 

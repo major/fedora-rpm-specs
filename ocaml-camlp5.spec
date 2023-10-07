@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-camlp5
-Version:        8.02.00
+Version:        8.02.01
 Release:        2%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
@@ -27,13 +27,13 @@ BuildRequires:  ocaml-camlp5-buildscripts >= 0.02
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel
 BuildRequires:  ocaml-ounit-devel
-BuildRequires:  ocaml-pcre-devel
-BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-pcre2-devel
+BuildRequires:  ocaml-re-devel >= 1.11.0
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-rresult-devel
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(IPC::System::Simple)
 BuildRequires:  perl(String::ShellQuote)
-BuildRequires:  python3
 
 BuildRequires:  ocaml-ocamldoc
 
@@ -55,7 +55,7 @@ forward, with an extensive and ever-growing testsuite.
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-camlp-streams-devel%{?_isa}
-Requires:       ocaml-pcre-devel%{?_isa}
+Requires:       ocaml-re-devel%{?_isa}
 
 
 %description    devel
@@ -113,6 +113,13 @@ make -C test all
 
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 8.02.01-2
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 8.02.01-1
+- Version 8.02.01
+- Depend on ocaml-pcre2 instead of ocaml-pcre
+
 * Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 8.02.00-2
 - Add camlp-streams-/pcre-devel dependencies to devel subpackage
 

@@ -4,17 +4,17 @@
 
 Summary: X-Resource extension client library
 Name: libXres
-Version: 1.2.1
-Release: 6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.2.2
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: X11
 URL: http://www.x.org
 
 %if 0%{?gitdate}
-Source0:    %{tarball}-%{gitdate}.tar.bz2
+Source0:    %{tarball}-%{gitdate}.tar.xz
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 %endif
 # Fixes a bug which causes metacity 3.38.0+ to crash on startup:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1888993
@@ -71,6 +71,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.2.2-1
+- libXres 1.2.2
+
 * Wed Sep 06 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.2.1-6
 - SPDX Migration
 

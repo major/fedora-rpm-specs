@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bos
 Version:        0.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Basic OS interaction for OCaml
 
 License:        ISC
@@ -16,15 +16,16 @@ Source0:        %{url}/releases/bos-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-astring-devel
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel >= 0.8.10
 BuildRequires:  ocaml-fpath-devel >= 0.7.3
 BuildRequires:  ocaml-logs-devel
 BuildRequires:  ocaml-mtime-devel
 BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-rresult-devel >= 0.7.0
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
-BuildRequires:  python3
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
@@ -56,13 +57,7 @@ files for developing applications that use %{name}.
 ocaml pkg/pkg.ml build --dev-pkg false --tests true
 
 %install
-mkdir -p %{buildroot}%{ocamldir}/bos
-%ifarch %{ocaml_native_compiler}
-cp -p _build/src/*.{a,cmx,cmxa,cmxs} %{buildroot}%{ocamldir}/bos
-%endif
-cp -p _build/src/*.{cma,cmi,cmt,cmti,mli} _build/pkg/META _build/opam \
-   _build/src/bos_top_init.ml %{buildroot}%{ocamldir}/bos
-%ocaml_files
+%ocaml_install
 
 %check
 ocaml pkg/pkg.ml test
@@ -77,6 +72,12 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-12
+- OCaml 5.1 rebuild for Fedora 40
+
+* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.2.1-11
+- Use the %%ocaml_install macro
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
