@@ -11,7 +11,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    747c3b2038f1139e3dcd9886a3f5a948648b7503
+%global gh_commit    9784e877e3700de37475545bdbdce8383ff53d25
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,9 +23,9 @@
 %global ns_vendor    PHPUnit10
 %global php_home     %{_datadir}/php
 %global ver_major    10
-%global ver_minor    3
+%global ver_minor    4
 
-%global upstream_version 10.3.5
+%global upstream_version 10.4.0
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -43,11 +43,10 @@ Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
-BuildRequires:  (php-composer(doctrine/instantiator) >= 1.3.1         with php-composer(doctrine/instantiator) <  3)
 BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.10.1            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.3              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.0.2               with php-composer(phar-io/version) <  4)
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 10.1.1    with php-composer(phpunit/php-code-coverage) < 11)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 10.1.5    with php-composer(phpunit/php-code-coverage) < 11)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 4.0       with php-composer(phpunit/php-file-iterator) < 5)
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 4.0             with php-composer(phpunit/php-invoker) < 5)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 3.0       with php-composer(phpunit/php-text-template) < 4)
@@ -140,6 +139,11 @@ Requires:       php-pcntl
 Requires:       php-pcre
 Requires:       php-phar
 Requires:       php-spl
+
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+Provides:       php-composer(phpunit/phpunit) = %{version}
+Provides:       phpunit                       = %{version}-%{release}
+%endif
 
 
 %description
@@ -249,6 +253,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct  6 2023 Remi Collet <remi@remirepo.net> - 10.4.0-1
+- update to 10.4.0
+
 * Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 10.3.5-1
 - update to 10.3.5
 - raise dependency on sebastian/exporter 5

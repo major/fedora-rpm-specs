@@ -1,0 +1,68 @@
+%global gitdate 20231001.124025
+%global cmakever 5.240.0
+%global commit0 12ac73fa5461948b1ea8ab8f0af4016f63fea106
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global framework kcrash
+
+Name:    kf6-%{framework}
+Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Release: 1%{?dist}
+Summary: KDE Frameworks 6 Tier 2 addon for handling application crashes
+
+License: CC0-1.0 AND LGPL-2.0-or-later
+URL:     https://invent.kde.org/frameworks/%{framework}
+
+Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+
+BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  libX11-devel
+BuildRequires:  qt6-qtbase-devel
+
+%description
+KCrash provides support for intercepting and handling application crashes.
+
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       qt6-qtbase-devel
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%prep
+%autosetup -n %{framework}-%{commit0} -p1
+
+
+%build
+%cmake_kf6
+%cmake_build
+
+
+%install
+%cmake_install
+
+
+
+%files
+%doc README.md
+%license LICENSES/*.txt
+%{_kf6_datadir}/qlogging-categories6/%{framework}.*
+%{_kf6_libdir}/libKF6Crash.so.*
+
+%files devel
+
+%{_kf6_includedir}/KCrash/
+%{_kf6_libdir}/libKF6Crash.so
+%{_kf6_libdir}/cmake/KF6Crash/
+
+%changelog
+* Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231001.124025.12ac73f-1
+- Initial Release

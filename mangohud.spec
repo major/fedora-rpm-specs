@@ -1,4 +1,5 @@
 %global appname MangoHud
+%global forgeurl https://github.com/flightlessmango/%{appname}
 
 %global imgui_ver 1.81
 %global imgui_wrap_ver 1
@@ -21,9 +22,11 @@ Version:        0.7.0
 Release:        %autorelease
 Summary:        Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load
 
+%forgemeta
+
 License:        MIT
-URL:            https://github.com/flightlessmango/MangoHud
-Source0:        %{url}/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 # imgui
 Source1:        https://github.com/ocornut/imgui/archive/v%{imgui_ver}/imgui-%{imgui_ver}.tar.gz
 Source2:        https://wrapdb.mesonbuild.com/v%{imgui_wrap_ver}//projects/imgui/%{imgui_ver}/%{imgui_wrap_ver}/get_zip#/imgui-%{imgui_ver}-%{imgui_wrap_ver}-wrap.zip
@@ -98,7 +101,7 @@ Local visualization "mangoplot" for %{name}.
 
 
 %prep
-%autosetup -n %{appname}-%{tarball_version} -p1
+%forgeautosetup -p1
 %setup -qn %{appname}-%{tarball_version} -D -T -a1
 %setup -qn %{appname}-%{tarball_version} -D -T -a2
 %setup -qn %{appname}-%{tarball_version} -D -T -a3

@@ -3,7 +3,7 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global commit          e5c45cf0ab13368352ca11ccf2b9d47915189a8b
+%global commit          599359b0d532321954b685ba6b3a91f25f604ab3
 
 Version:        0
 %gometa
@@ -15,7 +15,7 @@ Meta's Time libraries.}
 %global godocs          CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        Meta's Time libraries
 
 # Upstream license specification: Apache-2.0
@@ -77,6 +77,7 @@ CLI and library to perform various PTP-related tasks, including:
   from local PTP client (ptp4l)
 - comparing system time with PHC time
 - mapping PHC devices to network cards and vice versa
+- sync 2 PHCs
 
 %package -n     ptp4u
 Summary:        Scalable unicast PTP server supporting PTP and SPTP
@@ -173,6 +174,9 @@ rm timestamp/timestamp_linux_test.go
 %gopkgfiles
 
 %changelog
+* Fri Oct 6 2023 Oleg Obleukhov <leoleovich@gmail.com> - 0-0.15
+- Rebuild latest
+
 * Wed Oct 4 2023 Oleg Obleukhov <leoleovich@gmail.com> - 0-0.14
 - Add sptp package build and rebase on new commit
 

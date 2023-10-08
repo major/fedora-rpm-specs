@@ -1,10 +1,10 @@
 Summary:	Backup and restore utilities for the XFS filesystem
 Name:		xfsdump
 Version:	3.1.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 # Licensing based on generic "GNU GENERAL PUBLIC LICENSE"
 # in source, with no mention of version.
-License:	GPL+
+License:	GPL-1.0-or-later
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/%{name}/%{name}-%{version}.tar.xz
 Source1:	http://kernel.org/pub/linux/utils/fs/xfs/%{name}/%{name}-%{version}.tar.sign
 Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13F703E6C11CF6F0.asc
@@ -63,6 +63,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/xfsdump/inventory
 %{_sharedstatedir}/xfsdump/inventory
 
 %changelog
+* Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 3.1.12-3
+- Convert License tag to SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

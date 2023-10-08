@@ -1,3 +1,9 @@
+%if 0%{?rhel}
+%bcond_with python
+%else
+%bcond_without python
+%endif
+
 Name:           qhexedit2
 # Remember to also update version in qhexedit2_build.patch in the setup.py hunk
 Version:        0.8.9
@@ -17,11 +23,13 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  qt5-qtbase-devel
+%if %{with python}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pyqt5-sip
 BuildRequires:  python3-qt5-devel
 BuildRequires:  %{py3_dist PyQt-builder}
 BuildRequires:  %{py3_dist sip} >= 5
+%endif
 
 Requires:       %{name}-qt5-libs%{?_isa} = %{version}-%{release}
 
@@ -59,6 +67,7 @@ The %{name}-doc package contains the documentation and examples for %{name}.
 
 ###############################################################################
 
+%if %{with python}
 %package -n python3-%{name}-qt5
 Summary:        %{name} Qt5 Python3 bindings
 Requires:       %{name}-qt5-libs%{?_isa} = %{version}-%{release}
@@ -74,6 +83,7 @@ Requires:       %{py3_dist sip} >= 5
 
 %description -n python3-%{name}-qt5-devel
 Development files for the %{name} Qt5 Python3 bindings
+%endif
 
 
 %prep
@@ -93,9 +103,11 @@ pushd build-lib-qt5
 %make_build
 popd
 
+%if %{with python}
 # Build sip bindings, qt5, python3
 sip-build --qmake=%{_qt5_qmake} --verbose --build-dir=build-python3-qt5 --no-make
 %make_build -C build-python3-qt5
+%endif
 
 # Build application
 mkdir build-example
@@ -127,9 +139,11 @@ Libs: -L\${libdir} -lqhexedit-qt5
 EOF
 
 
+%if %{with python}
 # Python bindings
 # Distutils does not support --build-base with install, you need to build also...
 %make_install INSTALL_ROOT=%{buildroot} -C build-python3-qt5
+%endif
 
 # Application
 install -Dpm 0755 build-example/qhexedit %{buildroot}%{_bindir}/qhexedit
@@ -154,12 +168,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE1}
 %license src/license.txt
 %doc doc/html
 
+%if %{with python}
 %files -n python3-%{name}-qt5
 %{python3_sitearch}/qhexedit.*.so
 %{python3_sitearch}/QHexEdit-%{version}*info
 
 %files -n python3-%{name}-qt5-devel
 %{python3_sitearch}/PyQt5/bindings/qhexedit/
+%endif
 
 
 %changelog

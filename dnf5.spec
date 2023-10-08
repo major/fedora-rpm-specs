@@ -1,11 +1,11 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 4
+%global project_version_patch 5
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
-Version:        5.1.4
+Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
 Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
@@ -70,6 +70,7 @@ Provides:       dnf5-command(makecache)
 %bcond_without dnf5
 %bcond_without dnf5_plugins
 %bcond_without plugin_actions
+%bcond_without plugin_rhsm
 %bcond_without python_plugins_loader
 
 %bcond_without comps
@@ -181,6 +182,11 @@ BuildRequires:  python3dist(dbus-python)
 %endif
 %endif
 
+%if %{with plugin_rhsm}
+BuildRequires:  pkgconfig(librhsm) >= 0.0.3
+BuildRequires:  pkgconfig(glib-2.0) >= 2.44.0
+%endif
+
 # ========== language bindings section ==========
 
 %if %{with perl5} || %{with ruby} || %{with python3}
@@ -272,6 +278,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man7/dnf5-comps.7.*
 # TODO(jkolarik): filtering is not ready yet
 # %%{_mandir}/man7/dnf5-filtering.7.*
+%{_mandir}/man7/dnf5-forcearch.7.*
 %{_mandir}/man7/dnf5-installroot.7.*
 # TODO(jkolarik): modularity is not ready yet
 # %%{_mandir}/man7/dnf5-modularity.7.*
@@ -524,6 +531,26 @@ Libdnf5 plugin that allows to run actions (external executables) on hooks.
 %endif
 
 
+# ========== libdnf5-plugin-plugin_rhsm ==========
+
+%if %{with plugin_rhsm}
+%package -n libdnf5-plugin-rhsm
+Summary:        Libdnf5 rhsm (Red Hat Subscription Manager) plugin
+License:        LGPL-2.1-or-later
+Requires:       libdnf5%{?_isa} = %{version}-%{release}
+
+%description -n libdnf5-plugin-rhsm
+Libdnf5 plugin with basic support for Red Hat subscriptions.
+Synchronizes the the enrollment with the vendor system. This can change
+the contents of the repositories configuration files according
+to the subscription levels.
+
+%files -n libdnf5-plugin-rhsm
+%{_libdir}/libdnf5/plugins/rhsm.*
+%config %{_sysconfdir}/dnf/libdnf5-plugins/rhsm.conf
+%endif
+
+
 # ========== python3-libdnf5-plugins-loader ==========
 
 %if %{with python_plugins_loader}
@@ -707,6 +734,19 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Thu Oct 05 2023 Packit <hello@packit.dev> - 5.1.5-1
+- Improved ConfigParser
+- Improved docs for `group install` and `group remove`
+- Fix man pages deployment
+- Update API doc related to keepcache
+- Implement `rhsm` (Red Hat Subscription Manager) plugin
+- Document `--dump-variables`
+- Implement `dnf5 --dump-variables`
+- Improve contributing guidelines: don't mention "ready-for-review"
+- Allow specifying upper-case tags in `repoquery --queryformat`
+- api: Make get_base_arch() public
+- Improve input for large epochs that don't fit into `time_t`
+
 * Mon Sep 18 2023 Packit <hello@packit.dev> - 5.1.4-1
 - Fix Builds on i386
 - Print error if unsupported architecture used

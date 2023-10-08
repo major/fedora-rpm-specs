@@ -1,10 +1,14 @@
+%global forgeurl https://github.com/vkohaupt/%{name}
+
 Name:           vokoscreenNG
-Version:        3.7.0
+Version:        3.8.0
 Release:        %autorelease
 Summary:        Powerful screencast creator to record the screen
 
-License:        GPLv2
-URL:            https://github.com/vkohaupt/vokoscreenNG
+%forgemeta
+
+License:        GPL-2.0-only
+URL:            %{forgeurl}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # AppData manifest
 Source1:        https://raw.githubusercontent.com/flathub/com.github.vkohaupt.%{name}/master/%{name}.appdata.xml
@@ -16,8 +20,8 @@ BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
-BuildRequires:  cmake(Qt5) >= 5.14
-BuildRequires:  cmake(Qt5LinguistTools) >= 5.14
+BuildRequires:  cmake(Qt5) >= 5.15
+BuildRequires:  cmake(Qt5LinguistTools) >= 5.15
 BuildRequires:  cmake(Qt5Multimedia)
 BuildRequires:  cmake(Qt5X11Extras)
 
@@ -34,7 +38,7 @@ job.
 
 
 %prep
-%autosetup
+%forgeautosetup -p1
 mkdir -p src/%{_target_platform}
 
 
@@ -47,18 +51,18 @@ popd
 
 %install
 %make_install -C src/%{_target_platform}
-install -Dpm 0755 src/%{_target_platform}/%{name} \
+install -D -p -m 0755 src/%{_target_platform}/%{name} \
     %{buildroot}%{_bindir}/%{name}
 
 # Desktop file
-install -Dpm 0644 src/applications/%{name}.desktop \
+install -D -p -m 0644 src/applications/%{name}.desktop \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # AppData manifest
-install -Dpm 0644 %{SOURCE1} -t %{buildroot}%{_metainfodir}/
+install -D -p -m 0644 %{SOURCE1} -t %{buildroot}%{_metainfodir}/
 
 # Icon
-install -Dpm 0644 src/applications/%{name}.png \
+install -D -p -m 0644 src/applications/%{name}.png \
     %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 

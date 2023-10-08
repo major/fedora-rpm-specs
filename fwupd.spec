@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.9.5
+Version:   1.9.6
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -87,6 +87,7 @@ BuildRequires: json-glib-devel >= %{json_glib_version}
 BuildRequires: vala
 BuildRequires: bash-completion
 BuildRequires: git-core
+BuildRequires: kernel-headers
 %if 0%{?have_flashrom}
 BuildRequires: flashrom-devel >= 1.2-2
 %endif
@@ -231,15 +232,16 @@ or server machines.
     -Dplugin_uefi_pk=disabled \
     -Dplugin_tpm=disabled \
 %endif
-    -Dplugin_dell=disabled \
 %if 0%{?have_modem_manager}
     -Dplugin_modem_manager=enabled \
 %else
     -Dplugin_modem_manager=disabled \
 %endif
     -Dman=true \
+    -Dsystemd_unit_user="" \
     -Dbluez=enabled \
     -Dplugin_powerd=disabled \
+    -Dlaunchd=disabled \
     -Dsupported_build=enabled
 
 %meson_build

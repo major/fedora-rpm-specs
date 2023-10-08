@@ -1,6 +1,6 @@
 Name:           python-smbpasswd
 Version:        1.0.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python SMB Password Hash Generator Module
 
 License:        GPL-2.0-only
@@ -60,6 +60,9 @@ assert smbpasswd.hash("check") == (lmhash, nthash)'
 %{python3_sitearch}/*egg-info/
 
 %changelog
+* Thu Oct 05 2023 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-16
+- adding %%check to prevent building non-working library
+
 * Thu Oct 05 2023 Michal Ambroz <rebus at_ seznam.cz> - 1.0.2-15
 - python 3.10 fix for PY_SSIZE_T_CLEAN s# formatting
 

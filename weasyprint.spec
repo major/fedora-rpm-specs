@@ -23,6 +23,7 @@ BuildRequires:  ghostscript
 # https://doc.courtbouillon.org/weasyprint/latest/first_steps.html
 BuildRequires:  pango >= 1.44.0
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-xdist)
 
 Requires:       python3-weasyprint = %{version}-%{release}
 
@@ -59,7 +60,7 @@ can export to PDF. It aims to support web standards for printing.
 %pyproject_install
 
 %check
-%pytest
+%pytest -n auto
 # do not ship tests
 rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 

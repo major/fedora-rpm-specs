@@ -4,7 +4,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
@@ -13,7 +13,7 @@ Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.gz
 
 # For now, see upstream
-ExclusiveArch:  x86_64 aarch64
+ExclusiveArch:  x86_64 aarch64 ppc64le
 BuildRequires: make
 BuildRequires:  openssl-devel
 %if 0%{?rhel} && !0%{?eln}
@@ -74,6 +74,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Fri Oct 06 2023 Colin Walters <walters@verbum.org> - 0.2.11-5
+- Enable ppc64le, it is supported now
+
 * Sat Sep 30 2023 Fabio Valentini <decathorpe@gmail.com> - 0.2.11-4
 - Updates for the latest Rust packaging and license tag / SPDX guidelines.
 

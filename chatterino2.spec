@@ -1,6 +1,7 @@
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
+%global forgeurl https://github.com/Chatterino/%{name}
 %global uuid com.chatterino.chatterino
 %global chatterino_git_commit eb8c7f2d4dbe0e9bdb1dd3133a1e8370c3a75e5a
 %global chatterino_git_shortcommit %(c=%{chatterino_git_commit}; echo ${c:0:7})
@@ -41,6 +42,8 @@ Version:        2.4.6
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 
+%forgemeta
+
 # Boost Software License (v1.0) Boost Software License 1.0
 # -----------------------------------------------------------------------
 # resources/licenses/boost_boost.txt
@@ -65,8 +68,8 @@ Summary:        Chat client for https://twitch.tv
 #
 License:        MIT and BSL-1.0 and BSD-3-Clause and zlib and GPL-2.0-or-later and LGPL-2.1-or-later and MPL-1.1
 
-URL:            https://github.com/Chatterino/chatterino2
-Source0:        %{url}/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 Source2:        https://github.com/hemirt/libcommuni/archive/%{commit2}/libcommuni-%{shortcommit2}.tar.gz
 Source3:        https://github.com/pajlada/settings/archive/%{commit3}/settings-%{shortcommit3}.tar.gz
 Source4:        https://github.com/pajlada/signals/archive/%{commit4}/signals-%{shortcommit4}.tar.gz
@@ -121,7 +124,7 @@ Chatterino 2 is a chat client for Twitch.tv.
 
 
 %prep
-%setup -n %{name}-%{tarball_version} -q
+%forgesetup
 %patch 0 -p1
 %setup -n %{name}-%{tarball_version} -q -D -T -a2
 %setup -n %{name}-%{tarball_version} -q -D -T -a3

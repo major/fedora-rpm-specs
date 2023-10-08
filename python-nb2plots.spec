@@ -1,5 +1,5 @@
 Name:           python-nb2plots
-Version:        0.7
+Version:        0.7.2
 Release:        1%{?dist}
 Summary:        Convert between Jupyter notebooks and sphinx docs
 
@@ -9,9 +9,6 @@ Summary:        Convert between Jupyter notebooks and sphinx docs
 License:        BSD-2-Clause AND CC0-1.0
 URL:            https://matthew-brett.github.io/nb2plots/
 Source0:        https://github.com/matthew-brett/nb2plots/archive/%{version}/nb2plots-%{version}.tar.gz
-# Fix reference to nonexistent bin_stdout
-# See https://github.com/matthew-brett/nb2plots/issues/31
-Patch0:         %{name}-bin-stdout.patch
 
 BuildArch:      noarch
 
@@ -128,6 +125,10 @@ cp -a man1 %{buildroot}%{_mandir}
 %doc doc/_build/html/*
 
 %changelog
+* Fri Oct  6 2023 Jerry James <loganjerry@gmail.com> - 0.7.2-1
+- Version 0.7.2
+- Drop upstreamed patch for bin_stdout
+
 * Mon Aug 21 2023 Jerry James <loganjerry@gmail.com> - 0.7-1
 - Version 0.7
 - Add patch to fix reference to nonexistent bin_stdout function

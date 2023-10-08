@@ -7,8 +7,8 @@
 %bcond_with bootstrap
 
 Name:           python-BTrees
-Version:        5.0
-Release:        3%{?dist}
+Version:        5.1
+Release:        1%{?dist}
 Summary:        Scalable persistent object containers
 
 License:        ZPL-2.1
@@ -75,6 +75,10 @@ Documentation for %{name}.
 %prep
 %autosetup -n BTrees-%{version}
 
+# Do not use the bundled python-persistent headers
+rm -fr include/persistent/persistent
+ln -s %{_includedir}/%{python3_version}/persistent include/persistent/persistent
+
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
     -e "s|\('https://persistent\.readthedocs\.io/en/latest/': \)None|\1'%{_docdir}/python3-persistent-doc/objects.inv'|" \
@@ -117,6 +121,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Fri Oct  6 2023 Jerry James <loganjerry@gmail.com> - 5.1-1
+- Version 5.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

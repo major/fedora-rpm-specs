@@ -47,7 +47,7 @@ BuildRequires:  python3dist(pillow)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(wheel)
-BuildRequires:  python3dist(setuptools-scm-git-archive)
+BuildRequires:  python3dist(setuptools-scm) >= 7
 
 %description -n python3-%{srcname}
 A Python package for making interactive animated plots build on Matplotlib.

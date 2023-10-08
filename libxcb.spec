@@ -2,7 +2,7 @@
 
 Name:       libxcb
 Version:    1.16
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A C binding to the X11 protocol
 License:    X11
 URL:        http://xcb.freedesktop.org/
@@ -70,7 +70,7 @@ make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
-install -pm 644 COPYING NEWS README $RPM_BUILD_ROOT%{_pkgdocdir}
+install -pm 644 COPYING NEWS README.md $RPM_BUILD_ROOT%{_pkgdocdir}
 sed 's,@libdir@,%{_libdir},;s,@prefix@,%{_prefix},;s,@exec_prefix@,%{_exec_prefix},' %{SOURCE1} \
     > $RPM_BUILD_ROOT%{_libdir}/pkgconfig/pthread-stubs.pc
 
@@ -83,6 +83,7 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %files
 %{_libdir}/libxcb-composite.so.0*
 %{_libdir}/libxcb-damage.so.0*
+%{_libdir}/libxcb-dbe.so.0*
 %{_libdir}/libxcb-dpms.so.0*
 %{_libdir}/libxcb-dri2.so.0*
 %{_libdir}/libxcb-dri3.so.0*
@@ -117,6 +118,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %{_pkgdocdir}
 
 %changelog
+* Fri Oct 06 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.16-2
+- Add missing README.md and libxcb-dbe
+
 * Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.16-1
 - libxcb 1.16
 

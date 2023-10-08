@@ -56,8 +56,8 @@
 
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
-Version: 5.15.10
-Release: 9%{?dist}
+Version: 5.15.11
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -141,11 +141,11 @@ Patch90: %{name}-gcc11.patch
 
 ## upstream patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.10-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+# git diff v5.15.11-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Patch100: kde-5.15-rollup-20230613.patch.gz
+Patch100: kde-5.15-rollup-20231006.patch.gz
 # HACK to make 'fedpkg sources' consider it 'used"
-Source100: kde-5.15-rollup-20230613.patch.gz
+Source100: kde-5.15-rollup-20231006.patch.gz
 
 Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # Workaround for font rendering issue with cjk-vf-fonts
@@ -158,7 +158,6 @@ Patch103: qtbase-QTBUG-112136.patch
 Patch104: qtbase-QTBUG-103393.patch
 
 # upstream security fixes
-Patch110: CVE-2023-37369-qtbase-5.15.diff
 
 ## Qt 6 backports for better Gtk/GNOME integration
 # https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
@@ -462,7 +461,6 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P102 -p1
 %patch -P103 -p1
 %patch -P104 -p1
-%patch -P110 -p1
 
 ## Qt 6 backports
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8
@@ -652,7 +650,7 @@ translationdir=%{_qt5_translationdir}
 
 Name: Qt5
 Description: Qt5 Configuration
-Version: 5.15.10
+Version: 5.15.11
 EOF
 
 # rpm macros
@@ -1168,6 +1166,9 @@ fi
 
 
 %changelog
+* Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-10
+- 5.15.11
+
 * Tue Aug 29 2023 LuK1337 <priv.luk@gmail.com> - 5.15.10-9
 - Apply PySide2 build fix from OpenMandriva
 

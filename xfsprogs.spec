@@ -1,8 +1,8 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
 Version:	6.4.0
-Release:	1%{?dist}
-License:	GPL+ and LGPLv2+
+Release:	2%{?dist}
+License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
 Source1:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.sign
@@ -126,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 6.4.0-2
+- Convert License tag to SPDX format
+
 * Tue Aug 08 2023 Pavel Reichl <preichl@redhat.com> - 6.4.0-1
 - New upstream release (#2223973)
 

@@ -37,7 +37,7 @@ ends when there are no possible moves left.
 
 export LDFLAGS="${LDFLAGS} -lm -Wl,--export-dynamic "
 ./autogen.sh
-%configure --localstatedir=/var/lib
+%configure --localstatedir=%{_localstatedir}/lib
 #echo "Encoding=UTF-8" >> data/gweled.desktop
 #mv gweled.desktop gweled.desktop.old
 #iconv --from-code=ISO-8859-1 --to-code=UTF-8 <gweled.desktop.old > gweled.desktop

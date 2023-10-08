@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        118.0.1
-Release:        5%{?pre_tag}%{?dist}
+Release:        7%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -1053,7 +1053,7 @@ fi
 %dir %{_sysconfdir}/%{name}/*
 %dir %{_datadir}/mozilla/extensions/*
 %dir %{_libdir}/mozilla/extensions/*
-%{_datadir}/applications/*.desktop
+%{_datadir}/applications/firefox.desktop
 %{_datadir}/metainfo/*.appdata.xml
 %{_datadir}/gnome-shell/search-providers/*.ini
 %{_datadir}/dbus-1/services/*
@@ -1119,6 +1119,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Oct 06 2023 Alessandro Astone <ales.astone@gmail.com> - 118.0.1-7
+- Don't include -x11 and -wayland desktop files in the main package (rhbz#2242523)
+
+* Fri Oct 6 2023 Martin Stransky <stransky@redhat.com>- 118.0.1-6
+- Removed DBusActivatable flag from desktop file as it crashes KDE (rhbz#2242454).
+
 * Thu Oct 05 2023 Kalev Lember <klember@redhat.com> - 118.0.1-5
 - Fix flatpak build
 

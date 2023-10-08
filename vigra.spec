@@ -1,7 +1,7 @@
 Summary:        Generic Programming for Computer Vision
 Name:           vigra
 Version:        1.11.1
-Release:        47%{?dist}
+Release:        48%{?dist}
 License:        MIT
 # The "Lenna" files are non-free, we need to remove them from the source tarball.
 # wget https://github.com/ukoethe/vigra/releases/download/Version-1-11-1/vigra-1.11.1-src.tar.gz
@@ -48,6 +48,7 @@ BuildRequires:  cmake(Imath)
 BuildRequires:  OpenEXR-devel
 %endif
 BuildRequires:  python3-numpy-f2py
+BuildRequires:  python3-nose
 BuildRequires:  boost-python3
 BuildRequires:  boost-python3-devel
 %else
@@ -103,6 +104,7 @@ sed -i 's=SET(BOOST_PYTHON_NAMES=& boost_python%{python3_version_nodots}=' \
 
 export CXXFLAGS="%{optflags} -DH5_USE_110_API"
 %cmake -DWITH_OPENEXR=1 -DWITH_HDF5=1 -DWITH_VALGRIND=0 -DWITH_LEMON=0 \
+          -DPYTHON_NUMPY_INCLUDE_DIR=%{_includedir}/numpy \
           -DWITH_VIGRANUMPY=1 -DPYTHON_VERSION=%{python3_version}
 %cmake_build
 %else
@@ -162,6 +164,9 @@ install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/vigra-config
 %endif
 
 %changelog
+* Fri Oct 06 2023 Bruno Postle <bruno@postle.net> - 1.11.1-48
+- Add python3-nose build dependency, try and avoid numpy.distutils
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

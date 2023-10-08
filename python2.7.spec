@@ -78,7 +78,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 33%{?dist}
+Release: 34%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -743,7 +743,7 @@ Patch193: 00193-enable-loading-sqlite-extensions.patch
 # (we handle it it in Setup.dist, see Patch0)
 Patch289: 00289-disable-nis-detection.patch
 
-# 00351 # 1ae2a3db6d7af4ea973d1aee285e5fb9f882fdd0
+# 00351 # 2ee72df6cc70c914e55da3017244c59c5d2c872c
 # Avoid infinite loop when reading specially crafted TAR files using the tarfile module
 # (CVE-2019-20907).
 # See: https://bugs.python.org/issue39017
@@ -790,7 +790,7 @@ Patch357: 00357-CVE-2021-3177.patch
 # but a warning is raised if parse_qs is used on input that contains ';'.
 Patch359: 00359-CVE-2021-23336.patch
 
-# 00361 # b86ebbab187c809f536620e2cbf1f370886979a9
+# 00361 # 67d6979a90e1dddf902dd1dc42fef34b80ca325b
 # Make python2.7 compatible with OpenSSL 3.0.0
 #
 # Backported from python3.
@@ -914,6 +914,10 @@ Patch399: 00399-cve-2023-24329.patch
 # a version that's allowed by the config, but this test skips them.
 # This is fixed by simply using TLSv1_2 to start with.
 Patch403: 00403-no-tls-10.patch
+
+# 00405 # 0be039ad8332dded8b1336346a8fa59b84630cbf
+# Fix C99 build error: declare functions explicitly
+Patch405: 00405-fix-c99-build-error.patch
 
 # (New patches go here ^^^)
 #
@@ -1086,6 +1090,7 @@ git apply %{PATCH351}
 %patch394 -p1
 %patch399 -p1
 %patch403 -p1
+%patch405 -p1
 
 %if %{without tkinter}
 %patch4000 -p1
@@ -1787,6 +1792,9 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Fri Oct 06 2023 Victor Stinner <vstinner@python.org> - 2.7.18-34
+- Fix C99 build error: declare functions explicitly
+
 * Mon Aug 21 2023 Owen Taylor <otaylor@redhat.com> - 2.7.18-33
 - Turn off tkinter for Flatpak builds
 - Fix test suite failure with openssl >= 3.1.0

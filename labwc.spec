@@ -1,12 +1,15 @@
+%global forgeurl https://github.com/%{name}/%{name}
+
 Name:       labwc
 Version:    0.6.5
 Release:    %autorelease
 Summary:    Openbox alternative for Wayland
 
+%forgemeta
+
 License:    GPL-2.0-only
-URL:        https://github.com/labwc/labwc
+URL:        %{forgeurl}
 Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:    %{name}.desktop
 
 BuildRequires: gcc
 BuildRequires: meson >= 0.59.0
@@ -65,7 +68,7 @@ session. Nor does it depend on any UI toolkits such as Qt or GTK.
 
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 
 %build

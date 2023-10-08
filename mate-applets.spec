@@ -15,7 +15,7 @@
 Name:           mate-applets
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %else
 Release:        0.7%{?git_rel}%{?dist}
 %endif
@@ -87,6 +87,10 @@ NOCONFIGURE=1 ./autogen.sh
     --libexecdir=%{_libexecdir}/mate-applets \
     --with-dbus-sys=%{_datadir}/dbus-1/system.d
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2241946
+# fix linking gtksourceview
+sed -i /LDFLAGS/s/--as-needed/--no-as-needed/g stickynotes/Makefile
+
 make %{?_smp_mflags} V=1
 
 %install
@@ -137,6 +141,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Fri Oct 06 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-6
+- fix linking gtksourceview, rhbz (#2241946)
+
 * Wed Sep 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-5
 - rebuild for soname bump in kernel-tools
 

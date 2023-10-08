@@ -22,9 +22,9 @@
 Name: nagios-plugins
 Version: 2.4.6
 %if 0%{?fromgit}
-Release: 1.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 2.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 1%{?dist}
+Release: 2%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -89,8 +89,6 @@ BuildRequires: qstat
 BuildRequires: samba-client
 
 BuildRequires: mariadb-connector-c-devel
-BuildRequires: mariadb-connector-c
-BuildRequires: mariadb-devel
 %if %{with radius}
 BuildRequires: freeradius-client-devel
 %endif
@@ -875,6 +873,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Fri Oct 06 2023 Michal Schorm <mschorm@redhat.com> - 2.4.6-2
+- Build against the mariadb-connector-c-devel package
+
 * Wed Aug 16 2023 Guido Aulisi <guido.aulisi@gmail.com> - 2.4.6-1
 - Update to 2.4.6
 

@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 80
+%global microversion 81
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -80,7 +80,6 @@ Source1:        pipewire.sysusers
 ## upstreamable patches
 
 ## fedora patches
-Patch0001:	0001-Revert-aec-webrtc-Bump-to-webrtc-audio-processing-1.patch
 
 BuildRequires:  gettext
 BuildRequires:  meson >= 0.59.0
@@ -723,6 +722,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Oct 6 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.81-1
+- Update version to 0.3.81
+
 * Thu Sep 14 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.80-1
 - Update version to 0.3.80
 - Revert webrtc echo-cancel updates until fedora has newer version.

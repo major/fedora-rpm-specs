@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.27
+Version: 12.28
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
@@ -524,8 +524,13 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Oct 06 2023 Nick Clifron  <nickc@redhat.com> - 12.28-1
+- GCC Plugin: Record settings of -Wstrict-flex-arrays and -fstrict-flex-arrays
+- Annobin: Add future test of these options.
+
 * Tue Sep 26 2023 Nick Clifron  <nickc@redhat.com> - 12.27-1
 - GCC Plugin: Record settings of -Wimplicit-int and -Wimplicit-function-declaration.
+- Annobin: Add test for these warnings.
 
 * Wed Sep 06 2023 Nick Clifron  <nickc@redhat.com> - 12.26-1
 - LLVM Plugin: Fix building with LLVM version 17.

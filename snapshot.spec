@@ -34,6 +34,9 @@ Source:         https://download.gnome.org/sources/snapshot/45/snapshot-%{tarbal
 # Downstream patch to disable linting as part of self tests
 Patch:          0001-Disable-cargo-clippy-test.patch
 
+# https://gitlab.gnome.org/GNOME/snapshot/-/merge_requests/168
+Patch:          168.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

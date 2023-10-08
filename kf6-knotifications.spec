@@ -1,0 +1,71 @@
+%global gitdate 20231001.134620
+%global cmakever 5.240.0
+%global commit0 703d04faebb76129d70f667409313bf38a24d656
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global framework knotifications
+
+Name:    kf6-%{framework}
+Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Release: 1%{?dist}
+Summary: KDE Frameworks 6 Tier 2 solution with abstraction for system notifications
+
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
+URL:     https://invent.kde.org/frameworks/%{framework}
+
+Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+
+BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  libcanberra-devel
+BuildRequires:  cmake(KF6Config)
+
+%description
+KDE Frameworks 6 Tier 3 solution with abstraction for system
+notifications.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       qt6-qtbase-devel
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%prep
+%autosetup -n %{framework}-%{commit0} -p1
+
+%build
+%cmake_kf6
+%cmake_build
+
+%install
+%cmake_install
+%find_lang_kf6 knotifications6_qt
+# We own the folder
+mkdir -p %{buildroot}/%{_kf6_datadir}/knotifications6
+
+%files -f knotifications6_qt.lang
+%doc README.md
+%license LICENSES/*.txt
+%{_kf6_datadir}/qlogging-categories6/%{framework}.*
+%{_kf6_libdir}/libKF6Notifications.so.*
+%dir %{_kf6_datadir}/knotifications6
+%{_libdir}/qt6/qml/org/kde/notification/kde-qmlmodule.version
+%{_libdir}/qt6/qml/org/kde/notification/knotificationqmlplugin.qmltypes
+%{_libdir}/qt6/qml/org/kde/notification/libknotificationqmlplugin.so
+%{_libdir}/qt6/qml/org/kde/notification/qmldir
+
+%files devel
+%{_kf6_includedir}/KNotifications/
+%{_kf6_libdir}/libKF6Notifications.so
+%{_kf6_libdir}/cmake/KF6Notifications/
+
+%changelog
+* Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231001.134620.703d04f-1
+- Initial Release

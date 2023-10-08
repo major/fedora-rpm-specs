@@ -6,12 +6,14 @@
 %global incname ibmtss
 
 Name:           tss2
+# this is the release of the TSS library
 Version:        2.1.1
-Release:        1%{?dist}
+# this is the release of the fedora package, goes back to 1 when version changes
+Release:        2%{?dist}
 Epoch:          1
 Summary:        IBM's TCG Software Stack (TSS) for TPM 2.0 and related utilities
 
-License:        BSD-3-Clause AND TCGL
+License:        BSD-3-Clause AND LicenseRef-TCGL
 URL:            http://sourceforge.net/projects/ibmtpm20tss/
 Source0:        https://sourceforge.net/projects/ibmtpm20tss/files/ibmtss%{version}.tar.gz
 
@@ -77,6 +79,9 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %doc ibmtss.docx
 
 %changelog
+
+* Fri Oct 6 2023 Ken Goldman <kgoldman@us.ibm.com> - 1:2.1.1-2
+- Update license
 
 * Fri Sep 29 2023 Ken Goldman <kgoldman@us.ibm.com> - 1:2.1.1-1
 - Updates to release 2.1

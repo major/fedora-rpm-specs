@@ -1,8 +1,8 @@
 %global srcname traitlets
 
 Name:           python-%{srcname}
-Version:        5.9.0
-Release:        3%{?dist}
+Version:        5.11.2
+Release:        1%{?dist}
 Summary:        A lightweight derivative of Enthought Traits for configuring Python objects
 
 License:        BSD-3-Clause
@@ -52,11 +52,14 @@ This package powers the config system of IPython and Jupyter.
 
  
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
-%doc README.md
-%license COPYING.md
+%doc CHANGELOG.md README.md
+%license LICENSE
 
 
 %changelog
+* Thu Oct 05 2023 Orion Poplawski <orion@nwra.com> - 5.11.2-1
+- Update to 5.11.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

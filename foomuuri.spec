@@ -1,5 +1,5 @@
 Name:           foomuuri
-Version:        0.20
+Version:        0.21
 Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
@@ -65,7 +65,7 @@ make install DESTDIR=%{buildroot}
 
 %if (%{defined fedora} || %{defined epel})
 %check
-make test || :  # ignore pylint error on epel9 until fixed in upstream
+make test
 %endif
 
 
@@ -115,6 +115,18 @@ fi
 
 
 %changelog
+* Fri Oct 06 2023 Kim B. Heino <b@bbbs.net> - 0.21-1
+- Upgrade to 0.21
+
+* Wed Sep 27 2023 Kim B. Heino <b@bbbs.net> - 0.20-4
+- Upgrade to snapshot 5bccb4d
+
+* Thu Sep 21 2023 Kim B. Heino <b@bbbs.net> - 0.20-3
+- Upgrade to snapshot dcb332c
+
+* Mon Sep 18 2023 Kim B. Heino <b@bbbs.net> - 0.20-2
+- Upgrade to snapshot 34816cc
+
 * Tue Aug 15 2023 Kim B. Heino <b@bbbs.net> - 0.20-1
 - Upgrade to 0.20
 

@@ -1,9 +1,4 @@
-%if 0%{?rhel} == 9
-# RHEL 9 is missing python-flexmock
-%bcond_with tests
-%else
 %bcond_without tests
-%endif
 
 
 %global desc %{expand:
@@ -13,7 +8,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.22.0
+Version:        0.22.1
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -46,6 +41,10 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n specfile-%{version}
 
+# since we are building from PyPI source, we don't need git-archive
+# support in setuptools_scm
+sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
+
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests: -x testing}
@@ -71,6 +70,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Oct 06 2023 Packit <hello@packit.dev> - 0.22.1-1
+- Removed dependency on setuptools-scm-git-archive. (#290)
+
 * Fri Sep 01 2023 Packit <hello@packit.dev> - 0.22.0-1
 - Macro definitions and tags gained a new `valid` attribute. A macro definition/tag is considered valid if it doesn't appear in a false branch of any condition appearing in the spec file. (#276)
 

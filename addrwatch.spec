@@ -2,17 +2,17 @@
 
 Name:		addrwatch
 Version:	1.0.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Monitoring IPv4/IPv6 and Ethernet address pairings
 
-License:	GPLv3
+License:	GPL-3.0
 URL:		https://github.com/fln/addrwatch
 Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.service
 Source2:	%{name}.sysconfig
 
 %{?systemd_requires}
-BuildRequires:	libpcap-devel, libevent-devel, systemd, mariadb-devel, sqlite-devel, gcc
+BuildRequires:	libpcap-devel, libevent-devel, systemd, mariadb-connector-c-devel, sqlite-devel, gcc
 BuildRequires:	autoconf automake
 BuildRequires: make
 Requires(pre):	shadow-utils
@@ -77,6 +77,9 @@ exit 0
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Oct 06 2023 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 1.0.2-8
+- switch to correct mariadb buildReq as requested by Michal Schorm
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    d75d17c16a863438027d1d96401cddcd6aa5bb60
+%global gh_commit    4b0fe89db9e65b1e64df633a992e70a7a215ab33
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.6.4
+%global upstream_version 2.6.5
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -107,7 +107,7 @@ Provides:       bundled(php-symfony-polyfill-php80) = v1.28.0
 Provides:       bundled(php-symfony-polyfill-php81) = v1.28.0
 Provides:       bundled(php-symfony-process) = v5.4.28
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-string) = v5.4.26
+Provides:       bundled(php-symfony-string) = v5.4.29
 
 # From composer.json, suggest
 #        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -249,6 +249,9 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Oct  6 2023 Remi Collet <remi@remirepo.net> - 2.6.5-1
+- update to 2.6.5
+
 * Fri Sep 29 2023 Remi Collet <remi@remirepo.net> - 2.6.4-1
 - update to 2.6.4
 

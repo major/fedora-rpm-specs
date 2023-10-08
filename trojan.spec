@@ -24,7 +24,7 @@ BuildRequires:    make
 BuildRequires:    cmake >= 3.7.2
 BuildRequires:    boost-devel >= 1.66.0
 BuildRequires:    openssl-devel >= 1.1.0
-BuildRequires:    mariadb-devel
+BuildRequires:    mariadb-connector-c-devel
 %if 0%{?fedora} >= 30
 BuildRequires:    systemd-rpm-macros
 %else

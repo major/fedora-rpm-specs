@@ -25,12 +25,15 @@ ExcludeArch: %{ix86}
 
 
 %global appname QOwnNotes
-%global url1    https://github.com/pbek
+%global url1 https://github.com/pbek
+%global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
 Version:        23.9.7
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
+
+%forgemeta
 
 # The entire source code is MIT except bundled libs:
 # BSD:          qdarkstyle
@@ -46,7 +49,7 @@ Summary:        Plain-text file markdown note taking with Nextcloud integration
 # Apache-2.0:           diff_match_patch
 License:        MIT and BSD and GPL-2.0-only and GPL-3.0-or-later and LGPL-2.1-or-later and Apache-2.0
 URL:            https://www.qownnotes.org
-Source0:        %{url1}/QOwnNotes/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{forgesource}
 Source1:        %{url1}/qmarkdowntextedit/archive/%{qmarkdowntextedit_commit}/qmarkdowntextedit-%{qmarkdowntextedit_shortcommit}.tar.gz
 Source2:        %{url1}/Qt-Toolbar-Editor/archive/%{qttoolbareditor_commit}/qttoolbareditor-%{qttoolbareditor_shortcommit}.tar.gz
 Source3:        %{url1}/qtcsv/archive/%{qtcsv_commit}/qtcsv-%{qtcsv_shortcommit}.tar.gz
@@ -129,7 +132,7 @@ Translations files for %{name}.
 
 
 %prep
-%autosetup -n %{appname}-%{version} -p1
+%forgeautosetup -p1
 %autosetup -n %{appname}-%{version} -D -T -a1
 %autosetup -n %{appname}-%{version} -D -T -a2
 %autosetup -n %{appname}-%{version} -D -T -a3

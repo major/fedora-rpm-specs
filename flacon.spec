@@ -2,8 +2,8 @@
 %bcond_with tests
 
 Name:          flacon
-Version:       11.2.0
-Release:       2%{?dist}
+Version:       11.3.0
+Release:       1%{?dist}
 Summary:       Audio File Encoder
 
 License:       LGPL-2.1-or-later
@@ -87,6 +87,9 @@ cd %{_target_platform}/tests && ./flacon_test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Oct  6 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 11.3.0-1
+- Update to 11.3.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

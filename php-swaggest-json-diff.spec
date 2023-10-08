@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-swaggest-json-diff
 #
-# Copyright (c) 2019-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2019-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.10.4
-Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        4%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        JSON diff/rearrange/patch/pointer library for PHP
 
 License:        MIT
@@ -37,8 +37,8 @@ BuildArch:      noarch
 BuildRequires:  php-json
 # For tests, from composer.json "require-dev": {
 #    "phpunit/phpunit": "4.8.37"
-BuildRequires:  php-composer(phpunit/phpunit) >= 4.8.37
-%global phpunit %{_bindir}/phpunit
+BuildRequires:  phpunit9
+%global phpunit %{_bindir}/phpunit9
 BuildRequires:  php-filter
 BuildRequires:  php-pcre
 # For autoloader
@@ -86,12 +86,19 @@ cat << 'EOF' | tee vendor/autoload.php
 <?php
 require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('%{ns_vendor}\\%{ns_project}\\Tests\\', dirname(__DIR__).'/tests');
+
+class PHPUnit_Framework_TestCase extends \PHPUnit\Framework\Testcase {
+	function setExpectedException($e, $m) {
+		$this->expectException($e);
+		$this->expectExceptionMessage($m);
+	}
+}
 EOF
 
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
    if which $cmd; then
-      $cmd %{phpunit} --no-coverage --verbose || ret=1
+      $cmd %{phpunit} --no-coverage || ret=1
    fi
 done
 exit $ret
@@ -110,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct  6 2023 Remi Collet <remi@remirepo.net> - 3.10.4-4
+- switch to phpunit9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

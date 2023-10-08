@@ -43,7 +43,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -109,8 +109,10 @@ Requires:       libzstd-devel%{?_isa}
 # of ocaml-runtime.
 Requires:       ocaml-runtime%{?_isa} = %{version}-%{release}
 
-# Force ocaml-srpm-macros to be at the latest version, since OCaml 5.1
-# has a different set of native code generators than previous versions.
+# Force ocaml-srpm-macros to be at the latest version, both for builds
+# and installs, since OCaml 5.1 has a different set of native code
+# generators than previous versions.
+BuildRequires:  ocaml-srpm-macros >= 9
 Requires:       ocaml-srpm-macros >= 9
 
 # Bundles an MD5 implementation in runtime/caml/md5.h and runtime/md5.c
@@ -468,6 +470,9 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Fri Oct 06 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-4
+- Use BR ocaml-srpm-macros to force latest to be built against
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-3
 - Rebuild against updated ocaml-srpm-macros
 

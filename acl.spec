@@ -4,7 +4,7 @@
 Summary: Access control list utilities
 Name: acl
 Version: 2.3.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: gettext
@@ -21,9 +21,15 @@ Source2: agruen-key.gpg
 
 # avoid permission denied problem with LD_PRELOAD in the test-suite
 Patch1: 0001-acl-2.2.53-test-runwrapper.patch
+
+# add georgian translation
 Patch2: 0002-add-georgian.patch
 
-License: GPL-2.0-or-later
+# preserve failed setfacl return code (RHEL-3909)
+# https://git.savannah.nongnu.org/cgit/acl.git/commit/?id=7ce89c695e76ec41fcebd83f8b728f63b0361a2d
+Patch3: 0003-acl-2.3.1-setfacl-preserve-failed-status.patch
+
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://savannah.nongnu.org/projects/acl
 
 %description
@@ -131,6 +137,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Fri Oct 06 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.3.1-10
+- preserve failed setfacl return code (RHEL-3909)
+- make the license tag more precise
+
 * Mon Sep 11 2023 Temuri Doghonadze <temuri.doghonadze@gmail.com> - 2.3.1-9
 - Backport Georgian locale from git
 - Note, it will not be needed after release of new version of acl

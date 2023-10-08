@@ -1,12 +1,12 @@
 # spec file for php-iamcal-lib-autolink
 #
-# Copyright (c) 2016-2017 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    b3a86d8437e5d635fb85b155a86288d94f6a924d
+%global gh_commit    6a9e44d17f836806301b40723af673971a1a5112
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     iamcal
 %global gh_project   lib_autolink
@@ -14,10 +14,11 @@
 
 
 Name:           php-iamcal-lib-autolink
-Version:        1.7
-Release:        16%{?dist}
+Version:        1.9
+Release:        1%{?dist}
 Summary:        Adds anchors to urls in a text
 
+Group:          Development/Libraries
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
@@ -65,7 +66,8 @@ ln -s lib_autolink.php %{buildroot}%{_datadir}/php/%{name}/autoload.php
 %if %{with_tests}
 sed -e 's/\$this/$thiz/' -i t/testmore.php
 
-for cmd in php php56 php70 php71 php72; do
+>tests.log
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
     for unit in t/*.t; do
       $cmd $unit | tee -a tests.log
@@ -73,7 +75,7 @@ for cmd in php php56 php70 php71 php72; do
   fi
 done
 
-grep -q '^not ok' tests.log && exit 1 || exit 0
+grep '^not ok' tests.log && exit 1 || exit 0
 %else
 : Test suite disabled
 %endif
@@ -88,6 +90,9 @@ grep -q '^not ok' tests.log && exit 1 || exit 0
 
 
 %changelog
+* Fri Oct  6 2023 Remi Collet <remi@remirepo.net> - 1.9-1
+- update to 1.9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

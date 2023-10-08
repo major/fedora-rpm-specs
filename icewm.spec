@@ -4,6 +4,8 @@
 # Autotools/CMake
 %bcond_with fallback_build_tool
 
+%global forgeurl https://github.com/ice-wm/%{name}
+
 %global awe_commit da8173bb6bc5a01ca4b512a5d1b7850035f710e5
 %global awe_shortcommit %(c=%{awe_commit}; echo ${c:0:7})
 
@@ -11,6 +13,8 @@ Name:           icewm
 Version:        3.4.3
 Release:        %autorelease
 Summary:        Window manager designed for speed, usability, and consistency
+
+%forgemeta
 
 License:        LGPLv2+
 URL:            https://ice-wm.org/
@@ -152,7 +156,7 @@ Minimal, lightweight session for %{name}.
 
 
 %prep
-%setup -q
+%forgeautosetup -p1
 %setup -q -D -T -a1
 
 

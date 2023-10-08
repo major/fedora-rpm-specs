@@ -3,17 +3,14 @@
 
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
-Version:	2.4.0
-Release:	5%{?dist}
+Version:	2.5.0
+Release:	1%{?dist}
 License:	BSD
 URL:		https://hohnstaedt.de/xca/
 Source0:	https://github.com/%{gitowner0}/%{gitproject0}/releases/download/RELEASE.%{version}/%{name}-%{version}.tar.gz
-Patch1:		xca-2.4.0-openssl3.patch
-Patch2:		xca-2.4.0-noclean.patch
-Patch3:		xca-2.4.0-mimeicons.patch
-Patch4:		xca-2.4.0-lang-it.patch
-Patch5:		xca-2.4.0-lang-fr.patch
+Source1:	xca-2.5.0-README.IMPORTANT
 
+BuildRequires:	cmake
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	qt5-qtbase-devel
@@ -50,30 +47,33 @@ format, portable across operating systems.
 #-------------------------------------------------------------------------------
 
 %autosetup -p 1
+cp '%{SOURCE1}' README.IMPORTANT
 
 
 #-------------------------------------------------------------------------------
 %build
 #-------------------------------------------------------------------------------
 
-%configure CXXFLAGS='%{optflags}'					\
-	STRIP=:								\
-	LIBS='-Wl,-as-needed'
-make %{?_smp_mflags}
+export CXXFLAGS='%{optflags} -DDOCDIR=\"%{_docdir}/xca\"'
+%cmake	-DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed"
+%cmake_build
 
 
 #-------------------------------------------------------------------------------
 %install
 #-------------------------------------------------------------------------------
 
-make DESTDIR='%{buildroot}'						\
-	ICON_SIZES='16x16 32x32 48x48 64x64 128x128 256x256' install
+%cmake_install
 
 #	Do not include db statistics program and man.
 find '%{buildroot}' -name 'xca_db_stat*' -delete
 
 #	Do not use pixmaps directory.
 rm -rf '%{buildroot}%{_datadir}/pixmaps'
+
+#	Reinstall documentation.
+rm -rf '%{buildroot}%{_docdir}/xca'/*
+mv '%{buildroot}%{_datadir}/xca/html' '%{buildroot}%{_docdir}/xca/'
 
 #	Install mime file types.
 install -d -m 755 '%{buildroot}%{_datadir}/mime/packages'
@@ -96,7 +96,7 @@ desktop-file-install --mode 0644					\
 %files -f %{name}.lang
 #-------------------------------------------------------------------------------
 
-%doc AUTHORS COPYRIGHT
+%doc AUTHORS COPYRIGHT README.IMPORTANT
 %doc %{_docdir}/xca/*
 %{_bindir}/*
 %dir %{_datadir}/xca
@@ -111,6 +111,14 @@ desktop-file-install --mode 0644					\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Fri Oct  6 2023 Patrick Monnerat <patrick@monnerat.net> 2.5.0-1
+- New upstream release.
+- Build using cmake.
+- Doc file "README.IMPORTANT" for needed passord reset.
+  https://github.com/chris2511/xca/issues/458#issuecomment-1740106691
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -122,8 +130,6 @@ desktop-file-install --mode 0644					\
 
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Sat Nov 13 2021 Patrick Monnerat <patrick@monnerat.net> 2.4.0-1
 - New upstream release.

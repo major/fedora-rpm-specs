@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.57
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -105,8 +105,14 @@ Patch63: httpd-2.4.46-htcacheclean-dont-break.patch
 Patch65: httpd-2.4.51-r1894152.patch
 
 # Security fixes
+# Patch200: ...
 
-License: ASL 2.0
+# Apache-2.0: everything
+# BSD-3-Clause: util_pcre.c, ap_regex.h
+# metamail AND HPND-sell-variant:: server/util_md5.c:
+# Spencer-94: modules/metadata/mod_mime_magic.c
+License: Apache-2.0 AND (BSD-3-Clause AND metamail AND HPND-sell-variant AND Spencer-94)
+
 BuildRequires: gcc, autoconf, pkgconfig, findutils, xmlto
 BuildRequires: perl-interpreter, perl-generators, systemd-devel
 BuildRequires: zlib-devel, libselinux-devel, lua-devel, brotli-devel
@@ -852,6 +858,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri Oct 06 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.57-4
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.57-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

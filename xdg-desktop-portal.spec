@@ -12,6 +12,10 @@ License: LGPLv2+
 URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
 
+# Issue: Transient screen cast stream restoration no longer works
+# Link: https://github.com/flatpak/xdg-desktop-portal/issues/1124
+Patch0:  xdp-delete-transient-permission-when-peer-dies.patch
+
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: meson

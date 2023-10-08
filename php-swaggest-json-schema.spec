@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-swaggest-json-schema
 #
-# Copyright (c) 2019-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2019-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        0.12.42
-Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        High definition PHP structures with JSON-schema based validation
 
 License:        MIT
@@ -48,8 +48,8 @@ BuildRequires:  php-swaggest-json-diff              >= 3.8.2
 #    "phpunit/phpunit": "^5",
 #    "phpunit/php-code-coverage": "^4",
 #    "codeclimate/php-test-reporter": "^0.4.0"
-BuildRequires:  php-composer(phpunit/phpunit) >= 5
-%global phpunit %{_bindir}/phpunit
+BuildRequires:  phpunit9
+%global phpunit %{_bindir}/phpunit9
 BuildRequires:  php-date
 BuildRequires:  php-filter
 BuildRequires:  php-pcre
@@ -127,16 +127,28 @@ cat << 'EOF' | tee vendor/autoload.php
 <?php
 require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('%{ns_vendor}\\%{ns_project}\\Tests\\', dirname(__DIR__).'/tests/src');
+
+class PHPUnit_Framework_TestCase extends \PHPUnit\Framework\Testcase {
+	function setExpectedException($e, $m = '') {
+		$this->expectException($e);
+		if ($m) $this->expectExceptionMessage($m);
+	}
+}
 EOF
 
+# For phpunit9
+sed -e '/setUp()/s/$/:void/' \
+  -i tests/src/PHPUnit/Example/ExampleTest.php
+
 # Skip online tests: testInvalid, testValidate
+# Skip because of phpunit9: testPatternPropertiesMismatch
 ret=0
 for cmd in php php80 php81 php82 php83; do
    if which $cmd; then
       $cmd %{phpunit} \
         --no-coverage \
-        --filter '^((?!(SwaggerTest::testInvalid|SwaggerTest::testValidate)).)*$' \
-        --verbose || ret=1
+        --filter '^((?!(SwaggerTest::testInvalid|SwaggerTest::testValidate|testPatternPropertiesMismatch)).)*$' \
+        || ret=1
    fi
 done
 exit $ret
@@ -154,6 +166,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct  6 2023 Remi Collet <remi@remirepo.net> - 0.12.42-2
+- switch to phpunit9
+
 * Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 0.12.42-1
 - update to 0.12.42
 

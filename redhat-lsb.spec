@@ -1,3 +1,10 @@
+# globals for redhat-lsb-20231006git8d00acdc.tar.gz
+%global gitdate 20231006
+%global gitversion 8d00acdc
+
+%global snapshot %{gitdate}git%{gitversion}
+%global gver .%{gitdate}git%{gitversion}
+
 # Define this to link to which library version  eg. /lib64/ld-lsb-x86-64.so.3
 %global lsbsover 3
 
@@ -56,15 +63,8 @@
 %global lsbldso ld-lsb-aarch64.so
 %endif
 
-%ifarch ia64 ppc64 s390x x86_64
-%global qual ()(64bit)
-%else
-%global qual %{nil}
-%endif
-
 %global upstreamlsbrelver 2.0
-%global lsbrelver 4.1
-%global srcrelease 1
+%global lsbrelver 5.0
 
 # for >= f28, __brp_ldconfig is added in __os_install_post, it removes the symlink %%{lsbldso}
 # and thus leading to the FTBS.
@@ -76,12 +76,11 @@
 
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
-Version: 4.1
-Release: 62%{?dist}
-URL: http://www.linuxfoundation.org/collaborate/workgroups/lsb
-Source0: https://fedorahosted.org/releases/r/e/redhat-lsb/%{name}-%{version}-%{srcrelease}.tar.bz2
-Patch0: lsb-release-3.1-update-init-functions.patch
-Patch1: redhat-lsb-lsb_start_daemon-fix.patch
+Version: 5.0
+Release: 0.2%{gver}%{?dist}
+URL: https://wiki.linuxfoundation.org/lsb/start
+# https://github.com/LinuxStandardBase/lsb-samples/
+Source0: redhat-lsb-%{snapshot}.tar.gz
 License: GPLv2
 BuildRequires: make
 BuildRequires: perl-generators
@@ -126,7 +125,7 @@ Requires: redhat-lsb-cxx%{?_isa} = %{version}-%{release}
 Requires: redhat-lsb-desktop%{?_isa} = %{version}-%{release}
 Requires: redhat-lsb-languages = %{version}-%{release}
 Requires: redhat-lsb-printing = %{version}-%{release}
-#Requires: redhat-lsb-trialuse = %%{version}-%%{release}
+Obsoletes: redhat-lsb-trialuse <= 5
 
 Provides: lsb = %{version}-%{release}
 Provides: lsb-%{archname} = %{version}-%{release}
@@ -149,12 +148,8 @@ Requires: glibc-common
 Requires: libgcc%{?_isa}
 #LSB requires libcrypt.so.1
 Requires: libxcrypt-compat%{?_isa}
-%if 0%{?fedora} > 36
-Requires: ncurses-libs%{?_isa}
-%else
 #LSB requires libncurses.so.5 for some reason
 Requires: ncurses-compat-libs%{?_isa}
-%endif
 Requires: pam%{?_isa}
 Requires: zlib%{?_isa}
 
@@ -355,11 +350,11 @@ Requires: gdk-pixbuf2%{?_isa}
 Requires: glib2%{?_isa}
 Requires: gtk2%{?_isa}
 Requires: pango%{?_isa}
-# toolkit-qt
+%if 0%{?fedora} || 0%{?epel}
+# toolkit-qt is not in rhel
 Requires: qt%{?_isa}
 Requires: qt-x11%{?_isa}
-# toolkit-qt3
-Requires: qt3%{?_isa}
+%endif
 # xml
 Requires: libxml2%{?_isa}
 Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
@@ -408,8 +403,8 @@ Requires: perl(File::CheckTree)
 Requires: perl(Sys::Syslog)
 Requires: perl(Getopt::Long)
 
-# python
-Requires: /usr/bin/python
+# python3
+Requires: /usr/bin/python3
 # java
 Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
 
@@ -452,85 +447,104 @@ passing LSB (Linux Standard Base) certification testsuite, but not directly requ
 to be on LSB conforming system.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%setup -q -n redhat-lsb-%{snapshot}
 
 %build
-cd lsb-release-%{upstreamlsbrelver}
+cd lsb_release/src
 %make_build
 
 %install
-# LSB uses /usr/lib rather than /usr/lib64 even for 64bit OS
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir} $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_mandir} \
-         $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT/usr/lib/lsb \
-         $RPM_BUILD_ROOT%{_sbindir}
-
+pushd redhat-lsb
+%make_install
 
 # manually add Locale::Constants. This module is just an alias of Locale::Codes::Constants
-mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/Locale
-cp -p Constants.pm $RPM_BUILD_ROOT%{perl_vendorlib}/Locale
-cp -p Constants.pod $RPM_BUILD_ROOT%{perl_vendorlib}/Locale
+mkdir -p %{buildroot}%{perl_vendorlib}/Locale
+cp -p Constants.pm %{buildroot}%{perl_vendorlib}/Locale
+cp -p Constants.pod %{buildroot}%{perl_vendorlib}/Locale
+popd
 
-%make_install
-cd lsb-release-%{upstreamlsbrelver}
-make mandir=$RPM_BUILD_ROOT/%{_mandir} prefix=$RPM_BUILD_ROOT/%{_prefix} install
-cd ..
+pushd lsb_release/src
+make mandir=%{buildroot}%{_mandir} prefix=%{buildroot}%{_prefix} install
+popd
 
 #prepare installation of doc
-cp -p lsb-release-2.0/COPYING .
-cp -p lsb-release-2.0/README README.lsb_release
+cp -p lsb_release/src/COPYING .
+cp -p lsb_release/src/README README.lsb_release
 
-for LSBVER in %{lsbsover}; do
-  ln -snf %{ldso} $RPM_BUILD_ROOT/%{_libdir}/%{lsbldso}.$LSBVER
+# modules
+mkdir -p %{buildroot}%{_sysconfdir}/lsb-release.d/
+modules="core cxx desktop languages printing"
+
+core="core security"
+cxx="cpp"
+desktop="desktop-misc graphics graphics-ext multimedia toolkit-gtk toolkit-qt toolkit-qt3"
+desktop="${desktop} xml"
+languages="perl python"
+printing="printing"
+trialuse="security multimedia"
+
+for mod in ${modules};do
+  touch $RPM_BUILD_ROOT%{_sysconfdir}/lsb-release.d/${mod}-%{lsbrelver}-%{archname}
+  touch $RPM_BUILD_ROOT%{_sysconfdir}/lsb-release.d/${mod}-%{lsbrelver}-noarch
 done
 
-mkdir -p $RPM_BUILD_ROOT/bin
+mkdir -p %{buildroot}%{_libdir}
+for LSBVER in %{lsbsover}; do
+  ln -snf %{ldso} %{buildroot}%{_libdir}/%{lsbldso}.$LSBVER
+done
 
 # LSB uses /usr/lib rather than /usr/lib64 even for 64bit OS
-# According to the lsb-core documentation provided by 
+# According to the lsb-core documentation provided by
 # http://refspecs.linux-foundation.org/LSB_3.2.0/LSB-Core-generic/LSB-Core-generic.pdf
 # it's OK to put non binary in /usr/lib.
-ln -snf ../../../sbin/chkconfig $RPM_BUILD_ROOT/usr/lib/lsb/install_initd
-ln -snf ../../../sbin/chkconfig $RPM_BUILD_ROOT/usr/lib/lsb/remove_initd
-#ln -snf mail $RPM_BUILD_ROOT/bin/mailx
+ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/install_initd
+ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/remove_initd
+#ln -snf mail %{buildroot}/bin/mailx
 
-#mkdir -p $RPM_BUILD_ROOT/usr/X11R6/lib/X11/xserver
-#ln -snf /usr/%{_lib}/xserver/SecurityPolicy $RPM_BUILD_ROOT/usr/X11R6/lib/X11/xserver/SecurityPolicy
-#ln -snf /usr/share/X11/fonts $RPM_BUILD_ROOT/usr/X11R6/lib/X11/fonts
-#ln -snf /usr/share/X11/rgb.txt  $RPM_BUILD_ROOT/usr/X11R6/lib/X11/rgb.txt
-
-cp -p redhat_lsb_init $RPM_BUILD_ROOT/bin/redhat_lsb_init
+#mkdir -p %{buildroot}/usr/X11R6/lib/X11/xserver
+#ln -snf /usr/%{_lib}/xserver/SecurityPolicy %{buildroot}/usr/X11R6/lib/X11/xserver/SecurityPolicy
+#ln -snf /usr/share/X11/fonts %{buildroot}/usr/X11R6/lib/X11/fonts
+#ln -snf /usr/share/X11/rgb.txt  %{buildroot}/usr/X11R6/lib/X11/rgb.txt
 
 
 %files
 
 %files core
-%doc README README.lsb_release
+%doc README.md README.lsb_release
 %license COPYING
 %{_sysconfdir}/redhat-lsb
+%dir %{_sysconfdir}/lsb-release.d
 %{_mandir}/*/*
 %{_bindir}/*
-/bin/redhat_lsb_init
 /usr/lib/lsb
 %{_libdir}/*so*
-/lib/lsb*
+%{_sysconfdir}/lsb-release.d/core*
 
 %files cxx
+%{_sysconfdir}/lsb-release.d/cxx*
 
 %files desktop
+%{_sysconfdir}/lsb-release.d/desktop*
 
 %files languages
+%{_sysconfdir}/lsb-release.d/languages*
 %{perl_vendorlib}/Locale/Constants.pm
 %{perl_vendorlib}/Locale/Constants.pod
 
 %files printing
+%{_sysconfdir}/lsb-release.d/printing*
 
 %files supplemental
 #no files, just dependencies
 
 
 %changelog
+* Fri Oct 06 2023 Sérgio Basto <sergio@serjux.com> - 5.0-0.2.20231006gita9c49411
+- Update README.md with actual status
+
+* Fri Oct 06 2023 Sérgio Basto <sergio@serjux.com> - 5.0-0.1.20231006git92f8ab57
+- redhat-lsb 5.0 with new source location
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

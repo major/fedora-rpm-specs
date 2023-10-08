@@ -5,8 +5,8 @@
 %global srcname company-mode
 
 Name:           emacs-%{srcname}
-Version:        0.9.13
-Release:        6%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        Modular in-buffer completion framework for Emacs
 
 License:        GPL-3.0-or-later
@@ -51,6 +51,9 @@ mv %{buildroot}/%{_emacs_sitelispdir}/%{srcname}/company-autoloads.el \
 %{_emacs_sitestartdir}/company-autoloads.el
 
 %changelog
+* Thu Oct  5 2023 Jerry James <loganjerry@gmail.com> - 0.10.1-1
+- Version 0.10.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

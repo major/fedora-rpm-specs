@@ -253,9 +253,6 @@ make -C folly/docs
 # ix86: some tests are still failing
 cd "%{__cmake_builddir}"
 
-EXCLUDED_TESTS=
-
-%ifarch x86_64
 # flaky tests
 # from https://koji.fedoraproject.org/koji/taskinfo?taskID=89703014
 EXCLUDED_TESTS='-E glog_test\.LogEveryMs\.basic'
@@ -265,17 +262,13 @@ EXCLUDED_TESTS+='|fbstring_test\.FBString\.testAllClauses'
 EXCLUDED_TESTS+='|AsyncUDPSocketTest\.AsyncSocketIntegrationTest\.PingPongNotifyMmsg'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.CancelTimeout'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.ReschedTest'
-%endif
 
 %ifarch aarch64
 # from https://copr.fedorainfracloud.org/coprs/salimma/folly-testing/build/4642135/
-EXCLUDED_TESTS='-E cache_locality_test\.Getcpu\.VdsoGetcpu'
-EXCLUDED_TESTS+='|AsyncUDPSocketTest\.AsyncSocketIntegrationTest\.PingPongNotifyMmsg'
+EXCLUDED_TESTS+='|cache_locality_test\.Getcpu\.VdsoGetcpu'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.FireOnce'
-EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.CancelTimeout'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.DestroyTimeoutSet'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.SlowFast'
-EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.ReschedTest'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.DefaultTimeout'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.IntrusivePtr'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.GetTimeRemaining'

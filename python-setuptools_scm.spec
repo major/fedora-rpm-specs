@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-setuptools_scm
-Version:        8.0.3
+Version:        8.0.4
 Release:        %autorelease
 Summary:        Blessed package to manage your versions by SCM tags
 
@@ -20,9 +20,13 @@ BuildRequires:  git-core
 BuildRequires:  mercurial
 %endif
 # Manually listed test dependencies from tox.ini, to avoid pulling tox into RHEL
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools) >= 45
-# virtualenv omitted, see https://github.com/pypa/setuptools_scm/pull/940
+BuildRequires:  python%{python3_pkgversion}dist(pytest)
+BuildRequires:  python%{python3_pkgversion}dist(setuptools) >= 45
+BuildRequires:  python%{python3_pkgversion}dist(wheel)
+# build is used only for one test, we don't need it in RHEL just for that
+%if %{undefined rhel}
+BuildRequires:  python%{python3_pkgversion}dist(build)
+%endif
 # rich omitted, pulled in only with the [rich] extra
 %endif
 
@@ -45,16 +49,10 @@ It also handles file finders for the supported SCMs.
 
 %prep
 %autosetup -p1 -n setuptools-scm-%{version}
-# Upstream bogusly declares rich as a build-system dependency,
-# but the build works without it.
-# We remove it here to simplify the bootstrap loop
-# and to avoid the dependency in RHEL builds.
-# Upstream issue: https://github.com/pypa/setuptools_scm/issues/941
-# Upstream PR: https://github.com/pypa/setuptools_scm/pull/942
-# The PR does not apply cleanly to 8.0.3, so we sed it out instead.
-# The sed removes the first line with "rich" only:
-sed -i '0,/"rich"/{/"rich"/d}' pyproject.toml
-
+%if %{defined rhel}
+# Don't blow up all of the tests by failing to report the installed version of build
+sed -i '0,/VERSION_PKGS/{s/, "build"//}' testing/conftest.py
+%endif
 
 
 %generate_buildrequires
@@ -72,8 +70,9 @@ sed -i '0,/"rich"/{/"rich"/d}' pyproject.toml
 
 %if %{with tests}
 %check
-# Skipped test tries to download from the internet
-%pytest -v -k 'not test_pip_download'
+# test_pip_download tries to download from the internet
+# test_pyproject_missing_setup_hook_works requires build
+%pytest -v -k 'not test_pip_download%{?rhel: and not test_pyproject_missing_setup_hook_works}'
 %endif
 
 

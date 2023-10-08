@@ -1,9 +1,9 @@
 Name:		fio
 Version:	3.35
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Multithreaded IO generation tool
 
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		http://git.kernel.dk/?p=fio.git;a=summary
 Source0:	http://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2
 Source1:	https://brick.kernel.dk/snaps/%{name}-%{version}.tar.bz2.asc
@@ -231,6 +231,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 3.35-5
+- Convert License tag to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.35-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

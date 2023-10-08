@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.110.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for filesystem abstraction
 
 License: GPLv2+ and MIT and BSD
@@ -15,6 +15,9 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 ## upstream patches (lookaside)
 # https://invent.kde.org/frameworks/kio/-/merge_requests/1414
 Patch0: 1414.patch
+
+# https://invent.kde.org/frameworks/kio/-/commit/eb12ebeab5a6408c483ecbe681a353bb95cff782
+Patch1: eb12ebeab5a6408c483ecbe681a353bb95cff782.patch
 
 ## upstreamable patches
 
@@ -288,6 +291,9 @@ KIONTLM provides support for NTLM authentication mechanism in KIO
 %{_kf5_libdir}/cmake/KF5KIO/
 
 %changelog
+* Fri Oct 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-3
+- Add upstream patch to only activate well formed services
+
 * Mon Sep 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.110.0-2
 - Add upstream patch to fix Okular crashes
 
