@@ -1,14 +1,11 @@
 Name:           python-y-py
-Version:        0.6.0
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Python bindings for the Y-CRDT built from yrs (Rust)
 # SPDX
 License:        MIT
 URL:            https://github.com/y-crdt/ypy
 Source:         %{pypi_source y_py}
-
-# Switch to pyo3 0.19.2
-Patch:          https://github.com/y-crdt/ypy/pull/138.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest

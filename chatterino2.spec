@@ -105,9 +105,11 @@ BuildRequires:  cmake(RapidJSON)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(websocketpp)
+BuildRequires:  pkgconfig(xkbcommon)
 
 Requires:       hicolor-icon-theme
-Requires:       qt5-qtsvg
+Requires:       qt6-qtsvg
+Requires:       qt6-qtimageformats
 
 # Current submodules patched so not possible to build with system packages
 #   * https://github.com/Chatterino/chatterino2/issues/1444

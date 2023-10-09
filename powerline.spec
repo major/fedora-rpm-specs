@@ -2,7 +2,7 @@
 
 Name:           powerline
 Version:        2.8.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 Summary:        The ultimate status-line/prompt utility
 License:        MIT
@@ -48,12 +48,13 @@ BuildArch: noarch
 This package provides the powerline documentation.
 
 %package fonts
-Summary: Powerline Fonts
+Summary: Powerline symbol font
 BuildArch: noarch
 Requires: fontpackages-filesystem
 
 %description fonts
-This package provides the powerline fonts.
+This package provides the symbol font used by Powerline, plus a fontconfig file
+that allows using these symbols as part of common monospaced fonts.
 
 %package -n vim-powerline
 Summary: Powerline VIM plugin
@@ -334,6 +335,10 @@ install -m 0644 powerline/dist/systemd/powerline-daemon.service %{buildroot}%{_u
 %{_datadir}/tmux/powerline*.conf
 
 %changelog
+* Sat Oct 07 2023 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-11
+- Review SPDX license identifier; `MIT` is correct
+- Make summary and description of `fonts` subpackage more precise (rhbz#2232553)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

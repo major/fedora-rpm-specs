@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global commit0 bb64142b07794ee685494564471e67365a093710
+%global commit0 daad9ede0137dc58487a0abc126253e671a85b14
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
-%global snapdate 20230804
+%global snapdate 20231006
 
 # This is a fork of github.com/berkeley-abc/abc.git maintained by YosysHQ
 %global prjname abc
@@ -23,7 +23,7 @@
 # This should be done for each branch in which abc-libs will be updated.
 
 Name:           yosyshq-%{prjname}
-Version:        0.31
+Version:        0.34
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
@@ -44,8 +44,7 @@ Patch3:         0003-fix-minor-header-issue.patch
 Patch4:         0004-set-soname-on-the-library.patch
 Patch5:         0005-fix-sprintf-calls-that-may-overflow-their-buf.patch
 Patch6:         0006-fix-out-of-bounds-array-access-in-gia-code-be.patch
-Patch7:         0007-don-t-pass-NULL-to-fprintf-berkeley-abc-abc-p.patch
-Patch8:         0008-weaken-overzealous-assert.patch
+Patch7:         0007-weaken-overzealous-assert.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -165,5 +164,8 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Fri Oct 06 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.34-1.20231006gitdaad9ed
+- update to 0.34 snapshot
+
 * Fri Aug 04 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.31-1.20230804gitbb64142
 - Initial RPM

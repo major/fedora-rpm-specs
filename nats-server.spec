@@ -3,7 +3,7 @@
 
 # https://github.com/nats-io/nats-server
 %global goipath         github.com/nats-io/nats-server
-Version:                2.10.1
+Version:                2.10.2
 
 %gometa -f
 

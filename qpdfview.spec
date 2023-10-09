@@ -3,12 +3,16 @@
 
 Name:		qpdfview
 Version:	0.5.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
 Source0:	%{url}/trunk/%{version}/+download/%{name}-0.5.tar.gz
 Patch1:		qpdfview-c99.patch
+# std::optional requires std=c++17 or later. Fixes:
+# /usr/include/poppler/qt5/poppler-form.h:888:6: error: ‘optional’ in namespace ‘std’ does not name a template type
+Patch2:         qpdfview-stdc++17.patch
+
 BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	desktop-file-utils
@@ -85,6 +89,7 @@ It provides a clear and simple graphical user interface using the Qt framework.
 mv %{name}-0.5 %{name}-%{version}
 cd %{name}-%{version}
 %patch1 -p1
+%patch2 -p1
 
 %build
 cp -a %{name}-%{version} build-qt5
@@ -185,6 +190,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Sat Oct 07 2023 Sandro Mani <manisandro@gmail.com> - 0.5.0-5
+- Rebuild (tesseract)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

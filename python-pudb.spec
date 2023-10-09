@@ -1,8 +1,8 @@
 %global srcname pudb
 
 Name:          python-pudb
-Version:       2022.1.3
-Release:       4%{?dist}
+Version:       2023.1
+Release:       1%{?dist}
 Summary:       A full-screen, console-based Python debugger
 License:       MIT
 URL:           https://github.com/inducer/pudb
@@ -47,6 +47,8 @@ sed -i '1{\@^#! /usr/bin/env python@d}' pudb/debugger.py
 
 %check
 %pytest
+# Remove installed tests
+rm -r %{buildroot}/%{python3_sitelib}/test
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
@@ -54,6 +56,9 @@ sed -i '1{\@^#! /usr/bin/env python@d}' pudb/debugger.py
 %{_bindir}/pudb
 
 %changelog
+* Fri Oct 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2023.1-1
+- Update to 2023.1 (rhbz#2242541)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

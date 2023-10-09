@@ -1,5 +1,5 @@
 Name:           libsv
-Version:        1.1
+Version:        1.2
 
 %global forgeurl https://github.com/uael/sv
 %forgemeta
@@ -10,10 +10,6 @@ Summary:        Semantic versioning for the C language
 License:        Unlicense
 URL:            %{forgeurl}
 Source:         %{forgesource}
-
-# https://github.com/uael/sv/pulls/57
-# not released yet
-Patch0:         0001-provide-shared-and-pkgconf.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

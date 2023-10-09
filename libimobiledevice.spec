@@ -29,8 +29,11 @@ BuildRequires:  libusbx-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  readline-devel
 
+# Applications using libimobiledevice might use sockets provided by usbmuxd to work
+Recommends: usbmuxd
+
 %description
-libimobiledevice is a library for connecting to mobile devices including phones 
+libimobiledevice is a library for connecting to mobile devices including phones
 and music players
 
 %package        devel

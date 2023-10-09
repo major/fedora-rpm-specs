@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     wayvnc
-Version:  0.6.2
-Release:  3%{?dist}
+Version:  0.7.1
+Release:  1%{?dist}
 Summary:  A VNC server for wlroots based Wayland compositors
 License:  ISC
 URL:      https://github.com/any1/wayvnc
@@ -58,6 +58,9 @@ physical display attached.
 %license COPYING
 
 %changelog
+* Sat Oct 07 2023 Bob Hepple <bob.hepple@gmail.com> - 0.7.1-1
+- new version
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-ibm-vpc
-Version:        0.18.0
+Version:        0.19.1
 Release:        1%{?dist}
 Summary:        Python client library for IBM Cloud VPC Services
 
@@ -56,6 +56,11 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Oct 07 2023 Packit <hello@packit.dev> - 0.19.1-1
+- chore(release): 0.19.1 release notes (semantic-release-bot)
+- Update version 0.19.0 -> 0.19.1 (semantic-release-bot)
+- fix(headers): updated common headers for request id (#57) (Ujjwal Kumar)
+
 * Wed Aug 02 2023 Pavel Raiskup <praiskup@redhat.com> - 0.18.0-1
 - new upstream release, per release notes:
   https://github.com/IBM/vpc-python-sdk/releases/tag/v0.18.0

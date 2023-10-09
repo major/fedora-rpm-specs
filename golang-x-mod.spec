@@ -4,7 +4,7 @@
 # https://github.com/golang/mod
 %global goipath         golang.org/x/mod
 %global forgeurl        https://github.com/golang/mod
-Version:                0.12.0
+Version:                0.13.0
 
 %gometa
 

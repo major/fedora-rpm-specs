@@ -3,7 +3,7 @@
 %global catalogue        %{_sysconfdir}/X11/fontpath.d
 
 Version: 0.2.20080216.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL:     http://www.freedesktop.org/wiki/Software/CJKUnifonts
 
 %global foundry           CJKUni
@@ -30,7 +30,8 @@ Source11: 90-%{fontpkgname}-embolden.conf
 %fontpkg
 
 %prep
-%autosetup -c
+%autosetup -n ttf-arphic-uming-%{version}
+rm -rf license/.svn license/*/.svn
 
 %build
 %fontbuild
@@ -50,6 +51,10 @@ ln -s %{fontdir}/ %{buildroot}%{catalogue}/%{name}
 %{catalogue}/%{name}
 
 %changelog
+* Sat Oct  7 2023 Peng Wu <pwu@redhat.com> - 0.2.20080216.2-3
+- Fix the spec file
+- Resolves: RHBZ#2241231
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20080216.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

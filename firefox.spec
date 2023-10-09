@@ -723,8 +723,13 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-O2//')
 # (OOM when linking, rhbz#1238225)
 %ifarch %{ix86}
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g0/')
-export MOZ_DEBUG_FLAGS=" "
+%else
+# this reduces backtrace quality substantially, but seems to be needed
+# to prevent various OOM conditions during build
+# https://bugzilla.redhat.com/show_bug.cgi?id=2241690
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g1/')
 %endif
+export MOZ_DEBUG_FLAGS=" "
 MOZ_LINK_FLAGS="%{build_ldflags}"
 %if !%{build_with_clang}
 %ifarch aarch64 %{ix86}

@@ -69,10 +69,10 @@
 
 %global major_version 3
 %global minor_version 27
-%global patch_version 6
+%global patch_version 7
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -122,13 +122,6 @@ Patch100:       %{name}-findruby.patch
 %if 0%{?name_suffix:1}
 Patch1:         %{name}-rename.patch
 %endif
-
-Patch10001:     0001-Linting-Fix-empty-evaluated-genex.patch
-Patch10002:     0002-Android-Require-Clang-18-for-std-c-23.patch
-Patch10003:     0003-Tests-Clarify-RunCMake.CTestTimeout-case-name.patch
-Patch10004:     0004-ctest-Restore-support-for-timeout-values-higher-than.patch
-Patch10005:     0005-Help-Document-CMP0124-behavior-on-already-set-variab.patch
-Patch10006:     0006-FindPostgreSQL-Add-support-for-version-16.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -556,6 +549,10 @@ popd
 
 
 %changelog
+* Sat Oct 07 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.7-1
+- cmake-3.27.7
+  Fixes rhbz#2242491
+
 * Tue Oct 03 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.6-2
 - Include new upstream patches
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.23.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
 License:        AGPL-3.0-or-later
@@ -91,6 +91,9 @@ sphinx-build docs docs_built
 %doc docs_built/* README.md
 
 %changelog
+* Sat Oct 07 2023 Sandro Mani <manisandro@gmail.com> - 1.23.3-2
+- Rebuild (tesseract)
+
 * Mon Sep 04 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.23.3-1
 - Update to new upstream release 1.23.3 (rhbz#2231206)
 - Switch to new pyproject packaging macros

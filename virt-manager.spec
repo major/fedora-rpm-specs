@@ -8,7 +8,7 @@
 
 Name: virt-manager
 Version: 4.1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 %global verrel %{version}-%{release}
 
 Summary: Desktop tool for managing virtual machines via libvirt
@@ -23,7 +23,9 @@ Requires: python3-gobject >= 3.31.3
 Requires: gtk3 >= 3.22.0
 Requires: libvirt-glib >= 0.0.9
 Requires: gtk-vnc2
+%if 0%{?fedora}
 Requires: spice-gtk3
+%endif
 
 # We can work with gtksourceview 3 or gtksourceview4, pick the latest one
 Requires: gtksourceview4
@@ -107,8 +109,13 @@ machine).
 %global _default_hvs --default-hvs %{default_hvs}
 %endif
 
+%if 0%{?rhel}
+%global _default_graphics --default-graphics=vnc
+%endif
+
 ./setup.py configure \
-    %{?_default_hvs}
+    %{?_default_hvs} \
+    %{?_default_graphics}
 
 
 %install
@@ -163,6 +170,10 @@ machine).
 
 
 %changelog
+* Fri Sep 29 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.1.0-4
+- Drop spice-gtk3 on Fedora ELN as in CentOS Stream 9
+- Resolves: fedora#2237969
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -1115,7 +1126,7 @@ machine).
 - Disable wizard sensitivity while creating VM
 
 * Thu Oct 19 2006 Daniel P. Berrange <berrange@redhat.com> - 0.2.5-1.fc7
-- Switch to use python-virtinst instead of python-xeninst due to 
+- Switch to use python-virtinst instead of python-xeninst due to
   renaming of original package
 - Disable keyboard accelerators when grabbing mouse to avoid things like
   Ctrl-W closing the local window, instead of remote window bz 210364

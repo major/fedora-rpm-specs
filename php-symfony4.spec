@@ -143,7 +143,7 @@
 
 Name:          php-%{composer_project}4
 Version:       %{github_version}
-Release:       3%{?github_prerelease:.%{github_prerelease}}%{?dist}
+Release:       4%{?github_prerelease:.%{github_prerelease}}%{?dist}
 Summary:       Symfony PHP framework (version 4)
 
 # MIT and CC-BY-SA:
@@ -161,6 +161,7 @@ Source2:       makesrc.sh
 Patch0:        %{name}-autoload.patch
 
 BuildArch:     noarch
+%if %{with tests}
 # Tests
 BuildRequires: composer
 ## composer.json
@@ -286,6 +287,7 @@ BuildRequires: php-xmlreader
 BuildConflicts: php-composer(phpdocumentor/type-resolver) < 0.3.0
 ## Autoloader
 BuildRequires: php-fedora-autoloader-devel
+%endif
 
 # Bridges
 Requires:      php-composer(%{composer_vendor}/doctrine-bridge) = %{version}
@@ -2256,7 +2258,12 @@ Autoloader: %{symfony4_dir}/Component/Yaml/autoload.php
 
 %prep
 %setup -qn %{github_name}-%{github_commit}
+
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 9
+%patch 0 -p1
+%else
 %patch0 -p1
+%endif
 
 cp %{SOURCE1} .
 sed 's#__PHPDIR__#%{phpdir}#' -i $(basename %{SOURCE1})
@@ -3314,6 +3321,9 @@ exit $RET
 # ##############################################################################
 
 %changelog
+* Sat Oct 07 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 4.4.50-4
+- Fix FTBFS (RHBZ #2139649)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.50-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

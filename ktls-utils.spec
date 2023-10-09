@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/oracle/ktls-utils
-%global baseversion 0.9
+%global baseversion 0.10
 
 Name:           ktls-utils
-Version:        %{baseversion}^20230627.g52ac9ff05a5e
+Version:        %{baseversion}
 Release:        %{autorelease}
 Summary:        TLS handshake agent for kernel sockets
 
@@ -13,7 +13,6 @@ URL:            %{forgeurl}
 
 # FIXME: is this a bug in the tagging scheme or forgesource macro?
 Source0:        %{forgeurl}/releases/download/%{name}-%{baseversion}/%{name}-%{baseversion}.tar.gz
-Patch0:         0001-tlshd-fix-max-config-file-size-comparison.patch
 
 BuildRequires:  bash systemd-rpm-macros
 BuildRequires:  gcc make coreutils

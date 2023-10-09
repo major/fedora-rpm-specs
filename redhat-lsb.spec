@@ -77,7 +77,7 @@
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 5.0
-Release: 0.2%{gver}%{?dist}
+Release: 0.3%{gver}%{?dist}
 URL: https://wiki.linuxfoundation.org/lsb/start
 # https://github.com/LinuxStandardBase/lsb-samples/
 Source0: redhat-lsb-%{snapshot}.tar.gz
@@ -147,7 +147,9 @@ Requires: glibc%{?_isa}
 Requires: glibc-common
 Requires: libgcc%{?_isa}
 #LSB requires libcrypt.so.1
+%if 0%{?fedora}
 Requires: libxcrypt-compat%{?_isa}
+%endif
 #LSB requires libncurses.so.5 for some reason
 Requires: ncurses-compat-libs%{?_isa}
 Requires: pam%{?_isa}
@@ -246,7 +248,10 @@ Requires: /usr/bin/paste
 Requires: /usr/bin/patch
 Requires: /usr/bin/pathchk
 #better POSIX conformance of /usr/bin/pax
+%if 0%{?fedora} || 0%{?epel} <= 8
+# not available on epel9
 Requires: spax
+%endif
 Requires: /usr/bin/pidof
 Requires: /usr/bin/pr
 Requires: /usr/bin/printf
@@ -350,7 +355,8 @@ Requires: gdk-pixbuf2%{?_isa}
 Requires: glib2%{?_isa}
 Requires: gtk2%{?_isa}
 Requires: pango%{?_isa}
-%if 0%{?fedora} || 0%{?epel}
+%if 0%{?fedora}
+# qt4 not available on epel9 and epel8
 # toolkit-qt is not in rhel
 Requires: qt%{?_isa}
 Requires: qt-x11%{?_isa}
@@ -374,7 +380,6 @@ Summary: LSB Languages module support
 # Perl and Perl non-builtin modules
 Requires: /usr/bin/perl
 Requires: perl(CGI)
-Requires: perl(Class::ISA)
 Requires: perl(CPAN)
 # Locale::Constants has been Locale::Codes::Costants, so we need
 # create a /usr/share/perl5/vendor_perl/Constants.pm manually.
@@ -389,19 +394,22 @@ Requires: perl(Scalar::Util)
 Requires: perl(Test::Harness)
 Requires: perl(Test::Simple)
 Requires: perl(ExtUtils::MakeMaker)
-Requires: perl(Pod::Plainer)
 Requires: perl(XML::LibXML)
-Requires: perl(Pod::LaTeX)
 Requires: perl(Pod::Checker)
-Requires: perl(B::Lint)
 Requires: perl(Text::Soundex)
 Requires: perl(Env)
 Requires: perl(Time::HiRes)
 Requires: perl(Locale::Maketext)
 Requires: perl(Fatal)
-Requires: perl(File::CheckTree)
 Requires: perl(Sys::Syslog)
 Requires: perl(Getopt::Long)
+%if 0%{?fedora} || 0%{?epel} <= 8
+Requires: perl(B::Lint)
+Requires: perl(Class::ISA)
+Requires: perl(File::CheckTree)
+Requires: perl(Pod::LaTeX)
+Requires: perl(Pod::Plainer)
+%endif
 
 # python3
 Requires: /usr/bin/python3
@@ -539,6 +547,9 @@ ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/remove_initd
 
 
 %changelog
+* Sat Oct 07 2023 Sérgio Basto <sergio@serjux.com> - 5.0-0.3.20231006git8d00acdc
+- Fix some requires mostly on epel9
+
 * Fri Oct 06 2023 Sérgio Basto <sergio@serjux.com> - 5.0-0.2.20231006gita9c49411
 - Update README.md with actual status
 

@@ -4,19 +4,19 @@
 %bcond_without tests
 %endif
 
-%global build_number 274
+%global build_number 287
 
 Name:           mumble
 Version:        1.4.%{build_number}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Low-latency and high-quality voice-chat program
-# The main source code is BSD licensed.
-# The bundled libraries used are licensed as follows:
-#   - arc4random: 0BSD
-#   - celt: BSD, except for tools/getopt* files which are GPLv2+
-#   - qqbonjour: BSD
-#   - smallft: BSD
-License:        BSD and 0BSD and GPLv2+
+# primary license: BSD-3-Clause
+# themes/Mumble: Unlicense and WTFPL
+# 3rdparty/arc4random: ISC
+# 3rdparty/celt-0.7.0-src: BSD-3-Clause and GPL-2.0-or-later
+# 3rdparty/qqbonjour: BSD-3-Clause
+# 3rdparty/smallft: BSD-3-Clause
+License:        BSD-3-Clause AND Unlicense AND WTFPL AND ISC AND GPL-2.0-or-later
 URL:            https://www.mumble.info
 Source:         https://github.com/mumble-voip/mumble/releases/download/v%{version}/mumble-%{version}.tar.gz
 Source1:        murmur.service
@@ -26,7 +26,7 @@ Source2:        mumble-server.sysusers
 # https://github.com/mumble-voip/mumble/commit/f4cea62ed95e4967d8591f25e903f5e8fc2e2a30
 Patch:          0001-BUILD-crypto-Migrate-to-OpenSSL-3.0-compatible-API.patch
 # https://github.com/mumble-voip/mumble/commit/f8d47db318f302f5a7d343f15c9936c7030c49c4
-Patch:          0002-FIX-crypto-Sharing-EVP-context-between-threads-crush.patch
+Patch:          0002-FIX-crypto-Sharing-EVP-context-between-threads-crushes-Mumble.patch
 
 # downstream-only patches
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/CryptoPolicies/
@@ -38,13 +38,16 @@ BuildRequires:  gcc-c++
 
 # Referencing build requirements:
 #
-# - Find instances of find_pkg in the mumble source code.
+# - Find instances of find_pkg and find_library in the mumble source code.
+# - Ensure that the instance applies based on the conditionals.
 # - Check if anything provides cmake(<name>).  If found use that.
 # - Check the modules from cmake-data (/usr/share/cmake/Modules/) to see if any
 #   locate it by a file path.  If found use exact package name.
 # - Check if anything provides pkgconfig(<name>).  If found, use that.
 #
-# That should cover all scenarios.  If you are working on this spec file and
+# docs/dev/build-instructions/cmake_options.md
+#
+# That should cover most scenarios.  If you are working on this spec file and
 # find another scenario, please add it to this list.
 
 # cmake/os.cmake
@@ -192,7 +195,7 @@ starting your game with this script will enable an ingame Mumble overlay.
 
 
 %prep
-%autosetup -p 1 -n mumble-src
+%autosetup -p 1 -n mumble-%{version}.src
 
 pushd 3rdparty
 
@@ -269,6 +272,8 @@ if [ -f %{_sysconfdir}/murmur/murmur.ini.rpmsave ]; then
 fi
 rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
+
+%pre server
 %sysusers_create_compat %{SOURCE2}
 
 
@@ -325,6 +330,11 @@ rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
 
 %changelog
+* Sat Oct 07 2023 Carl George <carlwgeorge@fedoraproject.org> - 1.4.287-1
+- Update to version 1.4.287, resolves rhbz#2126913
+- Switch to SPDX license notation
+- Move mumble-server user creation from %%posttrans to %%pre
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.274-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

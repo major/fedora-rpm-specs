@@ -40,6 +40,9 @@ Python library for configuring a YubiKey.
 %prep
 %forgesetup
 %autosetup -p1 -n %{archivename}
+# temporary patch for rhbz#2237537 rawhide only
+# will be removed next update
+sed -i 's/keyring = "^23.4"/keyring = ">=23.4, <25"/' pyproject.toml
 
 %build
 %pyproject_wheel

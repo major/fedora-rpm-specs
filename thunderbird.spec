@@ -77,7 +77,7 @@ ExcludeArch: s390x
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
 Version:        115.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
@@ -383,7 +383,7 @@ echo "ac_add_options --disable-crashreporter" >> .mozconfig
 
 # Same as https://bugzilla.redhat.com/show_bug.cgi?id=2239046 for Firefox:
 # Clang 17 upstream's detection fails, tell it where to look.
-echo "ac_add_options --with-libclang-path=%{_libdir}" >> .mozconfig
+echo "ac_add_options --with-libclang-path=`llvm-config --libdir`" >> .mozconfig
 
 echo 'export NODEJS="%{_buildrootdir}/bin/node-stdout-nonblocking-wrapper"' >> .mozconfig
 
@@ -719,6 +719,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Sat Oct 07 2023 Kalev Lember <klember@redhat.com> - 115.3.1-2
+- Fix flatpak build
+
 * Fri Sep 29 2023 Eike Rathke <erack@redhat.com> - 115.3.1-1
 - Update to 115.3.1
 

@@ -1,11 +1,15 @@
+%global forgeurl https://github.com/WayfireWM/wcm
+
 Name:           wayfire-config-manager
-Version:        0.7.5
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Wayfire Config Manager
 
+%forgemeta
+
 License:        MIT
-URL:            https://github.com/WayfireWM/wcm
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -13,11 +17,12 @@ BuildRequires:  glm-devel
 BuildRequires:  meson
 
 BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtkmm-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(wayfire)
 BuildRequires:  pkgconfig(wayland-protocols)
-BuildRequires:  pkgconfig(wf-config) >= 0.7.0
-BuildRequires:  pkgconfig(wf-shell) >= 0.7.0
+BuildRequires:  pkgconfig(wf-config) >= 0.8.0
+BuildRequires:  pkgconfig(wf-shell) >= 0.8.0
 
 Requires:       hicolor-icon-theme
 
@@ -26,7 +31,7 @@ Requires:       hicolor-icon-theme
 
 
 %prep
-%autosetup -n wcm-%{version} -p1
+%forgeautosetup -p1
 
 
 %build
