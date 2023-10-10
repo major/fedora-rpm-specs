@@ -10,7 +10,7 @@
 
 # https://github.com/spf13/viper
 %global goipath         github.com/spf13/viper
-Version:                1.16.0
+Version:                1.17.0
 
 %gometa
 
@@ -59,9 +59,9 @@ BuildRequires:  golang(github.com/magiconair/properties)
 BuildRequires:  golang(github.com/mitchellh/mapstructure)
 BuildRequires:  golang(github.com/pelletier/go-toml/v2)
 BuildRequires:  golang(github.com/sagikazarmark/crypt/config)
+BuildRequires:  golang(github.com/sagikazarmark/slog-shim)
 BuildRequires:  golang(github.com/spf13/afero)
 BuildRequires:  golang(github.com/spf13/cast)
-BuildRequires:  golang(github.com/spf13/jwalterweatherman)
 BuildRequires:  golang(github.com/spf13/pflag)
 BuildRequires:  golang(github.com/subosito/gotenv)
 BuildRequires:  golang(gopkg.in/ini.v1)

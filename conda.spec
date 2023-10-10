@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        23.7.4
+Version:        23.9.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -12,8 +12,10 @@ License:        BSD-3-Clause AND Apache-2.0
 URL:            http://conda.pydata.org/docs/
 Source0:        https://github.com/conda/conda/archive/%{version}/%{name}-%{version}.tar.gz
 # bash completion script moved to a separate project
-Source1:        https://raw.githubusercontent.com/tartansandal/conda-bash-completion/1.5/conda
+Source1:        https://raw.githubusercontent.com/tartansandal/conda-bash-completion/1.7/conda
 Patch0:         conda_sys_prefix.patch
+# Use main entry point for conda and re-add conda-env entry point, no need to run conda init
+Patch1:         0001-Use-main-entry-point-for-conda-and-re-add-conda-env-.patch
 # Use system cpuinfo
 Patch3:         conda-cpuinfo.patch
 # Fix tests on 32bit
@@ -104,11 +106,9 @@ Provides:       bundled(python%{python3_pkgversion}-boltons) = 21.0.0
 
 %prep
 %autosetup -p1
-# Create version file
-echo %{version} > conda/.version
 
-# xdoctest not packaged
-sed -i -e '/xdoctest/d' setup.cfg
+# pytest-split/xdoctest not packaged, store-duration not needed
+sed -i -e '/splitting-algorithm/d' -e '/store-durations/d' -e '/xdoctest/d' pyproject.toml
 
 # delete interpreter line, the user can always call the file
 # explicitly as python3 /usr/lib/python3.6/site-packages/conda/_vendor/appdirs.py
@@ -118,18 +118,15 @@ sed -r -i '1 {/#![/]usr[/]bin[/]env/d}' conda/_vendor/appdirs.py
 # Use Fedora's cpuinfo since it supports more arches
 rm -r conda/_vendor/cpuinfo
 
-# Replaced by cytools, byte compilation fails under python3.7
-%if 0%{?fedora} || 0%{?rhel} >= 8
-# EPEL does not have new enough cytoolz
-rm -r conda/_vendor/toolz
-%endif
-
 # Use system versions
-rm -r conda/_vendor/{distro.py,frozendict,tqdm}
-find conda -name \*.py | xargs sed -i -e 's/^\( *\)from .*_vendor\.\(\(distro\|frozendict\|tqdm\).*\) import/\1from \2 import/'
+rm -r conda/_vendor/{distro.py,frozendict}
+find conda -name \*.py | xargs sed -i -e 's/^\( *\)from .*_vendor\.\(\(distro\|frozendict\).*\) import/\1from \2 import/'
 
 # Unpackaged - use vendored version
 sed -i -e '/"boltons *>/d' pyproject.toml
+
+# Unpackaged - really only applicable for macOS/Windows?
+sed -i -e '/"truststore *>/d' pyproject.toml
 
 %ifnarch x86_64
 # Tests on 32-bit
@@ -140,8 +137,8 @@ cp -a tests/data/conda_format_repo/{linux-64,%{python3_platform}}
 sed -i -e s/linux-64/%{python3_platform}/ tests/data/conda_format_repo/%{python3_platform}/*json
 %endif
 
-# do not run coverage in pytest
-sed -i -E '/--(no-)?cov/d' setup.cfg
+# Do not run coverage in pytest
+sed -i -e '/"--cov/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -153,7 +150,7 @@ sed -i -E '/--(no-)?cov/d' setup.cfg
 %pyproject_install
 %py3_shebang_fix %{buildroot}%{python3_sitelib}/conda/shell/bin/conda
 rm -r %{buildroot}%{python3_sitelib}/tests
-%pyproject_save_files conda conda_env
+%pyproject_save_files conda*
 
 mkdir -p %{buildroot}%{_sysconfdir}/conda/condarc.d
 mkdir -p %{buildroot}%{_datadir}/conda/condarc.d
@@ -196,10 +193,12 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # test_use_only_tar_bz2 fail in F31 koji, but not with mock --enablerepo=local. Let's disable
 # them for now.
 # tests/conda_env/test_create.py::test_create_update_remote_env_file requires network access
+# tests/cli/test_conda_argparse.py::test_list_through_python_api does not recognize /usr as a conda environment
 # tests/cli/test_main_{clean,info,list,list_reverse,rename}.py tests require network access
 # tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands needs a conda_build fixture that we remove
 # tests/cli/test_main_run.py require /usr/bin/conda to be installed
 # tests/cli/test_subcommands.py tests require network access
+# tests/cli/test_subcommands.py::test_rename seems to need an active environment
 # tests/test_misc.py::test_explicit_missing_cache_entries requires network access
 # tests/core/test_initialize.py tries to unlink /usr/bin/python3 and fails when python is a release candidate
 # tests/core/test_solve.py::test_cuda_fail_1 fails on non-x86_64
@@ -214,6 +213,7 @@ py.test-%{python3_version} -vv -m "not integration" \
     --ignore=tests/conda_env/specs/test_binstar.py \
     --deselect=tests/conda_env/test_create.py::test_create_update_remote_env_file \
     --deselect='tests/cli/test_common.py::test_is_active_prefix[active_prefix-True]' \
+    --deselect=tests/cli/test_conda_argparse.py::test_list_through_python_api \
     --deselect=tests/cli/test_main_clean.py \
     --deselect=tests/cli/test_main_info.py::test_info_conda_json \
     --deselect=tests/cli/test_main_list.py::test_list \
@@ -226,6 +226,10 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/cli/test_subcommands.py::test_init \
     --deselect=tests/cli/test_subcommands.py::test_install \
     --deselect=tests/cli/test_subcommands.py::test_list \
+    --deselect=tests/cli/test_subcommands.py::test_notices \
+    --deselect=tests/cli/test_subcommands.py::test_remove_all_json[remove] \
+    --deselect=tests/cli/test_subcommands.py::test_remove_all_json[uninstall] \
+    --deselect=tests/cli/test_subcommands.py::test_rename \
     --deselect=tests/cli/test_subcommands.py::test_run \
     --deselect=tests/cli/test_subcommands.py::test_search \
     --deselect=tests/cli/test_subcommands.py::test_update[update] \
@@ -243,6 +247,7 @@ py.test-%{python3_version} -vv -m "not integration" \
 %files
 %{_sysconfdir}/conda/
 %{_bindir}/conda
+%{_bindir}/conda-env
 %{bash_completionsdir}/conda
 # TODO - better ownership/requires for fish
 %dir /etc/fish

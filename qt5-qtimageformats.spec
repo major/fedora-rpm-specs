@@ -2,8 +2,8 @@
 
 Summary: Qt5 - QtImageFormats component
 Name:    qt5-%{qt_module}
-Version: 5.15.10
-Release: 3%{?dist}
+Version: 5.15.11
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -11,15 +11,18 @@ Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 
-Patch1:  0001-Add-some-basic-checking-against-corrupt-input.patch
-Patch2:  0002-Check-earlier-to-avoid-sanitzer-warnings.patch
-Patch3:  0003-jp2-use-correct-buffer_size-for-jas_stream_memopen.patch
-Patch4:  0004-jp2-use-new-APIs-for-jasper-3.patch
-Patch5:  0005-Reject-tiled-tiffs-with-corrupt-tile-size-early.patch
-Patch6:  0006-webp-support-sequential-input-device-if-full-file-is.patch
-Patch7:  0007-Explicitly-include-QVarLengthArray-header.patch
-Patch8:  0008-Implement-support-for-file-memory-mapping-for-tiff-r.patch
-Patch9:  0009-TGA-Plugin-Fix-reading-of-CMapDepth.patch
+Patch1:  0001-Reject-tiled-tiffs-with-corrupt-tile-size-early.patch
+Patch2:  0002-webp-support-sequential-input-device-if-full-file-is.patch
+Patch3:  0003-Explicitly-include-QVarLengthArray-header.patch
+Patch4:  0004-Implement-support-for-file-memory-mapping-for-tiff-r.patch
+Patch5:  0005-TGA-Plugin-Fix-reading-of-CMapDepth.patch
+Patch6:  0006-Update-bundled-libwebp-to-version-1.3.0.patch
+Patch7:  0007-Update-bundled-libwebp-to-version-1.3.1.patch
+Patch8:  0008-Update-bundled-libwebp-to-version-1.3.2.patch
+Patch9:  0009-Fix-bundled-libtiff-compilation-lzw-warning-and-read.patch
+Patch10:  0010-Update-bundled-libtiff-to-version-4.5.0.patch
+Patch11:  0011-Update-bundled-libtiff-to-version-4.5.1.patch
+Patch12:  0012-Update-bundled-libtiff-to-version-4.6.0.patch
 
 
 BuildRequires: make
@@ -83,6 +86,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
+- 5.15.11
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

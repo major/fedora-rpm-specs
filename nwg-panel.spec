@@ -1,3 +1,4 @@
+%global forgeurl https://github.com/nwg-piotr/%{name}
 %global sys_name nwg_panel
 
 Name:       nwg-panel
@@ -6,9 +7,11 @@ Release:    %autorelease
 Summary:    GTK3-based panel for sway window manager
 BuildArch:  noarch
 
+%forgemeta
+
 License:    MIT
-URL:        https://github.com/nwg-piotr/nwg-panel
-Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:        %{forgeurl}
+Source0:    %{forgesource}
 
 BuildRequires: desktop-file-utils
 BuildRequires: python3-devel >= 3.4
@@ -43,7 +46,7 @@ you may need, there's an executor for that.
 
 
 %prep
-%autosetup
+%forgeautosetup -p1
 
 sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' \
     nwg_panel/executors/arch_updates.py

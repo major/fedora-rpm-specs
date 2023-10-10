@@ -1,6 +1,6 @@
 Name:           libxkbcommon
-Version:        1.5.0
-Release:        3%{?gitdate:.%{gitdate}}%{?dist}
+Version:        1.6.0
+Release:        1%{?gitdate:.%{gitdate}}%{?dist}
 Summary:        X.Org X11 XKB parsing library
 License:        MIT AND X11 AND MIT-CMU
 URL:            http://www.x.org
@@ -107,8 +107,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_mandir}/man1/xkbcli-interactive-x11.1.gz
 %{_mandir}/man1/xkbcli-list.1.gz
 %{_mandir}/man1/xkbcli.1.gz
+%{_datadir}/bash-completion/completions/xkbcli
 
 %changelog
+* Mon Oct 09 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.6.0-1
+- libxkbcommon 1.6.0
+
 * Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: update to SPDX license identifiers
 

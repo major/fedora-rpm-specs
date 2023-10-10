@@ -2,7 +2,7 @@ Name:    kf6
 # This version MUST remain in sync with KF6 versions!
 # XXX: Yes, it's 5.x still, this is synced with the version set in extra-cmake-modules
 Version: 5.240.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -43,6 +43,7 @@ mkdir -p %{buildroot}%{_datadir}/qlogging-categories6/
 mkdir -p %{buildroot}%{_docdir}/qt6
 mkdir -p %{buildroot}%{_libexecdir}/kf6
 mkdir -p %{buildroot}%{_datadir}/kf6/
+mkdir -p %{buildroot}%{_datadir}/locale/tok
 %if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/kconf_update_bin
 mkdir -p %{buildroot}%{_datadir}/{config.kcfg,kconf_update}
@@ -71,6 +72,7 @@ sed -i \
 %{_prefix}/lib/qt6/plugins/kf6/
 %{_prefix}/%{_lib}/qt6/qml/org/kde/
 %{_prefix}/lib/qt6/qml/org/kde/
+%{_datadir}/locale/tok
 %if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 %{_datadir}/config.kcfg/
 %{_datadir}/kconf_update/
@@ -86,6 +88,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Sun Oct 08 2023 Steve Cossette <farchord@gmail.com> - 5.240.0-3
+- Added ownership of the Toki Pona locale to kf6-filesystem
+
 * Thu Sep 21 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.240.0-2
 - Add KDE QML paths to -filesystem subpackage (#2239699)
 

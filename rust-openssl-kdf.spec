@@ -12,6 +12,8 @@ Summary:        OpenSSL KDF function abstraction
 License:        MIT
 URL:            https://crates.io/crates/openssl-kdf
 Source:         %{crates_source}
+# https://github.com/puiterwijk/rust-openssl-kdf/pull/16
+Patch:          0001-Fix-typo-in-build.rs-to-fix-builds-with-Rust-1.73.patch
 
 BuildRequires:  rust-packaging >= 21
 

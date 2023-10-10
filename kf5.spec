@@ -1,6 +1,6 @@
 Name:    kf5
 Version: 5.110.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 5
 License: BSD
 URL:     http://www.kde.org
@@ -51,6 +51,7 @@ mkdir -p %{buildroot}%{_datadir}/kservices5/ServiceMenus
 mkdir -p %{buildroot}%{_datadir}/qlogging-categories5/
 mkdir -p %{buildroot}%{_docdir}/qt5
 mkdir -p %{buildroot}%{_libexecdir}/kf5
+mkdir -p %{buildroot}%{_datadir}/locale/tok
 %if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/kconf_update_bin
 mkdir -p %{buildroot}%{_datadir}/{config.kcfg,kconf_update}
@@ -79,6 +80,7 @@ sed -i \
 %{_datadir}/kservicetypes5/
 %{_datadir}/qlogging-categories5/
 %{_docdir}/qt5/
+%{_datadir}/locale/tok
 %if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 %{_sysconfdir}/xdg/plasma-workspace/
 %{_prefix}/lib/kconf_update_bin/
@@ -95,6 +97,9 @@ sed -i \
 
 
 %changelog
+* Sun Oct 08 2023 Steve Cossette <farchord@gmail.com> - 5.110.0-3
+- Added kf5-filesystem ownership of /usr/share/locale/tok (Toki Pona).
+
 * Thu Sep 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.110.0-2
 - Use kde-filesystem for unversioned directories in F40+
 

@@ -1,13 +1,14 @@
 %define pkgverdir %(echo %version|sed s/\\\\\./_/)
 
 Name:           openmsx
-Version:        19.0
+Version:        19.1
 Release:        1%{?dist}
 Summary:        An emulator for the MSX home computer system
 License:        GPLv2
 URL:            https://openmsx.org/
 Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-%{version}.tar.gz
-Source1:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-catapult-%{version}.tar.gz
+# No new Catapult has been released, as it has no changes
+Source1:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-catapult-19.0.tar.gz
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  docbook-utils
@@ -52,7 +53,7 @@ to read the documentation of openMSX.
 %prep
 %autosetup -N -a 1
 %autopatch -p1 -M 9
-pushd %{name}-catapult-%{version}
+pushd %{name}-catapult-19.0
   %autopatch -p1 -m 10
 popd
 
@@ -69,7 +70,7 @@ OPENMSX_STRIP:=false
 CATAPULT_STRIP:=false
 EOF
 
-cp build/flavour-rpm.mk %{name}-catapult-%{version}/build
+cp build/flavour-rpm.mk %{name}-catapult-19.0/build
 
 cat > build/custom.mk << EOF
 PYTHON:=python3
@@ -81,7 +82,7 @@ INSTALL_SHARE_DIR=%{_datadir}/%{name}
 INSTALL_DOC_DIR=%{_docdir}/%{name}
 EOF
 
-cat > %{name}-catapult-%{version}/build/custom.mk << EOF
+cat > %{name}-catapult-19.0/build/custom.mk << EOF
 PYTHON:=python3
 # If we set this to %%{_prefix} catapult cannot find its resources
 INSTALL_BASE:=%{_datadir}/%{name}-catapult
@@ -94,11 +95,11 @@ CATAPULT_OPENMSX_SHARE:=%{_datadir}/%{name}
 EOF
 
 %configure
-make %{?_smp_mflags} OPENMSX_FLAVOUR=rpm V=1
-pushd %{name}-catapult-%{version}
+%make_build OPENMSX_FLAVOUR=rpm
+pushd %{name}-catapult-19.0
   # Make config.h first to fix parallel build issue
   make CATAPULT_FLAVOUR=rpm derived/linux-rpm/config/config.h
-  make %{?_smp_mflags} CATAPULT_FLAVOUR=rpm V=1
+  %make_build CATAPULT_FLAVOUR=rpm
 popd
 
 # Build desktop icon
@@ -121,7 +122,7 @@ docbook2man doc/openmsx.sgml -o ./
 
 %install
 %make_install OPENMSX_FLAVOUR=rpm V=1
-pushd %{name}-catapult-%{version}
+pushd %{name}-catapult-19.0
   %make_install CATAPULT_FLAVOUR=rpm V=1
 popd
 
@@ -225,6 +226,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Sep 02 2023 Andrea Musuruane <musuruan@gmail.com> - 19.1-1
+- New upstream version 19.1
+
 * Thu Jul 27 2023 Andrea Musuruane <musuruan@gmail.com> - 19.0-1
 - New upstream version 19.0
 

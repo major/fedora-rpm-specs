@@ -13,6 +13,8 @@ URL:            https://crates.io/crates/rd-hashd
 Source:         %{crates_source}
 # hashd: build fix for 32bit archs
 Patch0:         https://github.com/facebookexperimental/resctl-demo/commit/dbe5735bdf005a24e54dd19559016a59f6f43536.patch
+# * fix builds with Rust 1.73+ caused by ambiguous <number>::div_ceil calls
+Patch1:         0001-Disambiguate-num-Integer-div_ceil-from-number-div_ce.patch
 
 BuildRequires:  rust-packaging >= 23
 
@@ -42,7 +44,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND Unicode-DFS-2016 AND (Ap
 %{_bindir}/rd-hashd
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p2
+%autosetup -n %{crate}-%{version_no_tilde} -N
+%patch -P0 -p2
+%patch -P1 -p1
 %cargo_prep
 
 %generate_buildrequires

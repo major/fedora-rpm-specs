@@ -14,6 +14,10 @@ License:        ASL 2.0
 URL:            https://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
 
+# Revert bindgen patch that broke Mesa build. See upstream discussion in
+# https://github.com/mesonbuild/meson/issues/12326
+Patch:          0007-Revert-rust-apply-global-project-and-environment-C-a.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

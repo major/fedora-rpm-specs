@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.82.0
+Version:        0.83.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,11 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Oct 06 2023 Packit <hello@packit.dev> - 0.83.0-1
+- We have fixed an issue that prevented automated allowlisting in the Packit Service. (#2113)
+- Packit now also detects resolved bugs in the default update notes (created from changelog diff) and assigns these when submitting the Bodhi updates. (#2111)
+- Packit now exports `PACKIT_UPSTREAM_PACKAGE_NAME`, `PACKIT_DOWNSTREAM_PACKAGE_NAME` and `PACKIT_CONFIG_PACKAGE_NAME` also in the `changelog_entry` action. (#2103)
+
 * Fri Sep 29 2023 Packit <hello@packit.dev> - 0.82.0-1
 - You can now specify bugs resolved by an update by `-b` or `--resolve-bug` option for `propose-downstream` and `pull-from-upstream` commands. The values will be added by default to the changelog and commit message and provided in `commit-message` and `changelog-entry` actions as `PACKIT_RESOLVED_BUGS` env variable. (#2094)
 - Resolves rhbz#2240355

@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -959,6 +959,9 @@ fi
 %endif
 
 %changelog
+* Sun Oct 08 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-3
+- rebuild (f40) for OCaml 5.1
+
 * Tue Sep 26 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-2
 - arm32: The cache may not be properly cleaned/invalidated [XSA-437,
 	CVE-2023-34321]

@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
-Version: 5.15.10
-Release: 4%{?dist}
+Version: 5.15.11
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -13,7 +13,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 ## Upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtwayland
 ## branch: kde/5.15
-## git format-patch v5.15.8-lts-lgpl
+## git format-patch v5.15.11-lts-lgpl
 Patch1:  0001-Client-Announce-an-output-after-receiving-more-compl.patch
 Patch2:  0002-Fix-issue-with-repeated-window-size-changes.patch
 Patch3:  0003-Client-Connect-drags-being-accepted-to-updating-the-.patch
@@ -41,30 +41,38 @@ Patch24:  0024-Revert-Client-Remove-mWaitingForUpdateDelivery.patch
 Patch25:  0025-Fix-race-condition-on-mWaitingForUpdateDelivery.patch
 Patch26:  0026-use-poll-2-when-reading-from-clipboard.patch
 Patch27:  0027-Reduce-memory-leakage.patch
-Patch28:  0028-Fix-build-with-libcxx-missing-array-include.patch
-Patch29:  0029-Only-close-popup-in-the-the-hierchary.patch
-Patch30:  0030-Check-pointer-for-null-before-use-in-ASSERT.patch
-Patch31:  0031-Use-wl_surface.damage_buffer-on-the-client-side.patch
-Patch32:  0032-Client-clear-focus-on-touch-cancel.patch
-Patch33:  0033-Guard-mResizeDirty-by-the-correctMutex.patch
-Patch34:  0034-Fix-compile-tests.patch
-Patch35:  0035-Use-CRLF-line-delimiter-for-text-uri-list-data.patch
-Patch36:  0036-Avoid-calling-requestUpdate-from-wrong-thread.patch
-Patch37:  0037-Call-finishDrag-in-QWaylandDataDevice-dragSourceCanc.patch
-Patch38:  0038-Hold-surface-read-lock-throughout-QWaylandEglWindow-.patch
-Patch39:  0039-Keep-toplevel-windows-in-the-top-left-corner-of-the-.patch
-Patch40:  0040-Client-Add-F_SEAL_SHRINK-seal-to-shm-backing-file.patch
-Patch41:  0041-Client-Call-wl_output_release-upon-QWaylandScreen-de.patch
-Patch42:  0042-Client-Bump-wl_output-version.patch
-Patch43:  0043-Fix-frame-sync-related-to-unprotected-multithread-ac.patch
-Patch44:  0044-Client-Handle-zwp_primary_selection_device_manager_v.patch
-Patch45:  0045-Fixes-the-build-on-CentOS.patch
-Patch46:  0046-client-Avoid-protocol-error-with-invalid-min-max-siz.patch
-Patch47:  0047-Client-Fix-handling-of-Qt-BlankCursor.patch
-Patch48:  0048-client-Force-a-roundtrip-when-an-XdgOutput-is-not-re.patch
-Patch49:  0049-Client-Manage-QMimeData-lifecycle.patch
-Patch50:  0050-client-Do-not-cast-placeholder-screens-to-QWaylandSc.patch
-Patch51:  0051-Client-Remove-flip-popup-constraints.patch
+Patch28:  0028-Only-close-popup-in-the-the-hierchary.patch
+Patch29:  0029-Check-pointer-for-null-before-use-in-ASSERT.patch
+Patch30:  0030-Use-wl_surface.damage_buffer-on-the-client-side.patch
+Patch31:  0031-Client-clear-focus-on-touch-cancel.patch
+Patch32:  0032-Guard-mResizeDirty-by-the-correctMutex.patch
+Patch33:  0033-Fix-compile-tests.patch
+Patch34:  0034-Call-finishDrag-in-QWaylandDataDevice-dragSourceCanc.patch
+Patch35:  0035-Hold-surface-read-lock-throughout-QWaylandEglWindow-.patch
+Patch36:  0036-Keep-toplevel-windows-in-the-top-left-corner-of-the-.patch
+Patch37:  0037-Client-Add-F_SEAL_SHRINK-seal-to-shm-backing-file.patch
+Patch38:  0038-Client-Call-wl_output_release-upon-QWaylandScreen-de.patch
+Patch39:  0039-Client-Bump-wl_output-version.patch
+Patch40:  0040-Fix-frame-sync-related-to-unprotected-multithread-ac.patch
+Patch41:  0041-Client-Handle-zwp_primary_selection_device_manager_v.patch
+Patch42:  0042-Fixes-the-build-on-CentOS.patch
+Patch43:  0043-client-Avoid-protocol-error-with-invalid-min-max-siz.patch
+Patch44:  0044-Client-Fix-handling-of-Qt-BlankCursor.patch
+Patch45:  0045-client-Force-a-roundtrip-when-an-XdgOutput-is-not-re.patch
+Patch46:  0046-Client-Manage-QMimeData-lifecycle.patch
+Patch47:  0047-client-Do-not-cast-placeholder-screens-to-QWaylandSc.patch
+Patch48:  0048-Client-Remove-flip-popup-constraints.patch
+Patch49:  0049-Destroy-frame-queue-before-display.patch
+Patch50:  0050-client-Fix-crash-on-dnd-updates-after-client-facing-.patch
+Patch51:  0051-Convert-cursor-bitmap-to-supported-format.patch
+Patch52:  0052-Replace-scale-with-devicePixelRatio-for-non-integer-.patch
+Patch53:  0053-Client-Fix-buffer-damage.patch
+Patch54:  0054-client-Fix-infinite-recursion-with-text-input-v2.patch
+Patch55:  0055-Client-Fix-the-mouse-being-stuck-in-pressed-state-af.patch
+Patch56:  0056-Client-Commit-the-initial-surface-state-explicitly.patch
+Patch57:  0057-tests-Fix-tst_xdgshell-minMaxSize.patch
+Patch58:  0058-Client-Remove-some-surface-commits.patch
+Patch59:  0059-Client-Avoid-locking-resizing-in-QWaylandShmBackingS.patch
 
 # Use QAdwaitaDecorations by default
 Patch100: qtwayland-use-adwaita-decorations-by-default.patch
@@ -178,6 +186,9 @@ popd
 
 
 %changelog
+* Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
+- 5.15.11
+
 * Tue Aug 22 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-4
 - Rebuild (qtbase)
 

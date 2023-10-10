@@ -4,7 +4,9 @@ Name:           libportal
 Version:        0.7.1
 Release:        1%{?dist}
 Summary:        Flatpak portal library
-License:        LGPLv3
+# doc/urlmap.js is LGPL-2.1-or-later
+# everything else is LGPL-3.0-only
+License:        LGPL-3.0-only AND LGPL-2.1-or-later
 Url:            https://github.com/flatpak/libportal
 Source:         https://github.com/flatpak/libportal/releases/download/%{version}/%{name}-%{version}.tar.xz
 

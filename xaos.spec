@@ -4,7 +4,7 @@
 %global alt_name XaoS
 
 Name:           xaos
-Version:        4.2.1
+Version:        4.3.1
 Release:        %autorelease
 Summary:        A fast, portable real-time interactive fractal zoomer
 %global tag release-%{version}
@@ -13,8 +13,8 @@ License:        GPL-2.0-or-later
 URL:            %forgeurl
 Source:         %forgesource
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-rpm-macros qt5-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-rpm-macros qt6-linguist
 
 
 %description
@@ -27,10 +27,10 @@ on-the-fly plane switching.
 
 
 %prep
-%autosetup -p1 -n XaoS-release-4.2.1
+%forgeautosetup -p1
 
 %build
-%qmake_qt5
+%qmake_qt6
 %make_build STRIP=:
 
 %install
@@ -47,7 +47,7 @@ cp --archive examples tutorial %{buildroot}%{_datadir}/%{alt_name}
 
 # Icon, .desktop, AppData
 install -D --mode 0644 --target-directory %{buildroot}%{_datadir}/metainfo xdg/%{name}.appdata.xml
-install -D --mode 0644 --target-directory %{buildroot}%{_datadir}/applications xdg/%{name}.desktop
+install -D --mode 0644 --target-directory %{buildroot}%{_datadir}/applications xdg/io.github.xaos_project.XaoS.desktop
 install -D --mode 0644 --target-directory %{buildroot}%{_datadir}/pixmaps xdg/%{name}.png
 
 # Man
@@ -58,7 +58,7 @@ install -D --mode 0644 --target-directory %{buildroot}%{_mandir}/man6 doc/%{name
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/%{alt_name}
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/io.github.xaos_project.XaoS.desktop
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/pixmaps/%{name}.png
 %{_mandir}/man6/xaos.6.gz

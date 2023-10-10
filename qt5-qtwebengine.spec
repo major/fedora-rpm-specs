@@ -62,7 +62,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.12
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -120,6 +120,9 @@ Patch32: qtwebengine-skia-missing-includes.patch
 Patch33: qtwebengine-5.15-Backport-of-16k-page-support-on-aarch64.patch
 Patch34: qtwebengine-fix-build.patch
 Patch35: qt5-qtwebengine-c99.patch
+
+# Fix assembly with binutils 2.41 https://fftrac-bg.ffmpeg.org/ticket/10405
+Patch50: 0001-avcodec-x86-mathops-clip-constants-used-with-shift-i.patch
 
 ## Upstream patches:
 
@@ -454,6 +457,8 @@ popd
 
 %patch35 -p1 -b .c99
 
+%patch50 -p1 -b .0001-avcodec-x86-mathops-clip-constants-used-with-shift-i
+
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
 # never cross-compile in native Fedora RPMs, fixes ARM and aarch64 FTBFS
 sed -i -e '/toolprefix = /d' -e 's/\${toolprefix}//g' \
@@ -678,6 +683,9 @@ done
 
 
 %changelog
+* Sun Oct 08 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.12-9
+- Rebuild (qt5)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

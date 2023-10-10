@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Speech component
 Name:    qt5-%{qt_module}
-Version: 5.15.10
-Release: 3%{?dist}
+Version: 5.15.11
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -121,6 +121,9 @@ popd
 
 
 %changelog
+* Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
+- 5.15.11
+
 * Mon Aug 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.10-3
 - Enable flite plugin
 

@@ -1,3 +1,4 @@
+%global forgeurl https://github.com/phase1geo/Minder
 %global uuid com.github.phase1geo.%{name}
 
 Name:           minder
@@ -5,9 +6,11 @@ Version:        1.15.6
 Release:        %autorelease
 Summary:        Mind-mapping application
 
-License:        GPLv3+
-URL:            https://github.com/phase1geo/Minder
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%forgemeta
+
+License:        GPL-3.0-or-later
+URL:            %{forgeurl}
+Source0:        %{url}/archive/%{version}/Minder-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -61,7 +64,7 @@ Use the power of mind-mapping to make your ideas come to life.
 
 
 %prep
-%autosetup -n Minder-%{version} -p1
+%forgeautosetup -p1
 
 
 %build

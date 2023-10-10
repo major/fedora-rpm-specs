@@ -1,7 +1,7 @@
 %global srcname numcodecs
 
 Name:           python-%{srcname}
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Buffer compression and transformation for data storage and communication
 
@@ -16,8 +16,6 @@ Patch:          0003-Unbundle-lz4.patch
 Patch:          0004-Re-add-Snappy-to-tests.patch
 # We don't need coverage reports.
 Patch:          0005-Remove-coverage-from-testing-requirements.patch
-# Fix compatibility with NumPy 1.24.
-Patch:          https://github.com/zarr-developers/numcodecs/pull/417.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(blosc)
@@ -59,12 +57,9 @@ Documentation for numcodecs
 # Remove bundled blosc
 rm -rf c-blosc
 
-# Remove generated Cython files
-rm numcodecs/{blosc,compat_ext,lz4,_shuffle,vlen,zstd}.c
-
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x msgpack
+%pyproject_buildrequires -x msgpack
 
 
 %build

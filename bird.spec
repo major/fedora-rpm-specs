@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:             bird
-Version:          2.13.1
-Release:          2%{?dist}
+Version:          2.14
+Release:          1%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
 License:          GPL-2.0-or-later
@@ -108,6 +108,9 @@ make test
 %endif
 
 %changelog
+* Sun Oct 08 2023 Robert Scheck <robert@fedoraproject.org> - 2.14-1
+- Upgrade to 2.14 (#2242616)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

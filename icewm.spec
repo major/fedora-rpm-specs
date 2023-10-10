@@ -16,7 +16,7 @@ Summary:        Window manager designed for speed, usability, and consistency
 
 %forgemeta
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://ice-wm.org/
 Source0:        https://github.com/ice-wm/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/tim77/awesome-%{name}/archive/%{awe_commit}/awesome-%{name}.git%{awe_shortcommit}.tar.gz

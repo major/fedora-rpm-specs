@@ -17,6 +17,8 @@ Patch:          crossbeam-epoch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unstable-only dependency on loom
 Patch:          crossbeam-epoch-fix-metadata.diff
+# * remove redundant clone() call to fix builds with Rust 1.73+
+Patch:          0001-Remove-redundant-clone-call-to-fix-builds-with-Rust-.patch
 
 BuildRequires:  rust-packaging >= 21
 

@@ -1,6 +1,6 @@
 Name:           pcsc-tools
-Version:        1.6.2
-Release:        2%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Tools to be used with smart cards and PC/SC
 
 License:        GPLv2+
@@ -15,6 +15,7 @@ BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  pcsc-lite-devel >= 1.2.9
 BuildRequires:  perl-generators
+BuildRequires:  gettext
 Requires:       pcsc-lite
 
 %description
@@ -49,9 +50,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 desktop-file-install --mode=644 \
   --dir=$RPM_BUILD_ROOT%{_datadir}/applications gscriptor.desktop
 # TODO: icon
+%find_lang %{name}
 
-
-%files
+%files -f %{name}.lang
 %license LICENCE
 %doc Changelog README
 %{_bindir}/ATR_analysis
@@ -70,6 +71,10 @@ desktop-file-install --mode=644 \
 
 
 %changelog
+* Sun Oct 08 2023 Jakub Jelen <jjelen@redhat.com> - 1.7.0-1
+- New upstream release (#2242731)
+- Add support for locale files
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

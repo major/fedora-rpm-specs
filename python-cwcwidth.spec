@@ -1,6 +1,6 @@
 Summary:        Python bindings for wc(s)width
 Name:           python-cwcwidth
-Version:        0.1.8
+Version:        0.1.9
 Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/sebastinas/cwcwidth
@@ -41,6 +41,9 @@ rm -rf cwcwidth.egg-info
 %{python3_sitearch}/cwcwidth-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Oct 08 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.1.9-1
+- 0.1.9
+
 * Sun Sep 10 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.1.8-1
 - 0.1.8
 

@@ -8,31 +8,33 @@ be}
 
 %global forgeurl https://github.com/google/yapf
 
-Name:		python-%{pypi_name}
-Version:	0.40.1
-Release:	%autorelease
-Summary:	A formatter for Python code
-License:	ASL 2.0
+Name:           python-%{pypi_name}
+Version:        0.40.2
+Release:        %autorelease
+Summary:        A formatter for Python code
+License:        ASL 2.0
 
 %global tag v%{version}
 %forgemeta
 
-URL:		%{forgeurl}
-Source0:	%{forgesource}
-Patch:		fix_installed_modules.patch
-BuildArch:	noarch
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+Patch:          fix_installed_modules.patch
+Patch:          fix_tox_requirements.patch
+
+BuildArch:      noarch
  
-BuildRequires:	python3-devel, git-core
-BuildRequires:	python3dist(setuptools)
+BuildRequires:  python3-devel, git-core
+BuildRequires:  python3dist(setuptools)
 # Required for running tests
-BuildRequires:	python3-importlib-metadata
-BuildRequires:	python3-platformdirs
+BuildRequires:  python3-importlib-metadata
+BuildRequires:  python3-platformdirs
 
 %description %{desc}
 
-%package -n	python3-%{pypi_name}
-Summary:	%{summary}
-Requires:	python3dist(setuptools)
+%package -n python3-%{pypi_name}
+Summary:        %{summary}
+Requires:       python3dist(setuptools)
 # Upstream has forked lib2to3. From their README:
 # A fork of python's lib2to3 with select features backported from black's
 # blib2to3.
@@ -43,16 +45,19 @@ Requires:	python3dist(setuptools)
 # Maintenance moving forward:
 # - Most changes moving forward should only have to be done to the
 #   grammar files in this project.
-Provides:	bundled(python3dist(lib2to3))
-%description -n	python3-%{pypi_name} %{desc}
+Provides:       bundled(python3dist(lib2to3))
+%description -n python3-%{pypi_name} %{desc}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -S git
+%forgeautosetup -S git
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
-cp plugins/README.rst README-plugins.rst
+cp plugins/README.md README-plugins.md
+
+# Remove shebang
+sed -i '/^#!/d' third_party/yapf_third_party/_ylib2to3/pgen2/token.py
 
 
 %generate_buildrequires
@@ -69,7 +74,7 @@ cp plugins/README.rst README-plugins.rst
 
 
 %check
-%{py3_test_envvars} %{python3} setup.py test
+%tox
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

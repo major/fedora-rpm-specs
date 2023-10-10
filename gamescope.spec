@@ -1,7 +1,9 @@
 %global libliftoff_minver 0.4.1
+%global reshade_commit 4245743a8c41abbe3dc73980c1810fe449359bf1
+%global reshade_shortcommit %(c=%{reshade_commit}; echo ${c:0:7})
 
 Name:           gamescope
-Version:        3.12.5
+Version:        3.12.6
 Release:        %autorelease
 Summary:        Micro-compositor for video games on Wayland
 
@@ -10,6 +12,9 @@ URL:            https://github.com/Plagman/gamescope
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Create stb.pc to satisfy dependency('stb')
 Source1:        stb.pc
+Source2:        https://github.com/Joshua-Ashton/reshade/archive/%{reshade_commit}/reshade-%{reshade_shortcommit}.tar.gz
+
+Patch01:        0001-cstdint.patch
 
 BuildRequires:  meson >= 0.54.0
 BuildRequires:  ninja-build
@@ -41,7 +46,9 @@ BuildRequires:  (pkgconfig(wlroots) >= 0.16.0 with pkgconfig(wlroots) < 0.17)
 BuildRequires:  (pkgconfig(libliftoff) >= 0.4.1 with pkgconfig(libliftoff) < 0.5)
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(hwdata)
+BuildRequires:  spirv-headers-devel
 BuildRequires:  stb_image-devel
+BuildRequires:  stb_image_resize-devel
 BuildRequires:  stb_image_write-devel
 BuildRequires:  vkroots-devel
 BuildRequires:  /usr/bin/glslangValidator
@@ -56,10 +63,18 @@ Recommends:     mesa-vulkan-drivers
 %{name} is the micro-compositor optimized for running video games on Wayland.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -a2 -N
 # Install stub pkgconfig file
 mkdir -p pkgconfig
 cp %{SOURCE1} pkgconfig/stb.pc
+
+# Replace spirv-headers include with the system directory
+sed -i 's^../thirdparty/SPIRV-Headers/include/spirv/^/usr/include/spirv/^' src/meson.build
+
+# Push in reshade from sources instead of submodule
+rm -rf src/reshade && mv reshade-%{reshade_commit} src/reshade
+
+%autopatch -p1
 
 %build
 export PKG_CONFIG_PATH=pkgconfig
@@ -73,7 +88,7 @@ export PKG_CONFIG_PATH=pkgconfig
 %license LICENSE
 %doc README.md
 %{_bindir}/gamescope
-%{_libdir}/libVkLayer_FROG_gamescope_wsi.so
+%{_libdir}/libVkLayer_FROG_gamescope_wsi_*.so
 %{_datadir}/vulkan/implicit_layer.d/VkLayer_FROG_gamescope_wsi.*.json
 
 

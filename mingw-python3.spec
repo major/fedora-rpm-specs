@@ -23,7 +23,7 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.5
+Version:       3.11.6
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -496,6 +496,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Sun Oct 08 2023 Sandro Mani <manisandro@gmail.com> - 3.11.6-1
+- Update to 3.11.6
+
 * Thu Aug 31 2023 Sandro Mani <manisandro@gmail.com> - 3.11.5-1
 - Update to 3.11.5
 

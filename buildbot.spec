@@ -12,7 +12,7 @@
 %bcond_without container
 %bcond_without libvirt
 
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 9
 # Required client packages don't exist in RHEL or EPEL
 %bcond_with openstack
 %else

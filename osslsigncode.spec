@@ -10,13 +10,17 @@
 %endif
 %endif
 
+%global forgeurl https://github.com/mtrojnar/%{name}
+
 Name:       osslsigncode
 Version:    2.7
 Release:    %autorelease
 Summary:    OpenSSL based Authenticode signing for PE/MSI/Java CAB files
 
-License:    GPLv3+
-URL:        https://github.com/mtrojnar/osslsigncode
+%forgemeta
+
+License:    GPL-3.0-or-later
+URL:        %{forgeurl}
 Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # To prevent network access during tests
@@ -50,7 +54,7 @@ be able to compile on most platforms where these exist.
 
 
 %prep
-%autosetup
+%forgeautosetup -p1
 
 
 %build

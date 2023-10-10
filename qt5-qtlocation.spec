@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.15.10
-Release: 3%{?dist}
+Version: 5.15.11
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -17,6 +17,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 # eliminated which in turn forces packages to include the C++ headers they
 # actually need.
 Patch0: qtlocation-gcc10.patch
+Patch1: qtlocation-fix-build-qtlabs-location-qml-plugin.patch
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -54,7 +55,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{version}
+
 %patch0 -p1 -b .gcc10
+%patch1 -p1 -b .fix-build-qtlabs-location-qml-plugin
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -126,6 +129,9 @@ popd
 
 
 %changelog
+* Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
+- 5.15.11
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

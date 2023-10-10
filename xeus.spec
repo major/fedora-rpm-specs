@@ -1,5 +1,5 @@
 Name:           xeus
-Version:        3.1.1
+Version:        3.1.3
 Release:        %autorelease
 Summary:        C++ implementation of the Jupyter kernel protocol
 

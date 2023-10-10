@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.110.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for global shortcuts
 
 License: LGPLv2+
@@ -58,8 +58,12 @@ developing applications that use %{name}.
 
 
 %build
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10 
+# Added flag is for co-instability with KF6
+%cmake_kf5 -DBUILD_RUNTIME=OFF
+%else
 %cmake_kf5
-
+%endif
 %cmake_build
 
 
@@ -79,19 +83,25 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 %doc README.md
 %license LICENSES/*.txt
 %{_kf5_datadir}/qlogging-categories5/%{framework}*
+%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 %{_kf5_bindir}/kglobalaccel5
 %{_kf5_datadir}/kservices5/kglobalaccel5.desktop
 %{_datadir}/dbus-1/services/org.kde.kglobalaccel.service
+%endif
 %if ! 0%{?flatpak:1}
+%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 %{_userunitdir}/plasma-kglobalaccel.service
+%endif
 %endif
 
 %ldconfig_scriptlets libs
 
 %files libs
 %{_kf5_libdir}/libKF5GlobalAccel.so.*
+%if ! 0%{?fedora} >= 40 || !0%{?rhel} > 10
 %{_kf5_libdir}/libKF5GlobalAccelPrivate.so.*
 %{_kf5_qtplugindir}/org.kde.kglobalaccel5.platforms/
+%endif
 
 %files devel
 
@@ -103,6 +113,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 
 
 %changelog
+* Sun Oct 08 2023 Steve Cossette <farchord@gmail.com> - 5.110.0-3
+- Added logic and build flag for co-installation with KF6
+
 * Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
 - 5.110.0
 
