@@ -1,8 +1,10 @@
+%bcond build_runtime 1
+
 %global framework kglobalaccel
 
 Name:    kf5-%{framework}
 Version: 5.110.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for global shortcuts
 
 License: LGPLv2+
@@ -58,12 +60,7 @@ developing applications that use %{name}.
 
 
 %build
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10 
-# Added flag is for co-instability with KF6
-%cmake_kf5 -DBUILD_RUNTIME=OFF
-%else
-%cmake_kf5
-%endif
+%cmake_kf5 %{?!with_build_runtime:-DBUILD_RUNTIME=OFF}
 %cmake_build
 
 
@@ -71,7 +68,7 @@ developing applications that use %{name}.
 %cmake_install
 
 # unpackaged files
-%if 0%{?flatpak:1}
+%if 0%{?flatpak:1} && %{with build_runtime}
 rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 %endif
 
@@ -83,28 +80,25 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 %doc README.md
 %license LICENSES/*.txt
 %{_kf5_datadir}/qlogging-categories5/%{framework}*
-%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
+%if %{with build_runtime}
 %{_kf5_bindir}/kglobalaccel5
 %{_kf5_datadir}/kservices5/kglobalaccel5.desktop
 %{_datadir}/dbus-1/services/org.kde.kglobalaccel.service
 %endif
 %if ! 0%{?flatpak:1}
-%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
+%if %{with build_runtime}
 %{_userunitdir}/plasma-kglobalaccel.service
 %endif
 %endif
 
-%ldconfig_scriptlets libs
-
 %files libs
 %{_kf5_libdir}/libKF5GlobalAccel.so.*
-%if ! 0%{?fedora} >= 40 || !0%{?rhel} > 10
+%if %{with build_runtime}
 %{_kf5_libdir}/libKF5GlobalAccelPrivate.so.*
 %{_kf5_qtplugindir}/org.kde.kglobalaccel5.platforms/
 %endif
 
 %files devel
-
 %{_kf5_includedir}/KGlobalAccel/
 %{_kf5_libdir}/libKF5GlobalAccel.so
 %{_kf5_libdir}/cmake/KF5GlobalAccel/
@@ -113,6 +107,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 
 
 %changelog
+* Mon Oct 09 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.110.0-4
+- Re-enable building kglobalaccel runtime code
+
 * Sun Oct 08 2023 Steve Cossette <farchord@gmail.com> - 5.110.0-3
 - Added logic and build flag for co-installation with KF6
 

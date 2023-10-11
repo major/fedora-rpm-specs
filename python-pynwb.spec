@@ -1,22 +1,24 @@
 # backwards compatibility tests
-%bcond test_backwards    1
+%bcond test_backwards         1
 # example tests
-%bcond test_example      1
+%bcond test_example           1
 # example tests with ros3 streaming
 # Internet access required (automatically disabled without it)
-%bcond test_example_ros3 0
+%bcond test_example_ros3      0
 # integration tests
-%bcond test_integration  1
+%bcond test_integration       1
 # unit tests for pynwb package
-%bcond test_pynwb        1
+%bcond test_pynwb             1
 # ros3 streaming tests
 # Internet access required (automatically disabled without it)
-%bcond test_ros3         0
+%bcond test_ros3              0
 # example tests and validation tests on example NWB files
-%bcond test_validation   0
+%bcond test_validate_examples 0
+# tests on pynwb.validate
+%bcond test_validation_module 1
 
 Name:           python-pynwb
-Version:        2.3.3
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Package for working with Neurodata stored in the NWB format
 
@@ -30,6 +32,14 @@ License:        BSD-3-Clause-LBNL AND Unlicense
 URL:            https://github.com/NeurodataWithoutBorders/pynwb
 # Use the pypi tar because GitHub tar does not include the required git-submodules
 Source:         %{pypi_source pynwb}
+
+# Fix warnings from tests
+# https://github.com/NeurodataWithoutBorders/pynwb/pull/1778
+#
+# Rebased on 2.5.0 (except with setup.cfg replaced with the reformatted one
+# from the PyPI sdist); contents of .github/ and docs/ removed from the patch
+# so it applies to the PyPI sdist, which lacks them.
+Patch:          0001-Fix-warnings-from-tests-1778.patch
 
 BuildArch:      noarch
 
@@ -49,7 +59,7 @@ BuildRequires:  python3-pytest
 %description -n python3-pynwb %{desc}
 
 %prep
-%autosetup -n pynwb-%{version}
+%autosetup -n pynwb-%{version} -p1
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's@"coverage", "run", "-p"@"%{python3}"@' \
@@ -112,8 +122,11 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' '%{python3}' ./test.py \
 %if %{with test_ros3}
     --ros3 \
 %endif
-%if %{with test_validation}
-    --validation \
+%if %{with test_validate_examples}
+    --validate-examples \
+%endif
+%if %{with test_validation_module}
+    --validation-module \
 %endif
     --verbose
 

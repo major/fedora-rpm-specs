@@ -2,7 +2,7 @@
 Name:    kalgebra 
 Summary: 2D and 3D Graph Calculator 
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/edu/%{name}
@@ -43,6 +43,7 @@ BuildRequires: kf5-kconfigwidgets-devel
 BuildRequires: kf5-kdoctools-devel
 BuildRequires: kf5-ki18n-devel
 BuildRequires: kf5-kio-devel
+BuildRequires: kf5-plasma-devel
 BuildRequires: kf5-kwidgetsaddons-devel
 # calgebra deps
 BuildRequires: ncurses-devel readline-devel
@@ -69,21 +70,33 @@ BuildRequires: ncurses-devel readline-devel
 
 %check
 %if 0%{?validate_appdata}
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kalgebra.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kalgebramobile.appdata.xml
 %endif
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalgebra.desktop
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalgebramobile.desktop
 
 
 %files -f %{name}.lang
 %doc TODO
 %license COPYING*
 %{_kf5_bindir}/calgebra
+%{_kf5_bindir}/kalgebra
 %{_kf5_bindir}/kalgebramobile
 %{_datadir}/icons/hicolor/*/*/kalgebra.*
+%{_kf5_metainfodir}/org.kde.graphsplasmoid.appdata.xml
+%{_kf5_metainfodir}/org.kde.kalgebra.appdata.xml
 %{_kf5_metainfodir}/org.kde.kalgebramobile.appdata.xml
+%{_kf5_datadir}/applications/org.kde.kalgebra.desktop
 %{_kf5_datadir}/applications/org.kde.kalgebramobile.desktop
+%{_kf5_datadir}/katepart5/syntax/kalgebra.xml
+%{_kf5_datadir}/plasma/plasmoids/org.kde.graphsplasmoid/
 
 
 %changelog
+* Mon Oct 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.08.1-2
+- Restore desktop app and plasmoid
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

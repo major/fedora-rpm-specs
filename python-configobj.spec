@@ -1,6 +1,6 @@
 Name:           python-configobj
 Version:        5.0.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Config file reading, writing, and validation
 License:        BSD-3-Clause
 URL:            http://configobj.readthedocs.org/
@@ -10,6 +10,7 @@ URL:            http://configobj.readthedocs.org/
 # https://github.com/DiffSK/configobj/issues/99
 # Source0:        https://pypi.python.org/packages/source/c/configobj/configobj-5.0.6.tar.gz
 Source0:        https://github.com/DiffSK/configobj/archive/v%{version}.tar.gz
+Patch1:         0001-Address-CVE-2023-26112-ReDoS.patch
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
@@ -28,7 +29,7 @@ Requires:       python%{python3_pkgversion}-six
 %description -n python%{python3_pkgversion}-configobj %_description
 
 %prep
-%autosetup -n configobj-%{version}
+%autosetup -p1 -n configobj-%{version}
 
 %build
 %py3_build
@@ -50,6 +51,9 @@ export PYTHONPATH=$(pwd)/build/lib
 %{python3_sitelib}/configobj-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Oct 09 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.0.8-6
+- Add patch to fix CVE-2023-26112
+
 * Sun Oct 01 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.0.8-5
 - SPDX fix from Daniel P. Berrange
 

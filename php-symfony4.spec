@@ -63,8 +63,8 @@
 %global monolog_min_ver 1.25.1
 %global monolog_max_ver 2.0
 # "friendsofphp/proxy-manager-lts": "^1.0.2"
-%global proxy_manager_min_ver 1.0.2
-%global proxy_manager_max_ver 2
+# %%global proxy_manager_min_ver 1.0.2
+# %%global proxy_manager_max_ver 2
 # "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0"
 # conflicts: "phpdocumentor/reflection-docblock": "<3.0||>=3.2.0,<3.2.2"
 %global phpdocumentor_reflection_docblock_min_ver 3.2.2
@@ -143,7 +143,7 @@
 
 Name:          php-%{composer_project}4
 Version:       %{github_version}
-Release:       4%{?github_prerelease:.%{github_prerelease}}%{?dist}
+Release:       5%{?github_prerelease:.%{github_prerelease}}%{?dist}
 Summary:       Symfony PHP framework (version 4)
 
 # MIT and CC-BY-SA:
@@ -183,7 +183,7 @@ BuildRequires:(php-composer(masterminds/html5)                 >= %{masterminds_
 BuildRequires:(php-composer(mongodb/mongodb)                   >= %{mongodb_min_ver}                           with php-composer(mongodb/mongodb)                   <  %{mongodb_max_ver})
 BuildRequires:(php-composer(monolog/monolog)                   >= %{monolog_min_ver}                           with php-composer(monolog/monolog)                   <  %{monolog_max_ver})
 BuildRequires:(php-composer(nyholm/psr7)                       >= %{nyholm_psr7_min_ver}                       with php-composer(nyholm/psr7)                       <  %{nyholm_psr7_max_ver})
-BuildRequires:(php-composer(friendsofphp/proxy-manager-lts)    >= %{proxy_manager_min_ver}                     with php-composer(friendsofphp/proxy-manager-lts)    <  %{proxy_manager_max_ver})
+# BuildRequires:(php-composer(friendsofphp/proxy-manager-lts)    >= %%{proxy_manager_min_ver}                     with php-composer(friendsofphp/proxy-manager-lts)    <  %%{proxy_manager_max_ver})
 BuildRequires:(php-composer(phpdocumentor/reflection-docblock) >= %{phpdocumentor_reflection_docblock_min_ver} with php-composer(phpdocumentor/reflection-docblock) <  %{phpdocumentor_reflection_docblock_max_ver})
 BuildRequires:(php-composer(psr/cache)                         >= %{psr_cache_min_ver}                         with php-composer(psr/cache)                         <  %{psr_cache_max_ver})
 BuildRequires:(php-composer(psr/container)                     >= %{psr_container_min_ver}                     with php-composer(psr/container)                     <  %{psr_container_max_ver})
@@ -227,8 +227,8 @@ BuildRequires: php-composer(mongodb/mongodb) >= %{mongodb_min_ver}
 BuildRequires: php-Monolog >= %{monolog_min_ver}
 BuildRequires: php-composer(nyholm/psr7) <  %{nyholm_psr7_max_ver}
 BuildRequires: php-composer(nyholm/psr7) >= %{nyholm_psr7_min_ver}
-BuildRequires: php-composer(friendsofphp/proxy-manager-lts) <  %{proxy_manager_max_ver}
-BuildRequires: php-composer(friendsofphp/proxy-manager-lts) >= %{proxy_manager_min_ver}
+# BuildRequires: php-composer(friendsofphp/proxy-manager-lts) <  %%{proxy_manager_max_ver}
+# BuildRequires: php-composer(friendsofphp/proxy-manager-lts) >= %%{proxy_manager_min_ver}
 BuildRequires: php-composer(phpdocumentor/reflection-docblock) <  %{phpdocumentor_reflection_docblock_max_ver}
 BuildRequires: php-composer(phpdocumentor/reflection-docblock) >= %{phpdocumentor_reflection_docblock_min_ver}
 BuildRequires: php-composer(psr/cache) <  %{psr_cache_max_ver}
@@ -293,7 +293,7 @@ BuildRequires: php-fedora-autoloader-devel
 Requires:      php-composer(%{composer_vendor}/doctrine-bridge) = %{version}
 Requires:      php-composer(%{composer_vendor}/monolog-bridge) = %{version}
 #Requires:      php-composer(%%{composer_vendor}/phpunit-bridge) = %%{version}
-Requires:      php-composer(%{composer_vendor}/proxy-manager-bridge) = %{version}
+#Requires:      php-composer(%%{composer_vendor}/proxy-manager-bridge) = %%{version}
 Requires:      php-composer(%{composer_vendor}/twig-bridge) = %{version}
 # Bundles
 Requires:      php-composer(%{composer_vendor}/debug-bundle) = %{version}
@@ -375,6 +375,8 @@ Requires:(php-composer(%{composer_vendor}/polyfill-php80) >= %{symfony_polyfill_
 Requires: php-composer(%{composer_vendor}/polyfill-php80) <  %{symfony_polyfill_max_ver}
 Requires: php-composer(%{composer_vendor}/polyfill-php80) >= %{symfony_polyfill_min_ver}
 %endif
+
+Obsoletes: %{name}-proxy-manager-bridge < %{version}-%{release}
 
 %description common
 %{summary}.
@@ -500,34 +502,34 @@ Autoloader: %{symfony4_dir}/Bridge/PhpUnit/autoload.php
 
 # ------------------------------------------------------------------------------
 
-%package proxy-manager-bridge
-
-Summary:  Symfony ProxyManager Bridge (version 4)
-License:  MIT
-
-# composer.json
-Requires: php-composer(%{composer_vendor}/dependency-injection) = %{version}
-%if %{with_range_dependencies}
-Requires:(php-composer(friendsofphp/proxy-manager-lts) >= %{proxy_manager_min_ver} with php-composer(friendsofphp/proxy-manager-lts) <  %{proxy_manager_max_ver})
-%else
-Requires: php-composer(friendsofphp/proxy-manager-lts) >= %{proxy_manager_min_ver}
-Requires: php-composer(friendsofphp/proxy-manager-lts) <  %{proxy_manager_max_ver}
-%endif
-# phpcompatinfo for version 4.0.0-beta1
-Requires: php-hash
-Requires: php-pcre
-Requires: php-reflection
-Requires: php-spl
-
-# Composer
-Provides: php-composer(%{composer_vendor}/proxy-manager-bridge) = %{version}
-
-%description proxy-manager-bridge
-Provides integration for ProxyManager [1] with various Symfony components.
-
-Autoloader: %{symfony4_dir}/Bridge/ProxyManager/autoload.php
-
-[1] http://ocramius.github.io/ProxyManager/
+# %%package proxy-manager-bridge
+#
+# Summary:  Symfony ProxyManager Bridge (version 4)
+# License:  MIT
+#
+# # composer.json
+# Requires: php-composer(%%{composer_vendor}/dependency-injection) = %%{version}
+# %%if %%{with_range_dependencies}
+# Requires:(php-composer(friendsofphp/proxy-manager-lts) >= %%{proxy_manager_min_ver} with php-composer(friendsofphp/proxy-manager-lts) <  %%{proxy_manager_max_ver})
+# %%else
+# Requires: php-composer(friendsofphp/proxy-manager-lts) >= %%{proxy_manager_min_ver}
+# Requires: php-composer(friendsofphp/proxy-manager-lts) <  %%{proxy_manager_max_ver}
+# %%endif
+# # phpcompatinfo for version 4.0.0-beta1
+# Requires: php-hash
+# Requires: php-pcre
+# Requires: php-reflection
+# Requires: php-spl
+#
+# # Composer
+# Provides: php-composer(%%{composer_vendor}/proxy-manager-bridge) = %%{version}
+#
+# %%description proxy-manager-bridge
+# Provides integration for ProxyManager [1] with various Symfony components.
+#
+# Autoloader: %%{symfony4_dir}/Bridge/ProxyManager/autoload.php
+#
+# [1] http://ocramius.github.io/ProxyManager/
 
 # ------------------------------------------------------------------------------
 
@@ -1072,7 +1074,7 @@ Requires:(php-composer(%{composer_vendor}/service-contracts) >= %{symfony_contra
 Suggests: php-composer(%{composer_vendor}/config)
 Suggests: php-composer(%{composer_vendor}/expression-language)
 Suggests: php-composer(%{composer_vendor}/finder)
-Suggests: php-composer(%{composer_vendor}/proxy-manager-bridge)
+#Suggests: php-composer(%%{composer_vendor}/proxy-manager-bridge)
 Suggests: php-composer(%{composer_vendor}/yaml)
 %else
 Requires: php-composer(psr/container) >= %{psr_container_min_ver}
@@ -2359,6 +2361,8 @@ popd
 
 
 %install
+rm -rf src/Symfony/Bridge/ProxyManager
+
 mkdir -p %{buildroot}%{symfony4_dir} %{buildroot}%{_bindir}
 cp -rp src/Symfony/* %{buildroot}%{symfony4_dir}/
 mv %{buildroot}%{symfony4_dir}/Component/VarDumper/Resources/bin/var-dump-server \
@@ -2509,19 +2513,19 @@ exit $RET
 
 # ------------------------------------------------------------------------------
 
-%files proxy-manager-bridge
-
-%license src/Symfony/Bridge/ProxyManager/LICENSE
-%doc src/Symfony/Bridge/ProxyManager/*.md
-%doc src/Symfony/Bridge/ProxyManager/composer.json
-
-%{symfony4_dir}/Bridge/ProxyManager
-%exclude %{symfony4_dir}/Bridge/ProxyManager/LICENSE
-%exclude %{symfony4_dir}/Bridge/ProxyManager/*.md
-%exclude %{symfony4_dir}/Bridge/ProxyManager/autoload-dev.php
-%exclude %{symfony4_dir}/Bridge/ProxyManager/composer.json
-%exclude %{symfony4_dir}/Bridge/ProxyManager/phpunit.*
-%exclude %{symfony4_dir}/Bridge/ProxyManager/Tests
+# %%files proxy-manager-bridge
+#
+# %%license src/Symfony/Bridge/ProxyManager/LICENSE
+# %%doc src/Symfony/Bridge/ProxyManager/*.md
+# %%doc src/Symfony/Bridge/ProxyManager/composer.json
+#
+# %%{symfony4_dir}/Bridge/ProxyManager
+# %%exclude %%{symfony4_dir}/Bridge/ProxyManager/LICENSE
+# %%exclude %%{symfony4_dir}/Bridge/ProxyManager/*.md
+# %%exclude %%{symfony4_dir}/Bridge/ProxyManager/autoload-dev.php
+# %%exclude %%{symfony4_dir}/Bridge/ProxyManager/composer.json
+# %%exclude %%{symfony4_dir}/Bridge/ProxyManager/phpunit.*
+# %%exclude %%{symfony4_dir}/Bridge/ProxyManager/Tests
 
 # ------------------------------------------------------------------------------
 
@@ -3321,6 +3325,11 @@ exit $RET
 # ##############################################################################
 
 %changelog
+* Mon Oct 09 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 4.4.50-5
+- Obsolete "proxy-manager-bridge" sub-package as its dependency has been retired
+  (addresses "F40FailsToInstall: php-symfony4-proxy-manager-bridge",
+  RHBZ #2242705)
+
 * Sat Oct 07 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 4.4.50-4
 - Fix FTBFS (RHBZ #2139649)
 

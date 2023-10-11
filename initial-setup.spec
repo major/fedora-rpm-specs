@@ -1,6 +1,6 @@
 Name: initial-setup
-Version: 0.3.97
-Release: 4%{?dist}
+Version: 0.3.98
+Release: 1%{?dist}
 Summary: Initial system configuration utility
 URL: https://fedoraproject.org/wiki/InitialSetup
 License: GPL-2.0-or-later
@@ -101,14 +101,11 @@ rm -rf *.egg-info
 %{python3_sitelib}/initial_setup/gui/
 
 %changelog
+* Mon Oct 09 2023 Martin Kolman <mkolman@redhat.com> - 0.3.98-1
+- Fix Anaconda module startup (#2241274) (mkolman)
+
 * Sat Sep 09 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.97-4
 - Requires libxkbcommon, minor spec modernisation
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.97-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.3.97-2
-- Rebuilt for Python 3.12
 
 * Mon Feb 13 2023 Martin Kolman <mkolman@redhat.com> - 0.3.97-1
 - Make it possible to run with no kickstart (mkolman)

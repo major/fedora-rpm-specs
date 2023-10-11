@@ -32,11 +32,30 @@ Requires:	qt6-qtbase-devel
 %description	devel
 %{summary}.
 
+%if 0%{?docs}
+%package doc
+Summary: API documentation for %{name}
+BuildRequires: doxygen
+BuildRequires: qt6-qdoc
+BuildRequires: qt6-qhelpgenerator
+BuildRequires: qt6-qtbase-doc
+Requires: kf6-filesystem
+BuildArch: noarch
+%description doc
+%{summary}.
+%endif
+
 %prep
 %autosetup -n %{framework}-%{commit0} -p1
 
 %build
-%cmake_kf6
+%cmake_kf6 \
+  %if 0%{?flatpak}
+  %{?docs:-DBUILD_QCH:BOOL=OFF} \
+  %else
+  %{?docs:-DBUILD_QCH:BOOL=ON} \
+  %endif
+
 %cmake_build
 
 %install
@@ -54,6 +73,7 @@ Requires:	qt6-qtbase-devel
 %{_kf6_libdir}/libKF6Attica.so
 %{_kf6_archdatadir}/mkspecs/modules/qt_Attica.pri
 %{_kf6_libdir}/pkgconfig/KF6Attica.pc
+
 
 %changelog
 * Wed Sep 27 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230829.232558.4e09a15-1

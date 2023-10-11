@@ -12,9 +12,9 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.1.8
-Release: 22%{?dist}
+Release: 23%{?dist}
 Epoch: 1
-License: GPLv2+
+License: GPL-2.0-or-later
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
 Patch1: autofs-5.1.8-fix-kernel-mount-status-notification.patch
 Patch2: autofs-5.1.8-fix-fedfs-build-flags.patch
@@ -291,6 +291,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Fri Oct 06 2023 Pavel Reichl <preichl@redhat.com> - 1:5.1.8-23
+- Convert License tag to SPDX format
+
 * Fri Sep 29 2023 Florian Weimer <fweimer@redhat.com> - 1:5.1.8-22
 - Update autofs-5.1.8-configure-c99.patch with -Wint-conversion fix
 

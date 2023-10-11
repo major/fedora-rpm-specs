@@ -1,0 +1,75 @@
+%global gitdate 20231003.060127
+%global cmakever 5.240.0
+%global commit0 1cc7bdcec00b11401ad16aee79196375a373b575
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global framework ktextwidgets
+
+Name:    kf6-%{framework}
+Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Release: 1%{?dist}
+Summary: KDE Frameworks 6 Tier 3 addon with advanced text editing widgets
+
+License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
+URL:     https://invent.kde.org/frameworks/%{framework}
+
+Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+
+BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6Sonnet)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  cmake(Qt6UiPlugin)
+BuildRequires:  pkgconfig(Qt6TextToSpeech)
+BuildRequires:  cmake(Qt6QmlIntegration)
+BuildRequires:  pkgconfig(xkbcommon)
+
+Requires:  kf6-filesystem
+
+%description
+KDE Frameworks 6 Tier 3 addon with advanced text edting widgets.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(KF6I18n)
+Requires:       cmake(KF6Sonnet)
+Requires:       qt6-qtbase-devel
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+%prep
+%autosetup -n %{framework}-%{commit0} -p1
+
+%build
+%cmake_kf6
+%cmake_build
+
+%install
+%cmake_install
+%find_lang %{name} --all-name
+
+%files -f %{name}.lang
+%doc README.md
+%license LICENSES/*.txt
+%{_kf6_libdir}/libKF6TextWidgets.so.*
+%{_kf6_qtplugindir}/designer/*6widgets.so
+
+%files devel
+%{_kf6_includedir}/KTextWidgets/
+%{_kf6_libdir}/libKF6TextWidgets.so
+%{_kf6_libdir}/cmake/KF6TextWidgets/
+
+%changelog
+* Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231003.060127.1cc7bdc-1
+- Initial Release

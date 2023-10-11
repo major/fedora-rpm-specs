@@ -1,6 +1,11 @@
 # plugins have unresolvable symbols in compile time
 %undefine _strict_symbol_defs_build
 
+%if 0%{?rhel} < 10
+%bcond_without db
+%else
+%bcond_with db
+%endif
 %bcond_without mysql
 %bcond_without pgsql
 %bcond_without sqlite
@@ -12,6 +17,12 @@
 %bcond_without tls
 %bcond_without ipv6
 %bcond_without pflogsumm
+
+%if %{without db} && %{with lmdb}
+%global defmap_lmdb 1
+%else
+%global defmap_lmdb 0
+%endif
 
 %global sysv2systemdnvr 2.8.12-2
 
@@ -46,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -103,10 +114,19 @@ Patch13: pflogsumm-1.1.5-syslog-name-underscore-fix.patch
 
 # Determine the different packages required for building postfix
 BuildRequires: make
-BuildRequires: libdb-devel, perl-generators, pkgconfig, zlib-devel
-BuildRequires: systemd-units, libicu-devel
-BuildRequires: gcc, m4, findutils
+%if %{with db}
+BuildRequires: libdb-devel
+%endif
+BuildRequires: perl-generators
+BuildRequires: pkgconfig
+BuildRequires: zlib-devel
+BuildRequires: systemd-units
+BuildRequires: libicu-devel
+BuildRequires: gcc
+BuildRequires: m4
+BuildRequires: findutils
 BuildRequires: systemd-rpm-macros
+BuildRequires: sed
 %if 0%{?rhel} < 9
 BuildRequires: libnsl2-devel
 %endif
@@ -120,6 +140,10 @@ BuildRequires: libnsl2-devel
 %{?with_sqlite:BuildRequires: sqlite-devel}
 %{?with_cdb:BuildRequires: tinycdb-devel}
 %{?with_tls:BuildRequires: openssl-devel}
+
+%if 0%{?defmap_lmdb}
+Requires: %{name}-lmdb%{?_isa} = %{epoch}:%{version}-%{release}
+%endif
 
 %description
 Postfix is a Mail Transport Agent (MTA).
@@ -258,6 +282,12 @@ for f in README_FILES/TLS_{LEGACY_,}README TLS_ACKNOWLEDGEMENTS; do
 		touch -r ${f}{,_} && mv -f ${f}{_,}
 done
 
+# fix default maps
+%if 0%{?defmap_lmdb}
+  sed -i '/^\s*alias_maps\s*=\s*hash:\/etc\/aliases/ s|hash:|lmdb:|g' conf/main.cf
+  sed -i '/^\s*alias_database\s*=\s*hash:\/etc\/aliases/ s|hash:|lmdb:|g' conf/main.cf
+%endif
+
 %build
 %set_build_flags
 unset AUXLIBS AUXLIBS_LDAP AUXLIBS_LMDB AUXLIBS_PCRE AUXLIBS_MYSQL AUXLIBS_PGSQL AUXLIBS_SQLITE AUXLIBS_CDB
@@ -266,6 +296,10 @@ CCARGS="-fPIC -fcommon"
 AUXLIBS=""
 %else
 AUXLIBS="-lnsl"
+%endif
+
+%if %{without db}
+  CCARGS="${CCARGS} -DNO_DB"
 %endif
 
 %ifarch s390 s390x ppc
@@ -804,6 +838,10 @@ fi
 %endif
 
 %changelog
+* Mon Oct  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.2-2
+- Drop libdb for RHEL>9
+  Related: rhbz#1788480
+
 * Tue Sep  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.2-1
 - New version
   Resolves: rhbz#2236828

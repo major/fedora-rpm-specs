@@ -6,6 +6,7 @@ Version:        1.0.0
 Release:        %autorelease
 Summary:        Wrappers to call pyproject.toml-based build backend hooks
 
+# SPDX
 License:        MIT
 URL:            https://pypi.org/project/pyproject_hooks/
 Source:         %{pypi_source pyproject_hooks}

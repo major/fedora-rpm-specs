@@ -225,7 +225,7 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf5_libdir}/libKF5Konq.so
 %{_kf5_libdir}/libkonqsidebarplugin.so
 %if 0%{?webengine}
-/usr/include/KF5/asyncselectorinterface.h
+%{_kf5_includedir}/asyncselectorinterface.h
 %endif
 
 %if 0%{?webengine}

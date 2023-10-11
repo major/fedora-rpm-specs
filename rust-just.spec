@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -37,6 +37,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 License:        CC0-1.0 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND Unicode-DFS-2016 AND (Unlicense OR MIT)
+# LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
 
@@ -52,9 +53,9 @@ License:        CC0-1.0 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2
 %doc examples
 %{_bindir}/just
 %{_mandir}/man1/just.1*
-%{_datadir}/bash-completion
-%{_datadir}/fish/
-%{_datadir}/zsh/site-functions
+%{bash_completions_dir}/just
+%{fish_completions_dir}/just.fish
+%{zsh_completions_dir}/_just
 
 %package        devel
 Summary:        %{summary}
@@ -107,20 +108,16 @@ use the "help4help2man" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-%cargo_license_summary
 %cargo_build
-%{cargo_license} >LICENSE.dependencies
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %cargo_install
-install -dp %{buildroot}%{_mandir}/man1
-install -p -m 644 man/just.1 %{buildroot}%{_mandir}/man1
-install -dp %{buildroot}%{_datadir}/bash-completion/completions/
-install -p -m 644 completions/just.bash %{buildroot}%{_datadir}/bash-completion/completions/just
-install -dp %{buildroot}%{_datadir}/fish/vendor_completions.d
-install -p -m 644 completions/just.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/just.fish
-install -dp %{buildroot}%{_datadir}/zsh/site-functions
-install -p -m 644 completions/just.zsh %{buildroot}%{_datadir}/zsh/site-functions/_just
+install -D -m644 -pv -t %{buildroot}%{_mandir}/man1 man/just.1
+install -D -m644 -pv completions/just.bash %{buildroot}%{bash_completions_dir}/just
+install -D -m644 -pv completions/just.fish %{buildroot}%{fish_completions_dir}/just.fish
+install -D -m644 -pv completions/just.zsh  %{buildroot}%{zsh_completions_dir}/_just
 
 %if %{with check}
 %check

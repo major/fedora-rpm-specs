@@ -8,7 +8,7 @@
 %bcond_with bigtest
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.3.1
+Version:        5.3.2
 Release:        1%{?dist}
 Summary:        GAP methods for semigroups
 
@@ -147,6 +147,9 @@ cd -
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Mon Oct  9 2023 Jerry James <loganjerry@gmail.com> - 5.3.2-1
+- Version 5.3.2
+
 * Wed Sep 20 2023 Jerry James <loganjerry@gmail.com> - 5.3.1-1
 - Version 5.3.1
 

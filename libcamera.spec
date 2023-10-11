@@ -86,7 +86,7 @@ ISPs for %{name}
 
 %package     tools
 Summary:     Tools for %{name}
-Licnese:     LGPL-2.1-or-later AND BSD-3-Clause
+License:     LGPL-2.1-or-later AND BSD-3-Clause
 Requires:    %{name}%{?_isa} = %{version}-%{release}
 
 %description tools

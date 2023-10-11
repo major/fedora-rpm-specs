@@ -3,7 +3,7 @@
 
 Summary:   Local caching server
 Name:      passim
-Version:   0.1.2
+Version:   0.1.3
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/hughsie/%{name}
@@ -88,6 +88,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libexecdir}/passimd
 %{_mandir}/man1/passim.1*
 %{_unitdir}/passim.service
+/usr/lib/sysusers.d/passim.conf
 
 %files libs
 %license LICENSE

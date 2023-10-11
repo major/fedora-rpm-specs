@@ -1,8 +1,8 @@
 %global pypi_name pytest-timeout
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
-Release:        7%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        py.test plugin to abort hanging tests
 
 # SPDX
@@ -14,8 +14,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pexpect}
-BuildRequires:  %{py3_dist pytest} >= 3.6.0
-BuildRequires:  %{py3_dist setuptools}
 
 %global _description %{expand:
 This is a plugin which will terminate tests after a certain timeout. When doing
@@ -34,11 +32,14 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %pytest
@@ -51,6 +52,10 @@ Summary:        %{summary}
 %{python3_sitelib}/__pycache__/pytest_timeout*
 
 %changelog
+* Mon Oct 09 2023 Scott Talbert <swt@techie.net> - 2.2.0-1
+- Update to new upstream release 2.2.0 (#2242718)
+- Modernize Python packaging
+
 * Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 2.1.0-7
 - Declare license as an SPDX expression
 

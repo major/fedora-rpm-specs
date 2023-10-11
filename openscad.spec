@@ -27,9 +27,7 @@ Patch4:         CVE-2022-0496.patch
 Patch5:         CVE-2022-0497.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
-%endif
 
 BuildRequires:  CGAL-devel >= 3.6
 BuildRequires:  ImageMagick
@@ -50,6 +48,7 @@ BuildRequires:  glew-devel >= 1.6
 BuildRequires:  glib2-devel
 BuildRequires:  gmp-devel >= 5.0.0
 BuildRequires:  harfbuzz-devel >= 0.9.19
+BuildRequires:  libspnav-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  make
 BuildRequires:  mesa-dri-drivers

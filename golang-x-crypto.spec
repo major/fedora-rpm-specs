@@ -7,7 +7,7 @@
 # https://github.com/golang/crypto
 %global goipath  golang.org/x/crypto
 %global forgeurl https://github.com/golang/crypto
-Version:         0.13.0
+Version:         0.14.0
 
 %global godevelheader %{expand:
 Provides: golang(golang.org/x/crypto/ssh/testdata) =  %{version}-%{release}

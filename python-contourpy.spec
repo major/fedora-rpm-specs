@@ -3,7 +3,7 @@
 %global srcname contourpy
 
 Name:           python-%{srcname}
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Python library for calculating contours in 2D quadrilateral grids
 
@@ -11,7 +11,7 @@ License:        BSD-3-Clause
 URL:            https://contourpy.readthedocs.io/
 Source0:        %pypi_source %{srcname}
 # Fedora specific.
-Patch:          0001-Remove-ninja-dependency.patch
+Patch:          0001-Reduce-NumPy-dependency.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++

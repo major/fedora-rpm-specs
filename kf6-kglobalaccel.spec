@@ -6,7 +6,7 @@
 
 Name:    kf6-%{framework}
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module for global shortcuts
 
 # The following are in the LICENSES folder but go unused: LGPL-2.1-only, LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
@@ -34,7 +34,6 @@ BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libxcb-devel
 
-Requires:       %{name}-libs = %{version}-%{release}
 Requires:       kf6-filesystem
 
 %description
@@ -42,7 +41,6 @@ Requires:       kf6-filesystem
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}-libs = %{version}-%{release}
 Requires:       qt6-qtbase-devel
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -57,6 +55,12 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
+
+# unpackaged files
+%if 0%{?flatpak:1}
+rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
+%endif
+
 %find_lang_kf6 kglobalaccel6_qt
 
 %files -f kglobalaccel6_qt.lang
@@ -72,5 +76,8 @@ developing applications that use %{name}.
 %{_kf6_datadir}/dbus-1/interfaces/*
 
 %changelog
+* Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231003.060644.9b93514-2
+- Removed -libs from the required installs at runtime (Unneeded)
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231003.060644.9b93514-1
 - Initial Release

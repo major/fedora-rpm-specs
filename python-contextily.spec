@@ -4,7 +4,7 @@
 %bcond_with network
 
 Name:           python-%{srcname}
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Context geo-tiles in Python
 
@@ -34,9 +34,11 @@ both WGS84 (EPSG:4326) and Spheric Mercator (EPSG:3857).
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install

@@ -2,12 +2,19 @@
 %global orig_name org.kde.kclock
 
 Name:           kclock
-Version:        23.08.0
+Version:        23.08.1
 Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2.1+ and CC-BY and GPLv3+
 Summary:        Clock app for Plasma Mobile
-Url:            https://invent.kde.org/plasma-mobile/kclock
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Url:            https://invent.kde.org/utilities/kclock
+
+%global revision %(echo %{version} | cut -d. -f3)
+%if %{revision} >= 50
+%global stable unstable
+%else
+%global stable stable
+%endif
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -92,6 +99,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_qt5_plugindir}/plasma/applets/plasma_applet_%{name}_1x2.so
 
 %changelog
+* Tue Oct 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.08.1-1
+- 23.08.1
+
 * Sat Aug 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.0-1
 - 23.08.0
 

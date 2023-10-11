@@ -39,7 +39,12 @@ developing applications that use %{name}.
 %autosetup -n %{framework}-%{commit0} -p1
 
 %build
-%cmake_kf6
+%cmake_kf6 \
+  %if 0%{?flatpak}
+  %{?docs:-DBUILD_QCH:BOOL=OFF} \
+  %else
+  %{?docs:-DBUILD_QCH:BOOL=ON} \
+  %endif
 %cmake_build
 
 %install

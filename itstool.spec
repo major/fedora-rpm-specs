@@ -1,6 +1,6 @@
 Name:           itstool
 Version:        2.0.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ITS-based XML translation tool
 
 License:        GPL-3.0-or-later
@@ -8,6 +8,8 @@ URL:            http://itstool.org/
 Source0:        http://files.itstool.org/itstool/%{name}-%{version}.tar.bz2
 # See:  https://github.com/itstool/itstool/issues/25
 Patch0:         https://sources.debian.org/data/main/i/itstool/2.0.5-2/debian/patches/fix_crash_912099.patch#/%{name}-2.0.5-fix-crash-wrong-encoding.patch
+# Filed upstream at https://github.com/itstool/itstool/pull/51
+Patch1:         0001-Fix-insufficiently-quoted-regular-expressions.patch
 
 BuildArch:      noarch
 
@@ -24,6 +26,7 @@ how to separate it into PO file messages.
 %prep
 %setup -q
 %patch -P0 -p1 -b .encoding
+%patch -P1 -p1 -b .py312-regex
 
 %build
 export PYTHON=%{__python3}
@@ -41,6 +44,10 @@ export PYTHON=%{__python3}
 %{_mandir}/man1/itstool.1*
 
 %changelog
+* Mon Oct 09 2023 Nils Philippsen <nils@tiptoe.de> - 2.0.7-6
+- Fix insufficiently quoted regular expressions which caused excessive warnings
+  with Python 3.12
+
 * Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 2.0.7-5
 - Migrate to SPDX license expression
 

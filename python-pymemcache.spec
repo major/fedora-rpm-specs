@@ -2,17 +2,14 @@
 %global pypi_name pymemcache
 
 Name:           python-%{pypi_name}
-Version:        3.5.0
-Release:        8%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        A comprehensive, fast, pure Python memcached client
 
 License:        ASL 2.0
 URL:            https://github.com/Pinterest/pymemcache
 Source0:        https://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 Patch0001:      0001-Skip-unit-tests-resolving-domain-names.patch
-# Replace mock dependency with unittest.mock from the standard library
-# Rebased from https://github.com/pinterest/pymemcache/pull/321
-Patch0002:      0002-Replace-mock-dependency-with-unittest.mock.patch
 BuildArch:      noarch
 
 %global _description\
@@ -30,12 +27,13 @@ pymemcache supports the following features:\
 
 %package -n python3-%{pypi_name}
 Summary:        A comprehensive, fast, pure Python memcached client
+BuildRequires:  git-core
 BuildRequires:  python3-devel
+BuildRequires:  python3-faker
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-six
-Requires:       python3-six
+BuildRequires:  python3-zstd
 
 %description -n python3-%{pypi_name}
 pymemcache supports the following features:
@@ -48,7 +46,7 @@ pymemcache supports the following features:
 * The (optional) ability to treat network and memcached errors as cache misses.
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{pypi_name}-%{version} -S git
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -68,6 +66,10 @@ py.test-3 ./pymemcache/test/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+
+* Wed Oct 04 2023 Priscila Gutierres <prgutier@redhat.com > - 4.0.0-1
+- Update for 4.0.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

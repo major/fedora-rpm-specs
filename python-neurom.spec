@@ -7,7 +7,7 @@ Documentation is available at https://neurom.readthedocs.io/
 %global forgeurl    https://github.com/BlueBrain/NeuroM
 
 Name:           python-neurom
-Version:        3.2.2
+Version:        3.2.4
 Release:        %autorelease
 Summary:        Neuronal Morphology Analysis Tool
 
@@ -17,20 +17,6 @@ Summary:        Neuronal Morphology Analysis Tool
 License:        BSD-3-Clause
 URL:            %forgeurl
 Source:         %forgesource
-
-# Broken call to Rectangle constructor
-# https://github.com/BlueBrain/NeuroM/issues/1079
-#
-# Fixed by:
-#
-# Remove py37, add py311, and fix Rectangle kwarg error
-# https://github.com/BlueBrain/NeuroM/pull/1082
-#
-# We patch in only the actual fix:
-#
-# Fix Rectangle kwarg
-# https://github.com/BlueBrain/NeuroM/pull/1082/commits/1655ab3b1c5f66db3a06431c48f44a8dc61164d8
-Patch:          %{url}/pull/1082/commits/1655ab3b1c5f66db3a06431c48f44a8dc61164d8.patch
 
 # Remove a few useless shebang lines
 # https://github.com/BlueBrain/NeuroM/pull/1083

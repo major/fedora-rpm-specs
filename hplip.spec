@@ -6,8 +6,8 @@
 
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
-Version: 3.23.5
-Release: 10%{?dist}
+Version: 3.23.8
+Release: 1%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -224,13 +224,6 @@ Patch64: hplip-pcardext-disable.patch
 # undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
 Patch65: hplip-sclpml-strcasestr.patch
-# hpcupscdmfilter for faxing requires jetlib header and source files,
-# which have copyright note in the header comment, that the files can't
-# be shared and copied for other than archival purposes without HP permission
-# - this looks as incompatible conditional for Fedora, so the files are removed,
-# hplip repacked and this patch removes its mentions in Makefile.am
-# https://bugs.launchpad.net/hplip/+bug/2028938
-Patch66: hplip-nocdmfilter.patch
 # 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
 # https://bugs.launchpad.net/hplip/+bug/2027972
 Patch67: hplip-fix-parsing-lpstat.patch
@@ -245,9 +238,6 @@ Patch69: hplip-no-readfp.patch
 # fix SyntaxWarning from python3.12
 # https://bugs.launchpad.net/hplip/+bug/2029480
 Patch70: hplip-use-raw-strings.patch
-# more unfriendly licenses...
-# https://bugs.launchpad.net/hplip/+bug/2028938
-Patch71: hplip-remove-hbpl.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -592,9 +582,6 @@ done
 %patch -P 64 -p1 -b .pcardext-disable
 # C99 compatibility patch by fweimer - undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
 %patch -P 65 -p1 -b .sclpml-strcasestr
-# jetlib.h/.c have suspicious license, root them out
-# https://bugs.launchpad.net/hplip/+bug/2028938
-%patch -P 66 -p1 -b .nocdmfilter
 # 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
 # https://bugs.launchpad.net/hplip/+bug/2027972
 %patch -P 67 -p1 -b .lpstat-parse
@@ -607,8 +594,6 @@ done
 # fix warnings
 # upstream https://bugs.launchpad.net/hplip/+bug/2029480
 %patch -P 70 -p1 -b .raw-strings
-# upstream https://bugs.launchpad.net/hplip/+bug/2028938
-%patch -P 71 -p1 -b .hbpl
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -864,6 +849,7 @@ find doc/images -type f -exec chmod 644 {} \;
 %{_cups_serverbin}/backend/hp
 %{_cups_serverbin}/backend/hpfax
 # ex-hpijs
+%{_cups_serverbin}/filter/hpcdmfax
 %{_cups_serverbin}/filter/hpcups
 %{_cups_serverbin}/filter/hpcupsfax
 %{_cups_serverbin}/filter/hpps
@@ -979,6 +965,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Tue Oct 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.8-1
+- 2239465 - hplip-3.23.8 is available
+
 * Tue Oct 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-10
 - BSD-3-Clause-HP and python-ldap are added into SPDX list
 

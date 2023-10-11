@@ -40,12 +40,12 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 7
+%global baserelease 1
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.8
+Version:		1.3.8a
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -65,9 +65,7 @@ Patch1:			proftpd-1.3.8-shellbang.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
 Patch4:			proftpd-1.3.6-no-mod-wrap.patch
 Patch5:			proftpd-1.3.6-no-mod-geoip.patch
-Patch6:			https://patch-diff.githubusercontent.com/raw/proftpd/proftpd/pull/1592.patch
 Patch7:			proftpd-1.3.8-configure-c99.patch
-Patch8:			proftpd-1.3.8-api-test-buffer-overflow.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -264,19 +262,8 @@ mv contrib/README contrib/README.contrib
 %patch -P 5 -b .nogeoip
 %endif
 
-# Hack to ensure that dynamic modules are linked against libidn2
-# https://bugzilla.redhat.com/show_bug.cgi?id=2166454
-# https://github.com/proftpd/proftpd/issues/1590
-%patch -P 6 -p1 -b .libidn2
-
 # Port configure script to C99: https://github.com/proftpd/proftpd/pull/1665
 %patch -P 7 -p1 -b .c99
-
-# Fix for buffer overflow detected in response.c API test on s390x
-# causing FTBFS in Fedora 39
-# https://bugzilla.redhat.com/show_bug.cgi?id=2226148
-# https://github.com/proftpd/proftpd/pull/1692
-%patch -P 8 -p1 -b .api-test-buf-ovfl
 
 # OpenSSL Cipher Profiles introduced in Fedora 21
 # Elsewhere, we use the default of DEFAULT:!ADH:!EXPORT:!DES
@@ -515,6 +502,35 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Mon Oct  9 2023 Paul Howarth <paul@city-fan.org> - 1.3.8a-1
+- Update to 1.3.8a
+  - Fix mod_sftp failure to handle SFTP requests to truncate files to zero size
+    (GH#1581)
+  - Fix mod_sftp improperly handling SFTP WRITE requests for files opened for
+    appending (GH#1584)
+  - Build-time detection of Linux POSIX ACL support was broken since 1.3.8rc2
+    (GH#1568)
+  - Fix failure to load mod_rewrite as a dynamic module due to
+    incomplete/missing library linker flags (GH#1590)
+  - <Class> section is allowed to be in <Global>, but From directive is not
+    (GH#1597)
+  - ExtendedLog SSH, SFTP classes not working as expected (GH#1617)
+  - Fix mod_sftp not handling multiple concurrent open file handles/transfers
+    well for logging (GH#1646)
+  - "TLSRequired off" plus Protocols directive caused mod_tls to terminate the
+    session abruptly (GH#1679)
+  - Fix mod_tls failure to compile against OpenSSL 3.0.8 due to missing
+    ENGINE_METHOD_ flags (GH#1689)
+  - Unknown named connection error when using different SQL backends (GH#1659)
+  - Fix mod_sql not properly closing all named backend connections on session
+    exit (GH#1697)
+  - SSH key exchanges failed unexpectedly with "unable to write X bytes of raw
+    data" errors due to small ProFTPD buffer (GH#1694)
+  - Fix high session memory usage caused by SFTP outgoing data buffering
+    (GH#1678)
+  - Out-of-bounds buffer read when handling FTP commands (GH#1683)
+  - SFTP algorithm settings in <Global> section were not being used (GH#1712)
+
 * Thu Jul 27 2023 Paul Howarth <paul@city-fan.org> - 1.3.8-7
 - Fix for buffer overflow detected in response.c API test on s390x
   causing FTBFS in Fedora 39 (rhbz#2226148)

@@ -5,7 +5,8 @@ Version:        4.4.0
 Release:        1%{?dist}
 Summary:        A library for weather information
 
-License:        GPLv2+
+# libgweather/third-party/kdtree.c is BSD-3-Clause
+License:        GPL-2.0-or-later AND BSD-3-Clause
 URL:            https://wiki.gnome.org/Projects/LibGWeather
 Source0:        https://download.gnome.org/sources/libgweather/4.4/libgweather-%{tarball_version}.tar.xz
 

@@ -2,7 +2,7 @@
 
 Name:           kddockwidgets
 Version:        1.6.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Qt dock widget library
 
 License:        GPL-3.0-only AND GPL-2.0-only AND BSD-3-Clause
@@ -102,6 +102,9 @@ rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 %{_libdir}/qt6/mkspecs/modules/qt_KDDockWidgets.pri
 
 %changelog
+* Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 1.6.0-12
+- Rebuild (qt5)
+
 * Thu Oct 05 2023 Jan Grulich <jgrulich@redhat.com> - 1.6.0-11
 - Rebuild (qt6)
 

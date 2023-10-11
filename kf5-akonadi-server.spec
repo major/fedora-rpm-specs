@@ -22,7 +22,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -305,6 +305,9 @@ fi
 
 
 %changelog
+* Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 23.08.1-2
+- Rebuild (qt5)
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

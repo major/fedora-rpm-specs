@@ -2,18 +2,22 @@
 
 %bcond_with bootstrap
 
-# examples/OrangeBook/: BSD
+# MIT-LICENSE: MIT
+# README.rdoc: MIT
+# examples/OrangeBook/3Dlabs-License.txt (etc): BSD-3-Clause
 # examples/NeHe: KILLED (license unclear)
-# examples/RedBook/ SGI = MIT
-# examples/misc/OGLBench.rb: GPL+ or Artistic
+# examples/RedBook/aapoly.rb: HPND
+# examples/misc/OGLBench.rb: GPL-1.0-or-later OR Artistic-1.0-Perl
+# examples/misc/plane.rb: HPND
 # examples/misc/fbo_test.rb ??? KILLED
-# examples/misc/trislam.rb: GPL+ or Artistic
+# examples/misc/trislam.rb: GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
+# SPDX confirmed
 License:	MIT
 URL:		https://github.com/drbrain/opengl
 # Source0:	https://rubygems.org/gems/%%{gem_name}-%%{version}.gem
@@ -52,7 +56,7 @@ GLU and GLUT libraries.
 %package	doc
 Summary:	Documentation for %{name}
 Requires:	%{name} = %{version}-%{release}
-License:	MIT and BSD and (GPL+ or Artistic)
+License:	MIT AND BSD-3-Clause AND HPND AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 BuildArch:	noarch
 
 %description	doc
@@ -150,6 +154,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Mon Oct  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-25
+- SPDX migration
+
 * Thu Oct  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-24
 - Switch to use recent spec file style
 - Actually check the count of the test failures

@@ -5,6 +5,10 @@
     %global arch %{_arch}
 %endif
 
+%ifarch %{?qt5_qtwebengine_arches}
+%global webengine 1
+%endif
+
 %global qt5_ver %(echo %{_qt5_version} | cut -d. -f1,2)
 %global qt5_target %(echo qt%{qt5_ver}-%{arch} | sed 's/\\./_/g')
 
@@ -12,35 +16,40 @@
 %global gammaray_ver_minor 3
 %global gammaray_version %{gammaray_ver}.%{gammaray_ver_minor}
 
-Name:		gammaray
-Version:	%{gammaray_version}
-Release:	11%{?dist}
-Summary:	A tool for examining internals of Qt applications
-License:	GPLv2+
-URL:		https://github.com/KDAB/GammaRay
-Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Patch0:		qt-system-paths.patch
+Name: gammaray
+Version: %{gammaray_version}
+Release: 13%{?dist}
+Summary: A tool for examining internals of Qt applications
+License: GPLv2+
+URL: https://github.com/KDAB/GammaRay
 
-BuildRequires:	cmake
-BuildRequires:	desktop-file-utils
-BuildRequires:	doxygen
-BuildRequires:	kf5-kcoreaddons-devel
-BuildRequires:	kf5-syntax-highlighting-devel
-BuildRequires:  qt5-qt3d-devel
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:	qt5-qtbase-doc
-BuildRequires:	qt5-qtbase-private-devel
-BuildRequires:	qt5-qtdeclarative-devel
-BuildRequires:	qt5-qtscript-devel
-BuildRequires:	qt5-qtsvg-devel
-BuildRequires:	qt5-qtscxml-devel
-BuildRequires:	qt5-qttools-devel
-BuildRequires:	qt5-qtwayland-devel
-BuildRequires:	qt5-qtwebkit-devel
-BuildRequires:	wayland-devel
-Requires:	%{name}-qt5 = %{version}-%{release}
+Source0: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0: qt-system-paths.patch
+
+BuildRequires: cmake
+BuildRequires: desktop-file-utils
+BuildRequires: doxygen
+BuildRequires: kf5-kcoreaddons-devel
+BuildRequires: kf5-syntax-highlighting-devel
+BuildRequires: qt5-qt3d-devel
+BuildRequires: qt5-qtbase-devel
+BuildRequires: qt5-qtbase-doc
+BuildRequires: qt5-qtbase-private-devel
+BuildRequires: qt5-qtdeclarative-devel
+BuildRequires: qt5-qtlocation-devel
+BuildRequires: qt5-qtscript-devel
+BuildRequires: qt5-qtsvg-devel
+BuildRequires: qt5-qtscxml-devel
+BuildRequires: qt5-qttools-devel
+BuildRequires: qt5-qtwayland-devel
+%if 0%{?webengine}
+BuildRequires: qt5-qtwebengine-devel
+%endif
+BuildRequires: wayland-devel
+Requires: %{name}-qt5 = %{version}-%{release}
 # When -doc subpkg was removed
-Obsoletes:	%{name}-doc <= 2.2.1
+Obsoletes: %{name}-doc <= 2.2.1
 
 # omit provides from plugins
 %global __provides_exclude_from ^(%{_qt5_libdir}/gammaray.*\\.so)$
@@ -54,9 +63,9 @@ access to a lot of interesting information.
 By default GammaRay can only introspect Qt 5 applications.
 
 %package qt5
-Summary:	Qt 5 probe for GammaRay
-Requires:	qt5-qtbase%{?_isa} = %{_qt5_version}
-Requires:	%{name} = %{version}-%{release}
+Summary: Qt 5 probe for GammaRay
+Requires: qt5-qtbase%{?_isa} = %{_qt5_version}
+Requires: %{name} = %{version}-%{release}
 
 %description qt5
 Provides a Qt 5 probe for GammaRay that allows introspecting Qt 5
@@ -65,16 +74,16 @@ to install probes for different architectures as well, GammaRay
 will then be able to inspect those applications too.
 
 %package devel
-Summary:	Development files for %{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Summary: Development files for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
 developing plugins for %{name}.
 
 %package doc
-Summary:	Developer documentation for %{name}
-BuildArch:	noarch
+Summary: Developer documentation for %{name}
+BuildArch: noarch
 
 %description doc
 This package includes developer documentation in HTML format.
@@ -88,7 +97,7 @@ This package includes developer documentation in HTML format.
 
 %cmake .. \
         -DLIBEXEC_INSTALL_DIR=libexec \
-	-DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt5/mkspecs/modules \
+        -DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt5/mkspecs/modules \
         -DQCH_INSTALL_DIR=%{_docdir}/gammaray
 
 %cmake_build
@@ -154,6 +163,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/GammaRay.desktop
 
 
 %changelog
+* Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 2.11.3-13
+- Drop BR: qtwebkit and add BR: qtwebengine instead
+
+* Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 2.11.3-12
+- Rebuild (qt5)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

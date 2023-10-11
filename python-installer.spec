@@ -3,6 +3,7 @@ Version:        0.7.0
 Release:        3%{?dist}
 Summary:        A library for installing Python wheels
 
+# SPDX
 License:        MIT
 URL:            https://github.com/pypa/installer
 Source:         %{pypi_source installer}

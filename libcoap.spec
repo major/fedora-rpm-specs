@@ -1,7 +1,7 @@
 #global candidate rc2
 
 Name:     libcoap
-Version:  4.3.3
+Version:  4.3.4
 Release:  1%{?candidate:.%{candidate}}%{?dist}
 Summary:  C library implementation of CoAP
 URL:      https://libcoap.net/
@@ -97,6 +97,9 @@ make check
 %{_libdir}/libcoap-3*.so
 
 %changelog
+* Mon Oct 09 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.4-1
+- Update to 4.3.4
+
 * Tue Sep 19 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.3-1
 - Update to 4.3.3
 
