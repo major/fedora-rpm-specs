@@ -3,7 +3,7 @@ Version:	2.1.0
 Release:	12%{?dist}
 Summary:	A Python interface to the CD Input and Control library
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/libcdio/
 Source0:	%pypi_source pycdio
 

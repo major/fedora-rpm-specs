@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.110.0
-Release: 2%{?dist}
+Version: 5.111.0
+Release: 1%{?dist}
 Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
 # All LGPLv2+ except for src/desktopicons.h (GPLv2+)
@@ -118,6 +118,9 @@ xvfb-run -a \
 
 
 %changelog
+* Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
+- 5.111.0
+
 * Thu Sep 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-2
 - Rebuilt against patched extra-cmake-modules
 - Fix tests

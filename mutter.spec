@@ -32,10 +32,6 @@ Patch:         0001-place-Always-center-initial-setup-fedora-welcome.patch
 
 Patch:         0001-gschema-Enable-scale-monitor-framebuffer-experimenta.patch
 
-Patch:         0001-util-Add-way-to-print-backtraces.patch
-Patch:         0002-clutter-Add-ms2ns-helper.patch
-Patch:         0003-native-Stop-using-real-time-thread-if-it-stalls.patch
-
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3299
 Patch:         3299.patch
 
@@ -48,8 +44,13 @@ Patch:         3306.patch
 # to fix *both* problems
 Patch:         0001-Revert-x11-Use-input-region-from-frame-window-for-de.patch
 
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3324
+Patch: 0001-thread-Fix-preexisting-uncrustify-problem.patch
+Patch: 0002-thread-For-consistency-s-real_time-realtime.patch
+Patch: 0003-thread-Allow-turnning-off-rt-scheduling-for-running-.patch
+Patch: 0004-kms-impl-device-Inhibit-real-time-scheduling-when-mo.patch
+
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
-BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libwacom)
 BuildRequires: pkgconfig(x11)
@@ -192,9 +193,6 @@ the functionality of the installed %{name} package.
 %{_libdir}/mutter-%{mutter_api_version}/
 %{_libexecdir}/mutter-restart-helper
 %{_libexecdir}/mutter-x11-frames
-%{_libexecdir}/mutter-backtrace
-%{_datadir}/polkit-1/actions/org.gnome.mutter.backtrace.policy
-%{_datadir}/polkit-1/rules.d/50-mutter.rules
 %{_mandir}/man1/mutter.1*
 
 %files common

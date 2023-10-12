@@ -95,6 +95,7 @@ mkdir %{qt5_build_dir} && pushd %{qt5_build_dir}
 %cmake -G Ninja \
     -S'..' \
     -DCMAKE_BUILD_TYPE=Release \
+    -DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt5/mkspecs/modules \
     -DUSE_QT_VERSION:STRING=5 \
     -DBUILD_TESTING:BOOL=ON \
     -DQCORO_BUILD_EXAMPLES:BOOL=ON \
@@ -113,6 +114,7 @@ mkdir %{qt6_build_dir} && pushd %{qt6_build_dir}
 %cmake -G Ninja \
     -S'..' \
     -DCMAKE_BUILD_TYPE=Release \
+    -DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt6/mkspecs/modules \
     -DUSE_QT_VERSION:STRING=6 \
     -DBUILD_TESTING:BOOL=ON \
     -DQCORO_BUILD_EXAMPLES:BOOL=ON \

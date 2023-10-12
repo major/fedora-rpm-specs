@@ -1,5 +1,5 @@
-%global commit 056b6f5e1f7cc5046aac33e6331551b6b2813292
-%global snapdate 20230617
+%global commit d35a3bc5efd02455d98cbe12b94647136f09b42d
+%global snapdate 20230806
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -9,7 +9,7 @@ Name:           dr_libs
 #   https://github.com/nothings/stb/issues/1101
 %global snapinfo ^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Version:        0%{snapinfo}
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Single-file audio decoding libraries for C/C++
 
 URL:            https://github.com/mackron/dr_libs
@@ -21,8 +21,8 @@ License:        Unlicense OR MIT-0
 # - old/*.h are Unlicense (only)
 
 %global dr_flac_version 0.12.41
-%global dr_mp3_version 0.6.36
-%global dr_wav_version 0.13.10
+%global dr_mp3_version 0.6.37
+%global dr_wav_version 0.13.12
 
 Source0:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 # Upstream does not provide a build system for the tests. We have written a

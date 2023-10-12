@@ -10,8 +10,8 @@
 Name:		%{fontname}-code-fonts
 Summary:	A mono-spaced font designed for programming and terminal emulation
 Version:	2111.01
-Release:	5%{?dist}
-License:	OFL
+Release:	6%{?dist}
+License:	OFL-1.1-RFN
 URL:		https://github.com/microsoft/cascadia-code/
 Source0:	https://github.com/microsoft/cascadia-code/archive/v%{version}.tar.gz
 Source1:	%{fontconf}
@@ -152,6 +152,9 @@ install -Dm 0644 -p %{SOURCE8} %{buildroot}%{_datadir}/appdata/%{fontname}-code-
 %files -n %{fontname}-fonts-all
 
 %changelog
+* Wed Sep 20 2023 Matej Focko <mfocko@redhat.com> - 2111.01-6
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2111.01-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

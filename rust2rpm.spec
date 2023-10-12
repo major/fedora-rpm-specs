@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           rust2rpm
-Version:        24.4.2
+Version:        25.0.0
 Release:        %autorelease
 Summary:        Generate RPM spec files for Rust crates
 License:        MIT
@@ -12,13 +12,16 @@ Source:         %{url}/archive/v%{version}/rust2rpm-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  /usr/bin/asciidoctor
 
 %if %{with check}
 BuildRequires:  cargo
+BuildRequires:  rust2rpm-helper >= 0.1.2
 %endif
 
 Requires:       cargo
 Requires:       cargo-rpm-macros
+Recommends:     rust2rpm-helper >= 0.1.2
 
 # obsolete old provides (removed in Fedora 38)
 Obsoletes:      cargo-inspector < 24
@@ -40,10 +43,20 @@ Rust crates.
 
 %build
 %pyproject_wheel
+# build man pages
+pushd docs
+asciidoctor -b manpage rust2rpm.1.asciidoc
+asciidoctor -b manpage rust2rpm.conf.5.asciidoc
+asciidoctor -b manpage rust2rpm.toml.5.asciidoc
+popd
 
 %install
 %pyproject_install
 %pyproject_save_files rust2rpm
+# install man pages
+install -Dpm 644 docs/rust2rpm.1 -t %{buildroot}/%{_mandir}/man1/
+install -Dpm 644 docs/rust2rpm.conf.5 -t %{buildroot}/%{_mandir}/man5/
+install -Dpm 644 docs/rust2rpm.toml.5 -t %{buildroot}/%{_mandir}/man5/
 
 %check
 %pyproject_check_import
@@ -53,8 +66,10 @@ Rust crates.
 
 %files -f %{pyproject_files}
 %doc README.md
-%doc NEWS
+%doc CHANGELOG.md
 %{_bindir}/rust2rpm
+%{_mandir}/man1/rust2rpm.1*
+%{_mandir}/man5/rust2rpm.{conf,toml}.5*
 
 %changelog
 %autochangelog

@@ -23,6 +23,8 @@
 # Optional features
 # Run C++ tests
 %bcond_without perl_enables_cplusplus_test
+# We can build without libdb (BerkeleyDB)
+%bcond_without bdb
 # We can bootstrap without gdbm
 %bcond_without gdbm
 # Support for groff, bug #135101
@@ -108,7 +110,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        501%{?dist}
+Release:        502%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -204,7 +206,9 @@ BuildRequires:  glibc-common
 # Build-require groff tools for populating %%Config correctly, bug #135101
 BuildRequires:  groff-base
 %endif
+%if %{with bdb}
 BuildRequires:  libdb-devel
+%endif
 BuildRequires:  make
 %if !%{defined perl_bootstrap}
 BuildRequires:  perl-interpreter
@@ -257,9 +261,11 @@ Requires:       perl-Carp, perl-Class-Struct,
 Requires:       perl-Compress-Raw-Bzip2, perl-Compress-Raw-Zlib,
 Requires:       perl-Config-Extensions, perl-Config-Perl-V, perl-constant,
 Requires:       perl-CPAN, perl-CPAN-Meta, perl-CPAN-Meta-Requirements,
-Requires:       perl-CPAN-Meta-YAML,
-Requires:       perl-Data-Dumper, perl-DB_File, perl-DBM_Filter,
-Requires:       perl-debugger, perl-deprecate,
+Requires:       perl-CPAN-Meta-YAML, perl-Data-Dumper,
+%if %{with bdb}
+Requires:       perl-DB_File,
+%endif
+Requires:       perl-DBM_Filter, perl-debugger, perl-deprecate,
 Requires:       perl-Devel-Peek, perl-Devel-PPPort, perl-Devel-SelfStubber,
 Requires:       perl-diagnostics, perl-Digest, perl-Digest-MD5, perl-Digest-SHA,
 Requires:       perl-DirHandle,
@@ -439,7 +445,9 @@ Provides:       perl(unicore::Name)
 Provides:       perl(utf8_heavy.pl)
 # utf8 and utf8_heavy.pl require Carp, re, strict, warnings, XSLoader
 # For AnyDBM_File
+%if %{with bdb}
 Suggests:       perl(DB_File)
+%endif
 # XSLoader requires DynaLoder
 Requires:       perl(DynaLoader)
 # Encode is loaded in BOOT section of PerlIO::encoding
@@ -1076,6 +1084,7 @@ structures correctly.
 %endif
 
 %if %{dual_life} || %{rebuild_from_scratch}
+%if %{with bdb}
 %package DB_File
 Summary:        Perl5 access to Berkeley DB version 1.x
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -1094,6 +1103,7 @@ DB_File is a module which allows Perl programs to make use of the facilities
 provided by Berkeley DB version 1.x (if you have a newer version of DB, you
 will be limited to functionality provided by interface of version 1.x). The
 interface defined here mirrors the Berkeley DB interface closely.
+%endif
 %endif
 
 %package DBM_Filter
@@ -4348,7 +4358,9 @@ echo "RPM Build arch: %{_arch}"
 %endif
         -Duselargefiles \
         -Dd_semctl_semun \
+%if %{with bdb}
         -Di_db \
+%endif
 %if %{with gdbm}
         -Ui_ndbm \
         -Di_gdbm \
@@ -5528,11 +5540,13 @@ popd
 %endif
 
 %if %{dual_life} || %{rebuild_from_scratch}
+%if %{with bdb}
 %files DB_File
 %{archlib}/DB_File.pm
 %dir %{archlib}/auto/DB_File
 %{archlib}/auto/DB_File/DB_File.so
 %{_mandir}/man3/DB_File*
+%endif
 %endif
 
 %files DBM_Filter
@@ -7024,6 +7038,9 @@ popd
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Tue Oct 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.38.0-502
+- Make BerkeleyDB support optional
+
 * Wed Sep 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.38.0-501
 - Fix locale when use embedding Perl in C (bug #2240458)
 

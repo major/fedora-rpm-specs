@@ -1,0 +1,209 @@
+%global git 0
+#global snapshot 20230905
+%global commit 4d60929fea25d66ef58ab66eaced315242d8c029
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
+%bcond_without check
+
+# Currently does not build with opencl/libxsmm
+%bcond_with opencl
+
+Name: dbcsr
+# SONAME is based on major.minor version
+%global sover 2.6
+Version: %{sover}.0
+Release: 1%{?dist}
+Summary: Distributed Block Compressed Sparse Row matrix library
+License: GPL-2.0-or-later
+URL: https://cp2k.github.io/dbcsr/develop/
+%if %{git}
+Source0: https://github.com/cp2k/dbcsr/archive/%{commit}/dbcsr-%{shortcommit}.tar.gz
+%else
+Source0: https://github.com/cp2k/dbcsr/releases/download/v%{version}/dbcsr-%{version}.tar.gz
+%endif
+# Fedora patches
+# patch to:
+# use rpm optflags
+# link with flexiblas instead of vanilla blas/lapack
+# build with libint and libxc
+# build shared libraries
+# Honor FFLAGS
+# https://github.com/cp2k/dbcsr/pull/700
+Patch: dbcsr-flags.patch
+# Allow install into _fmoddir
+# https://github.com/cp2k/dbcsr/pull/701
+Patch: dbcsr-fmoddir.patch
+BuildRequires: cmake
+BuildRequires: gcc-c++
+BuildRequires: gcc-gfortran
+BuildRequires: make
+BuildRequires: flexiblas-devel
+%if %{with opencl}
+BuildRequires: libxsmm-devel
+%endif
+BuildRequires: python3-fypp
+
+%global dbcsr_desc_base \
+DBCSR stands for Distributed Blocked Compressed Sparse Row.\
+\
+DBCSR is a library designed to efficiently perform sparse matrix-matrix\
+multiplication, among other operations.  It is MPI and OpenMP parallel and\
+can exploit Nvidia and AMD GPUs via CUDA and HIP.
+
+
+%description
+%{dbcsr_desc_base}
+
+This package contains the non-MPI single process and multi-threaded versions.
+
+%package devel
+Summary: Development files for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: gcc-gfortran%{_isa}
+
+%description devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+%global mpi_list openmpi mpich
+
+%package openmpi
+Summary: DBCSR - openmpi version
+BuildRequires:  openmpi-devel
+
+%description openmpi
+%{dbcsr_desc_base}
+
+This package contains the parallel single- and multi-threaded versions
+using OpenMPI.
+
+%package openmpi-devel
+Summary: Development files for %{name}-openmpi
+Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
+
+%description openmpi-devel
+The %{name}-openmpi-devel package contains libraries and header files for
+developing applications that use %{name}-openmpi.
+
+%package mpich
+Summary: DBCSR - mpich version
+BuildRequires:  mpich-devel
+
+%description mpich
+%{dbcsr_desc_base}
+
+This package contains the parallel single- and multi-threaded versions
+using mpich.
+
+%package mpich-devel
+Summary: Development files for %{name}-mpich
+Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
+
+%description mpich-devel
+The %{name}-mpich-devel package contains libraries and header files for
+developing applications that use %{name}-mpich.
+
+
+%prep
+%if %{git}
+%autosetup -p1 -n %{name}-%{commit}
+echo git:%{shortcommit} > REVISION
+%else
+%autosetup -p1
+%endif
+# Use cmake's version so it can find flexiblas
+rm cmake/Find{BLAS,LAPACK}.cmake
+# Use system fypp, other tools not needed
+rm -r tools
+
+
+# $mpi will be evaluated in the loops below
+%global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
+
+%build
+export CFLAGS="%{optflags} -fPIC"
+export CXXFLAGS="%{optflags} -fPIC"
+export FFLAGS="%{optflags} -fPIC"
+%cmake -DCMAKE_INSTALL_Fortran_MODULES=%{_fmoddir} -DUSE_MPI=OFF %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm}
+%cmake_build
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  [ $mpi = "mpich" ] && CMAKE_OPTS=-DUSE_MPI_F08=ON || CMAKE_OPTS=
+  %cmake -DCMAKE_INSTALL_Fortran_MODULES=$MPI_FORTRAN_MOD_DIR %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm} $CMAKE_OPTS \
+   -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
+   -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB
+  %cmake_build
+  module purge
+done
+
+
+%install
+%cmake_install
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  %cmake_install
+  module purge
+done
+
+
+%if %{with check}
+%check
+%ctest
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  fail=
+  # mpich tests fail on s390x - reported https://github.com/cp2k/dbcsr/issues/703
+  [ $mpi = mpich -a %{_arch} = s390x ] && fail=no
+  %ctest || test $fail
+  module purge
+done
+%endif
+
+
+%files
+%license LICENSE
+%doc README.md
+%{_libdir}/libdbcsr.so.%{sover}*
+
+%files devel
+%{_fmoddir}/dbcsr_api.mod
+%{_fmoddir}/dbcsr_tensor_api.mod
+%{_libdir}/cmake/dbcsr/
+%{_libdir}/libdbcsr.so
+
+%files openmpi
+%license LICENSE
+%doc README.md
+%{_libdir}/openmpi/lib/libdbcsr.so.%{sover}*
+%{_libdir}/openmpi/lib/libdbcsr_c.so.%{sover}*
+
+%files openmpi-devel
+%{_libdir}/openmpi/include/dbcsr.h
+%{_libdir}/openmpi/include/dbcsr_tensor.h
+%{_fmoddir}/openmpi/dbcsr_api.mod
+%{_fmoddir}/openmpi/dbcsr_tensor_api.mod
+%{_libdir}/openmpi/lib/cmake/dbcsr/
+%{_libdir}/openmpi/lib/libdbcsr.so
+%{_libdir}/openmpi/lib/libdbcsr_c.so
+
+%files mpich
+%license LICENSE
+%doc README.md
+%{_libdir}/mpich/lib/libdbcsr.so.%{sover}*
+%{_libdir}/mpich/lib/libdbcsr_c.so.%{sover}*
+
+%files mpich-devel
+%{_libdir}/mpich/include/dbcsr.h
+%{_libdir}/mpich/include/dbcsr_tensor.h
+%{_fmoddir}/mpich/dbcsr_api.mod
+%{_fmoddir}/mpich/dbcsr_tensor_api.mod
+%{_libdir}/mpich/lib/cmake/dbcsr/
+%{_libdir}/mpich/lib/libdbcsr.so
+%{_libdir}/mpich/lib/libdbcsr_c.so
+
+%changelog
+* Sun Sep 10 2023 Orion Poplawski <orion@nwra.com> - 2.6.0-1
+- Initial package

@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.004
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 BuildRequires:            python3
@@ -28,13 +28,6 @@ Source0:  https://github.com/googlefonts/noto-cjk/releases/download/Sans%{versio
 Source1:  genfontconf.py
 Source10: 65-%{fontpkgname}.conf
 Source11: 65-google-noto-sans-cjk-mono-fonts.conf
-
-%global fontpkgheader     %{expand:
-# The Noto Sans CJK fonts have both Variable and non-Variable fonts.
-# It will cause some issues if install both VF and non-VF fonts,
-# add Conflicts here to only install either VF or non-VF fonts.
-Conflicts: google-noto-sans-cjk-vf-fonts
-}
 
 
 %fontpkg
@@ -69,6 +62,13 @@ python3 genfontconf.py "ja" "monospace" "Noto Sans Mono CJK JP" \
 %fontfiles
 
 %changelog
+* Fri Oct  6 2023 Akira TAGOH <tagoh@redhat.com> - 1:2.004-5
+- Drop Conflict: google-noto-sans-cjk-vf-fonts to get them installed together.
+  fontconfig basically estimate same score for both but static font still has
+  a priority because of path name. This works as a workaround for some issues
+  related to variable fonts.
+  Resolves: rhbz #2240646
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.004-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

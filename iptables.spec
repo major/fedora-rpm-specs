@@ -10,8 +10,8 @@
 Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
-Version: 1.8.9
-Release: 6%{?dist}
+Version: 1.8.10
+Release: 2%{?dist}
 Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
@@ -19,24 +19,6 @@ Source3: iptables.service
 Source4: sysconfig_iptables
 Source5: sysconfig_ip6tables
 Source6: arptables-nft-helper
-
-Patch001: 0001-extensions-NAT-Fix-for-Werror-format-security.patch
-Patch002: 0002-etc-Drop-xtables.conf.patch
-Patch003: 0003-Proper-fix-for-unknown-argument-error-message.patch
-Patch004: 0004-ebtables-Refuse-unselected-targets-options.patch
-Patch005: 0005-tests-xlate-Properly-split-input-in-replay-mode.patch
-Patch006: 0006-extensions-libebt_redirect-Fix-target-translation.patch
-Patch007: 0007-extensions-libebt_redirect-Fix-for-wrong-syntax-in-t.patch
-Patch008: 0008-extensions-libebt_ip-Do-not-use-ip-dscp-for-translat.patch
-Patch009: 0009-extensions-libebt_ip-Translation-has-to-match-on-eth.patch
-Patch010: 0010-xt_sctp-add-the-missing-chunk-types-in-sctp_help.patch
-Patch011: 0011-include-Add-missing-linux-netfilter-xt_LOG.h.patch
-Patch012: 0012-nft-restore-Fix-for-deletion-of-new-referenced-rule.patch
-Patch013: 0013-ip6tables-Fix-checking-existence-of-rule.patch
-Patch014: 0014-nft-shared-Drop-unused-include.patch
-Patch015: 0015-arptables-Fix-parsing-of-inverted-arp-operation-matc.patch
-Patch016: 0016-arptables-Don-t-omit-standard-matches-if-inverted.patch
-Patch017: 0017-xshared-Fix-parsing-of-option-arguments-in-same-word.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -54,7 +36,7 @@ BuildRequires: bison
 BuildRequires: flex
 BuildRequires: gcc
 BuildRequires: pkgconfig(libmnl) >= 1.0
-BuildRequires: pkgconfig(libnftnl) >= 1.1.6
+BuildRequires: pkgconfig(libnftnl) >= 1.2.6
 # libpcap-devel for nfbpf_compile
 BuildRequires: libpcap-devel
 BuildRequires: autoconf
@@ -67,17 +49,6 @@ The iptables utility controls the network packet filtering code in the
 Linux kernel. If you need to set up firewalls and/or IP masquerading,
 you should install this package.
 
-%package compat
-Summary: Temporary transitioning package
-Obsoletes: %{name} < 1.8.7-4
-Requires: %{name}-legacy = %{version}-%{release}
-Requires: %{name}-utils = %{version}-%{release}
-
-%description compat
-This package only exists to help transition iptables users to the new
-package split. It will be removed after one distribution release cycle, please
-do not reference it or depend on it in any way.
-
 %package legacy
 Summary: Legacy tools for managing Linux kernel packet filtering capabilities
 Requires: %{name}-legacy-libs%{?_isa} = %{version}-%{release}
@@ -88,6 +59,7 @@ Requires(postun): %{_sbindir}/update-alternatives
 %if 0%{?rhel} < 9
 Provides:	iptables
 %endif
+Obsoletes: %{name}-compat < 1.8.9-6
 
 %description legacy
 The iptables utility controls the network packet filtering code in the
@@ -252,9 +224,6 @@ touch %{buildroot}%{_mandir}/man8/arptables-save.8
 touch %{buildroot}%{_mandir}/man8/arptables-restore.8
 touch %{buildroot}%{_mandir}/man8/ebtables.8
 
-# Drop xtables.conf, it's not used
-rm -f %{buildroot}%{_sysconfdir}/xtables.conf
-
 # fix absolute symlink
 rm -f %{buildroot}%{_bindir}/iptables-xml
 ln -s ../sbin/xtables-legacy-multi %{buildroot}%{_bindir}/iptables-xml
@@ -371,8 +340,6 @@ if [ $1 -eq 0 ]; then
 	done
 fi
 
-%files compat
-
 %files legacy
 %{_sbindir}/ip{,6}tables-legacy*
 %{_sbindir}/xtables-legacy-multi
@@ -447,6 +414,13 @@ fi
 
 
 %changelog
+* Tue Oct 10 2023 Phil Sutter <psutter@redhat.com> - 1.8.10-2
+- Obsolete dropped compat package
+
+* Tue Oct 10 2023 Phil Sutter <psutter@redhat.com> - 1.8.10-1
+- New version 1.8.10
+- Drop compat sub-package
+
 * Tue Aug 15 2023 Phil Sutter <psutter@redhat.com> - 1.8.9-6
 - Convert license to SPDX format
 

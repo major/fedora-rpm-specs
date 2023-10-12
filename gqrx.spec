@@ -1,18 +1,16 @@
 Name:           gqrx
-Version:        2.16
-Release:        4%{?dist}
+Version:        2.17.2
+Release:        1%{?dist}
 Summary:        Software defined radio receiver powered by GNU Radio and Qt
 
 License:        GPLv3+ and GPLv2+ and BSD
 URL:            https://gqrx.dk/
 Source0:        https://github.com/gqrx-sdr/gqrx/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:         0001-Update-FSF-Adres-for-afsk1200.patch
-
 BuildRequires:  gcc-c++
 BuildRequires:  gnuradio-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libpulse-simple)
@@ -82,6 +80,11 @@ appstream-util validate-relax --nonet \
 %doc COPYING README.md
 
 %changelog
+* Tue Oct 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.17.2-1
+- New version
+  Resolves: rhbz#2241842
+- Build with Qt6 instead of Qt5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

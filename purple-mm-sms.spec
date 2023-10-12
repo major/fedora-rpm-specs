@@ -24,16 +24,15 @@ A libpurple plugin for sending and receiving SMS via ModemManager
 %prep
 %autosetup -p1 -n %{name}-v%{version}
 
+# Temporary until the next release which contains this license
+cp %{SOURCE1} .
+
 %build
 %set_build_flags
 %make_build
 
 %install
 %make_install
-
-# Temporary until the next release which contains this license
-mkdir -p %{buildroot}/usr/share/licenses/purple-mm-sms/
-cp %{SOURCE1} %{buildroot}/usr/share/licenses/purple-mm-sms/COPYING
 
 %files
 %{_libdir}/purple-2/mm-sms.so

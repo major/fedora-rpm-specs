@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.002
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 BuildRequires:            python3
@@ -27,13 +27,6 @@ The google-noto-serif-cjk-fonts package contains Google Noto Serif CJK fonts.
 Source0:  https://github.com/googlefonts/noto-cjk/releases/download/Serif%{version}/04_NotoSerifCJKOTC.zip
 Source1:  genfontconf.py
 Source10: 65-%{fontpkgname}.conf
-
-%global fontpkgheader     %{expand:
-# The Noto Serif CJK fonts have both Variable and non-Variable fonts.
-# It will cause some issues if install both VF and non-VF fonts,
-# add Conflicts here to only install either VF or non-VF fonts.
-Conflicts: google-noto-serif-cjk-vf-fonts
-}
 
 
 %fontpkg
@@ -63,6 +56,9 @@ python3 genfontconf.py "ja" "serif" "Noto Serif CJK JP" \
 %fontfiles
 
 %changelog
+* Tue Oct 10 2023 Peng Wu <pwu@redhat.com> - 1:2.002-2
+- Drop some Conflicts from the Noto Serif CJK fonts
+
 * Tue Aug 22 2023 Peng Wu <pwu@redhat.com> - 1:2.002-1
 - Update to 2.002
 

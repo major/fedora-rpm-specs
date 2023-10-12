@@ -21,7 +21,7 @@ Name: python-%{pypi_name}
 Version: 0.21.0
 Release: 3%{?dist}
 Summary: Zstandard bindings for Python
-License: BSD and GPLv2
+License: (BSD-3-Clause OR GPL-2.0-only) AND MIT
 URL: https://github.com/indygreg/python-zstandard
 Source0: %{pypi_source}
 

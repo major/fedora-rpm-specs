@@ -6,7 +6,7 @@ Name:           cr-marcstevens-snippets
 # have ever been versioned or formally released.
 %global snapinfo ^%{snapdate}git%(echo '%{commit}' | cut -b -7)
 Version:        0%{snapinfo}
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Collection of useful one-file C/C++ headers
 
 # The entire source is MIT except:

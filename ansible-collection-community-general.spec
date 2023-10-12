@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        7.2.1
+Version:        7.5.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -61,6 +61,8 @@ Source:         %{furl}/archive/%{version_no_tilde}/%{name}-%{version}.tar.gz
 # also removed.
 # This is a downstream only patch.
 Patch:          build_ignore.patch
+# redhat_subscription: fix D-Bus option for consumer type on older distros #7378
+Patch:          %{furl}/pull/7378.patch#/redhat_subscription-dbus-consumer.patch
 
 BuildRequires:  ansible-packaging
 # Version 5 specifically requires ansible-core 2.11 or above
@@ -86,6 +88,10 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst*
 
 %changelog
+* Tue Oct 10 2023 Maxwell G <maxwell@gtmx.me> - 7.5.0-1
+- Update to 7.5.0. Fixes rhbz#2232352.
+- Backport redhat_subscription patch. Fixes rhbz#2242824.
+
 * Thu Aug 03 2023 Maxwell G <maxwell@gtmx.me> - 7.2.1-1
 - Update to 7.2.1. Fixes rhbz#2223385.
 

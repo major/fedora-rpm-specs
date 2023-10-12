@@ -87,8 +87,11 @@ cat > %{buildroot}/%{initfile} <<EOF
 ;; problem is understood and fixed, disable native compilation of all VM
 ;; lisp files.
 (eval-after-load "comp"
-    '(if (boundp 'native-comp-deferred-compilation-deny-list)
-        (add-to-list 'native-comp-deferred-compilation-deny-list "/vm.*\.el")))
+  '(dolist
+       (deny-list '(native-comp-deferred-compilation-deny-list
+		    native-comp-jit-compilation-deny-list))
+     (if (boundp deny-list)
+         (add-to-list deny-list "/vm.*\.el"))))
 
 ;; Settings for VM itself
 (setq vm-toolbar-pixmap-directory "%{pixmapdir}")

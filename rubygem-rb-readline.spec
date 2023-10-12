@@ -2,10 +2,11 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.5
-Release:	13%{?dist}
+Release:	14%{?dist}
 
 Summary:	Pure-Ruby Readline Implementation
-License:	BSD
+# SPDX confirmed
+License:	BSD-3-Clause
 
 URL:		http://github.com/ConnorAtherton/rb-readline
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -28,12 +29,11 @@ BuildArch:	noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -41,6 +41,7 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
 
+rm -f %{buildroot}%{gem_cache}
 pushd %{buildroot}%{gem_instdir}/
 rm -rf \
 	Rakefile \
@@ -87,7 +88,6 @@ popd
 %doc	%{gem_instdir}/README.md
 
 %{gem_libdir}/
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files doc
@@ -96,6 +96,10 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Tue Oct 10 2023 Mamoru TASAKA <mtasaka@tbz.t-com.ne.jp> - 0.5.5-14
+- Use recent gem2spec spec style
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

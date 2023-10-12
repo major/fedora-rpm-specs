@@ -1,6 +1,7 @@
 %define rsyslog_statedir %{_sharedstatedir}/rsyslog
 %define rsyslog_pkidir %{_sysconfdir}/pki/rsyslog
 %define rsyslog_docdir %{_docdir}/rsyslog
+%define qpid_proton_v 0.39.0
 # The following packages are not enabled on rhel:
 #   hiredis, libdbi, mongodb, rabbitmq
 # The omamqp1 plugin is built differently as qpid-proton is not available on rhel
@@ -35,7 +36,7 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2308.0
+Version: 8.2310.0
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
@@ -47,9 +48,7 @@ Source4: rsyslog.log
 Source5: rsyslog.service
 # Add qpid-proton as another source, enable omamqp1 module in a
 # separatae sub-package with it statically linked(see rhbz#1713427)
-Source6: https://archive.apache.org/dist/qpid/proton/0.34.0/qpid-proton-0.34.0.tar.gz
-
-Patch0: openssl3-compatibility.patch
+Source6: https://archive.apache.org/dist/qpid/proton/%{qpid_proton_v}/qpid-proton-%{qpid_proton_v}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -391,9 +390,6 @@ mv build doc
 %if %{with omamqp1}
 # Unpack qpid-proton
 %setup -q -D -T -b 6
-pushd ..
-%patch -P 0 -p1 -b .openssl-compatibility
-popd
 %endif
 
 %build
@@ -407,7 +403,7 @@ export CFLAGS="$RPM_OPT_FLAGS -fpic"
 %if %{with omamqp1}
 # build the proton first
 (
-	cd %{_builddir}/qpid-proton-0.34.0
+	cd %{_builddir}/qpid-proton-%{qpid_proton_v}
 	mkdir bld
 	cd bld
 
@@ -469,7 +465,7 @@ autoreconf -if
 	--enable-omrabbitmq \
 %endif
 %if %{with omamqp1}
-	--enable-omamqp1 PROTON_LIBS="%{_builddir}/qpid-proton-0.34.0/bld/c/libqpid-proton-core-static.a %{_builddir}/qpid-proton-0.34.0/bld/c/libqpid-proton-proactor-static.a %{_builddir}/qpid-proton-0.34.0/bld/c/libqpid-proton-static.a -lssl -lsasl2 -lcrypto" PROTON_CFLAGS="-I%{_builddir}/qpid-proton-0.34.0/bld/c/include" \
+	--enable-omamqp1 PROTON_LIBS="%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-core-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-proactor-static.a %{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/libqpid-proton-static.a -lssl -lsasl2 -lcrypto" PROTON_CFLAGS="-I%{_builddir}/qpid-proton-%{qpid_proton_v}/bld/c/include" \
 %endif
 	--enable-elasticsearch \
 	--enable-generate-man-pages \
@@ -770,8 +766,9 @@ done
 
 
 %changelog
-* Fri Aug 25 2023 Attila Lakatos <alakatos@redhat.com> - 8.2308.0-1
-- Rebase to 8.2308.0
+* Fri Aug 25 2023 Attila Lakatos <alakatos@redhat.com> - 8.2310.0-1
+- Rebase to 8.2310.0
+  resolves: rhbz#2232275
 
 * Wed Aug 16 2023 Stewart Smith <trawets@amazon.com> - 8.2306.0-4
 - Add mmtaghostname module as a subpackage

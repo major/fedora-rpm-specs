@@ -1,5 +1,5 @@
-%global commit 5736b15f7ea0ffb08dd38af21067c314d6a3aae9
-%global snapdate 20230129
+%global commit c4bbb6e75f688318b2df2b70c2df2d641c1a8481
+%global snapdate 20231009
 
 # We choose not to package the “stb_include” library (stb_include.h) because,
 # during the package review, it was observed that it follows coding practices
@@ -9,7 +9,7 @@
 # - It uses of strcat/strcpy into a fixed-length buffer that is assumed (but
 #   not proven) to be large enough for all possible uses
 # - It ignores I/O errors (possibly leading to undefined behavior from reading
-#   uninitialized memory), and so on. Making it
+#   uninitialized memory), and so on.
 #
 # A substantial rewrite would be required to mitigate these concerns. If a
 # request for this library arises, this decision may be revisited, or the
@@ -24,7 +24,7 @@ Name:           stb
 #   https://github.com/nothings/stb/issues/1101
 %global snapinfo ^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Version:        0%{snapinfo}
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Single-file public domain libraries for C/C++
 
 # See LICENSE.
@@ -77,6 +77,7 @@ Patch:          %{url}/pull/1454.patch
 %global stb_hexwave_version 0.5
 %global stb_image_version 2.28
 %global stb_image_resize_version 0.97
+%global stb_image_resize2_version 2.0
 %global stb_image_write_version 1.16
 %global stb_include_version 0.2
 %global stb_leakcheck_version 0.6
@@ -127,8 +128,15 @@ Requires:       stb_hexwave-devel%{?_isa} = %{stb_hexwave_version}%{snapinfo}-%{
 Requires:       stb_hexwave-static = %{stb_hexwave_version}%{snapinfo}-%{release}
 Requires:       stb_image-devel%{?_isa} = %{stb_image_version}%{snapinfo}-%{release}
 Requires:       stb_image-static = %{stb_image_version}%{snapinfo}-%{release}
+# For compatibility, we still depend on the subpackages for the original,
+# deprecated-upstream stb_image_library in existing stable releases, but we
+# drop the dependendency going forward as an acknowledgement of its status.
+%if 0%{?fc39} || 0%{?fc38} || 0%{?fc37} || 0%{?el9} || 0%{?el8} || 0%{?el7}
 Requires:       stb_image_resize-devel%{?_isa} = %{stb_image_resize_version}%{snapinfo}-%{release}
 Requires:       stb_image_resize-static = %{stb_image_resize_version}%{snapinfo}-%{release}
+%endif
+Requires:       stb_image_resize2-devel%{?_isa} = %{stb_image_resize2_version}%{snapinfo}-%{release}
+Requires:       stb_image_resize2-static = %{stb_image_resize2_version}%{snapinfo}-%{release}
 Requires:       stb_image_write-devel%{?_isa} = %{stb_image_write_version}%{snapinfo}-%{release}
 Requires:       stb_image_write-static = %{stb_image_write_version}%{snapinfo}-%{release}
 %if %{with stb_include}
@@ -298,8 +306,11 @@ Primarily of interest to game developers and other people who can avoid
 problematic images and only need the trivial interface.
 
 
+# We still package (and have chosen not to deprecate) the original
+# stb_image_resize even though upstream has deprecated it. We do not want to
+# drive dependent packages back to bundling.
 %package -n stb_image_resize-devel
-Summary:        Resize images larger/smaller with good quality
+Summary:        Resize images larger/smaller with good quality (original version)
 Version:        %{stb_image_resize_version}%{snapinfo}
 
 Provides:       stb_image_resize-static = %{stb_image_resize_version}%{snapinfo}-%{release}
@@ -311,6 +322,19 @@ Written with emphasis on usability, portability, and efficiency. (No SIMD or
 threads, so it be easily outperformed by libs that use those.) Only scaling and
 translation is supported, no rotations or shears. Easy API downsamples
 w/Mitchell filter, upsamples w/cubic interpolation.
+
+This is the original version of the stb_image_resize library. It has been
+deprecated by its developer; consider porting to stb_image_resize2 instead.
+
+
+%package -n stb_image_resize2-devel
+Summary:        Resize images larger/smaller with good quality
+Version:        %{stb_image_resize2_version}%{snapinfo}
+
+Provides:       stb_image_resize2-static = %{stb_image_resize2_version}%{snapinfo}-%{release}
+
+%description -n stb_image_resize2-devel
+Image resizing.
 
 
 %package -n stb_image_write-devel
@@ -557,7 +581,8 @@ find . -type f -name '*.exe' -print -delete
 # Remove some unused parts of the source tree that could contribute different
 # (but acceptable) license terms if they were used—just to prove that we do not
 # use them.
-rm -rvf deprecated tests/caveview
+rm -rvf tests/caveview
+find deprecated -type f ! -name 'stb_image_resize.h' -print -delete
 
 %if %{without stb_include}
 sed -r -i '/#include[[:blank:]]+"stb_include.h"/d' tests/test_c_compilation.c
@@ -583,7 +608,8 @@ sed -r -i '/#include[[:blank:]]+"stb_include.h"/d' tests/test_c_compilation.c
 # as a symbolic link to the former. This means most projects can unbundle the
 # library without having to make their own local symlinks or patch their
 # sources.
-install -t '%{buildroot}%{_includedir}/stb' -p -m 0644 -D stb_*.h stb_*.c
+install -t '%{buildroot}%{_includedir}/stb' -p -m 0644 -D \
+    stb_*.h stb_*.c deprecated/stb_image_resize.h
 %if %{without stb_include}
 rm -vf '%{buildroot}%{_includedir}/stb/stb_include.h'
 %endif
@@ -632,6 +658,7 @@ done <<'EOF'
 %{stb_hexwave_version} stb_hexwave.h
 %{stb_image_version} stb_image.h
 %{stb_image_resize_version} stb_image_resize.h
+%{stb_image_resize2_version} stb_image_resize2.h
 %{stb_image_write_version} stb_image_write.h
 %{stb_include_version} stb_include.h
 %{stb_leakcheck_version} stb_leakcheck.h
@@ -735,6 +762,14 @@ EOF
 %dir %{_includedir}/stb
 %{_includedir}/stb/stb_image_resize.h
 %{_includedir}/stb_image_resize.h
+
+
+%files -n stb_image_resize2-devel
+%license LICENSE
+# Directory has shared ownership across stb subpackages:
+%dir %{_includedir}/stb
+%{_includedir}/stb/stb_image_resize2.h
+%{_includedir}/stb_image_resize2.h
 
 
 %files -n stb_image_write-devel

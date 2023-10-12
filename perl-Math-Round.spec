@@ -1,11 +1,10 @@
 Name:           perl-Math-Round
-Version:        0.07
-Release:        26%{?dist}
+Version:        0.08
+Release:        1%{?dist}
 Summary:        Perl extension for rounding numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Round
 Source0:        https://cpan.metacpan.org/modules/by-module/Math/Math-Round-%{version}.tar.gz
-Patch0:         Math-Round-0.06-utf8.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -15,15 +14,16 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module Runtime
-BuildRequires:  perl(AutoLoader)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
 # Test Suite
-# (no additional dependencies)
+BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
-Requires:       perl(AutoLoader)
+# (no additional dependencies)
 
 %description
 Math::Round supplies functions that will round numbers in different ways. The
@@ -32,12 +32,6 @@ described below. "use ... qw(:all)" exports all functions.
 
 %prep
 %setup -q -n Math-Round-%{version}
-
-# Recode docs as UTF-8
-%patch -P 0 -p1
-
-# Remove errant execute bits
-find . -type f -exec chmod -c -x {} ';'
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -52,12 +46,20 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
+%license LICENSE
 %doc Changes README
-%{perl_vendorlib}/auto/Math/
 %{perl_vendorlib}/Math/
 %{_mandir}/man3/Math::Round.3*
 
 %changelog
+* Tue Oct 10 2023 Paul Howarth <paul@city-fan.org> - 0.08-1
+- Update to 0.08
+  - NEILB has taken over maintenance
+  - Added usual directory structure with lib/ and t/
+  - Converted test.pl to traditional Test::More suite
+  - Added LICENSE to doc and ensured metadata has license
+  - Switched to dzil
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

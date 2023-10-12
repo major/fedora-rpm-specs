@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.004
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 %global foundry           Google
@@ -29,10 +29,6 @@ Provides:       %{subpkgname} = %{epoch}:%{version}-%{release}\
 %global fontpkgheader0    %{expand:
 Recommends: google-noto-sans-mono-cjk-vf-fonts = %{epoch}:%{version}-%{release}
 
-# The Noto Sans CJK fonts have both Variable and non-Variable fonts.
-# It will cause some issues if install both VF and non-VF fonts,
-# add Conflicts here to only install either VF or non-VF fonts.
-Conflicts: google-noto-sans-cjk-fonts
 
 %obsoletes_pkg google-noto-cjk-fonts
 %obsoletes_pkg google-noto-cjk-fonts-common
@@ -54,11 +50,6 @@ The google-noto-sans-cjk-vf-fonts package contains Google Noto Sans CJK Variable
 %global fontfamily1       Noto Sans Mono CJK VF
 %global fontsummary1      Google Noto Sans Mono CJK Variable Fonts
 %global fontpkgheader1    %{expand:
-# The Noto Sans CJK fonts have both Variable and non-Variable fonts.
-# It will cause some issues if install both VF and non-VF fonts,
-# add Conflicts here to only install either VF or non-VF fonts.
-Conflicts: google-noto-sans-cjk-fonts
-
 %obsoletes_pkg google-noto-sans-mono-cjk-sc-fonts
 %obsoletes_pkg google-noto-sans-mono-cjk-tc-fonts
 %obsoletes_pkg google-noto-sans-mono-cjk-hk-fonts
@@ -114,6 +105,13 @@ python3 genfontconf.py "ja" "monospace" "Noto Sans Mono CJK JP" \
 %fontfiles -a
 
 %changelog
+* Fri Oct  6 2023 Akira TAGOH <tagoh@redhat.com> - 1:2.004-5
+- Drop Conflict: google-noto-sans-cjk-fonts to get them installed together.
+  fontconfig basically estimate same score for both but static font still has
+  a priority because of path name. This works as a workaround for some issues
+  related to variable fonts.
+  Resolves: rhbz #2240646
+
 * Wed Jul 26 2023 Peng Wu <pwu@redhat.com> - 1:2.004-4
 - Add google-noto-sans-mono-cjk-vf-fonts sub package
 - Resolves: RHBZ#2215475

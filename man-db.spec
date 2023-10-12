@@ -3,7 +3,7 @@
 Summary: Tools for searching and reading man pages
 Name: man-db
 Version: 2.12.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
 License: GPL-2.0-or-later AND GPL-3.0-or-later
@@ -100,18 +100,18 @@ install -d -m 0755  $RPM_BUILD_ROOT%{cache}
 
 # install cron script for man-db creation/update
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily
-install -D -p -m 0755 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/man-db.cron
+install -D -p -m 0755 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/man-db.cron
 
 # config for cron script
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-install -D -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/man-db
+install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/man-db
 
 # config for tmpfiles.d
 install -D -p -m 0644 init/systemd/man-db.conf $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/.
 
 # man-db-cache-update.service and man-db-restart-cache-update.service
-install -D -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_unitdir}/man-db-cache-update.service
-install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_unitdir}/man-db-restart-cache-update.service
+install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_unitdir}/man-db-cache-update.service
+install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/man-db-restart-cache-update.service
 
 %find_lang %{name}
 %find_lang %{name}-gnulib
@@ -234,6 +234,10 @@ fi
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Tue Oct 10 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.12.0-3
+- Fix the Source numbering in installation
+- Resolves: BZ#2242757
+
 * Fri Sep 29 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.12.0-2
 - Add GPG verify on the package
 

@@ -8,8 +8,8 @@
 
 Summary:	Modular text mode IRC client with Perl scripting
 Name:		irssi
-Version:	1.4.4
-Release:	5%{?dist}
+Version:	1.4.5
+Release:	1%{?dist}
 
 License:	GPLv2+
 URL:		http://irssi.org/
@@ -40,9 +40,6 @@ Requires:	perl(lib)
 Requires:	perl(Symbol)
 # https://github.com/irssi/irssi/issues/1374
 Patch0:		irssi-1.4.1-botti-perl-link-fix.patch
-
-# https://github.com/irssi/irssi/pull/1474
-Patch1:		irssi-1.4.4-perl-ntype.patch
 
 %package devel
 Summary:	Development package for irssi
@@ -113,6 +110,10 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 
 
 %changelog
+* Tue Oct 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.5-1
+- New version
+  Resolves: rhbz#2241891
+
 * Thu Aug 18 2023 Boudhayan Bhattacharya <bbhtt.zn0i8@slmail.me> - 1.4.4-5
 - Add irssi perl-ntype patch for perl>=5.38
   Resolves rhbz#2232750

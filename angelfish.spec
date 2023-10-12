@@ -1,12 +1,19 @@
 Name:           angelfish
-Version:        23.04.3
-Release:        2%{?dist}
+Version:        23.08.1
+Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 License:        MIT and GPLv2+ and LGPLv2 and LGPLv2+
 # For a breakdown of the licensing, see PACKAGE-LICENSING
-URL:            https://invent.kde.org/plasma-mobile/%{name}
-Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+URL:            https://invent.kde.org/network/%{name}
+
+%global revision %(echo %{version} | cut -d. -f3)
+%if %{revision} >= 50
+%global stable unstable
+%else
+%global stable stable
+%endif
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
@@ -20,6 +27,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  libappstream-glib
  
+BuildRequires:  cmake(FutureSQL5)
 BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5DBusAddons)
@@ -30,6 +38,8 @@ BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5Purpose)
 BuildRequires:  cmake(KF5QQC2DesktopStyle)
 BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  cmake(QCoro5Core)
+BuildRequires:  cmake(QCoro5Quick)
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Feedback)
 BuildRequires:  cmake(Qt5Gui)
@@ -87,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Thu Oct 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.08.1-1
+- 23.08.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

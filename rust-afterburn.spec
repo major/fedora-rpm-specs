@@ -6,8 +6,8 @@
 %global crate afterburn
 
 Name:           rust-afterburn
-Version:        5.4.2
-Release:        2%{?dist}
+Version:        5.4.3
+Release:        1%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -16,7 +16,7 @@ Source0:        %{crates_source}
 # not used on Fedora
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
 
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 BuildRequires:  rust-toolset
 BuildRequires:  openssl-devel
 # This is needed because the cc crate, which is
@@ -104,16 +104,8 @@ to run in the initramfs on boot.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-%if 0%{?rhel} && !0%{?eln}
-tar xvf %{SOURCE1}
-mkdir -p .cargo
-cat >.cargo/config << EOF
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
+%if 0%{?rhel}
+%cargo_prep -V 1
 %else
 %cargo_prep
 %endif
@@ -124,7 +116,7 @@ sed -e 's,@DEFAULT_INSTANCE@,core,' < \
   systemd/afterburn-sshkeys@.service.in > \
   systemd/afterburn-sshkeys@.service
 
-%if !0%{?rhel} || 0%{?eln}
+%if !0%{?rhel}
 %generate_buildrequires
 %cargo_generate_buildrequires
 %endif
@@ -135,7 +127,7 @@ sed -e 's,@DEFAULT_INSTANCE@,core,' < \
 %{?cargo_license} > LICENSE.dependencies
 
 %install
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 %make_install INSTALL="install -p -c"
 %else
 %cargo_install
@@ -151,6 +143,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Wed Oct 04 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.4.3-1
+- Update to 5.4.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

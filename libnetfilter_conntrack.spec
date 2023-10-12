@@ -1,8 +1,8 @@
 Name:           libnetfilter_conntrack
 Version:        1.0.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Netfilter conntrack userspace library
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://netfilter.org
 Source0:        http://netfilter.org/projects/libnetfilter_conntrack/files/%{name}-%{version}.tar.bz2
 Source1:        http://netfilter.org/projects/libnetfilter_conntrack/files/%{name}-%{version}.tar.bz2.sig
@@ -57,6 +57,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_includedir}/libnetfilter_conntrack/*.h
 
 %changelog
+* Tue Aug 15 2023 Phil Sutter <psutter@redhat.com> - 1.0.9-3
+- Convert license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,8 +12,8 @@
 %global python_wheel_name %{pypi_name}-%{version}-py3-none-any.whl
 
 Name:           python-%{pypi_name}
-Version:        0.40.0
-Release:        4%{?dist}
+Version:        0.41.2
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Built-package format for Python
 
@@ -148,6 +148,11 @@ install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_w
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Tue Aug 15 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1:0.41.2-1
+- Update to 0.41.2
+- Fixes: rhbz#2224712
+- Fixes: rhbz#2233485
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.40.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

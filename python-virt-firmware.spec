@@ -1,4 +1,4 @@
-%global pypi_version 23.9
+%global pypi_version 23.10
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -8,7 +8,6 @@ Summary:        Tools for virtual machine firmware volumes
 License:        GPL-2.0-only
 URL:            https://pypi.org/project/virt-firmware/
 Source0:        virt-firmware-%{pypi_version}.tar.gz
-Patch1:         systemd-fixes.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -50,12 +49,13 @@ test cases
 Provides:       ukidirect
 Summary:        %{summary} - manage UKI kernels.
 Requires:       python3-virt-firmware
+Conflicts:      systemd < 254
 %description -n uki-direct
 kernel-install plugin and systemd unit to manage automatic
 UKI (unified kernel image) updates.
 
 %prep
-%autosetup -n virt-firmware-%{pypi_version} -p 1
+%autosetup -n virt-firmware-%{pypi_version}
 
 %build
 %py3_build
@@ -96,6 +96,7 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/i
 %{_bindir}/pe-dumpinfo
 %{_bindir}/pe-listsigs
 %{_bindir}/pe-addsigs
+%{_bindir}/pe-inspect
 %{_mandir}/man1/virt-*.1*
 %{_mandir}/man1/kernel-bootcfg.1*
 %{_mandir}/man1/uefi-boot-menu.1*

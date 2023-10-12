@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           gaupol
-Version:        1.12
+Version:        1.13
 Release:        %autorelease
 Summary:        Editor for text-based subtitle files
 
@@ -12,19 +12,6 @@ License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://otsaloma.io/gaupol/
 %global forgeurl https://github.com/otsaloma/gaupol
 Source:         %{forgeurl}/archive/%{version}/gaupol-%{version}.tar.gz
-
-# Fix spelling of "parentheses"
-# https://github.com/otsaloma/gaupol/commit/a06b847201332725db5c6dc9505fedc23e7faebb
-#
-# Fixes:
-#
-# Maybe a typo in ui text
-# https://github.com/otsaloma/gaupol/issues/209
-Patch:          %{forgeurl}/commit/a06b847201332725db5c6dc9505fedc23e7faebb.patch
-
-# Use importlib.reload instead of imp.reload (Python 3.12 compat)
-# https://github.com/otsaloma/gaupol/pull/211
-Patch:          %{forgeurl}/pull/211.patch
 
 # The package cannot be noarch because it has weak dependencies and BR’s
 # conditioned on architecture. There is still no compiled code, so there will
@@ -62,8 +49,8 @@ BuildRequires:  appstream
 %if %{with tests}
 BuildRequires:  python3dist(pygobject) >= 3.12
 BuildRequires:  gtk3 >= 3.12
-# The gstreamer weak dependencies are not actually used in the tests, but we
-# BuildRequire them anyway to make sure they are satisfiable.
+# The gstreamer and mpv weak dependencies are not actually used in the tests,
+# but we BuildRequire them anyway to make sure they are satisfiable.
 BuildRequires:  gstreamer1 >= 1.6
 BuildRequires:  gstreamer1-plugins-base >= 1.6
 BuildRequires:  gstreamer1-plugins-good >= 1.6
@@ -75,6 +62,7 @@ BuildRequires:  gstreamer1-svt-av1
 # svt-vp9 is ExclusiveArch: x86_64
 BuildRequires:  gstreamer1-svt-vp9
 %endif
+BuildRequires:  mpv
 BuildRequires:  iso-codes
 BuildRequires:  gspell >= 1.0.0
 BuildRequires:  python3dist(chardet) >= 2.2.1
@@ -104,6 +92,9 @@ Requires:       (gstreamer1-vaapi >= 1.6 if gstreamer1-vaapi)
 Recommends:     gstreamer1-svt-av1
 Recommends:     gstreamer1-svt-vp9
 %endif
+# Default preview video player on non-Windows systems, and currently (of mpv,
+# mplayer, and VLC) the only one packaged in Fedora.
+Recommends:     mpv
 Recommends:     gspell
 Requires:       (gspell >= 1.0.0 if gspell)
 Recommends:     python3dist(chardet)
@@ -112,6 +103,7 @@ Requires:       (python3dist(chardet) >= 2.2.1 if python3dist(chardet))
 Requires:       python3-aeidon = %{version}-%{release}
 
 Summary(cs):    Editor pro textově založené titulky
+Summary(de):    Editor für textbasierte Untertitel
 Summary(es):    Editor de archivos de subtítulos basados en texto
 Summary(fi):    Muokkain tekstimuotoisille tekstityksille
 Summary(fr):    Éditeur de sous-titres au format texte
@@ -123,6 +115,7 @@ Summary(pt_BR): Editor para legendas em texto
 Summary(pt):    Editor para legendas em texto
 Summary(ru):    Редактор текстовых субтитров
 Summary(tr):    Metin tabanlı altyazılar için düzenleyici
+Summary(zh_CN): 基于文本的字幕编辑器
 
 %global app_id io.otsaloma.gaupol
 
@@ -135,6 +128,11 @@ and timing subtitles to match video.
 Gaupol je editor pro textově založené soubory titulků. Podporuje více formátů
 souborů titulků a poskytuje prostředky k vytváření titulků, upravování textů a
 časování titulků, aby odpovídaly obrazovému záznamu.
+
+%description -l de
+Gaupol ist ein Editor für textbasierte Untertiteldateien. Er unterstützt
+mehrere Untertiteldateiformate und ermöglicht das Erstellen von Untertiteln,
+Textbearbeitung und die zeitliche Anpassung von Untertiteln an das Video.
 
 %description -l es
 Gaupol es un editor de archivos de subtítulos basados en texto. Con soporte
@@ -191,6 +189,11 @@ Gaupol - редактор для текстовых субтитров. Он п�
 Gaupol, metin tabanlı altyazı dosyaları için bir düzenleyicidir. Birçok altyazı
 dosya biçimini destekler ve video eşleştirmek için altyazı oluşturma, metinleri
 düzenleme ve altyazıları zamanlama araçları sağlar.
+
+%description -l zh_CN
+Gaupol 是一个编辑基于文本的字幕编辑器。它支持多种字幕文件格式，
+并提供创建字幕、编辑文本和调整字幕时间轴以匹配视频等功能。
+
 
 %package -n python3-aeidon
 Summary: Read, write, and manipulate text-based subtitle files

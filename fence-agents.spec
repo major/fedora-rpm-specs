@@ -12,17 +12,11 @@
 
 Name: fence-agents
 Summary: Set of unified programs capable of host isolation ("fencing")
-Version: 4.12.1
-Release: 3%{?alphatag:.%{alphatag}}%{?dist}
+Version: 4.13.0
+Release: 1%{?alphatag:.%{alphatag}}%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/ClusterLabs/fence-agents
 Source0: https://fedorahosted.org/releases/f/e/fence-agents/%{name}-%{version}.tar.gz
-
-%if 0%{?rhel} == 7
-%ifarch s390x
-%define rhel7_s390x 1
-%endif
-%endif
 
 %if 0%{?rhel} == 9
 %ifarch ppc64le s390x
@@ -49,6 +43,7 @@ fence-agents-docker \\
 fence-agents-drac \\
 fence-agents-drac5 \\
 fence-agents-eaton-snmp \\
+fence-agents-eaton-ssh \\
 fence-agents-ecloud \\
 fence-agents-emerson \\
 fence-agents-eps \\
@@ -96,18 +91,11 @@ EOF)
 %ifarch x86_64 ppc64le
 %global allfenceagents %(cat <<EOF
 %{allfenceagents} \\
+fence-agents-aws \\
 fence-agents-compute \\
+fence-agents-gce \\
 fence-agents-ironic \\
 fence-agents-openstack
-
-EOF)
-%endif
-
-%if ! %{defined rhel7_s390x}
-%global allfenceagents %(cat <<EOF
-%{allfenceagents} \\
-fence-agents-aws \\
-fence-agents-gce
 
 EOF)
 %endif
@@ -120,7 +108,6 @@ BuildRequires: gcc
 ## man pages generating
 BuildRequires: libxslt
 ## Python dependencies
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 BuildRequires: python3-devel
 BuildRequires: python3-httplib2 python3-pexpect python3-pycurl python3-requests
 %if 0%{?suse_version} > 1500
@@ -128,26 +115,13 @@ BuildRequires: python3-suds-community
 %else
 BuildRequires: python3-suds
 %endif
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?centos} || 0%{?rhel}
 BuildRequires: openwsman-python3
 %if ! %{defined rhel9_ppc64le_s390x}
 BuildRequires: python3-boto3
 %endif
-%endif
-%if 0%{?suse_version}
-BuildRequires: python3-openwsman python3-boto3
-%endif
 %else
-BuildRequires: python-devel
-BuildRequires: pexpect python-pycurl python-requests
-BuildRequires: python-suds openwsman-python
-%if ! %{defined rhel7_s390x}
-BuildRequires: python-boto3 python-httplib2
-%endif
-# (-openstack)
-%ifarch x86_64 ppc64le
-BuildRequires: python-novaclient python-keystoneclient
-%endif
+BuildRequires: python3-openwsman python3-boto3
 %endif
 
 # fence-virt
@@ -179,9 +153,7 @@ BuildRequires: %{systemd_units}
 sed -i.orig 's|FENCE_ZVM=1|FENCE_ZVM=0|' configure.ac
 
 %build
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
-	export PYTHON="%{__python3}"
-%endif
+export PYTHON="%{__python3}"
 
 ./autogen.sh
 %{configure} \
@@ -198,7 +170,7 @@ make install DESTDIR=%{buildroot}
 mkdir -p %{buildroot}/%{_unitdir}/
 install -m 0644 agents/virt/fence_virtd.service %{buildroot}/%{_unitdir}/
 # bytecompile Python source code in a non-standard location
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?centos} || 0%{?rhel}
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/fence
 %endif
 # XXX unsure if /usr/sbin/fence_* should be compiled as well
@@ -252,11 +224,7 @@ network, storage, or similar. They operate through a unified interface
 %package common
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Common base for Fence Agents
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pexpect python3-pycurl
-%else
-Requires: pexpect python-pycurl
-%endif
 BuildArch: noarch
 %description common
 A collection of executables to handle isolation ("fencing") of possibly
@@ -321,11 +289,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for SUN ALOM
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -352,15 +316,10 @@ Fence agent for AMT compatibile devices that are accessed via
 License: Apache-2.0
 Summary: Fence agent for Intel AMT (WS-Man) devices
 Requires: fence-agents-common = %{version}-%{release}
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?centos} || 0%{?rhel}
 Requires: openwsman-python3
-%endif
-%if 0%{?suse_version}
-Requires: python3-openwsman
-%endif
 %else
-Requires: openwsman-python
+Requires: python3-openwsman
 %endif
 BuildArch: noarch
 %description amt-ws
@@ -374,11 +333,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for APC devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -402,16 +357,11 @@ Fence agents for APC devices that are accessed via the SNMP protocol.
 %{_sbindir}/fence_tripplite_snmp
 %{_mandir}/man8/fence_tripplite_snmp.8*
 
-%if ! %{defined rhel7_s390x}
 %package aws
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Amazon AWS
 Requires: fence-agents-common = %{version}-%{release}
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-boto3
-%else
-Requires: python-boto3
-%endif
 BuildArch: noarch
 Obsoletes: fence-agents < 3.1.13
 %description aws
@@ -419,13 +369,11 @@ Fence agent for Amazon AWS instances.
 %files aws
 %{_sbindir}/fence_aws
 %{_mandir}/man8/fence_aws.8*
-%endif
 
 %package azure-arm
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Azure Resource Manager
 Requires: fence-agents-common = %{version}-%{release}
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 %if 0%{?fedora} > 34
 Requires: python3-azure-common
 Requires: python3-azure-identity
@@ -435,9 +383,6 @@ Requires: python3-msrestazure
 %else
 Requires: python3-azure-sdk
 %endif
-%else
-Requires: python-azure-sdk
-%endif
 BuildArch: noarch
 Obsoletes: fence-agents < 3.1.13
 %description azure-arm
@@ -445,7 +390,7 @@ Fence agent for Azure Resource Manager instances.
 %files azure-arm
 %{_sbindir}/fence_azure_arm
 %{_datadir}/fence/azure_fence.py*
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?centos} || 0%{?rhel}
 %{_datadir}/fence/__pycache__/azure_fence.*
 %endif
 %{_mandir}/man8/fence_azure_arm.8*
@@ -455,11 +400,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM BladeCenter
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -475,11 +416,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Brocade switches
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -516,11 +453,7 @@ via the SNMP protocol.
 %package cisco-ucs
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Cisco UCS series
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pycurl
-%else
-Requires: python-pycurl
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description cisco-ucs
@@ -534,13 +467,8 @@ via the SNMP protocol.
 %package compute
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Nova compute nodes
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-requests
 Requires: python3-novaclient
-%else
-Requires: python-requests
-Requires: python2-novaclient
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description compute
@@ -566,11 +494,7 @@ BuildArch: noarch
 %package docker
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Docker
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pycurl
-%else
-Requires: python-pycurl
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description docker
@@ -597,11 +521,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Dell DRAC 5
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -625,15 +545,22 @@ via the SNMP protocol.
 %{_sbindir}/fence_eaton_snmp
 %{_mandir}/man8/fence_eaton_snmp.8*
 
+%package eaton-ssh
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
+Summary: Fence agent for Eaton network power switches
+Requires: fence-agents-common = %{version}-%{release}
+BuildArch: noarch
+%description eaton-ssh
+Fence agent for Eaton network power switches that are accessed
+via the serial protocol tunnel over SSH.
+%files eaton-ssh
+%{_sbindir}/fence_eaton_ssh
+%{_mandir}/man8/fence_eaton_ssh.8*
+
 %package ecloud
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for eCloud and eCloud VPC
 Requires: python3-requests
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
-Requires: python3-requests
-%else
-Requires: python-requests
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description ecloud
@@ -666,20 +593,14 @@ via the HTTP(s) protocol.
 %{_sbindir}/fence_eps
 %{_mandir}/man8/fence_eps.8*
 
-%if ! %{defined rhel7_s390x}
 %package gce
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for GCE (Google Cloud Engine)
 Requires: fence-agents-common = %{version}-%{release}
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?centos} || 0%{?rhel}
 Requires: python3-google-api-client
-%endif
-%if 0%{?suse_version}
-Requires: python3-google-api-python-client
-%endif
 %else
-Requires: python-google-api-client
+Requires: python3-google-api-python-client
 %endif
 BuildArch: noarch
 Obsoletes: fence-agents < 3.1.13
@@ -688,7 +609,6 @@ Fence agent for GCE (Google Cloud Engine) instances.
 %files gce
 %{_sbindir}/fence_gce
 %{_mandir}/man8/fence_gce.8*
-%endif
 
 %package hds-cb
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -720,11 +640,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for HP BladeSystem devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -751,11 +667,7 @@ via the SNMP protocol.
 %package ibmz
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM z LPARs
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-requests
-%else
-Requires: python-requests
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description ibmz
@@ -820,11 +732,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for HP iLO Moonshot devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -840,11 +748,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for HP iLO MP devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -965,11 +869,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Sun LDom virtual machines
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -984,11 +884,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM LPAR
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1017,11 +913,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Koukaam NETIO devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1036,11 +928,7 @@ via telnet or SSH.
 %package openstack
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for OpenStack's Nova service
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-requests
-%else
-Requires: python-requests
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description openstack
@@ -1053,14 +941,10 @@ Fence agent for OpenStack's Nova service.
 %package ovh
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for OVH provider
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 %if 0%{?suse_version} > 1500
 Requires: python3-suds-community
 %else
 Requires: python3-suds
-%endif
-%else
-Requires: python-suds
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1074,11 +958,7 @@ Fence agent for OVH hosting provider.
 %package pve
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for PVE
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pycurl
-%else
-Requires: python-pycurl
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description pve
@@ -1116,11 +996,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Group: System Environment/Base
 Summary: Fence agent for Redfish
 Requires: fence-agents-common >= %{version}-%{release}
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-requests
-%else
-Requires: python-requests
-%endif
 Obsoletes: fence-agents < 3.1.13
 %description redfish
 The fence-agents-redfish package contains a fence agent for Redfish
@@ -1145,11 +1021,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM RSA II
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1165,11 +1037,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Fujitsu RSB
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1246,11 +1114,7 @@ Fence agent for virtual machines that are accessed via SSH.
 %package vmware
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VMWare with VI Perl Toolkit or vmrun
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pexpect
-%else
-Requires: pexpect
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description vmware
@@ -1274,14 +1138,10 @@ Fence agent for VMWare with REST API.
 %package vmware-soap
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VMWare with SOAP API v4.1+
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 %if 0%{?suse_version} > 1500
 Requires: python3-suds-community
 %else
 Requires: python3-suds
-%endif
-%else
-Requires: python-suds
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1308,11 +1168,7 @@ License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for WTI Network power switches
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
-%if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
-Requires: telnet
-%else
 Recommends: telnet
-%endif
 %endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1326,11 +1182,7 @@ via telnet or SSH.
 %package xenapi
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Citrix XenServer over XenAPI
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pexpect
-%else
-Requires: pexpect
-%endif
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description xenapi
@@ -1338,7 +1190,7 @@ Fence agent for Citrix XenServer accessed over XenAPI.
 %files xenapi
 %{_sbindir}/fence_xenapi
 %{_datadir}/fence/XenAPI.py*
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?centos} || 0%{?rhel}
 %{_datadir}/fence/__pycache__/XenAPI.*
 %endif
 %{_mandir}/man8/fence_xenapi.8*
@@ -1435,6 +1287,9 @@ are located on corosync cluster nodes.
 %{_libdir}/fence-virt/cpg.so
 
 %changelog
+* Tue Oct 10 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.13.0-1
+- new upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

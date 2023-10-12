@@ -6,9 +6,12 @@
 %global gnupg2_min_ver 2.2.24
 %global libgpg_error_min_ver 1.36
 
+# we are doing out of source build
+%global _configure ../configure
+
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
-Version:        1.20.0
+Version:        1.22.0
 Release:        %autorelease
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
@@ -30,6 +33,10 @@ Patch1004:      0002-setup_py_extra_opts.patch
 ## temporary downstream fixes
 # Skip lang/qt/tests/t-remarks on gnupg 2.4+
 Patch3001:      1001-qt-skip-test-remarks-for-gnupg2-2.4.patch
+
+# fix FTBFS caused by include path order, for <= 1.22.0
+Patch3002:	gpgme-1.22.0-ftbfs-aee18a2a.patch
+Patch3003:	gpgme-1.22.0-ftbfs-d23528ca.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -172,12 +179,6 @@ sed -i -e 's|^libdir=@libdir@$|libdir=@exec_prefix@/lib|g' src/gpgme-config.in
 # https://github.com/gpg/gpgme/pull/4
 sed -i 's/3.8/%{python3_version}/g' configure
 
-# copy to a qt6 build directory as both can't be build in the same directory
-%if %{with qt5} && %{with qt6}
-cd ..
-cp -r gpgme-%{version} gpgme-%{version}-qt6
-%endif
-
 %build
 # People neeed to learn that you can't run autogen.sh anymore
 #./autogen.sh
@@ -191,16 +192,23 @@ export CXXFLAGS='%{optflags} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
 export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 export SETUPTOOLS_USE_DISTUTILS=local
+#export PYTHON=%{python3}
+#export PYTHON_VERSION=%{python3_version}
 
 # Also build either qt5 or qt6
+mkdir build
+pushd build
 %configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt5:qt,}%{!?with_qt5:%{?with_qt6:qt6,}}python
 %make_build
+popd
 
 # Build qt6 in extra step if qt5 has been build
 %if %{with qt5} && %{with qt6}
-cd ../gpgme-%{version}-qt6
+mkdir build-qt6
+pushd build-qt6
 %configure --disable-static --disable-silent-rules --enable-languages=cpp,qt6,python
 %make_build
+popd
 %endif
 
 %install
@@ -209,12 +217,15 @@ cd ../gpgme-%{version}-qt6
 # SETUP_PY_EXTRA_OPTS is introduced by the Patch1004 above.
 export SETUPTOOLS_USE_DISTUTILS=local
 export SETUP_PY_EXTRA_OPTS="--single-version-externally-managed --root=/"
-# Also install either qt5 or qt6
+# Aliso install either qt5 or qt6
+pushd build
 %make_install
+popd
 # Install qt6 in extra step if qt5 has been installed
 %if %{with qt5} && %{with qt6}
-cd ../gpgme-%{version}-qt6
+pushd build-qt6
 %make_install
+popd
 %endif
 
 # unpackaged files
@@ -251,7 +262,9 @@ rm -vf %{buildroot}%{python3_sitelib}/gpg/install_files.txt
 
 %if %{with check}
 %check
+pushd build
 make check
+popd
 %endif
 
 %files

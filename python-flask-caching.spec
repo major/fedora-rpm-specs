@@ -3,8 +3,8 @@
 %global srcname flask-caching
 
 Name:           python-%{srcname}
-Version:        2.0.1
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        %autorelease
 Summary:        Adds caching support to your Flask application
 
 License:        BSD
@@ -46,8 +46,12 @@ Documentation for Flask-Caching
 
 %prep
 %autosetup -n %{srcname}-%{version}
+
 # Remove bundled egg-info
 rm -rf %{srcname}.egg-info
+
+# Patch out too tight cachilib upper pin
+sed -i 's/cachelib >= 0.9.0, < 0.10.0"/cachelib >= 0.9.0"/' setup.py
 
 %build
 
@@ -76,60 +80,4 @@ kill %1
 %license LICENSE docs/license.rst
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 2.0.1-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.0.1-1
-- Update to 2.0.1 (Closes RHBZ#2112611)
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jul 18 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.0.0-2
-- Relax Flask requirements
-
-* Mon Jun 27 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.0.0-1
-- Update to 2.0.0
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 1.10.1-5
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.10.1-2
-- Rebuilt for Python 3.10
-
-* Mon Apr 12 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.10.1-1
-- Update to 1.10.1
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jul 24 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.0-1
-- Update to 1.9.0
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.8.0-3
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Jan 06 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.8.0-1
-- Update to 1.8.0
-- Drop hack for new pytest-cov
-
-* Mon Jun 17 2019 Lukas Brabec <lbrabec@redhat.com> - 1.7.2-1
-- Initial package.
+%autochangelog

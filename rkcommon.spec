@@ -1,5 +1,5 @@
 Name:			rkcommon
-Version:		1.11.0
+Version:		1.12.0
 Release:		%autorelease
 Summary:		Intel renderKit common C++/CMake infrastructure
 

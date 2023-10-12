@@ -1,6 +1,6 @@
 Name:    kf5
-Version: 5.110.0
-Release: 3%{?dist}
+Version: 5.111.0
+Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 5
 License: BSD
 URL:     http://www.kde.org
@@ -97,6 +97,9 @@ sed -i \
 
 
 %changelog
+* Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
+- 5.111.0
+
 * Sun Oct 08 2023 Steve Cossette <farchord@gmail.com> - 5.110.0-3
 - Added kf5-filesystem ownership of /usr/share/locale/tok (Toki Pona).
 

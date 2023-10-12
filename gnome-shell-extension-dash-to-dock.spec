@@ -7,7 +7,7 @@
 #%%global commit_date 20220428
 
 Name:           gnome-shell-extension-dash-to-dock
-Version:        87
+Version:        89
 Release:        %autorelease
 #Release:        5.%%{commit_date}git%%{commit_short}%%{?dist}
 Summary:        Dock for the Gnome Shell by micxgx@gmail.com

@@ -1,7 +1,7 @@
 %global srcname relval
 
 Name:           relval
-Version:        2.6.0
+Version:        2.6.1
 Release:        %{autorelease}
 Summary:        Tool for interacting with Fedora QA wiki pages
 

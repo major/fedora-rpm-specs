@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Epoch:   1
-Version: 5.110.0
+Version: 5.111.0
 Release: 1%{?dist}
 Summary: A DAV protocol implementation with KJobs
 
@@ -95,6 +95,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.111.0-1
+- 5.111.0
+
 * Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.110.0-1
 - 5.110.0
 

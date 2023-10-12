@@ -8,8 +8,8 @@
 
 Name:    breeze-icon-theme
 Summary: Breeze icon theme
-Version: 5.110.0
-Release: 2%{?dist}
+Version: 5.111.0
+Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 License: LGPLv3+
@@ -166,6 +166,9 @@ fi
 
 
 %changelog
+* Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
+- 5.111.0
+
 * Wed Oct 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.110.0-2
 - Fix CMakeLists to use noarch cmake package install path
 

@@ -2,7 +2,7 @@
 %global mod_name flask_oidc
 
 Name:           python-%{project_name}
-Version:        2.0.3
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        OpenID Connect extension for Flask
 
@@ -55,6 +55,24 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Oct 09 2023 Packit <hello@packit.dev> - 2.1.0-1
+- Version 2.1.0 (Aurélien Bompard)
+- Handle token expiration when there is no ``refresh_token`` or no token URL (Aurélien Bompard)
+- Don't force `redirect_uri` to HTTPS (Aurélien Bompard)
+- Update dependencies in lockfile (renovate[bot])
+- Update dependencies in lockfile (renovate[bot])
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.292 (renovate[bot])
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.291 (renovate[bot])
+- Update dependencies in lockfile (renovate[bot])
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.290 (renovate[bot])
+- Update dependencies in lockfile (renovate[bot])
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.289 (renovate[bot])
+- Update pre-commit hook charliermarsh/ruff-pre-commit to v0.0.288 (renovate[bot])
+- Update pre-commit hook psf/black to v23.9.1 (renovate[bot])
+- Update dependencies in lockfile (renovate[bot])
+- Update pre-commit hook psf/black to v23.9.0 (renovate[bot])
+- Fix workflow definition (Aurélien Bompard)
+
 * Fri Sep 08 2023 Packit <hello@packit.dev> - 2.0.3-1
 - Version 2.0.3 (Aurélien Bompard)
 - Update actions/checkout action to v4 (renovate[bot])

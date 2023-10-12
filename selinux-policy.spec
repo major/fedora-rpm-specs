@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 74fd8bbaf2d8d668831c3965287cdbb9b1a04763
+%global commit bc3f4485e6c891233c5603f3d067e2283377e75c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.1
+Version: 40.2
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,15 @@ exit 0
 %endif
 
 %changelog
+* Tue Oct 10 2023 Zdenek Pytela <zpytela@redhat.com> - 40.2-1
+- Add the virt_supplementary module to modules-targeted-contrib.conf
+- Make new virt drivers permissive
+- Split virt policy, introduce virt_supplementary module
+- Allow apcupsd cgi scripts read /sys
+- Merge pull request #1893 from WOnder93/more-early-boot-overlay-fixes
+- Allow kernel_t to manage and relabel all files
+- Add missing optional_policy() to files_relabel_all_files()
+
 * Tue Oct 03 2023 Zdenek Pytela <zpytela@redhat.com> - 40.1-1
 - Allow named and ndc use the io_uring api
 - Deprecate common_anon_inode_perms usage

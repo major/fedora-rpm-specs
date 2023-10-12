@@ -37,7 +37,7 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.5.3
+Version: 6.6.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -87,8 +87,9 @@ Patch56: qtbase-mysql.patch
 # fix FTBFS against libglvnd-1.3.4+
 Patch58: qtbase-libglvnd.patch
 
-# gcc-11
-Patch90: qtbase-gcc11.patch
+# fix FTBS against libxkbcommon 1.6.0
+Patch59: qtbase-libxkbcommon-1.6.0.patch
+
 
 %if 0%{?fedora} < 39
 # Latest QGnomePlatform needs to be specified to be used
@@ -354,6 +355,7 @@ export MAKEFLAGS="%{?_smp_mflags}"
  -DQT_FEATURE_enable_new_dtags=ON \
  -DQT_FEATURE_journald=%{?journald:ON}%{!?journald:OFF} \
  -DQT_FEATURE_openssl_linked=ON \
+ -DQT_FEATURE_openssl_hash=ON \
  -DQT_FEATURE_libproxy=ON \
  -DQT_FEATURE_sctp=ON \
  -DQT_FEATURE_separate_debug_info=OFF \
@@ -411,7 +413,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.5.3
+Version: 6.6.0
 EOF
 
 # rpm macros
@@ -586,6 +588,7 @@ make check -k ||:
 %{_bindir}/qmake*
 %{_bindir}/qtpaths*
 %{_bindir}/qt-cmake
+%{_bindir}/qt-cmake-create
 %{_bindir}/qt-configure-module
 %{_libdir}/qt6/bin/qmake6
 %{_qt6_bindir}/androiddeployqt
@@ -596,6 +599,7 @@ make check -k ||:
 %{_qt6_bindir}/qmake
 %{_qt6_bindir}/qtpaths*
 %{_qt6_bindir}/qt-cmake
+%{_qt6_bindir}/qt-cmake-create
 %{_qt6_bindir}/qt-configure-module
 %{_qt6_libexecdir}/qt-cmake-private
 %{_qt6_libexecdir}/qt-cmake-standalone-test
@@ -824,6 +828,9 @@ make check -k ||:
 
 
 %changelog
+* Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
+- 6.6.0
+
 * Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
 - new version
 

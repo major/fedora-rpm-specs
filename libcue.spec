@@ -2,8 +2,8 @@
 
 
 Name:		libcue
-Version:	2.2.1
-Release:	12%{?dist}
+Version:	2.3.0
+Release:	1%{?dist}
 Summary:	Cue sheet parser library
 
 # Files libcue/rem.{c,h} contains a BSD header
@@ -20,7 +20,6 @@ BuildRequires:	flex
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig
-
 
 %description
 Libcue is intended for parsing a so-called cue sheet from a char string or
@@ -75,6 +74,13 @@ Development files for %{name}.
 
 
 %changelog
+* Tue Oct 10 2023 Adam Williamson <awilliam@redhat.com> - 2.3.0-1
+- New release 2.3.0
+- Drop merged patch
+
+* Tue Oct 10 2023 Adam Williamson <awilliam@redhat.com> - 2.2.1-13
+- Fix CVE-2023-43641 (Kevin Backhouse)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -168,13 +168,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        118.0.1
-Release:        7%{?pre_tag}%{?dist}
+Version:        118.0.2
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230929.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20231010.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -1124,6 +1124,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Oct 10 2023 Martin Stransky <stransky@redhat.com>- 118.0.2-1
+- Updated to 118.0.2
+
 * Fri Oct 06 2023 Alessandro Astone <ales.astone@gmail.com> - 118.0.1-7
 - Don't include -x11 and -wayland desktop files in the main package (rhbz#2242523)
 

@@ -29,7 +29,7 @@
 
 Name:           lemonldap-ng
 Version:        2.17.1
-Release:        %{?pre_release:0.}2%{?pre_release:.%{pre_release}}%{?dist}
+Release:        %{?pre_release:0.}3%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
 # Qrious bundled javascript library is GPLv3+
@@ -256,7 +256,7 @@ Summary:        LemonLDAP-NG handler
 Requires:       crontabs
 Requires:       lemonldap-ng-conf = %{version}-%{release}
 Requires:       perl(Lemonldap::NG::Handler) = %{version}-%{release}
-Requires:       perl(Lemonldap::NG::SSOaaS::Apache::Client) = %{version}-%{release}
+Requires:       perl-Lemonldap-NG-SSOaaS-Apache-Client = %{version}-%{release}
 
 %description handler
 This package deploys the Apache Handler.
@@ -700,6 +700,9 @@ fi
 
 
 %changelog
+* Tue Oct 10 2023 Xavier Bachelot <xavier@bachelot.org> - 2.17.1-3
+- Fix broken dep on SSOaaS module dependency
+
 * Mon Oct 02 2023 Xavier Bachelot <xavier@bachelot.org> - 2.17.1-2
 - Add a dep on SSOaaS version
 - Simplify fix shebang and perms

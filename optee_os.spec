@@ -3,7 +3,7 @@
 
 Name:      optee_os
 Version:   3.22.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -52,7 +52,7 @@ such as u-boot. As such the binaries aren't of general interest to users.
 
 %ifarch aarch64
 # For now only secure firmwares for k3-j784s4 and k3-am62x platforms are built
-make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y O=out/k3-j784s4
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y CFG_CONSOLE_UART=0x8 O=out/k3-j784s4
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-am62x CFG_ARM64_core=y CFG_WITH_SOFTWARE_PRNG=y O=out/k3-am62x
 %endif
 
@@ -79,6 +79,9 @@ install -p -m 0644 out/k3-am62x/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{nam
 %endif
 
 %changelog
+* Tue Oct 10 2023 Enric Balletbo i Serra <eballetbo@redhat.com> - 3.22.0-4
+- Add CFG_CONSOLE_UART=0x8 a extra arguments used for building OP-TEE on TI J784S4 boards
+
 * Wed Oct 4 2023 Enric Balletbo i Serra <eballetbo@redhat.com> - 3.22.0-3
 - According to the uboot build documentation use tee-raw.bin instead of tee-pager_v2.bin (is the same binary)
 

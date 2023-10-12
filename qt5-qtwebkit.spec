@@ -2,6 +2,9 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046931
 %undefine _package_note_flags
 
+# Require 8 GB of RAM per vCPU for debuginfo processing
+%global _find_debuginfo_opts %limit_build -m 8192
+
 %global qt_module qtwebkit
 
 %global _hardened_build 1

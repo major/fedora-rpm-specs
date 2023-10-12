@@ -1,7 +1,7 @@
 %global majorversion 1.5
 
 Name:           xfce4-taskmanager
-Version:        1.5.5
+Version:        1.5.6
 Release:        %autorelease
 Summary:        Taskmanager for the Xfce desktop environment
 

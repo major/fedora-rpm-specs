@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    bbada6319c7999b51430408359af389cdc5442c8
+%global gh_commit    68d91dcd2a7a1f00ec1a2b044090dfd37bd981dc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,13 +15,13 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.17.29
+Version:        1.17.33
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{?gh_short}.tar.gz
+Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 
 BuildArch:      noarch
 %if %{with tests}
@@ -146,6 +146,12 @@ exit $ret
 
 
 %changelog
+* Tue Oct 10 2023 Remi Collet <remi@remirepo.net> - 1.17.33-1
+- update to 1.17.33
+
+* Tue Oct 10 2023 Remi Collet <remi@remirepo.net> - 1.17.30-1
+- update to 1.17.30
+
 * Wed Sep  6 2023 Remi Collet <remi@remirepo.net> - 1.17.29-1
 - update to 1.17.29 (no change)
 

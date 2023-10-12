@@ -8,20 +8,15 @@
 %bcond tests 1
 
 Name:           python-orjson
-Version:        3.9.2
-Release:        2%{?dist}
+Version:        3.9.8
+Release:        1%{?dist}
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
 
-# Compatibility with Python 3.12
-Patch:          https://github.com/ijl/orjson/pull/408.patch
-
-# Ineligble for upstreaming
-Patch:          Remove-unstable-simd-feature.patch
-
+BuildRequires:  tomcli
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest-forked}
 BuildRequires:  rust-packaging
@@ -55,13 +50,17 @@ License:        %{shrink:
 
 %prep
 %autosetup -p1 -n orjson-%{version}
+%cargo_prep
 
+# Remove unstable feature that requires rust nightly
+tomcli-set Cargo.toml del 'features.unstable-simd'
+# Remove no-panic feature
+tomcli-set Cargo.toml del 'features.no-panic'
 # Remove bundled rust crates
-rm -r include/cargo .cargo/config.toml
+rm -r include/cargo
 # Remove bundled yyjson.
 rm -rv include/yyjson/
 
-%cargo_prep
 
 
 %generate_buildrequires
@@ -95,6 +94,9 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Tue Oct 10 2023 Maxwell G <maxwell@gtmx.me> - 3.9.8-1
+- Update to 3.9.8. Fixes rhbz#2229530.
+
 * Tue Jul 25 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.2-2
 - Backport patch to add PyType_GetDict for Python 3.12
 - Fixes: rhbz#2220383

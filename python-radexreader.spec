@@ -18,8 +18,8 @@ Pour éviter un Access denied (insufficient permissions), n'oubliez pas
 de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
-Version:       1.2.2
-Release:       5%{?dist}
+Version:       1.2.3
+Release:       1%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPLv2+
@@ -80,6 +80,9 @@ install -p -m 644 ../debian/udev %{buildroot}/lib/udev/rules.d/60-python3-radexr
 
 
 %changelog
+* Tue Oct 10 2023 Fabrice Creuzot <code@luigifab.fr> - 1.2.3-1
+- New upstream release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

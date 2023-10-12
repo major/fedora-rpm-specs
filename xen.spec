@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -124,6 +124,21 @@ Patch59: xsa439-0007-x86-entry-Track-the-IST-ness-of-an-entry-for-the-exi.patch
 Patch60: xsa439-0008-x86-spec-ctrl-Issue-VERW-during-IST-exit-to-Xen.patch
 Patch61: xsa439-0009-x86-amd-Introduce-is_zen-1-2-_uarch-predicates.patch
 Patch62: xsa439-0010-x86-spec-ctrl-Mitigate-the-Zen1-DIV-leakage.patch
+Patch63: xsa440-4.17.patch
+Patch64: xsa442-4.17.patch
+Patch65: xsa443-4.17-01.patch
+Patch66: xsa443-4.17-02.patch
+Patch67: xsa443-4.17-03.patch
+Patch68: xsa443-4.17-04.patch
+Patch69: xsa443-4.17-05.patch
+Patch70: xsa443-4.17-06.patch
+Patch71: xsa443-4.17-07.patch
+Patch72: xsa443-4.17-08.patch
+Patch73: xsa443-4.17-09.patch
+Patch74: xsa443-4.17-10.patch
+Patch75: xsa443-4.17-11.patch
+Patch76: xsa444-4.17-1.patch
+Patch77: xsa444-4.17-2.patch
 
 
 %if %build_qemutrad
@@ -352,6 +367,21 @@ manage Xen virtual machines.
 %patch 60 -p1
 %patch 61 -p1
 %patch 62 -p1
+%patch 63 -p1
+%patch 64 -p1
+%patch 65 -p1
+%patch 66 -p1
+%patch 67 -p1
+%patch 68 -p1
+%patch 69 -p1
+%patch 70 -p1
+%patch 71 -p1
+%patch 72 -p1
+%patch 73 -p1
+%patch 74 -p1
+%patch 75 -p1
+%patch 76 -p1
+%patch 77 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -959,6 +989,15 @@ fi
 %endif
 
 %changelog
+* Tue Oct 10 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-4
+- xenstored: A transaction conflict can crash C Xenstored [XSA-440,
+	CVE-2023-34323]
+- x86/AMD: missing IOMMU TLB flushing [XSA-442, CVE-2023-34326]
+- Multiple vulnerabilities in libfsimage disk handling [XSA-443,
+	CVE-2023-34325]
+- x86/AMD: Debug Mask handling [XSA-444, CVE-2023-34327,
+	CVE-2023-34328]
+
 * Sun Oct 08 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-3
 - rebuild (f40) for OCaml 5.1
 

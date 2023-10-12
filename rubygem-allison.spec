@@ -1,35 +1,19 @@
-%if 0%{?fedora} >= 17
-%if 0%{?fedora} < 19
-%global	rubyabi	1.9.1
-%endif
-%else
-%global	rubyabi	1.8
-%endif
-
 %global	gem_name	allison
 
 Summary:	A modern, pretty RDoc template
 Name:		rubygem-%{gem_name}
 Version:	2.0.3
-Release:	28%{?dist}
-License:	AFL
+Release:	29%{?dist}
+# SPDX confirmed
+License:	AFL-3.0
 URL:		http://github.com/fauna/allison/tree/master
-Source0:	http://gems.rubyforge.org/gems/%{gem_name}-%{version}.gem
+Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
-%if 0%{?fedora} >= 19
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby 
-BuildRequires:	ruby(abi) = %{rubyabi}
-BuildRequires:	ruby 
-%endif
-
 BuildRequires:	rubygems-devel
-Requires:	ruby(rubygems)
+
 BuildArch:	noarch
-Provides:	rubygem(%{gem_name}) = %{version}-%{release}
 
 %description
 %{summary}.
@@ -42,14 +26,12 @@ Requires:	%{name} = %{version}-%{release}
 This package contains documentation for %{name}.
 
 %prep
-%setup -q -c -T
-
-%gem_install -n %{SOURCE0}
-
-pushd .%{gem_instdir}
-popd
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build %{gem_name}-%{version}.gemspec
+%gem_install
 
 %install
 rm -rf %{buildroot}
@@ -59,26 +41,37 @@ cp -a .%{_prefix}/* %{buildroot}%{_prefix}/
 
 # And cleanups
 rm -rf %{buildroot}%{gem_dir}/bin
+rm -f %{buildroot}%{gem_cache}
+
+pushd %{buildroot}%{gem_instdir}/
+rm -f \
+	Manifest \
+	%{gem_name}.gemspec \
+	%{nil}
+popd
 rm -f %{buildroot}%{gem_instdir}/%{gem_name}.gemspec
 
 %files
 %{_bindir}/%{gem_name}
 
-%dir %{gem_instdir}
-%doc %{gem_instdir}/[A-Z]*
-%exclude %{gem_instdir}/Manifest
+%dir	%{gem_instdir}
+%license	%{gem_instdir}/LICENSE
+%doc	%{gem_instdir}/[A-KM-Z]*
+
 %{gem_instdir}/bin/
 %{gem_instdir}/lib/
 %{gem_instdir}/cache/
 %{gem_spec}
-%{gem_cache}
 
 %files doc
-%{gem_instdir}/Manifest
 %{gem_instdir}/contrib/
 %{gem_docdir}/
 
 %changelog
+* Tue Oct 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.3-29
+- Use recent gem2spec spec style
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

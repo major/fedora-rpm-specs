@@ -1,6 +1,6 @@
 Name:           terminology
 Version:        1.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        BSD
 Summary:        EFL based terminal emulator
 Url:            http://www.enlightenment.org
@@ -10,8 +10,8 @@ BuildRequires:  efl-devel >= 1.26
 BuildRequires:  gettext-devel autoconf automake libtool
 BuildRequires:  meson
 BuildRequires:  ninja-build
-Requires:       terminus-fonts
-Requires:       xorg-x11-fonts-misc
+Suggests:       terminus-fonts
+Suggests:       xorg-x11-fonts-misc
 
 %if 0%{?el8} > 0
 ExcludeArch: s390x
@@ -67,6 +67,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/terminology.desktop
 
 
 %changelog
+* Tue Oct 10 2023 Ding-Yi Chen <dchen@redhat.com> -1.13.0-4
+- Build for EPEL 9
+- The fonts packages are optional, thus change them to Suggests.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

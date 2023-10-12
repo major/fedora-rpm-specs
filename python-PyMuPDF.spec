@@ -2,8 +2,8 @@
 %global module_name fitz
 
 Name:           python-%{pypi_name}
-Version:        1.23.3
-Release:        2%{?dist}
+Version:        1.23.4
+Release:        1%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
 License:        AGPL-3.0-or-later
@@ -11,7 +11,8 @@ URL:            https://github.com/pymupdf/PyMuPDF
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 Patch0:         0001-fix-test_-font.patch
 Patch1:         0001-test_pixmap-adjust-to-turbojpeg.patch
-Patch2:         0001-unbreak-build-against-system-libraries.patch
+Patch2:         0001-adjust-tesseract-tessdata-path-to-Fedora-default.patch
+Patch3:         0001-setup.py-fixed-debug-optimisation-flags-of-PyMuPDF-e.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-fonttools
@@ -68,6 +69,8 @@ export PYMUPDF_SETUP_MUPDF_BUILD_TYPE='debug'
 export PYMUPDF_SETUP_MUPDF_BUILD=''
 # build original implementation only:
 export PYMUPDF_SETUP_IMPLEMENTATIONS='a'
+CFLAGS="$CFLAGS -I/usr/include -I/usr/include/freetype2 -I/usr/include/harbuzz -I/usr/include/mupdf"
+LDFLAGS="$LDFLAGS -lfreetype -lgumbo -lharfbuzz -ljbig2dec -ljpeg -lleptonica -lmupdf -lmupdf-third -lopenjp2 -ltesseract"
 %pyproject_wheel
 sphinx-build docs docs_built
 
@@ -91,6 +94,12 @@ sphinx-build docs docs_built
 %doc docs_built/* README.md
 
 %changelog
+* Tue Oct 10 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.23.4-1
+- Update to new upstream release 1.23.4 (rhbz#2241098)
+
+* Tue Oct 10 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.23.3-3
+- Adjust tesseract tessdata path to Fedora default
+
 * Sat Oct 07 2023 Sandro Mani <manisandro@gmail.com> - 1.23.3-2
 - Rebuild (tesseract)
 

@@ -52,9 +52,9 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 applications that use %{name}.
 
-
 %package	static
 Summary:	Static libraries for %{name} development
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 
 %description	static
 The %{name}-static package includes static libraries needed

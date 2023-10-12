@@ -20,7 +20,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core utilities for Python packages
 
 License:        BSD-2-Clause OR Apache-2.0
@@ -44,6 +44,7 @@ BuildRequires:  python%{python3_pkgversion}-pretend
 %endif
 %if %{with docs}
 BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  python%{python3_pkgversion}-furo
 %endif
 
 
@@ -78,9 +79,6 @@ Documentation for python-packaging
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
-# Do not use furo as HTML theme in docs
-# furo is not available in Fedora
-sed -i '/html_theme = "furo"/d' docs/conf.py
 
 %if %{without bootstrap}
 %generate_buildrequires
@@ -136,6 +134,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Mon Oct 09 2023 Miro Hrončok <mhroncok@redhat.com> - 23.2-2
+- Use the furo Sphinx theme, as intended upstream
+
 * Mon Oct 02 2023 Lumír Balhar <lbalhar@redhat.com> - 23.2-1
 - Update to 23.2 (rhbz#2241653)
 

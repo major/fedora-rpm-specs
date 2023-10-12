@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Summary: A KDE Frameworks 5 Tier 3 to organize user work into separate activities
-Version: 5.110.0
+Version: 5.111.0
 Release: 1%{?dist}
 
 License: GPLv2+ and LGPLv2+
@@ -81,6 +81,9 @@ Requires:       qt5-qtbase-devel
 
 
 %changelog
+* Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
+- 5.111.0
+
 * Tue Sep 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.110.0-1
 - 5.110.0
 

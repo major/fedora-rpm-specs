@@ -2,10 +2,10 @@
 
 Name:           libnetfilter_queue
 Version:        1.0.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Netfilter queue userspace library
 # Most files say GPLv2+, one says v2 only.
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://netfilter.org
 Source0:        http://netfilter.org/projects/%{name}/files/%{name}-%{version}.tar.bz2
 
@@ -57,6 +57,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Aug 15 2023 Phil Sutter <psutter@redhat.com> - 1.0.5-6
+- Convert license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

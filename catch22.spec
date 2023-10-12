@@ -20,11 +20,11 @@ Version:        0.4.0
 Release:        %autorelease
 Summary:        CAnonical Time-series CHaracteristics
 
-# The Matlab code is certainly GPL-3.0-or-later, but everything else is
-# ambiguously “GPLv3.” We conservatively assume GPL-3.0-only for now, but have
-# asked for clarification (Please clarify GPL version,
-# https://github.com/DynamicsAndNeuralSystems/catch22/issues/32).
-License:        GPL-3.0-only
+# The Matlab code is clearly documented as GPL-3.0-or-later. In “Please clarify
+# GPL version,” https://github.com/DynamicsAndNeuralSystems/catch22/issues/32,
+# upstream clarified that GPL-3.0-or-later is intended for but everything else,
+# as well.
+License:        GPL-3.0-or-later
 URL:            https://github.com/chlubba/catch22
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Helper script for content-aware comparison of CSV file output from tests
@@ -80,8 +80,6 @@ This package contains the command-line tool run_features.
 
 %package libs
 Summary:        %{summary}
-# See the comment above the base package License field
-License:        GPL-3.0-only
 
 %description libs %{_description}
 
@@ -90,8 +88,6 @@ This package contains the implementation compiled as a shared library.
 
 %package devel
 Summary:        %{summary}
-# See the comment above the base package License field
-License:        GPL-3.0-only
 
 Requires:       %{name}-libs = %{version}-%{release}
 
@@ -104,8 +100,6 @@ applications that link against the implementation as a shared library.
 %if %{with Py}
 %package -n python3-%{name}
 Summary:        %{summary}
-# See the comment above the base package License field
-License:        GPL-3.0-only
 
 %description -n python3-%{name} %_description
 %endif
@@ -115,7 +109,6 @@ License:        GPL-3.0-only
 %global octpkg %{name}
 %package -n octave-%{name}
 Summary:        %{summary}
-License:        GPL-3.0-or-later
 
 BuildRequires:  octave-devel
 

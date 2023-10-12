@@ -59,10 +59,14 @@ results in smaller source code developed in less time.
 Summary: %summary
 %{?python_provide:%python_provide python3-cherrypy}
 
+%package -n python3-cherrypy-devel
+Summary: Test and Tutorial files excluded from main package
+
 # Remove after F32.
 Obsoletes: python2-cherrypy < 3.5.1
 
 %description -n python3-cherrypy %_description
+%description -n python3-cherrypy-devel %_description
 
 %prep
 %autosetup -p1 -n %{camelname}-%{version}
@@ -101,7 +105,14 @@ export WEBTEST_INTERACTIVE=false
 %exclude %{python3_sitelib}/cherrypy/test
 %exclude %{python3_sitelib}/cherrypy/tutorial
 
+%files -n python3-cherrypy-devel
+%{python3_sitelib}/cherrypy/test
+%{python3_sitelib}/cherrypy/tutorial
+
 %changelog
+* Tue Oct 10 2023 Dan Radez <dradez@redhat.com> - 18.8.0-8
+- adding -devel package to provide test and tutorial modules
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,15 +1,15 @@
 Summary:        A console-based network monitoring utility
 Name:           iptraf-ng
 Version:        1.2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Source0:        https://github.com/iptraf-ng/iptraf-ng/archive/v%{version}.tar.gz
 Source1:        %{name}-logrotate.conf
 Source2:        %{name}-tmpfiles.conf
 URL:            https://github.com/iptraf-ng/iptraf-ng/
-License:        GPLv2+
+License:        GPL-2.0-or-later
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
-BuildRequires: make
+BuildRequires:  make
 Obsoletes:      iptraf < 3.1
 Provides:       iptraf = 3.1
 

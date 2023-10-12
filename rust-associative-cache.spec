@@ -12,11 +12,10 @@
 %global crate associative-cache
 
 Name:           rust-associative-cache
-Version:        1.0.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Generic N-way associative cache
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/associative-cache
 Source0:        %{crates_source}
@@ -33,7 +32,10 @@ Source0:        %{crates_source}
 # these will be removed.
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt#/LICENSE-APACHE
 Source2:        https://github.com/spdx/license-list-data/raw/main/text/MIT.txt#/LICENSE-MIT
-Patch:          Remove-unnecessary-files-from-packaged-crate.patch
+# Manually created patch for downstream crate metadata changes
+#  - Remove unnecessary packages from packaged crate.
+#    We don't need to include CI configuration in the package.
+Patch:          associative-cache-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

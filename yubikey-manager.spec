@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/Yubico/yubikey-manager/
-%global commit d1bf843944313e86b276b0004d152ae59a7fb9ad
+%global commit 483e2429f4ccabfc0e039b10cee3f9e511844cc4
 
 Name:           yubikey-manager
-Version:        5.2.0
+Version:        5.2.1
 Release:        %autorelease
 Summary:        Python library and command line tool for configuring a YubiKey
 License:        BSD-2-Clause
@@ -40,9 +40,6 @@ Python library for configuring a YubiKey.
 %prep
 %forgesetup
 %autosetup -p1 -n %{archivename}
-# temporary patch for rhbz#2237537 rawhide only
-# will be removed next update
-sed -i 's/keyring = "^23.4"/keyring = ">=23.4, <25"/' pyproject.toml
 
 %build
 %pyproject_wheel

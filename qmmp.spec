@@ -43,7 +43,11 @@ BuildRequires:	wavpack-devel
 BuildRequires:	wildmidi-devel
 
 # /usr/share/solid/actions owner
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+Requires:	kde-filesystem
+%elif %{undefined flatpak}
 Requires:	kf5-filesystem
+%endif
 
 Recommends:	qmmp-plugin-pack
 # some external tools listed in
