@@ -1588,16 +1588,11 @@ for suite in \
     test_py3_only
 do
   echo "==== $(date -u --iso-8601=ns): Python ${suite} ===="
-  # See the implementation of the %%pytest macro, upon which our environment
-  # setup is based. We add a timeout that is rather long, as it must apply to
-  # the entire test suite. (Patching in a per-test timeout would be harder.)
-  env CFLAGS="${CFLAGS:-${RPM_OPT_FLAGS}}" \
-      LDFLAGS="${LDFLAGS:-${RPM_LD_FLAGS}}" \
-      PATH="%{buildroot}%{_bindir}:$PATH" \
-      PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}}" \
-      PYTHONDONTWRITEBYTECODE=1 \
-      timeout -k 31m -v 30m \
-      %{__python3} %{py_setup} %{?py_setup_args} "${suite}"
+  # See the implementation of the %%pytest macro, upon which the following is
+  # based. We add a timeout that is rather long, as it must apply to the entire
+  # test suite. (Patching in a per-test timeout would be harder.)
+  %{py3_test_envvars} timeout -k 31m -v 30m \
+      %{python3} %{py_setup} %{?py_setup_args} "${suite}"
 done
 popd
 

@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        96
+Version:        97
 
 %forgemeta
 
@@ -263,6 +263,25 @@ fi
 
 
 %changelog
+* Wed Oct 11 2023 Packit <hello@packit.dev> - 97-1
+Changes with 97
+----------------
+  * Support FAT FS Geometry Options (#1391)
+    * Author: Maxime Ripard, Reviewers: Simon de Vlieger
+  * Update Fedora 39 x86_64 runner (#1392)
+    * Author: Achilleas Koutsou, Reviewers: Sanne Raymaekers
+  * fix link to developer guide (#1388)
+    * Author: Otto Fowler, Reviewers: Brian C. Lane
+  * osbuild/util: hoist container handling code from skopeo stage into util/containers (#1389)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+  * refactor ostree stages; add inputs to ostree.deploy stage (#1393)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * stages/ostree.deploy: switch to v2 schema (#1390)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2023-10-11
+
+
 * Wed Sep 27 2023 Packit <hello@packit.dev> - 96-1
 Changes with 96
 ----------------

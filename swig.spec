@@ -63,7 +63,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -83,6 +83,8 @@ Patch1: swig-octave-8.1.patch
 Patch2: swig-ocaml-5.0.patch
 # Fix a test that is broken with python 3.12
 Patch3: swig-python-3.12.patch
+# Fix a test that is broken with PHP 8.3
+Patch4: swig-PHP-Fix-testcase-director_finalizer-with-PHP-8.3.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -369,6 +371,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Wed Oct 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-11
+- Fix PHP test, it fails with PHP 8.3
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-10
 - OCaml 5.1 rebuild for Fedora 40
 

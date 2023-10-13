@@ -1,10 +1,10 @@
-%global DATE 20230918
-%global gitrev 45e56bb7a6c79b62ab17ac8e4e86c2e66c2554c1
+%global DATE 20231011
+%global gitrev dc4aa177146b55dd7bd0b2dd63c721f3eaf2d2a8
 %global gcc_version 13.2.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 3
+%global gcc_release 4
 %global nvptx_tools_gitrev aa3404ad5a496cda5d79a50bedb1344fd63e8763
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
@@ -3457,6 +3457,15 @@ end
 %endif
 
 %changelog
+* Wed Oct 11 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-4
+- update from releases/gcc-13 branch
+  - PRs ada/110488, ada/111434, c++/99631, c++/111471, c++/111485, c++/111493,
+	c++/111512, fortran/68155, fortran/92586, fortran/111674,
+	libstdc++/108046, libstdc++/111050, libstdc++/111102,
+	libstdc++/111511, middle-end/111699, modula2/111510, target/111121,
+	target/111411, tree-optimization/110315, tree-optimization/110386,
+	tree-optimization/111331, tree-optimization/111519
+
 * Mon Sep 18 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-3
 - update from releases/gcc-13 branch
   - PRs c++/111357, modula2/111330, target/96762, target/111306,

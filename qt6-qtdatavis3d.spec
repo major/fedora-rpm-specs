@@ -8,7 +8,7 @@
 
 Summary: Qt6 - Qt Data Visualization component
 Name:    qt6-%{qt_module}
-Version: 6.5.3
+Version: 6.6.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -95,6 +95,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
+- 6.6.0
+
 * Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
 - new version
 

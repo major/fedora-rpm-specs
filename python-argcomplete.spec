@@ -15,17 +15,17 @@ Source0:       %pypi_source argcomplete
 
 # Fish in Fedora contains git hash in version which breaks tests,
 # this patch removes it
-Patch1:        0001-Remove-commit-hash-from-Fish-version.patch
+Patch:         Remove-commit-hash-from-Fish-version.patch
 
 # Ensure Python 3.7+ compatibility in check_console_script
 # Rebased from https://github.com/kislyuk/argcomplete/commit/f4d046c0ce
 # Partial fix for https://bugzilla.redhat.com/2231593
-Patch3:        0003-Ensure-Python-3.7-compatibility-in-check_console_script.patch
+Patch:         Ensure-Python-3.7-compatibility-in-check_console_script.patch
 
 # Ensure Python 3.12+ compatibility in check_console_script
 # Rebased from https://github.com/kislyuk/argcomplete/pull/448
 # A second part of the fix for https://bugzilla.redhat.com/2231593
-Patch4:        0004-Ensure-Python-3.12-compatibility-in-check_console_script.patch
+Patch:         Ensure-Python-3.12-compatibility-in-check_console_script.patch
 
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools

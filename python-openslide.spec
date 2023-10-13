@@ -5,7 +5,7 @@ Version:        1.3.1
 Release:        %autorelease
 Summary:        Python bindings for the OpenSlide library
 
-License:        LGPLv2
+License:        LGPL-2.1-only
 URL:            https://openslide.org/
 Source0:        https://github.com/openslide/%{upstream_name}/releases/download/v%{version}/%{upstream_name}-%{version}.tar.xz
 
@@ -61,7 +61,7 @@ rm -r build/html/.buildinfo build/html/.doctrees
 # pytest 6; no support for pythonpath setting
 sed -i -e '/^minversion/ d' pytest.ini
 %pytest --import-mode append
-%else
+%elif 0%{?rhel} != 8
 %pytest
 %endif
 

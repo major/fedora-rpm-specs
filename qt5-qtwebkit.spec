@@ -2,9 +2,6 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046931
 %undefine _package_note_flags
 
-# Require 8 GB of RAM per vCPU for debuginfo processing
-%global _find_debuginfo_opts %limit_build -m 8192
-
 %global qt_module qtwebkit
 
 %global _hardened_build 1
@@ -144,10 +141,17 @@ test -f Source/WebCore/Resources/textAreaResizeCorner.png
 # The following changes of optflags ietc. are adapted from webkitgtk4 package, which
 # is mostly similar to this one...
 #
-# Increase the DIE limit so our debuginfo packages could be size optimized.
-# Decreases the size for x86_64 from ~5G to ~1.1G.
+# Increase the DIE limit so our debuginfo packages can be size-optimized.
+# This previously decreased the size for x86_64 from ~5G to ~1.1G, but as of
+# 2022 it's more like 850 MB -> 675 MB. This requires lots of RAM on the
+# builders, so only do this for x86_64 and aarch64 to avoid overwhelming
+# builders with less RAM.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1456261
-%global _dwz_max_die_limit 250000000
+%global _dwz_max_die_limit_x86_64 250000000
+%global _dwz_max_die_limit_aarch64 250000000
+
+# Require 32 GB of RAM per vCPU for debuginfo processing. 16 GB is not enough.
+%global _find_debuginfo_opts %limit_build -m 32768
 
 # Decrease debuginfo even on ix86 because of:
 # https://bugs.webkit.org/show_bug.cgi?id=140176

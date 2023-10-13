@@ -2,7 +2,7 @@
 
 Name:           dippi
 Summary:        Calculate display info like DPI and aspect ratio
-Version:        4.0.2
+Version:        4.0.6
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
 #   - data/metadata.metainfo.xml.in is CC0-1.0, which is allowed for content
@@ -28,9 +28,8 @@ BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  gcc
 
-BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk4)
-BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.4
 
 Requires:       hicolor-icon-theme
 
@@ -53,7 +52,7 @@ aspect ratio, DPI, and other details of a particular display. Great for
 deciding which laptop or external monitor to purchase, and if it would
 be considered HiDPI.
 
-Handy features:
+Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
   • Get advice about different densities
   • Learn the logical resolution
@@ -75,7 +74,7 @@ aspect ratio, DPI, and other details of a particular display. Great for
 deciding which laptop or external monitor to purchase, and if it would
 be considered HiDPI.
 
-Handy features:
+Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
   • Get advice about different densities
   • Learn the logical resolution
@@ -97,7 +96,7 @@ aspect ratio, DPI, and other details of a particular display. Great for
 deciding which laptop or external monitor to purchase, and if it would
 be considered HiDPI.
 
-Handy features:
+Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
   • Get advice about different densities
   • Learn the logical resolution
@@ -119,7 +118,7 @@ aspect ratio, DPI, and other details of a particular display. Great for
 deciding which laptop or external monitor to purchase, and if it would
 be considered HiDPI.
 
-Handy features:
+Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
   • Get advice about different densities
   • Learn the logical resolution
@@ -301,7 +300,8 @@ bilgisayarın veya harici monitörün satın alınacağına ve HiDPI olarak kabu
 edilip edilmeyeceğine karar vermek için harika bir uygulama.
 
 Kullanışlı özellikler:
-  • Bir ekranın boyutuna ve çözünürlüğüne göre iyi bir seçim olup olmadığını öğrenin
+  • Bir ekranın boyutuna ve çözünürlüğüne göre iyi bir seçim olup olmadığını
+    öğrenin
   • Farklı yoğunluklar hakkında tavsiye alın
   • Mantıksal çözünürlüğü öğrenin
   • Dizüstü bilgisayarlar ve masaüstü ekranları arasında ayrım yapın

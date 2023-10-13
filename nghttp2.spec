@@ -6,7 +6,7 @@
 
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.56.0
+Version: 1.57.0
 Release: 2%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
@@ -17,6 +17,9 @@ URL: https://nghttp2.org/
 Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.xz
 Source1: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2: tatsuhiro-t.pgp
+
+# Upstream patches
+Patch1:     0001-nghttp2-1.57.0-clock-gettime.patch
 
 BuildRequires: CUnit-devel
 BuildRequires: c-ares-devel
@@ -100,7 +103,7 @@ This is the MinGW cross-compiled Windows library.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup -p1
 
 # make fetch-ocsp-response use Python 3
 sed -e '1 s|^#!/.*python|&3|' -i script/fetch-ocsp-response
@@ -215,6 +218,13 @@ popd
 
 
 %changelog
+* Wed Oct 11 2023 Jan Macku <jamacku@redhat.com> 1.57.0-2
+- fix mingw build
+
+* Wed Oct 11 2023 Jan Macku <jamacku@redhat.com> 1.57.0-1
+- update to the latest upstream release
+- fixes CVE-2023-44487 - HTTP/2 Rapid Reset
+
 * Fri Sep 15 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.56.0-2
 - Add MinGW packages. rhbz#2102067
 

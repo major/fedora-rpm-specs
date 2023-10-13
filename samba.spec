@@ -137,7 +137,7 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.19.0
+%global samba_version 4.19.1
 %global baserelease 1
 # This should be rc1 or %%nil
 %global pre_release %nil
@@ -2032,7 +2032,6 @@ fi
 %{_libexecdir}/samba/rpcd_fsrvp
 %{_libexecdir}/samba/rpcd_lsad
 %{_libexecdir}/samba/rpcd_mdssvc
-%{_libexecdir}/samba/rpcd_rpcecho
 %{_libexecdir}/samba/rpcd_spoolss
 %{_libexecdir}/samba/rpcd_winreg
 %{_mandir}/man8/samba-dcerpcd.8*
@@ -4450,6 +4449,14 @@ fi
 %endif
 
 %changelog
+* Tue Oct 10 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.1-1
+- resolves: #2243073 - Update to version 4.19.1
+- resolves: #2241881, #2243228: Security fix for CVE-2023-3961
+- resolves: #2241882, #2243231: Security fix for CVE-2023-4091
+- resolves: #2241883, #2243230: Security fix for CVE-2023-4154
+- resolves: #2241884, #2243229: Security fix for CVE-2023-42669
+- resolves: #2241885, #2243232: Security fix for CVE-2023-42670
+
 * Mon Sep 04 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.0-1
 - resolves: #2237259 - Update to version 4.19.0
 

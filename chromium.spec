@@ -248,7 +248,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 117.0.5938.149
+Version: 118.0.5993.70
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -334,11 +334,14 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 
 # Add additional operator== to make el7 happy.
 Patch107: chromium-99.0.4844.51-el7-extra-operator.patch
+# old v4l2 on el7
+Patch108: chromium-118-el7_v4l2_quantization.patch 
 # workaround for clang bug on el7
 Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
 Patch111: chromium-116-constexpr.patch
 Patch112: chromium-117-el7-default_constructor.patch
+Patch113: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
@@ -351,38 +354,32 @@ Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 # revert AV1 VAAPI video encode due to old libva on el9
 Patch130: chromium-114-revert-av1enc-el9.patch
 
-# fixes for old clang version in fedora < 38 end epel
+# fixes for old clang version in fedora < 38 end epel (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
-Patch300: chromium-117-no_matching_constructor.patch
+Patch300: chromium-118-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-117-workaround_clang_bug-structured_binding.patch
+Patch302: chromium-118-workaround_clang_bug-structured_binding.patch
 
 # missing typename
 Patch303: chromium-117-typename.patch
 
-# compiler error with c++20
-Patch304: chromium-117-emplace_back_on_vector-c++20.patch
-
 # error: invalid operands to binary expression
-Patch305: chromium-117-string-convert.patch
+Patch304: chromium-117-string-convert.patch
 
 # disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
 # not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
-Patch306: chromium-116-arm64-memory_tagging.patch
+Patch306: chromium-118-arm64-memory_tagging.patch
 
 # missing include header files
-Patch310: chromium-117-missing-header-files.patch
+Patch310: chromium-118-missing-header-files.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
 
 # imp module is removed in python-3.12 in fedora 39 and newer
-Patch312: chromium-117-python-3.12-deprecated.patch
-
-# Tweak about:gpu, Add dark mode support
-Patch350: chromium-116-tweak_about_gpu.patch
+Patch312: chromium-118-python-3.12-deprecated.patch
 
 # build error
 Patch351: chromium-117-mnemonic-error.patch
@@ -394,6 +391,7 @@ Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
 
 # upstream patches
 Patch400: chromium-117-memory_leak_in_xserver.patch
+Patch401: chromium-118-use_system_freetype.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -970,10 +968,15 @@ udev.
 %patch -P105 -p1 -b .el7-old-libdrm
 %patch -P106 -p1 -b .el7-erase-fix
 %patch -P107 -p1 -b .el7-extra-operator-equalequal
+%patch -P108 -p1 -b .el7_v4l2_quantization
 %patch -P109 -p1 -b .wireless
 %patch -P110 -p1 -b .buildflag-el7
 %patch -P111 -p1 -b .constexpr
 %patch -P112 -p1 -b .default_constructor
+%endif
+
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
+%patch -P113 -p1 -b .dma_buf_export_sync_file-conflict
 %endif
 
 %if 0%{?rhel} == 9
@@ -986,8 +989,7 @@ udev.
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
 %patch -P303 -p1 -b .typename
-%patch -P304 -p1 -b .emplace_back_on_vector-c++20
-%patch -P305 -p1 -b .string-convert
+%patch -P304 -p1 -b .string-convert
 %endif
 %endif
 
@@ -1004,7 +1006,6 @@ udev.
 %patch -P312 -p1 -b .python-3.12-deprecated
 %endif
 
-%patch -P350 -p1 -b .tweak_about_gpu
 %patch -P351 -p1 -b .mnemonic-error
 
 %if %{disable_bti}
@@ -1012,6 +1013,7 @@ udev.
 %endif
 
 %patch -P400 -p1 -b .memory_leak_in_xserver
+%patch -P401 -p1 -b .use_system_freetype
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1702,6 +1704,27 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Oct 11 2023 Than Ngo <than@redhat.com> - 118.0.5993.70-1
+- update to 118.0.5993.70
+    - CVE-2023-5218: Use after free in Site Isolation.
+    - CVE-2023-5487: Inappropriate implementation in Fullscreen.
+    - CVE-2023-5484: Inappropriate implementation in Navigation.
+    - CVE-2023-5475: Inappropriate implementation in DevTools.
+    - CVE-2023-5483: Inappropriate implementation in Intents.
+    - CVE-2023-5481: Inappropriate implementation in Downloads.
+    - CVE-2023-5476: Use after free in Blink History.
+    - CVE-2023-5474: Heap buffer overflow in PDF.
+    - CVE-2023-5479: Inappropriate implementation in Extensions API.
+    - CVE-2023-5485: Inappropriate implementation in Autofill.
+    - CVE-2023-5478: Inappropriate implementation in Autofill.
+    - CVE-2023-5477: Inappropriate implementation in Installer.
+    - CVE-2023-5486: Inappropriate implementation in Input.
+    - CVE-2023-5473: Use after free in Cast.
+
+* Sat Oct 07 2023 Than Ngo <than@redhat.com> - 118.0.5993.54-1
+- update to 118.0.5993.54
+- drop use_gnome_keyring as it's removed by upstream
+
 * Thu Oct 05 2023 Than Ngo <than@redhat.com> - 117.0.5938.149-1
 - update to 117.0.5938.149
 - fix CVE-2023-5346: Type Confusion in V8

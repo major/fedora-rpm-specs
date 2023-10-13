@@ -65,12 +65,12 @@
 %bcond_without   lmdb
 
 %global upver        8.3.0
-%global rcver        RC3
+%global rcver        RC4
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1552,13 +1552,16 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Oct 11 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC4-1
+- update to 8.3.0RC4
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC3-3
 - rebuild for new libsodium
 
-* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.3.0~rc3-2
+* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC3-2
 - tzdata is required
 
-* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.3.0~rc3-1
+* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC3-1
 - update to 8.3.0RC3 https://fedoraproject.org/wiki/Changes/php83
 - add internal UTC if tzdata is missing
 - bump to final API/ABI

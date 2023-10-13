@@ -10,7 +10,7 @@
 
 Summary: Qt6 - WebChannel component
 Name:    qt6-%{qt_module}
-Version: 6.5.3
+Version: 6.6.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -91,16 +91,22 @@ popd
 %files
 %license LICENSES/*
 %{_qt6_libdir}/libQt6WebChannel.so.6*
+%{_qt6_libdir}/libQt6WebChannelQuick.so.6*
 %{_qt6_archdatadir}/qml/QtWebChannel/
 
 %files devel
 %{_qt6_headerdir}/QtWebChannel/
+%{_qt6_headerdir}/QtWebChannelQuick/
 %{_qt6_libdir}/libQt6WebChannel.so
 %{_qt6_libdir}/libQt6WebChannel.prl
+%{_qt6_libdir}/libQt6WebChannelQuick.so
+%{_qt6_libdir}/libQt6WebChannelQuick.prl
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebChannelTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6WebChannel/
 %{_qt6_libdir}/cmake/Qt6WebChannel/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6WebChannelQuick/
+%{_qt6_libdir}/cmake/Qt6WebChannelQuick/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_webchannel*.pri
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
@@ -113,6 +119,9 @@ popd
 
 
 %changelog
+* Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
+- 6.6.0
+
 * Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
 - new version
 

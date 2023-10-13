@@ -1,21 +1,21 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
-Version:       4.4.0
-Release:       8%{?dist}
+Version:       4.5.0
+Release:       3%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
 Source:        http://download.osgeo.org/libtiff/tiff-%{version}.tar.gz
 
 Patch0:        libtiff-am-version.patch
-Patch1:        libtiff-make-check.patch
-Patch2:        libtiff-CVE-2022-2056_2057_2058.patch
-Patch3:        libtiff-CVE-2022-34526.patch
 Patch4:        libtiff-CVE-2023-0804.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel liblerc-devel
 BuildRequires: libtool automake autoconf pkgconfig
+
+# Add old libtiff to work with packages not built with new libtiff.so.6
+BuildRequires: libtiff
 BuildRequires: make
 
 %description
@@ -62,9 +62,6 @@ image files using the libtiff library.
 %autosetup -n tiff-%{version} -N
 
 %patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-%patch2 -p1 -b .backup
-%patch3 -p1 -b .backup
 %patch4 -p1 -b .backup
 
 # Use build system's libtool.m4, not the one in the package.
@@ -98,9 +95,6 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/tiffsv
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/tiffgt.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/sgi2tiff.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/tiffsv.1
-rm -f html/man/tiffgt.1.html
-rm -f html/man/sgi2tiff.1.html
-rm -f html/man/tiffsv.1.html
 
 # multilib header hack
 # we only apply this to known Red Hat multilib arches, per bug #233091
@@ -140,22 +134,24 @@ EOF
 
 fi
 
+# Copy old soname %{_libdir}/libtiff.so.5
+# Copy old soname %{_libdir}/libtiffxx.so.5
+cp %{_libdir}/libtiff.so.5* $RPM_BUILD_ROOT%{_libdir}
+cp %{_libdir}/libtiffxx.so.5* $RPM_BUILD_ROOT%{_libdir}
+
 %ldconfig_scriptlets
 
 %check
 LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH make check
 
-# don't include documentation Makefiles, they are a multilib hazard
-find html -name 'Makefile*' | xargs rm
-
 %files
-%license COPYRIGHT
+%license LICENSE.md
 %doc README.md RELEASE-DATE VERSION
 %{_libdir}/libtiff.so.*
 %{_libdir}/libtiffxx.so.*
 
 %files devel
-%doc TODO ChangeLog html
+%doc TODO ChangeLog
 %{_includedir}/*
 %{_libdir}/libtiff.so
 %{_libdir}/libtiffxx.so
@@ -170,6 +166,14 @@ find html -name 'Makefile*' | xargs rm
 %{_mandir}/man1/*
 
 %changelog
+* Thu Oct 05 2023 Matej Mužila <mmuzila@redhat.com> - 4.5.0-3
+- New upstream release 4.5.0 (#2153870)
+- Fix CVE-2022-3570, CVE-2022-2867, CVE-2022-2868, CVE-2022-2869, CVE-2022-2519,
+  CVE-2022-2953, CVE-2022-3597, CVE-2022-3598, CVE-2022-3599, CVE-2022-3626,
+  CVE-2022-3627, CVE-2022-3970 (#2142735, #2118854, #2118867, #2118875,
+  #2122795, #2134437, #2142737, #2148881, #2148888, #2148894, #2148897,
+  #2148919)
+
 * Mon Aug 28 2023 Nikola Forró <nforro@redhat.com> - 4.4.0-8
 - Enable support for LERC compression (#2234459)
 

@@ -10,7 +10,7 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.5.3
+Version: 6.6.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -50,7 +50,7 @@ BuildRequires: qt6-qtdeclarative-static >= %{version}
 BuildRequires: qt6-qtdeclarative >= %{version}
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: clang-devel llvm-devel
-
+BuildRequires: libzstd-devel
 
 Requires: %{name}-common = %{version}-%{release}
 
@@ -316,6 +316,9 @@ popd
 %{_qt6_bindir}/pixeltool*
 %{_qt6_bindir}/qtdiag*
 %{_qt6_bindir}/qtplugininfo*
+%{_qt6_headerdir}/QtQDocCatch/
+%{_qt6_headerdir}/QtQDocCatchConversionsPrivate/
+%{_qt6_headerdir}/QtQDocCatchGeneratorsPrivate/
 %{_qt6_headerdir}/QtDesigner/
 %{_qt6_headerdir}/QtDesignerComponents/
 %{_qt6_headerdir}/QtHelp/
@@ -329,6 +332,12 @@ popd
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Designer/*.cmake
 %{_qt6_libdir}/cmake/Qt6DesignerComponentsPrivate/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6QDocCatchPrivate
+%{_qt6_libdir}/cmake/Qt6QDocCatchPrivate/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6QDocCatchConversionsPrivate
+%{_qt6_libdir}/cmake/Qt6QDocCatchConversionsPrivate/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate
+%{_qt6_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Help/
 %{_qt6_libdir}/cmake/Qt6Help/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Linguist
@@ -343,6 +352,11 @@ popd
 %{_qt6_libdir}/cmake/Qt6ToolsTools/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6LinguistTools
 %{_qt6_libdir}/cmake/Qt6UiTools/
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatch_private.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatchconversionsprivate.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatchconversionsprivate_private.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate_private.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_designer.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_designer_private.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_designercomponents_private.pri
@@ -371,6 +385,9 @@ popd
 
 
 %changelog
+* Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
+- 6.6.0
+
 * Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
 - new version
 

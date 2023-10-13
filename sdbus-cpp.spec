@@ -1,12 +1,12 @@
 %undefine __cmake_in_source_build
 
 %global version_major 1
-%global version_minor 3
+%global version_minor 4
 %global version_micro 0
 
 Name:           sdbus-cpp
 Version:        %{version_major}.%{version_minor}.%{version_micro}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -91,6 +91,9 @@ out of the D-Bus IDL XML description.
 
 
 %changelog
+* Wed Oct 11 2023 Marek Blaha <mblaha@redhat.com> - 1.4.0-1
+- Update to release 1.4.0
+
 * Tue Sep 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.3.0-2
 - Move sdbus-c++ CMake module to devel package
 

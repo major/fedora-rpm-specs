@@ -20,7 +20,7 @@
 #
 
 %global upstream_prefix ClusterLabs-resource-agents
-%global upstream_version baddb06c
+%global upstream_version 204f1461
 
 # Whether this platform defaults to using systemd as an init system
 # (needs to be evaluated prior to BuildRequires being enumerated and
@@ -51,8 +51,8 @@
 
 Name:		resource-agents
 Summary:	Open Source HA Reusable Cluster Resource Scripts
-Version:	4.12.0
-Release:	3%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}.1
+Version:	4.13.0
+Release:	1%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://github.com/ClusterLabs/resource-agents
 Source0:	%{upstream_prefix}-%{upstream_version}.tar.gz
@@ -63,7 +63,7 @@ Provides:	heartbeat-resources = %{version}
 BuildRequires: make
 BuildRequires: automake autoconf pkgconfig gcc
 BuildRequires: perl
-BuildRequires: libxslt glib2-devel
+BuildRequires: libxslt glib2-devel libqb-devel
 BuildRequires: systemd
 BuildRequires: which
 
@@ -389,6 +389,9 @@ ccs_update_schema > /dev/null 2>&1 ||:
 %endif
 
 %changelog
+* Wed Oct 11 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.13.0-1
+- Rebase to resource-agents 4.13.0 upstream release.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.0-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

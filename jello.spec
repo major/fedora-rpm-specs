@@ -38,7 +38,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 man/*
 
 
 %check
-PYTHONPATH='%{buildroot}%{python3_sitelib}' ./runtests.sh
+%{py3_test_envvars} ./runtests.sh
 
 
 %files -f %{pyproject_files}

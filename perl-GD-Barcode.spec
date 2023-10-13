@@ -1,6 +1,16 @@
+# Perform optional tests
+%bcond_without perl_GD_Barcode_enables_optional_test
+
+# Break a build cycle perl-Business-ISBN → perl-GD-Barcode
+%if %{with perl_GD_Barcode_enables_optional_test} && !%{defined perl_bootstrap}
+%define optional_test 1
+%else
+%define optional_test 0
+%endif
+
 Name:           perl-GD-Barcode
 Version:        2.00
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create barcode image with GD
 # see Barcode.pm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,10 +34,12 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(ok)
-BuildRequires:  perl(Test2::Require::Module)
 BuildRequires:  perl(Test2::V0)
+%if %{optional_test}
 # Optional tests
 BuildRequires:  perl(Business::ISBN) >= 3.007
+BuildRequires:  perl(Test2::Require::Module)
+%endif
 # definitely not picked up automagically.
 Requires:       perl(GD)
 
@@ -38,7 +50,9 @@ with GD.
 %package tests
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+%if %{optional_test}
 Requires:       perl(Business::ISBN) >= 3.007
+%endif
 Requires:       perl-Test-Harness
 
 %description tests
@@ -47,6 +61,10 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n GD-Barcode-%{version}
+%if !%{optional_test}
+rm t/business-isbn-png-barcode.t
+perl -i -ne 'print $_ unless m{^t/business-isbn-png-barcode\.t\b}' MANIFEST
+%endif
 for i in `find sample/ -type f`; do
     perl -pi -e 's/\r//' $i
 done
@@ -85,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 11 2023 Petr Pisar <ppisar@redhat.com> - 2.00-2
+- Break a build cycle with perl-Business-ISBN on Perl bootstrap
+
 * Mon Sep 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.00-1
 - 2.00 bump (rhbz#2238862)
 - Package tests

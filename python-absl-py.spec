@@ -59,10 +59,10 @@ Summary:        %{summary}
 # Upstream provides some “smoke tests” that we can run, too. We cannot use the
 # wrapper smoke_tests/smoke_test.sh because it downloads things from the
 # Internet, but we can run the Python scripts manually.
-PYTHONPATH='%{buildroot}/%{python3_sitelib}'; export PYTHONPATH
-%{python3} smoke_tests/sample_app.py --echo smoke 2>&1 |
+%{py3_test_envvars} %{python3} smoke_tests/sample_app.py --echo smoke 2>&1 |
   grep -F 'echo is smoke.'
-%{python3} smoke_tests/sample_test.py | grep -Fq 'msg_for_test'
+%{py3_test_envvars} %{python3} smoke_tests/sample_test.py |
+  grep -Fq 'msg_for_test'
 
 # Running the actual test suite requires bazel, which will almost certainly
 # never be packaged for Fedora due to its Byzantine mass of bundled

@@ -1,5 +1,5 @@
 Name:		openvkl
-Version:	1.3.2
+Version:	2.0.0
 Release:	%autorelease
 Summary:	Intel Open Volume Kernel Library
 
@@ -11,9 +11,6 @@ License:	Apache-2.0 AND BSL-1.0 AND MIT
 URL:		https://github.com/OpenVKL/openvkl
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/openvkl/openvkl/pull/18
-Patch0:		cmake.patch
-
 BuildRequires:	boost-devel
 BuildRequires:	blosc-devel
 BuildRequires:	cmake >= 3.1
@@ -21,7 +18,7 @@ BuildRequires:	embree-devel >= 4.0.0
 BuildRequires:	gcc-c++
 BuildRequires:	glfw-devel
 BuildRequires:	imath-devel
-BuildRequires:	ispc >= 1.19.0
+BuildRequires:	ispc-static >= 1.19.0
 BuildRequires:	openvdb-devel >= 7.0.0
 BuildRequires:	rkcommon-devel >= 1.11.0
 
@@ -29,16 +26,17 @@ BuildRequires:	rkcommon-devel >= 1.11.0
 ExclusiveArch:	aarch64 x86_64
 
 %description
-Intel Open Volume Kernel Library (Intel Open VKL) is a collection of 
-high-performance volume computation kernels, developed at Intel. The target
-users of Open VKL are graphics application engineers who want to improve the
-performance of their volume rendering applications by leveraging Open VKL’s
-performance-optimized kernels, which include volume traversal and sampling
-functionality for a variety of volumetric data formats.
+Intel Open Volume Kernel Library (Open VKL) is a collection of high-performance
+volume computation kernels, developed at Intel. The target users of Open VKL 
+are graphics application engineers who want to improve the performance of their
+volume rendering applications by leveraging Open VKL’s performance-optimized 
+kernels, which include volume traversal and sampling functionality for a 
+variety of volumetric data formats.
 
-The kernels are optimized for the latest Intel processors with support for 
-SSE, AVX, AVX2, and AVX-512 instructions, and for ARM processors with support
-for NEON instructions.
+Open VKL contains kernels optimized for the latest x86 processors with support
+for SSE, AVX, AVX2, and AVX-512 instructions, and for ARM processors with 
+support for NEON instructions. Open VKL supports Intel GPUs based on the Xe HPG
+microarchitecture and Xe HPC microarchitecture under Linux.
 
 %package devel
 Summary:	Development files for %{name}
@@ -79,19 +77,19 @@ sed -i '/vdb_volume_dense.cpp/d' testing/apps/CMakeLists.txt
 %files
 %license LICENSE.txt third-party-programs*.txt
 %doc CHANGELOG.md README.md SECURITY.md
-%{_bindir}/vklTests
+%{_bindir}/vklTestsCPU
+%{_libdir}/lib%{name}.so.2
 %{_libdir}/lib%{name}.so.%{version}
-%{_libdir}/lib%{name}.so.1
+%{_libdir}/lib%{name}_module_cpu_device.so.2
 %{_libdir}/lib%{name}_module_cpu_device.so.%{version}
-%{_libdir}/lib%{name}_module_cpu_device.so.1
-%{_libdir}/lib%{name}_module_cpu_device_*.so.%{version}
-%{_libdir}/lib%{name}_module_cpu_device_*.so.1
+%{_libdir}/lib%{name}_module_cpu_device_{4,8,16}.so.2
+%{_libdir}/lib%{name}_module_cpu_device_{4,8,16}.so.%{version}
 
 %files devel
 %{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/lib%{name}_module_cpu_device.so
-%{_libdir}/lib%{name}_module_cpu_device_*.so
+%{_libdir}/lib%{name}_module_cpu_device_{4,8,16}.so
 %{_libdir}/cmake/%{name}-%{version}/
 
 %changelog

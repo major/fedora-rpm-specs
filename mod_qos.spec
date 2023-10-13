@@ -18,7 +18,7 @@ Source1:        10-mod_qos.conf
 
 BuildRequires: automake
 BuildRequires: gcc
-BuildRequires: httpd-devel >= 2.0.0 
+BuildRequires: httpd-devel
 BuildRequires: libpng-devel
 BuildRequires: make
 BuildRequires: openssl-devel
@@ -94,6 +94,7 @@ install -Dpm 644 man1/*  %{buildroot}%{_mandir}/man1/
 %changelog
 * Mon Oct 09 2023 Neil Hanlon <neil@shrug.pw> - 11.74-2
 - don't link against pcre-1
+- remove httpd conditionals (el6 cruft)
 
 * Mon Oct 09 2023 Neil Hanlon <neil@shrug.pw> - 11.74-1
 - Update to 11.74

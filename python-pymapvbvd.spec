@@ -1,5 +1,5 @@
 Name:           python-pymapvbvd
-Version:        0.5.5
+Version:        0.5.6
 Release:        %autorelease
 Summary:        Python twix file reader
 
@@ -11,7 +11,7 @@ License:        MIT AND Unlicense
 URL:            https://github.com/wtclarke/pymapvbvd
 Source0:        %{pypi_source pyMapVBVD}
 # Generated with Source2: ./get_test_data.sh %%{version}
-Source1:        pyMapVBVD-%{version}-test-data.tar.xz
+Source1:        pyMapVBVD-test-data.tar.xz
 Source2:        get_test_data.sh
 
 BuildArch:      noarch
@@ -43,7 +43,7 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n pyMapVBVD-%{version} -p1
-%setup -q -T -D -b 1 -n pyMapVBVD-%{version}
+%setup -q -T -D -a 1 -c -n pyMapVBVD-%{version}
 # We can use the system versioneer to generate _version.py, and can remove the
 # bundled, amaglamated versioneer.py to indicate we aren’t using it.
 rm -v versioneer.py

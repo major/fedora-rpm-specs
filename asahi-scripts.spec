@@ -89,7 +89,7 @@ install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 
 # This needs to be a separate trigger because we can't use python3_sitearch here
 %transfiletriggerin -n asahi-fwupdate -- /usr/lib/python
-grep "asahi-firmware" && %{_sbindir}/asahi-fwupdate || :
+grep -q 'asahi_firmware' && %{_sbindir}/asahi-fwupdate || :
 
 # We can't use _libdir here because it gets incorrectly expanded to /usr/lib
 %transfiletriggerin -n update-m1n1 -- /usr/lib/m1n1 /usr/lib64/m1n1 /usr/share/uboot/apple_m1 /boot/dtb-

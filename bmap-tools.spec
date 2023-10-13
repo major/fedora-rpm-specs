@@ -1,15 +1,28 @@
 %global module_name bmaptools
 
 Name:           bmap-tools
-Version:        3.6
-Release:        9%{?dist}
+Version:        3.7
+Release:        1%{?dist}
 Summary:        Tools to generate and flash sparse images using the "block map" (bmap) format
-License:        GPLv2+
+
+License:        GPL-2.0-or-later
 URL:            https://github.com/intel/bmap-tools
-Source0:        https://github.com/intel/bmap-tools/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
+
 BuildArch:      noarch
-# Base package contains the command line tool, which uses the Python library
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 Requires:       python3-%{module_name} = %{version}-%{release}
+Requires:       bzip2
+Requires:       pbzip2
+Requires:       gzip
+Requires:       xz
+Requires:       tar
+Requires:       unzip
+Requires:       lzop
+Requires:       pigz
+Requires:       zstd
 
 %description
 Bmaptool is a generic tool for creating the block map (bmap) for a file and 
@@ -24,49 +37,44 @@ OS distribution images to USB sticks.
 
 %package -n python3-%{module_name}
 Summary:        Python library for bmap-tools
-%{?python_provide:%python_provide python3-%{module_name}}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-six
-Requires:       python3-six
-Requires:       python3-gpg
-Requires:       bzip2
-Requires:       pbzip2
-Requires:       gzip
-Requires:       xz
-Requires:       tar
-Requires:       unzip
-Requires:       lzop
-Requires:       pigz
-Requires:       zstd
 
 %description -n python3-%{module_name}
 Python library to manipulate sparse images in the "block map" (bmap) format.
 
 %prep
-%setup -q
+%autosetup
 # Remove unnecessary shebang
 sed -i -e '/^#!/,1d' bmaptools/CLI.py
+sed -i -e '/^#!/,1d' bmaptools/__main__.py
+
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{module_name}
+
 install -d %{buildroot}/%{_mandir}/man1
 install -m644 docs/man1/bmaptool.1 %{buildroot}/%{_mandir}/man1
 
+%check
+%pytest -v
+
 %files
+%license LICENSE
+%doc README.md CHANGELOG.md
 %{_bindir}/bmaptool
 %{_mandir}/man1/bmaptool.1*
 
-%files -n python3-%{module_name}
-%doc docs/README docs/RELEASE_NOTES
-%license COPYING
-%{python3_sitelib}/%{module_name}
-%{python3_sitelib}/bmap_tools*.egg-info
+%files -n python3-%{module_name} -f %{pyproject_files}
 
 %changelog
+* Wed Oct 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.7-1
+- Update to 3.7
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

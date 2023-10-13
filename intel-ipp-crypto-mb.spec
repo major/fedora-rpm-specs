@@ -1,15 +1,17 @@
 %global debug_package %{nil}
-%global srctag ippcp_2021.8
+%global srctag ippcp_2021.9.0
 %global mbx_int_major 11
-%global mbx_int_minor 8
+%global mbx_int_minor 9
 %global desc %{expand: \
-Crypto multi-buffer library provides optimized version of RSA, ECDSA, SM3 and
-x25519 multi-buffer algorithms based on Intel Advanced Vector Extensions 512
-(Intel AVX-512) integer fused multiply-add (IFMA) operations.}
+Intel IPP Cryptography library provides optimized versions of RSA, ECDSA, ECDH
+and x25519 multi-buffer algorithms based on Intel Advanced Vector Extensions 
+512 (Intel AVX-512) integer fused multiply-add (IFMA) operations. SM4 based on
+Intel Advanced Vector Extensions 512 (Intel AVX-512) GFNI and SM3 based on 
+Intel Advanced Vector Extensions 512 (Intel AVX-512) instructions.}
 
 Name:		intel-ipp-crypto-mb
-Version:	1.0.8
-Release:	3%{?dist}
+Version:	1.0.9
+Release:	1%{?dist}
 Summary:	Intel IPP Cryptography multi-buffer library
 
 License:	Apache-2.0
@@ -79,6 +81,9 @@ popd
 %{_libdir}/libcrypto_mb.a
 
 %changelog
+* Wed Oct 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.9-1
+- Update to 1.0.9 (2021.9.0)
+
 * Mon Aug 14 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.8-3
 - Update to IPP Crypto 2021.8
 

@@ -6,7 +6,7 @@
 %bcond tests 1
 
 Name:           python-annotated-types
-Version:        0.5.0
+Version:        0.6.0
 Release:        1%{?dist}
 Summary:        Reusable constraint types to use with typing.Annotated
 
@@ -72,5 +72,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Oct 06 2023 Maxwell G <maxwell@gtmx.me> - 0.6.0-1
+- Update to 0.6.0. Fixes rhbz#2242535.
+
 * Fri Sep 08 2023 Maxwell G <maxwell@gtmx.me> - 0.5.0-1
 - Initial package. Closes rhbz#2238391.

@@ -1,22 +1,19 @@
 
 Summary:	Graphical client for Firebird
 Name:		flamerobin
-Version:	0.9.3.1
-Release:	26%{?dist}
+Version:	0.9.9
+Release:	1%{?dist}
 License:	BSD
 Source0:	https://github.com/mariuz/%{name}/archive/%{name}-%{version}.tar.gz
-# PATCH-FIX-UPSTREAM flamerobin-desktop-file.patch gh#mariuz/flamerobin#5 badshah400@gmail.com -- Unhardcode icon path in GNU/Linux laucher; patch taken from upstream git
-Patch0:         flamerobin-desktop-file.patch
-Patch1:         flamerobin-wx3.2.patch
 URL:		http://www.flamerobin.org/
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires:	gcc
+BuildRequires:	gcc-c++
 BuildRequires:	firebird-devel >= 2.0.0.12748
 BuildRequires:	wxGTK-devel >= 3.0
 BuildRequires:	desktop-file-utils
 BuildRequires:	boost-devel
-BuildRequires:  libicns-utils
-BuildRequires: make
+BuildRequires:	libicns-utils
+BuildRequires:	cmake
 
 %description
 FlameRobin is a database administration tool for Firebird DBMS based on wxgtk
@@ -28,12 +25,11 @@ toolkit.
 %build
 # FIX A TRAILING SEMICOLON ISSUE FOR KEYWORDS TAG IN .desktop FILE
 sed -i "s/^Keywords=firebird/Keywords=firebird;/" res/%{name}.desktop
-%configure 
-make %{?_smp_mflags} 
+%cmake
+%cmake_build
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=$RPM_BUILD_ROOT
+%cmake_install
 
 rm -rf %{buildroot}%{_datadir}/%{name}/docs
 
@@ -57,6 +53,9 @@ rm %{buildroot}%{_datadir}/pixmaps/*.png
 
 
 %changelog
+* Wed Oct 11 2023  Philippe Makowski <makowski@fedoraproject.org> 0.9.9-1
+- New upstream (#2242257)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,15 +1,14 @@
-
-# feature macro to enable samples (or not)
-%if 0%{?rhel} != 7
-%global samples 1
-%endif
+%global somajor 23
 
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
 Version: 0.21.1
-Release: 5%{?dist}
-License: BSD-3-Clause and (CDDL-1.0 or  LGPL-2.1-only)
-URL: http://www.libraw.org
+Release: 6%{?dist}
+License: BSD-3-Clause and (CDDL-1.0 or LGPL-2.1-only)
+URL: https://www.libraw.org
+Source0: %{url}/data/%{name}-%{version}.tar.gz
+Patch0: LibRaw-pkgconfig.patch
+Patch1: 9ab70f6dca19229cb5caad7cc31af4e7501bac93.patch
 
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(lcms2)
@@ -18,9 +17,6 @@ BuildRequires: pkgconfig(libjpeg)
 BuildRequires: autoconf automake libtool
 BuildRequires: make
 
-Source0: http://github.com/LibRaw/LibRaw/archive/%{version}.tar.gz
-Patch0: LibRaw-pkgconfig.patch
-Patch1: 9ab70f6dca19229cb5caad7cc31af4e7501bac93.patch
 Provides: bundled(dcraw) = 9.25
 
 %description
@@ -32,7 +28,7 @@ drawbacks have already been eliminated and part will be fixed in future.
 
 %package devel
 Summary: LibRaw development libraries
-Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 LibRaw development libraries.
@@ -49,7 +45,7 @@ LibRaw static development libraries.
 
 %package samples
 Summary: LibRaw sample programs
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description samples
 LibRaw sample programs
@@ -60,7 +56,7 @@ LibRaw sample programs
 %build
 autoreconf -if
 %configure \
-    --enable-examples=%{?samples:yes}%{!?samples:no} \
+    --enable-examples=yes \
     --enable-jasper \
     --enable-jpeg \
     --enable-lcms \
@@ -86,13 +82,11 @@ rm -fv samples/*.o
 
 rm -fv %{buildroot}%{_libdir}/lib*.la
 
-%ldconfig_scriptlets
-
 %files
 %doc Changelog.txt
 %license LICENSE.CDDL LICENSE.LGPL COPYRIGHT
-%{_libdir}/libraw.so.23*
-%{_libdir}/libraw_r.so.23*
+%{_libdir}/libraw.so.%{somajor}{,.*}
+%{_libdir}/libraw_r.so.%{somajor}{,.*}
 
 %files static
 %{_libdir}/libraw.a
@@ -108,13 +102,15 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{_libdir}/pkgconfig/libraw_r.pc
 %exclude %{_docdir}/libraw/*
 
-%if 0%{?samples}
 %files samples
 %{_bindir}/*
-%endif
 
 
 %changelog
+* Tue Oct 10 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.21.1-6
+- Clean and simplify spec and drop EL7 stuff
+- Use official released tarball
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

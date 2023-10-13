@@ -18,6 +18,8 @@ Release:        %autorelease
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://gnupg.org/related_software/gpgme/
 Source0:        https://gnupg.org/ftp/gcrypt/gpgme/gpgme-%{version}.tar.bz2
+Source1:        https://gnupg.org/ftp/gcrypt/gpgme/gpgme-%{version}.tar.bz2.sig
+Source3:        https://gnupg.org/signature_key.asc
 Source2:        gpgme-multilib.h
 
 ## downstream patches
@@ -169,6 +171,8 @@ Obsoletes:      platform-python-gpg < %{version}-%{release}
 
 %prep
 %autosetup -p1
+gpg2 --import --import-options import-export,import-minimal %{SOURCE3} > ./gpg-keyring.gpg
+gpgv2 --keyring ./gpg-keyring.gpg %{SOURCE1} %{SOURCE0}
 
 ## HACK ALERT
 # The config script already suppresses the -L if it's /usr/lib, so cheat and

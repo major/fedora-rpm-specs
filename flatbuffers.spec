@@ -152,7 +152,8 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 #   - Use the proper python3 interpreter path from the RPM macro
 #   - Don’t attempt to run tests with interpreters other than python3
 #   - Add the buildroot python3_sitelib to PYTHONPATH so the flatbuffers
-#     package can be found
+#     package can be found; the appropriate PYTHONPATH is supplied by could be
+#     handled by %%{py3_test_envvars}, but the test script overrides it
 #   - Make sure we don’t do coverage analysis even if python3-coverage is
 #     somehow installed as an indirect dependency
 sed -r -i.upstream \
@@ -217,7 +218,10 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 %ctest
 %endif
 %if %{with py_tests}
-./tests/PythonTest.sh
+# The test script overrides PYTHONPATH and PYTHONDONTWRITEBYTECODE, but we’d
+# like to pass through any other environment variables that are set by
+# %%{py3_test_envvars}.
+%{py3_test_envvars} ./tests/PythonTest.sh
 %endif
 # Do an import-only “smoke test” even if we ran the Python tests; we are not
 # convinced that they cover all modules in the package.

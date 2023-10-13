@@ -2,7 +2,7 @@
 %global gschemadir %{_datadir}/glib-2.0/schemas
 
 Name:           gnome-shell-frippery
-Version:        44.1
+Version:        45.0
 Release:        %autorelease
 Summary:        Extensions to provide a user experience more like that of GNOME 2
 

@@ -1252,6 +1252,10 @@ fi
 %endif
 
 %changelog
+* Wed Oct 11 2022 Guinevere Larsen <blarsen@redhat.com>
+- Remove gdb-rhbz1186476-internal-error-unqualified-name-re-set-test.patch
+  as it was upstreamed back in 2010 with a different test name.
+
 * Mon Oct 2 2023 Kevin Buettner <kevinb@redhat.com> - 13.2-11
 - Backport upstream commit which prevents internal error when
   generating an overly large gdb-index file.  (RHBZ 1773651, Kevin

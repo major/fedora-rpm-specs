@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.46.2
+Version:        0.47.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -48,6 +48,10 @@ One Git library to Rule!
 
 
 %changelog
+* Wed Oct 11 2023 Packit <hello@packit.dev> - 0.47.0-1
+- Added support for removing users/groups from a project and possibility to check for groups with permissions to modify a PR. (#815)
+- Resolves rhbz#2125279
+
 * Fri Oct 06 2023 Packit <hello@packit.dev> - 0.46.2-1
 - Added missing README to package metadata.
 

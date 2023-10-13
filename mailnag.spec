@@ -1,6 +1,6 @@
 Name:           mailnag
 Version:        2.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Mail notification daemon
 
 License:        GPLv2
@@ -9,6 +9,9 @@ Source0:        https://github.com/pulb/%{name}/archive/v%{version}.tar.gz
 
 # reason for this patch filed in https://github.com/pulb/mailnag/issues/225
 Patch0:         mailnag-pingtest_w_fedora.patch
+# following patch was provided by Lalufu in #fedora-devel; many thx! backstory
+# can be found in https://github.com/pulb/mailnag/issues/245
+Patch1:         mailnag-deprecated_ssl_wrap.patch
 
 Requires:       python3
 Requires:       python3-dbus
@@ -34,6 +37,7 @@ creates a proper GNOME 3 notification that mentions sender and subject.
 %prep
 %setup -q -n mailnag-%{version}
 %patch0 -b .patch0 -p1
+%patch1 -b .patch1 -p1
 
 %build
 %py3_build
@@ -58,6 +62,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/icons/hicolor/*/apps/%{name}*png
 
 %changelog
+* Mon Oct 9 2023 Thorsten Leemhuis <fedora@leemhuis.info> - 2.2.0-13
+- Add patch to make ssl work with python 3.12
+
 * Mon Sep 25 2023 Thorsten Leemhuis <fedora@leemhuis.info> - 2.2.0-12
 - Require python3-zombie-imp
 

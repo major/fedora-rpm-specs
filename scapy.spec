@@ -1,6 +1,6 @@
 Name:           scapy
 Version:        2.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Interactive packet manipulation tool and network scanner
 
 %global         gituser         secdev
@@ -8,7 +8,7 @@ Summary:        Interactive packet manipulation tool and network scanner
 %global         commit          95ba5b8504152a1f820bbe679ccf03668cb5118f
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://www.secdev.org/projects/scapy/
 #               https://github.com/secdev/scapy/releases
 #               https://bitbucket.org/secdev/scapy/pull-request/80
@@ -110,6 +110,7 @@ Recommends:     ipython3
 %if 0%{?with_doc}
 %package doc
 Summary:        Interactive packet manipulation tool and network scanner
+License:        CC-BY-NC-SA-2.5
 
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme

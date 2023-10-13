@@ -161,7 +161,7 @@ PYTHONPATH="${BLIB}" %make_build -C docs latex \
 # Run the examples for additional confidence.
 while read -r example
 do
-  PYTHONPATH='%{buildroot}%{python3_sitearch}' '%{python3}' "${example}"
+  %{py3_test_envvars} '%{python3}' "${example}"
 done < <(
   # Skip hs071_scipy_jax.py, since it requires https://pypi.org/project/jax/,
   # which is not packaged.

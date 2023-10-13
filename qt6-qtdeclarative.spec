@@ -15,7 +15,7 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.5.3
+Version: 6.6.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -198,7 +198,7 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6PacketProtocolPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Qml
 %dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
-%dir %{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlCompiler
 %dir %{_qt6_libdir}/cmake/Qt6QmlCore
 %dir %{_qt6_libdir}/cmake/Qt6QmlDebugPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlIntegration
@@ -209,10 +209,12 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6LabsSettings
 %dir %{_qt6_libdir}/cmake/Qt6LabsSharedImage
 %dir %{_qt6_libdir}/cmake/Qt6LabsWavefrontMesh
+%dir %{_qt6_libdir}/cmake/Qt6QmlLSPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlDomPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlLocalStorage
 %dir %{_qt6_libdir}/cmake/Qt6QmlModels
 %dir %{_qt6_libdir}/cmake/Qt6QmlTools
+%dir %{_qt6_libdir}/cmake/Qt6QmlToolingSettingsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlWorkerScript
 %dir %{_qt6_libdir}/cmake/Qt6QmlTypeRegistrarPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickEffectsPrivate
@@ -259,7 +261,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6Qml/*.cpp.in
 %{_qt6_libdir}/cmake/Qt6Qml/*.qrc.in
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
-%{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlCompiler/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlCore/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlDebugPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlIntegration/*.cmake
@@ -270,10 +272,12 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6LabsSettings/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsSharedImage/*.cmake
 %{_qt6_libdir}/cmake/Qt6LabsWavefrontMesh/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlLSPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlDomPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlLocalStorage/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlModels/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlTools/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlToolingSettingsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlWorkerScript/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlTypeRegistrarPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickEffectsPrivate/*.cmake
@@ -306,6 +310,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QmlDom.a
 %{_qt6_libdir}/libQt6QmlDom.prl
 %{_qt6_libdir}/libQt6QmlLocalStorage.prl
+%{_qt6_libdir}/libQt6QmlLS.a
+%{_qt6_libdir}/libQt6QmlLS.prl
 %{_qt6_libdir}/libQt6Quick*.prl
 %{_qt6_libdir}/libQt6QmlWorkerScript.prl
 %{_qt6_libdir}/libQt6QmlModels.prl
@@ -313,6 +319,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QmlCompiler.prl
 %{_qt6_libdir}/libQt6QmlTypeRegistrar.prl
 %{_qt6_libdir}/libQt6QmlTypeRegistrar.a
+%{_qt6_libdir}/libQt6QmlToolingSettings.a
+%{_qt6_libdir}/libQt6QmlToolingSettings.prl
 %{_qt6_libdir}/libQt6PacketProtocol.a
 %{_qt6_libdir}/libQt6PacketProtocol.prl
 %{_qt6_libdir}/libQt6QuickControlsTestUtils.a
@@ -327,6 +335,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
+- 6.6.0
+
 * Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
 - new version
 
