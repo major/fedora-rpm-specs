@@ -117,6 +117,8 @@ Patch0018: 0018-OvmfPkg-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
 Patch0019: 0019-OvmfPkg-AmdSev-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
 Patch0020: 0020-OvmfPkg-AmdSev-fix-BdsPlatform.c-assertion-failure-d.patch
 Patch0021: 0021-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
+Patch0022: 0022-debug-add-logging-for-cpuid-topology.patch
+Patch0023: 0023-UefiCpuPkg-BaseXApicX2ApicLib-fix-CPUID_V2_EXTENDED_.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -387,6 +389,7 @@ virt-fw-vars --input   RHEL-9/ovmf/OVMF_VARS.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
 build_iso RHEL-9/ovmf
+cp DBXUpdate-%{DBXDATE}.x64.bin RHEL-9/ovmf
 
 %else
 
@@ -406,6 +409,8 @@ virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
              --enroll-redhat --secure-boot
 build_iso Fedora/ovmf
 build_iso Fedora/ovmf-ia32
+cp DBXUpdate-%{DBXDATE}.x64.bin Fedora/ovmf
+cp DBXUpdate-%{DBXDATE}.ia32.bin Fedora/ovmf-ia32
 
 for raw in */ovmf/*_4M*.fd; do
     qcow2="${raw%.fd}.qcow2"
@@ -622,6 +627,7 @@ done
 %{_datadir}/%{name}/ovmf/UefiShell.iso
 %{_datadir}/%{name}/ovmf/Shell.efi
 %{_datadir}/%{name}/ovmf/EnrollDefaultKeys.efi
+%{_datadir}/%{name}/ovmf/DBXUpdate*.bin
 %{_datadir}/qemu/firmware/30-edk2-ovmf-4m-qcow2-x64-sb-enrolled.json
 %{_datadir}/qemu/firmware/31-edk2-ovmf-2m-raw-x64-sb-enrolled.json
 %{_datadir}/qemu/firmware/40-edk2-ovmf-4m-qcow2-x64-sb.json
@@ -703,6 +709,7 @@ done
 %{_datadir}/%{name}/ovmf-ia32/OVMF_VARS.secboot.fd
 %{_datadir}/%{name}/ovmf-ia32/Shell.efi
 %{_datadir}/%{name}/ovmf-ia32/UefiShell.iso
+%{_datadir}/%{name}/ovmf-ia32/DBXUpdate*.bin
 %{_datadir}/qemu/firmware/30-edk2-ovmf-ia32-sb-enrolled.json
 %{_datadir}/qemu/firmware/40-edk2-ovmf-ia32-sb.json
 %{_datadir}/qemu/firmware/50-edk2-ovmf-ia32-nosb.json

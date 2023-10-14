@@ -2,10 +2,12 @@
 %bcond_without check
 # storj backend has fragile dependencies
 %bcond_with storj
+# protondrive backend introduces many new deps
+%bcond_with protondrive
 
 # https://github.com/rclone/rclone
 %global goipath         github.com/rclone/rclone
-Version:                1.63.1
+Version:                1.64.0
 
 %gometa -f
 
@@ -35,6 +37,10 @@ sed -i "s|github.com/putdotio/go-putio/putio|github.com/putdotio/go-putio|" $(fi
 %if %{without storj}
 sed  '/storj/d' -i backend/all/all.go
 rm -rf backend/storj
+%endif
+%if %{without protondrive}
+sed  '/protondrive/d' -i backend/all/all.go
+rm -rf backend/protondrive
 %endif
 
 %generate_buildrequires

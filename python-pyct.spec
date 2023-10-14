@@ -108,8 +108,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 %pytest
 (
   set -o errexit
-  export PATH="%{buildroot}%{_bindir}:${PATH}"
-  export PYTHONPATH='%{buildroot}%{python3_sitelib}'
+  export %{py3_test_envvars}
   %{python3} -c "import pyct; pyct.report('pyct','python','system')"
   # _build_examples
   %{python3} -c "from pyct.build import examples, get_setup_version"

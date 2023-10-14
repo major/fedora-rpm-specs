@@ -1,7 +1,7 @@
 %global pypi_name ephem
 
 Name:           python-%{pypi_name}
-Version:        4.1.4
+Version:        4.1.5
 Release:        1%{?dist}
 Summary:        Compute positions of the planets and stars
 
@@ -11,8 +11,6 @@ Source0:        %{pypi_source}
 # Build libastro with -Wl,-Bsymbolic, to prevent symbol collision with range from netcdf
 # https://stackoverflow.com/questions/6538501/linking-two-shared-libraries-with-some-of-the-same-symbols
 Patch0:         ephem_bsymbolic.patch
-# Proposed patch for python >= 3.12 support
-Patch1:         https://github.com/brandon-rhodes/pyephem/pull/259.patch
 
 BuildRequires:  gcc
 
@@ -79,6 +77,9 @@ rm -rf %{buildroot}%{python3_sitearch}/%{pypi_name}/{.benchmarks,.hypothesis,.py
 %license LICENSE
 
 %changelog
+* Thu Oct 12 2023 Sandro Mani <manisandro@gmail.com> - 4.1.5-1
+- Update to 4.1.5
+
 * Mon Sep 04 2023 Sandro Mani <manisandro@gmail.com> - 4.1.4-1
 - Update to 4.1.4
 

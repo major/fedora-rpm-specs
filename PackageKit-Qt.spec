@@ -4,7 +4,7 @@
 Summary:   Qt support library for PackageKit
 Name:      PackageKit-Qt
 Version:   1.1.1
-Release:   2%{?dist}
+Release:   3%{?dist}
 
 License:   LGPLv2+
 URL:       http://www.packagekit.org/
@@ -16,6 +16,8 @@ Patch0:    offline-ask-authorization.patch
 Patch1:    set-hints-before-transaction.patch
 
 BuildRequires: cmake
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Sql)
 BuildRequires: cmake(Qt5DBus)
 BuildRequires: cmake(Qt5Sql)
 BuildRequires: gcc-c++
@@ -43,22 +45,46 @@ Requires: PackageKit-Qt5%{?_isa} = %{version}-%{release}
 %description -n PackageKit-Qt5-devel
 %{summary}.
 
+%package -n PackageKit-Qt6
+Summary: Qt6 support library for PackageKit
+Recommends: PackageKit
+%description -n PackageKit-Qt6
+%{summary}.
+
+%package -n PackageKit-Qt6-devel
+Summary: Development files for PackageKit-Qt6
+Requires: PackageKit-Qt6%{?_isa} = %{version}-%{release}
+%description -n PackageKit-Qt6-devel
+%{summary}.
+
 
 %prep
 %autosetup -p1
 
 
 %build
-%cmake
-
+mkdir -p pkqt6
+pushd pkqt6
+%cmake -S .. -DBUILD_WITH_QT6=ON
 %cmake_build
+popd
+
+mkdir -p pkqt5
+pushd pkqt5
+%cmake -S .. -DBUILD_WITH_QT6=OFF
+%cmake_build
+popd
 
 
 %install
+pushd pkqt6
 %cmake_install
+popd
 
+pushd pkqt5
+%cmake_install
+popd
 
-%ldconfig_scriptlets -n PackageKit-Qt5
 
 %files -n PackageKit-Qt5
 %doc AUTHORS NEWS
@@ -73,8 +99,24 @@ Requires: PackageKit-Qt5%{?_isa} = %{version}-%{release}
 %dir %{_libdir}/cmake
 %{_libdir}/cmake/packagekitqt5/
 
+%files -n PackageKit-Qt6
+%doc AUTHORS NEWS
+%license COPYING
+%{_libdir}/libpackagekitqt6.so.%{version}
+%{_libdir}/libpackagekitqt6.so.1
+
+%files -n PackageKit-Qt6-devel
+%{_libdir}/libpackagekitqt6.so
+%{_libdir}/pkgconfig/packagekitqt6.pc
+%{_includedir}/packagekitqt6/
+%dir %{_libdir}/cmake
+%{_libdir}/cmake/packagekitqt6/
+
 
 %changelog
+* Thu Oct 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.1.1-3
+- Add PackageKit-Qt6 build
+
 * Sat Jul 22 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.1-2
 - Backport fixes for Discover distro upgrade
 

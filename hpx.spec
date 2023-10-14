@@ -1,11 +1,11 @@
 Name:           hpx
-Version:        1.8.1
-Release:        5%{?dist}
+Version:        1.9.1
+Release:        1%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
 Source0:        https://github.com/STEllAR-GROUP/hpx/archive/%{version}/%{name}-%{version}.tar.gz
-Patch:          https://patch-diff.githubusercontent.com/raw/STEllAR-GROUP/hpx/pull/6166.patch
+Patch:          https://patch-diff.githubusercontent.com/raw/STEllAR-GROUP/hpx/pull/6362.patch
 
 BuildRequires:  gcc-c++ >= 4.9
 BuildRequires:  gperftools-devel
@@ -273,6 +273,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Tue Oct 10 2023 Patrick Diehl <me@diehlpk.de> - 1.9.1-1
+- Bump to HPX 1.9.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

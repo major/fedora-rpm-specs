@@ -3,16 +3,18 @@
 
 Name: libabigail
 Version: 2.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Set of ABI analysis tools
 
-License: ASL 2.0
+License: Apache 2.0 WITH LLVM-exception
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
 # fix configure for removal of 'imp' in Python 3.12; code already fixed
 # https://sourceware.org/pipermail/libabigail/2023q3/005581.html
 Patch0: 0001-Fix-fedabipkgdiff-configure-check-for-Python-3.12.patch
-
+# Fix compilation warning with GCC 13.  This is fixed upstream by
+# https://inbox.sourceware.org/libabigail/87fs2goyz4.fsf@redhat.com/
+Patch1: 0001-ir-Remove-redundant-virtual-member-functions.patch
 
 BuildRequires: binutils-devel
 BuildRequires: gcc-c++
@@ -163,6 +165,10 @@ fi
 %endif
 
 %changelog
+* Thu Oct 12 2023 Dodji Seketeli <dodji@redhat.com> - 2.3-3
+- Use the SPDX format to express the license of the package
+- Fix a compilation warning
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

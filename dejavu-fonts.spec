@@ -14,11 +14,11 @@ Version: 2.37
 
 %global source_name dejavu-fonts
 
-Release: 20%{?dist}
+Release: 21%{?dist}
 # original bitstream glyphs are Bitstream Vera
 # glyphs modifications by dejavu project are Public Domain
 # glyphs imported from Arev fonts are under BitStream Vera compatible license
-License: Bitstream Vera and Public Domain
+License: Bitstream-Vera AND LicenseRef-Fedora-Public-Domain
 URL:     https://dejavu-fonts.github.io/
 
 %global common_description %{expand:
@@ -182,6 +182,9 @@ make check
 %doc *.txt.xz
 
 %changelog
+* Thu Oct 12 2023 Akira TAGOH <tagoh@redhat.com> - 2.37-21
+- Convert License tag to SPDX.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

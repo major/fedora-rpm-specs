@@ -76,8 +76,7 @@ Requires:       /usr/bin/pip
 
 %check
 %if %{with tests}
-PYTHONPATH='%{buildroot}%{python3_sitelib}' \
-    '%{python3}' -m unittest -v tests.py
+%{py3_test_envvars} '%{python3}' -m unittest -v tests.py
 %else
 %pyproject_check_import
 %endif

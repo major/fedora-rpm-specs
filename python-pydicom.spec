@@ -18,12 +18,12 @@ data cannot easily be modified.
 Documentation is available at https://pydicom.github.io/pydicom}
 
 Name:           python-pydicom
-Version:        2.4.1
+Version:        2.4.3
 Release:        %autorelease
 Summary:        Read, modify and write DICOM files with python code
 
-# There are generated data (private dict) in special format from GDCM
-License:        MIT and BSD
+# There are generated data (private dict) in special format from GDCM (see License file)
+License:        MIT and BSD-3-Clause
 URL:            https://github.com/darcymason/pydicom
 Source0:        %{url}/archive/v%{version}/pydicom-%{version}.tar.gz
 

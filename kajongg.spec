@@ -6,7 +6,7 @@
 
 Name:    kajongg
 Summary: Classical Mah Jongg game for four players
-Version: 23.08.1
+Version: 23.08.2
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND GFDL-1.1-or-later
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

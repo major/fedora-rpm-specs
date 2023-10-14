@@ -2,7 +2,7 @@
 %global modname openapi_spec_validator
 
 Name:           python-%{srcname}
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Python library for OpenAPI specs validation
 

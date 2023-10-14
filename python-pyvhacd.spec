@@ -60,8 +60,7 @@ rm -v src/pyVHACD/VHACD.h
 %check
 # The “test” extra brings in pytest, but upstream never used it (and the tests
 # are not written in a style compatible with pytest as a runner).
-PYTHONPATH='%{buildroot}%{python3_sitearch}' PYTHONDONTWRITEBYTECODE=1 \
-    %{python3} ./tests/test.py
+%{py3_test_envvars} %{python3} ./tests/test.py
 
 
 %files -n python3-pyvhacd -f %{pyproject_files}

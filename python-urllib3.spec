@@ -1,14 +1,16 @@
 # When bootstrapping Python, we cannot test this yet
-# RHEL does not include the test dependencies
+# RHEL does not include the test dependencies and the dependencies for extras 
 %if 0%{?rhel}
 %bcond_with tests
+%bcond_with extras
 %else
 %bcond_without tests
+%bcond_without extras
 %endif
 
 Name:           python-urllib3
 Version:        1.26.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
 # SPDX
@@ -76,18 +78,22 @@ Requires:       %{py3_dist idna}
 # grep __version__ src/urllib3/packages/six.py
 Provides:       bundled(python3dist(six)) = 1.16.0
 
+%if %{with extras}
 # There has historically been a manual hard dependency on python3-pysocks;
-# since bringing it in is the sole function of python3-urllib3+socks, we just
-# depend on that instead.
-Requires:       python3-urllib3+socks = %{version}-%{release}
+# since bringing it in is the sole function of python3-urllib3+socks,
+# we recommend it, so it is installed by default.
+Recommends:     python3-urllib3+socks
+%endif
 
 %description -n python3-urllib3 %{_description}
 
 
+%if %{with extras}
 # We do NOT package the “secure” extra because it is deprecated; see:
 # “Deprecate the pyOpenSSL TLS implementation and [secure] extra”
 # https://github.com/urllib3/urllib3/issues/2680
 %pyproject_extras_subpkg -n python3-urllib3 brotli socks
+%endif
 
 
 %prep
@@ -119,7 +125,7 @@ sed -i -e 's/^import mock/from unittest import mock/' \
 %generate_buildrequires
 # Generate BR’s from packaged extras even when tests are disabled, to ensure
 # the extras metapackages are installable if the build succeeds.
-%pyproject_buildrequires -x brotli,socks
+%pyproject_buildrequires %{?with_extras:-x brotli,socks}
 
 
 %build
@@ -132,8 +138,16 @@ sed -i -e 's/^import mock/from unittest import mock/' \
 %pyproject_save_files urllib3
 
 
-%if %{with tests}
 %check
+# urllib3.contrib.socks requires urllib3[socks]
+# urllib3.contrib.ntlmpool is deprecated and requires ntlm
+# urllib3.contrib.securetransport is macOS only
+# urllib3.contrib.pyopenssl requires urllib3[secure]
+%{pyproject_check_import %{!?with_extras:-e urllib3.contrib.socks}
+                         -e urllib3.contrib.ntlmpool
+                         -e urllib3.contrib.securetransport
+                         -e urllib3.contrib.pyopenssl}
+%if %{with tests}
 # Drop the dummyserver tests in koji.  They fail there in real builds, but not
 # in scratch builds (weird).
 ignore="${ignore-} --ignore=test/with_dummyserver/"
@@ -154,6 +168,9 @@ ignore="${ignore-} --ignore=test/test_no_ssl.py"
 
 
 %changelog
+* Mon Oct 09 2023 Miro Hrončok <mhroncok@redhat.com> - 1.26.17-2
+- Switch the hardcoded dependency on urllib3[socks] to a weak one
+
 * Mon Oct 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.26.17-1
 - Update to 1.26.17: fix CVE-2023-43804 (GHSA-v845-jxx5-vc9f)
 

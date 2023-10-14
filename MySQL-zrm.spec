@@ -1,6 +1,6 @@
 Name:           MySQL-zrm
 Version:        3.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        MySQL backup manager
 
 License:        GPLv2
@@ -33,7 +33,7 @@ BuildRequires:  perl-generators
 BuildRequires:  systemd
 
 Requires:       logrotate
-Requires:       mailx
+Requires:       /usr/bin/mail
 Requires:       perl(DBI)
 Requires:       perl(XML::Parser)
 Requires:       perl(Data::Report) >= 0.05 
@@ -130,6 +130,9 @@ chmod 640 %{buildroot}%{_sysconfdir}/mysql-zrm/mysql-zrm.conf
 
 
 %changelog
+* Thu Oct 12 2023 Orion Poplawski <orion@nwra.com> - 3.0-37
+- Require /usr/bin/mail instead of mailx
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

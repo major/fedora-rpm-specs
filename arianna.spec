@@ -1,12 +1,12 @@
 Name:          arianna
-Version:       1.1.0
-Release:       2%{?dist}
+Version:       23.08.2
+Release:       1%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
 License:       GPLv3
 URL:           https://invent.kde.org/graphics/%{name}
 
-Source:        https://invent.kde.org/graphics/arianna/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0:       http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: kf5-rpm-macros
 BuildRequires: extra-cmake-modules
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ar
 %{_datadir}/qlogging-categories5/arianna.categories
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

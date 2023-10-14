@@ -40,15 +40,19 @@ suggestions are highly appreciated. A list of issues is located at
 https://github.com/uqfoundation/pathos/issues, with a legacy list maintained at
 https://uqfoundation.github.io/project/pathos/query.}
 
+%global forgeurl https://github.com/uqfoundation/pathos/
+
 Name:           python-pathos
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Parallel graph management and execution in heterogeneous computing
 
+%global tag pathos-%{version}
+%forgemeta
 
 License:        BSD
-URL:            https://pypi.org/pypi/pathos
-Source0:        %{pypi_source pathos}
+URL:            %forgeurl
+Source0:        %forgesource
 BuildArch:      noarch
 
 %description %_description
@@ -67,7 +71,7 @@ Summary:        Documentation for %{name}
 This package includes examples for %{name}.
 
 %prep
-%autosetup -n pathos-%{version}
+%forgesetup
 
 # remove shebang
 find . -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/d' '{}' \;

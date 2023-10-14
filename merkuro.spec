@@ -1,5 +1,5 @@
 Name:		merkuro
-Version:	23.08.1
+Version:	23.08.2
 Release:	1%{?dist}
 Summary:	A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
@@ -114,5 +114,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_datadir}/qlogging-categories5/merkuro.contact.categories
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Steve Cossette <farchord@gmail.com> - 23.08.1-1
 - Initial Release

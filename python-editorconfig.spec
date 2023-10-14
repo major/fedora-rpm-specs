@@ -90,7 +90,7 @@ rm -vf '%{buildroot}%{_bindir}/editorconfig'
 
 
 %check
-export PYTHONPATH='%{buildroot}%{python3_sitelib}'
+export %{py3_test_envvars}
 %ctest
 
 

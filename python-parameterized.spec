@@ -59,10 +59,9 @@ sed -r -i 's/assert_equal\(missing/# &/' parameterized/test.py
 
 
 %check
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
-%{python3} -m nose2 -v
+%{py3_test_envvars} %{python3} -m nose2 -v
 %pytest parameterized/test.py
-%{python3} -m unittest -v parameterized.test
+%{py3_test_envvars} %{python3} -m unittest -v parameterized.test
 
 
 %files -n python3-parameterized -f %{pyproject_files}

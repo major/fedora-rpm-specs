@@ -12,12 +12,12 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi 84d79120b6d17b11819a663a93160743f293e63f
-%global vrt 17.0
+%global abi d5a5aa9cc879320840ca467ddbb7df0f99c9ba0f
+%global vrt 18.0
 
 # Package scripts are now external
 # https://github.com/varnishcache/pkg-varnish-cache
-%global commit1 712667312304cbb1798f131caa0a98b7697a2cd9
+%global commit1 cfa8cb3724e4ca6398f60b09157715bcb99d189d
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 # Default: Use jemalloc, as adviced by upstream project
@@ -36,8 +36,8 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 7.3.0
-Release: 5%{?dist}
+Version: 7.4.1
+Release: 1%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
@@ -235,7 +235,7 @@ install -D -m 0644 redhat/varnish.service %{buildroot}%{_unitdir}/varnish.servic
 install -D -m 0644 redhat/varnishncsa.service %{buildroot}%{_unitdir}/varnishncsa.service
 install -D -m 0755 redhat/varnishreload %{buildroot}%{_sbindir}/varnishreload
 
-echo %{_libdir}/varnish > %{buildroot}%{_sysconfdir}/ld.so.conf.d/varnish-%{_arch}.conf
+echo %{_libdir}/varnish > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 # No idea why these ends up with mode 600 in the debug package
 %if 0%{debug_package}
@@ -259,7 +259,7 @@ chmod 644 lib/libvmod_*/*.h
 %dir %{_sysconfdir}/varnish/
 %config(noreplace) %{_sysconfdir}/varnish/default.vcl
 %config(noreplace) %{_sysconfdir}/logrotate.d/varnish
-%config %{_sysconfdir}/ld.so.conf.d/varnish-%{_arch}.conf
+%config %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 
 %{_unitdir}/varnish.service
@@ -303,6 +303,12 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu Oct 12 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.4.1-1
+- New upstream release. A bugfix release
+
+* Wed Oct 11 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.4.0-0
+- New upstream release
+
 * Thu Sep 14 2023 Luboš Uhliarik <luhliari@redhat.com> - 7.3.0-5
 - SPDX migration
 

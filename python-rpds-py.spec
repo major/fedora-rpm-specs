@@ -2,16 +2,13 @@
 %global modname rpds_py
 
 Name:           python-rpds-py
-Version:        0.9.2
+Version:        0.10.6
 Release:        %autorelease
 Summary:        Python bindings to the Rust rpds crate
 # Full license breakdown in LICENSES.dependencies
 License:        MIT AND Apache-2.0 AND (MIT OR Apache-2.0) AND MPL-2.0
 URL:            https://github.com/crate-py/rpds
 Source:         %{pypi_source %{modname}}
-
-# Bump archery and rpds dependencies to v1.0.0
-Patch:          bump-dependencies.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  dos2unix
@@ -33,13 +30,6 @@ Summary:        %{summary}
 
 # Fix line terminations
 dos2unix README* LICENSE* *.pyi
-
-# Remove an unused test dependency on hypothesis
-# Namely to avoid pulling it in RHEL,
-# but also to avoid an unnecessary build dependency in general
-# Proposed upstream as https://github.com/crate-py/rpds/pull/25
-# The patch does not apply cleanly, we sed it out instead
-sed -i '/hypothesis/d' tests/requirements.in
 
 %cargo_prep
 

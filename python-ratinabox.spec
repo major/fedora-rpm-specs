@@ -1,12 +1,11 @@
 # Not yet packaged: python3dist(pettingzoo)
 %bcond gymnasium 0
-# PyTorch is not yet packaged, and since it is normally used with (and compiled
-# using) the non-free CUDA SDK, it might never be packaged. On the other hand,
-# see https://www.fedoraproject.org/wiki/SIGs/PyTorch.
+# PyTorch is not yet packaged. See:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2242971
 %bcond torch 0
 
 Name:           python-ratinabox
-Version:        1.9.3
+Version:        1.10.0
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 

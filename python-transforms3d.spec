@@ -69,7 +69,7 @@ Summary:        Documentation and examples for transforms3d
 %if %{with doc_pdf}
 # Note that doc/Makefile is customized rather than taken directly from
 # sphinx-quickstart output.
-PYTHONPATH="%{pyproject_build_lib}" %make_build -C doc pdf \
+PYTHONPATH="${PWD}/build/lib" %make_build -C doc pdf \
     SPHINXOPTS='%{?_smp_mflags}' PYTHON='%{python3}' LATEXMKOPTS='-quiet'
 %endif
 

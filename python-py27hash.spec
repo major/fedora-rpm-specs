@@ -60,10 +60,12 @@ BuildArch:      noarch
 SRC_DIR='%{buildroot}%{python3_sitelib}'
 TEST_DIR="${PWD}/test/python"
 
+# The %%{py3_test_envvars} macro adds to the PATH we set here. For PYTHONPATH,
+# when it finds it already set, it does not override or adjust it.
 export PYTHONPATH="${SRC_DIR}:${TEST_DIR}"
 export PATH="${TEST_DIR}:${PATH}"
 export SKIPSLOW='%{?!with_slow_tests:skipslow}'
-%{python3} -m unittest discover -v -s "${TEST_DIR}"
+%{py3_test_envvars} %{python3} -m unittest discover -v -s "${TEST_DIR}"
 
 
 %files -n python3-py27hash -f %{pyproject_files}

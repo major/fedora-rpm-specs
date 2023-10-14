@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
-Version:       4.1.4
+Version:       4.1.5
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -72,6 +72,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Thu Oct 12 2023 Sandro Mani <manisandro@gmail.com> - 4.1.5-1
+- Update to 4.1.5
+
 * Mon Sep 04 2023 Sandro Mani <manisandro@gmail.com> - 4.1.4-1
 - Update to 4.1.4
 

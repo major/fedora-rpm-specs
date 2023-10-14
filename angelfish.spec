@@ -1,5 +1,5 @@
 Name:           angelfish
-Version:        23.08.1
+Version:        23.08.2
 Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Thu Oct 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.08.1-1
 - 23.08.1
 

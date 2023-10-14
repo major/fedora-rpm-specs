@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-157-g1056e5b4c3
+%global glibcsrcdir glibc-2.38.9000-170-g69239bd7a2
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 12
+%global baserelease 13
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,7 +230,6 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-disable-werror-tst-realloc.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2199,6 +2198,24 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Oct 12 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-13
+- Drop glibc-disable-werror-tst-realloc.patch, GCC was fixed long ago.
+- Auto-sync with upstream branch master,
+  commit 69239bd7a216007692470aa9d5f3658024638742:
+- stdlib: fix grouping verification with multi-byte thousands separator (bug 30964)
+- build-many-glibcs: Check for required system tools
+- x86: Prepare `strrchr-evex` and `strrchr-evex512` for AVX10
+- aarch64: Optimise vecmath logs
+- aarch64: Cosmetic change in SVE exp routines
+- aarch64: Optimize SVE cos & cosf
+- aarch64: Improve vecmath sin routines
+- nss: Get rid of alloca usage in makedb's write_output.
+- debug: Add regression tests for BZ 30932
+- Fix FORTIFY_SOURCE false positive
+- nss: Rearrange and sort Makefile variables
+- inet: Rearrange and sort Makefile variables
+- Fix off-by-one OOB write in iconv/tst-iconv-mt
+
 * Tue Oct 03 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-12
 - Auto-sync with upstream branch master,
   1056e5b4c3f2d90ed2b4a55f96add28da2f4c8fa:

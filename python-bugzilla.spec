@@ -1,17 +1,19 @@
 Name:           python-bugzilla
 Version:        3.2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library for interacting with Bugzilla
 
 License:        GPLv2+
 URL:            https://github.com/python-bugzilla/python-bugzilla
 Source0:        https://github.com/python-bugzilla/python-bugzilla/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/python-bugzilla/python-bugzilla/pull/190
+# Allows setting blocks/depends via aliases, not just IDs
+Patch0:         0001-build_update-don-t-convert-blocks-or-depends-to-int.patch
 BuildArch:      noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3-requests
-BuildRequires: python3-setuptools
-BuildRequires: python3-pytest
+# tests need to be able to set en_US.UTF-8 locale
+BuildRequires: glibc-langpack-en
 
 %global _description\
 python-bugzilla is a python library for interacting with bugzilla instances\
@@ -41,23 +43,33 @@ This package includes the 'bugzilla' command-line tool for interacting with bugz
 
 
 %prep
-%setup -q
+%autosetup -p1
+
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
+
+
+%build
+%pyproject_wheel
 
 
 
 %install
-%{__python3} setup.py install -O1 --root %{buildroot}
-
+%pyproject_install
+%pyproject_save_files bugzilla
 
 
 %check
-pytest-3
+%tox
 
 
 
-%files -n python3-bugzilla
-%doc COPYING README.md NEWS.md
-%{python3_sitelib}/*
+%files -n python3-bugzilla -f %{pyproject_files}
+%doc README.md NEWS.md
+
 
 %files cli
 %{_bindir}/bugzilla
@@ -65,6 +77,9 @@ pytest-3
 
 
 %changelog
+* Thu Oct 12 2023 Adam Williamson <awilliam@redhat.com> - 3.2.0-8
+- Backport PR #190 to allow settings blocks/depends as strings (e.g. aliases)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

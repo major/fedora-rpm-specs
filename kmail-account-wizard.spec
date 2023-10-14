@@ -9,8 +9,8 @@
 
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 23.08.1
-Release: 2%{?dist}
+Version: 23.08.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/pim/%{name}
@@ -129,6 +129,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
 - Update dependencies
 

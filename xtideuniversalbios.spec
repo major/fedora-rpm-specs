@@ -1,5 +1,5 @@
-%global date 20221002
-%global revision 624
+%global date 20230219
+%global revision 625
 
 Name:           xtideuniversalbios
 Version:        2.0.0^%{date}svn%{revision}

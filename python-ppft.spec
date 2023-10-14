@@ -16,14 +16,20 @@ suggestions are highly appreciated. A list of issues is located at
 https://github.com/uqfoundation/ppft/issues, with a legacy list maintained at
 https://uqfoundation.github.io/project/pathos/query.}
 
+
+%global forgeurl https://github.com/uqfoundation/ppft/
+
 Name:           python-ppft
-Version:        1.7.6.6
+Version:        1.7.6.7
 Release:        %autorelease
 Summary:        Distributed and parallel python
 
+%global tag ppft-%{version}
+%forgemeta
+
 License:        BSD
-URL:            https://pypi.org/pypi/ppft
-Source0:        %{pypi_source ppft}
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 
@@ -51,10 +57,12 @@ Summary:        Documentation for %{name}
 This package provides documentation for %{name}.
 
 %prep
-%autosetup -n ppft-%{version}
+%forgesetup
 
 # remove shebangs
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
+
+chmod -x ppft/tests/*.py
 
 
 %generate_buildrequires
@@ -65,6 +73,8 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 
 %install
 %pyproject_install
+# generated during build so must be cleaned up here
+sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' %{buildroot}%{python3_sitelib}/ppft/__info__.py
 %pyproject_save_files ppft pp
 
 %check

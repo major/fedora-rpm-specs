@@ -1,11 +1,11 @@
 Name:       fonttosfnt
-Version:    1.2.2
-Release:    7%{?dist}
+Version:    1.2.3
+Release:    1%{?dist}
 Summary:    Tool to wrap bdf or pcf bitmap fonts in an sfnt wrapper
 
 License:    MIT
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc make libtool
 BuildRequires:  pkgconfig(fontenc)
@@ -35,6 +35,9 @@ OpenType) wrapper.
 %{_mandir}/man1/fonttosfnt.1*
 
 %changelog
+* Fri Oct 13 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.3-1
+- fonttosfnt 1.2.3
+
 * Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 1.2.2-7
 - Mark this as SPDX license expression converted
 

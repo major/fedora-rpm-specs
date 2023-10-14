@@ -1,14 +1,8 @@
 Name:           rpminspect
-Version:        1.11
-Release:        4%{?dist}
-Summary:        Build deviation compliance tool
+Version:        1.12.1
+Release:        1%{?dist}
+Summary:        Build deviation analysis and compliance tool
 Group:          Development/Tools
-# librpminspect is licensed under the LGPLv3+, but 5 source files in
-# the library are from an Apache 2.0 licensed project.  The
-# rpminspect(1) command line tool is licensed under the GPLv3+.  And
-# the rpminspect-data-generic package is licensed under the CC-BY-4.0
-# license.
-
 # librpminspect is licensed under the LGPL-3.0-or-later, and:
 # * 5 source files in the library are from an Apache-2.0 licensed
 #   project
@@ -30,8 +24,6 @@ URL:            https://github.com/rpminspect/rpminspect
 Source0:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:        gpgkey-62977BB9C841B965.gpg
-Patch0:         rpminspect-1.11-use-RPMTAG_NOT_FOUND-macro.patch
-Patch1:         rpminspect-1.11-xmlSetGenericErrorFunc.patch
 Requires:       librpminspect%{?_isa} = %{version}-%{release}
 
 BuildRequires:  meson
@@ -116,21 +108,22 @@ Requires:       rc
 Requires:       bash
 %endif
 
-# The annocheck program is used by the annocheck inspection.  If it is
-# not present, you can disable the annocheck inspection.
-%if 0%{?rhel} >= 8 || 0%{?epel} >= 8 || 0%{?fedora}
-Recommends:     /usr/bin/annocheck
-%else
-Requires:       /usr/bin/annocheck
-%endif
-
 # The abidiff and kmidiff inspections require a external executable by
 # the same name, as provided by libabigail.  If it is not present on
 # the system, you can disable the relevant inspections.
 %if 0%{?rhel} >= 8 || 0%{?epel} >= 8 || 0%{?fedora}
-Recommends:     libabigail >= 2.1
+Recommends:     libabigail >= 2.3
 %else
-Requires:       libabigail >= 2.1
+Requires:       libabigail >= 2.3
+%endif
+
+# The udevrules inspection requires an external executable (udevadm verify)
+# provided by systemd-udev.  If the installed udevadm executable does not
+# provide 'verify' command, the udevrules inspection is skipped.
+%if 0%{?rhel} >= 8 || 0%{?epel} >= 8 || 0%{?fedora}
+Recommends:     systemd-udev
+%else
+Requires:       systemd-udev
 %endif
 
 %description -n librpminspect
@@ -162,7 +155,7 @@ control files.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+%autosetup
 
 
 %build
@@ -199,6 +192,12 @@ control files.
 
 
 %changelog
+* Thu Oct 12 2023 David Cantrell <dcantrell@redhat.com> - 1.12.1-1
+- Upgrade to rpminspect-1.12.1
+
+* Thu Oct 12 2023 David Cantrell <dcantrell@redhat.com> - 1.12-1
+- Upgrade to rpminspect-1.12
+
 * Thu Sep 14 2023 Stephen Gallagher <sgallagh@redhat.com> - 1.11-4
 - Use rpm_macro(autorelease) for %%rpmautorelease dependency
 

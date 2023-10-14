@@ -1,5 +1,5 @@
 Name:           kpublictransport
-Version:        23.08.1
+Version:        23.08.2
 Release:        1%{?dist}
 License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
 Summary:        Library to assist with accessing public transport timetables and other data
@@ -56,6 +56,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf5_libdir}/*.so
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

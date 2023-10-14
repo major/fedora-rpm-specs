@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.96.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -86,10 +86,8 @@ BuildRequires: libICE-devel
 BuildRequires: libXpm-devel
 BuildRequires: libXt-devel
 BuildRequires: perl(ExtUtils::Embed)
-# mariadb-devel for mariadb pkgconfig
 BuildRequires: systemd-units
 BuildRequires: libgsasl-devel
-BuildRequires: mariadb-devel
 # Workaround for NIS removal from glibc, bug 1534920
 BuildRequires: libnsl2-devel
 BuildRequires: libtirpc-devel
@@ -503,6 +501,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Thu Oct 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96.1-2
+- Build against the 'mariadb-connector-c-devel' package (patch by mschorm)
+  Resolves: rhbz#2241091
+
 * Mon Oct  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96.1-1
 - New version
   Resolves: rhbz#2241735

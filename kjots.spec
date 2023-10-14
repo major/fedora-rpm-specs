@@ -2,8 +2,8 @@
 
 Name:           kjots
 Summary:        KDE Notes application
-Version:        5.1.1
-Release:        3%{?dist}
+Version:        23.08.2
+Release:        1%{?dist}
 License:        GPLv2
 URL:            https://userbase.kde.org/KJots
 
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.1.1-3
 - Rebuild against ktextaddons 1.5.1
 

@@ -1,45 +1,27 @@
-%if 0%{?_module_build} || 0%{?rhel}
-# Don't run tests on module-build for now
-# See: https://bugzilla.redhat.com/show_bug.cgi?id=1450608
-# RHEL does not include the test dependencies
-%bcond_with tests
-%else
 # When bootstrapping Python, we cannot test this yet
-%bcond_without tests
-%endif
-
+# RHEL does not include the test dependencies
+%bcond tests    %{undefined rhel}
+# The extras are disabled on RHEL to avoid pysocks and deprecated requests[security]
+%bcond extras   %{undefined rhel}
 
 Name:           python-requests
 Version:        2.28.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        Apache-2.0
 URL:            https://pypi.io/project/requests
-Source0:        https://github.com/requests/requests/archive/v%{version}/requests-v%{version}.tar.gz
+Source:         https://github.com/requests/requests/archive/v%{version}/requests-v%{version}.tar.gz
+
 # Explicitly use the system certificates in ca-certificates.
 # https://bugzilla.redhat.com/show_bug.cgi?id=904614
-Patch0:         system-certs.patch
+Patch:          system-certs.patch
 
 # Security fix for CVE-2023-32681
-Patch1:         https://github.com/psf/requests/commit/74ea7cf7a6.patch#/CVE-2023-32681.patch
+Patch:          https://github.com/psf/requests/commit/74ea7cf7a6.patch#/CVE-2023-32681.patch
 
 BuildArch:      noarch
-
-%description
-Most existing Python modules for sending HTTP requests are extremely verbose and
-cumbersome. Python’s built-in urllib2 module provides most of the HTTP
-capabilities you should need, but the API is thoroughly broken. This library is
-designed to make HTTP requests easy for developers.
-
-%package -n python%{python3_pkgversion}-requests
-Summary: HTTP library, written in Python, for human beings
-
-%{?python_provide:%python_provide python%{python3_pkgversion}-requests}
-
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  pyproject-rpm-macros
-
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-httpbin)
@@ -47,6 +29,15 @@ BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(trustme)
 %endif
 
+%description
+Most existing Python modules for sending HTTP requests are extremely verbose and
+cumbersome. Python’s built-in urllib2 module provides most of the HTTP
+capabilities you should need, but the API is thoroughly broken. This library is
+designed to make HTTP requests easy for developers.
+
+
+%package -n python%{python3_pkgversion}-requests
+Summary:        %{summary}
 
 %description -n python%{python3_pkgversion}-requests
 Most existing Python modules for sending HTTP requests are extremely verbose and
@@ -54,14 +45,14 @@ cumbersome. Python’s built-in urllib2 module provides most of the HTTP
 capabilities you should need, but the API is thoroughly broken. This library is
 designed to make HTTP requests easy for developers.
 
+
+%if %{with extras}
 %pyproject_extras_subpkg -n python%{python3_pkgversion}-requests security socks
+%endif
+
 
 %generate_buildrequires
-%if %{with tests}
-%pyproject_buildrequires -r
-%else
-%pyproject_buildrequires
-%endif
+%pyproject_buildrequires %{?with_extras:-x security,socks}
 
 
 %prep
@@ -85,9 +76,11 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 %pyproject_save_files requests
 
 
-%if %{with tests}
 %check
-%pytest -v
+%pyproject_check_import
+%if %{with tests}
+# test_use_proxy_from_environment needs pysocks
+%pytest -v %{!?with_extras:-k "not test_use_proxy_from_environment"}
 %endif
 
 
@@ -97,6 +90,10 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Tue Oct 10 2023 Miro Hrončok <mhroncok@redhat.com> - 2.28.2-7
+- Do not package requests[security] and requests[socks] on RHEL
+- Make the package build even when urllib3 won't pull in pysocks
+
 * Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 2.28.2-6
 - Declare the license as an SPDX expression
 

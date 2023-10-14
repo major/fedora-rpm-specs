@@ -7,8 +7,8 @@
 
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 23.08.1
-Release: 2%{?dist}
+Version: 23.08.2
+Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -138,10 +138,10 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_datadir}/applications/org.kde.kalarm.desktop
 %{_kf5_datadir}/config.kcfg/kalarmconfig.kcfg
 %{_kf5_datadir}/icons/hicolor/*/apps/kalarm.*
-%{_kf5_datadir}/icons/breeze-dark/16x16/actions/show-today.svg
-%{_kf5_datadir}/icons/breeze-dark/22x22/actions/show-today.svg
-%{_kf5_datadir}/icons/breeze/16x16/actions/show-today.svg
-%{_kf5_datadir}/icons/breeze/22x22/actions/show-today.svg
+%{_kf5_datadir}/icons/breeze-dark/actions/16/show-today.svg
+%{_kf5_datadir}/icons/breeze-dark/actions/22/show-today.svg
+%{_kf5_datadir}/icons/breeze/actions/16/show-today.svg
+%{_kf5_datadir}/icons/breeze/actions/22/show-today.svg
 %{_kf5_datadir}/kalarm/
 %{_kf5_datadir}/knotifications5/kalarm.notifyrc
 %{_kf5_datadir}/kxmlgui5/kalarm/kalarmui.rc
@@ -157,6 +157,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
 - Add BuildRequires: cmake(KF5TextEditTextToSpeech)
 - Rebuild against ktextaddons 1.5.1

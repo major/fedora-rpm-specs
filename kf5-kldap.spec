@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.08.1
+Version: 23.08.2
 Release: 1%{?dist}
 Summary: The KLDAP Library
 
@@ -106,6 +106,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

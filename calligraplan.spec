@@ -48,14 +48,14 @@ BuildRequires: cmake(KF5WidgetsAddons)
 BuildRequires: cmake(KF5WindowSystem)
 BuildRequires: cmake(KF5XmlGui)
 
-BuildRequires: cmake(KF5KHtml)
+#BuildRequires: cmake(KF5KHtml)
 BuildRequires: cmake(KChart) >= 2.8
 BuildRequires: cmake(KGantt) >= 2.8
 
-BuildRequires: cmake(KF5CalendarCore)
-BuildRequires: cmake(KF5Contacts)
+#BuildRequires: cmake(KF5CalendarCore)
+#BuildRequires: cmake(KF5Contacts)
 %ifarch %{qt5_qtwebengine_arches}
-BuildRequires: cmake(KF5AkonadiContact)
+#BuildRequires: cmake(KF5AkonadiContact)
 %endif
 
 # optional

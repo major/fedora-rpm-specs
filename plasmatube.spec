@@ -1,7 +1,7 @@
 Name:           plasmatube
-Version:        23.08.1
+Version:        23.08.2
 Release:        1%{?dist}
-License:        GPLv3+ and CC0 and CC-BY-SA
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 Summary:        YouTube video player based on QtMultimedia and youtube-dl
 Url:            https://apps.kde.org/plasmatube/
 Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
@@ -53,6 +53,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.kde.%{nam
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
+* Tue Oct 10 2023 Richard Fontana <rfontana@redhat.com> - 23.08.1-2
+- Updated License: tag to SPDX format.
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

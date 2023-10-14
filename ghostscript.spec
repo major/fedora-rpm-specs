@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.01.2
-Release:          3%{?dist}
+Release:          4%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -109,6 +109,7 @@ BuildRequires:    make
 Patch001: ghostscript-10.01.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
 Patch002: ghostscript-10.01.0-convert-defaultpage-to-lowercase.patch
 Patch003: ghostscript-10.01.2-CVE-2023-38559.patch
+Patch004: ghostscript-10.01.2-CVE-2023-43115.patch
 
 
 # Downstream patches -- these should be always included when doing rebase:
@@ -423,6 +424,9 @@ done
 # =============================================================================
 
 %changelog
+* Wed Oct 11 2023 Richard Lescak <rlescak@redhat.com> - 10.01.2-4
+- fix for CVE-2023-43115 (#2241112)
+
 * Mon Aug 07 2023 Richard Lescak <rlescak@redhat.com> - 10.01.2-3
 - fix for CVE-2023-38559 (#2225380)
 

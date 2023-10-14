@@ -3,7 +3,7 @@ Version:	0.6.2
 Release:	1%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 License:	GPLv3
-URL:		https://github.com/mihtjel/%{name}
+URL:		https://github.com/NanoVNA-Saver/%{name}
 
 Source0:	%{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch

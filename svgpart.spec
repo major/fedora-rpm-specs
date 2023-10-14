@@ -1,7 +1,7 @@
 
 Name:    svgpart 
 Summary: SVG KPart
-Version: 23.08.1
+Version: 23.08.2
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -52,6 +52,9 @@ Conflicts: kde-l10n < 17.03
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

@@ -1,8 +1,8 @@
 %global framework messagelib
 
 Name:    kf5-%{framework}
-Version: 23.08.1
-Release: 2%{?dist}
+Version: 23.08.2
+Release: 1%{?dist}
 Summary: KDE Message libraries
 
 License: GPLv2
@@ -174,6 +174,9 @@ Requires:       cmake(Qt5WebEngine)
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sun Sep 24 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.08.1-2
 - Rebuild for ktextaddons 1.5.1 (#2239665)
 - KF5TextAutoCorrection -> KF5TextAutoCorrectionWidgets (ktextaddons 1.5.1)

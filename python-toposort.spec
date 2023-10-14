@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 %global _description %{expand:
 In computer science, a topological sort (sometimes abbreviated topsort or
@@ -20,7 +20,7 @@ BuildArch:      noarch
 %description %_description
 
 %package -n python3-toposort
-Summary:        Implements a topological sort algorithm
+Summary:        %{summary}
 BuildRequires:  python3-devel
 
 %description -n python3-toposort %_description
@@ -29,7 +29,7 @@ BuildRequires:  python3-devel
 %autosetup -n toposort-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -40,8 +40,7 @@ BuildRequires:  python3-devel
 
 %check
 %if %{with tests}
-PYTHONPATH="${PWD}:%{buildroot}%{python3_sitelib}" \
-    '%{python3}' -m test.test_toposort
+%{py3_test_envvars} '%{python3}' -m test.test_toposort
 %endif
 
 %files -n python3-toposort -f %{pyproject_files}

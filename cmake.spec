@@ -68,14 +68,14 @@
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
 %global major_version 3
-%global minor_version 27
-%global patch_version 7
+%global minor_version 28
+%global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
 %global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-#global rcsuf rc1
+%global rcsuf rc1
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -549,6 +549,10 @@ popd
 
 
 %changelog
+* Thu Oct 12 2023 Björn Esser <besser82@fedoraproject.org> - 3.28.0~rc1-1
+- cmake-3.28.0-rc1
+  Fixes rhbz#2243343
+
 * Sat Oct 07 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.7-1
 - cmake-3.27.7
   Fixes rhbz#2242491

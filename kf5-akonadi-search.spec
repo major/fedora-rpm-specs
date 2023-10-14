@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.08.1
+Version: 23.08.2
 Release: 1%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
@@ -101,6 +101,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %files -f %{name}.lang
 
 %license LICENSES/*
+%{_kf5_bindir}/akonadi_html_to_text
 %{_kf5_bindir}/akonadi_indexing_agent
 %{_kf5_datadir}/akonadi/agents/akonadiindexingagent.desktop
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
@@ -121,6 +122,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKPim5AkonadiSearchXapian.so
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

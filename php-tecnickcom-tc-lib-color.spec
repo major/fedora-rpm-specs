@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    58f2dba538ecadfa2fa2c333f5a4c260778508d7
+%global gh_commit    2d7b7e421dba1836d23912723d83adebc53f0ef6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.32
+Version:        1.14.37
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Thu Oct 12 2023 Remi Collet <remi@remirepo.net> - 1.14.37-1
+- update to 1.14.37
+
 * Tue Oct 10 2023 Remi Collet <remi@remirepo.net> - 1.14.32-1
 - update to 1.14.32
 

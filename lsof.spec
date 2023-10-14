@@ -3,8 +3,7 @@ Name: lsof
 Version: 4.96.3
 Release: 4%{?dist}
 # Sendmail .. lib/snpf.c
-# LGPLv2+  .. lib/regex.c, regex.h
-License: zlib and Sendmail and LGPLv2+
+License: lsof AND Sendmail
 URL: https://github.com/lsof-org/lsof
 
 # lsof contains licensed code that we cannot ship.  Therefore we use

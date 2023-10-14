@@ -78,7 +78,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 34%{?dist}
+Release: 35%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -919,6 +919,13 @@ Patch403: 00403-no-tls-10.patch
 # Fix C99 build error: declare functions explicitly
 Patch405: 00405-fix-c99-build-error.patch
 
+# 00406 # 33d46d8ceb68210f6234f26f3465c8556c0b6ccb
+# Reject XML entity declarations in plist files
+# CVE-2022-48565: XML External Entity in XML processing plistlib module
+# Backported from https://github.com/python/cpython/commit/a158fb9c5138
+# Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2022-48565
+Patch406: 00406-cve-2022-48565.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python2" and "python3" in Fedora, EL, etc.,
@@ -1091,6 +1098,7 @@ git apply %{PATCH351}
 %patch399 -p1
 %patch403 -p1
 %patch405 -p1
+%patch406 -p1
 
 %if %{without tkinter}
 %patch4000 -p1
@@ -1792,6 +1800,10 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Fri Oct 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-35
+- Fix for CVE-2022-48565
+Resolves: rhbz#2240062
+
 * Fri Oct 06 2023 Victor Stinner <vstinner@python.org> - 2.7.18-34
 - Fix C99 build error: declare functions explicitly
 

@@ -82,7 +82,7 @@ install -t '%{buildroot}%{_mandir}/man1' -m 0644 -p -D '%{SOURCE1}'
 
 
 %check
-PYTHONPATH='%{buildroot}%{python3_sitelib}' '%{python3}' doc/test_plac.py
+%{py3_test_envvars} '%{python3}' doc/test_plac.py
 
 
 %files -n python3-plac -f %{pyproject_files}

@@ -6,7 +6,7 @@
 %endif
 
 Name:    kio-extras
-Version: 23.08.1
+Version: 23.08.2
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -219,6 +219,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

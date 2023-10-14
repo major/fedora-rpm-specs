@@ -1,7 +1,7 @@
-%global apiversion 0.5
+%global apiversion 0.6
 
 Name: libcmis
-Version: 0.5.2
+Version: 0.6.0
 Release: %autorelease
 Summary: A C/C++ client library for CM interfaces
 

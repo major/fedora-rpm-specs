@@ -3,6 +3,10 @@
 
 #global _with_openh264 1
 
+# Can be rebuilt with OpenCL support enabled by passing # "--with=opencl"
+# or by globally setting:
+#global _opencl 1
+
 # Momentarily disable GSS support
 # https://github.com/FreeRDP/FreeRDP/issues/4348
 #global _with_gss 1
@@ -24,7 +28,7 @@
 
 Name:           freerdp
 Version:        2.11.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
@@ -51,6 +55,8 @@ BuildRequires:  libxkbfile-devel
 BuildRequires:  libXrandr-devel
 %{?_with_server:BuildRequires:  libXtst-devel}
 BuildRequires:  libXv-devel
+%{?_with_opencl:BuildRequires: opencl-headers >= 3.0}
+%{?_with_opencl:BuildRequires: ocl-icd-devel}
 %{?_with_openh264:BuildRequires:  openh264-devel}
 %{?_with_x264:BuildRequires:  x264-devel}
 %{?_with_server:BuildRequires:  pam-devel}
@@ -165,6 +171,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_JPEG=ON \
     -DWITH_LAME=%{?_with_lame:ON}%{?!_with_lame:OFF} \
     -DWITH_MANPAGES=ON \
+    -DWITH_OPENCL=%{?_with_opencl:ON}%{?!_with_opencl:OFF} \
     -DWITH_OPENH264=%{?_with_openh264:ON}%{?!_with_openh264:OFF} \
     -DWITH_OPENSSL=ON \
     -DWITH_PCSC=ON \
@@ -286,6 +293,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Mon Oct 09 2023 John Wiele <jwiele@redhat.com> - 2:2.11.2-2
+- Enable optional build with OpenCL support.
+
 * Wed Sep 27 2023 Ondrej Holy <oholy@redhat.com> - 2:2.11.1-2
 - Update to 2.11.2.
 

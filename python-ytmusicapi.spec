@@ -1,8 +1,8 @@
 %global srcname ytmusicapi
 
 Name:           python-%{srcname}
-Version:        0.24.1
-Release:        5%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 License:        MIT
 Summary:        Unofficial API for YouTube Music
 Url:            https://github.com/sigma67/%{srcname}
@@ -43,9 +43,13 @@ Recommends:     python3-%{srcname}
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CONTRIBUTING.rst PKG-INFO
+%{_bindir}/ytmusicapi
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.3.0-1
+- 1.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

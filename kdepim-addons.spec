@@ -1,6 +1,6 @@
 Name:    kdepim-addons
-Version: 23.08.1
-Release: 2%{?dist}
+Version: 23.08.2
+Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
 License: GPLv2 and LGPLv2+
@@ -180,6 +180,9 @@ Supplements:    korganizer
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
 - Rebuild against ktextaddons 1.5.1
 - Fix cmake dependencies

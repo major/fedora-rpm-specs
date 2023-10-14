@@ -1,6 +1,6 @@
 Name:           python-sentry-sdk
 Version:        1.29.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
 License:        MIT
@@ -37,6 +37,7 @@ BuildRequires:  python3dist(pure-eval)
 BuildRequires:  python3dist(pymongo)
 BuildRequires:  python3dist(pyramid)
 BuildRequires:  python3dist(pyrsistent)
+BuildRequires:  python3dist(pysocks)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-aiohttp)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -174,6 +175,9 @@ sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
 
 
 %changelog
+* Thu Oct 12 2023 Miro Hrončok <mhroncok@redhat.com> - 1.29.2-2
+- Explicitly BuildRequire python3dist(pysocks), as the tests fail without it
+
 * Mon Sep 04 2023 Roman Inflianskas <rominf@aiven.io> - 1.29.2-1
 - Update to 1.29.2 (fedora#2222617)
 

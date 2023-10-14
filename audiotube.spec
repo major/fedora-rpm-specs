@@ -1,8 +1,8 @@
 %global kf5_min_version 5.86.0
 
 Name:           audiotube
-Version:        23.04.3
-Release:        2%{?dist}
+Version:        23.08.2
+Release:        1%{?dist}
 License:        GPLv2+
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
 Url:            https://apps.kde.org/audiotube/
@@ -20,6 +20,8 @@ BuildRequires: python3-devel
 BuildRequires: python3-ytmusicapi
 BuildRequires: yt-dlp
 
+BuildRequires: cmake(FutureSQL5)
+BuildRequires: cmake(QCoro5)
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Network)
 BuildRequires: cmake(Qt5Qml)
@@ -70,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -32,7 +32,7 @@ URL: https://sourceware.org/binutils
 %define enable_deterministic_archives 0
 
 # Generate a warning when linking creates an executable stack
-%define warn_for_executable_stacks 0
+%define warn_for_executable_stacks 1
 
 # Generate a warning when linking creates a segment with read, write and execute permissions
 %define warn_for_rwx_segments 0
@@ -1255,6 +1255,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Oct 12 2023 Nick Clifton  <nickc@redhat.com> - 2.41-6
+- Enable warnings about executable stacks by default.
+
 * Fri Aug 25 2023 Nick Clifton  <nickc@redhat.com> - 2.41-5
 - Fix the GOLD linker's handling of 32-bit PowerPC binaries.  (#2234396)
 

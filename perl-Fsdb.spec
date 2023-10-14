@@ -1,8 +1,8 @@
 Summary: A set of commands for manipulating flat-text databases from the shell
 Name: perl-Fsdb
-Version: 3.1
+Version: 3.2
 Epoch: 2
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPLv2
 URL: http://www.isi.edu/~johnh/SOFTWARE/FSDB/
 Source0: http://www.isi.edu/~johnh/SOFTWARE/FSDB/Fsdb-%{version}.tar.gz
@@ -38,6 +38,7 @@ BuildRequires:       perl(Text::CSV_XS)
 # next two are needed to run build README, see https://bugzilla.redhat.com/show_bug.cgi?id=1163149
 BuildRequires: groff-base
 BuildRequires: perl-podlators
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # next two are needed to run test suites and are not autodetected
 Requires:       perl(HTML::Parser)
 Requires:       perl(Text::CSV_XS)
@@ -104,11 +105,5 @@ make test
 
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Nov 22 2022 John Heidemann <johnh@isi.edu> 3.1-1
+* Wed Oct 11 2023 John Heidemann <johnh@isi.edu> 3.2-1
 - See http://www.isi.edu/~johnh/SOFTWARE/FSDB/

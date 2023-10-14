@@ -152,10 +152,10 @@ install -d '%{buildroot}%{_mandir}/man1'
 
 
 %check
+# Let’s do this in addition to running the tests, just to be sure.
 %pyproject_check_import
-# Tests are completely broken (call functions without mandatory arguments!);
-# fixed in upstream release 3.1.
-# %%pytest
+
+%pytest
 
 
 %files -n python3-qdarkstyle -f %{pyproject_files}

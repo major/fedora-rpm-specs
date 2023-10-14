@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.40.0
-Release:       2%{?dist}
+Version:       0.41.2
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT AND (Apache-2.0 OR BSD-2-Clause)
@@ -81,6 +81,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Thu Oct 12 2023 Sandro Mani <manisandro@gmail.com> - 0.41.2-1
+- Update to 0.41.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 
 Name:    kaccounts-integration
-Version: 23.08.1
+Version: 23.08.2
 Release: 1%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: GPLv2+
@@ -105,6 +105,9 @@ Headers, development libraries and documentation for %{name}.
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

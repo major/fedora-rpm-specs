@@ -1,5 +1,5 @@
 Name:           mt32emu
-Version:        2.7.0
+Version:        2.7.1
 Release:        %autorelease
 Summary:        C/C++ library for emulating Roland MT-32, CM-32L and LAPC-I synthesizer modules
 

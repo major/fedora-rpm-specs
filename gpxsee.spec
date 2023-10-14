@@ -1,7 +1,7 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        13.5
+Version:        13.9
 Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
@@ -70,6 +70,23 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Oct 11 2023 Packit <hello@packit.dev> - 13.9-1
+- Fixed storing of WMTS tiles with file system incompatible tile matrix names (Martin Tůma)
+- Decreased map zoom level treshold to 80% (Martin Tůma)
+- Fixed map resolution computation for maps > world/2 (Martin Tůma)
+- Use OpenSSL v3 for Windows Qt6 builds (Martin Tůma)
+- Fixed Qt6 build (Martin Tůma)
+- Yet another TrekBuddy compatability enhancement & fixes + related map API refactoring (Martin Tůma)
+- Check for bounds overflow in the computed/approximated case (Martin Tůma)
+- Support all variants of TrekBuddy maps/atlases (Martin Tůma)
+- Allow arbitrary .map file names in TrekBuddy TAR maps (Martin Tůma)
+- Contiguous zones (Martin Tůma)
+- Distinguish silos and tanks (Martin Tůma)
+- Version++ (Martin Tůma)
+- Refactoring (Martin Tůma)
+- Reference the exact S-57 document describing the catalogue (Martin Tůma)
+- Less aggressive anchor/no-anchor lines (Martin Tůma)
+
 * Mon Jul 31 2023 Packit <hello@packit.dev> - 13.5-1
 - Yet another one-way arrows improvement (Martin Tůma)
 - Use less agressive one-way street arrows (Martin Tůma)

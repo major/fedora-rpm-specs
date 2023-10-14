@@ -2,7 +2,7 @@
 
 Name:           libreoffice-%{extname}
 Version:        0.49
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A LaTex Equation Editor for LibreOffice
 
 License:        GPLv2+
@@ -66,6 +66,9 @@ rm $RPM_BUILD_ROOT%{loextdir}/{README,license.txt}
 
 
 %changelog
+* Thu Oct 12 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.49-9
+- libcmis rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

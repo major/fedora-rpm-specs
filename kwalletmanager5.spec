@@ -5,8 +5,8 @@
 
 Name:    kwalletmanager5
 Summary: Manage KDE passwords
-Version: 23.08.1
-Release: 2%{?dist}
+Version: 23.08.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/utils/%{base_name}
@@ -20,8 +20,6 @@ URL:     https://invent.kde.org/utils/%{base_name}
 Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 # upstream patches
-# https://invent.kde.org/utilities/kwalletmanager/-/commit/5a07e6c38fcbd76f38398606bfdfda59301bf364
-Patch0: 5a07e6c38fcbd76f38398606bfdfda59301bf364.patch
 
 ## upstreamable patches
 # better/sane defaults (no autoclose mostly)
@@ -120,6 +118,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Tue Oct 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
 - Add patch from upstream
 

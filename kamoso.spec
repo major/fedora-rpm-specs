@@ -7,7 +7,7 @@
 
 Name:    kamoso
 Summary: Application for taking pictures and videos from a webcam
-Version: 23.08.1
+Version: 23.08.2
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -116,6 +116,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

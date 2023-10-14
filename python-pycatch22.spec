@@ -86,9 +86,9 @@ find src/C -type f ! -name 'catch22_wrap.c' -print -delete
 # Let’s run an import ”smoke test” first just to be sure.
 %pyproject_check_import
 
-# There is no verification of ouput values; we are just checking that the
+# There is no verification of output values; we are just checking that the
 # script *runs*.
-PYTHONPATH='%{buildroot}%{python3_sitearch}' '%{python3}' tests/testing.py
+%{py3_test_envvars} '%{python3}' tests/testing.py
 # The script tests/testFeatures.py is not usable
 # https://github.com/DynamicsAndNeuralSystems/pycatch22/issues/15
 

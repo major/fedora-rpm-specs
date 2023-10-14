@@ -55,7 +55,7 @@ export XXHASH_LINK_SO='1'
 
 %check
 cd tests
-PYTHONPATH='%{buildroot}%{python3_sitearch}' %{python3} -m unittest discover
+%{py3_test_envvars} %{python3} -m unittest discover
 
 
 %files -n python3-xxhash -f %{pyproject_files}

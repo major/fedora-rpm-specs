@@ -1,24 +1,37 @@
+# Run (limited set of) tests
 %bcond_without tests
+# Specific test conditionals
+# Requires `hiro`
 %bcond_with hiro
+# Requires `lovely-pytest-docker` and not suitable for mock
+%bcond_with docker
+# Requires `pytest-benchmark[histogram]` (we are not interested in benchmarks)
+%bcond_with benchmark
+
+# Don't build extras with missing dependencies
+%bcond_without redis
+%bcond_without rediscluster
+%bcond_without memcached
+%bcond_without mongodb
+%bcond_without etcd
+# async-redis needs `coredis`
+%bcond_with async_redis
+# async-memcached needs `emcache`
+%bcond_with async_memcached
+# async-mongodb needs `motor`
+%bcond_with async_mongodb
+# async-etcd needs `aetcd`
+%bcond_with async_etcd
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
-# We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+# Using Sphinx for generating documentation, pulls in a myriad of
+# dependencies. Instead we simply provide the source `.rst` files.
+%bcond_without doc
 
-%if 0%{?fc36}
-# python3dist(redis) is too old
-%bcond_with redis
-%else
-%bcond_without redis
-%endif
-# Missing python3dist(coredis), python3dist(coredis[hiredis])
-%bcond_with async_redis
-# Missing python3dist(emcache)
-%bcond_with async_memcached
-# Missing python3dist(motor)
-%bcond_with async_mongodb
+# Use forge macros for pulling from GitHub
+%global forgeurl https://github.com/alisaifee/limits
 
 %global pypi_name limits
 
@@ -28,14 +41,18 @@ limiting with commonly used storage backends
 (Redis, Memcached & MongoDB).}
 
 Name:           python-%{pypi_name}
-Version:        2.8.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Utilities to implement rate limiting using various strategies
-
+%global tag %{version}
+%forgemeta
 # SPDX
 License:        MIT
-URL:            https://github.com/alisaifee/%{pypi_name}
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
+# `importlib_resources` is part of standard library since Python 3.7
+# https://github.com/alisaifee/limits/pull/184
+Patch:          %{forgeurl}/pull/184.patch
 
 BuildArch:      noarch
 
@@ -45,28 +62,34 @@ BuildArch:      noarch
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-%if %{without redis}
-# Even though redis is too old for the redis extra, we still need it for
-# test_lazy_dependency_found and test_lazy_dependency_version_low.
-BuildRequires:  python3dist(redis)
-%endif
 
 %description -n python3-%{pypi_name} %_description
 
+%if %{with doc}
 %package doc
 Summary:        %{summary}
-
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
+Requires:       python3-limits = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description doc
 Documentation for %{name}.
+%endif
 
-%if %{with async_redis} && %{with async_memcached} && %{with async_mongodb} && %{with redis}
-%pyproject_extras_subpkg -n python3-%{pypi_name} all
+# We cannot build all extras due to missing dependencies.
+# Conditionalize extras based on what is available (see bcond above)
+%if %{with redis}
+%pyproject_extras_subpkg -n python3-%{pypi_name} redis
+%endif
+%if %{with rediscluster}
+%pyproject_extras_subpkg -n python3-%{pypi_name} rediscluster
+%endif
+%if %{with memcached}
+%pyproject_extras_subpkg -n python3-%{pypi_name} memcached
+%endif
+%if %{with mongodb}
+%pyproject_extras_subpkg -n python3-%{pypi_name} mongodb
+%endif
+%if %{with etcd}
+%pyproject_extras_subpkg -n python3-%{pypi_name} etcd
 %endif
 %if %{with async_redis}
 %pyproject_extras_subpkg -n python3-%{pypi_name} async-redis
@@ -77,111 +100,137 @@ Documentation for %{name}.
 %if %{with async_mongodb}
 %pyproject_extras_subpkg -n python3-%{pypi_name} async-mongodb
 %endif
-%if %{with redis}
-%pyproject_extras_subpkg -n python3-%{pypi_name} redis rediscluster
+%if %{with async_etcd}
+%pyproject_extras_subpkg -n python3-%{pypi_name} async-etcd
 %endif
-%pyproject_extras_subpkg -n python3-%{pypi_name} memcached mongodb
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -fv poetry.lock
-# We only need to generate the *additional* requirements for testing.  Also, we
-# should patch out linting and coverage dependencies
-# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters).
-sed -r -e '/^[[:blank:]]*(-r|coverage|pytest-cov|lovely-pytest-docker)\b/d' \
-    requirements/test.txt | tee requirements/test-filtered.txt
-sed -r -i '/^[[:blank:]]*(--cov|-K)\b/d' pytest.ini
-%if %{without hiro}
-sed -r -i '/^[[:blank:]]*(hiro)/d' requirements/test-filtered.txt
-%endif
-%if %{without redis}
-# If we don’t have a new enough redis, we won’t need the extra fixtures for it:
-sed -r -i 's/^import redis/# &/' tests/conftest.py
-%endif
-# Allow newer versions of doc dependencies.
-#
-# Drop unused “furo” HTML theme.
-#
-# Missing dependencies (but we can build documentation anyway):
-# - python3dist(sphinx-paramlinks)
-sed -r -e 's/==/>=/' \
-    -e '/^[[:blank:]]*(furo|sphinx-paramlinks)/d' \
-    requirements/docs.txt |
-%if 0%{?fc36}
-    # Tolerate Sphinx 4 in addition to the Sphinx 5 desired by upstream.
-    sed -r -e 's/(Sphinx[>=]=)5/\14/' |
-%endif
-%if 0%{?fc36} || 0%{?fc37}
-    # Tolerate versions of sphinxext-opengraph older than upstream wants
-    sed -r -e 's/(sphinxext-opengraph)([>=]=.*)/\1/' |
-%endif
-  tee requirements/docs-filtered.txt
-sed -r -i '/(paramlinks)/d' doc/source/conf.py
-# Cannot use remote intersphinx inventories in offline build:
-echo 'intersphinx_mapping.clear()' >> doc/source/conf.py
+%forgeautosetup -p1
 
-# Relax packaging version constraint
-sed -i 's/packaging>=21,<23/packaging>=21,<24/' requirements/main.txt
+# Remove requirements for extras we cannot build
+%if %{without redis}
+sed -i '/redis.txt/d' requirements/test.txt
+%endif
+%if %{without rediscluster}
+sed -i '/rediscluster.txt/d' requirements/test.txt
+%endif
+%if %{without memcached}
+sed -i '/memcached.txt/d' requirements/test.txt
+%endif
+%if %{without mongodb}
+sed -i '/mongodb.txt/d' requirements/test.txt
+%endif
+%if %{without etcd}
+sed -i '/etcd.txt/d' requirements/test.txt
+%endif
+%if %{without async_redis}
+sed -i '/async-redis.txt/d' requirements/test.txt
+%endif
+%if %{without async_memcached}
+sed -i '/async-memcached.txt/d' requirements/test.txt
+%endif
+%if %{without async_mongodb}
+sed -i '/async-mongodb.txt/d' requirements/test.txt
+%endif
+%if %{without async_etcd}
+sed -i '/async-etcd.txt/d' requirements/test.txt
+%endif
+
+# Also remove requirements for missing test dependencies as well as
+# dependencies for tests we cannot run
+%if %{without hiro}
+sed -i '/hiro/d' requirements/test.txt
+%endif
+%if %{without docker}
+sed -i '/lovely-pytest-docker/d' requirements/test.txt
+# The -K option is for lovely-pytest-docker.
+sed -r -i '/^[[:blank:]]*-K[[:blank:]]*/d' pytest.ini
+%endif
+%if %{without benchmark}
+sed -i '/pytest-benchmark/d' requirements/test.txt
+%endif
+
+# filterwarnings = error is too strict for distribution packaging
+# Thanks @music!
+sed -r -i '/^[[:blank:]]*error[[:blank:]]*/d' pytest.ini
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i '/(pytest-cov|coverage)/d' requirements/test.txt
+sed -r -i '/--cov/d' pytest.ini
+
 
 %generate_buildrequires
-%if %{with async_redis} && %{with async_memcached} && %{with async_mongodb} && %{with redis}
-%pyproject_buildrequires -x all %{?with_tests:requirements/test-filtered.txt}
-%else
-%{pyproject_buildrequires \
-  %{?with_tests:requirements/test-filtered.txt} \
-  %{?with_doc_pdf:requirements/docs-filtered.txt} \
-  %{?with_async_redis:-x async-redis} \
-  %{?with_async_memcached:-x async-memcached} \
-  %{?with_async_mongodb:-x async-mongodb} \
-  %{?with_redis:-x redis -x rediscluster} \
-  -x memcached \
-  -x mongodb}
+# We cannot build all extras due to missing dependencies.
+# Conditionalize extras based on what is available (see bcond above)
+%if %{with redis}
+x="${x-}${x+,}redis"
 %endif
+%if %{with rediscluster}
+x="${x-}${x+,}rediscluster"
+%endif
+%if %{with memcached}
+x="${x-}${x+,}memcached"
+%endif
+%if %{with mongodb}
+x="${x-}${x+,}mongodb"
+%endif
+%if %{with etcd}
+x="${x-}${x+,}etcd"
+%endif
+%if %{with async_redis}
+x="${x-}${x+,}async-redis"
+%endif
+%if %{with async_memcached}
+x="${x-}${x+,}async-memcached"
+%endif
+%if %{with async_mongodb}
+x="${x-}${x+,}async-mongodb"
+%endif
+%if %{with async_etcd}
+x="${x-}${x+,}async-etcd"
+%endif
+
+# In a similar fashion conditionalize additional requirements
+%if %{with tests}
+reqs="${reqs-}${reqs+ }requirements/test.txt"
+%endif
+
+%pyproject_buildrequires ${x+-x }${x-} ${reqs-}
+
 
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
-%make_build -C doc latex SPHINXOPTS='%{?_smp_mflags}'
-%make_build -C doc/build/latex LATEXMKOPTS='-quiet'
-%endif
 
 %install
 %pyproject_install
 %pyproject_save_files limits
 
+
 %check
 %if %{with tests}
-%if %{without hiro}
-ignore="${ignore-} --ignore=tests/storage/test_memory.py"
-ignore="${ignore-} --ignore=tests/aio/storage/test_memory.py"
+
+# Disable tests that are not useful / feasible
+k="${k-}${k+ and }not TestConcreteStorages"
+k="${k-}${k+ and }not TestWindow"
+k="${k-}${k+ and }not TestAsyncWindow"
+k="${k-}${k+ and }not TestConcurrency"
+k="${k-}${k+ and }not TestAsyncConcurrency"
+
+%pytest -v ${k+-k }"${k-}"
 %endif
-%if %{without redis}
-# We cannot import these at all:
-ignore="${ignore-} --ignore=tests/storage/test_redis.py"
-ignore="${ignore-} --ignore=tests/storage/test_redis_cluster.py"
-ignore="${ignore-} --ignore=tests/storage/test_redis_sentinel.py"
-%endif
-# The deselected tests generally require various servers and/or Docker.
-m='not integration'
-m="${m-}${m+ and }not redis"
-m="${m-}${m+ and }not redis_sentinel"
-m="${m-}${m+ and }not redis_cluster"
-m="${m-}${m+ and }not mongodb"
-m="${m-}${m+ and }not memcached"
-%pytest ${ignore-} -m "${m-}"
-%endif
-# Since quite a few upstream tests needed to be deselected, run the import
-# “smoke tests” too.
+
+# Since quite a few tests cannot be run, run the import "smoke test" too.
 %pyproject_check_import
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst
 
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%doc ./*.rst
+
+
+%if %{with doc}
 %files doc
-%license LICENSE.txt
-%if %{with doc_pdf}
-%doc doc/build/latex/%{pypi_name}.pdf
+%doc doc/source/*.rst
 %endif
 
 

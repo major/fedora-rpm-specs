@@ -1,8 +1,8 @@
 %global framework libgravatar
 
 Name:    kf5-%{framework}
-Version: 23.08.1
-Release: 2%{?dist}
+Version: 23.08.2
+Release: 1%{?dist}
 Summary: Gravatar support library
 
 License: GPLv2
@@ -81,6 +81,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Sat Sep 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-2
 - Adjust dependencies
 

@@ -1,8 +1,8 @@
 
 Name:    kalgebra 
 Summary: 2D and 3D Graph Calculator 
-Version: 23.08.1
-Release: 2%{?dist}
+Version: 23.08.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/edu/%{name}
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalgebram
 
 
 %changelog
+* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
+- 23.08.2
+
 * Mon Oct 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.08.1-2
 - Restore desktop app and plasmoid
 

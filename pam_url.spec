@@ -7,11 +7,14 @@
 Summary:        PAM module to authenticate with HTTP servers
 Name:           pam_url
 Version:        0.3.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Epoch:          1
 License:        GPLv2
 URL:            %{forgeurl}
 Source:         %{forgesource}
+
+Patch0:         pam_url-0.3.3-curl-timeout.patch
+Patch1:         pam_url-0.3.3-nolibcheck.patch
 
 Requires:       pam
 
@@ -27,8 +30,8 @@ such as totpcgi.
 
 %prep
 %forgesetup
-
-sed -i 's/#ifndef __CURL_CURL_H/#ifndef CURLINC_CURL_H/g' pam_url.h
+%patch -P 0 -p 1
+%patch -P 1 -p 1
 
 %build
 CFLAGS="%{optflags} -std=c99" make %{?_smp_mflags} pamlib=%{_lib}/security all
@@ -43,6 +46,9 @@ make DESTDIR=%{buildroot} pamlib=%{_lib}/security install
 
 
 %changelog
+* Thu Oct 12 2023 Ralf Ertzinger <ralf@skytale.net> - 1:0.3.3-20
+- Add patches to support connect and request timeouts
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

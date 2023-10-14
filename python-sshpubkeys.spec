@@ -45,7 +45,7 @@ Summary:        %{summary}
 
 
 %check
-PYTHONPATH='%{buildroot}%{python3_sitelib}' %{python3} -m unittest tests
+%{py3_test_envvars} %{python3} -m unittest tests
 
 
 %files -n python3-sshpubkeys -f %{pyproject_files}

@@ -2,7 +2,7 @@
 
 Name:           kdevelop-php
 Summary:        Php language and documentation plugins for KDevelop
-Version:        23.08.1
+Version:        23.08.2
 Release:        1%{?dist}
 
 # Most files LGPLv2+/GPLv2+
@@ -63,6 +63,9 @@ BuildRequires:  qt5-qtwebkit-devel
 
 
 %changelog
+* Thu Oct 12 2023 Than Ngo <than@redhat.com> - 23.08.2-1
+- update to 23.08.2
+
 * Sat Sep 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.1-1
 - 23.08.1
 

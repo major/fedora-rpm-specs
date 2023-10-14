@@ -1,6 +1,6 @@
 Name:       wireplumber
-Version:    0.4.14
-Release:    2%{?dist}
+Version:    0.4.15
+Release:    1%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
 License:    MIT
@@ -101,6 +101,7 @@ fi
 %dir %{_sysconfdir}/wireplumber/main.lua.d
 %dir %{_sysconfdir}/wireplumber/policy.lua.d
 %{_datadir}/wireplumber/
+%{_datadir}/zsh/site-functions/_wpctl
 %{_userunitdir}/wireplumber.service
 %{_userunitdir}/wireplumber@.service
 
@@ -118,6 +119,9 @@ fi
 %{_datadir}/gir-1.0/Wp-0.4.gir
 
 %changelog
+* Thu Oct 12 2023 Wim Taymans <wtaymans@redhat.com> - 0.4.15-1
+- wireplumber 0.4.15
+
 * Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: mark as done
 

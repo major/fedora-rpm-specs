@@ -9,6 +9,12 @@ License:        MIT
 URL:            https://pagure.io/fedora-rust/rust-packaging
 Source:         %{url}/archive/%{version}/rust-packaging-%{version}.tar.gz
 
+# temporary patch for compatibility with RHEL / ELN:
+# The %%cargo_prep macro in RHEL / ELN accepts a -V flag. Using the same spec
+# file for both Fedora and ELN would cause spec file parsing errors because
+# the -V flag is not known in Fedora.
+Patch:          0001-Temporarily-accept-cargo_prep-V-flag-for-spec-compat.patch
+
 BuildArch:      noarch
 
 %if %{with check}

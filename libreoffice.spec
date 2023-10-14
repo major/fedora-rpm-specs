@@ -174,7 +174,7 @@ BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libabw-0.1)
 BuildRequires: pkgconfig(libcdr-0.1)
 BuildRequires: pkgconfig(libclucene-core)
-BuildRequires: pkgconfig(libcmis-0.5)
+BuildRequires: pkgconfig(libcmis-0.6)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(libetonyek-0.1)
 BuildRequires: pkgconfig(libexttextcat)
@@ -276,11 +276,11 @@ Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 # rhbz#1736810 disable opencl by default again
 Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 # backported
-Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
-Patch4: 0001-default-to-sifr-for-gnome-light-mode.patch
+Patch3: 0001-default-to-sifr-for-gnome-light-mode.patch
 # backported
-Patch5: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
-Patch6: limit-tests-giving-dubious-results-to-x86_64.patch
+Patch4: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
+Patch5: limit-tests-giving-dubious-results-to-x86_64.patch
+Patch6: 717d27a.patch
 # not upstreamed
 # fix FTB in ppc64le from sharkcz
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html
@@ -1132,8 +1132,6 @@ touch autogen.lastrun
  --without-fonts \
  --without-lxml \
  --without-system-libfixmath \
- --with-gdrive-client-secret="GYWrDtzyZQZ0_g5YoBCC6F0I" \
- --with-gdrive-client-id="457862564325.apps.googleusercontent.com" \
  --enable-python=system \
  --with-idlc-cpp=cpp \
  --disable-scripting-beanshell --disable-scripting-javascript \

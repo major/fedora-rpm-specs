@@ -1,8 +1,5 @@
 # Build HTML docs from markdown using pandoc?
 %bcond html_docs 1
-# Normally, treating warnings as errors is too strict for downstream builds.
-# It’s nice to be able to turn it on, though.
-%bcond werror 0
 
 Name:           gn
 # Upstream uses the number of commits in the git history as the version number.
@@ -27,10 +24,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 991530ce394efb58fcd848195469022fa17ae126
-%global access 20230913
+%global commit 182a6eb05d15cc76d2302f7928fdb4f645d52c53
+%global access 20231012
 %global shortcommit %(c='%{commit}'; echo "${c:0:12}")
-%global position 2121
+%global position 2122
 Version:        %{position}^%{access}git%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -54,12 +51,6 @@ Source2:        update-version
 # Stop overriding optimization flags; not sent upstream because this is
 # intentional on their part
 Patch:          gn-0153d369-no-O3.patch
-# Error: redundant move in return statement (GCC 13)
-# https://bugs.chromium.org/p/gn/issues/detail?id=318
-# Apparently, removing the std::move causes an error (error: use of deleted
-# function 'base::Value::Value(const base::Value&)) on compiler versions before
-# GCC 13. Maybe this is a GCC bug?
-Patch:          gn-5e19d2fb166f-redundant-move.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -127,11 +118,13 @@ cp -vp misc/vim/README.md README-vim.md
 
 %build
 AR='gcc-ar'; export AR
+# Treating warnings as errors is too strict for downstream builds.
+#
 # Both --use-icf and --use-lto add compiler flags that only work with clang++,
 # not with g++. We do get LTO on Fedora anyway, since we respect the
 # distribution’s build flags.
 %{python3} build/gen.py \
-    %{?!with_werror:--allow-warnings} \
+    --allow-warnings \
     --no-last-commit-position \
     --no-strip \
     --no-static-libstdc++

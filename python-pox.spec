@@ -4,14 +4,19 @@
 # We can generate PDF documentation as a substitute.
 %bcond_without doc_pdf
 
+%global forgeurl https://github.com/uqfoundation/pox
+
 Name:           python-pox
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Utilities for filesystem exploration and automated builds
 
+%global tag     pox-%{version}
+%forgemeta
+
 License:        BSD
-URL:            https://github.com/uqfoundation/pox
-Source0:        %{pypi_source pox}
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 
@@ -86,7 +91,7 @@ Summary:        Documentation for %{name}
 This package provides documentation for %{name}.
 
 %prep
-%autosetup -n pox-%{version} -p1
+%forgesetup
 # Remove shebangs from (installed) non-script sources. The find-then-modify
 # pattern preserves mtimes on sources that did not need to be modified.
 find 'pox' 'tests' -type f -name '*.py' \
