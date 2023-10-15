@@ -3,7 +3,7 @@ Version:        2.3.2
 Release:        %autorelease
 Summary:        OpenCL Library (Installable Client Library) Bindings
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/OCL-dev/%{name}/
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

@@ -7,11 +7,9 @@ Summary:        CAnonical Time-series CHaracteristics in Python
 
 %forgemeta
 
-# The Matlab code is certainly GPL-3.0-or-later, but everything else is
-# ambiguously “GPLv3.” We conservatively assume GPL-3.0-only for now, but have
-# asked for clarification (Please clarify GPL version,
-# https://github.com/DynamicsAndNeuralSystems/catch22/issues/32).
-License:        GPL-3.0-only
+# Upstream clarified that GPL-3.0-or-later is intended in “Please clarify GPL
+# version,” https://github.com/DynamicsAndNeuralSystems/pycatch22/issues/16.
+License:        GPL-3.0-or-later
 URL:            %{forgeurl}
 # Missing 0.4.3 release on PyPI
 # https://github.com/DynamicsAndNeuralSystems/pycatch22/issues/14

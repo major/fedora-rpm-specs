@@ -56,7 +56,7 @@ An ebook reader and library management app
 
 
 %prep
-%autosetup -n %{name}-v%{version} -p1
+%autosetup -p1
 
 %build
 %cmake_kf5

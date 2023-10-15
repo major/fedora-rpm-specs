@@ -14,9 +14,9 @@
 
 Name:        caja
 Summary:     File manager for MATE
-Version:     %{branch}.1
+Version:     %{branch}.3
 %if 0%{?rel_build}
-Release:     5%{?dist}
+Release:     1%{?dist}
 %else
 Release:     0.19%{?git_rel}%{?dist}
 %endif
@@ -181,6 +181,9 @@ EOF
 
 
 %changelog
+* Fri Oct 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-1
+- update to 1.26.3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

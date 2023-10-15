@@ -20,7 +20,7 @@ Version:        1.22.6
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://gstreamer.freedesktop.org/
 %if 0%{?gitrel}
 # git clone git://anongit.freedesktop.org/gstreamer/gstreamer

@@ -34,10 +34,12 @@ Source:         %{gosource}
 %go_generate_buildrequires
 
 %build
+export LDFLAGS="-X main.commit=fedora \
+                -X main.version=%{version} \
+                -X main.date=$(date -d "@${SOURCE_DATE_EPOCH}" +%Y-%m-%d)"
 %gobuild -o %{gobuilddir}/bin/xq %{goipath}/
 
 %install
-%gopkginstall
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
@@ -54,8 +56,6 @@ install -Dpm 0644 ./docs/%{name}.1 -t %{buildroot}%{_mandir}/man1/
 %doc README.md
 %{_bindir}/*
 %{_mandir}/man1/%{name}.1*
-
-%gopkgfiles
 
 %changelog
 %autochangelog

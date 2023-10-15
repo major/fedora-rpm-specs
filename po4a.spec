@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.69
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 
 # Note: source is imprecise about 2.0-only vs 2.0-or-later
@@ -11,7 +11,7 @@ URL: https://po4a.org/
 Source0: https://github.com/mquinson/po4a/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
-BuildRequires: %{_bindir}/xsltproc
+BuildRequires: /usr/bin/xsltproc
 BuildRequires: coreutils
 BuildRequires: docbook-style-xsl
 BuildRequires: findutils
@@ -32,8 +32,8 @@ BuildRequires: perl(Module::Build)
 BuildRequires: perl(Pod::Man)
 
 # Run-time:
-BuildRequires: %{_bindir}/nsgmls
 BuildRequires: gettext
+BuildRequires: opensp
 BuildRequires: perl(Carp)
 BuildRequires: perl(Config)
 BuildRequires: perl(Cwd)
@@ -71,9 +71,9 @@ BuildRequires: perl(Test::More)
 BuildRequires: perl(YAML::Tiny)
 
 
-Requires: %{_bindir}/nsgmls
-Requires: %{_bindir}/xsltproc
+Requires: /usr/bin/xsltproc
 Requires: gettext
+Requires: opensp
 # hope texlive-kpseas-bin missing deps was fixed
 # epel7 doesn't have /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 Requires: texlive-kpathsea
@@ -135,6 +135,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Thu Oct 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.69-3
+- Fix path-based dependencies
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

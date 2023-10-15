@@ -2,7 +2,7 @@
 
 Name:           qgnomeplatform
 Version:        0.9.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPL-2.0-or-later
@@ -121,6 +121,9 @@ modifying them - making them fit into the environment as well as possible.
 %exclude %{_datadir}/color-schemes/*.colors
 
 %changelog
+* Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.2-4
+- Rebuild (qt6)
+
 * Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.2-3
 - Rebuild (qt5)
 

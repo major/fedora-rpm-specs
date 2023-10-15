@@ -4,7 +4,7 @@ Name:		libsrtp
 Version:	2.3.0
 Release:	12%{?dist}
 Summary:	An implementation of the Secure Real-time Transport Protocol (SRTP)
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://github.com/cisco/libsrtp
 Source0:	https://github.com/cisco/libsrtp/archive/v%{version}.tar.gz
 BuildRequires:	gcc, nss-devel, libpcap-devel

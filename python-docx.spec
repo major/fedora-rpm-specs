@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-docx
-Version:        0.8.11
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Create and modify Word documents with Python
 
@@ -14,7 +14,15 @@ License:        MIT
 URL:            https://python-docx.readthedocs.io/en/latest/
 # We MUST use the PyPI tarball; the GitHub tarball includes material under ref/
 # (PDFs of ISO/IEC standards) for which redistribution may be prohibited.
-Source:         %{pypi_source python-docx}
+Source0:        %{pypi_source python-docx}
+# Include requirements files in PyPI sdist
+# https://github.com/python-openxml/python-docx/pull/1259
+Source1:        https://github.com/python-openxml/python-docx/raw/v%{version}/requirements.txt
+Source2:        https://github.com/python-openxml/python-docx/raw/v%{version}/requirements-test.txt
+
+# Add build backend in pyproject.toml
+# https://github.com/python-openxml/python-docx/pull/1258
+Patch:          https://github.com/python-openxml/python-docx/pull/1258.patch
 
 BuildArch:      noarch
 
@@ -51,14 +59,19 @@ Summary:        Documentation for python-docx
 
 
 %prep
-%autosetup
+%autosetup -p1
+
+cp -p '%{SOURCE1}' '%{SOURCE2}' .
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^(ruff)\b/# &/' requirements-test.txt
 
 # We don’t want to package https://github.com/armstrong/armstrong_sphinx (and
 # shouldn’t use the bundled copy), so we just switch the documentation theme
 # from “armstrong” to the built-in “alabaster”. The result seems similarly
 # useful, without the bundling.
-rm -rf docs/_themes
-sed -r -i 's@armstrong@alabaster@' docs/conf.py
+rm -rvf docs/_themes
+sed -r -i 's/armstrong/alabaster/' docs/conf.py
 
 # Drop intersphinx mappings, since we can’t download remote inventories and
 # can’t easily produce working hyperlinks from inventories in local
@@ -77,7 +90,8 @@ dos2unix --keepdate docs/dev/analysis/features/table/cell-merge.rst
 %pyproject_wheel
 
 %if %{with doc}
-%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
+PYTHONPATH="${PWD}/src" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/.build/latex LATEXMKOPTS='-quiet'
 %endif
 
@@ -116,14 +130,14 @@ fi
 
 %files -n python3-docx -f %{pyproject_files}
 %if %{without doc}
-%doc HISTORY.rst README.rst
+%doc HISTORY.rst README.md
 %endif
 
 
 %if %{with doc}
 %files doc
 %license LICENSE
-%doc HISTORY.rst README.rst
+%doc HISTORY.rst README.md
 %doc docs/.build/latex/python-docx.pdf
 %endif
 

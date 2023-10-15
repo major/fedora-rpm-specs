@@ -3,7 +3,7 @@
 
 Name:           perl-Module-Signature
 Version:        0.88
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
 URL:            https://metacpan.org/release/Module-Signature
@@ -28,7 +28,6 @@ BuildRequires:  sed
 BuildRequires:  gnupg2
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Digest::SHA)
-BuildRequires:  perl(Digest::SHA1)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::Manifest)
 BuildRequires:  perl(File::Spec)
@@ -43,10 +42,9 @@ BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IPC::Run)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Test::More)
-# Module runtime
+# Dependencies
 Requires:       gnupg2
 Requires:       perl(Digest::SHA)
-Requires:       perl(Digest::SHA1)
 Requires:       perl(File::Temp)
 Requires:       perl(IO::Socket::INET)
 Requires:       perl(Text::Diff)
@@ -89,6 +87,10 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Fri Oct 13 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.88-7
+- Drop redundant dependency of Digest::SHA1; implementation from Digest::SHA
+  is used instead
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.88-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

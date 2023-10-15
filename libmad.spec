@@ -3,7 +3,7 @@ Version:	0.16.3
 Release:	2%{?dist}
 Summary:	MPEG audio decoder library
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:        https://codeberg.org/tenacityteam/libmad
 Source0:    %url/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:     Add_unversioned_so.patch

@@ -3,7 +3,7 @@
 Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.0
-Release: %{devrel}.1%{?dist}.1
+Release: %{devrel}.2%{?dist}
 License: GPL-2.0-only
 
 Source0: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
@@ -64,6 +64,9 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
 %endif
 
 %build
+# Fix compilation on F40
+CFLAGS="-D_GNU_SOURCE $CFLAGS"
+
 %configure --libdir=/etc            \
     --disable-font-switch           \
     --disable-rpath-hack            \
@@ -96,15 +99,14 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
     --with-zlib                     \
     ac_cv_path_RLOGIN=/usr/bin/rlogin
 
-make -C po
-make %{?_smp_mflags}
+%make_build
 
 # remove zero-length tests files to silence rpmlint
 rm -fv test/X test/nobody
 
 %install
 chmod -x samples/mailto-form.pl
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 # remove unneeded files with incompatible encoding
 rm -f docs/{OS-390.announce,README.jp}
@@ -125,7 +127,7 @@ EOF
 
 %files -f %{name}.lang
 %license COPYING
-%doc docs README INSTALLATION samples
+%doc docs README samples
 %doc test lynx.hlp lynx_help
 %{_bindir}/lynx
 %{_mandir}/man1/lynx.1.*
@@ -134,6 +136,9 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Fri Oct 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-dev.12.2
+- fix FTBFS in Fedora Rawhide (rhbz#2243829)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-dev.12.1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -25,7 +25,7 @@ Summary:	OpenConnect SSL VPN server
 
 # For a breakdown of the licensing, see PACKAGE-LICENSING 
 # To simplify licenses LGPLv2+ files have been promoted to GPLv2+.
-License:	GPLv2+ and BSD and MIT and CC0
+License:	GPL-2.0-or-later AND BSD-3-Clause AND MIT AND CC0-1.0
 URL:		http://www.infradead.org/ocserv/
 Source0:	https://www.infradead.org/ocserv/download/%{name}-%{version}.tar.xz
 Source1:	https://www.infradead.org/ocserv/download/%{name}-%{version}.tar.xz.sig

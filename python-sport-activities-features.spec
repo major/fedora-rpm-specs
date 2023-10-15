@@ -21,6 +21,7 @@ Version:        0.3.15.1
 Release:        1%{?dist}
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 
+# SPDX
 License:        MIT
 URL:            https://github.com/firefly-cpp/%{pypi_name}
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz

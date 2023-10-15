@@ -269,6 +269,11 @@ sed -i '/^EXTRACAMLFLAGS=/aLINKOPTS=-cclib -lm' otherlibs/unix/Makefile
     --enable-frame-pointers \
 %endif
 %endif
+%ifarch %{test_arches}
+    --enable-ocamltest \
+%else
+    --disable-ocamltest \
+%endif
     OC_CFLAGS='%{build_cflags}' \
     OC_LDFLAGS='%{build_ldflags}' \
     %{nil}
@@ -297,10 +302,6 @@ annocheck -v hello ||:
 %endif
 
 %ifarch %{test_arches}
-make ocamltest
-%ifarch %{ocaml_native_compiler}
-make ocamltest.opt
-%endif
 %ifarch %{test_arches_required}
 make -j1 tests
 %else

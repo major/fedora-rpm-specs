@@ -40,6 +40,14 @@ Source0: Ardour-%{version}.tar.bz2
 Source1:    LICENSING
 Source2:    gpl-3.0.txt
 
+# Fixes for Python 3.12, picked from upstream
+Patch0:     0001-wscript-fix-regexp-escaping-with-the-more-strict-Pyt.patch
+Patch1:     0002-remove-unused-function-from-autowaf.py-it-no-longer-.patch
+Patch2:     0003-upgrade-waf-to-2.0.26-includes-new-autowaf.py-versio.patch
+
+# Deal with kissfft >= 130. Upstream PR: https://github.com/Ardour/ardour/pull/833
+Patch3:     0001-Deal-with-kissfft-130.patch
+
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.

@@ -1,11 +1,12 @@
 %global		oname torbrowser_launcher
 Name:		torbrowser-launcher
 Version:	0.3.6
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Tor Browser Bundle managing tool
 License:	MIT
 URL:		https://github.com/micahflee/torbrowser-launcher/
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:		%{name}-fix-tbb-archive-name.patch
 BuildArch:	noarch
 ExclusiveArch: %{ix86} x86_64
 BuildRequires:	desktop-file-utils
@@ -49,6 +50,8 @@ sed -i -r "s/^([ \t]+)self.label1 = gtk.Label\(_\('Not installed'\)\)/\
 \1self.label1 = gtk.Label\(_\('Not installed'\)\)\n\1self.tor_update_checkbox.\
 set_active\(False\)/g" torbrowser_launcher/settings.py
 
+%patch -P 0 -p1
+
 %build
 %py3_build
 desktop-file-validate share/applications/torbrowser.desktop
@@ -86,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Oct 13 2023 Daniel Rusek <mail@asciiwolf.com> - 0.3.6-7
+- Fixed TBB archive name format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

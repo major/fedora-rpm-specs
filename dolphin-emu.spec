@@ -22,7 +22,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -293,6 +293,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.19870-3
+- Rebuild (qt6)
+
 * Thu Oct 05 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.19870-2
 - Rebuild (qt6)
 

@@ -60,10 +60,10 @@ commands. You just write, MultiMarkdown takes care of the rest.
 
 # Removing these 2 files as they can cause conflicts with discount and mtools respectively:
 # See https://github.com/fletcher/MultiMarkdown-6/issues/180#issuecomment-584353783
-rm -f %{buildroot}/usr/bin/markdown %{buildroot}/usr/bin/mmd
+rm -f %{buildroot}%{_bindir}/markdown %{buildroot}%{_bindir}/mmd
 
-mkdir -p %{buildroot}/usr/share/doc/multimarkdown
-mv %{buildroot}/usr/share/doc/MultiMarkdown/* %{buildroot}/usr/share/doc/multimarkdown
+mkdir -p %{buildroot}%{_datadir}/doc/multimarkdown
+mv %{buildroot}%{_datadir}/doc/MultiMarkdown/* %{buildroot}%{_datadir}/doc/multimarkdown
 
 %check
 # Tests disabled due to bad interactions between the toolkit and mockbuild

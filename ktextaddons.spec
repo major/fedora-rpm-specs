@@ -1,5 +1,5 @@
 Name:          ktextaddons
-Version:       23.08.2
+Version:       1.5.1
 Release:       1%{?dist}
 Summary:       Various text handling addons
 
@@ -132,9 +132,6 @@ Summary:        Development files for %{name}
 
 
 %changelog
-* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
-- 23.08.2
-
 * Sun Sep 24 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.5.1-1
 - Update to 1.5.1
 

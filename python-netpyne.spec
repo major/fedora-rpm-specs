@@ -26,16 +26,22 @@ videos and more, please visit: www.netpyne.org
 This package is developed and maintained by the Neurosim lab
 (www.neurosimlab.org) }
 
+%global forgeurl https://github.com/Neurosim-lab/netpyne/
+
 Name:           python-netpyne
-Version:        1.0.4.2
+Version:        1.0.5
 Release:        %autorelease
 Summary:        Develop, simulate and analyse biological neuronal networks in NEURON
+%forgemeta
 
 # netpyne/support/stackedBarGraph.py is GPLv3+
+# netpyne/support/filter.py is GPLv3
+# netpyne/analysis/filter.py is GPLv3
 # everything else is MIT
-License:        MIT and GPLv3+
-URL:            https://github.com/Neurosim-lab/netpyne/
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# spdx
+License:        MIT and GPL-3.0-only and GPL-3.0-or-later
+URL:            %forgeurl
+Source0:        %forgesource
 # Exclude tests/ from being installed as a top level module
 # https://github.com/suny-downstate-medical-center/netpyne/pull/767
 Patch:          https://github.com/suny-downstate-medical-center/netpyne/pull/767.patch
@@ -72,7 +78,8 @@ Requires:  %{py3_dist neuron}
 %description -n python3-netpyne %_description
 
 %prep
-%autosetup -p1 -n netpyne-%{version}
+%forgesetup
+%autopatch
 
 sed -i 's/matplotlib<=3.5.1/matplotlib/' setup.py
 

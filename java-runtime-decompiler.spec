@@ -1,7 +1,7 @@
 Summary: Application for extraction and decompilation of JVM byte code
 Name: java-runtime-decompiler
-Version: 7.3
-Release: 3%{?dist}
+Version: 8.0
+Release: 1%{?dist}
 License: GPLv3
 URL: https://github.com/pmikova/java-runtime-decompiler
 Source0: https://github.com/pmikova/%{name}/archive/%{name}-%{version}.tar.gz
@@ -22,7 +22,6 @@ Patch61: systemJcoder7.patch
 Patch62: systemJcoderG.patch
 Patch63: systemJcoderG7.patch
 Patch7: removeMultilineSpotbugs.patch
-Patch8: 2b99a244b592445962cdd15ca33f80449f9aa2ea.patch
 
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -93,7 +92,7 @@ Requires: %{name} = %{version}-%{release}
 This package provides bindings and requirements to CFR decompiler for %{name}.
 
 %package asmtools-plugin
-Requires: openjdk-asmtools >= 8.0.b02.ea-0.3.20230113
+Requires: openjdk-asmtools >= 8.0.b09
 Summary: asmtools disassembler and assembler plugin for %{name}
 Requires: %{name} = %{version}-%{release}
 
@@ -124,7 +123,6 @@ This package provides bindings and requirements to asmtools7 disassembler and as
 %patch62 -p0
 %patch63 -p0
 %patch7 -p1
-%patch8 -p1
 
 %build
 pushd runtime-decompiler
@@ -230,6 +228,10 @@ rm $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.json
 %license LICENSE
 
 %changelog
+* Fri Oct 13 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-1
+- update dto 8.0
+- https://github.com/pmikova/java-runtime-decompiler/releases/tag/java-runtime-decompiler-8.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

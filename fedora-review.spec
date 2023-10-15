@@ -14,7 +14,7 @@
 
 Name:       fedora-review
 Version:    0.10.0
-Release:    2%{?build_nr}%{?git_tag}%{?dist}
+Release:    3%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
@@ -36,6 +36,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-rpm
 BuildRequires:  python3-dnf
 
+Requires:       bc
 Requires:       fedora-packager
 Requires:       python3-beautifulsoup4
 Requires:       python3-bugzilla
@@ -154,6 +155,9 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Thu Aug 03 2023 Benson Muite <benson_muite@emailplus.org> - 0.10.0-3
+- Add bc as a required dependency
+
 * Wed Jul 26 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.10.0-2
 - Properly fix shebangs to invoke Python 3
 

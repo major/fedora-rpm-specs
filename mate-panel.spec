@@ -15,7 +15,7 @@
 Name:           mate-panel
 Version:        %{branch}.3
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
 Release:        0.18%{?git_rel}%{?dist}
 %endif
@@ -41,6 +41,8 @@ Requires:       caja-schemas
 
 # https://github.com/mate-desktop/mate-panel/pull/1375 
 Patch1:         mate-panel_Fix-build-with-gettext-0.22.patch
+# from upstream 1.26 branch
+Patch2:         mate-panel_0001-notification-area-stop-warning-on-removal-1.26.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gobject-introspection-devel
@@ -161,6 +163,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Fri Oct 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-4
+- fix crash when removing notification-area applet from panel
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

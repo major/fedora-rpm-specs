@@ -58,13 +58,6 @@ Summary:        %{summary}
 # Remove bundled earcut.hpp library
 rm -rvf include
 
-%if 0%{?fc34} || 0%{?fc35}
-# Keep pybind11 from automatically disabling debugging symbols.
-sed -r -i \
-    's/^(setup\()/ext_modules[0]\.extra_compile_args.remove\("-g0"\)\n\1/' \
-    setup.py
-%endif
-
 # Fix CRLF line endings in files that will be installed.
 dos2unix --keepdate *.md
 

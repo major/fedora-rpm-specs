@@ -3,7 +3,7 @@ Version:        0.5.1
 Release:        27%{?dist}
 Summary:        MPEG-2 decoder libraries
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://libmpeg2.sourceforge.net
 Source0:        %{url}/files/libmpeg2-%{version}.tar.gz
 # https://github.com/videolan/vlc/blob/master/contrib/src/libmpeg2/libmpeg2-inline.patch

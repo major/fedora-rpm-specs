@@ -16,10 +16,10 @@
 
 Name:     %{package_name}
 Version:  0.6.4
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Dynamically manage system resources on virtualization hosts
 
-License:  GPLv2
+License:  GPL-2.0-only
 URL:      https://www.ovirt.org
 Source:   https://github.com/oVirt/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}.tar.gz
 BuildArch: noarch
@@ -109,6 +109,9 @@ make check %{?_smp_mflags}
 %{python_sitelib}/mom/
 
 %changelog
+* Fri Oct 13 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 0.6.4-5.fc39
+- Migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

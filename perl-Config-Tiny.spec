@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Config-Tiny
-Version:	2.29
-Release:	2%{?dist}
+Version:	2.30
+Release:	1%{?dist}
 Summary:	Perl module for reading and writing .ini style configuration files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Config-Tiny
@@ -38,7 +38,8 @@ BuildRequires:	perl(Test::MinimumVersion) >= 0.101080
 %endif
 BuildRequires:	perl(Test::Pod) >= 1.44
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Config::Tiny is a Perl module designed for reading and writing .ini
@@ -70,6 +71,17 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))" AUTOMATED_TESTING=1
 %{_mandir}/man3/Config::Tiny.3*
 
 %changelog
+* Fri Oct 13 2023 Paul Howarth <paul@city-fan.org> - 2.30-1
+- Update to 2.30
+  - Add support for an array syntax for cases where you wish to assign an array
+    of values to a key
+    - See the new POD section called ARRAY SYNTAX
+    - See also the updated question in the FAQ: What happens if a key is
+      repeated?
+    - See also the sample code in the Synopsis, in t/02.main.t and in
+      t/test.conf
+    - In each case, search for the word greetings to find the new code samples
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

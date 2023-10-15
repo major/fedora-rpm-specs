@@ -1,5 +1,3 @@
-%global srcname asgiref
-
 %global common_description %{expand:
 ASGI is a standard for Python asynchronous web apps and servers to communicate
 with each other, and positioned as an asynchronous successor to WSGI.  This
@@ -9,41 +7,44 @@ package includes ASGI base libraries, such as:
 * Server base classes, asgiref.server
 * A WSGI-to-ASGI adapter, in asgiref.wsgi}
 
-%bcond_without  tests
+%bcond tests 1
 
-
-Name:           python-%{srcname}
-Version:        3.6.0
+Name:           python-asgiref
+Version:        3.7.2
 Release:        %autorelease
 Summary:        ASGI specs, helper code, and adapters
 # main source code is BSD-3-Clause
 # bundled async-timeout is Apache-2.0
 License:        BSD-3-Clause AND Apache-2.0
 URL:            https://github.com/django/asgiref
-# PyPI tarball doesn't have tests
-Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{pypi_source asgiref}
 BuildArch:      noarch
 
 
 %description %{common_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-asgiref
 Summary:        %{summary}
 BuildRequires:  python3-devel
 # https://github.com/django/asgiref/commit/9c6df6e02700092eb19adefff3552d44388f69b8
+# This code is modified and probably cannot be unvendored.
 Provides:       bundled(python3dist(async-timeout)) == 3.0.1
 
 
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-asgiref %{common_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n asgiref-%{version}
+
+# avoid additional mypy build requirement
+sed '/^\s*mypy\s*>=/d' -i setup.cfg
+
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-e %{toxenv}-test}
+%pyproject_buildrequires %{?with_tests:-x tests}
 
 
 %build
@@ -52,17 +53,18 @@ Provides:       bundled(python3dist(async-timeout)) == 3.0.1
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files asgiref
 
 
-%if %{with tests}
 %check
-%tox -e %{toxenv}-test
+%if %{with tests}
+%pytest --verbose
+%else
+%pyproject_check_import
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
+%files -n python3-asgiref -f %{pyproject_files}
 %doc README.rst
 
 

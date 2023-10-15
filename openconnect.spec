@@ -43,7 +43,7 @@ Version:	9.12
 Release:	2%{?relsuffix}%{?dist}
 Summary:	Open multi-protocol SSL VPN client
 
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		http://www.infradead.org/openconnect.html
 Source0:	ftp://ftp.infradead.org/pub/openconnect/openconnect-%{version}%{?gitsuffix}.tar.gz
 %if 0%{?gitcount} == 0

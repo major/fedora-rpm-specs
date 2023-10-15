@@ -3,7 +3,7 @@ Name:           python-%{pypi_name}
 Version:        1.0.1
 Release:        14%{?dist}
 Summary:        Organize changelog directives in Sphinx docs
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/davidism/sphinxcontrib-log-cabinet
 Source0:        %{pypi_source}
 BuildArch:      noarch

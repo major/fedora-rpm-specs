@@ -3,7 +3,7 @@
 Name:    kdenlive
 Summary: Non-linear video editor
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
 URL:     http://www.kdenlive.org
@@ -14,7 +14,6 @@ URL:     http://www.kdenlive.org
 %global stable stable
 %endif
 Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/kdenlive-%{version}.tar.xz
-
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -75,6 +74,8 @@ Suggests: dvgrab
 Requires: qt5-qtquickcontrols
 Requires: qt5-qtquickcontrols2
 Requires: frei0r-plugins
+Requires: qqc2-desktop-style
+Requires: kf5-kirigami2
 
 %description
 Kdenlive is an intuitive and powerful multi-track video editor, including most
@@ -128,6 +129,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Oct 13 2023 Steve Cossette <farchord@gmail.com> - 23.08.2-2
+- Added qqc2-desktop-style and kf5-kirigami as runtime requirements
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

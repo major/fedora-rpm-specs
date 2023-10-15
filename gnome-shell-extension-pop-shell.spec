@@ -1,10 +1,10 @@
 %global extension   pop-shell
 %global uuid        %{extension}@system76.com
-%global commit      b5acccefcaa653791d25f70a22c0e04f1858d96e
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commit      5b7afc619721ff866507c72b95d65e15a252a1d9
+%global shortcommit %{lua:print(macros.commit:sub(1,7))}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        1.2.0^11.%{shortcommit}
+Version:        1.2.0^20.%{shortcommit}
 Release:        %autorelease
 Summary:        GNOME Shell extension for advanced tiling window management
 License:        GPL-3.0-only
@@ -17,17 +17,15 @@ Source2:        50_org.gnome.mutter.%{extension}.gschema.override
 Source3:        50_org.gnome.mutter.wayland.%{extension}.gschema.override
 Source4:        50_org.gnome.settings-daemon.plugins.media-keys.%{extension}.gschema.override
 Source5:        50_org.gnome.shell.%{extension}.gschema.override
-# downstream-only patch
+# downstream-only
 Patch0:         0001-Remove-schema-handling-from-transpile.sh.patch
 
 BuildRequires:  typescript >= 3.8
 BuildRequires:  make
 
-Requires:       gnome-shell >= 3.36
-
+Requires:       (gnome-shell >= 45~ with gnome-shell < 46~)
 Recommends:     gnome-extensions-app
 Recommends:     %{name}-shortcut-overrides = %{version}-%{release}
-
 Provides:       %{extension} = %{version}-%{release}
 
 
@@ -35,7 +33,7 @@ Provides:       %{extension} = %{version}-%{release}
 Pop Shell is a keyboard-driven layer for GNOME Shell which allows for quick and
 sensible navigation and management of windows.  The core feature of Pop Shell
 is the addition of advanced tiling window management - a feature that has been
-highly-sought within our community.  For many - ourselves included - i3wm has
+highly sought within our community.  For many - ourselves included - i3wm has
 become the leading competitor to the GNOME desktop.
 
 
@@ -56,6 +54,7 @@ Shortcut overrides for %{name}.
 
 
 %install
+# install main extension files
 %make_install
 
 # install the schema file

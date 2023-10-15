@@ -77,8 +77,8 @@
 %define configure_opts %{?python3_copts} %{?lvm_dbus_copts} %{?btrfs_copts} %{?crypto_copts} %{?dm_copts} %{?loop_copts} %{?lvm_copts} %{?lvm_dbus_copts} %{?mdraid_copts} %{?mpath_copts} %{?swap_copts} %{?part_copts} %{?fs_copts} %{?nvdimm_copts} %{?tools_copts} %{?gi_copts} %{?nvme_copts}
 
 Name:        libblockdev
-Version:     3.0.3
-Release:     2%{?dist}
+Version:     3.0.4
+Release:     1%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -101,12 +101,8 @@ BuildRequires: autoconf-archive
 # obsolete removed subpackages to allow upgrades
 Provides: libblockdev-kbd = %{version}-%{release}
 Obsoletes: libblockdev-kbd < %{version}-%{release}
-Provides: libblockdev-kbd-devel = %{version}-%{release}
-Obsoletes: libblockdev-kbd-devel < %{version}-%{release}
 Provides: libblockdev-vdo = %{version}-%{release}
 Obsoletes: libblockdev-vdo < %{version}-%{release}
-Provides: libblockdev-vdo-devel = %{version}-%{release}
-Obsoletes: libblockdev-vdo-devel < %{version}-%{release}
 
 Requires: %{name}-utils%{?_isa} = %{version}-%{release}
 
@@ -124,6 +120,12 @@ Summary:     Development files for libblockdev
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-utils-devel%{?_isa} = %{version}-%{release}
 Requires: glib2-devel
+
+# obsolete removed devel subpackages to allow upgrades
+Provides: libblockdev-kbd-devel = %{version}-%{release}
+Obsoletes: libblockdev-kbd-devel < %{version}-%{release}
+Provides: libblockdev-vdo-devel = %{version}-%{release}
+Obsoletes: libblockdev-vdo-devel < %{version}-%{release}
 
 %description devel
 This package contains header files and pkg-config files needed for development
@@ -849,6 +851,23 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Fri Oct 13 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.0.4-1
+- tests: Fix "invalid escape sequence '\#'" warning from Python 3.12 (vtrefny)
+- tests: Fail early when recompilation fails in library_test (vtrefny)
+- lvm-dbus: Replace g_critical calls with bd_utils_log_format (vtrefny)
+- Use log function when calling a plugin function that is not loaded (vtrefny)
+- logging: Default to DEBUG log level if compiled with --enable-debug (vtrefny)
+- nvme: Rework memory allocation for device ioctls (tbzatek)
+- packit: Add configuration for downstream builds (vtrefny)
+- fs: correct btrfs set label description (jvanderwaa)
+- fs: Disable progress for ntfsresize (vtrefny)
+- part: Do not open disk read-write for read only operations (vtrefny)
+- ci: Bump actions/checkout from v3 to v4 (vtrefny)
+- plugins: btrfs: use g_autofree where possible for g_free (jvanderwaa)
+- plugins: use g_autofree for free'ing g_char's (jvanderwaa)
+- spec: Move obsoleted devel subpackages to libblockdev-devel (vtrefny)
+- spec: Obsolete vdo plugin packages (vtrefny)
+
 * Wed Sep 06 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.0.3-2
 - Obsolete vdo plugin packages (#2237477)
 

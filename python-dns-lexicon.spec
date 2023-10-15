@@ -1,6 +1,6 @@
 
 %global forgeurl    https://github.com/AnalogJ/lexicon
-Version:            3.13.0
+Version:            3.15.1
 %forgemeta
 
 %global pypi_name dns-lexicon
@@ -24,8 +24,6 @@ URL:            %{forgeurl}
 # pypi releases don't contain necessary data to run the tests
 Source0:        %{forgesource}
 BuildArch:      noarch
-
-Patch0:         0000-remove-shebang.patch
 
 BuildRequires:  python3-devel
 
@@ -156,7 +154,6 @@ dependencies necessary to use the Route 53 provider.
 %autosetup -n lexicon-%{version} -p1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
-rm setup.py
 
 %generate_buildrequires
 %if %{with extras}
@@ -167,6 +164,8 @@ rm setup.py
 
 
 %build
+# remove shebang
+sed -i '1d' src/lexicon/_private/cli.py
 %pyproject_wheel
 
 %if %{with tests}
@@ -182,7 +181,7 @@ rm setup.py
 # With tldextract 3.3.0+ we can use Fedora's public suffix list by running
 #   tldextract --update --suffix_list_url "file:///usr/share/publicsuffix/public_suffix_list.dat"
 # prior to running the tests
-TEST_SELECTOR="not AutoProviderTests and not NamecheapProviderTests and not NamecheapManagedProviderTests"
+TEST_SELECTOR="not AutoProviderTests and not NamecheapProviderTests and not NamecheapManagedProviderTests and not Route53Provider and not AliyunProviderTests and not AuroraProviderTests and not Route53ProviderTests"
 
 # lexicon providers which do not work in Fedora due to missing dependencies:
 # - SoftLayerProviderTests
@@ -194,7 +193,7 @@ TEST_SELECTOR+=" and not DDNSProviderTests and not DuckdnsProviderTests and not 
 # Miro Hrončok, 2020-09-11:
 # > I am afraid the %%tox macro can only work with "static" deps declaration,
 # > not with arbitrary installers invoked as commands, sorry about that.
-py.test-3 -v -k "${TEST_SELECTOR}" lexicon
+%pytest -v -k "${TEST_SELECTOR}"
 %endif
 
 %install
@@ -240,6 +239,9 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Fri Oct 13 2023 Jonathan Wright <jonathan@almalinux.org> - 3.15.1-1
+- Update to 3.15.1 rhbz#2232054
+
 * Tue Aug 8 2023 Christian Schuermann <spike@fedoraproject.org> 3.13.0-1
 - Update to 3.13.0
 

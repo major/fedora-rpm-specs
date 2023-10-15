@@ -1,12 +1,12 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 0.70
+%global module_version 0.71
 %global RPM_version %(printf "%.4f" %{module_version})
 
 # TODO: BR: optional test dependency Unknown::Values if it becomes available
 
 Name:           perl-Test-Differences
 Version:        %{RPM_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Test strings and data structures and show differences if not OK
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Differences
@@ -66,6 +66,11 @@ make test
 %{_mandir}/man3/Test::Differences.3*
 
 %changelog
+* Fri Oct 13 2023 Paul Howarth <paul@city-fan.org> - 0.7100-1
+- Update to 0.71
+  - Document and test different behavior regarding Booleans in perl 5.38.0
+    compared to earlier versions (GH#21)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,13 +1,19 @@
+%global forgeurl https://github.com/sharkwouter/%{name}
+%global tag %{version}
+
 Name:           minigalaxy
 Version:        1.2.5
 Release:        %autorelease
 Summary:        GOG client for Linux that lets you download and play your GOG Linux games
+
+%forgemeta
+
 BuildArch:      noarch
 
-# CC-BY:        Logo image (data/minigalaxy.png)
-License:        GPLv3+ and CC-BY
-URL:            https://github.com/sharkwouter/minigalaxy
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# CC-BY-3.0:    Logo image (data/minigalaxy.png)
+License:        GPL-3.0-or-later and CC-BY-3.0
+URL:            https://sharkwouter.github.io/minigalaxy
+Source0:        %{forgesource}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -38,7 +44,7 @@ games.
 
 
 %prep
-%autosetup
+%forgeautosetup -p1
 
 
 %build

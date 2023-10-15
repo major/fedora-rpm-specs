@@ -15,7 +15,7 @@ application remains responsive.}
 
 Name: qcoro
 Version: 0.9.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -181,6 +181,9 @@ popd
 %endif
 
 %changelog
+* Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-7
+- Rebuild (qt6)
+
 * Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 0.9.0-6
 - Rebuild for Qt Private API
 

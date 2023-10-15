@@ -1,9 +1,9 @@
 Name:       safelease
 Version:    1.0.1
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Legacy locking utility for VDSM
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://www.ovirt.org/develop/developer-guide/vdsm/safelease.html
 Source0:    http://resources.ovirt.org/pub/src/%{name}/%{name}-%{version}.tar.gz
 BuildRequires: make
@@ -36,6 +36,9 @@ make %{?_smp_mflags}
 %{_libexecdir}/%{name}/%{name}
 
 %changelog
+* Fri Oct 13 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 1.0.1-11
+- Migrated to SPDX license
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

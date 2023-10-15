@@ -8,8 +8,8 @@
 
 Name:    blogilo
 Summary: Blogging Client
-Version: 23.08.2
-Release: 1%{?dist}
+Version: 17.08.3
+Release: 28%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -147,9 +147,6 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
-* Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
-- 23.08.2
-
 * Tue Sep 19 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 17.08.3-28
 - Patch and rebuild for new kdepim libraries, again! (#2239665)
 

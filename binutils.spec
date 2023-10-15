@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -255,6 +255,11 @@ Patch17: binutils-riscv-testsuite-fixes.patch
 # Purpose:  Fix the GOLD linker's handling of 32-bit PowerPC binaries.
 # Lifetime: Fixed in 2.42
 Patch18: binutils-gold-powerpc.patch
+
+# Purpose:  Fix a potential NULL pointer dereference when parsing corrupt
+#            ELF symbol version information.
+# Lifetime: Fixed in 2.42
+Patch19: binutils-handle-corrupt-version-info.patch
 
 #----------------------------------------------------------------------------
 
@@ -1255,6 +1260,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Fri Oct 13 2023 Nick Clifton  <nickc@redhat.com> - 2.41-7
+- Fix a potential NULL pointer derefence when parsing corrupt ELF symbol version information.  (#2243769)
+
 * Thu Oct 12 2023 Nick Clifton  <nickc@redhat.com> - 2.41-6
 - Enable warnings about executable stacks by default.
 

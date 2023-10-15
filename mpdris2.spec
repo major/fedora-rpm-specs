@@ -2,7 +2,7 @@
 
 Name:           mpdris2
 Version:        0.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Provide MPRIS 2 support to mpd
 
 License:        GPLv3+
@@ -16,8 +16,15 @@ Patch0:         mpdris2-0.9.1-currentsong.patch
 BuildArch:      noarch
 
 BuildRequires:  make
-BuildRequires:  gettext intltool desktop-file-utils python3-devel
-Requires:       python3-dbus python3-mpd2 python3-gobject python3-mutagen
+BuildRequires:  gettext
+BuildRequires:  intltool
+BuildRequires:  desktop-file-utils
+BuildRequires:  python3-devel
+
+Requires:       python3-mpd
+Requires:       python3-gobject
+Requires:       python3-dbus
+Requires:       python3-mutagen
 
 %description
 mpDris2 provides MPRIS 2 support to mpd (Music Player Daemon).
@@ -59,8 +66,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_pkgdocdir}/%{tarname}.conf
 %{_prefix}/lib/systemd/user/mpDris2.service
 
-
 %changelog
+* Thu Oct 12 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 0.9.1-7
+- Rename python3-mpd2 dependency to python3-mpd (see #2240352, #2240351)
+- Update spec formatting
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

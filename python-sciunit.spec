@@ -87,7 +87,7 @@ sed -i '/def test_source_check/i  \ \ \ \ @unittest.skip' sciunit/unit_test/mode
 # https://github.com/scidash/sciunit/issues/218
 sed -i '/def test_testsuite/i  \ \ \ \ @unittest.skip' sciunit/unit_test/test_tests.py
 sed -i '/def test_testsuite_set_verbose/i  \ \ \ \ @unittest.skip' sciunit/unit_test/test_tests.py
-PYTHONPATH=%{buildroot}/%{python3_sitelib} %{python3} -m sciunit.unit_test buffer
+%{py3_test_envvars} %{python3} -m sciunit.unit_test buffer
 %endif
 
 %files -n python3-sciunit -f %{pyproject_files}

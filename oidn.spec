@@ -1,5 +1,5 @@
 Name:           oidn
-Version:        2.0.1
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Library of denoising filters for images rendered with ray tracing
 License:        Apache-2.0

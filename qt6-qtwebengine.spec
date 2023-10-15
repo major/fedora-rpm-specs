@@ -48,7 +48,7 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.5.3
+Version: 6.6.0
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -619,6 +619,7 @@ done
 
 %files devtools
 %{_qt6_datadir}/resources/qtwebengine_devtools_resources.pak
+%{_qt6_datadir}/resources/v8_context_snapshot.bin
 
 %files examples
 %{_qt6_examplesdir}/webengine*
@@ -670,6 +671,9 @@ done
 
 
 %changelog
+* Wed Oct 11 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
+- 6.6.0
+
 * Sun Oct 01 2023 Justin Zobel <justin.zobel@gmail.com> - 6.5.3-1
 - new version
 

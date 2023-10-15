@@ -23,15 +23,15 @@
 %global openh264_soversion 7
 
 
-%global obswebsocket_version 5.3.0
+%global obswebsocket_version 5.3.2
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
 #global snapdate 202303261743
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        30.0.0~beta3
-Release:        3%{?dist}
+Version:        30.0.0~rc1
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -52,13 +52,6 @@ Source1:        https://github.com/obsproject/obs-websocket/archive/%{obswebsock
 Patch0101:      0101-UI-Consistently-reference-the-software-H264-encoder-.patch
 Patch0102:      0102-obs-ffmpeg-Add-initial-support-for-the-OpenH264-H.26.patch
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
-
-## From: https://github.com/obsproject/obs-studio/pull/8777
-Patch0201:      0201-deps-Add-license-declaration-files.patch
-Patch0202:      0202-libobs-Add-license-declaration-files.patch
-Patch0203:      0203-decklink-Add-license-declaration-files.patch
-Patch0204:      0204-obs-qsv11-Add-license-declaration-file.patch
-
 
 # Downstream Fedora patches
 ## Downgrade to CMake 3.20 for RHEL 9 compatibility
@@ -314,6 +307,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Oct 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0~rc1-1
+- Update to 30.0.0~rc1
+
+* Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 30.0.0~beta3-4
+- Rebuild (qt6)
+
 * Thu Oct 05 2023 Jan Grulich <jgrulich@redhat.com> - 30.0.0~beta3-3
 - Rebuild (qt6)
 

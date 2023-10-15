@@ -5,12 +5,12 @@
 %global _udevrulesdir %{_prefix}/lib/udev/rules.d
 %endif
 
-%global xyz_version 3.16.1
+%global xyz_version 3.16.2
 %global xy_version %(sed 's/\\(.*\\)\\..*/\\1/'<<<%{xyz_version})
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL-1.0-or-later
 URL:		http://fuse.sf.net
@@ -192,6 +192,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %endif
 
 %changelog
+* Fri Oct 13 2023 Pavel Reichl <preichl@redhat.com> - 3.16.2-1
+- Rebase to upstream version 3.16.2
+
 * Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 3.16.1-3
 - Convert License tag to SPDX format
 

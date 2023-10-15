@@ -229,6 +229,8 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DOPENBABEL_USE_SYSTEM_INCHI=false \
 %else
  -DOPENBABEL_USE_SYSTEM_INCHI=true \
+ -DINCHI_INCLUDE_DIR:PATH=%{_includedir}/inchi \
+ -DINCHI_LIBRARY:FILEPATH=%{_libdir}/libinchi.so \
 %endif
  -DENABLE_VERSIONED_FORMATS=false \
  -DRUN_SWIG=true \

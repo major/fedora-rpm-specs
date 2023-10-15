@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 81
+%global microversion 82
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -722,6 +722,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Oct 13 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.82-1
+- Update version to 0.3.82
+
 * Fri Oct 6 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.81-1
 - Update version to 0.3.81
 
