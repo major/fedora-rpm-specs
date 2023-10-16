@@ -1,6 +1,6 @@
 Name:           pythran
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -119,9 +119,16 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 %check
 # https://bugzilla.redhat.com/show_bug.cgi?id=1747029#c12
 k="not test_numpy_negative_binomial"
-%ifarch %{arm}
-# https://github.com/serge-sans-paille/pythran/pull/1946#issuecomment-992458379
-k="$k and not test_interp_6c"
+%if 0%{?__isa_bits} == 32
+# These tests cause memory (address space) exhaustion; see discussion in
+# https://src.fedoraproject.org/rpms/pythran/pull-request/28.
+for t in test_fftn_{8,17,20,22} \
+    test_{h,ih,ir}fft_{8,14} \
+    test_{,i}fft_3d{,_axis,f64_axis,int64_axis} \
+    test_numpy_random_bytes1
+do
+  k="$k and not ${t}"
+done
 %endif
 %ifarch aarch64
 # the test is so flaky it makes the build fail almost all the time
@@ -135,7 +142,21 @@ k="$k and not test_setup_bdist_install3"
 # this test needs ipython
 k="$k and not test_loadext_and_run"
 %endif
-%pytest %{?!rhel:-n auto} -k "$k"
+# Some tests still want numpy.distutils
+# https://github.com/serge-sans-paille/pythran/issues/2148
+k="$k and not test_setup_bdist_install3"
+k="$k and not test_setup_build3"
+k="$k and not test_setup_sdist_install3"
+
+# Don’t run tests in parallel on 32-bit architecutres. RRunning tests in serial
+# makes memory errors, which occur in some tests on 32-bit architectures, more
+# reproducible, and makes the output when they occur less confusing: we tend to
+# get individual test failures rather than a pytest INTERNALERROR.
+%if %{undefined rhel} && 0%{?__isa_bits} != 32
+%global use_pytest_xdist 1
+%endif
+
+%pytest %{?use_pytest_xdist:-n auto} -k "$k"
 
 
 %files -f %{pyproject_files}
@@ -149,6 +170,11 @@ k="$k and not test_loadext_and_run"
 
 
 %changelog
+* Thu Oct 05 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.0-2
+- Fix FTBFS: skip tests that need numpy.distutils
+- On 32-bit, run tests in serial and skip those that exhaust memory
+- Drop obsolete conditionals for 32-bit ARM
+
 * Thu Sep 07 2023 Miro Hrončok <mhroncok@redhat.com> - 0.14.0-1
 - Update to 0.14.0
 - Fixes: rhbz#2237784

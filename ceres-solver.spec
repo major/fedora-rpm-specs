@@ -1,12 +1,15 @@
+# FIXME: LTO causes ld segfault, revisit in the future
+%global _lto_cflags %nil
+
 Name:           ceres-solver
-Version:        2.1.0
+Version:        2.2.0
 # Release candidate versions are messy. Give them a release of
 # e.g. "0.1.0%%{?dist}" for RC1 (and remember to adjust the Source0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        A non-linear least squares minimizer
 
-License:        BSD
+License:        BSD-3-Clause AND Apache-2.0
 
 URL:            http://ceres-solver.org/
 Source0:        http://%{name}.org/%{name}-%{version}.tar.gz
@@ -137,15 +140,19 @@ developing applications that use %{name}.
 %doc README.md
 %license LICENSE
 %endif
-%{_libdir}/*.so.*
+%{_libdir}/libceres.so.4
+%{_libdir}/libceres.so.2.2.0
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
+%{_includedir}/ceres/
+%{_libdir}/libceres.so
 %{_libdir}/cmake/Ceres
 
 
 %changelog
+* Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 2.2.0-1
+- Update to 2.2.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

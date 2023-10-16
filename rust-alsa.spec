@@ -7,7 +7,7 @@
 %global crate alsa
 
 Name:           rust-alsa
-Version:        0.7.1
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Thin but safe wrappers for ALSA (Linux sound API)
 

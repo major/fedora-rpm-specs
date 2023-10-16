@@ -1,14 +1,14 @@
 Name: erfa
-Version: 2.0.0
-Release: 6%{?dist}
+Version: 2.0.1
+Release: 1%{?dist}
 Summary: Essential Routines for Fundamental Astronomy
 
-License: BSD
+License: BSD-3-Clause
 URL: https://github.com/liberfa/erfa
-Source0: https://github.com/liberfa/erfa/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/liberfa/erfa/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:	gcc
-BuildRequires: make
+BuildRequires: meson
+BuildRequires: gcc
 
 %description
 ERFA is a C library containing key algorithms for astronomy, and is 
@@ -24,17 +24,17 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q 
+%autosetup 
 
 %build
-%configure --disable-static
-make %{?_smp_mflags} 
+%meson
+%meson_build
 
 %install
-make install DESTDIR=%{buildroot}
+%meson_install
 
 %check
-make check
+%meson_test
 
 %ldconfig_scriptlets
 
@@ -47,9 +47,13 @@ make check
 %{_libdir}/liberfa.so
 %{_includedir}/erfa*.h
 %{_libdir}/pkgconfig/erfa.pc
-%exclude %{_libdir}/*.la
 
 %changelog
+* Sat Oct 14 2023 Sergio Pascual <sergiopr at fedoraproject.org> - 2.0.1-1
+- New upstream source (2.0.1)
+- Building with meson
+- License migrated to SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

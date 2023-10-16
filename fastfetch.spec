@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.0.5
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -9,6 +9,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  pciutils-devel
 BuildRequires:  wayland-devel
 BuildRequires:  libxcb-devel
@@ -24,7 +25,10 @@ BuildRequires:  xfconf-devel
 BuildRequires:  glib2-devel
 BuildRequires:  ocl-icd-devel
 BuildRequires:  rpm-devel
+# not available on s390x
+%if "%{_arch}" != "s390x"
 BuildRequires:  libddcutil-devel
+%endif
 # vulkan-loader not available in el8 on some arches
 %if 0%{?rhel} == 8
   %if "%{_arch}" != "s390x" && "%{_arch}" != "ppc64le"
@@ -94,6 +98,9 @@ BuildArch: noarch
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sat Oct 14 2023 Jonathan Wright <jonathan@almalinux.org> - 2.1.1-1
+- Update to 2.1.1 rhbz#2235036
+
 * Sun Aug 27 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0.5-1
 - Update to 2.0.5 rhbz#2235036
 - Add new optional dependency rhbz#2235137

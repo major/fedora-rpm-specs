@@ -6,7 +6,7 @@ implementation of a HTTP/2 protocol stack. It's written from the ground up to
 be embeddable in whatever program you choose to use, ensuring that you can
 speak HTTP/2 regardless of your programming paradigm.}
 
-Name:           python-%{srcname}
+Name:           python-h2
 Version:        4.1.0
 Release:        %autorelease
 Summary:        HTTP/2 State-Machine based protocol implementation
@@ -50,7 +50,7 @@ This is the documentation package for %{name}.
 %pyproject_wheel
 
 # generate html docs
-PYTHONPATH=%{pyproject_build_lib}  sphinx-build docs/source html
+PYTHONPATH=$PWD/build/lib.%{python3_platform}-cpython-%{python3_version_nodots} sphinx-build docs/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 

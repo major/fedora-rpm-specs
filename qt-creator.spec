@@ -1,17 +1,17 @@
-#define prerelease rc1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        11.0.3
-Release:        4%{?dist}
+Version:        12.0.0
+Release:        0.1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/11.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/12.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # In Fedora, the ninja command is called ninja-build
@@ -199,10 +199,13 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
-* Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com>
+* Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 12.0.0-0.1.beta1
+- Update to 12.0.0-beta1
+
+* Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 11.0.3-4
 - Rebuild (qt6)
 
-* Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com>
+* Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 11.0.3-3
 - Rebuild for Qt Private API
 
 * Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 11.0.3-2

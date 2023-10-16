@@ -2,23 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate regex
+%global crate regex-syntax
 
-Name:           rust-regex
-Version:        1.10.1
+Name:           rust-regex-syntax0.7
+Version:        0.7.5
 Release:        %autorelease
-Summary:        Implementation of regular expressions for Rust
+Summary:        Regular expression parser
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/regex
+License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016
+URL:            https://crates.io/crates/regex-syntax
 Source:         %{crates_source}
-Patch:          0001-regex-fix-compilation-of-doctests-on-32-bit-architec.patch
+# Manually created patch for downstream crate metadata changes
+# * add missing Unicode license terms to crate metadata:
+#   https://github.com/rust-lang/regex/discussions/933
+Patch:          regex-syntax-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An implementation of regular expressions for Rust. This implementation
-uses finite automata and guarantees linear time matching on all inputs.}
+A regular expression parser.}
 
 %description %{_description}
 
@@ -34,9 +36,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/src/unicode_tables/LICENSE-UNICODE
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/UNICODE.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -51,124 +52,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+logging-devel
+%package     -n %{name}+arbitrary-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+logging-devel %{_description}
+%description -n %{name}+arbitrary-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "logging" feature of the "%{crate}" crate.
+use the "arbitrary" feature of the "%{crate}" crate.
 
-%files       -n %{name}+logging-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pattern-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pattern-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pattern" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pattern-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-backtrack-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-backtrack-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf-backtrack" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-backtrack-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-cache-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-cache-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf-cache" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-cache-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-dfa-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-dfa-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf-dfa" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-dfa-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-dfa-full-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-dfa-full-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf-dfa-full" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-dfa-full-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-inline-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-inline-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf-inline" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-inline-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-literal-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-literal-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf-literal" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-literal-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+perf-onepass-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-onepass-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf-onepass" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-onepass-devel
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -277,30 +170,6 @@ This package contains library source intended for building other packages which
 use the "unicode-segment" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unicode-segment-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+unstable-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+use_std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+use_std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "use_std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+use_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -2,22 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate strip-ansi-escapes
+%global crate pretty_env_logger
 
-Name:           rust-strip-ansi-escapes
-Version:        0.2.0
+Name:           rust-pretty_env_logger0.4
+Version:        0.4.0
 Release:        %autorelease
-Summary:        Strip ANSI escape sequences from byte streams
+Summary:        Visually pretty env_logger
 
-# Upstream license specification: Apache-2.0/MIT
-License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/strip-ansi-escapes
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/pretty_env_logger
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Strip ANSI escape sequences from byte streams.}
+A visually pretty env_logger.}
 
 %description %{_description}
 
@@ -33,7 +33,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

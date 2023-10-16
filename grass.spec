@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.3.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -338,6 +338,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 8.3.0-4
+- Rebuild (PDAL)
+
 * Sun Aug 06 2023 Alexandre Detiste <alexandre.detiste@gmail.com> - 8.3.0-3
 - Remove support for RHEL6: Grass is now Python3 only
 

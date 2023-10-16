@@ -17,7 +17,6 @@ Patch:          gix-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Drop feature that requires flate2/zlib-ng because it is not available in fedora
 # * Drop feature that requires reqwest/rust-tls because it is not available in fedora
-# * Drop gix-status feature because the dependency is currently missing
 Patch:          gix-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -282,6 +281,18 @@ use the "gix-protocol" feature of the "%{crate}" crate.
 %files       -n %{name}+gix-protocol-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+gix-status-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gix-status-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gix-status" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gix-status-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+gix-transport-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -496,6 +507,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+status-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+status-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "status" feature of the "%{crate}" crate.
+
+%files       -n %{name}+status-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+worktree-archive-devel

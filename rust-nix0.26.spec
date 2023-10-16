@@ -5,8 +5,8 @@
 
 %global crate nix
 
-Name:           rust-nix
-Version:        0.27.1
+Name:           rust-nix0.26
+Version:        0.26.4
 Release:        %autorelease
 Summary:        Rust friendly bindings to *nix APIs
 

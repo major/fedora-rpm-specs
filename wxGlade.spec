@@ -1,6 +1,6 @@
 Name:           wxGlade
 Version:        1.0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A wxWidgets/wxPython/wxPerl GUI designer
 License:        MIT
 URL:            http://wxglade.sourceforge.net
@@ -50,6 +50,9 @@ install -pm 644 %{S:2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Oct 14 2023 Sérgio Basto <sergio@serjux.com> - 1.0.5-4
+- Rebuild for wxGTK update seems fixes the problem
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

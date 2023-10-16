@@ -1,8 +1,8 @@
 %global jsname jsroot
 
 Name:		js-%{jsname}
-Version:	7.3.1
-Release:	2%{?dist}
+Version:	7.3.4
+Release:	1%{?dist}
 Summary:	JavaScript ROOT - Interactive numerical data analysis graphics
 
 #		Most files are MIT, d3.mjs is BSD, dat.gui.mjs is Apache-2.0
@@ -23,7 +23,7 @@ Data can be read and displayed from binary and JSON ROOT files.
 
 %prep
 %setup -q -n %{jsname}-%{version}
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 # nothing to do
@@ -87,6 +87,9 @@ end
 %doc changes.md demo docs/* index.htm readme.md
 
 %changelog
+* Sat Oct 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.3.4-1
+- Update to version 7.3.4
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

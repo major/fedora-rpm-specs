@@ -53,7 +53,7 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.28.06
+Version:	6.28.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
 Release:	1%{?dist}
 Summary:	Numerical data analysis framework
@@ -102,7 +102,7 @@ Patch7:		%{name}-big-endian-byte-swap.patch
 #		https://github.com/root-project/root/pull/12375
 Patch8:		%{name}-use-consistent-wording-in-tmva-test-comments.patch
 #		https://github.com/root-project/root/pull/12390
-Patch9:	%{name}-stressvector-test-fails-on-ix86.patch
+Patch9:		%{name}-stressvector-test-fails-on-ix86.patch
 #		https://github.com/root-project/root/pull/12423
 Patch10:	%{name}-dont-install-roofit-files-fix.patch
 #		https://github.com/root-project/root/issues/12427
@@ -110,6 +110,18 @@ Patch10:	%{name}-dont-install-roofit-files-fix.patch
 Patch11:	%{name}-fixes-for-32bit-builds.patch
 #		https://github.com/root-project/root/pull/12476
 Patch12:	%{name}-do-not-remove-Wp-before-D-and-U.patch
+#		Avoid boolean operators on numpy arrays in unit test
+#		https://github.com/root-project/root/issues/12162
+#		https://github.com/root-project/root/pull/13612
+Patch13:	root-boolean-numpy-array.patch
+#		Port to pcre2
+#		https://github.com/root-project/root/issues/11395
+#		https://github.com/root-project/root/pull/13771
+Patch14:	root-pcre2.patch
+Patch15:	root-pcre2-6.28.patch
+#		src/RBDT.cxx is a source file of both libTMVA and libTMVAUtils
+#		https://github.com/root-project/root/pull/13863
+Patch16:	root-tmva-rbdt.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -125,7 +137,7 @@ BuildRequires:	fcgi-devel
 BuildRequires:	ftgl-devel
 BuildRequires:	gl2ps-devel
 BuildRequires:	glew-devel
-BuildRequires:	pcre-devel
+BuildRequires:	pcre2-devel
 BuildRequires:	zlib-devel
 BuildRequires:	xz-devel
 BuildRequires:	lz4-devel
@@ -169,8 +181,6 @@ BuildRequires:	R-RInside-devel
 BuildRequires:	readline-devel
 BuildRequires:	tbb-devel >= 2018
 BuildRequires:	libuuid-devel
-BuildRequires:	emacs
-BuildRequires:	emacs-el
 BuildRequires:	graphviz-devel
 BuildRequires:	expat-devel
 BuildRequires:	pythia8-devel >= 8.1.80
@@ -222,9 +232,6 @@ Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
 Requires:	hicolor-icon-theme
-Requires:	emacs-filesystem >= %{_emacs_version}
-Provides:	emacs-%{name} = %{version}-%{release}
-Provides:	emacs-%{name}-el = %{version}-%{release}
 Obsoletes:	emacs-%{name} < 5.34.28
 Obsoletes:	emacs-%{name}-el < 5.34.28
 
@@ -1577,6 +1584,8 @@ Requires:	%{name}-multiproc%{?_isa} = %{version}-%{release}
 Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
+#		Library split (tmva-utils from tmva)
+Obsoletes:	%{name}-tmva < 6.28.08
 
 %description tmva
 The Toolkit for Multivariate Analysis (TMVA) provides a
@@ -1597,6 +1606,19 @@ discrimination techniques, their training and testing (performance
 evaluation). In addition all these methods can be tested in parallel,
 and hence their performance on a particular data set may easily be
 compared.
+
+%if %{dataframe}
+%package tmva-utils
+Summary:	Toolkit for multivariate data analysis (dataframe utilities)
+License:	BSD-3-Clause
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
+#		Library split (tmva-utils from tmva)
+Obsoletes:	%{name}-tmva < 6.28.08
+
+%description tmva-utils
+TMVA utilities using dataframe.
+%endif
 
 %package tmva-python
 Summary:	Toolkit for multivariate data analysis (Python)
@@ -1757,7 +1779,7 @@ written in python.
 Summary:	Static files for the Jupyter ROOT Notebook
 BuildArch:	noarch
 Requires:	%{name}-core = %{version}-%{release}
-Requires:	js-jsroot >= 6
+Requires:	js-jsroot >= 7
 %if %{?fedora}%{!?fedora:0}
 #		jupyter-notebook not available in RHEL/EPEL
 #		some functionality missing
@@ -1994,6 +2016,10 @@ This package contains extra tools for RooFit projects.
 %patch -P 10 -p1
 %patch -P 11 -p1
 %patch -P 12 -p1
+%patch -P 13 -p1
+%patch -P 14 -p1
+%patch -P 15 -p1
+%patch -P 16 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2068,7 +2094,6 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
        -DCMAKE_INSTALL_PYTHONDIR:PATH=%{python3_sitearch} \
        -DCMAKE_INSTALL_SYSCONFDIR:PATH=%{_datadir}/%{name} \
        -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir} \
-       -DCMAKE_INSTALL_ELISPDIR:PATH=%{_emacs_sitelispdir}/%{name} \
        -Dgnuinstall:BOOL=ON \
        -Dbuiltin_afterimage:BOOL=OFF \
        -Dbuiltin_cfitsio:BOOL=OFF \
@@ -2228,10 +2253,6 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
 
 # Let rpm redo the python byte compilation
 find %{buildroot}%{python3_sitearch} -depth -type d -name __pycache__ -exec rm -r {} ';'
-
-# Do emacs byte compilation
-emacs -batch -no-site-file -f batch-byte-compile \
-    %{buildroot}%{_emacs_sitelispdir}/%{name}/*.el
 
 # Install desktop entry and icon
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -2590,16 +2611,6 @@ tutorial-dataframe-df026_AsNumpyArrays-py|\
 tutorial-roofit-rf409_NumPyPandasToRooFit-py"
 %endif
 
-%if %{?fedora}%{!?fedora:0} == 37 || %{?fedora}%{!?fedora:0} == 38
-%ifarch %{ix86}
-# - pyunittests-pyroot-roofit-roodataset-numpy
-#   Failures with Fedora 37/38 i686 (after numpy 1.24 update)
-#   https://github.com/root-project/root/issues/12162
-excluded="${excluded}|\
-pyunittests-pyroot-roofit-roodataset-numpy"
-%endif
-%endif
-
 %ifarch %{power64}
 # PPC64LE specific failures
 # - test-stresshistofit-interpreted
@@ -2893,6 +2904,9 @@ fi
 %ldconfig_scriptlets sql-sqlite
 %ldconfig_scriptlets sql-pgsql
 %ldconfig_scriptlets tmva
+%if %{dataframe}
+%ldconfig_scriptlets tmva-utils
+%endif
 %ldconfig_scriptlets tmva-python
 %ldconfig_scriptlets tmva-r
 %ldconfig_scriptlets tmva-sofie
@@ -2952,9 +2966,6 @@ fi
 %{_datadir}/icons/hicolor/48x48/apps/root.png
 %{_datadir}/icons/hicolor/48x48/mimetypes/application-x-root.png
 %{_datadir}/mime/packages/root.xml
-%dir %{_emacs_sitelispdir}/%{name}
-%{_emacs_sitelispdir}/%{name}/*.elc
-%{_emacs_sitelispdir}/%{name}/*.el
 
 %files icons
 %{_datadir}/%{name}/icons
@@ -2997,6 +3008,8 @@ fi
 %{_mandir}/man1/system.rootdaemonrc.1*
 %dir %{_datadir}/%{name}/cmake
 %{_datadir}/%{name}/cmake/*.cmake
+%dir %{_datadir}/%{name}/cmake/modules
+%{_datadir}/%{name}/cmake/modules/*.cmake
 %dir %{_datadir}/%{name}/macros
 %{_datadir}/%{name}/macros/Dialogs.C
 %dir %{_datadir}/%{name}/plugins
@@ -3572,6 +3585,34 @@ fi
 %dir %{_includedir}/%{name}/TMVA/DNN/Architectures/Cpu
 %dir %{_includedir}/%{name}/TMVA/DNN/Architectures/Reference
 %license tmva/doc/LICENSE
+%exclude %{_includedir}/%{name}/TMVA/RBDT.hxx
+%exclude %{_includedir}/%{name}/TMVA/RInferenceUtils.hxx
+%exclude %{_includedir}/%{name}/TMVA/RReader.hxx
+%exclude %{_includedir}/%{name}/TMVA/RSofieReader.hxx
+%exclude %{_includedir}/%{name}/TMVA/RStandardScaler.hxx
+%exclude %{_includedir}/%{name}/TMVA/RTensorUtils.hxx
+%exclude %{_includedir}/%{name}/TMVA/TreeInference/BranchlessTree.hxx
+%exclude %{_includedir}/%{name}/TMVA/TreeInference/Forest.hxx
+%exclude %{_includedir}/%{name}/TMVA/TreeInference/Objectives.hxx
+%exclude %{_includedir}/%{name}/TMVA/TreeInference/PythonHelpers.hxx
+
+%if %{dataframe}
+%files tmva-utils
+%{_libdir}/%{name}/libTMVAUtils.*
+%{_libdir}/%{name}/libTMVAUtils_rdict.pcm
+%dir %{_includedir}/%{name}/TMVA
+%dir %{_includedir}/%{name}/TMVA/TreeInference
+%{_includedir}/%{name}/TMVA/RBDT.hxx
+%{_includedir}/%{name}/TMVA/RInferenceUtils.hxx
+%{_includedir}/%{name}/TMVA/RReader.hxx
+%{_includedir}/%{name}/TMVA/RSofieReader.hxx
+%{_includedir}/%{name}/TMVA/RStandardScaler.hxx
+%{_includedir}/%{name}/TMVA/RTensorUtils.hxx
+%{_includedir}/%{name}/TMVA/TreeInference/BranchlessTree.hxx
+%{_includedir}/%{name}/TMVA/TreeInference/Forest.hxx
+%{_includedir}/%{name}/TMVA/TreeInference/Objectives.hxx
+%{_includedir}/%{name}/TMVA/TreeInference/PythonHelpers.hxx
+%endif
 
 %files tmva-python -f includelist-tmva-pymva
 %{_libdir}/%{name}/libPyMVA.*
@@ -3738,6 +3779,11 @@ fi
 %endif
 
 %changelog
+* Sat Oct 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.08-1
+- Update to 6.28.08
+- New subpackage root-tmva-utils (split off from root-tmva)
+- Port to pcre2
+
 * Tue Sep 05 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.06-1
 - Update to 6.28.06
 - Drop patches root-testRooAbsL-test-compares-two-doubles-and-fails.patch and

@@ -5,7 +5,7 @@
 Name:    ark
 Summary: Archive manager
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://www.kde.org/applications/utilities/ark/
@@ -21,6 +21,8 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 ## upstreamable patches
 
 ## upstream patches
+# https://invent.kde.org/utilities/ark/-/commit/9bcbcb056c43abef88540c54f25bc6c1a78c7c0e
+Patch0:        9bcbcb056c43abef88540c54f25bc6c1a78c7c0e.patch
 
 BuildRequires: bzip2-devel
 BuildRequires: desktop-file-utils
@@ -144,6 +146,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ark.deskt
 
 
 %changelog
+* Sat Oct 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-2
+- Add upstream patch to fi bzip2 format with shared-mime-info 2.3
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

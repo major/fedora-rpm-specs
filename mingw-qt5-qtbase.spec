@@ -24,12 +24,12 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-qtbase
-Version:        5.15.10
-Release:        4%{?dist}
+Version:        5.15.11
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
-License:        GPLv3 with exceptions or LGPLv2 with exceptions
+License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            http://qt.io/
 
 %if 0%{?commit:1}
@@ -100,16 +100,10 @@ Patch18:        qt5-qtbase-link-openssl.patch
 # Fix missing qtsan_impl include
 Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
 
-# Backport fix for CVE-2023-38197
-Patch20:        CVE-2023-38197.patch
-
-# Backport fix for CVE-2023-37369
-Patch21:        CVE-2023-37369.diff
-
 ## KDE 5.15 branch patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
 # git diff v5.15.10..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
-Source100:      kde-5.15-rollup-20230613.patch.gz
+Source100:      kde-5.15-rollup-20231006.patch.gz
 
 
 BuildRequires:  gcc-c++
@@ -819,6 +813,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 5.15.11-1
+- Update to 5.15.11
+
 * Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 5.15.10-4
 - Backport fix for CVE-2023-37369
 

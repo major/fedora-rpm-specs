@@ -8,8 +8,8 @@
 Summary:	Point Data Abstraction Library
 Name:		PDAL
 # NOTE: Re-verifiy test exclusions in %%check when updating
-Version:	2.5.6
-Release:	1%{?dist}
+Version:	2.6.0
+Release:	2%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
 # - vendor/arbiter/*, plugins/nitf/io/nitflib.h and plugins/oci/io/OciWrapper.* are Expat/MIT
@@ -40,6 +40,12 @@ Patch0:		PDAL_unbundle.patch
 # Use correct libdir for PDAL_DRIVER_PATH when running tests
 Patch1:		PDAL_tests.patch
 
+# Fix build failure due to macro symbol collision, fixed by re-ordering includes
+Patch2:         PDAL_build.patch
+
+# Fix incorrect install destination
+Patch3:         PDAL_bashcompletion-installdir.patch
+
 BuildRequires:	boost-devel
 BuildRequires:	cmake
 BuildRequires:	eigen3-devel
@@ -66,6 +72,7 @@ BuildRequires:	python3-breathe
 BuildRequires:	python3-devel
 BuildRequires:	python3-numpy
 BuildRequires:	python3-sphinx
+BuildRequires:  python3-sphinx-notfound-page
 %if 0%{?fedora}
 # yet missing for EPEL8
 BuildRequires:	python3-sphinxcontrib-bibtex
@@ -165,6 +172,9 @@ rm -rf vendor/{eigen,gtest,pdalboost}
 # dependencies yet missing for EPEL8 BZ#1808766
 (
 cd doc
+# FIXME: Crash when SOURCE_DATE_EPOCH is set
+# https://github.com/sphinx-doc/sphinx/pull/11516
+unset SOURCE_DATE_EPOCH
 sphinx-build -b html . build/html
 )
 %endif
@@ -184,26 +194,8 @@ sphinx-build -b html . build/html
 
 
 %check
-## test the compiled code (see doc/project/testing.rst)
-# we skip tests for selected architectures which need upstream fixes
-%ifarch armv7hl aarch64 ppc64le s390x
-(cd %{_vpath_builddir} && ctest --output-on-failure || true)
-%else
-## we skip the PG test (BUILD_PGPOINTCLOUD_TESTS:BOOL=OFF):
-# PGUSER=pdal PGPASSWORD=password PGHOST=localhost PGPORT=5432 ctest -V
+#ctest
 
-# Use plain ctest as opposed to %%ctest, which runs tests in parallel, and appears to trigger
-# a race condition when running pdal_filters_overlay_test, leading to
-# "Unable to open stream for '/builddir/build/BUILD/PDAL-2.2.0-src/test/data/../temp/temp.laz' with error 'No such file or directory'".
-%ifarch i686
-# https://github.com/PDAL/PDAL/issues/3469
-# https://github.com/PDAL/PDAL/issues/3501
-%ctest || :
-%else
-# https://github.com/PDAL/PDAL/issues/3501
-%ctest || :
-%endif
-%endif
 
 %files
 %{_bindir}/pdal
@@ -213,11 +205,10 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 %license vendor/arbiter/LICENSE
 %license plugins/e57/libE57Format/LICENSE.md
-%{_libdir}/libpdal_base.so.15*
-%{_libdir}/libpdal_plugin_kernel_fauxplugin.so.15*
-%{_libdir}/libpdal_plugin_reader_pgpointcloud.so.15*
-%{_libdir}/libpdal_plugin_writer_pgpointcloud.so.15*
-%{_libdir}/libpdal_util.so.15*
+%{_libdir}/libpdalcpp.so.16*
+%{_libdir}/libpdal_plugin_kernel_fauxplugin.so.16*
+%{_libdir}/libpdal_plugin_reader_pgpointcloud.so.16*
+%{_libdir}/libpdal_plugin_writer_pgpointcloud.so.16*
 
 %files devel
 %{_bindir}/pdal-config
@@ -226,8 +217,6 @@ sphinx-build -b html . build/html
 %exclude %{_libdir}/libpdal_plugin_kernel_fauxplugin.so
 %exclude %{_libdir}/libpdal_plugin_reader_pgpointcloud.so
 %exclude %{_libdir}/libpdal_plugin_writer_pgpointcloud.so
-%{_libdir}/libpdal_base.so
-%{_libdir}/libpdal_util.so
 %{_libdir}/libpdalcpp.so
 %{_libdir}/cmake/PDAL/
 %{_libdir}/pkgconfig/*.pc
@@ -243,6 +232,12 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 
 %changelog
+* Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 2.6.0-2
+- Drop unversioned symbolic links
+
+* Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 2.6.0-1
+- Update to 2.6.0
+
 * Sat Aug 19 2023 Sandro Mani <manisandro@gmail.com> - 2.5.6-1
 - Update to 2.5.6
 

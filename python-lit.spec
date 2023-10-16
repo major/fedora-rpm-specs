@@ -22,10 +22,10 @@
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildArch: noarch
 
-License: NCSA
+License: Apache-2.0 WITH LLVM-exception OR NCSA
 Summary: Tool for executing llvm test suites
 URL: https://pypi.python.org/pypi/lit
 %if %{without snapshot_build}
@@ -83,6 +83,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Mon Oct 09 2023 Tom Stellard <tstellar@redhat.com> - 17.0.2-2
+- Update license
 
 * Tue Oct 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.2-1
 - Update to LLVM 17.0.2

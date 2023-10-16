@@ -7,13 +7,15 @@
 %endif
 
 Name:           foot
-Version:        1.15.3
+Version:        1.16.1
 Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 License:        MIT
 URL:            https://codeberg.org/dnkl/%{name}
-Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://codeberg.org/dnkl/foot/issues/1520
+Patch:          foot-1.16.1-render-sixel-regression-wrong-cell-color-behind-opaq.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.58.0
@@ -29,10 +31,10 @@ BuildRequires:  pkgconfig(libutf8proc)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(scdoc)
 BuildRequires:  pkgconfig(systemd)
-BuildRequires:  pkgconfig(tllist) >= 1.0.4
+BuildRequires:  pkgconfig(tllist) >= 1.1.0
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
-BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.32
 BuildRequires:  pkgconfig(wayland-scanner) 
 BuildRequires:  pkgconfig(xkbcommon)
 # require *-static for header-only library
@@ -84,7 +86,7 @@ Requires:       ncurses-base
 
 
 %prep
-%autosetup -n %{name}
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -147,6 +149,9 @@ desktop-file-validate \
 
 
 %changelog
+* Sat Oct 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.16.1-1
+- Update to 1.16.1 (#2243307)
+
 * Tue Aug 08 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.15.3-1
 - Update to 1.15.3 (#2229756)
 
