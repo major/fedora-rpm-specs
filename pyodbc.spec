@@ -1,6 +1,6 @@
 Name:           pyodbc
-Version:        5.0.0~b4
-%global uversion 5.0.0b4
+Version:        5.0.1
+%global uversion 5.0.1
 Release:        1%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT
@@ -52,8 +52,11 @@ decimal.
 %{python3_sitearch}/%{name}.pyi
 
 %changelog
+* Sun Oct 15 2023 Ondrej Sloup <osloup@redhat.com> - 5.0.1-1
+- Rebase to the newest version (Related: rhbz#2244039)
+
 * Thu Sep 28 2023 Ondrej Sloup <osloup@redhat.com> - 5.0.0~b4-1
-- Rebase to the newest version, test the beta (Relates: rhbz#2235401)
+- Rebase to the newest version, test the beta (Related: rhbz#2235401)
 - Remove the hotfix (move of pyodbc.py) as it is fixed in upstream
 
 * Mon Aug 28 2023 Ondřej Sloup <osloup@redhat.com> - 5.0.0~b1-2

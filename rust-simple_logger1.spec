@@ -2,28 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate half
+%global crate simple_logger
 
-Name:           rust-half
-Version:        2.3.1
+Name:           rust-simple_logger1
+Version:        1.16.0
 Release:        %autorelease
-Summary:        Half-precision floating point f16 and bf16 types for Rust
+Summary:        Logger that prints all messages with a readable output format
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/half
+License:        MIT
+URL:            https://crates.io/crates/simple_logger
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          half-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * drop unused zerocopy feature (missing dependencies)
-# * drop unused benchmark-only criterion dependency
-Patch:          half-fix-metadata.diff
+Patch:          simple_logger-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Half-precision floating point f16 and bf16 types for Rust implementing
-the IEEE 754-2008 standard binary16 and bfloat16 types.}
+A logger that prints all messages with a readable output format.}
 
 %description %{_description}
 
@@ -38,7 +33,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -54,88 +48,88 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+colored-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+colored-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "colored" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+colored-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bytemuck-devel
+%package     -n %{name}+colors-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bytemuck-devel %{_description}
+%description -n %{name}+colors-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bytemuck" feature of the "%{crate}" crate.
+use the "colors" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bytemuck-devel
+%files       -n %{name}+colors-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+num-traits-devel
+%package     -n %{name}+nightly-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+num-traits-devel %{_description}
+%description -n %{name}+nightly-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "num-traits" feature of the "%{crate}" crate.
+use the "nightly" feature of the "%{crate}" crate.
 
-%files       -n %{name}+num-traits-devel
+%files       -n %{name}+nightly-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand_distr-devel
+%package     -n %{name}+stderr-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand_distr-devel %{_description}
+%description -n %{name}+stderr-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand_distr" feature of the "%{crate}" crate.
+use the "stderr" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand_distr-devel
+%files       -n %{name}+stderr-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+threads-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+threads-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "threads" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+threads-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+time-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+time-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "time" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+use-intrinsics-devel
+%package     -n %{name}+timestamps-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+use-intrinsics-devel %{_description}
+%description -n %{name}+timestamps-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "use-intrinsics" feature of the "%{crate}" crate.
+use the "timestamps" feature of the "%{crate}" crate.
 
-%files       -n %{name}+use-intrinsics-devel
+%files       -n %{name}+timestamps-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

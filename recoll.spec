@@ -3,7 +3,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.35.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
 Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
@@ -30,6 +30,7 @@ BuildRequires:  make
 BuildRequires:  python-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtwebkit-devel
 BuildRequires:  xapian-core-devel
@@ -111,8 +112,11 @@ pushd kde/kioslave/kio_recoll
 popd
 
 # kio_recoll -kde4
+export QMAKE=qmake-qt4
 pushd kde/kioslave/kio_recoll-kde4
-%cmake
+mkdir -p %{_vpath_builddir} && pushd %{_vpath_builddir}
+%cmake_kde4 ..
+popd
 %cmake_build
 %cmake_install
 popd
@@ -186,6 +190,10 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Oct 15 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.35.0-2
+- Add explicit buildreq on qt5-linguist
+- Use kde4 macros for kde4 parts
+
 * Thu Aug 17 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.35.0-1
 - 1.35.0
 

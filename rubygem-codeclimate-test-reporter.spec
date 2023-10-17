@@ -1,15 +1,15 @@
 %global gem_name codeclimate-test-reporter
 
 Name:           rubygem-%{gem_name}
-Version:        1.0.8
-Release:        13%{?dist}
+Version:        1.0.9
+Release:        1%{?dist}
 Summary:        Uploads Ruby test coverage data to Code Climate
 
 License:        MIT
 URL:            https://github.com/codeclimate/ruby-test-reporter
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/codeclimate/ruby-test-reporter
-# git -C ruby-test-reporter archive --format tar.gz v1.0.8 -o $PWD/codeclimate-test-reporter-1.0.8-specs.tar.gz -- spec
+# git -C ruby-test-reporter archive --format tar.gz v1.0.9 -o $PWD/codeclimate-test-reporter-1.0.9-specs.tar.gz -- spec
 Source1: 		%{gem_name}-%{version}-specs.tar.gz
 
 Buildrequires:  rubygems-devel
@@ -68,6 +68,9 @@ rspec -Ilib spec
 %doc %{gem_docdir}
 
 %changelog
+* Sun Oct 15 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 1.0.9-1
+- Update to 1.0.9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

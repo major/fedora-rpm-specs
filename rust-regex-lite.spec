@@ -5,14 +5,13 @@
 %global crate regex-lite
 
 Name:           rust-regex-lite
-Version:        0.1.2
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Lightweight regex engine that optimizes for binary size and compilation time
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/regex-lite
 Source:         %{crates_source}
-Patch:          0001-Fix-doctest-compilation-failures-on-32-bit-architect.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

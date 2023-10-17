@@ -2,12 +2,14 @@
 
 Name:           qadwaitadecorations
 Version:        0.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Qt decoration plugin implementing Adwaita-like client-side decorations
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/FedoraQt/QAdwaitaDecorations
 Source0:        https://github.com/FedoraQt/QAdwaitaDecorations/archive/%{version}/QAdwaitaDecorations-%{version}.tar.gz
+
+Patch0:         qadwaitadecorations-do-not-use-lambda-function-for-dbus-response.patch
 
 BuildRequires:  cmake
 BuildRequires:  make
@@ -86,6 +88,9 @@ Supplements:   (qt6-qtbase and gnome-shell)
 %{_qt6_plugindir}/wayland-decoration-client/libqadwaitadecorations.so
 
 %changelog
+* Sun Oct 15 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.2-5
+- Upstream backport: do not use lambda function for DBus response
+
 * Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.2-4
 - Rebuild (qt6)
 

@@ -24,7 +24,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -421,6 +421,9 @@ done
 %endif
 
 %changelog
+* Sun Oct 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.13-6
+- Rebuild for petsc-3.20.0
+
 * Sat Aug 19 2023 Sandro Mani <manisandro@gmail.com> - 4.13-5
 - Rebuild (scotch)
 

@@ -34,17 +34,23 @@ Version:    6.9.0
 Release:    %autorelease
 Summary:    Digital Audio Workstation
 
-License:    GPLv3
+License:    GPL-3.0-only
 URL:        https://ardour.org
 # Not available via direct download. Download via
 # https://ardour.org/download.html
-Source0: Ardour-%{version}.tar.bz2
+Source0:    Ardour-%{version}.tar.bz2
 # BSD 2/3-clause, ISC licenses and GPLv3+ license terms used in some code files
 Source1:    LICENSING
 Source2:    gpl-3.0.txt
 
-# QM-DSP library is missing kiss-fft functions (#1494796)
-Patch0:     %{name}-missing-kissfft.patch
+# Fix building on Fedora 39 & 40 (backported from upstream)
+Patch0:     0001-wscript-fix-testing-equality-is-none-issue.patch
+Patch1:     0002-Update-waf-binary-using-doc-updating_waf.txt.patch
+Patch2:     0003-wscript-fix-regexp-escaping-with-the-more-strict-Pyt.patch
+Patch3:     0004-wscript-detect-if-qm-dsp-is-self-contained-or-need-l.patch
+Patch4:     0005-remove-unused-function-from-autowaf.py-it-no-longer-.patch
+Patch5:     0006-upgrade-waf-to-2.0.26-includes-new-autowaf.py-versio.patch
+Patch6:     0007-Deal-with-kissfft-130.patch
 
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it

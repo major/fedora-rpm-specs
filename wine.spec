@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.17
+Version:        8.18
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -688,9 +688,7 @@ gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
 # https://bugs.winehq.org/show_bug.cgi?id=54868
 sed -i 's/DWORD pitch_in, DWORD pitch_out/unsigned int pitch_in, unsigned int pitch_out/' patches/wined3d-WINED3DFMT_B8G8R8X8_UNORM/0001-wined3d-Implement-WINED3DFMT_B8G8R8X8_UNORM-to-WINED.patch
-# https://bugs.winehq.org/show_bug.cgi?id=55695
-staging/patchinstall.py DESTDIR="`pwd`" --all \
-  -W eventfd_synchronization
+staging/patchinstall.py DESTDIR="`pwd`" --all
 
 %endif
 # 0%%{?wine_staging}
@@ -767,10 +765,7 @@ unset PKG_CONFIG_PATH
 
 %install
 
-%makeinstall \
-        includedir=%{buildroot}%{_includedir} \
-        sysconfdir=%{buildroot}%{_sysconfdir}/wine \
-        dlldir=%{buildroot}%{_libdir}/wine \
+%make_install \
         LDCONFIG=/bin/true \
         UPDATE_DESKTOP_DATABASE=/bin/true
 
@@ -1694,15 +1689,18 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.gaming.ui.gamebar.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.input.dll
 %{_libdir}/wine/%{winepedir}/windows.globalization.dll
-%{_libdir}/wine/%{winepedir}/windows.media.speech.dll
 %{_libdir}/wine/%{winepedir}/windows.media.dll
 %{_libdir}/wine/%{winepedir}/windows.media.devices.dll
+%{_libdir}/wine/%{winepedir}/windows.media.mediacontrol.dll
+%{_libdir}/wine/%{winepedir}/windows.media.speech.dll
 %if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedir}/windows.networking.connectivity
 %endif
 %{_libdir}/wine/%{winepedir}/windows.networking.dll
 %{_libdir}/wine/%{winepedir}/windows.networking.hostname.dll
 %{_libdir}/wine/%{winepedir}/windows.perception.stub.dll
+%{_libdir}/wine/%{winepedir}/windows.security.credentials.ui.userconsentverifier.dll
+%{_libdir}/wine/%{winepedir}/windows.storage.applicationdata.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedir}/windows.ui.dll
 %{_libdir}/wine/%{winepedir}/windowscodecs.dll
@@ -2471,13 +2469,16 @@ fi
 %{_libdir}/wine/%{winesodir}/windows.gaming.ui.gamebar.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.input.dll.so
 %{_libdir}/wine/%{winesodir}/windows.globalization.dll.so
-%{_libdir}/wine/%{winesodir}/windows.media.speech.dll.so
 %{_libdir}/wine/%{winesodir}/windows.media.dll.so
 %{_libdir}/wine/%{winesodir}/windows.media.devices.dll.so
+%{_libdir}/wine/%{winesodir}/windows.media.media.mediacontrol.dll.so
+%{_libdir}/wine/%{winesodir}/windows.media.speech.dll.so
 %{_libdir}/wine/%{winesodir}/windows.networking.connectivity.so
 %{_libdir}/wine/%{winesodir}/windows.networking.dll.so
 %{_libdir}/wine/%{winesodir}/windows.networking.hostname.dll.so
 %{_libdir}/wine/%{winesodir}/windows.perception.stub.dll.so
+%{_libdir}/wine/%{winesodir}/windows.security.credentials.ui.userconsentverifier.dll.so
+%{_libdir}/wine/%{winesodir}/windows.storage.applicationdata.dll.so
 %{_libdir}/wine/%{winesodir}/windows.system.profile.systemmanufacturers.dll.so
 %{_libdir}/wine/%{winesodir}/windows.ui.so
 %{_libdir}/wine/%{winesodir}/windowscodecs.dll.so
@@ -2806,6 +2807,9 @@ fi
 %endif
 
 %changelog
+* Sun Oct 15 2023 Michael Cronenworth <mike@cchtml.com> - 8.18-1
+- version update
+
 * Sun Oct 01 2023 Michael Cronenworth <mike@cchtml.com> - 8.17-1
 - version update
 

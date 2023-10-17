@@ -1,6 +1,6 @@
-%global gitdate 20231003.213013
+%global gitdate 20231012.021308
 %global cmakever 5.240.0
-%global commit0 7c91f3dd2c158444644a00a43aaa20f6e66b84a0
+%global commit0 7a2c863a5242b5d4c49489e0a0c557c6d8915982
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kwallet
 
@@ -102,5 +102,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Oct 15 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20231012.021308.7a2c863-1
+- Update to Commit 7a2c863a5242b5d4c49489e0a0c557c6d8915982 from Oct 12
+
 * Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231003.213013.7c91f3d-1
 - Initial Release

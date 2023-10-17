@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -297,7 +297,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %package gui
 Summary: Qt6 GUI-related libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Recommends: mesa-dri-drivers
+Recommends: mesa-dri-drivers%{?_isa}
+Recommends: qt6-qtwayland%{?_isa}
 # for Source6: 10-qt6-check-opengl2.sh:
 # glxinfo
 Requires: glx-utils
@@ -828,6 +829,9 @@ make check -k ||:
 
 
 %changelog
+* Sun Oct 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.6.0-2
+- Add qtwayland weak dep to -gui subpackage and use arched weak deps
+
 * Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
 - 6.6.0
 

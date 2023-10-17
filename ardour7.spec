@@ -31,7 +31,7 @@ Version:    7.5.0
 Release:    %autorelease
 Summary:    Digital Audio Workstation
 
-License:    GPLv3
+License:    GPL-3.0-only
 URL:        https://ardour.org
 # Not available via direct download. Download via
 # https://ardour.org/download.html

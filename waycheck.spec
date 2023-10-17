@@ -1,7 +1,7 @@
 %global qt6_minver 6.5
 
 Name:           waycheck
-Version:        0.2.0
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Simple GUI that displays protocols implemented by a Wayland compositor
 
@@ -55,6 +55,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/dev.serebit.Waycheck.svg
 
 %changelog
+* Sun Oct 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Sep 28 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-1
 - Update to v0.2.0
 

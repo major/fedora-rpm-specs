@@ -1025,25 +1025,19 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 %patch500 -p1
 %endif
 
-%ifarch aarch64 s390x
+%ifarch aarch64 s390x ppc64le
 %patch501 -p1
 %endif
 
 # Temporarily disable failing tests
 %ifarch ppc64le
-sed -i -e /CppunitTest_sc_array_functions_test/d sc/Module_sc.mk
-sed -i -e /CppunitTest_sc_addin_functions_test/d sc/Module_sc.mk
-sed -i -e /CppunitTest_sc_financial_functions_test/d sc/Module_sc.mk
-sed -i -e /CppunitTest_sc_statistical_functions_test/d sc/Module_sc.mk
-sed -i -e /CppunitTest_dbaccess_hsqldb_test/d dbaccess/Module_dbaccess.mk
 sed -i -e s/CppunitTest_dbaccess_RowSetClones// dbaccess/Module_dbaccess.mk
 %endif
 %ifarch aarch64
 # Nothing to do
 %endif
 %ifarch s390x
-sed -i -e /CppunitTest_sc_array_functions_test/d sc/Module_sc.mk
-sed -i -e /CppunitTest_sc_addin_functions_test/d sc/Module_sc.mk
+# SwMacrosTest::testVba fails
 sed -i -e s/CppunitTest_sw_macros_test// sw/Module_sw.mk
 # https://bugs.documentfoundation.org/show_bug.cgi?id=125978
 sed -i -e s/CustomTarget_uno_test// testtools/Module_testtools.mk

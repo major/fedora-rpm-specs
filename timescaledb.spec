@@ -1,7 +1,7 @@
 %global core_name timescale
 
 Name:           %{core_name}db
-Version:        2.12.0
+Version:        2.12.1
 Release:        1%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
@@ -9,11 +9,7 @@ License:        ASL 2.0
 URL:            http://www.%{core_name}.com
 Source0:        https://github.com/%{core_name}/%{name}/archive/refs/tags/%{version}.tar.gz
 
-%if 0%{?fedora} >= 30 || 0%{?epel} >= 8
 BuildRequires:  cmake gcc openssl-devel postgresql-server-devel
-%else
-BuildRequires:  cmake gcc openssl-devel postgresql-devel
-%endif
 
 %{?postgresql_module_requires}
 
@@ -53,6 +49,12 @@ rm -rf tsl
 
 
 %changelog
+* Sun Oct 15 2023 Ondrej Sloup <osloup@redhat.com> - 2.12.1-1
+- Rebase to the latest upstream version (Related: rhbz#2243654)
+
+* Wed Oct 11 2023 Honza Horak <hhorak@redhat.com> - 2.12.0-2
+- Use postgresql-server-devel everywhere
+
 * Wed Sep 27 2023 Ondrej Sloup <osloup@redhat.com> - 2.12.0-1
 - Rebase to the latest upstream version (rhbz#2240852)
 

@@ -2,8 +2,8 @@
 %global Srcname Fiona
 
 Name:           python-%{srcname}
-Version:        1.9.4
-%global         pre .post1
+Version:        1.9.5
+#global         pre .post1
 %global         uversion %{version}%{?pre}
 Release:        %autorelease
 Summary:        Fiona reads and writes spatial data files

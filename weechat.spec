@@ -1,10 +1,5 @@
 %if 0%{?fedora} || 0%{?rhel} >= 8
-%ifnarch s390x
 %bcond_without check
-%else
-# some tests fail on s390x
-%bcond_with check
-%endif
 %else
 # no cpputest in EL7
 %bcond_with check
@@ -34,7 +29,7 @@
 %endif
 
 Name:      weechat
-Version:   4.0.5
+Version:   4.1.0
 Release:   %autorelease
 Summary:   Portable, fast, light and extensible IRC client
 Group:     Applications/Communications
@@ -81,13 +76,6 @@ BuildRequires: ruby-devel
 BuildRequires: source-highlight
 BuildRequires: tcl-devel
 BuildRequires: libzstd-devel
-%ifarch %{ix86} x86_64 %{arm}
-# https://bugzilla.redhat.com/show_bug.cgi?id=1338728
-# https://github.com/weechat/weechat/issues/360
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires: v8-devel
-%endif
-%endif
 BuildRequires: zlib-devel
 %if 0%{?rhel}
 BuildRequires: cmake3
@@ -118,8 +106,6 @@ This package contains include files and pc file for weechat.
 find doc/ -type f -name 'CMakeLists.txt' \
     -exec sed -i -e 's#${PROJECT_NAME}#%{_doc}#g' '{}' \;
 
-sed -i 's/NAMES python3.7/NAMES python%{python3_version}m python%{python3_version}/' cmake/FindPython.cmake
-
 
 %build
 %cmake3 \
@@ -140,7 +126,6 @@ sed -i 's/NAMES python3.7/NAMES python%{python3_version}m python%{python3_versio
   -DENABLE_DOC=OFF \
   -DENABLE_MAN=OFF \
 %endif
-  -DENABLE_JAVASCRIPT=OFF \
   -DCA_FILE=/etc/pki/tls/certs/ca-bundle.crt \
   %{nil}
 %cmake3_build

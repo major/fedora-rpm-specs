@@ -2,16 +2,20 @@
 %global uuid    info.febvre.%{appname}
 %global gtk4_version        4.12.1
 %global libadwaita_version  1.4.0
+%global forgeurl https://gitlab.com/valos/%{appname}
+%global tag v%{version}
 
 Name:           komikku
-Version:        1.26.0
+Version:        1.27.0
+%forgemeta
 Release:        %autorelease
 Summary:        A manga reader for GNOME
+
 BuildArch:      noarch
 
-License:        GPLv3+
-URL:            https://gitlab.com/valos/Komikku
-Source0:        %{url}/-/archive/v%{version}/%{appname}-v%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            https://valos.gitlab.io/Komikku
+Source0:        %{forgesource}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -76,7 +80,7 @@ Keys features
 * Light and dark themes
 
 %prep
-%autosetup -n %{appname}-v%{version}
+%forgeautosetup -p1
 
 
 %build

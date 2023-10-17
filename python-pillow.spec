@@ -12,7 +12,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        10.0.1
+Version:        10.1.0
 Release:        1%{?dist}
 Summary:        Python image processing library
 
@@ -295,6 +295,9 @@ popd
 
 
 %changelog
+* Sun Oct 15 2023 Sandro Mani <manisandro@gmail.com> - 10.1.0-1
+- Update to 10.1.0
+
 * Mon Sep 18 2023 Sandro Mani <manisandro@gmail.com> - 10.0.1-1
 - Update to 10.0.1
 

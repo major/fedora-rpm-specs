@@ -1,12 +1,13 @@
 Name:          bpython
 Summary:       Fancy curses interface to the Python interactive interpreter
 Version:       0.24
-Release:       4%{?dist}
+Release:       5%{?dist}
 URL:           http://www.bpython-interpreter.org/
 License:       MIT
 Source0:       https://github.com/bpython/bpython/archive/%{version}-release.tar.gz
 BuildArch:     noarch
 BuildRequires: desktop-file-utils
+BuildRequires: make
 BuildRequires: python3-blessed
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -78,6 +79,9 @@ operating systems. It has the following features:
 
 %build
 %{py3_build}
+pushd doc/sphinx/
+make man
+popd
 
 %install
 %{py3_install}
@@ -86,6 +90,10 @@ ln -s bpython %{buildroot}/%{_bindir}/bpython3
 ln -s bpython-curses %{buildroot}/%{_bindir}/bpython3-curses
 ln -s bpdb %{buildroot}%{_bindir}/bpdb3
 ln -s bpython %{buildroot}%{_bindir}/python3-bpython
+install -m0644 -p -D doc/sphinx/build/man/bpython.1 \
+    %{buildroot}%{_mandir}/man1/bpython.1
+install -m0644 -p -D doc/sphinx/build/man/bpython-config.5 \
+    %{buildroot}%{_mandir}/man5/bpython-config.5
 
 %files -n python3-bpython
 %license LICENSE
@@ -110,6 +118,9 @@ ln -s bpython %{buildroot}%{_bindir}/python3-bpython
 %{_bindir}/bpython-urwid
 
 %changelog
+* Sun Oct 15 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.24-5
+- Install man pages by script
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

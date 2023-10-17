@@ -1,7 +1,7 @@
 %global genname superlu
 
 Name:		SuperLU
-Version:	6.0.0
+Version:	6.0.1
 Release:	1%{?dist}
 Summary:	Subroutines to solve sparse linear systems
 License:	BSD and GPLv2+
@@ -18,7 +18,7 @@ Patch1:         %{name}-fix_example_builds.patch
 
 Patch2:         %{name}-c99.patch
 
-Patch3:         %{name}-fix-align-declarations-malloc.patch
+Patch3:         %{name}-%{version}-Update_prototypes_of_BLAS_routines.patch
 
 %if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: pkgconfig(flexiblas)
@@ -35,7 +35,7 @@ BuildRequires:	epel-rpm-macros
 %endif
 BuildRequires:	metis-devel
 BuildRequires:	make
-BuildRequires:	cmake3
+BuildRequires:	cmake
 BuildRequires:	gcc, gcc-gfortran
 BuildRequires:	csh
 
@@ -60,7 +60,12 @@ BuildArch:	noarch
 The %{name}-doc package contains all the help HTML documentation.
 
 %prep
-%autosetup -n %{genname}-%{version} -p1
+%autosetup -n %{genname}-%{version} -N
+
+%patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
+%patch -P 2 -p1 -b .backup
+%patch -P 3 -p1 -b .backup
 
 rm -f make.inc
 cp -pf %{SOURCE1} make.inc.in
@@ -108,7 +113,7 @@ sed -e 's|-O0|-O2|g' -i SRC/CMakeLists.txt
 %files
 %license License.txt
 %{_libdir}/libsuperlu.so.6
-%{_libdir}/libsuperlu.so.6.0.0
+%{_libdir}/libsuperlu.so.%{version}
 
 %files devel
 %{_includedir}/%{name}/
@@ -121,6 +126,9 @@ sed -e 's|-O0|-O2|g' -i SRC/CMakeLists.txt
 %doc DOC
 
 %changelog
+* Wed Aug 09 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.0.1-1
+- Release 6.0.1
+
 * Sat Apr 22 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.0.0-1
 - Release 6.0.0
 

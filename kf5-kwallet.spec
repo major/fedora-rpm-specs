@@ -1,3 +1,5 @@
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 %undefine __cmake_in_source_build
 %global framework kwallet
 
@@ -10,7 +12,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for password management
 
 License: LGPLv2+
@@ -84,7 +86,8 @@ developing applications that use %{name}.
 
 %build
 %{cmake_kf5} \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
+  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} \
+  %{?with_kf6_compat:-DBUILD_KWALLETD=OFF}
 %cmake_build
 
 
@@ -105,19 +108,23 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %doc README.md
 %license LICENSES/*.txt
 %{_kf5_datadir}/qlogging-categories5/%{framework}*
+%if %{without kf6_compat}
 %{_kf5_datadir}/dbus-1/services/org.kde.kwalletd5.service
+%{_kf5_bindir}/kwallet-query
 %{_kf5_bindir}/kwalletd5
 %{_kf5_datadir}/kservices5/kwalletd5.desktop
 %{_kf5_datadir}/applications/org.kde.kwalletd5.desktop
 %{_kf5_datadir}/knotifications5/kwalletd5.notifyrc
-%{_kf5_bindir}/kwallet-query
+%endif
 %{_mandir}/man1/kwallet-query.1*
 
 %ldconfig_scriptlets libs
 
 %files libs
 %{_kf5_libdir}/libKF5Wallet.so.*
+%if %{without kf6_compat}
 %{_kf5_libdir}/libkwalletbackend5.so.*
+%endif
 
 %files devel
 %{_kf5_datadir}/dbus-1/interfaces/kf5_org.kde.KWallet.xml
@@ -125,11 +132,19 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_includedir}/KWallet/
 %{_kf5_libdir}/cmake/KF5Wallet/
 %{_kf5_libdir}/libKF5Wallet.so
+%if %{without kf6_compat}
 %{_kf5_libdir}/libkwalletbackend5.so
+%endif
 %{_kf5_archdatadir}/mkspecs/modules/qt_KWallet.pri
 
 
 %changelog
+* Sun Oct 15 2023 Justin Zobel <justin.zobel@gmail.com> - 5.111.0-3
+- Move {_kf5_bindir}/kwallet-query into if statement as it conflicts with KF6 KWallet
+
+* Thu Oct 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-2
+- Add KF6 compatibility flag
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

@@ -35,6 +35,8 @@ Patch:          0005-Skip-tests-that-appear-to-be-broken.patch
 Patch:          0006-Copy-existing-environment-when-loading-packages.patch
 # For under Go 1.20
 Patch:          0007-Revert-patch-to-showast-debug-output.patch
+# https://github.com/godoctor/godoctor/pull/66
+Patch:          0008-Fix-AST-test-on-Go-1.21.patch
 
 BuildRequires:  golang(github.com/willf/bitset)
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
@@ -51,6 +53,7 @@ BuildRequires:  golang(golang.org/x/tools/go/loader)
 %if %{fedora} < 38
 %autopatch -p1 6
 %endif
+%autopatch -p1 7
 
 %build
 %gobuild -o %{gobuilddir}/bin/godoctor %{goipath}

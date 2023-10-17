@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -414,8 +414,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Summary: Qt5 GUI-related libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
 # where Recommends are supported
-%if 0%{?fedora} || 0%{?rhel} >= 8 
-Recommends: mesa-dri-drivers
+%if 0%{?fedora} || 0%{?rhel} >= 8
+Recommends: mesa-dri-drivers%{?_isa}
+Recommends: qt5-qtwayland%{?_isa}
 %endif
 Obsoletes: qt5-qtbase-x11 < 5.2.0
 Provides:  qt5-qtbase-x11 = %{version}-%{release}
@@ -1166,6 +1167,9 @@ fi
 
 
 %changelog
+* Sun Oct 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.15.11-2
+- Add qtwayland weak dep to -gui subpackage and use arched weak deps
+
 * Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-10
 - 5.15.11
 

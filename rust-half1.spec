@@ -4,16 +4,14 @@
 
 %global crate half
 
-Name:           rust-half
-Version:        2.3.1
+Name:           rust-half1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Half-precision floating point f16 and bf16 types for Rust
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/half
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          half-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused zerocopy feature (missing dependencies)
 # * drop unused benchmark-only criterion dependency
@@ -90,18 +88,6 @@ use the "num-traits" feature of the "%{crate}" crate.
 %files       -n %{name}+num-traits-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand_distr-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rand_distr-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rand_distr" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rand_distr-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -112,6 +98,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serialize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serialize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serialize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serialize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

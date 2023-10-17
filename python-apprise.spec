@@ -1,4 +1,4 @@
-# BSD 3-Clause License
+# BSD 2-Clause License
 #
 # Apprise - Push Notification Library.
 # Copyright (c) 2023, Chris Caron <lead2gold@gmail.com>
@@ -12,10 +12,6 @@
 # 2. Redistributions in binary form must reproduce the above copyright notice,
 #    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-#
-# 3. Neither the name of the copyright holder nor the names of its
-#    contributors may be used to endorse or promote products derived from
-#    this software without specific prior written permission.
 #
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -48,16 +44,16 @@ DAPNET, DingTalk, Discord, E-Mail, Emby, Faast, FCM, Flock, Google Chat,
 Gotify, Growl, Guilded, Home Assistant, IFTTT, Join, Kavenegar, KODI, Kumulos,
 LaMetric, Line, MacOSX, Mailgun, Mastodon, Mattermost, Matrix, MessageBird,
 Microsoft Windows, Microsoft Teams, Misskey, MQTT, MSG91, MyAndroid, Nexmo,
-Nextcloud, NextcloudTalk, Notica, Notifico, ntfy, Office365, OneSignal,
-Opsgenie, PagerDuty, PagerTree, ParsePlatform, PopcornNotify, Prowl, Pushalot,
-PushBullet, Pushjet, PushMe, Pushover, PushSafer, Pushy, PushDeer, Reddit,
-Rocket.Chat, RSyslog, SendGrid, ServerChan, Signal, SimplePush, Sinch, Slack,
-SMSEagle, SMTP2Go, Spontit, SparkPost, Super Toasty, Streamlabs, Stride,
-Syslog, Techulus Push, Telegram, Twilio, Twitter, Twist, XBMC, Voipms, Vonage,
-WhatsApp, Webex Teams}
+Nextcloud, NextcloudTalk, Notica, Notifiarr, Notifico, ntfy, Office365,
+OneSignal, Opsgenie, PagerDuty, PagerTree, ParsePlatform, PopcornNotify,
+Prowl, Pushalot, PushBullet, Pushjet, PushMe, Pushover, PushSafer, Pushy,
+PushDeer, Reddit, Rocket.Chat, RSyslog, SendGrid, ServerChan, Signal,
+SimplePush, Sinch, Slack, SMSEagle, SMTP2Go, Spontit, SparkPost, Super Toasty,
+Streamlabs, Stride, Syslog, Techulus Push, Telegram, Twilio, Twitter, Twist,
+XBMC, Voipms, Vonage, WhatsApp, Webex Teams}
 
 Name:           python-%{pypi_name}
-Version:        1.5.0
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD
@@ -81,12 +77,6 @@ Patch1:         %{pypi_name}-pytest-session_mocker-removal.patch
 # At the end of the day, the macos testing it is not needed by a
 # RHEL/Fedora environment anyway for obvious reasons.
 Patch2:         %{pypi_name}-no-macosx-testing.patch
-
-# During the Apprise v1.5.0 Packaging; The RPM would successfully build
-# on COPR, however it would fail on Koji. Some bulletproofing made upstream
-# but to allow to still package a working copy of Apprise v1.5.0 into
-# Fedora, this patch was created.
-Patch3:         %{pypi_name}-fedora-rpm-testcase-handling.patch
 
 BuildArch:      noarch
 
@@ -157,9 +147,6 @@ BuildRequires: python%{python3_pkgversion}-pytest-xdist
 %patch1 -p1
 # Rocky/RHEL 8 Lose MacOSX Testing
 %patch2 -p1
-%else
-# Aug 27th, 2023 Fedora Packaging Quickfix
-%patch -P 3 -p1
 %endif
 
 # 2023.08.27: This test fails for some uknown reason only during the test
@@ -207,6 +194,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Sun Oct 15 2023 Chris Caron <lead2gold@gmail.com> - 1.6.0
+- Updated to v1.6.0
+
 * Sun Aug 27 2023 Chris Caron <lead2gold@gmail.com> - 1.5.0
 - Updated to v1.5.0
 - apprise-fedora-rpm-testcase-handling.patch added for test handling

@@ -7,26 +7,23 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        5.5.1
-Release:        4%{?dist}
+Version:        6.2.1
+Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
-# src/streamlink/packages/requests_file.py is ASL 2.0
+# src/streamlink/packages/requests_file.py is Apache-2.0
 License:        BSD-2-Clause AND Apache-2.0
 URL:            https://streamlink.github.io/
 Source0:        https://github.com/%{srcname}/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+# Use pycryptodomex library instead of pycryptodome
+Patch0:         %{name}-6.2.1-pycryptodomex.patch
 # - Drop development dependencies not available in Fedora or not usefull for tests
 # - Fix dependency versions
-Patch0:         %{name}-5.5.1-dependencies.patch
-# Use pycryptodomex library instead of pycryptodome
-Patch1:         %{name}-5.5.1-pycryptodomex.patch
-# Drop intersphinx mappings (no network available during build)
-Patch2:         %{name}-5.3.1-doc.patch
-# Ensure python3 interpreter is called during build
-Patch3:         %{name}-5.1.0-python3.patch
-
-BuildRequires:  python3-devel
+Patch1:         %{name}-6.2.1-dependencies.patch
+# Fix documentation build
+Patch2:         %{name}-6.2.1-documentation.patch
 BuildRequires:  make
+BuildRequires:  python3-devel
 BuildArch:      noarch
 
 %description
@@ -42,16 +39,33 @@ Recommends:     /usr/bin/ffmpeg
 %{_description}
 
 
+%package bash-completion
+Summary:        Bash completion for %{srcname}
+Requires:       %{name} = %{version}-%{release}
+Requires:       bash-completion
+Supplements:    (%{name} and bash-completion)
+
+%description bash-completion
+Bash command line completion support for %{srcname}.
+
+
+%package zsh-completion
+Summary:        Zsh completion for %{srcname}
+Requires:       %{name} = %{version}-%{release}
+Requires:       zsh
+Supplements:    (%{name} and zsh)
+
+%description zsh-completion
+Zsh command line completion support for %{srcname}.
+
+
 %package doc
 Summary:        Documentation for %{name}
-Requires:       fontawesome-fonts-all
-Requires:       google-roboto-slab-fonts
-Requires:       lato-fonts
 
 %description doc
 %{_description}
 
-This package provides documentation for %{name}.
+This package provides documentation for %{srcname}.
 
 
 %prep
@@ -62,8 +76,7 @@ sed -i 's|^\s*default-version\s*=.*|default-version = "%{version}"|' pyproject.t
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
-%pyproject_buildrequires -r dev-requirements.txt docs-requirements.txt
+%pyproject_buildrequires -r docs-requirements.txt dev-requirements.txt
 
 
 %build
@@ -90,16 +103,22 @@ install -Dm644 completions/zsh/_%{srcname} $RPM_BUILD_ROOT%{_datadir}/zsh/site-f
 %check
 # TODO: re-enable tests when upgrading Streamlink to >= 6.0
 # (some tests are broken with Python 3.12)
-# TZ=UTC %%pytest
+TZ=UTC %pytest
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc AUTHORS CHANGELOG.md CONTRIBUTING.md KNOWN_ISSUES.md README.md
 %license LICENSE
 %{_bindir}/%{srcname}
-%{_datadir}/bash-completion/completions/%{srcname}
-%{_datadir}/zsh/site-functions/_%{srcname}
 %{_mandir}/man1/%{srcname}.1.*
+
+
+%files bash-completion
+%{_datadir}/bash-completion/completions/%{srcname}
+
+
+%files zsh-completion
+%{_datadir}/zsh/site-functions/_%{srcname}
 
 
 %files doc
@@ -108,6 +127,9 @@ install -Dm644 completions/zsh/_%{srcname} $RPM_BUILD_ROOT%{_datadir}/zsh/site-f
 
 
 %changelog
+* Sun Oct 15 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.2.1-1
+- Update to 6.2.1
+
 * Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 5.5.1-4
 - Fix RHBZ #2220526
 

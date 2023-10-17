@@ -124,7 +124,6 @@ mkdir .git
 %{mingw32_libdir}/qt5/plugins/position/
 %{mingw32_libdir}/qt5/qml/QtLocation/
 %{mingw32_libdir}/qt5/qml/QtPositioning/
-%{mingw32_libdir}/qt5/qml/Qt/labs/location/
 %{mingw32_datadir}/qt5/mkspecs/modules/qt_lib_location.pri
 %{mingw32_datadir}/qt5/mkspecs/modules/qt_lib_location_private.pri
 %{mingw32_datadir}/qt5/mkspecs/modules/qt_lib_positioning.pri
@@ -155,7 +154,6 @@ mkdir .git
 %{mingw64_libdir}/qt5/plugins/position/
 %{mingw64_libdir}/qt5/qml/QtLocation/
 %{mingw64_libdir}/qt5/qml/QtPositioning/
-%{mingw64_libdir}/qt5/qml/Qt/labs/location/
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_lib_location.pri
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_lib_location_private.pri
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_lib_positioning.pri
