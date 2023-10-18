@@ -5,7 +5,7 @@
 
 Name:		linux-firmware
 Version:	20230919
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
@@ -21,15 +21,15 @@ Provides:	kernel-firmware = %{version}
 Obsoletes:	kernel-firmware < %{version}
 Conflicts:	microcode_ctl < 2.1-0
 
+Recommends:	amd-gpu-firmware
+Recommends:	intel-gpu-firmware
+Recommends:	nvidia-gpu-firmware
 %if 0%{?fedora} && 0%{?fedora} < 39
 Requires:	atheros-firmware
 Requires:	brcmfmac-firmware
 Requires:	mt7xxx-firmware
 Requires:	realtek-firmware
 %else
-Recommends:	amd-gpu-firmware
-Recommends:	intel-gpu-firmware
-Recommends:	nvidia-gpu-firmware
 Recommends:	atheros-firmware
 Recommends:	brcmfmac-firmware
 Recommends:	mt7xxx-firmware
@@ -469,6 +469,9 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Mon Oct 16 2023 Michel Lind <salimma@fedoraproject.org> - 20230919-3
+- Re-add recommended firmware accidentally dropped in -2
+
 * Mon Oct 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 20230919-2
 - Flip conditional to make weak-installing firmware the default
 

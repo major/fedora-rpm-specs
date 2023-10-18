@@ -6,13 +6,19 @@
 
 Name:    kf6-%{framework}
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+
+# https://invent.kde.org/frameworks/kio/-/issues/26
+# I'm not sending this upstream because I'm not sure it's really
+# exactly what upstream will want, but it solves the practical
+# issue for us for now
+Patch0:  0001-Give-the-kuriikwsfiltereng_private-a-VERSION-and-SOV.patch
 
 %if 0%{?flatpak}
 # Disable the help: and ghelp: protocol for Flatpak builds, to avoid depending
@@ -195,6 +201,7 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
 %files core-libs
 %{_kf6_libdir}/libKF6KIOCore.so.*
+%{_kf6_libdir}/libkuriikwsfiltereng_private.so.*
 
 %files doc -f %{name}.lang
 
@@ -220,6 +227,9 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/KF6KIO/
 
 %changelog
+* Mon Oct 16 2023 Adam Williamson <awilliam@redhat.com> - 5.240.0^20231010.060359.1c34fd4-3
+- Give kuriikwsfiltereng_private library a proper soname to fix deps
+
 * Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231010.060359.1c34fd4-2
 - Fixed a problem with the -doc subpackage building differently on different arches.
 

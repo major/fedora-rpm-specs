@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -114,16 +114,16 @@ Patch55: qtbase-everywhere-src-5.14.2-no_relocatable.patch
 Patch56: qtbase-everywhere-src-5.15.2-libglvnd.patch
 
 # drop -O3 and make -O2 by default
-Patch61: qt5-qtbase-cxxflag.patch
+Patch57: qt5-qtbase-cxxflag.patch
 
 # support firebird version 3.x
-Patch63: qt5-qtbase-5.12.1-firebird.patch
+Patch58: qt5-qtbase-5.12.1-firebird.patch
 
 # support firebird version 4.x
-Patch64: qt5-qtbase-5.12.1-firebird-4.0.0.patch
+Patch59: qt5-qtbase-5.12.1-firebird-4.0.0.patch
 
 # fix for new mariadb
-Patch65: qtbase-opensource-src-5.9.0-mysql.patch
+Patch60: qtbase-opensource-src-5.9.0-mysql.patch
 
 # FIXME This patch is completely meaningless in the context of C++.
 # It is a workaround for a pyside2 build failure with Qt 5.15.9,
@@ -134,7 +134,10 @@ Patch65: qtbase-opensource-src-5.9.0-mysql.patch
 # Since there are no side effects to superfluously specifying
 # QEvent::Type instead of plain "Type" in a QEvent derived class,
 # this workaround is acceptable, if not nice.
-Patch66: qtbase-5.15.10-work-around-pyside2-brokenness.patch
+Patch61: qtbase-5.15.10-work-around-pyside2-brokenness.patch
+
+# fix build against libxkbcommon 1.6.0
+Patch62: qtbase-libxkbcommon-1.6.0.patch
 
 # gcc-11
 Patch90: %{name}-gcc11.patch
@@ -443,16 +446,17 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P54 -p1 -b .qmake_LFLAGS
 %patch -P55 -p1 -b .no_relocatable
 %patch -P56 -p1 -b .libglvnd
-%patch -P61 -p1 -b .qt5-qtbase-cxxflag
+%patch -P57 -p1 -b .qt5-qtbase-cxxflag
 %if 0%{?fedora} < 35
-%patch -P63 -p1 -b .firebird
+%patch -P58 -p1 -b .firebird
 %else
-%patch -P64 -p1 -b .firebird
+%patch -P59 -p1 -b .firebird
 %endif
 %if 0%{?fedora} > 27
-%patch -P65 -p1 -b .mysql
+%patch -P60 -p1 -b .mysql
 %endif
-%patch -P66 -p1
+%patch -P61 -p1
+%patch -P62 -p1 -b .libxkbcommon-1.6.0
 
 %patch -P90 -p1 -b .gcc11
 
@@ -1167,6 +1171,9 @@ fi
 
 
 %changelog
+* Mon Oct 16 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-3
+- Fix build against libxkbcommon 1.6.0
+
 * Sun Oct 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.15.11-2
 - Add qtwayland weak dep to -gui subpackage and use arched weak deps
 

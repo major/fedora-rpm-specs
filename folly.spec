@@ -55,14 +55,13 @@
 %endif
 
 Name:           folly
-Version:        2023.09.11.00
+Version:        2023.10.09.00
 Release:        %{autorelease}
 Summary:        An open-source C++ library developed and used at Facebook
 
 License:        Apache-2.0
 URL:            https://github.com/facebook/folly
 Source:         %{url}/archive/v%{version}/folly-%{version}.tar.gz
-Patch:          folly-support-openssl-31.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 

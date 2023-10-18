@@ -12,7 +12,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for password management
 
 License: LGPLv2+
@@ -61,6 +61,10 @@ Requires:       pinentry-gui
 Recommends:     pinentry-gui
 %endif
 
+%if %{with kf6_compat}
+Requires:       kf6-%{framework}%{?_isa}
+%endif
+
 %description
 KWallet is a secure and unified container for user passwords.
 
@@ -93,6 +97,9 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
+%if %{with kf6_compat}
+rm %{buildroot}%{_mandir}/man1/kwallet-query.1* %{buildroot}%{_kf5_bindir}/kwallet-query
+%endif
 
 %find_lang %{name} --all-name --with-man
 
@@ -115,8 +122,8 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_datadir}/kservices5/kwalletd5.desktop
 %{_kf5_datadir}/applications/org.kde.kwalletd5.desktop
 %{_kf5_datadir}/knotifications5/kwalletd5.notifyrc
-%endif
 %{_mandir}/man1/kwallet-query.1*
+%endif
 
 %ldconfig_scriptlets libs
 
@@ -139,6 +146,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-4
+- Require kf6-kwallet if compat build
+
 * Sun Oct 15 2023 Justin Zobel <justin.zobel@gmail.com> - 5.111.0-3
 - Move {_kf5_bindir}/kwallet-query into if statement as it conflicts with KF6 KWallet
 

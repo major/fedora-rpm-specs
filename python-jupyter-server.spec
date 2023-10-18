@@ -3,7 +3,7 @@
 %bcond_without tests
 
 Name:           python-jupyter-server
-Version:        2.7.3
+Version:        2.8.0
 Release:        %autorelease
 Summary:        The backend for Jupyter web applications
 License:        BSD-3-Clause

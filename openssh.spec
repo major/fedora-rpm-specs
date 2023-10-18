@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.3p1
-%global openssh_rel 11
+%global openssh_rel 12
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
@@ -744,6 +744,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Sun Oct 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-12
+- Fix FTBFS due to implicit declarations (rhbz#2241211)
+
 * Tue Sep 19 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-11
 - migrated to SPDX license
 

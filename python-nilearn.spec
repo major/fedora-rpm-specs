@@ -17,15 +17,20 @@ Eickenberg, C. F. Gorgolewski, D. Bzdok, L. Esteve and B. Cipollini.
 
 Detailed documentation is available at http://nilearn.github.io/.}
 
+%global forgeurl https://github.com/nilearn/nilearn
+
 Name:           python-nilearn
-Version:        0.10.1
+Version:        0.10.2
 Release:        %autorelease
 Summary:        Python module for fast and easy statistical learning on NeuroImaging data
 
+%global tag %{version}
+%forgemeta
+
 License:        BSD
-URL:            https://pypi.python.org/pypi/nilearn
+URL:            %forgeurl
 # Use GitHub tar: pypi does not include all test data
-Source0:        https://github.com/nilearn/nilearn/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %forgesource
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
@@ -44,7 +49,7 @@ BuildArch:      noarch
 %{desc}
 
 %prep
-%autosetup -n nilearn-%{version} -S git
+%forgesetup
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 # Remove shebangs
@@ -57,6 +62,7 @@ sed -i 's/python/python3/' nilearn/plotting/html_document.py
 #sed -i 's/python/python3/' nilearn/plotting/glass_brain_files/generate_json.sh
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires -r
 
 %build

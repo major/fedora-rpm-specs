@@ -1,8 +1,10 @@
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 %global framework kguiaddons
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with various classes on top of QtGui
 
 License: GPLv2+ and LGPLv2+
@@ -24,6 +26,10 @@ BuildRequires:  qt5-qtx11extras-devel
 
 Requires:       kf5-filesystem >= %{majmin}
 
+%if %{with kf6_compat}
+Requires:       kf6-%{framework}%{?_isa}
+%endif
+
 %description
 KDBusAddons provides convenience classes on top of QtGui.
 
@@ -41,7 +47,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5
+%cmake_kf5 %{?with_kf6_compat:-DBUILD_GEO_SCHEME_HANDLER=OFF}
 
 %cmake_build
 
@@ -55,10 +61,14 @@ developing applications that use %{name}.
 %files
 %doc README.md
 %license LICENSES/*.txt
+%if %{without kf6_compat}
 %{_kf5_bindir}/kde-geo-uri-handler
+%endif
 %{_kf5_datadir}/qlogging-categories5/*categories
 %{_kf5_libdir}/libKF5GuiAddons.so.*
+%if %{without kf6_compat}
 %{_kf5_datadir}/applications/*-handler.desktop
+%endif
 
 %files devel
 %{_kf5_includedir}/KGuiAddons/
@@ -68,6 +78,15 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-4
+- Fix kf6-kguiaddons requires to be arch-specific
+
+* Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-3
+- Require kf6-kguiaddons if compat build
+
+* Thu Oct 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-2
+- Add KF6 compatibility flag
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

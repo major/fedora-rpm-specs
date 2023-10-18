@@ -1,8 +1,8 @@
 %global srcname     astroid
-%global commit      2891dafec472aa0ce7939c984965b345f7052036
+%global commit      0191f534213364a844e8138dd68bb71f3ba603e3
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-Version:        3.0.0
+Version:        3.0.1
 
 Name:           python-astroid
 # Note: please check that this doesn't break pylint before committing and building! -GC

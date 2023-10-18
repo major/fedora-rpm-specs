@@ -1,6 +1,6 @@
 Name:    vsomeip3
-Version: 3.3.0
-Release: 3%{?dist}
+Version: 3.3.8
+Release: 1%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
 License: MPL-2.0 AND BSL-1.0
@@ -240,6 +240,10 @@ exit 0
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Mon Oct 16 2023 Stephen Smoogen <smooge@fedoraproject.org> - 3.3.8-1
+- Updated to 3.3.8
+- Fixed vsomeip3.if selinux to allow interpod communication
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

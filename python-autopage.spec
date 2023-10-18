@@ -16,13 +16,17 @@
 
 
 Name:           python-%{srcname}
-Version:        0.5.1
-Release:        7%{?dist}
+Version:        0.5.2
+Release:        1%{?dist}
 Summary:        A Python library to provide automatic paging for console output
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/autopage
 Source0:        %{pypi_source}
 Source1:        setup.py
+
+# autopage should ideally require fixtures[streams], but we don't have that
+# packaged in Fedora yet.
+Patch1:         0001-Do-not-depend-on-fixtures-streams.patch
 
 BuildArch:      noarch
 
@@ -37,14 +41,12 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 %if %{with pyproject}
 BuildRequires:  pyproject-rpm-macros
-# autopage should ideally require fixtures[streams], but we don't have that
-# packaged in Fedora yet. Once it's available, we should backport the
-# upstream change in tox.ini: https://github.com/zaneb/autopage/commit/08aec4a975d8
-# and remove the BuildRequire below
-BuildRequires:  %{py3_dist testtools}
 %else
 %if %{with enable_tests}
 BuildRequires:  %{py3_dist fixtures}
+# autopage should ideally require fixtures[streams], but we don't have that
+# packaged in Fedora yet. Once that is available, we can depend on only that
+# instead of testtools.
 BuildRequires:  %{py3_dist testtools}
 %endif
 %endif
@@ -53,11 +55,6 @@ BuildRequires:  %{py3_dist testtools}
 
 %prep
 %autosetup -n %{srcname}-%{version}
-
-# end to end tests currently don't work in RPM, one reported example:
-# https://github.com/zaneb/autopage/issues/5
-# skip them to enable Python 3.12 rebuild
-rm autopage/tests/test_end_to_end.py
 
 %if %{with pyproject}
 %generate_buildrequires
@@ -101,6 +98,10 @@ cp %{SOURCE1} ./
 %doc README.md
 
 %changelog
+* Mon Oct 16 2023 Zane Bitter <zaneb@fedoraproject.org> 0.5.2-1
+- Fix tests with less v633
+- Fix test reliability
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

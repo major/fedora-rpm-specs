@@ -1,92 +1,85 @@
-# Tests are enabled
-%bcond_without tests
+%bcond tests 1
 
-%global _description %{expand:
-Python implementations of commonly used sensitivity analysis methods. Useful in
-systems modeling to calculate the effects of model inputs or exogenous factors
-on outputs of interest.
-
-Herman, J. and Usher, W. (2017) SALib: An open-source Python library for
-sensitivity analysis. Journal of Open Source Software, 2(9).
-
-Methods included:
-
-- Sobol Sensitivity Analysis (Sobol 2001, Saltelli 2002, Saltelli et al. 2010)
-- Method of Morris, including groups and optimal trajectories (Morris 1991,
-  Campolongo et al. 2007)
-- Fourier Amplitude Sensitivity Test (FAST) (Cukier et al. 1973, Saltelli et
-  al. 1999)
-- Delta Moment-Independent Measure (Borgonovo 2007, Plischke et al. 2013)
-- Derivative-based Global Sensitivity Measure (DGSM) (Sobol and Kucherenko
-  2009)
-- Fractional Factorial Sensitivity Analysis (Saltelli et al. 2008)}
+%global forgeurl https://github.com/SALib/SALib
 
 Name:           python-SALib
 Version:        1.4.7
 Release:        %autorelease
-Summary:        Sensitivity Analysis Library
+Summary:        Tools for global sensitivity analysis
+
+%forgemeta
 
 License:        MIT
-URL:            http://salib.github.io/SALib/
-Source0:        https://github.com/SALib/SALib/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://salib.readthedocs.io
+Source:         %{forgesource}
+
+# Remove a useless shebang line
+# https://github.com/SALib/SALib/pull/592
+Patch:          %{forgeurl}/pull/592.patch
+# Remove bogus executable permissions
+# https://github.com/SALib/SALib/pull/593
+Patch:          %{forgeurl}/pull/593.patch
 
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+
+BuildRequires:  dos2unix
+BuildRequires:  file
+
+%global _description %{expand:
+Python implementations of commonly used sensitivity analysis methods. Useful in
+systems modeling to calculate the effects of model inputs or exogenous factors
+on outputs of interest.}
+
 %description %_description
 
-%package -n python3-SALib
+%package -n python3-salib
 Summary:        %{summary}
-BuildRequires:  python3-devel
-%if %{with tests}
-BuildRequires:  %{py3_dist pytest}
-%endif
 
-# Not mentioned in setup.py, so won't be picked up by the generator
-Requires:  %{py3_dist pandas}
-Requires:  %{py3_dist numpy} >= 1.9.0
-Requires:  %{py3_dist scipy}
-Requires:  %{py3_dist matplotlib} >= 1.4.3
+%py_provides python3-SALib
 
-%description -n python3-SALib %_description
+%description -n python3-salib %_description
+
+%pyproject_extras_subpkg -n python3-salib distributed
 
 %prep
-%autosetup -n SALib-%{version}
+%forgeautosetup -p1
 
-# python3, not python in tests
-sed -i 's/python {cli}/python3 {cli}/' tests/test_cli_sample.py
-sed -i 's/python {cli}/python3 {cli}/' tests/test_cli_analyze.py
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^([[:blank:]])(.*\bpytest-cov\b)/\1# \2/' pyproject.toml
 
-# Correct permission
-chmod -x LICENSE.md src/SALib/analyze/__init__.py src/SALib/sample/__init__.py
-
-# Remove /usr/bin/env python shebang
-find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
-
-# Correct end of line encoding
-sed -i 's/\r$//' LICENSE.md
-sed -i 's/\r$//' src/SALib/analyze/rbd_fast.py
+# Correct end of line encodings. See:
+#
+# Standardize line terminations
+# https://github.com/SALib/SALib/pull/591
+find . -type f -exec file '{}' '+' |
+  awk -F ':' '/CRLF/ { print $1 }' |
+  xargs dos2unix --keepdate
 
 %generate_buildrequires
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires
+%pyproject_buildrequires -x distributed %{?with_tests:-x test}
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
 %pyproject_save_files SALib
 
 %check
 %if %{with tests}
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitelib} %{pytest}
+%pytest
 %endif
 
-%files -n python3-SALib -f %{pyproject_files}
-%doc README.rst README-advanced.md CHANGELOG.md CITATIONS.rst AUTHORS.rst FAQ.MD
+%files -n python3-salib -f %{pyproject_files}
+%doc AUTHORS.rst
+%doc CHANGELOG.md
+%doc CITATION.cff
+%doc CITATIONS.rst
+%doc FAQ.MD
+%doc README-advanced.md
+%doc README.rst
 %{_bindir}/salib
 
 %changelog

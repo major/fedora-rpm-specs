@@ -103,7 +103,7 @@ done
 
 %check
 # See skips added in %%prep.
-PYTHONPATH='%{buildroot}%{python3_sitelib}' '%{python3}' ./test.py \
+%{py3_test_envvars} '%{python3}' ./test.py \
 %if %{with test_backwards}
     --backwards \
 %endif

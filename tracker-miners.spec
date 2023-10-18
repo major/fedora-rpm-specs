@@ -1,6 +1,11 @@
 # This needs to be changed accordingly to the application for what tracker-miners is bundled,
-# e.g. for gnome-books, it would be org.gnome.Books
-%{!?domain_ontology: %global domain_ontology org.freedesktop}
+# e.g. for gnome-books, it would be org.gnome.Books. For F39+ flatpaks, this is done
+# in container.yaml cleanup-commands.
+%if 0%{?flatpak}
+%global domain_ontology org.gnome.FlatpakApp
+%else
+%global domain_ontology org.freedesktop
+%endif
 
 %if 0%{?rhel} || 0%{?flatpak}
 %global with_enca 0
@@ -35,6 +40,7 @@ Summary:        Tracker miners and metadata extractors
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/%{name}/3.6/%{name}-%{tarball_version}.tar.xz
+Source1:        flatpak-fixup.sh
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -127,6 +133,10 @@ This package contains various miners and metadata extractors for tracker.
 %install
 %meson_install
 
+%if 0%{?flatpak}
+install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
+%endif
+
 %find_lang tracker3-miners
 
 
@@ -160,6 +170,7 @@ This package contains various miners and metadata extractors for tracker.
 %endif
 %if 0%{?flatpak}
 %{_datadir}/tracker3/domain-ontologies/%{domain_ontology}.domain.rule
+%{_bindir}/%{name}-flatpak-fixup.sh
 %endif
 
 

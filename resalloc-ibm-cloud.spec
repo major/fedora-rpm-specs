@@ -4,7 +4,7 @@ for maintaining VMs in IBM Cloud (starting, stopping, cleaning orphans, etc.).
 }
 
 Name:           resalloc-ibm-cloud
-Version:        1.0
+Version:        1.1
 Release:        1%{?dist}
 Summary:        Resource allocator scripts for IBM cloud
 
@@ -45,11 +45,20 @@ BuildRequires:  pyproject-rpm-macros
 %doc README.md
 %_mandir/man1/resalloc-ibm-cloud*1*
 %{_bindir}/resalloc-ibm-cloud-list-deleting-vms
+%{_bindir}/resalloc-ibm-cloud-list-deleting-volumes
 %{_bindir}/resalloc-ibm-cloud-list-vms
 %{_bindir}/resalloc-ibm-cloud-vm
 
 
 %changelog
+* Mon Oct 16 2023 Pavel Raiskup <praiskup@redhat.com> 1.1-1
+- Simplify the get_service() helper
+- list-deleting-volumes: new helper for customer case reporting
+- fix manpage contents
+- provide subnets ids directly to the tool via argument (j1.kyjovsky@gmail.com)
+- specify ibm cloud zone instead of hardcoded API url (j1.kyjovsky@gmail.com)
+- add option to use instance's private IP to connect to it (j1.kyjovsky@gmail.com)
+
 * Tue Sep 26 2023 Jiri Kyjovsky 1.0-1
 - Use setuptools instead of poetry
 - spec: use SPDX lincese and drop build requires due to generic reqs

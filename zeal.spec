@@ -9,6 +9,7 @@ License:        GPLv3+
 URL:            https://zealdocs.org/
 Source:         https://github.com/zealdocs/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-apply-websettings.patch
+Patch1:         zeal-qasconst-deprecated.patch
 
 # We should use %%qt6_qtwebengine_arches provided by qt6-srpm-macros
 # but one of our dependency qt6-qtwebengine is available only

@@ -1,16 +1,20 @@
-%global modname uvloop
-
-Name:           python-%{modname}
-Version:        0.17.0
+Name:           python-uvloop
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Ultra fast implementation of asyncio event loop on top of libuv
 
-License:        MIT or ASL 2.0
+License:        MIT OR Apache-2.0
 URL:            https://github.com/MagicStack/uvloop
-Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/uvloop-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libuv-devel
+
+BuildRequires:  python3-devel
+
+# We avoid generating this via the “dev” dependency, because that would bring
+# in unwanted documentation dependencies too.
+BuildRequires:  %{py3_dist pytest}
 
 %global _description \
 uvloop is a fast, drop-in replacement of the built-in asyncio event loop.\
@@ -18,56 +22,75 @@ uvloop is implemented in Cython and uses libuv under the hood.
 
 %description %{_description}
 
-%package -n python3-%{modname}
+%package -n python3-uvloop
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-cython < 0.30.0
-BuildRequires:  python3-aiohttp
-BuildRequires:  python3-psutil
-BuildRequires:  python3-pyOpenSSL
 
-%description -n python3-%{modname} %{_description}
+%description -n python3-uvloop %{_description}
 
 %prep
-%autosetup -p1 -n %{modname}-%{version}
-# always use cython to generate code
+%autosetup -p1 -n uvloop-%{version}
+
+# There currently doesn’t appear to be a way to pass through these “build_ext
+# options,” so we resort to patching the defaults. Some related discussion
+# appears in https://github.com/pypa/setuptools/issues/3896.
+#
+# always use cython to generate code (and generate a build dependency on it)
 sed -i -e "/self.cython_always/s/False/True/" setup.py
 # use system libuv
 sed -i -e "/self.use_system_libuv/s/False/True/" setup.py
+
 # To be sure, no 3rd-party stuff
 rm -vrf vendor/
 
+# - https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# - Loosen SemVer pins; we must work with what we have available, especially
+#   for test dependencies!
+sed -r -i \
+    -e "s/^([[:blank:]]*)([\"'](flake8|pycodestyle|mypy)\b)/\\1# \\2/" \
+    -e 's/~=/>=/' \
+    pyproject.toml
+
+# We don’t have aiohttp==3.9.0b0; see if we can make do with the packaged
+# version.
+sed -r -i 's/aiohttp==3.9.0b0;/aiohttp>=3.8.5;/' pyproject.toml
+# Similarly:
+# Cython 0.29.36 is available
+# https://bugzilla.redhat.com/show_bug.cgi?id=2244399
+sed -r -i 's/(Cython\(>=0.29.3)6,/\15,/' pyproject.toml setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-# https://github.com/MagicStack/uvloop/issues/70
-rm -vf %{buildroot}%{python3_sitearch}/%{modname}/_testbase.py
-rm -vf %{buildroot}%{python3_sitearch}/%{modname}/__pycache__/_testbase.*
+%pyproject_install
+%pyproject_save_files uvloop
+
+# Don’t ship C sources and headers.
+find '%{buildroot}%{python3_sitearch}' -type f -name '*.[ch]' -print -delete
+sed -r -i '/\.[ch]$/d' %{pyproject_files}
 
 %check
-# delete tests that fail on Python 3.12
-# https://github.com/MagicStack/uvloop/issues/547
-rm tests/test_aiohttp.py
-rm tests/test_libuv_api.py
-rm tests/test_process.py
-rm tests/test_tcp.py
-rm tests/test_unix.py
-
 %ifarch ppc64le
-# delete tests that fail on ppc64le
-rm tests/test_pipes.py
+# ignore tests that fail on ppc64le
+ignore="${ignore-} --ignore=tests/test_pipes.py"
 %endif
 
-%{python3} setup.py test
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+ignore="${ignore-} --ignore=tests/test_sourcecode.py"
 
-%files -n python3-%{modname}
-%license LICENSE-APACHE LICENSE-MIT
+# Don’t import the “un-built” uvloop from the build directory.
+mkdir -p _empty
+cd _empty
+ln -s ../tests/ .
+
+%pytest -v ${ignore-}
+
+%files -n python3-uvloop -f %{pyproject_files}
+#license LICENSE-APACHE LICENSE-MIT
 %doc README.rst
-%{python3_sitearch}/%{modname}-*.egg-info/
-%{python3_sitearch}/%{modname}/
 
 %changelog
 %autochangelog

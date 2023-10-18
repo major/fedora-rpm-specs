@@ -1,3 +1,6 @@
+%global forgeurl https://gitlab.com/%{name}/%{name}
+%global tag v%{version}
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
@@ -5,7 +8,8 @@ ExcludeArch: %{ix86}
 %global uuid    org.%{name}.%{name}
 
 Name:           corectrl
-Version:        1.3.5
+Version:        1.3.6
+%forgemeta
 Release:        %autorelease
 Summary:        Friendly hardware control
 
@@ -15,8 +19,8 @@ Summary:        Friendly hardware control
 # * MIT:            3rdparty/units
 # * Public Domain:  FindBotan.cmake
 License:        GPLv3+ and Boost and MIT and Public Domain
-URL:            https://gitlab.com/corectrl/corectrl
-Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 Source1:        README.fedora.md
 
 BuildRequires:  cmake >= 3.3
@@ -79,7 +83,7 @@ to be flexible, comfortable and accessible to regular users.
 
 
 %prep
-%autosetup -n %{name}-v%{version}
+%forgeautosetup -p1
 # Unbundle 3rdparty
 pushd 3rdparty
 rm -rf \

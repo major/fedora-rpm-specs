@@ -13,6 +13,7 @@ Url:     http://www.riverbankcomputing.com/software/pyqt/
 Source0: https://pypi.python.org/packages/source/P/PyQt6/PyQt6-%{version}.tar.gz
 Source1: macros.pyqt6
 
+Patch0:  pyqt6-fix-build-with-qt-6.6.0.patch
 
 BuildRequires: make
 BuildRequires: chrpath
@@ -131,7 +132,7 @@ sip-build \
   --dbus=%{_includedir}/dbus-1.0/ \
   --pep484-pyi \
   --qmake-setting 'QMAKE_CFLAGS_RELEASE="%{build_cflags}"' \
-  --qmake-setting 'QMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} `pkg-config --cflags dbus-python`"' \
+  --qmake-setting 'QMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} `pkg-config --cflags dbus-python` -DQT_NO_INT128"' \
   --qmake-setting 'QMAKE_LFLAGS_RELEASE="%{build_ldflags}"'
 
 %make_build -C build

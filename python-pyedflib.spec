@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 %global forgeurl https://github.com/holgern/pyedflib
 
@@ -13,7 +13,7 @@ In 2003, an improved version of the file protocol named EDF+ has
 been published and can be found at Kemp2003.}
 
 Name:           python-pyedflib
-Version:        0.1.34
+Version:        0.1.36
 Release:        %autorelease
 Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 %forgemeta
@@ -21,7 +21,7 @@ Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 #   BSD-2-Clause: pyedflib/_extensions/edf.pxi
 License:        BSD-3-Clause AND BSD-2-Clause
 URL:            %forgeurl
-Source0:        %forgesource
+Source:         %forgesource
 
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2027046

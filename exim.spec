@@ -11,8 +11,8 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.96.1
-Release: 2%{?dist}
+Version: 4.96.2
+Release: 1%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -501,6 +501,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Mon Oct 16 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96.2-1
+- New version
+  Resolves: rhbz#2244300
+
 * Thu Oct 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96.1-2
 - Build against the 'mariadb-connector-c-devel' package (patch by mschorm)
   Resolves: rhbz#2241091

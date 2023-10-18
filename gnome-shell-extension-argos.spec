@@ -5,6 +5,14 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date 20230404
 
+# Supporting GNOME 45 requires applying a patch that does not support
+# older releases
+%if 0%{?fedora} >= 39
+%bcond_without gnome45
+%else
+%bcond_with gnome45
+%endif
+
 Name:           gnome-shell-extension-argos
 Version:        3^%{date}git%{shortcommit}
 Release:        %autorelease
@@ -13,10 +21,15 @@ Summary:        Create GNOME Shell extensions in seconds
 License:        GPL-3.0-only
 URL:            %{forgeurl}
 Source:         %{url}/archive/%{commit}/argos-%{commit}.tar.gz
+Patch:          %{forgeurl}/pull/150.patch#/argos-gnome-45.diff
 
 BuildArch:      noarch
 
-Requires:       gnome-shell
+%if %{with gnome45}
+Requires:       gnome-shell >= 45.0
+%else
+Requires:       gnome-shell < 45.0
+%endif
 
 %description
 Most GNOME Shell extensions do one thing: Add a button with a dropdown menu to
@@ -35,7 +48,12 @@ scripts in addition to being able to write your own.
 
 
 %prep
-%autosetup -p1 -n argos-%{commit}
+%autosetup -N -n argos-%{commit}
+%autopatch -M 99 -p1
+
+%if %{with gnome45}
+%autopatch -m 100 -p1
+%endif
 
 
 %build

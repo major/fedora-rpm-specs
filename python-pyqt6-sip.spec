@@ -5,18 +5,13 @@
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-%{pkg_name}
-Version:        13.4.0
-Release:        6%{?dist}
+Version:        13.6.0
+Release:        1%{?dist}
 Summary:        The sip module support for PyQt6
 
 License:        GPL-2.0-only OR GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/sip/
 Source0:        %{pypi_source}
-# Patches needed for compatibility with Python 3.12
-# https://www.riverbankcomputing.com/hg/sip/rev/312476401030
-Patch:          sipMalloc-and-sipFree-are-now-implemented-using-PyMe.patch
-# https://www.riverbankcomputing.com/hg/sip/rev/d36867e54192
-Patch:          For-Python-v3.12-implement-sipPyTypeDict-using-PyTyp.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -56,6 +51,9 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 
 %changelog
+* Mon Oct 16 2023 Jan Grulich <jgrulich@redhat.com> - 13.6.0-1
+- 13.6.0
+
 * Thu Oct 12 2023 Richard Fontana <rfontana@redhat.com> - 13.4.0-6
 - Migrate License: tag to SPDX
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.4.0-5

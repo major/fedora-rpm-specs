@@ -1,8 +1,8 @@
 Name:		libzia
-Version:	4.47
+Version:	4.48
 Release:	1%{?dist}
 Summary:	Platform abstraction layer for the tucnak package
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		http://tucnak.nagano.cz/
 Source:		http://tucnak.nagano.cz/%{name}-%{version}.tar.gz
 BuildRequires:	gcc
@@ -71,6 +71,11 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %{_libdir}/pkgconfig/libzia.pc
 
 %changelog
+* Mon Oct 16 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.48-1
+- New version
+  Related: rhbz#2244314
+- Converted license to SPDX
+
 * Tue Oct 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.47-1
 - New version
   Related: rhbz#2242200

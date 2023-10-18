@@ -1,6 +1,6 @@
 %{!?python3_includedir: %global python3_includedir %(%{__python3} -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")}
 Name:       python-igraph
-Version:    0.10.8
+Version:    0.11.2
 %global igraph_version 0.9
 Release:    1%{?dist}
 Summary:    Python bindings for igraph
@@ -68,6 +68,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Mon Oct 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.2-1
+- 0.11.2
+
 * Tue Sep 12 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.8-1
 - 0.10.8
 

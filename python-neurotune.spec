@@ -81,8 +81,7 @@ sed -i "s/.*pyelectro.*/pyelectro/" requirements-dev.txt
 %check
 # remove src folder so that we use built version
 rm -rf neurotune
-export PYTHONPATH="%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}"
-./test.sh
+%{py3_test_envvars} ./test.sh
 
 %files -n python3-neurotune -f %{pyproject_files}
 %doc README.md AUTHORS

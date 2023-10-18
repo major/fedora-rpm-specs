@@ -1,8 +1,8 @@
 %global gem_name minitest-around
 
 Name: rubygem-%{gem_name}
-Version: 0.4.1
-Release: 13%{?dist}
+Version: 0.5.0
+Release: 1%{?dist}
 Summary: Around block for minitest
 License: MIT
 URL: https://github.com/splattael/minitest-around
@@ -78,6 +78,9 @@ popd
 %exclude %{gem_instdir}/test
 
 %changelog
+* Mon Oct 16 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

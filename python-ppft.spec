@@ -81,7 +81,7 @@ sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' %{buildroot}%{python3_sitelib}/ppft/__in
 # run the tests
 # needs to be run from a directory that does not contain a ppft folder
 cd ppft/tests
-PYTHONPATH="$RPM_BUILD_ROOT/%{python3_sitelib}:$RPM_BUILD_ROOT/%{python3_sitearch}" %{python3} -m ppft.tests
+%{py3_test_envvars} %{python3} -m ppft.tests
 
 %files -n python3-ppft -f %{pyproject_files}
 %doc README.md CHANGELOG

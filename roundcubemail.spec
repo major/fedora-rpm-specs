@@ -11,7 +11,7 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.3
+%global upstream_version     1.6.4
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
@@ -35,6 +35,8 @@ Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 License: GPL-3.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later AND CC-BY-SA-3.0 AND MIT AND BSD-2-Clause AND BSD-3-Clause AND PHP-3.01
 URL: http://www.roundcube.net
 Source0: https://github.com/roundcube/roundcubemail/releases/download/%{upstream_version}%{?upstream_prever:-%{upstream_prever}}/roundcubemail-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}-complete.tar.gz
+Source8: https://github.com/roundcube/roundcubemail/releases/download/%{upstream_version}%{?upstream_prever:-%{upstream_prever}}/roundcubemail-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}-complete.tar.gz.asc
+Source9: https://roundcube.net/download/pubkey.asc
 
 Source1: roundcubemail.httpd
 Source3: roundcubemail.nginx
@@ -48,6 +50,7 @@ Patch1: roundcubemail-1.6-confpath.patch
 
 
 BuildArch: noarch
+BuildRequires: gnupg2
 BuildRequires: php(language) >= 7.3
 # For test
 BuildRequires: php-cli
@@ -151,14 +154,14 @@ Provides: bundled(php-roundcube-plugin-installer) = 0.3.2
 # License LGPL-2.1
 Provides: bundled(php-pear-crypt-gpg) = v1.6.7
 # License LGPL-3.0
-Provides: bundled(php-pear-net-ldap2) = v2.2.1
+Provides: bundled(php-pear-net-ldap2) = v2.3.0
 # License MIT
 Provides: bundled(php-guzzlehttp-guzzle) = 7.8.0
 Provides: bundled(php-guzzlehttp-promises) = 2.0.1
 Provides: bundled(php-guzzlehttp-psr7) = 2.6.1
 Provides: bundled(php-masterminds-html5) = 2.7.6
 Provides: bundled(php-pear-console-commandline) = v1.2.6
-Provides: bundled(php-psr-http-client) = 1.0.2
+Provides: bundled(php-psr-http-client) = 1.0.3
 Provides: bundled(php-psr-http-factory) = 1.0.2
 Provides: bundled(php-psr-http-message) = 2.0
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
@@ -179,6 +182,8 @@ CSS 2.
 
 
 %prep
+%{?gpgverify: %{gpgverify} --keyring=%{SOURCE9} --signature=%{SOURCE8} --data=%{SOURCE0}}
+
 %setup -q -n roundcubemail-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}
 %patch -P1 -p1 -b .rpm
 
@@ -314,6 +319,9 @@ fi
 
 
 %changelog
+* Mon Oct 16 2023 Remi Collet <remi@remirepo.net> - 1.6.4-1
+- update to 1.6.4
+
 * Fri Sep 15 2023 Remi Collet <remi@remirepo.net> - 1.6.3-1
 - update to 1.6.3
 

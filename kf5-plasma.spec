@@ -1,8 +1,10 @@
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 %global framework plasma-framework
 
 Name:    kf5-plasma
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 3 framework is foundation to build a primary user interface
 
 License: GPLv2+ and LGPLv2+ and BSD
@@ -67,6 +69,10 @@ BuildRequires:  qt5-qtx11extras-devel
 Requires:       qt5-qtquickcontrols%{?_isa}
 Requires:       qt5-qtquickcontrols2%{?_isa}
 
+%if %{with kf6_compat}
+Requires:       kf6-plasma%{?_isa}
+%endif
+
 # https://bugzilla.redhat.com/1293415
 Conflicts:      kdeplasma-addons < 5.5.0-3
 
@@ -98,7 +104,7 @@ install -m644 -p %{SOURCE10} .
 
 
 %build
-%cmake_kf5
+%cmake_kf5 %{?with_kf6_compat:-DBUILD_DESKTOPTHEMES=OFF}
 
 %cmake_build
 
@@ -159,6 +165,15 @@ sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
 
 
 %changelog
+* Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-4
+- Fix kf6-plasma requires to be arch-specific
+
+* Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-3
+- Require kf6-plasma if compat build
+
+* Thu Oct 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-2
+- Add KF6 compatibility flag
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

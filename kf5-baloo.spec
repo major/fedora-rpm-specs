@@ -1,3 +1,5 @@
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 %global framework baloo
 
 # uncomment to enable bootstrap mode
@@ -10,7 +12,7 @@
 Name:    kf5-%{framework}
 Summary: A Tier 3 KDE Frameworks 5 module that provides indexing and search functionality
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # libs are LGPL, tools are GPL
 # KDE e.V. may determine that future LGPL/GPL versions are accepted
@@ -97,6 +99,9 @@ Provides:       baloo-file = %{version}-%{release}
 %else
 Conflicts:      baloo-file < 5
 %endif
+%if %{with kf6_compat}
+Requires:       kf6-baloo-file%{?_isa}
+%endif
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %description    file
 %{summary}.
@@ -115,7 +120,8 @@ License:        LGPLv2 or LGPLv3
 
 %build
 %{cmake_kf5} \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
+  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} \
+  %{?with_kf6_compat:-DBUILD_INDEXER_SERVICE=OFF}
 %cmake_build
 
 
@@ -129,8 +135,10 @@ find %{buildroot} -name kde-baloo.service -delete
 # baloodb not installed unless BUILD_EXPERIMENTAL is enabled, so omit translations
 rm -fv %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/baloodb5.*
 
+%if %{without kf6_compat}
 install -p -m644 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/sysctl.d/97-kde-baloo-filewatch-inotify.conf
 install -p -m755 -D %{SOURCE2} %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/shutdown/baloo_file.sh
+%endif
 
 %find_lang kio5_baloosearch
 %find_lang kio5_tags
@@ -167,10 +175,13 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 #{_kf5_bindir}/baloodb
 %{_kf5_bindir}/baloosearch
 %{_kf5_bindir}/balooshow
+%if %{without kf6_compat}
 %{_kf5_bindir}/balooctl
+%endif
 %{_kf5_datadir}/qlogging-categories5/%{framework}*
 
 %files file -f %{name}-file.lang
+%if %{without kf6_compat}
 %{_prefix}/lib/sysctl.d/97-kde-baloo-filewatch-inotify.conf
 %config(noreplace) %{_sysconfdir}/xdg/plasma-workspace/shutdown/baloo_file.sh
 %{_kf5_bindir}/baloo_file
@@ -181,6 +192,7 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %endif
 %{_libexecdir}/baloo_file
 %{_libexecdir}/baloo_file_extractor
+%endif
 
 %ldconfig_scriptlets libs
 
@@ -202,11 +214,19 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_includedir}/Baloo/
 
 %{_kf5_archdatadir}/mkspecs/modules/qt_Baloo.pri
+%if %{without kf6_compat}
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.baloo.*.xml
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.Baloo*.xml
+%endif
 
 
 %changelog
+* Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-3
+- Require kf6-baloo if compat build
+
+* Thu Oct 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-2
+- Add KF6 compatibility flag
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

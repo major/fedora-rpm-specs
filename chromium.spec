@@ -168,8 +168,8 @@
 %global bundleminizip 1
 %endif
 
-# enable qt backend for el >= 8 and fedora >= 35
-%if 0%{?rhel} >= 8 || 0%{?fedora} >=35
+# enable qt backend for el >= 8 and fedora
+%if 0%{?rhel} >= 8 || 0%{?fedora}
 %global use_qt 1
 %else
 %global use_qt 0
@@ -207,7 +207,7 @@
 %global bundleffmpegfree 0
 %global bundlelibaom 1
 # system freetype on fedora > 36
-%if 0%{?fedora} > 36
+%if 0%{?fedora}
 %global bundlefreetype 0
 %else
 %global bundlefreetype 1
@@ -249,7 +249,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 118.0.5993.70
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -348,8 +348,8 @@ Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
 # drop av_stream_get_first_dts from internal ffmpeg
 Patch116: chromium-112-ffmpeg-first_dts.patch
-# revert new-channel-layout-api on f36, old ffmpeg-free
-Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
+# fix tab crash with SIGTRAP error when using system ffmpeg
+Patch117: chromium-118-sigtrap_system_ffmpeg.patch
 
 # revert AV1 VAAPI video encode due to old libva on el9
 Patch130: chromium-114-revert-av1enc-el9.patch
@@ -662,12 +662,6 @@ BuildRequires: speech-dispatcher-devel
 BuildRequires: yasm
 BuildRequires: zlib-devel
 
-# Technically, this logic probably applies to older rhel too... but whatever.
-# RHEL 8 and 9 do not have gnome-keyring. Not sure why, but whatever again.
-%if 0%{?fedora} || 0%{?rhel} == 7
-BuildRequires:	pkgconfig(gnome-keyring-1)
-%endif
-
 # remote desktop needs this
 BuildRequires:	pam-devel
 BuildRequires:	systemd
@@ -954,9 +948,7 @@ udev.
 %patch -P114 -p1 -b .system-ffmppeg
 %patch -P115 -p1 -b .prop-codecs
 %patch -P116 -p1 -b .first_dts
-%if 0%{?fedora} == 36
-%patch -P117 -p1 -b .revert-new-channel-layout-api
-%endif
+%patch -P117 -p1 -b .sigtrap_system_ffmpeg
 %endif
 
 # EPEL specific patches
@@ -1704,6 +1696,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Mon Oct 16 2023 Than Ngo <than@redhat.com> - 118.0.5993.70-2
+- fix tab crash with SIGTRAP when using system ffmpeg
+
 * Wed Oct 11 2023 Than Ngo <than@redhat.com> - 118.0.5993.70-1
 - update to 118.0.5993.70
     - CVE-2023-5218: Use after free in Site Isolation.

@@ -26,7 +26,7 @@ locally.}
                         suseconnect/connectUsage.txt
 
 Name:           suseconnect-ng
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility to register a system with the SUSE Customer Center
 
 License:        LGPL-2.1-or-later
@@ -75,6 +75,7 @@ echo "%{version}-%{release}" > internal/connect/version.txt
 # build the library
 for cmd in libsuseconnect; do
   %define gocompilerflags -buildmode=c-shared -compiler gc
+  %define __golang_extldflags -Wl,-soname,$(basename $cmd).so.%{libsoversion}
   %gobuild -o %{gobuilddir}/lib/$(basename $cmd).so.%{libsoversion} %{goipath}/$cmd
   ln -sr %{gobuilddir}/lib/$(basename $cmd).so.%{libsoversion} %{gobuilddir}/lib/$(basename $cmd).so
   mv %{gobuilddir}/lib/$(basename $cmd).so.%{libsofedbasever}.h %{gobuilddir}/lib/$(basename $cmd).h
@@ -82,6 +83,7 @@ done
 # build the binary
 for cmd in suseconnect; do
   %define gocompilerflags -buildmode=pie -compiler gc
+  %define __golang_extldflags %{nil}
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done
 
@@ -140,6 +142,9 @@ install -m 0644 -vp *.service *.timer     %{buildroot}%{_unitdir}/
 %gopkgfiles
 
 %changelog
+* Mon Oct 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.0-2
+- Fix compiled in soname for library
+
 * Thu Oct 12 2023 Neal Gompa <ngompa@opensuse.org> - 1.4.0-1
 - Update to 1.4.0
 

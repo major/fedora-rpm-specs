@@ -77,9 +77,6 @@ Development files for ddccontrol.
 %build
 ./autogen.sh
 
-# workaround for GCC-10, problem reported upstream
-export CFLAGS="%{optflags} -fcommon"
-
 # applet is not supported on Gnome 3
 %configure --enable-doc --disable-gnome-applet --prefix=%{_prefix} \
   --exec-prefix=%{_exec_prefix} --disable-rpath %{!?with_ddcpci:--disable-ddcpci}

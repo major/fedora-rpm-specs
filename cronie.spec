@@ -11,6 +11,9 @@ License:   GPL-2.0-or-later AND BSD-3-Clause AND BSD-2-Clause AND ISC AND LGPL-2
 URL:       https://github.com/cronie-crond/cronie
 Source0:   https://github.com/cronie-crond/cronie/releases/download/cronie-%{version}/cronie-%{version}.tar.gz
 
+# https://github.com/cronie-crond/cronie/commit/ce7d5bf0a43d147f8502e6424cd523b56adf5599
+Patch:     add_-n_option_for_crontab_entries.patch
+
 Requires:  dailyjobs
 
 %if %{with selinux}
@@ -27,7 +30,7 @@ Buildrequires: audit-libs-devel >= 1.4.1
 
 BuildRequires:    gcc
 BuildRequires:    systemd
-BuildRequires: make
+BuildRequires:    make
 Obsoletes:        %{name}-sysvinit
 
 Requires(post):   coreutils sed

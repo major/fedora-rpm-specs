@@ -87,7 +87,6 @@ OpenMP header files.
 %autosetup -n %{libomp_srcdir} -p2
 
 %build
-# TODO: LIBOMP_HAVE_VERSION_SCRIPT_FLAG should be set automatically.
 %cmake	-GNinja \
 	-DLIBOMP_INSTALL_ALIASES=OFF \
 	-DCMAKE_MODULE_PATH=%{_datadir}/llvm/cmake/Modules \
@@ -101,8 +100,7 @@ OpenMP header files.
 %if %{with snapshot_build}
 	-DLLVM_VERSION_SUFFIX="%{llvm_snapshot_version_suffix}" \
 %endif
-	-DCMAKE_SKIP_RPATH:BOOL=ON \
-	-DLIBOMP_HAVE_VERSION_SCRIPT_FLAG:BOOL=ON
+	-DCMAKE_SKIP_RPATH:BOOL=ON
 
 %cmake_build
 

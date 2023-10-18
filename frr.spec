@@ -8,8 +8,8 @@
 %bcond selinux 1
 
 Name:           frr
-Version:        8.5.2
-Release:        4%{?dist}
+Version:        9.0.1
+Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -59,6 +59,7 @@ BuildRequires:  readline-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  texinfo
+BuildRequires:  protobuf-c-devel
 
 Requires:       ncurses
 Requires:       net-snmp
@@ -274,6 +275,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Mon Oct 16 2023 Michal Ruprich <mruprich@redhat.com> - 9.0.1-1
+- New version 9.0.1
+
 * Fri Sep 01 2023 Michal Ruprich <mruprich@redhat.com> - 8.5.2-4
 - Adding a couple of SELinux rules, includes fix for rhbz#2149299
 

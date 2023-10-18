@@ -2,10 +2,10 @@ Name:	 tworld
 %global fullname Tile World
 
 Version: 1.3.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Intellectually engaging puzzle game
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     http://www.muppetlabs.com/~breadbox/software/tworld/
 Source0: http://www.muppetlabs.com/~breadbox/pub/software/tworld/tworld-%{version}-CCLPs.tar.gz	
 
@@ -15,10 +15,13 @@ Source3: tworld-icon-48px.png
 Source4: tworld.desktop
 Source5: tworld.appdata.xml
 
+BuildRequires: desktop-file-utils
+BuildRequires: gcc
+BuildRequires: libappstream-glib
 BuildRequires: make
-BuildRequires: gcc SDL SDL-devel
-BuildRequires: desktop-file-utils libappstream-glib
-Requires: filesystem hicolor-icon-theme
+BuildRequires: SDL-devel
+
+Requires: hicolor-icon-theme
 Requires: %{name}-cclp = %{version}-%{release}
 Requires: %{name}-data = %{version}-%{release}
 
@@ -33,6 +36,9 @@ This simple task, however, can sometimes be extremely challenging.
 Summary: Data files for %{name}
 BuildArch: noarch
 
+# The README says that all sound files and some of the graphics
+# have been placed by their authors in the public domain.
+License: GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 
 %description data
 Data files (graphics, sounds) required to play %{fullname}.
@@ -40,8 +46,12 @@ Data files (graphics, sounds) required to play %{fullname}.
 
 %package cclp
 Summary: Level packs for %{name}
-License: Redistributable, no modification permitted
 BuildArch: noarch
+
+# For discussion regarding the license classification, see:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/127
+License: LicenseRef-CCLP1 AND LicenseRef-CCLP2
+
 Requires: %{name}-data = %{version}-%{release}
 
 
@@ -70,8 +80,8 @@ install -m 755 -d %{buildroot}%{_datadir}/applications/
 desktop-file-install  --dir=%{buildroot}%{_datadir}/applications/  %{name}.desktop
 
 appstream-util validate-relax --nonet tworld.appdata.xml
-install -m 755 -d %{buildroot}%{_datadir}/appdata/
-install -m 644 -p tworld.appdata.xml %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+install -m 755 -d %{buildroot}%{_metainfodir}
+install -m 644 -p tworld.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 for SIZE in 16 32 48; do
   install -m 755 -d %{buildroot}%{_datadir}/icons/hicolor/${SIZE}x${SIZE}/apps/
@@ -94,9 +104,9 @@ EOF
 %license COPYING
 %{_bindir}/%{name}
 %{_mandir}/*/%{name}.*
-%{_datadir}/appdata/%{name}.*
-%{_datadir}/applications/%{name}.*
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_metainfodir}/%{name}.appdata.xml
 
 
 %files data
@@ -118,6 +128,9 @@ EOF
 
 
 %changelog
+* Mon Oct 16 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.3.2-21
+- Migrate License tag to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

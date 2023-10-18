@@ -24,7 +24,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(cldr-emoji-annotation)
 BuildRequires:  pkgconfig(dri)
-BuildRequires:  pkgconfig(enchant)
+BuildRequires:  pkgconfig(enchant-2)
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(fmt)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)

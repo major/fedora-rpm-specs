@@ -1,13 +1,11 @@
-%global gitdate 20230829.232718
+%global gitdate 20231014.021837
 %global cmakever 5.240.0
-%global commit0 8260e304c367377c16bf564cee43ee13479e66d5
-
-%undefine __cmake_in_source_build
-
+%global commit0 b24e9b57740f3e63eb059a17957f24fd4be45750
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework karchive
 
 Name:           kf6-%{framework}
-Version:        %{cmakever}^%{gitdate}.%{commit0}
+Version:        %{cmakever}^%{gitdate}.%{shortcommit0}
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with archive functions
 License:        LGPL-2.0-or-later AND BSD-2-Clause
@@ -49,7 +47,7 @@ developing applications that use %{name}.
 %autosetup -n %{framework}-%{commit0} -p1
 
 %build
-%{cmake_kf6}
+%cmake_kf6
 %cmake_build
 
 %install
@@ -64,11 +62,13 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6Archive.so.6
 
 %files devel
-%{_kf6_archdatadir}/mkspecs/modules/qt_KArchive.pri
 %{_kf6_includedir}/KArchive/
 %{_kf6_libdir}/cmake/KF6Archive/
 %{_kf6_libdir}/libKF6Archive.so
 
 %changelog
+* Mon Oct 16 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231014.021837.b24e9b5-1
+- Updated to latest git (And shortened the git commit version)
+
 * Fri Sep 22 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230829.232718.8260e304c367377c16bf564cee43ee13479e66d5-1
 - Initial Package

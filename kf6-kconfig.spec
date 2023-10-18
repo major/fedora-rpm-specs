@@ -1,10 +1,11 @@
-%global		gitdate 20230925.220329
+%global		gitdate 20231016.020925
 %global		cmakever 5.240.0
-%global		commit0 8ff33136df67fddc9dd5bd979acf81592bfe4f98
+%global		commit0 5cd23ad8d2b61beb7290a11bbeaa90cc4720531c
+%global         shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global		framework kconfig
 
 Name:		kf6-%{framework}
-Version:	%{cmakever}^%{gitdate}.%{commit0}
+Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with advanced configuration system
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
@@ -71,8 +72,6 @@ developing applications that use %{name}.
 %{_kf6_libdir}/qt6/qml/org/kde/config/kde-qmlmodule.version
 
 %files devel
-%{_kf6_archdatadir}/mkspecs/modules/qt_KConfigCore.pri
-%{_kf6_archdatadir}/mkspecs/modules/qt_KConfigGui.pri
 %{_kf6_includedir}/KConfig/
 %{_kf6_includedir}/KConfigCore/
 %{_kf6_includedir}/KConfigGui/
@@ -83,5 +82,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6ConfigQml.so
 
 %changelog
+* Mon Oct 16 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231016.020925.5cd23ad-1
+- Updated git version and prettied up the version string
+
 * Wed Sep 27 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230925.220329.8ff33136df67fddc9dd5bd979acf81592bfe4f98-1
 - Initial Package

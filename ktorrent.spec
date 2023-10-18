@@ -60,7 +60,9 @@ BuildRequires: cmake(KF5Plotting)
 BuildRequires: cmake(KF5TextWidgets)
 
 BuildRequires: cmake(KF5Syndication)
+%if %{undefined flatpak}
 BuildRequires: cmake(LibKWorkspace)
+%endif
 
 %ifarch %{qt5_qtwebengine_arches}
 BuildRequires: cmake(Qt5WebEngineWidgets)

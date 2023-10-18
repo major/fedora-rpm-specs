@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.13.23
+Version:            2.13.26
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -66,12 +66,14 @@ find -type f -name '*.py' -exec sed \
 # Fedora does not run coverage tests.
 # mock is deprecated in Fedora. We use unittest.mock.
 # pip-tools is not used directly by the unit tests.
+# pytest-xdist is unwanted in RHEL.
 sed \
     -e 's|==.*||' \
     -e '/coverage/d' \
     -e '/mock/d' \
     -e '/pip-tools/d' \
     -e '/pytest-cov/d' \
+    %{?rhel:-e '/pytest-xdist/d'} \
     requirements-test.txt > _requirements-test.txt
 
 
@@ -107,7 +109,7 @@ export TESTS_REMOVE_REPO_ROOT_FROM_PATH=1 TZ=UTC
 %if 0%{?rhel}
 export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
-%pytest --verbose --numprocesses=auto --dist=loadfile tests/unit tests/functional
+%pytest --verbose %{!?rhel:--numprocesses=auto --dist=loadfile} tests/unit tests/functional
 
 
 %files -f %{pyproject_files}

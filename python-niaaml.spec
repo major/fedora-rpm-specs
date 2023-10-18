@@ -24,7 +24,7 @@ classification pipeline, and optimize their hyperparameters.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python automated machine learning framework
 
 License:        MIT
@@ -96,7 +96,7 @@ sed -r -i 's|\bpython3\b|%{python3}|' examples/run_all.sh
 %if %{with test_examples}
 # See also: examples/run_all.sh
 find examples -type f -name '*.py' |
-  env PYTHONPATH="${PWD}" xargs -r -n 1 -t -P %{_smp_build_ncpus} -I '{}' \
+  env %{py3_test_envvars} xargs -r -n 1 -t -P %{_smp_build_ncpus} -I '{}' \
       '%{python3}' '{}'
 %endif
 
@@ -115,6 +115,9 @@ find examples -type f -name '*.py' |
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md CITATION.md
 
 %changelog
+* Mon Oct 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.12-4
+- F38+: Use %{py3_test_envvars} to set up environment for running examples
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

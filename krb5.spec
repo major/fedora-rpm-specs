@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 1
+%global baserelease 2
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -74,8 +74,9 @@ Patch0012: 0012-downstream-Allow-to-set-PAC-ticket-signature-as-opti.patch
 Patch0013: 0013-downstream-Make-PKINIT-CMS-SHA-1-signature-verificat.patch
 Patch0014: 0014-Enable-PKINIT-if-at-least-one-group-is-available.patch
 Patch0015: 0015-Replace-ssl.wrap_socket-for-tests.patch
+Patch0016: 0016-Fix-unimportant-memory-leaks.patch
 
-License: MIT
+License: BSD-2-Clause AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-3-Clause AND BSD-4-Clause AND FSFULLRWD AND HPND-export-US AND HPND-export-US-modify AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND RSA-MD
 URL: https://web.mit.edu/kerberos/www/
 BuildRequires: autoconf, bison, make, flex, gawk, gettext, pkgconfig, sed
 BuildRequires: gcc, gcc-c++
@@ -710,6 +711,11 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Tue Oct 10 2023 Julien Rische <jrische@redhat.com> - 1.21.2-2
+- Use SPDX expression for license tag
+- Fix unimportant memory leaks
+  Resolves: rhbz#2223274
+
 * Wed Aug 16 2023 Julien Rische <jrische@redhat.com> - 1.21.2-1
 - New upstream version (1.21.2)
 - Fix double-free in KDC TGS processing (CVE-2023-39975)

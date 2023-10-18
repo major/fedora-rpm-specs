@@ -93,10 +93,8 @@ sed -i '/^#![  ]*\/usr\/bin\/env.*$/d' %{buildroot}%{python3_sitelib}/pathos/__i
 %pyproject_save_files pathos
 
 %check
-export PYTHONPATH="%{buildroot}/%{python3_sitearch}:%{buildroot}/%{python3_sitelib}"
-# https://github.com/uqfoundation/pathos/blob/master/.travis.yml
-for test in pathos/tests/__init__.py; do echo $test ; %{python3} $test ; done
-for test in pathos/tests/test_*.py; do echo $test ; %{python3} $test ; done
+# Imitate tox.ini:
+%{py3_test_envvars} %{python3} -m pathos.tests
 
 %files -n python3-pathos -f %{pyproject_files}
 %license LICENSE

@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/DynamicsAndNeuralSystems/pycatch22
 
 Name:           python-pycatch22
-Version:        0.4.3
+Version:        0.4.4
 Release:        %autorelease
 Summary:        CAnonical Time-series CHaracteristics in Python
 
@@ -87,8 +87,6 @@ find src/C -type f ! -name 'catch22_wrap.c' -print -delete
 # There is no verification of output values; we are just checking that the
 # script *runs*.
 %{py3_test_envvars} '%{python3}' tests/testing.py
-# The script tests/testFeatures.py is not usable
-# https://github.com/DynamicsAndNeuralSystems/pycatch22/issues/15
 
 
 %files -n python3-pycatch22 -f %{pyproject_files}

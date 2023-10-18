@@ -3,7 +3,7 @@
 %undefine _debugsource_packages
 
 Name: singularity-ce
-Version: 4.0.0
+Version: 4.0.1
 Release: 1%{?dist}
 Summary: Application and environment virtualization
 
@@ -72,8 +72,9 @@ Provides: bundled(golang(github.com/cyberphone/json_canonicalization)) = v0.0.0_
 Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.2.4
 Provides: bundled(golang(github.com/d2g/dhcp4client)) = v1.0.0
 Provides: bundled(golang(github.com/d2g/dhcp4)) = v0.0.0_20170904100407_a1d1b6c41b1c
+Provides: bundled(golang(github.com/distribution/reference)) = v0.5.0
 Provides: bundled(golang(github.com/docker/cli)) = v24.0.6+incompatible
-Provides: bundled(golang(github.com/docker/distribution)) = v2.8.2+incompatible
+Provides: bundled(golang(github.com/docker/distribution)) = v2.8.3+incompatible
 Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.8.0
 Provides: bundled(golang(github.com/docker/docker)) = v24.0.6+incompatible
 Provides: bundled(golang(github.com/docker/go_connections)) = v0.4.0
@@ -170,7 +171,7 @@ Provides: bundled(golang(github.com/sylabs/oci_tools)) = v0.5.0
 Provides: bundled(golang(github.com/sylabs/scs_build_client)) = v0.8.0
 Provides: bundled(golang(github.com/sylabs/scs_key_client)) = v0.7.3
 Provides: bundled(golang(github.com/sylabs/scs_library_client)) = v1.4.5
-Provides: bundled(golang(github.com/sylabs/sif/v2)) = v2.13.0
+Provides: bundled(golang(github.com/sylabs/sif/v2)) = v2.15.0
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
 Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.5.2
 Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
@@ -265,6 +266,10 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Mon Oct 16 2023 David Trudgian <dtrudg@sylabs.io> - 4.0.1-1
+- Upgrade to 4.0.1 upstream version.
+- This is a compatible upgrade to a new upstream patch version.
+
 * Mon Oct 9 2023 David Trudgian <dtrudg@sylabs.io> - 4.0.0-1
 - Upgrade to 4.0.0 upstream version.
 

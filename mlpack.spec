@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -171,6 +171,12 @@ cmake -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param
 cd ..;
 %endif
 
+%ifarch ppc64le
+cd %{_vpath_builddir};
+cmake -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" -D CMAKE_CXX_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" .
+cd ..;
+%endif
+
 # Don't use %make because it could use too much RAM with multiple cores on Koji...
 %{cmake_build}
 
@@ -297,6 +303,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Mon Oct 16 2023 Ryan Curtin <ryan@ratml.org> - 4.2.1-2
+- Attempt to reduce RAM usage on ppc64le.
+
 * Mon Sep 11 2023 Ryan Curtin <ryan@ratml.org> - 4.2.1-1
 - Update to latest stable version.
 

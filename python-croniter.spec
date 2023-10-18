@@ -2,8 +2,8 @@
 %global pypi_name croniter
 
 Name:           python-%{pypi_name}
-Version:        1.3.14
-Release:        3%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Iteration for datetime object with cron like format
 
 License:        MIT
@@ -50,6 +50,9 @@ find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 %doc README.rst
 
 %changelog
+* Mon Oct 09 2023 Priscila Gutierres <prgutier@redhat.com> - 1.4.1-1
+- Update to 1.4.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
