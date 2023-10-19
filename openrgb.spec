@@ -1,19 +1,24 @@
+%global forgeurl https://gitlab.com/CalcProgrammer1/%{upstream_package_name}
+%global tag release_%{version}
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
-%global uname OpenRGB
+%global upstream_package_name OpenRGB
 
 Name:           openrgb
 Version:        0.9
+%forgemeta
 Release:        %autorelease
 Summary:        Open source RGB lighting control
 
-# Entire source code is GPLv2 except some bundled libs:
-#   * GPLv3+:   hueplusplus-1.0.0
-#               libcmmk
-License:        GPLv2 and GPLv3+
-URL:            https://gitlab.com/CalcProgrammer1/OpenRGB
-Source0:        %{url}/-/archive/release_%{version}/%{uname}-release_%{version}.tar.gz
+# Entire source code is GPL-2.0-only except some bundled libs:
+#   * GPL-3.0-or-later:
+#     - hueplusplus-1.0.0
+#     - libcmmk
+License:        GPL-2.0-only and GPL-3.0-or-later
+URL:            https://openrgb.org
+Source0:        %{forgesource}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -72,7 +77,7 @@ Udev rules for %{name}.
 
 
 %prep
-%autosetup -n %{uname}-release_%{version} -p1
+%forgeautosetup -p1
 
 # Remove some bundled libs
 pushd dependencies

@@ -5,7 +5,7 @@
 %endif
 
 Name:           dub
-Version:        1.33.1
+Version:        1.34.0
 Release:        %autorelease
 Summary:        Package and build management system for D
 

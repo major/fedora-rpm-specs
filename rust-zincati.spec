@@ -9,8 +9,8 @@
 %global crate zincati
 
 Name:           rust-zincati
-Version:        0.0.25
-Release:        8%{?dist}
+Version:        0.0.26
+Release:        2%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 License:        Apache-2.0
@@ -22,9 +22,6 @@ Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}
 # git diff --no-prefix zincati-*/Cargo.toml
 #Patch0:         fedora-zincati-cargo-manifest-overrides.diff
 %endif
-
-# https://github.com/coreos/zincati/pull/1059
-Patch1:         0001-update_agent-handle-new-output-format-for-loginctl.patch
 
 # Skip 32 bits architectures, see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046993
@@ -148,6 +145,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Tue Oct 17 2023 Colin Walters <walters@verbum.org> - 0.0.26-2
+- Update to 0.0.26
+
 * Fri Oct 06 2023 Fabio Valentini <decathorpe@gmail.com> - 0.0.25-8
 - Update spec for rust-packaging v25.
 

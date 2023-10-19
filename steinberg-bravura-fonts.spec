@@ -7,7 +7,7 @@ URL:            https://www.smufl.org/fonts/
 
 %forgemeta
 
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -34,12 +34,6 @@ This package contains the Bravura font family.  It is a Unicode typeface
 designed by Steinberg for its music notation and scoring application.
 }
 
-# This can be removed when F36 reaches EOL
-%global fontpkgheader0 %{expand:
-Obsoletes:      steinberg-bravura-fonts-common < 1.360
-Provides:       steinberg-bravura-fonts-common = %{version}-%{release}
-}
-
 %global fontfamily1      BravuraText
 %global fontsummary1     Bravura text font
 %global fonts1           redist/otf/BravuraText.otf
@@ -49,12 +43,6 @@ Provides:       steinberg-bravura-fonts-common = %{version}-%{release}
 This package contains the Bravura Text font family.  It is a Unicode
 typeface designed by Steinberg for its music notation and scoring
 application.
-}
-
-# This can be removed when F36 reaches EOL
-%global fontpkgheader1 %{expand:
-Obsoletes:      steinberg-bravura-text-fonts < 1.360
-Provides:       steinberg-bravura-text-fonts = %{version}-%{release}
 }
 
 Source0:        %{forgesource}
@@ -80,7 +68,8 @@ sed -i 's,updatecontact,update_contact,g' $metainfo
 # Install the SMuFL metadata
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura
 install -m 0644 -p redist/bravura_metadata.json \
-        %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura/Bravura.json
+        %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura/metadata.json
+ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura/Bravura.json
 
 %check
 %fontcheck -a
@@ -91,6 +80,9 @@ install -m 0644 -p redist/bravura_metadata.json \
 %fontfiles -z 1
 
 %changelog
+* Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 1.392-7
+- Link metadata to metadata.json for MuseScore
+
 * Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 1.392-6
 - Install SMuFL metadata in a standard location
 - Simplify the font config files

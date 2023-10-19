@@ -3,7 +3,7 @@
 %global libgmobile_commit f1b50f0f90604e0f125412932dae9b1e08d57ddc
 
 Name:		phosh
-Version:	0.30.0
+Version:	0.32.0
 Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
@@ -144,6 +144,7 @@ SH
 %{_userunitdir}/sm.puri.Phosh.target
 %{_datadir}/applications/sm.puri.OSK0.desktop
 %{_datadir}/xdg-desktop-portal/portals/phosh.portal
+%{_datadir}/xdg-desktop-portal/phosh-portals.conf
 %{_libdir}/phosh/plugins/libphosh-plugin-calendar.so
 %{_libdir}/phosh/plugins/calendar.plugin
 %{_libdir}/phosh/plugins/libphosh-plugin-upcoming-events.so
@@ -163,10 +164,9 @@ SH
 %license COPYING
 
 %changelog
+%autochangelog
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-%autochangelog
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

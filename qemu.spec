@@ -341,13 +341,13 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 8.1.1
+Version: 8.1.2
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-3.0
 URL: http://www.qemu.org/
 
-Source0: http://wiki.qemu-project.org/download/%{name}-%{version}%{?rcstr}.tar.xz
+Source0: https://download.qemu.org/%{name}-%{version}%{?rcstr}.tar.xz
 
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
@@ -359,8 +359,6 @@ Source27: kvm.conf
 Source30: kvm-s390x.conf
 Source31: kvm-x86.conf
 Source36: README.tests
-
-Patch0001: 0001-tests-Disable-iotests-like-RHEL-does.patch
 
 BuildRequires: meson >= %{meson_version}
 BuildRequires: bison
@@ -2025,12 +2023,18 @@ rm -rf %{static_buildroot}
 
 
 %check
+# Disable iotests. RHEL has done this forever, and these
+# tests have been flakey in the past
+export MTESTARGS="--no-suite block"
+
 %if %{with check}
 %if !%{tools_only}
 
 pushd %{qemu_kvm_build}
 echo "Testing %{name}-build"
-# 2022-06: ppc64le random qtest segfaults with no discernable pattern
+# ppc64le random qtest segfaults with no discernable pattern
+#   Last check: 2023-10
+#   Added: 2022-06
 %ifnarch %{power64}
 %make_build check
 %endif
@@ -2807,6 +2811,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Tue Oct 17 2023 Cole Robinson <crobinso@redhat.com> - 8.1.2-1
+- Update to version 8.1.2
+
 * Tue Sep 26 2023 Cole Robinson <crobinso@redhat.com> - 8.1.1-1
 - Rebase to qemu 8.1.1
 

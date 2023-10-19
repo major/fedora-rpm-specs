@@ -6,6 +6,7 @@
 # https://github.com/ansible/receptor
 %global goipath         github.com/ansible/receptor
 Version:                1.4.1
+BuildArch:      	x86_64
 
 %gometa -f
 
@@ -103,7 +104,7 @@ Summary:        Multi-service relayer with remote execution and orchestration ca
 License:        Apache-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
-Source1:        vendor-%{version}.tar.gz
+Source1:	vendor-%{version}.tar.gz
 Source2:        bundle_go_deps_for_rpm.sh
 Source3: 	receptor.service
 Source4: 	receptor@.service
@@ -112,20 +113,21 @@ Source6: 	receptor.conf.example
 Source7: 	receptor.pp
 Source8:	receptor.sysusers
 Source9:	receptor.logrotate
-SOurce10:	receptor_tmp.conf
+Source10:	receptor_tmp.conf
 # https://github.com/ansible/receptor/pull/816
-Patch:          0001-Bump-quic-go-to-0.37.4.patch
+#Patch:          0001-Bump-quic-go-to-0.37.4.patch
 
 BuildRequires:  python3-devel
 BuildRequires:	python3dist(pip)
 BuildRequires:	python3dist(setuptools)
 BuildRequires:	python3dist(wheel)
-BuildRequires:	python3dist(tox)
+#BuildRequires:	python3dist(tox)
 # For Python tests
 BuildRequires:  psmisc
 BuildRequires:  openssh
 BuildRequires:	openssl
 BuildRequires:  systemd-rpm-macros
+
 %{?sysusers_requires_compat}
 
 Requires:	receptorctl%{?_isa} = %{version}-%{release}
@@ -151,7 +153,7 @@ Summary:        Python plugin called by Receptor
 
 %description -n python3-receptor-python-worker
 The receptor-python-worker command is called by Receptor to supervise the
-operation of a Python worker plugin.
+operation of a Python worker plugin."
 
 %if %{with golang_library}
 %gopkg

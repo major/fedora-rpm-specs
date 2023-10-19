@@ -14,7 +14,7 @@ URL:            https://www.smufl.org/fonts/
 # If both %%petalumaver and %%petalumascriptver were increased,
 # release should be reset to 1. Otherwise, keep increasing it so that
 # name-version-release keeps growing for both subpackages.
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -99,7 +99,8 @@ sed -i 's,updatecontact,update_contact,g' $metainfo
 # Install the SMuFL metadata
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma
 install -m 0644 -p redist/petaluma_metadata.json \
-        %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma/Petaluma.json
+        %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma/metadata.json
+ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma/Petaluma.json
 
 %check
 %fontcheck -a
@@ -114,6 +115,9 @@ install -m 0644 -p redist/petaluma_metadata.json \
 %files          all
 
 %changelog
+* Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 1.065-9
+- Link metadata to metadata.json for MuseScore
+
 * Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 1.065-8
 - Install SMuFL metadata in a standard location
 - Simplify the font config files

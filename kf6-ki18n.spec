@@ -6,7 +6,7 @@
 
 Name:		kf6-%{framework}
 Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND ODbL-1.0
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -86,6 +86,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20230829.233059.7042d58-3
+- Rebuild (qt6)
+
 * Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230829.233059.7042d58-2
 - Rebuild for Qt Private API
 

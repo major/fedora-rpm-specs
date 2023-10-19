@@ -3,7 +3,7 @@
 
 Name:           avgtime
 Version:        0.5.1
-Release:        0.38.git%{verdate}%{?dist}
+Release:        0.39.git%{verdate}%{?dist}
 Summary:        Time a command and print average, standard deviation
 
 License:        Boost
@@ -54,6 +54,9 @@ cp -a avgtime $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Tue Oct 17 2023 Kalev Lember <klember@redhat.com> - 0.5.1-0.39.git20150501
+- Rebuilt for ldc 1.35
+
 * Mon Jul 24 2023 Kalev Lember <klember@redhat.com> - 0.5.1-0.38.git20150501
 - Rebuilt for ldc 1.33
 

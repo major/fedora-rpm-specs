@@ -170,8 +170,6 @@ export MNE_SKIP_NETWORK_TESTS=1
 export MNE_DONTWRITE_HOME=true
 export MNE_FORCE_SERIAL=true
 
-export PYTHONPATH=%{buildroot}%{python3_sitearch}
-
 # Deselected tests require additional data or don't work in mock
 # Two deselected for sklearn warnings
 # Tools directory ignored as it contains tests for upstream release process

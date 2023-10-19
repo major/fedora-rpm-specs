@@ -3,7 +3,7 @@
 
 Name:           onedrive
 Version:        2.4.25
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OneDrive Free Client written in D
 License:        GPLv3
 URL:            https://github.com/%{project}/%{repo}
@@ -59,6 +59,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Tue Oct 17 2023 Kalev Lember <klember@redhat.com> - 2.4.25-4
+- Rebuilt for ldc 1.35
+
 * Mon Jul 24 2023 Kalev Lember <klember@redhat.com> - 2.4.25-3
 - Rebuilt for ldc 1.33
 

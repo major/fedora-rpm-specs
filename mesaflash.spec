@@ -1,13 +1,14 @@
 Name:            mesaflash
-Version:         3.4.0
+Version:         3.4.9
 
 %global forgeurl https://github.com/micges/%{name}
-%global date     20200608
-%global commit   946725c83c1cdef5b75e63b7aadcb20e1bf19eca
+%global tag     release/%{version}
+#%%global date     20200608
+#%%global commit   946725c83c1cdef5b75e63b7aadcb20e1bf19eca
 
 %forgemeta
 
-Release:         0.10%{?dist}
+Release:         1%{?dist}
 Summary:         Configuration and diagnostic tool for Mesa Electronics boards
 License:         GPLv2+
 Url:             %{forgeurl}
@@ -17,6 +18,7 @@ BuildRequires: make
 BuildRequires:   /usr/bin/git
 BuildRequires:   gcc
 BuildRequires:   pkgconfig(libpci)
+BuildRequires:   pkgconfig(libmd)
 
 
 %description
@@ -60,6 +62,9 @@ CFLAGS='%{build_cflags} -DVERSION=\"%{version}-%{release}\"'
 
 
 %changelog
+* Tue Oct 17 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 3.4.9-1
+- Update to 3.4.9 (#2041264)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-0.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

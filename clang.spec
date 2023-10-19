@@ -15,7 +15,7 @@
 
 %global maj_ver 17
 %global min_ver 0
-%global patch_ver 2
+%global patch_ver 3
 #global rc_ver 4
 
 %if %{with snapshot_build}
@@ -88,6 +88,11 @@ Patch4:     0001-Produce-DWARF4-by-default.patch
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
 Patch5:     0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
+# Patches for https://issues.redhat.com/browse/RHEL-1650
+# Remove in clang 18.
+Patch6:     cfg.patch
+Patch7:     tsa.patch
+
 
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
@@ -640,6 +645,12 @@ false
 %endif
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Tue Oct 17 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.3-1
+- Update to LLVM 17.0.3
+
+* Mon Oct 09 2023 Timm Bäder <tbaeder@redhat.com> - 17.0.2-2
+- Backport upstream fixes for https://issues.redhat.com/browse/RHEL-1650
 
 * Wed Oct 04 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.2-1
 - Update to LLVM 17.0.2

@@ -1,7 +1,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 39.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -48,8 +48,8 @@ Requires: f%{version_maj}-backgrounds-kde
 %endif
 Requires: system-logos
 Requires: google-noto-sans-fonts
-# Not used strictly, but users expect general noto "family" to be present, so that includes serif too -- rdieter
-Requires: google-noto-serif-fonts
+# Not required but expected by users as we use other fonts from the noto "family"
+Recommends: google-noto-serif-fonts
 %if 0%{?rhel} && 0%{?rhel} < 9
 Requires: google-noto-mono-fonts
 %else
@@ -210,6 +210,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Oct 13 2023 Timothée Ravier <tim@siosm.fr> - 39.0-2
+- Switch google-noto-serif-fonts to a Recommends
+
 * Fri Sep 01 2023 Adam Williamson <awilliam@redhat.com> - 39.0-1
 - New release 39.0 (to pick up Fedora 39 backgrounds)
 

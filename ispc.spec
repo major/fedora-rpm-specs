@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ispc
-Version:	1.21.0
+Version:	1.21.1
 %if %{with_snapshot}
 Release:	%autorelease -p -s 20230102git%{shortcommit}
 %else
@@ -18,6 +18,7 @@ Source0:	https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{shortcom
 %else
 Source0:	https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
+
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	clang-devel

@@ -7,7 +7,7 @@
 Name:    kf6-%{framework}
 Summary: A KDE Frameworks 6 Tier 3 to organize user work into separate activities
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -65,5 +65,8 @@ Requires:       qt6-qtbase-devel
 
 
 %changelog
+* Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231009.214418.330a3e2-2
+- Rebuild (qt6)
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231009.214418.330a3e2-1
 - Initial release

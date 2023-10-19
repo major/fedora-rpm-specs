@@ -1,10 +1,14 @@
+%global libgmobile_commit f4d4e5740c3e4b2de40864ab8a9e7b7f957d6aec
+
 Name:		phosh-mobile-settings
-Version:	0.29.0
-Release:	2%{?dist}
+Version:	0.32.0
+Release:	1%{?dist}
 Summary:	Mobile Settings App for phosh and related components
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/guidog/phosh-mobile-settings
 Source0:	https://gitlab.gnome.org/guidog/phosh-mobile-settings/-/archive/v%{version}/phosh-mobile-settings-v%{version}.tar.gz
+Source1:    https://gitlab.gnome.org/guidog/gmobile/-/archive/%{libgmobile_commit}/gmobile-%{libgmobile_commit}.tar.gz
+
 
 ExcludeArch:	i686
 
@@ -16,6 +20,7 @@ BuildRequires:	meson
 BuildRequires:	pkgconfig(glib-2.0) >= 2.62
 BuildRequires:	pkgconfig(gio-2.0) >= 2.62
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.62
+BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:	pkgconfig(gmodule-2.0) >= 2.62
 BuildRequires:	pkgconfig(gsound)
 BuildRequires:	pkgconfig(gtk4) >= 4.4
@@ -28,11 +33,17 @@ BuildRequires:	lm_sensors-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	phosh
 
+Requires:		feedbackd
+Requires:		phoc >= 0.30.0
+Requires:		phosh >= 0.29.0
+
 %description
 Mobile Settings App for phosh and related components
 
 %prep
-%setup -q -n %{name}-v%{version}
+%setup -a1 -q -n %{name}-v%{version}
+
+mv gmobile-%{libgmobile_commit} subprojects/gmobile
 
 %build
 %meson
@@ -59,10 +70,10 @@ Mobile Settings App for phosh and related components
 %license COPYING
 
 %changelog
+%autochangelog
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-%autochangelog
 
 * Tue Jun 13 2023 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.26.0-2
 - Initial packaging

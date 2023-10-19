@@ -1,14 +1,19 @@
+%global forgeurl https://github.com/graysky2/%{name}
+%global tag v%{version}
+
 %global shortname psd
 
 Name: profile-sync-daemon
-Version: 6.48
+Version: 6.50
+%forgemeta
 Release: %autorelease
 Summary: Symlinks and syncs browser profile dirs to RAM thus reducing HDD/SDD calls
+
 BuildArch: noarch
 
 License: MIT
-URL: https://github.com/graysky2/profile-sync-daemon
-Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL: %{forgeurl}
+Source0: %{forgesource}
 
 BuildRequires: make
 BuildRequires: rsync
@@ -25,7 +30,7 @@ the major design goals of psd is a completely transparent user experience.
 
 
 %prep
-%autosetup
+%forgeautosetup -p1
 
 
 %build

@@ -6,7 +6,7 @@
 
 Name:    kf6-plasma
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -116,5 +116,8 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_kf6_libdir}/libKF6PlasmaQuick.so
 
 %changelog
+* Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231012.020924.b3da7d9-2
+- Rebuild (qt6)
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231012.020924.b3da7d9-1
 - Initial release

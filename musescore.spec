@@ -19,7 +19,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -453,14 +453,15 @@ sed -i 's,updatecontact,update_contact,g' \
 
 # Install SMuFL metadata
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/mscore
-cp -p fonts/mscore/metadata.json \
-      %{buildroot}%{_datadir}/SMuFL/Fonts/mscore/mscore.json
+cp -p fonts/mscore/metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/mscore
+ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/mscore/mscore.json
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Gootville
 cp -p fonts/gootville/metadata.json \
-      %{buildroot}%{_datadir}/SMuFL/Fonts/Gootville/Gootville.json
+      %{buildroot}%{_datadir}/SMuFL/Fonts/Gootville
+ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Gootville/Gootville.json
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/MuseJazz
-cp -p fonts/musejazz/metadata.json \
-      %{buildroot}%{_datadir}/SMuFL/Fonts/MuseJazz/MuseJazz.json
+cp -p fonts/musejazz/metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/MuseJazz
+ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/MuseJazz/MuseJazz.json
 
 # Validate the desktop file
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.musescore.MuseScore.desktop
@@ -484,7 +485,7 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
    %{buildroot}%{_datadir}/soundfonts
 
 # Hardlink duplicate files
-hardlink %{buildroot}%{_datadir}/mscore-%{musescore_maj}
+hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 
 %check
 %fontcheck -a
@@ -546,6 +547,10 @@ hardlink %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 1:4.1.1-3
+- Link metadata to SMuFL-compliant names (bz 2244606)
+- Fix misspelling of mscoretabulature that breaks font loading
+
 * Thu Aug 31 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-2
 - Fix Gootville font config file error
 

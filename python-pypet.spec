@@ -1,9 +1,21 @@
-# Multiple tests currently failing.
-# Temporarily disabling tests
-# https://github.com/SmokinCaterpillar/pypet/issues/63
-%bcond_with tests
+# We shouldn’t *add* ExcludeArch in a stable release, so we must skip the tests
+# instead. We can remove this after F39 goes end-of-life, or when the spec
+# files for older branches diverge from those in F40+.
+%ifarch s390x
+%if 0%{?fc38} || 0%{?fc39}
+%global tests_default_off 1
+%endif
+%endif
 
-%global pypi_name pypet
+%bcond tests 0%{?!tests_default_off:1}
+# Run examples as additional tests?
+%bcond test_examples 1
+
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond doc_pdf 1
 
 %global _description %{expand:
 The new python parameter exploration toolkit: pypet manages exploration of the
@@ -12,151 +24,151 @@ data into HDF5 files for you. Moreover, pypet offers a new data container which
 lets you access all your parameters and results from a single source. Data I/O
 of your simulations and analyses becomes a piece of cake!}
 
-Name:           python-%{pypi_name}
-Version:        0.5.2
-Release:        7%{?dist}
+Name:           python-pypet
+Version:        0.6.1
+Release:        %autorelease
 Summary:        Parameter exploration toolbox
 
-License:        BSD
-URL:            https://pypi.org/pypi/%{pypi_name}
-Source0:        https://github.com/SmokinCaterpillar/%{pypi_name}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/SmokinCaterpillar/pypet
+Source:         %{url}/archive/%{version}/pypet-%{version}.tar.gz
 
-BuildArch:      noarch
+# Replace ConfigParser.readfp() with ConfigParser.read_file()
+# https://github.com/SmokinCaterpillar/pypet/pull/69
+Patch:          %{url}/pull/69.patch
 
-%{?python_enable_dependency_generator}
+# Replace deprecated/removed unittest.TestCase method aliases
+# https://github.com/SmokinCaterpillar/pypet/pull/70
+Patch:          %{url}/pull/70.patch
+
+# In examples, don’t pass keywords to Figure.gca()
+# https://github.com/SmokinCaterpillar/pypet/pull/71
+Patch:          %{url}/pull/71.patch
+
+# We have an arched base package and noarch binary RPMs to ensure that the
+# tests always run on all architectures, since this package has a history of
+# architecture-dependent failures. However, there is no compiled code in the
+# package.
+%global debug_package %{nil}
+# ==== Exclude i686 ====
+#
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+#
+# Also, mandatory dependency python-tables dropped i686 support in F39 because
+# python-blosc2 does not support it:
+# https://src.fedoraproject.org/rpms/python-tables/c/ee27ac0dd4352ee415ad5089aee76c50f4bd2028
+#
+# ==== Exclude s390x ====
+#
+# Many python-pypet tests fail on s390x due to apparent endian issues in
+# pandas.HDFStore
+# https://bugzilla.redhat.com/show_bug.cgi?id=2244500
+ExcludeArch:    %{ix86}
+# We shouldn’t *add* ExcludeArch in a stable release. We can remove the
+# conditional after F39 goes end-of-life, or when the spec files for older
+# branches diverge from those in F40+.
+%if !0%{?fc38} && !0%{?fc39}
+ExcludeArch:    s390x
+%endif
 
 %description %_description
 
-%package -n python3-%{pypi_name}
+%package -n python3-pypet
 Summary:        %{summary}
-BuildRequires:  make
+
+BuildArch:      noarch
+
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  google-benchmark-devel
-# For tests
-%if %{with tests}
+
+# The setup.py file has an optional dependency on m2r; if present, the long
+# description is loaded from README.md. Since this isn’t the case for the
+# actual wheel on PyPI, we omit the m2r dependency for consistency.
+
+# Needed to “smoke test” importing pypet.brian2 and for many tests and
+# examples. Not a hard runtime dependency.
 BuildRequires:  %{py3_dist brian2}
-BuildRequires:  %{py3_dist deap}
+
+%if %{with tests}
 BuildRequires:  hdf5
+# Needed in several examples.
+BuildRequires:  %{py3_dist deap}
+# Needed in several tests and examples
 BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist pandas}
-BuildRequires:  %{py3_dist scipy}
-BuildRequires:  %{py3_dist tables}
 %endif
 
-# For documentation
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
 BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  tex(anyfontsize.sty)
-BuildRequires:  tex(amsthm.sty)
-BuildRequires:  /usr/bin/dvipng
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+%endif
 
-%description -n python3-%{pypi_name} %_description
+%description -n python3-pypet %_description
 
 %package doc
 Summary:        %{summary}
+
+BuildArch:      noarch
 
 %description doc
 Documentation for %{name}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n pypet-%{version} -p1
+rm -rf pypet.egg-info
+find . -type f -name .gitignore -print -delete
+# If we run the examples as tests, it will spew output into the examples/ tree.
+# Not only do we not want to package that output, but it is non-reproducible,
+# which causes build failures when the noarch -doc subpackage has different
+# contents on different architectures. To work around that, we have two
+# options: manually install all documentation in %%build and list it with
+# absolute paths in the appropriate %%files section, or install the examples
+# via a relative path referencing a clean copy. That’s the simpler options, so
+# here’s the clean copy:
+mkdir -p _clean
+cp -rp examples _clean/examples
 
-# Remove gitignore files
-rm -fv  examples/{,example_17_wrapping_an_existing_project,example_24_large_scale_brian2_simulation}/.gitignore
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
-make -C doc SPHINXBUILD=sphinx-build-3 html
-rm -rf doc/build/html/{.doctrees,.buildinfo} -vf
+%if %{with doc_pdf}
+PYTHONPATH="${PWD}" %make_build -C doc latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C doc/build/latex LATEXMKOPTS='-quiet'
+%endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pypet
 
 %check
+%pyproject_check_import -e '*tests*'
 # https://github.com/SmokinCaterpillar/pypet/blob/develop/ciscripts/travis/runtests.sh
 # Scoop is unmaintained. I've asked upstream to drop support for it:
 # https://github.com/SmokinCaterpillar/pypet/issues/56
 %if %{with tests}
-export HDF5_DISABLE_VERSION_CHECK=1
-# Memory issues on s390x: OverflowError: Python int too large to convert to C int
-%if "%{_host_cpu}" == "s390x"
-echo "Skip tests on s390x"
-%else
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} pypet/tests/all_single_core_tests.py
+%{py3_test_envvars} %{python3} pypet/tests/all_tests.py
+%if %{with test_examples}
+pushd pypet/tests
+%{py3_test_envvars} %{python3} all_examples.py
+popd
 %endif
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-pypet -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}
 
 %files doc
-%license LICENSE CHANGES.txt
-%doc doc/build/html examples/
+%license LICENSE
+%doc CHANGES.txt
+%doc _clean/examples/
+%if %{with doc_pdf}
+%doc doc/build/latex/pypet.pdf
+%endif
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.2-6
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.5.2-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 30 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.2-1
-- Update to latest release
-- disable tests on s390x
-- temporarily disable tests
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.5.1-4
-- Rebuilt for Python 3.10
-
-* Sat May 22 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.1-3
-- Correctly detect host builder cpu
-
-* Sat May 22 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.1-2
-- Use correct macro for build arch
-
-* Fri May 21 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.1-2
-- Disable tests for s390x where it runs into memory issues
-
-* Fri May 21 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.1-1
-- Update to latest release
-- Include patch to for py3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jun 25 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.0-2
-- Explicitly BR setuptools
-
-* Tue Jun 02 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.0-1
-- Update to 0.5.0
-- Enable tests
-
-* Thu May 28 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.4.3-1
-- Add missing BRs for docs
-
-* Fri May 22 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.4.3-1
-- Initial spec
+%autochangelog

@@ -1,6 +1,6 @@
 %define name          xscreensaver
 
-%define mainversion   6.07
+%define mainversion   6.08
 #%%undefine extratarver   1
 #%%define beta_ver      b2
 %undefine beta_ver
@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    4
+%define baserelease    1
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1189,6 +1189,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Oct 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.08-1
+- Update to 6.08
+
 * Thu Sep  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.07-4
 - Fix compilation to make --with-record-animation really work
 

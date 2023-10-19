@@ -1,9 +1,9 @@
 %if 0%{?rhel}
 #global llvm_version 15
 %else
-%global llvm_version 15
+%global llvm_version 16
 %endif
-%global soversion 103
+%global soversion 105
 
 # bootstrapping is used for updating LDC to a newer version: it relies on an
 # older, working LDC compiler in the buildroot, which is then used to build a
@@ -16,7 +16,7 @@
 
 Name:           ldc
 Epoch:          1
-Version:        1.33.0
+Version:        1.35.0
 Release:        1%{?dist}
 Summary:        LLVM D Compiler
 
@@ -28,15 +28,18 @@ Source0:        https://github.com/ldc-developers/ldc/releases/download/v%{versi
 Source3:        macros.%{name}
 
 # Make sure /usr/include/d is in the include search path
-Patch0:         ldc-include-path.patch
+Patch:          ldc-include-path.patch
 # Don't add rpath to standard libdir
-Patch1:         ldc-no-default-rpath.patch
+Patch:          ldc-no-default-rpath.patch
 %if 0%{?rhel} && 0%{?rhel} <= 9
 # Keep on using ld.gold on RHEL 8 and 9 where using ldc with ld.bfd breaks gtkd
 # and leads to crashing tilix.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2134875
-Patch2:         0001-Revert-Linux-Don-t-default-to-ld.gold-linker.patch
+Patch:          0001-Revert-Linux-Don-t-default-to-ld.gold-linker.patch
 %endif
+
+# https://github.com/ldc-developers/phobos/pull/72
+Patch:          fix-ppc-build.patch
 
 ExclusiveArch:  %{ldc_arches} ppc64le
 
@@ -58,13 +61,6 @@ Requires:       %{name}-libs = %{epoch}:%{version}-%{release}
 # Require gcc for linking
 Requires:       gcc
 
-# Removed in F33
-Obsoletes:      ldc-druntime-devel < 1:1.23.0
-Obsoletes:      ldc-jit-devel < 1:1.23.0
-Obsoletes:      ldc-phobos-devel < 1:1.23.0
-# Removed in F38
-Obsoletes:      ldc-phobos-geany-tags < 1:1.32.0
-
 %description
 LDC is a portable compiler for the D programming language with modern
 optimization and code generation capabilities.
@@ -75,11 +71,6 @@ of D, and relies on the LLVM Core libraries for code generation.
 %package        libs
 Summary:        LLVM D Compiler libraries
 License:        Boost
-# Removed in F35
-Obsoletes:      ldc-jit < 1:1.27.1
-# Merged into -libs in F35
-Obsoletes:      ldc-druntime < 1:1.27.1-2
-Obsoletes:      ldc-phobos < 1:1.27.1-2
 
 %description    libs
 LDC is a portable compiler for the D programming language with modern
@@ -99,11 +90,10 @@ This package contains the Phobos D standard library and the D runtime library.
 %global optflags %{optflags} -fno-strict-aliasing
 
 %if %{with bootstrap}
-tar xf %{SOURCE0}
 mkdir build-bootstrap
 pushd build-bootstrap
 cmake -DLLVM_CONFIG:PATH=llvm-config%{?llvm_version:-%{llvm_version}} \
-      ../%{name}-%{version_no_tilde}-src
+      ..
 make %{?_smp_mflags}
 popd
 %endif
@@ -159,6 +149,14 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Sun Oct 15 2023 Kalev Lember <klember@redhat.com> - 1:1.35.0-1
+- Update to 1.35.0
+- Drop old obsoletes
+
+* Sun Aug 27 2023 Kalev Lember <klember@redhat.com> - 1:1.34.0-1
+- Update to 1.34.0
+- Build with llvm 16
+
 * Mon Jul 24 2023 Kalev Lember <klember@redhat.com> - 1:1.33.0-1
 - Update to 1.33.0
 

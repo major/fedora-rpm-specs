@@ -5,7 +5,7 @@
 %global crate regex-lite
 
 Name:           rust-regex-lite
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Lightweight regex engine that optimizes for binary size and compilation time
 

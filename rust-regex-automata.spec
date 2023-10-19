@@ -5,14 +5,13 @@
 %global crate regex-automata
 
 Name:           rust-regex-automata
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Automata construction and matching using regular expressions
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/regex-automata
 Source:         %{crates_source}
-Patch:          0001-regex-automata-fix-compilation-of-doctests-on-32-bit.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -27,6 +27,7 @@
 %bcond_without DOCPDF
 %endif
 %bcond_with    TSAN
+%bcond_without DTRACE
 
 %{?!bind_uid:  %global bind_uid  25}
 %{?!bind_gid:  %global bind_gid  25}
@@ -57,7 +58,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
 #
-Version:  9.19.15
+Version:  9.19.17
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -93,6 +94,9 @@ Source49: named-chroot.files
 # Common patches
 # Red Hat specific documentation is not relevant to upstream
 Patch1: bind-9.16-redhat_doc.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/8285
+Patch2: bind-9.19-tests-dns-rbtdb-i386.patch
+Patch3: bind-9.19-rbtdb-i686.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -168,6 +172,10 @@ BuildRequires:  python3-sphinx-latex latexmk texlive-xetex texlive-xindy
 %endif
 %if %{with TSAN}
 BuildRequires: libtsan
+%endif
+%if %{with DTRACE}
+# https://gitlab.isc.org/isc-projects/bind9/-/issues/4041
+BuildRequires: systemtap-sdt-devel
 %endif
 
 %description

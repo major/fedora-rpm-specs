@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 0%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 37%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -67,7 +67,7 @@ Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvs
 %define ovsdir ovs-%{ovscommit}
 
 # ovn-patches
-# Patch:     ovn.patch
+Patch:     ovn.patch
 
 # OpenvSwitch backports (400-) if required.
 # Address crpto policy for fedora
@@ -438,6 +438,108 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Tue Oct 17 2023 Numan Siddique <numans@ovn.org> - 23.09.0-37
+- Sync to upstream OVN branch-23.09. Below are the commits
+since last update (23.09.0-0)
+
+- tests: Wait for new ovn-controllers to connect to Southbound.
+[Upstream: 349266aac20f229b10ef0313c9f4e6b5f1af4ede]
+
+- northd: Reset ls_datapath_group if not all chassis support it.
+[Upstream: df7656fbf6a4ec1175b8f464a1aa6ed6e74fde29]
+
+- northd: introduce ls_datapath_group column in lb sb db table
+[Upstream: 276b9d47183ebd31c382742025e562fda8d14d11]
+
+- northd: sync lb applied to logical routers in sb db lb table (#2193323)
+[Upstream: c33398e32b2753dd6c0cecf35ba48ad8faa69bfc]
+
+- northd: Avoid snat on reply packets for dgw
+[Upstream: e8c79cecef9d6e15673be1a604baaaca083f0016]
+
+- northd: Incrementally process SB.Load_balancer updates.
+[Upstream: a9788ef39e003b04ec426761833d85bbec1f3b84]
+
+- tests: Add missing --wait=sb to the LB I-P test.
+[Upstream: cadfefdf1c6457d25b6d1f93e217493739418365]
+
+- system-tests: Make sure that IPv6 address is available right away
+[Upstream: dc9eb3a1cc95accc37165902006db6eeab25fba6]
+
+- Don't mention packet cloning when failing to find tunnel
+[Upstream: 44ee1a6cb40395617f5dbab5829c9f436c16a783]
+
+- northd: Allow need frag to be SNATed
+[Upstream: 94c8f952bb848806e04a857a84718d2744cfcb9f]
+
+- docs: require ovn-set-local-ip for co-located ovn-controllers
+[Upstream: 16bdac7965ae805040a107fc3cdade5bf4db63a2]
+
+- memory-trim: Fix timestamp overflow warning right after reboot.
+[Upstream: 32ab7d94f9258ad6e938c715380a567b4a363a62]
+
+- Fix missing flows in ls_in_dhcp_options table
+[Upstream: bb8fe6add97ab5fed5e4618b32c16e174faf44c8]
+
+- controller: throttle port claim attempts from if-status
+[Upstream: bd32a6646d21c766497494c7a1a4add05a40cd22]
+
+- ci: Free up additional space for ovn-k jobs.
+[Upstream: d30fe25c45620017ceea4f06e6e3ebd316ba734f]
+
+- ci: Handle google-cloud-sdk -> google-cloud-cli package name change.
+[Upstream: 42e81bdcebc8cd744deb8034d2fb89ec3b85bf4a]
+
+- ci: Free up disk space in a more robust way.
+[Upstream: cf99264e252c20edf93ab5735e18aa3225c98398]
+
+- ci: Update apt cache before installing gcc-multilib.
+
+- tests: fixed "send gratuitous ARP for NAT rules on HA distributed router"
+[Upstream: 94b671cf89b27f54d1d03149de900994c79df415]
+
+- tests: move trim_zeros() to ovn-macros
+[Upstream: 56b0435d8431518f4299c622a6ec9fc8770b8b0c]
+
+- tests: skip test "MAC binding aging" if scapy not available.
+[Upstream: 148431080738bdec5e625a9ce8d470e365ee14f2]
+
+- tests: fixed "L2 Drop and Allow ACL w/ Stateful ACL"
+[Upstream: 6f8719c60b8a578d564d3a6147f963fddeeacaa1]
+
+- tests: fixed multiple tests missing ovn-nbctl "wait"
+[Upstream: f8cdfedacf212d9f103c2adba0c6805c01c68ff4]
+
+- tests: fixed "options:requested-chassis for logical port"
+[Upstream: cd74dda22b255890a120988e8737c22a25c49957]
+
+- tests: fixed "Logical router policy packet marking"
+[Upstream: e5a794dc30b087e0c78764326c86a3258f97bcc0]
+
+- tests: fixed multiple ovn-ic tests
+[Upstream: 0575b97dc676d8c225bc8f63befec1bf1390ebe1]
+
+- pinctrl: Reply with correct destination for ICMPv6 RA packets
+[Upstream: b93f36a248f7df3eb71b5141c5deadec7c18ee24]
+
+- ovn-controller: Add monitor condition for FDB.
+[Upstream: c4008ae520af2561cfd68749227a8a468277e2e5]
+
+- Rename scapy-server into scapy-server.py
+[Upstream: d16ec6f9a063a0cb2d7bac56e23dd60d0c856b76]
+
+- Add ovnkube-identity binary to the ovn-kubernetes Dockerfile
+[Upstream: 35d9e42bc3e60629701743ca7e9d6890511cf0f5]
+
+- tests: offload scapy transformations to a separate unixctl daemon
+[Upstream: 4a82a49363a591d429d86d60f9120166ea04cb91]
+
+- northd: Remove hosting-chassis only if it's specified
+[Upstream: 0b45a1a1cc6f081184d599ba139847ff03d90912]
+
+- QoS: Properly set qos when ovs db is read only (#2234349)
+[Upstream: 9c56ac4b74f6b964f102b94404b350417b1cd772]
+
 * Fri Sep 15 2023 Numan Siddique <numans@ovn.org> - 23.09.0-0
 - Update to upstream OVN 23.09.0
 

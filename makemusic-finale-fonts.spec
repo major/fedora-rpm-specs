@@ -269,6 +269,7 @@ for font in 'Finale Ash' 'Finale Ash Text' 'Finale Broadway' \
   mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/"$font"
   install -p -m 0644 "SMuFL/Fonts/ $font/$font.json" \
     %{buildroot}%{_datadir}/SMuFL/Fonts/"$font"
+  ln -s "$font.json" %{buildroot}%{_datadir}/SMuFL/Fonts/"$font"/metadata.json
 done
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.

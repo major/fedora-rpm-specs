@@ -12,7 +12,7 @@
 
 Name: fence-agents
 Summary: Set of unified programs capable of host isolation ("fencing")
-Version: 4.13.0
+Version: 4.13.1
 Release: 1%{?alphatag:.%{alphatag}}%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/ClusterLabs/fence-agents
@@ -1287,6 +1287,9 @@ are located on corosync cluster nodes.
 %{_libdir}/fence-virt/cpg.so
 
 %changelog
+* Tue Oct 17 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.13.1-1
+- new upstream release
+
 * Tue Oct 10 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.13.0-1
 - new upstream release
 

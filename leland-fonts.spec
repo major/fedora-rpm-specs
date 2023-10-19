@@ -63,7 +63,8 @@ BuildRequires:  fonts-rpm-macros
 # Install SMuFL metadata
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Leland
 install -p -m 0644 leland_metadata.json \
-  %{buildroot}%{_datadir}/SMuFL/Fonts/Leland/Leland.json
+  %{buildroot}%{_datadir}/SMuFL/Fonts/Leland/metadata.json
+ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Leland/Leland.json
 
 # Fix invalid metadata; see bz 1943727
 for name in leland leland-text; do

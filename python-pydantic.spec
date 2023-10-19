@@ -1,5 +1,5 @@
 Name:           python-pydantic
-Version:        1.10.12
+Version:        1.10.13
 Release:        1%{?dist}
 Summary:        Data validation using Python type hinting
 
@@ -60,6 +60,9 @@ Data validation and settings management using python type hinting.
 %pyproject_extras_subpkg email,dotenv -n python3-pydantic
 
 %changelog
+* Tue Oct 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.10.13-1
+- Update to 1.10.13.
+
 * Sat Aug 12 2023 Maxwell G <maxwell@gtmx.me> - 1.10.12-1
 - Update to 1.10.12.
 

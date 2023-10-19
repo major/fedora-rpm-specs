@@ -108,7 +108,7 @@ done
 %check
 # See tox.ini (but don’t try to use %%tox unless we comment out the explicit
 # pip install command there):
-PYTHONPATH='%{buildroot}%{python3_sitelib}' %{python3} \
+%{py3_test_envvars} %{python3} \
     py%{python3_version}/multiprocess/tests/__main__.py
 
 %files -n python3-multiprocess -f %{pyproject_files}

@@ -101,7 +101,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 # sbi: requires pytorch
 %pyproject_check_import -e *optuna* -e *sbi*
 
-export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
+export %{py3_test_envvars}
 pushd doc/source/code
 nrnivmodl mod
 %{python3} tut2.py --nogui || true

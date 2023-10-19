@@ -31,11 +31,10 @@ Source3:        https://hackage.haskell.org/package/%{vectorhashtables}/%{vector
 # End cabal-rpm sources
 Source10:       agda-mode-init.el
 
-# armv7hl:
-#[372 of 397] Compiling Agda.Interaction.Imports
-#ghc: out of memory [even with -O0]
-# https://bugzilla.redhat.com/show_bug.cgi?id=1991261
-ExcludeArch:    armv7hl
+# i686:
+# [410 of 429] Compiling Agda.Compiler.MAlonzo.Compiler
+# https://bugzilla.redhat.com/show_bug.cgi?id=2244516
+ExcludeArch:    %{ix86} armv7hl
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -255,10 +254,6 @@ done
 
 # Begin cabal-rpm build:
 %ghc_libs_build %{subpkgs}
-%ifarch armv7hl
-# https://bugzilla.redhat.com/show_bug.cgi?id=991929
-%define cabal_configure_options --ghc-options="-O0"
-%endif
 %ghc_lib_build
 # End cabal-rpm build
 

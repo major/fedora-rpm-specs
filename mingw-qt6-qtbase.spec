@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.5.3
+Version:        6.6.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -194,8 +194,8 @@ rm %{buildroot}%{mingw64_bindir}/qtpaths6
 # Move host scripts
 mkdir -p %{buildroot}%{_prefix}/%{mingw32_target}/bin/qt6
 mkdir -p %{buildroot}%{_prefix}/%{mingw64_target}/bin/qt6
-mv %{buildroot}%{mingw32_bindir}/{target_qt.conf,qmake,qt-cmake,qtpaths} %{buildroot}%{_prefix}/%{mingw32_target}/bin/qt6
-mv %{buildroot}%{mingw64_bindir}/{target_qt.conf,qmake,qt-cmake,qtpaths} %{buildroot}%{_prefix}/%{mingw64_target}/bin/qt6
+mv %{buildroot}%{mingw32_bindir}/{target_qt.conf,qmake,qt-cmake,qtpaths,qt-cmake-create} %{buildroot}%{_prefix}/%{mingw32_target}/bin/qt6
+mv %{buildroot}%{mingw64_bindir}/{target_qt.conf,qmake,qt-cmake,qtpaths,qt-cmake-create} %{buildroot}%{_prefix}/%{mingw64_target}/bin/qt6
 
 # Fix relative path to toolchain file
 sed -Ei 's|toolchain_path="$script_dir_path/(.*)/cmake/(.*)"|toolchain_path=$script_dir_path/../../sysroot/mingw/libs/\2|' %{buildroot}%{_prefix}/%{mingw32_target}/bin/qt6/qt-cmake
@@ -374,6 +374,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %dir %{_prefix}/%{mingw32_target}/bin/qt6/
 %{_prefix}/%{mingw32_target}/bin/qt6/qmake
 %{_prefix}/%{mingw32_target}/bin/qt6/qt-cmake
+%{_prefix}/%{mingw32_target}/bin/qt6/qt-cmake-create
 %{_prefix}/%{mingw32_target}/bin/qt6/qtpaths
 %{_prefix}/%{mingw32_target}/bin/qt6/target_qt.conf
 %{_bindir}/%{mingw32_target}-qmake-qt6
@@ -531,6 +532,7 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %dir %{_prefix}/%{mingw64_target}/bin/qt6/
 %{_prefix}/%{mingw64_target}/bin/qt6/qmake
 %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake
+%{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake-create
 %{_prefix}/%{mingw64_target}/bin/qt6/qtpaths
 %{_prefix}/%{mingw64_target}/bin/qt6/target_qt.conf
 %{_bindir}/%{mingw64_target}-qmake-qt6
@@ -538,6 +540,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Tue Oct 17 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
 - Update to 6.5.3
 

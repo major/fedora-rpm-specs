@@ -212,6 +212,11 @@ Source0:    README
 %obsolete lnst 15-16
 %obsolete lnst-ctl 15-16
 %obsolete lnst-slave 15-16
+%obsolete mathics+cython 5.0.2-5
+%obsolete mathics+full 5.0.2-5
+%obsolete mathics 5.0.2-5
+%obsolete mathicsscript+full 5.0.0-2
+%obsolete mathicsscript 5.0.0-2
 %obsolete matrix-synapse+cache-memory 1.80.0-7
 %obsolete matrix-synapse+url-preview 1.80.0-7
 %obsolete nodepool 3.13.1-6

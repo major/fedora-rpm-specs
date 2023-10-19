@@ -6,7 +6,7 @@
 
 Name:           kf6-%{framework}
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon for KJobs
 # The following are in the LICENSES folder, but go unused: LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
 License:        CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -69,5 +69,8 @@ developing applications that use %{name}.
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231001.123235.e058145-2
+- Rebuild (qt6)
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231001.123235.e058145-1
 - Initial Release

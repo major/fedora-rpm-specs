@@ -5,14 +5,11 @@
 
 Summary:   Cron daemon for executing programs at set times
 Name:      cronie
-Version:   1.6.1
+Version:   1.7.0
 Release:   %autorelease
 License:   GPL-2.0-or-later AND BSD-3-Clause AND BSD-2-Clause AND ISC AND LGPL-2.1-or-later
 URL:       https://github.com/cronie-crond/cronie
 Source0:   https://github.com/cronie-crond/cronie/releases/download/cronie-%{version}/cronie-%{version}.tar.gz
-
-# https://github.com/cronie-crond/cronie/commit/ce7d5bf0a43d147f8502e6424cd523b56adf5599
-Patch:     add_-n_option_for_crontab_entries.patch
 
 Requires:  dailyjobs
 

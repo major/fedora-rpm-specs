@@ -1,6 +1,6 @@
 %undefine	_changelog_trimtime
 
-%global git_snapshot 1
+%global git_snapshot 0
 
 %if 0%{?git_snapshot}
 %define apply_git_patch git am
@@ -16,12 +16,12 @@
 %global         gitversion    %{gitdate}git%{shortcommit}
 %endif
 
-%global	mainver	6.9.8
+%global	mainver	6.9.9
 #%%global	postver	1
 #%%global	betaver	rc4
 #%%define	prerelease	1
 
-%global	baserelease	2
+%global	baserelease	1
 
 Name:		oniguruma
 Version:	%{mainver}%{?postver:.%postver}%{?gitversion:^%{?gitversion}}
@@ -77,15 +77,12 @@ autoreconf -fi
 	--enable-binary-compatible-posix-api \
 	--disable-silent-rules \
 	--disable-static \
-	--with-rubydir=%{_bindir}
+	--with-rubydir=%{_bindir} \
+	%{nil}
 %make_build
 
 %install
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	INSTALL="%{__install} -c -p"
-find $RPM_BUILD_ROOT -name '*.la' \
-	-exec %{__rm} -f {} ';'
+%make_install
 
 %check
 %{__make} check
@@ -127,6 +124,9 @@ find $RPM_BUILD_ROOT -name '*.la' \
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Oct 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.9.9-1
+- 6.9.9
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.8^20230501git41a3b80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

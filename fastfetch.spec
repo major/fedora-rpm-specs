@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.1.1
+Version:        2.1.2
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -98,6 +98,9 @@ BuildArch: noarch
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue Oct 17 2023 Jonathan Wright <jonathan@almalinux.org> - 2.1.2-1
+- Update to 2.1.2 rhbz#2244539
+
 * Sat Oct 14 2023 Jonathan Wright <jonathan@almalinux.org> - 2.1.1-1
 - Update to 2.1.1 rhbz#2235036
 

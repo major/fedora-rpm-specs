@@ -24,7 +24,7 @@
 %global libedit 1
 
 %global openssh_ver 9.3p1
-%global openssh_rel 3
+%global openssh_rel 5
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
@@ -39,6 +39,7 @@ Source2: gsisshd.pam
 Source3: gpgkey-736060BA.gpg
 Source7: gsisshd.sysconfig
 Source9: gsisshd@.service
+Source10: gsisshd.socket
 Source11: gsisshd.service
 Source12: gsisshd-keygen@.service
 Source13: gsisshd-keygen
@@ -190,7 +191,7 @@ Patch98: openssh-9.3p1-gsissh.patch
 # Based on https://sourceforge.net/projects/hpnssh/files/Patches/HPN-SSH%2015v2%208.5p1/
 Patch99: openssh-9.3p1-hpn-15.2-modified.patch
 
-License: BSD
+License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
 
 BuildRequires: autoconf, automake, perl-interpreter, perl-generators, zlib-devel
@@ -446,6 +447,7 @@ install -m644 sshd_config_redhat_cp $RPM_BUILD_ROOT%{_sysconfdir}/gsissh/sshd_co
 install -m644 sshd_config_redhat $RPM_BUILD_ROOT%{_sysconfdir}/gsissh/sshd_config.d/50-redhat.conf
 install -d -m755 $RPM_BUILD_ROOT/%{_unitdir}
 install -m644 %{SOURCE9} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd@.service
+install -m644 %{SOURCE10} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd.socket
 install -m644 %{SOURCE11} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd.service
 install -m644 %{SOURCE12} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen@.service
 install -m644 %{SOURCE15} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen.target
@@ -485,10 +487,10 @@ if [ $1 -gt 1 ]; then
     # script for Fedora 38 to remove group ownership for host keys.
     %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 fi
-%systemd_post gsisshd.service
+%systemd_post gsisshd.service gsisshd.socket
 
 %preun server
-%systemd_preun gsisshd.service
+%systemd_preun gsisshd.service gsisshd.socket
 
 %postun server
 %systemd_postun_with_restart gsisshd.service
@@ -533,12 +535,19 @@ fi
 %attr(0640,root,root) %config(noreplace) /etc/sysconfig/gsisshd
 %attr(0644,root,root) %{_unitdir}/gsisshd.service
 %attr(0644,root,root) %{_unitdir}/gsisshd@.service
+%attr(0644,root,root) %{_unitdir}/gsisshd.socket
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen@.service
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen.target
 %attr(0644,root,root) %{_sysusersdir}/%{name}-server.conf
 %attr(0744,root,root) %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 %changelog
+* Tue Oct 17 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-5
+- Based on openssh-9.3p1-12.fc40
+
+* Tue Oct 17 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-4
+- Based on openssh-9.3p1-9.fc39
+
 * Fri Aug 11 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-3
 - Based on openssh-9.3p1-8.fc39
 

@@ -6,7 +6,7 @@
 
 Name:    kf6-%{framework}
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module with icon themes
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -80,5 +80,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6IconThemes/
 
 %changelog
+* Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231005.110037.668fdc1-2
+- Rebuild (qt6)
+
 * Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231005.110037.668fdc1-1
 - Initial release

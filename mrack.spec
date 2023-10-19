@@ -1,6 +1,6 @@
 Name:           mrack
-Version:        1.15.1
-Release:        3%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -74,6 +74,8 @@ Requires:       beaker-client
 %package -n     python3-%{name}-openstack
 Summary:        Openstack provider plugin for mrack
 Requires:       python3-%{name}lib = %{version}-%{release}
+Recommends:       python3-aiofiles
+Recommends:       python3-os-client-config
 Recommends:     python3-AsyncOpenStackClient
 
 %{?python_provide:%python_provide python3-%{name}-openstack}
@@ -182,11 +184,28 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Mon Oct 09 2023 David Pascual Hernandez <davherna@redhat.com> - 1.16.0-1
+- e8e20f1 chore(ci): Fix release workflow build step checking out wrong commit (David Pascual)
+- 97a7cd0 chore: Bump asyncopenstackclient dependency version (David Pascual)
+- 41b12e7 chore: Release version 1.16.0 (github-actions)
+- 278d1b1 chore(release): Add PyPI action & extract copr step (Tibor Dudlák)
+- 9bbd987 chore: Bump python-semantic-release to v7.34.4 (Tibor Dudlák)
+- d6b7298 feat: Add new dependecies to mrack.spec file (David Pascual)
+- 7bbda34 feat(OpenStack): Add clouds.yaml as an authentication method (David Pascual)
+- a5b32e3 feat(OpenStack): Import publick key on provision (David Pascual)
+- 1a29d86 test: fix pylint issues and use isinstance (Tibor Dudlák)
+- db74ae0 fix(Beaker): Exception has been thrown as raise missed argument (Tibor Dudlák)
+- de027fa docs(Beaker): Add hostRequires documentation section to guides (David Pascual)
 
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.15.1-2
-- Rebuilt for Python 3.12
+* Tue Sep 19 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.16.0-1
+- 278d1b1 chore(release): Add PyPI action & extract copr step (Tibor Dudlák)
+- 9bbd987 chore: Bump python-semantic-release to v7.34.4 (Tibor Dudlák)
+- d6b7298 feat: Add new dependecies to mrack.spec file (David Pascual)
+- 7bbda34 feat(OpenStack): Add clouds.yaml as an authentication method (David Pascual)
+- a5b32e3 feat(OpenStack): Import publick key on provision (David Pascual)
+- 1a29d86 test: fix pylint issues and use isinstance (Tibor Dudlák)
+- db74ae0 fix(Beaker): Exception has been thrown as raise missed argument (Tibor Dudlák)
+- de027fa docs(Beaker): Add hostRequires documentation section to guides (David Pascual)
 
 * Tue Jun 13 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.15.1-1
 - 608c763 chore(Packit): Use yaml magic to run same internal tests for PRs and commits to main (Tibor Dudlák)

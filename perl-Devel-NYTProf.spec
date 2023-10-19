@@ -1,11 +1,11 @@
 Name:           perl-Devel-NYTProf
-Version:        6.12
-Release:        4%{?dist}
+Version:        6.13
+Release:        1%{?dist}
 Summary:        Powerful feature-rich perl source code profiler
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-NYTProf
 Source0:        https://cpan.metacpan.org/authors/id/J/JK/JKEENAN/Devel-NYTProf-%{version}.tar.gz
-Patch1:         Devel-NYTProf-6.06-Unbundled-flamegraph.patch
+Patch1:         Devel-NYTProf-6.13-Unbundled-flamegraph.patch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -13,9 +13,9 @@ BuildRequires:  flamegraph
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  zlib-devel
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
@@ -81,7 +81,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Devel-NYTProf-%{version}
-%patch1 -p1
+%patch -P1 -p1
 
 # Remove bundled flamegraph.pl
 rm -r bin/flamegraph.pl
@@ -133,16 +133,20 @@ make test
 
 %files
 %doc Changes HACKING demo README.md
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Devel*
 %{perl_vendorarch}/Devel*
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/nytprof*
+%{_mandir}/man1/nytprof*
+%{_mandir}/man3/Devel::MemoryProfiling*
+%{_mandir}/man3/Devel::NYTProf*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.13-1
+- 6.13 bump (rhbz#2243140)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

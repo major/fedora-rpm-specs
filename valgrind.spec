@@ -2,8 +2,8 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.21.0
-Release: 10%{?dist}
+Version: 3.22.0
+Release: 0.1.RC1%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -69,7 +69,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC1.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -86,41 +86,6 @@ Patch4: valgrind-3.16.0-some-Wl-z-now.patch
 # Workaround https://bugs.kde.org/show_bug.cgi?id=402833
 # by disabling overlap checking for memcpy
 Patch5: valgrind-3.21.0-no-memcpy-replace-check.patch
-
-# Add --with-gdbscripts-dir=PATH configure option
-# https://bugs.kde.org/show_bug.cgi?id=469768
-Patch6: valgrind-3.21.0-Add-with-gdbscripts-dir.patch
-
-# Add epoll_pwait2
-# https://bugs.kde.org/show_bug.cgi?id=460192
-Patch7: valgrind-3.21.0-epoll_pwait2.patch
-
-# Can't run callgrind_control with valgrind 3.21.0 because of perl errors
-# https://bugs.kde.org/show_bug.cgi?id=470121
-Patch8: valgrind-3.21.0-callgrind_control-no-strict.patch
-
-# Multiple realloc zero errors crash in MC_(eq_Error)
-# https://bugs.kde.org/show_bug.cgi?id=470520
-Patch9: valgrind-3.21.0-realloc-again.patch
-
-# s390x: Assertion failure on VGM instruction
-# https://bugs.kde.org/show_bug.cgi?id=470132
-Patch10: valgrind-3.21.0-vgm.patch
-Patch11: valgrind-3.21.0-vgm-tests.patch
-
-# s390x: Valgrind cannot start qemu-kvm when "sysctl vm.allocate_pgste=0"
-# https://bugs.kde.org/show_bug.cgi?id=470978
-Patch12: valgrind-3.21.0-pgste.patch
-
-# gdb --multi mode stdout redirecting to stderr
-# https://bugs.kde.org/show_bug.cgi?id=471311
-Patch13: valgrind-3.21.0-gdb-multi-mode-stdout-redirecting-to-stderr.patch
-
-# Add support for lazy reading and downloading of DWARF debuginfo
-# https://bugs.kde.org/show_bug.cgi?id=471807
-# Plus fixup commit a0d555a0dfe078ef04ea49d991a8090ab14bd4a5
-Patch14: valgrind-3.21.0-lazy-debuginfo.patch
-Patch15: valgrind-3.21.0-cleanup-read_elf_object.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -248,7 +213,7 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC1
 
 %patch -P1 -p1
 %patch -P2 -p1
@@ -260,17 +225,6 @@ Valgrind User Manual for details.
 %endif
 
 %patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1
-%patch -P13 -p1
-%patch -P14 -p1
-%patch -P15 -p1
-
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -465,6 +419,7 @@ echo ===============END TESTING===============
 %files devel
 %dir %{_includedir}/valgrind
 %{_includedir}/valgrind/valgrind.h
+%{_includedir}/valgrind/cachegrind.h
 %{_includedir}/valgrind/callgrind.h
 %{_includedir}/valgrind/drd.h
 %{_includedir}/valgrind/helgrind.h
@@ -503,6 +458,13 @@ fi
 %endif
 
 %changelog
+* Tue Oct 17 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-0.1.RC1
+- Upstream 3.22.0-RC1
+- Remove all upstreamed patches
+- Adjust valgrind-3.16.0-some-stack-protector.patch
+- Adjust valgrind-3.16.0-some-Wl-z-now.patch
+- Add cachegrind.h to valgrind-devel package
+
 * Mon Aug 21 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-10
 - Add valgrind-3.21.0-lazy-debuginfo.patch
 - Add valgrind-3.21.0-cleanup-read_elf_object.patch

@@ -35,7 +35,6 @@ BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  setxkbmap
 BuildRequires:  pkgconfig(accountsservice)
-BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(colord)
 BuildRequires:  pkgconfig(colord-gtk4)
 BuildRequires:  pkgconfig(cups)

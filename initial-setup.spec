@@ -1,6 +1,6 @@
 Name: initial-setup
 Version: 0.3.98
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Initial system configuration utility
 URL: https://fedoraproject.org/wiki/InitialSetup
 License: GPL-2.0-or-later
@@ -101,6 +101,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/initial_setup/gui/
 
 %changelog
+* Tue Oct 17 2023 Martin Kolman <mkolman@redhat.com> - 0.3.98-2
+- Fix tarball (#2241274) (mkolman)
+
 * Mon Oct 09 2023 Martin Kolman <mkolman@redhat.com> - 0.3.98-1
 - Fix Anaconda module startup (#2241274) (mkolman)
 

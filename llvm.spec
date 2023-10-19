@@ -36,7 +36,7 @@
 
 %global maj_ver 17
 %global min_ver 0
-%global patch_ver 2
+%global patch_ver 3
 #global rc_ver 4
 
 %if %{with snapshot_build}
@@ -608,6 +608,9 @@ fi
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Tue Oct 17 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.3-1
+- Update to LLVM 17.0.3
 
 * Tue Oct 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.2-1
 - Update to LLVM 17.0.2

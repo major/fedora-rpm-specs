@@ -13,6 +13,7 @@ Summary:        Beautiful diagnostic reporting for text-based programming langua
 License:        Apache-2.0
 URL:            https://crates.io/crates/codespan-reporting
 Source0:        %{crates_source}
+# https://github.com/brendanzab/codespan/pull/355
 Source1:        https://github.com/brendanzab/codespan/raw/fd389a1/LICENSE
 
 BuildRequires:  rust-packaging >= 21

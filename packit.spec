@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.83.0
+Version:        0.84.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,15 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Oct 16 2023 Packit <hello@packit.dev> - 0.84.0-1
+- We have adjusted how we include the resolved bugzillas in the commit messages created when syncing the release downstream so that the resolved bugzillas are included in changelog when using %%autochangelog. (#2126)
+- Packit now properly cleans up the branch after syncing the release which should prevent unwanted files (e.g.tarballs) being committed in dist-git. (#2125)
+- Packit no longer accepts `packit.json` or `.packit.json` as a configuration file name. (#2123)
+- Packit now updates ACL of a dist-git fork when creating dist-git PRs to allow users and groups with commit rights to the original dist-git repo to push directly to a source branch. (#2112)
+- We have fixed an issue that prevented you from running the jobs on the GitLab.com due to failing resolution of the upstream/downstream relationship for the cloned project. (#2120)
+- We have fixed an issue that you could encounter when running the Packit from the CLI that caused misinterpretation of the repository to be an upstream repo instead of a downstream. (#2117)
+- Resolves rhbz#2244381
+
 * Fri Oct 06 2023 Packit <hello@packit.dev> - 0.83.0-1
 - We have fixed an issue that prevented automated allowlisting in the Packit Service. (#2113)
 - Packit now also detects resolved bugs in the default update notes (created from changelog diff) and assigns these when submitting the Bodhi updates. (#2111)

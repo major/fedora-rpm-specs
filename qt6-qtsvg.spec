@@ -6,13 +6,12 @@
 %global prerelease rc2
 %endif
 
-# FIXME requires -DQT_FEATURE_system_zlib=OFF
-%global examples 0
+%global examples 1
 
 Summary: Qt6 - Support for rendering and displaying SVG
 Name:    qt6-%{qt_module}
 Version: 6.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -110,11 +109,14 @@ popd
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %if 0%{?examples}
+# FIXME there don't seem to be any examples
 %files examples
-%{_qt6_examplesdir}/
 %endif
 
 %changelog
+* Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-2
+- Re-enable examples
+
 * Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
 - 6.6.0
 

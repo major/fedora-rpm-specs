@@ -6,7 +6,7 @@
 
 Name:		kf6-%{framework}
 Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module for idle time detection
 License:	CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -69,6 +69,9 @@ developing applications that use %{name}.
 %{_kf6_archdatadir}/mkspecs/modules/qt_KIdleTime.pri
 
 %changelog
+* Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20230829.233116.5bf73aa-3
+- Rebuild (qt6)
+
 * Thu Oct 05 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20230829.233116.5bf73aa-2
 - Rebuild for Qt Private API
 

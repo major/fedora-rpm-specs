@@ -55,7 +55,7 @@
 %endif
 
 Name:           folly
-Version:        2023.10.09.00
+Version:        2023.10.16.00
 Release:        %{autorelease}
 Summary:        An open-source C++ library developed and used at Facebook
 

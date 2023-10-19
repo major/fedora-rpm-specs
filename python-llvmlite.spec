@@ -99,7 +99,7 @@ export LLVM_CONFIG="%{_libdir}/llvm14/bin/llvm-config"
 
 %check
 %if %{with tests}
-PYTHONPATH='%{buildroot}%{python3_sitearch}' %{python3} runtests.py
+%{py3_test_envvars} %{python3} runtests.py
 %endif
 
 %files -n python3-llvmlite -f %{pyproject_files}

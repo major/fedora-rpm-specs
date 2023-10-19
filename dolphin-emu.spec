@@ -5,7 +5,7 @@
 %define _gcc_lto_cflags -fno-lto
 
 #See provides(bundled) below for more info:
-%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang imgui implot rangeset soundtouch VulkanMemoryAllocator
+%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang imgui implot rangeset soundtouch
 
 #Dolphin uses gitsnapshots for its versions.
 #See upstream release notes for this snapshot:
@@ -13,7 +13,7 @@
 %global commit 032c77b462a220016f23c5079e71bb23e0ad2adf
 %global snapnumber 19870
 #We should try to use beta whenever possible
-%global branch development
+%global branch beta
 
 #JIT is only supported on x86_64 and aarch64:
 %ifarch x86_64 aarch64
@@ -22,7 +22,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -42,7 +42,6 @@ License:        GPLv2+ and BSD and MIT and zlib
 Source0:        https://github.com/%{name}/dolphin/archive/%{commit}/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
 Source4:        https://github.com/epezent/implot/archive/refs/tags/v0.16.tar.gz#/implot-0.16.tar.gz
-Source5:        https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/archive/refs/tags/v3.0.1.tar.gz#/VulkanMemoryAllocator-3.0.1.tar.gz
 
 #Fix for newer Linux Kernels (not sure when it started):
 Patch0:         https://github.com/dolphin-emu/dolphin/pull/12218/commits/c284580bb0f0c27c4ec1ea16104895ba82533efc.patch
@@ -67,8 +66,6 @@ Provides:       bundled(rangeset)
 ##These are not in fedora, but are easy to keep up to date (see sources):
 #https://github.com/epezent/implot
 Provides:       bundled(implot) = 0.16
-#https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
-Provides:       bundled(VulkanMemoryAllocator) = 3.0.1
 ##The hard to unbundle
 #soundtouch cannot be unbundled easily, as it requires compile time changes:
 Provides:       bundled(soundtouch) = 2.3.2
@@ -120,6 +117,7 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  vulkan-headers
+BuildRequires:  VulkanMemoryAllocator-devel
 BuildRequires:  xxhash-devel
 BuildRequires:  zlib-ng-devel
 BuildRequires:  xz-devel
@@ -172,7 +170,6 @@ This package provides the data files for dolphin-emu.
 
 # Extract bundled submodules:
 gzip -dc %{SOURCE4} | tar -C Externals/implot/implot --strip-components=1 -xof -
-gzip -dc %{SOURCE5} | tar -C Externals/VulkanMemoryAllocator --strip-components=1 -xof -
 
 #Allow building with cmake macro
 sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
@@ -200,9 +197,6 @@ for d in *; do
         rm -rf "$d"
     fi
 done
-#Fix newer gcc issue
-sed -i '/#include <cstdint>/a #include <cstdio>' \
-    VulkanMemoryAllocator/include/vk_mem_alloc.h
 #Copy in system picojson
 mkdir picojson
 #In master, picojson has build option "PICOJSON_NOEXCEPT", but for now:
@@ -293,6 +287,10 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Tue Oct 17 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.19870-4
+- Unbundle VulkanMemoryAllocator
+- "Branch" should be beta (documentation fix)
+
 * Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.19870-3
 - Rebuild (qt6)
 

@@ -6,14 +6,13 @@
 %endif
 
 Name:		perl-Perl-Critic
-Version:	1.150
-Release:	4%{?dist}
+Version:	1.152
+Release:	1%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
 Source0:	https://cpan.metacpan.org/modules/by-module/Perl/Perl-Critic-%{version}.tar.gz
 Patch0:		0001-Change-default-spell-check-tool-from-aspell-to-hunsp.patch
-Patch1:		https://patch-diff.githubusercontent.com/raw/Perl-Critic/Perl-Critic/pull/1048.patch
 Patch3:		Perl-Critic-1.136-ppidump-shellbang.patch
 BuildArch:	noarch
 
@@ -125,9 +124,6 @@ of Perl code were mixed directly in the test script. That sucked.
 # Switch spell checker tool from aspell to hunspell
 %patch -P 0 -p1
 
-# Fix for Perl::Critic::Policy::Subroutines::RequireArgUnpacking with PPI 1.277
-%patch -P 1 -p1
-
 # Fix shellbang in ppidump tool
 %patch -P 3
 
@@ -162,6 +158,11 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Tue Oct 17 2023 Paul Howarth <paul@city-fan.org> - 1.152-1
+- Update to 1.152 (rhbz#2244582)
+  - Fix a test failure for Subroutines::RequireArgUnpacking (GH#1048)
+  - Fix a test failure in t/06_violation.t on Perl 5.39.1 or above (GH#1037)
+
 * Mon Sep 25 2023 Paul Howarth <paul@city-fan.org> - 1.150-4
 - Fix for Perl::Critic::Policy::Subroutines::RequireArgUnpacking with PPI 1.277
   (GH#1048)
