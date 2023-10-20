@@ -16,8 +16,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.3
-Release:        1%{?dist}
+Version:        6.6.0
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -29,12 +29,8 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
 
-# Disable SIMD on mingw
-Patch0:         qtmultimedia-simd.patch
-# Fix WMF detection on mingw
-Patch1:         qtmultimedia-wmf.patch
 # Fix gstreamer plugin symbols not exported
-Patch2:         qtmultimedia-dllexport.patch
+Patch0:         qtmultimedia-dllexport.patch
 
 BuildArch:      noarch
 
@@ -100,6 +96,8 @@ Fedora Windows cross-compiler.
 
 
 %build
+export MINGW32_CFLAGS="%{mingw32_cflags} -msse2"
+export MINGW64_CFLAGS="%{mingw64_cflags} -msse2"
 %mingw_cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %mingw_ninja
 
@@ -211,6 +209,12 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Wed Oct 18 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-2
+- Don't disable SIMD
+
+* Wed Oct 18 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
 - Update to 6.5.3
 

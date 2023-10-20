@@ -4,13 +4,14 @@
 %global __cmake_in_source_build 1
 
 Name: libipt
-Version: 2.0.6
-Release: 2%{?dist}
+Version: 2.1
+Release: 1%{?dist}
 Summary: Intel Processor Trace Decoder Library
 License: BSD-3-Clause
 URL: https://github.com/intel/libipt
 Source0: https://github.com/intel/libipt/archive/v%{version}.tar.gz
-Patch0: libipt-gcc11.patch
+Patch0: libipt-pttc-lto-fix-lto-strlen-size-warning.patch
+Patch1: libipt-ptunit-avoid-lto-maybe-uninitialized-warning.patch
 Source1: doc-v%{version}.tar.xz
 # c++ is required only for -DPTUNIT test "ptunit-cpp".
 BuildRequires: gcc-c++ cmake
@@ -40,6 +41,7 @@ develop programs that use the Intel Processor Trace (Intel PT) Decoder Library.
 %prep
 %setup -q -n libipt-%{version}
 %patch -p1 -P 0
+%patch -p1 -P 1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -81,6 +83,9 @@ ctest -V %{?_smp_mflags}
 %{_mandir}/*/*.gz
 
 %changelog
+* Wed Oct 18 2023 Keith Seitz <keiths@redhat.com> - 2.1-1
+- Update to v2.1.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

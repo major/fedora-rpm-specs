@@ -1,5 +1,5 @@
 Name:           python-gelidum
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Freeze your objects in python
 

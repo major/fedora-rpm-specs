@@ -2,17 +2,17 @@
 
 Name:           octave-%{octpkg}
 Version:        1.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Miscellaneous functions for Octave
 License:        GPLv3+
 URL:            https://octave.sourceforge.io/miscellaneous/
 Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Source1:        octave-miscellaneous-python.patch
 
 BuildRequires:  octave-devel
 BuildRequires:  dos2unix
 BuildRequires:  units
 %if 0%{?fedora} >= 30
-BuildRequires:  /usr/bin/2to3
 BuildRequires:  python3-rpm-macros
 %else
 BuildRequires:  python2-rpm-macros
@@ -43,7 +43,9 @@ dos2unix %{buildroot}/%{octpkgdir}/*.m
 chmod a-x %{buildroot}/%{octpkgdir}/private/*.m
 dos2unix %{buildroot}/%{octpkgdir}/private/*.m
 %if 0%{?fedora} >= 30
-/usr/bin/2to3 --write --nobackups %{buildroot}%{octpkgdir}
+pushd %{buildroot}%{octpkgdir}
+/usr/bin/patch -p0 < %{SOURCE1}
+popd
 /usr/bin/pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{octpkgdir}
 %else
 /usr/bin/pathfix.py -pni "%{__python2} %{py2_shbang_opts}" %{buildroot}%{octpkgdir}
@@ -70,6 +72,9 @@ rm -rf %{buildroot}/%{octpkgdir}/test
 %doc %{octpkgdir}/packinfo/COPYING
 
 %changelog
+* Wed Oct 18 2023 Thomas Sailer <fedora@tsailer.ch> - 1.3.0-14
+- no longer use 2to3 which is scheduled to be retired
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

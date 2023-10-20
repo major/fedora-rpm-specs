@@ -72,12 +72,18 @@ echo -n 'swift build -v -c %{config} %{?_smp_build_ncpus:-j %{_smp_build_ncpus}}
 # We only pass the build id linker flags here instead using %%build_ldflags
 # because the latter leads to a build failure with:
 #   /usr/bin/ld.gold: fatal error: -f/--auxiliary may not be used without -shared
+# The %%_build_id_flags macro isn't defined on EPEL 9 and earlier
+%if %{defined _build_id_flags}
 for flag in %(echo %_build_id_flags | tr ',' ' '); do
   # These are passed directly to the linker, not to the compiler
   if [ "$flag" != '-Wl' ]; then
     echo -n "-Xlinker ${flag} " >> build.sh
   fi
 done
+%else
+# If we're not including the build id flags do not break the build
+%undefine _missing_build_ids_terminate_build
+%endif
 
 # debugedit can't handle LLVM-generated DWARF5 yet
 # https://bugzilla.redhat.com/show_bug.cgi?id=2242022#c9

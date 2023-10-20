@@ -1,14 +1,17 @@
+%global forgeurl https://github.com/ubuntu/yaru
+%global tag %{version}
 %global _license COPYING COPYING.LGPL-2.1 COPYING.LGPL-3.0 LICENSE_CCBYSA
 
 Name:       yaru-theme
 Version:    23.10.0
+%forgemeta
 Release:    %autorelease
 Summary:    Ubuntu community theme "yaru"
 BuildArch:  noarch
 
 License:    GPLv3+ and CC-BY-SA
 URL:        https://community.ubuntu.com/c/desktop/theme-refresh
-Source0:    https://github.com/ubuntu/yaru/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:    %{forgesource}
 
 BuildRequires: meson >= 0.59
 BuildRequires: sassc
@@ -126,7 +129,7 @@ This package contains the GtkSourceView theme.
 
 
 %prep
-%autosetup -n yaru-%{version}
+%forgeautosetup -p1
 
 
 %build

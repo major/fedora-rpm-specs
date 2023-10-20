@@ -4,7 +4,7 @@
 
 # https://github.com/microsoft/dev-tunnels
 %global goipath         github.com/microsoft/dev-tunnels
-Version:                0.0.21
+Version:                0.0.25
 
 %gometa -f
 

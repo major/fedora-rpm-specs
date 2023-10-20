@@ -1,14 +1,17 @@
+%global forgeurl https://github.com/ubuntu/%{name}
+%global tag v%{version}
 %global uuid appindicatorsupport@rgcjonas.gmail.com
 
 Name: gnome-shell-extension-appindicator
 Version: 57
+%forgemeta
 Release: %autorelease
 Summary: AppIndicator/KStatusNotifierItem support for GNOME Shell
 BuildArch: noarch
 
-License: GPLv2
-URL: https://github.com/ubuntu/gnome-shell-extension-appindicator
-Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+License: GPL-2.0-only
+URL: %{forgeurl}
+Source0: %{forgesource}
 
 BuildRequires: gettext
 BuildRequires: glib2
@@ -34,7 +37,7 @@ You can use gnome-tweaks (additional package) or run in terminal:
 
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 
 %build

@@ -15,7 +15,7 @@
 %bcond_without check
 
 Name:           fbthrift
-Version:        2023.10.09.00
+Version:        2023.10.16.00
 Release:        %autorelease
 Summary:        Facebook's branch of Apache Thrift, including a new C++ server
 

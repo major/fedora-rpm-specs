@@ -6,7 +6,7 @@
 Name:    kglobalacceld
 Summary: Daemon providing Global Keyboard Shortcut functionality
 Version: 5.27.80^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 4%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -38,6 +38,7 @@ BuildRequires:  pkgconfig(xcb-keysyms)
 BuildRequires:  pkgconfig(xcb-xkb)
 BuildRequires:  pkgconfig(xcb-record)
 BuildRequires:  pkgconfig(xcb-xtest)
+BuildRequires:  systemd
 Requires:  kf6-filesystem
 
 %description
@@ -63,7 +64,7 @@ Requires:       qt6-qtbase-devel
 %files
 %license LICENSES/*.txt
 %{_sysconfdir}/xdg/autostart/kglobalacceld.desktop
-/usr/lib/systemd/user/plasma-kglobalaccel.service
+%{_userunitdir}/plasma-kglobalaccel.service
 %{_libdir}/libKGlobalAccelD.so.*
 %{_qt6_plugindir}/org.kde.kglobalacceld.platforms/KGlobalAccelDXcb.so
 %{_libexecdir}/kglobalacceld
@@ -73,5 +74,11 @@ Requires:       qt6-qtbase-devel
 %{_libdir}/cmake/KGlobalAccelD/
 
 %changelog
+* Wed Oct 18 2023 Steve Cossette <farchord@gmail.com> - 5.27.80^20231009.021332.6933aae-3
+- Added BuildDep for systemd
+
+* Wed Oct 18 2023 Steve Cossette <farchord@gmail.com> - 5.27.80^20231009.021332.6933aae-2
+- Fixed an issue with the systemd unit
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.27.80^20231009.021332.6933aae-1
 - Initial release

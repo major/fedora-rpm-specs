@@ -30,10 +30,12 @@ BuildRequires:  git-core
 
 %prep
 %autosetup -n setupmeta-%{version}
-# required to make it not try to self-refer
-rm -rf setupmeta.egg-info
 
 %generate_buildrequires
+# required to make it not try to self-refer
+# this is deliberately in this section instead of %%prep to workaround
+# https://github.com/rpm-software-management/mock/issues/1246
+rm -rf setupmeta.egg-info
 %pyproject_buildrequires
 
 

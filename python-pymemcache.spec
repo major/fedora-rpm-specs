@@ -3,13 +3,14 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A comprehensive, fast, pure Python memcached client
 
 License:        ASL 2.0
 URL:            https://github.com/Pinterest/pymemcache
 Source0:        https://pypi.python.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 Patch0001:      0001-Skip-unit-tests-resolving-domain-names.patch
+Patch0002:      0002-Unpin-test-requirements-packages.patch
 BuildArch:      noarch
 
 %global _description\
@@ -28,12 +29,10 @@ pymemcache supports the following features:\
 %package -n python3-%{pypi_name}
 Summary:        A comprehensive, fast, pure Python memcached client
 BuildRequires:  git-core
-BuildRequires:  python3-devel
-BuildRequires:  python3-faker
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-zstd
+%{?python_enable_dependency_generator}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %description -n python3-%{pypi_name}
 pymemcache supports the following features:
@@ -67,7 +66,10 @@ py.test-3 ./pymemcache/test/
 
 %changelog
 
-* Wed Oct 04 2023 Priscila Gutierres <prgutier@redhat.com > - 4.0.0-1
+* Mon Oct 16 2023 Priscila Gutierres <prgutier@redhat.com> - 4.0.0-2
+- Add automatic generated Python dependencies
+
+* Wed Oct 04 2023 Priscila Gutierres <prgutier@redhat.com> - 4.0.0-1
 - Update for 4.0.0
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-8

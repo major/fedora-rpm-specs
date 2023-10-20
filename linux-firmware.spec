@@ -5,7 +5,7 @@
 
 Name:		linux-firmware
 Version:	20230919
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
@@ -24,6 +24,11 @@ Conflicts:	microcode_ctl < 2.1-0
 Recommends:	amd-gpu-firmware
 Recommends:	intel-gpu-firmware
 Recommends:	nvidia-gpu-firmware
+%if 0%{?fedora} && 0%{?fedora} < 40
+Requires:	amd-ucode-firmware
+%else
+Recommends:	amd-ucode-firmware
+%endif
 %if 0%{?fedora} && 0%{?fedora} < 39
 Requires:	atheros-firmware
 Requires:	brcmfmac-firmware
@@ -69,6 +74,14 @@ License:	Redistributable, no modification permitted
 Requires:	linux-firmware-whence
 %description -n nvidia-gpu-firmware
 Firmware for NVIDIA GPUs.
+
+# Microcode updates
+%package -n amd-ucode-firmware
+Summary:	Microcode updates for AMD CPUs
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+%description -n amd-ucode-firmware
+Microcode updates for AMD CPUs.
 
 # WiFi/Bluetooth firmwares
 %package -n atheros-firmware
@@ -281,6 +294,7 @@ popd
 sed -i -e 's:^./::' linux-firmware.{files,dirs}
 sed \
 	-i -e '/^amdgpu/d' \
+	-i -e '/^amd-ucode/d' \
 	-i -e '/^ar3k/d' \
 	-i -e '/^ath6k/d' \
 	-i -e '/^ath9k_htc/d' \
@@ -346,6 +360,11 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %dir %{_firmwarepath}/nvidia
 %{_firmwarepath}/nvidia/g*/
 %{_firmwarepath}/nvidia/tu*/
+
+# Microcode updates
+%files -n amd-ucode-firmware
+%license LICENSE.amd-ucode
+%{_firmwarepath}/amd-ucode/
 
 # WiFi/Bluetooth firmwares
 %files -n atheros-firmware
@@ -469,6 +488,9 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Oct 17 2023 Michel Lind <salimma@fedoraproject.org> - 20230919-4
+- Create amd-ucode-firmware subpackage
+
 * Mon Oct 16 2023 Michel Lind <salimma@fedoraproject.org> - 20230919-3
 - Re-add recommended firmware accidentally dropped in -2
 

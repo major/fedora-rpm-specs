@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.24.3
+Version:    2.24.4
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,12 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Wed Oct 18 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.4-1
+- Update to 2.24.4
+- Fix typos which prevented autosettings from working when the attempting
+  to autoset “avoidforwardkeyevent” or “addspaceoncommit”
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/469)
+
 * Tue Oct 17 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.3-1
 - Update to 2.24.3
 - Adapt compose test cases to newest compose table

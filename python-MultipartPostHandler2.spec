@@ -6,7 +6,7 @@
 %global pypi_name MultipartPostHandler2
 Name:           python-%{pypi_name}
 Version:        0.1.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A handler for urllib2 to enable multipart form uploading
 # License note in MultipartPostHandler.py
 License:        LGPL-2.1-or-later
@@ -20,7 +20,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  %{_bindir}/2to3
 
 %description
 This is MultipartPostHandler plus a fix for UTF-8 systems.
@@ -42,8 +41,7 @@ Enables the use of multipart/form-data for posting forms.
 rm -rf doc # no real doc there
 
 %py3_shebang_fix .
-2to3 --write --nobackup *.py examples/*.py
-%patch1 -p1
+%patch -P 1 -p1
 
 # also change the URL in the Py2 example
 sed -i 's|http://www.google.com|https://getfedora.org/|' examples/MultipartPostHandler-example.py
@@ -58,7 +56,8 @@ sed -i 's|http://www.google.com|https://getfedora.org/|' examples/MultipartPostH
 %check
 # do it form a different folder
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} examples/MultipartPostHandler-example.py > py3.html
-%endif # with internet
+# with internet
+%endif 
 
 %files -n python3-%{pypi_name}
 %doc README.txt examples/MultipartPostHandler-example.py
@@ -66,6 +65,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} examples/MultipartPostHan
 %{python3_sitelib}/__pycache__/MultipartPostHandler*
 
 %changelog
+* Wed Oct 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1.5-32
+- Update Python 3 patch, drop dep on 2to3.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

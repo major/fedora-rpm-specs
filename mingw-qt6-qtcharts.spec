@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.3
+Version:        6.6.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtCharts component
 
@@ -151,6 +151,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Wed Oct 18 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
 - Update to 6.5.3
 

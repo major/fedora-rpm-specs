@@ -1,6 +1,6 @@
 Name:           perl-CLASS
 Summary:        Alias for __PACKAGE__
-Version:        1.1.7
+Version:        1.1.8
 Release:        %autorelease
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/J/JD/JDEGUEST/CLASS-v%{version}.tar.gz

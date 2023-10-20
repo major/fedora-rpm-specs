@@ -1,6 +1,6 @@
 %global major 1
-%global minor 0
-%global patch 5
+%global minor 1
+%global patch 0
 
 Name:           mepack
 Version:        %{major}.%{minor}.%{patch}

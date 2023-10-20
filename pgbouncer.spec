@@ -1,5 +1,5 @@
 Name:		pgbouncer
-Version:	1.20.1
+Version:	1.21.0
 Release:	1%{?dist}
 Summary:	Lightweight connection pooler for PostgreSQL
 License:	MIT and BSD
@@ -118,6 +118,10 @@ exit 0
 %{_unitdir}/%{name}.service
 
 %changelog
+* Wed Oct 18 2023 Devrim Gündüz <devrim@gunduz.org> - 1.21.0-1
+- Update to 1.21.0, per changes described at:
+  https://www.pgbouncer.org/changelog.html#pgbouncer-121x
+
 * Thu Aug 10 2023 Devrim Gündüz <devrim@gunduz.org> - 1.20.1-1
 - Update to 1.20.1, per changes described at:
   https://www.pgbouncer.org/changelog.html#pgbouncer-120x

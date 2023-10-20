@@ -1,14 +1,17 @@
 %global pypi_name docstring-to-markdown
 %global module_name docstring_to_markdown
 
-Name:           python-%{pypi_name}
-Version:        0.12
-Release:        %{autorelease}
-Summary:        On the fly conversion of Python docstrings to markdown
+# Use forge macros for pulling from GitHub
+%global forgeurl https://github.com/python-lsp/docstring-to-markdown
 
+Name:           python-%{pypi_name}
+Version:        0.13
+Release:        %{autorelease}
+Summary:        On the fly conversion of Python docstrings to Markdown
+%forgemeta
 License:        LGPL-2.1-or-later
-URL:            https://github.com/python-lsp/docstring-to-markdown
-Source:         %{pypi_source %{pypi_name}}
+URL:            %forgeurl
+Source:         %forgesource
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -18,9 +21,9 @@ BuildRequires:  python3-pytest
 On the fly conversion of Python docstrings to markdown
 
 - Python 3.6+
-- currently can recognise reStructuredText and convert multiple of its
-  features to Markdown
-- in the future will be able to convert Google docstrings too}
+- Recognises reStructuredText and converts multiple of its features to Markdown
+- since v0.13 includes initial support for Google-formatted docstrings
+}
 
 %description %_description
 
@@ -31,7 +34,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%forgeautosetup -p1
 # Disable coverage and linter
 sed -i -e '/--[cov|flake]/d' setup.cfg
 
@@ -55,7 +58,6 @@ sed -i -e '/--[cov|flake]/d' setup.cfg
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.*
-
 
 
 %changelog

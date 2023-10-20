@@ -2,14 +2,15 @@
 
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
-Version:	4.24.0
+Version:	4.25.0
 Release:	%autorelease
 License:	GPLv2+ or BSD
 Url:		https://github.com/Mellanox/%{name}
 Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-1/%{name}-%{version}-1.tar.gz
 Group:		Applications/System
 
-Patch4:	add-default-link-flags-for-shared-libraries.patch
+patch1:		0001-mflash-Fix-build-failure.patch
+Patch4: 	add-default-link-flags-for-shared-libraries.patch
 Patch6: 	replace-mlxfwreset-with-mstfwreset-in-mstflint-message.patch
 
 BuildRequires:	make
@@ -30,6 +31,7 @@ for network adapters based on Mellanox Technologies chips.
 %prep
 %setup -q -n %{name}-%{version}
 
+%patch1 -p1
 %patch4 -p1
 %patch6 -p1
 

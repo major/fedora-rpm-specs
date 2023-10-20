@@ -1,45 +1,35 @@
+%global gitdate 20230925.020636
+%global cmakever 5.240.0
+%global commit0 8e9d99c4666d24fd44639524aede174079437bfe
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
 %global framework oxygen-icons5
 
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
-%if ! 0%{?bootstrap}
-## enable icon optimizations, takes awhile
-%global optimize 1
-%endif
-
-## allow building with an older extra-cmake-modules
-%global kf5_version 5.27.0
-
 Name:    oxygen-icon-theme
 Summary: Oxygen icon theme
 Epoch:   1
-Version: 5.111.0
+Version: %{cmakever}^%{gitdate}.%{shortcommit0}
 Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 License: LGPLv3+
 URL:     https://techbase.kde.org/Projects/Oxygen
 
-%global majmin %majmin_ver_kf5
-%global stable %stable_kf5
-Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
+Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
 BuildArch: noarch
-
-# we are noarch, skip trying to find debuginfo
-%global debug_package   %{nil}
 
 ## upstreamable patches
 
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  extra-cmake-modules >= %{?kf5_version}%{!?kf5_version:%{version}}
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
 
 BuildRequires:  hardlink
-%if 0%{?optimize}
 # for optimizegraphics
 BuildRequires:  kde-dev-scripts
-%endif
 BuildRequires:  kde-filesystem
 BuildRequires:  time
 
@@ -49,31 +39,22 @@ Requires: hicolor-icon-theme
 # upstream names
 Provides:       oxygen-icons5 = %{epoch}:%{version}-%{release}
 Provides:       oxygen-icons = %{epoch}:%{version}-%{release}
-Provides:       kf5-oxygen-icons = %{epoch}:%{version}-%{release}
+Provides:       kf6-oxygen-icons = %{epoch}:%{version}-%{release}
 
 # some icons moved here from kdepim, add explicit Conflicts to help dep solvers
-%if 0%{?fedora} < 24
-# http://bugzilla.redhat.com/1308475
-Conflicts: kmail < 4.14.10-10
-%else
 # http://bugzilla.redhat.com/1308358
 Conflicts: kmail < 15.12.2
-%endif
 
 %description
 %{summary}.
 
 
 %prep
-%autosetup -n oxygen-icons5-%{version} -p1
-
-%if 0%{?kf5_version:1}
-sed -i -e "s|%{version}|%{kf5_version}|g" CMakeLists.txt
-%endif
+%autosetup -n %{framework}-%{commit0} -p1
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -82,15 +63,14 @@ sed -i -e "s|%{version}|%{kf5_version}|g" CMakeLists.txt
 %cmake_install
 
 # optimize
-pushd %{buildroot}%{_kf5_datadir}/icons/oxygen
+pushd %{buildroot}%{_kf6_datadir}/icons/oxygen
 
 du -s  .
 
-hardlink -c -v %{buildroot}%{_kf5_datadir}/icons/oxygen
+hardlink -c -v %{buildroot}%{_kf6_datadir}/icons/oxygen
 
 du -s .
 
-%if 0%{?optimize}
 time optimizegraphics
 
 du -s .
@@ -102,17 +82,15 @@ du -s .
 #Comparisons 901
 #Linked 901
 #saved 7737344
-hardlink -c -v %{buildroot}%{_kf5_datadir}/icons/oxygen
+hardlink -c -v %{buildroot}%{_kf6_datadir}/icons/oxygen
 
 du -s .
-%endif
 popd
 
 # create/own all potential dirs
-mkdir -p %{buildroot}%{_kf5_datadir}/icons/oxygen/{16x16,22x22,24x24,32x32,36x36,48x48,64x64,96x96,128x128,512x512,scalable}/{actions,apps,devices,mimetypes,places}
+mkdir -p %{buildroot}%{_kf6_datadir}/icons/oxygen/{16x16,22x22,24x24,32x32,36x36,48x48,64x64,96x96,128x128,512x512,scalable}/{actions,apps,devices,mimetypes,places}
 
 
-%if 0%{?fedora} > 25
 ## trigger-based scriptlets
 %transfiletriggerin -- %{_datadir}/icons/oxygen
 gtk-update-icon-cache --force %{_datadir}/icons/oxygen &>/dev/null || :
@@ -120,20 +98,6 @@ gtk-update-icon-cache --force %{_datadir}/icons/oxygen &>/dev/null || :
 %transfiletriggerpostun -- %{_datadir}/icons/oxygen
 gtk-update-icon-cache --force %{_datadir}/icons/oxygen &>/dev/null || :
 
-%else
-# classic scriptlets
-%post
-touch --no-create %{_kf5_datadir}/icons/oxygen &> /dev/null || :
-
-%posttrans
-gtk-update-icon-cache %{_kf5_datadir}/icons/oxygen &> /dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-touch --no-create %{_kf5_datadir}/icons/oxygen &> /dev/null || :
-gtk-update-icon-cache %{_kf5_datadir}/icons/oxygen &> /dev/null || :
-fi
-%endif
 
 %files
 %doc AUTHORS CONTRIBUTING
@@ -146,6 +110,9 @@ fi
 
 
 %changelog
+* Wed Oct 18 2023 Alessandro Astone <ales.astone@gmail.com> - 1:5.240.0^20230925.020636.8e9d99c-1
+- Update to kf6
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.111.0-1
 - 5.111.0
 

@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # This package has a circular dependency with pyutil.
 # Enable the bootstrap conditional to break the cycle.
 %bcond_with bootstrap

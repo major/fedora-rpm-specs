@@ -20,12 +20,11 @@ Source8:   %{fontname}-serif.metainfo.xml
 
 Patch0:    gnu-free-fonts-devanagari-rendering.patch
 Patch1:    gnu-free-sans-square-dot-glyph-fix.patch
+Patch2:    python3.patch
 
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: fontpackages-devel fontforge
-# following is needed as we are calling /usr/bin/2to3
-BuildRequires: /usr/bin/2to3
 
 %global common_desc \
 Gnu FreeFont is a free family of scalable outline fonts, suitable for general \
@@ -88,17 +87,9 @@ This package contains the GNU FreeFont serif font.
 %prep
 %autosetup -n freefont-%{version} -p1
 
-# move build scripts to python3 compatible code
-pushd tools
-pushd generate
 # Following for loop should not be used on pyc files
 # better remove pre-compiled buildutils.pyc file
-rm *.pyc
-for item in `ls`;do
-   2to3 -w $item
-done
-popd
-popd
+rm tools/generate/*.pyc
 
 %build
 make

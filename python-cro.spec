@@ -8,7 +8,7 @@ other corals for space and find depredation.}
 
 Name:           python-%{pypi_name}
 Version:        0.0.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An implementation of CRO metaheuristic algorithm
 License:        MIT
 URL:            https://github.com/VictorPelaez/coral-reef-optimization-algorithm
@@ -44,7 +44,7 @@ Summary:        %{summary}
 %autosetup -N -n %{pypi_name}-%{version}
 # Fix CRNL line endings
 find . -type f \( -name '*.py' -o -name '*.csv' -o -name '*.txt'  \) -print0 |
-  xargs -r -t -0 dos2unix
+  xargs -r -t -0 dos2unix --keepdate
 %autopatch -p1
 
 # Remove shebangs from modules in site-packages. These are not executable
@@ -59,7 +59,7 @@ chmod -v a+x examples/example_*.py
 %py3_shebang_fix examples
           
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 # Add LICENSE.txt to metadata
 # https://github.com/VictorPelaez/coral-reef-optimization-algorithm/pull/60
@@ -73,17 +73,13 @@ cp %{SOURCE1} .
 
 %pyproject_save_files %{pypi_name}
 
-# Do not install “examples” as a top-level package
-# https://github.com/VictorPelaez/coral-reef-optimization-algorithm/pull/59
-# Patch1:         %{url}/pull/59.patch
-
 %check
 # Upstream provides no tests
 %pyproject_check_import
 # Also use the examples as “smoke tests”
 for example in examples/example_*.py
 do
-  PYTHONPATH='%{buildroot}%{python3_sitelib}' %{python3} "${example}"
+  %{py3_test_envvars} %{python3} "${example}"
 done
     
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -91,6 +87,10 @@ done
 %doc README.txt examples/
 
 %changelog
+* Wed Oct 18 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.0.5.2-3
+- F38+: Use %%{py3_test_envvars} to run examples
+- Preserve timestamps when fixing line endings
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

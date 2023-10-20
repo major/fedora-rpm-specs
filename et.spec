@@ -20,12 +20,14 @@ License:        ASL 2.0
 URL:            https://mistertea.github.io/EternalTerminal/
 Source0:        https://github.com/MisterTea/EternalTerminal/archive/et-v%{version}.tar.gz
 Source1:        et.xml
+Patch0:         et-missing-include.patch
+Patch1:         et-cxxopts.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake3
 BuildRequires:  firewalld-filesystem
 BuildRequires:  gcc-c++
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 # -static BR required for tracking of header-only libraries
 BuildRequires:  cxxopts-devel
 BuildRequires:  cxxopts-static

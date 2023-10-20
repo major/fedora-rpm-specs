@@ -1,7 +1,8 @@
 Name:           python-pdm-backend
-Version:        2.1.6
-Release:        1%{?dist}
+Version:        2.1.7
+Release:        %autorelease
 Summary:        The build backend used by PDM that supports latest packaging standards
+# SPDX
 License:        MIT
 URL:            https://github.com/pdm-project/pdm-backend
 Source:         %{pypi_source pdm_backend}
@@ -66,27 +67,4 @@ rm -rv src/pdm/backend/_vendor
 
 
 %changelog
-* Wed Sep 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2.1.6-1
-- Update to 2.1.6 (rhbz#2235604)
-
-* Wed Aug 09 2023 Lumír Balhar <lbalhar@redhat.com> - 2.1.5-1
-- Update to 2.1.5 (rhbz#2230229)
-
-* Wed Aug 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2.1.4-1
-- Update to 2.1.4 (rhbz#2213464)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.7-2
-- Rebuilt for Python 3.12
-
-* Mon May 15 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.7-1
-- Update to 2.0.7 (rhbz#2203716)
-- SPDX license
-
-* Wed Apr 26 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.6-1
-- Update to 2.0.6 (rhbz#2185582)
-
-* Mon Mar 20 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.5-1
-- Initial package
+%autochangelog

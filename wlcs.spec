@@ -1,31 +1,24 @@
-# List copied from gcc.spec
-# Current as of 13.1.1 (line 66)
-# Note that this covers all Fedora primary architectures.
+# Lists copied from gcc.spec
+# Current as of 13.2.1 (lines 66, 86, and 76, respectively).
+# Note that asan and ubsan are available on all Fedora primary architectures;
+# tsan is missing on i686 only.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
-%bcond asan 1
-%else
-%bcond asan 0
+%global arch_has_asan 1
 %endif
-
-# List copied from gcc.spec
-# Current as of 13.1.1 (line 86)
-# Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
-%bcond ubsan 1
-%else
-%bcond ubsan 0
+%global arch_has_ubsan 1
 %endif
-
-# List copied from gcc.spec
-# Current as of 13.1.1 (line 76)
 %ifarch x86_64 ppc64 ppc64le aarch64 s390x
-%bcond tsan 1
-%else
-%bcond tsan 0
+%global arch_has_tsan 1
 %endif
+
+# By default, enable sanitizers whenever they are available on the architecture.
+%bcond asan 0%{?arch_has_asan:1}
+%bcond ubsan 0%{?arch_has_ubsan:1}
+%bcond tsan 0%{?arch_has_tsan:1}
 
 Name:           wlcs
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Wayland Conformance Test Suite
 
@@ -52,6 +45,7 @@ Summary:        Wayland Conformance Test Suite
 #
 # MIT:
 #   - src/protocol/gtk-primary-selection.xml
+#   - src/protocol/input-method-unstable-v1.xml
 #   - src/protocol/pointer-constraints-unstable-v1.xml
 #   - src/protocol/primary-selection-unstable-v1.xml
 #   - src/protocol/relative-pointer-unstable-v1.xml
@@ -73,6 +67,12 @@ Summary:        Wayland Conformance Test Suite
 #   contribute to the licenses of the binary RPMs). Files in src/protocol/ are
 #   used as inputs to “wayland-scanner” to generate C source files and headers,
 #   and are not directly included in the binary RPMs.
+#
+# HPND-sell-variant:
+#   - src/protocol/text-input-unstable-v2.xml
+# > Files in src/protocol/ are used as inputs to “wayland-scanner” to generate
+#   C source files and headers, and are not directly included in the binary
+#   RPMs.
 License:        GPL-3.0-only AND (LGPL-2.0-only OR LGPL-3.0-only)
 URL:            https://github.com/MirServer/wlcs
 Source:         %{url}/archive/v%{version}/wlcs-%{version}.tar.gz

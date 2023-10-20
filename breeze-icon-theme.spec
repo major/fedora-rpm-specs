@@ -1,23 +1,23 @@
-# trim changelog included in binary rpms
-%global _changelog_trimtime %(date +%s -d "1 year ago")
-
-## allow building with an older extra-cmake-modules
-%global kf5_version 5.33.0
+%global gitdate 20231010.120657
+%global cmakever 5.240.0
+%global commit0 8ac06481cc57a1b64b07a0bec1bc1ce0415529c5
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global framework breeze-icons
 
+# trim changelog included in binary rpms
+%global _changelog_trimtime %(date +%s -d "1 year ago")
+
 Name:    breeze-icon-theme
 Summary: Breeze icon theme
-Version: 5.111.0
+Version: %{cmakever}^%{gitdate}.%{shortcommit0}
 Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 License: LGPLv3+
 URL:     https://api.kde.org/frameworks-api/frameworks-apidocs/frameworks/breeze-icons/html/
 
-%global majmin %majmin_ver_kf5
-%global stable %stable_kf5
-Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
+Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
 
 ## upstream patches (lookaside cache)
 
@@ -26,9 +26,9 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 # must come *after* patches or %%autosetup sometimes doesn't work right -- rex
 BuildArch: noarch
 
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
 
 # icon optimizations
 BuildRequires: hardlink
@@ -46,10 +46,7 @@ Requires: system-logos
 
 # upstream name
 Provides:       breeze-icons = %{version}-%{release}
-Provides:       kf5-breeze-icons = %{version}-%{release}
-
-# upgrade path, since this no longer includes cursors since 5.16.0
-Obsoletes:      breeze-icon-theme < 5.17.0
+Provides:       kf6-breeze-icons = %{version}-%{release}
 
 %description
 %{summary}.
@@ -71,18 +68,14 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n breeze-icons-%{version} -p1
-
-%if 0%{?kf5_version:1}
-sed -i -e "s|%{version}|%{kf5_version}|g" CMakeLists.txt
-%endif
+%autosetup -n %{framework}-%{commit0} -p1
 
 # Fix FTI for -devel package
 sed -e 's|\${KDE_INSTALL_CMAKEPACKAGEDIR}|%{_datadir}/cmake|g' -i CMakeLists.txt
 
 
 %build
-%cmake_kf5
+%cmake_kf6 -DBINARY_ICONS_RESOURCE=ON
 
 %cmake_build
 
@@ -102,6 +95,7 @@ ln -s ../../../hicolor/48x48/apps/org.fedoraproject.AnacondaInstaller.svg org.fe
 popd
 
 ## icon optimizations
+# Note: we don't do optimizegraphics because breeze is exclusively SVG
 #du -s  .
 #time optimizegraphics ||:
 du -s .
@@ -109,12 +103,9 @@ hardlink -c -v %{buildroot}%{_datadir}/icons/
 du -s .
 
 # %%ghost icon.cache
-touch  %{buildroot}%{_kf5_datadir}/icons/{breeze,breeze-dark}/icon-theme.cache
+touch  %{buildroot}%{_kf6_datadir}/icons/{breeze,breeze-dark}/icon-theme.cache
 
 
-%check
-
-%if 0%{?fedora} > 25 || 0%{?rhel} > 7
 ## trigger-based scriptlets
 %transfiletriggerin -- %{_datadir}/icons/breeze
 gtk-update-icon-cache --force %{_datadir}/icons/breeze &>/dev/null || :
@@ -128,24 +119,6 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze &>/dev/null || :
 %transfiletriggerpostun -- %{_datadir}/icons/breeze-dark
 gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 
-%else
-## classic scriptlets
-%post
-touch --no-create %{_datadir}/icons/breeze &> /dev/null || :
-touch --no-create %{_datadir}/icons/breeze-dark &> /dev/null || :
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/breeze &> /dev/null || :
-gtk-update-icon-cache %{_datadir}/icons/breeze-dark &> /dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-  touch --no-create %{_datadir}/icons/breeze &> /dev/null || :
-  gtk-update-icon-cache %{_datadir}/icons/breeze &> /dev/null || :
-  touch --no-create %{_datadir}/icons/breeze-dark &> /dev/null || :
-  gtk-update-icon-cache %{_datadir}/icons/breze-dark &> /dev/null || :
-fi
-%endif
 
 %files
 %license COPYING-ICONS
@@ -158,7 +131,7 @@ fi
 %exclude %{_datadir}/icons/breeze-dark/breeze-icons-dark.rcc
 
 %files devel
-%{_datadir}/cmake/KF5BreezeIcons/
+%{_datadir}/cmake/KF6BreezeIcons/
 
 %files rcc
 %{_datadir}/icons/breeze/breeze-icons.rcc
@@ -166,6 +139,9 @@ fi
 
 
 %changelog
+* Wed Oct 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.240.0^20231010.120657.8ac0648-1
+- Update to kf6
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fixtures, reusable state for writing clean tests and more
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -30,6 +30,10 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 %description -n python%{python3_pkgversion}-%{pypi_name} %{_description}
 
+%if %{without bootstrap}
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{pypi_name} streams
+%endif
+
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
@@ -39,12 +43,8 @@ BuildRequires:  python%{python3_pkgversion}-devel
 sed -e '/mock/d' -i setup.cfg
 sed -e 's/import mock/import unittest.mock as mock/' -i fixtures/tests/_fixtures/test_mockpatch.py
 
-%if %{with bootstrap}
-sed -e '/testtools/d' -i requirements.txt
-%endif
-
 %generate_buildrequires
-%pyproject_buildrequires %{!?with_bootstrap:-t}
+%pyproject_buildrequires %{!?with_bootstrap:-t -x streams}
 
 %build
 %pyproject_wheel
@@ -64,6 +64,9 @@ sed -e '/testtools/d' -i requirements.txt
 %doc README.rst GOALS NEWS
 
 %changelog
+* Tue Oct 17 2023 Zane Bitter <zaneb@fedoraproject.org> - 4.0.1-6
+- Add streams extra
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

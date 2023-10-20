@@ -8,7 +8,7 @@
 
 Summary: XAPI Virtual Machine Monitoring Scripts
 Name:    %{upstream_name}-latest
-Version: 8.3.0
+Version: 8.3.1
 Release: %autorelease
 License: BSD
 URL:     https://github.com/xenserver/%{upstream_name}

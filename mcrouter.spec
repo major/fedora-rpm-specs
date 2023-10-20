@@ -13,7 +13,7 @@
 %global _lto_cflags %nil
 
 %global forgeurl https://github.com/facebook/mcrouter
-%global tag 2023.07.03.00
+%global tag 2023.10.16.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 
 Name:           mcrouter
@@ -40,6 +40,7 @@ BuildRequires:  fizz-devel
 BuildRequires:  wangle-devel
 BuildRequires:  fbthrift-devel
 BuildRequires:  fbthrift
+BuildRequires:  libatomic
 # for free
 BuildRequires:  procps-ng
 BuildRequires:  python3-devel
@@ -71,6 +72,7 @@ autoreconf --install
 %build
 pushd %{name}
 export FBTHRIFT_BIN="%{_bindir}"
+export INSTALL_DIR="%{_prefix}"
 export PYTHON_VERSION="%{python3_version}"
 %configure --enable-shared --disable-static
 # do not eat all memory

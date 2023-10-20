@@ -1,12 +1,13 @@
 %global app_id  org.gnome.Nibbles
+%global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-nibbles
-Version:        3.38.3
+Version:        4.0~alpha
 Release:        %autorelease
 Summary:        GNOME Nibbles game
 License:        GPL-3.0-or-later AND BSD-2-Clause AND GFDL-1.1-no-invariants-or-later
 URL:            https://wiki.gnome.org/Apps/Nibbles
-Source0:        https://download.gnome.org/sources/gnome-nibbles/3.38/gnome-nibbles-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-nibbles/40/gnome-nibbles-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -15,16 +16,12 @@ BuildRequires:  itstool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  vala
-BuildRequires:  pkgconfig(clutter-1.0) >= 1.22.0
-BuildRequires:  pkgconfig(clutter-gtk-1.0) >= 1.4.0
 BuildRequires:  pkgconfig(gee-0.8)
-BuildRequires:  pkgconfig(gio-2.0) >= 2.42.0
+BuildRequires:  pkgconfig(gio-2.0) >= 2.78.0
+BuildRequires:  pkgconfig(glib-2.0) >= 2.78.0
 BuildRequires:  pkgconfig(gsound) >= 1.0.2
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24.0
-BuildRequires:  pkgconfig(libgnome-games-support-1) >= 1.7.1
-
-Obsoletes: gnome-games-extra < 1:3.7.4
-Obsoletes: gnome-games-gnibbles < 1:3.7.4
+BuildRequires:  pkgconfig(gtk4) >= 4.6
+BuildRequires:  pkgconfig(libgnome-games-support-2) >= 2.0.0
 
 %description
 Pilot a worm around a maze trying to collect diamonds and at the same time
@@ -32,7 +29,7 @@ avoiding the walls and yourself. With each diamond your worm grows longer and
 navigation becomes more and more difficult. Playable by up to four people.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 
 %build

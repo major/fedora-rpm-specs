@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.3
+Version:        6.6.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTools component
 
@@ -126,6 +126,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_bindir}/Qt6UiTools.dll
 %{mingw32_includedir}/qt6/QtDesigner/
 %{mingw32_includedir}/qt6/QtDesignerComponents/
+%{mingw32_includedir}/qt6/QtQDocCatch/
+%{mingw32_includedir}/qt6/QtQDocCatchConversionsPrivate/
+%{mingw32_includedir}/qt6/QtQDocCatchGeneratorsPrivate/
 %{mingw32_includedir}/qt6/QtHelp/
 %{mingw32_includedir}/qt6/QtTools/
 %{mingw32_includedir}/qt6/QtUiPlugin/
@@ -133,6 +136,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6DesignerComponentsPrivate/
 %{mingw32_libdir}/cmake/Qt6Designer/
+%{mingw32_libdir}/cmake/Qt6QDocCatchConversionsPrivate/
+%{mingw32_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate/
+%{mingw32_libdir}/cmake/Qt6QDocCatchPrivate/
 %{mingw32_libdir}/cmake/Qt6/FindWrapLibClang.cmake
 %{mingw32_libdir}/cmake/Qt6Help/
 %{mingw32_libdir}/cmake/Qt6Linguist/
@@ -141,6 +147,8 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_libdir}/cmake/Qt6UiPlugin/
 %{mingw32_libdir}/cmake/Qt6UiTools/
 %{mingw32_libdir}/pkgconfig/Qt6Designer.pc
+%{mingw32_libdir}/pkgconfig/Qt6QDocCatchConversionsPrivate.pc
+%{mingw32_libdir}/pkgconfig/Qt6QDocCatchGeneratorsPrivate.pc
 %{mingw32_libdir}/pkgconfig/Qt6Help.pc
 %{mingw32_libdir}/pkgconfig/Qt6Linguist.pc
 %{mingw32_libdir}/pkgconfig/Qt6UiPlugin.pc
@@ -159,6 +167,11 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_designercomponents_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_designer.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_designer_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatch_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchconversionsprivate.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchconversionsprivate_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_help.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_help_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_linguist.pri
@@ -173,6 +186,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_libdir}/qt6/modules/Designer.json
 %{mingw32_libdir}/qt6/modules/Help.json
 %{mingw32_libdir}/qt6/modules/Linguist.json
+%{mingw32_libdir}/qt6/modules/QDocCatchConversionsPrivate.json
+%{mingw32_libdir}/qt6/modules/QDocCatchGeneratorsPrivate.json
+%{mingw32_libdir}/qt6/modules/QDocCatchPrivate.json
 %{mingw32_libdir}/qt6/modules/Tools.json
 %{mingw32_libdir}/qt6/modules/UiPlugin.json
 %{mingw32_libdir}/qt6/modules/UiTools.json
@@ -192,6 +208,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_bindir}/Qt6UiTools.dll
 %{mingw64_includedir}/qt6/QtDesigner/
 %{mingw64_includedir}/qt6/QtDesignerComponents/
+%{mingw64_includedir}/qt6/QtQDocCatch/
+%{mingw64_includedir}/qt6/QtQDocCatchConversionsPrivate/
+%{mingw64_includedir}/qt6/QtQDocCatchGeneratorsPrivate/
 %{mingw64_includedir}/qt6/QtHelp/
 %{mingw64_includedir}/qt6/QtTools/
 %{mingw64_includedir}/qt6/QtUiPlugin/
@@ -199,6 +218,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6DesignerComponentsPrivate/
 %{mingw64_libdir}/cmake/Qt6Designer/
+%{mingw64_libdir}/cmake/Qt6QDocCatchConversionsPrivate/
+%{mingw64_libdir}/cmake/Qt6QDocCatchGeneratorsPrivate/
+%{mingw64_libdir}/cmake/Qt6QDocCatchPrivate/
 %{mingw64_libdir}/cmake/Qt6/FindWrapLibClang.cmake
 %{mingw64_libdir}/cmake/Qt6Help/
 %{mingw64_libdir}/cmake/Qt6Linguist/
@@ -207,6 +229,8 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_libdir}/cmake/Qt6UiPlugin/
 %{mingw64_libdir}/cmake/Qt6UiTools/
 %{mingw64_libdir}/pkgconfig/Qt6Designer.pc
+%{mingw64_libdir}/pkgconfig/Qt6QDocCatchConversionsPrivate.pc
+%{mingw64_libdir}/pkgconfig/Qt6QDocCatchGeneratorsPrivate.pc
 %{mingw64_libdir}/pkgconfig/Qt6Help.pc
 %{mingw64_libdir}/pkgconfig/Qt6Linguist.pc
 %{mingw64_libdir}/pkgconfig/Qt6UiPlugin.pc
@@ -225,6 +249,11 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_designercomponents_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_designer.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_designer_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatch_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchconversionsprivate.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchconversionsprivate_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qdoccatchgeneratorsprivate_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_help.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_help_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_linguist.pri
@@ -239,6 +268,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_libdir}/qt6/modules/Designer.json
 %{mingw64_libdir}/qt6/modules/Help.json
 %{mingw64_libdir}/qt6/modules/Linguist.json
+%{mingw64_libdir}/qt6/modules/QDocCatchConversionsPrivate.json
+%{mingw64_libdir}/qt6/modules/QDocCatchGeneratorsPrivate.json
+%{mingw64_libdir}/qt6/modules/QDocCatchPrivate.json
 %{mingw64_libdir}/qt6/modules/Tools.json
 %{mingw64_libdir}/qt6/modules/UiPlugin.json
 %{mingw64_libdir}/qt6/modules/UiTools.json
@@ -246,6 +278,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 
 
 %changelog
+* Wed Oct 18 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
 - Update to 6.5.3
 

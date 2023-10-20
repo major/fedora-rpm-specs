@@ -2,13 +2,13 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
-Version:        2.12.0
-Release:        4%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        Adaptable Type Definitions for cross-language data types
 
 License:        BSD-3-Clause
 URL:            https://github.com/ahrefs/atd
-Source0:        %{url}/releases/download/%{version}/atdts-%{version}.tbz
+Source0:        %{url}/releases/download/%{version}/atd-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel
@@ -78,6 +78,19 @@ Requires:       ocaml-atdgen-runtime-devel%{?_isa} = %{version}-%{release}
 %description -n ocaml-atdgen-devel
 The ocaml-atdgen-devel package contains libraries and signature files for
 developing applications that use ocaml-atdgen.
+
+
+%package -n     ocaml-atdd
+Summary:        DLang code generation for ATD
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-atdd
+Atdd takes type definitions in the ATD format and derives `dlang`
+classes that can read and write JSON data.  This saves the developer the
+labor writing boilerplate that converts between dicts and classes.
+
+This allows safe interoperability with other languages supported by ATD
+such as OCaml, Java, Python or Scala.
 
 
 %package -n     ocaml-atdj
@@ -193,12 +206,7 @@ for developing applications that use ocaml-atdgen-runtime.
 
 
 %prep
-%autosetup -p1 -n atdts-%{version}
-
-# Work around failure to find alcotest.engine and fmt while testing
-sed -i '/alcotest/a\     alcotest.engine' atd{py,ts}/src/test/dune
-sed -i '/alcotest/a\   alcotest.engine' atdgen/test/dune
-sed -i '/alcotest/a\   alcotest.engine\n\   fmt' atd/test/dune
+%autosetup -p1 -n atd-%{version}
 
 
 %build
@@ -208,22 +216,22 @@ sed -i '/alcotest/a\   alcotest.engine\n\   fmt' atd/test/dune
 %install
 %dune_install -s
 
-# atdj, atdpy, atds, and atdts do not ship libraries
+# atdd, atdj, atdpy, atds, and atdts do not ship libraries
 # dune has a known issue where it generates empty META files
 #
 # we actually don't need to ship devel files at all so remove
 # the directories entirely
 #
 # https://github.com/ocaml/dune/issues/2353
-rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,py,s,ts}
+rm -rf %{buildroot}%{_libdir}/ocaml/atd{d,j,py,s,ts}
 
 
 %check
 # Do not run the scala tests to avoid a dependency on scala
 %ifarch %{java_arches}
-%dune_check -p atd,atdgen,atdgen-runtime,atdgen-codec-runtime,atdj,atdpy,atdts
+%dune_check -p atd{,d,gen,gen-runtime,gen-codec-runtime,j,py,ts}
 %else
-%dune_check -p atd,atdgen,atdgen-runtime,atdgen-codec-runtime,atdpy,atdts
+%dune_check -p atd{,d,gen,gen-runtime,gen-codec-runtime,py,ts}
 %endif
 
 
@@ -240,6 +248,10 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,py,s,ts}
 
 
 %files -n ocaml-atdgen-devel -f .ofiles-atdgen-devel
+
+
+%files -n ocaml-atdd
+%{_bindir}/atdd
 
 
 %files -n ocaml-atdj
@@ -271,6 +283,10 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,py,s,ts}
 
 
 %changelog
+* Wed Oct 18 2023 Jerry James <loganjerry@gmail.com> - 2.13.0-1
+- Version 2.13.0
+- Add support for the D language
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.12.0-4
 - OCaml 5.1 rebuild for Fedora 40
 

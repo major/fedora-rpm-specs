@@ -3,7 +3,7 @@
 %bcond_with tests
 
 Name:               python-boxsdk
-Version:            3.9.1
+Version:            3.9.2
 Release:            1%{?dist}
 Summary:            Python wrapper for the Box API
 
@@ -66,6 +66,9 @@ pytest-3
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Wed Oct 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.9.2-1
+- 3.9.2
+
 * Thu Sep 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.9.1-1
 - 3.9.1
 

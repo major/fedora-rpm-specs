@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	13%{?dist}
+Release:	14%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -107,7 +107,6 @@ BuildRequires:	subversion
 BuildRequires:	valgrind-devel
 BuildRequires:	wxGTK-devel
 BuildRequires:	/usr/bin/appstream-util
-BuildRequires:	/usr/bin/python
 
 %if %{without system_mozjs78}
 # bundled mozjs
@@ -125,8 +124,7 @@ BuildRequires:	pkgconfig(mozjs-78)
 %endif
 
 # bundled mozjs: For build time tests only
-BuildRequires:	python-devel
-BuildRequires:	python-setuptools
+BuildRequires:	python3.11-devel
 BuildRequires:	perl-devel
 
 ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64 ppc64le
@@ -280,6 +278,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Wed Oct 18 2023 Kalev Lember <klember@redhat.com> - 0.0.26-14
+- Use python3.11 during build time to fix FTBFS (#2225686)
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 0.0.26-13
 - rebuild for new libsodium
 

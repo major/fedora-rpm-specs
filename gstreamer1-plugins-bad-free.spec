@@ -2,11 +2,8 @@
 %global         _gobject_introspection  1.31.1
 
 # Only have extras package on fedora
-%if 0%{?fedora}
-%bcond_without extras
-%else
-%bcond_with extras
-%endif
+%bcond extras %{defined fedora}
+%bcond opencv %[ 0%{?fedora} >= 39 ]
 
 #global gitrel     140
 #global gitcommit  4ca3a22b6b33ad8be4383063e76f79c4d346535d
@@ -14,7 +11,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.5
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -112,9 +109,9 @@ BuildRequires:  libmpcdec-devel
 #BuildRequires:  libtimidity-devel
 BuildRequires:  libva-devel
 BuildRequires:  openal-soft-devel
-## If enabled, adds ~90 additional deps; perhaps can be moved to a
-## subpackage?
-#BuildRequires:  opencv-devel
+%if %{with opencv}
+BuildRequires:  opencv-devel
+%endif
 BuildRequires:  openjpeg2-devel
 BuildRequires:  pkgconfig(spandsp) >= 0.0.6
 ## Plugins not ported
@@ -132,6 +129,8 @@ BuildRequires:  qrencode-devel
 BuildRequires:  json-glib-devel
 BuildRequires:  vo-amrwbenc-devel
 %endif
+
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
 # libgstfdkaac.so used to be shipped in -nonfree
@@ -213,6 +212,34 @@ plugin which allows playback of midi files.
 %endif
 
 
+%if %{with opencv}
+%package opencv
+Summary:         GStreamer "bad" plugins OpenCV plugins
+Requires:        %{name}%{?_isa} = %{version}-%{release}
+Requires:        opencv-data
+
+%description opencv
+GStreamer is a streaming media framework, based on graphs of elements which
+operate on media data.
+
+gstreamer-plugins-bad contains plug-ins that aren't tested well enough,
+or the code is not of good enough quality.
+
+This package (%{name}-opencv) contains the OpenCV plugins.
+%endif
+
+
+%package libs
+Summary:        Runtime libraries for the GStreamer media framework "bad" plug-ins
+
+%description libs
+GStreamer is a streaming media framework, based on graphs of elements which
+operate on media data.
+
+This package contains the runtime libraries for plugins that
+aren't tested well enough, or the code is not of good enough quality.
+
+
 %package devel
 Summary:        Development files for the GStreamer media framework "bad" plug-ins
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -248,7 +275,8 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D ttml=disabled -D kate=disabled } \
     %{!?with_extras:-D modplug=disabled } \
     %{!?with_extras:-D openal=disabled } \
-    %{!?with_extras:-D opencv=disabled -D openjpeg=disabled } \
+    %{!?with_opencv:-D opencv=disabled } \
+    %{!?with_extras:-D openjpeg=disabled } \
     %{!?with_extras:-D wildmidi=disabled -D zbar=disabled } \
     %{!?with_extras:-D gme=disabled -D lv2=disabled } \
     %{!?with_extras:-D webrtc=disabled -D aom=disabled } \
@@ -259,7 +287,7 @@ aren't tested well enough, or the code is not of good enough quality.
     -D dts=disabled -D faac=disabled -D faad=disabled \
     -D mpeg2enc=disabled -D mplex=disabled \
     -D neon=disabled -D rtmp=disabled \
-    -D flite=disabled -D sbc=disabled -D opencv=disabled \
+    -D flite=disabled -D sbc=disabled \
     %{!?with_extras:-D spandsp=disabled -D va=disabled } \
     %{!?with_extras:-D voamrwbenc=disabled } \
     -D x265=disabled \
@@ -285,6 +313,12 @@ aren't tested well enough, or the code is not of good enough quality.
 
 %install
 %meson_install
+
+%if %{with opencv}
+# no pkgconfig file or GIR, nothing aside from the plugin uses the library
+rm -f $RPM_BUILD_ROOT%{_includedir}/gstreamer-%{majorminor}/gst/opencv/*
+rm -f $RPM_BUILD_ROOT%{_libdir}/libgstopencv-%{majorminor}.so
+%endif
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -364,53 +398,6 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_datadir}/gstreamer-%{majorminor}/encoding-profiles/file-extension/ts.gep
 %{_datadir}/gstreamer-%{majorminor}/encoding-profiles/file-extension/webm.gep
 %{_datadir}/gstreamer-%{majorminor}/encoding-profiles/online-services/youtube.gep
-
-# opencv data
-#{_datadir}/gst-plugins-bad/%{majorminor}/opencv_haarcascades/
-
-%{_libdir}/libgstadaptivedemux-%{majorminor}.so.*
-%{_libdir}/libgstbasecamerabinsrc-%{majorminor}.so.*
-%{_libdir}/libgstbadaudio-%{majorminor}.so.*
-%{_libdir}/libgstcodecparsers-%{majorminor}.so.*
-%{_libdir}/libgstcodecs-%{majorminor}.so.*
-%{_libdir}/libgstcuda-%{majorminor}.so.*
-%{_libdir}/libgstinsertbin-%{majorminor}.so.*
-%{_libdir}/libgstisoff-%{majorminor}.so.*
-%{_libdir}/libgstmpegts-%{majorminor}.so.*
-#{_libdir}/libgstopencv-%{majorminor}.so.*
-%{_libdir}/libgstplay-%{majorminor}.so.*
-%{_libdir}/libgstplayer-%{majorminor}.so.*
-%{_libdir}/libgstphotography-%{majorminor}.so.*
-%{_libdir}/libgstsctp-%{majorminor}.so.*
-%{_libdir}/libgsttranscoder-%{majorminor}.so.*
-%{_libdir}/libgsturidownloader-%{majorminor}.so.*
-%{_libdir}/libgstvulkan-%{majorminor}.so.*
-%if %{with extras}
-%{_libdir}/libgstva-%{majorminor}.so.*
-%endif
-%{_libdir}/libgstwebrtc-%{majorminor}.so.*
-%if %{with extras}
-%{_libdir}/libgstwebrtcnice-%{majorminor}.so.*
-%endif
-%if 0%{?fedora} || 0%{?rhel} > 7
-%{_libdir}/libgstwayland-%{majorminor}.so.*
-%endif
-
-%{_libdir}/girepository-1.0/CudaGst-1.0.typelib
-%{_libdir}/girepository-1.0/GstBadAudio-1.0.typelib
-%{_libdir}/girepository-1.0/GstCodecs-1.0.typelib
-%{_libdir}/girepository-1.0/GstCuda-1.0.typelib
-%{_libdir}/girepository-1.0/GstInsertBin-1.0.typelib
-%{_libdir}/girepository-1.0/GstMpegts-1.0.typelib
-%{_libdir}/girepository-1.0/GstPlay-1.0.typelib
-%{_libdir}/girepository-1.0/GstPlayer-1.0.typelib
-%{_libdir}/girepository-1.0/GstTranscoder-1.0.typelib
-%if %{with extras}
-%{_libdir}/girepository-1.0/GstVa-1.0.typelib
-%endif
-%{_libdir}/girepository-1.0/GstVulkan-1.0.typelib
-%{_libdir}/girepository-1.0/GstVulkanWayland-1.0.typelib
-%{_libdir}/girepository-1.0/GstWebRTC-1.0.typelib
 
 # Plugins without external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstaccurip.so
@@ -554,7 +541,6 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstmodplug.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmusepack.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenal.so
-#{_libdir}/gstreamer-%{majorminor}/libgstopencv.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenexr.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenjpeg.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenmpt.so
@@ -577,6 +563,58 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 # Plugins with external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstwildmidi.so
 %endif
+
+%if %{with opencv}
+%files opencv
+# Plugins with external dependencies
+%{_libdir}/gstreamer-%{majorminor}/libgstopencv.so
+%{_libdir}/libgstopencv-%{majorminor}.so.0{,.*}
+%endif
+
+%files libs
+%license COPYING
+%{_libdir}/libgstadaptivedemux-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstbasecamerabinsrc-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstbadaudio-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstcodecparsers-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstcodecs-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstcuda-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstinsertbin-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstisoff-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstmpegts-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstplay-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstplayer-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstphotography-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstsctp-%{majorminor}.so.0{,.*}
+%{_libdir}/libgsttranscoder-%{majorminor}.so.0{,.*}
+%{_libdir}/libgsturidownloader-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstvulkan-%{majorminor}.so.0{,.*}
+%if %{with extras}
+%{_libdir}/libgstva-%{majorminor}.so.0{,.*}
+%endif
+%{_libdir}/libgstwebrtc-%{majorminor}.so.0{,.*}
+%if %{with extras}
+%{_libdir}/libgstwebrtcnice-%{majorminor}.so.0{,.*}
+%endif
+%if 0%{?fedora} || 0%{?rhel} > 7
+%{_libdir}/libgstwayland-%{majorminor}.so.0{,.*}
+%endif
+
+%{_libdir}/girepository-1.0/CudaGst-1.0.typelib
+%{_libdir}/girepository-1.0/GstBadAudio-1.0.typelib
+%{_libdir}/girepository-1.0/GstCodecs-1.0.typelib
+%{_libdir}/girepository-1.0/GstCuda-1.0.typelib
+%{_libdir}/girepository-1.0/GstInsertBin-1.0.typelib
+%{_libdir}/girepository-1.0/GstMpegts-1.0.typelib
+%{_libdir}/girepository-1.0/GstPlay-1.0.typelib
+%{_libdir}/girepository-1.0/GstPlayer-1.0.typelib
+%{_libdir}/girepository-1.0/GstTranscoder-1.0.typelib
+%if %{with extras}
+%{_libdir}/girepository-1.0/GstVa-1.0.typelib
+%endif
+%{_libdir}/girepository-1.0/GstVulkan-1.0.typelib
+%{_libdir}/girepository-1.0/GstVulkanWayland-1.0.typelib
+%{_libdir}/girepository-1.0/GstWebRTC-1.0.typelib
 
 %files devel
 %if 0
@@ -674,6 +712,10 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Fri Sep 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.5-2
+- Separate libs subpackage
+- Enable opencv as separate subpackage
+
 * Fri Jul 21 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.5-1
 - Update to 1.22.5
 

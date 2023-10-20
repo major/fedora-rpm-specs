@@ -4,7 +4,7 @@
 %global dnf_conflict 4.11.0
 %global swig_version 3.0.12
 %global libdnf_major_version 0
-%global libdnf_minor_version 71
+%global libdnf_minor_version 72
 %global libdnf_micro_version 0
 
 %define __cmake_in_source_build 1
@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -289,6 +289,7 @@ popd
 
 %if %{with python3}
 %files -n python3-%{name}
+%{python3_sitearch}/%{name}-*.dist-info
 %{python3_sitearch}/%{name}/
 %endif
 
@@ -303,6 +304,19 @@ popd
 %endif
 
 %changelog
+* Wed Oct 18 2023 Jan Kolarik <jkolarik@redhat.com> - 0.72.0-1
+- Update to 0.72.0
+- Avoid reinstalling installonly packages marked for ERASE (RhBug:2163474)
+- transaction: Save the reason for installing (RhBug:1733274)
+- hawkey.subject: get_best_selectors only obsoleters of latest (RhBug:2183279,2176263)
+- conf: Add limited shell-style variable expansion (RhBug:1789346)
+- conf: Add support for $releasever_major, $releasever_minor (RhBug:1789346)
+- repo: Don't download the repository if the local cache is up to date
+- Allow DNF to be removed by DNF 5 (RhBug:2221907)
+- Include dist-info for python3-libdnf
+- bindings: Load all modules with RTLD_GLOBAL
+- Update translations
+
 * Wed Sep 20 2023 Adam Williamson <awilliam@redhat.com> - 0.71.0-2
 - Rebuild with no changes for Bodhi reasons
 

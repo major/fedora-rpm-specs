@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    98bf1b1068b4ceddbbc2a2b70b67a5e380add9e3
+%global gh_commit    ec1ccc264994b6764882669973ca435cf05bab08
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.34.1
+Version:        3.35.1
 Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -53,7 +53,7 @@ Provides:       php-cs-fixer3 = %{version}
 # License BSD-3-Clause
 Provides:       bundled(php-sebastian-diff) = 4.0.5
 # License MIT
-Provides:       bundled(php-composer-pcre) = 3.1.0
+Provides:       bundled(php-composer-pcre) = 3.1.1
 Provides:       bundled(php-composer-semver) = 3.4.0
 Provides:       bundled(php-composer-xdebug-handler) = 3.0.3
 Provides:       bundled(php-psr-container) = 2.0.2
@@ -148,6 +148,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Fri Oct 13 2023 Remi Collet <remi@remirepo.net> - 3.35.1-1
+- update to 3.35.1
+
 * Wed Oct  4 2023 Remi Collet <remi@remirepo.net> - 3.34.1-1
 - update to 3.34.1
 

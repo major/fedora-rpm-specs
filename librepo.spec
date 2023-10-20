@@ -10,15 +10,26 @@
 
 %if 0%{?fedora} >= 39
 %bcond_with use_gpgme
+%bcond_with use_selinux
 %else
 %bcond_without use_gpgme
+%bcond_without use_selinux
+%endif
+
+# Needs to match how gnupg2 is compiled
+%bcond_with run_gnupg_user_socket
+
+%if %{with use_gpgme} && %{with use_selinux}
+%global need_selinux 1
+%else
+%global need_selinux 0
 %endif
 
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.16.0
-Release:        2%{?dist}
+Version:        1.17.0
+Release:        1%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -39,6 +50,9 @@ BuildRequires:  libattr-devel
 BuildRequires:  libcurl-devel >= %{libcurl_version}
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libcrypto)
+%if %{need_selinux}
+BuildRequires:  pkgconfig(libselinux)
+%endif
 BuildRequires:  pkgconfig(openssl)
 %if %{with zchunk}
 BuildRequires:  pkgconfig(zck) >= 0.9.11
@@ -78,7 +92,9 @@ Python 3 bindings for the librepo library.
 %build
 %cmake \
     -DWITH_ZCHUNK=%{?with_zchunk:ON}%{!?with_zchunk:OFF} \
-    -DUSE_GPGME=%{?with_use_gpgme:ON}%{!?with_use_gpgme:OFF}
+    -DUSE_GPGME=%{?with_use_gpgme:ON}%{!?with_use_gpgme:OFF} \
+    -DUSE_RUN_GNUPG_USER_SOCKET=%{?with_run_gnupg_user_socket:ON}%{!?with_run_gnupg_user_socket:OFF} \
+    -DENABLE_SELINUX=%{?need_selinux:ON}%{!?need_selinux:OFF}
 %cmake_build
 
 %check
@@ -108,6 +124,13 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Wed Oct 18 2023 Jan Kolarik <jkolarik@redhat.com> - 1.17.0-1
+- Update to 1.17.0
+- lr_gpg_check_signature: Forward PGP error messages from RPM
+- PGP: fix: Support importing binary public keys in librpm backend
+- PGP: Enable creating a UID directory for GnuGP agent socket in /run/gnupg/user
+- PGP: Set a default creation SELinux labels on GnuPG directories
+
 * Wed Sep 20 2023 Adam Williamson <awilliam@redhat.com> - 1.16.0-2
 - Rebuild with no changes for Bodhi reasons
 

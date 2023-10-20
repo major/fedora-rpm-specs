@@ -9,8 +9,8 @@
 %endif
 
 Name:           python-urllib3
-Version:        1.26.17
-Release:        2%{?dist}
+Version:        1.26.18
+Release:        1%{?dist}
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
 # SPDX
@@ -168,6 +168,10 @@ ignore="${ignore-} --ignore=test/test_no_ssl.py"
 
 
 %changelog
+* Tue Oct 17 2023 Maxwell G <maxwell@gtmx.me> - 1.26.18-1
+- Update to 1.26.18.
+- Mitigates CVE-2023-45803 / GHSA-g4mx-q9vg-27p4.
+
 * Mon Oct 09 2023 Miro Hrončok <mhroncok@redhat.com> - 1.26.17-2
 - Switch the hardcoded dependency on urllib3[socks] to a weak one
 

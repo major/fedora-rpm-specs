@@ -44,7 +44,7 @@ Summary:       %{summary}
 %autosetup -n typing_extensions-%{version}
 
 
-%generate_buildrequires -t
+%generate_buildrequires
 %pyproject_buildrequires
 
 
@@ -59,7 +59,8 @@ Summary:       %{summary}
 
 
 %check
-%tox
+cd src
+%{python3} -m unittest discover
 
 
 %files -n python3-typing-extensions -f %{pyproject_files}

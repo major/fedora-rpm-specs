@@ -39,7 +39,7 @@ Summary:        Develop, simulate and analyse biological neuronal networks in NE
 # netpyne/analysis/filter.py is GPLv3
 # everything else is MIT
 # spdx
-License:        MIT and GPL-3.0-only and GPL-3.0-or-later
+License:        MIT AND GPL-3.0-only AND GPL-3.0-or-later
 URL:            %forgeurl
 Source0:        %forgesource
 # Exclude tests/ from being installed as a top level module

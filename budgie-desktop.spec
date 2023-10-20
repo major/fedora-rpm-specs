@@ -7,7 +7,7 @@
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.8.1
+Version:        10.8.2
 Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
@@ -187,6 +187,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Wed Oct 18 2023 Joshua Strobl <me@joshuastrobl.com> - 10.8.2-1
+- Updated to 10.8.2
+
 * Sun Oct 01 2023 Joshua Strobl <me@joshuastrobl.com> - 10.8.1-1
 - Updated to 10.8.1
 

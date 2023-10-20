@@ -2,7 +2,7 @@
 %define __cmake_in_source_build 1
 
 # default dependencies
-%global hawkey_version 0.71.0
+%global hawkey_version 0.71.1
 %global libcomps_version 0.1.8
 %global libmodulemd_version 2.9.3
 %global rpm_version 4.14.0
@@ -67,14 +67,13 @@
 It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
-Version:        4.17.0
-Release:        6%{?dist}
+Version:        4.18.0
+Release:        1%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
 URL:            https://github.com/rpm-software-management/dnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-Revert-Block-signals-during-RPM-transaction-processi.patch
 BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext
@@ -86,6 +85,8 @@ Requires:       python3-%{name} = %{version}-%{release}
 %if 0%{?rhel} && 0%{?rhel} <= 7
 Requires:       python-dbus
 Requires:       %{_bindir}/sqlite3
+%elif 0%{?fedora}
+Recommends:     (%{_bindir}/sqlite3 if (bash-completion and python3-dnf-plugins-core))
 %else
 Recommends:     (python3-dbus if NetworkManager)
 %endif
@@ -301,7 +302,6 @@ popd
 # If DNF5 does not obsolete DNF ownership of dnf.conf should be DNF's
 %config(noreplace) %{confdir}/%{name}.conf
 %endif
-%config(noreplace) %{confdir}/protected.d/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %ghost %attr(644,-,-) %{_localstatedir}/log/hawkey.log
 %ghost %attr(644,-,-) %{_localstatedir}/log/%{name}.log
@@ -363,6 +363,7 @@ popd
 %{_bindir}/%{name}-3
 %{_bindir}/%{name}4
 %exclude %{python3_sitelib}/%{name}/automatic
+%{python3_sitelib}/%{name}-*.dist-info
 %{python3_sitelib}/%{name}/
 %dir %{py3pluginpath}
 %dir %{py3pluginpath}/__pycache__
@@ -382,6 +383,19 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Wed Oct 18 2023 Jan Kolarik <jkolarik@redhat.com> - 4.18.0-1
+- Update to 4.18.0
+- base: Add obsoleters of only latest versions (RhBug:2183279,2176263)
+- comps: Fix marking a group package as installed (RhBug:2066638)
+- distro-sync: Print better info message when no match (RhBug:2011850)
+- Include dist-info for python3-dnf (RhBug:2239323)
+- Revert "Block signals during RPM transaction processing" (RhBug:2133398)
+- Do not print details of verifying (RhBug:1908253)
+- Add Recommends %{_bindir}/sqlite3 for bash-completion for Fedora
+- conf: Split $releasever to $releasever_major and $releasever_minor (RhBug:1789346)
+- Allow DNF to be removed by DNF 5 (RhBug:2221907)
+- Update translations
+
 * Wed Sep 20 2023 Jan Kolarik <jkolarik@redhat.com> - 4.17.0-6
 - Revert "Block signals during RPM transaction processing" (RhBug:2236997)
 

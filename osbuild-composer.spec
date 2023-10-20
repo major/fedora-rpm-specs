@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        91
+Version:        92
 
 %gometa
 
@@ -47,15 +47,15 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  git
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
-Provides: bundled(golang(cloud.google.com/go)) = 0.110.7
-Provides: bundled(golang(cloud.google.com/go/compute)) = 1.23.0
+Provides: bundled(golang(cloud.google.com/go)) = 0.110.8
+Provides: bundled(golang(cloud.google.com/go/compute)) = 1.23.1
 Provides: bundled(golang(cloud.google.com/go/compute/metadata)) = 0.2.3
-Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.1
+Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.2
 Provides: bundled(golang(cloud.google.com/go/storage)) = 1.33.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go)) = 68.0.0+incompatible
-Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.6.1
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.7.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.3.0
-Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.1.0
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.2.0
 Provides: bundled(golang(github.com/Azure/go-autorest)) = 14.2.0+incompatible
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest)) = 0.11.29
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest/adal)) = 0.9.22
@@ -70,7 +70,7 @@ Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.3.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.45.17
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.45.27
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
@@ -111,7 +111,7 @@ Provides: bundled(golang(github.com/golang-jwt/jwt/v4)) = 4.5.0
 Provides: bundled(golang(github.com/golang/glog)) = 1.1.0
 Provides: bundled(golang(github.com/golang/groupcache)) = 41bb18b
 Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.3
-Provides: bundled(golang(github.com/google/go-cmp)) = 0.5.9
+Provides: bundled(golang(github.com/google/go-cmp)) = 0.6.0
 Provides: bundled(golang(github.com/google/go-containerregistry)) = 0.16.1
 Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.7
 Provides: bundled(golang(github.com/google/uuid)) = 1.3.1
@@ -124,6 +124,7 @@ Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
 Provides: bundled(golang(github.com/hashicorp/go-cleanhttp)) = 0.5.2
 Provides: bundled(golang(github.com/hashicorp/go-multierror)) = 1.1.1
 Provides: bundled(golang(github.com/hashicorp/go-retryablehttp)) = 0.7.4
+Provides: bundled(golang(github.com/hashicorp/go-version)) = 1.6.0
 Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = 1.1.0
 Provides: bundled(golang(github.com/jackc/chunkreader/v2)) = 2.0.1
 Provides: bundled(golang(github.com/jackc/pgconn)) = 1.14.0
@@ -142,7 +143,7 @@ Provides: bundled(golang(github.com/klauspost/compress)) = 1.16.7
 Provides: bundled(golang(github.com/klauspost/pgzip)) = 1.2.6
 Provides: bundled(golang(github.com/kolo/xmlrpc)) = 38db28d
 Provides: bundled(golang(github.com/kr/text)) = 0.2.0
-Provides: bundled(golang(github.com/labstack/echo/v4)) = 4.11.1
+Provides: bundled(golang(github.com/labstack/echo/v4)) = 4.11.2
 Provides: bundled(golang(github.com/labstack/gommon)) = 0.4.0
 Provides: bundled(golang(github.com/letsencrypt/boulder)) = fdfea0d
 Provides: bundled(golang(github.com/mailru/easyjson)) = 0.7.7
@@ -163,16 +164,16 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0-rc5
 Provides: bundled(golang(github.com/opencontainers/runc)) = 1.1.9
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.1.0
-Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.371
+Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.374
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.7.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.12.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 1.0.0
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.3
-Provides: bundled(golang(github.com/prometheus/client_golang)) = 1.16.0
-Provides: bundled(golang(github.com/prometheus/client_model)) = 0.4.0
+Provides: bundled(golang(github.com/prometheus/client_golang)) = 1.17.0
+Provides: bundled(golang(github.com/prometheus/client_model)) = 9a2bf30
 Provides: bundled(golang(github.com/prometheus/common)) = 0.44.0
-Provides: bundled(golang(github.com/prometheus/procfs)) = 0.10.1
+Provides: bundled(golang(github.com/prometheus/procfs)) = 0.11.1
 Provides: bundled(golang(github.com/rivo/uniseg)) = 0.4.4
 Provides: bundled(golang(github.com/secure-systems-lab/go-securesystemslib)) = 0.7.0
 Provides: bundled(golang(github.com/segmentio/ksuid)) = 1.0.4
@@ -194,28 +195,28 @@ Provides: bundled(golang(github.com/valyala/bytebufferpool)) = 1.0.0
 Provides: bundled(golang(github.com/valyala/fasttemplate)) = 1.2.2
 Provides: bundled(golang(github.com/vbatts/tar-split)) = 0.11.5
 Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = 8.6.1
-Provides: bundled(golang(github.com/vmware/govmomi)) = 0.31.0
+Provides: bundled(golang(github.com/vmware/govmomi)) = 0.32.0
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.11.3
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = 33d0574
 Provides: bundled(golang(go.opencensus.io)) = 0.24.0
-Provides: bundled(golang(golang.org/x/crypto)) = 0.13.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.14.0
 Provides: bundled(golang(golang.org/x/exp)) = d852ddb
 Provides: bundled(golang(golang.org/x/mod)) = 0.12.0
-Provides: bundled(golang(golang.org/x/net)) = 0.15.0
-Provides: bundled(golang(golang.org/x/oauth2)) = 0.12.0
-Provides: bundled(golang(golang.org/x/sync)) = 0.3.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.12.0
-Provides: bundled(golang(golang.org/x/term)) = 0.12.0
+Provides: bundled(golang(golang.org/x/net)) = 0.17.0
+Provides: bundled(golang(golang.org/x/oauth2)) = 0.13.0
+Provides: bundled(golang(golang.org/x/sync)) = 0.4.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.13.0
+Provides: bundled(golang(golang.org/x/term)) = 0.13.0
 Provides: bundled(golang(golang.org/x/text)) = 0.13.0
 Provides: bundled(golang(golang.org/x/time)) = 0.3.0
 Provides: bundled(golang(golang.org/x/tools)) = 74c255b
 Provides: bundled(golang(golang.org/x/xerrors)) = 04be3eb
-Provides: bundled(golang(google.golang.org/api)) = 0.143.0
+Provides: bundled(golang(google.golang.org/api)) = 0.147.0
 Provides: bundled(golang(google.golang.org/appengine)) = 1.6.7
-Provides: bundled(golang(google.golang.org/genproto)) = 007df8e
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 007df8e
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = e6e6cda
-Provides: bundled(golang(google.golang.org/grpc)) = 1.57.0
+Provides: bundled(golang(google.golang.org/genproto)) = d307bd8
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = d307bd8
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 8bfb1ae
+Provides: bundled(golang(google.golang.org/grpc)) = 1.58.2
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.31.0
 Provides: bundled(golang(gopkg.in/go-jose/go-jose.v2)) = 2.6.1
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
@@ -595,6 +596,33 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Oct 18 2023 Packit <hello@packit.dev> - 92-1
+Changes with 92
+----------------
+  * Enable Azure testing on HyperV Gen2 (#3679)
+    * Author: Alexander Todorov, Reviewers: Jakub Rusz, Tomáš Hozza
+  * Internal: delete unused `common.VersionLessThan()` (#3729)
+    * Author: Tomáš Hozza, Reviewers: Ondřej Budai
+  * Small fixes for Koji data consolidation PR#3599 (#3719)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Support F40, EL8.10, EL9.4, ppc64le and s390x on Fedora (#3740)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * build(deps): bump the go-deps group with 2 updates (#3748)
+    * Author: dependabot[bot], Reviewers: Tomáš Hozza
+  * build(deps): bump the go-deps group with 7 updates (#3737)
+    * Author: dependabot[bot], Reviewers: Tomáš Hozza
+  * cloudapi/v2: add all existing customizations to openapi spec (#3716)
+    * Author: Sanne Raymaekers, Reviewers: Brian C. Lane
+  * cloudapi: Move Services to an actual struct (#3735)
+    * Author: Brian C. Lane, Reviewers: Sanne Raymaekers
+  * fix ostree vmdk test timeout (#3724)
+    * Author: He Yi, Reviewers: Xiaofeng Wang
+  * go.mod: update images to 0.11 (#3722)
+    * Author: Ondřej Budai, Reviewers: Brian C. Lane
+
+— Somewhere on the Internet, 2023-10-18
+
+
 * Wed Oct 04 2023 Packit <hello@packit.dev> - 91-1
 Changes with 91
 ----------------

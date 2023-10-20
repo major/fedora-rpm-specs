@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.3.7
-Release:        42%{?dist}
+Release:        43%{?dist}
 BuildArch:      noarch
 
 License:        LGPLv2+ and Public Domain
@@ -41,6 +41,8 @@ Patch8:         python-nose-py311-doctest.patch
 # https://github.com/mdmintz/pynose/commit/b5247565df (rebased)
 # changes in tests hacked on top
 Patch9:         python-nose-py312.patch
+# Python 3.13 removes 2to3, so we have a patch instead
+Patch10:        python-nose-2to3.patch
 
 BuildRequires:  dos2unix
 
@@ -54,7 +56,6 @@ See https://fedoraproject.org/wiki/Changes/DeprecateNose}
 %package -n python3-%{modname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  /usr/bin/2to3
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-coverage >= 3.4-1
 Requires:       python3-setuptools
@@ -75,8 +76,6 @@ Provides:       deprecated()
 dos2unix examples/attrib_plugin.py
 
 %build
-2to3 %{?_smp_mflags} --write --nobackups --no-diffs .
-2to3 %{?_smp_mflags} --write --nobackups --no-diffs -d $(find -name '*.rst')
 %py3_build
 
 %install
@@ -106,6 +105,9 @@ ln -sf nosetests-3.1 %{buildroot}%{_mandir}/man1/nosetests.1
 %{python3_sitelib}/nose/
 
 %changelog
+* Wed Oct 18 2023 Miro Hrončok <mhroncok@redhat.com> - 1.3.7-43
+- Don't run 2to3 during package build
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

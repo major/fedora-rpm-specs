@@ -2,8 +2,8 @@
 %global dracut_modname 97walinuxagent
 
 Name:           WALinuxAgent
-Version:        2.9.0.4
-Release:        4%{?dist}
+Version:        2.9.1.1
+Release:        1%{?dist}
 Summary:        The Microsoft Azure Linux Agent
 
 License:        Apache-2.0
@@ -11,7 +11,6 @@ URL:            https://github.com/Azure/%{name}
 Source0:        https://github.com/Azure/%{name}/archive/v%{version}.tar.gz
 Source1:        module-setup.sh
 
-Patch0:         0001-Rudimentary-Fedora-OS-implementation.patch
 Patch1:         0001-waagent.service-set-ConditionVirtualization-microsof.patch
 
 BuildArch:      noarch
@@ -59,8 +58,7 @@ Udev rules specific to Microsoft Azure Virtual Machines.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch 1 -p1
 
 %build
 %py3_build
@@ -123,6 +121,9 @@ install -m0755 -D -t %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_modnam
 %endif
 
 %changelog
+* Wed Oct 18 2023 Vitaly Kuznetsov <vkuznets@redhat.com> - 2.9.1.1-1
+- Update to 2.9.1.1 (#2232763)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

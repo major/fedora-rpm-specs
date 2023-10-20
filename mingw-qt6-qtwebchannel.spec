@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.3
+Version:        6.6.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebChannel component
 
@@ -99,40 +99,61 @@ Fedora Windows cross-compiler.
 %files -n mingw32-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6WebChannel.dll
+%{mingw32_bindir}/Qt6WebChannelQuick.dll
 %{mingw32_includedir}/qt6/QtWebChannel/
+%{mingw32_includedir}/qt6/QtWebChannelQuick/
 %{mingw32_libdir}/qt6/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/cmake/Qt6WebChannel/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebChannelTestsConfig.cmake
-%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6webchannel*
+%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6WebChannelQuick*
+%{mingw32_libdir}/cmake/Qt6WebChannelQuick/
 %{mingw32_libdir}/pkgconfig/Qt6WebChannel.pc
+%{mingw32_libdir}/pkgconfig/Qt6WebChannelQuick.pc
 %{mingw32_libdir}/libQt6WebChannel.dll.a
+%{mingw32_libdir}/libQt6WebChannelQuick.dll.a
+%{mingw32_libdir}/qt6/metatypes/qt6webchannelquick_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_webchannel.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_webchannel_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_webchannelquick.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_webchannelquick_private.pri
 %{mingw32_libdir}/qt6/qml/QtWebChannel/
 %{mingw32_libdir}/Qt6WebChannel.prl
+%{mingw32_libdir}/Qt6WebChannelQuick.prl
 %{mingw32_libdir}/qt6/modules/WebChannel.json
+%{mingw32_libdir}/qt6/modules/WebChannelQuick.json
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6WebChannel.dll
+%{mingw64_bindir}/Qt6WebChannelQuick.dll
 %{mingw64_includedir}/qt6/QtWebChannel/
+%{mingw64_includedir}/qt6/QtWebChannelQuick/
 %{mingw64_libdir}/qt6/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/cmake/Qt6WebChannel/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebChannelTestsConfig.cmake
-%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6webchannel*
+%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6WebChannelQuick*
+%{mingw64_libdir}/cmake/Qt6WebChannelQuick/
 %{mingw64_libdir}/pkgconfig/Qt6WebChannel.pc
+%{mingw64_libdir}/pkgconfig/Qt6WebChannelQuick.pc
 %{mingw64_libdir}/libQt6WebChannel.dll.a
+%{mingw64_libdir}/libQt6WebChannelQuick.dll.a
+%{mingw64_libdir}/qt6/metatypes/qt6webchannelquick_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_webchannel.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_webchannel_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_webchannelquick.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_webchannelquick_private.pri
 %{mingw64_libdir}/qt6/qml/QtWebChannel/
 %{mingw64_libdir}/Qt6WebChannel.prl
+%{mingw64_libdir}/Qt6WebChannelQuick.prl
 %{mingw64_libdir}/qt6/modules/WebChannel.json
-
-
+%{mingw64_libdir}/qt6/modules/WebChannelQuick.json
 
 
 %changelog
+* Wed Oct 18 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
 - Update to 6.5.3
 

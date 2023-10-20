@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit bc3f4485e6c891233c5603f3d067e2283377e75c
+%global commit 9a662e69d4fcbd46c6d1bb837b6f4d94c19f16aa
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.2
+Version: 40.3
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,14 @@ exit 0
 %endif
 
 %changelog
+* Tue Oct 17 2023 Zdenek Pytela <zpytela@redhat.com> - 40.3-1
+- Add policy for nvme-stas
+- Confine systemd fstab,sysv,rc-local
+- Label /etc/aliases.lmdb with etc_aliases_t
+- Create policy for afterburn
+- Add nvme_stas to modules-targeted-contrib.conf
+- Add plans/tests.fmf
+
 * Tue Oct 10 2023 Zdenek Pytela <zpytela@redhat.com> - 40.2-1
 - Add the virt_supplementary module to modules-targeted-contrib.conf
 - Make new virt drivers permissive

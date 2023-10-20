@@ -24,22 +24,6 @@
 %bcond_with run_build_tests
 %bcond_with include_unit_test
 
-# set following to the result of  `git describe --abbrev=128 $commit`
-# This will be used to fill booth_ver, booth_numcomm and booth_sha1.
-# It is important to keep abbrev to get full length sha1! When updating source use
-# `spectool -g booth.spec` to download source.
-%global git_describe_str v1.0-283-g9d4029aa14323a7f3b496215d25e40bd14f33632
-
-# Set this to 1 when rebasing (changing git_describe_str) and increase otherwise
-%global release 4
-
-# Run shell script to parse git_describe str into version, numcomm and sha1 hash
-%global booth_ver %(s=%{git_describe_str}; vver=${s%%%%-*}; echo ${vver:1})
-%global booth_numcomm %(s=%{git_describe_str}; t=${s#*-}; echo ${t%%%%-*})
-%global booth_sha1 %(s=%{git_describe_str}; t=${s##*-}; echo ${t:1})
-%global booth_short_sha1 %(s=%{booth_sha1}; echo ${s:0:7})
-%global booth_archive_name %{name}-%{booth_ver}-%{booth_numcomm}-%{booth_short_sha1}
-
 ## User and group to use for nonprivileged services (should be in sync with pacemaker)
 %global uname hacluster
 %global gname haclient
@@ -56,12 +40,12 @@
 %global test_path   %{_datadir}/booth/tests
 
 Name:           booth
-Version:        %{booth_ver}
-Release:        %{booth_numcomm}.%{release}.%{booth_short_sha1}.git%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Ticket Manager for Multi-site Clusters
 License:        GPL-2.0-or-later
 Url:            https://github.com/%{github_owner}/%{name}
-Source0:        https://github.com/%{github_owner}/%{name}/archive/%{booth_short_sha1}/%{booth_archive_name}.tar.gz
+Source0:        https://github.com/%{github_owner}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 # direct build process dependencies
 BuildRequires:  autoconf
@@ -192,7 +176,7 @@ Automated tests for running Booth, ticket manager for multi-site clusters.
 # BUILD #
 
 %prep
-%autosetup -n %{name}-%{booth_sha1} -S git_am
+%autosetup -n %{name}-%{version} -S git_am
 
 %build
 ./autogen.sh
@@ -310,6 +294,11 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Wed Oct 18 2023 Jan Friesse <jfriesse@redhat.com> - 1.1-1
+- New upstream release
+- Upstream releases should now be released regularly, so convert spec
+  to use them instead of git snapshots
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-283.4.9d4029a.git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    a6dfb1194a2946fcdc1f38219445234f65b35c96
+%global gh_commit    b6a5854368533df0295c5761a0253656a2e52d9e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     thephpleague
 %global gh_project   mime-type-detection
@@ -19,7 +19,7 @@
 %global ns_project   MimeTypeDetection
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        1.13.0
+Version:        1.14.0
 Release:        1%{?dist}
 Summary:        Mime-type detection for Flysystem
 
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Wed Oct 18 2023 Remi Collet <remi@remirepo.net> - 1.14.0-1
+- update to 1.14.0
+
 * Fri Aug 25 2023 Remi Collet <remi@remirepo.net> - 1.13.0-1
 - update to 1.13.0
 - raise dependency on PHP 7.4

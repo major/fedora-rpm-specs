@@ -16,8 +16,8 @@
 %define configure_opts %{?python3_opts} %{?tools_opts}
 
 Name:        libbytesize
-Version:     2.9
-Release:     23%{?dist}
+Version:     2.10
+Release:     1%{?dist}
 Summary:     A library for working with sizes in bytes
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libbytesize
@@ -54,7 +54,6 @@ with the libbytesize library.
 %package -n python3-%{realname}
 Summary: Python 3 bindings for libbytesize
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: python3-six
 
 %description -n python3-%{realname}
 This package contains Python 3 bindings for libbytesize making the use of
@@ -115,6 +114,14 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %endif
 
 %changelog
+* Wed Oct 18 2023 Packit <hello@packit.dev> - 2.10-1
+- New version - 2.10 (Vojtech Trefny)
+- Rename 'master' branch to 'main' (Vojtech Trefny)
+- remove dependency on python3-six and python2 crumbs (Alexandre Detiste)
+- ci: Bump actions/checkout from v3 to v4 (Vojtech Trefny)
+- Squashed 'translation-canary/' changes from 4d4e65b..5bb8125 (Vojtech Trefny)
+- dist: Fix release number in spec (Vojtech Trefny)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

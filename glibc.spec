@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-170-g69239bd7a2
+%global glibcsrcdir glibc-2.38.9000-180-gdd32e1db38
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 13
+%global baserelease 14
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,6 +230,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-rh2244688.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2198,6 +2199,21 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Oct 18 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-14
+- Revert "x86: Prepare `strrchr-evex` and `strrchr-evex512` for AVX10" (#2244688)
+- Auto-sync with upstream branch master,
+  commit dd32e1db386c77c61850a7cbd0c126b7b3c63ece:
+- Revert "elf: Always call destructors in reverse constructor order (bug 30785)"
+- Revert "elf: Fix compile error with -DNDEBUG [BZ #18755]"
+- Add strlcat/wcslcat testcase.
+- Add strlcpy/wcslcpy testcase
+- Add LE DSCP code point from RFC-8622.
+- Add HWCAP2_MOPS from Linux 6.5 to AArch64 bits/hwcap.h
+- Add SCM_SECURITY, SCM_PIDFD to bits/socket.h
+- Add AT_HANDLE_FID from Linux 6.5 to bits/fcntl-linux.h
+- Avoid maybe-uninitialized warning in __kernel_rem_pio2
+- Fix WAIT_FOR_DEBUGGER for container tests.
+
 * Thu Oct 12 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-13
 - Drop glibc-disable-werror-tst-realloc.patch, GCC was fixed long ago.
 - Auto-sync with upstream branch master,

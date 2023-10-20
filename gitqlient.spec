@@ -1,7 +1,10 @@
-%global AName GitQlient
+%global forgeurl https://github.com/francescmm/%{upstream_package_name}
+%global tag v%{version}
+%global upstream_package_name GitQlient
 
 Name:       gitqlient
 Version:    1.6.2
+%forgemeta
 Release:    %autorelease
 Summary:    Multi-platform Git client written with Qt
 
@@ -9,8 +12,8 @@ Summary:    Multi-platform Git client written with Qt
 # https://src.fedoraproject.org/rpms/qt5-qtwebengine/blob/rawhide/f/qt5-qtwebengine.spec#_113
 ExclusiveArch: %{qt5_qtwebengine_arches}
 
-License:    LGPLv2+
-URL:        https://github.com/francescmm/GitQlient
+License:    LGPL-2.1-or-later
+URL:        %{forgeurl}
 Source0:    %{url}/releases/download/v%{version}/%{name}_%{version}.tar.gz
 
 BuildRequires: gcc-c++
@@ -53,7 +56,7 @@ Some of the major feature you can find are:
 %build
 %qmake_qt5 \
     PREFIX=%{_prefix} \
-    %{AName}.pro \
+    %{upstream_package_name}.pro \
     %{nil}
 %make_build
 

@@ -86,10 +86,6 @@ find indexed_gzip -type f -name '*.pyx' | sed -r 's/\.pyx$/.c/' | xargs -r rm -v
 
 %check
 %if %{with tests}
-# A couple more Python 3.12 regressions, in nibabel integration tests
-# https://github.com/pauldmccarthy/indexed_gzip/issues/136
-k="${k-}${k+ and }not test_readdata_twice"
-k="${k-}${k+ and }not test_nibabel_integration"
 %pytest %{buildroot}%{python3_sitearch}/indexed_gzip -n auto -k "${k-}"
 %endif
 

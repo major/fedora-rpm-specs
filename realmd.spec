@@ -52,13 +52,13 @@ autoreconf -fi
 %endif
     %{nil}
 
-make %{?_smp_mflags}
+%make_build
 
 %check
 make check
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 %find_lang realmd
 
@@ -91,6 +91,10 @@ make install DESTDIR=%{buildroot}
 %doc ChangeLog
 
 %changelog
+* Wed Oct 18 2023 Tom Stellard <tstellar@redhat.com>
+- Use make macros
+- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

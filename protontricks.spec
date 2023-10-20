@@ -6,7 +6,7 @@ Release:    %autorelease
 Summary:    Simple wrapper that does winetricks things for Proton enabled games
 BuildArch:  noarch
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        https://github.com/Matoking/protontricks
 
 # GitHub tarball won't work for setuptools-scm
@@ -56,7 +56,7 @@ rm %{buildroot}%{_bindir}/%{name}-desktop-install
 
 %if %{with tests}
 %check
-%{python3} -m pytest -v
+%{py3_test_envvars} %{python3} -m pytest -v
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %endif
 

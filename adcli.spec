@@ -1,8 +1,8 @@
 Name:    adcli
 Version: 0.9.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Active Directory enrollment
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/adcli
 Source0: https://gitlab.freedesktop.org/realmd/adcli/uploads/ea560656ac921b3fe0d455976aaae9be/adcli-%{version}.tar.gz
 
@@ -40,13 +40,13 @@ autoreconf --force --install --verbose
     --with-vendor-error-message='Please check\n    https://red.ht/support_rhel_ad \nto get help for common issues.' \
 %endif
     %{nil}
-make %{?_smp_mflags}
+%make_build
 
 %check
 make check
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %ldconfig_scriptlets
@@ -70,6 +70,9 @@ documentation.
 %doc %{_datadir}/doc/adcli/*
 
 %changelog
+* Wed Oct 18 2023 Sumit Bose <sbose@redhat.com> - 0.9.2-4
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

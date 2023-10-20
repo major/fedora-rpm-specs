@@ -6,7 +6,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.48.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
@@ -23,25 +23,27 @@ BuildRequires:	pkgconfig(gcr-3)
 BuildRequires:	pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(gobject-2.0) >= %{glib2_version}
-BuildRequires:	pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	gettext >= %{gettext_version}
 BuildRequires:	gtk-doc
 BuildRequires:	krb5-devel
 BuildRequires:	meson
+BuildRequires:	vala
+%if !0%{?flatpak}
+BuildRequires:	pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires:	pkgconfig(webkit2gtk-4.1) >= %{webkit2gtk_version}
 BuildRequires:	pkgconfig(json-glib-1.0)
 BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libsoup-3.0) >= %{libsoup_version}
 BuildRequires:	pkgconfig(rest-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
-BuildRequires:	vala
+%endif
 
 Requires:	glib2%{?_isa} >= %{glib2_version}
+%if !0%{?flatpak}
 Requires:	gtk3%{?_isa} >= %{gtk3_version}
 Requires:	libsoup3%{?_isa} >= %{libsoup_version}
 Requires:	webkit2gtk4.1%{?_isa} >= %{webkit2gtk_version}
-%if !0%{?flatpak}
 Requires:	gvfs-goa
 %endif
 
@@ -68,6 +70,9 @@ developing applications that use %{name}.
 
 %build
 %meson \
+%if 0%{?flatpak}
+  -Dgoabackend=false \
+%else
   -Dexchange=true \
   -Dfedora=true \
   -Dgoogle=true \
@@ -78,6 +83,7 @@ developing applications that use %{name}.
   -Downcloud=true \
   -Dwindows_live=true \
   -Dman=true \
+%endif
   -Dgtk_doc=true \
   %{nil}
 
@@ -95,6 +101,7 @@ developing applications that use %{name}.
 %{_libdir}/girepository-1.0/Goa-1.0.typelib
 %{_libdir}/libgoa-1.0.so.0
 %{_libdir}/libgoa-1.0.so.0.0.0
+%if !0%{?flatpak}
 %{_libdir}/libgoa-backend-1.0.so.1
 %{_libdir}/libgoa-backend-1.0.so.1.0.0
 %dir %{_libdir}/goa-1.0
@@ -104,25 +111,31 @@ developing applications that use %{name}.
 %{_prefix}/libexec/goa-identity-service
 %{_datadir}/dbus-1/services/org.gnome.OnlineAccounts.service
 %{_datadir}/dbus-1/services/org.gnome.Identity.service
-%{_datadir}/icons/hicolor/*/apps/goa-*.svg
 %{_datadir}/glib-2.0/schemas/org.gnome.online-accounts.gschema.xml
 %{_mandir}/man8/goa-daemon.8*
+%endif
+%{_datadir}/icons/hicolor/*/apps/goa-*.svg
 
 %files devel
 %{_includedir}/goa-1.0/
 %{_libdir}/libgoa-1.0.so
-%{_libdir}/libgoa-backend-1.0.so
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Goa-1.0.gir
 %{_libdir}/pkgconfig/goa-1.0.pc
+%if !0%{?flatpak}
+%{_libdir}/libgoa-backend-1.0.so
 %{_libdir}/pkgconfig/goa-backend-1.0.pc
 %dir %{_datadir}/gtk-doc
 %dir %{_datadir}/gtk-doc/html
 %{_datadir}/gtk-doc/html/goa/
+%endif
 %{_libdir}/goa-1.0/include
 %{_datadir}/vala/
 
 %changelog
+* Wed Oct 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.48.0-3
+- Disable backend components in flatpak builds
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.48.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

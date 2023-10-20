@@ -9,7 +9,7 @@
 
 Summary: Printer Application Framework (PAPPL)
 Name: pappl
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 License: Apache-2.0 WITH LLVM-exception
 Source: https://github.com/michaelrsweet/pappl/releases/download/v%{version}/pappl-%{version}.tar.gz
@@ -88,6 +88,9 @@ rm -f %{buildroot}/%{_libdir}/libpappl.a
 %{_libdir}/pkgconfig/pappl.pc
 
 %changelog
+* Wed Oct 18 2023 Richard Lescak <rlescak@redhat.com> - 1.4.2-1
+- rebase to version 1.4.2 (#2238033)
+
 * Fri Oct 13 2023 Richard Lescak <rlescak@redhat.com> - 1.4.1-1
 - rebase to version 1.4.1 (#2238033)
 

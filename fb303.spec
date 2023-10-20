@@ -13,7 +13,7 @@
 %bcond_without check
 
 Name:           fb303
-Version:        2023.10.09.00
+Version:        2023.10.16.00
 Release:        %autorelease
 Summary:        Base Thrift service and a common set of functionality
 

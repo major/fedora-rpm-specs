@@ -11,7 +11,7 @@
 Summary: Qt6 - Support for rendering and displaying SVG
 Name:    qt6-%{qt_module}
 Version: 6.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -23,6 +23,12 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 %else
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
+
+# QTBUG-117944
+# QML Image bad source crashes application instead of error status (QSvgHandler::parse)
+Patch0:  qtsvg-fix-nullptr-dereference-with-invalid-svg.patch
+Patch1:  qtsvg-make-sure-we-dont-load-invalid-svg-twice.patch
+Patch2:  qtsvg-verify-loading-of-invalid-svg-files-dont-crash.patch
 
 # filter plugin provides
 %global __provides_exclude_from ^%{_qt6_plugindir}/.*\\.so$
@@ -114,6 +120,9 @@ popd
 %endif
 
 %changelog
+* Wed Oct 18 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-3
+- Don't crash QML image on bad source
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-2
 - Re-enable examples
 

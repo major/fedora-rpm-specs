@@ -1,5 +1,5 @@
 Name:           alsa-ucm-asahi
-Version:        3
+Version:        4
 Release:        %autorelease
 Summary:        ALSA Use Case Manager configuration (and topologies) for Apple silicon devices
 License:        BSD-3-Clause

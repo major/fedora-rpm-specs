@@ -15,18 +15,18 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit b91cd8b4a3c979e21ae0b1502c80543713a470ea
+%global doc_commit 4d345ac90a0c8dbf759238478b38829e2c5e807e
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%global upstream_ver 7.2.1
+%global upstream_ver 7.2.2
 #global upstream_pre rc3
 
 Name:              redis
 Version:           %{upstream_ver}%{?upstream_pre:~%{upstream_pre}}
-Release:           2%{?dist}
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # redis, hiredis: BSD-3-Clause
 # hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
@@ -152,7 +152,7 @@ sed -i -e 's|^dir .*$|dir /var/lib/redis|g' redis.conf
 
 # See https://bugzilla.redhat.com/2240293
 # See https://src.fedoraproject.org/rpms/jemalloc/blob/rawhide/f/jemalloc.spec#_34
-%ifarch %ix86 %arm x86_64 s390x x86_64
+%ifarch %ix86 %arm x86_64 s390x
 sed -e 's/--with-lg-quantum/--with-lg-page=12 --with-lg-quantum/' -i deps/Makefile
 %endif
 %ifarch ppc64 ppc64le aarch64
@@ -316,6 +316,9 @@ fi
 
 
 %changelog
+* Wed Oct 18 2023 Remi Collet <remi@remirepo.net> - 7.2.2-1
+- Upstream 7.2.2 release
+
 * Mon Sep 25 2023 Remi Collet <remi@remirepo.net> - 7.2.1-2
 - set jemalloc page size #2240293
 

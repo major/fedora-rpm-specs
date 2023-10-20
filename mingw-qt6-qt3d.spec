@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.3
+Version:        6.6.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt3d component
 
@@ -33,8 +33,6 @@ Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_relea
 
 # Fix GCC13 build
 Patch0:         qt3d-gcc13.patch
-# HACK: add missing -msse2 when building opengl and rhi renderer plugins
-Patch1:         qt3d-sse2.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -92,6 +90,9 @@ Fedora Windows cross-compiler.
 
 
 %build
+# HACK: add missing -msse2 when building opengl and rhi renderer plugins
+export MINGW32_CFLAGS="%{mingw32_cflags} -msse2"
+export MINGW64_CFLAGS="%{mingw64_cflags} -msse2"
 %mingw_cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %mingw_ninja
 
@@ -401,6 +402,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Wed Oct 18 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
+- Update to 6.6.0
+
 * Wed Oct 04 2023 Sandro Mani <manisandro@gmail.com> - 6.5.3-1
 - Update to 6.5.3
 

@@ -1,5 +1,5 @@
 Name:           bout++
-Version:        5.0.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Library for the BOUndary Turbulence simulation framework
 
@@ -8,14 +8,10 @@ License:        GPLv3+
 URL:            https://boutproject.github.io/
 Source0:        https://github.com/boutproject/BOUT-dev/releases/download/v%{version}/BOUT++-v%{version}.tar.gz
 
-Patch:  https://github.com/boutproject/BOUT-dev/pull/2659.patch
-Patch:  https://github.com/boutproject/BOUT-dev/pull/2661.patch
-Patch:  https://github.com/boutproject/BOUT-dev/pull/2664.patch
-# Removed confliting whitespace changes in PVODE
-Patch:  https://github.com/boutproject/BOUT-dev/pull/2678.patch
-Patch:  https://github.com/boutproject/BOUT-dev/commit/489270184ba9e03cb9996c614050cb92513424e6.patch#./petsc_318_compat.patch
-Patch:  https://github.com/boutproject/BOUT-dev/pull/2693.patch
-Patch:  https://github.com/boutproject/BOUT-dev/pull/2730.patch#./fmt10.patch
+# https://github.com/boutproject/BOUT-dev/pull/2742
+Patch:  0001-fmt10.patch
+
+Patch:  0002-sphinx.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -73,6 +69,7 @@ BuildRequires:  python%{python3_pkgversion}-netcdf4
 BuildRequires:  python%{python3_pkgversion}-scipy
 BuildRequires:  python%{python3_pkgversion}-boututils
 BuildRequires:  python%{python3_pkgversion}-boutdata
+BuildRequires:  python%{python3_pkgversion}-zoidberg
 BuildRequires:  python%{python3_pkgversion}-tables
 %if %{with flexiblas}
 BuildRequires:  flexiblas-devel
@@ -347,7 +344,7 @@ This package contains the documentation.
 #
 
 %prep
-%autosetup -n BOUT++-v%{version}.dev10626+gd935fa1ea -p 1
+%autosetup -n BOUT++-v%{version} -p 1
 
 
 # Switch to standard theme
@@ -425,7 +422,16 @@ do
 
 %if %{with manual}
       %global _vpath_builddir build_$mpi/manual
+      # Store original values
+      PYPA=${PYTHONPATH}
+      LDPA=${LD_LIBRARY_PATH}
+      # Add our stuff
+      export PYTHONPATH=${PYTHONPATH}:$(pwd)/build_$mpi/tools/pylib/
+      export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)/build_$mpi/lib/
       %cmake_build
+      # Restore
+      export LD_LIBRARY_PATH=$LDPA
+      export PYTHONPATH=$PYPA
 %endif
 
   if [ $mpi = mpich ] ; then
@@ -451,7 +457,7 @@ do
   fi
   %cmake_install
 
-  for f in $(find ${RPM_BUILD_ROOT}/${MPI_LIB} ${RPM_BUILD_ROOT}/${MPI_PYTHON3_SITEARCH} | grep /libbout) ; do
+  for f in $(find ${RPM_BUILD_ROOT}/${MPI_LIB} ${RPM_BUILD_ROOT}/${MPI_PYTHON3_SITEARCH} | grep -E '/libbout|/libpvode|/libpvpre') ; do
     chrpath -r $MPI_LIB $f
   done
 
@@ -536,7 +542,7 @@ done
 
 %if %{with mpich}
 %files mpich
-%{_libdir}/mpich/lib/libbout++.so.5.0.0
+%{_libdir}/mpich/lib/libbout++.so.5.1.0
 %{_libdir}/mpich/lib/*.so.1.0.0
 %{_libdir}/mpich/bin/*
 %doc README.md
@@ -560,7 +566,7 @@ done
 
 %if %{with openmpi}
 %files openmpi
-%{_libdir}/openmpi/lib/libbout++.so.5.0.0
+%{_libdir}/openmpi/lib/libbout++.so.5.1.0
 %{_libdir}/openmpi/lib/*.so.1.0.0
 %{_libdir}/openmpi/bin/*
 %doc README.md
