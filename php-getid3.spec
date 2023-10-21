@@ -6,7 +6,7 @@
 #
 # Please preserve changelog entries
 #
-%global gh_commit    45f20faa0f0a24489740392c5b512ddcc36deccd
+%global gh_commit    06c7482532ff2b3f9111b011d880ca6699c8542b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     JamesHeinrich
 %global gh_project   getID3
@@ -14,10 +14,10 @@
 %global pk_project   getid3
 
 Name:      php-%{pk_project}
-Version:   1.9.22
-Release:   3%{?dist}
+Version:   1.9.23
+Release:   1%{?dist}
 Epoch:     1
-License:   LGPLv3+
+License:   GPL-1.0-or-later OR LGPL-3.0-only OR MPL-2.0
 Summary:   The PHP media file parser
 URL:       https://www.getid3.org/
 Source0:   %{name}-%{version}-%{gh_short}.tgz
@@ -97,6 +97,10 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Thu Oct 19 2023 Remi Collet <remi@remirepo.net> - 1.9.23-1
+- update to 1.9.23
+- fix license with SPDX ids
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,12 +4,12 @@
 
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
-Version:        5.15.9
-Release:        5%{?dist}
+Version:        5.15.10
+Release:        1%{?dist}
 BuildArch:      noarch
 
-# GPLv2 exceptions(see GPL_EXCEPTIONS*.txt)
-License:        (GPLv3 or GPLv2 with exceptions) and BSD
+# Some examples are BSD-3-Clause and MIT, but examples are not packaged
+License:        GPL-3.0-only
 Url:            http://www.riverbankcomputing.com/software/pyqt/
 Source0:        %{pypi_source}
 
@@ -103,6 +103,9 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 
 
 %changelog
+* Thu Oct 19 2023 Sandro Mani <manisandro@gmail.com> - 5.15.10-1
+- Update to 5.15.10
+
 * Mon Aug 14 2023 Sandro Mani <manisandro@gmail.com> - 5.15.9-5
 - Rebuild (sip)
 

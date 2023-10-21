@@ -3,9 +3,15 @@
 # Disable leak tests
 %bcond_with perl_DBD_MySQL_enables_leak_test
 
+%if 0%{?fedora} || 0%{?eln}
+%global mysqlname community-mysql
+%else
+%global mysqlname mysql
+%endif
+
 Name:           perl-DBD-MySQL
 Version:        5.001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -22,7 +28,7 @@ BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
 # DBD::mysql v5.x requires MySQL 8.x client libraries for building
-BuildRequires:  %{?fedora:community-}mysql-devel
+BuildRequires:  %{mysqlname}-devel
 BuildRequires:  openssl-devel
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -47,8 +53,8 @@ BuildRequires:  perl(DBI) >= 1.609
 BuildRequires:  perl(DBI::Const::GetInfoType)
 BuildRequires:  perl(DynaLoader)
 # Tests
-BuildRequires:  %{?fedora:community-}mysql
-BuildRequires:  %{?fedora:community-}mysql-server
+BuildRequires:  %{mysqlname}
+BuildRequires:  %{mysqlname}-server
 BuildRequires:  perl(B)
 BuildRequires:  perl(bigint)
 # Required to process t/testrules.yml
@@ -86,8 +92,8 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       coreutils
 Requires:       shadow-utils
-Requires:       %{?fedora:community-}mysql
-Requires:       %{?fedora:community-}mysql-server
+Requires:       %{mysqlname}
+Requires:       %{mysqlname}-server
 # Required to process t/testrules.yml
 Requires:       perl(CPAN::Meta::YAML)
 # Optional tests
@@ -192,6 +198,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.001-2
+- Use community-mysql also for ELN
+
 * Wed Oct 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.001-1
 - 5.001 bump (rhbz#2242077)
   Since this version, MySQL 8.x has to be used for build

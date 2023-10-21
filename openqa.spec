@@ -96,7 +96,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -123,6 +123,10 @@ Source4:        23-fedora-messaging.t
 # this is an ugly hack that should be removed if it becomes possible
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
+
+# https://github.com/os-autoinst/openQA/pull/5337
+# add https://gitlab.com/fedora/sigs to bugrefs
+Patch:          0001-Add-Fedora-SIGs-gitlab-group-to-bugrefs.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -686,6 +690,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu Oct 19 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230525git0864455-3
+- Backport PR #5337 to add the gitlab fedora flatpak repo for bugrefs
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20230525git0864455-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

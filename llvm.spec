@@ -420,8 +420,8 @@ ln -s ../../../%{install_includedir}/llvm-c %{buildroot}/%{pkg_includedir}/llvm-
 %multilib_fix_c_header --file %{install_includedir}/llvm/Config/llvm-config.h
 
 # Create ld.so.conf.d entry
-mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-cat >> %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf << EOF
+mkdir -p %{buildroot}/etc/ld.so.conf.d
+cat >> %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf << EOF
 %{install_libdir}
 EOF
 
@@ -536,7 +536,7 @@ fi
 %{_libdir}/libLLVM-%{maj_ver}.%{min_ver}*.so
 %{_libdir}/libLTO.so*
 %else
-%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
+%config(noreplace) /etc/ld.so.conf.d/%{name}-%{_arch}.conf
 %if %{with gold}
 %{_libdir}/%{name}/lib/LLVMgold.so
 %endif

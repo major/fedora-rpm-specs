@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          libmateweather
-Version:       %{branch}.1
+Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       2%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.16%{?git_rel}%{?dist}
 %endif
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.a' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Oct 19 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

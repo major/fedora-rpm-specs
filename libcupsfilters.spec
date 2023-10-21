@@ -4,7 +4,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -192,6 +192,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Thu Oct 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-2
+- rebuilt for side-tag with libppd
+
 * Tue Oct 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-1
 - 2240388 - libcupsfilters-2.0.0 is available
 

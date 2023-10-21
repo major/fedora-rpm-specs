@@ -1,15 +1,21 @@
+%global commit 018c7fe6172231eb27b7dc2f640eccd229c7319c
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commitdate 20231004
+
+# Firefox doesn't provide arch-independent web extension directory, although
+# GSConnect web extension is arch-independent
 %global debug_package %{nil}
 
 %global app_id org.gnome.Shell.Extensions.GSConnect
 
 Name:           gnome-shell-extension-gsconnect
-Version:        55
-Release:        2%{?dist}
+Version:        55^%{commitdate}git%{shortcommit}
+Release:        1%{?dist}
 Summary:        KDE Connect implementation for GNOME Shell
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/GSConnect/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1:        nautilus-gsconnect.metainfo.xml
 Source2:        nemo-gsconnect.metainfo.xml
 # Fix Firewalld path
@@ -92,7 +98,7 @@ by SMS.
 
 
 %prep
-%autosetup -p0 -n %{name}-%{version}%{?prerelease:-%{prerelease}}
+%autosetup -p0 -n %{name}-%{commit}
 
 
 %build
@@ -156,6 +162,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Oct 19 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 55^20231004git018c7fe-1
+- Update to latest snapshot for GNOME 45 support
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 55-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,9 +14,9 @@
 %global subpkgs %{bodhi} %{coprapi} %{pdc} %{fedoradists} %{pagure} %{simpleprompt}
 
 Name:           fbrnch
-Version:        1.3.2
+Version:        1.3.3
 # can only be reset when all subpkgs bumped
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # bodhi-hs, pdc-hs: MIT
@@ -183,6 +183,33 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Thu Oct 19 2023 Jens Petersen <petersen@redhat.com> - 1.3.3-15
+- https://hackage.haskell.org/package/fbrnch-1.3.3/changelog :
+- 'bump': add --dry-run
+- 'copr': track pkg name to output build results url on failure
+- 'create-review','update-review': prompt to offer scratch build (#43)
+- 'diff': allow origin as alias for origin/<branch>
+- 'import': encode url from bz comment if needed (#40)
+- 'import': prefix bug# with rhbz in commit (#38)
+- 'install': add --no-build to install existing built rpms
+- 'parallel': --delay to override default inter-package pause [default 3s]
+- 'parallel': use pkg name in changelog instead of nvr
+- 'request-repo': avoid head crash on firstname (#45)
+- 'request-repo': no longer post request url to avoid duplication
+- 'scratch': with --exclude-arch respect ExcludeArch: fields
+- 'unpushed': add --bump
+- 'unpushed': output improvements for --latest and dead.package/missing
+- 'update-sources': alias for "update-version --source-only"
+- 'update-version': only warn about branch if dist-git
+- 'update-version': rpm prep with --nodeps
+- 'update-version': take .gpg and .tgz file for lookaside archive!
+- Krb: loop fkinit until okay
+- Main: --dry-run options now better described
+- RpmBuild: prevent srpm creation from being interrupted (eg ctrl-c)
+- gitFetchSilent: use \r to hide "git fetching..."
+- kojiWatchTask: do not hardcode koji-tool path
+- pkgNameVerRel: use fedpkg to determine correct autorelease (#39)
+
 * Fri Aug  4 2023 Jens Petersen <petersen@redhat.com> - 1.3.2-14
 - ghc-cached-json-file is now packaged in Fedora
 
@@ -211,7 +238,7 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 - Package cleanChangelog: append a newline
 - https://hackage.haskell.org/package/fbrnch-1.3.1/changelog :
 - check for autorelease more carefully
-- buildRequires: fix dynamic BRs with getSources and space after %_srcrpmdir
+- buildRequires: fix dynamic BRs with getSources and space after %%_srcrpmdir
   (reported by kiilerix)
 
 * Sat Apr  8 2023 Jens Petersen <petersen@redhat.com> - 1.3-10

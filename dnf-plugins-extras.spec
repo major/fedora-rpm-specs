@@ -4,15 +4,12 @@
 %undefine __cmake_in_source_build
 
 Name:           dnf-plugins-extras
-Version:        4.1.0
-Release:        3%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        Extras Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Adapt rpmconf tests to RPM 4.19 without rpm.fi
-Patch:          https://github.com/rpm-software-management/dnf-plugins-extras/pull/215.patch
 
 BuildArch:      noarch
 BuildRequires:  cmake
@@ -21,6 +18,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-dnf >= %{dnf_lowest_compatible}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-packaging
 
 %description
 Extras Plugins for DNF.
@@ -181,6 +179,10 @@ $releasever and $basearch.
 %{_mandir}/man8/dnf-showvars.*
 
 %changelog
+* Thu Oct 19 2023 Jan Kolarik <jkolarik@redhat.com> - 4.1.1-1
+- Update to 4.1.1
+- Translations update
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:           javapackages-tools
 Version:        6.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD-3-Clause
 URL:            https://github.com/fedora-java/javapackages
@@ -29,6 +29,8 @@ Source8:        toolchains-openjdk8.xml
 Source11:       toolchains-openjdk11.xml
 Source17:       toolchains-openjdk17.xml
 Source21:       toolchains-openjdk21.xml
+
+Patch0:         0001-coverage-use-usercustomize.patch
 
 BuildRequires:  coreutils
 BuildRequires:  which
@@ -173,6 +175,7 @@ OpenJDK 21 toolchain for XMvn
 
 %prep
 %setup -q -n javapackages-%{version}
+%patch0 -p1
 
 %build
 %configure --pyinterpreter=%{python_interpreter} \
@@ -242,6 +245,9 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %license LICENSE
 
 %changelog
+* Thu Oct 19 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-5
+- Backport upstream patch to fix Flatpak builds
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-4
 - Add support for OpenJDK 21
 

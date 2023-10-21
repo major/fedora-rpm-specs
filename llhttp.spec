@@ -26,8 +26,8 @@
 # additional source even if we do not do the re-generation ourselves.
 
 Name:           llhttp
-Version:        9.0.1
-%global so_version 9.0
+Version:        9.1.3
+%global so_version 9.1
 Release:        %autorelease
 Summary:        Port of http_parser to llparse
 

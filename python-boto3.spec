@@ -1,7 +1,7 @@
 %global pypi_name boto3
 
 Name:           python-%{pypi_name}
-Version:        1.28.66
+Version:        1.28.67
 Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
@@ -47,6 +47,9 @@ rm -rf tests/integration
 %{python3_sitelib}/%{pypi_name}-%{version}-*.egg-info/
 
 %changelog
+* Thu Oct 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.28.67-1
+- 1.28.67
+
 * Wed Oct 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.28.66-1
 - 1.28.66
 

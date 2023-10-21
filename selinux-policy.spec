@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 9a662e69d4fcbd46c6d1bb837b6f4d94c19f16aa
+%global commit 4c131aa69d180f74bd775c517da73b7c41c67458
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.3
+Version: 40.4
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,16 @@ exit 0
 %endif
 
 %changelog
+* Thu Oct 19 2023 Zdenek Pytela <zpytela@redhat.com> - 40.4-1
+- Add map_read map_write to kernel_prog_run_bpf
+- Allow systemd-fstab-generator read all symlinks
+- Allow systemd-fstab-generator the dac_override capability
+- Allow rpcbind read network sysctls
+- Support using systemd containers
+- Allow sysadm_t to connect to iscsid using a unix domain stream socket
+- Add policy for coreos installer
+- Add coreos_installer to modules-targeted-contrib.conf
+
 * Tue Oct 17 2023 Zdenek Pytela <zpytela@redhat.com> - 40.3-1
 - Add policy for nvme-stas
 - Confine systemd fstab,sysv,rc-local

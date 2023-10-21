@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate automod
+%global crate async-signal
 
-Name:           rust-automod
-Version:        1.0.13
+Name:           rust-async-signal
+Version:        0.2.4
 Release:        %autorelease
-Summary:        Pull in every source file in a directory as a module
+Summary:        Async signal handling
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/automod
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/async-signal
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          async-signal-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Pull in every source file in a directory as a module.}
+Async signal handling.}
 
 %description %{_description}
 
@@ -32,6 +34,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

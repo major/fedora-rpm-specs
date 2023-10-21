@@ -2,8 +2,8 @@
 
 Summary: ne, the nice editor
 Name: ne
-Version: 3.3.2
-Release: 4%{?dist}
+Version: 3.3.3
+Release: 1%{?dist}
 License: GPLv3+
 Source0: https://ne.di.unimi.it/ne-%{version}.tar.gz
 URL: https://ne.di.unimi.it/
@@ -69,6 +69,9 @@ Documentation for ne, the nice editor.
 %doc ./doc/default.*
 
 %changelog
+* Thu Oct 19 2023 Sebastiano Vigna <sebastiano.vigna@gmail.com> - 3.3.3-1
+- First release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

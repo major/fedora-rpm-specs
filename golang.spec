@@ -97,7 +97,7 @@
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.21
 #global go_prerelease rc3
-%global go_patch 1
+%global go_patch 3
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -107,7 +107,7 @@ Version:        %{go_version}
 Release:        %autorelease
 Summary:        The Go Programming Language
 # source tree includes several copies of Mark.Twain-Tom.Sawyer.txt under Public Domain
-License:        BSD and Public Domain
+License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://go.dev
 Source0:        https://go.dev/dl/go%{go_source}.src.tar.gz
 # make possible to override default traceback level at build time by setting build tag rpm_crashtraceback
@@ -316,7 +316,7 @@ export GO_LDFLAGS="-linkmode internal"
 %if !%{cgo_enabled}
 export CGO_ENABLED=0
 %endif
-./make.bash --no-clean -v
+./make.bash -v
 popd
 
 # build shared std lib

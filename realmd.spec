@@ -1,8 +1,8 @@
 Name:    realmd
 Version: 0.17.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Kerberos realm enrollment service
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
 Source0: https://gitlab.freedesktop.org/realmd/realmd/uploads/204d05bd487908ece2ce2705a01d2b26/realmd-%{version}.tar.gz
 
@@ -91,6 +91,9 @@ make check
 %doc ChangeLog
 
 %changelog
+* Wed Oct 18 2023 Sumit Bose <sbose@redhat.com> - 0.17.1-4
+- migrated to SPDX license
+
 * Wed Oct 18 2023 Tom Stellard <tstellar@redhat.com>
 - Use make macros
 - https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro

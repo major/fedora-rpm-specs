@@ -4,7 +4,7 @@
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.4.1
+Version:  3.4.2
 Release:  %autorelease
 License:  GPLv2+
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz

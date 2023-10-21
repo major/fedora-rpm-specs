@@ -1252,6 +1252,11 @@ fi
 %endif
 
 %changelog
+* Thu Oct 19 2023 Alexandra Hájková <ahajkova@redhat.com>
+- Remove gdb-6.5-ia64-libunwind-leak-test.patch.
+  The patch doesn't include any actual fixes, the architecture
+  is end of life and the kernel is planning to drop IA64 support.
+
 * Wed Oct 11 2022 Guinevere Larsen <blarsen@redhat.com>
 - Remove gdb-rhbz1186476-internal-error-unqualified-name-re-set-test.patch
   as it was upstreamed back in 2010 with a different test name.

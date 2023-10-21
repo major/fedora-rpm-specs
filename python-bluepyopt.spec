@@ -146,8 +146,8 @@ sed -i "s/x86_64/$MODSUBDIR/" bluepyopt/tests/test_stochkv.py
 # Prepare for tests
 # Refer to: https://github.com/BlueBrain/BluePyOpt/blob/master/tox.ini
 # and https://github.com/BlueBrain/BluePyOpt/blob/master/Makefile
-export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
-make stochkv_prepare l5pc_prepare sc_prepare meta_prepare
+%{py3_test_envvars} %make_build \
+    stochkv_prepare l5pc_prepare sc_prepare meta_prepare
 # test fail with a very slight approximation error
 # neuroml test requires pyneuroml which cannot be included in fedora because of java things
 k="not test_metaparameter and not test_NrnRampPulse_instantiate"
@@ -158,8 +158,8 @@ k="$k and not test_arbor_labels"
 k="$k and not test_create_acc and not test_create_acc_replace_axon and not test_cell_model_write_and_read_acc and not test_cell_model_write_and_read_acc_replace_axon and not test_write_acc_simple and not test_CellEvaluator_evaluate and not test_sequenceprotocol_run and not test_sweepprotocol_run_isolated and not test_LFPySquarePulse_instantiate and not test_nrnsimulator_cvode_minstep and not test_distloc_exception"
 # need pebble 4.6+: disable temporarily
 k="$k and not test_exec and not test_eval and not test_l5pc_validate_neuron_arbor and not "
-PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib} %{pytest} bluepyopt/tests/ -m "unit and not neuroml" "${k:+-k $k}"
-PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib} %{pytest} bluepyopt/tests/ -m "not unit and not neuroml" "${k:+-k $k}"
+%{pytest} bluepyopt/tests/ -m "unit and not neuroml" "${k:+-k $k}"
+%{pytest} bluepyopt/tests/ -m "not unit and not neuroml" "${k:+-k $k}"
 # clean up whatever files were temporarily generated for tests
 make clean
 %endif

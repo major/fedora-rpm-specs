@@ -3,7 +3,7 @@
 %endif
 
 Name:       mock-core-configs
-Version:    39.1
+Version:    39.2
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -22,7 +22,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.96
+Requires:   distribution-gpg-keys >= 1.98
 # specify minimal compatible version of mock
 Requires:   mock >= 5.0
 Requires:   mock-filesystem
@@ -124,6 +124,12 @@ almalinux)
 esac
 cfg=$distro_id+epel-$ver-$mock_arch.cfg
 %endif
+
+%if 0%{?eln}
+# overrides rhel value which resolves in fedora+epel-rawhide-$mock_arch.cfg
+cfg=fedora-eln-$mock_arch.cfg
+%endif
+
 %if 0%{?mageia}
 cfg=mageia-$ver-$mock_arch.cfg
 %endif
@@ -144,6 +150,11 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Oct 19 2023 Pavel Raiskup <praiskup@redhat.com> 39.2-1
+- Switch ELN to use a native bootstrap container image
+- Use the correct openSUSE Backports key for Leap 15.5 (neal@gompa.dev)
+- Properly handle /etc/mock/default.cfg on Fedora ELN (sbonazzo@redhat.com)
+
 * Fri Sep 15 2023 Pavel Raiskup <praiskup@redhat.com> 39.1-1
 - Add openSUSE Leap 15.5 (neal@gompa.dev)
 - Move openSUSE Leap 15.3 to EOL (neal@gompa.dev)

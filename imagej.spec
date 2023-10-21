@@ -1,6 +1,6 @@
 Name:           imagej
-Version:        1.54f
-Release:        2%{?dist}
+Version:        1.54g
+Release:        1%{?dist}
 Summary:        Image Processing and Analysis in Java
 
 # From https://imagej.nih.gov/ij/disclaimer.html:
@@ -24,7 +24,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 # Do not copy class files.
-Patch:          imagej-1.53r-do-not-copy-class-files.patch
+Patch:          imagej-1.54g-do-not-copy-class-files.patch
 # Modify imagej.sh (as intended by upstream) for Fedora compatibility.
 Patch:          imagej-1.53r-unix-script.patch
 # Set javac source / target version to 1.8 to fix building with Java 11.
@@ -128,6 +128,9 @@ desktop-file-install --vendor=''                     \
 
 
 %changelog
+* Thu Oct 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.54g-1
+- Update to 1.54g (close RHBZ#2244933)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.54f-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

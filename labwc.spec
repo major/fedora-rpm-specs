@@ -1,4 +1,5 @@
 %global forgeurl https://github.com/%{name}/%{name}
+%global tag %{version}
 
 Name:       labwc
 Version:    0.6.5
@@ -9,7 +10,7 @@ Summary:    Openbox alternative for Wayland
 
 License:    GPL-2.0-only
 URL:        %{forgeurl}
-Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:    %{forgesource}
 
 BuildRequires: gcc
 BuildRequires: meson >= 0.59.0

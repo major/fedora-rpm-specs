@@ -2,11 +2,11 @@
 %global selinuxtype targeted
 %global modulename vncsession
 
-%bcond server %{undefined flatpak}
+%bcond server 1
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -77,6 +77,8 @@ BuildRequires:  libtool
 BuildRequires:  libxkbfile-devel
 BuildRequires:  libxshmfence-devel
 BuildRequires:  mesa-libGL-devel
+BuildRequires:  pkgconfig(fontutil)
+BuildRequires:  pkgconfig(xkbcomp)
 BuildRequires:  xorg-x11-server-devel
 BuildRequires:  xorg-x11-server-source
 BuildRequires:  xorg-x11-util-macros
@@ -208,7 +210,7 @@ export CXXFLAGS="$CFLAGS -std=c++11"
 mkdir -p %{%__cmake_builddir}
 %endif
 
-%cmake
+%cmake -DCMAKE_INSTALL_UNITDIR=%{_unitdir}
 
 %cmake_build
 
@@ -224,15 +226,12 @@ autoreconf -fiv
         --disable-xorg --disable-xnest --disable-xvfb --disable-dmx \
         --disable-xwin --disable-xephyr --disable-kdrive --disable-xwayland \
         --with-pic --disable-static \
-        --with-default-font-path="catalogue:%{_sysconfdir}/X11/fontpath.d,built-ins" \
-        --with-fontdir=%{_datadir}/X11/fonts \
+        --with-default-font-path="catalogue:/etc/X11/fontpath.d,built-ins" \
         --with-xkb-output=%{_localstatedir}/lib/xkb \
-        --enable-install-libxf86config \
         --enable-glx --disable-dri --enable-dri2 --disable-dri3 \
         --disable-unit-tests \
         --disable-config-hal \
         --disable-config-udev \
-        --with-dri-driver-path=%{_libdir}/dri \
         --without-dtrace \
         --disable-devel-docs \
         --disable-selective-werror
@@ -268,9 +267,9 @@ pushd unix/xserver/hw/vnc
 %make_install
 popd
 
-# Install systemd unit file
+# Install selinux policy file
 pushd unix/vncserver/selinux
-make install DESTDIR=%{buildroot}
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 popd
 
 # Install systemd unit file
@@ -380,6 +379,11 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Oct 18 2023 Kalev Lember <klember@redhat.com> - 1.13.1-5
+- Drop unrecognized configure options
+- Add buildrequires to get correct font and xkb directories from pkg-config
+- Re-enable server in flatpak builds and fix the build
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

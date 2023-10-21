@@ -3,7 +3,7 @@
 
 %if !0%{?bootstrap}
 %global qalculate 1
-%if 0%{?fedora}
+%if 0%{?fedora} && ! 0%{?flatpak}
 # match julia.spec: ExclusiveArch:  x86_64
 %ifarch x86_64
 %global julia 1

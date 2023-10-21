@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate automod
+%global crate nucleo
 
-Name:           rust-automod
-Version:        1.0.13
+Name:           rust-nucleo
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Pull in every source file in a directory as a module
+Summary:        Plug and play high performance fuzzy matcher
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/automod
+License:        MPL-2.0
+URL:            https://crates.io/crates/nucleo
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Pull in every source file in a directory as a module.}
+Plug and play high performance fuzzy matcher.}
 
 %description %{_description}
 
@@ -30,8 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

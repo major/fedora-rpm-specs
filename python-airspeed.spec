@@ -52,7 +52,7 @@ Summary:        %{summary}
 
 
 %check
-PYTHONPATH="${PWD}" %{python3} -m unittest tests
+%{py3_test_envvars} %{python3} -m unittest tests
 
 %files -n python3-airspeed -f %{pyproject_files}
 %doc README.md

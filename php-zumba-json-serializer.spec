@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-zumba-json-serializer
 #
 # Copyright (c) 2021-2023 Remi Collet
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    93786164efd20b6e01d42b03d4f7c2e52c9cebd8
+%global gh_commit    c869bcb7f934f785d69c978f7d0479b54bbe0cfa
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zumba
 %global gh_project   json-serializer
@@ -18,7 +18,7 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.2.0
+Version:        3.2.1
 Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Thu Oct 19 2023 Remi Collet <remi@remirepo.net> - 3.2.1-1
+- update to 3.2.1
+
 * Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 3.2.0-1
 - update to 3.2.0
 - sources from git snapshot

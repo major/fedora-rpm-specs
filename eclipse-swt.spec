@@ -1,5 +1,5 @@
 %global major_version   4
-%global minor_version   28
+%global minor_version   29
 %global forgeurl https://github.com/eclipse-platform/eclipse.platform.swt
 %global tag R%{major_version}_%{minor_version}
 Epoch:                  1
@@ -9,7 +9,7 @@ Epoch:                  1
 
 Name:           eclipse-swt
 Version:        %{major_version}.%{minor_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 %forgemeta
 
@@ -116,6 +116,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Thu Oct 19 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.29-1
+- Bump to 4.29
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

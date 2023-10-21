@@ -50,7 +50,7 @@ License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
 Version:        303
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 # Don't change the bridge in the RHEL 8; the old SSH breaks some features, see @todoPybridgeRHEL8
@@ -789,6 +789,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 19 2023 Adam Williamson <awilliam@redhat.com> - 303-2
+- Rebuild for untagged selinux-policy (cockpit-ws dep)
+
 * Wed Oct 18 2023 Packit <hello@packit.dev> - 303-1
 - Apps: Warn if appstream data package is missing
 - Shell: Redesign untrusted "add host" dialog

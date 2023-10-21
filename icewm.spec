@@ -5,6 +5,7 @@
 %bcond_with fallback_build_tool
 
 %global forgeurl https://github.com/ice-wm/%{name}
+%global tag %{version}
 
 %global awe_commit da8173bb6bc5a01ca4b512a5d1b7850035f710e5
 %global awe_shortcommit %(c=%{awe_commit}; echo ${c:0:7})
@@ -18,7 +19,7 @@ Summary:        Window manager designed for speed, usability, and consistency
 
 License:        LGPL-2.0-or-later
 URL:            https://ice-wm.org/
-Source0:        https://github.com/ice-wm/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{forgesource}
 Source1:        https://github.com/tim77/awesome-%{name}/archive/%{awe_commit}/awesome-%{name}.git%{awe_shortcommit}.tar.gz
 
 %if %{with fallback_build_tool}

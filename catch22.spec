@@ -200,7 +200,7 @@ done
 
 %if %{with Py}
 pushd wrap_Python
-PYTHONPATH='%{buildroot}/%{python3_sitearch}' %{python3} testing.py
+%{py3_test_envvars} %{python3} testing.py
 popd
 %endif
 

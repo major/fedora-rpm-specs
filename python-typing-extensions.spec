@@ -7,6 +7,9 @@ License:   PSF-2.0
 URL:       https://pypi.org/project/typing-extensions/
 Source0:   %{pypi_source typing_extensions}
 
+# Fix tests on Python 3.13
+Patch:     https://github.com/python/typing_extensions/pull/291.patch
+
 BuildArch: noarch
 
 BuildRequires: python3-devel
@@ -41,7 +44,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n typing_extensions-%{version}
+%autosetup -p1 -n typing_extensions-%{version}
 
 
 %generate_buildrequires

@@ -5,7 +5,7 @@
 %global crate ropey
 
 Name:           rust-ropey
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Fast and robust text rope for Rust
 
@@ -113,9 +113,7 @@ use the "unicode_lines" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * Skip tests that fail because they are not run in debug mode
-# * Skip pt_shrink_to_fit_01 until we understand why the test fails on i686
-%cargo_test -- -- --skip search_char_idx_02 --skip search_line_break_idx_04 --skip pt_shrink_to_fit_01
+%cargo_test
 %endif
 
 %changelog

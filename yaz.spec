@@ -21,7 +21,7 @@ BuildRequires:  pkgconfig(libxslt)
 
 BuildRequires:  ncurses-devel
 BuildRequires:  readline-devel
-BuildRequires:  %{_bindir}/tclsh
+BuildRequires:  /usr/bin/tclsh
 
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 

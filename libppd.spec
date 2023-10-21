@@ -1,14 +1,12 @@
 %global _hardened_build 1
 
-%global upstream_version 2.0rc2
-
 # don't build libppd-tools until CUPS 3.x drops them
 %bcond_with tools
 
 Name:           libppd
 Epoch:          1
-Version:        2.0~rc2
-Release:        4%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -16,18 +14,10 @@ Summary:        Library for retro-fitting legacy printer drivers
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License:        Apache-2.0 WITH LLVM-exception
 URL:            https://github.com/OpenPrinting/libppd
-Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Source0:        %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
-# https://github.com/OpenPrinting/libppd/pull/18
-Patch0001: libppd-disable-testppdfile.patch
-# https://github.com/OpenPrinting/libppd/pull/21
-Patch0002: 0001-ppd-ppd-ipp.c-Use-make-when-constructing-printer-mak.patch
-# https://github.com/OpenPrinting/libppd/commit/30b35cc751bc312a1f82db849b1c80dbd8d32aa4
-Patch0003: 0001-Decode-JCLToPDFInterpreter-value-in-ppdEmitJCLPDF.patch
-# https://github.com/OpenPrinting/libppd/commit/262c909ac5
-Patch0004: 0001-raster-interpret.c-Fix-CVE-2023-4504.patch
 
 
 # for autogen.sh
@@ -105,7 +95,7 @@ PPD files from *.drv files.
 %endif
 
 %prep
-%autosetup -n %{name}-%{upstream_version} -S git
+%autosetup -S git
 
 
 %build
@@ -200,6 +190,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Thu Oct 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-1
+- 2240389 - libppd-2.0.0 is available
+
 * Wed Sep 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-4
 - CVE-2023-4504 libppd: Postscript Parsing Heap Overflow
 

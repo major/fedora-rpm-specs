@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           python-aiohttp
-Version:        3.8.5
+Version:        3.8.6
 Release:        1%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
@@ -22,19 +22,14 @@ Patch:          Update-update_query-calls-to-work-with-latest-yarl.patch
 # [3.12] Ignore DeprecationWarning: 'set_child_watcher' is deprecated as of Python 3.12
 # and will be removed in Python 3.14. 
 # Upstream report: https://github.com/aio-libs/aiohttp/issues/7291
-Patch:          ignore-DeprecationWarning-set_child_watcher-is-depre.patch
-
-# Update to LLHTTP 9
-# https://github.com/aio-libs/aiohttp/pull/7485
-# https://github.com/aio-libs/aiohttp/commit/c0c7508b64951b83ea38d232857cc258159f930b
-#
-# Rebased on v3.8.5 with 0001-Unbundle-llhttp.patch.
-Patch:          0001-Update-to-LLHTTP-9-7485.patch
+Patch:          0001-ignore-DeprecationWarning-set_child_watcher-is-depre.patch
 
 BuildRequires:  gcc
 
-# CVE-2023-30589
-BuildRequires:  llhttp-devel >= 8.1.1
+# CVE-2023-30589 requires >= 8.1.1. For 9.1.3:
+# Missing security advisories for release 3.8.6
+# https://github.com/aio-libs/aiohttp/issues/7711
+BuildRequires:  llhttp-devel >= 9.1.3
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cython)
@@ -147,7 +142,7 @@ k="${k-}${k+ and }not test_static_file_if_none_match"
 # ResourceWarning: unclosed transport <_SelectorSocketTransport fd=15>
 k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
 %endif
-%pytest -Wdefault ${ignore-} -k "${k-}"
+%pytest -Wdefault ${ignore-} -k "${k-}" -m 'not dev_mode'
 %else
 %pyproject_check_import -e aiohttp.pytest_plugin
 %endif
@@ -158,6 +153,9 @@ k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
 %doc README.rst
 
 %changelog
+* Mon Oct 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.6-1
+- Update to 3.8.6
+
 * Sun Jul 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.5-1
 - Update to 3.8.5 (close RHBZ#2227458)
 

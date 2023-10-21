@@ -2,7 +2,7 @@ Name:           pspp
 Version:        1.6.2
 Release:        %autorelease
 Summary:        A program for statistical analysis of sampled data
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://www.gnu.org/software/pspp/
 VCS:            scm:git:git://git.savannah.gnu.org/pspp.git
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz

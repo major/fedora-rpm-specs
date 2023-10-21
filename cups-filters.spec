@@ -9,13 +9,11 @@
 # we build CUPS also with relro
 %global _hardened_build 1
 
-%global upstream_version 2.0rc2
-
 Summary: OpenPrinting CUPS filters and backends for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
-Version: 2.0~rc2
-Release: 3%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -23,7 +21,7 @@ Release: 3%{?dist}
 License: Apache-2.0 WITH LLVM-exception
 
 URL:     https://github.com/OpenPrinting/cups-filters
-Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: lftocrlf.ppd
 Source2: lftocrlf
 
@@ -83,7 +81,7 @@ workflow introduced by OpenPrinting.
 
 
 %prep
-%autosetup -n %{name}-%{upstream_version} -S git
+%autosetup -S git
 
 %build
 # work-around Rpath
@@ -182,6 +180,9 @@ make check
 
 
 %changelog
+* Thu Oct 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-1
+- rebase to 2.0.0
+
 * Mon Aug 07 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-3
 - 2229776 - Add textonly driver back as lftocrlf driver
 

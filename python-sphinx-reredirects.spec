@@ -1,6 +1,6 @@
 Name:           python-sphinx-reredirects
 Version:        0.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Handle redirects for moved pages in Sphinx documentation
 
 License:        BSD-3-Clause
@@ -22,6 +22,13 @@ you rename or move your documents.}
 
 %package     -n python3-sphinx-reredirects
 Summary:        Handle redirects for moved pages in Sphinx documentation
+# See https://pagure.io/packaging-committee/issue/1312.
+# A duplicate python3-sphinx_reredirects was created that conflicts with this one.
+# We Obsolete the duplicate and add Provides for python3-sphinx_reredirects to
+# make this one easier to find.
+%py_provides    python3-sphinx_reredirects
+# Remove in Fedora 42+
+Obsoletes:      python3-sphinx_reredirects < 0.1.2-3
 
 %description -n python3-sphinx-reredirects %_description
 
@@ -83,6 +90,9 @@ rst2html --no-datestamp README.rst README.html
 %license LICENSE
 
 %changelog
+* Mon Oct 16 2023 Maxwell G <maxwell@gtmx.me> - 0.1.2-4
+- Obsolete duplicate python3-sphinx_reredirects package
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:		pdfresurrect
 Version:	0.23
 Release:	%autorelease
 Summary:	PDF Analysis and Scrubbing Utility
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://github.com/enferex/%{name}
 Source0:	https://github.com/enferex/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:		pdfresurrect-0001-Don-t-reset-compiler-s-flags-during-checks.patch

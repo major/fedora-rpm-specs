@@ -1,5 +1,5 @@
 Name:           license-validate
-Version:        20
+Version:        21
 Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
@@ -66,6 +66,11 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Thu Oct 19 2023 Miroslav Suchý <msuchy@redhat.com> 21-1
+- when license is not allowed print known packages that can use it as an
+  exception
+- Print 'usage' if the license is not allowed.
+
 * Fri Aug 04 2023 Miroslav Suchý <msuchy@redhat.com> 20-1
 - print note if string passed to license-fedora2spdx is already SPDX formula
 

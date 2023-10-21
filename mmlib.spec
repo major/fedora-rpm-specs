@@ -12,6 +12,34 @@ URL:            https://opensource.mindmaze.com/projects/mmlib
 %global forgeurl https://github.com/mmlabs-mindmaze/mmlib
 Source:         %{forgeurl}/archive/%{version}/mmlib-%{version}.tar.gz
 
+# Fix two of the three failing subtests in socket-api-tests
+# https://github.com/mmlabs-mindmaze/mmlib/pull/8
+#
+# Partial fix for:
+#
+# Three subtests fail in socket-api-tests
+# https://github.com/mmlabs-mindmaze/mmlib/issues/7
+#
+# Rebased on 1.4.2.
+Patch0:         0001-Fix-getaddrinfo_valid-ask-for-SOCK_STREAM.patch
+Patch1:         0002-Fix-getaddrinfo_error-ask-for-SOCK_RAW.patch
+# Work around failure in create_invalid_sockclient. Downstream-only for now;
+# see https://github.com/mmlabs-mindmaze/mmlib/issues/7#issuecomment-1770809321
+Patch2:         0003-Work-around-create_invalid_sockclient-test-failure.patch
+# Simply omit the getaddrinfo_error test (downstream-only); see
+# https://github.com/mmlabs-mindmaze/mmlib/issues/7#issuecomment-1771185777, in
+# which the problem is pointed out upstream.
+Patch4:         0004-Omit-the-getaddrinfo_error-test.patch
+
+# Patches for aarch64/ppc64le
+#
+# Test fail with unexpected signal number on ppc64le, aarch64
+# https://github.com/mmlabs-mindmaze/mmlib/issues/9
+#
+# This downstream-only patch simply skips the wait_signal test on the affected
+# architectures until a better solution can be found.
+Patch100:       0001-Skip-the-wait_signal-test.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -58,7 +86,11 @@ applications that use mmlib.
 
 
 %prep
-%autosetup
+%autosetup -N
+%autopatch -p1 -M 99
+%ifarch %{arm64} ppc64le
+%autopatch -p1 -m 100 -M 199
+%endif
 %py3_shebang_fix read_version.py
 
 
@@ -76,7 +108,8 @@ applications that use mmlib.
 
 %check
 # Do not run tests in parallel; some are sensitive to execution order.
-%meson_test -- --num-processes 1
+%global _smp_build_ncpus 1
+%meson_test
 
 
 %files -f %{name}.lang

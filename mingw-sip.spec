@@ -3,11 +3,10 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.7.11
+Version:        6.7.12
 Release:        1%{?dist}
 
-# sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
-License:        (GPLv2 or GPLv3) and (GPLv3+ with exceptions)
+License:        GPL-2.0-only OR GPL-3.0-only
 Url:            http://www.riverbankcomputing.com/software/sip/intro
 Source0:        %{pypi_source}
 
@@ -120,6 +119,9 @@ done
 
 
 %changelog
+* Thu Oct 19 2023 Sandro Mani <manisandro@gmail.com> - 6.7.12-1
+- Update to 6.7.12
+
 * Sat Aug 12 2023 Sandro Mani <manisandro@gmail.com> - 6.7.11-1
 - Update to 6.7.11
 

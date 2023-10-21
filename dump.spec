@@ -12,7 +12,7 @@ Name:          dump
 %endif
 Epoch:         1
 Version:       0.4
-Release:       0.53.%{PREVER}%{?dist}
+Release:       0.54.%{PREVER}%{?dist}
 License:       BSD-3-Clause
 URL:           https://sourceforge.net/projects/dump/
 Source:        http://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
@@ -34,10 +34,10 @@ Patch0:        dump-buildfix.patch
 Patch1:        dump-remove-lzo.patch
 Patch2:        dump-apath.patch
 
-%if 0%{?rhel}
 # No dump package in RHEL (restore remains)
 Patch101:      dump-replacement.patch
 
+%if 0%{?rhel}
 %description
 The restore command performs the inverse function of dump; it can
 restore a full backup of a filesystem. Subsequent incremental backups
@@ -68,7 +68,7 @@ restoring filesystems after backups.
 %patch 2 -p1 -b .apath
 
 %if 0%{?rhel}
-rm -rf dump
+rm -rf dump/*.c
 %patch 101 -p1
 %endif
 
@@ -131,6 +131,10 @@ popd
 %{_mandir}/man8/rrestore.8*
 
 %changelog
+* Mon Oct 16 2023 Stephen Gallagher <sgallagh@redhat.com> - 1:0.4-0.54.b47
+- Fixes for -WError=implicit-function-declaration on RHEL
+- Reinstates the dump headers without compiling the implementations
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.53.b47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,16 +3,17 @@
 
 Name:           gnucobol
 Version:        3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        COBOL compiler
 
-License:        GPLv3+ AND LGPL-3.0-or-later AND GFDL-1.3-only
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-only AND FSFAP AND GPL-2.0-or-later AND LGPL-3.0-or-later
 
 URL:            https://www.gnu.org/software/gnucobol/
 Source0:        https://ftp.gnu.org/gnu/gnucobol/gnucobol-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/gnucobol/gnucobol-%{version}.tar.gz.sig
 Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
 Source3:        https://www.itl.nist.gov/div897/ctg/suites/newcob.val.Z
+Source4:        http://downloads.sourceforge.net/%{name}/contrib/esql/%{name}-sql-3.0.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -28,7 +29,9 @@ BuildRequires:  json-c12-devel
 BuildRequires:  json-c-devel
 %endif
 BuildRequires: make
-
+# esql
+BuildRequires: unixODBC-devel
+BuildRequires: gcc-c++
 
 Requires:       gcc
 Requires:       glibc-devel
@@ -48,6 +51,14 @@ License:        LGPL-3.0-or-later
 %{summary}.
 Runtime libraries for GnuCOBOL
 
+%package esql
+Summary:        ESQL for GnuCOBOL
+License:        LGPL-3.0-or-later
+
+%description esql
+%{summary}.
+ESQL for GnuCOBOL
+
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
@@ -66,10 +77,20 @@ cp %{SOURCE3} tests/cobol85/
 iconv -c --to-code=UTF-8 ChangeLog > ChangeLog.new
 mv ChangeLog.new ChangeLog
 
+tar -xzf %{SOURCE4}
+pushd gnucobol-sql-3.0/
+%configure --enable-static=no
+%make_build
+popd
+
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 find %{buildroot}/%{_libdir} -type f -name "*.*a" -exec rm -f {} ';'
 rm -rf %{buildroot}/%{_infodir}/dir
+
+pushd gnucobol-sql-3.0/
+%make_install
+popd
 
 %find_lang %{name}
 
@@ -99,7 +120,14 @@ make test CFLAGS="%optflags -O"
 %{_libdir}/libcob.so.4*
 %{_libdir}/gnucobol/CBL_OC_DUMP.so
 
+%files esql
+%{_bindir}/esqlOC
+%{_libdir}/libocsql.so*
+
 %changelog
+* Thu Oct 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.2-2
+- Include esql 3.0
+
 * Fri Jul 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.2-1
 - 3.2
 

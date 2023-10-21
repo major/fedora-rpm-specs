@@ -1,7 +1,7 @@
 %bcond bundled_thread_pool 0
 
 Name:           libfplll
-Version:        5.4.4
+Version:        5.4.5
 %global so_version 8
 Release:        %autorelease
 Summary:        Lattice algorithms using floating-point arithmetic

@@ -2,7 +2,7 @@ Name:		msmtp
 Version:	1.8.24
 Release:	%autorelease
 Summary:	SMTP client
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://marlam.de/msmtp/
 Source0:	https://marlam.de/msmtp/releases/%{name}-%{version}.tar.xz
 Source1:	https://marlam.de/msmtp/releases/%{name}-%{version}.tar.xz.sig

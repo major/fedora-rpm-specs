@@ -26,9 +26,9 @@
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
 %global rstudio_version_minor       09
-%global rstudio_version_patch       0
-%global rstudio_version_suffix      463
-%global rstudio_git_revision_hash   b51c81cc303d4b52b010767e5b30438beb904641
+%global rstudio_version_patch       1
+%global rstudio_version_suffix      494
+%global rstudio_git_revision_hash   cd7011dce393115d3a7c3db799dda4b1c7e88711
 %global quarto_git_revision_hash    867949c912fc03f4f967a7142bb37a876c61e9e5
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
 %global rstudio_flags \
@@ -347,6 +347,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Thu Oct 19 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.09.1+494-1
+- Update to 2023.09.1+494
+
 * Thu Sep 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.09.0+463-1
 - Update to 2023.09.0+463
 

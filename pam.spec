@@ -4,7 +4,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -25,6 +25,7 @@ Source18: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 Patch1:  pam-1.5.3-redhat-modules.patch
 Patch2:  pam-1.5.3-noflex.patch
 Patch3:  pam-1.5.3-unix-nomsg.patch
+Patch4:  pam-1.5.3-pwhistory-null-filename-arg.patch
 
 %{load:%{SOURCE3}}
 
@@ -118,6 +119,7 @@ cp %{SOURCE18} .
 %patch -P 1 -p1 -b .redhat-modules
 %patch -P 2 -p1 -b .noflex
 %patch -P 3 -p1 -b .nomsg
+%patch -P 4 -p1 -b .pwhistory-null-filename-arg
 
 autoreconf -i
 
@@ -353,6 +355,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Thu Oct 19 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.3-3
+- pam_pwhistory: fix passing NULL filename argument to pwhistory helper
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

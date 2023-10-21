@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 82
+%global microversion 83
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -76,8 +76,6 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 Source1:        pipewire.sysusers
 
 ## upstream patches
-Patch0001:	0001-alsa-Ignore-PCM-devices-with-udev-env-ACP_IGNORE.patch
-Patch0002:	0002-alsa-don-t-try-to-link-when-prepare-fails.patch
 
 ## upstreamable patches
 
@@ -724,6 +722,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Oct 19 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.83-1
+- Update version to 0.3.83
+
 * Mon Oct 16 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.82-2
 - Add patch for device detection for asahi linux.
 - Add patch to avoid crash in ALSA.
