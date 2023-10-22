@@ -23,8 +23,8 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.57
-Release: 4%{?dist}
+Version: 2.4.58
+Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -100,7 +100,6 @@ Patch46: httpd-2.4.53-separate-systemd-fns.patch
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
 Patch60: httpd-2.4.43-enable-sslv3.patch
-Patch61: httpd-2.4.48-r1878890.patch
 Patch63: httpd-2.4.46-htcacheclean-dont-break.patch
 Patch65: httpd-2.4.51-r1894152.patch
 
@@ -271,7 +270,6 @@ written in the Lua programming language.
 %patch -P25 -p1 -b .selinux
 
 %patch -P60 -p1 -b .enable-sslv3
-%patch -P61 -p1 -b .r1878890
 %patch -P63 -p1 -b .htcacheclean-dont-break
 %patch -P65 -p1 -b .r1894152
 
@@ -858,6 +856,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri Oct 20 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.58-1
+- new version 2.4.58
+
 * Fri Oct 06 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.57-4
 - SPDX migration
 

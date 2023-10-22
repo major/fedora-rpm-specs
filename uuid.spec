@@ -6,7 +6,7 @@
 
 Name:           uuid
 Version:        1.6.2
-Release:        60%{?dist}
+Release:        61%{?dist}
 Summary:        Universally Unique Identifier library
 License:        MIT
 URL:            http://www.ossp.org/pkg/lib/uuid/
@@ -122,9 +122,6 @@ export DCE_NAME=libossp-uuid_dce.la
 export CXX_NAME=libossp-uuid++.la
 export PHP_NAME=$(pwd)/php/modules/ossp-uuid.so
 export PGSQL_NAME=$(pwd)/pgsql/libossp-uuid.so
-export CFLAGS="$RPM_OPT_FLAGS"
-export CXXFLAGS="$RPM_OPT_FLAGS"
-export LDFLAGS="-Wl,-z,now -Wl,-z,relro %{?__global_ldflags}"
 
 %configure \
     --disable-static \
@@ -134,7 +131,7 @@ export LDFLAGS="-Wl,-z,now -Wl,-z,relro %{?__global_ldflags}"
     --with-cxx \
     --without-pgsql
 
-make LIBTOOL=/usr/bin/libtool CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" %{?_smp_mflags}
+make LIBTOOL=/usr/bin/libtool CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags}" LDFLAGS="%{build_ldflags}" %{?_smp_mflags}
 
 # Build the Perl module.
 pushd perl
@@ -211,6 +208,10 @@ popd
 %{_libdir}/libossp-uuid_dce.so
 
 %changelog
+* Fri Oct 20 2023 Sérgio Basto <sergio@serjux.com> - 1.6.2-61
+- Use standard Fedora linker flags (bug #1548666)
+  https://src.fedoraproject.org/rpms/uuid/pull-request/1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

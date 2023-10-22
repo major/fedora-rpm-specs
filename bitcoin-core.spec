@@ -5,8 +5,8 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    25.0
-Release:    3%{?dist}
+Version:    25.1
+Release:    1%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -66,8 +66,8 @@ BuildRequires:  python3.11
 %else
 BuildRequires:  python3
 %endif
-BuildRequires:  pkgconfig(libevent) >= 2.0.21
-BuildRequires:  pkgconfig(libevent_pthreads) >= 2.0.21
+BuildRequires:  pkgconfig(libevent) >= 2.1.8
+BuildRequires:  pkgconfig(libevent_pthreads) >= 2.1.8
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  pkgconfig(libzmq) >= 4
 BuildRequires:  pkgconfig(sqlite3) >= 3.7.17
@@ -340,6 +340,9 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Fri Oct 20 2023 Simone Caronni <negativo17@gmail.com> - 25.1-1
+- Update to 25.1.
+
 * Fri Aug 11 2023 Simone Caronni <negativo17@gmail.com> - 25.0-3
 - Adjust verify script invocation.
 - Fix build on el8.

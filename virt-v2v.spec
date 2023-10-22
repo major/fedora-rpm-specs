@@ -15,7 +15,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.3.5
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -154,7 +154,7 @@ Requires:      nbdkit-rate-filter
 Requires:      nbdkit-retry-filter
 
 # For rhsrvany.exe, used to install firstboot scripts in Windows guests.
-Requires:      mingw32-srvany >= 1.0-13
+Requires:      mingw-srvany-redistributable >= 1.1-6
 
 # On RHEL, virtio-win should be used to install virtio drivers
 # and qemu-ga in converted guests.  (RHBZ#1972644)
@@ -232,15 +232,6 @@ make V=1 %{?_smp_mflags}
 # Delete libtool crap.
 find $RPM_BUILD_ROOT -name '*.la' -delete
 
-# Virt-tools data directory.  This contains symlinks to rhsrvany.exe
-# and pnp_wait.exe which are satisfied by the dependency on
-# mingw32-srvany.
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/virt-tools
-pushd $RPM_BUILD_ROOT%{_datadir}/virt-tools
-ln -sf ../../i686-w64-mingw32/sys-root/mingw/bin/rhsrvany.exe
-ln -sf ../../i686-w64-mingw32/sys-root/mingw/bin/pnp_wait.exe
-popd
-
 %if 0%{?rhel}
 # On RHEL remove virt-v2v-in-place.
 rm $RPM_BUILD_ROOT%{_bindir}/virt-v2v-in-place
@@ -299,7 +290,6 @@ done
 %{_mandir}/man1/virt-v2v-release-notes-2.0.1*
 %{_mandir}/man1/virt-v2v-release-notes-2.2.1*
 %{_mandir}/man1/virt-v2v-support.1*
-%{_datadir}/virt-tools
 
 
 %files bash-completion
@@ -318,6 +308,9 @@ done
 
 
 %changelog
+* Fri Oct 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.3.5-4
+- Use mingw-srvany-redistributable
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.5-3
 - OCaml 5.1 rebuild for Fedora 40
 

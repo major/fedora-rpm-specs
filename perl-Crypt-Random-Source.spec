@@ -1,26 +1,35 @@
 Name:           perl-Crypt-Random-Source
 Version:        0.14
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Get weak or strong random data from pluggable sources
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Crypt-Random-Source
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Crypt-Random-Source-%{version}.tar.gz
 BuildArch:      noarch
+# build requirements
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Module::Build::Tiny)
+# runtime requirements
+BuildRequires:  perl(Capture::Tiny)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Errno)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Module::Find)
+BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Moo)
 BuildRequires:  perl(Sub::Exporter)
-BuildRequires:  perl(Test::Exception)
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(namespace::clean)
-BuildRequires:  perl(namespace::autoclean)
-BuildRequires:  perl(ok)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(IO::Select)
+BuildRequires:  perl(Test::Fatal)
+BuildRequires:  perl(Test::More)
 
 %{?perl_default_filter}
 
@@ -32,7 +41,7 @@ of random data.
 %setup -q -n Crypt-Random-Source-%{version}
 
 %build
-%{__perl} Build.PL --installdirs vendor
+/usr/bin/perl Build.PL --installdirs vendor
 ./Build
 
 %install
@@ -49,6 +58,11 @@ of random data.
 %{_mandir}/man3/Crypt*
 
 %changelog
+* Fri Oct 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-18
+- Migrated to SPDX license
+- Replace %%{__perl} with /usr/bin/perl
+- Reorder dependencies
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -17,8 +17,8 @@
 
 
 Name:           certbot
-Version:        2.6.0
-Release:        5%{?dist}
+Version:        2.7.2
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -31,9 +31,6 @@ Source12:       certbot-sysconfig-certbot
 Source13:       certbot-cli.ini
 Source14:       certbot-README.fedora
 Source15:       certbot.logrotate
-
-#               https://github.com/certbot/certbot/pull/9734
-Patch0:         0001-Mock-in-Python-3.12-finds-more-errors-in-mock-syntax.patch
 
 BuildArch:      noarch
 
@@ -381,6 +378,12 @@ fi
 
 
 %changelog
+* Fri Oct 20 2023 Jonathan Wright <jonathan@almalinux.org> - 2.7.2-1
+- Update to 2.7.2 rhbz#2242065
+
+* Fri Oct 13 2023 Jonathan Wright <jonathan@almalinux.org> - 2.7.1-1
+- Update to 2.7.1 rhbz#2242065
+
 * Sat Sep 09 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.6.0-5
 - Fix build with Python 3.12.0rc2 (warning message changed)
 

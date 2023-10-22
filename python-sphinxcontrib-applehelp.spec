@@ -1,43 +1,44 @@
-%global pypi_name sphinxcontrib-applehelp
-
 # when bootstrapping sphinx, we cannot run tests yet
 %bcond_without check
 
-Name:           python-%{pypi_name}
-Version:        1.0.6
+Name:           python-sphinxcontrib-applehelp
+Version:        1.0.7
 Release:        1%{?dist}
 Summary:        Sphinx extension for Apple help books
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
-Source0:        %{pypi_source}
+Source0:        %{pypi_source sphinxcontrib_applehelp}
 BuildArch:      noarch
+
+# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
+# In the RPM environment the dependencies are handled correctly without it
+# Remove the runtime requirement on Sphinx from this package
+# See: https://github.com/sphinx-doc/sphinx/issues/11567
+# At the same time, Sphinx is a wanted test dependency
+Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
 
-%if %{with check}
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
-%endif
-
-%generate_buildrequires
-%pyproject_buildrequires
 
 %description
 sphinxcontrib-applehelp is a sphinx extension which outputs Apple help books.
 
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python%{python3_pkgversion}-sphinxcontrib-applehelp
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python%{python3_pkgversion}-sphinxcontrib-applehelp
 sphinxcontrib-applehelp is a sphinx extension which outputs Apple help books.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n sphinxcontrib_applehelp-%{version}
 find -name '*.mo' -delete
+
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_check: -x test}
 
 
 %build
@@ -71,13 +72,17 @@ popd
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f sphinxcontrib.applehelp.lang
+%files -n python%{python3_pkgversion}-sphinxcontrib-applehelp -f sphinxcontrib.applehelp.lang
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib/
 %{python3_sitelib}/sphinxcontrib_applehelp*.dist-info
 
+
 %changelog
+* Mon Aug 28 2023 Karolina Surma <ksurma@redhat.com> - 1.0.7-1
+- Update to 1.0.7 (#2231931)
+
 * Fri Aug 11 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.6-1
 - update to 1.0.6
 - use modern macros

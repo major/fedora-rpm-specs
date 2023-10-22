@@ -1,7 +1,7 @@
 %global upstreamname rocRAND
 
 %global rocm_release 5.7
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Compiler is hipcc, which is clang based:
@@ -133,6 +133,9 @@ sed -i '/INSTALL_RPATH/d' hipRAND/library/CMakeLists.txt
 %{_libdir}/cmake/hiprand
 
 %changelog
+* Fri Oct 20 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.1-1
+- Update to 5.7.1
+
 * Tue Oct 03 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
 - Update to 5.7
 

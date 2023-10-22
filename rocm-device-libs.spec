@@ -5,7 +5,7 @@
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 0
+%global bugfix_version 1
 %global upstreamname ROCm-Device-Libs
 
 # This might be needed because EL9 llvm is built with clang:
@@ -15,7 +15,7 @@
 
 Name:           rocm-device-libs
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        AMD ROCm LLVM bit code libraries
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-Device-Libs
@@ -64,6 +64,9 @@ libraries in the form of bit code. Specifically:
 %clang_resource_dir/amdgcn
 
 %changelog
+* Fri Oct 20 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.1-1
+- Update to 17.1
+
 * Wed Sep 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0-2
 - Rebuild against LLVM 17.0.0
 

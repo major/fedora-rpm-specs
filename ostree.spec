@@ -7,13 +7,11 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2023.6
+Version: 2023.7
 Release: 2%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
-
-Patch0: 0001-When-exporting-use-hardlinks-for-duplicated-files.patch
 
 BuildRequires: make
 BuildRequires: git
@@ -172,6 +170,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Fri Oct 20 2023 Colin Walters <walters@verbum.org> - 2023.7-2
+- https://github.com/ostreedev/ostree/releases/tag/v2023.7
+
 * Fri Oct 06 2023 Colin Walters <walters@verbum.org> - 2023.6-2
 - Cherry pick
   https://github.com/ostreedev/ostree/pull/3060/commits/3b2fd6e9ff0a3a91a2b72f524492e4f198069dec

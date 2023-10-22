@@ -80,7 +80,6 @@ Python applications by providing a Python-based X2Go client API.
 Summary:        Python module providing X2Go client API
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  /usr/bin/2to3
 # For doc build
 BuildRequires:  /usr/bin/sphinx-build-3
 BuildRequires:  python%{python3_pkgversion}-gevent

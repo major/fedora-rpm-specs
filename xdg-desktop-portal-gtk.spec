@@ -1,7 +1,7 @@
 %global xdg_desktop_portal_version 1.14.0
 
 Name:           xdg-desktop-portal-gtk
-Version:        1.14.1
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GTK+
 
@@ -11,7 +11,7 @@ Source0:        https://github.com/flatpak/%{name}/releases/download/%{version}/
 
 BuildRequires:  gcc
 BuildRequires:  gettext
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gtk+-unix-print-3.0)
@@ -40,20 +40,17 @@ A backend implementation for xdg-desktop-portal that is using GTK+.
 # xdg-desktop-portal-gnome, to keep this package free of GNOME dependencies.
 # The appchooser and settings backends are enabled for non-GNOME GTK
 # applications.
-%configure \
-    --disable-silent-rules \
-    --enable-appchooser \
-    --enable-settings \
-    --disable-background \
-    --disable-lockdown \
-    --disable-screencast \
-    --disable-screenshot \
-    --disable-wallpaper
-%make_build
+%meson \
+    -Dappchooser=enabled \
+    -Dsettings=enabled \
+    -Dlockdown=disabled \
+    -Dwallpaper=disabled \
+    %{nil}
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 %find_lang %{name}
 
 

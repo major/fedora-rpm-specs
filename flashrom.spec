@@ -1,21 +1,33 @@
 Name:		flashrom
 Version:	1.3.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Simple program for reading/writing flash chips content
 License:	GPL-2.0-only
 URL:		https://flashrom.org
 
 Source0:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.bz2
-
-BuildRequires:	gnupg2
+Source1:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.bz2.asc
+# Find which key was used for signing the release:
+#
+# $ LANG=C gpg --verify flashrom-v1.3.0.tar.bz2.asc flashrom-v1.3.0.tar.bz2
+# gpg: Signature made Wed Feb  8 03:57:51 2023 CET
+# gpg:                using DSA key 6E6EF9A0BA478006E2776E4CC037BB413134D111
+# gpg: Can't check signature: No public key
+#
+# Now export the key required as follows:
+#
+# gpg --no-default-keyring --keyring ./keyring.gpg --keyserver keyserver.ubuntu.com --recv-key 6E6EF9A0BA478006E2776E4CC037BB413134D111
+# gpg --no-default-keyring --keyring ./keyring.gpg  --output 6E6EF9A0BA478006E2776E4CC037BB413134D111.gpg --export
+Source2:	6E6EF9A0BA478006E2776E4CC037BB413134D111.gpg
 BuildRequires:	gcc
-BuildRequires:	meson
-BuildRequires:	pciutils-devel
+BuildRequires:	gnupg2
 %if ! 0%{?rhel}
-BuildRequires:	libjaylink-devel
 BuildRequires:	libftdi-devel
+BuildRequires:	libjaylink-devel
 %endif
 BuildRequires:	libusb1-devel
+BuildRequires:	meson
+BuildRequires:	pciutils-devel
 BuildRequires:	systemd
 BuildRequires:	zlib-devel
 %ifarch %{ix86} x86_64 aarch64
@@ -41,6 +53,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Files for development with %{name}.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-v%{version}
 # Replace GROUP="plugdev" specifiers with TAG+="uaccess"
 sed -e 's/MODE="[0-9]*", GROUP="plugdev"/TAG+="uaccess"/g' util/flashrom_udev.rules -i
@@ -70,6 +83,9 @@ rm %{buildroot}/%{_libdir}/libflashrom.a
 %{_libdir}/pkgconfig/flashrom.pc
 
 %changelog
+* Sat Oct 21 2023 Peter Lemenkov <lemenkov@gmail.com> - 1.3.0-4
+- Check GPG signature
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

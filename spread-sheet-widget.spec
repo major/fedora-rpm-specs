@@ -6,11 +6,13 @@ License:	GPL-3.0-or-later
 URL:		https://www.gnu.org/software/ssw/
 Source0:	https://alpha.gnu.org/gnu/ssw/%{name}-%{version}.tar.gz
 Source1:	https://alpha.gnu.org/gnu/ssw/%{name}-%{version}.tar.gz.sig
+Source2:	BAF59BDF98664CEEF14D2A5A6A233DCD47A92289.gpg
 Patch1:		spread-sheet-widget-0001-No-need-to-specify-gtk3-lib-in-pc-file.patch
 Patch2:		spread-sheet-widget-0002-Use-more-standard-macros-in-pc-file.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gcc
+BuildRequires:	gnupg2
 BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	pkgconfig(glib-2.0) >= 2.44
@@ -41,6 +43,7 @@ Additional header files for development with %{name}.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 autoreconf -ivf
 

@@ -6,7 +6,7 @@ Name:		xz
 # **PLEASE NOTE**: when bumping xz version, please rebuild
 # perl-Compress-Raw-Lzma, it has a strict xz version dep
 Version:	5.4.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
@@ -130,12 +130,12 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %exclude %_pkgdocdir/examples*
 %{_bindir}/*xz*
 %{_mandir}/man1/*xz*
-%{_mandir}/de/man1/*xz*
-%{_mandir}/fr/man1/*xz*
-%{_mandir}/ko/man1/*xz*
-%{_mandir}/ro/man1/*xz*
-%{_mandir}/uk/man1/*xz*
-%{_mandir}/pt_BR/man1/*xz*
+%lang(de) %{_mandir}/de/man1/*xz*
+%lang(fr) %{_mandir}/fr/man1/*xz*
+%lang(ko) %{_mandir}/ko/man1/*xz*
+%lang(ro) %{_mandir}/ro/man1/*xz*
+%lang(uk) %{_mandir}/uk/man1/*xz*
+%lang(pt_BR) %{_mandir}/pt_BR/man1/*xz*
 %{profiledir}/*
 
 
@@ -161,15 +161,18 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %files lzma-compat
 %{_bindir}/*lz*
 %{_mandir}/man1/*lz*
-%{_mandir}/de/man1/*lz*
-%{_mandir}/fr/man1/*lz*
-%{_mandir}/ko/man1/*lz*
-%{_mandir}/ro/man1/*lz*
-%{_mandir}/uk/man1/*lz*
-%{_mandir}/pt_BR/man1/*lz*
+%lang(de) %{_mandir}/de/man1/*lz*
+%lang(fr) %{_mandir}/fr/man1/*lz*
+%lang(ko) %{_mandir}/ko/man1/*lz*
+%lang(ro) %{_mandir}/ro/man1/*lz*
+%lang(uk) %{_mandir}/uk/man1/*lz*
+%lang(pt_BR) %{_mandir}/pt_BR/man1/*lz*
 
 
 %changelog
+* Thu Oct 19 2023 Debarshi Ray <rishi@fedoraproject.org> - 5.4.4-2
+- Mark translations of manuals with %%lang()
+
 * Wed Aug 02 2023 Richard W.M. Jones <rjones@redhat.com> - 5.4.4-1
 - New version 5.4.4 (RHBZ#2228542)
 

@@ -1,5 +1,5 @@
 Name:           perl-Devel-NYTProf
-Version:        6.13
+Version:        6.14
 Release:        1%{?dist}
 Summary:        Powerful feature-rich perl source code profiler
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.14-1
+- 6.14 bump (rhbz#2244960)
+
 * Wed Oct 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.13-1
 - 6.13 bump (rhbz#2243140)
 

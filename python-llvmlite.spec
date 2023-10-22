@@ -6,7 +6,7 @@
 %bcond doc_pdf 1
 
 Name:           python-llvmlite
-Version:        0.41.0
+Version:        0.41.1
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -28,7 +28,7 @@ License:        BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
 URL:            http://llvmlite.pydata.org/
 %global forgeurl https://github.com/numba/llvmlite
-Source0:        %{forgeurl}/archive/v%{version}/llvmlite-%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{version}/llvmlite-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 

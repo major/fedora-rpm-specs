@@ -3,7 +3,7 @@ Version:        0.2.4
 Release:        %autorelease
 Summary:        WebP image loader for GTK+ applications
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://github.com/aruiz/webp-pixbuf-loader
 Source0:        https://github.com/aruiz/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 

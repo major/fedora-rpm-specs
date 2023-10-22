@@ -7,7 +7,7 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.3.1
+Version:	3.3.2
 Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
@@ -320,6 +320,9 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri Oct 20 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.3.2-1
+- Update to 3.3.2
+
 * Tue Sep 12 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.3.1-1
 - Update to 3.3.1
 

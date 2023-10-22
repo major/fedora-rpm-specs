@@ -1,8 +1,8 @@
 Name:		mathjax3
 Version:	3.2.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	JavaScript library to render math in the browser
-License:	Apache-2.0 AND 0BSD AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND BSD-3-Clause-Clear AND CC-BY-4.0 AND ISC AND (LGPL-2.0-only OR MIT) AND MIT
+License:	Apache-2.0 AND 0BSD AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC-BY-4.0 AND ISC AND (LGPL-2.0-only OR MIT) AND MIT
 URL:		https://mathjax.org
 Source0:	https://github.com/mathjax/MathJax-src/archive/%{version}/MathJax-src-%{version}.tar.gz
 #		Additional node modules needed to build from source
@@ -29,6 +29,11 @@ in HTML pages.
 # Disable minimizing of javascript components
 sed 's!minimize: true!minimize: false!' -i components/webpack.common.js
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2244891
+# https://github.com/alexei/sprintf.js/issues/211
+# https://github.com/alexei/sprintf.js/pull/212
+sed 's!BSD-3-Clause-Clear!BSD-3-Clause!' -i node_modules/sprintf-js/bower.json
+
 %build
 npm run compile
 npm run make-components
@@ -43,6 +48,9 @@ cp -pr es5 %{buildroot}%{_jsdir}/mathjax@3
 %license LICENSE
 
 %changelog
+* Fri Oct 20 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.2-3
+- Correct license tag (rhbz#2244891)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

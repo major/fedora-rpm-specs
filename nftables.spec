@@ -1,6 +1,6 @@
 Name:           nftables
-Version:        1.0.7
-Release:        4%{?dist}
+Version:        1.0.9
+Release:        1%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilites
@@ -34,6 +34,10 @@ BuildRequires: readline-devel
 BuildRequires: libedit-devel
 BuildRequires: python3-setuptools
 
+%generate_buildrequires
+cd py/
+%pyproject_buildrequires
+
 %description
 Netfilter Tables userspace utilities.
 
@@ -43,7 +47,7 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}
 Requires:       pkgconfig
 
 %description devel
-Development tools and static libraries and header files for the libnftables library.
+Headers, man pages and other development files for the libnftables library.
 
 %package -n     python3-nftables
 Summary:        Python module providing an interface to libnftables
@@ -55,16 +59,13 @@ The nftables python module provides an interface to libnftables via ctypes.
 
 %prep
 %autosetup -p1
-# upstream: https://git.netfilter.org/nftables/commit/py?id=1acc2fd48c755a8931fa87b8d0560b750316059f
-sed -i 's/distutils.core/setuptools/' py/setup.py
-# this part is downstream only and prevents setuptools from installing an egg:
-sed -i 's/--prefix $(DESTDIR)$(prefix)/--root $(DESTDIR) --prefix $(prefix)/' py/Makefile*
 
 %build
 #./autogen.sh
-%configure --disable-silent-rules --with-xtables --with-json \
-	--enable-python --with-python-bin=%{__python3}
+%configure --disable-silent-rules --with-xtables --with-json
 %make_build
+cd py/
+%pyproject_wheel
 
 %install
 %make_install
@@ -91,11 +92,9 @@ find $RPM_BUILD_ROOT/%{_sysconfdir} \
 	\( -type d -exec chmod 0700 {} \; \) , \
 	\( -type f -exec chmod 0600 {} \; \)
 
-# make nftables.py use the real library file name
-# to avoid nftables-devel package dependency
-sofile=$(readlink $RPM_BUILD_ROOT/%{_libdir}/libnftables.so)
-sed -i -e 's/\(sofile=\)".*"/\1"'$sofile'"/' \
-	$RPM_BUILD_ROOT/%{python3_sitelib}/nftables/nftables.py
+cd py/
+%pyproject_install
+%pyproject_save_files nftables
 
 %post
 %systemd_post nftables.service
@@ -125,11 +124,14 @@ sed -i -e 's/\(sofile=\)".*"/\1"'$sofile'"/' \
 %{_includedir}/nftables/libnftables.h
 %{_mandir}/man3/libnftables.3*
 
-%files -n python3-nftables
-%{python3_sitelib}/nftables-*.egg-info
-%{python3_sitelib}/nftables/
+%files -n python3-nftables -f %{pyproject_files}
 
 %changelog
+* Thu Oct 19 2023 Phil Sutter <psutter@redhat.com> - 1:1.0.9-1
+- Fix devel sub-package description
+- Utilize pyproject-rpm-macros for the python sub-package
+- new version 1.0.9
+
 * Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 1:1.0.7-4
 - Convert license to SPDX format
 

@@ -6,7 +6,7 @@ Summary:  Open Source SIP Server
 Name:     opensips
 Version:  3.4.2
 Release:  %autorelease
-License:  GPLv2+
+License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fedora-specific patches
 Patch001: opensips-0001-Consistently-use-rtpproxy-switches.patch

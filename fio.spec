@@ -1,6 +1,6 @@
 Name:		fio
-Version:	3.35
-Release:	5%{?dist}
+Version:	3.36
+Release:	1%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -231,6 +231,10 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Fri Oct 20 2023 Pavel Reichl <preichl@redhat.com> - 3.36.1
+- Rebase to upstream version 3.36
+- Related: rhbz#2245247
+
 * Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 3.35-5
 - Convert License tag to SPDX format
 

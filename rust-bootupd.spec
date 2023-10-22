@@ -3,14 +3,14 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.2.11
-Release:        5%{?dist}
+Version:        0.2.12
+Release:        2%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
 URL:            https://github.com/coreos/bootupd
 Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
-Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.gz
+Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
 
 # For now, see upstream
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -74,6 +74,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Fri Oct 20 2023 Colin Walters <walters@verbum.org> - 0.2.12-2
+- https://github.com/coreos/bootupd/releases/tag/v0.2.12
+
 * Fri Oct 06 2023 Colin Walters <walters@verbum.org> - 0.2.11-5
 - Enable ppc64le, it is supported now
 

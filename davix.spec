@@ -2,12 +2,12 @@
 %undefine __cmake3_in_source_build
 
 Name:				davix
-Version:			0.8.4
-Release:			2%{?dist}
+Version:			0.8.5
+Release:			1%{?dist}
 Summary:			Toolkit for http based file management
 License:			LGPLv2+
 URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
-Source0:			https://github.com/cern-fts/davix/releases/download/R_0_8_4/davix-0.8.4.tar.gz
+Source0:			https://github.com/cern-fts/davix/releases/download/R_0_8_5/davix-0.8.5.tar.gz
 
 BuildRequires:			gcc-c++
 BuildRequires:			cmake3
@@ -172,6 +172,10 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Fri Oct 20 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 0.8.5-1
+- New upstream release 0.8.5
+- Fix CVE 2023-38545 in the bundled curl library (EPEL 7 and 8)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

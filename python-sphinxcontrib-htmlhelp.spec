@@ -1,49 +1,46 @@
-%global pypi_name sphinxcontrib-htmlhelp
-
 # when bootstrapping sphinx, we cannot even run an import check
 %bcond check 1
 # RHEL does not include html5lib, without which the tests fail
 %bcond tests %[%{with check} && %{undefined rhel}]
 
-Name:           python-%{pypi_name}
-Version:        2.0.3
+Name:           python-sphinxcontrib-htmlhelp
+Version:        2.0.4
 Release:        1%{?dist}
 Summary:        Sphinx extension for HTML help files
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
-Source0:        %{pypi_source}
+Source:         %{pypi_source sphinxcontrib_htmlhelp}
 BuildArch:      noarch
+
+# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
+# In the RPM environment the dependencies are handled correctly without it
+# Remove the runtime requirement on Sphinx from this package
+# See: https://github.com/sphinx-doc/sphinx/issues/11567
+# At the same time, Sphinx is a wanted test dependency
+Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
-
-%if %{with check}
-BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
-%if %{with tests}
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-html5lib
-%endif
-%endif
-
-%generate_buildrequires
-%pyproject_buildrequires
 
 
 %description
 sphinxcontrib-htmlhelp is a sphinx extension which renders HTML help files.
 
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python%{python3_pkgversion}-sphinxcontrib-htmlhelp
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python%{python3_pkgversion}-sphinxcontrib-htmlhelp
 sphinxcontrib-htmlhelp is a sphinx extension which renders HTML help files.
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n sphinxcontrib_htmlhelp-%{version}
 find -name '*.mo' -delete
+
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests: -x test}
 
 
 %build
@@ -81,7 +78,7 @@ popd
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f sphinxcontrib.htmlhelp.lang
+%files -n python%{python3_pkgversion}-sphinxcontrib-htmlhelp -f sphinxcontrib.htmlhelp.lang
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib/
@@ -89,6 +86,10 @@ popd
 
 
 %changelog
+* Thu Aug 24 2023 Karolina Surma <ksurma@redhat.com> - 2.0.4-1
+- update to 2.0.4
+Resolves: rhbz#2231932
+
 * Fri Aug 11 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.3-1
 - update to 2.0.3
 

@@ -2,20 +2,15 @@
 %global tarball_name %{name}-%{version}
 
 Name: libabigail
-Version: 2.3
-Release: 3%{?dist}
+Version: 2.4
+Release: 1%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache 2.0 WITH LLVM-exception
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
-# fix configure for removal of 'imp' in Python 3.12; code already fixed
-# https://sourceware.org/pipermail/libabigail/2023q3/005581.html
-Patch0: 0001-Fix-fedabipkgdiff-configure-check-for-Python-3.12.patch
-# Fix compilation warning with GCC 13.  This is fixed upstream by
-# https://inbox.sourceware.org/libabigail/87fs2goyz4.fsf@redhat.com/
-Patch1: 0001-ir-Remove-redundant-virtual-member-functions.patch
 
+BuildRequires: libbpf-devel
 BuildRequires: binutils-devel
 BuildRequires: gcc-c++
 BuildRequires: libtool
@@ -97,10 +92,9 @@ them manually.
 
 %prep
 %setup -n %{tarball_name}
-%patch -P 0 -p1
 
 %build
-%configure --enable-ctf --disable-silent-rules --disable-zip-archive --disable-static 
+%configure --enable-ctf --enable-btf --disable-silent-rules --disable-zip-archive --disable-static
 make %{?_smp_mflags}
 pushd doc
 make html-doc
@@ -140,8 +134,8 @@ fi
 %{_bindir}/abilint
 %{_bindir}/abipkgdiff
 %{_bindir}/kmidiff
-%{_libdir}/libabigail.so.2
-%{_libdir}/libabigail.so.2.0.0
+%{_libdir}/libabigail.so.3
+%{_libdir}/libabigail.so.3.0.0
 %{_libdir}/libabigail/default.abignore
 %doc README AUTHORS ChangeLog
 %license LICENSE.txt license-change-2020.txt
@@ -165,6 +159,15 @@ fi
 %endif
 
 %changelog
+* Fri Oct 20 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-1
+- Update to upstream 2.4 tarball
+- Drop patches
+  0001-Fix-fedabipkgdiff-configure-check-for-Python-3.12.patch and
+  0001-Fix-fedabipkgdiff-configure-check-for-Python-3.12.patch
+- Enable build with support for BTF
+- Added BuildRequires: libbpf-devel
+- Support soname bumped to libabigail.so.3.0.0
+
 * Thu Oct 12 2023 Dodji Seketeli <dodji@redhat.com> - 2.3-3
 - Use the SPDX format to express the license of the package
 - Fix a compilation warning

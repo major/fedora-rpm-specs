@@ -1,6 +1,6 @@
 %global upstreamname rocPRIM
 %global rocm_release 5.7
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain clang
@@ -79,7 +79,7 @@ cp NOTICES.txt %{buildroot}%{_docdir}/rocprim/
 %endif
 
 %files devel
-%{_docdir}/rocprim
+%dir %{_docdir}/rocprim
 %doc README.md
 %license %{_docdir}/rocprim/LICENSE.txt
 %license %{_docdir}/rocprim/NOTICES.txt
@@ -87,6 +87,9 @@ cp NOTICES.txt %{buildroot}%{_docdir}/rocprim/
 %{_datadir}/cmake/rocprim
 
 %changelog
+* Fri Oct 20 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.1-1
+- Update to 5.7.1
+
 * Tue Oct 03 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
 - Update to 5.7
 

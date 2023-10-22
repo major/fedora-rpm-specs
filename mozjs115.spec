@@ -76,7 +76,6 @@ BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-looseversion
 BuildRequires:  python3-six
 BuildRequires:  readline-devel
 BuildRequires:  wget

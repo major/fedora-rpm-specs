@@ -8,7 +8,7 @@ Version:        45.0
 Release:        1%{?dist}
 Summary:        A graphical directory tree analyzer
 
-License:        GPL-2.0-or-later AND GFDL-1.1
+License:        GPL-2.0-or-later AND GFDL-1.1-only
 URL:            https://wiki.gnome.org/Apps/Baobab
 Source0:        https://download.gnome.org/sources/baobab/45/%{name}-%{tarball_version}.tar.xz
 

@@ -1,15 +1,17 @@
 Name:           tuxpaint-stamps
 Version:        2020.05.29
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Extra stamp files for tuxpaint
 License:        GPL-1.0-or-later and GFDL and CC-BY-SA and LicenseRef-Fedora-Public-Domain
 URL:            http://www.tuxpaint.org/
 Source0:        https://downloads.sourceforge.net/tuxpaint/%{name}/2020-05-29/%{name}-%{version}.tar.gz
-Patch0:         indent.patch
+Patch0:         python3.patch
+Patch1:         indent.patch
 
 BuildArch:      noarch
 BuildRequires:  make
-BuildRequires:  gettext python3-devel
+BuildRequires:  gettext
+BuildRequires:  python3-devel
 Requires:       tuxpaint
 
 %description
@@ -19,11 +21,9 @@ This package is a collection of 'rubber stamps' for Tux Paint's "Stamp" tool.
 %setup -q
 # note need to update this if version is something other than a date
 sed -i "s/VER_DATE=\`date +\"%%Y.%%m.%%d\"\`/VER_DATE=\`date +%{version}\`/" Makefile
-sed -i "s|/usr/bin/env python|/usr/bin/env python3|" po/po2txt.py
-sed -i "s|/usr/bin/env python|/usr/bin/env python3|" po/txt2pot.py
-2to3 -w po/po2txt.py
-2to3 -w po/txt2pot.py
-%patch0 -p0
+%patch -P 0 -p0
+%patch -P 1 -p0
+%py3_shebang_fix .
 
 %build
 (cd po && sh ./createpo.sh)
@@ -89,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/tuxpaint/stamps/vehicles/emergency/firetruck.o
 %{_datadir}/appdata/%{name}.metainfo.xml
 
 %changelog
+* Fri Oct 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 2020.05.29-10
+- Drop dependency on 2to3
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.05.29-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

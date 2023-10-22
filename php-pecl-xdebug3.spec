@@ -13,13 +13,13 @@
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  9b96425d0c21cdf2dc6bc658c72d0cfc65a58603
+%global gh_commit  a03bda14ba866a34e7f90399078c73eadb1ecbfe
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
 %global upstream_version 3.3.0
-%global upstream_prever  alpha2
-%global upstream_lower   %(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
+%global upstream_prever  alpha3
+%global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
 %global _configure       ../%{sources}/configure
 
@@ -214,6 +214,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Fri Oct 20 2023 Remi Collet <remi@remirepo.net> - 3.3.0~alpha3-1
+- update to 3.3.0alpha3
+
 * Tue Oct  3 2023 Remi Collet <remi@remirepo.net> - 3.3.0~alpha2-1
 - update to 3.3.0alpha2
 

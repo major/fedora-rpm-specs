@@ -1,26 +1,30 @@
 Name: pnm2ppa
 Summary: Drivers for printing to HP PPA printers
 Epoch: 1
-Version: 1.04
-Release: 55%{?dist}
+Version: 1.13
+Release: 1%{?dist}
 URL: http://sourceforge.net/projects/pnm2ppa 
 Source: http://download.sourceforge.net/pnm2ppa/pnm2ppa-%{version}.tar.gz
 # Following sourcelink is dead currently.
 Source1: http://www.httptech.com/ppa/files/ppa-0.8.6.tar.gz
 # Upstream sync.
-Patch2: pbm2ppa-20000205.diff
+Patch1: pbm2ppa-20000205.diff
 # Use RPM_OPT_FLAGS.
-Patch3: pnm2ppa-redhat.patch
+Patch2: pnm2ppa-redhat.patch
 # Don't return a local variable out of scope (bug #704568).
-Patch4: pnm2ppa-coverity-return-local.patch
+Patch3: pnm2ppa-coverity-return-local.patch
+# FTBFS with GCC10
+Patch4: pnm2ppa-gcc10.patch
 # add ldflags to Makefile
 Patch5: pnm2ppa-ldflags.patch
-# FTBFS with GCC 10
-Patch6: pnm2ppa-gcc10.patch
-# fix argument reading for non x86_64 archs - use int instead of char
-Patch7: pnm2ppa-optargs-read.patch
-License: GPLv2+
+# pbm2ppa, pnm2ppa - GPL-2.0-or-later
+# pdq/* - GPL-2.0, but not shipped, thus not mentioned in license tag
+License: GPL-2.0-or-later
 
+# for autoreconf
+BuildRequires: autoconf
+# for autoreconf
+BuildRequires: automake
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
 # uses make
@@ -42,12 +46,11 @@ Install pnm2ppa if you need to print to a PPA printer.
 
 #pbm2ppa source
 %setup -q -T -D -a 1 
-%patch2 -p0 -b .20000205
-%patch3 -p1 -b .rh
-%patch4 -p1 -b .coverity-return-local
-%patch5 -p1 -b .ldflags
-%patch6 -p1 -b .gcc10
-%patch7 -p1 -b .optargs-read
+%patch -P 1 -p0 -b .20000205
+%patch -P 2 -p1 -b .rh
+%patch -P 3 -p1 -b .coverity-return-local
+%patch -P 4 -p1 -b .gcc10
+%patch -P 5 -p1 -b .ldflags
 
 for file in docs/en/LICENSE pbm2ppa-0.8.6/LICENSE; do
  sed "s|\r||g" $file > $file.new && \
@@ -55,9 +58,12 @@ for file in docs/en/LICENSE pbm2ppa-0.8.6/LICENSE; do
  mv $file.new $file
 done
 
+autoreconf -vfi
+
 %build
 # set redhat build flags
 %set_build_flags
+%configure
 %make_build
 pushd pbm2ppa-0.8.6
 %make_build
@@ -65,17 +71,17 @@ popd
 
 
 %install
-install -d $RPM_BUILD_ROOT%{_bindir}
-install -d $RPM_BUILD_ROOT%{_sysconfdir}
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-make INSTALLDIR=$RPM_BUILD_ROOT%{_bindir} CONFDIR=$RPM_BUILD_ROOT%{_sysconfdir} \
-    MANDIR=$RPM_BUILD_ROOT%{_mandir}/man1 install 
-install -p -m 0755 utils/Linux/detect_ppa $RPM_BUILD_ROOT%{_bindir}
-install -p -m 0755 utils/Linux/test_ppa $RPM_BUILD_ROOT%{_bindir}
-install -p -m 0755 pbm2ppa-0.8.6/pbm2ppa  $RPM_BUILD_ROOT%{_bindir}
-install -p -m 0755 pbm2ppa-0.8.6/pbmtpg   $RPM_BUILD_ROOT%{_bindir}
-install -p -m 0644 pbm2ppa-0.8.6/pbm2ppa.conf $RPM_BUILD_ROOT%{_sysconfdir}
-install -p -m 0644 pbm2ppa-0.8.6/pbm2ppa.1   $RPM_BUILD_ROOT%{_mandir}/man1
+install -d %{buildroot}%{_bindir}
+install -d %{buildroot}%{_sysconfdir}
+install -d %{buildroot}%{_mandir}/man1
+make INSTALLDIR=%{buildroot}%{_bindir} CONFDIR=%{buildroot}%{_sysconfdir} DESTDIR=%{buildroot} \
+    MANDIR=%{buildroot}%{_mandir}/man1 install
+install -p -m 0755 utils/Linux/detect_ppa %{buildroot}%{_bindir}
+install -p -m 0755 utils/Linux/test_ppa %{buildroot}%{_bindir}
+install -p -m 0755 pbm2ppa-0.8.6/pbm2ppa  %{buildroot}%{_bindir}
+install -p -m 0755 pbm2ppa-0.8.6/pbmtpg   %{buildroot}%{_bindir}
+install -p -m 0644 pbm2ppa-0.8.6/pbm2ppa.conf %{buildroot}%{_sysconfdir}
+install -p -m 0644 pbm2ppa-0.8.6/pbm2ppa.1   %{buildroot}%{_mandir}/man1
 
 chmod 644 docs/en/LICENSE
 mkdir -p pbm2ppa
@@ -104,6 +110,10 @@ done
 %config(noreplace) %{_sysconfdir}/pbm2ppa.conf
 
 %changelog
+* Fri Oct 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:1.13-1
+- rebase to 1.13
+- license rescan and SPDX conversion
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.04-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

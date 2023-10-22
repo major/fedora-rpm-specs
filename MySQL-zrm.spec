@@ -123,7 +123,7 @@ chmod 640 %{buildroot}%{_sysconfdir}/mysql-zrm/mysql-zrm.conf
 %{_datadir}/mysql-zrm/
 %attr(0755,root,root) %{_bindir}/*
 %{perl_vendorlib}/ZRM
-%{_unitdir}/*
+%attr(0644,root,root) %{_unitdir}/*
 %{_docdir}/%{name}/
 %{_mandir}/man1/*
 %{_mandir}/man5/*

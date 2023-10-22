@@ -1,24 +1,28 @@
 Name:           fuse-encfs
 Version:        1.9.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Encrypted pass-thru filesystem in userspace
 
-License:        GPLv3+
-Url:            http://www.arg0.net/encfs
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later
+Url:            https://github.com/vgough/encfs
 Source0:        https://github.com/vgough/encfs/releases/download/v%{version}/encfs-%{version}.tar.gz
+Source1:        https://github.com/vgough/encfs/releases/download/v%{version}/encfs-%{version}.tar.gz.asc
+Source2:        895F5BC123A02740.gpg
 
 Requires:       fuse >= 2.6
 Provides:       encfs = %{version}-%{release}
 Provides:       encfs%{?_isa} = %{version}-%{release}
 
-BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(openssl)
 BuildRequires:  cmake
-BuildRequires:  pkgconfig(fuse) >= 2.6
+BuildRequires:  gcc-c++
 BuildRequires:  gettext-devel >= 0.18
-BuildRequires:  libtool
+BuildRequires:  gnupg2
 BuildRequires:  libattr-devel
+BuildRequires:  libtool
 BuildRequires:  perl(Locale::TextDomain)
+#BuildRequires:  pkgconfig(easyloggingpp)
+BuildRequires:  pkgconfig(fuse) >= 2.6
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(tinyxml2)
 
 %description
@@ -29,6 +33,7 @@ passes access through to the underlying filesystem.  Similar to CFS except that
 it does not use NFS.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n encfs-%{version}
 rm -rf vendor/github.com/leethomasson
 mkdir %{_target_platform}
@@ -52,12 +57,16 @@ rm -f %{buildroot}/%{_libdir}/*.so
 
 %files -f encfs.lang
 %doc AUTHORS ChangeLog README.md
-%license COPYING COPYING.GPL
+%license COPYING COPYING.GPL COPYING.LGPL
 %{_bindir}/encfs*
 %{_libdir}/libencfs.so.*
 %{_mandir}/man1/encfs*
 
 %changelog
+* Sat Oct 21 2023 Peter Lemenkov <lemenkov@gmail.com> - 1.9.5-18
+- Switch to SPDX license tag
+- Check GPG signature
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

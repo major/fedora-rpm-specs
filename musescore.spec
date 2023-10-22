@@ -19,7 +19,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -348,12 +348,6 @@ highlights:
     * Import and export of MusicXML and Standard MIDI Files (SMF)
     * Translated in 26 languages
 
-NOTE: the training videos do not work.  Upstream uses the YouTube API to
-display the videos.  However, their YouTube API Key is not available to
-downstream packagers.  Therefore, the YouTube API rejects attempts to
-use it via MuseScore.  To access the training videos, you will have to
-watch them in a web browser, or use the AppImage version of MuseScore.
-
 %package        data
 Summary:        Common data for MuseScore
 Version:        %{musescore_ver}
@@ -455,10 +449,12 @@ sed -i 's,updatecontact,update_contact,g' \
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/mscore
 cp -p fonts/mscore/metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/mscore
 ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/mscore/mscore.json
+ln -s mscore %{buildroot}%{_datadir}/SMuFL/Fonts/Emmentaler
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/Gootville
 cp -p fonts/gootville/metadata.json \
       %{buildroot}%{_datadir}/SMuFL/Fonts/Gootville
 ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Gootville/Gootville.json
+ln -s Gootville %{buildroot}%{_datadir}/SMuFL/Fonts/Gonville
 mkdir -p %{buildroot}%{_datadir}/SMuFL/Fonts/MuseJazz
 cp -p fonts/musejazz/metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/MuseJazz
 ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/MuseJazz/MuseJazz.json
@@ -523,6 +519,7 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %dir %{_datadir}/SMuFL/
 %dir %{_datadir}/SMuFL/Fonts/
 %{_datadir}/SMuFL/Fonts/mscore/
+%{_datadir}/SMuFL/Fonts/Emmentaler
 
 %fontfiles -z 2
 
@@ -543,11 +540,15 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %dir %{_datadir}/SMuFL/
 %dir %{_datadir}/SMuFL/Fonts/
 %{_datadir}/SMuFL/Fonts/Gootville/
+%{_datadir}/SMuFL/Fonts/Gonville
 
 %fontfiles -z 9
 
 %changelog
-* Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 1:4.1.1-3
+* Fri Oct 20 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-4
+- Another attempt at fixing font metadata loading (bz 2244606)
+
+* Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-3
 - Link metadata to SMuFL-compliant names (bz 2244606)
 - Fix misspelling of mscoretabulature that breaks font loading
 

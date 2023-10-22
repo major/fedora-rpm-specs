@@ -1,5 +1,5 @@
 Name:    fotoxx
-Version: 23.70
+Version: 23.72
 Release: 1%{?dist}
 Summary: Photo editor
 
@@ -75,6 +75,9 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 %{_datadir}/metainfo/
 
 %changelog
+* Fri Oct 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.72-1
+- 23.72
+
 * Mon Oct 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.70-1
 - 23.70
 

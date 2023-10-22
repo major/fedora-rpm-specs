@@ -20,16 +20,17 @@
 
 Name:           mpi4py
 Version:        3.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings of the Message Passing Interface (MPI)
 
 License:        BSD-2-Clause
 URL:            https://mpi4py.readthedocs.io/en/stable/
 Source0:        https://github.com/mpi4py/mpi4py/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         cythonver.patch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python3-cython0.29
+BuildRequires:  python3-cython
 # For testing
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  python%{python3_pkgversion}-simplejson
@@ -229,6 +230,9 @@ mv build mpich
 
 
 %changelog
+* Fri Oct 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.5-2
+- Build with cython 3
+
 * Wed Oct 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.5-1
 - 3.1.5
 

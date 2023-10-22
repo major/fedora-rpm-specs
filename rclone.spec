@@ -7,7 +7,7 @@
 
 # https://github.com/rclone/rclone
 %global goipath         github.com/rclone/rclone
-Version:                1.64.0
+Version:                1.64.2
 
 %gometa -f
 
@@ -64,6 +64,10 @@ install -Dpm 0644 %{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
 install -Dpm 0644 %{name}.fish %{buildroot}%{fish_completions_dir}/%{name}.fish
 install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 
+# https://rclone.org/commands/rclone_mount/#rclone-as-unix-mount-helper
+install -m 0755 -vd                     %{buildroot}%{_sbindir}
+ln -rs %{buildroot}%{_bindir}/rclone %{buildroot}%{_sbindir}/mount.rclone
+ln -rs %{buildroot}%{_bindir}/rclone %{buildroot}%{_bindir}/rclonefs
 
 %if %{with check}
 %check
@@ -95,6 +99,8 @@ done
 %doc MAINTAINERS.md MANUAL.html RELEASE.md CONTRIBUTING.md MANUAL.md README.md
 %doc docs/
 %{_bindir}/rclone
+%{_bindir}/rclonefs
+%{_sbindir}/mount.rclone
 %{_mandir}/man1/rclone.1*
 %{bash_completions_dir}/%{name}
 %{fish_completions_dir}/%{name}.fish

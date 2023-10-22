@@ -1,6 +1,6 @@
 Name:		mftrace
 Version:	1.2.20
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Utility for converting TeX bitmap fonts to Type 1 or TrueType fonts
 
 License:	GPL-2.0-only
@@ -8,8 +8,9 @@ URL:		http://lilypond.org/mftrace/
 Source0:	http://lilypond.org/download/sources/mftrace/%{name}-%{version}.tar.gz
 Patch0:		mftrace-shebang.patch
 Patch1:         mftrace-1.2.20-man.patch
+Patch2:         python3.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:	python3-devel autotrace
 Requires:	autotrace fontforge t1utils texlive-collection-fontsrecommended
@@ -29,10 +30,10 @@ fonts.
 %py3_shebang_fix .
 
 sed -i -e "s|-Wall -O2|$RPM_OPT_FLAGS|" GNUmakefile.in
-find . -type f -name '*.py' | xargs 2to3 -w
 
-%patch0 -p0
-%patch1 -p0
+%patch -P 0 -p0
+%patch -P 1 -p0
+%patch -P 2 -p0
 
 %build
 PYTHON=%{__python3} %configure
@@ -51,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.20-11
+- Drop dependency on 2to3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.20-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

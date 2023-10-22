@@ -127,9 +127,8 @@ touch ChangeLog
 sed -i -e '/^DISTRIBUTION_HOME/s/\/$//' frontend/gtkmm/src/Makefile.*
 
 
-# upstream is python2
-2to3 --write --nobackups libs/dbus/bin/dbusgen.py
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pni %{__python3} libs/dbus/bin/dbusgen.py
+# use versioned python command
+%py3_shebang_fix libs/dbus/bin/dbusgen.py
 sed -i 's/AC_CHECK_PROG(PYTHON, python, python)/AC_CHECK_PROG(PYTHON, python3, python3)/' configure.ac
 
 %build

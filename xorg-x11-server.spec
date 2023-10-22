@@ -48,6 +48,7 @@ Name:      xorg-x11-server
 Version:   1.20.14
 Release:   25%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
+# SPDX
 License:   MIT
 
 #VCS:      git:git://git.freedesktop.org/git/xorg/xserver
@@ -560,6 +561,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Fri Oct 20 2023 José Expósito <jexposit@redhat.com>
+- SPDX migration: license is already SPDX compatible
+
 * Fri Sep 29 2023 Orion Poplawski <orion@nwra.com> - 1.20.14-25
 - Fix xvfb-run --error-file / auth-file options
 

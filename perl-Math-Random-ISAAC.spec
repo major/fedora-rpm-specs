@@ -1,18 +1,28 @@
 Name:           perl-Math-Random-ISAAC
 Version:        1.004
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl interface to the ISAAC PRNG algorithm
 License:        MIT or GPL+ or Artistic
 
 URL:            https://metacpan.org/release/Math-Random-ISAAC
 Source0:        https://cpan.metacpan.org/authors/id/J/JA/JAWNSY/Math-Random-ISAAC-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
+# runtime requirements
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(integer)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
 BuildRequires:  perl(Test::LeakTrace)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
+BuildRequires:  perl(Test::Without::Module)
 
 %{?perl_default_filter}
 
@@ -23,31 +33,34 @@ some seed information and produce seemingly random results as output.
 
 %prep
 %setup -q -n Math-Random-ISAAC-%{version}
-sed -i 's/\r//' examples/*.pl
+/usr/bin/perl -pi -e 's/\r//' examples/*.pl
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes examples README
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Math*
+%{_mandir}/man3/Math*
 
 %changelog
+* Fri Oct 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.004-38
+- Reorder dependencies
+- Use perl instead of sed
+- Replace %%{__perl} with /usr/bin/perl
+- Pass NO_PERLLOCAL to Makefile.PL
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

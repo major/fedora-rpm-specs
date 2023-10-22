@@ -6,7 +6,7 @@
 
 Name:	        mingw-srvany
 Version:        1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Utility for creating services for Windows
 
 License:        GPL-2.0-or-later
@@ -40,6 +40,18 @@ Utility for creating a service from any MinGW Windows binary
 %{?mingw_debug_package}
 
 
+%package redistributable
+Summary:	Utility for creating services for Windows
+# previously provided symlinks to the mingw32 path
+Conflicts:	virt-v2v < 1:2.3.5-4
+
+
+%description redistributable
+srvany is a utility for creating a service from any MinGW Windows binary.
+This package contains the binaries without any mingw toolchain dependencies,
+for use with virt-v2v.
+
+
 %prep
 %setup -q -n rhsrvany-%{version}
 cp %{SOURCE1} .
@@ -53,6 +65,8 @@ make %{?_smp_mflags}
 
 %install
 make DESTDIR=$RPM_BUILD_ROOT install
+# redistributable
+make DESTDIR=$RPM_BUILD_ROOT install bindir=%{_datadir}/virt-tools
 
 
 %files -n mingw32-srvany
@@ -60,8 +74,19 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{mingw32_bindir}/rhsrvany.exe
 %{mingw32_bindir}/pnp_wait.exe
 
+%files redistributable
+%doc COPYING
+%dir %{_datadir}/virt-tools/
+%{_datadir}/virt-tools/rhsrvany.exe
+%{_datadir}/virt-tools/pnp_wait.exe
+# duplicate debuginfo
+%exclude /usr/lib/debug%{_datadir}/virt-tools/*.debug
+
 
 %changelog
+* Thu Oct 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1-6
+- Add redistributable subpackage
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

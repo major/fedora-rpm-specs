@@ -4,7 +4,7 @@
 
 Name: libsmbios
 Version: 2.4.3
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Libsmbios C/C++ shared libraries
 
 License: GPLv2+ or OSL 2.1
@@ -105,7 +105,7 @@ chmod +x ./configure
 %configure
 
 mkdir -p out/libsmbios_c
-make CFLAGS+="%{optflags} -Werror" %{?_smp_mflags} 2>&1 | tee build-%{_arch}.log
+%make_build CFLAGS+="%{optflags} -Werror" 2>&1 | tee build-%{_arch}.log
 
 echo \%doc _build/build-%{_arch}.log > buildlogs.txt
 
@@ -199,6 +199,9 @@ rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot
 %{_datadir}/smbios-utils
 
 %changelog
+* Sat Oct 21 2023 Sérgio Basto <sergio@serjux.com> - 2.4.3-11
+- Use make macros https://src.fedoraproject.org/rpms/libsmbios/pull-request/5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

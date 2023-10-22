@@ -1,16 +1,17 @@
 %global libname tickit
+%global libtickit_ver  v0.4
 
 # Unibilium by default, otherwise ncurses
 %bcond_without unibilium
 
 Name:           lib%{libname}
-Version:        0.4.3
-Release:        3%{?dist}
+Version:        0.4.4
+Release:        1%{?dist}
 Summary:        Terminal Interface Construction Kit
 
 License:        MIT
-URL:            http://www.leonerd.org.uk/code/%{name}/
-Source0:        %{url}/%{name}-%{version}.tar.gz
+URL:            https://launchpad.net/%{name}
+Source0:        %{url}/trunk/%{libtickit_ver}/+download/%{name}-%{version}.tar.gz
 
 BuildRequires:  coreutils
 BuildRequires:  gcc
@@ -79,6 +80,10 @@ make examples
 %{_mandir}/man7/%{libname}_*.7*
 
 %changelog
+* Fri Oct 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.4.4-1
+- 0.4.4 bump (rhbz#2245228)
+- Update URL and Source0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

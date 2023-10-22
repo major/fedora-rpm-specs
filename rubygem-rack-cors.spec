@@ -2,12 +2,14 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Middleware for enabling Cross-Origin Resource Sharing in Rack apps
 
 License:        MIT
 URL:            https://github.com/cyu/rack-cors
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/cyu/rack-cors/pull/266
+Patch0:         rack-cors-pr266-minitest-mocha-compatibility.patch
 
 BuildArch:      noarch
 BuildRequires:  rubygems-devel
@@ -34,6 +36,7 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
+%patch -P0 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -75,6 +78,9 @@ popd
 
 
 %changelog
+* Fri Oct 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.1-10
+- Backport upstream patch for Minitest / Mocha compatibility
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:           perl-DBD-MariaDB
 Version:        1.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MariaDB and MySQL driver for the Perl5 Database Interface (DBI)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-MariaDB/
@@ -161,14 +161,17 @@ make test %{?with_perl_DBD_MariaDB_enables_leak_test:EXTENDED_TESTING=1}
 %files
 %license LICENSE
 %doc Changes Changes.historic
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/DBD*
 %{perl_vendorarch}/DBD*
-%{_mandir}/man3/*
+%{_mandir}/man3/DBD::MariaDB*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.23-2
+- Replace using mysql by mariadb in setup script
+
 * Mon Sep 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.23-1
 - 1.23 bump (rhbz#2238227)
 

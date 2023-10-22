@@ -42,14 +42,19 @@ perl -pi -e 's/^(CFLAGS.*)-O3(.*)/$1\$\(RPM_OPT_FLAGS\)$2 -DPLUGINDIR=\$\(PLUGIN
 # avoid X.org dependency
 perl -pi -e 's/-mkdirhier/-mkdir -p/' src/makefile
 
+# Respect our CC and CPP choices
+perl -pi -e 's/CC(.*)=(.*)cc//' src/makefile
+perl -pi -e 's/CPP(.*)=(.*)c\+\+//' src/makefile
+
 # fix links to the header file in the docs
 cd doc
 perl -pi -e "s!HREF=\"ladspa.h.txt\"!href=\"file:///usr/include/ladspa.h\"!" *.html
 
 
 %build
+%set_build_flags
 cd src
-PLUGINDIR=\\\"%{_libdir}/ladspa\\\" make targets %{?_smp_mflags} LD="ld --build-id"
+PLUGINDIR=\\\"%{_libdir}/ladspa\\\" %{__make} targets %{?_smp_mflags} LD="ld --build-id"
 
 #make test
 #make check
@@ -59,7 +64,7 @@ PLUGINDIR=\\\"%{_libdir}/ladspa\\\" make targets %{?_smp_mflags} LD="ld --build-
 rm -rf $RPM_BUILD_ROOT
 
 cd src
-make install \
+%make_install \
   INSTALL_PLUGINS_DIR=$RPM_BUILD_ROOT%{_libdir}/ladspa \
   INSTALL_INCLUDE_DIR=$RPM_BUILD_ROOT%{_includedir} \
   INSTALL_BINARY_DIR=$RPM_BUILD_ROOT%{_bindir}

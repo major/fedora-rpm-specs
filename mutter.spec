@@ -50,6 +50,8 @@ Patch: 0002-tests-dbusmock-templates-rtkit-Add-MakeThreadHighPri.patch
 Patch: 0003-thread-Allow-turning-off-rt-scheduling-for-running-t.patch
 Patch: 0004-kms-impl-device-Inhibit-real-time-scheduling-when-mo.patch
 
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3329
+Patch:         3329.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

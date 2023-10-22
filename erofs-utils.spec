@@ -7,7 +7,7 @@
 %bcond zlib     1
 
 Name:           erofs-utils
-Version:        1.7
+Version:        1.7.1
 Release:        1%{?dist}
 
 Summary:        Utilities for working with EROFS
@@ -16,11 +16,11 @@ URL:            https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-util
 
 Source:         %{url}/snapshot/%{name}-%{version}.tar.gz
 
-BuildRequires:  gcc
+BuildRequires:  %[ "%{toolchain}" == "clang" ? "clang compiler-rt" : "gcc" ]
 BuildRequires:  libtool
 BuildRequires:  make
-%{?with_fuse:BuildRequires:  pkgconfig(fuse) >= 2.6}
 %{?with_deflate:BuildRequires:  pkgconfig(libdeflate)}
+%{?with_fuse:BuildRequires:  pkgconfig(fuse) >= 2.6}
 %{?with_lz4:BuildRequires:  lz4-devel >= 1.9.3}
 %{?with_lzma:BuildRequires:  xz-devel >= 5.4}
 %{?with_selinux:BuildRequires:  pkgconfig(libselinux)}
@@ -87,6 +87,9 @@ autoreconf -fi
 
 
 %changelog
+* Fri Oct 20 2023 David Michael <fedora.dm0@gmail.com> - 1.7.1-1
+- Update to the 1.7.1 release.
+
 * Thu Sep 21 2023 David Michael <fedora.dm0@gmail.com> - 1.7-1
 - Update to the 1.7 release.
 

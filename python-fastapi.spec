@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.103.2
+Version:        0.104.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -438,15 +438,23 @@ fi
 #
 # In general, we cannot respect exact-version pins, so we loosen them to lower
 # bounds.
+#
+# Filter requirements-docs-tests.txt similarly, and reference the filtered
+# version from requirements-tests-filtered.txt.
 sed -r \
-    -e 's/^(mypy|black|ruff|coverage)\b/# &/' \
+    -e 's/^(mypy|ruff|coverage)\b/# &/' \
     -e 's/^(types-(u|or)json)\b/# &/' \
     -e 's/^(-e .)$/# &/' \
     -e 's/==/>=/' \
 %if %{without orjson}
     -e 's/^(orjson)\b/# &/' \
 %endif
+    -e 's/(requirements-docs-tests)(\.txt)/\1-filtered\2/' \
     requirements-tests.txt | tee requirements-tests-filtered.txt
+sed -r \
+    -e 's/^(black)\b/# &/' \
+    -e 's/==/>=/' \
+    requirements-docs-tests.txt | tee requirements-docs-tests-filtered.txt
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:

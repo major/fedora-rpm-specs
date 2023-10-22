@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -35,10 +35,15 @@ Source10: discoverrc
 # Backport distro upgrade: https://invent.kde.org/aleasto/discover/-/commits/distro-upgrade-backport/
 Patch100: distro-upgrade.patch
 
+# Set cache-age hint in the RefreshCache transaction
+# https://invent.kde.org/plasma/discover/-/merge_requests/640
+Patch101: discover-pk-cache-age.patch
+
 ## downstream patches
-# workaround PK metadata refresh issues (always force refresh)
-# adjust periodic refresh from 1/24hr to 1/12hr
-Patch200: discover-5.21.4-pk_refresh_force.patch
+# Adjust periodic refresh from 1/24hr to 1/12hr
+# This ensures that it is checked at least once during the work day.
+# It is double the time that Fedora repos are set to in DNF (6h).
+Patch200: discover-pk-refresh-timer.patch
 
 # Do not use system appstream cache (#2011322)
 # Not sure if this is upstreamable yet, or just a hack
@@ -343,6 +348,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Wed Oct 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.8-2
+- Update force refresh patch from upstream
+
 * Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
 - 5.27.8
 

@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate thiserror
+%global crate drain
 
-Name:           rust-thiserror
-Version:        1.0.50
+Name:           rust-drain
+Version:        0.1.1
 Release:        %autorelease
-Summary:        Derive(Error)
+Summary:        Support for graceful shutdown
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/thiserror
+License:        Apache-2.0
+URL:            https://crates.io/crates/drain
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused features with additional dependencies
+Patch:          drain-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Derive(Error).}
+A crate that supports graceful shutdown.}
 
 %description %{_description}
 
@@ -30,8 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

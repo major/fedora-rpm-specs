@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           mojo-parent
-Version:        76
-Release:        2%{?dist}
+Version:        77
+Release:        1%{?dist}
 Summary:        Codehaus MOJO parent project pom file
 License:        Apache-2.0
 URL:            https://www.mojohaus.org/mojo-parent/
@@ -44,6 +44,9 @@ cp %SOURCE1 .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Thu Oct 19 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 77-1
+- Update to upstream version 77
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 76-2
 - Convert License tag to SPDX format
 

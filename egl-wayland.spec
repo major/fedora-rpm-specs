@@ -4,8 +4,8 @@
 %global tag %{version}
 
 Name:           egl-wayland
-Version:        1.1.12
-Release:        4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        1.1.13
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Wayland EGL External Platform library
 # SPDX
 License:        MIT
@@ -16,7 +16,6 @@ Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 %else
 Source0:        %url/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 %endif
-Patch0:         %url/compare/1.1.12...master.patch#/1.1.12_master.patch
 
 Source1:        10_nvidia_wayland.json
 Source2:        15_nvidia_gbm.json
@@ -75,6 +74,9 @@ find %{buildroot} -name '*.la' -delete
 %{_datadir}/wayland-eglstream/
 
 %changelog
+* Fri Oct 20 2023 Leigh Scott <leigh123linux@gmail.com> - 1.1.13-1
+- Update to 1.1.13
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.1.12-4
 - SPDX migration: license is already SPDX compatible
 

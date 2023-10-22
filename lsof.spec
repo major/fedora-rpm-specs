@@ -1,9 +1,8 @@
 Summary: A utility which lists open files on a Linux/UNIX system
 Name: lsof
-Version: 4.96.3
-Release: 4%{?dist}
-# Sendmail .. lib/snpf.c
-License: lsof AND Sendmail
+Version: 4.98.0
+Release: 1%{?dist}
+License: lsof AND GPL-3.0-or-later
 URL: https://github.com/lsof-org/lsof
 
 # lsof contains licensed code that we cannot ship.  Therefore we use
@@ -18,13 +17,14 @@ Source1: upstream2downstream.sh
 
 # BZ#1260300 - move lsof man page to section 1
 Patch0: lsof-man-page-section.patch
-Patch1: lsof-Configure.patch
 
 BuildRequires: gcc
 BuildRequires: libselinux-devel
 BuildRequires: libtirpc-devel
 BuildRequires: groff-base
 BuildRequires: make
+BuildRequires: automake
+BuildRequires: autoconf
 
 %description
 Lsof stands for LiSt Open Files, and it does just that: it lists information
@@ -32,11 +32,11 @@ about files that are open by the processes running on a UNIX system.
 
 %prep
 %setup -q -n %{lsofrh}
-%patch0 -p1 -b .man-page-section
-%patch1 -p1
+%autopatch -p1
+#%patch1 -p1
 
 %build
-./Configure -n linux
+%configure
 %make_build DEBUG="%{build_cflags} -I/usr/include/tirpc" CFGL="%{build_ldflags} -L./lib -llsof -lselinux -ltirpc"
 # rebase to 4.93 introduced change in Lsof.8 with unhandled .so inclusion
 soelim -r Lsof.8 > lsof.1
@@ -53,6 +53,9 @@ install -p -m 0644 lsof.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/lsof.1
 %{_mandir}/man*/*
 
 %changelog
+* Fri Oct 20 2023 Jan Rybar <jrybar@redhat.com> - 4.98.0-1
+- rebase to lsof-4.98
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.96.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

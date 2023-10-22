@@ -8,6 +8,7 @@ VCS:            scm:git:git://git.savannah.gnu.org/pspp.git
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
 Source2:        pspp-Smake
+Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 # FIXME don't know what's going on here. Hopefully nodody uses i686 apps these days.
 Patch1:         pspp-0001-Disable-perl-tests-on-i686.patch
 # CVE-2022-39831
@@ -22,6 +23,7 @@ BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gettext-devel
 BuildRequires:  gnulib-devel
+BuildRequires:  gnupg2
 BuildRequires:  gsl-devel >= 1.11-2
 BuildRequires:  gtk3-devel
 BuildRequires:  gtksourceview4-devel
@@ -59,6 +61,7 @@ support is currently limited, but growing.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Remove bundled Gnulib and prepare to import system-wide one
 rm -rf gl/

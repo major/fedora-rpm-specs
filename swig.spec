@@ -63,7 +63,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -204,8 +204,6 @@ done
 # Disable maximum compile warnings when octave is supported, because Octave
 # code produces lots of the warnings demanded by strict ISO C and ISO C++.
 # It causes that log had more then 600M.
-# AC_CHECK_PROGS requires just the name, so use for configure
-#   --with-python3=python3 --with-2to3=2to3
 %configure \
 %if %{ocamllang}
   --with-ocaml \
@@ -214,7 +212,6 @@ done
 %endif
 %if %{python3lang}
   --with-python3=python3 \
-  --with-2to3=2to3 \
 %else
   --without-python3 \
 %endif
@@ -371,6 +368,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Fri Oct 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-11
+- Stop using Python's 2to3
+
 * Wed Oct 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-11
 - Fix PHP test, it fails with PHP 8.3
 

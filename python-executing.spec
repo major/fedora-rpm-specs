@@ -1,6 +1,10 @@
+# Running the tests requires ipython which requires python-stack-data which
+# introduces a circular dependency back on python-executing
+%bcond tests 1
+
 Name:           python-executing
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
@@ -31,7 +35,7 @@ sed -Ei "/coverage-?/d" setup.cfg
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests:-t}
 
 
 %build
@@ -44,8 +48,11 @@ sed -Ei "/coverage-?/d" setup.cfg
 
 
 %check
+%pyproject_check_import
+%if %{with tests}
 # test_listcomp doesn't work with Python 3.12
 %tox -- -- -k "not test_listcomp"
+%endif
 
 
 %files -n python3-executing -f %{pyproject_files}
@@ -54,6 +61,9 @@ sed -Ei "/coverage-?/d" setup.cfg
 
 
 %changelog
+* Fri Oct 20 2023 Karolina Surma <ksurma@redhat.com> - 2.0.0-2
+- Conditionalize tests to prevent circular dependency when bootstrapping new Python
+
 * Mon Oct 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.0-1
 - Update to 2.0.0 (rhbz#2241493)
 

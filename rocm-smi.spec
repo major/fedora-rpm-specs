@@ -1,5 +1,5 @@
 %global rocm_release 5.7
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
@@ -69,6 +69,9 @@ install -D -m 644 README.md %{buildroot}%{_docdir}/rocm_smi/README.md
 %{_libdir}/cmake/rocm_smi/
 
 %changelog
+* Thu Oct 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.1-1
+- Update to 5.7.1
+
 * Sun Sep 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
 - Update to 5.7
 

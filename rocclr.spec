@@ -5,7 +5,7 @@
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
 %global rocm_release 5.7
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocclr
@@ -296,6 +296,9 @@ chmod 755 %{buildroot}%{_libdir}/lib*.so*
 %{_docdir}/hip
 
 %changelog
+* Fri Oct 20 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.1-1
+- Update to 5.7.1
+
 * Tue Oct 03 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
 - Update to 5.7
 

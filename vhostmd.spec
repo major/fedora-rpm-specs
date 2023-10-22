@@ -125,11 +125,7 @@ rm $RPM_BUILD_ROOT%{_datadir}/vhostmd/scripts/pagerate.pl
 
 %pre
 # UID:GID 112:112 reserved, see RHBZ#534109.
-getent group vhostmd >/dev/null || groupadd -g 112 -r vhostmd
-getent passwd vhostmd >/dev/null || \
-useradd -u 112 -r -g vhostmd -d %{_datadir}/vhostmd -s /sbin/nologin \
--c "Virtual Host Metrics Daemon" vhostmd
-exit 0
+%sysusers_create_inline u vhostmd 112 "Virtual Host Metrics Daemon" %{_datadir}/vhostmd /sbin/nologin
 
 
 %post

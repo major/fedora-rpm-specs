@@ -42,7 +42,7 @@ Bibutils development files.
     --dynamic
 %make_build DISTRO_CFLAGS="%optflags" LDFLAGSIN="%{?__global_ldflags}"
 
-xsltproc -o bibutils.1 --nonet %{_datadir}/sgml/docbook/xsl-stylesheets/manpages/docbook.xsl bibutils.dbk
+xsltproc -o bibutils.1 --nonet /usr/share/sgml/docbook/xsl-stylesheets/manpages/docbook.xsl bibutils.dbk
 
 
 %install

@@ -1,11 +1,24 @@
 Name:           fuse-sshfs
 Version:        3.7.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        FUSE-Filesystem to access remote filesystems via SSH
 License:        GPLv2
 URL:            https://github.com/libfuse/sshfs
 Source0:        https://github.com/libfuse/sshfs/releases/download/sshfs-%{version}/sshfs-%{version}.tar.xz
 Source1:        https://github.com/libfuse/sshfs/releases/download/sshfs-%{version}/sshfs-%{version}.tar.xz.asc
+# Find which key was used for signing the release:
+#
+# $ LANG=C gpg --verify sshfs-3.7.3.tar.xz.asc sshfs-3.7.3.tar.xz
+# gpg: Signature made Thu May 26 15:23:53 2022 CEST
+# gpg:                using RSA key ED31791B2C5C1613AF388B8AD113FCAC3C4E599F
+# gpg: Can't check signature: No public key
+#
+# Now export the key required as follows:
+#
+# gpg --no-default-keyring --keyring ./keyring.gpg --keyserver keyserver.ubuntu.com --recv-key ED31791B2C5C1613AF388B8AD113FCAC3C4E599F
+# gpg --no-default-keyring --keyring ./keyring.gpg  --output ED31791B2C5C1613AF388B8AD113FCAC3C4E599F.gpg --export
+Source2:	ED31791B2C5C1613AF388B8AD113FCAC3C4E599F.gpg
+
 Patch1:         sshfs-0001-Refer-to-mount.fuse3-instead-of-mount.fuse.patch
 
 Provides:       sshfs = %{version}-%{release}
@@ -13,6 +26,7 @@ Requires:       fuse3 >= 3.1.0
 Requires:       openssh-clients
 
 BuildRequires:  gcc
+BuildRequires:  gnupg2
 BuildRequires:  meson
 BuildRequires:  fuse3-devel >= 3.1.0
 BuildRequires:  glib2-devel >= 2.0
@@ -32,6 +46,7 @@ mounting the filesystem is as easy as logging into the server with ssh.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n sshfs-%{version}
 # fix tests
 sed -i "s/'fusermount'/'fusermount3'/g" test/util.py
@@ -61,6 +76,9 @@ python3 -m pytest test/
 
 
 %changelog
+* Sat Oct 21 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.7.3-5
+- Check GPG signature
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

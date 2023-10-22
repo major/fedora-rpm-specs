@@ -1,9 +1,9 @@
 %global cpan_version 0.080001
 Name:           perl-Math-Random-Secure
 Version:        0.08.0001
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Cryptographically-secure, cross-platform replacement for rand()
-License:        Artistic 2.0
+License:        Artistic-2.0
 
 URL:            https://metacpan.org/release/Math-Random-Secure
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FREW/Math-Random-Secure-%{cpan_version}.tar.gz
@@ -41,15 +41,15 @@ for Perl's built-in rand function.
 %setup -q -n Math-Random-Secure-%{cpan_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -58,6 +58,12 @@ make test
 %{_mandir}/man3/Math*
 
 %changelog
+* Fri Oct 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.08.0001-21
+- Migrated to SPDX license
+- Use /usr/bin/perl instead of %%{__perl}
+- Use %%{make_build} and %%{make_install} where appropriate
+- Pass NO_PERLLOCAL to Makefile.PL
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08.0001-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

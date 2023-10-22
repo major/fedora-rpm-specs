@@ -2,7 +2,7 @@
 
 Name:     rubygem-%{gem_name}
 Version:  2.3.8
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Converts AsciiDoc documents to PDF using Prawn
 License:  MIT
 URL:      https://github.com/asciidoctor/asciidoctor-pdf
@@ -11,6 +11,8 @@ Source0:  https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git checkout v2.3.8
 # tar -czf rubygem-asciidoctor-pdf-2.3.8-specs-examples.tgz spec/ examples/ docs/
 Source1:  %{name}-%{version}-specs-examples.tgz
+# https://github.com/asciidoctor/asciidoctor-pdf/pull/2459
+Patch0:   asciidoctor-pdf-pr2459-ruby33-NoMethodError-msg.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel > 1.3.1
@@ -50,6 +52,8 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 mv %{_builddir}/{spec,examples} .
 mv %{_builddir}/docs/modules docs/
+
+%patch -P0 -p1
 
 # Regenerate the parser.
 tt lib/asciidoctor/pdf/formatted_text/parser.treetop
@@ -95,6 +99,10 @@ rspec -t '~network'
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Fri Oct 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.8-3
+- Backport upstream patch for testsuite for ruby3.3 NoMethodError
+  message change
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

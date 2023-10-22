@@ -18,6 +18,7 @@ Source1:        https://www.apache.org/dist/xmlgraphics/%{name}/source/%{name}-%
 Source2:        %{name}.script
 Source3:        batik-pdf-MANIFEST.MF
 Source4:        https://www.apache.org/licenses/LICENSE-1.1.txt
+Source5:        5C9A30FF22B2C02F30261C305B93F1DF7CDB6DEA.gpg
 Patch1:         0001-Main.patch
 Patch2:         0002-Use-sRGB.icc-color-profile-from-colord-package.patch
 Patch3:         0003-Port-to-QDox-2.0.patch
@@ -36,6 +37,7 @@ BuildRequires:  apache-commons-io
 BuildRequires:  apache-commons-logging
 BuildRequires:  batik
 BuildRequires:  fontbox
+BuildRequires:  gnupg2
 BuildRequires:  javapackages-local
 BuildRequires:  junit
 BuildRequires:  maven-antrun-plugin
@@ -69,6 +71,7 @@ Summary:        Javadoc for %{name}
 Javadoc for %{name}.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE5}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 cp %{SOURCE4} LICENSE-1.1
