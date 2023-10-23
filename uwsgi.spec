@@ -202,7 +202,7 @@
 
 Name:           uwsgi
 Version:        2.0.22
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -217,6 +217,8 @@ Source4:        https://github.com/unbit/%{docrepo}/archive/%{commit}/%{docrepo}
 Source5:        README.Fedora
 Source7:        uwsgi.tmpfiles
 
+# When adding patches please add to the end, don't
+# reuse intermediate numbers
 Patch0:         uwsgi_trick_chroot_rpmbuild.patch
 Patch1:         uwsgi_fix_rpath.patch
 Patch2:         uwsgi_ruby20_compatibility.patch
@@ -1260,10 +1262,6 @@ cp -p %{SOURCE5} README.Fedora
 %patch -P20 -p1
 %patch -P21 -p1
 
-%if %{with perl} && (%{with python3} || %{with python3_other}) && %{with perlcoro}
-%{__python} -m lib2to3 --write --nobackups plugins/coroae/uwsgiplugin.py
-%endif
-
 %build
 CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable -fPIC" %{__python} uwsgiconfig.py --verbose --build fedora.ini
 %if %{with python2}
@@ -1853,6 +1851,9 @@ exit 0
 
 
 %changelog
+* Sat Oct 21 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-7
+- Drop 2to3 call, it doesn't do anything anymore
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 2.0.22-6
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 - add patch for PHP 8.3 from

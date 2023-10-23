@@ -19,8 +19,8 @@ need libxc version > 3
 
 %global upstream_name nwchem
 
-%{?!major_version: %global major_version 7.2.0}
-%{?!git_hash: %global git_hash d0d141fdfbf9595b9fd0ec3c7c803c6c5fe020b2}
+%{?!major_version: %global major_version 7.2.1}
+%{?!git_hash: %global git_hash 487f8b945fbe9cedf02757dacddc66d40dc74ed9}
 %{?!ga_version: %global ga_version 5.8.2-1}
 
 
@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		4%{?dist}
+Release:		1%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
@@ -514,6 +514,9 @@ mv QA.orig QA
 
 
 %changelog
+* Fri Oct 20 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.1-1
+- New upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

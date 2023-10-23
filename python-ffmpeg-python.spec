@@ -13,6 +13,8 @@ Summary:        Python bindings for FFmpeg - with complex filtering support
 License:        Apache-2.0
 URL:            https://github.com/kkroening/%{projname}
 Source0:        %{url}/archive/%{version}/%{projname}-%{version}.tar.gz
+# Rebased version of: https://github.com/kkroening/ffmpeg-python/pull/795
+Patch:          remove-dependency-on-future.patch
 
 BuildArch:      noarch
 
@@ -35,7 +37,7 @@ Requires:       /usr/bin/ffmpeg
 %description -n python3-%{projname} %_description
 
 %prep
-%autosetup -n %{projname}-%{version}
+%autosetup -n %{projname}-%{version} -p1
 
 %generate_buildrequires
 %if %{with tests}

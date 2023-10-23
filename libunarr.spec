@@ -1,11 +1,16 @@
-Name:           libunarr
-Version:        1.1.0
+%global forgeurl https://github.com/selmf/%{upstream_package_name}
+%global tag v%{version}
+%global upstream_package_name unarr
+
+Name:           lib%{upstream_package_name}
+Version:        1.1.1
+%forgemeta
 Release:        %autorelease
 Summary:        Decompression library for rar, tar and zip archives
 
-License:        LGPLv3+
-URL:            https://github.com/selmf/unarr
-Source0:        %{url}/releases/download/v%{version}/unarr-%{version}.tar.xz
+License:        LGPL-3.0-or-later
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -39,7 +44,7 @@ applications that use %{name}.
 
 
 %prep
-%autosetup -n unarr-%{version} -p1
+%forgeautosetup -p1
 
 # wrong-file-end-of-line-encoding fix
 sed -i 's/\r$//' README.md
@@ -60,9 +65,9 @@ sed -i 's/\r$//' README.md
 %{_libdir}/%{name}.so.1*
 
 %files devel
-%{_includedir}/unarr.h
+%{_includedir}/%{upstream_package_name}.h
 %{_libdir}/%{name}.so
-%{_libdir}/cmake/unarr/unarr-*.cmake
+%{_libdir}/cmake/%{upstream_package_name}/%{upstream_package_name}-*.cmake
 %{_libdir}/pkgconfig/%{name}.pc
 
 

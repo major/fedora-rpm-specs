@@ -5,11 +5,11 @@
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.0.1
-Release:       2%{?dist}
+Version:       2.0.2
+Release:       1%{?dist}
 BuildArch:     noarch
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://github.com/Toblerity/Shapely
 Source0:       %{pypi_source}
 
@@ -94,6 +94,9 @@ export NO_GEOS_CONFIG=1
 
 
 %changelog
+* Sat Oct 21 2023 Sandro Mani <manisandro@gmail.com> - 2.0.2-1
+- Update to 2.0.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

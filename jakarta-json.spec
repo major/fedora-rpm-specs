@@ -1,6 +1,6 @@
 Name:           jakarta-json
-Version:        2.1.2
-Release:        2%{?dist}
+Version:        2.1.3
+Release:        1%{?dist}
 Summary:        Jakarta JSON Processing
 
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
@@ -18,11 +18,6 @@ BuildRequires:  mvn(org.glassfish.build:spec-version-maven-plugin)
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-
-# These can be removed when Fedora 36 reaches EOL
-Obsoletes:      jsonp < 1.0.4-12
-Provides:       jsonp = %{version}-%{release}
-Obsoletes:      jsonp-javadoc < 1.0.4-12
 
 # These can be removed when Fedora 38 reaches EOL
 Obsoletes:      jakarta-json-jaxrs < 1.1.6-5
@@ -69,6 +64,9 @@ ln -s api/.mfiles-javadoc .
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Oct 20 2023 Jerry James <loganjerry@gmail.com> - 2.1.3-1
+- Version 2.1.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

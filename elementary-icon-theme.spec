@@ -3,7 +3,7 @@
 
 Name:           elementary-icon-theme
 Summary:        Icons from the Elementary Project
-Version:        7.3.0
+Version:        7.3.1
 Release:        %autorelease
 License:        GPLv3+
 
@@ -82,18 +82,28 @@ gtk-update-icon-cache --force %{_datadir}/icons/elementary &>/dev/null || :
 %files
 %doc README.md
 %license COPYING
+%{_datadir}/icons/elementary/*@2x
+%{_datadir}/icons/elementary/*@3x
+%{_datadir}/metainfo/io.elementary.icons.metainfo.xml
+
 
 %dir %{_datadir}/icons/elementary
 %ghost %{_datadir}/icons/elementary/icon-theme.cache
 
-%{_datadir}/icons/elementary/*/
-%{_datadir}/icons/elementary/*@2x
-%{_datadir}/icons/elementary/*@3x
+%{_datadir}/icons/elementary/actions/
+%{_datadir}/icons/elementary/apps/
+%{_datadir}/icons/elementary/categories/
+%{_datadir}/icons/elementary/cursors/
+%{_datadir}/icons/elementary/devices/
+%{_datadir}/icons/elementary/emblems/
+%{_datadir}/icons/elementary/emotes/
+%{_datadir}/icons/elementary/mimes/
+%{_datadir}/icons/elementary/places/
+%{_datadir}/icons/elementary/status/
 
 %{_datadir}/icons/elementary/cursor.theme
 %{_datadir}/icons/elementary/index.theme
 
-%{_datadir}/metainfo/%{appname}.appdata.xml
 
 %files gimp-palette
 %{_datadir}/gimp/2.0/palettes/elementary.gpl

@@ -5,7 +5,7 @@ interfaces.
 %global sum Tools for using a Web Server Gateway Interface stack
 
 Name:           python-paste
-Version:        3.6.1
+Version:        3.7.1
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -86,6 +86,9 @@ py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_
 
 
 %changelog
+* Sat Oct 21 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.7.1-1
+- Update to upstream.
+
 * Mon Oct 16 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.6.1-1
 - Update to upstream.
 

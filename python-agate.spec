@@ -11,14 +11,13 @@ agate was previously known as journalism.
 
 
 Name:           python-%{pypi_name}
-Version:        1.7.1
-Release:        5%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Data analysis library that is optimized for humans instead of machines
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/agate
 Source0:        https://github.com/%{project_owner}/%{github_name}/archive/%{version}/%{github_name}-%{version}.tar.gz
-Patch0:         https://patch-diff.githubusercontent.com/raw/wireservice/agate/pull/774-remove-pytz.patch
 BuildArch:      noarch
 
 %description
@@ -42,6 +41,7 @@ BuildRequires:  python3dist(babel) >= 2
 BuildRequires:  python3dist(isodate) >= 0.5.4
 BuildRequires:  python3dist(python-slugify) >= 1.2.1
 BuildRequires:  python3dist(leather) >= 0.3.
+BuildRequires:  python3dist(furo)
 # This is required for tests to start.
 BuildRequires:  glibc-langpack-en
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -105,6 +105,9 @@ nosetests-%{python3_version} tests -v --exclude=test_cast_format_locale --exclud
 
 
 %changelog
+* Sat Oct 21 2023 Julien Enselme <jujens@jujens.eu> - 1.9.0-1
+- Update to 1.9.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

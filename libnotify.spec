@@ -1,24 +1,24 @@
 %define glib2_version 2.38.0
 
-Name:    libnotify
-Version: 0.8.2
-Release: 2%{?dist}
-Summary: Desktop notification library
+Name:           libnotify
+Version:        0.8.3
+Release:        1%{?dist}
+Summary:        Desktop notification library
 
-License: LGPL-2.1-or-later
-URL:     https://gitlab.gnome.org/GNOME/libnotify
-Source0: https://download.gnome.org/sources/libnotify/0.8/%{name}-%{version}.tar.xz
+License:        LGPL-2.1-or-later
+URL:            https://gitlab.gnome.org/GNOME/libnotify
+Source0:        https://download.gnome.org/sources/libnotify/0.8/%{name}-%{version}.tar.xz
 
-BuildRequires: pkgconfig(gdk-pixbuf-2.0)
-BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
-BuildRequires: pkgconfig(gobject-introspection-1.0)
-BuildRequires: docbook-xsl-ns
-BuildRequires: gi-docgen
-BuildRequires: meson
-BuildRequires: xmlto
-BuildRequires: /usr/bin/xsltproc
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  docbook-xsl-ns
+BuildRequires:  gi-docgen
+BuildRequires:  meson
+BuildRequires:  xmlto
+BuildRequires:  /usr/bin/xsltproc
 
-Requires: glib2%{?_isa} >= %{glib2_version}
+Requires:       glib2%{?_isa} >= %{glib2_version}
 
 %description
 libnotify is a library for sending desktop notifications to a notification
@@ -26,11 +26,11 @@ daemon, as defined in the freedesktop.org Desktop Notifications spec. These
 notifications can be used to inform the user about an event or display some
 form of information without getting in the user's way.
 
-%package devel
+%package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description devel
+%description    devel
 This package contains libraries and header files needed for
 development of programs using %{name}.
 
@@ -62,6 +62,9 @@ development of programs using %{name}.
 %doc %{_docdir}/libnotify/spec/
 
 %changelog
+* Sat Oct 21 2023 Kalev Lember <klember@redhat.com> - 0.8.3-1
+- Update to 0.8.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

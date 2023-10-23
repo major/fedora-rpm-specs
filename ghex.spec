@@ -3,7 +3,7 @@
 %global __provides_exclude_from ^%{_libdir}/gtkhex-4.0/.*\\.so$
 
 Name:           ghex
-Version:        45~beta
+Version:        45.0
 Release:        1%{?dist}
 Summary:        Binary editor for GNOME
 
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 
 
 %changelog
+* Sat Oct 21 2023 Kalev Lember <klember@redhat.com> - 45.0-1
+- Update to 45.0
+
 * Wed Aug 23 2023 Kalev Lember <klember@redhat.com> - 45~beta-1
 - Update to 45.beta
 

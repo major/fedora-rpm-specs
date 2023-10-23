@@ -1,8 +1,6 @@
-%global pkg_name inject
-%global pypi_name Inject
+%global pypi_name inject
 
 %global pkg_description %{expand:Dependency injection the python way, the good way.
-Not a port of Guice or Spring.
 
 Key features:
   - Fast.
@@ -14,26 +12,20 @@ Key features:
   - Supports type hinting in Python 3.5+.
   - Autoparams leveraging type annotations.
 }
-
  
-Name: python-%{pkg_name}
+Name: python-%{pypi_name}
 Summary: Dependency injection, the Python way
-License: ASL 2.0
+License: Apache-2.0
 
-Version: 4.3.1
-Release: 11%{?dist}
+Version: 5.1.0
+Release: 1%{?dist}
 
-URL: https://github.com/ivankorobkov/python-%{pkg_name}
+URL: https://github.com/ivankorobkov/python-%{pypi_name}
 Source0: %pypi_source
-
-%global with_tests 1
 
 BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
-
-%if 0%{?with_tests}
 BuildRequires: python3dist(pytest-runner)
-%endif
 
 BuildArch: noarch
 
@@ -41,58 +33,44 @@ BuildArch: noarch
 %{pkg_description}
 
 
-%package -n python3-%{pkg_name}
+%package -n python3-%{pypi_name}
 Summary: %{summary}
 BuildArch: noarch
 
-%description -n python3-%{pkg_name}
+%description -n python3-%{pypi_name}
 %{pkg_description}
 
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 
-%if 0%{?with_tests}
 %check
-# This file is missing from the PyPi tarballs, but is required for tests to work
-# Taken from: https://raw.githubusercontent.com/ivankorobkov/python-inject/%{version}/test/__init__.py
-# See issue: https://github.com/ivankorobkov/python-inject/issues/70
-cat > test/__init__.py <<EOF
-from unittest import TestCase
-import asyncio
-import inject
-
-
-class BaseTestInject(TestCase):
-    def tearDown(self):
-        inject.clear()
-    
-    def run_async(self, awaitable):
-        loop = asyncio.get_event_loop()
-        return loop.run_until_complete(awaitable)
-EOF
-
+%pyproject_check_import
 %pytest
-%endif
 
 
-%files -n python3-%{pkg_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc CHANGES.md README.md
-%license LICENSE
-%{python3_sitelib}/%{pkg_name}/
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 
 %changelog
+* Sat Oct 21 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.1.0-1
+- Update to v5.1.0
+- Migrate License tag to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libsemigroups
-Version:        2.7.1
-Release:        3%{?dist}
+Version:        2.7.2
+Release:        1%{?dist}
 Summary:        C++ library for semigroups and monoids
 
 # libsemigroups itself is GPL-3.0-or-later.
@@ -8,7 +8,7 @@ Summary:        C++ library for semigroups and monoids
 # All other licenses are due to use of eigen3.
 License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 URL:            https://libsemigroups.readthedocs.io/
-Source0:        https://github.com/libsemigroups/libsemigroups/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/libsemigroups/libsemigroups/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  catch2-devel
 BuildRequires:  doxygen
@@ -190,6 +190,9 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Fri Oct 20 2023 Jerry James <loganjerry@gmail.com> - 2.7.2-1
+- Version 2.7.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

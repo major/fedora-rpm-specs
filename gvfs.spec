@@ -21,7 +21,7 @@
 %global udisks2_version 1.97
 
 Name: gvfs
-Version: 1.52.0
+Version: 1.52.1
 Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
@@ -428,6 +428,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Sat Oct 21 2023 Kalev Lember <klember@redhat.com> - 1.52.1-1
+- Update to 1.52.1
+
 * Mon Sep 18 2023 Kalev Lember <klember@redhat.com> - 1.52.0-1
 - Update to 1.52.0
 

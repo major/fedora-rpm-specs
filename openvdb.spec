@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 # Use soversion
-%global soversion 10.0
+%global soversion 10.1
 
 # Set to 1 to enable testsuite. Fails everywhere with GCC 8+.
 %global with_tests 0
@@ -12,13 +12,13 @@
 %global with_ax      0
 
 Name:           openvdb
-Version:        10.0.1
+Version:        10.1.0
 Release:        %autorelease
 Summary:        C++ library for sparse volumetric data discretized on three-dimensional grids
 License:        MPL-2.0
 URL:            http://www.openvdb.org/
 
-Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  boost-devel >= 1.61
 # boost-python3-devel merged in boost-devel for Fedora 33+
@@ -48,6 +48,7 @@ BuildRequires:  pkgconfig(glfw3) >= 2.7
 %endif
 BuildRequires:  pkgconfig(jemalloc)
 BuildRequires:  pkgconfig(log4cplus) >= 1.0
+BuildRequires:  cmake(pybind11)
 %if 0%{?with_openexr}
 BuildRequires:  pkgconfig(OpenEXR) >= 3.0
 %endif
@@ -176,7 +177,7 @@ find %{buildroot} -name '*.a' -delete
 
 %if 0%{?fedora}
 %files -n python3-%{name}
-%{python3_sitearch}/py%{name}.so
+%{python3_sitearch}/py%{name}.cpython-*.so
 %endif
 
 %files devel

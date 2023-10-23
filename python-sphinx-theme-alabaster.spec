@@ -2,13 +2,13 @@
 %global srcname sphinx-theme-%{pypi_name}
 
 Name:           python-%{srcname}
-Version:        0.7.12
-Release:        20%{?dist}
+Version:        0.7.13
+Release:        1%{?dist}
 Summary:        Configurable sidebar-enabled Sphinx theme
 
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{pypi_name}
-Source0:        https://files.pythonhosted.org/packages/cc/b4/ed8dcb0d67d5cfb7f83c4d5463a7614cb1d078ad7ae890c9143edebbf072/alabaster-0.7.12.tar.gz
+Source0:        https://files.pythonhosted.org/packages/94/71/a8ee96d1fd95ca04a0d2e2d9c4081dac4c2d2b12f7ddb899c8cb9bfd1532/alabaster-0.7.13.tar.gz
 
 BuildArch:      noarch
 
@@ -32,6 +32,7 @@ theme used for Flask & related projects.
 
 
 %prep
+ls -alh
 %setup -qn %{pypi_name}-%{version}
 
 # Remove bundled eggs
@@ -54,6 +55,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Sat Oct 21 2023 Julien Enselme <jujens@jujens.eu> - 0.7.13-1
+- Update to 0.7.13
+
 * Mon Sep 11 2023 Karolina Surma <ksurma@redhat.com> - 0.7.12-20
 - Declare the license as an SPDX expression
 

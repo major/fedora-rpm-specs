@@ -1,4 +1,4 @@
-%global candidate rc3
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2023.10
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  0.7%{?candidate:.%{candidate}}%{?dist}
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:      http://www.denx.de/wiki/U-Boot
@@ -16,13 +16,12 @@ ExcludeArch: s390x
 Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:  aarch64-boards
 
-# Fedoraisms patches
-# Needed to find DT on boot partition that's not the first partition
-Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
+Patch1:   uefi-Boot-var-automatic-management-for-removable-medias.patch
 Patch2:   smbios-Simplify-reporting-of-unknown-values.patch
 Patch3:   disable-VBE-by-default.patch
 Patch4:   enable-bootmenu-by-default.patch
 Patch5:   Add-video-damage-tracking.patch
+Patch6:   bootstd-Scan-all-bootdevs-in-a-boot_targets-entry.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
@@ -30,7 +29,6 @@ Patch10:  rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
 # Rockchips improvements
 Patch11:  rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
 #Patch12: 0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
-Patch13:  rpi-Convert-to-standard-boot.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -215,6 +213,10 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Mon Oct 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.7
+- Update to 2023.10 GA
+- Some upstream fixes
+
 * Mon Aug 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.4.rc3
 - Update to 2023.10 RC3
 

@@ -15,7 +15,7 @@
 %endif
 
 Name:           slurm
-Version:        22.05.9
+Version:        22.05.10
 Release:        %autorelease
 Summary:        Simple Linux Utility for Resource Management
 # ./src/common/log.c: BSD 2-Clause License
@@ -72,7 +72,7 @@ BuildRequires:  hwloc-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libssh2-devel
 BuildRequires:  lz4-devel
-BuildRequires:  mariadb-devel
+BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  munge-devel
 # numctl-devel not available in el9 for arch s390x (#2099483);
 # task/affinity plugin won't be available in el9 for arch s390x

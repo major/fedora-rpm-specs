@@ -2,8 +2,8 @@
 %global file_name pytest_mock
 
 Name:           python-%{pypi_name}
-Version:        3.11.1
-Release:        3%{?dist}
+Version:        3.12.0
+Release:        1%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
@@ -38,8 +38,6 @@ to worry about undoing patches at the end of a test.
 rm -rf *.egg-info
 # Correct end of line encoding for README
 sed -i 's/\r$//' README.rst
-# Backport https://github.com/pytest-dev/pytest-mock/commit/e2016928db1147a2a46de6ee9fa878ca0e9d8fc8
-sed -i "s/import py\.code//" tests/test_pytest_mock.py
 
 %build
 %py3_build
@@ -62,6 +60,9 @@ sed -i "s/import py\.code//" tests/test_pytest_mock.py
 %{python3_sitelib}/%{file_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Oct 21 2023 Julien Enselme <jujens@jujens.eu> - 3.12.0-1
+- Update to 3.12.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

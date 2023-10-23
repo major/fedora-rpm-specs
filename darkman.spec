@@ -22,6 +22,11 @@ License:        ISC
 URL:            %{gourl}
 Source0:        %{gosource}
 
+# Fixed upstream https://gitlab.com/WhyNotHugo/darkman/-/commit/9403394dad6d148ac2da4317ecaf5c4da21beb0d
+Patch0:         9403394dad6d148ac2da4317ecaf5c4da21beb0d.patch
+# Fixed upstream https://gitlab.com/WhyNotHugo/darkman/-/commit/d0412f2a40b09bad014107ca2c13f9c7c100b7eb
+Patch1:         d0412f2a40b09bad014107ca2c13f9c7c100b7eb.patch
+
 BuildRequires:  scdoc
 BuildRequires:  systemd-rpm-macros
 
@@ -34,6 +39,7 @@ Requires:       dbus-common
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

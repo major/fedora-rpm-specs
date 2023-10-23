@@ -8,7 +8,7 @@
 
 Name:           grace
 Version:        5.1.25
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Numerical Data Processing and Visualization Tool
 License:        GPLv2+
 # cephes is LGPL, see also Source3 and Source4
@@ -37,6 +37,7 @@ BuildRequires:  urw-base35-fonts-devel
 BuildRequires:  xbae-devel
 BuildRequires:  zlib-devel
 Requires:       %{pkgs}
+Requires:       urw-base35-fonts-common
 Requires:       xdg-utils
 %description
 Grace is a Motif application for two-dimensional data
@@ -194,6 +195,9 @@ rm __dist_doc/doc/Makefile __dist_doc/doc/*.sgml
 %{_datadir}/%{name}/lib
 
 %changelog
+* Sat Oct 21 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.1.25-36
+- Restore dep on fonts (rhbz#2244630).
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.25-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

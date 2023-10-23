@@ -7,8 +7,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        45.0
-Release:        2%{?dist}
+Version:        45.1
+Release:        1%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Sat Oct 21 2023 Kalev Lember <klember@redhat.com> - 45.1-1
+- Update to 45.1
+
 * Thu Oct 05 2023 Kalev Lember <klember@redhat.com> - 45.0-2
 - Add missing libportal runtime requires (rhbz#2242300)
 

@@ -7,8 +7,8 @@
 
 
 Name:           python-%{pypi_name}
-Version:        0.5.9
-Release:        3%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        Adds SQL read/write support to agate
 
 License:        MIT
@@ -28,6 +28,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-nose
 BuildRequires:  python3dist(agate) >= 1.5
 BuildRequires:  python3dist(sqlalchemy) >= 1.0.8
+BuildRequires:  python3dist(furo)
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -82,6 +83,9 @@ nosetests-%{python3_version} tests -v -e test_to_sql_create_statement_unique_con
 
 
 %changelog
+* Sat Oct 21 2023 Julien Enselme <jujens@jujens.eu> - 0.7.0-1
+- Update to 0.7.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

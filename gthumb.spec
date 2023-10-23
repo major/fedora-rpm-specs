@@ -3,7 +3,7 @@
 
 Name:           gthumb
 Epoch:          1
-Version:        3.12.3
+Version:        3.12.4
 Release:        1%{?dist}
 Summary:        Image viewer, editor, organizer
 
@@ -97,6 +97,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Sat Oct 21 2023 Kalev Lember <klember@redhat.com> - 1:3.12.4-1
+- Update to 3.12.4
+
 * Thu Sep 21 2023 Kalev Lember <klember@redhat.com> - 1:3.12.3-1
 - Update to 3.12.3
 - Re-enable webservices as webkit2gtk-4.0 is available again

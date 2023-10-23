@@ -51,8 +51,8 @@ Requires: mod_fcgid
 %global RT_STATICDIR		%{_datadir}/%{name}/static
 
 Name:		rt
-Version:	5.0.4
-Release:	2%{?dist}
+Version:	5.0.5
+Release:	1%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -75,10 +75,9 @@ Patch3: 0003-Remove-fixperms-font-install.patch
 Patch4: 0004-Fix-permissions.patch
 Patch5: 0005-Do-not-install-cpanfile.patch
 Patch6: 0006-Add-fcgid.patch
-Patch7: 0007-Install-rt-clean-shorteners.patch
-Patch8: 0008-Apply-RT-StaticPath-to-pickup-scripts.patch
+Patch7: 0007-Apply-RT-StaticPath-to-pickup-scripts.patch
 # Misc. dirty hacks to let testsuite pickup files from installed testsuite tree
-Patch9: 0009-Fedora-testsuite-hacks.patch
+Patch8: 0008-Fedora-testsuite-hacks.patch
 
 BuildArch:	noarch
 
@@ -107,14 +106,6 @@ BuildRequires: perl(Data::Page)
 %else
 BuildRequires: perl(Data::Page::Pageset)
 %endif
-# In rt-test-dependencies, but seemingly unused
-%if "%{version}" >= "5.0.4"
-BuildRequires: perl(Date::Extract) >= 0.07
-%else
-BuildRequires: perl(Date::Extract) >= 0.02
-%endif
-# In rt-test-dependencies, but seemingly unused
-BuildRequires: perl(Date::Manip)
 BuildRequires: perl(DateTime::Format::Natural) >= 0.67
 BuildRequires: perl(Date::Format)
 BuildRequires: perl(DateTime) >= 0.44
@@ -122,15 +113,19 @@ BuildRequires: perl(DateTime::Locale) >= 0.40
 %{?with_mysql:BuildRequires: perl(DBD::mysql) >= 2.1018}
 %{?with_pg:BuildRequires: perl(DBD::Pg) >= 1.43}
 BuildRequires: perl(DBI) >= 1.37
-%if "%{version}" >= "5.0.4"
+%if "%{version}" >= "5.0.5"
+%if 0%{fedora} < 39
+BuildRequires: perl(DBIx::SearchBuilder) >= 1.76
+%else
+BuildRequires: perl(DBIx::SearchBuilder) >= 1.77
+%endif
+%elif "%{version}" >= "5.0.4"
 BuildRequires: perl(DBIx::SearchBuilder) >= 1.76
 %else
 BuildRequires: perl(DBIx::SearchBuilder) >= 1.71
 %endif
 BuildRequires: perl(Devel::StackTrace) >= 2.00
 BuildRequires: perl(Devel::GlobalDestruction)
-# In rt-test-dependencies, but seemingly unused
-BuildRequires: perl(Digest::base)
 BuildRequires: perl(Digest::MD5) >= 2.27
 BuildRequires: perl(Email::Address) >= 1.912
 BuildRequires: perl(Email::Address::List) >= 0.06
@@ -147,9 +142,9 @@ BuildRequires: perl(File::Temp) >= 0.19
 BuildRequires: perl(File::Which)
 BuildRequires: perl(GD)
 %if "%{version}" >= "5.0.4"
-BuildRequires: perl(GD::Graph) >= 1.47
-%else
 BuildRequires: perl(GD::Graph) >= 1.56
+%else
+BuildRequires: perl(GD::Graph) >= 1.47
 %endif
 BuildRequires: perl(GD::Text)
 BuildRequires: perl(GnuPG::Interface) >= 1.02
@@ -429,7 +424,16 @@ while read a; do b=$(echo "$a" | sed -e 's,\.in$,,'); rm "$b"; done
 %patch -P 6 -p1
 %patch -P 7 -p1
 %patch -P 8 -p1
-%patch -P 9 -p1
+
+%if 0%{fedora} < 39
+# Allow package to build on Fedora < 39
+# still has perl(DBIx::SearchBuilder) 1.76
+sed -i -e "s,>= 1.77,>= 1.76," etc/cpanfile
+%endif
+
+sed -i -e '/Date::Manip/d' etc/cpanfile
+sed -i -e '/Date::Extract/d' etc/cpanfile
+sed -i -e '/Digest::base/d' etc/cpanfile
 
 # Propagate rpm's directories to config.layout
 cat << \EOF >> config.layout
@@ -502,6 +506,7 @@ sbin/rt-attributes-viewer \
 sbin/rt-clean-sessions \
 sbin/rt-clean-shorteners \
 sbin/rt-dump-metadata \
+sbin/rt-dump-initialdata \
 sbin/rt-email-dashboards \
 sbin/rt-email-digest \
 sbin/rt-email-group-admin \
@@ -572,10 +577,8 @@ ln -s /usr/share/fonts/google-droid-sans-fonts/DroidSansFallbackFull.ttf ${RPM_B
 install -d -m755 ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
 cp -R t ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
 
-# Uninstalled stuff the testsuite accesses
-install -d -m755 ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/devel
-cp -R devel/tools ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/devel
-cp -R devel/docs ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/devel
+# Testsuite containes hard-coded ./sbin
+ln -s ../../../sbin ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/sbin
 
 cp %{SOURCE1} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
 
@@ -680,6 +683,10 @@ fi
 %endif
 
 %changelog
+* Sat Oct 21 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.5-1
+- Update to rt-5.0.5.
+- Misc. packaging tweaks.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

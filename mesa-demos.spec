@@ -1,23 +1,18 @@
-%global xdriinfo xdriinfo-1.0.4
 %global demodir %{_libdir}/mesa
 
 Summary: Mesa demos
 Name: mesa-demos
 Version: 9.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 # SPDX
 License: MIT
 URL: http://www.mesa3d.org
-Source0: https://archive.mesa3d.org/demos/%{name}-%{version}.tar.xz
-Source1: http://www.x.org/pub/individual/app/%{xdriinfo}.tar.bz2
-Source2: mesad-git-snapshot.sh
+Source: https://archive.mesa3d.org/demos/%{name}-%{version}.tar.xz
 # Patch pointblast/spriteblast/dinoshade out for legal reasons
 # (not in public domain)
 Patch0: mesa-demos-8.5.0-legal.patch
 # Install glsl demos data
 Patch1: mesa-demos-system-data.patch
-# Fix xdriinfo not working with libglvnd
-Patch2: xdriinfo-1.0.4-glvnd.patch
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -38,8 +33,6 @@ BuildRequires: vulkan-loader-devel
 BuildRequires: wayland-devel
 BuildRequires: wayland-protocols-devel
 BuildRequires: freetype-devel
-# xdriinfo still uses autotools
-BuildRequires: make autoconf automake libtool
 
 %description
 This package provides some demo applications for testing Mesa.
@@ -47,6 +40,12 @@ This package provides some demo applications for testing Mesa.
 %package -n glx-utils
 Summary: GLX utilities
 Provides: glxinfo glxinfo%{?__isa_bits}
+# mesa-demos' glx-utils used to provide xdriinfo for a long time, but that has
+# always been an additional external source, so it was split into its own
+# package.
+# Recommend it here so that it still gets pulled at first for anyone expecting
+# it to be there, but it doesn't need to be a hard requirement anymore.
+Recommends: xdriinfo
 
 %description -n glx-utils
 The glx-utils package provides the glxinfo and glxgears utilities.
@@ -59,12 +58,9 @@ Provides: eglinfo es2_info
 The egl-utils package provides the eglinfo and es2_info utilities.
 
 %prep
-%setup -q -n %{name}-%{version} -b1
+%setup -q -n %{name}-%{version}
 %patch0 -p1 -b .legal
 %patch1 -p1 -b .systemdata
-pushd ../%{xdriinfo}
-%patch2 -p1
-popd
 
 # These two files are distributable, but non-free (lack of permission to modify).
 rm -rf src/demos/pointblast.c
@@ -84,18 +80,10 @@ rm -rf src/demos/spriteblast.c
 
 %meson_build
 
-pushd ../%{xdriinfo}
-%configure
-%make_build
-popd
-
 %install
 %meson_install
 
-pushd ../%{xdriinfo}
-%make_install %{?_smp_mflags}
-popd
-
+mkdir -p %{buildroot}%{_bindir}
 install -m 0755 %{_vpath_builddir}/src/xdemos/glxgears %{buildroot}%{_bindir}
 install -m 0755 %{_vpath_builddir}/src/xdemos/glxinfo %{buildroot}%{_bindir}
 %if 0%{?__isa_bits} != 0
@@ -114,14 +102,16 @@ install -m 0755 %{_vpath_builddir}/src/egl/opengles2/es2_info %{buildroot}%{_bin
 %files -n glx-utils
 %{_bindir}/glxinfo*
 %{_bindir}/glxgears
-%{_bindir}/xdriinfo
-%{_datadir}/man/man1/xdriinfo.1*
 
 %files -n egl-utils
 %{_bindir}/eglinfo
 %{_bindir}/es2_info
 
 %changelog
+* Tue Oct 03 2023 Erico Nunes <ernunes@redhat.com> - 9.0.0-4
+- Split xdriinfo into its own package
+- Remove xdriinfo additional source build and autotools dependencies
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com>
 - SPDX migration: license is already SPDX compatible
 
