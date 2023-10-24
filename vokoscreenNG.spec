@@ -12,6 +12,9 @@ URL:            %{forgeurl}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # AppData manifest
 Source1:        https://raw.githubusercontent.com/flathub/com.github.vkohaupt.%{name}/master/%{name}.appdata.xml
+# Segfault on startup [GNOME/X11]
+# https://github.com/vkohaupt/vokoscreenNG/issues/288
+Patch:          segfault-on-startup-[gnome-x11]-rebased.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -26,7 +29,17 @@ BuildRequires:  cmake(Qt5Multimedia)
 BuildRequires:  cmake(Qt5X11Extras)
 
 BuildRequires:  pkgconfig(gstreamermm-1.0)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(x11)
+# Player
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
+BuildRequires:  pkgconfig(gstreamer-video-1.0)
+
+%if 0%{?fedora} >= 38
+Requires:       gstreamer1-plugin-gif
+%endif
 
 %description
 vokoscreenNG for Windows and Linux is a powerful screencast creator in 41

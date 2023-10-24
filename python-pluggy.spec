@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           python-pluggy
-Version:        1.2.0
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
@@ -61,6 +61,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest testing -k "not
 
 
 %changelog
+* Tue Oct 17 2023 Priscila Gutierres <pgutier@redhat.com> - 1.3.0-1
+- Update to 1.3.0.
+
 * Sun Jul 30 2023 Thomas Moschny <thomas.moschny@gmx.de> - 1.2.0-1
 - Update to 1.2.0.
 

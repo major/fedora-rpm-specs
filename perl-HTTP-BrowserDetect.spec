@@ -1,6 +1,6 @@
 Name:           perl-HTTP-BrowserDetect
 Summary:        Determine the Web browser, version, and platform from an HTTP user agent string
-Version:        3.39
+Version:        3.40
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-BrowserDetect
@@ -19,7 +19,6 @@ BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FindBin)
-BuildRequires:  perl(Hash::Merge)
 BuildRequires:  perl(JSON::PP) >= 4.04
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Path::Tiny)
@@ -58,6 +57,9 @@ at http://www.mozilla.org/docs/web-developer/sniffer/browser_type.html.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Oct 22 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 3.40-1
+- Update to 3.40
+
 * Mon Sep 11 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 3.39-1
 - Update to 3.39
 - migrated to SPDX license

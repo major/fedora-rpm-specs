@@ -2,30 +2,30 @@
 %global forgeurl https://github.com/spyder-ide/spyder/
 
 Name:           spyder
-Version:        5.4.5
+Version:        6.0.0~a1
 Release:        %autorelease
 Summary:        Scientific Python Development Environment
-
+%global tag v%{version_no_tilde %{quote:%nil}}
 %forgemeta
 License:        MIT
 URL:            https://www.spyder-ide.org/
 Source:         %forgesource
 
-# Dependencies: Bump minimal required version of PyLSP
-# https://github.com/spyder-ide/spyder/commit/2beb128b6c71eb4d4556a2f79cb385a7352d16f9
-Patch:         %{forgeurl}/commit/2beb128b6c71eb4d4556a2f79cb385a7352d16f9.patch
-
-# Bump PyLSP version when using Spyder in dev mode
-# https://github.com/spyder-ide/spyder/commit/285ef8a385c29ca7874027f57ab9dc44cbffae97
-Patch:         %{forgeurl}/commit/285ef8a385c29ca7874027f57ab9dc44cbffae97.patch
-
 # Bump jedi upper bound from <0.19.0 to <0.20.0
-# https://github.com/spyder-ide/spyder/pull/21367
-Patch:         %{forgeurl}/pull/21367.patch
+# https://github.com/spyder-ide/spyder/pull/21367 (backported)
+Patch:          21367.patch
 
 # Ensure no source files have useless shebangs
-# https://github.com/spyder-ide/spyder/pull/21372
-Patch:         %{forgeurl}/pull/21372.patch
+# https://github.com/spyder-ide/spyder/pull/21372 (backported)
+Patch:          21372.patch
+
+# Bump python-lsp-server upper bound to <1.9.0
+# https://github.com/spyder-ide/spyder/pull/21335 (backported)
+Patch:          21335.patch
+
+# Remove upper bound from spyder-kernels
+# We are a little out of sync with spyder-kernels
+Patch:          no_upper_bound_for_kernels.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

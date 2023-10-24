@@ -1,7 +1,7 @@
 Name:           fgrun
 Summary:        Graphical front-end for launching FlightGear flight simulator
 Version:        2016.3.1
-Release:        56%{?dist}
+Release:        57%{?dist}
 License:        GPLv2+ and CC-BY-SA
 URL:            http://sourceforge.net/projects/fgrun
 # git clone http://git.code.sf.net/p/flightgear/fgrun
@@ -35,11 +35,7 @@ FlightGear Launch Control is a graphical front-end for launching
 FlightGear flight simulator
 
 %prep 
-%setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%autosetup -p1
 cp -a %{SOURCE2} .
 
 %build 
@@ -93,6 +89,9 @@ install -m 0644 %{SOURCE15} \
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Oct 21 2023 Fabrice Bellet <fabrice@bellet.info> - 2016.3.1-57
+- rebuild with newer SimGear
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2016.3.1-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

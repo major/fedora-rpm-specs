@@ -1,13 +1,13 @@
 Name:          gpsbabel
-Version:       1.8.0
-Release:       6%{?dist}
+Version:       1.9.0
+Release:       1%{?dist}
 Summary:       A tool to convert between various formats used by GPS devices
 
 License:       GPL-2.0-or-later
 URL:           http://www.gpsbabel.org
 # Upstream's website hides tarball behind some ugly php script
 # Original repo is at https://github.com/gpsbabel/gpsbabel
-Source0:       GPSBabel-%{version}.tar.gz
+Source0:       gpsbabel-%{version}.tar.gz
 Source2:       %{name}.png
 
 # No automatic phone home by default (RHBZ 668865)
@@ -45,7 +45,7 @@ Qt GUI interface for GPSBabel
 %prep
 %setup -q -n %{name}-%{version}
 
-%patch2 -p1
+%patch -P 2 -p1
 
 %build
 %cmake \
@@ -102,6 +102,9 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %endif
 
 %changelog
+* Sun Oct 22 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.9.0-1
+- Upstream update.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

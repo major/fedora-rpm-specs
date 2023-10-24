@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.14.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: An IRB alternative and runtime developer console
 License: MIT
 URL: http://pry.github.io
@@ -76,7 +76,11 @@ touch Rakefile
 # https://github.com/pry/pry/blob/9d9ae4a0b0bd487bb41170c834b3fa417e161f23/spec/cli_spec.rb#L219
 sed -i '/pry\/foo/ s/pry/pry-%{version}/' spec/cli_spec.rb
 
-rspec -rspec_helper spec
+# For "COLUMNS=160" environ, see: https://github.com/pry/pry/pull/2289
+# ruby 3.3 "Reline" implementation of readline uses this environment
+# to determine how to indent.
+env COLUMNS=160 \
+        rspec -rspec_helper spec
 popd
 
 %files
@@ -94,6 +98,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Oct 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.14.1-5
+- Backport upstream fix to make testsuite work with ruby3.3 wrt
+  ruby3.3 Reline implementation of readline
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

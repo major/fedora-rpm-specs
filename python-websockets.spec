@@ -9,7 +9,7 @@ Version:        11.0.3
 Release:        4%{?dist}
 Summary:        Implementation of the WebSocket Protocol for Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/aaugustin/websockets
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 

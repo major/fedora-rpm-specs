@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -13,6 +13,8 @@ Source3:        gfx8
 Source4:        gfx9
 Source5:        gfx10
 Source6:        gfx11
+
+%global gpu_list gfx8 gfx9 gfx10 gfx11
 
 
 Requires:       environment-modules
@@ -45,6 +47,12 @@ mkdir -p %{buildroot}%{_rpmmacrodir}/
 install -Dpm 644 %{SOURCE0} %{buildroot}%{_rpmmacrodir}/
 mkdir -p %{buildroot}%{_datadir}/modulefiles/rocm/
 cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
+# Make directories users of modules will install to
+for gpu in %{gpu_list}
+do
+    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/lib/cmake
+    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/bin
+done
 
 %files
 %license GPL
@@ -52,9 +60,15 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 
 %files modules
 %license GPL
+%dir %{_libdir}/rocm/gfx*/bin
+%dir %{_libdir}/rocm/gfx*/lib
+%dir %{_libdir}/rocm/gfx*/lib/cmake
 %{_datadir}/modulefiles/rocm/
 
 %changelog
+* Sun Oct 22 2023 Tom Rix <trix@redhat.com> 1.0-5
+- make directories rocblas will use
+
 * Sat Oct 14 2023 Tom Rix <trix@redhat.com> 1.0-4
 - Use fedora repo over personal repo
 

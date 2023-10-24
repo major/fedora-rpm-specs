@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-user-docs
-Version:        45.0
+Version:        45.1
 Release:        1%{?dist}
 Summary:        GNOME User Documentation
 
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Sun Oct 22 2023 Kalev Lember <klember@redhat.com> - 45.1-1
+- Update to 45.1
+
 * Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
 - Update to 45.0
 

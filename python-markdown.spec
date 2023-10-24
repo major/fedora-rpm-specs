@@ -2,7 +2,7 @@
 %global pkgname markdown
 
 Name:           python-%{pkgname}
-Version:        3.4.4
+Version:        3.5
 Release:        1%{?dist}
 Summary:        Markdown implementation in Python
 License:        BSD
@@ -64,6 +64,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Sun Oct 22 2023 Thomas Moschny <thomas.moschny@gmx.de> - 3.5-1
+- Update to 3.5.
+
 * Sun Jul 30 2023 Thomas Moschny <thomas.moschny@gmx.de> - 3.4.4-1
 - Update to 3.4.4.
 - Update packaging.

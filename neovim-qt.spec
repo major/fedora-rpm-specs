@@ -1,17 +1,11 @@
-# rhbz#1983288: lua5.4 build of neovim crashes during integration tests
-%ifarch %{arm} %{ix86} x86_64 %{mips}
 %bcond_without  tests
-%else
-%bcond_with     tests
-%endif
 # disable shared libraries to avoid building libneovim-qt-gui.so
 # it's only needed for devel package which we're not providing
 %undefine       _cmake_shared_libs
-%undefine       _cmake_in_source_build
 
 Name:           neovim-qt
-Version:        0.2.17
-Release:        4%{?dist}
+Version:        0.2.18
+Release:        1%{?dist}
 Summary:        Qt GUI for Neovim
 
 License:        ISC
@@ -70,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %{_datadir}/nvim-qt/
 
 %changelog
+* Sun Oct 22 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.18-1
+- Update to 0.2.18
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

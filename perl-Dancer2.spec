@@ -1,6 +1,6 @@
 Name:           perl-Dancer2
-Version:        0.400001
-Release:        2%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL+ or Artistic
 
@@ -149,7 +149,7 @@ Perl. It is a complete rewrite based on Moo and is meant to be easy and fun.
 
 %prep
 %setup -q -n Dancer2-%{version}
-%patch0 -p1
+%patch 0 -p1
 /usr/bin/sed -i -e '1s,#!.*perl,#!/usr/bin/perl,' script/dancer2 share/skel/bin/+app.psgi
 /usr/bin/chmod +x share/skel/bin/+app.psgi
 /usr/bin/rm share/.gitignore
@@ -167,7 +167,7 @@ Perl. It is a complete rewrite based on Moo and is meant to be easy and fun.
 
 %files
 %license LICENSE
-%doc AUTHORS Changes GitGuide.md
+%doc AUTHORS Changes Contributing.md
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
@@ -184,6 +184,9 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sun Oct 22 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.400001-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

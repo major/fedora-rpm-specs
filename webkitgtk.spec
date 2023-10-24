@@ -22,7 +22,33 @@ Version:        2.42.1
 Release:        %autorelease
 Summary:        GTK web content engine library
 
-License:        LGPLv2
+# Source/bmalloc/bmalloc/*.h is BSD-2-Clause
+# Source/bmalloc/bmalloc/CryptoRandom.cpp is ISC
+# Source/bmalloc/bmalloc/valgrind.h is is bzip2-1.0.6
+# Source/bmalloc/libpas/src/test/RedBlackTreeTests.cpp is BSD-3-Clause
+# Source/JavaScriptCore/config.h is LGPL-2.0-or-later
+# Source/JavaScriptCore/b3/B3ComputeDivisionMagic.h is NCSA
+# Source/JavaScriptCore/disassembler/zydis/* is MIT
+# Source/JavaScriptCore/runtime/JSDateMath.h is MPL 1.1/GPL 2.0/LGPL 2.1
+# Source/JavaScriptCore/runtime/MathCommon.cpp is SunPro
+# Source/JavaScriptCore/ucd/CaseFolding.txt is Unicode-TOU
+# Source/ThirdParty/ANGLE/include/CL/cl_d3d10.h is Apache-2.0
+# Source/ThirdParty/ANGLE/include/GLES/gl.h is MIT-Khronos (not on list see https://github.com/spdx/license-list-XML/issues/2017)
+# Source/ThirdParty/ANGLE/src/compiler/preprocessor/preprocessor_tab_autogen.cpp is GPL-3.0-or-later WITH Bison-exception-2.2
+# Source/ThirdParty/ANGLE/tools/flex-bison/third_party/m4sugar/m4sugar.m4 is GPL-3.0-only WITH Autoconf-exception-3.0
+# Source/ThirdParty/pdfjs/web/images/annotation-paperclip.svg is MPL-2.0i
+# Source/ThirdParty/pdfjs/web/standard_fonts/LICENSE_LIBERATION is OFL-1.1
+# Source/ThirdParty/xdgmime/ is AFL-2.0 GPL-2.0-or-later
+# Source/WebCore/dom/PseudoElement.h is BSD-Source-Code
+# Source/WebCore/dom/SecurityContext.cpp is BSD-2-Clause-Views
+# Source/WebCore/PAL/ThirdParty/libavif/LICENSE is IJG-short
+# Source/WebCore/PAL/ThirdParty/libavif/ThirdParty/dav1d/examples/dav1dplay.c is FIXME https://gitlab.com/fedora/legal/fedora-license-data/-/issues/383
+# Source/WebKit/UIProcess/Launcher/glib/BubblewrapLauncher.cpp is LGPL-2.1-or-later
+# Source/WTF/LICENSE-libc++.txt is NCSA OR MIT
+# Source/WTF/LICENSE-LLVM.txt is Apache-2.0 WITH LLVM-exception
+# Source/WTF/icu/LICENSE is ICU
+# Source/WTF/wtf/Markable.h is BSL-1.0
+License:        LGPL-2.1-only AND BSD-2-Clause AND BSD-3-Clause AND ISC AND bzip2-1.0.6 AND NCSA AND MIT AND GPL-2.0-only AND MPL-1.1 AND SunPro AND Unicode-TOU AND Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-3.0-only WITH Autoconf-exception-3.0 AND MPL-2.0 AND OFL-1.1 AND (AFL-2.0 GPL-2.0-or-later) AND BSD-Source-Code AND BSD-2-Clause-Views AND IJG-short AND LGPL-2.1-or-later AND (NCSA OR MIT) AND Apache-2.0 WITH LLVM-exception AND ICU AND BSL-1.0
 URL:            https://www.webkitgtk.org/
 Source0:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz
 Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
@@ -174,6 +200,15 @@ BuildArch:      noarch
 Requires:       webkitgtk6.0 = %{version}-%{release}
 Obsoletes:      webkit2gtk5.0-doc < %{version}-%{release}
 Recommends:     gi-docgen-fonts
+
+# Documentation/jsc-glib-4.1/fzy.js is MIT
+# Documentation/jsc-glib-4.1/*.js and *css is Apache-2.0 OR GPL-3.0-or-later
+# Documentation/jsc-glib-4.1/*html is BSD, LGPL-2.1
+# Documentation/webkit2gtk-4.1/*html is  BSD, LGPL-2.1
+# Documentation/webkit2gtk-web-extension-4.1/*html is BSD, LGPL-2.1
+# Documentation/webkit2gtk-web-extension-4.1/solarized* is MIT
+# Documentation/webkit2gtk-web-extension-4.1/style.css is Apache-2.0 OR GPL-3.0-or-later
+License:        MIT AND LGPL-2.1-only AND BSD-3-Clause AND  (Apache-2.0 OR GPL-3.0-or-later)
 
 %description -n webkitgtk6.0-doc
 This package contains developer documentation for webkitgtk6.0.

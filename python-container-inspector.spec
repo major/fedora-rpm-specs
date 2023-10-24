@@ -50,7 +50,16 @@ Summary:        %{summary}
 
 %package -n python-%{pypi_name}-doc
 Summary:        Documentation for python-%{pypi_name}
+# BSD-2-Clause: Sphinx javascript
+# MIT: jquery
+License:        Apache-2.0 AND BSD-2-Clause AND MIT
 BuildArch:      noarch
+Requires:       python3-%{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       bundled(js-sphinx_javascript_frameworks_compat)
+Provides:       bundled(js-doctools)
+Provides:       bundled(js-jquery)
+Provides:       bundled(js-language_data)
+Provides:       bundled(js-searchtools)
 
 %description -n python-%{pypi_name}-doc
 %{common_description}
@@ -87,13 +96,11 @@ help2man -N --version-string=%{version} -o %{buildroot}%{_mandir}/man1/container
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc AUTHORS.rst CHANGELOG.rst CODE_OF_CONDUCT.rst README.rst
-%license NOTICE apache-2.0.LICENSE
 %{_bindir}/container_inspector*
 %{_mandir}/man1/container_inspector.1*
 
 %files -n python-%{pypi_name}-doc
 %doc html
-%license NOTICE apache-2.0.LICENSE
 
 %changelog
 %autochangelog

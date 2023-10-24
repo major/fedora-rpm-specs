@@ -1,5 +1,5 @@
 Name:           SimGear
-Version:        2020.3.18
+Version:        2020.3.19
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Simulation library components
@@ -36,9 +36,9 @@ SimGear.
 
 %prep
 %setup -q -n simgear-%{version}
-%patch2 -p1 -b .checkforn
-%patch3 -p1 -b .aarch64
-%patch4 -p1 -b .compile
+%patch -P2 -p1 -b .checkforn
+%patch -P3 -p1 -b .aarch64
+%patch -P4 -p1 -b .compile
 
 # makes rpmlint happy
 find -name \*.cxx -o -name \*.hxx | xargs chmod -x
@@ -78,6 +78,9 @@ patch -p2 < %{PATCH1}
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Sat Oct 21 2023 Fabrice Bellet <fabrice@bellet.info> - 2020.3.19-1
+- new upstream release
+
 * Tue Mar 21 2023 Fabrice Bellet <fabrice@bellet.info> - 2020.3.18-1
 - new upstream release
 - Fix a new Clang compile failure with current XCode

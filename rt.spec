@@ -52,7 +52,7 @@ Requires: mod_fcgid
 
 Name:		rt
 Version:	5.0.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -114,11 +114,7 @@ BuildRequires: perl(DateTime::Locale) >= 0.40
 %{?with_pg:BuildRequires: perl(DBD::Pg) >= 1.43}
 BuildRequires: perl(DBI) >= 1.37
 %if "%{version}" >= "5.0.5"
-%if 0%{fedora} < 39
-BuildRequires: perl(DBIx::SearchBuilder) >= 1.76
-%else
 BuildRequires: perl(DBIx::SearchBuilder) >= 1.77
-%endif
 %elif "%{version}" >= "5.0.4"
 BuildRequires: perl(DBIx::SearchBuilder) >= 1.76
 %else
@@ -211,7 +207,6 @@ BuildRequires: perl(Pod::Usage)
 BuildRequires: perl(Pod::Select)
 %endif
 BuildRequires: perl(Plack) >= 1.0002
-# In rt-test-dependencies, but seemingly unused
 BuildRequires: perl(Plack::Handler::Starlet)
 %{?with_devel_mode:BuildRequires: perl(Plack::Middleware::Test::StashWarnings) >= 0.06}
 BuildRequires: perl(Regexp::Common)
@@ -402,7 +397,7 @@ Requires:	perl(Mojo::DOM)
 %description -n perl-RT-Test
 %{summary}
 
-%endif # devel_mode
+%endif
 
 %prep
 %setup -q -n rt-%{version}
@@ -424,12 +419,6 @@ while read a; do b=$(echo "$a" | sed -e 's,\.in$,,'); rm "$b"; done
 %patch -P 6 -p1
 %patch -P 7 -p1
 %patch -P 8 -p1
-
-%if 0%{fedora} < 39
-# Allow package to build on Fedora < 39
-# still has perl(DBIx::SearchBuilder) 1.76
-sed -i -e "s,>= 1.77,>= 1.76," etc/cpanfile
-%endif
 
 sed -i -e '/Date::Manip/d' etc/cpanfile
 sed -i -e '/Date::Extract/d' etc/cpanfile
@@ -481,7 +470,7 @@ sed -i -e 's,$(RT_ETC_PATH)/upgrade,%{_datadir}/%{name}/upgrade,g' Makefile.in
 --with-web-handler=%{web_handler} \
 --libdir=%{RT_LIBDIR}
 
-make %{?_smp_mflags}
+%make_build
 
 # Explicitly check for devel-mode deps
 %{?with_devel_mode:%{__perl} ./sbin/rt-test-dependencies --verbose --with-%{?with_mysql:mysql}%{?with_pg:pg} --with-%{web_handler} --with-dev}
@@ -683,6 +672,10 @@ fi
 %endif
 
 %changelog
+* Sun Oct 22 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.5-2
+- Enforce BR: perl(DBIx::SearchBuilder) >= 1.77.
+- Minor packaging tweaks.
+
 * Sat Oct 21 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.5-1
 - Update to rt-5.0.5.
 - Misc. packaging tweaks.

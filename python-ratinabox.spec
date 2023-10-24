@@ -5,7 +5,7 @@
 %bcond torch 0
 
 Name:           python-ratinabox
-Version:        1.10.0
+Version:        1.10.2
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 
@@ -13,9 +13,9 @@ Summary:        A package for simulating motion and ephys data in continuous env
 License:        MIT
 URL:            https://github.com/TomGeorge1234/RatInABox
 # If we switched to the GitHub archive from the PyPI sdist, we could add a
-# CITATION.bib file and a demos/ directory; however, we consider this not
-# worthwhile, especially since the demos are so large that it is doubtful
-# whether it is worth packaging them.
+# CITATION.bib file, a demos/ directory, and Sphinx-generated documentation;
+# however, we consider this not worthwhile, especially since the demos are so
+# large that it is doubtful whether it is worth packaging them.
 Source:         %{pypi_source ratinabox}
 
 BuildArch:      noarch

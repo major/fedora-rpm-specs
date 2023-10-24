@@ -54,3 +54,4 @@ Requires:       pkgconfig(libzmq)
 
 %changelog
 %autochangelog
+

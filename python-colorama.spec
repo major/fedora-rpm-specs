@@ -5,7 +5,7 @@ Version:        0.4.6
 Release:        %autorelease
 Summary:        Cross-platform colored terminal text
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/tartley/colorama
 Source0:        %{url}/archive/%{version}/colorama-%{version}.tar.gz
 BuildArch:      noarch

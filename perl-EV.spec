@@ -1,6 +1,6 @@
 Name:           perl-EV
-Version:        4.33
-Release:        14%{?dist}
+Version:        4.34
+Release:        1%{?dist}
 Summary:        Wrapper for the libev high-performance event loop library
 
 # Note: The source archive includes a libev/ folder which contents are licensed
@@ -78,6 +78,9 @@ PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%
 
 
 %changelog
+* Sun Oct 22 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 4.34-1
+- Update to 4.34
+
 * Mon Sep 11 2023 Carl George <carlwgeorge@fedoraproject.org> - 4.33-14
 - Update license field with SPDX identifier
 - Add provides for bundled libev

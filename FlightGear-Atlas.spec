@@ -3,7 +3,7 @@
 Name:           FlightGear-Atlas
 Summary:        Flightgear map tools
 Version:        0.5.0
-Release:        0.83%{snapshot}%{?dist}
+Release:        0.84%{snapshot}%{?dist}
 
 License:        GPLv2+
 Source0:        Atlas-%{version}%{snapshot}.tar.bz2
@@ -31,14 +31,7 @@ through two main parts: The map creator (simply called Map) and the
 Atlas viewer
 
 %prep
-%setup -q -n Atlas
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
-%patch5 -p0
-%patch6 -p0
+%autosetup -p0 -n Atlas
 find -type f -name '*.[hc]xx' -exec chmod a-x {} \;
 
 %build
@@ -74,6 +67,9 @@ install -m 0644 src/data/airplane_image.png \
 %{_datadir}/flightgear/Atlas
 
 %changelog
+* Sat Oct 21 2023 Fabrice Bellet <fabrice@bellet.info> - 0.5.0-0.84.cvs20141002
+- rebuild with newer SimGear
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-0.83.cvs20141002
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

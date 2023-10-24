@@ -14,8 +14,8 @@
 Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
-Version: 4.5.3
-Release: 2%{?dist}
+Version: 4.6.0
+Release: 1%{?dist}
 License: GPLv2+
 URL:     https://www.qbittorrent.org
 
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %{_mandir}/man1/qbittorrent-nox.1*
 
 %changelog
+* Sun Oct 22 2023 Leigh Scott <leigh123linux@gmail.com> - 1:4.6.0-1
+- Update to 4.6.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

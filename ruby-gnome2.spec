@@ -19,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -27,26 +27,10 @@ License:        LGPLv2
 URL:            http://ruby-gnome2.sourceforge.jp/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-all-%{version}.tar.gz
 #Source0:        %{name}-all-%{version}-%{betaver}.tar.gz
-Patch0:         ruby-gio2-0.90.5-gio-api-22701.patch
 Patch1:         ruby-gnome2-0.90.4-newpng.patch
-# Sorts out the problem with "invalid byte sequence in US-ASCII" when LANG=C
-# Fixed in 0.90.5: https://github.com/ruby-gnome2/ruby-gnome2/commit/3d83f487c80e73f1ecea47459461ae0c3fae1cfe
-Patch2:         ruby-glib2-with-lang-c.patch
-# Backport
-# https://github.com/ruby-gnome2/ruby-gnome2/commit/e538f1406af9971939f0022545546b75e5d62f06
-# G_DEF_ERROR2 definition fix (ref: bug 1213627)
-Patch3:         ruby-gnome2-all-0.90.4-G_DEF_ERROR2-def-fix.patch
 # Fix for build error with gcc8 -O2 + ruby 2.5, rb_funcall argument number fix
 Patch4:         ruby-libart-arglength-fix.patch
-Patch5:         ruby-gnome2-extconf-librsvg.patch
 Patch6:         ruby-gnome2-rb_secure.patch
-Patch7:         ruby-gnome2-pango-shape_engine_type.patch
-Patch8:         ruby-gnome2-implicit-int-1.patch
-Patch9:         ruby-gnome2-implicit-int-2.patch
-Patch10:        ruby-gnome2-implicit-int-3.patch
-Patch11:        ruby-gnome2-implicit-int-4.patch
-Patch12:        ruby-gnome2-implicit-int-5.patch
-Patch13:        ruby-gnome2-implicit-int-6.patch
 Patch14:        ruby-gnome2-implicit-int-7.patch
 
 
@@ -312,25 +296,39 @@ This package provides libraries and header files for ruby-libglade2
 %prep
 %setup -q -n %{name}-all-%{version}
 #%%setup -q -n %{name}-all-%{version}-%{betaver}
-%patch0 -p1 -b .glibapi
-%patch1 -p1 -b .newpng
-%patch2 -p1
-%patch3 -p1 -b .arg
-%patch4 -p1 -b .rb25
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
+
+# Remove diretories no longer going to build
+rm -rf \
+	atk \
+	gdk_pixbuf2 \
+	gio2 \
+	glib2 \
+	gtk2 \
+	gtkhtml2 \
+	panel-applet \
+	pango \
+	poppler \
+	rsvg2 \
+	vte \
+	goocanvas \
+	gstreamer \
+	gnomeprint \
+	gnomeprintui \
+	gtkmozembed \
+	gtksourceview \
+	gtksourceview2 \
+	%{nil}
+sed -i extconf.rb \
+	-e 's|^priorlibs.*$|priorlibs\t= []|'
+
+%patch -P1 -p1 -b .newpng
+%patch -P4 -p1 -b .rb25
+%patch -P6 -p1
+%patch -P14 -p1
 
 # Fix /usr/local
 grep -rl /usr/local/bin . | grep -v ChangeLog | \
-	xargs sed -i -e 's|/usr/local/bin|/usr/bin|g'
+	xargs -r sed -i -e 's|/usr/local/bin|/usr/bin|g'
 
 # Keep timestamps as much as possible
 find . -type f -name depend | xargs sed -i -e 's|-m 0644 -v|-m 0644 -p -v|'
@@ -357,30 +355,6 @@ grep -rl rb_cData . | xargs sed -i.ruby32 -e 's|rb_cData|rb_cObject|'
 
 # cleanup
 # find . -type d -path '*/sample/*.svn' | sort -r | xargs rm -rf
-
-# Remove diretories no longer going to build
-rm -rf \
-	atk \
-	gdk_pixbuf2 \
-	gio2 \
-	glib2 \
-	gtk2 \
-	gtkhtml2 \
-	panel-applet \
-	pango \
-	poppler \
-	rsvg2 \
-	vte \
-	goocanvas \
-	gstreamer \
-	gnomeprint \
-	gnomeprintui \
-	gtkmozembed \
-	gtksourceview \
-	gtksourceview2 \
-	%{nil}
-sed -i extconf.rb \
-	-e 's|^priorlibs.*$|priorlibs\t= []|'
 
 # Kill tainted feature, fix -Werror=implicit-funciton-declaration
 sed -i gnomevfs/src/gnomevfs-file.c \
@@ -483,7 +457,7 @@ rm -rf $RPM_BUILD_ROOT/bin
 %files -n ruby-libglade2
 %doc libglade/ChangeLog libglade/COPYING.LIB libglade/README libglade/sample
 %{_bindir}/ruby-glade-create-template
-#%{ruby_vendorlibdir}/libglade2.rb
+#%%{ruby_vendorlibdir}/libglade2.rb
 %attr(755, root, root) %{ruby_vendorlibdir}/libglade2.rb
 %{ruby_vendorarchdir}/libglade2.so
 
@@ -492,6 +466,9 @@ rm -rf $RPM_BUILD_ROOT/bin
 
 
 %changelog
+* Sun Oct 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-15
+- Remove patches applied for the components which are no longer built
+
 * Wed Oct  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-14
 - Clean up subdirectories in advance no longer being built
 - No longer use tainted function and fix build with -Werror=implicit-function-declaration

@@ -13,8 +13,8 @@
 %global regenerate_xs 0
 
 Name:           mod_perl
-Version:        2.0.12
-Release:        9%{?dist}
+Version:        2.0.13
+Release:        1%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 # other files:                  ASL 2.0
 ## Not in binary packages
@@ -32,10 +32,6 @@ Source4:        perl.module.conf
 # Normalize documentation encoding
 Patch0:         mod_perl-2.0.12-Convert-documentation-to-UTF-8.patch
 Patch1:         mod_perl-2.0.4-inline.patch
-# Do not use deprecated ap_get_server_version(), CPAN RT#124972
-Patch2:         mod_perl-2.0.11-Do-not-use-deprecated-ap_get_server_version-in-Serve.patch
-# Do not use deprecated do_open9(), CPAN RT#148451
-Patch3:         mod_perl-2.0.12-Stop-using-do_open9.patch
 
 BuildRequires:  apr-devel >= 1.2.0
 BuildRequires:  apr-util-devel
@@ -321,8 +317,10 @@ fi
 %{_mandir}/man3/Apache2::Reload.3pm*
 %endif
 
-
 %changelog
+* Sun Oct 22 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.0.13-1
+- 2.0.13 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
