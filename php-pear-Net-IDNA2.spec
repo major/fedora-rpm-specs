@@ -1,32 +1,31 @@
 %{!?__pear: %global __pear %{_bindir}/pear}
 %global pear_name  Net_IDNA2
+
 %global with_tests 0%{!?_without_tests:1}
+
+%if 0%{?fedora} > 38 || 0%{?epel}
+%global with_tests 0
+%endif
 
 Summary:         PHP library for punycode encoding and decoding
 Name:            php-pear-Net-IDNA2
 Version:         0.2.0
-Release:         16%{?dist}
+Release:         18%{?dist}
 License:         LGPLv2+
 URL:             http://pear.php.net/package/Net_IDNA2/
 Source0:         http://download.pear.php.net/package/Net_IDNA2-%{version}.tgz
-
 Patch0:          Net_IDNA2-php8.patch
-
 BuildArch:       noarch
 BuildRequires:   php(language) >= 5.4
 BuildRequires:   php-pear(PEAR) >= 1.10.1
 %if %{with_tests}
-# For test suite
 BuildRequires:   phpunit
 %endif
-
 Requires:        php(language) >= 5.4
 Requires:        php-pear(PEAR) >= 1.10.1
 Requires(post):  %{__pear}
 Requires(postun): %{__pear}
-
 Provides:        php-pear(%{pear_name}) = %{version}
-
 %description
 This package helps you to encode and decode punycode strings easily in
 PHP.
@@ -34,7 +33,7 @@ PHP.
 %prep
 %setup -q -c
 cd %{pear_name}-%{version}
-%patch0 -p1 -b .php8
+%autopatch -p1
 sed -e "s/md5sum=.*name/name/" ../package.xml >%{name}.xml
 
 %build
@@ -43,7 +42,6 @@ sed -e "s/md5sum=.*name/name/" ../package.xml >%{name}.xml
 %install
 pushd %{pear_name}-%{version}
 %{__pear} install --nodeps --packagingroot %{buildroot} %{name}.xml
-
 
 # Clean up unnecessary files
 rm -rf %{buildroot}%{pear_metadir}/.??*
@@ -77,6 +75,12 @@ fi
 %{pear_xmldir}/%{name}.xml
 
 %changelog
+* Mon Oct 23 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.2.0-18
+- Skip tests for Fedora 39+
+
+* Mon Oct 23 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.2.0-17
+- Skip tests for Fedora 40+ and EPEL
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

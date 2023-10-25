@@ -115,8 +115,8 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	5.5
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	5.6
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -520,9 +520,7 @@ Development headers and auxiliary files for developing with %{name}.
 %endif
 
 %prep
-%setup -q
-%patch 0001 -p1
-%patch 0002 -p1
+%autosetup -p1
 
 %build
 export VERBOSE=1
@@ -899,6 +897,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Oct 23 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.6-1
+- NFS-Ganesha 5.6 GA
+
 * Mon Aug 7 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.5-2
 - NFS-Ganesha 5.5 GA, w/ zlib-ng
 

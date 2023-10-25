@@ -1,6 +1,6 @@
 Name:           perl-Object-HashBase
-Version:        0.009
-Release:        13%{?dist}
+Version:        0.010
+Release:        1%{?dist}
 Summary:        Build hash-based classes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-HashBase
@@ -58,7 +58,7 @@ also generate the tests for it.
 
 %prep
 %setup -q -n Object-HashBase-%{version}
-%patch0 -p1
+%patch -P0 -p1
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -101,6 +101,10 @@ make test
 %{_mandir}/man3/Object::HashBase::*
 
 %changelog
+* Mon Oct 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.010-1
+- 0.010 bump
+- Update %patch macro usage
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

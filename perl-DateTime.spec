@@ -7,8 +7,8 @@
 
 Name:           perl-DateTime
 Epoch:          2
-Version:        1.59
-Release:        5%{?dist}
+Version:        1.63
+Release:        1%{?dist}
 Summary:        Date and time object for Perl
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/DateTime
@@ -106,12 +106,19 @@ make test
 %{perl_vendorarch}/DateTime/
 %{perl_vendorarch}/DateTime.pm
 %{_mandir}/man3/DateTime.3*
+%{_mandir}/man3/DateTime::Conflicts.3*
 %{_mandir}/man3/DateTime::Duration.3*
 %{_mandir}/man3/DateTime::Infinite.3*
 %{_mandir}/man3/DateTime::LeapSecond.3*
 %{_mandir}/man3/DateTime::Types.3*
 
 %changelog
+* Mon Oct 23 2023 Paul Howarth <paul@city-fan.org> - 2:1.63-1
+- Update to 1.63 (rhbz#2245551)
+  - Switched to using the 'Perl_isfinite' function instead of trying to
+    implement this ourselves in XS code; this should fix quadmath builds on
+    Windows (GH#139)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.59-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

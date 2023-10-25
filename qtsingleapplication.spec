@@ -1,4 +1,4 @@
-%if 0%{?fedora}  || 0%{?rhel} < 8
+%if (0%{?fedora} || 0%{?rhel} < 8) && ! 0%{?flatpak}
 %global _with_qt4      1
 %endif
 
@@ -13,9 +13,9 @@ License:    GPLv3 or LGPLv2 with exceptions
 URL:        http://doc.qt.digia.com/solutions/4/qtsingleapplication/qtsingleapplication.html
 Source0:    https://github.com/qtproject/qt-solutions/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
 # Proposed upstream in https://codereview.qt-project.org/#/c/92417/
-Source1:    qtsingleapplication.prf
+Source1:    qtsingleapplication.prf.in
 # Proposed upstream in https://codereview.qt-project.org/#/c/92416/
-Source2:    qtsinglecoreapplication.prf
+Source2:    qtsinglecoreapplication.prf.in
 # Proposed upstream in https://codereview.qt-project.org/#/c/92411/
 Source3:    LICENSE.GPL3
 # Proposed upstream in https://codereview.qt-project.org/#/c/92411/
@@ -137,13 +137,14 @@ cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} licenses
 # We already disabled bundling this external library.
 # But just to make sure:
 rm -rf ../qtlockedfile/
-sed -i 's,qtlockedfile\.h,QtSolutions/\0,' src/qtlocalpeer.h
 rm src/{QtLocked,qtlocked}*
 
+sed -e 's|@QT_INCLUDEDIR@|%{_qt4_headerdir}|' %{SOURCE1} > qtsingleapplication.prf
+sed -e 's|@QT_INCLUDEDIR@|%{_qt4_headerdir}|' %{SOURCE2} > qtsinglecoreapplication.prf
+
 mkdir qt5
-cp -p %{SOURCE1} %{SOURCE2} qt5
-sed -i -r 's,-lQt,\05,' qt5/qtsingleapplication.prf
-sed -i -r 's,-lQt,\05,' qt5/qtsinglecoreapplication.prf
+sed -e 's|@QT_INCLUDEDIR@|%{_qt5_headerdir}|' %{SOURCE1} > qt5/qtsingleapplication.prf
+sed -e 's|@QT_INCLUDEDIR@|%{_qt5_headerdir}|' %{SOURCE2} > qt5/qtsinglecoreapplication.prf
 
 # additional header needed for Qt5.5
 sed -i -r 's,.include,\0 <QtCore/QDataStream>\n\0,' src/qtlocalpeer.h
@@ -157,6 +158,10 @@ sed -i -r 's,.include,\0 <QtCore/QDataStream>\n\0,' src/qtlocalpeer.h
 %make_build
 %endif
 pushd qt5
+%if 0%{?flatpak}
+# qmake does not search mkspecs in /app
+cat %{_qt5_archdatadir}/mkspecs/features/qtlockedfile.prf >> ../common.pri
+%endif
 %{qmake_qt5} ..
 %make_build
 popd
@@ -177,14 +182,9 @@ cp -ap \
     src/qtsinglecoreapplication.h \
     src/QtSingleCoreApplication \
     %{buildroot}%{_qt4_headerdir}/QtSolutions
-mkdir -p %{buildroot}%{_qt5_headerdir}
-# symlink is not possible due to split into individual subpackages
-cp -ap %{buildroot}%{_qt4_headerdir}/QtSolutions %{buildroot}%{_qt5_headerdir}
-
-mkdir -p %{buildroot}%{_qt4_datadir}/mkspecs/features %{buildroot}%{_qt5_archdatadir}/mkspecs/features
-install -p -m644 %{SOURCE1} %{SOURCE2} %{buildroot}%{_qt4_datadir}/mkspecs/features
-install -p -m644 qt5/*.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features
-%else
+mkdir -p %{buildroot}%{_qt4_datadir}/mkspecs/features
+install -p -m644 *.prf %{buildroot}%{_qt4_datadir}/mkspecs/features
+%endif
 mkdir -p %{buildroot}%{_qt5_headerdir}/QtSolutions %{buildroot}%{_qt5_archdatadir}/mkspecs/features
 cp -ap \
     src/qtsingleapplication.h \
@@ -193,7 +193,6 @@ cp -ap \
     src/QtSingleCoreApplication \
     %{buildroot}%{_qt5_headerdir}/QtSolutions
 install -p -m644 qt5/*.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features
-%endif
 
 %if 0%{?_with_qt4}
 %ldconfig_scriptlets

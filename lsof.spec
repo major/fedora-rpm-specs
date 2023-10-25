@@ -1,8 +1,8 @@
 Summary: A utility which lists open files on a Linux/UNIX system
 Name: lsof
 Version: 4.98.0
-Release: 1%{?dist}
-License: lsof AND GPL-3.0-or-later
+Release: 2%{?dist}
+License: lsof
 URL: https://github.com/lsof-org/lsof
 
 # lsof contains licensed code that we cannot ship.  Therefore we use
@@ -53,6 +53,9 @@ install -p -m 0644 lsof.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/lsof.1
 %{_mandir}/man*/*
 
 %changelog
+* Mon Oct 23 2023 Jan Rybar <jrybar@redhat.com> - 4.98.0-2
+- version bump due to licence fix
+
 * Fri Oct 20 2023 Jan Rybar <jrybar@redhat.com> - 4.98.0-1
 - rebase to lsof-4.98
 

@@ -2,7 +2,7 @@
 
 Name:    libcamera
 Version: 0.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -23,6 +23,7 @@ Source2: qcam.metainfo.xml
 
 # Fix build with Python 3.12
 Patch01: mojo-importlib.patch
+Patch02: libcamera-0.1.0-sphinx-7.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++

@@ -55,11 +55,11 @@ ExclusiveArch:  x86_64
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.36-stable
+%global source_directory 1.37-development
 
 Name:           nbdkit
-Version:        1.36.0
-Release:        3%{?dist}
+Version:        1.37.1
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1249,11 +1249,14 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Mon Oct 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.1-1
+- New upstream development version 1.37.1
+
 * Fri Oct 06 2023 Richard W.M. Jones <rjones@redhat.com> - 1.36.0-3
 - OCaml 5.1 rebuild for Fedora 40
 
 * Wed Sep 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1.36.0-2
-- New upstream development version 1.36.0
+- New upstream stable version 1.36.0
 - Enable blkio support again on Fedora i686.
 
 * Mon Sep 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.13-1

@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    2d7b7e421dba1836d23912723d83adebc53f0ef6
+%global gh_commit    f7a414e7ddbdcd98105506ca1eecc68d4820fb89
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.37
+Version:        1.14.39
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -26,8 +26,8 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 BuildArch:      noarch
 %if %{with_tests}
 # For tests
-%global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.27
+%global phpunit %{_bindir}/phpunit10
+BuildRequires:  phpunit10
 BuildRequires:  php(language) >= 5.3
 BuildRequires:  php-pcre
 %endif
@@ -86,11 +86,12 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" "php80 %{phpunit}" php81 php82; do
+for cmdarg in php "php80 %{_bindir}/phpunit9" php81 php82 php83; do
    if which $cmdarg; then
       set $cmdarg
-      $1 ${2:-%{_bindir}/phpunit10} --migrate-configuration || :
-      $1 ${2:-%{_bindir}/phpunit10} --no-coverage || ret=1
+      cp phpunit.xml.dist phpunit.xml
+      $1 ${2:-%{phpunit}} --migrate-configuration || :
+      $1 ${2:-%{phpunit}} --no-coverage || ret=1
    fi
 done
 exit $ret
@@ -100,16 +101,18 @@ exit $ret
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc composer.json
-%doc README.md example
+%doc *.md example
 %dir %{_datadir}/php/Com
 %dir %{_datadir}/php/Com/Tecnick
 %{php_project}
 
 
 %changelog
+* Mon Oct 23 2023 Remi Collet <remi@remirepo.net> - 1.14.39-1
+- update to 1.14.39 (no change)
+
 * Thu Oct 12 2023 Remi Collet <remi@remirepo.net> - 1.14.37-1
 - update to 1.14.37
 

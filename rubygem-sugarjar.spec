@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 0.0.11
+%global version 1.0.0
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git
@@ -18,8 +18,8 @@ License: ASL 2.0
 URL: http://www.github.com/jaymzh/sugarjar
 Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # git clone https://github.com/jaymzh/sugarjar.git
-# git checkout v0.0.11
-# tar -cf rubygem-sugarjar-0.0.11-specs.tar.gz spec/
+# git checkout v1.0.0
+# tar -cf rubygem-sugarjar-1.0.0-specs.tar.gz spec/
 Source1: %{name}-%{version}-specs.tar.gz
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(mixlib-shellout)
@@ -27,6 +27,7 @@ BuildRequires: rubygem(mixlib-shellout)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(mixlib-log)
 BuildRequires: (hub or gh)
+BuildRequires: git
 %endif
 BuildArch: noarch
 
@@ -80,6 +81,9 @@ rm -rf %{buildroot}
 %{gem_spec}
 
 %changelog
+* Sun Oct 22 2023 Phil Dibowitz <phil@ipom.com> - 1.0.0-1
+- Update to upstream 1.0.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -128,7 +128,9 @@ BuildRequires: libmng-devel
 BuildRequires: libtiff-devel
 BuildRequires: libzstd-devel
 BuildRequires: mtdev-devel
+%if 0%{?fedora} || 0%{?epel}
 BuildRequires: tslib-devel
+%endif
 BuildRequires: pkgconfig(alsa)
 # required for -accessibility
 BuildRequires: pkgconfig(atspi-2)
@@ -791,7 +793,9 @@ make check -k ||:
 %{_qt6_plugindir}/generic/libqevdevtabletplugin.so
 %{_qt6_plugindir}/generic/libqevdevtouchplugin.so
 %{_qt6_plugindir}/generic/libqlibinputplugin.so
+%if 0%{?fedora} || 0%{?epel}
 %{_qt6_plugindir}/generic/libqtslibplugin.so
+%endif
 %{_qt6_plugindir}/generic/libqtuiotouchplugin.so
 # Imageformats
 %{_qt6_plugindir}/imageformats/libqico.so
@@ -829,6 +833,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Oct 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-3
+- Do not use tslib on RHEL builds
+
 * Sun Oct 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.6.0-2
 - Add qtwayland weak dep to -gui subpackage and use arched weak deps
 

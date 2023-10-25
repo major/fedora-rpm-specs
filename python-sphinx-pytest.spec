@@ -1,12 +1,15 @@
 Name:           python-sphinx-pytest
 Version:        0.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Helpful pytest fixtures for sphinx extensions
 
 # SPDX
 License:        MIT
 URL:            https://github.com/chrisjsewell/sphinx-pytest
 Source:         %{pypi_source sphinx_pytest}
+
+# Proposed upstream: https://github.com/sphinx-extensions2/sphinx-pytest/pull/17
+Patch:          fix-tests-with-sphinx-7.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -54,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Aug 21 2023 Karolina Surma <ksurma@redhat.com> - 0.1.1-3
+- Fix tests with Sphinx 7.1+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

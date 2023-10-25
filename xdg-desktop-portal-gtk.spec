@@ -1,11 +1,11 @@
 %global xdg_desktop_portal_version 1.14.0
 
 Name:           xdg-desktop-portal-gtk
-Version:        1.15.0
+Version:        1.15.1
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GTK+
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://github.com/flatpak/%{name}
 Source0:        https://github.com/flatpak/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 

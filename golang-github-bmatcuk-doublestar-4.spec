@@ -4,20 +4,20 @@
 
 # https://github.com/bmatcuk/doublestar
 %global goipath         github.com/bmatcuk/doublestar/v4
-Version:                4.6.0
+Version:                4.6.1
 
 %gometa -f
 
 %global common_description %{expand:
-Implements support for double star (**) matches in golang's path.Match and
-filepath.Glob.}
+This package implements support for double star (**) matches in Golang's
+path.Match and filepath.Glob.}
 
 %global golicenses      LICENSE
 %global godocs          examples README.md UPGRADING.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Implements support for double star (**) matches in golang's path.Match and filepath.Glob
+Summary:        Support for double star (**) matches in Go's path.Match and filepath.Glob
 
 License:        MIT
 URL:            %{gourl}

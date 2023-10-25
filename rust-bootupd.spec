@@ -4,7 +4,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.12
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
@@ -50,6 +50,7 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %{_bindir}/bootupctl
 %{_libexecdir}/bootupd
 %{_unitdir}/*
+%{_prefix}/lib/bootupd/grub2-static/
 
 %prep
 %autosetup -n %{crate}-%{version} -p1 -a1
@@ -63,6 +64,7 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 
 %install
 %make_install INSTALL="install -p -c"
+%{__make} install-grub-static DESTDIR=%{?buildroot} INSTALL="%{__install} -p"
 
 %post        -n %{crate}
 %systemd_post bootupd.service bootupd.socket
@@ -74,6 +76,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Mon Oct 23 2023 Colin Walters <walters@verbum.org> - 0.2.12-4
+- Install static configs
+
 * Fri Oct 20 2023 Colin Walters <walters@verbum.org> - 0.2.12-2
 - https://github.com/coreos/bootupd/releases/tag/v0.2.12
 

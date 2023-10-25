@@ -58,7 +58,7 @@
 
 Name:           ibus
 Version:        1.5.29~rc1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -579,7 +579,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
-* Sat Sep 30 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc1-3
+* Mon Oct 23 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc1-5
+- Add DeleteSurroundingText to PostProcessKeyEvent
+
+* Sat Sep 30 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc1-4
 - Enhance #2237486 Implement preedit color in Plasma Wayland
 - Part-of #2240490 Eacute with CapsLock in Plasma Wayland only
 - Revert dnf5 to dnf in autogen

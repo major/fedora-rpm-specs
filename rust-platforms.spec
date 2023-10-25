@@ -2,27 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate libcst
+%global crate platforms
 
-Name:           rust-libcst
-Version:        1.1.0
+Name:           rust-platforms
+Version:        3.1.2
 Release:        %autorelease
-Summary:        Python parser and Concrete Syntax Tree library
+Summary:        Rust platform registry with information about valid Rust platforms
 
-License:        MIT AND PSF-2.0
-URL:            https://crates.io/crates/libcst
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/platforms
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * specify license in crate metadata (only MIT and PSF-2.0 apply to this crate)
-# * drop unused, benchmark-only criterion dev-dependency
-# * prevent unused "parse" binary from being built and shipped
-# * drop unused support for building the crate as a Python extension module
-Patch:          libcst-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A Python parser and Concrete Syntax Tree library.}
+Rust platform registry with information about valid Rust platforms
+(target triple, target_arch, target_os) sourced from the Rust compiler.}
 
 %description %{_description}
 
@@ -36,8 +31,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/src/tokenizer/core/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -53,23 +49,33 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+trace-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+trace-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "trace" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+trace-devel
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# drop a test that requires fixtures which are not included in published crates
-rm tests/parser_roundtrip.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

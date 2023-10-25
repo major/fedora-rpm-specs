@@ -1,23 +1,40 @@
 Name:           perl-CGI-Application-Plugin-Session
 Version:        1.05
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Add CGI::Session support to CGI::Application
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/CGI-Application-Plugin-Session
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FREW/CGI-Application-Plugin-Session-%{version}.tar.gz
+# Fix the failing test (CPAN RT#149959)
+Patch0:         CGI-Application-Plugin-Session-1.05-RT149959.patch
 
 BuildArch:      noarch
-BuildRequires: make
+buildrequires:  coreutils
+buildrequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(CGI)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(CGI::Application) >= 3.21
 BuildRequires:  perl(CGI::Session) >= 3.95
 BuildRequires:  perl(CGI::Simple)
-BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Test::Exception)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(vars)
+# Tests
+BuildRequires:  perl(CGI)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Pod)
+# Optional tests
+BuildRequires:  perl(CGI::Simple)
+BuildRequires:  perl(Date::Parse)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::Exception)
+
 
 %{?perl_default_filter}
 
@@ -28,17 +45,14 @@ accessible from anywhere in the application.
 
 %prep
 %setup -q -n CGI-Application-Plugin-Session-%{version}
+%patch -P0 -p1
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -46,10 +60,14 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/CGI*
+%{_mandir}/man3/CGI::Application::Plugin::Session*
 
 %changelog
+* Mon Oct 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-28
+- Fix failing test (rhbz#2243201)
+- Update license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

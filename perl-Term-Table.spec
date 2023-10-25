@@ -4,14 +4,14 @@
 %bcond_without perl_Term_Table_enables_unicode
 
 Name:           perl-Term-Table
-Version:        0.017
+Version:        0.018
 Release:        1%{?dist}
 Summary:        Format a header and rows into a table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-Table
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Term-Table-%{version}.tar.gz
 # Unbundle Object::HashBase
-Patch0:         Term-Table-0.017-Use-system-Object-HashBase.patch
+Patch0:         Term-Table-0.018-Use-system-Object-HashBase.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.018-1
+- 0.018 bump
+
 * Fri Sep 15 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.017-1
 - 0.017 bump
 - Fix %patch macro

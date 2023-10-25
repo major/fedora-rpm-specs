@@ -1,30 +1,29 @@
 Name: xdriinfo
-Version: 1.0.4
+Version: 1.0.7
 Release: %autorelease
 Summary: X application to query configuration information of DRI drivers
 License: MIT
 URL: https://gitlab.freedesktop.org/xorg/app/xdriinfo
-Source: https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+Source1: https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz.sig
+Source2: https://gitlab.freedesktop.org/alanc.gpg
 
 # This package was split from the mesa-demos Fedora package, which used to
 # also build and install xdriinfo in its glx-utils until mesa-demos-9.0.0-3
 Conflicts: glx-utils < 9.0.0-4
 
-# This patch was kept from the previous mesa-demos state for xdriinfo for this
-# version and should be unnecessary in future versions of xdriinfo:
-# https://gitlab.freedesktop.org/xorg/app/xdriinfo/-/commit/6273d9dacbf165331c21bcda5a8945c8931d87b8
-Patch0: xdriinfo-1.0.4-glvnd.patch
-
 BuildRequires: gcc
 BuildRequires: libglvnd-devel
 BuildRequires: xorg-x11-util-macros
 BuildRequires: make autoconf automake libtool
+BuildRequires: gnupg2
 
 %description
 xdriinfo can be used to query configuration information of direct
 rendering drivers.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
@@ -38,7 +37,7 @@ rendering drivers.
 %license COPYING
 %{_bindir}/xdriinfo
 %{_mandir}/man1/xdriinfo.1*
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README.md
 
 %changelog
 %autochangelog

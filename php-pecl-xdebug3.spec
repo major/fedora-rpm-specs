@@ -29,8 +29,10 @@
 Name:           php-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
+
+Patch0:         https://patch-diff.githubusercontent.com/raw/xdebug/xdebug/pull/916.patch
 
 License:        Xdebug-1.03
 URL:            https://xdebug.org/
@@ -87,6 +89,8 @@ mv %{sources}/package.xml .
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 # Check extension version
 ver=$(sed -n '/XDEBUG_VERSION/{s/.* "//;s/".*$//;p}' php_xdebug.h)
 if test "$ver" != "%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
@@ -100,7 +104,7 @@ mkdir NTS
 mkdir ZTS
 %endif
 
-cat << 'EOF' | tee %{ini_name}
+cat << 'EOF' >%{ini_name}
 ; Enable xdebug extension module
 zend_extension=%{pecl_name}.so
 
@@ -108,7 +112,9 @@ zend_extension=%{pecl_name}.so
 ; See https://xdebug.org/docs/all_settings
 
 EOF
-sed -e '1d' %{sources}/%{pecl_name}.ini >>%{ini_name}
+sed -e '1,2d' %{sources}/%{pecl_name}.ini >>%{ini_name}
+
+head -n15 <%{ini_name}
 
 
 %build
@@ -165,17 +171,33 @@ for mod in simplexml; do
   fi
 done
 
-# only check if build extension can be loaded
+: check if NTS extension can be loaded
 %{__php} \
     --no-php-ini \
     --define zend_extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep Xdebug
+    --modules | grep '^Xdebug$'
+
+: check if provided config file is usable
+%{__php} \
+    --no-php-ini \
+    -d extension_dir=%{buildroot}%{php_extdir} \
+    -c %{buildroot}%{php_inidir}/%{ini_name} -v
+%{__php} \
+    --no-php-ini \
+    -d extension_dir=%{buildroot}%{php_extdir} \
+    -c %{buildroot}%{php_inidir}/%{ini_name} -v 2>err.log \
+        | grep 'with Xdebug v%{upstream_version}%{?upstream_prever}'
+if [ -s err.log ]; then
+    cat err.log
+    exit 1
+fi
 
 %if %{with_zts}
+: check if ZTS extension can be loaded
 %{__ztsphp} \
     --no-php-ini \
     --define zend_extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep Xdebug
+    --modules | grep '^Xdebug$'
 %endif
 
 %if %{with tests}
@@ -214,6 +236,10 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Sun Oct 22 2023 Remi Collet <remi@remirepo.net> - 3.3.0~alpha3-2
+- fix configuration file using patch from
+  https://github.com/xdebug/xdebug/pull/916
+
 * Fri Oct 20 2023 Remi Collet <remi@remirepo.net> - 3.3.0~alpha3-1
 - update to 3.3.0alpha3
 

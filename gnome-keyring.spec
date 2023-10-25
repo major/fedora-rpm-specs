@@ -2,6 +2,8 @@
 %global gcr_version 3.27.90
 %global gcrypt_version 1.2.2
 
+%bcond_with ssh_agent
+
 Name:    gnome-keyring
 Version: 42.1
 Release: 5%{?dist}
@@ -28,12 +30,16 @@ BuildRequires: libselinux-devel
 BuildRequires: make
 BuildRequires: pam-devel
 BuildRequires: systemd-rpm-macros
+%if %{with ssh_agent}
 BuildRequires: /usr/bin/ssh-add
 BuildRequires: /usr/bin/ssh-agent
+%endif
 BuildRequires: /usr/bin/xsltproc
 
+%if %{with ssh_agent}
 Requires: /usr/bin/ssh-add
 Requires: /usr/bin/ssh-agent
+%endif
 # for /usr/libexec/gcr-ssh-askpass
 Requires: gcr3
 
@@ -65,7 +71,10 @@ automatically unlock the "login" keyring when the user logs in.
            --enable-pam \
            --with-systemd \
            --without-libcap-ng \
-	   --with-pkcs11-config=%{_datadir}/p11-kit/modules
+           --with-pkcs11-config=%{_datadir}/p11-kit/modules \
+%if %{without ssh_agent}
+           --disable-ssh-agent
+%endif
 
 # avoid unneeded direct dependencies
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' libtool
@@ -120,6 +129,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 
 
 %changelog
+* Fri Oct 20 2023 Dhanuka Warusadura <dhanuka@gnome.org> - 42.1-6
+- ssh-agent: update build instructions to disable ssh component
+- Introduced conditional builds based on ssh component required or not
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

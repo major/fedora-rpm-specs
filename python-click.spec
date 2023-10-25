@@ -1,15 +1,11 @@
 Name:           python-click
-Version:        8.1.3
-Release:        5%{?dist}
+Version:        8.1.7
+Release:        1%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD-3-Clause
 URL:            https://github.com/pallets/click
 Source0:        %{url}/archive/%{version}/click-%{version}.tar.gz
-
-# Fix test failures with pytest 7.3.0
-# From https://github.com/pallets/click/issues/2489#issuecomment-1504160617 by Ran Benita
-Patch:          pytest-7.3.patch
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -58,6 +54,10 @@ sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
 
 
 %changelog
+* Wed Aug 23 2023 Charalampos Stratakis <cstratak@redhat.com> - 8.1.7-1
+- Update to 8.1.7
+Resolves: rhbz#2220975
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %undefine  py_auto_byte_compile
 
 Name:      geany
-Version:   1.38
-Release:   5%{?dist}
+Version:   2.0
+Release:   1%{?dist}
 Summary:   A fast and lightweight IDE using GTK3
 
 License:   GPLv2+ and MIT
@@ -23,7 +23,8 @@ BuildRequires: make
 Requires: vte291%{?_isa}
 Requires: geany-libgeany = %{version}-%{release}
 
-Provides: bundled(scintilla) = 3.10.4
+Provides: bundled(scintilla) = 5.3.7
+Provides: bundled(lexilla) = 5.2.7
 
 Recommends: xterm
 
@@ -154,6 +155,9 @@ EOF
 %{_libdir}/pkgconfig/geany.pc
 
 %changelog
+* Mon Oct 23 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 2.0-1
+- New upstream release: Geany 2.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.38-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

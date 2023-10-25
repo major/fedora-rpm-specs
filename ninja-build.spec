@@ -4,13 +4,15 @@
 
 Name:           ninja-build
 Version:        1.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Small build system with a focus on speed
 License:        Apache-2.0
 URL:            https://ninja-build.org/
 Source0:        https://github.com/ninja-build/ninja/archive/v%{version}/ninja-%{version}.tar.gz
 Source1:        ninja.vim
 Source2:        macros.ninja
+# https://github.com/ninja-build/ninja/pull/2340
+Patch0:         python3.13-pipes.patch
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
 %if %{without bootstrap}
@@ -86,6 +88,9 @@ ln -s ninja %{buildroot}%{_bindir}/ninja-build
 %{_rpmmacrodir}/macros.ninja
 
 %changelog
+* Mon Oct 23 2023 Ben Boeckel <fedora@me.benboeckel.net> - 1.11.1-5
+- Handle Python 3.13 removal of `pipes`, resolves rhbz#2245655
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

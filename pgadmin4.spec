@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        7.7
-Release:        2%{?dist}
+Version:        7.8
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -16,7 +16,7 @@ Summary:        Administration tool for PostgreSQL
 ExcludeArch:    i686 armv7hl s390x ppc64le
 
 # PostgreSQL ist the main license, rest the bundled JS code (see %%{name}-%%{version}-vendor-licenses.txt)
-License:        PostgreSQL and MIT and ISC and BSD and ASL 2.0 and CC-BY and CC0 and WTFPL and zlib and GPLv2 and GPLv3+ and Python
+License:        PostgreSQL AND MIT AND ISC AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND 0BSD AND BlueOak-1.0.0 AND CC-BY-4.0 AND OFL-1.1 AND Unlicense AND Python-2.0.1 AND Apache-2.0 WITH LLVM-exception AND (WTFPL OR MIT) AND Zlib AND CC-BY-3.0
 URL:            https://www.pgadmin.org/
 Source0:        https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v%{version}/source/pgadmin4-%{version}.tar.gz
 
@@ -86,11 +86,11 @@ Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
 Requires: (python3dist(pytz) >= 2023 with python3dist(pytz) < 2024)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
 Requires: (python3dist(psutil) >= 5.9 with python3dist(psutil) < 5.10)
-Requires: python3dist(psycopg) >= 3.1.9
+Requires: python3dist(psycopg) >= 3.1.12
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: python3dist(sqlalchemy) >= 1.4
 Requires: (python3dist(bcrypt) >= 4 with python3dist(bcrypt) < 4.1)
-Requires: (python3dist(cryptography) >= 41 with python3dist(cryptography) < 41.1)
+Requires: python3dist(cryptography) >= 40
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
@@ -100,7 +100,6 @@ Requires: python3dist(user-agents) = 2.2
 Requires: (python3dist(authlib) >= 1.2 with python3dist(authlib) < 1.3)
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 7 with python3dist(qrcode) < 8)
-Requires: python3dist(pillow) >= 9
 Requires: (python3dist(boto3) >= 1.28 with python3dist(boto3) < 1.29)
 Requires: (python3dist(botocore) >= 1.31 with python3dist(botocore) < 1.32)
 Requires: (python3dist(urllib3) >= 1.26 with python3dist(urllib3) < 1.27)
@@ -263,6 +262,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Oct 22 2023 Sandro Mani <manisandro@gmail.com> - 7.8-1
+- Update to 7.8
+
 * Sat Sep 30 2023 Sandro Mani <manisandro@gmail.com> - 7.7-2
 - Relax flask-wtf requires
 

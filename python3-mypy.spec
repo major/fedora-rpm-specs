@@ -1,6 +1,6 @@
 Name:           python3-mypy
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -23,7 +23,6 @@ Provides: python-typeshed = 1:0.1-0.20191011git2
 
 # Needed to generate the man pages
 BuildRequires:  help2man
-BuildRequires:  (python3dist(typed-ast) >= 1.4 with python3dist(typed-ast) < 2)
 BuildRequires:  python3dist(mypy-extensions)
 
 BuildArch:      noarch
@@ -81,6 +80,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Mon Oct 23 2023 Miro Hrončok <mhroncok@redhat.com> - 1.6.1-2
+- Drop a redundant BuildRequires python3dist(typed-ast)
+
 * Thu Oct 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6.1-1
 - 1.6.1
 

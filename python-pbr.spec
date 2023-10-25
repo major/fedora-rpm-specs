@@ -1,17 +1,14 @@
 %global pypi_name pbr
 # Disable bootstrap
-%bcond_with bootstrap
+%bcond bootstrap 1
 
-%if 0%{?fedora}
-%bcond_without tests
-%else
 # EPEL does not have the necessary testing dependencies
-%bcond_with tests
-%endif
+# During the bootstrap the test dependencies are not ready yet
+%bcond tests %[%{defined fedora} && %{without bootstrap}]
 
 Name:           python-%{pypi_name}
 Version:        5.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -94,6 +91,9 @@ export PYTHONDONTWRITEBYTECODE=1
 %{_bindir}/pbr-3
 
 %changelog
+* Fri Oct 20 2023 Karolina Surma <ksurma@redhat.com> - 5.11.1-5
+- When boostrapping the package switch off the tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

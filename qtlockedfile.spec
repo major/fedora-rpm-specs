@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?rhel} < 8
+%if (0%{?fedora} || 0%{?rhel} < 8) && ! 0%{?flatpak}
 %global _with_qt4      1
 %endif
 
@@ -15,7 +15,7 @@ Release:	39.%{commitdate}git%{shortcommit0}%{?dist}
 License:	GPLv3 or LGPLv2 with exceptions
 URL:		http://doc.qt.digia.com/solutions/4/qtlockedfile/qtlockedfile.html
 Source0:	https://github.com/qtproject/qt-solutions/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
-Source1:	qtlockedfile.prf
+Source1:	qtlockedfile.prf.in
 # Proposed upstream in https://codereview.qt-project.org/#/c/92411/
 Source2:	LICENSE.LGPL
 # Proposed upstream in https://codereview.qt-project.org/#/c/92411/
@@ -82,11 +82,13 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE4} licenses
 %if 0%{?_with_qt4}
 %{qmake_qt4}
 %make_build
+sed -e 's|@QT_INCLUDEDIR@|%{_qt4_headerdir}|' %{SOURCE1} > qtlockedfile.prf
 %endif
 mkdir qt5
 pushd qt5
 %{qmake_qt5} ..
 %make_build
+sed -e 's|@QT_INCLUDEDIR@|%{_qt5_headerdir}|' %{SOURCE1} > qtlockedfile.prf
 popd
 
 %install
@@ -96,16 +98,13 @@ cp -ap lib/* %{buildroot}%{_libdir}
 
 # headers
 %if 0%{?_with_qt4}
-mkdir -p %{buildroot}%{_qt4_headerdir}/QtSolutions %{buildroot}%{_qt5_headerdir}
+mkdir -p %{buildroot}%{_qt4_headerdir}/QtSolutions
 cp -ap src/qtlockedfile.h src/QtLockedFile %{buildroot}%{_qt4_headerdir}/QtSolutions
-cp -ap %{buildroot}%{_qt4_headerdir}/QtSolutions %{buildroot}%{_qt5_headerdir}
-install -p -D -m644 %{SOURCE1} %{buildroot}%{_qt4_datadir}/mkspecs/features/qtlockedfile.prf
-install -p -D -m644 %{SOURCE1} %{buildroot}%{_qt5_archdatadir}/mkspecs/features/qtlockedfile.prf
-%else
+install -p -D -m644 qtlockedfile.prf %{buildroot}%{_qt4_datadir}/mkspecs/features/qtlockedfile.prf
+%endif
 mkdir -p %{buildroot}%{_qt5_headerdir}/QtSolutions
 cp -ap src/qtlockedfile.h src/QtLockedFile %{buildroot}%{_qt5_headerdir}/QtSolutions
-install -p -D -m644 %{SOURCE1} %{buildroot}%{_qt5_archdatadir}/mkspecs/features/qtlockedfile.prf 
-%endif
+install -p -D -m644 qt5/qtlockedfile.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features/qtlockedfile.prf
 
 %if 0%{?_with_qt4}
 %ldconfig_scriptlets

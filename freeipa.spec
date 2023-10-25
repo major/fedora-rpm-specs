@@ -201,7 +201,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        5%{?rc_version:.%rc_version}%{?dist}
+Release:        6%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -219,6 +219,8 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_vers
 #   gpg --armor --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
 Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
+
+Patch0001:      freeipa-4.11-samba-changes.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1739,6 +1741,9 @@ fi
 %endif
 
 %changelog
+* Mon Oct 23 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-6
+- Adopt trust to AD code to Samba changes in case SIDs are malformed
+
 * Tue Oct 03 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-5
 - FreeIPA 4.11.0 release
 - Simplify Fedora spec file

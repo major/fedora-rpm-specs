@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    b74f197e80e85707c0db2cc6f0fc57fb5e80e331
+%global gh_commit    cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.17.38
+Version:        1.18.4
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -26,15 +26,10 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 BuildArch:      noarch
 %if %{with tests}
 # For tests
-%global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.27
-BuildRequires:  php(language) >= 5.4
-%if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
+%global phpunit %{_bindir}/phpunit10
+BuildRequires:  phpunit10
+BuildRequires:  php(language) >= 5.6
 BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 1.14    with php-composer(%{c_vendor}/tc-lib-color) <  2)
-%else
-BuildRequires:  php-%{c_vendor}-tc-lib-color           <  2
-BuildRequires:  php-%{c_vendor}-tc-lib-color           >= 1.14
-%endif
 BuildRequires:  php-bcmath
 BuildRequires:  php-ctype
 BuildRequires:  php-date
@@ -46,24 +41,19 @@ BuildRequires:  php-pecl-imagick
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=5.4"
+#        "php": ">=5.6"
 #        "ext-bcmath": "*",
 #        "ext-date": "*",
 #        "ext-gd": "*",
 #        "ext-pcre": "*",
 #        "tecnickcom/tc-lib-color": "^1.14"
-Requires:       php(language) >= 5.4
+Requires:       php(language) >= 5.6
 Requires:       php-bcmath
 Requires:       php-ctype
 Requires:       php-date
 Requires:       php-gd
 Requires:       php-pcre
-%if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
 Requires:      (php-composer(%{c_vendor}/tc-lib-color) >= 1.14    with php-composer(%{c_vendor}/tc-lib-color) <  2)
-%else
-Requires:       php-%{c_vendor}-tc-lib-color           <  2
-Requires:       php-%{c_vendor}-tc-lib-color           >= 1.14
-%endif
 # From phpcompatinfo report for version 1.15.5
 # none
 Requires:       php-composer(fedora/autoloader)
@@ -123,9 +113,10 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" "php80 %{phpunit}" php81 php82; do
+for cmdarg in "php %{phpunit}" "php80 %{_bindir}/phpunit9" php81 php82 php83; do
    if which $cmdarg; then
       set $cmdarg
+      cp phpunit.xml.dist phpunit.xml
       $1 ${2:-%{_bindir}/phpunit10} --migrate-configuration || :
       $1 ${2:-%{_bindir}/phpunit10} \
         --no-coverage --stderr || ret=1
@@ -138,14 +129,19 @@ exit $ret
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc composer.json
-%doc README.md example
+%doc *.md example
 %{php_project}
 
 
 %changelog
+* Mon Oct 23 2023 Remi Collet <remi@remirepo.net> - 1.18.4-1
+- update to 1.18.4 (no change)
+
+* Mon Oct 23 2023 Remi Collet <remi@remirepo.net> - 1.18.2-1
+- update to 1.18.2
+
 * Thu Oct 12 2023 Remi Collet <remi@remirepo.net> - 1.17.38-1
 - update to 1.17.38
 

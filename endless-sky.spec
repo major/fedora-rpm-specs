@@ -1,5 +1,5 @@
 Name:		endless-sky
-Version:	0.10.3
+Version:	0.10.4
 Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
@@ -58,7 +58,7 @@ Images, sound, and game data for %{name}.
 
 %check
 appstream-util validate-relax --nonet io.github.endless_sky.endless_sky.appdata.xml
-desktop-file-validate %{name}.desktop
+desktop-file-validate io.github.endless_sky.endless_sky.desktop
 
 
 %install
@@ -81,7 +81,7 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 %{_datadir}/icons/hicolor/256x256/apps/%{name}.png
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/icons/hicolor/512x512/apps/%{name}.png
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/io.github.endless_sky.endless_sky.desktop
 %{_datadir}/metainfo/io.github.endless_sky.endless_sky.appdata.xml
 %{_mandir}/man6/%{name}.6.gz
 
@@ -92,6 +92,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Mon Oct 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.4-1
+- 0.10.4
+
 * Mon Oct 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.3-1
 - 0.10.3
 

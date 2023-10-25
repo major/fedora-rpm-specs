@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Yet Another Query Language
 
 License:        ASL 2.0
@@ -59,14 +59,8 @@ rm -rf %{pypi_name}.egg-info
 # Let RPM handle the dependencies
 rm -f test-requirements.txt requirements.txt
 
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-2to3 -p --write --nobackups %{py3dir}
-
 %build
-pushd %{py3dir}
 %py3_build
-popd
 
 %if 0%{?with_docs}
 # generate html docs
@@ -76,10 +70,8 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %install
-pushd %{py3dir}
 %py3_install
 mv %{buildroot}/%{_bindir}/%{pypi_name} %{buildroot}/%{_bindir}/python3-%{pypi_name}
-popd
 
 pushd %{buildroot}%{_bindir}
 for i in %{pypi_name}-{3,%{?python3_version}}; do
@@ -110,6 +102,9 @@ rm -fr %{buildroot}%{python3_sitelib}/yaql/tests
 %endif
 
 %changelog
+* Mon Oct 23 2023 Alfredo Moralejo <amoralej@redhat.com> - 2.0.0-9
+- Remove 2to3 usage while building the package
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

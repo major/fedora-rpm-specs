@@ -1,16 +1,16 @@
 Name:           jmol
-Version:        14.32.83
-Release:        3%{?dist}
+Version:        16.1.41
+Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
-# JSpecView, JMol, and Sparsh-UI are all LGPL-2.0-or-later.
+# JSpecView, JMol, and Sparsh-UI are all LGPL-2.1-or-later.
 # src/javajs/img/GifEncoder.java is BSD-2-Clause.
 # src/javajs/img/PpmEncoder.java is BSD-2-Clause.
 # src/javajs/img/JpgEncoder.java and src/javajs/img/Jpg64Encoder.java are IJG.
 # src/javajs/util/BS.java is GPL-2.0-only with the classpath exception.
 # The icon is CC0-1.0.
 # The Nuvola icons are GPL-2.0-only.
-License:        LGPL-2.0-or-later AND BSD-2-Clause AND IJG AND GPL-2.0-only WITH Classpath-exception-2.0 AND CC0-1.0 AND GPL-2.0-only
+License:        LGPL-2.1-or-later AND BSD-2-Clause AND IJG AND GPL-2.0-only WITH Classpath-exception-2.0 AND CC0-1.0 AND GPL-2.0-only
 URL:            http://www.jmol.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -30,6 +30,7 @@ Patch3:         %{name}-javadoc.patch
 Patch4:         %{name}-deprecated.patch
 
 BuildRequires:  ant
+BuildRequires:  ant-contrib
 BuildRequires:  ant-junit
 BuildRequires:  apache-commons-cli
 BuildRequires:  appstream
@@ -70,7 +71,7 @@ and researchers in chemistry and biochemistry.
 
 %package -n jsmol
 Summary:        JavaScript-Based Molecular Viewer From Jmol
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Requires:       web-assets-filesystem
 
 Recommends:     js-jquery1
@@ -131,9 +132,6 @@ done
 iconv -f ISO8859-1 -t UTF-8 CHANGES.txt > CHANGES.txt.utf8
 touch -r CHANGES.txt CHANGES.txt.utf8
 mv CHANGES.txt.utf8 CHANGES.txt
-
-# Set the version without ant-contrib
-sed -i 's,@version@,%{version},' build.xml
 
 %build
 export ANT_OPTS="-Dfile.encoding=utf-8"
@@ -212,6 +210,11 @@ cd ../..
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Mon Oct 23 2023 Jerry James <loganjerry@gmail.com> - 16.1.41-1
+- Version 16.1.41
+- Update license: LGPL-2.0-or-later -> LGPL-2.1-or-later
+- Bring the ant-contrib dependency back
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.32.83-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

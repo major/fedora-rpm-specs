@@ -10,8 +10,8 @@
 %global pear_name Net_SMTP
 
 Name:           php-pear-Net-SMTP
-Version:        1.10.1
-Release:        4%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        Provides an implementation of the SMTP protocol
 
 License:        BSD-2-Clause
@@ -102,6 +102,9 @@ fi
 
 
 %changelog
+* Mon Oct 23 2023 Remi Collet <remi@remirepo.net> 1.11.0-1
+- update to 1.11.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

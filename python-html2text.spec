@@ -50,7 +50,7 @@ Obsoletes:      python2-%{upname} <= %{version}-%{release}
 %py3_install
 %{__mv} -f %{buildroot}%{_bindir}/%{upname} %{buildroot}%{_bindir}/python3-%{upname}
 export PYTHONPATH="%{buildroot}%{python3_sitelib}"
-%{_bindir}/help2man --no-discard-stderr -s 1 -N -o %{buildroot}%{_mandir}/man1/python3-%{upname}.1 %{buildroot}%{_bindir}/python3-%{upname}
+help2man --no-discard-stderr -s 1 -N -o %{buildroot}%{_mandir}/man1/python3-%{upname}.1 %{buildroot}%{_bindir}/python3-%{upname}
 pushd  %{buildroot}%{_bindir}
 ln -s python3-%{upname} %{upname}
 ln -s python3-%{upname} %{name}

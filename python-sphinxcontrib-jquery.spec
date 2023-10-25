@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-jquery
 Version:        4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extension to include jQuery on newer Sphinx releases
 
 # The project is 0BSD
@@ -10,6 +10,8 @@ License:        0BSD AND BSD-2-Clause AND MIT
 URL:            https://github.com/sphinx-contrib/jquery/
 Source:         %{url}/archive/v%{version}/sphinxcontrib-jquery-%{version}.tar.gz
 
+# Make the tests pass with Sphinx 7.1+
+Patch:          https://github.com/sphinx-contrib/jquery/pull/26.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -55,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Aug 15 2023 Karolina Surma <ksurma@redhat.com> - 4.1-4
+- Fix tests with Sphinx 7.1+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

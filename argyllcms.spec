@@ -2,7 +2,7 @@
 %undefine _include_frame_pointers
 
 Name: argyllcms
-Version: 3.0.1
+Version: 3.0.2
 Release: 1%{?dist}
 
 # Main code - AGPL-3.0-or-later
@@ -14,7 +14,6 @@ License: AGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT AND
 Summary: ICC compatible color management system
 URL: https://www.argyllcms.com
 Source0: %{url}/Argyll_V%{version}_src.zip#/%{name}-%{version}.zip
-Patch0:  ctype.patch
 
 BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(libpng)
@@ -159,6 +158,9 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_datadir}/color/argyll/
 
 %changelog
+* Mon Oct 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.2-1
+- 3.0.2
+
 * Thu Oct 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.1-1
 - 3.0.1
 

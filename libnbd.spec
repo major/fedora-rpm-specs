@@ -5,11 +5,11 @@
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.18-stable
+%global source_directory 1.19-development
 
 Name:           libnbd
-Version:        1.18.0
-Release:        2%{?dist}
+Version:        1.19.1
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -375,11 +375,14 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Oct 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.1-1
+- New upstream development version 1.19.1
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.18.0-2
 - OCaml 5.1 rebuild for Fedora 40
 
 * Wed Sep 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1.18.0-1
-- New upstream development version 1.18.0
+- New upstream stable version 1.18.0
 
 * Fri Sep 08 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.5-1
 - New upstream development version 1.17.5

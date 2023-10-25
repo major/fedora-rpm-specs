@@ -1,31 +1,29 @@
 Name:           dhcpdump
-Version:        1.8
-Release:        6%{?dist}
+Version:        1.9
+Release:        1%{?dist}
 Summary:        Parse DHCP packets
 
 License:        BSD-2-Clause
-URL:            http://www.mavetju.org/unix/general.php
-Source0:        http://www.mavetju.org/download/%{name}-%{version}.tar.gz
-Patch0: dhcpdump.c.patch
-Patch1: dhcpdump-build.patch
-Patch2: dhcpdump-bugfix_ethertype.patch
-Patch3: dhcpdump-bugfix_flags.patch
-Patch4: dhcpdump-bugfix_opt82.patch
-Patch5: dhcpdump-bugfix_strcounts.patch
-Patch6: dhcpdump-warnings.patch
-Patch7: dhcpdump-spelling.patch
+URL:            https://github.com/bbonev/%{name}
+Source0:        https://github.com/bbonev/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source1:        https://github.com/bbonev/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
+Source2:        https://raw.githubusercontent.com/bbonev/%{name}/v%{version}/debian/upstream/signing-key.asc
 
 
 BuildRequires:  gcc
 BuildRequires:  libpcap-devel
 BuildRequires:  make
 BuildRequires:  perl-podlators
+BuildRequires:  gnupg2
 
 %description
 A utility to analyze sniffed DHCP packets.
 
+%global _hardened_build 1
+
 %prep
-%autosetup -p1
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
 
 
 %build
@@ -43,6 +41,9 @@ install -D -p -m 644 -t %{buildroot}%{_mandir}/man8/ %{name}.8
 
 
 %changelog
+* Tue Oct 10 2023 Boian Bonev <bbonev@ipacct.com> - 1.9-1
+- Change upstream to a maintained fork
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

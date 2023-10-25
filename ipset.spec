@@ -1,6 +1,6 @@
 Name:             ipset
-Version:          7.17
-Release:          7%{?dist}
+Version:          7.19
+Release:          1%{?dist}
 Summary:          Manage Linux IP sets
 
 License:          GPL-2.0-only
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Mon Oct 23 2023 Nicolas Chauvet <kwizart@gmail.com> - 7.19-1
+- Update to 7.19
+
 * Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 7.17-7
 - Convert license to SPDX format
 

@@ -4306,8 +4306,13 @@ echo "RPM Build arch: %{_arch}"
 %global privlib     %{_prefix}/share/perl5
 %global archlib     %{_libdir}/perl5
 
+%if 0%{?flatpak_runtime}
+%global perl_vendorlib  /app/%{_lib}/perl5/vendor_perl
+%global perl_vendorarch /app/share/perl5/vendor_perl
+%else
 %global perl_vendorlib  %{privlib}/vendor_perl
 %global perl_vendorarch %{archlib}/vendor_perl
+%endif
 
 %global perl_abi    %(echo '%{perl_version}' | sed 's/^\\([^.]*\\.[^.]*\\).*/\\1/')
 
@@ -4329,10 +4334,8 @@ echo "RPM Build arch: %{_arch}"
         -Dcc='%{__cc}' \
         -Dcf_by='Red Hat, Inc.' \
         -Dprefix=%{_prefix} \
-%if %{without perl_enables_groff}
         -Dman1dir="%{_mandir}/man1" \
         -Dman3dir="%{_mandir}/man3" \
-%endif
         -Dvendorprefix=%{_prefix} \
         -Dsiteprefix=%{_prefix}/local \
         -Dsitelib="%{_prefix}/local/share/perl5/%{perl_abi}" \
@@ -4342,6 +4345,13 @@ echo "RPM Build arch: %{_arch}"
         -Darchlib="%{archlib}" \
         -Dvendorarch="%{perl_vendorarch}" \
         -Darchname=%{perl_archname} \
+%if 0%{?flatpak}
+        -Dotherlibdirs="/usr/share/perl5/vendor_perl:/usr/%{_lib}/perl5/vendor_perl:/usr/share/perl5:/usr/%{_lib}/perl5" \
+%endif
+%if 0%{?flatpak_runtime}
+        -Dotherlibdirs=%{archlib}/vendor_perl:%{privlib}/vendor_perl \
+        -Dvendorprefix=/app \
+%endif
 %ifarch %{multilib_64_archs}
         -Dlibpth="/usr/local/lib64 /lib64 %{_prefix}/lib64" \
 %endif
@@ -5216,6 +5226,14 @@ popd
 %endif
 %endif
 
+%if 0%{?flatpak}
+# This symlink won't be included in the Flatpak, since it is outside of /app,
+# but it is needed in the prefix=/app buildroot, since we need to be able to
+# install modules that Require: /usr/bin/perl.
+mkdir -p %{buildroot}/usr/bin
+ln -s /app/bin/perl %{buildroot}/usr/bin/perl
+%endif
+
 %ldconfig_scriptlets libs
 
 %files
@@ -5229,6 +5247,9 @@ popd
 %dir %{privlib}/pod
 %{privlib}/pod/perl.pod
 %{privlib}/pod/perlrun.pod
+%if 0%{?flatpak}
+/usr/bin/perl
+%endif
 
 %files libs
 %license Artistic Copying

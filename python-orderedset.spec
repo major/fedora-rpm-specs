@@ -6,7 +6,7 @@ Version:        2.0.3
 Release:        12%{?dist}
 Summary:        Ordered set implementation in Cython
 
-License:        BSD-3-Clause-Clear
+License:        BSD-3-Clause AND MIT AND PSF-2.0
 URL:            https://github.com/%{user}/%{srcname}
 Source0:        %pypi_source
 # https://github.com/simonpercivall/orderedset/pull/22

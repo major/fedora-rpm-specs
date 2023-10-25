@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2023.10
-Release:  0.7%{?candidate:.%{candidate}}%{?dist}
+Release:  0.8%{?candidate:.%{candidate}}%{?dist}
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:      http://www.denx.de/wiki/U-Boot
@@ -16,12 +16,13 @@ ExcludeArch: s390x
 Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:  aarch64-boards
 
-Patch1:   uefi-Boot-var-automatic-management-for-removable-medias.patch
+Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 Patch2:   smbios-Simplify-reporting-of-unknown-values.patch
 Patch3:   disable-VBE-by-default.patch
 Patch4:   enable-bootmenu-by-default.patch
 Patch5:   Add-video-damage-tracking.patch
-Patch6:   bootstd-Scan-all-bootdevs-in-a-boot_targets-entry.patch
+Patch6:   uefi-Boot-var-automatic-management-for-removable-medias.patch
+Patch7:   bootstd-Test-and-boot_targets-improvements.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
@@ -213,6 +214,9 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Mon Oct 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.8
+- Further potential upstream fixes
+
 * Mon Oct 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.7
 - Update to 2023.10 GA
 - Some upstream fixes

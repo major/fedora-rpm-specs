@@ -11,6 +11,18 @@
 
 %global swift_version 5.8.1
 
+# Normally we would fail the build because:
+#   ERROR   0008: file '/usr/bin/swiftlint' contains the $ORIGIN runpath
+#   specifier at the wrong position in
+#   [/usr/libexec/swift/5.8.1/lib/swift/linux:$ORIGIN]
+# but in this case rpath is necessary because of
+#   swiftlint: error while loading shared libraries: libswiftGlibc.so: cannot
+#   open shared object file: No such file or directory
+# As this in an internal library, this is allowed by policy per
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_rpath_for_internal_libraries
+# so neuter the check instead
+%global __brp_check_rpaths %{nil}
+
 Name:           swiftlint
 # To update: bump this Version, then run swiftlint-get-bundled-deps.sh
 Version:        0.53.0
@@ -30,7 +42,6 @@ Source1:        %{srcname}-%{version}-bundled-deps.tar.gz
 Source2:        %{srcname}-%{version}-bundled-provides.txt
 Source3:        swiftlint-get-bundled-deps.sh
 
-BuildRequires:  chrpath
 BuildRequires:  swift-lang = %{swift_version}
 
 # Swift only supports these arches
@@ -92,18 +103,15 @@ echo '-Xcc -gdwarf-4 -Xcxx -gdwarf-4' >> build.sh
 %build
 sh -x build.sh
 
-# Fix rpath because of
-#   ERROR   0008: file '/usr/bin/swiftlint' contains the $ORIGIN runpath
-#   specifier at the wrong position in
-#   [/usr/libexec/swift/5.8.1/lib/swift/linux:$ORIGIN]
-chrpath --delete .build/%{config}/%{name}
-
 %install
 install -Dpm0755 -t %{buildroot}%{_bindir} .build/%{config}/%{name}
 
 %if %{with tests}
 %check
 swift test -v
+
+# Make sure the binary actually runs
+%{buildroot}%{_bindir}/swiftlint --help
 %endif
 
 %files

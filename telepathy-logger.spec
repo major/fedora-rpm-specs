@@ -46,7 +46,7 @@ developing applications that use %{name}.
 %autosetup -p1
 
 # https://fedoraproject.org/wiki/Changes/Make_ambiguous_python_shebangs_error
-pathfix.py -i %{__python3} -n tools
+%py3_shebang_fix tools
 
 # more rpath hacks
 %if "%{_libdir}" != "/usr/lib"

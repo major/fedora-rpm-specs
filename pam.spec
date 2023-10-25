@@ -4,7 +4,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -26,6 +26,7 @@ Patch1:  pam-1.5.3-redhat-modules.patch
 Patch2:  pam-1.5.3-noflex.patch
 Patch3:  pam-1.5.3-unix-nomsg.patch
 Patch4:  pam-1.5.3-pwhistory-null-filename-arg.patch
+Patch5:  pam-1.5.3-userdb-gdbm.patch
 
 %{load:%{SOURCE3}}
 
@@ -33,6 +34,8 @@ Patch4:  pam-1.5.3-pwhistory-null-filename-arg.patch
 Requires: libpwquality%{?_isa}
 Requires: setup
 Requires: authselect >= 1.3
+Requires: gdbm
+Requires: libdb-convert-util
 Requires: pam-libs%{?_isa} = %{version}-%{release}
 
 ### Build Dependencies ###
@@ -42,8 +45,8 @@ BuildRequires: automake
 BuildRequires: bison
 BuildRequires: flex
 BuildRequires: gcc
+BuildRequires: gdbm-devel
 BuildRequires: gettext-devel
-BuildRequires: libdb-devel
 BuildRequires: libeconf-devel
 BuildRequires: libnsl2-devel
 BuildRequires: libselinux-devel
@@ -120,6 +123,7 @@ cp %{SOURCE18} .
 %patch -P 2 -p1 -b .noflex
 %patch -P 3 -p1 -b .nomsg
 %patch -P 4 -p1 -b .pwhistory-null-filename-arg
+%patch -P 5 -p1 -b .userdb-gdbm
 
 autoreconf -i
 
@@ -133,7 +137,8 @@ autoreconf -i
   --enable-audit \
   --enable-openssl \
   --enable-selinux \
-  --enable-lastlog
+  --enable-lastlog \
+  --enable-db=gdbm
 %make_build -C po update-gmo
 %make_build
 
@@ -355,6 +360,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Mon Oct 23 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.2-4
+- Switch pam_userdb from BerkeleyDB to GDBM (#2245149 and #1788543)
+
 * Thu Oct 19 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.3-3
 - pam_pwhistory: fix passing NULL filename argument to pwhistory helper
 

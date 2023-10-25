@@ -1,12 +1,11 @@
 Name:		transfig
-Version:	3.2.8b
-Release:	8%{?dist}
+Version:	3.2.9
+Release:	1%{?dist}
 Epoch:		1
 Summary:	Utility for converting FIG files (made by xfig) to other formats
 License:	Xfig
 URL:		https://sourceforge.net/projects/mcj/
 Source0:	http://downloads.sourceforge.net/mcj/fig2dev-%{version}.tar.xz
-Patch1:		0001-Correct-a-typo-causing-incorrect-eps-import-137.patch
 
 Requires:	ghostscript
 Requires:	bc
@@ -58,6 +57,10 @@ mv fig2dev.1.in.new man/fig2dev.1.in
 
 
 %changelog
+* Mon Oct 23 2023 Zuzana Miklankova <zmiklank@redhat.com> - 1:3.2.9-1
+- Updated to version 3.2.9
+- Remove Patch1, this is now fixed upstream
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.8b-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
