@@ -7,6 +7,8 @@ License:        LGPL-3.0-or-later
 URL:            https://github.com/Mic92/python-mpd2
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch0:         0001-Skip-asyncio-unit-tests-in-Python-3.12.patch
+
 BuildArch:      noarch
 BuildRequires:  %{_bindir}/tox
 
@@ -30,7 +32,7 @@ Summary:    Examples for %{name}
 This package contains examples for %{name}.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 echo "whitelist_externals = coverage" >> tox.ini
 
 # Remove unecessary shebang

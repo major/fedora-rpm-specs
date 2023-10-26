@@ -14,6 +14,10 @@ License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
+# bug: add exception case to support fastavro 1.8.4
+# https://github.com/googleapis/python-bigquery-storage/pull/687
+Patch:          %{forgeurl}/pull/687.patch
+
 # The base package is arched because extras metapackages requiring fastavro are
 # not available on 32-bit architectures
 # (https://bugzilla.redhat.com/show_bug.cgi?id=1943932).

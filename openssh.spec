@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.3p1
-%global openssh_rel 12
+%global openssh_rel 13
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
@@ -744,6 +744,10 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Mon Oct 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-13
+- Fix issue with read-only ssh buffer during gssapi key exchange (rhbz#1938224)
+- https://github.com/openssh-gsskex/openssh-gsskex/pull/19
+
 * Sun Oct 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-12
 - Fix FTBFS due to implicit declarations (rhbz#2241211)
 

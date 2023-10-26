@@ -76,13 +76,13 @@ ExcludeArch: s390x
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        115.3.2
+Version:        115.4.0
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}-20231011.tar.xz
+Source1:        thunderbird-langpacks-%{version}-20231024.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -109,7 +109,6 @@ Patch103:       rhbz-1219542-s390-build.patch
 Patch422:       0001-GLIBCXX-fix-for-GCC-12.patch
 Patch425:       build-disable-elfhack.patch
 Patch426:       build-rnp.patch
-Patch427:       rhbz-2235654.patch
 
 # PPC fix
 Patch304:       mozilla-1245783.patch
@@ -279,7 +278,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P 425 -p1 -b .build-disable-elfhack
 %endif
 %patch -P 426 -p1 -b .build-rnp
-%patch -P 427 -p1 -b .rhbz-2235654
 # most likely fixed
 #%patch -P 419 -p1 -b .bindgen
 
@@ -719,6 +717,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Tue Oct 24 2023 Eike Rathke <erack@redhat.com> - 115.4.0-1
+- Update to 115.4.0
+
 * Wed Oct 11 2023 Eike Rathke <erack@redhat.com> - 115.3.2-1
 - Update to 115.3.2
 

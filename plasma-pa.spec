@@ -1,5 +1,5 @@
 Name:    plasma-pa
-Version: 5.27.8
+Version: 5.27.9
 Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
@@ -16,7 +16,11 @@ Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  glib2-devel
+%if 0%{?fedora} < 40 && 0%{?rhel} < 10
 BuildRequires:  kde-filesystem
+%else
+BuildRequires:  kde4-filesystem
+%endif
 BuildRequires:  kf5-kcmutils-devel
 BuildRequires:  kf5-kconfigwidgets-devel
 BuildRequires:  kf5-kcoreaddons-devel
@@ -76,7 +80,7 @@ Recommends: pulseaudio-module-gconf%{?_isa}
 
 ## unpackaged files
 rm -rfv %{buildroot}%{_kde4_appsdir}/kconf_update/
-
+rm -rfv %{buildroot}%{_kde4_appsdir}/kconf_update/
 
 %files -f %{name}.lang
 %license LICENSES/*
@@ -90,7 +94,11 @@ rm -rfv %{buildroot}%{_kde4_appsdir}/kconf_update/
 %{_kf5_metainfodir}/org.kde.plasma.volume.appdata.xml
 
 
+
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
 - 5.27.8
 

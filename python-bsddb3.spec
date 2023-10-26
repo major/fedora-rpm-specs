@@ -13,7 +13,7 @@ any length.}
 
 Name:           python-%{srcname}
 Version:        6.2.9
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python 3 bindings for Berkeley DB
 
 License:        BSD-3-Clause
@@ -27,6 +27,7 @@ Source0:        %{pypi_source}
 # package directly, it's better to do it here.
 Patch0:          dont-include-standard-paths-in-runtime-libdir.patch
 Patch1:          TextTestResult.patch
+Patch2:          threads.patch
 BuildRequires:  gcc libdb-devel python3-setuptools
 
 %description    %{common_description}
@@ -121,6 +122,9 @@ rm -f %{buildroot}%{_includedir}/python3.*/%{srcname}/bsddb.h
 %endif
 
 %changelog
+* Tue Oct 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.2.9-14
+= Patch for Python 3.13
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.9-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

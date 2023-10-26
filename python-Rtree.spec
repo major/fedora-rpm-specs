@@ -1,5 +1,5 @@
 Name:           python-Rtree
-Version:        1.0.1
+Version:        1.1.0
 Release:        %autorelease
 Summary:        R-Tree spatial index for Python GIS
 
@@ -10,7 +10,7 @@ Summary:        R-Tree spatial index for Python GIS
 # no debuginfo to generate.
 %global debug_package %{nil}
 
-%global _description %{expand: \
+%global _description %{expand:
 Rtree is a ctypes Python wrapper of libspatialindex that provides a number of
 advanced spatial indexing features for the spatially curious Python user. These
 features include:
@@ -30,6 +30,8 @@ License:        MIT
 URL:            https://github.com/Toblerity/rtree
 Source:         %{pypi_source Rtree}
 
+# Treat as pure Python since libspatialindex is not bundled
+#
 # Since we are not bundling libspatialindex as upstream does for PyPI wheel
 # distribution, do not force setuptools to treat the package as binary/arched
 # (which would cause it to be installed in %%python3_sitearch, and would mean
@@ -39,7 +41,17 @@ Source:         %{pypi_source Rtree}
 # patch.
 #
 # https://bugzilla.redhat.com/show_bug.cgi?id=2050010
-Patch:          Rtree-1.0.0-no-bundled-spatialindex.patch
+Patch:          0001-Treat-as-pure-Python-since-libspatialindex-is-not-bu.patch
+
+# Fix test failure with built library.
+# https://github.com/Toblerity/rtree/pull/291
+#
+# Fixes “TypeError: 'NoneType' object is not iterable” from rtree.finder
+Patch:          %{url}/pull/291.patch
+
+# Skip test failing on i386.
+# https://github.com/Toblerity/rtree/pull/290
+Patch:          %{url}/pull/290.patch
 
 BuildRequires:  spatialindex-devel
 
@@ -80,7 +92,7 @@ Requires:       spatialindex
 
 
 %check
-%pytest --doctest-modules
+%pytest --doctest-modules tests rtree
 
 
 %files -n python3-rtree -f %{pyproject_files}

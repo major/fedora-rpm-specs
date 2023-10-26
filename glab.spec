@@ -4,7 +4,7 @@
 # https://gitlab.com/gitlab-org/cli
 %global goipath         gitlab.com/gitlab-org/cli
 %global forgeurl        https://gitlab.com/gitlab-org/cli
-Version:                1.32.0
+Version:                1.34.0
 
 %global repo            cli
 %global archivename     %{repo}-%{version}
@@ -99,6 +99,9 @@ done
          -d gitlab.com/gitlab-org/cli/commands/ci/retry \
          -d gitlab.com/gitlab-org/cli/commands/ci/run \
          -d gitlab.com/gitlab-org/cli/commands/ci/trace \
+         -d gitlab.com/gitlab-org/cli/commands/cluster/agent/get_token \
+         -d gitlab.com/gitlab-org/cli/commands/cluster/agent/agentutils \
+         -d gitlab.com/gitlab-org/cli/commands/cluster/agent/list \
          -d gitlab.com/gitlab-org/cli/commands/flag \
          -d gitlab.com/gitlab-org/cli/commands/incident/list \
          -d gitlab.com/gitlab-org/cli/commands/incident/view \
@@ -118,7 +121,8 @@ done
          -d gitlab.com/gitlab-org/cli/commands/schedule/create \
          -d gitlab.com/gitlab-org/cli/commands/schedule/delete \
          -d gitlab.com/gitlab-org/cli/commands/schedule/list \
-         -d gitlab.com/gitlab-org/cli/commands/schedule/run
+         -d gitlab.com/gitlab-org/cli/commands/schedule/run \
+         -d gitlab.com/gitlab-org/cli/commands/update
 %endif
 
 %files

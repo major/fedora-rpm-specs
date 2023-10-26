@@ -1,6 +1,6 @@
 Name:           rpi-imager
-Version:        1.7.5
-Release:        2%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        Graphical user-interface to write disk images and format SD cards
 
 License:        ASL 2.0
@@ -10,22 +10,26 @@ Source0:        %{URL}/archive/v%{version}/%{name}.tar.gz#/%{name}-%{version}.ta
 #https://github.com/raspberrypi/rpi-imager/blob/qml/src/CMakeLists.txt#L95
 ExcludeArch:    s390x
 
-
 # Needed to validate the desktop and metainfo files
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 
+BuildRequires:  sudo
+BuildRequires:  git
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  libarchive-devel
 BuildRequires:  libcurl-devel
+BuildRequires:  lzma-sdk-devel
 BuildRequires:  openssl-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtquickcontrols2-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-linguist
+BuildRequires:  xz-devel
+BuildRequires:  libdrm-devel
 
 # Needed because we don't own /usr/share/icons/hicolor
 Requires:       hicolor-icon-theme
@@ -73,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %doc README.md
 
 %changelog
+* Fri Oct 20 2023 K. de Jong <keesdejong@fedoraproject.org> - 1.8.1-1
+- New upstream release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

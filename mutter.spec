@@ -51,7 +51,10 @@ Patch: 0003-thread-Allow-turning-off-rt-scheduling-for-running-t.patch
 Patch: 0004-kms-impl-device-Inhibit-real-time-scheduling-when-mo.patch
 
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3329
-Patch:         3329.patch
+# Modified to add the change from
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3329#note_1874837
+# which solves the problems reported with #3329 alone
+Patch: 0001-modified-3329.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

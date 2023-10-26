@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		http://smartmontools.sourceforge.net/
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Wed Sep 27 2023 Alessandro Astone <ales.astone@gmail.com> - 1:7.4-2
+- Amend SELinux to run hostname in its domain
+
 * Tue Aug 01 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:7.4-1
 - updated to 7.4
 

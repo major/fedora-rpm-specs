@@ -12,6 +12,7 @@ Summary:        Tools to analyze Microsoft OLE2 files
 # oletools/thirdparty/msoffcrypto/*.py: MIT
 License:        BSD and MIT and Python
 URL:            https://www.decalage.info/python/oletools
+VCS:            https://github.com/decalage2/oletools/
 #               https://github.com/decalage2/oletools/releases
 #               https://github.com/nolze/msoffcrypto-tool/releases
 
@@ -37,7 +38,7 @@ URL:            https://www.decalage.info/python/oletools
 
 # Bundles taken from oletools-0.54.2b/oletools/thirdparty
 %global         _provides \
-Provides:       bundled(oledump) = 0.0.5 \
+Provides:       bundled(oledump) = 0.0.49 \
 Provides:       bundled(tablestream) = 0.09 \
 Provides:       bundled(xglob) = 0.07 \
 Provides:       bundled(xxxswf) = 0.1

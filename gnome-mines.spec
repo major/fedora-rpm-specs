@@ -2,12 +2,14 @@
 
 Name:           gnome-mines
 Version:        40.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNOME Mines Sweeper game
 
 License:        GPLv2+ and CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Mines
 Source0:        https://download.gnome.org/sources/gnome-mines/40/gnome-mines-%{tarball_version}.tar.xz
+
+Requires:       rsvg-pixbuf-loader
 
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libgnome-games-support-1)
@@ -55,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.de
 
 
 %changelog
+* Wed Oct 25 2023 Yanko Kaneti <yaneti@declera.com> - 40.1-5
+- Require rsvg-pixbuf-loader for svg theme images support #2211205
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 # https://github.com/zcalusic/sysinfo
 %global goipath         github.com/zcalusic/sysinfo
-Version:                1.0.1
+Version:                1.0.2
 
 %gometa -f
 

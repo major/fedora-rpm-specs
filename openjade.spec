@@ -1,7 +1,7 @@
 Summary: A DSSSL implementation
 Name: openjade
 Version: 1.3.2
-Release: 76%{?dist}
+Release: 78%{?dist}
 Requires: sgml-common
 URL: http://openjade.sourceforge.net/
 Source: http://download.sourceforge.net/openjade/openjade-%{version}.tar.gz
@@ -32,7 +32,7 @@ Patch4: openjade-1.3.2-gcc46.patch
 Patch5: openjade-getoptperl.patch
 
 Patch6: openjade-configure-c99.patch
-License: DMIT
+License: LicenseRef-DMIT
 
 # Last jade version is from Red Hat 6.2
 Provides: jade = %{version}-%{release}
@@ -109,7 +109,7 @@ touch %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
 %doc README COPYING VERSION
 
 # Removed %%ghost for succesful instalation on OSTree (rhbz#2193429)
-%{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
+%verify(not size filedigest mtime) %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
 %{_sysconfdir}/sgml/%{name}.soc
 %{_bindir}/*
 %{_libdir}/*.so.*
@@ -117,6 +117,14 @@ touch %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
 %{_datadir}/sgml/%{name}-%{version}
 
 %changelog
+* Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 1.3.2-78
+- Update license tag to the SPDX format
+
+* Sun Oct 15 2023 Ondrej Sloup <osloup@redhat.com> - 1.3.2-77
+- Sync the RHEL version and Fedora version of the specfile
+- Update sources file and config.{sub|guess}
+- Skip verification for .soc file as it will change after install
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-76
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

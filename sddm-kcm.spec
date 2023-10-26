@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    sddm-kcm
-Version: 5.27.8
+Version: 5.27.9
 Release: 1%{?dist}
 Summary: SDDM KDE configuration module
 
@@ -76,6 +76,9 @@ SDDM Display Manager
 %{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
 
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
 - 5.27.8
 

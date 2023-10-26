@@ -6,17 +6,17 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 %global glib2_version 2.75.0
-%global gtk4_version 4.8
+%global gtk4_version 4.10
 %global json_glib_version 1.2.0
-%global jsonrpc_glib_version 3.42.0
-%global libadwaita_version 1.3.0
-%global libdex_version 0.1.1
-%global libpeas_version 1.34.0
+%global jsonrpc_glib_version 3.43.0
+%global libadwaita_version 1.4
+%global libdex_version 0.2
+%global libpeas_version 1.99.0
 %global libgit2_glib_version 1.1.0
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        44.2
+Version:        45.0
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -38,9 +38,10 @@ Summary:        IDE for writing GNOME-based software
 #     - data/html-preview.png
 License:        GPLv3+ and GPLv2+ and LGPLv3+ and LGPLv2+ and MIT and CC-BY-SA and CC0
 URL:            https://wiki.gnome.org/Apps/Builder
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  clang-devel
+BuildRequires:  ctags
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  gtk-doc
@@ -52,8 +53,6 @@ BuildRequires:  pkgconfig(editorconfig)
 BuildRequires:  pkgconfig(enchant-2)
 BuildRequires:  pkgconfig(flatpak)
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gladeui-2.0)
-BuildRequires:  pkgconfig(gspell-1)
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
@@ -63,13 +62,10 @@ BuildRequires:  pkgconfig(libcmark)
 BuildRequires:  pkgconfig(libdex-1) >= %{libdex_version}
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
 BuildRequires:  pkgconfig(libpanel-1)
-BuildRequires:  pkgconfig(libpeas-1.0) >= %{libpeas_version}
+BuildRequires:  pkgconfig(libpeas-2) >= %{libpeas_version}
 BuildRequires:  pkgconfig(libportal-gtk4)
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(pangoft2)
-BuildRequires:  pkgconfig(libpcre)
-BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(template-glib-1.0) >= %{template_glib_version}
 BuildRequires:  pkgconfig(vte-2.91-gtk4)
@@ -87,16 +83,15 @@ Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
 Requires:       libdex%{?_isa} >= %{libdex_version}
 Requires:       libgit2-glib%{?_isa} >= %{libgit2_glib_version}
 Requires:       libpeas%{?_isa} >= %{libpeas_version}
-Requires:       libpeas-loader-python3%{?_isa} >= %{libpeas_version}
+Requires:       libpeas-loader-gjs%{?_isa} >= %{libpeas_version}
 Requires:       template-glib%{?_isa} >= %{template_glib_version}
 
 Requires:       flatpak-builder
 Recommends:     clang
-Recommends:     gnome-code-assistance
-Recommends:     meson
-Recommends:     python3-jedi
-Recommends:     sysprof-agent
 Recommends:     clang-tools-extra
+Recommends:     ctags
+Recommends:     meson
+Recommends:     sysprof-agent
 
 %description
 Builder attempts to be an IDE for writing software for GNOME. It does not try
@@ -114,7 +109,7 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
-%meson -Dhelp=true -Dplugin_sysprof=false
+%meson -Dhelp=true
 %meson_build
 
 %install

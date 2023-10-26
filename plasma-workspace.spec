@@ -27,8 +27,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.27.8
-Release: 2%{?dist}
+Version: 5.27.9
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -809,6 +809,9 @@ fi
 
 
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Fri Sep 22 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.8-2
 - Recommend orca for a11y and require xdg-desktop-portal-kde for wayland
 

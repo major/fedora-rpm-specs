@@ -1,5 +1,5 @@
 Name:           perl-Net-DNS-SEC
-Version:        1.21
+Version:        1.22
 Release:        1%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        MIT
@@ -66,11 +66,14 @@ make test
 
 %files
 %doc Changes README demo
-%{perl_vendorarch}/*
-%exclude %dir %{perl_vendorarch}/auto/
-%{_mandir}/man3/*
+%{perl_vendorarch}/Net
+%{perl_vendorarch}/auto/Net
+%{_mandir}/man3/Net::DNS::SEC*
 
 %changelog
+* Tue Oct 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.22-1
+- 1.22 bump (rhbz##2240038)
+
 * Fri Aug 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.21-1
 - 1.21 bump (rhbz#2212775)
 

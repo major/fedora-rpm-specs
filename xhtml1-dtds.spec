@@ -1,5 +1,5 @@
 %global date    20020801
-%global baserelease 18
+%global baserelease 19
 
 Name:           xhtml1-dtds
 Version:        1.0
@@ -8,7 +8,8 @@ Summary:        XHTML 1.0 document type definitions
 
 # W3C Software License for DTDs etc:
 # http://www.w3.org/Consortium/Legal/IPR-FAQ-20000620#DTD
-License:        W3C
+# https://www.w3.org/Consortium/Legal/copyright-software-19980720
+License:        W3C-19980720
 URL:            http://www.w3.org/TR/2002/REC-xhtml1-%{date}/
 # Source0 generated with Source99, see comments in the script
 Source0:        %{name}-%{date}.tar.xz
@@ -113,6 +114,9 @@ cd - >/dev/null
 
 
 %changelog
+* Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 1.0-20020801.19
+- Update license tag to the SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20020801.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

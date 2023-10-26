@@ -24,7 +24,7 @@
 %global libedit 1
 
 %global openssh_ver 9.3p1
-%global openssh_rel 5
+%global openssh_rel 6
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
@@ -180,9 +180,6 @@ Patch1015: openssh-9.3p1-upstream-cve-2023-38408.patch
 # upstream b7afd8a4ecaca8afd3179b55e9db79c0ff210237
 Patch1016: openssh-9.3p1-openssl-compat.patch
 
-# Fix issue with read-only ssh buffer during gssapi key exchange (#1938224)
-# https://github.com/openssh-gsskex/openssh-gsskex/pull/19
-Patch97: openssh-8.0p1-sshbuf-readonly.patch
 # This is the patch that adds GSI support
 # Based on hpn_isshd-gsi.7.5p1b.patch from Globus upstream
 Patch98: openssh-9.3p1-gsissh.patch
@@ -345,7 +342,6 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 
 %patch -P 100 -p1 -b .coverity
 
-%patch -P 97 -p1 -b .sshbuf-ro
 %patch -P 98 -p1 -b .gsi
 %patch -P 99 -p1 -b .hpn
 
@@ -542,6 +538,11 @@ fi
 %attr(0744,root,root) %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 %changelog
+* Tue Oct 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-6
+- Based on openssh-9.3p1-13.fc40
+- Drop patch openssh-8.0p1-sshbuf-readonly.patch (now included in
+  openssh-8.0p1-gssapi-keyex.patch)
+
 * Tue Oct 17 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-5
 - Based on openssh-9.3p1-12.fc40
 

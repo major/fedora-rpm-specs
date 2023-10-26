@@ -5,7 +5,7 @@
 %global crate libcryptsetup-rs
 
 Name:           rust-libcryptsetup-rs
-Version:        0.9.0
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        High level Rust bindings for libcryptsetup
 
@@ -78,6 +78,9 @@ use the "mutex" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Tue Oct 24 2023 Bryan Gurney <bgurney@redhat.com - 0.9.1-1
+- Update to version 0.9.1
+
 * Wed Sep 13 2023 Bryan Gurney <bgurney@redhat.com> - 0.9.0-1
 - Update to version 0.9.0
 

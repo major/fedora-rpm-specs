@@ -5,8 +5,8 @@
 Summary: A text formatting package based on SGML
 Name: linuxdoc-tools
 Version: 0.9.82
-Release: 3%{?dist}
-License: MIT
+Release: 4%{?dist}
+License: X11-distribute-modifications-variant
 Source: http://http.us.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz
 Patch01: 0001-downstream-Changed-default-papersize-to-letter.patch
 Patch02: 0002-downstream-Added-fix-to-have-lib64-in-perl-path-on-6.patch
@@ -103,6 +103,9 @@ exit 0
 %{_mandir}/*/*
 
 %changelog
+* Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 0.9.82-4
+- Update license tag to the SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.82-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

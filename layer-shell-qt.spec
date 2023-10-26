@@ -1,6 +1,6 @@
 Name:    layer-shell-qt
-Version: 5.27.8
-Release: 2%{?dist}
+Version: 5.27.9
+Release: 1%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
 License: LGPLv3+
@@ -69,6 +69,9 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.8-2
 - Rebuild (qt5)
 

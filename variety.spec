@@ -12,7 +12,7 @@ Version:        0.8.6
 Release:        0.7%{?snapshottag}%{?dist}
 %else
 Version:        0.8.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 License:        GPLv3
@@ -57,6 +57,7 @@ Requires:       python3-configobj
 Requires:       python3-gexiv2
 Requires:       python3-pycurl
 Requires:       python3-requests
+Requires:       python3-httplib2
 Requires:       xorg-x11-fonts-Type1
 %if 0%{?fedora} >= 39
 Requires:       python3-zombie-imp
@@ -127,7 +128,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
-* Sun Sep 24 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.8.10-1
+* Tue Oct 24 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.8.10-5
+- Add RR python3-httplib2 to allow quotes
+
+* Sun Sep 24 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.8.10-4
 - Add RR zombie-imp due imp module was removed from Python 3.12 and it breaks breezy
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.10-3

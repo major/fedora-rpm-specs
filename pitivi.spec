@@ -3,7 +3,7 @@
 
 Name:           pitivi
 Version:        2023.03
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Non-linear video editor
 
 License:        LGPL-2.0-or-later
@@ -29,6 +29,7 @@ Requires:	gstreamer1-plugins-good >= %{gstreamer1_min_version}
 Requires:	gstreamer1-plugins-bad-free >= %{gstreamer1_min_version}
 Requires:	gstreamer1-plugins-bad-free-gtk >= %{gstreamer1_min_version}
 Requires:       gstreamer1-plugin-libav >= %{gstreamer1_min_version}
+Requires:       gstreamer1-plugins-bad-free-opencv >= %{gstreamer1_min_version}
 Requires:	python3-gstreamer1 >= 1.6.0
 Requires:	gst-editing-services >= %{gstreamer1_min_version}
 Requires:	hicolor-icon-theme
@@ -47,7 +48,11 @@ Requires:       python3-scipy
 Requires:	gobject-introspection
 Requires:	opus-tools
 Requires:       gsound
+%if 0%{?fedora} >= 39
+Requires:       libpeas1
+%else
 Requires:       libpeas
+%endif
 
 %description
 Pitivi is an application using the GStreamer multimedia framework to
@@ -104,6 +109,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Tue Oct 24 2023 Kalev Lember <klember@redhat.com> - 2023.03-6
+- Require libpeas1 compat package rather than libpeas in F39+
+
+* Fri Oct 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 2023.03-5
+- Require opencv plugin
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.03-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

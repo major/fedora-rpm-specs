@@ -77,7 +77,7 @@
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 5.0
-Release: 0.3%{gver}%{?dist}
+Release: 0.4%{gver}%{?dist}
 URL: https://wiki.linuxfoundation.org/lsb/start
 # https://github.com/LinuxStandardBase/lsb-samples/
 Source0: redhat-lsb-%{snapshot}.tar.gz
@@ -147,9 +147,7 @@ Requires: glibc%{?_isa}
 Requires: glibc-common
 Requires: libgcc%{?_isa}
 #LSB requires libcrypt.so.1
-%if 0%{?fedora}
 Requires: libxcrypt-compat%{?_isa}
-%endif
 #LSB requires libncurses.so.5 for some reason
 Requires: ncurses-compat-libs%{?_isa}
 Requires: pam%{?_isa}
@@ -251,6 +249,8 @@ Requires: /usr/bin/pathchk
 %if 0%{?fedora} || 0%{?epel} <= 8
 # not available on epel9
 Requires: spax
+%else
+Recommends: spax
 %endif
 Requires: /usr/bin/pidof
 Requires: /usr/bin/pr
@@ -360,6 +360,9 @@ Requires: pango%{?_isa}
 # toolkit-qt is not in rhel
 Requires: qt%{?_isa}
 Requires: qt-x11%{?_isa}
+%else
+Recommends: qt%{?_isa}
+Recommends: qt-x11%{?_isa}
 %endif
 # xml
 Requires: libxml2%{?_isa}
@@ -409,6 +412,12 @@ Requires: perl(Class::ISA)
 Requires: perl(File::CheckTree)
 Requires: perl(Pod::LaTeX)
 Requires: perl(Pod::Plainer)
+%else
+Recommends: perl(B::Lint)
+Recommends: perl(Class::ISA)
+Recommends: perl(File::CheckTree)
+Recommends: perl(Pod::LaTeX)
+Recommends: perl(Pod::Plainer)
 %endif
 
 # python3
@@ -547,6 +556,9 @@ ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/remove_initd
 
 
 %changelog
+* Wed Oct 25 2023 Sérgio Basto <sergio@serjux.com> - 5.0-0.4.20231006git8d00acdc
+- Recommends the software which is not available on epel
+
 * Sat Oct 07 2023 Sérgio Basto <sergio@serjux.com> - 5.0-0.3.20231006git8d00acdc
 - Fix some requires mostly on epel9
 

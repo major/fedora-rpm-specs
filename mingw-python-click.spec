@@ -5,11 +5,11 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       8.1.3
-Release:       4%{?dist}
+Version:       8.1.7
+Release:       1%{?dist}
 BuildArch:     noarch
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://palletsprojects.com/p/click/
 Source0:       %{pypi_source}
 
@@ -66,6 +66,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Tue Oct 24 2023 Sandro Mani <manisandro@gmail.com> - 8.1.7-1
+- Update to 8.1.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %global orig_name org.kde.plasma.nano
 
 Name:    plasma-nano
-Version: 5.27.8
+Version: 5.27.9
 Release: 1%{?dist}
 License: MIT and GPLv2+ and LGPLv2+
 URL:     https://invent.kde.org/plasma/plasma-nano
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{orig_nam
 
 
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
 - 5.27.8
 

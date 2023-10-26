@@ -65,7 +65,7 @@ ExcludeArch: i686
 %if 0%{?rhel}
 %global use_bundled_cbindgen  1
 %else
-%global use_bundled_cbindgen  0
+%global use_bundled_cbindgen  1
 %endif
 %if %{debug_build}
 %global release_build     0
@@ -124,7 +124,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.88
+%global nss_version 3.94
 %global nss_build_version %{nss_version}
 %endif
 
@@ -168,13 +168,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        118.0.2
+Version:        119.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20231010.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20231023.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -1104,7 +1104,6 @@ fi
 %{mozappdir}/dictionaries
 %{mozappdir}/omni.ja
 %{mozappdir}/platform.ini
-%{mozappdir}/plugin-container
 %{mozappdir}/gmp-clearkey
 %{mozappdir}/fonts/TwemojiMozilla.ttf
 %ifarch aarch64
@@ -1124,6 +1123,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Oct 24 2023 Martin Stransky <stransky@redhat.com>- 119.0-1
+- Updated to 119.0
+
 * Tue Oct 10 2023 Martin Stransky <stransky@redhat.com>- 118.0.2-1
 - Updated to 118.0.2
 

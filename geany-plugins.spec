@@ -1,17 +1,14 @@
 %global geany_plug_docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
-%global req_geany_ver 1.38
+%global req_geany_ver 2.0
 
 Name:           geany-plugins
-Version:        1.38
-Release:        12%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        Plugins for Geany
 
 License:        GPLv3+
 URL:            http://plugins.geany.org/
 Source0:        http://plugins.geany.org/geany-plugins/geany-plugins-%{version}.tar.bz2
-
-# https://github.com/geany/geany-plugins/pull/1178
-Patch:          geany-plugins-libgit2-1.4.x.patch
 
 BuildRequires:  geany-devel >= %{req_geany_ver} geany-libgeany >= %{req_geany_ver}
 BuildRequires:  gettext intltool pkgconfig
@@ -33,7 +30,6 @@ Plugins for Geany. Plugins included are:
 * Commander (Control Geany using commands from a command panel)
 #* Debugger (Enables debugging in Geany)
 * Defineformat (Write multiline defines with aligned backslash)
-* Devhelp (API documentation browser in Geany)
 * GeanyGDB (Integration with GDB)
 * GeanyGenDoc (Automatically generate documentation source code)
 * GeanyLaTeX (Improved Support for LaTeX documents)
@@ -48,15 +44,13 @@ Plugins for Geany. Plugins included are:
 * Geanylua (Support for Scripting with Lua)
 * Geanyminiscript (Geany Mini-Script filter plugin)
 * Geanyprj (Alternate project management for Geany)
-#* Geanypy (Python Bindings for Geany)
-#* Geniuspaste (Use nopaste services directly from within Geany)
+* Geniuspaste (Use nopaste services directly from within Geany)
 * Git-changebar (Highlights uncommitted changes, and allows navigation through hunks)
 * KeyRecord (record a sequence of keystrokes and to replay it several times)
 * Latex (Add LaTeX support to Geany)
 * LineOperations (Assortment of simple line functions that can be applied to an open file)
 * Lipsum (Generate random Text)
 * Markdown (Real time preview for Markdown documents)
-#* Multiterm (Multiple terminals inside of Geany)
 * Overview (Overview over the code in a sidebar)
 * PairTagHighlighter (Find and highlight matching opening/closing HTML tags)
 * Pairtaghighlighter (Extension of Geany's project management)
@@ -69,9 +63,9 @@ Plugins for Geany. Plugins included are:
 * Spellcheck (Spell checking of documents or marked text)
 * Tableconvert (Helps on converting a tabulator separated selection into a table)
 * Treebrowser (Alternate file browser with tree view of folders)
-#* Updatechecker (Automatically check for Geany updates)
+* Updatechecker (Automatically check for Geany updates)
 * Vimode: The plugin you always waited for
-#* Webhelper (Provides some web development facilities for Geany)
+* Webhelper (Provides some web development facilities for Geany)
 * Workbench (Manage multiple projects in Geany)
 * XMLSnippets (Extends XML/HTML tag autocompletion provided by Geany)
 
@@ -80,15 +74,12 @@ Plugins for Geany. Plugins included are:
 Summary:   Common files used by all geany plugins
 Requires:  geany >= %{req_geany_ver} geany-libgeany >= %{req_geany_ver}
 Obsoletes: geany-plugins-debugger <= 1.31
+Obsoletes: geany-plugins-devhelp <= 2.0
 Obsoletes: geany-plugins-geanylua < 1.25
 Obsoletes: geany-plugins-geanypy <= 1.31
-Obsoletes: geany-plugins-geniuspaste < 1.38-11
 Obsoletes: geany-plugins-markdown <= 1.29
 Obsoletes: geany-plugins-multiterm <= 1.31
 Obsoletes: geany-plugins-scope <= 1.31
-Obsoletes: geany-plugins-updatechecker < 1.38-11
-Obsoletes: geany-plugins-webhelper <= 1.30
-
 
 %description common
 This package contains some common files which are used by every Geany plugin,
@@ -205,20 +196,6 @@ plugin was created. It makes it possible to generate the tag file only once and
 just query it when searching for a particular symbol definition/declaration.
 This approach is fine for big projects where most of the codebase remains
 unchanged and the tag positions remain more or less static.
-
-
-#%package devhelp
-#Summary:   API documentation browser in Geany
-#Group:     Development/Tools
-#Requires:  geany-plugins-common = %{version}-%{release}
-#
-#%description devhelp
-#This plugin embeds an API documentation browser and search functionality
-#directly into Geany's user interface.  In case you didn't know, Devhelp is an
-#API documentation browser mainly aimed at GNOME-related libraries, although
-#there are Devhelp books for a wide range of library APIs.  Check your package
-#manager and/or Google and you should have no trouble finding books that can
-#be viewed with Devhelp.
 
 
 %package geanydoc
@@ -404,22 +381,6 @@ position. You also will never have to open/close projects manually. If a
 *.geanyprj file is found somewhere up in path it will be opened automatically.
 
 
-#%package geanypy
-#Summary:   Provides Python bindings for Geany
-#Group:     Development/Tools
-#Requires:  geany-plugins-common = %{version}-%{release}
-#
-#%description geanypy
-#GeanyPy is based on the upstream at https://github.com/codebrainz/geanypy which
-#is still under development, however it is useful as is. Parts of the existing
-#API which mirror the Geany C API will probably not change unless the Geany API
-#changes, however new API may be added. Also documentation is needed, contributions
-#are welcome.
-#
-#Detailed information can be found in the documentation directory and at
-#http://plugins.geany.org/geanypy.html
-
-
 %package sendmail
 Summary:   Send E-Mails from within Geany
 Requires:  geany-plugins-common = %{version}-%{release}
@@ -459,24 +420,24 @@ BuildRequires:  libgit2-devel
 This plugin highlights uncommitted changes to files tracked with Git, and allows to navigate through the hunks.
 
 
-#%package geniuspaste
-#Summary:   Use nopaste services directly from within Geany
-#Requires:  geany-plugins-common = %{version}-%{release}
-#BuildRequires: libsoup-devel
-#
-#%description geniuspaste
-#This plugin allows the user to paste the code from Geany into five different
-#pastebins. At the moment it supports this services:
-#
-#* codepad.org
-#* tinypaste.com
-#* pastebin.geany.org
-#* dpaste.de
-#* sprunge.us
-#
-#GeniusPaste detects automatically the syntax of the code and paste it with
-#syntax highlighting enabled. It can also display the pasted code opening a new
-#browser tab.
+%package geniuspaste
+Summary:   Use nopaste services directly from within Geany
+Requires:  geany-plugins-common = %{version}-%{release}
+BuildRequires: libsoup-devel
+
+%description geniuspaste
+This plugin allows the user to paste the code from Geany into five different
+pastebins. At the moment it supports this services:
+
+* codepad.org
+* tinypaste.com
+* pastebin.geany.org
+* dpaste.de
+* sprunge.us
+
+GeniusPaste detects automatically the syntax of the code and paste it with
+syntax highlighting enabled. It can also display the pasted code opening a new
+browser tab.
 
 
 %package keyrecord
@@ -521,17 +482,6 @@ Provides:      geany-plugins-markdown >= 1.34
 The Markdown plugin provides a real-time preview of rendered Markdown, that is,
 Markdown converted to HTML and inserted into an HTML template and loaded
 into a WebKit view.
-
-
-#%package multiterm
-#Summary:   Multiple terminals inside of Geany
-#Group:     Development/Tools
-#Requires:  geany-plugins-common = %{version}-%{release}
-#
-#%description multiterm
-#MultiTerm is similar to Geany's built-in VTE terminal except that it
-#supports multiple terminals in tabs and supports different shells in each of
-#the terminal tabs.
 
 
 %package overview
@@ -635,14 +585,14 @@ your files. It displays files and directories in a tree view and has more
 features than the file browser plugin delivered with Geany itself.
 
 
-#%package updatechecker
-#Summary:   Automatically check for Geany updates
-#Requires:  geany-plugins-common = %{version}-%{release}
-#BuildRequires: libsoup-devel
-#
-#%description updatechecker
-#UpdateChecker is a plugin for Geany, which is able to check whether there is
-#a more recent version of Geany available.
+%package updatechecker
+Summary:   Automatically check for Geany updates
+Requires:  geany-plugins-common = %{version}-%{release}
+BuildRequires: libsoup-devel
+
+%description updatechecker
+UpdateChecker is a plugin for Geany, which is able to check whether there is
+a more recent version of Geany available.
 
 
 %package vimode
@@ -667,24 +617,24 @@ reasonably complete Vim mode implementation featuring:
 * command repetition using "." and repeated insert
 
 
-#%package webhelper
-#Summary:   Preview and Debug Web documents from within Geany using WebKit
-#Group:     Development/Tools
-#Requires:  geany-plugins-common = %{version}-%{release}
-#BuildRequires: webkit2gtk3-devel
-#
-#%description webhelper
-#WebHelper is a plugin for Geany that provides some web development
-#facilities, such as a web page preview and some debugging tools (web
-#inspector).
-#
-#Prominent features:
-#
-#* A basic web view, allowing to display any web page (using WebKit)
-#* Possible automatic reloading of the web view upon document saving
-#* A web inspector/debugging tool for the web view's content (including a
-#  JavaScript console, a viewer and editor of processed HTML and CSS, a network
-#  usage analysis tool and many more, thanks to WebKit).
+%package webhelper
+Summary:   Preview and Debug Web documents from within Geany using WebKit
+Group:     Development/Tools
+Requires:  geany-plugins-common = %{version}-%{release}
+BuildRequires: webkit2gtk3-devel
+
+%description webhelper
+WebHelper is a plugin for Geany that provides some web development
+facilities, such as a web page preview and some debugging tools (web
+inspector).
+
+Prominent features:
+
+* A basic web view, allowing to display any web page (using WebKit)
+* Possible automatic reloading of the web view upon document saving
+* A web inspector/debugging tool for the web view's content (including a
+  JavaScript console, a viewer and editor of processed HTML and CSS, a network
+  usage analysis tool and many more, thanks to WebKit).
 
 
 %package workbench
@@ -709,10 +659,6 @@ automatically inserts a matching snippet after you type an opening tag.
 
 %prep
 %autosetup -p1
-# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
-# this necessitates disabling the libsoup2-based geniuspaste and updatechecker
-# until they are ported to libsoup3
-sed -i -e 's/webkit2gtk-4.0/webkit2gtk-4.1/' build/markdown.m4
 autoreconf -fiv
 
 
@@ -774,12 +720,6 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %doc %{geany_plug_docdir}/defineformat
 %{_libdir}/geany/defineformat.so
 
-#%files devhelp
-#%defattr(-,root,root,-)
-#%doc %{geany_plug_docdir}/devhelp
-#%{_datadir}/%{name}/devhelp/
-#%{_libdir}/geany/devhelp.so
-
 %files geanyctags
 %doc %{geany_plug_docdir}/geanyctags
 %{_libdir}/geany/geanyctags.so
@@ -832,21 +772,14 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %doc %{geany_plug_docdir}/geanyprj/
 %{_libdir}/geany/geanyprj.so
 
-#%files geanypy
-#%defattr(-,root,root,-)
-#%doc %{geany_plug_docdir}/geanypy/
-#%{_libdir}/geany/geanypy.so
-#%{_libdir}/geany/geanypy/*
-#%{_libdir}/geany/*.py*
-
 %files geanyvc
 %doc %{geany_plug_docdir}/geanyvc/
 %{_libdir}/geany/geanyvc.so
 
-#%files geniuspaste
-#%doc %{geany_plug_docdir}/geniuspaste/
-#%{_libdir}/geany/geniuspaste.so
-#%{_datadir}/%{name}/geniuspaste/
+%files geniuspaste
+%doc %{geany_plug_docdir}/geniuspaste/
+%{_libdir}/geany/geniuspaste.so
+%{_datadir}/%{name}/geniuspaste/
 
 %files git-changebar
 %doc %{geany_plug_docdir}/git-changebar/
@@ -869,11 +802,6 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %defattr(-,root,root,-)
 %doc %{geany_plug_docdir}/markdown/
 %{_libdir}/geany/markdown.so
-
-#%files multiterm
-#%defattr(-,root,root,-)
-#%doc %{geany_plug_docdir}/multiterm/
-#%{_libdir}/geany/multiterm.so
 
 %files overview
 %doc %{geany_plug_docdir}/overview/
@@ -922,17 +850,17 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %doc %{geany_plug_docdir}/treebrowser/
 %{_libdir}/geany/treebrowser.so
 
-#%files updatechecker
-#%doc %{geany_plug_docdir}/updatechecker/
-#%{_libdir}/geany/updatechecker.so
+%files updatechecker
+%doc %{geany_plug_docdir}/updatechecker/
+%{_libdir}/geany/updatechecker.so
 
 %files vimode
 %doc %{geany_plug_docdir}/vimode/
 %{_libdir}/geany/vimode.so
 
-#%files webhelper
-#%doc %{geany_plug_docdir}/webhelper/
-#%{_libdir}/geany/webhelper.so
+%files webhelper
+%doc %{geany_plug_docdir}/webhelper/
+%{_libdir}/geany/webhelper.so
 
 %files workbench
 %doc %{geany_plug_docdir}/workbench/
@@ -944,6 +872,11 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Tue Oct 24 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 2.0-1
+- New upstream release: Geany-Plugins 2.0
+- Completely remove the plugins devhelp, geanypy, multiterm
+- Re-enable webhelper plugin
+
 * Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 1.38-12
 - Rebuild for libgit2 1.7.x
 

@@ -75,7 +75,7 @@
 %global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc2
+%global rcsuf rc3
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -549,6 +549,10 @@ popd
 
 
 %changelog
+* Tue Oct 24 2023 Björn Esser <besser82@fedoraproject.org> - 3.28.0~rc3-1
+- cmake-3.28.0-rc3
+  Fixes rhbz#2243343
+
 * Thu Oct 19 2023 Björn Esser <besser82@fedoraproject.org> - 3.28.0~rc2-1
 - cmake-3.28.0-rc2
   Fixes rhbz#2243343

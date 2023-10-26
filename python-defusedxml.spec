@@ -4,16 +4,22 @@
 %global upstream_version %{base_version}%{?prerel}
 Name:           python-%{pypi_name}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        XML bomb protection for Python stdlib modules
 License:        Python
 URL:            https://github.com/tiran/defusedxml
 Source0:        %{pypi_source %{pypi_name} %{upstream_version}}
 
+# Drop deprecated unittest.makeSuite()
+# From https://github.com/tiran/defusedxml/commit/4e6cea5f5b
+# (This no longer skips lxml tests when lxml is not installed.)
+Patch:          drop-makeSuite.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-lxml
 
 %description
 The defusedxml package contains several Python-only workarounds and fixes for
@@ -56,6 +62,9 @@ module. This is the python%{python3_pkgversion} build.
 
 
 %changelog
+* Tue Oct 24 2023 Miro Hrončok <mhroncok@redhat.com> - 0.7.1-10
+- Run lxml tests during build, avoid deprecated unittest.makeSuite()
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

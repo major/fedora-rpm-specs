@@ -2,23 +2,19 @@
 
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
-Version: 7.0.3
-Release: 3%{?dist}
+Version: 7.1
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
 Source1: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz.sig
 Source2: fix-info-dir
-# Patch0: rhbz#1348671, because of OSTree
-Patch0: texinfo-6.1-install-info-use-create-tmp-then-rename-pattern.patch
-# Patch1: we need to fix template fix-info-dir generates
-Patch1: info-6.5-sync-fix-info-dir.patch
-# Patch2: rhbz#1592433, bug in fix-info-dir --delete
-Patch2: texinfo-6.5-fix-info-dir.patch
-# Patch3: fixes issues detected by static analysis
-Patch3: texinfo-6.5-covscan-fixes.patch
-# Patch4: fixes possible use of an undefined value as an ARRAY reference in ParserNonXS.pm
-Patch4: texinfo-7.0.2-undef-val-array-ref.patch
+# Patch0: we need to fix template fix-info-dir generates
+Patch0: info-6.5-sync-fix-info-dir.patch
+# Patch1: rhbz#1592433, bug in fix-info-dir --delete
+Patch1: texinfo-6.5-fix-info-dir.patch
+# Patch2: fixes issues detected by static analysis
+Patch2: texinfo-6.5-covscan-fixes.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -152,6 +148,10 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Tue Oct 24 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.1-1
+- Update to texinfo-7.1
+  Resolves: #2244846
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

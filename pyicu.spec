@@ -1,13 +1,13 @@
 %define		realname PyICU
 Name:		pyicu
-Version:	2.10.2
-Release:	7%{?dist}
+Version:	2.11
+Release:	1%{?dist}
 Summary:	Python extension wrapping the ICU C++ libraries
 
 License:	MIT
 URL:		https://pypi.org/project/PyICU/
 Source0:	https://files.pythonhosted.org/packages/source/P/%{realname}/%{realname}-%{version}.tar.gz
-Patch0:         py312.patch
+Patch0:         py313.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	libicu-devel
@@ -32,7 +32,7 @@ Summary: Python 3 extension wrapping the ICU C++ libraries
 %prep
 %setup -q -n %{realname}-%{version}
 
-%patch0 -p0
+%patch -P 0 -p0
 
 %build
 %py3_build
@@ -60,6 +60,9 @@ rm -rf %{buildroot}%{python3_sitearch}/tests
 %{python3_sitearch}/icu/
 
 %changelog
+* Tue Oct 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.11-1
+- 2.11
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

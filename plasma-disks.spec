@@ -2,7 +2,7 @@
 
 Name:    plasma-disks
 Summary: Hard disk health monitoring for KDE Plasma
-Version: 5.27.8
+Version: 5.27.9
 Release: 1%{?dist}
 
 License: GPLv2+ and LGPLv3+ and BSD and CC0
@@ -70,6 +70,9 @@ signs of imminent failure appear.
 %{_kf5_datadir}/polkit-1/actions/org.kde.kded.smart.policy
 
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Tue Sep 12 2023 justin.zobel@gmail.com - 5.27.8-1
 - 5.27.8
 

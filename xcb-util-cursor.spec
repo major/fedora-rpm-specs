@@ -2,7 +2,7 @@ Name:		xcb-util-cursor
 Version:	0.1.4
 Release:	3%{?dist}
 Summary:	Cursor library on top of libxcb
-License:	MIT
+License:	X11-distribute-modifications-variant
 URL:		http://xcb.freedesktop.org
 Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.xz
 BuildRequires:	make

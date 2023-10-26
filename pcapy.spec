@@ -12,14 +12,14 @@
 
 Name:           pcapy
 Version:        0.11.5
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{sum}
 
 License:        Apache-1.1
 URL:            https://www.coresecurity.com/corelabs-research/open-source-tools/pcapy
 #               http://oss.coresecurity.com/projects/pcapy.html
 #               https://github.com/CoreSecurity/pcapy/releases
-#Source0:       https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+#Source0:       https://github.com/%%{gituser}/%%{gitname}/archive/%%{commit}/%%{name}-%%{version}-%%{shortcommit}.tar.gz
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{gitname}-%{version}.tar.gz
 
 # Fix FTBFS issue with setuptools >= 61.0.0
@@ -27,6 +27,7 @@ Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.
 # Fix backported from the fork: https://github.com/stamparm/pcapy-ng/commit/84a15d2faefaae410198f5739d6ed3c69daa17ec
 Patch0:         fix-setuptools-build.patch
 Patch1:         py_ssize_t.patch
+Patch2:         py313.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
@@ -61,8 +62,9 @@ Python classes for constructing and dissecting network packets.
 %prep
 %setup -q
 
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p0
 
 %build
 %py3_build
@@ -87,6 +89,9 @@ rm -rf %{buildroot}/usr/share/doc/pcapy
 
 
 %changelog
+* Tue Oct 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.5-21
+- Patch for Python 3.13.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

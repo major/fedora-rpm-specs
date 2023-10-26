@@ -1,9 +1,6 @@
-%global commit 3d12ed6361ef17db536b3004a1a61921e5aadfd4
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           abbayedesmorts-gpl
-Version:        2.0.1
-Release:        20.20210509git%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Platform game set in 13th century
 
 # Graphics and Sounds are licensed under
@@ -12,7 +9,7 @@ License:        GPLv3 and CC-BY
 # Original Windows game by locomalito
 # https://locomalito.com/abbaye_des_morts.php
 URL:            https://github.com/nevat/abbayedesmorts-gpl 
-Source0:        https://github.com/nevat/abbayedesmorts-gpl/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+Source0:        https://github.com/nevat/abbayedesmorts-gpl/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -21,6 +18,7 @@ BuildRequires:  SDL2_mixer-devel
 BuildRequires:  SDL2_image-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
+Requires:       hicolor-icon-theme
 
 %description
 In the 13th century, the Cathars, who preach about good Christian beliefs, 
@@ -36,7 +34,7 @@ Also, the gameplay is directly inspired by Manic Miner and Jet Set Willy.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup
 
 
 %build
@@ -46,6 +44,15 @@ Also, the gameplay is directly inspired by Manic Miner and Jet Set Willy.
 
 %install
 %make_install
+
+# Install icons
+rm %{buildroot}%{_datadir}/pixmaps/abbaye.png
+cp -a abbaye.png abbaye48.png
+for px in 48 64 128; do
+  install -d %{buildroot}%{_datadir}/icons/hicolor/${px}x${px}/apps
+  install -p -m 644 abbaye${px}.png \
+    %{buildroot}%{_datadir}/icons/hicolor/${px}x${px}/apps/abbaye.png
+done
 
 # Validate desktop file
 desktop-file-validate %{buildroot}%{_datadir}/applications/abbaye.desktop
@@ -59,12 +66,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/abbaye.app
 %{_datadir}/abbayev2
 %{_datadir}/appdata/abbaye.appdata.xml
 %{_datadir}/applications/abbaye.desktop
-%{_datadir}/pixmaps/abbaye.png
+%{_datadir}/icons/hicolor/*/apps/abbaye.png
 %doc ReadMe.md ChangeLog.md screenshots
 %license COPYING
 
 
 %changelog
+* Tue Oct 24 2023 Andrea Musuruane <musuruan@gmail.com> - 2.0.2-1
+- Updated to new upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-20.20210509git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 # https://github.com/xanzy/go-gitlab
 %global goipath         github.com/xanzy/go-gitlab
-Version:                0.88.0
+Version:                0.93.2
 
 %gometa -f
 

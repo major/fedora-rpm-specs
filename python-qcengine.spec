@@ -1,5 +1,5 @@
 Name:           python-qcengine
-Version:        0.27.0
+Version:        0.28.1
 Release:        %autorelease
 Summary:        A compute wrapper for Quantum Chemistry
 
@@ -11,6 +11,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # for testing
 BuildRequires:  python3-pytest
+# https://kojipkgs.fedoraproject.org//work/tasks/9840/108019840/build.log
+BuildRequires:  python3-msgpack
 
 %global _description %{expand:
 Quantum chemistry program executor and IO standardizer (QCSchema) for quantum

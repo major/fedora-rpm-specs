@@ -1,11 +1,11 @@
 # Breaks the circular dependency with ruamel.yaml.clib.
 %bcond_with bootstrap
 
-%global commit 829991d24309dd85ef9c066dbfed17eb4e4fd571
+%global commit c0da0ba934877fdfe63bee77ec12a7d2341f5398
 
 Name:           python-ruamel-yaml
-Version:        0.17.32
-Release:        3%{?dist}
+Version:        0.18.1
+Release:        1%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
 # SPDX
@@ -64,9 +64,12 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 
 %files -n python3-ruamel-yaml -f %{pyproject_files}
 # pyproject_files handles LICENSE; verify with “rpm -qL -p …”
-%doc README.rst
+%doc README.md
 
 %changelog
+* Tue Oct 24 2023 Joel Capitao <jcapitao@redhat.com> - 0.18.1-1
+- Update to 0.18.1 (close RHBZ#2241174)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.32-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

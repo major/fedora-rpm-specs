@@ -2,12 +2,13 @@
 Name:       python-igraph
 Version:    0.11.2
 %global igraph_version 0.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python bindings for igraph
 
 License:    GPL-2.0-or-later
 URL:        https://github.com/igraph/python-igraph
 Source0:    https://github.com/igraph/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:     ctype.patch
 
 BuildRequires:  igraph-devel >= %{igraph_version}
 BuildRequires:  gcc-c++
@@ -52,6 +53,8 @@ documentation needed to develop application with %{name}.
 %prep
 %setup -q
 
+%patch -P 0 -p0
+
 %build
 %py3_build -- --use-pkg-config
 
@@ -68,6 +71,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Tue Oct 24 2023 Gwyn Ciesla <gwync@protonmail.com> 0.11.2-2
+- Patch for Python 3.13
+
 * Mon Oct 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.2-1
 - 0.11.2
 

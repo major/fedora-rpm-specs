@@ -2,8 +2,8 @@
 
 # https://github.com/redhatinsights/yggdrasil-worker-package-manager
 %global goipath         github.com/redhatinsights/yggdrasil-worker-package-manager
-Version:                0.2.1
-%global tag             0.2.1
+Version:                0.2.2
+%global tag             %{version}
 
 %gometa -f
 
@@ -24,6 +24,8 @@ Summary:        Package manager worker for yggdrasil
 License:        GPL-3.0-only
 URL:            %{gourl}
 Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
+
+Patch0:         8c19d5ac3d5731750c935e1e23e9f4add49bff48.patch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  meson

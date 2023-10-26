@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -92,6 +92,7 @@ Patch204:	insight-13.0-distutils.patch
 Patch205:	insight-13.0-noselfmove.patch
 Patch206:	insight-configure-c99.patch
 Patch207:	insight-13.0-bfd-CVE-2023-1972.patch
+Patch208:	insight-13.0-gdb-python313.patch
 
 
 %description
@@ -107,28 +108,29 @@ the latest GDB version.
 
 %setup -q -n insight-%{version}
 
-%patch1 -p1 -b .relocate
+%patch 1 -p1 -b .relocate
 
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
-%patch104 -p1
-%patch105 -p1
-%patch106 -p1
-%patch107 -p1
-%patch108 -p1
-%patch109 -p1
-%patch110 -p1
-%patch111 -p1
-%patch112 -p1
+%patch 101 -p1
+%patch 102 -p1
+%patch 103 -p1
+%patch 104 -p1
+%patch 105 -p1
+%patch 106 -p1
+%patch 107 -p1
+%patch 108 -p1
+%patch 109 -p1
+%patch 110 -p1
+%patch 111 -p1
+%patch 112 -p1
 
-%patch201 -p1
-%patch202 -p1
-%patch203 -p1
-%patch204 -p1
-%patch205 -p1
-%patch206 -p1
-%patch207 -p1
+%patch 201 -p1
+%patch 202 -p1
+%patch 203 -p1
+%patch 204 -p1
+%patch 205 -p1
+%patch 206 -p1
+%patch 207 -p1
+%patch 208 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -324,13 +326,17 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Tue Oct 24 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-12
+- Patch "python313" for Python 3.13 compatibility.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2245835
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 13.0.50.20220502-10
 - Rebuilt for Python 3.12
-
-#-------------------------------------------------------------------------------
 
 * Fri Apr 14 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-9
 - Disable stringop-overflow warnings.

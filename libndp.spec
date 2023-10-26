@@ -1,8 +1,8 @@
 Name: libndp
 Version: 1.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Library for Neighbor Discovery Protocol
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL: http://www.libndp.org/
 Source: http://www.libndp.org/files/libndp-%{version}.tar.gz
 
@@ -46,6 +46,9 @@ find $RPM_BUILD_ROOT -name \*.la -delete
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Oct 09 2023 Eric Garver <eric@garver.life> - 1.8-7
+- migrated to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

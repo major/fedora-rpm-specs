@@ -2,18 +2,31 @@
 %global gem_name pg
 
 Name: rubygem-%{gem_name}
-Version: 1.4.5
-Release: 4%{?dist}
+Version: 1.5.4
+Release: 1%{?dist}
 Summary: A Ruby interface to the PostgreSQL RDBMS
 License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ged/ruby-pg.git
-# git -C ruby-pg archive -v -o pg-1.4.5-spec.tar.gz v1.4.5 spec/
+# git -C ruby-pg archive -v -o pg-1.5.4-spec.tar.gz v1.5.4 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
 # Disable RPATH.
 # https://github.com/ged/ruby-pg/issues/183
 Patch0: rubygem-pg-1.3.0-remove-rpath.patch
+# Fix integer arithmetic on timespec struct fields on 32bit systems.
+# The time_t type that is the type of timespec struct fields is not guaranteed
+# to be any particular size or type. Therefore we need to explicitly retype
+# to avoid buffer {over,under}flow.
+# See `man 3 timespec` and `man 3 time_t` for further reference.
+# https://github.com/ged/ruby-pg/issues/545
+# https://github.com/ged/ruby-pg/pull/547
+Patch1: rubygem-pg-1.5.4-Explicitly-retype-timespec-fields-to-int64_t.patch
+# Fix possible buffer overflows.
+# Found when upstream was investigating the following issue:
+# https://github.com/ged/ruby-pg/issues/545
+# https://github.com/ged/ruby-pg/pull/548
+Patch2: rubygem-pg-1.5.4-Fix-possible-buffer-overflows-on-32-bit-systems.patch
 # ext/pg_text_decoder.c
 Requires: rubygem(bigdecimal)
 # lib/pg/text_{de,en}coder.rb
@@ -45,7 +58,9 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-%patch0 -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -99,20 +114,29 @@ popd
 %doc %{gem_docdir}
 %doc %{gem_instdir}/Contributors.rdoc
 %{gem_instdir}/Gemfile
-%doc %{gem_instdir}/History.rdoc
+%doc %{gem_instdir}/History.md
 %doc %{gem_instdir}/Manifest.txt
 %doc %{gem_instdir}/README-OS_X.rdoc
 %doc %{gem_instdir}/README-Windows.rdoc
-%lang(ja) %doc %{gem_instdir}/README.ja.rdoc
-%doc %{gem_instdir}/README.rdoc
+%lang(ja) %doc %{gem_instdir}/README.ja.md
+%doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile*
 %{gem_instdir}/rakelib/*
 %{gem_instdir}/certs
 %{gem_instdir}/misc
 %{gem_instdir}/pg.gemspec
 %{gem_instdir}/sample
+# The translations are only related to README and the readme is already in
+# japanese (AFAICT) when we build an RPM from the gem, so we shouldn't need
+# this directory at all.
+# https://github.com/ged/ruby-pg/pull/549
+%exclude %{gem_instdir}/translation
 
 %changelog
+* Mon Oct 23 2023 Jarek Prokop <jprokop@redhat.com> - 1.5.4-1
+- Upgrade to pg 1.5.4.
+  Resolves: rhbz#2173399
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

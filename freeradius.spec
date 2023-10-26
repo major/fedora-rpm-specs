@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
-Version: 3.2.2
-Release: 5%{?dist}
+Version: 3.2.3
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -894,6 +894,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Tue Oct 24 2023 Antonio Torres <antorres@redhat.com> - 3.2.3-1
+- Update to upstream release 3.2.3
+
 * Tue Sep 12 2023 Antonio Torres <antorres@redhat.com> - 3.2.2-5
 - Ease OpenSSL version check requirement
   Resolves #2238511

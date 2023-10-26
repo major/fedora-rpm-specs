@@ -15,7 +15,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        45.0
+Version:        45.1
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -24,9 +24,6 @@ URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 Patch:          0001-keyboard-Use-new-gnome-desktop-api-for-getting-defau.patch
-
-# https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/1935/
-Patch:          fix-vpn-config.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt

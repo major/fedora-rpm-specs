@@ -5,7 +5,7 @@
 
 Name:           gtkd
 Version:        3.10.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        D binding and OO wrapper of GTK+
 
 License:        LGPLv3+ with exceptions
@@ -24,8 +24,13 @@ Requires:       gstreamer1-plugins-base%{?_isa}
 Requires:       gtk3%{?_isa}
 Requires:       gtksourceview4%{?_isa}
 Requires:       libcurl%{?_isa}
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+Requires:       libpeas1%{?_isa}
+Requires:       libpeas1-gtk%{?_isa}
+%else
 Requires:       libpeas%{?_isa}
 Requires:       libpeas-gtk%{?_isa}
+%endif
 Requires:       librsvg2%{?_isa}
 Requires:       mesa-libGL%{?_isa}
 Requires:       mesa-libGLU%{?_isa}
@@ -124,6 +129,9 @@ make %{?_smp_mflags} DC=ldc2 libdir=%{?_lib} DCFLAGS="%{_d_optflags}" LDFLAGS=""
 %{_datadir}/geany/tags/gtkd.d.tags
 
 %changelog
+* Tue Oct 24 2023 Kalev Lember <klember@redhat.com> - 3.10.0-8
+- Require libpeas1 compat package rather than libpeas in F39+
+
 * Tue Oct 17 2023 Kalev Lember <klember@redhat.com> - 3.10.0-7
 - Rebuilt for ldc 1.35
 

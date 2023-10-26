@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 15
+%global baserelease 16
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -1348,6 +1348,7 @@ gzip -9nvf %{glibc_sysroot}%{_infodir}/libc*
 # Copy the debugger interface documentation over to the right location
 mkdir -p %{glibc_sysroot}%{_docdir}/glibc
 cp elf/rtld-debugger-interface.txt %{glibc_sysroot}%{_docdir}/glibc
+cp posix/gai.conf %{glibc_sysroot}%{_docdir}/glibc
 %else
 rm -f %{glibc_sysroot}%{_infodir}/dir
 rm -f %{glibc_sysroot}%{_infodir}/libc.info*
@@ -2200,6 +2201,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Oct 24 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-16
+- Provide template gai.conf in glibc-doc
+
 * Thu Oct 19 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-15
 - Fix force-first handling in dlclose (#2244992)
 

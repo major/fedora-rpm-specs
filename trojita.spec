@@ -88,6 +88,7 @@ BuildRequires:  mimetic-devel
 BuildRequires:  pinentry
 BuildRequires:  qgpgme-devel
 
+%if %{undefined flatpak}
 # kf5-akonadi-server-devel (and hence kf5-akonadi-contacts-devel) implicitly
 # requires this (#2046299):
 BuildRequires:  kf5-kio-devel
@@ -99,6 +100,7 @@ BuildRequires:  kf5-ki18n-devel
 BuildRequires:  grantlee-qt5-devel
 
 BuildRequires:  kf5-akonadi-contacts-devel
+%endif
 BuildRequires:  kf5-sonnet-devel
 
 %if %{with doxy}
@@ -160,7 +162,7 @@ export CXXFLAGS="%{optflags} -DSKIP_WEBKIT_TESTS"
     -DCMAKE_INSTALL_RPATH=%{_libdir}/%{name} \
     -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DBUILD_TESTING:BOOL=ON \
-    -DWITH_AKONADIADDRESSBOOK_PLUGIN:BOOL=ON \
+    -DWITH_AKONADIADDRESSBOOK_PLUGIN:BOOL=%{!?flatpak:ON}%{?flatpak:OFF} \
     -DWITH_GPGMEPP:BOOL=ON \
     -DWITH_SONNET_PLUGIN:BOOL=ON \
     -DWITH_RAGEL:BOOL=%{?with_ragel:ON}%{!?with_ragel:OFF}

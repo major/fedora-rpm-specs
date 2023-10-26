@@ -12,8 +12,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 5.27.8
-Release: 2%{?dist}
+Version: 5.27.9
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -348,6 +348,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Wed Oct 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.8-2
 - Update force refresh patch from upstream
 

@@ -1,6 +1,6 @@
 Name:           libhandy
 Version:        1.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Building blocks for modern adaptive GNOME apps
 License:        LGPLv2+
 
@@ -20,6 +20,7 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24.1
 # Support graphical tests in non-graphical environment
 BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  rsvg-pixbuf-loader
 
 # Retired in F34
 Obsoletes:      libhandy1 < 1.1.90-2
@@ -91,6 +92,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Oct 24 2023 Yanko Kaneti <yaneti@declera.com> - 1.8.2-3
+- BR: rsvg-pixbuf-loader for svg support in tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

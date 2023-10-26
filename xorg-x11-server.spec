@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   25%{?gitdate:.%{gitdate}}%{?dist}
+Release:   26%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 # SPDX
 License:   MIT
@@ -146,6 +146,12 @@ Patch126: 0001-present-Send-a-PresentConfigureNotify-event-for-dest.patch
 # Only on F38 and later (patch number starts at 3801, see autopatch below)
 # Upstream commits 73d6e88, f69280dd and 4127776, minus the xwayland.pc.in change
 Patch3801: 0001-Disallow-byte-swapped-clients-by-default.patch
+
+# CVE-2023-5367
+Patch3810: 0001-Xi-randr-fix-handling-of-PropModeAppend-Prepend.patch
+# CVE-2023-5380
+Patch3811: 0002-mi-reset-the-PointerWindows-reference-on-screen-swit.patch
+
 
 BuildRequires: make
 BuildRequires: systemtap-sdt-devel
@@ -561,6 +567,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Wed Oct 25 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-26
+- CVE fix for: CVE-2023-5367, CVE-2023-5380
+
 * Fri Oct 20 2023 José Expósito <jexposit@redhat.com>
 - SPDX migration: license is already SPDX compatible
 

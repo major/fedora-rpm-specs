@@ -6,26 +6,25 @@
 %endif
 
 Name:           perl-Glib
-Version:        1.3293
-Release:        13%{?dist}
+Version:        1.3294
+Release:        1%{?dist}
 Summary:        Perl interface to GLib
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Glib-%{version}.tar.gz
-# https://gitlab.gnome.org/GNOME/perl-glib/-/commit/c181d151b1cec06df1455fdc9a9055ec0440140e
-Patch0:         perl-Glib-1.3293-commentfix.patch
-BuildRequires:  gcc
 BuildRequires:  coreutils
 BuildRequires:  findutils
+BuildRequires:  gcc
 BuildRequires:  glib2-devel
 BuildRequires:  glibc-common
 BuildRequires:  make
-BuildRequires:  perl-interpreter >= 2:5.8.0
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8.0
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(ExtUtils::Depends) >= 0.300
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::PkgConfig) >= 1.00
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
@@ -56,7 +55,6 @@ BuildRequires:  perl(I18N::Langinfo)
 BuildRequires:  perl(Test::ConsistentVersion)
 %endif
 Requires:       perl(Config)
-Requires:       perl(overload)
 
 # Do not export private modules and libraries
 %{?perl_default_filter}
@@ -80,7 +78,6 @@ to GLib and GObject libraries.
 
 %prep
 %setup -q -n Glib-%{version}
-%patch -P0 -p1 -b .commentfix
 for F in AUTHORS; do
     iconv -f ISO-8859-1 -t UTF-8 < "$F" > "${F}.utf8"
     touch -r "$F" "${F}.utf8"
@@ -88,15 +85,14 @@ for F in AUTHORS; do
 done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" \
+    NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
@@ -125,6 +121,10 @@ make test
 %{_mandir}/man3/Glib::xsapi.3pm.gz
 
 %changelog
+* Tue Oct 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.3294-1
+- 1.3294 bump (rhbz#2235632)
+- Update license to SPDX format
+
 * Tue Aug 1 2023 Tom Callaway <spot@fedoraproject.org> - 1.3293-13
 - fix issue with comment check and glib 2.77+ (thanks to Petr Pisar)
 

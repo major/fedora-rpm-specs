@@ -4,10 +4,15 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+Patch0:  libnvme-1.7-stack_smashing_1.patch
+Patch1:  libnvme-1.7-stack_smashing_2.patch
+Patch2:  libnvme-1.7-stack_smashing_3.patch
+Patch3:  libnvme-1.7-stack_smashing_4.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -97,6 +102,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Tue Oct 24 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.6-2
+- Backport stack smashing fixes (#2245707)
+
 * Fri Sep 29 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.6-1
 - Upstream v1.6 release
 

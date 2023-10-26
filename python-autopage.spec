@@ -17,16 +17,12 @@
 
 Name:           python-%{srcname}
 Version:        0.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python library to provide automatic paging for console output
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/autopage
 Source0:        %{pypi_source}
 Source1:        setup.py
-
-# autopage should ideally require fixtures[streams], but we don't have that
-# packaged in Fedora yet.
-Patch1:         0001-Do-not-depend-on-fixtures-streams.patch
 
 BuildArch:      noarch
 
@@ -44,10 +40,7 @@ BuildRequires:  pyproject-rpm-macros
 %else
 %if %{with enable_tests}
 BuildRequires:  %{py3_dist fixtures}
-# autopage should ideally require fixtures[streams], but we don't have that
-# packaged in Fedora yet. Once that is available, we can depend on only that
-# instead of testtools.
-BuildRequires:  %{py3_dist testtools}
+BuildRequires:  %{py3_dist fixtures[streams]}
 %endif
 %endif
 
@@ -98,6 +91,9 @@ cp %{SOURCE1} ./
 %doc README.md
 
 %changelog
+* Wed Oct 25 2023 Zane Bitter <zaneb@fedoraproject.org> 0.5.2-2
+- Depend on fixtures[streams] directly
+
 * Mon Oct 16 2023 Zane Bitter <zaneb@fedoraproject.org> 0.5.2-1
 - Fix tests with less v633
 - Fix test reliability

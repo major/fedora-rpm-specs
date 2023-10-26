@@ -53,6 +53,9 @@ implementation in Python. It includes the protoc-based generator, which converts
 %prep
 %forgeautosetup -p1
 
+rm generator/{nanopb_generator.py2,protoc-gen-nanopb-py2}
+rm generator/*.bat
+
 # https://github.com/nanopb/nanopb/blob/master/extra/poetry/poetry_build.sh
 cp extra/poetry/pyproject.toml .
 mkdir -p nanopb

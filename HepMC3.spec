@@ -3,7 +3,7 @@
 
 Name:		HepMC3
 Version:	3.2.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -11,9 +11,11 @@ Summary:	C++ Event Record for Monte Carlo Generators
 License:	LGPL-3.0-or-later AND MPL-2.0
 URL:		https://hepmc.web.cern.ch/hepmc/
 Source0:	https://hepmc.web.cern.ch/hepmc/releases/%{name}-%{version}.tar.gz
+#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/288
+#		https://github.com/pybind/pybind11/pull/4902
+Patch0:		0001-Fix-compilation-with-Python-3.13.0a1.patch
 
-#		The ROOT cmake file used by this project requires cmake 3.9
-BuildRequires:	cmake3 >= 3.9
+BuildRequires:	cmake3
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	root-core
@@ -247,6 +249,7 @@ This package provides HepMC manuals and examples.
 
 %prep
 %setup -q
+%patch -P 0 -p1
 
 %build
 %cmake3 \
@@ -491,6 +494,9 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Tue Oct 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.7-2
+- Fix compilation with Python 3.13.0a1 (rhbz#2245854)
+
 * Wed Oct 04 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.7-1
 - Update to version 3.2.7
 

@@ -4,7 +4,7 @@ Version:    1.1
 Release:    6%{?dist}
 Url:        https://github.com/TurboTurtle/rig
 Source0:    %{url}/archive/%{name}-%{version}.tar.gz
-License:    GPLv2
+License:    GPL-2.0-only
 BuildArch:  noarch
 
 BuildRequires: python3-devel

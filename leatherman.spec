@@ -1,5 +1,5 @@
 Name:           leatherman
-Version:        1.12.10
+Version:        1.12.11
 Release:        1%{?dist}
 Summary:        Collection of C++ and CMake utility libraries
 
@@ -74,6 +74,9 @@ sed -i -e "s/\s*-Werror\s*//g" cmake/cflags.cmake
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Tue Oct 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.11-1
+- 1.12.11
+
 * Tue Oct 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.10-1
 - 1.12.10
 

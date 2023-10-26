@@ -3,11 +3,11 @@
 %global with_docs 1
 
 Name:          osgearth
-Version:       3.4
-Release:       3%{?dist}
+Version:       3.5
+Release:       1%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
-License:       LGPLv3 with exceptions
+License:       LGPL-3.0-only
 URL:           http://osgearth.org/
 Source0:       https://github.com/gwaldron/osgearth/archive/%{name}-%{version}.tar.gz
 # Fix mingw build failure due to header case mismatch
@@ -191,8 +191,8 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 %files
 %license LICENSE.txt
-%{_libdir}/libosgEarth*.so.3.4.0
-%{_libdir}/libosgEarth*.so.148
+%{_libdir}/libosgEarth*.so.3.5.0
+%{_libdir}/libosgEarth*.so.149
 %{_libdir}/osgPlugins-%{osg_ver}/osgdb_*.so
 
 %files devel
@@ -213,19 +213,16 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 %files examples
 %{_bindir}/osgearth_3pv
 %{_bindir}/osgearth_annotation
-%{_bindir}/osgearth_bindless
 %{_bindir}/osgearth_city
 %{_bindir}/osgearth_clamp
 %{_bindir}/osgearth_cluster
 %{_bindir}/osgearth_createtile
-%{_bindir}/osgearth_drawables
 %{_bindir}/osgearth_eci
 %{_bindir}/osgearth_ephemeris
 %{_bindir}/osgearth_featurefilter
 %{_bindir}/osgearth_features
 %{_bindir}/osgearth_graticule
 %{_bindir}/osgearth_heatmap
-%{_bindir}/osgearth_horizon
 %{_bindir}/osgearth_infinitescroll
 %{_bindir}/osgearth_lights
 %{_bindir}/osgearth_los
@@ -236,11 +233,8 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 %{_bindir}/osgearth_mrt
 %{_bindir}/osgearth_mvtindex
 %{_bindir}/osgearth_occlusionculling
-%{_bindir}/osgearth_overlayviewer
-%{_bindir}/osgearth_shadercomp
 %{_bindir}/osgearth_skyview
 %{_bindir}/osgearth_terrainprofile
-%{_bindir}/osgEarth_tests
 %{_bindir}/osgearth_toc
 %{_bindir}/osgearth_tracks
 %{_bindir}/osgearth_transform
@@ -280,6 +274,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Tue Oct 24 2023 Sandro Mani <manisandro@gmail.com> - 3.5-1
+- Update to 3.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

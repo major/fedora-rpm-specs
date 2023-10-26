@@ -20,6 +20,7 @@ BuildRequires:  /usr/bin/appstream-util
 Requires:       gtk3 >= 3.20
 Requires:       glib2 >= 2.48
 Requires:       gtksourceview4 >= 4.0
+Requires:       python3-gobject >= 3.30
 Requires:       python3-gobject-base >= 3.30
 Requires:       python3-cairo >= 1.15
 Recommends:     patch

@@ -1,5 +1,5 @@
 Name: pycairo
-Version: 1.25.0
+Version: 1.25.1
 Release: 1%{?dist}
 Summary: Python bindings for the cairo library
 
@@ -56,6 +56,9 @@ libraries so that they interoperate with py3cairo.
 %{_libdir}/pkgconfig/py3cairo.pc
 
 %changelog
+* Tue Oct 24 2023 Kalev Lember <klember@redhat.com> - 1.25.1-1
+- Update to 1.25.1
+
 * Thu Sep 28 2023 Kalev Lember <klember@redhat.com> - 1.25.0-1
 - Update to 1.25.0
 

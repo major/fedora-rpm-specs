@@ -1,30 +1,32 @@
 Name:           perl-Crypt-OpenSSL-PKCS10
-Version:        0.20
-Release:        2%{?dist}
+Version:        0.25
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for PKCS10
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-PKCS10
-Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONOZZZ/Crypt-OpenSSL-PKCS10-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-OpenSSL-PKCS10-%{version}.tar.gz
 # Convert documentation to UTF-8
 Patch1:         Crypt-OpenSSL-PKCS10-0.16-Convert-changlog-to-UTF-8.patch
-BuildRequires:  gcc
 BuildRequires:  coreutils
 BuildRequires:  findutils
+BuildRequires:  gcc
 BuildRequires:  make
 # It's required for successful Crypt::OpenSSL::Guess process.
 BuildRequires:  openssl
 BuildRequires:  openssl-devel
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Crypt::OpenSSL::Guess)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-# Run-time:
-BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+# Run-time:
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
-Recommends:     perl(Crypt::OpenSSL::Bignum)
 # Tests:
 BuildRequires:  perl(Crypt::OpenSSL::RSA)
 BuildRequires:  perl(Test::More)
@@ -44,16 +46,12 @@ Tests from %{name}-%{version}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Crypt-OpenSSL-PKCS10-%{version}
-%patch -P1 -p1
-chmod -c a-x Changes README
-chmod -c a-x *.xs *.pm
-# Help file to recognise the Perl scripts and normalize shebangs
+%autosetup -p1 -n Crypt-OpenSSL-PKCS10-%{version}
+# Help file to recognize the Perl scripts and normalize shebangs
 for F in `find t -name *.t`; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
-chmod -c a-x t/CSR.csr
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -61,11 +59,14 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-find %{buildroot} -type f -name '*.bs' -size 0 -delete
+find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 cp -a t %{buildroot}/%{_libexecdir}/%{name}
+# Remove release/author tests
+rm %{buildroot}/%{_libexecdir}/%{name}/t/author*
+rm %{buildroot}/%{_libexecdir}/%{name}/t/release*
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -73,6 +74,7 @@ EOF
 chmod +x %{buildroot}/%{_libexecdir}/%{name}/test
 
 %check
+unset AUTHOR_TESTING RELEASE_TESTING
 make test
 
 %files
@@ -85,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.25-1
+- 0.25 bump (rhbz#2231739)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

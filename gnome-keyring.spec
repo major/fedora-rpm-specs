@@ -72,7 +72,9 @@ automatically unlock the "login" keyring when the user logs in.
            --with-systemd \
            --without-libcap-ng \
            --with-pkcs11-config=%{_datadir}/p11-kit/modules \
-%if %{without ssh_agent}
+%if %{with ssh_agent}
+           --enable-ssh-agent
+%else
            --disable-ssh-agent
 %endif
 

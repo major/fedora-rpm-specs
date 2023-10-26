@@ -10,6 +10,8 @@ Source0:        %{url}/download/source/%{name}/%{name}-%{version}.tar.gz
 # https://github.com/sigrokproject/libsigrokdecode/commit/c4c10b89396fe21a622b8c38dd5815a496b007bf
 # https://github.com/sigrokproject/libsigrokdecode/commit/a6a5e2c8b0e9ecf5d69d0c237c8e8b717b82b36f
 Patch0:         %{name}-0.5.3-python3.patch
+# Upstream commit 0c35c5c5845d05e5f624c99d58af992d2f004446
+Patch1:         0001-srd-drop-deprecated-PyEval_InitThreads-on-Python-3.9.patch
 
 BuildRequires:  gcc
 BuildRequires:  glib2-devel

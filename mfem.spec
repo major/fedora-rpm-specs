@@ -1,8 +1,12 @@
 %bcond_without openmpi
 %bcond_without mpich
 
+%global sover 4.6.0
+%global forgeurl https://github.com/mfem/mfem
+Version:        4.6
+%forgemeta
+
 Name:           mfem
-Version:        4.5.2
 Release:        %autorelease
 Summary:        Lightweight, general, scalable C++ library for finite element methods
 
@@ -14,12 +18,13 @@ Summary:        Lightweight, general, scalable C++ library for finite element me
 # TinyXML2 (general/tinyxml2.{cpp,h}) -- zlib license
 # Zstr (general/zstr.hpp) -- MIT license
 License:        BSD-3-Clause AND MIT AND BSL-1.0 AND BSD-2-Clause AND Zlib
-URL:            https://github.com/mfem/mfem
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# fix build error on GCC 13
-Patch0:         https://github.com/mfem/mfem/pull/3630.patch
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+
 # Replace deprecated gethostbyname by getaddrinfo
-Patch1:         https://github.com/mfem/mfem/pull/3685.patch
+Patch0:         https://github.com/mfem/mfem/pull/3685.patch
+# Fix missing <cstdint> include for new GCC versions
+Patch1:         https://github.com/mfem/mfem/pull/3903.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -92,7 +97,7 @@ against MPICH.
 %endif
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 %build
 OPTIONS=(
@@ -216,7 +221,7 @@ echo "skip some tests of mfem-openmpi on Fedora 38 ppc64le"
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libmfem.so.%{version}
+%{_libdir}/libmfem.so.%{sover}
 
 %files devel
 %dir %{_includedir}/mfem
@@ -232,7 +237,7 @@ echo "skip some tests of mfem-openmpi on Fedora 38 ppc64le"
 %files openmpi
 %license LICENSE
 %doc README.md
-%{_libdir}/openmpi/lib/libmfem.so.%{version}
+%{_libdir}/openmpi/lib/libmfem.so.%{sover}
 
 %files openmpi-devel
 %dir %{_includedir}/openmpi-%{_arch}/mfem
@@ -246,7 +251,7 @@ echo "skip some tests of mfem-openmpi on Fedora 38 ppc64le"
 %files mpich
 %license LICENSE
 %doc README.md
-%{_libdir}/mpich/lib/libmfem.so.%{version}
+%{_libdir}/mpich/lib/libmfem.so.%{sover}
 
 %files mpich-devel
 %dir %{_includedir}/mpich-%{_arch}

@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.21
 %global prever %{nil}
-Release: 2%{?dist}
+Release: 3%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -69,15 +69,15 @@ BuildRequires: libsodium-devel
 BuildRequires: lua-devel
 %endif
 BuildRequires: libicu-devel
+%if 0%{?rhel} == 0 &&  0%{?fedora}0 < 38
 BuildRequires: libexttextcat-devel
+BuildRequires: clucene-core-devel
+%endif
 BuildRequires: libstemmer-devel
 BuildRequires: multilib-rpm-config
 BuildRequires: flex, bison
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
-%if %{?fedora}0 >= 350
-#BuildRequires: glibc-gconv-extra
-%endif
 
 # gettext-devel is needed for running autoconf because of the
 # presence of AM_ICONV
@@ -92,8 +92,6 @@ Requires: systemd
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-
-BuildRequires: clucene-core-devel
 
 %global ssldir %{_sysconfdir}/pki/%{name}
 
@@ -161,7 +159,9 @@ echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude
 
 #pushd dovecot-pigeonhole
 #popd
+%if 0%{?rhel} == 0 &&  0%{?fedora}0 < 38
 sed -i '/DEFAULT_INCLUDES *=/s|$| '"$(pkg-config --cflags libclucene-core)|" src/plugins/fts-lucene/Makefile.in
+%endif
 
 
 # drop OTP which uses SHA1 so we dont use SHA1 for crypto purposes
@@ -197,7 +197,13 @@ autoreconf -I . -fiv #required for aarch64 support
 %if %{?rhel}0 == 0
     --with-lua=plugin            \
 %endif
+%if 0%{?rhel} == 0 &&  0%{?fedora}0 < 38
     --with-lucene                \
+    --with-exttextcat            \
+%else
+    --without-lucene             \
+    --without-exttextcat         \
+%endif
     --with-ssl=openssl           \
     --with-ssldir=%{ssldir}      \
     --with-solr                  \
@@ -494,6 +500,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Oct 24 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.21-3
+- drop lucene to reduce dependency, use solr for fts instead
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 1:2.3.21-2
 - rebuild for new libsodium
 

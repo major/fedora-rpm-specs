@@ -16,13 +16,18 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.29.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
 ExclusiveArch:  s390 s390x
 URL:            https://github.com/ibm-s390-linux/s390-tools
 Source0:        https://github.com/ibm-s390-linux/s390-tools/archive/v%{version}.tar.gz#/s390-tools-%{version}.tar.gz
+# To create the vendor tarball:
+#   tar xf s390-tools-%%{version}.tar.gz ; pushd s390-tools-%%{version}/rust/pvsecret ; \
+#   rm -f Cargo.lock && cargo vendor && \
+#   tar Jvcf ../../../s390-tools-%%{version}-rust-vendor.tar.xz vendor/ ; popd
+Source1:        s390-tools-%{version}-rust-vendor.tar.xz
 Source5:        https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/zfcpconf.sh
 Source7:        https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/zfcp.udev
 Source12:       https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/dasd.udev
@@ -60,6 +65,11 @@ Requires:       s390utils-ziomon = %{epoch}:%{version}-%{release}
 BuildRequires:  make
 BuildRequires:  gcc-c++
 %if %{with rust}
+%if 0%{?rhel}
+BuildRequires:  libcurl-devel
+BuildRequires:  openssl-devel
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  crate(anstream)
 BuildRequires:  crate(anstyle-query)
 BuildRequires:  crate(anyhow)
@@ -84,6 +94,7 @@ BuildRequires:  crate(thiserror)
 BuildRequires:  crate(zerocopy)
 BuildRequires:  rust-packaging
 %endif
+%endif
 
 %description
 This is a meta package for installing the default s390-tools sub packages.
@@ -94,17 +105,16 @@ The s390utils packages contain a set of user space utilities that should to
 be used together with the zSeries (s390) Linux kernel and device drivers.
 
 %prep
-%setup -q -n s390-tools-%{version}
+%autosetup -n s390-tools-%{version} -p1
 
-# Fedora/RHEL changes
-%patch 0 -p1 -b .zipl-invert-script-options
-%patch 1 -p1 -b .blscfg-rpm-nvr-sort
-%patch 2 -p1 -b .snmp
-
-# upstream fixes/updates
-#%%patch 100 -p1
 %if %{with rust}
+%if 0%{?rhel}
+pushd rust
+%cargo_prep -V 1
+popd
+%else
 %cargo_prep
+%endif
 rm -rf ./rust/pvsecret/Cargo.lock
 %endif
 
@@ -952,6 +962,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Oct 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:2.29.0-3
+- Use vendored dependencies in RHEL builds
+
 * Thu Aug 31 2023 Jakub Čajka <jcajka[at]redhat.com> - 2:2.29.0-2
 - enable rust based tools
 

@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.13.26
+Version:            2.13.28
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -19,8 +19,6 @@ Patch0:             ruamel-yaml-0.17.32.patch
 Patch1:             python312.patch
 # fix incorrect assertions in TestKubeconfigLoader
 Patch2:             assertions.patch
-# skip flaky test which compares yaml output as plain text
-Patch3:             test-yaml.patch
 
 BuildArch:          noarch
 

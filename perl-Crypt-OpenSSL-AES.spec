@@ -1,48 +1,66 @@
 Name:           perl-Crypt-OpenSSL-AES
-Version:        0.02
-Release:        51%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for AES
-License:        GPL+ or Artistic 
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-AES
-Source0:        https://cpan.metacpan.org/authors/id/T/TT/TTAR/Crypt-OpenSSL-AES-%{version}.tar.gz
-BuildRequires: make
+Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-OpenSSL-AES-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  openssl
+BuildRequires:  openssl-devel
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
-BuildRequires:  openssl openssl-devel perl(Test::More) perl(ExtUtils::MakeMaker)
-
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8
+BuildRequires:  perl(Config)
+BuildRequires:  perl(Crypt::OpenSSL::Guess) >= 0.10
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(XSLoader)
+# Tests
+BuildRequires:  perl(Digest::SHA)
+BuildRequires:  perl(File::Which)
+BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(Test::More)
 
 %description
-Crypt::OpenSSL::AES - A Perl wrapper around OpenSSL's AES library
+This module implements a wrapper around OpenSSL. Specifically, it wraps the
+methods related to the US Government's Advanced Encryption Standard (the
+Rijndael algorithm). The original version supports only AES 256 ECB
+(electronic codebook mode encryption).
 
 %prep
 %setup -q -n Crypt-OpenSSL-AES-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf %{buildroot}
-
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} \;
-
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} %{buildroot}/*
 
 %check
+unset AUTHOR_TESTING RELEASE_TESTING
 make test
 
 %files
-%doc Changes README
-%{perl_vendorarch}/auto/*
+%doc Changes LICENSE README
+%{perl_vendorarch}/auto/Crypt/
 %{perl_vendorarch}/Crypt/
-%{_mandir}/man3/*
+%{_mandir}/man3/Crypt::OpenSSL::AES*
 
 %changelog
+* Tue Oct 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-1
+- 0.17 bump (rhbz#2239043)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

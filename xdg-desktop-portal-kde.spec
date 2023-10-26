@@ -2,8 +2,8 @@
 
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
-Version: 5.27.8
-Release: 2%{?dist}
+Version: 5.27.9
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -15,7 +15,6 @@ URL:     https://invent.kde.org/plasma/%{base_name}
 %global stable stable
 %endif
 Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
-Patch:          0001-data-kde-portals.conf-Fallback-to-GTK-portals-for-Se.patch
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
@@ -86,6 +85,9 @@ pieces of KDE infrastructure.
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
+- 5.27.9
+
 * Wed Sep 27 2023 Timothée Ravier <tim@siosm.fr> - 5.27.8-2
 - Fallback to other portals for Settings (fedora#2240211)
 

@@ -1,8 +1,8 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  6.3
-Release:  2%{?dist}
+Version:  6.4
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -335,6 +335,9 @@ fi
 
 
 %changelog
+* Tue Oct 24 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.4-1
+- new version 6.4
+
 * Thu Sep 14 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.3-2
 - SPDX migration
 

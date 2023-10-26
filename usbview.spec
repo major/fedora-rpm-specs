@@ -1,6 +1,6 @@
 Name:           usbview
-Version:        3.0
-Release:        4%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        USB topology and device viewer
 License:        GPL-2.0-only
 URL:            http://www.kroah.com/linux-usb/
@@ -11,6 +11,7 @@ BuildRequires:  gcc
 BuildRequires:  gtk3-devel
 BuildRequires:  ImageMagick
 BuildRequires:  make
+BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
 Requires:       polkit
 
@@ -30,16 +31,21 @@ devices.
 %install
 %make_install
 
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/com.kroah.usbview.metainfo.xml
+
 %files
 %license LICENSES/GPL-2.0-only.txt
 %{_bindir}/usbview*
 %{_mandir}/man8/usbview*
-%{_datadir}/polkit-1/actions/org.freedesktop.pkexec.usbview.policy
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/applications/*%{name}.desktop
+%{_metainfodir}/com.kroah.usbview.metainfo.xml
 
 
 %changelog
+* Tue Oct 24 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.1-1
+- New upstream release 3.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@ Version:	1.0.2
 Release:	8%{?dist}
 Summary:	Monitoring IPv4/IPv6 and Ethernet address pairings
 
-License:	GPL-3.0
+License:	GPL-3.0-only
 URL:		https://github.com/fln/addrwatch
 Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.service

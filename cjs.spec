@@ -5,7 +5,7 @@
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
 %global gtk3_version 3.20
-%global mozjs78_version 102.9.0-1
+%global mozjs102_version 102.15.0
 
 Name:          cjs
 Epoch:         1
@@ -35,7 +35,7 @@ BuildRequires: pkgconfig(dbus-glib-1)
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(mozjs-102) >= %{mozjs78_version}
+BuildRequires: pkgconfig(mozjs-102) >= %{mozjs102_version}
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(sysprof-capture-4)
 # Required for checks
@@ -47,7 +47,7 @@ BuildRequires: xorg-x11-server-Xvfb
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: mozjs102%{?_isa} >= %{mozjs78_version}
+Requires: mozjs102%{?_isa} >= %{mozjs102_version}
 
 %description
 Cjs allows using Cinnamon libraries from Javascript. It's based on the
@@ -89,8 +89,7 @@ the functionality of the installed cjs package.
 
 %check
 %ifnarch s390 s390x
-xvfb-run -a /usr/bin/meson test -C %{_vpath_builddir} \
- --num-processes %{_smp_build_ncpus} --print-errorlogs
+%{shrink:xvfb-run -s "-screen 0 1600x1200x24" %meson_test --timeout-multiplier=5}
 %endif
 
 %files

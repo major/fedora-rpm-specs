@@ -10,8 +10,8 @@
 %endif
 
 Name:           perl-DBD-MySQL
-Version:        5.001
-Release:        2%{?dist}
+Version:        5.002
+Release:        1%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -20,8 +20,6 @@ Source1:        test-setup.t
 Source2:        test-clean.t
 Source3:        testrules.yml
 Source4:        test-env.sh
-
-Patch0:         DBD-mysql-5.001-Fix-version-tests.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -107,8 +105,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n %{cpan_name}-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n %{cpan_name}-%{version}
 
 # Correct file permissions
 find . -type f | xargs chmod -x
@@ -198,6 +195,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.002-1
+- 5.002 bump (rhbz#2245834)
+
 * Thu Oct 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.001-2
 - Use community-mysql also for ELN
 

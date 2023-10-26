@@ -19,6 +19,10 @@
 %endif
 %endif
 
+%if 0%{?flatpak}
+%global database_backend SQLITE
+%endif
+
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.2
@@ -84,20 +88,20 @@ BuildRequires:  kaccounts-integration-devel
 BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
-# backends, used at buildtime to query known locations of server binaries
-# FIXME/TODO: set these via cmake directives, avoids needless buildroot items
-BuildRequires:  mariadb-server
-BuildRequires:  postgresql-server
-
 %if 0%{?tests}
 BuildRequires: dbus-x11
+%if ! 0%{?flatpak}
+BuildRequires: mariadb-server
+%endif
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
 Requires(post): /usr/sbin/update-alternatives
 Requires(postun): /usr/sbin/update-alternatives
 
+%if ! 0%{?flatpak}
 Recommends:     %{name}-mysql = %{version}-%{release}
+%endif
 
 Conflicts:      akonadi < 1.13.0-100
 
@@ -162,7 +166,10 @@ See also: %{_sysconfdir}/akonadi/mysql-global.conf
 %cmake_kf5 \
   %{?database_backend:-DDATABASE_BACKEND=%{database_backend}} \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} \
-  -DINSTALL_APPARMOR:BOOL=OFF
+  -DINSTALL_APPARMOR:BOOL=OFF \
+  -DMYSQLD_EXECUTABLE:FILEPATH=%{_libexecdir}/mysqld \
+  -DMYSQLD_SCRIPTS_PATH:FILEPATH=%{_bindir}/mysql_install_db \
+  -DPOSTGRES_PATH:FILEPATH=%{_bindir}/pg_ctl
 
 %cmake_build
 

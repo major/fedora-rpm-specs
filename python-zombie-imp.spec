@@ -1,11 +1,14 @@
 Name:           python-zombie-imp
 Version:        0.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A copy of the `imp` module that was removed in Python 3.12
 
 License:        Python-2.0.1
 URL:            https://github.com/encukou/zombie-imp
 Source:         %{pypi_source zombie-imp}
+
+# Make the tests pass with Python 3.13.0a1+, 3.12.1+, 3.11.6+
+Patch:          https://github.com/encukou/zombie-imp/commit/d45295faf4.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -54,6 +57,9 @@ Provides:       deprecated()
 
 
 %changelog
+* Tue Oct 24 2023 Miro Hrončok <mhroncok@redhat.com> - 0.0.2-3
+- Make the tests pass with Python 3.13.0a1+, 3.12.1+, 3.11.6+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

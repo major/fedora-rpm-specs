@@ -2,7 +2,7 @@
 %global srcname kombu
 # Packaging unstable?
 # %%global prerel b3
-%global general_version 5.3.1
+%global general_version 5.3.2
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-%{srcname}
@@ -16,8 +16,12 @@ License:        BSD and Python
 URL:            http://kombu.readthedocs.org/
 Source0:        https://github.com/celery/kombu/archive/v%{upstream_version}/%{srcname}-%{upstream_version}.tar.gz
 
-# Python 3.12: https://github.com/celery/kombu/commit/6ef88c3445143dde9aeaef3a95c0fb399dcb1e20
-#Patch01:        6ef88c3445143dde9aeaef3a95c0fb399dcb1e20.patch
+# Python 3.12: https://github.com/celery/kombu/commit/3ad075a536d177170a7a5d7b04d81e94bd5bf404
+Patch01:        3ad075a536d177170a7a5d7b04d81e94bd5bf404.patch
+
+# Python 3.12: https://github.com/celery/kombu/commit/7187021ecc9f65601c50754d0fc6ec6c5264eea1
+# and part of https://github.com/celery/kombu/commit/6c8e7e6b2815ae03eb77f7625c3c196e0390a749
+Patch02:        7187021ecc9f65601c50754d0fc6ec6c5264eea1.patch
 
 BuildArch: noarch
 
@@ -35,9 +39,6 @@ also provide proven and tested solutions to common messaging problems.
 Summary:        %{summary}
 Requires:       python3-amqp
 Requires:       python3-vine
-
-# Remove once https://github.com/celery/kombu/issues/1668 gets resolved
-Requires:       python3-cached_property
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -57,9 +58,6 @@ BuildRequires:  python3-brotli
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest-freezegun
 BuildRequires:  python3-azure-identity
-
-# Remove once https://github.com/celery/kombu/issues/1668 gets resolved
-BuildRequires:  python3-cached_property
 %endif
 
 %description -n python3-%{srcname}
@@ -83,10 +81,7 @@ also provide proven and tested solutions to common messaging problems.
 
 %check
 %if %{with tests}
-# https://github.com/celery/kombu/issues/1765
-# Seems like test/tooling failures, not the actual code issues, eg.
-# AttributeError: 'called_once' is not a valid assertion. Use a spec for the mock if 'called_once' is meant to be an attribute.
-%pytest -k 'not test_entrypoints and not test_call_soon_uses_lock and not test__pop_ready_uses_lock'
+%pytest
 %endif
 
 %files -n python3-%{srcname}

@@ -1,10 +1,11 @@
-%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+# TODO: Enable after shipping Plasma 6
+%bcond kf6_compat 0
 
 %global framework kglobalaccel
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 4%{?dist}
+Release: 6%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for global shortcuts
 
 License: LGPLv2+
@@ -15,9 +16,6 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 ## upstream fixes
-# Add build flag for KF6 coinstallability
-# https://invent.kde.org/frameworks/kglobalaccel/-/merge_requests/100
-Patch0:         100.patch
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-rpm-macros
@@ -42,6 +40,8 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %if %{with kf6_compat}
 Requires:       kglobalacceld
+%else
+Obsoletes:      kglobalacceld < 6
 %endif
 
 %description
@@ -67,7 +67,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5 %{?with_kf6_compat:-DKF6_COMPAT_BUILD=ON}
+%cmake_kf5 %{?with_kf6_compat:-DBUILD_RUNTIME=OFF}
 %cmake_build
 
 
@@ -98,8 +98,8 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 
 %files libs
 %{_kf5_libdir}/libKF5GlobalAccel.so.*
-%{_kf5_libdir}/libKF5GlobalAccelPrivate.so.*
 %if %{without kf6_compat}
+%{_kf5_libdir}/libKF5GlobalAccelPrivate.so.*
 %{_kf5_qtplugindir}/org.kde.kglobalaccel5.platforms/
 %endif
 
@@ -112,6 +112,12 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 
 
 %changelog
+* Tue Oct 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-6
+- Add Obsoletes: to upgrade from the compat build
+
+* Tue Oct 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-5
+- Re-enable the daemon until Plasma 6
+
 * Wed Oct 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-4
 - Require the new kglobalacceld if compat build
 

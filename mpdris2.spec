@@ -21,10 +21,7 @@ BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 
-Requires:       python3-mpd
-Requires:       python3-gobject
-Requires:       python3-dbus
-Requires:       python3-mutagen
+Requires:       python3-dbus python3-mpd2 python3-gobject python3-mutagen
 
 %description
 mpDris2 provides MPRIS 2 support to mpd (Music Player Daemon).

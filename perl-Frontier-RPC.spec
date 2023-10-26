@@ -1,7 +1,7 @@
 Summary:        A Perl interface for making and serving XML-RPC calls
 Name:           perl-Frontier-RPC
 Version:        0.07b4p1
-Release:        47%{?dist}
+Release:        48%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Frontier-RPC
 Source0:        https://cpan.metacpan.org/authors/id/R/RT/RTFIREFLY/Frontier-RPC-%{version}.tar.gz
@@ -13,10 +13,11 @@ Patch4:         apache2.patch
 # Respect proxy setting for HTTPS, bug #832390, CPAN RT#117812
 Patch5:         Frontier-RPC-0.07b4p1-Respect-proxy-setting-for-HTTPS.patch
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 # Apache2::Const not used at tests
 # Apache2::ServerUtil not used at tests
@@ -56,28 +57,22 @@ includes just client module for making requests to a server.
 Documentation and examples to Frontier::RPC and Frontier::RPC::Client.
 
 %prep
-%setup -q -n Frontier-RPC-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+%autosetup -p1 -n Frontier-RPC-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%{perl_vendorlib}/*
+%{perl_vendorlib}/Apache*
+%{perl_vendorlib}/Frontier*
 
 %files Client
 %{perl_vendorlib}/Frontier/Client.pm
@@ -85,9 +80,13 @@ make test
 
 %files doc
 %doc ChangeLog Changes COPYING README examples/
-%{_mandir}/man3/*
+%{_mandir}/man3/Apache*
+%{_mandir}/man3/Frontier*
 
 %changelog
+* Tue Oct 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.07b4p1-48
+- Modernize specfile
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07b4p1-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

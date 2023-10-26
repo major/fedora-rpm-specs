@@ -1,8 +1,8 @@
 %global	gem_name	mini_portile2
 
 Name:		rubygem-%{gem_name}
-Version:	2.8.4
-Release:	2%{?dist}
+Version:	2.8.5
+Release:	1%{?dist}
 
 Summary:	Simplistic port-like solution for developers
 # SPDX confirmed
@@ -87,6 +87,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Tue Oct 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.5-1
+- 2.8.5
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

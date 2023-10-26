@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        45.0
+Version:        45.1
 Release:        1%{?dist}
 Summary:        A system-wide Linux profiler
 
@@ -166,6 +166,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Oct 24 2023 Kalev Lember <klember@redhat.com> - 45.1-1
+- Update to 45.1
+
 * Thu Sep 21 2023 Kalev Lember <klember@redhat.com> - 45.0-1
 - Update to 45.0
 - Remove and obsolete libsysprof-ui subpackage
