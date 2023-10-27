@@ -1,11 +1,11 @@
 Name:       bdftopcf
-Version:    1.1
-Release:    7%{?dist}
+Version:    1.1.1
+Release:    1%{?dist}
 Summary:    Font compiler for the X server and font server
 
 License:    MIT-open-group
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/util/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc make libtool
 BuildRequires:  pkgconfig(x11) pkgconfig(fontsproto)
@@ -37,6 +37,9 @@ slowly) on other machines.
 %{_mandir}/man1/bdftopcf.1*
 
 %changelog
+* Thu Oct 26 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.1.1-1
+- bdftopcf 1.1.1
+
 * Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: change to SPDX license identifier
 

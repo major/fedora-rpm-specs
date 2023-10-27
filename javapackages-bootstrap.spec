@@ -6,6 +6,10 @@
 %global         __requires_exclude_from \\.jar$
 %global         __provides_exclude_from \\.jar$
 
+# Generated list of bundled packages
+%global         __local_generator_provides cat %{_builddir}/%{buildsubdir}/bundled-provides.txt
+%global         __local_generator_path ^%{metadataPath}/.*$
+
 %global         debug_package %{nil}
 
 %global javaHomePath %{_jvmdir}/java-17-openjdk
@@ -19,7 +23,7 @@
 
 Name:           javapackages-bootstrap
 Version:        1.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        Apache-2.0 AND Apache-1.1 AND (Apache-2.0 OR EPL-2.0) AND (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND MIT AND BSD-3-Clause AND EPL-1.0 AND EPL-2.0 AND CDDL-1.0 AND xpp AND CC0-1.0 AND Plexus AND SMLNJ AND LicenseRef-Fedora-Public-Domain
@@ -31,6 +35,7 @@ Source0:        https://github.com/fedora-java/javapackages-bootstrap/releases/d
 
 # License breakdown
 Source1:        javapackages-bootstrap-PACKAGE-LICENSING
+Source2:        generate-bundled-provides.sh
 
 # To obtain the following sources:
 # tar -xf ${name}-${version}.tar.xz
@@ -158,130 +163,12 @@ Source1116:     xmvn-generator.tar.xz
 Source1117:     xmvn.tar.xz
 Source1118:     xz-java.tar.xz
 
-Provides:       bundled(ant) = 1.10.14
-Provides:       bundled(aopalliance) = 1.0
-Provides:       bundled(apache-parent) = 30
-Provides:       bundled(apiguardian) = 1.1.2
-Provides:       bundled(objectweb-asm) = 9.5
-Provides:       bundled(assertj-core) = 3.24.2
-Provides:       bundled(aqute-bnd) = 5.2.0
-Provides:       bundled(build-helper-maven-plugin) = 3.4.0
-Provides:       bundled(byte-buddy) = 1.11.22
-Provides:       bundled(cdi-api) = 2.0.2
-Provides:       bundled(cglib) = 3.3.0
-Provides:       bundled(jakarta-annotations) = 1.3.5
-Provides:       bundled(apache-commons-beanutils) = 1.9.4
-Provides:       bundled(apache-commons-cli) = 1.5.0
-Provides:       bundled(apache-commons-codec) = 1.16.0
-Provides:       bundled(apache-commons-collections) = 3.2.2
-Provides:       bundled(apache-commons-compress) = 1.23.0
-Provides:       bundled(apache-commons-io) = 2.13.0
-Provides:       bundled(apache-commons-jxpath) = 1.3
-Provides:       bundled(apache-commons-lang3) = 3.13.0
-Provides:       bundled(apache-commons-logging) = 1.2
-Provides:       bundled(apache-commons-parent) = 59
-Provides:       bundled(java_cup) = 0.11b
-Provides:       bundled(disruptor) = 3.4.4
-Provides:       bundled(easymock) = 4.3
-Provides:       bundled(extra-enforcer-rules) = 1.7.0
-Provides:       bundled(felix-parent) = 7
-Provides:       bundled(felix-utils) = 1.11.8
-Provides:       bundled(fusesource-pom) = 1.12
-Provides:       bundled(guava) = 31.1
-Provides:       bundled(google-guice) = 5.1.0
-Provides:       bundled(hamcrest) = 2.2
-Provides:       bundled(httpcomponents-client) = 4.5.13
-Provides:       bundled(httpcomponents-core) = 4.4.13
-Provides:       bundled(httpcomponents-project) = 13
-Provides:       bundled(atinject) = 1.0.5
-Provides:       bundled(jakarta-activation1) = 2.1.2
-Provides:       bundled(jansi) = 2.4.0
-Provides:       bundled(javacc-maven-plugin) = 3.0.1
-Provides:       bundled(javacc) = 7.0.12
-Provides:       bundled(beust-jcommander) = 1.82
-Provides:       bundled(jctools) = 4.0.1
-Provides:       bundled(jdom) = 1.1.3
-Provides:       bundled(jdom2) = 2.0.6.1
-Provides:       bundled(jflex) = 1.7.0
-Provides:       bundled(jsoup) = 1.16.1
-Provides:       bundled(jsr-305) = 3.0.2
-Provides:       bundled(junit) = 4.13.2
-Provides:       bundled(junit5) = 5.10.0
-Provides:       bundled(log4j) = 2.20.0
-Provides:       bundled(jakarta-mail) = 2.1.2
-Provides:       bundled(maven-antrun-plugin) = 3.1.0
-Provides:       bundled(maven-apache-resources) = 1.5
-Provides:       bundled(maven-archiver) = 3.6.0
-Provides:       bundled(maven-artifact-transfer) = 0.13.1
-Provides:       bundled(maven-assembly-plugin) = 3.6.0
-Provides:       bundled(maven-plugin-bundle) = 5.1.9
-Provides:       bundled(maven-common-artifact-filters) = 3.3.2
-Provides:       bundled(maven-compiler-plugin) = 3.11.0
-Provides:       bundled(maven-dependency-analyzer) = 1.13.2
-Provides:       bundled(maven-dependency-plugin) = 3.6.0
-Provides:       bundled(maven-dependency-tree) = 3.2.1
-Provides:       bundled(maven-enforcer) = 3.3.0
-Provides:       bundled(maven-file-management) = 3.1.0
-Provides:       bundled(maven-filtering) = 3.3.1
-Provides:       bundled(maven-jar-plugin) = 3.3.0
-Provides:       bundled(maven-parent) = 40
-Provides:       bundled(maven-plugin-testing) = 3.3.0
-Provides:       bundled(maven-plugin-tools) = 3.9.0
-Provides:       bundled(maven-remote-resources-plugin) = 3.1.0
-Provides:       bundled(maven-resolver) = 1.9.15
-Provides:       bundled(maven-resources-plugin) = 3.3.1
-Provides:       bundled(maven-shared-incremental) = 1.1
-Provides:       bundled(maven-shared-io) = 3.0.0
-Provides:       bundled(maven-shared-utils) = 3.4.2
-Provides:       bundled(maven-source-plugin) = 3.3.0
-Provides:       bundled(maven-surefire) = 3.1.2
-Provides:       bundled(maven-verifier) = 2.0.0~M1
-Provides:       bundled(maven-wagon) = 3.5.3
-Provides:       bundled(maven) = 3.9.4
-Provides:       bundled(mockito) = 3.7.13
-Provides:       bundled(modello) = 2.1.1
-Provides:       bundled(modulemaker-maven-plugin) = 1.9
-Provides:       bundled(mojo-parent) = 76
-Provides:       bundled(objenesis) = 3.3
-Provides:       bundled(opentest4j) = 1.3.0
-Provides:       bundled(osgi-annotation) = 8.1.0
-Provides:       bundled(osgi-compendium) = 7.0.0
-Provides:       bundled(osgi-core) = 8.0.0
-Provides:       bundled(sonatype-oss-parent) = 7
-Provides:       bundled(plexus-archiver) = 4.8.0
-Provides:       bundled(plexus-build-api) = 0.0.7
-Provides:       bundled(plexus-cipher) = 2.0
-Provides:       bundled(plexus-classworlds) = 2.7.0
-Provides:       bundled(plexus-compiler) = 2.13.0
-Provides:       bundled(plexus-components-pom) = 14.1
-Provides:       bundled(plexus-containers) = 2.1.1
-Provides:       bundled(plexus-interpolation) = 1.26
-Provides:       bundled(plexus-io) = 3.4.1
-Provides:       bundled(plexus-languages) = 1.1.2
-Provides:       bundled(plexus-pom) = 14
-Provides:       bundled(plexus-resources) = 1.2.0
-Provides:       bundled(plexus-sec-dispatcher) = 2.0
-Provides:       bundled(plexus-utils) = 3.5.1
-Provides:       bundled(qdox) = 2.0.3
-Provides:       bundled(jakarta-servlet) = 4.0.3
-Provides:       bundled(sisu) = 0.3.5
-Provides:       bundled(sisu-mojos) = 0.3.5
-Provides:       bundled(sisu-plexus) = 0.3.5
-Provides:       bundled(slf4j) = 1.7.36
-Provides:       bundled(testng) = 7.8.0
-Provides:       bundled(univocity-parsers) = 2.9.1
-Provides:       bundled(velocity) = 2.3
-Provides:       bundled(xbean) = 4.23
-Provides:       bundled(xmlunit) = 2.9.1
-Provides:       bundled(xmvn-generator) = 1.2.1
-Provides:       bundled(xmvn) = 4.2.0
-Provides:       bundled(xz-java) = 1.9
-
 BuildRequires:  byaccj
 BuildRequires:  gcc
 BuildRequires:  java-17-openjdk-devel
 BuildRequires:  jurand
 BuildRequires:  rpm-devel
+BuildRequires:  rpm-local-generator-support
 
 Requires:       bash
 Requires:       coreutils
@@ -310,10 +197,12 @@ XMvn, allowing JPT to be used before one builds XMvn package.
 
 %prep
 %setup -q
+# Dynamically generate bundled Provides
+%{SOURCE2} >bundled-provides.txt
 
 # leave out the first source as it has already been extracted
 # leave out licensing breakdown file
-other_sources=$(echo %{sources} | cut -d' ' -f3-)
+other_sources=$(echo %{sources} | cut -d' ' -f4-)
 
 for source in ${other_sources}; do
   tar -xf "${source}"
@@ -382,6 +271,9 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Wed Oct 25 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.13.0-3
+- Dynamically generate bundled Provides
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.13.0-2
 - Convert License tag to SPDX format
 

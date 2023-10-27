@@ -1,6 +1,6 @@
 Name: imagefactory
 Version: 1.1.16
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: System image generation tool
 License: ASL 2.0
 URL: https://github.com/redhat-imaging/imagefactory
@@ -11,6 +11,10 @@ Patch0: imagefactory-1.1.14-utf8-config-id.patch
 Patch1: container-github-pr434.patch
 # https://github.com/redhat-imaging/imagefactory/pull/438
 Patch2: 0001-ApplicationConfiguration.py-drop-encoding-from-json..patch
+# https://github.com/redhat-imaging/imagefactory/issues/412
+# https://bugzilla.redhat.com/show_bug.cgi?id=2245066
+# https://github.com/redhat-imaging/imagefactory/pull/455
+Patch3: imagefactory-Docker.py-Pass-the-use_ino-option-to-fix-hardlnks.patch
 BuildArch: noarch
 
 BuildRequires: python3
@@ -93,6 +97,9 @@ rm -f %{buildroot}/%{_initddir}/imagefactoryd
 %{_bindir}/imagefactoryd
 
 %changelog
+* Thu Oct 26 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.1.16-7
+- Preserve hard links when building Docker images
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

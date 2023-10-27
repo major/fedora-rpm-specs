@@ -1,5 +1,5 @@
-%global commit c4bbb6e75f688318b2df2b70c2df2d641c1a8481
-%global snapdate 20231009
+%global commit beebb24b945efdea3b9bba23affb8eb3ba8982e7
+%global snapdate 20231011
 
 # We choose not to package the “stb_include” library (stb_include.h) because,
 # during the package review, it was observed that it follows coding practices
@@ -65,7 +65,132 @@ Patch:          %{url}/pull/1236.patch
 
 # Fixes null pointer dereference in https://github.com/nothings/stb/issues/1452
 # https://github.com/nothings/stb/pull/1454
+#
+# Fixes:
+#
+# NULL pointer dereference in the stb_image.h
+# https://github.com/nothings/stb/issues/1452
+# NULL pointer derefence in PIC loading (CVE-2023-43898)
+# https://github.com/nothings/stb/issues/1521
+# Null pointer dereference in stbi__convert_format (GHSL-2023-149)
+# https://github.com/nothings/stb/issues/1546
+#
+# An alternative and equivalent patch is:
+#
+# Fix Null pointer dereference in stbi__convert_format
+# https://github.com/nothings/stb/pull/1547
 Patch:          %{url}/pull/1454.patch
+
+# Fixed asan error on tiny input images
+# https://github.com/nothings/stb/pull/1561
+#
+# Fixes:
+#
+# stb_image_resize2.h: Address Sanitizer error
+# https://github.com/nothings/stb/issues/1526
+Patch:          %{url}/pull/1561.patch
+
+# Fix integer overflow
+# https://github.com/nothings/stb/pull/1530
+#
+# Fixes:
+#
+# Integer overflow in stbi__convert_8_to_16
+# https://github.com/nothings/stb/issues/1529
+Patch:          %{url}/pull/1530.patch
+
+# Add overflow checks
+# https://github.com/nothings/stb/pull/1532
+#
+# Fixes:
+#
+# Integer overflow in stbi__load_gif_main
+# https://github.com/nothings/stb/issues/1531
+Patch:          %{url}/pull/1532.patch
+
+# Fix int overflow
+# https://github.com/nothings/stb/pull/1534
+#
+# Fixes:
+#
+# Integer overflow in stbi__jpeg_decode_block
+# https://github.com/nothings/stb/pull/1533
+Patch:          %{url}/pull/1534.patch
+
+# Fix wild address read in stbi__gif_load_next
+# https://github.com/nothings/stb/pull/1539
+#
+# Fixes:
+#
+# Wild address read in stbi__gif_load_next (GHSL-2023-145/CVE-2023-45661)
+# https://github.com/nothings/stb/issues/1538
+Patch:          %{url}/pull/1539.patch
+
+# Fix multi-byte read heap buffer overflow in stbi__vertical_flip
+# https://github.com/nothings/stb/pull/1541
+#
+# Fixes:
+#
+# Multi-byte read heap buffer overflow in stbi__vertical_flip
+# (GHSL-2023-146/CVE-2023-45662)
+# https://github.com/nothings/stb/issues/1540
+Patch:          %{url}/pull/1541.patch
+
+# Fix disclosure of uninitialized memory in stbi__tga_load
+# https://github.com/nothings/stb/pull/1543
+#
+# Fixes:
+#
+# Disclosure of uninitialized memory in stbi__tga_load
+# (GHSL-2023-147/CVE-2023-45663)
+# https://github.com/nothings/stb/issues/1542
+Patch:          %{url}/pull/1543.patch
+
+# Fix double-free in stbi__load_gif_main_outofmem
+# https://github.com/nothings/stb/pull/1545
+#
+# Fixes:
+#
+# Double-free in stbi__load_gif_main_outofmem (GHSL-2023-148/CVE-2023-45664)
+# https://github.com/nothings/stb/issues/1544
+#
+# Rebased on top of https://github.com/nothings/stb/pull/1539.
+Patch:          0001-Fix-double-free-in-stbi__load_gif_main_outofmem.patch
+
+# Fix possible double-free or memory leak in stbi__load_gif_main
+# https://github.com/nothings/stb/pull/1549
+#
+# Fixes:
+#
+# Possible double-free or memory leak in stbi__load_gif_main
+# (GHSL-2023-150/CVE-2023-45666)
+# https://github.com/nothings/stb/issues/1548
+#
+# Rebased on top of https://github.com/nothings/stb/pull/1539 and
+# https://github.com/nothings/stb/pull/1545.
+Patch:          0002-Fix-possible-double-free-or-memory-leak-in-stbi__loa.patch
+
+# Fix Null pointer dereference because of an uninitialized variable
+# https://github.com/nothings/stb/pull/1551
+#
+# Fixes:
+#
+# Null pointer dereference because of an uninitialized variable
+# (GHSL-2023-151/CVE-2023-45667)
+# https://github.com/nothings/stb/issues/1550
+#
+# Rebased on top of https://github.com/nothings/stb/pull/1541.
+Patch:          0001-Fix-Null-pointer-dereference-because-of-an-uninitial.patch
+
+# Fix 0 byte write heap buffer overflow in start_decoder
+# https://github.com/nothings/stb/pull/1553
+#
+# Fixes:
+#
+# 0 byte write heap buffer overflow in start_decoder
+# (GHSL-2023-165/CVE-2023-45675)
+# https://github.com/nothings/stb/issues/1552
+Patch:          %{url}/pull/1553.patch
 
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96
@@ -77,7 +202,7 @@ Patch:          %{url}/pull/1454.patch
 %global stb_hexwave_version 0.5
 %global stb_image_version 2.28
 %global stb_image_resize_version 0.97
-%global stb_image_resize2_version 2.0
+%global stb_image_resize2_version 2.02
 %global stb_image_write_version 1.16
 %global stb_include_version 0.2
 %global stb_leakcheck_version 0.6

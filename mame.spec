@@ -62,6 +62,7 @@ BuildRequires:  rapidjson-devel
 BuildRequires:  SDL2_ttf-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  utf8proc-devel
+BuildRequires:  wayland-devel
 BuildRequires:  zlib-devel
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -245,6 +246,7 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
     USE_SYSTEM_LIB_SQLITE3=1 \
     USE_SYSTEM_LIB_UTF8PROC=1 \
     USE_SYSTEM_LIB_ZLIB=1 \
+    USE_WAYLAND=1 \
     SDL_INI_PATH="%{_sysconfdir}/%{name};" \
     TOOLS=1 \
     LDOPTS="$RPM_LD_FLAGS" \

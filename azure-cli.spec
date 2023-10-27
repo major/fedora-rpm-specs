@@ -9,7 +9,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.52.0
+Version:        2.53.1
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -128,6 +128,7 @@ sed -i 's/^paramiko>=.*$/paramiko>=2.12.0/' src/azure-cli/requirements.py3.Linux
 sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^PyNaCl>=.*$/PyNaCl>=1.4.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/PyNaCl>=1.5.0/PyNaCl>=1.4.0/'  src/azure-cli/setup.py
+sed -i 's/^requests\[socks\]>=.*$/requests[socks]>=2.28.2/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow an older argcomplete until we can get it updated in Fedora.
 sed -i 's/argcomplete>=3.1.1/argcomplete>=2.0.0/' src/azure-cli-core/setup.py
@@ -158,6 +159,13 @@ sed -i \
     -e 's/psutil>=5.9/psutil/' \
     src/azure-cli-core/setup.py
 %endif
+
+# Remove pycomposefile requirement and containerapp module. There is no pycomposefile
+# package in Fedora, and containerapp is not needed.
+sed -i \
+    -e '/pycomposefile/d' \
+    src/azure-cli/requirements.py3.Linux.txt src/azure-cli/setup.py
+rm -rf src/azure-cli/azure/cli/command_modules/containerapp
 
 
 %generate_buildrequires

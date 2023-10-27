@@ -1,6 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order tempest
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 %global with_doc 1
 
 %global sname heatclient
@@ -11,11 +17,11 @@ heatclient module), and a command-line script (heat). Each implements 100% of \
 the OpenStack Heat API.
 
 Name:    python-heatclient
-Version: 3.2.0
-Release: 3%{?dist}
+Version: 3.3.0
+Release: 1%{?dist}
 Summary: Python API and CLI for OpenStack Heat
 
-License: ASL 2.0
+License: Apache-2.0
 URL:     https://launchpad.net/python-heatclient
 Source0: https://tarballs.openstack.org/%{name}/%{name}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -36,27 +42,10 @@ BuildRequires:  /usr/bin/gpgv2
 
 %package -n python3-%{sname}
 Summary: Python API and CLI for OpenStack Heat
-%{?python_provide:%python_provide python3-heatclient}
-Obsoletes: python2-%{sname} < %{version}-%{release}
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-pbr
+BuildRequires: pyproject-rpm-macros
 BuildRequires: git-core
-
-Requires: python3-babel
-Requires: python3-iso8601
-Requires: python3-keystoneauth1 >= 3.8.0
-Requires: python3-osc-lib >= 1.14.0
-Requires: python3-prettytable
-Requires: python3-pbr
-Requires: python3-oslo-serialization >= 2.18.0
-Requires: python3-oslo-utils >= 3.33.0
-Requires: python3-oslo-i18n >= 3.15.3
-Requires: python3-swiftclient >= 3.2.0
-Requires: python3-requests
-Requires: python3-cliff
-Requires: python3-PyYAML
 
 %description -n python3-%{sname}
 %{common_desc}
@@ -64,21 +53,6 @@ Requires: python3-PyYAML
 %if 0%{?with_doc}
 %package doc
 Summary: Documentation for OpenStack Heat API Client
-
-BuildRequires: python3-sphinx
-BuildRequires: python3-openstackdocstheme
-BuildRequires: python3-babel
-BuildRequires: python3-iso8601
-BuildRequires: python3-keystoneauth1
-BuildRequires: python3-osc-lib
-BuildRequires: python3-prettytable
-BuildRequires: python3-pbr
-BuildRequires: python3-oslo-serialization
-BuildRequires: python3-oslo-utils
-BuildRequires: python3-oslo-i18n
-BuildRequires: python3-swiftclient
-BuildRequires: python3-requests
-BuildRequires: python3-cliff
 
 %description doc
 %{common_desc}
@@ -93,14 +67,33 @@ This package contains auto-generated documentation.
 %endif
 %autosetup -n %{name}-%{upstream_version} -S git
 
-rm -rf {test-,}requirements.txt tools/{pip,test}-requires
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
 
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
 echo "%{version}" > %{buildroot}%{python3_sitelib}/heatclient/versioninfo
 # Create a versioned binary for backwards compatibility until everything is pure py3
 ln -s heat %{buildroot}%{_bindir}/heat-3
@@ -113,8 +106,8 @@ install -pm 644 tools/heat.bash_completion \
 rm -fr %{buildroot}%{python3_sitelib}/heatclient/tests
 
 %if 0%{?with_doc}
-export PYTHONPATH=.
-sphinx-build -W -b html doc/source doc/build/html
+export PYTHONPATH="%{buildroot}/%{python3_sitelib}"
+%tox -e docs
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.doctrees doc/build/html/.buildinfo
 
@@ -127,7 +120,7 @@ install -p -D -m 644 doc/build/man/heat.1 %{buildroot}%{_mandir}/man1/heat.1
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/heatclient
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 %{_sysconfdir}/bash_completion.d
 %if 0%{?with_doc}
 %{_mandir}/man1/heat.1.gz
@@ -142,6 +135,9 @@ install -p -D -m 644 doc/build/man/heat.1 %{buildroot}%{_mandir}/man1/heat.1
 %endif
 
 %changelog
+* Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 3.3.0-1
+- Update to upstream version 3.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

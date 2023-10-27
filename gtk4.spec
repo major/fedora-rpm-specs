@@ -16,13 +16,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.12.3
+Version:        4.13.2
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
-Source0:        https://download.gnome.org/sources/gtk/4.12/gtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/4.13/gtk-%{version}.tar.xz
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
@@ -188,6 +188,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/*
 %{_bindir}/gtk4-builder-tool
 %{_bindir}/gtk4-encode-symbolic-svg
+%{_bindir}/gtk4-path-tool
 %{_bindir}/gtk4-query-settings
 %{_datadir}/gettext/
 %{_datadir}/gir-1.0/
@@ -195,6 +196,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-4.0/valgrind/
 %{_mandir}/man1/gtk4-builder-tool.1*
 %{_mandir}/man1/gtk4-encode-symbolic-svg.1*
+%{_mandir}/man1/gtk4-path-tool.1*
 %{_mandir}/man1/gtk4-query-settings.1*
 
 %files devel-docs

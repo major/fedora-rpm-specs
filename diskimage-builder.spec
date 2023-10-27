@@ -1,12 +1,15 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate sphinx openstackdocstheme yamllint pylint
+
 Name:           diskimage-builder
 Summary:        Image building tools for OpenStack
-Version:        3.26.0
-Release:        2%{?dist}
-License:        ASL 2.0
+Version:        3.31.0
+Release:        1%{?dist}
+License:        Apache-2.0
 Group:          System Environment/Base
 URL:            https://launchpad.net/diskimage-builder
 Source0:        https://tarballs.openstack.org/diskimage-builder/%{name}-%{upstream_version}.tar.gz
@@ -15,7 +18,6 @@ Source0:        https://tarballs.openstack.org/diskimage-builder/%{name}-%{upstr
 Source101:        https://tarballs.openstack.org/diskimage-builder/%{name}-%{upstream_version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
-AutoReqProv: no
 
 BuildArch: noarch
 
@@ -26,9 +28,7 @@ BuildRequires:  /usr/bin/gpgv2
 
 BuildRequires: git-core
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-pbr
-BuildRequires: /usr/bin/pathfix.py
+BuildRequires: pyproject-rpm-macros
 
 Requires: kpartx
 Requires: qemu-img
@@ -45,12 +45,6 @@ Requires: /usr/sbin/mkfs.vfat
 Requires: /bin/bash
 Requires: /bin/sh
 Requires: /usr/bin/env
-Requires: python3
-Requires: python3-flake8 >= 3.6.0
-Requires: python3-pbr >= 2.0.0
-Requires: python3-stevedore >= 1.20.0
-Requires: python3-networkx >= 2.3.0
-Requires: python3-yaml >= 3.12
 
 %global __requires_exclude /usr/local/bin/dib-python
 %global __requires_exclude %__requires_exclude|/sbin/runscript
@@ -62,14 +56,31 @@ Requires: python3-yaml >= 3.12
 %endif
 %autosetup -n %{name}-%{upstream_version} -S git
 
-# Remove bundled egg-info
-rm -r diskimage_builder.egg-info
+%py3_shebang_fix ./diskimage_builder/elements/deploy-targetcli/extra-data.d/module/targetcli-wrapper
+
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+%generate_buildrequires
+%pyproject_buildrequires -R
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/elements
 
@@ -82,17 +93,6 @@ rm -rf %{buildroot}%{_datadir}/%{name}/elements/config-applier
 # avoid conflicts with the new package.
 rm -f %{buildroot}%{_bindir}/dib-run-parts
 
-# Fix shebangs for Python 3-only distros
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_datadir}/%{name}/elements/pypi/pre-install.d/04-configure-pypi-mirror
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_datadir}/%{name}/elements/deploy-targetcli/extra-data.d/module/targetcli-wrapper
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_datadir}/%{name}/elements/package-installs/bin/package-installs-squash
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_datadir}/%{name}/elements/svc-map/extra-data.d/10-merge-svc-map-files
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_datadir}/%{name}/elements/svc-map/bin/svc-map
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}/diskimage_builder/elements/pypi/pre-install.d/04-configure-pypi-mirror
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}/diskimage_builder/elements/deploy-targetcli/extra-data.d/module/targetcli-wrapper
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}/diskimage_builder/elements/package-installs/bin/package-installs-squash
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}/diskimage_builder/elements/svc-map/extra-data.d/10-merge-svc-map-files
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}/diskimage_builder/elements/svc-map/bin/svc-map
 
 %description
 Components of TripleO that are responsible for building disk images.
@@ -104,6 +104,9 @@ Components of TripleO that are responsible for building disk images.
 %{_datadir}/%{name}/elements
 
 %changelog
+* Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 3.31.0-1
+- Update to upstream version 3.31.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

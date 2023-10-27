@@ -1,0 +1,76 @@
+Name:           composefs
+Version:        1.0.1
+Release:        2%{?dist}
+Summary:        Tools to handle creating and mounting composefs images
+
+License:        GPL-3.0-or-later AND LGPL-2.0-or-later AND Apache-2.0
+URL:            https://github.com/containers/composefs
+Source0:        https://github.com/containers/composefs/releases/download/v%{version}/%{name}-%{version}.tar.xz
+
+BuildRequires:  gcc automake libtool openssl-devel yajl-devel pandoc fuse3-devel
+Requires:       %{name}-libs = %{version}-%{release}
+
+%description
+Tools to handle creating and mounting composefs images. The composefs
+project combines several underlying Linux features to provide a very
+flexible mechanism to support read-only mountable filesystem trees,
+stacking on top of an underlying "lower" Linux filesystem.
+
+Please see https://github.com/containers/composefs for more information.
+
+%package        devel
+Summary:        Devel files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+Devel files for %{name}.
+
+%package        libs
+Summary:        Libraries for %{name}
+License:        LGPL-2.1-or-later AND (GPL-2.0-only OR Apache-2.0)
+
+%description    libs
+Library files for %{name}.
+
+%prep
+%autosetup
+
+%build
+%configure \
+           --disable-static \
+           --enable-man \
+           --with-yajl \
+           --with-fuse
+%make_build
+
+%install
+%make_install
+rm -rf %{buildroot}%{_libdir}/libcomposefs.la
+
+%files devel
+%{_includedir}/libcomposefs
+%{_libdir}/libcomposefs.so
+%{_libdir}/pkgconfig/%{name}.pc
+
+%files libs
+%license COPYING COPYING.LIB COPYING.LESSERv3 COPYINGv3 LICENSE.Apache-2.0 BSD-2-Clause.txt
+%{_libdir}/libcomposefs.so.*
+
+%files
+%doc README.md
+%{_bindir}/mkcomposefs
+%{_bindir}/composefs-info
+%{_sbindir}/mount.composefs
+%{_mandir}/man*/*
+
+%changelog
+* Mon Oct 16 2023 Stephen Smoogen <smooge@fedoraproject.org> - 1.0.1-2
+- Take in fixes from reviwers to fix man page compression types
+- Take in fixes from reviwers to move licenses to lib subpackage
+
+* Fri Oct 13 2023 Stephen Smoogen <smooge@fedoraproject.org> - 1.0.1-1
+- Update to 1.0.1
+- Confirm license is in SPDX format
+
+* Fri Apr 21 2023 Alexander Larsson <alexl@redhat.com>
+- Initial version

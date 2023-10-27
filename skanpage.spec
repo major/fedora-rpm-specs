@@ -2,7 +2,7 @@
 
 Name:     skanpage
 Version:  23.08.2
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Utility to scan images and multi-page documents
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:  GPLv3 and GPLv2 and CC0-1.0 and BSD
@@ -41,6 +41,7 @@ BuildRequires:  cmake(KQuickImageEditor)
 
 Requires: qt5-qtquickcontrols2
 Requires: kf5-kirigami2              >= %{kf5_min_version}
+Requires: kquickimageeditor
 
 Recommends: sane-backends-drivers-scanners
 
@@ -79,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Wed Oct 25 2023 Vasiliy Glazov <vascom2@gmail.com> - 23.08.2-2
+- Added requires kquickimageeditor
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

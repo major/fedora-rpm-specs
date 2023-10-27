@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/facebook/netconsd
 
 Name:           netconsd
-Version:        0.3
+Version:        0.4
 Release:        %autorelease
 Summary:        The Netconsole Daemon
 

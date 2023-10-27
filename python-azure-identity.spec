@@ -1,16 +1,15 @@
-%bcond_without  tests
+# Upstream's tests now require docker to be running.
+%bcond_with     tests
 
 %global         srcname     azure-identity
 
 Name:           python-%{srcname}
-Version:        1.10.0
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Microsoft Azure Identity Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-# This source comes from making a git archive of the main azure-sdk-for-python
-# repository. To reproduce the source code, run the generate-source.sh script.
-Source0:        %{srcname}-%{version}.tgz
+Source0:        %{pypi_source %{srcname} %{version} zip}
 
 Epoch:          1
 

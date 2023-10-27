@@ -58,7 +58,7 @@
 
 Name:           ibus
 Version:        1.5.29~rc1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -257,6 +257,7 @@ This package contains IBus IM module for Wayland
 %package panel
 Summary:        IBus Panel icon
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
 BuildRequires:  libdbusmenu-gtk3-devel
 
 %description panel
@@ -579,6 +580,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Oct 25 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc1-6
+- Add preedit D-Bus signals to PostProcessKeyEvent
+
 * Mon Oct 23 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc1-5
 - Add DeleteSurroundingText to PostProcessKeyEvent
 

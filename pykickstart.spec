@@ -4,8 +4,8 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.48
-Release:   3%{?dist}
+Version:   3.49
+Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -78,6 +78,19 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Wed Oct 25 2023 Brian C. Lane <bcl@redhat.com> - 3.49-1
+- tox: Only run unit tests for python 3.6 (bcl)
+- workflow: Update to py3.12.0 (bcl)
+- pykickstart: Set timeout to 120s on requests.get (bcl)
+- translation-canary: Update the subtree with current master (bcl)
+- Squashed 'translation-canary/' changes from 840c2d64..5bb81253 (bcl)
+- tests: Add python 3.12 support (bcl)
+- tests: Update unicode test to remove deprecated resetlocale (bcl)
+- rtd: formats is separate, not part of sphinx (bcl)
+- rtd: Add the .readthedocs.yaml config file (bcl)
+- spec: Update spec with changes from Fedora (bcl)
+- Makefile: Update pypi upload command (bcl)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.48-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

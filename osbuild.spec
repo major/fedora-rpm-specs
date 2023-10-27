@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        97
+Version:        98
 
 %forgemeta
 
@@ -127,6 +127,13 @@ Requires:       python3-typer
 Contains additional tools and utilities for development of
 manifests and osbuild.
 
+%package        depsolve-dnf
+Summary:        Dependency solving support for DNF
+Requires:       %{name} = %{version}-%{release}
+
+%description    depsolve-dnf
+Contains depsolving capabilities for package managers.
+
 %prep
 %forgeautosetup -p1
 
@@ -190,6 +197,10 @@ install -p -m 0755 data/10-osbuild-inhibitor.rules %{buildroot}%{_udevrulesdir}
 
 # Remove `osbuild-dev` on non-fedora systems
 %{!?fedora:rm %{buildroot}%{_bindir}/osbuild-dev}
+
+# Install `osbuild-depsolve-dnf` into libexec
+mkdir -p %{buildroot}%{_libexecdir}
+install -p -m 0755 tools/osbuild-depsolve-dnf %{buildroot}%{_libexecdir}/osbuild-depsolve-dnf
 
 %check
 exit 0
@@ -261,8 +272,37 @@ fi
 %{_bindir}/osbuild-mpp
 %{?fedora:%{_bindir}/osbuild-dev}
 
+%files depsolve-dnf
+%{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Oct 25 2023 Packit <hello@packit.dev> - 98-1
+Changes with 98
+----------------
+  * Update snapshots to 20231012 (#1400)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou
+  * Update snapshots to 20231015 (#1403)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou
+  * depsolve: import `dnf-json` (#1396)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  * manifests/fedora-vars: bump snapshot date (#1408)
+    * Author: Dusty Mabe, Reviewers: Simon de Vlieger
+  * stages/org.osbuild.users: support multiple SSH keys (#1386)
+    * Author: Michael Ho, Reviewers: Achilleas Koutsou
+  * stages/oscap.remediation: Properly utilize offline capabilities (#1395)
+    * Author: Evgeny Kolesnikov, Reviewers: Nobody
+  * stages/ostree.deploy.container: allow deploying from container (#1402)
+    * Author: Dusty Mabe, Reviewers: Nobody
+  * test/stages/users: make test data date agnostic (#1406)
+    * Author: Michael Ho, Reviewers: Ondřej Budai, Simon de Vlieger, Tomáš Hozza
+  * tools/osbuild-mpp: Really fix empty ostree commit object in deploy stage (#1405)
+    * Author: Alexander Larsson, Reviewers: Achilleas Koutsou
+  * tools/osbuild-mpp: add mpp-resolve-ostree-commits helper (#1399)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2023-10-25
+
+
 * Wed Oct 11 2023 Packit <hello@packit.dev> - 97-1
 Changes with 97
 ----------------

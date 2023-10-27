@@ -2,7 +2,7 @@
 
 Name:           python-cvxopt
 Version:        1.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python Package for Convex Optimization
 
 License:        GPL-3.0-or-later
@@ -12,6 +12,9 @@ Source0:        https://github.com/cvxopt/cvxopt/archive/%{version}/cvxopt-%{ver
 Patch0:         %{name}-setup.patch
 # Fix mixed signed/unsigned operations
 Patch1:         %{name}-signed.patch
+# Replace _PyUnicode_AsString with PyUnicode_AsUTF8 for python 3.13
+# https://github.com/cvxopt/cvxopt/pull/247
+Patch2:         %{name}-python3.13.patch
 
 BuildRequires:  DSDP-devel
 BuildRequires:  gcc
@@ -130,6 +133,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Wed Oct 25 2023 Jerry James <loganjerry@gmail.com> - 1.3.2-2
+- Adapt to python 3.13 (rhbz#2246130)
+
 * Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 1.3.2-1
 - Version 1.3.2
 

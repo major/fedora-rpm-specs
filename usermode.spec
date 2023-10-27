@@ -60,7 +60,7 @@ graphical tools for certain account management tasks.
 %make_build
 
 %install
-%make_install INSTALL='install -p'
+%make_install
 
 %if %{with gtk}
 # make userformat symlink to usermount

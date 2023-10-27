@@ -1,5 +1,5 @@
 Name:           blosc2
-Version:        2.10.1
+Version:        2.10.5
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 
@@ -94,6 +94,7 @@ rm %{buildroot}%{_libdir}/libblosc2.a
 %{_includedir}/blosc2/*.h
 %{_libdir}/libblosc2.so
 %{_libdir}/pkgconfig/blosc2.pc
+%{_libdir}/cmake/Blosc2
 
 %changelog
 %autochangelog

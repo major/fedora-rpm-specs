@@ -1,7 +1,7 @@
 %global pypi_name pytn3270
 
 Name:           python-%{pypi_name}
-Version:        0.12.0
+Version:        0.15.1
 Release:        %autorelease
 Summary:        Python TN3270 library
 

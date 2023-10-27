@@ -6,7 +6,7 @@
 %endif
 
 Name:           python-peewee
-Version:        3.16.3
+Version:        3.17.0
 Release:        1%{?dist}
 Summary:        A simple and small ORM
 
@@ -23,6 +23,7 @@ BuildRequires:  sqlite-devel
 
 # documentation
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 
 # tests
 BuildRequires:  python3-apsw
@@ -107,6 +108,9 @@ psql -c "CREATE EXTENSION hstore" peewee_test
 
 
 %changelog
+* Wed Oct 25 2023 Viliam Krizan <vkrizan@redhat.com> - 3.17.0-1
+- Update to 3.17.0 (#2244151)
+
 * Tue Aug 15 2023 Viliam Krizan <vkrizan@redhat.com> - 3.16.3-1
 - new version
 

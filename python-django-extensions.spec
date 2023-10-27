@@ -79,8 +79,16 @@ rm -r tests/management/commands/shell_plus_tests/
 %check
 # tox.ini invokes make invokes pytest
 # call directly so we can disable tests that require network
+SELECTOR="not PipCheckerTests"
+%if 0%{?el9}
+# minor differences in generated HTML
+# E   - </span><span class="s2">
+# E   + </span><span class="w"><span class="s2">
+# E   ?              ++++++++++++++++
+SELECTOR+=" and not test_should_highlight_bash_syntax_without_name"
+%endif
 %pytest -v django_extensions tests \
-  -k "not PipCheckerTests"
+  -k "${SELECTOR}"
 
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}

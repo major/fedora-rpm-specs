@@ -2,7 +2,7 @@
 
 Name:    zlib
 Version: 1.2.13
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Compression and decompression library
 # /contrib/dotzlib/ have Boost license
 License: Zlib AND BSL-1.0
@@ -30,6 +30,8 @@ Patch22: zlib-1.2.11-covscan-issues.patch
 # fixed issues found by covscan for rhel-9
 # ref: https://github.com/madler/zlib/pull/554
 Patch23: zlib-1.2.11-covscan-issues-rhel9.patch
+# Upstream patch: https://github.com/madler/zlib/commit/73331a6a0481067628f065ffe87bb1d8f787d10c
+Patch24: zlib-1.2.13-Reject-overflows-of-zip-header-fields-in-minizip.patch
 
 BuildRequires: make
 BuildRequires: automake, autoconf, libtool
@@ -84,17 +86,18 @@ developing applications which use minizip.
 
 %prep
 %setup -q
-%patch0 -p1 -b .fixuncrypt
-%patch2 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch22 -p1
-%patch23 -p1
+%patch -P0 -p1 -b .fixuncrypt
+%patch -P2 -p1
+%patch -P18 -p1
+%patch -P19 -p1
+%patch -P20 -p1
+%patch -P22 -p1
+%patch -P23 -p1
+%patch -P24 -p1
 # Patch19 conflicts with Patch1, so the Patch1 has to be applied after,
 # because it is arch specific
 %ifarch s390 s390x
-%patch1 -p1 -b .optimized-deflate
+%patch -P1 -p1 -b .optimized-deflate
 %endif
 
 
@@ -173,6 +176,10 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Tue Oct 17 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.2.13-5
+- Applied upstream commit 73331a6a0481067628f065ffe87bb1d8f787d10c
+- Resolves: CVE-2023-45853
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

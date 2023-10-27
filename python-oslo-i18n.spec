@@ -1,6 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 
 %global pypi_name oslo.i18n
 %global pkg_name oslo-i18n
@@ -12,10 +18,10 @@ The oslo.i18n library contain utilities for working with internationalization \
 or library.
 
 Name:           python-oslo-i18n
-Version:        6.0.0
-Release:        4%{?dist}
+Version:        6.1.0
+Release:        1%{?dist}
 Summary:        OpenStack i18n library
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/openstack/%{pypi_name}
 Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -38,19 +44,10 @@ BuildRequires:  git-core
 
 %package -n python3-%{pkg_name}
 Summary:        OpenStack i18n Python 2 library
-%{?python_provide:%python_provide python3-%{pkg_name}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pbr
-BuildRequires:  python3-babel
-BuildRequires:  python3-six
-BuildRequires:  python3-fixtures
-# Required to compile translation files
-BuildRequires:  python3-babel
-
+BuildRequires:  pyproject-rpm-macros
 Requires:       python-%{pkg_name}-lang = %{version}-%{release}
-Requires:       python3-pbr >= 2.0.0
 
 %description -n python3-%{pkg_name}
 %{common_desc}
@@ -58,10 +55,6 @@ Requires:       python3-pbr >= 2.0.0
 %if 0%{?with_doc}
 %package -n python-%{pkg_name}-doc
 Summary:        Documentation for OpenStack i18n library
-
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-openstackdocstheme
-BuildRequires:  python3-sphinxcontrib-apidoc
 
 %description -n python-%{pkg_name}-doc
 Documentation for the oslo.i18n library.
@@ -79,24 +72,43 @@ Translation files for Oslo i18n library
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n %{pypi_name}-%{upstream_version} -S git
-rm -rf *.egg-info
 
-# Let RPM handle the dependencies
-rm -rf *requirements.txt
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
-
-# Generate i18n files
-python3 setup.py compile_catalog -d build/lib/oslo_i18n/locale --domain oslo_i18n
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
 
 %if 0%{?with_doc}
-sphinx-build -b html doc/source html
+%tox -e docs
 # remove the sphinx-build-3 leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf doc/build/html/.{doctrees,buildinfo}
+
+# Generate i18n files
+python3 setup.py compile_catalog -d %{buildroot}%{python3_sitelib}/oslo_i18n/locale --domain oslo_i18n
 
 # Fix this rpmlint warning
 if [ -f html/_static/jquery.js ]; then
@@ -117,18 +129,21 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %doc ChangeLog CONTRIBUTING.rst PKG-INFO README.rst
 %license LICENSE
 %{python3_sitelib}/oslo_i18n
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 
 %if 0%{?with_doc}
 %files -n python-%{pkg_name}-doc
 %license LICENSE
-%doc html
+%doc doc/build/html
 %endif
 
 %files -n python-%{pkg_name}-lang -f oslo_i18n.lang
 %license LICENSE
 
 %changelog
+* Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 6.1.0-1
+- Update to upstream version 6.1.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

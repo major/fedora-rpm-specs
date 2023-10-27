@@ -12,8 +12,8 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302195
-Release:        5%{?dist}
+Version:        1.302196
+Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -201,6 +201,12 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Trace.3*
 
 %changelog
+* Wed Oct 25 2023 Paul Howarth <paul@city-fan.org> - 3:1.302196-1
+- Update to 1.302196
+  - Raise error on missing Hub ID, which should never happen (GH#882)
+  - Fix handling of VSTRING and LVALUE refs in is_deeply() (GH#918)
+  - Merge several documentation fixes (GH#910, GH#911, GH#912)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.302195-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

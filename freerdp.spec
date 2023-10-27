@@ -1,6 +1,8 @@
-# Can be rebuilt with OpenH264 support enabled by passing # "--with=openh264"
-# to mock/rpmbuild; or by globally setting the following variable:
-
+# Can be rebuilt with FFmpeg/OpenH264 support enabled by passing
+# "--with=ffmpeg", or "--with=openh264" to mock/rpmbuild; or by globally
+# setting these variables:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2242028
+#global _with_ffmpeg 1
 #global _with_openh264 1
 
 # Can be rebuilt with OpenCL support enabled by passing # "--with=opencl"
@@ -22,13 +24,10 @@
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %global _with_lame 1
 %endif
-%if 0%{?fedora} >= 39
-%global _with_ffmpeg 1
-%endif
 
 Name:           freerdp
 Version:        2.11.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
@@ -293,6 +292,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Wed Oct 25 2023 Ondrej Holy <oholy@redhat.com> - 2:2.11.2-3
+- Disable FFmpeg support (#2242028).
+
 * Mon Oct 09 2023 John Wiele <jwiele@redhat.com> - 2:2.11.2-2
 - Enable optional build with OpenCL support.
 

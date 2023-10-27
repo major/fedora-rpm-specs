@@ -1,126 +1,138 @@
+%global sources_gpg 0
+%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
+
 %global pypi_name gnocchiclient
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 
+# NOTE(jpena): doc build fails with recent cliff versions, and hardcodes
+# a call to unversioned python in
+# https://github.com/gnocchixyz/python-gnocchiclient/blob/master/doc/source/conf.py#L54
+%global with_doc 0
 
 %global common_desc \
 This is a client library for Gnocchi built on the Gnocchi API. It \
 provides a Python API (the gnocchiclient module) and a command-line tool.
 
 Name:             python-gnocchiclient
-Version:          7.0.7
-Release:          10%{?dist}
+Version:          7.0.8
+Release:          1%{?dist}
 Summary:          Python API and CLI for OpenStack Gnocchi
 
-License:          ASL 2.0
+License:          Apache-2.0
 URL:              https://github.com/openstack/%{name}
 Source0:          https://pypi.io/packages/source/g/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
-# FIXME(jpena): remove this patch once a version > 7.0.1 is released
-%if "%{version}" == "7.0.1"
-Patch0001:        0001-Avoid-using-openstack-doc-tools.patch
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+Source101:        https://tarballs.openstack.org/%{name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
+Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildArch:        noarch
 
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
 
+%description
+%{common_desc}
+
+%package -n python3-%{pypi_name}
+Summary:          Python API and CLI for OpenStack Gnocchi
+
+
+BuildRequires:    python3-devel
+BuildRequires:    pyproject-rpm-macros
+%description -n python3-%{pypi_name}
+%{common_desc}
+
+
+%if 0%{?with_doc}
 %package -n python-%{pypi_name}-doc
 Summary:          Documentation for OpenStack Gnocchi API Client
-
-BuildRequires:    python3-sphinx
-BuildRequires:    python3-cliff >= 2.10
-BuildRequires:    python3-keystoneauth1
-BuildRequires:    python3-six
-BuildRequires:    python3-futurist
-BuildRequires:    python3-ujson
-BuildRequires:    python3-sphinx_rtd_theme
-# test
-BuildRequires:    python3-babel
-# Runtime requirements needed during documentation build
-BuildRequires:    python3-osc-lib
-BuildRequires:    python3-dateutil
+Group:            Documentation
 
 %description      doc
 %{common_desc}
 
 This package contains auto-generated documentation.
-
-%package -n python3-%{pypi_name}
-Summary:          Python API and CLI for OpenStack Gnocchi
-
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
-BuildRequires:    python3-devel
-BuildRequires:    python3-pbr
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-tools
-BuildRequires:    python3-monotonic
-
-Requires:         python3-cliff >= 2.10
-Requires:         python3-osc-lib >= 1.8.0
-Requires:         python3-keystoneauth1 >= 2.0.0
-Requires:         python3-six >= 1.10.0
-Requires:         python3-futurist
-Requires:         python3-ujson
-Requires:         python3-pbr
-Requires:         python3-monotonic
-Requires:         python3-iso8601
-Requires:         python3-dateutil
-Requires:         python3-debtcollector
-
-%description -n python3-%{pypi_name}
-%{common_desc}
-
-%package -n python3-%{pypi_name}-tests
-Summary:          Python API and CLI for OpenStack Gnocchi Tests
-Requires:         python3-%{pypi_name} = %{version}-%{release}
-
-%description -n python3-%{pypi_name}-tests
-%{common_desc}
-
-
-%description
-%{common_desc}
-
+%endif
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{upstream_version}
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%endif
+%autosetup -n %{pypi_name}-%{upstream_version}
+
+2to3 --write --nobackups .
 
 
-# Remove bundled egg-info
-rm -rf gnocchiclient.egg-info
 
-# Let RPM handle the requirements
-rm -f {,test-}requirements.txt
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+sed -i '/\.\[test,openstack\]/,+2d' tox.ini
+sed -i '/\.*\[testenv\]deps/,+1d' tox.ini
+sed -i '/\.\[test,doc\]/d' tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%py3_build
+%pyproject_wheel
 
-
-%install
-%py3_install
-
-# Some env variables required to successfully build our doc
-export PYTHONPATH=.
-# %{__python3} setup.py build_sphinx -b html
+%if 0%{?with_doc}
+%tox -e docs
 
 # Fix hidden-file-or-dir warnings
 rm -rf doc/build/html/.doctrees doc/build/html/.buildinfo
+%endif
+
+%install
+%pyproject_install
+
+# Create a versioned binary for backwards compatibility until everything is pure py3
+ln -s gnocchi %{buildroot}%{_bindir}/gnocchi-3
 
 %files -n python3-%{pypi_name}
 %doc README.rst
 %license LICENSE
 %{_bindir}/gnocchi
+%{_bindir}/gnocchi-3
 %{python3_sitelib}/gnocchiclient
-%{python3_sitelib}/*.egg-info
-%exclude %{python3_sitelib}/gnocchiclient/tests
+%{python3_sitelib}/*.dist-info
 
-%files -n python3-%{pypi_name}-tests
-%license LICENSE
-%{python3_sitelib}/gnocchiclient/tests
-
+%if 0%{?with_doc}
 %files -n python-%{pypi_name}-doc
-# %doc doc/build/html
+%doc doc/build/html
+%endif
 
 %changelog
+* Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 7.0.8-1
+- Update to upstream version 7.0.8
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

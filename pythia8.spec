@@ -7,7 +7,7 @@
 
 Name:		pythia8
 Version:	8.3.09
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
@@ -249,6 +249,9 @@ echo 'Version: %{version}' >> %{buildroot}%{python3_other_sitearch}/%{name}-%{ve
 %license COPYING
 
 %changelog
+* Wed Oct 25 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.09-4
+- Update patch for Pythia 3.13.0a1 (rhbz#2245858)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.09-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

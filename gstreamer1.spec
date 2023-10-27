@@ -179,7 +179,7 @@ setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstream
 
 %{_datadir}/aclocal/gst-element-check-%{majorminor}.m4
 
-%dir %{_datadir}/gstreamer-%{majorminor}/gdb/
+%dir %{_datadir}/gstreamer-%{majorminor}/gdb
 %{_datadir}/gstreamer-%{majorminor}/gdb/
 %{_datadir}/gdb/auto-load/
 

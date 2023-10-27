@@ -1,7 +1,7 @@
 %global gem_name rouge
 
 Name:           rubygem-%{gem_name}
-Version:        4.1.3
+Version:        4.2.0
 Release:        1%{?dist}
 Summary:        Pure-ruby colorizer based on pygments
 # From LICENSE file
@@ -101,6 +101,9 @@ find spec -name \*_spec.rb -print0 | \
 %{gem_libdir}/%{gem_name}/demos
 
 %changelog
+* Wed Oct 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-1
+- 4.2.0
+
 * Fri Aug 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
 - 4.1.3
 

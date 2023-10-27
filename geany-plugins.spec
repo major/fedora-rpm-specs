@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plugins for Geany
 
 License:        GPLv3+
@@ -12,7 +12,7 @@ Source0:        http://plugins.geany.org/geany-plugins/geany-plugins-%{version}.
 
 BuildRequires:  geany-devel >= %{req_geany_ver} geany-libgeany >= %{req_geany_ver}
 BuildRequires:  gettext intltool pkgconfig
-BuildRequires:  enchant-devel >= 1.3 gtkspell3-devel >= 2.0
+BuildRequires:  enchant2-devel >= 2.2 gtkspell3-devel >= 2.0
 BuildRequires:  libxml2-devel >= 2.6.27
 BuildRequires:  ctpl-devel >= 0.3
 BuildRequires:  gpgme-devel
@@ -872,6 +872,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Tue Oct 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0-2
+- Use enchant2 in spellcheck
+
 * Tue Oct 24 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 2.0-1
 - New upstream release: Geany-Plugins 2.0
 - Completely remove the plugins devhelp, geanypy, multiterm

@@ -27,21 +27,15 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.27.9
+Version: 5.27.9.1
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+# Temporary commenting out as there is a re-release
+#Source0: http://download.kde.org/%{stable_kf5}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/plasma/5.27.9/%{name}-%{version}.tar.xz
 
 # filter qml/plugins provides
 %global __provides_exclude_from ^(%{_kf5_qmldir}/.*\\.so|%{_kf5_qtplugindir}/.*\\.so)$
@@ -172,11 +166,11 @@ BuildRequires:  kf5-kquickcharts-devel >= %{kf5_version_min}
 
 BuildRequires:  kf5-kwayland-devel >= %{kf5_version_min}
 BuildRequires:  wayland-devel >= 1.3.0
-BuildRequires:  libkscreen-qt5-devel >= %{majmin_ver}
-BuildRequires:  libksysguard-devel >= %{majmin_ver}
-BuildRequires:  kscreenlocker-devel >= %{majmin_ver}
-BuildRequires:  kwin-devel >= %{majmin_ver}
-BuildRequires:  layer-shell-qt-devel >= %{majmin_ver}
+BuildRequires:  libkscreen-qt5-devel >= %{majmin_ver_kf5}
+BuildRequires:  libksysguard-devel >= %{majmin_ver_kf5}
+BuildRequires:  kscreenlocker-devel >= %{majmin_ver_kf5}
+BuildRequires:  kwin-devel >= %{majmin_ver_kf5}
+BuildRequires:  layer-shell-qt-devel >= %{majmin_ver_kf5}
 
 BuildRequires:  PackageKit-Qt5-devel
 
@@ -226,9 +220,9 @@ Requires:       (policycoreutils if selinux-policy)
 
 # for libkdeinit5_*
 %{?kf5_kinit_requires}
-Requires:       kactivitymanagerd%{?_isa} >= %{majmin_ver}
-Requires:       khotkeys%{?_isa} >= %{majmin_ver}
-Requires:       ksystemstats%{?_isa} >= %{majmin_ver}
+Requires:       kactivitymanagerd%{?_isa} >= %{majmin_ver_kf5}
+Requires:       khotkeys%{?_isa} >= %{majmin_ver_kf5}
+Requires:       ksystemstats%{?_isa} >= %{majmin_ver_kf5}
 Requires:       kf5-baloo >= %{kf5_version_min}
 Requires:       kf5-kded >= %{kf5_version_min}
 Requires:       kf5-kdoctools >= %{kf5_version_min}
@@ -240,14 +234,14 @@ Requires:       qt5-qtgraphicaleffects
 
 # The new volume control for PulseAudio
 %if 0%{?fedora} || 0%{?rhel} > 7
-Recommends:       plasma-pa >= %{majmin_ver}
+Recommends:       plasma-pa >= %{majmin_ver_kf5}
 %endif
 
 # Without the platformtheme plugins we get broken fonts
 Requires:       kf5-frameworkintegration
 
 # For krunner
-Recommends:       plasma-milou >= %{majmin_ver}
+Recommends:       plasma-milou >= %{majmin_ver_kf5}
 
 # https://pagure.io/fedora-kde/SIG/issue/303
 Recommends: kde-inotify-survey
@@ -262,7 +256,7 @@ Recommends: orca
 # need to avoid this dep when bootstrapping
 %if ! 0%{?bootstrap}
 # Power management
-Requires:       powerdevil >= %{majmin_ver}
+Requires:       powerdevil >= %{majmin_ver_kf5}
 %endif
 
 Requires:       dbus
@@ -288,10 +282,10 @@ Requires:       plasma-lookandfeel-fedora = %{version}-%{release}
 Requires:       systemd
 
 # Oxygen
-Requires:       oxygen-sounds >= %{majmin_ver}
+Requires:       oxygen-sounds >= %{majmin_ver_kf5}
 
 # PolicyKit authentication agent
-Requires:        polkit-kde >= %{majmin_ver}
+Requires:        polkit-kde >= %{majmin_ver_kf5}
 
 # onscreen keyboard
 Requires:        maliit-keyboard
@@ -311,7 +305,7 @@ Provides:       plasmashell = %{version}
 # Note: We should require >= %%{version}, but that creates a circular dependency
 # at build time of plasma-desktop, because it provides the needed dependency, but
 # also needs plasma-workspace to build. So for now the dependency is unversioned.
-Requires:       plasmashell >= %{majmin_ver}
+Requires:       plasmashell >= %{majmin_ver_kf5}
 %endif
 
 # when -common, libkworkspace5 was split out
@@ -433,7 +427,7 @@ BuildArch: noarch
 Summary:        Plasma Wayland SDDM greeter configuration
 Provides:       sddm-greeter-displayserver
 Conflicts:      sddm-greeter-displayserver
-Requires:       kwin-wayland >= %{majmin_ver}
+Requires:       kwin-wayland >= %{majmin_ver_kf5}
 Requires:       maliit-keyboard
 %if %{with sddm_wayland_default}
 Supplements:    (sddm and plasma-workspace-wayland)
@@ -452,13 +446,13 @@ to use KWin for the Wayland compositor for the greeter.
 %package wayland
 Summary:        Wayland support for Plasma
 Requires:       %{name} = %{version}-%{release}
-Requires:       kwin-wayland >= %{majmin_ver}
-Requires:       kwayland-integration%{?_isa} >= %{majmin_ver}
+Requires:       kwin-wayland >= %{majmin_ver_kf5}
+Requires:       kwayland-integration%{?_isa} >= %{majmin_ver_kf5}
 Requires:       xorg-x11-server-Xwayland
 Requires:       qt5-qtwayland%{?_isa}
 # startplasmacompositor deps
 Requires:       qt5-qttools
-Requires:       xdg-desktop-portal-kde >= %{majmin_ver}
+Requires:       xdg-desktop-portal-kde >= %{majmin_ver_kf5}
 %description wayland
 %{summary}.
 
@@ -471,7 +465,7 @@ Provides:       %{name}-xorg%{?_isa} = %{version}-%{release}
 # Split of Xorg session into subpackage
 Obsoletes:      %{name} < 5.19.5-2
 Requires:       %{name} = %{version}-%{release}
-Requires:       kwin-x11 >= %{majmin_ver}
+Requires:       kwin-x11 >= %{majmin_ver_kf5}
 Requires:       xorg-x11-server-Xorg
 Requires:       xsetroot
 %description x11
@@ -809,6 +803,10 @@ fi
 
 
 %changelog
+* Wed Oct 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.9.1-1
+- 5.27.9.1
+- Replace old %%stable macro
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 
@@ -1861,7 +1859,7 @@ fi
 - Plasma 5.5.3
 
 * Thu Dec 31 2015 Rex Dieter <rdieter@fedoraproject.org> - 5.5.2-2
-- use %%majmin_ver for most plasma-related deps
+- use %%majmin_ver_kf5 for most plasma-related deps
 - tighten plugin deps using %%_isa
 - update URL
 
@@ -1921,7 +1919,7 @@ fi
 - startkde: don't try to source things in a subshell, don't munge XDG_DATA_DIRS needlessly
 
 * Sun Oct 04 2015 Rex Dieter <rdieter@fedoraproject.org> 5.4.2-3
-- consistently use %%{majmin_ver} macro for other plasma5-related deps
+- consistently use %%{majmin_ver_kf5} macro for other plasma5-related deps
 
 * Sat Oct 03 2015 Rex Dieter <rdieter@fedoraproject.org> - 5.4.2-2
 - .spec cosmetics, use %%license

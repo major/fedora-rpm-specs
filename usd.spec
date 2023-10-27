@@ -167,10 +167,19 @@ BuildRequires:  pkgconfig(Ptex)
 
 # Header-only library: -static is for tracking per guidelines
 #
-# Enforce the the minimum EVR to contain fixes for all of CVE-2021-28021,
-# CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041, plus the null-pointer
-# dereference bug https://github.com/nothings/stb/issues/1452.
-BuildRequires:  stb_image-devel >= 2.28^20230129git5736b15-0.2
+# Enforce the the minimum EVR to contain fixes for all of:
+# CVE-2021-28021
+# CVE-2021-42715
+# CVE-2021-42716
+# CVE-2022-28041
+# CVE-2023-43898
+# CVE-2023-45661
+# CVE-2023-45662
+# CVE-2023-45663
+# CVE-2023-45664
+# CVE-2023-45666
+# CVE-2023-45667
+BuildRequires:  stb_image-devel >= 2.28^20231011gitbeebb24-12
 BuildRequires:  stb_image-static
 BuildRequires:  stb_image_write-devel >= 1.16
 BuildRequires:  stb_image_write-static

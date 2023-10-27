@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-netapp
 
 Name:           python-%{srcname}
-Version:        10.0.0
+Version:        10.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure NetApp Files Management Client Library for Python
 License:        MIT

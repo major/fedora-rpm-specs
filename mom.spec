@@ -16,12 +16,16 @@
 
 Name:     %{package_name}
 Version:  0.6.4
-Release:  5%{?dist}
+Release:  6%{?dist}
 Summary:  Dynamically manage system resources on virtualization hosts
 
 License:  GPL-2.0-only
 URL:      https://www.ovirt.org
 Source:   https://github.com/oVirt/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}.tar.gz
+
+# Fixes fedora#2245825
+Patch0001: 0001-Use-warning-method-instead-of-warn.patch
+
 BuildArch: noarch
 
 BuildRequires: make
@@ -64,7 +68,7 @@ MOM supports control of memory ballooning and KSM but the architecture is
 designed to accommodate new mechanisms such as cgroups.
 
 %prep
-%setup -q -n %{package_name}-%{package_version}
+%autosetup -n %{package_name}-%{package_version} -p1
 
 %build
 %configure \
@@ -109,7 +113,10 @@ make check %{?_smp_mflags}
 %{python_sitelib}/mom/
 
 %changelog
-* Fri Oct 13 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 0.6.4-5.fc39
+* Wed Oct 25 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 0.6.4-6
+- Resolves: fedora#2245825
+
+* Fri Oct 13 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 0.6.4-5
 - Migrated to SPDX license
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-4

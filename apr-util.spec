@@ -1,8 +1,18 @@
 
+%if 0%{?fedora} < 39 && 0%{?rhel} <= 9
+%global with_lmdb 0
+%else
+%global with_lmdb 1
+%endif
+
+%if %{with_lmdb}
+%define dbdep lmdb-devel
+%else
 %if 0%{?fedora} < 18 && 0%{?rhel} < 7
 %define dbdep db4-devel
 %else
 %define dbdep libdb-devel
+%endif
 %endif
 
 %if 0%{?fedora} < 27 && 0%{?rhel} <= 7
@@ -25,7 +35,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -40,14 +50,19 @@ Patch1: apr-util-1.2.7-pkgconf.patch
 Patch2: apr-util-1.4.1-private.patch
 Patch3: apr-util-1.6.3-allow-ipv6.patch
 Patch4: apr-util-configure-c99.patch
+Patch5: apr-util-1.6.3-lmdb-support.patch
 BuildRequires: gcc
 BuildRequires: autoconf, apr-devel >= 1.3.0
 BuildRequires: %{dbdep}, expat-devel, libuuid-devel
 Recommends: apr-util-openssl%{_isa} = %{version}-%{release}
+%if %{with_lmdb}
+Recommends: apr-util-lmdb%{_isa} = %{version}-%{release}
+%else
 %if 0%{?fedora} < 27
 Requires: apr-util-bdb%{?_isa} = %{version}-%{release}
 %else
 Recommends: apr-util-bdb%{_isa} = %{version}-%{release}
+%endif
 %endif
 
 %description
@@ -76,6 +91,15 @@ Requires: apr-util%{?_isa} = %{version}-%{release}
 This package provides the PostgreSQL driver for the apr-util
 DBD (database abstraction) interface.
 
+%if %{with_lmdb}
+%package lmdb
+Summary: APR utility library LMDB driver
+Requires: apr-util%{?_isa} = %{version}-%{release}
+
+%description lmdb
+This package provides the LMDB driver for the apr-util
+DBM (database abstraction) interface.
+%else
 %package bdb
 Summary: APR utility library Berkeley DB driver
 Requires: apr-util%{?_isa} = %{version}-%{release}
@@ -83,6 +107,7 @@ Requires: apr-util%{?_isa} = %{version}-%{release}
 %description bdb
 This package provides the Berkeley DB driver for the apr-util
 DBM (database abstraction) interface.
+%endif
 
 %package mysql
 Summary: APR utility library MySQL DBD driver
@@ -140,10 +165,11 @@ This package provides the NSS crypto support for the apr-util.
 
 %prep
 %setup -q
-%patch1 -p1 -b .pkgconf
-%patch2 -p1 -b .private
-%patch3 -p1 -b .r1907541
-%patch4 -p1
+%patch -P1 -p1 -b .pkgconf
+%patch -P2 -p1 -b .private
+%patch -P3 -p1 -b .r1907541
+%patch -P4 -p1
+%patch -P5 -p1 -b .lmdb-support
 
 : Configured for LDAP library: %{ldaplib}
 
@@ -156,7 +182,11 @@ export ac_cv_ldap_set_rebind_proc_style=three
         --includedir=%{_includedir}/apr-%{apuver} \
         --with-ldap=%{ldaplib} --without-gdbm \
         --with-sqlite3 --with-pgsql --with-mysql --with-odbc \
+%if %{with_lmdb}
+        --with-dbm=lmdb --with-lmdb \
+%else
         --with-dbm=db5 --with-berkeley-db \
+%endif
         --without-sqlite2 \
         --with-crypto --with-openssl \
 %if %{with_nss}
@@ -206,8 +236,13 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_libdir}/libaprutil-%{apuver}.so.*
 %dir %{_libdir}/apr-util-%{apuver}
 
+%if %{with_lmdb}
+%files lmdb
+%{_libdir}/apr-util-%{apuver}/apr_dbm_lmdb*
+%else
 %files bdb
 %{_libdir}/apr-util-%{apuver}/apr_dbm_db*
+%endif
 
 %files pgsql
 %{_libdir}/apr-util-%{apuver}/apr_dbd_pgsql*
@@ -241,6 +276,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Tue Oct 24 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-8
+- add LMDB support and use it on Fedora >= 39
+- Resolves: #1779267 - Remove libdb dependency from apr-util
+
 * Tue Oct 03 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-7
 - SPDX migration
 

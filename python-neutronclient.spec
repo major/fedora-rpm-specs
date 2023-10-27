@@ -1,6 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order tempest osprofiler
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 %global with_doc 1
 
 %global cname neutron
@@ -11,11 +17,11 @@ Client library and command line utility for interacting with OpenStack \
 Neutron's API.
 
 Name:       python-neutronclient
-Version:    9.0.0
-Release:    2%{?dist}
+Version:    11.0.0
+Release:    1%{?dist}
 Summary:    Python API and CLI for OpenStack Neutron
 
-License:    ASL 2.0
+License:    Apache-2.0
 URL:        http://launchpad.net/%{name}/
 Source0:    https://tarballs.openstack.org/%{name}/%{name}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -31,63 +37,27 @@ BuildArch:  noarch
 BuildRequires:  /usr/bin/gpgv2
 %endif
 
-Obsoletes:  python-%{sname}-tests <= 4.1.1-3
-
 %description
 %{common_desc}
 
 %package -n python3-%{sname}
 Summary:    Python API and CLI for OpenStack Neutron
-%{?python_provide:%python_provide python3-%{sname}}
-Obsoletes: python2-%{sname} < %{version}-%{release}
 
 BuildRequires: git-core
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-pbr
-# Required for unit tests
+BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-osc-lib-tests
-BuildRequires: python3-oslotest
-BuildRequires: python3-testtools
-BuildRequires: python3-testrepository
-BuildRequires: python3-testscenarios
-BuildRequires: python3-keystoneauth1
-BuildRequires: python3-keystoneclient
-BuildRequires: python3-os-client-config
-BuildRequires: python3-osc-lib
-BuildRequires: python3-oslo-log
-BuildRequires: python3-oslo-serialization
-BuildRequires: python3-oslo-utils
-BuildRequires: python3-cliff
-
-Requires: python3-iso8601 >= 0.1.11
-Requires: python3-os-client-config >= 1.28.0
-Requires: python3-oslo-i18n >= 3.15.3
-Requires: python3-oslo-log >= 3.36.0
-Requires: python3-oslo-serialization >= 2.18.0
-Requires: python3-oslo-utils >= 3.33.0
-Requires: python3-pbr
-Requires: python3-requests >= 2.14.2
-Requires: python3-debtcollector >= 1.2.0
-Requires: python3-osc-lib >= 1.12.0
-Requires: python3-keystoneauth1 >= 3.8.0
-Requires: python3-keystoneclient >= 1:3.8.0
-Requires: python3-cliff >= 3.4.0
-Requires: python3-netaddr >= 0.7.18
-
-Requires: python3-simplejson >= 3.5.1
 
 %description -n python3-%{sname}
 %{common_desc}
 
 %package -n python3-%{sname}-tests
 Summary:    Python API and CLI for OpenStack Neutron - Unit tests
-%{?python_provide:%python_provide python3-%{sname}-tests}
 Requires: python3-%{sname} == %{version}-%{release}
 Requires: python3-osc-lib-tests
 Requires: python3-oslotest
+Requires: python3-stestr
 Requires: python3-testtools
-Requires: python3-testrepository
 Requires: python3-testscenarios
 
 %description -n python3-%{sname}-tests
@@ -98,10 +68,6 @@ This package containts the unit tests.
 %if 0%{?with_doc}
 %package doc
 Summary:          Documentation for OpenStack Neutron API Client
-
-BuildRequires:    python3-sphinx
-BuildRequires:    python3-openstackdocstheme
-BuildRequires:    python3-reno
 
 %description      doc
 %{common_desc}
@@ -114,39 +80,54 @@ BuildRequires:    python3-reno
 %endif
 %autosetup -n %{name}-%{upstream_version} -S git
 
-# Let RPM handle the dependencies
-rm -rf *requirements.txt
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+sed -i '/sphinx-build/ s/-W//' tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %if 0%{?with_doc}
 # Build HTML docs
-export PYTHONPATH=.
-sphinx-build -W -b html doc/source doc/build/html
+%tox -e docs
 
 # Fix hidden-file-or-dir warnings
 rm -rf doc/build/html/.doctrees doc/build/html/.buildinfo
 %endif
 
 %install
-%{py3_install}
-
-# Create a versioned binary for backwards compatibility until everything is pure py3
-ln -s %{cname} %{buildroot}%{_bindir}/%{cname}-3
+%pyproject_install
 
 %check
-# (TODO) Ignore unit tests results until https://bugs.launchpad.net/python-neutronclient/+bug/1783789
-# is fixed.
-%{__python3} setup.py testr || true
+# test_http.py imports osprofiler
+rm neutronclient/tests/unit/test_http.py
+%tox -e %{default_toxenv}
 
 %files -n python3-%{sname}
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/%{sname}
-%{python3_sitelib}/*.egg-info
-%{_bindir}/%{cname}
-%{_bindir}/%{cname}-3
+%{python3_sitelib}/*.dist-info
 %exclude %{python3_sitelib}/%{sname}/tests
 
 %files -n python3-%{sname}-tests
@@ -159,6 +140,9 @@ ln -s %{cname} %{buildroot}%{_bindir}/%{cname}-3
 %endif
 
 %changelog
+* Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 11.0.0-1
+- Update to upstream version 11.0.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

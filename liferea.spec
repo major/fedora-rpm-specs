@@ -1,6 +1,6 @@
 Name:           liferea
 Epoch:          1
-Version:        1.15.3
+Version:        1.15.4
 Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
@@ -83,6 +83,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Wed Oct 24 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.4-1
+- bump version
+  should fix "libsoup2 and libsoup3 in the same process"-problem
+
 * Fri Sep 22 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.3-1
 - bump version
 

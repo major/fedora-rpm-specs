@@ -45,7 +45,6 @@ BuildRequires:      python%{python3_pkgversion}-pytest-mock
 BuildRequires:      python%{python3_pkgversion}-pytest-cov
 BuildRequires:      python%{python3_pkgversion}-six
 BuildRequires:      python%{python3_pkgversion}-simplejson
-BuildRequires:      python%{python3_pkgversion}-mock
 BuildRequires:      python%{python3_pkgversion}-dateparser
 
 Requires:           python%{python3_pkgversion}-dateutil

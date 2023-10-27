@@ -43,6 +43,8 @@ differences in this library.
 %package devel
 Summary:        Development libraries for libuv
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       %{name}-static%{?_isa} = %{epoch}:%{version}-%{release}
+
 
 %description devel
 Development libraries for libuv

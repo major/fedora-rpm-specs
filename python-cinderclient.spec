@@ -1,6 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 
 %global sname cinderclient
 
@@ -11,11 +17,11 @@ Client library (cinderclient python module) and command line utility \
 (cinder) for interacting with OpenStack Cinder (Block Storage) API.
 
 Name:             python-cinderclient
-Version:          9.3.0
-Release:          3%{?dist}
+Version:          9.4.0
+Release:          1%{?dist}
 Summary:          Python API and CLI for OpenStack Cinder
 
-License:          ASL 2.0
+License:          Apache-2.0
 URL:              http://github.com/openstack/python-cinderclient
 Source0:          https://tarballs.openstack.org/%{name}/%{name}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -38,19 +44,9 @@ BuildRequires:    git-core
 
 %package -n python3-%{sname}
 Summary:          Python API and CLI for OpenStack Cinder
-%{?python_provide:%python_provide python3-%{sname}}
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-pbr
-
-Requires:         python3-pbr >= 5.5.0
-Requires:         python3-prettytable >= 0.7.2
-Requires:         python3-requests
-Requires:         python3-keystoneauth1 >= 5.0.0
-Requires:         python3-oslo-i18n >= 5.0.1
-Requires:         python3-oslo-utils >= 4.8.0
-Requires:         python3-stevedore >= 3.3.0
+BuildRequires:    pyproject-rpm-macros
 
 %description -n python3-%{sname}
 %{common_desc}
@@ -59,13 +55,6 @@ Requires:         python3-stevedore >= 3.3.0
 %package doc
 Summary:          Documentation for OpenStack Cinder API Client
 Group:            Documentation
-
-BuildRequires:    python3-reno
-BuildRequires:    python3-sphinx
-BuildRequires:    python3-openstackdocstheme
-BuildRequires:    python3-keystoneauth1
-BuildRequires:    python3-oslo-utils
-BuildRequires:    python3-prettytable
 
 %description      doc
 %{common_desc}
@@ -80,18 +69,34 @@ This package contains auto-generated documentation.
 %endif
 %autosetup -n %{name}-%{upstream_version} -S git
 
-# Remove bundled egg-info
-rm -rf python_cinderclient.egg-info
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
 
-# Let RPM handle the requirements
-rm -f {,test-}requirements.txt
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %if 0%{?with_doc}
 export PYTHONPATH=.
-sphinx-build-3 -W -b html doc/source doc/build/html
+%tox -e docs
 sphinx-build-3 -W -b man doc/source doc/build/man
 
 # Fix hidden-file-or-dir warnings
@@ -99,7 +104,7 @@ rm -fr doc/build/html/.doctrees doc/build/html/.buildinfo
 %endif
 
 %install
-%{py3_install}
+%pyproject_install
 # Create a versioned binary for backwards compatibility until everything is pure py3
 ln -s cinder %{buildroot}%{_bindir}/cinder-3
 
@@ -118,7 +123,7 @@ install -p -D -m 644 doc/build/man/cinder.1 %{buildroot}%{_mandir}/man1/cinder.1
 %{_bindir}/cinder
 %{_bindir}/cinder-3
 %{python3_sitelib}/cinderclient
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 %{_sysconfdir}/bash_completion.d/cinder.bash_completion
 %if 0%{?with_doc}
 %{_mandir}/man1/cinder.1*
@@ -130,6 +135,9 @@ install -p -D -m 644 doc/build/man/cinder.1 %{buildroot}%{_mandir}/man1/cinder.1
 %endif
 
 %changelog
+* Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 9.4.0-1
+- Update to upstream version 9.4.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

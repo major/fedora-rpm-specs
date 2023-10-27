@@ -4,12 +4,14 @@
 
 Name:          libcec
 Version:       6.0.2
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
-License:       GPLv2+
+License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
 Source0:       https://github.com/Pulse-Eight/%{name}/archive/%{name}-%{version}.tar.gz
 Patch1:        libcec-pythonlib.patch
+# Fix FTBFS with Python 3.13
+Patch2:        libcec-python13.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -96,6 +98,10 @@ mv %{buildroot}/%{_bindir}/cecc-client-%{version} %{buildroot}/%{_bindir}/cecc-c
 %endif
 
 %changelog
+* Wed Oct 25 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.0.2-14
+- Fix RHBZ #2245791
+- Switch license tag to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           stratis-cli
 Version:        3.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
 License:        Apache-2.0
@@ -75,6 +75,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Wed Oct 25 2023 Bryan Gurney <bgurney@redhat.com> - 3.6.0-2
+- Use testing tag v3.6.0
+
 * Tue Oct 24 2023 Bryan Gurney <bgurney@redhat.com> - 3.6.0-1
 - Update to 3.6.0
 

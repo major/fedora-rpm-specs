@@ -1,30 +1,22 @@
 Name:    pjproject
 Summary: Libraries for building embedded/non-embedded VoIP applications
-Version: 2.10
-Release: 8%{?dist}
-License: GPLv2+
+Version: 2.13.1
+Release: 1%{?dist}
+# main source code is GPL-2.0-or-later
+# third_party/srtp is BSD-3-Clause
+# third_party/webrtc is BSD-3-Clause
+License: GPL-2.0-or-later AND BSD-3-Clause
 URL:     http://www.pjsip.org
 
-Source0: https://github.com/pjsip/pjproject/archive/%{version}/%{name}-%{version}.tar.gz
+Source: https://github.com/pjsip/pjproject/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Tell the build system not to use most of the third_party directory
-Patch1: pjproject_no_third_party.patch
-# Keep the .pc file clean
-# see https://bugzilla.redhat.com/show_bug.cgi?id=728302#c66
-Patch2: pjproject_fixup_pc_file.patch
-# Add a config_site.h file to increase performance and set reasonable server
-# configuration for running as a server and not just a client
-Patch3: pjproject_config_site.patch
-# Fix ARMv7 endianness
-Patch4: pjproject-armv7.patch
-# Add aarch64 detection
-Patch5: pjproject-aarch64.patch
-# Add ppc64 detection
-Patch6: pjproject-ppc64.patch
-# Add s390 detection
-Patch7: pjproject-s390.patch
-# Don't use SSE2 if it is not available
-Patch8: pjproject-sse2-2.9.patch
+Patch: 0001-Tell-the-build-system-not-to-use-most-of-the-third_party-directory.patch
+Patch: 0002-Add-a-config_site.h-file.patch
+Patch: 0003-Fix-ARMv7-endianness.patch
+Patch: 0004-Add-aarch64-detection.patch
+Patch: 0005-Add-ppc64-detection.patch
+Patch: 0006-Add-s390-detection.patch
+Patch: 0007-Don-t-use-SSE2-if-it-is-not-available.patch
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -196,6 +188,31 @@ find %{buildroot} -type f -name "*.a" -delete
 
 
 %changelog
+* Thu Oct 05 2023 Carl George <carlwgeorge@fedoraproject.org> - 2.13.1-1
+- Update to version 2.13.1
+- Switch to SPDX license notation
+- Include bundled licenses in license field
+- Resolves: rhbz#1937741 CVE-2020-15260
+- Resolves: rhbz#1937746 CVE-2021-21375
+- Resolves: rhbz#1986482 CVE-2021-32686
+- Resolves: rhbz#2035053 CVE-2021-37706
+- Resolves: rhbz#2173700 CVE-2021-41141 CVE-2021-43845 CVE-2022-24754 CVE-2022-24763 CVE-2022-24786 CVE-2022-24792 CVE-2022-24793
+- Resolves: rhbz#2055520 CVE-2021-43299
+- Resolves: rhbz#2055523 CVE-2021-43300
+- Resolves: rhbz#2055526 CVE-2021-43301
+- Resolves: rhbz#2055529 CVE-2021-43302
+- Resolves: rhbz#2055516 CVE-2021-43303
+- Resolves: rhbz#2035069 CVE-2021-43804
+- Resolves: rhbz#2050384 CVE-2022-21722
+- Resolves: rhbz#2050389 CVE-2022-21723
+- Resolves: rhbz#2155597 CVE-2022-23537
+- Resolves: rhbz#2156104 CVE-2022-23547
+- Resolves: rhbz#2069396 CVE-2022-23608
+- Resolves: rhbz#2242357 CVE-2022-24764
+- Resolves: rhbz#2173072 CVE-2022-31031
+- Resolves: rhbz#2173076 CVE-2022-39244
+- Resolves: rhbz#2178840 CVE-2023-27585
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

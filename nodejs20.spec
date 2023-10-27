@@ -26,8 +26,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 20
-%global nodejs_minor 8
-%global nodejs_patch 1
+%global nodejs_minor 9
+%global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -818,7 +818,7 @@ end
 %endif
 
 %{_bindir}/node-%{nodejs_pkg_major}
-%{nodejs_private_sitelib}
+%dir %{nodejs_private_sitelib}
 
 %doc %{_mandir}/nodejs-%{nodejs_pkg_major}/man1/node.1*
 

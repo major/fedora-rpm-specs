@@ -7,19 +7,19 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        6.2.1
+Version:        6.3.0
 Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
 License:        BSD-2-Clause AND Apache-2.0
 URL:            https://streamlink.github.io/
-Source0:        https://github.com/%{srcname}/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source}
 # Use pycryptodomex library instead of pycryptodome
 Patch0:         %{name}-6.2.1-pycryptodomex.patch
 # - Drop development dependencies not available in Fedora or not usefull for tests
 # - Fix dependency versions
-Patch1:         %{name}-6.2.1-dependencies.patch
+Patch1:         %{name}-6.3.0-dependencies.patch
 # Fix documentation build
 Patch2:         %{name}-6.2.1-documentation.patch
 BuildRequires:  make
@@ -71,9 +71,6 @@ This package provides documentation for %{srcname}.
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# Fix RHBZ #2142098
-sed -i 's|^\s*default-version\s*=.*|default-version = "%{version}"|' pyproject.toml
-
 
 %generate_buildrequires
 %pyproject_buildrequires -r docs-requirements.txt dev-requirements.txt
@@ -101,13 +98,11 @@ install -Dm644 completions/zsh/_%{srcname} $RPM_BUILD_ROOT%{_datadir}/zsh/site-f
 
 
 %check
-# TODO: re-enable tests when upgrading Streamlink to >= 6.0
-# (some tests are broken with Python 3.12)
-TZ=UTC %pytest
+%pytest --deselect=build_backend/test_onbuild.py::test_sdist
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc AUTHORS CHANGELOG.md CONTRIBUTING.md KNOWN_ISSUES.md README.md
+%doc README.md
 %license LICENSE
 %{_bindir}/%{srcname}
 %{_mandir}/man1/%{srcname}.1.*
@@ -127,6 +122,9 @@ TZ=UTC %pytest
 
 
 %changelog
+* Wed Oct 25 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.3.0-1
+- Update to 6.3.0
+
 * Sun Oct 15 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.2.1-1
 - Update to 6.2.1
 

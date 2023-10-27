@@ -1,7 +1,7 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           nodejs-packaging
-Version:        2023.03
+Version:        2023.10
 Release:        %autorelease
 Summary:        RPM Macros and Utilities for Node.js Packaging
 BuildArch:      noarch

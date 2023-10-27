@@ -3,8 +3,8 @@
 %bcond_without  tests
 
 Name:           python-%{srcname}
-Version:        3.5.0
-Release:        3%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Python module %srcname parser
 License:        MIT
 Url:            https://github.com/globocom/m3u8
@@ -60,6 +60,9 @@ Python module %srcname parser
 %{python3_sitelib}/%{srcname}/*.py
 
 %changelog
+* Wed Oct 25 2023 Martin Gansser <martinkg@fedoraproject.org> 3.6.0-1
+- Update to 3.6.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

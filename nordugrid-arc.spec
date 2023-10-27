@@ -45,18 +45,15 @@
 %global _bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo %{_sysconfdir}/bash_completion.d)
 
 Name:		nordugrid-arc
-Version:	6.17.0
-Release:	6%{?dist}
+Version:	6.18.0
+Release:	1%{?dist}
 Summary:	Advanced Resource Connector Middleware
-License:	ASL 2.0
+#		Apache-2.0: most files
+#		CPL-1.0: src/services/acix/core/hashes.py
+#		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
+License:	Apache-2.0 AND CPL-1.0 AND MIT
 URL:		http://www.nordugrid.org/
 Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
-#		Adapt to xmlsec1 1.3.0
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1602
-Patch0:		0001-Fix-compilation-with-xmlsec-1.3.patch
-Patch1:		0002-Fix-test-failure-with-xmlsec-1.3.patch
-#		Update py-compile script for Python 3.12
-Patch2:		%{name}-py-compile.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -83,6 +80,9 @@ Obsoletes:	%{name}-acix-index < %{version}-%{release}
 Obsoletes:	%{name}-acix-cache < 6.0.0
 %endif
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	cppunit-devel
@@ -92,7 +92,7 @@ BuildRequires:	systemd
 BuildRequires:	systemd-devel
 %endif
 BuildRequires:	libuuid-devel
-BuildRequires:	gettext
+BuildRequires:	gettext-devel
 %if %{with_python2}
 BuildRequires:	python2-devel
 %endif
@@ -802,9 +802,6 @@ management features on the worker nodes (WN).
 
 %prep
 %setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 2 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -814,6 +811,7 @@ if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
   fi
 fi
 
+autoreconf -v -f -i
 %configure --disable-static \
 %if ! %{with_acix}
      --disable-acix \
@@ -1762,6 +1760,11 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Wed Oct 25 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.18.0-1
+- Update to version 6.18.0
+- Run autoreconf during build (following upstream)
+- Drop xmlsec related patches accepted upstream
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.17.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

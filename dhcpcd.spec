@@ -1,7 +1,7 @@
 %global forgeurl0 https://github.com/NetworkConfiguration/dhcpcd
 
 Name: dhcpcd
-Version: 10.0.2
+Version: 10.0.4
 Release: %autorelease
 Summary: A minimalistic network configuration daemon with DHCPv4, rdisc and DHCPv6 support
 License: BSD-2-Clause AND ISC AND MIT
@@ -14,9 +14,6 @@ Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa785ed2755955d9
 Source3: %{name}.service
 Source4: %{name}@.service
 Source5: systemd-sysusers.conf
-
-# https://github.com/NetworkConfiguration/dhcpcd/pull/231
-Patch1:  dhcpcd-10.0.2-test.patch
 
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros

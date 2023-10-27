@@ -4,12 +4,12 @@
 %global         srcname     azure-mgmt-recoveryservices
 
 Name:           python-%{srcname}
-Version:        2.4.0
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Microsoft Azure Recovery Services Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 BuildArch:      noarch
 

@@ -1,18 +1,14 @@
 %global glib2_version 2.68.0
-%global libgit2_glib_version 1.0.0
+%global libgit2_glib_version 1.2.0
 
 Name:           gitg
-Version:        41
-Release:        7%{?dist}
+Version:        44
+Release:        1%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Gitg
-Source0:        https://download.gnome.org/sources/%{name}/41/%{name}-%{version}.tar.xz
-
-# Fix the build with meson 0.61.0
-# https://gitlab.gnome.org/GNOME/gitg/-/merge_requests/175
-Patch0:         175.patch
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{version}.tar.xz
 
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/chrpath
@@ -28,6 +24,7 @@ BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(gpgme)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
@@ -36,11 +33,9 @@ BuildRequires:  pkgconfig(gspell-1)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libdazzle-1.0)
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
+BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libpeas-1.0)
-BuildRequires:  pkgconfig(libpeas-gtk-1.0)
 BuildRequires:  pkgconfig(libsecret-1)
-BuildRequires:  pkgconfig(libsoup-2.4)
-BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  python3-devel
 BuildRequires:  vala
 
@@ -141,6 +136,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Oct 25 2023 Kalev Lember <klember@redhat.com> - 44-1
+- Update to 44
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
