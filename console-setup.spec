@@ -46,7 +46,7 @@ not wasted but used for another symbol.
 
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{version}
 %autopatch -p1
 
 cp -a --remove-destination debian/copyright COPYRIGHT

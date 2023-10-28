@@ -1,46 +1,22 @@
-%{?python_enable_dependency_generator}
-
 %global pkgname rebasehelper
 
 Name:           rebase-helper
-Version:        0.28.0
-Release:        3%{?dist}
+Version:        0.28.1
+Release:        2%{?dist}
 Summary:        The tool that helps you to rebase your package to the latest version
 
 License:        GPLv2+
 URL:            https://github.com/rebase-helper/rebase-helper
-Source0:        https://github.com/rebase-helper/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{pypi_source %{pkgname}}
 
 BuildArch:      noarch
 
 BuildRequires:  make
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-setuptools_scm_git_archive
-BuildRequires:  python3-specfile
-BuildRequires:  python3-rpm
-BuildRequires:  python3-rpkg
-BuildRequires:  python3-koji
-BuildRequires:  python3-pyquery
-BuildRequires:  python3-copr
-BuildRequires:  python3-pam
-BuildRequires:  python3-requests
-BuildRequires:  python3-requests-gssapi
-BuildRequires:  python3-GitPython
-BuildRequires:  python3-ansicolors
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
-BuildRequires:  python3-m2r
-BuildRequires:  python3-pytest
-BuildRequires:  python3-unidiff
+BuildRequires:  python%{python3_pkgversion}-devel
 
-Requires:       git
-Requires:       rpm-build
-Requires:       mock
-Requires:       python3-setuptools
-Requires:       python3-koji
-Requires:       python3-unidiff
+BuildRequires:  python%{python3_pkgversion}-m2r
+BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 
 Recommends:     licensecheck
 Recommends:     rpmlint
@@ -57,54 +33,66 @@ The goal of rebase-helper is to automate most of these steps.
 
 
 %prep
-%setup -q
+%autosetup -p1 -n %{pkgname}-%{version}
 
-# remove bundled egg-info
-rm -rf %{pkgname}.egg-info
+# since we are building from PyPI source, we don't need git-archive
+# support in setuptools_scm
+sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x testing
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 # generate man page
-make SPHINXBUILD=sphinx-build-3 man
+make PYTHONPATH=$(pwd)/build/lib SPHINXBUILD=sphinx-build-3 man
 
 # generate bash completion script
-make PYTHON=%{__python3} PYTHONPATH=$(pwd) completion
+make PYTHON=%{python3} PYTHONPATH=$(pwd) completion
 
 # generate sample configuration file
-make PYTHON=%{__python3} PYTHONPATH=$(pwd) sample_config
+make PYTHON=%{python3} PYTHONPATH=$(pwd) sample_config
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pkgname}
 
 # install man page
 mkdir -p %{buildroot}%{_datadir}/man/man1/
-install -p -m 0644 build/man/rebase-helper.1 %{buildroot}%{_datadir}/man/man1
+install -p -m 0644 docs/build/man/%{name}.1 %{buildroot}%{_datadir}/man/man1
 
 # install bash completion
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
-install -p -m 0644 build/rebase-helper.bash %{buildroot}%{_datadir}/bash-completion/completions/rebase-helper
+install -p -m 0644 %{name}.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 
 %check
-PYTHONPATH=$(pwd) py.test-3 -v tests
+%pytest
 
 
-%files
-%license LICENSE
+%files -f %{pyproject_files}
 %doc README.md
 %doc CHANGELOG.md
-%doc build/rebase-helper.cfg
+%doc %{name}.cfg
 %{_bindir}/%{name}
-%{python3_sitelib}/%{pkgname}/
-%{python3_sitelib}/%{pkgname}-*-py%{python3_version}.egg-info
-%{_mandir}/man1/rebase-helper.1*
-%{_datadir}/bash-completion/completions/rebase-helper
+%{_mandir}/man1/%{name}.1*
+%{_datadir}/bash-completion/completions/%{name}
 
 
 %changelog
+* Thu Oct 26 2023 Nikola Forró <nforro@redhat.com> - 0.28.1-2
+- Actually use PyPI source
+- Get rid of deprecated %%pyproject_build_lib macro
+
+* Thu Oct 26 2023 Packit <hello@packit.dev> - 0.28.1-1
+News in version 0.28.1:
+
+- Removed dependency on obsoleted setuptools_scm_git_archive
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

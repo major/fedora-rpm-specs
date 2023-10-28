@@ -107,7 +107,7 @@ BuildRequires: %{ghcboot}-compiler
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.6.2
+BuildRequires: ghc-rpm-macros-extra >= 2.6.1
 BuildRequires: %{ghcboot}-array-devel
 BuildRequires: %{ghcboot}-base16-bytestring-devel
 BuildRequires: %{ghcboot}-binary-devel
@@ -479,6 +479,13 @@ echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %else
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
+done
+%endif
+
+%if %{with haddock}
+# remove short hashes
+for d in %{buildroot}%{ghc_html_libraries_dir}/*/; do
+mv $d $(echo $d | sed -e "s/\(.*\)-.*/\\1/")
 done
 %endif
 

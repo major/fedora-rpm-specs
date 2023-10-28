@@ -1,11 +1,11 @@
-%global gitdate         20220426
-%global gittag          18ff8de1f5b5102ef291e450522c4930cf9eb7f2
+%global gitdate         20230916
+%global gittag          07e8df4ded6b586c0ce9eec0f9096690379749cb
 %global shorttag        %(c=%{gittag}; echo ${c:0:7})
 %global user            Macaulay2
 
 Name:           mathic
 Version:        1.0
-Release:        26.%{gitdate}.git%{shorttag}%{?dist}
+Release:        27.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Data structures for Groebner basis computations
 
 License:        LGPL-2.0-or-later
@@ -105,6 +105,9 @@ make check
 %{_bindir}/pqsim
 
 %changelog
+* Mon Oct 16 2023 Jerry James <loganjerry@gmail.com> - 1.0-27.20230916.git07e8df4
+- Update to latest upstream snapshot
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26.20220426.git18ff8de
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

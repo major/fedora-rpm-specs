@@ -13,6 +13,9 @@ Summary:        Reader for the MaxMind DB format
 License:        Apache-2.0
 URL:            https://www.maxmind.com/
 Source0:        %{pypi_source}
+# Patch for Python 3.13 backported from upstream
+# https://github.com/maxmind/MaxMind-DB-Reader-python/commit/610d8db8
+Patch:          py3.13.patch
 
 BuildRequires:  gcc
 BuildRequires:  libmaxminddb-devel
@@ -34,7 +37,7 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %{desc}
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -r

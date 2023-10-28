@@ -1,16 +1,13 @@
 %global srcname wtf-peewee
 
 Name:		python-wtf-peewee
-Version:	3.0.3
-Release:	7%{?dist}
+Version:	3.0.5
+Release:	1%{?dist}
 Summary:	WTForms integration for peewee models
 
 License:	MIT
 URL:		https://github.com/coleifer/wtf-peewee/
 Source0:	https://pypi.python.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
-# https://github.com/coleifer/wtf-peewee/commit/b1764f4 for
-# https://github.com/coleifer/wtf-peewee/issues/56
-Patch01:	b1764f4.patch
 
 BuildArch:	noarch
 
@@ -31,7 +28,6 @@ peewee models and wtforms, mapping model fields to form fields.
 
 %prep
 %setup -q -n %{srcname}-%{version}
-%patch01 -p1
 
 # Remove shebang and executable bits from runtests.py
 chmod -x runtests.py
@@ -48,7 +44,7 @@ sed -i '1d' runtests.py
 %pyproject_save_files wtfpeewee
 
 %check
-%{__python3} setup.py test
+%{python3} runtests.py
 
 
 %files -n python3-%{srcname} -f %pyproject_files
@@ -56,6 +52,9 @@ sed -i '1d' runtests.py
 %license LICENSE
 
 %changelog
+* Thu Oct 26 2023 Viliam Krizan <vkrizan@redhat.com> - 3.0.5-1
+- Update to 3.0.5 (RHBZ#2075969)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

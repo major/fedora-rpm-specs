@@ -1111,6 +1111,7 @@ rpm_inherit_flags \
 	"-march=z14" \
 	"-march=z15" \
 	"-march=zEC12" \
+	"-mbackchain" \
 	"-mbranch-protection=standard" \
 	"-mcpu=power10" \
 	"-mcpu=power8" \

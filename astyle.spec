@@ -6,7 +6,7 @@ Summary:        Source code formatter for C-like programming languages
 %global majorversion    3
 %global soversion       3.1.0
 
-License:        LGPLv3+
+License:        MIT
 URL:            http://astyle.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}_%{version}_linux.tar.gz
 

@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.6.2
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -185,9 +185,6 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
-* Thu Oct 26 2023 Jens Petersen <petersen@redhat.com> - 2.6.2-1
-- ghc_gen_filelists: tweak haddock_dir for ghc-9.8 short hash suffices
-
 * Tue Oct 24 2023 Jens Petersen <petersen@redhat.com> - 2.6.1-1
 - ghc_gen_filelists: tweak pkgdir for ghc-9.8 short hash suffices
 

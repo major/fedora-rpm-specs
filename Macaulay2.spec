@@ -23,7 +23,7 @@
 
 %global m2url       https://github.com/Macaulay2/M2
 
-%global emacscommit 86150290208bd9e468511b4b69a187ce870f303e
+%global emacscommit 2bac85883e2edd479f606ef8eedbbf2869770200
 %global emacsurl    https://github.com/Macaulay2/M2-emacs
 %global emacsshort  %(cut -b -7 <<< %{emacscommit})
 
@@ -51,8 +51,8 @@
 
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
-Version: 1.21
-Release: 6%{?dist}
+Version: 1.22
+Release: 1%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -202,7 +202,7 @@ Provides:  bundled(factory) = %{factoryver}
 
 # MATHICGB is bundled because it must be built with different threading options
 %global mathicgbver 1.0
-%global mathicgbcommit f3a05da1494843b5e4e7baa18e644cc6f32baeca
+%global mathicgbcommit de9cc70d7f6d72fe35fc832d7ab478f5debbc90f
 Source104: https://github.com/Macaulay2/mathicgb/tarball/%{mathicgbcommit}/mathicgb-%{mathicgbver}.tar.gz
 Provides:  bundled(mathicgb) = %{mathicgbver}
 
@@ -212,24 +212,25 @@ Source105: https://faculty.math.illinois.edu/Macaulay2/Downloads/OtherSourceCode
 
 # MEMTAILOR is bundled because it causes garbage collector crashes otherwise
 %global memtailorver 1.0
-%global memtailorcommit 95dbac776c475f4b1c2b08a8e8c6def14c8aaf9a
+%global memtailorcommit f785005b92a54463dbd5377ab80855a3d2a5f92d
 Source106: https://github.com/Macaulay2/memtailor/tarball/%{memtailorcommit}/memtailor-%{memtailorver}.tar.gz
 Provides:  bundled(memtailor) = %{memtailorver}
 
 # MATHIC is bundled because it causes garbage collector crashes otherwise
 %global mathicver 1.0
-%global mathiccommit 18ff8de1f5b5102ef291e450522c4930cf9eb7f2
+%global mathiccommit 07e8df4ded6b586c0ce9eec0f9096690379749cb
 Source107: https://github.com/Macaulay2/mathic/tarball/%{mathiccommit}/mathic-%{mathicver}.tar.gz
 Provides:  bundled(mathic) = %{mathicver}
 
 # LINBOX is bundled because it introduces static global objects
-%global linboxver 1.6.3
+%global linboxver 1.7.0
 Source108: https://github.com/linbox-team/linbox/releases/download/v%{linboxver}/linbox-%{linboxver}.tar.gz
 Provides:  bundled(linbox) = %{linboxver}
 
 ## PATCHES FOR BUNDLED code
-# Work around an ambiguous overload on 32-bit platforms
-Source200: linbox-1.6.3.patch
+# Fix a buffer overflow
+# https://github.com/linbox-team/linbox/pull/307
+Source200: linbox-1.7.0.patch
 # MPFR bug fixes from mpfr upstream.
 Source201: mpfr-4.1.0.patch
 
@@ -264,7 +265,6 @@ Patch5: %{name}-1.17-configure.patch
 Patch6: %{name}-1.16-rightarrow.patch
 # Fix LTO warnings about mismatched declarations and definitions
 Patch7: %{name}-1.18-lto.patch
-Patch8: Macaulay2-configure-c99.patch
 
 BuildRequires: 4ti2
 BuildRequires: appstream
@@ -307,9 +307,11 @@ BuildRequires: lrslib-devel
 BuildRequires: lrslib-utils
 BuildRequires: make
 BuildRequires: mpsolve-devel
+BuildRequires: msolve-devel
 BuildRequires: nauty
 BuildRequires: normaliz
 BuildRequires: ntl-devel
+BuildRequires: ocl-icd-devel
 BuildRequires: pari-devel
 BuildRequires: pkgconfig(atomic_ops)
 BuildRequires: pkgconfig(bdw-gc) >= 8.0.4
@@ -320,10 +322,10 @@ BuildRequires: pkgconfig(flexiblas)
 BuildRequires: pkgconfig(gmp)
 BuildRequires: pkgconfig(gtest)
 BuildRequires: pkgconfig(libffi)
+BuildRequires: pkgconfig(libmariadb)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(m4ri)
 BuildRequires: pkgconfig(m4rie)
-BuildRequires: pkgconfig(libmariadb)
 BuildRequires: pkgconfig(mpfi)
 BuildRequires: pkgconfig(nauty)
 BuildRequires: pkgconfig(ncurses)
@@ -331,13 +333,16 @@ BuildRequires: pkgconfig(qd)
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(tbb)
 BuildRequires: pkgconfig(tinyxml2)
-BuildRequires: polymake
+# Polymake is currently uninstallable
+#BuildRequires: polymake
 BuildRequires: python3-devel
 BuildRequires: texinfo
 BuildRequires: time
 BuildRequires: TOPCOM
 BuildRequires: transfig
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind
+%endif
 
 Requires: 4ti2
 Requires: cohomCalg
@@ -402,11 +407,11 @@ install -p -m755 %{SOURCE20} ./etags
 install -p -m644 %{SOURCE100} BUILD/tarfiles/
 %endif
 install -p -m644 %{SOURCE101} %{SOURCE102} %{SOURCE103} %{SOURCE105} \
-    %{SOURCE108} BUILD/tarfiles/
+    BUILD/tarfiles/
+install -p -m644 %{SOURCE108} BUILD/tarfiles/v%{linboxver}.tar.gz
 sed -i 's/\(VERSION = \).*/\1%{mpfrver}/' libraries/mpfr/Makefile.in
 sed -e 's/\(VERSION = \).*/\1%{linboxver}/' \
-    -e 's/^#\(PATCHFILE\)/\1/' \
-    -e 's,--with-gmp.*,GIVARO_CFLAGS=-I$(LIBRARIESDIR) GIVARO_LIBS="%{_libdir}/libgivaro.a",' \
+    -e 's,--with-gmp.*,--without-archnative GIVARO_CFLAGS=-I$(LIBRARIESDIR) GIVARO_LIBS="%{_libdir}/libgivaro.a",' \
     -i libraries/linbox/Makefile.in
 tar -C submodules/mathicgb -xf %{SOURCE104} --strip-components=1
 tar -C submodules/memtailor -xf %{SOURCE106} --strip-components=1
@@ -414,7 +419,6 @@ tar -C submodules/mathic -xf %{SOURCE107} --strip-components=1
 
 ## patches for bundled code
 sed -e 's,--with-blas,&=%{_includedir}/flexiblas --with-ntl,' \
-    -e 's,2\.6\.0,%{flintver},' \
     -i libraries/flint/Makefile.in
 cp -p %{SOURCE200} libraries/linbox/patch-%{linboxver}
 sed -e '/^TARFILE =/iPATCHFILE = @abs_srcdir@/patch-$(VERSION)' \
@@ -434,19 +438,18 @@ sed -i 's,install \(lib.*\.a\),ln -s %{_libdir}/\1,' libraries/lapack/Makefile.i
 ## fake givaro submodule
 tar -C submodules/givaro --strip-components=1 -xzf %{SOURCE306}
 
-%patch0 -p1 -b .optflags
-%patch1 -p1 -b .ulimit
-%patch2 -p1 -b .default_make_targets
-%patch3 -p1 -b .no_gftables
+%patch -P0 -p1 -b .optflags
+%patch -P1 -p1 -b .ulimit
+%patch -P2 -p1 -b .default_make_targets
+%patch -P3 -p1 -b .no_gftables
 # factory-gftables symlink
 mkdir -p BUILD/%{_target_platform}/usr-dist/common/share/Macaulay2/Core
 ln -s %{_datadir}/factory \
          BUILD/%{_target_platform}/usr-dist/common/share/Macaulay2/Core/factory
-%patch4 -p1 -b .fplll
-%patch5 -p1 -b .configure
-%patch6 -p1 -b .rightarrow
-%patch7 -p1 -b .lto
-%patch8 -p2 -b .configure-c99
+%patch -P4 -p1 -b .fplll
+%patch -P5 -p1 -b .configure
+%patch -P6 -p1 -b .rightarrow
+%patch -P7 -p1 -b .lto
 
 # repeatable builds: inject a node name
 sed -i 's,`uname -n`,build.fedoraproject.org,' configure.ac
@@ -475,6 +478,11 @@ sed -i 's/\(LIBNAME = flint\)2/\1/' libraries/flint/Makefile.in
 # Cannot do git submodule operations on a koji builder
 sed -i 's/git-checkout-in-\$1, git-checkout-warning-for-\$1//' GNUmakefile.in
 
+# Avoid obsolescence warnings
+sed -i 's/egrep/grep -E/g' GNUmakefile.in Makefile Macaulay2/bin/Makefile.in \
+    Macaulay2/tests/Makefile{,.test}.in libraries/Makefile.library.in
+sed -i 's/fgrep/grep -F/g' Macaulay2/util/linkexec-alternative
+
 # (re)generate configure
 autoreconf -fi .
 
@@ -485,18 +493,11 @@ autoreconf -fi .
 # level -O2 on s390x, the mathicgb code accesses out-of-bounds array elements.
 # In addition, valgrind shows accesses to uninitialized elements of arrays
 # that should not have any uninitialized elements.  The code eventually
-# segfaults.  When built with -O1 and LTO, the linker segfaults.  Until we can
-# diagnose and fix these issues, we build with -O1 and without LTO on s390x.
-%define _lto_cflags %{nil}
+# segfaults.
 optflags=$(sed 's/-O2/-O/g' <<< "%{build_cflags}")
 %else
 optflags="%{build_cflags}"
 %endif
-
-# Possible bug in Macaulay2 1.19: the memtailor, mathic, and mathicgb headers
-# cannot be found.  We work around this here.  See if the problem has been fixed
-# in later versions.
-CPPFLAGS="-I$PWD/submodules/memtailor/src -I$PWD/submodules/mathic/src -I$PWD/submodules/mathicgb/src"
 
 ## configure macro currently broken, due to some odd prefix-checks.  probably fixable -- Rex
 mkdir -p BUILD/%{_target_platform}
@@ -615,6 +616,11 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Thu Oct 26 2023 Jerry James <loganjerry@gmail.com> - 1.22-1
+- Version 1.22
+- Drop upstreamed Macaulay2-configure-c99.patch
+- Build against mariadb-connector-c instead of the server package
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -627,7 +633,7 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Thu Jan 12 2022 Jerry James <loganjerry@gmail.com> - 1.21-2
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.21-2
 - Rebuild for libfplll 5.4.4
 
 * Thu Dec 22 2022 Jerry James <loganjerry@gmail.com> - 1.21-1

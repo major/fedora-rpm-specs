@@ -61,7 +61,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 23.2.1
+%global ver 23.3.0-rc1
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
@@ -72,12 +72,6 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 # Source1 contains email correspondence clarifying the license terms.
 # Fedora opts to ignore the optional part of clause 2 and treat that code as 2 clause BSD.
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
-
-# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24045
-# https://bugzilla.redhat.com/show_bug.cgi?id=2238711
-# fixes a symbol name collision between iris and radeonsi drivers
-# expected to fix the crashes reported in #2238711
-Patch0:         0001-radeonsi-prefix-function-with-si_-to-prevent-name-co.patch
 
 Patch10:        gnome-shell-glthread-disable.patch
 

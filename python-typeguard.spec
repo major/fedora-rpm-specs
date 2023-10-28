@@ -17,6 +17,12 @@ License:        MIT
 URL:            https://github.com/agronholm/typeguard
 Source:         %{pypi_source typeguard}
 
+# Downstream-only: do not treat warnings in tests as errors
+#
+# This makes sense for upstream development and CI, but is too strict for
+# distribution packaging.
+Patch:          0001-Downstream-only-do-not-treat-warnings-in-tests-as-er.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -49,7 +55,7 @@ Summary:        Documentation for typeguard
 
 
 %prep
-%autosetup -n typeguard-%{version}
+%autosetup -n typeguard-%{version} -p1
 
 # Because we do not build Sphinx-generated HTML documentation, and conf.py does
 # not import the HTML theme package, we do not need to require it at build

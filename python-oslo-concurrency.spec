@@ -1,7 +1,13 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 %global with_doc 1
 
 %global pypi_name oslo.concurrency
@@ -16,11 +22,11 @@ external processes.
 Tests for the Oslo concurrency library.
 
 Name:           python-oslo-concurrency
-Version:        5.1.1
-Release:        4%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        OpenStack Oslo concurrency library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://launchpad.net/oslo
 Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -40,32 +46,10 @@ BuildRequires:  /usr/bin/gpgv2
 
 %package -n python3-%{pkg_name}
 Summary:        OpenStack Oslo concurrency library
-%{?python_provide:%python_provide python3-%{pkg_name}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pbr
 BuildRequires:  git-core
-# Required for tests
-BuildRequires:  python3-hacking
-BuildRequires:  python3-oslotest
-BuildRequires:  python3-fixtures
-BuildRequires:  python3-eventlet
-BuildRequires:  python3-oslo-config
-BuildRequires:  python3-oslo-utils
-BuildRequires:  python3-fasteners
-# Required to compile translation files
-BuildRequires:  python3-babel
 BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3-tox
-BuildRequires:  python3-tox-current-env
-BuildRequires:  python3-stestr
-
-Requires:       python3-pbr
-Requires:       python3-oslo-config >= 2:5.2.0
-Requires:       python3-oslo-i18n >= 3.15.3
-Requires:       python3-oslo-utils >= 3.33.0
-Requires:       python3-fasteners
-
 Requires:       python-%{pkg_name}-lang = %{version}-%{release}
 
 %description -n python3-%{pkg_name}
@@ -76,10 +60,6 @@ Requires:       python-%{pkg_name}-lang = %{version}-%{release}
 %package  -n python-%{pkg_name}-doc
 Summary:    Documentation for the Oslo concurrency library
 Group:      Documentation
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-openstackdocstheme
-BuildRequires:  python3-sphinxcontrib-apidoc
-
 %description -n python-%{pkg_name}-doc
 Documentation for the Oslo concurrency library.
 
@@ -87,7 +67,6 @@ Documentation for the Oslo concurrency library.
 
 %package  -n python3-%{pkg_name}-tests
 Summary:    Tests for the Oslo concurrency library
-%{?python_provide:%python_provide python3-%{pkg_name}-tests}
 
 Requires:  python3-%{pkg_name} = %{version}-%{release}
 Requires:  python3-hacking
@@ -110,24 +89,47 @@ Translation files for Oslo concurrency library
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n %{pypi_name}-%{upstream_version} -S git
-# Let RPM handle the dependencies
-rm -rf {test-,}requirements.txt
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
+
+
+%install
+%pyproject_install
 
 # Generate i18n files
-python3 setup.py compile_catalog -d build/lib/oslo_concurrency/locale --domain oslo_concurrency
+python3 setup.py compile_catalog -d %{buildroot}%{python3_sitelib}/oslo_concurrency/locale --domain oslo_concurrency
 
 %if 0%{?with_doc}
 # generate html docs
-sphinx-build-3 -b html doc/source doc/build/html
+PYTHONPATH="%{buildroot}/%{python3_sitelib}"
+%tox -e docs
 # remove the sphinx-build-3 leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
-%install
-%{py3_install}
 ln -s ./lockutils-wrapper %{buildroot}%{_bindir}/lockutils-wrapper-3
 
 # Install i18n .mo files (.po and .pot are not required)
@@ -140,7 +142,7 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %find_lang oslo_concurrency --all-name
 
 %check
-%tox
+%tox -e %{default_toxenv}
 
 %files -n python3-%{pkg_name}
 %doc README.rst
@@ -148,7 +150,7 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %{_bindir}/lockutils-wrapper
 %{_bindir}/lockutils-wrapper-3
 %{python3_sitelib}/oslo_concurrency
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 %exclude %{python3_sitelib}/oslo_concurrency/tests
 
 %if 0%{?with_doc}
@@ -164,6 +166,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %license LICENSE
 
 %changelog
+* Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 5.2.0-1
+- Update to upstream version 5.2.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

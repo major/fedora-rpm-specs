@@ -4,7 +4,7 @@
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
 Version:        3.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
@@ -39,6 +39,7 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(charnames)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(open)
@@ -50,7 +51,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  postgresql-server
 %if %{with perl_DBD_Pg_enables_optional_test}
 # Optional tests:
-BuildRequires:  perl(Encode)
 BuildRequires:  perl(Time::Piece)
 %endif
 
@@ -60,23 +60,75 @@ Requires:       perl(DBI) >= 1.614
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(DBD::Pg\\)$
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(DBI\\)$
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{__requires_exclude}|^perl\\(App::Info.*\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(dbdpg_test_setup.pl\\)
+
 %description
 DBD::Pg is a Perl module that works with the DBI module to provide access
 to PostgreSQL databases.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::Simple)
+Requires:       postgresql-server
+%if %{with perl_DBD_Pg_enables_optional_test}
+# Optional tests:
+Requires:       perl(Time::Piece)
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n DBD-Pg-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t t/*.pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 unset AUTOMATED_TESTING DBDPG_GCCDEBUG PERL_MM_USE_DEFAULT \
     POSTGRES_HOME POSTGRES_INCLUDE POSTGRES_LIB
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# If variables undefined, package test will create it's own database.
+unset DBI_DSN DBI_USER DBI_PASS
+unset DBDPG_DEBUG DBDPG_INITDB DBDPG_NOCLEANUP DBDPG_TEST_ALWAYS_ENV \
+    DBDPG_TESTINITDB PGDATABASE PGINITDB POSTGRES_HOME POSTGRES_LIB \
+    TEST_OUTPUT TEST_SIGNATURE
+# The tests write to temporary database which is placed in $DIR
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+# When tests are run by root, 'postgres' is used as DBI_USER
+# DBI_USER has to be able to write to the $DIR
+if [ `id -u` -eq 0 ]; then
+    chown -hR postgres:postgres $DIR
+fi
+# Jobs can't be run in parallel
+prove -I .
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 # Full test coverage requires a live PostgreSQL database (see the README file)
@@ -98,7 +150,13 @@ make test
 %{perl_vendorarch}/Bundle/DBD/Pg.pm
 %{_mandir}/man3/*DBD*.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Oct 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.17.0-2
+- Package tests
+
 * Thu Aug 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.17.0-1
 - 3.17.0 bump (rhbz#2234337)
 

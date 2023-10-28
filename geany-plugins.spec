@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plugins for Geany
 
 License:        GPLv3+
@@ -559,7 +559,6 @@ Shiftcolumn allows you to move blocks of text horizontally in Geany.
 %package spellcheck
 Summary:   Spellcheck Text in Geany using the Enchant Library
 Requires:  geany-plugins-common = %{version}-%{release}
-Requires:  enchant
 
 %description spellcheck
 Spellcheck checks the selected text (or the whole document) with the spellcheck
@@ -872,6 +871,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Thu Oct 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0-3
+- Drop explicit requires on enchant-1
+
 * Tue Oct 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0-2
 - Use enchant2 in spellcheck
 

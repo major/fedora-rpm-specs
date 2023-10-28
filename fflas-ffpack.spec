@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           fflas-ffpack
-Version:        2.4.3
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Finite field linear algebra subroutines
 
@@ -32,13 +32,9 @@ Summary:        Finite field linear algebra subroutines
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            https://linbox-team.github.io/fflas-ffpack/
 %global forgeurl https://github.com/linbox-team/fflas-ffpack
-Source0:        %{forgeurl}/releases/download/%{version}/fflas_ffpack-%{version}.tar.bz2
+Source0:        %{forgeurl}/releases/download/v%{version}/fflas_ffpack-%{version}.tar.bz2
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        fflas-ffpack-config.1
-
-# Fix memory leaks
-# https://github.com/linbox-team/fflas-ffpack/pull/276
-Patch0:         fflas-ffpack-mem-leak.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -63,9 +59,12 @@ BuildRequires:  font(freesans)
 # Although there are references to linbox-devel files in this package,
 # linbox-devel Requires fflas-ffpack-devel, not the other way around.
 
+%global common_description %{expand: \
+The FFLAS-FFPACK library provides a set of basic routines for linear algebra
+over a finite field or the ring of integers with dense and sparse matrices.}
+
 %description
-The FFLAS-FFPACK library provides functionality for dense linear algebra
-over word size prime finite fields.
+%{common_description}
 
 
 %package devel
@@ -78,9 +77,10 @@ Requires:       flexiblas-devel%{?_isa}
 Provides:       fflas-ffpack-static = %{version}-%{release}
 
 %description devel
-The FFLAS-FFPACK library provides functionality for dense linear algebra
-over word size prime finite fields.  This package provides the header
-files for developing applications that use FFLAS-FFPACK.
+%{common_description}
+
+This package provides the header files for developing applications that use
+FFLAS-FFPACK.
 
 
 %if %{with doc}
@@ -90,7 +90,9 @@ Summary:        API documentation for fflas-ffpack
 BuildArch:      noarch
 
 %description doc
-API documentation for fflas-ffpack.
+%{common_description}
+
+This package provides API documentation for fflas-ffpack.
 %endif
 
 

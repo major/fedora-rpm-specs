@@ -34,7 +34,7 @@ exit 0
 
 Name: imagefactory-plugins
 Version: 1.1.16
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Default plugins for the Image Factory system image generation tool
 License: ASL 2.0
 URL: https://github.com/redhat-imaging/imagefactory
@@ -43,6 +43,8 @@ Source0: https://github.com/redhat-imaging/imagefactory/archive/imagefactory-%{v
 Patch0: imagefactory-1.1.14-utf8-config-id.patch
 Patch1: container-github-pr434.patch
 Patch2: fix-armv7l.patch
+# https://github.com/redhat-imaging/imagefactory/pull/455
+Patch3: imagefactory-Docker.py-Pass-the-use_ino-option-to-fix-hardlnks.patch
 
 BuildArch: noarch
 BuildRequires: python3
@@ -225,6 +227,7 @@ rmdir ../imagefactory_plugins/
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p2
 
 %build
 %py3_build
@@ -402,6 +405,9 @@ rm -rf %{buildroot}%{python3_sitelib}/imagefactory_plugins/EC2
 %{python3_sitelib}/imagefactory_plugins/GCE/*
 
 %changelog
+* Thu Oct 26 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.1.16-7
+- Preserve hard links when building Docker images
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

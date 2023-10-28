@@ -11,7 +11,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    62bd7af13d282deeb95650077d28ba3600ca321c
+%global gh_commit    cacd8b9dd224efa8eb28beb69004126c7ca1a1a1
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    10
 %global ver_minor    4
 
-%global upstream_version 10.4.1
+%global upstream_version 10.4.2
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -253,6 +253,9 @@ exit $ret
 
 
 %changelog
+* Thu Oct 26 2023 Remi Collet <remi@remirepo.net> - 10.4.2-1
+- update to 10.4.2
+
 * Sun Oct  8 2023 Remi Collet <remi@remirepo.net> - 10.4.1-1
 - update to 10.4.1
 

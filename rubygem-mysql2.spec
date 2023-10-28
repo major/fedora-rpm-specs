@@ -5,14 +5,14 @@
 %global gem_name mysql2
 
 Name: rubygem-%{gem_name}
-Version: 0.5.4
-Release: 6%{?dist}
+Version: 0.5.5
+Release: 1%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/brianmario/mysql2.git
-# cd mysql2 && git archive -v -o mysql2-0.5.3-tests.txz 0.5.3 spec/
+# cd mysql2 && git archive -v -o mysql2-0.5.5-tests.txz 0.5.5 spec/
 Source1: %{gem_name}-%{version}-tests.txz
 # Use the SSL pem files in the upstream repositry for the SSL tests.
 # https://github.com/brianmario/mysql2/pull/1293
@@ -153,12 +153,6 @@ mysql -u root \
   -S "${MYSQL_TEST_SOCKET}" \
   -P "${MYSQL_TEST_PORT}"
 
-# This GC method call is problematic on ppc64le builders, stalling the tests execution.
-# https://github.com/brianmario/mysql2/issues/1261
-%ifarch ppc64le
-sed -i -e '/GC.verify_compaction_references/ s/^/#/' spec/spec_helper.rb
-%endif
-
 # See https://github.com/brianmario/mysql2/blob/master/tasks/rspec.rake
 cat <<EOF > spec/configuration.yml
 root:
@@ -202,6 +196,10 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Wed Oct 25 2023 Jarek Prokop <jprokop@redhat.com> - 0.5.5-1
+- Upgrade to rubygem-mysql2 0.5.5.
+  Resolves: rhbz#2163026
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

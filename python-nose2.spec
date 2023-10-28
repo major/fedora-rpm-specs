@@ -25,6 +25,14 @@ Source1:        nose2.1
 # deprecated PyPI “mock” package (which is not actually needed for the tests on
 # modern Python versions).
 Patch:          nose2-0.11.0-tox-no-dev-extra.patch
+# Downstream-only: skip test_skip_reason_in_message on Python 3.13+
+# This is a workaround while we wait for an upstream fix.
+#
+# Python 3.13: test_skip_reason_in_message fails
+# https://github.com/nose-devs/nose2/issues/588
+#
+# https://bugzilla.redhat.com/show_bug.cgi?id=2246281
+Patch:          0001-Downstream-only-skip-test_skip_reason_in_message-on-.patch
 
 BuildArch:      noarch
 

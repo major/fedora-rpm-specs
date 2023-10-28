@@ -288,6 +288,9 @@ Requires:       python3dist(pyside2)
 %endif
 %endif
 Requires:       python3dist(pyopengl)
+
+Requires:       usd-libs%{?_isa} = %{version}-%{release}
+
 %py_provides    python3-pxr
 
 %description -n python3-usd

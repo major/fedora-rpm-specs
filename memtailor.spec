@@ -1,12 +1,12 @@
 # There have been no releases, so we use a git snapshot
-%global gitdate         20220104
-%global gittag          95dbac776c475f4b1c2b08a8e8c6def14c8aaf9a
+%global gitdate         20230916
+%global gittag          f785005b92a54463dbd5377ab80855a3d2a5f92d
 %global shorttag        %(cut -b -7 <<< %{gittag})
 %global user            Macaulay2
 
 Name:           memtailor
 Version:        1.0
-Release:        23.%{gitdate}.git%{shorttag}%{?dist}
+Release:        24.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        C++ library of special-purpose memory allocators
 
 License:        BSD-3-Clause
@@ -59,10 +59,6 @@ chmod a-x src/test/*.cpp
 # Fix the URL in the pkgconfig file
 sed -i 's/broune/Macaulay2/' build/autotools/memtailor.pc.in
 
-# With gtest 1.13.0, C++14 or later is required. Since CMakeLists.txt already
-# asks for C++17, we might as well match that.
-sed -r -i 's/(-std=gnu\+\+)(0x|11)\b/\117/' Makefile.am
-
 %build
 # Upstream doesn't generate the configure script, and we have altered
 # Makefile.am anyway.
@@ -102,6 +98,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Oct 26 2023 Jerry James <loganjerry@gmail.com> - 1.0-24.20230916.gitf785005
+- Update to latest upstream snapshot
+- Upstream now requires C++17
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23.20220104.git95dbac7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -14,8 +14,8 @@ The request context is usually populated in the \
 WSGI pipeline and used by various modules such as logging.
 
 Name:           python-%{pkg_name}
-Version:        5.1.1
-Release:        3%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        OpenStack Oslo Context library
 
 License:        ASL 2.0
@@ -45,6 +45,7 @@ BuildRequires:  python3-pbr
 # test dependencies
 BuildRequires:  python3-debtcollector
 BuildRequires:  python3-fixtures
+BuildRequires:  python3-hacking
 BuildRequires:  python3-oslotest
 
 Requires:       python3-debtcollector >= 1.2.0
@@ -117,6 +118,9 @@ python3 setup.py test
 %{python3_sitelib}/oslo_context/tests
 
 %changelog
+* Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 5.2.0-1
+- Update to upstream version 5.2.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -35,7 +35,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 8%{?dist}
+Release: 10%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -95,6 +95,10 @@ DBD (database abstraction) interface.
 %package lmdb
 Summary: APR utility library LMDB driver
 Requires: apr-util%{?_isa} = %{version}-%{release}
+Provides: apr-util-bdb%{?_isa} = %{version}-%{release}
+# Remove libdb dependency from apr-util
+# https://bugzilla.redhat.com/show_bug.cgi?id=1779267
+Obsoletes: apr-util-bdb < 1.6.3-8
 
 %description lmdb
 This package provides the LMDB driver for the apr-util
@@ -276,7 +280,7 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
-* Tue Oct 24 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-8
+* Tue Oct 24 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-10
 - add LMDB support and use it on Fedora >= 39
 - Resolves: #1779267 - Remove libdb dependency from apr-util
 

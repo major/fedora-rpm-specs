@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
 # SPDX
@@ -31,7 +31,6 @@ BuildRequires:  python%{python3_pkgversion}-devel
 %if %{without bootstrap}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinxcontrib-httpdomain}
 BuildRequires:  python-sphinx-doc
 %endif
 
@@ -195,6 +194,9 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Mon Oct 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.2-2
+- Do not BuildRequire python3-sphinxcontrib-httpdomain, it was not needed
+
 * Mon Aug 07 2023 Karolina Surma <ksurma@redhat.com> - 1.2.2-1
 - Update to 1.2.2
 Fixes rhbz#2213220

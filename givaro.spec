@@ -1,7 +1,7 @@
 Name:           givaro
-Version:        4.1.1
+Version:        4.2.0
 %global so_version 9
-Release:        15%{?dist}
+Release:        1%{?dist}
 Summary:        C++ library for arithmetic and algebraic computations
 
 # The entire source is CECILL-B except for src/kernel/recint/reclonglong.h,
@@ -10,12 +10,6 @@ Summary:        C++ library for arithmetic and algebraic computations
 License:        CECILL-B AND LGPL-3.0-or-later
 URL:            https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/
 Source0:        https://github.com/linbox-team/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Fix a memory leak.  The original code creates a temporary object, then does
-# not dispose of it.  This change prevents creation of the temporary.
-# https://github.com/linbox-team/givaro/pull/134
-Patch:          %{name}-mem-leak.patch
-# Sagemath patch to fix issues with long long and flint
-Patch:          %{name}-26932_recintvsflint_longlong.patch
 # Add missing #include <cstdint> for (u)int64_t
 # Fixes failure to compile on GCC 13.
 # https://github.com/linbox-team/givaro/pull/218
@@ -24,10 +18,8 @@ Patch:          https://github.com/linbox-team/%{name}/pull/218.patch
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript
 BuildRequires:  gmp-devel
-BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  tex(stmaryrd.sty)
-
 
 %description
 Givaro is a C++ library for arithmetic and algebraic computations.
@@ -70,12 +62,6 @@ A static library for %{name}.
 %prep
 %autosetup -p1
 
-# Remove parts of the configure script that select non-default architectures
-# and ABIs.
-sed -i '/INSTR_SET/,/fabi-version/d' configure.ac
-
-# Regenerate configure after monkeying with configure.ac
-autoreconf -fi
 
 %build
 %ifarch %{ix86}
@@ -86,8 +72,7 @@ autoreconf -fi
 %global optflags %optflags -ffp-contract=off
 %endif
 
-%configure
-chmod a+x givaro-config
+%configure --without-archnative
 
 # Get rid of undesirable hardcoded rpaths, and workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
@@ -105,12 +90,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 # We don't want libtool archives
 rm -f %{buildroot}%{_libdir}/lib%{name}.la
 
-# Documentation is installed in the wrong place
-rm -vrf '%{buildroot}%{_prefix}/docs'
-
-# We don't want these files with the doxygen-generated files
-rm -f %{buildroot}%{_docdir}/%{name}-devel/givaro-html/{AUTHORS,COPYING,INSTALL}
-
 
 %check
 export LD_LIBRARY_PATH=$PWD/src/.libs
@@ -125,7 +104,8 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 
 %files devel
 %{_bindir}/%{name}-config
-%{_bindir}/%{name}-makefile
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/%{name}-makefile
 %{_includedir}/%{name}/
 %{_includedir}/gmp++/
 %{_includedir}/recint/
@@ -139,6 +119,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 
 
 %changelog
+* Tue Oct 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2.0-1
+- Update to 4.2.0 (fix RHBZ#2032674)
+
 * Tue Jul 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-15
 - Drop and Obsolete the -devel-doc subpackage (fix RHBZ#2225830)
 

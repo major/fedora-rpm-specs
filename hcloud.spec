@@ -3,7 +3,7 @@
 
 # https://github.com/hetznercloud/cli
 %global goipath         github.com/hetznercloud/cli
-Version:                1.38.3
+Version:                1.39.0
 
 %gometa
 
@@ -20,6 +20,8 @@ Summary:        A command-line interface for Hetzner Cloud
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+
+ExcludeArch:    %{ix86}
 
 %description
 %{common_description}

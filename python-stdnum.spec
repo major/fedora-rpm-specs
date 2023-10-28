@@ -33,6 +33,12 @@ Summary:        %{summary}
 %prep
 %autosetup -p1
 
+# Patch out coverage options
+sed -r -i 's/--cov[^[:blank:]]*//g' setup.cfg
+
+# Patch out unnecessary coverage dependencies:
+sed -r -i '/pytest-cov/d' tox.ini
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 

@@ -1,7 +1,7 @@
 Name:		perl-CPAN-Changes
 Summary:	Read and write Changes files
-Version:	0.400002
-Release:	24%{?dist}
+Version:	0.500002
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Changes
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Changes-%{version}.tar.gz
@@ -14,27 +14,33 @@ BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module Runtime
+BuildRequires:	perl(Carp)
 BuildRequires:	perl(Encode)
-BuildRequires:	perl(Scalar::Util)
+BuildRequires:	perl(Exporter)
+BuildRequires:	perl(Module::Runtime)
+BuildRequires:	perl(Moo) >= 1.006000
+BuildRequires:	perl(Moo::Role)
 BuildRequires:	perl(strict)
+BuildRequires:	perl(Sub::Quote) >= 1.005000
 BuildRequires:	perl(Test::Builder)
-BuildRequires:	perl(Text::Wrap)
-BuildRequires:	perl(version) >= 0.99.06
+BuildRequires:	perl(Types::Standard)
+BuildRequires:	perl(version)
 BuildRequires:	perl(warnings)
 # Script Runtime
 BuildRequires:	perl(Getopt::Long)
 BuildRequires:	perl(Pod::Usage)
 # Test Suite
+BuildRequires:	perl(constant)
+BuildRequires:	perl(Data::Dumper)
+BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More) >= 0.96
 # Optional Tests
-%if 0%{?fedora:1}
-BuildRequires:	perl(Moo)
-%endif
+BuildRequires:	perl(Test::Differences)
 # Extra Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
-# Runtime
-Requires:	perl(version) >= 0.99.06
+# Dependencies
+# (none)
 
 %description
 It is standard practice to include a Changes file in your distribution. The
@@ -65,18 +71,33 @@ make test
 make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 
 %files
+%license LICENSE
 %doc Changes README
 %{_bindir}/tidy_changelog
 %{perl_vendorlib}/CPAN/
 %{perl_vendorlib}/Test/
 %{_mandir}/man1/tidy_changelog.1*
 %{_mandir}/man3/CPAN::Changes.3*
+%{_mandir}/man3/CPAN::Changes::Entry.3*
 %{_mandir}/man3/CPAN::Changes::Group.3*
+%{_mandir}/man3/CPAN::Changes::Parser.3*
 %{_mandir}/man3/CPAN::Changes::Release.3*
 %{_mandir}/man3/CPAN::Changes::Spec.3*
 %{_mandir}/man3/Test::CPAN::Changes.3*
 
 %changelog
+* Thu Oct 26 2023 Paul Howarth <paul@city-fan.org> - 0.500002-1
+- Update to 0.500002
+  - Full rewrite
+    - The new version can parse nested entries to an arbitrary depth, rather
+      than just groups
+    - It can parse many more formats, and can format the outputs more flexibly;
+      this means it can better handle the change logs that actually exist on
+      CPAN
+  - Parsed releases keep their original order
+  - Pass given ChangeLog filename for --check
+- Package LICENSE file
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.400002-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

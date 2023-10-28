@@ -47,7 +47,7 @@ Epoch:   1
 Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
-Version: 3.2.0
+Version: 3.2.1
 Release: 1%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
@@ -68,8 +68,6 @@ Source1: openvswitch.sysusers
 # ovs-patches
 
 # OVS (including OVN) backports (0 - 300)
-Patch1: https://github.com/openvswitch/ovs/commit/e2163f2ed4d12e0bc2fad37a9b3870a1394fe22e.patch
-Patch2: https://github.com/openvswitch/ovs/commit/94480983382b1d0b778a82cba2d39cd2ab8ec27a.patch
 
 BuildRequires: gcc gcc-c++ make
 BuildRequires: autoconf automake libtool
@@ -603,6 +601,9 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Thu Oct 26 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.2.1-1
+- Update to 3.2.1 (#2245052)
+
 * Wed Oct 04 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.2.0-1
 - Update to 3.2.0 (#2218328)
 - Fix building with groff 1.23.0 (#2226068)

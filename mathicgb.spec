@@ -1,11 +1,11 @@
-%global gitdate         20220621
-%global gittag          f3a05da1494843b5e4e7baa18e644cc6f32baeca
+%global gitdate         20230916
+%global gittag          de9cc70d7f6d72fe35fc832d7ab478f5debbc90f
 %global shorttag        %(c=%{gittag}; echo ${c:0:7})
 %global user            Macaulay2
 
 Name:           mathicgb
 Version:        1.0
-Release:        33.%{gitdate}.git%{shorttag}%{?dist}
+Release:        34.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Groebner basis computations
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Thu Oct 26 2023 Jerry James <loganjerry@gmail.com> - 1.0-34.20230916.gitde9cc70
+- Update to latest upstream snapshot
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-33.20220621.gitf3a05da
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

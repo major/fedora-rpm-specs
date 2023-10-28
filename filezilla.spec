@@ -5,13 +5,13 @@
 %bcond_with storj
 
 Name: filezilla
-Version: 3.63.2.1
-Release: 2%{?dist}
+Version: 3.66.0
+Release: 1%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
 
-Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.bz2
+Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.xz
 #Patch0: appdata.patch
 #Patch1: wxwidgets3.2.patch
 
@@ -25,6 +25,8 @@ BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtool
 %endif
+BuildRequires: boost-devel
+BuildRequires: boost-regex
 BuildRequires: gcc-c++
 BuildRequires: glibc-devel
 BuildRequires: glib2-devel
@@ -149,6 +151,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Thu Oct 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.66.0-1
+- 3.66.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.63.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

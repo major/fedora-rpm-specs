@@ -5,8 +5,8 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        41.0.3
-Release:        2%{?dist}
+Version:        41.0.5
+Release:        1%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -137,6 +137,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Thu Oct 26 2023 Christian Heimes <cheimes@redhat.com> - 41.0.5-1
+- Update to 41.0.5, resolves RHBZ#2239707
+
 * Mon Aug 14 2023 Christian Heimes <cheimes@redhat.com> - 41.0.3-2
 - Build with ouroboros 0.17, fixes rhbz#2214228 / RUSTSEC-2023-0042
 

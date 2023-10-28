@@ -1,42 +1,44 @@
-%global pypi_name sphinxcontrib-serializinghtml
-
 # when bootstrapping sphinx, we cannot run tests yet
 %bcond_without check
 
-Name:           python-%{pypi_name}
-Version:        1.1.5
-Release:        11%{?dist}
+Name:           python-sphinxcontrib-serializinghtml
+Version:        1.1.9
+Release:        1%{?dist}
 Summary:        Sphinx extension for serialized HTML
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
-Source0:        %{pypi_source}
+Source:         %{pypi_source sphinxcontrib_serializinghtml}
 BuildArch:      noarch
+
+# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
+# In the RPM environment the dependencies are handled correctly without it
+# Remove the runtime requirement on Sphinx from this package
+# See: https://github.com/sphinx-doc/sphinx/issues/11567
+Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
-%if %{with check}
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
-%endif
 
 %description
 sphinxcontrib-serializinghtml is a sphinx extension which outputs "serialized"
 HTML files (json and pickle).
 
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python%{python3_pkgversion}-sphinxcontrib-serializinghtml
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python%{python3_pkgversion}-sphinxcontrib-serializinghtml
 sphinxcontrib-serializinghtml is a sphinx extension which outputs "serialized"
 HTML files (json and pickle).
 
 
+%generate_buildrequires
+%pyproject_buildrequires %{?with_check: -x test}
+
+
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n sphinxcontrib_serializinghtml-%{version}
 find -name '*.mo' -delete
 
 
@@ -44,11 +46,11 @@ find -name '*.mo' -delete
 for po in $(find -name '*.po'); do
   msgfmt --output-file=${po%.po}.mo ${po}
 done
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # Move language files to /usr/share
 pushd %{buildroot}%{python3_sitelib}
@@ -72,15 +74,18 @@ popd
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f sphinxcontrib.serializinghtml.lang
+%files -n python%{python3_pkgversion}-sphinxcontrib-serializinghtml -f sphinxcontrib.serializinghtml.lang
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib/
-%{python3_sitelib}/sphinxcontrib_serializinghtml-%{version}-py%{python3_version}-*.pth
-%{python3_sitelib}/sphinxcontrib_serializinghtml-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/sphinxcontrib_serializinghtml-%{version}.dist-info/
 
 
 %changelog
+* Thu Aug 24 2023 Karolina Surma <ksurma@redhat.com> - 1.1.9-1
+- Update to 1.1.9
+Resolves: rhbz#2230148
+
 * Thu Aug 10 2023 Karolina Surma <ksurma@redhat.com> - 1.1.5-11
 - Declare the license as an SPDX expression
 

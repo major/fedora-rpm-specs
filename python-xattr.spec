@@ -49,7 +49,8 @@ Summary:        %{summary}
 
 
 %check
-%pytest
+# in Copr, skip tests that fail with OSError: [Errno 95] Operation not supported
+%pytest %{?copr_projectname:-k 'not (test_attr_fs_encoding_ascii or test_attr_fs_encoding_unicode or test_update)'}
 
 
 %files -n python3-xattr -f %{pyproject_files}

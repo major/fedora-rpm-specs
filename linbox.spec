@@ -1,37 +1,50 @@
 Name:           linbox
-Version:        1.6.3
-Release:        17%{?dist}
+Version:        1.7.0
+%global so_version 0
+Release:        1%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
+
 License:        LGPL-2.1-or-later
 URL:            https://linalg.org/
 Source0:        https://github.com/linbox-team/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Fix the size formula for an allocation
+# https://github.com/linbox-team/linbox/pull/307
+#
+# Fixes:
+#
+# crashes in test-{smith-form-valence,regression} compiling with
+# -D_FORTIFY_SOURCE=3
+# https://github.com/linbox-team/linbox/issues/304
+Patch:          https://github.com/linbox-team/%{name}/pull/307.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # The sole dependent package, sagemath, is already not built on i686.
 ExcludeArch:    %{ix86}
 
+BuildRequires:  gcc-c++
+BuildRequires:  make
+
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
+
 BuildRequires:  expat-devel
 BuildRequires:  fflas-ffpack-devel
 BuildRequires:  flexiblas-devel
 BuildRequires:  flint-devel
-BuildRequires:  gcc-c++
 BuildRequires:  givaro-devel
 BuildRequires:  iml-devel
 BuildRequires:  libfplll-devel
-BuildRequires:  libtool
 BuildRequires:  m4ri-devel
 BuildRequires:  m4rie-devel
-BuildRequires:  make
 BuildRequires:  mpfr-devel
 BuildRequires:  ntl-devel
 BuildRequires:  ocl-icd-devel
 BuildRequires:  saclib-devel
 BuildRequires:  tinyxml2-devel
 
-BuildRequires:  doxygen-latex
-BuildRequires:  ghostscript
-BuildRequires:  gnuplot
-BuildRequires:  tex(stmaryrd.sty)
+Obsoletes:      linbox-doc < 1.7.0-1
 
 %description
 LinBox is a C++ template library for exact, high-performance linear
@@ -55,16 +68,15 @@ Headers and libraries for development with %{name}.
 
 %package        doc
 Summary:        Documentation for %{name}
-Requires:       %{name} = %{version}-%{release}
-Provides:       bundled(jquery)
 
+BuildArch:      noarch
 
 %description    doc
 Documentation for %{name}.
 
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 # Adapt to the way saclib is packaged in Fedora
 sed -e 's,include/saclib,&/saclib,' \
@@ -74,25 +86,20 @@ sed -e 's,include/saclib,&/saclib,' \
 # Remove spurious executable bits
 find -O3 . \( -name \*.h -o -name \*.inl \) -perm /0111 -exec chmod a-x {} +
 
-# Already removed upstream; this is never expanded
-sed -i 's/ @LINBOXSAGE_LIBS@//g' linbox.pc.in
-
-# Remove parts of the configure script that select non-default architectures
-# and ABIs, and don't nuke our compile flags
-sed -e 's/^\(STDFLAG=\).*/\1""/;/^CXXFLAGS=""/d' \
-    -e '/INSTR_SET/,/SIMD_FLAGS/d' \
-    -i configure.ac
-
-# Regenerate configure after monkeying with configure.ac
-autoreconf -fi
-
 
 %build
+# Regenerate configure after monkeying with m4 macros
+autoreconf -fi
+
+export CXXFLAGS="${CXXFLAGS} -Og"
 export CPPFLAGS="-I%{_includedir}/m4rie -I%{_includedir}/saclib"
 export LIBS="-lgomp"
-%configure --disable-silent-rules --disable-static --enable-openmp \
-  --enable-doc --with-saclib=yes
-chmod a+x linbox-config
+%configure --disable-silent-rules \
+  --disable-static \
+  --enable-openmp \
+  --with-saclib=yes \
+  --without-archnative
+chmod -v a+x linbox-config
 
 # Remove hardcoded rpaths; workaround libtool reordering -Wl,--as-needed after
 # all the libraries.
@@ -102,7 +109,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 
 # Don't try to optimize the tests; the build takes gargantuan amounts of memory
-sed -i 's|-O2|-O|g' tests/Makefile
+sed -i 's|-O2|-Og|g' tests/Makefile
 
 %make_build
 
@@ -114,37 +121,35 @@ sed -i 's|-O2|-O|g' tests/Makefile
 rm -f %{buildroot}%{_libdir}/*.la
 
 # Documentation is installed in the wrong place
-mkdir -p %{buildroot}%{_docdir}
-mv %{buildroot}%{_prefix}/doc %{buildroot}%{_docdir}/%{name}-doc
-
-# We don't want these files in with the doxygen-generated files
-rm %{buildroot}%{_docdir}/%{name}-doc/%{name}-html/{AUTHORS,COPYING}
+rm -vrf '%{buildroot}%{_prefix}/doc'
 
 
 %check
 # Do not test in parallel, leads to duplicated work
-LD_LIBRARY_PATH=$PWD/linbox/.libs make check
+LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %files
 %doc AUTHORS ChangeLog README.md
 %license COPYING COPYING.LESSER
-%{_libdir}/*.so.*
-
-
-%files doc
-%{_docdir}/%{name}-doc/
+%{_libdir}/lib%{name}.so.%{so_version}
+%{_libdir}/lib%{name}.so.%{so_version}.*
 
 
 %files devel
 %{_includedir}/%{name}/
-%{_libdir}/*.so
+%{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_bindir}/%{name}-config
 %{_mandir}/man1/%{name}-config.1*
 
 
 %changelog
+* Tue Oct 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-1
+- Update to 1.7.0 (close RHBZ#2032716)
+- Stop building Doxygen documentation; drop and Obsolete the -doc subpackage
+- Fix an undersized allocation (upstream issue #304, PR #307)
+
 * Tue Aug 15 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.6.3-17
 - Drop workarounds for 32-bit ARM
   (https://fedoraproject.org/wiki/Changes/RetireARMv7)

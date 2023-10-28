@@ -1,6 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order tempest
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 
 %global sname glanceclient
 %global with_doc 1
@@ -12,11 +18,11 @@ glanceclient module), and a command-line script (glance). Each implements \
 
 Name:             python-glanceclient
 Epoch:            1
-Version:          4.3.0
-Release:          3%{?dist}
+Version:          4.4.0
+Release:          1%{?dist}
 Summary:          Python API and CLI for OpenStack Glance
 
-License:          ASL 2.0
+License:          Apache-2.0
 URL:              https://launchpad.net/python-glanceclient
 Source0:          https://tarballs.openstack.org/%{name}/%{name}-%{version}.tar.gz
 # Required for tarball sources verification
@@ -39,23 +45,9 @@ BuildRequires:    git-core
 
 %package -n python3-%{sname}
 Summary:          Python API and CLI for OpenStack Glance
-%{?python_provide:%python_provide python3-glanceclient}
-Obsoletes: python2-%{sname} < %{version}-%{release}
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-pbr
-
-Requires:         python3-keystoneauth1 >= 3.6.2
-Requires:         python3-oslo-i18n >= 3.15.3
-Requires:         python3-oslo-utils >= 3.33.0
-Requires:         python3-pbr
-Requires:         python3-prettytable
-Requires:         python3-pyOpenSSL >= 17.1.0
-Requires:         python3-requests
-Requires:         python3-warlock
-Requires:         python3-wrapt
-
+BuildRequires:    pyproject-rpm-macros
 
 %description -n python3-%{sname}
 %{common_desc}
@@ -63,15 +55,6 @@ Requires:         python3-wrapt
 %if 0%{?with_doc}
 %package doc
 Summary:          Documentation for OpenStack Glance API Client
-
-BuildRequires:    python3-sphinx
-BuildRequires:    python3-openstackdocstheme
-BuildRequires:    python3-keystoneauth1
-BuildRequires:    python3-oslo-utils
-BuildRequires:    python3-prettytable
-BuildRequires:    python3-pyOpenSSL >= 17.1.0
-BuildRequires:    python3-sphinxcontrib-apidoc
-BuildRequires:    python3-warlock
 
 %description      doc
 %{common_desc}
@@ -86,13 +69,34 @@ This package contains auto-generated documentation.
 %endif
 %autosetup -n %{name}-%{upstream_version} -S git
 
-rm -rf *requirements.txt
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+sed -i '/sphinx-build/ s/-W//' tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
 
 # Create a versioned binary for backwards compatibility until everything is pure py3
 ln -s glance %{buildroot}%{_bindir}/glance-3
@@ -106,7 +110,7 @@ rm -fr %{buildroot}%{python3_sitelib}/glanceclient/tests
 
 %if 0%{?with_doc}
 # generate html docs
-sphinx-build -b html doc/source doc/build/html
+%tox -e docs
 # remove the sphinx-build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 # generate man page
@@ -114,11 +118,17 @@ sphinx-build -b man doc/source doc/build/man
 install -p -D -m 644 doc/build/man/glance.1 %{buildroot}%{_mandir}/man1/glance.1
 %endif
 
+%check
+# CentOS CI environment is setting "http://cache.rdu2.centos.org:8080" which breaks the unit tests.
+unset http_proxy
+unset https_proxy
+%tox -e %{default_toxenv} -- -- --exclude-regex 'glanceclient.tests.unit.test_ssl.TestHTTPSVerifyCert*'
+
 %files -n python3-%{sname}
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/glanceclient
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 %{_sysconfdir}/bash_completion.d
 %if 0%{?with_doc}
 %{_mandir}/man1/glance.1.gz
@@ -133,6 +143,9 @@ install -p -D -m 644 doc/build/man/glance.1 %{buildroot}%{_mandir}/man1/glance.1
 %endif
 
 %changelog
+* Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 1:4.4.0-1
+- Update to upstream version 4.4.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

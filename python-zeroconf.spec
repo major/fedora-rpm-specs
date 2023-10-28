@@ -1,20 +1,13 @@
 Name:           python-zeroconf
 Version:        0.118.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/jstasiak/python-zeroconf
 Source0:        %{url}/archive/%{version}/zeroconf-%{version}.tar.gz
 
-# While we do not choose to compile the Cython extensions, and therefore the
-# package is pure Python, it is still installed in %%{python3_sitearch}, the
-# path of which varies by architecture. Therefore the package is not noarch;
-# however, there are no debugging symbols as long as we do not compile the
-# Cython extensions. If we started compiling the Cython extensions, we would
-# need to remove the following:
-%global debug_package %{nil}
-
+BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
@@ -46,8 +39,8 @@ sed -Ei 's/--cov(-|=)[^ "]+//g' pyproject.toml
 
 
 %build
-# Explicitly choose not to compile the Cython extensions
-export SKIP_CYTHON=1
+# Explicitly choose to compile the Cython extensions
+export REQUIRE_CYTHON=1
 %pyproject_wheel
 
 
@@ -66,6 +59,9 @@ export SKIP_CYTHON=1
 
 
 %changelog
+* Thu Oct 26 2023 Miro Hrončok <mhroncok@redhat.com> - 0.118.0-3
+- Compile the optional Python extension modules
+
 * Wed Oct 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.118.0-2
 - Make the package arched since it installs to %%{python3_sitearch}
   (fix RHBZ#2245957)

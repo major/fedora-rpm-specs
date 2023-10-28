@@ -34,7 +34,7 @@ This package powers the config system of IPython and Jupyter.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -w
+%pyproject_buildrequires
 
 
 %build

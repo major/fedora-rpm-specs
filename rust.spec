@@ -80,9 +80,16 @@
 %bcond_with disabled_libssh2
 %endif
 
+%if 0%{?__isa_bits} == 32
+# Disable PGO on 32-bit to reduce build memory
+%bcond_with rustc_pgo
+%else
+%bcond_without rustc_pgo
+%endif
+
 Name:           rust
 Version:        1.73.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -721,7 +728,7 @@ fi
 %define profiler %{clang_resource_dir}/lib/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
 %else
 # The exact profiler path is version dependent..
-%define profiler %(echo %{_libdir}/clang/*/lib/libclang_rt.profile-%{_arch}.a)
+%define profiler %(echo %{_libdir}/clang/??/lib/libclang_rt.profile-*.a)
 %endif
 test -r "%{profiler}"
 
@@ -745,7 +752,8 @@ test -r "%{profiler}"
   --disable-llvm-static-stdcpp \
   --disable-rpath \
   %{enable_debuginfo} \
-  --set rust.codegen-units-std=1 \
+  --set rust.codegen-units=1 \
+  --set rust.lto=thin \
   --set build.build-stage=2 \
   --set build.doc-stage=2 \
   --set build.install-stage=2 \
@@ -758,11 +766,32 @@ test -r "%{profiler}"
   --release-channel=%{channel} \
   --release-description="%{?fedora:Fedora }%{?rhel:Red Hat }%{version}-%{release}"
 
-%{__python3} ./x.py build -j "$ncpus"
-%{__python3} ./x.py doc
+%global x %{__python3} ./x.py
+%global xk %{x} --keep-stage=0 --keep-stage=1
+
+%if %with rustc_pgo
+# Build the compiler with profile instrumentation
+PROFRAW="$PWD/build/profiles"
+PROFDATA="$PWD/build/rustc.profdata"
+mkdir -p "$PROFRAW"
+%{x} build -j "$ncpus" sysroot --rust-profile-generate="$PROFRAW"
+# Build cargo as a workload to generate compiler profiles
+env LLVM_PROFILE_FILE="$PROFRAW/default_%%m_%%p.profraw" %{xk} build cargo
+llvm-profdata merge -o "$PROFDATA" "$PROFRAW"
+rm -r "$PROFRAW" build/%{rust_triple}/stage2*/
+# Rebuild the compiler using the profile data
+%{x} build -j "$ncpus" sysroot --rust-profile-use="$PROFDATA"
+%else
+# Build the compiler without PGO
+%{x} build -j "$ncpus" sysroot
+%endif
+
+# Build everything else normally
+%{xk} build
+%{xk} doc
 
 for triple in %{?all_targets} ; do
-  %{__python3} ./x.py build --target=$triple std
+  %{xk} build --target=$triple std
 done
 
 %install
@@ -771,10 +800,10 @@ done
 %endif
 %{export_rust_env}
 
-DESTDIR=%{buildroot} %{__python3} ./x.py install
+DESTDIR=%{buildroot} %{xk} install
 
 for triple in %{?all_targets} ; do
-  DESTDIR=%{buildroot} %{__python3} ./x.py install --target=$triple std
+  DESTDIR=%{buildroot} %{xk} install --target=$triple std
 done
 
 # The rls stub doesn't have an install target, but we can just copy it.
@@ -882,17 +911,17 @@ rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
 
 # Bootstrap is excluded because it's not something we ship, and a lot of its
 # tests are geared toward the upstream CI environment.
-%{__python3} ./x.py test --no-fail-fast --skip src/bootstrap || :
+%{xk} test --no-fail-fast --skip src/bootstrap || :
 rm -rf "./build/%{rust_triple}/test/"
 
-%{__python3} ./x.py test --no-fail-fast cargo || :
+%{xk} test --no-fail-fast cargo || :
 rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
-%{__python3} ./x.py test --no-fail-fast clippy || :
+%{xk} test --no-fail-fast clippy || :
 
-%{__python3} ./x.py test --no-fail-fast rust-analyzer || :
+%{xk} test --no-fail-fast rust-analyzer || :
 
-%{__python3} ./x.py test --no-fail-fast rustfmt || :
+%{xk} test --no-fail-fast rustfmt || :
 
 
 %ldconfig_scriptlets
@@ -1033,6 +1062,9 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 
 %changelog
+* Thu Oct 26 2023 Josh Stone <jistone@redhat.com> - 1.73.0-2
+- Use thin-LTO and PGO for rustc itself.
+
 * Thu Oct 05 2023 Josh Stone <jistone@redhat.com> - 1.73.0-1
 - Update to 1.73.0.
 - Drop el7 conditionals from the spec.
