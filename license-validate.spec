@@ -1,5 +1,5 @@
 Name:           license-validate
-Version:        21
+Version:        22
 Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
@@ -66,6 +66,11 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Thu Oct 26 2023 Miroslav Suchý <msuchy@redhat.com> 22-1
+- allow to pass --package and do not print error when package is known to use
+  not-allowed license as an exception
+- better wording
+
 * Thu Oct 19 2023 Miroslav Suchý <msuchy@redhat.com> 21-1
 - when license is not allowed print known packages that can use it as an
   exception

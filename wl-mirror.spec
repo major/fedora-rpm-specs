@@ -1,5 +1,5 @@
 Name:           wl-mirror
-Version:        0.13.2
+Version:        0.14.2
 Release:        %autorelease
 Summary:        Simple Wayland output mirror client
 

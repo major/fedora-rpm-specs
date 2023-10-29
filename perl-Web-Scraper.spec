@@ -39,7 +39,7 @@ BuildRequires:  perl(YAML)
 BuildRequires:  perl(strict)
 
 # Required by the testsuite
-BuildRequires:  %{_bindir}/ps
+BuildRequires:  /usr/bin/ps
 
 
 # rpm's deptracker misses these:

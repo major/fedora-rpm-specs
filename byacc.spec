@@ -3,8 +3,16 @@
 Summary: Berkeley Yacc, a parser generator
 Name: byacc
 Version: 2.0.%{byaccdate}
-Release: 1%{?dist}
-License: Public Domain
+Release: 2%{?dist}
+
+# An SPDX license string check done against byacc-20230521 using fossology
+# found strings corresponding to the licenses noted below across the byacc
+# source tree.  byacc is in the public domain, and the "public domain
+# declaration" was documented in fedora-license-data as per Fedora policy
+# via the following commit:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/commit/04ec53689413bb
+License: LicenseRef-Fedora-Public-Domain AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND X11 AND X11-distribute-modifications-variant AND FSFUL
+
 URL: http://invisible-island.net/byacc/byacc.html
 Source: ftp://invisible-island.net/byacc/byacc-%{byaccdate}.tgz
 
@@ -51,6 +59,12 @@ echo ====================TESTING END=====================
 %{_mandir}/man1/byacc.1*
 
 %changelog
+* Thu Oct 26 2023 Arjun Shankar <arjun@redhat.com> - 2.0.20230521-2
+- Analyse byacc sources for license information
+- Migrate License field to SPDX identifiers for
+  https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+  (#2222081)
+
 * Thu Jun 29 2023 Arjun Shankar <arjun@redhat.com> - 2.0.20230521-1
 - Rebase to byacc-2.0.20230521 (#2208910)
 

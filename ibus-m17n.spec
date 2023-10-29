@@ -1,7 +1,7 @@
 %global require_ibus_version 1.4.0
 
 Name:       ibus-m17n
-Version:    1.4.22
+Version:    1.4.23
 Release:    1%{?dist}
 Summary:    The M17N engine for IBus platform
 License:    GPL-2.0-or-later
@@ -63,6 +63,13 @@ make check
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.m17n.gschema.xml
 
 %changelog
+* Fri Oct 27 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.23-1
+- Update to 1.4.23
+- Do not translate the Multi_key when using the option “☑️ Use US keyboard layout”
+- Fix option “☑️ Use US keyboard layout”
+  (Resolves: https://github.com/ibus/ibus-m17n/issues/66)
+- Translation update from Weblate: new language Hindi, hi 100%
+
 * Mon Aug 21 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.22-1
 - Update to 1.4.22
 - Translation update from Weblate (Lithuanian, lt 100%)

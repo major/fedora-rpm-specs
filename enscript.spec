@@ -1,8 +1,14 @@
 Summary: A plain ASCII to PostScript converter
 Name: enscript
 Version: 1.6.6
-Release: 31%{?dist}
-License: GPLv3+ and LGPLv2+ and GPLv2+
+Release: 32%{?dist}
+# compat/regex.h,strerror.c,xalloc.{c,h} - GPL-2.0-or-later
+# states/gram.{c,h}, intl/plural.c - GPL-3.0-or-later WITH Bison-exception-2.2
+# intl/hash-string.c - LGPL-2.1-or-later
+# compat/*, intl/* - LGPL-2.0-or-later
+# afmlib/*, compat/gettext.h, docs/texinfo.tex, src/*, states/*, w32/* - GPL-3.0-or-later
+# (unshipped) - ylwrap - GPL-2.0-or-later
+License: LGPL-2.0-or-later AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.1-or-later
 URL: http://www.gnu.org/software/enscript
 # Tarball exists nowhere. You have to obtain it via:
 # $ git clone git://git.savannah.gnu.org/enscript.git
@@ -58,17 +64,17 @@ includes many options for customizing printouts
 
 %prep
 %setup -q
-%patch3 -p1 -b .locale
-%patch8 -p1 -b .wrap_header
-%patch10 -p1 -b .rh457720
-%patch12 -p1 -b .rh477382
-%patch13 -p1 -b .build
-%patch14 -p1 -b .manfixes
-%patch15 -p1 -b .bufpos-crash
+%patch -P 3 -p1 -b .locale
+%patch -P 8 -p1 -b .wrap_header
+%patch -P 10 -p1 -b .rh457720
+%patch -P 12 -p1 -b .rh477382
+%patch -P 13 -p1 -b .build
+%patch -P 14 -p1 -b .manfixes
+%patch -P 15 -p1 -b .bufpos-crash
 # 1664367 - [RFE] Add support for 885915 encoding in enscript
-%patch16 -p1 -b .newencodings
+%patch -P 16 -p1 -b .newencodings
 # CVE in gnulib
-%patch17 -p1 -b .vasnprintf
+%patch -P 17 -p1 -b .vasnprintf
 
 %{__tar} -C states/hl -zxf %{SOURCE1} ruby.st
 install -pm 644 %{SOURCE2} states/hl/php.st
@@ -114,6 +120,10 @@ done
 %config(noreplace) %{_sysconfdir}/enscript.cfg
 
 %changelog
+* Fri Oct 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.6-32
+- SPDX license scan and migration
+- %%patch macro migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

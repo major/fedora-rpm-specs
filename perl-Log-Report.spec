@@ -2,8 +2,8 @@
 %bcond_without perl_Log_Report_enables_optional_test
 
 Name:           perl-Log-Report
-Version:        1.34
-Release:        3%{?dist}
+Version:        1.36
+Release:        1%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report
@@ -49,6 +49,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Sys::Syslog) >= 0.27
 # Time::HiRes not used at tests
 BuildRequires:  perl(vars)
+BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Carp)
@@ -194,7 +195,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Log-Report-%{version}
+%autosetup -p1 -n Log-Report-%{version}
 %if !%{with perl_Log_Report_enables_optional_test}
 rm t/60mojo.t
 perl -i -ne 'print $_ unless m{^t/60mojo\.t\b}' MANIFEST
@@ -273,6 +274,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 27 2023 Petr Pisar <ppisar@redhat.com> - 1.36-1
+- 1.36 bump
+
+* Fri Oct 27 2023 Petr Pisar <ppisar@redhat.com> - 1.35-1
+- 1.35 bump
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

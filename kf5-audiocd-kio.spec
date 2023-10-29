@@ -5,8 +5,7 @@ Summary: KF5 Audiocd kio slave
 Version: 23.08.2
 Release: 1%{?dist}
 
-# code GPLv2+, handbook/docs GFDL
-License: GPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://www.kde.org/applications/multimedia/
 
 %global revision %(echo %{version} | cut -d. -f3)

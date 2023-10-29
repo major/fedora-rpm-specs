@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        119.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -245,6 +245,7 @@ Patch231:        fedora-customization.patch
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
+Patch409:        D192061.1698487416.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -533,6 +534,7 @@ This package contains results of tests executed during build.
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .D167159
+%patch409 -p1 -b .D192061
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1123,6 +1125,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Oct 27 2023 Martin Stransky <stransky@redhat.com>- 119.0-2
+- Added fix for mzbz#1861615
+
 * Tue Oct 24 2023 Martin Stransky <stransky@redhat.com>- 119.0-1
 - Updated to 119.0
 

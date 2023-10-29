@@ -4,16 +4,14 @@
 
 %global crate zerocopy
 
-Name:           rust-zerocopy
-Version:        0.7.16
+Name:           rust-zerocopy0.6
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Utilities for zero-copy parsing and serialization
 
-License:        BSD-2-Clause OR Apache-2.0 OR MIT
+License:        BSD-2-Clause
 URL:            https://crates.io/crates/zerocopy
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          zerocopy-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * relax trybuild dev-dependency from =1.0.80 to ^1.0.80
 Patch:          zerocopy-fix-metadata.diff
@@ -35,17 +33,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-BSD
-%license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/src/third_party/rust/LICENSE-APACHE
-%license %{crate_instdir}/src/third_party/rust/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/INTERNAL.md
-%doc %{crate_instdir}/POLICIES.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/generate-readme.sh
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -83,30 +75,6 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+byteorder-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+byteorder-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "byteorder" feature of the "%{crate}" crate.
-
-%files       -n %{name}+byteorder-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+derive-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+derive-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
-
-%files       -n %{name}+derive-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+simd-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -131,18 +99,6 @@ use the "simd-nightly" feature of the "%{crate}" crate.
 %files       -n %{name}+simd-nightly-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zerocopy-derive-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+zerocopy-derive-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "zerocopy-derive" feature of the "%{crate}" crate.
-
-%files       -n %{name}+zerocopy-derive-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -159,10 +115,8 @@ use the "zerocopy-derive" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * integration tests can only be run in upstream CI
-# * tests::test_validate_cast_and_convert_metadata fails because it does not
-#   overflow in release mode
-%cargo_test -- --lib -- --skip tests::test_validate_cast_and_convert_metadata
-%cargo_test -- --doc -- --skip tests::test_validate_cast_and_convert_metadata
+%cargo_test -- --lib
+%cargo_test -- --doc
 %endif
 
 %changelog

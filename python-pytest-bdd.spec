@@ -114,10 +114,13 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 # https://github.com/pytest-dev/pytest-bdd/issues/453
 mkdir -p _empty && cp -rp tests *.ini _empty && cd _empty
 
-# Run tests in parallel (and verbosely)
-export PYTEST_ADDOPTS='-n auto -v'
+%if v"0%{?python3_version}" >= v"3.13"
+# Python 3.13: test_generate_missing fails with unbounded recursion
+# https://github.com/pytest-dev/pytest-bdd/issues/643
+k="${k-}${k+ and }not test_generate_missing"
+%endif
 
-%tox
+%tox -- -- -n auto -v -k "${k-}"
 
 
 %files -n python3-pytest-bdd -f %{pyproject_files}

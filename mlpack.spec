@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.2.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -29,13 +29,22 @@ BuildRequires:  cereal-devel
 BuildRequires:  pkg-config
 
 # Header-only libraries (-static is for tracking per guidelines)
-# Enforce the the minimum EVR to contain fixes for all of CVE-2021-28021,
-# CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041, plus the null-pointer
-# dereference bug https://github.com/nothings/stb/issues/1452.
+# Enforce the the minimum EVR to contain fixes for all of:
+# CVE-2021-28021
+# CVE-2021-42715
+# CVE-2021-42716
+# CVE-2022-28041
+# CVE-2023-43898
+# CVE-2023-45661
+# CVE-2023-45662
+# CVE-2023-45663
+# CVE-2023-45664
+# CVE-2023-45666
+# CVE-2023-45667
 %if 0%{?el7} || 0%{?el8}
-%global min_stb_image 2.28-0.24.20230129git5736b15
+%global min_stb_image 2.28-0.39.20231011gitbeebb24
 %else
-%global min_stb_image 2.28^20230129git5736b15-0.2
+%global min_stb_image 2.28^20231011gitbeebb24-12
 %endif
 BuildRequires:  stb_image-devel >= %{min_stb_image}
 BuildRequires:  stb_image-static
@@ -303,6 +312,12 @@ cd ..;
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Fri Oct 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2.1-4
+- Ensure stb_image contains the latest CVE patches
+
+* Wed Oct 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2.1-3
+- Ensure stb_image contains the latest CVE patches
+
 * Mon Oct 16 2023 Ryan Curtin <ryan@ratml.org> - 4.2.1-2
 - Attempt to reduce RAM usage on ppc64le.
 

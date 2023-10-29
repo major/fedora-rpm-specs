@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 16
+%global baserelease 17
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -231,7 +231,6 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2244688.patch
-Patch25: glibc-rh2244992.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2202,6 +2201,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Oct 26 2023 Carlos O'Donell <carlos@redhat.com> - 2.38.9000-17
+- Revert "Fix force-first handling in dlclose" (#2246048)
+
 * Tue Oct 24 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-16
 - Provide template gai.conf in glibc-doc
 

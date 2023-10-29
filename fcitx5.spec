@@ -47,6 +47,7 @@ BuildRequires:  pkgconfig(xkeyboard-config)
 BuildRequires:  /usr/bin/appstream-util
 Requires:       dbus-common
 Requires:       %{name}-data = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       setup
 Requires(post):     %{_sbindir}/alternatives
 Requires(postun):   %{_sbindir}/alternatives
@@ -58,6 +59,13 @@ Recommends:       fcitx5-configtool
 
 %description
 Fcitx 5 is a generic input method framework released under LGPL-2.1+.
+
+%package libs
+Summary:        Libraries for %{name}
+
+%description libs
+The %{name}-libs package contains runtime shared libraries necessary for
+running programs using Fcitx5 libraries.
 
 %package data
 Summary:        Data files of Fcitx5
@@ -72,7 +80,7 @@ The %{name}-data package provides shared data for Fcitx5.
 
 %package devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files necessary for
@@ -141,11 +149,14 @@ fi
 %{_bindir}/%{name}-remote
 %{_bindir}/%{name}-diagnose
 %{_libdir}/%{name}/
+%{_libexecdir}/fcitx5-wayland-launcher
+
+%files libs
+%license LICENSES/LGPL-2.1-or-later.txt
 %{_libdir}/libFcitx5*.so.*.*
 %{_libdir}/libFcitx5Config.so.6
 %{_libdir}/libFcitx5Core.so.7
 %{_libdir}/libFcitx5Utils.so.2
-%{_libexecdir}/fcitx5-wayland-launcher
 
 %files devel
 %{_includedir}/Fcitx5/

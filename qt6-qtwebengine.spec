@@ -49,7 +49,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -516,6 +516,7 @@ done
 %{_qt6_libdir}/qt6/qml/QtWebEngine/*
 %{_qt6_plugindir}/designer/libqwebengineview.so
 %dir %{_qt6_datadir}/resources/
+%{_qt6_datadir}/resources/v8_context_snapshot.bin
 %{_qt6_datadir}/resources/qtwebengine_resources.pak
 %{_qt6_datadir}/resources/qtwebengine_resources_100p.pak
 %{_qt6_datadir}/resources/qtwebengine_resources_200p.pak
@@ -619,7 +620,6 @@ done
 
 %files devtools
 %{_qt6_datadir}/resources/qtwebengine_devtools_resources.pak
-%{_qt6_datadir}/resources/v8_context_snapshot.bin
 
 %files examples
 %{_qt6_examplesdir}/webengine*
@@ -671,6 +671,9 @@ done
 
 
 %changelog
+* Fri Oct 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-2
+- Move v8_context_snapshot file to correct subpackage
+
 * Wed Oct 11 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
 - 6.6.0
 

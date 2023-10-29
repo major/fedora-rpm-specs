@@ -5,25 +5,14 @@
 
 %global crate rustls-webpki
 
-# compile and run tests only on supported architectures
-%global supported_arches x86_64 %{ix86} aarch64 %{arm}
-
 Name:           rust-rustls-webpki
-Version:        0.100.3
+Version:        0.101.7
 Release:        %autorelease
 Summary:        Web PKI X.509 Certificate Verification
 
-# * rustls-webpki itself is licensed under the terms of the ISC license
-# * third-party data from chromium is licensed under a 3-Clause-BSD license,
-#   but it is only used for integration tests and not included in RPM packages
 License:        ISC
 URL:            https://crates.io/crates/rustls-webpki
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * specify license with SPDX identifier in crate metadata:
-#   https://github.com/rustls/webpki/issues/101
-#   https://github.com/rustls/webpki/pull/102
-Patch:          rustls-webpki-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -95,18 +84,14 @@ rm tests/integration.rs
 %cargo_generate_buildrequires
 
 %build
-%ifarch %{supported_arches}
 %cargo_build
-%endif
 
 %install
 %cargo_install
 
 %if %{with check}
-%ifarch %{supported_arches}
 %check
 %cargo_test
-%endif
 %endif
 
 %changelog

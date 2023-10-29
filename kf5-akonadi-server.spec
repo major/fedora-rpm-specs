@@ -28,7 +28,7 @@ Summary: PIM Storage Service
 Version: 23.08.2
 Release: 2%{?dist}
 
-License: LGPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global revision %(echo %{version} | cut -d. -f3)

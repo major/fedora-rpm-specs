@@ -17,6 +17,13 @@ Patch0:         python-psutil-skip-tests-in-mock.patch
 # avoid: AssertionError: 7883822.420000001 != 7883822.42
 #
 Patch1:         python-psutil-test-sum-floats-via-almost-equal.patch
+#
+# include unistd.h to avoid (on Python 3.13+):
+#   error: implicit declaration of function ‘syscall’
+#   error: implicit declaration of function ‘close’
+# upstream PR: https://github.com/giampaolo/psutil/pull/2321
+#
+Patch2:         python-psutil-include-unistd.h.patch
 
 BuildRequires:  gcc
 BuildRequires:  grep

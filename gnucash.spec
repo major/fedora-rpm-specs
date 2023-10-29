@@ -2,7 +2,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.4
 URL: https://gnucash.org/
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -16,9 +16,9 @@ BuildRequires: perl-generators, perl-podlators
 BuildRequires: libxml2 >= 2.9.4, libxslt-devel, zlib-devel
 BuildRequires: gtk3 >= 3.22.30, glib2 >= 2.56.1
 BuildRequires: libofx-devel >= 0.9.12, aqbanking-devel >= 5.7.0, gwenhywfar-gui-gtk3-devel >= 4.20
-%if 0%{?fedora} >= 32 || 0%{?rhel} > 8
-BuildRequires: guile22-devel
-%global guilever 2.2
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires: guile30-devel
+%global guilever 3.0
 %else
 BuildRequires: guile-devel
 %global guilever 2.0
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Fri Oct 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.4-2
+- Use guile30
+
 * Mon Sep 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.4-1
 - 5.4
 

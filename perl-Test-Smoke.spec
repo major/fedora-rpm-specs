@@ -1,6 +1,6 @@
 Name:           perl-Test-Smoke
-Version:        1.80
-Release:        3%{?dist}
+Version:        1.81
+Release:        1%{?dist}
 Summary:        Perl core test smoke suite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Smoke
@@ -147,9 +147,8 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files
-%doc Changes README ReleaseNotes
+%doc Changes README README2.md ReleaseNotes
 %{_bindir}/chkbcfg.pl
-%{_bindir}/configsmoke.pl
 #%%{_bindir}/patchtree.pl
 %{_bindir}/smokestatus.pl
 %{_bindir}/sysinfo.pl
@@ -161,14 +160,22 @@ make test
 %{_bindir}/tssendrpt.pl
 %{_bindir}/tssmokeperl.pl
 %{_bindir}/tssynctree.pl
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/configsmoke*
+%{perl_vendorlib}/Test/Smoke*
+%{_mandir}/man1/chkbcfg.pl*
+%{_mandir}/man1/configsmoke*
+%{_mandir}/man1/smokestatus.pl*
+%{_mandir}/man1/tsconfigsmoke.pl*
+%{_mandir}/man3/Test::Smoke*
+%{_mandir}/man3/configsmoke*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.81-1
+- 1.81 bump (rhbz#2246537)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,14 +1,13 @@
 %{!?configure_options: %global configure_options %{nil}}
 
 Name: libvma
-Version: 9.8.1
-Release: 3%{?dist}
+Version: 9.8.40
+Release: 1%{?dist}
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 
 License: GPLv2 or BSD
 Url: https://github.com/Mellanox/libvma
 Source0: https://github.com/Mellanox/libvma/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0: 0001-Fix-compilation-issue-for-gcc-13.0.1.patch
 
 # libvma currently supports only the following architectures
 ExclusiveArch: x86_64 ppc64le ppc64 aarch64
@@ -100,6 +99,9 @@ rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/vma
 %{_mandir}/man8/vma_stats.*
 
 %changelog
+* Fri Oct 27 2023 Igor Ivanov <igori@nvidia.com> 9.8.40-1
+- Bump version to 9.8.40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

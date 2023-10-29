@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        5.8.4
-Release:        4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        5%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -38,6 +38,7 @@ Patch4:         remove_crap_from_menu.patch
 Patch5:         fix_path.patch
 Patch6:         %url/commit/fce9aad1ebb290802dc550e8dae6344dddf9dec1.patch
 Patch7:         0001-add-xdg-portal-conf.patch
+Patch8:         %url/commit/5eda3d4d8a65517062b48354fb17966a39ceaeca.patch
 
 ExcludeArch:    %{ix86}
 
@@ -183,6 +184,8 @@ Recommends:     touchegg
 # required for flatpak support
 Recommends:     xdg-desktop-portal-xapp
 
+Requires:       libsoup3
+
 Provides:       desktop-notification-daemon
 Provides:       bundled(libcroco) = 0.6.12
 
@@ -204,7 +207,7 @@ Requires:       gnome-calendar%{?_isa}
 %description calendar-server
 Calendar server for Cinnamon.
 
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 40
 %package devel-doc
 Summary:        Development Documentation files for Cinnamon
 BuildArch:      noarch
@@ -238,7 +241,7 @@ chmod a-x files%{_datadir}/%{name}/%{name}-settings/bin/__init__.py
  --libexecdir=%{_libexecdir}/cinnamon/ \
  -Ddeprecated_warnings=false \
  -Dpy3modules_dir=%{python3_sitelib} \
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 40
  -Ddocs=true
 %else
  -Ddocs=false
@@ -337,12 +340,15 @@ EOF
 %{_libexecdir}/%{name}/%{name}-calendar-server.py
 %{_datadir}/dbus-1/services/org.%{name}.CalendarServer.service
 
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 40
 %files devel-doc
 %doc %{_datadir}/gtk-doc/html/*/
 %endif
 
 %changelog
+* Fri Oct 27 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-5
+- Use libsoup3 for applets
+
 * Sun Sep 24 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-4
 - Add xdg-portal conf file
 

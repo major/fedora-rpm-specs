@@ -6,11 +6,11 @@
 %global crate zerocopy-derive
 
 Name:           rust-zerocopy-derive
-Version:        0.6.4
+Version:        0.7.16
 Release:        %autorelease
 Summary:        Custom derive for traits from the zerocopy crate
 
-License:        BSD-2-Clause
+License:        BSD-2-Clause OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/zerocopy-derive
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
@@ -34,7 +34,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-BSD
+%license %{crate_instdir}/LICENSE-MIT
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

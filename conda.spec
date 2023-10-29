@@ -53,32 +53,11 @@ can only use conda to create and manage new environments.}
 
 %description %_description
 
-%global _py3_reqs \
-        python%{python3_pkgversion}-cpuinfo \
-        python%{python3_pkgversion}-conda-package-handling >= 1.3.0 \
-        python%{python3_pkgversion}-distro >= 1.0.4 \
-        python%{python3_pkgversion}-frozendict >= 1.2 \
-        python%{python3_pkgversion}-pluggy >= 1.0.0 \
-        python%{python3_pkgversion}-pycosat >= 0.6.3 \
-        python%{python3_pkgversion}-pyOpenSSL >= 16.2.0 \
-        python%{python3_pkgversion}-pyyaml \
-        python%{python3_pkgversion}-requests >= 2.18.4 \
-        python%{python3_pkgversion}-ruamel-yaml >= 0.11.14 \
-        python%{python3_pkgversion}-tqdm >= 4.22.0 \
-        python%{python3_pkgversion}-urllib3 >= 1.19.1
-%global py3_reqs %(c="%_py3_reqs"; echo "$c" | xargs)
-
 
 %package -n python%{python3_pkgversion}-conda
 Summary:        %{summary}
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  %py3_reqs
-# When this is present, vendored toolz should not be used
-%if 0%{?fedora} || 0%{?rhel} >= 8
-# EPEL7 does not have new enough cytoolz
-BuildRequires:  python%{python3_pkgversion}-cytoolz >= 0.8.2
-%endif
 # For tests
 BuildRequires:  python-unversioned-command
 BuildRequires:  python%{python3_pkgversion}-boto3
@@ -90,11 +69,6 @@ BuildRequires:  python%{python3_pkgversion}-pytest-timeout
 BuildRequires:  python%{python3_pkgversion}-pytest-xprocess
 BuildRequires:  python%{python3_pkgversion}-responses
 
-Requires:       %py3_reqs
-%if 0%{?fedora} || 0%{?rhel} >= 8
-# EPEL does not have new enough cytoolz
-Requires:       python%{python3_pkgversion}-cytoolz >= 0.8.2
-%endif
 # Some versions in conda/_vendor/vendor.txt
 Provides:       bundled(python%{python3_pkgversion}-appdirs) = 1.2.0
 Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
@@ -107,6 +81,9 @@ Provides:       bundled(python%{python3_pkgversion}-boltons) = 21.0.0
 %prep
 %autosetup -p1
 
+# Do not restrict upper bound of ruamel-yaml
+sed -i -e '/ruamel.yaml/s/,<[0-9.]*//' pyproject.toml
+
 # pytest-split/xdoctest not packaged, store-duration not needed
 sed -i -e '/splitting-algorithm/d' -e '/store-durations/d' -e '/xdoctest/d' pyproject.toml
 
@@ -117,10 +94,13 @@ sed -r -i '1 {/#![/]usr[/]bin[/]env/d}' conda/_vendor/appdirs.py
 
 # Use Fedora's cpuinfo since it supports more arches
 rm -r conda/_vendor/cpuinfo
+sed -i -e '/^dependencies = /a\ \ "py-cpuinfo",' pyproject.toml
 
 # Use system versions
 rm -r conda/_vendor/{distro.py,frozendict}
 find conda -name \*.py | xargs sed -i -e 's/^\( *\)from .*_vendor\.\(\(distro\|frozendict\).*\) import/\1from \2 import/'
+sed -i -e '/^dependencies = /a\ \ "distro",' pyproject.toml
+sed -i -e '/^dependencies = /a\ \ "frozendict",' pyproject.toml
 
 # Unpackaged - use vendored version
 sed -i -e '/"boltons *>/d' pyproject.toml

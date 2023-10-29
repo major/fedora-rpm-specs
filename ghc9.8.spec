@@ -109,10 +109,8 @@ BuildRequires: %{name}
 %endif
 BuildRequires: ghc-rpm-macros-extra >= 2.6.1
 BuildRequires: %{ghcboot}-array-devel
-BuildRequires: %{ghcboot}-base16-bytestring-devel
 BuildRequires: %{ghcboot}-binary-devel
 BuildRequires: %{ghcboot}-bytestring-devel
-BuildRequires: %{ghcboot}-cryptohash-sha256-devel
 BuildRequires: %{ghcboot}-containers-devel
 BuildRequires: %{ghcboot}-deepseq-devel
 BuildRequires: %{ghcboot}-directory-devel
@@ -149,8 +147,10 @@ BuildRequires:  autoconf automake
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-QuickCheck-devel
 BuildRequires:  ghc-base-devel
+BuildRequires:  ghc-base16-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-cryptohash-sha256-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel

@@ -1,6 +1,6 @@
 Name:          gpsbabel
 Version:       1.9.0
-Release:       1%{?dist}
+Release:       3%{?dist}
 Summary:       A tool to convert between various formats used by GPS devices
 
 License:       GPL-2.0-or-later
@@ -26,6 +26,7 @@ BuildRequires: qt5-qtserialport-devel
 %global build_gui 1
 BuildRequires: qt5-qtwebchannel-devel
 BuildRequires: qt5-qtwebengine-devel
+BuildRequires: qt5-qttranslations
 %endif
 
 %description
@@ -37,6 +38,9 @@ to another.
 Summary:        Qt GUI interface for GPSBabel
 License:        GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
+# pull-in qt5 standard translations.
+# Otherwise items such as "Close", "Open" won't be translated
+Requires:       qt5-qttranslations
 
 %description gui
 Qt GUI interface for GPSBabel
@@ -49,8 +53,8 @@ Qt GUI interface for GPSBabel
 
 %build
 %cmake \
+  -DGPSBABEL_WITH_LIBUSB=pkgconfig \
   -DGPSBABEL_WITH_ZLIB=pkgconfig \
-  -DGPS_BABEL_WITH_SHAPE_LIB=pkgconfig \
   -DGPSBABEL_WITH_SHAPELIB=pkgconfig \
   %{?!build_gui:-DGPSBABEL_MAPPREVIEW=OFF} \
   ..
@@ -67,12 +71,6 @@ install -m 0755 -p %{_vpath_builddir}/gpsbabel %{buildroot}%{_bindir}/
 install -m 0755 -d %{buildroot}%{_bindir}/
 install -m 0755 -p %{_vpath_builddir}/gui/GPSBabelFE/gpsbabelfe %{buildroot}%{_bindir}/
 
-install -m 0755 -d %{buildroot}%{_qt5_translationdir}/
-install -m 0644 -p gui/gpsbabelfe_*.qm     %{buildroot}%{_qt5_translationdir}/
-
-install -m 0755 -d %{buildroot}%{_qt5_translationdir}/
-install -m 0644 -p gui/coretool/gpsbabel_*.qm %{buildroot}%{_qt5_translationdir}/
-
 install -m 0755 -d %{buildroot}%{_datadir}/gpsbabel
 install -m 0644 -p gui/gmapbase.html %{buildroot}%{_datadir}/gpsbabel
 
@@ -82,8 +80,6 @@ desktop-file-install \
 
 install -m 0755 -d            %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/
 install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/
-
-%find_lang %{name} --with-qt --all-name
 %endif
 
 %files
@@ -92,7 +88,7 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %{_bindir}/gpsbabel
 
 %if 0%{?build_gui}
-%files gui -f %{name}.lang
+%files gui
 %doc gui/{AUTHORS,README*,TODO}
 %license gui/COPYING*
 %{_bindir}/gpsbabelfe
@@ -102,6 +98,14 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %endif
 
 %changelog
+* Fri Oct 27 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.9.0-3
+- Add -DGPSBABEL_WITH_LIBUSB=pkgconfig.
+- Remove -DGPS_BABEL_WITH_SHAPE_LIB=pkgconfig.
+
+* Fri Oct 27 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.9.0-2
+- Do not install *.qm (tstevens4).
+- Add R/BR: qt5-qttranslations.
+
 * Sun Oct 22 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.9.0-1
 - Upstream update.
 

@@ -20,6 +20,9 @@ Patch1:         0001-23.8.0rc1-remove-hatch-fancy-pypi-readme.patch
 Patch2:         0002-23.8.0rc1-fix-and-skip-tests-fedora.patch
 # https://github.com/twisted/twisted/pull/11787
 Patch3:         0003-11786-fix-misuse-of-mktime-in-tests.patch
+# https://github.com/twisted/twisted/issues/12026
+# https://github.com/twisted/twisted/pull/12027
+Patch4:         0001-Adjust-to-deprecation-of-3-arg-signature-of-generato.patch
 
 BuildArch:      noarch
 

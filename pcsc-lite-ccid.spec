@@ -2,8 +2,8 @@
 %global pcsc_lite_ver 1.8.9
 
 Name:           pcsc-lite-ccid
-Version:        1.5.2
-Release:        2%{?dist}
+Version:        1.5.3
+Release:        1%{?dist}
 Summary:        Generic USB CCID smart card reader driver
 
 License:        BSD 3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -19,6 +19,8 @@ BuildRequires:  perl-Getopt-Long
 BuildRequires:  libusb1-devel
 BuildRequires:  pcsc-lite-devel >= %{pcsc_lite_ver}
 BuildRequires:  gnupg2 gcc
+BuildRequires:  flex
+BuildRequires:  zlib-devel
 Requires(post): systemd
 Requires(postun): systemd
 Requires:       pcsc-lite%{?_isa} >= %{pcsc_lite_ver}
@@ -37,7 +39,7 @@ PC/SC Lite daemon.
 %prep
 gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %setup -q -n ccid-%{version}
-%patch0 -p1 -b .omnikey
+%patch 0 -p1 -b .omnikey
 
 %build
 %configure --enable-twinserial
@@ -65,6 +67,9 @@ cp -p src/openct/LICENSE LICENSE.openct
 
 
 %changelog
+* Fri Oct 27 2023 Jakub Jelen <jjelen@redhat.com> - 1.5.3-1
+- New upstream release (#2246459)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

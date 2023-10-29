@@ -14,9 +14,7 @@ Summary: A Tier 3 KDE Frameworks 5 module that provides indexing and search func
 Version: 5.111.0
 Release: 3%{?dist}
 
-# libs are LGPL, tools are GPL
-# KDE e.V. may determine that future LGPL/GPL versions are accepted
-License: (LGPLv2 or LGPLv3) and (GPLv2 or GPLv3)
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://community.kde.org/Baloo
 #URL:     https://invent.kde.org/frameworks/%{framework}
 

@@ -1,13 +1,11 @@
 Name:		multitail
-Version:	7.0.0
+Version:	7.1.1
 Release:	%autorelease
 Summary:	View one or multiple files like tail but with multiple windows
 
 License:	Apache-2.0
 URL:		https://www.vanheusden.com/multitail/
 Source0:	https://github.com/folkertvanheusden/multitail/archive/%{version}/%{name}-%{version}.tar.gz
-Patch1:		https://sources.debian.org/data/main/m/multitail/6.5.0-5/debian/patches/fix-format-strings.diff
-Patch2:		https://github.com/folkertvanheusden/multitail/commit/608bad75a9acf51e2283768996721bd549149991.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -33,8 +31,6 @@ external software, MultiTail can mimic the functionality of tools like
 
 %prep
 %autosetup
-# Fix correct version
-sed -i 's/6.4.3/7.0.0/' CMakeLists.txt
 # Let rpm handle the config file
 sed -i '/multitail.conf.new/d' CMakeLists.txt
 # Install conversion-scripts manually

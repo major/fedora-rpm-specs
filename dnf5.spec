@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 5
+%global project_version_patch 6
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
@@ -104,7 +104,7 @@ Provides:       dnf5-command(makecache)
 
 %global libmodulemd_version 2.5.0
 %global librepo_version 1.15.0
-%global libsolv_version 0.7.21
+%global libsolv_version 0.7.25
 %global sqlite_version 3.35.0
 %global swig_version 4
 %global zchunk_version 0.9.11
@@ -734,6 +734,29 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Thu Oct 26 2023 Packit <hello@packit.dev> - 5.1.6-1
+- Release 5.1.6
+- Document aliases for command line arguments
+- Don't print missing positional argument error with `--help`
+- Improve error handling for missing arguments
+- Document `--forcearch` as a global argument
+- Make `--forcearch` a global argument
+- Avoid reinstalling installonly packages marked for ERASE
+- Add `filter_installonly` to PackageQuery
+- Implement new argument `--show-new-leaves`
+- advisory: document advisory command changes and few clean ups
+- Document `--dump-main-config` and `--dump-repo-config`
+- Implement new argument `--dump-repo-config`
+- Implement new argument `--dump-main-config`
+- Show default profiles in `module list`
+- Print hint for the `module list` table
+- Show information about default streams in `module list`
+- Document `module list` options
+- Add `enabled` and `disabled` arguments to `module list`
+- Add module spec filtering to `module list`
+- Add `module list` command
+- Document `group upgrade`
+
 * Thu Oct 05 2023 Packit <hello@packit.dev> - 5.1.5-1
 - Improved ConfigParser
 - Improved docs for `group install` and `group remove`

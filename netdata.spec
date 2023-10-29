@@ -42,7 +42,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.43.0
+%global upver        1.43.1
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -51,7 +51,7 @@ ExcludeArch: s390x
 %global judy_ver 1.0.5-netdata2
 
 # 
-%global plugin_go_ver 0.56.2
+%global plugin_go_ver 0.56.3
 
 %global netdata_conf_stock %{_prefix}/lib/%{name}
 
@@ -212,6 +212,13 @@ mkdir -p externaldeps/libJudy
 tar -xzf %{SOURCE11} -C externaldeps/libJudy
 %endif
 ### END el8 judy dirty hack
+
+gover=$(grep go.d.plugin packaging/go.d.checksums | grep linux-amd64 | cut -d ' ' -f2 | sed -e 's/*go\.d\.plugin-v\([0-9.]\+\).linux-amd64.tar.gz/\1/')
+if [ "${gover}" != "%{plugin_go_ver}" ]
+then
+  echo "Version of go.d.plugin mismatch: must be \"${gover}\", got \"%{plugin_go_ver}\""
+  exit 1
+fi
 
 %build
 ### BEGIN netdata cloud
@@ -409,6 +416,9 @@ echo "Netdata go plugin can be easily installed with %{_sbindir}/netdata-install
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Fri Oct 27 2023 Didier Fabert <didier.fabert@gmail.com> 1.43.1-1
+- Update from upstream
+
 * Tue Oct 17 2023 Didier Fabert <didier.fabert@gmail.com> 1.43.0-1
 - Update from upstream
 

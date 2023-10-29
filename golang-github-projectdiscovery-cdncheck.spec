@@ -16,6 +16,8 @@ A utility to detect various technology for a given IP address.}
 %global golicenses      LICENSE.md
 %global godocs          examples README.md
 
+%global gosupfiles      sources_data.json
+
 Name:           %{goname}
 Release:        %autorelease
 Summary:        A utility to detect various technology for a given IP address

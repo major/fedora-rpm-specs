@@ -1,7 +1,7 @@
-%global oqs_version 0.8.0
+%global oqs_version 0.9.0
 Name:       liboqs
 Version:    %{oqs_version}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Summary:    liboqs is an open source C library for quantum-safe cryptographic algorithms.
 
 #liboqs uses MIT license by itself but includes several files licensed under different terms.
@@ -10,8 +10,7 @@ Summary:    liboqs is an open source C library for quantum-safe cryptographic al
 #see https://github.com/open-quantum-safe/liboqs/blob/main/README.md#license for more details
 License:    MIT AND Apache 2.0 AND BSD 3-Clause AND (BSD-3-Clause OR GPL-1.0-or-later) AND CC0-1.0 AND Unlicense
 URL:        https://github.com/open-quantum-safe/liboqs.git
-Source:     https://github.com/open-quantum-safe/liboqs/archive/refs/tags/0.8.0.tar.gz
-#Source:     liboqs-0.8.0-dev.tar.gz
+Source:     https://github.com/open-quantum-safe/liboqs/archive/refs/tags/0.9.0.tar.gz
 
 BuildRequires: ninja-build
 BuildRequires: cmake
@@ -64,7 +63,6 @@ sed -i -e 's/--numprocesses=auto//' tests/CMakeLists.txt
 #ninja gen_docs
 
 %check
-#TODO tests
 cd "%{_vpath_builddir}"
 ninja run_tests
 
@@ -80,7 +78,7 @@ done
 %files
 %license LICENSE.txt
 %{_libdir}/liboqs.so.%{oqs_version}
-%{_libdir}/liboqs.so.3
+%{_libdir}/liboqs.so.4
 
 %files devel
 %{_libdir}/liboqs.so
@@ -97,6 +95,10 @@ done
 #%doc %%{_datadir}/doc/oqs/xml/*
 
 %changelog
+* Fri Oct 27 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.9.0-1
+- Switch to 0.9.0 version
+  Resolves: rhbz#2241615
+
 * Wed Oct 04 2023 Stephen Gallagher <sgallagh@redhat.com> - 0.8.0-4
 - Bump release to rebuild for ELN issue
 - https://github.com/fedora-eln/eln/issues/125

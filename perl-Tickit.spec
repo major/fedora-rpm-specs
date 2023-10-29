@@ -1,6 +1,6 @@
 Name:           perl-Tickit
-Version:        0.73
-Release:        4%{?dist}
+Version:        0.74
+Release:        1%{?dist}
 Summary:        Perl bindings for Tickit
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tickit
@@ -39,10 +39,7 @@ BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::Builder::Tester)
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::HexString)
-BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::Refcount)
+BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(utf8)
 # Runtime
 Requires:       perl(XSLoader)
@@ -110,6 +107,9 @@ export TERM=xterm
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 27 2023 Petr Salaba - 0.74-1
+- Update for Tickit 0.74
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

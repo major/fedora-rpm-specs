@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.0.4
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 License:        GPLv3 and MIT and WTFPL and Public Domain
@@ -42,10 +42,19 @@ BuildRequires:  spdlog-devel fmt-devel
 # Need to BR -static packages for header-only libraries for tracking, per
 BuildRequires:  rapidjson-devel rapidjson-static
 BuildRequires:  json-devel json-static
-# Enforce the the minimum EVR to contain fixes for all of CVE-2021-28021,
-# CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041, plus the null-pointer
-# dereference bug https://github.com/nothings/stb/issues/1452.
-BuildRequires:  stb_image-devel >= 2.28^20230129git5736b15-0.2
+# Enforce the the minimum EVR to contain fixes for all of:
+# CVE-2021-28021
+# CVE-2021-42715
+# CVE-2021-42716
+# CVE-2022-28041
+# CVE-2023-43898
+# CVE-2023-45661
+# CVE-2023-45662
+# CVE-2023-45663
+# CVE-2023-45664
+# CVE-2023-45666
+# CVE-2023-45667
+BuildRequires:  stb_image-devel >= 2.28^20231011gitbeebb24-12
 BuildRequires:  stb_image-static
 BuildRequires:  stb_image_resize-devel stb_image_resize-static
 BuildRequires:  stb_truetype-devel stb_truetype-static
@@ -156,6 +165,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Oct 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.4-17
+- Ensure stb_image contains the latest CVE patches
+
 * Sat Aug 05 2023 Richard Shaw <hobbes1069@gmail.com> - 1.0.4-16
 - Rebuild for codec2.
 

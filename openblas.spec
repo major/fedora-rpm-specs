@@ -1,6 +1,6 @@
 %bcond_with system_lapack
 # Version of bundled lapack
-%global lapackver 3.9.1
+%global lapackver 3.11.0
 
 # DO NOT "CLEAN UP" OR MODIFY THIS SPEC FILE WITHOUT ASKING THE
 # MAINTAINER FIRST!
@@ -14,28 +14,22 @@
 # "obsoleted" features are still kept in the spec.
 
 Name:           openblas
-Version:        0.3.21
-Release:        6%{?dist}
+Version:        0.3.24
+Release:        1%{?dist}
 Summary:        An optimized BLAS library based on GotoBLAS2
-License:        BSD
+
+License:        BSD-3-Clause
 URL:            https://github.com/xianyi/OpenBLAS/
-Source0:        https://github.com/xianyi/OpenBLAS/archive/v%{version}/openblas-%{version}.tar.gz
+Source0:        %url/archive/v%{version}/openblas-%{version}.tar.gz
+
 # Use system lapack
 Patch0:         openblas-0.2.15-system_lapack.patch
 # Drop extra p from threaded library name
 Patch1:         openblas-0.2.5-libname.patch
 # Don't use constructor priorities on too old architectures
 Patch2:         openblas-0.2.15-constructor.patch
-# Fix SBGEMM test to work with INTERFACE64
-Patch3:         openblas-0.3.21-sbgemm-test.patch
 # Supply the proper flags to the test makefile
-Patch4:         openblas-0.3.11-tests.patch
-# C99 porting.
-Patch5:         openblas-0.3.21-c99-1.patch
-Patch6:         openblas-0.3.21-c99-2.patch
-Patch7:         openblas-0.3.21-c99-3.patch
-Patch8:         openblas-0.3.21-c99-4.patch
-Patch9:         openblas-0.3.21-c99-5.patch
+Patch3:         openblas-0.3.11-tests.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -242,19 +236,13 @@ This package contains the static libraries.
 tar zxf %{SOURCE0}
 cd OpenBLAS-%{version}
 %if %{with system_lapack}
-%patch0 -p1 -b .system_lapack
+%patch 0 -p1 -b .system_lapack
 %endif
-%patch1 -p1 -b .libname
+%patch 1 -p1 -b .libname
 %if 0%{?rhel} == 5
-%patch2 -p1 -b .constructor
+%patch 2 -p1 -b .constructor
 %endif
-%patch3 -p1 -b .sbgemm
-%patch4 -p1 -b .tests
-%patch5 -p1 -b .c99-1
-%patch6 -p1 -b .c99-2
-%patch7 -p1 -b .c99-3
-%patch8 -p1 -b .c99-4
-%patch9 -p1 -b .c99-5
+%patch 3 -p1 -b .tests
 
 # Fix source permissions
 find -name \*.f -exec chmod 644 {} \;
@@ -660,6 +648,12 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 %endif
 
 %changelog
+* Fri Oct 27 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.3.24-1
+- Update to 0.3.24
+
+* Tue Aug 01 2023 Pavel Šimovec <psimovec@redhat.com> - 0.3.23-1
+- Update to 0.3.23 (RHBZ #2182038)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.21-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

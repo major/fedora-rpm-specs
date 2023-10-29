@@ -1,19 +1,15 @@
-%global commit 9b27c3fc67bcdd2b26332965130085fb37606824
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20230917
-
 %global qt5_minver 5.15.0
 %global kf5_minver 5.83.0
 %global kp5_minver 5.27.5
 
 Name:           xwaylandvideobridge
-Version:        0~git%{commitdate}.%{shortcommit}
+Version:        0.2
 Release:        1%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/system/xwaylandvideobridge
-Source0:        %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
@@ -50,7 +46,7 @@ but within the control of the user at all times.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -n %{name}-v%{version}
 
 
 %build
@@ -80,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Oct 27 2023 Alessandro Astone <ales.astone@gmail.com> - 0.2-1
+- Update to tagged release 0.2
+
 * Mon Sep 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 0~git20230917.9b27c3f-1
 - Bump to new git snapshot
 

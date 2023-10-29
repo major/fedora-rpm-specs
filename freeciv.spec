@@ -55,7 +55,7 @@ Freeciv qt client
 %setup -q -n %{name}-%{version}
 
 %build
-%configure --enable-client=gtk3.22,qt --disable-static --enable-ruledit --with-qt5-includes=%{_qt5_includedir} --with-qt5-libs=%{_qt5_libdir}
+%configure --enable-client=gtk3.22,qt --disable-static --enable-ruledit
 make %{?_smp_mflags}
 
 %install

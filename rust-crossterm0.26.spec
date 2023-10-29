@@ -2,26 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate ahash
+%global crate crossterm
 
-Name:           rust-ahash0.7
-Version:        0.7.7
+Name:           rust-crossterm0.26
+Version:        0.26.1
 Release:        %autorelease
-Summary:        Non-cryptographic hash function using AES-NI for high performance
+Summary:        Crossplatform terminal library for manipulating terminals
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/ahash
+License:        MIT
+URL:            https://crates.io/crates/crossterm
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          ahash-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * drop unused benchmarks and benchmark-only criterion dev-dependency
-Patch:          ahash-fix-metadata.diff
+Patch:          crossterm-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A non-cryptographic hash function using AES-NI for high performance.}
+A crossplatform terminal library for manipulating terminals.}
 
 %description %{_description}
 
@@ -35,9 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/FAQ.md
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -53,40 +49,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+atomic-polyfill-devel
+%package     -n %{name}+bracketed-paste-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+atomic-polyfill-devel %{_description}
+%description -n %{name}+bracketed-paste-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "atomic-polyfill" feature of the "%{crate}" crate.
+use the "bracketed-paste" feature of the "%{crate}" crate.
 
-%files       -n %{name}+atomic-polyfill-devel
+%files       -n %{name}+bracketed-paste-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+compile-time-rng-devel
+%package     -n %{name}+event-stream-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+compile-time-rng-devel %{_description}
+%description -n %{name}+event-stream-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "compile-time-rng" feature of the "%{crate}" crate.
+use the "event-stream" feature of the "%{crate}" crate.
 
-%files       -n %{name}+compile-time-rng-devel
+%files       -n %{name}+event-stream-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+const-random-devel
+%package     -n %{name}+filedescriptor-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+const-random-devel %{_description}
+%description -n %{name}+filedescriptor-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "const-random" feature of the "%{crate}" crate.
+use the "filedescriptor" feature of the "%{crate}" crate.
 
-%files       -n %{name}+const-random-devel
+%files       -n %{name}+filedescriptor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-core-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-core-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-core" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -101,23 +109,21 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+use-dev-tty-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+use-dev-tty-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "use-dev-tty" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+use-dev-tty-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# remove benchmark sources from non-standard path in tests/
-rm tests/{bench.rs,map_tests.rs}
 
 %generate_buildrequires
 %cargo_generate_buildrequires

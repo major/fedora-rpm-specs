@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/clistats
 %global goipath         github.com/projectdiscovery/clistats
-Version:                0.0.13
+Version:                0.0.19
 
 %gometa -f
 

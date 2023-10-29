@@ -7,7 +7,7 @@
 %global talloc_version 2.4.1
 
 Name: libtevent
-Version: 0.15.0
+Version: 0.16.0
 Release: 1%{?dist}
 Summary: The tevent library
 License: LGPL-3.0-or-later
@@ -107,6 +107,10 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %ldconfig_scriptlets
 
 %changelog
+* Fri Oct 27 2023 Andreas Schneider <asn@redhat.com> - 0.16.0-1
+- Update to version 0.16.0
+- resolves: rhbz#2244376
+
 * Mon Aug 07 2023 Guenther Deschner <gdeschner@redhat.com> - 0.15.0-1
 - rhbz#2224332 - libtevent-0.15.0 is available
 

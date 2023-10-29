@@ -12,7 +12,7 @@ Version: 23.08.2
 Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
-License: LGPLv2+
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{base_name}
 
 %global revision %(echo %{version} | cut -d. -f3)

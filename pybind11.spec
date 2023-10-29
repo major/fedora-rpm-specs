@@ -26,6 +26,9 @@ Source0: https://github.com/pybind/pybind11/archive/v%{version}/%{name}-%{versio
 # Patch out header path
 Patch1:  pybind11-2.10.1-hpath.patch
 
+# Adapt to changed function name in Python 3.13
+Patch2:  https://github.com/pybind/pybind11/pull/4902.patch
+
 BuildRequires: make
 %if %{python2_enabled}
 # Needed to build the python libraries
@@ -108,6 +111,7 @@ This package contains the Python 3 files.
 %prep
 %setup -q
 %patch1 -p1 -b .hpath
+%patch2 -p1 -b .4902
 
 %build
 pys=""
