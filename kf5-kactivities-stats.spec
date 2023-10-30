@@ -5,8 +5,7 @@ Summary: A KDE Frameworks 5 Tier 3 library for accessing the usage data collecte
 Version: 5.111.0
 Release: 1%{?dist}
 
-# KDE e.V. may determine that future GPL versions are accepted
-License: LGPLv2 or LGPLv3
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

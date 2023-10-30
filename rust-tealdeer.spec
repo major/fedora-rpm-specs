@@ -12,6 +12,10 @@ Summary:        Fetch and show tldr help pages for many CLI commands
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tealdeer
 Source:         %{crates_source}
+# https://github.com/dbrgn/tealdeer/pull/333
+Source1:        https://github.com/dbrgn/tealdeer/raw/v%{version}/completion/bash_tealdeer
+Source2:        https://github.com/dbrgn/tealdeer/raw/v%{version}/completion/fish_tealdeer
+Source3:        https://github.com/dbrgn/tealdeer/raw/v%{version}/completion/zsh_tealdeer
 # Manually created patch for downstream crate metadata changes
 # * keep using app_dirs instead of app_dirs2 fork
 # * use native-tls instead of rustls in reqwest
@@ -50,6 +54,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (0BSD OR MIT OR Apache-2
 %license LICENSE.dependencies
 %doc README.md
 %{_bindir}/tldr
+%{bash_completions_dir}/tldr.bash
+%{fish_completions_dir}/tldr.fish
+%{zsh_completions_dir}/_tldr
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
@@ -65,6 +72,10 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (0BSD OR MIT OR Apache-2
 
 %install
 %cargo_install
+# install shell completions
+install -Dpm0644 %{SOURCE1} %{buildroot}/%{bash_completions_dir}/tldr.bash
+install -Dpm0644 %{SOURCE2} %{buildroot}/%{fish_completions_dir}/tldr.fish
+install -Dpm0644 %{SOURCE3} %{buildroot}/%{zsh_completions_dir}/_tldr
 
 %if %{with check}
 %check

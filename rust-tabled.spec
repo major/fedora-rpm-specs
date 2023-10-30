@@ -5,7 +5,7 @@
 %global crate tabled
 
 Name:           rust-tabled
-Version:        0.12.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Easy to use library for pretty print tables of Rust structs and enums
 
@@ -151,7 +151,11 @@ rm examples/table_width_2.rs
 
 %if %{with check}
 %check
-%cargo_test
+# skip tests that depend on either:
+# static_table - depends on previous tabled version
+# test_table - unpublished
+%cargo_test -- --lib
+%cargo_test -- --doc
 %endif
 
 %changelog

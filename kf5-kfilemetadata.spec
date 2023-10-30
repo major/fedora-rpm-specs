@@ -21,8 +21,7 @@ Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        5.111.0
 Release:        1%{?dist}
 
-# # KDE e.V. may determine that future LGPL versions are accepted
-License:        LGPLv2 or LGPLv3
+License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:            https://cgit.kde.org/%{framework}
 
 %global majmin %majmin_ver_kf5

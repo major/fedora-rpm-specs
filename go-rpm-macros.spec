@@ -1,5 +1,5 @@
 %global forgeurl  https://pagure.io/go-rpm-macros
-Version:   3.2.0
+Version:   3.3.0
 %forgemeta
 
 #https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/51
@@ -178,8 +178,6 @@ install -m 0644 -vp   rpm/macros.d/macros.go-compilers-gcc \
 %doc README.md
 %{_rpmmacrodir}/macros.go-srpm
 %{_rpmluadir}/fedora/srpm/*.lua
-
-
 
 %changelog
 %autochangelog

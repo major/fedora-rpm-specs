@@ -4,20 +4,18 @@
 %global crate fd-find
 
 Name:           rust-fd-find
-Version:        8.7.0
+Version:        8.7.1
 Release:        %autorelease
 Summary:        Fd is a simple, fast and user-friendly alternative to find
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/fd-find
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop jemallocator dependency
-# * remove stabilized but previously unstable "clap/unstable-grouped" feature
 Patch:          fd-find-fix-metadata.diff
 # * drop jemallocator from code
-Patch:          0001-Remove-usage-of-jemallocator.patch
+Patch:          fd-find-8.7.1-remove_usage_of_jemallocator.diff
 
 BuildRequires:  rust-packaging >= 23
 
@@ -61,8 +59,7 @@ License:        MIT AND Unicode-DFS-2016
 
 %build
 %cargo_build
-# write license summary and breakdown
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 # generate shell completions
 ./target/release/fd --gen-completions bash > fd.bash

@@ -2,9 +2,9 @@
 
 Name:           verbiste
 Version:        0.1.48
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        French conjugation system
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://sarrazip.com/dev/verbiste.html
 Source:         http://perso.b2b2c.ca/~sarrazip/dev/%{name}-%{version}.tar.gz
 BuildRequires: make
@@ -115,6 +115,9 @@ rm -frv %{buildroot}%{_docdir}
 %{_mandir}/man3/verbiste.3*
 
 %changelog
+* Sat Oct 28 2023 Didier Fabert <didier.fabert@gmail.com> - 0.1.48-2
+- migrated to SPDX license
+
 * Thu Aug 03 2023 Didier Fabert <didier.fabert@gmail.com> - 0.1.48-1
 - Update to 0.1.48
 

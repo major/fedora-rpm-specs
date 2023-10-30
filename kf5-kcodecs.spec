@@ -6,7 +6,7 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with string manipulation methods
 
-License:        GPLv2+ and LGPLv2+ and BSD
+License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND MPL-1.1
 URL:            https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

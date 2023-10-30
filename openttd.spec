@@ -26,6 +26,12 @@ BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
 
 Requires:       hicolor-icon-theme
+# src/3rdparty/squirrel is https://github.com/albertodemichelis/squirrel
+# But modified for use of OpenTTD
+Provides:       bundled(squirrel) = 2.2.5~openttd
+# https://github.com/OpenTTD/OpenTTD/issues/11403
+# src/3rdparty/fmt is https://github.com/fmtlib/fmt
+Provides:       bundled(fmt) = 7.1.3
 
 Recommends:     openttd-opengfx => 0.5.0
 Recommends:     fluid-soundfont-gm

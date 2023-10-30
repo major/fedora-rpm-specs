@@ -211,11 +211,14 @@ Requires:       ca-certificates
 %{bundled 3}
 
 # This is only relevant for Pythons that are older than 3.12 and don't use their own bundled wheels
+# It is also only relevant when this wheel is shared across multiple Pythons
+%if "%{python_wheel_pkg_prefix}" == "python"
 %{crypt_compat_recommends 3.11}
 %{crypt_compat_recommends 3.10}
 %{crypt_compat_recommends 3.9}
 %{crypt_compat_recommends 3.8}
 %{crypt_compat_recommends 3.7}
+%endif
 
 %description -n %{python_wheel_pkg_prefix}-%{srcname}-wheel
 A Python wheel of pip to use with venv.
@@ -311,11 +314,16 @@ mkdir -p %{buildroot}%{python_wheel_dir}
 install -p dist/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
 
 
-%if %{with tests}
 %check
 # Verify bundled provides are up to date
 %{_rpmconfigdir}/pythonbundles.py src/pip/_vendor/vendor.txt --compare-with '%{bundled 3}'
 
+# Verify we can at least run basic commands without crashing
+%{py3_test_envvars} %{buildroot}%{_bindir}/pip --help
+%{py3_test_envvars} %{buildroot}%{_bindir}/pip list
+%{py3_test_envvars} %{buildroot}%{_bindir}/pip show pip
+
+%if %{with tests}
 # Upstream tests
 # bash completion tests only work from installed package
 pytest_k='not completion'

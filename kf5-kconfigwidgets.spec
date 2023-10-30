@@ -5,7 +5,7 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for creating configuration dialogs
 
-License: GPLv2+ and LGPLv2+ and MIT
+License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

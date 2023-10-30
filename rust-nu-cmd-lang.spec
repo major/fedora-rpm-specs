@@ -5,7 +5,7 @@
 %global crate nu-cmd-lang
 
 Name:           rust-nu-cmd-lang
-Version:        0.80.0
+Version:        0.86.0
 Release:        %autorelease
 Summary:        Nushell's core language commands
 
@@ -34,6 +34,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,6 +47,102 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dataframe-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dataframe-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dataframe" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dataframe-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+extra-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+extra-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "extra" feature of the "%{crate}" crate.
+
+%files       -n %{name}+extra-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+mimalloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mimalloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mimalloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mimalloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sqlite-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sqlite-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sqlite" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sqlite-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+static-link-openssl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+static-link-openssl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "static-link-openssl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+static-link-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+trash-support-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+trash-support-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "trash-support" feature of the "%{crate}" crate.
+
+%files       -n %{name}+trash-support-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+wasi-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wasi-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wasi" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wasi-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+which-support-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+which-support-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "which-support" feature of the "%{crate}" crate.
+
+%files       -n %{name}+which-support-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

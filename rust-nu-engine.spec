@@ -5,7 +5,7 @@
 %global crate nu-engine
 
 Name:           rust-nu-engine
-Version:        0.80.0
+Version:        0.86.0
 Release:        %autorelease
 Summary:        Nushell's evaluation engine
 

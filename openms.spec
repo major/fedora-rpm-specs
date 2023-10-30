@@ -18,8 +18,9 @@ Obsoletes: python2-openms < 0:2.4.0-1
 
 Name:      openms
 Summary:   LC/MS data management and analyses
-Version:   3.0.0
-Release:   2%{?dist}
+Version:   3.1.0
+Epoch:     1
+Release:   %autorelease -p -e pre1
 License:   BSD
 URL:       http://www.openms.de/
 Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-Release%{version}.tar.gz
@@ -70,7 +71,7 @@ BuildRequires: texlive, texlive-a4wide, texlive-xtab
 BuildRequires: xorg-x11-server-Xvfb, gnuplot, gawk
 
 Requires: percolator%{?_isa}
-Requires: %{name}-data%{?_isa} = %{version}-%{release}
+Requires: %{name}-data%{?_isa} = 1:%{version}-%{release}
 Requires: R-core%{?_isa}
 
 # Remove -O0 flag for tests compiling
@@ -115,16 +116,17 @@ The TOPP tools are divided into several subgroups:
  - Peptide Property Prediction
  - Misc
 
-%package tools
-Summary: OpenMS tools
-Requires: %{name}-data%{?_isa} = %{version}-%{release}
-%description tools
-Besides TOPP, OpenMS offers a range of other tools. 
+%package utilities
+Summary: OpenMS utilities
+Requires: %{name}-data%{?_isa} = 1:%{version}-%{release}
+Obsoletes: %{name}-tools < 1:3.1.0-1
+%description utilities
+Besides TOPP, OpenMS offers a range of utilities. 
 They are not included in TOPP as they are not part of 
 typical analysis pipelines, but they still might be 
 very helpful to you.
 
-The UTILS tools are divided into several subgroups:
+The Utilities are divided into several subgroups:
  
  - Maintenance
  - Signal Processing and Preprocessing
@@ -153,8 +155,8 @@ BuildRequires: python3-biopython
 BuildRequires: python3-virtualenv
 BuildRequires: python3-pandas
 BuildRequires: python3-pytest
-Requires: python3-biopython%{?_isa}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires:      python3-biopython
+Requires:      %{name}%{?_isa} = 1:%{version}-%{release}
 
 %description -n python3-openms
 This package contains Python3 bindings for a large part of the OpenMS library
@@ -170,7 +172,7 @@ implemented in OpenMS, specifically those for file access
 
 %package devel
 Summary: OpenMS header files
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}%{?_isa} = 1:%{version}-%{release}
 %description devel
 OpenMS development files.
 
@@ -187,7 +189,6 @@ HTML documentation of OpenMS.
 %prep
 %autosetup -N -n OpenMS-Release%{version}
 
-dos2unix share/OpenMS/SIMULATION/FASTAProteinAbundanceSampling.py
 %patch -P 0 -p1 -b .backup
 
 # Remove invalid tags
@@ -203,6 +204,7 @@ mkdir -p build
 cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
  -DENABLE_UPDATE_CHECK:BOOL=OFF \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
+ -DENABLE_IPO:BOOL=ON \
  -DCMAKE_CXX_FLAGS_DEBUG:STRING="-DDEBUG -O0 -g %{__global_ldflags}" -DCMAKE_C_FLAGS_DEBUG:STRING="-DDEBUG -O0 -g %{__global_ldflags}" \
  -DCMAKE_BUILD_TYPE=Debug \
  -DBoost_IOSTREAMS_LIBRARY_DEBUG:FILEPATH=%{_libdir}/libboost_iostreams.so \
@@ -263,7 +265,7 @@ cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpver
 %if %{with check}
 %make_build all -C build
 %else
-%make_build OpenMS TOPP UTILS GUI -C build
+%make_build OpenMS TOPP GUI -C build
 %endif
 
 %if 0%{?with_pyOpenMS}
@@ -276,7 +278,7 @@ export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
 %{_bindir}/xvfb-run -a %make_install -C build
 
 # RHBZ#2231587
-ln -sfv %{_libdir}/libQt5QuickWidgets.so %{buildroot}%{_libdir}/OpenMS/libQt5QuickWidgets.so.5.15.10
+ln -sfv %{_libdir}/libQt5QuickWidgets.so %{buildroot}%{_libdir}/OpenMS/libQt5QuickWidgets.so.%(pkg-config --modversion Qt5WebEngine)
 ln -sfv %{_libdir}/libQt5QuickWidgets.so %{buildroot}%{_libdir}/OpenMS/libQt5QuickWidgets.so.5
 
 # Install executable tests
@@ -440,11 +442,8 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/FeatureLinkerLabeled
 %{_bindir}/FeatureLinkerUnlabeled
 %{_bindir}/FeatureLinkerUnlabeledQT
-%{_bindir}/CompNovo
-%{_bindir}/CompNovoCID
 %{_bindir}/MascotAdapter
 %{_bindir}/MascotAdapterOnline
-%{_bindir}/PepNovoAdapter
 %{_bindir}/XTandemAdapter
 %{_bindir}/SpecLibSearcher
 %{_bindir}/ConsensusID
@@ -456,8 +455,6 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/IDRTCalibration
 %{_bindir}/PeptideIndexer
 %{_bindir}/ProteinInference
-%{_bindir}/InclusionExclusionListCreator
-%{_bindir}/PrecursorIonSelector
 %{_bindir}/MRMMapper
 %{_bindir}/MetaProSIP
 %{_bindir}/OpenSwathDecoyGenerator
@@ -467,15 +464,10 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/OpenSwathFeatureXMLToTSV
 %{_bindir}/OpenSwathConfidenceScoring
 %{_bindir}/OpenSwathAssayGenerator
-%{_bindir}/PTModel
-%{_bindir}/PTPredict
-%{_bindir}/RTModel
-%{_bindir}/RTPredict
 %{_bindir}/GenericWrapper
 %{_bindir}/ExecutePipeline
 %{_bindir}/FeatureFinderIdentification
 %{_bindir}/FeatureFinderMultiplex
-%{_bindir}/FidoAdapter
 %{_bindir}/MRMTransitionGroupPicker
 %{_bindir}/MSGFPlusAdapter
 %{_bindir}/MetaboliteSpectralMatcher
@@ -498,7 +490,7 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_libdir}/cmake/OpenMS/OpenMSConfig.cmake
 %{_libdir}/cmake/OpenMS/OpenMSConfigVersion.cmake
 
-%files tools
+%files utilities
 %{_bindir}/AssayGeneratorMetabo
 %{_bindir}/ClusterMassTraces
 %{_bindir}/ClusterMassTracesByPrecursor
@@ -543,10 +535,6 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/CVInspector
 %{_bindir}/IDSplitter
 %{_bindir}/OpenSwathMzMLFileCacher
-%{_bindir}/FFEval
-%{_bindir}/LabeledEval
-%{_bindir}/RTEvaluation
-%{_bindir}/TransformationEvaluation
 %{_bindir}/Digestor
 %{_bindir}/DigestorMotif
 %{_bindir}/DecoyDatabase
@@ -558,8 +546,6 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/MRMPairFinder
 %{_bindir}/ImageCreator
 %{_bindir}/MassCalculator
-%{_bindir}/MSSimulator
-%{_bindir}/SvmTheoreticalSpectrumGeneratorTrainer
 %{_bindir}/DeMeanderize
 %{_bindir}/OpenSwathDIAPreScoring
 %{_bindir}/OpenSwathRewriteToFeatureXML
@@ -604,411 +590,4 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %endif
 
 %changelog
-* Mon Aug 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-2
-- Unbundle Qt5QuickWidgets libraries (RHBZ#2231587)
-
-* Mon Jul 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
-- Release 3.0.0
-- Set _smp_ncpus_max equal to 2 for all architectures
-- Disable LTO flags
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-0.1
-- Pre-release 3.0.0
-
-* Wed Feb 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.8.0-0.5
-- Fixed for GCC-13
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-0.4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 2.8.0-0.3
-- Rebuild for libsvm 3.3
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-0.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Mar 05 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.8.0-0.1
-- Pre-release 2.8.0
-- Patched for GCC-12
-- ExclusiveArch qt5_qtwebengine_arches
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Nov 28 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.7.0-2
-- Rebuild for hdf5 1.12.1
-- Disable Python binding
-
-* Sat Sep 18 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.7.0-1
-- Release 2.7.0
-- Tests disabled
-- Use bundled seqan (optimized for OpenMS)
-
-* Tue Aug 10 2021 Orion Poplawski <orion@nwra.com> - 2.6.0-11
-- Rebuild for hdf5 1.10.7
-
-* Sat Aug 07 2021 Jonathan Wakely <jwakely@redhat.com> - 2.6.0-10
-- Rebuilt for Boost 1.76
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jun 22 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-8
-- Patched for upstream bug #5381
-
-* Sat Jun 19 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-7
-- Release build
-- Enable Python binding (not in ARM and s390x)
-- Enable check
-
-* Wed Feb 17 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-6
-- Filter private libraries
-
-* Tue Feb 16 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-5
-- Remove fido-pi dependencies
-
-* Tue Feb 02 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-- Patch GLPK version
-
-* Fri Jan 22 2021 Jonathan Wakely <jwakely@redhat.com> - 2.6.0-3
-- Rebuilt for Boost 1.75
-
-* Sun Oct 25 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-2
-- Avoid skipping rpaths
-
-* Fri Oct 02 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.6.0-1
-- Release 2.6.0
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-7
-- Second attempt - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-- Enable cmake_in_source_build
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jun 25 2020 Orion Poplawski <orion@cora.nwra.com> - 2.5.0-5
-- Rebuild for hdf5 1.10.6
-
-* Tue Jun 02 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.5.0-4
-- Rebuild for boost-1.73
-
-* Fri May 01 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.5.0-3
-- Rebuild for coin-or-* updates
-
-* Tue Feb 25 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.5.0-2
-- Add Desktop file's categories
-
-* Tue Feb 25 2020 Antonio Trande <sagitter@fedoraproject.org> - 2.5.0-1
-- Release 2.5.0
-- Doc sub-package becomes arch-dependent
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Sep 08 2019 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-7
-- Rebuild for autowrap 0.19.1
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jun 27 2019 Jerry James <loganjerry@gmail.com> - 2.4.0-5
-- Rebuild for coin-or package updates
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Jan 30 2019 Jonathan Wakely <jwakely@redhat.com> - 2.4.0-3
-- Rebuilt for Boost 1.69
-
-* Tue Nov 06 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-2
-- Add rpmlintrc file
-
-* Tue Oct 30 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-1
-- Release 2.4.0
-- Disable Python3 binding
-- Drop Python2 binding
-- Use Qt5
-
-* Wed Aug 22 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-14
-- Patched for removing unrecognized command line options
-
-* Wed Aug 22 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-13
-- Deprecate Python2 binding of fedora 30+
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 2.3.0-11
-- Rebuilt for Python 3.7
-
-* Mon May 21 2018 Jerry James <loganjerry@gmail.com> - 2.3.0-10
-- Rebuild for glpk 4.65
-
-* Wed Mar 07 2018 Adam Williamson <awilliam@redhat.com> - 2.3.0-9
-- Rebuild to fix GCC 8 mis-compilation
-  See https://da.gd/YJVwk ("GCC 8 ABI change on x86_64")
-
-* Mon Feb 12 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-8
-- Fix XML file's permissions
-
-* Sun Feb 11 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-7
-- Compile pyOpenMS
-- Set Python2 required packages
-- Fix R scripts shebang
-
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Feb 05 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-5
-- Rebuild for boost-1.66
-- Remove obsolete scriptlets
-
-* Wed Jan 10 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-4
-- Set maximum required version of seqan
-
-* Fri Jan 05 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-3
-- Tests disabled
-
-* Fri Jan 05 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-2
-- Fix R script
-
-* Wed Jan 03 2018 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-1
-- Update to OpenMS-2.3.0
-- Drop obsolete GCC7 patches
-
-* Thu Dec 21 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.2.0-7
-- Appdata file moved into metainfo data directory
-
-* Mon Nov 13 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.2.0-6
-- Rebuild OpenMS-2.2.0
-- Remove obsolete patch
-
-* Fri Oct 13 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.2.0-5
-- Rebuild for wildmagic5-5.17
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon Jul 24 2017 Björn Esser <besser82@fedoraproject.org> - 2.2.0-3
-- Rebuilt for Boost 1.64
-
-* Sun Jul 23 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.2.0-2
-- Rebuild for boost-1.64
-
-* Wed Jun 28 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.2.0-1
-- Update to 2.2.0
-- Include patch for GCC-7
-
-* Sat Jun 10 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.1.0-9.20170131gitbde813
-- Rebuild for wildmagic5-5.15
-
-* Fri Apr 14 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.1.0-8.20170131gitbde813
-- Rebuild for biopython-1.69
-
-* Wed Apr 05 2017 Jerry James <loganjerry@gmail.com> - 2.1.0-7.20170131gitbde813
-- Rebuild for glpk 4.61
-
-* Tue Feb 07 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.1.0-6.20170131gitbde813
-- Rebuild for boost-1.63
-
-* Tue Jan 31 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.1.0-5.20170131gitbde813
-- Rebuild for GCC-7.0.1
-- Add CMAKE_CXX_COMPILER_VERSION option
-
-* Fri Jan 27 2017 Jonathan Wakely <jwakely@redhat.com> - 2.1.0-4
-- Rebuilt for Boost 1.63
-
-* Fri Jan 06 2017 Antonio Trande <sagitter@fedoraproject.org> - 2.1.0-3
-- Fix desktop icons
-
-* Wed Dec 28 2016 Rich Mattes <richmattes@gmail.com> - 2.1.0-2
-- Rebuild for eigen3-3.3.1
-
-* Tue Nov 22 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.1.0-1
-- Update to 2.1.0 (stable release)
-- Drop old patch
-
-* Thu Nov 10 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.1.0-0.1
-- Update to 2.1.0 (pre-release)
-- Patched to fix PyOpenMS
-- Python bindings disabled (upstream issue #2286)
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.0-35.20160121git6f51b3
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Fri Jun 24 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-34.20160121git6f51b3
-- Rebuild for Biopython-1.67
-
-* Tue May 17 2016 Jonathan Wakely <jwakely@redhat.com> - 2.0.0-33.20160121git6f51b3
-- Rebuilt for linker errors in boost (#1331983)
-
-* Sat Mar 12 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-32.20160121git6f51b3
-- Rebuild for GLPK-4.59
-
-* Fri Feb 19 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-31.20160121git6f51b3
-- Rebuild for GLPK-4.58
-
-* Mon Feb 15 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-30.20160121git6f51b3
-- Macros removed from Obsolets tags
-
-* Sun Feb 14 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-29.20160121git6f51b3
-- PyOpenMS disabled on x86 arches
-- Remove invalid tags from appdata files
-
-* Sun Feb 14 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-28.20160121git6f51b3
-- Specified the number of Make jobs
-- Patched for GCC-6
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-27.20160121git6f51b3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Jan 27 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-26.20160121git6f51b3
-- Fixed package dependency
-
-* Tue Jan 26 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-25.20160121git6f51b3
-- Data sub-package arched
-
-* Mon Jan 25 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-24.20160121git6f51b3
-- Disabled HAS_XSERVER option
-
-* Fri Jan 22 2016 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-23.20160121git6f51b3
-- Update to commit #6f51b3
-- Excluded some tests
-- Added python provides macros
-- Rebuild for wildmagic5-5.14
-- Fixed Python2 sub-package
-- Removed tutorials
-
-* Thu Dec 10 2015 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-22.20151210gitf19f8b
-- Update to commit #f19f8b
-- Python3 binding
-- Added python-biopython as BR package
-
-* Wed Nov 04 2015 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-21.20150529git88dc25
-- Hardened builds on <F23
-
-* Thu Aug 27 2015 Jonathan Wakely <jwakely@redhat.com> - 2.0.0-20.20150529git88dc25
-- Rebuilt for Boost 1.59
-
-* Wed Jul 29 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.0-19.20150529git88dc25
-- Rebuilt for https://fedoraproject.org/wiki/Changes/F23Boost159
-
-* Fri Jul 24 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-18.20150529git88dc25
-- Rebuild again
-
-* Sat Jul 18 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-17.20150529git88dc25
-- Rebuild for Boost upgrade to 1.58.0
-
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.0-16.20150529git88dc25
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Jun 12 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-15.20150529git88dc25
-- memleak test excluded again
-
-* Tue Jun 09 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-14.20150529git88dc25
-- Exclude TOPP_OpenSwathAssayGenerator_test_1_out1 test
-
-* Tue Jun 09 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-13.20150529git88dc25
-- Update to the post-release #88dc25
-- Packaged MetaProSIP and OpenSwathAssayGenerator
-- Obsolete wrong python2-openms 2.0.0
-- Replaced XTandem with fido-pi
-
-* Fri May 15 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-12
-- Bug fix in upstream desktop files
-
-* Fri May 15 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-11
-- Fix PeakPickerWavelet test
-- Set environment variables in desktop files
-
-* Fri May 08 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-10
-- Excluded TOPP_XTandemAdapter_ test
-
-* Fri May 08 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-9
-- Rebuild after XTandem update
-- Try to execute XTandem test
-
-* Sat May 02 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-8
-- memleaks test excluded
-
-* Sat May 02 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-7
-- mzML unittests patched
-- PyOpenMS compiled without parallel make
-- PyOpenMS tests disabled
-
-* Fri May 01 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-6
-- Source archive re-compressed by upstream
-- Sym-linked the library pyopenms/libSuperHirn.so
-
-* Fri May 01 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-5
-- SPEC cleanups
-
-* Thu Apr 30 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-4
-- Patched pyOpenMS version definition
-- Removed 'pyopenms_bdist_egg' make target
-
-* Thu Apr 30 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-3
-- PyOpenMS is still compiled against Python2 on Linux
-
-* Mon Apr 13 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-2
-- Fix make test
-
-* Sat Apr 11 2015 Antonio Trande <sagitter@fedoraproject.org> 2.0.0-1
-- Update to the release 2.0
-
-* Mon Jan 26 2015 Petr Machata <pmachata@redhat.com> - 1.11.1-12
-- Rebuild for boost 1.57.0
-
-* Sat Dec 13 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-11
-- Parallel make disabled
-
-* Fri Dec 12 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-10
-- Parallel make just on Fedora 20+
-
-* Mon Dec 08 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-9
-- Fixed unused-direct-shlib-dependency warnings
-- Fixed residual spurious executable permissions
-- Avoided python shared object stripping
-- Added a patch (Patch5) to detect additional QT libraries
-
-* Fri Dec 05 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-8
-- Fixed INIFileEditor .desktop file
-- Fixed some spurious executable permissions
-
-* Fri Dec 05 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-7
-- Fixed some cmake options
-- Fixed %%post/%%postun/%%posttrans
-- Added TOPP and Tutorial tests
-- Fixed iCPP warnings of the PNG files
-- Built a noarch data sub-package
-- python-openms's data file directory linked to /usr/share/OpenMS  
-- TOPP tests disabled (some of them fail)
-
-* Tue Oct 07 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-6
-- Added conditional arch macro
-
-* Mon Oct 06 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-5
-- Included XTandem BR
-
-* Mon Sep 29 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-4
-- Added cmake's options for TBB
-- Added nested C++ templates patch (Patch4)
-
-* Mon Jun 30 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-3
-- Added setuptools patch
-- Added library patch
-- pyOpenMS building enabled
-- Performed pyOpenMS tests
-- Added .desktop files and related .xpm icons
-
-* Sun Jun 01 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-2
-- Check disabled
-- pyOpenMS building disabled
-- Added a macro for pyOpenMS
-
-* Thu May 22 2014 Antonio Trande <sagitter@fedoraproject.org> 1.11.1-1
-- First package
+%autochangelog

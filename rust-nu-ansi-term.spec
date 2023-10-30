@@ -5,7 +5,7 @@
 %global crate nu-ansi-term
 
 Name:           rust-nu-ansi-term
-Version:        0.47.0
+Version:        0.49.0
 Release:        %autorelease
 Summary:        Library for ANSI terminal colors and styles (bold, underline)
 
@@ -59,6 +59,18 @@ This package contains library source intended for building other packages which
 use the "derive_serde_style" feature of the "%{crate}" crate.
 
 %files       -n %{name}+derive_serde_style-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gnu_legacy-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gnu_legacy-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gnu_legacy" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gnu_legacy-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

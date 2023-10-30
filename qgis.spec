@@ -1,13 +1,13 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.32.3
+Version:        3.34.0
 Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
-#                QGIS license                 the bundled JS code (see %%{name}-%%{version}-vendor-licenses.txt)
-License:        (GPLv3+ with exceptions) and (MIT and ISC and BSD and ASL 2.0 and CC-BY and Python and MPLv2.0)
+#               QGIS license         the bundled JS code (see %%{name}-%%{version}-vendor-licenses.txt)
+License:        GPL-2.0-or-later AND MIT AND ISC AND BSD-3-Clause AND BSD-2-Clause AND Apache-2.0 AND MIT AND (MIT OR CC0-1.0) AND Unlicense AND (MIT OR Apache-2.0) AND CC0-1.0 AND (MIT AND CC-BY-3.0) AND Python-2.0.1 AND CC-BY-4.0 AND (BSD-3-Clause OR GPL-2.0-only) AND (WTFPL OR MIT) AND (MIT AND BSD-3-Clause) AND CC-BY-3.0 AND MPL-2.0
 URL:            http://www.qgis.org
 
 Source0:        http://qgis.org/downloads/%{name}-%{version}.tar.bz2
@@ -30,11 +30,10 @@ Patch1:         %{name}-yarn-offline.patch
 Patch2:         %{name}-qwt.patch
 # Fix GCC13 FTBFS
 Patch3:         %{name}-gcc13.patch
-# Adapt PDAL deteection for PDAL-2.6.0
-Patch4:         %{name}-pdal.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
+BuildRequires:  draco-devel
 BuildRequires:  exiv2-devel
 BuildRequires:  expat-devel
 BuildRequires:  fcgi-devel
@@ -310,6 +309,12 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Oct 28 2023 Sandro Mani <manisandro@gmail.com> - 3.34.0-2
+- Rebuild (grass)
+
+* Fri Oct 27 2023 Sandro Mani <manisandro@gmail.com> - 3.34.0-1
+- Update to 3.34.0
+
 * Sun Oct 15 2023 Sandro Mani <manisandro@gmail.com> - 3.32.3-2
 - Rebuild (PDAL)
 

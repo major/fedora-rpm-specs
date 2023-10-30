@@ -5,7 +5,7 @@
 %global crate nu-table
 
 Name:           rust-nu-table
-Version:        0.80.0
+Version:        0.86.0
 Release:        %autorelease
 Summary:        Nushell table printing
 

@@ -5,7 +5,7 @@
 %global crate nu-plugin
 
 Name:           rust-nu-plugin
-Version:        0.80.0
+Version:        0.86.0
 Release:        %autorelease
 Summary:        Functionality for building Nushell plugins
 

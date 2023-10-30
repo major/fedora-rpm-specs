@@ -5,7 +5,7 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 2 integration module to perform actions as privileged user
 
-License: LGPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

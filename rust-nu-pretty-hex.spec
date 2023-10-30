@@ -5,7 +5,7 @@
 %global crate nu-pretty-hex
 
 Name:           rust-nu-pretty-hex
-Version:        0.80.0
+Version:        0.86.0
 Release:        %autorelease
 Summary:        Pretty hex dump of bytes slice in the common style
 

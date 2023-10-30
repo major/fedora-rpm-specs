@@ -4,7 +4,7 @@
 %global crate lscolors
 
 Name:           rust-lscolors
-Version:        0.14.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Colorize paths using the LS_COLORS environment variable
 
@@ -13,10 +13,10 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/lscolors
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * turn on stripping, needed for debug packages
+# * turn off stripping, needed for debug packages
 Patch:          lscolors-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 Colorize paths using the LS_COLORS environment variable.}
@@ -25,12 +25,17 @@ Colorize paths using the LS_COLORS environment variable.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# MIT
+# MIT OR Apache-2.0
+License:        MIT AND (MIT OR Apache-2.0)
+# LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
 %license LICENSE-APACHE
 %license LICENSE-MIT
+%license LICENSE.dependencies
 %doc README.md
 %{_bindir}/lscolors
 
@@ -106,6 +111,8 @@ use the "nu-ansi-term" feature of the "%{crate}" crate.
 
 %build
 %cargo_build -f nu-ansi-term
+%{cargo_license_summary -f nu-ansi-term}
+%{cargo_license -f nu-ansi-term} > LICENSE.dependencies
 
 %install
 %cargo_install -f nu-ansi-term

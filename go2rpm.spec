@@ -1,11 +1,11 @@
 Name:           go2rpm
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Convert Go packages to RPM
 
 License:        MIT
 URL:            https://pagure.io/GoSIG/go2rpm
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 

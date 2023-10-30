@@ -59,7 +59,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -412,6 +412,9 @@ make check
 
 
 %changelog
+* Thu Oct 12 2023 Cristian Le <fedora@lecris.me> - 4.1.5-8
+- Added CMAKE_PREFIX_PATH to module file
+
 * Sat Sep 30 2023 Benson Muite <benson_muite@emailplus.org> - 4.1.5-7
 - Add include and cmake directories for development files for OpenMPI packages
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.4
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Ruby Modelling and Generator Framework
 License: MIT
 URL: https://github.com/mthiede/rgen
@@ -44,7 +44,8 @@ CONFIGURE_ARGS="--with-cflags='%{optflags}' --with-cxxflags='%{optflags}' $CONFI
 gem install \
         -V -N \
         --local \
-        --build-root . \
+        --install-dir .%{gem_dir} \
+        --no-user-install \
         --force \
         %{gem_name}-%{version}%{?prerelease}.gem
 
@@ -58,7 +59,10 @@ sed -i 's:\r::' %{buildroot}%{gem_instdir}/CHANGELOG
 
 %check
 pushd .%{gem_instdir}
-RUBYOPT=-rrubygems ruby test/rgen_test.rb ||:
+sed -i test/rgen_test.rb -e 's|minitest/autorun|minitest/unit|'
+grep -rl "MiniTest::" . | xargs sed -i 's|MiniTest::|Minitest::|'
+RUBYOPT=-rrubygems ruby test/rgen_test.rb 2>&1 | tee test-results.log
+grep -q "261 runs, 1715 assertions, 4 failures, 13 errors, 0 skips" test-results.log || false
 popd
 
 %files
@@ -77,6 +81,11 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sun Oct 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.4-11
+- Adjust gem_install macro change for ruby33
+- Adjust to recent Minitest 5.19+
+- Actually check test failure
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

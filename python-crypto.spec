@@ -7,7 +7,7 @@
 Summary:	Cryptography library for Python
 Name:		python-crypto
 Version:	2.6.1
-Release:	47%{?dist}
+Release:	48%{?dist}
 # Mostly LicenseRef-Fedora-Public-Domain apart from parts of HMAC.py and setup.py, which are PSF-2.0
 License:	LicenseRef-Fedora-Public-Domain AND PSF-2.0
 URL:		http://www.pycrypto.org/
@@ -26,6 +26,7 @@ Patch10:	python-crypto-2.6.1-python3only.patch
 Patch11:	python-crypto-2.6.1-no-distutils.patch
 Patch12:	python-crypto-2.6.1-SyntaxWarning.patch
 Patch13:	python-crypto-2.6.1-python3.12.patch
+Patch14:	python-crypto-2.6.1-python3.13.patch
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	gcc
@@ -116,6 +117,9 @@ rm -rf src/libtom
 # Fix Python 3.12 compatibility
 %patch -P 13
 
+# Fix Python 3.13 compatibility
+%patch -P 14
+
 %build
 %global optflags %{optflags} -fno-strict-aliasing
 %py3_build
@@ -139,6 +143,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} pct-speedtest.py
 %{python3_sitearch}/pycrypto-%{version}-py3.*.egg-info
 
 %changelog
+* Fri Oct 27 2023 Paul Howarth <paul@city-fan.org> - 2.6.1-48
+- Fix Python 3.13 compatibility (rhbz#2245851)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

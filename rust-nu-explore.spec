@@ -5,21 +5,21 @@
 %global crate nu-explore
 
 Name:           rust-nu-explore
-Version:        0.80.0
+Version:        0.86.0
 Release:        %autorelease
-Summary:        Nushell table printing
+Summary:        Nushell table pager
 
 License:        MIT
 URL:            https://crates.io/crates/nu-explore
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump ratatui dependency from 0.20.1 to 0.21
+# Lower ratatui requirement from 0.23 to 0.21
 Patch:          nu-explore-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Nushell table printing.}
+Nushell table pager.}
 
 %description %{_description}
 

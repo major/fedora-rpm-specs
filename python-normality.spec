@@ -43,7 +43,8 @@ sed -i '/\[tool\.setuptools_scm\]/a fallback_version = "%{version}"' pyproject.t
 %pyproject_save_files %{pypi_name}
 
 %check
-%pytest
+# https://github.com/pudo/normality/issues/20
+%pytest -k "not test_guess_encoding and not test_petro_iso_encoded and not test_predict_encoding"
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

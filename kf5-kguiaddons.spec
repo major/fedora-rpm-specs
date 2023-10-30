@@ -7,7 +7,7 @@ Version: 5.111.0
 Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with various classes on top of QtGui
 
-License: GPLv2+ and LGPLv2+
+License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

@@ -5,7 +5,7 @@
 %global crate nu-color-config
 
 Name:           rust-nu-color-config
-Version:        0.80.0
+Version:        0.86.0
 Release:        %autorelease
 Summary:        Color configuration code used by Nushell
 
@@ -60,6 +60,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+# Couldn't canonicalize dummy binaries path /builddir/build/target/release
+# Couldn't canonicalize fixtures path /builddir/build/tests/fixtures
 %cargo_test -- -- --skip style_computer::test_computable_style_closure_basic --skip style_computer::test_computable_style_closure_errors
 %endif
 

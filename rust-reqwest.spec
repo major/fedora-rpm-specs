@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          reqwest-fix-metadata-auto.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Higher level HTTP client library.}
@@ -60,6 +60,18 @@ This package contains library source intended for building other packages which
 use the "__internal_proxy_sys_no_cache" feature of the "%{crate}" crate.
 
 %files       -n %{name}+__internal_proxy_sys_no_cache-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+__rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+__rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "__rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+__rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+__tls-devel
@@ -182,6 +194,18 @@ use the "gzip" feature of the "%{crate}" crate.
 %files       -n %{name}+gzip-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+hyper-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hyper-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hyper-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hyper-rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+hyper-tls-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -266,6 +290,90 @@ use the "native-tls-crate" feature of the "%{crate}" crate.
 %files       -n %{name}+native-tls-crate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-native-certs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-native-certs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-native-certs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-native-certs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-pemfile-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-pemfile-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-pemfile" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-pemfile-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-tls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-tls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-tls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-tls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-tls-manual-roots-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-tls-manual-roots-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-tls-manual-roots" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-tls-manual-roots-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-tls-native-roots-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-tls-native-roots-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-tls-native-roots" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-tls-native-roots-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-tls-webpki-roots-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-tls-webpki-roots-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-tls-webpki-roots" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-tls-webpki-roots-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde_json-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -314,6 +422,18 @@ use the "tokio-native-tls" feature of the "%{crate}" crate.
 %files       -n %{name}+tokio-native-tls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+tokio-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tokio-socks-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -360,6 +480,18 @@ This package contains library source intended for building other packages which
 use the "trust-dns-resolver" feature of the "%{crate}" crate.
 
 %files       -n %{name}+trust-dns-resolver-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+webpki-roots-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+webpki-roots-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "webpki-roots" feature of the "%{crate}" crate.
+
+%files       -n %{name}+webpki-roots-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -13,17 +13,12 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.6.2
-Release:	2%{?dist}
+Version:	5.6.3
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
-
-#		https://github.com/xrootd/xrootd/pull/2087
-Patch0:		0001-Fix-spelling-errors-reported-by-lintian.patch
-#		https://github.com/xrootd/xrootd/issues/2088
-Patch1:		0002-Server-Fix-incorrect-patch-for-authfile-that-made-5..patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3
@@ -55,11 +50,6 @@ BuildRequires:	python3-pip
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-wheel
 BuildRequires:	python3-sphinx
-%if %{?fedora}%{!?fedora:0}
-BuildRequires:	python3-sphinx-mdinclude
-%else
-BuildRequires:	python3-m2r
-%endif
 %endif
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	python2-devel
@@ -83,6 +73,9 @@ BuildRequires:	davix-devel
 BuildRequires:	librados-devel
 BuildRequires:	libradosstriper-devel
 %endif
+BuildRequires:	cppunit-devel
+BuildRequires:	gtest-devel
+BuildRequires:	openssl
 
 Requires:	%{name}-server%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-selinux = %{epoch}:%{version}-%{release}
@@ -299,24 +292,15 @@ This package contains the API documentation of the xrootd libraries.
 
 %prep
 %setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
 . /opt/rh/devtoolset-7/enable
 %endif
 
-%if %{?fedora}%{!?fedora:0} >= 36
-# Mark some warnings from gcc 12 as not errors
-# These are likely bogus - hopefully they can be fixed in gcc updates
-%ifarch %{arm}
-%set_build_flags
-CXXFLAGS="${CXXFLAGS} -Wno-error=stringop-overflow"
-%endif
-%endif
-
 %cmake3 \
+    -DFORCE_ENABLED:BOOL=ON \
+    -DENABLE_TESTS:BOOL=ON \
 %if %{ceph}
     -DXRDCEPH_SUBMODULE:BOOL=ON \
 %endif
@@ -344,6 +328,13 @@ doxygen Doxyfile
 %cmake3_install
 
 rm -f %{buildroot}%{_libdir}/libXrdCephPosix.so
+
+rm -f %{buildroot}%{_bindir}/test-runner
+rm -f %{buildroot}%{_bindir}/xrdshmap
+rm -f %{buildroot}%{_libdir}/libXrdCephTests.so
+rm -f %{buildroot}%{_libdir}/libXrdClTestMonitor-5.so
+rm -f %{buildroot}%{_libdir}/libXrdClTests.so
+rm -f %{buildroot}%{_libdir}/libXrdClTestsHelper.so
 
 rm -f %{buildroot}%{python3_sitearch}/xrootd-*.*-info/direct_url.json
 rm -f %{buildroot}%{python3_sitearch}/xrootd-*.*-info/RECORD
@@ -436,6 +427,9 @@ cp -pr doxydoc/html %{buildroot}%{_pkgdocdir}
 
 cp -pr bindings/python/docs/build/html %{buildroot}%{_pkgdocdir}/python
 rm %{buildroot}%{_pkgdocdir}/python/.buildinfo
+
+%check
+%ctest3
 
 %ldconfig_scriptlets libs
 
@@ -698,6 +692,11 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Oct 27 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.3-1
+- Update to version 5.6.3
+- Drop patches accepted upstream or previously backported
+- Enable tests and add check section
+
 * Mon Sep 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.2-2
 - Backport fix for Authfile parsing regression
 

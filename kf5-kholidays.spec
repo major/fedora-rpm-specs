@@ -14,7 +14,7 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary: The KHolidays Library
 
-License: LGPLv2+ and GPLv3+
+License: BSD-2-Clause AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-2.0-or-later WITH Bison-exception-2.2
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

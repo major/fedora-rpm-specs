@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.3.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -172,7 +172,6 @@ find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 	--prefix=%{_libdir} \
 	--with-cxx \
 	--with-tiff \
-	--with-png \
 	--with-postgres \
 %if 0%{?rhel} > 7
 	--with-mysql=no \
@@ -196,7 +195,6 @@ find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 	--with-regex \
 	--with-openmp \
 	--with-gdal=%{_bindir}/gdal-config \
-	--with-wxwidgets=%{_bindir}/wx-config \
 	--with-geos=%{_bindir}/geos-config \
 	--with-netcdf=%{_bindir}/nc-config \
 	--with-mysql-includes=%{_includedir}/mysql \
@@ -338,8 +336,11 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sat Oct 28 2023 Markus Neteler <neteler@mundialis.de> 8.3.1-2
+- fix obsolete configure parameters
+
 * Thu Oct 26 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 8.3.1-1
-- Update to 8.3.1 (#2246359)
+- Update to GRASS GIS 8.3.1 (#2246359)
 
 * Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 8.3.0-4
 - Rebuild (PDAL)

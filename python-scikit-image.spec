@@ -3,8 +3,8 @@
 %global srcname scikit-image
 
 Name: python-scikit-image
-Version: 0.21.0
-Release: 4%{?dist}
+Version: 0.22.0
+Release: 2%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -49,6 +49,7 @@ BuildRequires: %{py3_dist pytest}
 BuildRequires: %{py3_dist pytest-localserver}
 BuildRequires: %{py3_dist matplotlib}
 BuildRequires: %{py3_dist pooch}
+BuildRequires: %{py3_dist numpydoc}
 %endif
 Obsoletes: %{srcname}-tools < 0.20.0
 
@@ -98,6 +99,7 @@ pushd %{buildroot}/%{python3_sitearch}
   --deselect="skimage/data/tests/test_data.py::test_vortex" \
   --deselect="skimage/measure/tests/test_blur_effect.py::test_blur_effect_3d" \
   --deselect="skimage/registration/tests/test_masked_phase_cross_correlation.py::test_masked_registration_3d_contiguous_mask" \
+  --deselect="skimage/io/tests/test_imageio.py::TestSave::test_imsave_roundtrip[shape1-uint16]" \
 %ifarch i686
   --deselect="skimage/measure/tests/test_fit.py::test_ellipse_parameter_stability" \
   --deselect="skimage/util/tests/test_regular_grid.py::test_regular_grid_2d_8" \
@@ -118,6 +120,9 @@ popd
 
 
 %changelog
+* Sat Oct 28 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.22.0-2
+- New upstream source
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

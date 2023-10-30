@@ -5,10 +5,10 @@
 
 Name:           cmatrix
 Version:        2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A scrolling 'Matrix'-like screen
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/abishekvashok/%{name}
 Source0:        https://github.com/abishekvashok/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}-tty
@@ -89,6 +89,9 @@ fi
 
 
 %changelog
+* Sat Oct 28 2023 Didier Fabert <didier.fabert@gmail.com> - 2.0-7
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

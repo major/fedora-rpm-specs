@@ -35,7 +35,7 @@
 %endif
 
 Name:           notmuch
-Version:        0.38
+Version:        0.38.1
 Release:        %autorelease
 Summary:        System for indexing, searching, and tagging email
 License:        GPL-3.0-or-later
@@ -49,6 +49,7 @@ Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
 
 BuildRequires:  make
 BuildRequires:  bash-completion
+BuildRequires:  desktop-file-utils
 BuildRequires:  emacs
 BuildRequires:  emacs-el
 BuildRequires:  emacs-nox
