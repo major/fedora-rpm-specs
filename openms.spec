@@ -478,6 +478,7 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/IDScoreSwitcher
 %{_bindir}/MzMLSplitter
 %{_bindir}/LuciphorAdapter
+%{_bindir}/SageAdapter
 %{_bindir}/DatabaseFilter
 %{_bindir}/RNPxlSearch
 %{_metainfodir}/*.appdata.xml
@@ -564,16 +565,16 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 
 %files data
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
-%license LICENSE
+%license LICENSE*
 %{_datadir}/OpenMS/
 
 %files doc
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
-%license LICENSE
+%license LICENSE*
 %doc html
 
 %files devel
-%license LICENSE
+%license LICENSE*
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
 %if %{with check}
 %{_bindir}/*_test
@@ -582,8 +583,7 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 
 %if 0%{?with_pyOpenMS}
 %files -n python3-openms
-%license src/pyOpenMS/License.txt
-%doc src/pyOpenMS/FOR_DEVELOPERS
+%license License.txt
 %doc src/pyOpenMS/README_WRAPPING_NEW_CLASSES
 %{python3_sitearch}/pyopenms/
 %{python3_sitearch}/pyopenms-*.egg-info/

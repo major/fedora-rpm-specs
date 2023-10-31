@@ -5,11 +5,8 @@ Version: 23.08.2
 Release: 1%{?dist}
 Summary: A KDE compact disc library
 
-# source code contains bundled workman library but we consider it as a part of the
-# code as there's no standalone workman lib, it's not used by any other project and
-# maintainer develops it in kde git in sync with libkcompactdisc
-# wmlib is LGPLv2+, rest is LGPLv2+ and GPLv2+
-License: LGPLv2+ and GPLv2+
+# License for this library is very nebulous.
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://www.kde.org/applications/multimedia/
 
 %global revision %(echo %{version} | cut -d. -f3)

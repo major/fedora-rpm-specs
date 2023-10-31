@@ -12,7 +12,7 @@ Version: 23.08.2
 Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
-License: LGPLv2+
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global revision %(echo %{version} | cut -d. -f3)

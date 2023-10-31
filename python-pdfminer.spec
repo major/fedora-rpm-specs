@@ -43,7 +43,14 @@ Summary:        Tool for extracting information from PDF documents
 #       converted from
 #       https://partners.adobe.com/public/developer/en/opentype/glyphlist.txt
 #       under the Adobe Glyph List License
-License:        MIT AND LicenseRef-Fedora-Public-Domain AND APAFML AND BSD-3-Clause AND (Apache-2.0 AND MIT) AND Adobe-Glyph
+License:        %{shrink:
+                MIT AND
+                LicenseRef-Fedora-Public-Domain AND
+                APAFML AND
+                BSD-3-Clause AND
+                (Apache-2.0 AND MIT) AND
+                Adobe-Glyph
+                }
 URL:            https://github.com/pdfminer/pdfminer.six
 # This has the samples/ directory stripped out. While upstream claims the
 # sample PDFs are “freely distributable”, they have unclear or unspecified

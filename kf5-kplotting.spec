@@ -6,7 +6,7 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon for plotting
 
-License:        GPLv2+ and LGPLv2+
+License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

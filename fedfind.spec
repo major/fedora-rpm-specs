@@ -1,7 +1,7 @@
 %global srcname fedfind
 
 Name:           fedfind
-Version:        5.1.2
+Version:        5.1.3
 Release:        1%{?dist}
 Summary:        Fedora compose and image finder
 
@@ -60,6 +60,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Sun Oct 29 2023 Adam Williamson <awilliam@redhat.com> - 5.1.3-1
+- New release 5.1.3: adjust for a Python 3.12 deprecation
+
 * Thu Aug 31 2023 Adam Williamson <awilliam@redhat.com> - 5.1.2-1
 - New release 5.1.2: handle composes with no images.json
 

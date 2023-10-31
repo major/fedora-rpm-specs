@@ -126,6 +126,8 @@ Requires: redhat-lsb-desktop%{?_isa} = %{version}-%{release}
 Requires: redhat-lsb-languages = %{version}-%{release}
 Requires: redhat-lsb-printing = %{version}-%{release}
 Obsoletes: redhat-lsb-trialuse <= 5
+Obsoletes: redhat-lsb-submod-multimedia <= 5
+Obsoletes: redhat-lsb-submod-security <= 5
 
 Provides: lsb = %{version}-%{release}
 Provides: lsb-%{archname} = %{version}-%{release}
@@ -339,13 +341,7 @@ Requires: /usr/bin/fc-match
 Requires: cairo%{?_isa}
 Requires: freetype%{?_isa}
 Requires: libjpeg-turbo%{?_isa}
-
-%ifarch %{ix86} ppc s390 arm
-Requires: libpng12.so.0
-%endif
-%ifarch x86_64 ppc64 s390x aarch64 ppc64le
-Requires: libpng12.so.0()(64bit)
-%endif
+Requires: libpng12.so.0%{?_isa}
 Requires: libpng%{?_isa}
 Requires: libXft%{?_isa}
 Requires: libXrender%{?_isa}

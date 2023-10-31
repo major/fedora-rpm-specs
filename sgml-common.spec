@@ -2,11 +2,11 @@
 
 Name: sgml-common
 Version: 0.6.3
-Release: 61%{?dist}
+Release: 62%{?dist}
 
 Summary: Common SGML catalog and DTD files
 
-License: GPL+
+License: GPL-1.0-or-later
 
 BuildArch: noarch
 
@@ -195,6 +195,9 @@ fi
 %{_datadir}/xml/datatypes.dtd
 
 %changelog
+* Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 0.6.3-62
+- Update license tag to the SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

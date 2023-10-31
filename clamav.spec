@@ -25,7 +25,7 @@
 
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
-Version:    1.0.2
+Version:    1.0.4
 Release:    1%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
@@ -50,7 +50,7 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-62.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-26894.cvd
+Source11:   daily-27075.cvd
 #http://database.clamav.net/bytecode.cvd
 Source12:   bytecode-334.cvd
 #for update
@@ -250,7 +250,7 @@ This package contains files which are needed to run the clamav-milter.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prerelease}
-sed -i -e 's/cbindgen = "0.20"/cbindgen = "0.24"/' -e '/^bindgen *=/s/= .*/= "0.63"/' libclamav_rust/Cargo.toml
+sed -i -e '/cbindgen/s/version = *"0.20"/version = "0.24"/' -e '/^bindgen *=/s/= .*/= "0.63"/' libclamav_rust/Cargo.toml
 %cargo_prep
 cd libclamav_rust
 rm -r .cargo
@@ -495,7 +495,6 @@ exit 0
 %{_unitdir}/clamonacc.service
 %{_unitdir}/clamav-clamonacc.service
 %attr(0750,root,root) %dir %{quarantinedir}
-%{_pkgdocdir}/html/
 
 
 %files lib
@@ -530,7 +529,7 @@ exit 0
 
 %files doc
 %license COPYING
-%doc docs/html
+%{_pkgdocdir}/html/
 
 
 %files freshclam
@@ -568,6 +567,10 @@ exit 0
 
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 1.0.4-1
+- Update to 1.0.4
+- Remove docs again from main package (bz#2230512)
+
 * Fri Aug 18 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-1
 - Update to 1.0.2 CVE-2023-20197 (bz#2232508)
 

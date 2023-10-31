@@ -7,7 +7,7 @@ Epoch:   1
 Version: 5.27.9
 Release: 1%{?dist}
 
-License: GPLv2
+License: CC0-1.0 AND GPL-2.0-or-later
 URL:     https://cgit.kde.org/%{base_name}.git
 
 %global revision %(echo %{version} | cut -d. -f3)

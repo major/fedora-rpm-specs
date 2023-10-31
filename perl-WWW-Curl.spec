@@ -14,6 +14,8 @@ Patch2:         WWW-Curl-4.17-Adapt-to-changes-in-cURL-7.69.0.patch
 Patch3:         WWW-Curl-4.17-Adapt-to-curl-7.87.0.patch
 # Workound a bug in cURL 7.87.0, bug #2160057, CPAN RT#145992
 Patch4:         WWW-Curl-4.17-Work-around-a-macro-bug-in-curl-7.87.0.patch
+# Workound a bug in WWW::CURL 4.17, bug #2245689, GH #9
+Patch5:         WWW-Curl-4.17-add-back-CURLOPT_RESOLV-support.patch
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -38,16 +40,11 @@ BuildRequires:  libcurl-devel
 WWW::Curl is a Perl extension interface for libcurl.
 
 %prep
-%setup -q -n WWW-Curl-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%autosetup -n WWW-Curl-%{version}
 rm -rf inc && sed -i -e '/^inc\//d' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -77,6 +74,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Oct 29 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 4.17-36
+- Add back support for CURLOPT_RESOLV
+- Use %%autosetup to apply all patches
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.17-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

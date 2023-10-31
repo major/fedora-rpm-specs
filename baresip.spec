@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.5.1
+Version:        3.6.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -17,7 +17,7 @@ BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 3.5.1
+BuildRequires:  libre-devel >= 3.6.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -444,7 +444,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.9*
+%{_libdir}/lib%{name}.so.10*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -584,6 +584,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sun Oct 29 2023 Robert Scheck <robert@fedoraproject.org> 3.6.0-1
+- Upgrade to 3.6.0 (#2244802)
+
 * Sun Sep 17 2023 Robert Scheck <robert@fedoraproject.org> 3.5.1-1
 - Upgrade to 3.5.1 (#2238647)
 

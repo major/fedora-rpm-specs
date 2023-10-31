@@ -1,4 +1,12 @@
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 
 # openmpi3 only exists in RHEL7
 # and not on ppc ppc64
@@ -45,7 +53,7 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 # This is freely distributable without any restrictions.
 License: Public Domain
 URL: http://www.netlib.org/scalapack/
@@ -330,9 +338,9 @@ This package contains static libraries for ScaLAPACK, compiled against openmpi3.
 
 %prep
 %setup -q -c -n %{name}-%{version}
-%patch1 -p1 -b .version
-%patch2 -p1 -b .picfix
-%patch3 -p1 -b .fix57
+%patch -P1 -p1 -b .version
+%patch -P2 -p1 -b .picfix
+%patch -P3 -p1 -b .fix57
 
 for i in %{?with_mpich:mpich} %{?with_openmpi:openmpi} %{?with_openmpi3:openmpi3}; do
   cp -a %{name}-%{version} %{name}-%{version}-$i
@@ -401,7 +409,9 @@ cd %{name}-%{version}
 cp -f README ../
 
 # Fixup .pc files
+%if %{with openmpi}
 sed -i 's|mpi|ompi|g' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
+%endif
 
 %files common
 %doc README
@@ -448,6 +458,9 @@ sed -i 's|mpi|ompi|g' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
 %endif
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 2.2.0-7
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 2.2.0-6
 - Set build_type_safety_c to 0 (#2178710)
 

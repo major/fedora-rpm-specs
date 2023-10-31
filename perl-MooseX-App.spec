@@ -1,16 +1,13 @@
-%global cpan_version 1.42
+%global cpan_version 1.43
 
 Name:           perl-MooseX-App
 # Keep 2-digit precision
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Write user-friendly command line apps with even less suffering
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-App
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAROS/MooseX-App-%{cpan_version}.tar.gz
-# Adapt to Perl 5.38.0, bug #2223530, proposed to an upstream,
-# <https://github.com/maros/MooseX-App/issues/69>
-Patch0:         MooseX-App-1.42-Remove-given-when-and-smartmatch-operators.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -94,7 +91,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{make_build} test
 
 %files
-%license LICENCE
+%license LICENSE
 %doc Changes README.md TODO
 %dir %{perl_vendorlib}/MooseX
 %{perl_vendorlib}/MooseX/App
@@ -103,6 +100,11 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_mandir}/man3/MooseX::App::*
 
 %changelog
+* Sun Oct 29 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.43-1
+- Update to 1.43
+- Drop upstreamed patch
+- Use LICENSE file instead of LICENCE
+
 * Tue Aug 08 2023 Petr Pisar <ppisar@redhat.com> - 1.42-7
 - Adapt to Perl 5.38.0 (bug #2223530)
 - Convert a license tag to SPDX

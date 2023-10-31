@@ -1,6 +1,16 @@
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
+
 Name:			orsa
 Version:		0.7.0
-Release:		61%{?dist}
+Release:		62%{?dist}
 Summary:		Orbit Reconstruction, Simulation and Analysis
 
 License:		GPLv2+ 
@@ -64,6 +74,7 @@ Requires:	%{name}-headers = %{version}-%{release}
 %description devel
 This package contains development files for %{name}.
 
+%if %{with openmpi}
 %package openmpi
 Summary:	A build of %{name} with support for OpenMPI
 
@@ -82,6 +93,7 @@ Requires: %{name}-headers = %{version}-%{release}
 %description openmpi-devel
 This package contains development files for a build of %{name}
  with support for OpenMPI.
+%endif
 
 %package mpich
 Summary:	A build of %{name} with support for MPICH MPI
@@ -169,6 +181,7 @@ export CXX=mpicxx
 export FC=mpif90
 export F77=mpif77
 
+%if %{with openmpi}
 ################################
 echo -e "\n##############################\nNow making the OpenMPI version\n##############################\n"
 ################################
@@ -176,6 +189,7 @@ echo -e "\n##############################\nNow making the OpenMPI version\n#####
 %{_openmpi_load}
 WITH_MPI=--with-mpi %dobuild
 %{_openmpi_unload}
+%endif
 
 ################################
 echo -e "\n##############################\nNow making the MPICH version\n##############################\n"
@@ -189,11 +203,13 @@ WITH_MPI=--with-mpi %dobuild
 %make_install -C serial CPPROG="cp -p"
 rm %{buildroot}%{_libdir}/{liborsa.la,libxorsa.la}
 
+%if %{with openmpi}
 # Install OpenMPI version
 %{_openmpi_load}
 %make_install -C $MPI_COMPILER CPPROG="cp -p"
 rm %{buildroot}$MPI_LIB/{liborsa.la,libxorsa.la}
 %{_openmpi_unload}
+%endif
 
 # Install MPICH version
 %{_mpich_load}
@@ -212,6 +228,7 @@ rm %{buildroot}$MPI_LIB/{liborsa.la,libxorsa.la}
 %files headers
 %{_includedir}/*
 
+%if %{with openmpi}
 %files openmpi
 %{openmpi_lib}/liborsa.so.*
 %{openmpi_lib}/libxorsa.so.*
@@ -219,6 +236,7 @@ rm %{buildroot}$MPI_LIB/{liborsa.la,libxorsa.la}
 
 %files openmpi-devel
 %{openmpi_lib}/*.so
+%endif
 
 %files mpich
 %{mpich_lib}/liborsa.so.*
@@ -233,6 +251,9 @@ rm %{buildroot}$MPI_LIB/{liborsa.la,libxorsa.la}
 %doc DEVELOPERS ORSA_MPI
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 0.7.0-62
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

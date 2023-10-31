@@ -2,12 +2,12 @@
 
 Name:           flam3
 Version:        3.1.1
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Programs to generate and render cosmic recursive fractal flames
 %forgemeta
 License:        GPL-3.0-only
 URL:            http://www.flam3.com/
-Source0:        %{forgesource}
+Source0:        %forgesource
 
 BuildRequires:  gcc
 BuildRequires:  chrpath
@@ -40,7 +40,7 @@ package contains a header file for C, a library, and a pkgconfig file.
 
 
 %prep
-%setup -qn %{name}-%{version}
+%forgeautosetup -p1
 
 
 %build
@@ -73,10 +73,4 @@ chrpath --delete %{buildroot}%{_bindir}/flam3-*
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 %autochangelog

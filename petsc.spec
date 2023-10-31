@@ -31,7 +31,15 @@
 %endif
 
 %bcond_without mpich
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
 %bcond_without arch64
@@ -442,7 +450,6 @@ Requires:   openmpi-devel%{?_isa} = %{epoch}:%{openmpiversion}
 Requires:   hdf5-openmpi-devel%{?_isa}
 %description openmpi-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
-%endif
 
 %if %{with python}
 %package -n     python3-%{name}-openmpi
@@ -473,35 +480,7 @@ Provides:       %{pymodule_name}-openmpi = 0:%{pymodule_version}-%{release}
 %description -n python3-%{name}-openmpi
 This package provides Python3 bindings for OpenMPI PETSc,
 the Portable, Extensible Toolkit for Scientific Computation.
-
-%package -n     python3-%{name}-mpich
-Summary:        Python3 bindings for MPICH PETSc
-%{?python_provide:%python_provide python3-%{name}-mpich}
-
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
-BuildRequires:  hdf5-mpich-devel
-BuildRequires:  scalapack-mpich-devel
-BuildRequires:  ptscotch-mpich-devel
-BuildRequires:  python3-numpy
-BuildRequires:  python3-Cython
-Requires:       petsc-mpich%{?_isa}
-Requires:       hdf5-mpich%{?_isa}
-Requires:       scalapack-openmpi%{?_isa}
-Requires:       ptscotch-mpich%{?_isa}
-Requires:       mpich%{?_isa} = 0:%{mpichversion}
-Requires:       MUMPS-mpich%{?_isa}
-
-Obsoletes:      %{pymodule_name}-mpich < 0:3.14.0-3
-Obsoletes:      python3-%{pymodule_name}-mpich < 0:3.14.0-3
-Provides:       python3-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
-Provides:       python-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
-Provides:       %{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
-
-%description -n python3-%{name}-mpich
-This package provides Python3 bindings for MPICH PETSc,
-the Portable, Extensible Toolkit for Scientific Computation.
+%endif
 %endif
 ######
 ###############################################################################
@@ -556,6 +535,37 @@ Requires:   mpich-devel%{?_isa} = 0:%{mpichversion}
 Requires:   hdf5-mpich-devel%{?_isa}
 %description mpich-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
+
+%if %{with python}
+%package -n     python3-%{name}-mpich
+Summary:        Python3 bindings for MPICH PETSc
+%{?python_provide:%python_provide python3-%{name}-mpich}
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
+BuildRequires:  hdf5-mpich-devel
+BuildRequires:  scalapack-mpich-devel
+BuildRequires:  ptscotch-mpich-devel
+BuildRequires:  python3-numpy
+BuildRequires:  python3-Cython
+Requires:       petsc-mpich%{?_isa}
+Requires:       hdf5-mpich%{?_isa}
+Requires:       scalapack-mpich%{?_isa}
+Requires:       ptscotch-mpich%{?_isa}
+Requires:       mpich%{?_isa} = 0:%{mpichversion}
+Requires:       MUMPS-mpich%{?_isa}
+
+Obsoletes:      %{pymodule_name}-mpich < 0:3.14.0-3
+Obsoletes:      python3-%{pymodule_name}-mpich < 0:3.14.0-3
+Provides:       python3-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
+Provides:       python-%{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
+Provides:       %{pymodule_name}-mpich = 0:%{pymodule_version}-%{release}
+
+%description -n python3-%{name}-mpich
+This package provides Python3 bindings for MPICH PETSc,
+the Portable, Extensible Toolkit for Scientific Computation.
+%endif
 %endif
 ######
 #############################################################################

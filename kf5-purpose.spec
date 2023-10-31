@@ -5,9 +5,7 @@ Summary: Framework for providing abstractions to get the developer's purposes fu
 Version: 5.111.0
 Release: 1%{?dist}
 
-# KDE e.V. may determine that future GPL versions are accepted
-# most files LGPLv2+, configuration.cpp is KDE e.V. GPL variant
-License: GPLv2 or GPLv3
+License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

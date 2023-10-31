@@ -5,19 +5,15 @@
 %global crate clircle
 
 Name:           rust-clircle
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Detect IO circles in your CLI apps arguments
 
-# https://github.com/niklasmohrin/clircle/issues/10
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/clircle
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          clircle-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * bump nix dev-dependency from 0.19.1 to 0.22
-Patch:          clircle-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -36,6 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -10,7 +10,7 @@ Summary:        Communications library for AI/ML
 Name:           gloo
 License:        BSD-3-Clause
 Version:        0.5.0^git%{date0}.%{shortcommit0}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 URL:            https://github.com/facebookincubator/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -180,6 +180,9 @@ PREFIX=test1 SIZE=1 RANK=0 ./%{__cmake_builddir}/gloo/examples/example1
 %{_libdir}/openmpi/include/
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 0.5.0^git20230824.01a0c81-7
+- Rebuild for openmpi 5.0.0, drops C++ API
+
 * Wed Oct 11 2023 Tom Rix <trix@redhat.com> - 0.5.0^git20230824.01a0c81-6
 - Package the mpi includes
 

@@ -5,22 +5,13 @@
 # fixme: appdata/desktop files?
 # fixme: make common package with non-MPI-specific contents
 
-# In case we can support el6
-%if 0%{?el6}
-%ifarch ppc64
-%bcond_with mpich
-%else
 %bcond_without mpich
-%endif
-%else
-%bcond_without mpich
-%endif
 
 %global shortver %(echo %version|awk -F. '{print $1 "." $2}')
 
 Name:		scalasca
 Version:	2.6.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Toolset for performance analysis of large-scale parallel applications
 
 # ScoutPatternParser and SilasConfigParser are Bison-generated
@@ -204,6 +195,9 @@ make check VERBOSE=1
 
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 2.6.1-4
+- Rebuild for openmpi 5.0.0, drops C++ API
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@ Version: 23.08.2
 Release: 1%{?dist}
 Summary: KDE Message libraries
 
-License: GPLv2
+License: BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/pim/%{framework}/
 
 %global revision %(echo %{version} | cut -d. -f3)

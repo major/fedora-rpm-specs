@@ -21,10 +21,10 @@ Source3:        org.%{name}.blendluxcore.metainfo.xml
 Patch0:         LuxCore-boost-python3.patch
 # Unbundle
 Patch1:         LuxCore-unbundle.patch
-# Use C++ Standard 14
+# Use C++ Standard 17
 # Changed all uses of the boost.bind placeholders to use the boost::placeholders namespace
 # https://github.com/LuxCoreRender/LuxCore/issues/449
-Patch2:         LuxCore-use-cxx-standard-14.patch
+Patch2:         LuxCore-use-cxx-standard-17.patch
 # Use system bcd
 Patch3:         LuxCore-system-bcd.patch
 # Include atomic header

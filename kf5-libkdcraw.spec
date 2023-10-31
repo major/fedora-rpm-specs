@@ -5,10 +5,7 @@ Summary: A C++ interface around LibRaw library
 Version: 23.08.2
 Release: 1%{?dist}
 
-# libkdcraw is GPLv2+,
-# LibRaw(bundled) is LGPLv2
-# demosaic-pack GPLv2+ GPLv3+ (addons to libraw)
-License: GPLv2+ and LGPLv2 and GPLv3+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{base_name}
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50

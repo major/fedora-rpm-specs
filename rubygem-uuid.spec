@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.3.7
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        UUID generator based on RFC 4122
 
 License:        MIT or CC-BY-SA
@@ -13,6 +13,9 @@ Patch0:         %{name}-tool.patch
 # https://github.com/assaf/uuid/pull/36
 # Needed for ruby3.2, which removes File.exists? deprecated since ruby 2.1
 Patch1:         %{name}-file_exists_deprecation.patch
+# https://github.com/assaf/uuid/pull/61
+# Compatibility for mocha 2.0
+Patch2:         %{gem_name}-pr61-mocha-2.0-compat.patch
 
 BuildArch:      noarch
 BuildRequires:  rubygems-devel
@@ -45,8 +48,9 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
 sed -i -e '1s,.*,#!/usr/bin/ruby,' bin/uuid
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
@@ -103,6 +107,9 @@ popd
 
 
 %changelog
+* Sun Oct 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.7-19
+- Apply upstream PR for mocha 2.0 compatibility
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

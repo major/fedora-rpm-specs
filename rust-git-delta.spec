@@ -12,7 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/git-delta
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump bat dependency from 0.22.1 to 0.23.0:
+# * bump bat dependency from 0.22.1 to 0.24.0:
 #   https://github.com/dandavison/delta/commit/953af74
 # * relax bytelines dependency from =2.2.2 to ^2.2.2
 # * temporarily downgrade palette dependency from 0.6.1 to 0.6.0

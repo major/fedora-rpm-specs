@@ -2,12 +2,13 @@
 
 Name:           lasem
 Version:        0.4.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A library for rendering SVG and Mathml, implementing a DOM like API
 
 License:        LGPLv2+ and GPLv2+
 URL:            https://wiki.gnome.org/Projects/Lasem
 Source0:        http://download.gnome.org/sources/%{name}/%{apiver}/%{name}-%{version}.tar.xz
+Patch0:		000-add-ka.patch
 
 BuildRequires:  gcc
 BuildRequires:  intltool
@@ -42,7 +43,7 @@ file to either a PNG, PDF or SVG image.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -83,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT%{_prefix}/doc
 %{_mandir}/man1/%{name}-render-%{apiver}.1*
 
 %changelog
+* Sun Oct 29 2023 Temuri Doghonadze <temuri.doghonadze@gmail.com> - 0.4.3-21
+- Add Georgian translation
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -16,9 +16,13 @@
 # All arches have mpich
 %bcond_without mpich
 
-%ifarch s390
-  # No OpenMPI support on these arches
-  %bcond_with openmpi
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+    # No OpenMPI support on these arches
+    %bcond_with openmpi
+%else
+    %bcond_without openmpi
+%endif
 %else
   %bcond_without openmpi
 %endif
@@ -42,7 +46,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.81.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -1288,6 +1292,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 1.81.0-10
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Tue Aug 29 2023 Tom Callaway <spot@fedoraproject.org> - 1.81.0-9
 - apply upstream fixes for failing random tests
 

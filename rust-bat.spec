@@ -4,11 +4,10 @@
 %global crate bat
 
 Name:           rust-bat
-Version:        0.23.0
+Version:        0.24.0
 Release:        %autorelease
 Summary:        Cat(1) clone with wings
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/bat
 Source:         %{crates_source}
@@ -18,6 +17,7 @@ Patch:          bat-fix-metadata-auto.diff
 # * remove compiler settings that are incompatible with RPM packaging
 # * Port from path_abs to path-absolutize:
 #   https://github.com/sharkdp/bat/pull/1025
+# * Bump os_str_bytes from 6.4 to 6.6
 Patch:          bat-fix-metadata.diff
 Patch:          0001-port-from-path_abs-to-path-absolutize.patch
 
@@ -30,6 +30,7 @@ A cat(1) clone with wings.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
@@ -38,16 +39,14 @@ Summary:        %{summary}
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
-# CC0-1.0
 # LGPL-3.0-or-later
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
-# MPL-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only WITH GCC-exception-2.0 AND LGPL-3.0-or-later AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only WITH GCC-exception-2.0 AND LGPL-3.0-or-later AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -108,18 +107,6 @@ use the "application" feature of the "%{crate}" crate.
 %files       -n %{name}+application-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+atty-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+atty-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "atty" feature of the "%{crate}" crate.
-
-%files       -n %{name}+atty-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+bugreport-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -156,16 +143,16 @@ use the "clap" feature of the "%{crate}" crate.
 %files       -n %{name}+clap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+dirs-devel
+%package     -n %{name}+etcetera-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+dirs-devel %{_description}
+%description -n %{name}+etcetera-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "dirs" feature of the "%{crate}" crate.
+use the "etcetera" feature of the "%{crate}" crate.
 
-%files       -n %{name}+dirs-devel
+%files       -n %{name}+etcetera-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+git-devel
@@ -204,6 +191,18 @@ use the "grep-cli" feature of the "%{crate}" crate.
 %files       -n %{name}+grep-cli-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+lessopen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+lessopen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "lessopen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+lessopen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+minimal-application-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -214,6 +213,18 @@ This package contains library source intended for building other packages which
 use the "minimal-application" feature of the "%{crate}" crate.
 
 %files       -n %{name}+minimal-application-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+os_str_bytes-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+os_str_bytes-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "os_str_bytes" feature of the "%{crate}" crate.
+
+%files       -n %{name}+os_str_bytes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+paging-devel
@@ -264,6 +275,18 @@ use the "regex-onig" feature of the "%{crate}" crate.
 %files       -n %{name}+regex-onig-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+run_script-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+run_script-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "run_script" feature of the "%{crate}" crate.
+
+%files       -n %{name}+run_script-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+shell-words-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -305,11 +328,11 @@ use the "wild" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires
 
 %build
 %cargo_build
-%cargo_license_summary
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install

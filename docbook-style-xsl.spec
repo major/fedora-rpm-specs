@@ -1,10 +1,10 @@
 Name: docbook-style-xsl
 Version: 1.79.2
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 Summary: Norman Walsh's XSL stylesheets for DocBook XML
 
-License: DMIT
+License: LicenseRef-DMIT
 URL: https://github.com/docbook/xslt10-stylesheets
 
 Provides: docbook-xsl = %{version}
@@ -137,6 +137,9 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 1.79.2-20
+- Update license tag to the SPDX format
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.79.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

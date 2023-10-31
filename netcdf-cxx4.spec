@@ -1,24 +1,33 @@
+%bcond_without mpich
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
+
 Name:           netcdf-cxx4
 Version:        4.3.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        NetCDF-4 C++ library
 
 License:        NetCDF
 URL:            http://www.unidata.ucar.edu/software/netcdf/
-Source0:        https://github.com/Unidata/netcdf-cxx4/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Unidata/netcdf-cxx4/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fix tests on big-endian
 # https://github.com/Unidata/netcdf-cxx4/issues/45
 Patch0:         netcdf-cxx4-bigendian.patch
 
-BuildRequires: make
 BuildRequires:  gcc-c++
+BuildRequires:  make
 BuildRequires:  netcdf-devel
 #mpiexec segfaults if ssh is not present
 #https://trac.mcs.anl.gov/projects/mpich2/ticket/1576
 BuildRequires:  openssh-clients
 
-%global with_mpich 1
-%global with_openmpi 1
 %if 0%{?rhel} <= 6
 %ifarch ppc64
 # No mpich on ppc64 in EL6
@@ -26,10 +35,10 @@ BuildRequires:  openssh-clients
 %endif
 %endif
 
-%if %{with_mpich}
+%if %{with mpich}
 %global mpi_list mpich
 %endif
-%if %{with_openmpi}
+%if %{with openmpi}
 %global mpi_list %{?mpi_list} openmpi
 %endif
 
@@ -55,7 +64,7 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 Static library for netCDF-4 C++ API.
 
 
-%if %{with_mpich}
+%if %{with mpich}
 %package mpich
 Summary: NetCDF mpich libraries
 BuildRequires: mpich-devel
@@ -91,7 +100,7 @@ NetCDF parallel mpich static libraries
 %endif
 
 
-%if %{with_openmpi}
+%if %{with openmpi}
 %package openmpi
 Summary: NetCDF openmpi libraries
 BuildRequires: openmpi-devel
@@ -124,7 +133,7 @@ NetCDF parallel openmpi static libraries
 
 %prep
 %setup -q
-%patch0 -p1 -b .bigendian
+%patch -P0 -p1 -b .bigendian
 # Fix line endings
 sed -i -e 's/\r//' examples/*.cpp
 
@@ -208,7 +217,7 @@ done
 %{_libdir}/libnetcdf_c++4.a
 
 
-%if %{with_mpich}
+%if %{with mpich}
 %files mpich
 %doc COPYRIGHT
 %{_libdir}/mpich/lib/*.so.*
@@ -223,7 +232,7 @@ done
 %{_libdir}/mpich/lib/*.a
 %endif
 
-%if %{with_openmpi}
+%if %{with openmpi}
 %files openmpi
 %doc COPYRIGHT
 %{_libdir}/openmpi/lib/*.so.*
@@ -240,6 +249,9 @@ done
 
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 4.3.1-10
+- Rebuild for openmpi 5.0.0, drops i686 and C++ API
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,13 +5,15 @@
 %bcond doc_pdf 1
 
 Name:           python-engineio
-Version:        4.7.0
+Version:        4.8.0
 Release:        %autorelease
 Summary:        Python Engine.IO server and client
 
 # SPDX
 License:        MIT
 URL:            https://github.com/miguelgrinberg/python-engineio/
+# The PyPY sdist now contains documentation and tests, but it still lacks
+# examples and the CHANGES.md file, so we continue to use a GitHub archive.
 Source:         %{url}/archive/v%{version}/python-engineio-%{version}.tar.gz
 
 # Downstream-only: patch out test coverage analysis
@@ -25,7 +27,6 @@ BuildRequires:  python3-devel
 # Documentation
 %if %{with doc_pdf}
 BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
@@ -74,7 +75,7 @@ find examples -type f \( -name 'engine.io.js' -o -name 'package-lock.json' \) \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x client,asyncio_client -t
+%pyproject_buildrequires -x client,asyncio_client%{?doc_pdf:,docs} -t
 
 
 %build

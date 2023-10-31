@@ -6,7 +6,7 @@ Summary: Common plugin infrastructure for KDE image applications
 Version: 23.08.2
 Release: 1%{?dist}
 
-License: GPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{base_name}
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50

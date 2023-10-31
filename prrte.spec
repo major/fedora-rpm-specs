@@ -1,17 +1,17 @@
 Name:           prrte
-Version:        2.0.2
-Release:        5%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        PMIx Reference RunTime Environment (PRRTE)
 License:        BSD
 URL:            https://github.com/openpmix/%{name}
-Source0:        https://github.com/openpmix/%{name}/releases/download/v%{version}/prte-%{version}.tar.bz2
+Source0:        https://github.com/openpmix/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  hwloc-devel
 BuildRequires:  libevent-devel
-BuildRequires:  pmix-devel >= 4.1.0
+BuildRequires:  pmix-devel >= 4.2.2
 # For pmixcc - https://bugzilla.redhat.com/show_bug.cgi?id=2078048
 BuildRequires:  pmix-tools
 BuildRequires:  pandoc
@@ -48,7 +48,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}
 
 # touch lexer sources to recompile them
 find src -name \*.l -print -exec touch --no-create {} \;
@@ -83,7 +83,7 @@ find %{buildroot} -name '*.la' -delete
 
 
 %files
-%doc README
+%doc README.md
 %{_bindir}/prte
 %{_bindir}/prte_info
 %{_bindir}/prted
@@ -91,23 +91,28 @@ find %{buildroot} -name '*.la' -delete
 %{_bindir}/prun
 %{_bindir}/pterm
 %{_mandir}/man1/*.1*
-%{_mandir}/man7/*.7*
+%{_mandir}/man5/*.5*
 
 %files libs
 %license LICENSE
 %dir %{_sysconfdir}/prte
-%config(noreplace) %{_sysconfdir}/prte/prte-*
+%config(noreplace) %{_sysconfdir}/prte/*
 %{_datadir}/prte/
-%{_libdir}/lib%{name}.so.2*
+%{_libdir}/lib%{name}.so.3*
 %{_libdir}/prte/
 
 %files devel
 %{_bindir}/pcc
+%{_docdir}/prrte/
 %{_includedir}/prte*.h
+%{_includedir}/prte/
 %{_libdir}/lib%{name}.so
 
 
 %changelog
+* Fri Oct 27 2023 Orion Poplawski <orion@nwra.com> - 3.0.2-1
+- Update to 3.0.2
+
 * Mon Sep 25 2023 Michel Lind <salimma@fedoraproject.org> - 2.0.2-5
 - Rebuild for pmix 4.1.3
 

@@ -7,8 +7,8 @@ Release:        %autorelease
 Summary:        A flexible client side mail filtering utility for IMAP servers
 %forgemeta
 License:        MIT
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            %forgeurl
+Source0:        %forgesource
 # Fix paths for MANDIR, SSLCAFILE and keep existing CFLAGS
 Patch0:         imapfilter-makefile-fix.patch
 
@@ -28,7 +28,7 @@ protocol are supported.
 
 
 %prep
-%autosetup -p1 -n imapfilter-%{version}
+%forgeautosetup -p1
 
 
 %build
@@ -42,7 +42,8 @@ make install PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT
 
 
 %files
-%doc README LICENSE
+%doc README AUTHORS NEWS
+%license LICENSE
 %{_bindir}/imapfilter
 %{_datadir}/imapfilter/
 %{_mandir}/man1/imapfilter.1.gz

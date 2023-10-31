@@ -18,11 +18,19 @@ use any library providing the ConnectionGenerator interface. It was initially
 developed to support the use of libcsa from NEST.}
 
 %bcond_without mpich
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 
 Name:           libneurosim
 Version:        1.2.0
-Release:        8.20210110.git%{shortcommit}%{?dist}
+Release:        9.20210110.git%{shortcommit}%{?dist}
 Summary:        Common interfaces for neuronal simulators
 
 License:        GPLv3+
@@ -266,6 +274,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 1.2.0-9.20210110.gitafc003f
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Sun Jul 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.0-8.20210110.gitafc003f
 - Fix python header path detection on python 3.12 wrt distutils removal
 

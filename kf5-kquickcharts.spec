@@ -13,9 +13,7 @@ Summary: A QtQuick module providing high-performance charts
 Version: 5.111.0
 Release: 1%{?dist}
 
-# libs are LGPL, tools are GPL
-# KDE e.V. may determine that future LGPL/GPL versions are accepted
-License: LGPLv2+
+License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

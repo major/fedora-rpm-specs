@@ -1,4 +1,4 @@
-%global vergit  20230606
+%global vergit  20231026
 
 Name:           gnome-shell-theme-flat-remix
 Version:        0.0.%{vergit}
@@ -14,7 +14,7 @@ Source:         https://github.com/daniruiz/flat-remix-gnome/archive/%{vergit}/%
 # BuildRequires:  glib2-devel
 # BuildRequires:  make
 
-Requires:       gnome-shell >= 42.0
+Requires:       gnome-shell >= 44.0
 
 Recommends:     flat-remix-gtk2-theme
 Recommends:     flat-remix-gtk3-theme

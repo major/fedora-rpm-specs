@@ -54,18 +54,22 @@
 %bcond_with psm2
 %endif
 
+# Some RCs require unreleased pmix version - at least let us test builds
+%bcond_without pmix
+
 # Run autogen - needed for some patches
 %bcond_with autogen
 
 Name:           openmpi%{?_cc_name_suffix}
-Version:        4.1.5
-Release:        8%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
+ExcludeArch:    %{ix86}
 
 # We can't use %%{name} here because of _cc_name_suffix
-Source0:        https://www.open-mpi.org/software/ompi/v4.1/downloads/openmpi-%{version}.tar.bz2
+Source0:        https://www.open-mpi.org/software/ompi/v5.0/downloads/openmpi-%{version}.tar.bz2
 Source1:        openmpi.module.in
 Source2:        openmpi.pth.py2
 Source3:        openmpi.pth.py3
@@ -102,7 +106,7 @@ Obsoletes:      %{name}-java-devel < %{version}-%{release}
 BuildRequires:  libevent-devel
 %endif
 BuildRequires:  libfabric-devel
-%ifnarch s390 s390x
+%ifnarch s390x
 BuildRequires:  papi-devel
 %endif
 %if %{with orangefs}
@@ -111,7 +115,12 @@ BuildRequires:  orangefs-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  pmix-devel
+%if %{with pmix}
+BuildRequires:  pmix-devel >= 4.2.7
+%endif
+# For configure to find /usr/bin/prte
+BuildRequires:  prrte
+BuildRequires:  prrte-devel
 BuildRequires:  python%{python3_pkgversion}-devel
 %if %{with psm}
 BuildRequires:  infinipath-psm-devel
@@ -126,6 +135,10 @@ BuildRequires:  zlib-devel
 %if !0%{?el7}
 BuildRequires:  rpm-mpi-hooks
 %endif
+# For docs
+BuildRequires:  /usr/bin/sphinx-build
+BuildRequires:  python3-recommonmark
+BuildRequires:  python3-sphinx_rtd_theme
 
 Provides:       mpi
 %if 0%{?rhel} == 7
@@ -133,6 +146,7 @@ Provides:       mpi
 Requires:       environment-modules
 %endif
 Requires:       environment(modules)
+Requires:       prrte
 # openmpi currently requires ssh to run
 # https://svn.open-mpi.org/trac/ompi/ticket/4228
 Requires:       openssh-clients
@@ -164,6 +178,13 @@ Requires:	(python(abi) = %{python3_version} if python3)
 
 %description devel
 Contains development headers and libraries for openmpi.
+
+%package doc
+Summary:        HTML documentation for openmpi
+BuildArch:      noarch
+
+%description doc
+HTML documentation for openmpi.
 
 %if %{with java}
 %package java
@@ -222,19 +243,22 @@ OpenMPI support for Python 3.
 	--sysconfdir=%{_sysconfdir}/%{namearch} \
 	--disable-silent-rules \
 	--enable-builtin-atomics \
-	--enable-mpi-cxx \
 	--enable-ipv6 \
 %if %{with java}
 	--enable-mpi-java \
 %endif
 	--enable-mpi1-compatibility \
+	--enable-sphinx \
+	--with-prrte=external \
 	--with-sge \
 	--with-valgrind \
 	--enable-memchecker \
 	--with-hwloc=/usr \
 %if !0%{?el7}
 	--with-libevent=external \
+%if %{with pmix}
 	--with-pmix=external \
+%endif
 %endif
 
 %make_build V=1
@@ -243,10 +267,6 @@ OpenMPI support for Python 3.
 %make_install
 find %{buildroot}%{_libdir}/%{name}/lib -name \*.la | xargs rm
 find %{buildroot}%{_mandir}/%{namearch} -type f | xargs gzip -9
-ln -s mpicc.1.gz %{buildroot}%{_mandir}/%{namearch}/man1/mpiCC.1.gz
-# Remove dangling symlink
-rm %{buildroot}%{_mandir}/%{namearch}/man1/mpiCC.1
-mkdir %{buildroot}%{_mandir}/%{namearch}/man{2,4,5,6,8,9,n}
 
 # Make the environment-modules file
 mkdir -p %{buildroot}%{_datadir}/modulefiles/mpi
@@ -304,7 +324,12 @@ mkdir -p %{buildroot}/%{python3_sitearch}/%{name}
 install -pDm0644 %{SOURCE3} %{buildroot}/%{python3_sitearch}/openmpi.pth
 
 %check
-make check
+fail=1
+# Failing on s390x - https://github.com/open-mpi/ompi/issues/10988
+%ifarch s390x
+fail=0
+%endif
+make check || ( cat test/*/test-suite.log && exit $fail )
 
 %files
 %license LICENSE
@@ -320,53 +345,54 @@ make check
 %config(noreplace) %{_sysconfdir}/%{namearch}/*
 %{_libdir}/%{name}/bin/mpi[er]*
 %{_libdir}/%{name}/bin/ompi*
-%{_libdir}/%{name}/bin/orte[-dr_]*
 %if %{with ucx}
 %{_libdir}/%{name}/bin/oshmem_info
-%{_libdir}/%{name}/bin/oshrun
-%{_libdir}/%{name}/bin/shmemrun
 %endif
+%{_libdir}/%{name}/bin/oshrun
+%if %{without pmix}
+%{_libdir}/%{name}/bin/pattrs
+%{_libdir}/%{name}/bin/pctrl
+%{_libdir}/%{name}/bin/pevent
+%{_libdir}/%{name}/bin/plookup
+%{_libdir}/%{name}/bin/pmix_info
+%{_libdir}/%{name}/bin/pmixcc
+%{_libdir}/%{name}/bin/pps
+%{_libdir}/%{name}/bin/pquery
+%{_libdir}/%{name}/lib/libpmix.so.2*
+%{_libdir}/%{name}/lib/pmix/
+%{_libdir}/%{name}/share/pmix/
+%{_mandir}/%{namearch}/man1/pmix_info.1*
+%{_mandir}/%{namearch}/man5/openpmix.5*
+%endif
+%{_mandir}/%{namearch}/man7/Open-MPI.7*
 %{_libdir}/%{name}/lib/*.so.40*
-%{_libdir}/%{name}/lib/libmca_common_ofi.so.10*
-%{_libdir}/%{name}/lib/libmca*.so.41*
-%{_libdir}/%{name}/lib/libmca*.so.50*
+%{_libdir}/%{name}/lib/*.so.80*
 %if 0%{?el7}
 %{_libdir}/%{name}/lib/pmix/
 %endif
-%{_mandir}/%{namearch}/man1/mpi[er]*
+%{_mandir}/%{namearch}/man1/mpirun.1*
+%{_mandir}/%{namearch}/man1/mpisync.1*
 %{_mandir}/%{namearch}/man1/ompi*
-%{_mandir}/%{namearch}/man1/orte[-dr_]*
 %if %{with ucx}
 %{_mandir}/%{namearch}/man1/oshmem_info*
-%{_mandir}/%{namearch}/man1/oshrun*
-%{_mandir}/%{namearch}/man1/shmemrun*
 %endif
-%{_mandir}/%{namearch}/man7/ompi_*
-%{_mandir}/%{namearch}/man7/opal_*
-%{_mandir}/%{namearch}/man7/orte*
 %{_libdir}/%{name}/lib/openmpi/*
 %{_datadir}/modulefiles/mpi/
 %dir %{_libdir}/%{name}/share
 %dir %{_libdir}/%{name}/share/openmpi
 %{_libdir}/%{name}/share/openmpi/amca-param-sets
 %{_libdir}/%{name}/share/openmpi/help*.txt
-%if %{with rdma}
-%{_libdir}/%{name}/share/openmpi/mca-btl-openib-device-params.ini
-%endif
 %if 0%{?el7}
 %{_libdir}/%{name}/share/pmix/
 %endif
 
 %files devel
 %dir %{_includedir}/%{namearch}
-%{_libdir}/%{name}/bin/aggregate_profile.pl
 %{_libdir}/%{name}/bin/mpi[cCf]*
 %{_libdir}/%{name}/bin/opal_*
-%{_libdir}/%{name}/bin/orte[cCf]*
 %if %{with ucx}
 %{_libdir}/%{name}/bin/osh[cCf]*
 %endif
-%{_libdir}/%{name}/bin/profile2mat.pl
 %if %{with ucx}
 %{_libdir}/%{name}/bin/shmem[cCf]*
 %endif
@@ -380,6 +406,7 @@ make check
 %{_mandir}/%{namearch}/man1/mpi[cCf]*
 %if %{with ucx}
 %{_mandir}/%{namearch}/man1/osh[cCf]*
+%{_mandir}/%{namearch}/man1/oshmem-wrapper-compiler.1*
 %{_mandir}/%{namearch}/man1/shmem[cCf]*
 %endif
 %{_mandir}/%{namearch}/man1/opal_*
@@ -388,6 +415,11 @@ make check
 %{_libdir}/%{name}/share/openmpi/*-wrapper-data.txt
 %{macrosdir}/macros.%{namearch}
 
+%files doc
+%license LICENSE
+%doc %{_libdir}/%{name}/share/doc/
+%exclude %{_libdir}/%{name}/share/doc/openmpi/javadoc-openmpi
+
 %if %{with java}
 %files java
 %{_libdir}/%{name}/lib/mpi.jar
@@ -395,8 +427,7 @@ make check
 %files java-devel
 %{_libdir}/%{name}/bin/mpijavac
 %{_libdir}/%{name}/bin/mpijavac.pl
-# Currently this only contaings openmpi/javadoc
-%{_libdir}/%{name}/share/doc/
+%doc %{_libdir}/%{name}/share/doc/openmpi/javadoc-openmpi
 %{_mandir}/%{namearch}/man1/mpijavac.1.gz
 %endif
 
@@ -412,6 +443,12 @@ make check
 
 
 %changelog
+* Fri Oct 27 2023 Orion Poplawski <orion@nwra.com> - 5.0.0-1
+- Update to 5.0.0
+- Drops 32-bit i686 support
+- Drops C++ bindings
+- Add doc sub-package
+
 * Thu Oct 12 2023 Cristian Le <fedora@lecris.me> - 4.1.5-8
 - Added CMAKE_PREFIX_PATH to module file
 

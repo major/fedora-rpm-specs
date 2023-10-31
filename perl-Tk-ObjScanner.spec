@@ -1,21 +1,42 @@
 Name:           perl-Tk-ObjScanner
-Version:        2.017
-Release:        20%{?dist}
+Version:        2.018
+Release:        1%{?dist}
 Summary:        Tk data scanner
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Tk-ObjScanner
 Source0:        https://cpan.metacpan.org/authors/id/D/DD/DDUMONT/Tk-ObjScanner-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
+# runtime requirements
+BuildRequires:  perl(B::Deparse)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Tk)
 BuildRequires:  perl(Tk::Adjuster)
+BuildRequires:  perl(Tk::Derived)
+BuildRequires:  perl(Tk::Frame)
 BuildRequires:  perl(Tk::HList)
+BuildRequires:  perl(Tk::Menubutton)
 BuildRequires:  perl(Tk::ROText)
+BuildRequires:  perl(base)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(Benchmark)
+BuildRequires:  perl(ExtUtils::testlib)
+BuildRequires:  perl(FileHandle)
+BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Tie::Scalar)
+BuildRequires:  perl(vars)
 
 %{?perl_default_filter}
 
@@ -27,27 +48,34 @@ also be used to scan the elements of a hash or an array.
 %setup -q -n Tk-ObjScanner-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 # Tk-ObjScanner's tests are X-based.
-# make test
+# %%{make_build} test
 
 %files
-%doc Changes README.md
+%doc Changes
+%license LICENSE
+%{_bindir}/*
 %{perl_vendorlib}/*
+%{_mandir}/man1/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Oct 29 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.018-1
+- Update to 2.018
+- Update dependencies
+- Migrate to SPDX license
+- Use %%license macro
+- Use %%{make_build} and %%{make_install} where appropriate
+- Use /usr/bin/perl instead of %%{__perl}
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.017-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

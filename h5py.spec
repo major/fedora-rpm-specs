@@ -3,15 +3,17 @@
 
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
-Version:        3.8.0
-Release:        4%{?dist}
+Version:        3.10.0
+Release:        1%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
 # drop the unnecessary workaround for float128 type after
 # https://fedoraproject.org/wiki/Changes/PPC64LE_Float128_Transition
 # in F-36
-Patch0:         h5py-3.8.0-ppc-float128.patch
+Patch0:         h5py-3.10.0-ppc-float128.patch
+Patch1:         0001-Fix-compiling-fileobj-file-driver-with-Cython-3.0.patch
+Patch2:         h5py-3.10.0-python-crash-file-test2.patch
 BuildRequires:  gcc
 BuildRequires:  hdf5-devel
 BuildRequires:  liblzf-devel
@@ -90,7 +92,10 @@ Requires:       mpich
 
 
 %prep
-%autosetup -c -n %{name}-%{version} -p0
+%autosetup -N -c -n %{name}-%{version}
+pushd %{name}-%{version}
+%autopatch -p1
+popd
 mv %{name}-%{version} serial
 cd serial
 %{__python3} api_gen.py
@@ -170,8 +175,6 @@ export H5PY_SETUP_REQUIRES=0
 export H5PY_SYSTEM_LZF=1
 # i686 test failure
 # https://github.com/h5py/h5py/issues/1337
-# s390x test failure
-# https://github.com/h5py/h5py/issues/1739
 %ifarch %ix86
 fail=0
 %else
@@ -221,6 +224,9 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 
 
 %changelog
+* Mon Oct 09 2023 Terje Rosten <terje.rosten@ntnu.no> - 3.10.0-1
+- Update to 3.10.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

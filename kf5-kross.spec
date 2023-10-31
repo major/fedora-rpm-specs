@@ -5,7 +5,7 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for multi-language application scripting
 
-License: LGPLv2+
+License: LGPL-2.1-or-later AND CC0-1.0
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

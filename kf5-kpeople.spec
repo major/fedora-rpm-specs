@@ -6,7 +6,7 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 library for contact and people aggregation
 
-License: LGPLv2+
+License: CC0-1.0 AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

@@ -1,5 +1,5 @@
 Name:           pmix
-Version:        4.1.3
+Version:        4.2.7
 Release:        1%{?dist}
 Summary:        Process Management Interface Exascale (PMIx)
 License:        BSD-3-Clause
@@ -63,13 +63,15 @@ based starters (e.g., mpirun).
 find src -name \*.l -print -exec touch --no-create {} \;
 
 %build
-%{_builddir}/%{name}-%{version}/autogen.pl
 export CFLAGS="%{build_cflags} -Wno-unused-function -Wno-attributes"
 %configure \
     --prefix=%{_prefix} \
     --sysconfdir=%{_sysconfdir}/%{name} \
     --disable-static \
     --disable-silent-rules \
+    --enable-wrapper-rpath=no \
+    --enable-wrapper-runpath=no \
+    --enable-ipv6 \
     --enable-shared \
     --with-munge
 
@@ -89,7 +91,7 @@ find %{buildroot} -name '*.la' | xargs rm -f
 
 %files
 %license LICENSE
-%doc README
+%doc README.md
 %dir %{_datadir}/%{name}
 %dir %{_libdir}/%{name}
 %dir %{_sysconfdir}/%{name}
@@ -98,6 +100,7 @@ find %{buildroot} -name '*.la' | xargs rm -f
 %{_libdir}/libpmix.so.2*
 %{_libdir}/%{name}/*.so
 %{_mandir}/man1/*.1*
+%{_mandir}/man5/*.5*
 
 %files devel
 %{_datadir}/%{name}/*.supp
@@ -105,11 +108,18 @@ find %{buildroot} -name '*.la' | xargs rm -f
 %{_includedir}/pmix/
 %{_libdir}/libpmix.so
 %{_libdir}/pkgconfig/*.pc
+%{_docdir}/%{name}/
+%{_mandir}/man3/*.3*
 
 %files tools
 %{_bindir}/*
 
 %changelog
+* Fri Oct 27 2023 Orion Poplawski <orion@nwra.com> - 4.2.7-1
+- Update to 4.2.7
+- Enable IPv6 support
+- Disable wrapper rpath
+
 * Thu Sep 14 2023 Michel Lind <salimma@fedoraproject.org> - 4.1.3-1
 - Fix CVE-2023-41915
 - Update upstream source URL; pmix/pmix redirects to openpmix/openpmix

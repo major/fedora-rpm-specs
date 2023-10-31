@@ -1,6 +1,6 @@
 Summary:       The Enlightenment window manager, DR16
 Name:          e16
-Version:       1.0.28
+Version:       1.0.29
 Release:       1%{?dist}
 License:       MIT with advertising and GPLv2+
 URL:           http://www.enlightenment.org/
@@ -94,6 +94,9 @@ ln -s ../share/e16/misc/starte16 %{buildroot}/%{_bindir}/starte16
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Oct 29 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.29-1
+- 1.0.29
+
 * Sun Sep 10 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.28-1
 - 1.0.28
 

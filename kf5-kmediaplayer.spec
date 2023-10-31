@@ -6,7 +6,8 @@ Version: 5.111.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 module with interface for media player features
 
-License: MIT
+# The project has no SPDX tags on files. The LICENSE file points to X11 License, soooooo...
+License: X11
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

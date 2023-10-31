@@ -1,9 +1,9 @@
 Name:           xmltoman
 Version:        0.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Scripts for converting XML to roff or HTML
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://sourceforge.net/projects/xmltoman/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         xmltoman-0.3-timestamps.patch
@@ -44,6 +44,9 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 0.4-29
+- Update license tag to the SPDX format
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

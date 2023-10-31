@@ -1,6 +1,16 @@
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
+
 Name:           hpx
 Version:        1.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
@@ -97,6 +107,7 @@ Requires:   asio-devel
 This package contains development headers and libraries
 
 
+%if %{with openmpi}
 %package openmpi
 Summary:        HPX Open MPI libraries
 Requires:       openmpi-devel
@@ -132,6 +143,7 @@ Requires:   asio-devel
 
 %description openmpi-devel
 %{hpx_desc}
+%endif
 
 This package contains development headers and libraries
 
@@ -165,7 +177,7 @@ This package contains development headers and libraries
 %endif
 
 . /etc/profile.d/modules.sh
-for mpi in '' openmpi mpich ; do
+for mpi in '' %{?with_openmpi:openmpi} mpich ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
   mkdir -p ${mpi:-serial}
   #pushd ${mpi:-serial}
@@ -184,7 +196,7 @@ done
 %install
 # do serial install last due to move of executables to _bindir
 . /etc/profile.d/modules.sh
-for mpi in openmpi mpich '' ; do
+for mpi in %{?with_openmpi:openmpi} mpich '' ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch} && mkdir -p %{buildroot}/${MPI_BIN}
   #pushd ${mpi:-serial}
   #cd %{__cmake_builddir}
@@ -210,7 +222,7 @@ rm %{buildroot}/%{_datadir}/%{name}/LICENSE_1_0.txt
 
 %check
 . /etc/profile.d/modules.sh
-for mpi in '' openmpi mpich ; do
+for mpi in '' %{?with_openmpi:openmpi} mpich ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
   make -C %{__cmake_builddir}/ tests.examples
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch}
@@ -229,6 +241,7 @@ done
 %license LICENSE_1_0.txt
 %{_bindir}/*
 
+%if %{with openmpi}
 %files openmpi
 %doc README.rst
 %license LICENSE_1_0.txt
@@ -246,6 +259,7 @@ done
 %{_libdir}/openmpi*/lib/cmake/HPX
 %{_libdir}/openmpi*/lib/lib*.a
 %{_libdir}/openmpi*/lib/lib*.so*
+%endif
 
 %files mpich
 %doc README.rst
@@ -273,6 +287,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 1.9.1-2
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Tue Oct 10 2023 Patrick Diehl <me@diehlpk.de> - 1.9.1-1
 - Bump to HPX 1.9.1
 

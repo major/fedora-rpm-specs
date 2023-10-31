@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        6.28.1
+Version:        6.29.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 License:        GPLv3

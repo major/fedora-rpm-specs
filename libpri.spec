@@ -6,7 +6,12 @@ Summary:        An implementation of Primary Rate ISDN
 
 # The Makefile is GPL-2.0-or-later, but does not contribute to the licenses of
 # the binary RPMs.
-License:        GPL-2.0-only WITH libpri-OpenH323-exception AND GPL-2.0-only WITH Asterisk-exception
+#
+# The entire following expression applies to the entire package.
+License:        %{shrink:
+                GPL-2.0-only WITH libpri-OpenH323-exception AND
+                GPL-2.0-only WITH Asterisk-exception
+                }
 URL:            https://www.asterisk.org/
 %global src_base https://downloads.asterisk.org/pub/telephony/libpri/releases
 Source0:        %{src_base}/libpri-%{version}.tar.gz

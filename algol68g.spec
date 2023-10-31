@@ -6,7 +6,7 @@
 
 Name: algol68g
 Summary: Algol 68 Genie compiler-interpreter
-Version: 3.4.3
+Version: 3.4.4
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html
@@ -56,6 +56,9 @@ that has continuing responsibility for Algol 60 and Algol 68.
 %exclude %{_pkgdocdir}/LICENSE
 
 %changelog
+* Sun Oct 29 2023 Oleg Girko <ol@infoserver.lv> - 3.4.4-1
+- Update to 3.4.4
+
 * Mon Oct 23 2023 Oleg Girko <ol@infoserver.lv> - 3.4.3-1
 - Update to 3.4.3
 

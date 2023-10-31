@@ -5,7 +5,7 @@ Summary: A wrapper around different world-map components, to browse and arrange 
 Version: 20.08.3
 Release: 8%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{framework}
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global revision %(echo %{version} | cut -d. -f3)

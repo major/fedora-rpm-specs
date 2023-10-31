@@ -10,7 +10,7 @@ Summary: Kross interpreters for KDE Frameworks 5
 Version: 22.04.3
 Release: 5%{?dist}
 
-License: LGPLv2+
+License: LGPL-2.1-or-later AND CC0-1.0
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global revision %(echo %{version} | cut -d. -f3)

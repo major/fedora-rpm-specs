@@ -5,7 +5,15 @@
 
 # Allow disabling building with/against openmpi
 # Build with --without openmpi to not build openmpi
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 
 # Allow disabling building with/against mpich
 # Build with --without openmpi to not build mpich
@@ -24,7 +32,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -421,6 +429,9 @@ done
 %endif
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 4.13-7
+- Rebuild for openmpi 5.0.0, drops i686 and C++ API
+
 * Sun Oct 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.13-6
 - Rebuild for petsc-3.20.0
 

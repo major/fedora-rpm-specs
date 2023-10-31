@@ -1,4 +1,10 @@
-%ifnarch s390 s390x
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%global with_openmpi 0
+%else
+%global with_openmpi 1
+%endif
+%else
 %global with_openmpi 1
 %endif
 %global with_mpich2 1
@@ -19,7 +25,7 @@
 
 Name:          mathgl
 Version:       8.0.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -329,20 +335,20 @@ for file in AUTHORS ChangeLog.txt README ; do
     mv $file.new $file
 done
 
-%patch0 -p1 -b .examples
-%patch1 -p1 -b .fluid
-%patch2 -p1 -b .no-hdf4-and-hdf5-simultaneously
-#patch5 -p1 -b .lang
-%patch6 -p1 -b .gcc7
-%patch7 -p1 -b .no_updatedb
+%patch -P0 -p1 -b .examples
+%patch -P1 -p1 -b .fluid
+%patch -P2 -p1 -b .no-hdf4-and-hdf5-simultaneously
+#patch -P5 -p1 -b .lang
+%patch -P6 -p1 -b .gcc7
+%patch -P7 -p1 -b .no_updatedb
 %if 0%{?with_octave}
-%patch3 -p1 -b .nooctaveinstall
+%patch -P3 -p1 -b .nooctaveinstall
 %else
-%patch4 -p1 -b .no_octave
+%patch -P4 -p1 -b .no_octave
 %endif
-%patch8 -p0 -b .freeglut
-%patch9 -p1 -b .norebuild_l10n
-%patch10 -p1 -b .libharu2.4
+%patch -P8 -p0 -b .freeglut
+%patch -P9 -p1 -b .norebuild_l10n
+%patch -P10 -p1 -b .libharu2.4
 
 # Fix hardcoded Python version
 #sed -i -e 's,3\.[0-9],%{python3_version},g' \
@@ -357,11 +363,7 @@ sed -i s,/usr/local/share/mathgl/fonts/,%{_datadir}/%{name}/fonts/, udav/prop_dl
 # Fix octave module version wether we need it or not
 sed -i -e "s,Version:.*,Version: %{version}," lang/DESCRIPTION
 
-%if 0%{?fedora} >= 21 && 0%{?fedora} < 26
-%global mgl_octarch_dir %{_tmppath}/%{name}-%{version}-%{release}.%{_arch}
-%global mgl_octarch_name %{octpkg}-%{version}.tar.gz
-%endif
-%if 0%{?fedora} >= 26
+%if 0%{?fedora}
 %global octave_tar_suffix %{octave_host}-%{octave_api}
 %global mgl_octarch_dir %{_builddir}/%{buildsubdir}/build/
 %global mgl_octarch_name %{octpkg}-%{version}-%{octave_tar_suffix}.tar.gz
@@ -623,6 +625,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 8.0.1-7
+- Rebuild for openmpi 5.0.0, drops i686 and C++ API
+- Use newer patch syntax
+- Cleanup old conditionals
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

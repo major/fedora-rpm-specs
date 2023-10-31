@@ -34,7 +34,7 @@ BuildRequires: libzstd-devel
 %endif
 
 BuildRequires: /usr/bin/perl
-BuildRequires: /usr/bin/python3
+BuildRequires: python3-devel
 
 %forgemeta
 Source: %{forgesource}

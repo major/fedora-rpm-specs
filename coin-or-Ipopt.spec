@@ -12,7 +12,15 @@
 %global dts devtoolset-9-
 %endif
 
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%global with_openmpi 0
+%else
 %global with_openmpi 1
+%endif
+%else
+%global with_openmpi 1
+%endif
 %global with_mpich 1
 %global with_mpicheck 1
 %global with_mpichcheck 1

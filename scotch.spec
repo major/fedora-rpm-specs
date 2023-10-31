@@ -1,5 +1,13 @@
 %bcond mpich %{undefined flatpak}
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond openmpi 0
+%else
 %bcond openmpi %{undefined flatpak}
+%endif
+%else
+%bcond openmpi %{undefined flatpak}
+%endif
 %bcond metis 1
 
 # This flag prevents internal links
@@ -8,7 +16,7 @@
 Name:          scotch
 Summary:       Graph, mesh and hypergraph partitioning library
 Version:       7.0.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 License:       CeCILL-C
 URL:           https://gitlab.inria.fr/scotch/scotch
@@ -433,6 +441,9 @@ rm -rf %{buildroot}%{_prefix}/man/*
 
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 7.0.4-2
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 7.0.4-1
 - Update to 7.0.4
 

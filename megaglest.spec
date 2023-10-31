@@ -1,30 +1,29 @@
-Name:		megaglest
-Version:	3.13.0
-Release:	19%{?dist}
-Summary:	Open Source 3d real time strategy game
-License:	GPLv3+ and GPL+
-Url:		http://megaglest.org/
+Name:       megaglest
+Version:    3.13.0
+Release:    20%{?dist}
+Summary:    Open Source 3d real time strategy game
+License:    GPL-3.0-or-later AND GPL-1.0-or-later
+Url:        http://megaglest.org/
 Source0:        https://github.com/MegaGlest/%{name}-source/archive/%{version}/%{name}-source-%{version}.tar.gz
-BuildRequires:	cmake
-BuildRequires:  gcc
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:	help2man
+BuildRequires:  help2man
 BuildRequires:  make
-BuildRequires:	subversion
-BuildRequires:	xorg-x11-server-Xvfb
-BuildRequires:	ftgl-devel
-BuildRequires:	gnutls-devel
-BuildRequires:	libcurl-devel
-BuildRequires:	libicu-devel
-BuildRequires:	libircclient-devel
-BuildRequires:	libjpeg-turbo-devel
-BuildRequires:	libpng-devel
-BuildRequires:	libvorbis-devel
-BuildRequires:	lua-devel
-BuildRequires:	openssl-devel
-BuildRequires:	xerces-c-devel
-BuildRequires:	wxGTK-devel
-BuildRequires:	zlib-devel
+BuildRequires:  subversion
+BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  ftgl-devel
+BuildRequires:  gnutls-devel
+BuildRequires:  libcurl-devel
+BuildRequires:  libicu-devel
+BuildRequires:  libircclient-devel
+BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  libpng-devel
+BuildRequires:  libvorbis-devel
+BuildRequires:  lua-devel
+BuildRequires:  openssl-devel
+BuildRequires:  xerces-c-devel
+BuildRequires:  wxGTK-devel
+BuildRequires:  zlib-devel
 BuildRequires:  pkgconfig(dri)
 BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(miniupnpc)
@@ -32,29 +31,29 @@ BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(SDL2_mixer)
 BuildRequires:  pkgconfig(SDL2_net)
-Requires:	glx-utils
-Requires:	%{name}-data = %{version}
-Requires:	p7zip
-Obsoletes:	glest <= 3.2.2
+Requires:   glx-utils
+Requires:   %{name}-data = %{version}
+Requires:   p7zip
+Obsoletes:  glest <= 3.2.2
 
 # Correct use of XERCESC_INCLUDE and XERCESC_INCLUDE_DIR that
 # should have the same value if xerces is found.
-Patch0:		%{name}-xerces.patch
+Patch0:     %{name}-xerces.patch
 # Correct usage of xvfb-run when generating manpages
-Patch1:		%{name}-help2man.patch
+Patch1:     %{name}-help2man.patch
 # Do not fail with cryptic message if there are missing translations
 # just use english text
-Patch2:		%{name}-translation-missing.patch
+Patch2:     %{name}-translation-missing.patch
 # Build with lua5.2
-Patch3:		%{name}-lua.patch
+Patch3:     %{name}-lua.patch
 # Add extra libraries to link command line to satisfy unresolved symbols
-Patch4:		%{name}-underlink.patch
+Patch4:     %{name}-underlink.patch
 # Prevent multiple definitions of symbols
-Patch5:		%{name}-feathery_ftp.patch
+Patch5:     %{name}-feathery_ftp.patch
 # Fix lua version ordering so 5.4 is preferred over 5.3
-Patch6:		%{name}-fix-lua-version-ordering.patch
+Patch6:     %{name}-fix-lua-version-ordering.patch
 # Ignore GLEW_ERROR_NO_GLX_DISPLAY (we can continue with this on Wayland)
-Patch7:		%{name}-ignore-GLEW_ERROR_NO_GLX_DISPLAY.patch
+Patch7:     %{name}-ignore-GLEW_ERROR_NO_GLX_DISPLAY.patch
 # Support wxWidgets 3.2 (next 4 patches from upstream)
 Patch8:         e09ba53c436279588f769d6ce8852e74d58f8391.patch
 Patch9:         fbd0cfb17ed759d24aeb577a602b0d97f7895cc2.patch
@@ -112,6 +111,9 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Sun Oct 29 2023 Sérgio Basto <sergio@serjux.com> - 3.13.0-20
+- Migrate to SPDX license format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           vim-ansible
-Version:        3.3
+Version:        3.4
 Release:        %autorelease
 Summary:        Vim plugin for syntax highlighting ansible's common filetypes
 License:        MIT AND BSD-3-Clause

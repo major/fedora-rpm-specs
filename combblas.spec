@@ -1,6 +1,14 @@
 %global truename CombBLAS
 
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 %bcond_without mpich
 
 # Tests are performed really slowly with current version of OpenMPI (4.1.5)
@@ -17,7 +25,7 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD.
@@ -252,6 +260,9 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %endif
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 2.0.0-5
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Mon Aug 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-4
 - Disable LTO flags in debug builds
 - Disable tests

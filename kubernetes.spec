@@ -231,12 +231,12 @@ install -d -m 0755 %{buildroot}/%{_sysconfdir}/systemd/system/kubelet.service.d
 install -p -m 0644 -t %{buildroot}/%{_sysconfdir}/systemd/system/kubelet.service.d %{SOURCE114}
 
 echo "+++ INSTALLING shell completion"
-install -d -m 0755 %{buildroot}%{_datadir}/bash-completion/completions/
-%{buildroot}%{_bindir}/kubectl completion bash > %{buildroot}%{_datadir}/bash-completion/completions/kubectl
-install -d -m 0755 %{buildroot}%{_datadir}/zsh-completion/completions/
-%{buildroot}%{_bindir}/kubectl completion zsh > %{buildroot}%{_datadir}/zsh-completion/completions/kubectl
-install -d -m 0755 %{buildroot}%{_datadir}/fish-completion/completions/
-%{buildroot}%{_bindir}/kubectl completion fish > %{buildroot}%{_datadir}/fish-completion/completions/kubectl
+install -dm 0755 %{buildroot}/%{bash_completions_dir}
+%{buildroot}%{_bindir}/kubectl completion bash > %{buildroot}/%{bash_completions_dir}/kubectl
+install -dm 0755 %{buildroot}/%{fish_completions_dir}
+%{buildroot}%{_bindir}/kubectl completion fish > %{buildroot}/%{fish_completions_dir}/kubectl.fish
+install -dm 0755 %{buildroot}/%{zsh_completions_dir}
+%{buildroot}%{_bindir}/kubectl completion zsh > %{buildroot}/%{zsh_completions_dir}/_kubectl
 
 echo "+++ INSTALLING config files"
 %define remove_environ_prefix() %(echo -n %1|sed 's/.*environ-//g')
@@ -367,9 +367,9 @@ fi
 %{_mandir}/man1/kubectl.1*
 %{_mandir}/man1/kubectl-*
 %{_bindir}/kubectl
-%{_datadir}/bash-completion/completions/kubectl
-%{_datadir}/zsh-completion/completions/kubectl
-%{_datadir}/fish-completion/completions/kubectl
+%{bash_completions_dir}/kubectl
+%{fish_completions_dir}/kubectl.fish
+%{zsh_completions_dir}/_kubectl
 
 ##############################################
 

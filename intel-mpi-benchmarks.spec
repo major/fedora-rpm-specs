@@ -1,7 +1,17 @@
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
+
 Summary: Intel MPI benchmarks
 Name:    intel-mpi-benchmarks
 Version: 2021.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: CPL
 URL:     https://software.intel.com/en-us/articles/intel-mpi-benchmarks
 Source0: https://github.com/intel/mpi-benchmarks/archive/IMB-v%{version}.tar.gz
@@ -25,6 +35,7 @@ BuildArch: noarch
 %description license
 This package contains the license of Intel MPI benchmarks.
 
+%if %{with openmpi}
 %package openmpi
 Summary: Intel MPI benchmarks compiled against openmpi
 BuildRequires: openmpi-devel
@@ -35,6 +46,7 @@ Requires: %{name}-license = %{version}-%{release}
 %{desc}
 
 This package was built against the Open MPI implementation of MPI.
+%endif
 
 %package mpich
 Summary: Intel MPI benchmarks compiled against mpich
@@ -63,9 +75,11 @@ do_build() {
 }
 
 # do N builds, one for each mpi stack
+%if %{with openmpi}
 %{_openmpi_load}
 do_build
 %{_openmpi_unload}
+%endif
 
 %{_mpich_load}
 do_build
@@ -82,9 +96,11 @@ do_install() {
 }
 
 # do N installs, one for each mpi stack
+%if %{with openmpi}
 %{_openmpi_load}
 do_install
 %{_openmpi_unload}
+%endif
 
 %{_mpich_load}
 do_install
@@ -93,13 +109,18 @@ do_install
 %files license
 %license license/{,use-of-trademark-}license.txt
 
+%if %{with openmpi}
 %files openmpi
 %{_libdir}/openmpi/bin/IMB-{MPI1,EXT,IO,NBC,RMA,MT,P2P}_openmpi
+%endif
 
 %files mpich
 %{_libdir}/mpich/bin/IMB-{MPI1,EXT,IO,NBC,RMA,MT,P2P}_mpich
 
 %changelog
+* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 2021.3-5
+- Rebuild for openmpi 5.0.0, drops support for i686
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 # Set new source-code build version
 # This tag indicates a new rebuild for Fedora
-%global redhat_ver rh2
+%global redhat_ver rh1
 
 # Exclude ARM for the following error:
 #  terminate called after throwing an instance of 'std::bad_alloc'
@@ -106,7 +106,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   2
-Version: 115.3.1
+Version: 115.4.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -176,7 +176,6 @@ Patch220: firefox-nss-version.patch
 Patch221: firefox-nss-addon-hack.patch
 Patch223: %{name}-glibc-dynstack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
-Patch227: %{name}-rhbz-2235654.patch
 
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
@@ -367,7 +366,6 @@ tar -xf %{SOURCE5}
 %patch -P 221 -p 1 -b .firefox-nss-addon-hack
 %endif
 %patch -P 224 -p 1 -b .glibcxx
-%patch -P 227 -p 1 -b .backup
 
 # ARM run-time patch
 %ifarch aarch64

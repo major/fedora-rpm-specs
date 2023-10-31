@@ -1,5 +1,5 @@
 Name:    usbutils
-Version: 015
+Version: 016
 Release: %autorelease
 Summary: Linux USB utilities
 URL:     http://www.linux-usb.org/
@@ -9,7 +9,7 @@ Source0: https://www.kernel.org/pub/linux/utils/usb/usbutils/%{name}-%{version}.
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: libusbx-devel
+BuildRequires: libusb1-devel
 BuildRequires: systemd-devel
 Requires: hwdata
 
