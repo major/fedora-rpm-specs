@@ -1,7 +1,7 @@
 Name:           kommit
-Version:        1.0.2
-Release:        2%{?dist}
-Summary:        Git gui client for KDE
+Version:        1.3.0
+Release:        1%{?dist}
+Summary:        Graphical Git Client
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 URL:            https://apps.kde.org/kommit/
@@ -24,6 +24,8 @@ BuildRequires:  kf5-kio-devel
 BuildRequires:  kf5-ktextwidgets-devel
 BuildRequires:  kf5-ktexteditor-devel
 BuildRequires:  kf5-syntax-highlighting-devel
+BuildRequires:  pkgconfig(libgit2)
+BuildRequires:  cmake(DolphinVcs)
 
 Requires:       kf5-filesystem
 Requires:       hicolor-icon-theme
@@ -32,7 +34,7 @@ Provides:       gitklient = %{version}-%{release}
 Obsoletes:      gitklient < 1.0
 
 %description
-Git gui client for KDE.
+%{summary}.
 
 %prep
 %autosetup -n %{name}-v%{version}
@@ -61,13 +63,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_bindir}/%{name}merge
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.1.0.2
+%{_libdir}/lib%{name}.so.1.3.0
 %{_libdir}/lib%{name}diff.so.0
-%{_libdir}/lib%{name}diff.so.1.0.2
+%{_libdir}/lib%{name}diff.so.1.3.0
 %{_libdir}/lib%{name}gui.so.0
-%{_libdir}/lib%{name}gui.so.1.0.2
-%{_libdir}/qt5/plugins/kf5/kfileitemaction/%{name}itemaction.so
-%{_libdir}/qt5/plugins/kf5/overlayicon/%{name}overlayplugin.so
+%{_libdir}/lib%{name}gui.so.1.3.0
+%{_qt5_plugindir}/dolphin/vcs/%{name}dolphinplugin.so
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/actions/*.svg
@@ -77,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Oct 30 2023 Vasiliy Glazov <vascom2@gmail.com> 1.3.0-1
+- Update to 1.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

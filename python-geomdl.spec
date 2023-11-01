@@ -4,6 +4,8 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc 1
 
+%bcond plotly 1
+
 Name:           python-geomdl
 Version:        5.3.1
 Release:        %autorelease
@@ -108,6 +110,11 @@ BuildArch:      noarch
 %autosetup -n NURBS-Python-%{version} -p1
 # Allow newer versions in cases where exact versions are pinned.
 sed -r -i 's/==/>=/' requirements.txt
+%if %{without plotly}
+# Omit plotly; functionality in geomdl.visualization.VisPlotly will be
+# unavailable.
+sed -r -i 's/^(plotly)\b/# &/' requirements.txt
+%endif
 
 
 %generate_buildrequires

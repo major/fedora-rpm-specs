@@ -1,7 +1,7 @@
 %global oqs_version 0.9.0
 Name:       liboqs
 Version:    %{oqs_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    liboqs is an open source C library for quantum-safe cryptographic algorithms.
 
 #liboqs uses MIT license by itself but includes several files licensed under different terms.
@@ -15,7 +15,6 @@ Source:     https://github.com/open-quantum-safe/liboqs/archive/refs/tags/0.9.0.
 BuildRequires: ninja-build
 BuildRequires: cmake
 BuildRequires: gcc
-BuildRequires: astyle
 BuildRequires: openssl-devel
 BuildRequires: python3-pytest
 %if %{undefined rhel}
@@ -52,10 +51,13 @@ rm -rf src/kem/classic_mceliece
 rm -rf src/kem/frodokem
 rm -rf src/kem/hqc
 rm -rf src/kem/ntruprime
-%if %{defined rhel}
+# code_conventions is for upstream CI, requires astyle
 # pytest-xdist is not available in RHEL due to dependencies
-sed -i -e 's/--numprocesses=auto//' tests/CMakeLists.txt
+sed -e '/COMMAND.*pytest/s|$| --ignore tests/test_code_conventions.py|' \
+%if %{defined rhel}
+    -e 's/--numprocesses=auto//' \
 %endif
+    -i tests/CMakeLists.txt
 
 %build
 %cmake -GNinja -DBUILD_SHARED_LIBS=ON -DOQS_USE_AES_OPENSSL=ON -DOQS_USE_AES_INSTRUCTIONS=OFF -DOQS_DIST_BUILD=ON -DOQS_ALGS_ENABLED=STD -DOQS_USE_SHA3_OPENSSL=ON -DCMAKE_BUILD_TYPE=Debug -LAH ..
@@ -95,6 +97,9 @@ done
 #%doc %%{_datadir}/doc/oqs/xml/*
 
 %changelog
+* Mon Oct 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.0-2
+- Skip code style tests
+
 * Fri Oct 27 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.9.0-1
 - Switch to 0.9.0 version
   Resolves: rhbz#2241615

@@ -1,15 +1,15 @@
 %undefine __cmake_in_source_build
 
-%global sdkver 1.3.261.1
+%global sdkver 1.3.268.0
 
 Name:           spirv-tools
-Version:        2023.2
+Version:        2023.3
 Release:        %autorelease
 Summary:        API and commands for processing SPIR-V modules
 
 License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/SPIRV-Tools
-Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
+Source0:        %url/archive/vulkan-sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
 
 Patch0: fix-gcc12-build.patch
 
@@ -44,7 +44,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Development files for %{name}
 
 %prep
-%autosetup -p1 -n SPIRV-Tools-sdk-%{sdkver}
+%autosetup -p1 -n SPIRV-Tools-vulkan-sdk-%{sdkver}
 
 %build
 %cmake3 -DCMAKE_BUILD_TYPE=Release \

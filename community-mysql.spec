@@ -13,7 +13,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.34
+%global last_tested_version 8.0.35
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -75,8 +75,8 @@
 %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
 
 Name:             community-mysql
-Version:          8.0.34
-Release:          2%{?with_debug:.debug}%{?dist}
+Version:          8.0.35
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -118,9 +118,6 @@ Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
 Patch54:          %{pkgnamepatch}-arm32-timer.patch
-Patch55:          %{pkgnamepatch}-clone.patch
-Patch56:          %{pkgnamepatch}-binlog.patch
-Patch57:          %{pkgnamepatch}-alignment.patch
 
 # Patches taken from boost 1.59
 Patch111:         boost-1.58.0-pool.patch
@@ -391,9 +388,6 @@ the MySQL sources.
 %patch -P52 -p1
 %patch -P53 -p1
 %patch -P54 -p1
-%patch -P55 -p1
-%patch -P56 -p1
-%patch -P57 -p1
 
 # Patch Boost
 pushd boost/boost_$(echo %{boost_bundled_version}| tr . _)
@@ -990,6 +984,10 @@ fi
 %endif
 
 %changelog
+* Thu Sep 21 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.35-1
+- Update to MySQL 8.0.35
+- Remove patches now upstream
+
 * Tue Aug 22 2023 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.34-2
 - Migrate license to SPDX
 

@@ -2,13 +2,16 @@
 
 Name:           python-sphinxcontrib-zopeext
 Version:        0.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
 URL:            https://pypi.org/project/sphinxcontrib-zopeext/
 BuildArch:      noarch
 Source0:        %pypi_source sphinxcontrib_zopeext
+# Cope with removal of ObjectMembers in Sphinx 7.2.0
+# https://github.com/sphinx-contrib/zopeext/pull/15
+Patch0:         %{name}-objectmembers.patch
 
 BuildRequires:  python3-devel
 
@@ -19,15 +22,12 @@ interfaces.
 %package     -n python3-sphinxcontrib-zopeext
 Summary:        Sphinx extension for documenting Zope interfaces
 
-# This can be removed when Fedora 36 reaches EOL
-Obsoletes:      python3-j1m.sphinxautointerface < 0.3.0-15
-
 %description -n python3-sphinxcontrib-zopeext
 This sphinx extension provides an autointerface directive for Zope
 interfaces.
 
 %prep
-%autosetup -n sphinxcontrib_zopeext-%{version}
+%autosetup -n sphinxcontrib_zopeext-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -44,6 +44,9 @@ interfaces.
 %license LICENSE
 
 %changelog
+* Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 0.4.2-4
+- Add patch for Sphinx 7.2.x
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

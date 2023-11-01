@@ -11,8 +11,9 @@ URL:              https://github.com/edwardgeorge/virtualenv-clone
 # the tests/ directory and tox.ini file.
 Source0:          %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-# Allow Python 3.11 and Python 3.12
-Patch:            allow-python3.11-and-3.12.patch
+# Allow the current Python version in tests
+# Extend the hardcoded list of Python versions with sys.version_info
+Patch:            https://github.com/edwardgeorge/virtualenv-clone/pull/76.patch
 
 BuildArch:        noarch
 BuildRequires:    python3-devel

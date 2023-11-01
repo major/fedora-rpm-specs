@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.22.0
-Release: 0.1.RC2%{?dist}
+Release: 0.2.RC2%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -15,11 +15,16 @@ URL: https://www.valgrind.org/
 # We never want the openmpi subpackage when building a software collecton.
 # We always want it for fedora.
 # We only want it for older rhel. But not s390x for too old rhel.
+# And on fedora > 39 i386 dropped openmpi.
 %if %{is_scl}
   %global build_openmpi 0
 %else
   %if 0%{?fedora}
-    %global build_openmpi 1
+    %ifarch %{ix86}
+      %global build_openmpi (%{?fedora} < 40)
+    %else
+      %global build_openmpi 1
+    %endif
   %endif
   %if 0%{?rhel}
     %if 0%{?rhel} > 7
@@ -458,6 +463,10 @@ fi
 %endif
 
 %changelog
+* Mon Oct 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-0.2.RC2
+- Update valgrind-3.21.0-no-memcpy-replace-check.patch
+- Fedora 40 dropped openmpi support on i386
+
 * Thu Oct 26 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-0.1.RC2
 - Upstream 3.22.0-RC2
 

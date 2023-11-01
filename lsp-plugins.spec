@@ -1,5 +1,5 @@
 Name:           lsp-plugins
-Version:        1.2.12
+Version:        1.2.13
 Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
@@ -159,6 +159,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/clap/%{name}-clap.clap
 
 %changelog
+* Mon Oct 30 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.2.13-1
+- Update to 1.2.13
+
 * Mon Oct 16 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.2.12-1
 - Update to 1.2.12
 

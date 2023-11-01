@@ -1,15 +1,15 @@
 %global gem_name asciidoctor-pdf
 
 Name:     rubygem-%{gem_name}
-Version:  2.3.8
-Release:  3%{?dist}
+Version:  2.3.9
+Release:  1%{?dist}
 Summary:  Converts AsciiDoc documents to PDF using Prawn
 License:  MIT
 URL:      https://github.com/asciidoctor/asciidoctor-pdf
 Source0:  https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/asciidoctor/asciidoctor-pdf.git && cd asciidoctor-pdf
-# git checkout v2.3.8
-# tar -czf rubygem-asciidoctor-pdf-2.3.8-specs-examples.tgz spec/ examples/ docs/
+# git checkout v2.3.9
+# tar -czf rubygem-asciidoctor-pdf-2.3.9-specs-examples.tgz spec/ examples/ docs/
 Source1:  %{name}-%{version}-specs-examples.tgz
 # https://github.com/asciidoctor/asciidoctor-pdf/pull/2459
 Patch0:   asciidoctor-pdf-pr2459-ruby33-NoMethodError-msg.patch
@@ -99,6 +99,9 @@ rspec -t '~network'
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Mon Oct 30 2023 Sergi Jimenez <tripledes@fedoraproject.org> - 2.3.9-1
+- Bump to 2.3.9
+
 * Fri Oct 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.8-3
 - Backport upstream patch for testsuite for ruby3.3 NoMethodError
   message change

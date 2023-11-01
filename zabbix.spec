@@ -17,7 +17,7 @@
 Name:           zabbix
 Epoch:          1
 Version:        6.0.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPLv2
@@ -794,6 +794,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Sat Oct 28 2023 Orion Poplawski <orion@nwra.com> - 1:6.0.22-2
+- Add dontaudit SELinux rules for spurious AVC denial messages (bz#2170630)
+
 * Wed Oct 04 2023 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.22-1
 - Update to 6.0.22
 

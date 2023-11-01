@@ -7,8 +7,8 @@
 %global system_user libvirtdbus
 
 Name: libvirt-dbus
-Version: 1.4.0
-Release: 8%{?dist}
+Version: 1.4.1
+Release: 1%{?dist}
 Summary: libvirt D-Bus API binding
 License: LGPL-2.1-or-later
 URL: https://libvirt.org/
@@ -24,6 +24,8 @@ BuildRequires: python36-docutils
 %else
 BuildRequires: python3-docutils
 %endif
+BuildRequires: systemd-rpm-macros
+BuildRequires: systemd
 
 Requires: dbus
 Requires: glib2 >= %{glib2_version}
@@ -53,6 +55,15 @@ getent passwd %{system_user} >/dev/null || \
     -c "Libvirt D-Bus bridge" %{system_user}
 exit 0
 
+%post
+%systemd_post %{name}.service
+
+%preun
+%systemd_preun %{name}.service
+
+%postun
+%systemd_postun_with_reload %{name}.service
+
 %files
 %doc AUTHORS.rst NEWS.rst
 %license COPYING
@@ -63,8 +74,13 @@ exit 0
 %{_datadir}/dbus-1/interfaces/org.libvirt.*.xml
 %{_datadir}/polkit-1/rules.d/libvirt-dbus.rules
 %{_mandir}/man8/libvirt-dbus.8*
+%{_unitdir}/%{name}.service
+%{_userunitdir}/%{name}.service
 
 %changelog
+* Mon Oct 30 2023 Ladar Levison <ladar@lavabit.com>
+- Update to 1.4.1 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 
 %global crate colored_json
 
-Name:           rust-colored_json
-Version:        3.3.0
+Name:           rust-colored_json2
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Colorize JSON, for printing it out on the command line
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CRATE-README.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

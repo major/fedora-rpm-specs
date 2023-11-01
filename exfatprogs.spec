@@ -1,8 +1,8 @@
 Name:           exfatprogs
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Userspace utilities for exFAT filesystems
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/%{name}/%{name}
 
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -46,6 +46,9 @@ autoreconf -vif
 %{_mandir}/man8/tune.exfat.*
 
 %changelog
+* Tue Oct 30 2023 Pavel Reichl <preichl@redhat.com> - 1.2.2-2
+- Convert License tag to SPDX format
+
 * Sat Oct 28 2023 Simone Caronni <negativo17@gmail.com> - 1.2.2-1
 - Update to 1.2.2.
 

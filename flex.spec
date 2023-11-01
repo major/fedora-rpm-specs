@@ -3,12 +3,13 @@
 Summary: A tool for generating scanners (text pattern recognizers)
 Name: flex
 Version: 2.6.4
-Release: 13%{?dist}
-# parse.c and parse.h are under GPLv3+ with exception which allows
-#	relicensing.  Since flex is shipped under BDS-style license,
-#	let's  assume that the relicensing was done.
-# gettext.h (copied from gnulib) is under LGPLv2+
-License: BSD and LGPLv2+
+Release: 14%{?dist}
+
+# An SPDX license string check done against flex-2.6.4 using fossology
+# found strings corresponding to the licenses noted below across the flex
+# source tree.
+License: BSD-3-Clause-flex AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-3.0-or-later WITH Texinfo-exception AND FSFAP AND FSFUL AND FSFULLR AND FSFULLRWD AND GPL-2.0-or-later AND X11
+
 URL: https://github.com/westes/flex
 Source: https://github.com/westes/flex/releases/download/v%{version}/flex-%{version}.tar.gz
 
@@ -133,6 +134,12 @@ echo ============END TESTING===========
 %{_libdir}/*.a
 
 %changelog
+* Mon Oct 30 2023 Arjun Shankar <arjun@redhat.com> - 2.6.4-14
+- Analyse flex sources for license information
+- Migrate License field to SPDX identifiers for
+  https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+  (#2222083)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

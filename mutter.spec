@@ -56,6 +56,15 @@ Patch: 0004-kms-impl-device-Inhibit-real-time-scheduling-when-mo.patch
 # which solves the problems reported with #3329 alone
 Patch: 0001-modified-3329.patch
 
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/7148
+# https://bugzilla.redhat.com/show_bug.cgi?id=2247033
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3311
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3326
+# Fix problems with screen captures being corrupted or not working on
+# certain hardware
+Patch: 3311.patch
+Patch: 3326.patch
+
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libwacom)

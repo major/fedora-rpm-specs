@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        119.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -177,6 +177,7 @@ Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pr
 Source1:        firefox-langpacks-%{version}%{?pre_version}-20231023.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
+Source3:        dump_syms-vendor.tar.xz
 Source10:       firefox-mozconfig
 Source12:       firefox-redhat-default-prefs.js
 Source20:       firefox.desktop
@@ -700,6 +701,24 @@ cd -
 export CBINDGEN=/usr/bin/cbindgen
 %endif
 
+%if %{enable_mozilla_crashreporter}
+mkdir -p my_rust_vendor
+cd my_rust_vendor
+tar xf %{SOURCE3}
+mkdir -p .cargo
+cat > .cargo/config <<EOL
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "`pwd`"
+EOL
+
+env CARGO_HOME=.cargo cargo install dump_syms
+export PATH=`pwd`/.cargo/bin:$PATH
+cd -
+%endif
+
 mkdir %{_buildrootdir}/bin || :
 cp %{SOURCE32} %{_buildrootdir}/bin || :
 
@@ -1125,6 +1144,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Oct 30 2023 Jan Horak <jhorak@redhat.com> - 119.0-3
+- Enable mozilla crash reporter
+
 * Fri Oct 27 2023 Martin Stransky <stransky@redhat.com>- 119.0-2
 - Added fix for mzbz#1861615
 

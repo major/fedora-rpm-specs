@@ -1,5 +1,3 @@
-%bcond examples 1
-
 # We should package a commit corresponding to a release tag unless there is a
 # compelling reason to do otherwise. Normally this would mean referencing the
 # tag corresponding to the packaged version. However, packaging as a snapshot
@@ -42,6 +40,8 @@ BuildRequires:  python3-devel
 # extra; see https://github.com/holoviz/colorcet/pull/76.
 BuildRequires:  %{py3_dist pyct[build]}
 
+Obsoletes:      python-colorcet+examples < 3.0.1^20221003git809e291-10
+
 %global common_description %{expand:
 Colorcet is a collection of perceptually uniform colormaps for use with Python
 plotting programs like bokeh, matplotlib, holoviews, and datashader based on
@@ -57,12 +57,11 @@ Summary:        %{summary}
 %description -n python3-colorcet %{common_description}
 
 
-%if %{with examples}
 # We don’t create a metapackage for the “all” extra because it includes several
 # extras (“tests”, “tests_extra”, “doc”, “build”) that are only suitable for
-# development. Only the “examples” extra really makes sense for packaging.
-%pyproject_extras_subpkg -n python3-colorcet examples
-%endif
+# development. Only the “examples” extra really makes sense for packaging, and
+# we omit it because holoviews is not packaged (and bokeh may be retired in the
+# near future).
 
 
 %prep
@@ -70,8 +69,6 @@ Summary:        %{summary}
 
 # nbsmoke is not packaged, so we cannot run tests that use it
 sed -r -i '/\bnbsmoke\b/d' setup.py
-# holoviews is not packaged, so we cannot run examples that use it
-sed -r -i '/\bholoviews\b/d' setup.py
 # Don’t pull in dependencies for linting, PyPI uploading, or coverage analysis.
 sed -r -i '/\b(flake8|pytest-cov)\b/d' setup.py
 
@@ -83,7 +80,7 @@ EOF
 
 %generate_buildrequires
 # We want the “all” extra minus the “doc” extra:
-%pyproject_buildrequires -x tests%{?with_examples:,examples},tests_extra,build
+%pyproject_buildrequires -x tests,tests_extra,build
 
 
 %build
@@ -114,7 +111,8 @@ rm -vf '%{buildroot}%{_bindir}/colorcet'
 # commands: unit_extra
 # Test the repository in the source tree so that tests have baseline images:
 PYTHONPATH="${PWD}" %pytest colorcet --mpl colorcet/tests
-# We cannot run the “examples” test command because nbsmoke is not packaged.
+# We cannot run the “examples” test command because nbsmoke is not packaged
+# (and not all of the dependencies for the examples are available).
 
 
 %files -n python3-colorcet -f %{pyproject_files}

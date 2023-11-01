@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.28
+Version: 12.29
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Oct 30 2023 Nick Clifron  <nickc@redhat.com> - 12.29-1
+- Fix atexit test failure.
+- Notes: Add support for string format notes.
+
 * Fri Oct 06 2023 Nick Clifron  <nickc@redhat.com> - 12.28-1
 - GCC Plugin: Record settings of -Wstrict-flex-arrays and -fstrict-flex-arrays
 - Annobin: Add future test of these options.

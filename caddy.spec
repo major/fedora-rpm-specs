@@ -1,7 +1,7 @@
 %global goipath         github.com/caddyserver/caddy
 
 Name:           caddy
-Version:        2.7.4
+Version:        2.7.5
 Release:        1%{?dist}
 Summary:        Web server with automatic HTTPS
 # main source code is Apache-2.0
@@ -52,7 +52,7 @@ Provides:       bundled(golang(github.com/Masterminds/sprig/v3)) = 3.2.3
 # MIT
 Provides:       bundled(golang(github.com/Microsoft/go-winio)) = 0.6.0
 # MIT
-Provides:       bundled(golang(github.com/alecthomas/chroma/v2)) = 2.7.0
+Provides:       bundled(golang(github.com/alecthomas/chroma/v2)) = 2.9.1
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/antlr/antlr4/runtime/Go/antlr/v4)) = 8188dc5
 # MIT
@@ -82,15 +82,17 @@ Provides:       bundled(golang(github.com/dgraph-io/ristretto)) = 0.1.0
 # MIT
 Provides:       bundled(golang(github.com/dgryski/go-farm)) = a6ae236
 # MIT
-Provides:       bundled(golang(github.com/dlclark/regexp2)) = 1.7.0
+Provides:       bundled(golang(github.com/dlclark/regexp2)) = 1.10.0
 # MIT
 Provides:       bundled(golang(github.com/dustin/go-humanize)) = 1.0.1
 # MIT
 Provides:       bundled(golang(github.com/felixge/httpsnoop)) = 1.0.3
 # MIT
-Provides:       bundled(golang(github.com/fxamacker/cbor/v2)) = 2.4.0
+Provides:       bundled(golang(github.com/fxamacker/cbor/v2)) = 2.5.0
 # MIT
 Provides:       bundled(golang(github.com/go-chi/chi)) = 4.1.2+incompatible
+# MIT
+Provides:       bundled(golang(github.com/go-chi/chi/v5)) = 5.0.10
 # MIT
 Provides:       bundled(golang(github.com/go-kit/kit)) = 0.10.0
 # MIT
@@ -100,13 +102,11 @@ Provides:       bundled(golang(github.com/go-logr/logr)) = 1.2.4
 # Apache-2.0
 Provides:       bundled(golang(github.com/go-logr/stdr)) = 1.2.2
 # MPL-2.0
-Provides:       bundled(golang(github.com/go-sql-driver/mysql)) = 1.7.0
+Provides:       bundled(golang(github.com/go-sql-driver/mysql)) = 1.7.1
 # MIT
 Provides:       bundled(golang(github.com/go-task/slim-sprig)) = 52ccab3
 # Apache-2.0
 Provides:       bundled(golang(github.com/golang/glog)) = 1.1.0
-# Apache-2.0
-Provides:       bundled(golang(github.com/golang/mock)) = 1.6.0
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/golang/protobuf)) = 1.5.3
 # BSD-3-Clause
@@ -114,17 +114,17 @@ Provides:       bundled(golang(github.com/golang/snappy)) = 0.0.4
 # Apache-2.0
 Provides:       bundled(golang(github.com/google/cel-go)) = 0.15.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/google/certificate-transparency-go)) = 1.1.4
+Provides:       bundled(golang(github.com/google/certificate-transparency-go)) = 1.1.6
 # Apache-2.0
-Provides:       bundled(golang(github.com/google/go-tpm)) = 0.3.3
+Provides:       bundled(golang(github.com/google/go-tpm)) = 0.9.0
 # Apache-2.0
 Provides:       bundled(golang(github.com/google/go-tspi)) = 0.3.0
 # Apache-2.0
 Provides:       bundled(golang(github.com/google/pprof)) = 4bb14d4
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/google/uuid)) = 1.3.0
+Provides:       bundled(golang(github.com/google/uuid)) = 1.3.1
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/grpc-ecosystem/grpc-gateway/v2)) = 2.7.0
+Provides:       bundled(golang(github.com/grpc-ecosystem/grpc-gateway/v2)) = 2.15.2
 # MIT
 Provides:       bundled(golang(github.com/huandu/xstrings)) = 1.3.3
 # BSD-3-Clause
@@ -148,7 +148,7 @@ Provides:       bundled(golang(github.com/jackc/pgtype)) = 1.14.0
 # MIT
 Provides:       bundled(golang(github.com/jackc/pgx/v4)) = 4.18.0
 # BSD-3-Clause AND Apache-2.0 AND MIT
-Provides:       bundled(golang(github.com/klauspost/compress)) = 1.16.7
+Provides:       bundled(golang(github.com/klauspost/compress)) = 1.17.0
 # MIT
 Provides:       bundled(golang(github.com/klauspost/cpuid/v2)) = 2.2.5
 # MIT
@@ -162,7 +162,7 @@ Provides:       bundled(golang(github.com/mattn/go-colorable)) = 0.1.8
 # MIT
 Provides:       bundled(golang(github.com/mattn/go-isatty)) = 0.0.16
 # Apache-2.0
-Provides:       bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = 1.0.1
+Provides:       bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = 1.0.4
 # MIT
 Provides:       bundled(golang(github.com/mgutz/ansi)) = d51e80e
 # Apache-2.0
@@ -184,19 +184,19 @@ Provides:       bundled(golang(github.com/pkg/errors)) = 0.9.1
 # BSD-3-Clause
 Provides:       bundled(golang(github.com/pmezard/go-difflib)) = 1.0.0
 # Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.14.0
+Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.15.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.3.0
+Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.4.0
 # Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/common)) = 0.37.0
+Provides:       bundled(golang(github.com/prometheus/common)) = 0.42.0
 # Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.8.0
+Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.9.0
 # MIT
 Provides:       bundled(golang(github.com/quic-go/qpack)) = 0.4.0
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.3.1
+Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.3.4
 # MIT
-Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.37.5
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.39.0
 # MIT
 Provides:       bundled(golang(github.com/rs/xid)) = 1.5.0
 # BSD-2-Clause
@@ -210,9 +210,9 @@ Provides:       bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
 # MIT
 Provides:       bundled(golang(github.com/slackhq/nebula)) = 1.6.1
 # Apache-2.0
-Provides:       bundled(golang(github.com/smallstep/certificates)) = 0.24.3-rc.5
+Provides:       bundled(golang(github.com/smallstep/certificates)) = 0.25.0
 # Apache-2.0
-Provides:       bundled(golang(github.com/smallstep/go-attestation)) = e172914
+Provides:       bundled(golang(github.com/smallstep/go-attestation)) = cf579e5
 # Apache-2.0
 Provides:       bundled(golang(github.com/smallstep/nosql)) = 0.6.0
 # Apache-2.0
@@ -228,13 +228,13 @@ Provides:       bundled(golang(github.com/stoewer/go-strcase)) = 1.2.0
 # MIT
 Provides:       bundled(golang(github.com/stretchr/testify)) = 1.8.4
 # BSD-3-Clause
-Provides:       bundled(golang(github.com/tailscale/tscert)) = 4e9cb4f
+Provides:       bundled(golang(github.com/tailscale/tscert)) = 28a91b6
 # MIT
 Provides:       bundled(golang(github.com/urfave/cli)) = 1.22.14
 # MIT
 Provides:       bundled(golang(github.com/x448/float16)) = 0.8.4
 # MIT
-Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.5.5
+Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.5.6
 # MIT
 Provides:       bundled(golang(github.com/yuin/goldmark-highlighting/v2)) = 37449ab
 # CC0-1.0
@@ -274,39 +274,41 @@ Provides:       bundled(golang(go.opentelemetry.io/proto/otlp)) = 0.19.0
 # Apache-2.0 AND BSD-2-Clause
 Provides:       bundled(golang(go.step.sm/cli-utils)) = 0.8.0
 # Apache-2.0 AND BSD-2-Clause
-Provides:       bundled(golang(go.step.sm/crypto)) = 0.33.0
+Provides:       bundled(golang(go.step.sm/crypto)) = 0.35.1
 # Apache-2.0
-Provides:       bundled(golang(go.step.sm/linkedca)) = 0.20.0
+Provides:       bundled(golang(go.step.sm/linkedca)) = 0.20.1
+# Apache-2.0
+Provides:       bundled(golang(go.uber.org/mock)) = 0.3.0
 # MIT
 Provides:       bundled(golang(go.uber.org/multierr)) = 1.11.0
 # MIT
 Provides:       bundled(golang(go.uber.org/zap)) = 1.25.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.12.0
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.14.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/exp)) = 522b1b5
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/mod)) = 0.11.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/net)) = 0.14.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.17.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sync)) = 0.3.0
+Provides:       bundled(golang(golang.org/x/sync)) = 0.4.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sys)) = 0.11.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.13.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/term)) = 0.11.0
+Provides:       bundled(golang(golang.org/x/term)) = 0.13.0
 # BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/text)) = 0.12.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.13.0
 # BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/tools)) = 0.10.0
 # Apache-2.0
-Provides:       bundled(golang(google.golang.org/genproto)) = ccb25ca
+Provides:       bundled(golang(google.golang.org/genproto)) = 007df8e
 # Apache-2.0
-Provides:       bundled(golang(google.golang.org/genproto/googleapis/api)) = ccb25ca
+Provides:       bundled(golang(google.golang.org/genproto/googleapis/api)) = f966b18
 # Apache-2.0
-Provides:       bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 782d3b1
+Provides:       bundled(golang(google.golang.org/genproto/googleapis/rpc)) = e6e6cda
 # Apache-2.0
-Provides:       bundled(golang(google.golang.org/grpc)) = 1.56.2
+Provides:       bundled(golang(google.golang.org/grpc)) = 1.58.2
 # BSD-3-Clause
 Provides:       bundled(golang(google.golang.org/protobuf)) = 1.31.0
 # MIT
@@ -366,12 +368,16 @@ install -d -m 0750 %{buildroot}%{_sharedstatedir}/caddy
 # welcome page
 %if %{defined fedora}
 install -D -p -m 0644 %{S:30} %{buildroot}%{_datadir}/caddy/poweredby.png
+ln -s ../fedora-testpage/index.html %{buildroot}%{_datadir}/caddy/index.html
 %else
 install -D -p -m 0644 %{S:31} %{buildroot}%{_datadir}/caddy/poweredby.png
-%endif
 ln -s ../testpage/index.html %{buildroot}%{_datadir}/caddy/index.html
+%endif
 install -d -m 0755 %{buildroot}%{_datadir}/caddy/icons
 ln -s ../../pixmaps/poweredby.png %{buildroot}%{_datadir}/caddy/icons/poweredby.png
+%if %{defined rhel} && 0%{?rhel} >= 9
+ln -s ../pixmaps/system-noindex-logo.png %{buildroot}%{_datadir}/caddy/system_noindex_logo.png
+%endif
 
 # shell completions
 install -d -m 0755 %{buildroot}%{_datadir}/bash-completion/completions
@@ -466,6 +472,12 @@ fi
 
 
 %changelog
+* Mon Oct 30 2023 Carl George <carlwgeorge@fedoraproject.org> - 2.7.5-1
+- Update to version 2.7.5
+- Update poweredby logos
+- Add symlink for system_noindex_logo.png on EL9
+- Symlink directly to fedora-testpage directory on Fedora
+
 * Thu Aug 17 2023 Carl George <carlwgeorge@fedoraproject.org> - 2.7.4-1
 - Update to version 2.7.4, resolves rhbz#2232696
 - Fix CVE-2023-3978, resolves rhbz#2229582

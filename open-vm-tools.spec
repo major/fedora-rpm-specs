@@ -31,7 +31,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0 AND W3C AND LGPL-2.1 AND ICU AND ISC AND MIT
 URL:              https://github.com/vmware/%{name}
@@ -50,7 +50,9 @@ ExclusiveArch:    %{ix86} x86_64 aarch64
 %endif
 
 # Patches
-#Patch1:           <patch-name1>.patch
+#Patch0:           <patch-name0>.patch
+Patch1:           CVE-2023-34058.patch
+Patch2:           CVE-2023-34059.patch
 
 BuildRequires:    autoconf
 BuildRequires:    automake
@@ -179,7 +181,7 @@ useful for verifying the functioning of %{name} in VMware virtual
 machines.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-%{toolsbuild}
+%autosetup -p2 -n %{name}-%{version}-%{toolsbuild}
 
 %build
 autoreconf -vif
@@ -418,6 +420,10 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Mon Oct 30 2023 John Wolfe <jwolfe@vmware.com> - 12.3.0-3
+- Address CVE-2023-34058 - BZ 2246963 - SAML token signature token bypass.
+- Address CVE-2023-34059 - BZ 2246962 - vmware-user-suid-wrapper
+  file descriptor hijack vulnerability
 * Thu Oct 05 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 12.3.0-2
 - Use fuse3 on new RHEL
 

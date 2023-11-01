@@ -3,41 +3,41 @@
 # when bootstrapping sphinx, we cannot run tests yet
 %bcond_without check
 
-Name:           python-%{pypi_name}
-Version:        1.0.3
-Release:        16%{?dist}
+Name:           python-sphinxcontrib-qthelp
+Version:        1.0.6
+Release:        1%{?dist}
 Summary:        Sphinx extension for QtHelp documents
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
-Source0:        %{pypi_source}
+Source:         %{pypi_source sphinxcontrib_qthelp}
 BuildArch:      noarch
 
-# In Sphinx 5 path.read_text() replaces path.text() - compatibility fix
-Patch:          https://github.com/sphinx-doc/sphinxcontrib-qthelp/pull/14.patch
+# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
+# In the RPM environment the dependencies are handled correctly without it
+# Remove the runtime requirement on Sphinx from this package
+# See: https://github.com/sphinx-doc/sphinx/issues/11567
+Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
-%if %{with check}
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
-%endif
 
 %description
 sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp document.
 
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python%{python3_pkgversion}-sphinxcontrib-qthelp
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python%{python3_pkgversion}-sphinxcontrib-qthelp
 sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp document.
 
 
+%generate_buildrequires
+%pyproject_buildrequires %{?with_check: -x test}
+
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n sphinxcontrib_qthelp-%{version}
 find -name '*.mo' -delete
 
 
@@ -45,11 +45,11 @@ find -name '*.mo' -delete
 for po in $(find -name '*.po'); do
   msgfmt --output-file=${po%.po}.mo ${po}
 done
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # Move language files to /usr/share
 pushd %{buildroot}%{python3_sitelib}
@@ -73,15 +73,18 @@ popd
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f sphinxcontrib.qthelp.lang
+%files -n python%{python3_pkgversion}-sphinxcontrib-qthelp -f sphinxcontrib.qthelp.lang
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib/
-%{python3_sitelib}/sphinxcontrib_qthelp-%{version}-py%{python3_version}-*.pth
-%{python3_sitelib}/sphinxcontrib_qthelp-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/sphinxcontrib_qthelp-%{version}.dist-info/
 
 
 %changelog
+* Thu Aug 24 2023 Karolina Surma <ksumra@redhat.com> - 1.0.6-1
+- Update to 1.0.6
+Resolves: rhbz#2230149
+
 * Thu Aug 10 2023 Karolina Surma <ksumra@redhat.com> - 1.0.3-16
 - Declare the license as an SPDX expression
 

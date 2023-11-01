@@ -1,15 +1,15 @@
 Name:           perl-Pod-Markdown
-Version:        3.300
-Release:        9%{?dist}
+Version:        3.400
+Release:        1%{?dist}
 Summary:        Convert POD to Markdown
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Markdown
 Source0:        https://cpan.metacpan.org/authors/id/R/RW/RWSTAUNER/Pod-Markdown-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -46,7 +46,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} -c $RPM_BUILD_ROOT
 
 %check
 make test
@@ -54,11 +54,16 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man[13]/*
-%{_bindir}/*
+%{_bindir}/pod2markdown
+%{perl_vendorlib}/Pod/
+%{_mandir}/man1/pod2markdown.1*
+%{_mandir}/man3/Pod::Markdown.3*
+%{_mandir}/man3/Pod::Perldoc::ToMarkdown.3*
 
 %changelog
+* Mon Oct 30 2023 Paul Howarth <paul@city-fan.org> - 3.400-1
+- 3.400 bump (rhbz#2246865)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

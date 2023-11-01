@@ -1,5 +1,5 @@
 Name:           easyeffects
-Version:        7.1.0
+Version:        7.1.1
 Release:        1%{?dist}
 Summary:        Audio effects for PipeWire applications
 
@@ -40,6 +40,7 @@ BuildRequires:  pkgconfig(gsl)
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(soundtouch)
+BuildRequires:  ladspa-devel
 
 Requires:       hicolor-icon-theme
 Requires:       dbus-common
@@ -100,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Mon Oct 30 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.1-1
+- Update to 7.1.1
+
 * Tue Sep 12 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.0-1
 - Update to 7.1.0
 

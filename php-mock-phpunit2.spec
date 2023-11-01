@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    33a99c190d078e77864b8d74cdc91cc4e5342598
+%global gh_commit    56edee85ad3232caa0202f98f2a3c899ab16bdb7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
@@ -14,8 +14,8 @@
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.7.2
-Release:        2%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
@@ -120,7 +120,7 @@ fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
 : Run upstream test suite with phpunit9
-for cmd in php php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -129,9 +129,11 @@ fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
 : Run upstream test suite with phpunit10
-for cmd in php php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
-    $cmd %{_bindir}/phpunit10 || ret=1
+    $cmd %{_bindir}/phpunit10 \
+       --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
+       || ret=1
   fi
 done
 fi
@@ -149,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Mon Oct 30 2023 Remi Collet <remi@remirepo.net> - 2.8.0-1
+- update to 2.8.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -263,12 +263,7 @@ install -dm 0755 %{buildroot}%{_localstatedir}/log/letsencrypt
 %check
 for module in acme certbot %{MODULES} certbot-apache certbot-nginx; do
 pushd $module
-%pytest -v  -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
-    -W "ignore:Deprecated call to \`pkg_resources.declare_namespace('sphinxcontrib')\`::pkg_resources" \
-    -W "ignore:datetime.datetime.utcfromtimestamp() is deprecated:DeprecationWarning" \
-    -W "ignore:datetime.datetime.utcnow() is deprecated:DeprecationWarning" \
-    -W "ignore:datetime.utcfromtimestamp() is deprecated:DeprecationWarning" \
-    -W "ignore:datetime.utcnow() is deprecated:DeprecationWarning"
+%pytest -v
 popd
 done
 %endif

@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -156,34 +156,31 @@ margins.  This package provides the Python bindings for mlpack.
 
 %build
 # Make sure pip is available.
-python3 -m ensurepip --upgrade
+%{python3} -m ensurepip --upgrade
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 # On RHEL6, the Boost CMake scripts fail for some reason.  I don't have the
 # time (or patience) to investigate, but if we force CMake to find Boost "the
 # hard way" by specifying Boost_NO_BOOST_CMAKE=1, it works.
-%{cmake28} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=/usr/bin/python3 -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
+%{cmake28} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=%{python3} -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
 %else
-%{cmake} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=/usr/bin/python3 -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
+%{cmake} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=%{python3} -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
 %endif
 
 # Try and reduce RAM usage.
 %ifarch armv7hl
-cd %{_vpath_builddir};
-cmake -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" -D CMAKE_CXX_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" .
-cd ..;
+cmake -B %{__cmake_builddir} \
+      -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" -D CMAKE_CXX_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" .
 %endif
 
 %ifarch i686
-cd %{_vpath_builddir};
-cmake -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" -D CMAKE_CXX_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" .
-cd ..;
+cmake -B %{__cmake_builddir} \
+      -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" -D CMAKE_CXX_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" .
 %endif
 
 %ifarch ppc64le
-cd %{_vpath_builddir};
-cmake -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" -D CMAKE_CXX_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" .
-cd ..;
+cmake -B %{__cmake_builddir} \
+      -D CMAKE_C_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" -D CMAKE_CXX_FLAGS="`echo %{optflags} | sed 's/-pipe//g' | sed 's/$/ --param ggc-min-heapsize=32768 --param ggc-min-expand=1/'`" .
 %endif
 
 # Don't use %make because it could use too much RAM with multiple cores on Koji...
@@ -312,6 +309,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Mon Oct 30 2023 Benson Muite <benson_muite@emailplus.org> - 4.2.1-5
+- Use RPM macros for python and cmake build directory
+
 * Fri Oct 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2.1-4
 - Ensure stb_image contains the latest CVE patches
 

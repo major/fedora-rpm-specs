@@ -1,11 +1,12 @@
 Name:    kf5
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 5
 License: BSD-3-Clause
 URL:     http://www.kde.org
 
 Source0: macros.kf5
+Source1: BSD-3-Clause.txt
 
 %description
 Filesystem and RPM macros for KDE Frameworks 5
@@ -41,6 +42,8 @@ BuildArch: noarch
 %description rpm-macros
 RPM macros for building KDE Frameworks 5 packages.
 
+%prep
+cp %{S:1} LICENSE
 
 %install
 # See macros.kf5 where the directories are specified
@@ -60,7 +63,6 @@ mkdir -p %{buildroot}%{_datadir}/knsrcfiles/
 mkdir -p %{buildroot}%{_datadir}/solid/{actions,devices}
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/{env,shutdown}
 %endif
-
 install -Dpm644 %{_sourcedir}/macros.kf5 %{buildroot}%{_rpmconfigdir}/macros.d/macros.kf5
 sed -i \
   -e "s|@@KF5_VERSION@@|%{version}|g" \
@@ -71,6 +73,7 @@ sed -i \
 
 
 %files filesystem
+%license LICENSE
 %{_prefix}/lib/qt5/plugins/kf5/
 %{_prefix}/%{_lib}/qt5/plugins/kf5/
 %{_includedir}/KF5/
@@ -97,6 +100,9 @@ sed -i \
 
 
 %changelog
+* Mon Oct 30 2023 Steve Cossette <farchord@gmail.com> - 5.111.0-2
+- Added SPDX licensing information
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

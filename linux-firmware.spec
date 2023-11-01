@@ -4,8 +4,8 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20230919
-Release:	4%{?dist}
+Version:	20231030
+Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
@@ -488,6 +488,26 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Mon Oct 30 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20231030-1
+- Update to upstream 20231030 release
+- Update firmware file for Intel Bluetooth AX203/AX210/AX211/
+- Update firmware file for Intel Bluetooth Magnetor AX101/AX201/AX211
+- rtl_nic: update firmware of RTL8156B
+- Update AMD cpu microcode
+- amdgpu: update SMU 13.0.0 firmware
+- add Amlogic bluetooth firmware
+- i915: Add GuC v70.13.1 for DG2, TGL, ADL-P and MTL
+- iwlwifi: add a missing FW from core80-39 release
+- WHENCE: add symlink for BananaPi M64
+- i915: Update MTL DMC to v2.17
+- amdgpu: update various firmware from 5.7 branch
+- iwlwifi: add FWs for new GL and MA device types with multiple RF modules
+- amd_pmf: Add initial PMF TA for Smart PC Solution Builder
+- Update FW files for MRVL PCIE 8997 chipsets
+- rtl_bt: Update RTL8851B BT USB firmware to 0x048A_D230
+- iwlwifi: add new FWs from core81-65 release
+- iwlwifi: update cc/Qu/QuZ firmwares for core81-65 release
+
 * Tue Oct 17 2023 Michel Lind <salimma@fedoraproject.org> - 20230919-4
 - Create amd-ucode-firmware subpackage
 

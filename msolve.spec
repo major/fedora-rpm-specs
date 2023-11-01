@@ -1,5 +1,5 @@
 Name:           msolve
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Polynomial System Solving through Algebraic Methods
 
@@ -13,9 +13,6 @@ URL:            https://msolve.lip6.fr/
 Source0:        https://github.com/algebraic-solving/msolve/archive/v%{version}/%{name}-%{version}.tar.gz
 # Detect AVX2 support at runtime instead of compile time
 Patch0:         %{name}-avx2.patch
-# Fix mismatched declarations and definitions
-# https://github.com/algebraic-solving/msolve/pull/70
-Patch1:         %{name}-decl.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -65,6 +62,9 @@ msolve.
 
 %prep
 %autosetup -p1
+
+# Fix the pkgconfig file
+sed -i 's/ -lflint -lmpfr -lgmp/\nLibs.private:&/' msolve.pc.in
 
 # Generate the configure script
 ./autogen.sh
@@ -121,14 +121,15 @@ make check
 %files libs
 %doc AUTHORS README.md
 %license COPYING
-%{_libdir}/libmsolve-0.5.0.so
-%{_libdir}/libneogb-0.5.0.so
+%{_libdir}/libmsolve-0.6.0.so
+%{_libdir}/libneogb-0.6.0.so
 
 %files devel
 %{_includedir}/msolve/
 %{_includedir}/neogb/
 %{_libdir}/libmsolve.so
 %{_libdir}/libneogb.so
+%{_libdir}/pkgconfig/msolve.pc
 
 %changelog
 %autochangelog

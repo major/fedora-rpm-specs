@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
-Version:        2.14.1
+Version:        2.15.0
 Release:        1%{?dist}
 Summary:        Adaptable Type Definitions for cross-language data types
 
@@ -283,6 +283,9 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{d,j,py,s,ts}
 
 
 %changelog
+* Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 2.15.0-1
+- Version 2.15.0
+
 * Wed Oct 25 2023 Jerry James <loganjerry@gmail.com> - 2.14.1-1
 - Version 2.14.1
 

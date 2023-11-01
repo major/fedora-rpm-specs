@@ -2,21 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate colored_json
+%global crate quinn-udp
 
-Name:           rust-colored_json
-Version:        3.3.0
+Name:           rust-quinn-udp
+Version:        0.4.1
 Release:        %autorelease
-Summary:        Colorize JSON, for printing it out on the command line
+Summary:        UDP sockets with ECN information for the QUIC transport protocol
 
-License:        EPL-2.0
-URL:            https://crates.io/crates/colored_json
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/quinn-udp
 Source:         %{crates_source}
+Source:         https://github.com/quinn-rs/quinn/raw/0.10.0/LICENSE-APACHE
+Source:         https://github.com/quinn-rs/quinn/raw/0.10.0/LICENSE-MIT
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          quinn-udp-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Colorize JSON, for printing it out on the command line.}
+UDP sockets with ECN information for the QUIC transport protocol.}
 
 %description %{_description}
 
@@ -30,8 +34,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,9 +50,22 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+log-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+log-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "log" feature of the "%{crate}" crate.
+
+%files       -n %{name}+log-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp -pav %{SOURCE1} %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

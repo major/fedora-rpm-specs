@@ -1,6 +1,6 @@
 Name:           python-texext
 Version:        0.6.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Sphinx extensions for working with LaTeX math
 
 # BSD-2-Clause: the project as a whole
@@ -11,6 +11,9 @@ Source0:        %pypi_source texext
 # Update versioneer to fix FTBFS with python 3.12
 # https://github.com/matthew-brett/texext/pull/13
 Patch0:         %{name}-versioneer.patch
+# Update expected docstring regex for Sphinx 7.2.x
+# https://github.com/matthew-brett/texext/pull/14
+Patch1:         %{name}-sphinx72.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -45,6 +48,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 0.6.7-7
+- Adapt to Sphinx 7.2.x (rhbz#2246970)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

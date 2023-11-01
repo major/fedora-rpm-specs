@@ -15,7 +15,7 @@ Summary:    Library for passing menus over DBus
 # All files installed in final rpms use C sources with dual licensing headers.
 # Tests compiled in the build process are licensed GPLv3
 
-License:    LGPLv3 or LGPLv2 and GPLv3
+License:    (LGPL-3.0-only OR LGPL-2.1-only) AND GPL-3.0-only
 URL:        https://launchpad.net/libdbusmenu
 Source0:    https://launchpad.net/libdbusmenu/%{ubuntu_release}/%{version}/+download/%{name}-%{version}.tar.gz
 

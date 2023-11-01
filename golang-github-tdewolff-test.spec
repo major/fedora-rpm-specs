@@ -4,7 +4,7 @@
 
 # https://github.com/tdewolff/test
 %global goipath         github.com/tdewolff/test
-Version:                1.0.9
+Version:                1.0.10
 
 %gometa -f
 
@@ -16,7 +16,7 @@ reads/writes.}
 %global golicenses      LICENSE.md
 %global godocs          README.md
 
-Name:           %{goname}
+Name:           golang-github-tdewolff-test
 Release:        %autorelease
 Summary:        Go test helper functions
 

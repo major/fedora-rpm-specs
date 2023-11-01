@@ -1,33 +1,43 @@
 Name:           liferea
 Epoch:          1
 Version:        1.15.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
 URL:            https://lzone.de/liferea/
 Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}/liferea-%{version}.tar.bz2
 
-BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  gobject-introspection-devel
-BuildRequires:  gsettings-desktop-schemas-devel
 BuildRequires:  intltool
-BuildRequires:  json-glib-devel
 BuildRequires:  libappstream-glib
-BuildRequires:  libnotify-devel
-BuildRequires:  libpeas-devel
-BuildRequires:  libxslt-devel
 BuildRequires:  make
-BuildRequires:  sqlite-devel
+BuildRequires:  pkgconfig(fribidi)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(gsettings-desktop-schemas)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libpeas-gtk-1.0)
+BuildRequires:  pkgconfig(libsoup-3.0)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(libxslt)
+BuildRequires:  pkgconfig(sqlite)
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
+BuildRequires:  pkgconfig(webkit2gtk-web-extension-4.1)
 BuildRequires:  xorg-x11-server-Xvfb
 
 %if 0%{?rhel} >= 7
-Requires:       libpeas-loader-python%{python3_pkgversion}
+Requires:       libpeas-loader-python%{python3_pkgversion}%{?_isa} < 2.0
 %else
-Requires:       libpeas-loader-python3
+Requires:       libpeas-loader-python3%{?_isa} < 2.0
 %endif
-Requires:       libpeas-gtk
+# gobject introspection dependencies
+Requires:       libpeas-gtk%{?_isa} < 2.0
+Recommends:     gstreamer1-plugins-base%{?_isa}
+Recommends:     libappindicator-gtk3%{?_isa}
+Recommends:     libnotify%{?_isa}
+Recommends:     libsecret%{?_isa}
 
 %description
 Liferea (Linux Feed Reader) is an RSS/RDF feed reader.
@@ -83,7 +93,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
-* Wed Oct 24 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.4-1
+* Thu Oct 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.15.4-2
+- Clarify dependencies
+
+* Tue Oct 24 2023 josef radinger <cheese@nosuchhost.net> - 1:1.15.4-1
 - bump version
   should fix "libsoup2 and libsoup3 in the same process"-problem
 

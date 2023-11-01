@@ -3,11 +3,11 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        8.0.0
-Release:        2%{?dist}
+Version:        8.1.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
-License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
+License:        GPL-2.0-or-later AND LGPL-2.1-only AND MIT AND BSD-4-Clause-UC AND MS-PL AND MPL-1.1
 URL:            http://wiki.winehq.org/Mono
 # https://github.com/madewokherd/wine-mono
 Source0:        https://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}-src.tar.xz
@@ -120,6 +120,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Mon Oct 30 2023 Michael Cronenworth <mike@cchtml.com> - 8.1.0-1
+- version upgrade
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

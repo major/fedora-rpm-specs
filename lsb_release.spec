@@ -1,6 +1,6 @@
 Name:           lsb_release
 Version:        3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux Standard Base Release Tool using os-release(5)
 
 License:        GPL-2.0-or-later
@@ -12,6 +12,10 @@ Source0:        %{url}/archive/v%{version}/lsb-release_os-release-%{version}.tar
 ## * https://github.com/thkukuk/lsb-release_os-release/commit/a6c36a7438d5bfcb83cb110b236b1b80eaa896c8
 ## * https://github.com/thkukuk/lsb-release_os-release/commit/ca8bd3cf229ed0d6257f95bac42a1cfc0c7d1aee
 Patch0:         lsb-release_os-release-add-redhat-distros.patch
+# Proposed patches
+## Add support for generic guessing of DISTRIB_ID
+## From: https://github.com/thkukuk/lsb-release_os-release/pull/5
+Patch100:       lsb-release_os-release-generic-guess-distrib-id.patch
 
 BuildRequires:  make
 # For the modified vendored copy of help2man required to make the man page
@@ -23,6 +27,7 @@ BuildRequires:  perl(POSIX)
 # Because sometimes there's just too much minimization
 Requires:       /usr/bin/getopt
 Requires:       /usr/bin/sed
+Requires:       /usr/bin/tr
 
 # In case people use the debian name for this package...
 Provides:       lsb-release = %{version}-%{release}
@@ -57,6 +62,9 @@ make install INSTALL_ROOT=%{buildroot}%{_prefix}
 
 
 %changelog
+* Mon Oct 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2-2
+- Add patch to support generic DISTRIB_ID guessing
+
 * Wed Oct 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2-1
 - Update to 3.2
 - Refresh patch with upstream version

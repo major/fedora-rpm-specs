@@ -8,7 +8,11 @@
 
 %if %{is_rawhide}
 %define bug_version rawhide
-%define releasever rawhide
+%if 0%{?eln}
+  %define releasever eln
+%else
+  %define releasever rawhide
+%endif
 %define doc_version rawhide
 %else
 %define bug_version %{dist_version}
@@ -120,7 +124,6 @@ Provides:       fedora-release-variant = %{version}-%{release}
 
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -153,6 +156,7 @@ Requires:   fedora-release-identity = %{version}-%{release}
 
 %if %{is_rawhide}
 # Make $releasever return "rawhide" on Rawhide
+# and "eln" on ELN.
 # https://pagure.io/releng/issue/7445
 Provides:       system-release(releasever) = %{releasever}
 %endif
@@ -193,7 +197,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -231,7 +234,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -269,7 +271,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -307,7 +308,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -345,7 +345,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -383,7 +382,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Provides:       system-release-product
 
@@ -422,7 +420,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:eln)
 Requires:       fedora-release-common = %{version}-%{release}
 Provides:       system-release-product
 Requires:       fedora-repos-eln
@@ -518,7 +515,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -556,7 +552,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -594,7 +589,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -632,7 +626,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -670,7 +663,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Requires:       fedora-release-ostree-desktop = %{version}-%{release}
 
@@ -709,7 +701,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Requires:       fedora-release-ostree-desktop = %{version}-%{release}
 
@@ -757,7 +748,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -795,7 +785,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -833,7 +822,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Provides:       system-release-product
 
@@ -872,7 +860,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -910,7 +897,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -948,7 +934,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -985,7 +970,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -1023,7 +1007,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
@@ -1061,7 +1044,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Requires:       fedora-release-ostree-desktop = %{version}-%{release}
 
@@ -1099,7 +1081,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Requires:       fedora-release-ostree-desktop = %{version}-%{release}
 
@@ -1138,7 +1119,6 @@ Provides:       fedora-release = %{version}-%{release}
 Provides:       fedora-release-variant = %{version}-%{release}
 Provides:       system-release
 Provides:       system-release(%{version})
-Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 
 # fedora-release-common Requires: fedora-release-identity, so at least one

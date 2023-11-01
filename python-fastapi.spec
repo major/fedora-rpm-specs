@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.104.0
+Version:        0.104.1
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -489,6 +489,7 @@ ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutori
 
 
 %files -n python3-fastapi -f %{pyproject_files}
+%doc CITATION.cff
 %doc README.md
 
 

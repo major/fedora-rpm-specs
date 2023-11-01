@@ -8,14 +8,13 @@ smaller PDF files than an ImageMagick convert command.\
 The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
-Version:        0.4.4
-Release:        10%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Lossless images to PDF conversion library and command
 
 License:        LGPLv3+
 URL:            https://pypi.org/project/img2pdf
 Source0:        %pypi_source
-Patch0:         psnr-format.patch
 
 
 BuildArch:      noarch
@@ -37,6 +36,7 @@ BuildRequires:  perl-Image-ExifTool
 BuildRequires:  poppler-utils
 BuildRequires:  python3-numpy
 BuildRequires:  python3-scipy
+BuildRequires:  icc-profiles-openicc
 %endif
 
 # other requirements
@@ -95,16 +95,9 @@ sed -i '1{/^#!\//d}' src/*.py
 # (file is already installed at this point)
 sed -i '1i#!'%{__python3} src/img2pdf.py
 
-# cf. https://bugzilla.redhat.com/show_bug.cgi?id=2195906
-#     https://github.com/ImageMagick/ImageMagick/issues/6300
-# should also be fixed in img2pdf upstream, since even when this is fixed
-# for aarch64 the tiff byte-order would MSB on big-endian architectures
-sed -i -e 's/in \["Undefined", "LSB",\]/ in \["Undefined", "LSB", "MSB"\]/' -e 's/("tiff:endian") == "lsb"/("tiff:endian") in ("lsb", "msb",)/' src/img2pdf_test.py
-
-# cf. https://gitlab.mister-muffin.de/josch/img2pdf/issues/152
-#     https://gitlab.mister-muffin.de/josch/img2pdf/issues/161
+# cf. https://gitlab.mister-muffin.de/josch/img2pdf/issues/178
 # XXX TODO enable again after issue is resolved
-PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not jpg_cmyk and not png_gray16[ and not tiff_cmyk8    and not tiff_rgb12 and not tiff_rgb14   and not png_gray1['
+PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not miff_c and not jpg_2000_r'
 
 %endif
 
@@ -119,6 +112,9 @@ PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not jpg_cmyk an
 
 
 %changelog
+* Sun Oct 29 2023 Georg Sauthoff <mail@gms.tf> - 0.5.0-1
+- Update to latest upstream version (fixes fedora#2246691)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

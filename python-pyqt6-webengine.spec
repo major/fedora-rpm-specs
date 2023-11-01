@@ -1,7 +1,7 @@
 %global pypi_name PyQt6_WebEngine
 
 Name:          python-pyqt6-webengine
-Version:       6.5.0
+Version:       6.6.0
 Release:       %autorelease
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only

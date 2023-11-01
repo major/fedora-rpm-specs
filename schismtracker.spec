@@ -1,12 +1,12 @@
 Name:      schismtracker
-Version:   20230906
+Version:   20231029
 Release:   1%{?dist}
 Summary:   Sound module composer/player
 License:   GPLv2
 URL:       http://schismtracker.org/
 Source0:   https://github.com/schismtracker/schismtracker/archive/%{version}.tar.gz
 Source1:   schismtracker.desktop
-Excludearch: s390x
+Excludearch:   s390x
 Requires:      hicolor-icon-theme
 BuildRequires: make
 BuildRequires: autoconf
@@ -63,6 +63,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Mon Oct 30 2023 josef radinger <cheese@nosuchhost.net> - 20231029-1
+- bump version
+
 * Sun Sep 10 2023 josef radinger <cheese@nosuchhost.net> - 20230906-1
 - bump version
 

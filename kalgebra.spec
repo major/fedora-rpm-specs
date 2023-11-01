@@ -1,10 +1,10 @@
 
-Name:    kalgebra 
-Summary: 2D and 3D Graph Calculator 
+Name:    kalgebra
+Summary: 2D and 3D Graph Calculator
 Version: 23.08.2
 Release: 1%{?dist}
 
-License: GPLv2+
+License: CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/edu/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)

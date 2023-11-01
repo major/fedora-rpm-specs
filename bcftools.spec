@@ -1,15 +1,16 @@
 Name: bcftools
 Version: 1.15.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Tools for genomic variant calling and manipulating VCF/BCF files
 
 # This software is available under a choice of one of two licenses,
-# the MIT/Expat (MIT) or the GNU General Public License Version 3 (GPLv3+).
+# the MIT/Expat (MIT) or the GNU General Public License Version 3
+# (GPL-3.0-or-later).
 # And if compiled with the GNU Scientific Library, in this case it is built
-# with --enable-libgsl, the use of this software is governed by the GPLv3+
-# license.
+# with --enable-libgsl, the use of this software is governed by the
+# GPL-3.0-or-later license.
 # See <https://github.com/samtools/bcftools/blob/develop/LICENSE>.
-License: GPLv3+
+License: GPL-3.0-or-later
 # https:// is better than http://.
 URL: https://www.htslib.org/
 Source0: https://github.com/samtools/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
@@ -98,6 +99,9 @@ make test
 
 
 %changelog
+* Sat Oct 28 2023 Benson Muite <benson_muite@emailplus.org> - 1.15.1-6
+- Use SPDX license identifier
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

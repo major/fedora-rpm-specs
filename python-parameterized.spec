@@ -13,6 +13,9 @@ Source:         %{url}/archive/v%{version}/parameterized-%{version}.tar.gz
 # Remove the usage of assertRaisesRegexp unit test alias removed in Python 3.12
 Patch:          https://github.com/wolever/parameterized/pull/169.patch
 
+# Fix tests to handle Python 3.13 stripping indents from docstrings
+Patch:          https://github.com/wolever/parameterized/pull/176.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

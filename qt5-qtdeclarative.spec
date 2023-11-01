@@ -12,7 +12,7 @@
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
 Version: 5.15.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -58,7 +58,7 @@ Patch27:  0027-QRecyclePool-fix-potential-UB.patch
 Patch28:  0028-QtQml-Clean-up-QQmlData-ctor.patch
 Patch29:  0029-QML-Make-notify-list-thread-safe.patch
 Patch30:  0030-Flickable-prevent-fixup-from-being-called-while-drag.patch
-
+Patch31:  0031-QML-Fortify-qmlExecuteDeferred-some-more.patch
 
 ## upstreamable patches
 Patch100: %{name}-gcc11.patch
@@ -241,6 +241,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Mon Oct 30 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-2
+- Upstream backport: QML: Fortify qmlExecuteDeferred some more
+
 * Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
 - 5.15.11
 

@@ -1,7 +1,7 @@
 %global pypi_name PyQt6_Charts
 
 Name:           python-pyqt6-charts
-Version:        6.5.0
+Version:        6.6.0
 Release:        %autorelease
 Summary:        Set of Python bindings for The Qt Charts library
 License:        GPL-3.0-only

@@ -71,6 +71,8 @@ Patch10:    0011-Strip-build-flags-from-nrnmech_makefile.patch
 # Random123 does not build on these, so neither can NEURON
 # https://github.com/neuronsimulator/nrn/issues/114
 ExcludeArch:    mips64r2 mips32r2
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  autoconf

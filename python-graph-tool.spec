@@ -54,9 +54,16 @@ Summary:        Efficient network analysis tool written in Python
 #            m4/ax_cxx_compile_stdcxx_17.m4
 #            m4/ax_lib_cgal_core.m4
 #            m4/ax_python_module.m4
-License:        LGPL-3.0-or-later AND BSL-1.0 AND BSD-3-Clause AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0)
+License:        %{shrink:
+                LGPL-3.0-or-later AND
+                BSL-1.0 AND
+                BSD-3-Clause AND
+                GPL-3.0-or-later AND
+                MIT AND
+                (MIT OR Apache-2.0)
+                }
 URL:            https://graph-tool.skewed.de/
-Source0:        https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
+Source:         https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
 # Remove upstream compiler flags
 #
 # We can leave those controlling warnings and dynamic symbol visibility;

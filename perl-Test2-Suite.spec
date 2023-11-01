@@ -9,7 +9,7 @@
 %endif
 
 Name:           perl-Test2-Suite
-Version:        0.000156
+Version:        0.000159
 Release:        1%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -167,6 +167,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 27 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000159-1
+- 0.000159 bump
+
 * Thu Sep 14 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000156-1
 - 0.000156 bump
 

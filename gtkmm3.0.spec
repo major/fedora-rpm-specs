@@ -14,7 +14,7 @@ Version:        3.24.8
 Release:        %autorelease
 Summary:        C++ interface for the GTK+ library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/gtkmm/%{release_version}/gtkmm-%{version}.tar.xz
 

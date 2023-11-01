@@ -97,8 +97,6 @@ Requires: colord
 # For the printers panel
 Requires: cups-pk-helper
 Requires: dbus
-# For the info/details panel
-Requires: glx-utils
 # For the user languages
 Requires: iso-codes
 %if %{with malcontent}

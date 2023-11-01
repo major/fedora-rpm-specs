@@ -6,7 +6,11 @@ Name:           cereal
 Version:        1.3.2
 Release:        4%{?dist}
 Summary:        A header-only C++11 serialization library
-License:        BSD
+# include/cereal/details/polymorphic_impl.hpp is BSL-1.0
+# include/cereal/external/base64.hpp is Zlib
+# include/cereal/external/rapidjson/ is MIT
+# include/cereal/external/rapidxml/license.txt is MIT OR BSL-1.0
+License:        BSD-3-Clause AND BSL-1.0 AND Zlib AND MIT AND (MIT OR BSL-1.0)
 Url:            http://uscilab.github.io/cereal/
 Source0:        https://github.com/USCiLab/cereal/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

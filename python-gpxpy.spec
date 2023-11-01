@@ -1,7 +1,7 @@
 %global srcname gpxpy
 
 Name:           python-%{srcname}
-Version:        1.5.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        GPX file parser and GPS track manipulation library
 

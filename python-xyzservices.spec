@@ -1,13 +1,13 @@
 %global srcname xyzservices
 
 Name:           python-%{srcname}
-Version:        2023.10.0
+Version:        2023.10.1
 Release:        %autorelease
 Summary:        Source of XYZ tiles providers
 
 License:        BSD-3-Clause
 URL:            https://github.com/geopandas/xyzservices
-Source0:        %{pypi_source}
+Source0:        %pypi_source %{srcname}
 
 BuildArch:      noarch
 
@@ -36,7 +36,7 @@ maps to provide necessary spatial context.
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

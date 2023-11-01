@@ -1,40 +1,42 @@
-%global pypi_name sphinxcontrib-devhelp
-
 # when bootstrapping sphinx, we cannot run tests yet
 %bcond_without check
 
-Name:           python-%{pypi_name}
-Version:        1.0.2
-Release:        15%{?dist}
+Name:           python-sphinxcontrib-devhelp
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Sphinx extension for Devhelp documents
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
-Source0:        %{pypi_source}
+Source:         %{pypi_source sphinxcontrib_devhelp}
 BuildArch:      noarch
+
+# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
+# In the RPM environment the dependencies are handled correctly without it
+# Remove the runtime requirement on Sphinx from this package
+# See: https://github.com/sphinx-doc/sphinx/issues/11567
+Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 
-%if %{with check}
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
-%endif
 
 %description
 sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp document.
 
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python%{python3_pkgversion}-sphinxcontrib-devhelp
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python%{python3_pkgversion}-sphinxcontrib-devhelp
 sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp document.
 
 
+%generate_buildrequires
+%pyproject_buildrequires %{?with_check: -x test}
+
+
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n sphinxcontrib_devhelp-%{version}
 find -name '*.mo' -delete
 
 
@@ -42,11 +44,11 @@ find -name '*.mo' -delete
 for po in $(find -name '*.po'); do
   msgfmt --output-file=${po%.po}.mo ${po}
 done
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 # Move language files to /usr/share
 pushd %{buildroot}%{python3_sitelib}
@@ -70,15 +72,18 @@ popd
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f sphinxcontrib.devhelp.lang
+%files -n python%{python3_pkgversion}-sphinxcontrib-devhelp -f sphinxcontrib.devhelp.lang
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/sphinxcontrib/
-%{python3_sitelib}/sphinxcontrib_devhelp-%{version}-py%{python3_version}-*.pth
-%{python3_sitelib}/sphinxcontrib_devhelp-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/sphinxcontrib_devhelp-%{version}.dist-info/
 
 
 %changelog
+* Mon Aug 21 2023 Karolina Surma <ksurma@redhat.com> - 1.0.5-1
+- Update to 1.0.5
+  Fixes: rhbz#2230147
+
 * Wed Aug 09 2023 Karolina Surma <ksurma@redhat.com> - 1.0.2-15
 - Declare the license as an SPDX expression
 

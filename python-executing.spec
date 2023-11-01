@@ -3,8 +3,8 @@
 %bcond tests 1
 
 Name:           python-executing
-Version:        2.0.0
-Release:        2%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -Ei "/coverage-?/d" setup.cfg
 
 
 %changelog
+* Mon Oct 30 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.1-1
+- Update to 2.0.1 (rhbz#2246826)
+
 * Fri Oct 20 2023 Karolina Surma <ksurma@redhat.com> - 2.0.0-2
 - Conditionalize tests to prevent circular dependency when bootstrapping new Python
 

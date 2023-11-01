@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -269,6 +269,10 @@ Patch19: binutils-handle-corrupt-version-info.patch
 #            stacks and rwx segments into errors.
 # Lifetime: Fixed in 2.42
 Patch20: binutils-execstack-error.patch
+
+# Purpose:  Accept and ignore R_BPF_64_NODYLD32 relocations.
+# Lifetime: Fixed in 2.42
+Patch21: binutils-BPF-reloc-4.patch
 
 #----------------------------------------------------------------------------
 
@@ -1275,6 +1279,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Oct 30 2023 Nick Clifton  <nickc@redhat.com> - 2.41-9
+- Accept and ignore R_BPF_64_NODYLD32 relocations.  (#2245296)
+
 * Thu Oct 19 2023 Nick Clifton  <nickc@redhat.com> - 2.41-8
 - Add ability to turn execstack warnings into errors.
 - Enable warnings for rsx segments.

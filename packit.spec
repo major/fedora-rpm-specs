@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.84.0
+Version:        0.85.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Oct 30 2023 Packit <hello@packit.dev> - 0.85.0-1
+- Packit no longer downloads sources excluded using spec file conditions. (#2132)
+
 * Mon Oct 16 2023 Packit <hello@packit.dev> - 0.84.0-1
 - We have adjusted how we include the resolved bugzillas in the commit messages created when syncing the release downstream so that the resolved bugzillas are included in changelog when using %%autochangelog. (#2126)
 - Packit now properly cleans up the branch after syncing the release which should prevent unwanted files (e.g.tarballs) being committed in dist-git. (#2125)

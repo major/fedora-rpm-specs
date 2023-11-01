@@ -2,7 +2,7 @@
 
 # https://github.com/yuin/goldmark
 %global goipath         github.com/yuin/goldmark
-Version:                1.5.6
+Version:                1.6.0
 
 %gometa
 
@@ -13,7 +13,7 @@ compliant, well structured.}
 %global golicenses      LICENSE
 %global godocs          README.md
 
-Name:           %{goname}
+Name:           golang-github-yuin-goldmark
 Release:        %autorelease
 Summary:        Markdown parser written in Go
 

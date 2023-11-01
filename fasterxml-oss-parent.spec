@@ -1,8 +1,8 @@
 %global srcname oss-parent
 
 Name:          fasterxml-oss-parent
-Version:       54
-Release:       2%{?dist}
+Version:       55
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
 
@@ -53,6 +53,25 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Sep 26 2023 Packit <hello@packit.dev> - 55-1
+- [maven-release-plugin] prepare release oss-parent-55 (Tatu Saloranta)
+- Prepare for releasing v55 (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-shade-plugin from 3.5.0 to 3.5.1 (dependabot[bot])
+- Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.0 (dependabot[bot])
+- Bump org.apache.maven.plugins:maven-enforcer-plugin from 3.3.0 to 3.4.1 (dependabot[bot])
+- Bump maven-site-plugin from 4.0.0-M8 to 4.0.0-M9 (dependabot[bot])
+- Update Maven for wrapper (Tatu Saloranta)
+- Update release notes (Tatu Saloranta)
+- Bump maven-clean-plugin from 3.2.0 to 3.3.1 (dependabot[bot])
+- Update release notes (Tatu Saloranta)
+- Bump maven-shade-plugin from 3.4.1 to 3.5.0 (dependabot[bot])
+- update release notes (Tatu Saloranta)
+- Bump version.plugin.surefire from 3.1.0 to 3.1.2 (dependabot[bot])
+- Bump maven-project-info-reports-plugin from 3.4.4 to 3.4.5 (dependabot[bot])
+- Update release notes (Tatu Saloranta)
+- Bump maven-release-plugin from 3.0.0 to 3.0.1 (dependabot[bot])
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 54-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

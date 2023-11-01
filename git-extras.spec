@@ -1,5 +1,5 @@
 Name:       git-extras
-Version:    7.0.0
+Version:    7.1.0
 Release:    1%{?dist}
 Summary:    Little git extras
 
@@ -59,6 +59,9 @@ install -pm 0644 man/*.md md
 
 
 %changelog
+* Mon Oct 30 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Mon Sep 18 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.0.0-1
 - Update to 7.0.0
 
