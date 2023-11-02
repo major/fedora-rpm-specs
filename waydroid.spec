@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.4.1
+Version:        1.4.2
 %global tag %{version}
 
 %forgemeta
 Name:           waydroid
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -136,12 +136,17 @@ fi
 %{_datadir}/dbus-1/system-services/id.waydro.Container.service
 %{_datadir}/dbus-1/system.d/id.waydro.Container.conf
 %{_datadir}/polkit-1/actions/id.waydro.Container.policy
+%{_datadir}/desktop-directories/waydroid.directory
+%{_sysconfdir}/xdg/menus/applications-merged/waydroid.menu
 
 %files selinux
 %doc SELinux/%{name}.te
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Tue Oct 31 2023 Alessandro Astone <ales.astone@gmail.com> - 1.4.2-1
+- Update to 1.4.2
+
 * Tue Sep 26 2023 Alessandro Astone <ales.astone@gmail.com> - 1.4.1-3
 - Amend SELinux to coexist with snap
 

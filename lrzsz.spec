@@ -1,8 +1,8 @@
 Summary: The lrz and lsz modem communications programs
 Name: lrzsz
 Version: 0.12.20
-Release: 60%{?dist}
-License: GPL-2.0-or-later
+Release: 61%{?dist}
+License: GPL-2.0-or-later AND GPL-2.0-only
 Source: http://www.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch1: lrzsz-0.12.20-glibc21.patch
 Patch2: lrzsz-0.12.20.patch
@@ -53,6 +53,9 @@ for m in sb sx; do ln -s sz.1 %{buildroot}%{_mandir}/man1/$m.1; done
 %{_mandir}/*/*
 
 %changelog
+* Tue Oct 31 2023 Tomas Korbar <tkorbar@redhat.com> - 0.12.20-61
+- Add additional SPDX licenses found by scancode tool
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.20-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

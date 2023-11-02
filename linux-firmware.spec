@@ -418,6 +418,8 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/iwlwifi-9000-*.ucode*
 %{_firmwarepath}/iwlwifi-9260-*.ucode*
 %{_firmwarepath}/iwlwifi-cc-a0-*.ucode*
+%{_firmwarepath}/iwlwifi-gl-c0*
+%{_firmwarepath}/iwlwifi-ma-b0*
 %{_firmwarepath}/iwlwifi-Qu*.ucode*
 %{_firmwarepath}/iwlwifi-ty-a0*
 %{_firmwarepath}/iwlwifi-so-a0*

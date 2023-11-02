@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  4.6
-%global github_commit   0864455630bf2987681b56e57803a99bae73d742
+%global github_commit   c944acc8be48645a4e5d8e98882e4e54fcf85287
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20230525
+%global github_date     20231024
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -46,12 +46,14 @@
 # Diff from SUSE: we use 'perl-interpreter' where they use 'perl',
 # our 'perl' is a metapackage and we don't want all of it
 # we use 'chrony' where they use 'ntp-daemon'
+# their versioning of mojolicious is different due to
+# https://github.com/openSUSE/cpanspec/issues/47
 # The following line is generated from dependencies.yaml (upstream)
-%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.30 perl(Regexp::Common) perl(Storable) perl(Time::Moment) perl(Try::Tiny)
+%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.34 perl(Regexp::Common) perl(Storable) perl(Time::Moment) perl(Try::Tiny)
 # Diff from SUSE: we package bsdcat and bsdtar separately
 # runtime requirements for the main package that are not required by other sub-packages
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %assetpack_requires bsdcat bsdtar git-core hostname perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
+%define main_requires %assetpack_requires bsdcat bsdtar git-core hostname perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Plugin::OAuth2) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
 # The following line is generated from dependencies.yaml (upstream)
 %define client_requires curl git-core jq perl(Getopt::Long::Descriptive) perl(IO::Socket::SSL) >= 2.009 perl(IPC::Run) perl(JSON::Validator) perl(LWP::Protocol::https) perl(LWP::UserAgent) perl(Test::More) perl(YAML::PP) >= 0.020 perl(YAML::XS)
 # Diff from SUSE 1: case (they have openQA-client, we have openqa-client)
@@ -71,7 +73,7 @@
 # compile-check-all test fails on the in-tree critic module if we leave
 # that out)
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires ShellCheck curl jq os-autoinst-devel perl(App::cpanminus) perl(Mojolicious::Plugin::OAuth2) perl(Perl::Critic) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 postgresql-server
+%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires ShellCheck curl jq os-autoinst-devel perl(App::cpanminus) perl(Perl::Critic) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 postgresql-server
 %ifarch x86_64
 %define qemu qemu qemu-kvm
 %else
@@ -96,7 +98,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -124,9 +126,9 @@ Source4:        23-fedora-messaging.t
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
 
-# https://github.com/os-autoinst/openQA/pull/5337
-# add https://gitlab.com/fedora/sigs to bugrefs
-Patch:          0001-Add-Fedora-SIGs-gitlab-group-to-bugrefs.patch
+# https://github.com/os-autoinst/openQA/pull/5349
+# fix skipping tests when selenium driver is missing
+Patch:          0001-Fix-skipping-Selenium-tests.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -310,13 +312,26 @@ You only need this package if you have a local postgresql server
 next to the webui.
 
 %package single-instance
-Summary:        Convenience package for a single-instance setup
+Summary:        Convenience package for a single-instance setup using apache proxy
+Provides:       %{name}-single-instance-apache
+Provides:       %{name}-single-instance-apache2
 Requires:       %{name}-local-db
 Requires:       %{name} = %{version}
 Requires:       %{name}-worker = %{version}
 Requires:       httpd
 
 %description single-instance
+Use this package to setup a local instance with all services provided together.
+
+%package single-instance-nginx
+Summary:        Convenience package for a single-instance setup using nginx proxy
+Group:          Development/Tools/Other
+Requires:       %{name}-local-db
+Requires:       %{name} = %{version}
+Requires:       %{name}-worker = %{version}
+Requires:       nginx
+
+%description single-instance-nginx
 Use this package to setup a local instance with all services provided together.
 
 %package bootstrap
@@ -333,6 +348,18 @@ Summary:        The openQA documentation
 Documentation material covering installation, configuration, basic test
 writing, etc., covering both openQA and the os-autoinst test engine.
 
+%package munin
+Summary:        Munin scripts
+Group:          Development/Tools/Other
+Requires:       munin
+Requires:       munin-node
+Requires:       curl
+Requires:       perl-interpreter
+
+%description munin
+Use this package to install munin scripts that allow to monitor some openQA
+statistics.
+
 %prep
 %autosetup -p1 -n %{github_name}-%{github_commit} -a 1
 sed -e 's,/bin/env python,/bin/python,' -i script/openqa-label-all
@@ -341,6 +368,8 @@ sed -i -e 's,apache2\.service,httpd\.service,g' systemd/*.service
 # ...Fedora keeps httpd config here, SUSE keeps it there.
 sed -i -e 's,"$(DESTDIR)"/etc/apache2/vhosts.d,"$(DESTDIR)"%{_sysconfdir}/httpd/conf.d,g' Makefile
 sed -i -e 's,/etc/apache2/vhosts.d,%{_sysconfdir}/httpd/conf.d,g' etc/apache2/vhosts.d/*
+# ...Fedora keeps nginx config here, SUSE keeps it there.
+sed -i -e 's,"$(DESTDIR)"/etc/nginx/vhosts.d,"$(DESTDIR)"%{_sysconfdir}/nginx/conf.d,g' Makefile
 # These are the Fedora-y standard TLS cert/key locations.
 sed -i -e 's,/etc/apache2/ssl.crt,%{_sysconfdir}/pki/tls/certs,g' etc/apache2/vhosts.d/*
 sed -i -e 's,/etc/apache2/ssl.key,%{_sysconfdir}/pki/tls/private,g' etc/apache2/vhosts.d/*
@@ -376,6 +405,12 @@ ln -s %{_datadir}/openqa/script/openqa-clone-custom-git-refspec %{buildroot}%{_b
 ln -s %{_datadir}/openqa/script/openqa-validate-yaml %{buildroot}%{_bindir}/openqa-validate-yaml
 ln -s %{_datadir}/openqa/script/setup-db %{buildroot}%{_bindir}/openqa-setup-db
 ln -s %{_datadir}/openqa/script/openqa-label-all %{buildroot}%{_bindir}/openqa-label-all
+
+# munin
+install -d -m 755 %{buildroot}/%{_datadir}/munin/plugins
+install -m 755 contrib/munin/plugins/minion %{buildroot}/%{_datadir}/munin/plugins/openqa_minion_
+install -d -m 755 %{buildroot}/%{_sysconfdir}/munin/plugin-conf.d
+install -m 644 contrib/munin/config/minion.config %{buildroot}/%{_sysconfdir}/munin/plugin-conf.d/openqa-minion
 
 # on the whole I think it's "less bad" to install our duplicate copies
 # of these over top of the ones from the tarball. if they ever go out
@@ -432,6 +467,8 @@ export OPENQA_TEST_TIMEOUT_SCALE_CI=15
 # packaging
 export CONTAINER_TEST=0
 export HELM_TEST=0
+# We don't want fatal warnings during package building
+export PERL_TEST_WARNINGS_ONLY_REPORT_WARNINGS=1
 # GIT_CEILING_DIRECTORIES here avoids a case where git error handling
 # can differ when you run the build in mock and cause 16-utils-runcmd
 # to fail
@@ -455,7 +492,9 @@ rm -rf %{buildroot}/DB
 
 %post httpd
 if [ $1 -eq 1 ]; then
-    echo "### copy and edit /etc/httpd/conf.d/openqa.conf.template!"
+    echo "### copy and edit /etc/httpd/conf.d/openqa.conf.template if using apache!"
+    echo "### copy and edit /etc/nginx/conf.d/openqa.conf.template if using nginx!"
+
 fi
 
 %preun
@@ -599,6 +638,7 @@ fi
 %dir %{_unitdir}
 %{_prefix}/lib/systemd/system-generators/systemd-openqa-generator
 %{_unitdir}/openqa-worker.target
+%{_unitdir}/openqa-worker.slice
 %{_unitdir}/openqa-worker@.service
 %{_unitdir}/openqa-worker-plain@.service
 %{_unitdir}/openqa-worker-cacheservice-minion.service
@@ -636,6 +676,12 @@ fi
 %config %{_sysconfdir}/httpd/conf.d/openqa.conf.template
 %config %{_sysconfdir}/httpd/conf.d/openqa-common.inc
 %config %{_sysconfdir}/httpd/conf.d/openqa-ssl.conf.template
+# nginx vhost
+%dir %{_sysconfdir}/nginx
+%dir %{_sysconfdir}/nginx/conf.d
+%config %{_sysconfdir}/nginx/conf.d/openqa.conf.template
+%config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-locations.inc
+%config(noreplace) %{_sysconfdir}/nginx/conf.d/openqa-upstreams.inc
 
 %files client
 %dir %{_datadir}/openqa
@@ -679,9 +725,19 @@ fi
 
 %files single-instance
 
+%files single-instance-nginx
+
 %files bootstrap
 %{_datadir}/openqa/script/openqa-bootstrap
 %{_datadir}/openqa/script/openqa-bootstrap-container
+
+%files munin
+%defattr(-,root,root)
+%doc contrib/munin/config/minion.config
+%dir %{_sysconfdir}/munin
+%dir %{_sysconfdir}/munin/plugin-conf.d
+%{_datadir}/munin/plugins/openqa_minion_
+%config(noreplace) %{_sysconfdir}/munin/plugin-conf.d/openqa-minion
 
 %files plugin-fedora-messaging
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraMessaging.pm
@@ -690,6 +746,10 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Tue Oct 31 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20231024gitc944acc-1
+- Update to a recent upstream git snapshot, resync spec
+- Backport PR #5349 to fix a test skipping problem
+
 * Thu Oct 19 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230525git0864455-3
 - Backport PR #5337 to add the gitlab fedora flatpak repo for bugrefs
 

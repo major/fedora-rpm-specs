@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:		stats-collect
-Version:	1.0.16
+Version:	1.0.18
 Release:	%autorelease
 Summary:	A tool for collecting and visualising system statistics and telemetry
 

@@ -1,6 +1,6 @@
 Name:           gnofract4d
 Version:        4.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Gnofract 4D is a Gnome-based program to draw fractals
 License:        BSD-3-Clause
 
@@ -13,7 +13,13 @@ Source2:        https://github.com/fract4d/gnofract4d/raw/master/testdata/test.a
 # Acquire the GIL before freeing python objects
 # https://github.com/fract4d/gnofract4d/pull/166
 Patch0:         %{name}-gil.patch
+
+# Avoid implicit function declarations
 Patch1:         gnofract4d-c99.patch
+
+# Avoid PyEval_InitThreads, which does nothing in python 3.9-3.12 and has been
+# remove entirely in python 3.13
+Patch2:         %{name}-pyeval-initthreads.patch
 
 BuildRequires:  adwaita-blue-gtk-theme
 BuildRequires:  desktop-file-utils
@@ -54,7 +60,11 @@ touch -r %{name}.desktop.orig %{name}.desktop
 rm %{name}.desktop.orig
 
 # Do not override Fedora flags
-sed -i 's/, "-O3"//' setup.py
+sed -e 's|^\(os\.environ\["CFLAGS"\] = \).*|\1"%{build_cflags}"|' \
+    -e 's|^\(os\.environ\["OPT"\] = \).*|\1"%{build_cflags}"|' \
+    -e '/\.replace/d' \
+    -e 's/, "-O3"//' \
+    -i setup.py
 
 # Supply missing test file
 cp -p %{SOURCE2} testdata
@@ -115,6 +125,9 @@ mv ../test_main_window.py fract4dgui/tests
 %{_metainfodir}/com.github.fract4d.%{name}.metainfo.xml
 
 %changelog
+* Tue Oct 31 2023 Jerry James <loganjerry@gmail.com> - 4.3-14
+- Avoid PyEval_InitThreads for python 3.13 (rhbz#2247255)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

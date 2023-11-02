@@ -6,7 +6,7 @@
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 Name:           gnome-shell-extensions
-Version:        45.0
+Version:        45.1
 Release:        %autorelease
 Summary:        Modify and extend GNOME Shell functionality and behavior
 

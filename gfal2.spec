@@ -6,7 +6,7 @@
 
 Name:               gfal2
 Version:            2.21.5
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Grid file access library 2.0
 License:            ASL 2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
@@ -341,6 +341,9 @@ fi
 
 
 %changelog
+* Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.21.5-2
+- Rebuild for gtest 1.14.0
+
 * Tue Aug 08 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.21.5-1
 - Upgrade to upstream release 2.21.5
 

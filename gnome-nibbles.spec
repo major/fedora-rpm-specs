@@ -2,7 +2,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-nibbles
-Version:        4.0~alpha
+Version:        4.0~beta
 Release:        %autorelease
 Summary:        GNOME Nibbles game
 License:        GPL-3.0-or-later AND BSD-2-Clause AND GFDL-1.1-no-invariants-or-later

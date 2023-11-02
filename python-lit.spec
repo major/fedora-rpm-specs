@@ -6,7 +6,7 @@
 %{llvm_sb}
 %endif
 
-%global lit_version 17.0.3
+%global lit_version 17.0.4
 #global rc_ver 4
 #global post_ver 0
 
@@ -82,10 +82,13 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+%{?llvm_snapshot_changelog_entry}
+
+* Tue Oct 31 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.4-1
+- Update to LLVM 17.0.4
+
 * Tue Oct 17 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.3-1
 - Update to LLVM 17.0.3
-
-%{?llvm_snapshot_changelog_entry}
 
 * Mon Oct 09 2023 Tom Stellard <tstellar@redhat.com> - 17.0.2-2
 - Update license

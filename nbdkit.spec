@@ -21,12 +21,9 @@
 %global have_ocaml 1
 %endif
 
-# We don't yet have libblkio on RHEL.
 # libblkio was broken on i686: https://bugzilla.redhat.com/2229372
 # but somehow "fixed itself", keep an eye on it.
-%if !0%{?rhel}
 %global have_blkio 1
-%endif
 
 # Architectures where we run the complete test suite including
 # the libguestfs tests.

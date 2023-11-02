@@ -5,25 +5,32 @@
 The fslpy project is a FSL programming library written in Python. It is used by \
 FSLeyes.
 
+%global forgeurl https://github.com/pauldmccarthy/fslpy
+
 Name:           python-fslpy
-Version:        3.13.3
+Version:        3.15.2
 Release:        %autorelease
 Summary:        The FSL Python Library
 
+%global tag %{version}
+
+%forgemeta
+
 
 License:        Apache-2.0
-URL:            https://pypi.python.org/pypi/fslpy
-Source0:        %{pypi_source fslpy}
-
-BuildRequires:  git-core
+URL:            %forgeurl
+Source0:        %forgesource
 
 BuildArch:      noarch
+# fsleyes dropped it already, so this is a leaf package
+# F40+
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 BuildRequires:  help2man
 
 BuildRequires:  dcm2niix
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-cov}
 %if %{with xvfb_tests}
 BuildRequires:  xorg-x11-server-Xvfb
 %endif
@@ -38,12 +45,16 @@ Summary:        %{summary}
 %description -n python3-fslpy
 %{desc}
 
+%pyproject_extras_subpkg -n python3-fslpy extra
 
 %prep
-%autosetup -n fslpy-%{version} -S git
+%forgesetup
 
-# For the dep generator to pick up
-cat requirements-extra.txt >> requirements.txt
+# remove pytest coverage etc bits
+sed -i -e '/"coverage"/ d' \
+    -e '/"pytest-cov"/ d' \
+    -e '/addopts/ d' \
+    pyproject.toml
 
 # remove unneeded shebangs
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env python$/ d' {} 2>/dev/null ';'
@@ -52,7 +63,7 @@ sed -i '/^#![  ]*\/usr\/bin\/env python3$/ d' fsl/wrappers/tbss.py
 find . -type f -name "*.py" -exec sed -i 's/#![  ]*\/usr\/bin\/env python$/#!\/usr\/bin\/python3/' {} 2>/dev/null ';'
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x extra -x test
 
 %build
 %pyproject_wheel
@@ -62,7 +73,8 @@ find . -type f -name "*.py" -exec sed -i 's/#![  ]*\/usr\/bin\/env python$/#!\/u
 %pyproject_save_files fsl
 
 # Remove test packages that are installed in site packages
-rm -rfv %{buildroot}/%{python3_sitelib}/tests/
+rm -rvf %{buildroot}%{python3_sitelib}/fsl/tests
+sed -r -i '/\bfsl\/tests\b/d' %{pyproject_files}
 
 # generate man pages
 # imglob does not have a --help
@@ -120,17 +132,21 @@ k="${k} and not test_VoxelwiseEVs"
 k="${k} and not test_imcp_shouldPass"
 k="${k} and not test_immv_shouldPass"
 k="${k} and not test_fileOrThing_chained_outprefix"
-%{pytest} tests  -k "${k}" \
-  --ignore=tests/test_idle.py --ignore=tests/test_platform.py \
-  --ignore=tests/test_atlases.py \
-  --ignore=tests/test_atlases_query.py \
-  --ignore=tests/test_scripts/test_atlasq_list_summary.py \
-  --ignore=tests/test_scripts/test_atlasq_ohi.py \
-  --ignore=tests/test_scripts/test_atlasq_query.py \
-  --ignore=tests/test_dicom.py \
-  --ignore=tests/test_scripts/test_fsl_apply_x5.py \
-  --ignore=tests/test_scripts/test_fsl_convert_x5.py \
-  --ignore=tests/test_scripts/test_immv_imcp.py
+# requires an FSL installation
+k="${k} and not test_cluster"
+# unable to find tests module
+k="${k} and not test_func_to_cmd"
+%{pytest} fsl/tests  -k "${k}" \
+  --ignore=fsl/tests/test_idle.py --ignore=fsl/tests/test_platform.py \
+  --ignore=fsl/tests/test_atlases.py \
+  --ignore=fsl/tests/test_atlases_query.py \
+  --ignore=fsl/tests/test_scripts/test_atlasq_list_summary.py \
+  --ignore=fsl/tests/test_scripts/test_atlasq_ohi.py \
+  --ignore=fsl/tests/test_scripts/test_atlasq_query.py \
+  --ignore=fsl/tests/test_dicom.py \
+  --ignore=fsl/tests/test_scripts/test_fsl_apply_x5.py \
+  --ignore=fsl/tests/test_scripts/test_fsl_convert_x5.py \
+  --ignore=fsl/tests/test_scripts/test_immv_imcp.py
 
 %files -n python3-fslpy -f %{pyproject_files}
 %doc README.rst

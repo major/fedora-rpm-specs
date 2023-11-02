@@ -5,7 +5,7 @@
 %bcond cython_compile 1
 
 Name:           Cython
-Version:        3.0.2
+Version:        3.0.5
 Release:        1%{?dist}
 Summary:        Language for writing Python extension modules
 
@@ -14,15 +14,20 @@ URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %if %{with tests}
 BuildRequires:  gcc-c++
+BuildRequires:  gdb
+# optionally uses Python's test.support for some test
+BuildRequires:  python3-test
+# the Python tests requirements are curated manually
+# the test-requirements*.txt files mix in coverage and optional deps
 BuildRequires:  python3-numpy
 BuildRequires:  python3-pythran
 %if %{undefined rhel}
 # We don't want to pull in ipython to RHEL just to run more tests.
-BuildRequires:  python3-ipython
+# The tests use IPython.testing.globalipapp
+BuildRequires:  python3-ipython+test
 # The tests requiring jedi are optional and skipped when jedi is not installed.
 # Note that the jedi tests were forcefully disabled a long time ago,
 # in https://github.com/cython/cython/issues/1845 far, far away.
@@ -34,10 +39,8 @@ BuildRequires:  python3-jedi
 
 %if %{with cython_compile}
 BuildRequires:  gcc
-%global python3_site %{python3_sitearch}
 %else
 BuildArch:      noarch
-%global python3_site %{python3_sitelib}
 %endif
 
 %global _description %{expand:
@@ -79,39 +82,53 @@ Provides:       bundled(python3dist(tempita))
 %autosetup -n cython-%{version} -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build -- %{!?with_cython_compile:--no-cython-compile}
+%pyproject_wheel %{!?with_cython_compile:-C--global-option=--no-cython-compile}
 
 
 %install
-%py3_install -- %{!?with_cython_compile:--no-cython-compile}
+%pyproject_install
+%pyproject_save_files Cython cython pyximport
 
 
 %if %{with tests}
 %check
 # run.pstats_profile_test* fails on Python 3.12
+#   https://github.com/cython/cython/issues/5470
+# run.parallel fails on i686
+#   https://github.com/cython/cython/issues/2807
 %{python3} runtests.py -vv --no-pyregr %{?_smp_mflags} \
   --exclude 'run.pstats_profile_test*' \
   %ifarch %{ix86}
-  --exclude run.parallel  # https://github.com/cython/cython/issues/2807
+  --exclude run.parallel \
   %endif
 
 %endif
 
 
-%files -n python3-cython
-%license LICENSE.txt
+%files -n python3-cython -f %{pyproject_files}
 %doc *.txt Demos Doc Tools
 %{_bindir}/cython
 %{_bindir}/cygdb
 %{_bindir}/cythonize
-%{python3_site}/Cython-*.egg-info/
-%{python3_site}/Cython/
-%{python3_site}/pyximport/
-%pycached %{python3_site}/cython.py
 
 
 %changelog
+* Tue Oct 31 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.5-1
+- Update to 3.0.5
+
+* Wed Oct 18 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.4-1
+- Update to 3.0.4
+- Fixes: rhbz#2244865
+
+* Fri Oct 13 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.3-1
+- Update to 3.0.3
+- Fixes: rhbz#2242429
+
 * Fri Sep 01 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-1
 - Update to 3.0.2
 - Fixes: rhbz#2235027

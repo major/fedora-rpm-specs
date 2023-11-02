@@ -8,11 +8,11 @@
 %bcond_without check
 
 Name:           python-%{pypi_name}
-Version:        7.9.1
+Version:        7.10.0
 Release:        %autorelease
 Summary:        Converting Jupyter Notebooks
 
-License:        BSD and MIT
+License:        BSD-3-Clause
 URL:            http://jupyter.org
 Source0:        %pypi_source
 

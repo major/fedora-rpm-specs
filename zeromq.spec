@@ -67,6 +67,7 @@ autoreconf -fi
             --with-libgssapi_krb5 \
 %endif
             --with-libsodium \
+            --enable-drafts \
 %if %{with unwind}
             --enable-libunwind \
 %endif
@@ -84,7 +85,7 @@ rm %{buildroot}%{_libdir}/libzmq.la
 
 %check
 %ifarch s390x
-make check V=1 || ( cat test-suite.log && exit 1 )
+make check V=1 XFAIL_TESTS=tests/test_radio_dish || ( cat test-suite.log && exit 1 )
 %endif
 
 

@@ -2,7 +2,7 @@
 
 Name:           beust-jcommander
 Version:        1.82
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java framework for parsing command line parameters
 License:        Apache-2.0
 URL:            http://jcommander.org/
@@ -38,6 +38,7 @@ This package contains the %{summary}.
 %prep
 %setup -q
 %patch0 -p1
+chmod -x license.txt
 
 cp -p %SOURCE1 pom.xml
 %pom_xpath_set "pom:project/pom:version" "%{version}"
@@ -54,13 +55,17 @@ cp -p %SOURCE1 pom.xml
 %mvn_install
 
 %files -f .mfiles
-%attr(0644,root,root) %license license.txt notice.md
+%license license.txt notice.md
 %doc README.markdown
 
 %files javadoc -f .mfiles-javadoc
 %license license.txt notice.md
 
 %changelog
+* Tue Oct 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.82-5
+- Fix license directory permissions
+- Resolves: rhbz#2144648
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.82-4
 - Convert License tag to SPDX format
 

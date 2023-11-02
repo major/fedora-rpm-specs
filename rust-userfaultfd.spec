@@ -5,7 +5,7 @@
 %global crate userfaultfd
 
 Name:           rust-userfaultfd
-Version:        0.5.1
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Rust bindings for the Linux userfaultfd functionality
 

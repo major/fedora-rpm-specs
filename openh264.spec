@@ -9,7 +9,7 @@
 Name:           openh264
 Version:        %{openh264_version}
 # Also bump the Release tag for gstreamer1-plugin-openh264 down below
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        H.264 codec library
 
 License:        BSD
@@ -58,7 +58,7 @@ browsers.
 
 %package     -n gstreamer1-plugin-openh264
 Version:        %{gst_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer H.264 plugin
 
 %description -n gstreamer1-plugin-openh264
@@ -127,7 +127,7 @@ EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 cat > $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/gmpopenh264.sh << EOF
-MOZ_GMP_PATH="%{_libdir}/mozilla/plugins/gmp-gmpopenh264/system-installed"
+MOZ_GMP_PATH="${MOZ_GMP_PATH}${MOZ_GMP_PATH:+:}%{_libdir}/mozilla/plugins/gmp-gmpopenh264/system-installed"
 export MOZ_GMP_PATH
 EOF
 
@@ -211,6 +211,10 @@ popd
 
 
 %changelog
+* Thu Aug 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 2.3.1-3
+- Add Mozilla plugin path to MOZ_GMP_PATH instead of overriding unconditionally
+- Resolves: rhbz#2225112
+
 * Mon Mar 13 2023 Kalev Lember <klember@redhat.com> - 2.3.1-2
 - Update gstreamer plugin to 1.22.1
 

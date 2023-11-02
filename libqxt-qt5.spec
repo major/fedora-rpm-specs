@@ -6,7 +6,7 @@
 
 Name:           libqxt-qt5
 Version:        0.7.0
-Release:        0.32.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.33.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Extended version of the original Qt extension library
 License:        BSD and (CPL or LGPLv2)
 URL:            https://bitbucket.org/libqxt/libqxt/wiki/Home
@@ -98,8 +98,9 @@ popd
 ############### QT5 ######################
 pushd qt5
 ./configure -verbose                      \
- -I %{_includedir}/avahi-compat-libdns_sd \
- -qmake-bin %{_qt5_bindir}/qmake          \
+ -I $(pkg-config --variable=includedir avahi-compat-libdns_sd) \
+ -L $(pkg-config --variable=libdir avahi-compat-libdns_sd) \
+ -qmake-bin %{_qt5_qmake}                 \
  -prefix %{_prefix}                       \
  -libdir %{_libdir}                       \
  -headerdir %{_qt5_headerdir}             \
@@ -138,6 +139,10 @@ sed -i -e 's|Requires: QxtCore QxtNetwork|Requires: QxtCore-qt5 QxtNetwork-qt5|'
 
 make install --ignore-errors INSTALL_ROOT=%{buildroot}
 
+ %if 0%{?flatpak}
+ # qtbase is part of runtime in /usr, this is built in /app
+ mv %{buildroot}/usr/%{_lib}/qt5 %{buildroot}%{_libdir}
+ %endif
 %ldconfig_scriptlets
 
 %files
@@ -166,6 +171,9 @@ make install --ignore-errors INSTALL_ROOT=%{buildroot}
 %{_datadir}/doc/libqxt-qt5-doc/html/
 
 %changelog
+* Tue Oct 31 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-0.33.20130718giteaf6872f6ad4
+- Fix flatpak build
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.32.20130718giteaf6872f6ad4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,22 +1,31 @@
 Name:           perl-Apache-DBI-Cache
 Version:        0.08
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Perl DBI connection cache
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Apache-DBI-Cache
 Source0:        https://cpan.metacpan.org/authors/id/O/OP/OPI/Apache-DBI-Cache-%{version}.tar.gz
 Patch0:         0001-DBI-dr-connect-can-clobber-the-arguments.patch
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(DBI) >= 1.37
-BuildRequires:  perl(DBD::SQLite)
-BuildRequires:  perl(DBD::mysql)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time
+BuildRequires:  perl(base)
 BuildRequires:  perl(BerkeleyDB)
+BuildRequires:  perl(DBI) >= 1.37
+BuildRequires:  perl(DBD::mysql)
+BuildRequires:  perl(File::Path)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Tests
 BuildRequires:  perl(Class::DBI)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(DBD::SQLite)
+BuildRequires:  perl(Ima::DBI)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Deep)
 Requires:       perl(DBI) >= 1.37
@@ -25,6 +34,7 @@ Requires:       perl(DBI) >= 1.37
 
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(DBI::st\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(DBI::db\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(DBI\\)$
 
 %description
 This module is an alternative to Apache::DBI module. As a drop-in
@@ -32,37 +42,35 @@ Apache::DBI replacement it provides persistent DBI connections
 while overcoming certain limitations. It is compatible with mod_perl,
 though it does not require it.
 
-
 %prep
 %setup -q -n Apache-DBI-Cache-%{version}
-%patch0 -p1
-
+%patch -P0 -p1
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
-
 %check
+# Directories used as attribute 'f_dir' have to be created
+mkdir tmp1 tmp2
 make test
-
+rmdir tmp1 tmp2
 
 %files
 %doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
-
+%{perl_vendorlib}/Apache/DBI/Cache*
+%{_mandir}/man3/Apache::DBI::Cache*
 
 %changelog
+* Thu Oct 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-47
+- Fix failing tests (rhbz#2241707)
+- Update license to SPDX format
+- Modernize spec file
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

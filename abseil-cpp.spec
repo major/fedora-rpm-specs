@@ -3,7 +3,7 @@
 
 Name:           abseil-cpp
 Version:        20230802.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -233,6 +233,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Tue Oct 31 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230802.1-2
+- Rebuild for gtest 1.14.0
+
 * Wed Sep 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230802.1-1
 - Update to 20230802.1 (close RHBZ#2239814)
 

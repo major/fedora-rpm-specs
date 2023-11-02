@@ -5,8 +5,7 @@
 
 # https://github.com/ansible/receptor
 %global goipath         github.com/ansible/receptor
-Version:                1.4.1
-BuildArch:      	x86_64
+Version:                1.4.2
 
 %gometa -f
 
@@ -115,13 +114,13 @@ Source8:	receptor.sysusers
 Source9:	receptor.logrotate
 Source10:	receptor_tmp.conf
 # https://github.com/ansible/receptor/pull/816
-#Patch:          0001-Bump-quic-go-to-0.37.4.patch
+Patch:          golang-1.21.patch
 
 BuildRequires:  python3-devel
 BuildRequires:	python3dist(pip)
 BuildRequires:	python3dist(setuptools)
 BuildRequires:	python3dist(wheel)
-#BuildRequires:	python3dist(tox)
+BuildRequires:	python3dist(tox)
 # For Python tests
 BuildRequires:  psmisc
 BuildRequires:  openssh
@@ -153,7 +152,7 @@ Summary:        Python plugin called by Receptor
 
 %description -n python3-receptor-python-worker
 The receptor-python-worker command is called by Receptor to supervise the
-operation of a Python worker plugin."
+operation of a Python worker plugin.
 
 %if %{with golang_library}
 %gopkg

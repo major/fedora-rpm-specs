@@ -32,8 +32,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.6.1
-Release:        2%{?dist}
+Version:        3.6.2
+Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -175,6 +175,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Tue Oct 31 2023 Kalev Lember <klember@redhat.com> - 3.6.2-1
+- Update to 3.6.2
+
 * Fri Sep 29 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 3.6.1-2
 - Do not include RSS miner service on RHEL/ELN
   Original patch by Carlos Garnacho <cgarnach@redhat.com>

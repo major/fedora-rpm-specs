@@ -49,7 +49,7 @@
 
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
-Version: 1.4.72
+Version: 1.4.73
 Release: 1%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
@@ -604,6 +604,9 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Tue Oct 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4.73-1
+- 1.4.73
+
 * Tue Oct 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4.72-1
 - 1.4.72
 

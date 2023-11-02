@@ -1,7 +1,7 @@
 Name:           CuraEngine
 Epoch:          1
 Version:        5.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Engine for processing 3D models into G-code instructions for 3D printers
 License:        AGPLv3+
 URL:            https://github.com/Ultimaker/%{name}
@@ -28,9 +28,19 @@ BuildRequires:  fmt-devel
 BuildRequires:  spdlog-devel
 
 # Header-only package; -static version is for tracking per guidelines
-# stb_image 2.28^20230129git5736b15-0.2 is the minimum EVR that fixes the null
-# pointer dereference reported in https://github.com/nothings/stb/issues/1452.
-BuildRequires:  stb_image-static >= 2.28^20230129git5736b15-0.2
+# Enforce the the minimum EVR to contain fixes for all of:
+# CVE-2021-28021
+# CVE-2021-42715
+# CVE-2021-42716
+# CVE-2022-28041
+# CVE-2023-43898
+# CVE-2023-45661
+# CVE-2023-45662
+# CVE-2023-45663
+# CVE-2023-45664
+# CVE-2023-45666
+# CVE-2023-45667
+BuildRequires:  stb_image-static >= 2.28^20231011gitbeebb24-12
 
 Patch0:         %{name}-static-libstdcpp.patch
 # Patch for fmtlib 10
@@ -92,6 +102,9 @@ rm -rf libs
 %{_bindir}/%{name}
 
 %changelog
+* Wed Oct 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:5.3.0-5
+- Ensure stb_image contains the latest CVE patches
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

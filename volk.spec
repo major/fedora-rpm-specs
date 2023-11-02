@@ -1,6 +1,6 @@
 Name:          volk
 Version:       3.0.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       GPLv3+
 URL:           https://github.com/gnuradio/%{name}
@@ -17,6 +17,9 @@ BuildRequires: python3-devel
 BuildRequires: python3-mako
 BuildRequires: orc-devel
 BuildRequires: sed
+%ifnarch s390x
+BuildRequires: google-cpu_features-devel
+%endif
 Conflicts:     python3-gnuradio < 3.9.0.0
 Conflicts:     gnuradio-devel < 3.9.0.0
 
@@ -35,6 +38,9 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}.
+%ifarch s390x
+Conflicts:     google-cpu_features-devel
+%endif
 
 
 %package doc
@@ -82,14 +88,6 @@ export CXXFLAGS="$CFLAGS"
 mkdir -p %{buildroot}%{_docdir}/%{name}
 cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
-# drop list_cpu_features, not needed, just some demo binary,
-# unavailable on s390x, for details see:
-# https://github.com/gnuradio/volk/issues/442#issuecomment-772059840
-rm -f %{buildroot}%{_bindir}/list_cpu_features
-
-# drop static objects
-rm -f %{buildroot}%{_libdir}/libcpu_features.a
-
 %files
 %license COPYING
 %doc README.md docs/CHANGELOG.md
@@ -102,10 +100,6 @@ rm -f %{buildroot}%{_libdir}/libcpu_features.a
 
 %files devel
 %{_includedir}/volk
-%ifnarch s390x
-%{_includedir}/cpu_features
-%{_libdir}/cmake/CpuFeatures
-%endif
 %{_libdir}/libvolk.so
 %{_libdir}/cmake/volk
 %{_libdir}/pkgconfig/*.pc
@@ -116,6 +110,10 @@ rm -f %{buildroot}%{_libdir}/libcpu_features.a
 
 
 %changelog
+* Thu Oct 19 2023 Marcus Müller <marcus_fedora@baseband.digital> - 3.0.0-4
+- Depend on system google-cpu_features-devel instead of using the vendored
+- Fixes rhbz#2245047
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

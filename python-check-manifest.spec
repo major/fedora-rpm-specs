@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.48
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Check MANIFEST.in in a Python source package
 
 License:        MIT
@@ -26,7 +26,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-tomli
 BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pep517
+BuildRequires:  python3-build
 BuildRequires:  python3-wheel
 %{?python_provide:%python_provide python3-%{pypi_name}}
  
@@ -67,6 +67,10 @@ sed -i -e '/^#!\//, 1d' check_manifest.py
 %{_bindir}/check-manifest
 
 %changelog
+* Mon Oct 30 2023 Miro Hrončok <mhroncok@redhat.com> - 0.48-8
+- Remove unused build dependency on python3-pep517
+- The python3-build package replaced it in 0.45
+
 * Wed Aug 02 2023 Sandro Mani <manisandro@gmail.com> - 0.48-7
 - BR: python3-tomli (#2142070)
 

@@ -1,10 +1,10 @@
-%global tag_version release-44-beta2
+%global tag_version release-44
 #%%global is_official 0%%(echo %%{tag_version} | grep -qE 'alpha|beta|final'; echo $?)
-%global is_official 0%(echo %{tag_version} | grep -qE 'alpha|beta|final'; echo $?)
 #%%global is_official 0
+%global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    44~beta2
+Version:    44
 Release:    1%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Tue Oct 31 2023 Takao Fujiwara <tfujiwar@gmail.com> - 1:44
+- Bump to release-44
+
 * Wed Oct 04 2023 Takao Fujiwara <tfujiwar@gmail.com> - 1:44~beta2-1
 - Bump to release-44-beta2
 

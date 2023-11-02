@@ -1,12 +1,10 @@
-%bcond_with suggests
-
 %global packname waldo
 %global packver  0.5.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          %autorelease
 Summary:          Find Differences Between R Objects
 
 License:          MIT
@@ -21,8 +19,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Enhances:
 
 BuildArch:        noarch
-BuildRequires:    R-devel
-BuildRequires:    tex(latex)
+BuildRequires:    R-core-devel
 BuildRequires:    R-cli
 BuildRequires:    R-diffobj >= 0.3.4
 BuildRequires:    R-fansi
@@ -32,12 +29,9 @@ BuildRequires:    R-rematch2
 BuildRequires:    R-rlang >= 1.0.0
 BuildRequires:    R-tibble
 BuildRequires:    R-testthat >= 3.0.0
-BuildRequires:    tex(inconsolata.sty)
-%if %{with suggests}
 BuildRequires:    R-R6
 BuildRequires:    R-withr
 BuildRequires:    R-xml2
-%endif
 
 %description
 Compare complex R objects and reveal the key differences.  Designed
@@ -63,11 +57,8 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%if %{with suggests}
-%{_bindir}/R CMD check --no-vignettes %{packname}
-%else
-# _R_CHECK_FORCE_SUGGESTS_=0 %%{_bindir}/R CMD check --no-vignettes %%{packname}
-%endif
+export _R_CHECK_FORCE_SUGGESTS_=0
+%{_bindir}/R CMD check --ignore-vignettes --no-manual %{packname}
 
 
 %files
@@ -84,58 +75,4 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 0.5.1-1
-- update to 0.5.1
-- switch to conditionalized suggests
-- disable tests because they keep landing on ppc and failing *sigh*
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.0-3
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 0.4.0-1
-- update to 0.4.0
-- rebuild for R 4.2.1
-- bootstrap on
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 17 2021 Tom Callaway <spot@fedoraproject.org> - 0.2.5-3
-- bootstrap off
-
-* Thu Jun 10 2021 Tom Callaway <spot@fedoraproject.org> - 0.2.5-2
-- Rebuilt for R 4.1.0
-- bootstrap
-
-* Wed Mar 10 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.5-1
-- Update to latest version (#1936608)
-
-* Mon Feb 15 2021 Tom Callaway <spot@fedoraproject.org> - 0.2.4-1
-- update to 0.2.4
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Nov 09 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.3-1
-- Update to latest version (#1896126)
-
-* Fri Oct 16 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.2-1
-- Update to latest version (#1888855)
-
-* Sat Oct 10 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.1-1
-- Update to latest version (#1886503)
-
-* Fri Aug 28 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.0-1
-- initial package for Fedora
+%autochangelog

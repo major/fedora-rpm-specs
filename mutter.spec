@@ -13,7 +13,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       45.0
+Version:       45.1
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -32,38 +32,17 @@ Patch:         0001-place-Always-center-initial-setup-fedora-welcome.patch
 
 Patch:         0001-gschema-Enable-scale-monitor-framebuffer-experimenta.patch
 
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3299
-Patch:         3299.patch
-
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3306
-Patch:         3306.patch
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=2239128
 # https://gitlab.gnome.org/GNOME/mutter/-/issues/3068
 # not upstreamed because for upstream we'd really want to find a way
 # to fix *both* problems
 Patch:         0001-Revert-x11-Use-input-region-from-frame-window-for-de.patch
 
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3324
-Patch: 0001-thread-For-consistency-s-real_time-realtime.patch
-Patch: 0002-tests-dbusmock-templates-rtkit-Add-MakeThreadHighPri.patch
-Patch: 0003-thread-Allow-turning-off-rt-scheduling-for-running-t.patch
-Patch: 0004-kms-impl-device-Inhibit-real-time-scheduling-when-mo.patch
-
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3329
 # Modified to add the change from
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3329#note_1874837
 # which solves the problems reported with #3329 alone
 Patch: 0001-modified-3329.patch
-
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/7148
-# https://bugzilla.redhat.com/show_bug.cgi?id=2247033
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3311
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3326
-# Fix problems with screen captures being corrupted or not working on
-# certain hardware
-Patch: 3311.patch
-Patch: 3326.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

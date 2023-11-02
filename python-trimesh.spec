@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        3.23.5
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -24,6 +24,9 @@ Source:         https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 # debuginfo.
 %global debug_package %{nil}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 # Turn off automatic python byte-compilation. One .py file,
 # trimesh/resources/templates/blender_boolean.py, is actually a *template for a
 # Python source* rather than an *actual Python source*, and trying to
@@ -31,17 +34,6 @@ Source:         https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 %undefine __brp_python_bytecompile
 
 BuildRequires:  python3-devel
-
-# See the definition of requirements_test, which corresponds to the “test”
-# extra, in setup.py; however, we do not generate BuildRequires from the “test”
-# extra because most of the dependencies are for linting or coverage and would
-# need to be patched out:
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-#
-# run all unit tests
-BuildRequires:  python3dist(pytest)
-# use as a validator for exports
-BuildRequires:  python3dist(ezdxf)
 
 # Run tests in parallel:
 BuildRequires:  python3dist(pytest-xdist)
@@ -65,8 +57,16 @@ Summary:        %{summary}
 BuildArch:      noarch
 
 Recommends:     python3-trimesh+easy = %{version}-%{release}
-Suggests:       python3-trimesh+all = %{version}-%{release}
-Suggests:       python3-trimesh+recommends = %{version}-%{release}
+Recommends:     python3-trimesh+recommend = %{version}-%{release}
+
+# The [recommends] extra was renamed to [recommend] for v4.
+Obsoletes:      python3-trimesh+recommends < 4.0.0~~dev0-1
+# In v4, the [all] extra became the same as [easy,recommend,test]. Since we
+# don’t want to package the [test] extra, we no longer package [all]. If any
+# package depends on it (unlikely), the dependency should be changed to
+# [easy,recommend], and it should be suggested to upstream that this is really
+# what they needed anyway.
+Obsoletes:      python3-trimesh+all < 4.0.0~~dev0-1
 
 # A number of external command-line executables provide optional functionality.
 # We choose to make these weak dependencies (Recommends). Hints (Suggests)
@@ -113,69 +113,17 @@ Recommends:     /usr/bin/draco_encoder
 BuildRequires:  /usr/bin/openscad
 Recommends:     /usr/bin/openscad
 %endif
-# trimesh.interfaces.vhacd
-# Library would also recognize “vhacd” or “testVHACD”
-#
-# VHACD 4.0 not working through trimesh interface + dirty fix
-# https://github.com/mikedh/trimesh/issues/1788
-#BuildRequires:  /usr/bin/TestVHACD
-#Recommends:     /usr/bin/TestVHACD
 
-# This probably should be in [easy] extra but isn’t in the metadata at all; see
-# README.rst and trimesh/ray/. However, it cannot be packaged until it supports
-# the current version (3.x) of embree
+# This probably should be in the [easy] extra but isn’t in the metadata at all;
+# see README.rst and trimesh/ray/. However, it cannot be packaged until it
+# supports the current version (3.x) of embree
 # (https://github.com/scopatz/pyembree/issues/28).
 #Recommends:     python3dist(pyembree)
 
 %description -n python3-trimesh %{_description}
 
 
-%if 0%{?fedora} > 38
-%pyproject_extras_subpkg -n python3-trimesh easy all recommends
-%else
-# We base these extras metapackages
-# (https://fedoraproject.org/wiki/Changes/PythonExtras#Extras_metapackages)
-# on the expansion of:
-#
-#   %%pyproject_extras_subpkg -n python3-trimesh easy all
-#
-# but add Provides/Obsoletes for the corresponding old subpackages to provide a
-# clean upgrade path.
-
-%package -n python3-trimesh+easy
-Summary:        Metapackage for python3-trimesh: easy extras
-BuildArch:      noarch
-
-Requires:       python3-trimesh = %{version}-%{release}
-
-Provides:       python3-trimesh-easy = %{version}-%{release}
-Obsoletes:      python3-trimesh-easy < 3.9.20-4
-
-%description -n python3-trimesh+easy
-This is a metapackage bringing in easy extras requires for python3-trimesh.
-It makes sure the dependencies are installed.
-
-%files -n python3-trimesh+easy
-%ghost %{python3_sitelib}/*.dist-info
-
-%package -n python3-trimesh+all
-Summary:        Metapackage for python3-trimesh: all extras
-BuildArch:      noarch
-
-Requires:       python3-trimesh = %{version}-%{release}
-
-Provides:       python3-trimesh-all = %{version}-%{release}
-Obsoletes:      python3-trimesh-all < 3.9.20-4
-
-%description -n python3-trimesh+all
-This is a metapackage bringing in all extras requires for python3-trimesh.
-It makes sure the dependencies are installed.
-
-%files -n python3-trimesh+all
-%ghost %{python3_sitelib}/*.dist-info
-
-%pyproject_extras_subpkg -n python3-trimesh recommends
-%endif
+%pyproject_extras_subpkg -n python3-trimesh easy recommend
 
 
 # We elect not to build a documentation package, for the following reasons:
@@ -199,43 +147,7 @@ It makes sure the dependencies are installed.
 
 
 %prep
-%autosetup -n trimesh-%{version} -p1
-
-# Patch out unavailable dependencies from “extras”:
-#
-# [all]
-%if %{without skimage}
-sed -r -i '/^[[:blank:]]*"scikit-image",/d' setup.py
-%endif
-#   python-fcl: not yet packaged; upstream is not compatible with the current
-#               release of fcl,
-#               https://github.com/BerkeleyAutomation/python-fcl/issues/19
-sed -r -i '/^[[:blank:]]*"python-fcl",/d' setup.py
-#   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
-#           depends on https://github.com/jpcy/xatlas, also not yet packaged
-sed -r -i '/^[[:blank:]]*"xatlas",/d' setup.py
-#
-# [easy]
-#   embreex: not packaged, https://github.com/mikedh/embreeX; this would
-#   require version 2.x of embree, which was once available in a compat package
-#   (https://src.fedoraproject.org/rpms/embree2) but was retired; the current
-#   version was 4.x.
-sed -r -i '/^[[:blank:]]*"embreex",/d' setup.py
-#
-# [recommends]
-#   meshio: not yet packaged, https://github.com/nschloe/meshio
-sed -r -i 's/"meshio",//' setup.py
-#   glooey: not yet packaged, https://github.com/kxgames/glooey; needs fonts
-#           that are not currently packaged unbundled from its assets
-sed -r -i 's/, "glooey"//' setup.py
-
-# Patch out an unavailable test dependency:
-#
-#   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
-#              bundles MeshLab, which is a nontrivial package that has its own
-#              bundling; see “Support a system/external copy of meshlab?”
-#              https://github.com/cnr-isti-vclab/PyMeshLab/issues/309
-sed -r -i '/^[[:blank:]]*"pymeshlab",/d' setup.py
+%autosetup -n trimesh-%{version}
 
 # Stub out unavailable pyinstrument test dependency; we don’t really need to do
 # profiling anyway. Note that this does mean that API function
@@ -260,10 +172,58 @@ class Profiler(object):
 Profiling output would be here if pyinstrument were available.
 """
 EOF
-sed -r -i '/"pyinstrument",/d' setup.py
+
+# Patch out unavailable or dependencies from extras:
+#
+#   embreex: not packaged, https://github.com/mikedh/embreeX; this would
+#            require version 2.x of embree, which was once available in a
+#            compat package (https://src.fedoraproject.org/rpms/embree2) but
+#            was retired; the current version was 4.x.
+#   glooey: not yet packaged, https://github.com/kxgames/glooey; needs fonts
+#           that are not currently packaged unbundled from its assets
+#   meshio: not yet packaged, https://github.com/nschloe/meshio
+#   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
+#              bundles MeshLab, which is a nontrivial package that has its own
+#              bundling; see “Support a system/external copy of meshlab?”
+#              https://github.com/cnr-isti-vclab/PyMeshLab/issues/309
+#   python-fcl: not yet packaged; upstream is not compatible with the current
+#               release of fcl,
+#               https://github.com/BerkeleyAutomation/python-fcl/issues/19
+#   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
+#           depends on https://github.com/jpcy/xatlas, also not yet packaged
+#
+# Those listed below are test-only dependencies: some are unavailable; the rest
+# are unwanted under
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
+#
+#   black: linters/coverage/etc.
+#   coveralls: linters/coverage/etc.
+#   mypy: linters/coverage/etc.
+#   pyinstrument: not packaged; see preceding “stub” patch
+#   pytest-cov: linters/coverage/etc.
+#   ruff: linters/coverage/etc.
+for pkg in \
+    black \
+    coveralls \
+    embreex \
+    glooey \
+    meshio \
+    mypy \
+    pyinstrument \
+    pymeshlab \
+    pytest-cov \
+    python-fcl \
+    ruff \
+    %{?without_skimage:scikit-image} \
+    xatlas \
+    %{nil}
+do
+  sed -r -i "s/^([[:blank:]])*(\"${pkg}\",?)/\\1# \\2/" pyproject.toml
+done
 
 
 %generate_buildrequires
+# With v4, [all] = [easy,recommend,test].
 %pyproject_buildrequires -x all
 
 
@@ -312,49 +272,6 @@ PlyTest::test_face_attributes
 PlyTest::test_uv_export
 PlyTest::test_vertex_attributes
 %endif
-
-# 32-bit problems:
-# https://github.com/mikedh/trimesh/issues/690
-# https://github.com/mikedh/trimesh/files/7389423/test-failures.log
-
-# E           TypeError: Cannot cast array data from dtype('int64') to
-#                        dtype('int32') according to the rule 'safe'
-%if 0%{?__isa_bits} == 32
-BinvoxTest::test_load_save_invariance
-BoundsTest::test_bounding_egg
-ContainsTest::test_inside
-EncodingTest::test_composite
-EncodingTest::test_dense
-EncodingTest::test_flat
-EncodingTest::test_flipped
-EncodingTest::test_reshape
-EncodingTest::test_transpose
-NearestTest::test_coplanar_signed_distance
-PrimitiveTest::test_cyl_buffer
-RayTests::test_contain_single
-RayTests::test_contains
-RayTests::test_on_edge
-RayTests::test_on_vertex
-RleTest::test_brle_encode_decode
-RleTest::test_brle_length
-RleTest::test_brle_logical_not
-RleTest::test_brle_to_dense
-RleTest::test_brle_to_rle
-RleTest::test_rle_encode_decode
-SampleTest::test_sample_volume
-SubdivideTest::test_loop_correct
-VoxelGridTest::test_local
-VoxelGridTest::test_roundtrip
-%endif
-
-# Either MemoryError or numpy.core._exceptions._ArrayMemoryError:
-%if 0%{?__isa_bits} == 32
-GLTFTest::test_basic
-GLTFTest::test_merge_buffers
-MutateTests::test_not_mutated_cube
-SubDivideTest::test_subdivide
-SceneTests::test_scene
-%endif
 EOF
 )
 
@@ -368,7 +285,7 @@ export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 # %%pyproject_save_files cannot handle skipping byte-compilation for
 # blender_boolean.py, so we list files manually:
 %{python3_sitelib}/trimesh
-%{python3_sitelib}/trimesh-%{version}.dist-info
+%{python3_sitelib}/trimesh-%(echo '%{version}' | tr -d '~').dist-info
 
 
 %changelog

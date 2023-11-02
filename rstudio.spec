@@ -46,7 +46,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -347,6 +347,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Tue Oct 31 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.09.1+494-2
+- Fix Copilot's node path resolution
+
 * Thu Oct 19 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.09.1+494-1
 - Update to 2023.09.1+494
 

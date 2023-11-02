@@ -1,21 +1,15 @@
-# Disable tests by default since VMs can't run in containerized Fedora builds.
-%bcond_with check
-
 # The RPM macro cargo_target can be defined to specify the Rust target to use
 # during the build.  When undefined, the distro's default target is used.
 
-# Assume that musl targets produce static binaries by default, which determines
-# if the jailer program is usable.  It should still build successfully with any
-# linkage setting, so this conditional allows forcing it to build or not.
-%if %{lua:print(rpm.expand("%{cargo_target}"):match("musl") and "1" or "0")}
-%bcond_without jailer
-%else
-%bcond_with jailer
-%endif
+# Disable tests by default since VMs can't run in containerized Fedora builds.
+%bcond check    0
+
+# The jailer's documentation says only musl targets are supported.
+%bcond jailer   %{lua:print(rpm.expand("%{cargo_target}"):find("musl") or 0)}
 
 Name:           firecracker
-Version:        1.4.1
-Release:        3%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
 License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND Unicode-DFS-2016
@@ -24,22 +18,16 @@ URL:            https://firecracker-microvm.github.io/
 Source0:        https://github.com/firecracker-microvm/firecracker/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Bundle forked versions of existing crates to avoid conflicts with upstreams.
-Source1:        https://github.com/firecracker-microvm/kvm-bindings/archive/e8359204b41d5c2e7c5af9ae5c26283b62337740/kvm-bindings-e835920.tar.gz
-Source2:        https://github.com/firecracker-microvm/micro-http/archive/4b18a043e997da5b5f679e3defc279fec908753e/micro_http-4b18a04.tar.gz
-
-# kvm-bindings: Apache-2.0
-Provides:       bundled(crate(kvm-bindings)) = 0.6.0^gite835920
-# micro_http: Apache-2.0
-Provides:       bundled(crate(micro_http)) = 0.1.0^git4b18a04
+Source1:        https://github.com/firecracker-microvm/kvm-bindings/archive/b1585959b4ac4075629765fb90ecf298a3203bfc/kvm-bindings-b158595.tar.gz
+Source2:        https://github.com/firecracker-microvm/micro-http/archive/a4d632f2c5ea45712c0d2002dc909a63879e85c3/micro_http-a4d632f.tar.gz
+Provides:       bundled(crate(kvm-bindings)) = 0.6.0^gitb158595
+Provides:       bundled(crate(micro_http)) = 0.1.0^gita4d632f
 
 # Edit crate dependencies to track what is packaged in Fedora.
-# These patches do not make sense to send upstream given their purpose.
-Patch:          %{name}-1.4.1-remove-aws-lc-rs.patch
-Patch:          %{name}-1.4.0-remove-cargo_toml.patch
-Patch:          %{name}-1.4.1-remove-criterion.patch
-Patch:          %{name}-1.4.1-remove-device_tree.patch
-Patch:          %{name}-1.4.0-upgrade-kvm-ioctls.patch
-Patch:          %{name}-1.4.1-upgrade-linux-loader.patch
+Patch:          %{name}-1.5.0-remove-aws-lc-rs.patch
+Patch:          %{name}-1.5.0-remove-cargo_toml.patch
+Patch:          %{name}-1.5.0-remove-criterion.patch
+Patch:          %{name}-1.5.0-remove-device_tree.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %defined cargo_target
@@ -74,8 +62,7 @@ sed -i -e 's,../../forks,forks,' Cargo.toml
 %cargo_prep
 
 %generate_buildrequires
-# Unconditionally include dev-dependencies to avoid build failures.
-cargo2rpm --path Cargo.toml buildrequires --with-check
+%cargo_generate_buildrequires
 
 %build
 %cargo_build -- --package={cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler} %{?cargo_target:--target=%{cargo_target}}
@@ -112,6 +99,9 @@ done
 
 
 %changelog
+* Thu Oct 12 2023 David Michael <fedora.dm0@gmail.com> - 1.5.0-1
+- Update to the 1.5.0 release.
+
 * Sun Oct 01 2023 Fabio Valentini <decathorpe@gmail.com> - 1.4.1-3
 - Rebuild for aes-gcm v0.10.3 / CVE-2023-42811.
 

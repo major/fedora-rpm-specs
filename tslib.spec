@@ -2,7 +2,7 @@ Name:           tslib
 Version:        1.22
 Release:        9%{?dist}
 Summary:        Touchscreen Access Library
-License:        LGPLv2
+License:        LGPL-2.1-only
 URL:            https://github.com/kergoth/tslib
 Source0:        https://github.com/kergoth/tslib/releases/download/%{version}/tslib-%{version}.tar.bz2
 # https://github.com/libts/tslib/commit/bec90dfaca8273b9c53268c6c0af1576695bc72c

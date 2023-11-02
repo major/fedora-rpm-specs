@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		9.0.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -141,6 +141,7 @@ BuildRequires:		libSM-devel
 BuildRequires:		libXext-devel
 %if %{JAVA}
 BuildRequires:		java-devel
+BuildRequires:		javapackages-tools
 %endif
 BuildRequires:		cairo-devel >= 1.1.10
 BuildRequires:		pango-devel
@@ -421,8 +422,7 @@ autoreconf -fi
 
 %if %{JAVA}
 # Hack in the java includes we need
-sed -i '/JavaVM.framework/!s/JAVA_INCLUDES=/JAVA_INCLUDES=\"_MY_JAVA_INCLUDES_\"/g' configure
-sed -i 's|_MY_JAVA_INCLUDES_|-I%{java_home}/include/ -I%{java_home}/include/linux/|g' configure
+sed -i 's|for try_java_include in|& %{java_home}/include/ %{java_home}/include/linux/|' configure
 %endif
 # Rewrite config_ruby.rb to work with Ruby 2.2
 sed -i 's|expand(|expand(RbConfig::|' config/config_ruby.rb
@@ -777,6 +777,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue Oct 31 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 9.0.0-3
+- Fixed %%java_home detection, patch by Yaakov Selkowitz
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 9.0.0-2
 - OCaml 5.1 rebuild for Fedora 40
 

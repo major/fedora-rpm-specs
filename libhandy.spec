@@ -1,6 +1,8 @@
+%bcond glade %[!(0%{?rhel} >= 10)]
+
 Name:           libhandy
 Version:        1.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Building blocks for modern adaptive GNOME apps
 License:        LGPLv2+
 
@@ -13,7 +15,9 @@ BuildRequires:  gi-docgen
 BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  pkgconfig(gio-2.0)
+%if %{with glade}
 BuildRequires:  pkgconfig(gladeui-2.0)
+%endif
 BuildRequires:  pkgconfig(glib-2.0) >= 2.44
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
@@ -54,6 +58,9 @@ developing applications that use %{name}.
 %build
 # Avatar test fails on s390x.
 %meson -Dgtk_doc=true -Dexamples=false \
+%if %{without glade}
+    -Dglade_catalog=disabled \
+%endif
 %ifnarch s390x
     -Dtests=true
 %else
@@ -82,16 +89,21 @@ developing applications that use %{name}.
 
 %files devel
 %{_includedir}/libhandy-1/
-%{_libdir}/glade/
 %{_libdir}/libhandy-1.so
 %{_libdir}/pkgconfig/libhandy-1.pc
 %{_datadir}/gir-1.0/
+%if %{with glade}
+%{_libdir}/glade/
 %{_datadir}/glade/
+%endif
 %doc %{_datadir}/doc/libhandy-1/
 %{_datadir}/vala/
 
 
 %changelog
+* Tue Oct 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.2-4
+- Disable glade catalog in RHEL builds
+
 * Tue Oct 24 2023 Yanko Kaneti <yaneti@declera.com> - 1.8.2-3
 - BR: rsvg-pixbuf-loader for svg support in tests
 

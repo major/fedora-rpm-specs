@@ -1,3 +1,5 @@
+%bcond glade %[!(0%{?rhel} >= 10)]
+
 %global apiver 1.0
 %global tarball_name libpeas
 
@@ -15,7 +17,9 @@ BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gio-2.0)
+%if %{with glade}
 BuildRequires:  pkgconfig(gladeui-2.0)
+%endif
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
@@ -97,6 +101,7 @@ that are needed to write applications that use libpeas1.
 %build
 %meson \
   -Ddemos=false \
+  %{!?with_glade:-Dglade_catalog=false} \
   -Dvapi=true \
   -Dgtk_doc=true
 
@@ -135,7 +140,9 @@ that are needed to write applications that use libpeas1.
 %{_datadir}/gir-1.0/PeasGtk-%{apiver}.gir
 %{_libdir}/pkgconfig/libpeas-%{apiver}.pc
 %{_libdir}/pkgconfig/libpeas-gtk-%{apiver}.pc
+%if %{with glade}
 %{_datadir}/glade/catalogs/libpeas-gtk.xml
+%endif
 
 %changelog
 %autochangelog

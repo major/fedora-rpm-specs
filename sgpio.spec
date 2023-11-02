@@ -1,7 +1,7 @@
 Summary: SGPIO captive backplane tool
 Name: sgpio
 Version: 1.2.0.10
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: GPL-2.0-or-later
 URL: http://sources.redhat.com/lvm2/wiki/DMRAID_Eventing
 Source: sgpio-1.2-0.10-src.tar.gz
@@ -9,6 +9,7 @@ Source: sgpio-1.2-0.10-src.tar.gz
 #Source: http://sources.redhat.com/lvm2/wiki/DMRAID_Eventing?action=AttachFile&do=get&target=sgpio-1.2.tgz
 Patch0: sgpio-1.2-makefile.patch
 Patch1: sgpio-1.2-coverity.patch
+Patch2: sgpio-1.2-buffer-overflow.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: dos2unix
@@ -21,6 +22,7 @@ Intel SGPIO enclosure management utility
 dos2unix --keepdate Makefile README
 %patch0 -p1 -b .makefile
 %patch1 -p1 -b .coverity
+%patch2 -p1 -b .buffer-overflow
 chmod a-x *
 
 %build
@@ -37,6 +39,9 @@ make clean
 %{_mandir}/man1/sgpio.*
 
 %changelog
+* Tue Oct 31 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.2.0.10-35
+- fix buffer overflow with high port numbers
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0.10-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

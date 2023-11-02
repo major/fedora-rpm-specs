@@ -1,12 +1,25 @@
 Name:           python-nodeenv
 Version:        1.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Node.js virtual environment builder
 
 License:        BSD-3-Clause
 URL:            https://github.com/ekalinin/nodeenv
 # The PyPI sdist does not contain tests, so we use the GitHub archive
 Source:         %{url}/archive/%{version}/nodeenv-%{version}.tar.gz
+
+# On Python 3.3+, replace pipes.quote with shlex.quote
+# https://github.com/ekalinin/nodeenv/pull/342
+#
+# Fixes:
+#
+# Remove usage of pipes
+# https://github.com/ekalinin/nodeenv/issues/341
+#
+# python-nodeenv fails to build with Python 3.13: ModuleNotFoundError: No
+# module named 'pipes'
+# https://bugzilla.redhat.com/show_bug.cgi?id=2245654
+Patch:          %{url}/pull/342.patch
 
 BuildArch:      noarch
 
@@ -44,7 +57,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n nodeenv-%{version}
+%autosetup -n nodeenv-%{version} -p1
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i "s@'coverage', 'run', '-p',@'%{python3}',@" tests/nodeenv_test.py
@@ -91,6 +104,9 @@ k="${k-}${k+ and }not test_smoke"
 
 
 %changelog
+* Mon Oct 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.0-3
+- Replace usage of deprecated/removed pipes module (fix RHBZ#2245654)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

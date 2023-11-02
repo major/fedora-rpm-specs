@@ -30,14 +30,14 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  4.6
-%global github_commit   1946eb18d76980581d842e1e2569dee33e5a5b45
+%global github_commit   64b339c8f5623ce314126972d9fd171ab3190bcd
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20230527
+%global github_date     20231025
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
@@ -61,8 +61,10 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # diff from SUSE: added main_requires_additional, dropped perl-base
 # which does not exist in Fedora - we have perl(base) in
 # main_requires_additional and the perl(:MODULE_COMPAT) require below
+# their versioning of mojolicious is different due to
+# https://github.com/openSUSE/cpanspec/issues/47
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %main_requires_additional git-core perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(File::Basename) perl(File::Find) perl(File::Path) perl(File::Temp) perl(File::Touch) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 8.42 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(Try::Tiny) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings)
+%define main_requires %main_requires_additional git-core perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(File::Basename) perl(File::Find) perl(File::Path) perl(File::Temp) perl(File::Touch) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 9.34 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(Try::Tiny) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings) rsync sshpass
 # diff from SUSE: SUSE has python3-yamllint, Fedora has just yamllint
 # The following line is generated from dependencies.yaml (upstream)
 %define yamllint_requires yamllint
@@ -71,9 +73,9 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 # diff from SUSE: replaced qemu with qemu-kvm, qemu-tools with
 # qemu-img, qemu-x86 with qemu-system-i386, xorg-x11-Xvnc with
 # tigervnc-server-minimal (provider of /usr/bin/Xvnc)
-# Fedora
+# SUSE just has 'ipxe-bootimgs', we have -aarch64 and -x86
 # The following line is generated from dependencies.yaml (upstream)
-%define test_base_requires %main_requires cpio icewm perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Fatal) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 tigervnc-server-minimal xterm xterm-console
+%define test_base_requires %main_requires cpio icewm ipxe-bootimgs-x86 ipxe-bootimgs-aarch64 perl(Benchmark) perl(Devel::Cover) perl(FindBin) perl(Pod::Coverage) perl(Test::Fatal) perl(Test::Mock::Time) perl(Test::MockModule) perl(Test::MockObject) perl(Test::MockRandom) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 procps python3-setuptools qemu-kvm /usr/bin/qemu-img /usr/bin/qemu-system-i386 tigervnc-server-minimal xterm xterm-console
 # The following line is generated from dependencies.yaml (upstream)
 %define test_version_only_requires perl(Mojo::IOLoop::ReadWriteProcess) >= 0.28
 # diff from SUSE: it's python3-pillow-tk, not python3-Pillow-tk
@@ -100,9 +102,13 @@ Recommends:     /usr/bin/qemu-img
 Recommends:     e2fsprogs
 # Optional dependency for Python test API support
 Recommends:     perl(Inline::Python)
+# More efficient video encoding is done automatically if ffmpeg is present
+Recommends:     ffmpeg >= 4
 BuildRequires:  %test_requires %test_version_only_requires
 # For unbuffered output of Perl testsuite
 BuildRequires:  expect
+# tests use chattr
+BuildRequires:  e2fsprogs
 Requires:       %main_requires
 Requires(pre):  %{_bindir}/getent
 Requires(pre):  %{_sbindir}/useradd
@@ -164,6 +170,8 @@ rm xt/30-make.t
 # we don't really need to ship this in the package, usually the web UI
 # is much better for needle editing
 rm %{buildroot}%{_prefix}/lib/os-autoinst/crop.py*
+# this is only useful on SUSE
+rm %{buildroot}%{_bindir}/os-autoinst-setup-multi-machine
 # we're going to %%license this
 rm %{buildroot}%{_pkgdocdir}/COPYING
 ls -lR %buildroot
@@ -178,6 +186,8 @@ export CI=1
 # account for sporadic slowness in build environments
 # https://progress.opensuse.org/issues/89059
 export OPENQA_TEST_TIMEOUT_SCALE_CI=20
+# We don't want fatal warnings during package building
+export PERL_TEST_WARNINGS_ONLY_REPORT_WARNINGS=1
 # Enable verbose test output as we can not store test artifacts within package
 # build environments in case of needing to investigate failures
 export PROVE_ARGS="--timer -v --nocolor"
@@ -243,6 +253,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Wed Oct 25 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20231025git64b339c-1
+- Update to latest git, resync spec
+
 * Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 4.6^20230527git1946eb1-4
 - Rebuild for opencv 4.8.0
 

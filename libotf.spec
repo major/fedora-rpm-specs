@@ -44,10 +44,10 @@ make %{?_smp_mflags}
 %install
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-for file in $RPM_BUILD_ROOT/usr/bin/*; do chrpath -d $file || true; done
+for file in $RPM_BUILD_ROOT%{_bindir}/*; do chrpath -d $file || true; done
 
 (cd example && make clean && rm -rf .deps && rm Makefile)
-rm $RPM_BUILD_ROOT/usr/bin/libotf-config
+rm $RPM_BUILD_ROOT%{_bindir}/libotf-config
 
 %ldconfig_scriptlets
 

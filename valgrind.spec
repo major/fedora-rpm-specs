@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.22.0
-Release: 0.2.RC2%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -74,7 +74,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC2.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -87,10 +87,6 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
-
-# Workaround https://bugs.kde.org/show_bug.cgi?id=402833
-# by disabling overlap checking for memcpy
-Patch5: valgrind-3.21.0-no-memcpy-replace-check.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -124,6 +120,7 @@ BuildRequires: docbook-dtds
 
 # For testing debuginfod-find
 %if 0%{?fedora} > 29 || 0%{?rhel} > 7
+BuildRequires: elfutils-debuginfod
 BuildRequires: elfutils-debuginfod-client
 # For using debuginfod at runtime
 Recommends: elfutils-debuginfod-client
@@ -218,7 +215,7 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC2
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
 
 %patch -P1 -p1
 %patch -P2 -p1
@@ -228,8 +225,6 @@ Valgrind User Manual for details.
 %patch -P3 -p1
 %patch -P4 -p1
 %endif
-
-%patch -P5 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -463,6 +458,10 @@ fi
 %endif
 
 %changelog
+* Tue Oct 31 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-1
+- Upstream 3.22.0 final
+- BuildRequires elfutils-debuginfod for testing
+
 * Mon Oct 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-0.2.RC2
 - Update valgrind-3.21.0-no-memcpy-replace-check.patch
 - Fedora 40 dropped openmpi support on i386

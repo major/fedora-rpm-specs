@@ -4,8 +4,8 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.6.0
-Release:        2%{?dist}
+Version:        3.6.1
+Release:        1%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
@@ -117,7 +117,6 @@ mv %{SOURCE0}.newfile %{SOURCE0}
 %{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} build %{?_smp_mflags} --release --bin=stratis-dumpmetadata --no-default-features --features engine,extras,min
 %else
-%cargo_license_summary -f engine,dbus_enabled,min,systemd_compat,extras,udev_scripts
 %{cargo_license -f engine,dbus_enabled,min,systemd_compat,extras,udev_scripts} > LICENSE.dependencies
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
@@ -193,6 +192,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Tue Oct 31 2023 Bryan Gurney <bgurney@redhat.com> - 3.6.1-1
+- Update to 3.6.1
+
 * Wed Oct 25 2023 Bryan Gurney <bgurney@redhat.com> - 3.6.0-2
 - Use testing tag v3.6.0
 

@@ -4,9 +4,9 @@
 Summary: Enhanced implementation of the mailx command
 Name: mailx
 Version: 12.5
-Release: 44%{?dist}
+Release: 45%{?dist}
 # MPLv1.1 .. nss.c, nsserr.c
-License: BSD with advertising and MPLv1.1
+License: BSD-4-Clause-UC AND metamail AND RSA-MD AND BSD-4-Clause
 URL: http://heirloom.sourceforge.net/mailx.html
 # Mailx's upstream provides only the CVS method of downloading source code.
 # Use get-upstream-tarball.sh script to download current version of mailx.
@@ -201,6 +201,9 @@ fi
 
 
 %changelog
+* Tue Oct 31 2023 Tomas Korbar <tkorbar@redhat.com> - 12.5-45
+- Change license tag to conform with SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.5-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

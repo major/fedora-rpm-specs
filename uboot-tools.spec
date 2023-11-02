@@ -7,7 +7,8 @@
 
 Name:     uboot-tools
 Version:  2023.10
-Release:  0.8%{?candidate:.%{candidate}}%{?dist}
+Release:  0.9%{?candidate:.%{candidate}}%{?dist}
+Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:      http://www.denx.de/wiki/U-Boot
@@ -214,6 +215,9 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Tue Oct 31 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2023.10-0.9
+- Rebuild
+
 * Mon Oct 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10-0.8
 - Further potential upstream fixes
 

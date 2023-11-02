@@ -1,6 +1,6 @@
 Name:       perl-Data-TreeDumper 
-Version:    0.40 
-Release:    33%{?dist}
+Version:    0.41
+Release:    1%{?dist}
 # see TreeDumper.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Improved replacement for Data::Dumper
@@ -9,16 +9,16 @@ Url:        https://metacpan.org/release/Data-TreeDumper
 BuildArch:  noarch
 
 BuildRequires: coreutils
-BuildRequires: findutils
 BuildRequires: make
-BuildRequires: perl-interpreter 
 BuildRequires: perl-generators
+BuildRequires: perl-interpreter
 BuildRequires: perl(Carp)
 BuildRequires: perl(Check::ISA)
 BuildRequires: perl(Class::ISA)
+BuildRequires: perl(constant)
 BuildRequires: perl(Devel::Size) >= 0.58
 BuildRequires: perl(Exporter) 
-BuildRequires: perl(ExtUtils::MakeMaker) 
+BuildRequires: perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires: perl(Sort::Naturally)
 BuildRequires: perl(strict)
 BuildRequires: perl(Term::Size) >= 0.2
@@ -43,26 +43,28 @@ format more easily understood.
 %setup -q -n Data-TreeDumper-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 # hrm.
-find %{buildroot} -name '*.pl' -exec rm -v {} +
+find %{buildroot} -name '*.pl' -delete
 
 %check
 make test
 
 %files
-%doc README Changes Todo *.pl
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%doc README Todo *.pl
+%{perl_vendorlib}/Data*
+%{_mandir}/man3/Data::TreeDumper*.3*
 
 %changelog
+* Tue Oct 31 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.41-1
+- 0.41 bump (rhbz#2246931)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

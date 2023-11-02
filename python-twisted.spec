@@ -6,7 +6,7 @@ It contains a web server, numerous chat clients, chat servers, mail servers
 and more.}
 
 Name:           python-%{srcname}
-Version:        23.8.0
+Version:        23.10.0
 Release:        %autorelease
 Summary:        Twisted is a networking engine written in Python
 
@@ -14,15 +14,11 @@ License:        MIT
 URL:            http://twistedmatrix.com/
 VCS:            https://github.com/twisted/twisted
 Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
-# downstream-only hatch-fancy-pypi-readme not available in Fedora
-Patch1:         0001-23.8.0rc1-remove-hatch-fancy-pypi-readme.patch
-# downstream-only fix tests, skip network tests that fail in buildsys
-Patch2:         0002-23.8.0rc1-fix-and-skip-tests-fedora.patch
-# https://github.com/twisted/twisted/pull/11787
-Patch3:         0003-11786-fix-misuse-of-mktime-in-tests.patch
-# https://github.com/twisted/twisted/issues/12026
 # https://github.com/twisted/twisted/pull/12027
-Patch4:         0001-Adjust-to-deprecation-of-3-arg-signature-of-generato.patch
+# https://github.com/twisted/twisted/issues/12026
+Patch1:         0001-Adjust-to-deprecation-of-3-arg-signature-of-generato.patch
+# downstream-only fix tests, skip network tests that fail in buildsys
+Patch2:         0002-23.10.0-fix-and-skip-tests-fedora.patch
 
 BuildArch:      noarch
 
@@ -49,6 +45,7 @@ Recommends:  python3-%{srcname}+tls
 
 %generate_buildrequires
 %pyproject_buildrequires
+
 
 %build
 %pyproject_wheel

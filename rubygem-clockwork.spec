@@ -3,11 +3,17 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.4
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A scheduler process to replace cron
 License: MIT
 URL: http://github.com/Rykian/clockwork
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/Rykian/clockwork/pull/64/commits/43409b7369656c1f412d36ad8f6fda3e178b331e
+Patch0: clockwork-pr64-mocha-2.0-compat.patch
+# https://github.com/Rykian/clockwork/pull/68
+Patch1: clockwork-pr68-ostruct-for-event_store_test.patch
+# https://github.com/Rykian/clockwork/pull/85
+Patch2: clockwork-pr85-minitest-5_19-compat.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel 
 BuildRequires: ruby 
@@ -34,6 +40,9 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -59,11 +68,6 @@ pushd .%{gem_instdir}
 # Test suite tries executes the binstub; inject relative loadpath
 sed -i '2i\$LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))' \
   bin/clockwork
-
-# For `OpenStruct.new`
-# https://github.com/Rykian/clockwork/pull/56
-sed -i "1i\require 'ostruct'" \
-  test/database_events/event_store_test.rb
 
 ruby -Ilib:test -rclockwork -e "Dir.glob('./test/**/*_test.rb').sort.each {|t| require t}"
 popd
@@ -93,6 +97,11 @@ popd
 %{gem_instdir}/example.rb
 
 %changelog
+* Tue Oct 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.4-10
+- Backport upstream fix for mocka 2.0 compatibiltity
+- Use upstream patch for ostruct inclusion for event_store_test
+- Apply upstream PR for Minitest 5.19 compatibility
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

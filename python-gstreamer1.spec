@@ -2,15 +2,15 @@
 
 Name:           python-gstreamer1
 Version:        1.22.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for GStreamer
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-python/gst-python-%{version}.tar.xz
 
-# Submitted as a PR upstream
-# https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/3004
+#https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/3081
+Patch0:         py313.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc
@@ -41,7 +41,7 @@ This module contains PyGObject overrides to make it easier to write
 applications that use GStreamer 1.x in Python 3.
 
 %prep
-%autosetup -n gst-python-%{version}
+%autosetup -n gst-python-%{version} -p0
 
 find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
@@ -60,6 +60,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Tue Oct 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.6-2
+- Patch for Python 3.13
+
 * Wed Sep 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.6-1
 - 1.22.6
 
