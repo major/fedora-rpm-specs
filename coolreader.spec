@@ -11,6 +11,10 @@ URL:            %forgeurl
 Source0:        %forgesource
 Source1:        cr3.appdata.xml
 
+# libunibreak dropped i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(zlib)

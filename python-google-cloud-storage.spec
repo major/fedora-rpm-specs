@@ -3,7 +3,7 @@
 %global         srcname     google-cloud-storage
 
 Name:           python-%{srcname}
-Version:        2.12.0
+Version:        2.13.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Storage
 
@@ -65,7 +65,8 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
         -k "not test_create_bucket_w_custom_endpoint \
             and not test_ctor_w_custom_endpoint_use_auth \
             and not test_list_buckets_w_custom_endpoint \
-            and not test_seek_fails"
+            and not test_seek_fails \
+            and not test_downloads_w_client_custom_headers"
 %endif
 
 

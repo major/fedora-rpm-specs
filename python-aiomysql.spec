@@ -1,6 +1,6 @@
 Name:           python-aiomysql
 Version:        0.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        MySQL driver for asyncio
 
 License:        MIT
@@ -31,6 +31,8 @@ BuildRequires:  python3-devel
 # https://github.com/aio-libs/aiomysql/commit/fb85893635d7f9c0da3b1ff8c6d0fc436357633a
 # We must work with what we have.
 sed -r -i 's/("setuptools_scm.*), <.*"/\1/' pyproject.toml
+# Furthermore, we don’t need setuptools_scm_git_archive.
+sed -r -i '/"setuptools_scm_git_archive/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x sa,rsa
@@ -53,6 +55,9 @@ sed -r -i 's/("setuptools_scm.*), <.*"/\1/' pyproject.toml
 %doc README.rst
 
 %changelog
+* Fri Sep 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.1-6
+- Drop the BuildRequires on python3-setuptools_scm_git_archive
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

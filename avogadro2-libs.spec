@@ -2,7 +2,7 @@
 %bcond_with qt6
 
 Name:           avogadro2-libs
-Version:        1.97.0
+Version:        1.98.0
 Release:        %autorelease
 Summary:        Avogadro2 libraries
 
@@ -14,13 +14,12 @@ Source0: https://github.com/OpenChemistry/avogadrolibs/archive/%{version}/avogad
 Source1: https://github.com/OpenChemistry/avogenerators/archive/%{version}/avogenerators-%{version}.tar.gz
 
 # External sources for data files
-Source2: https://github.com/OpenChemistry/molecules/archive/refs/heads/master.zip#/avogadro2-libs-molecules-master.zip
-Source3: https://github.com/OpenChemistry/crystals/archive/1.0.1/crystals-1.0.1.tar.gz#/avogadro2-libs-crystals-1.0.1.tar.gz
+Source2: https://github.com/OpenChemistry/molecules/archive/refs/tags/%{version}/molecules-%{version}.tar.gz
+Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/%{version}/crystals-%{version}.tar.gz
 
 # Set installation path of Python files
 Patch0: %{name}-set_pythonpath.patch
 Patch1: %{name}-1.94.0-do_not_download_external_files.patch
-Patch2: %{name}-bug1185.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -89,14 +88,14 @@ HTML documentation of %{name}.
 %prep
 %autosetup -a 1 -N -n avogadrolibs-%{version}
 
-unzip -qq %{SOURCE2} && mv molecules-master molecules
-tar -xf %{SOURCE3} && mv crystals-1.0.1 crystals
+tar -xf %{SOURCE2} && mv molecules-%{version} molecules
+tar -xf %{SOURCE3} && mv crystals-%{version} crystals
+
 # Rename LICENSE file
 mv molecules/LICENSE molecules/LICENSE-molecules
 
 %patch -P 0 -p0 -b .backup
 %patch -P 1 -p0 -b .backup
-%patch -P 2 -p1 -b .backup
 
 # Make avogadro generators source code available for CMake
 mv avogenerators-%{version} avogadrogenerators

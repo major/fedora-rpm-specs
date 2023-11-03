@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate json_to_table
+%global crate nu-cmd-base
 
-Name:           rust-json_to_table
-Version:        0.5.0
+Name:           rust-nu-cmd-base
+Version:        0.86.0
 Release:        %autorelease
-Summary:        Library for pretty print JSON as a table
+Summary:        Foundation tools to build Nushell commands
 
 License:        MIT
-URL:            https://crates.io/crates/json_to_table
+URL:            https://crates.io/crates/nu-cmd-base
 Source:         %{crates_source}
+# see https://github.com/nushell/nushell/pull/10855
+Source:         https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-cmd-lang/LICENSE
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A library for pretty print JSON as a table.}
+The foundation tools to build Nushell commands.}
 
 %description %{_description}
 
@@ -30,8 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,20 +47,9 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+color-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+color-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "color" feature of the "%{crate}" crate.
-
-%files       -n %{name}+color-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

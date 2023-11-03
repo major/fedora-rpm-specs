@@ -26,7 +26,7 @@ and designed by Jeremy Mickel / MCKL for the new Red Hat identity.
 
 Name:           %{fontname}-fonts
 Version:        4.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Red Hat Typeface fonts
 # Only the metainfo files are CC-BY-SA
 License:        OFL-1.1-RFN and CC-BY-SA-4.0
@@ -36,6 +36,7 @@ Source0:        %{url}/archive/%{version}/%{projname}-%{version}.tar.gz
 Source1:        %{fontconf}-display-fontconfig.conf
 Source2:        %{fontconf}-text-fontconfig.conf
 Source3:        %{fontconf}-mono-fontconfig.conf
+Source4:        %{fontconf}-mono-vf-fontconfig.conf
 
 BuildArch:      noarch
 BuildRequires:  %{_bindir}/appstream-util
@@ -68,6 +69,30 @@ Requires:       fontpackages-filesystem
 
 This package provides the Monospace fonts variant.
 
+%package -n %{fontname}-display-vf-fonts
+Summary:        The variable font of Red Hat Display fonts
+Requires:       fontpackages-filesystem
+
+%description -n %{fontname}-display-vf-fonts %{desc}
+
+This package provides the variable font version of the Display fonts variant.
+
+%package -n %{fontname}-text-vf-fonts
+Summary:        The variable font of Red Hat Text fonts
+Requires:       fontpackages-filesystem
+
+%description -n %{fontname}-text-vf-fonts %{desc}
+
+This package provides the variable font version of the Text fonts variant.
+
+%package -n %{fontname}-mono-vf-fonts
+Summary:        The Variable font of Red Hat Mono fonts
+Requires:       fontpackages-filesystem
+
+%description -n %{fontname}-mono-vf-fonts %{desc}
+
+This package provides the variable font version of the Monospace fonts variant.
+
 %prep
 %autosetup -n %{projname}-%{version} -p1
 
@@ -80,8 +105,12 @@ This package provides the Monospace fonts variant.
 # Install fonts
 install -m 0755 -d %{buildroot}%{_fontdir}
 install -m 0644 -p fonts/*/static/otf/*.otf %{buildroot}%{_fontdir}
-install -m 0644 -p fonts/*/static/ttf/*.ttf %{buildroot}%{_fontdir}
-install -m 0644 -p fonts/*/*.ttf %{buildroot}%{_fontdir}
+rm -f fonts/*/*\[wght\].ttf fonts/mono/RedHatMono{,-Italic}.ttf
+for i in fonts/*/*Modified.ttf; do
+    rm ${i/Modified/}
+done
+install -m 0755 -d %{buildroot}%{_fontdir}-vf
+install -m 0644 -p fonts/*/*.ttf %{buildroot}%{_fontdir}-vf
 
 # Install fontconfig data
 install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
@@ -89,19 +118,29 @@ install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
 
 install -m 0644 -p %{SOURCE1} \
         %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-display.conf
-
 install -m 0644 -p %{SOURCE2} \
         %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-text.conf
-
 install -m 0644 -p %{SOURCE3} \
         %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-mono.conf
 
-for fconf in %{fontconf}-display.conf %{fontconf}-text.conf %{fontconf}-mono.conf; do
-  ln -s %{_fontconfig_templatedir}/$fconf %{buildroot}%{_fontconfig_confdir}/$fconf
+install -m 0644 -p %{SOURCE1} \
+        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-display-vf.conf
+install -m 0644 -p %{SOURCE2} \
+        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-text-vf.conf
+install -m 0644 -p %{SOURCE4} \
+        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-mono-vf.conf
+
+for fconf in %{fontconf}-display %{fontconf}-text %{fontconf}-mono; do
+  ln -s %{_fontconfig_templatedir}/${fconf}.conf %{buildroot}%{_fontconfig_confdir}/${fconf}.conf
+  ln -s %{_fontconfig_templatedir}/${fconf}-vf.conf %{buildroot}%{_fontconfig_confdir}/${fconf}-vf.conf
 done
 
 # Install AppStream metadata
 install -m 0755 -d %{buildroot}%{_datadir}/metainfo
+for f in metainfo/*.metainfo.xml; do
+    sed -e 's/\(com\.redhat\..*\)</\1-vf</' $f > ${f/.metainfo.xml/-vf.metainfo.xml}
+    touch -r $f ${f/.metainfo.xml/-vf.metainfo.xml}
+done
 install -m 0644 -p metainfo/*.metainfo.xml %{buildroot}%{_datadir}/metainfo
 
 %check
@@ -109,23 +148,45 @@ install -m 0644 -p metainfo/*.metainfo.xml %{buildroot}%{_datadir}/metainfo
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 
 
-%_font_pkg -n display -f %{fontconf}-display.conf RedHatDisplay*.?tf
+%_font_pkg -n display -f %{fontconf}-display.conf RedHatDisplay*.otf
 %license LICENSE metainfo/LICENSE-METAINFO
 %doc README.md CHANGELOG.md *.png
 %{_datadir}/metainfo/%{asfontname}-display.metainfo.xml
 
-%_font_pkg -n text -f %{fontconf}-text.conf RedHatText*.?tf
+%_font_pkg -n text -f %{fontconf}-text.conf RedHatText*.otf
 %license LICENSE metainfo/LICENSE-METAINFO
 %doc README.md CHANGELOG.md *.png
 %{_datadir}/metainfo/%{asfontname}-text.metainfo.xml
 
-%_font_pkg -n mono -f %{fontconf}-mono.conf RedHatMono*.?tf
+%_font_pkg -n mono -f %{fontconf}-mono.conf RedHatMono*.otf
 %license LICENSE metainfo/LICENSE-METAINFO
 %doc README.md CHANGELOG.md *.png
 %{_datadir}/metainfo/%{asfontname}-mono.metainfo.xml
 
+%global _fontdir %{_fontdir}-vf
+
+%_font_pkg -n display-vf -f %{fontconf}-display-vf.conf RedHatDisplay*.ttf
+%license LICENSE metainfo/LICENSE-METAINFO
+%doc README.md CHANGELOG.md *.png
+%{_datadir}/metainfo/%{asfontname}-display-vf.metainfo.xml
+
+%_font_pkg -n text-vf -f %{fontconf}-text-vf.conf RedHatText*.ttf
+%license LICENSE metainfo/LICENSE-METAINFO
+%doc README.md CHANGELOG.md *.png
+%{_datadir}/metainfo/%{asfontname}-text-vf.metainfo.xml
+
+%_font_pkg -n mono-vf -f %{fontconf}-mono-vf.conf RedHatMono*.ttf
+%license LICENSE metainfo/LICENSE-METAINFO
+%doc README.md CHANGELOG.md *.png
+%{_datadir}/metainfo/%{asfontname}-mono-vf.metainfo.xml
+
 
 %changelog
+* Wed Nov 01 2023 Akira TAGOH <tagoh@redhat.com> - 4.0.3-5
+- Split packages for variable fonts.
+- Drop unnecessary/duplicate fonts from packages.
+- Worked around broken family name in variable fonts.
+
 * Wed Aug 09 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.0.3-4
 - Use SPDX license expression
 

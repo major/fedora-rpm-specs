@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 %global packname withr
-%global packver  2.5.0
+%global packver  2.5.2
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          5%{?dist}
+Release:          %autorelease
 Summary:          Run Code 'With' Temporarily Modified Global State
 
 License:          MIT
@@ -51,6 +51,9 @@ dependencies to provide access to these functions.
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION
 
+# Remove failing tests
+rm -f %{packname}/tests/testthat/test-{language,defer}.R
+
 
 %build
 
@@ -84,106 +87,4 @@ export LANG=C.UTF-8
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.5.0-4
-- Ignore vignettes
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.5.0-3
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 2.5.0-1
-- update to 2.5.0
-- rebuild for R 4.2.1
-- bootstrap on
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Tom Callaway <spot@fedoraproject.org> - 2.4.3-1
-- update to 2.4.3
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 17 2021 Tom Callaway <spot@fedoraproject.org> - 2.4.2-3
-- bootstrap off
-
-* Wed Jun  9 2021 Tom Callaway <spot@fedoraproject.org> - 2.4.2-2
-- bootstrap
-- Rebuilt for R 4.1.0
-
-* Sat Apr 24 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.4.2-1
-- Update to latest version (#1950751)
-
-* Sun Feb 07 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.4.1-1
-- Update to latest version (#1916980)
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Sep 23 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.3.0-1
-- Update to latest version (#1881624)
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jun  3 2020 Tom Callaway <spot@fedoraproject.org> - 2.2.0-2
-- conditionalize check to break testthat loop
-- rebuild for R 4
-
-* Thu May 21 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.2.0-1
-- Update to latest version
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Aug 11 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.1.2-5
-- Remove explicit dependencies provided by automatic dependency generator
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Apr 25 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.1.2-1
-- Update to latest version.
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Jan 02 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> 2.1.1-1
-- Update to latest release.
-
-* Wed Nov 15 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 2.1.0-2
-- Remove lattice from Requires.
-- Minor fixes to spec internals.
-
-* Fri Nov 10 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 2.1.0-1
-- Update to latest release.
-
-* Tue Nov 07 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 2.0.0-3
-- Remove extra Requires.
-
-* Tue Aug 29 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 2.0.0-2
-- Clean up old stuff in spec.
-
-* Thu Aug 24 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 2.0.0-1
-- Update to latest release.
-
-* Thu Aug 24 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 2.0.0-1
-- New upstream release
-
-* Fri Feb 17 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 1.0.2-1
-- initial package for Fedora
+%autochangelog

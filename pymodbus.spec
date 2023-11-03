@@ -21,7 +21,7 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.5.2
+Version: 3.5.4
 Release: 1%{?dist}
 Summary: %{sum}
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Wed Nov 01 2023 Christian Krause <chkr@fedoraproject.org> - 3.5.4-1
+- Update to 3.5.4 (#2243568)
+
 * Sun Sep 10 2023 Christian Krause <chkr@fedoraproject.org> - 3.5.2-1
 - Update to 3.5.2 (#2236129)
 - Remove patches already applied upstream

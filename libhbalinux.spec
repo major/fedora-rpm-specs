@@ -2,7 +2,7 @@ Name:               libhbalinux
 Version:            1.0.17
 Release:            18%{?dist}
 Summary:            FC-HBAAPI implementation using scsi_transport_fc interfaces
-License:            LGPLv2
+License:            LGPL-2.1-only
 URL:                http://www.open-fcoe.org
 Source0:            %{name}-%{version}.tar.gz
 Patch0:             libhbalinux-1.0.13-conf.patch

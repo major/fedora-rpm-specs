@@ -3,8 +3,8 @@
 # TODO: BR: perl(HTTP::Tiny::Mech) and perl(WWW::Mechanize::Cached) when available
 
 Name:		perl-MetaCPAN-Client
-Version:	2.030000
-Release:	3%{?dist}
+Version:	2.031000
+Release:	1%{?dist}
 Summary:	A comprehensive, DWIM-featured client to the MetaCPAN API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://github.com/CPAN-API/metacpan-client
@@ -47,7 +47,7 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Needs) >= 0.002005
 # Optional tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
-# Runtime
+# Dependencies
 Requires:	perl(HTTP::Tiny) >= 0.056
 Requires:	perl(IO::Socket::SSL) >= 1.42
 Requires:	perl(Net::SSLeay) >= 1.49
@@ -108,6 +108,11 @@ mv ./[a-z]*.t t/api/
 %{_mandir}/man3/MetaCPAN::Client::Types.3*
 
 %changelog
+* Wed Nov  1 2023 Paul Howarth <paul@city-fan.org> - 2.031000-1
+- Update to 2.031000
+  - Fix reverse-dependencies distributions check
+  - In examples, 'use Data::Printer' instead of shortened 'use DDP'
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.030000-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 
 Name:           mir
 Version:        2.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -263,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.15.0-2
+- Rebuild for gtest 1.14.0
+
 * Fri Sep 08 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.15.0-1
 - Update to 2.15.0
 

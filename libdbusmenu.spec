@@ -7,9 +7,16 @@
 # Set to 1 to run testsuite
 %global with_tests 0
 
+# No gtk2 in RHEL 10
+%if 0%{?rhel} > 9
+%bcond_with    gtk2
+%else
+%bcond_without gtk2
+%endif
+
 Name:       libdbusmenu
 Version:    %{ubuntu_release}.0
-Release:    22%{?dist}
+Release:    23%{?dist}
 Summary:    Library for passing menus over DBus
 
 # All files installed in final rpms use C sources with dual licensing headers.
@@ -67,12 +74,14 @@ Requires:   dbus-glib-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%if %{with gtk2}
 %package gtk2
 Summary:    %{summary} - GTK+2 version
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description gtk2
 Shared libraries for the %{name}-gtk2 library.
+%endif
 
 %package gtk3
 Summary:    %{summary} - GTK+3 version
@@ -81,6 +90,7 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 %description gtk3
 Shared libraries for the %{name}-gtk3 library.
 
+%if %{with gtk2}
 %package gtk2-devel
 Summary:    Development files for %{name}-gtk2
 Requires:   %{name}-gtk2%{?_isa} = %{version}-%{release}
@@ -91,6 +101,7 @@ Requires:   dbus-glib-devel
 %description gtk2-devel
 The %{name}-gtk2-devel package contains libraries and header files for
 developing applications that use %{name}-gtk2.
+%endif
 
 %package gtk3-devel
 Summary:    Development files for %{name}-gtk3
@@ -141,7 +152,7 @@ that use %{name}.
 %setup -q -n %{name}-%{version} -c
 
 pushd %{name}-%{version}
-%patch0 -p1
+%patch 0 -p1
 autoreconf -fiv
 popd
 
@@ -160,10 +171,12 @@ sed -i -e 's@^#!.*python$@#!/usr/bin/python2@' tools/dbusmenu-bench
 build --with-gtk=3
 popd
 
+%if %{with gtk2}
 pushd %{name}-%{version}
 sed -i -e 's@^#!.*python$@#!/usr/bin/python2@' tools/dbusmenu-bench
 build --with-gtk=2
 popd
+%endif
 
 
 %install
@@ -172,10 +185,12 @@ pushd %{name}-gtk3-%{version}
 find %{buildroot} -name '*.la' -delete
 popd
 
+%if %{with gtk2}
 pushd %{name}-%{version}
 %make_install
 find %{buildroot} -name '*.la' -delete
 popd
+%endif
 
 # Let rpmbuild pick the documents in the files section
 rm -fr %{buildroot}%{_docdir}/%{name}
@@ -194,7 +209,9 @@ done
 %endif
 
 %ldconfig_scriptlets
+%if %{with gtk2}
 %ldconfig_scriptlets gtk2
+%endif
 %ldconfig_scriptlets gtk3
 %ldconfig_scriptlets jsonloader
 
@@ -228,9 +245,11 @@ done
 %{_libdir}/libdbusmenu-gtk3.so.*
 %{_libdir}/girepository-1.0/DbusmenuGtk3-0.4.typelib
 
+%if %{with gtk2}
 %files gtk2
 %{_libdir}/libdbusmenu-gtk.so.*
 %{_libdir}/girepository-1.0/DbusmenuGtk-0.4.typelib
+%endif
 
 %files gtk3-devel
 %dir %{_includedir}/libdbusmenu-gtk3-0.4
@@ -241,6 +260,7 @@ done
 %{_datadir}/gir-1.0/DbusmenuGtk3-0.4.gir
 %{_datadir}/vala/vapi/DbusmenuGtk3-0.4.vapi
 
+%if %{with gtk2}
 %files gtk2-devel
 %dir %{_includedir}/libdbusmenu-gtk-0.4
 %dir %{_includedir}/libdbusmenu-gtk-0.4/libdbusmenu-gtk
@@ -249,6 +269,7 @@ done
 %{_libdir}/pkgconfig/dbusmenu-gtk-0.4.pc
 %{_datadir}/gir-1.0/DbusmenuGtk-0.4.gir
 %{_datadir}/vala/vapi/DbusmenuGtk-0.4.vapi
+%endif
 
 %files doc
 %dir %{_datadir}/gtk-doc/
@@ -261,6 +282,9 @@ done
 %{_datadir}/%{name}/json/test-gtk-label.json
 
 %changelog
+* Tue Oct 10 2023 Takao Fujiwara <fujiwara@redhat.com> - 16.04.0-23
+- Delete GTK2 sub packages for RHEL
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.04.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

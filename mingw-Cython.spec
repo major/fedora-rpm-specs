@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       3.0.2
+Version:       3.0.5
 Release:       1%{?dist}
 
 License:       Apache-2.0
@@ -108,6 +108,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Wed Nov 01 2023 Sandro Mani <manisandro@gmail.com> - 3.0.5-1
+- Update to 3.0.5
+
 * Tue Sep 12 2023 Sandro Mani <manisandro@gmail.com> - 3.0.2-1
 - Update to 3.0.2
 

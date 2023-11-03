@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt
 Epoch:          1
-%global cpan_version 1.999842
+%global cpan_version 2.000000
 # Keep 4-digit version to compete with perl.spec
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
 Release:        1%{?dist}
@@ -24,7 +24,6 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(integer)
 BuildRequires:  perl(Math::Complex) >= 1.39
-# Math::BigRat not used for tests
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 # Tests:
@@ -35,10 +34,10 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.94
 Requires:       perl(Carp) >= 1.22
 Requires:       perl(Math::Complex) >= 1.39
-%if !%{defined perl_bootstrap}
-Requires:       perl(Math::BigRat)
-%endif
 Conflicts:      perl < 4:5.22.0-347
+
+Provides:       perl-Math-BigRat =  %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      perl-Math-BigRat < 0.2624-502
 
 # Do not export unversioned module
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Math::BigInt\\)\\s*$
@@ -50,6 +49,7 @@ Conflicts:      perl < 4:5.22.0-347
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigFloat::(BareSubclass\|Subclass)\\)
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigInt::(BareCalc\|Scalar\|Subclass)\\)
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigInt::Lib::(Minimal\|TestUtil)\\)
+%global __requires_exclude %{__requires_exclude}|perl\\(Math::BigRat::Test\\)
 
 %description
 This provides Perl modules for arbitrary-size integer and float mathematics.
@@ -106,6 +106,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0000.00-1
+- 2.000000 bump (rhbz#2247279)
+  Merge the Math-BigRat distribution into the Math-BigInt distribution
+
 * Mon Oct 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9998.42-1
 - 1.999842 bump (rhbz#2241058)
 

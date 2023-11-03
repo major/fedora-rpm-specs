@@ -8,13 +8,13 @@
 %global _lto_cflags %{nil}
 
 # Testing libpetsc ?
-%bcond_with check
+%bcond_without check
 #
 
 # Python binding and its testing
 %bcond_without python
 # Python tests need Cython
-%bcond_with pycheck
+%bcond_without pycheck
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
 #
@@ -294,7 +294,7 @@
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.0
+Version: %{releasever}.1
 Release: %autorelease
 License: BSD
 URL:     https://petsc.org/

@@ -12,11 +12,11 @@
 
 Name:           memcached
 Version:        1.6.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          0
 Summary:        High Performance, Distributed Memory Object Cache
 
-License:        BSD-3-clause
+License:        BSD-3-clause AND Zlib AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.memcached.org/
 Source0:        https://www.memcached.org/files/%{name}-%{version}.tar.gz
 Source1:        memcached.sysconfig
@@ -174,6 +174,9 @@ fi
 %license ../%{selinuxmoduledir}/COPYING
 
 %changelog
+* Tue Oct 31 2023 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.22-2
+- Update license tag to fully conform to SPDX
+
 * Wed Oct 25 2023 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.22-1
 - Update to 1.6.22
 - Resolves: rhbz#2244603

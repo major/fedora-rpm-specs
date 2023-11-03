@@ -2,12 +2,13 @@
 
 Name:           python-%{pypi_name}
 Version:        0.06
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python module to provide easy distributed data storage
 
 License:        MIT
 URL:            https://pypi.org/project/ana/
 Source0:        %{pypi_source}
+Patch:          https://github.com/zardus/ana/pull/17.patch
 BuildArch:      noarch
 
 %description
@@ -28,7 +29,7 @@ object with a UUID and, when pickled, will first serialize the object's state
 to a central location and then "pickle" the object into just its UUID.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %build
 %py3_build
@@ -43,6 +44,9 @@ to a central location and then "pickle" the object into just its UUID.
 %{python3_sitelib}/%{pypi_name}-*-py*.egg-info
 
 %changelog
+* Sun Jul 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.06-14
+- Drop dependency on python3-future
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

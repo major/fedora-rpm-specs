@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 %global uuid    org.%{name}.%{name}
 
 Name:           corectrl
-Version:        1.3.6
+Version:        1.3.7
 %forgemeta
 Release:        %autorelease
 Summary:        Friendly hardware control

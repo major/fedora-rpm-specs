@@ -1,6 +1,6 @@
 Name:           pingus
 Version:        0.7.6
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Guide the penguins safely home before they drop of the cliff
 License:        GPL-2.0-or-later
 URL:            http://pingus.seul.org/
@@ -28,17 +28,17 @@ combination of commands are necessary. The game is presented in a 2D site view.
 
 %prep
 %setup -q
-%patch1 -p0
-%patch2 -p1
-%patch3 -p1
-%patch4 -p0
-%patch5 -p1
+%patch -P 1 -p0
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p0
+%patch -P 5 -p1
 iconv -f ISO8859-2 -t UTF8 AUTHORS > AUTHORS.tmp
 mv AUTHORS.tmp AUTHORS
 
 
 %build
-scons CCFLAGS="$RPM_OPT_FLAGS"
+scons CCFLAGS="$RPM_OPT_FLAGS" LINKFLAGS="$RPM_LD_FLAGS"
 
 
 %install
@@ -107,6 +107,9 @@ EOF
 
 
 %changelog
+* Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.6-45
+- Respect default linker flags
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

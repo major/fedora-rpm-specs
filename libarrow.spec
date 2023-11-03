@@ -30,14 +30,14 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	13.0.0
-Release:	3%{?dist}
+Version:	14.0.0
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
-Patch0001:	0001-cpp-src-arrow-util-decimal_internal.h.patch
+Patch0001:	0001-python-pyproject.toml.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -68,7 +68,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-numpy
-BuildRequires:	python3dist(cython) < 3~~
+BuildRequires:	python%{python3_pkgversion}-Cython
 BuildRequires:	xsimd-devel
 BuildRequires:	abseil-cpp-devel
 BuildRequires:	c-ares-devel
@@ -868,6 +868,12 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Nov 1 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 14.0.0-2
+- Rebuild for ceph for gtest 1.14.0
+
+* Wed Nov 1 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 14.0.0-1
+- Arrow 14.0.0 GA, rhbz#2244967, and w/ Cython3 again
+
 * Tue Aug 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 13.0.0-3
 - Rebuilt for abseil-cpp-20230802.0
 

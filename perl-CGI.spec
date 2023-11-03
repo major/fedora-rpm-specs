@@ -3,7 +3,7 @@
 
 Name:           perl-CGI
 Summary:        Handle Common Gateway Interface requests and responses
-Version:        4.59
+Version:        4.60
 Release:        1%{?dist}
 License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-%{version}.tar.gz
@@ -107,7 +107,6 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 cp -a t %{buildroot}/%{_libexecdir}/%{name}
 rm %{buildroot}/%{_libexecdir}/%{name}/t/compiles_pod.t
-rm %{buildroot}/%{_libexecdir}/%{name}/t/changes.t
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -129,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.60-1
+- 4.60 bump (rhbz#2247441)
+
 * Tue Oct 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.59-1
 - 4.59 bump (rhbz#2241705)
 

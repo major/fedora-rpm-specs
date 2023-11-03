@@ -253,28 +253,7 @@ BuildRequires:  python3dist(six) >= 1.10
 # grpcio (setup.py) setup_requires (with GRPC_PYTHON_BUILD_WITH_CYTHON, or
 # absent generated sources); also needed for grpcio_tools
 # (tools/distrib/python/grpcio_tools/setup.py)
-#
-# Not yet compatible with Cython 3, due to errors like:
-#
-#   Error compiling Cython file:
-#   ------------------------------------------------------------
-#   ...
-#       return 1
-#     else:
-#       return 0
-#
-#   cdef grpc_arg_pointer_vtable default_vtable
-#   default_vtable.copy = &_copy_pointer
-#                         ^
-#   ------------------------------------------------------------
-#
-#   src/python/grpcio/grpc/_cython/_cygrpc/vtable.pyx.pxi:34:22: Cannot assign
-#   type 'void *(*)(void *) except *' to 'void *(*)(void *) noexcept'
-#
-# See:
-#   Cython 3.0.0b1 and its impact on packages in Fedora
-#   https://github.com/cython/cython/issues/5305
-BuildRequires: ((python3dist(cython) > 0.23) with (python3dist(cython) < 3~~))
+BuildRequires: python3dist(cython) > 0.23
 
 # grpcio (setup.py) install_requires:
 # grpcio_tests (src/python/grpcio_tests/setup.py) install_requires:
@@ -429,6 +408,14 @@ Patch:          grpc-1.48.4-find_module.patch
 #
 # Backported to 1.48.4.
 Patch:          0001-http2-Dont-drop-connections-on-metadata-limit-exceed.patch
+# [Python] Specify noexcept for cdef functions (#34242)
+#
+# This is needed to build grpc with Cython 3.
+#
+# https://github.com/grpc/grpc/issues/33918#issuecomment-1703386656
+# https://github.com/grpc/grpc/issues/33918#issuecomment-1788823585
+# https://github.com/grpc/grpc/pull/34242
+Patch:          0001-Specify-noexcept-for-cdef-functions.patch
 
 Requires:       grpc-data = %{version}-%{release}
 

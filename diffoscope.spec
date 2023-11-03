@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       245
+Version:       251
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPLv3+
@@ -155,16 +155,15 @@ DESELECT=(
   # What exactly is the point of those tests?
   --deselect=tests/test_source.py::test_code_is_black_clean
 
-  # https://salsa.debian.org/reproducible-builds/diffoscope/-/issues/345
-  --deselect=tests/comparators/test_rlib.py::test_item3_deflate_llvm_bitcode
-  --deselect=tests/comparators/test_html.py::test_diff
-  --deselect=tests/comparators/test_macho.py::test_llvm_diff
-
   # Those fail on rawhide. Not reported upstream yet.
   --deselect=tests/comparators/test_fsimage.py::test_differences
   --deselect=tests/comparators/test_fsimage.py::test_differences_fat
   --deselect=tests/comparators/test_elf.py::test_differences_with_dbgsym
   --deselect=tests/comparators/test_elf.py::test_original_gnu_debuglink
+
+  # Those seem to depend on the 'file' implementation, ignore.
+  --deselect=tests/comparators/test_html.py::test_diff
+  --deselect=tests/comparators/test_text.py::test_text_fallback
 )
 
 LC_CTYPE=C.utf8 \

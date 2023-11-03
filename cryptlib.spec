@@ -4,14 +4,14 @@
 %global withpython2 0
 
 Name:       cryptlib
-Version:    3.4.6  
-Release:    19%{?dist}
+Version:    3.4.7  
+Release:    1%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL     
 URL:        https://www.cs.auckland.ac.nz/~pgut001/cryptlib      
-Source0:    https://senderek.ie/fedora/cl346_fedora.zip      
-Source1:    https://senderek.ie/fedora/cl346_fedora.zip.sig
+Source0:    https://senderek.ie/fedora/cl347_fedora.zip      
+Source1:    https://senderek.ie/fedora/cl347_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
@@ -22,14 +22,11 @@ Source5:    https://senderek.ie/fedora/cryptlib-perlfiles.tar.gz
 Source6:    https://senderek.ie/fedora/cryptlib-tools.tar.gz
 Source7:    https://senderek.ie/fedora/claes
 Source8:    https://senderek.ie/fedora/claes.sig
+Source9:    cryptlibConverter.py3-final
 
 # soname is now libcl.so.3.4
-Patch1:     flagspatch
-Patch2:     configpatch
-Patch3:     errorpatch
-Patch4:     testpatch
-Patch5:     m64patch
-Patch6:     setuppatch
+Patch0:     m64patch
+Patch1:     testpatch
 
 ExclusiveArch: x86_64 aarch64 ppc64le
 
@@ -156,18 +153,21 @@ mkdir %{name}-%{version}
 cd %{name}-%{version}
 /usr/bin/unzip -a %{SOURCE0}
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch 0 -p1
+%patch 1 -p1
+
+# enable ADDFLAGS
+sed -i '97s/-I./-I. \$(ADDFLAGS)/' makefile
+# enable JAVA in config
+sed -i 's/\/\* #define USE_JAVA \*\// #define USE_JAVA /' misc/config.h
+
 
 # remove pre-build jar file
 rm %{_builddir}/%{name}-%{version}/bindings/cryptlib.jar
 # adapt perl files in bindings
 cd %{_builddir}/%{name}-%{version}/bindings
 /usr/bin/tar xpzf %{SOURCE5}
+/usr/bin/cp %{SOURCE9} %{_builddir}/%{name}-%{version}/tools/cryptlibConverter.py3
 
 %build
 cd %{name}-%{version}
@@ -184,7 +184,7 @@ cp /etc/alternatives/java_sdk/include/linux/jni_md.h .
 
 make clean
 make shared  ADDFLAGS="%{optflags}"
-ln -s libcl.so.3.4.6 libcl.so
+ln -s libcl.so.3.4.7 libcl.so
 ln -s libcl.so libcl.so.3.4
 make stestlib  ADDFLAGS="%{optflags}"
 
@@ -206,9 +206,9 @@ javadoc cryptlib
 mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_datadir}/licenses/%{name}
 mkdir -p %{buildroot}%{_docdir}/%{name}
-cp %{_builddir}/%{name}-%{version}/libcl.so.3.4.6 %{buildroot}%{_libdir}
+cp %{_builddir}/%{name}-%{version}/libcl.so.3.4.7 %{buildroot}%{_libdir}
 cd %{buildroot}%{_libdir}
-ln -s libcl.so.3.4.6 libcl.so.3.4
+ln -s libcl.so.3.4.7 libcl.so.3.4
 ln -s libcl.so.3.4 libcl.so
 
 # install header files
@@ -280,9 +280,11 @@ mkdir -p %{buildroot}%{_bindir}
 cp %{SOURCE7} %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsha1 %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsha2 %{buildroot}%{_bindir}
+cp /%{buildroot}%{cryptlibdir}/tools/clkeys %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsha1.1 %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsha2.1 %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
+cp /%{buildroot}%{cryptlibdir}/tools/man/clkeys.1 %{buildroot}%{_mandir}/man1
 
 %check
 # checks are performed after install
@@ -293,7 +295,7 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
      echo "Running tests on the cryptlib library. This will take a few minutes."
      cp %{buildroot}%{cryptlibdir}/c/cryptlib-test.c .
      sed -i '41s/<cryptlib\/cryptlib.h>/\".\/cryptlib.h\"/' cryptlib-test.c
-     gcc  -o cryptlib-test cryptlib-test.c -L. libcl.so.3.4.6
+     gcc  -o cryptlib-test cryptlib-test.c -L. libcl.so.3.4.7
      ./cryptlib-test
 %endif
 
@@ -302,7 +304,7 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
 
 
 %files
-%{_libdir}/libcl.so.3.4.6
+%{_libdir}/libcl.so.3.4.7
 %{_libdir}/libcl.so.3.4
 %{_libdir}/libcl.so
 
@@ -343,13 +345,18 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
 %{_bindir}/clsha1
 %{_bindir}/clsha2
 %{_bindir}/claes
+%{_bindir}/clkeys
 %{_mandir}/man1/clsha2.1.gz
 %{_mandir}/man1/clsha1.1.gz
 %{_mandir}/man1/claes.1.gz
+%{_mandir}/man1/clkeys.1.gz
 
 
 
 %changelog
+* Wed Nov 01 2023 Ralf Senderek <innovation@senderek.ie> - 3.4.7-1
+- Update to version 3.4.7
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

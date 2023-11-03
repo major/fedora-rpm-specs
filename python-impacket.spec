@@ -1,6 +1,6 @@
 Name:           python-impacket
 Version:        0.10.0
-%global         baserelease     4
+%global         baserelease     5
 
 License:        ASL 1.1 and zlib
 URL:            https://github.com/fortra/impacket
@@ -127,7 +127,9 @@ sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python3|' \
 # https://github.com/fortra/impacket/issues/403
 sed -i -e 's|^import uncrc32|from impacket.examples import uncrc32|;' examples/nmapAnswerMachine.py
 
-
+# Drop useles dependency on future
+# https://github.com/fortra/impacket/commit/d7b5e3
+sed -i "s/'future',//" setup.py
 
 #===== Build
 %build
@@ -185,6 +187,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 
 
 %changelog
+* Wed Sep 20 2023 Lumír Balhar <lbalhar@redhat.com> - 0.10.0-5
+- Remove dependency on future
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global pypi_name urlbuster
 
 Name:           %{pypi_name}
-Version:        0.5.0
-Release:        11%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        URL bruteforcer to locate files or directories
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jul 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.5.1-1
+- Update to 0.5.1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

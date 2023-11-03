@@ -3,10 +3,10 @@
 %global gitrev %(c=%{gitfullrev}; echo ${c:0:6})
 Name:           urlview
 Version:        0.9
-Release:        35.%{gitdate}git%{gitrev}%{?dist}
+Release:        36.%{gitdate}git%{gitrev}%{?dist}
 Summary:        URL extractor/launcher
 
-License:        GPL-2.0-only AND GPL-2.0-or-later
+License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://github.com/sigpipe/urlview
 Source0:        https://github.com/sigpipe/urlview/archive/%{gitrev}/urlview-%{gitrev}.tar.gz
 
@@ -50,6 +50,9 @@ echo '.so man1/urlview.1' > $RPM_BUILD_ROOT%{_mandir}/man1/url_handler.sh.1
 %{_mandir}/man5/urlview.conf.5*
 
 %changelog
+* Wed Nov 01 2023 Tomas Korbar <tkorbar@redhat.com> - 0.9-36.20131022git08767a
+- Add licenses to fully conform to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-35.20131022git08767a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

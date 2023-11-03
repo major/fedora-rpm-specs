@@ -3,8 +3,8 @@
 %global	shortcommit %(c=%{commit}; echo ${c:0:7})
 %global with_snapshot 1
 
-%global gimpplugindir %(gimptool --gimpplugindir)/plug-ins
-%global gimpscriptdir %(gimptool --gimpdatadir)/scripts
+%global gimpplugindir %(%___build_pre; gimptool --gimpplugindir)/plug-ins
+%global gimpscriptdir %(%___build_pre; gimptool --gimpdatadir)/scripts
 
 Summary: Gimp plug-in for texture synthesis
 Name: gimp-resynthesizer
@@ -22,7 +22,6 @@ BuildRequires: intltool
 BuildRequires: automake
 BuildRequires: libappstream-glib
 BuildRequires: python2-devel
-BuildRequires: %{_bindir}/pathfix.py
 BuildRequires: make
 URL: https://github.com/bootchk/%{pkgname}
 
@@ -53,7 +52,7 @@ texture, it can create more of that texture. This has uses including:
 %endif
 
 # Fix all Python shebangs recursively in .
-pathfix.py -pni "%{__python2} %{py2_shbang_opts}" . ./PluginScripts/*
+%py2_shebang_fix . ./PluginScripts/*
   
 ./autogen.sh
 
@@ -67,7 +66,7 @@ mkdir %{buildroot}%{_metainfodir}
 cp -v gimp-%{pkgname}.metainfo.xml %{buildroot}%{_metainfodir}
 
 # Use the system Python in the shebangs
-pathfix.py -pn -i %{__python2} %{buildroot}%{gimpplugindir}/plugin-*
+%py2_shebang_fix %{buildroot}%{gimpplugindir}/plugin-*
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml

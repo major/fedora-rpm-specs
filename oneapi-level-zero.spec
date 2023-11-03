@@ -1,6 +1,9 @@
-%global         srcname level-zero
+%global srcname level-zero
+%global lib_version 1.15
+%global patch_version 0
+
 Name:           oneapi-%{srcname}
-Version:        1.14.0
+Version:        1.15.1
 Release:        %{autorelease}
 Summary:        OneAPI Level Zero Specification Headers and Loader
 
@@ -44,9 +47,12 @@ developing applications that use %{name}.
 %files
 %license LICENSE
 %doc README.md SECURITY.md
-%{_libdir}/libze_loader.so.1*
-%{_libdir}/libze_validation_layer.so.1*
-%{_libdir}/libze_tracing_layer.so.1*
+%{_libdir}/libze_loader.so.%{lib_version}.%{patch_version}
+%{_libdir}/libze_loader.so.1
+%{_libdir}/libze_validation_layer.so.%{lib_version}.%{patch_version}
+%{_libdir}/libze_validation_layer.so.1
+%{_libdir}/libze_tracing_layer.so.%{lib_version}.%{patch_version}
+%{_libdir}/libze_tracing_layer.so.1
 
 %files devel
 %{_includedir}/level_zero

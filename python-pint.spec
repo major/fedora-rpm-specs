@@ -74,10 +74,11 @@ sed -r -i 's/^setup_requires/install_requires = appdirs; flexcache\n&/' \
 # The find-then-modify pattern keeps us from discarding mtimes on sources that
 # do not need modification.
 find pint -type f -exec \
-    gawk '/^from \.+_vendor import (appdirs|flexcache)/ {
+    gawk '/^from (\.*|pint)\._vendor import (appdirs|flexcache)/ {
         print FILENAME; nextfile }' '{}' '+' |
   xargs -r -t sed -r -i \
-      's/^from \.+_vendor (import (appdirs|flexcache))/\1/'
+      -e 's/^from (\.*|pint)\._vendor (import (appdirs))/\2/' \
+      -e 's/^(from )(\.*|pint)\._vendor( import (flexcache))/\1\4\3/'
 
 %generate_buildrequires
 # We omit the “uncertainties” extra because python-uncertainties is not yet

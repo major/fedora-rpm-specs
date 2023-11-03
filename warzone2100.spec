@@ -3,13 +3,15 @@
 
 Name:           warzone2100
 Version:        4.3.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 License:        GPLv2+ and CC-BY-SA
 URL:            http://wz2100.net/
 Source0:        https://github.com/Warzone2100/warzone2100/releases/download/%{version}/warzone2100_src.tar.xz
 Source1:        https://github.com/Warzone2100/wz-sequences/releases/download/v3/high-quality-en-sequences.wz
+# https://github.com/Warzone2100/warzone2100/pull/3353
+Patch0:         warzone2100-pr3353-new-vulkan-header.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -92,6 +94,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Wed Nov  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.5-4
+- Backport upstream patch for new vulkan header (#2242267)
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 4.3.5-3
 - rebuild for new libsodium
 

@@ -40,12 +40,9 @@
 %global distrdf 0
 %endif
 
-# qt6-srpm-macros not in buildroot for Fedora 37/38 or EPEL 9
+# qt6-srpm-macros not in buildroot for Fedora 37/38
 # https://bugzilla.redhat.com/show_bug.cgi?id=2220859
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220860
-# Definition of qt6_qtwebengine_arches incorrect in qt6-srpm-macros
-# https://bugzilla.redhat.com/show_bug.cgi?id=2215703
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
+%if %{?fedora}%{!?fedora:0} == 37 || %{?fedora}%{!?fedora:0} == 38
 %global qt6_qtwebengine_arches aarch64 x86_64
 %endif
 
@@ -55,7 +52,7 @@
 Name:		root
 Version:	6.28.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -113,15 +110,18 @@ Patch12:	%{name}-do-not-remove-Wp-before-D-and-U.patch
 #		Avoid boolean operators on numpy arrays in unit test
 #		https://github.com/root-project/root/issues/12162
 #		https://github.com/root-project/root/pull/13612
-Patch13:	root-boolean-numpy-array.patch
+Patch13:	%{name}-boolean-numpy-array.patch
 #		Port to pcre2
 #		https://github.com/root-project/root/issues/11395
 #		https://github.com/root-project/root/pull/13771
-Patch14:	root-pcre2.patch
-Patch15:	root-pcre2-6.28.patch
+Patch14:	%{name}-pcre2.patch
+Patch15:	%{name}-pcre2-6.28.patch
 #		src/RBDT.cxx is a source file of both libTMVA and libTMVAUtils
 #		https://github.com/root-project/root/pull/13863
-Patch16:	root-tmva-rbdt.patch
+Patch16:	%{name}-tmva-rbdt.patch
+#		Fix cmake/modules/FindZeroMQ.cmake
+#		https://github.com/root-project/root/pull/13995
+Patch17:	%{name}-Fix-cmake-modules-FindZeroMQ.cmake.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -203,6 +203,14 @@ BuildRequires:	protobuf-devel >= 3.0
 %endif
 %ifnarch %{ix86} %{arm}
 BuildRequires:	libarrow-devel
+%endif
+%if %{roofit}
+%if %{?fedora}%{!?fedora:0} >= 40
+#		Required for roofit-multiprocess
+#		Requires new zeromq with zmq_ppoll
+BuildRequires:	zeromq-devel >= 4.3.5
+BuildRequires:	cppzmq-devel
+%endif
 %endif
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} == 8
 BuildRequires:	python%{python3_pkgversion}-pandas
@@ -1488,6 +1496,28 @@ suitable for adoption in different disciplines as well.
 
 This package contains the JSON interface to RooFit.
 
+%if %{?fedora}%{!?fedora:0} >= 40
+%package roofit-multiprocess
+Summary:	Multi-process support for RooFit
+License:	BSD-2-Clause
+Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
+Requires:	%{name}-roofit-common%{?_isa} = %{version}-%{release}
+Requires:	%{name}-roofit-zmq%{?_isa} = %{version}-%{release}
+
+%description roofit-multiprocess
+This package contains a library providing classes that implements
+mult-process support for RooFit.
+
+%package roofit-zmq
+Summary:	ZeroMQ interface library for RooFit
+License:	BSD-2-Clause
+
+%description roofit-zmq
+This package contains a helper library used by RooFit::MultiProcess to
+interface to the ZeroMQ library.
+%endif
+
 %package roostats
 Summary:	Statistical tools built on top of RooFit
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -2020,6 +2050,7 @@ This package contains extra tools for RooFit projects.
 %patch -P 14 -p1
 %patch -P 15 -p1
 %patch -P 16 -p1
+%patch -P 17 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2192,10 +2223,15 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
        -Dr:BOOL=ON \
 %if %{roofit}
        -Droofit:BOOL=ON \
+%if %{?fedora}%{!?fedora:0} >= 40
+       -Droofit_multiprocess:BOOL=ON \
+%else
+       -Droofit_multiprocess:BOOL=OFF \
+%endif
 %else
        -Droofit:BOOL=OFF \
-%endif
        -Droofit_multiprocess:BOOL=OFF \
+%endif
        -Droofit_hs3_ryml:BOOL=OFF \
 %if %{root7}
        -Droot7:BOOL=ON \
@@ -2894,8 +2930,12 @@ fi
 %if %{dataframe}
 %ldconfig_scriptlets roofit-dataframe-helpers
 %endif
-%ldconfig_scriptlets roofit-jsoninterface
 %ldconfig_scriptlets roofit-hs3
+%ldconfig_scriptlets roofit-jsoninterface
+%if %{?fedora}%{!?fedora:0} >= 40
+%ldconfig_scriptlets roofit-multiprocess
+%ldconfig_scriptlets roofit-zmq
+%endif
 %ldconfig_scriptlets roostats
 %ldconfig_scriptlets hist-factory
 %endif
@@ -3539,6 +3579,14 @@ fi
 %{_libdir}/%{name}/libRooFitJSONInterface.*
 %{_libdir}/%{name}/libRooFitJSONInterface_rdict.pcm
 
+%if %{?fedora}%{!?fedora:0} >= 40
+%files roofit-multiprocess -f includelist-roofit-multiprocess
+%{_libdir}/%{name}/libRooFitMultiProcess.*
+
+%files roofit-zmq
+%{_libdir}/%{name}/libRooFitZMQ.*
+%endif
+
 %files roostats -f includelist-roofit-roostats
 %{_libdir}/%{name}/libRooStats.*
 %{_libdir}/%{name}/libRooStats_rdict.pcm
@@ -3779,6 +3827,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 01 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.08-2
+- Enable RooFit::MultiProcess on Fedroa 40+
+
 * Sat Oct 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.08-1
 - Update to 6.28.08
 - New subpackage root-tmva-utils (split off from root-tmva)

@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -273,6 +273,10 @@ Patch20: binutils-execstack-error.patch
 # Purpose:  Accept and ignore R_BPF_64_NODYLD32 relocations.
 # Lifetime: Fixed in 2.42
 Patch21: binutils-BPF-reloc-4.patch
+
+# Purpose:  Allow for x86_64 build environments that use a base ISA of x86-64-v3.
+# Lifetime: Fixed in 2.42
+Patch22: binutils-x86-64-v3.patch
 
 #----------------------------------------------------------------------------
 
@@ -1279,6 +1283,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Nov 01 2023 Nick Clifton  <nickc@redhat.com> - 2.41-10
+- Allow for x86_64 build environments that use a base ISA of x86-64-v3.  (#2247296)
+
 * Mon Oct 30 2023 Nick Clifton  <nickc@redhat.com> - 2.41-9
 - Accept and ignore R_BPF_64_NODYLD32 relocations.  (#2245296)
 

@@ -13,8 +13,8 @@
 
 Summary: Network UPS Tools
 Name: nut
-Version: 2.8.0
-Release: 14%{?dist}
+Version: 2.8.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -22,10 +22,7 @@ Source4: libs.sh
 Patch2: nut-2.8.0-piddir-owner.patch
 
 #quick fix. TODO: fix it properly
-Patch8: nut-2.6.5-unreachable.patch
 Patch9: nut-2.6.5-rmpidf.patch
-Patch13: nut-c99-c_attribute.patch
-Patch14: nut-c99-ax_c_printf_null.patch
 Patch15: nut-c99-strdup.patch
 
 Requires(pre): shadow-utils
@@ -49,6 +46,7 @@ BuildRequires: freetype-devel
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gd-devel
+BuildRequires: libgpiod-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel
 BuildRequires: libtool
@@ -129,10 +127,7 @@ necessary to develop NUT client applications.
 %prep
 %setup -q
 %patch -P2 -p1 -b .piddir-owner
-%patch -P8 -p1 -b .unreachable
 %patch -P9 -p1 -b .rmpidf
-%patch -P13 -p1
-%patch -P14 -p1
 %patch -P15 -p1
 
 sed -i 's|=NUT-Monitor|=nut-monitor|'  scripts/python/app/nut-monitor-py3qt5.desktop
@@ -142,6 +137,9 @@ sed -i 's|LIBSSL_LDFLAGS|LIBSSL_LIBS|' lib/libupsclient.pc.in
 
 # workaround for multilib conflicts - caused by patch changing modification time of scripts
 find . -mtime -1 -print0 | xargs -0 touch --reference %{SOURCE0}
+
+# fix python site packages check
+sed -i 's|\(PYTHON3\?_SITE_PACKAGES=\)".*"|\1"%{python3_sitelib}"|' m4/nut_check_python.m4
 
 %build
 autoreconf -i
@@ -159,7 +157,9 @@ export LDFLAGS="-Wl,-z,now"
 %endif
     --without-wrap \
     --with-cgi \
-    --with-python3 \
+    --with-python=%{python3} \
+    --with-python3=%{python3} \
+    --without-python2 \
     --datadir=%{_datadir}/%{name} \
     --with-user=%{name} \
     --with-group=dialout \
@@ -177,6 +177,7 @@ export LDFLAGS="-Wl,-z,now"
     --libdir=%{_libdir}
 #    --with-doc # does not work in 2.7.1
 
+# for rhbz#838139 check if still needed?
 sh %{SOURCE4} >>include/config.h
 
 #remove rpath
@@ -194,7 +195,7 @@ mkdir -p %{buildroot}%{modeldir} \
 
 %make_install
 
-mv %{buildroot}%{_tmpfilesdir}/nut-common.tmpfiles %{buildroot}%{_tmpfilesdir}/nut-common.conf
+#mv %{buildroot}%{_tmpfilesdir}/nut-common.tmpfiles %{buildroot}%{_tmpfilesdir}/nut-common.conf
 
 rm -rf %{buildroot}%{_prefix}/html
 rm -f %{buildroot}%{_libdir}/*.la
@@ -293,7 +294,7 @@ fi
 
 %files
 %license COPYING LICENSE-GPL2 LICENSE-GPL3
-%doc ChangeLog AUTHORS MAINTAINERS README docs UPGRADING INSTALL NEWS
+%doc ChangeLog AUTHORS MAINTAINERS README docs INSTALL NEWS
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/ups.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsd.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsd.users
@@ -311,6 +312,7 @@ fi
 %{_bindir}/nut-scanner
 %{_libdir}/libnutscan.so.*
 %{_libexecdir}/nut-driver-enumerator.sh
+%{_libexecdir}/sockdebug
 %{_datadir}/augeas/lenses/dist/nut*
 %{_datadir}/%{name}/cmdvartab
 %{_datadir}/%{name}/driver.list
@@ -319,7 +321,7 @@ fi
 %{_mandir}/man5/upsd.users.5.gz
 
 %{_mandir}/man8/adelsystem_cbi.8.gz
-
+%{_mandir}/man8/apc_modbus.8.gz
 
 %{_mandir}/man8/al175.8.gz
 %{_mandir}/man8/apcsmart.8.gz
@@ -343,6 +345,7 @@ fi
 %{_mandir}/man8/gamatronic.8.gz
 %{_mandir}/man8/generic_modbus.8.gz
 %{_mandir}/man8/genericups.8.gz
+%{_mandir}/man8/generic_gpio.8.gz
 %{_mandir}/man8/huawei-ups2000.8.gz
 %{_mandir}/man8/isbmex.8.gz
 %{_mandir}/man8/ivtscd.8.gz
@@ -376,8 +379,10 @@ fi
 %{_mandir}/man8/riello_ser.8.gz
 %{_mandir}/man8/riello_usb.8.gz
 %{_mandir}/man8/safenet.8.gz
+%{_mandir}/man8/sms_ser.8.gz
 %{_mandir}/man8/snmp-ups.8.gz
 %{_mandir}/man8/solis.8*
+%{_mandir}/man8/sockdebug.8.gz
 %{_mandir}/man8/socomec_jbus.8.gz
 %{_mandir}/man8/tripplite.8.gz
 %{_mandir}/man8/tripplite_usb.8.gz
@@ -395,7 +400,7 @@ fi
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/nut.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsmon.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upssched.conf
-%{_tmpfilesdir}/nut-common.conf
+%{_tmpfilesdir}/nut-common-tmpfiles.conf
 %dir %attr(750,nut,nut) %{_localstatedir}/lib/ups
 # upsmon.pid is written as root, so root needs access for now
 %dir %attr(770,root,dialout) %{piddir}
@@ -422,6 +427,7 @@ fi
 %{_mandir}/man8/upsmon.8.gz
 %{_mandir}/man8/upssched.8.gz
 %pycached %{python3_sitelib}/PyNUT.py
+%pycached %{python3_sitelib}/test_nutclient.py
 %{_datadir}/nut
 %if %{with python2}
 %{_bindir}/nut-monitor
@@ -462,6 +468,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed Nov 01 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.1-1
+- updated to 2.8.1(2247337)
+
 * Tue Oct 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.0-14
 - spec cleanup, based on PR#14 by Orion Poplawski
 

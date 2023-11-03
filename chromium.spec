@@ -26,6 +26,10 @@
 
 # enable|disble bootstrap
 %global bootstrap 0
+# workaround for broken gn on epel9
+%if 0%{?rhel} == 9
+%global bootstrap 1
+%endif
 
 # Fancy build status, so we at least know, where we are..
 # %1 where
@@ -254,7 +258,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 118.0.5993.117
+Version: 119.0.6045.105
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -347,10 +351,8 @@ Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
 Patch111: chromium-116-constexpr.patch
 Patch112: chromium-117-el7-default_constructor.patch
-Patch113: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # system ffmpeg
-Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
 # drop av_stream_get_first_dts from internal ffmpeg
 Patch116: chromium-112-ffmpeg-first_dts.patch
@@ -360,9 +362,12 @@ Patch117: chromium-118-sigtrap_system_ffmpeg.patch
 # revert AV1 VAAPI video encode due to old libva on el9
 Patch130: chromium-114-revert-av1enc-el9.patch
 
+# file conflict with old kernel on el8/el9
+Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
+
 # fixes for old clang version in fedora < 38 end epel (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
-Patch300: chromium-118-no_matching_constructor.patch
+Patch300: chromium-119-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
@@ -374,12 +379,17 @@ Patch303: chromium-117-typename.patch
 # error: invalid operands to binary expression
 Patch304: chromium-117-string-convert.patch
 
+# error: constexpr constructor's 3rd parameter type 'std::string' (aka 'basic_string<char>') is not a literal type
+Patch305: chromium-119-constexpr.patch
+
+Patch306: chromium-119-assert.patch
+
 # disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
 # not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
-Patch306: chromium-118-arm64-memory_tagging.patch
+Patch307: chromium-118-arm64-memory_tagging.patch
 
 # missing include header files
-Patch310: chromium-118-missing-header-files.patch
+Patch310: chromium-119-missing-header-files.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
@@ -396,8 +406,10 @@ Patch351: chromium-117-mnemonic-error.patch
 Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
 
 # upstream patches
-Patch400: chromium-117-memory_leak_in_xserver.patch
-Patch401: chromium-118-use_system_freetype.patch
+# revert due to build error redefine ATSPI version macros
+Patch400: chromium-119-dont-redefine-ATSPI-version-macros.patch
+# fix build error, nullptr_t without namespace std::
+Patch401: chromium-119-nullptr_t-without-namespace-std.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -934,7 +946,6 @@ udev.
 %endif
 
 %if ! %{bundleffmpegfree}
-%patch -P114 -p1 -b .system-ffmppeg
 %patch -P115 -p1 -b .prop-codecs
 %patch -P116 -p1 -b .first_dts
 %patch -P117 -p1 -b .sigtrap_system_ffmpeg
@@ -957,7 +968,7 @@ udev.
 %endif
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
-%patch -P113 -p1 -b .dma_buf_export_sync_file-conflict
+%patch -P140 -p1 -b .dma_buf_export_sync_file-conflict
 %endif
 
 %if 0%{?rhel} == 9
@@ -971,12 +982,14 @@ udev.
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
 %patch -P303 -p1 -b .typename
 %patch -P304 -p1 -b .string-convert
+%patch -P305 -p1 -b .constexpr
+%patch -P306 -p1 -b .assert
 %endif
 %endif
 
 %ifarch aarch64
 %if 0%{?rhel} <= 8
-%patch -P306 -p1 -b .memory_tagging
+%patch -P307 -p1 -b .memory_tagging
 %endif
 %endif
 
@@ -993,8 +1006,8 @@ udev.
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
 
-%patch -P400 -p1 -b .memory_leak_in_xserver
-%patch -P401 -p1 -b .use_system_freetype
+%patch -P400 -p1 -R -b .revert-dont-redefine-ATSPI-version-macros.patch
+%patch -P401 -p1 -b .nullptr_t-without-namespace-std
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1685,6 +1698,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Nov 01 2023 Than Ngo <than@redhat.com> - 119.0.6045.105-1
+- update to 119.0.6045.105
+
+* Fri Oct 27 2023 Than Ngo <than@redhat.com> - 119.0.6045.59-1
+- update 119.0.6045.59
+
 * Wed Oct 25 2023 Than Ngo <than@redhat.com> - 118.0.5993.117-1
 - update to 118.0.5993.117
 

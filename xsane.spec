@@ -1,7 +1,7 @@
 # if you rebuild, please change bugtracker_url accordingly:
 %global bugtracker_url http://bugzilla.redhat.com
 
-%global gimpplugindir %(gimptool --gimpplugindir 2>/dev/null || echo INVALID)/plug-ins
+%global gimpplugindir %(%___build_pre; gimptool --gimpplugindir 2>/dev/null || echo INVALID)/plug-ins
 %global iconrootdir %{_datadir}/icons/hicolor
 
 # needed for off-root building

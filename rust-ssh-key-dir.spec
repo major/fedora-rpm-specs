@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        sshd AuthorizedKeysCommand to read ~/.ssh/authorized_keys.d
 
 License:        Apache-2.0
@@ -16,7 +16,7 @@ Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}
 
 ExclusiveArch:  %{rust_arches}
 
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 BuildRequires:  rust-toolset
 %else
 BuildRequires:  rust-packaging >= 21
@@ -57,21 +57,13 @@ fi
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-%if 0%{?rhel} && !0%{?eln}
-tar xvf %{SOURCE1}
-mkdir -p .cargo
-cat >.cargo/config << EOF
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
+%if 0%{?rhel}
+%cargo_prep -V 1
 %else
 %cargo_prep
 %endif
 
-%if !0%{?rhel} || 0%{?eln}
+%if !0%{?rhel}
 %generate_buildrequires
 %cargo_generate_buildrequires
 %endif
@@ -80,7 +72,7 @@ EOF
 %cargo_build
 
 %install
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 %make_install INSTALL="install -p -c"
 %else
 %cargo_install
@@ -94,6 +86,9 @@ install -Dpm0644 -t %{buildroot}%{_sysconfdir}/ssh/sshd_config.d conf/40-ssh-key
 %endif
 
 %changelog
+* Tue Oct 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.1.4-5
+- Use vendored dependencies in ELN builds
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

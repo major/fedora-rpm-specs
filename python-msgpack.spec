@@ -1,11 +1,11 @@
 %global srcname msgpack
 
 Name:           python-%{srcname}
-Version:        1.0.6
+Version:        1.0.7
 Release:        1%{?dist}
 Summary:        Python MessagePack (de)serializer
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://msgpack.org/
 Source0:        https://github.com/msgpack/msgpack-python/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -55,8 +55,11 @@ rm -rf test/test_timestamp.py
 %{python3_sitearch}/%{srcname}*.egg-info
 
 %changelog
+* Wed Nov 01 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.7-1
+- Update to new upstream release 1.0.7 (closes rhbz#2241188)
+
 * Sun Sep 24 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.6-1
-- Update to new upstream release 1.0.4 (closes rhbz#2238867)
+- Update to new upstream release 1.0.6 (closes rhbz#2238867)
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

@@ -1,12 +1,13 @@
 Name: modulemd-tools
 Version: 0.16
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Collection of tools for modular (in terms of Fedora Modularity origin) content creators
 License: MIT
 BuildArch: noarch
 
 URL: https://github.com/rpm-software-management/modulemd-tools
 Source0: https://github.com/rpm-software-management/modulemd-tools/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0: 0001-createrepo_mod-fix-failing-tests-on-F39-because-of-n.patch
 
 BuildRequires: createrepo_c
 BuildRequires: argparse-manpage
@@ -60,6 +61,7 @@ bld2repo - Simple tool for dowloading build required RPMs of a modular build fro
 
 %prep
 %setup -q
+%patch 0 -p1
 
 
 %build
@@ -104,6 +106,9 @@ cp man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Nov 01 2023 Jakub Kadlcik <frostyx@email.cz> - 0.16-4
+- createrepo_mod: fix RHBZ 2247292 caused by new compression
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

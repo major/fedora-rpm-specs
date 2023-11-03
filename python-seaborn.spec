@@ -2,8 +2,8 @@
 %global srcname seaborn
 
 Name: python-%{srcname}
-Version: 0.12.2
-Release: 3%{?dist}
+Version: 0.13.0
+Release: 1%{?dist}
 Summary: Statistical data visualization in Python
 License: BSD
 
@@ -25,7 +25,7 @@ and statistical routines from scipy and statsmodels.}
 %description %_description
 
 %package -n python3-%{srcname}
-Summary: Statistical data visualization in Python
+Summary: %{summary}
 
 BuildRequires: %{py3_dist flit_core}
 
@@ -43,7 +43,6 @@ Recommends: %{py3_dist statsmodels}
 %description -n python3-%{srcname} %_description
 
 %prep
-rm -rf %{pypi_name}.egg-info
 rm -rf seaborn/external/husl.py
 rm -rf seaborn/external/docscrape.py
 %autosetup -p1 -n %{srcname}-%{version}
@@ -69,6 +68,9 @@ rm -rf seaborn/external/docscrape.py
 %doc README.md
 
 %changelog
+* Wed Nov 01 2023 Sergio Pascual <sergiopr@fedoraproject.com> - 0.13.0-1
+- New upstream source 0.13.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

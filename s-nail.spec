@@ -1,10 +1,10 @@
 Name:           s-nail
 Version:        14.9.24
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Environment for sending and receiving mail
 
 # Everything is ISC except parts coming from the original Heirloom mailx which are BSD
-License:        ISC and BSD with advertising and BSD
+License:        ISC AND BSD-4-Clause-UC AND BSD-3-Clause AND RSA-MD AND HPND-sell-variant
 URL:            https://www.sdaoden.eu/code.html#s-nail
 Source0:        https://www.sdaoden.eu/downloads/%{name}-%{version}.tar.xz
 Source1:        https://www.sdaoden.eu/downloads/%{name}-%{version}.tar.xz.asc
@@ -154,6 +154,9 @@ fi
 
 
 %changelog
+* Wed Nov 01 2023 Tomas Korbar <tkorbar@redhat.com> - 14.9.24-7
+- Add licenses to fully conform to SPDX
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.9.24-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

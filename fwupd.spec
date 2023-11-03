@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.9.6
+Version:   1.9.7
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -57,7 +57,6 @@ Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.
 BuildRequires: gettext
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libxmlb-devel >= %{libxmlb_version}
-BuildRequires: libgcab1-devel
 BuildRequires: libgudev1-devel
 BuildRequires: libgusb-devel >= %{libgusb_version}
 BuildRequires: libcurl-devel >= %{libcurl_version}
@@ -74,7 +73,6 @@ BuildRequires: libcbor-devel
 BuildRequires: passim-devel
 %endif
 BuildRequires: gobject-introspection-devel
-BuildRequires: gcab
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind
 BuildRequires: valgrind-devel
@@ -87,10 +85,10 @@ BuildRequires: json-glib-devel >= %{json_glib_version}
 BuildRequires: vala
 BuildRequires: bash-completion
 BuildRequires: git-core
-BuildRequires: kernel-headers
 %if 0%{?have_flashrom}
 BuildRequires: flashrom-devel >= 1.2-2
 %endif
+BuildRequires: libdrm-devel
 
 %if 0%{?have_modem_manager}
 BuildRequires: ModemManager-glib-devel >= 1.10.0

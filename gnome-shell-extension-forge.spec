@@ -1,9 +1,8 @@
 %global extension       forge
 %global uuid            %{extension}@jmmaranan.com
-%global _gnomeextdir    %{_datadir}/gnome-shell/extensions
 
 Name:           gnome-shell-extension-%{extension}
-Version:        75
+Version:        77
 Release:        %autorelease
 Summary:        Tiling and window manager for GNOME Shell
 # main source code: GPL-3.0-or-later
@@ -15,8 +14,6 @@ BuildArch:      noarch
 Source:         %{url}/archive/v44-%{version}/%{extension}-44-%{version}.tar.gz
 # downstream-only
 Patch:          0001-Adjust-makefile-for-Fedora.patch
-# https://github.com/forge-ext/forge/pull/296
-Patch:          0002-Use-Unicode-CLDR-identifier-for-Brazilian-Portuguese.patch
 
 BuildRequires:  make
 BuildRequires:  gettext
@@ -58,7 +55,7 @@ mv locale %{buildroot}%{_datadir}/locale
 %files -f %{extension}.lang
 %license LICENSE LICENSE-css
 %doc README.md
-%{_gnomeextdir}/%{uuid}
+%{_datadir}/gnome-shell/extensions/%{uuid}
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.%{extension}.gschema.xml
 
 

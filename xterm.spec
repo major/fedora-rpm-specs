@@ -4,9 +4,9 @@
 Summary: Terminal emulator for the X Window System
 Name: xterm
 Version: 388
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://invisible-island.net/xterm
-License: MIT
+License: MIT AND X11 AND HPND AND CC-BY-4.0
 BuildRequires: make
 BuildRequires: gcc pkgconfig ncurses-devel libutempter-devel
 BuildRequires: libXft-devel libXaw-devel libXext-devel desktop-file-utils
@@ -105,6 +105,9 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Wed Nov 01 2023 Tomas Korbar <tkorbar@redhat.com> - 388-2
+- Add licenses to fully conform to SPDX
+
 * Wed Oct 25 2023 Tomas Korbar <tkorbar@redhat.com> - 388-1
 - Rebase to version 388
 - Resolves: rhbz#2242865

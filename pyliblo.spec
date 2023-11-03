@@ -2,12 +2,14 @@
 
 Name:           pyliblo
 Version:        0.10.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        %{sum}
 
 License:        GPLv2+
 URL:            http://das.nasophon.de/pyliblo/
 Source0:        http://das.nasophon.de/download/%{name}-%{version}.tar.gz
+Patch0:         fix_inspect.patch
+Patch1:         fix_cython.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -37,7 +39,7 @@ to send and receive OSC messages using a nice and simple Python API.
 Also included are the command line utilities send_osc and dump_osc.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 find -type f -exec sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
 
 # Remove shebang and executable bit from example scripts
@@ -59,6 +61,10 @@ chmod -x examples/*
 %{python3_sitearch}/%{name}*.egg-info
 
 %changelog
+* Wed Aug 2 2023 Diego Herrera <dherrera@redhat.com> - 0.10.0-28
+- Fix inspect lib changes on python 3.8+
+- Fix Cython 3.0 compatibility
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

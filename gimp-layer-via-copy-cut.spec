@@ -10,11 +10,9 @@ Source0:	http://some-gimp-plugins.com/contents/en/extensions/002/%{addon}.zip
 Source1:	%{name}.metainfo.xml
 Source2:	LICENSE.txt
 BuildRequires:	python2-devel
-# Needed to resolve shebang issue
-BuildRequires:	/usr/bin/pathfix.py
-%if 0%{?fedora} >= 21  
+# for %%py2_shebang_fix
+BuildRequires:	python3
 BuildRequires:	libappstream-glib
-%endif
 Requires:	gimp
 
 %description
@@ -27,32 +25,27 @@ Copy and move the selected area to a new layer in the same position.
 cp -p %{SOURCE2} .
 
 # Fix Python shebangs for lessen Fedora release
-pathfix.py -pni "%{__python2} %{py2_shbang_opts}" %{addon}.py
+%py2_shebang_fix %{addon}.py
 
 %build
 
 %install
 install -Dpm 0755 %{addon}.py -t %{buildroot}%{_libdir}/gimp/2.0/plug-ins/
 
-
-%if 0%{?fedora} >= 21  
 # Add AppStream metadata
 install -Dm 0644 -p %{SOURCE1} \
 	%{buildroot}%{_datadir}/appdata/%{name}.metainfo.xml
 
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.metainfo.xml
-%endif
 
 
 %files 
 %license LICENSE.txt
 #%%doc info.txt changelog.txt
 %{_libdir}/gimp/2.0/plug-ins/%{addon}.py*
-%if 0%{?fedora} >= 21  
 #AppStream metadata
 %{_datadir}/appdata/%{name}.metainfo.xml
-%endif
 
 %changelog
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-24

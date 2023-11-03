@@ -1,5 +1,5 @@
-%global commit a1f9d73608025c595653e9d52236228efd23ea04
-%global snapdate 20230525
+%global commit 9059c98181f944aec83b90a677c96f3b43bd1047
+%global snapdate 20230904
 
 Name:           c4project
 Summary:        Useful CMake scripts

@@ -5,8 +5,8 @@
 %global with_suggests 0
 
 Name:             R-%{packname}
-Version:          0.15
-Release:          4%{?dist}
+Version:          0.22
+Release:          %autorelease
 Summary:          Parsing and Evaluation Tools that Provide More Details than the Default
 
 License:          MIT
@@ -25,9 +25,11 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-methods
 %if %{with_suggests}
-BuildRequires:    R-testthat
+BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-lattice
 BuildRequires:    R-ggplot2
+BuildRequires:    R-rlang
+BuildRequires:    R-withr
 %endif
 
 %description
@@ -69,83 +71,4 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.15-3
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug  3 2022 Tom Callaway <spot@fedoraproject.org> - 0.15-1
-- update to 0.15
-- rebuild against R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun  9 2021 Tom Callaway <spot@fedoraproject.org> - 0.14-8
-- Rebuilt for R 4.1.0
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jun  3 2020 Tom Callaway <spot@fedoraproject.org> - 0.14-5
-- widen "with suggests" conditional to break testthat loop
-- rebuild for R 4
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Aug 11 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.14-3
-- Remove explicit dependencies provided by automatic dependency generator
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue May 28 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.14-1
-- Update to latest version
-- Enable ggplot2 tests
-
-* Tue Feb 12 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.13-1
-- Update to latest version
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Jan 22 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.12-1
-- Update to latest version
-
-* Sun Jul 22 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.11-1
-- Update to latest version
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Nov 07 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 0.10.1-5
-- Remove unnecessary Suggests.
-
-* Sun Oct 29 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 0.10.1-4
-- Fix file list.
-
-* Sun Oct 29 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 0.10.1-3
-- Remove extra file.
-
-* Sun Oct 29 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 0.10.1-2
-- Don't BR ggplot2 yet.
-
-* Sat Oct 28 2017 Elliott Sales de Andrade <quantum.analyst@gmail.com> 0.10.1-1
-- initial package for Fedora
+%autochangelog

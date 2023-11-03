@@ -1,8 +1,8 @@
 %undefine _hardened_build
 
 Name:           wavemon
-Version:        0.9.4
-Release:        5%{?dist}
+Version:        0.9.5
+Release:        1%{?dist}
 Summary:        Ncurses-based monitoring application for wireless network devices
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/*
 %{_bindir}/%{name}
 
 %changelog
+* Wed Nov 01 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.5-1
+- Update to latest upstream release 0.9.5 (closes #2247215)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

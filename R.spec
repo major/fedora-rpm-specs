@@ -35,7 +35,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -325,8 +325,8 @@ export JAVA_HOME=%{_jvmdir}/jre
   rincludedir=%{_includedir}/R \
   rsharedir=%{_datadir}/R \
   --with-system-tre \
-  --with-lapack=%{blaslib}%{blasvar} \
   --with-blas=%{blaslib}%{blasvar} \
+  --with-lapack \
   --with-tcl-config=%{_libdir}/tclConfig.sh \
   --with-tk-config=%{_libdir}/tkConfig.sh \
   --enable-R-shlib \
@@ -934,6 +934,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Wed Nov 01 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.2-2
+- Revert adding flexiblas to LAPACK_LIBS as per discussion with Tomas Kalibera
+
 * Tue Oct 31 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.2-1
 - Update to 4.3.2
 

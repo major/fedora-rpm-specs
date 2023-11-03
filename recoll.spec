@@ -1,9 +1,10 @@
 %global         gsspver 1.1.1
+%global         __cmake_in_source_build 1
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.35.0
-Release:        2%{?dist}
+Version:        1.36.0
+Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
 Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
@@ -42,6 +43,18 @@ Recoll is a personal full text search package for Linux, FreeBSD and
 other Unix systems. It is based on a very strong back end (Xapian), for
 which it provides an easy to use, feature-rich, easy administration
 interface.
+
+%package       libs
+Summary:       Libraries for Recoll applications
+%description   libs
+Shared libraries required to run Recoll applications.
+
+%package       devel
+Summary:       Libraries and header files to develop Recoll enabled applications
+Requires:      %{name}-libs = %{version}-%{release}
+%description   devel
+Libraries and header files required to develop Recoll enabled
+applications.
 
 %package       kio
 Summary:       KIO support for recoll
@@ -82,7 +95,7 @@ LDFLAGS="%{?__global_ldflags}"; export LDFLAGS
 install -m755 -D %{SOURCE10} qmake-qt5.sh
 export QMAKE=qmake-qt5
 
-%configure --enable-recollq
+%configure --enable-recollq --enable-publiclib
 make %{?_smp_mflags}
 
 # gssp
@@ -106,7 +119,7 @@ rm %{buildroot}%{_datadir}/recoll/filters/hotrecoll.py
 
 # kio_recoll -kde5
 pushd kde/kioslave/kio_recoll
-%cmake
+%cmake -DRECOLL_PUBLIC_LIB=1
 %cmake_build
 %cmake_install
 popd
@@ -114,16 +127,14 @@ popd
 # kio_recoll -kde4
 export QMAKE=qmake-qt4
 pushd kde/kioslave/kio_recoll-kde4
-mkdir -p %{_vpath_builddir} && pushd %{_vpath_builddir}
-%cmake_kde4 ..
-popd
+%cmake_kde4 -DRECOLL_PUBLIC_LIB=1
 %cmake_build
 %cmake_install
 popd
 
 # krunner_recoll
 pushd kde/krunner
-%cmake
+%cmake -DRECOLL_PUBLIC_LIB=1
 %cmake_build
 %cmake_install
 popd
@@ -153,7 +164,6 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/recoll-searchgui.desktop
 %{_datadir}/icons/hicolor/48x48/apps/recoll.png
 %{_datadir}/pixmaps/recoll.png
-%{_libdir}/recoll
 %{python3_sitearch}/recoll
 %{python3_sitearch}/recollchm
 %{python3_sitearch}/Recoll-*.egg-info
@@ -168,6 +178,13 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_mandir}/man5/recoll.conf.5*
 %{_unitdir}/recollindex@.service
 %{_userunitdir}/recollindex.service
+
+%files libs
+%{_libdir}/librecoll-%{version}.so
+
+%files devel
+%{_libdir}/librecoll.so
+%{_includedir}/recoll
 
 %files kio
 %license COPYING
@@ -190,6 +207,11 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Mon Oct 30 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.36.0-1
+- 1.36.0
+- Ship public lib in -libs package
+- Ship headers in -devel package
+
 * Sun Oct 15 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.35.0-2
 - Add explicit buildreq on qt5-linguist
 - Use kde4 macros for kde4 parts

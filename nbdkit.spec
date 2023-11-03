@@ -25,6 +25,11 @@
 # but somehow "fixed itself", keep an eye on it.
 %global have_blkio 1
 
+# Enable nbdkit-selinux package.
+%global with_selinux 1
+%global modulename nbdkit
+%global selinuxtype targeted
+
 # Architectures where we run the complete test suite including
 # the libguestfs tests.
 #
@@ -56,7 +61,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.37.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -81,6 +86,11 @@ Source3:        copy-patches.sh
 # See: https://rpm-software-management.github.io/rpm/manual/dependency_generators.html
 Source4:        nbdkit.attr
 Source5:        nbdkit-find-provides
+
+# For nbdkit-selinux package:
+Source6:        %{modulename}.te
+Source7:        %{modulename}.if
+Source8:        %{modulename}.fc
 
 BuildRequires: make
 %if 0%{patches_touch_autotools}
@@ -167,6 +177,13 @@ BuildRequires:  nbdkit-srpm-macros >= 1.30.0
 Requires:       nbdkit-server%{?_isa} = %{version}-%{release}
 Requires:       nbdkit-basic-plugins%{?_isa} = %{version}-%{release}
 Requires:       nbdkit-basic-filters%{?_isa} = %{version}-%{release}
+
+%if 0%{?with_selinux}
+# This ensures that the nbdkit-selinux package and all its
+# dependencies are not pulled into containers and other systems that
+# do not use SELinux.
+Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
+%endif
 
 
 %description
@@ -660,6 +677,20 @@ Install this package if you want intelligent bash tab-completion
 for %{name}.
 
 
+%if 0%{?with_selinux}
+%package selinux
+Summary:       %{name} SELinux policy
+BuildArch:     noarch
+Requires:      selinux-policy-%{selinuxtype}
+Requires(post):selinux-policy-%{selinuxtype}
+BuildRequires: selinux-policy-devel
+%{?selinux_requires}
+
+%description selinux
+%{nbdkit} SELinux policy module.
+%endif
+
+
 %prep
 %if 0%{verify_tarball_signature}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -750,6 +781,18 @@ grep '^PYTHON_VERSION = 3' Makefile
 
 %make_build
 
+%if 0%{?with_selinux}
+# SELinux policy (originally from selinux-policy-contrib)
+# this policy module will override the production module
+mkdir selinux
+cp -p %{SOURCE6} selinux/
+cp -p %{SOURCE7} selinux/
+cp -p %{SOURCE8} selinux/
+
+make -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
+bzip2 -9 %{modulename}.pp
+%endif
+
 
 %install
 %make_install
@@ -777,6 +820,11 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/nbdkit-qcow2dec-filter.1*
 mkdir -p $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/
 install -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/
 install -m 0755 %{SOURCE5} $RPM_BUILD_ROOT%{_rpmconfigdir}/
+
+%if 0%{?with_selinux}
+install -D -m 0644 %{modulename}.pp.bz2 $RPM_BUILD_ROOT%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
+install -D -p -m 0644 selinux/%{modulename}.if $RPM_BUILD_ROOT%{_datadir}/selinux/devel/include/distributed/%{modulename}.if
+%endif
 
 
 %check
@@ -830,6 +878,26 @@ export LIBGUESTFS_TRACE=1
 
 %if 0%{?have_ocaml}
 %ldconfig_scriptlets plugin-ocaml
+%endif
+
+
+%if 0%{?with_selinux}
+# SELinux contexts are saved so that only affected files can be
+# relabeled after the policy module installation
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s %{selinuxtype} %{modulename}
+fi
+
+%posttrans selinux
+%selinux_relabel_post -s %{selinuxtype}
+# if with_selinux
 %endif
 
 
@@ -1245,7 +1313,18 @@ export LIBGUESTFS_TRACE=1
 %{_datadir}/bash-completion/completions/nbdkit
 
 
+%if 0%{?with_selinux}
+%files selinux
+%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
+%{_datadir}/selinux/devel/include/distributed/%{modulename}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
+%endif
+
+
 %changelog
+* Wed Nov 01 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.1-2
+- Add experimental SELinux support (RHEL-5174)
+
 * Mon Oct 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.1-1
 - New upstream development version 1.37.1
 

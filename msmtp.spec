@@ -1,5 +1,5 @@
 Name:		msmtp
-Version:	1.8.24
+Version:	1.8.25
 Release:	%autorelease
 Summary:	SMTP client
 License:	GPL-3.0-or-later

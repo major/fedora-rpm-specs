@@ -1,121 +1,100 @@
+%if 0%{?rhel} < 10
+# sphinx version is too old
+%bcond_with doc
+%else
+%bcond_without doc
+%endif
+
 %global pypi_name django-configurations
 
 Name:           python-%{pypi_name}
-Version:        2.2
-Release:        14%{?dist}
+Version:        2.5
+Release:        %autorelease
 Summary:        A helper for organizing Django settings
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://django-configurations.readthedocs.io/
-Source0:        %{pypi_source}
+Source:         %{pypi_source}
+Patch:          %{pypi_name}-adjust_test_cases.diff
+
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 django-configurations eases Django project configuration by relying on the
 composability of Python classes. It extends the notion of Django's module
 based settings loading with well established object oriented programming
-patterns.
+patterns.}
+
+%description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-django-database-url
-BuildRequires:  python3-django-email-url
-BuildRequires:  python3-django-search-url
-BuildRequires:  python3-django-cache-url
-BuildRequires:  python3-django
-BuildRequires:  python3-mock
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-six
+BuildRequires:  python3dist(pytest)
 
-%description -n python3-%{pypi_name}
-django-configurations eases Django project configuration by relying on the
-composability of Python classes. It extends the notion of Django's module
-based settings loading with well established object oriented programming
-patterns.
+%description -n python3-%{pypi_name} %_description
 
+%if %{with doc}
 %package -n python-%{pypi_name}-doc
 Summary:        The documentation for %{name}
 
-BuildRequires:  python3-sphinx
-
 %description -n python-%{pypi_name}-doc
 Documentation for %{name}.
+%endif
+
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 rm -rf %{pypi_name}.egg-info
 
+# Remove unnecessary test BRs
+sed -i '/coverage$/d' tox.ini
+sed -i '/coverage_enable_subprocess$/d' tox.ini
+
+%generate_buildrequires
+%if %{with doc}
+%pyproject_buildrequires -e docs -t
+%else
+%pyproject_buildrequires -t
+%endif
+
+
 %build
-%py3_build
+%pyproject_wheel
+
+%if %{with doc}
 PYTHONPATH=${PWD} sphinx-build-3 docs html
 rm -rf html/.{doctrees,buildinfo}
+%endif
+
 
 %install
-%py3_install
+%pyproject_install
 
-# Tests are failing
-# https://github.com/jazzband/django-configurations/issues/249
-#%check
-#export DJANGO_CONFIGURATION="Test"
-#export DJANGO_SETTINGS_MODULE="tests.settings.main"
-#PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
+%pyproject_save_files configurations
 
-%files -n python3-%{pypi_name}
+
+%check
+export DJANGO_CONFIGURATION="Test"
+export DJANGO_SETTINGS_MODULE="tests.settings.main"
+export PATH=$PATH:%{buildroot}%{_bindir}
+export PYTHONPATH=%{buildroot}%{python3_sitelib}:$(pwd)
+%pytest
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %{_bindir}/django-cadmin
-%{python3_sitelib}/configurations
-%{python3_sitelib}/django_configurations-%{version}-py*.egg-info
 
+%if %{with doc}
 %files -n python-%{pypi_name}-doc
 %doc html
 %license LICENSE
+%endif
+
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.2-13
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 2.2-10
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-8
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.2-7
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.2-4
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Jan 07 2020 Fabian Affolter <mail@fabian-affolter.ch> - 2.2-2
-- Use var for source URL
-- Better use of wildcards (rhbz#1786875)
-
-* Sat Dec 28 2019 Fabian Affolter <mail@fabian-affolter.ch> - 2.2-1
-- Initial package for Fedora 
+%autochangelog

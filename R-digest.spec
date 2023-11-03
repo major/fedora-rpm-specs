@@ -1,11 +1,11 @@
 %bcond_with check
 
 %global packname digest
-%global packver 0.6.31
+%global packver 0.6.33
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          %autorelease
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 License:          GPLv2+ and BSD and MIT and zlib
@@ -79,93 +79,4 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/include/
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.31-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.6.31-1
-- R-maint-sig mass rebuild
-- Update to latest version
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.29-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug  3 2022 Tom Callaway <spot@fedoraproject.org> - 0.6.29-1
-- update to 0.6.29
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jun  7 2021 Tom Callaway <spot@fedoraproject.org> - 0.6.27-2
-- Rebuilt for R 4.1.0
-
-* Wed Feb  3 2021 Tom Callaway <spot@fedoraproject.org> - 0.6.27-1
-- update to 0.6.27
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.25-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.25-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jun  3 2020 Tom Callaway <spot@fedoraproject.org> - 0.6.25-1
-- conditionalize tests
-- update to 0.6.25
-- rebuild for R 4
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.22-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Nov  5 2019 Tom Callaway <spot@fedoraproject.org> - 0.6.22-1
-- update to 0.6.22
-
-* Mon Aug 12 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.6.15-6
-- Remove explicit dependencies provided by automatic dependency generator
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.15-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.15-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.15-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed May 16 2018 Tom Callaway <spot@fedoraproject.org> - 0.6.15-2
-- rebuild for R 3.5.0
-
-* Fri Mar 23 2018 Tom Callaway <spot@fedoraproject.org> - 0.6.15-1
-- update to 0.6.15
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.12-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.12-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu May 18 2017 Tom Callaway <spot@fedoraproject.org> - 0.6.12-1
-- update to 0.6.12, rebuild for R 3.4.0
-- disable check due to missing deps
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Nov 10 2015 Tom Callaway <spot@fedoraproject.org> - 0.6.8-2
-- fix license tag
-- fix define to be global
-- add bundled provide for xxhash
-
-* Wed Nov 4 2015 Tom Callaway <spot@fedoraproject.org> - 0.6.8-1
-- Initial package
+%autochangelog

@@ -5,7 +5,7 @@
 %bcond_without lang
 
 Name:           avogadro2
-Version:        1.97.0
+Version:        1.98.0
 Release:        %autorelease
 Summary:        Advanced molecular editor
 License:        BSD

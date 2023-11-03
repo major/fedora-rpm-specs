@@ -7,11 +7,11 @@
 #global pre rc1
 
 Name:           podofo
-Version:        0.10.1
+Version:        0.10.2
 Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/podofo/podofo
 Source0:        https://github.com/podofo/podofo/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
 
@@ -182,7 +182,7 @@ rmdir %{buildroot}%{_datadir}/podofo/
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING
-%{_libdir}/*.so.0.10.1
+%{_libdir}/*.so.0.10.2
 %{_libdir}/*.so.2
 
 %files devel
@@ -210,6 +210,9 @@ rmdir %{buildroot}%{_datadir}/podofo/
 
 
 %changelog
+* Wed Nov 01 2023 Sandro Mani <manisandro@gmail.com> - 0.10.2-1
+- Update to 0.10.2
+
 * Wed Aug 16 2023 Sandro Mani <manisandro@gmail.com> - 0.10.1-1
 - Update to 0.10.1
 

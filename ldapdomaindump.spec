@@ -2,12 +2,14 @@
 
 Name:           %{pypi_name}
 Version:        0.9.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Active Directory information dumper via LDAP
 
 License:        MIT
 URL:            https://github.com/dirkjanm/ldapdomaindump/
 Source0:        %{pypi_source}
+# Rebased version of https://github.com/dirkjanm/ldapdomaindump/pull/55
+Patch:          remove_future.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -26,7 +28,7 @@ Summary:        %{summary}
 Active Directory information dumper via LDAP.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 rm -rf %{pypi_name}.egg-info
 sed -i -e '/^#!\//, 1d' ldapdomaindump/__main__.py
 
@@ -48,6 +50,9 @@ sed -i -e '/^#!\//, 1d' ldapdomaindump/__main__.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Sep 20 2023 Lumír Balhar <lbalhar@redhat.com> - 0.9.3-13
+- Drop dependency on python3-future
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

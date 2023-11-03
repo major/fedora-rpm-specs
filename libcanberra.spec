@@ -7,11 +7,11 @@
 
 Name: libcanberra
 Version: 0.30
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Portable Sound Event Library
 Source0: http://0pointer.de/lennart/projects/libcanberra/libcanberra-%{version}.tar.xz
 Patch0: 0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Url: http://git.0pointer.de/?p=libcanberra.git;a=summary
 BuildRequires: gcc
 %if %{with gtk2}
@@ -151,6 +151,9 @@ rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 %{_datadir}/vala/vapi/libcanberra.vapi
 
 %changelog
+* Fri Oct 13 2023 Niels De Graef <ndegraef@redhat.com> - 0.30-33
+- Migrate to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

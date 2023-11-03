@@ -38,7 +38,7 @@ cp -pr %{_builddir}/%{name}-%{version}/brushes \
 		%{_builddir}/%{name}-%{version}/palettes \
 		%{_builddir}/%{name}-%{version}/patterns \
 		%{_builddir}/%{name}-%{version}/tool-presets \
-		%{buildroot}/usr/share/gimp/2.0
+		%{buildroot}%{_datadir}/gimp/2.0
 
 # Add AppStream metadata
 install -Dm 0644 -p %{SOURCE1} \

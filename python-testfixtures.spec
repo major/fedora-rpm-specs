@@ -1,8 +1,8 @@
 %global pypi_name testfixtures
 
 Name:           python-%{pypi_name}
-Version:        6.18.5
-Release:        6%{?dist}
+Version:        7.2.2
+Release:        1%{?dist}
 Summary:        Collection of helpers and mock objects for unit tests
 
 License:        MIT
@@ -50,6 +50,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Wed Nov 01 2023 Fabian Affolter <mail@fabian-affolter.ch> - 7.2.2-1
+- Update to latest upstream release 7.2.2 (closes rhbz#2139114)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.18.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

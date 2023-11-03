@@ -5,7 +5,7 @@
 %endif
 
 %global gimptool %{_bindir}/gimptool-2.0
-%global gimpplugindir %(%gimptool --gimpplugindir)/plug-ins
+%global gimpplugindir %(%___build_pre; %gimptool --gimpplugindir)/plug-ins
 
 %if %{with cinepaint}
 %global cinepaintplugindir %(pkg-config --variable=programplugindir cinepaint-gtk)/plug-ins
@@ -14,12 +14,13 @@
 Summary: Raw image data retrieval tool for digital cameras
 Name: ufraw
 Version: 0.23
-Release: 0.17.20210425%{?dist}
+Release: 0.18.20210425%{?dist}
 License: GPLv2+
 URL: http://ufraw.sourceforge.net
 Source0: http://downloads.sourceforge.net/ufraw/ufraw-0.22.tar.gz
 # beautify_style.sh file is not in the ufraw-0.22.tar.gz, so we need add it, to apply diff from git without errors
 Source1: https://raw.githubusercontent.com/sergiomb2/ufraw/02bc2df0c6c2d9d1892bd16a58e319d81e79559d/beautify_style.sh
+Source2: ufraw.thumbnailer
 Patch1:  https://github.com/sergiomb2/ufraw/compare/ufraw-0-22..f34669b.diff
 
 BuildRequires: make
@@ -48,8 +49,6 @@ BuildRequires: perl-interpreter
 BuildRequires: gettext
 BuildRequires: cfitsio-devel
 Requires: ufraw-common = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires(post): GConf2
-Requires(preun): GConf2
 
 Provides: bundled(dcraw) = 9.28
 
@@ -59,8 +58,6 @@ UFRaw is a tool for opening raw format images of digital cameras.
 
 %package common
 Summary: Common files needed by UFRaw
-Requires(post): GConf2
-Requires(preun): GConf2
 
 %description common
 The ufraw-common files includes common files for UFRaw, e.g. language support.
@@ -102,10 +99,10 @@ cp %{SOURCE1} .
 autoreconf -i
 %configure --enable-mime --enable-extras --enable-contrast --disable-silent-rules --enable-jasper
 
-%make_build schemasdir=%{_sysconfdir}/gconf/schemas
+%make_build schemas_DATA=''
 
 %install
-%make_install schemasdir=%{_sysconfdir}/gconf/schemas
+%make_install schemas_DATA=''
 # don't ship dcraw binary
 rm -f %{buildroot}%{_bindir}/dcraw
 install -d -m 0755 %buildroot%{_datadir}/mime/packages
@@ -113,27 +110,21 @@ install -m 0644 ufraw-mime.xml %buildroot%{_datadir}/mime/packages
 pushd %{buildroot}%{_mandir}/man1
 ln -s ufraw.1 ufraw-batch.1
 popd
+# install modern thumbnailer entry
+install -D -m0644 %{SOURCE2} %{buildroot}%{_datadir}/thumbnailers/%{name}.thumbnailer
 
 %find_lang %{name}
-
-%post common
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/ufraw.schemas >& /dev/null || :
-
-%preun common
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-uninstall-rule /etc/gconf/schemas/ufraw.schemas >& /dev/null || :
 
 %files common -f %{name}.lang
 %doc COPYING README
 %{_datadir}/mime/packages/ufraw-mime.xml
-%{_sysconfdir}/gconf/schemas/ufraw.schemas
 
 %files
 %{_bindir}/*
 %{_datadir}/pixmaps/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/appdata/*.appdata.xml
+%{_datadir}/thumbnailers/%{name}.thumbnailer
 %{_mandir}/man1/*
 
 %files gimp
@@ -145,6 +136,10 @@ gconftool-2 --makefile-uninstall-rule /etc/gconf/schemas/ufraw.schemas >& /dev/n
 %endif
 
 %changelog
+* Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.23-0.18.20210425
+- Drop GConf2 schemas
+- Register freedesktop thumbnailer
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-0.17.20210425
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.0
-Release:	2%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -206,6 +206,7 @@ Patch0030:	0030-src-rgw-rgw_asio_client.cc.patch
 Patch0032:	0032-cmake-modules-BuildBoost.cmake.patch
 Patch0033:	0033-boost-asm.patch
 Patch0034:	0034-src-pybind-rbd-rbd.pyx.patch
+Patch0035:	0035-src-CMakeLists.txt.patch
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
 %if 0%{?suse_version}
@@ -774,7 +775,7 @@ Summary:	Ceph fuse-based client
 %if 0%{?suse_version}
 Group:		System/Filesystems
 %endif
-Requires:	fuse
+Requires:	fuse3
 Requires:	python%{python3_pkgversion}
 %description fuse
 FUSE based client for Ceph distributed network file system
@@ -2634,6 +2635,12 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Wed Nov 1 2023 Terje Rosten <terje.rosten@ntnu.no> - 2:18.2.0-4
+- Rebuild for gtest 1.14.0 and libarrow 14.0.0
+
+* Wed Nov 1 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.0-3
+- Rebuild for Apache Arrow (libarrow) 14.0.0
+
 * Thu Oct 5 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.0-2
 - ceph-18.2.0, rebuild in side tag (f40-build-side-74974)
 

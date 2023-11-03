@@ -19,7 +19,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Enhances:
 
 BuildArch:        noarch
-BuildRequires:    R-core-devel
+BuildRequires:    R-devel
 BuildRequires:    R-cli
 BuildRequires:    R-diffobj >= 0.3.4
 BuildRequires:    R-fansi

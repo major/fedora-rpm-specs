@@ -30,13 +30,13 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.8.0
+%global mpl_images_version 3.8.1
 
 # The version of FreeType in this Fedora branch.
 %global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.8.0
+Version:        3.8.1
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library

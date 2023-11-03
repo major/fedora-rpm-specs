@@ -1,5 +1,8 @@
+%global lib_version 19.0.0
+%global lib_soversion 19
+
 Name:           simdjson
-Version:        3.1.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Parsing gigabytes of JSON per second
 
@@ -47,15 +50,16 @@ Summary: Documents for %{name}
 
 %files
 %license LICENSE
-%doc CONTRIBUTING.md README.md RELEASES.md
-%{_libdir}/lib%{name}*.so.*
+%doc CONTRIBUTING.md README.md
+%{_libdir}/lib%{name}*.so.%{lib_soversion}
+%{_libdir}/lib%{name}*.so.%{lib_version}
 
 %files devel
 %license LICENSE
 %{_includedir}/%{name}.h
 %{_libdir}/cmake/%{name}
-%{_libdir}/lib%{name}*.so
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 %files doc
 %license LICENSE

@@ -1,45 +1,33 @@
 # Compile options:
 # invoke with: rpmbuild --with ffmpeg --with local_ffmpeg audacity.spec to use local ffmpeg
-%bcond_with     ffmpeg
+%bcond_without  ffmpeg
 %bcond_with     local_ffmpeg
 
 #global commit0 53a5c930a4b5b053ab06a8b975458fc51cf41f6c
 #global shortcommit0 #(c=#{commit0}; echo ${c:0:7})
 
 # Ignore these libraries because they are internal-only and should never be exposed in the RPM database
-%global __requires_exclude ^lib-audio-devices.so|^lib-basic-ui.so|^lib-components.so|^lib-exceptions.so|^lib-ffmpeg-support.so|^lib-files.so|^lib-math.so|^lib-preferences.so|^lib-project-rate.so|^lib-project.so|^lib-registries.so|^lib-screen-geometry.so|^lib-string-utils.so|^lib-strings.so|^lib-theme.so|^lib-utility.so|^lib-uuid.so|^lib-xml.so
-%global __provides_exclude ^lib-audio-devices.so|^lib-basic-ui.so|^lib-components.so|^lib-exceptions.so|^lib-ffmpeg-support.so|^lib-files.so|^lib-math.so|^lib-preferences.so|^lib-project-rate.so|^lib-project.so|^lib-registries.so|^lib-screen-geometry.so|^lib-string-utils.so|^lib-strings.so|^lib-theme.so|^lib-utility.so|^lib-uuid.so|^lib-xml.so
+%global __requires_exclude ^lib-.*.so
+%global __provides_exclude ^lib-.*.so
 
 Name: audacity
 
-Version: 3.1.3
-Release: 10%{?dist}
+Version: 3.3.3
+Release: 1%{?dist}
 Summary: Multitrack audio editor
-License: GPL-2.0-only
+License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
 
-Source0: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-%{version}-source.tar.gz
+Source0: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-sources-%{version}.tar.gz
 Source1: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-manual-%{version}.tar.gz
 
 # Use the X11 backend in GTK to make the waveform viewer work properly (RHBZ: 2024019)
 Patch0: gdk_x11_backend.patch
 
-# Needed because the build system is trying to use the libjpeg-turbo-devel package when it really shouldn't
-# Reported upstream https://github.com/audacity/audacity/issues/2210
-Patch1: wx_lib_fix.patch
-
 Patch2: fix_data_path.patch
-
-# Patches needed to compile against wxWidgets 3.1.6.
-# Sent upstream in https://github.com/audacity/audacity/pull/2776
-Patch3: wx316_bitmaps.patch
-Patch4: wx316_customLanguages.patch
 
 # Fedora lv2 1.18.8 switched to meson build, which changed include file path
 Patch5: audacity-3.1.3-lv2-meson-switch.patch
-
-# Fix build with GCC 13 (#2171444)
-Patch6: gcc13.patch
 
 BuildRequires: cmake
 BuildRequires: gettext-devel
@@ -60,7 +48,7 @@ BuildRequires: jack-audio-connection-kit-devel
 BuildRequires: ladspa-devel
 BuildRequires: lame-devel
 BuildRequires: libid3tag-devel
-BuildRequires: libmad-devel
+BuildRequires: libmpg123-devel
 BuildRequires: taglib-devel
 %if 0%{?rhel} && 0%{?rhel} == 8
 #note: epel-8 currently doesn't have twolame-devel.
@@ -77,6 +65,7 @@ BuildRequires: soundtouch-devel
 BuildRequires: soxr-devel
 BuildRequires: sqlite-devel >= 3.32
 BuildRequires: vamp-plugin-sdk-devel >= 2.0
+BuildRequires: wavpack-devel
 BuildRequires: zip
 BuildRequires: zlib-devel
 BuildRequires: python3
@@ -93,7 +82,7 @@ BuildRequires: libappstream-glib
 
 %if %{with ffmpeg}
 %if ! %{with local_ffmpeg}
-BuildRequires: ffmpeg-devel
+BuildRequires: ffmpeg-free-devel
 %endif
 %endif
 
@@ -113,7 +102,8 @@ Requires:      portaudio%{?_isa} >= 19-16
 Requires:      xorg-x11-server-Xwayland
 %endif
 
-ExcludeArch: s390x
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86} s390x
 
 %description
 Audacity is a cross-platform multitrack audio editor. It allows you to
@@ -126,7 +116,11 @@ supports PulseAudio, OSS and ALSA under Linux.
 Summary: Manual for Audacity - Offline Install
 BuildArch: noarch
 # -manual suits either audacity or audacity-freeworld; both create the path:
+%if 0%{?fedora} || 0%{?rhel} >= 9
+Requires: (audacity or audacity-freeworld)
+%else
 Requires: /usr/bin/audacity
+%endif
 
 %description manual
 Audacity Manual can be installed locally if preferred, or accessed on-line
@@ -135,17 +129,13 @@ For the most up to date manual content, use the on-line manual.
 
 
 %prep
-%setup -q -n Audacity-%{version}-Source
+%setup -q -n %{name}-sources-%{version}
 
-%patch0 -p0
-%patch1 -p0
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -P 0 -p0
+%patch -P 2 -p1
 %if 0%{?fedora} >= 37
-%patch5 -p1
+%patch -P 5 -p1
 %endif
-%patch -P6 -p1
 
 # fix building translations with gettext-0.22 (#2225711), fixed in 3.4
 sed -i -e 's|%hs|%s|g' locale/*.po
@@ -167,6 +157,7 @@ export WX_CONFIG=wx-config-3.0
     -Daudacity_has_crashreports=Off \
     -Daudacity_has_updates_check=Off \
     -Daudacity_has_sentry_reporting=Off \
+    -Daudacity_has_vst3=Off \
     -Daudacity_lib_preference=system \
     -Daudacity_obey_system_dependencies=On \
     -Daudacity_use_wxwidgets=system \
@@ -200,6 +191,7 @@ export WX_CONFIG=wx-config-3.0
 %endif
     -Daudacity_use_portsmf=local \
     -Daudacity_use_sbsms=local \
+    -Daudacity_use_wavpack=system \
 
 %cmake_build
 
@@ -272,7 +264,7 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_bindir}/%{name}
 %{_libdir}/%{name}
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/EQDefaultCurves.xml
+%{_datadir}/%{name}/EffectsMenuDefaults.xml
 %{_datadir}/%{name}/nyquist/
 %{_datadir}/%{name}/plug-ins/
 %exclude %{_datadir}/%{name}/help
@@ -293,6 +285,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 
 
 %changelog
+* Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.3-1
+- Update to 3.3.3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -17,7 +17,7 @@
 
 %global maj_ver 17
 %global min_ver 0
-%global patch_ver 3
+%global patch_ver 4
 #global rc_ver 4
 
 %if %{with snapshot_build}
@@ -217,6 +217,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Wed Nov 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.4-1
+- Update to LLVM 17.0.4
+
 %{?llvm_snapshot_changelog_entry}
 
 * Wed Oct 18 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.3-1

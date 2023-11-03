@@ -3,7 +3,7 @@
 
 Name:           gammu
 Version:        1.42.0
-Release:        10%{?dist}
+Release:        12%{?dist}
 Summary:        Command Line utility to work with mobile phones
 
 License:        GPLv2+
@@ -32,9 +32,14 @@ BuildRequires:  libpq-devel
 BuildRequires:  mariadb-connector-c-devel
 %endif
 
-BuildRequires:  libdbi-devel unixODBC-devel
+%if 0%{?fedora}
+BuildRequires:  libdbi-devel
+%endif
+BuildRequires:  unixODBC-devel
 #for tests
+%if 0%{?fedora}
 BuildRequires:  libdbi-dbd-sqlite
+%endif
 BuildRequires:  libcurl-devel
 BuildRequires:  glib2-devel
 BuildREquires:  libgudev1-devel
@@ -46,7 +51,9 @@ BuildRequires: systemd-rpm-macros
 Requires:       bluez
 Requires:       dialog
 # drive sqlite is in use by default
+%if 0%{?fedora}
 Requires:       libdbi-dbd-sqlite
+%endif
 # we should force the exact EVR for an ISA - not only the same ABI
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -89,8 +96,8 @@ developing applications that use %{name}
 
 %prep
 %setup -q
-%patch0 -p1 -b .udev
-%patch1 -p1
+%patch -P0 -p1 -b .udev
+%patch -P1 -p1
 
 %build
 %cmake3                  \
@@ -174,6 +181,12 @@ install -pm 0644 docs/config/smsdrc %{buildroot}%{_sysconfdir}/gammu-smsdrc
 
 
 %changelog
+* Wed Nov 01 2023 Sérgio Basto <sergio@serjux.com> - 1.42.0-12
+- Fix one missing rpm spec condition for EPEL 9
+
+* Wed Nov 01 2023 Sérgio Basto <sergio@serjux.com> - 1.42.0-11
+- EPEL 9 don't have LibDBI
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

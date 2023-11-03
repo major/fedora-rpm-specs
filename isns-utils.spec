@@ -3,7 +3,7 @@ Version:        0.101
 Release:        7%{?dist}
 Summary:        The iSNS daemon and utility programs
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/open-iscsi/open-isns
 Source0:        https://github.com/open-iscsi/open-isns/archive/v%{version}.tar.gz#/open-isns-%{version}.tar.gz
 Source1:        isnsd.service

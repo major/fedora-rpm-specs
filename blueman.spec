@@ -1,10 +1,10 @@
 Name:		blueman
 Summary:	GTK+ Bluetooth Manager
-License:	GPLv2+
+License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	2.3.5
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -31,6 +31,14 @@ Patch2: 0002-fix-activation-crash.patch
 #
 # RHBZ: https://bugzilla.redhat.com/show_bug.cgi?id=2217189
 Patch3: 0003-fix-error-on-missing-icon.patch
+
+# Fix blueman sending out duplicate notifications when it could not
+# change the icon of an already-existing notification.
+# Backport from upstream:
+# https://patch-diff.githubusercontent.com/raw/blueman-project/blueman/pull/2175.patch
+#
+# RHBZ: https://bugzilla.redhat.com/show_bug.cgi?id=2193294
+Patch4: 0004-fix-generating-too-many-notifications.patch
 
 # The value for each of these should be either "yes" or "no"
 %global enable_caja_sendto	yes
@@ -245,6 +253,11 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Wed Nov 01 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.5-8
+- Backport upstream fix for sending out too many notifications (rhbz#2193294)
+- Fix broken patch for possible crash at startup (rhbz#2246819)
+- Migrate license tag to SPDX
+
 * Mon Sep 11 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.5-7
 - Backport upstream fix for possible crash at startup (rhbz#2173854)
 - Backport upstream fix for crash on missing icon (rhbz#2217189)

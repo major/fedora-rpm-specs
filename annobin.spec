@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.29
+Version: 12.30
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later 
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Nov 01 2023 Nick Clifron  <nickc@redhat.com> - 12.30-1
+- Fix another atexit test failure.  (#2247481)
+
 * Mon Oct 30 2023 Nick Clifron  <nickc@redhat.com> - 12.29-1
 - Fix atexit test failure.
 - Notes: Add support for string format notes.

@@ -1,6 +1,6 @@
 %global with_snapshot 1
-%global gitdate 20230918
-%global commit 004a54fb0b05fc5eb7815e3e3408445990b0cbaf
+%global gitdate 20231022
+%global commit c5bb9dcaad302eff4fe17855c147f640bdb76ba9
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 
 Name:			input-leap

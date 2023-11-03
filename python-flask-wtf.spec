@@ -1,7 +1,7 @@
 %global mod_name flask_wtf
 
 Name:           python-flask-wtf
-Version:        1.1.2
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        Simple integration of Flask and WTForms
 
@@ -53,6 +53,9 @@ includes optional CSRF handling for greater security.
 
 
 %changelog
+* Wed Nov 01 2023 Sandro Mani <manisandro@gmail.com> - 1.2.1-1
+- Update to 1.2.1
+
 * Sat Sep 30 2023 Sandro Mani <manisandro@gmail.com> - 1.1.2-1
 - Update to 1.1.2
 

@@ -1,16 +1,16 @@
+%global mfx_ver_major 2
+%global mfx_ver_minor 9
+
 Name:           oneVPL-intel-gpu
-Version:        23.3.4
-Release:        2%{?dist}
+Version:        23.4.0
+Release:        1%{?dist}
 Summary:        Intel oneVPL GPU Runtime
+
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
-ExclusiveArch:  x86_64
-
 Source0:        https://github.com/oneapi-src/%{name}/archive/refs/tags/intel-onevpl-%{version}.tar.gz
-Patch0:         %{name}-fix-build.patch
 
-# Every other component has the 2022.x.x format:
-Requires:       oneVPL%{?_isa}
+ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -19,6 +19,8 @@ BuildRequires:  pkgconfig(libdrm) >= 2.4
 # Should be >= 1.9 but fails with libva < 2.12 (VAProcFilterCap3DLUT):
 # https://github.com/oneapi-src/oneVPL-intel-gpu/issues/198
 BuildRequires:  pkgconfig(libva) >= 1.12
+# Every other component has the 2022.x.x format:
+Requires:       oneVPL%{?_isa}
 
 %description
 Intel oneVPL GPU Runtime is a Runtime implementation of oneVPL API for Intel Gen
@@ -37,23 +39,17 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{name}-intel-onevpl-%{version}
 
 %build
-export VPL_BUILD_DEPENDENCIES="%{_prefix}"
-%cmake \
-    -DBUILD_TESTS:BOOL='OFF' \
-    -DCMAKE_BUILD_TYPE:STRING="Fedora"
+%cmake
 %cmake_build
 
 %install
 %cmake_install
 
-# Let RPM pick up documents in the files section
-rm -fr %{buildroot}%{_docdir}
-
 %files
 %license LICENSE
 %doc README.md CONTRIBUTING.md
-%{_libdir}/libmfx-gen.so.1.2
-%{_libdir}/libmfx-gen.so.1.2.9
+%{_libdir}/libmfx-gen.so.1.%{mfx_ver_major}
+%{_libdir}/libmfx-gen.so.1.%{mfx_ver_major}.%{mfx_ver_minor}
 %dir %{_libdir}/libmfx-gen
 %{_libdir}/libmfx-gen/enctools.so
 
@@ -62,6 +58,9 @@ rm -fr %{buildroot}%{_docdir}
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Wed Nov 01 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 23.4.0-1
+- Update to 23.4.0 (RHBZ #2246790)
+
 * Tue Oct 03 2023 Simone Caronni <negativo17@gmail.com> - 23.3.4-2
 - Clean up SPEC file.
 

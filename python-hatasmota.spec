@@ -1,7 +1,7 @@
 %global pypi_name hatasmota
 
 Name:           python-%{pypi_name}
-Version:        0.6.1
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Python module to help parse and construct Tasmota MQTT messages
 
@@ -41,4 +41,3 @@ rm -rf %{pypi_name}.egg-info
 
 %changelog
 %autochangelog
-
