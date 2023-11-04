@@ -1,11 +1,11 @@
 %global srcname obs-webkitgtk
-%global commit a2bc4754ab25f1e4dd38eeb28343763dba5a2161
+%global commit 3c0978b399512440afdd4dccf744f2ffa0821317
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20230910
+%global commitdate 20231023
 
 Name:           obs-studio-plugin-webkitgtk
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        OBS Browser source plugin based on WebKitGTK
 
 License:        GPL-2.0-or-later
@@ -59,6 +59,9 @@ sed -e 's/webkit2gtk-4.1/webkit2gtk-4.0/g' -i meson.build
 
 
 %changelog
+* Thu Nov 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 0~git20231023.3c0978b-1
+- Update to new git snapshot
+
 * Sat Sep 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 0~git20230910.a2bc475-2
 - Use webkit2gtk-4.0 API module for older RHEL
 

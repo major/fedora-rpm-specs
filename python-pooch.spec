@@ -7,7 +7,7 @@ Version:        1.5.2
 Release:        %autorelease
 Summary:        A friend to fetch your data files
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.org/project/pooch/
 Source0:        %{pypi_source pooch}
 

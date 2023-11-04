@@ -7,14 +7,12 @@
 %global		pname		idstools
 
 Name:		python-%{pname}
-Version:	0.6.4
-Release:	11%{?dist}
+Version:	0.6.5
+Release:	1%{?dist}
 Summary:	Snort and Suricata Rule and Event Utilities
 License:	BSD
 URL:		https://github.com/jasonish/py-idstools
 Source0:	https://github.com/jasonish/py-idstools/archive/%{version}.tar.gz#/%{upstream_name}-%{version}.tar.gz
-# https://github.com/jasonish/py-idstools/issues/89
-Patch0:		89.patch
 BuildArch:	noarch
 
 %global desc_base \
@@ -47,7 +45,6 @@ Requires:	python%{python3_pkgversion}-dateutil
 %prep
 %setup -q -n %{upstream_name}-%{version}
 pushd tests
-%patch0 -p1
 popd
 # remove bundled libraries
 %{__rm} -rf idstools/compat
@@ -84,6 +81,9 @@ popd
 %doc README.rst
 
 %changelog
+* Thu Nov 02 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 0.6.5-1
+- New upstream release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

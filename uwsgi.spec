@@ -1,5 +1,5 @@
 # Documentation sources:
-%global commit 9c89fef106799ddd6f5b383936853afecd2c0cce
+%global commit 3be14d357b7b73a82311db034de034f8c09035e8
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
@@ -201,8 +201,8 @@
 %endif
 
 Name:           uwsgi
-Version:        2.0.22
-Release:        7%{?dist}
+Version:        2.0.23
+Release:        1%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -230,11 +230,6 @@ Patch7:         uwsgi_fix_mono.patch
 # https://github.com/unbit/uwsgi/issues/2283
 Patch12:        uwsgi_fix_php8.patch
 Patch13:        uwsgi_fix_chroot_chdir.patch
-# https://github.com/unbit/uwsgi/pull/2559
-Patch14:        uwsgi_fix_php83.patch
-# https://github.com/unbit/uwsgi/issues/2552
-Patch20:        uwsgi_fix_jvm_missing_path.patch
-Patch21:        uwsgi_python312.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1258,9 +1253,6 @@ cp -p %{SOURCE5} README.Fedora
 %endif
 %patch -P12 -p1
 %patch -P13 -p1
-%patch -P14 -p1
-%patch -P20 -p1
-%patch -P21 -p1
 
 %build
 CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable -fPIC" %{__python} uwsgiconfig.py --verbose --build fedora.ini
@@ -1851,6 +1843,9 @@ exit 0
 
 
 %changelog
+* Thu Nov 02 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.23-1
+- Update to 2.0.23, drop merged patches
+
 * Sat Oct 21 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.22-7
 - Drop 2to3 call, it doesn't do anything anymore
 

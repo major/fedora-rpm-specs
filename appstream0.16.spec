@@ -1,21 +1,15 @@
-%global basever 1.0.0
-%global commit d88ed03cb5b3b1803bdee3528c9b99d528ceb065
-%global commitdate 20231102
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Summary: Utilities to generate, maintain and access the AppStream database
-Name:    appstream
-Version: %{basever}%{?commitdate:~git%{commitdate}.%{shortcommit}}
-Release: 1%{?dist}
+Name:    appstream0.16
+Version: 0.16.1
+Release: 5%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:     http://www.freedesktop.org/wiki/Distributions/AppStream
 URL:     https://github.com/ximion/appstream
-Source0: %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
-%dnl Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
+Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
 
-## upstream patches (lookaside cache)
+## upstream patches
 
 ## upstreamable patches
 
@@ -32,7 +26,6 @@ BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(fontconfig)
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
-BuildRequires: pkgconfig(gi-docgen) >= 2021.1
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(libcurl)
@@ -40,16 +33,17 @@ BuildRequires: pkgconfig(librsvg-2.0)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(pango)
-BuildRequires: pkgconfig(Qt6Core) >= 6.2.4
-BuildRequires: pkgconfig(xmlb) >= 0.3.14
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(xmlb)
 BuildRequires: pkgconfig(yaml-0.1)
 # lrelease
-BuildRequires: qt6-linguist
+BuildRequires: qt5-linguist
 BuildRequires: sed
 BuildRequires: vala
 BuildRequires: xmlto
 
-Requires: appstream-data
+# for the file triggers
+Requires: /usr/bin/appstreamcli
 
 %description
 AppStream makes it easy to access application information from the
@@ -58,9 +52,7 @@ AppStream database over a nice GObject-based interface.
 %package devel
 Summary:  Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-# -vala subpackage removed in F30
-Obsoletes: appstream-vala < 0.12.4-3
-Provides: appstream-vala = %{version}-%{release}
+Conflicts: appstream-devel
 %description devel
 %{summary}.
 
@@ -74,11 +66,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Summary:  Development files for %{name}-compose library
 Requires: %{name}-compose%{?_isa} = %{version}-%{release}
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
+Conflicts: appstream-compose-devel
 %description compose-devel
 %{summary}.
 
 %package qt
-Summary: Qt6 bindings for %{name}
+Summary: Qt5 bindings for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description qt
 %{summary}.
@@ -86,21 +79,21 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %package qt-devel
 Summary:  Development files for %{name}-qt bindings
 Requires: %{name}-qt%{?_isa} = %{version}-%{release}
-Requires: pkgconfig(Qt6Core) >= 6.2.4
+Requires: pkgconfig(Qt5Core)
+Conflicts: appstream-qt-devel
 %description qt-devel
 %{summary}.
 
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
-%dnl %autosetup -n AppStream-%{version} -p1
+%autosetup -n AppStream-%{version} -p1
 
 
 %build
 %{meson} \
  -Dcompose=true \
  -Dqt=true \
- -Dvapi=true
+ -Dvapi=false
 
 %{meson_build}
 
@@ -108,8 +101,8 @@ Requires: pkgconfig(Qt6Core) >= 6.2.4
 %install
 %{meson_install}
 
-mkdir -p %{buildroot}/var/cache/swcatalog/{icons,gv,xml}
-touch %{buildroot}/var/cache/swcatalog/cache.watch
+mkdir -p %{buildroot}/var/cache/app-info/{icons,gv,xmls}
+touch %{buildroot}/var/cache/app-info/cache.watch
 
 %find_lang appstream
 
@@ -120,77 +113,48 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
    %{buildroot}%{_metainfodir}
 %endif
 
+rm -rf %{buildroot}{%{_bindir},%{_libexecdir},%{_metainfodir},%{_mandir},%{_datadir},%{_sysconfdir},/var}
+
 
 %check
 %{meson_test} ||:
 
 
 %posttrans
-%{_bindir}/appstreamcli refresh --force >& /dev/null ||:
+appstreamcli refresh --force >& /dev/null ||:
 
-%dnl %{_datadir}/app-info/xmls will get dropped before 1.0 final
-%transfiletriggerin -- %{_datadir}/swcatalog/xml %{_datadir}/app-info/xmls
-%{_bindir}/appstreamcli refresh --force >& /dev/null ||:
+%transfiletriggerin -- %{_datadir}/app-info/xmls %{_datadir}/swcatalog/xml
+appstreamcli refresh --force >& /dev/null ||:
 
-%transfiletriggerpostun -- %{_datadir}/swcatalog/xml %{_datadir}/app-info/xmls
-%{_bindir}/appstreamcli refresh --force >& /dev/null ||:
+%transfiletriggerpostun -- %{_datadir}/app-info/xmls %{_datadir}/swcatalog/xml
+appstreamcli refresh --force >& /dev/null ||:
 
-%files -f appstream.lang
+%files
 %doc AUTHORS
 %license COPYING
-%{_bindir}/appstreamcli
-%{_mandir}/man1/appstreamcli.1*
-%{_datadir}/appstream/
 %dir %{_libdir}/girepository-1.0/
 %{_libdir}/girepository-1.0/AppStream-1.0.typelib
-%{_libdir}/libappstream.so.5
-%{_libdir}/libappstream.so.%{basever}
-%{_metainfodir}/org.freedesktop.appstream.cli.*.xml
-# put in -devel? -- rex
-%{_datadir}/gettext/its/metainfo.*
-%ghost /var/cache/swcatalog/cache.watch
-%dir /var/cache/swcatalog/
-%dir /var/cache/swcatalog/icons/
-%dir /var/cache/swcatalog/gv/
-%dir /var/cache/swcatalog/xml/
+%{_libdir}/libappstream.so.4
+%{_libdir}/libappstream.so.%{version}
 
 %files devel
 %{_includedir}/appstream/
 %{_libdir}/libappstream.so
 %{_libdir}/pkgconfig/appstream.pc
-%dir %{_datadir}/gir-1.0/
-%{_datadir}/gir-1.0/AppStream-1.0.gir
-%dir %{_datadir}/vala
-%dir %{_datadir}/vala/vapi
-%{_datadir}/vala/vapi/appstream.deps
-%{_datadir}/vala/vapi/appstream.vapi
-%{_docdir}/appstream/html/
-## symlink pointing to ^^, but need to take care, since rpm has
-## trouble replacing dirs with symlinks, omit it for now -- rex
-%exclude %{_datadir}/gtk-doc/html/appstream
-# Maybe this should be split out? -- ngompa
-%{_datadir}/installed-tests/appstream/metainfo-validate.test
 
 %files compose
-%{_libexecdir}/appstreamcli-compose
-%{_mandir}/man1/appstreamcli-compose.1*
 %{_libdir}/libappstream-compose.so.0
-%{_libdir}/libappstream-compose.so.%{basever}
+%{_libdir}/libappstream-compose.so.%{version}
 %{_libdir}/girepository-1.0/AppStreamCompose-1.0.typelib
-%{_metainfodir}/org.freedesktop.appstream.compose.metainfo.xml
 
 %files compose-devel
 %{_includedir}/appstream-compose/
 %{_libdir}/libappstream-compose.so
 %{_libdir}/pkgconfig/appstream-compose.pc
-%{_datadir}/gir-1.0/AppStreamCompose-1.0.gir
-%dir %{_datadir}/gtk-doc/
-%dir %{_datadir}/gtk-doc/html/
-%{_datadir}/gtk-doc/html/appstream-compose
 
 %files qt
-%{_libdir}/libAppStreamQt.so.3
-%{_libdir}/libAppStreamQt.so.%{basever}
+%{_libdir}/libAppStreamQt.so.2*
+%{_libdir}/libAppStreamQt.so.%{version}
 
 %files qt-devel
 %{_includedir}/AppStreamQt/
@@ -199,8 +163,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
-* Thu Nov 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.0.0~git20231102.d88ed03-1
-- Rebase to 1.0.0 git snapshot
+* Thu Nov 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.16.1-5
+- Split out as a compatibility package
+- Drop everything potentially conflicting with the main package
 
 * Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 0.16.1-4
 - Migrate to SPDX license expression

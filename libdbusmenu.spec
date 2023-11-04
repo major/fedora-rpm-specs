@@ -16,7 +16,7 @@
 
 Name:       libdbusmenu
 Version:    %{ubuntu_release}.0
-Release:    23%{?dist}
+Release:    24%{?dist}
 Summary:    Library for passing menus over DBus
 
 # All files installed in final rpms use C sources with dual licensing headers.
@@ -45,7 +45,9 @@ BuildRequires:  pkgconfig(gio-2.0) >= 2.35.4
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.24
 BuildRequires:  pkgconfig(glib-2.0) >= 2.35.4
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 0.10
+%if %{with gtk2}
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.16
+%endif
 BuildRequires:  pkgconfig(gtk+-3.0) >= 2.91
 BuildRequires:  pkgconfig(json-glib-1.0) >= 0.13.4
 BuildRequires:  pkgconfig(x11) >= 1.3
@@ -282,6 +284,9 @@ done
 %{_datadir}/%{name}/json/test-gtk-label.json
 
 %changelog
+* Thu Nov 02 2023 Tomas Popela <tpopela@redhat.com> - 16.04.0-24
+- Build require GTK+ 2 conditionally (follow up fix for previous change)
+
 * Tue Oct 10 2023 Takao Fujiwara <fujiwara@redhat.com> - 16.04.0-23
 - Delete GTK2 sub packages for RHEL
 

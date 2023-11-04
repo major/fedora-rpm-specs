@@ -4,12 +4,15 @@
 
 Name:           libproxy
 Version:        0.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 License:        LGPL-2.1-or-later
 URL:            https://libproxy.github.io/libproxy/
 Source0:        https://github.com/libproxy/%{name}/archive/refs/tags/%{version}.tar.gz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2247508
+# https://github.com/libproxy/libproxy/pull/259
+Patch0:         libproxy-0.5.3-library-version-symlink.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -121,6 +124,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Nov 02 2023 David King <amigadave@amigadave.com> - 0.5.3-3
+- Install a versioned library symlink (#2247508)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %global epoch_version 1
 %global real_version 1.44.2
 %global rpm_version %{real_version}
-%global release_version 1
+%global release_version 2
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
@@ -478,7 +478,7 @@ This package contains NetworkManager support for PPP.
 Summary: Libraries for adding NetworkManager support to applications.
 Group: Development/Libraries
 Conflicts: NetworkManager-glib < 1:1.31.0
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description libnm
 This package contains the libraries that make it easier to use some
@@ -491,7 +491,7 @@ Group: Development/Libraries
 Requires: %{name}-libnm%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: glib2-devel
 Requires: pkgconfig
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description libnm-devel
 This package contains the header and pkg-config files for development
@@ -1262,6 +1262,9 @@ fi
 
 
 %changelog
+* Thu Nov  2 2023 Íñigo Huguet <ihuguet@redhat.com> - 1:1.44.2-2
+- migrated to SPDX license
+
 * Tue Oct  3 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.44.2-1
 - Update to 1.44.2 release
 

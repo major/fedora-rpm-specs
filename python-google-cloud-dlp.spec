@@ -1,18 +1,16 @@
 %bcond_without  tests
 
 %global         srcname     google-cloud-dlp
-%global         forgeurl    https://github.com/googleapis/python-dlp
-Version:        3.12.3
-%global         tag         v%{version}
-%forgemeta
+%global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
+Version:        3.13.0
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Data Loss Prevention API
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/google-cloud-python
+Source0:        %{url}/archive/refs/tags/%{srcname}-v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -38,7 +36,10 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=3 \
+    %{reponame}-%{srcname}-v%{version}/packages/%{srcname}
 
 # Allow a slightly older protobuf.
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
@@ -76,7 +77,7 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md UPGRADING.md samples
+%doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md samples
 %{python3_sitelib}/google_cloud_dlp-%{version}-py%{python3_version}-nspkg.pth
 
 

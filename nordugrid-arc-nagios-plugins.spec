@@ -9,27 +9,25 @@
 %global pkg_sysconfdir %{_sysconfdir}/arc/nagios
 
 Name:		nordugrid-arc-nagios-plugins
-Version:	2.0.0
-Release:	13%{?dist}
+Version:	2.0.1~rc1
+Release:	1%{?dist}
 Summary:	Nagios plugins for ARC
 
-License:	ASL 2.0
-URL:		http://www.nordugrid.org
-Source0:	https://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
-%if %{?rhel}%{!?rhel:0} != 7
-#		Don't add dependency on EPEL 7 since it can use either
-#		nordugrid-arc-client or nordugrid-arc6-client
+License:	Apache-2.0
+URL:		https://www.nordugrid.org
+Source0:	https://download.nordugrid.org/packages/%{name}/testing/2.0.1rc1/src/%{name}-2.0.1rc1.tar.gz
+
+%if %{?fedora}%{!?fedora:0}
+#		Don't add dependency on EPEL since it can use either
+#		nordugrid-arc-client or nordugrid-arcN-client
 Requires:	nordugrid-arc-client >= 1.0.0
 %endif
-%if %{?rhel}%{!?rhel:0} != 6
-#		Not available in EPEL 6
 Requires:	python%{python3_pkgversion}-cryptography
-%endif
 Requires:	python%{python3_pkgversion}-jinja2
 Requires:	python%{python3_pkgversion}-ldap3
-Requires:	nagios-plugins
+Requires:	nagios-common
 Requires:	glue-schema >= 2.0.8
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-setuptools
 %if %{enable_doc}
@@ -52,17 +50,12 @@ HTML documentation for the ARC Nagios plugins.
 Summary:	EGI configuration and dependencies for the ARC Nagios plugins
 BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
-%if %{?rhel}%{!?rhel:0} != 7
-#		Don't add dependency on EPEL 7 since it can use either
-#		nordugrid-arc-plugins-globus or nordugrid-arc6-plugins-globus
-Requires:	nordugrid-arc-plugins-globus >= 1.0.0
-%endif
 
 %description egi
 EGI configuration and dependencies for the ARC Nagios plugins.
 
 %prep
-%setup -q
+%setup -q -n %{name}-2.0.1rc1
 
 %build
 %py3_build
@@ -109,6 +102,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py*
 
 %changelog
+* Wed Nov 01 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.0.1~rc1-1
+- Version 2.0.1 rc1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

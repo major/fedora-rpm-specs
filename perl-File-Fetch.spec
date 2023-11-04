@@ -103,8 +103,8 @@ make test
 
 %files
 %doc CHANGES README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/File*
+%{_mandir}/man3/File::Fetch*
 
 %files tests
 %{_libexecdir}/%{name}

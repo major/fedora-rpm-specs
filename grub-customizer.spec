@@ -1,6 +1,6 @@
 Name:           grub-customizer
-Version:        5.2.3
-Release:        2%{?dist}
+Version:        5.2.4
+Release:        1%{?dist}
 Summary:        Graphical GRUB2 settings manager
 
 License:        GPL-3.0-or-later
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Nov 02 2023 Vasiliy N. Glazov <vascom2@gmail.com> 5.2.4-1
+- Update to 5.2.4
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

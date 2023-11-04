@@ -1,12 +1,16 @@
 Name:           eccodes
-Version:        2.31.0
+Version:        2.32.1
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
 %global so_version       0.1
 %global so_version_f90   0.1
-%global datapack_date    20220526
+
+# note that the test_data package provided on the ECMWF version
+# is unversioned, so use the download date to discriminate
+# between different versions.
+%global datapack_date    20231101
 
 # latest fedora-38/rawhide grib_api version is 1.27.0-18
 # but this version number is to be updated as soon as we know
@@ -351,6 +355,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Thu Nov 02 2023 Jos de Kloe <josdekloe@gmail.com> - 2.32.1-1
+- Upgrade to upstream version 2.32.1 and add updated test_data package
+
 * Thu Jul 27 2023 Jos de Kloe <josdekloe@gmail.com> - 2.31.0-1
 - Upgrade to upstream version 2.31.0
 

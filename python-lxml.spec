@@ -1,6 +1,6 @@
 Name:           python-lxml
 Version:        4.9.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
@@ -75,12 +75,12 @@ Python 3 version.
 
 %generate_buildrequires
 %pyproject_buildrequires -x source%{?with_extras:,cssselect,html5,htmlsoup}
+
+%build
 # Remove pregenerated Cython C sources
 # We need to do this after %%pyproject_buildrequires because setup.py errors
 # without Cython and without the .c files.
 find -type f -name '*.c' -print -delete >&2
-
-%build
 export WITH_CYTHON=true
 %pyproject_wheel
 
@@ -100,6 +100,9 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Mon Oct 30 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9.3-3
+- Fix build with a future mock version
+
 * Fri Jul 28 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9.3-2
 - Fix build with Cython 3
 

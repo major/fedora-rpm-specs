@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.8.2
-Release: 2%{?dist}
+Version: 3.8.3
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -114,9 +114,6 @@ Patch13: pflogsumm-1.1.5-syslog-name-underscore-fix.patch
 
 # Determine the different packages required for building postfix
 BuildRequires: make
-%if %{with db}
-BuildRequires: libdb-devel
-%endif
 BuildRequires: perl-generators
 BuildRequires: pkgconfig
 BuildRequires: zlib-devel
@@ -131,6 +128,7 @@ BuildRequires: sed
 BuildRequires: libnsl2-devel
 %endif
 
+%{?with_db:BuildRequires: libdb-devel}
 %{?with_ldap:BuildRequires: openldap-devel}
 %{?with_lmdb:BuildRequires: lmdb-devel}
 %{?with_sasl:BuildRequires: cyrus-sasl-devel}
@@ -838,6 +836,10 @@ fi
 %endif
 
 %changelog
+* Thu Nov  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.3-1
+- New version
+  Resolves: rhbz#2247553
+
 * Mon Oct  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.2-2
 - Drop libdb for RHEL>9
   Related: rhbz#1788480

@@ -25,8 +25,8 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.51.4
-Release:       2%{?dist}
+Version:       1.51.5
+Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -405,6 +405,9 @@ end
 
 
 %changelog
+* Thu Nov 02 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.5-1
+- New development version 1.51.5
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.4-2
 - OCaml 5.1 rebuild for Fedora 40
 

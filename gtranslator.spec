@@ -1,37 +1,31 @@
-%define isocodes_version 0.35
-
 Name:		gtranslator
-Version:	42.0
-Release:	3%{?dist}
+Version:	45.3
+Release:	1%{?dist}
 Summary:	Gettext po file editor for GNOME
 
 License:	GPLv2+ and GPLv3+
 URL:		https://wiki.gnome.org/Apps/Gtranslator
-Source0:	https://download.gnome.org/sources/%{name}/42/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/45/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
-BuildRequires:	git-core
-BuildRequires:	glib2-devel
-BuildRequires:	gobject-introspection-devel
-BuildRequires:	gsettings-desktop-schemas-devel
-BuildRequires:	gspell-devel
-BuildRequires:	gtk3-devel
-BuildRequires:	gtk-doc
-BuildRequires:	gtksourceview4-devel
-BuildRequires:	iso-codes-devel >= %{isocodes_version}
 BuildRequires:	itstool
-BuildRequires:	json-glib-devel
-BuildRequires:	libdazzle-devel
-BuildRequires:	libgda-devel
-BuildRequires:	libhandy-devel
-BuildRequires:	libsoup3-devel
-BuildRequires:	libxml2-devel
 BuildRequires:	meson
+BuildRequires:	pkgconfig(gio-2.0)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gsettings-desktop-schemas)
+BuildRequires:	pkgconfig(gthread-2.0)
+BuildRequires:	pkgconfig(gtk4)
+BuildRequires:	pkgconfig(gtksourceview-5)
+BuildRequires:	pkgconfig(json-glib-1.0)
+BuildRequires:	pkgconfig(libadwaita-1)
+BuildRequires:	pkgconfig(libgda-6.0)
+BuildRequires:	pkgconfig(libsoup-3.0)
+BuildRequires:	pkgconfig(libspelling-1)
+BuildRequires:	pkgconfig(libxml-2.0)
 
 Requires:	hicolor-icon-theme
 Requires:	gsettings-desktop-schemas
-Requires:	iso-codes >= %{isocodes_version}
 Requires:	libgda-sqlite%{?_isa}
 
 %description
@@ -44,7 +38,7 @@ replace functions, auto translation, and translation learning,
 %autosetup -p1
 
 %build
-%meson -Dgtk_doc=true
+%meson
 %meson_build
 
 %install
@@ -62,15 +56,16 @@ rm $RPM_BUILD_ROOT%{_includedir}/gtr-marshal.h
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Gtranslator*.svg
 %{_datadir}/glib-2.0/schemas/org.gnome.Gtranslator.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gtranslator.plugins.translation-memory.gschema.xml
-%dir %{_datadir}/gtk-doc
-%dir %{_datadir}/gtk-doc/html
-%{_datadir}/gtk-doc/html/gtranslator
-%{_datadir}/gtksourceview-4/language-specs/gtranslator.lang
+%{_datadir}/gtksourceview-5/language-specs/gtranslator.lang
 %{_datadir}/gtranslator/
 %{_datadir}/metainfo/org.gnome.Gtranslator.appdata.xml
 %{_mandir}/man1/*
 
 %changelog
+* Thu Nov 02 2023 Kalev Lember <klember@redhat.com> - 45.3-1
+- Update to 45.3
+- Switch to pkgconfig buildrequires
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

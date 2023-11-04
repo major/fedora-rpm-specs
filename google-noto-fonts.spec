@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20230801
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -1232,6 +1232,11 @@ done
 
 
 %changelog
+* Thu Nov  2 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-4
+- Add binding="same" for Noto Sans Symbols to prevent lower priority than
+  urw-base35-standard-symbols-ps-fonts even though priority number in fontconfig is higher than it.
+  Resolves: rhbz#2088665
+
 * Thu Aug 31 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-3
 - Add Noto Sans Sinhala as monospace for a workaround that
   Noto Serif Sinhala is picked up for monospace.

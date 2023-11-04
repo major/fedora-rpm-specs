@@ -1,11 +1,11 @@
 %global use_x11_tests 1
 
 Name:       perl-Data-TreeDumper-Renderer-GTK
-Version:    0.02
-Release:    46%{?dist}
+Version:    0.03
+Release:    1%{?dist}
 # see GTK.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
-Summary:    Gtk2::TreeView renderer for Data::TreeDumper
+Summary:    Gtk3::TreeView renderer for Data::TreeDumper
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Data-TreeDumper-Renderer-GTK-%{version}.tar.gz
 Url:        https://metacpan.org/release/Data-TreeDumper-Renderer-GTK
 BuildArch:  noarch
@@ -23,8 +23,8 @@ BuildRequires: perl(Cairo)
 BuildRequires: perl(Data::TreeDumper) >= 0.33
 BuildRequires: perl(Exporter)
 BuildRequires: perl(Glib)
-BuildRequires: perl(Gtk2)
-BuildRequires: perl(Gtk2::TreeView)
+BuildRequires: perl(Gtk3)
+# perl(Gtk3::TreeView) is in perl-Gtk3, but not listed in provides
 BuildRequires: perl(strict)
 BuildRequires: perl(warnings)
 %if %{use_x11_tests}
@@ -36,7 +36,7 @@ BuildRequires:  font(:lang=en)
 %endif
 
 %{?perl_default_filter}
-%global __requires_exclude %{?__requires_exclude:__requires_exclude|}perl\\(Gtk2::TreeView\\)
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Gtk3::TreeView\\)
 
 %description
 GTK-perl renderer for Data::TreeDumper.
@@ -58,7 +58,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
-find %{buildroot} -type f -name '*.pl' -exec rm -v {} +
+find %{buildroot} -type f -name '*.pl' -delete
 
 %check
 %if %{use_x11_tests}
@@ -66,11 +66,15 @@ find %{buildroot} -type f -name '*.pl' -exec rm -v {} +
 %endif
 
 %files
-%doc README Changes gtk_test.pl
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%doc README gtk_test.pl
+%{perl_vendorlib}/Data*
+%{perl_vendorlib}/auto/Data*
+%{_mandir}/man3/Data::TreeDumper*.3*
 
 %changelog
+* Tue Oct 31 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-1
+- 0.03 bump (rhbz#2246640)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

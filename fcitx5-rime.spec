@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-rime
-Version:        5.1.2
+Version:        5.1.3
 Release:        %autorelease
 Summary:        RIME support for Fcitx
 License:        LGPLv2+
@@ -58,7 +58,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files -f %{name}.lang
 %license LICENSES/LGPL-2.1-or-later.txt
 %doc README.md 
-%{_libdir}/fcitx5/rime.so
+%{_libdir}/fcitx5/librime.so
 %{_datadir}/fcitx5/*/rime.conf
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/rime-data/fcitx5.yaml

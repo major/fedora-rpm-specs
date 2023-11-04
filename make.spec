@@ -5,7 +5,7 @@
 Name: make
 Epoch: 1
 Version: 4.4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.1-or-later AND GFDL-1.3-or-later AND FSFULLR
 URL: http://www.gnu.org/software/make/
 Source: ftp://ftp.gnu.org/gnu/make/make-%{version}.tar.gz
@@ -50,7 +50,7 @@ BuildRequires: autoconf, automake, gettext-devel
 BuildRequires: procps
 BuildRequires: perl
 %if %{with guile}
-BuildRequires: pkgconfig(guile-2.2)
+BuildRequires: pkgconfig(guile-3.0)
 %endif
 BuildRequires: gcc
 
@@ -134,6 +134,9 @@ echo ============END TESTING===========
 %{_includedir}/gnumake.h
 
 %changelog
+* Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:4.4.1-4
+- Use guile-3.0
+
 * Thu Jul 20 2023 DJ Delorie <dj@redhat.com> - 1:4.4.1-3
 - Migrate License field to SPDX identifiers for
   https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2

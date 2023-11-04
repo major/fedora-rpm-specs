@@ -11,7 +11,7 @@ Name: python-%{srcname}
 Version: 0.7.3
 Release: 3%{?dist}
 Summary: Pure Python netlink library
-License: GPLv2+
+License: GPL-2.0-or-later OR Apache-2.0
 URL: https://github.com/svinota/%{srcname}
 
 BuildArch: noarch

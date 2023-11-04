@@ -3,7 +3,7 @@
 %global build_qt6 1
 
 Name:           fcitx5-qt
-Version:        5.1.1
+Version:        5.1.2
 Release:        %autorelease
 Summary:        Qt library and IM module for fcitx5
 # Fcitx5Qt{4,5}DBusAddons Library and Input context plugin are released under BSD.
@@ -23,6 +23,11 @@ BuildRequires:  pkgconfig(Fcitx5Utils)
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui) 
+BuildRequires:  pkgconfig(Qt6WaylandClient)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-cursor) 
+BuildRequires:  pkgconfig(wayland-egl)
+BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  gettext
 BuildRequires:  qt5-qtbase-private-devel
 %if %{build_qt6}

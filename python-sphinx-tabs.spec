@@ -2,8 +2,8 @@
 %global python_module_name sphinx_tabs
 
 Name:           python-sphinx-tabs
-Version:        3.4.1
-Release:        8%{?dist}
+Version:        3.4.4
+Release:        1%{?dist}
 Summary:        Tabbed views for Sphinx
 # SPDX
 License:        MIT
@@ -11,7 +11,7 @@ URL:            https://github.com/executablebooks/sphinx-tabs
 Source0:        https://github.com/executablebooks/%{pypi_name}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 # Make the tests pass with Sphinx 7.1+
-Patch:          https://github.com/executablebooks/sphinx-tabs/pull/178.patch
+#Patch:          https://github.com/executablebooks/sphinx-tabs/pull/178.patch
 
 BuildArch:      noarch
 
@@ -82,6 +82,9 @@ PYTHONPATH=$(pwd) sphinx-build -b html docs html_docs
 
 
 %changelog
+* Mon Oct 30 2023 Richard Shaw <hobbes1069@gmail.com> - 3.4.4-1
+- Update to 3.4.4.
+
 * Wed Aug 16 2023 Karolina Surma <ksurma@redhat.com> - 3.4.1-8
 - Make tests pass with Sphinx 7.1+
 

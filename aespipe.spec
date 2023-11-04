@@ -1,13 +1,13 @@
-Summary:        AES-based encryption tool for tar/cpio and loop-aes imagemore 
+Summary:        AES-based encryption tool for tar/cpio and loop-aes imagemore
 Name:           aespipe
-Version:        2.4f
-Release:        3%{?dist}
-License:        GPLv2+
+Version:        2.4g
+Release:        1%{?dist}
+License:        GPL-2.0-or-later
 URL:            http://loop-aes.sourceforge.net/
-Source:         http://loop-aes.sourceforge.net/aespipe/aespipe-v%{version}.tar.bz2
+Source:         %{url}/aespipe/aespipe-v%{version}.tar.bz2
 BuildRequires:  gcc
 BuildRequires:  gpg
-BuildRequires: make
+BuildRequires:  make
 Requires:       gpg
 
 %description
@@ -23,12 +23,10 @@ existing disk partitions for use with the loop-AES encrypted loop-back
 kernel module.
 
 %prep
-%setup -q -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
-# Package calls CC to link, and violates strict-aliasing C rules
 %set_build_flags
-CFLAGS="$CFLAGS -fno-strict-aliasing"
 %configure LDFLAGS="${CFLAGS}"
 
 %global make_target %{nil}
@@ -54,16 +52,15 @@ install -Dp -m0755 aespipe %{buildroot}%{_bindir}/aespipe
 %files
 %dir %{_defaultdocdir}/%{name}
 %{_defaultdocdir}/%{name}/*
-%{_mandir}/man1/*
+%{_mandir}/man1/aespipe.1*
 %{_bindir}/aespipe
 
 %changelog
-* Tue Feb 23 2021 Jeff Law <law@redhat.com> - 2.4f-3
-- Disable strict-aliasing due to non-conforming code in aes.c
-  (word_in, word_out).
+* Tue Oct 24 2023 Jirka Hladky <hladky.jiri@gmail.com> - 2.4g-1
+- Updated to version 2.4g. It sets -fno-strict-aliasing to WA RHEL-14046
 
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.4f-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+* Wed Oct 18 2023 Jirka Hladky <hladky.jiri@gmail.com> - 2.4f-2
+- WA got GCC bug https://issues.redhat.com/browse/RHEL-14046
 
 * Sun Aug 09 2020 Jirka Hladky <hladky.jiri@gmail.com> - 2.4f-1
 - Update to version 2.4f

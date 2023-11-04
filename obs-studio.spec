@@ -23,15 +23,15 @@
 %global openh264_soversion 7
 
 
-%global obswebsocket_version 5.3.2
+%global obswebsocket_version 5.3.3
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
 #global snapdate 202303261743
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        30.0.0~rc1
-Release:        2%{?dist}
+Version:        30.0.0~rc2
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -307,6 +307,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Nov 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0~rc2-1
+- Update to 30.0.0~rc2
+
 * Wed Oct 18 2023 Jan Grulich <jgrulich@redhat.com> - 30.0.0~rc1-2
 - Rebuild (qt6)
 

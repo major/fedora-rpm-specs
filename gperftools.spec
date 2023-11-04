@@ -3,7 +3,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		gperftools
-Version:	2.10
+Version:	2.13
 Release:	1%{?dist}
 License:	BSD-3-Clause
 Summary:	Very fast malloc and performance analysis tools
@@ -11,6 +11,8 @@ URL:		https://github.com/gperftools/gperftools
 Source0:	https://github.com/gperftools/gperftools/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Conditionalize generic dynamic tls model
 Patch1:		gperftools-2.7.90-disable-generic-dynamic-tls.patch
+# Strip PAC from PC on AARCH64 >= armv8.3-a
+Patch2:		0001-stacktrace_generic_fp-clear-aarch64-pointer-auth-bit.patch
 ExcludeArch:	s390
 
 BuildRequires:  gcc-c++
@@ -59,7 +61,7 @@ Pprof is a heap and CPU profiler tool, part of the gperftools suite.
 
 %prep
 %setup -q
-%patch -P1 -p1 -b .dynload
+%autopatch -p1
 
 # Fix end-of-line encoding
 sed -i 's/\r//' README_windows.txt
@@ -119,6 +121,10 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %{_libdir}/*.so.*
 
 %changelog
+* Thu Nov  2 2023 Ismail Doenmez <idoenmez@amazon.com> - 2.13-1
+- Update to 2.13
+- Add a fix for printing stack traces on recent aarch64 cpus
+
 * Wed Aug  9 2023 Tom Callaway <spot@fedoraproject.org> - 2.10-1
 - update to 2.10
 

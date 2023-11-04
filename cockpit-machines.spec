@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        300
+Version:        301.1
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -78,7 +78,7 @@ Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
-Provides: bundled(npm(call-bind)) = 1.0.2
+Provides: bundled(npm(call-bind)) = 1.0.5
 Provides: bundled(npm(date-fns)) = 2.30.0
 Provides: bundled(npm(deep-equal)) = 2.2.2
 Provides: bundled(npm(define-data-property)) = 1.1.1
@@ -90,15 +90,15 @@ Provides: bundled(npm(focus-trap)) = 7.5.2
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.2
 Provides: bundled(npm(functions-have-names)) = 1.2.3
-Provides: bundled(npm(get-intrinsic)) = 1.2.1
+Provides: bundled(npm(get-intrinsic)) = 1.2.2
 Provides: bundled(npm(gopd)) = 1.0.1
 Provides: bundled(npm(has-bigints)) = 1.0.2
-Provides: bundled(npm(has-property-descriptors)) = 1.0.0
+Provides: bundled(npm(has-property-descriptors)) = 1.0.1
 Provides: bundled(npm(has-proto)) = 1.0.1
 Provides: bundled(npm(has-symbols)) = 1.0.3
 Provides: bundled(npm(has-tostringtag)) = 1.0.0
-Provides: bundled(npm(has)) = 1.0.4
-Provides: bundled(npm(internal-slot)) = 1.0.5
+Provides: bundled(npm(hasown)) = 2.0.0
+Provides: bundled(npm(internal-slot)) = 1.0.6
 Provides: bundled(npm(is-arguments)) = 1.1.1
 Provides: bundled(npm(is-array-buffer)) = 3.0.2
 Provides: bundled(npm(is-bigint)) = 1.0.4
@@ -120,7 +120,7 @@ Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(object-assign)) = 4.1.1
-Provides: bundled(npm(object-inspect)) = 1.13.0
+Provides: bundled(npm(object-inspect)) = 1.13.1
 Provides: bundled(npm(object-is)) = 1.1.5
 Provides: bundled(npm(object-keys)) = 1.1.1
 Provides: bundled(npm(object.assign)) = 4.1.4
@@ -134,6 +134,7 @@ Provides: bundled(npm(redux)) = 4.2.1
 Provides: bundled(npm(regenerator-runtime)) = 0.14.0
 Provides: bundled(npm(regexp.prototype.flags)) = 1.5.1
 Provides: bundled(npm(scheduler)) = 0.23.0
+Provides: bundled(npm(set-function-length)) = 1.1.1
 Provides: bundled(npm(set-function-name)) = 2.0.1
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
@@ -142,7 +143,7 @@ Provides: bundled(npm(throttle-debounce)) = 5.0.0
 Provides: bundled(npm(tslib)) = 2.6.2
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
-Provides: bundled(npm(which-typed-array)) = 1.1.11
+Provides: bundled(npm(which-typed-array)) = 1.1.13
 Provides: bundled(npm(xterm-addon-canvas)) = 0.4.0
 Provides: bundled(npm(xterm-addon-fit)) = 0.2.1
 Provides: bundled(npm(xterm)) = 4.19.0
@@ -171,6 +172,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Nov 02 2023 Packit <hello@packit.dev> - 301.1-1
+- Test fixes
+
 * Wed Oct 18 2023 Packit <hello@packit.dev> - 300-1
 - Add SSH keys to VM creation dialog
 

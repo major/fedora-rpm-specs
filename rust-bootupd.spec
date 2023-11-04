@@ -3,8 +3,8 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.2.12
-Release:        4%{?dist}
+Version:        0.2.13
+Release:        2%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
@@ -13,7 +13,6 @@ Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
 
 # For now, see upstream
-ExclusiveArch:  x86_64 aarch64 ppc64le
 BuildRequires: make
 BuildRequires:  openssl-devel
 %if 0%{?rhel} && !0%{?eln}
@@ -76,6 +75,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Thu Nov 02 2023 Colin Walters <walters@verbum.org> - 0.2.13-2
+- Rebase to 0.2.13
+
 * Mon Oct 23 2023 Colin Walters <walters@verbum.org> - 0.2.12-4
 - Install static configs
 

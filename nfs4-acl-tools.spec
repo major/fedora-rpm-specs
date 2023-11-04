@@ -1,8 +1,8 @@
 Name:           nfs4-acl-tools
 Version:        0.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The nfs4 ACL tools
-License:        BSD
+License:        LGPL-2.1-or-later
 URL:            http://git.linux-nfs.org/?p=bfields/nfs4-acl-tools.git;a=summary
 Source0:        http://linux-nfs.org/~bfields/nfs4-acl-tools/%{name}-%{version}.tar.gz
 
@@ -37,6 +37,10 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man5/*
 
 %changelog
+* Wed Oct 18 2023 Pavel Reichl <preichl@redhat.com> - 0.4.2-3
+- Actually change License from BSD to LGPL, based on content of COPYING file
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

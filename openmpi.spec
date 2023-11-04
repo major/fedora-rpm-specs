@@ -34,8 +34,10 @@
 
 %if %{defined rhel}
 %bcond_with orangefs
+%bcond_with sphinx
 %else
 %bcond_without orangefs
+%bcond_without sphinx
 %endif
 
 %ifarch x86_64
@@ -62,7 +64,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -135,10 +137,12 @@ BuildRequires:  zlib-devel
 %if !0%{?el7}
 BuildRequires:  rpm-mpi-hooks
 %endif
+%if %{with sphinx}
 # For docs
 BuildRequires:  /usr/bin/sphinx-build
 BuildRequires:  python3-recommonmark
 BuildRequires:  python3-sphinx_rtd_theme
+%endif
 
 Provides:       mpi
 %if 0%{?rhel} == 7
@@ -248,7 +252,9 @@ OpenMPI support for Python 3.
 	--enable-mpi-java \
 %endif
 	--enable-mpi1-compatibility \
+%if %{with sphinx}
 	--enable-sphinx \
+%endif
 	--with-prrte=external \
 	--with-sge \
 	--with-valgrind \
@@ -443,6 +449,9 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 
 
 %changelog
+* Tue Oct 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0.0-2
+- Disable building docs in RHEL builds
+
 * Fri Oct 27 2023 Orion Poplawski <orion@nwra.com> - 5.0.0-1
 - Update to 5.0.0
 - Drops 32-bit i686 support

@@ -69,9 +69,7 @@ eric7 is a full featured Python IDE.
 
 
 %prep
-%setup -q -n eric7-%{version}
-
-%patch100 -p1 -b .defaults
+%autosetup -p1 -n eric7-%{version}
 
 
 %build

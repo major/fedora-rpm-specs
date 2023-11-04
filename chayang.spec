@@ -8,7 +8,7 @@ Version:        0.1.0
 Release:        %{autorelease}
 Summary:        Gradually dim the screen on wlroots-based compositors
 
-License:        MIT AND HPND-with-sell
+License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
 

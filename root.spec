@@ -52,7 +52,7 @@
 Name:		root
 Version:	6.28.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3827,8 +3827,11 @@ fi
 %endif
 
 %changelog
+* Thu Nov 02 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.08-3
+- Rebuilt for libarrow.so.1400
+
 * Wed Nov 01 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.08-2
-- Enable RooFit::MultiProcess on Fedroa 40+
+- Enable RooFit::MultiProcess on Fedora 40+
 
 * Sat Oct 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.08-1
 - Update to 6.28.08

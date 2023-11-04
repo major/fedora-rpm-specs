@@ -8,8 +8,8 @@ See: http://agate-excel.rtfd.org
 
 
 Name:           python-%{pypi_name}
-Version:        0.2.5
-Release:        5%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Adds read support for Excel files to agate
 
 License:        MIT
@@ -31,6 +31,7 @@ BuildRequires:  python3dist(agate) >= 1.5
 BuildRequires:  python3dist(xlrd) >= 0.9.4
 BuildRequires:  python3dist(openpyxl) >= 2.3
 BuildRequires:  python3dist(olefile)
+BuildRequires:  python3dist(furo)
 
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -87,6 +88,9 @@ nosetests-%{python3_version} tests -v
 
 
 %changelog
+* Thu Nov 2 2023 Julien Enselme <jujens@jujens.eu> - 0.3.0-1
+- Update to 0.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

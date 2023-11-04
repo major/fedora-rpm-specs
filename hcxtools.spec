@@ -1,11 +1,15 @@
+%global forgeurl https://github.com/ZerBea/%{name}
+%global tag %{version}
+
 Name:           hcxtools
-Version:        6.3.1
+Version:        6.3.2
+%forgemeta
 Release:        %autorelease
 Summary:        Portable solution for conversion WiFi dump files to hashcat formats
 
 License:        MIT
-URL:            https://github.com/ZerBea/hcxtools
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        gpgkey-5920CE1C567948AFD2C0A9B7375516A45DB88630.gpg
 
@@ -51,7 +55,7 @@ vulnerable by using common wordlists or a weak password generation algorithm.
 
 %prep
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
-%autosetup
+%forgeautosetup -p1
 
 # rpmlint
 # E: env-script-interpreter 

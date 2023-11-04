@@ -1,8 +1,11 @@
 
-%if 0%{?fedora} < 40 && 0%{?rhel} <= 9
+%define aprver 1
+
+%if 0%{?fedora} < 39 && 0%{?rhel} <= 9
 %global with_lmdb 0
 %else
-%global with_lmdb 1
+# disabled for now
+%global with_lmdb 0
 %endif
 
 %if %{with_lmdb}
@@ -35,7 +38,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -98,6 +101,7 @@ Requires: apr-util%{?_isa} = %{version}-%{release}
 # Remove libdb dependency from apr-util
 # https://bugzilla.redhat.com/show_bug.cgi?id=1779267
 Obsoletes: apr-util-bdb < 1.6.3-8
+Provides: apr-util-%{aprver}(dbm)%{?_isa} = %{version}-%{release}
 
 %description lmdb
 This package provides the LMDB driver for the apr-util
@@ -106,6 +110,7 @@ DBM (database abstraction) interface.
 %package bdb
 Summary: APR utility library Berkeley DB driver
 Requires: apr-util%{?_isa} = %{version}-%{release}
+Provides: apr-util-%{aprver}(dbm)%{?_isa} = %{version}-%{release}
 
 %description bdb
 This package provides the Berkeley DB driver for the apr-util
@@ -279,6 +284,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Thu Nov  2 2023 Joe Orton <jorton@redhat.com> - 1.6.3-12
+- add apr-util-1(dbm) as virtual provide for dbm drivers
+- disable LMDB for now
+
 * Fri Oct 27 2023 Joe Orton <jorton@redhat.com> - 1.6.3-11
 - remove Provides: for -bdb
 

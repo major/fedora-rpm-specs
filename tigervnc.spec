@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -379,6 +379,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Nov 02 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-6
+- Fix CVE-2023-5380 and CVE-2023-5367 (rebuild with fixed Xorg)
+
 * Wed Oct 18 2023 Kalev Lember <klember@redhat.com> - 1.13.1-5
 - Drop unrecognized configure options
 - Add buildrequires to get correct font and xkb directories from pkg-config

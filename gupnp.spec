@@ -3,7 +3,7 @@
 %global gssdp_version 1.6.2
 
 Name:          gupnp
-Version:       1.6.5
+Version:       1.6.6
 Release:       1%{?dist}
 Summary:       A framework for creating UPnP devices & control points
 
@@ -85,6 +85,9 @@ This package contains developer documentation for %{name}.
 %{_docdir}/gupnp-%{apiver}/
 
 %changelog
+* Thu Nov 02 2023 Kalev Lember <klember@redhat.com> - 1.6.6-1
+- Update to 1.6.6
+
 * Mon Jul 31 2023 Kalev Lember <klember@redhat.com> - 1.6.5-1
 - Update to 1.6.5
 

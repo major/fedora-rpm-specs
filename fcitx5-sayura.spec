@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-sayura
-Version:    5.1.0
+Version:    5.1.1
 Release:    %autorelease
 Summary:    Sinhala Transe IME engine for Fcitx5
 License:    GPLv2+
@@ -51,7 +51,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files -f %{name}.lang
 %license LICENSES/GPL-2.0-or-later.txt
 %doc README.md 
-%{_libdir}/fcitx5/sayura.so
+%{_libdir}/fcitx5/libsayura.so
 %{_datadir}/fcitx5/addon/sayura.conf
 %{_datadir}/fcitx5/inputmethod/sayura.conf
 %{_datadir}/icons/hicolor/*/apps/*

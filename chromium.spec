@@ -26,8 +26,8 @@
 
 # enable|disble bootstrap
 %global bootstrap 0
-# workaround for broken gn on epel9
-%if 0%{?rhel} == 9
+# workaround for broken gn on epel 8/9
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %global bootstrap 1
 %endif
 
@@ -353,6 +353,9 @@ Patch111: chromium-116-constexpr.patch
 Patch112: chromium-117-el7-default_constructor.patch
 
 # system ffmpeg
+# need for old ffmpeg 5.x on epel9 and fedora 37
+Patch114: chromium-107-ffmpeg-5.x-duration.patch
+# disable the check
 Patch115: chromium-107-proprietary-codecs.patch
 # drop av_stream_get_first_dts from internal ffmpeg
 Patch116: chromium-112-ffmpeg-first_dts.patch
@@ -360,7 +363,7 @@ Patch116: chromium-112-ffmpeg-first_dts.patch
 Patch117: chromium-118-sigtrap_system_ffmpeg.patch
 
 # revert AV1 VAAPI video encode due to old libva on el9
-Patch130: chromium-114-revert-av1enc-el9.patch
+Patch130: chromium-119-revert-av1enc-el9.patch
 
 # file conflict with old kernel on el8/el9
 Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
@@ -946,6 +949,9 @@ udev.
 %endif
 
 %if ! %{bundleffmpegfree}
+%if 0%{?rhel} == 9 || 0%{?fedora} == 37
+%patch -P114 -p1 -b .ffmpeg-5.x-duration
+%endif
 %patch -P115 -p1 -b .prop-codecs
 %patch -P116 -p1 -b .first_dts
 %patch -P117 -p1 -b .sigtrap_system_ffmpeg

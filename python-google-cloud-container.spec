@@ -5,7 +5,7 @@
 
 
 Name:           python-%{srcname}
-Version:        2.32.0
+Version:        2.33.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Kubernetes Engine API
 

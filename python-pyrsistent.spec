@@ -6,13 +6,23 @@
 
 Name:           python-pyrsistent
 Summary:        Persistent/Functional/Immutable data structures
-Version:        0.19.3
+Version:        0.20.0
 Release:        %autorelease
 
 # The entire source is (SPDX) MIT, except pyrsistent/_toolz.py which is BSD-3-Clause.
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/tobgu/pyrsistent/
 Source:         %{url}/archive/v%{version}/pyrsistent-%{version}.tar.gz
+
+# Replace _PyList_Extend with PyList_SetSlice
+# https://github.com/tobgu/pyrsistent/pull/284
+#
+# Together with the 0.20.0 release, this fixes:
+#
+# python-pyrsistent fails to build with Python 3.13: implicit declaration of
+# function ‘Py_TRASHCAN_SAFE_BEGIN’, ‘Py_TRASHCAN_SAFE_END’, ‘_PyList_Extend’
+# https://bugzilla.redhat.com/show_bug.cgi?id=2246349
+Patch:          %{url}/pull/284.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
@@ -62,7 +72,13 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n pyrsistent-%{version}
+%autosetup -n pyrsistent-%{version} -p1
+
+# Remove all version pins for documentation dependencies. These tend to just be
+# the latest versions at the time of release, and are generally not based on
+# any particular analysis. In any case, we must attempt to use whatever is
+# packaged.
+sed -r 's/[>=]=.*//' docs/requirements.in | tee docs/requirements.in.unpinned
 
 # Loosen exact-version pins in requirements.txt; we must tolerate newer
 # versions and use what is packaged.
@@ -71,17 +87,20 @@ BuildArch:      noarch
 #   - hypothesis, not included in RHEL
 #   - memory-profiler or psutil, since we are not running the memorytest*
 #     environment from tox.ini
+#   - pip-tools, since it is for making pinned requirements files
 #   - pyperform, since we are not running the benchmarks from
 #     performance_suites/
 #   - tox, since we are not using tox to run the tests
 #   - twine, since it is for maintainer PyPI uploads
+
 sed -r \
     -e 's/==/>=/' \
-    -e '/\b(memory-profiler|psutil|pyperform|tox|twine)\b/d' \
+    -e '/\b(memory-profiler|pip-tools|psutil|pyperform|tox|twine)\b/d' \
 %if %{defined rhel}
     -e '/\bhypothesis\b/d' \
 %endif
-    requirements.txt | tee requirements-filtered.txt
+    requirements.txt %{?with_doc:docs/requirements.in.unpinned} |
+  tee requirements-filtered.txt
 
 
 %generate_buildrequires

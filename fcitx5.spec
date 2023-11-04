@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           fcitx5
-Version:        5.1.1
+Version:        5.1.2
 Release:        %autorelease
 Summary:        Next generation of fcitx
 License:        LGPLv2+

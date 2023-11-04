@@ -1,14 +1,15 @@
+# Upstream moved from grpc-xs to Grpc-XS. A rename to perl-Grpc-XS is in
+# progress (bug #2247633).
 Name:           perl-grpc-xs
-Version:        0.37
-Release:        9%{?dist}
+Version:        0.38
+Release:        1%{?dist}
 Summary:        Perl binding to a client part of the gRPC library
 # examples/route_guide/route_guide.proto:   BSD-3-Clause
 # LICENSE:      Apache-2.0 text
 # ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        Apache-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
-URL:            https://metacpan.org/release/grpc-xs
-Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOYREX/grpc-xs-%{version}.tar.gz
-Patch0: perl-grpc-xs-Makefile.PL-c99.patch
+URL:            https://metacpan.org/dist/Grpc-XS
+Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOYREX/Grpc-XS-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -41,6 +42,7 @@ This is a low-level binding to a client part of the gRPC library.
 
 %package tests
 Summary:        Tests for %{name}
+License:        Apache-2.0
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
@@ -53,9 +55,6 @@ with "%{_libexecdir}/%{name}/test".
 %autosetup -n Grpc-XS-%{version} -p1
 # Fix shebangs in examples
 perl -MConfig -i -p -e 's/^#!perl\b/$Config{startperl}/' examples/*/t/*.t
-# Remove fork tests that are not supported in grpc and halt since grpc-1.20.0,
-# bug #1715774, CPAN RT#129720
-rm t/17-fork_friendliness.t
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -69,8 +68,8 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -87,14 +86,22 @@ make test
 %files
 %license LICENSE
 %doc examples README.md
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Grpc*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Grpc
+%{perl_vendorarch}/auto/Grpc/XS
+%dir %{perl_vendorarch}/Grpc
+%{perl_vendorarch}/Grpc/Client
+%{perl_vendorarch}/Grpc/Constants.pm
+%{perl_vendorarch}/Grpc/XS
+%{perl_vendorarch}/Grpc/XS.pm
+%{_mandir}/man3/Grpc::XS.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 02 2023 Petr Pisar <ppisar@redhat.com> - 0.38-1
+- 0.38 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

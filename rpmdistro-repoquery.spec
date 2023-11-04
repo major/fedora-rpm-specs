@@ -1,5 +1,5 @@
-%global commit 18ae234b6d4631f02d605bcdc898fc471591c965
-%global date 20230819
+%global commit 539d4c04abc0eae5427084bbe95940aa15fa8cf7
+%global date 20231102
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           rpmdistro-repoquery
@@ -9,7 +9,7 @@ Summary:        Tool to easily do repository queries for different distributions
 
 License:        MIT
 URL:            https://pagure.io/%{name}
-Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 

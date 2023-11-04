@@ -14,8 +14,8 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.3.5
-Release:       4%{?dist}
+Version:       2.3.6
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -308,6 +308,9 @@ done
 
 
 %changelog
+* Thu Nov 02 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.6-1
+- New development branch version 2.3.6
+
 * Fri Oct 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.3.5-4
 - Use mingw-srvany-redistributable
 

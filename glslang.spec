@@ -1,13 +1,13 @@
-%global sdkver 1.3.261.1
+%global sdkver 1.3.268.0
 
 Name:           glslang
-Version:        11.9.0
+Version:        13.1.1
 Release:        %autorelease
 Summary:        OpenGL and OpenGL ES shader front end and validator
 
 License:        BSD and GPLv3+ and Apache-2.0
 URL:            https://github.com/KhronosGroup/%{name}
-Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/%{name}-sdk-%{sdkver}.tar.gz
+Source0:        %url/archive/vulkan-sdk-%{sdkver}.tar.gz#/%{name}-sdk-%{sdkver}.tar.gz
 # Patch to build against system spirv-tools (rebased locally)
 #Patch3:         https://patch-diff.githubusercontent.com/raw/KhronosGroup/glslang/pull/1722.patch#/0001-pkg-config-compatibility.patch
 Patch3:         0001-pkg-config-compatibility.patch
@@ -32,7 +32,7 @@ ES and OpenGL shading languages. It implements a strict
 interpretation of the specifications for these languages.
 
 %prep
-%autosetup -p1 -n %{name}-sdk-%{sdkver}
+%autosetup -p1 -n %{name}-vulkan-sdk-%{sdkver}
 # Fix rpmlint warning on debuginfo
 find . -name '*.h' -or -name '*.cpp' -or -name '*.hpp'| xargs chmod a-x
 

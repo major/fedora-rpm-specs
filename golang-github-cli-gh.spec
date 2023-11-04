@@ -4,7 +4,8 @@
 
 # https://github.com/cli/go-gh
 %global goipath         github.com/cli/go-gh
-Version:                2.3.0
+Version:                2.4.0
+%global commit          47a83eeb1778d8e60e98e356b9e5d6178a567f31
 
 %gometa -f
 

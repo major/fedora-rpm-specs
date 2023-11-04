@@ -7,7 +7,7 @@
 %endif
 
 Name:           goaccess
-Version:        1.8
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
@@ -101,6 +101,9 @@ sed -i '/-pthread/d' configure.ac
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Nov 2 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 1.8.1-1
+- Update to 1.8.1, fixes rhbz#2247712
+
 * Sun Oct 1 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 1.8-1
 - Update to 1.8, fixes rhbz#2241581
 

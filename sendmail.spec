@@ -1,3 +1,15 @@
+%if 0%{?rhel} < 10
+%bcond_without db
+%else
+%bcond_with db
+%endif
+
+%if %{with db}
+%global db_suffix	db
+%else
+%global db_suffix	cdb
+%endif
+
 # package options
 %global with_tls	yes
 %global with_sasl2	yes
@@ -29,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.17.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Sendmail
 URL: http://www.sendmail.org/
 
@@ -96,7 +108,7 @@ Patch25: sendmail-8.17.2-qos.patch
 Patch26: sendmail-8.17.1-libmilter-socket-activation.patch
 
 BuildRequires: make
-BuildRequires: libdb-devel
+%{?with_db:BuildRequires: libdb-devel}
 %if "%{with_nis}" == "yes"
 BuildRequires: libnsl2-devel
 %endif
@@ -119,11 +131,13 @@ BuildRequires: setup >= 2.5.31-1
 BuildRequires: openssl-devel
 %endif
 %if "%{with_sasl2}" == "yes"
-BuildRequires: cyrus-sasl-devel openssl-devel
+BuildRequires: cyrus-sasl-devel
+BuildRequires: openssl-devel
 Requires: %{_sbindir}/saslauthd
 %endif
 %if "%{with_ldap}" == "yes"
-BuildRequires: openldap-devel openssl-devel
+BuildRequires: openldap-devel
+BuildRequires: openssl-devel
 %endif
 # Old NetworkManager expects the dispatcher scripts in a different place
 Conflicts: NetworkManager < 1.20
@@ -216,11 +230,11 @@ sed -i 's|/usr/local/bin/perl|%{_bindir}/perl|' contrib/*.pl
 %set_build_flags
 # generate redhat config file
 cat > redhat.config.m4 << EOF
-define(\`confMAPDEF', \`-DNEWDB -DCDB %{?nis_cflags} -DMAP_REGEX -DSOCKETMAP -DNAMED_BIND=1')
+define(\`confMAPDEF', \`%{?with_db:-DNEWDB }-DCDB %{?nis_cflags} -DMAP_REGEX -DSOCKETMAP -DNAMED_BIND=1')
 define(\`confOPTIMIZE', \`\`\`\`${CFLAGS}'''')
-define(\`confENVDEF', \`-I%{_includedir}/libdb -I%{_prefix}/kerberos/include -Wall -DXDEBUG=0 -DNETINET6 -DHES_GETMAILHOST -DUSE_VENDOR_CF_PATH=1 -D_FFR_LINUX_MHNL -D_FFR_QOS -D_FILE_OFFSET_BITS=64 -DHAS_GETHOSTBYNAME2 -DHASFLOCK')
+define(\`confENVDEF', \`%{?with_db:-I%{_includedir}/libdb }-I%{_prefix}/kerberos/include -Wall -DXDEBUG=0 -DNETINET6 -DHES_GETMAILHOST -DUSE_VENDOR_CF_PATH=1 -D_FFR_LINUX_MHNL -D_FFR_QOS -D_FILE_OFFSET_BITS=64 -DHAS_GETHOSTBYNAME2 -DHASFLOCK')
 define(\`confLIBDIRS', \`-L%{_prefix}/kerberos/%{_lib}')
-define(\`confLIBS', \`%{?nis_ldadd} -lcrypt -ldb -lcdb -lresolv')
+define(\`confLIBS', \`%{?nis_ldadd} -lcrypt %{?with_db:-ldb }-lcdb -lresolv')
 %{?_hardened_build:define(\`confLDOPTS', \`${LDFLAGS}')}
 define(\`confMANOWN', \`root')
 define(\`confMANGRP', \`root')
@@ -230,7 +244,7 @@ define(\`confMAN5SRC', \`5')
 define(\`confMAN8SRC', \`8')
 define(\`confSTDIR', \`%{stdir}')
 define(\`STATUS_FILE', \`%{stdir}/statistics')
-define(\`confLIBSEARCH', \`db resolv 44bsd')
+define(\`confLIBSEARCH', \`%{?with_db:db }cdb resolv 44bsd')
 define(\`confCC', \`${CC}')
 EOF
 #'
@@ -383,6 +397,9 @@ rm -f %{buildroot}%{sendmailcf}/cf/README
 
 # install sendmail.mc with proper paths
 install -m 644 %{SOURCE6} %{buildroot}%{maildir}/sendmail.mc
+%if %{without db}
+  sed -i 's/\bhash\b/cdb/g;s/\.db\b/.%{db_suffix}/g' %{buildroot}%{maildir}/sendmail.mc
+%endif
 sed -i -e 's|@@PATH@@|%{sendmailcf}|' %{buildroot}%{maildir}/sendmail.mc
 touch -r %{SOURCE6} %{buildroot}%{maildir}/sendmail.mc
 
@@ -409,8 +426,8 @@ install -p -m 644 %{SOURCE17} %{buildroot}%{maildir}/virtusertable
 
 # create db ghosts
 for map in virtusertable access domaintable mailertable ; do
-	touch %{buildroot}%{maildir}/${map}.db
-	chmod 0644 %{buildroot}%{maildir}/${map}.db
+	touch %{buildroot}%{maildir}/${map}.%{db_suffix}
+	chmod 0644 %{buildroot}%{maildir}/${map}.%{db_suffix}
 done
 
 touch %{buildroot}%{maildir}/aliasesdb-stamp
@@ -530,9 +547,9 @@ exit 0
 
 # Rebuild maps.
 {
-	chown root %{_sysconfdir}/aliases.db %{maildir}/access.db \
-		%{maildir}/mailertable.db %{maildir}/domaintable.db \
-		%{maildir}/virtusertable.db
+	chown root %{_sysconfdir}/aliases.%{db_suffix} %{maildir}/access.%{db_suffix} \
+		%{maildir}/mailertable.%{db_suffix} %{maildir}/domaintable.%{db_suffix} \
+		%{maildir}/virtusertable.%{db_suffix}
 	SM_FORCE_DBREBUILD=1 %{maildir}/make
 	SM_FORCE_DBREBUILD=1 %{maildir}/make aliases
 } > /dev/null 2>&1
@@ -654,10 +671,10 @@ exit 0
 %config(noreplace) %{maildir}/virtusertable
 
 %ghost %{maildir}/aliasesdb-stamp
-%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/virtusertable.db
-%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/access.db
-%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/domaintable.db
-%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/mailertable.db
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/virtusertable.%{db_suffix}
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/access.%{db_suffix}
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/domaintable.%{db_suffix}
+%ghost %attr(0640, root,root) %verify(not md5 size mtime) %{maildir}/mailertable.%{db_suffix}
 
 %ghost %attr(0660, smmsp, smmsp) %verify(not md5 size mtime) %{spooldir}/clientmqueue/sm-client.st
 
@@ -708,6 +725,10 @@ exit 0
 
 
 %changelog
+* Thu Nov  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.2-4
+- Drop libdb for RHEL>9
+  Related: rhbz#1781181
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

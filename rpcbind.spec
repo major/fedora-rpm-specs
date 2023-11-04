@@ -4,9 +4,9 @@
 
 Name:           rpcbind
 Version:        1.2.6
-Release:        4.rc2%{?dist}.1
+Release:        4.rc2%{?dist}.2
 Summary:        Universal Addresses to RPC Program Number Mapper
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
 
 Source0:        http://downloads.sourceforge.net/rpcbind/%{name}-%{version}.tar.bz2
@@ -124,6 +124,9 @@ fi
 %attr(0700, %{rpcbind_user_group}, %{rpcbind_user_group}) %dir %{rpcbind_state_dir}
 
 %changelog
+* Mon Oct 16 2023 Pavel Reichl <preichl@redhat.com> - 1.2.6-4.rc2.2
+- Convert License tag to SPDX format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-4.rc2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

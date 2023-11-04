@@ -46,7 +46,9 @@ BuildRequires: freetype-devel
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gd-devel
+%if 0%{?fedora} < 39
 BuildRequires: libgpiod-devel
+%endif
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel
 BuildRequires: libtool
@@ -142,6 +144,8 @@ find . -mtime -1 -print0 | xargs -0 touch --reference %{SOURCE0}
 sed -i 's|\(PYTHON3\?_SITE_PACKAGES=\)".*"|\1"%{python3_sitelib}"|' m4/nut_check_python.m4
 
 %build
+#--without-gpio is not enough to stop it complaining about missing library
+sed -i 's|with_gpio="[^"]*"|with_gpio="no"|g' configure.ac
 autoreconf -i
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 # prevent assignment of default value, it would break configure's tests
@@ -169,6 +173,9 @@ export LDFLAGS="-Wl,-z,now"
     --sysconfdir=%{_sysconfdir}/ups \
     --with-cgipath=%{cgidir} \
     --with-drvpath=%{modeldir} \
+%if 0%{?fedora} < 39
+    --without-gpio \
+%endif
     --with-systemdsystemunitdir=%{_unitdir} \
     --with-systemdshutdowndir=/lib/systemd/system-shutdown \
     --with-pkgconfig-dir=%{_libdir}/pkgconfig \
@@ -345,7 +352,9 @@ fi
 %{_mandir}/man8/gamatronic.8.gz
 %{_mandir}/man8/generic_modbus.8.gz
 %{_mandir}/man8/genericups.8.gz
+%if 0%{?fedora} < 39
 %{_mandir}/man8/generic_gpio.8.gz
+%endif
 %{_mandir}/man8/huawei-ups2000.8.gz
 %{_mandir}/man8/isbmex.8.gz
 %{_mandir}/man8/ivtscd.8.gz
@@ -469,7 +478,7 @@ fi
 
 %changelog
 * Wed Nov 01 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.1-1
-- updated to 2.8.1(2247337)
+- updated to 2.8.1 (#2247337)
 
 * Tue Oct 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.0-14
 - spec cleanup, based on PR#14 by Orion Poplawski

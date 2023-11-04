@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:      optee_os
-Version:   3.22.0
-Release:   4%{?dist}
+Version:   4.0.0
+Release:   1%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -54,6 +54,8 @@ such as u-boot. As such the binaries aren't of general interest to users.
 # For now only secure firmwares for k3-j784s4 and k3-am62x platforms are built
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y CFG_CONSOLE_UART=0x8 O=out/k3-j784s4
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-am62x CFG_ARM64_core=y CFG_WITH_SOFTWARE_PRNG=y O=out/k3-am62x
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=rockchip-rk3399 CFG_ARM64_core=y O=out/rockchip-rk3399
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=sunxi-sun50i_a64 CFG_ARM64_core=y O=out/sunxi-sun50i_a64
 %endif
 
 
@@ -69,6 +71,14 @@ install -p -m 0644 out/k3-j784s4/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{na
 mkdir -p %{buildroot}%{_datadir}/%{name}/k3-am62x/
 install -p -m 0644 out/k3-am62x/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/k3-am62x/
 
+# rk3399 expects the .elf
+mkdir -p %{buildroot}%{_datadir}/%{name}/rockchip-rk3399
+install -p -m 0644 out/rockchip-rk3399/core/tee.elf /%{buildroot}%{_datadir}/%{name}/rockchip-rk3399
+install -p -m 0644 out/rockchip-rk3399/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/rockchip-rk3399
+
+mkdir -p %{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
+install -p -m 0644 out/sunxi-sun50i_a64/core/tee-raw.bin /%{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
+install -p -m 0644 out/sunxi-sun50i_a64/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
 %endif
 
 %ifarch aarch64
@@ -79,6 +89,10 @@ install -p -m 0644 out/k3-am62x/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{nam
 %endif
 
 %changelog
+* Thu Nov 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.0.0-1
+- Update to 4.0.0
+- Build rk3399 and sunxi-a64 OP-TEE
+
 * Tue Oct 10 2023 Enric Balletbo i Serra <eballetbo@redhat.com> - 3.22.0-4
 - Add CFG_CONSOLE_UART=0x8 a extra arguments used for building OP-TEE on TI J784S4 boards
 

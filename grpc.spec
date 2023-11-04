@@ -416,6 +416,9 @@ Patch:          0001-http2-Dont-drop-connections-on-metadata-limit-exceed.patch
 # https://github.com/grpc/grpc/issues/33918#issuecomment-1788823585
 # https://github.com/grpc/grpc/pull/34242
 Patch:          0001-Specify-noexcept-for-cdef-functions.patch
+# [Python] Do not call PyEval_InitThreads
+# https://github.com/grpc/grpc/pull/34857
+Patch:          %{forgeurl}/pull/34857.patch
 
 Requires:       grpc-data = %{version}-%{release}
 

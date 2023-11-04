@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.58
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -142,6 +142,9 @@ Provides: mod_proxy_uwsgi = %{version}-%{release}
 Requires: /etc/mime.types
 Requires: httpd-tools = %{version}-%{release}
 Requires: httpd-filesystem = %{version}-%{release}
+%if 0%{?fedora} > 39 || 0%{?rhel} > 9
+Requires: apr-util-1(dbm)%{_isa}
+%endif
 Requires(pre): httpd-filesystem
 Conflicts: apr < 1.5.0-1
 Conflicts: httpd < 2.4.53-2
@@ -856,6 +859,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Thu Nov  2 2023 Joe Orton <jorton@redhat.com> - 2.4.58-2
+- add dependency on apr-util-1(dbm) so a DBM provider is present
+
 * Fri Oct 20 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.58-1
 - new version 2.4.58
 

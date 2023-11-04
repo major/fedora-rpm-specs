@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-hangul
-Version:    5.1.0
+Version:    5.1.1
 Release:    %autorelease
 Summary:    Hangul Wrapper for Fcitx5
 # data/symbol.txt is licensed under BSE license
@@ -51,7 +51,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files -f %{name}.lang
 %license LICENSES/LGPL-2.1-or-later.txt
 %doc README.md 
-%{_libdir}/fcitx5/hangul.so
+%{_libdir}/fcitx5/libhangul.so
 %{_datadir}/fcitx5/addon/hangul.conf
 %{_datadir}/fcitx5/hangul
 %{_datadir}/fcitx5/inputmethod/hangul.conf

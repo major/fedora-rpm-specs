@@ -11,6 +11,10 @@ Source0:        http://www.fbreader.org/files/desktop/fbreader-sources-%{version
 Patch0:         %{name}-0.99.4-optflags.patch
 Patch1:         %{name}-0.99.4-default_browser.patch
 
+# libunibreak dropped i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  bzip2-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  expat-devel
