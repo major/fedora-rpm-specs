@@ -56,8 +56,8 @@ touch lib/parser_inst.cxx
  --disable-doc-build \
 %endif
  --disable-dependency-tracking --disable-static --enable-http \
- --enable-default-catalog=%{_sysconfdir}/sgml/catalog \
- --enable-default-search-path=%{_datadir}/sgml:%{_datadir}/xml
+ --enable-default-catalog=/etc/sgml/catalog \
+ --enable-default-search-path=/usr/share/sgml:/usr/share/xml
 make %{?_smp_mflags}
 
 %install

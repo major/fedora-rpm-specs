@@ -5,7 +5,7 @@ Version:        2.6.4
 Release:        %autorelease
 Summary:        Simple and modern GTK eBook reader
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://johnfactotum.github.io/foliate/
 Source0:        https://github.com/johnfactotum/foliate/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch

@@ -9,13 +9,14 @@ Python bindings for Caja
 
 Name:          python-caja
 Version:       1.26.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 Epoch:         1
 Summary:       Python bindings for Caja
 
 License:       GPLv2+ and LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{shortver}/%{name}-%{version}.tar.xz
+Patch1:        python-caja-1.26-python313.patch
 
 BuildRequires: python3-devel
 BuildRequires: caja-devel
@@ -80,6 +81,10 @@ rm $RPM_BUILD_ROOT%{_docdir}/python-caja/README
 
 
 %changelog
+* Thu Nov  2 2023 Patrick Monnerat <patrick@monnerat.net> 1:1.26.0-8
+- Patch "python313" for Python 3.13 compatibility.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2247264
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.26.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

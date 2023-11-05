@@ -21,8 +21,8 @@ solved using the nature-inspired algorithms that come from the related
 framework called NiaPy.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.2
-Release:        3%{?dist}
+Version:        0.3.5
+Release:        2%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
 License:        MIT
@@ -53,6 +53,8 @@ Summary:        %{summary}
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
+BuildRequires:  %{py3_dist sphinx-rtd-theme}
+BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
 %endif
 
 %description doc
@@ -100,6 +102,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md
 
 %changelog
+* Fri Nov 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.5-1
+- Update to 0.3.5
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

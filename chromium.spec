@@ -413,6 +413,11 @@ Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
 Patch400: chromium-119-dont-redefine-ATSPI-version-macros.patch
 # fix build error, nullptr_t without namespace std::
 Patch401: chromium-119-nullptr_t-without-namespace-std.patch
+# workaround for buggy Nvidia drivers fail to return FDs for planes
+# of a BO which had already an imported BO destroyed before.
+Patch402: chromium-119-nvidia-use-separate-bo-to-verify-modifier.patch
+# hide UseChromeOSDirectVideoDecoder flag on VA-API devices to avoid crashes
+Patch403: chromium-119-hide-UseChromeOSDirectVideoDecoder-flag-on-VA-API-devices.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1014,6 +1019,8 @@ udev.
 
 %patch -P400 -p1 -R -b .revert-dont-redefine-ATSPI-version-macros.patch
 %patch -P401 -p1 -b .nullptr_t-without-namespace-std
+%patch -P402 -p1 -b .nvidia-use-separate-bo-to-verify-modifiers
+%patch -P403 -p1 -b .UseChromeOSDirectVideoDecoder-flag-on-VA-API-devices
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works

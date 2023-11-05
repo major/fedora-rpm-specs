@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -87,6 +87,10 @@ Patch100: cups-lspp.patch
 # https://github.com/OpenPrinting/cups/pull/742
 # 2218124 - The command "cancel -x <job>" does not remove job files
 Patch1001: 0001-Use-purge-job-instead-of-purge-jobs-when-canceling-a.patch
+# https://github.com/OpenPrinting/cups/pull/814
+Patch1002: cups-colorman-leak.patch
+# https://github.com/OpenPrinting/cups/pull/813/
+Patch1003: cups-unload-job-leak.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -311,6 +315,10 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 # UPSTREAM PATCHES
 # 2218124 - The command "cancel -x <job>" does not remove job files
 %patch -P 1001 -p1 -b .purge-job
+# https://github.com/OpenPrinting/cups/pull/814
+%patch -P 1002 -p1 -b .colorman
+# https://github.com/OpenPrinting/cups/pull/813/
+%patch -P 1003 -p1 -b .unloadjob
 
 
 %if %{lspp}
@@ -783,6 +791,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Oct 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-2
+- fix memory leaks when unloading job
+
 * Wed Sep 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-1
 - 2239982 - cups-2.4.7 is available
 

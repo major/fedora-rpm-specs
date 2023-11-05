@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-pytest-bdd
-Version:        6.1.1
+Version:        7.0.0
 Release:        %autorelease
 Summary:        BDD library for the py.test runner
 
@@ -21,21 +21,13 @@ Source10:       pytest-bdd.1
 Source11:       pytest-bdd-generate.1
 Source12:       pytest-bdd-migrate.1
 
-# Remove old pytest logic
-# Fixes FTBFS with setuptools >= 67.5.1
-# Resolved upstream: https://github.com/pytest-dev/pytest-bdd/pull/580
-Patch:          remove-old-pytest-logic.patch
-
-# Fix python 3.12.0a3 syntax error
-# https://github.com/pytest-dev/pytest-bdd/commit/628790921e05e614a7064aab29b8c60fc01c943b
-Patch:          %{forgeurl}/commit/628790921e05e614a7064aab29b8c60fc01c943b.patch
-
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
 
 # Required for: tests/feature/test_report.py::test_complex_types
-BuildRequires:  python3dist(pytest-xdist)
+# Also in pyproject.toml:[tool.poetry.group.dev.dependencies]
+BuildRequires:  python3dist(pytest-xdist) >= 3.3.1
 
 # Required for: tests/feature/test_tags.py (top-level pkg_resources import)
 BuildRequires:  python3dist(setuptools)

@@ -2,9 +2,9 @@
 
 Name:		cachefilesd
 Version:	0.10.10
-Release:	15%{?dist}%{?buildid}
+Release:	16%{?dist}%{?buildid}
 Summary:	CacheFiles user-space management daemon
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://people.redhat.com/~dhowells/fscache/
 Source0:	http://people.redhat.com/dhowells/fscache/cachefilesd-%{version}.tar.bz2
 
@@ -72,6 +72,9 @@ install -m 644 cachefilesd.service %{buildroot}%{_unitdir}/cachefilesd.service
 %{_localstatedir}/cache/fscache
 
 %changelog
+* Fri Oct 06 2023 Pavel Reichl <preichl@redhat.com> - 0.10.10-16
+- Convert License tag to SPDX format
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.10-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

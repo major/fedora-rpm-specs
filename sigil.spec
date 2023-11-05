@@ -1,10 +1,8 @@
-%global __cmake_in_source_build 1
-
 Name:           sigil
-Version:        0.9.14
-Release:        18%{?dist}
+Version:        1.9.20
+Release:        1%{?dist}
 Summary:        WYSIWYG ebook editor
-License:        GPLv3+
+License:        GPL-3.0-or-later AND Apache-2.0
 URL:            https://sigil-ebook.com/
 Source0:        https://github.com/Sigil-Ebook/Sigil/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
@@ -12,23 +10,35 @@ Patch1:         %{name}-0.8.0-system-dicts.patch
 Patch2:         %{name}-0.9.3-global-plugin-support.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1632199
 # port to minizip 2.x for F-30+
-Patch3:         %{name}-0.9.13-minizip2.patch
+Patch3:         %{name}-1.9.20-minizip2.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2083977
-Patch4:         %{name}-0.9.14-python311.patch
-BuildRequires: make
+# https://github.com/Sigil-Ebook/Sigil/commit/c89fb7cee02e5b5dd82fa7a605d6505817bdad23
+Patch4:         %{name}-1.9.20-python311.patch
+
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  make
 BuildRequires:  cmake
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebkit-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
-BuildRequires:  zlib-devel
-BuildRequires:  hunspell-devel
-BuildRequires:  pcre-devel >= 8.31
-BuildRequires:  minizip-devel
+
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5Network)
+BuildRequires:  cmake(Qt5WebEngine)
+BuildRequires:  cmake(Qt5WebEngineWidgets)
+BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt5Xml)
+BuildRequires:  cmake(Qt5Concurrent)
+BuildRequires:  cmake(Qt5PrintSupport)
+BuildRequires:  cmake(Qt5LinguistTools)
+
 BuildRequires:  pkgconfig
-BuildRequires:  python3-devel
-BuildRequires:  desktop-file-utils libappstream-glib
+BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(hunspell)
+BuildRequires:  pkgconfig(libpcre2-16)
+BuildRequires:  cmake(minizip)
+BuildRequires:  pkgconfig(python3)
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+
 # For the plugins
 Requires:       python3-pillow python3-cssselect python3-cssutils
 Requires:       python3-html5lib python3-lxml python3-qt5
@@ -36,7 +46,13 @@ Requires:       python3-regex python3-chardet python3-six
 Requires:       hicolor-icon-theme
 Recommends:     FlightCrew-sigil-plugin
 # See internal/about.md for rationale for this
-Provides:       bundled(gumbo)
+Provides:       bundled(gumbo) = 0.9.2
+Provides:       bundled(nodejs-mathjax) = 2.75
+
+ExclusiveArch: %{qt5_qtwebengine_arches}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
+
 
 %description
 Sigil is a multi-platform WYSIWYG ebook editor. It is designed to edit books
@@ -73,96 +89,70 @@ BuildArch:      noarch
 
 
 %prep
-%setup -q -n Sigil-%{version}
-%patch1 -p1
-%patch2 -p1
-%if 0%{?fedora} >= 30
-%patch3 -p1 -b .mz
-%endif
-%patch4 -p1
-sed -i 's|/lib/sigil|/%{_lib}/sigil|'      \
-  CMakeLists.txt src/CMakeLists.txt        \
-  src/Resource_Files/bash/sigil-sh_install
-# Cleanup sources a bit
-fixtimestamp() {
-  touch -r $1.orig $1
-  rm -f $1.orig
-}
-chmod a-x src/Dialogs/AddSemantics.{cpp,h} \
-          src/Form_Files/{AddSemantics,PKeyboardShortcutsWidget}.ui \
-          src/Misc/PyObjectPtr.h \
-          src/Resource_Files/dictionaries/*.{aff,dic} \
-          src/Resource_Files/main/*.png \
-          src/Resource_Files/polyfills/MathJax_README.md \
-          src/ResourceObjects/NavProcessor.{cpp,h}
-for fil in src/Misc/PyObjectPtr.h \
-           src/Resource_Files/python3lib/metadata_utils.py \
-           src/Resource_Files/python3lib/metaproc2.py \
-           src/Resource_Files/python3lib/metaproc3.py \
-           src/Resource_Files/python3lib/opf_newparser.py
-do
-  sed -i.orig 's/\r//' $fil
-  fixtimestamp $fil
-done
-for fil in $(grep -Frl %{_bindir}/env .); do
-  sed -ri.orig 's,%{_bindir}/env python3?,%{_bindir}/python3,' $fil
-  fixtimestamp $fil
-done
+%autosetup -p1 -n Sigil-%{version}
+
 
 # Fix hunspell library lookup from python
 hver=$(ls -1 %{_libdir}/libhunspell*.so | sed 's/.*hunspell\(-.*\)\.so/\1/')
-sed -i.orig "s/find_library('hunspell')/find_library('hunspell$hver')/" \
+sed "s/find_library('hunspell')/find_library('hunspell$hver')/" \
   src/Resource_Files/plugin_launchers/python/pluginhunspell.py
-fixtimestamp src/Resource_Files/plugin_launchers/python/pluginhunspell.py
+
+#fixtimestamp src/Resource_Files/plugin_launchers/python/pluginhunspell.py
+
+# remove unbundled libs
+rm -rf 3rdparty/{minizip,zlib,hunspell,pcre2}
 
 
 %build
-mkdir build
-pushd build
-%{cmake} -DUSE_SYSTEM_LIBS=1 -DSYSTEM_LIBS_REQUIRED=1 \
-  -DINSTALL_BUNDLED_DICTS=0 -DSHARE_INSTALL_PREFIX:PATH=%{_prefix} ..
-make %{?_smp_mflags}
-popd
+%cmake -DUSE_SYSTEM_LIBS=1 -DSYSTEM_LIBS_REQUIRED=1 \
+  -DDISABLE_UPDATE_CHECK=1 -DINSTALL_HICOLOR_ICONS=1 \
+  -DINSTALL_BUNDLED_DICTS=0 -DSHARE_INSTALL_PREFIX:PATH=%{_prefix}
+%cmake_build
 
 
 %install
-pushd build
-%make_install
-popd
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins
+%cmake_install
+
 # Make rpmlint happy
-chmod +x $RPM_BUILD_ROOT%{_datadir}/%{name}/python3lib/*.py
-chmod +x $RPM_BUILD_ROOT%{_datadir}/%{name}/plugin_launchers/python/*.py
-chmod -x $RPM_BUILD_ROOT%{_datadir}/%{name}/plugin_launchers/python/sigil_gumbo_bs4_adapter.py
-# desktop-file, icons and appdata
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
-rm $RPM_BUILD_ROOT%{_datadir}/pixmaps/%{name}.png
-for i in 16 32 48 128 256 512; do
-  mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps
-  install -p -m 644 src/Resource_Files/icon/app_icon_$i.png \
-    $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
-done
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/appdata
+#chmod +x %{buildroot}%{_datadir}/%{name}/python3lib/*.py
+#chmod +x %{buildroot}%{_datadir}/%{name}/plugin_launchers/python/*.py
+#chmod -x %{buildroot}%{_datadir}/%{name}/plugin_launchers/python/sigil_gumbo_bs4_adapter.py
+
+# fix shebang and byte compile
+%py3_shebang_fix %{buildroot}%{_datadir}/%{name}/plugin_launchers/
+%py3_shebang_fix %{buildroot}%{_datadir}/%{name}/python3lib/
+%py_byte_compile %{python3} %{buildroot}%{_datadir}/%{name}/plugin_launchers/
+%py_byte_compile %{python3} %{buildroot}%{_datadir}/%{name}/python3lib/
+
+# desktop-file and appdata
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+mkdir -p %{buildroot}%{_datadir}/appdata
+install -p -m 644 %{SOURCE1} %{buildroot}%{_datadir}/appdata
+
 appstream-util validate-relax --nonet \
-  $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml
+  %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 
 %files
 %doc ChangeLog.txt README.md
 %license COPYING.txt
 %{_bindir}/%{name}
-%{_libdir}/%{name}
-%{_datadir}/%{name}
+%{_libdir}/%{name}/
+%{_datadir}/%{name}/
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.svg
 
 %files doc
 %doc docs/*.epub
 
 
 %changelog
+* Mon Oct 30 2023 Dan Horák <dan[at]danny.cz> - 1.9.20-1
+- New upstream release 1.9.20 (#1724109)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.14-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

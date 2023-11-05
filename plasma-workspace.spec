@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -468,6 +468,8 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       kwin-x11 >= %{majmin_ver_kf5}
 Requires:       xorg-x11-server-Xorg
 Requires:       xsetroot
+# Plasma X11 is deprecated and will be removed with Plasma 6.0
+Provides:       deprecated()
 %description x11
 %{summary}.
 
@@ -803,6 +805,9 @@ fi
 
 
 %changelog
+* Fri Nov 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.9.1-2
+- Mark plasma-workspace-x11 as deprecated
+
 * Wed Oct 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.9.1-1
 - 5.27.9.1
 - Replace old %%stable macro

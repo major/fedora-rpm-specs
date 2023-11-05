@@ -7,8 +7,8 @@
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
 Version:   1.20.10
-Release:   2%{?dist}
-License:   GPLv2+
+Release:   3%{?dist}
+License:   GPL-2.0-or-later
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -118,6 +118,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Nov 03 2023 Íñigo Huguet <ihuguet@redhat.com> - 1.20.10-3
+- Migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

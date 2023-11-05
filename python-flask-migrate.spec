@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:               python-flask-migrate
-Version:            4.0.4
+Version:            4.0.5
 Release:            %autorelease
 Summary:            SQLAlchemy database migrations for Flask applications using Alembic
 

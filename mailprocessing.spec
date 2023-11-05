@@ -1,3 +1,5 @@
+%global forgeurl https://github.com/mailprocessing/mailprocessing
+
 %global _description %{expand:
 The mailprocessing library contains two executables: maildirproc and
 imapproc. maildirproc processes one or several several existing mail
@@ -12,10 +14,11 @@ Name:           mailprocessing
 Version:        1.2.7
 Release:        %autorelease
 Summary:        Maildir and IMAP processor/filter
-
+%global tag %{version}
+%forgemeta
 License:        GPL-2.0-only
-URL:            https://github.com/mailprocessing/mailprocessing
-Source0:        %{pypi_source %{name}}
+URL:            %forgeurl
+Source0:        %forgesource
 # Fixes rpmlint incorrect-fsf-address error
 # Patch from https://github.com/mailprocessing/mailprocessing/pull/14
 Patch0:         fix-incorrect-fsf-address.patch
@@ -33,7 +36,7 @@ Provides:       maildirproc = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version} -S git
+%forgeautosetup -p1 -S git
 
 
 %generate_buildrequires

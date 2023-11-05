@@ -5,9 +5,9 @@
 
 Name:    keyutils
 Version: 1.6.1
-Release: 7%{?buildid}%{?dist}
+Release: 8%{?buildid}%{?dist}
 Summary: Linux Key Management Utilities
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Url:     http://people.redhat.com/~dhowells/keyutils/
 
 Source0: http://people.redhat.com/~dhowells/keyutils/keyutils-%{version}.tar.bz2
@@ -96,6 +96,9 @@ make \
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 16 2023 Pavel Reichl <preichl@redhat.com> - 1.6.1-8
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

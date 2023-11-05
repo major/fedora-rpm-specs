@@ -1,6 +1,6 @@
 Name:           med
 Version:        4.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Library to exchange meshed data
 
 License:        LGPL-3.0-or-later
@@ -14,6 +14,8 @@ Patch0:         med_cmake.patch
 # hdf5-1.12 compatibility
 # https://gist.githubusercontent.com/jedbrown/527ef81ff59a0dccf833da40fdd15a47/raw/7482f9a42fdd277f5f9cf0167ea7a3381032ca7a/hdf5-1.12.patch
 Patch1:         med-hdf5-1.12.patch
+# Fix python3.13 build
+Patch2:         med-py3.13.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -130,6 +132,9 @@ rm -rf %{buildroot}%{_bindir}/testpy
 
 
 %changelog
+* Fri Nov 03 2023 Sandro Mani <manisandro@gmail.com> - 4.1.0-14
+- Fix python-3.13 build
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

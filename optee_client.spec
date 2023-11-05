@@ -51,6 +51,7 @@ Development file for optee_client
 %{_includedir}/pkcs11*.h
 %{_includedir}/se_tee.h
 %{_includedir}/tee*.h
+%{_libdir}/pkgconfig/libteec.pc
 %{_libdir}/libckteec.so
 %{_libdir}/libseteec.so
 %{_libdir}/libteeacl.so

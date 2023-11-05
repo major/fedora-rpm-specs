@@ -1,6 +1,6 @@
 Name:		open-amp
-Version:	2023.04.0
-Release:	2%{?dist}
+Version:	2023.10.0
+Release:	1%{?dist}
 Summary:	Open Asymmetric Multi Processing (OpenAMP) framework project
 
 License:	BSD
@@ -72,7 +72,7 @@ baremetal, and RTOS environments.
 
 %files libs
 %{_libdir}/libopen_amp.so.1
-%{_libdir}/libopen_amp.so.1.4.0
+%{_libdir}/libopen_amp.so.1.*
 
 %files devel
 %{_includedir}/openamp/
@@ -80,6 +80,9 @@ baremetal, and RTOS environments.
 
 
 %changelog
+* Fri Nov 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10.0-1
+- Update to 2023.10.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.04.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

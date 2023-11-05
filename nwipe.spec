@@ -1,6 +1,6 @@
 Name:           nwipe
-Version:        0.34
-Release:        3%{?dist}
+Version:        0.35
+Release:        1%{?dist}
 Summary:        Securely erase disks using a variety of recognized methods
 
 
@@ -11,7 +11,7 @@ Summary:        Securely erase disks using a variety of recognized methods
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
-License:        GPLv2
+License:        GPL-2.0-only
 # used to be    http://nwipe.sourceforge.net
 URL:            https://github.com/martijnvanbrummelen/nwipe
 #Source0:       https://github.com/%%{gituser}/%%{gitname}/archive/%%{commit}/%%{name}-%%{version}-%%{shortcommit}.tar.gz
@@ -22,6 +22,7 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  parted-devel
 BuildRequires:  ncurses-devel
+BuildRequires:  libconfig-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
 
@@ -49,9 +50,8 @@ a few changes:
 - DmiDecode is used to provide host info to nwipes log 
 
 %prep
-#setup -qn %%{gitname}-%%{commit}
-%setup -qn %{gitname}-%{version}
-%patch1 -p 1 -b .epel6
+#autosetup -n %%{gitname}-%%{commit} -p 1
+%autosetup -n %{gitname}-%{version} -p 1
 
 
 %build
@@ -62,14 +62,15 @@ export CFLAGS="%{optflags} -std=c99 -D_XOPEN_SOURCE=500"
 %endif
 
 autoreconf -vif
+
 %configure
-make %{?_smp_mflags}
+# make %%{?_smp_mflags}
+%make_build
 
 
 %install
-#Cleanup the buildroot for compatibility with EPEL5
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} LDFLAGS="-lncurses -lpanel"
+# make install DESTDIR=%%{buildroot} LDFLAGS="-lncurses -lpanel"
+%make_install
 
 
 %files
@@ -79,6 +80,9 @@ make install DESTDIR=%{buildroot} LDFLAGS="-lncurses -lpanel"
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Fri Nov 03 2023 Michal Ambroz <rebus at, seznam.cz> 0.35-1
+- bump to 0.35
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 Name:           %{pkg_name}
 Version:        3.8.1.0
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The command-line interface for Cabal and Hackage
 
 License:        BSD-3-Clause
@@ -23,6 +23,8 @@ Source1:        https://hackage.haskell.org/package/%{cabalinstallsolver}/%{caba
 Source2:        https://hackage.haskell.org/package/%{pkgver}/%{name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 Source10:       cabal-install.sh
+# https://github.com/haskell/cabal/issues/8923
+Patch0:         cabal-install-solver-pkgconfig-modversion.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  dos2unix
@@ -180,6 +182,10 @@ This package provides the Haskell %{name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -a1
+%global pkgconf_version %(pkgconf --version)
+%if v"%pkgconf_version" > v"1.9" && v"%pkgconf_version" < v"2.0"
+%patch -P0 -p0 -b .orig
+%endif
 dos2unix -k -n %{SOURCE2} %{name}.cabal
 # End cabal-rpm setup
 cabal-tweak-dep-ver resolv 0.2 0.3
@@ -239,6 +245,9 @@ install -pm 644 -D -t %{buildroot}%{_sysconfdir}/profile.d/ %{SOURCE10}
 
 
 %changelog
+* Fri Nov  3 2023 Jens Petersen <petersen@redhat.com> - 3.8.1.0-2
+- fix pkgconfig-depends detection failing with pkgconf-1.9
+
 * Wed Jul 26 2023 Jens Petersen <petersen@redhat.com> - 3.8.1.0-1
 - https://hackage.haskell.org/package/cabal-install-3.8.1.0/changelog
 - package library and subpackage cabal-install-resolver

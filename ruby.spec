@@ -101,7 +101,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 182%{?dist}
+Release: 183%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -473,7 +473,7 @@ Provides:   rubygem(bundler) = %{version}-%{release}
 Provides:   bundled(rubygem-connection_pool) = %{bundler_connection_pool_version}
 Provides:   bundled(rubygem-fileutils) = %{bundler_fileutils_version}
 Provides:   bundled(rubygem-pub_grub) = %{bundler_pub_grub_version}
-Provides:   bundled(rubygem-net-http-persisntent) = %{bundler_net_http_persistent_version}
+Provides:   bundled(rubygem-net-http-persistent) = %{bundler_net_http_persistent_version}
 Provides:   bundled(rubygem-thor) = %{bundler_thor_version}
 Provides:   bundled(rubygem-uri) = %{bundler_uri_version}
 BuildArch:  noarch
@@ -1584,6 +1584,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Thu Nov 02 2023 Jarek Prokop <jprokop@redhat.com> - 3.2.2-183
+- Fix typo in bundled provide of rubygem-bundler for rubygem-net-http-persistent.
+
 * Wed Sep 20 2023 Jun Aruga <jaruga@redhat.com> - 3.2.2-182
 - Fix OpenSSL.fips_mode and OpenSSL::PKey.read in OpenSSL 3 FIPS.
 

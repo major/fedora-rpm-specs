@@ -4,7 +4,7 @@
 # https://github.com/aead/minisign
 %global goipath         aead.dev/minisign
 %global forgeurl        https://github.com/aead/minisign
-Version:                0.2.0
+Version:                0.2.1
 
 %gometa -f
 

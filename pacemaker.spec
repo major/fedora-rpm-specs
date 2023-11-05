@@ -40,11 +40,11 @@
 ## Upstream pacemaker version, and its package version (specversion
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
-%global pcmkversion 2.1.6
-%global specversion 4
+%global pcmkversion 2.1.7
+%global specversion 1.rc1
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 6fdc9deea294bbad629b003c6ae036aaed8e3ee0
+%global commit d0ef74d6431339f2f5782ab9061fa31734f4869c
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -88,7 +88,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_with pre_release
+%bcond_without pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -199,7 +199,8 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}.2
+Release:       %{pcmk_release}%{?dist}
+
 License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Url:           https://www.clusterlabs.org/
 
@@ -270,7 +271,7 @@ BuildRequires: pam-devel
 BuildRequires: %{pkgname_gettext} >= 0.18
 
 # Required for "make check"
-BuildRequires: libcmocka-devel
+BuildRequires: libcmocka-devel >= 1.1.0
 
 BuildRequires: pkgconfig(systemd)
 
@@ -579,14 +580,6 @@ find %{buildroot} -name '*.la' -type f -print0 | xargs -0 rm -f
 rm -f %{buildroot}/%{_sbindir}/fence_legacy
 rm -f %{buildroot}/%{_mandir}/man8/fence_legacy.*
 
-# Byte-compile Python sources where suitable and the distro procedures known
-%if %{defined py_byte_compile}
-%{py_byte_compile %{python_path} %{buildroot}%{_datadir}/pacemaker/tests}
-%if !%{defined _python_bytecompile_extra}
-%{py_byte_compile %{python_path} %{buildroot}%{python_site}/cts}
-%endif
-%endif
-
 install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/pacemaker.conf
 
 %post
@@ -671,7 +664,6 @@ exit 0
 %exclude %{_sbindir}/pacemaker_remoted
 %{_libexecdir}/pacemaker/*
 
-%{_sbindir}/crm_master
 %{_sbindir}/fence_watchdog
 
 %doc %{_mandir}/man7/pacemaker-controld.*
@@ -679,7 +671,6 @@ exit 0
 %doc %{_mandir}/man7/pacemaker-fenced.*
 %doc %{_mandir}/man7/ocf_pacemaker_controld.*
 %doc %{_mandir}/man7/ocf_pacemaker_remote.*
-%doc %{_mandir}/man8/crm_master.*
 %doc %{_mandir}/man8/fence_watchdog.*
 %doc %{_mandir}/man8/pacemakerd.*
 
@@ -710,6 +701,7 @@ exit 0
 %{_sbindir}/crm_diff
 %{_sbindir}/crm_error
 %{_sbindir}/crm_failcount
+%{_sbindir}/crm_master
 %{_sbindir}/crm_mon
 %{_sbindir}/crm_node
 %{_sbindir}/crm_resource
@@ -745,7 +737,6 @@ exit 0
 %exclude %{_mandir}/man7/ocf_pacemaker_o2cb.*
 %exclude %{_mandir}/man7/ocf_pacemaker_remote.*
 %doc %{_mandir}/man8/crm*.8.gz
-%exclude %{_mandir}/man8/crm_master.*
 %doc %{_mandir}/man8/attrd_updater.*
 %doc %{_mandir}/man8/cibadmin.*
 %if %{with cibsecrets}
@@ -815,7 +806,6 @@ exit 0
 %license licenses/CC-BY-SA-4.0
 
 %files cts
-%{python_site}/cts
 %{python3_sitelib}/pacemaker/_cts/
 %{_datadir}/pacemaker/tests
 
@@ -858,6 +848,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Fri Nov 3 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.7-0.1.rc1
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.7-rc1,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.7-rc1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-4.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

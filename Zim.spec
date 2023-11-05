@@ -9,6 +9,10 @@ Summary:        Desktop wiki & notekeeper
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            http://zim-wiki.org/
 Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
+# Prevent ABRT from triggering on expected errors (rhbz#2213835)
+Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2482.patch
+# Improve screenshot on Wayland
+Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2431.patch
 # Not needed for multilib
 ExcludeArch:    %{ix86}
 BuildArch:      noarch

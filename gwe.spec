@@ -24,12 +24,12 @@ Requires:       hicolor-icon-theme
 Requires:       libdazzle
 Requires:       python3-gobject >= 3.44.1
 Requires:       python3-injector >= 0.21.0
-Requires:       python3-matplotlib-gtk3 >= 3.7.1
-Requires:       python3-peewee >= 3.16.0
+Requires:       python3-matplotlib-gtk3 >= 3.8.0
+Requires:       python3-peewee >= 3.16.3
 Requires:       python3-py3nvml >= 0.2.7
-Requires:       python3-pyxdg >= 0.28
+Requires:       python3-pyxdg %dnl >= 0.28 # Try to run with old for now https://bugzilla.redhat.com/show_bug.cgi?id=2242522
 Requires:       python3-reactivex >= 4.0.4
-Requires:       python3-requests >= 2.28.2
+Requires:       python3-requests %dnl >= 2.31.0 # Try to run with old for now https://bugzilla.redhat.com/show_bug.cgi?id=2189970
 Requires:       python3-xlib >= 0.33
 
 # Conditional dep for GNOME

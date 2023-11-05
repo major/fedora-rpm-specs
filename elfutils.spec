@@ -1,10 +1,10 @@
 Name: elfutils
-Version: 0.189
-%global baserelease 6
+Version: 0.190
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
-License: GPLv3+ and (GPLv2+ or LGPLv3+) and GFDL
+License: GPL-3.0-or-later and (GPL-2.0-or-later or LGPL-3.0-or-later) and GFDL-1.3-no-invariants-or-later
 Source: %{?source_url}%{name}-%{version}.tar.bz2
 Source1: elfutils-debuginfod.sysusers
 Summary: A collection of utilities and DSOs to handle ELF files and DWARF data
@@ -74,16 +74,6 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
-# testsuite: Avoid C99 compatibility issues in run-native-test.sh
-Patch2: elfutils-0.189-c99-compat.patch
-# elfcompress: Don't compress if section already compressed unless forced
-Patch3: elfutils-0.189-elfcompress.patch
-# libelf: Replace list of elf_getdata_rawchunk results with a tree
-Patch4: elfutils-0.189-elf_getdata_rawchunk.patch
-# PR29696: Removed secondary fd close in cache config causing race condition
-Patch5: elfutils-0.189-debuginfod_config_cache-double-close.patch
-# Bug 28495 - Add support for SHT_RELR to eu-readelf
-Patch6: elfutils-0.189-relr.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -95,7 +85,7 @@ elfcompress (to compress or decompress ELF sections).
 
 %package libs
 Summary: Libraries to handle compiled objects
-License: GPLv2+ or LGPLv3+
+License: GPL-2.0-or-later or LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-libs%{depsuffix} = %{version}-%{release}
 %endif
@@ -118,7 +108,7 @@ libraries.
 
 %package devel
 Summary: Development libraries to handle compiled objects
-License: GPLv2+ or LGPLv3+
+License: GPL-2.0-or-later or LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-devel%{depsuffix} = %{version}-%{release}
 %endif
@@ -139,7 +129,7 @@ assembler interface.
 
 %package libelf
 Summary: Library to read and write ELF files
-License: GPLv2+ or LGPLv3+
+License: GPL-2.0-or-later or LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-libelf%{depsuffix} = %{version}-%{release}
 %endif
@@ -153,7 +143,7 @@ elfutils package use it also to generate new ELF files.
 
 %package libelf-devel
 Summary: Development support for libelf
-License: GPLv2+ or LGPLv3+
+License: GPL-2.0-or-later or LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-libelf-devel%{depsuffix} = %{version}-%{release}
 %endif
@@ -170,7 +160,7 @@ different sections of an ELF file.
 %if %{provide_yama_scope}
 %package default-yama-scope
 Summary: Default yama attach scope sysctl setting
-License: GPLv2+ or LGPLv3+
+License: GPL-2.0-or-later or LGPL-3.0-or-later
 Provides: default-yama-scope
 BuildArch: noarch
 # For the sysctl_apply macro we need systemd as build requires.
@@ -204,7 +194,7 @@ profiling) of processes.
 
 %package debuginfod-client
 Summary: Library and command line client for build-id HTTP ELF/DWARF server
-License: GPLv3+ and (GPLv2+ or LGPLv3+)
+License: GPL-3.0-or-later and (GPL-2.0-or-later or LGPL-3.0-or-later)
 %if 0%{!?_isa:1}
 Provides: elfutils-debuginfod-client%{depsuffix} = %{version}-%{release}
 %endif
@@ -214,7 +204,7 @@ Requires: elfutils-libelf%{depsuffix} = %{version}-%{release}
 
 %package debuginfod-client-devel
 Summary: Libraries and headers to build debuginfod client applications
-License: GPLv2+ or LGPLv3+
+License: GPL-2.0-or-later or LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-debuginfod-client-devel%{depsuffix} = %{version}-%{release}
 %endif
@@ -222,7 +212,7 @@ Requires: elfutils-debuginfod-client%{depsuffix} = %{version}-%{release}
 
 %package debuginfod
 Summary: HTTP ELF/DWARF file server addressed by build-id
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: elfutils-libs%{depsuffix} = %{version}-%{release}
 Requires: elfutils-libelf%{depsuffix} = %{version}-%{release}
 Requires: elfutils-debuginfod-client%{depsuffix} = %{version}-%{release}
@@ -358,6 +348,7 @@ fi
 %{_bindir}/eu-ranlib
 %{_bindir}/eu-readelf
 %{_bindir}/eu-size
+%{_bindir}/eu-srcfiles
 %{_bindir}/eu-stack
 %{_bindir}/eu-strings
 %{_bindir}/eu-strip
@@ -428,7 +419,6 @@ fi
 %{_sysusersdir}/elfutils-debuginfod.conf
 %endif
 %{_mandir}/man8/debuginfod*.8*
-%{_mandir}/man7/debuginfod*.7*
 
 
 %dir %attr(0700,debuginfod,debuginfod) %{_localstatedir}/cache/debuginfod
@@ -452,6 +442,20 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Nov  3 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.190-2
+- Update Fedora license tags to spdx license tags
+
+* Fri Nov  3 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.190-1
+- Upgrade to upstream elfutils 0.190
+- Add eu-srcfiles
+- Drop upstreamed patches
+  elfutils-0.189-relr.patch
+  elfutils-0.189-debuginfod_config_cache-double-close.patch
+  elfutils-0.189-elf_getdata_rawchunk.patch
+  elfutils-0.189-elfcompress.patch
+  elfutils-0.189-c99-compat.patch
+- Only package debuginfod-client-config.7 manpage for debuginfod-client
+
 * Thu Aug 24 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-6
 - Update elfutils-0.189-relr.patch
 

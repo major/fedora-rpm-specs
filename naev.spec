@@ -1,6 +1,6 @@
 Name:           naev
 Version:        0.10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        2d action, RPG space game
 License:        GPL-3.0-only
 URL:            http://naev.org
@@ -43,6 +43,10 @@ Requires:       %{name}-data = %{version}
 
 # LUAJIT isn't built for ppc64le and s390x anymore
 ExclusiveArch:  %{arm} %{ix86} x86_64 %{mips} aarch64
+
+# libunibreak dropped i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 NAEV is a 2D space trading and combat game, in a similar vein to Escape
@@ -92,6 +96,9 @@ rm -f %{buildroot}%{_datadir}/doc/naev/LICENSE %{buildroot}%{_datadir}/doc/naev/
 
 
 %changelog
+* Fri Nov 03 2023 Sandro <devel@penguinpee.nl> - 0.10.2-4
+- Stop building for i686
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

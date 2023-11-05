@@ -39,7 +39,7 @@
 
 Name:           python-aws-xray-sdk
 Summary:        AWS X-Ray SDK for the Python programming language
-Version:        2.12.0
+Version:        2.12.1
 Release:        %autorelease
 
 # The entire source is Apache-2.0, except that sample-apps/ (packaged in the
@@ -50,9 +50,6 @@ URL:            https://github.com/aws/aws-xray-sdk-python
 # and tests.
 Source:         %{url}/archive/%{version}/aws-xray-sdk-python-%{version}.tar.gz
 
-# Support passing pytest arguments via tox
-# https://github.com/aws/aws-xray-sdk-python/pull/390
-Patch:          %{url}/pull/390.patch
 # Fix passing multiple values in testenv.passenv in tox.ini
 # https://github.com/aws/aws-xray-sdk-python/pull/399
 Patch:          %{url}/pull/399.patch

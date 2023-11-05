@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 270
+%global baserelease 271
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -255,6 +255,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Fri Nov 03 2023 Stephen Gallagher <sgallagh@redhat.com> - 271-1
+- ELN: Enable frame pointers for RHEL 11+ (for now)
+
 * Thu Oct  5 2023 Florian Weimer <fweimer@redhat.com> - 270-1
 - Disable -fstack-clash-protection on riscv64 (#2242327)
 

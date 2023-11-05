@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate async-process
+%global crate snapbox-macros
 
-Name:           rust-async-process
-Version:        1.8.1
+Name:           rust-snapbox-macros
+Version:        0.3.6
 Release:        %autorelease
-Summary:        Async interface for working with processes
+Summary:        Snapshot testing toolbox
 
-License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/async-process
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/snapbox-macros
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          async-process-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Async interface for working with processes.}
+Snapshot testing toolbox.}
 
 %description %{_description}
 
@@ -34,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,6 +45,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+color-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+color-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "color" feature of the "%{crate}" crate.
+
+%files       -n %{name}+color-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+debug-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+debug-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "debug" feature of the "%{crate}" crate.
+
+%files       -n %{name}+debug-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

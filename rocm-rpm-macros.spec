@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -18,7 +18,7 @@ Source6:        gfx11
 
 
 Requires:       environment-modules
-BuildArch:      noarch
+ExclusiveArch:  x86_64
 %description
 This package contains ROCm RPM macros for building ROCm packages.
 
@@ -66,6 +66,9 @@ done
 %{_datadir}/modulefiles/rocm/
 
 %changelog
+* Thu Nov 02 2023 Jeremy Newton <alexjnewt at hotmail dot com> 1.0-6
+- change package to arched x86_64 to capture the correct libdir
+
 * Sun Oct 22 2023 Tom Rix <trix@redhat.com> 1.0-5
 - make directories rocblas will use
 

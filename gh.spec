@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.37.0
+Version:                2.38.0
 
 %gometa -f
 
@@ -27,8 +27,6 @@ Summary:        GitHub's official command line tool
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
-# https://github.com/cli/cli/pull/8209
-Patch:          0001-Bump-cpuguy83-go-md2man-from-2.0.1-to-2.0.3.patch
 
 BuildRequires:  git-core
 BuildRequires:  sed
@@ -42,11 +40,6 @@ Requires:       git-core
 %prep
 %goprep
 %autopatch -p1
-
-# Use golang-github-cli-cyrpto forked module
-# https://github.com/cli/cli/issues/4731
-sed -i "s|golang.org/x/crypto|github.com/cli/crypto|" $(find . -name "*.go" -type f)
-sed -i "s|github.com/cli/crypto/nacl/box|golang.org/x/crypto/nacl/box|" $(find . -name "*.go" -type f)
 
 %generate_buildrequires
 %go_generate_buildrequires

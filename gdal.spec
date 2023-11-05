@@ -50,7 +50,7 @@
 
 
 Name:          gdal
-Version:       3.7.2
+Version:       3.7.3
 Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
@@ -570,6 +570,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Fri Nov 03 2023 Sandro Mani <manisandro@gmail.com> - 3.7.3-1
+- Update to 3.7.3
+
 * Wed Sep 13 2023 Sandro Mani <manisandro@gmail.com> - 3.7.2-1
 - Update to 3.7.2
 

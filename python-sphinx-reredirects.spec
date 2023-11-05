@@ -1,16 +1,15 @@
 Name:           python-sphinx-reredirects
-Version:        0.1.2
-Release:        4%{?dist}
+Version:        0.1.3
+Release:        1%{?dist}
 Summary:        Handle redirects for moved pages in Sphinx documentation
 
 License:        BSD-3-Clause
-URL:            https://documatt.gitlab.io/sphinx-reredirects/
-Source0:        https://gitlab.com/documatt/sphinx-reredirects/-/archive/v%{version}/sphinx-reredirects-v%{version}.tar.bz2
+URL:            https://documatt.com/sphinx-reredirects/
+Source0:        https://github.com/documatt/sphinx-reredirects/archive/v%{version}/sphinx-reredirects-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist sphinx-documatt-theme}
 
 %global _description %{expand:
 Sphinx-reredirects is the extension for Sphinx documentation projects
@@ -59,13 +58,13 @@ License:        BSD-3-Clause AND BSD-2-Clause AND MIT
 Documentation for %{name}.
 
 %prep
-%autosetup -n sphinx-reredirects-v%{version}
+%autosetup -n sphinx-reredirects-%{version}
 
 # Do not pin to specific package versions
-sed -i 's/pytest==/pytest>=/;s/sphinx==/sphinx>=/' tox.ini test-requirements.txt
+sed -i 's/==/>=/g' docs/requirements.txt test-requirements.txt tox.ini
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -t docs/requirements.txt
 
 %build
 %pyproject_wheel
@@ -90,6 +89,10 @@ rst2html --no-datestamp README.rst README.html
 %license LICENSE
 
 %changelog
+* Fri Nov  3 2023 Jerry James <loganjerry@gmail.com> - 0.1.3-1
+- Version 0.1.3
+- New project URLs
+
 * Mon Oct 16 2023 Maxwell G <maxwell@gtmx.me> - 0.1.2-4
 - Obsolete duplicate python3-sphinx_reredirects package
 

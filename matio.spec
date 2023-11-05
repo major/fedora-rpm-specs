@@ -1,6 +1,6 @@
 Name:           matio
 Version:        1.5.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for reading/writing Matlab MAT files
 
 License:        BSD-2-Clause
@@ -37,6 +37,8 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+
+sed -i -e '/Requires\.private/d' matio.pc.in
 
 
 %build
@@ -90,6 +92,9 @@ make check || ( cat test/testsuite.log && exit $fail )
 
 
 %changelog
+* Fri Nov 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.24-2
+- Patch out static requires
+
 * Mon Oct 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.24-1
 - 1.5.24
 

@@ -1,19 +1,19 @@
-%global pname   controlyourtabs
-%global uuid    com.thingsthemselves.gedit.plugins.%{pname}
+%global appname controlyourtabs
+%global uuid    com.thingsthemselves.gedit.plugins.%{appname}
 
 Name:           gedit-control-your-tabs
-Version:        0.3.5
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Gedit plugin to switch between document tabs using
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/jefferyto/gedit-control-your-tabs
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
 
-Requires:       gedit%{?_isa} >= 3.8
+Requires:       gedit%{?_isa} >= 3.12
 
 Provides:       bundled(python-gtk-utils) = 0.2.0
 
@@ -29,18 +29,18 @@ row order).
 
 %install
 mkdir -p                %{buildroot}%{_libdir}/gedit/plugins
-cp -a %{pname}          %{buildroot}%{_libdir}/gedit/plugins/
-rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{pname}/schemas
-rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{pname}/utils/.editorconfig
-rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{pname}/utils/.gitattributes
-rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{pname}/locale
+cp -a %{appname}        %{buildroot}%{_libdir}/gedit/plugins/
+rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{appname}/schemas
+rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{appname}/utils/.editorconfig
+rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{appname}/utils/.gitattributes
+rm -r                   %{buildroot}%{_libdir}/gedit/plugins/%{appname}/locale
 mkdir -p                %{buildroot}%{_libdir}/gedit/plugins
-cp -a %{pname}.plugin   %{buildroot}%{_libdir}/gedit/plugins/
+cp -a %{appname}.plugin %{buildroot}%{_libdir}/gedit/plugins/
 mkdir -p                %{buildroot}%{_datadir}/glib-2.0/schemas/
-cp -a %{pname}/schemas/%{uuid}.gschema.xml %{buildroot}%{_datadir}/glib-2.0/schemas/
+cp -a %{appname}/schemas/%{uuid}.gschema.xml %{buildroot}%{_datadir}/glib-2.0/schemas/
 
 # Byte compiling
-%py_byte_compile %{__python3} %{buildroot}%{_libdir}/gedit/plugins/%{pname}/
+%py_byte_compile %{__python3} %{buildroot}%{_libdir}/gedit/plugins/%{appname}/
 
 # Install metainfo
 install -m 0644 -Dp data/%{uuid}.metainfo.xml %{buildroot}%{_metainfodir}/%{uuid}.metainfo.xml
@@ -54,8 +54,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %license LICENSE
 %doc README.md
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
-%{_libdir}/gedit/plugins/%{pname}
-%{_libdir}/gedit/plugins/%{pname}.plugin
+%{_libdir}/gedit/plugins/%{appname}
+%{_libdir}/gedit/plugins/%{appname}.plugin
 %{_metainfodir}/*.xml
 
 

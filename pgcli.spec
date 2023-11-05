@@ -1,8 +1,8 @@
 %global pypi_name pgcli
 
 Name:           %{pypi_name}
-Version:        3.5.0
-Release:        4%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD-3-Clause
@@ -50,6 +50,9 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Thu Nov 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.1-1
+- Update to 4.0.1 (close RHBZ#2246795)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

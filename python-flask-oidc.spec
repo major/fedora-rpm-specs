@@ -2,13 +2,14 @@
 %global mod_name flask_oidc
 
 Name:           python-%{project_name}
-Version:        2.1.0
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        OpenID Connect extension for Flask
 
 License:        BSD-2-Clause
 URL:            https://github.com/fedora-infra/flask-oidc
 Source0:        %pypi_source %{mod_name}
+Source1:        BSD-2-Clause.txt
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -33,6 +34,7 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{mod_name}-%{version}
+cp -p %{SOURCE1} ./LICENSES/
 
 
 %generate_buildrequires
@@ -51,10 +53,13 @@ Summary:        %{summary}
 
 %files -n python3-%{project_name} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE.txt
+%license LICENSES/BSD-2-Clause.txt
 
 
 %changelog
+* Fri Nov 03 2023 Aurelien Bompard <abompard@fedoraproject.org> - 2.1.1-1
+- Version 2.1.1
+
 * Mon Oct 09 2023 Packit <hello@packit.dev> - 2.1.0-1
 - Version 2.1.0 (Aurélien Bompard)
 - Handle token expiration when there is no ``refresh_token`` or no token URL (Aurélien Bompard)

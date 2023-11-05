@@ -1,7 +1,7 @@
 #global candidate rc3
 
 Name:          libgpiod
-Version:       2.0.2
+Version:       2.1
 Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
@@ -87,14 +87,14 @@ find %{buildroot} -name '*.la' -delete
 %files
 %license COPYING
 %doc README
-%{_libdir}/%{name}.so.*
+%{_libdir}/%{name}.so.3*
 
 %files utils
 %{_bindir}/gpio*
 %{_mandir}/man*/gpio*
 
 %files c++
-%{_libdir}/libgpiodcxx.so.*
+%{_libdir}/libgpiodcxx.so.2*
 
 %files -n python3-%{name}
 %{python3_sitearch}/gpiod/
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Fri Nov 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.1-1
+- Update to 2.1
+
 * Fri Aug 25 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.2-1
 - Update to 2.02
 

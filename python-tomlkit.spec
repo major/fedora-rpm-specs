@@ -13,7 +13,7 @@ Part of the implementation has been adapted, improved and fixed from Molten.}
 
 Name:           python-%{pypi_name}
 Summary:        Style preserving TOML library
-Version:        0.12.1
+Version:        0.12.2
 Release:        1%{?dist}
 License:        MIT
 
@@ -64,6 +64,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Nov 02 2023 Maxwell G <maxwell@gtmx.me> - 0.12.2-1
+- Update to 0.12.2. Fixes rhbz#2247663.
+
 * Mon Aug 28 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.12.1-1
 - Update to 0.12.1
 Resolves: rhbz#2130400

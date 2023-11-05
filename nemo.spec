@@ -1,13 +1,14 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        5.8.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
+Patch2:         %url/commit/ba29a2ffb1cd85ea323a7aa44fbf86fd804c2532.patch
 
 ExcludeArch:   %{ix86}
 
@@ -19,6 +20,7 @@ Requires:       xapps%{?_isa} >= 2.2.0
 Requires:       adwaita-icon-theme
 Requires:       cinnamon-translations >= 5.8.0
 Recommends:     nemo-search-helpers
+Recommends:     folder-color-switcher-nemo
 
 BuildRequires:  meson
 BuildRequires:  intltool
@@ -153,6 +155,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Fri Nov 03 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.5-3
+- Add recommends folder-color-switcher-nemo
+
 * Sat Sep 23 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.5-2
 - Show nemo app in other DE's
 

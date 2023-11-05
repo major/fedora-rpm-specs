@@ -2,14 +2,16 @@
 %{!?_fmoddir: %global _fmoddir %{_libdir}/gfortran/modules}
 
 Name:		qd
-Version:	2.3.23
-Release:	5%{?dist}
+Version:	2.3.24
+Release:	1%{?dist}
 Summary:	Double-Double and Quad-Double Arithmetic
 License:	BSD-3-Clause-LBNL
 URL:		https://www.davidhbailey.com/dhbsoftware/
 Source0:	https://www.davidhbailey.com/dhbsoftware/%{name}-%{version}.tar.gz
 # Fix LTO warnings about type mismatches
 Patch0:		%{name}-lto.patch
+# Fix warnings about unused type specifications for intrinsic functions
+Patch1:		%{name}-intrinsic.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -60,14 +62,14 @@ rm -f docs/qd.pdf
 export CFLAGS='%{build_cflags} -ffp-contract=off'
 export CXXFLAGS='%{build_cxxflags} -ffp-contract=off'
 %endif
-# FIXME: This should not be necessary!
-%ifarch aarch64
-export CFLAGS='%{build_cflags} -mabi=lp64'
-export CXXFLAGS='%{build_cxxflags} -mabi=lp64'
-%endif
 export FC=gfortran
 
-%configure --enable-shared --disable-static
+%configure \
+%ifnarch %{ix86} s390x aarch64 ppc64le
+  --enable-fma \
+%endif
+  --enable-shared \
+  --disable-static
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
@@ -118,6 +120,10 @@ LD_LIBRARY_PATH=$PWD/src/.libs:$PWD/fortran/.libs make check
 %{_libdir}/pkgconfig/qd.pc
 
 %changelog
+* Fri Nov  3 2023 Jerry James <loganjerry@gmail.com> - 2.3.24-1
+- Version 2.3.24
+- Enable fused multiply-add on some architectures
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.23-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

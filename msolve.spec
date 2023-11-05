@@ -1,5 +1,5 @@
 Name:           msolve
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Polynomial System Solving through Algebraic Methods
 
@@ -121,8 +121,8 @@ make check
 %files libs
 %doc AUTHORS README.md
 %license COPYING
-%{_libdir}/libmsolve-0.6.0.so
-%{_libdir}/libneogb-0.6.0.so
+%{_libdir}/libmsolve-0.6.1.so
+%{_libdir}/libneogb-0.6.1.so
 
 %files devel
 %{_includedir}/msolve/
