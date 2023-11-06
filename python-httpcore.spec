@@ -5,7 +5,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        0.17.3
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Minimal low-level HTTP client
 
@@ -27,7 +27,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
 %if %{with tests}
-BuildRequires:  %{py3_dist pytest pytest-asyncio pytest-httpbin pytest-trio}
+BuildRequires:  %{py3_dist pytest pytest-asyncio pytest-httpbin pytest-trio anyio}
 %endif
 
 %description -n python3-%{pypi_name}
@@ -38,7 +38,6 @@ building authentication headers, transparent HTTP caching, URL parsing, etc.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-sed -i -e 's/"h11>=0.11,<0.13"/"h11>=0.11"/g' setup.py
 rm -rf %{pypi_name}.egg-info
 
 %generate_buildrequires
@@ -62,4 +61,3 @@ rm -rf %{pypi_name}.egg-info
 
 %changelog
 %autochangelog
-

@@ -1,5 +1,5 @@
 Name:           impressive
-Version:        0.13.1
+Version:        0.13.2
 Release:        %autorelease
 Summary:        A program that displays presentation slides
 
@@ -8,6 +8,7 @@ URL:            http://impressive.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/Impressive-%{version}.tar.gz
 # Wrapper script for making sure hardware acceleration is available
 Source1:        %{name}.sh
+Patch:          impressive-0.13-escape-escape-sequence.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -36,7 +37,7 @@ that are really useful for presentations.
 
 %prep
 %autosetup -n Impressive-%{version} -p1
-sed -ie '1s#/usr/bin/env python#/usr/bin/python3#' impressive.py
+sed -i -e '1s#/usr/bin/env python#/usr/bin/python3#' impressive.py
 
 %build
 sed -e "s|@PYTHON_SITELIB@|%{python3_sitelib}|" %{SOURCE1} > impressive.sh

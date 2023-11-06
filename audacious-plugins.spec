@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -48,7 +48,9 @@ BuildRequires: alsa-lib-devel
 BuildRequires: pulseaudio-libs-devel
 BuildRequires: libsndfile-devel
 BuildRequires: wavpack-devel
-BuildRequires: libsidplayfp-devel
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires: libsidplayfp-devel >= 2.0
+%endif
 BuildRequires: libmodplug-devel
 BuildRequires: libogg-devel libvorbis-devel
 BuildRequires: flac-devel
@@ -68,14 +70,17 @@ BuildRequires: pkgconfig(dbus-1) pkgconfig(dbus-glib-1)
 BuildRequires: pkgconfig(adplug)
 BuildRequires: pkgconfig(libbinio)
 BuildRequires: pkgconfig(libopenmpt)
+BuildRequires: pkgconfig(libmms)
 BuildRequires: pkgconfig(libmpg123)
 BuildRequires: lame-devel
 BuildRequires: pkgconfig(opus) pkgconfig(opusfile)
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: pkgconfig(libpipewire-0.3) pkgconfig(libspa-0.2)
 # ffaudio / ffmpeg
 BuildRequires: pkgconfig(libavcodec) >= 56.60.100
 BuildRequires: pkgconfig(libavformat) >= 56.40.101
 BuildRequires: pkgconfig(libavutil) >= 54.31.100
+%endif
 
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Gui)
@@ -89,6 +94,9 @@ BuildRequires: pkgconfig(ampache_browser_1)
 BuildRequires: devtoolset-8-toolchain
 %endif
 
+# added 2023-11-04
+Obsoletes: audacious-plugins-freeworld-mms < %{version}-%{release}
+Provides:  audacious-plugins-freeworld-mms = %{version}-%{release}
 
 # plugin .so files
 %if 0%{?fedora} > 29 || 0%{?rhel} > 8
@@ -145,6 +153,7 @@ This package provides AMIDI-Plug, a modular MIDI music player, as an
 input plugin for Audacious.
 
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %package ffaudio
 Summary: FFmpeg input plugin for Audacious
 License: GPLv2+
@@ -156,6 +165,7 @@ Provides: audacious-plugins-freeworld-ffaudio = %{version}-%{release}
 
 %description ffaudio
 This package provides FFmpeg as an input plugin for Audacious.
+%endif
 
 
 %prep
@@ -199,8 +209,12 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
     --enable-qthotkey \
     --disable-sndio \
     --disable-aac  \
-    --disable-mms  \
+    --enable-mms  \
+%if 0%{?fedora} || 0%{?rhel} >= 9
     --enable-ffaudio \
+%else
+    --disable-ffaudio \
+%endif
     %{?with_gtk:--enable-gtk} \
     %{!?with_gtk:--disable-gtk} \
     --disable-rpath
@@ -215,7 +229,9 @@ mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE100} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE101} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
+%if 0%{?fedora} || 0%{?rhel} >= 9
 install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
+%endif
 
 
 %files -f %{name}.lang
@@ -277,7 +293,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %{_libdir}/audacious/Output/alsa.so
 %{_libdir}/audacious/Output/filewriter.so
 %{_libdir}/audacious/Output/oss4.so
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %{_libdir}/audacious/Output/pipewire.so
+%endif
 %{_libdir}/audacious/Output/pulse_audio.so
 %{_libdir}/audacious/Output/sdlout.so
 %dir %{_libdir}/audacious/Visualization/
@@ -287,6 +305,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %{_libdir}/audacious/Visualization/vumeter-qt.so
 %dir %{_libdir}/audacious/Transport/
 %{_libdir}/audacious/Transport/gio.so
+%{_libdir}/audacious/Transport/mms.so
 %{_libdir}/audacious/Transport/neon.so
 
 # optional Gtk+ plugins
@@ -319,7 +338,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %{_libdir}/audacious/Input/adplug.so
 %{_libdir}/audacious/Input/console.so
 %{_libdir}/audacious/Input/psf2.so
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %{_libdir}/audacious/Input/sid.so
+%endif
 %{_libdir}/audacious/Input/vtx.so
 %{_libdir}/audacious/Input/xsf.so
 %{_datadir}/appdata/%{name}-exotic.metainfo.xml
@@ -329,12 +350,17 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 #%%{_libdir}/audacious/Input/amidi-plug/
 %{_datadir}/appdata/%{name}-amidi.metainfo.xml
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %files ffaudio
 %{_libdir}/audacious/Input/ffaudio.so
 %{_datadir}/appdata/%{name}-ffaudio.metainfo.xml
+%endif
 
 
 %changelog
+* Mon Aug 28 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.3.1-3
+- Enable mms transport plugin.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

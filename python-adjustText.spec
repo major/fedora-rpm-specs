@@ -1,5 +1,8 @@
 %global pypi_name adjustText
 
+# Use GitHub sources (license file is missing in PyPI sdidt)
+%global forgeurl https://github.com/Phlya/adjustText
+
 %global _description %{expand:
 The idea is that often when we want to label multiple points on a graph
 the text will start heavily overlapping with both other labels and data
@@ -15,24 +18,21 @@ smaller than default and maybe the figure a little larger).
 However the algorithm itself is highly configurable for complicated plots.}
 
 Name:           python-%{pypi_name}
-Version:        0.7.3
+Version:        0.8
 Release:        %{autorelease}
 Summary:        Automatic label placement for matplotlib
 BuildArch:      noarch
-
+%global tag %{version}
+%forgemeta
 License:        MIT
-URL:            https://pypi.org/pypi/{pypi_name}
-Source0:        %{pypi_source %{pypi_name}}
-# LICENSE file as published on GitHub, but missing in tarball
-# https://github.com/Phlya/adjustText/issues/131
-Patch:          add_license_file.patch
+URL:            %forgeurl
+Source0:        %forgesource
 
 %description %_description
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  git-core
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -41,7 +41,12 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version} -S git
+%forgeautosetup -p1
+
+# Upstream is messy wrt versions
+# https://github.com/Phlya/adjustText/issues/161
+echo '__version__ = "%{version}"' > adjustText/_version.py
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -63,7 +68,7 @@ BuildRequires:  python3-pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%license LICENSE
+
 
 %changelog
 %autochangelog

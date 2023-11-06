@@ -1,12 +1,12 @@
 Name:           ascii
 Version:        3.18
-Release:        17%{?dist}
+Release:        18%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-3.18.tar.gz
 BuildRequires:  xmlto, gcc
 BuildRequires: make
 
-License:        BSD
+License:        BSD-2-Clause
 Summary:        Interactive ascii name and synonym chart
 
 %description
@@ -37,6 +37,9 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %license COPYING
 
 %changelog
+* Sat Nov 04 2023 Didier Fabert <didier.fabert@gmail.com> - 3.18-18
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

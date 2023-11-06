@@ -2,11 +2,15 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 3.1.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
+Patch1: audit-3.9-1-aureport.patch
+Patch2: audit-3.9-2-no-io_uring.patch
+Patch3: audit-3.9-4-fix-leak.patch
+Patch4: audit-3.9-5-mk-static.patch
 
 BuildRequires: make gcc
 BuildRequires: krb5-devel
@@ -89,6 +93,10 @@ Management Facility) database, through an IBM Tivoli Directory Server
 %prep
 %setup -q
 cp %{SOURCE1} .
+%patch 1 -p1 
+%patch 2 -p1 
+%patch 3 -p1 
+%patch 4 -p1 
 
 # Remove the ids code, its not ready
 sed -i 's/ ids / /' audisp/plugins/Makefile.am
@@ -268,6 +276,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Sat Nov 04 2023 Steve Grubb <sgrubb@redhat.com> 3.1.2-5
+- Bug fixes pulled from upstrean
+
 * Wed Sep 13 2023 Dusty Mabe <dusty@dustymabe.com> 3.1.2-4
 - Remove initscripts-service from Requires(postun)
 

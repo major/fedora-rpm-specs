@@ -7,7 +7,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -26,7 +26,7 @@ BuildRequires:  python3-setuptools
 %package -n python3-paste-deploy
 Summary:        %{sum}
 
-Requires:       python3-paste
+#Requires:       python3-paste
 Requires:       python3-setuptools
 
 %{?python_provide:%python_provide python3-paste-deploy}
@@ -64,6 +64,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Sat Nov 04 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.1-4
+- Remove dependency on python-paste (upstream not actively maintained)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

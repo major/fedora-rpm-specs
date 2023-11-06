@@ -7,8 +7,7 @@
 %ifarch ppc ppc64 %{sparc} %{mips} %{riscv}
 %{!?with_crash: %global with_crash 0}
 %else
-# rawhide crash-devel breakage rhbz2219728
-%{!?with_crash: %global with_crash 0}
+%{!?with_crash: %global with_crash 1}
 %endif
 %{!?with_rpm: %global with_rpm 1}
 %{!?elfutils_version: %global elfutils_version 0.179}
@@ -116,7 +115,7 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.0~pre16958465gca71442b
+Version: 5.0
 Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -152,7 +151,7 @@ Release: 1%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: http://sourceware.org/systemtap/
-Source: %{name}-%{version}.tar.gz
+Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -400,7 +399,7 @@ URL: http://sourceware.org/systemtap/
 Requires: systemtap = %{version}-%{release}
 Requires: systemtap-sdt-devel = %{version}-%{release}
 Requires: systemtap-server = %{version}-%{release}
-Requires: dejagnu which elfutils grep nc
+Requires: dejagnu which elfutils grep nc wget
 %if %{with_debuginfod}
 Requires: elfutils-debuginfod
 %endif
@@ -1299,34 +1298,9 @@ exit 0
 
 # PRERELEASE
 %changelog
-* Wed Sep 27 2023 William Cohen <wcohen@redhat.com> - 5.0-16958465gca71442b
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0~pre16891249ge891a37e-0.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 11 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-16891249ge891a37e
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Mon Jul 10 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-16890184ge891a37e
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Tue Jul 04 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-16885234gd98d6c2d
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Tue Jul 04 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-16885197g6b17715f
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.9-3
-- Rebuilt for Python 3.12
-
-* Fri May 19 2023 Mark Wielaard <mjw@fedoraproject.org> - 4.9-2
-- rebuilt for f39-build-side-67564 target
+* Sat Nov 04 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-1
+- Upstream release, see wiki page below for detailed notes.
+  https://sourceware.org/systemtap/wiki/SystemTapReleases
 
 * Fri Apr 28 2023 Frank Ch. Eigler <fche@redhat.com> - 4.9-1
 - Upstream release, see wiki page below for detailed notes.

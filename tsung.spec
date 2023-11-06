@@ -4,9 +4,9 @@
 
 Name:           tsung
 Version:        1.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A distributed multi-protocol load testing tool
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://tsung.erlang-projects.org/
 Source0:        http://tsung.erlang-projects.org/dist/%{name}-%{version}.tar.gz
 
@@ -121,6 +121,9 @@ sed -i 's|python27|python2|' %{buildroot}%{_bindir}/tsplot
 %doc docs examples
 
 %changelog
+* Sat Nov 04 2023 Didier Fabert <didier.fabert@gmail.com> - 1.8.0-3
+- migrated to SPDX license
+
 * Wed Aug 02 2023 Didier Fabert <didier.fabert@gmail.com> - 1.8.0-2
 - Fix python and perl shebangs https://bugzilla.redhat.com/show_bug.cgi?id=2224873
 

@@ -7,8 +7,8 @@ Name: ampache_browser
 # is likely to break API users due to not finding files any longer.
 %global vername %{name}_1
 
-Version: 1.0.4
-Release: 3%{?dist}
+Version: 1.0.6
+Release: 1%{?dist}
 Summary: C++ and Qt based client library for Ampache access
 
 License: GPLv3
@@ -43,10 +43,14 @@ developing applications that use %{name}.
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
-%global __cmake %{_bindir}/cmake3
+%global cmake %cmake3
+%global cmake_build %cmake3_build
+%global cmake_install %cmake3_install
+# Simplified https://github.com/ampache-browser/ampache_browser/pull/7
+sed -e 's/Qt::/Qt5::/g' -i CMakeLists.txt
 %endif
 
-%cmake
+%cmake -D USE_QT6=OFF .
 %cmake_build
 
 
@@ -72,6 +76,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/cmake/%{vername}
 
 %changelog
+* Sat Nov  4 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.6-1
+- Update to 1.0.6 for Qt 6 support but build with USE_QT6=OFF.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

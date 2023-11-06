@@ -1,6 +1,6 @@
 %bcond_without tests
 Name:             fossil
-Version:          2.22
+Version:          2.23
 Release:          %autorelease
 Summary:          A distributed SCM with bug tracking and wiki
 

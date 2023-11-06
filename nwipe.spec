@@ -1,6 +1,6 @@
 Name:           nwipe
 Version:        0.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Securely erase disks using a variety of recognized methods
 
 
@@ -14,9 +14,26 @@ Summary:        Securely erase disks using a variety of recognized methods
 License:        GPL-2.0-only
 # used to be    http://nwipe.sourceforge.net
 URL:            https://github.com/martijnvanbrummelen/nwipe
+VCS:            https://github.com/martijnvanbrummelen/nwipe
+# Releases      https://github.com/martijnvanbrummelen/nwipe/releases
+
 #Source0:       https://github.com/%%{gituser}/%%{gitname}/archive/%%{commit}/%%{name}-%%{version}-%%{shortcommit}.tar.gz
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# https://github.com/martijnvanbrummelen/nwipe/pull/517
+# Lower the build requirements to autoconf used in rhel6
 Patch1:         nwipe-epel6.patch
+
+# https://github.com/martijnvanbrummelen/nwipe/pull/516
+# Move the usage of int64t bellow the stdint.h include which defines it
+Patch2:         nwipe-epel-int64t.patch
+
+# https://github.com/martijnvanbrummelen/nwipe/issues/519
+# https://github.com/martijnvanbrummelen/nwipe/pull/520
+# Move the time.h include in front od the _POSIX_SOURCE definition to fix build on rhel7
+# time.h must be loaded before stdio.h
+Patch3:         nwipe-timespec.patch
+
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -80,6 +97,9 @@ autoreconf -vif
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sat Nov 04 2023 Michal Ambroz <rebus at, seznam.cz> 0.35-2
+- fix build for rhel7/8
+
 * Fri Nov 03 2023 Michal Ambroz <rebus at, seznam.cz> 0.35-1
 - bump to 0.35
 

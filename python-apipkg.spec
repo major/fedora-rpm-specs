@@ -1,8 +1,8 @@
 %global srcname apipkg
 
 Name:           python-%{srcname}
-Version:        3.0.1
-Release:        6%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        A Python namespace control and lazy-import mechanism
 
 License:        MIT
@@ -51,6 +51,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %license LICENSE
 
 %changelog
+* Sat Nov  4 2023 Thomas Moschny <thomas.moschny@gmx.de> - 3.0.2-1
+- Update 3.0.2.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %bcond_without manpage
 
 Name:           cabal-rpm
-Version:        2.1.3
+Version:        2.1.4
 Release:        %autorelease
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 

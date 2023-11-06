@@ -2,11 +2,12 @@
 %global sslkey  %{_sysconfdir}/pki/%{name}/server.key.pem
 
 %bcond_without  maxmind
+%global pcre2   10.42
 
 Summary:        Open Source IRC server
 Name:           unrealircd
-Version:        6.1.1.1
-Release:        3%{?dist}
+Version:        6.1.2.3
+Release:        2%{?dist}
 # UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
 # a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
 # BSD-3-Clause: include/mempool.h and src/mempool.c
@@ -24,11 +25,9 @@ Source5:        %{name}.sysusersd
 # Apply Fedora system-wide crypto policy
 Patch0:         unrealircd-6.0.6-crypto-policy.patch
 # Disable GeoIP to avoid dependency to legacy GeoIP
-Patch1:         unrealircd-6.1.0-geoip.patch
+Patch1:         unrealircd-6.1.2-geoip.patch
 # Same options like in unrealircd(ctl) shell script
 Patch2:         unrealircd-6.0.3-unrealircdctl.patch
-# Disable UTF8-aware spamfilter for PCRE2 < 10.36
-Patch3:         unrealircd-6.0.7-pcre2-10.00.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -41,7 +40,7 @@ BuildRequires:  openssl11-devel
 %if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires:  pcre2-devel >= 10.36
 %else
-BuildRequires:  pcre2-devel >= 10.00
+Provides:       bundled(pcre2) = %{pcre2}
 %endif
 BuildRequires:  libargon2-devel >= 20161029
 BuildRequires:  libsodium-devel >= 1.0.16
@@ -88,9 +87,6 @@ touch -c -r doc/conf/examples/example.conf{.crypto-policy,}
 %patch -P1 -p1 -b .geoip
 touch -c -r doc/conf/modules.default.conf{.geoip,}
 %patch -P2 -p1 -b .unrealircdctl
-%if 0%{?rhel} && 0%{?rhel} < 9
-%patch -P3 -p1 -b .pcre2-10.00
-%endif
 
 %build
 %if 0%{?rhel} == 7
@@ -98,6 +94,24 @@ sed \
   -e 's|include/openssl/|include/openssl11/openssl/|g' \
   -e 's|\(CRYPTOLIB="-lssl -lcrypto\).*|\1 -L%{_libdir}/openssl11"\nCFLAGS="$CFLAGS -I%{_includedir}/openssl11"|' \
   -i configure
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} < 9
+# Bundling option for PCRE2 in UnrealIRCd itself is not really suitable for
+# distribution packaging, thus build it first and pretend it as system one.
+BUNDLED=$PWD/extras/pcre2
+tar xfz extras/pcre2.tar.gz -C extras
+cd extras/pcre2-%{pcre2}/
+export CFLAGS="$RPM_OPT_FLAGS -fPIC"
+%configure --enable-jit --enable-shared=no
+%make_build
+%make_install DESTDIR=$BUNDLED
+cd $OLDPWD
+sed \
+  -e "s|^libdir=.*|libdir=$BUNDLED%{_libdir}|" \
+  -e "s|^includedir=.*|includedir=$BUNDLED%{_includedir}|" \
+  -i $BUNDLED%{_libdir}/pkgconfig/libpcre2-8.pc
+export PKG_CONFIG_PATH="$BUNDLED%{_libdir}/pkgconfig"
 %endif
 
 # https://github.com/unrealircd/unrealircd/pull/183
@@ -226,6 +240,21 @@ fi
 %endif
 
 %changelog
+* Sun Nov 05 2023 Robert Scheck <robert@fedoraproject.org> 6.1.2.3-2
+- Build upstream's bundled recent PCRE2 version for RHEL 7 and 8
+
+* Mon Oct 16 2023 Robert Scheck <robert@fedoraproject.org> 6.1.2.3-1
+- Upgrade to 6.1.2.3 (#2238031)
+
+* Sun Oct 08 2023 Robert Scheck <robert@fedoraproject.org> 6.1.2.2-1
+- Upgrade to 6.1.2.2 (#2238031)
+
+* Thu Oct 05 2023 Robert Scheck <robert@fedoraproject.org> 6.1.2.1-1
+- Upgrade to 6.1.2.1 (#2238031)
+
+* Thu Oct 05 2023 Robert Scheck <robert@fedoraproject.org> 6.1.2-1
+- Upgrade to 6.1.2 (#2238031)
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 6.1.1.1-3
 - rebuild for new libsodium
 

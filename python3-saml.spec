@@ -1,5 +1,5 @@
 Name:           python3-saml
-Version:        1.15.0
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        Add SAML support to your Python software using this library
 
@@ -39,6 +39,9 @@ This toolkit lets you turn your Python application into a SP
 %doc README.md
 
 %changelog
+* Sat Nov 04 2023 Kefu Chai <tchaikov@gmail.com> - 1.16.0-1
+- Update to 1.16.0.
+
 * Sat Aug 19 2023 Kefu Chai <tchaikov@gmail.com> - 1.15.0-1
 - Update to 1.15.0.
 

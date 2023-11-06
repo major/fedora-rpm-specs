@@ -6,7 +6,7 @@
 
 Name:          pam-u2f
 Version:       1.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Implements PAM authentication over U2F
 
 License:       BSD-2-Clause
@@ -61,14 +61,17 @@ make check
 %files
 %doc AUTHORS NEWS README
 %license COPYING
-%{_mandir}/man8/*
-%{_libdir}/security/*
+%{_mandir}/man8/pam_u2f.8{,.*}
+%{_libdir}/security/pam_u2f.so
 
 %files -n pamu2fcfg
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/pamu2fcfg
+%{_mandir}/man1/pamu2fcfg.1{,.*}
 
 %changelog
+* Mon Oct 30 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.3.0-3
+- Perform deglobing of files per packaging guidelines
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

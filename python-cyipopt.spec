@@ -5,72 +5,45 @@
 %bcond doc_pdf 1
 
 Name:           python-cyipopt
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Cython interface for the interior point optimizer IPOPT
 
-# SPDX
-License:        EPL-1.0
+# The entire source is EPL-2.0, except:
+#
+# BSD-3-Clause:
+#   - cyipopt/tests/unit/test_scipy_ipopt_from_scipy.py
+#
+# Note that the licenses in licenses_manylinux_bundled_libraries/ do not apply
+# because this package does not bundle dependencies as the PyPI wheels do.
+License:        EPL-2.0 AND BSD-3-Clause
 URL:            https://github.com/mechmotum/cyipopt
 # We prefer the GitHub source archive to the PyPI one because it contains
 # the examples.
 Source:         %{url}/archive/v%{version}/cyipopt-%{version}.tar.gz
 
-# Don’t use deprecated/removed np.float alias
-# https://github.com/mechmotum/cyipopt/pull/191
-Patch:          %{url}/pull/191.patch
-# Pin Cython<3 until compatibility can be fixed
-# https://github.com/mechmotum/cyipopt/pull/212
+# Enable support for cython 3
+# https://github.com/mechmotum/cyipopt/pull/227
 #
-# Works around, but does not fix:
+# Fixes:
 #
 # Does not build with Cython 3
 # https://github.com/mechmotum/cyipopt/issues/211
-#
-# “In addition to upper-bounding the version of Cython, this also drops Cython
-# from install_requires, since it doesn’t appear to be a real runtime
-# dependency.”
-Patch:          %{url}/pull/212.patch
-# Add back cython to INSTALL_REQUIRES.
-#
-# https://github.com/mechmotum/cyipopt/commit/5088cfc081ecf2da73fbf6ab8b64e4bfc3e68d3d#commitcomment-122359591
-#
-# “Cython is required to install the package from source with python setup.py
-# install. It is in INSTALL_REQUIRES because historically it was needed to give
-# some kind of check that build reqs were present. When we move away from
-# setup.py in the future, these things can be changed.”
-Patch:          %{url}/commit/5088cfc081ecf2da73fbf6ab8b64e4bfc3e68d3d.patch
-
-# Downstream-only: drop Cython and setuptools from install_requires
-#
-# Upstream wants to keep these “setup” dependencies in install_requires to
-# support “setup.py install”:
-#
-# https://github.com/mechmotum/cyipopt/commit/5088cfc081ecf2da73fbf6ab8b64e4bfc3e68d3d#commitcomment-122359591
-#
-# However, they are only imported from setup.py, so we patch them out to
-# avoid bringing them in as runtime dependencies for the RPM.
-Patch:          cyipopt-1.1.0-no-runtime-cython-setuptools.patch
+Patch:          %{url}/pull/227.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 
-# setup_requires:
-# Does not build with Cython 3
-# https://github.com/mechmotum/cyipopt/issues/211
-BuildRequires:  ((python3dist(cython) >= 0.26) with (python3dist(cython) < 3~~))
-BuildRequires:  python3dist(numpy) >= 1.15
-
-BuildRequires:  pkgconfig(ipopt)
+BuildRequires:  pkgconfig(ipopt) >= 3.12
 # Called from setup.py:
 BuildRequires:  /usr/bin/pkg-config
 
 BuildRequires:  python3dist(pytest)
 # Scipy is an optional dependency. Installing it allows testing the scipy
 # integration.
-BuildRequires:  python3dist(scipy)
+BuildRequires:  python3dist(scipy) >= 1.8
 
 BuildRequires:  gcc
 
@@ -94,6 +67,9 @@ comfort of the Python programming language.}
 
 %package -n python3-cyipopt
 Summary:        %{summary}
+# This subpackage does not contain the BSD-3-Clause licensed file
+License:        EPL-2.0
+
 # From README.rst:
 #
 #   As of version 1.1.0 (2021-09-07), the distribution is released under the
@@ -110,8 +86,22 @@ Summary:        %{summary}
 %description -n python3-cyipopt %{common_description}
 
 
+%package -n python3-cyipopt-tests
+Summary:        Tests for cyipopt
+
+Requires:       python3-cyipopt = %{version}-%{release}
+Requires:       python3dist(pytest)
+Recommends:     python3dist(scipy) >= 1.8
+
+%description -n python3-cyipopt-tests
+This provides the “cyipopt.tests” subpackage.
+
+
 %package doc
 Summary:        Documentation and examples for cyipopt
+# This subpackage does not contain the BSD-3-Clause licensed file
+License:        EPL-2.0
+
 BuildArch:      noarch
 
 %description doc %{common_description}
@@ -119,6 +109,10 @@ BuildArch:      noarch
 
 %prep
 %autosetup -n cyipopt-%{version} -p1
+
+# PyPI wheels need to be built against an old version of numpy for
+# compatibility, but we just need whatever is in the distrubtion.
+sed -r -i 's/"oldest-supported-(numpy)"/"\1"/' pyproject.toml
 
 # Replace zero-length files in the tests with proper empty text files, i.e.,
 # just a newline. It makes sense for __init__.py files to be empty, but the
@@ -157,7 +151,19 @@ PYTHONPATH="${BLIB}" %make_build -C docs latex \
 
 
 %check
-%pytest
+%ifarch ppc64le s390x
+# Arch-dependent failures of test_minimize_ipopt_jac_with_scipy_methods[cobyla]
+# https://github.com/mechmotum/cyipopt/issues/237
+k="${k-}${k+ and }not test_minimize_ipopt_jac_with_scipy_methods[cobyla]"
+%endif
+%ifarch x86_64
+# Flaky failure of TestSLSQP::test_minimize_unbounded_approximated on x86_64
+# https://github.com/mechmotum/cyipopt/issues/238
+k="${k-}${k+ and }not (TestSLSQP and test_minimize_unbounded_approximated)"
+%endif
+
+%pytest -v -rsx -k "${k-}"
+
 # Run the examples for additional confidence.
 while read -r example
 do
@@ -168,8 +174,14 @@ done < <(
   find examples -type f -name '*.py' ! -name hs071_scipy_jax.py
 )
 
+
 %files -n python3-cyipopt -f %{pyproject_files}
 # pyproject-rpm-macros handles LICENSE; verify with “rpm -qL -p …”
+%exclude %{python3_sitearch}/cyipopt/tests/
+
+
+%files -n python3-cyipopt-tests
+%{python3_sitearch}/cyipopt/tests/
 
 
 %files doc

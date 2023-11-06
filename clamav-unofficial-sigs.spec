@@ -9,10 +9,10 @@
 %endif
 Name:           clamav-unofficial-sigs
 Version:        7.2.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Scripts to download unofficial clamav signatures 
 Group:          Applications/System
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/extremeshok/%{name}
 Source0:        https://github.com/extremeshok/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        clamav-unofficial-sigs.cron
@@ -108,6 +108,9 @@ install -p -m0644 clamav-unofficial-sigs.man8 %{buildroot}%{_mandir}/man8/clamav
 %{_mandir}/man*/%{name}*
 
 %changelog
+* Sat Nov 04 2023 Didier Fabert <didier.fabert@gmail.com> - 7.2.5-8
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

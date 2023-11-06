@@ -1,8 +1,8 @@
 %global pypi_name hvac
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
-Release:        3%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        HashiCorp Vault API client for Python
 
 License:        Apache-2.0
@@ -16,7 +16,6 @@ This package provides a Python API client for HashiCorp Vault.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description -n python3-%{pypi_name}
 This package provides a Python API client for HashiCorp Vault.
@@ -28,19 +27,27 @@ This is for Python 3.
 # Remove shebangs from non-executable files
 find hvac -type f ! -executable -name '*.py' -print -exec sed -r -i -e '1{\@^#!/usr/bin/(env )?python@d}' '{}' +
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+%pyproject_save_files hvac
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/hvac/
-%{python3_sitelib}/hvac-*.egg-info/
 
 %changelog
+* Tue Sep 12 2023 Andrew Heath <aheath1992@gmail.com> - 1.2.1-1
+- Update to 1.2.1
+
+* Fri Sep 08 2023 Andrew Heath <aheath1992@gmail.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

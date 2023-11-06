@@ -3,7 +3,7 @@
 # Note: 1.1.7 -> 1.2.0: just the upstream URL changed
 Name:		rubygem-%{gem_name}
 Version:	2.0.3
-Release:	202%{?dist}
+Release:	203%{?dist}
 
 Summary:	Power Assert for Ruby
 # SPDX confirmed
@@ -17,7 +17,6 @@ Source2:	create-power_assert-test-files.sh
 
 BuildRequires:	rubygems-devel
 BuildRequires:	rubygem(test-unit)
-BuildRequires:	rubygem(byebug)
 BuildRequires:	rubygem(irb) >= 1.3.1
 
 BuildArch:	noarch
@@ -89,6 +88,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Nov  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.3-203
+- Remove byebug BR: it is not actually needed
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-202
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

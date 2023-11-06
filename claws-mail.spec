@@ -77,7 +77,7 @@ BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  libytnef-devel
 BuildRequires:  ghostscript
 BuildRequires:  pkgconfig(poppler-glib) >= 0.12.0
-BuildRequires:  webkit2gtk3-devel
+BuildRequires:  webkit2gtk4.0-devel >= 2.18.0
 BuildRequires:  pkgconfig(libnotify) >= 0.4.3
 
 %if 0%{?with_python2}
@@ -662,6 +662,10 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Sat Nov  4 2023 Michael Schwendt <mschwendt@fedoraproject.org>
+- update webkit2gtk3-devel BR to webkit2gtk4.0-devel since it's been
+  a virtual Provides for some time anyway
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

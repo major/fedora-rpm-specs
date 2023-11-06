@@ -5,14 +5,14 @@
 %bcond_without lang
 
 Name:           avogadro2
-Version:        1.98.0
+Version:        1.98.1
 Release:        %autorelease
 Summary:        Advanced molecular editor
 License:        BSD
 URL:            http://avogadro.openmolecules.net/
 Source0:        https://github.com/OpenChemistry/avogadroapp/archive/%{version}/avogadroapp-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
-Source2:        https://github.com/OpenChemistry/avogadro-i18n/archive/refs/tags/avogadro-i18n-%{version}.tar.gz
+Source2:        https://github.com/OpenChemistry/avogadro-i18n/archive/refs/tags/avogadro-i18n-1.98.0.tar.gz
 
 Patch0:         %{name}-avoid_i18n_download.patch
 
@@ -145,7 +145,7 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %autopatch -p1
 
 %if %{with lang}
-cd avogadro-i18n-%{version}
+cd avogadro-i18n-1.98.0
 mv avogadroapp/avogadroapp-ca@valencia.qm avogadroapp/avogadroapp-ca_VA.qm
 mv avogadrolibs/avogadrolibs-ca@valencia.qm avogadrolibs/avogadrolibs-ca_VA.qm
 %endif
@@ -187,8 +187,8 @@ cp -a avogadro/icons/* %{buildroot}%{_datadir}/icons/%{name}/
 
 %if %{with lang}
 mkdir -p %{buildroot}%{_datadir}/%{name}/i18n
-install -pm 644 avogadro-i18n-%{version}/avogadroapp/* %{buildroot}%{_datadir}/%{name}/i18n/
-install -pm 644 avogadro-i18n-%{version}/avogadrolibs/* %{buildroot}%{_datadir}/%{name}/i18n/
+install -pm 644 avogadro-i18n-1.98.0/avogadroapp/* %{buildroot}%{_datadir}/%{name}/i18n/
+install -pm 644 avogadro-i18n-1.98.0/avogadrolibs/* %{buildroot}%{_datadir}/%{name}/i18n/
 %endif
 
 %if 0%{?fedora}

@@ -1,3 +1,5 @@
+# New versions 0.8+ are built with gradle build system, which is not present in Fedora
+
 %global         gituser         syvaidya
 %global         gitname         openstego
 # Release 0.7.4 - 2020-06-06
