@@ -1,12 +1,12 @@
 %bcond_with suggests
 
 %global packname rlang
-%global packver  1.1.1
+%global packver  1.1.2
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Functions for Base Types and Core R and 'Tidyverse' Features
 
 License:          MIT
@@ -96,6 +96,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Sun Nov  5 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.2-1
+- update to 1.1.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

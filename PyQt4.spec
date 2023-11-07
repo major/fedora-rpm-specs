@@ -31,28 +31,25 @@
 
 ## f29+ no longer using separate sipdir for python3
 %global py3_sipdir %{_datadir}/sip/PyQt4
-#if 0%{?fedora} < 29
-#global py3_sipdir %{_datadir}/python3-sip/PyQt4
-#endif
 
 Summary: Python bindings for Qt4
 Name: 	 PyQt4
 Version: 4.12.3
-Release: 26%{?dist}
+Release: 27%{?dist}
 
 # GPLv2 exceptions(see GPL_EXCEPTIONS*.txt)
 License: (GPLv3 or GPLv2 with exceptions) and BSD
 Url:     http://www.riverbankcomputing.com/software/pyqt/
 %if 0%{?snap:1}
-Source0:  http://www.riverbankcomputing.com/static/Downloads/PyQt4/PyQt-x11-gpl-%{version}%{?snap:-snapshot-%{snap}}.tar.gz
+Source0:  http://www.riverbankcomputing.com/static/Downloads/%{name}/PyQt-x11-gpl-%{version}%{?snap:-snapshot-%{snap}}.tar.gz
 %else
-Source0:  http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-%{version}/PyQt4_gpl_x11-%{version}.tar.gz
+Source0:  http://sourceforge.net/projects/pyqt/files/%{name}/PyQt-%{version}/%{name}_gpl_x11-%{version}.tar.gz
 %endif
 
 Source2: pyuic4.sh
 
 ## upstreamable patches
-Patch1: PyQt4_gpl_x11-4.12.3-ftbfs.patch
+Patch1: %{name}_gpl_x11-4.12.3-ftbfs.patch
 
 ## upstream patches
 # fix FTBFS on ARM
@@ -62,10 +59,13 @@ Patch60:  qreal_float_support.diff
 Patch61:  python310-pyobj_ascharbuf.patch
 
 # Fix error: invalid use of undefined type 'struct _frame'
-Patch62:  PyQt4-4.12.3-pyframe_getback.patch
+Patch62:  %{name}-4.12.3-pyframe_getback.patch
 
 # rhel patches
 Patch300: PyQt-x11-gpl-4.11-webkit.patch
+
+# Fix new function in Python-3.13
+Patch301: %{name}-fix_function_for_Python3.13.patch
 
 BuildRequires: make
 BuildRequires: chrpath
@@ -87,7 +87,7 @@ BuildRequires: python3-dbus
 BuildRequires: python3-devel 
 BuildRequires: python3-pyqt4-sip >= %{sip_ver}
 BuildRequires: python3-sip-devel >= %{sip_ver}
-%endif # with_python3
+%endif
 
 %if 0%{?with_python2}
 BuildRequires: %{python2_dbus}
@@ -242,12 +242,16 @@ from any of the Qt4 classes (e.g. KDE or your own).
 
 # save orig for comparison later
 cp -a ./sip/QtGui/opengl_types.sip ./sip/QtGui/opengl_types.sip.orig
-%patch1 -p1 -b .ftbfs
-%patch60 -p1 -b .arm
-%patch61 -p1
-%patch62 -p1
+%patch -P 1 -p1 -b .ftbfs
+%patch -P 60 -p1 -b .arm
+%patch -P 61 -p1
+%patch -P 62 -p1
 %if ! 0%{?webkit}
-%patch300 -p1 -b .webkit
+%patch -P 300 -p1 -b .webkit
+%endif
+
+%if 0%{?fedora} >= 41
+%patch -P 301 -p1 -b .python3.13
 %endif
 
 # permissions, mark examples non-executable
@@ -293,7 +297,7 @@ pushd %{_target_platform}-python3
 
 %make_build
 popd
-%endif # with_python3
+%endif
 
 
 %install
@@ -447,6 +451,9 @@ diff -u ./sip/QtGui/opengl_types.sip.orig \
 
 
 %changelog
+* Sun Nov 05 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.12.3-27
+- Simple fix for Python 3.13 (rhbz#2247256)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

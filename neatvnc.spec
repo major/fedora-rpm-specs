@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     neatvnc
-Version:  0.7.0
+Version:  0.7.1
 Release:  1%{?dist}
 Summary:  a liberally licensed VNC server library
 # main source is ISC
@@ -61,6 +61,9 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Nov 05 2023 Bob Hepple <bob.hepple@gmail.com> - 0.7.1-1
+- new version
+
 * Fri Oct 06 2023 Bob Hepple <bob.hepple@gmail.com> - 0.7.0-1
 - new version
 

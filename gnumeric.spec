@@ -34,6 +34,10 @@ BuildRequires:    psiconv-devel
 BuildRequires:    pygobject3-devel
 BuildRequires:    python3-devel
 BuildRequires:    zlib-devel
+
+# https://gitlab.gnome.org/GNOME/goffice/-/issues/70
+ExcludeArch:    %{ix86}
+
 Requires:         hicolor-icon-theme
 
 %description
@@ -94,7 +98,7 @@ desktop-file-install --delete-original                                  \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
   $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.%{name}.%{name}.appdata.xml
 
 #remove .la files
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
@@ -121,11 +125,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %exclude %{_libdir}/%{name}/%{version}/plugins/py-*
 %exclude %{_libdir}/%{name}/%{version}/plugins/python-*
 %{_datadir}/glib-2.0/schemas/org.gnome.gnumeric.*
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/org.%{name}.%{name}.png
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/%{version}
-%{_datadir}/applications/%{name}.desktop
-%{_metainfodir}/%{name}.appdata.xml
+%{_datadir}/applications/org.%{name}.%{name}.desktop
+%{_metainfodir}/org.%{name}.%{name}.appdata.xml
 %{_mandir}/man1/*
 
 %files devel
@@ -149,6 +153,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %changelog
 * Sat Nov 04 2023 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.56-1
 - Update to 1.12.56
+- Drop i686 architecture
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.55-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

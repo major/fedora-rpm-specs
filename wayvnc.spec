@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     wayvnc
-Version:  0.7.1
+Version:  0.7.2
 Release:  1%{?dist}
 Summary:  A VNC server for wlroots based Wayland compositors
 License:  ISC
@@ -58,6 +58,9 @@ physical display attached.
 %license COPYING
 
 %changelog
+* Sun Nov 05 2023 Bob Hepple <bob.hepple@gmail.com> - 0.7.2-1
+- new version
+
 * Sat Oct 07 2023 Bob Hepple <bob.hepple@gmail.com> - 0.7.1-1
 - new version
 

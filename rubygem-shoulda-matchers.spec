@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Simple one-liner tests for common Rails functionality
 License: MIT
 URL: https://matchers.shoulda.io/
@@ -30,6 +30,10 @@ Patch6: rubygem-shoulda-matchers-5.1.0-Using-local-gems-should-be-enough-for-tes
 # Use sqlite3 1.4 unconditionally.
 # https://github.com/thoughtbot/shoulda-matchers/pull/1484/commits/7656cdf9abb4a0f7c4fd4cb9c971e474bfc0f9ee
 Patch7: rubygem-shoulda-matchers-5.1.0-Always-use-sqlite-1.4.patch
+
+# catch ruby3.3 format NoMethodError message
+# https://github.com/thoughtbot/shoulda-matchers/pull/1579
+Patch8: rubygem-shoulda-matchers-pr1579-ruby33-NoMethodError-msg.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -63,16 +67,17 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-%patch4 -p1
+%patch 4 -p1
+%patch 8 -p1
 
 pushd %{_builddir}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 5 -p1
+%patch 6 -p1
+%patch 7 -p1
 popd
 
 %build
@@ -171,6 +176,9 @@ popd
 %{gem_instdir}/shoulda-matchers.gemspec
 
 %changelog
+* Sun Nov  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-4
+- Apply upstream PR for ruby3.3 NoMethodError message change
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

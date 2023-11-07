@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        1.2.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -22,6 +22,8 @@ Patch1:         0002-disable-sphinx-man-page-build.patch
 
 # already available in upstream branch "1.2-maint" as git commit 39761eb
 Patch10:        %{name}-msgpack-107.patch
+# https://github.com/borgbackup/borg/pull/7905
+Patch11:        %{name}-add-unistdh.patch
 
 BuildRequires:  gnupg2
 # build
@@ -143,6 +145,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Sun Nov 05 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.6-3
+- add unistd.h explicitely for compatibility with Python 3.13
+
 * Sun Oct 01 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.6-2
 - also accept msgpack 1.0.7
 

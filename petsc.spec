@@ -14,7 +14,8 @@
 # Python binding and its testing
 %bcond_without python
 # Python tests need Cython
-%bcond_without pycheck
+# Python tests need epydoc (no longer available)
+%bcond_with pycheck
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
 #
@@ -137,7 +138,7 @@
  --CC_LINKER_FLAGS="$LDFLAGS" \\\
  --FC_LINKER_FLAGS="$LDFLAGS -lgfortran" \\\
  --with-default-arch=0 --with-make=1 \\\
- --with-cmake-exec=%{_bindir}/cmake3 --with-ctest-exec=%{_bindir}/ctest3 \\\
+ --with-cmake-exec=%{_bindir}/cmake --with-ctest-exec=%{_bindir}/ctest \\\
  --with-single-library=1 \\\
  --with-precision=double \\\
  --with-petsc-arch=%{_arch} \\\
@@ -200,7 +201,7 @@
  %endif \
   --CC_LINKER_FLAGS="$LDFLAGS" \\\
   --with-default-arch=0 --with-make=1 \\\
-  --with-cmake-exec=%{_bindir}/cmake3 --with-ctest-exec=%{_bindir}/ctest3 \\\
+  --with-cmake-exec=%{_bindir}/cmake --with-ctest-exec=%{_bindir}/ctest \\\
   --with-single-library=1 \\\
   --with-precision=double \\\
   --with-petsc-arch=%{_arch} \\\
@@ -336,7 +337,7 @@ BuildRequires: suitesparse-devel >= 5.6.0
 BuildRequires: %{blaslib}-devel
 %endif
 BuildRequires: chrpath
-BuildRequires: gcc, gcc-c++, cmake3
+BuildRequires: gcc, gcc-c++, cmake
 BuildRequires: gcc-gfortran
 BuildRequires: make
 BuildRequires: libX11-devel

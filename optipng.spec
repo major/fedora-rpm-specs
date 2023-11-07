@@ -1,6 +1,6 @@
 Name:           optipng
-Version:        0.7.7
-Release:        12%{?dist}
+Version:        0.7.8
+Release:        1%{?dist}
 Summary:        PNG optimizer and converter
 
 License:        zlib
@@ -8,8 +8,8 @@ URL:            http://optipng.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/optipng/%{name}-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  zlib-devel libpng-devel
+BuildRequires: gcc
+BuildRequires: zlib-devel libpng-devel
 
 %description
 OptiPNG is a PNG optimizer that recompresses image files to a smaller size,
@@ -55,6 +55,9 @@ chmod -c 755 $RPM_BUILD_ROOT%{_bindir}/optipng
 
 
 %changelog
+* Sun Nov  5 2023 Peter Hanecak <hany@hany.sk> - 0.7.8-1
+- Update to 0.7.8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

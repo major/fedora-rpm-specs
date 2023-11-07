@@ -36,6 +36,9 @@ BuildRequires:  pkgconfig(libspreadsheet-1.12) >= 1.11.6
 BuildRequires:  pkgconfig(openbabel-3)
 BuildRequires:  yelp-tools
 
+# https://gitlab.gnome.org/GNOME/goffice/-/issues/70
+ExcludeArch:    %{ix86}
+
 Requires:       gchem3d%{?_isa} = %{version}-%{release}
 Requires:       gchemcalc%{?_isa} = %{version}-%{release}
 Requires:       gchempaint%{?_isa} = %{version}-%{release}
@@ -270,6 +273,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %changelog
 * Sat Nov 04 2023 Julian Sikorski <belegdol@fedoraproject.org> - 0.14.17-42
 - Rebuild for gnumeric-1.12.56
+- Drop i686 architecture
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.17-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

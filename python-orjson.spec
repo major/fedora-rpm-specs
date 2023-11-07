@@ -23,7 +23,7 @@ BuildRequires:  rust-packaging
 
 
 %global _description %{expand:
-orjosn is a fast, correct Python JSON library supporting dataclasses,
+orjson is a fast, correct Python JSON library supporting dataclasses,
 datetimes, and numpy}
 
 

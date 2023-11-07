@@ -1,11 +1,10 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
-Version: 9.25.0
+Version: 9.26.0
 Release: 1%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.12.2-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
-Patch2: drbd-utils-9.25.0-missing_include.patch
 License: GPLv2+
 ExclusiveOS: linux
 URL: http://www.drbd.org/
@@ -18,6 +17,7 @@ BuildRequires: perl-generators
 BuildRequires: pkgconf
 BuildRequires: po4a
 BuildRequires: rubygem-asciidoctor
+BuildRequires: keyutils-libs-devel
 Requires: %{name}-utils = %{version}
 Requires: %{name}-udev = %{version}
 BuildRequires: udev
@@ -41,7 +41,6 @@ This is a virtual package, installing the full user-land suite.
 # Don't let xsltproc make network calls during build
 %patch -P 0 -p1
 %patch -P 1 -p1
-%patch -P 2 -p1
 
 %build
 %configure \
@@ -95,9 +94,10 @@ This packages includes the DRBD administration tools.
 
 # systemd-related stuff
 %attr(0644,root,root) %{_unitdir}/drbd.service
-%attr(0644,root,root) %{_unitdir}/drbd-demote-or-escalate@.service
+%attr(0644,root,root) %{_unitdir}/drbd-graceful-shutdown.service
 %attr(0644,root,root) %{_unitdir}/drbd-lvchange@.service
 %attr(0644,root,root) %{_unitdir}/drbd-promote@.service
+%attr(0644,root,root) %{_unitdir}/drbd-demote-or-escalate@.service
 %attr(0644,root,root) %{_unitdir}/drbd-reconfigure-suspend-or-error@.service
 %attr(0644,root,root) %{_unitdir}/drbd-services@.target
 %attr(0644,root,root) %{_unitdir}/drbd-wait-promotable@.service
@@ -276,6 +276,10 @@ fi
 
 
 %changelog
+* Sun Nov  5 2023 Peter Hanecak <hany@hany.sk> - 9.26.0-1
+- Upstream release of 9.26.0
+- Build now requires keyutils-libs-devel
+
 * Sun Sep  3 2023 Peter Hanecak <hany@hany.sk> - 9.25.0-1
 - Upstream release of 9.25.0
 - Update of patch macro syntax

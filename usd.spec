@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.23.8
+%global downstream_so_version 0.23.11
 
 %bcond alembic       1
 %bcond draco         1
@@ -31,7 +31,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        23.08
+Version:        23.11
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -64,7 +64,14 @@ Summary:        3D VFX pipeline interchange file format
 #
 # (Certain build system files are also under licenses other than Apache-2.0, but
 # do not contribute their license terms to the built RPMs.)
-License:        Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND (MIT OR Unlicense) AND (Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2)
+License:        %{shrink:
+                Apache-2.0 AND
+                BSD-3-Clause AND
+                BSD-2-Clause AND
+                MIT AND
+                (MIT OR Unlicense) AND
+                (Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2)
+                }
 URL:            http://www.openusd.org/
 %global forgeurl https://github.com/PixarAnimationStudios/OpenUSD
 Source0:        %{forgeurl}/archive/v%{version}/OpenUSD-%{version}.tar.gz
@@ -77,6 +84,8 @@ Source1:        org.openusd.usdview.desktop
 # stbi_set_unpremultiply_on_load_thread.
 Source2:        stb_image.patch
 
+# Downstream-only: add an SONAME version
+#
 # Upstream was asked about .so versioning and setting SONAME properly and
 # seemed unprepared to handle the request:
 # https://github.com/PixarAnimationStudios/USD/issues/1259#issuecomment-657120216
@@ -101,7 +110,7 @@ Source2:        stb_image.patch
 # to be versioned as well, which is undesired. This is not a serious problem
 # because we do not want to package the built plugin anyway. (It should not be
 # built with -DPXR_BUILD_EXAMPLES=OFF, but it is.)
-Patch:          usd-23.08-soversion.patch
+Patch:          0001-Downstream-only-add-an-SONAME-version.patch
 
 # Port to Embree 4.x
 # https://github.com/PixarAnimationStudios/USD/pull/2266

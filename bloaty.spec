@@ -1,10 +1,23 @@
 Name:           bloaty
 Version:        1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A size profiler for binaries
 
-
-License:        ASL 2.0
+# The entire source is Apache-2.0, except:
+#
+# BSD-2-Clause:
+#   third_party/freebsd_elf/
+# APSL-2.0:
+#   third_party/darwin_xnu_macho/ except as below:
+# APSL-2.0 AND BSD-4-Clause-UC:
+#   third_party/darwin_xnu_macho/mach-o/nlist.h
+# APSL-2.0 AND BSD-3-Clause
+#   third_party/darwin_xnu_macho/mach-o/reloc.h
+#
+# Note that the contents of third_party/freebsd_elf/ and
+# third_party/darwin_xnu_macho/ *are* used in the Linux build (to support
+# examining binaries built for other platforms).
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-4-Clause-UC AND BSD-3-Clause
 URL:            https://github.com/google/bloaty
 Source0:        https://github.com/google/bloaty/archive/v%{version}/%{name}-%{version}.tar.gz
 # Patch to use system versions of abseil, google-test and google-mock
@@ -25,6 +38,8 @@ BuildRequires:  pkgconfig
 BuildRequires:  protobuf-devel
 BuildRequires:  re2-devel
 
+BuildRequires:  help2man
+
 %description
 Ever wondered what's making your binary big? Bloaty McBloatface will show
 you a size profile of the binary so you can understand what's taking up
@@ -37,7 +52,7 @@ support for WebAssembly.
 %prep
 %autosetup -S gendiff -N
 %autopatch -p0 -M 1
-%patch2 -p1
+%autopatch -p1 -m 2
 
 
 %build
@@ -46,10 +61,12 @@ support for WebAssembly.
   -DBLOATY_ENABLE_CMAKETARGETS=OFF \
   -DBUILD_TESTING=ON
 %cmake_build
+help2man --no-info --output=bloaty.1 %{_vpath_builddir}/bloaty
 
 
 %install
 %cmake_install
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 bloaty.1
 
 %check
 %ctest --verbose || exit 0
@@ -58,9 +75,15 @@ support for WebAssembly.
 %license LICENSE
 %doc README.md how-bloaty-works.md 
 %{_bindir}/bloaty
+%{_mandir}/man1/bloaty.1*
 
 
 %changelog
+* Fri Sep 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-23
+- Update License to SPDX
+- Stop using deprecated %%patchN macros
+- Add an automatically-generated man page
+
 * Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-22
 - Rebuilt for abseil-cpp 20230802.0
 

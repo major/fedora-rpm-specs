@@ -22,7 +22,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -287,6 +287,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Sun Nov 05 2023 Sérgio Basto <sergio@serjux.com> - 5.0.19870-5
+- Rebuild for SFML-2.6.1
+
 * Tue Oct 17 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.19870-4
 - Unbundle VulkanMemoryAllocator
 - "Branch" should be beta (documentation fix)

@@ -2,7 +2,7 @@ Name:    kf6
 # This version MUST remain in sync with KF6 versions!
 # XXX: Yes, it's 5.x still, this is synced with the version set in extra-cmake-modules
 Version: 5.240.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -88,6 +88,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Sun Nov 05 2023 Steve Cossette <farchord@gmail.com> - 5.240.0-4
+- Migrated/copied framework version macros from the kf5 package
+
 * Sun Oct 08 2023 Steve Cossette <farchord@gmail.com> - 5.240.0-3
 - Added ownership of the Toki Pona locale to kf6-filesystem
 

@@ -6,15 +6,18 @@ object model for describing neuronal morphologies, ion channels, synapses and
 http://readthedocs.org/docs/libneuroml/en/latest/ 
 }
 
+%global forgeurl  https://github.com/NeuralEnsemble/libNeuroML
 
 Name:           python-libNeuroML
-Version:        0.5.3
+Version:        0.5.5
 Release:        %autorelease
 Summary:        Python libNeuroML for working with neuronal models specified in NeuroML
 
+%forgemeta
+
 License:        BSD
 URL:            http://neuroml.org/
-Source0:        https://github.com/NeuralEnsemble/libNeuroML/archive/v%{version}/libNeuroML-%{version}.tar.gz
+Source0:        %forgesource
 
 BuildArch:      noarch
 
@@ -32,7 +35,7 @@ Summary:    Documentation for libNeuroML
 %description doc %_description
 
 %prep
-%autosetup -n libNeuroML-%{version}
+%forgesetup
 
 # remove shebangs
 for f in "neuroml/nml/nml.py" "neuroml/neuro_lex_ids.py" "neuroml/nml/annotate_nml.py" "neuroml/nml/generatedscollector.py" "neuroml/nml/generatedssupersuper.py" "neuroml/test/test_nml.py" "neuroml/test/test_utils.py"

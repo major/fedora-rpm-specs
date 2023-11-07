@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-docx
-Version:        1.0.1
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Create and modify Word documents with Python
 
@@ -14,15 +14,7 @@ License:        MIT
 URL:            https://python-docx.readthedocs.io/en/latest/
 # We MUST use the PyPI tarball; the GitHub tarball includes material under ref/
 # (PDFs of ISO/IEC standards) for which redistribution may be prohibited.
-Source0:        %{pypi_source python-docx}
-# Include requirements files in PyPI sdist
-# https://github.com/python-openxml/python-docx/pull/1259
-Source1:        https://github.com/python-openxml/python-docx/raw/v%{version}/requirements.txt
-Source2:        https://github.com/python-openxml/python-docx/raw/v%{version}/requirements-test.txt
-
-# Add build backend in pyproject.toml
-# https://github.com/python-openxml/python-docx/pull/1258
-Patch:          https://github.com/python-openxml/python-docx/pull/1258.patch
+Source:         %{pypi_source python-docx}
 
 BuildArch:      noarch
 
@@ -59,9 +51,7 @@ Summary:        Documentation for python-docx
 
 
 %prep
-%autosetup -p1
-
-cp -p '%{SOURCE1}' '%{SOURCE2}' .
+%autosetup
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^(ruff)\b/# &/' requirements-test.txt
@@ -80,6 +70,10 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 # Fix a stray CRLF-terminated reStructuredText file:
 dos2unix --keepdate docs/dev/analysis/features/table/cell-merge.rst
+
+# While filterwarnings = ["error"] makes sense for upstream development and CI,
+# it is too strict for distribution packaging.
+sed -r -i 's/^([[:blank:]]*)("error",)$/\1# \2/' pyproject.toml
 
 
 %generate_buildrequires

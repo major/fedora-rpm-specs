@@ -1,7 +1,7 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
@@ -13,6 +13,7 @@ BuildRequires: gcc
 BuildRequires: perl
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel
+Requires:      grub2-efi-x64-modules
 ExclusiveArch: %{ix86} x86_64
 
 %description
@@ -24,11 +25,27 @@ and verified launch of an OS kernel/VMM.
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-CFLAGS="$RPM_OPT_FLAGS"; export CFLAGS
-make debug=y %{?_smp_mflags}
+%make_build debug=y
 
 %install
-make debug=y DISTDIR=$RPM_BUILD_ROOT install
+%make_install debug=y
+
+%post
+# create the tboot grub entry
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# For EFI based machines ...
+if [ -d /sys/firmware/efi ]; then
+	echo "EFI detected .."
+	[ -d /boot/grub2/x86_64-efi ] || mkdir -pv /boot/grub2/x86_64-efi
+	cp -vf /usr/lib/grub/x86_64-efi/relocator.mod /boot/grub2/x86_64-efi/
+	cp -vf /usr/lib/grub/x86_64-efi/multiboot2.mod /boot/grub2/x86_64-efi/
+fi
+
+%postun
+# Remove residual grub efi modules.
+[ -d /boot/grub2/x86_64-efi ] && rm -rf /boot/grub2/x86_64-efi
+grub2-mkconfig -o /etc/grub2.cfg
 
 
 %files
@@ -56,6 +73,9 @@ make debug=y DISTDIR=$RPM_BUILD_ROOT install
 /boot/tboot-syms
 
 %changelog
+* Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.11.1-4
+- Add grub2-efi-x64-modules dependency and scriplet
+
 * Fri Sep 22 2023 David Cantrell <dcantrell@redhat.com> - 1:1.11.1-3
 - Use %%license for the COPYING file in the %%files section
 - Convert the License tag to an SPDX expression

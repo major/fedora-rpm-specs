@@ -1,5 +1,5 @@
 %global packname waldo
-%global packver  0.5.1
+%global packver  0.5.2
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}

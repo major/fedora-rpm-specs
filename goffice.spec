@@ -16,6 +16,9 @@ BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  perl(English)
 BuildRequires:  perl(IO::Compress::Gzip)
 
+# https://gitlab.gnome.org/GNOME/goffice/-/issues/70
+ExcludeArch:    %{ix86}
+
 %description
 Support libraries for gnome office
 
@@ -66,6 +69,7 @@ rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
 %changelog
 * Sat Nov 04 2023 Julian Sikorski <belegdol@fedoraproject.org> - 0.10.56-1
 - Update to 0.10.56
+- Drop i686 architecture
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.55-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

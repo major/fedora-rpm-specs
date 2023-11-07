@@ -1,5 +1,5 @@
 Name:           jrnl
-Version:        4.0.1
+Version:        4.1
 Release:        %autorelease
 Summary:        Collect your thoughts and notes without leaving the command line
 

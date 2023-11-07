@@ -6,7 +6,7 @@
 %endif
 
 Name:          plasma-bigscreen
-Version:       5.27.8
+Version:       5.27.9
 Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
@@ -126,6 +126,9 @@ chmod +x %{buildroot}%{_kf5_bindir}/mycroft-skill-launcher.py
 
 
 %changelog
+* Sun Nov 05 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.9-1
+- 5.27.9
+
 * Sun Oct 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.8-1
 - Update to 5.27.8
 

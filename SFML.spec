@@ -1,43 +1,17 @@
 Name:           SFML
-Version:        2.5.1
-Release:        15%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Simple and Fast Multimedia Library
 
-# src/SFML/Audio/stb_vorbis/stb_vorbis.{c,h} are Public Domain
-License:        Zlib AND LicenseRef-Fedora-Public-Domain
+License:        Zlib
 URL:            http://www.sfml-dev.org/
-# This is https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
-# with the non free contents removed - See rhbz#1310387 and rhbz#1003569
-# List of deleted files
-#
-# examples/sound/resources/canary.wav
-# examples/iOS/resources/canary.wav
-# examples/android/app/src/main/assets/canary.wav
-# examples/sound/resources/orchestral.ogg
-# examples/iOS/resources/orchestral.ogg
-# examples/android/app/src/main/assets/orchestral.ogg
-# tools/xcode/templates/SFML/SFML CLT.xctemplate/sansation.ttf
-# tools/xcode/templates/SFML/SFML App.xctemplate/sansation.ttf
-# examples/shader/resources/sansation.ttf
-# examples/pong/resources/sansation.ttf
-# examples/opengl/resources/sansation.ttf
-# examples/joystick/resources/sansation.ttf
-# examples/island/resources/sansation.ttf
-# examples/iOS/resources/sansation.ttf
-# examples/cocoa/resources/sansation.ttf
-# examples/android/app/src/main/assets/sansation.ttf
-# examples/shader/resources/background.jpg
-# examples/opengl/resources/background.jpg
-# examples/opengl/resources/texture.jpg
-# examples/pong/resources/ball.wav
-# examples/shader/resources/devices.png
-# examples/win32/resources/image1.jpg
-# examples/win32/resources/image2.jpg
+# for SFML 2.6.0 we've removed all the unclear/non-free assets from the source.
+# See the asset_licenses.md for more details: https://github.com/SFML/SFML/blob/2.6.1/examples/asset_licenses.md
+# And here's the PR that changed (most) of the things: https://github.com/SFML/SFML/pull/1718
 
-Source0:        %{name}-%{version}-clean.tar.gz
-Patch0:         SFML-do-not-use-Pong-trademark.patch
+Source0:        https://www.sfml-dev.org/files/%{name}-%{version}-sources.zip
+Patch0:         SFML-2.6.1-PKGCONFIG_DIR.patch
 
-BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -50,7 +24,11 @@ BuildRequires:  glew-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libsndfile-devel
 BuildRequires:  libXrandr-devel
+BuildRequires:  libXcursor-devel
 BuildRequires:  openal-devel
+#BuildRequires:  vulkan-headers
+BuildRequires:  stb_image-devel >= 2.27-0.7
+BuildRequires:  stb_image_write-devel
 
 %description
 SFML is a portable and easy to use multimedia API written in C++. You can see
@@ -71,30 +49,36 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p0
+%patch -P0 -p1
 # fixup non needed executable permission on regular files
 find -type f -print0 | xargs -0 chmod -x
-# use system-wide extlibs; so, delete everything modulo stb_image header files
-find extlibs/ -type f ! -name 'stb_image*' -print0 | xargs -0 rm
+
+# use system-wide extlibs; so, delete everything except glad, minimp3 and vulkan header files
+pushd extlibs
+shopt -s extglob
+rm -r !(headers)
+cd headers/
+rm -r !(glad|minimp3|vulkan)
+shopt -u extglob
+popd
 
 
 %build
-%cmake -DSFML_BUILD_DOC=TRUE .
+%cmake -DSFML_BUILD_DOC=TRUE
 %cmake_build
 
 
 %install
 %cmake_install
 
-%ldconfig_scriptlets
-
 %files
-%license %{_datadir}/%{name}/license.md
-%doc %{_datadir}/%{name}/readme.md
+%doc %{_datadir}/doc/%{name}/readme.md
+%license %{_datadir}/doc/%{name}/license.md
 %{_libdir}/*.so.*
 
 %files devel
-%doc %{_datadir}/%{name}/doc/html/*
+%doc %{_datadir}/doc/%{name}/html/*
+%doc %{_datadir}/doc/%{name}/SFML.tag
 %{_libdir}/cmake/%{name}/*.cmake
 %{_includedir}/%{name}/
 %{_libdir}/pkgconfig/sfml-*.pc
@@ -102,6 +86,13 @@ find extlibs/ -type f ! -name 'stb_image*' -print0 | xargs -0 rm
 
 
 %changelog
+* Sat Nov 04 2023 Sérgio Basto <sergio@serjux.com> - 2.6.1-1
+- Update SFML to 2.6.1 with soname bump
+- Benjamin A. Beasley <code@musicinmybrain.net>
+  Unbundle stb libraries. Updated stb_image patches CVE-2021-28021,
+  CVE-2021-42715, and CVE-2021-42716
+  Remove obsolete ldconfig_scriptlets macro
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -106,7 +106,7 @@ BuildRequires:  golang(github.com/mattn/go-tty) >= 0.0.4
 BuildRequires:  golang(github.com/sigurn/crc16)
 BuildRequires:  golang(go.bug.st/serial) >= 1.6.0
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
-BuildRequires:  golang(golang.org/x/tools/go/ssa) >= 0.12
+BuildRequires:  golang(golang.org/x/tools/go/ssa) >= 0.11
 BuildRequires:  golang(gopkg.in/yaml.v2) >= 2.4.0
 BuildRequires:  golang(tinygo.org/x/go-llvm)
 BuildRequires:  golang-tests

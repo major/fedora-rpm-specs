@@ -1,16 +1,14 @@
 Name:           vit
-Version:        2.3.1
+%global forgeurl https://github.com/scottkosty/%{name}
+Version:        2.3.2
 Release:        %autorelease
 Summary:        Visual Interactive Taskwarrior full-screen terminal interface
 
+%forgemeta
 
 License:        MIT
-URL:            https://github.com/scottkosty/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# For py3.12
-# https://github.com/vit-project/vit/pull/346
-Patch0:         https://github.com/vit-project/vit/pull/346.patch
-BuildRequires:  git-core
+URL:            %forgeurl
+Source0:        %forgesource
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -34,7 +32,7 @@ Features:
 
 
 %prep
-%autosetup -S git
+%forgesetup
 rm -rf vit.egg-info
 
 # Comment out to remove /usr/bin/env shebangs

@@ -11,14 +11,23 @@
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
-Version:        0.28.0
+Version:        0.29.0
 Release:        %autorelease
 
 # The entire source is Apache-2.0, except:
-# - asyncpg/protocol/record/recordobj.c is PSF-2.0
+#
+# PSF-2.0:
+#   asyncpg/protocol/record/recordobj.c
+#   asyncpg/_asyncio_compat.py
 License:        Apache-2.0 AND PSF-2.0
 URL:            https://github.com/MagicStack/asyncpg
 Source:         %{pypi_source asyncpg}
+
+# Downstream-only: use uvloop for tests even on Python 3.12+
+#
+# Upstream has disabled it because uvloop has not released binary wheels
+# for Python 3.12 yet, but we use the python3-uvloop package
+Patch:          0001-Downstream-only-use-uvloop-for-tests-even-on-Python-.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -74,7 +83,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n asyncpg-%{version}
+%autosetup -n asyncpg-%{version} -p1
 
 # Remove pre-generated C sources from Cython to ensure they are re-generated
 # and not used in the build. Note that recordobj.c is not a generated source,
@@ -140,11 +149,16 @@ ln -s %{buildroot}%{python3_sitearch}/asyncpg/
 # flake8 out of the test dependencies.
 k="${k-}${k+ and }not TestFlake8"
 
+# Test failure in test_executemany_server_failure_during_writes
+# https://github.com/MagicStack/asyncpg/issues/1099
+# This may be flaky and/or arch-dependent.
+k="${k-}${k+ and }not test_executemany_server_failure_during_writes"
+
 # See the “test” target in the Makefile:
-PYTHONASYNCIODEBUG=1 %pytest -k "${k}"
-%pytest -k "${k}"
+PYTHONASYNCIODEBUG=1 %pytest -k "${k-}"
+%pytest -k "${k-}"
 %if %{with uvloop}
-USE_UVLOOP=1 %pytest -k "${k}"
+USE_UVLOOP=1 %pytest -k "${k-}"
 %endif
 
 

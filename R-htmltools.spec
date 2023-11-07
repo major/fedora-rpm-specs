@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 %global packname htmltools
-%global packver  0.5.5
+%global packver  0.5.7
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Tools for HTML
 
 License:          GPLv2+
@@ -15,7 +15,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-utils, R-digest, R-grDevices, R-base64enc, R-rlang >= 0.4.10, R-fastmap >= 1.1.0, R-ellipsis
+# Imports:   R-utils, R-digest, R-grDevices, R-base64enc, R-rlang >= 1.0.0, R-fastmap >= 1.1.0, R-ellipsis
 # Suggests:  R-markdown, R-testthat, R-withr, R-Cairo, R-ragg, R-shiny
 # LinkingTo:
 # Enhances:
@@ -26,7 +26,7 @@ BuildRequires:    R-utils
 BuildRequires:    R-digest
 BuildRequires:    R-grDevices
 BuildRequires:    R-base64enc
-BuildRequires:    R-rlang >= 0.4.10
+BuildRequires:    R-rlang >= 1.0.0
 BuildRequires:    R-fastmap >= 1.1.0
 BuildRequires:    R-ellipsis
 %if %{without bootstrap}
@@ -79,6 +79,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Sun Nov  5 2023 Tom Callaway <spot@fedoraproject.org> - 0.5.7-1
+- update to 0.5.7
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

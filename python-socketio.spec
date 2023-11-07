@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-socketio
-Version:        5.9.0
+Version:        5.10.0
 Release:        %autorelease
 Summary:        Socket.IO server
 
@@ -18,6 +18,10 @@ Source:         %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-test-coverage-analysis.patch
 
+# Unit test fixes for the new simple clients (Fixes #1265)
+# https://github.com/miguelgrinberg/python-socketio/commit/66b9586a65564d82ae3589c65e541a0e593d90d3
+Patch:          %{url}/commit/66b9586a65564d82ae3589c65e541a0e593d90d3.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -25,7 +29,6 @@ BuildRequires:  python3-devel
 # Documentation
 %if %{with doc_pdf}
 BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
@@ -70,7 +73,7 @@ find examples -type f -name package-lock.json -print -delete
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x client,asyncio_client -t
+%pyproject_buildrequires -x client,asyncio_client%{?with_doc_pdf:docs} -t
 
 
 %build

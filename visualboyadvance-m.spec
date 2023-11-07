@@ -10,7 +10,7 @@
 
 Name:           visualboyadvance-m
 Version:        %{upstreamtag}
-Release:        1%{?rctagfedora:.%{rctagfedora}}%{?dist}.1
+Release:        1%{?rctagfedora:.%{rctagfedora}}%{?dist}.2
 Summary:        High compatibility Gameboy Advance Emulator combining VBA builds
 
 License:        GPLv2
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/%{shortname}
 
 %changelog
+* Sun Nov 05 2023 Sérgio Basto <sergio@serjux.com> - 2.1.7-1.2
+- Rebuild for SFML-2.6.1
+
 * Wed Sep 13 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 2.1.7-1
 - Update to 2.1.7
 

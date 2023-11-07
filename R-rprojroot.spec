@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 %global packname rprojroot
-%global packver  2.0.3
+%global packver  2.0.4
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          2.0.3
-Release:          5%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Finding Files in Project Subdirectories
 
 License:          MIT
@@ -16,7 +16,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:
-# Suggests:  R-covr, R-knitr, R-lifecycle, R-mockr, R-rmarkdown, R-testthat >= 3.0.0, R-withr
+# Suggests:  R-covr, R-knitr, R-lifecycle, R-mockr, R-rlang, R-rmarkdown, R-testthat >= 3.0.0, R-withr
 # LinkingTo:
 # Enhances:
 
@@ -27,6 +27,7 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-knitr
 BuildRequires:    R-lifecycle
 BuildRequires:    R-mockr
+BuildRequires:    R-rlang
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr
@@ -80,6 +81,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %changelog
+* Sun Nov  5 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.4-1
+- update to 2.0.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
