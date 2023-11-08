@@ -1,6 +1,6 @@
 Name: fonts-tweak-tool
-Version: 0.4.7
-Release: 2%{?dist}
+Version: 0.4.8
+Release: 1%{?dist}
 Summary: Tool for customizing fonts per language
 
 License: LGPL-3.0-or-later
@@ -12,7 +12,7 @@ BuildRequires: intltool
 BuildRequires: python3-devel
 BuildRequires: gobject-introspection-devel pkgconfig(glib-2.0)
 BuildRequires: make
-Requires: libeasyfc-gobject >= 0.14.0
+Requires: libeasyfc-gobject >= 0.14.1
 Requires: python3-gobject
 Requires: gtk3
 Requires: hicolor-icon-theme
@@ -55,6 +55,11 @@ rm -f %{buildroot}%{_datadir}/gir-*/FontsTweak-*.gir
 
 
 %changelog
+* Mon Nov  6 2023 Akira TAGOH <tagoh@redhat.com> - 0.4.8-1
+- New upstream release.
+- Fix a crash when loading manual-updated config.
+  Resolves: rhbz#2241364
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

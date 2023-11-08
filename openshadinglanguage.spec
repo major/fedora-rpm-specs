@@ -9,7 +9,7 @@
 %endif
 
 Name:           openshadinglanguage
-Version:        1.12.13.0
+Version:        1.12.14.0
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 License:        BSD-3-Clause

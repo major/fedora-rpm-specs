@@ -1,6 +1,6 @@
 Name:           composefs
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools to handle creating and mounting composefs images
 
 License:        GPL-3.0-or-later AND LGPL-2.0-or-later AND Apache-2.0
@@ -21,6 +21,7 @@ Please see https://github.com/containers/composefs for more information.
 %package        devel
 Summary:        Devel files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel
 Devel files for %{name}.
@@ -64,13 +65,4 @@ rm -rf %{buildroot}%{_libdir}/libcomposefs.la
 %{_mandir}/man*/*
 
 %changelog
-* Mon Oct 16 2023 Stephen Smoogen <smooge@fedoraproject.org> - 1.0.1-2
-- Take in fixes from reviwers to fix man page compression types
-- Take in fixes from reviwers to move licenses to lib subpackage
-
-* Fri Oct 13 2023 Stephen Smoogen <smooge@fedoraproject.org> - 1.0.1-1
-- Update to 1.0.1
-- Confirm license is in SPDX format
-
-* Fri Apr 21 2023 Alexander Larsson <alexl@redhat.com>
-- Initial version
+%autochangelog

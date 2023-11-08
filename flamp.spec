@@ -2,7 +2,7 @@
 %global alpha 0
 
 Name:           flamp
-Version:        2.2.09
+Version:        2.2.10
 Release:        1%{?dist}
 Summary:        Amateur Multicast Protocol - file transfer program
 
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Nov 06 2023 Richard Shaw <hobbes1069@gmail.com> - 2.2.10-1
+- Update to 2.2.10.
+
 * Thu Sep 28 2023 Richard Shaw <hobbes1069@gmail.com> - 2.2.09-1
 - Update to 2.2.09.
 

@@ -1,8 +1,8 @@
 %bcond_without  jp_minimal
 
 Name:           jackson-jaxrs-providers
-Version:        2.15.2
-Release:        2%{?dist}
+Version:        2.15.3
+Release:        1%{?dist}
 Summary:        Jackson JAX-RS providers
 License:        Apache-2.0
 
@@ -173,6 +173,12 @@ rm json/src/test/java/com/fasterxml/jackson/jaxrs/json/resteasy/RestEasyProvider
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
+- [maven-release-plugin] prepare release jackson-jaxrs-providers-2.15.3 (Tatu Saloranta)
+- Prepare for 2.15.3 release (Tatu Saloranta)
+- 2.15.3-SNAPSHOT (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

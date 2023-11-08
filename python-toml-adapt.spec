@@ -18,6 +18,7 @@ Version:        0.2.11
 Release:        3%{?dist}
 Summary:        A simple command-line interface for manipulating toml files
 
+# SPDX
 License:        MIT
 URL:            https://github.com/firefly-cpp/%{original_name}
 Source0:        %{url}/archive/%{version}/%{original_name}-%{version}.tar.gz

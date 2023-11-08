@@ -182,6 +182,18 @@ use the "deflate" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+futures-channel-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-channel-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-channel" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-channel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+gzip-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -192,6 +204,42 @@ This package contains library source intended for building other packages which
 use the "gzip" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gzip-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+h3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+h3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "h3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+h3-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+h3-quinn-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+h3-quinn-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "h3-quinn" feature of the "%{crate}" crate.
+
+%files       -n %{name}+h3-quinn-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+http3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+http3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "http3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+http3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+hyper-rustls-devel
@@ -288,6 +336,18 @@ This package contains library source intended for building other packages which
 use the "native-tls-crate" feature of the "%{crate}" crate.
 
 %files       -n %{name}+native-tls-crate-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+quinn-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+quinn-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "quinn" feature of the "%{crate}" crate.
+
+%files       -n %{name}+quinn-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rustls-devel

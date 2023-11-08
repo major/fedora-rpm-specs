@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        119.0
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -241,12 +241,15 @@ Patch228:        disable-openh264-download.patch
 Patch229:        firefox-nss-addon-hack.patch
 Patch230:        firefox-enable-vaapi.patch
 Patch231:        fedora-customization.patch
+Patch241:        0025-Add-KDE-integration-to-Firefox-toolkit-parts.patch
+Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
 Patch409:        D192061.1698487416.diff
+Patch410:        mozilla-1762816.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -532,10 +535,14 @@ This package contains results of tests executed during build.
 %patch230 -p1 -b .firefox-enable-vaapi
 %patch231 -p1 -b .fedora-customization
 
+#%patch241 -p1 -b .kde-integration-toolkit
+#%patch242 -p1 -b .kde-integration
+
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .D167159
 %patch409 -p1 -b .D192061
+%patch410 -p1 -b .mozilla-1762816
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1144,6 +1151,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Nov 06 2023 Martin Stransky <stransky@redhat.com>- 119.0-3
+- Added fix for mzbz#1762816
+
 * Mon Oct 30 2023 Jan Horak <jhorak@redhat.com> - 119.0-3
 - Enable mozilla crash reporter
 

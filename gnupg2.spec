@@ -3,7 +3,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -30,10 +30,12 @@ Patch31: gnupg2-revert-rfc4880bis.patch
 # https://dev.gnupg.org/rG2f872fa68c6576724b9dabee9fb0844266f55d0d
 # cherry-picked on top of gnupg 2.4.2 + gnupg-2.4.1-file-is-digest.patch
 Patch32: gnupg-2.4.2-gpg-Report-BEGIN_-status-before-examining-the-input.patch
+# Mostly reverts https://dev.gnupg.org/rGeae28f1bd4a5632e8f8e85b7248d1c4d4a10a5ed
+Patch33: gnupg-2.4.3-restore-systemd-sockets.patch
 
 URL:     https://www.gnupg.org/
 
-#BuildRequires: automake libtool texinfo transfig
+BuildRequires: automake libtool texinfo transfig
 BuildRequires: gcc
 BuildRequires: bzip2-devel
 BuildRequires: curl-devel
@@ -57,6 +59,7 @@ BuildRequires: gnutls-devel
 BuildRequires: sqlite-devel
 BuildRequires: fuse
 BuildRequires: make
+BuildRequires: systemd-rpm-macros
 BuildRequires: tpm2-tss-devel
 # for tests
 BuildRequires: openssh-clients
@@ -122,6 +125,7 @@ to the base GnuPG package
 %patch 30 -p1 -b .coverity
 %patch 31 -p1 -b .revert-rfc4880bis
 %patch 32 -p1 -b .report-begin
+%patch 33 -p1 -b .restore-systemd-sockets
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -132,8 +136,7 @@ sed -i -e 's/"libpcsclite\.so"/"%{pcsclib}"/' scd/scdaemon.c
 
 
 %build
-# can not regenerate makefiles because of automake-1.16.3 requirement
-# ./autogen.sh
+./autogen.sh
 %configure \
   --disable-rpath \
   --enable-g13 \
@@ -174,6 +177,11 @@ rm -f %{buildroot}%{_infodir}/dir
 # drop the gpg scheme interpreter
 rm -f %{buildroot}%{_bindir}/gpgscm
 
+# Move the systemd user units to appropriate directory
+install -d -m755 %{buildroot}%{_userunitdir}
+mv %{buildroot}%{_pkgdocdir}/examples/systemd-user/*.socket %{buildroot}%{_userunitdir}
+mv %{buildroot}%{_pkgdocdir}/examples/systemd-user/*.service %{buildroot}%{_userunitdir}
+
 %check
 # need scratch gpg database for tests
 mkdir -p $HOME/.gnupg
@@ -209,6 +217,7 @@ make -k check
 %{_libexecdir}/*
 %{_infodir}/*.info*
 %{_mandir}/man?/*
+%{_userunitdir}/*
 %exclude %{_mandir}/man?/gpgsm*
 
 %files smime
@@ -218,6 +227,9 @@ make -k check
 
 
 %changelog
+* Mon Nov 06 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.3-3
+- Restore systemd units and sockets (#2158627)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

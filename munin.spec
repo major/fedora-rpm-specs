@@ -1,8 +1,8 @@
 Name:           munin
-Version:        2.0.74
+Version:        2.0.75
 Release:        1%{?dist}
 Summary:        Network-wide resource monitoring tool
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://munin-monitoring.org/
 
 Source0:        http://downloads.munin-monitoring.org/munin/stable/%{version}/%{name}-%{version}.tar.gz
@@ -663,6 +663,9 @@ exit 0
 
 
 %changelog
+* Mon Nov  6 2023 Kim B. Heino <b@bbbs.net> - 2.0.75-1
+- Upgrade to 2.0.75
+
 * Wed Oct  4 2023 Kim B. Heino <b@bbbs.net> - 2.0.74-1
 - Upgrade to 2.0.74
 

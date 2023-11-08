@@ -17,12 +17,19 @@
 
 Name:           wine-dxvk
 Version:        1.10.3
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Vulkan-based D3D11 and D3D10 implementation for Linux / Wine
 
 License:        zlib
 URL:            https://github.com/doitsujin/dxvk
 Source0:        %{url}/archive/v%{version}/dxvk-%{version}.tar.gz
+
+# Apply fixes from git/1.10.x released after 1.10.3 till 2nd of Aug 2023
+Patch01:        postrel_fixxes.patch
+
+# GCC 13 buildfixes
+# https://github.com/doitsujin/dxvk/pull/3308
+Patch02:        3308.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -96,7 +103,7 @@ Requires:       wine-dxvk-d3d9(x86-32) = %{version}-%{release}
 %{summary}
 
 %prep
-%setup -q -n dxvk-%{version}
+%autosetup -n dxvk-%{version} -p1
 
 %build
 %mingw_meson --buildtype=plain --wrap-mode=nodownload --auto-features=enabled --cross-file ../build-win%{target_x86_type}.txt --buildtype release
@@ -135,6 +142,13 @@ else
     %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d11.dll 'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d11.dll 20
 fi
 
+%posttrans dxgi
+if vulkaninfo |& grep "ERROR_INITIALIZATION_FAILED\|ERROR_SURFACE_LOST_KHR\|Vulkan support is incomplete" > /dev/null; then
+    %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/dxgi.dll 'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-dxgi.dll 5
+else
+    %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/dxgi.dll 'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-dxgi.dll 5
+fi
+
 %posttrans d3d9
 if vulkaninfo |& grep "ERROR_INITIALIZATION_FAILED\|ERROR_SURFACE_LOST_KHR\|Vulkan support is incomplete" > /dev/null; then
     %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d9.dll 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d9.dll 5
@@ -148,6 +162,9 @@ fi
 
 %postun d3d9
 %{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d9.dll
+
+%postun dxgi
+%{_sbindir}/alternatives --remove 'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-dxgi.dll
 
 %files
 %license LICENSE
@@ -167,135 +184,4 @@ fi
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.10.3-1
-- Release 1.10.3 (closes RHBZ#2114663)
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jul 14 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.10.2-1
-- Release 1.10.2
-
-* Sat Apr 02 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.10.1-1
-- Release 1.10.1
-
-* Sun Mar 06 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.10-1
-- Release 1.10
-- Clean up spec file, use mingw build macros
-
-* Mon Jan 31 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.4-1
-- Release 1.9.4
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jan 11 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.3-1
-- Release 1.9.3
-
-* Mon Sep 20 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.2-1
-- Release 1.9.2
-
-* Thu Jul 29 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.1-1
-- Release 1.9.1
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 25 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9-1
-- Release 1.9
-
-* Fri May 14 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.8.1-2
-- Adapt to wine directory structure changes from wine-6.8
-
-* Tue Mar 02 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.8.1-1
-- Release 1.8.1
-
-* Mon Feb 22 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.8-1
-- Release 1.8
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 22 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7.3-2
-- We now have mingw-8.0 in Fedora 34, don't revert IDXGIFactory6 and IDXGIFactory7 in F34
-
-* Sun Jan 17 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7.3-1
-- Release 1.7.3
-- Try to blacklist lavapipe driver (hacky solution for now by catching ERROR_SURFACE_LOST_KHR from vulkaninfo)
-- Revert IDXGIFactory6 and IDXGIFactory7 changes until we get mingw >= 8.0
-
-* Sun Nov 29 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7.2-3
-- Backout dxvk-d3d9 from the default installation until the issues with vulkan childwindow support are solved
-
-* Sat Nov 14 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7.2-2
-- Blacklist Intel Haswell and Ivy Bridge from default dxvk installation
-
-* Thu Oct 08 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7.2-1
-- Release 1.7.2
-
-* Fri Aug 14 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7.1-1
-- Release 1.7.1
-
-* Sun Aug 09 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7-3
-- Install dxvk as primary alternative only on systems with Vulkan support
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun May 17 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.7-1
-- Release 1.7
-- Remove winelib build and fix mingw build dll names (Matias Zuniga)
-
-* Mon Apr 20 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.6.1-1
-- Release 1.6.1
-
-* Tue Mar 24 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.6-1
-- Release 1.6
-
-* Sat Mar 07 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.5.5-1
-- Release 1.5.5
-
-* Sun Feb 09 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.5.4-1
-- Release 1.5.4
-
-* Fri Jan 31 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.5.3-1
-- Release 1.5.3
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jan 10 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.5.1-1
-- Release 1.5.1
-- Support D3D9 (wine-dxvk-d3d9 subpackage)
-
-* Sat Dec 07 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.4.6-1
-- Release 1.4.6
-
-* Thu Nov 21 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.4.5-1
-- Release 1.4.5
-
-* Tue Oct 29 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.4.4-1
-- Release 1.4.4
-
-* Sat Oct 19 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.4.3-1
-- Release 1.4.3
-
-* Sat Sep 28 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.4.1-1
-- Release 1.4.1
-
-* Mon Sep 23 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.4-1
-- Release 1.4
-
-* Sun Aug 11 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.3.2-1
-- Release 1.3.2
-- Use alternatives for .dll files and dxgi.dll.so
-
-* Thu Jul 25 2019 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.3.1-1
-- Initial packaging
-
+%autochangelog

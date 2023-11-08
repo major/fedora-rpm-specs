@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/python-rope/rope
 
 Name:           python-rope
-Version:        1.10.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Python Code Refactoring Library
 %global tag %{version}

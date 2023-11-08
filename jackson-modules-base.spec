@@ -1,8 +1,8 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.15.2
-Release:        2%{?dist}
+Version:        2.15.3
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -102,6 +102,13 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
+- [maven-release-plugin] prepare release jackson-modules-base-2.15.3 (Tatu Saloranta)
+- Prepare for 2.15.3 release (Tatu Saloranta)
+- Udpate Maven wrapper version (Tatu Saloranta)
+- 2.15.3-SNAPSHOT (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

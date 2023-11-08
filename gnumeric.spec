@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.56
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -151,6 +151,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Nov 06 2023 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.56-2
+- Rebuild
+
 * Sat Nov 04 2023 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.56-1
 - Update to 1.12.56
 - Drop i686 architecture

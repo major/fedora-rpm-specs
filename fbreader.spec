@@ -2,7 +2,7 @@
 
 Name:           fbreader
 Version:        0.99.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        E-book reader
 
 License:        GPL-2.0-or-later
@@ -122,6 +122,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Nov 03 2023 Sandro <devel@penguinpee.nl> - 0.99.4-13
+- Stop building for i686
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

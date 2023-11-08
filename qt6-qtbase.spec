@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -97,6 +97,7 @@ Patch100: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
 %endif
 
 ## upstream patches
+Patch200: qtbase-a11y-fix-race-condition-on-atspi-startup-on-wayland.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -833,6 +834,10 @@ make check -k ||:
 
 
 %changelog
+* Mon Nov 06 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-4
+- Upstream backports
+  - a11y - fix race condition on atspi startup on Wayland
+
 * Mon Oct 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-3
 - Do not use tslib on RHEL builds
 

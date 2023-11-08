@@ -1,69 +1,70 @@
-# Created by pyp2rpm-3.3.6
 %global pypi_name resolvelib
+%global forgeurl https://github.com/sarugaku/resolvelib
+%bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.5.5
-Release:        9%{?dist}
+Version:        1.0.1
+%global tag %{version}
+%forgemeta
+Release:        1%{?dist}
 Summary:        Resolve abstract dependencies into concrete ones
 
 License:        ISC
-URL:            https://github.com/sarugaku/resolvelib
-Source0:        %{pypi_source}
+URL:            %{forgeurl}
+Source:         %{forgesource}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
-%description
+%global _description %{expand:
 ResolveLib at the highest level provides a Resolver class that
 includes dependency resolution logic. You give it some things, and a little
 information on how it should interact with them, and it will spit out a
 resolution result. Intended Usage :: import resolvelib Things I want to
 resolve. requirements [...] Implement logic so the resolver understands the
-requirement format. class...
+requirement format. class...}
+
+%description %_description
+
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-#Requires:       python3dist(black)
-#Requires:       python3dist(commentjson)
-#Requires:       python3dist(flake8)
-#Requires:       python3dist(html5lib)
-#Requires:       python3dist(packaging)
-#Requires:       python3dist(packaging)
-#Requires:       python3dist(pygraphviz)
-#Requires:       python3dist(pytest)
-#Requires:       python3dist(requests)
-#Requires:       python3dist(setl)
-#Requires:       python3dist(towncrier)
-%description -n python3-%{pypi_name}
-ResolveLib at the highest level provides a Resolver class that
-includes dependency resolution logic. You give it some things, and a little
-information on how it should interact with them, and it will spit out a
-resolution result. Intended Usage :: import resolvelib Things I want to
-resolve. requirements [...] Implement logic so the resolver understands the
-requirement format. class...
+%description -n python3-%{pypi_name} %{_description}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup %{forgesetupargs}
+# Use already packaged json5 instead of commentjson
+sed -i 's|commentjson|json5|' \
+    setup.cfg tests/functional/cocoapods/test_resolvers_cocoapods.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-x test}
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-%files -n python3-%{pypi_name}
+%check
+%pytest -v
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
+* Fri Oct 20 2023 Maxwell G <maxwell@gtmx.me> - 1.0.1-1
+- Update to 1.0.1.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

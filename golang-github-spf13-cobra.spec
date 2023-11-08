@@ -4,7 +4,7 @@
 
 # https://github.com/spf13/cobra
 %global goipath         github.com/spf13/cobra
-Version:                1.7.0
+Version:                1.8.0
 
 %gometa
 

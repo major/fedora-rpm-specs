@@ -19,8 +19,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:			gpaw
-Version:		23.6.0
-Release:		3%{?dist}
+Version:		23.9.1
+Release:		1%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -120,6 +120,9 @@ cp -p python3/LICENSE .
 
 # fix the shebangs python version in the scripts
 find python3/tools -type f | xargs sed -i '1s|^#!/usr/bin/env python.*|#!%{_bindir}/python3|'
+
+# workaround for "assert terminalreporter is not None" https://gitlab.com/gpaw/gpaw/-/issues/1026
+sed -i 's/except AttributeError:/except (AttributeError, AssertionError):/' python3/gpaw/test/conftest.py
 
 
 %build
@@ -278,6 +281,9 @@ popd
 
 
 %changelog
+* Fri Nov 03 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 23.9.1-1
+- New upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

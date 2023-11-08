@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.43
-Release:        2%{?dist}
+Version:        2.2.44
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -14,7 +14,6 @@ URL:            http://gns3.com
 Source0:        https://github.com/GNS3/gns3-server/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        gns3.service
 Patch0:         0001-changing-busybox-udhcpc-script-path.patch
-Patch1:         https://github.com/GNS3/gns3-server/commit/999a47f747abed6ca18b1dc6f19d9552c30cf030.patch
 
 BuildArch:      noarch
 
@@ -60,8 +59,10 @@ Requires: %{name} = %{version}-%{release}
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/distro>=1.8.*/distro>=1.5.0/' requirements.txt
-sed -i -r 's/psutil>=5.9.5/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/psutil>=5.9.6/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/aiofiles>=23.2.1,<23.3/aiofiles>=0.7/' requirements.txt
+sed -i -r 's/aiohttp>=3.8.5,<3.9; python_version < \x273.12\x27/aiohttp>=3.8.5/' requirements.txt
+sed -i -r 's/aiohttp>=3.9.0b0; python_version >= \x273.12\x27//g' requirements.txt
 sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
@@ -143,6 +144,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Mon Nov  6 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.44-1
+- Update to 2.2.44
+
 * Tue Sep 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-2
 - Backported importlib_resources fix
 - lower distro and jinja2 requirements

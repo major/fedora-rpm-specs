@@ -1,16 +1,16 @@
 # Git submodules
 #   * i3ipcpp
-%global commit1         86ddf7102c6903ae0cc543071e2d375403fc0727
+%global commit1         36b2a1b05083837abe259b1990d738feaf4fa866
 %global shortcommit1    %(c=%{commit1}; echo ${c:0:7})
 
 #   * xpp
-%global commit2         7a9960bbb912f0ed66929c978aaeb1c30acf4bfd
+%global commit2         a8b9e682ba65ca4a6d805c8be97c5232bae3c0c1
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 
 %global url1    https://github.com/%{name}
 
 Name:           polybar
-Version:        3.6.3
+Version:        3.7.0
 Release:        %autorelease
 Summary:        Fast and easy-to-use status bar
 
@@ -89,7 +89,7 @@ mv xpp-%{commit2}/*     lib/xpp
 %{_bindir}/%{name}-msg
 %{_datadir}/bash-completion/completions/%{name}
 %{_datadir}/zsh/
-%{_docdir}/%{name}/
+%{_docdir}/%{name}/*
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*
 %{_sysconfdir}/%{name}/config.ini

@@ -3,7 +3,7 @@
 
 Name: abiword
 Version: 3.0.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 1
 Summary: Word processing program
 License: GPL-2.0-or-later
@@ -14,6 +14,8 @@ Source1: http://abisource.com/downloads/abiword/%{version}/source/abiword-docs-%
 Source11: abiword.mime
 Source12: abiword.keys
 Source13: abiword.xml
+
+ExcludeArch:    %{ix86}
 
 Patch0: abiword-2.6.0-windowshelppaths.patch
 Patch1: abiword-2.8.3-desktop.patch
@@ -106,15 +108,15 @@ Python bindings for developing with libabiword
 %setup -q -a 1
 
 # patch abiword
-%patch1 -p1 -b .desktop
-%patch2 -p1 -b .boolean
-%patch3 -p0 -b .librevenge
-%patch4 -p1 -b .explicit_python
-%patch5 -p1 -b .pygo
+%patch -P 1 -p1 -b .desktop
+%patch -P 2 -p1 -b .boolean
+%patch -P 3 -p0 -b .librevenge
+%patch -P 4 -p1 -b .explicit_python
+%patch -P 5 -p1 -b .pygo
 
 # setup abiword documentation
 pushd abiword-docs-%{docsversion}
-%patch0 -p1 -b .windowshelppaths
+%patch -P 0 -p1 -b .windowshelppaths
 # some of the help dirs have bad perms (#109261)
 find . -type d -exec chmod -c o+rx {} \;
 popd
@@ -188,6 +190,9 @@ find %{buildroot} -name '*.a' -delete
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Sat Nov 04 2023 Gwyn Ciesla <gwync@protonmail.com> 1:3.0.5-9
+- Drop i386 on f40+
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

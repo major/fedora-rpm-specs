@@ -36,6 +36,9 @@ Patch303:       autoconf.patch
 Patch401:       btyacc-honour-build-flags.patch
 Patch402:       firebird-configure-c99.patch
 
+# not yet upstream
+Patch501:       examples-honour-build-flags.patch
+
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtommath-devel
@@ -201,6 +204,7 @@ in production systems, under a variety of names, since 1981.
 %patch303 -p1
 %patch401 -p1
 %patch402 -p1
+%patch -P501 -p1
 
 
 %build

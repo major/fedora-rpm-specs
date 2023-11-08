@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -188,6 +188,7 @@ License: LGPLv2
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: gnutls-devel
 Requires: krb5-devel
+Requires: pkgconf-pkg-config
 Requires: zlib-devel
 
 %package libs
@@ -791,6 +792,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Nov 06 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-3
+- use pkgconfig in macros.cups and add new macros
+
 * Mon Oct 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-2
 - fix memory leaks when unloading job
 

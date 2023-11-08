@@ -1,8 +1,5 @@
 %define _lto_cflags %{nil}
 
-# set default fuzz=2 for patch
-%global _default_patch_fuzz 2
-
 # enable|disable system build flags
 %global system_build_flags 0
 
@@ -121,7 +118,10 @@
 
 # Debuginfo packages aren't very useful here. If you need to debug
 # you should do a proper debug build (not implemented in this spec yet)
+%global enable_debug 0
+%if ! %{enable_debug}
 %global debug_package %{nil}
+%endif
 
 # %%{nil} for Stable; -beta for Beta; -dev for Devel
 # dash in -beta and -dev is intentional !
@@ -270,14 +270,14 @@ Patch0: chromium-70.0.3538.67-sandbox-pie.patch
 # Use /etc/chromium for initial_prefs
 Patch1: chromium-115-initial_prefs-etc-path.patch
 
-# Use gn system files
-Patch2: chromium-107.0.5304.110-gn-system.patch
+# system libusb
+Patch2: chromium-119-system-libusb.patch
 
 # Do not mangle zlib
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
 
 # Do not use unrar code, it is non-free
-Patch6: chromium-115-norar.patch
+Patch6: chromium-119-norar.patch
 
 # Try to load widevine from other places
 Patch8: chromium-117-widevine-other-locations.patch
@@ -295,7 +295,7 @@ Patch20: chromium-disable-font-tests.patch
 Patch52: chromium-81.0.4044.92-unbundle-zlib.patch
 
 # Fix headers to look for system paths when we are using system minizip
-Patch61: chromium-109-system-minizip-header-fix.patch
+Patch61: chromium-119-system-minizip-header-fix.patch
 
 # Fix issue where closure_compiler thinks java is only allowed in android builds
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1192875
@@ -315,7 +315,7 @@ Patch89: chromium-116-system-brotli.patch
 
 # disable GlobalMediaControlsCastStartStop to avoid crash
 # when using the address bar media player button
-Patch90: chromium-113-disable-GlobalMediaControlsCastStartStop.patch
+Patch90: chromium-119-disable-GlobalMediaControlsCastStartStop.patch
 
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
@@ -358,7 +358,7 @@ Patch114: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
 Patch115: chromium-107-proprietary-codecs.patch
 # drop av_stream_get_first_dts from internal ffmpeg
-Patch116: chromium-112-ffmpeg-first_dts.patch
+Patch116: chromium-119-ffmpeg-first_dts.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch117: chromium-118-sigtrap_system_ffmpeg.patch
 
@@ -917,7 +917,7 @@ udev.
 ### Chromium Fedora Patches ###
 %patch -P0 -p1 -b .sandboxpie
 %patch -P1 -p1 -b .etc
-%patch -P2 -p1 -b .gnsystem
+%patch -P2 -p1 -b .system-libusb
 %patch -P5 -p1 -b .nozlibmangle
 %patch -P6 -p1 -b .nounrar
 %patch -P8 -p1 -b .widevine-other-locations
@@ -1078,9 +1078,6 @@ sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channe
 
 # Fix hardcoded path in remoting code
 sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
-
-# reduce debuginfos
-sed -i 's|-g2|-g0|g' build/config/compiler/BUILD.gn
 
 # change moc to moc-qt5 for fedora
 sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
@@ -1396,18 +1393,12 @@ pushd %{builddir}
 	cp -a locales/*.pak %{buildroot}%{chromium_path}/locales/
 	%ifarch x86_64 aarch64
 		cp -a libvk_swiftshader.so %{buildroot}%{chromium_path}
-		strip %{buildroot}%{chromium_path}/libvk_swiftshader.so
 		cp -a libvulkan.so.1 %{buildroot}%{chromium_path}
-		strip %{buildroot}%{chromium_path}/libvulkan.so.1
 		cp -a vk_swiftshader_icd.json %{buildroot}%{chromium_path}
 	%endif
 	cp -a chrome %{buildroot}%{chromium_path}/%{chromium_browser_channel}
-	# Explicitly strip chromium-browser (since we don't use debuginfo here anyway)
-	strip %{buildroot}%{chromium_path}/%{chromium_browser_channel}
 	cp -a chrome_sandbox %{buildroot}%{chromium_path}/chrome-sandbox
-	strip %{buildroot}%{chromium_path}/chrome-sandbox
 	cp -a chrome_crashpad_handler %{buildroot}%{chromium_path}/chrome_crashpad_handler
-	strip %{buildroot}%{chromium_path}/chrome_crashpad_handler
 	cp -a ../../chrome/app/resources/manpage.1.in %{buildroot}%{_mandir}/man1/%{chromium_browser_channel}.1
 	sed -i "s|@@PACKAGE@@|%{chromium_browser_channel}|g" %{buildroot}%{_mandir}/man1/%{chromium_browser_channel}.1
 	sed -i "s|@@MENUNAME@@|%{chromium_menu_name}|g" %{buildroot}%{_mandir}/man1/%{chromium_browser_channel}.1
@@ -1418,12 +1409,9 @@ pushd %{builddir}
 
 	# This is ANGLE, not to be confused with the similarly named files under swiftshader/
 	cp -a libEGL.so libGLESv2.so %{buildroot}%{chromium_path}
-	strip %{buildroot}%{chromium_path}/libEGL.so
-	strip %{buildroot}%{chromium_path}/libGLESv2.so
 
 	%if %{use_qt}
 		cp -a libqt5_shim.so %{buildroot}%{chromium_path}
-		strip %{buildroot}%{chromium_path}/libqt5_shim.so
 	%endif
 
 	%if %{build_clear_key_cdm}
@@ -1436,7 +1424,6 @@ pushd %{builddir}
 				cp -a libclearkeycdm.so %{buildroot}%{chromium_path}
 			%endif
 		%endif
-		strip %{buildroot}%{chromium_path}/libclearkeycdm.so
 	%endif
 
 	# chromedriver
@@ -1453,7 +1440,6 @@ popd
 	pushd %{remotingbuilddir}
 		# Hey, there is a library now.
 		cp -a libremoting_core.so %{buildroot}%{crd_path}/
-		strip %{buildroot}%{crd_path}/libremoting_core.so
 
 		# See remoting/host/installer/linux/Makefile for logic
 		mkdir -p %{buildroot}%{crd_path}/remoting_locales
@@ -1501,9 +1487,16 @@ popd
 %if %{build_headless}
 	pushd %{headlessbuilddir}
 		cp -a headless_lib_data.pak headless_lib_strings.pak headless_shell %{buildroot}%{chromium_path}
-		# Explicitly strip headless_shell binary
-		strip %{buildroot}%{chromium_path}/headless_shell
 	popd
+%endif
+
+# need to strip binaries explicitly when debug is disable
+%if ! %{enable_debug}
+pushd %{buildroot}%{chromium_path}/
+for f in *.so chrome_crashpad_handler chrome-sandbox chromium-browser headless_shell chromedriver ; do
+   [ -f $f ] && strip $f
+done
+popd
 %endif
 
 # Add directories for policy management

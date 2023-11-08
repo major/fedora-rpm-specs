@@ -2,8 +2,19 @@
 
 %global sysuser  resalloc
 %global sysgroup %sysuser
-%global _logdir  %_var/log/%{name}server
 %global _homedir %_sharedstatedir/%{name}server
+
+%global agent_user  resalloc-agent-spawner
+%global agent_group %agent_user
+
+%global create_user_group() \
+getent group "%1" >/dev/null || groupadd -r "%1" \
+getent passwd "%1" >/dev/null || \\\
+useradd -r -g "%2" -G "%2" -s "%3" \\\
+        -c "%1 service user" "%1" \\\
+        -d "%4"
+
+%global _logdir  %_var/log/%{name}server
 
 %global sum Resource allocator for expensive resources
 %global desc \
@@ -27,7 +38,7 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    5.0
+Version:    5.1
 Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
@@ -73,6 +84,7 @@ Requires:   %default_python-%srcname = %version-%release
 
 Source0: https://github.com/praiskup/%name/releases/download/v%version/%name-%version.tar.gz
 Source1: resalloc.service
+Source5: resalloc-agent-spawner.service
 Source2: logrotate
 Source3: merge-hook-logs
 Source4: cron.hourly
@@ -127,6 +139,24 @@ it shows page with information about resalloc resources.
 %endif
 
 %if %{with python3}
+%package agent-spawner
+Summary: %sum - daemon starting agent-like resources
+
+Requires(pre): /usr/sbin/useradd
+Requires: python3-copr-common
+
+%description agent-spawner
+%desc
+
+Agent Spawner maintains sets resources (agents) of certain kind and in certain
+number, according to given configuration.  Typical Resalloc resource is
+completely dummy, fully controlled from the outside.  With agent-like resources
+this is different — such resources are self-standing, they take care of
+themselves, perhaps interacting/competing with each other.  The only thing that
+agent-spawner needs to do is to control the ideal number of them.
+%endif
+
+%if %{with python3}
 %package -n python3-%srcname
 Summary: %sum - Python 3 client library
 %{?python_provide:%python_provide python3-%srcname}
@@ -152,7 +182,6 @@ to the resalloc server.
 
 %package selinux
 Summary: SELinux module for %{name}
-Requires: %name-webui = %version-%release
 # Requires(post): policycoreutils-python
 BuildRequires: selinux-policy-devel
 %{?selinux_requires}
@@ -168,6 +197,9 @@ restorecon -R %_var/www/cgi-%{name} || :
 
 %prep
 %autosetup -p1 -n %name-%version
+%if %{without python3}
+rm -r resalloc_agent_spawner
+%endif
 
 
 %build
@@ -195,6 +227,9 @@ install -p -m 755 %{name}webui/cgi-resalloc %buildroot%_var/www/cgi-%{name}
 mkdir -p %buildroot%_unitdir
 mkdir -p %buildroot%_logdir
 install -p -m 644 %SOURCE1 %buildroot%_unitdir
+%if %{with python3}
+install -p -m 644 %SOURCE5 %buildroot%_unitdir
+%endif
 install -d -m 700 %buildroot%_homedir
 install -d -m 700 %buildroot%_sysconfdir/logrotate.d
 install -p -m 644 %SOURCE2 %buildroot%_sysconfdir/logrotate.d/resalloc-server
@@ -203,6 +238,11 @@ install -d -m 755 %buildroot/%_libexecdir
 install -p -m 755 %SOURCE3 %buildroot/%_libexecdir/%name-merge-hook-logs
 install -d %buildroot%_sysconfdir/cron.hourly
 install -p -m 755 %SOURCE4 %buildroot%_sysconfdir/cron.hourly/resalloc
+
+%if %{without python3}
+rm %buildroot%_bindir/%name-agent-*
+rm %buildroot%_sysconfdir/resalloc-agent-spawner/config.yaml
+%endif
 
 
 %if %{with check}
@@ -220,20 +260,25 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %pre server
-user=%sysuser
-group=%sysgroup
-getent group "$user" >/dev/null || groupadd -r "$group"
-getent passwd "$user" >/dev/null || \
-useradd -r -g "$group" -G "$group" -s /bin/bash \
-        -c "resalloc server's user" "$user" \
-        -d "%_homedir"
-
+%create_user_group %sysuser %sysgroup /bin/bash %_homedir
 
 %post server
 %systemd_post resalloc.service
 
 %postun server
 %systemd_postun_with_restart resalloc.service
+
+
+%if %{with python3}
+%pre agent-spawner
+%create_user_group %agent_user %agent_group /bin/false /
+
+%post agent-spawner
+%systemd_post resalloc-agent-spawner.service
+
+%postun agent-spawner
+%systemd_postun_with_restart resalloc-agent-spawner.service
+%endif
 
 
 %global doc_files NEWS README.md
@@ -282,6 +327,12 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 %config %attr(0755, root, root) %{_sysconfdir}/cron.hourly/resalloc
 
 %if %{with python3}
+%files agent-spawner
+%_bindir/resalloc-agent*
+%{default_sitelib}/%{name}_agent_spawner
+%_unitdir/resalloc-agent-spawner.service
+%config(noreplace) %_sysconfdir/resalloc-agent-spawner
+
 %files webui
 %doc %doc_files
 %license COPYING
@@ -294,6 +345,9 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 
 
 %changelog
+* Mon Nov 06 2023 Pavel Raiskup <praiskup@redhat.com> - 5.1-1
+- new upstream release https://github.com/praiskup/resalloc/releases/tag/v5.1
+
 * Fri Aug 11 2023 Pavel Raiskup <praiskup@redhat.com> - 5.0-1
 - new upstream release https://github.com/praiskup/resalloc/releases/tag/v5.0
 

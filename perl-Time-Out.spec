@@ -2,13 +2,13 @@
 %bcond_without perl_Time_Out_enables_optional_test
 
 Name:           perl-Time-Out
-Version:        0.20
+Version:        0.21
 Release:        1%{?dist}
 Summary:        Easily time out long running operations
 # lib/Time/Out.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
-# LICENSE:          Artistic-2.0
-# Makefile.PL:      Artistic-2.0
-License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
+# LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
+# Makefile.PL:      GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Time-Out
 Source0:        https://cpan.metacpan.org/authors/id/S/SV/SVW/Time-Out-%{version}.tar.gz
 BuildArch:      noarch
@@ -25,16 +25,15 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Try::Tiny)
 # Tests:
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Needs)
-BuildRequires:  perl(Time::HiRes) >= 1.9726
 %if %{with perl_Time_Out_enables_optional_test}
 # Optional tests:
-# BuildRequires:  perl(Test::Perl::Critic) # incompatible with 1.152
-BuildRequires:  perl(Test::Pod) >= 1.26
+BuildRequires:  perl(Test::Needs)
+BuildRequires:  perl(Time::HiRes) >= 1.9726
 %endif
 Requires:       perl(Carp)
 
@@ -50,7 +49,9 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(IO::Handle)
+%if %{with perl_Time_Out_enables_optional_test}
 Requires:       perl(Time::HiRes) >= 1.9726
+%endif
 Requires:       perl(warnings)
 
 %description tests
@@ -59,14 +60,15 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Time-Out-%{version}
-# t/09-critic.t does not pass with Perl::Critic 1.152, reported to upstream by
-# e-mail on 2023-11-03.
-rm t/09-critic.t
-perl -i -ne 'print $_ unless m{^t/09-critic\.t}' MANIFEST
-%if !%{with perl_Time_Out_enables_optional_test}
-rm t/08-pod.t
-perl -i -ne 'print $_ unless m{^t/08-pod\.t}' MANIFEST
+# Remove release tests that are always skipped
+for F in \
+%if %{without perl_Time_Out_enables_optional_test}
+        t/06-RT-84141.t \
 %endif
+        t/08-pod.t t/09-critic.t; do
+    rm -- "$F"
+    perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
+done;
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -84,9 +86,6 @@ MAKELEVEL=1 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-%if %{with perl_Time_Out_enables_optional_test}
-rm %{buildroot}%{_libexecdir}/%{name}/t/08-pod.t
-%endif
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -109,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 06 2023 Petr Pisar <ppisar@redhat.com> - 0.21-1
+- 0.21 bump
+
 * Fri Nov 03 2023 Petr Pisar <ppisar@redhat.com> - 0.20-1
 - 0.20 bump
 - Package the tests

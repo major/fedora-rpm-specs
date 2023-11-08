@@ -58,13 +58,10 @@ Provides:       numpy%{?_isa} = %{epoch}:%{version}-%{release}
 Obsoletes:      numpy < 1:1.10.1-3
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pip
-BuildRequires:  python3-Cython
-BuildRequires:  python3-pyproject-metadata
 BuildRequires:  gcc-gfortran gcc gcc-c++
 BuildRequires:  lapack-devel
 BuildRequires:  ninja-build
+BuildRequires:  patchelf
 %if %{with tests}
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest
@@ -119,6 +116,9 @@ cat >> site.cfg <<EOF
 libraries = %{blaslib}%{blasvar}
 library_dirs = %{_libdir}
 EOF
+
+%generate_buildrequires
+%pyproject_buildrequires -R -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack
 
 %build
 %set_build_flags

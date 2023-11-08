@@ -241,7 +241,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 9.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -249,6 +249,9 @@ URL: https://libvirt.org/
     %define mainturl stable_updates/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
+
+# Fix crash with snapshot restore (bz #2247754)
+Patch0001: 0001-qemu_process-fix-crash-in-qemuSaveImageDecompression.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -2500,6 +2503,9 @@ exit 0
 
 
 %changelog
+* Mon Nov 06 2023 Cole Robinson <crobinso@redhat.com> - 9.9.0-2
+- Fix crash with snapshot restore (bz #2247754)
+
 * Wed Nov 01 2023 Cole Robinson <crobinso@redhat.com> - 9.9.0-1
 - Update to version 9.9.0
 

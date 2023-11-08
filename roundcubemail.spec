@@ -11,7 +11,7 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.4
+%global upstream_version     1.6.5
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
@@ -319,6 +319,9 @@ fi
 
 
 %changelog
+* Mon Nov  6 2023 Remi Collet <remi@remirepo.net> - 1.6.5-1
+- update to 1.6.5
+
 * Mon Oct 16 2023 Remi Collet <remi@remirepo.net> - 1.6.4-1
 - update to 1.6.4
 

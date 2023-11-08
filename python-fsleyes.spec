@@ -15,7 +15,7 @@ FSLeyes, the FSL image viewer
 %global forgeurl https://github.com/pauldmccarthy/fsleyes
 
 Name:           python-fsleyes
-Version:        1.7.0
+Version:        1.9.0
 Release:        %autorelease
 Summary:        FSLeyes, the FSL image viewer
 
@@ -64,26 +64,18 @@ Provides:       fsleyes = %{version}-%{release}
 %prep
 %forgesetup
 
-# remove jinja version fix
-# https://github.com/pauldmccarthy/fsleyes/issues/82
-sed -i 's/jinja2.*/jinja2/' requirements.txt
-# relax required pyparsing version
-sed -i 's/pyparsing==2.\*/pyparsing/' requirements.txt
 # extras: not yet packaged in Fedora
-sed -i '/file-tree/ d' requirements-extra.txt
-# Add extra requirements for autogenerator
-cat requirements-extra.txt >> requirements.txt
-cat requirements-notebook.txt >> requirements.txt
-
-# Remove unnecessary upper limit on Pillow:
-# https://github.com/pauldmccarthy/fsleyes/issues/7
-# sed -i 's/\(Pillow>=3.2.0\),.*/\1/' requirements.txt
+sed -i -e '/"file-tree"/ d' \
+    -e '/"file-tree-fsl"/ d' \
+    -e '/"coverage"/ d' \
+    -e '/"pytest-cov"/ d' \
+    pyproject.toml
 
 # remove unneeded shebangs
 find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements.txt requirements-dev.txt
+%pyproject_buildrequires -x extra -x test
 
 %build
 %pyproject_wheel

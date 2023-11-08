@@ -44,8 +44,8 @@
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          10.01.2
-Release:          4%{?dist}
+Version:          10.02.1
+Release:          1%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -53,7 +53,7 @@ URL:              https://ghostscript.com/
 Source:           https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs%{version_short}/ghostscript-%{version}.tar.xz
 
 Requires:         libgs%{?_isa} = %{version}-%{release}
-Requires:         jbig2dec-libs = %{jbig2dec_version}
+Requires:         jbig2dec-libs >= %{jbig2dec_version}
 Requires:         %{name}-tools-fonts%{?_isa} = %{version}-%{release}
 Requires:         %{name}-tools-printing%{?_isa} = %{version}-%{release}
 
@@ -105,12 +105,6 @@ BuildRequires:    make
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
-
-Patch001: ghostscript-10.01.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
-Patch002: ghostscript-10.01.0-convert-defaultpage-to-lowercase.patch
-Patch003: ghostscript-10.01.2-CVE-2023-38559.patch
-Patch004: ghostscript-10.01.2-CVE-2023-43115.patch
-
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -424,6 +418,9 @@ done
 # =============================================================================
 
 %changelog
+* Mon Nov 06 2023 Richard Lescak <rlescak@redhat.com> - 10.02.1-1
+- rebase to version 10.02.1 (#2238724)
+
 * Wed Oct 11 2023 Richard Lescak <rlescak@redhat.com> - 10.01.2-4
 - fix for CVE-2023-43115 (#2241112)
 

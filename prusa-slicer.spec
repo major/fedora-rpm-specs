@@ -8,7 +8,7 @@
 
 Name:           prusa-slicer
 Version:        2.4.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -29,10 +29,12 @@ Patch1:         prusa-slicer-no-cereal-lib.patch
 # Add missing include, needed for GCC13
 # Proposed upstream: https://github.com/prusa3d/PrusaSlicer/pull/9434
 Patch2:         prusa-slicer-gcc13.patch
+# Fix compilation errors with -std=gnu++17 (PR#11154)
+Patch3:         prusa-slicer-fix-gcc-17.patch
 
 # Fix a couple of segfaults that happen with wxWidgets 3.2 (from Debian)
-Patch3:         prusa-slicer-fix-wxtranslations-segfault.patch
-Patch4:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
+Patch4:         prusa-slicer-fix-wxtranslations-segfault.patch
+Patch5:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
 
 # Beware!
 # Patches >= 340 are only applied on Fedora 34+
@@ -403,6 +405,10 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Mon Nov 06 2023 Jan Staněk <jstanek@redhat.com> - 2.4.2-11
+- Fix compilation errors on gcc-17
+  Resolves: rhbz#2217962
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.96.2
+Version: 4.97
 Release: 1%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
@@ -42,21 +42,10 @@ Source24: exim.service
 Source25: exim-gen-cert
 Source26: clamd.exim.service
 
-Patch0: exim-4.96-config.patch
+Patch0: exim-4.97-config.patch
 Patch1: exim-4.94-libdir.patch
-Patch2: exim-4.96-dlopen-localscan.patch
+Patch2: exim-4.97-dlopen-localscan.patch
 Patch3: exim-4.96-pic.patch
-# https://bugs.exim.org/show_bug.cgi?id=2728
-Patch4: exim-4.96-opendmarc-1.4-build-fix.patch
-# https://bugs.exim.org/show_bug.cgi?id=2899
-Patch5: exim-4.96-build-fix.patch
-# https://git.exim.org/exim.git/commit/4e9ed49f8f12eb331b29bd5b6dc3693c520fddc2
-Patch6: exim-4.96-CVE-2022-3559.patch
-# https://git.exim.org/exim.git/patch/12fb3842f81bcbd4a4519d5728f2d7e0e3ca1445
-Patch7: exim-4.96-CVE-2022-3620.patch
-# https://git.exim.org/exim.git/commitdiff/e7ec503729970a03d4509921342bc81313976126
-Patch8: exim-4.96-malformed-address-exit-fix.patch
-Patch9: exim-localscan-c99.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -80,12 +69,9 @@ BuildRequires: libXmu-devel
 BuildRequires: libXext-devel
 BuildRequires: libX11-devel
 BuildRequires: libSM-devel
-BuildRequires: perl-devel
-BuildRequires: perl-generators
 BuildRequires: libICE-devel
 BuildRequires: libXpm-devel
 BuildRequires: libXt-devel
-BuildRequires: perl(ExtUtils::Embed)
 BuildRequires: systemd-units
 BuildRequires: libgsasl-devel
 # Workaround for NIS removal from glibc, bug 1534920
@@ -93,6 +79,11 @@ BuildRequires: libnsl2-devel
 BuildRequires: libtirpc-devel
 BuildRequires: gnupg2
 BuildRequires: grep
+BuildRequires: perl-devel
+BuildRequires: perl-generators
+BuildRequires: perl-ExtUtils-Embed
+BuildRequires: perl-experimental
+BuildRequires: perl-File-FcntlLock
 %if 0%{?rhel} == 8
 BuildRequires:  epel-rpm-macros >= 8-5
 %endif
@@ -501,6 +492,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Mon Nov  6 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.97-1
+- New version
+  Resolves: rhbz#2247920
+
 * Mon Oct 16 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96.2-1
 - New version
   Resolves: rhbz#2244300

@@ -21,7 +21,7 @@ Summary:        Helpful functions for Python
 # domdf_python_tools/paths.py: CC-BY-SA and/or MIT and/or PSF-2.0
 # NOTE: The supposedly CC-BY-SA licensed code is a trivial, less than 10 line
 # function from Stack Overflow that is not copyrightable nor patentable.
-# It's not include in the license consideration.
+# It is not included in the license consideration.
 
 # domdf_python_tools/pretty_print.py: MIT and/or PSF-2.0
 # domdf_python_tools/terminal.py: BSD-2-Clause and/or MIT and/or PSF-2.0

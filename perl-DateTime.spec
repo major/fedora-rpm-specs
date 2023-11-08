@@ -7,7 +7,7 @@
 
 Name:           perl-DateTime
 Epoch:          2
-Version:        1.63
+Version:        1.65
 Release:        1%{?dist}
 Summary:        Date and time object for Perl
 License:        Artistic-2.0
@@ -113,6 +113,11 @@ make test
 %{_mandir}/man3/DateTime::Types.3*
 
 %changelog
+* Mon Nov  6 2023 Paul Howarth <paul@city-fan.org> - 2:1.65-1
+- Update to 1.65 (rhbz#2248104)
+  - Fix builds on macOS with Perls before 5.22.0; this seems to have the same
+    issue as Windows on older Perls (GH#141)
+
 * Mon Oct 23 2023 Paul Howarth <paul@city-fan.org> - 2:1.63-1
 - Update to 1.63 (rhbz#2245551)
   - Switched to using the 'Perl_isfinite' function instead of trying to

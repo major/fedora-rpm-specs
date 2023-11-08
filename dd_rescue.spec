@@ -1,6 +1,6 @@
 Name:           dd_rescue
 Version:        1.99.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fault tolerant "dd" utility for rescuing data from bad media
 # No version specified
 License:        GPL-2.0-only or GPL-3.0-only
@@ -61,7 +61,7 @@ might be used with sub-sequent runs cooperatively on the same disk image.
 gpgv2 --keyring %{SOURCE3} %{SOURCE2} %{SOURCE0}
 %setup -q -n %{name}-%{version}
 %setup -q -n %{name}-%{version} -a 1 -D -T
-%autopatch -p 0
+%autopatch -p 1
 
 %build
 autoreconf -vif
@@ -101,6 +101,9 @@ popd
 
 
 %changelog
+* Mon Nov 06 2023 Michal Ambroz <rebus AT seznam dot cz> - 1.99.13-2
+- fix epel7 build
+
 * Sun Nov 05 2023 Michal Ambroz <rebus AT seznam dot cz> - 1.99.13-1
 - bump to 1.99.13
 

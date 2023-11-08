@@ -28,21 +28,26 @@ DESTDIR=%{buildroot} appstream-util install-origin fedora %{SOURCE1} %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util install \
 	%{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} %{SOURCE8}
 
+# Move to the "correct" path for appstream 0.16 / 1.0
+mv %{buildroot}%{_datadir}/app-info %{buildroot}%{_datadir}/swcatalog
+mv %{buildroot}%{_datadir}/swcatalog/xmls %{buildroot}%{_datadir}/swcatalog/xml
+
+
 %check
-if ! gunzip -c %{buildroot}%{_datadir}/app-info/xmls/fedora.xml.gz | grep -q '<pkgname>gstreamer1-plugin-openh264</pkgname>' ; then
+if ! gunzip -c %{buildroot}%{_datadir}/swcatalog/xml/fedora.xml.gz | grep -q '<pkgname>gstreamer1-plugin-openh264</pkgname>' ; then
     echo "missing gstreamer1-plugin-openh264"
     exit 1
 fi
 
 %files
-%attr(0644,root,root) %{_datadir}/app-info/xmls/*
-%{_datadir}/app-info/icons/fedora/*/*.png
-%dir %{_datadir}/app-info
-%dir %{_datadir}/app-info/icons
-%dir %{_datadir}/app-info/icons/fedora
-%dir %{_datadir}/app-info/icons/fedora/64x64
-%dir %{_datadir}/app-info/icons/fedora/128x128
-%dir %{_datadir}/app-info/xmls
+%attr(0644,root,root) %{_datadir}/swcatalog/xml/*
+%{_datadir}/swcatalog/icons/fedora/*/*.png
+%dir %{_datadir}/swcatalog
+%dir %{_datadir}/swcatalog/icons
+%dir %{_datadir}/swcatalog/icons/fedora
+%dir %{_datadir}/swcatalog/icons/fedora/64x64
+%dir %{_datadir}/swcatalog/icons/fedora/128x128
+%dir %{_datadir}/swcatalog/xml
 
 %changelog
 %autochangelog

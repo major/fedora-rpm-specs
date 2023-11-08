@@ -31,6 +31,10 @@ Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
 Patch:          https://github.com/lxml/lxml/commit/dcbc0cc1cb0cedf8019184aaca805d2a649cd8de.patch
 Patch:          https://github.com/lxml/lxml/commit/a03a4b3c6b906d33c5ef1a15f3d5ca5fff600c76.patch
 
+# Python 3.13 compatibility
+Patch:          https://github.com/lxml/lxml/commit/34187968a67151f02db491a56a0037b55319931d.patch
+Patch:          https://github.com/lxml/lxml/commit/98025653e182f9203189cbde0ab2d6ebec556db8.patch
+
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel

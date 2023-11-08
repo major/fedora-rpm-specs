@@ -19,8 +19,8 @@ need libxc version > 3
 
 %global upstream_name nwchem
 
-%{?!major_version: %global major_version 7.2.1}
-%{?!git_hash: %global git_hash 487f8b945fbe9cedf02757dacddc66d40dc74ed9}
+%{?!major_version: %global major_version 7.2.2}
+%{?!git_hash: %global git_hash 74936fb92aec6990ce48bf334747215813684576}
 %{?!ga_version: %global ga_version 5.8.2-1}
 
 
@@ -183,10 +183,14 @@ This package contains the data files.
 %setup -q -n %{name}-%{git_hash}
 
 # remove the whole src/libext
-rm -rf src/libext/{elpa,libext_utils,libxc,mpich,openblas,plumed,scalapack,tblite}
+rm -rf src/libext/{elpa,libext_utils,libxc,mpich,openblas,plumed,scalapack,tblite}/*
 
 # remove bundling of BLAS/LAPACK
-rm -rf src/blas src/lapack
+mv src/blas/GNUmakefile /tmp/GNUmakefile.blas
+mv src/lapack/GNUmakefile /tmp/GNUmakefile.lapack
+rm -rf src/blas/* src/lapack/*
+mv /tmp/GNUmakefile.blas src/blas/GNUmakefile
+mv /tmp/GNUmakefile.lapack src/lapack/GNUmakefile
 sed -e 's|CORE_SUBDIRS_EXTRA +=.*|CORE_SUBDIRS_EXTRA +=|g' -i src/config/makefile.h
 sed -e 's|CORE_SUBDIRS_EXTRA =.*|CORE_SUBDIRS_EXTRA =|g' -i src/config/makefile.h
 sed -e 's|-llapack||g' -i src/config/makefile.h
@@ -210,6 +214,9 @@ sed -i 's|-mtune=native|-mtune=generic|' src/config/makefile.h
 sed -i 's|-mfpmath=sse||' src/config/makefile.h
 sed -i 's|-msse3||' src/config/makefile.h
 
+# remove slow tests
+# https://github.com/nwchemgit/nwchem/issues/895
+sed -i '/libxc_waterdimer_bmk/d' QA/dolibxctests.mpi
 
 %build
 # base settings
@@ -283,12 +290,11 @@ sh ../compile$MPI_SUFFIX.sh&& \
 mv ../bin/%{NWCHEM_TARGET}/%{name} ../bin/%{NWCHEM_TARGET}/%{name}_binary$MPI_SUFFIX&& \
 echo '#!/bin/bash' >  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 echo 'export FLEXIBLAS=openblas-openmp' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
-echo 'export OMP_NUM_THREADS=1' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 echo -n "%{name}_binary$MPI_SUFFIX " >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 echo '"$@"' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 chmod 755  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 cat ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
-NWCHEM_TARGET=%{NWCHEM_TARGET} %{__make} USE_INTERNALBLAS=1 USE_MPI=y clean&& \
+NWCHEM_TARGET=%{NWCHEM_TARGET} %{__make} BLAS_SIZE=%{BLAS_SIZE} USE_INTERNALBLAS=1 USE_MPI=y clean&& \
 cd ..
 
 # build openmpi version
@@ -445,7 +451,6 @@ cp -rp QA.orig.orig QA.orig
 
 export NPROC=2 # test on 2 cores
 export FLEXIBLAS=openblas-openmp
-export OMP_NUM_THREADS=1
 
 %if 0%{?el6}
 export TIMEOUT_OPTS='3600'
@@ -467,6 +472,14 @@ timeout ${TIMEOUT_OPTS} time ./doafewqmtests.mpi ${NPROC} 2>&1 < /dev/null | tee
 mv testoutputs ../testoutputs.doafewqmtests.mpi.${NPROC}$MPI_SUFFIX.log&& \
 timeout ${TIMEOUT_OPTS} time ./dolibxctests.mpi ${NPROC} 2>&1 < /dev/null | tee ../dolibxctests.mpi.${NPROC}$MPI_SUFFIX.log&& \
 mv testoutputs ../testoutputs.dolibxctests.mpi.${NPROC}$MPI_SUFFIX.log&& \
+BUILD_LOG=../doafewqmtests.mpi.${NPROC}$MPI_SUFFIX.log&& \
+TESTOUTPUTS=../testoutputs.doafewqmtests.mpi.${NPROC}$MPI_SUFFIX.log&& \
+ls -al ${TESTOUTPUTS}&& \
+for f in $(diff <(grep "Running tests/" ${BUILD_LOG}) <(grep -E "Running tests/|verifying output ... OK" ${BUILD_LOG} | grep "verifying output" -B 1 | grep Running) | grep Running | cut -d' ' -f 4); do printf '#%.0s' {1..80} && echo && NAME=$(basename ${f}) && echo ${TESTOUTPUTS}/${NAME}.out && printf '#%.0s' {1..80} && echo && cat ${TESTOUTPUTS}/${NAME}.out && printf '#%.0s' {1..80} && echo && if test -r ${TESTOUTPUTS}/${NAME}.out.nwparse; then cat ${TESTOUTPUTS}/${NAME}.out.nwparse; else cat ${TESTOUTPUTS}/${NAME}.err; fi; done&& \
+BUILD_LOG=../dolibxctests.mpi.${NPROC}$MPI_SUFFIX.log&& \
+TESTOUTPUTS=../testoutputs.dolibxctests.mpi.${NPROC}$MPI_SUFFIX.log&& \
+ls -al ${TESTOUTPUTS}&& \
+for f in $(diff <(grep "Running tests/" ${BUILD_LOG}) <(grep -E "Running tests/|verifying output ... OK" ${BUILD_LOG} | grep "verifying output" -B 1 | grep Running) | grep Running | cut -d' ' -f 4); do printf '#%.0s' {1..80} && echo && NAME=$(basename ${f}) && echo ${TESTOUTPUTS}/${NAME}.out && printf '#%.0s' {1..80} && echo && cat ${TESTOUTPUTS}/${NAME}.out && printf '#%.0s' {1..80} && echo && if test -r ${TESTOUTPUTS}/${NAME}.out.nwparse; then cat ${TESTOUTPUTS}/${NAME}.out.nwparse; else cat ${TESTOUTPUTS}/${NAME}.err; fi; done&& \
 cd ..&& \
 rm -rf QA
 
@@ -477,13 +490,7 @@ export OMPI_MCA_btl_base_warn_component_unused=0
 %docheck
 %{_openmpi_unload}
 
-# this will fail for mpich2 on el6 - mpd would need to be started ...
-# check mpich version
-
 %{_mpich_load}
-%ifarch ppc64le
-export NPROC=1 # test on 1 core
-%endif
 export HYDRA_DEBUG=0
 %docheck
 %{_mpich_unload}
@@ -514,6 +521,10 @@ mv QA.orig QA
 
 
 %changelog
+* Mon Nov 06 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.2-1
+- New upstream release
+- Print outputs of failed tests https://github.com/nwchemgit/nwchem/issues/895
+
 * Fri Oct 20 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.1-1
 - New upstream release
 

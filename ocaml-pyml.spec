@@ -1,24 +1,20 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-# Conditionally build the custom toplevels
-%bcond_with toplevel
-
 Name:           ocaml-pyml
-Version:        20220905
-Release:        5%{?dist}
+Version:        20231101
+Release:        1%{?dist}
 Summary:        OCaml bindings for Python
 
 # The project is BSD-2-Clause except for pycaml.mli, which is LGPLv2+
 License:        BSD-2-Clause and LGPL-2.1-or-later
 URL:            https://github.com/thierry-martinez/pyml
 Source0:        %{url}/archive/%{version}/pyml-%{version}.tar.gz
-# Fix various incompatibilities with python 3.11.  See:
+# Fix various incompatibilities with python 3.13.  See:
 # https://github.com/thierry-martinez/pyml/issues/84
-Patch0:         %{name}-python3.11.patch
-# Fix failure to release python objects before library unload
-# https://github.com/thierry-martinez/pyml/pull/86
-Patch1:         %{name}-library-unload.patch
+Patch0:         %{name}-python3.13.patch
+# Guard against passing NULL to memcpy
+Patch1:         %{name}-memcpy.patch
 
 BuildRequires:  ocaml >= 3.12.1
 BuildRequires:  ocaml-dune >= 2.8
@@ -28,12 +24,9 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist numpy}
 
-%if %{with toplevel}
-BuildRequires:  utop-devel
-%else
+# This can be removed when F39 reaches EOL
 Obsoletes:      pymltop < 20220322
 Obsoletes:      pymlutop < 20220322
-%endif
 
 # This can be removed when F40 reaches EOL
 Obsoletes:      ocaml-pyml-doc < 20220615-3
@@ -70,64 +63,14 @@ Requires:       ocaml-stdcompat-devel%{?_isa}
 The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
-%if %{with toplevel}
-%package     -n pymltop
-Summary:        Custom OCaml toplevel for Python interaction
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description -n pymltop
-This package contains a custom OCaml toplevel for Python interaction.
-
-%package     -n pymlutop
-Summary:        Custom utop-based OCaml toplevel for Python interaction
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       utop%{?_isa}
-
-%description -n pymlutop
-This package contains a custom utop-based OCaml toplevel for Python
-interaction.
-%endif
-
 %prep
 %autosetup -n pyml-%{version} -p1
 
 %build
 %dune_build
 
-%if %{with toplevel}
-# Build custom toplevels without rebuilding the entire library
-cp -p pytop.ml pyutop.ml _build/default
-cd _build/default
-ocamlfind ocamlc -cclib "-L. -lpyml_stubs" -g -a -dllib -lpyml_stubs \
-  .pyml.objs/byte/{pyml_arch,pyutils,pytypes,pywrappers,py,pycaml,pyops}.cmo \
-  -o pyml2.cma
-ocamlfind ocamlmklib -ldopt '%{build_ldflags}' -g -o numpy_stubs numpy_stubs.o
-ocamlfind ocamlc -cclib "-L. -lnumpy_stubs" -g -a -dllib -lnumpy_stubs \
-  .pyml.objs/byte/numpy.cmo -o numpy.cma
-echo "let libdir=\"%{ocamldir}/pyml/\"" > pymltop_libdir.ml
-ocamlfind ocamlc -g -package stdcompat -c pymltop_libdir.ml \
-  -o pymltop_libdir.cmo
-ocamlfind ocamlc -I +compiler-libs -g -c pytop.ml
-ocamlfind ocamlmktop -g -linkpkg -cclib "-L. -lnumpy_stubs" \
-  -package unix,stdcompat,bigarray pyml2.cma numpy.cma pymltop_libdir.cmo \
-  pytop.cmo -o pymltop
-ocamlfind ocamlc -g -package stdcompat -thread -package utop -c pyutop.ml \
-  -o pyutop.cmo
-ocamlfind ocamlc -thread -linkpkg -linkall -predicates create_toploop \
-  -package compiler-libs.toplevel,utop,stdcompat pyml2.cma numpy.cma \
-  pymltop_libdir.cmo pytop.cmo pyutop.cmo -g -o pymlutop
-cd -
-%endif
-
 %install
 %dune_install
-
-%if %{with toplevel}
-# Install the custom top levels
-mkdir -p %{buildroot}%{_bindir}
-cp -p _build/default/{pymltop,pymlutop} %{buildroot}%{_bindir}
-cp -p _build/default/dllnumpy_stubs.so %{buildroot}%{ocamldir}/stublibs
-%endif
 
 %check
 %dune_check
@@ -135,21 +78,16 @@ cp -p _build/default/dllnumpy_stubs.so %{buildroot}%{ocamldir}/stublibs
 %files -f .ofiles
 %doc CHANGES.md README.md
 %license LICENSE
-%if %{with toplevel}
-%{ocamldir}/stublibs/dllnumpy_stubs.so
-%endif
 
 %files devel -f .ofiles-devel
 
-%if %{with toplevel}
-%files -n pymltop
-%{_bindir}/pymltop
-
-%files -n pymlutop
-%{_bindir}/pymlutop
-%endif
-
 %changelog
+* Mon Nov  6 2023 Jerry James <loganjerry@gmail.com> - 20231101-1
+- Version 20231101
+- Drop the library-unload patch
+- Drop support for the custom toplevels
+- Add memcpy patch
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 20220905-5
 - OCaml 5.1 rebuild for Fedora 40
 

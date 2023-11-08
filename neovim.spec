@@ -34,7 +34,7 @@
 %endif
 
 Name:           neovim
-Version:        0.9.2
+Version:        0.9.4
 Release:        1%{?dist}
 
 License:        Apache-2.0 AND Vim
@@ -44,6 +44,8 @@ Url:            https://neovim.io
 Source0:        https://github.com/neovim/neovim/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        sysinit.vim
 Source2:        spec-template
+
+Patch0:         neovim-fix-cmake-find-libluv.patch
 
 Patch1000:      neovim-lua-bit32.patch
 
@@ -69,7 +71,7 @@ Requires:       lua5.1-luv >= %{luv_min_ver}
 # /with luajit
 %endif
 BuildRequires:  lua5.1-lpeg
-BuildRequires:  lua5.1-mpack
+BuildRequires:  lua5.1-mpack >= 1.0.11
 %if %{with jemalloc}
 BuildRequires:  jemalloc-devel
 %endif
@@ -105,6 +107,7 @@ parts of Vim, without compromise, and more.
 %prep
 %setup -q
 
+%patch -P 0 -p1
 %if %{without luajit}
 %patch -P 1000 -p1
 %endif
@@ -562,6 +565,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/ftplugin/css.vim
 %{_datadir}/nvim/runtime/ftplugin/cucumber.vim
 %{_datadir}/nvim/runtime/ftplugin/cvsrc.vim
+%{_datadir}/nvim/runtime/ftplugin/d.lua
 %{_datadir}/nvim/runtime/ftplugin/debchangelog.vim
 %{_datadir}/nvim/runtime/ftplugin/debcontrol.vim
 %{_datadir}/nvim/runtime/ftplugin/denyhosts.vim
@@ -1087,7 +1091,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/lua/vim/_editor.lua
 %{_datadir}/nvim/runtime/lua/vim/_init_packages.lua
 %{_datadir}/nvim/runtime/lua/vim/_inspector.lua
-%{_datadir}/nvim/runtime/lua/vim/_meta.lua
+%{_datadir}/nvim/runtime/lua/vim/_options.lua
 %{_datadir}/nvim/runtime/lua/vim/_watch.lua
 %{_datadir}/nvim/runtime/lua/vim/diagnostic.lua
 %{_datadir}/nvim/runtime/lua/vim/filetype.lua
@@ -1945,6 +1949,12 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Fri Oct 20 2023 Andreas Schneider <asn@redhat.com> - 0.9.4-1
+- Update to version 0.9.4
+  * https://github.com/neovim/neovim/releases/tag/v0.9.4
+  * For bigger version bump changelog see `:help news`
+  * resolves: rhbz#2243010
+
 * Thu Sep 07 2023 Andreas Schneider <asn@redhat.com> - 0.9.2-1
 - Update to version 0.9.2
   * For changelog see `:help news`

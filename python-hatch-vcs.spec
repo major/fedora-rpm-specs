@@ -4,7 +4,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-hatch-vcs
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Hatch plugin for versioning with your preferred VCS
 
@@ -14,13 +14,6 @@ URL:            https://github.com/ofek/hatch-vcs
 Source:         %{pypi_source hatch_vcs}
 
 BuildArch:      noarch
-
-# Work with setuptools_scm 7.1 (fix #25)
-# https://github.com/ofek/hatch-vcs/pull/26
-Patch:          %{url}/pull/26.patch
-# Work with setuptools_scm 8.0 (fix #50)
-# https://github.com/ofek/hatch-vcs/pull/51
-Patch:          %{url}/pull/51.patch
 
 BuildRequires:  python3-devel
 
@@ -43,7 +36,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n hatch_vcs-%{version} -p1
+%autosetup -n hatch_vcs-%{version}
 
 
 %generate_buildrequires

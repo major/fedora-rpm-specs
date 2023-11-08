@@ -3,15 +3,12 @@
 
 Name:           python-deepdiff
 Version:        6.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
 URL:            https://github.com/seperman/deepdiff/
 Source:         %{url}/archive/%{version}/%{name}-v%{version}.tar.gz
-
-# Allow pyyaml 6.0.1
-Patch:          https://github.com/seperman/deepdiff/pull/406.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -62,6 +59,12 @@ Recommends:     python3-deepdiff+cli
 
 find deepdiff/ -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' {} \;
 
+# Upstream pins the dependencies to explicit versions
+# This leads to downstream problems like:
+#  https://bugzilla.redhat.com/2246614
+# We replace all the version matching clauses with compatible release clauses:
+sed -i 's/==/~=/' requirements*.txt
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x cli,optimize
@@ -99,6 +102,10 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Nov 06 2023 Miro Hrončok <mhroncok@redhat.com> - 6.3.1-3
+- Relax the required versions of some of the dependencies
+- Fixes: rhbz#2246614
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -195,8 +195,8 @@
 Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
-Version:          11.0
-Release:          6%{?prereltag:%{prereltag}}%{?dist}
+Version:          11.1
+Release:          1%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
@@ -1625,6 +1625,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Mon Nov 6 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.1-0
+- glusterfs 11.1 GA
+
 * Thu Oct 5 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.0-6
 - glusterfs 11, build in side tag f40-build-side-74974
 

@@ -9,7 +9,9 @@ Summary:        Interactive packet manipulation tool and network scanner
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 License:        GPL-2.0-only
-URL:            http://www.secdev.org/projects/scapy/
+URL:            https://scapy.net/
+#was            http://www.secdev.org/projects/scapy/
+VCS:            https://github.com/secdev/scapy
 #               https://github.com/secdev/scapy/releases
 #               https://bitbucket.org/secdev/scapy/pull-request/80
 #               https://scapy.readthedocs.io/en/latest/introduction.html
@@ -47,18 +49,18 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  sed
 
-%if 0%{?with_python2}
+%if %{with python2}
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
-%if 0%{?with_doc}
+%if %{with doc}
 BuildRequires:  python2-tox
 %endif
 %endif
 
-%if 0%{?with_python3}
+%if %{with python3}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-%if 0%{?with_doc}
+%if %{with doc}
 BuildRequires:  python%{python3_pkgversion}-tox
 %endif
 %endif
@@ -72,7 +74,7 @@ Recommends:     wireshark-cli
 
 %description %{common_desc}
 
-%if 0%{?with_python2}
+%if %{with python2}
 %package -n python2-%{name}
 Summary:        Interactive packet manipulation tool and network scanner
 
@@ -90,7 +92,7 @@ Recommends:     ipython2
 %endif
 
 
-%if 0%{?with_python3}
+%if %{with python3}
 %package -n python%{python3_pkgversion}-%{name}
 Summary:        Interactive packet manipulation tool and network scanner
 
@@ -107,7 +109,7 @@ Recommends:     ipython3
 %{common_desc}
 %endif
 
-%if 0%{?with_doc}
+%if %{with doc}
 %package doc
 Summary:        Interactive packet manipulation tool and network scanner
 License:        CC-BY-NC-SA-2.5
@@ -136,15 +138,15 @@ done
 
 
 %build
-%if 0%{?with_python2}
+%if %{with python2}
 %py2_build
 %endif
 
-%if 0%{?with_python3}
+%if %{with python3}
 %py3_build
 %endif
 
-%if 0%{?with_doc}
+%if %{with doc}
 make -C doc/scapy html BUILDDIR=_build_doc SPHINXBUILD=sphinx-build-%python3_version
 
 rm -f doc/scapy/_build_doc/html/.buildinfo
@@ -157,7 +159,7 @@ rm -f doc/scapy/_build_doc/html/_static/_dummy
 install -dp -m0755 %{buildroot}%{_mandir}/man1
 install -Dp -m0644 doc/scapy.1* %{buildroot}%{_mandir}/man1/
 
-%if 0%{?with_python2}
+%if %{with python2}
 %py2_install
 rm -f %{buildroot}%{python2_sitelib}/*egg-info/requires.txt
 
@@ -165,13 +167,13 @@ rm -f %{buildroot}%{python2_sitelib}/*egg-info/requires.txt
 # Rename the executables
 mv -f %{buildroot}%{_bindir}/scapy   %{buildroot}%{_bindir}/scapy2
 
-%if ! 0%{?with_python3}
+%if ! %{with python3}
 # Link the default to the py2 version of executables if py3 not built
 ln -s %{_bindir}/scapy2   %{buildroot}%{_bindir}/scapy
 %endif
 %endif
 
-%if 0%{?with_python3}
+%if %{with python3}
 %py3_install
 rm -f %{buildroot}%{python3_sitelib}/*egg-info/requires.txt
 
@@ -192,10 +194,10 @@ ln -s %{_bindir}/scapy3   %{buildroot}%{_bindir}/scapy
 
 
 
-%if 0%{?with_python2}
+%if %{with python2}
 %files -n python2-%{name}
 %license LICENSE
-%if ! 0%{?with_python3}
+%if ! %{with python3}
 %doc %{_mandir}/man1/scapy.1*
 %{_bindir}/scapy
 %endif
@@ -207,7 +209,7 @@ ln -s %{_bindir}/scapy3   %{buildroot}%{_bindir}/scapy
 
 
 
-%if 0%{?with_python3}
+%if %{with python3}
 %files -n python%{python3_pkgversion}-%{name}
 %license LICENSE
 %doc %{_mandir}/man1/scapy.1*
@@ -219,7 +221,7 @@ ln -s %{_bindir}/scapy3   %{buildroot}%{_bindir}/scapy
 %endif
 
 
-%if 0%{?with_doc}
+%if %{with doc}
 %files doc
 %doc doc/scapy/_build_doc/html
 %endif

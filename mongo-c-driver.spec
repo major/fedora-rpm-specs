@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global libver       1.0
-%global up_version   1.24.4
+%global up_version   1.25.0
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -26,7 +26,7 @@ Release:   1%{?dist}
 License:   Apache-2.0 AND ISC AND MIT AND Zlib
 URL:       https://github.com/%{gh_owner}/%{gh_project}
 
-Source0:   https://github.com/%{gh_owner}/%{gh_project}/releases/download/%{up_version}%{?up_prever:-%{up_prever}}/%{gh_project}-%{up_version}%{?up_prever:-%{up_prever}}.tar.gz
+Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/refs/tags/%{up_version}%{?up_prever:-%{up_prever}}.tar.gz
 
 BuildRequires: cmake >= 3.15
 BuildRequires: gcc
@@ -37,7 +37,7 @@ BuildRequires: openssl-devel
 BuildRequires: pkgconfig(libsasl2)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(snappy)
-BuildRequires: pkgconfig(icu-uc)
+BuildRequires: pkgconfig(libutf8proc)
 BuildRequires: pkgconfig(libzstd)
 %if %{with tests}
 BuildRequires: mongodb-server
@@ -49,7 +49,8 @@ BuildRequires: cmake(mongocrypt) >= 1.5.2
 BuildRequires: perl-interpreter
 # From man pages
 BuildRequires: python3
-BuildRequires: /usr/bin/sphinx-build
+BuildRequires: python3-sphinx
+BuildRequires: python3-sphinx-design
 
 Requires:   %{name}-libs%{?_isa} = %{version}-%{release}
 # Sub package removed
@@ -115,6 +116,8 @@ Documentation: http://mongoc.org/libbson/%{version}/
 %prep
 %setup -q -n %{gh_project}-%{up_version}%{?up_prever:-%{up_prever}}
 
+echo "%{up_version}%{?up_prever:-%{up_prever}}" >VERSION_CURRENT
+
 
 %build
 %cmake \
@@ -123,10 +126,10 @@ Documentation: http://mongoc.org/libbson/%{version}/
     -DENABLE_SSL:STRING=OPENSSL \
     -DENABLE_SASL:STRING=CYRUS \
     -DENABLE_MONGODB_AWS_AUTH:STRING=ON \
-    -DENABLE_ICU:STRING=ON \
     -DENABLE_AUTOMATIC_INIT_AND_CLEANUP:BOOL=OFF \
     -DENABLE_CRYPTO_SYSTEM_PROFILE:BOOL=ON \
     -DENABLE_MAN_PAGES:BOOL=ON \
+    -DENABLE_SHARED:BOOL=ON \
     -DENABLE_STATIC:STRING=OFF \
     -DENABLE_ZLIB:STRING=SYSTEM \
     -DENABLE_ZSTD:STRING=ON \
@@ -144,6 +147,9 @@ Documentation: http://mongoc.org/libbson/%{version}/
     -DENABLE_CLIENT_SIDE_ENCRYPTION:BOOL=OFF \
 %endif
     -DCMAKE_SKIP_RPATH:BOOL=ON \
+    -DUSE_BUNDLED_UTF8PROC:BOOL=OFF \
+    -DENABLE_SRV:BOOL=ON \
+    -DENABLE_MONGODB_AWS_AUTH:STRING=ON \
     -S .
 
 %if 0%{?cmake_build:1}
@@ -238,6 +244,12 @@ exit $ret
 
 
 %changelog
+* Mon Nov  6 2023 Remi Collet <remi@remirepo.net> - 1.25.0-1
+- update to 1.25.0
+- drop dependency on libicu
+- add dependency on libutf8proc
+- open https://jira.mongodb.org/browse/CDRIVER-4767 unusable archive
+
 * Wed Sep  6 2023 Remi Collet <remi@remirepo.net> - 1.24.4-1
 - update to 1.24.4 (no change)
 

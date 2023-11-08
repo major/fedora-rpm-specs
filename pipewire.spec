@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -438,6 +438,9 @@ cp %{SOURCE1} subprojects/packagefiles/
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/pipewire.conf
 %meson_install
 
+# Own this directory so add-ons can use it
+install -d -m 0755 %{buildroot}%{_datadir}/pipewire/pipewire.conf.d/
+
 %if %{with jack}
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d/
 echo %{_libdir}/pipewire-%{apiversion}/jack/ > %{buildroot}%{_sysconfdir}/ld.so.conf.d/pipewire-jack-%{_arch}.conf
@@ -507,6 +510,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_bindir}/pipewire-vulkan
 %{_mandir}/man1/pipewire.1*
 %dir %{_datadir}/pipewire/
+%dir %{_datadir}/pipewire/pipewire.conf.d/
 %{_datadir}/pipewire/pipewire.conf
 %{_datadir}/pipewire/pipewire.conf.avail/10-rates.conf
 %{_datadir}/pipewire/pipewire.conf.avail/20-upmix.conf
@@ -722,6 +726,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Nov 06 2023 Hector Martin <marcan@fedoraproject.org> - 0.3.84-2
+- Create and own /usr/share/pipewire/pipewire.conf.d
+
 * Thu Nov 02 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.84-1
 - Update version to 0.3.84
 

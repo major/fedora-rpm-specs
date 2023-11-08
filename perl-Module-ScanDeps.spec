@@ -9,8 +9,8 @@
 
 Name:           perl-Module-ScanDeps
 Summary:        Recursively scan Perl code for dependencies
-Version:        1.34
-Release:        2%{?dist}
+Version:        1.35
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-ScanDeps
 Source0:        https://cpan.metacpan.org/authors/id/R/RS/RSCHUPP/Module-ScanDeps-%{version}.tar.gz
@@ -42,6 +42,7 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(FindBin)
 # Getopt::Long not used by tests
+BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Module::Metadata)
 # Storable is optional and not used by tests
 # subs not used by tests
@@ -168,7 +169,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
-* Thu Oct 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.35-1
+* Mon Nov 06 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.35-1
+- 1.35 bump (rhbz#2248014)
+
+* Thu Oct 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.34-2
 - Add test BR perl(AutoLoader) (rhbz#2242265)
 
 * Mon Sep 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.34-1

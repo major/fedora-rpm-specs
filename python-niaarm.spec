@@ -22,9 +22,10 @@ framework called NiaPy.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
+# SPDX
 License:        MIT
 
 URL:            https://github.com/firefly-cpp/%{pretty_name}
@@ -82,6 +83,8 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %pyproject_install
 %pyproject_save_files niaarm
 
+install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{pypi_name}.1
+
 %check
 %if %{with tests}
 %pytest -k 'not test_visualization and not test_text_mining'
@@ -91,6 +94,7 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %{_bindir}/%{pypi_name}
 %license LICENSE
 %doc README.md
+%{_mandir}/man1/%{pypi_name}.1*
 
 %files doc
 %license LICENSE
@@ -102,6 +106,13 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md
 
 %changelog
+
+* Mon Nov 6 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.5-3
+- Confirm License is SPDX MIT
+
+* Mon Nov 6 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.5-2
+- Install man page
+
 * Fri Nov 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.5-1
 - Update to 0.3.5
 

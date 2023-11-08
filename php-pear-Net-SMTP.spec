@@ -10,7 +10,7 @@
 %global pear_name Net_SMTP
 
 Name:           php-pear-Net-SMTP
-Version:        1.11.0
+Version:        1.11.1
 Release:        1%{?dist}
 Summary:        Provides an implementation of the SMTP protocol
 
@@ -102,6 +102,9 @@ fi
 
 
 %changelog
+* Mon Nov  6 2023 Remi Collet <remi@remirepo.net> 1.11.1-1
+- update to 1.11.1
+
 * Mon Oct 23 2023 Remi Collet <remi@remirepo.net> 1.11.0-1
 - update to 1.11.0
 

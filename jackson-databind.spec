@@ -1,6 +1,6 @@
 Name:           jackson-databind
-Version:        2.15.2
-Release:        2%{?dist}
+Version:        2.15.3
+Release:        1%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
 
@@ -68,6 +68,22 @@ rm src/test/java/com/fasterxml/jackson/databind/TestJDKSerialization.java
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
+- [maven-release-plugin] prepare release jackson-databind-2.15.3 (Tatu Saloranta)
+- Prepare for 2.15.3 release (Tatu Saloranta)
+- Minor refactoring wrt #4149 (Tatu Saloranta)
+- Create TestMixedCollections.java (#4149) (PJ Fanning)
+- Update release notes wrt #4121 (Tatu Saloranta)
+- Preserve the original component type in merging to the array (#4121) (Yury Molchan)
+- Introduce more efficient Form-Based GitHub Issue Templates (#4042) (Kim, Joo Hyuk)
+- Improve JavaDoc and Test for config ACCEPT_EMPTY_STRING_AS_NULL_OBJECT wrt special cases (#4012) (Kim, Joo Hyuk)
+- Update Maven wrapper version (Tatu Saloranta)
+- Minor javadoc improvement (Tatu Saloranta)
+- Update release notes wrt #3968 fix (Tatu Saloranta)
+- Ignore ConstructorDetector.SingleArgConstructor.PROPERTIES preference for Records. (#3969) (Sim Yih Tsern)
+- to 2.15.3-SNAPSHOT (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

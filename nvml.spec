@@ -2,13 +2,15 @@
 # rpmbuild options:
 #   --with | --without ndctl
 
+# disable 'make check' on all cases
+%define _skip_check 1
+
 # do not terminate build if files in the $RPM_BUILD_ROOT
 # directory are not found in %%files (without fabric case)
 %define _unpackaged_files_terminate_build 0
 
-# disable 'make check' on suse
+# suse check
 %if %{defined suse_version}
-	%define _skip_check 1
 	%define dist .suse%{suse_version}
 %endif
 
@@ -26,13 +28,13 @@
 %endif
 
 %define min_ndctl_ver 60.1
-%define upstreamversion 1.13.1
+%define upstreamversion 2.0.0
 
 Name:		nvml
 Version:	%{upstreamversion}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Persistent Memory Development Kit (formerly NVML)
-License:	BSD
+License:	BSD-3-Clause
 URL:		http://pmem.io/pmdk
 
 Source0:	https://github.com/pmem/pmdk/releases/download/%{upstreamversion}/pmdk-%{upstreamversion}.tar.gz
@@ -211,125 +213,6 @@ debug version is to set the environment variable LD_LIBRARY_PATH to
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
 
-
-%package -n libpmemblk
-Summary: Persistent Memory Resident Array of Blocks library
-Requires: libpmem >= %{version}-%{release}
-%description -n libpmemblk
-The libpmemblk implements a pmem-resident array of blocks, all the same
-size, where a block is updated atomically with respect to power
-failure or program interruption (no torn blocks).
-
-%files -n libpmemblk
-%{_libdir}/libpmemblk.so.*
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n libpmemblk-devel
-Summary: Development files for the Persistent Memory Resident Array of Blocks library
-Requires: libpmemblk = %{version}-%{release}
-Requires: libpmem-devel = %{version}-%{release}
-%description -n libpmemblk-devel
-The libpmemblk implements a pmem-resident array of blocks, all the same
-size, where a block is updated atomically with respect to power
-failure or program interruption (no torn blocks).
-
-For example, a program keeping a cache of fixed-size objects in pmem
-might find this library useful. This library is provided for cases
-requiring large arrays of objects at least 512 bytes each. Most
-developers will find higher level libraries like libpmemobj to be
-more generally useful.
-
-%files -n libpmemblk-devel
-%{_libdir}/libpmemblk.so
-%{_libdir}/pkgconfig/libpmemblk.pc
-%{_includedir}/libpmemblk.h
-%{_mandir}/man7/libpmemblk.7.gz
-%{_mandir}/man5/poolset.5.gz
-%{_mandir}/man3/pmemblk_*.3.gz
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n libpmemblk-debug
-Summary: Debug variant of the Persistent Memory Resident Array of Blocks library
-Requires: libpmemblk = %{version}-%{release}
-%description -n libpmemblk-debug
-The libpmemblk implements a pmem-resident array of blocks, all the same
-size, where a block is updated atomically with respect to power
-failure or program interruption (no torn blocks).
-
-This sub-package contains debug variant of the library, providing
-run-time assertions and trace points. The typical way to access the
-debug version is to set the environment variable LD_LIBRARY_PATH to
-/usr/lib64/pmdk_debug.
-
-%files -n libpmemblk-debug
-%dir %{_libdir}/pmdk_debug
-%{_libdir}/pmdk_debug/libpmemblk.so
-%{_libdir}/pmdk_debug/libpmemblk.so.*
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n libpmemlog
-Summary: Persistent Memory Resident Log File library
-Requires: libpmem >= %{version}-%{release}
-%description -n libpmemlog
-The libpmemlog library provides a pmem-resident log file. This is
-useful for programs like databases that append frequently to a log
-file.
-
-%files -n libpmemlog
-%{_libdir}/libpmemlog.so.*
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n libpmemlog-devel
-Summary: Development files for the Persistent Memory Resident Log File library
-Requires: libpmemlog = %{version}-%{release}
-Requires: libpmem-devel = %{version}-%{release}
-%description -n libpmemlog-devel
-The libpmemlog library provides a pmem-resident log file. This
-library is provided for cases requiring an append-mostly file to
-record variable length entries. Most developers will find higher
-level libraries like libpmemobj to be more generally useful.
-
-%files -n libpmemlog-devel
-%{_libdir}/libpmemlog.so
-%{_libdir}/pkgconfig/libpmemlog.pc
-%{_includedir}/libpmemlog.h
-%{_mandir}/man7/libpmemlog.7.gz
-%{_mandir}/man5/poolset.5.gz
-%{_mandir}/man3/pmemlog_*.3.gz
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n libpmemlog-debug
-Summary: Debug variant of the Persistent Memory Resident Log File library
-Requires: libpmemlog = %{version}-%{release}
-%description -n libpmemlog-debug
-The libpmemlog library provides a pmem-resident log file. This
-library is provided for cases requiring an append-mostly file to
-record variable length entries. Most developers will find higher
-level libraries like libpmemobj to be more generally useful.
-
-This sub-package contains debug variant of the library, providing
-run-time assertions and trace points. The typical way to access the
-debug version is to set the environment variable LD_LIBRARY_PATH to
-/usr/lib64/pmdk_debug.
-
-%files -n libpmemlog-debug
-%dir %{_libdir}/pmdk_debug
-%{_libdir}/pmdk_debug/libpmemlog.so
-%{_libdir}/pmdk_debug/libpmemlog.so.*
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
 %package -n libpmemobj
 Summary: Persistent Memory Transactional Object Store library
 Requires: libpmem >= %{version}-%{release}
@@ -401,7 +284,7 @@ Requires: libpmem >= %{version}-%{release}
 %description -n libpmempool
 The libpmempool library provides a set of utilities for off-line
 administration, analysis, diagnostics and repair of persistent memory
-pools created by libpmemlog, libpmemblk and libpmemobj libraries.
+pools created by libpmemobj libraries.
 
 %files -n libpmempool
 %{_libdir}/libpmempool.so.*
@@ -416,7 +299,7 @@ Requires: libpmem-devel = %{version}-%{release}
 %description -n libpmempool-devel
 The libpmempool library provides a set of utilities for off-line
 administration, analysis, diagnostics and repair of persistent memory
-pools created by libpmemlog, libpmemblk and libpmemobj libraries.
+pools created by libpmemobj libraries.
 
 %files -n libpmempool-devel
 %{_libdir}/libpmempool.so
@@ -435,7 +318,7 @@ Requires: libpmempool = %{version}-%{release}
 %description -n libpmempool-debug
 The libpmempool library provides a set of utilities for off-line
 administration, analysis, diagnostics and repair of persistent memory
-pools created by libpmemlog, libpmemblk and libpmemobj libraries.
+pools created by libpmemobj libraries.
 
 This sub-package contains debug variant of the library, providing
 run-time assertions and trace points. The typical way to access the
@@ -453,8 +336,6 @@ debug version is to set the environment variable LD_LIBRARY_PATH to
 %package -n pmempool
 Summary: Utilities for Persistent Memory
 Requires: libpmem >= %{version}-%{release}
-Requires: libpmemlog >= %{version}-%{release}
-Requires: libpmemblk >= %{version}-%{release}
 Requires: libpmemobj >= %{version}-%{release}
 Requires: libpmempool >= %{version}-%{release}
 Obsoletes: nvml-tools < %{version}-%{release}
@@ -531,6 +412,7 @@ provided in the command line options to check whether files are in a consistent 
 # For debug build default flags may be overriden to disable compiler
 # optimizations.
 CFLAGS="%{optflags}" \
+EXTRA_CFLAGS="-Wno-error" \
 LDFLAGS="%{?__global_ldflags}" \
 %make_build NORPATH=1
 
@@ -597,8 +479,6 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 
 %ldconfig_scriptlets   -n libpmem
 %ldconfig_scriptlets   -n libpmem2
-%ldconfig_scriptlets   -n libpmemblk
-%ldconfig_scriptlets   -n libpmemlog
 %ldconfig_scriptlets   -n libpmemobj
 %ldconfig_scriptlets   -n libpmempool
 
@@ -608,6 +488,12 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 
 
 %changelog
+* Mon Nov 06 2023 Emanuel Lima <emlima@redhat.com> - 2.0.0-1
+- PMDK 2.0.0
+
+* Mon Oct 16 2023 Pavel Reichl <preichl@redhat.com> - 1.13.1-3
+- Convert License tag to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

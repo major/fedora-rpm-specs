@@ -4,15 +4,14 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.43
-Release:        2%{?dist}
+Version:        2.2.44
+Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
 URL:            http://gns3.com
 Source0:        https://github.com/GNS3/%{name}/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source3:        %{name}.appdata.xml
-Patch0:         https://github.com/GNS3/gns3-gui/commit/10afb5a8deb25b85c26c38d1f9639ba833dd0000.patch
 
 BuildArch:      noarch
 
@@ -43,7 +42,7 @@ sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
 sed -i -r 's/setuptools>=60.8.1/setuptools>=53.0.0/' requirements.txt
 # Lower psutil>=5.8.0
-sed -i -r 's/psutil>=5.9.5/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/psutil>=5.9.6/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/distro>=1.8.*/distro>=1.5.0/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 
@@ -92,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Mon Nov  6 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.44-1
+- Update to 2.2.44
+
 * Mon Sep 25 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.43-2
 - Backported importlib_resources fix
 - lower distro and setuptools requirements

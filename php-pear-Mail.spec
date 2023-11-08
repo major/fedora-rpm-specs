@@ -10,7 +10,7 @@
 %global pear_name Mail
 
 Name:           php-pear-Mail
-Version:        1.5.1
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        Class that provides multiple interfaces for sending emails
 
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Mon Nov  6 2023 Remi Collet <remi@remirepo.net> - 1.6.0-1
+- update to 1.6.0
+
 * Fri Aug 25 2023 Remi Collet <remi@remirepo.net> - 1.5.1-1
 - update to 1.5.1
 

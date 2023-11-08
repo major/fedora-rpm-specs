@@ -1,5 +1,5 @@
 Name:           perl-CPAN-Plugin-Sysdeps
-Version:        0.71
+Version:        0.72
 Release:        1%{?dist}
 Summary:        CPAN client plugin for installing system dependencies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 06 2023 Petr Pisar <ppisar@redhat.com> - 0.72-1
+- 0.72 bump
+
 * Mon Aug 28 2023 Petr Pisar <ppisar@redhat.com> - 0.71-1
 - 0.71 bump
 

@@ -1,13 +1,12 @@
 Name:		libeasyfc
-Version:	0.14.0
-Release:	15%{?dist}
+Version:	0.14.1
+Release:	1%{?dist}
 Summary:	Easy configuration generator interface for fontconfig
 
 License:	LGPL-3.0-or-later
 URL:		http://tagoh.bitbucket.org/libeasyfc/
 Source0:	https://bitbucket.org/tagoh/libeasyfc/downloads/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-freetype.patch
-Patch1:		%{name}-fix-config.patch
 
 BuildRequires:	glib2-devel gobject-introspection-devel libxml2-devel fontconfig-devel >= 2.12.93 harfbuzz-devel
 BuildRequires:	gettext
@@ -95,6 +94,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/gir-*/Easyfc-*.gir
 
 %changelog
+* Mon Nov  6 2023 Akira TAGOH <tagoh@redhat.com> - 0.14.1-1
+- New upstream release.
+  Fix wrong behavior on parsing manual-updated config.
+  Related: rhbz#2241364
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

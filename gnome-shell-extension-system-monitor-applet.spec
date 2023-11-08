@@ -1,31 +1,28 @@
-%global extuuid    system-monitor@paradoxxx.zero.gmail.com
+%global extuuid    system-monitor-next@paradoxxx.zero.gmail.com
 %global extdir     %{_datadir}/gnome-shell/extensions/%{extuuid}
 %global gschemadir %{_datadir}/glib-2.0/schemas
 %global gitname    gnome-shell-system-monitor-applet
-%global giturl     https://github.com/paradoxxxzero/%{gitname}
+%global giturl     https://github.com/mgalgs/%{gitname}
 
 %{!?git_post_release_enabled: %global git_post_release_enabled 1}
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit 21d7b4e7a03ec8145b0b90c4f0b15c27d6f53788
+  %global gitcommit 0f042e8cfd67c0891c6b5917d9fd5a8de7219d8a
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20230420git%{gitshortcommit}
+  %global gitsnapinfo .20231104git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        24%{?gitsnapinfo}%{?dist}
+Release:        25%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
 License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            https://extensions.gnome.org/extension/120/system-monitor/
 Source0:        %{giturl}/archive/%{?gitcommit}%{!?gitcommit:v%{version}}/%{name}-%{version}%{?gitshortcommit:-%{gitshortcommit}}.tar.gz
-
-Patch0:         gnome-shell-extension-system-monitor-applet-001_add_compatibility_with_gnome-shell_lt_3.34_for_el8.patch
-Patch1:         gnome-shell-extension-system-monitor-applet-002_add_compatibility_with_gnome-shell_44.patch
 
 BuildArch:      noarch
 
@@ -92,6 +89,12 @@ fi
 
 
 %changelog
+* Sat Nov 04 2023 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-25.20231104git0f042e8
+- Upgrade from forked github repository for gnome-shell >= 45 - RHBZ#2240571
+  https://github.com/mgalgs/gnome-shell-extension-system-monitor-applet
+  More information in:
+  https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/issues/795
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:38-24.20230420git21d7b4e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

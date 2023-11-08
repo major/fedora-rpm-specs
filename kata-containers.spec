@@ -53,9 +53,9 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     src/agent/README.md
 
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}
+Release:    2%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
-License:    ASL 2.0
+License:    Apache-2.0
 Url:        https://%{download}
 Source0:    https://%{download}/archive/%{version}%{?rcstr}/%{repo}-%{version}%{?rcstr}.tar.gz
 Source1:    https://%{download}/releases/download/%{version}/%{repo}-%{version}%{?rcstr}-vendor.tar.gz
@@ -376,6 +376,10 @@ fi
 
 
 %changelog
+* Mon Nov 06 2023 Emanuel Lima <emlima@redhat.com> - 3.2.0-2
+- migrated to SPDX license
+- kata-containers-3.2.0 final
+
 * Thu Sep 28 2023 Emanuel Lima <emlima@redhat.com> - 3.2.0-1
 - kata-containers-3.2.0
 

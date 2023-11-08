@@ -1,6 +1,6 @@
 Name:           jackson-core
-Version:        2.15.2
-Release:        2%{?dist}
+Version:        2.15.3
+Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -55,6 +55,17 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
+- [maven-release-plugin] prepare release jackson-core-2.15.3 (Tatu Saloranta)
+- Prepare for 2.15.3 release (Tatu Saloranta)
+- Update release notes wrt #1111 (Tatu Saloranta)
+- Call the right filterFinishArray/Object from FilteringParserDelegate (#1111) (Dai MIKURUBE)
+- Update Maven wrapper version (Tatu Saloranta)
+- Further tweaking of release notes (Tatu Saloranta)
+- Add ref to #943 in release-notes/VERSION-2.x (Tatu Saloranta)
+- 2.15.3-SNAPSHOT (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

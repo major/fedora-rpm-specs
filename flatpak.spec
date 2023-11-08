@@ -31,6 +31,7 @@ BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.40.0
+BuildRequires:  pkgconfig(gpgme)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libseccomp)
@@ -49,7 +50,6 @@ BuildRequires:  bubblewrap >= %{bubblewrap_version}
 BuildRequires:  docbook-dtds
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext-devel
-BuildRequires:  gpgme-devel
 BuildRequires:  gtk-doc
 BuildRequires:  libcap-devel
 BuildRequires:  meson
