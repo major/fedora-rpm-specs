@@ -5,7 +5,7 @@
 %bcond_with docs
 
 Name:           python-%{pkg_name}
-Version:        3.9.0
+Version:        4.0.0
 Release:        1%{?dist}
 Summary:        Functools like those found in stdlib
 
@@ -83,6 +83,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Tue Nov 07 2023 Dan Radez <dradez@redhat.com> - 4.0.0-1
+- update to 4.0.0 rhbz#2248009
+
 * Fri Sep 08 2023 Dan Radez <dradez@redhat.com> - 3.9.0-1
 - update to 3.9.0 rhbz#2235141
 

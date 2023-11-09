@@ -1,11 +1,11 @@
 Name:		proxmark3
-Version:	4.16717
+Version:	4.17140
 Release:	%autorelease
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 License:	GPLv3+
 URL:		https://github.com/RfidResearchGroup/proxmark3
 Source0:	https://github.com/RfidResearchGroup/proxmark3/archive/refs/tags/v%{version}.tar.gz
-BuildRequires:	make, gcc, g++, readline-devel, arm-none-eabi-gcc, arm-none-eabi-newlib, bzip2-devel, libatomic, openssl-devel, python3-devel, jansson-devel, bluez-libs-devel, qt5-qtbase-devel
+BuildRequires:	make, gcc, g++, readline-devel, arm-none-eabi-gcc, arm-none-eabi-newlib, bzip2-devel, libatomic, openssl-devel, python3-devel, jansson-devel, bluez-libs-devel, qt5-qtbase-devel, lz4-devel
 Requires:	bzip2-libs, readline, python3, bluez, qt5-qtbase
 ExcludeArch:	ppc64le s390x
 
@@ -48,6 +48,9 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+* Tue Nov 7 2023 Marlin Soose <marlin.soose@esque.ca> - 4.17140
+- Bumping package to v4.17140, add lz4-devel build dep
+
 * Tue Jun 27 2023 Marlin Soose <marlin.soose@esque.ca> - 4.16717-6
 - Bumping package to v4.16717
 

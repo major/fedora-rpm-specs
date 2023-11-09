@@ -5,7 +5,7 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.44
+Version:        2.2.44.1
 Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
@@ -144,6 +144,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Nov  7 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.44.1-1
+- Update to 2.2.44.1
+
 * Mon Nov  6 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.44-1
 - Update to 2.2.44
 

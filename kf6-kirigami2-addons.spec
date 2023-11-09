@@ -1,6 +1,6 @@
-%global gitdate 20231013.134815
+%global gitdate 20231102.154105
 %global cmakever 5.240.0
-%global commit0 a0375f95c5d1ce8c7f5ce7f1d95c6a02fc838a34
+%global commit0 6d270f91486134e76b5e2c0a7baec3edc7706e4b
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kirigami-addons
 
@@ -76,5 +76,8 @@ Tree view Kirigami addon, which is useful for listing files.
 %{_kf6_qmldir}/org/kde/kirigamiaddons/treeview/
 
 %changelog
+* Mon Nov 6 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231102.154105.6d270f9-1
+- Initial Release
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231013.134815.a0375f9-1
 - Initial release

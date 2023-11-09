@@ -1,8 +1,8 @@
 %global pkgname polymaking
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.8.6
-Release:        8%{?dist}
+Version:        0.8.7
+Release:        1%{?dist}
 Summary:        GAP interface to polymake
 
 License:        GPL-2.0-or-later
@@ -10,9 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/polymaking/
 Source0:        https://github.com/gap-packages/polymaking/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Update outdated information about the .gaprc file
-# https://github.com/gap-packages/polymaking/pull/15
-Patch0:         %{name}-doc.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -73,6 +70,10 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Nov  7 2023 Jerry James <loganjerry@gmail.com> - 0.8.7-1
+- Version 0.8.7
+- Drop upstreamed doc patch
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

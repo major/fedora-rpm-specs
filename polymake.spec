@@ -13,8 +13,8 @@
 %bcond_with jreality
 
 Name:           polymake
-Version:        4.10
-Release:        3%{?dist}
+Version:        4.11
+Release:        1%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -27,9 +27,6 @@ Source0:        https://polymake.org/lib/exe/fetch.php/download/%{name}-%{versio
 # Man page written by Jerry James from text found in the sources.  Therefore,
 # the copyright and license are the same as for the sources.
 Source1:        %{name}.1
-# Fake polymake-config script to use while building the Jupyter packages.
-# The real polymake-config is nonfunctional until it is installed.
-Source2:        %{name}-config
 # This patch will not be sent upstream, since it is Fedora-specific.  Link
 # against existing system libraries instead of building them from source,
 # and do not use -rpath.
@@ -45,6 +42,8 @@ Patch4:         %{name}-name-clash.patch
 # Due to the fact that /usr/lib[64] == /lib[64], polymake deduces that the
 # installation prefix is /lib[64] instead of /usr.
 Patch5:         %{name}-prefix.patch
+# Do not call back() on an empty string
+Patch6:         %{name}-empty-string.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.
@@ -72,7 +71,6 @@ BuildRequires:  libnormaliz-devel
 BuildRequires:  lrslib-devel
 BuildRequires:  make
 BuildRequires:  ninja-build
-BuildRequires:  ocaml-tplib-tools
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(Archive::Tar)
@@ -86,11 +84,13 @@ BuildRequires:  perl(MongoDB)
 BuildRequires:  perl(SVG)
 BuildRequires:  perl(Term::ReadKey)
 BuildRequires:  perl(Term::ReadLine::Gnu)
+BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(XML::LibXSLT)
 BuildRequires:  perl(XML::SAX::Base)
 BuildRequires:  perl(XML::Writer)
 BuildRequires:  permlib-devel
 BuildRequires:  pkgconfig(eigen3)
+BuildRequires:  pkgconfig(libmongoc-1.0)
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  pkgconfig(nauty)
 BuildRequires:  pkgconfig(Singular)
@@ -115,6 +115,7 @@ Requires:       libgcc%{?_isa}
 Requires:       libnormaliz-devel%{?_isa}
 Requires:       make
 Requires:       mpfr-devel%{?_isa}
+Requires:       ninja-build
 Requires:       perl-interpreter = 4:%{?perl_version}%{!?perl_version:0}
 Requires:       perl(Term::ReadKey)
 Requires:       perl(Term::ReadLine::Gnu)
@@ -127,7 +128,6 @@ Recommends:     azove
 Recommends:     gfan
 Recommends:     latte-integrale
 Recommends:     normaliz
-Recommends:     ocaml-tplib-tools
 Recommends:     plantri
 Recommends:     qhull
 Recommends:     Singular
@@ -142,13 +142,9 @@ Suggests:       okular
 Suggests:       sketch
 
 # Add some provides the automatic generator missed
-Provides:       perl(PolyDB::DatabaseCursor)
 Provides:       perl(PolyDB::JsonIO)
 Provides:       perl(Polymake::ConfigureStandalone)
-Provides:       perl(Polymake::Core::ShellHelpers)
-Provides:       perl(Polymake::Core::ShellMock)
 Provides:       perl(Polymake::Namespaces)
-Provides:       perl(Polymake::Test::Validation)
 Provides:       perl(Polymake::file_utils.pl)
 Provides:       perl(Polymake::regex.pl)
 Provides:       perl(Polymake::utils.pl)
@@ -188,7 +184,7 @@ forth.
 
 Polymake can use various computational packages if they are installed.
 Those available from Fedora are: 4ti2, azove, gfan, latte-integrale,
-normaliz, ocaml-tplib-tools, qhull, Singular, TOPCOM, and vinci.
+normaliz, qhull, Singular, TOPCOM, and vinci.
 
 Polymake can interface with various visualization packages if they are
 installed.  Install one or more of the tools from the following list:
@@ -231,10 +227,13 @@ sed -i 's,@@LIBDIR@@,%{_libdir},' bundled/nauty/support/configure.pl
 # Build verbosely.  Avoid parallelism, which often leads to resource exhaustion.
 sed -i 's,\${NINJA},& -j 1 -v,' Makefile
 
+# Avoid obsolescence warnings
+sed -i 's/fgrep/grep -F/' perllib/Polymake/ConfigureStandalone.pm
+
 %build
 export LC_ALL=C.UTF-8
 export CFLAGS="%{build_cflags} -I%{_includedir}/arb -I%{_includedir}/eigen3 -I%{_includedir}/gfanlib -I%{_includedir}/nauty -Wno-unused-local-typedefs"
-export CXXFLAGS="$CFLAGS"
+export CXXFLAGS="%{build_cxxflags} -I%{_includedir}/arb -I%{_includedir}/eigen3 -I%{_includedir}/gfanlib -I%{_includedir}/nauty -Wno-unused-local-typedefs"
 export LDFLAGS="%{build_ldflags} -lnormaliz -ldl"
 export Arch=%{_arch}
 # NOT an autoconf-generated configure script; do not use %%configure.
@@ -298,6 +297,11 @@ rm -fr %{buildroot}%{_datadir}/%{name}/resources/{JuPyMake,jupyter-polymake}
 # Fix package notes breakage
 sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ninja
 
+%check
+export COLUMNS=80
+export LINES=25
+make test
+
 %files
 %license COPYING
 %doc Readme.md ChangeLog
@@ -307,13 +311,19 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %{_includedir}/%{name}/
 %{_libdir}/%{name}/
 %{_libdir}/lib%{name}*.so
-%{_libdir}/lib%{name}*.so.4.10
+%{_libdir}/lib%{name}*.so.4.11
 %{_mandir}/man1/%{name}.1*
 
 %files doc
 %doc doc/*
 
 %changelog
+* Mon Nov  6 2023 Jerry James <loganjerry@gmail.com> - 4.11-1
+- Version 4.11
+- Drop dependency on tplib
+- Add mongodb support
+- Add a %%check script
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

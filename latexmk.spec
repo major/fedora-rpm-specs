@@ -1,12 +1,12 @@
 Name:           latexmk
-Version:        4.80
-Release:        2%{?dist}
+Version:        4.81
+Release:        1%{?dist}
 Summary:        A make-like utility for LaTeX files
 
 %global upstreamver %(sed 's/\\.//' <<< %{version})
 
 License:        GPL-2.0-or-later
-URL:            https://personal.psu.edu/jcc8/software/latexmk-jcc/
+URL:            https://www.cantab.net/users/johncollins/latexmk/
 Source0:        %{url}/%{name}-%{upstreamver}.zip
 Source1:        latexmkrc
 Source2:        latexmk-README.fedora
@@ -59,6 +59,10 @@ rm -f extra-scripts/*.bat
 %license COPYING
 
 %changelog
+* Tue Nov  7 2023 Jerry James <loganjerry@gmail.com> - 4.81-1
+- Version 4.81
+- New project URL
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

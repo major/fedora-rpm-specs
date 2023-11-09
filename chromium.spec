@@ -10,8 +10,7 @@
 %global numjobs %{_smp_build_ncpus}
 %endif
 
-# This flag is so I can build things very fast on a giant system.
-# Enabling this in koji causes aarch64 builds to timeout indefinitely.
+# enable|disable all cpus for the build.
 %global use_all_cpus 1
 
 %if %{use_all_cpus}
@@ -72,11 +71,13 @@
 %global chromium_pybin %{__python3}
 %endif
 
-# We'd like to always have this on...
+# va-api only supported in rhel >= 9 and fedora
 %global use_vaapi 1
+
+# v4l2_codec only enable for fedora aarch64
 %global use_v4l2_codec 0
 
-# ... but the libva in EL7 (and EL8) is too old.
+# libva in EL7 and EL8 is too old.
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
 %global use_vaapi 0
 %endif
@@ -116,11 +117,15 @@
 %global headlessbuilddir out/Headless
 %global remotingbuilddir out/Remoting
 
-# Debuginfo packages aren't very useful here. If you need to debug
-# you should do a proper debug build (not implemented in this spec yet)
-%global enable_debug 0
+# enable|disable debuginfo
+%global enable_debug 1
 %if ! %{enable_debug}
 %global debug_package %{nil}
+%global debug_level 0
+%else
+%global debug_level 1
+# workaround for the error empty file debugsource
+%undefine _debugsource_packages
 %endif
 
 # %%{nil} for Stable; -beta for Beta; -dev for Devel
@@ -259,7 +264,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 119.0.6045.105
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1198,7 +1203,7 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
-CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=0 symbol_level=0 v8_symbol_level=0'
+CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=%{debug_level} symbol_level=%{debug_level} v8_symbol_level=%{debug_level}'
 CHROMIUM_CORE_GN_DEFINES+=' blink_enable_generated_code_formatting=false'
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 export CHROMIUM_CORE_GN_DEFINES
@@ -1704,6 +1709,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Nov 07 2023 Than Ngo <than@redhat.com> - 119.0.6045.105-2
+- enable debuginfo
+
 * Wed Nov 01 2023 Than Ngo <than@redhat.com> - 119.0.6045.105-1
 - update to 119.0.6045.105
 

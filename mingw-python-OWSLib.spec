@@ -5,11 +5,11 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.29.2
-Release:       2%{?dist}
+Version:       0.29.3
+Release:       1%{?dist}
 BuildArch:     noarch
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://geopython.github.io/OWSLib
 Source0:       %{pypi_source}
 
@@ -70,6 +70,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Tue Nov 07 2023 Sandro Mani <manisandro@gmail.com> - 0.29.3-1
+- Update to 0.29.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

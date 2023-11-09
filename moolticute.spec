@@ -1,7 +1,7 @@
 %bcond_without  tests
 
 Name:           moolticute
-Version:        1.02.0
+Version:        1.03.0
 Release:        %autorelease
 Summary:        Companion GUI application for Mooltipass password manager devices
 

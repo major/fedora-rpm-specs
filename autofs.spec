@@ -11,63 +11,11 @@
 
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
-Version: 5.1.8
-Release: 23%{?dist}
+Version: 5.1.9
+Release: 3%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
-Patch1: autofs-5.1.8-fix-kernel-mount-status-notification.patch
-Patch2: autofs-5.1.8-fix-fedfs-build-flags.patch
-Patch3: autofs-5.1.8-fix-set-open-file-limit.patch
-Patch4: autofs-5.1.8-improve-descriptor-open-error-reporting.patch
-Patch5: autofs-5.1.8-fix-root-offset-error-handling.patch
-Patch6: autofs-5.1.8-fix-fix-root-offset-error-handling.patch
-Patch7: autofs-5.1.8-fix-nonstrict-fail-handling-of-last-offset-mount.patch
-Patch8: autofs-5.1.8-dont-fail-on-duplicate-host-export-entry.patch
-Patch9: autofs-5.1.8-fix-loop-under-run-in-cache_get_offset_parent.patch
-Patch10: autofs-5.1.8-bailout-on-rpc-systemerror.patch
-Patch11: autofs-5.1.8-fix-nfsv4-only-mounts-should-not-use-rpcbind.patch
-Patch12: autofs-5.1.8-simplify-cache_add-a-little.patch
-Patch13: autofs-5.1.8-fix-use-after-free-in-tree_mapent_delete_offset_tree.patch
-Patch14: autofs-5.1.8-fix-memory-leak-in-xdr_exports.patch
-Patch15: autofs-5.1.8-avoid-calling-pthread_getspecific-with-NULL-key_thread_attempt_id.patch
-Patch16: autofs-5.1.8-fix-sysconf-return-handling.patch
-Patch17: autofs-5.1.8-remove-nonstrict-parameter-from-tree_mapent_umount_offsets.patch
-Patch18: autofs-5.1.8-fix-handling-of-incorrect-return-from-umount_ent.patch
-Patch19: autofs-5.1.8-dont-use-initgroups-at-spawn.patch
-Patch20: autofs-5.1.8-fix-missing-unlock-in-sasl_do_kinit_ext_cc.patch
-Patch21: autofs-5.1.8-fix-invalid-tsv-access.patch
-Patch22: autofs-5.1.8-configure-c99.patch
-Patch23: autofs-5.1.8-fix-autofs-regression-due-to-positive_timeout.patch
-Patch24: autofs-5.1.8-fix-parse-module-instance-mutex-naming.patch
-Patch25: autofs-5.1.8-serialise-lookup-module-open-and-reinit.patch
-Patch26: autofs-5.1.8-coverity-fix-for-invalid-access.patch
-Patch27: autofs-5.1.8-fix-hosts-map-deadlock-on-restart.patch
-Patch28: autofs-5.1.8-fix-deadlock-with-hosts-map-reload.patch
-Patch29: autofs-5.1.8-fix-memory-leak-in-update_hosts_mounts.patch
-Patch30: autofs-5.1.8-fix-minus-only-option-handling-in-concat_options.patch
-Patch31: autofs-5.1.8-fix-incorrect-path-for-is_mounted-in-try_remount.patch
-Patch32: autofs-5.1.8-fix-additional-tsv-invalid-access.patch
-Patch33: autofs-5.1.8-fix-use_ignore_mount_option-description.patch
-Patch34: autofs-5.1.8-include-addtional-log-info-for-mounts.patch
-Patch35: autofs-5.1.8-fail-on-empty-replicated-host-name.patch
-Patch36: autofs-5.1.8-improve-handling-of-ENOENT-in-sss-setautomntent.patch
-Patch37: autofs-5.1.8-dont-immediately-call-function-when-waiting.patch
-Patch38: autofs-5.1.8-fix-return-status-of-mount_autofs.patch
-Patch39: autofs-5.1.8-dont-close-lookup-at-umount.patch
-Patch40: autofs-5.1.8-fix-deadlock-in-lookups.patch
-Patch41: autofs-5.1.8-dont-delay-expire.patch
-Patch42: autofs-5.1.8-make-amd-mapent-search-function-name-clear.patch
-Patch43: autofs-5.1.8-rename-statemachine-to-signal_handler.patch
-Patch44: autofs-5.1.8-make-signal-handling-consistent.patch
-Patch45: autofs-5.1.8-eliminate-last-remaining-state_pipe-usage.patch
-Patch46: autofs-5.1.8-add-function-master_find_mapent_by_devid.patch
-Patch47: autofs-5.1.8-use-device-id-to-locate-autofs_point-when-setting-log-priotity.patch
-Patch48: autofs-5.1.8-add-command-pipe-handling-functions.patch
-Patch49: autofs-5.1.8-switch-to-application-wide-command-pipe.patch
-Patch50: autofs-5.1.8-get-rid-of-unused-field-submnt_count.patch
-Patch51: autofs-5.1.8-fix-mount-tree-startup-reconnect.patch
-Patch52: autofs-5.1.8-fix-unterminated-read-in-handle_cmd_pipe_fifo_message.patch
 
 %if %{with_systemd}
 BuildRequires: systemd-units
@@ -132,58 +80,6 @@ echo %{version}-%{release} > .version
 %if %{with_fedfs}
   %define fedfs_configure_arg --enable-fedfs
 %endif
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch32 -p1
-%patch33 -p1
-%patch34 -p1
-%patch35 -p1
-%patch36 -p1
-%patch37 -p1
-%patch38 -p1
-%patch39 -p1
-%patch40 -p1
-%patch41 -p1
-%patch42 -p1
-%patch43 -p1
-%patch44 -p1
-%patch45 -p1
-%patch46 -p1
-%patch47 -p1
-%patch48 -p1
-%patch49 -p1
-%patch50 -p1
-%patch51 -p1
-%patch52 -p1
 
 %build
 LDFLAGS=-Wl,-z,now
@@ -291,6 +187,15 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Tue Nov 07 2023 Ian Kent <ikent@redhat.com> - 1:5.1.9-3
+- Also update package revision.
+
+* Tue Nov 07 2023 Ian Kent <ikent@redhat.com> - 1:5.1.9-2
+- correct changelog entry submitter name.
+
+* Tue Nov 07 2023 Ian Kent <ikent@redhat.com> - 1:5.1.9-1
+- Update to autofs 5.1.9 release.
+
 * Fri Oct 06 2023 Pavel Reichl <preichl@redhat.com> - 1:5.1.8-23
 - Convert License tag to SPDX format
 

@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -31,7 +31,7 @@ BuildRequires:  kf5-rpm-macros >= %{majmin}
 BuildRequires:  libXcursor-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtx11extras-devel
-%if 0%{?fedora} > 23
+%if 0%{?fedora} > 23 && 0%{?fedora} < 40
 %global appstream 1
 BuildRequires:  cmake(AppStreamQt)
 BuildRequires:  cmake(packagekitqt5)
@@ -108,6 +108,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.111.0-3
+- Disable appstream support for F40+
+
 * Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 5.111.0-2
 - Rebuild (qt5)
 

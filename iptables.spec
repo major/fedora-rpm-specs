@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.10
-Release: 2%{?dist}
+Release: 4%{?dist}
 Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
@@ -59,7 +59,8 @@ Requires(postun): %{_sbindir}/update-alternatives
 %if 0%{?rhel} < 9
 Provides:	iptables
 %endif
-Obsoletes: %{name}-compat < 1.8.9-6
+Provides:  %{name}-compat = %{version}-%{release}
+Obsoletes: %{name}-compat < 1.8.9-7
 
 %description legacy
 The iptables utility controls the network packet filtering code in the
@@ -414,6 +415,12 @@ fi
 
 
 %changelog
+* Tue Nov 07 2023 Phil Sutter <psutter@redhat.com> - 1.8.10-4
+- The actual obsoletes fix
+
+* Tue Nov 07 2023 Phil Sutter <psutter@redhat.com> - 1.8.10-3
+- Fix compat sub-package obsoletion
+
 * Tue Oct 10 2023 Phil Sutter <psutter@redhat.com> - 1.8.10-2
 - Obsolete dropped compat package
 

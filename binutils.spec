@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 10%{?dist}
+Release: 12%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -277,6 +277,14 @@ Patch21: binutils-BPF-reloc-4.patch
 # Purpose:  Allow for x86_64 build environments that use a base ISA of x86-64-v3.
 # Lifetime: Fixed in 2.42
 Patch22: binutils-x86-64-v3.patch
+
+# Purpose:  Fix mergeing strings in really big programs.
+# Lifetime: Fixed in 2.42
+Patch23: binutils-big-merge.patch
+
+# Purpose:  Fix linker generated call veneers for large AArch64 programs with BTI enabled.
+# Lifetime: Fixed in 2.42
+Patch24: binutils-aarch64-big-bti-programs.patch
 
 #----------------------------------------------------------------------------
 
@@ -1283,6 +1291,12 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Nov 07 2023 Nick Clifton  <nickc@redhat.com> - 2.41-12
+- Fix the bfd linker's generation of call stubs for large AArch64 binaries with BTI enabled.  (#2241902)
+
+* Tue Nov 07 2023 Nick Clifton  <nickc@redhat.com> - 2.41-11
+- Fix merging strings when linking really big programs.
+
 * Wed Nov 01 2023 Nick Clifton  <nickc@redhat.com> - 2.41-10
 - Allow for x86_64 build environments that use a base ISA of x86-64-v3.  (#2247296)
 

@@ -17,10 +17,10 @@ compatibility.}
 %global godocs          CONTRIBUTING.md readme.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Memory Efficient Serialization Library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -47,6 +47,9 @@ find ./* -maxdepth 0 -type d -not -name "go" -and -not -name "_build" -exec rm -
 %gopkgfiles
 
 %changelog
+* Thu Oct 05 2023 W. Michael Petullo <mike@flyn.org> - 1.12.0-9
+- Use SPDX license nomenclature
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

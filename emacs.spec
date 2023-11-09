@@ -98,8 +98,8 @@ BuildRequires: make
 
 # Emacs doesn't run without a font, rhbz#732422
 Requires:      google-noto-sans-mono-vf-fonts
-Requires(preun): %{_sbindir}/alternatives
-Requires(posttrans): %{_sbindir}/alternatives
+Requires(preun): /usr/sbin/alternatives
+Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
 Provides:      emacs(bin) = %{epoch}:%{version}-%{release}
 Supplements:   (libwayland-server and emacs-common)
@@ -125,8 +125,8 @@ GTK toolkit.
 %package gtk+x11
 Summary:       GNU Emacs text editor with GTK toolkit X support
 Requires:      libgccjit
-Requires(preun): %{_sbindir}/alternatives
-Requires(posttrans): %{_sbindir}/alternatives
+Requires(preun): /usr/sbin/alternatives
+Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
 Provides:      emacs(bin) = %{epoch}:%{version}-%{release}
 Supplements:   (xorg-x11-server-Xorg and emacs-common)
@@ -139,8 +139,8 @@ Window System, using the GTK toolkit.
 %package lucid
 Summary:       GNU Emacs text editor with Lucid toolkit X support
 Requires:      google-noto-sans-mono-vf-fonts
-Requires(preun): %{_sbindir}/alternatives
-Requires(posttrans): %{_sbindir}/alternatives
+Requires(preun): /usr/sbin/alternatives
+Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
 Provides:      emacs(bin) = %{epoch}:%{version}-%{release}
 
@@ -151,8 +151,8 @@ Window System, using the Lucid toolkit.
 
 %package nw
 Summary:       GNU Emacs text editor without X support
-Requires(preun): %{_sbindir}/alternatives
-Requires(posttrans): %{_sbindir}/alternatives
+Requires(preun): /usr/sbin/alternatives
+Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
 Provides:      emacs(bin) = %{epoch}:%{version}-%{release}
 Provides:      emacs-nox = %{epoch}:%{version}-%{release}
@@ -168,8 +168,8 @@ Summary:       Emacs common files
 # The entire source code is GPLv3+ except lib-src/etags.c which is
 # also BSD.  Manual (info) is GFDL.
 License:       GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND BSD-3-Clause
-Requires(preun): %{_sbindir}/alternatives
-Requires(posttrans): %{_sbindir}/alternatives
+Requires(preun): /usr/sbin/alternatives
+Requires(posttrans): /usr/sbin/alternatives
 Requires:      %{name}-filesystem = %{epoch}:%{version}-%{release}
 Requires:      libgccjit
 Recommends:    (emacs or emacs-gtk+x11 or emacs-lucid or emacs-nw)
@@ -541,40 +541,40 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xm
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 %preun
-%{_sbindir}/alternatives --remove emacs %{_bindir}/emacs-%{version} || :
+/usr/sbin/alternatives --remove emacs %{_bindir}/emacs-%{version} || :
 
 %posttrans
-%{_sbindir}/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version} 80 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version} 80 || :
 
 %preun lucid
-%{_sbindir}/alternatives --remove emacs %{_bindir}/emacs-%{version}-lucid || :
-%{_sbindir}/alternatives --remove emacs-lucid %{_bindir}/emacs-%{version}-lucid || :
+/usr/sbin/alternatives --remove emacs %{_bindir}/emacs-%{version}-lucid || :
+/usr/sbin/alternatives --remove emacs-lucid %{_bindir}/emacs-%{version}-lucid || :
 
 %posttrans lucid
-%{_sbindir}/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version}-lucid 70 || :
-%{_sbindir}/alternatives --install %{_bindir}/emacs-lucid emacs-lucid %{_bindir}/emacs-%{version}-lucid 60 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version}-lucid 70 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs-lucid emacs-lucid %{_bindir}/emacs-%{version}-lucid 60 || :
 
 %preun gtk+x11
-%{_sbindir}/alternatives --remove emacs %{_bindir}/emacs-%{version}-gtk+x11 || :
-%{_sbindir}/alternatives --remove emacs-gtk+x11 %{_bindir}/emacs-%{version}-gtk+x11 || :
+/usr/sbin/alternatives --remove emacs %{_bindir}/emacs-%{version}-gtk+x11 || :
+/usr/sbin/alternatives --remove emacs-gtk+x11 %{_bindir}/emacs-%{version}-gtk+x11 || :
 
 %posttrans gtk+x11
-%{_sbindir}/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version}-gtk+x11 75 || :
-%{_sbindir}/alternatives --install %{_bindir}/emacs-gtk+x11 emacs-gtk+x11 %{_bindir}/emacs-%{version}-gtk+x11 60 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version}-gtk+x11 75 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs-gtk+x11 emacs-gtk+x11 %{_bindir}/emacs-%{version}-gtk+x11 60 || :
 
 %preun nw
-%{_sbindir}/alternatives --remove emacs %{_bindir}/emacs-%{version}-nw || :
-%{_sbindir}/alternatives --remove emacs-nw %{_bindir}/emacs-%{version}-nw || :
+/usr/sbin/alternatives --remove emacs %{_bindir}/emacs-%{version}-nw || :
+/usr/sbin/alternatives --remove emacs-nw %{_bindir}/emacs-%{version}-nw || :
 
 %posttrans nw
-%{_sbindir}/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version}-nw 70 || :
-%{_sbindir}/alternatives --install %{_bindir}/emacs-nw emacs-nw %{_bindir}/emacs-%{version}-nw 60 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-%{version}-nw 70 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs-nw emacs-nw %{_bindir}/emacs-%{version}-nw 60 || :
 
 %preun common
-%{_sbindir}/alternatives --remove emacs.etags %{_bindir}/etags.emacs || :
+/usr/sbin/alternatives --remove emacs.etags %{_bindir}/etags.emacs || :
 
 %posttrans common
-%{_sbindir}/alternatives --install %{_bindir}/etags emacs.etags %{_bindir}/etags.emacs 80 \
+/usr/sbin/alternatives --install %{_bindir}/etags emacs.etags %{_bindir}/etags.emacs 80 \
        --slave %{_mandir}/man1/etags.1.gz emacs.etags.man %{_mandir}/man1/etags.emacs.1.gz || :
 
 %files -f pgtk-eln-filelist -f pgtk-dirs

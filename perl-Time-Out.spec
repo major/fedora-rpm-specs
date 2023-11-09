@@ -2,7 +2,7 @@
 %bcond_without perl_Time_Out_enables_optional_test
 
 Name:           perl-Time-Out
-Version:        0.21
+Version:        0.22
 Release:        1%{?dist}
 Summary:        Easily time out long running operations
 # lib/Time/Out.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,6 +24,7 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Try::Tiny)
 # Tests:
@@ -108,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 07 2023 Petr Pisar <ppisar@redhat.com> - 0.22-1
+- 0.22 bump
+
 * Mon Nov 06 2023 Petr Pisar <ppisar@redhat.com> - 0.21-1
 - 0.21 bump
 

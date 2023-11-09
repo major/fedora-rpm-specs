@@ -9,6 +9,9 @@ Source0: %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz#/%{name}-%{vers
 
 # https://nheko.im/nheko-reborn/coeurl/-/commit/831e2ee8e9cf08ea1ee9736cde8370f9d0312abc
 Patch100: %{name}-0.3.0-fmt10-fix.patch
+# https://nheko.im/nheko-reborn/coeurl/-/commit/41da74de67771b8a822f11e72b17248f56aa9766
+# https://nheko.im/nheko-reborn/coeurl/-/commit/3007387745cf84138d0855e0f04ff94261fc7175
+Patch101: %{name}-0.3.0-meson12.patch
 
 BuildRequires: fmt-devel
 BuildRequires: gcc-c++

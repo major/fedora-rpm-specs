@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name: scitokens-cpp
-Version: 1.0.2
-Release: 2%{?dist}
+Version: 1.1.0
+Release: 1%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 License: ASL 2.0
 URL: https://github.com/scitokens/scitokens-cpp
@@ -74,6 +74,11 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Tue Nov 07 2023 Derek Weitzel <dweitzel@unl.edu> - 1.1.0-1
+- Allow the scitokens library user to setup a custom CA file
+- Fix typecast errors in scitoken_status_get_*() that caused async queries to fail
+- Fix logic error in deserialize_continue() that caused async deserialization to fail
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

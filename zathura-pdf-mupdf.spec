@@ -1,17 +1,18 @@
 # Desired jbig2dec header files and library version
 # Apparantly, jbig2dec complains even about newer versions.
 # Please update if needed.
-%global jbig2dec_version 0.19
+%global jbig2dec_version 0.20
 
 Name:             zathura-pdf-mupdf
 
-Version:          0.4.0
-Release:          13%{?dist}
+Version:          0.4.1
+Release:          1%{?dist}
 Summary:          PDF support for zathura via mupdf
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}/
 Source0:          %{url}/download/%{name}-%{version}.tar.xz
 Patch1:           0001-Revert-Rework-detection-of-mupdf.patch
+Patch2:           0001-Fix-initialization-if-link-target.patch
 
 BuildRequires:    binutils
 BuildRequires:    cairo-devel
@@ -68,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-mupdf.metainfo.xml
 
 %changelog
+* Wed Oct 11 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.4.1-1
+- Update to 0.4.1 (#2238877)
+
 * Sat Oct 07 2023 Sandro Mani <manisandro@gmail.com> - 0.4.0-13
 - Rebuild (tesseract)
 

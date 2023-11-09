@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -90,6 +90,8 @@ Patch58: qtbase-libglvnd.patch
 # fix FTBS against libxkbcommon 1.6.0
 Patch59: qtbase-libxkbcommon-1.6.0.patch
 
+# Bug 1954359 - Many emoji don't show up in Qt apps because qt does not handle 'emoji' font family
+Patch60: qtbase-cache-emoji-font.patch
 
 %if 0%{?fedora} < 39
 # Latest QGnomePlatform needs to be specified to be used
@@ -834,6 +836,9 @@ make check -k ||:
 
 
 %changelog
+* Tue Nov 07 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-5
+- Fix Qt not showing up emoji by handling emoji font family
+
 * Mon Nov 06 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-4
 - Upstream backports
   - a11y - fix race condition on atspi startup on Wayland

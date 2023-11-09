@@ -4,7 +4,7 @@
 
 Name:           json
 Version:        3.11.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # The entire source is MIT except
 # include/nlohmann/thirdparty/hedley/hedley.hpp, which is CC0-1.0
@@ -13,6 +13,11 @@ Summary:        JSON for Modern C++
 URL:            https://github.com/nlohmann/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/nlohmann/json_test_data/archive/v%{test_data_version}/json_test_data-%{test_data_version}.tar.gz
+
+# https://github.com/nlohmann/json/issues/3927
+Patch:          0001-tests-unit-iterators2-use-std-ranges-equals-for-range-comparisons-3950.patch
+# https://github.com/nlohmann/json/pull/3895
+Patch:          0002-custom-allocators-define-missing-rebind-type-3895.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -39,11 +44,6 @@ applications that use %{name}.
 %prep
 %autosetup -p1
 %setup -q -D -T -a1
-
-# Some tests are broken under GCC 13: https://github.com/nlohmann/json/issues/3927
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
-rm -f tests/src/unit-{allocator,iterators2,regression2}.cpp
-%endif
 
 # Unbundle doctest. Used only in tests.
 ln -svf %{_includedir}/doctest/doctest.h ./tests/thirdparty/doctest/doctest.h
@@ -76,6 +76,9 @@ ln -svf %{_includedir}/doctest/doctest.h ./tests/thirdparty/doctest/doctest.h
 %{_datadir}/pkgconfig/nlohmann_json.pc
 
 %changelog
+* Mon Oct 09 2023 Carl George <carlwgeorge@fedoraproject.org> - 3.11.2-4
+- Add patches to fix test failures under GCC 13
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

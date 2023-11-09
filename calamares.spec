@@ -10,7 +10,7 @@
 
 Name:           calamares
 Version:        3.2.62
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPLv3+
@@ -107,7 +107,7 @@ BuildRequires:  boost-devel >= 1.55.0
 %global __python %{__python3}
 
 # Other libraries
-BuildRequires:  appstream-qt-devel
+BuildRequires:  appstream0.16-qt-devel
 BuildRequires:  libpwquality-devel
 BuildRequires:  libxcrypt-devel
 BuildRequires:  parted-devel
@@ -363,6 +363,9 @@ EOF
 
 
 %changelog
+* Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-5
+- Switch to appstream0.16-qt
+
 * Mon Sep 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-4
 - Add a patch to fix keyboard layout detection
 

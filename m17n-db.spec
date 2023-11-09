@@ -1,6 +1,6 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
-Version:    1.8.4
+Version:    1.8.5
 Release:    1%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
@@ -116,6 +116,12 @@ rm %{buildroot}%{_datadir}/m17n/ispell.mim
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Tue Nov 07 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.5-1
+- Update to 1.8.5
+- new-newa-traditional-extended: New input method by Swornim Nakarmi <svarnim.nakahmi1.618@gmail.com>
+- ml-pn-c: New input method for Malayalam by Ajith R <ajithramayyan at yahoo dot co dot in>
+- en-pn-eqf: This is a slightly modified version of the QWERTY English layout to be used along with the ml-pn-c input method
+
 * Mon Sep 25 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.4-1
 - Update to 1.8.4
 - New input methods from https://github.com/indic-transliteration/m17n-db-indic "विश्वासो वासुकिजः (Vishvas Vasuki)"

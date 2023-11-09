@@ -1,5 +1,5 @@
 %global git 0
-%global commit 59e8b9370f33a16363f4d24487aade1e30427652
+%global commit ce756540e8615b6f7c1c1242695172b502834b19
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20220623.4^%{shortcommit}
+Version:        20230802.1^%{shortcommit}
 %else
-Version:        20220623.4
+Version:        20230802.1
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -25,7 +25,7 @@ Version:        20220623.4
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -37,7 +37,7 @@ Source0:        https://github.com/lammps/lammps/archive/%{uversion}.tar.gz#/%{n
 Source1:        https://github.com/google/googletest/archive/release-1.12.1.tar.gz#/googletest-1.12.1.tar.gz
 Source2:        https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
 Source3:        https://download.lammps.org/thirdparty/opencl-loader-2022.01.04.tar.gz
-Patch0:         remove-python-package-install-from-cmake-install.patch
+Source4:        https://github.com/spglib/spglib/archive/refs/tags/v1.11.2.1.tar.gz#/spglib-1.11.2.1.tar.gz
 BuildRequires:  fftw-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-fortran
@@ -209,7 +209,6 @@ cd python
 %else
 %setup -q -n %{name}-%{uversion}
 %endif
-%patch 0 -p1
 
 %build
 %global _vpath_srcdir cmake
@@ -236,6 +235,8 @@ for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   -DGTEST_URL=file://%{S:1} \
   -DYAML_URL=file://%{S:2} \
   -DOPENCL_LOADER_URL=file://%{S:3} \
+  -DSPGLIB_URL=file://%{S:4} \
+  -DDOWNLOAD_POTENTIALS=OFF \
   -DPYTHON_INSTDIR=%{python3_sitelib} \
   -DCMAKE_INSTALL_SYSCONFDIR=/etc \
   -DPKG_GPU=ON -DGPU_API=OpenCL \
@@ -245,8 +246,8 @@ for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   -DPKG_INTEL=OFF \
 %endif
     -DCMAKE_INSTALL_BINDIR=${MPI_BIN:-%{_bindir}} -DCMAKE_INSTALL_LIBDIR=${MPI_LIB:-%{_libdir}} -DLAMMPS_MACHINE="${MPI_SUFFIX#_}" -DLAMMPS_LIB_SUFFIX="${MPI_SUFFIX#_}" -DCMAKE_INSTALL_MANDIR=${MPI_MAN:-%{_mandir}} \
-    ${mpi:+-DBUILD_MPI=ON -DPKG_MPIIO=ON -DCMAKE_EXE_LINKER_FLAGS="%{__global_ldflags} -Wl,-rpath -Wl,${MPI_LIB} -Wl,--enable-new-dtags" -DCMAKE_SHARED_LINKER_FLAGS="%{__global_ldflags} -Wl,-rpath -Wl,${MPI_LIB} -Wl,--enable-new-dtags" $(test "$mpi" != openmpi || echo "-DMPIEXEC_PREFLAGS=--oversubscribe") } \
-    $(test -z "${mpi}" && echo -DBUILD_MPI=OFF -DPKG_MPIIO=OFF -DBUILD_LAMMPS_SHELL=ON -DBUILD_TOOLS=ON)
+    ${mpi:+-DBUILD_MPI=ON -DCMAKE_EXE_LINKER_FLAGS="%{__global_ldflags} -Wl,-rpath -Wl,${MPI_LIB} -Wl,--enable-new-dtags" -DCMAKE_SHARED_LINKER_FLAGS="%{__global_ldflags} -Wl,-rpath -Wl,${MPI_LIB} -Wl,--enable-new-dtags" $(test "$mpi" != openmpi || echo "-DMPIEXEC_PREFLAGS=--oversubscribe") } \
+    $(test -z "${mpi}" && echo -DBUILD_MPI=OFF -DBUILD_LAMMPS_SHELL=ON -DBUILD_TOOLS=ON)
   %cmake_build
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch}
 done
@@ -269,8 +270,12 @@ cd python
 
 %global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\)'
 
+%ifnarch %ix86
+%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|Groups\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|BondStyle:harmonic_restrain\)'
+%endif
+
 %ifarch s390x
-%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|LibraryMPI\|MPILoadBalancing\)'
+%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|LibraryMPI\|MPILoadBalancing\|FileOperations\|Groups\|SetProperty\|AtomicPairStyle:lj_cut_sphere\|AtomicPairStyle:lj_expand_sphere\|BondStyle:harmonic_restrain\|TestPairList\)'
 %endif
 
 . /etc/profile.d/modules.sh
@@ -299,6 +304,7 @@ done
 %{_bindir}/chain.x
 %{_bindir}/micelle2d.x
 %{_bindir}/stl_bin2txt
+%{_bindir}/phana
 
 %files devel
 %{_libdir}/liblammps.so
@@ -358,6 +364,14 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sun Nov 5 2023 Richard Berger <richard.berger@outlook.com> - 20230802.1-1
+- Version bump to 20230802.1
+- Disable potentials download during CMake (DOWNLOAD_POTENTIALS=OFF)
+- Disable deprecated MPIIO package
+- Remove CMake patch
+- Add missing spglib to sources
+- Disable some more tests on non-x86
+
 * Wed Jul 26 2023 Christoph Junghans <junghans@votca.org>
 - Re-enable serial lammps on ix86
 

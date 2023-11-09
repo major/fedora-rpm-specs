@@ -1,5 +1,5 @@
 Name: libdatovka
-Version: 0.4.0
+Version: 0.5.0
 Release: 1%{?dist}
 Summary: Client library for accessing SOAP services of ISDS (Czech Data Boxes)
 
@@ -25,6 +25,8 @@ BuildRequires: gnutls-devel
 # partial fix for the https://gitlab.nic.cz/datovka/libdatovka/-/issues/17
 # --disable-fatalwarnings can be dropped once correctly fixed upstream
 Patch0: libdatovka-0.2.1-gcc-12-build-fix.patch
+# https://gitlab.nic.cz/datovka/datovka/-/issues/640
+Patch1: libdatovka-0.5.0-test-drop-isds_load_erased_messages.patch
 
 %description
 Client library for accessing SOAP services of ISDS (Informační systém
@@ -87,6 +89,10 @@ make check %{?_smp_mflags}
 %doc client
 
 %changelog
+* Tue Nov  7 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.0-1
+- New version
+  Resolves: rhbz#2248448
+
 * Tue Sep  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.0-1
 - New version
   Resolves: rhbz#2237212

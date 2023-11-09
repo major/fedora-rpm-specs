@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	105%{?dist}
+Release:	106%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -548,6 +548,11 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Mon Nov 6 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-106
+- util: grub-install on EFI if forced
+- Resolves: #1917213
+- Resolves: #2240994
+
 * Fri Oct 20 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-105
 - kern/ieee1275/init: ppc64: Restrict high memory in presence
   of fadump

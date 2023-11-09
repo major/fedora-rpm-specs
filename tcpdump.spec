@@ -4,7 +4,7 @@ Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
 Requires(pre): shadow-utils
@@ -21,6 +21,8 @@ Patch0002:      0002-Use-getnameinfo-instead-of-gethostbyaddr.patch
 Patch0003:      0003-Drop-root-priviledges-before-opening-first-savefile-.patch
 Patch0007:      0007-Introduce-nn-option.patch
 Patch0009:      0009-Change-n-flag-to-nn-in-TESTonce.patch
+Patch0010:      0010-pgm-fix-the-way-we-step-through-the-packet.patch
+Patch0011:      0011-pgm-don-t-advance-bp-by-the-option-haeder-length-twi.patch
 
 %description
 Tcpdump is a command-line tool for monitoring network traffic.
@@ -82,6 +84,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Thu Nov 02 2023 Pavol Žáčik <pzacik@redhat.com> - 14:4.99.4-4
+- Fix PGM option printing
+
 * Mon Aug 21 2023 Michal Ruprich <mruprich@redhat.com> - 14:4.99.4-3
 - Enabling BIG TCP packets in tcpdump
 

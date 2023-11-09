@@ -1,5 +1,5 @@
-%global git_date 20230920
-%global git_commit 570ea89092555c6c289f226bb48c2d8c1f332b0f
+%global git_date 20231107
+%global git_commit 8f49dfada34b1cb09118f19b4a1f7b1edd2ba73f
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -212,6 +212,10 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Tue Nov 07 2023 Clemens Lang <cllang@redhat.com> - 20231107-1.git8f49dfa
+- turn ssh_etm into an etm@SSH tri-state
+- fips-mode-setup: increase chroot-friendliness (rhbz#2164847)
+
 * Wed Sep 20 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230920-1.git570ea89
 - OSPP subpolicy: tighten beyond reason for OSPP 4.3
 - fips-mode-setup: more thorough --disable, still unsupported

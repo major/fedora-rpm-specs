@@ -4,8 +4,7 @@
 
 # https://github.com/apache/thrift
 %global goipath         github.com/apache/thrift
-Version:                0.14.1
-%global tag             0.14.1
+Version:                0.19.0
 
 %gometa
 
@@ -23,10 +22,10 @@ stack to build interoperable RPC clients and servers.}
 %global godocs          lib/go/README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Thrift Go Software Library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -55,6 +54,11 @@ rm -rf lib/go/test
 %gopkgfiles
 
 %changelog
+* Thu Oct 05 2023 W. Michael Petullo <mike@flyn.org> - 0.19.0-1
+- Update to 0.19.0.
+- Use SPDX license nomenclature
+- Remove tag, which is not used in this release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

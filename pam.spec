@@ -4,7 +4,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -54,6 +54,7 @@ BuildRequires: libtirpc-devel
 BuildRequires: libtool
 BuildRequires: libxcrypt-devel
 BuildRequires: make
+BuildRequires: openssl-devel
 BuildRequires: perl-interpreter
 BuildRequires: pkgconfig
 BuildRequires: sed
@@ -357,6 +358,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Tue Nov  7 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.3-7
+- Include openssl-devel build dependency
+
 * Fri Nov  3 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.3-6
 - Drop explicit dependencies (#2247250)
 

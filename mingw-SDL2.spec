@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL2
-Version:        2.28.4
+Version:        2.28.5
 Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL2 cross-platform multimedia library
 
@@ -131,6 +131,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/licenses
 
 
 %changelog
+* Tue Nov 07 2023 Sandro Mani <manisandro@gmail.com> - 2.28.5-1
+- Update to 2.28.5
+
 * Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 2.28.4-1
 - Update to 2.28.4
 

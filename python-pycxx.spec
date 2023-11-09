@@ -12,8 +12,8 @@
 %endif
 
 Name:           python-%{modname}
-Version:        7.1.8
-Release:        4%{?dist}
+Version:        7.1.10
+Release:        1%{?dist}
 Summary:        Write Python extensions in C++
 
 License:        BSD
@@ -131,6 +131,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Tue Nov 07 2023 Barry A. Scott <barry@barrys-emacs.org> - 7.1.10-1
+- python 3.13a1 support
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

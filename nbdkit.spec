@@ -60,8 +60,8 @@ ExclusiveArch:  x86_64
 %global source_directory 1.37-development
 
 Name:           nbdkit
-Version:        1.37.1
-Release:        2%{?dist}
+Version:        1.37.2
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -587,6 +587,8 @@ nbdkit-qcow2dec-filter     Decode qcow2 files.
 nbdkit-rate-filter         Limit bandwidth by connection or server.
 
 nbdkit-readahead-filter    Prefetch data when reading sequentially.
+
+nbdkit-readonly-filter     Switch a plugin between read-only and writable.
 
 nbdkit-retry-filter        Reopen connection on error.
 
@@ -1182,6 +1184,7 @@ fi
 %endif
 %{_libdir}/%{name}/filters/nbdkit-rate-filter.so
 %{_libdir}/%{name}/filters/nbdkit-readahead-filter.so
+%{_libdir}/%{name}/filters/nbdkit-readonly-filter.so
 %{_libdir}/%{name}/filters/nbdkit-retry-filter.so
 %{_libdir}/%{name}/filters/nbdkit-retry-request-filter.so
 %{_libdir}/%{name}/filters/nbdkit-scan-filter.so
@@ -1222,6 +1225,7 @@ fi
 %endif
 %{_mandir}/man1/nbdkit-rate-filter.1*
 %{_mandir}/man1/nbdkit-readahead-filter.1*
+%{_mandir}/man1/nbdkit-readonly-filter.1*
 %{_mandir}/man1/nbdkit-retry-filter.1*
 %{_mandir}/man1/nbdkit-retry-request-filter.1*
 %{_mandir}/man1/nbdkit-scan-filter.1*
@@ -1322,6 +1326,10 @@ fi
 
 
 %changelog
+* Tue Nov 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.2-1
+- New upstream development version 1.37.2
+- New nbdkit-readonly-filter.
+
 * Wed Nov 01 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.1-2
 - Add experimental SELinux support (RHEL-5174)
 

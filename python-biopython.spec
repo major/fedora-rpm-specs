@@ -13,13 +13,14 @@ Patch1:           %{name}-fix_compatibility_with_reportlab4.patch
 # Starting from biopython-1.69, BioPython is released under the
 # "Biopython License Agreement"; it looks like a MIT variant
 # rhbz #1440337
-License:          MIT and BSD
+License:          MIT AND BSD-3-Clause
 URL:              https://biopython.org/
 BuildRequires:    gcc
 
 %description
 A set of freely available Python tools for computational molecular
 biology.
+
 
 %package -n python3-%{module}
 Summary: Python3 tools for computational molecular biology
@@ -48,9 +49,11 @@ Requires:         python3dist(rdflib)
 A set of freely available Python3 tools for computational molecular
 biology.
 
+
 %package doc
 Summary: PDF and HTML documentation of %{module}
 BuildArch: noarch
+
 %description doc
 PDF/HTML documentation of %{module}.
 

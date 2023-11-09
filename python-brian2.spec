@@ -2,7 +2,6 @@
 
 # Do not build docs, bundle JS etc.
 # Point to upstream docs instead
-%bcond_with docs
 
 %global desc %{expand: \
 Brian2 is a simulator for spiking neural networks available on almost all
@@ -21,7 +20,7 @@ list (http://groups.google.com/group/briansupport/)
 Documentation for Brian2 can be found at http://brian2.readthedocs.org}
 
 Name:           python-brian2
-Version:        2.5.1
+Version:        2.5.4
 Release:        %autorelease
 Summary:        A clock-driven simulator for spiking neural networks
 
@@ -29,7 +28,10 @@ Summary:        A clock-driven simulator for spiking neural networks
 License:        CECILL-2.0
 URL:            https://briansimulator.org
 Source0:        %pypi_source Brian2
-Patch0:         0001-Brian2-2.2-remove-crosscompiling.patch
+# update pyproject to discover all packages, otherwise it only includes the top
+# level brian2 package
+# https://github.com/brian-team/brian2/pull/1492
+Patch:          pyproject.patch
 
 BuildRequires:  gcc-c++ gcc
 BuildRequires:  gsl-devel
@@ -40,10 +42,8 @@ BuildRequires:  gsl-devel
 %package -n python3-brian2
 Summary:        %{summary}
 BuildRequires:  python3-devel
-
-%if %{with docs}
-BuildRequires:  %{py3_dist sphinx}
-%endif
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-setuptools_scm
 
 Suggests:       %{py3_dist ipython}
 %py_provides python3-brian2
@@ -62,6 +62,10 @@ Documentation and examples for %{name}.
 %prep
 %autosetup -n Brian2-%{version}
 
+sed -i -e '/oldest-supported-numpy/ d' \
+    pyproject.toml
+
+
 # Remove unnecessary files
 find . -name ".gitignore" -print -delete
 rm -rvf Brian2.egg-info
@@ -71,20 +75,18 @@ rm -f brian2/synapses/cythonspikequeue.cpp
 find examples -name "*.py" -print -exec sed -i 's|^#!/usr/bin/env python|#!/usr/bin/python3|' '{}' \;
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires -r %{?with_tests:-x test}
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
-%if %{with docs}
-# Build documentation
-PYTHONPATH=.
-sphinx-build-3 docs_sphinx html
-%endif
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
-%pyproject_save_files brian2
+%pyproject_save_files "brian2*"
 
 %check
 %pyproject_check_import -e brian2.hears -t
@@ -108,9 +110,6 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitearch}/brian2/{tests,}/.pytest_cache/
 %files doc
 %license LICENSE
 %doc examples
-%if %{with docs}
-%doc html
-%endif
 
 %changelog
 %autochangelog

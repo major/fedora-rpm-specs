@@ -1,6 +1,6 @@
 Name:           prrte
 Version:        3.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PMIx Reference RunTime Environment (PRRTE)
 License:        BSD
 URL:            https://github.com/openpmix/%{name}
@@ -14,7 +14,6 @@ BuildRequires:  libevent-devel
 BuildRequires:  pmix-devel >= 4.2.2
 # For pmixcc - https://bugzilla.redhat.com/show_bug.cgi?id=2078048
 BuildRequires:  pmix-tools
-BuildRequires:  pandoc
 BuildRequires:  perl-interpreter
 BuildRequires:  torque-devel
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -110,6 +109,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Tue Nov 07 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.2-2
+- Drop obsolete pandoc dependency
+
 * Fri Oct 27 2023 Orion Poplawski <orion@nwra.com> - 3.0.2-1
 - Update to 3.0.2
 

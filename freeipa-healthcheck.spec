@@ -16,7 +16,7 @@
 %bcond_without tests
 
 Name:           %{prefix}-healthcheck
-Version:        0.14
+Version:        0.15
 Release:        1%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
@@ -26,7 +26,6 @@ Source0:        https://github.com/freeipa/freeipa-healthcheck/archive/%{version
 Source1:        ipahealthcheck.conf
 
 Patch0001:      0001-Remove-ipaclustercheck.patch
-Patch0002:      0002-Disable-two-failing-tests.patch
 
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{prefix}-server
@@ -156,6 +155,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Tue Nov  7 2023 Rob Crittenden <rcritten@redhat.com> - 0.15-1
+- Update to 0.15 release
+
 * Mon Aug 21 2023 Rob Crittenden <rcritten@redhat.com> - 0.14-1
 - Update to 0.14 release
 

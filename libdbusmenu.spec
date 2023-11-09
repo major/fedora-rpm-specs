@@ -16,7 +16,7 @@
 
 Name:       libdbusmenu
 Version:    %{ubuntu_release}.0
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    Library for passing menus over DBus
 
 # All files installed in final rpms use C sources with dual licensing headers.
@@ -70,7 +70,6 @@ makes building menus simple.
 %package devel
 Summary:    %{summary} - Development files
 Requires:   %{name}%{?_isa} = %{version}-%{release}
-Requires:   dbus-glib-devel
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -98,7 +97,6 @@ Summary:    Development files for %{name}-gtk2
 Requires:   %{name}-gtk2%{?_isa} = %{version}-%{release}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   gtk2-devel
-Requires:   dbus-glib-devel
 
 %description gtk2-devel
 The %{name}-gtk2-devel package contains libraries and header files for
@@ -110,7 +108,6 @@ Summary:    Development files for %{name}-gtk3
 Requires:   %{name}-gtk3%{?_isa} = %{version}-%{release}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   gtk3-devel
-Requires:   dbus-glib-devel
 
 %description gtk3-devel
 The %{name}-gtk3-devel package contains libraries and header files for
@@ -284,6 +281,9 @@ done
 %{_datadir}/%{name}/json/test-gtk-label.json
 
 %changelog
+* Mon Nov 06 2023 Tomas Popela <tpopela@redhat.com> - 16.04.0-25
+- Drop the requirements on dbus-glib as the project was migrated to GDBus
+
 * Thu Nov 02 2023 Tomas Popela <tpopela@redhat.com> - 16.04.0-24
 - Build require GTK+ 2 conditionally (follow up fix for previous change)
 

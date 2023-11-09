@@ -19,9 +19,9 @@ Patch:          21367.patch
 # https://github.com/spyder-ide/spyder/pull/21372 (backported)
 Patch:          21372.patch
 
-# Bump python-lsp-server upper bound to <1.9.0
-# https://github.com/spyder-ide/spyder/pull/21335 (backported)
-Patch:          21335.patch
+# Bump python-lsp-server upper bound to <=1.9.0
+# https://github.com/spyder-ide/spyder/pull/21501 (backported)
+Patch:          21501.patch
 
 # Remove upper bound from spyder-kernels
 # We are a little out of sync with spyder-kernels

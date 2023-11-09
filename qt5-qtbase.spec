@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -138,6 +138,9 @@ Patch61: qtbase-5.15.10-work-around-pyside2-brokenness.patch
 
 # fix build against libxkbcommon 1.6.0
 Patch62: qtbase-libxkbcommon-1.6.0.patch
+
+# Bug 1954359 - Many emoji don't show up in Qt apps because qt does not handle 'emoji' font family
+Patch63: qtbase-cache-emoji-font.patch
 
 # gcc-11
 Patch90: %{name}-gcc11.patch
@@ -457,6 +460,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %endif
 %patch -P61 -p1
 %patch -P62 -p1 -b .libxkbcommon-1.6.0
+%patch -P63 -p1 -b .cache-emoji-font
 
 %patch -P90 -p1 -b .gcc11
 
@@ -1171,6 +1175,9 @@ fi
 
 
 %changelog
+* Tue Nov 07 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-4
+- Fix Qt not showing up emoji by handling emoji font family
+
 * Mon Oct 16 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-3
 - Fix build against libxkbcommon 1.6.0
 

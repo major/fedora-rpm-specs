@@ -24,11 +24,16 @@ standalone generator.
 %autosetup -p1
 
 %build
-%qmake_qt5 PREFIX=%{_prefix} QtIdenticon.pro
+%qmake_qt5 QtIdenticon.pro
 %make_build
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
+
+%if 0%{?flatpak}
+# qtbase is part of runtime in /usr, this is built in /app
+mv %{buildroot}/usr %{buildroot}/app
+%endif
 
 %files
 %doc README.md

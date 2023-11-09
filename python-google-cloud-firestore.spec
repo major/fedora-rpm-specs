@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-firestore
 %global         forgeurl    https://github.com/googleapis/python-firestore
-Version:        2.13.0
+Version:        2.13.1
 %global         tag         v%{version}
 %forgemeta
 

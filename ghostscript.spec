@@ -38,14 +38,14 @@
 # Desired jbig2dec header files and library version
 # Apparantly, ghostscript complains even about newer versions
 # Please update if needed.
-%global jbig2dec_version 0.19
+%global jbig2dec_version 0.20
 
 # =============================================================================
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.02.1
-Release:          1%{?dist}
+Release:          4%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -53,7 +53,7 @@ URL:              https://ghostscript.com/
 Source:           https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs%{version_short}/ghostscript-%{version}.tar.xz
 
 Requires:         libgs%{?_isa} = %{version}-%{release}
-Requires:         jbig2dec-libs >= %{jbig2dec_version}
+Requires:         jbig2dec-libs = %{jbig2dec_version}
 Requires:         %{name}-tools-fonts%{?_isa} = %{version}-%{release}
 Requires:         %{name}-tools-printing%{?_isa} = %{version}-%{release}
 
@@ -105,6 +105,8 @@ BuildRequires:    make
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
+Patch: ghostscript-10.02.1-txtwrite-device-needs-to-countdown-the-device-on-tex.patch
+Patch: ghostscript-10.02.1-PostScript-Fix-selectdevice.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -418,6 +420,15 @@ done
 # =============================================================================
 
 %changelog
+* Tue Nov 07 2023 Michael J Gruber <mjg@fedoraproject.org> - 10.02.1-4
+- fix txtwrite device and /selectdevice
+
+* Tue Nov 07 2023 Michael J Gruber <mjg@fedoraproject.org> - 10.02.1-3
+- revert/adjust spec change for jbig2dec 0.20 and fix FTI (rhbz#2248557)
+
+* Tue Nov 07 2023 Richard Lescak <rlescak@redhat.com> - 10.02.1-2
+- change jbig2dec requirement to >= 0.19
+
 * Mon Nov 06 2023 Richard Lescak <rlescak@redhat.com> - 10.02.1-1
 - rebase to version 10.02.1 (#2238724)
 

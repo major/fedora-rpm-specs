@@ -1,7 +1,7 @@
 %global srcname oss-parent
 
 Name:          fasterxml-oss-parent
-Version:       55
+Version:       56
 Release:       1%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
@@ -53,6 +53,24 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Nov 07 2023 Packit <hello@packit.dev> - 56-1
+- [maven-release-plugin] prepare release oss-parent-56 (Tatu Saloranta)
+- Upgrade `version.plugin.moditect` to 1.1.0 (from 1.0.0-Final) (Tatu Saloranta)
+- Update release notes (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-pmd-plugin from 3.21.0 to 3.21.2 (dependabot[bot])
+- Update release notes (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-clean-plugin from 3.3.1 to 3.3.2 (dependabot[bot])
+- Update release notes wrt 3 plugin updates via dependabot PRs. (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-jxr-plugin from 3.3.0 to 3.3.1 (dependabot[bot])
+- Bump version.plugin.surefire from 3.1.2 to 3.2.1 (dependabot[bot])
+- Bump org.apache.maven.plugins:maven-dependency-plugin (dependabot[bot])
+- update release notes (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-site-plugin (dependabot[bot])
+- Update release notes x (Tatu Saloranta)
+- Bump org.ow2.asm:asm from 9.5 to 9.6 (dependabot[bot])
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Resolves rhbz#2248436
+
 * Tue Sep 26 2023 Packit <hello@packit.dev> - 55-1
 - [maven-release-plugin] prepare release oss-parent-55 (Tatu Saloranta)
 - Prepare for releasing v55 (Tatu Saloranta)

@@ -13,7 +13,7 @@
 %global libver 17
 
 Name:          mingw-%{pkgname}
-Version:       17.0.3
+Version:       17.0.4
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
@@ -257,6 +257,9 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %changelog
+* Tue Nov 07 2023 Sandro Mani <manisandro@gmail.com> - 17.0.4-1
+- Update to 17.0.4
+
 * Thu Oct 19 2023 Sandro Mani <manisandro@gmail.com> - 17.0.3-1
 - Update to 17.0.3
 

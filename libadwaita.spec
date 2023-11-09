@@ -13,13 +13,15 @@ License:        LGPL-2.1-or-later AND MIT
 URL:            https://gitlab.gnome.org/GNOME/libadwaita
 Source0:        https://download.gnome.org/sources/%{name}/1.4/%{name}-%{tarball_version}.tar.xz
 
+# Patches to fix the build with appstream 1.0, backported from upstream
+Patch:          Fix-the-build-with-appstream-1.0.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59.0
-BuildRequires:  sassc
 BuildRequires:  vala
 
 BuildRequires:  pkgconfig(appstream)
@@ -71,7 +73,7 @@ Demo files for %{name}.
 
 
 %prep
-%autosetup -n %{name}-%{tarball_version}
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 
 %build

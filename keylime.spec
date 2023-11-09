@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 7.5.0
+Version: 7.7.0
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 

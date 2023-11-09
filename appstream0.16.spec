@@ -1,7 +1,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream0.16
-Version: 0.16.1
-Release: 5%{?dist}
+Version: 0.16.3
+Release: 2%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -27,7 +27,6 @@ BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(fontconfig)
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gio-2.0)
-BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(librsvg-2.0)
 BuildRequires: pkgconfig(libsystemd)
@@ -56,20 +55,6 @@ Conflicts: appstream-devel
 %description devel
 %{summary}.
 
-%package compose
-Summary: Library for generating AppStream data
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%description compose
-%{summary}.
-
-%package compose-devel
-Summary:  Development files for %{name}-compose library
-Requires: %{name}-compose%{?_isa} = %{version}-%{release}
-Requires: %{name}-devel%{?_isa} = %{version}-%{release}
-Conflicts: appstream-compose-devel
-%description compose-devel
-%{summary}.
-
 %package qt
 Summary: Qt5 bindings for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -91,8 +76,9 @@ Conflicts: appstream-qt-devel
 
 %build
 %{meson} \
- -Dcompose=true \
+ -Dcompose=false \
  -Dqt=true \
+ -Dgir=false \
  -Dvapi=false
 
 %{meson_build}
@@ -132,8 +118,6 @@ appstreamcli refresh --force >& /dev/null ||:
 %files
 %doc AUTHORS
 %license COPYING
-%dir %{_libdir}/girepository-1.0/
-%{_libdir}/girepository-1.0/AppStream-1.0.typelib
 %{_libdir}/libappstream.so.4
 %{_libdir}/libappstream.so.%{version}
 
@@ -142,18 +126,8 @@ appstreamcli refresh --force >& /dev/null ||:
 %{_libdir}/libappstream.so
 %{_libdir}/pkgconfig/appstream.pc
 
-%files compose
-%{_libdir}/libappstream-compose.so.0
-%{_libdir}/libappstream-compose.so.%{version}
-%{_libdir}/girepository-1.0/AppStreamCompose-1.0.typelib
-
-%files compose-devel
-%{_includedir}/appstream-compose/
-%{_libdir}/libappstream-compose.so
-%{_libdir}/pkgconfig/appstream-compose.pc
-
 %files qt
-%{_libdir}/libAppStreamQt.so.2*
+%{_libdir}/libAppStreamQt.so.2
 %{_libdir}/libAppStreamQt.so.%{version}
 
 %files qt-devel
@@ -163,6 +137,13 @@ appstreamcli refresh --force >& /dev/null ||:
 
 
 %changelog
+* Tue Nov 07 2023 Kalev Lember <klember@redhat.com> - 0.16.3-2
+- Drop gobject introspection support from the compat package
+
+* Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.16.3-1
+- Update to 0.16.3
+- Drop -compose subpackages, nobody uses it anymore
+
 * Thu Nov 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.16.1-5
 - Split out as a compatibility package
 - Drop everything potentially conflicting with the main package

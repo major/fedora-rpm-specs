@@ -2,24 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate test-case-macros
+%global crate sval_derive_macros
 
-Name:           rust-test-case-macros2
-Version:        2.2.2
+Name:           rust-sval_derive_macros
+Version:        2.10.2
 Release:        %autorelease
-Summary:        Procedural macro attribute for generating parametrized test cases
+Summary:        Minimal derive support for sval
 
-License:        MIT
-URL:            https://crates.io/crates/test-case-macros
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/sval_derive_macros
 Source:         %{crates_source}
-# https://github.com/frondeus/test-case/issues/117
-Source:         https://github.com/frondeus/test-case/raw/v%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Provides #[test_case(...)] procedural macro attribute for generating
-parametrized test cases easily.}
+Minimal derive support for `sval`.}
 
 %description %{_description}
 
@@ -33,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,22 +47,21 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+with-regex-devel
+%package     -n %{name}+flatten-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+with-regex-devel %{_description}
+%description -n %{name}+flatten-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "with-regex" feature of the "%{crate}" crate.
+use the "flatten" feature of the "%{crate}" crate.
 
-%files       -n %{name}+with-regex-devel
+%files       -n %{name}+flatten-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

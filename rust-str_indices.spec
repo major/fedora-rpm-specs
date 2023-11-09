@@ -5,7 +5,7 @@
 %global crate str_indices
 
 Name:           rust-str_indices
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Count and convert between indexing schemes on string slices
 
@@ -66,8 +66,6 @@ use the "simd" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# See: https://github.com/cessen/str_indices/pull/22
-chmod -x benches/all.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

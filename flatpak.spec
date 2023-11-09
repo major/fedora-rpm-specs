@@ -1,4 +1,4 @@
-%global appstream_version 0.15.3
+%global appstream_version 1.0.0~
 %global bubblewrap_version 0.5.0
 %global glib_version 2.46.0
 %global libcurl_version 7.29.0
@@ -9,7 +9,7 @@
 
 Name:           flatpak
 Version:        1.15.4
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPL-2.1-or-later
@@ -24,6 +24,8 @@ Source1:        flatpak-add-fedora-repos.service
 # systemd-sysusers config. Only used for the %%pre macro. Must be kept in sync
 # with the config from upstream sources.
 Source2:        flatpak.sysusers.conf
+
+Patch0:         flatpak-appstream-regressions-and-1.0-API.patch
 
 BuildRequires:  pkgconfig(appstream) >= %{appstream_version}
 BuildRequires:  pkgconfig(dconf)
@@ -277,6 +279,13 @@ fi
 
 
 %changelog
+* Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.15.4-5
+- Fix appstream_version macro for prerelease appstream 1.0 package
+
+* Tue Nov 07 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.15.4-4
+- Adjust to Appstream 1.0 API changes
+- Fix Appstream regression in 'remote-info'
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

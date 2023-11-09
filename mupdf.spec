@@ -1,10 +1,10 @@
 # Desired jbig2dec header files and library version
 # Apparantly, jbig2dec complains even about newer versions.
 # Please update if needed.
-%global jbig2dec_version 0.19
+%global jbig2dec_version 0.20
 
 Name:           mupdf
-Version:        1.23.3
+Version:        1.23.5
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
 Release:        %autorelease

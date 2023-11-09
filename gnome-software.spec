@@ -1,4 +1,4 @@
-%global appstream_version 0.14.0
+%global appstream_version 1.0.0~
 %global flatpak_version 1.9.1
 %global fwupd_version 1.5.6
 %global glib2_version 2.70.0
@@ -24,12 +24,15 @@
 
 Name:      gnome-software
 Version:   45.1
-Release:   1%{?dist}
+Release:   3%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://wiki.gnome.org/Apps/Software
 Source0:   https://download.gnome.org/sources/gnome-software/45/%{name}-%{tarball_version}.tar.xz
+
+# https://gitlab.gnome.org/GNOME/gnome-software/-/merge_requests/1810
+Patch:     0001-port-to-appstream1.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: desktop-file-utils
@@ -246,6 +249,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 45.1-3
+- Fix appstream_version macro for prerelease appstream 1.0 package
+
+* Tue Nov 07 2023 Milan Crha <mcrha@redhat.com> - 45.1-2
+- Add patch to build with appstream 1.0
+
 * Fri Oct 20 2023 Milan Crha <mcrha@redhat.com> - 45.1-1
 - Update to 45.1
 

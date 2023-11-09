@@ -2,10 +2,10 @@
 
 Name:		usb_modeswitch
 Version:	2.6.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	USB Modeswitch gets mobile broadband cards in operational mode
 Summary(de):	USB Modeswitch aktiviert UMTS-Karten
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://www.draisberghof.de/usb_modeswitch/
 
 Source0:	http://www.draisberghof.de/%{name}/%{source_name}-%{version}.tar.bz2
@@ -71,6 +71,9 @@ mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 
 
 %changelog
+* Thu Nov  2 2023 Íñigo Huguet <ihuguet@redhat.com> - 2.6.1-9
+- Really use SPDX license specifier
+
 * Thu Aug 24 2023 Till Maas <opensource@till.name> - 2.6.1-8
 - Cleanup spec: use %%license, use %%patch 0
 - Use spdx license specifier

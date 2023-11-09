@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-180-gdd32e1db38
+%global glibcsrcdir glibc-2.38.9000-234-g5dd3bda59c
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 17
+%global baserelease 18
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -231,6 +231,8 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2244688.patch
+Patch25: glibc-rh2248502-1.patch
+Patch26: glibc-rh2248502-2.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -1871,7 +1873,7 @@ run_tests () {
   # were built and run.
   %make_build check |& tee rpmbuild.check.log >&2
   test -n tests.sum
-  if ! grep -q '^Summary of test results:$' rpmbuild.check.log ; then
+  if ! grep -Eq '^\s+=== Summary of results ===$' rpmbuild.check.log ; then
     echo "FAIL: test suite build of target: $(basename "$(pwd)")" >& 2
     exit 1
   fi
@@ -2201,6 +2203,60 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Nov 07 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-18
+- Revert back to old qsort/qsort_r implementation (#2248502)
+- Adjust test build completion check to match new DejaGnu-style message.
+- Auto-sync with upstream branch master,
+  commit 5dd3bda59c2d9da138f0d98808d087cdb95cdc17:
+- sysdeps: sem_open: Clear O_CREAT when semaphore file is expected to exist [BZ #30789]
+- Add SEGV_CPERR from Linux 6.6 to bits/siginfo-consts.h
+- linux: Sync Linux 6.6 elf.h
+- linux: Add HWCAP2_HBC from Linux 6.6 to AArch64 bits/hwcap.h
+- linux: Add FSCONFIG_CMD_CREATE_EXCL from Linux 6.6 to sys/mount.h
+- linux: Add MMAP_ABOVE4G from Linux 6.6 to sys/mman.h
+- Update kernel version to 6.6 in header constant tests
+- Update syscall lists for Linux 6.6
+- Format test results closer to what DejaGnu does
+- AArch64: Cleanup ifuncs
+- Use correct subdir when building tst-rfc3484* for mach and arm
+- stdlib: Add more qsort{_r} coverage
+- stdlib: qsort: Move some macros to inline function
+- stdlib: Move insertion sort out qsort
+- stdlib: Optimization qsort{_r} swap implementation
+- string: Add internal memswap implementation
+- crypt: Remove manul entry for --enable-crypt
+- Use Linux 6.6 in build-many-glibcs.py
+- crypt: Remove libcrypt support
+- sparc: Remove optimize md5, sha256, and sha512
+- build-many-glibcs: Fix traililing whitespace
+- AArch64: Add support for MOPS memcpy/memmove/memset
+- Move getnameinfo from 'inet' to 'nss'
+- Move getaddrinfo from 'posix' into 'nss'
+- Move 'services' routines from 'inet' into 'nss'
+- Move 'rpc' routines from 'inet' into 'nss'
+- Move 'protocols' routines from 'inet' into 'nss'
+- Move 'networks' routines from 'inet' into 'nss'
+- Move 'netgroup' routines from 'inet' into 'nss'
+- Move 'hosts' routines from 'inet' into 'nss'
+- Move 'ethers' routines from 'inet' into 'nss'
+- Move 'aliases' routines from 'inet' into 'nss'
+- Remove 'shadow' and merge into 'nss'
+- Remove 'pwd' and merge into 'nss'
+- Remove 'gshadow' and merge into 'nss'
+- Remove 'grp' and merge into 'nss' and 'posix'
+- malloc: Fix tst-tcfree3 build csky-linux-gnuabiv2 with fortify source
+- test-container: disable ld.so system cache on DSO detection
+- aarch64: Add vector implementations of exp10 routines
+- aarch64: Add vector implementations of log10 routines
+- aarch64: Add vector implementations of log2 routines
+- aarch64: Add vector implementations of exp2 routines
+- aarch64: Add vector implementations of tan routines
+- elf: ldconfig should skip temporary files created by package managers
+- tst-spawn-cgroup.c: Fix argument order of UNSUPPORTED message.
+- Add NT_PPC_DEXCR and NT_PPC_HASHKEYR from Linux 6.5 to elf.h
+- s390: Fix undefined behaviour in feenableexcept, fedisableexcept [BZ #30960]
+- elf: Do not print the cache entry if --inhibit-cache is used
+
 * Thu Oct 26 2023 Carlos O'Donell <carlos@redhat.com> - 2.38.9000-17
 - Revert "Fix force-first handling in dlclose" (#2246048)
 

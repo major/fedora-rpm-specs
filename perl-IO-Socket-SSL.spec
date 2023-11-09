@@ -7,14 +7,14 @@
 %endif
 
 Name:		perl-IO-Socket-SSL
-Version:	2.083
-Release:	3%{?dist}
+Version:	2.084
+Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-SSL-%{version}.tar.gz
-Patch0:		IO-Socket-SSL-2.082-use-system-default-cipher-list.patch
-Patch1:		IO-Socket-SSL-2.082-use-system-default-SSL-version.patch
+Patch0:		IO-Socket-SSL-2.084-use-system-default-cipher-list.patch
+Patch1:		IO-Socket-SSL-2.084-use-system-default-SSL-version.patch
 # A test for Enable-Post-Handshake-Authentication-TLSv1.3-feature.patch,
 # bug #1632660, requires openssl tool
 Patch2:		IO-Socket-SSL-2.080-Test-client-performs-Post-Handshake-Authentication.patch
@@ -126,6 +126,12 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Tue Nov  7 2023 Paul Howarth <paul@city-fan.org> - 2.084-1
+- Update to 2.084
+  - Various fixes for edge cases and build: GH#136, GH#141, GH#142, GH#143,
+    GH#145
+  - Update documentation to reflect default SSL_version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.083-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

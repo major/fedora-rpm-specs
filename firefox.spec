@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        119.0
-Release:        4%{?pre_tag}%{?dist}
+Release:        5%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -248,8 +248,9 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
-Patch409:        D192061.1698487416.diff
-Patch410:        mozilla-1762816.patch
+Patch409:        D192061.1699444912.diff
+Patch410:        D192208.1699444906.diff
+Patch411:        mozilla-1762816.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -542,7 +543,8 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .D167159
 %patch409 -p1 -b .D192061
-%patch410 -p1 -b .mozilla-1762816
+%patch410 -p1 -b .D192208
+%patch411 -p1 -b .mozilla-1762816
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1151,7 +1153,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
-* Mon Nov 06 2023 Martin Stransky <stransky@redhat.com>- 119.0-3
+* Tue Nov 07 2023 Martin Stransky <stransky@redhat.com>- 119.0-5
+- Added fix for rhbz#2247665
+
+* Mon Nov 06 2023 Martin Stransky <stransky@redhat.com>- 119.0-4
 - Added fix for mzbz#1762816
 
 * Mon Oct 30 2023 Jan Horak <jhorak@redhat.com> - 119.0-3

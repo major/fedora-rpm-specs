@@ -3,7 +3,7 @@
 
 Name:       openocd
 Version:    0.12.0
-Release:    2%{?rcVer:.rc%{rcVer}}%{?dist}.1
+Release:    3%{?rcVer:.rc%{rcVer}}%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -15,7 +15,8 @@ BuildRequires: chrpath
 BuildRequires: gcc
 BuildRequires: hidapi-devel
 BuildRequires: jimtcl-devel
-BuildRequires: libgpiod-devel
+# Only used for gpio bitbang driver
+# BuildRequires: libgpiod-devel
 BuildRequires: libjaylink-devel
 BuildRequires: libftdi-devel
 BuildRequires: libusbx-devel
@@ -80,7 +81,6 @@ popd
   --enable-oocd_trace \
   --enable-buspirate \
   --enable-sysfsgpio \
-  --enable-linuxgpiod \
   --enable-esp-usb-jtag \
   --enable-xlnx-pcie-xvc \
   --enable-remote-bitbang \
@@ -111,6 +111,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Tue Nov 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.12.0-3
+- Disable GPIO bitbanging driver
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

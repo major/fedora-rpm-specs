@@ -1,5 +1,3 @@
-# Perform optional tests
-%{bcond_without perl_Prima_enables_optional_test}
 # Run X11 tests
 %{bcond_without perl_Prima_enables_x11_test}
 # Support bidirectional text with FriBidi library
@@ -35,7 +33,7 @@
 
 
 Name:           perl-Prima
-Version:        1.70
+Version:        1.71
 Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
@@ -147,7 +145,6 @@ BuildRequires:  perl(Compress::Raw::Zlib)
 # Tests:
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Socket::INET)
-BuildRequires:  perl(open)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
@@ -157,10 +154,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  font(:lang=en)
 # Tests exhibit a proportional font
 BuildRequires:  liberation-sans-fonts
-%endif
-%if %{with perl_Prima_enables_optional_test}
-# Optional tests:
-BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 Recommends:     perl(Compress::Raw::Zlib)
 Suggests:       gv
@@ -222,10 +215,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n Prima-%{version}
-%if !%{with perl_Prima_enables_optional_test}
-rm t/misc/pod.t
-perl -i -ne 'print $_ unless m{\A\Qt/misc/pod.t\E}' MANIFEST
-%endif
 # Normalize end-of-lines
 find -type f \( -name '*.pm' -o -name '*.pl' -o -name '*.PL' -o -name '*.t' \
      -o -name Changes -o -name README.md \) -exec perl -i -pe 's/\r\n/\n/' {} +
@@ -261,9 +250,7 @@ find %{buildroot}/%{_mandir} -type f -size 0 -delete
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 rm %{buildroot}%{_libexecdir}/%{name}/t/misc/syntax.t
-%if %{with perl_Prima_enables_optional_test}
-rm %{buildroot}%{_libexecdir}/%{name}/t/misc/pod.t
-%endif
+find %{buildroot}%{_libexecdir}/%{name}/t -name '*.xt' -delete
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -335,6 +322,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 07 2023 Petr Pisar <ppisar@redhat.com> - 1.71-1
+- 1.71 bump
+
 * Wed Sep 06 2023 Petr Pisar <ppisar@redhat.com> - 1.70-1
 - 1.70 bump
 

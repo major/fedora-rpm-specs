@@ -11,12 +11,13 @@
 
 Name:		slapi-nis
 Version:	0.60.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	NIS Server and Schema Compatibility plugins for Directory Server
 License:	GPL-3.0-or-later
 URL:		http://pagure.io/slapi-nis/
 Source0:	https://releases.pagure.org/slapi-nis/slapi-nis-%{version}.tar.gz
 Source1:	https://releases.pagure.org/slapi-nis/slapi-nis-%{version}.tar.gz.asc
+Patch0:		slapi-nis-deadlocks.patch
 
 BuildRequires: make
 BuildRequires:  autoconf
@@ -56,6 +57,7 @@ for attributes from multiple entries in the tree.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 autoconf --force
@@ -83,6 +85,10 @@ make check
 %{_sbindir}/nisserver-plugin-defs
 
 %changelog
+* Tue Nov 07 2023 Alexander Bokovoy <abokovoy@redhat.com> - 0.60.0-4
+- Ignore updates from non-tracked subtrees during modify/modrdn/update
+  to avoid deadlocks with retro changelog
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

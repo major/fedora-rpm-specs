@@ -4,7 +4,7 @@
 
 %global bash_completion %{_datadir}/bash-completion/completions/*
 
-%if 0%{?rhel} && ( 0%{?rhel} <= 7 || 0%{?rhel} >= 9 )
+%if ( 0%{?rhel} && ( 0%{?rhel} <= 7 || 0%{?rhel} >= 9 ) ) || ( 0%{?fedora} && 0%{?fedora} >= 39 )
 %bcond_with drpm
 %else
 %bcond_without drpm
@@ -18,11 +18,8 @@
 
 %if 0%{?rhel} && 0%{?rhel} < 7
 %bcond_with libmodulemd
-# dnf supports zstd since 8.4: https://bugzilla.redhat.com/show_bug.cgi?id=1914876
-%bcond_with zstd
 %else
 %bcond_without libmodulemd
-%bcond_without zstd
 %endif
 
 %if 0%{?rhel} && 0%{?rhel} <= 8
@@ -31,10 +28,12 @@
 %bcond_with legacy_hashes
 %endif
 
+%bcond_with sanitizers
+
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -43,7 +42,6 @@ BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  bzip2-devel
 BuildRequires:  doxygen
-BuildRequires:  file-devel
 BuildRequires:  glib2-devel >= 2.22.0
 BuildRequires:  libcurl-devel
 BuildRequires:  libxml2-devel
@@ -73,8 +71,13 @@ Requires: rpm >= 4.9.0
 %if %{with drpm}
 BuildRequires:  drpm-devel >= 0.4.0
 %endif
-%if %{with zstd}
+# dnf supports zstd since 8.4: https://bugzilla.redhat.com/show_bug.cgi?id=1914876
 BuildRequires:  pkgconfig(libzstd)
+
+%if %{with sanitizers}
+BuildRequires:  libasan
+BuildRequires:  liblsan
+BuildRequires:  libubsan
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -126,8 +129,8 @@ pushd build-py3
       -DWITH_ZCHUNK=%{?with_zchunk:ON}%{!?with_zchunk:OFF} \
       -DWITH_LIBMODULEMD=%{?with_libmodulemd:ON}%{!?with_libmodulemd:OFF} \
       -DWITH_LEGACY_HASHES=%{?with_legacy_hashes:ON}%{!?with_legacy_hashes:OFF} \
-      -DWITH_ZSTD=%{?with_zstd:ON}%{!?with_zstd:OFF} \
-      -DENABLE_DRPM=%{?with_drpm:ON}%{!?with_drpm:OFF}
+      -DENABLE_DRPM=%{?with_drpm:ON}%{!?with_drpm:OFF} \
+      -DWITH_SANITIZERS=%{?with_sanitizers:ON}%{!?with_sanitizers:OFF}
   make %{?_smp_mflags} RPM_OPT_FLAGS="%{optflags}"
   # Build C documentation
   make doc-c
@@ -195,6 +198,13 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Nov 07 2023 Jan Kolarik <jkolarik@redhat.com> - 1.0.2-1
+- Update to 1.0.2
+- Don't allow building without zstd
+- Fixes for PyPI wheel
+- Fix building on EL9
+- Adjust printf formats for 64bit time_t on 32bit systems
+
 * Mon Oct 02 2023 Petr Pisar <ppisar@redhat.com> - 1.0.0-2
 - Specify a dependency on libzstd as in an upstream
 
