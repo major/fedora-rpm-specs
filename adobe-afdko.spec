@@ -4,7 +4,11 @@ Name:		adobe-afdko
 Version:	3.6.1
 Release:	6%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
-License:	ASL 2.0
+# ExternalAntlr4Cpp.cmake is BSD-3-clause
+# c/makeotf/makeotf_lib/build/hotpccts/pccts/* is ANTLR-PD
+# afdko-3.6.1/python/afdko/pdflib/pdfgen.py is Python-2.0.1
+# python/afdko/resources/ is BSD-3-Clause
+License:	Apache-2.0 AND BSD-3-clause AND ANTLR-PD AND Python-2.0.1
 URL:		https://github.com/adobe-type-tools/afdko
 Source0:	https://github.com/adobe-type-tools/%{archivename}/releases/download/%{version}/%{archivename}-%{version}.tar.gz
 BuildRequires:	gcc

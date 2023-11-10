@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/sqlite
 %global goipath         modernc.org/sqlite
 %global forgeurl        https://gitlab.com/cznic/sqlite
-Version:                1.25.0
+Version:                1.27.0
 %global tag             v%{version}
 
 %gometa -f
@@ -34,12 +34,6 @@ Source:         %{gosource}
 %prep
 %goprep
 %autopatch -p1
-# Create ppc64le variant of capi_linux_*.go.
-# All of the linux variants have the same contents, as confirmed by md5sum.
-# This avoids "The following noarch package built differently on different
-# architectures" error.
-# See https://gitlab.com/cznic/sqlite/-/merge_requests/62.
-cp internal/libc2/capi_linux_amd64.go internal/libc2/capi_linux_ppc64le.go
 
 %generate_buildrequires
 %go_generate_buildrequires

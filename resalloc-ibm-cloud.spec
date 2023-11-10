@@ -4,7 +4,7 @@ for maintaining VMs in IBM Cloud (starting, stopping, cleaning orphans, etc.).
 }
 
 Name:           resalloc-ibm-cloud
-Version:        1.1
+Version:        1.2
 Release:        1%{?dist}
 Summary:        Resource allocator scripts for IBM cloud
 
@@ -51,6 +51,10 @@ BuildRequires:  pyproject-rpm-macros
 
 
 %changelog
+* Wed Nov 08 2023 Pavel Raiskup <praiskup@redhat.com> 1.2-1
+- Automatically remove leftover Floating IPs
+- Fail early for too-long resource names
+
 * Mon Oct 16 2023 Pavel Raiskup <praiskup@redhat.com> 1.1-1
 - Simplify the get_service() helper
 - list-deleting-volumes: new helper for customer case reporting

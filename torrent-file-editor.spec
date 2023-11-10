@@ -1,6 +1,6 @@
 Name:           torrent-file-editor
 Version:        0.3.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt based GUI tool designed to create and edit .torrent files
 
 License:        GPLv3+
@@ -8,7 +8,14 @@ URL:            https://torrent-file-editor.github.io
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
-%if 0%{?fedora} > 21 || 0%{?rhel} > 7
+%if 0%{?fedora} > 39
+# BuildRequires:  pkgconfig(xcb-xkb)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  qt6-qttools-devel
+%elif 0%{?fedora} > 21 || 0%{?rhel} > 7
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Widgets)
@@ -39,10 +46,12 @@ Features
 %setup -q
 
 %build
-%if 0%{?fedora} > 21 || 0%{?rhel} > 7
-%cmake -DQT5_BUILD=ON -DDISABLE_DONATION=ON -DENABLE_PCH=OFF
+%if 0%{?fedora} > 39
+%cmake -DQT6_BUILD=ON -DDISABLE_DONATION=ON
+%elif 0%{?fedora} > 21 || 0%{?rhel} > 7
+%cmake -DQT5_BUILD=ON -DDISABLE_DONATION=ON
 %else
-%cmake -DDISABLE_DONATION=ON -DENABLE_PCH=OFF
+%cmake -DQT4_BUILD=ON -DDISABLE_DONATION=ON
 %endif
 %cmake_build
 
@@ -66,6 +75,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Wed Nov 08 2023 Ivan Romanov <drizt72@zoho.eu> - 0.3.18-2
+- Add Qt6 support for Fedora > 39
+- Drop PCH
+
 * Thu Jul 27 2023 Ivan Romanov <drizt72@zoho.eu> - 0.3.18-1
 - Bump to v0.3.18
 

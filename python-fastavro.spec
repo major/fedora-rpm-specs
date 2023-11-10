@@ -24,6 +24,10 @@ License:        MIT AND Apache-2.0
 URL:            https://github.com/fastavro/fastavro
 Source:         %{pypi_source fastavro}
 
+# Don't run `python .../fastavro/__main__.py` in tests
+# It explodes when no .pth files are installed
+Patch:          https://github.com/fastavro/fastavro/pull/730.patch
+
 # Upstream does not test, nor support 32 bit systems
 # Issue: https://github.com/fastavro/fastavro/issues/526
 # Fedora bug: https://bugzilla.redhat.com/show_bug.cgi?id=1943932
@@ -90,7 +94,7 @@ Documentation for python-fastavro.
 
 
 %prep
-%autosetup -n fastavro-%{version}
+%autosetup -p1 -n fastavro-%{version}
 
 # Remove the already generated C files so we generate them ourselves
 find fastavro/ -name '*.c' -print -delete

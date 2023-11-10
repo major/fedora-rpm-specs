@@ -17,6 +17,7 @@ Source0:	ftp://ftp.gnu.org/gnu/gcal/%{name}-%{version}.tar.xz
 Source1:	gcal-man-v%{gcalmantag}.tar.xz
 Patch:		gcal-glibc-no-libio.patch
 Patch:		gcal-configure-c99.patch
+Patch:		gcal-4.1-oob-write.patch
 BuildRequires:  gcc
 BuildRequires:	gettext, ncurses-devel
 BuildRequires:  libunistring-devel

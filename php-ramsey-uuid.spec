@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    60a4c63ab724854332900504274f6150ff26d286
+%global gh_commit    5f0df49ae5ad6efb7afa69e6bfab4e5b1e080d8e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     ramsey
 %global gh_project   uuid
@@ -22,8 +22,8 @@
 %global ns_project   Uuid
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        4.7.4
-Release:        2%{?dist}
+Version:        4.7.5
+Release:        1%{?dist}
 Summary:        Library for generating and working with UUIDs
 
 License:        MIT
@@ -149,7 +149,7 @@ rm tests/Generator/RandomLibAdapterTest.php
 
 : Run upstream test suite
 ret=0
-for cmdarg in "php %{?phpunit}" php80 php81 php82; do
+for cmdarg in "php %{?phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -170,6 +170,9 @@ exit $ret
 
 
 %changelog
+* Wed Nov  8 2023 Remi Collet <remi@remirepo.net> - 4.7.5-1
+- update to 4.7.5
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

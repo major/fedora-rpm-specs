@@ -263,8 +263,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 119.0.6045.105
-Release: 2%{?dist}
+Version: 119.0.6045.123
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -373,7 +373,7 @@ Patch130: chromium-119-revert-av1enc-el9.patch
 # file conflict with old kernel on el8/el9
 Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
 
-# fixes for old clang version in fedora < 38 end epel (old clang <= 15)
+# fixes for old clang version in fedora < 38 end epel < 9 (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
 Patch300: chromium-119-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
@@ -722,18 +722,12 @@ Requires: u2f-hidraw-policy
 
 Requires: chromium-common%{_isa} = %{version}-%{release}
 
-# rhel 7: ia32 x86_64
-# rhel 8+: ia32, x86_64, aarch64
-# fedora 32 or older: ia32, x86_64, aarch64
-# fedora 33+: x86_64 aarch64 only
+# rhel 7: x86_64
+# rhel 8+ and fedora 37+: x86_64 aarch64
 %if 0%{?rhel} == 7
 ExclusiveArch: x86_64
 %else
-%if 0%{?fedora} > 32
 ExclusiveArch: x86_64 aarch64
-%else
-ExclusiveArch: x86_64 aarch64
-%endif
 %endif
 
 # Bundled bits (I'm sure I've missed some)
@@ -756,7 +750,7 @@ Provides: bundled(fdmlibm) = 5.3
 
 # Don't get too excited. MPEG and other legally problematic stuff is stripped out.
 %if %{bundleffmpegfree}
-Provides: bundled(ffmpeg) = 5.1.2
+Provides: bundled(ffmpeg) = 6.0
 %endif
 
 %if %{bundlelibaom}
@@ -992,7 +986,7 @@ udev.
 %endif
 
 %if %{clang}
-%if 0%{?rhel} || 0%{?fedora} < 38
+%if 0%{?rhel} < 9 || 0%{?fedora} < 38
 %patch -P300 -p1 -b .no_matching_constructor
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
@@ -1709,6 +1703,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Nov 08 2023 Than Ngo <than@redhat.com> - 119.0.6045.123-1
+- update to 119.0.6045.123, include following security fixes:
+  high CVE-2023-5996: Use after free in WebAudio
+
 * Tue Nov 07 2023 Than Ngo <than@redhat.com> - 119.0.6045.105-2
 - enable debuginfo
 

@@ -1,5 +1,5 @@
-%global git_date 20231107
-%global git_commit 8f49dfada34b1cb09118f19b4a1f7b1edd2ba73f
+%global git_date 20231108
+%global git_commit d5877b3425dc40112ad86a12ada8f84e24968b4e
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -212,6 +212,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Tue Nov 07 2023 Clemens Lang <cllang@redhat.com> - 20231107-1.gitd5877b3
+- fips-mode-setup: Fix usage with --no-bootcfg
+
 * Tue Nov 07 2023 Clemens Lang <cllang@redhat.com> - 20231107-1.git8f49dfa
 - turn ssh_etm into an etm@SSH tri-state
 - fips-mode-setup: increase chroot-friendliness (rhbz#2164847)

@@ -21,11 +21,11 @@
 %bcond latex_tests 1
 
 Name:       python-sphinx
-%global     general_version 7.1.2
+%global     general_version 7.2.6
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -39,12 +39,6 @@ Source:     %{pypi_source sphinx %{upstream_version}}
 # Allow extra themes to exist. We pull in python3-sphinx-theme-alabaster
 # which causes that test to fail.
 Patch:      sphinx-test_theming.diff
-
-# Fix test_assets_order for Sphinx 7.1.2
-Patch:      https://github.com/sphinx-doc/sphinx/commit/85ffb3b0.patch
-
-# Fix test_dark_style with Pygments 2.16+
-Patch:      https://github.com/sphinx-doc/sphinx/commit/083d573b.patch
 
 BuildArch:     noarch
 
@@ -250,6 +244,14 @@ rm tests/test_build_linkcheck.py tests/test_ext_intersphinx.py
 sed -i '/html5lib/d' pyproject.toml
 %endif
 
+# Sphinx' tests import from each other, this feature is not supported by
+# the 'importlib' import mode in pytest. Upstream mitigates this by invoking
+# `python -m pytest` rather than `pytest` directly, but in the context of the
+# RPM build we explicitly want to test the installed library rather than the
+# one from PWD.
+# https://github.com/sphinx-doc/sphinx/issues/11740
+sed -i '/"--import-mode=importlib",/d' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_tests:-x test}
 
@@ -367,6 +369,10 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Thu Oct 26 2023 Karolina Surma <ksurma@redhat.com> - 1:7.2.6-1
+- Update to 7.2.6
+- Fixes rhbz#2232469
+
 * Thu Sep 21 2023 Karolina Surma <ksurma@redhat.com> - 1:7.1.2-2
 - Fix FTBFS with Pygments 2.16+
 

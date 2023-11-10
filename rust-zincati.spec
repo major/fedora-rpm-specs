@@ -9,8 +9,8 @@
 %global crate zincati
 
 Name:           rust-zincati
-Version:        0.0.26
-Release:        3%{?dist}
+Version:        0.0.27
+Release:        1%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 License:        Apache-2.0
@@ -22,8 +22,6 @@ Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}
 # git diff --no-prefix zincati-*/Cargo.toml
 #Patch0:         fedora-zincati-cargo-manifest-overrides.diff
 %endif
-
-Patch0: 0001-Just-exit-normally-when-booted-into-a-container.patch
 
 # Skip 32 bits architectures, see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046993
@@ -147,6 +145,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Wed Nov 08 2023 Jonathan Lebon <jonathan@jlebon.com> - 0.0.27-1
+- Update to 0.0.27
+
 * Mon Nov 06 2023 Colin Walters <walters@verbum.org> - 0.0.26-3
 - Cherry pick patch to unblock
   https://github.com/coreos/fedora-coreos-config/pull/2711

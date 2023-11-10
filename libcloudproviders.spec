@@ -2,7 +2,7 @@
 
 Name:           libcloudproviders
 Summary:        Library for integration of cloud storage providers
-Version:        0.3.4
+Version:        0.3.5
 Release:        1%{?dist}
 License:        LGPLv3+
 
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Nov 08 2023 Kalev Lember <klember@redhat.com> - 0.3.5-1
+- Update to 0.3.5
+
 * Thu Sep 07 2023 Kalev Lember <klember@redhat.com> - 0.3.4-1
 - Update to 0.3.4
 - Fix directory ownership for gir and vapi directories

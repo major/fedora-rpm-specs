@@ -65,12 +65,12 @@
 %bcond_without   lmdb
 
 %global upver        8.3.0
-%global rcver        RC5
+%global rcver        RC6
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -865,6 +865,7 @@ mkdir Zend && cp ../Zend/zend_{language,ini}_{parser,scanner}.[ch] Zend
 # date, ereg, filter, libxml, reflection, spl: not supported
 # hash: for PHAR_SIG_SHA256 and PHAR_SIG_SHA512
 # session: dep on hash, used by soap
+# sockets: heavily used by FPM test suite
 # pcre: used by filter, zip
 # pcntl, readline: only used by CLI sapi
 # openssl: for PHAR_SIG_OPENSSL
@@ -898,6 +899,7 @@ ln -sf ../configure
     --with-mhash \
     --without-password-argon2 \
     --enable-dtrace \
+    --enable-sockets \
     $*
 if test $? != 0; then
   tail -500 config.log
@@ -943,7 +945,6 @@ build --libdir=%{_libdir}/php \
       --enable-ftp=shared \
       --with-gettext=shared \
       --with-iconv=shared \
-      --enable-sockets=shared \
       --enable-tokenizer=shared \
       --with-ldap=shared --with-ldap-sasl \
       --enable-mysqlnd=shared \
@@ -1006,7 +1007,7 @@ without_shared="--without-gd \
       --without-curl --disable-posix --disable-xml \
       --disable-simplexml --disable-exif --without-gettext \
       --without-iconv --disable-ftp --without-bz2 --disable-ctype \
-      --disable-shmop --disable-sockets --disable-tokenizer \
+      --disable-shmop --disable-tokenizer \
       --disable-sysvmsg --disable-sysvshm --disable-sysvsem"
 
 %if %{with modphp}
@@ -1079,7 +1080,6 @@ build --includedir=%{_includedir}/php-zts \
 %endif
       --with-gettext=shared \
       --with-iconv=shared \
-      --enable-sockets=shared \
       --enable-tokenizer=shared \
       --enable-exif=shared \
       --enable-ftp=shared \
@@ -1263,7 +1263,7 @@ for mod in pgsql odbc ldap snmp \
     mysqlnd mysqli \
     mbstring gd dom xsl soap bcmath dba \
     simplexml bz2 calendar ctype exif ftp gettext gmp iconv \
-    sockets tokenizer opcache \
+    tokenizer opcache \
     sqlite3 \
     enchant phar fileinfo intl \
     ffi \
@@ -1356,7 +1356,7 @@ cat files.sqlite3 >> files.pdo
 # Package curl, phar and fileinfo in -common.
 cat files.curl files.phar files.fileinfo \
     files.exif files.gettext files.iconv files.calendar \
-    files.ftp files.bz2 files.ctype files.sockets \
+    files.ftp files.bz2 files.ctype \
     files.tokenizer > files.common
 
 # The default Zend OPcache blacklist file
@@ -1552,6 +1552,12 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Nov  8 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC6-2
+- build sockets extension statically
+
+* Wed Nov  8 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC6-1
+- update to 8.3.0RC6
+
 * Tue Oct 24 2023 Remi Collet <remi@remirepo.net> - 8.3.0~RC5-1
 - update to 8.3.0RC5
 

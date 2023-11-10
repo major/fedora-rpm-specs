@@ -6,8 +6,8 @@
 Name: memkind
 Summary: User Extensible Heap Manager
 Version: 1.14.0
-Release: 4%{?checkout}%{?dist}
-License: BSD
+Release: 5%{?checkout}%{?dist}
+License: BSD-2-Clause
 URL: http://memkind.github.io/memkind
 BuildRequires: make patch
 BuildRequires: automake libtool numactl-devel systemd gcc gcc-c++ daxctl-devel
@@ -108,6 +108,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/VERSION
 %{_mandir}/man3/libmemtier.3.*
 
 %changelog
+* Wed Oct  8 2023 Rafael Aquini <aquini@linux.com> - 1.14.0-5
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

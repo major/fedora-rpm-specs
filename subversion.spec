@@ -63,7 +63,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -84,7 +84,7 @@ Patch8: subversion-1.14.1-python-3.11-build.patch
 Patch9: subversion-1.14.2-swig-py-Fix-conditionals-by-SWIG-version-and-by-Pyth.patch
 Patch10: subversion-1.14.2-ruby32-remove-deprecated-api.patch
 Patch11: subversion-ruby-c99.patch
-
+Patch12: subversion-1.14.2-modsyms.patch
 BuildRequires: make
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++
 BuildRequires: swig >= 1.3.24, gettext
@@ -241,16 +241,17 @@ This package includes supplementary tools for use with Subversion.
 
 %prep
 %setup -q
-%patch1 -p1 -b .linking
-%patch2 -p1 -b .testwarn
-%patch3 -p1 -b .soversion
-%patch4 -p1 -b .rubybind
-%patch5 -p1 -b .swigplWall
-%patch6 -p1 -b .testnomagic
-%patch8 -p1 -b .pythonbuild
-%patch9 -p1 -b .swigfix
-%patch10 -p0 -b .ruby32
-%patch11 -p1
+%patch -P1 -p1 -b .linking
+%patch -P2 -p1 -b .testwarn
+%patch -P3 -p1 -b .soversion
+%patch -P4 -p1 -b .rubybind
+%patch -P5 -p1 -b .swigplWall
+%patch -P6 -p1 -b .testnomagic
+%patch -P8 -p1 -b .pythonbuild
+%patch -P9 -p1 -b .swigfix
+%patch -P10 -p0 -b .ruby32
+%patch -P11 -p1
+%patch -P12 -p1 -b .modsyms
 
 :
 : === Building:
@@ -300,6 +301,7 @@ export CC=gcc CXX=g++ JAVA_HOME=%{jdk_path}
         --with-ruby-sitedir=%{ruby_vendorarchdir} \
         --with-ruby-test-verbose=verbose \
         --with-apxs=%{_httpd_apxs} --disable-mod-activation \
+        --enable-plaintext-password-storage \
         --with-apache-libexecdir=%{_httpd_moddir} \
         --disable-static --with-sasl=%{_prefix} \
         --with-libmagic=%{_prefix} \
@@ -591,6 +593,10 @@ make check-javahl
 %endif
 
 %changelog
+* Wed Nov  8 2023 Joe Orton <jorton@redhat.com> - 1.14.2-21
+- restore plaintext password storage by default (per upstream)
+- restrict symbols exposed by DSOs built for httpd
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

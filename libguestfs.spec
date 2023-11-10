@@ -339,7 +339,7 @@ Requires:      libvirt-daemon-driver-qemu >= 7.1.0
 Requires:      libvirt-daemon-driver-secret
 Requires:      libvirt-daemon-driver-storage-core
 Recommends:    passt
-Requires:      selinux-policy >= 3.11.1-63
+Requires:      (selinux-policy >= 3.11.1-63 if selinux-policy)
 
 %ifarch aarch64
 Requires:      edk2-aarch64

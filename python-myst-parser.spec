@@ -2,13 +2,17 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
 # SPDX
 License:        MIT
 URL:            https://github.com/executablebooks/MyST-Parser
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+
+# Fix test failures with Sphinx 7+
+Patch:          https://github.com/executablebooks/MyST-Parser/commit/4f670fc04.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -71,6 +75,9 @@ Summary:        %{summary}
 %{_bindir}/myst-inv
 
 %changelog
+* Mon Oct 30 2023 Karolina Surma <ksurma@redhat.com> - 2.0.0-3
+- Fix test failures with Sphinx 7+
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

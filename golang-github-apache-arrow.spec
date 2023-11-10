@@ -3,6 +3,9 @@
 %bcond_without check
 %endif
 %global debug_package %{nil}
+# Avoid noarch package built differently on different architectures (see also
+# .../sys/cpu elsewhere):
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^golang\\(golang.org/x/sys/cpu\\)$
 
 # https://github.com/apache/arrow
 %global goipath         github.com/apache/arrow/go
@@ -15,6 +18,9 @@ Version:                12.0.1
 
 %global goaltipaths     github.com/apache/arrow/go/v12
 
+%global godevelheader %{expand:
+Requires:       golang(golang.org/x/sys/cpu)}
+
 %global common_description %{expand:
 Apache Arrow is a multi-language toolbox for accelerated data interchange and
 in-memory processing.}
@@ -26,12 +32,14 @@ in-memory processing.}
                         go/parquet/cmd/parquet_reader/README.md
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-language development platform for in-memory data
 
 License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause BSD-3-Clause-Clear and BSL-1.0
 URL:            %{gourl}
 Source:         %{gosource}
+
+BuildRequires:  golang(golang.org/x/sys/cpu)
 
 %description %{common_description}
 
@@ -57,12 +65,21 @@ for test in "TestFileEncryptionDecryption" "TestArrowReaderAdHocReadDecimals" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
-%gocheck -d github.com/apache/arrow/go/arrow/compute
+%gocheck \
+	-d github.com/apache/arrow/go/arrow/compute \
+	-d github.com/apache/arrow/go/parquet \
+	-d github.com/apache/arrow/go/parquet/pqarrow
 %endif
 
 %gopkgfiles
 
 %changelog
+* Wed Nov 08 2023 W. Michael Petullo <mike@flyn.org> - 12.0.1-4
+- Follow lead of golang-github-aead-chacha20 to handle arch-specific deps
+
+* Wed Nov 08 2023 W. Michael Petullo <mike@flyn.org> - 12.0.1-3
+- Revise list of skipped checks
+
 * Mon Nov 06 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 12.0.1-2
 - Use latest go2rpm template
 - License SPDX migration and expand licenses

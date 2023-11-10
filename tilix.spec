@@ -9,8 +9,8 @@
 %undefine _hardened_build
 
 Name:           tilix
-Version:        1.9.5
-Release:        12%{?dist}
+Version:        1.9.6
+Release:        1%{?dist}
 Summary:        Tiling terminal emulator
 
 # The tilix source code is MPL-2.0,
@@ -24,16 +24,6 @@ Summary:        Tiling terminal emulator
 License:        MPL-2.0 AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LGPL-3.0-only AND GPL-3.0-or-later AND (LGPL-3.0-or-later OR CC-BY-SA-3.0)
 URL:            https://github.com/gnunn1/tilix
 Source0:        https://github.com/gnunn1/tilix/archive/%{version}/%{name}-%{version}.tar.gz
-%global bundled_undeaD_version 1.1.8
-Source1:        https://github.com/dlang/undeaD/archive/refs/tags/v%{bundled_undeaD_version}/undeaD-%{bundled_undeaD_version}.tar.gz
-
-# Fix compatibility with Nautilus 43
-# https://github.com/gnunn1/tilix/pull/2115
-Patch:          2115.patch
-# Fix the build with ldc 1.31+ that removed xml from std
-# https://github.com/gnunn1/tilix/issues/2151
-# Patch from https://github.com/archlinux/svntogit-community/tree/master/tilix/trunk
-Patch:          undeaD-xml.patch
 
 ExclusiveArch:  %{ldc_arches}
 
@@ -57,12 +47,6 @@ Requires:       dbus
 Requires:       hicolor-icon-theme
 
 Requires:       gtkd%{?_isa} >= %{gtkd_version}
-
-# Upgrade path from terminix copr
-Obsoletes:      terminix < 1.5.4
-Provides:       terminix = %{version}-%{release}
-
-Provides:       bundled(undeaD) = %{bundled_undeaD_version}
 
 %description
 Tilix is a tiling terminal emulator with the following features:
@@ -89,10 +73,6 @@ Summary:        Tilix extension for Nautilus
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       nautilus-python%{?_isa}
 
-# Upgrade path from terminix copr
-Obsoletes:      terminix-nautilus < 1.5.4
-Provides:       terminix-nautilus = %{version}-%{release}
-
 %description    nautilus
 This package provides a Nautilus extension that adds the 'Open in Tilix'
 option to the right-click context menu in Nautilus.
@@ -100,7 +80,6 @@ option to the right-click context menu in Nautilus.
 
 %prep
 %autosetup -p1
-%autosetup -p1 -D -a 1
 
 %if 0%{?flatpak}
 sed -i -e "/^Exec=/ s|/usr/bin|%{_bindir}|" data/dbus/com.gexperts.Tilix.service
@@ -159,6 +138,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix
 
 
 %changelog
+* Wed Nov 08 2023 Kalev Lember <klember@redhat.com> - 1.9.6-1
+- Update to 1.9.6
+- Drop old terminix obsoletes
+
 * Tue Oct 17 2023 Kalev Lember <klember@redhat.com> - 1.9.5-12
 - Rebuilt for ldc 1.35
 

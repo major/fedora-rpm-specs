@@ -3,7 +3,7 @@
 
 # https://github.com/GoogleCloudPlatform/osconfig
 %global goipath         github.com/GoogleCloudPlatform/osconfig
-Version:                20231103.02
+Version:                20231107.00
 %global tag             %{version}
 
 %gometa -f

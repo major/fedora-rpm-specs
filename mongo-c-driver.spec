@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global libver       1.0
-%global up_version   1.25.0
+%global up_version   1.25.1
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -116,11 +116,10 @@ Documentation: http://mongoc.org/libbson/%{version}/
 %prep
 %setup -q -n %{gh_project}-%{up_version}%{?up_prever:-%{up_prever}}
 
-echo "%{up_version}%{?up_prever:-%{up_prever}}" >VERSION_CURRENT
-
 
 %build
 %cmake \
+    -DBUILD_VERSION=%{up_version}%{?up_prever:-%{up_prever}} \
     -DENABLE_MONGOC:BOOL=ON \
     -DENABLE_SHM_COUNTERS:BOOL=ON \
     -DENABLE_SSL:STRING=OPENSSL \
@@ -244,6 +243,9 @@ exit $ret
 
 
 %changelog
+* Wed Nov  8 2023 Remi Collet <remi@remirepo.net> - 1.25.1-1
+- update to 1.25.1
+
 * Mon Nov  6 2023 Remi Collet <remi@remirepo.net> - 1.25.0-1
 - update to 1.25.0
 - drop dependency on libicu

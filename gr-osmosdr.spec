@@ -1,8 +1,8 @@
-#%%global git_commit a100eb024c0210b95e4738b6efd836d48225bd03
-#%%global git_date 20210217
+%global git_commit 2fedabec385a91af71468b179f0050f74e17f51e
+%global git_date 20231108
 
-#%%global git_short_commit %%(echo %%{git_commit} | cut -c -8)
-#%%global git_suffix %%{git_date}git%%{git_short_commit}
+%global git_short_commit %(echo %{git_commit} | cut -c -8)
+%global git_suffix %{git_date}git%{git_short_commit}
 
 %{?filter_setup:
 %filter_provides_in %{python3_sitearch}/osmosdr/.*\.so$
@@ -11,8 +11,8 @@
 
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
-Version:       0.2.4
-Release:       9%{?dist}
+Version:       0.2.4^%{git_suffix}
+Release:       1%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -39,12 +39,10 @@ BuildRequires: libosmo-dsp-devel
 BuildRequires: libsndfile-devel
 BuildRequires: python3-six
 Summary:       Common software API for various radio hardware
-#Source0:       https://github.com/osmocom/gr-osmosdr/archive/%%{git_commit}/%%{name}-%%{git_commit}.tar.gz
-Source0:       https://github.com/osmocom/gr-osmosdr/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:       https://github.com/osmocom/gr-osmosdr/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
+#Source0:       https://github.com/osmocom/gr-osmosdr/archive/v%%{version}/%%{name}-%%{version}.tar.gz
 # https://osmocom.org/issues/5144
 Patch0:        gr-osmosdr-0.2.3-airspy-multi-dev.patch
-# https://osmocom.org/issues/5562
-Patch1:        gr-osmosdr-0.2.4-gain-fix.patch
 
 %description
 Primarily gr-osmosdr supports the OsmoSDR hardware, but it also
@@ -69,8 +67,8 @@ Requires:      %{name} = %{version}-%{release}
 Documentation files for gr-osmosdr.
 
 %prep
-#%%autosetup -p1 -n %%{name}-%%{git_commit}
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{git_commit}
+#%%autosetup -p1
 
 # TODO fix the lib location nicer way
 sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
@@ -103,6 +101,9 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Wed Nov  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.4^20231108git2fedabec-1
+- New snapshot
+
 * Mon Sep 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.4-9
 - Rebuilt for new uhd
 

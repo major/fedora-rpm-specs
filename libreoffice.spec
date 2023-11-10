@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 7.6.2
+%global libo_version 7.6.3
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -280,7 +280,7 @@ Patch3: 0001-default-to-sifr-for-gnome-light-mode.patch
 # backported
 Patch4: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
 Patch5: limit-tests-giving-dubious-results-to-x86_64.patch
-Patch6: 717d27a.patch
+Patch6: pdfdoc.patch
 # not upstreamed
 # fix FTB in ppc64le from sharkcz
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html

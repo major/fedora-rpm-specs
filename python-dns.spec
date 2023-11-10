@@ -11,7 +11,7 @@
 
 Name:           python-dns
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -19,6 +19,8 @@ License:        ISC
 URL:            http://www.dnspython.org
 
 Source0:        https://github.com/rthalley/%{pypi_name}/archive/v%{version}%{rctag}/%{pypi_name}-%{version}%{rctag}.tar.gz
+# https://github.com/rthalley/dnspython/commit/390682e766e7a21c614a5f5d9ccccd5da3fd7c74
+Patch0:         0001-Update-trio-requirement-from-0.14-0.23-to-0.14-0.24-1003.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -85,6 +87,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Wed Nov 08 2023 Carl George <carlwgeorge@fedoraproject.org> - 2.4.2-2
+- Relax upper bound on trio dependency
+
 * Thu Aug 10 2023 Lumír Balhar <lbalhar@redhat.com> - 2.4.2-1
 - Update to 2.4.2 (rhbz#2230509)
 

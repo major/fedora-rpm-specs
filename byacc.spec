@@ -3,7 +3,7 @@
 Summary: Berkeley Yacc, a parser generator
 Name: byacc
 Version: 2.0.%{byaccdate}
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # An SPDX license string check done against byacc-20230521 using fossology
 # found strings corresponding to the licenses noted below across the byacc
@@ -59,6 +59,9 @@ echo ====================TESTING END=====================
 %{_mandir}/man1/byacc.1*
 
 %changelog
+* Wed Nov 08 2023 Arjun Shankar <arjun@redhat.com> - 2.0.20230521-3
+- Rebuilt to re-trigger automated bodhi (Fedora Updates System) tests
+
 * Thu Oct 26 2023 Arjun Shankar <arjun@redhat.com> - 2.0.20230521-2
 - Analyse byacc sources for license information
 - Migrate License field to SPDX identifiers for

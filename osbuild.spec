@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        98
+Version:        99
 
 %forgemeta
 
@@ -152,7 +152,7 @@ bzip2 -9 osbuild.pp
 %py3_install
 
 mkdir -p %{buildroot}%{pkgdir}/stages
-install -p -m 0755 $(find stages -type f) %{buildroot}%{pkgdir}/stages/
+install -p -m 0755 $(find stages -type f -not -name "test_*.py") %{buildroot}%{pkgdir}/stages/
 
 mkdir -p %{buildroot}%{pkgdir}/assemblers
 install -p -m 0755 $(find assemblers -type f) %{buildroot}%{pkgdir}/assemblers/
@@ -276,6 +276,43 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Nov 08 2023 Packit <hello@packit.dev> - 99-1
+Changes with 99
+----------------
+  * :package: Packit configuration enhancements (#1416)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon Steinbeiß, Simon de Vlieger
+  * Add a tool script to help check for unused runners (#1367)
+    * Author: Brian C. Lane, Reviewers: Simon de Vlieger
+  * Add selinux-label-version to the org.osbuild.ostree.commit stage (#1415)
+    * Author: Alexander Larsson, Reviewers: Colin Walters, Simon de Vlieger
+  * Build rpms on RHEL-8.10 and RHEL-9.4 (#1417)
+    * Author: Jakub Rusz, Reviewers: Alexander Todorov
+  * Update snapshots to 20231101 (#1419)
+    * Author: SchutzBot, Reviewers: Simon de Vlieger
+  * depsolve-dnf: enable weak deps selection (#1413)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  * depsolve-dnf: helpful exception for repo (#1412)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  * kickstart: add support for "zerombr","clearpart" (#1426)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * objectstore: also mount /etc/containers for "host" buildroot (#1410)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+  * stage/copy: fix exception msg when parsing mounts and inputs (#1421)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Ondřej Budai
+  * stages(kickstart): add options "lang", "keyboard", "timezone" (#1424)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * stages/mkdir: fix its schema (#1409)
+    * Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * stages: add new unit test for kickstart stage (#1425)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * tests: run the `test_stages` category in parallel (#1431)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * tools: add Fedora 38 runner for OSTree image tests (COMPOSER-1998) (#1427)
+    * Author: Paweł Poławski, Reviewers: Ondřej Budai
+
+— Somewhere on the Internet, 2023-11-08
+
+
 * Wed Oct 25 2023 Packit <hello@packit.dev> - 98-1
 Changes with 98
 ----------------

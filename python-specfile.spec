@@ -8,7 +8,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.23.0
+Version:        0.24.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -70,6 +70,10 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Mon Nov 06 2023 Packit <hello@packit.dev> - 0.24.0-1
+- Improved type annotations for `UserList` subclasses. (#299)
+- Macro definitions gained a new `commented_out` property indicating that a macro definition is commented out. Another new property, `comment_out_style`, determines if it is achieved by using a `%%dnl` (discard next line) directive (e.g. `%%dnl %%global prerelease beta2`) or by replacing the starting `%` with `#` (e.g. `#global prerelease beta2`). (#298)
+
 * Mon Oct 30 2023 Packit <hello@packit.dev> - 0.23.0-1
 - Sources now have a `valid` property that indicates whether a source is valid in the current context, meaning it is not present in a false branch of any condition. (#295)
 

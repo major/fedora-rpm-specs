@@ -51,7 +51,7 @@ Conflicts:          nss < 3.14.3-9
 
 %description trust
 The %{name}-trust package contains a system trust PKCS#11 module which
-contains certificate anchors and black lists.
+contains certificate anchors and blocklists.
 
 
 %package server

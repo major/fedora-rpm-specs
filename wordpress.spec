@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.3.2
+%global upstream_version 6.4
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -40,7 +40,7 @@ Source5:    wordpress-minify.php
 # (and replace it with Free Software Song)
 Patch0: wordpress-5.2-hello.patch
 # Drop swfupload: not built from source, not reasonably possible to do
-Patch2: wordpress-5.4-no_swfupload.patch
+Patch2: wordpress-6.4-no_swfupload.patch
 # Adjust tinymce's media plugin not to use its SWF plugin. This changes
 # 'p.getParam("flash_video_player_url",u.convertUrl(u.url+"/moxieplayer.swf"))'
 # to 'false'
@@ -112,7 +112,7 @@ Provides: bundled(php-simplepie) = 1.5.8
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
 Provides: bundled(php-getid3) = 1.9.22
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 6.8.0
+Provides: bundled(php-phpmailer)  = 6.8.1
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -266,6 +266,9 @@ end
 
 
 %changelog
+* Wed Nov  8 2023 Remi Collet <remi@remirepo.net> - 6.4-1
+- WordPress 6.4 “Shirley”
+
 * Mon Oct 16 2023 Remi Collet <remi@remirepo.net> - 6.3.2-1
 - WordPress 6.3.2 – Maintenance and Security release
 

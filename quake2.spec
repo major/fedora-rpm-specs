@@ -1,11 +1,11 @@
-%define ver 8_20
+%define ver 8_30
 
 Name:           quake2
-Version:        8.20
-Release:        3%{?dist}
+Version:        8.30
+Release:        1%{?dist}
 Summary:        Quake II (Yamagi version)
 
-License:        GPLv2 
+License:        GPL-2.0-or-later
 URL:            http://www.yamagi.org/quake2 
 Source0:        https://github.com/yquake2/yquake2/archive/QUAKE2_%{ver}.tar.gz
 Source1:        %{name}.desktop
@@ -110,6 +110,8 @@ install -D -p -m 644 stuff/yq2.cfg \
     %{buildroot}%{_libdir}/games/%{name}/baseq2/yq2.cfg
 install -D -p -m 644 stuff/icon/Quake2.png \
     %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/quake2.png
+install -D -p -m 644 stuff/icon/Quake2.svg \
+    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/quake2.svg
 install -D -p -m 755 stuff/cdripper.sh \
     %{buildroot}%{_defaultdocdir}/%{name}/examples/cdripper.sh
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
@@ -118,14 +120,22 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %files
 %license LICENSE
 %doc CHANGELOG README.md
+%doc doc/*
 %{_bindir}/*
 %{_libdir}/games/*
 %{_datadir}/icons/hicolor/512x512/apps/*
+%{_datadir}/icons/hicolor/scalable/apps/*
 %{_datadir}/applications/* 
 %{_defaultdocdir}/%{name}/*
 
 
 %changelog
+* Wed Nov 08 2023 Kalev Lember <klember@redhat.com> - 8.30-1
+- Update to 8.30
+- Migrate to SPDX license identifiers
+- Ship documentation
+- Ship svg icon
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

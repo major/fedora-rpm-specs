@@ -1,6 +1,6 @@
 Name:       wireplumber
 Version:    0.4.15
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
 License:    MIT
@@ -8,6 +8,7 @@ URL:        https://pipewire.pages.freedesktop.org/wireplumber/
 Source0:    https://gitlab.freedesktop.org/pipewire/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 ## upstream patches
+Patch0001:    0001-policy-dsp-add-ability-to-hide-parent-nodes.patch
 
 ## upstreamable patches
 
@@ -119,6 +120,9 @@ fi
 %{_datadir}/gir-1.0/Wp-0.4.gir
 
 %changelog
+* Tue Nov 7 2023 Hector Martin <marcan@fedoraproject.org> - 0.4.15-2
+- Add upstream patch to enable node hiding
+
 * Thu Oct 12 2023 Wim Taymans <wtaymans@redhat.com> - 0.4.15-1
 - wireplumber 0.4.15
 

@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 18
+%global baserelease 19
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -233,6 +233,7 @@ Patch23: glibc-python3.patch
 Patch24: glibc-rh2244688.patch
 Patch25: glibc-rh2248502-1.patch
 Patch26: glibc-rh2248502-2.patch
+Patch27: glibc-rh2244992.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2203,6 +2204,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Nov  8 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-19
+- Fix force-first handling in dlclose, take two (#2244992, #2246048)
+
 * Tue Nov 07 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-18
 - Revert back to old qsort/qsort_r implementation (#2248502)
 - Adjust test build completion check to match new DejaGnu-style message.

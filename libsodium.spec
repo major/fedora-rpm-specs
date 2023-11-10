@@ -16,7 +16,7 @@
 
 Name:           libsodium
 Version:        1.0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            https://libsodium.org/
@@ -78,6 +78,7 @@ linking applications to use %{name}.
 %if %{with mingw}
 %package -n     mingw32-%{name}
 Summary:        MinGW compiled %{name} library for Win32 target
+BuildArch:      noarch
 
 %description -n mingw32-%{name}
 This package contains the MinGW compiled library of %{name}
@@ -85,6 +86,7 @@ for Win32 target.
 
 %package -n     mingw64-%{name}
 Summary:        MinGW compiled %{name} library for Win64 target
+BuildArch:      noarch
 
 %description -n mingw64-%{name}
 This package contains the MinGW compiled library of %{name}
@@ -182,6 +184,9 @@ make -C build_native check
 
 
 %changelog
+* Wed Nov 08 2023 Marian Koncek <mkoncek@redhat.com> - 1.0.19-2
+- Make mingw subpackages noarch
+
 * Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 1.0.19-1
 - update to 1.0.19
 - soname is 26

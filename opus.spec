@@ -11,7 +11,7 @@
 
 Name:     opus
 Version:  1.4
-Release:  1%{?candidate:.%{candidate}}%{?dist}
+Release:  2%{?candidate:.%{candidate}}%{?dist}
 Summary:  An audio codec for use in low-delay speech and audio communication
 License:  BSD
 URL:      https://www.opus-codec.org/
@@ -54,6 +54,7 @@ Files for development with opus.
 %if %{with mingw}
 %package -n mingw32-%{name}
 Summary: MinGW compiled %{name} library for Win32 target
+BuildArch: noarch
 
 %description -n mingw32-%{name}
 This package contains the MinGW compiled library of %{name}
@@ -61,6 +62,7 @@ for Win32 target.
 
 %package -n mingw64-%{name}
 Summary: MinGW compiled %{name} library for Win64 target
+BuildArch: noarch
 
 %description -n mingw64-%{name}
 This package contains the MinGW compiled library of %{name}
@@ -150,6 +152,9 @@ make -C build_native check %{?_smp_mflags} V=1
 %endif
 
 %changelog
+* Wed Nov 08 2023 Marian Koncek <mkoncek@redhat.com> - 1.4-2
+- Make mingw subpackages noarch
+
 * Wed Sep 27 2023 Marian Koncek <mkoncek@redhat.com> - 1.4-1
 - Update to upstream version 1.4
 - Add mingw subpackages

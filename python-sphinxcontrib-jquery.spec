@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-jquery
 Version:        4.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extension to include jQuery on newer Sphinx releases
 
 # The project is 0BSD
@@ -11,7 +11,8 @@ URL:            https://github.com/sphinx-contrib/jquery/
 Source:         %{url}/archive/v%{version}/sphinxcontrib-jquery-%{version}.tar.gz
 
 # Make the tests pass with Sphinx 7.1+
-Patch:          https://github.com/sphinx-contrib/jquery/pull/26.patch
+# Based on the original work in https://github.com/sphinx-contrib/jquery/pull/26
+Patch:          Fix-tests-failures-with-Sphinx-7.2.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -57,6 +58,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Oct 30 2023 Karolina Surma <ksurma@redhat.com> - 4.1-5
+- Fix tests with Sphinx 7.2+
+
 * Tue Aug 15 2023 Karolina Surma <ksurma@redhat.com> - 4.1-4
 - Fix tests with Sphinx 7.1+
 

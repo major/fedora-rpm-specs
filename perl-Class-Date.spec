@@ -1,11 +1,12 @@
 Name:           perl-Class-Date
 Version:        1.1.17
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Class for easy date and time manipulation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Date
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Class-Date-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -32,9 +33,11 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings)
+BuildRequires:  tzdata
 
 Requires:       perl(Date::Parse)
 Requires:       perl(Env::C)
+Requires:       tzdata
 
 %description
 This module is intended to provide a general-purpose date and datetime type
@@ -45,11 +48,11 @@ have a Class::Date::Rel class for relative dates.
 %setup -q -n Class-Date-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} -c $RPM_BUILD_ROOT/*
 
 %check
@@ -62,6 +65,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Nov 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.17-19
+- Add dependency tzdata (rhbz#2243614)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.17-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

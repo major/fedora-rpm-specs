@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -112,6 +112,14 @@ Requires(pre):    shadow-utils
 # Grafana queries the mime database (through mime.TypeByExtension, in a unit test and at runtime)
 BuildRequires:    shared-mime-info
 Requires:         shared-mime-info
+
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+# This ensures that the grafana-selinux package and all its dependencies are
+# not pulled into containers and other systems that do not use SELinux
+Requires: (grafana-selinux = %{version}-%{release} if selinux-policy-targeted)
+%else
+Requires: grafana-selinux = %{version}-%{release}
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends: grafana-pcp
@@ -717,11 +725,12 @@ Graphite, InfluxDB & OpenTSDB.
 # SELinux package
 %package selinux
 Summary:        SELinux policy module supporting grafana
-BuildRequires: checkpolicy, selinux-policy-devel
+BuildRequires: checkpolicy, selinux-policy-devel, selinux-policy-targeted
 %if "%{_selinux_policy_version}" != ""
 Requires:       selinux-policy >= %{_selinux_policy_version}
 %endif
 Requires:       %{name} = %{version}-%{release}
+Requires:	selinux-policy-targeted
 Requires(post):   /usr/sbin/semodule, /usr/sbin/semanage, /sbin/restorecon, /sbin/fixfiles, grafana
 Requires(postun): /usr/sbin/semodule, /usr/sbin/semanage, /sbin/restorecon, /sbin/fixfiles, /sbin/service, grafana
 
@@ -995,6 +1004,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Wed Nov 8 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-7
+- Include the selinux policy in the main package rather than a separate package
+
 * Thu Oct 5 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-6
 - Added 0010-skip-tests
 - Resolves problematic tests when building

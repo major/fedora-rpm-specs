@@ -10,7 +10,15 @@
 %define _lto_cflags %{nil}
 
 %global with_mpich 1
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%global with_openmpi 0
+%else
 %global with_openmpi 1
+%endif
+%else
+%global with_openmpi 1
+%endif
 
 ## BLAS ##
 %if 0%{?fedora} || 0%{?rhel} >= 9
@@ -74,7 +82,7 @@
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
-Version:    6.6.1
+Version:    6.6.2
 Release:    %autorelease
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.

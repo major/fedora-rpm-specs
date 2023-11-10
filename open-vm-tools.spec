@@ -19,8 +19,8 @@
 ################################################################################
 
 %global majorversion    12.3
-%global minorversion    0
-%global toolsbuild      22234872
+%global minorversion    5
+%global toolsbuild      22544099
 %global toolsversion    %{majorversion}.%{minorversion}
 %global toolsdaemon     vmtoolsd
 %global vgauthdaemon    vgauthd
@@ -31,7 +31,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0 AND W3C AND LGPL-2.1 AND ICU AND ISC AND MIT
 URL:              https://github.com/vmware/%{name}
@@ -51,8 +51,6 @@ ExclusiveArch:    %{ix86} x86_64 aarch64
 
 # Patches
 #Patch0:           <patch-name0>.patch
-Patch1:           CVE-2023-34058.patch
-Patch2:           CVE-2023-34059.patch
 
 BuildRequires:    autoconf
 BuildRequires:    automake
@@ -420,6 +418,14 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Wed Nov 8 2023 John Wolfe <jwolfe@vmware.com> - 12.3.5-1
+- Package new upstream version of open-vm-tools-12.3.5-22544099.
+  . fix for CVE-2023-34058 - another SAML token signature bypass vulnerability.
+  . fix for CVE-2023-34059 - a file descriptor hijack vulnerability in the
+                             vmware-user-suid-wrapper.
+  . address https://github.com/vmware/open-vm-tools/issues/310
+- Remove CVE-2023-34058.patch and CVE-2023-34059.patch as no longer needed.
+
 * Mon Oct 30 2023 John Wolfe <jwolfe@vmware.com> - 12.3.0-3
 - Address CVE-2023-34058 - BZ 2246963 - SAML token signature token bypass.
 - Address CVE-2023-34059 - BZ 2246962 - vmware-user-suid-wrapper

@@ -201,7 +201,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        6%{?rc_version:.%rc_version}%{?dist}
+Release:        7%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -221,6 +221,9 @@ Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 %endif
 
 Patch0001:      freeipa-4.11-samba-changes.patch
+Patch0002:      freeipa-4.11-pki-revocation-changes.patch
+Patch0003:      freeipa-4.11-py3.12-timezone-changes.patch
+Patch0004:      freeipa-4.11-pwpolicy-minlength.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1741,6 +1744,11 @@ fi
 %endif
 
 %changelog
+* Wed Nov 08 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-7
+- ipalib: fix the IPACertificate validity dates (python 3.12 compatibility)
+- Handle PKI revocation response differences in JSON API
+- Allow removal of minimal length from a custom password policy
+
 * Mon Oct 23 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-6
 - Adopt trust to AD code to Samba changes in case SIDs are malformed
 

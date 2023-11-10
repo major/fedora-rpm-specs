@@ -1,18 +1,17 @@
 %global sover 19
 
 Name:           netcdf
-Version:        4.9.0
-Release:        6%{?dist}
+Version:        4.9.2
+Release:        1%{?dist}
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        NetCDF
 URL:            http://www.unidata.ucar.edu/software/netcdf/
 Source0:        https://github.com/Unidata/netcdf-c/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix plugins - https://github.com/Unidata/netcdf-c/pull/2431
-Patch0:         netcdf-plugin.patch
-# Fix infinite loop in file inferencing
-# https://github.com/Unidata/netcdf-c/pull/2574
-Patch1:         netcdf-file-inferencing.patch
+# Remove sonames from plugins
+Patch0:         https://patch-diff.githubusercontent.com/raw/Unidata/netcdf-c/pull/2431.patch
+# Fix blosc test - https://github.com/Unidata/netcdf-c/issues/2572
+Patch1:         netcdf-tst-blosc.patch
 
 BuildRequires:  libtool
 BuildRequires:  make
@@ -36,13 +35,29 @@ BuildRequires:  openssh-clients
 Requires:       hdf5%{?_isa} = %{_hdf5_version}
 
 %global with_mpich %{undefined flatpak}
-%global with_openmpi %{undefined flatpak}
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+    # No OpenMPI support on these arches
+    %global with_openmpi 0
+%else
+    %global with_openmpi %{undefined flatpak}
+%endif
+%else
+  %global with_openmpi %{undefined flatpak}
+%endif
 
 %if %{with_mpich}
 %global mpi_list mpich
 %endif
 %if %{with_openmpi}
 %global mpi_list %{?mpi_list} openmpi
+%endif
+
+# mpich parallel tests are hanging on s390x
+%ifarch s390x
+%bcond_with parallel_tests
+%else
+%bcond_without parallel_tests
 %endif
 
 %description
@@ -183,7 +198,7 @@ export CFLAGS="%{optflags} -fno-strict-aliasing"
            --enable-netcdf-4 \\\
            --enable-dap \\\
            --enable-extra-example-tests \\\
-           CPPFLAGS="-I%{_includedir}/hdf -DH5_USE_110_API" \\\
+           CPPFLAGS="-I%{_includedir}/hdf" \\\
            LIBS="-ltirpc" \\\
            --enable-hdf4 \\\
            --disable-dap-remote-tests \\\
@@ -221,7 +236,7 @@ do
     --datarootdir=%{_libdir}/$mpi/share \
     --mandir=%{_libdir}/$mpi/share/man \
     --with-plugin-dir=%{_libdir}/$mpi/hdf5/plugin \
-    --enable-parallel-tests
+    %{?with_parallel_tests:--enable-parallel-tests}
   # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
   # -Wl,--as-needed after all the libraries.
   sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
@@ -262,6 +277,8 @@ fail=1
 make -C build check || ( cat build/*/test-suite.log && exit $fail )
 # Allow openmpi to run with more processes than cores
 export OMPI_MCA_rmaps_base_oversubscribe=1
+# openmpi 5+
+export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
 # openmpi test hangs on armv7hl in h5_test after tst_h_rename
 %ifnarch armv7hl
 for mpi in %{?mpi_list}
@@ -389,6 +406,14 @@ done
 
 
 %changelog
+* Wed Nov 08 2023 Orion Poplawski <orion@nwra.com> - 4.9.2-1
+- Update to 4.9.2
+- Drop -DH5_USE_110_API
+
+* Wed Nov 08 2023 Orion Poplawski <orion@nwra.com> - 4.9.0-7
+- Rebuild with openmpi 5.0.0 - drops i686
+- Disable parallel tests on s390x - mpich test is hanging
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

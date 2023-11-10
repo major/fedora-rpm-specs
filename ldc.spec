@@ -57,7 +57,7 @@ BuildRequires:  llvm%{?llvm_version}-static
 BuildRequires:  make
 BuildRequires:  zlib-devel
 
-Requires:       %{name}-libs = %{epoch}:%{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # Require gcc for linking
 Requires:       gcc
 

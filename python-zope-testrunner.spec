@@ -5,7 +5,7 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        6.1
+Version:        6.2
 Release:        1%{?dist}
 Summary:        Zope testrunner script
 
@@ -118,6 +118,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Wed Nov  8 2023 Jerry James <loganjerry@gmail.com> - 6.2-1
+- Version 6.2
+
 * Tue Aug 29 2023 Jerry James <loganjerry@gmail.com> - 6.1-1
 - Version 6.1
 

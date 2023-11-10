@@ -76,13 +76,13 @@ ExcludeArch: s390x
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        115.4.1
+Version:        115.4.2
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}-20231025.tar.xz
+Source1:        thunderbird-langpacks-%{version}-20231108.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -717,6 +717,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Wed Nov 08 2023 Eike Rathke <erack@redhat.com> - 115.4.2-1
+- Update to 115.4.2
+
 * Wed Oct 25 2023 Eike Rathke <erack@redhat.com> - 115.4.1-1
 - Update to 115.4.1
 

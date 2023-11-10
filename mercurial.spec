@@ -9,8 +9,8 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.5.1
-Release: 1%{?dist}
+Version: 6.5.3
+Release: 2%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -22,7 +22,6 @@ URL: https://mercurial-scm.org/
 Source0: https://www.mercurial-scm.org/release/%{name}-%{upstreamversion}.tar.gz
 Source1: mercurial-site-start.el
 BuildRequires: make
-BuildRequires: bash-completion
 BuildRequires: emacs-el
 BuildRequires: emacs-nox
 BuildRequires: gcc
@@ -152,7 +151,7 @@ popd
 %endif
 
 %install
-%{python3} setup.py install -O1 --root %{buildroot} --prefix %{_prefix} --record=%{name}.files
+%py3_install
 make install-doc DESTDIR=%{buildroot} MANDIR=%{_mandir}
 
 # Overrule setup.py policy "c" for module usage: always allow rust extension (if available)
@@ -165,25 +164,8 @@ install -D -m 755 -pv rust/target/release/librusthg.so \
         %{buildroot}%{python3_sitearch}/mercurial/rustext%{python3_ext_suffix}
 %endif
 
-grep -v -e 'hgk.py*' \
-        -e "%{python3_sitearch}/mercurial/" \
-        -e "%{python3_sitearch}/hgext/" \
-        -e "%{python3_sitearch}/hgext3rd/" \
-        -e "%{python3_sitearch}/hgdemandimport/" \
-        -e "%{_bindir}" \
-        < %{name}.files > %{name}-base.files
-grep 'hgk.py*' < %{name}.files > %{name}-hgk.files
-
 install -D -m 755 contrib/hgk       %{buildroot}%{_libexecdir}/mercurial/hgk
 install -m 755 contrib/hg-ssh       %{buildroot}%{_bindir}
-
-bash_completion_dir=%{buildroot}$(pkg-config --variable=completionsdir bash-completion)
-mkdir -p $bash_completion_dir
-install -m 644 contrib/bash_completion $bash_completion_dir/hg
-
-zsh_completion_dir=%{buildroot}%{_datadir}/zsh/site-functions
-mkdir -p $zsh_completion_dir
-install -m 644 contrib/zsh_completion $zsh_completion_dir/_mercurial
 
 mkdir -p %{buildroot}%{_emacs_sitelispdir}/mercurial
 
@@ -197,7 +179,7 @@ done
 popd
 
 pushd contrib/chg
-make install DESTDIR=%{buildroot} PREFIX=%{_usr} MANDIR=%{_mandir}/man1
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix} MANDIR=%{_mandir}/man1
 popd
 
 
@@ -227,21 +209,20 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 %find_lang hg
 
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pni "%{python3}" %{buildroot}%{_bindir}/hg-ssh
+%py3_shebang_fix %{buildroot}%{_bindir}/hg-ssh
 
 
-%files -f %{name}-base.files -f hg.lang
+%files -f hg.lang
 %doc CONTRIBUTORS COPYING doc/README doc/hg*.html hgweb.cgi contrib/hgweb.fcgi contrib/hgweb.wsgi
-%doc %attr(644,root,root) %{_mandir}/man?/hg*.gz
+%doc %attr(644,root,root) %{_mandir}/man?/hg*
 %doc %attr(644,root,root) contrib/*.svg
-%dir %{python3_sitearch}/%{name}-*-py*.egg-info
-%dir %{_datadir}/zsh/
-%dir %{_datadir}/zsh/site-functions/
 %dir %{_sysconfdir}/mercurial
 %dir %{_sysconfdir}/mercurial/hgrc.d
-%dir %{_datadir}/bash-completion/
-%{_datadir}/zsh/site-functions/_mercurial
+%{bash_completions_dir}/hg
+%{zsh_completions_dir}/_hg
+%pycached %exclude %{python3_sitearch}/hgext/hgk.py
 %exclude %{python3_sitearch}/mercurial/rustext%{python3_ext_suffix}
+%{python3_sitearch}/mercurial-%{version}-py%{python3_version}.egg-info/
 %{python3_sitearch}/mercurial/
 %{python3_sitearch}/hgext/
 %{python3_sitearch}/hgext3rd/
@@ -253,13 +234,14 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 %config(noreplace) %{_sysconfdir}/mercurial/hgrc.d/certs.rc
 
-%files hgk -f %{name}-hgk.files
+%files hgk
 %{_libexecdir}/mercurial/
+%pycached %{python3_sitearch}/hgext/hgk.py
 %config(noreplace) %{_sysconfdir}/mercurial/hgrc.d/hgk.rc
 
 %files chg
 %{_bindir}/chg
-%doc %attr(644,root,root) %{_mandir}/man?/chg.*.gz
+%doc %attr(644,root,root) %{_mandir}/man?/chg.*
 
 %if %{with rust}
 %files rust
@@ -276,6 +258,12 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Nov 09 2023 Mads Kiilerich <mads@kiilerich.com> - 6.5.3-2
+- Better support for custom _prefix
+
+* Wed Nov 08 2023 Mads Kiilerich <mads@kiilerich.com> - 6.5.3-1
+- mercurial 6.5.3
+
 * Mon Aug 07 2023 Mads Kiilerich <mads@kiilerich.com> - 6.5.1-1
 - mercurial 6.5.1
 

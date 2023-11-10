@@ -1,25 +1,28 @@
 # NOTE: python2 support is no longer available.  Do not build for EPEL versions
 # that do not support python3.
+#
+# NOTE: perl support was dropped in version 1.4.3.  It is available here:
+# https://github.com/jelmer/subunit-perl
 
 # Disable the tests in a bootstrap situation
 %bcond_with bootstrap
 
 Name:           subunit
-Version:        1.4.2
-Release:        4%{?dist}
+Version:        1.4.3
+Release:        1%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
 
 License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://launchpad.net/subunit
-Source0:        https://launchpad.net/subunit/trunk/%{version}/+download/%{name}-%{version}.tar.gz
+Source0:        https://github.com/testing-cabal/subunit/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(cppunit)
 BuildRequires:  python3-devel
@@ -27,6 +30,9 @@ BuildRequires:  python3-devel
 %if %{without bootstrap}
 BuildRequires:  pkgconfig(check)
 %endif
+
+# This can be removed when F43 reaches EOL
+Obsoletes:      %{name}-perl < 1.4.3
 
 %description
 Subunit C bindings.  See the python-subunit package for test processing
@@ -56,14 +62,6 @@ Requires:       cppunit-devel%{?_isa}
 Header files and libraries for developing applications that use cppunit
 and subunit.
 
-%package perl
-Summary:        Perl bindings for subunit
-BuildArch:      noarch
-
-%description perl
-Subunit perl bindings.  See the python-subunit package for test
-processing functionality.
-
 %package shell
 Summary:        Shell bindings for subunit
 BuildArch:      noarch
@@ -73,11 +71,8 @@ Subunit shell bindings.  See the python-subunit package for test
 processing functionality.
 
 %package -n python3-%{name}
-# The bundled iso8601 library is MIT licensed
-License:        (Apache-2.0 OR BSD-3-Clause) AND MIT
 Summary:        Streaming protocol for test results
 BuildArch:      noarch
-Provides:       bundled(python3-iso8601) = 0.1.4
 
 # This can be removed when Fedora 41 reaches EOL
 Obsoletes:      python2-%{name} < 1.4.1
@@ -151,11 +146,15 @@ for fil in $(grep -Frl "%{_bindir}/env python"); do
   fixtimestamp $fil
 done
 
+# Update an obsolete autoconf macro
+sed -i 's/AC_PROG_LIBTOOL/LT_INIT/' configure.ac
+
 %generate_buildrequires
 %pyproject_buildrequires -x docs,test
 
 %build
-export INSTALLDIRS=perl
+# Generate the configure script
+autoreconf -fi
 
 # Build for python3
 export PYTHON=%{_bindir}/python3
@@ -187,14 +186,7 @@ cp -p shell/share/%{name}.sh %{buildroot}%{_sysconfdir}/profile.d
 # Remove unwanted libtool files
 rm -f %{buildroot}%{_libdir}/*.la
 
-# Fix perl installation
-perl_majver=$(cut -d. -f-2 <<< %{perl_version})
-mkdir -p %{buildroot}%{perl_vendorlib}
-mv %{buildroot}%{perl_privlib}/$perl_majver/Subunit* %{buildroot}%{perl_privlib}
-rm -fr %{buildroot}%{perl_privlib}/$perl_majver %{buildroot}%{perl_archlib}
-
 # Fix permissions
-chmod 0755 %{buildroot}%{_bindir}/subunit-diff
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/*.py
 chmod 0644 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/__init__.py
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-script.py
@@ -204,7 +196,6 @@ chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-two-script.py
 touch -r c/include/%{name}/child.h %{buildroot}%{_includedir}/%{name}/child.h
 touch -r c++/SubunitTestProgressListener.h \
       %{buildroot}%{_includedir}/%{name}/SubunitTestProgressListener.h
-touch -r perl/subunit-diff %{buildroot}%{_bindir}/subunit-diff
 
 %check
 %if %{without bootstrap}
@@ -212,8 +203,6 @@ touch -r perl/subunit-diff %{buildroot}%{_bindir}/subunit-diff
 export LD_LIBRARY_PATH=$PWD/.libs
 export PYTHON=%{python3}
 make check
-# Make sure subunit.iso8601 is importable from buildroot
-%py3_check_import subunit.iso8601
 %endif
 
 %files
@@ -237,12 +226,6 @@ make check
 %{_libdir}/libcppunit_%{name}.so
 %{_libdir}/pkgconfig/libcppunit_%{name}.pc
 
-%files perl
-%license Apache-2.0 BSD COPYING
-%{_bindir}/%{name}-diff
-%{perl_privlib}/Subunit/
-%{perl_privlib}/Subunit.pm
-
 %files shell
 %doc shell/README
 %license Apache-2.0 BSD COPYING
@@ -263,9 +246,13 @@ make check
 %files filters
 %{_bindir}/subunit*
 %{_bindir}/tap2subunit
-%exclude %{_bindir}/%{name}-diff
 
 %changelog
+* Wed Nov  8 2023 Jerry James <loganjerry@gmail.com> - 1.4.3-1
+- Version 1.4.3
+- python-iso8601 is no longer bundled in python3-subunit
+- perl support has moved to https://github.com/jelmer/subunit-perl
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
