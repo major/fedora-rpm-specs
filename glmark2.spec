@@ -4,7 +4,7 @@
 
 Name:		glmark2
 Version:	2023.01
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Benchmark for OpenGL 2.0
 
 
@@ -124,7 +124,7 @@ rm -r src/libjpeg-turbo src/libpng src/zlib
 rm -r waf waflib
 
 %build
-%meson -Dflavors=drm-gl,drm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-glesv2
+%meson -Dflavors=drm-gl,drm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-glesv2,gbm-glesv2,gbm-gl
 %meson_build
 
 
@@ -181,6 +181,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 %{_bindir}/%{name}-drm
 %{_mandir}/man1/%{name}-drm.1.gz
 
+## Opengl benchmark gbm
+%{_bindir}/%{name}-gbm
+%{_mandir}/man1/%{name}-gbm.1.gz
 
 ## Opengl ES 2 benchmark
 %{_datadir}/applications/%{name}-es2.desktop
@@ -192,6 +195,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 ## Opengl ES 2 benchmark DRM
 %{_bindir}/%{name}-es2-drm
 %{_mandir}/man1/%{name}-es2-drm.1.gz
+
+## Opengl ES 2 benchmark gbm
+%{_bindir}/%{name}-es2-gbm
+%{_mandir}/man1/%{name}-es2-gbm.1.gz
 
 ## Opengl ES 2 benchmark wayland
 %{_datadir}/applications/%{name}-es2-wayland.desktop
@@ -213,6 +220,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Wed Nov 01 2023 Erico Nunes <ernunes@redhat.com> - 2023.01-3
+- Enable gbm offscreen backend
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -43,7 +43,7 @@
 
 Name: sssd
 Version: 2.9.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -165,9 +165,9 @@ the existing back ends.
 %package common
 Summary: Common files for the SSSD
 License: GPL-3.0-or-later
-# libsss_simpleifp is removed starting 2.9.0
-Obsoletes: libsss_simpleifp < 2.9.0
-Obsoletes: libsss_simpleifp-debuginfo < 2.9.0
+# libsss_simpleifp is removed
+Obsoletes: libsss_simpleifp < 2.9.2
+Obsoletes: libsss_simpleifp-debuginfo < 2.9.2
 # Requires
 # due to ABI changes in 1.1.30/1.2.0
 Requires: libldb >= %{ldb_version}
@@ -1061,6 +1061,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Thu Nov 09 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.2-3
+- Fix "Obsoletes libsss_simpleifp"
+
 * Tue Oct 03 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2.9.2-2
 - Fixes for passkey authentication
 

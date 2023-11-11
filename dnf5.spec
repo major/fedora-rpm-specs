@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 6
+%global project_version_patch 7
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
@@ -670,6 +670,7 @@ Core DNF5 plugins that enhance dnf5 with builddep, changelog, copr, and repoclos
     -DWITH_LIBDNF5_CLI=%{?with_libdnf_cli:ON}%{!?with_libdnf_cli:OFF} \
     -DWITH_DNF5=%{?with_dnf5:ON}%{!?with_dnf5:OFF} \
     -DWITH_PLUGIN_ACTIONS=%{?with_plugin_actions:ON}%{!?with_plugin_actions:OFF} \
+    -DWITH_PLUGIN_RHSM=%{?with_plugin_rhsm:ON}%{!?with_plugin_rhsm:OFF} \
     -DWITH_PYTHON_PLUGINS_LOADER=%{?with_python_plugins_loader:ON}%{!?with_python_plugins_loader:OFF} \
     \
     -DWITH_COMPS=%{?with_comps:ON}%{!?with_comps:OFF} \
@@ -734,6 +735,23 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Thu Nov 09 2023 Packit <hello@packit.dev> - 5.1.7-1
+- Release 5.1.7
+- Actions plugin's actions.conf can set "Enabled" for each action separately
+- Actions plugin now supports action options
+- Implement `get_reason()` for groups and environments
+- Disable the RHSM plugin by default and enable it in the RPM spec
+- Add missing docs for `get_advisory_packages_sorted_by_name_arch_evr(bool)`
+- Update documentation about maintained coprs
+- modules: Test `ModuleProfile::is_default()` method
+- modules: Simplify finding whether profile is default in module list
+- modules: Fix `ModuleProfile::is_default` method
+- modules: Store if profile is default in ModuleProfile object
+- Generate docs for undocummented functions so they at least show up
+- Add python advisory docs
+- Add advisory python API tests
+- Enable AdvisoryModule bindings
+
 * Thu Oct 26 2023 Packit <hello@packit.dev> - 5.1.6-1
 - Release 5.1.6
 - Document aliases for command line arguments

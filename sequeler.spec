@@ -19,8 +19,12 @@ License:        %{shrink:
                 LGPL-2.1-or-later AND
                 CC0-1.0
                 }
-URL:            https://github.com/Alecaddd/%{name}
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/Alecaddd/sequeler
+Source:         %{url}/archive/v%{version}/sequeler-%{version}.tar.gz
+
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/Alecaddd/sequeler/pull/387
+Patch:          %{url}/pull/387.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -33,6 +37,8 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
+
+BuildRequires:  hardlink
 
 BuildRequires:  meson
 BuildRequires:  vala
@@ -142,7 +148,7 @@ Ypatybės:
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -155,6 +161,11 @@ Ypatybės:
 
 %find_lang %{appname}
 
+# Upstream installs the same SVG icon in many size-specific directories like
+# /usr/share/icons/hicolor/64x64@2/; we can save space by hardlinking these
+# together.
+hardlink -c -v '%{buildroot}%{_datadir}/icons/hicolor'
+
 
 %check
 desktop-file-validate \
@@ -165,7 +176,7 @@ desktop-file-validate \
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 
 

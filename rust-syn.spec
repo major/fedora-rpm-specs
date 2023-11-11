@@ -6,7 +6,7 @@
 %global crate syn
 
 Name:           rust-syn
-Version:        2.0.38
+Version:        2.0.39
 Release:        %autorelease
 Summary:        Parser for Rust source code
 
@@ -14,7 +14,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/syn
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Parser for Rust source code.}

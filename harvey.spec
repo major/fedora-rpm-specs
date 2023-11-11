@@ -22,6 +22,10 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 URL:            https://github.com/danrabbit/harvey
 Source:         %{url}/archive/%{version}/harvey-%{version}.tar.gz
 
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/danirabbit/harvey/pull/52
+Patch:          %{url}/pull/52.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -78,7 +82,7 @@ for WCAG contrast compliance.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -101,7 +105,7 @@ desktop-file-validate \
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 
 

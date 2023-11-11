@@ -57,8 +57,8 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.29~rc1
-Release:        6%{?dist}
+Version:        1.5.29~rc2
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -580,6 +580,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Nov 09 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-1
+- Bump to 1.5.29-rc2
+
 * Wed Oct 25 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc1-6
 - Add preedit D-Bus signals to PostProcessKeyEvent
 

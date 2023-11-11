@@ -1,7 +1,7 @@
 Summary:        A C++/Python build framework
 Name:           elements
-Version:        6.2.1
-Release:        3%{?dist}
+Version:        6.2.3
+Release:        1%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
 # Elements use this file to link the documentation to cppreference.com
@@ -174,6 +174,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Thu Nov 09 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 6.2.3-1
+- Release 6.2.3
+
 * Thu Aug 17 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 6.2.1-3
 - Rebuilt for Fedora 40
 

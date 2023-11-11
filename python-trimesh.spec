@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.0.2
+Version:        4.0.3
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -14,6 +14,10 @@ Summary:        Import, export, process, analyze and view triangular meshes
 License:        MIT AND BSD-3-Clause AND Zlib
 URL:            https://trimsh.org
 Source:         https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{version}.tar.gz
+
+# Add missing engine keyword in boolean test_multiple
+# https://github.com/mikedh/trimesh/pull/2068
+Patch:          https://github.com/mikedh/trimesh/pull/2068.patch
 
 # The combination of an arched package with only noarch binary packages makes
 # it easier for us to detect arch-dependent test failures, since the tests will
@@ -147,7 +151,7 @@ Recommends:     /usr/bin/openscad
 
 
 %prep
-%autosetup -n trimesh-%{version}
+%autosetup -n trimesh-%{version} -p1
 
 # Stub out unavailable pyinstrument test dependency; we don’t really need to do
 # profiling anyway. Note that this does mean that API function
@@ -181,6 +185,7 @@ EOF
 #            was retired; the current version was 4.x.
 #   glooey: not yet packaged, https://github.com/kxgames/glooey; needs fonts
 #           that are not currently packaged unbundled from its assets
+#   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 #   meshio: not yet packaged, https://github.com/nschloe/meshio
 #   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
 #              bundles MeshLab, which is a nontrivial package that has its own
@@ -207,6 +212,7 @@ for pkg in \
     coveralls \
     embreex \
     glooey \
+    manifold3d \
     meshio \
     mypy \
     pyinstrument \

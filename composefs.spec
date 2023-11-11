@@ -1,13 +1,16 @@
 Name:           composefs
 Version:        1.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools to handle creating and mounting composefs images
 
 License:        GPL-3.0-or-later AND LGPL-2.0-or-later AND Apache-2.0
 URL:            https://github.com/containers/composefs
 Source0:        https://github.com/containers/composefs/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# Use go-md2man instead of pandoc for building manpages
+# https://github.com/containers/composefs/pull/227 (backported)
+Patch0:         227.patch
 
-BuildRequires:  gcc automake libtool openssl-devel yajl-devel pandoc fuse3-devel
+BuildRequires:  gcc automake libtool openssl-devel yajl-devel go-md2man fuse3-devel
 Requires:       %{name}-libs = %{version}-%{release}
 
 %description
@@ -34,7 +37,9 @@ License:        LGPL-2.1-or-later AND (GPL-2.0-only OR Apache-2.0)
 Library files for %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
+# for go-md2man patch
+autoreconf -fiv
 
 %build
 %configure \

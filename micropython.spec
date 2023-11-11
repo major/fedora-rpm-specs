@@ -9,31 +9,27 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.19.1
-Release:        8%{?dist}
+Version:        1.21.0
+Release:        1%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
-# axtls and berkeley-db are BSD
-License:        MIT and BSD
+# micropython-libs is MIT
+# berkeley-db is BSD-4-Clause-UC
+# mbedtls is Apache-2.0
+License:        MIT AND BSD-4-Clause-UC AND Apache-2.0
 
 URL:            http://micropython.org/
 Source0:        https://github.com/micropython/micropython/archive/v%{version}.tar.gz
 
-%global axtls_commit 531cab9c278c947d268bd4c94ecab9153a961b43
-Source1:       https://github.com/micropython/axtls/archive/%{axtls_commit}/axtls-%{axtls_commit}.tar.gz
-
 %global berkley_commit 35aaec4418ad78628a3b935885dd189d41ce779b
-Source2:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_commit}/berkeley-db-1.xx-%{berkley_commit}.tar.gz
-Patch0:        micropython-c99.patch
+Source1:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_commit}/berkeley-db-1.xx-%{berkley_commit}.tar.gz
 
-# Fix compilation with GCC 13
-# Resolved upstream: https://github.com/micropython/micropython/commit/32572439984e5640c6af46fbe7c27400c30112ce
-Patch1:        micropython-gcc13.patch
+%global mbedtls_commit 981743de6fcdbe672e482b6fd724d31d0a0d2476
+Source2:       https://github.com/Mbed-TLS/mbedtls/archive/%{mbedtls_commit}/mbedtls-%{mbedtls_commit}.tar.gz
 
-# Fix dangling pointer issue with GCC 13
-# Resolved upstream: https://github.com/micropython/micropython/commit/f1c6cb7725960487195daa5c5c196fd8d3563811
-Patch2:        micropython-dangling-pointer-gcc13.patch
+%global micropython_lib_commit e025c843b60e93689f0f991d753010bb5bd6a722
+Source3: https://github.com/micropython/micropython-lib/archive/%{micropython_lib_commit}/micropython-lib-%{micropython_lib_commit}.tar.gz
 
 # Other arches need active porting, i686 removed via:
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -51,13 +47,14 @@ BuildRequires:  openssl-devel
 # MicroPython is ~3.4, but the testing framework supports newer Pythons as well.
 # We use the latest working CPython version in those test, setting the
 # MICROPY_CPYTHON3 environment variable.
-# Normal %%{pytohn3} is used anywhere else.
+# Normal %%{python3} is used anywhere else.
 # There is no runtime dependency on this CPython (or any other).
-%global cpython_version_tests 3.9
+%global cpython_version_tests 3.11
 BuildRequires:  %{_bindir}/python%{cpython_version_tests}
 
-Provides:       bundled(axtls) = 2.1.5
+Provides:       bundled(mbedtls) = 2.28.3
 Provides:       bundled(libdb) = 1.85
+Provides:       bundled(micropython-lib) = %{version}
 
 %description
 Implementation of Python 3 with very low memory footprint
@@ -66,17 +63,21 @@ Implementation of Python 3 with very low memory footprint
 %autosetup -p1 -n %{name}-%{version}
 
 # git submodules
-rmdir lib/axtls
-tar -xf %{SOURCE1}
-mv axtls-%{axtls_commit} lib/axtls
-
-head -n 28 lib/axtls/axtlswrap/Makefile > LICENSE.axtls
-
 rmdir lib/berkeley-db-1.xx
-tar -xf %{SOURCE2}
+tar -xf %{SOURCE1}
 mv berkeley-db-1.xx-%{berkley_commit} lib/berkeley-db-1.xx
 
 head -n 32 lib/berkeley-db-1.xx/db/db.c > LICENSE.libdb
+
+rmdir lib/mbedtls
+tar -xf %{SOURCE2}
+mv mbedtls-%{mbedtls_commit} lib/mbedtls
+
+mv lib/mbedtls/LICENSE LICENSE.mbedtls
+
+rmdir lib/micropython-lib
+tar -xf %{SOURCE3}
+mv micropython-lib-%{micropython_lib_commit}/ lib/micropython-lib
 
 # Fix shebangs
 files=$(grep -rl '#!/usr/bin/env python')
@@ -89,13 +90,10 @@ rm ports/cc3200/bootmgr/relocator/relocator.bin
 # Build the cross-compiler
 %make_build -C mpy-cross
 
-# Build the unbundled submodules
-%make_build -C ports/unix axtls V=1
-
 # Build the interpreter
 %make_build -C ports/unix PYTHON=%{python3} V=1
 
-execstack -c ports/unix/micropython
+execstack -c ports/unix/build-standard/micropython
 
 %check
 # Reference: https://git.alpinelinux.org/aports/tree/testing/micropython/APKBUILD
@@ -110,14 +108,19 @@ popd
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-install -pm 755 ports/unix/micropython %{buildroot}%{_bindir}
+install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 
 %files
 %doc README.md
-%license LICENSE LICENSE.axtls LICENSE.libdb
+%license LICENSE LICENSE.libdb LICENSE.mbedtls
 %{_bindir}/micropython
 
 %changelog
+* Fri Nov 03 2023 Charalampos Stratakis <cstratak@redhat.com> - 1.21.0-1
+- Update to 1.21.0
+- Utilize the SPDX license tags
+Resolves: rhbz#2190139
+
 * Fri Aug 4 2023 ZhengYu He <hezhy472013@gmail.com> - 1.19.1-8
 - Add support for riscv64
 

@@ -15,6 +15,8 @@ Utility package to build exporters.}
 %global godocs          CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md\\\
                         README.md
 
+%global gosupfiles      web/landing_page.css web/landing_page.html
+
 Name:           %{goname}
 Release:        %autorelease
 Summary:        Utility package to build exporters

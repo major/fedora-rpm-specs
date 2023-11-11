@@ -1,7 +1,7 @@
 Name:           perl-Getopt-Long
 Epoch:          1
-Version:        2.54
-Release:        500%{?dist}
+Version:        2.55
+Release:        1%{?dist}
 Summary:        Extended processing of command line options
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long
@@ -15,12 +15,12 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(lib)
 # Run-time:
+BuildRequires:  perl(base)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::ParseWords)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 Requires:       perl(Text::ParseWords)
 # Recommended:
@@ -79,14 +79,18 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc Changes examples README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes examples README.md
+%{perl_vendorlib}/Getopt/Long*
+%{perl_vendorlib}/newgetopt.pl*
+%{_mandir}/man3/Getopt::Long*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.55-1
+- 2.55 bump (rhbz#2248884)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.54-500
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

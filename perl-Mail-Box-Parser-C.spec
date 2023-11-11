@@ -1,18 +1,19 @@
 Name:           perl-Mail-Box-Parser-C
-Version:        3.010
-Release:        18%{?dist}
+Version:        3.011
+Release:        1%{?dist}
 Summary:        Parsing folders for MailBox with C routines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-Parser-C
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-Parser-C-%{version}.tar.gz
 # Build
+BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -35,14 +36,14 @@ This module enables faster folder parsing by using compiled C routines.
 %setup -q -n Mail-Box-Parser-C-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
+    NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
-chmod -R u+w %{buildroot}/*
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -51,9 +52,13 @@ make test
 %doc README.md
 %{perl_vendorarch}/auto/Mail/
 %{perl_vendorarch}/Mail/
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/Mail::Box::Parser::C*.3*
 
 %changelog
+* Thu Nov 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.011-1
+- 3.011 bump (rhbz#2240037)
+- Update license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.010-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

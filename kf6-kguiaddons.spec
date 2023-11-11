@@ -1,29 +1,24 @@
-%global		gitdate 20230916.160754
-%global 	cmakever 5.240.0
-%global 	commit0 7ff692a014cc1c5d8b415c05a17a62a5741c3276
-%global 	shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global 	framework kguiaddons
 
 Name:		kf6-%{framework}
-Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	3%{?dist}
+Version:	5.245.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtGui
 
 License:	BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
 URL:		https://invent.kde.org/frameworks/%{framework}
 
-Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:  libX11-devel
 BuildRequires:  libxcb-devel
-
+BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtwayland-devel
 
 BuildRequires:  cmake(Qt6WaylandClient)
@@ -46,7 +41,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -67,10 +62,12 @@ developing applications that use %{name}.
 %{_kf6_includedir}/KGuiAddons/
 %{_kf6_libdir}/libKF6GuiAddons.so
 %{_kf6_libdir}/cmake/KF6GuiAddons/
-%{_kf6_archdatadir}/mkspecs/modules/qt_KGuiAddons.pri
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20230916.160754.7ff692a-3
 - Rebuild (qt6)
 

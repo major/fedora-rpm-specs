@@ -1,19 +1,15 @@
-%global gitdate 20231003.064310
-%global cmakever 5.240.0
-%global commit0 c062482bce74a853fccf1b8d8d2d7fa0df3aa97e
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework frameworkintegration
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Version: 5.245.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(KF6NewStuff)
@@ -34,7 +30,6 @@ BuildRequires:  cmake(KF6WidgetsAddons)
 # BuildRequires:  cmake(AppStreamQt) >= 1.0
 BuildRequires:  cmake(packagekitqt6)
 BuildRequires:  cmake(KF6ColorScheme)
-BuildRequires: qt6-qtbase-private-devel
 Requires:  kf6-filesystem
 
 %description
@@ -59,7 +54,7 @@ Requires:       cmake(KF6ConfigWidgets)
 The %{name}-devel package contains files to develop for %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -88,6 +83,9 @@ The %{name}-devel package contains files to develop for %{name}.
 %{_kf6_libdir}/cmake/KF6FrameworkIntegration/
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231003.064310.c062482-2
 - Rebuild (qt6)
 

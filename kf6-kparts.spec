@@ -1,20 +1,16 @@
-%global gitdate 20231011.024115
-%global cmakever 5.240.0
-%global commit0 17e9362d66fa6fa6808b881fac7ac4dbe4cfe594
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kparts
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for KParts
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  cmake(KF6Config)
@@ -48,7 +44,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -76,5 +72,8 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/parts/
 %{_kf6_datadir}/kdevappwizard/templates/kparts6-app.tar.bz2
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231011.024115.17e9362-1
 - Initial release

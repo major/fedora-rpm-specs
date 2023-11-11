@@ -1,12 +1,21 @@
+%global commit0 829519b1d36668e4a178f15900bd49af55548926
+%global date 20231109
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#global tag %{version}
+
 %global cinnamon_desktop_version 5.8.0
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 5.8.1
-Release: 2%{?dist}
+Version: 5.9.0
+Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
-Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%if 0%{?tag:1}
+Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+%else
+Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%endif
 
 ExcludeArch: %{ix86}
 
@@ -26,6 +35,7 @@ Requires: cinnamon-desktop >= %{cinnamon_desktop_version}
 
 BuildRequires: gcc
 BuildRequires: pkgconfig(gtk+-3.0) >= 2.99.0
+BuildRequires: pkgconfig(cinnamon-desktop) >= 5.8.0
 BuildRequires: pkgconfig(dbus-glib-1)
 BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(libnotify) >= 0.7.0
@@ -52,7 +62,11 @@ Cinnamon-session manages a Cinnamon desktop or GDM login session. It starts up
 the other core components and handles logout and saving the session.
 
 %prep
+%if 0%{?tag:1}
 %autosetup -p1
+%else
+%autosetup -p1 -n %{name}-%{commit0}
+%endif
 
 
 %build
@@ -79,6 +93,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231109git829519b
+- Update to git snapshot
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

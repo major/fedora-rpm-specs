@@ -1,7 +1,7 @@
-%global commit0 77e26aea3cd0a28f382fed82791054b4115c9138
-%global date 20230606
+%global commit0 5a73d4065f3ad757053dd5db931bc1372ade724e
+%global date 20231107
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
+#global tag %{version}
 
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
@@ -15,8 +15,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.8.4
-Release:        5%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        5.9.0
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -36,9 +36,7 @@ Patch1:         set_wheel.patch
 Patch3:         default_panal_launcher.patch
 Patch4:         remove_crap_from_menu.patch
 Patch5:         fix_path.patch
-Patch6:         %url/commit/fce9aad1ebb290802dc550e8dae6344dddf9dec1.patch
-Patch7:         0001-add-xdg-portal-conf.patch
-Patch8:         %url/commit/5eda3d4d8a65517062b48354fb17966a39ceaeca.patch
+Patch6:         0001-add-xdg-portal-conf.patch
 
 ExcludeArch:    %{ix86}
 
@@ -326,6 +324,7 @@ EOF
 %{_datadir}/polkit-1/actions/org.%{name}.settings-users.policy
 %{_datadir}/xdg-desktop-portal/x-cinnamon-portals.conf
 %{_datadir}/xsessions/*
+%{_datadir}/wayland-sessions/*
 %{_datadir}/%{name}/
 %{_datadir}/%{name}-background-properties
 %{_libdir}/%{name}/
@@ -346,6 +345,9 @@ EOF
 %endif
 
 %changelog
+* Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git5a73d40
+- Update to git snapshot
+
 * Fri Oct 27 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.4-5
 - Use libsoup3 for applets
 

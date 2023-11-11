@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.12.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python wrapper for the Cloudflare Client API v4
 
 License:        MIT
@@ -20,7 +20,6 @@ Source2:        gpgkey-D093_0FD2_2220_3ABF_557C__A485_6112_9109_56F6_F8B8.gpg
 
 # TODO: Remove this once jsonlines is packaged
 Patch0:         remove-jsonlines.patch
-Patch1:         remove-shebangs.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -70,6 +69,9 @@ sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 
 %changelog
+* Thu Nov 09 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 2.12.4-2
+- drop unnecessary patch to remove shebangs (rhbz #2247294)
+
 * Mon Oct 16 2023 Nick Bebout <nb@fedoraproject.org> - 2.12.4-1
 - Update to 2.12.4
 

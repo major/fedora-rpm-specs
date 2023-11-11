@@ -193,6 +193,10 @@ Patch13: ruby-3.3.0-openssl-3.2.0-fips-fix-pkey-read-in-openssl-3.patch
 # https://github.com/ruby/openssl/pull/615
 # https://github.com/ruby/ruby/commit/920bc71284f417f9044b0dc1822b1d29a8fc61e5
 Patch14: ruby-3.3.0-openssl-3.2.0-fips-enable-tests.patch
+# ssl: use ffdhe2048 from RFC 7919 as the default DH group parameters
+# https://github.com/ruby/openssl/pull/674
+# https://github.com/ruby/ruby/commit/b6d7cdc2bad0eadbca73f3486917f0ec7a475814
+Patch15: ruby-3.3.0-openssl-3.2.0-fips-fix-pkey-dh-require-openssl.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -666,6 +670,7 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 12 -p1
 %patch 13 -p1
 %patch 14 -p1
+%patch 15 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1584,6 +1589,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Thu Nov 09 2023 Jun Aruga <jaruga@redhat.com> - 3.2.2-183
+- ssl: use ffdhe2048 from RFC 7919 as the default DH group parameters
+
 * Thu Nov 02 2023 Jarek Prokop <jprokop@redhat.com> - 3.2.2-183
 - Fix typo in bundled provide of rubygem-bundler for rubygem-net-http-persistent.
 

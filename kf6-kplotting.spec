@@ -1,19 +1,15 @@
-%global gitdate 20230829.233317
-%global cmakever 5.240.0
-%global commit0 aea878d6b080a2005a820b091eaf906ad9d7d948
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %undefine __cmake_in_source_build
 
 %global framework kplotting
 
 Name:           kf6-%{framework}
-Version:        %{cmakever}^%{gitdate}.%{shortcommit0}
-Release:        129%{?dist}
+Version:        5.245.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon for plotting
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 # Compile Tools
 BuildRequires:  cmake
@@ -24,7 +20,7 @@ BuildRequires:  kf6-rpm-macros
 Requires:       kf6-filesystem
 
 # KDE Frameworks
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 
 # Other
 BuildRequires:  pcre2-devel
@@ -46,7 +42,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %{cmake_kf6}
@@ -62,12 +58,14 @@ developing applications that use %{name}.
 %{_kf6_qtplugindir}/designer/kplotting6widgets.so
 
 %files devel
-%{_kf6_archdatadir}/mkspecs/modules/qt_KPlotting.pri
 %{_kf6_includedir}/KPlotting/
 %{_kf6_libdir}/libKF6Plotting.so
 %{_kf6_libdir}/cmake/KF6Plotting/
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230829.233317.aea878d-129
 - Fixed some issues in the spec stated during the review
 

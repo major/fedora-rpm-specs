@@ -1,6 +1,6 @@
 Name:           shell-color-prompt
-Version:        0.1
-Release:        6%{?dist}
+Version:        0.1.1
+Release:        1%{?dist}
 Summary:        Color prompt for bash shell
 
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ install -m 644 -D -t %{buildroot}%{profiledir} bash-color-prompt.sh
 
 
 %changelog
+* Thu Nov  9 2023 Jens Petersen <petersen@redhat.com> - 0.1.1-1
+- only show error code if PROMPT_ERROR set
+
 * Tue Aug 15 2023 Jens Petersen <petersen@redhat.com> - 0.1-6
 - rename source package to shell-color-prompt
 

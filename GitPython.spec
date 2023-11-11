@@ -1,7 +1,7 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.32
+Version:        3.1.40
 Release:        1%{?dist}
 Summary:        Python Git Library
 
@@ -60,6 +60,10 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Thu Nov 09 2023 Carl George <carlwgeorge@fedoraproject.org> - 3.1.40-1
+- Update to version 3.1.40, resolves rhbz#2221770
+- Fix CVE-2023-41040, resolves rhbz#2248698
+
 * Wed Aug 16 2023 Lubomír Sedlář <lsedlar@redhat.com> - 3.1.32-1
 - New upstream release 3.1.32
 

@@ -3,13 +3,13 @@
 %global kp5_minver 5.27.5
 
 Name:           xwaylandvideobridge
-Version:        0.2
+Version:        0.3.0
 Release:        1%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
-License:        GPL-2.0-or-later
+License:        (GPL-2.0-only or GPL-3.0-only) and LGPL-2.0-or-later and BSD-3-Clause
 URL:            https://invent.kde.org/system/xwaylandvideobridge
-Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
@@ -46,7 +46,7 @@ but within the control of the user at all times.
 
 
 %prep
-%autosetup -n %{name}-v%{version}
+%autosetup -n %{name}-%{version}
 
 
 %build
@@ -66,16 +66,21 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %files -f %{name}.lang
-%license LICENSES/GPL-2.0-or-later.txt
+%license LICENSES/*
 %doc README.md
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/qlogging-categories5/%{name}.categories
+%{_sysconfdir}/xdg/autostart/org.kde.%{name}.desktop
 
 
 %changelog
+* Thu Nov 09 2023 Alessandro Astone <ales.astone@gmail.com> - 0.3.0-1
+- Update to 0.3
+- Autostart on login
+
 * Fri Oct 27 2023 Alessandro Astone <ales.astone@gmail.com> - 0.2-1
 - Update to tagged release 0.2
 

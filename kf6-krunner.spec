@@ -1,20 +1,16 @@
-%global gitdate 20231011.163529
-%global cmakever 5.240.0
-%global commit0 94c7b495a9013ccc140086b24fc83bde2dd60058
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework krunner
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution with parallelized query system
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  kf6-rpm-macros
@@ -47,7 +43,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -71,5 +67,8 @@ developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/runner6python.tar.bz2
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231011.163529.94c7b49-1
 - Initial release

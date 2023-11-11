@@ -1,24 +1,20 @@
-%global gitdate 20231005.103639
-%global cmakever 5.240.0
-%global commit0 d33466d82efcb15787647b985438e0ce4c489f4f
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kdoctools
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 2 addon for generating documentation
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  docbook-dtds
 BuildRequires:  docbook-style-xsl
 BuildRequires:  cmake
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake(KF6Archive)
 BuildRequires:  cmake(KF6I18n)
@@ -44,7 +40,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -72,5 +68,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6DocTools/
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231005.103639.d33466d-1
 - Initial Release

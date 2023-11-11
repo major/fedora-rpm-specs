@@ -1,20 +1,16 @@
-%global gitdate 20231001.120552
-%global cmakever 5.240.0
-%global commit0 4fc632b228f609e44fb23262ff6bc4f45a16f796
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kcompletion
 
 Name:           kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon with auto completion widgets and classes
 # BSD-3-Clause is in the LICENSES folder but goes unused.
 License:        CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
 
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(KF6Config)
@@ -39,7 +35,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -63,5 +59,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231001.120552.4fc632b-1
 - Initial Release

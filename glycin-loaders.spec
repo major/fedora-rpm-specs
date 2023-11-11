@@ -72,7 +72,7 @@ rm -rf vendor
 
 %build
 %meson \
-  -Dloaders=glycin-image-rs,glycin-svg \
+  -Dloaders=glycin-heif,glycin-image-rs,glycin-svg \
   -Dtest_skip_install=true \
   %{nil}
 

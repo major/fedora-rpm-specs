@@ -1,21 +1,17 @@
-%global		gitdate 20230915.130519
-%global		cmakever 5.240.0
-%global		commit0 c53eeac32da84854ac65deddbf839983078ed456
-%global		shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global		framework kcoreaddons
 
 Name:		kf6-%{framework}
-Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	2%{?dist}
+Version:	5.245.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtCore
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND MPL-1.1 AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1
 URL:		https://invent.kde.org/frameworks/%{framework}
-Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	make
-BuildRequires:	extra-cmake-modules >= %{cmakever}
+BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	qt6-qtbase-devel
 BuildRequires:	qt6-qttools-devel
@@ -39,7 +35,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -66,12 +62,14 @@ cat *.lang > all.lang
 %{_libdir}/qt6/qml/org/kde/coreaddons/kde-qmlmodule.version
 
 %files devel
-%{_kf6_archdatadir}/mkspecs/modules/qt_KCoreAddons.pri
 %{_kf6_includedir}/KCoreAddons/
 %{_kf6_libdir}/cmake/KF6CoreAddons/
 %{_kf6_libdir}/libKF6CoreAddons.so
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230915.190519.c53eeac-2
 - Fixed a spec issue with some files and missing macros
 

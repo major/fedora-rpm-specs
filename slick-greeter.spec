@@ -1,13 +1,14 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	1.8.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	10_%{name}-cinnamon.gschema.override.in
 Source2:	10_%{name}-mate.gschema.override
 Source3:	%{name}.conf
+Patch0:     %{url}/commit/21c1877ee5fe0b19e68090889eae4ef8df2a7a24.patch
 
 ExcludeArch:    %{ix86}
 
@@ -134,6 +135,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Fri Nov 10 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.2-3
+- Add icon for cinnamon wayland
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 %global uuid    com.github.unrud.VideoDownloader
 
 Name:           video-downloader
-Version:        0.12.9
+Version:        0.12.10
 Release:        %autorelease
 Summary:        Download videos from websites like YouTube and many others
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/Unrud/video-downloader
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch

@@ -1,13 +1,8 @@
 %global app_id com.github.donadigo.appeditor
 
-# Upstream failed to tag release 1.1.4, but the commit message makes it clear a
-# release was intended.
-%global commit aeb0b13e5dfd2dfde951e8f18d9075eee5054f71
-%global snapdate 20220103
-
 Name:           appeditor
 Summary:        Edit application menu
-Version:        1.1.4^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        1.1.5
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
 #   - data/com.github.donadigo.appeditor.appdata.xml.in is CC0-1.0, which is
@@ -15,14 +10,21 @@ Release:        %autorelease
 License:        GPL-3.0-only AND CC0-1.0
 
 URL:            https://github.com/donadigo/appeditor
-Source:         %{url}/archive/%{commit}/appeditor-%{commit}.tar.gz
+Source:         %{url}/archive/%{version}/appeditor-%{version}.tar.gz
 
+# Fix flickering titlebar (fix #103)
 # https://github.com/donadigo/appeditor/issues/103#issuecomment-756924055
-Patch:          appeditor-1.1.3-fix-flickering-titlebar.patch
-# Fails to compile with vala 0.55.1
-# https://github.com/donadigo/appeditor/issues/121
-# https://github.com/donadigo/appeditor/pull/122
-Patch:          %{url}/pull/122.patch
+# https://github.com/donadigo/appeditor/pull/139
+Patch:          %{url}/pull/139.patch
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/donadigo/appeditor/pull/135
+Patch:          %{url}/pull/135.patch
+# Ensure all text files have terminal newlines
+# https://github.com/donadigo/appeditor/pull/136
+Patch:          %{url}/pull/136.patch
+# Remove executable bit from files that are not script-like
+# https://github.com/donadigo/appeditor/pull/138
+Patch:          %{url}/pull/138.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -41,7 +43,7 @@ BuildRequires:  vala
 BuildRequires:  gcc
 
 BuildRequires:  pkgconfig(gee-0.8)
-BuildRequires:  pkgconfig(granite)
+BuildRequires:  pkgconfig(granite) >= 5.4.0
 BuildRequires:  pkgconfig(gtk+-3.0)
 
 Requires:       contractor
@@ -180,7 +182,8 @@ Uygulama menüsünde gösterilen uygulama girişlerini ve özelliklerini düzenl
 
 
 %prep
-%autosetup -n appeditor-%{commit} -p1
+%autosetup -n appeditor-%{version} -p1
+rm -rv external
 
 
 %build
@@ -203,7 +206,7 @@ desktop-file-validate \
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_metainfodir}/%{app_id}.appdata.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{app_id}.appdata.xml
 
 

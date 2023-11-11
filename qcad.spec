@@ -9,8 +9,9 @@
 #
 
 Name:    qcad
-Version: 3.28.2.2
+Version: 3.28.2.0
 Release: %autorelease
+Epoch:   1
 Summary: Powerful 2D CAD system
 
 ## Main license: GPLv3
@@ -28,8 +29,8 @@ Summary: Powerful 2D CAD system
 ## Other fonts in directory 'fonts' are released as public domain (all copyright
 ## is waived) and BSD (3-clauses).
 
-License: GPL-3.0-only and GPL-2.0-or-later and MIT and BSD and Public Domain and CC-BY-3.0 and Hershey
-Source0: https://github.com/qcad/qcad/archive/v%{version}/%{name}-%{version}.tar.gz
+License: GPL-3.0-only AND GPL-2.0-or-later AND MIT AND BSD AND Public Domain AND CC-BY-3.0 AND Hershey
+Source0: https://github.com/qcad/qcad/archive/v%{version}/%{name}-%{version}.zip
 Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
 URL: https://www.qcad.org/
@@ -45,7 +46,7 @@ BuildRequires: qt5-qtdeclarative-devel >= 5.9.0
 Requires: qt5-designer%{?_isa} >= 5.9.0
 Requires: qt5-qtsvg%{?_isa}
 Requires: qt5-qtscript%{?_isa}
-Provides: bundled(qtscriptgenerator) = 5.9.0
+Provides: bundled(qtscriptgenerator) = 5.15.11
 BuildRequires: gcc-c++, chrpath
 %if %{with cmake}
 BuildRequires: cmake
@@ -60,7 +61,6 @@ BuildRequires: make
 BuildRequires: openssl-devel
 BuildRequires: dbus-devel
 BuildRequires: mesa-libGLU-devel
-BuildRequires: spatialindex-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: fontpackages-devel
@@ -74,9 +74,9 @@ Requires: dejavu-sans-fonts
 Provides: bundled(dxflib) = 1.0.0
 Provides: bundled(opennurbs) = 201004095
 Provides: bundled(stemmer) = 1.0.0
-
-## Unbundle spatialindex libraries
-Patch0: %{name}-qt5-unbundle_libraries.patch
+# Unbundling this library may cause crashes of the software
+Provides: bundled(spatialindex) = 1.9.1
+Provides: bundled(spatialindexnavel) = 1.9.1
 
 %description
 QCAD is an application for computer aided drafting (CAD) in two dimensions (2D).
@@ -91,16 +91,12 @@ You dont need any CAD experience to get started with QCAD immediately.
 %prep
 %setup -n %{name}-%{version} -q
 
-%patch -P 0 -p0 -b .backup
-
 rm -rf ../*-SPECPARTS
 
-rm -rf src/3rdparty/spatialindexnavel/include/*
-
 # Use Fedora Qt5 scripts
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.10
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.10/qt-labs-qtscriptgenerator-5.15.3.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.10/qt-labs-qtscriptgenerator-5.15.10.pro
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.11
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.11/qt-labs-qtscriptgenerator-5.15.3.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.11/qt-labs-qtscriptgenerator-5.15.11.pro
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues

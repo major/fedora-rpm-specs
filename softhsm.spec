@@ -4,7 +4,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.6.1
-Release: %{?prever:0.}5%{?prever:.%{prever}}%{?dist}.7
+Release: %{?prever:0.}7%{?prever:.%{prever}}%{?dist}
 License: BSD
 Url: http://www.opendnssec.org/
 Source: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}.tar.gz
@@ -12,6 +12,8 @@ Source1: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}
 
 Patch1: softhsm-2.6.1-rh1831086-exit.patch
 Patch2: softhsm-openssl3-tests.patch
+# based on https://github.com/opendnssec/SoftHSMv2/commit/f94aaffc879ade97a51b8e1308af42f86be1885f
+Patch3: softhsm-2.6.1-uninitialized.patch
 
 BuildRequires: make
 BuildRequires: openssl-devel >= 1.0.1k-6, sqlite-devel >= 3.4.2, cppunit-devel
@@ -45,6 +47,7 @@ The devel package contains the libsofthsm include files
 %setup -q -n %{name}-%{version}%{?prever}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %if 0%{?prever:1} || 0%{?prerelease:1}
    # pre-release or post-release snapshots fixup
@@ -118,6 +121,10 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Thu Nov 09 2023 Alexander Bokovoy <abokovoy@redhat.com> - 2.6.1-7
+- fix uninitialized variable
+- bump build release to avoid confusion in the changelog
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-5.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

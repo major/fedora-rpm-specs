@@ -1,20 +1,16 @@
-%global gitdate 20231009.021630
-%global cmakever 5.240.0
-%global commit0 3e10cd26b536034d595a1114371818d12908ffb5
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kcmutils
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Version: 5.245.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extra API to write KConfigModules
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(KF6CoreAddons)
@@ -31,7 +27,6 @@ BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtdeclarative-devel
 
 Requires: kf6-filesystem
@@ -50,7 +45,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -71,7 +66,7 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %{_kf6_libdir}/libKF6KCMUtilsCore.so.*
 %{_kf6_qmldir}/org/kde/kcmutils/
 %{_kf6_qtplugindir}/kcms/
-%{_libdir}/libKF6KCMUtilsQuick.so.5.240.0
+%{_libdir}/libKF6KCMUtilsQuick.so.5*
 %{_libdir}/libKF6KCMUtilsQuick.so.6
 
 %files devel
@@ -85,6 +80,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %{_kf6_includedir}/KCMUtilsQuick
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231009.021630.3e10cd2-2
 - Rebuild (qt6)
 

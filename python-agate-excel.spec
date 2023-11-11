@@ -8,7 +8,7 @@ See: http://agate-excel.rtfd.org
 
 
 Name:           python-%{pypi_name}
-Version:        0.3.0
+Version:        0.4.0
 Release:        1%{?dist}
 Summary:        Adds read support for Excel files to agate
 
@@ -88,6 +88,9 @@ nosetests-%{python3_version} tests -v
 
 
 %changelog
+* Thu Nov 9 2023 Julien Enselme <jujens@jujens.eu> - 0.4.0-1
+- Update to 0.4.0
+
 * Thu Nov 2 2023 Julien Enselme <jujens@jujens.eu> - 0.3.0-1
 - Update to 0.3.0
 

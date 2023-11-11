@@ -5,17 +5,15 @@
 %global crate jql-runner
 
 Name:           rust-jql-runner
-Version:        7.0.4
+Version:        7.0.6
 Release:        %autorelease
 Summary:        Runner for jql - the JSON Query Language tool
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/jql-runner
 Source:         %{crates_source}
-# https://github.com/yamafaktory/jql/pull/237
-Source:         https://raw.githubusercontent.com/yamafaktory/jql/%{crate}-v%{version}/LICENSE-MIT
-Source:         https://raw.githubusercontent.com/yamafaktory/jql/%{crate}-v%{version}/LICENSE-APACHE
 # Manually created patch for downstream crate metadata changes
+# * Drop benchmark dependency (criterion)
 Patch:          jql-runner-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -35,8 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-MIT
 %license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -54,7 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -pav %{SOURCE1} %{SOURCE2} .
 %cargo_prep
 
 %generate_buildrequires

@@ -5,7 +5,7 @@
 %global crate colored_json
 
 Name:           rust-colored_json
-Version:        3.3.0
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Colorize JSON, for printing it out on the command line
 

@@ -9,6 +9,9 @@ License:        MIT
 URL:            https://github.com/aws/efs-utils
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Fix systemd unit file.
+Patch:          0001-Ignore-deprecation-warnings-temporarily.patch
+
 BuildArch:      noarch
 
 Requires:       nfs-utils
@@ -34,7 +37,7 @@ Utilities for Amazon Elastic File System (EFS).}
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 # Use unittest.mock for testing.
 sed -i 's/from mock/from unittest.mock/' test/common.py

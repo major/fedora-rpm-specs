@@ -12,6 +12,10 @@ License:        GPL-3.0-only AND CC0-1.0
 URL:            https://github.com/cassidyjames/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/cassidyjames/dippi/pull/123
+Patch:          %{url}/pull/123.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -318,7 +322,7 @@ Bir ekranın yoğunluğunu:
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 # While https://github.com/cassidyjames/dippi/issues/82 is fixed upstream, the
 # typo is still present in non-US English localizations—shall we say
@@ -346,7 +350,7 @@ desktop-file-validate \
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_metainfodir}/%{appname}.metainfo.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{appname}.metainfo.xml
 
 

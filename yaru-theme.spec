@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ubuntu/yaru
-%global tag %{version}
+%global tag %{version}-0ubuntu2
 %global _license COPYING COPYING.LGPL-2.1 COPYING.LGPL-3.0 LICENSE_CCBYSA
 
 Name:       yaru-theme

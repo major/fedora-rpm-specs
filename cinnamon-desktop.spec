@@ -1,3 +1,8 @@
+%global commit0 fe21fa8c0475b38522db2b7a68f11e95cca4ac91
+%global date 20231109
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#global tag %{version}
+
 %global gtk3_version                      3.16.0
 %global glib2_version                     2.37.3
 %global startup_notification_version      0.5
@@ -6,11 +11,15 @@
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 5.8.0
-Release: 2%{?dist}
+Version: 5.9.0
+Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+ and MIT
 URL:     https://github.com/linuxmint/%{name}
+%if 0%{?tag:1}
 Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+%else
+Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%endif
 Source1: x-cinnamon-mimeapps.list
 
 ExcludeArch: %{ix86}
@@ -33,6 +42,7 @@ Requires: gnome-themes-standard
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(libstartup-notification-1.0) >= %{startup_notification_version}
+BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(xkbfile)
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: pkgconfig(gtk-doc) >= %{gtk_doc_version}
@@ -62,7 +72,11 @@ Libraries and header files for the CINNAMON-internal private library
 libcinnamon-desktop.
 
 %prep
+%if 0%{?tag:1}
 %autosetup -p1
+%else
+%autosetup -p1 -n %{name}-%{commit0}
+%endif
 
 %build
 %meson -Dpnp_ids=/usr/share/hwdata/pnp.ids -Ddeprecation_warnings=false
@@ -95,6 +109,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231109gitfe21fa8
+- Update to git snapshot
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

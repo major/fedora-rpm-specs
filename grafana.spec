@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -977,25 +977,25 @@ do
   /usr/sbin/semodule -s ${selinuxvariant} -i \
     %{_datadir}/selinux/${selinuxvariant}/grafana.pp &> /dev/null || :
 done
-/sbin/restorecon -RvF /usr/sbin/grafana-* || :
-/sbin/restorecon -RvF /etc/grafana || :
-/sbin/restorecon -RvF /var/log/grafana || :
-/sbin/restorecon -RvF /var/lib/grafana || :
-/sbin/restorecon -RvF /usr/libexec/grafana-pcp || :
-/usr/sbin/semanage port -a -t grafana_port_t -p tcp 3000 || :
+/sbin/restorecon -RvF /usr/sbin/grafana-* &> /dev/null || :
+/sbin/restorecon -RvF /etc/grafana &> /dev/null || :
+/sbin/restorecon -RvF /var/log/grafana &> /dev/null || :
+/sbin/restorecon -RvF /var/lib/grafana &> /dev/null || :
+/sbin/restorecon -RvF /usr/libexec/grafana-pcp &> /dev/null || :
+/usr/sbin/semanage port -a -t grafana_port_t -p tcp 3000 &> /dev/null || :
 
 %postun selinux
 if [ $1 -eq 0 ] ; then
-/usr/sbin/semanage port -d -p tcp 3000 || :
+/usr/sbin/semanage port -d -p tcp 3000 &> /dev/null || :
   for selinuxvariant in %{selinux_variants}
   do
     /usr/sbin/semodule -s ${selinuxvariant} -r grafana &> /dev/null || :
   done
-  /sbin/restorecon -RvF /usr/sbin/grafana-* || :
-  /sbin/restorecon -RvF /etc/grafana || :
-  /sbin/restorecon -RvF /var/log/grafana || :
-  /sbin/restorecon -RvF /var/lib/grafana || :
-  /sbin/restorecon -RvF /usr/libexec/grafana-pcp || :
+  /sbin/restorecon -RvF /usr/sbin/grafana-* &> /dev/null || :
+  /sbin/restorecon -RvF /etc/grafana &> /dev/null || :
+  /sbin/restorecon -RvF /var/log/grafana &> /dev/null || :
+  /sbin/restorecon -RvF /var/lib/grafana &> /dev/null || :
+  /sbin/restorecon -RvF /usr/libexec/grafana-pcp &> /dev/null || :
 fi
 
 %files selinux
@@ -1004,6 +1004,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Thu Nov 9 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-8
+- Hide relabeling messages from selinux when installing/uninstalling 
+ 
 * Wed Nov 8 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-7
 - Include the selinux policy in the main package rather than a separate package
 

@@ -1,20 +1,16 @@
-%global gitdate 20231012.021227
-%global cmakever 5.240.0
-%global commit0 67a6369dec7a17e7c2dd5ff4b8bd9007dd92603a
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kdav
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary: A DAV protocol implementation with KJobs
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  kf6-rpm-macros
@@ -43,7 +39,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -58,7 +54,7 @@ developing applications that use %{name}.
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/*%{framework}.*
 %{_kf6_libdir}/libKF6DAV.so.6
-%{_kf6_libdir}/libKF6DAV.so.5.240.0
+%{_kf6_libdir}/libKF6DAV.so.5*
 
 %files devel
 %{_kf6_includedir}/KDAV/
@@ -66,5 +62,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6DAV/
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231012.021227.67a6369-1
 - Initial release

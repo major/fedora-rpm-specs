@@ -1,18 +1,14 @@
-%global gitdate 20231011.024051
-%global cmakever 5.240.0
-%global commit0 03d9e05bdc3eb22fd22b4cefe7c37c0ad71482ff
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework knewstuff
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Version: 5.245.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 module for downloading application assets
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(KF6Attica)
@@ -22,7 +18,6 @@ BuildRequires:  cmake(KF6TextWidgets)
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(KF6Completion)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
@@ -54,7 +49,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -88,6 +83,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231011.024051.03d9e05-2
 - Rebuild (qt6)
 

@@ -1,5 +1,5 @@
-%global git_date 20231108
-%global git_commit d5877b3425dc40112ad86a12ada8f84e24968b4e
+%global git_date 20231109
+%global git_commit adb5572b42677db61089dd7482372b809c6ee0c5
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -212,6 +212,10 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Thu Nov 09 2023 Clemens Lang <cllang@redhat.com> - 20231109-1.gitadb5572
+- Restore support for scoped ssh_etm directives
+- Print matches in syntax deprecation warnings
+
 * Tue Nov 07 2023 Clemens Lang <cllang@redhat.com> - 20231107-1.gitd5877b3
 - fips-mode-setup: Fix usage with --no-bootcfg
 

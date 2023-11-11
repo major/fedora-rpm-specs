@@ -5,7 +5,7 @@
 %global crate linux-raw-sys
 
 Name:           rust-linux-raw-sys
-Version:        0.4.8
+Version:        0.4.11
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 
@@ -13,7 +13,7 @@ License:        Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/linux-raw-sys
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Generated bindings for Linux's userspace API.}

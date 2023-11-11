@@ -3,7 +3,7 @@
 Summary: A document formatting system
 Name: groff
 Version: 1.23.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -57,6 +57,9 @@ Patch2: 0003-various-security-fixes.patch
 Patch3: 0004-don-t-use-usr-bin-env-in-shebang.patch
 # allow to specify custom docdir
 Patch4: 0005-do-not-overwrite-docdir.patch
+# Revert upstream change of mapping special characters for UTF-8 devices
+# Debian commit: https://salsa.debian.org/debian/groff/-/commit/d5394c68d70e6c5199b01d2522e094c8fd52e64e
+Patch5: 0006-Revert-upstream-change-of-mapping-special-characters.patch
 
 Requires: coreutils, groff-base = %{version}-%{release}
 
@@ -494,6 +497,10 @@ fi
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Thu Nov 02 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-3
+- Revert upstream change of mapping special characters for UTF-8 devices
+- Resolves: BZ#2224123
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,12 @@
 Name:    testssl
-Version: 3.0.8
+Version: 3.2~rc3
+%global ver 3.2rc3
 Release: %autorelease
 
 Summary: Testing TLS/SSL encryption
-License: GPLv2
+License: GPL-2.0-only
 URL:     https://testssl.sh/
-Source0: https://github.com/drwetter/testssl.sh/archive/refs/tags/v%{version}.tar.gz
+Source0: https://github.com/drwetter/testssl.sh/archive/refs/tags/v%{ver}.tar.gz
 
 BuildArch: noarch
 
@@ -38,7 +39,7 @@ port for the support of TLS/SSL ciphers, protocols as well as recent
 cryptographic flaws and more.
 
 %prep
-%autosetup -n %{name}.sh-%{version}
+%autosetup -n %{name}.sh-%{ver}
 sed --in-place '1s#^\#!/usr/bin/env bash$#\#!/bin/bash#' %{name}.sh etc/client-simulation.txt
 sed --in-place 's#^TESTSSL_INSTALL_DIR=.*$#TESTSSL_INSTALL_DIR="%{_datadir}/%{name}"#' %{name}.sh
 sed --in-place 's#^CA_BUNDLES_PATH=.*$#CA_BUNDLES_PATH="/etc/pki/tls"#' %{name}.sh

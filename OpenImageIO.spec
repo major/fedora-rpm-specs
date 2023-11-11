@@ -2,8 +2,8 @@
 %global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.4.16.0
-Release:        2%{?dist}
+Version:        2.4.17.0
+Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Nov 09 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.17.0-1
+- Update to 2.4.17.0.
+
 * Fri Oct 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.16.0-2
 - Rebuild for openvdb-10.1.0 (close RHBZ#2246603)
 

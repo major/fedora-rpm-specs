@@ -1,21 +1,17 @@
-%global gitdate 20230925.210237
-%global cmakever 5.240.0
-%global commit0 d932e0d16b77b180a972df199089d42a5d625194
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %undefine __cmake_in_source_build
 %global framework kimageformats
 
 Name:           kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
 URL:            https://invent.kde.org/frameworks/%{framework}
 
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  jasper-devel
@@ -41,7 +37,7 @@ may be a runtime requirement for Qt-based software to support certain
 image formats.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -56,5 +52,8 @@ image formats.
 %{_kf6_qtplugindir}/imageformats/*.so
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 03 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230925.210237.d932e0d-1
 - Initial Release

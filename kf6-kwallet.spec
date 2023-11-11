@@ -1,25 +1,21 @@
-%global gitdate 20231012.021308
-%global cmakever 5.240.0
-%global commit0 7a2c863a5242b5d4c49489e0a0c557c6d8915982
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kwallet
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  cmake(Qca-qt6)
 BuildRequires:  cmake(Qt6Core5Compat)
 
 BuildRequires:  cmake(KF6ConfigWidgets)
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  libgcrypt-devel
 BuildRequires:  cmake
@@ -66,7 +62,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -102,8 +98,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sun Oct 15 2023 Justin Zobel <justin.zobel@gmail.com> - 5.240.0^20231012.021308.7a2c863-1
-- Update to Commit 7a2c863a5242b5d4c49489e0a0c557c6d8915982 from Oct 12
 
 * Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231003.213013.7c91f3d-1
 - Initial Release

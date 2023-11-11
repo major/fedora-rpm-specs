@@ -1,5 +1,5 @@
 Name:           advancecomp
-Version:        2.5
+Version:        2.6
 Release:        %autorelease
 Summary:        Recompression utilities for .png, .mng, .zip and .gz files
 
@@ -38,8 +38,12 @@ BuildRequires:  dos2unix
 BuildRequires:  zlib-devel
 
 # Unbundled downstream
-BuildRequires:  pkgconfig(libdeflate)
+BuildRequires:  pkgconfig(libdeflate) >= 1.19
 BuildRequires:  zopfli-devel
+
+# The point of the 2.6 release was to upgrade the bundled libdeflate; enforce
+# this on the unbundled libdeflate.
+Requires:       libdeflate >= 1.19
 
 # From 7z/README:
 #
@@ -80,7 +84,7 @@ This package contains:
 dos2unix -k doc/*.txt
 
 # Patch out bundled libdeflate
-rm -rvf libdeflate
+rm -rv libdeflate
 sed -r -i '/libdeflate[\/_]/d' Makefile.am
 # Fix up #include paths. The find-then-modify pattern keeps us from discarding
 # mtimes on any sources that do not need modification.
@@ -90,7 +94,7 @@ find . -type f -exec gawk \
   xargs -r -t sed -r -i 's@^([[:blank:]]*#include.*)libdeflate/@\1@'
 
 # Patch out bundled zopfli
-rm -rvf zopfli
+rm -rv zopfli
 sed -r -i \
     -e '/zopfli[\/_]/d' \
     -e 's/((\(7z_SOURCES\)|WindowOut\.h).*)[[:blank:]]*\\/\1/' \

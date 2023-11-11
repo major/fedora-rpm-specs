@@ -10,6 +10,10 @@ License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://qalculate.github.io/
 Source:         https://github.com/Qalculate/qalculate-qt/releases/download/v%{version}/qalculate-qt-%{version}.tar.gz
 
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/Qalculate/qalculate-qt/pull/103
+Patch:          https://github.com/Qalculate/qalculate-qt/pull/103.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -54,7 +58,7 @@ This package provides a Qt graphical interface for Qalculate!
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -80,7 +84,7 @@ desktop-file-validate '%{buildroot}%{_datadir}/applications/%{app_id}.desktop'
 appstream-util validate-relax --nonet \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 
 

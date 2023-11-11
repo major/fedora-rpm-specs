@@ -1,20 +1,16 @@
-%global gitdate 20231011.024138
-%global cmakever 5.240.0
-%global commit0 6035342ec2f4f608fce4172fca6de115279c6b5d
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kstatusnotifieritem
 
 Name:           kf6-%{framework}
-Version:        %{cmakever}^%{gitdate}.%{shortcommit0}
+Version:        5.245.0
 Release:        1%{?dist}
 Summary:        Implementation of Status Notifier Items
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
-Source0:        https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(Qt6Widgets)
@@ -36,7 +32,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0}
+%autosetup -n %{framework}-%{version}
 
 %build
 %cmake_kf6 -DBUILD_WITH_QT6=ON
@@ -58,5 +54,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6StatusNotifierItem.so
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231011.024138.6035342-1
 - Initial release

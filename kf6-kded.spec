@@ -1,20 +1,16 @@
-%global gitdate 20231005.021018
-%global cmakever 5.240.0
-%global commit0 cbc5874a3d574bbd90397bddf9c91eea9597b336
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kded
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extensible daemon for system-level services
 
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(KF6Config)
@@ -46,7 +42,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -81,5 +77,8 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kded
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231005.021018.cbc5874-1
 - Initial release

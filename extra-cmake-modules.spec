@@ -1,7 +1,3 @@
-%global gitdate 20230922.144228
-%global cmakever 5.240.0
-%global commit0 a068eaba79593910d000358330187f542d5b6eb3
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global framework extra-cmake-modules
 
@@ -15,17 +11,12 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 3%{?dist}
+Version: 5.245.0
+Release: 1%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
-Source0:        https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 BuildArch:      noarch
-
-## Upstream patches
-# https://invent.kde.org/frameworks/extra-cmake-modules/-/issues/11
-# https://invent.kde.org/frameworks/extra-cmake-modules/-/merge_requests/383
-Patch0: 383.patch
 
 ## upstreamable patches
 # do not unconditionally link in base/core libpoppler library
@@ -40,7 +31,8 @@ BuildRequires: qt6-qttools-devel
 BuildRequires: python3-sphinx
 %global sphinx_build -DSphinx_BUILD_EXECUTABLE:PATH=%{_bindir}/sphinx-build-3
 %endif
-
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(Qt6Core)
 Requires: kf5-rpm-macros
 Requires: kf6-rpm-macros
 Recommends: appstream
@@ -51,7 +43,7 @@ Requires: cmake(Qt6LinguistTools)
 Additional modules for CMake build system needed by KDE Frameworks.
 
 %prep
-%autosetup -n %{name}-%{commit0} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %cmake_kf6 \
@@ -81,6 +73,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sat Sep 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.240.0^20230922.144228.a068eab-1
 - Upgrade to snapshot a068eaba79593910d000358330187f542d5b6eb3
 
@@ -138,7 +133,6 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 - 5.98.0
 
 * Sat Aug 13 2022 Justin Zobel <justin@1707.io> - 5.97.0-1
-- Update to 5.97.0
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.96.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
@@ -150,7 +144,6 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 - 5.94.0
 
 * Sun Apr 10 2022 Justin Zobel <justin@1707.io> - 5.93-1
-- Update to 5.93
 
 * Thu Mar 10 2022 Rex Dieter <rdieter@fedoraproject.org> - 5.92.0-1
 - 5.92.0
@@ -407,7 +400,6 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 * Tue Jan 24 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.29.0-2
 - Requires: appstream
-- update URL
 - .spec cosmetics
 
 * Fri Dec 16 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.29.0-1
@@ -435,7 +427,6 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 - KDE Frameworks 5.22.0
 
 * Mon Apr 04 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.21.0-2
-- Update URL
 
 * Mon Apr 04 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.21.0-1
 - KDE Frameworks 5.21.0
@@ -450,7 +441,6 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
 * Thu Jan 14 2016 Rex Dieter <rdieter@fedoraproject.org> 5.18.0-2
-- use kf5-rpm-macros, update URL, use %%license
 
 * Sun Jan 03 2016 Daniel Vrátil <dvratil@fedoraproject.org> - 5.18.0-1
 - KDE Frameworks 5.18.0
@@ -480,7 +470,6 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 - KDE Frameworks 5.13
 
 * Thu Jul 09 2015 Rex Dieter <rdieter@fedoraproject.org> - 5.12.0-1
-- 5.12.0, update URL (to reference projects.kde.org), .spec cosmetics
 
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
@@ -501,7 +490,6 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 - extra-cmake-modules 1.7.0 (KDE Frameworks 5.7.0)
 
 * Mon Jan 12 2015 Daniel Vrátil <dvratil@redhat.com> - 1.6.1-1
-- Update to 1.6.1 which includes upstream fix for kde#341717
 
 * Sun Jan 11 2015 Kevin Kofler <Kevin@tigcc.ticalc.org> - 1.6.0-3
 - Use upstream version of the kde#342717 patch by Alex Merry
@@ -553,19 +541,14 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 - Don't depend on kf5-filesystem
 
 * Mon Mar 31 2014 Jan Grulich <jgrulich@redhat.com> 0.0.12-1
-- Update to KDE Frameworks 5 Beta 1 (4.98.0)
 
 * Wed Mar 05 2014 Jan Grulich <jgrulich@redhat.com> 0.0.11-1
-- Update to KDE Frameworks 5 Alpha 2 (4.97.0)
 
 * Wed Feb 12 2014 Daniel Vrátil <dvratil@redhat.com> 0.0.10-1
-- Update to KDE Frameworks 5 Alpha 1 (4.96.0)
 
 * Wed Feb 05 2014 Daniel Vrátil <dvratil@redhat.com> 0.0.10-0.1.20140205git
-- Update to pre-relase snapshot of 0.0.10
 
 * Tue Feb 04 2014 Lubomir Rintel <lkundrak@v3.sk> - 0.0.9-1
-- Update to Jan 7 release
 
 * Mon Sep 16 2013 Lubomir Rintel <lkundrak@v3.sk> - 0.0.9-0.1.20130013git5367954
 - Initial packaging

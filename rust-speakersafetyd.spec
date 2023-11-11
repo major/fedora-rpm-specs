@@ -55,7 +55,7 @@ install -p -m 0644 -D speakersafetyd.service %{buildroot}%{_unitdir}/speakersafe
 install -p -m 0644 -D 95-speakersafetyd.rules %{buildroot}%{_udevrulesdir}/95-speakersafetyd.rules
 install -d -m 0755 %{buildroot}%{_datadir}/speakersafetyd/apple
 install -p -m 0644 -t %{buildroot}%{_datadir}/speakersafetyd/apple conf/apple/*
-install -d -m 0755 %{buildroot}%{_sharedstatedir}/speakersafetyd
+install -d -m 0755 %{buildroot}%{_sharedstatedir}/speakersafetyd/blackbox
  
 %if %{with check}
 %check

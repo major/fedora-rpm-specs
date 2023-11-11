@@ -2,7 +2,7 @@
 
 Name:           coolreader
 Version:        3.2.59
-Release:        %autorelease -n
+Release:        %autorelease
 Summary:        Cross platform open source e-book reader
 %global tag cr%{version}
 %forgemeta

@@ -1,4 +1,4 @@
-%global         upversion 4.0.3.2975
+%global         upversion 4.0.4.3010
 %global         pkgversion Firebird-%{upversion}-0
 
 %global         major 4.0
@@ -196,14 +196,14 @@ in production systems, under a variety of names, since 1981.
 
 %prep
 %setup -q -n %{pkgversion}
-%patch101 -p1
-%patch203 -p1
-%patch205 -p1
-%patch301 -p1
-%patch302 -p1
-%patch303 -p1
-%patch401 -p1
-%patch402 -p1
+%patch -P101 -p1
+%patch -P203 -p1
+%patch -P205 -p1
+%patch -P301 -p1
+%patch -P302 -p1
+%patch -P303 -p1
+%patch -P401 -p1
+%patch -P402 -p1
 %patch -P501 -p1
 
 
@@ -380,6 +380,9 @@ fi
 
 
 %changelog
+* Thu Nov 09 2023 Philippe Makowski <makowski@fedoraproject.org> - 4.0.4.3010-0
+- Update to 4.0.4 (#2247832)
+
 * Tue Aug 08 2023 Philippe Makowski <makowski@fedoraproject.org> - 4.0.3.2975-0
 - Update to 4.0.3 (#2228171)
 

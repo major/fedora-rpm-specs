@@ -373,7 +373,21 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/ncrypt.dll*
 %check
 %if %{with tests}
 pushd native_build
-make check %{?_smp_mflags} GNUTLS_SYSTEM_PRIORITY_FILE=/dev/null
+
+xfail_tests=
+
+# The ktls.sh test currently only supports kernel 5.11+.  This needs to
+# be checked at run time, as the koji builder might be using a different
+# version of kernel on the host than the one indicated by the
+# kernel-devel package.
+
+case "$(uname -r)" in
+  4.* | 5.[0-9].* | 5.10.* )
+    xfail_tests="$xfail_tests ktls.sh"
+    ;;
+esac
+
+make check %{?_smp_mflags} GNUTLS_SYSTEM_PRIORITY_FILE=/dev/null XFAIL_TESTS="$xfail_tests"
 popd
 %endif
 

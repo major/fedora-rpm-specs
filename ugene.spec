@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20230903
-%global	gitcommit		3dd4779ff42843fd7c653643840c8ae23c784646
+%global	gitdate		20231106
+%global	gitcommit		10eda8827eccc32a7c6222b738ae937e2fd81665
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		5b1c13afdeac24ae9af8f7d93da33ee183270879
+%global	gitcommit_free		fcb3cae9cdfae65c794d0ad46c16a96f015c2404
 %else
 # currently 41.0 branch
 %global	gitdate		20211117
@@ -18,8 +18,8 @@
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20230904
-%global	tarballtime	1053
+%global	tarballdate	20231106
+%global	tarballtime	0814
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainver		48.1
+%global	mainver		49.0
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -250,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Nov  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 49.0-1
+- 49.0
+
 * Tue Sep  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 48.1-1
 - 48.1
 

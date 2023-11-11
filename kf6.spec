@@ -1,8 +1,8 @@
 Name:    kf6
 # This version MUST remain in sync with KF6 versions!
 # XXX: Yes, it's 5.x still, this is synced with the version set in extra-cmake-modules
-Version: 5.240.0
-Release: 4%{?dist}
+Version: 5.245.0
+Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -88,6 +88,10 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-1
+- 5.245.0
+- Fix macros for unstable releases
+
 * Sun Nov 05 2023 Steve Cossette <farchord@gmail.com> - 5.240.0-4
 - Migrated/copied framework version macros from the kf5 package
 

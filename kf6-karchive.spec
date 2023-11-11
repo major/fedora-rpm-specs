@@ -1,16 +1,12 @@
-%global gitdate 20231014.021837
-%global cmakever 5.240.0
-%global commit0 b24e9b57740f3e63eb059a17957f24fd4be45750
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework karchive
 
 Name:           kf6-%{framework}
-Version:        %{cmakever}^%{gitdate}.%{shortcommit0}
+Version:        5.245.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with archive functions
 License:        LGPL-2.0-or-later AND BSD-2-Clause
 URL:            https://invent.kde.org/frameworks/%{framework}
-Source0:        https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{commit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 # Compile Tools
 BuildRequires:  cmake
@@ -44,7 +40,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -58,7 +54,7 @@ developing applications that use %{name}.
 %doc AUTHORS README.md
 %license LICENSES/*
 %{_kf6_datadir}/qlogging-categories6/*categories
-%{_kf6_libdir}/libKF6Archive.so.5.240.0
+%{_kf6_libdir}/libKF6Archive.so.5*
 %{_kf6_libdir}/libKF6Archive.so.6
 
 %files devel
@@ -67,6 +63,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6Archive.so
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Mon Oct 16 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231014.021837.b24e9b5-1
 - Updated to latest git (And shortened the git commit version)
 

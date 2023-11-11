@@ -1,20 +1,16 @@
-%global		gitdate 20230920.235103
-%global		cmakever 5.240.0
-%global		commit0 01f7019f5b49a89ef361e341c2115afea75bbd1e
-%global		shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global		framework sonnet
 
 Name:		kf6-%{framework}
-Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
+Version:	5.245.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
 
-Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:	appstream
-BuildRequires:	extra-cmake-modules >= %{cmakever}
+BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -42,7 +38,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -67,8 +63,6 @@ developing applications that use %{name}.
 %files devel
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_archdatadir}/mkspecs/modules/qt_SonnetCore.pri
-%{_kf6_archdatadir}/mkspecs/modules/qt_SonnetUi.pri
 %{_kf6_includedir}/Sonnet/
 %{_kf6_includedir}/SonnetCore/
 %{_kf6_includedir}/SonnetUi/
@@ -78,5 +72,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sun Sep 24 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230920.235103.01f7019-1
 - Initial release

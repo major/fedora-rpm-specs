@@ -15,8 +15,8 @@
 %bcond_without zstd
 
 Name:		kmod
-Version:	30
-Release:	6%{?dist}
+Version:	31
+Release:	2%{?dist}
 Summary:	Linux kernel module management utilities
 
 License:	GPLv2+
@@ -24,7 +24,7 @@ URL:		https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
 Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
 Source1:	weak-modules
 Source2:	depmod.conf.dist
-Patch0:		kmod-configure-c99.patch
+Patch1: 	kmod-tip.patch
 Exclusiveos:	Linux
 
 BuildRequires:  gcc
@@ -35,9 +35,9 @@ BuildRequires:	zlib-devel
 %if %{with xz}
 BuildRequires:	xz-devel
 %endif
-BuildRequires:  libxslt
+BuildRequires:  libxslt docbook-style-xsl
 BuildRequires:  openssl-devel
-BuildRequires:  make
+BuildRequires:  make automake
 %if %{with zstd}
 BuildRequires:  libzstd-devel
 %endif
@@ -70,8 +70,6 @@ applications that wish to load or unload Linux kernel modules.
 
 %prep
 %autosetup -p1
-# Avoid rebuilding the autoconf scripts.
-touch -r aclocal.m4 configure*
 
 %build
 %configure \
@@ -136,7 +134,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %if %{with dist_conf}
 %{_sysconfdir}/depmod.d/dist.conf
 %endif
-%attr(0644,root,root) %{_mandir}/man5/*.5*
+%attr(0644,root,root) %{_mandir}/man5/mod*.d*.5*
+%attr(0644,root,root) %{_mandir}/man5/depmod.d.5*
+%{_mandir}/man5/modprobe.conf.5*
 %attr(0644,root,root) %{_mandir}/man8/*.8*
 %doc NEWS README.md TODO
 
@@ -146,10 +146,16 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 
 %files devel
 %{_includedir}/libkmod.h
+%{_libdir}/pkgconfig/kmod.pc
 %{_libdir}/pkgconfig/libkmod.pc
 %{_libdir}/libkmod.so
 
 %changelog
+* Thu Nov 09 2023 Josh Boyer <jwboyer@fedoraproject.org> - 31-2
+- Add upstream patches to enable SHA3 support
+- New upstream v31
+- Resolves: rhbz#2241394
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 30-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

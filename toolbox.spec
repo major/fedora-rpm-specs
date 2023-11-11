@@ -5,13 +5,13 @@ Version:       0.0.99.4
 
 %global goipath github.com/containers/%{name}
 
-%if 0%{?rhel} == 9
+%if 0%{?rhel} <= 9
 %gometa
 %else
 %gometa -f
 %endif
 
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -222,7 +222,7 @@ export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_
 %install
 %meson_install
 
-%if 0%{?rhel}
+%if 0%{?rhel} <= 9
 install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 %endif
 
@@ -254,6 +254,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Thu Nov 09 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-6
+- Drop the custom /etc/containers/toolbox.conf from RHEL 10 onwards
+
 * Mon Oct 02 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-5
 - Drop github.com/coreos/toolbox compatibility from RHEL 10 onwards
 

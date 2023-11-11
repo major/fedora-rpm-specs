@@ -1,3 +1,8 @@
+%global commit0 7360582eb853682764eb4d276d9e8535c96fe763
+%global date 20231107
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#global tag %{version}
+
 %global _artwork_version 1.7.5
 
 %global cinnamon_desktop_version 5.8.0
@@ -7,8 +12,8 @@
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 5.8.1
-Release: 2%{?dist}
+Version: 5.9.0
+Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -18,7 +23,11 @@ Release: 2%{?dist}
 # wacom/calibrator/main.c
 License: GPLv2+ and LGPLv2+ and MIT and ISC
 URL:     https://github.com/linuxmint/%{name}
-Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%if 0%{?tag:1}
+Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+%else
+Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%endif
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
 
 ExcludeArch: %{ix86}
@@ -85,7 +94,11 @@ utilities for testing Metacity/Muffin themes.
 
 
 %prep
-%autosetup -a 1 -p 1
+%if 0%{?tag:1}
+%autosetup -a1 -p1
+%else
+%autosetup -a1 -p1 -n %{name}-%{commit0}
+%endif
 
 
 %build
@@ -140,6 +153,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git7360582
+- Update to git snapshot
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

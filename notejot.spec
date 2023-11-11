@@ -33,6 +33,9 @@ Patch:          %{url}/pull/380.patch
 # so this patch cannot be sent upstream, but the fix was noted in the upstream
 # issue.
 Patch:          0001-Simplify-an-overcomplicated-Boolean-expression.patch
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/lainsce/notejot/pull/408
+Patch:          %{url}/pull/408.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -212,7 +215,7 @@ desktop-file-validate \
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_metainfodir}/%{app_id}.metainfo.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{app_id}.metainfo.xml
 
 

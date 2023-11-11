@@ -4,22 +4,13 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.18.1
+Version:        0.18.2
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
-
-# Allow openapi-spec-validator 0.7.x
-# https://github.com/python-openapi/openapi-core/commit/2d479c420639699a044539558b3359f3d66f422c
-#
-# Part of:
-#
-# Allow openapi-spec-validator 0.7.x, and update it from 0.6.0 to 0.7.0
-# https://github.com/python-openapi/openapi-core/pull/685
-Patch:          %{url}/commit/2d479c420639699a044539558b3359f3d66f422c.patch
 
 BuildArch:      noarch
 

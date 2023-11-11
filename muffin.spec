@@ -1,24 +1,36 @@
+%global commit0 4b87bf9e647f26136a86b7cf15c9a8db0d313226
+%global date 20231107
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#global tag %{version}
+
 Name:          muffin
-Version:       5.8.1
-Release:       1%{?dist}
+Version:       5.9.0
+Release:       1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           https://github.com/linuxmint/%{name}
-Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:        %{url}/commit/ff244dde0780bf186c7be3f4c52ac48e3d1ad7cc.patch#/zenity_fix.patch
-Patch1:        libinput.patch
+%if 0%{?tag:1}
+Source0:       %url/archive/%{version}/%{name}-%{version}.tar.gz
+%else
+Source0:       %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%endif
+Patch0:        libinput.patch
 
 ExcludeArch:   %{ix86}
 
 BuildRequires: meson
+BuildRequires: cvt
 BuildRequires: mesa-libEGL-devel
+BuildRequires: pkgconfig(gbm)
 BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(graphene-gobject-1.0)
 BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libcanberra)
+BuildRequires: pkgconfig(libdrm)
+BuildRequires: pkgconfig(libinput)
 BuildRequires: pkgconfig(libpipewire-0.3)
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(libwacom)
@@ -27,10 +39,14 @@ BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: pkgconfig(xkbcommon-x11)
 BuildRequires: pkgconfig(xtst)
+BuildRequires: pkgconfig(xwayland)
+BuildRequires: pkgconfig(wayland-eglstream)
+BuildRequires: pkgconfig(wayland-protocols)
 BuildRequires: zenity
 
 Requires: dbus-x11
 Requires: zenity
+Recommends: xorg-x11-server-Xwayland
 
 %description
 Muffin is a window and compositing manager that displays and manages
@@ -53,14 +69,16 @@ Header files and libraries for developing Muffin plugins. Also includes
 utilities for testing Metacity/Muffin themes.
 
 %prep
-%setup -q
-%if 0%{?fedora} && 0%{?fedora} >= 38
-%patch -P 0 -p1
-%patch -P 1 -p1
+%if 0%{?tag:1}
+%autosetup -p1
+%else
+%autosetup -p1 -n %{name}-%{commit0}
 %endif
 
 %build
-%meson
+%meson \
+ -Degl_device=true\
+ -Dwayland_eglstream=true \
 %meson_build
 
 %install
@@ -90,6 +108,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Nov 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git4b87bf9
+- Update to git snapshot
+
 * Mon Jul 24 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
 - Update to 5.8.1 release
 

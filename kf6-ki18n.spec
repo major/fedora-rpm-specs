@@ -1,26 +1,21 @@
-%global		gitdate 20230829.233059
-%global		cmakever 5.240.0
-%global		commit0 7042d58a8a2d956da75eaeed285fa550bd931293
-%global		shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global		framework ki18n
 
 Name:		kf6-%{framework}
-Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	3%{?dist}
+Version:	5.245.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND ODbL-1.0
 URL:		https://invent.kde.org/frameworks/%{framework}
-Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
-BuildRequires:	extra-cmake-modules >= %{cmakever}
+BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	gettext
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	perl-interpreter
 BuildRequires:	python3
 BuildRequires:	qt6-qtbase-devel
-BuildRequires:	qt6-qtbase-private-devel
 BuildRequires:	qt6-qtdeclarative-devel
 BuildRequires:	cmake(Qt6Qml)
 BuildRequires:	pkgconfig(iso-codes)
@@ -41,7 +36,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 
 %build
@@ -82,10 +77,12 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6I18n.so
 %{_kf6_libdir}/libKF6I18nLocaleData.so
 %{_kf6_libdir}/cmake/KF6I18n/
-%{_kf6_archdatadir}/mkspecs/modules/qt_KI18n.pri
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20230829.233059.7042d58-3
 - Rebuild (qt6)
 

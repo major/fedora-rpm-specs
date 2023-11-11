@@ -12,7 +12,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    fe6d9183154ed6f2f913f2b568d3d51d8ae9b308
+%global gh_commit    a6d53a3e5bec85ed3dd78868b7de0f5b4e12f772
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   vobject
@@ -25,8 +25,8 @@
 
 Name:           php-sabre-vobject4
 Summary:        Library to parse and manipulate iCalendar and vCard objects
-Version:        4.5.3
-Release:        2%{?dist}
+Version:        4.5.4
+Release:        1%{?dist}
 
 URL:            http://sabre.io/vobject/
 License:        BSD-3-Clause
@@ -94,7 +94,7 @@ Autoloader: %{_datadir}/php/Sabre/VObject4/autoload.php
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p1 -b .rpm
+%patch -P0 -p1 -b .rpm
 
 phpab -t fedora -o lib/autoload.php lib
 
@@ -150,7 +150,7 @@ fi
 
 : Run upstream test suite against installed library
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} $opt || ret=1
@@ -173,6 +173,9 @@ exit $ret
 %endif
 
 %changelog
+* Thu Nov  9 2023 Remi Collet <remi@remirepo.net> - 4.5.4-1
+- update to 4.5.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

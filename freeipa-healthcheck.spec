@@ -16,7 +16,7 @@
 %bcond_without tests
 
 Name:           %{prefix}-healthcheck
-Version:        0.15
+Version:        0.16
 Release:        1%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
@@ -155,6 +155,10 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Wed Nov  8 2023 Rob Crittenden <rcritten@redhat.com> - 0.16-1
+- Update to 0.16 release
+- This fixes pki-healthcheck
+
 * Tue Nov  7 2023 Rob Crittenden <rcritten@redhat.com> - 0.15-1
 - Update to 0.15 release
 

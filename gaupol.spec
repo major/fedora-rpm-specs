@@ -13,6 +13,10 @@ URL:            https://otsaloma.io/gaupol/
 %global forgeurl https://github.com/otsaloma/gaupol
 Source:         %{forgeurl}/archive/%{version}/gaupol-%{version}.tar.gz
 
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/otsaloma/gaupol/pull/214
+Patch:          %{forgeurl}/pull/214.patch
+
 # The package cannot be noarch because it has weak dependencies and BR’s
 # conditioned on architecture. There is still no compiled code, so there will
 # be no debug packages.
@@ -277,7 +281,7 @@ fi
 appstream-util validate-relax --nonet \
     '%{buildroot}/%{_metainfodir}/%{app_id}.appdata.xml'
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     '%{buildroot}/%{_metainfodir}/%{app_id}.appdata.xml'
 
 %if %{with tests}

@@ -4,8 +4,8 @@
 
 %global crate io-lifetimes
 
-Name:           rust-io-lifetimes
-Version:        2.0.2
+Name:           rust-io-lifetimes1
+Version:        1.0.11
 Release:        %autorelease
 Summary:        Low-level I/O ownership and borrowing library
 
@@ -75,6 +75,18 @@ This package contains library source intended for building other packages which
 use the "close" feature of the "%{crate}" crate.
 
 %files       -n %{name}+close-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fs-err-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fs-err-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fs-err" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fs-err-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+libc-devel

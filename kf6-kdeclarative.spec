@@ -1,21 +1,17 @@
-%global gitdate 20231011.023933
-%global cmakever 5.240.0
-%global commit0 bf3f9d6dc36a4f5c3de43766169ab3a23a6afa5a
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kdeclarative
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Version: 5.245.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for Qt declarative
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0:  https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  cmake
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6GlobalAccel)
@@ -32,7 +28,6 @@ BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  libepoxy-devel
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtdeclarative-devel
 Requires:  kf6-filesystem
 
@@ -50,7 +45,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -69,9 +64,8 @@ developing applications that use %{name}.
 %{_kf6_qmldir}/org/kde/draganddrop/
 %{_kf6_qmldir}/org/kde/graphicaleffects/
 %{_kf6_qmldir}/org/kde/kquickcontrols/
-%{_kf6_qmldir}/org/kde/kquickcontrolsaddons/
-%dir %{_kf6_qmldir}/org/kde/private/
 %{_kf6_qmldir}/org/kde/private/kquickcontrols/
+%{_kf6_qmldir}/org/kde/kquickcontrolsaddons/
 
 %files devel
 %{_kf6_includedir}/KDeclarative/
@@ -79,6 +73,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6Declarative/
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231011.023933.bf3f9d6-2
 - Rebuild (qt6)
 

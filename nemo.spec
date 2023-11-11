@@ -1,14 +1,22 @@
+%global commit0 32ab5b1c7893054b266afaa6c88b45c43e8ebd25
+%global date 20231109
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#global tag %{version}
+
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        5.8.5
-Release:        3%{?dist}
+Version:        5.9.0
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
-Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
+%if 0%{?tag:1}
+Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+%else
+Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%endif
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
-Patch2:         %url/commit/ba29a2ffb1cd85ea323a7aa44fbf86fd804c2532.patch
 
 ExcludeArch:   %{ix86}
 
@@ -82,7 +90,11 @@ This package provides libraries and header files needed
 for developing nemo extensions.
 
 %prep
+%if 0%{?tag:1}
 %autosetup -p1
+%else
+%autosetup -p1 -n %{name}-%{commit0}
+%endif
 
 %build
 %meson \
@@ -155,6 +167,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231109git32ab5b1
+- Update to git snapshot
+
 * Fri Nov 03 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.5-3
 - Add recommends folder-color-switcher-nemo
 

@@ -2,21 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate ghost
+%global crate bigdecimal
 
-Name:           rust-ghost
-Version:        0.1.16
+Name:           rust-bigdecimal0.3
+Version:        0.3.1
 Release:        %autorelease
-Summary:        Define your own PhantomData
+Summary:        Arbitrary precision decimal numbers
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/ghost
+URL:            https://crates.io/crates/bigdecimal
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Define your own PhantomData.}
+Arbitrary precision decimal numbers.}
 
 %description %{_description}
 
@@ -30,6 +31,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/COPYRIGHT
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
@@ -45,6 +47,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+string-only-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+string-only-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "string-only" feature of the "%{crate}" crate.
+
+%files       -n %{name}+string-only-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

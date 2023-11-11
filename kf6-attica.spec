@@ -1,20 +1,16 @@
-%global		gitdate 20230829.232558
-%global		cmakever 5.240.0
-%global		commit0 4e09a15b47bc901af5c0839715aa6d7d3c331343
-%global		shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global		framework attica
 
 Name:		kf6-%{framework}
-Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
+Version:	5.245.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks Tier 1 Addon with Open Collaboration Services API
 License:	CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL.txt
 URL:		https://invent.kde.org/frameworks/%{framework}
-Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
-BuildRequires:	extra-cmake-modules >= %{cmakever}
+BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	qt6-qtbase-devel
 BuildRequires:	reuse
@@ -46,7 +42,7 @@ BuildArch: noarch
 %endif
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6 \
@@ -71,10 +67,12 @@ BuildArch: noarch
 %{_kf6_libdir}/cmake/KF6Attica/
 %{_kf6_includedir}/Attica/
 %{_kf6_libdir}/libKF6Attica.so
-%{_kf6_archdatadir}/mkspecs/modules/qt_Attica.pri
 %{_kf6_libdir}/pkgconfig/KF6Attica.pc
 
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Wed Sep 27 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230829.232558.4e09a15-1
 - Initial Release

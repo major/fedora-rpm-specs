@@ -28,6 +28,20 @@ Source:         %{url}/archive/%{version}/agenda-%{version}.tar.gz
 #
 # https://github.com/ximion/appstream/commit/ad98bfd8db789c80507e82278d6d766acba4937c
 Patch:          %{url}/pull/148.patch
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/dahenson/agenda/pull/151
+# Rebased on top of PR#148.
+Patch:          0001-Fix-deprecated-top-level-developer_name-in-AppData-X.patch
+# Convert homepage link from HTTP to HTTPS in AppData XML
+# https://github.com/dahenson/agenda/pull/152/commits/39bd498e8959e14e6a3ac7530ae49eb71aa91599
+#
+# From:
+#
+# Convert HTTP links to HTTPS
+# https://github.com/dahenson/agenda/pull/152
+#
+# Rebased on top of PR#148 and PR#151.
+Patch:          0001-Convert-homepage-link-from-HTTP-to-HTTPS-in-AppData-.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -40,6 +54,8 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
+
+BuildRequires:  hardlink
 
 BuildRequires:  meson
 BuildRequires:  vala
@@ -148,6 +164,11 @@ Funcionalidades principais:
 
 %find_lang %{app_id}
 
+# Upstream installs the same SVG icon in many size-specific directories like
+# /usr/share/icons/hicolor/64x64@2/; we can save space by hardlinking these
+# together.
+hardlink -c -v '%{buildroot}%{_datadir}/icons/hicolor'
+
 
 %check
 desktop-file-validate \
@@ -158,7 +179,7 @@ desktop-file-validate \
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_metainfodir}/%{app_id}.appdata.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{app_id}.appdata.xml
 
 

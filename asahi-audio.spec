@@ -1,5 +1,5 @@
 Name:           asahi-audio
-Version:        0.3
+Version:        0.4
 Release:        %autorelease
 Summary:        PipeWire DSP profiles for Apple Silicon machines
 License:        MIT
@@ -9,7 +9,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  make
-Requires:       pipewire >= 0.3.84-2
+Requires:       pipewire >= 0.3.84-3
 Requires:       wireplumber >= 0.4.15
 Requires:       pipewire-module-filter-chain-lv2
 Requires:       lsp-plugins-lv2
@@ -34,7 +34,9 @@ drive the speaker arrays in Apple Silicon laptops and desktops.
 %doc README.md
 %{_datadir}/asahi-audio/
 %{_datadir}/wireplumber/policy.lua.d/99-asahi-policy.lua
+%{_datadir}/wireplumber/main.lua.d/99-asahi.lua
 %{_datadir}/pipewire/pipewire.conf.d/99-asahi.conf
+%{_datadir}/pipewire/pipewire-pulse.conf.d/99-asahi.conf
 
 %changelog
 %autochangelog

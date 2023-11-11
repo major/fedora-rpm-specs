@@ -2,13 +2,15 @@
 
 Name:           python-genshi
 Version:        0.7.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD
 URL:            https://genshi.edgewall.org/
 
 Source0:        %pypi_source
+
+Patch0:         %{name}-use-default-test-loader.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -67,6 +69,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Thu Nov 09 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 0.7.7-8
+- add patch to replace "unittest.makeSuite()" (rhbz #2245863)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

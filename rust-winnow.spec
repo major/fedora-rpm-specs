@@ -5,7 +5,7 @@
 %global crate winnow
 
 Name:           rust-winnow
-Version:        0.5.16
+Version:        0.5.19
 Release:        %autorelease
 Summary:        Byte-oriented, zero-copy, parser combinators library
 
@@ -14,9 +14,8 @@ URL:            https://crates.io/crates/winnow
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove references to benchmark and example binaries from Cargo.toml
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop unused, benchmark-only criterion dev-dependency
 # * drop dev-dependencies which are only needed for example binaries
-# * drop unused "debug" feature with outdated dependencies
 Patch:          winnow-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -62,6 +61,18 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+debug-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+debug-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "debug" feature of the "%{crate}" crate.
+
+%files       -n %{name}+debug-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+simd-devel

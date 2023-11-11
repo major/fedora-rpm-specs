@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	14.0.0
-Release:	2%{?dist}
+Version:	14.0.1
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -868,6 +868,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Nov 9 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 14.0.1-1
+- Arrow 14.0.1 GA, rhbz#2248695
+
 * Wed Nov 1 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 14.0.0-2
 - Rebuild for ceph for gtest 1.14.0
 

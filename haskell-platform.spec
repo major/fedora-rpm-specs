@@ -24,7 +24,7 @@
 
 Name:           haskell-platform
 Version:        2023.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD-3-Clause
@@ -438,7 +438,7 @@ rm %{buildroot}%{_bindir}/example
 echo %{_bindir}/hpack >> %{hpack}/ghc-hpack.files
 echo %{_bindir}/haskell-mustache >> %{mustache}/ghc-mustache.files
 
-install -p -m 644 %{SOURCE20} %{buildroot}%{_bindir}/stack-symlink-distro-ghc
+install -p %{SOURCE20} %{buildroot}%{_bindir}/stack-symlink-distro-ghc
 
 rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 
@@ -452,8 +452,8 @@ rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 %license LICENSE
 %doc CONTRIBUTING.md ChangeLog.md README.md
 %{_bindir}/stack
-%{_datadir}/bash-completion/completions/stack
 %{_bindir}/stack-symlink-distro-ghc
+%{_datadir}/bash-completion/completions/stack
 # End cabal-rpm files
 
 
@@ -479,6 +479,9 @@ rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 
 
 %changelog
+* Tue Nov  7 2023 Jens Petersen <petersen@redhat.com> - 2023.1-26
+- make stack-symlink-distro-ghc executable
+
 * Tue Aug  8 2023 Jens Petersen <petersen@redhat.com> - 2023.1-25
 - bring back the stack InvalidAbsFile patch updated for 2.9.3
   https://github.com/commercialhaskell/stack/pull/6028

@@ -43,6 +43,10 @@ Source:         %{url}/archive/v%{version}/pencil-%{version}.tar.gz
 # Modified for 0.6.6 to remove mention of source files not yet introduced.
 Patch:          0001-Add-a-LICENSE.QT.TXT-file-for-BSD-3-Clause-code-from.patch
 
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/pencil2d/pencil/pull/1796
+Patch:          %{url}/pull/1796.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -133,7 +137,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 pencil2d.1
 desktop-file-validate '%{buildroot}%{_datadir}/applications/%{app_id}.desktop'
 appstream-util validate-relax --nonet \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 
 # Run catch tests

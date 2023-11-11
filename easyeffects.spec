@@ -1,5 +1,5 @@
 Name:           easyeffects
-Version:        7.1.1
+Version:        7.1.3
 Release:        1%{?dist}
 Summary:        Audio effects for PipeWire applications
 
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Thu Nov 09 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.3-1
+- Update to 7.1.3
+
 * Mon Oct 30 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.1-1
 - Update to 7.1.1
 

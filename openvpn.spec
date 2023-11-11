@@ -26,7 +26,7 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.6
+Version:           2.6.7
 Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
@@ -209,19 +209,25 @@ getent group openvpn &>/dev/null || groupadd -r openvpn
 getent passwd openvpn &>/dev/null || \
     /usr/sbin/useradd -r -g openvpn -s /sbin/nologin -c OpenVPN \
         -d /etc/openvpn openvpn
+exit 0
 
 %post
-%systemd_post openvpn-client@\*.service
-%systemd_post openvpn-server@\*.service
+for srv in `systemctl | awk '/openvpn-client@.*\.service/{print $1} /openvpn-server@.*\.service/{print $1}'`;
+do
+    %systemd_post $srv
+done
 
 %preun
-%systemd_preun openvpn-client@\*.service
-%systemd_preun openvpn-server@\*.service
+for srv in `systemctl | awk '/openvpn-client@.*\.service/{print $1} /openvpn-server@.*\.service/{print $1}'`;
+do
+    %systemd_preun $srv
+done
 
 %postun
-%systemd_postun_with_restart openvpn-client@\*.service
-%systemd_postun_with_restart openvpn-server@\*.service
-%systemd_postun_with_restart openvpn@\*.service
+for srv in `systemctl | awk '/openvpn-client@.*\.service/{print $1} /openvpn-server@.*\.service/{print $1}'`;
+do
+    %systemd_postun_with_restart $srv
+done
 
 %files
 %{_pkgdocdir}
@@ -238,8 +244,6 @@ getent passwd openvpn &>/dev/null || \
 %config %dir %attr(-,-,openvpn) %{_sysconfdir}/%{name}/client
 %config %dir %attr(-,-,openvpn) %{_sysconfdir}/%{name}/server
 %attr(0770,openvpn,openvpn) %{_sharedstatedir}/%{name}
-%attr(0750,-,openvpn) %{_rundir}/%{name}-client
-%attr(0750,-,openvpn) %{_rundir}/%{name}-server
 %ghost %{_rundir}/openvpn-client
 %ghost %{_rundir}/openvpn-server
 
@@ -250,6 +254,12 @@ getent passwd openvpn &>/dev/null || \
 
 
 %changelog
+* Thu Nov 9 2023 David Sommerseth <davids@openvpn.net> - 2.6.7-1
+- Update to upstream OpenVPN 2.6.7
+- Fixes CVE-2023-46849, CVE-2023-46850
+- Fix false exit status on pre runtime scriptlet (Elkhan Mammadli <elkhan@almalinux.org>, RHBZ#2239722)
+- Fix regression of systemctl scriptlet globbing issues (RHBZ#1887984); reintroduced in openvpn-2.6.0-1
+
 * Mon Aug 21 2023 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.6-1
 - Update to upstream OpenVPN 2.6.6
 - Fix "warning: %patchN is deprecated"

@@ -1,20 +1,16 @@
-%global gitdate 20231011.004242
-%global cmakever 5.240.0
-%global commit0 c0f1138e46f8f49614b659cb947153561302a01a
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework purpose
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires: extra-cmake-modules >= %{cmakever}
+BuildRequires: extra-cmake-modules >= %{version}
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: intltool
@@ -49,7 +45,7 @@ Requires: cmake(KF6CoreAddons)
 %{summary}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -87,5 +83,8 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231011.004242.c0f1138-1
 - Initial release

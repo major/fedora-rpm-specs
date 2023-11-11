@@ -1,22 +1,18 @@
-%global		gitdate 20230906.190341
-%global		cmakever 5.240.0
-%global		commit0 34bbef032a99336826a1341c69f988fe7ec11287
-%global		shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global		framework kquickcharts
 
 Name:		kf6-%{framework}
 Summary:	A QtQuick module providing high-performance charts
-Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
+Version:	5.245.0
 Release:	1%{?dist}
 
 License:	BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
 
-Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
-BuildRequires:	extra-cmake-modules >= %{cmakever}
+BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	cmake(Qt6Qml)
 BuildRequires:	cmake(Qt6Quick)
 BuildRequires:	cmake(Qt6QuickControls2)
@@ -41,7 +37,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 
 %build
@@ -59,7 +55,12 @@ developing applications that use %{name}.
 
 %files devel
 %{_kf6_libdir}/cmake/KF6QuickCharts/
+%{_libdir}/libQuickCharts.so
+%{_libdir}/libQuickChartsControls.so
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Mon Sep 25 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20230906.190341.34bbef0-1
 - Initial release

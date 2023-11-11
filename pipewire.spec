@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -466,6 +466,11 @@ rm %{buildroot}%{_datadir}/pipewire/pipewire-pulse.conf
 
 %endif
 
+%if %{with pulse}
+# Own this directory so add-ons can use it
+install -d -m 0755 %{buildroot}%{_datadir}/pipewire/pipewire-pulse.conf.d/
+%endif
+
 %find_lang %{name}
 
 # upstream should use udev.pc
@@ -691,6 +696,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_mandir}/man1/pipewire-pulse.1*
 %{_userunitdir}/pipewire-pulse.*
 %{_datadir}/pipewire/pipewire-pulse.conf
+%dir %{_datadir}/pipewire/pipewire-pulse.conf.d/
 %{_datadir}/pipewire/pipewire-pulse.conf.avail/20-upmix.conf
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-pulse.so
 %endif
@@ -726,6 +732,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Nov 09 2023 Hector Martin <marcan@fedoraproject.org> - 0.3.84-3
+- Create and own /usr/share/pipewire/pipewire-pulse.conf.d
+
 * Mon Nov 06 2023 Hector Martin <marcan@fedoraproject.org> - 0.3.84-2
 - Create and own /usr/share/pipewire/pipewire.conf.d
 

@@ -107,6 +107,10 @@ Patch:          0003-Comment-out-Q_OBJECT-in-ScHelpTreeModel-and-TreeMode.patch
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/253
 Patch:          %{forgeurl}/pull/253.patch
 
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/LuminanceHDR/LuminanceHDR/pull/277
+Patch:          %{forgeurl}/pull/277.patch
+
 BuildRequires:  cmake
 # We choose to use the ninja backend instead of the make backend. Either works.
 BuildRequires:  ninja-build
@@ -312,7 +316,7 @@ mv -v '%{buildroot}%{_datadir}/appdata/%{app_id}.appdata.xml' \
 appstream-util validate-relax --nonet \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \

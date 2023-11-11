@@ -1,15 +1,13 @@
-# Upstream moved from grpc-xs to Grpc-XS. A rename to perl-Grpc-XS is in
-# progress (bug #2247633).
 Name:           perl-grpc-xs
 Version:        0.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl binding to a client part of the gRPC library
 # examples/route_guide/route_guide.proto:   BSD-3-Clause
 # LICENSE:      Apache-2.0 text
 # ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        Apache-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
-URL:            https://metacpan.org/dist/Grpc-XS
-Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOYREX/Grpc-XS-%{version}.tar.gz
+URL:            https://metacpan.org/dist/grpc-xs
+Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOYREX/grpc-xs-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -99,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 09 2023 Petr Pisar <ppisar@redhat.com> - 0.38-2
+- Update upstream URL
+
 * Thu Nov 02 2023 Petr Pisar <ppisar@redhat.com> - 0.38-1
 - 0.38 bump
 

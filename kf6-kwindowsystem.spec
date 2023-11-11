@@ -1,26 +1,22 @@
-%global		gitdate 20231003.213655
-%global		cmakever 5.240.0
-%global		commit0 0aa4d0723d61a1c811ad68de8356783f4c8ad4be
-%global		shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global		framework kwindowsystem
 
 Name:		kf6-%{framework}
-Version:	%{cmakever}^%{gitdate}.%{shortcommit0}
-Release:	3%{?dist}
+Version:	5.245.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
-Source0:	https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
-BuildRequires:	extra-cmake-modules >= %{cmakever}
+BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	make
 BuildRequires:	qt6-qtbase-devel
-BuildRequires:	qt6-qtbase-private-devel
 BuildRequires:	qt6-qttools-devel
 BuildRequires:	cmake(Qt6Qml)
+BuildRequires:  pkgconfig(Qt6WaylandClient)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xcb-icccm)
@@ -28,8 +24,14 @@ BuildRequires:	pkgconfig(xcb-keysyms)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(xfixes)
 BuildRequires:	pkgconfig(xrender)
+BuildRequires:  wayland-devel
+BuildRequires:  egl-wayland-devel
+BuildRequires:  wayland-protocols-devel
+BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:	fdupes
-
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  qt6-qtbase-private-devel
 Requires:	kf6-filesystem
 
 %description
@@ -45,7 +47,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -64,6 +66,7 @@ developing applications that use %{name}.
 %dir %{_kf6_plugindir}/kwindowsystem/
 %{_kf6_plugindir}/kwindowsystem/KF6WindowSystemX11Plugin.so
 %{_kf6_qmldir}/org/kde/kwindowsystem
+%{_qt6_plugindir}/kf6/kwindowsystem/KF6WindowSystemKWaylandPlugin.so
 
 %files devel
 %{_kf6_includedir}/KWindowSystem/
@@ -71,6 +74,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6WindowSystem/
 
 %changelog
+* Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231003.213655.0aa4d07-3
 - Rebuild (qt6)
 

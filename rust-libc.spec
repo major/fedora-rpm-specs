@@ -5,7 +5,7 @@
 %global crate libc
 
 Name:           rust-libc
-Version:        0.2.149
+Version:        0.2.150
 Release:        %autorelease
 Summary:        Raw FFI bindings to platform libraries like libc
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/libc
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Raw FFI bindings to platform libraries like libc.}

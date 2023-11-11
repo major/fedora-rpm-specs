@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -97,6 +97,7 @@ Requires:       python3-appdirs
 Requires:       python3-cssselect
 Requires:       python3-pillow
 Requires:       python3-requests
+Requires:       python3-inkex
 # Weak dependencies for the LaTeX plugin
 Suggests:       pstoedit
 Suggests:       tex(latex)
@@ -180,6 +181,9 @@ install -pm 644 %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/inkscape/palettes/
 rm -rf $RPM_BUILD_ROOT%{_datadir}/inkscape/doc
 rm -f $RPM_BUILD_ROOT%{_datadir}/doc/inkscape/copyright
 
+# Use system inkex
+rm -rf $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/inkex
+ln -s %{python3_sitelib}/inkex $RPM_BUILD_ROOT%{_datadir}/inkscape/extensions/inkex
 
 %check
 # Validate appdata file
@@ -187,6 +191,24 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/*.appd
 
 # Validate desktop file
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inkscape.desktop
+
+%pretrans -p <lua>
+-- Remove directories that will become symlinks
+dirs = {"%{_datadir}/inkscape/extensions/inkex"}
+for i, path in ipairs(dirs) do
+  st = posix.stat(path)
+  if st and st.type == "directory" then
+    status = os.rename(path, path .. ".rpmmoved")
+    if not status then
+      suffix = 0
+      while not status do
+        suffix = suffix + 1
+        status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+      end
+      os.rename(path, path .. ".rpmmoved")
+    end
+  end
+end
 
 
 %files -f %{name}.lang
@@ -219,6 +241,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg
 %{_datadir}/bash-completion/completions/inkscape
+%ghost %{_datadir}/inkscape/extensions/inkex.removed
 
 %files view
 %{!?_licensedir:%global license %%doc}
@@ -236,6 +259,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Wed Nov 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-7
+- Use system inkex
+
 * Thu Aug 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-6
 - Use system lib2geom on f39+
 

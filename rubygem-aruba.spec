@@ -4,7 +4,7 @@
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
 Version:    2.2.0
-Release:    2%{?dist}
+Release:    4%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -29,6 +29,7 @@ BuildRequires:  rubygem(minitest)
 BuildRequires:  rubygem(pry)
 BuildRequires:  rubygem(rspec) >= 3
 BuildRequires:  rubygem(thor)
+BuildRequires:  less
 
 BuildArch:      noarch
 
@@ -132,8 +133,8 @@ sed -i features/02_configure_aruba/home_directory.feature \
     -e "\@Set to aruba's working directory@,\@Scenario@s|/home/|$(echo $HOME)/|"
 
 # Make the Aruba always awailable.
-env RUBYOPT=-I$(pwd)/lib \
-    cucumber --publish-quiet -f progress
+export CUCUMBER_PUBLISH_QUIET=true
+env RUBYOPT=-I$(pwd)/lib cucumber -f progress
 
 # Go back the skipped test
 if test x"${PPC64_ENV_P}" == x0
@@ -159,6 +160,10 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Thu Nov  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-4
+- Explicitly add BR: less for BR: pry
+- Change cucumber publish quiet method
+
 * Mon Sep 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-2
 - Kill python test entirely to redure BR, it is not important
   (related to bug 2237692)

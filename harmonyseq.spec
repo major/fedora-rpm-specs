@@ -112,7 +112,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{app_id}.desktop
 appstream-util validate-relax --nonet \
     %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml
 
 

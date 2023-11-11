@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global commit0 daad9ede0137dc58487a0abc126253e671a85b14
+%global commit0 896e5e7dedf9b9b1459fa019f1fa8aa8101fdf43
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
-%global snapdate 20231006
+%global snapdate 20231108
 
 # This is a fork of github.com/berkeley-abc/abc.git maintained by YosysHQ
 %global prjname abc
@@ -23,7 +23,7 @@
 # This should be done for each branch in which abc-libs will be updated.
 
 Name:           yosyshq-%{prjname}
-Version:        0.34
+Version:        0.35
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
@@ -164,6 +164,9 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Wed Nov 08 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.35-1.20231108git896e5e7
+- update to 0.35 snapshot
+
 * Fri Oct 06 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.34-1.20231006gitdaad9ed
 - update to 0.34 snapshot
 

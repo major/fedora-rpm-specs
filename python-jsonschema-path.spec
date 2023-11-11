@@ -40,8 +40,6 @@ access resources on demand with separate dereferencing accessor layer.}
 %package -n     python3-%{srcname}
 Summary:        %{summary}
 
-Obsoletes:      python3-jsonschema-spec < 0.3.1
-
 %description -n python3-%{srcname} %_description
 
 

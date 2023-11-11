@@ -1,5 +1,5 @@
 Name: libdatovka
-Version: 0.5.0
+Version: 0.5.1
 Release: 1%{?dist}
 Summary: Client library for accessing SOAP services of ISDS (Czech Data Boxes)
 
@@ -89,6 +89,10 @@ make check %{?_smp_mflags}
 %doc client
 
 %changelog
+* Thu Nov  9 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.1-1
+- New version
+  Resolves: rhbz#2248718
+
 * Tue Nov  7 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.0-1
 - New version
   Resolves: rhbz#2248448

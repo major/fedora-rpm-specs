@@ -1,10 +1,19 @@
+%global commit0 91900812333bb6ccca9ca0bf57363a3b1d3023a2
+%global date 20231107
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#global tag %{version}
+
 Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
-Version: 5.8.0
-Release: 2%{?dist}
+Version: 5.9.0
+Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
-Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%if 0%{?tag:1}
+Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+%else
+Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%endif
 
 ExcludeArch: %{ix86}
 
@@ -41,7 +50,11 @@ cinnamon-screensaver is a screen saver and locker.
 
 
 %prep
+%if 0%{?tag:1}
 %autosetup -p1
+%else
+%autosetup -p1 -n %{name}-%{commit0}
+%endif
 
 
 %build
@@ -94,6 +107,9 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 %{_libdir}/girepository-1.0/CScreensaver-1.0.typelib
 
 %changelog
+* Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git9190081
+- Update to git snapshot
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

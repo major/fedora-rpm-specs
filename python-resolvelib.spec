@@ -6,12 +6,15 @@ Name:           python-%{pypi_name}
 Version:        1.0.1
 %global tag %{version}
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Resolve abstract dependencies into concrete ones
 
 License:        ISC
 URL:            %{forgeurl}
 Source:         %{forgesource}
+# Avoid commentjson/json5 build dependency just for a couple tests
+Patch:          %{url}/pull/141.patch#/remove-commentjson-dep.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -34,10 +37,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup %{forgesetupargs}
-# Use already packaged json5 instead of commentjson
-sed -i 's|commentjson|json5|' \
-    setup.cfg tests/functional/cocoapods/test_resolvers_cocoapods.py
+%autosetup %{forgesetupargs} -p1
 
 
 %generate_buildrequires
@@ -62,6 +62,9 @@ sed -i 's|commentjson|json5|' \
 
 
 %changelog
+* Tue Nov 07 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.1-2
+- Simplify build dependencies
+
 * Fri Oct 20 2023 Maxwell G <maxwell@gtmx.me> - 1.0.1-1
 - Update to 1.0.1.
 

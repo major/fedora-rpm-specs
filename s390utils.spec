@@ -240,7 +240,7 @@ This package provides minimal set of tools needed to system to boot.
 
 %files core
 %doc README.md zdev/src/chzdev_usage.txt
-%doc LICENSE
+%license LICENSE
 %{_sbindir}/chreipl
 %{_sbindir}/chzdev
 %{_sbindir}/cio_ignore

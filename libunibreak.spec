@@ -2,7 +2,7 @@
 
 Name:           libunibreak
 Version:        5.1
-Release:        %autorelease -n
+Release:        %autorelease
 Summary:        A Unicode line-breaking library
 # Upstream uses tags of the form `libunibreak_X_Y`
 %global tag %{name}_%{lua: v = string.gsub(rpm.expand('%{version}'), '%.', '_'); print(v) }

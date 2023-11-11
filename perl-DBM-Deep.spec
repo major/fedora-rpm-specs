@@ -1,5 +1,5 @@
 Name:           perl-DBM-Deep
-Version:        2.0017
+Version:        2.0018
 Release:        1%{?dist}
 Summary:        A pure perl multi-level hash/array DBM
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,11 @@ LONG_TESTS=1 TEST_SQLITE=1 ./Build test
 %{_mandir}/man3/DBM::Deep::Storage::File.3*
 
 %changelog
+* Thu Nov  9 2023 Paul Howarth <paul@city-fan.org> - 2.0018-1
+- Update to 2.0018 (rhbz#2248772)
+  - Tiny documentation and metadata fixes to make sure people go to the correct
+    issue tracker
+
 * Sun Sep  3 2023 Paul Howarth <paul@city-fan.org> - 2.0017-1
 - Update to 2.0017 (rhbz#2236875)
   - Get rid of old perl4-style ' package separator and use :: instead for
