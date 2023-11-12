@@ -1,13 +1,17 @@
 %global pkgname pygit2
 
 Name:           python-%{pkgname}
-Version:        1.13.0
+Version:        1.13.2
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 
 License:        GPLv2 with linking exception
 URL:            https://www.pygit2.org/
 Source0:        https://github.com/libgit2/pygit2/archive/v%{version}.tar.gz#/%{pkgname}-%{version}.tar.gz
+# This patch lowers the Python-level dependency on cffi. Fedora package python-cffi-1.15.1-5 and
+# higher contain the patches needed for Python >= 3.12.
+# Remove when cffi >= 1.16.0 is available on all releases with Python 3.12.
+Patch:          python-pygit2-cffiver.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -21,10 +25,11 @@ the core of Git.
 %package -n     python3-%{pkgname}
 Summary:        Python 3 bindings for libgit2
 %{?python_provide:%python_provide python3-%{pkgname}}
-BuildRequires:  python3-cffi
-BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
+# This version of cffi is patched for Python >= 3.12.
+# Remove when cffi >= 1.16.0 is available on all releases with Python 3.12.
+BuildRequires:  python3-cffi >= 1.15.1-5
+Requires:       python3-cffi >= 1.15.1-5
 
 %description -n python3-%{pkgname}
 pygit2 is a set of Python bindings to the libgit2 library, which implements
@@ -47,14 +52,18 @@ Documentation for %{name}.
 %autosetup -n %{pkgname}-%{version} -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 make -C docs html
 
 
 %install
-%py3_install
+%pyproject_install
 find %{_builddir} -name '.buildinfo' -print -delete
 
 
@@ -72,7 +81,7 @@ rm -f pygit2/__init__.py
 %files -n python3-%{pkgname}
 %license COPYING
 %doc README.rst
-%{python3_sitearch}/%{pkgname}-*.egg-info/
+%{python3_sitearch}/%{pkgname}-*.dist-info/
 %{python3_sitearch}/%{pkgname}/
 
 %files doc

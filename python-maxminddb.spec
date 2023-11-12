@@ -5,7 +5,7 @@ a pure Python reader and an optional C extension. MaxMind DB is a binary file\
 format that stores data indexed by IP address subnets (IPv4 or IPv6).
 
 Name:           python-%{pypi_name}
-Version:        2.4.0
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Reader for the MaxMind DB format
 
@@ -13,9 +13,6 @@ Summary:        Reader for the MaxMind DB format
 License:        Apache-2.0
 URL:            https://www.maxmind.com/
 Source0:        %{pypi_source}
-# Patch for Python 3.13 backported from upstream
-# https://github.com/maxmind/MaxMind-DB-Reader-python/commit/610d8db8
-Patch:          py3.13.patch
 
 BuildRequires:  gcc
 BuildRequires:  libmaxminddb-devel
@@ -38,11 +35,14 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+# Remove bundled libmaxminddb
+rm -r extension/libmaxminddb
 
 %generate_buildrequires
 %pyproject_buildrequires -r
 
 %build
+export MAXMINDDB_USE_SYSTEM_LIBMAXMINDDB=1
 %pyproject_wheel
 
 %install

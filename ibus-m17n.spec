@@ -1,7 +1,7 @@
 %global require_ibus_version 1.4.0
 
 Name:       ibus-m17n
-Version:    1.4.23
+Version:    1.4.24
 Release:    1%{?dist}
 Summary:    The M17N engine for IBus platform
 License:    GPL-2.0-or-later
@@ -63,6 +63,16 @@ make check
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.m17n.gschema.xml
 
 %changelog
+* Fri Nov 10 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.24-1
+- Update to 1.4.24
+- Make IBusEngineSimple read ~/.XCompose
+  (Resolves: https://github.com/ibus/ibus-m17n/issues/70)
+- Do not hide empty preedit text before committing text.
+  (Resolves: https://github.com/ibus/ibus-m17n/pull/64).
+  Together with ibus >= 1.5.29 this solves the preedit flicker problem perfectly.
+- Use “<developer><name>…</name></developer>” in m17n.appdata.xml instead of “<developer_name>…</developer_name>”
+  Because </developer_name> is deprecated and it makes the build fail on Fedora rawhide.
+
 * Fri Oct 27 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.23-1
 - Update to 1.4.23
 - Do not translate the Multi_key when using the option “☑️ Use US keyboard layout”

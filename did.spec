@@ -1,6 +1,6 @@
 Name: did
-Version: 0.20
-Release: 3%{?dist}
+Version: 0.21
+Release: 1%{?dist}
 
 Summary: What did you do last week, month, year?
 License: GPLv2+
@@ -22,6 +22,7 @@ Requires: python3-bugzilla
 Requires: python3-httplib2
 Requires: python3-nitrate
 Requires: python3-requests-gssapi
+Requires: python3-feedparser
 
 %?python_enable_dependency_generator
 
@@ -54,11 +55,25 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.20-2
-- Rebuilt for Python 3.12
+* Fri Nov 10 2023 Petr Šplíchal <psplicha@redhat.com> - 0.21-1
+- Pass plugin configuration to koji `ClientSession`
+- Add `markdown` format output to `bodhi` plugin
+- Add `markdown` format output to `pagure` plugin
+- Handle connection error fetching gitlab user
+- Update instructions for the `google` plugin
+- Add `sphinx_rtd_theme` to the list of extensions
+- Replace deprecated calls to `warn`
+- Fix docs building warnings, pin sphinx version
+- Add support for `markdown` format output (#315)
+- Move line length recommendation to proper section
+- Update pre-commit GH action with latest version
+- Add dependency on `python3-feedparser`
+- Replace `readfp()` with `read_file()`
+- Support defining subitems for header and footer
+- Give a reasonable error for unreachable wiki url
+- Report Gitlab tasks-commented properly
+- Fix typo in section name
+- Skip own pull requests in `pull-requests-reviewed`
 
 * Thu Mar 09 2023 Petr Šplíchal <psplicha@redhat.com> - 0.20-1
 - Produce fixed `phabricator` statistics

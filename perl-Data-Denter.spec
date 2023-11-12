@@ -1,15 +1,16 @@
 Name:           perl-Data-Denter
 Version:        0.15
-Release:        40%{?dist}
-License:        GPL+ or Artistic
+Release:        41%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        An alternative to Data::Dumper and Storable
 Source:         https://cpan.metacpan.org/authors/id/I/IN/INGY/Data-Denter-%{version}.tar.gz
 Url:            https://metacpan.org/release/Data-Denter
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(Carp)
@@ -34,16 +35,15 @@ Data::Denter is yet another Perl data serializer/deserializer. It formats
 nested data structures in an indented fashion. It is optimized for human
 readability/editability, safe deserialization, and (eventually) speed.
 
-
 %prep
 %setup -q -n Data-Denter-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -55,6 +55,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-41
+- Update license to SPDX format
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

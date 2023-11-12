@@ -23,6 +23,9 @@ License:        BSD-3-Clause AND BSD-2-Clause
 URL:            %forgeurl
 Source:         %forgesource
 
+# Support Cython 3
+# https://github.com/holgern/pyedflib/pull/248
+Patch:          %{forgeurl}/pull/248.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2027046
 ExcludeArch:    s390x

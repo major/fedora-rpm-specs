@@ -46,10 +46,10 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   26%{?gitdate:.%{gitdate}}%{?dist}
+Release:   27%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 # SPDX
-License:   MIT
+License:   Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
 
 #VCS:      git:git://git.freedesktop.org/git/xorg/xserver
 %if 0%{?gitdate}
@@ -567,6 +567,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Fri Nov 10 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-27
+- Update with full SPDX license list
+
 * Wed Oct 25 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-26
 - CVE fix for: CVE-2023-5367, CVE-2023-5380
 

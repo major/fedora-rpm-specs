@@ -1,5 +1,5 @@
 Name:           shell-color-prompt
-Version:        0.1.1
+Version:        0.2
 Release:        1%{?dist}
 Summary:        Color prompt for bash shell
 
@@ -41,6 +41,12 @@ install -m 644 -D -t %{buildroot}%{profiledir} bash-color-prompt.sh
 
 
 %changelog
+* Fri Nov 10 2023 Jens Petersen <petersen@redhat.com> - 0.2-1
+- add PROMPT_DIR_COLOR to change the dir color (Thomas Steenholdt, #2239152)
+- also check for bash default prompt for login shell (Sam Morris, #2248853)
+- add PROMPT_BRACKETS to surround the prompt with traditional brackets
+  (based on feedback from Thomas Steenholdt, #2239152)
+
 * Thu Nov  9 2023 Jens Petersen <petersen@redhat.com> - 0.1.1-1
 - only show error code if PROMPT_ERROR set
 

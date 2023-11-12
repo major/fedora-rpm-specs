@@ -1,16 +1,17 @@
 Name:           perl-Data-Taxi
 Version:        0.96
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Taint-aware, XML-ish data serialization
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Taxi
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKO/Data-Taxi-%{version}.tar.gz
 Patch0:         no-debug-showstuff.patch
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(Carp)
@@ -27,15 +28,15 @@ features.
 
 %prep
 %setup -q -n Data-Taxi-%{version}
-%patch0 -p1
+%patch -P0 -p1
 perl -pi -e 's/\r//go' README
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -43,10 +44,14 @@ make test
 
 %files
 %doc README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Data*
+%{_mandir}/man3/Data::Taxi*
 
 %changelog
+* Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.96-37
+- Update license to SPDX format
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

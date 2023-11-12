@@ -1,6 +1,6 @@
 Name: liboauth2
-Version: 1.5.1
-Release: 2%{?dist}
+Version: 1.5.2
+Release: 1%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: AGPLv3
 URL: https://github.com/zmartzone/liboauth2
@@ -90,6 +90,12 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Fri Nov 10 2023 Packit <hello@packit.dev> - 1.5.2-1
+- 1.5.2: update DPoP support to RFC 9449 (Hans Zandbelt)
+- printout more cjose error details in JWT access token verification (Hans Zandbelt)
+- fix timing issue in check_openidc.c; closes #47 (Hans Zandbelt)
+- Resolves rhbz#2248991
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

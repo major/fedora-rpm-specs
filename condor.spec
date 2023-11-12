@@ -1,13 +1,13 @@
 %global newname         htcondor
-%global version         23.0.0
+%global version         23.1.0
 %global version_ %(tr . _ <<< %{version})
 
 %global with_vault_credmon 0
 
 #######################
 Name:           condor
-Version:        23.0.0
-Release:        2%{?dist}
+Version:        23.1.0
+Release:        1%{?dist}
 Summary:        HTCondor: High Throughput Computing
 License:        ASL 2.0
 URL:            http://htcondor.org
@@ -426,8 +426,13 @@ done
 %_libdir/libchirp_client.so
 %_libdir/libcondor_utils_%{version_}.so
 %_libdir/libcondorapi.so
+%_libdir/condor/libfmt.so
+%_libdir/condor/libfmt.so.10
+%_libdir/condor/libfmt.so.10.1.0
+
 %_libdir/condor/libgetpwnam.so
 %dir %_libexecdir/condor/
+%_libexecdir/condor/cleanup_locally_mounted_checkpoint
 %_libexecdir/condor/linux_kernel_tuning
 %_libexecdir/condor/accountant_log_fixer
 %_libexecdir/condor/condor_chirp
@@ -869,6 +874,9 @@ done
 /sbin/ldconfig
 
 %changelog
+* Fri Nov 10 2023 Tim Theisen <ttheisen@fedoraproject.org> - 23.1.0-1
+- Update to latest upstream 23.1.0 - rhbz#2247369
+
 * Mon Oct 02 2023 Tim Theisen <ttheisen@fedoraproject.org> - 23.0.0-2
 - Drop condor-credmon-vault rhbz#2241709
 

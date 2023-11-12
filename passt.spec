@@ -7,11 +7,11 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 56d9f6d588306301aed332ca926da91a816bafd1
+%global git_hash 5ec3634b07215337c2e69d88f9b1d74711897d7d
 %global selinuxtype targeted
 
 Name:		passt
-Version:	0^20231107.g56d9f6d
+Version:	0^20231110.g5ec3634
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPLv2+ and BSD
@@ -124,6 +124,9 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %changelog
+* Fri Nov 10 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20231110.g5ec3634-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_11_07.74e6f48..2023_11_10.5ec3634
+
 * Tue Nov  7 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20231107.g56d9f6d-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_10_04.f851084..2023_11_07.56d9f6d
 - SELinux: allow passt_t to use unconfined_t UNIX domain sockets for

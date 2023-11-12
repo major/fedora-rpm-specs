@@ -1,19 +1,14 @@
-%global gitdate 20231009.021332
-%global cmakever 5.240.0
-%global commit0 6933aaec278dd9cb61591b2a3b806416df5b36b8
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 Name:    kglobalacceld
 Summary: Daemon providing Global Keyboard Shortcut functionality
-Version: 5.27.80^%{gitdate}.%{shortcommit0}
-Release: 4%{?dist}
+Version: 5.27.80
+Release: 1%{?dist}
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
 
-Source0:  https://invent.kde.org/plasma/%{name}/-/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+Source0:  https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  kf6-rpm-macros
@@ -52,7 +47,7 @@ Requires:       qt6-qtbase-devel
 %{summary}.
 
 %prep
-%autosetup -n %{name}-%{commit0} -p1
+%autosetup -p1
 
 %build
 %cmake_kf6
@@ -74,6 +69,9 @@ Requires:       qt6-qtbase-devel
 %{_libdir}/cmake/KGlobalAccelD/
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Wed Oct 18 2023 Steve Cossette <farchord@gmail.com> - 5.27.80^20231009.021332.6933aae-3
 - Added BuildDep for systemd
 

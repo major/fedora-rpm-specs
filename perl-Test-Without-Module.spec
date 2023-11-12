@@ -1,17 +1,16 @@
 Name:           perl-Test-Without-Module
 Version:        0.21
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Test fallback behavior in absence of modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Test-Without-Module
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Without-Module-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  sed
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -33,11 +32,11 @@ have a fallback when a certain dependency module is not installed.
 
 %prep
 %setup -q -n Test-Without-Module-%{version}
-/usr/bin/perl -pi -e 's/\r//' README Changes
-/usr/bin/chmod 644 README Changes
+perl -pi -e 's/\r//' README Changes
+chmod 644 README Changes
 
 %build
-/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -49,10 +48,13 @@ have a fallback when a certain dependency module is not installed.
 
 %files
 %doc Changes README
-%{perl_vendorlib}/Test*
-%{_mandir}/man3/Test*
+%{perl_vendorlib}/Test/Without*
+%{_mandir}/man3/Test::Without::Module*
 
 %changelog
+* Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-4
+- Update license to SPDX format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

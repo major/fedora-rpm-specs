@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       16%{?dist}
+Release:       17%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -67,9 +67,14 @@ Patch:         0006-src-Improved-debugging-of-the-supermin-if-newer-calc.patch
 Patch:         0007-src-Fix-if-newer-copy-kernel.patch
 # Reenable disable_excludes for dnf5
 Patch:         0008-rpm-Reenable-disable_excludes-for-dnf5.patch
+# Fix kernel filtering on aarch64
+Patch:         0009-src-format_ext2_kernel.ml-Fix-kernel-filtering-for-a.patch
 # Fix bytecode builds so they resist stripping
-Patch:         0009-ocamlc-Use-output-complete-exe-instead-of-custom.patch
-Patch:         0010-ocamlc-Only-supply-output-complete-exe-to-final-link.patch
+Patch:         0010-ocamlc-Use-output-complete-exe-instead-of-custom.patch
+Patch:         0011-ocamlc-Only-supply-output-complete-exe-to-final-link.patch
+# Fix RISC-V gzip compressed kernels
+Patch:         0012-src-format_ext2_kernel.ml-Rename-function-file-kerne.patch
+Patch:         0013-src-Uncompress-kernel-on-RISC-V.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -224,6 +229,9 @@ make check || {
 
 
 %changelog
+* Fri Nov 10 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-17
+- Fix RISC-V gzip compressed kernels
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-16
 - OCaml 5.1 rebuild for Fedora 40
 

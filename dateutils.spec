@@ -10,7 +10,8 @@ Source0:        https://github.com/hroptatyr/dateutils/releases/download/v%{vers
 # https://github.com/hroptatyr/dateutils/issues/148
 # issue related to tzdata-2022g and change to Singapore timezone
 # This patch is from upstream. See:
-Patch0:         841c635bf283e4b023bd98fbff9ebda1f340b024.patch
+Patch0:         https://github.com/hroptatyr/dateutils/commit/841c635bf283e4b023bd98fbff9ebda1f340b024.patch
+Patch1:         https://github.com/hroptatyr/dateutils/commit/35041f4d9f06f94e4e408a3a12be237d4aa9ef44.patch
 
 BuildRequires:  gcc
 BuildRequires: make

@@ -2,7 +2,7 @@
 %global addrlibsover 3
 
 Name:           libkdumpfile
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Kernel coredump file access
 

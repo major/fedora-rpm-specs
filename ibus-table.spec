@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.17.3
+Version:    1.17.4
 Release:    1%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
@@ -150,6 +150,14 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Fri Nov 10 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.4-1
+- Update to 1.17.4
+- Fix compose support for ibus >= 1.5.28
+  (Resolves: https://github.com/mike-fabian/ibus-table/issues/145)
+- Translation update from Weblate (New language, Russian, (ru) 80%)
+- Use “<developer><name>…</name></developer>” in ibus-table.appdata.xml instead of “<developer_name>…</developer_name>”
+  Because </developer_name> is deprecated and it makes the build fail on Fedora rawhide.
+
 * Thu Sep 14 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.3-1
 - Update to 1.17.3
 - Support several backends for playing sounds

@@ -1,8 +1,8 @@
 Name:           perl-Config-General
 Version:        2.65
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Generic configuration module for Perl
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Config-General
 Source0:        https://cpan.metacpan.org/modules/by-module/Config/Config-General-%{version}.tar.gz
 Patch0:         perl-Config-General-2.50-system-ixhash.patch
@@ -14,7 +14,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -58,27 +58,22 @@ configuration.
 
 # Use system-packaged version of Tie::IxHash rather than the bundled one
 rm -r t/Tie
-%patch0 -p1
+%patch -P0 -p1
 
 # Re-code Changelog to UTF8
-%patch1
+%patch -P1
 
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
-
 
 %check
 make test
-
-
 
 %files
 %doc Changelog example.cfg README
@@ -89,6 +84,10 @@ make test
 
 
 %changelog
+* Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.65-6
+- Update license to SPDX format
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.65-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

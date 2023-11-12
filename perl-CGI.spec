@@ -1,10 +1,7 @@
-# Run optional test
-%bcond_without perl_CGI_enables_optional_test
-
 Name:           perl-CGI
 Summary:        Handle Common Gateway Interface requests and responses
 Version:        4.60
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-%{version}.tar.gz
 URL:            https://metacpan.org/release/CGI
@@ -43,10 +40,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::Warn) >= 0.3
 BuildRequires:  perl(utf8)
-%if !%{defined perl_bootstrap} && %{with perl_CGI_enables_optional_test}
-# Optional tests
-BuildRequires:  perl(Test::CPAN::Changes)
-%endif
 Requires:       perl(File::Spec) >= 0.82
 Requires:       perl(File::Temp) >= 0.17
 Requires:       perl(HTML::Entities) >= 3.69
@@ -79,7 +72,6 @@ with built-in support for mod_perl and mod_perl2 as well as FastCGI.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::CPAN::Changes)
 
 %description tests
 Tests from %{name}-%{version}. Execute them
@@ -128,6 +120,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.60-2
+- Remove unused dependency perl(Test::CPAN::Changes)
+
 * Wed Nov 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.60-1
 - 4.60 bump (rhbz#2247441)
 

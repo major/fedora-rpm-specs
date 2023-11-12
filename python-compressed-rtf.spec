@@ -3,6 +3,8 @@
 # PyPI release is missing LICENSE file, but upstream has no tags nor
 # releases on GitHub. So we pull from the release commit.
 %global commit ad93a504ca6a09aff9561eac586ff6d91861d147
+# Do not at git commit to dist tag
+%global distprefix %{nil}
 
 Name:           python-%{pypi_name}
 Version:        1.0.6

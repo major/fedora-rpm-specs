@@ -15,21 +15,13 @@
 %bcond datetime_tests %{undefined rhel}
 
 Name:           babel
-Version:        2.12.1
-Release:        6%{?dist}
+Version:        2.13.1
+Release:        1%{?dist}
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD-3-Clause
 URL:            https://babel.pocoo.org/
 Source:         %{pypi_source Babel}
-
-# Freeze format_time() tests to a specific date to fix test failures
-# Partially fixes https://bugzilla.redhat.com/2179515
-# 2 doctests are still deselected (as doctests are not part of this fix)
-Patch:          https://github.com/python-babel/babel/pull/998.patch
-
-# New code for extracting f-strings for Pytohn 3.12 (PEP 701)
-Patch:          https://github.com/python-babel/babel/pull/1027.patch
 
 BuildArch:      noarch
 

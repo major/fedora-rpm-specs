@@ -35,8 +35,10 @@ Version:        23.11
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
-# The entire source is Apache-2.0 except:
+# The entire source is Pixar except:
 #
+# Apache-2.0:
+#   - pxr/imaging/hgiVulkan/spirv_reflect.{cpp,h}
 # BSD-3-Clause:
 #   - pxr/base/gf/ilmbase_*
 #   - pxr/base/js/rapidjson/msinttypes/
@@ -57,20 +59,31 @@ Summary:        3D VFX pipeline interchange file format
 #   - third_party/renderman-24/plugin/rmanArgsParser/pugixml/
 # MIT OR Unlicense:
 #   - pxr/imaging/hio/stb/
-# Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2:
+# Pixar AND GPL-3.0-or-later WITH Bison-exception-2.2:
 #   - pxr/usd/sdf/path.tab.{cpp,h}
 #   - pxr/usd/sdf/textFileFormat.tab.{cpp,h}
 #   - third_party/renderman-24/plugin/hdPrman/virtualStructConditionalGrammar.tab.{cpp,h}
 #
+# Additionally, the following would be listed above but are removed in %%prep:
+#
+# Apache-2.0:
+#   - pxr/usdImaging/usdviewq/fonts/Roboto_Mono/
+#   - pxr/usdImaging/usdviewq/fonts/Roboto/
+# MIT:
+#   - docs/doxygen/doxygen-awesome-css/ (except doxygen-awesome-darkmode-toggle.js)
+# MIT AND Apache-2.0:
+#   - docs/doxygen/doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js
+#
 # (Certain build system files are also under licenses other than Apache-2.0, but
 # do not contribute their license terms to the built RPMs.)
 License:        %{shrink:
+                Pixar AND
                 Apache-2.0 AND
                 BSD-3-Clause AND
                 BSD-2-Clause AND
                 MIT AND
                 (MIT OR Unlicense) AND
-                (Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2)
+                (Pixar AND GPL-3.0-or-later WITH Bison-exception-2.2)
                 }
 URL:            http://www.openusd.org/
 %global forgeurl https://github.com/PixarAnimationStudios/OpenUSD

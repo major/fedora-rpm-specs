@@ -4,13 +4,15 @@
 
 Name:           rust-%{crate}
 Version:        0.2.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
 URL:            https://github.com/coreos/bootupd
 Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
+
+Patch0: 0001-grubconfigs-Ensure-grub2-dir-exists.patch
 
 # For now, see upstream
 BuildRequires: make
@@ -75,6 +77,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Fri Nov 10 2023 Colin Walters <walters@verbum.org> - 0.2.13-3
+- Backport patch for not having separate /boot
+
 * Thu Nov 02 2023 Colin Walters <walters@verbum.org> - 0.2.13-2
 - Rebase to 0.2.13
 

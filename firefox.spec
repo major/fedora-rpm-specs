@@ -168,13 +168,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        119.0
-Release:        6%{?pre_tag}%{?dist}
+Version:        119.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20231023.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20231110.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -711,8 +711,8 @@ export CBINDGEN=/usr/bin/cbindgen
 %endif
 
 %if %{enable_mozilla_crashreporter}
-mkdir -p my_rust_vendor
-cd my_rust_vendor
+mkdir -p my_rust_vendor_dump_syms
+cd my_rust_vendor_dump_syms
 tar xf %{SOURCE3}
 mkdir -p .cargo
 cat > .cargo/config <<EOL
@@ -1153,6 +1153,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Nov 10 2023 Martin Stransky <stransky@redhat.com>- 119.0.1-1
+- Updated to 119.0.1
+
 * Tue Nov 07 2023 Martin Stransky <stransky@redhat.com>- 119.0-5
 - Added fix for rhbz#2247665
 

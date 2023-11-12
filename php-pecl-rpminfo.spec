@@ -18,7 +18,7 @@
 
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
-Version:        1.0.1
+Version:        1.1.0
 Release:        1%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
@@ -158,6 +158,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Nov 10 2023 Remi Collet <remi@remirepo.net> - 1.1.0-1
+- update to 1.1.0
+
 * Fri Oct 13 2023 Remi Collet <remi@remirepo.net> - 1.0.1-1
 - update to 1.0.1
 

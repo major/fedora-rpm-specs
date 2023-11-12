@@ -1,12 +1,12 @@
 %global gitdate 20231012.020924
 %global cmakever 5.240.0
-%global commit0 b3da7d91dcf8d2bb4f3158bdbd0581644d1272e6
+%global commit0 59e67fca9cf207b78a91c38705fb869a93337f8f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework plasma-framework
 
 Name:    kf6-plasma
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
@@ -116,6 +116,11 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_kf6_libdir}/libKF6PlasmaQuick.so
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.240.0^20231012.020924.59e67fc-1
+- Rebuild for kf6-kirigami2
+- Update git snapshot to be buildable against new kf6-knotifications
+- This package is about to be obsoleted, but for now it has to be installable
+
 * Tue Oct 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231012.020924.b3da7d9-2
 - Rebuild (qt6)
 

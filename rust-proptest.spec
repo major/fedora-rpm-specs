@@ -5,7 +5,7 @@
 %global crate proptest
 
 Name:           rust-proptest
-Version:        1.3.1
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Hypothesis-like property-based testing and shrinking
 

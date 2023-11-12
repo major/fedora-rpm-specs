@@ -79,7 +79,7 @@ make DEBUG="%{optflags}" \
 %if %{with_custom_interface}
      ALLOW_CUSTOM="-DCUSTOM" \
 %else
-     ALLOW_CUSTOM="" \
+     ALLOW_CUSTOM="-UCUSTOM" \
 %endif
      LD_SHARE="" \
 %if %{with_readline}
@@ -103,7 +103,7 @@ make T=%{buildroot} \
 %if %{with_custom_interface}
      ALLOW_CUSTOM="-DCUSTOM" \
 %else
-     ALLOW_CUSTOM="" \
+     ALLOW_CUSTOM="-UCUSTOM" \
 %endif
      PREFIX=%{_prefix} \
      LIBDIR=%{_libdir} \
@@ -118,7 +118,14 @@ make T=%{buildroot} \
 
 %if ! %{with_custom_interface}
   # if we don't enable the custom interface, don't ship symlinks to it
-  rm -f %{buildroot}/%{_libdir}/libcustcalc.so*
+  rm %{buildroot}/%{_libdir}/libcustcalc.so*
+  # this shouldn't be getting installed, but... is.
+  chmod +w %{buildroot}/%{_datadir}/calc/custhelp/*
+  chmod +w %{buildroot}/%{_datadir}/calc/custom/*
+  rm %{buildroot}/%{_datadir}/calc/custhelp/*
+  rm %{buildroot}/%{_datadir}/calc/custom/*
+  rmdir %{buildroot}/%{_datadir}/calc/custhelp
+  rmdir %{buildroot}/%{_datadir}/calc/custom/
 %endif
 
 # Changing permissions of executables to 755 to please rpmlint.

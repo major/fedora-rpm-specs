@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.49
+Version:   3.50
 Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
@@ -78,6 +78,12 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Fri Nov 10 2023 Brian C. Lane <bcl@redhat.com> - 3.50-1
+- Add Fedora 40 support (bcl)
+- remove control characters from license (cmdr)
+- scripts: Fix wording in documentation (bcl)
+- workflow: Fix test for python 3.12.0 version (bcl)
+
 * Wed Oct 25 2023 Brian C. Lane <bcl@redhat.com> - 3.49-1
 - tox: Only run unit tests for python 3.6 (bcl)
 - workflow: Update to py3.12.0 (bcl)

@@ -1,9 +1,9 @@
 Name:           dd_rescue
 Version:        1.99.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fault tolerant "dd" utility for rescuing data from bad media
 # No version specified
-License:        GPL-2.0-only or GPL-3.0-only
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            http://www.garloff.de/kurt/linux/ddrescue/
 
 %global         rhelp_version 0.3.0
@@ -16,6 +16,9 @@ Source3:        gpgkey-6669F7340D31E95EC5565490DE4F1B3A2BFFC5BF.gpg
 
 # Fix the dd_rescue version detection in dd_help
 Patch0:         dd_rescue-rhelp_version.patch
+
+# Avoid c99 detection on RHEL7
+Patch1:         dd_rescue-noc99.patch
 
 BuildRequires:  autoconf
 # We require aclocal which is shipped with automake
@@ -101,8 +104,12 @@ popd
 
 
 %changelog
+* Fri Nov 10 2023 Michal Ambroz <rebus AT seznam dot cz> - 1.99.13-3
+- fix spdx license string
+
 * Mon Nov 06 2023 Michal Ambroz <rebus AT seznam dot cz> - 1.99.13-2
 - fix epel7 build
+- fix spdx license string
 
 * Sun Nov 05 2023 Michal Ambroz <rebus AT seznam dot cz> - 1.99.13-1
 - bump to 1.99.13

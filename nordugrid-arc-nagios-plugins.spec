@@ -9,13 +9,13 @@
 %global pkg_sysconfdir %{_sysconfdir}/arc/nagios
 
 Name:		nordugrid-arc-nagios-plugins
-Version:	2.0.1~rc1
+Version:	2.0.1
 Release:	1%{?dist}
 Summary:	Nagios plugins for ARC
 
 License:	Apache-2.0
 URL:		https://www.nordugrid.org
-Source0:	https://download.nordugrid.org/packages/%{name}/testing/2.0.1rc1/src/%{name}-2.0.1rc1.tar.gz
+Source0:	https://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
 
 %if %{?fedora}%{!?fedora:0}
 #		Don't add dependency on EPEL since it can use either
@@ -55,7 +55,7 @@ Requires:	%{name} = %{version}-%{release}
 EGI configuration and dependencies for the ARC Nagios plugins.
 
 %prep
-%setup -q -n %{name}-2.0.1rc1
+%setup -q
 
 %build
 %py3_build
@@ -102,6 +102,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py*
 
 %changelog
+* Fri Nov 10 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.0.1-1
+- Version 2.0.1
+
 * Wed Nov 01 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.0.1~rc1-1
 - Version 2.0.1 rc1
 

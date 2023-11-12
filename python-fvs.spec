@@ -1,5 +1,15 @@
 %global pypi_name FVS
 
+Name:           python-fvs
+Version:        0.3.4
+Release:        %{autorelease}
+Summary:        File Versioning System with hash comparison and data storage
+BuildArch:      noarch
+License:        MIT
+URL:            https://pypi.org/pypi/%{pypi_name}
+Source0:        %{pypi_source %{pypi_name}}
+BuildRequires:  python3-devel
+
 %global _description %{expand:
 File Versioning System with hash comparison and data storage to create
 unlinked states that can be deleted.
@@ -17,17 +27,6 @@ of FVS is to always remain as clear and simple as possible, providing
 only the functionality of organizing file versions into states, ie
 recovery points that take advantage of deduplication to minimize space
 consumption.}
-
-Name:           python-fvs
-Version:        0.3.4
-Release:        %{autorelease}
-Summary:        File Versioning System with hash comparison and data storage
-BuildArch:      noarch
-License:        MIT
-URL:            https://pypi.org/pypi/%{pypi_name}
-Source0:        %{pypi_source %{pypi_name}}
-BuildRequires:  python3-devel
-
 
 %description %_description
 

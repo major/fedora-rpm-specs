@@ -2,13 +2,14 @@ Name:           perl-Data-Serializer
 Version:        0.65
 Release:        11%{?dist}
 Summary:        Modules that serialize data structures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Serializer
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEELY/Data-Serializer-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 # Runtime
 BuildRequires:  perl(Bencode)

@@ -83,7 +83,7 @@ This package includes documentation and examples for HelpDev.
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 %{forgesetupargs}
 
 
 %generate_buildrequires

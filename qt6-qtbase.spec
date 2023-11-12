@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -225,6 +225,8 @@ Requires: pkgconfig(gl)
 %if 0%{?vulkan}
 Requires: pkgconfig(vulkan)
 %endif
+# Optional dev dependency of Qt6::Gui
+Requires: pkgconfig(xkbcommon)
 Requires: qt6-rpm-macros
 %if 0%{?use_clang}
 Requires: clang >= 3.7.0
@@ -837,6 +839,9 @@ make check -k ||:
 
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 6.6.0-7
+- Add xkbcommon as a devel dependency
+
 * Thu Nov 09 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-6
 - Revert: Fix Qt not showing up emoji by handling emoji font family
 

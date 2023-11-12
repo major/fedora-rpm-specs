@@ -1,5 +1,11 @@
 %global apiver 0.4
 
+%if 0%{?rhel}
+%bcond lensfun 0
+%else
+%bcond lensfun 1
+%endif
+
 Name:           gegl04
 Version:        0.4.46
 Release:        %autorelease
@@ -36,7 +42,9 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.44.0
 BuildRequires:  pkgconfig(jasper) >= 1.900.1
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(lcms2) >= 2.8
+%if %{with lensfun}
 BuildRequires:  pkgconfig(lensfun) >= 0.2.5
+%endif
 BuildRequires:  pkgconfig(libraw) >= 0.15.4
 BuildRequires:  pkgconfig(libpng) >= 1.6.0
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.40.6

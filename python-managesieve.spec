@@ -1,12 +1,17 @@
 %global pypi_name managesieve
 
+# Pull from GitLab (prerequisite for Packit)
+%global forgeurl https://gitlab.com/htgoebel/managesieve
+
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        Accessing a Sieve-Server for managing Sieve scripts
+%global tag v%{version}
+%forgemeta
 License:        PSF-2.0 AND GPL-3.0-only
 URL:            https://managesieve.readthedocs.io/
-Source0:        %pypi_source
+Source0:        %forgesource
 # ssl.wrap_socket is deprecated and Python 3.12 removed it entirely
 # https://gitlab.com/htgoebel/managesieve/-/issues/8
 Patch:          fix_ssl_wrap_socket_error.patch
@@ -14,6 +19,9 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel, git-core
 BuildRequires:  python3-pytest
+BuildRequires:  make
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 
 %description
 This module allows accessing a Sieve-Server for managing Sieve scripts there.
@@ -26,8 +34,10 @@ Summary:        %{summary}
 This module allows accessing a Sieve-Server for managing Sieve scripts there.
 It is accompanied by a simple yet functional user application ‘sieveshell’.
 
+
 %prep
-%autosetup -n %{pypi_name}-%{version} -S git
+%forgeautosetup -p1 -S git
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -36,72 +46,32 @@ It is accompanied by a simple yet functional user application ‘sieveshell’.
 %build
 %pyproject_wheel
 
+# Generate man pages using Sphinx
+pushd docs
+make man
+popd
+
 
 %install
+mkdir -p %{buildroot}/%{_mandir}/man1
+cp -a docs/_build/man/*.1 %{buildroot}/%{_mandir}/man1
+cp %{buildroot}/%{_mandir}/man1/%{pypi_name}.1 %{buildroot}/%{_mandir}/man1/sieveshell.1
+
 %pyproject_install
 %pyproject_save_files managesieve
 
 
 %check
-#%%{python3} setup.py test
 %pytest
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
+%doc README.txt HISTORY
+%{_mandir}/man1/%{pypi_name}.1*
+%{_mandir}/man1/sieveshell.1*
 %{_bindir}/sieveshell
 
+
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 29 2023 Sandro <devel@penguinpee.nl> - 0.7.1-6
-- Add missing changelog entries
-
-* Thu Jun 29 2023 Sandro <devel@penguinpee.nl> - 0.7.1-5
-- Migrate to SPDX license
-
-* Thu Jun 29 2023 Sandro <devel@penguinpee.nl> - 0.7.1-4
-- Fix ssl.wrap_socket AttributeError
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan 6 2023 Steve Traylen <steve.traylen@cern.ch> - 0.7.1-1
-- Update to 0.7.1
-- LICENSE file now included in release
-- Migrate to pyproject macros
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.6-9
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.6-6
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Nov 18 2020 Steve Traylen <steve.traylen@cern.ch> - 0.6-4
-- Include LICENSE file
-
-* Fri Nov 13 2020 Germano Massullo <germano.massullo@gmail.com> - 0.6-3
-- rearranged %%check section
-- added LICENSE file
-
-* Wed Nov 11 2020 Steve Traylen <steve.traylen@cern.ch> - 0.6-2
-- BR for pytest-runner for tests
-
-* Thu Oct 29 2020 Steve Traylen <steve.traylen@cern.ch> - 0.6-1
-- Initial release
+%autochangelog

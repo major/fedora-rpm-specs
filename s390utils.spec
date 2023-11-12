@@ -16,7 +16,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.29.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -91,7 +91,7 @@ BuildRequires:  crate(serde_yaml)
 BuildRequires:  crate(strsim)
 BuildRequires:  crate(terminal_size)
 BuildRequires:  crate(thiserror)
-BuildRequires:  crate(zerocopy)
+BuildRequires:  crate(zerocopy) = 0.6.5
 BuildRequires:  rust-packaging
 %endif
 %endif
@@ -962,6 +962,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri Nov 10 2023 Dan Horák <dan[at]danny.cz> - 2:2.29.0-4
+- fix upstream kernel installations
+
 * Mon Oct 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:2.29.0-3
 - Use vendored dependencies in RHEL builds
 

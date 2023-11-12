@@ -1,10 +1,10 @@
 Name:           perl-YAML-PP
-Version:        0.036
-Release:        2%{?dist}
+Version:        0.37.0
+Release:        1%{?dist}
 Summary:        YAML 1.2 processor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-PP/
-Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-PP-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-PP-v%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -90,7 +90,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n YAML-PP-%{version}
+%setup -q -n YAML-PP-v%{version}
 
 for i in $(find e* -type f); do
     chmod -x "$i"
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.37.0-1
+- 0.37.0 bump (rhbz#2248901)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.036-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

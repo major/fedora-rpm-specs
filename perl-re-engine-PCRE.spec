@@ -1,8 +1,8 @@
 Name:           perl-re-engine-PCRE
 Version:        0.17
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Perl-compatible regular expression engine
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/re-engine-PCRE
 Source0:        https://cpan.metacpan.org/authors/id/A/AV/AVAR/re-engine-PCRE-%{version}.tar.gz
 # Do not use global $_ in "my" (CPAN RT#108386)
@@ -10,6 +10,7 @@ Patch0:         re-engine-PCRE-0.17-Do-not-use-global-in-my.patch
 # Fix 1-basic.t for v5.29.9 Variable length lookbehind support (CPAN RT#129403)
 # Backported from re-engine-PCRE2 version 0.15
 Patch1:         re-engine-PCRE-0.17-Fix-1-basic.t-for-v5.29.9-Variable-length.patch
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 # glibc-common for iconv
@@ -19,7 +20,10 @@ BuildRequires:  pcre-devel
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.10
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time:
 # Regexp is not used
 BuildRequires:  perl(XSLoader)
@@ -33,10 +37,23 @@ BuildRequires:  perl(Test::More)
 This allows to replace perl's regular expression engine in a given lexical
 scope with PCRE regular expressions provided by pcre library.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n re-engine-PCRE-%{version}
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1 -n re-engine-PCRE-%{version}
+# Remove always skipped tests
+for F in t/perl/pat.t t/perl/regexp.t t/release-pod-syntax.t; do
+    rm "$F"
+    perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
+done
 for F in README; do
     iconv -f ISO-8859-1 -t UTF-8 < "$F" > "${F}.utf8"
     touch -r "$F" "${F}.utf8"
@@ -45,25 +62,46 @@ done
 find -type f -exec chmod -x {} +
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+# t/split.t and t/s.t randomly fail, CPAN RT#124336.
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/re*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/re
+%dir %{perl_vendorarch}/auto/re/engine
+%{perl_vendorarch}/auto/re/engine/PCRE
+%dir %{perl_vendorarch}/re
+%dir %{perl_vendorarch}/re/engine
+%{perl_vendorarch}/re/engine/PCRE.pm
+%{_mandir}/man3/re::engine::PCRE.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 10 2023 Petr Pisar <ppisar@redhat.com> - 0.17-37
+- Convert a license tag to an SPDX format
+- Package the tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

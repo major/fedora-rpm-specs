@@ -2,8 +2,8 @@
 #global git_hash df9de7020c4317a484c39f7330e6d1c9ca3d9ec9
 
 Name:		domoticz
-Version:	2022.1
-Release:	11%{?dist}
+Version:	2023.2
+Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPLv3+ and ASL 2.0 and Boost and BSD and MIT
@@ -21,11 +21,6 @@ Patch1:		%{name}-tinyxpath.patch
 Patch2:		%{name}-python.patch
 # Python linking fix
 Patch3:		%{name}-python-link.patch
-# Python 3.10 support
-Patch4:		%{name}-python310.patch
-Patch5:         %{name}-gcc12.patch
-# Python 3.11 support
-Patch6:         %{name}-python311.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cereal-devel
@@ -97,12 +92,9 @@ any mobile device
 %prep
 %setup -q -n %{name}-%{version}
 #setup -q -n %{name}-%{git_hash}
-%patch1 -p1 -b.tinyxpath
-%patch2 -p1 -b.python
-%patch3 -p1 -b.python-link
-%patch4 -p1 -b.python310
-%patch5 -p1 -b.gcc12
-%patch6 -p1 -b.python311
+%patch -P 1 -p1 -b.tinyxpath
+%patch -P 2 -p1 -b.python
+%patch -P 3 -p1 -b.python-link
 # Add support for future versions of Python by replacing hardcoded version with macro
 sed -i 's/-lpythonVER/-lpython%{python3_version}/' CMakeLists.txt
 rm -f hardware/openzwave/*.h
@@ -250,6 +242,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Fri Nov 10 2023 Michael Cronenworth <mike@cchtml.com> - 2023.2-1
+- New stable release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

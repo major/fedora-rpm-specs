@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -128,6 +128,16 @@ Patch6:         0001-avcodec-x86-mathops-clip-constants-used-with-shift-i.patch
 # Backport fix for segfault when passing non-existent filter option
 # See: https://bugzilla.rpmfusion.org/show_bug.cgi?id=6773
 Patch7:         0001-fftools-ffmpeg_filter-initialize-the-o-to-silence-th.patch
+
+# Backport patches for enhanced rtmp support
+# Cf. https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=8926
+## From: https://patchwork.ffmpeg.org/series/8926/mbox/
+Patch8:         FFmpeg-devel-v10-Support-enhanced-flv-in-FFmpeg.patch
+
+# Backport AV1 VA-API encode support
+# Courtesy of GloriousEggroll
+## Adapted from: https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=9594
+Patch9:         ffmpeg-ge-av1-vaapi-encode-support.patch
 
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch
@@ -861,6 +871,10 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Fri Nov 10 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.0-16
+- Add patches to support enhanced RTMP and AV1 encoding through VA-API
+- Force AAC decoding through fdk-aac-free
+
 * Sun Oct 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 6.0-15
 - Backport upstream patch to fix segfault when passing non-existent filter
   option (rfbz#6773)

@@ -88,6 +88,10 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  /usr/bin/ffmpeg
 Requires:       /usr/bin/ffmpeg
 
+# Provides plugins required for loading SVG icons
+# https://github.com/pencil2d/pencil/pull/1796#issuecomment-1805940297
+Requires:       qt5-qtsvg
+
 # For %%{_datadir}/icons/hicolor
 Requires:       hicolor-icon-theme
 

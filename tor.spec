@@ -19,7 +19,7 @@
 %endif
 
 Name:       tor
-Version:    0.4.8.7
+Version:    0.4.8.9
 Release:    1%{?dist}
 License:    BSD
 Summary:    Anonymizing overlay network for TCP
@@ -89,7 +89,7 @@ echo "$(cat %{SOURCE1} | cut -d ' ' -f 1) %{SOURCE0}" | sha256sum --check
 
 
 %build
-%configure --with-tor-user=%{toruser} --with-tor-group=%{torgroup}
+%configure --with-tor-user=%{toruser} --with-tor-group=%{torgroup} --enable-gpl
 %make_build
 
 
@@ -184,6 +184,11 @@ fi
 
 
 %changelog
+* Thu Nov 09 2023 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.9-1
+- update to latest upstream release https://forum.torproject.org/t/security-release-0-4-8-9/10155
+- security fixes for bz#2248562 & bz#2248563
+- add --enable-gpl build options to enable PoW as DDoS protection bz#2247828
+
 * Wed Sep 27 2023 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.7-1
 - update to latest upstream release https://forum.torproject.org/t/stable-release-0-4-8-7/9398
 

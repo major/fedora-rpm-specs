@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
@@ -182,8 +182,11 @@ This package contains the data files.
 %prep
 %setup -q -n %{name}-%{git_hash}
 
+# See bundling discussion at https://github.com/nwchemgit/nwchem/discussions/905
 # remove the whole src/libext
-rm -rf src/libext/{elpa,libext_utils,libxc,mpich,openblas,plumed,scalapack,tblite}/*
+mv src/libext/GNUmakefile /tmp/GNUmakefile.libext
+rm -rf src/libext/*
+mv /tmp/GNUmakefile.libext src/libext/GNUmakefile
 
 # remove bundling of BLAS/LAPACK
 mv src/blas/GNUmakefile /tmp/GNUmakefile.blas
@@ -465,7 +468,7 @@ cd QA&& \
 export LD_LIBRARY_PATH=${MPI_LIB}&& \
 export PATH=%{PKG_TOP}/bin/$NWCHEM_TARGET:${MPI_BIN}:${PATH}&& \
 export MPIRUN_PATH=${MPI_BIN}/mpiexec&& \
-export MPIRUN_NPOPT="-verbose -np" && \
+export MPIRUN_NPOPT="-np" && \
 export USE_LIBXC=True && \
 export NWCHEM_EXECUTABLE=%{PKG_TOP}/bin/$NWCHEM_TARGET/nwchem$MPI_SUFFIX&& \
 timeout ${TIMEOUT_OPTS} time ./doafewqmtests.mpi ${NPROC} 2>&1 < /dev/null | tee ../doafewqmtests.mpi.${NPROC}$MPI_SUFFIX.log&& \
@@ -491,7 +494,6 @@ export OMPI_MCA_btl_base_warn_component_unused=0
 %{_openmpi_unload}
 
 %{_mpich_load}
-export HYDRA_DEBUG=0
 %docheck
 %{_mpich_unload}
 
@@ -521,6 +523,9 @@ mv QA.orig QA
 
 
 %changelog
+* Fri Nov 10 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.2-2
+- Fix verbose mpich output truncation https://github.com/nwchemgit/nwchem/issues/895
+
 * Mon Nov 06 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.2-1
 - New upstream release
 - Print outputs of failed tests https://github.com/nwchemgit/nwchem/issues/895

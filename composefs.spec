@@ -13,6 +13,9 @@ Patch0:         227.patch
 BuildRequires:  gcc automake libtool openssl-devel yajl-devel go-md2man fuse3-devel
 Requires:       %{name}-libs = %{version}-%{release}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 Tools to handle creating and mounting composefs images. The composefs
 project combines several underlying Linux features to provide a very

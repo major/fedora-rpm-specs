@@ -5,7 +5,7 @@
 %global crate bytecount
 
 Name:           rust-bytecount
-Version:        0.6.4
+Version:        0.6.7
 Release:        %autorelease
 Summary:        Count occurrences of a given byte, or the number of UTF-8 code points
 

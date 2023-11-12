@@ -5,7 +5,7 @@
 %global crate opener
 
 Name:           rust-opener
-Version:        0.5.2
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Open a file or link using the system default program
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/opener
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          opener-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * drop unused "reveal" feature which pulls in additional dependencies
+Patch:          opener-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

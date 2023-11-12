@@ -8,7 +8,7 @@
 %global supported_arches x86_64 aarch64 %{ix86}
 
 Name:           rust-cpufeatures
-Version:        0.2.10
+Version:        0.2.11
 Release:        %autorelease
 Summary:        Lightweight runtime CPU feature detection for x86/x86_64 and aarch64
 

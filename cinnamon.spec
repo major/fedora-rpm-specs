@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        5.9.0
-Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -345,6 +345,9 @@ EOF
 %endif
 
 %changelog
+* Fri Nov 10 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-2.20231107git5a73d40
+- Rebuild against correct muffin
+
 * Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git5a73d40
 - Update to git snapshot
 

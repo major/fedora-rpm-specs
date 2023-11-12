@@ -5,7 +5,7 @@
 %global crate wide
 
 Name:           rust-wide
-Version:        0.7.12
+Version:        0.7.13
 Release:        %autorelease
 Summary:        SIMD-compatible data types
 

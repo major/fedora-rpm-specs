@@ -2,13 +2,13 @@ Name:           perl-Class-Prototyped
 Version:        1.13
 Release:        28%{?dist}
 Summary:        Fast prototype-based OO programming in Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Prototyped
 Source0:        https://cpan.metacpan.org/authors/id/T/TE/TEVERETT/Class-Prototyped-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 # Run-time:
 BuildRequires:  perl(Carp)

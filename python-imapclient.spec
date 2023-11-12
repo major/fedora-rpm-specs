@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/mjs/imapclient/
 
 Name:           python-%{pypi_name}
-Version:        2.3.1
+Version:        3.0.0
 Release:        %{autorelease}
 Summary:        Easy-to-use, Pythonic and complete IMAP client library
 %global tag %{version}
@@ -10,8 +10,6 @@ Summary:        Easy-to-use, Pythonic and complete IMAP client library
 License:        BSD-3-Clause
 URL:            %forgeurl
 Source:         %forgesource
-# Update supported Python versions in README
-Patch:          README.rst.patch
 
 
 BuildArch:      noarch

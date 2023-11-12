@@ -29,6 +29,8 @@ BuildRequires: pkgconfig(wlroots) >= 0.16.0
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
 
+Requires:   xorg-x11-server-Xwayland
+
 # Upstream recommendations
 # https://github.com/labwc/labwc#6-integration
 Recommends: bemenu                      %dnl # Launchers

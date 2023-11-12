@@ -27,6 +27,10 @@ Patch:          21501.patch
 # We are a little out of sync with spyder-kernels
 Patch:          no_upper_bound_for_kernels.patch
 
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/spyder-ide/spyder/pull/21510
+Patch:          %{forgeurl}/pull/21510.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -120,7 +124,7 @@ ln -s spyder %{buildroot}%{_bindir}/spyder3
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 # Matches what gnome-software and others use:
-appstreamcli validate --nonet \
+appstreamcli validate --no-net --explain \
     %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 
 
