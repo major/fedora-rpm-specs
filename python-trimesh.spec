@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.0.3
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -14,10 +14,6 @@ Summary:        Import, export, process, analyze and view triangular meshes
 License:        MIT AND BSD-3-Clause AND Zlib
 URL:            https://trimsh.org
 Source:         https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{version}.tar.gz
-
-# Add missing engine keyword in boolean test_multiple
-# https://github.com/mikedh/trimesh/pull/2068
-Patch:          https://github.com/mikedh/trimesh/pull/2068.patch
 
 # The combination of an arched package with only noarch binary packages makes
 # it easier for us to detect arch-dependent test failures, since the tests will
@@ -151,7 +147,7 @@ Recommends:     /usr/bin/openscad
 
 
 %prep
-%autosetup -n trimesh-%{version} -p1
+%autosetup -n trimesh-%{version}
 
 # Stub out unavailable pyinstrument test dependency; we don’t really need to do
 # profiling anyway. Note that this does mean that API function

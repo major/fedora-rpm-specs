@@ -79,6 +79,19 @@
 %global with_fortran 0
 %endif
 ##########
+# SOVERSIONs (*_SOVERSION from CMakeLists.txt):
+%global arkodelib_SOVERSION 5
+%global cvodelib_SOVERSION 6
+%global cvodeslib_SOVERSION 6
+%global idalib_SOVERSION 6
+%global idaslib_SOVERSION 5
+%global kinsollib_SOVERSION 6
+#global cpodeslib_SOVERSION 0
+%global nveclib_SOVERSION 6
+%global sunmatrixlib_SOVERSION 4
+%global sunlinsollib_SOVERSION 4
+%global sunnonlinsollib_SOVERSION 3
+%global sundialslib_SOVERSION 6
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
@@ -98,6 +111,8 @@ Patch1:     %{name}-5.5.0-set_superlumt64_name.patch
 
 Patch2:     %{name}-change_petsc_variable.patch
 Patch3:     %{name}-klu64.patch
+# Upstream fix for SOVERSIONs https://github.com/LLNL/sundials/pull/343
+Patch4:     %{name}-soversion.patch
 
 BuildRequires: make
 %if 0%{?with_fortran}
@@ -248,6 +263,8 @@ pushd %{name}-%{version}
 %if 0%{?with_klu64}
 %patch 3 -p1 -b .klu64
 %endif
+
+%patch 4 -p1 -b .soversion
 
 mv src/arkode/README.md src/README-arkode.md
 mv src/cvode/README.md src/README-cvode.md
@@ -716,20 +733,21 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/src/README.idas.md
 %doc sundials-%{version}/src/README-kinsol.md
 %doc sundials-%{version}/NOTICE
-%{_libdir}/libsundials_generic.so.*
-%{_libdir}/libsundials_ida*.so.*
-%{_libdir}/libsundials_cvode*.so.*
-%{_libdir}/libsundials_arkode*.so.*
-%{_libdir}/libsundials_kinsol.so.*
-%{_libdir}/libsundials_nvecserial.so.*
-%{_libdir}/libsundials_nvecopenmp.so.*
-%{_libdir}/libsundials_nvecmanyvector.so.*
+%{_libdir}/libsundials_arkode*.so.%{arkodelib_SOVERSION}*
+%{_libdir}/libsundials_cvode*.so.%{cvodelib_SOVERSION}*
+%{_libdir}/libsundials_generic.so.%{sundialslib_SOVERSION}**
+%{_libdir}/libsundials_ida.so.%{idalib_SOVERSION}*
+%{_libdir}/libsundials_idas.so.%{idaslib_SOVERSION}*
+%{_libdir}/libsundials_kinsol.so.%{kinsollib_SOVERSION}*
+%{_libdir}/libsundials_nvecopenmp.so.%{nveclib_SOVERSION}*
+%{_libdir}/libsundials_nvecmanyvector.so.%{nveclib_SOVERSION}*
 %if %{with pthread}
-%{_libdir}/libsundials_nvecpthreads.so.*
+%{_libdir}/libsundials_nvecpthreads.so.%{nveclib_SOVERSION}*
 %endif
-%{_libdir}/libsundials_sunmatrix*.so.*
-%{_libdir}/libsundials_sunlinsol*.so.*
-%{_libdir}/libsundials_sunnonlinsol*.so.*
+%{_libdir}/libsundials_nvecserial.so.%{nveclib_SOVERSION}*
+%{_libdir}/libsundials_sunlinsol*.so.%{sunlinsollib_SOVERSION}*
+%{_libdir}/libsundials_sunmatrix*.so.%{sunmatrixlib_SOVERSION}*
+%{_libdir}/libsundials_sunnonlinsol*.so.%{sunnonlinsollib_SOVERSION}*
 %if 0%{?with_fortran}
 %{_libdir}/libsundials_f*[_mod].so.*
 %endif

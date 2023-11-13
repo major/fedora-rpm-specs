@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-234-g5dd3bda59c
+%global glibcsrcdir glibc-2.38.9000-244-gd1dcb565a1
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 19
+%global baserelease 21
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -231,9 +231,8 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-rh2244688.patch
-Patch25: glibc-rh2248502-1.patch
-Patch26: glibc-rh2248502-2.patch
-Patch27: glibc-rh2244992.patch
+Patch25: glibc-rh2244992.patch
+Patch26: glibc-rh2248915.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2204,6 +2203,23 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Sat Nov 11 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-21
+- Fix missing entries in /etc/ld.so.cache (#2248915)
+
+* Sat Nov 11 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-20
+- Drop glibc-rh2248502-*.patch, workaround applied upstream
+- Auto-sync with upstream branch master,
+  commit d1dcb565a1fb5829f9476a1438c30eccc4027d04:
+- Fix type typo in “String/Array Conventions” doc
+- stdlib: Avoid element self-comparisons in qsort (#2248502)
+- elf: Add glibc.mem.decorate_maps tunable
+- linux: Decorate __libc_fatal error buffer
+- assert: Decorate error message buffer
+- malloc: Decorate malloc maps
+- nptl: Decorate thread stack on pthread_create
+- support: Add support_set_vma_name
+- linux: Add PR_SET_VMA_ANON_NAME support
+
 * Wed Nov  8 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-19
 - Fix force-first handling in dlclose, take two (#2244992, #2246048)
 

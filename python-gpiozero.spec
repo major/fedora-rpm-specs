@@ -1,6 +1,6 @@
 Name:           python-gpiozero
-Version:        1.6.2
-Release:        10%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        Interface to GPIO on Raspberry Pi
 
 License:        BSD-3-Clause
@@ -43,8 +43,12 @@ A simple interface to GPIO devices with Raspberry Pi.
 %files -n python3-gpiozero -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/pinout
+%{_bindir}/pintest
 
 %changelog
+* Wed Nov 01 2023 Cristian Delgado <crissdell@protonmail.com> - 2.0-1
+- Update to 2.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

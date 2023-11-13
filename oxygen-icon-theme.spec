@@ -1,9 +1,4 @@
-%global gitdate 20230925.020636
-%global cmakever 5.240.0
-%global commit0 8e9d99c4666d24fd44639524aede174079437bfe
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
-%global framework oxygen-icons5
+%global base_name oxygen-icons
 
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
@@ -11,19 +6,19 @@
 Name:    oxygen-icon-theme
 Summary: Oxygen icon theme
 Epoch:   1
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL:     https://techbase.kde.org/Projects/Oxygen
 
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/oxygen-icons/%{base_name}-%{version}.tar.xz
 BuildArch: noarch
 
 ## upstreamable patches
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 
@@ -50,7 +45,7 @@ Conflicts: kmail < 15.12.2
 
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -110,6 +105,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/oxygen &>/dev/null || :
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 1:5.245.0-1
+- 5.245.0
+- This was moved upstream from frameworks release to an independent release
+
 * Wed Oct 18 2023 Alessandro Astone <ales.astone@gmail.com> - 1:5.240.0^20230925.020636.8e9d99c-1
 - Update to kf6
 

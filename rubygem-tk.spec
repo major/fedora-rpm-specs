@@ -1,8 +1,8 @@
 %global	gem_name	tk
 
 Name:		rubygem-%{gem_name}
-Version:	0.4.0
-Release:	10%{?dist}
+Version:	0.5.0
+Release:	1%{?dist}
 
 Summary:	Tk interface module using tcltklib
 # SPDX confirmred
@@ -67,6 +67,7 @@ cp -a .%{gem_extdir_mri}/* \
 rm -f %{buildroot}%{gem_cache}
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
+	.github \
 	.gitignore \
 	.travis.yml \
 	Gemfile \
@@ -80,12 +81,6 @@ rm -rf \
 	%{nil}
 popd
 pushd %{buildroot}%{gem_extdir_mri}
-# Just to shut up rpmlint
-# For gem, it is sufficient that gem.build_complete file
-# "exists" (gem checks the existence of gem.build_complete file),
-# however rpmlint complains if the file is null-size
-# Not using the following hack fornow
-#test -f gem.build_complete && echo "complete" > gem.build_complete
 rm -f \
 	mkmf.log \
 	gem_make.out \
@@ -118,6 +113,9 @@ popd
 %doc	%lang(ja) %{gem_instdir}/MANUAL_tcltklib.ja
 
 %changelog
+* Sun Nov 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-1
+- 0.5.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

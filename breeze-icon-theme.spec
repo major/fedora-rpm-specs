@@ -1,8 +1,3 @@
-%global gitdate 20231010.120657
-%global cmakever 5.240.0
-%global commit0 8ac06481cc57a1b64b07a0bec1bc1ce0415529c5
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 %global framework breeze-icons
 
 # trim changelog included in binary rpms
@@ -10,14 +5,14 @@
 
 Name:    breeze-icon-theme
 Summary: Breeze icon theme
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.245.0
 Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL:     https://api.kde.org/frameworks-api/frameworks-apidocs/frameworks/breeze-icons/html/
 
-Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 ## upstream patches (lookaside cache)
 
@@ -26,7 +21,7 @@ Source0: https://invent.kde.org/frameworks/%{framework}/-/archive/%{commit0}/%{f
 # must come *after* patches or %%autosetup sometimes doesn't work right -- rex
 BuildArch: noarch
 
-BuildRequires:  extra-cmake-modules >= %{cmakever}
+BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 
@@ -68,7 +63,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{framework}-%{commit0} -p1
+%autosetup -n %{framework}-%{version} -p1
 
 # Fix FTI for -devel package
 sed -e 's|\${KDE_INSTALL_CMAKEPACKAGEDIR}|%{_datadir}/cmake|g' -i CMakeLists.txt
@@ -139,6 +134,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-1
+- 5.245.0
+
 * Wed Oct 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.240.0^20231010.120657.8ac0648-1
 - Update to kf6
 

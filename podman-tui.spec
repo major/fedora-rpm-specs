@@ -1,16 +1,20 @@
-%global with_check 0
-%global with_debug 1
-
-%if 0%{?with_debug}
-%global _find_debuginfo_dwz_opts %{nil}
-%global _dwz_low_mem_die_limit 0
-%else
-%global debug_package %{nil}
+%bcond_without check
+%bcond_without bundled
+%if 0%{?rhel}
+%bcond_without bundled
 %endif
 
+%if %{defined rhel} && !%{defined eln}
+%define gobuild(o:) go build -buildmode pie -compiler gc -tags="rpm_crashtraceback libtrust_openssl ${BUILDTAGS:-}" -ldflags "-linkmode=external -compressdwarf=false ${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') -extldflags '%__global_ldflags'" -a -v -x %{?**};
+%endif
+
+%if %{with bundled}
+%global gomodulesmode   GO111MODULE=on
+%endif
+
+# https://github.com/containers/podman-tui
 %global goipath github.com/containers/podman-tui
-Version: 0.11.0
-%global tag v0.11.0
+Version: 0.12.0
 %gometa
 
 %global goname podman-tui
@@ -31,12 +35,151 @@ Requires:  %{name} = %{version}-%{release}
 Name: %{goname}
 Release: %autorelease
 Summary: Podman Terminal User Interface
+
+# License for dario.cat/mergo: BSD 3-Clause License
+# License for github.com/Azure/go-ansiterm: MIT License
+# License for github.com/Microsoft/go-winio: MIT License
+# License for github.com/Microsoft/hcsshim: MIT License
+# License for github.com/VividCortex/ewma: MIT License
+# License for github.com/acarl005/stripansi: MIT License
+# License for github.com/asaskevich/govalidator: MIT License
+# License for github.com/blang/semver/v4: MIT License
+# License for github.com/chzyer/readline: MIT License
+# License for github.com/container-orchestrated-devices/container-device-interface: Apache License 2.0
+# License for github.com/containerd/cgroups/v3: Apache License 2.0
+# License for github.com/containerd/containerd: Apache License 2.0
+# License for github.com/containerd/stargz-snapshotter/estargz: Apache License 2.0
+# License for github.com/containers/buildah: Apache License 2.0
+# License for github.com/containers/common: Apache License 2.0
+# License for github.com/containers/image/v5: Apache License 2.0
+# License for github.com/containers/libtrust: Apache License 2.0
+# License for github.com/containers/ocicrypt: Apache License 2.0
+# License for github.com/containers/podman/v4: Apache License 2.0
+# License for github.com/containers/psgo: Apache License 2.0
+# License for github.com/containers/storage: Apache License 2.0
+# License for github.com/coreos/go-systemd/v22: Apache License 2.0
+# License for github.com/cyberphone/json-canonicalization: Apache License 2.0
+# License for github.com/cyphar/filepath-securejoin: BSD 3-Clause License
+# License for github.com/disiqueira/gotree/v3: MIT License
+# License for github.com/distribution/reference: Apache License 2.0
+# License for github.com/docker/distribution: Apache License 2.0
+# License for github.com/docker/docker-credential-helpers: MIT License
+# License for github.com/docker/docker: Apache License 2.0
+# License for github.com/docker/go-connections: Apache License 2.0
+# License for github.com/docker/go-units: Apache License 2.0
+# License for github.com/fsnotify/fsnotify: BSD 3-Clause License
+# License for github.com/gdamore/encoding: Apache License 2.0
+# License for github.com/gdamore/tcell/v2: Apache License 2.0
+# License for github.com/go-jose/go-jose/v3: Apache License 2.0
+# License for github.com/go-jose/go-jose/v3/json: BSD 3-Clause License
+# License for github.com/go-logr/logr: Apache License 2.0
+# License for github.com/go-openapi/analysis: Apache License 2.0
+# License for github.com/go-openapi/errors: Apache License 2.0
+# License for github.com/go-openapi/jsonpointer: Apache License 2.0
+# License for github.com/go-openapi/jsonreference: Apache License 2.0
+# License for github.com/go-openapi/loads: Apache License 2.0
+# License for github.com/go-openapi/runtime: Apache License 2.0
+# License for github.com/go-openapi/spec: Apache License 2.0
+# License for github.com/go-openapi/strfmt: Apache License 2.0
+# License for github.com/go-openapi/swag: Apache License 2.0
+# License for github.com/go-openapi/validate: Apache License 2.0
+# License for github.com/godbus/dbus/v5: BSD 2-Clause License
+# License for github.com/gogo/protobuf: BSD 3-Clause License
+# License for github.com/golang/groupcache: Apache License 2.0
+# License for github.com/golang/protobuf: BSD 3-Clause License
+# License for github.com/google/go-cmp: BSD 3-Clause License
+# License for github.com/google/go-containerregistry: Apache License 2.0
+# License for github.com/google/go-intervals: Apache License 2.0
+# License for github.com/google/pprof: Apache License 2.0
+# License for github.com/google/uuid: BSD 3-Clause License
+# License for github.com/gorilla/mux: BSD 3-Clause License
+# License for github.com/gorilla/schema: BSD 3-Clause License
+# License for github.com/hashicorp/errwrap: Mozilla Public License 2.0
+# License for github.com/hashicorp/go-multierror: Mozilla Public License 2.0
+# License for github.com/hinshun/vt10x: UNKNOWN
+# License for github.com/inconshreveable/mousetrap: Apache License 2.0
+# License for github.com/json-iterator/go: MIT License
+# License for github.com/klauspost/compress: Apache License 2.0 and/or BSD 3-Clause License
+# License for github.com/klauspost/compress/internal/snapref: BSD 3-Clause License
+# License for github.com/klauspost/pgzip/GO_LICENSE: BSD 3-Clause License
+# License for github.com/klauspost/pgzip: MIT License
+# License for github.com/kr/fs: BSD 3-Clause License
+# License for github.com/lucasb-eyer/go-colorful: MIT License
+# License for github.com/mailru/easyjson: MIT License
+# License for github.com/manifoldco/promptui/LICENSE.md: BSD 3-Clause License
+# License for github.com/mattn/go-colorable: MIT License
+# License for github.com/mattn/go-isatty: MIT License
+# License for github.com/mattn/go-runewidth: MIT License
+# License for github.com/mattn/go-shellwords: MIT License
+# License for github.com/mattn/go-sqlite3: MIT License
+# License for github.com/miekg/pkcs11: BSD 3-Clause License
+# License for github.com/mistifyio/go-zfs/v3: Apache License 2.0
+# License for github.com/mitchellh/mapstructure: MIT License
+# License for github.com/moby/sys/mountinfo: Apache License 2.0
+# License for github.com/moby/term: Apache License 2.0
+# License for github.com/modern-go/concurrent: Apache License 2.0
+# License for github.com/modern-go/reflect2: Apache License 2.0
+# License for github.com/navidys/tvxwidgets: MIT License
+# License for github.com/nxadm/tail: MIT License
+# License for github.com/oklog/ulid: Apache License 2.0
+# License for github.com/onsi/ginkgo/v2: MIT License
+# License for github.com/onsi/gomega: MIT License
+# License for github.com/opencontainers/go-digest: Apache License 2.0
+# License for github.com/opencontainers/image-spec: Apache License 2.0
+# License for github.com/opencontainers/runc: Apache License 2.0
+# License for github.com/opencontainers/runtime-spec: Apache License 2.0
+# License for github.com/opencontainers/runtime-tools: Apache License 2.0
+# License for github.com/opencontainers/selinux: Apache License 2.0
+# License for github.com/ostreedev/ostree-go: ISC License
+# License for github.com/pkg/errors: BSD 2-Clause License
+# License for github.com/pkg/sftp: BSD 2-Clause License
+# License for github.com/proglottis/gpgme: BSD 3-Clause License
+# License for github.com/rs/zerolog: MIT License
+# License for github.com/secure-systems-lab/go-securesystemslib: MIT License
+# License for github.com/sigstore/fulcio: Apache License 2.0
+# License for github.com/sigstore/rekor: Apache License 2.0
+# License for github.com/sigstore/sigstore: Apache License 2.0
+# License for github.com/sirupsen/logrus: MIT License
+# License for github.com/spf13/pflag: BSD 3-Clause License
+# License for github.com/stefanberger/go-pkcs11uri: Apache License 2.0
+# License for github.com/sylabs/sif/v2/LICENSE.md: BSD 3-Clause License
+# License for github.com/syndtr/gocapability: BSD 2-Clause License
+# License for github.com/tchap/go-patricia/v2: MIT License
+# License for github.com/theupdateframework/go-tuf: BSD 3-Clause License
+# License for github.com/titanous/rocacheck: MIT License
+# License for github.com/ulikunitz/xz: UNKNOWN
+# License for github.com/vbatts/tar-split: BSD 3-Clause License
+# License for github.com/vbauerster/mpb/v8/UNLICENSE: The Unlicense
+# License for go.mongodb.org/mongo-driver: Apache License 2.0
+# License for go.mozilla.org/pkcs7: MIT License
+# License for go.opencensus.io: Apache License 2.0
+# License for golang.org/x/crypto: BSD 3-Clause License
+# License for golang.org/x/exp: BSD 3-Clause License
+# License for golang.org/x/mod: BSD 3-Clause License
+# License for golang.org/x/net: BSD 3-Clause License
+# License for golang.org/x/sync: BSD 3-Clause License
+# License for golang.org/x/sys: BSD 3-Clause License
+# License for golang.org/x/term: BSD 3-Clause License
+# License for golang.org/x/text: BSD 3-Clause License
+# License for golang.org/x/tools: BSD 3-Clause License
+# License for google.golang.org/genproto/googleapis/rpc: Apache License 2.0
+# License for google.golang.org/grpc: Apache License 2.0
+# License for google.golang.org/protobuf: BSD 3-Clause License
+# License for gopkg.in/go-jose/go-jose.v2: Apache License 2.0
+# License for gopkg.in/go-jose/go-jose.v2/json: BSD 3-Clause License
+# License for gopkg.in/tomb.v1: BSD 3-Clause License
+# License for gopkg.in/yaml.v2: Apache License 2.0
+# License for gopkg.in/yaml.v3: Apache License 2.0 and/or MIT License
+# License for sigs.k8s.io/yaml: BSD 3-Clause License and/or MIT License
+
 License: ASL 2.0 and BSD and ISC and MIT and MPLv2.0
 URL: %{gourl}
-Source0: %{gosource}
+Source:         %{gosource}
+Source:         vendor-%{version}.tar.gz
+Source:         bundle_go_deps_for_rpm.sh
 
 BuildRequires: gcc
-BuildRequires: golang >= 1.18.2
+BuildRequires: golang
 BuildRequires: glib2-devel
 BuildRequires: glibc-devel
 BuildRequires: glibc-static
@@ -48,152 +191,36 @@ BuildRequires: make
 BuildRequires: shadow-utils-subid-devel
 %endif
 
-# vendored libraries
-# awk '{print "Provides: bundled(golang("$1")) = "$2}' go.mod | sort | uniq | sed -e 's/-/_/g' -e '/bundled(golang())/d' -e '/bundled(golang(go\|module\|replace\|require))/d'
-Provides: bundled(golang(dario.cat/mergo)) = v1.0.0
-Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
-Provides: bundled(golang(github.com/asaskevich/govalidator)) = v0.0.0_20230301143203_a9d515a09cc2
-Provides: bundled(golang(github.com/Azure/go_ansiterm)) = v0.0.0_20230124172434_306776ec8161
-Provides: bundled(golang(github.com/blang/semver/v4)) = v4.0.0
-Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.3.2
-Provides: bundled(golang(github.com/chzyer/readline)) = v1.5.1
-Provides: bundled(golang(github.com/containerd/cgroups)) = v1.1.0
-Provides: bundled(golang(github.com/containerd/containerd)) = v1.7.2
-Provides: bundled(golang(github.com/containerd/stargz_snapshotter/estargz)) = v0.14.3
-Provides: bundled(golang(github.com/container_orchestrated_devices/container_device_interface)) = v0.5.4
-Provides: bundled(golang(github.com/containers/buildah)) = v1.31.2
-Provides: bundled(golang(github.com/containers/common)) = v0.55.3
-Provides: bundled(golang(github.com/containers/image/v5)) = v5.26.1
-Provides: bundled(golang(github.com/containers/libtrust)) = v0.0.0_20230121012942_c1716e8a8d01
-Provides: bundled(golang(github.com/containers/ocicrypt)) = v1.1.7
-Provides: bundled(golang(github.com/containers/podman/v4)) = v4.6.1
-Provides: bundled(golang(github.com/containers/psgo)) = v1.8.0
-Provides: bundled(golang(github.com/containers/storage)) = v1.48.0
-Provides: bundled(golang(github.com/coreos/go_systemd/v22)) = v22.5.0
-Provides: bundled(golang(github.com/cyberphone/json_canonicalization)) = v0.0.0_20230514072755_504adb8a8af1
-Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.2.3
-Provides: bundled(golang(github.com/disiqueira/gotree/v3)) = v3.0.2
-Provides: bundled(golang(github.com/docker/distribution)) = v2.8.2+incompatible
-Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.7.0
-Provides: bundled(golang(github.com/docker/docker)) = v24.0.5+incompatible
-Provides: bundled(golang(github.com/docker/go_connections)) = v0.4.1_0.20210727194412_58542c764a11
-Provides: bundled(golang(github.com/docker/go_units)) = v0.5.0
-Provides: bundled(golang(github.com/fsnotify/fsnotify)) = v1.6.0
-Provides: bundled(golang(github.com/gdamore/encoding)) = v1.0.0
-Provides: bundled(golang(github.com/gdamore/tcell/v2)) = v2.6.0
-Provides: bundled(golang(github.com/godbus/dbus/v5)) = v5.1.1_0.20230522191255_76236955d466
-Provides: bundled(golang(github.com/gogo/protobuf)) = v1.3.2
-Provides: bundled(golang(github.com/golang/groupcache)) = v0.0.0_20210331224755_41bb18bfe9da
-Provides: bundled(golang(github.com/golang/protobuf)) = v1.5.3
-Provides: bundled(golang(github.com/go_logr/logr)) = v1.2.4
-Provides: bundled(golang(github.com/google/go_cmp)) = v0.5.9
-Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.15.2
-Provides: bundled(golang(github.com/google/go_intervals)) = v0.0.2
-Provides: bundled(golang(github.com/google/pprof)) = v0.0.0_20230323073829_e72429f035bd
-Provides: bundled(golang(github.com/google/uuid)) = v1.3.0
-Provides: bundled(golang(github.com/go_openapi/analysis)) = v0.21.4
-Provides: bundled(golang(github.com/go_openapi/errors)) = v0.20.3
-Provides: bundled(golang(github.com/go_openapi/jsonpointer)) = v0.19.5
-Provides: bundled(golang(github.com/go_openapi/jsonreference)) = v0.20.0
-Provides: bundled(golang(github.com/go_openapi/loads)) = v0.21.2
-Provides: bundled(golang(github.com/go_openapi/runtime)) = v0.26.0
-Provides: bundled(golang(github.com/go_openapi/spec)) = v0.20.9
-Provides: bundled(golang(github.com/go_openapi/strfmt)) = v0.21.7
-Provides: bundled(golang(github.com/go_openapi/swag)) = v0.22.4
-Provides: bundled(golang(github.com/go_openapi/validate)) = v0.22.1
-Provides: bundled(golang(github.com/gorilla/mux)) = v1.8.0
-Provides: bundled(golang(github.com/gorilla/schema)) = v1.2.0
-Provides: bundled(golang(github.com/go_task/slim_sprig)) = v0.0.0_20230315185526_52ccab3ef572
-Provides: bundled(golang(github.com/hashicorp/errwrap)) = v1.1.0
-Provides: bundled(golang(github.com/hashicorp/go_multierror)) = v1.1.1
-Provides: bundled(golang(github.com/hinshun/vt10x)) = v0.0.0_20220301184237_5011da428d02
-Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = v1.1.0
-Provides: bundled(golang(github.com/jinzhu/copier)) = v0.3.5
-Provides: bundled(golang(github.com/josharian/intern)) = v1.0.0
-Provides: bundled(golang(github.com/json_iterator/go)) = v1.1.12
-Provides: bundled(golang(github.com/klauspost/compress)) = v1.16.6
-Provides: bundled(golang(github.com/klauspost/pgzip)) = v1.2.6
-Provides: bundled(golang(github.com/kr/fs)) = v0.1.0
-Provides: bundled(golang(github.com/letsencrypt/boulder)) = v0.0.0_20230213213521_fdfea0d469b6
-Provides: bundled(golang(github.com/lucasb_eyer/go_colorful)) = v1.2.0
-Provides: bundled(golang(github.com/mailru/easyjson)) = v0.7.7
-Provides: bundled(golang(github.com/manifoldco/promptui)) = v0.9.0
-Provides: bundled(golang(github.com/mattn/go_colorable)) = v0.1.13
-Provides: bundled(golang(github.com/mattn/go_isatty)) = v0.0.16
-Provides: bundled(golang(github.com/mattn/go_runewidth)) = v0.0.14
-Provides: bundled(golang(github.com/mattn/go_shellwords)) = v1.0.12
-Provides: bundled(golang(github.com/Microsoft/go_winio)) = v0.6.1
-Provides: bundled(golang(github.com/Microsoft/hcsshim)) = v0.10.0_rc.8
-Provides: bundled(golang(github.com/miekg/pkcs11)) = v1.1.1
-Provides: bundled(golang(github.com/mistifyio/go_zfs/v3)) = v3.0.1
-Provides: bundled(golang(github.com/mitchellh/mapstructure)) = v1.5.0
-Provides: bundled(golang(github.com/moby/sys/mountinfo)) = v0.6.2
-Provides: bundled(golang(github.com/moby/term)) = v0.5.0
-Provides: bundled(golang(github.com/modern_go/concurrent)) = v0.0.0_20180306012644_bacd9c7ef1dd
-Provides: bundled(golang(github.com/modern_go/reflect2)) = v1.0.2
-Provides: bundled(golang(github.com/navidys/tvxwidgets)) = v0.3.0
-Provides: bundled(golang(github.com/nxadm/tail)) = v1.4.8
-Provides: bundled(golang(github.com/oklog/ulid)) = v1.3.1
-Provides: bundled(golang(github.com/onsi/ginkgo/v2)) = v2.11.0
-Provides: bundled(golang(github.com/onsi/gomega)) = v1.27.8
-Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
-Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.0_rc3
-Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.7
-Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.1.0_rc.3
-Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20230317050512_e931285f4b69
-Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.11.0
-Provides: bundled(golang(github.com/ostreedev/ostree_go)) = v0.0.0_20210805093236_719684c64e4f
-Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
-Provides: bundled(golang(github.com/pkg/sftp)) = v1.13.5
-Provides: bundled(golang(github.com/proglottis/gpgme)) = v0.1.3
-Provides: bundled(golang(github.com/rivo/tview)) = v0.0.0_20220307222120_9994674d60a8
-Provides: bundled(golang(github.com/rivo/uniseg)) = v0.4.4
-Provides: bundled(golang(github.com/rs/zerolog)) = v1.30.0
-Provides: bundled(golang(github.com/sigstore/fulcio)) = v1.3.1
-Provides: bundled(golang(github.com/sigstore/rekor)) = v1.2.2_0.20230601122533_4c81ff246d12
-Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.7.1
-Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.9.3
-Provides: bundled(golang(github.com/spf13/cobra)) = v1.7.0
-Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
-Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
-Provides: bundled(golang(github.com/sylabs/sif/v2)) = v2.11.5
-Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
-Provides: bundled(golang(github.com/tchap/go_patricia/v2)) = v2.3.1
-Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.5.2
-Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
-Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.11
-Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.11.3
-Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = v8.4.0
-Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
-Provides: bundled(golang(sigs.k8s.io/yaml)) = v1.3.0
-
 %description
 %{common_description}
 
 %prep
-%goprep
+%goprep %{?with_bundledc:-k}
+%if %{with bundled}
+%setup -q -T -D -a 1 -n %{name}-%{version}
+%endif
+%autopatch -p1
 
-mkdir _depbundle
-pushd _depbundle
-/usr/bin/gzip -dc %{SOURCE0} | /usr/bin/tar -xof -
-/usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
-%{__install} -m 0755 -vd %{gobuilddir}/src/
-# copy required bundled libraries
-%{__cp} -rp %{goname}-%{version}/vendor/* %{gobuilddir}/src/
-popd
-%{_bindir}/rm -rf _depbundle
+%if %{without bundled}
+%generate_buildrequires
+%go_generate_buildrequires
+%endif
 
 %build
+%if %{with bundled}
+export GOFLAGS="-mod=vendor"
+%endif
+
 export BUILDTAGS="exclude_graphdriver_devicemapper exclude_graphdriver_btrfs btrfs_noversion containers_image_openpgp remote"
-%gobuild -o %{gobuilddir}/bin/%{goname} %{goipath}/
+
+%gobuild -o %{gobuilddir}/bin/%{goname} %{goipath}
 
 %install
 %{__install} -m 0755 -vd %{buildroot}%{_bindir}
 %{__install} -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
-%if 0%{?with_check}
+%if %{with check}
 %check
-%gocheck
 %endif
 
 %files

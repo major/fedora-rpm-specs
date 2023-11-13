@@ -2,53 +2,13 @@
 # Use the following --with/--without <option> switches to control how the
 # package will be built:
 #
-# mp:             multi processor support
-%bcond_without mp
-# static:         build static libraries
-%bcond_with static
 # default_binary: install unversioned binary
 %bcond_without default_binary
-# aalib:          build with AAlib (ASCII art gfx library)
-%if 0%{?rhel}
-# don't use aalib on RHEL
-%bcond_with aalib
-%else
-%bcond_without aalib
-%endif
-# don't build webkit-based help browser by default
-%bcond_with helpbrowser
-# hardcode python interpreter in python plug-ins
-%bcond_without hardcoded_python
-# webp support
-%bcond_without webp
 # libunwind support (only available on some architectures)
 %ifarch %{arm} aarch64 hppa ia64 mips ppc %{power64} %{ix86} x86_64
 %bcond_without libunwind
 %else
 %bcond_with libunwind
-%endif
-
-# If Python plug-ins need to be byte-compiled separately
-%if ! 0%{?fedora}%{?rhel} || 0%{?fedora} > 27 || 0%{?rhel} > 7
-%bcond_without python_separately_bytecompile
-%else
-%bcond_with python_separately_bytecompile
-%endif
-
-%if %{with python_separately_bytecompile}
-# Disable automatic compilation of Python files in extra directories
-%global _python_bytecompile_extra 0
-
-# Don't ask ...
-%if 0%{?!py_byte_compile:1}
-%global py_byte_compile()\
-python_binary="%1"\
-bytecode_compilation_path="%2"\
-find $bytecode_compilation_path -type f -a -name "*.py" -print0 | xargs -0 $python_binary -O -m py_compile\
-find $bytecode_compilation_path -type f -a -name "*.py" -print0 | xargs -0 $python_binary -m py_compile
-%endif
-# ... just remove after F28 EOL
-
 %endif
 
 # skip tests known to be problematic in a specific version
@@ -58,7 +18,7 @@ find $bytecode_compilation_path -type f -a -name "*.py" -print0 | xargs -0 $pyth
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        2.10.34
+Version:        2.10.36
 Release:        %autorelease
 
 # Compute some version related macros.
@@ -76,111 +36,88 @@ Release:        %autorelease
 # gimp core app is GPL-3.0-or-later, libgimp and other libraries are LGPL-3.0-or-later
 # plugin file-dds is GPL-2.0-or-later and plugins script-fu/{ftx,tinyscheme} are BSD-3-Clause
 License:        LGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND BSD-3-Clause
-URL:            http://www.gimp.org/
-%if %{with aalib}
+URL:            https://www.gimp.org/
 BuildRequires:  aalib-devel
-%endif
-BuildRequires:  alsa-lib-devel >= 1.0.0
-BuildRequires:  atk-devel >= 2.2.0
-BuildRequires:  babl-devel >= 0.1.74
-BuildRequires:  bzip2-devel
-BuildRequires:  cairo-devel >= 1.12.2
-BuildRequires:  fontconfig-devel >= 2.12.4
-BuildRequires:  freetype-devel >= 2.1.7
-BuildRequires:  gcc
-BuildRequires:  gdk-pixbuf2-devel >= 2.30.8
-BuildRequires:  gegl04-tools
-BuildRequires:  gegl04-devel >= 0.4.32
-BuildRequires:  libgs-devel
-BuildRequires:  glib2-devel >= 2.56.2
-BuildRequires:  glib-networking
-BuildRequires:  gtk2-devel >= 2.24.32
-BuildRequires:  gtk-doc >= 1.0
-BuildRequires:  harfbuzz-devel >= 0.9.19
-BuildRequires:  iso-codes-devel
-BuildRequires:  jasper-devel
-BuildRequires:  lcms2-devel >= 2.8
-BuildRequires:  libappstream-glib
-BuildRequires:  libheif-devel
-BuildRequires:  libgexiv2-devel >= 0.10.6
-BuildRequires:  libgudev1-devel >= 167
-BuildRequires:  libjpeg-devel
-BuildRequires:  libjxl-devel >= 0.6.1
-BuildRequires:  libmng-devel
-BuildRequires:  libpng-devel >= 1.6.25
-BuildRequires:  librsvg2-devel >= 2.40.6
-BuildRequires:  libtiff-devel
-%if %{with libunwind}
-BuildRequires:  libunwind-devel >= 1.1.0
-%endif
-%if %{with webp}
-BuildRequires:  libwebp-devel >= 0.6.0
-%endif
-BuildRequires:  libwmf-devel >= 0.2.8
-BuildRequires:  libmypaint-devel >= 1.3.0
-BuildRequires:  mypaint-brushes-devel >= 1.3.0
-%if 0%{?fedora} > 34
-BuildRequires:  openexr-devel
-BuildRequires:  imath-devel
-%else
-BuildRequires:  OpenEXR-devel >= 1.6.1
-%endif
-BuildRequires:  openjpeg2-devel >= 2.1.0
-BuildRequires:  pango-devel >= 1.29.4
-BuildRequires:  perl >= 5.10.0
-BuildRequires:  poppler-glib-devel >= 0.50.0
-BuildRequires:  poppler-data-devel >= 0.4.7
-BuildRequires:  pycairo-devel >= 1.0.2
-BuildRequires:  pygtk2-devel >= 2.10.4
-BuildRequires:  pygobject2-devel
-BuildRequires:  python2-devel >= 2.5.0
-%if %{with helpbrowser}
-BuildRequires:  webkitgtk-devel >= 1.6.1
-%endif
-BuildRequires:  xz-devel >= 5.0.0
-BuildRequires:  zlib-devel
-BuildRequires:  libX11-devel
-BuildRequires:  libXmu-devel
-BuildRequires:  libXpm-devel
-
+BuildRequires:  appdata-tools
 BuildRequires:  chrpath >= 0.13-5
-BuildRequires:  intltool >= 0.40.1
+BuildRequires:  gcc
+BuildRequires:  gegl04-tools
 BuildRequires:  gettext >= 0.19
+BuildRequires:  glib-networking
+BuildRequires:  gtk-doc >= 1.0
+BuildRequires:  intltool >= 0.40.1
+BuildRequires:  libgs-devel
 BuildRequires:  make
-BuildRequires:  pkgconfig
-
-Requires:       babl%{?_isa} >= 0.1.78
-Requires:       gegl04%{?_isa} >= 0.4.32
-Requires:       fontconfig >= 2.12.4
-Requires:       freetype >= 2.1.7
-Requires:       glib2 >= 2.56.2
-Requires:       glib-networking
-Requires:       gtk2 >= 2.24.32
-Requires:       hicolor-icon-theme
-%if %{with libunwind}
-Requires:       libunwind%{?_isa} >= 1.1.0
+BuildRequires:  perl >= 5.10.0
+BuildRequires:  pkgconfig(alsa) >= 1.0.0
+BuildRequires:  pkgconfig(atk) >= 2.2.0
+%if ! 0%{?fedora} || 0%{?fedora} >= 39
+BuildRequires:  pkgconfig(babl-0.1) >= 0.1.74
+%else
+BuildRequires:  pkgconfig(babl) >= 0.1.74
 %endif
-Requires:       lcms2 >= 2.8
+BuildRequires:  pkgconfig(bzip2)
+BuildRequires:  pkgconfig(cairo) >= 1.12.2
+BuildRequires:  pkgconfig(fontconfig) >= 2.12.4
+BuildRequires:  pkgconfig(freetype2) >= 2.1.7
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.30.8
+BuildRequires:  pkgconfig(gegl-0.4) >= 0.4.32
+BuildRequires:  pkgconfig(gexiv2) >= 0.10.6
+BuildRequires:  pkgconfig(gio-2.0) >= 2.56.2
+BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.56.2
+BuildRequires:  pkgconfig(glib-2.0) >= 2.56.2
+BuildRequires:  pkgconfig(gmodule-no-export-2.0) >= 2.56.2
+BuildRequires:  pkgconfig(gobject-2.0) >= 2.56.2
+BuildRequires:  pkgconfig(gtk+-2.0) >= 2.24.32
+BuildRequires:  pkgconfig(gudev-1.0) >= 167
+BuildRequires:  pkgconfig(harfbuzz) >= 0.9.19
+BuildRequires:  pkgconfig(iso-codes)
+BuildRequires:  pkgconfig(jasper)
+BuildRequires:  pkgconfig(lcms2) >= 2.8
+BuildRequires:  pkgconfig(libheif)
+BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libjxl) >= 0.6.1
+BuildRequires:  pkgconfig(libjxl_threads) >= 0.6.1
+BuildRequires:  pkgconfig(liblzma) >= 5.0.0
+BuildRequires:  pkgconfig(libmng)
+BuildRequires:  pkgconfig(libmypaint) >= 1.3.0
+BuildRequires:  pkgconfig(libopenjp2) >= 2.1.0
+BuildRequires:  pkgconfig(libpng) >= 1.6.25
+BuildRequires:  pkgconfig(librsvg-2.0) >= 2.40.6
+BuildRequires:  pkgconfig(libtiff-4)
+%if %{with libunwind}
+BuildRequires:  pkgconfig(libunwind) >= 1.1.0
+%endif
+BuildRequires:  pkgconfig(libwebp) >= 0.6.0
+BuildRequires:  pkgconfig(libwebpdemux) >= 0.6.0
+BuildRequires:  pkgconfig(libwebpmux) >= 0.6.0
+BuildRequires:  pkgconfig(libwmf) >= 0.2.8
+BuildRequires:  pkgconfig(mypaint-brushes-1.0) >= 1.3.0
+BuildRequires:  pkgconfig(OpenEXR)
+BuildRequires:  pkgconfig(pangocairo) >= 1.29.4
+BuildRequires:  pkgconfig(pangoft2) >= 1.29.4
+BuildRequires:  pkgconfig(poppler-data) >= 0.4.7
+BuildRequires:  pkgconfig(poppler-glib) >= 0.50.0
+BuildRequires:  pkgconfig(pycairo) >= 1.0.2
+BuildRequires:  pkgconfig(pygobject-2.0)
+BuildRequires:  pkgconfig(pygtk-2.0) >= 2.10.4
+BuildRequires:  pkgconfig(python2) >= 2.5.0
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xmu)
+BuildRequires:  pkgconfig(xpm)
+BuildRequires:  pkgconfig(zlib)
+
+Requires:       hicolor-icon-theme
 Recommends:     mypaint-brushes
-Requires:       pango >= 1.29.4
-Requires:       pygtk2 >= 2.10.4
 Requires:       xdg-utils
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-%if %{with helpbrowser}
-Recommends:     %{name}-help-browser = %{epoch}:%{version}-%{release}
-%else
 Obsoletes:      %{name}-help-browser < %{epoch}:%{version}-%{release}
 Conflicts:      %{name}-help-browser < %{epoch}:%{version}-%{release}
-%endif
-
-#Demodularizing of gimp (#1772469)
-Obsoletes:	%{name} < %{epoch}:%{version}-%{release}
-Conflicts:	%{name} < %{epoch}:%{version}-%{release}
 
 #Remove dependency on RPM Fusion repository
-Obsoletes:  gimp-heif-plugin < 1.1.0-13
+Obsoletes:      gimp-heif-plugin < 1.1.0-13
 
-Source0:        http://download.gimp.org/pub/gimp/v%{binver}/gimp-%{version}.tar.bz2
+Source0:        https://download.gimp.org/pub/gimp/v%{binver}/gimp-%{version}.tar.bz2
 
 # Try using the system monitor profile for color management by default.
 # Fedora specific.
@@ -197,10 +134,6 @@ Patch100:       gimp-2.10.24-external-help-browser.patch
 
 Patch101:       gimp-configure-c99.patch
 
-# fix loading HEVC-encoded HEIF images
-# patch from upstream: https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/905
-Patch102:       0001-plug-ins-use-heif_init-heif_deinit.patch
-
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -213,9 +146,6 @@ with multi-level undo.
 %package libs
 Summary:        GIMP libraries
 License:        LGPLv3+
-# Demodularizing of gimp (#1772469)
-Obsoletes:      %{name}-libs < %{epoch}:%{version}-%{release}
-Conflicts:      %{name}-libs < %{epoch}:%{version}-%{release}
 
 %description libs
 The %{name}-libs package contains shared libraries needed for the GNU Image
@@ -226,54 +156,24 @@ Summary:        GIMP plugin and extension development kit
 License:        LGPLv3+
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-devel-tools = %{epoch}:%{version}-%{release}
-Requires:       gtk2-devel
-Requires:       glib2-devel
-Requires:       pkgconfig
-Requires:       rpm >= 4.11.0
-# Demodularizing of gimp (#1772469)
-Obsoletes:      %{name}-devel < %{epoch}:%{version}-%{release}
-Conflicts:      %{name}-devel < %{epoch}:%{version}-%{release}
 
 %description devel
-The %{name}-devel package contains the static libraries and header files
-for writing GNU Image Manipulation Program (GIMP) plug-ins and
-extensions.
+The %{name}-devel package contains the files needed for writing GNU Image
+Manipulation Program (GIMP) plug-ins and extensions.
 
 %package devel-tools
 Summary:        GIMP plugin and extension development tools
 License:        LGPLv3+
 Requires:       %{name}-devel = %{epoch}:%{version}-%{release}
-# Demodularizing of gimp (#1772469)
-Obsoletes:      %{name}-devel-tools < %{epoch}:%{version}-%{release}
-Conflicts:      %{name}-devel-tools < %{epoch}:%{version}-%{release}
 
 %description devel-tools
 The %{name}-devel-tools package contains gimptool, a helper program to
 build GNU Image Manipulation Program (GIMP) plug-ins and extensions.
 
-%if %{with helpbrowser}
-%package help-browser
-Summary:        GIMP help browser plug-in
-License:        GPLv3+
-Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-# Demodularizing of gimp (#1772469)
-Obsoletes:      %{name}-help-browser < %{epoch}:%{version}-%{release}
-Conflicts:      %{name}-help-browser < %{epoch}:%{version}-%{release}
-
-%description help-browser
-The %{name}-help-browser package contains a lightweight help browser plugin for
-viewing GIMP online help.
-%endif
-
 %prep
 cat << EOF
 --- 8< --- Build options ---------------------------------------------------
-MP support:                  %{with mp}
-build static libs:           %{with static}
 install default binary:      %{with default_binary}
-build ASCII art plugin       %{with aalib}
-build help browser:          %{with helpbrowser}
-hardcode python interpreter: %{with hardcoded_python}
 --- >8 ---------------------------------------------------------------------
 EOF
 
@@ -283,16 +183,11 @@ EOF
 %patch 2 -p1 -b .font-default
 %patch 3 -p1 -b .no-phone-home-default
 
-%if ! %{with helpbrowser}
 %patch 100 -p1 -b .external-help-browser
-%endif
-
 %patch 101 -p1 -b .configure-c99
 
 # Avoid re-running autotools.
 touch -r aclocal.m4 configure*
-
-%patch 102 -p1 -b .heif
 
 %build
 # allow python2 package for RHEL-8
@@ -303,37 +198,17 @@ export RHEL_ALLOW_PYTHON2_FOR_BUILD=1
 %global _hardened_build 1
 %configure \
     --enable-python \
-%if %{with mp}
     --enable-mp \
-%else
-    --disable-mp \
-%endif
-%if %{with static}
-    --enable-static \
-%else
     --disable-static \
-%endif
     --with-print \
     --enable-gimp-console \
-%if %{with aalib}
     --with-aa \
-%else
-    --without-aa \
-%endif
     --with-gudev \
 %ifos linux
     --with-linux-input \
 %endif
-%if %{with helpbrowser}
-    --with-webkit \
-%else
     --without-webkit \
-%endif
-%if %{with webp}
     --with-webp \
-%else
-    --without-webp \
-%endif
 %if %{with default_binary}
     --enable-default-binary=yes \
 %else
@@ -415,13 +290,7 @@ for file in $(cat gimp-plugin-files-py); do
     done
 done >> gimp-plugin-files
 
-%if %{with python_separately_bytecompile}
 %py_byte_compile %{__python2} %{buildroot}%{_libdir}/gimp/%{lib_api_version}
-%endif
-
-%if %{with static}
-find %{buildroot}%{_libdir}/gimp/%{lib_api_version} -type f | sed "s@^%{buildroot}@@g" | grep '\.a$' > gimp-static-files
-%endif
 
 #
 # Auto detect the lang files.
@@ -450,7 +319,6 @@ ln -snf gimptool-%{lib_api_version}.1 %{buildroot}%{_mandir}/man1/gimptool.1
 ln -snf gimprc-%{binver}.5 %{buildroot}/%{_mandir}/man5/gimprc.5
 %endif
 
-%if %{with hardcoded_python}
 # Hardcode python interpreter in shipped python plug-ins. This actually has no
 # effect because gimp maps hashbangs with and without the /usr/bin/env detour
 # to the system python interpreter, but this will avoid false alarms.
@@ -461,7 +329,6 @@ grep -E -rl '^#!\s*/usr/bin/env\s+python' --include=\*.py "%{buildroot}" |
     done
 
 echo "%{__python2}=%{__python2}" >> %{buildroot}%{_libdir}/gimp/%{lib_api_version}/interpreters/pygimp.interp
-%endif
 
 %check
 # skip tests known to be problematic in a specific version
@@ -500,9 +367,6 @@ make check %{?_smp_mflags}
 %{_datadir}/gimp/%{lib_api_version}/ui/
 %dir %{_libdir}/gimp
 %dir %{_libdir}/gimp/%{lib_api_version}
-%if %{with helpbrowser}
-%exclude %{_libdir}/gimp/%{lib_api_version}/plug-ins/help-browser
-%endif
 
 %{_datadir}/gimp/%{lib_api_version}/brushes/
 %{_datadir}/gimp/%{lib_api_version}/fractalexplorer/
@@ -574,11 +438,7 @@ make check %{?_smp_mflags}
 %{_libdir}/libgimpwidgets-%{lib_api_version}.so.%{interface_age}.%{lib_minor}.%{lib_micro}
 %{_libdir}/libgimpwidgets-%{lib_api_version}.so.%{interface_age}
 
-%if %{with static}
-%files devel -f gimp-static-files
-%else
 %files devel
-%endif
 %doc HACKING README.i18n
 %doc %{_datadir}/gtk-doc
 
@@ -599,11 +459,6 @@ make check %{?_smp_mflags}
 %if %{with default_binary}
 %{_bindir}/gimptool
 %{_mandir}/man1/gimptool.1*
-%endif
-
-%if %{with helpbrowser}
-%files help-browser
-%{_libdir}/gimp/%{lib_api_version}/plug-ins/help-browser
 %endif
 
 %changelog

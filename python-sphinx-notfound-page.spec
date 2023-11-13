@@ -5,55 +5,25 @@
 %global github_name sphinx-notfound-page
 %global desc Create a custom 404 page with absolute URLs hardcoded
 
-%if 0%{?fedora} > 30 || 0%{?rhel} > 7
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 Name:           python-%{pypi_name}
-Version:        0.7.1
-Release:        9%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Create a custom 404 page with absolute URLs hardcoded
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://github.com/%{project_owner}/%{github_name}/archive/%{version}.tar.gz
-
-# Ensure compatibility with Sphinx 6+ - proposed upstream
-# https://github.com/readthedocs/sphinx-notfound-page/pull/218/
-Patch:          dont_test_for_jquery_presence_with_sphinx_6.patch
+# Patch to remove no longer needed pdbpp and add 3.12 to tests
+Patch0:         https://patch-diff.githubusercontent.com/raw/readthedocs/sphinx-notfound-page/pull/225.patch
 
 BuildArch:      noarch
 
 %description
 %desc
 
-%if %{with python2}
-%package -n python2-%{pypi_name}
-Summary:        %{summary}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-sphinx
-BuildRequires:  python2-pytest
-Requires:       python2-setuptools
-Requires:       python2-sphinx
-%{?python_provide:%python_provide python2-%{pypi_name}}
-
-%description -n python2-%{pypi_name}
-%desc
-%endif
-
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 BuildArch:      noarch
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-sphinx
-BuildRequires:  python3-pytest
-Requires:       python%{python3_pkgversion}-setuptools
-Requires:       python%{python3_pkgversion}-sphinx
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 %desc
@@ -62,41 +32,29 @@ Requires:       python%{python3_pkgversion}-sphinx
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
+
 %build
-%if %{with python2}
-%py2_build
-%endif
-%py3_build
+%pyproject_wheel
 
 
 %install
-%if %{with python2}
-%py2_install
-%endif
-
-%py3_install
+%pyproject_install
+%pyproject_save_files notfound
 
 %check
-%if %{with python2}
-PYTHONPATH="$(pwd)" py.test-%{python2_version} -v .
-%endif
-PYTHONPATH="$(pwd)" py.test-%{python3_version} -v .
+%tox
 
-%if %{with python2}
-%files -n python2-%{pypi_name}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.rst docs
-%{python2_sitelib}/%{srcname}-%{version}*-py%{python2_version}.egg-info/
-%{python2_sitelib}/%{importname}/
-%endif
-
-%files -n python%{python3_pkgversion}-%{pypi_name}
-%license LICENSE
-%doc README.rst CHANGELOG.rst docs
-%{python3_sitelib}/%{srcname}-%{version}*-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{importname}/
 
 %changelog
+* Mon Oct 02 2023 Kevin Fenzi <kevin@scrye.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

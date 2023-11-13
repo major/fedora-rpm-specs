@@ -1,99 +1,76 @@
-%if (0%{?fedora} >= 7 && 0%{?fedora} <= 19) || 0%{?rhel} == 6
-%bcond_without cinepaint
-%else
-%bcond_with cinepaint
-%endif
-
 %global gimptool %{_bindir}/gimptool-2.0
 %global gimpplugindir %(%___build_pre; %gimptool --gimpplugindir)/plug-ins
 
-%if %{with cinepaint}
-%global cinepaintplugindir %(pkg-config --variable=programplugindir cinepaint-gtk)/plug-ins
-%endif
+Name:           ufraw
+Summary:        Raw image data retrieval tool for digital cameras
+Version:        0.23
+Release:        0.18.20210425%{?dist}
 
-Summary: Raw image data retrieval tool for digital cameras
-Name: ufraw
-Version: 0.23
-Release: 0.18.20210425%{?dist}
-License: GPLv2+
-URL: http://ufraw.sourceforge.net
-Source0: http://downloads.sourceforge.net/ufraw/ufraw-0.22.tar.gz
+# GPL-2.0-or-later: main program
+# GPL-2.0-only:
+#  - icons/digital.svg
+#  - icons/film.svg
+#  - icons/restore-hsv.svg
+#  - icons/restore-lch.svg
+# CC-BY-SA-2.5:
+#  - icons/lens.svg
+License:        GPL-2.0-or-later AND CC-BY-SA-2.5 AND GPL-2.0-only 
+URL:            http://ufraw.sourceforge.net
+Source:         https://sourceforge.net/projects/ufraw/files/%{name}/%{name}-0.22/%{name}-0.22.tar.gz
 # beautify_style.sh file is not in the ufraw-0.22.tar.gz, so we need add it, to apply diff from git without errors
-Source1: https://raw.githubusercontent.com/sergiomb2/ufraw/02bc2df0c6c2d9d1892bd16a58e319d81e79559d/beautify_style.sh
-Source2: ufraw.thumbnailer
-Patch1:  https://github.com/sergiomb2/ufraw/compare/ufraw-0-22..f34669b.diff
+Source:         https://raw.githubusercontent.com/sergiomb2/ufraw/02bc2df0c6c2d9d1892bd16a58e319d81e79559d/beautify_style.sh
+Source:         ufraw.thumbnailer
+Patch:          https://github.com/sergiomb2/ufraw/compare/%{name}-0-22..f34669b.diff
+Patch:          0001-Fix-build-with-exiv2-0.28.0-raise-minimum-to-0.27.0.patch
 
-BuildRequires: make
-BuildRequires: automake
-BuildRequires: libtool
-BuildRequires: gettext-devel
-BuildRequires: gcc-c++
-BuildRequires: gimp-devel >= 2.2
-BuildRequires: gimp >= 2.2
-%if %{with cinepaint}
-BuildRequires: cinepaint-devel >= 0.22
-BuildRequires: cinepaint >= 0.22
-%endif
-BuildRequires: glib2-devel >= 2.12
-BuildRequires: gtk2-devel >= 2.12
-BuildRequires: gtkimageview-devel >= 1.6.1
-BuildRequires: lcms2-devel
-BuildRequires: libexif-devel >= 0.6.13
-BuildRequires: exiv2-devel >= 0.18.1
-BuildRequires: lensfun-devel >= 0.2.5
-BuildRequires: libtiff-devel
-BuildRequires: libjpeg-devel
-BuildRequires: jasper-devel
-BuildRequires: pkgconfig >= 0.9.0
-BuildRequires: perl-interpreter
-BuildRequires: gettext
-BuildRequires: cfitsio-devel
-Requires: ufraw-common = %{?epoch:%{epoch}:}%{version}-%{release}
+BuildRequires:  automake
+BuildRequires:  cfitsio-devel
+BuildRequires:  exiv2-devel >= 0.27.0
+BuildRequires:  gcc-c++
+BuildRequires:  gettext
+BuildRequires:  gettext-devel
+BuildRequires:  gimp >= 2.2
+BuildRequires:  gimp-devel >= 2.2
+BuildRequires:  glib2-devel >= 2.12
+BuildRequires:  gtk2-devel >= 2.12
+BuildRequires:  gtkimageview-devel >= 1.6.1
+BuildRequires:  jasper-devel
+BuildRequires:  lcms2-devel
+BuildRequires:  lensfun-devel >= 0.2.5
+BuildRequires:  libexif-devel >= 0.6.13
+BuildRequires:  libjpeg-devel
+BuildRequires:  libtiff-devel
+BuildRequires:  libtool
+BuildRequires:  make
+BuildRequires:  perl-interpreter
+BuildRequires:  pkgconfig >= 0.9.0
+
+Requires:       %{name}-common = %{?epoch:%{epoch}:}0.22-%{release}
 
 Provides: bundled(dcraw) = 9.28
-
 
 %description
 UFRaw is a tool for opening raw format images of digital cameras.
 
-%package common
-Summary: Common files needed by UFRaw
+%package        common
+Summary:        Common files needed by UFRaw
 
-%description common
+%description    common
 The ufraw-common files includes common files for UFRaw, e.g. language support.
 
-%package gimp
-Summary: GIMP plugin to retrieve raw image data from digital cameras
-Requires: ufraw-common = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: gimp%{?_isa}
+%package        gimp
+Summary:        GIMP plugin to retrieve raw image data from digital cameras
+Requires:       %{name}-common%{?_isa} = %{?epoch:%{epoch}:}0.22-%{release}
+Requires:       gimp%{?_isa}
 
-%description gimp
+%description    gimp
 The ufraw-gimp package contains a GIMP plugin for opening raw format images of
 digital cameras.
 
-%if %{with cinepaint}
-%package cinepaint
-Summary: CinePaint plugin to retrieve raw image data from digital cameras
-Requires: ufraw-common = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires: cinepaint%{?_isa}
-
-%description cinepaint
-The ufraw-cinepaint package contains a CinePaint plugin for opening raw format
-images of digital cameras.
-%else
-Obsoletes: %{name}-cinepaint < 0.19.2-4
-%endif
-
 %prep
-cat << EOF
-
-Building UFRaw with these settings:
-cinepaint:      %{with cinepaint}
-
-EOF
-%setup -qn ufraw-0.22
+%setup -qn %{name}-0.22
 cp %{SOURCE1} .
-%patch1 -p1
+%autopatch -p1
 
 %build
 autoreconf -i
@@ -104,11 +81,11 @@ autoreconf -i
 %install
 %make_install schemas_DATA=''
 # don't ship dcraw binary
-rm -f %{buildroot}%{_bindir}/dcraw
-install -d -m 0755 %buildroot%{_datadir}/mime/packages
-install -m 0644 ufraw-mime.xml %buildroot%{_datadir}/mime/packages
+rm -rfv %{buildroot}%{_bindir}/dcraw
+install -pd -m 0755 %buildroot%{_datadir}/mime/packages
+install -pm 0644 %{name}-mime.xml %buildroot%{_datadir}/mime/packages
 pushd %{buildroot}%{_mandir}/man1
-ln -s ufraw.1 ufraw-batch.1
+ln -s %{name}.1 %{name}-batch.1
 popd
 # install modern thumbnailer entry
 install -D -m0644 %{SOURCE2} %{buildroot}%{_datadir}/thumbnailers/%{name}.thumbnailer
@@ -117,23 +94,21 @@ install -D -m0644 %{SOURCE2} %{buildroot}%{_datadir}/thumbnailers/%{name}.thumbn
 
 %files common -f %{name}.lang
 %doc COPYING README
-%{_datadir}/mime/packages/ufraw-mime.xml
+%{_datadir}/mime/packages/%{name}-mime.xml
 
 %files
-%{_bindir}/*
-%{_datadir}/pixmaps/*
-%{_datadir}/applications/*.desktop
-%{_datadir}/appdata/*.appdata.xml
+%{_bindir}/nikon-curve
+%{_bindir}/%{name}
+%{_bindir}/%{name}-batch
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/thumbnailers/%{name}.thumbnailer
-%{_mandir}/man1/*
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/%{name}-batch.1*
 
 %files gimp
-%{gimpplugindir}/ufraw-gimp
-
-%if %{with cinepaint}
-%files cinepaint
-%{cinepaintplugindir}/ufraw-cinepaint
-%endif
+%{gimpplugindir}/%{name}-gimp
 
 %changelog
 * Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.23-0.18.20210425

@@ -68,6 +68,8 @@ rm -rf html/.{doctrees,buildinfo}
         and not test_prerun_reqs_v2
         and not test_install_collection_from_disk
         and not test_require_collection
+        and not test_install_collection_git
+        and not test_runtime_scan_path
         '
     }
 %endif

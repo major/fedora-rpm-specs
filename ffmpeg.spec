@@ -91,8 +91,8 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        6.0
-Release:        16%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -122,9 +122,6 @@ Patch3:         ffmpeg-allow-fdk-aac-free.patch
 Patch4:         0001-avfilter-vf_libplacebo-wrap-deprecated-opts-in-FF_AP.patch
 Patch5:         0001-avfilter-vf_libplacebo-remove-deprecated-field.patch
 
-# Fix assembly with binutils 2.41 https://fftrac-bg.ffmpeg.org/ticket/10405
-Patch6:         0001-avcodec-x86-mathops-clip-constants-used-with-shift-i.patch
-
 # Backport fix for segfault when passing non-existent filter option
 # See: https://bugzilla.rpmfusion.org/show_bug.cgi?id=6773
 Patch7:         0001-fftools-ffmpeg_filter-initialize-the-o-to-silence-th.patch
@@ -142,6 +139,12 @@ Patch9:         ffmpeg-ge-av1-vaapi-encode-support.patch
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch
 
+# Add first_dts getter to libavformat for Chromium
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
+# Reference: https://crbug.com/1306560
+Patch1002:      ffmpeg-chromium.patch
+
+
 Requires:       libavcodec%{?pkg_suffix}%{_isa} = %{version}-%{release}
 Requires:       libavdevice%{?pkg_suffix}%{_isa} = %{version}-%{release}
 Requires:       libavfilter%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -158,6 +161,7 @@ BuildRequires:  flite-devel >= 2.2
 %endif
 BuildRequires:  game-music-emu-devel
 BuildRequires:  gcc
+BuildRequires:  git-core
 BuildRequires:  gnupg2
 BuildRequires:  gsm-devel
 BuildRequires:  ladspa-devel
@@ -554,10 +558,10 @@ This subpackage contains the headers for FFmpeg libswscale.
 
 %prep
 %if %{with upstream_tarball}
-gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE2} %{SOURCE0}
+%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
 %endif
 
-%autosetup -a1 -p1
+%autosetup -a1 -S git_am
 install -m 0644 %{SOURCE20} enable_decoders
 install -m 0644 %{SOURCE21} enable_encoders
 # fix -O3 -g in host_cflags
@@ -871,6 +875,11 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Sat Nov 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.0.1-1
+- Update to 6.0.1
+- Add ffmpeg chromium support patch (#2240127)
+- Use git to apply patches
+
 * Fri Nov 10 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.0-16
 - Add patches to support enhanced RTMP and AV1 encoding through VA-API
 - Force AAC decoding through fdk-aac-free

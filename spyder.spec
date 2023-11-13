@@ -91,6 +91,8 @@ find . -type f \( \
 
 # Drop upper bound for pylint (3.0.0~a7 > 3.0)
 sed -r -i 's|(pylint.*),<3.0|\1|' setup.py
+# Do the same for qtconsole (5.5.0 > 5.5~~)
+sed -r -i 's|(qtconsole.*),<5.5.0|\1|' setup.py
 
 
 %generate_buildrequires

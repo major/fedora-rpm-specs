@@ -1,6 +1,6 @@
 Name:           perl-V
-Version:        0.16
-Release:        3%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Print version of the specified Perl modules
 
 Group:          Development/Libraries
@@ -54,6 +54,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Sat Nov 11 2023 Johan Vromans <jvromans@squirrel.nl> - 0.17-1
+- Upgrade to new upstream.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

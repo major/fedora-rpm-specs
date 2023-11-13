@@ -1,5 +1,5 @@
 Name:           python-venusian
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        A library for deferring decorator actions
 
@@ -9,13 +9,7 @@ Summary:        A library for deferring decorator actions
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/108
 License:        BSD-3-Clause-Modification AND ZPL-2.1
 URL:            https://github.com/Pylons/venusian
-Source0:        %{pypi_source venusian}
-
-# Fixup new deprecations coming soon in Python 3.12
-# https://github.com/Pylons/venusian/issues/78
-# https://github.com/Pylons/venusian/pull/82
-# Rebased on 3.0.0.
-Patch:          venusian-3.0.0-pr-82.patch
+Source:         %{pypi_source venusian}
 
 BuildArch:      noarch
 
@@ -43,7 +37,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n venusian-%{version} -p1
+%autosetup -n venusian-%{version}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/ --cov[^[:blank:]]*//g' setup.cfg

@@ -3,7 +3,7 @@
 
 %global         srcname     google-cloud-dns
 %global         forgeurl    https://github.com/googleapis/python-dns
-Version:        0.34.1
+Version:        0.34.2
 %global         tag         v%{version}
 %forgemeta
 

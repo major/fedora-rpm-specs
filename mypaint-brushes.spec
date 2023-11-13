@@ -1,7 +1,8 @@
-%global mypaint_data_version 2.0
+%global mypaint_data_version 1.0
 
 Name: mypaint-brushes
-Version: 2.0.2
+Epoch: 1
+Version: 1.3.1
 Release: %autorelease
 Summary: Brushes to be used with the MyPaint library
 

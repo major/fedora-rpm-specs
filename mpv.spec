@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.36.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -21,7 +21,6 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca)
 BuildRequires:  pkgconfig(dvdnav)
 BuildRequires:  pkgconfig(egl)
-BuildRequires:  pkgconfig(enca)
 BuildRequires:  pkgconfig(ffnvcodec)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(gl)
@@ -38,7 +37,6 @@ BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.19
 BuildRequires:  pkgconfig(libplacebo) >= 5.264.1
@@ -225,6 +223,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Nov 12 2023 Sérgio Basto <sergio@serjux.com> - 0.36.0-5
+- Remove unused build requires (https://github.com/rpmfusion/mpv/pull/19)
+
 * Fri Sep 29 2023 Nicolas Chauvet <nchauvet@linagora.com> - 0.36.0-4
 - Rebuilt for libplacebo
 

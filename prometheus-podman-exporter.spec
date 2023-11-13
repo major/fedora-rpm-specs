@@ -4,13 +4,17 @@
 %bcond_without bundled
 %endif
 
+%if %{defined rhel} && !%{defined eln}
+%define gobuild(o:) go build -buildmode pie -compiler gc -tags="rpm_crashtraceback libtrust_openssl ${BUILDTAGS:-}" -ldflags "-linkmode=external -compressdwarf=false ${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') -extldflags '%__global_ldflags'" -a -v -x %{?**};
+%endif
+
 %if %{with bundled}
 %global gomodulesmode   GO111MODULE=on
 %endif
 
 # https://github.com/containers/prometheus-podman-exporter
 %global goipath         github.com/containers/prometheus-podman-exporter
-Version:                1.4.0
+Version:                1.5.0
 
 %gometa -f
 
@@ -191,6 +195,10 @@ BuildRequires: gcc
 BuildRequires: glibc-devel
 BuildRequires: glibc-static
 BuildRequires: git-core
+%if 0%{?rhel} >= 9
+BuildRequires: go-rpm-macros
+%endif
+BuildRequires: golang
 BuildRequires: make
 BuildRequires: pkgconfig(devmapper)
 BuildRequires: pkgconfig(glib-2.0)
@@ -218,6 +226,13 @@ BuildRequires: shadow-utils-subid-devel
 %if %{with bundled}
 export GOFLAGS="-mod=vendor"
 %endif
+
+%if 0%{?rhel} >= 9
+export BUILDTAGS="exclude_graphdriver_btrfs btrfs_noversion"
+%endif
+
+export LDFLAGS="-X %{goipath}/cmd.buildVersion=%{version} -X %{goipath}/cmd.buildRevision=%{release} -X %{goipath}/cmd.buildBranch=main"
+
 %gobuild -o %{gobuilddir}/bin/prometheus-podman-exporter %{goipath}
 
 %install
@@ -238,7 +253,9 @@ install -m 0644 -vp ./contrib/systemd/%{name}.service %{buildroot}%{_userunitdir
 
 %if %{with check}
 %check
+%if 0%{?fedora}
 %gocheck
+%endif
 %endif
 
 %files
