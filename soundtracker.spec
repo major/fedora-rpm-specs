@@ -1,6 +1,6 @@
 Name:    soundtracker
-Version: 1.0.3
-Release: 2%{?dist}
+Version: 1.0.4
+Release: 1%{?dist}
 
 Summary: Sound module composer/player
 
@@ -16,6 +16,7 @@ BuildRequires: libsndfile-devel
 BuildRequires: jack-audio-connection-kit-devel
 BuildRequires: pulseaudio-libs-devel
 BuildRequires: SDL-devel
+BuildRequires: libxml2-devel >= 2.6.0
 
 %description
 Soundtracker is a module tracker for the X Window System similar to
@@ -24,7 +25,7 @@ format. The user interface makes use of GTK2.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 %configure
@@ -41,12 +42,20 @@ format. The user interface makes use of GTK2.
 %{_bindir}/%{name}_convert_config
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/extensions/
+%dir %{_datadir}/%{name}/extensions/sample-editor/
 %{_datadir}/%{name}/*.*
+%{_datadir}/%{name}/extensions/sample-editor/sox.menu
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/pixmaps/%{name}-icon.png
 
 %changelog
+* Sun Nov 12 2023 Peter Hanecak <hany@hany.sk> - 1.0.4-1
+- Update to 1.0.4
+- Build now requires also libxml2-devel
+- Update of patch macro syntax
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

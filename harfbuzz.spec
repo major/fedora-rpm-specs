@@ -1,5 +1,5 @@
 Name:           harfbuzz
-Version:        8.2.1
+Version:        8.3.0
 Release:        2%{?dist}
 Summary:        Text shaping library
 
@@ -7,7 +7,6 @@ License:        MIT-Modern-Variant
 URL:            https://github.com/harfbuzz/harfbuzz/
 Source0:        https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
 
-Patch0:         https://github.com/harfbuzz/harfbuzz/commit/3a1b0f0a72525d847197a8446d9503e44b1f2add.patch
 BuildRequires:  cairo-devel
 BuildRequires:  freetype-devel
 BuildRequires:  glib2-devel
@@ -93,6 +92,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Sun Nov 12 2023 Parag Nemade <pnemade AT redhat DOT com> - 8.3.0-2
+- Remove the upstream released patch
+
+* Sun Nov 12 2023 Parag Nemade <pnemade AT redhat DOT com> - 8.3.0-1
+- Update to 8.3.0 version (#2244950)
+
 * Sat Sep 30 2023 Parag Nemade <pnemade AT redhat DOT com> - 8.2.1-2
 - Resolves:rh#2241391 - Fix LibreOffice tests run
 

@@ -6,6 +6,8 @@ License:        GPL+ or Artistic
 
 URL:            https://metacpan.org/release/Data-Pond
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Data-Pond-%{version}.tar.gz
+# https://rt.cpan.org/Ticket/Display.html?id=150404
+Patch0:         Data-Pond-0.005-uvchr_to_utf8_flags.patch
 
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -36,9 +38,10 @@ JavaScript, but Pond represents fewer data types directly.
 
 %prep
 %setup -q -n Data-Pond-%{version}
+%patch 0
 
 %build
-%{__perl} Build.PL installdirs=vendor optimize="%{optimize}"
+/usr/bin/perl Build.PL installdirs=vendor optimize="%{optimize}"
 ./Build
 
 %install
@@ -55,6 +58,10 @@ JavaScript, but Pond represents fewer data types directly.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.005-23
+- Use uvchr_to_utf8_flags instead of uvuni_to_utf8_flags (removed in perl 5.38.0)
+- Use /usr/bin/perl instead of %%{__perl}
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

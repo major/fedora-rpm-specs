@@ -2,9 +2,10 @@
 
 Summary:	Unicode Normalization Form support library for CRuby
 Name:		rubygem-%{gem_name}
-Version:	0.0.8.2
-Release:	6%{?dist}
+Version:	0.0.9
+Release:	1%{?dist}
 # LICENSE.txt
+# SPDX confirmed
 License:	MIT
 URL:		http://github.com/knu/ruby-unf_ext
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -82,7 +83,9 @@ ruby \
 
 %files
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
+%license	%{gem_instdir}/LICENSE.txt
+%doc	%{gem_instdir}/CHANGELOG.md
+%doc	%{gem_instdir}/README.md
 
 %dir	%{gem_libdir}
 %{gem_libdir}/%{gem_name}.rb
@@ -95,6 +98,9 @@ ruby \
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Nov 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.9-1
+- 0.0.9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

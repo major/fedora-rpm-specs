@@ -5,8 +5,8 @@ Protego is a pure-Python `robots.txt` parser with support for modern
 conventions.}
 
 Name:		python-protego
-Version:	0.2.1
-Release:	6%{?dist}
+Version:	0.3.0
+Release:	1%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD
@@ -25,7 +25,6 @@ Summary:	%{summary}
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-pytest
-BuildRequires:	python3-six
 
 
 %description -n python3-%{pkg_name}
@@ -51,6 +50,12 @@ BuildRequires:	python3-six
 %{python3_sitelib}/Protego-*.egg-info
 
 %changelog
+* Sun Nov 12 2023 Eduardo Echeverria  <echevemaster@gmail.com> - 0.3.0-1
+- Bump package version
+- Removing six
+
+* Sun Sep 17 2023 Eduardo Echeverria  <echevemaster@gmail.com> - 0.2.1-7
+- Fix install dependencies
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

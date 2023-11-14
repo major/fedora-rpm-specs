@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.6.4
+Version:        2.6.5
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -185,6 +185,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sun Nov 12 2023 Jens Petersen <petersen@redhat.com> - 2.6.5-1
+- ghc-deps.sh: ghc-9.8 prof fixes adapted from mimi1vx (opensuse)
+- improve ghc-info.sh with a show mode
+
 * Thu Nov  9 2023 Jens Petersen <petersen@redhat.com> - 2.6.4-1
 - fix my flatpak comments
 

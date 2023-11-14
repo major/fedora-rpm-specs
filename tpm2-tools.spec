@@ -1,18 +1,13 @@
 #global candidate rc1
 
 Name:    tpm2-tools
-Version: 5.5
-Release: 5%{?candidate:.%{candidate}}%{?dist}
+Version: 5.6
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: A bunch of TPM testing toolS build upon tpm2-tss
 
 License: BSD-3-Clause
 URL:     https://github.com/tpm2-software/tpm2-tools
 Source0: https://github.com/tpm2-software/tpm2-tools/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
-
-# Disable optimization to avoid LTO + FORTIFY_SOURCE=3 issue:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2171376
-# https://github.com/tpm2-software/tpm2-tools/issues/3210
-Patch0: tpm2-tools-fix-fortify.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -60,6 +55,9 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %{_mandir}/man1/tss2_*.1.gz
 
 %changelog
+* Sun Nov 12 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.6-1
+- Update to 5.6
+
 * Tue Sep 26 2023 Štěpán Horáček <shoracek@redhat.com> - 5.5-5
 - Migrate license to SPDX
 

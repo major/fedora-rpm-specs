@@ -1,7 +1,7 @@
 %global srcname sgp4
 
 Name:           python-%{srcname}
-Version:        2.21
+Version:        2.23
 Release:        %autorelease
 Summary:        Compute position and velocity of earth-orbiting satellites
 # Python code is MIT, backend algorithms are based on SGP4 code
@@ -9,9 +9,6 @@ Summary:        Compute position and velocity of earth-orbiting satellites
 License:        MIT AND SGP4
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source:         %{pypi_source}
-
-# Patch to fix build with Python 3.12
-Patch:          sgp4_py312_tests.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

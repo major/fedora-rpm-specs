@@ -4,7 +4,7 @@
 
 # Set new source-code build version
 # This tag indicates a new rebuild for Fedora
-%global redhat_ver rh1
+%global redhat_ver rh2
 
 # Exclude ARM for the following error:
 #  terminate called after throwing an instance of 'std::bad_alloc'

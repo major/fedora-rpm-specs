@@ -2,7 +2,7 @@ Name:           votca
 Version:        2023~rc2
 %global         uversion 2023-rc.2
 %global         sover 2023
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
@@ -18,7 +18,9 @@ Source0:        https://github.com/votca/votca/archive/v%{uversion}.tar.gz#/%{na
 
 %global with_gmx 1
 # no gromacs package on 32-bit archs
-%ifarch %ix86 %arm
+# and since gmx-2023 also s390x
+# same for espressomd
+%ifarch %ix86 %arm s390x
 %global with_gmx 0
 %endif
 
@@ -46,12 +48,13 @@ BuildRequires:  libint2-devel
 # mpi packages only used for testing
 %if %{with_gmx}
 BuildRequires:  gromacs-openmpi
-%endif
-# not available on 32-bit archs
-%ifnarch s390x i686 armv7hl
-BuildRequires:  python3-espresso-openmpi
-%endif
+# only needed to run gromacs
 BuildRequires:  openmpi-devel
+BuildRequires:  python3-espresso-openmpi
+%else
+%global _openmpi_load %{nil}
+%global _openmpi_unload %{nil}
+%endif
 
 #used for testing only
 %if %{with_gmx}
@@ -252,6 +255,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Sun Nov 12 2023 Christoph Junghans <junghans@votca.org> - 2023~rc2-2
+- Rebuild for gromacs-2023
+
 * Wed Jul 26 2023 Christoph Junghans <junghans@votca.org> - 2023~rc2-1
 - Version bump to v2023-rc.2
 

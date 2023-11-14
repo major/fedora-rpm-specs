@@ -1,40 +1,108 @@
-#https://github.com/rawstudio/rawstudio/commit/58a89591ffb46c30c3baa7fa4858a00479159f75
-%global commit1 58a89591ffb46c30c3baa7fa4858a00479159f75
+# https://github.com/rawstudio/rawstudio/commit/c140a5eb64901e07db5190db20f9884e86e5dcae
+%global commit1 c140a5eb64901e07db5190db20f9884e86e5dcae
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
-#https://github.com/klauspost/rawspeed/commit/fa23d1c2f71c01cc085b80a2a6f8b633edd2626b
-%global commit2 fa23d1c2f71c01cc085b80a2a6f8b633edd2626b
+
+# https://github.com/klauspost/rawspeed/commit/5f73d8b84273c02c3e675c4963c94299be4ccc91
+%global commit2 5f73d8b84273c02c3e675c4963c94299be4ccc91
 %global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
+
+# https://github.com/darktable-org/rawspeed/commit/c753388b096e31f276730ee9b21a9389ca291c7b
+%global forgeurl3 https://github.com/darktable-org/rawspeed
+%global commit3 c753388b096e31f276730ee9b21a9389ca291c7b
+
+%forgemeta -a
+
 
 Name:           rawstudio
 Version:        2.1
-Release:        0.33.20210527.git%{shortcommit1}%{?dist}
+Release:        0.35.20210527.git%{shortcommit1}%{?dist}
 Summary:        Read, manipulate and convert digital camera raw images
 
-License:        GPLv2+
+# GPL-2.0-or-later: main program
+# (Apache-2.0 OR MIT): rawspeed/src/external/gopro/vc5/table17.inc
+# BSD-3-Clause: rawspeed/include/libjpeg/turbojpeg.h
+# CC-BY-ND-2.5: pixmaps/artwork.license
+# CC-BY-SA-3.0:
+# - rawspeed/data/
+# - profiles/
+# (GPL-2.0-or-later AND LicenseRef-Fedora-public-domain): src/rs-store.c
+# (GPL-2.0-or-later AND MIT):
+# - plugins/colorspace-transform/colorspace_transform_avx.c
+# - plugins/colorspace-transform/colorspace_transform_sse2.c
+# GPL-3.0-or-later: rawspeed/src/utilities/identify/rawspeed-identify.cpp
+# IJG:
+# - rawspeed/include/libjpeg/jerror.h
+# - rawspeed/include/libjpeg/jmorecfg.h
+# - rawspeed/include/libjpeg/jpeglib.h
+# LGPL-2.0-or-later: rawspeed/
+# (LGPL-2.0-or-later AND BSD-3-Clause):
+#  - rawspeed/RawSpeed/X3fParser.cpp
+# (LGPL-2.0-or-later AND MIT):
+# - rawspeed/src/librawspeed/decompressors/DeflateDecompressor.cpp
+# (LGPL-2.0-or-later AND MIT-Modern-Variant):
+# - RawSpeed/LJpegDecompressor.cpp
+# - src/librawspeed/codes/PrefixCodeLookupDecoder.h
+# - src/librawspeed/codes/PrefixCodeLUTDecoder.h
+# LGPL-2.1-or-later:
+# - rawspeed/src/librawspeed/decompressors/FujiDecompressor.cpp
+# - rawspeed/src/librawspeed/decompressors/FujiDecompressor.h
+# - rawspeed/src/librawspeed/decompressors/PanasonicV6Decompressor.cpp
+# - rawspeed/src/librawspeed/decompressors/PanasonicV6Decompressor.h
+# - rawspeed/src/librawspeed/decompressors/PanasonicV7Decompressor.cpp
+# - rawspeed/src/librawspeed/decompressors/PanasonicV7Decompressor.h
+# LicenseRef-Fedora-Public-Domain:profiles/compatibleWithAdobeRGB1998*.icc
+# MIT:
+# - rawspeed/RawSpeed/pugiconfig.hpp
+# - rawspeed/RawSpeed/pugixml-readme.txt
+# - rawspeed/RawSpeed/pugixml.cpp
+# - rawspeed/RawSpeed/pugixml.hpp
+# - rawspeed/RawSpeed/TiffTag.h
+# - rawspeed/src/librawspeed/tiff/TiffTag.h
+# - rawspeed/src/utilities/rstest/md5.cpp
+# - rawspeed/src/utilities/rstest/md5.h
+# - rawspeed/src/utilities/rstest/MD5Test.cpp
+# - plugins/dcp/adobe-camera-raw-tone.*
+# - plugins/dcp/pow-sse2.h
+# Zlib: profiles/compatibleWithAdobeRGB1998*
+License:        GPL-2.0-or-later AND (Apache-2.0 OR MIT) AND BSD-3-Clause AND CC-BY-ND-2.5 AND CC-BY-SA-3.0 AND (GPL-2.0-or-later AND LicenseRef-Fedora-public-domain) AND (GPL-2.0-or-later AND MIT) AND GPL-3.0-or-later AND IJG AND LGPL-2.0-or-later AND (LGPL-2.0-or-later AND BSD-3-Clause) AND (LGPL-2.0-or-later AND MIT) AND (LGPL-2.0-or-later AND MIT-Modern-Variant) AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND MIT AND Zlib
 URL:            http://rawstudio.org
 
 Source0:        https://github.com/rawstudio/%{name}/archive/%{commit1}/%{name}-%{shortcommit1}.tar.gz
 # cd plugins/load-rawspeed/rawspeed
 Source1:        https://github.com/klauspost/rawspeed/archive/%{commit2}/rawspeed-%{shortcommit2}.tar.gz
+Source2:        %{forgesource3}
 Patch0:         https://github.com/sergiomb2/rawstudio/compare/master...load-dcraw_9.28.diff
-Patch1:         https://patch-diff.githubusercontent.com/raw/rawstudio/rawstudio/pull/73.patch
+Patch2:         0001-Use-ConvertUTF16toUTF8-from-V8-project.patch
+Patch3:         0001-Fix-build-with-exiv2-0.28.0.patch
+# from https://github.com/rawstudio/rawstudio/pull/81.patch
+Patch4:         81.patch
+Patch5:         Fix-Rw2Decoder.patch
 
-BuildRequires:  make
-BuildRequires:  gcc-c++
-BuildRequires:  gtk3-devel libxml2-devel GConf2-devel dbus-devel
-BuildRequires:  lcms2-devel libjpeg-devel libtiff-devel exiv2-devel
-BuildRequires:  lensfun-devel fftw-devel
-# rawstudio disabled support for osm-gps-map
-#BuildRequires:  osm-gps-map-devel
-# Openssl no longer required
-BuildRequires:  sqlite-devel gphoto2-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  libtool
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
 BuildRequires:  gettext-devel
-Provides: bundled(ufraw) = 0.23
-Requires: librawstudio%{?_isa} = %{version}-%{release}
+BuildRequires:  gphoto2-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  libtool
+BuildRequires:  make
+BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(exiv2)
+BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  pkgconfig(gconf-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(lensfun)
+BuildRequires:  pkgconfig(libtiff-4)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(sqlite3)
+# rawstudio disabled support for osm-gps-map
+# BuildRequires:  pkgconnfig(osmgpsmap-1.0)
+
+Provides:       bundled(ufraw) = 0.23
+
+Requires:       librawstudio%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 Rawstudio is a highly specialized application for processing RAW images
@@ -49,15 +117,15 @@ with the controls to see how they affect the image, and finally export into
 JPEG, PNG or TIF format images from most digital cameras.
 
 
-%package -n librawstudio-devel
-Summary: librawstudio development files
-Requires: librawstudio%{?_isa} = %{version}-%{release}
+%package -n     librawstudio-devel
+Summary:        librawstudio development files
+Requires:       librawstudio%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description -n librawstudio-devel
 Development files for rawstudio backend library
 
 
-%package -n librawstudio
+%package -n     librawstudio
 Summary: Rawstudio backend library
 
 %description -n librawstudio
@@ -65,9 +133,13 @@ Rawstudio backend library
 
 
 %prep
-%autosetup -n %{name}-%{commit1} -a1 -p1
+%setup -q -n %{name}-%{commit1} -a1 -a2
 rmdir plugins/load-rawspeed/rawspeed
 mv rawspeed-%{commit2} plugins/load-rawspeed/rawspeed
+rm -rfv plugins/load-rawspeed/rawspeed/data
+mv rawspeed-%{commit3}/data plugins/load-rawspeed/rawspeed/data
+%autopatch -p1
+
 
 %build
 # autogen requires sources from git and works with git submodules
@@ -109,6 +181,18 @@ desktop-file-install \
 %{_libdir}/pkgconfig/rawstudio-%{version}.pc
 
 %changelog
+* Mon Nov 13 2023 Sérgio Basto <sergio@serjux.com> - 2.1-0.35.20210527.gitc140a5e
+- Add https://github.com/rawstudio/rawstudio/pull/81 to fix bug No thumbnails in
+  priorities https://github.com/rawstudio/rawstudio/issues/80
+
+* Mon Nov 13 2023 Sérgio Basto <sergio@serjux.com> - 2.1-0.34.20210527.gitc140a5e
+- grab latest camera sata
+- use pkgconfig
+- Convert to SPDX licensing, license reanalysis done with scancode-toolkit.
+  We have non-free code under the form of LicenseRef-Unicode-legacy-source-code, which is disallowed in Fedora: https://gitlab.com/fedora/legal/fedora-license-data/-/blob/main/data/LicenseRef-Unicode-legacy-source-code.toml
+  So we patch it out and replace it with an implementation from Google V8 under BSD-3-Clause.
+- Fix build with >=exiv2-0.28.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.33.20210527.git58a8959
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -57,7 +57,7 @@ Version: 9.8.1
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -107,7 +107,7 @@ BuildRequires: %{ghcboot}-compiler
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.6.1
+BuildRequires: ghc-rpm-macros-extra >= 2.6.5
 BuildRequires: %{ghcboot}-array-devel
 BuildRequires: %{ghcboot}-binary-devel
 BuildRequires: %{ghcboot}-bytestring-devel
@@ -813,6 +813,12 @@ make test
 
 
 %changelog
+* Sun Nov 12 2023 Jens Petersen <petersen@redhat.com> - 9.8.1-2
+- rebuild with ghc-rpm-macros-2.6.5 to fix prof deps (thanks mimi1vx)
+
+* Thu Oct 26 2023 Jens Petersen <petersen@redhat.com> - 9.8.1-1
+- https://downloads.haskell.org/ghc/9.8.1/docs/users_guide/9.8.1-notes.html
+
 * Fri Aug 11 2023 Jens Petersen <petersen@redhat.com> - 9.8.0.20230809-0.2
 - https://downloads.haskell.org/ghc/9.8.1-alpha2/docs/users_guide/9.8.1-notes.html
 

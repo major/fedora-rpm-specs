@@ -23,7 +23,7 @@
 # to handle RCs
 %global ghc_release %{version}
 
-%global base_ver 4.17.2.0
+%global base_ver 4.17.2.1
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.1.0
@@ -56,10 +56,10 @@
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
-%if 0%{?rhel} >= 10 || 0%{?fedora} >= 37
-%global llvm_major 14
-%else
+%if 0%{?rhel} == 9
 %global llvm_major 12
+%else
+%global llvm_major 14
 %endif
 %if %{with hadrian}
 %global ghc_llvm_archs armv7hl s390x
@@ -70,12 +70,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.4.7
+Version: 9.4.8
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -166,20 +166,20 @@ BuildRequires: llvm%{llvm_major}
 # needed for binary-dist-dir
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
-BuildRequires:  ghc-Cabal-static
-BuildRequires:  ghc-QuickCheck-static
-BuildRequires:  ghc-base-static
-BuildRequires:  ghc-bytestring-static
-BuildRequires:  ghc-containers-static
-BuildRequires:  ghc-directory-static
-BuildRequires:  ghc-extra-static
-BuildRequires:  ghc-filepath-static
-BuildRequires:  ghc-mtl-static
-BuildRequires:  ghc-parsec-static
-BuildRequires:  ghc-shake-static
-BuildRequires:  ghc-stm-static
-BuildRequires:  ghc-transformers-static
-BuildRequires:  ghc-unordered-containers-static
+BuildRequires:  ghc-Cabal-devel
+BuildRequires:  ghc-QuickCheck-devel
+BuildRequires:  ghc-base-devel
+BuildRequires:  ghc-bytestring-devel
+BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-directory-devel
+BuildRequires:  ghc-extra-devel
+BuildRequires:  ghc-filepath-devel
+BuildRequires:  ghc-mtl-devel
+BuildRequires:  ghc-parsec-devel
+BuildRequires:  ghc-shake-devel
+BuildRequires:  ghc-stm-devel
+BuildRequires:  ghc-transformers-devel
+BuildRequires:  ghc-unordered-containers-devel
 %else
 BuildRequires: %{name}-hadrian
 %endif
@@ -336,7 +336,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.2
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.3
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.7.1
@@ -358,7 +358,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.2.2
 %ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.16.1
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
-%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.17.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.18.0
 # see below for rts
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.1.0
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.19.0.0
@@ -996,6 +996,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sat Nov 11 2023 Jens Petersen <petersen@redhat.com> - 9.4.8-24
+- https://downloads.haskell.org/~ghc/9.4.8/docs/users_guide/9.4.8-notes.html
+
 * Sun Aug 27 2023 Jens Petersen <petersen@redhat.com> - 9.4.7-23
 - https://downloads.haskell.org/~ghc/9.4.7/docs/users_guide/9.4.7-notes.html
 

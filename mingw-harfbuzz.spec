@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        8.2.1
+Version:        8.3.0
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -155,6 +155,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sun Nov 12 2023 Sandro Mani <manisandro@gmail.com> - 8.3.0-1
+- Update to 8.3.0
+
 * Wed Sep 20 2023 Sandro Mani <manisandro@gmail.com> - 8.2.1-1
 - Update to 8.2.1
 

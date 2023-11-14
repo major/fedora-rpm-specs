@@ -4,8 +4,8 @@ License:        GPL-3.0-only
 
 %global git_repo    candy-icons
 %global git_url     https://github.com/EliverLara/%{git_repo}
-%global git_commit  1c5b81a3fcec1ffe62828c168c43f4cb6ce71e40
-%global git_date    20230904
+%global git_commit  1b11884f21712a73489023a8b67015afd9c6695c
+%global git_date    20231104
 
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
@@ -32,11 +32,6 @@ Candy Icons is a simplistic, vector, gradient icon theme.
 sed \
   -e 's|^Name=candy-icons$|Name=Candy Icons|' \
   -i index.theme
-
-# Fix absolute symlink committed upstream,
-# pointing to somewhere in the author's home directory
-unlink apps/scalable/onlyoffice-desktopeditors.svg
-ln -sr apps/scalable/onlyoffice.svg apps/scalable/onlyoffice-desktopeditors.svg
 
 
 %build
@@ -67,6 +62,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Candy &>/dev/null || :
 
 
 %changelog
+* Sun Nov 12 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20231104.1b11884-1
+- Update to latest git snapshot (2023-11-04)
+
 * Fri Sep 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20230904.1c5b81a-1
 - Update to latest git snapshot (2023-09-04)
 

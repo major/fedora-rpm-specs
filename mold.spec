@@ -4,7 +4,7 @@
 %endif
 
 Name:		mold
-Version:	2.1.0
+Version:	2.3.2
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -22,10 +22,18 @@ Patch0:		tbb-strip-werror.patch
 # Allow building against the system-provided `xxhash.h`
 Patch1:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
 
-# Fix binaries on ppc64le (https://github.com/rui314/mold/issues/1087)
-Patch2:		0002-Avoid-reading-data-from-.plt.patch
-Patch3:		0003-Avoid-reading-data-from-.plt.patch
+# Fix unit tests on i686 host (https://github.com/rui314/mold/issues/1140)
+Patch2:		0002-Fix-unit-tests-on-i686-host.patch
 
+# Fix ifunc on ppc64le (https://github.com/rui314/mold/issues/1142)
+Patch3:		0003-POWER10-Emit-dynamic-relocation-for-ifunc.patch
+
+# Newer Fedora releases currently do not provide blake3-devel on i686
+%if 0%{?fedora} >= 39
+ExcludeArch:	%{ix86}
+%endif
+
+BuildRequires:	blake3-devel
 BuildRequires:	cmake
 %if 0%{?el8}
 BuildRequires:	gcc-toolset-12
@@ -35,8 +43,7 @@ BuildRequires:	gcc-c++ >= 10
 %endif
 BuildRequires:	libzstd-devel
 BuildRequires:	mimalloc-devel
-BuildRequires:	openssl-devel
-BuildRequires:	xxhash-devel
+BuildRequires:	xxhash-static
 BuildRequires:	zlib-devel
 
 # Required by bundled oneTBB
@@ -70,7 +77,7 @@ build time, especially in rapid debug-edit-rebuild cycles.
 
 %prep
 %autosetup -p1
-rm -r third-party/{mimalloc,xxhash,zlib,zstd}
+rm -r third-party/{blake3,mimalloc,xxhash,zlib,zstd}
 
 %build
 %if 0%{?el8}
@@ -110,6 +117,9 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Sat Nov 11 2023 Christoph Erhardt <fedora@sicherha.de> - 2.3.2-1
+- Bump version to 2.3.2 (rhbz#2240671)
+
 * Wed Aug 23 2023 Christoph Erhardt <fedora@sicherha.de> - 2.1.0-1
 - Bump version to 2.1.0 (rhbz#2231758)
 

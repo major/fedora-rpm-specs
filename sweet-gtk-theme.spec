@@ -3,23 +3,23 @@ Summary: Light and dark, colorful GTK+ theme
 License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
-%global git_date_master 20230913
-%global git_commit_master 4912d9d82caba56ea6ed173aff28ab87b3e77541
+%global git_date_master 20231111
+%global git_commit_master ab8a6962b048f7a1d0d26ac6f489258a2f33112b
 
-%global git_date_ambar 20230913
-%global git_commit_ambar 91c4c0bf641c8a876e60bec1b0bd4d9efdf9993d
+%global git_date_ambar 20231111
+%global git_commit_ambar 728e6ab6fd685d72a654578736971f91c4068a2e
 
-%global git_date_ambar_blue 20230913
-%global git_commit_ambar_blue de6d70d2c19cd938d659a054a9d276726cb0890d
+%global git_date_ambar_blue 20231111
+%global git_commit_ambar_blue 67b664e27fcd2477394868a5eab0138d04fe9815
 
-%global git_date_ambar_blue_dark 20230913
-%global git_commit_ambar_blue_dark 2abf9aee97aba9b8839630f319428decdc9709c7
+%global git_date_ambar_blue_dark 20231111
+%global git_commit_ambar_blue_dark af476e872d895dc0ac2382b259988efae947e0f3
 
-%global git_date_mars 20230913
-%global git_commit_mars 282547e9f93843210d170d3986dad2ee5956023f
+%global git_date_mars 20231111
+%global git_commit_mars 24e28181a3d65c9b4a7aa3677c282c492fca2480
 
-%global git_date_nova 20230913
-%global git_commit_nova ee4be9efb84c87881dfc3e4455fd84823e76b287
+%global git_date_nova 20231111
+%global git_commit_nova be36521ba30c065128140580be22c82108c159f5
 
 %global git_date %( \
 	( \
@@ -32,7 +32,7 @@ URL: https://www.gnome-look.org/p/1253385/
 	) | sort -rn | head -n1)
 
 Version: 3.0^%{git_date}
-Release: 12%{?dist}
+Release: 1%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -141,6 +141,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Sun Nov 12 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0^20231111-1
+- Update to latest git snapshots
+
 * Fri Sep 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0^20230913-12
 - Update to latest git snapshots
 - Add the "Ambar Blue Dark" variant
