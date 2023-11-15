@@ -193,6 +193,7 @@ Source0:    README
 %obsolete fedora-gather-easyfix 0.2.1-91
 %obsolete fontdump 1.3.0-29
 %obsolete freecad 1:0.20.2-5
+%obsolete freecad-data 1:0.20.2-5
 %obsolete fuse9p 1.0.9-30
 %obsolete gdeploy 3.0.0-15
 %obsolete gnome-activity-journal 1.0.0-8
@@ -447,6 +448,10 @@ Source0:    README
 %obsolete whipper-plugin-eaclogger 0.5.0-11
 %obsolete woffTools 0.1-0.38
 %obsolete yokadi 1.2.0-7
+
+# Remove in F43
+%obsolete_ticket https://src.fedoraproject.org/rpms/R-rgdal/c/c68d42d4e56b976be3a50adcbb65efdfc36b8318?branch=f39
+%obsolete R-rgdal 1.6.7-3
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

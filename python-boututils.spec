@@ -2,7 +2,7 @@
 %global pypi_name boututils
 
 Name:           python-%{pypi_name}
-Version:        0.1.10
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Python package containing BOUT++ utils
 
@@ -11,8 +11,7 @@ URL:            http://boutproject.github.io
 Source0:        %pypi_source
 BuildArch:      noarch
 
-Patch:          https://github.com/boutproject/boututils/pull/47.patch
-Patch:          https://github.com/boutproject/boututils/pull/48.patch
+Patch0:         ./0001-pytest-no-cov.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -33,9 +32,7 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name}
 Utils for BOUT++
 
-
-%pyproject_extras_subpkg -n python3-%{pypi_name} mayavi
-
+Obsoletes:    python3-boututils+mayavi < 0.2
 
 %generate_buildrequires
 %pyproject_buildrequires -r

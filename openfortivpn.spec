@@ -1,5 +1,5 @@
 Name:           openfortivpn
-Version:        1.19.0
+Version:        1.21.0
 Release:        2%{?dist}
 Summary:        Client for PPP+SSL VPN tunnel services
 
@@ -26,7 +26,7 @@ It is compatible with Fortinet VPNs.
 
 %build
 autoreconf -fi
-%configure
+%configure --enable-resolvconf --with-resolvconf=/usr/sbin/resolvconf
 make %{?_smp_mflags} V=1
 
 
@@ -46,6 +46,12 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Mon Nov 13 2023 Adrien Vergé <adrienverge@gmail.com> - 1.21.0-2
+- Add configure options for built-in resolvconf support, see https://github.com/adrienverge/openfortivpn/issues/1141#issuecomment-1806834236
+
+* Mon Nov 13 2023 Adrien Vergé <adrienverge@gmail.com> - 1.21.0-1
+- Update to latest upstream version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

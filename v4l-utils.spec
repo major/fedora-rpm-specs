@@ -6,7 +6,7 @@ Version:        1.25.0
 Release:        4%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
-License:        GPLv2+ and GPLv2
+License:        GPL-2.0-or-later AND GPL-2.0-only
 URL:            http://www.linuxtv.org/downloads/v4l-utils/
 
 Source0:        http://linuxtv.org/downloads/v4l-utils/v4l-utils-%{version}.tar.xz

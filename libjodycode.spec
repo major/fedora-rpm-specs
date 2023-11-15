@@ -1,16 +1,11 @@
-%global forgeurl https://github.com/jbruchon/libjodycode
-
-Version:        3.0.1
-
-%forgemeta
-
 Name:           libjodycode
-Release:        2%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        General purpose utility functions
 
 License:        MIT
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://codeberg.org/jbruchon/libjodycode/
+Source0:        https://codeberg.org/jbruchon/%{name}/archive/v%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -36,7 +31,7 @@ developing applications that use %{name}.
 
 
 %prep
-%forgeautosetup -p1
+%setup -n %{name}
 
 
 %build
@@ -63,6 +58,10 @@ rm -rf %{buildroot}%{_mandir}/man7
 %{_libdir}/libjodycode.so
 
 %changelog
+* Mon Nov 13 2023 David Cantrell <dcantrell@redhat.com> - 3.1-1
+- Upgrade to libjodycode-3.1
+- Drop the forge macros because the project moved to an unsupported site
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

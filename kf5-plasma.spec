@@ -4,7 +4,7 @@
 
 Name:    kf5-plasma
 Version: 5.111.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: KDE Frameworks 5 Tier 3 framework is foundation to build a primary user interface
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -77,7 +77,10 @@ Requires:       kf6-plasma%{?_isa}
 Conflicts:      kdeplasma-addons < 5.5.0-3
 
 # upstream name
+# used by the plasma-framework package in Plasma 6
+%if %{without kf6_compat}
 Provides: plasma-framework = %{version}-%{release}
+%endif
 
 %description
 %{summary}.
@@ -91,7 +94,9 @@ Requires:       kf5-kpackage-devel >= %{majmin}
 Requires:       kf5-kservice-devel >= %{majmin}
 Requires:       kf5-kwindowsystem-devel >= %{majmin}
 Requires:       qt5-qtbase-devel
+%if %{without kf6_compat}
 Provides: plasma-framework-devel = %{version}-%{release}
+%endif
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -165,6 +170,9 @@ sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
 
 
 %changelog
+* Mon Nov 13 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-5
+- Don't provide the plasma-frameworks name for Plasma 6
+
 * Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-4
 - Fix kf6-plasma requires to be arch-specific
 

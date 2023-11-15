@@ -3,7 +3,7 @@
 
 Name:				davix
 Version:			0.8.5
-Release:			1%{?dist}
+Release:			2%{?dist}
 Summary:			Toolkit for http based file management
 License:			LGPLv2+
 URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -172,6 +172,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.8.5-2
+- Rebuild for gtest 1.14.0 (bugzilla #2228663)
+
 * Fri Oct 20 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 0.8.5-1
 - New upstream release 0.8.5
 - Fix CVE 2023-38545 in the bundled curl library (EPEL 7 and 8)

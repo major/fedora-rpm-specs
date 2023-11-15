@@ -2,7 +2,7 @@
 %global pypi_name pysam
 
 Name:           python-%{pypi_name}
-Version:        0.21.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        pysam
 
@@ -18,6 +18,7 @@ BuildRequires:  gcc
 BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
+BuildRequires:  python3-sphinx_rtd_theme
 
 %description
 pysam - a python module for reading, manipulating and writing genomic data

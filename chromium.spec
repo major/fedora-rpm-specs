@@ -267,7 +267,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 119.0.6045.123
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -958,9 +958,9 @@ udev.
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9 || 0%{?fedora} == 37
 %patch -P114 -p1 -b .ffmpeg-5.x-duration
+%patch -P116 -p1 -b .first_dts
 %endif
 %patch -P115 -p1 -b .prop-codecs
-%patch -P116 -p1 -b .first_dts
 %patch -P117 -p1 -b .sigtrap_system_ffmpeg
 %endif
 
@@ -1706,6 +1706,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Mon Nov 13 2023 Than Ngo <than@redhat.com> - 119.0.6045.123-2
+- fixed bz#2240127, Some h.264 mp4s do not play 
+
 * Wed Nov 08 2023 Than Ngo <than@redhat.com> - 119.0.6045.123-1
 - update to 119.0.6045.123, include following security fixes:
   high CVE-2023-5996: Use after free in WebAudio

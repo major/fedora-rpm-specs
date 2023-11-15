@@ -1,25 +1,21 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 #
 Name:           airtsp
 Version:        1.01.10
-Release:        2%{?dist}
+Release:        %autorelease
 
 Summary:        C++ Simulated Airline Travel Solution Provider Library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
-BuildRequires:  readline-devel
-BuildRequires:  stdair-devel
-
+BuildRequires:  pkgconfig(readline)
+BuildRequires:  pkgconfig(stdair)
 
 %description
 %{name} aims at providing a clean API and a simple implementation, as
@@ -29,7 +25,7 @@ in the real-world of Airline IT operations.
 
 %{name} makes an extensive use of existing open-source libraries for
 increased functionality, speed and accuracy. In particular the
-Boost (C++ Standard Extensions: http://www.boost.org) library is used.
+Boost (C++ Standard Extensions: https://www.boost.org) library is used.
 
 Install the %{name} package if you need a library of basic C++ objects
 for Airline Schedule Management, mainly for simulation purpose.
@@ -61,8 +57,7 @@ online (https://%{name}.org).
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}
-
+%autosetup
 
 %build
 %cmake
@@ -90,30 +85,21 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_mandir}/man1/%{name}.1.*
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_datadir}/aclocal/%{name}.m4
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake
+%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
+%doc %{_docdir}/%{name}/
 %license COPYING
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 1.01.10-1
-- Upstream upgrade
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.01.9-4
-- Rebuilt for Boost 1.81
-
 %autochangelog
 

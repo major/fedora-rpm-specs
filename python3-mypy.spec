@@ -1,6 +1,6 @@
 Name:           python3-mypy
-Version:        1.6.1
-Release:        2%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -80,6 +80,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.7.0-1
+- 1.7.0
+
 * Mon Oct 23 2023 Miro Hrončok <mhroncok@redhat.com> - 1.6.1-2
 - Drop a redundant BuildRequires python3dist(typed-ast)
 

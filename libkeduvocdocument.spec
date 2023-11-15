@@ -8,7 +8,7 @@
 
 Name:    libkeduvocdocument
 Summary: Library to parse, convert, and manipulate KVTML files
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -27,11 +27,11 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 
 BuildRequires: make
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-karchive-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  kf6-karchive-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-kio-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  pkgconfig(Qt6Xml)
 
 %if 0%{?tests}
 BuildRequires: xorg-x11-server-Xvfb
@@ -58,7 +58,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
@@ -86,16 +86,19 @@ xvfb-run -a \
 %files -f %{name}.lang
 %doc AUTHORS README 
 %license LICENSES/*
-%{_kf5_libdir}/libKEduVocDocument.so.5*
+%{_kf6_libdir}/libKEduVocDocument.so.5*
 
 %files devel
 %{_includedir}/libkeduvocdocument/
-%{_kf5_libdir}/libKEduVocDocument.so
+%{_kf6_libdir}/libKEduVocDocument.so
 %license COPYING-CMAKE-SCRIPTS 
-%{_kf5_libdir}/cmake/libkeduvocdocument/
+%{_kf6_libdir}/cmake/libkeduvocdocument/
 
 
 %changelog
+* Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
+- Update to 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

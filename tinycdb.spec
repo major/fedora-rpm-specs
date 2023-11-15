@@ -1,7 +1,7 @@
 Name:		tinycdb
 Summary:	Utility and library for manipulating constant databases
-Version:	0.78
-Release:	22%{?dist}
+Version:	0.80
+Release:	1%{?dist}
 License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.corpit.ru/mjt/tinycdb.html
 Source0:	http://www.corpit.ru/mjt/%{name}/%{name}-%{version}.tar.gz
@@ -30,9 +30,9 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-cp %{SOURCE1} debian/
+cp %{SOURCE1} .
 # Fix libdir pathing in pkgconfig file.
-sed -i -e 's\/lib\/%{_lib}\g' debian/libcdb.pc
+sed -i -e 's\/lib\/%{_lib}\g' libcdb.pc
 
 %build
 make %{?_smp_mflags} staticlib sharedlib cdb-shared CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}"
@@ -44,12 +44,12 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} 
 chmod +x %{buildroot}%{_libdir}/*.so.*
 rm -f %{buildroot}%{_libdir}/lib*.a
 mkdir -p %{buildroot}%{_libdir}/pkgconfig
-cp -p debian/libcdb.pc %{buildroot}%{_libdir}/pkgconfig/libcdb.pc
+cp -p libcdb.pc %{buildroot}%{_libdir}/pkgconfig/libcdb.pc
 
 %ldconfig_scriptlets
 
 %files
-%doc NEWS ChangeLog
+%doc NEWS
 %{_bindir}/cdb
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*
@@ -62,6 +62,9 @@ cp -p debian/libcdb.pc %{buildroot}%{_libdir}/pkgconfig/libcdb.pc
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Nov 10 2023 Tom Callaway <spot@fedoraproject.org> - 0.80-1
+- what's this? a new release? okay.
+
 * Thu Aug 10 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.78-22
 - Converted license to SPDX
 

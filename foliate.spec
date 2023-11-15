@@ -1,28 +1,38 @@
-%global appname com.github.johnfactotum.Foliate
+%global appid com.github.johnfactotum.Foliate
+%global libadwaita_version 1.4
+%global webkitgtk_version 2.40.1
+
+# Git submodules
+#   * foliate-js
+%global commit1 f75fbba096e8fc1c775ea1c162fe1d3322cd5121
+%global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           foliate
-Version:        2.6.4
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Simple and modern GTK eBook reader
 
 License:        GPL-3.0-or-later
 URL:            https://johnfactotum.github.io/foliate/
 Source0:        https://github.com/johnfactotum/foliate/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        https://github.com/johnfactotum/foliate-js/archive/%{commit1}/%{name}-js-%{shortcommit1}.tar.gz
+
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
-BuildRequires:  meson >= 0.40
-
+BuildRequires:  meson >= 0.59
 BuildRequires:  pkgconfig(gjs-1.0) >= 1.52
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk4) >= 4.12
 BuildRequires:  pkgconfig(iso-codes) >= 3.67
-BuildRequires:  pkgconfig(webkit2gtk-4.1)
+BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
+BuildRequires:  pkgconfig(webkitgtk-6.0) >= %{webkitgtk_version}
 
-Requires:       gjs
+Requires:       gjs >= 1.76
 Requires:       hicolor-icon-theme
-Requires:       webkit2gtk4.1
+Requires:       libadwaita >= %{libadwaita_version}
+Requires:       webkitgtk6.0 >= %{webkitgtk_version}
 
 # For text-to-speech (TTS) support
 Recommends:     espeak-ng
@@ -34,16 +44,16 @@ Recommends:     python3 >= 3.4
 Suggests:       espeak
 Suggests:       festival
 
+Provides:       bundled(%{name}-js) = 0~git%{shortcommit1}
+
 %description
 A simple and modern GTK eBook viewer, built with GJS and Epub.js.
 
+
 %prep
 %autosetup -p1
-# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
-# libsoup is not used directly
-sed -i -e '/WebKit2/s/4\.0/4.1/' src/main.js
-# do not use flatpak-spawn for runtime deps
-sed -i -e 's/flatpak-spawn/do-not-use-&/' src/utils.js
+%autosetup -p1 -a1
+mv %{name}-js-%{commit1}/* src/%{name}-js
 
 
 %build
@@ -53,24 +63,20 @@ sed -i -e 's/flatpak-spawn/do-not-use-&/' src/utils.js
 
 %install
 %meson_install
-
-# Ambiguous python shebang
-find %{buildroot}%{_datadir}/%{appname}/assets/KindleUnpack/ -type f -name "*.py" -exec sed -e 's@/usr/bin/env python@/usr/bin/python3@g' -i "{}" \;
-find %{buildroot}%{_datadir}/%{appname}/assets/KindleUnpack/ -type f -name "mobiml2xhtml.py" -exec sed -e 's@/usr/bin/python@/usr/bin/python3@g' -i "{}" \;
-
-%find_lang %{appname}
+%find_lang %{appid}
 
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+# https://github.com/johnfactotum/foliate/issues/1111
+%dnl desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
-%files -f %{appname}.lang
+%files -f %{appid}.lang
 %license COPYING
 %doc README.md
-%{_bindir}/%{appname}
-%{_datadir}/%{appname}/
+%{_bindir}/%{name}
+%{_datadir}/%{appid}/
 %{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/*.svg

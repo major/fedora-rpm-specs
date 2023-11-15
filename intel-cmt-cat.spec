@@ -1,4 +1,4 @@
-%global libpqos_ver 4.6.1
+%global libpqos_ver 5.0.0
 %global desc %{expand: \
 This package provides basic support for Intel Resource Director Technology
 including, Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring
@@ -6,7 +6,7 @@ including, Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring
 (CDP) and Memory Bandwidth Allocation (MBA).}
 
 Name:		intel-cmt-cat
-Version:	23.08
+Version:	23.11
 Release:	1%{?dist}
 Summary:	Intel cache monitoring and allocation technology config tool
 
@@ -14,7 +14,9 @@ License:	BSD-3-Clause
 URL: 		https://github.com/intel/intel-cmt-cat
 Source: 	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch:		0001-alter-install-paths.patch	
+Patch0:		0001-alter-install-paths.patch
+Patch1:		0002-remove-build-and-install-of-examples.patch
+Patch2:		0003-allow-debian-flags-to-be-added.patch
 
 ExclusiveArch:	x86_64
 
@@ -47,11 +49,11 @@ Development files.
 %license LICENSE
 %doc ChangeLog README.md
 %{_bindir}/membw
-%{_bindir}/pqos
-%{_bindir}/pqos-msr
-%{_bindir}/pqos-os
-%{_bindir}/rdtset
-%{_libdir}/libpqos.so.4
+%{_sbindir}/pqos
+%{_sbindir}/pqos-msr
+%{_sbindir}/pqos-os
+%{_sbindir}/rdtset
+%{_libdir}/libpqos.so.5
 %{_libdir}/libpqos.so.%{libpqos_ver}
 %{_mandir}/man8/membw.8*
 %{_mandir}/man8/pqos.8*
@@ -64,6 +66,9 @@ Development files.
 %{_libdir}/libpqos.so
 
 %changelog
+* Mon Nov 13 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 23.11-1
+- Update to 23.11
+
 * Thu Aug 31 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 23.08-1
 - Update to 23.08
 

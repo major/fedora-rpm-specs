@@ -1,6 +1,6 @@
 Name:           pcm
-Version:        202307
-Release:        2%{?dist}
+Version:        202311
+Release:        1%{?dist}
 Summary:        Intel(r) Performance Counter Monitor
 License:        BSD
 Url:            https://github.com/intel/pcm
@@ -42,6 +42,7 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 %{_sbindir}/%{name}-memory
 %{_sbindir}/%{name}-msr
 %{_sbindir}/%{name}-mmio
+%{_sbindir}/%{name}-tpmi
 %{_sbindir}/%{name}-numa
 %{_sbindir}/%{name}-accel
 %{_sbindir}/%{name}-pcicfg
@@ -67,7 +68,7 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 202212-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Fri Dec 23 Roman Dementiev <roman.dementiev@intel.com> 0.1-11
+* Fri Dec 23 2022 Roman Dementiev <roman.dementiev@intel.com> 0.1-11
 - Update to version 202212
 
 * Thu Nov 24 2022 Roman Dementiev <roman.dementiev@intel.com> 0.1-10

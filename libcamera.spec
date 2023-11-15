@@ -2,7 +2,7 @@
 
 Name:    libcamera
 Version: 0.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -204,6 +204,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_libexecdir}/libcamera/v4l2-compat.so
 
 %changelog
+* Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.1.0-3
+- Rebuild for gtest 1.14.0
+
 * Sun Jul 30 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.1.0-1
 - Update to version 0.1.0
 - Resolves: rhbz#2192455

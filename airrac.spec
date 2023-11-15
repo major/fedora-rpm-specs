@@ -1,25 +1,21 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 #
 Name:           airrac
 Version:        1.00.7
-Release:        2%{?dist}
+Release:        %autorelease
 
 Summary:        C++ Simulated Revenue Accounting (RAC) System Library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
-BuildRequires:  readline-devel
-BuildRequires:  stdair-devel
-
+BuildRequires:  pkgconfig(readline)
+BuildRequires:  pkgconfig(stdair)
 
 %description
 %{name} is a C++ library of airline revenue accounting classes and
@@ -53,12 +49,12 @@ BuildRequires:  ghostscript
 %description    doc
 This package contains HTML pages, as well as a PDF reference manual,
 for %{name}. All that documentation is generated thanks to Doxygen
-(http://doxygen.org). The content is the same as what can be browsed
-online (http://%{name}.org).
+(https://doxygen.org). The content is the same as what can be browsed
+online (https://%{name}.org).
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}
+%autosetup
 
 
 %build
@@ -87,7 +83,7 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_mandir}/man1/%{name}.1.*
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
@@ -98,19 +94,10 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
+%doc %{_docdir}/%{name}/
 %license COPYING
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 1.00.7-1
-- Upstream upgrade
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.6-4
-- Rebuilt for Boost 1.81
-
 %autochangelog
 

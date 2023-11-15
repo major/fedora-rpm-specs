@@ -8,7 +8,7 @@
 
 %global _hardened_build 1
 
-#%%global extra_version rc1
+#global extra_version rc1
 
 %if 0%{with_python2}
 %global python_primary %{__python2}
@@ -30,13 +30,12 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.18.0
-Release: 3%{?extra_version:.%{extra_version}}%{?dist}
+Version: 1.19.0
+Release: 1%{?extra_version:.%{extra_version}}%{?dist}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
 Source1: unbound.service
-Source2: unbound.conf
 Source3: unbound.munin
 Source4: unbound_munin_
 Source5: root.key
@@ -56,8 +55,8 @@ Source18: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_vers
 Source19: https://keys.openpgp.org/pks/lookup?op=get&search=0x9F6F1C2D7E045F8D#/wouter.nlnetlabs.nl.key
 Source20: unbound.sysusers
 
-# https://github.com/NLnetLabs/unbound/issues/946
-Patch1: unbound-1.18-outlook.patch
+# Downstream configuration changes
+Patch1:   unbound-fedora-config.patch
 
 BuildRequires: gcc, make
 BuildRequires: flex, openssl-devel
@@ -203,7 +202,7 @@ Python 3 modules and extensions for unbound
 
 pushd %{pkgname}
 # patches go here
-%autopatch -p1
+%autopatch -p2
 
 # only for snapshots
 # autoreconf -iv
@@ -238,7 +237,8 @@ cp -a %{dir_primary} %{dir_secondary}
             --with-conf-file=%{_sysconfdir}/%{name}/unbound.conf \\\
             --with-pidfile=%{_rundir}/%{name}/%{name}.pid \\\
             --enable-sha2 --disable-gost --enable-ecdsa \\\
-            --with-rootkey-file=%{_sharedstatedir}/unbound/root.key \\\
+            --with-rootkey-file=%{_sharedstatedir}/%{name}/root.key \\\
+            --with-username=unbound \\\
             --enable-linux-ip-local-port-range \\\
 
 
@@ -301,6 +301,7 @@ popd
 pushd %{dir_primary}
 %make_install unbound-event-install
 install -m 0755 streamtcp %{buildroot}%{_sbindir}/unbound-streamtcp
+install -p -m 0755 doc/example.conf %{buildroot}%{_sysconfdir}/unbound/unbound.conf
 popd
 
 install -d -m 0755 %{buildroot}%{_unitdir} %{buildroot}%{_sysconfdir}/sysconfig
@@ -308,7 +309,6 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/unbound.service
 install -p -m 0644 %{SOURCE7} %{buildroot}%{_unitdir}/unbound-keygen.service
 install -p -m 0644 %{SOURCE15} %{buildroot}%{_unitdir}/unbound-anchor.timer
 install -p -m 0644 %{SOURCE17} %{buildroot}%{_unitdir}/unbound-anchor.service
-install -p -m 0755 %{SOURCE2} %{buildroot}%{_sysconfdir}/unbound
 install -p -m 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/unbound
 install -p -m 0644 %{SOURCE14} %{buildroot}%{_sysconfdir}/sysconfig/unbound
 install -p -D -m 0644 %{SOURCE20} %{buildroot}%{_sysusersdir}/%{name}.sysusers
@@ -500,4 +500,7 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Thu Nov 02 2023 Petr Menšík <pemensik@redhat.com> - 1.19.0-1
+- Update to 1.19.0 (#2248686)
+
 %autochangelog

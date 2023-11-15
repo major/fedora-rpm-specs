@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           duplicity
-Version:        1.2.3
+Version:        2.1.4
 Release:        %autorelease
 Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 
@@ -20,29 +20,10 @@ Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 #   - testing/unit/test_gpginterface.py:
 License:        GPL-2.0-or-later AND MIT AND GPL-3.0-or-later
 URL:            https://duplicity.gitlab.io/
-Source0:        https://launchpad.net/duplicity/1.0/%{version}/+download/duplicity-%{version}.tar.gz
-Source1:        https://launchpad.net/duplicity/1.0/%{version}/+download/duplicity-%{version}.tar.gz.sig
-# Trust on first use: keyring created on 2022-12-13 with:
-#   workdir="$(mktemp --directory)"
-#   gpg2 --with-fingerprint duplicity-1.2.1.tar.gz.sig 2>&1 |
-#     awk '$2 == "using" { print "0x" $NF }' |
-#     xargs gpg2 --homedir="${workdir}" \
-#         --keyserver=hkps://keyserver.ubuntu.com --recv-keys
-#   gpg2 --homedir="${workdir}" --export --export-options export-minimal \
-#       > duplicity.gpg
-#   rm -rf "${workdir}"
-# Inspect keys using:
-#   gpg2 --list-keys --no-default-keyring --keyring ./duplicity.gpg
-# Contains:
-#   8B6F8FF4E654E600: public key "Duplicity Test (no password) <duplicity@loafman.com>"
-# The key name does not inspire confidence, but it is better than nothing!
-Source2:        duplicity.gpg
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # chg:test: Add test case for issue #683.
 # https://gitlab.com/duplicity/duplicity/-/commit/e6671cdf4ed8b21b4a8bd1973bd458f62792cd29
 Patch0:         e6671cdf4ed8b21b4a8bd1973bd458f62792cd29.patch
-Patch1:         test_path.patch
-Patch2:         tox.ini.patch
-Patch3:         test_backend_instance.patch
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6
@@ -55,9 +36,6 @@ Recommends:     python3dist(PyDrive2)
 Recommends:     python3dist(boto3)
 Recommends:     python3dist(dropbox)
 Recommends:     python3dist(paramiko)
-
-# For verifying the source archive signature:
-BuildRequires:  gnupg2
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -87,7 +65,6 @@ unix permissions, directories, symbolic links, fifos, device files,
 but not hard links.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %generate_buildrequires
@@ -124,10 +101,8 @@ rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/CONTRIBUTING.md
 %files -f %{name}.lang -f %{pyproject_files}
 # pyproject_files handles COPYING in dist-info; verify with “rpm -qL -p …”
 %doc CHANGELOG.md README.md CONTRIBUTING.md
-%{_bindir}/rdiffdir
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*
-%{_mandir}/man1/rdiffdir*
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/cacert.pem
 

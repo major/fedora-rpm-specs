@@ -1,5 +1,5 @@
 Name:           shell-color-prompt
-Version:        0.2.1
+Version:        0.4
 Release:        1%{?dist}
 Summary:        Color prompt for bash shell
 
@@ -41,6 +41,21 @@ install -m 644 -D -t %{buildroot}%{profiledir} bash-color-prompt.sh
 
 
 %changelog
+* Mon Nov 13 2023 Jens Petersen <petersen@redhat.com> - 0.4-1
+- define PROMPT_COLOR
+- add PROMPT_USERHOST default variable
+- add colorpre and colorsuf variables
+- drop PROMPT_EPROR
+- drop built-in container support for now
+- reset color after $ prompt
+- only define default functions if setting PS1
+
+* Mon Nov 13 2023 Jens Petersen <petersen@redhat.com> - 0.3-1
+- add PROMPT_SEPARATOR and PROMPT_DIRECTORY default variables (#2239152)
+- add optional PROMPT_START and PROMPT_END (replaces PROMPT_BRACKETS)
+- add prompt_default(), prompt_traditional(), and prompt_default_os()
+- expand README.md
+
 * Sat Nov 11 2023 Jens Petersen <petersen@redhat.com> - 0.2.1-1
 - add a container ⬢ symbol prefix
 

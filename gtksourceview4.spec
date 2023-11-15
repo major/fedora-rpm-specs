@@ -1,9 +1,11 @@
+%bcond glade %[!(0%{?rhel} >= 10)]
+
 %global glib_version 2.48
 %global gtk_version 3.22
 
 Name:           gtksourceview4
 Version:        4.8.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Source code editing widget
 
 License:        LGPLv2+
@@ -20,7 +22,9 @@ BuildRequires:  gtk-doc
 BuildRequires:  itstool
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+%if %{with glade}
 BuildRequires:  pkgconfig(gladeui-2.0)
+%endif
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk_version}
@@ -60,7 +64,7 @@ the functionality of the installed %{name} package.
 %autosetup -n gtksourceview-%{version} -p1
 
 %build
-%meson -Dgtk_doc=true -Dglade_catalog=true -Dinstall_tests=true
+%meson -Dgtk_doc=true %{?with_glade:-Dglade_catalog=true} -Dinstall_tests=true
 %meson_build
 
 %install
@@ -81,9 +85,11 @@ the functionality of the installed %{name} package.
 %{_libdir}/libgtksourceview-4.so
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/GtkSource-4.gir
+%if %{with glade}
 %dir %{_datadir}/glade
 %dir %{_datadir}/glade/catalogs
 %{_datadir}/glade/catalogs/gtksourceview.xml
+%endif
 %dir %{_datadir}/gtk-doc
 %dir %{_datadir}/gtk-doc/html
 %{_datadir}/gtk-doc/html/*
@@ -99,6 +105,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests/gtksourceview-4/
 
 %changelog
+* Tue Oct 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.8.4-4
+- Disable glade catalog in RHEL builds
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

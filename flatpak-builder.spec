@@ -1,11 +1,12 @@
+%global appstream_version 0.15.0
 %global debugedit_version 5.0
 %global glib2_version 2.66
 %global ostree_version 2017.14
 %global flatpak_version 0.99.1
 
 Name:           flatpak-builder
-Version:        1.3.3
-Release:        2%{?dist}
+Version:        1.3.4
+Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
 # src/builder-utils.c has portions derived from GPLv2+ code,
@@ -14,6 +15,7 @@ License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak-builder/releases/download/%{version}/%{name}-%{version}.tar.xz
 
+BuildRequires:  appstream-compose >= %{appstream_version}
 BuildRequires:  gettext
 BuildRequires:  debugedit >= %{debugedit_version}
 BuildRequires:  docbook-dtds
@@ -32,6 +34,7 @@ BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  /usr/bin/xmlto
 BuildRequires:  /usr/bin/xsltproc
 
+Requires:       appstream-compose >= %{appstream_version}
 Requires:       debugedit >= %{debugedit_version}
 Requires:       flatpak%{?_isa} >= %{flatpak_version}
 Requires:       glib2%{?_isa} >= %{glib2_version}
@@ -59,13 +62,20 @@ Flatpak-builder is a tool for building flatpaks from sources.
 
 See https://flatpak.org/ for more information.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description tests
+This package contains the installable tests for %{name}.
+
 
 %prep
 %autosetup -p1
 
 
 %build
-%meson -Ddocs=enabled -Dfuse=3 -Dyaml=enabled
+%meson -Ddocs=enabled -Dfuse=3 -Dinstalled_tests=true -Dyaml=enabled
 %meson_build
 
 
@@ -85,8 +95,16 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 %{_mandir}/man1/flatpak-builder.1*
 %{_mandir}/man5/flatpak-manifest.5*
 
+%files tests
+%{_datadir}/installed-tests
+%{_libexecdir}/installed-tests
+
 
 %changelog
+* Mon Nov 13 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.3.4-1
+- Update to 1.3.4 (#2212349)
+- Enable installed tests
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

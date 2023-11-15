@@ -200,6 +200,7 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %changelog
 * Tue Nov 07 2023 Jan Kolarik <jkolarik@redhat.com> - 1.0.2-1
 - Update to 1.0.2
+- Drop support for DRPM in Fedora 39 and higher
 - Don't allow building without zstd
 - Fixes for PyPI wheel
 - Fix building on EL9

@@ -27,7 +27,7 @@
 
 %global rpmver 4.19.0
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -140,6 +140,7 @@ rpm-4.18.90-weak-user-group.patch
 
 # Patches already upstream:
 # ...
+rpm-4.19.0-sysusers-fixes.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -158,6 +159,8 @@ Requires(meta): %{name} = %{version}-%{release}
 %if %{with sequoia}
 # >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
 Requires: rpm-sequoia%{_isa} >= 1.4.0
+# Most systems should have a central package operations log
+Recommends: rpm-plugin-audit
 %endif
 
 %description libs
@@ -587,6 +590,7 @@ fi
 %{_mandir}/man8/rpmsign.8*
 
 %files -n python3-%{name}
+%dir %{python3_sitearch}/rpm
 %{python3_sitearch}/rpm-%{rpmver}*.egg-info
 %{python3_sitearch}/rpm/__init__.py
 %{python3_sitearch}/rpm/transaction.py
@@ -613,6 +617,11 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Nov 13 2023 Panu Matilainen <pmatilai@redhat.com> - 4.19.0-2
+- Ensure central package ops log via rpm-plugin-audit recommends (#1476926)
+- Own our Python module directory (#2248555)
+- Fix sysusers.d generator barfing on legit content (#2246236)
+
 * Tue Sep 19 2023 Michal Domonkos <mdomonko@redhat.com> - 4.19.0-1
 - Update to 4.19.0
 

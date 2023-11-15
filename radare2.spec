@@ -1,7 +1,7 @@
 Name:           radare2
 Summary:        The reverse engineering framework
 Version:        5.8.8
-%global         baserelease     2
+%global         baserelease     3
 URL:            https://radare.org/
 VCS:            https://github.com/radareorg/radare2
 #               https://github.com/radareorg/radare2/releases
@@ -53,7 +53,7 @@ Patch6:         radare2-5.8.8-CVE-2023-5686.patch
 
 
 
-License:        LGPLv3+ and GPLv2+ and BSD and MIT and ASL 2.0 and MPLv2.0 and zlib
+License:        LGPL-3.0-or-later AND GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Apache-2.0 AND MPL-2.0 AND Zlib
 # Radare2 as a package is targeting to be licensed/compiled as LGPLv3+
 # during build for Fedora the GPL code is not omitted so effectively it is GPLv2+
 # some code has originally different license:
@@ -374,6 +374,9 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/%{version}
 
 
 %changelog
+* Thu Oct 26 2023 Michal Ambroz <rebus at, seznam.cz> 5.8.8-3
+- rebuild F40+ with capstone 5.0.1+
+
 * Thu Oct 26 2023 Michal Ambroz <rebus at, seznam.cz> 5.8.8-2
 - cherrypick from upstream master patches for known vulnerabilities:
 - CVE-2023-4322 - heap-buffer-overflow in the brainfuck dissassembler

@@ -4,7 +4,7 @@ Name:           libdvdnav
 Version:        6.1.1
 Release:        6%{?dist}
 Summary:        A library for reading DVD video discs based on Ogle code
-License:        GPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://dvdnav.mplayerhq.hu/
 Source0:        https://download.videolan.org/pub/videolan/libdvdnav/%{version}/libdvdnav-%{version}.tar.bz2
 Source1:        https://download.videolan.org/pub/videolan/libdvdnav/%{version}/libdvdnav-%{version}.tar.bz2.asc

@@ -1,10 +1,10 @@
 # Breaks the circular dependency with ruamel.yaml.clib.
 %bcond_with bootstrap
 
-%global commit a35908655d678b8463ee6198869a0708b3446e06
+%global commit eb3ecf31085135283908fc8449befebbc1fff4b3
 
 Name:           python-ruamel-yaml
-Version:        0.18.2
+Version:        0.18.5
 Release:        1%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
@@ -67,6 +67,9 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 %doc README.md
 
 %changelog
+* Sun Nov 12 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.18.5-1
+- Update to 0.18.5
+
 * Thu Oct 26 2023 Joel Capitao <jcapitao@redhat.com> - 0.18.2-1
 - Update to 0.18.2 (close RHBZ#2245968)
 

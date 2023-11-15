@@ -1,17 +1,17 @@
-%global kf5_min_version 5.88.0
+%global kf6_min_version 5.240.0
 
 Name:           kalk
-Version:        23.08.2
+Version:        24.01.75
 Release:        1%{?dist}
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later
 Summary:        %{name} is a convergent calculator for Plasma.
 Url:            https://apps.kde.org/%{name}/
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 
 BuildRequires: bison
 BuildRequires: flex
@@ -20,22 +20,20 @@ BuildRequires: mpfr-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-BuildRequires: cmake(KF5Config) >= %{kf5_min_version} 
-BuildRequires: cmake(KF5I18n) >= %{kf5_min_version}
-BuildRequires: cmake(KF5CoreAddons) >= %{kf5_min_version}
-BuildRequires: cmake(KF5UnitConversion) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Kirigami2) >= %{kf5_min_version}
+BuildRequires: cmake(KF6Config) >= %{kf6_min_version}
+BuildRequires: cmake(KF6I18n) >= %{kf6_min_version}
+BuildRequires: cmake(KF6CoreAddons) >= %{kf6_min_version}
+BuildRequires: cmake(KF6UnitConversion) >= %{kf6_min_version}
+BuildRequires: cmake(KF6Kirigami2) >= %{kf6_min_version}
 
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Feedback)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickControls2)
 
 # QML module dependencies
-Requires:  kf5-kirigami2%{?_isa}
-Requires:  qt5-qtfeedback%{?_isa}
-Requires:  qt5-qtgraphicaleffects%{?_isa}
-Requires:  qt5-qtquickcontrols2%{?_isa}
+Requires:  kf6-kirigami2%{?_isa}
+Requires:  kf6-qqc2-desktop-style%{?_isa}
+Requires:  kf6-sonnet%{?_isa}
 
 %description
 %{summary}.
@@ -44,7 +42,7 @@ Requires:  qt5-qtquickcontrols2%{?_isa}
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -52,20 +50,23 @@ Requires:  qt5-qtquickcontrols2%{?_isa}
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %files -f %{name}.lang
-%{_kf5_bindir}/%{name}
+%{_kf6_bindir}/%{name}
 
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %license LICENSES/*
 
 %changelog
+* Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
+- Update to 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

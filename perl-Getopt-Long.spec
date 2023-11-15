@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Long
 Epoch:          1
-Version:        2.55
+Version:        2.57
 Release:        1%{?dist}
 Summary:        Extended processing of command line options
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
@@ -22,6 +22,8 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(Test::More)
 Requires:       perl(Text::ParseWords)
 # Recommended:
 Requires:       perl(Pod::Usage) >= 1.14
@@ -88,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.57-1
+- 2.57 bump (rhbz#2249036)
+
 * Thu Nov 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.55-1
 - 2.55 bump (rhbz#2248884)
 

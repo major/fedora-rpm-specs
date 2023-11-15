@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 License:	ASL 2.0 and GPLv2
 URL:		https://github.com/jopohl/urh
@@ -18,8 +18,8 @@ BuildRequires:	hackrf-devel
 BuildRequires:	rtl-sdr-devel
 BuildRequires:	uhd-devel
 BuildRequires:	python3-qt5
-# temporal workaround until upstream adds support for cython-3.0.0
-BuildRequires:	python3-cython0.29
+# Unpinning Cython raised upstream: https://github.com/jopohl/urh/issues/1087
+BuildRequires:	python3-cython
 Requires:	python3-numpy
 Requires:	python3-qt5
 
@@ -46,6 +46,7 @@ pushd src/urh/dev/native/lib
 rm -rf win
 popd
 
+sed -i 's/"cython<3.0.0"/"cython"/' setup.py
 
 %build
 %py3_build
@@ -82,6 +83,9 @@ desktop-file-install --add-category="Utility" \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Mon Nov 13 2023 Karolina Surma <ksurma@redhat.com> - 2.9.5-2
+- Stop pinning Cython to 0.29, package builds with Cython 3 too
+
 * Tue Oct 31 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.5-1
 - New version
   Resolves: rhbz#2246830

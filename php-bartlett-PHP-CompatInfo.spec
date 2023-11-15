@@ -22,7 +22,7 @@
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -57,30 +57,30 @@ Requires:       php-xmlreader
 
 # Bundled libraries
 # License BSD-3-Clause
-Provides: bundled(php-bartlett-php-compatinfo-db) = 5.5.0
-Provides: bundled(php-nikic-php-parser) = v4.15.4
+Provides: bundled(php-bartlett-php-compatinfo-db) = 5.12.0
+Provides: bundled(php-nikic-php-parser) = v4.17.1
 # License MIT
 Provides: bundled(php-bartlett-sarif-php-sdk) = 1.0.1
 Provides: bundled(php-brick-math) = 0.11.0
-Provides: bundled(php-composer-semver) = 3.3.2
+Provides: bundled(php-composer-semver) = 3.4.0
 Provides: bundled(php-doctrine-annotations) = 1.14.3
 Provides: bundled(php-doctrine-cache) = 2.2.0
 Provides: bundled(php-doctrine-collections) = 1.8.0
 Provides: bundled(php-doctrine-common) = 3.4.3
-Provides: bundled(php-doctrine-dbal) = 3.6.2
-Provides: bundled(php-doctrine-deprecations) = v1.0.0
+Provides: bundled(php-doctrine-dbal) = 3.7.1
+Provides: bundled(php-doctrine-deprecations) = 1.1.2
 Provides: bundled(php-doctrine-event-manager) = 1.2.0
-Provides: bundled(php-doctrine-inflector) = 2.0.6
+Provides: bundled(php-doctrine-inflector) = 2.0.8
 Provides: bundled(php-doctrine-instantiator) = 1.5.0
 Provides: bundled(php-doctrine-lexer) = 2.1.0
-Provides: bundled(php-doctrine-orm) = 2.15.1
-Provides: bundled(php-doctrine-persistence) = 3.1.4
+Provides: bundled(php-doctrine-orm) = 2.16.2
+Provides: bundled(php-doctrine-persistence) = 3.2.0
 Provides: bundled(php-psr-cache) = 3.0.0
 Provides: bundled(php-psr-container) = 2.0.2
 Provides: bundled(php-psr-event-dispatcher) = 1.0.0
 Provides: bundled(php-psr-log) = 3.0.0
 Provides: bundled(php-ramsey-collection) = 1.3.0
-Provides: bundled(php-ramsey-uuid) = 4.7.4
+Provides: bundled(php-ramsey-uuid) = 4.7.5
 Provides: bundled(php-symfony-cache) = v6.0.19
 Provides: bundled(php-symfony-cache-contracts) = v3.0.2
 Provides: bundled(php-symfony-config) = v6.0.19
@@ -94,13 +94,13 @@ Provides: bundled(php-symfony-finder) = v6.0.19
 Provides: bundled(php-symfony-http-client) = v6.0.20
 Provides: bundled(php-symfony-http-client-contracts) = v3.0.2
 Provides: bundled(php-symfony-messenger) = v6.0.19
-Provides: bundled(php-symfony-polyfill-ctype) = v1.27.0
-Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
-Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.27.0
-Provides: bundled(php-symfony-polyfill-mbstring) = v1.27.0
-Provides: bundled(php-symfony-polyfill-php72) = v1.27.0
-Provides: bundled(php-symfony-polyfill-php80) = v1.27.0
-Provides: bundled(php-symfony-polyfill-php81) = v1.27.0
+Provides: bundled(php-symfony-polyfill-ctype) = v1.28.0
+Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.28.0
+Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.28.0
+Provides: bundled(php-symfony-polyfill-mbstring) = v1.28.0
+Provides: bundled(php-symfony-polyfill-php72) = v1.28.0
+Provides: bundled(php-symfony-polyfill-php80) = v1.28.0
+Provides: bundled(php-symfony-polyfill-php81) = v1.28.0
 Provides: bundled(php-symfony-process) = v6.0.19
 Provides: bundled(php-symfony-requirements-checker) = v2.0.1
 Provides: bundled(php-symfony-serializer) = v6.0.19
@@ -126,6 +126,9 @@ show content of dictionary references.
 
 # https://github.com/llaville/php-compatinfo-db/issues/112
 sed -e 's/touch/@touch/' -i vendor/bartlett/php-compatinfo-db/config/set/default.php
+
+# https://github.com/llaville/php-compatinfo/issues/364
+[ -f config/set/up-to-php83.php ] || ln -s up-to-php82.php config/set/up-to-php83.php
 
 : Gather all license files and cleanup tests
 mv vendor/composer/LICENSE composer_LICENSE
@@ -183,7 +186,7 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %check
-%{buildroot}%{_bindir}/phpcompatinfo --version || grep %{version}
+%{buildroot}%{_bindir}/phpcompatinfo --version | grep %{version} && exit 0
 
 
 %files
@@ -197,6 +200,9 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %changelog
+* Mon Nov 13 2023 Remi Collet <remi@remirepo.net> - 7.0.0-3
+- update bundled bartlett/php-compatinfo-db to 5.12.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

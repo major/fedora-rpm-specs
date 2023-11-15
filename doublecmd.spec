@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           doublecmd
-Version:        1.0.11
-Release:        3%{?dist}
+Version:        1.1.5
+Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
@@ -19,6 +19,8 @@ BuildRequires:  fpc-src
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  lazarus >= 1.0.0
+BuildRequires:  lazarus-lcl-gtk2
+BuildRequires:  lazarus-lcl-qt5
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(dbus-1)
@@ -28,8 +30,6 @@ BuildRequires:  pkgconfig(xtrans)
 BuildRequires:  util-linux
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  desktop-file-utils
-BuildRequires:  qt5pas-devel
-BuildRequires:  qt5-qtbase-devel
 BuildRequires:  libappstream-glib
 
 ExclusiveArch:  %{ix86} x86_64
@@ -131,6 +131,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Mon Nov 13 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.1.5-1
+- Update to 1.1.5
+- Fixed BRs thanks to suve
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

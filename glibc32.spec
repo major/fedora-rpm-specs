@@ -1,11 +1,11 @@
 # glibc32 is maintained by the glibc team with support from tools.
 %define original_name glibc
-%define original_version 2.34.9000
-%define original_release 36
-%define original_dist .fc36
+%define original_version 2.38
+%define original_release 10
+%define original_dist .fc39
 # Increase build_number in each new build.
 # When original version and/or release changes, set it back to 1.
-%global baserelease 3
+%global baserelease 1
 
 %define debug_package %{nil}
 Summary: The GNU libc libraries (32-bit)
@@ -68,6 +68,9 @@ rm -rf "$RPM_BUILD_ROOT"
 /usr/include/*
 
 %changelog
+* Mon Nov 13 2023 Florian Weimer <fweimer@redhat.com> - 2.38-10.1
+- Upgrade to glibc 2.38. (#2246731)
+
 * Tue Jul 25 2023 Florian Weimer <fweimer@redhat.com> - 2.34.9000-36.3
 - Switch to %%baserelease for rpmdev-bumpspec support
 

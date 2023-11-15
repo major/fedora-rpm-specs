@@ -1,16 +1,12 @@
 Name:            polkit-qt-1
-Version:         0.114.0
-Release:         7%{?dist}
+Version:         0.175.0
+Release:         1%{?dist}
 Summary:         Qt bindings for PolicyKit
 
-License:         GPLv2+
+License:         BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:             https://api.kde.org/kdesupport-api/polkit-qt-1-apidocs/
-Source0:         http://download.kde.org/stable/%{name}/polkit-qt-1-%{version}.tar.xz
+Source0:         https://download.kde.org/unstable/%{name}/polkit-qt-1-%{version}.tar.xz
 
-Patch0:          polkit-qt-1-change-installec-cmake-and-pc-files-to-contain-relatives.patch
-Patch1:          polkit-qt-1-unexport-nested-private-classes.patch
-Patch2:          polkit-qt-1-change-cmake-code-to-enable-buildint-against-qt6.patch
-Patch3:          polkit-qt-1-fix-memory-leak.patch
 
 BuildRequires:   cmake
 BuildRequires:   gcc-c++
@@ -112,6 +108,9 @@ Requires: polkit-qt6-1%{?_isa} = %{version}-%{release}
 %{_libdir}/cmake/PolkitQt6-1/
 
 %changelog
+* Tue Nov 14 2023 Alessandro Astone <ales.astone@gmail.com> - 0.175.0-1
+- 0.175.0 (aka 0.200.0-alpha)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.114.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

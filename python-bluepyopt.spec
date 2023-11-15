@@ -4,9 +4,9 @@
 # use git tar since pypi does not include examples that are needed for tests.
 # Upstream tags with every push to master (why?)
 # Use commit found in bluepyopt/_version.py of the PyPI release
-%global commit 6aa893757e50a96a7e638d1c72a04f97424a2a21
+%global commit 5232a8f2e278cf0d32fe7008a81d82b0ad10b992
 
-%bcond_with tests
+%bcond_without tests
 
 %global _description %{expand:
 The Blue Brain Python Optimisation Library (BluePyOpt) is an extensible
@@ -18,7 +18,7 @@ tasks into various reusable and flexible discrete elements according to
 established best-practices.}
 
 Name: python-bluepyopt
-Version: 1.14.3
+Version: 1.14.6
 Release: %autorelease
 Summary: Bluebrain Python Optimisation Library (bluepyopt)
 
@@ -27,8 +27,9 @@ Summary: Bluebrain Python Optimisation Library (bluepyopt)
 %global debug_package %{nil}
 
 # pyedflib excludes s390x, so all deps also exclude it
+# lfpy excludes ppc64le, se we follow suite
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    s390x %{ix86}
+ExcludeArch:    s390x %{ix86} %{power64}
 
 License: LGPL-3.0-only
 
@@ -67,6 +68,7 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist lfpy}
 BuildRequires:  %{py3_dist papermill}
 BuildRequires:  %{py3_dist meautility}
+BuildRequires:  python3-arbor
 %endif
 
 %description %_description
@@ -153,11 +155,10 @@ sed -i "s/x86_64/$MODSUBDIR/" bluepyopt/tests/test_stochkv.py
 k="not test_metaparameter and not test_NrnRampPulse_instantiate"
 k="$k and not test_DEAPOptimisation_run and not test_DEAPOptimisation_run_from_parents"
 k="$k and not test_optimisationsCMA_SO_run and not test_optimisationsCMA_MO_run"
-# arbor and other related tests fail
-k="$k and not test_arbor_labels"
-k="$k and not test_create_acc and not test_create_acc_replace_axon and not test_cell_model_write_and_read_acc and not test_cell_model_write_and_read_acc_replace_axon and not test_write_acc_simple and not test_CellEvaluator_evaluate and not test_sequenceprotocol_run and not test_sweepprotocol_run_isolated and not test_LFPySquarePulse_instantiate and not test_nrnsimulator_cvode_minstep and not test_distloc_exception"
-# need pebble 4.6+: disable temporarily
-k="$k and not test_exec and not test_eval and not test_l5pc_validate_neuron_arbor and not "
+# This tests still fails after (fixed) `abor` has been added as BR
+k="$k and not test_LFPySquarePulse_instantiate"
+k="$k and not test_write_acc_expsyn"
+# Why do we run pytest twice?
 %{pytest} bluepyopt/tests/ -m "unit and not neuroml" "${k:+-k $k}"
 %{pytest} bluepyopt/tests/ -m "not unit and not neuroml" "${k:+-k $k}"
 # clean up whatever files were temporarily generated for tests

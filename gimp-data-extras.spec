@@ -1,4 +1,4 @@
-%global gimpdatadir %(%{_bindir}/gimptool --gimpdatadir || echo blah)
+%global gimpdatadir %(%___build_pre; %{_bindir}/gimptool --gimpdatadir || echo blah)
 
 Summary: Extra files for GIMP
 Name: gimp-data-extras

@@ -3,7 +3,7 @@ Version: 1.0.5
 Release: 15%{?dist}
 Summary: IPTC tag library
 
-License: LGPLv2+
+License: LGPL-2.0-only
 URL: https://github.com/ianw/%{name}
 Source0: https://github.com/ianw/%{name}/releases/download/%{name}-%{version}.tar.gz
 

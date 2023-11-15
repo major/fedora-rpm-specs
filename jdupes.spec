@@ -1,16 +1,12 @@
-%global forgeurl https://github.com/jbruchon/jdupes
-
-Version:        1.25.1
-
-%forgemeta
-
 Name:           jdupes
-Release:        2%{?dist}
+Version:        1.27.3
+Release:        1%{?dist}
 Summary:        Duplicate file finder and an enhanced fork of 'fdupes'
 
 License:        MIT
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://codeberg.org/jbruchon/jdupes
+Source0:        https://codeberg.org/jbruchon/jdupes/archive/v%{version}.tar.gz
+Patch0:         0001-hashdb-backport-safety-fixes-from-master.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -30,7 +26,7 @@ prompting the user."
 
 
 %prep
-%forgesetup
+%autosetup -n %{name} -p1
 
 
 %build
@@ -49,6 +45,12 @@ prompting the user."
 
 
 %changelog
+* Mon Nov 13 2023 David Cantrell <dcantrell@redhat.com> - 1.27.3-1
+- Upgrade to jdupes-1.27.3
+- Upstream project moved to codeberg.org; update spec accordingly
+- Add patch from author to fix a hash database error that could lead
+  to data loss
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

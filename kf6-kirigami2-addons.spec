@@ -1,19 +1,16 @@
-%global gitdate 20231102.154105
-%global cmakever 5.240.0
-%global commit0 6d270f91486134e76b5e2c0a7baec3edc7706e4b
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global framework kirigami-addons
 
 Name:           kf6-kirigami2-addons
-Version:        %{cmakever}^%{gitdate}.%{shortcommit0}
-Release:        1%{?dist}
+Epoch:          1
+Version:        0.11.76
+Release:        2%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
-Source:         https://invent.kde.org/libraries/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
+Source:         https://download.kde.org/%{stable_kf6}/%{framework}/%{framework}-%{version}.tar.xz
 
 BuildRequires: cmake
-BuildRequires: extra-cmake-modules >= %{cmakever}
+BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: kf6-rpm-macros
 BuildRequires:  cmake(KF6I18n)
@@ -37,7 +34,7 @@ or Plasma).
 
 %package dateandtime
 Summary:        Date and time add-on for the Kirigami framework
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description dateandtime
 Date and time Kirigami addons, which complements other
@@ -45,12 +42,12 @@ software like Kclock.
 
 %package treeview
 Summary:         Tree view add-on for the Kirigami framework
-Requires:        %{name}%{?_isa} = %{version}-%{release}
+Requires:        %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 %description treeview
 Tree view Kirigami addon, which is useful for listing files.
 
 %prep
-%autosetup -n %{framework}-%{commit0}
+%autosetup -n %{framework}-%{version}
 
 %build
 %cmake_kf6 -DBUILD_WITH_QT6=ON
@@ -76,6 +73,12 @@ Tree view Kirigami addon, which is useful for listing files.
 %{_kf6_qmldir}/org/kde/kirigamiaddons/treeview/
 
 %changelog
+* Mon Nov 13 2023 Steve Cossette <farchord@gmail.com> - 0.11.76-2
+- Fixed a spec mistake
+
+* Mon Nov 13 2023 Steve Cossette <farchord@gmail.com> - 0.11.76-1
+- 0.11.76
+
 * Mon Nov 6 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231102.154105.6d270f9-1
 - Initial Release
 

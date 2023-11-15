@@ -1,5 +1,5 @@
 Name:           git-cola
-Version:        4.3.2
+Version:        4.4.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 

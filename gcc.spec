@@ -1,10 +1,10 @@
-%global DATE 20231011
-%global gitrev dc4aa177146b55dd7bd0b2dd63c721f3eaf2d2a8
+%global DATE 20231113
+%global gitrev 4292c70489195b52615f16679dc6df18cd1c8432
 %global gcc_version 13.2.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 4
+%global gcc_release 5
 %global nvptx_tools_gitrev aa3404ad5a496cda5d79a50bedb1344fd63e8763
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
@@ -286,6 +286,7 @@ Patch8: gcc13-no-add-needed.patch
 Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
+Patch12: gcc13-pr110792.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -863,6 +864,7 @@ so that there cannot be any synchronization problems.
 %patch -P10 -p0 -b .rh1574936~
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
+%patch -P12 -p0 -b .pr110792~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3457,6 +3459,24 @@ end
 %endif
 
 %changelog
+* Mon Nov 13 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-5
+- update from releases/gcc-13 branch
+  - PRs c++/89038, c/111884, d/110712, d/112270, fortran/67740, fortran/97245,
+	fortran/111837, fortran/112316, libbacktrace/111315,
+	libbacktrace/112263, libstdc++/110944, libstdc++/111172,
+	libstdc++/111936, libstdc++/112089, libstdc++/112314,
+	middle-end/111253, middle-end/111818, modula2/111756, modula2/112110,
+	target/101177, target/110170, target/111001, target/111366,
+	target/111367, target/111380, target/111935, target/112443,
+	tree-optimization/111397, tree-optimization/111445,
+	tree-optimization/111489, tree-optimization/111583,
+	tree-optimization/111614, tree-optimization/111622,
+	tree-optimization/111694, tree-optimization/111764,
+	tree-optimization/111820, tree-optimization/111833,
+	tree-optimization/111917
+  - fix aarch64 RA ICE (#2241139, PR target/111528)
+- fix ia32 doubleword rotates (#2238781, PR target/110792)
+
 * Wed Oct 11 2023 Jakub Jelinek <jakub@redhat.com> 13.2.1-4
 - update from releases/gcc-13 branch
   - PRs ada/110488, ada/111434, c++/99631, c++/111471, c++/111485, c++/111493,

@@ -1,7 +1,7 @@
 %global apiver 1.0
 
 Name:           gst-devtools
-Version:        1.22.6
+Version:        1.22.7
 Release:        1%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
@@ -75,6 +75,9 @@ sed -i "s/env\ //g" %{buildroot}%{_bindir}/gst-validate-launcher
 %{_libdir}/libgstvalidate-default-overrides-1.0.so
 
 %changelog
+* Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
+- 1.22.7
+
 * Wed Sep 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.6-1
 - 1.22.6
 

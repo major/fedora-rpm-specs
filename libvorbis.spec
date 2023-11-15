@@ -5,7 +5,7 @@ Name:		libvorbis
 Version:	1.3.7
 Release:	8%{?dist}
 Epoch:		1
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://www.xiph.org/
 Source:		https://downloads.xiph.org/releases/vorbis/%{name}-%{version}.tar.xz
 BuildRequires:  gcc

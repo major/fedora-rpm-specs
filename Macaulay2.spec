@@ -52,7 +52,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -298,6 +298,7 @@ BuildRequires: givaro-static
 BuildRequires: glpk-devel
 BuildRequires: iml-devel
 BuildRequires: info
+BuildRequires: libappstream-glib
 BuildRequires: libfplll-static
 BuildRequires: libfrobby-devel
 BuildRequires: libgfan-devel
@@ -572,7 +573,13 @@ desktop-file-install --vendor="" \
 
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE12} %{buildroot}%{_metainfodir}
-appstreamcli validate --nonet %{buildroot}%{_metainfodir}/com.macaulay2.macaulay2.metainfo.xml
+# Still required by guidelines for now
+# (https://pagure.io/packaging-committee/issue/1053):
+appstream-util validate-relax --nonet \
+    %{buildroot}%{_metainfodir}/com.macaulay2.macaulay2.metainfo.xml
+# Matches what gnome-software and others use:
+appstreamcli validate --no-net --explain \
+    %{buildroot}%{_metainfodir}/com.macaulay2.macaulay2.metainfo.xml
 
 # Byte compile the Emacs files, and move the documentation
 pushd %{buildroot}%{_emacs_sitelispdir}/macaulay2
@@ -616,6 +623,11 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Fri Nov 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.22-2
+- Correct appstreamcli invocation (--nonet no longer works)
+- Ask appstreamcli to explain validation findings
+- Also validate AppStream XML with appstream-util, required by guidelines
+
 * Thu Oct 26 2023 Jerry James <loganjerry@gmail.com> - 1.22-1
 - Version 1.22
 - Drop upstreamed Macaulay2-configure-c99.patch

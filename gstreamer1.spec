@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.22.6
+Version:        1.22.7
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -198,6 +198,9 @@ setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstream
 
 
 %changelog
+* Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
+- 1.22.7
+
 * Wed Sep 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.6-1
 - 1.22.6
 

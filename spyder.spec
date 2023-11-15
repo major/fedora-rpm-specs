@@ -89,10 +89,15 @@ find . -type f \( \
     -name '*.rst' -o -name '*.md' -o -name '*.py' -o -name '*.css' \
     \) -exec dos2unix --keepdate '{}' '+'
 
+# Temporary measure since the 6.x pre-releases are behind stable 5.x
+# releases wrt to the version boundaries of dependencies, but we would
+# like to keep rawhide and F39 in sync.
 # Drop upper bound for pylint (3.0.0~a7 > 3.0)
 sed -r -i 's|(pylint.*),<3.0|\1|' setup.py
 # Do the same for qtconsole (5.5.0 > 5.5~~)
 sed -r -i 's|(qtconsole.*),<5.5.0|\1|' setup.py
+# And for qdarkstyle (3.2.1 > 3.2~~)
+sed -r -i 's|(qdarkstyle.*),<3.2.0|\1|' setup.py
 
 
 %generate_buildrequires

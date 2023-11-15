@@ -1,13 +1,15 @@
 Name:		dcap
 Version:	2.47.14
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Client Tools for dCache
 
 #		plugins/gssapi/{base64.[ch],util.c} - BSD license
 #		the rest - LGPLv2+ license
-License:	LGPLv2+ and BSD
+License:	LGPL-version-2.0-or-later AND BSD-3-Clause
 URL:		https://www.dcache.org/manuals/libdcap.shtml
 Source0:	https://github.com/dCache/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+#		https://github.com/dCache/dcap/pull/28
+Patch0:		0001-Add-missing-include-crypt.h.patch
 
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:	globus-gssapi-gsi-devel
@@ -27,7 +29,7 @@ This package contains the client tools.
 
 %package libs
 Summary:	Client Libraries for dCache
-License:	LGPLv2+
+License:	LGPL-version-2.0-or-later
 
 %description libs
 dCache is a distributed mass storage system.
@@ -35,7 +37,7 @@ This package contains the client libraries.
 
 %package devel
 Summary:	Client Development Files for dCache
-License:	LGPLv2+
+License:	LGPL-version-2.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -44,7 +46,7 @@ This package contains the client development files.
 
 %package tunnel-gsi
 Summary:	GSI tunnel for dCache
-License:	LGPLv2+ and BSD
+License:	LGPL-version-2.0-or-later AND BSD-3-Clause
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-gsi
@@ -53,7 +55,7 @@ This library is dynamically loaded at runtime.
 
 %package tunnel-krb
 Summary:	Kerberos tunnel for dCache
-License:	LGPLv2+ and BSD
+License:	LGPL-version-2.0-or-later AND BSD-3-Clause
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-krb
@@ -62,7 +64,7 @@ This library is dynamically loaded at runtime.
 
 %package tunnel-ssl
 Summary:	SSL tunnel for dCache
-License:	LGPLv2+
+License:	LGPL-version-2.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-ssl
@@ -71,7 +73,7 @@ This library is dynamically loaded at runtime.
 
 %package tunnel-telnet
 Summary:	Telnet tunnel for dCache
-License:	LGPLv2+
+License:	LGPL-version-2.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-telnet
@@ -80,6 +82,7 @@ This library is dynamically loaded at runtime.
 
 %prep
 %setup -q
+%patch -P 0 -p1
 
 %build
 ./bootstrap.sh
@@ -138,6 +141,9 @@ rm -rf %{buildroot}/%{_docdir}
 %{_libdir}/%{name}/libtelnetTunnel.so
 
 %changelog
+* Mon Nov 13 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.47.14-3
+- Add missing include crypt.h
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

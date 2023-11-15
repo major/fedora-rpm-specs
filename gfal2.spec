@@ -342,7 +342,7 @@ fi
 
 %changelog
 * Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.21.5-2
-- Rebuild for gtest 1.14.0
+- Rebuild for gtest 1.14.0 (bugzilla #2228663)
 
 * Tue Aug 08 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.21.5-1
 - Upgrade to upstream release 2.21.5

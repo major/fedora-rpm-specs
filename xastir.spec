@@ -1,18 +1,14 @@
 Summary: Amateur Station Tracking and Reporting system for amateur radio
 Name:    xastir
 Epoch:   1
-Version: 2.1.4
-Release: 17%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 License: GPLv2+
 Source0: https://github.com/Xastir/Xastir/archive/Release-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.png
 Source3: %{name}.svg
 Source4: org.xastir.Xastir.metainfo.xml
-# Fix GCC10 FTBFS
-Patch0:  xastir_gcc10.patch
-Patch1:  xastir-fedora-c99-1.patch
-Patch2:  xastir-fedora-c99-2.patch
 URL:     http://www.xastir.org
 Requires: wget
 Requires: hicolor-icon-theme
@@ -24,9 +20,10 @@ BuildRequires: motif-devel
 %else
 BuildRequires: lesstif-devel
 %endif
-BuildRequires: dos2unix, libax25-devel, curl-devel, pcre-devel, proj-devel
+BuildRequires: dos2unix, libax25-devel, curl-devel, proj-devel, libXpm-devel
 BuildRequires: python3-devel, gpsman, gdal-devel, libdb-devel
 BuildRequires: desktop-file-utils, xfontsel, hdf5-devel
+BuildRequires: autoconf, automake, shapelib-devel
 
 %description
 Xastir is a graphical application that interfaces HAM radio
@@ -37,13 +34,10 @@ software.
 
 %prep
 %setup -q -n Xastir-Release-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 touch -r configure.ac aclocal.m4 Makefile.in config.h.in
 
 %build
-#./bootstrap.sh
+./bootstrap.sh
 %configure --with-geotiff=/usr/include/libgeotiff
 make %{?_smp_mflags}
 for f in README ChangeLog ; do
@@ -53,7 +47,6 @@ for f in README ChangeLog ; do
     rm -f $f.iso88591
 done
 dos2unix -k scripts/toporama250k.pl
-sed -i -e "s@#!/usr/bin/env python@#!/usr/bin/env python3@" scripts/Xastir_tigerpoly.py
 
 %install
 rm -rf %{buildroot}
@@ -85,10 +78,16 @@ install -D -p -m644 %{SOURCE4} %{buildroot}%{_metainfodir}/org.xastir.Xastir.met
 %{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/org.xastir.Xastir.metainfo.xml
 %doc AUTHORS ChangeLog COPYING DEBUG_LEVELS FAQ LICENSE
-%doc README README.Getting-Started
+%doc README
 %doc README.MAPS UPGRADE
 
 %changelog
+* Wed Nov 01 2023 Lucian Langa <lucilanga@7pot.org> - 1:2.2.0-1
+- drop pcre
+- re-add shapelib depdency - interal shapelib dropped upstream
+- drop all patches - fixed upstream
+- upgrade to latest upstream
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

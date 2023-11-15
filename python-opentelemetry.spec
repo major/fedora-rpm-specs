@@ -1,6 +1,6 @@
 # See eachdist.ini:
-%global stable_version 1.20.0
-%global prerel_version 0.41~b0
+%global stable_version 1.21.0
+%global prerel_version 0.42~b0
 # WARNING: Because python-opentelemetry-contrib has some exact-version
 # dependencies on subpackages of this package, it must be updated
 # simultaneously with this package, preferably using a side tag, such that its

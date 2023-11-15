@@ -1,14 +1,15 @@
 # See eachdist.ini. Note that this package must have the same version as the
 # ”prerel_version” (pre-release version) and “stable_version” in the
 # python-opentelemetry package, and the two packages must be updated together.
-%global stable_version 1.20.0
-%global prerel_version 0.41~b0
+%global stable_version 1.21.0
+%global prerel_version 0.42~b0
 # There are a few subpackages that have their *own* versioning scheme!
 %global aws_propagator_version 1.0.1
 %global aws_sdk_version 2.0.1
+%global rd_azure_version 0.1.0
 # Adjust this to ensure the release is monotonic, unless the base package
 # version and the above versions all change at the same time.
-%global baserel 12
+%global baserel 33
 
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
@@ -77,7 +78,7 @@
 
 Name:           python-opentelemetry-contrib
 Version:        %{stable_version}
-Epoch:          1
+Epoch:          2
 Release:        %autorelease %{?baserel:-b %{baserel}}
 Summary:        OpenTelemetry instrumentation for Python modules
 
@@ -105,16 +106,14 @@ Source11:       opentelemetry-instrument.1
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1821#issuecomment-1560136536
 Patch:          0001-Revert-Fix-expected-URL-in-aiohttp-instrumentation-t.patch
 
-# Rename azure resource detector package
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1950
+# Downstream-only: remove vestiges of aiohttp server instrumentation
+# This new instrumentation was removed from the release at the last minute.
 #
-# See also:
+# Fixes:
 #
-# Fix wrong package/project name for opentelemetry-resource-detector-azure
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1942
-#
-# We patch in just the fix, not the changelog entry:
-Patch:          %{url}/pull/1950.patch
+# ERROR: No matching distribution found for opentelemetry-instrumentation-aiohttp-server==0.42b0
+# https://github.com/open-telemetry/opentelemetry-python-contrib/issues/2053
+Patch:          0001-Downstream-only-remove-vestiges-of-aiohttp-server-in.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -135,7 +134,6 @@ BuildRequires:  python3-devel
     propagator/opentelemetry-propagator-aws-xray
     propagator/opentelemetry-propagator-ot-trace
     resource/opentelemetry-resource-detector-azure
-    resource/opentelemetry-resource-detector-container
     sdk-extension/opentelemetry-sdk-extension-aws
     util/opentelemetry-util-http
     instrumentation/opentelemetry-instrumentation-aiohttp-client
@@ -295,7 +293,7 @@ OpenTelemetry OT Trace Propagator.
 
 %package -n python3-opentelemetry-resource-detector-azure
 Summary:        OpenTelemetry Resource detectors for Azure
-Version:        %{prerel_version}
+Version:        %{rd_azure_version}
 
 %description -n python3-opentelemetry-resource-detector-azure
 This library contains OpenTelemetry Resource Detectors for the following Azure
@@ -303,14 +301,6 @@ resources:
 
   • Azure App Service
   • Azure Virtual Machines
-
-
-%package -n python3-opentelemetry-resource-detector-container
-Summary:        Container Resource Detector for OpenTelemetry
-Version:        %{prerel_version}
-
-%description -n python3-opentelemetry-resource-detector-container
-This library provides a custom resource detector for container platforms.
 
 
 %package -n python3-opentelemetry-sdk-extension-aws
@@ -1132,8 +1122,8 @@ Requires:       python3-opentelemetry-instrumentation-mysqlclient = %{?epoch:%{e
 
 %description -n python3-opentelemetry-instrumentation-mysqlclient+instruments
 This is a metapackage bringing in “instruments” extras requires for
-python3-opentelemetry-instrumentation-mysqlclient. It makes sure the dependencies
-(the packages that are instrumented) are installed.
+python3-opentelemetry-instrumentation-mysqlclient. It makes sure the
+dependencies (the packages that are instrumented) are installed.
 
 %files -n python3-opentelemetry-instrumentation-mysqlclient+instruments
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_mysqlclient-%{prerel_distinfo}
@@ -1742,6 +1732,9 @@ License:        Apache-2.0
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1366
 Obsoletes:      python3-opentelemetry-exporter-datadog < 0.36~b0-1
 Obsoletes:      python3-opentelemetry-exporter-datadog+instruments < 0.36~b0-1
+# Removed upstream:
+# https://github.com/open-telemetry/opentelemetry-python-contrib/commit/c60e46d1d4f43a9172b48505eceab299291b80e1
+Obsoletes:      python3-opentelemetry-resource-detector-container < 0.42~b0-33
 
 # Ensure we have fully-versioned dependencies (to release) across subpackages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
@@ -2294,18 +2287,8 @@ done
 %dir %{python3_sitelib}/opentelemetry/{,resource/,resource/detector/}
 
 %{python3_sitelib}/opentelemetry/resource/detector/azure/
-%{python3_sitelib}/opentelemetry_resource_detector_azure-%{prerel_distinfo}/
-
-
-%files -n python3-opentelemetry-resource-detector-container
-%license resource/opentelemetry-resource-detector-container/LICENSE
-%doc resource/opentelemetry-resource-detector-container/README.rst
-
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry/{,resource/,resource/detector/}
-
-%{python3_sitelib}/opentelemetry/resource/detector/container/
-%{python3_sitelib}/opentelemetry_resource_detector_container-%{prerel_distinfo}/
+%global rd_azure_distinfo %(echo '%{rd_azure_version}' | tr -d '~^').dist-info
+%{python3_sitelib}/opentelemetry_resource_detector_azure-%{rd_azure_distinfo}/
 
 
 %files -n python3-opentelemetry-sdk-extension-aws

@@ -14,8 +14,8 @@ very simple yet user-friendly command line interface was developed in
 order to make this process easier.}
 
 Name:           python-%{original_name}
-Version:        0.2.11
-Release:        3%{?dist}
+Version:        0.2.12
+Release:        1%{?dist}
 Summary:        A simple command-line interface for manipulating toml files
 
 # SPDX
@@ -75,6 +75,9 @@ install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{original_name}.1
 %{_mandir}/man1/%{original_name}.1*
  
 %changelog
+* Mon Nov 13 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.12-1
+- Update to the latest upstream's release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

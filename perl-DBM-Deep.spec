@@ -1,11 +1,10 @@
 Name:           perl-DBM-Deep
-Version:        2.0018
+Version:        2.0019
 Release:        1%{?dist}
 Summary:        A pure perl multi-level hash/array DBM
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBM-Deep
-Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPROUT/DBM-Deep-%{version}.tar.gz
-Patch0:         DBM-Deep-2.0017-Module-Build.patch
+Source0:        https://cpan.metacpan.org/modules/by-module/DBM/DBM-Deep-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -13,7 +12,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(Module::Build) >= 0.40
+BuildRequires:  perl(Module::Build) >= 0.42
 # Module Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -48,7 +47,7 @@ BuildRequires:  perl(Pod::Simple)
 BuildRequires:  perl(Pod::Usage) >= 1.3
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-# Runtime
+# Dependencies
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Digest::MD5)
@@ -64,9 +63,6 @@ C-based DBM. Out-of-the-box compatibility with Unix, Mac OS X and Windows.
 
 %prep
 %setup -q -n DBM-Deep-%{version}
-
-# Relax Module::Build version requirement for EPEL7 build
-%patch -P0 -p1
 
 %build
 perl Build.PL --installdirs=vendor
@@ -96,6 +92,13 @@ LONG_TESTS=1 TEST_SQLITE=1 ./Build test
 %{_mandir}/man3/DBM::Deep::Storage::File.3*
 
 %changelog
+* Mon Nov 13 2023 Paul Howarth <paul@city-fan.org> - 2.0019-1
+- Update to 2.0019 (rhbz#2249377)
+  - Improvement so that when you try to put too much data in you get a useful
+    error, and don't corrupt the database
+- Use author-independent source URL
+- Drop support for building with Module::Build < 0.42
+
 * Thu Nov  9 2023 Paul Howarth <paul@city-fan.org> - 2.0018-1
 - Update to 2.0018 (rhbz#2248772)
   - Tiny documentation and metadata fixes to make sure people go to the correct

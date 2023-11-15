@@ -15,7 +15,7 @@
 Name:           mate-panel
 Version:        %{branch}.3
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %else
 Release:        0.18%{?git_rel}%{?dist}
 %endif
@@ -33,16 +33,18 @@ URL:            http://mate-desktop.org
 Source1:        mate-panel_fedora-30.layout
 Source2:        mate-panel_rhel.layout
 
+# from upstream 1.26 branch 
+Patch1:         mate-panel_0005-libmate-panel-applet-Makefile.am-Fix-build-with-gett_1.26.patch
+Patch2:         mate-panel_0001-notification-area-stop-warning-on-removal-1.26.patch
+Patch3:         mate-panel_0002-status-notifier-fix-a-typo_1.26.patch
+Patch4:         mate-panel_0003-status-notifier-fix-typo_1.26.patch
+Patch5:         mate-panel_0004-status-notifier-Show-AttentionIcon-when-Status-is-Ne_1.26.patch
+
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 #for fish
 Recommends:     fortune-mod
 # rhbz (#1007219)
 Requires:       caja-schemas
-
-# https://github.com/mate-desktop/mate-panel/pull/1375 
-Patch1:         mate-panel_Fix-build-with-gettext-0.22.patch
-# from upstream 1.26 branch
-Patch2:         mate-panel_0001-notification-area-stop-warning-on-removal-1.26.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gobject-introspection-devel
@@ -90,7 +92,7 @@ Development files for mate-panel
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
-# Patch8
+# Patch1
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -163,6 +165,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Mon Nov 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-5
+- improve status-notifier with appindicator support
+
 * Fri Oct 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-4
 - fix crash when removing notification-area applet from panel
 

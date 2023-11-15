@@ -3,7 +3,7 @@ Version:	1.0
 Release:	18%{?dist}
 Summary:	OpenCL filesystem layout
 
-License:	Public Domain
+License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.khronos.org/registry/cl/
 
 BuildArch:	noarch

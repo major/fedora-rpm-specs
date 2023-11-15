@@ -1,4 +1,4 @@
-%ifnarch %{qt5_qtwebengine_arches}
+%ifnarch %{qt6_qtwebengine_arches}
 # No useful debug package unless qt frontend is built (see %%package qt below)
 %global debug_package %{nil}
 %endif
@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        7.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -120,15 +120,15 @@ pgAdmin is the most popular and feature rich Open Source administration and deve
 platform for PostgreSQL, the most advanced Open Source database in the world.
 
 
-%ifarch %{qt5_qtwebengine_arches}
+%ifarch %{qt6_qtwebengine_arches}
 %package qt
 Summary:        Unofficial Qt runtime for pgadmin4
 Requires:       %{name} = %{version}-%{release}
 BuildRequires:  libappstream-glib
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebengine-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtwebengine-devel
 
 %description qt
 This package contains an unofficial Qt runtime for pgadmin4.
@@ -199,8 +199,8 @@ yarn run bundle
 rm -rf node_modules
 )
 
-%ifarch %{qt5_qtwebengine_arches}
-g++ -o %{name}-qt %{SOURCE4} %{optflags} $(pkg-config --cflags --libs Qt5Core Qt5Widgets Qt5Network Qt5WebEngineWidgets)
+%ifarch %{qt6_qtwebengine_arches}
+g++ -o %{name}-qt %{SOURCE4} %{optflags} $(pkg-config --cflags --libs Qt6Core Qt6Widgets Qt6Network Qt6WebEngineWidgets)
 %endif
 make docs PYTHON=%{__python3}
 
@@ -215,7 +215,7 @@ from config import *
 HELP_PATH = '%{_defaultdocdir}/%{name}/html/'
 EOF
 
-%ifarch %{qt5_qtwebengine_arches}
+%ifarch %{qt6_qtwebengine_arches}
 for size in 16 32 48 64 128; do
     install -Dpm 0644 pkg/linux/%{name}-${size}x${size}.png %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/%{name}.png
 done
@@ -233,7 +233,7 @@ install -Dpm 0644 %{SOURCE7} %{buildroot}%{_sysconfdir}/httpd/conf.d/pgadmin4.co
 
 
 %check
-%ifarch %{qt5_qtwebengine_arches}
+%ifarch %{qt6_qtwebengine_arches}
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %endif
@@ -246,7 +246,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 # Packaged by separate langpack subpackages
 %exclude %{_prefix}/lib/%{name}/pgadmin/translations/*
 
-%ifarch %{qt5_qtwebengine_arches}
+%ifarch %{qt6_qtwebengine_arches}
 %files qt
 %{_bindir}/%{name}-qt
 %{_datadir}/applications/%{name}.desktop
@@ -262,6 +262,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Nov 13 2023 Sandro Mani <manisandro@gmail.com> - 7.8-2
+- Switch to qt6
+
 * Sun Oct 22 2023 Sandro Mani <manisandro@gmail.com> - 7.8-1
 - Update to 7.8
 

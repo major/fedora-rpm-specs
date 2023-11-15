@@ -1,8 +1,6 @@
-%define _hardened_build 1
-
 Name:           freeciv
-Version:        3.0.8
-Release:        3%{?dist}
+Version:        3.0.9
+Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPL-2.0-or-later
@@ -110,6 +108,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.9-1
+- 3.0.9
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

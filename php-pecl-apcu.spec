@@ -15,15 +15,12 @@
 
 Name:           php-pecl-apcu
 Summary:        APC User Cache
-Version:        5.1.22
-Release:        6%{?dist}
+Version:        5.1.23
+Release:        1%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
 Source3:        %{pecl_name}.conf.php
-
-Patch0:         %{pecl_name}-php83.patch
-Patch1:         %{pecl_name}-tests.patch
 
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/APCu
@@ -85,9 +82,6 @@ configuration, available on http://localhost/apcu-panel/
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
-%patch -P0 -p1 -b.php83
-%patch -P1 -p1 -b.pr490
-
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_APCU_VERSION/{s/.* "//;s/".*$//;p}' php_apc.h)
 if test "x${extver}" != "x%{version}"; then
@@ -215,6 +209,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Nov 13 2023 Remi Collet <remi@remirepo.net> - 5.1.23-1
+- update to 5.1.23
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 5.1.22-6
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 - build out of sources tree

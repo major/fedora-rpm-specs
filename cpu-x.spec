@@ -1,9 +1,9 @@
 %global forgeurl https://github.com/TheTumultuousUnicornOfDarkness/CPU-X
 %global tag v%{version}
-%global appid com.github.thetumultuousunicornofdarkness.%{name}
+%global appid io.github.thetumultuousunicornofdarkness.%{name}
 
 Name:           cpu-x
-Version:        5.0.1
+Version:        5.0.2
 %forgemeta
 Release:        %autorelease
 Summary:        Free software that gathers information on CPU, motherboard and more

@@ -9,7 +9,7 @@ Version:        %{sonamebase}.0.2.3
 Release:        13%{?dist}
 Summary:        A lossy audio codec for Bluetooth connections
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/EHfive/ldacBT
 Source0:        %{url}/releases/download/v%{version}/%{archivename}-%{version}.tar.gz
 

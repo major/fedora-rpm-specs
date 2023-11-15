@@ -46,7 +46,11 @@ Patch:          0004-Bump-libheif-rs-dep-0.21.0.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  cargo-rpm-macros
+%endif
 BuildRequires:  git-core
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk4)
@@ -72,14 +76,16 @@ rm -rf vendor
 
 %build
 %meson \
-  -Dloaders=glycin-heif,glycin-image-rs,glycin-svg \
+  -Dloaders=%{!?rhel:glycin-heif,}glycin-image-rs,glycin-svg \
   -Dtest_skip_install=true \
   %{nil}
 
 %meson_build
 
+%if !0%{?rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%endif
 
 
 %install
@@ -96,7 +102,9 @@ rm -rf vendor
 
 %files
 %license LICENSE LICENSE-LGPL-2.1 LICENSE-MPL-2.0
+%if !0%{?rhel}
 %license LICENSE.dependencies
+%endif
 %doc NEWS README.md
 %{_libexecdir}/glycin-loaders/
 %{_datadir}/glycin-loaders/

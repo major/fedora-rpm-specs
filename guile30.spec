@@ -14,7 +14,7 @@
 
 Name: guile30
 Version: 3.0.7
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A GNU implementation of Scheme for application extensibility
 License: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+
 Source: https://ftp.gnu.org/gnu/guile/guile-%{version}.tar.gz
@@ -26,8 +26,6 @@ BuildRequires: make gcc
 BuildRequires: autoconf 
 BuildRequires: pkgconfig
 Requires: coreutils
-Requires(post): info
-Requires(preun): info
 
 # Guile ships a patched version of localcharset from gnulib
 # its version is v0.1-1157-gb03f418
@@ -128,36 +126,6 @@ rm %{buildroot}%{_libdir}/guile/%{mver}/extensions/guile-readline.la
 %check
 make %{?_smp_mflags} check || true
 
-%post
-install-info %{_infodir}/guile-3.0.info.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-1.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-2.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-3.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-4.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-5.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-6.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-7.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-8.gz %{_infodir}/dir
-install-info %{_infodir}/guile-3.0.info-9.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-10.gz %{_infodir}/dir 
-install-info %{_infodir}/guile-3.0.info-11.gz %{_infodir}/dir 
-install-info %{_infodir}/r5rs-3.0.info.gz %{_infodir}/dir 
-
-%preun
-install-info --delete %{_infodir}/guile-3.0.info.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-1.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-2.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-3.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-4.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-5.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-6.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-7.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-8.gz %{_infodir}/dir
-install-info --delete %{_infodir}/guile-3.0.info-9.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-10.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/guile-3.0.info-11.gz %{_infodir}/dir 
-install-info --delete %{_infodir}/r5rs-3.0.info.gz %{_infodir}/dir 
-
 %triggerin -- slib >= 3b4-1
 rm -f %{_datadir}/guile/site/%{mver}/slibcat
 export SCHEME_LIBRARY_PATH=%{_datadir}/slib/
@@ -213,6 +181,9 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Fri Oct 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.7-10
+- Drop obsolete install-info scriptlets
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

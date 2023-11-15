@@ -2,7 +2,7 @@
 
 Name:    ktimer
 Summary: Task Scheduler
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -22,30 +22,32 @@ BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kjobwidgets-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5DBus)
+BuildRequires: kf6-rpm-macros
+BuildRequires: kf6-kcompletion-devel
+BuildRequires: kf6-kconfig-devel
+BuildRequires: kf6-kconfigwidgets-devel
+BuildRequires: kf6-kcoreaddons-devel
+BuildRequires: kf6-kcrash-devel
+BuildRequires: kf6-kdbusaddons-devel
+BuildRequires: kf6-kdeclarative-devel
+BuildRequires: kf6-kdoctools-devel
+BuildRequires: kf6-kguiaddons-devel
+BuildRequires: kf6-ki18n-devel
+BuildRequires: kf6-kiconthemes-devel
+BuildRequires: kf6-kitemviews-devel
+BuildRequires: kf6-kio-devel
+BuildRequires: kf6-kjobwidgets-devel
+BuildRequires: kf6-knewstuff-devel
+BuildRequires: kf6-knotifications-devel
+BuildRequires: kf6-knotifyconfig-devel
+BuildRequires: kf6-knewstuff-devel
+BuildRequires: kf6-kservice-devel
+BuildRequires: kf6-kwindowsystem-devel
+BuildRequires: kf6-kwidgetsaddons-devel
+BuildRequires: kf6-kxmlgui-devel
+BuildRequires: pkgconfig(Qt6Widgets)
+BuildRequires: pkgconfig(Qt6DBus)
+BuildRequires: pkgconfig(Qt6Core5Compat)
 
 # translations moved here
 Conflicts: kde-l10n < 17.03
@@ -65,7 +67,7 @@ KTimer is a little tool to execute programs after some time.
 
 
 %build
-%{cmake_kf5}
+%{cmake_kf6}
 %cmake_build
 
 
@@ -76,19 +78,22 @@ KTimer is a little tool to execute programs after some time.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
 
 
 %changelog
+* Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
+- Update to 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -1,6 +1,6 @@
 # Versions numbers
 %global major 1
-%global minor 4
+%global minor 5
 %global patch 0
 
 %global desc %{expand: \
@@ -9,15 +9,15 @@ implementations of the core cryptographic processing for IPsec, which provides
 industry-leading performance on a range of Intel Processors.}
 
 Name:               intel-ipsec-mb
-Version:            1.4
-Release:            3%{?dist}
+Version:            1.5
+Release:            1%{?dist}
 Summary:            IPsec cryptography library optimized for Intel Architecture
 
 License:            BSD-3-Clause
 URL:                https://github.com/intel/intel-ipsec-mb
-Source0:            %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:            %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch:		cmake.patch
+#Patch:		cmake.patch
 
 ExclusiveArch:      x86_64
 
@@ -39,6 +39,7 @@ Development files.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+sed -i 's|man/man7|share/man/man7|g' lib/cmake/unix.cmake
 
 %build
 %cmake
@@ -65,6 +66,9 @@ Development files.
 %{_mandir}/man7/libipsec-mb-dev.*
 
 %changelog
+* Mon Nov 13 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> 1.5-1
+- Update to 1.5
+
 * Wed Aug 16 2023 Ali Erdinc Koroglu <aekoroglu@linux.intel.com> 1.4-3
 - Packaging optimization to prevent AVX512 based gcc compilation errors
 

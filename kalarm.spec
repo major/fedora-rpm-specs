@@ -7,7 +7,7 @@
 
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -23,8 +23,8 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 
 ## upstreamable patches
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
@@ -32,56 +32,54 @@ BuildRequires: gettext
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5X11Extras)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Network)
 
-# kf5
+# kf6
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: cmake(Grantlee5)
-BuildRequires: cmake(KF5Auth)
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5GlobalAccel)
-BuildRequires: cmake(KF5GuiAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5IdleTime)
-BuildRequires: cmake(KF5JobWidgets)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5KDELibs4Support)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5NotifyConfig)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5TextEditTextToSpeech)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF6Auth)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6IdleTime)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6TextEditTextToSpeech)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
 
-BuildRequires: pkgconfig(phonon4qt5)
+BuildRequires: pkgconfig(phonon4qt6)
 
 # kde-apps
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires: kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires: kf5-kcalendarutils-devel >= %{majmin_ver}
-BuildRequires: kf5-kholidays-devel >= %{majmin_ver}
-BuildRequires: kf5-kidentitymanagement-devel >= %{majmin_ver}
-BuildRequires: kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires: kf5-kmime-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
+BuildRequires: kf6-akonadi-contacts-devel >= %{majmin_ver}
+BuildRequires: kf6-akonadi-mime-devel >= %{majmin_ver}
+BuildRequires: kf6-akonadi-server-devel >= %{majmin_ver}
+BuildRequires: kf6-kcalendarcore-devel >= %{majmin_ver}
+BuildRequires: kf6-kcalendarutils-devel >= %{majmin_ver}
+BuildRequires: kf6-kholidays-devel >= %{majmin_ver}
+BuildRequires: kf6-kidentitymanagement-devel >= %{majmin_ver}
+BuildRequires: kf6-kmailtransport-devel >= %{majmin_ver}
+BuildRequires: kf6-kmime-devel >= %{majmin_ver}
+BuildRequires: kf6-kpimtextedit-devel >= %{majmin_ver}
+BuildRequires: kf6-libkdepim-devel >= %{majmin_ver}
+BuildRequires: kf6-mailcommon-devel >= %{majmin_ver}
+BuildRequires: kf6-pimcommon-devel >= %{majmin_ver}
 
 %if 0%{?tests}
 BuildRequires: dbus-x11
@@ -90,10 +88,7 @@ BuildRequires: xorg-x11-server-Xvfb
 
 Requires: kdepim-runtime >= %{majmin_ver}
 
-# kf5-kalarmcal was merged into kalarm
-# https://invent.kde.org/pim/kalarm/-/merge_requests/13
-Obsoletes: kf5-kalarmcal < 22.12.50
-Provides:  kf5-kalarmcal = %{version}-%{release}
+Provides:  kf6-kalarmcal = %{version}-%{release}
 
 %description
 KAlarm is a personal alarm message, command and email scheduler.
@@ -101,23 +96,18 @@ KAlarm is a personal alarm message, command and email scheduler.
 %prep
 %autosetup -p1
 
-
 %build
-%cmake_kf5 \
+%cmake_kf6 \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
 %cmake_build
-
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
-
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
 %if 0%{?tests}
 export CTEST_OUTPUT_ON_FAILURE=1
 xvfb-run -a \
@@ -125,37 +115,39 @@ dbus-launch --exit-with-session \
 make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %endif
 
-
 %files -f %{name}.lang
 %license LICENSES/*
 %{_datadir}/dbus-1/interfaces/org.kde.kalarm.kalarm.xml
 %{_datadir}/dbus-1/system-services/org.kde.kalarm.rtcwake.service
 %{_datadir}/dbus-1/system.d/org.kde.kalarm.rtcwake.conf
 %{_datadir}/polkit-1/actions/org.kde.kalarm.rtcwake.policy
-%{_kf5_bindir}/kalarm
-%{_kf5_bindir}/kalarmautostart
-%{_kf5_datadir}/applications/org.kde.kalarm.desktop
-%{_kf5_datadir}/config.kcfg/kalarmconfig.kcfg
-%{_kf5_datadir}/icons/hicolor/*/apps/kalarm.*
-%{_kf5_datadir}/icons/breeze-dark/actions/16/show-today.svg
-%{_kf5_datadir}/icons/breeze-dark/actions/22/show-today.svg
-%{_kf5_datadir}/icons/breeze/actions/16/show-today.svg
-%{_kf5_datadir}/icons/breeze/actions/22/show-today.svg
-%{_kf5_datadir}/kalarm/
-%{_kf5_datadir}/knotifications5/kalarm.notifyrc
-%{_kf5_datadir}/kxmlgui5/kalarm/kalarmui.rc
-%{_kf5_datadir}/qlogging-categories5/*%{name}.*
-%{_kf5_libexecdir}/kauth/kalarm_helper
-%{_kf5_metainfodir}/org.kde.kalarm.appdata.xml
+%{_kf6_bindir}/kalarm
+%{_kf6_bindir}/kalarmautostart
+%{_kf6_datadir}/applications/org.kde.kalarm.desktop
+%{_kf6_datadir}/config.kcfg/kalarmconfig.kcfg
+%{_kf6_datadir}/icons/hicolor/*/apps/kalarm.*
+%{_kf6_datadir}/icons/breeze-dark/actions/16/show-today.svg
+%{_kf6_datadir}/icons/breeze-dark/actions/22/show-today.svg
+%{_kf6_datadir}/icons/breeze/actions/16/show-today.svg
+%{_kf6_datadir}/icons/breeze/actions/22/show-today.svg
+%{_kf6_datadir}/kalarm/
+%{_kf6_datadir}/knotifications6/kalarm.notifyrc
+%{_kf6_datadir}/kxmlgui5/kalarm/kalarmui.rc
+%{_kf6_datadir}/qlogging-categories5/*%{name}.*
+%{_kf6_libexecdir}/kauth/kalarm_helper
+%{_kf6_metainfodir}/org.kde.kalarm.appdata.xml
 %{_sysconfdir}/xdg/autostart/kalarm.autostart.desktop
-%{_kf5_libdir}/libkalarmcalendar.so.5
-%{_kf5_libdir}/libkalarmcalendar.so.5.*
-%{_kf5_libdir}/libkalarmplugin.so.5
-%{_kf5_libdir}/libkalarmplugin.so.5.*
-%{_kf5_qtplugindir}/pim5/kalarm/akonadiplugin.so
+%{_kf6_libdir}/libkalarmcalendar.so.5
+%{_kf6_libdir}/libkalarmcalendar.so.5.*
+%{_kf6_libdir}/libkalarmplugin.so.5
+%{_kf6_libdir}/libkalarmplugin.so.5.*
+%{_kf6_qtplugindir}/pim5/kalarm/akonadiplugin.so
 
 
 %changelog
+* Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
+- Update to 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -16,11 +16,10 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.29.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
-ExclusiveArch:  s390 s390x
 URL:            https://github.com/ibm-s390-linux/s390-tools
 Source0:        https://github.com/ibm-s390-linux/s390-tools/archive/v%{version}.tar.gz#/s390-tools-%{version}.tar.gz
 # To create the vendor tarball:
@@ -54,6 +53,13 @@ Patch2:         snmp-semicolon.patch
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+%ifarch s390x
+#
+# s390x/native package structure
+#
 Requires:       s390utils-core = %{epoch}:%{version}-%{release}
 Requires:       s390utils-base = %{epoch}:%{version}-%{release}
 Requires:       s390utils-osasnmpd = %{epoch}:%{version}-%{release}
@@ -61,9 +67,11 @@ Requires:       s390utils-cpuplugd = %{epoch}:%{version}-%{release}
 Requires:       s390utils-mon_statd = %{epoch}:%{version}-%{release}
 Requires:       s390utils-iucvterm = %{epoch}:%{version}-%{release}
 Requires:       s390utils-ziomon = %{epoch}:%{version}-%{release}
+%endif
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  glib2-devel
 %if %{with rust}
 %if 0%{?rhel}
 BuildRequires:  libcurl-devel
@@ -149,6 +157,10 @@ make install \
         DISTRELEASE=%{release} \
         V=1
 
+%ifarch s390x
+#
+# s390x/native specific %%install section
+#
 # sign the stage3 bootloader
 %if %{with signzipl}
 if [ -x /usr/bin/rpm-sign ]; then
@@ -208,11 +220,56 @@ install -p -m 644 %{SOURCE17} %{buildroot}%{_udevrulesdir}/81-ccw.rules
 
 # zipl.conf to be ghosted
 touch %{buildroot}%{_sysconfdir}/zipl.conf
+%endif
 
-
+%ifarch s390x
+#
+# s390x/native main %%files section
+#
 %files
 %doc README.md
 
+%else
+#
+# multiarch %%files section
+#
+
+%files
+%doc README.md
+%license LICENSE
+%{_bindir}/genprotimg
+%{_bindir}/pvattest
+%{_bindir}/pvextract-hdr
+%if %{with rust}
+%{_bindir}/pvsecret
+%endif
+%{_mandir}/man1/genprotimg.1*
+%{_mandir}/man1/pvattest.1*
+%{_mandir}/man1/pvattest-create.1*
+%{_mandir}/man1/pvattest-perform.1*
+%{_mandir}/man1/pvattest-verify.1*
+%if %{with rust}
+%{_mandir}/man1/pvsecret-add.1*
+%{_mandir}/man1/pvsecret-create-association.1*
+%{_mandir}/man1/pvsecret-create-meta.1*
+%{_mandir}/man1/pvsecret-create.1*
+%{_mandir}/man1/pvsecret-list.1*
+%{_mandir}/man1/pvsecret-lock.1*
+%{_mandir}/man1/pvsecret-version.1*
+%{_mandir}/man1/pvsecret.1*
+%endif
+%dir %{_datadir}/s390-tools
+%{_datadir}/s390-tools/genprotimg/
+
+#
+# enf of multi-arch section
+#
+%endif
+
+%ifarch s390x
+#
+# s390x specific sub-packages
+#
 #
 # ************************* s390-tools core package  *************************
 #
@@ -323,7 +380,6 @@ BuildRequires:  glibc-static
 BuildRequires:  cryptsetup-devel >= 2.0.3
 BuildRequires:  json-c-devel
 BuildRequires:  rpm-devel
-BuildRequires:  glib2-devel
 BuildRequires:  libxml2-devel
 
 
@@ -960,8 +1016,16 @@ User-space development files for the s390/s390x architecture.
 %{_libdir}/libekmfweb.so
 %{_libdir}/libkmipclient.so
 
+#
+# end of s390x specific sub-packages
+#
+%endif
+
 
 %changelog
+* Fri Nov 10 2023 Dan Horák <dan[at]danny.cz> - 2:2.29.0-5
+- enable multi-arch build
+
 * Fri Nov 10 2023 Dan Horák <dan[at]danny.cz> - 2:2.29.0-4
 - fix upstream kernel installations
 

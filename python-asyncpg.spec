@@ -29,6 +29,15 @@ Source:         %{pypi_source asyncpg}
 # for Python 3.12 yet, but we use the python3-uvloop package
 Patch:          0001-Downstream-only-use-uvloop-for-tests-even-on-Python-.patch
 
+# Allow Cython 3
+# https://github.com/MagicStack/asyncpg/pull/1101
+#
+# Fixes:
+#
+# RFE: please provide cython 3.x support
+# https://github.com/MagicStack/asyncpg/issues/1083
+Patch:          %{url}/pull/1101.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 

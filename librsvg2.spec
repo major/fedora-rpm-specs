@@ -133,8 +133,10 @@ export CARGO="%__cargo"
            --enable-vala
 %make_build
 
+%if %{undefined rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%endif
 
 %install
 %make_install
@@ -157,7 +159,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %files
 %doc code-of-conduct.md NEWS README.md
 %license COPYING.LIB
+%if %{undefined rhel}
 %license LICENSE.dependencies
+%endif
 %{_libdir}/librsvg-2.so.*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Rsvg-2.0.typelib

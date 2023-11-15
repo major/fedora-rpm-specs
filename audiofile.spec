@@ -3,7 +3,7 @@
 Summary: Library for accessing various audio file formats
 Name: audiofile
 Version: 0.3.6
-Release: 35%{?dist}
+Release: 36%{?dist}
 Epoch: 1
 # library is LGPL / the two programs GPL / see README
 License: LGPL-2.1-or-later and GPL-2.0-or-later
@@ -30,6 +30,7 @@ Patch6: 822b732fd31ffcb78f6920001e9b1fbd815fa712.patch
 Patch7: 941774c8c0e79007196d7f1e7afdc97689f869b3.patch
 Patch8: fde6d79fb8363c4a329a184ef0b107156602b225.patch
 Patch9: integer-overflow.patch
+Patch10: audiofile-0.3.6-CVE-2022-24599.patch
 
 %description
 The Audio File library is an implementation of the Audio File Library
@@ -50,17 +51,17 @@ other resources you can use to develop Audio File applications.
 
 %prep
 %setup -q
-%patch0 -p1 -b .CVE-2015-7747
-%patch1 -p1 -b .left-shift-neg
-%patch2 -p1 -b .narrowing-conversion
-%patch3 -p1 -b .pull42
-%patch4 -p1 -b .pull43
-%patch5 -p1 -b .pull44
-%patch6 -p1 -b .CVE-2018-17095
-%patch7 -p1 -b .CVE-2018-13440
-%patch8 -p1 -b .CVE-2018-13440
-%patch9 -p1 -b .integer-overflow
-
+%patch -P 0 -p1 -b .CVE-2015-7747
+%patch -P 1 -p1 -b .left-shift-neg
+%patch -P 2 -p1 -b .narrowing-conversion
+%patch -P 3 -p1 -b .pull42
+%patch -P 4 -p1 -b .pull43
+%patch -P 5 -p1 -b .pull44
+%patch -P 6 -p1 -b .CVE-2018-17095
+%patch -P 7 -p1 -b .CVE-2018-13440
+%patch -P 8 -p1 -b .CVE-2018-13440
+%patch -P 9 -p1 -b .integer-overflow
+%patch -P 10 -p1 -b .CVE-2022-24599
 
 %build
 %configure --disable-rpath
@@ -100,6 +101,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/sfinfo
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:0.3.6-36
+Patch for CVE-2022-24599
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.6-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

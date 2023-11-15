@@ -82,7 +82,7 @@ sed -i -e 's,{{VERSION}},%version,' setup.py
 doxygen Doxyfile
 
 # python bindings
-%{__python3} setup.py build
+%py3_build
 
 %check
 make check
@@ -99,7 +99,7 @@ cp -r docs/html ${RPM_BUILD_ROOT}%{_pkgdocdir}
 install -m 644 {COPYING,*.md} ${RPM_BUILD_ROOT}%{_pkgdocdir}
 
 # python bindings
-%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%py3_install
 
 %ldconfig_scriptlets
 

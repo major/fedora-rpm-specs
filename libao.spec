@@ -2,7 +2,7 @@ Name:           libao
 Version:        1.2.0
 Release:        25%{?dist}
 Summary:        Cross Platform Audio Output Library
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://xiph.org/ao/
 Source0:        http://downloads.xiph.org/releases/ao/%{name}-%{version}.tar.gz
 Patch1:         0001-ao_pulse.c-fix-latency-calculation.patch
