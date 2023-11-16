@@ -1,5 +1,4 @@
 %global pypi_name pyroaring
-%global gh_name PyRoaringBitMap
 %global forgeurl https://github.com/Ezibenroc/PyRoaringBitMap
 
 Name:           python-%{pypi_name}
@@ -30,7 +29,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n %{gh_name}-%{version}
+%forgeautosetup -p1
 
 
 %generate_buildrequires

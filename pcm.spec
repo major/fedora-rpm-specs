@@ -1,6 +1,6 @@
 Name:           pcm
 Version:        202311
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intel(r) Performance Counter Monitor
 License:        BSD
 Url:            https://github.com/intel/pcm
@@ -9,6 +9,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  cmake
+BuildRequires:  systemd
 ExclusiveArch:  %{ix86} x86_64
 
 %description
@@ -24,7 +25,7 @@ Mac OS X, FreeBSD and DragonFlyBSD operating systems.
 
 %build
 %set_build_flags
-%cmake -DCMAKE_BUILD_TYPE=CUSTOM 
+%cmake -DCMAKE_BUILD_TYPE=CUSTOM -DLINUX_SYSTEMD=TRUE -DLINUX_SYSTEMD_UNITDIR=%{_unitdir}/
 %cmake_build
 
 %install
@@ -57,6 +58,7 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 %{_sbindir}/%{name}-daemon
 %{_sbindir}/%{name}-bw-histogram
 %{_datadir}/%{name}/
+%{_unitdir}/%{name}-sensor-server.service
 
 %changelog
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 202307-2

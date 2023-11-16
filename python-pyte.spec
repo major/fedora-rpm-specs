@@ -1,6 +1,6 @@
 Summary:        In memory VT-compatible terminal emulator
 Name:           python-pyte
-Version:        0.8.1
+Version:        0.8.2
 Release:        1%{?dist}
 License:        LGPLv3
 URL:            https://github.com/selectel/pyte
@@ -54,6 +54,9 @@ pushd docs && make all
 %doc docs/_build/html
 
 %changelog
+* Tue Nov 14 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.8.2-1
+- 0.8.2
+
 * Sun Sep 24 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.8.1-1
 - 0.8.1
 

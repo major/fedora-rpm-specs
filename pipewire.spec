@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 4
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -110,6 +110,7 @@ BuildRequires:  doxygen
 BuildRequires:  python-docutils
 BuildRequires:  graphviz
 BuildRequires:  sbc-devel
+BuildRequires:  liblc3-devel
 BuildRequires:  libsndfile-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pulseaudio-libs-devel
@@ -416,7 +417,7 @@ cp %{SOURCE1} subprojects/packagefiles/
     -D sdl2=disabled 								\
     -D audiotestsrc=disabled -D videotestsrc=disabled				\
     -D volume=disabled -D bluez5-codec-aptx=disabled 		  		\
-    -D bluez5-codec-lc3plus=disabled -D bluez5-codec-lc3=disabled		\
+    -D bluez5-codec-lc3plus=disabled -D bluez5-codec-lc3=enabled		\
 %ifarch s390x
     -D bluez5-codec-ldac=disabled						\
 %endif
@@ -732,6 +733,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue Nov 14 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.84-4
+- Enable support for the lc3 bluetooth codec
+
 * Thu Nov 09 2023 Hector Martin <marcan@fedoraproject.org> - 0.3.84-3
 - Create and own /usr/share/pipewire/pipewire-pulse.conf.d
 

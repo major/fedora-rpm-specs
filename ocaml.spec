@@ -43,7 +43,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -87,7 +87,6 @@ BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  gawk
 BuildRequires:  hardlink
-BuildRequires:  parallel
 BuildRequires:  perl-interpreter
 BuildRequires:  util-linux
 BuildRequires:  /usr/bin/annocheck
@@ -471,6 +470,9 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Tue Nov 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.0-5
+- Drop unused BR parallel
+
 * Fri Oct 06 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-4
 - Use BR ocaml-srpm-macros to force latest to be built against
 

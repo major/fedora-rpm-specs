@@ -3,7 +3,7 @@
 
 %global         srcname     grpc-google-iam-v1
 %global         forgeurl    https://github.com/googleapis/python-grpc-google-iam-v1
-Version:        0.12.6
+Version:        0.12.7
 %global         tag         v%{version}
 %forgemeta
 

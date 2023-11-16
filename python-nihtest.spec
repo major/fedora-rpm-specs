@@ -8,7 +8,6 @@ Version:        1.2.0
 Release:        %{autorelease}
 Summary:        A testing tool for command line utilities
 %forgemeta
-
 License:        BSD-3-Clause
 URL:            %forgeurl
 Source:         %forgesource
@@ -35,6 +34,7 @@ and compares the files in the sandbox after the run with the expected
 results.}
 
 %description %_description
+
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}

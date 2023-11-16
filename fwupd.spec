@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.9.7
+Version:   1.9.8
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -199,11 +199,6 @@ or server machines.
     -Dtests=true \
 %else
     -Dtests=false \
-%endif
-%if 0%{?enable_dummy}
-    -Dplugin_dummy=true \
-%else
-    -Dplugin_dummy=false \
 %endif
 %if 0%{?have_flashrom}
     -Dplugin_flashrom=enabled \

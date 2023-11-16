@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-redhatopenshift
 
 Name:           python-%{srcname}
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Microsoft Azure Red Hat Openshift Management Client Library for Python
 License:        MIT

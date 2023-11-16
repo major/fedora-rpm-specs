@@ -1,19 +1,16 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
-%bcond_without  tests
-%else
+# Upstream removed the tests from PyPi.
 %bcond_with     tests
-%endif
 
 %global         srcname     azure-mgmt-signalr
 
 Name:           python-%{srcname}
-Version:        1.1.0
+Version:        2.0.0~b1
+%global         pypi_version 2.0.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure SignalR Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -42,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{pypi_version}
 
 
 %generate_buildrequires

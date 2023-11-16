@@ -40,7 +40,11 @@ Patch:          302.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  cargo-rpm-macros
+%endif
 BuildRequires:  itstool
 BuildRequires:  meson
 %if 0%{?bundled_rust_deps}
@@ -93,8 +97,10 @@ sed -i -e '/Cargo.lock/d' meson.build
 %meson
 %meson_build
 
+%if ! 0%{?rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%endif
 
 
 %install
@@ -114,7 +120,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Loupe.de
 
 %files -f loupe.lang
 %license COPYING.md
+%if ! 0%{?rhel}
 %license LICENSE.dependencies
+%endif
 %doc NEWS README.md
 %{_bindir}/loupe
 %{_datadir}/applications/org.gnome.Loupe.desktop

@@ -1,6 +1,6 @@
 Name:           bloaty
 Version:        1.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A size profiler for binaries
 
 # The entire source is Apache-2.0, except:
@@ -79,6 +79,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 bloaty.1
 
 
 %changelog
+* Tue Nov 14 2023 Rich Mattes <richmattes@gmail.com> - 1.1-24
+- Rebuild for capstone-5.0.1
+
 * Fri Sep 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-23
 - Update License to SPDX
 - Stop using deprecated %%patchN macros

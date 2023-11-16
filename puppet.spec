@@ -3,8 +3,8 @@
 %global puppet_vendor_mod_dir %{_datadir}/%{name}/vendor_modules
 
 Name:           puppet
-Version:        8.1.0
-Release:        2%{?dist}
+Version:        8.3.1
+Release:        1%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -13,16 +13,16 @@ Source1:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.g
 Source2:        RPM-GPG-KEY-puppet-20250406
 # Get these by checking out the right tag from https://github.com/puppetlabs/puppet-agent and:
 # sed 's|.\+puppetlabs/\([a-z_-]\+\).git.\+tags/\([0-9\.]\+\)"}|https://forge.puppet.com/v3/files/\1-\2.tar.gz|' configs/components/module-puppetlabs-*.json
-Source3:        https://forge.puppet.com/v3/files/puppetlabs-augeas_core-1.1.2.tar.gz
-Source4:        https://forge.puppet.com/v3/files/puppetlabs-cron_core-1.0.5.tar.gz
-Source5:        https://forge.puppet.com/v3/files/puppetlabs-host_core-1.0.3.tar.gz
-Source6:        https://forge.puppet.com/v3/files/puppetlabs-mount_core-1.0.4.tar.gz
-Source7:        https://forge.puppet.com/v3/files/puppetlabs-scheduled_task-1.0.0.tar.gz
-Source8:        https://forge.puppet.com/v3/files/puppetlabs-selinux_core-1.1.0.tar.gz
-Source9:        https://forge.puppet.com/v3/files/puppetlabs-sshkeys_core-2.2.0.tar.gz
-Source10:       https://forge.puppet.com/v3/files/puppetlabs-yumrepo_core-1.0.7.tar.gz
-Source11:       https://forge.puppet.com/v3/files/puppetlabs-zfs_core-1.2.0.tar.gz
-Source12:       https://forge.puppet.com/v3/files/puppetlabs-zone_core-1.0.3.tar.gz
+Source3:        https://forge.puppet.com/v3/files/puppetlabs-augeas_core-1.4.0.tar.gz
+Source4:        https://forge.puppet.com/v3/files/puppetlabs-cron_core-1.2.0.tar.gz
+Source5:        https://forge.puppet.com/v3/files/puppetlabs-host_core-1.2.0.tar.gz
+Source6:        https://forge.puppet.com/v3/files/puppetlabs-mount_core-1.2.0.tar.gz
+Source7:        https://forge.puppet.com/v3/files/puppetlabs-scheduled_task-3.1.1.tar.gz
+Source8:        https://forge.puppet.com/v3/files/puppetlabs-selinux_core-1.3.0.tar.gz
+Source9:        https://forge.puppet.com/v3/files/puppetlabs-sshkeys_core-2.4.0.tar.gz
+Source10:       https://forge.puppet.com/v3/files/puppetlabs-yumrepo_core-2.0.0.tar.gz
+Source11:       https://forge.puppet.com/v3/files/puppetlabs-zfs_core-1.4.0.tar.gz
+Source12:       https://forge.puppet.com/v3/files/puppetlabs-zone_core-1.1.0.tar.gz
 Source13:       puppet-nm-dispatcher.systemd
 Source14:       start-puppet-wrapper
 Source15:       logrotate
@@ -38,11 +38,11 @@ BuildRequires: hiera
 BuildRequires: systemd
 BuildRequires: gnupg2
 Requires: hiera >= 3.3.1
-Requires: facter >= 3.9.6
+Requires: facter >= 4.3.0
 Requires: rubygem(concurrent-ruby) >= 1.1.9
 Requires: rubygem(deep_merge) >= 1.0
-Requires: rubygem(facter) >= 3.9.6
-Requires: rubygem(multi_json) >= 1.10
+Requires: rubygem(facter) >= 4.3.0
+Requires: rubygem(multi_json) >= 1.13
 Requires: rubygem(puppet-resource_api) >= 1.5
 Requires: rubygem(semantic_puppet) >= 1.0.2
 Requires: rubygem(scanf) >= 1.0
@@ -208,6 +208,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Nov 14 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 8.3.1-1
+- Update to 8.3.1 (fixes rhbz#2233957)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

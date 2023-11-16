@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt
 Epoch:          1
-%global cpan_version 2.000000
+%global cpan_version 2.001000
 # Keep 4-digit version to compete with perl.spec
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
 Release:        1%{?dist}
@@ -49,7 +49,7 @@ Obsoletes:      perl-Math-BigRat < 0.2624-502
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigFloat::(BareSubclass\|Subclass)\\)
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigInt::(BareCalc\|Scalar\|Subclass)\\)
 %global __requires_exclude %{__requires_exclude}|perl\\(Math::BigInt::Lib::(Minimal\|TestUtil)\\)
-%global __requires_exclude %{__requires_exclude}|perl\\(Math::BigRat::Test\\)
+%global __requires_exclude %{__requires_exclude}|perl\\(Math::BigRat::Subclass\\)
 
 %description
 This provides Perl modules for arbitrary-size integer and float mathematics.
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0010.00-1
+- 2.001000 bump (rhbz#2249534)
+
 * Wed Nov 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0000.00-1
 - 2.000000 bump (rhbz#2247279)
   Merge the Math-BigRat distribution into the Math-BigInt distribution

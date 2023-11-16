@@ -1,13 +1,16 @@
 Name: kstart
 Version: 4.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Daemon version of kinit for Kerberos v5
 License: MIT
 URL: http://www.eyrie.org/~eagle/software/kstart/
 Source0: http://archives.eyrie.org/software/kerberos/%{name}-%{version}.tar.gz
+# https://github.com/rra/kstart/pull/4
+Patch0: https://patch-diff.githubusercontent.com/raw/rra/kstart/pull/4.diff
 BuildRequires:  gcc
 BuildRequires: krb5-devel
 BuildRequires: make
+BuildRequires: systemd-rpm-macros
 
 %description
 k5start is a modified version of kinit which can use keytabs to authenticate, 
@@ -17,6 +20,7 @@ credentials until the command exits.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure --enable-setpag --enable-reduced-depends --with-aklog=%{_bindir}/aklog
@@ -25,16 +29,28 @@ credentials until the command exits.
 
 %install
 %make_install
+mkdir -p %{buildroot}%{_userunitdir}/
+install -p -D -m 0644 systemd/krenew.service %{buildroot}%{_userunitdir}/krenew.service
 
 %files
 %license LICENSE
 %doc NEWS README
 %{_bindir}/k5start
 %{_bindir}/krenew
+%{_userunitdir}/krenew.service
 %{_mandir}/man1/k5start.1.gz
 %{_mandir}/man1/krenew.1.gz
 
+%post
+%systemd_user_post krenew.service
+
+%preun
+%systemd_user_preun krenew.service
+
 %changelog
+* Tue Nov 14 2023 Steve Traylen <steve.traylen@cern.ch> - 4.3-5
+- Addition of krenew.service user unit
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -16,7 +16,7 @@ Name:           caja-extensions
 Summary:        Set of extensions for caja file manager
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %else
 Release:        0.21%{?git_rel}%{?dist}
 %endif
@@ -32,8 +32,12 @@ URL:            http://mate-desktop.org
 Source1:       caja-share-setup-instructions
 Source2:       caja-share-smb.conf.example
 
-# rhbz (2145142)
-Patch1:        caja-extensions_0001-build-without-gupnp.patch
+# rhbz (#2249632)
+Patch1:        caja-extensions_0001-Fix-missing-GtkRadioButton-id_1.26.patch
+# rhbz (#2145142)
+Patch2:        caja-extensions_0002-sendto-require-gupnp-1.6_1.26.patch
+# https://github.com/mate-desktop/caja-extensions/commit/91cc466
+Patch3:        caja-extensions_0003-xattr-tags-extension-avoid-check-xattr-for-mtp-and-g_1.26.patch
 
 BuildRequires: make
 BuildRequires: mate-common
@@ -41,7 +45,7 @@ BuildRequires: caja-devel
 BuildRequires: mate-desktop-devel
 BuildRequires: dbus-glib-devel
 BuildRequires: gtk3-devel
-# BuildRequires: gupnp-devel
+BuildRequires: gupnp-devel
 BuildRequires: dbus-glib-devel
 
 %if 0%{?rhel} <= 7 || 0%{?fedora}
@@ -141,7 +145,7 @@ cp %{SOURCE1} SETUP
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
-# patch 1
+# patch 2
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -153,7 +157,7 @@ NOCONFIGURE=1 ./autogen.sh
 %if 0%{?rhel} > 7
      --with-sendto-plugins=emailclient,caja-burn,pidgin,removable-devices,upnp \
 %else
-     --with-sendto-plugins=emailclient,gajim,caja-burn,pidgin,removable-devices \
+     --with-sendto-plugins=all \
 %endif
      --enable-share            \
      --enable-gksu             \
@@ -194,7 +198,7 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 %{_libdir}/caja-sendto/plugins/libnstemailclient.so
 %{_libdir}/caja-sendto/plugins/libnstpidgin.so
 %{_libdir}/caja-sendto/plugins/libnstremovable_devices.so
-#%{_libdir}/caja-sendto/plugins/libnstupnp.so
+%{_libdir}/caja-sendto/plugins/libnstupnp.so
 %if 0%{?rhel} <= 7 || 0%{?fedora}
 %{_libdir}/caja-sendto/plugins/libnstgajim.so
 %endif
@@ -230,6 +234,11 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 
 %changelog
+* Tue Nov 14 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-5
+- fix rhbz (#2249632) and (#2145142)
+- enable gupnp for sendto-plugin again
+- use upstream commit https://github.com/mate-desktop/caja-extensions/commit/91cc466
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

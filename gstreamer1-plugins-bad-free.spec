@@ -10,8 +10,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.22.5
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.7
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -712,6 +712,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Tue Nov 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
+- 1.22.7
+
 * Fri Sep 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.5-2
 - Separate libs subpackage
 - Enable opencv as separate subpackage

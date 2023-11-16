@@ -1,3 +1,4 @@
+%global flatpak_version 1.5.0
 %global geoclue_version 2.5.2
 %global glib_version 2.69.1
 %global low_memory_monitor_version 2.0
@@ -16,7 +17,7 @@ BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: meson
 BuildRequires: systemd-rpm-macros
-BuildRequires: pkgconfig(flatpak)
+BuildRequires: pkgconfig(flatpak) >= %{flatpak_version}
 BuildRequires: pkgconfig(fuse3)
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(gio-unix-2.0) >= %{glib_version}

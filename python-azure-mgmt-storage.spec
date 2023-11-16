@@ -4,12 +4,12 @@
 %global         srcname     azure-mgmt-storage
 
 Name:           python-%{srcname}
-Version:        21.0.0
+Version:        21.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Storage Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 BuildArch:      noarch
 

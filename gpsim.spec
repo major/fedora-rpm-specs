@@ -1,6 +1,6 @@
 Name:		gpsim
-Version:	0.31.0
-Release:	9%{?dist}
+Version:	0.32.1
+Release:	0%{?dist}
 Summary:	A simulator for Microchip (TM) PIC (TM) microcontrollers
 Summary(fr):	Un simulateur pour les microcontrôleurs PIC (TM) Microchip (TM)
 
@@ -95,11 +95,14 @@ desktop-file-install --vendor=""\
 %files devel
 %doc COPYING
 %{_libdir}/*.so
-%exclude %{_libdir}/*.la
+%{_libdir}/pkgconfig/gpsim.pc
 %exclude %{_libdir}/*.a
 %{_includedir}/*
 
 %changelog
+* Tue Nov 14 2023 Roy Rankin <rrankin@ihug.com.au> - 0.32.1-0
+- Added processors and bug fixes
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           jacktrip
-Version:        2.0.2
+Version:        2.1.0
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 
@@ -14,12 +14,13 @@ BuildRequires:  pkgconfig(rtaudio)
 BuildRequires:  help2man
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Gui)
-BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6NetworkAuth)
 BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6WebSockets)
 %ifarch aarch64 x86_64

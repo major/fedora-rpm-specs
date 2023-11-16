@@ -62,6 +62,7 @@ npm --offline run test
 %files
 %license LICENSE %{npm_name}-%{version}-bundled-licenses.txt
 %doc README.md
+%dir %{nodejs_sitelib}
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog

@@ -8,7 +8,7 @@
 
 Name:           cave9
 Version:        0.4.1
-Release:        %autorelease -n
+Release:        %autorelease
 Summary:        3d game of cave exploration
 %global tag %{version}
 %forgemeta

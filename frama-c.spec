@@ -10,7 +10,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           frama-c
 Version:        27.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -160,23 +160,10 @@ sed -ri 's/^CP[[:blank:]]+=.*/& -p/' share/Makefile.common
 %py3_shebang_fix tests/compliance
 
 %build
-%make_build RELEASE=yes DUNE_DISPLAY=verbose VERBOSEMAKE=yes
+%dune_build
 
 %install
-# Upstream's installation method leaves the buildroot path in many installed
-# files.  Substitute our preferred installation method.
-sed -i 's|\(dune install\) --root.*|\1 --destdir=%{buildroot} --verbose --release %{_smp_mflags}|' share/Makefile.installation
-
-# Install
-%make_install PREFIX=%{_prefix} MANDIR=%{_mandir} RELEASE=yes \
-  DUNE_DISPLAY=verbose VERBOSEMAKE=yes
-
-# Move the doc directory to the right place
-mv %{buildroot}%{_prefix}/doc %{buildroot}%{_datadir}
-
-# Move the OCaml directories to the right place
-mkdir -p %{buildroot}%{ocamldir}
-mv %{buildroot}%{_prefix}/lib/{frama,qed,stublibs}* %{buildroot}%{ocamldir}
+%dune_install
 
 # Two of the man pages are duplicates, so make one a link to the other.
 cat > %{buildroot}%{_mandir}/man1/frama-c-gui.1 << EOF
@@ -201,6 +188,10 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
 cp -p share/autocomplete_frama-c \
    %{buildroot}%{_datadir}/bash-completion/completions/frama-c
 
+# Install the zsh completion file
+mkdir -p %{buildroot}%{_datadir}/zsh/site-functions
+cp -p share/_frama-c %{buildroot}%{_datadir}/zsh/site-functions
+
 # Install and bytecompile the Emacs file
 mkdir -p %{buildroot}%{_emacs_sitelispdir}
 mv %{buildroot}%{_datadir}/frama-c/share/emacs/*.el %{buildroot}%{_emacs_sitelispdir}
@@ -213,7 +204,7 @@ cp -p %{SOURCE16} %{buildroot}%{_emacs_sitestartdir}
 cd -
 
 # Remove files we don't actually want
-rm -f %{buildroot}%{_datadir}/frama-c/share/autocomplete_frama-c
+rm -f %{buildroot}%{_datadir}/frama-c/share/{autocomplete,}_frama-c
 find %{buildroot}%{_libdir} -name \*.cmo -o -name \*.cmx -o -name \*.o -delete
 rm -fr %{buildroot}%{_docdir}/frama-c{,-{dive,e-acsl,instantiate,loop-analysis,markdown-report,nonterm}}
 
@@ -224,9 +215,6 @@ cp -p src/plugins/instantiate/README.md README.instantiate.md
 cp -p src/plugins/loop_analysis/README.org README.loop-analysis.org
 cp -p src/plugins/markdown-report/README.md README.markdown-report.md
 cp -p src/plugins/nonterm/README.md README.nonterm.md
-
-# We can't ship ivette until Fedora can support Electron apps
-rm %{buildroot}%{_bindir}/ivette %{buildroot}%{ocamldir}/frama-c/ivette.tgz
 
 # Unbundle flamegraph
 rm -f %{buildroot}%{ocamldir}/frama-c/lib/analysis-scripts/flamegraph.pl
@@ -261,6 +249,7 @@ make default-tests PTESTS_OPTS=-error-code
 %{_datadir}/applications/com.%{name}.%{name}-gui.desktop
 %{_datadir}/bash-completion/completions/frama-c
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/zsh/site-functions/_frama-c
 %{_metainfodir}/com.%{name}.%{name}-gui.metainfo.xml
 %{_mandir}/man1/e-acsl-gcc.sh.1*
 %{_mandir}/man1/frama-c.1*
@@ -287,6 +276,10 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Tue Nov 14 2023 Jerry James <loganjerry@gmail.com> - 27.1-6
+- Fix failure to find plugins (bz 2249607)
+- Install the zsh completion file
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 27.1-5
 - OCaml 5.1 rebuild for Fedora 40
 

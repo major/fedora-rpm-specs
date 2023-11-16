@@ -28,8 +28,8 @@
 #global pre_release beta1
 
 Name:           lemonldap-ng
-Version:        2.17.1
-Release:        %{?pre_release:0.}3%{?pre_release:.%{pre_release}}%{?dist}
+Version:        2.17.2
+Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
 # Qrious bundled javascript library is GPLv3+
@@ -102,7 +102,7 @@ BuildRequires:  perl(feature)
 BuildRequires:  perl(fields)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(GD::SecurityImage)
-%if 0%{?fedora}%{?el9}
+%if 0%{?fedora}%{?el8}%{?el9}
 BuildRequires:  perl(GeoIP2)
 %endif
 BuildRequires:  perl(Getopt::Long)
@@ -110,7 +110,7 @@ BuildRequires:  perl(Getopt::Std)
 BuildRequires:  perl(GSSAPI)
 BuildRequires:  perl(Hash::Merge::Simple)
 BuildRequires:  perl(HTML::Template)
-%if 0%{?fedora}%{?el9}
+%if 0%{?fedora}%{?el8}%{?el9}
 BuildRequires:  perl(HTTP::BrowserDetect)
 %endif
 BuildRequires:  perl(HTTP::Headers)
@@ -700,6 +700,12 @@ fi
 
 
 %changelog
+* Tue Nov 14 2023 Clement Oudot <clem.oudot@gmail.com> - 2.17.2-1
+- Update to 2.17.2
+
+* Fri Oct 13 2023 Xavier Bachelot <xavier@bachelot.org> - 2.17.1-4
+- Enable GeoIP2 and HTTP::BrowserDetectfor EL8
+
 * Tue Oct 10 2023 Xavier Bachelot <xavier@bachelot.org> - 2.17.1-3
 - Fix broken dep on SSOaaS module dependency
 

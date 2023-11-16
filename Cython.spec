@@ -13,6 +13,10 @@ License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
 
+# Fix C++17 error: standard attributes in middle of decl-specifiers (CYTHON_UNUSED)
+# This is only relevant on Python 3.13+
+Patch:          https://github.com/cython/cython/pull/5791.patch
+
 BuildRequires:  python3-devel
 
 %if %{with tests}

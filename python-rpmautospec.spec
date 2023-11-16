@@ -1,126 +1,115 @@
 # when bootstrapping Python, pytest-xdist is not yet available
 %bcond xdist %{undefined rhel}
 
-%global srcname rpmautospec
-
-Name:           python-rpmautospec
-Version:        0.3.5
-Release:        %autorelease
-Summary:        Package and CLI tool to generate release fields and changelogs
-
-License:        MIT
-URL:            https://pagure.io/fedora-infra/rpmautospec
-Source0:        https://releases.pagure.org/fedora-infra/rpmautospec/rpmautospec-%{version}.tar.gz
-
-BuildArch:      noarch
-BuildRequires:  git
-# the langpacks are needed for tests
-BuildRequires:  glibc-langpack-de
-BuildRequires:  glibc-langpack-en
-BuildRequires:  python3-devel >= 3.6.0
-BuildRequires:  python3-setuptools
-BuildRequires:  koji
-BuildRequires:  python%{python3_pkgversion}-babel
-BuildRequires:  python3-koji
-BuildRequires:  python3-pygit2
-BuildRequires:  python%{python3_pkgversion}-pytest
-%if %{with xdist}
-BuildRequires:  python%{python3_pkgversion}-pytest-xdist
+# Package the placeholder rpm-macros (moved to redhat-rpm-config in F40)
+%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
+%bcond rpmmacropkg 1
+%else
+%bcond rpmmacropkg 0
 %endif
-BuildRequires:  python%{python3_pkgversion}-pyyaml
 
-Obsoletes:      koji-hub-plugin-rpmautospec < 0.1.5-2
-Conflicts:      koji-hub-plugin-rpmautospec < 0.1.5-2
+# Appease old Poetry versions (<1.2.0a2)
+%if ! 0%{?fedora}%{?rhel} || 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+%bcond oldpoetry 0
+%else
+%bcond oldpoetry 1
+%endif
+
+%global srcname rpmautospec
+%global canonicalname %{py_dist_name %{srcname}}
+
+Name: python-%{canonicalname}
+Version: 0.3.8
+Release: %autorelease
+Summary: Package and CLI tool to generate release fields and changelogs
+License: MIT
+URL: https://github.com/fedora-infra/%{canonicalname}
+Source0: https://github.com/fedora-infra/%{canonicalname}/releases/download/%{version}/%{canonicalname}-%{version}.tar.gz
+Patch100: rpmautospec-0.3.7-old-poetry.patch
+
+BuildArch: noarch
+BuildRequires: git
+# the langpacks are needed for tests
+BuildRequires: glibc-langpack-de
+BuildRequires: glibc-langpack-en
+BuildRequires: koji
+BuildRequires: python3-devel >= 3.9.0
+# The dependencies needed for testing don’t get auto-generated.
+BuildRequires: python3dist(pytest)
+BuildRequires: python3dist(pytest-cov)
+%if %{with xdist}
+BuildRequires: python3dist(pytest-xdist)
+%endif
+BuildRequires: python3dist(pyyaml)
+BuildRequires: sed
 
 %global _description %{expand:
 A package and CLI tool to generate RPM release fields and changelogs.}
 
 %description %_description
 
-# package the library
-
-%package -n python3-%{srcname}
-Summary:        %{summary}
+%package -n python3-%{canonicalname}
+Summary: %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
 Requires: koji
-Requires: python3-babel
-Requires: python3-koji
-Requires: python3-pygit2
 Requires: rpm
 # for "rpm --specfile"
 Requires: rpm-build >= 4.9
 
-%description -n python3-%{srcname} %_description
+%description -n python3-%{canonicalname} %_description
 
-# Note that there is no %%files section for the unversioned python module
-%files -n python3-%{srcname}
-%license LICENSE
-%doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info
-%{python3_sitelib}/%{srcname}/
-
-# package the cli tool
-
-%package -n %{srcname}
+%package -n %{canonicalname}
 Summary:  CLI tool for generating RPM releases and changelogs
-Requires: python3-%{srcname} = %{version}-%{release}
+Requires: python3-%{canonicalname} = %{version}-%{release}
 
-%description -n %{srcname}
+%description -n %{canonicalname}
 CLI tool for generating RPM releases and changelogs
-
-%files -n %{srcname}
-%{_bindir}/rpmautospec
-
-# package the Koji plugins
 
 %package -n koji-builder-plugin-rpmautospec
 Summary: Koji plugin for generating RPM releases and changelogs
-Requires: python3-%{srcname} = %{version}-%{release}
-Requires: python3-koji
+Requires: python3-%{canonicalname} = %{version}-%{release}
 Requires: koji-builder-plugins
 
 %description -n koji-builder-plugin-rpmautospec
 A Koji plugin for generating RPM releases and changelogs.
 
-%files -n koji-builder-plugin-rpmautospec
-%{_prefix}/lib/koji-builder-plugins/*
-
-%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
-# Package the placeholder rpm-macros (moved to redhat-rpm-config in F40)
-
+%if %{with rpmmacropkg}
 %package -n rpmautospec-rpm-macros
 Summary: Rpmautospec RPM macros for local rpmbuild
 Requires: rpm
 
 %description -n rpmautospec-rpm-macros
-RPM macros with placeholders for building rpmautospec enabled packages localy
-
-%files -n rpmautospec-rpm-macros
-%{rpmmacrodir}/macros.rpmautospec
+This package contains RPM macros with placeholders for building rpmautospec
+enabled packages locally.
 %endif
 
-#--------------------------------------------------------
+%generate_buildrequires
+%pyproject_buildrequires
 
 %prep
-%autosetup -n %{srcname}-%{version}
-# The python3-koji package doesn't declare itself properly, so we may not depend on it when
-# installed as an RPM.
-sed -i /koji/d requirements.txt
+%autosetup -n %{srcname}-%{version} -N
+%autopatch -M 99
+%if %{with oldpoetry}
+%autopatch 100
+%endif
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
+# Work around poetry not listing license files as such in package metadata.
+sed -i -e 's|^\(.*/LICENSE\)|%%license \1|g' %{pyproject_files}
+
 mkdir -p  %{buildroot}%{_prefix}/lib/koji-builder-plugins/
 install -m 0644 koji_plugins/rpmautospec_builder.py \
     %{buildroot}%{_prefix}/lib/koji-builder-plugins/
 
 %py_byte_compile %{python3} %{buildroot}%{_prefix}/lib/koji-builder-plugins/
 
-%if ! (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
-# RPM macros
+%if %{with rpmmacropkg}
 mkdir -p %{buildroot}%{rpmmacrodir}
 install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 %endif
@@ -131,6 +120,19 @@ install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 --numprocesses=auto
 %endif
 
+%files -n python3-%{canonicalname} -f %{pyproject_files}
+%doc README.rst
+
+%files -n %{canonicalname}
+%{_bindir}/rpmautospec
+
+%files -n koji-builder-plugin-rpmautospec
+%{_prefix}/lib/koji-builder-plugins/*
+
+%if %{with rpmmacropkg}
+%files -n rpmautospec-rpm-macros
+%{rpmmacrodir}/macros.rpmautospec
+%endif
 
 %changelog
 %autochangelog

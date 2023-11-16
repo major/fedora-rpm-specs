@@ -4,22 +4,21 @@
 #
 Name:           trademgen
 Version:        1.00.9
-Release:        3%{?dist}
+Release:        %autorelease
 
 Summary:        C++ Simulated Travel Demand Generation Library
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
-BuildRequires:  readline-devel
+BuildRequires:  pkgconfig(readline)
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
-BuildRequires:  stdair-devel
-BuildRequires:  sevmgr-devel
-
+BuildRequires:  pkgconfig(stdair)
+BuildRequires:  pkgconfig(sevmgr)
 
 %description
 %{name} aims at providing a clean API, and the corresponding C++
@@ -56,7 +55,7 @@ BuildRequires:  ghostscript
 This package contains HTML pages, as well as a PDF reference manual,
 for %{name}. All that documentation is generated thanks to Doxygen
 (https://doxygen.org). The content is the same as what can be browsed
-online (https://%{name}.org).
+online (https://github.com/airsim/%{name}).
 
 %if %{with python}
 %package        -n python3-%{name}
@@ -73,8 +72,7 @@ This package contains Python libraries for %{name}
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version} 
-
+%autosetup
 
 %build
 %cmake
@@ -93,7 +91,7 @@ rm -f %{buildroot}%{_docdir}/%{name}/html/installdox
 # in the project top directory)
 rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README,AUTHORS}
 
-#check
+%check
 #ctest
 
 %if %{with python3}
@@ -119,7 +117,7 @@ rm -f %{_bindir}/py%{name}
 %{_mandir}/man1/%{name}_drawBookingArrivals.1.*
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
@@ -133,7 +131,7 @@ rm -f %{_bindir}/py%{name}
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
+%doc %{_docdir}/%{name}/
 %license COPYING
 
 %if %{with python}
@@ -147,14 +145,5 @@ rm -f %{_bindir}/py%{name}
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.00.9-2
-- Rebuilt for Python 3.12
-
-* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 1.00.9-1
-- Upstream upgrade
-
 %autochangelog
 

@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        4.3.0
+Version:        4.5.1
 Release:        %autorelease
 Summary:        Command and ruby library for gathering system information
 
@@ -14,7 +14,7 @@ Source2:        https://downloads.puppetlabs.com/puppet-gpg-signing-key-20250406
 
 BuildRequires:  gnupg2
 BuildRequires:  rubygems-devel
-BuildRequires:  ruby >= 2.3
+BuildRequires:  ruby >= 2.5
 Requires:       ruby(rubygems)
 
 # Add runtime deps for testing
@@ -29,6 +29,9 @@ Requires:       pciutils
 Requires:       virt-what
 %endif
 Requires:       net-tools
+
+# Soft dependency for the mountpoints fact
+Requires:       rubygem(sys-filesystem)
 
 Provides:       ruby-%{name} = %{version}
 Obsoletes:      ruby-%{name} < 4

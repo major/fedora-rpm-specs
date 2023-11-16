@@ -1,14 +1,10 @@
 Name:           exaile
-Version:        4.1.2
-Release:        6%{?dist}
+Version:        4.1.3
+Release:        1%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPLv2+
 URL:            http://www.exaile.org
 Source0:        https://github.com/exaile/exaile/archive/%{version}/%{name}-%{version}.tar.gz
-# Install icons according to FreeDesktop specification (#845)
-Patch0:         83d111ba72fc4386a1073668099ccc7ad6e40b2a.patch
-# Update to webkit2gtk-4.1 (#875)
-Patch1:         0001-wikipedia-use-WebKit2-4.1.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-rpm-macros
@@ -19,40 +15,36 @@ BuildRequires:  cairo-gobject
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  gobject-introspection
-BuildRequires:  gstreamer1-plugins-base >= 1.14
-BuildRequires:  gstreamer1-plugins-good >= 1.14
-BuildRequires:  gtk3 >= 3.22
+BuildRequires:  gstreamer1-plugins-base >= 1.16
+BuildRequires:  gstreamer1-plugins-good >= 1.16
+BuildRequires:  gtk3 >= 3.24
 BuildRequires:  help2man
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-bsddb3
 BuildRequires:  python3-cairo
 BuildRequires:  python3-dbus
 BuildRequires:  python3-devel
-BuildRequires:  python3-gobject-devel >= 3.22
-BuildRequires:  python3-gstreamer1 >= 1.14
-BuildRequires:  python3-mutagen >= 1.38
+BuildRequires:  python3-gobject-devel >= 3.24
+BuildRequires:  python3-gstreamer1 >= 1.16
+BuildRequires:  python3-mutagen >= 1.44
 BuildRequires:  python3-setproctitle
 BuildRequires:  python3-pytest
 
-Requires:       python3 >= 3.6
+Requires:       python3 >= 3.8
 Requires:       python3-bsddb3
-Requires:       gtk3 >= 3.22
-Requires:       python3-gstreamer1 >= 1.14
-Requires:       gstreamer1-plugins-good >= 1.14
-Requires:       gstreamer1-plugins-base >= 1.14
-Requires:       python3-mutagen >= 1.38
+Requires:       gtk3 >= 3.24
+Requires:       python3-gstreamer1 >= 1.16
+Requires:       gstreamer1-plugins-good >= 1.16
+Requires:       gstreamer1-plugins-base >= 1.16
+Requires:       python3-mutagen >= 1.44
 Requires:       python3-dbus
-Requires:       python3-gobject >= 3.22
+Requires:       python3-gobject >= 3.24
 Requires:       python3-cairo
 Requires:       cairo-gobject
 Requires:       python3-setproctitle
 
 # Device detection:
 Recommends:     libudisks2
-# CD info:
-# This is currently broken on python3
-# See https://github.com/exaile/exaile/issues/608 and https://github.com/exaile/exaile/issues/652
-# Recommends:     python3-cddb
 # DAAP plugins (daapserver and daapclient):
 #Not packaged for Fedora
 #Recommends:     spydaap
@@ -68,7 +60,8 @@ Recommends:     python3-musicbrainzngs
 # Podcast plugin:
 Recommends:     python3-feedparser
 # Wikipedia info:
-Recommends:     webkit2gtk4.1
+#Not packaged for fedora
+#Recommends:     webkit2gtk3
 # Xlib-based hotkeys:
 Recommends:     keybinder3
 # Scalable icons:
@@ -82,6 +75,9 @@ Recommends:     streamripper
 #Recommends:     moodbar
 # BPM Counter plugin:
 Recommends:     gstreamer1-plugins-bad-free
+# CD Info and Musicbrainz covers:
+Recommends:     python3-discid
+Recommends:     python3-musicbrainzngs
 
 
 %description
@@ -108,7 +104,7 @@ much more.
 sed -i "s|install -m|\$(INSTALL) -m|;s|all: compile |all: |" Makefile
 
 # Disable plugins that aren't packaged or don't work on Fedora
-sed -i "s|BAD = \[\]|BAD = ['cd', 'daapclient', 'daapserver', 'moodbar', 'winmmkeys']|" plugins/list.py
+sed -i "s|BAD = \[\]|BAD = ['daapclient', 'daapserver', 'moodbar', 'winmmkeys', 'wikipedia']|" plugins/list.py
 
 %make_build
 
@@ -145,6 +141,11 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Tue Nov 14 2023 Graham White <graham_alton@hotmail.com> - 4.1.3-1
+- Update to 4.1.3
+- Re-enable CD Info plugin
+- Disable Wikipedia plugin
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -179,7 +180,7 @@ make test
 - Fix traceback when scanning files that have been removed (BZ #1990693)
 
 * Tue Aug 03 2021 Graham White <graham_alton@hotmail.com> - 4.1.1-5
-- Disable plugins that aren't packaged or don't work on Fedora 
+- Disable plugins that aren't packaged or don't work on Fedora
 
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild

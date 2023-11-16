@@ -27,8 +27,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.22.5
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.7
+Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -145,6 +145,7 @@ BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: pkgconfig(Qt5WaylandClient)
 BuildRequires: qt5-qtbase-private-devel
+BuildRequires: qt5-linguist
 
 Supplements: (gstreamer1-plugins-good and qt5-qtdeclarative)
 
@@ -169,6 +170,7 @@ BuildRequires: pkgconfig(Qt6Quick)
 BuildRequires: pkgconfig(Qt6WaylandClient)
 BuildRequires: pkgconfig(Qt6Linguist)
 BuildRequires: qt6-qtbase-private-devel
+BuildRequires: qt6-linguist
 
 Supplements: (gstreamer1-plugins-good and qt6-qtdeclarative)
 
@@ -353,6 +355,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Tue Nov 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
+- 1.22.7
+
 * Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 1.22.5-3
 - Rebuild (qt6)
 

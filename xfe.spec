@@ -5,7 +5,7 @@
 
 Name:		xfe
 Version:	1.45
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -25,6 +25,10 @@ Patch1:	xfe-1.45-ctrl-l-bug274.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2190356
 # xfw 1.45 window disappears after opening from recent files
 Patch2:	xfe-1.45-xfw-recent-files-bug275.patch
+# https://sourceforge.net/p/xfe/bugs/278/
+# https://bugzilla.redhat.com/show_bug.cgi?id=2249586
+# xfe / xfw aborts with opening font selection
+Patch3:	xfe-1.45-font-selection-buffer-size-bug278.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -37,7 +41,7 @@ BuildRequires:	libX11-devel
 BuildRequires:	libXft-devel
 BuildRequires:	libXrandr-devel
 BuildRequires:	startup-notification-devel
-BuildRequires:	%{_bindir}/pkexec
+BuildRequires:	/usr/bin/pkexec
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xcb-aux)
@@ -69,6 +73,7 @@ This package contains extra theme files for %{name}.
 %patch -P0 -p1 -b .syssn
 %patch -P1 -p1 -b .ctrl-l
 %patch -P2 -p1 -b .window_delete
+%patch -P3 -p1 -b .fontsel
 
 for f in \
 	ChangeLog
@@ -184,6 +189,9 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Tue Nov 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-6
+- Fix abort when opening font selection (bug 2249586) (upstream bug 278)
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

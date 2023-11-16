@@ -2,13 +2,13 @@
 
 %global meson_version 0.49.0
 %global glib2_version 2.44.0
-%global libvirt_version 3.0.0
+%global libvirt_version 3.1.0
 %global libvirt_glib_version 0.0.7
 %global system_user libvirtdbus
 
 Name: libvirt-dbus
 Version: 1.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: libvirt D-Bus API binding
 License: LGPL-2.1-or-later
 URL: https://libvirt.org/
@@ -19,11 +19,7 @@ BuildRequires: meson >= %{meson_version}
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libvirt-devel >= %{libvirt_version}
 BuildRequires: libvirt-glib-devel >= %{libvirt_glib_version}
-%if 0%{?rhel} == 7
-BuildRequires: python36-docutils
-%else
 BuildRequires: python3-docutils
-%endif
 BuildRequires: systemd-rpm-macros
 BuildRequires: systemd
 
@@ -42,7 +38,8 @@ This package provides D-Bus API for libvirt
 %autosetup
 
 %build
-%meson
+%meson \
+    -Dinit_script=systemd
 %meson_build
 
 %install
@@ -57,28 +54,34 @@ exit 0
 
 %post
 %systemd_post %{name}.service
+%systemd_user_post %{name}.service
 
 %preun
 %systemd_preun %{name}.service
+%systemd_user_preun %{name}.service
 
 %postun
-%systemd_postun_with_reload %{name}.service
+%systemd_postun_with_restart %{name}.service
+%systemd_user_postun_with_restart %{name}.service
 
 %files
 %doc AUTHORS.rst NEWS.rst
 %license COPYING
 %{_sbindir}/libvirt-dbus
+%{_unitdir}/libvirt-dbus.service
+%{_userunitdir}/libvirt-dbus.service
 %{_datadir}/dbus-1/services/org.libvirt.service
 %{_datadir}/dbus-1/system-services/org.libvirt.service
 %{_datadir}/dbus-1/system.d/org.libvirt.conf
 %{_datadir}/dbus-1/interfaces/org.libvirt.*.xml
 %{_datadir}/polkit-1/rules.d/libvirt-dbus.rules
 %{_mandir}/man8/libvirt-dbus.8*
-%{_unitdir}/%{name}.service
-%{_userunitdir}/%{name}.service
 
 %changelog
-* Mon Oct 30 2023 Ladar Levison <ladar@lavabit.com>
+* Tue Nov 14 2023 Pavel Hrdina <phrdina@redhat.com> - 1.4.1-2
+- Synchronize spec file with upstream
+
+* Mon Oct 30 2023 Ladar Levison <ladar@lavabit.com> - 1.4.1-1
 - Update to 1.4.1 release
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8

@@ -1,5 +1,5 @@
 Name:		proxmark3
-Version:	4.17140
+Version:	4.17511
 Release:	%autorelease
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 License:	GPLv3+
@@ -48,6 +48,9 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+* Tue Nov 7 2023 Marlin Soose <marlin.soose@esque.ca> - 4.17511
+- Bumping package to v4.17511
+
 * Tue Nov 7 2023 Marlin Soose <marlin.soose@esque.ca> - 4.17140
 - Bumping package to v4.17140, add lz4-devel build dep
 

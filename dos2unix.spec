@@ -1,15 +1,22 @@
 Summary: Text file format converters
 Name: dos2unix
 Version: 7.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause
 URL: https://waterlan.home.xs4all.nl/dos2unix.html
 Source: https://waterlan.home.xs4all.nl/dos2unix/%{name}-%{version}.tar.gz
+Source: https://waterlan.home.xs4all.nl/dos2unix/%{name}-%{version}.tar.gz.asc
+Source: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x38C1F572B12725BE#./38C1F572B12725BE.asc
+
 BuildRequires: gcc
 BuildRequires: gettext
-# perl modules, required for tests
-BuildRequires: perl-Test-Harness perl-Test-Simple
 BuildRequires: make
+# perl modules, required for tests
+BuildRequires: perl-Test-Harness
+BuildRequires: perl-Test-Simple
+# for gpg signature verification
+BuildRequires: gnupg2
+
 Provides: unix2dos = %{version}-%{release}
 Obsoletes: unix2dos < 5.1-1
 
@@ -18,7 +25,8 @@ Convert text files with DOS or Mac line endings to Unix line endings and
 vice versa.
 
 %prep
-%setup -q
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
 
 %build
 %make_build LDFLAGS="%{build_ldflags}"
@@ -27,7 +35,7 @@ vice versa.
 %make_install
 
 # We add doc files manually to %%doc
-rm -rf $RPM_BUILD_ROOT%{_docdir}
+rm -rf %{buildroot}%{_docdir}
 
 %find_lang %{name} --with-man --all-name
 
@@ -45,6 +53,10 @@ make test
 %{_mandir}/man1/*.1*
 
 %changelog
+* Mon Nov 13 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 7.5.1-2
+- Add gpg signature check
+- Misc changes
+
 * Wed Sep 20 2023 Tim Waugh <twaugh@redhat.com> - 7.5.1-1
 - Update to 7.5.1 (bug #2235872).
 

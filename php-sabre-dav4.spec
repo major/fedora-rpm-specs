@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    b65362abc926520eda2c57e219f022a6c288069d
+%global gh_commit    7e40343e473f17eab3d1d6ca4ae3e1cdfc6e0fd8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   dav
@@ -24,13 +24,13 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        WebDAV Framework for PHP
-Version:        4.4.0
-Release:        4%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # sabre is BSD
 # assets/openiconic is MIT
-License:        BSD and MIT
+License:        BSD-3-Clause AND MIT
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 # git snapshot to retrieve tests
 Source1:        makesrc.sh
@@ -47,7 +47,7 @@ BuildRequires: (php-composer(sabre/xml)       >= 2.0.1  with php-composer(sabre/
 BuildRequires: (php-composer(sabre/http)      >= 5.0.5  with php-composer(sabre/http)     < 6)
 BuildRequires: (php-composer(sabre/uri)       >= 2.0    with php-composer(sabre/uri)      < 3)
 BuildRequires: (php-composer(psr/log)         >= 1.0.1  with php-composer(psr/log)        < 4)
-BuildRequires: (php-composer(monolog/monolog) >= 1.18 with php-composer(monolog/monolog)  < 2)
+BuildRequires: (php-composer(monolog/monolog) >= 1.27 with php-composer(monolog/monolog)  < 2)
 BuildRequires:  php-dom
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
@@ -61,19 +61,13 @@ BuildRequires:  php-curl
 BuildRequires:  php-pdo
 BuildRequires:  php-json
 # From composer.json, "require-dev" : {
-#        "friendsofphp/php-cs-fixer": "^2.17.1",
-#        "phpstan/phpstan": "^0.12",
-#        "phpunit/phpunit" : "^7.5 || ^8.5 || ^9.0",
-#        "evert/phpdoc-md" : "~0.1.0",
-#        "squizlabs/php_codesniffer": "~1.5.3"
-#        "monolog/monolog": "^1.18"
-%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
-BuildRequires:  phpunit9
+#        "friendsofphp/php-cs-fixer": "^2.19",
+#        "monolog/monolog": "^1.27",
+#        "phpstan/phpstan": "^0.12 || ^1.0",
+#        "phpstan/phpstan-phpunit": "^1.0",
+#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6"
+BuildRequires:  phpunit9 >= 9.6
 %global phpunit %{_bindir}/phpunit9
-%else
-BuildRequires:  phpunit8
-%global phpunit %{_bindir}/phpunit8
-%endif
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -155,7 +149,7 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 %setup -q -n %{gh_project}-%{gh_commit}
 mv lib/DAV/Browser/assets/openiconic/ICON-LICENSE .
 
-%patch0 -p1 -b .rpm
+%patch -P0 -p1 -b .rpm
 
 : relocate
 for dir in CalDAV CardDAV DAV DAVACL; do
@@ -203,7 +197,7 @@ sed -e 's:@BUILDROOT@:%{buildroot}:' -i bootstrap.php
 
 : Run upstream test suite against installed library
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     for ts in sabre-dav sabre-davacl sabre-caldav sabre-carddav; do
@@ -230,6 +224,9 @@ exit $ret
 
 
 %changelog
+* Tue Nov 14 2023 Remi Collet <remi@remirepo.net> - 4.5.0-1
+- update to 4.5.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

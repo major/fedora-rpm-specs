@@ -168,13 +168,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        119.0.1
-Release:        2%{?pre_tag}%{?dist}
+Version:        120.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20231110.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20231114.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -248,8 +248,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
-Patch409:        D192061.1699444912.diff
-Patch410:        D192208.1699444906.diff
 Patch411:        mozilla-1762816.patch
 
 # PGO/LTO patches
@@ -522,7 +520,7 @@ This package contains results of tests executed during build.
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
 #%patch101 -p1 -b .firefox-tests-reftest
-%patch102 -p1 -b .firefox-tests-xpcshell-freeze
+#%patch102 -p1 -b .firefox-tests-xpcshell-freeze
 
 # Fedora patches
 %patch215 -p1 -b .addons
@@ -542,8 +540,6 @@ This package contains results of tests executed during build.
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .D167159
-%patch409 -p1 -b .D192061
-%patch410 -p1 -b .D192208
 %patch411 -p1 -b .mozilla-1762816
 
 # PGO patches
@@ -1153,6 +1149,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Nov 14 2023 Martin Stransky <stransky@redhat.com>- 120.0-1
+- Updated to 120.0
+
 * Fri Nov 10 2023 Martin Stransky <stransky@redhat.com>- 119.0.1-2
 - Updated to 119.0.1
 

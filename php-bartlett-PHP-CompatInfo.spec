@@ -11,18 +11,18 @@
 %undefine __brp_mangle_shebangs
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    7b053000a684d1fa3840e0ab3c5833fecdf02dc3
+%global gh_commit    c94491403ade577b5a1d6f0a460339394e039f3c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20151005
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  7.0.0
+%global upstream_version  7.0.1
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -36,6 +36,8 @@ Source9:        makesrc.sh
 
 # Relocate the database
 Patch0:         %{name}-6.0.0-rpm.patch
+# Allow PHP 8.3
+Patch1:         %{name}-7.0.0-php83.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.0
@@ -57,7 +59,7 @@ Requires:       php-xmlreader
 
 # Bundled libraries
 # License BSD-3-Clause
-Provides: bundled(php-bartlett-php-compatinfo-db) = 5.12.0
+Provides: bundled(php-bartlett-php-compatinfo-db) = 5.13.0
 Provides: bundled(php-nikic-php-parser) = v4.17.1
 # License MIT
 Provides: bundled(php-bartlett-sarif-php-sdk) = 1.0.1
@@ -123,12 +125,10 @@ show content of dictionary references.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
+%patch -P1 -p1
 
 # https://github.com/llaville/php-compatinfo-db/issues/112
 sed -e 's/touch/@touch/' -i vendor/bartlett/php-compatinfo-db/config/set/default.php
-
-# https://github.com/llaville/php-compatinfo/issues/364
-[ -f config/set/up-to-php83.php ] || ln -s up-to-php82.php config/set/up-to-php83.php
 
 : Gather all license files and cleanup tests
 mv vendor/composer/LICENSE composer_LICENSE
@@ -200,6 +200,10 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %changelog
+* Tue Nov 14 2023 Remi Collet <remi@remirepo.net> - 7.0.1-1
+- update to 7.0.1
+- update bundled bartlett/php-compatinfo-db to 5.13.0
+
 * Mon Nov 13 2023 Remi Collet <remi@remirepo.net> - 7.0.0-3
 - update bundled bartlett/php-compatinfo-db to 5.12.0
 

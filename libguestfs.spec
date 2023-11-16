@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.7
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1102,6 +1102,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Nov 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.7-6
+- Don't pull in selinux-policy as a requires
+
 * Mon Oct 30 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.7-5
 - Use dhcpcd instead of dhclient (RHBZ#2247057)
 

@@ -1,30 +1,25 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
 #
 Name:           airinv
 Version:        1.00.8
-Release:        2%{?dist}
+Release:        %autorelease
 
 Summary:        C++ Simulated Airline Inventory Management System library
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
-BuildRequires:  readline-devel
-BuildRequires:  zeromq-devel
-BuildRequires:  cppzmq-devel
-BuildRequires:  sevmgr-devel
+BuildRequires:  pkgconfig(readline)
+BuildRequires:  pkgconfig(libzmq)
+BuildRequires:  pkgconfig(cppzmq)
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
-BuildRequires:  stdair-devel
-BuildRequires:  airrac-devel
-BuildRequires:  rmol-devel
-BuildRequires:  sevmgr-devel
-
+BuildRequires:  pkgconfig(stdair)
+BuildRequires:  pkgconfig(airrac)
+BuildRequires:  pkgconfig(rmol)
+BuildRequires:  pkgconfig(sevmgr)
 
 %description
 %{name} is a C++ library of airline inventory management classes and
@@ -59,12 +54,11 @@ BuildRequires:  ghostscript
 This package contains HTML pages, as well as a PDF reference manual,
 for %{name}. All that documentation is generated thanks to Doxygen
 (https://doxygen.org). The content is the same as what can be browsed
-online (https://%{name}.org).
+online (https://github.com/airsim/%{name}).
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}
-
+%autosetup
 
 %build
 %cmake
@@ -98,7 +92,7 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README,AUTHORS}
 %{_mandir}/man1/AirInvServer.1.*
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
@@ -109,19 +103,10 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README,AUTHORS}
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
+%doc %{_docdir}/%{name}/
 %license COPYING
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 1.00.8-1
-- Upstream upgrade
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.7-4
-- Rebuilt for Boost 1.81
-
 %autochangelog
 

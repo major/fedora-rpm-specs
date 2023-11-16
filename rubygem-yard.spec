@@ -23,6 +23,7 @@ Source2:	yard-create-missing-test-files.sh
 # https://github.com/lsegal/yard/pull/1510
 Patch0:	yard-pr1510-fixup-BOM-encoding.patch
 # https://github.com/lsegal/yard/issues/1514
+# https://github.com/lsegal/yard/pull/1519
 # Testsuite: remove invalid yield usage from spec (for ruby3.3)
 Patch1:	yield-issue1514-remove-invalid-yield-usage.patch
 

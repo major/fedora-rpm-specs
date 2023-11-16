@@ -7,8 +7,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.22.5
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.7
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPL-2.1-or-later
@@ -120,7 +120,7 @@ for the GStreamer Base Plugins library.
 
 %prep
 %setup -q -n gst-plugins-base-%{version}
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 %meson \
@@ -491,6 +491,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Tue Nov 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
+- 1.22.7
+
 * Fri Jul 21 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.5-1
 - Update to 1.22.5
 

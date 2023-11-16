@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.11
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -186,6 +186,11 @@ Patch161: 0012-Document-QGtk3Interface.patch
 Patch162: 0013-Document-QGtk3Storage.patch
 Patch163: 0014-QGtk3Theme-Improve-fixed-font-delivery.patch
 Patch164: 0015-QGtk3Theme-Do-not-default-Active-WindowText-to-butto.patch
+Patch165: 0016-Fix-memory-leak-in-QGtk3Interface-themename.patch
+Patch166: 0017-Fix-disabled-button-color-in-Linux-x11-wayland.patch
+Patch167: 0018-Fix-inactive-palette-in-gtk3-theme.patch
+Patch168: 0019-Fix-tooltip-palette-issue-in-gtk3-theme.patch
+Patch169: 0020-QGtk3Theme-define-light-midlight-mid-dark-shadow-colors.patch
 
 # Latest QGnomePlatform needs to be specified to be used
 Patch200: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
@@ -491,6 +496,11 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P162 -p1
 %patch -P163 -p1
 %patch -P164 -p1
+%patch -P165 -p1
+%patch -P166 -p1
+%patch -P167 -p1
+%patch -P168 -p1
+%patch -P169 -p1
 %endif
 
 %if 0%{?fedora} < 39
@@ -1176,6 +1186,9 @@ fi
 
 
 %changelog
+* Tue Nov 14 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-6
+- Backport another upstream (Qt6) fixes and improvements to QGtk3Theme
+
 * Thu Nov 09 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-5
 - Revert: Fix Qt not showing up emoji by handling emoji font family
 

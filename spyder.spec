@@ -28,6 +28,7 @@ Patch:          21501.patch
 Patch:          no_upper_bound_for_kernels.patch
 
 # Fix deprecated top-level developer_name in AppData XML
+# Add a developer id in the AppData
 # https://github.com/spyder-ide/spyder/pull/21510
 Patch:          %{forgeurl}/pull/21510.patch
 

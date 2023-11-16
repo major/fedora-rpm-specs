@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global run_tests 0
 
 Name:           ocaml-yaml
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Parse and generate YAML 1.1/1.2 files
 
@@ -29,13 +29,13 @@ BuildRequires:  ocaml-sexplib-devel
 
 # Test dependencies
 %if %{run_tests}
-BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-alcotest-devel >= 1.5.0
 BuildRequires:  ocaml-crowbar-devel
 BuildRequires:  ocaml-ezjsonm-devel
 BuildRequires:  ocaml-fmt-devel
 BuildRequires:  ocaml-junit-alcotest-devel
 BuildRequires:  ocaml-logs-devel
-BuildRequires:  ocaml-mdx-devel >= 2.10
+BuildRequires:  ocaml-mdx-devel >= 2.1.0
 %endif
 
 %description

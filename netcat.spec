@@ -1,4 +1,4 @@
-%global commit 3d2b62249dbf6cd5b78e548969c29a171c5595c6
+%global commit 03fa76f835e0954845b206c6f0cadf39975ba82c
 
 %if 0%{?fedora} || 0%{?rhel} > 8
 %global link_bin nc
@@ -11,8 +11,8 @@
 Summary:         OpenBSD netcat to read and write data across connections using TCP or UDP
 Name:            netcat
 # Version from CVS revision of OpenBSD netcat.c
-Version:         1.225
-Release:         3%{?dist}
+Version:         1.226
+Release:         1%{?dist}
 # BSD-3-Clause: nc.1 and netcat.c
 # BSD-2-Clause: atomicio.{c,h} and socks.c
 License:         BSD-3-Clause AND BSD-2-Clause
@@ -81,6 +81,9 @@ fi
 %{_mandir}/man1/netcat.1*
 
 %changelog
+* Tue Nov 14 2023 Robert Scheck <robert@fedoraproject.org> 1.226-1
+- Upgrade to 1.226 (#2244540)
+
 * Sun Nov 05 2023 Robert Scheck <robert@fedoraproject.org> 1.225-3
 - Rebuilt for libretls 3.8.1
 

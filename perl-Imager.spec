@@ -1,6 +1,6 @@
 Name:           perl-Imager
-Version:        1.019
-Release:        5%{?dist}
+Version:        1.020
+Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Imager
@@ -75,6 +75,10 @@ Requires:       perl(XSLoader)
 
 %{?perl_default_filter}
 
+# Imager-1.020 disabled Imager::Font::T1 and Freetype 1.x fonts by default
+# Installing Imager no longer installs Imager::Font::T1 by default.
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Imager::Font::T1\\)
+
 %description
 Imager is a module for creating and altering images. It can read and
 write various image formats, draw primitive shapes like lines,and
@@ -90,7 +94,7 @@ Summary: perl-Imager's Test module
 
 %prep
 %setup -q -n Imager-%{version}
-find \( -executable -a -type f \) -exec chmod -x {} \;
+find -executable -type f -exec chmod -x {} \;
 perl -MConfig -pi -e 's|^#!perl|$Config{startperl}|' samples/*
 
 %build
@@ -107,11 +111,11 @@ make test
 
 %files
 %doc Changes README samples
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Imager*
 %exclude %{perl_vendorarch}/Imager/Test.pm
 %{perl_vendorarch}/Imager*
 %exclude %{_mandir}/man3/Imager::Test.3pm*
-%{_mandir}/man3/*
+%{_mandir}/man3/Imager*
 
 %files Test
 %dir %{perl_vendorarch}/Imager
@@ -119,6 +123,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Mon Nov 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.020-1
+- 1.020 bump (rhbz#2249324)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.019-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

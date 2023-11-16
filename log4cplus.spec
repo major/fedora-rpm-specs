@@ -5,7 +5,9 @@ Version: 2.1.0
 Release: 2%{?prever:.%{prever}}%{?dist}
 Summary: Logging Framework for C++
 
-License: ASL 2.0
+# Threadpool is Zlib
+# catch/* is BSL-1.0
+License: (BSD-2-Clause OR Apache-2.0) AND Zlib AND BSL-1.0
 URL: http://sourceforge.net/projects/log4cplus
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz
 Source1: http://downloads.sourceforge.net/%{name}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz.sig

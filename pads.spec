@@ -1,7 +1,7 @@
 %define _default_patch_fuzz 2
 Name: pads
 Version: 1.2
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Passive Asset Detection System
 License: GPL-2.0-or-later 
 URL: http://passive.sourceforge.net/
@@ -45,26 +45,26 @@ detect network assets.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
+%patch 5 -p1
+%patch 6 -p1
+%patch 7 -p1
+%patch 8 -p1
+%patch 9 -p1
+%patch 10 -p1
+%patch 11 -p1
+%patch 12 -p1
+%patch 13 -p1
+%patch 14 -p1
+%patch 15 -p1
+%patch 16 -p1
+%patch 17 -p1
+%patch 18 -p1
+%patch 19 -p1
+%patch 20 -p1
 
 %build
 autoreconf -fv --install
@@ -82,10 +82,10 @@ install -m 640 %SOURCE2 %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 rm -rf $RPM_BUILD_ROOT/usr/share/pads/
 
 %post
-%systemd_post auditd.service
+%systemd_post pads.service
 
 %preun
-%systemd_preun auditd.service
+%systemd_preun pads.service
 
 %postun
 %systemd_postun_with_restart pads.service
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/pads/
 %{_mandir}/*/*
 
 %changelog
+* Tue Nov 14 2023 Steve Grubb <sgrubb@redhat.com> - 1.2-38
+- Fix patching and improve security settings in service file
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

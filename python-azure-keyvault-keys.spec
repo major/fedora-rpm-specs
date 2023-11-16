@@ -4,13 +4,13 @@
 %global         srcname     azure-keyvault-keys
 
 Name:           python-%{srcname}
-Version:        4.8.0~b2
-%global         pypi_version 4.8.0b2
+Version:        4.9.0~b3
+%global         pypi_version 4.9.0b3
 Release:        %autorelease
 Summary:        Microsoft Azure Key Vault Keys Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
+Source0:        %{pypi_source %{srcname} %{pypi_version}}
 
 BuildArch:      noarch
 

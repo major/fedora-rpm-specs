@@ -1,33 +1,33 @@
 %global blender_api 3.6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%bcond_without  clang
-%bcond_without  draco
+%bcond clang	1
+%bcond draco	1
 # Needed to enable osl support for cycles rendering
-%bcond_without  llvm
-%bcond_without  openshading
-%bcond_with     sdl
-%bcond_without  system_eigen3
-%bcond_without  wayland
+%bcond llvm	1
+%bcond openshading	1
+%bcond sdl	0
+%bcond system_eigen3	1
+%bcond wayland	1
 
 %ifarch x86_64 aarch64 ppc64le
 %global cyclesflag ON
 # Only available on x86_64 and aarch64
 %ifarch x86_64 aarch64
-%bcond_without  embree
-%bcond_without  hidapi
+%bcond embree	1
+%bcond hidapi	1
 %ifarch x86_64
-%bcond_without  oidn
-%bcond_without  opgl
-%bcond_without  rocm
+%bcond oidn	1
+%bcond opgl	1
+%bcond rocm	1
 %endif
-%bcond_without  usd
+%bcond usd	1
 %else
-%bcond_with     embree
-%bcond_with     hidapi
-%bcond_with     oidn
-%bcond_with     opgl
-%bcond_with     usd
+%bcond embree	0
+%bcond hidapi	0
+%bcond oidn	0
+%bcond opgl	0
+%bcond usd	0
 %endif
 %else
 %global cyclesflag OFF
@@ -49,9 +49,9 @@ Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{v
 # Rename macros extension to avoid clashing with upstream version
 Source2:        macros.%{name}-rpm
 
-Patch1:         blender-3.6.1-py312-pyarg-parser-def.patch
-Patch2:         blender-3.6.1-py312-pylongobject.patch
-Patch3:         blender-3.6.1-py312-opcode.patch
+Patch1:         %{name}-3.6.1-py312-pyarg-parser-def.patch
+Patch2:         %{name}-3.6.1-py312-pylongobject.patch
+Patch3:         %{name}-3.6.1-py312-opcode.patch
 
 # Development stuff
 BuildRequires:  boost-devel

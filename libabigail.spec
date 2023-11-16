@@ -3,13 +3,15 @@
 
 Name: libabigail
 Version: 2.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache 2.0 WITH LLVM-exception
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
+Patch1: 0001-Bug-31045-Don-t-try-setting-translation-unit-for-uni.patch
 
+BuildRequires: git
 BuildRequires: libbpf-devel
 BuildRequires: binutils-devel
 BuildRequires: gcc-c++
@@ -91,7 +93,7 @@ them manually.
 %endif
 
 %prep
-%setup -n %{tarball_name}
+%autosetup -v -S git
 
 %build
 %configure --enable-ctf --enable-btf --disable-silent-rules --disable-zip-archive --disable-static
@@ -159,6 +161,16 @@ fi
 %endif
 
 %changelog
+* Tue Nov 14 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-2
+- Fix sourceware.org/PR31045
+  "Don't try setting translation unit for unique types"
+  Apply patch
+  0001-Bug-31045-Don-t-try-setting-translation-unit-for-uni.patch.
+  That patch is applied in upstream mainline and will be available in
+  libabigail 2.5.
+- Use %autosetup instead of the previous %setup and %patch macros.
+- Add git as a build requirement
+
 * Fri Oct 20 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-1
 - Update to upstream 2.4 tarball
 - Drop patches

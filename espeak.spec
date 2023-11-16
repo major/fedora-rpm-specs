@@ -9,7 +9,7 @@
 
 Name:           espeak
 Version:        1.48.04
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Software speech synthesizer (text-to-speech)
 
 License:        GPLv3+
@@ -60,12 +60,12 @@ Development files for eSpeak, a software speech synthesizer.
 
 %prep
 %setup -q -n espeak-%{version}-source
-%patch0 -p1 -b .nostaticlibs
-%patch1 -p1 -b .ftbs-ld-libm
-%patch2 -p1 -b .help-fix
-%patch3 -p1 -b .wav-close
-%patch4 -p1 -b .1.48-gcc-6-fix
-%patch5 -p1 -b .read-fifo
+%patch -P 0 -p1 -b .nostaticlibs
+%patch -P 1 -p1 -b .ftbs-ld-libm
+%patch -P 2 -p1 -b .help-fix
+%patch -P 3 -p1 -b .wav-close
+%patch -P 4 -p1 -b .1.48-gcc-6-fix
+%patch -P 5 -p1 -b .read-fifo
 
 # Fix file permissions
 find . -type f -exec chmod 0644 {} ";"
@@ -103,22 +103,8 @@ cd $RPM_BUILD_DIR/espeak-%{version}-source/src
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -pf %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 
-# Hack to workaround RPM bug 924660 to allow clean update from espeak-1.46 to espeak-1.47, could be probably dropped in f21+
-mv %{buildroot}%{_datadir}/%{name}-data/voices/en %{buildroot}%{_datadir}/%{name}-data/voices/_en
-touch %{buildroot}%{_datadir}/%{name}-data/voices/en
-
-
 %post
 %{?ldconfig}
-# Hack to workaround RPM bug 924660 to allow clean update from espeak-1.46 to espeak-1.47, could be probably dropped in f21+
-if [ -d %{_datadir}/%{name}-data/voices/en ]
-then
-  rm -f %{_datadir}/%{name}-data/voices/en/*
-  rmdir %{_datadir}/%{name}-data/voices/en
-fi
-[ -f %{_datadir}/%{name}-data/voices/_en ] && \
-  cp -f %{_datadir}/%{name}-data/voices/_en %{_datadir}/%{name}-data/voices/en &> /dev/null || :
-exit 0
 
 %ldconfig_postun
 
@@ -136,6 +122,12 @@ exit 0
 
 
 %changelog
+* Tue Nov 14 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 1.48.04-27
+- Fully drop f21 upgrade compatibility hack
+  Resolves: fedora#2239803
+- Fix RPM build warnings:
+  %%patchN is deprecated (6 usages found), use %%patch N (or %%patch -P N)
+
 * Tue Aug  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.48.04-26
 - Fixed FTBFS, added rpm bug workaround (rhbz#2229971)
   Resolves: rhbz#2225795

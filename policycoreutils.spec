@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.5-1
-%global libsemanagever  3.5-1
-%global libselinuxver   3.5-1
+%global libsepolver     3.6-0
+%global libsemanagever  3.6-0
+%global libselinuxver   3.6-0
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -10,11 +10,11 @@
 
 Summary: SELinux policy core utilities
 Name:    policycoreutils
-Version: 3.5
-Release: 8%{?dist}
+Version: 3.6
+Release: 0.rc1.1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/selinux-3.5.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.6-rc1/selinux-3.6-rc1.tar.gz
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
 Source14: sepolicy-icons.tgz
@@ -33,7 +33,7 @@ Source22: selinux-gui.zip
 # wlc --key <apikey> --url https://translate.fedoraproject.org/api/ download selinux/sandbox --output ./
 Source23: selinux-sandbox.zip
 # https://github.com/fedora-selinux/selinux
-# $ git format-patch -N 3.5 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
+# $ git format-patch -N 3.6-rc1 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
 Patch0001: 0001-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
@@ -41,20 +41,8 @@ Patch0002: 0002-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
 Patch0003: 0003-sepolicy-generate-Handle-more-reserved-port-types.patch
 Patch0004: 0004-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
 Patch0005: 0005-Use-SHA-2-instead-of-SHA-1.patch
-Patch0006: 0006-python-chcat-Improve-man-pages.patch
-Patch0007: 0007-python-audit2allow-Add-missing-options-to-man-page.patch
-Patch0008: 0008-python-semanage-Improve-man-pages.patch
-Patch0009: 0009-python-audit2allow-Remove-unused-debug-option.patch
-Patch0010: 0010-policycoreutils-Add-examples-to-man-pages.patch
-Patch0011: 0011-python-sepolicy-Improve-man-pages.patch
-Patch0012: 0012-sandbox-Add-examples-to-man-pages.patch
-Patch0013: 0013-python-sepolicy-Fix-template-for-confined-user-polic.patch
-Patch0014: 0014-python-sepolicy-Fix-spec-file-dependencies.patch
-Patch0015: 0015-python-improve-format-strings-for-proper-localizatio.patch
-Patch0016: 0016-python-Drop-hard-formating-from-localized-strings.patch
-Patch0017: 0017-semanage-Drop-unnecessary-import-from-seobject.patch
-Patch0018: 0018-python-update-python.pot.patch
-Patch0019: 0019-sepolicy-port-to-dnf4-python-API.patch
+Patch0006: 0006-python-sepolicy-Fix-spec-file-dependencies.patch
+Patch0007: 0007-sepolicy-port-to-dnf4-python-API.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -90,7 +78,7 @@ load_policy to load policies, setfiles to label filesystems, newrole
 to switch roles.
 
 %prep -p /usr/bin/bash
-%autosetup -p 1 -n selinux-%{version}
+%autosetup -p 1 -n selinux-%{version}-rc1
 
 cp %{SOURCE13} gui/
 tar -xvf %{SOURCE14} -C python/sepolicy/
@@ -100,18 +88,14 @@ tar -xvf %{SOURCE14} -C python/sepolicy/
 # For more information see README.translations
 # First remove old translation files
 # rm -f policycoreutils/po/*.po python/po/*.po gui/po/*.po sandbox/po/*.po
-# tar -x -f %{SOURCE20} -C policycoreutils -z
-# tar -x -f %{SOURCE21} -C python -z
-# tar -x -f %{SOURCE22} -C gui -z
-# tar -x -f %{SOURCE23} -C sandbox -z
-unzip %{SOURCE20}
-cp -r selinux/policycoreutils/po policycoreutils
-unzip %{SOURCE21}
-cp -r selinux/python/po python
-unzip %{SOURCE22}
-cp -r selinux/gui/po gui
-unzip %{SOURCE23}
-cp -r selinux/sandbox/po sandbox
+# unzip %{SOURCE20}
+# cp -r selinux/policycoreutils/po policycoreutils
+# unzip %{SOURCE21}
+# cp -r selinux/python/po python
+# unzip %{SOURCE22}
+# cp -r selinux/gui/po gui
+# unzip %{SOURCE23}
+# cp -r selinux/sandbox/po sandbox
 
 %build
 %set_build_flags
@@ -153,13 +137,9 @@ chmod 0755 %{buildroot}%{_bindir}/newrole
 # Systemd
 rm -rf %{buildroot}/%{_sysconfdir}/rc.d/init.d/restorecond
 
-rm -f %{buildroot}/usr/share/man/ru/man8/genhomedircon.8.gz
-rm -f %{buildroot}/usr/share/man/ru/man8/open_init_pty.8*
-rm -f %{buildroot}/usr/share/man/ru/man8/semodule_deps.8.gz
 rm -f %{buildroot}/usr/share/man/man8/open_init_pty.8
 rm -f %{buildroot}/usr/sbin/open_init_pty
 rm -f %{buildroot}/usr/sbin/run_init
-rm -f %{buildroot}/usr/share/man/ru/man8/run_init.8*
 rm -f %{buildroot}/usr/share/man/man8/run_init.8*
 rm -f %{buildroot}/etc/pam.d/run_init*
 
@@ -195,14 +175,10 @@ an SELinux environment.
 %{_bindir}/audit2allow
 %{_bindir}/audit2why
 %{_mandir}/man1/audit2allow.1*
-%{_mandir}/ru/man1/audit2allow.1*
 %{_mandir}/man1/audit2why.1*
-%{_mandir}/ru/man1/audit2why.1*
 %{_sysconfdir}/dbus-1/system.d/org.selinux.conf
 %{_mandir}/man8/chcat.8*
-%{_mandir}/ru/man8/chcat.8*
 %{_mandir}/man8/semanage*.8*
-%{_mandir}/ru/man8/semanage*.8*
 %{_datadir}/bash-completion/completions/semanage
 
 %package dbus
@@ -282,7 +258,6 @@ The policycoreutils-devel package contains the management tools use to develop p
 /var/lib/sepolgen/perm_map
 %{_bindir}/sepolicy
 %{_mandir}/man8/sepolgen.8*
-%{_mandir}/ru/man8/sepolgen.8*
 %{_mandir}/man8/sepolicy-booleans.8*
 %{_mandir}/man8/sepolicy-generate.8*
 %{_mandir}/man8/sepolicy-interface.8*
@@ -291,7 +266,6 @@ The policycoreutils-devel package contains the management tools use to develop p
 %{_mandir}/man8/sepolicy-communicate.8*
 %{_mandir}/man8/sepolicy-manpage.8*
 %{_mandir}/man8/sepolicy-transition.8*
-%{_mandir}/ru/man8/sepolicy*.8*
 %{_usr}/share/bash-completion/completions/sepolicy
 
 
@@ -312,12 +286,9 @@ sandboxes
 %{_datadir}/sandbox/start
 %caps(cap_setpcap,cap_setuid,cap_fowner,cap_dac_override,cap_sys_admin,cap_sys_nice=pe) %{_sbindir}/seunshare
 %{_mandir}/man8/seunshare.8*
-%{_mandir}/ru/man8/seunshare.8*
 %{_bindir}/sandbox
 %{_mandir}/man5/sandbox.5*
-%{_mandir}/ru/man5/sandbox.5*
 %{_mandir}/man8/sandbox.8*
-%{_mandir}/ru/man8/sandbox.8*
 
 %package newrole
 Summary: The newrole application for RBAC/MLS
@@ -330,7 +301,6 @@ or level of a logged in user.
 %files newrole
 %attr(0755,root,root) %caps(cap_dac_read_search,cap_setpcap,cap_audit_write,cap_sys_admin,cap_fowner,cap_chown,cap_dac_override=pe) %{_bindir}/newrole
 %{_mandir}/man1/newrole.1.gz
-%{_mandir}/ru/man1/newrole.1.gz
 %config(noreplace) %{_sysconfdir}/pam.d/newrole
 
 %package gui
@@ -365,11 +335,8 @@ system-config-selinux is a utility for managing the SELinux environment
 %{_datadir}/icons/hicolor/*/apps/sepolicy.png
 %{_datadir}/pixmaps/sepolicy.png
 %{_mandir}/man8/system-config-selinux.8*
-%{_mandir}/ru/man8/system-config-selinux.8*
 %{_mandir}/man8/selinux-polgengui.8*
-%{_mandir}/ru/man8/selinux-polgengui.8*
 %{_mandir}/man8/sepolicy-gui.8*
-%{_mandir}/ru/man8/sepolicy-gui.8*
 
 %files -f %{name}.lang
 %{_sbindir}/restorecon
@@ -396,37 +363,21 @@ system-config-selinux is a utility for managing the SELinux environment
 %{generatorsdir}/selinux-autorelabel-generator.sh
 %config(noreplace) %{_sysconfdir}/sestatus.conf
 %{_mandir}/man5/selinux_config.5.gz
-%{_mandir}/ru/man5/selinux_config.5.gz
 %{_mandir}/man5/sestatus.conf.5.gz
-%{_mandir}/ru/man5/sestatus.conf.5.gz
 %{_mandir}/man8/fixfiles.8*
-%{_mandir}/ru/man8/fixfiles.8*
 %{_mandir}/man8/load_policy.8*
-%{_mandir}/ru/man8/load_policy.8*
 %{_mandir}/man8/restorecon.8*
-%{_mandir}/ru/man8/restorecon.8*
 %{_mandir}/man8/restorecon_xattr.8*
-%{_mandir}/ru/man8/restorecon_xattr.8*
 %{_mandir}/man8/semodule.8*
-%{_mandir}/ru/man8/semodule.8*
 %{_mandir}/man8/sestatus.8*
-%{_mandir}/ru/man8/sestatus.8*
 %{_mandir}/man8/setfiles.8*
-%{_mandir}/ru/man8/setfiles.8*
 %{_mandir}/man8/setsebool.8*
-%{_mandir}/ru/man8/setsebool.8*
 %{_mandir}/man1/secon.1*
-%{_mandir}/ru/man1/secon.1*
 %{_mandir}/man8/genhomedircon.8*
-%{_mandir}/ru/man8/genhomedircon.8*
 %{_mandir}/man8/semodule_expand.8*
-%{_mandir}/ru/man8/semodule_expand.8*
 %{_mandir}/man8/semodule_link.8*
-%{_mandir}/ru/man8/semodule_link.8*
 %{_mandir}/man8/semodule_unpackage.8*
-%{_mandir}/ru/man8/semodule_unpackage.8*
 %{_mandir}/man8/semodule_package.8*
-%{_mandir}/ru/man8/semodule_package.8*
 %dir %{_datadir}/bash-completion
 %{_datadir}/bash-completion/completions/setsebool
 %{!?_licensedir:%global license %%doc}
@@ -449,7 +400,6 @@ The policycoreutils-restorecond package contains the restorecond service.
 %{_sysconfdir}/xdg/autostart/restorecond.desktop
 %{_datadir}/dbus-1/services/org.selinux.Restorecond.service
 %{_mandir}/man8/restorecond.8*
-%{_mandir}/ru/man8/restorecond.8*
 
 %{!?_licensedir:%global license %%doc}
 %license policycoreutils/LICENSE
@@ -470,6 +420,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Tue Nov 14 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-0.rc1.1
+- SELinux userspace 3.6-rc1 release
+
 * Mon Oct 30 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-8
 - Update translations
   https://translate.fedoraproject.org/projects/selinux/

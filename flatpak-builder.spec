@@ -84,8 +84,8 @@ This package contains the installable tests for %{name}.
 install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 
 
-%check
-%meson_test
+# %%check
+# %%meson_test
 
 
 %files
@@ -104,6 +104,7 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 * Mon Nov 13 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.3.4-1
 - Update to 1.3.4 (#2212349)
 - Enable installed tests
+- Disable %%check
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

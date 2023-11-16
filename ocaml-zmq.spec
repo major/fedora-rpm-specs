@@ -2,17 +2,13 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-zmq
-Version:        5.2.1
-Release:        8%{?dist}
+Version:        5.2.2
+Release:        1%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
 URL:            https://github.com/issuu/ocaml-zmq
 Source0:        %{url}/releases/download/%{version}/zmq-%{version}.tbz
-
-# Fix a stub function return type
-# https://github.com/issuu/ocaml-zmq/pull/127
-Patch0:         %{name}-func-type.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 2.7
@@ -59,7 +55,7 @@ files for developing applications that use %{name}-lwt.
 # ocaml-async-unix have been added to Fedora.
 rm -fr zmq-async*
 
-# Work around for ocaml-zmq 5.2.1.  See if later versions fixed this.
+# Work around for ocaml-zmq 5.2.2.  See if later versions fixed this.
 # https://github.com/issuu/ocaml-zmq/issues/128
 sed -i 's/sleep 10/&00/' zmq/test/zmq_test.ml
 
@@ -86,6 +82,10 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Tue Nov 14 2023 Jerry James <loganjerry@gmail.com> - 5.2.2-1
+- Version 5.2.2
+- Drop upstreamed func-type patch
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-8
 - OCaml 5.1 rebuild for Fedora 40
 

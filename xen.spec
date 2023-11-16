@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -139,6 +139,8 @@ Patch74: xsa443-4.17-10.patch
 Patch75: xsa443-4.17-11.patch
 Patch76: xsa444-4.17-1.patch
 Patch77: xsa444-4.17-2.patch
+Patch78: xsa445-4.17.patch
+Patch79: xsa446.patch
 
 
 %if %build_qemutrad
@@ -382,6 +384,8 @@ manage Xen virtual machines.
 %patch 75 -p1
 %patch 76 -p1
 %patch 77 -p1
+%patch 78 -p1
+%patch 79 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -989,6 +993,11 @@ fi
 %endif
 
 %changelog
+* Tue Nov 14 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-5
+- x86/AMD: mismatch in IOMMU quarantine page table levels [XSA-445,
+	CVE-2023-46835]
+- x86: BTC/SRSO fixes not fully effective [XSA-446, CVE-2023-46836]
+
 * Tue Oct 10 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-4
 - xenstored: A transaction conflict can crash C Xenstored [XSA-440,
 	CVE-2023-34323]

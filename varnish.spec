@@ -12,7 +12,7 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi d5a5aa9cc879320840ca467ddbb7df0f99c9ba0f
+%global abi cd1d10ab53a6f6115b2b4f3b2a1da94c1f749f80
 %global vrt 18.0
 
 # Package scripts are now external
@@ -36,7 +36,7 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 7.4.1
+Version: 7.4.2
 Release: 1%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
@@ -52,6 +52,7 @@ Provides: vmod(blob)%{_isa} = %{version}-%{release}
 Provides: vmod(cookie)%{_isa} = %{version}-%{release}
 Provides: vmod(debug)%{_isa} = %{version}-%{release}
 Provides: vmod(directors)%{_isa} = %{version}-%{release}
+Provides: vmod(h2)%{_isa} = %{version}-%{release}
 Provides: vmod(proxy)%{_isa} = %{version}-%{release}
 Provides: vmod(purge)%{_isa} = %{version}-%{release}
 Provides: vmod(std)%{_isa} = %{version}-%{release}
@@ -303,6 +304,10 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Wed Nov 08 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.4.2-1
+- New upstream release. A security release
+- Includes fix for CVE-2023-44487 aka VSV00013, rhbz#2243328, HTTP/2 Rapid Reset Attack
+
 * Thu Oct 12 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.4.1-1
 - New upstream release. A bugfix release
 

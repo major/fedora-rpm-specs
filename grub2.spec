@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	106%{?dist}
+Release:	108%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -274,6 +274,12 @@ install -D -m 0755 -t %{buildroot}%{_userunitdir} \
 	docs/grub-boot-success.{timer,service}
 # Install systemd system-update unit to set boot_indeterminate for offline-upd
 install -D -m 0755 -t %{buildroot}%{_unitdir} docs/grub-boot-indeterminate.service
+install -d -m 0755 %{buildroot}%{_unitdir}/system-update.target.wants
+install -d -m 0755 %{buildroot}%{_unitdir}/reboot.target.wants
+ln -s ../grub-boot-indeterminate.service \
+	%{buildroot}%{_unitdir}/system-update.target.wants
+ln -s ../grub2-systemd-integration.service \
+	%{buildroot}%{_unitdir}/reboot.target.wants
 
 # Don't run debuginfo on all the grub modules and whatnot; it just
 # rejects them, complains, and slows down extraction.
@@ -325,19 +331,18 @@ elif [ -f /etc/grub.d/01_users ] && \
 fi
 
 %post tools
-%systemd_post grub-boot-indeterminate.service
-%systemd_post grub2-systemd-integration.service
 %systemd_user_post grub-boot-success.timer
 
 %preun tools
-%systemd_preun grub-boot-indeterminate.service
-%systemd_preun grub2-systemd-integration.service
 %systemd_user_preun grub-boot-success.timer
 
 %postun tools
-%systemd_postun_with_restart grub-boot-indeterminate.service
-%systemd_postun_with_restart grub2-systemd-integration.service
 %systemd_user_postun_with_restart grub-boot-success.timer
+
+%triggerpostun tools -- grub2-tools < 1:2.06-107
+# grub-boot-success.timer was moved from a hard symlink under /lib/systemd
+# to a preset, apply the preset when upgrading from pre-preset versions
+/usr/lib/systemd/systemd-update-helper install-user-units grub-boot-success.timer
 
 %posttrans common
 set -eu
@@ -435,7 +440,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %{_userunitdir}/grub-boot-success.timer
 %{_userunitdir}/grub-boot-success.service
 %{_unitdir}/grub-boot-indeterminate.service
+%{_unitdir}/system-update.target.wants
 %{_unitdir}/grub2-systemd-integration.service
+%{_unitdir}/reboot.target.wants
 %{_unitdir}/systemd-logind.service.d
 %{_infodir}/grub2*
 %{_datarootdir}/grub/*
@@ -548,6 +555,16 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Nov 14 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-108
+- Remove [Install] section from aux systemd units
+- Related: #2247635
+
+* Tue Nov 14 2023 Hans de Goede <hdegoede@redhat.com> - 2.06-107
+- spec: Switch back to static enablement for grub services in tools package
+- spec: Add %%triggerpostun to apply grub-boot-success.timer preset
+  when upgrading from older versions where this was not a preset
+- Resolves: #2247635
+
 * Mon Nov 6 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-106
 - util: grub-install on EFI if forced
 - Resolves: #1917213

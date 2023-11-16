@@ -1,6 +1,6 @@
 Name:           perl-CGI-Fast
-Version:        2.16
-Release:        6%{?dist}
+Version:        2.17
+Release:        1%{?dist}
 Summary:        CGI Interface for Fast CGI
 # lib/CGI/Fast.pm probably qotes piece of Artistic license before declaring
 # "as Perl itself" <https://github.com/leejo/cgi-fast/issues/13>
@@ -21,7 +21,6 @@ BuildRequires:  perl(deprecate)
 BuildRequires:  perl(FCGI) >= 0.67
 BuildRequires:  perl(if)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More) >= 0.98
@@ -87,13 +86,16 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/CGI*
+%{_mandir}/man3/CGI::Fast*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.17-1
+- 2.17 bump (rhbz#2249456)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

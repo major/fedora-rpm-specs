@@ -1,21 +1,21 @@
 #
 Name:           simfqt
 Version:        1.00.7
-Release:        2%{?dist}
+Release:        %autorelease
 
 Summary:        C++ Simulated Fare Quote System Library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
-BuildRequires:  readline-devel
-BuildRequires:  stdair-devel
+BuildRequires:  pkgconfig(readline)
+BuildRequires:  pkgconfig(stdair)
 
 %description
 %{name} aims at providing a clean API and a simple implementation, as
@@ -50,12 +50,11 @@ BuildRequires:  doxygen, ghostscript
 This package contains HTML pages, as well as a PDF reference manual,
 for %{name}. All that documentation is generated thanks to Doxygen
 (https://doxygen.org). The content is the same as what can be browsed
-online (https://%{name}.org).
+online (https://github.com/airsim/%{name}).
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version} 
-
+%autosetup
 
 %build
 %cmake
@@ -72,11 +71,12 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/html/installdox
 rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 %check
-ctest
+%ctest
 
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README.md
+%doc AUTHORS ChangeLog NEWS README.md
+%license COPYING
 %{_bindir}/%{name}
 %{_bindir}/%{name}_parseFareRules
 %{_libdir}/lib%{name}.so.*
@@ -84,30 +84,21 @@ ctest
 %{_mandir}/man1/%{name}_parseFareRules.1.*
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_datadir}/aclocal/%{name}.m4
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake
+%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
-%doc COPYING
+%doc %{_docdir}/%{name}/
+%license COPYING
 
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 1.00.7-1
-- Upstream upgrade
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.6-4
-- Rebuilt for Boost 1.81
-
 %autochangelog
 

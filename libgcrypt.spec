@@ -14,8 +14,8 @@ print(string.sub(hash, 0, 16))
 }
 
 Name: libgcrypt
-Version: 1.10.2
-Release: 2%{?dist}
+Version: 1.10.3
+Release: 1%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
@@ -65,7 +65,7 @@ applications using libgcrypt.
 # F34, so we use it here explicitly
 %define _lto_cflags -flto=auto -ffat-lto-objects
 
-# should be all algorithms except SM3 and SM4
+# should be all algorithms except SM3 and SM4, aria
 export DIGESTS='crc gostr3411-94 md4 md5 rmd160 sha1 sha256 sha512 sha3 tiger whirlpool stribog blake2'
 export CIPHERS='arcfour blowfish cast5 des aes twofish serpent rfc2268 seed camellia idea salsa20 gost28147 chacha20'
 
@@ -172,6 +172,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Tue Nov 14 2023 Jakub Jelen <jjelen@redhat.com> - 1.10.3-1
+- New upstream release (#2249639)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

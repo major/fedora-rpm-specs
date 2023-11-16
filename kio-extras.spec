@@ -7,7 +7,7 @@
 
 Name:    kio-extras
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
@@ -29,7 +29,7 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 %global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
 
 BuildRequires:  bzip2-devel
-BuildRequires:  exiv2-devel
+BuildRequires:  cmake(KF5KExiv2)
 BuildRequires:  gperf
 
 BuildRequires:  extra-cmake-modules
@@ -219,6 +219,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Tue Nov 14 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Provide support for extracting JPEG thumbnails
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

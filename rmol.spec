@@ -4,22 +4,22 @@
 #
 Name:           rmol
 Version:        1.00.9
-Release:        3%{?dist}
+Release:        %autorelease
 
 Summary:        C++ library of Revenue Management and Optimisation classes and functions
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
-BuildRequires:  readline-devel
+BuildRequires:  pkgconfig(readline)
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
-BuildRequires:  stdair-devel
-BuildRequires:  airrac-devel
+BuildRequires:  pkgconfig(stdair)
+BuildRequires:  pkgconfig(airrac)
 
 %description
 %{name} is a C++ library of Revenue Management and Optimisation classes 
@@ -79,8 +79,7 @@ This package contains Python libraries for %{name}
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version} 
-
+%autosetup
 
 %build
 %cmake
@@ -97,7 +96,7 @@ rm -f %{buildroot}%{_docdir}/%{name}/html/installdox
 rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 %check
-ctest
+%ctest
 
 %if %{with python}
 %post -n python3-%{name}
@@ -119,7 +118,7 @@ rm -f %{_bindir}/py%{name}
 %{_mandir}/man1/%{name}_extractBPC.1.*
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
@@ -133,8 +132,8 @@ rm -f %{_bindir}/py%{name}
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
-%doc COPYING
+%doc %{_docdir}/%{name}/
+%license COPYING
 
 %if %{with python}
 %files -n python3-%{name}
@@ -146,17 +145,5 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.00.9-2
-- Rebuilt for Python 3.12
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.9-1
-- Upstream upgrade
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.8-4
-- Rebuilt for Boost 1.81
-
 %autochangelog
 
