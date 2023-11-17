@@ -46,7 +46,6 @@ and will continue to evolve over time.
 %package -n python-%{pypi_name}-doc
 Summary: Documentation for bashate module
 
-BuildRequires:  python3-oslo-sphinx
 BuildRequires:  python3dist(openstackdocstheme)
 BuildRequires:  python3dist(reno)
 BuildRequires:  python3dist(sphinx)

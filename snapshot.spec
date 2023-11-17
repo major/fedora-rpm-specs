@@ -37,10 +37,17 @@ Patch:          0001-Disable-cargo-clippy-test.patch
 # https://gitlab.gnome.org/GNOME/snapshot/-/merge_requests/168
 Patch:          168.patch
 
+# https://gitlab.gnome.org/GNOME/snapshot/-/merge_requests/175
+Patch:          175.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  cargo-rpm-macros
+%endif
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gstreamer-1.0)
@@ -84,8 +91,10 @@ cd ~-
 %meson
 %meson_build
 
+%if ! 0%{?rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%endif
 
 
 %install
@@ -105,7 +114,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Snapshot
 
 %files -f snapshot.lang
 %license LICENSE
+%if ! 0%{?rhel}
 %license LICENSE.dependencies
+%endif
 %doc README.md
 %{_bindir}/snapshot
 %{_datadir}/applications/org.gnome.Snapshot.desktop

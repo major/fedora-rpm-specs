@@ -1,6 +1,6 @@
 %global open_iscsi_version	2.1
 %global open_iscsi_build	9
-%global commit0			c26218d9f8afdca44a492a4c3811648bd2880b26
+%global commit0			a65a472a35b436c7a2d47c5862aae530ac4ae9c8
 %global shortcommit0		%(c=%{commit0}; echo ${c:0:7})
 
 # Disable python2 build by default
@@ -10,8 +10,8 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 17.git%{shortcommit0}%{?dist}
-License: GPLv2+
+Release: 18.git%{shortcommit0}%{?dist}
+License: GPL-2.0-or-later
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
 Source4: 04-iscsi
@@ -31,7 +31,6 @@ Patch07: 0007-Disable-Data-Digests.patch
 Patch08: 0008-Revert-iscsiadm-return-error-when-login-fails.patch
 Patch09: 0009-Coverity-scan-fixes.patch
 Patch10: 0010-use-Red-Hat-version-string-to-match-RPM-package-vers.patch
-Patch11: 0011-remove-unicode-symbols-from-iscsid.conf.patch
 
 # libiscsi, deprecated but still needed until UDisks2 is converted to libopeniscsiusr
 Patch101: 0101-libiscsi.patch
@@ -64,7 +63,7 @@ Protocol networks.
 
 %package iscsiuio
 Summary: Userspace configuration daemon required for some iSCSI hardware
-License: BSD
+License: BSD-4-Clause
 Requires: %{name} = %{version}-%{release}
 
 %description iscsiuio
@@ -273,6 +272,9 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %endif
 
 %changelog
+* Wed Nov 15 2023 Chris Leech <cleech@redhat.com> - 6.2.1.9-18.gita65a472
+- iscsiuio threading fixes (iscsiuio 0.7.8.8)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1.9-17.gitc26218d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

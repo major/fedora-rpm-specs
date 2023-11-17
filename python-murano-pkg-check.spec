@@ -14,7 +14,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Murano package validator tool
 
 License:        ASL 2.0
@@ -40,7 +40,6 @@ BuildRequires:  python2-pbr
 BuildRequires:  python2-coverage
 BuildRequires:  python2-subunit
 BuildRequires:  python2-sphinx
-BuildRequires:  python2-oslo-sphinx
 BuildRequires:  python2-oslotest
 BuildRequires:  python2-testrepository
 BuildRequires:  python2-testscenarios
@@ -89,7 +88,6 @@ BuildRequires:  python3-pbr
 BuildRequires:  python3-coverage
 BuildRequires:  python3-subunit
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-oslo-sphinx
 BuildRequires:  python3-oslotest
 BuildRequires:  python3-testrepository
 BuildRequires:  python3-testscenarios
@@ -206,6 +204,9 @@ PYTHON=python3 %{__python3} setup.py test
 %endif
 
 %changelog
+* Wed Nov 15 2023 Joel Capitao <jcapitao@redhat.com> - 0.3.0-30
+- Remove oslo-sphinx as BR
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

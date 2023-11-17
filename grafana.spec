@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          8%{?dist}
+Release:          10%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -918,7 +918,7 @@ export GOEXPERIMENT=boringcrypto
 %endif
 
 # comment out temporarily while intermittent ngalert tests are investigated
-# %gotest ./pkg/...
+# % gotest ./pkg/...
 
 # %if %{enable_fips_mode}
 # OPENSSL_FORCE_FIPS_MODE=1 GOLANG_FIPS=1 go test -v ./pkg/util -run TestEncryption
@@ -1004,6 +1004,13 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Wed Nov 15 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-10
+- Fix additional AVC denial found when testing
+
+* Wed Nov 15 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-9
+- Fix AVC denials found when testing
+- Stop commented out gotest macro from expanding
+
 * Thu Nov 9 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-8
 - Hide relabeling messages from selinux when installing/uninstalling 
  

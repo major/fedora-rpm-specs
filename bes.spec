@@ -8,7 +8,7 @@
 
 Name:           bes
 Version:        3.20.13
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Back-end server software framework for OPeNDAP
 
 License:        LGPLv2+
@@ -233,6 +233,9 @@ exit 0
 %doc __distribution_docs/api-html/
 
 %changelog
+* Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 3.20.13-11
+- Rebuild (gdal)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.13-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

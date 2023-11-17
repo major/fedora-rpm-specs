@@ -12,6 +12,9 @@ Source0:        https://download.gnome.org/sources/gnome-shell/45/%{name}-%{tarb
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch: gnome-shell-favourite-apps-firefox.patch
 
+# No portal helper if WebKitGTK is not installed
+Patch: optional-portal-helper.patch
+
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
 Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
@@ -120,13 +123,15 @@ Requires:       switcheroo-control
 Requires:       geoclue2-libs%{?_isa}
 Requires:       libgweather4%{?_isa}
 # needed for thunderbolt support
-Requires:       bolt%{?_isa}
+Recommends:     bolt%{?_isa}
 # Needed for launching flatpak apps etc
 # 1.8.0 is needed for source type support in the screencast portal.
 Requires:       xdg-desktop-portal-gtk >= 1.8.0
 Requires:       xdg-desktop-portal-gnome
 # needed by the welcome dialog
 Recommends:     gnome-tour
+# needed for captive portal helper
+Recommends:     webkitgtk6.0%{?_isa}
 
 Provides:       desktop-notification-daemon = %{version}-%{release}
 Provides:       PolicyKit-authentication-agent = %{version}-%{release}

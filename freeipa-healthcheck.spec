@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -26,6 +26,8 @@ Source0:        https://github.com/freeipa/freeipa-healthcheck/archive/%{version
 Source1:        ipahealthcheck.conf
 
 Patch0001:      0001-Remove-ipaclustercheck.patch
+Patch0002:      0002-Don-t-fail-if-a-service-name-cannot-be-looked-up-in-.patch
+Patch0003:      0003-Temporarily-disable-the-ipa-ods-exporter-service-sta.patch
 
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{prefix}-server
@@ -155,6 +157,10 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Tue Nov 14 2023 Rob Crittenden <rcritten@redhat.com> - 0.16-2
+- Don't fail if a service name cannot be looked up in LDAP
+- Disable the ipa-ods-exporter service check
+
 * Wed Nov  8 2023 Rob Crittenden <rcritten@redhat.com> - 0.16-1
 - Update to 0.16 release
 - This fixes pki-healthcheck

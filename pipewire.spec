@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 4
+%global baserelease 5
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -53,8 +53,8 @@
 %bcond_without ffado
 %endif
 
-# Disabled for RHEL < 10 and Fedora < 36
-%if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?fedora} && 0%{?fedora} < 36) || ("%{_arch}" == "s390x") || ("%{_arch}" == "ppc64le")
+# Disabled for RHEL < 11 and Fedora < 36
+%if (0%{?rhel} && 0%{?rhel} < 11) || (0%{?fedora} && 0%{?fedora} < 36) || ("%{_arch}" == "s390x") || ("%{_arch}" == "ppc64le")
 %bcond_with libcamera_plugin
 %else
 %bcond_without libcamera_plugin
@@ -733,6 +733,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Nov 15 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.84-5
+- Disable libcamera in RHEL 10
+
 * Tue Nov 14 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.84-4
 - Enable support for the lc3 bluetooth codec
 

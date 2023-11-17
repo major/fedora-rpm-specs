@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 21
+%global baserelease 22
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -233,6 +233,7 @@ Patch23: glibc-python3.patch
 Patch24: glibc-rh2244688.patch
 Patch25: glibc-rh2244992.patch
 Patch26: glibc-rh2248915.patch
+Patch27: glibc-rh2248502-3.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2203,6 +2204,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Nov 15 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-22
+- Work around another self-comparison application issue in qsort (#2248502)
+
 * Sat Nov 11 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-21
 - Fix missing entries in /etc/ld.so.cache (#2248915)
 

@@ -3,7 +3,7 @@
 
 # https://github.com/projectdiscovery/asnmap
 %global goipath         github.com/projectdiscovery/asnmap
-Version:                1.0.5
+Version:                1.0.6
 
 %gometa -f
 

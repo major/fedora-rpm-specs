@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	108%{?dist}
+Release:	109%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -555,6 +555,11 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Nov 15 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-109
+- Linker: added --no-warn-rwx-segments as build will fail after
+ld.bfd default options have been changed.
+https://fedoraproject.org/wiki/Changes/Linker_Error_On_Security_Issues
+
 * Tue Nov 14 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-108
 - Remove [Install] section from aux systemd units
 - Related: #2247635

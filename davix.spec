@@ -3,7 +3,7 @@
 
 Name:				davix
 Version:			0.8.5
-Release:			2%{?dist}
+Release:			3%{?dist}
 Summary:			Toolkit for http based file management
 License:			LGPLv2+
 URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -172,6 +172,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Wed Nov 15 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 0.8.5-3
+- Rebuild for gtest 1.14.0 (bugzilla #2228663)
+
 * Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.8.5-2
 - Rebuild for gtest 1.14.0 (bugzilla #2228663)
 

@@ -2,10 +2,10 @@
 
 Name:           python-testpath
 Version:        0.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Test utilities for code working with files and commands
 
-License:        MIT
+License:        BSD-3-Clause
 URL:            https://github.com/jupyter/testpath
 
 Source0:        %{pypi_source testpath}
@@ -85,6 +85,10 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Wed Nov 15 2023 Miro Hrončok <mhroncok@redhat.com> - 0.6.0-8
+- Fix the License tag (from MIT to BSD-3-Clause)
+- The upstream project was relicensed in 0.4.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

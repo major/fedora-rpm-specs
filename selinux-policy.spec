@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 4c131aa69d180f74bd775c517da73b7c41c67458
+%global commit b1374e9fc76c7f53d634a5f16d2cffaec6347824
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.4
+Version: 40.5
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,26 @@ exit 0
 %endif
 
 %changelog
+* Tue Nov 14 2023 Zdenek Pytela <zpytela@redhat.com> - 40.5-1
+- Allow map xserver_tmpfs_t files when xserver_clients_write_xshm is on
+- Allow graphical applications work in Wayland
+- Allow kdump work with PrivateTmp
+- Allow dovecot-auth work with PrivateTmp
+- Allow nfsd get attributes of all filesystems
+- Allow unconfined_domain_type use io_uring cmd on domain
+- ci: Only run Rawhide revdeps tests on the rawhide branch
+- Label /var/run/auditd.state as auditd_var_run_t
+- Allow fido-device-onboard (FDO) read the crack database
+- Allow ip an explicit domain transition to other domains
+- Label /usr/libexec/selinux/selinux-autorelabel with semanage_exec_t
+- Allow  winbind_rpcd_t processes access when samba_export_all_* is on
+- Enable NetworkManager and dhclient to use initramfs-configured DHCP connection
+- Allow ntp to bind and connect to ntske port.
+- Allow system_mail_t manage exim spool files and dirs
+- Dontaudit keepalived setattr on keepalived_unconfined_script_exec_t
+- Label /run/pcsd.socket with cluster_var_run_t
+- ci: Run cockpit tests in PRs
+
 * Thu Oct 19 2023 Zdenek Pytela <zpytela@redhat.com> - 40.4-1
 - Add map_read map_write to kernel_prog_run_bpf
 - Allow systemd-fstab-generator read all symlinks

@@ -1,11 +1,3 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We could generate PDF documentation as a substitute, except that
-# python-sphinxcontrib-asyncio is incompatible with Sphinx 6.1.3 and later
-# (https://bugzilla.redhat.com/show_bug.cgi?id=2180497).
-%bcond doc 0
-
 # Run tests with uvloop?
 %bcond uvloop 1
 
@@ -41,12 +33,6 @@ Patch:          %{url}/pull/1101.patch
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 
-%if %{with doc}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
-
 # For tests:
 BuildRequires:  %{py3_dist pytest}
 # For pg_config binary
@@ -81,16 +67,6 @@ Obsoletes:      %{name}-doc < 0.27.0-5
 %description -n python3-asyncpg %{common_description}
 
 
-%if %{with doc}
-%package doc
-Summary:        Documentation for %{name}
-
-BuildArch:      noarch
-
-%description doc %{common_description}
-%endif
-
-
 %prep
 %autosetup -n asyncpg-%{version} -p1
 
@@ -98,22 +74,6 @@ BuildArch:      noarch
 # and not used in the build. Note that recordobj.c is not a generated source,
 # and must not be removed!
 find asyncpg -type f -name '*.c' ! -name 'recordobj.c' -print -delete
-
-# Do not put the source directory at the front of the path, as this keeps us
-# from using our own PYTHONPATH setting to allow importing the compiled
-# extension modules.
-sed -r -i 's|(sys\.path\.)insert\(0,[[:blank:]]*|\1append\(|' \
-    docs/conf.py
-# Drop intersphinx mappings, since we can’t download remote inventories and
-# can’t easily produce working hyperlinks from inventories in local
-# documentation packages.
-echo 'intersphinx_mapping.clear()' >> docs/conf.py
-
-# Loosen SemVer pins to allow newer versions of Sphinx-related dependencies.
-sed -r -i 's/([Ss]phinx.*)~=/\1>=/g' pyproject.toml
-# We are not building the documentation as HTML anyway: the theme version is
-# not important.
-sed -r -i 's/(sphinx_rtd_theme).=[[:digit:].]+/\1/' pyproject.toml
 
 # We will not run style linting tests since they are brittle, so we might as
 # well drop the corresponding dependencies.
@@ -126,19 +86,12 @@ sed -r -i 's/^([[:blank:]])(.*uvloop)/\1# \2/' pyproject.toml
 
 %generate_buildrequires
 export ASYNCPG_BUILD_CYTHON_ALWAYS=1
-%pyproject_buildrequires -x test%{?with_doc:,docs}
+%pyproject_buildrequires -x test
 
 
 %build
 export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 %pyproject_wheel
-
-%if %{with doc}
-BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
-PYTHONPATH="${BLIB}" %make_build -C docs latex \
-    SPHINXBUILD='sphinx-build' SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install
@@ -172,17 +125,7 @@ USE_UVLOOP=1 %pytest -k "${k-}"
 
 
 %files -n python3-asyncpg -f %{pyproject_files}
-%if %{without doc}
 %doc README.rst
-%endif
-
-
-%if %{with doc}
-%files doc
-%license LICENSE
-%doc README.rst
-%doc docs/_build/latex/asyncpg.pdf
-%endif
 
 
 %changelog

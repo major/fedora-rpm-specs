@@ -1,9 +1,9 @@
 # Created by pyp2rpm-3.3.7
 %global pypi_name unicodedata2
-%global pypi_version 15.0.0
+%global pypi_version 15.1.0
 
 Name:           python-%{pypi_name}
-Version:        15.1.0
+Version:        %{pypi_version}
 Release:        1%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 

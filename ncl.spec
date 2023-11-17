@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 License:        BSD
@@ -361,6 +361,9 @@ done
 
 
 %changelog
+* Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 6.6.2-38
+- Rebuild (gdal)
+
 * Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 6.6.2-37
 - Set build_type_safety_c to 0 (#2145150)
 

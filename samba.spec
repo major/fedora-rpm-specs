@@ -135,10 +135,16 @@
 %bcond_with etcd_mutex
 %endif
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%bcond_without gpupdate
+%else
+%bcond_with gpupdate
+%endif
+
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.2
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -330,8 +336,10 @@ BuildRequires: zlib-devel >= 1.2.3
 
 BuildRequires: pkgconfig(libsystemd)
 
+%ifnarch i686
 %if 0%{?fedora} >= 37
 BuildRequires: mold
+%endif
 %endif
 
 %if %{with vfs_glusterfs}
@@ -721,7 +729,7 @@ Samba VFS module for GlusterFS integration.
 %endif
 
 ### GPUPDATE
-%if %{with dc}
+%if %{with gpupdate}
 %package gpupdate
 Summary: Samba GPO support for clients
 Requires: cepces
@@ -733,7 +741,7 @@ Requires: python3-%{name} = %{samba_depver}
 This package provides the samba-gpupdate tool to apply Group Policy Objects
 (GPO) on Samba clients.
 
-# /with dc
+#endif with gpupdate
 %endif
 
 ### KRB5-PRINTING
@@ -1261,12 +1269,16 @@ rm -f lib/crypto/{aes,rijndael}*.c
 # TODO: resolve underlinked python modules
 export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
 
-# Use the mold linker
+# Use the mold linker if possible
+export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
+
+%ifnarch i686
 %if 0%{?fedora} >= 37
 export LDFLAGS="%{__global_ldflags} -fuse-ld=mold"
 export python_LDFLAGS="$(echo ${LDFLAGS} | sed -e 's/-Wl,-z,defs//g')"
-%else
-export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
+#endif fedora >= 37
+%endif
+#endif narch i686
 %endif
 
 # Add support for mock ccache plugin
@@ -1424,12 +1436,15 @@ touch %{buildroot}%{_libdir}/krb5/plugins/libkrb5/winbind_krb5_locator.so
 for i in \
     %{_mandir}/man8/samba.8 \
     %{_mandir}/man8/samba_downgrade_db.8 \
-    %{_mandir}/man8/samba-gpupdate.8 \
     %{_unitdir}/samba.service \
-    %{_sbindir}/samba-gpupdate \
     ; do
     rm -f %{buildroot}$i
 done
+%endif
+
+%if %{without gpupdate}
+rm -f %{_sbindir}/samba-gpupdate
+rm -f %{_mandir}/man8/samba-gpupdate.8
 %endif
 
 %if %{without vfs_glusterfs}
@@ -2327,10 +2342,11 @@ fi
 %endif
 
 ### GPUPDATE
-%if %{with dc}
+%if %{with gpupdate}
 %files gpupdate
 %{_mandir}/man8/samba-gpupdate.8*
 %{_sbindir}/samba-gpupdate
+#endif with gpupdate
 %endif
 
 ### KRB5-PRINTING
@@ -4452,6 +4468,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 15 2023 Andreas Schneider <asn@redhat.com> - 4.19.2-2
+- Package samba-gpupdate also for RHEL9
+
 * Mon Oct 16 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.2-1
 - resolves: #2244496 - Update to version 4.19.2
 

@@ -14,18 +14,20 @@
 %global with_zts  0%{?__ztsphp:1}
 %global ini_name  40-%{pecl_name}.ini
 
-%global upstream_version 1.22.2
+%global upstream_version 1.22.3
 #global upstream_prever  RC6
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 Summary:      A ZIP archive management extension
 Summary(fr):  Une extension de gestion des ZIP
 Name:         php-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      2%{?dist}
+Release:      1%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
-Source0:      https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+Source0:      https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -52,14 +54,13 @@ Zip est une extension pour créer et lire les archives au format ZIP.
 
 %prep 
 %setup -c -q
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
 
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_ZIP_VERSION/{s/.* "//;s/".*$//;p}' php8/php_zip.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
@@ -74,29 +75,30 @@ cat >%{ini_name} << 'EOF'
 extension=%{pecl_name}.so
 EOF
 
+mkdir NTS
 %if %{with_zts}
-: Duplicate sources tree for ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
   --with-libzip \
   --with-libdir=%{_lib} \
-  --with-php-config=%{_bindir}/php-config
+  --with-php-config=%{__phpconfig}
 
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
   --with-libzip \
   --with-libdir=%{_lib} \
-  --with-php-config=%{_bindir}/zts-php-config
+  --with-php-config=%{__ztsphpconfig}
 
 make %{?_smp_mflags}
 %endif
@@ -115,40 +117,39 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 # Documentation
-cd NTS
+cd %{sources}
 for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
-cd NTS
+cd %{sources}
 : minimal load test of NTS extension
-%{_bindir}/php --no-php-ini \
+%{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep %{pecl_name}
 
 : upstream test suite for NTS extension
-TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}.so" \
-TEST_PHP_EXECUTABLE=%{_bindir}/php \
-%{_bindir}/php -n run-tests.php -q --show-diff
+TEST_PHP_ARGS="-n -d extension_dir=$PWD/../NTS/modules -d extension=%{pecl_name}.so" \
+TEST_PHP_EXECUTABLE=%{__php} \
+%{__php} -n run-tests.php -q --show-diff
 
 %if %{with_zts}
-cd ../ZTS
 : minimal load test of ZTS extension
-%{_bindir}/zts-php --no-php-ini \
+%{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
     --modules | grep %{pecl_name}
 
 : upstream test suite for ZTS extension
-TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}.so" \
-TEST_PHP_EXECUTABLE=%{_bindir}/zts-php \
-%{_bindir}/zts-php -n run-tests.php -q --show-diff
+TEST_PHP_ARGS="-n -d extension_dir=$PWD/../ZTS/modules -d extension=%{pecl_name}.so" \
+TEST_PHP_EXECUTABLE=%{__ztsphp} \
+%{__ztsphp} -n run-tests.php -q --show-diff
 %endif
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -162,6 +163,10 @@ TEST_PHP_EXECUTABLE=%{_bindir}/zts-php \
 
 
 %changelog
+* Tue Nov 14 2023 Remi Collet <remi@remirepo.net> - 1.22.3-1
+- update to 1.22.3
+- build out of sources tree
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.22.2-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 

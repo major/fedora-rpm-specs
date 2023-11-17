@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20231030
+Version:	20231111
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -15,6 +15,7 @@ Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar
 
 BuildRequires:	make
 BuildRequires:	git-core
+BuildRequires:	rdfind
 
 Requires:	linux-firmware-whence
 Provides:	kernel-firmware = %{version}
@@ -24,10 +25,13 @@ Conflicts:	microcode_ctl < 2.1-0
 Recommends:	amd-gpu-firmware
 Recommends:	intel-gpu-firmware
 Recommends:	nvidia-gpu-firmware
+# The AMD ucode is x86_64 specific
+%ifarch x86_64
 %if 0%{?fedora} && 0%{?fedora} < 40
 Requires:	amd-ucode-firmware
 %else
 Recommends:	amd-ucode-firmware
+%endif
 %endif
 %if 0%{?fedora} && 0%{?fedora} < 39
 Requires:	atheros-firmware
@@ -81,7 +85,7 @@ Summary:	Microcode updates for AMD CPUs
 License:	Redistributable, no modification permitted
 Requires:	linux-firmware-whence
 %description -n amd-ucode-firmware
-Microcode updates for AMD CPUs.
+Microcode updates for AMD CPUs, ARM SEV amd TEE.
 
 # WiFi/Bluetooth firmwares
 %package -n atheros-firmware
@@ -294,6 +298,8 @@ popd
 sed -i -e 's:^./::' linux-firmware.{files,dirs}
 sed \
 	-i -e '/^amdgpu/d' \
+	-i -e '/^amd/d' \
+	-i -e '/^amdtee/d' \
 	-i -e '/^amd-ucode/d' \
 	-i -e '/^ar3k/d' \
 	-i -e '/^ath6k/d' \
@@ -364,6 +370,8 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 # Microcode updates
 %files -n amd-ucode-firmware
 %license LICENSE.amd-ucode
+%{_firmwarepath}/amd/
+%{_firmwarepath}/amdtee/
 %{_firmwarepath}/amd-ucode/
 
 # WiFi/Bluetooth firmwares
@@ -490,6 +498,18 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Nov 14 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20231111-1
+- Update to upstream 20231111 release
+- Move AMD SEV and TEE firmware to amd-ucode package
+- amdgpu: DMCUB updates for various AMDGPU ASICs
+- nvidia: add GSP-RM version 535.113.01 firmware images
+- Update firmware file for Intel Bluetooth AX101/AX203/AX210/AX211/BE200
+- amdgpu: DMCUB updates for various AMDGPU ASICs
+- qca: add bluetooth firmware for WCN3988
+- ixp4xx: Add the IXP4xx firmware
+- rtw89: 8852b: update fw to v0.29.29.5
+- rtw89: 8851b: update fw to v0.29.41.3
+
 * Mon Oct 30 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20231030-1
 - Update to upstream 20231030 release
 - Update firmware file for Intel Bluetooth AX203/AX210/AX211/

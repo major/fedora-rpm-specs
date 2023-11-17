@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        304
+Version:        305
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -438,7 +438,7 @@ Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.5
 Provides: bundled(npm(date-fns)) = 2.30.0
-Provides: bundled(npm(deep-equal)) = 2.2.2
+Provides: bundled(npm(deep-equal)) = 2.2.3
 Provides: bundled(npm(define-data-property)) = 1.1.1
 Provides: bundled(npm(define-properties)) = 1.2.1
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
@@ -790,6 +790,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 15 2023 Packit <hello@packit.dev> - 305-1
+- Performance and stability improvements
+
 * Wed Nov 01 2023 Packit <hello@packit.dev> - 304-1
 Storage: Support for RAID layouts with LVM2
 

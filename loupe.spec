@@ -9,7 +9,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           loupe
-Version:        45.0
+Version:        45.1
 Release:        %autorelease
 Summary:        Image viewer
 
@@ -19,23 +19,17 @@ Summary:        Image viewer
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
 # GPL-3.0-or-later
-# LGPL-2.1-only
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
+# MPL-2.0 OR LGPL-2.1-or-later
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND GPL-3.0-or-later AND LGPL-2.1-only AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR Zlib OR Apache-2.0) AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
+License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR Zlib OR Apache-2.0) AND (MPL-2.0 OR LGPL-2.1-or-later) AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://gitlab.gnome.org/GNOME/loupe
 Source0:        https://download.gnome.org/sources/loupe/45/loupe-%{tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/loupe/-/merge_requests/299
-Patch:          299.patch
-
-# https://gitlab.gnome.org/GNOME/loupe/-/merge_requests/302
-Patch:          302.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -40,7 +40,7 @@ Requires:       lv2%{?_isa}
 
 # This resurrects the retired lv2-EQ10Q-plugins package whose name doesn't
 # comply with Fedora package naming guidelines.
-Obsoletes:      lv2-EQ10Q-plugins < 2.2-8
+Obsoletes:      lv2-EQ10Q-plugins < 2.2.1
 Provides:       lv2-EQ10Q-plugins = %{version}-%{release}
 
 %description

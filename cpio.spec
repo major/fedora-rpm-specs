@@ -1,7 +1,7 @@
 Summary: A GNU archiving program
 Name: cpio
 Version: 2.14
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/cpio/
 Source0: https://ftp.gnu.org/gnu/cpio/cpio-%{version}.tar.bz2
@@ -45,6 +45,7 @@ Patch8: cpio-2.11-crc-fips-nit.patch
 # Upstream patch
 # https://www.mail-archive.com/bug-cpio@gnu.org/msg00605.html
 Patch11: cpio-2.14-restore-access-and-modification-times-of-symlinks.patch
+Patch12: cpio-configure-c99.patch
 
 Provides: bundled(gnulib)
 Provides: bundled(paxutils)
@@ -109,6 +110,9 @@ make check || {
 %{_infodir}/*.info*
 
 %changelog
+* Wed Nov 15 2023 Florian Weimer <fweimer@redhat.com> - 2.14-5
+- Backport upstream patch for C99 compatibility issue
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

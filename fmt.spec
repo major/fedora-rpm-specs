@@ -1,14 +1,11 @@
 Name:           fmt
-Version:        10.0.0
-Release:        4%{?dist}
+Version:        10.1.1
+Release:        1%{?dist}
 
 License:        MIT
 Summary:        Small, safe and fast formatting library for C++
 URL:            https://github.com/fmtlib/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz
-
-# https://github.com/fmtlib/fmt/commit/d7592ad8bfa41eda239497f672ae8dc7bda00a4b
-Patch100:       %{name}-10.0.0-time_point-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -65,6 +62,9 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Nov 15 2023 Kefu Chai <tchaikov@gmail.com> - 10.1.1-1
+- Updated to version 10.1.1.
+
 * Thu Aug 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 10.0.0-4
 - Add Provides: fmt-static to fmt-devel
 

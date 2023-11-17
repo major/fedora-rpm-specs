@@ -4,7 +4,9 @@
 
 %global bash_completion %{_datadir}/bash-completion/completions/*
 
-%if ( 0%{?rhel} && ( 0%{?rhel} <= 7 || 0%{?rhel} >= 9 ) ) || ( 0%{?fedora} && 0%{?fedora} >= 39 )
+# Fedora infrastructure needs it for producing Fedora ≤ 39 and EPEL ≤ 7 repositories
+# See https://github.com/rpm-software-management/createrepo_c/issues/398
+%if ( 0%{?rhel} && ( 0%{?rhel} <= 7 || 0%{?rhel} >= 9 ) ) || ( 0%{?fedora} && 0%{?fedora} >= 45 )
 %bcond_with drpm
 %else
 %bcond_without drpm
@@ -33,7 +35,7 @@
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -198,6 +200,9 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Nov 15 2023 Jan Kolarik <jkolarik@redhat.com> - 1.0.2-2
+- Keep support for DRPM until Fedora 45 for infrastructure building
+
 * Tue Nov 07 2023 Jan Kolarik <jkolarik@redhat.com> - 1.0.2-1
 - Update to 1.0.2
 - Drop support for DRPM in Fedora 39 and higher

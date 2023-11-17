@@ -1,4 +1,6 @@
-%bcond_without     tests
+%bcond_without tests
+%global with_selinux 1
+%global selinuxtype targeted
 
 Name:           efs-utils
 Version:        1.35.0
@@ -9,8 +11,14 @@ License:        MIT
 URL:            https://github.com/aws/efs-utils
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# Fix systemd unit file.
-Patch:          0001-Ignore-deprecation-warnings-temporarily.patch
+Source1:        selinux/efs-utils.te
+Source2:        selinux/efs-utils.if
+Source3:        selinux/efs-utils.fc
+Source4:        selinux/efs-utils_selinux.8
+
+# Patch a deprecation warning to avoid having it fill the logs.
+# https://github.com/aws/efs-utils/pull/189
+Patch:          fix-deprecation-warning.patch
 
 BuildArch:      noarch
 
@@ -20,6 +28,10 @@ Requires:       stunnel
 Requires:       util-linux
 Requires:       which
 Requires:       python3dist(botocore)
+
+%if 0%{?with_selinux}
+Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
+%endif
 
 BuildRequires:  python3-devel
 BuildRequires:  systemd-rpm-macros
@@ -35,6 +47,19 @@ Utilities for Amazon Elastic File System (EFS).}
 
 %description %{_description}
 
+%if 0%{?with_selinux}
+# SELinux subpackage
+%package selinux
+Summary:             %{name} SELinux policy
+Requires:            %{name} = %{version}-%{release}
+Requires:            selinux-policy-%{selinuxtype}
+Requires(post):      selinux-policy-%{selinuxtype}
+BuildRequires:       selinux-policy-devel
+%{?selinux_requires}
+
+%description selinux
+Custom %{name} SELinux policy module
+%endif
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -42,9 +67,19 @@ Utilities for Amazon Elastic File System (EFS).}
 # Use unittest.mock for testing.
 sed -i 's/from mock/from unittest.mock/' test/common.py
 
-
 %build
 echo "Nothing to build"
+
+%if 0%{?with_selinux}
+mkdir selinux
+cp -p %{SOURCE1} selinux/
+cp -p %{SOURCE2} selinux/
+cp -p %{SOURCE3} selinux/
+cp -p %{SOURCE4} selinux/
+
+%make_build -f %{_datadir}/selinux/devel/Makefile %{name}.pp
+bzip2 -9 %{name}.pp
+%endif
 
 
 %install
@@ -58,8 +93,8 @@ install -vp -m 755 src/watchdog/__init__.py %{buildroot}%{_bindir}/amazon-efs-mo
 
 # Configuration files and Amazon root certificates.
 install -m 0755 -vd %{buildroot}%{_sysconfdir}/amazon/efs/
-install -vp -m 644 dist/efs-utils.conf %{buildroot}%{_sysconfdir}/amazon/efs/
-install -vp -m 444 dist/efs-utils.crt %{buildroot}%{_sysconfdir}/amazon/efs/
+install -vp -m 644 dist/%{name}.conf %{buildroot}%{_sysconfdir}/amazon/efs/
+install -vp -m 444 dist/%{name}.crt %{buildroot}%{_sysconfdir}/amazon/efs/
 
 # mount.efs script allows mounting EFS file systems by their short name.
 install -m 0755 -vd %{buildroot}%{_sbindir}
@@ -71,6 +106,12 @@ install -vp -m 644 man/mount.efs.8 %{buildroot}%{_mandir}/man8/
 
 # Log directory.
 install -m 0755 -vd %{buildroot}%{_localstatedir}/log/amazon/efs
+
+%if 0%{?with_selinux}
+install -D -m 0644 -t %{buildroot}%{_mandir}/man8 selinux/%{name}_selinux.8
+install -D -m 0644 %{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+install -D -p -m 0644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
+%endif
 
 
 %if %{with tests}
@@ -87,6 +128,34 @@ PYTHONPATH=$(pwd)/src %pytest \
 %endif
 
 
+########################################################################################
+#
+# BEGIN SELINUX PRE/POST
+#
+# SELinux contexts are saved so that only affected files can be
+# relabeled after the policy module installation
+%if 0%{?with_selinux}
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+%selinux_relabel_post -s %{selinuxtype}
+
+if [ "$1" -le "1" ]; then # First install
+   %systemd_postun_with_restart %{name}.service
+fi
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s %{selinuxtype} %{name}
+    %selinux_relabel_post -s %{selinuxtype}
+    %systemd_postun_with_restart %{name}.service
+fi
+%endif
+########################################################################################
+
+
 %files -n %{name}
 %license LICENSE
 %doc CONTRIBUTING.md README.md
@@ -100,6 +169,16 @@ PYTHONPATH=$(pwd)/src %pytest \
 %{_bindir}/amazon-efs-mount-watchdog
 %{_mandir}/man8/mount.efs.8*
 
+
+%if 0%{?with_selinux}
+%files selinux
+%{_mandir}/man8/%{name}_selinux.8.*
+%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.*
+%{_datadir}/selinux/devel/include/distributed/%{name}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
+%endif
+
+
 %post
 %systemd_post amazon-efs-mount-watchdog.service
 
@@ -108,7 +187,6 @@ PYTHONPATH=$(pwd)/src %pytest \
 
 %postun
 %systemd_postun_with_restart amazon-efs-mount-watchdog.service
-
 
 %changelog
 %autochangelog

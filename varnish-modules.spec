@@ -10,7 +10,7 @@
 
 Name:    varnish-modules
 Version: 0.22.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A collection of modules ("vmods") extending Varnish VCL
 
 License: BSD-2-Clause
@@ -81,6 +81,9 @@ sed -i 's,tests/xkey/test12.vtc,,' src/Makefile
 
 
 %changelog
+* Wed Nov 15 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.22.0-4
+- Rebuilt for varnish-7.4.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

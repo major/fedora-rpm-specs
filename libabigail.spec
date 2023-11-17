@@ -3,13 +3,14 @@
 
 Name: libabigail
 Version: 2.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache 2.0 WITH LLVM-exception
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
 Patch1: 0001-Bug-31045-Don-t-try-setting-translation-unit-for-uni.patch
+Patch2: 0002-suppression-Add-has_strict_flexible_array_data_membe.patch 
 
 BuildRequires: git
 BuildRequires: libbpf-devel
@@ -161,6 +162,11 @@ fi
 %endif
 
 %changelog
+* Wed Nov 15 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-3
+- Fix sourceware.org/PR31017
+  "Support Flex array conversion suppression"
+  Apply patch 0002-suppression-Add-has_strict_flexible_array_data_membe.patch
+
 * Tue Nov 14 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-2
 - Fix sourceware.org/PR31045
   "Don't try setting translation unit for unique types"
@@ -168,7 +174,7 @@ fi
   0001-Bug-31045-Don-t-try-setting-translation-unit-for-uni.patch.
   That patch is applied in upstream mainline and will be available in
   libabigail 2.5.
-- Use %autosetup instead of the previous %setup and %patch macros.
+- Use %%autosetup instead of the previous %%setup and %%patch macros.
 - Add git as a build requirement
 
 * Fri Oct 20 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-1

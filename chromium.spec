@@ -266,8 +266,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 119.0.6045.123
-Release: 2%{?dist}
+Version: 119.0.6045.159
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -365,8 +365,6 @@ Patch112: chromium-117-el7-default_constructor.patch
 Patch114: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
 Patch115: chromium-107-proprietary-codecs.patch
-# drop av_stream_get_first_dts from internal ffmpeg
-Patch116: chromium-119-ffmpeg-first_dts.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch117: chromium-118-sigtrap_system_ffmpeg.patch
 
@@ -376,7 +374,7 @@ Patch130: chromium-119-revert-av1enc-el9.patch
 # file conflict with old kernel on el8/el9
 Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
 
-# fixes for old clang version in fedora < 38 end epel < 9 (old clang <= 15)
+# fixes for old clang version in fedora < 38 end epel < 8 (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
 Patch300: chromium-119-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
@@ -495,6 +493,10 @@ BuildRequires: pkgconfig(libavcodec)
 BuildRequires: pkgconfig(libavfilter)
 BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libavutil)
+# chromium fail to start for rpmfusion users due to ABI break in ffmpeg-free-6.0.1
+# bethween fedora and rpmfussion.
+Conflicts: ffmpeg-libs%{_isa}
+Requires: libavformat-free%{_isa} >= 6.0.1
 %endif
 
 # build with system libaom
@@ -958,7 +960,6 @@ udev.
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9 || 0%{?fedora} == 37
 %patch -P114 -p1 -b .ffmpeg-5.x-duration
-%patch -P116 -p1 -b .first_dts
 %endif
 %patch -P115 -p1 -b .prop-codecs
 %patch -P117 -p1 -b .sigtrap_system_ffmpeg
@@ -989,7 +990,7 @@ udev.
 %endif
 
 %if %{clang}
-%if 0%{?rhel} < 9 || 0%{?fedora} < 38
+%if 0%{?rhel} < 8 || 0%{?fedora} < 38
 %patch -P300 -p1 -b .no_matching_constructor
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
@@ -1706,6 +1707,15 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Nov 15 2023 Than Ngo <than@redhat.com> - 119.0.6045.159-1
+- update to 119.0.6045.159, upstream security release
+   High CVE-2023-5997, use after free in Garbage Collection
+   High CVE-2023-6112, use after free in Navigation
+- add Requires/Conflicts for ABI break in fmpeg-free 6.0.1
+- drop first_dts patch, reintroduce first_dts patch in ffmpeg-free-6.0.1
+- fixed python3 syntaxWarning: invalid escape sequenc
+- skip clang's patches for epel8 that now gets clang-16 update
+
 * Mon Nov 13 2023 Than Ngo <than@redhat.com> - 119.0.6045.123-2
 - fixed bz#2240127, Some h.264 mp4s do not play 
 

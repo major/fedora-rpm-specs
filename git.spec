@@ -77,8 +77,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.42.0
-Release:        2%{?dist}
+Version:        2.42.1
+Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -126,6 +126,9 @@ Patch1:         0001-t-lib-httpd-try-harder-to-find-a-port-for-apache.patch
 Patch2:         0002-t-lib-git-daemon-try-harder-to-find-a-port.patch
 # https://github.com/tmzullinger/git/commit/aa5105dc11
 Patch3:         0003-t-lib-git-svn-try-harder-to-find-a-port.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2247532#c8
+Patch4:         0001-send-email-avoid-duplicate-specification-warnings.patch 
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
@@ -1041,6 +1044,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Nov 14 2023 Ondřej Pohořelský <opohorel@redhat.com> - 2.42.1-1
+- update to 2.42.1
+
 * Wed Nov  1 2023 Joe Orton <jorton@redhat.com> - 2.42.0-2
 - remove explicit BR for apr-util-bdb (#2247532)
 

@@ -1,5 +1,5 @@
 Name:           pytest
-%global base_version 7.4.2
+%global base_version 7.4.3
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
 Release:        1%{?dist}
@@ -9,6 +9,8 @@ URL:            https://pytest.org
 Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
 # see https://github.com/pytest-dev/pytest/issues/10042#issuecomment-1237132867
 Patch:          pytest-7.1.3-fix-xfails.patch
+# XFAIL TestLocalPath.test_make_numbered_dir_multiprocess_safe
+Patch:          https://github.com/pytest-dev/pytest/pull/11611.patch
 
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
@@ -180,6 +182,11 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Thu Nov 09 2023 Miro Hrončok <mhroncok@redhat.com> - 7.4.3-1
+- Update to 7.4.3
+- Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-4-3-2023-10-24
+- Fixes: rhbz#2245983
+
 * Fri Sep 08 2023 Miro Hrončok <mhroncok@redhat.com> - 7.4.2-1
 - Update to 7.4.2
 - Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-4-2-2023-09-07

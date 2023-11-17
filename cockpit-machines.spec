@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        301.1
+Version:        302
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -80,7 +80,7 @@ Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.5
 Provides: bundled(npm(date-fns)) = 2.30.0
-Provides: bundled(npm(deep-equal)) = 2.2.2
+Provides: bundled(npm(deep-equal)) = 2.2.3
 Provides: bundled(npm(define-data-property)) = 1.1.1
 Provides: bundled(npm(define-properties)) = 1.2.1
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
@@ -172,6 +172,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 15 2023 Packit <hello@packit.dev> - 302-1
+- Performance and stability improvements
+
 * Thu Nov 02 2023 Packit <hello@packit.dev> - 301.1-1
 - Test fixes
 

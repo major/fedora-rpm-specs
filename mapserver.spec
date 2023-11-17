@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -312,6 +312,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 8.0.1-8
+- Rebuild (gdal)
+
 * Tue Oct 03 2023 Sandro Mani <manisandro@gmail.com> - 8.0.1-7
 - Fix implicit declarations of strlcat
 

@@ -441,6 +441,10 @@ fi
 #
 # Filter requirements-docs-tests.txt similarly, and reference the filtered
 # version from requirements-tests-filtered.txt.
+#
+# Assume that newer versions of httpx are OK for testing; trying to get
+# upstream to update this pin every time there is a new 0.x release is too
+# tedious.
 sed -r \
     -e 's/^(mypy|ruff|coverage)\b/# &/' \
     -e 's/^(types-(u|or)json)\b/# &/' \
@@ -454,6 +458,7 @@ sed -r \
 sed -r \
     -e 's/^(black)\b/# &/' \
     -e 's/==/>=/' \
+    -e 's/((httpx) [^,]*),<.*/\1/' \
     requirements-docs-tests.txt | tee requirements-docs-tests-filtered.txt
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we

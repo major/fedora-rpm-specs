@@ -15,30 +15,30 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  1.16.2
+%global upstream_version  1.17.0
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 %global _configure        ../%{sources}/configure
 
 # Bundled versions
-%global bundled_libmongo  1.24.3
-%global bundled_libcrypt  1.8.1
+%global bundled_libmongo  1.25.1
+%global bundled_libcrypt  1.8.2
 
 # Build dependencies
-%global system_libmongo   1.24.1
-%global system_libcrypt   1.8.1
+%global system_libmongo   1.25.1
+%global system_libcrypt   1.8.2
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
 BuildRequires:  gcc
-BuildRequires:  php-devel >= 7.2
+BuildRequires:  php-devel >= 7.4
 BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  pkgconfig(libbson-1.0)    >= %{system_libmongo}
@@ -188,6 +188,13 @@ cd ../ZTS
 
 
 %changelog
+* Wed Nov 15 2023 Remi Collet <remi@remirepo.net> - 1.17.0-1
+- update to 1.17.0
+- raise dependency on PHP 7.4
+- raise dependency on libmongoc 1.25.1
+- raise dependency on libmongocrypt 1.8.2
+- open https://github.com/mongodb/mongo-php-driver/pull/1490 drop ICU information
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.16.2-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 

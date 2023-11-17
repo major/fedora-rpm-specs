@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -485,6 +485,9 @@ fi
 %exclude %{_libdir}/syslog-ng/libriemann.so
 %exclude %{_libdir}/syslog-ng/libafsnmp.so
 %exclude %{_libdir}/syslog-ng/libkafka.so
+%exclude %{_libdir}/syslog-ng/libotel.so
+%exclude %{_libdir}/syslog-ng/libmqtt.so
+%exclude %{_libdir}/syslog-ng/libebpf.so
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/vim/ftdetect/syslog-ng.vim
@@ -594,6 +597,10 @@ fi
 
 
 %changelog
+* Wed Nov 15 2023 Peter Czanik <peter@czanik.hu> - 4.3.1-3
+- fix excludes, making sure that the base package pulls
+  only minimal dependencies
+
 * Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.1-2
 - Rebuilt for abseil-cpp 20230802.0
 

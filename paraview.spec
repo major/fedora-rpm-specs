@@ -63,7 +63,7 @@
 
 Name:           paraview
 Version:        %{pv_maj}.%{pv_min}.%{pv_patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -622,6 +622,9 @@ fi
 
 
 %changelog
+* Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 5.11.2-2
+- Rebuild (gdal)
+
 * Wed Sep 27 2023 Orion Poplawski <orion@nwra.com> - 5.11.2-1
 - Update to 5.11.2
 

@@ -13,7 +13,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libicu-devel
 BuildRequires:  pandoc
-BuildRequires:  catch2-devel
+BuildRequires:  catch-devel
 
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-dlfcn

@@ -50,7 +50,7 @@
 
 
 Name:          gdal
-Version:       3.7.3
+Version:       3.8.0
 Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
@@ -381,6 +381,7 @@ cp -a %{SOURCE4} .
 %cmake \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
+  -DGDAL_JAVA_JNI_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_USE_JPEG12_INTERNAL=OFF \
   -DENABLE_DEFLATE64=OFF
 %cmake_build
@@ -445,6 +446,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/gdalbuildvrt
 %{_bindir}/gdaldem
 %{_bindir}/gdalenhance
+%{_bindir}/gdal_footprint
 %{_bindir}/gdalinfo
 %{_bindir}/gdallocationinfo
 %{_bindir}/gdalmanage
@@ -472,8 +474,8 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %files libs
 %license LICENSE.TXT
 %doc NEWS.md PROVENANCE.TXT COMMITTERS PROVENANCE.TXT-fedora
-%{_libdir}/libgdal.so.33
-%{_libdir}/libgdal.so.33.*
+%{_libdir}/libgdal.so.34
+%{_libdir}/libgdal.so.34.*
 %{_datadir}/%{name}/
 %{_libdir}/gdalplugins/
 
@@ -489,7 +491,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
-%{mingw32_bindir}/libgdal-33.dll
+%{mingw32_bindir}/libgdal-34.dll
 %{mingw32_bindir}/gdal-config
 %{mingw32_libdir}/libgdal.dll.a
 %{mingw32_libdir}/cmake/gdal/
@@ -502,7 +504,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 %files -n mingw64-%{name}
 %license LICENSE.TXT
-%{mingw64_bindir}/libgdal-33.dll
+%{mingw64_bindir}/libgdal-34.dll
 %{mingw64_bindir}/gdal-config
 %{mingw64_libdir}/libgdal.dll.a
 %{mingw64_libdir}/cmake/gdal/
@@ -570,6 +572,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Tue Nov 14 2023 Sandro Mani <manisandro@gmail.com> - 3.8.0-1
+- Update to 3.8.0
+
 * Fri Nov 03 2023 Sandro Mani <manisandro@gmail.com> - 3.7.3-1
 - Update to 3.7.3
 

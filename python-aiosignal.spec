@@ -13,6 +13,11 @@ License:        Apache-2.0
 URL:            https://github.com/aio-libs/aiosignal
 Source:         %{pypi_source aiosignal}
 
+# Drop sphinxcontrib-asyncio doc dependency
+# https://github.com/aio-libs/aiosignal/pull/528
+# Rebased on the PyPI sdist, which lacks requirements/doc.txt
+Patch:          aiosignal-1.3.1-no-sphinxcontrib-asyncio.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -23,7 +28,6 @@ BuildRequires:  python3dist(pytest-asyncio)
 %if %{with doc}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinxcontrib-asyncio)
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif

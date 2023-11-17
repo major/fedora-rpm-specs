@@ -111,6 +111,10 @@ Patch:          %{forgeurl}/pull/253.patch
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/277
 Patch:          %{forgeurl}/pull/277.patch
 
+# Fix build with >=exiv2-0.28.0, raise minimum to 0.27.0
+# https://github.com/LuminanceHDR/LuminanceHDR/pull/279
+Patch:          0001-Fix-build-with-exiv2-0.28.0-raise-minimum-to-0.27.0.patch
+
 BuildRequires:  cmake
 # We choose to use the ninja backend instead of the make backend. Either works.
 BuildRequires:  ninja-build
@@ -243,7 +247,7 @@ Without their contribution all of this would have not been possible.
 
 %package data
 Summary:        Architecture-independent data files for luminance-hdr
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 BuildArch:      noarch
 

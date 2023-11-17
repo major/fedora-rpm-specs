@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.34.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -310,6 +310,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 3.34.0-4
+- Rebuild (gdal)
+
 * Fri Nov 03 2023 Sandro Mani <manisandro@gmail.com> - 3.34.0-3
 - Add supplements qgis to python3-qgis subpackage
 

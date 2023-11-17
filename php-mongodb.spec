@@ -9,17 +9,17 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    72d80889eb7567c0da4e7d4ddbdcf66dfea90ac3
+%global gh_commit    9d9c917cf7ff275ed6bd63c596efeb6e49fd0e53
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mongodb
 %global gh_project   mongo-php-library
 %global psr0         MongoDB
 
-%global upstream_version 1.16.1
+%global upstream_version 1.17.0
 #global upstream_prever  alpha1
 #global upstream_lower   alpha1
 
-%global ext_version      1.16.0
+%global ext_version      1.17.0
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
@@ -36,7 +36,7 @@ Source1:        makesrc.sh
 Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.2
+BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-cli
 BuildRequires:  php-reflection
 BuildRequires:  php-date
@@ -44,9 +44,9 @@ BuildRequires:  php-dom
 BuildRequires:  php-hash
 BuildRequires:  php-json
 BuildRequires:  php-spl
-BuildRequires: (php-composer(symfony/polyfill-php73) >= 1.27 with php-composer(symfony/polyfill-php73) < 2)
-BuildRequires: (php-composer(symfony/polyfill-php80) >= 1.27 with php-composer(symfony/polyfill-php80) < 2)
-BuildRequires: (php-composer(symfony/polyfill-php81) >= 1.27 with php-composer(symfony/polyfill-php81) < 2)
+BuildRequires: (php-composer(psr/log)                >= 1.1.4 with php-composer(psr/log)                < 4)
+BuildRequires: (php-composer(symfony/polyfill-php80) >= 1.27  with php-composer(symfony/polyfill-php80) < 2)
+BuildRequires: (php-composer(symfony/polyfill-php81) >= 1.27  with php-composer(symfony/polyfill-php81) < 2)
 %if %{with tests}
 BuildRequires:  mongodb-server >= 2.4
 BuildRequires:  php-pecl(mongodb) >= %{ext_version}
@@ -62,21 +62,22 @@ BuildRequires:  %{phpunit}
 BuildRequires:  php-composer(fedora/autoloader)
 
 # From composer.json, "require": {
-#        "php": "^7.2 || ^8.0"
+#        "php": "^7.4 || ^8.0"
 #        "ext-hash": "*",
 #        "ext-json": "*",
-#        "ext-mongodb": "^1.16.0",
+#        "ext-mongodb": "^1.17.0",
 #        "jean85/pretty-package-versions": "^2.0.1",
 #        "symfony/polyfill-php73": "^1.27",
+#        "psr/log": "^1.1.4|^2|^3",
 #        "symfony/polyfill-php80": "^1.27",
 #        "symfony/polyfill-php81": "^1.27"
-Requires:       php(language) >= 7.2
+Requires:       php(language) >= 7.4
 Requires:       php-hash
 Requires:       php-json
 Requires:       php-pecl(mongodb) >= %{ext_version}
-Requires:      (php-composer(symfony/polyfill-php73) >= 1.27 with php-composer(symfony/polyfill-php73) < 2)
-Requires:      (php-composer(symfony/polyfill-php80) >= 1.27 with php-composer(symfony/polyfill-php80) < 2)
-Requires:      (php-composer(symfony/polyfill-php81) >= 1.27 with php-composer(symfony/polyfill-php81) < 2)
+Requires:      (php-composer(psr/log)                >= 1.1.4 with php-composer(psr/log)                < 4)
+Requires:      (php-composer(symfony/polyfill-php80) >= 1.27  with php-composer(symfony/polyfill-php80) < 2)
+Requires:      (php-composer(symfony/polyfill-php81) >= 1.27  with php-composer(symfony/polyfill-php81) < 2)
 # From phpcompatinfo report for 1.8.0
 Requires:       php-reflection
 Requires:       php-date
@@ -112,6 +113,11 @@ require_once '%{_datadir}/php/Fedora/Autoloader/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('MongoDB\\', __DIR__);
 require_once __DIR__. '/functions.php';
 \Fedora\Autoloader\Dependencies::required([
+    [
+        '%{_datadir}/php/Psr/Log3/autoload.php',
+        '%{_datadir}/php/Psr/Log2/autoload.php',
+        '%{_datadir}/php/Psr/Log/autoload.php',
+    ],
     '%{_datadir}/php/Symfony/Polyfill/autoload.php',
 ]);
 EOF
@@ -192,6 +198,12 @@ exit $ret
 
 
 %changelog
+* Wed Nov 15 2023 Remi Collet <remi@remirepo.net> - 1.17.0-1
+- update to 1.17.0
+- raise dependency on PHP 7.2
+- raise dependency on mongodb extension version 1.17
+- add dependency on psr/log
+
 * Thu Sep 28 2023 Remi Collet <remi@remirepo.net> - 1.16.1-1
 - update to 1.16.1
 

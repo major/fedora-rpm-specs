@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Yet Another Query Language
 
 License:        ASL 2.0
@@ -28,7 +28,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-tools
 BuildRequires:  python3-pbr
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-oslo-sphinx
 BuildRequires:  python3-testtools
 BuildRequires:  python3-ply
 BuildRequires:  python3-dateutil
@@ -102,6 +101,9 @@ rm -fr %{buildroot}%{python3_sitelib}/yaql/tests
 %endif
 
 %changelog
+* Wed Nov 15 2023 Joel Capitao <jcapitao@redhat.com> - 2.0.0-10
+- Remove oslo-sphinx BR
+
 * Mon Oct 23 2023 Alfredo Moralejo <amoralej@redhat.com> - 2.0.0-9
 - Remove 2to3 usage while building the package
 

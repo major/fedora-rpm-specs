@@ -1,7 +1,7 @@
 %global xfceversion 4.18
 
 Name:           xfconf
-Version:        4.18.1
+Version:        4.18.3
 Release:        %autorelease
 Summary:        Hierarchical configuration system for Xfce
 

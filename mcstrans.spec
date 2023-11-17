@@ -71,9 +71,6 @@ install -m644 %{SOURCE2} %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/mcs.8.gz
 %{_mandir}/man8/mcstransd.8.gz
 %{_mandir}/man5/setrans.conf.5.gz
-%{_mandir}/ru/man8/mcs.8.gz
-%{_mandir}/ru/man8/mcstransd.8.gz
-%{_mandir}/ru/man5/setrans.conf.5.gz
 %{_mandir}/man8/secolor.conf.8.gz
 /usr/sbin/mcstransd
 %{_unitdir}/mcstrans.service

@@ -2,7 +2,7 @@ Summary: Tool for removing ifdef'd lines
 Name: unifdef
 Version: 2.10
 Release: 20%{?dist}
-License: BSD
+License: BSD-2-Clause AND BSD-3-Clause
 URL: http://dotat.at/prog/unifdef/
 Source0: http://dotat.at/prog/unifdef/unifdef-%{version}.tar.xz
 

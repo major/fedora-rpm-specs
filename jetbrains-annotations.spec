@@ -1,5 +1,5 @@
 Name:           jetbrains-annotations
-Version:        24.0.1
+Version:        24.1.0
 Release:        %autorelease
 Summary:        Annotations for JVM-based languages
 
