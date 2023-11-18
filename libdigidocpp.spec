@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
 Version:        3.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 License:        LGPLv2+
@@ -19,11 +19,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  xml-security-c-devel
 BuildRequires:  xsd
-%if 0%{?fedora} >= 30
-BuildRequires:  minizip-compat-devel
-%else
-BuildRequires:  pkgconfig(minizip)
-%endif
 # Provide xxd
 BuildRequires:  vim-common
 
@@ -63,9 +58,6 @@ find . -type f -execdir sed -r -i \
 # it contains non UTF-8 files, but they do not worth the process of
 # unpackaging and fixing the encoding
 rm -rf doc/sample_files.zip
-
-# Remove bundled minizip
-rm -rf src/minizip
 
 %build
 # the dot after %%{cmake} has been removed from Fedora because of
@@ -124,6 +116,9 @@ rm -rf src/minizip
 
 
 %changelog
+* Thu Nov 16 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 3.16.0-2
+- 3.16.0 remove minizip-compat dependency
+
 * Fri Aug 18 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 3.16.0-1
 - 3.16.0 release
 

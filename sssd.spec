@@ -42,17 +42,14 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.9.2
-Release: 3%{?dist}
+Version: 2.9.3
+Release: 1%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.9.2/sssd-2.9.2.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.9.3/sssd-2.9.3.tar.gz
 
 ### Patches ###
-Patch0001: 0001-passkey-kerberos-preauth-false-uv.patch
-Patch0002: 0002-increase-child-buffer-size.patch
-Patch0003: 0003-increase-conv-message-size.patch
 
 ### Dependencies ###
 
@@ -346,6 +343,7 @@ identity data from and authenticate against an Active Directory server.
 Summary: The proxy back end of the SSSD
 License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
+Requires: libsss_certmap = %{version}-%{release}
 
 %description proxy
 Provides the proxy back end which can be used to wrap an existing NSS and/or
@@ -1061,6 +1059,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Wed Nov 15 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.3-1
+- Rebase to SSSD 2.9.3
+
 * Thu Nov 09 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.2-3
 - Fix "Obsoletes libsss_simpleifp"
 

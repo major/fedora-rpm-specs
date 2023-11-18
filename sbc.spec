@@ -3,7 +3,7 @@ Version:       2.0
 Release:       3%{?dist}
 Summary:       Sub Band Codec used by bluetooth A2DP
 
-License:       GPLv2 and LGPLv2+
+License:       GPL-2.0-only AND LGPL-2.1-or-later
 URL:           http://www.bluez.org
 Source0:       http://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
 

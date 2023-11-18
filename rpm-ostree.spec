@@ -4,7 +4,7 @@
 Summary: Hybrid image/package system
 Name: rpm-ostree
 Version: 2023.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
@@ -233,6 +233,16 @@ $PYTHON autofiles.py > files.devel \
   '%{_datadir}/gtk-doc/html/*' \
   '%{_datadir}/gir-1.0/*-1.0.gir'
 
+# Setup rpm-ostree-countme.timer according to presets
+%post
+%systemd_post rpm-ostree-countme.timer
+
+%preun
+%systemd_preun rpm-ostree-countme.timer
+
+%postun
+%systemd_postun_with_restart rpm-ostree-countme.timer
+
 %files -f files
 %doc COPYING.GPL COPYING.LGPL LICENSE README.md
 
@@ -241,6 +251,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Wed Nov 15 2023 Timothée Ravier <tim@siosm.fr> - 2023.10-4
+- Setup rpm-ostree-countme.timer according to presets
+
 * Thu Oct 26 2023 Colin Walters <walters@verbum.org> - 2023.10-3
 - https://github.com/coreos/rpm-ostree/releases/tag/v2023.10
 

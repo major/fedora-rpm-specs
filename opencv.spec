@@ -70,7 +70,7 @@ Version:        4.8.1
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -563,6 +563,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Thu Nov 16 2023 Sandro Mani <manisandro@gmail.com> - 4.8.1-3
+- Rebuild (gdal)
+
 * Sat Oct 07 2023 Sandro Mani <manisandro@gmail.com> - 4.8.1-2
 - Rebuild (tesseract)
 

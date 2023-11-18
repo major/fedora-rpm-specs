@@ -1,21 +1,11 @@
-# when bootstrapping sphinx, we cannot run tests yet
-%bcond_without check
-
 Name:           python-sphinxcontrib-applehelp
 Version:        1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for Apple help books
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
 Source0:        %{pypi_source sphinxcontrib_applehelp}
 BuildArch:      noarch
-
-# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
-# In the RPM environment the dependencies are handled correctly without it
-# Remove the runtime requirement on Sphinx from this package
-# See: https://github.com/sphinx-doc/sphinx/issues/11567
-# At the same time, Sphinx is a wanted test dependency
-Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -38,7 +28,7 @@ find -name '*.mo' -delete
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_check: -x test}
+%pyproject_buildrequires -x test
 
 
 %build
@@ -66,10 +56,8 @@ popd
 %find_lang sphinxcontrib.applehelp
 
 
-%if %{with check}
 %check
 %pytest
-%endif
 
 
 %files -n python%{python3_pkgversion}-sphinxcontrib-applehelp -f sphinxcontrib.applehelp.lang
@@ -80,6 +68,10 @@ popd
 
 
 %changelog
+* Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.0.7-2
+- Remove a patch to drop the runtime dependency on Sphinx
+- It is no longer needed, python3-sphinx-7.2.6-2+ no longer Requires this
+
 * Mon Aug 28 2023 Karolina Surma <ksurma@redhat.com> - 1.0.7-1
 - Update to 1.0.7 (#2231931)
 

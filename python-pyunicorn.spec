@@ -60,7 +60,7 @@ BuildRequires:  latexmk
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  Cython < 3~~
+BuildRequires:  Cython
 
 BuildRequires:  python3-igraph
 BuildRequires:  numpy

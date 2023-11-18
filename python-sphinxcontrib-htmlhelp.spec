@@ -1,23 +1,14 @@
-# when bootstrapping sphinx, we cannot even run an import check
-%bcond check 1
 # RHEL does not include html5lib, without which the tests fail
-%bcond tests %[%{with check} && %{undefined rhel}]
+%bcond tests %{undefined rhel}
 
 Name:           python-sphinxcontrib-htmlhelp
 Version:        2.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for HTML help files
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
 Source:         %{pypi_source sphinxcontrib_htmlhelp}
 BuildArch:      noarch
-
-# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
-# In the RPM environment the dependencies are handled correctly without it
-# Remove the runtime requirement on Sphinx from this package
-# See: https://github.com/sphinx-doc/sphinx/issues/11567
-# At the same time, Sphinx is a wanted test dependency
-Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -69,12 +60,10 @@ popd
 %find_lang sphinxcontrib.htmlhelp
 
 
-%if %{with check}
 %check
 %py3_check_import sphinxcontrib.htmlhelp
 %if %{with tests}
 %{__python3} -m pytest
-%endif
 %endif
 
 
@@ -86,6 +75,10 @@ popd
 
 
 %changelog
+* Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.4-2
+- Remove a patch to drop the runtime dependency on Sphinx
+- It is no longer needed, python3-sphinx-7.2.6-2+ no longer Requires this
+
 * Thu Aug 24 2023 Karolina Surma <ksurma@redhat.com> - 2.0.4-1
 - update to 2.0.4
 Resolves: rhbz#2231932

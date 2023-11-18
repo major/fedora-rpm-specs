@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -58,7 +58,7 @@ License: Python-2.0.1
 #   IMPORTANT: When bootstrapping, it's very likely python-pip-wheel is
 #   not available. Turn off the rpmwheels bcond until
 #   python-pip is built with a wheel to get around the issue.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 # Whether to use RPM build wheels from the python-{pip,setuptools,wheel}-wheel packages
 # Uses upstream bundled prebuilt wheels otherwise
@@ -1651,6 +1651,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Nov 15 2023 Miro Hrončok <mhroncok@redhat.com> - 3.13.0~a1-2
+- Build Python 3.13 using Python 3.13
+
 * Mon Oct 16 2023 Karolina Surma <ksurma@redhat.com> - 3.13.0~a1-1
 - Initial Python 3.13 package forked from Python 3.12
 

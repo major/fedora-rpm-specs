@@ -6,12 +6,12 @@
 Summary:       Python bindings for CUPS
 Name:          python-cups
 Version:       2.0.1
-Release:       18%{?dist}
+Release:       19%{?dist}
 # older URL, but still with useful information about pycups
 #URL:           http://cyberelk.net/tim/software/pycups/
 URL:           https://github.com/OpenPrinting/pycups/
 Source:        https://github.com/OpenPrinting/pycups/releases/download/v%{version}/pycups-%{version}.tar.gz
-License:       GPLv2+
+License:       GPL-2.0-or-later
 
 # all taken from upstream
 Patch01: 0001-examples-cupstree.py-remove-shebang.patch
@@ -78,6 +78,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %doc examples html
 
 %changelog
+* Thu Nov 16 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0.1-19
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

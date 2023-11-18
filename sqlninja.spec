@@ -1,6 +1,6 @@
 Name:           sqlninja
 Version:        0.2.999        
-Release:        0.20.alpha1%{?dist}
+Release:        0.21.alpha1%{?dist}
 Summary:        A tool for SQL server injection and takeover
 
 License:        GPLv2+
@@ -9,10 +9,10 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-alph
 Source1:        README.fedora
 Patch0:         sqlninja-binary-upload-mode-fix-0.2.999-alpha1.patch
 Patch1:         sqlninja-move-config-file-0.2.999-alpha1.patch
-Patch2:         sqlninja-change-path-0.2.999-alpha1.patch
-Patch3:         sqlninja-configuration-file-0.2.999-alpha1.patch
+Patch2:         sqlninja-install-path-0.2.999-alpha1.patch
 BuildArch:      noarch
-BuildRequires:      perl-generators
+BuildRequires:  perl-macros
+#BuildRequires:  perl-generators
 
 Requires:       perl-Net-DNS-Nameserver
 Requires:       perl-Net-Pcap
@@ -29,31 +29,34 @@ application that uses Microsoft SQL Server as its back-end. Its main goal is
 to provide remote access to vulnerable DB server.
 
 %prep
-%setup -q -n %{name}-%{version}-alpha1
-%patch0 -p1 -b .binary-upload
-%patch1 -p1 -b .configuration
-%patch2 -p1 -b .path
-%patch3 -p1 -b .config-file
+%autosetup -n %{name}-%{version}-alpha1
 cp %{SOURCE1} .
 
 %build
-# nothing to build
+# Patch path to language map in example config
+sed -i.bak -E -e 's!lib/langs/!SqlNinja/langs/!' sqlninja.conf
 
 %install
 rm -rf %{buildroot}
 install -Dp -m 0755 %{name} %{buildroot}%{_sbindir}/%{name}
-install -pm 0755 -d %{buildroot}%{_datadir}/%{name}
-install -pm 0755 -d %{buildroot}%{_datadir}/%{name}/langs
-install -pm 0755 lib/*.pl %{buildroot}%{_datadir}/%{name}/
-install -pm 0755 lib/langs/* %{buildroot}%{_datadir}/%{name}/langs/
+install -pm 0755 -d %{buildroot}%{perl_vendorlib}/SqlNinja
+install -pm 0755 -d %{buildroot}%{perl_vendorlib}/SqlNinja/langs
+install -pm 0755 lib/*.pl %{buildroot}%{perl_vendorlib}/SqlNinja/
+install -pm 0755 lib/langs/* %{buildroot}%{perl_vendorlib}/SqlNinja/langs/
 install -pm 0755 -d %{buildroot}%{_sysconfdir}
 
 %files
 %doc LICENSE ChangeLog README sqlninja-howto.html README.fedora %{name}.conf
 %{_sbindir}/%{name}
-%{_datadir}/%{name}/
+%dir %{perl_vendorlib}/SqlNinja
+%{perl_vendorlib}/SqlNinja/
 
 %changelog
+* Mon Nov 06 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 0.2.999-0.21.alpha1
+- Install to %%perl_vendorlib instead of /usr/share/sqlninja
+- Update patched paths for new install location
+- Use autosetup to simplify spec file
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.999-0.20.alpha1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

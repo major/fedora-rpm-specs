@@ -1,7 +1,8 @@
 # Required for the plugin directory name, see https://github.com/OpenImageIO/oiio/issues/2583
 %global oiio_major_minor_ver %(rpm -q --queryformat='%%{version}' OpenImageIO-devel | cut -d . -f 1-2)
 #%%global prerelease -RC1
-%bcond_without  qt5
+
+%bcond qt5 1
 
 # not compatible with newer clang versions
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
@@ -12,13 +13,38 @@ Name:           openshadinglanguage
 Version:        1.12.14.0
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
-License:        BSD-3-Clause
-URL:            https://github.com/AcademySoftwareFoundation/OpenShadingLanguage
-Source:        %{url}/archive/v%{version}/OpenShadingLanguage-%{version}%{?prerelease}.tar.gz
 
-# Required for %%autosetup -S git, which in turn is required to use a patch
-# from git containing a binary diff.
-BuildRequires:  git-core
+# The entire source is BSD-3-Clause, except:
+#
+# BSD-3-Clause AND LicenseRef-Fedora-Public-Domain (see THIRD-PARTY.md):
+#   src/include/OSL/oslnoise.h
+#
+# Additionally, the following are under other acceptable licenses but are
+# removed in %%prep and not packaged in any binary RPM:
+#
+# Pixar (https://github.com/spdx/license-list-XML/issues/2225):
+#   doc/build_install/windows/build_osl.py
+# CC-BY-4.0:
+#   ASWF/meetings/2020-04-02.md
+#   ASWF/meetings/template.md
+#   CHANGES.md
+#   CONTRIBUTING.md
+#   GOVERNANCE.md
+#   INSTALL.md
+#   doc/RELEASING.md
+#   doc/build_install/README.md
+#   doc/build_install/windows/Readme.md
+#   src/doc/languagespec.tex
+#   src/doc/osltoy.md.html
+#   src/doc/techref.sty
+#   src/doc/testshade.md.html
+# BSD-2-Clause
+#  src/doc/markdeep.min.js
+# BSD-2-Clause OR LicenseRef-Fedora-Public-Domain:
+#   src/doc/docs.css
+License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
+URL:            https://github.com/AcademySoftwareFoundation/OpenShadingLanguage
+Source:         %{url}/archive/v%{version}/OpenShadingLanguage-%{version}%{?prerelease}.tar.gz
 
 BuildRequires:  bison >= 2.7
 BuildRequires:  boost-devel >= 1.55
@@ -38,98 +64,111 @@ BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(Qt5) >= 5.6
 BuildRequires:  pkgconfig(zlib)
 
-# 64 bit only
-ExcludeArch:  %{ix86} %{arm}
+BuildRequires:  help2man
 
-%description
+# 64 bit only
+ExcludeArch:    %{ix86} %{arm}
+
+# HTML documentation removed due to necessary pre-minified JavaScript:
+Obsoletes:      %{name}-doc < 1.12.13.0-6
+
+%global common_description %{expand:
 Open Shading Language (OSL) is a small but rich language for programmable
 shading in advanced renderers and other applications, ideal for describing
-materials, lights, displacement, and pattern generation.
+materials, lights, displacement, and pattern generation.}
 
-%package doc
-Summary:        Documentation for OpenShadingLanguage
-License:        CC-BY
-BuildArch:      noarch
-Requires:       %{name} = %{version}
-
-%description doc
-Open Shading Language (OSL) is a language for programmable shading
-in advanced renderers and other applications, ideal for describing
-materials, lights, displacement, and pattern generation.
-This package contains documentation.
+%description %{common_description}
 
 %package example-shaders-source
 Summary:        OSL shader examples
-License:        BSD
+
+# This subpackage doesn’t contain API headers or compiled libraries or executables;
+# therefore, nothing in it is derived from src/include/OSL/oslnoise.h.
+License:        BSD-3-Clause
+
 BuildArch:      noarch
+
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-common-headers
 
-%description example-shaders-source
-Open Shading Language (OSL) is a language for programmable shading
-in advanced renderers and other applications, ideal for describing
-materials, lights, displacement, and pattern generation.
+%description example-shaders-source %{common_description}
 
 This package contains some OSL example shaders.
 
 %package common-headers
 Summary:        OSL standard library and auxiliary headers
-License:        BSD
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 
-%description common-headers
-Open Shading Language (OSL) is a language for programmable shading
-in advanced renderers and other applications, ideal for describing
-materials, lights, displacement, and pattern generation.
+%description common-headers %{common_description}
 
 This package contains the OSL standard library headers, as well
 as some additional headers useful for writing shaders.
 
 %package -n OpenImageIO-plugin-osl
 Summary:        OpenImageIO input plugin
-License:        BSD
 
-%description -n OpenImageIO-plugin-osl
-Open Shading Language (OSL) is a language for programmable shading
-in advanced renderers and other applications, ideal for describing
-materials, lights, displacement, and pattern generation.
+%description -n OpenImageIO-plugin-osl %{common_description}
 
 This is a plugin to access OSL from OpenImageIO.
 
 %package        libs
 Summary:        OpenShadingLanguage's libraries
-License:        BSD
 
-%description    libs
-Open Shading Language (OSL) is a language for programmable shading
-in advanced renderers and other applications, ideal for describing
-materials, lights, displacement, and pattern generation.
+%description    libs %{common_description}
 
 
 %package        devel
 Summary:        Development files for %{name}
-License:        BSD
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%description    devel
+%description    devel %{common_description}
+
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %package        -n python3-%{name}
 Summary:        %{summary}
-License:        BSD
 BuildRequires:  cmake(pybind11)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  python3dist(numpy)
 
-%description    -n python3-%{name}
-%{description}
+%description    -n python3-%{name} %{common_description}
 
 %prep
-%autosetup -p1 -n OpenShadingLanguage-%{version}%{?prerelease} -S git
+%autosetup -p1 -n OpenShadingLanguage-%{version}%{?prerelease}
 # Use python3 binary instead of unversioned python
 sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
+
+# Remove files that are under licenses that are acceptable in Fedora, but which
+# we haven’t included in any License field, so we want to make sure that the
+# files bearing them aren’t installed.
+#
+# Pixar (https://github.com/spdx/license-list-XML/issues/2225):
+rm -v doc/build_install/windows/build_osl.py
+# CC-BY-4.0 (documentation):
+rm -v \
+    ASWF/meetings/2020-04-02.md \
+    ASWF/meetings/template.md \
+    CHANGES.md \
+    CONTRIBUTING.md \
+    GOVERNANCE.md \
+    INSTALL.md \
+    doc/RELEASING.md \
+    doc/build_install/README.md \
+    doc/build_install/windows/Readme.md \
+    src/doc/languagespec.tex \
+    src/doc/osltoy.md.html \
+    src/doc/techref.sty \
+    src/doc/testshade.md.html
+# BSD-2-Clause
+rm -v src/doc/markdeep.min.js
+# BSD-2-Clause OR LicenseRef-Fedora-Public-Domain:
+rm -v src/doc/docs.css
+
+# Make sure we didn’t miss any bundled and pre-minified JavaScript
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/JavaScript/#_compilationminification
+find . -type f -name '*.min.js' -print -delete
 
 %build
 %cmake \
@@ -145,8 +184,26 @@ sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
    -DPARTIO_INCLUDE_DIR=%{_includedir} \
    -DPARTIO_LIBRARIES=%{_libdir}/libpartio.so \
    -DPYTHON_VERSION=%{python3_version} \
-   -DSTOP_ON_WARNING=OFF 
+   -DSTOP_ON_WARNING=OFF \
+   -DINSTALL_DOCS=OFF
 %cmake_build
+
+mkdir -p %{_vpath_builddir}/man/man1
+for cmd in oslc oslinfo osltoy testrender testshade testshade_dso
+do
+  cmdpath="%{_vpath_builddir}/bin/${cmd}"
+  summary="$(
+    LD_LIBRARY_PATH='%{_vpath_builddir}/lib' "${cmdpath}" --help |
+    head -n 1 |
+    sed -r 's/.* -- //'
+  )"
+  LD_LIBRARY_PATH='%{_vpath_builddir}/lib' help2man \
+      --no-info \
+      --version-string='%{version}' \
+      --name="${summary}" \
+      --output="%{_vpath_builddir}/man/man1/${cmd}.1" \
+      "${cmdpath}"
+done
 
 %install
 %cmake_install
@@ -155,9 +212,12 @@ sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
 mkdir %{buildroot}%{_libdir}/OpenImageIO-%{oiio_major_minor_ver}
 mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oiio_major_minor_ver}/
 
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+    %{_vpath_builddir}/man/man1/*.1
+
 %files
 %license LICENSE.md
-%doc CHANGES.md CONTRIBUTING.md README.md
+%doc README.md
 %{_bindir}/oslc
 %{_bindir}/oslinfo
 %if %{with qt5}
@@ -167,8 +227,14 @@ mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oi
 %{_bindir}/testshade
 %{_bindir}/testshade_dso
 
-%files doc
-%doc %{_docdir}/%{name}/
+%{_mandir}/man1/oslc.1*
+%{_mandir}/man1/oslinfo.1*
+%if %{with qt5}
+%{_mandir}/man1/osltoy.1*
+%endif
+%{_mandir}/man1/testrender.1*
+%{_mandir}/man1/testshade.1*
+%{_mandir}/man1/testshade_dso.1*
 
 %files example-shaders-source
 %{_datadir}/%{name}/shaders/*.osl
@@ -193,8 +259,9 @@ mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oi
 %{_includedir}/OSL/
 %{_libdir}/libosl*.so
 %{_libdir}/libtestshade.so
-%{_libdir}/cmake/
-%{_libdir}/pkgconfig/
+%{_libdir}/cmake/OSL/
+%{_libdir}/pkgconfig/osl*.pc
+
 
 %files -n python3-%{name}
 %{python3_sitearch}/oslquery.so

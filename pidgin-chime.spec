@@ -8,8 +8,8 @@
 
 Name:           pidgin-chime
 Summary:        Pidgin/libpurple protocol plugin for Amazon Chime
-Version:        1.4.1
-Release:        9%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 
 License:        LGPLv2
 URL:            https://github.com/awslabs/%{name}
@@ -131,6 +131,9 @@ make %{?_smp_mflags} check
 %endif
 
 %changelog
+* Thu Nov 16 2023 David Woodhouse <dwmw2@infradead.org> - 1.5-1
+- Update to 1.5 (fix login, meeting joins)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

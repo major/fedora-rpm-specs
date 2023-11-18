@@ -1,12 +1,13 @@
 Name:           votca
-Version:        2023~rc2
-%global         uversion 2023-rc.2
+Version:        2023
+%global         uversion %{version}
 %global         sover 2023
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
 Source0:        https://github.com/votca/votca/archive/v%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
+Patch0:         1093.patch
 
 %global with_xtp 1
 # libint2 used by xtp is broken on 32-bit archs
@@ -189,6 +190,7 @@ This package contains bash completion support for the VOTCA package.
 
 %prep
 %setup -q -n %{name}-%{uversion}
+%patch 0 -p1
 
 # we don't have an espressopp package in Fedora yet
 rm -rf csg-tutorials/spce/ibi_espressopp
@@ -255,6 +257,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Thu Nov 16 2023 Christoph Junghans <junghans@votca.org> - 2023-1
+- Version bump to v2023
+
 * Sun Nov 12 2023 Christoph Junghans <junghans@votca.org> - 2023~rc2-2
 - Rebuild for gromacs-2023
 

@@ -1,22 +1,13 @@
 %global pypi_name sphinxcontrib-qthelp
 
-# when bootstrapping sphinx, we cannot run tests yet
-%bcond_without check
-
 Name:           python-sphinxcontrib-qthelp
 Version:        1.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for QtHelp documents
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
 Source:         %{pypi_source sphinxcontrib_qthelp}
 BuildArch:      noarch
-
-# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
-# In the RPM environment the dependencies are handled correctly without it
-# Remove the runtime requirement on Sphinx from this package
-# See: https://github.com/sphinx-doc/sphinx/issues/11567
-Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -34,7 +25,7 @@ sphinxcontrib-qthelp is a sphinx extension which outputs QtHelp document.
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_check: -x test}
+%pyproject_buildrequires -x test
 
 %prep
 %autosetup -p1 -n sphinxcontrib_qthelp-%{version}
@@ -67,10 +58,8 @@ popd
 %find_lang sphinxcontrib.qthelp
 
 
-%if %{with check}
 %check
 %pytest
-%endif
 
 
 %files -n python%{python3_pkgversion}-sphinxcontrib-qthelp -f sphinxcontrib.qthelp.lang
@@ -81,6 +70,10 @@ popd
 
 
 %changelog
+* Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.0.6-2
+- Remove a patch to drop the runtime dependency on Sphinx
+- It is no longer needed, python3-sphinx-7.2.6-2+ no longer Requires this
+
 * Thu Aug 24 2023 Karolina Surma <ksumra@redhat.com> - 1.0.6-1
 - Update to 1.0.6
 Resolves: rhbz#2230149

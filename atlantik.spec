@@ -1,6 +1,6 @@
-%global commit 688c8fcc65d36e9698b7662b4c0610d1a79c8188
+%global commit 9bf030650b62f919f01247973132a081d209c029
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20230916
+%global gitdate 20231116
 
 %global app_id  org.kde.atlantik
 
@@ -13,45 +13,41 @@ URL:            https://apps.kde.org/atlantik/
 %if 0%{?gitdate:1}
 Source:         https://invent.kde.org/games/atlantik/-/archive/%{commit}/atlantik-%{commit}.tar.bz2
 %else
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source:         https://download.kde.org/%{stable}/%{name}/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/%{name}/%{version}/%{name}-%{version}.tar.xz
 %endif
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5NotifyConfig)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  cmake(KF5WidgetsAddons)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5KDEGames)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6NotifyConfig)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KDEGames6)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       hicolor-icon-theme
-# https://pagure.io/fedora-kde/SIG/issue/378
-Requires:       kde-filesystem
 
 # no KDE4 port, was last built for KDE3
 Conflicts:      kdegames3 < 3.5.10-47
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 Purpose of the Atlantic board game is to acquire land in major cities in
@@ -83,7 +79,7 @@ Obsoletes:      kdegames3-devel < 3.5.10-47
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 
@@ -94,30 +90,30 @@ Obsoletes:      kdegames3-devel < 3.5.10-47
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{app_id}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{app_id}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{app_id}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{app_id}.appdata.xml
 
 
 %files -f %{name}.lang
 %license COPYING
 %doc ChangeLog README.md TODO
-%{_kf5_bindir}/atlantik
-%{_kf5_datadir}/%{name}/
-%{_kf5_datadir}/applications/%{app_id}.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/atlantik.*
-%{_kf5_datadir}/knotifications5/atlantik.notifyrc
-%{_kf5_datadir}/qlogging-categories5/atlantik.categories
-%{_kf5_mandir}/man6/atlantik.6*
-%{_kf5_metainfodir}/%{app_id}.appdata.xml
+%{_kf6_bindir}/atlantik
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/applications/%{app_id}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/atlantik.*
+%{_kf6_datadir}/knotifications6/atlantik.notifyrc
+%{_kf6_datadir}/qlogging-categories6/atlantik.categories
+%{_kf6_mandir}/man6/atlantik.6*
+%{_kf6_metainfodir}/%{app_id}.appdata.xml
 
 %files libs
 %license COPYING.LIB
-%{_kf5_libdir}/libatlanti[ck]*.so.5{,.*}
+%{_kf6_libdir}/libatlanti[ck]*.so.5{,.*}
 
 %files devel
 %{_includedir}/atlanti[ck]/
-%{_kf5_libdir}/cmake/Atlantik/
-%{_kf5_libdir}/libatlanti[ck]*.so
+%{_kf6_libdir}/cmake/Atlantik/
+%{_kf6_libdir}/libatlanti[ck]*.so
 
 
 %changelog

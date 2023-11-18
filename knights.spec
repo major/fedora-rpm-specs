@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	23.08.2
+Version:	24.01.75
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -9,24 +9,27 @@ Summary:	A chess board for KDE
 License: GPL-2.0-only OR GPL-3.0-only
 URL:     https://invent.kde.org/games/knights
 
-%global stable %stable_kf5
+%global stable %stable_kf6
 Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  libkdegames-devel >= 22.03.80
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcrash-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kplotting-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-ktextwidgets-devel
-BuildRequires:  kf5-kwallet-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  extra-cmake-modules >= 5.240.0
+BuildRequires:  kf6-kdbusaddons-devel
+BuildRequires:  kf6-kconfigwidgets-devel
+BuildRequires:  kf6-kcrash-devel
+BuildRequires:  kf6-kxmlgui-devel
+BuildRequires:  kf6-kio-devel
+BuildRequires:  kf6-kplotting-devel
+BuildRequires:  kf6-kdoctools-devel
+BuildRequires:  kf6-ktextwidgets-devel
+BuildRequires:  kf6-kwallet-devel
+BuildRequires:  kf6-plasma-devel
+BuildRequires:  kf6-ksvg-devel
+BuildRequires:  kf6-kcolorscheme-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  qt6-qt5compat-devel
 
 Requires:	gnuchess
 
@@ -41,7 +44,7 @@ checking, themes, and nice animations
 %setup -q
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 
@@ -58,15 +61,17 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/dbus-1/interfaces/org.kde.Knights.xml
 %{_datadir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_kf5_datadir}/applications/org.kde.knights.desktop
+%{_kf6_datadir}/applications/org.kde.knights.desktop
 %{_datadir}/config.kcfg/%{name}.kcfg
-%{_datadir}/kxmlgui5/knights/knightsui.rc
 %{_datadir}/metainfo/org.kde.knights.appdata.xml
 %exclude %{_datadir}/doc/HTML/
-%{_datadir}/qlogging-categories5/knights.categories
+%{_datadir}/qlogging-categories6/knights.categories
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Wed Nov 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -20,12 +20,6 @@
 %bcond_without DNSTAP
 %bcond_without LMDB
 %bcond_without DOC
-# Because of issues with PDF rebuild, include only HTML pages
-# Current error: unable top find isc-logo.pdf
-%if 0%{?fedora}
-# RHEL and ELN do not have all required packages
-%bcond_without DOCPDF
-%endif
 %bcond_with    TSAN
 %bcond_without DTRACE
 
@@ -58,7 +52,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
 #
-Version:  9.19.17
+Version:  9.19.18
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -165,10 +159,6 @@ BuildRequires:  fstrm-devel protobuf-c-devel
 %if %{with DOC}
 BuildRequires:  python3-sphinx python3-sphinx_rtd_theme
 BuildRequires:  doxygen
-%endif
-%if %{with DOCPDF}
-# Because remaining issues with COPR, allow turning off PDF (re)generation
-BuildRequires:  python3-sphinx-latex latexmk texlive-xetex texlive-xindy
 %endif
 %if %{with TSAN}
 BuildRequires: libtsan
@@ -426,14 +416,6 @@ export LIBDIR_SUFFIX
   popd
 %endif
 
-%if %{with DOCPDF}
-# avoid using home for pdf latex files
-export TEXMFVAR="`pwd`"
-export TEXMFCONFIG="`pwd`"
-fmtutil-user --listcfg || :
-fmtutil-user --missing || :
-%endif
-
 %make_build SPHINX_W=''
 
 %if %{with DOC}
@@ -637,9 +619,7 @@ do
     ln -s "$DIR" "$BINDTHEMEDIR"
   fi
 done
-%endif
-%if %{with DOCPDF}
-cp -p build/doc/arm/_build/latex/Bv9ARM.pdf ${RPM_BUILD_ROOT}%{_pkgdocdir}
+cp -p build/doc/arm/_build/epub/Bv9ARM.epub ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %endif
 
 # Ghost config files:
@@ -962,9 +942,7 @@ fi;
 %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/html
 %doc %{_pkgdocdir}/Bv9ARM.html
-%endif
-%if %{with DOCPDF}
-%doc %{_pkgdocdir}/Bv9ARM.pdf
+%doc %{_pkgdocdir}/Bv9ARM.epub
 %endif
 
 %changelog

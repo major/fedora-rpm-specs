@@ -12,7 +12,7 @@
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
 Version: 5.245.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
@@ -29,6 +29,7 @@ BuildRequires: make
 BuildRequires: qt6-qttools-devel
 # sphinx-build
 BuildRequires: python3-sphinx
+BuildRequires: python3-sphinxcontrib-qthelp
 %global sphinx_build -DSphinx_BUILD_EXECUTABLE:PATH=%{_bindir}/sphinx-build-3
 %endif
 BuildRequires: pkgconfig(Qt5Core)
@@ -73,6 +74,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 5.245.0-2
+- Explicitly BuildRequire python3-sphinxcontrib-qthelp
+
 * Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
 - 5.245.0
 

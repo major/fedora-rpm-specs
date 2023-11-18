@@ -1,6 +1,7 @@
 %global appstream_version 1.0.0~
 %global bubblewrap_version 0.5.0
 %global glib_version 2.46.0
+%global gpgme_version 1.8.0
 %global libcurl_version 7.29.0
 %global ostree_version 2020.8
 
@@ -33,7 +34,7 @@ BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.40.0
-BuildRequires:  pkgconfig(gpgme)
+BuildRequires:  pkgconfig(gpgme) >= %{gpgme_version}
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libseccomp)

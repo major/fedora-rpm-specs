@@ -1,8 +1,8 @@
 Name: libmbim
 Version: 1.28.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Support library for the Mobile Broadband Interface Model protocol
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL: https://gitlab.freedesktop.org/mobile-broadband/libmbim/
 Source: https://gitlab.freedesktop.org/mobile-broadband/libmbim/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
@@ -40,7 +40,7 @@ applications using MBIM functionality from applications that use glib.
 %package utils
 Summary: Utilities to use the MBIM protocol from the command line
 Requires: %{name}%{?_isa} = %{version}-%{release}
-License: GPLv2+
+License: GPL-2.0-or-later
 
 %description utils
 This package contains the utilities that make it easier to use MBIM
@@ -98,6 +98,9 @@ cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Thu Nov  2 2023 Íñigo Huguet <ihuguet@redhat.com> - 1.28.4-3
+- migrate to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

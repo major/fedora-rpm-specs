@@ -116,7 +116,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 5.0
-Release: 1%{?release_override}%{?dist}
+Release: 3%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -152,6 +152,8 @@ Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: http://sourceware.org/systemtap/
 Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
+
+Patch1: RHEL-16549.patch
 
 # Build*
 BuildRequires: make
@@ -579,6 +581,7 @@ or within a container.
 
 %prep
 %setup -q
+%patch -P1 -p1
 
 %build
 
@@ -1298,6 +1301,12 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Tue Nov 14 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-3
+- RHEL-16549
+
+* Mon Nov 06 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-2
+- License header tweak
+
 * Sat Nov 04 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

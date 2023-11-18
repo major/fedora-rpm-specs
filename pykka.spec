@@ -2,7 +2,7 @@
 
 Name:             pykka
 Version:          2.0.2
-Release:          17%{?dist}
+Release:          18%{?dist}
 Summary:          Python library that provides concurrency using actor model
 
 License:          ASL 2.0
@@ -40,6 +40,7 @@ build concurrent applications.
 Summary:        Documentation for %{name}
 
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinxcontrib-devhelp
 BuildRequires:  python3-sphinx_rtd_theme
 
 Requires:       devhelp
@@ -81,6 +82,9 @@ cp -rp docs/_build/devhelp %{buildroot}%{_datarootdir}/devhelp/%{pypi_name}
 %exclude %{_datarootdir}/devhelp/%{pypi_name}/.*
 
 %changelog
+* Tue Nov 07 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.2-18
+- Explicitly BuildRequire python3-sphinxcontrib-devhelp
+
 * Fri Aug 18 2023 Tobias Girstmair <t-fedora@girst.at> - 2.0.2-17
 - Fix FTBFS (RHBZ#2180466)
 

@@ -2,8 +2,8 @@
 
 Summary:	Domain Name manipulation library for Ruby
 Name:		rubygem-%{gem_name}
-Version:	0.5.20190701
-Release:	11%{?dist}
+Version:	0.6.20231109
+Release:	1%{?dist}
 
 # See LICENSE.txt
 # BSD-2-Clause: overall
@@ -19,11 +19,9 @@ Requires:	ruby(release)
 BuildRequires:	ruby(release)
 
 Requires:	ruby(rubygems) 
-Requires:	rubygem(unf)
 BuildRequires:	rubygems-devel 
 # %%check
 BuildRequires:	rubygem(test-unit)
-BuildRequires:	rubygem(unf)
 BuildArch:	noarch
 Provides:	rubygem(%{gem_name}) = %{version}-%{release}
 
@@ -59,6 +57,7 @@ rm -f %{buildroot}%{gem_cache}
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
 	.document \
+	.github/ \
 	.gitignore \
 	.travis.yml \
 	Gemfile \
@@ -96,6 +95,10 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Nov 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.20231109-1
+- 0.6.20231109
+- Drop unf dependency, now using String#unicode_normalize
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20190701-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

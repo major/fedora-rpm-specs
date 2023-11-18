@@ -4,7 +4,7 @@
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
 Version:	2.5.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD
 URL:		https://hohnstaedt.de/xca/
 Source0:	https://github.com/%{gitowner0}/%{gitproject0}/releases/download/RELEASE.%{version}/%{name}-%{version}.tar.gz
@@ -20,6 +20,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	xdg-utils
 BuildRequires:	libtool-ltdl-devel
 BuildRequires:	python3-sphinx
+BuildRequires:	python3-sphinxcontrib-qthelp
 
 Requires:	hicolor-icon-theme
 
@@ -112,6 +113,8 @@ desktop-file-install --mode 0644					\
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+* Tue Nov 07 2023 Miro Hrončok <mhroncok@redhat.com> - 2.5.0-2
+- Explicitly BuildRequire python3-sphinxcontrib-qthelp
 
 * Fri Oct  6 2023 Patrick Monnerat <patrick@monnerat.net> 2.5.0-1
 - New upstream release.

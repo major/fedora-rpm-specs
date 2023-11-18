@@ -1,7 +1,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-dev-tools
-Version:        4.18.0
+Version:        4.18.1
 Release:        %autorelease
 Summary:        Xfce developer tools
 
@@ -15,6 +15,7 @@ BuildRequires:  libtool
 BuildRequires:  intltool
 BuildRequires:  make
 BuildRequires:  glib2-devel
+BuildRequires:  libxslt-devel
 Requires:       autoconf
 Requires:       automake
 Requires:       gawk

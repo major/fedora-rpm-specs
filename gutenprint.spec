@@ -20,7 +20,7 @@
 Name:           gutenprint
 Summary:        Printer Drivers Package
 Version:        5.3.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 URL:            http://gimp-print.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -83,6 +83,9 @@ BuildRequires:  pkgconfig(gimpui-2.0)
 BuildRequires: pkgconfig(gtk+-2.0)
 %endif
 
+# escputil uses lp for sending raw print commands to the printer...
+Requires:      cups-client%{?_isa}
+
 ## NOTE ##
 # The README file in this package contains suggestions from upstream
 # on how to package this software. I'd be inclined to follow those
@@ -109,6 +112,8 @@ This package includes libgutenprint library, necessary to run gutenprint.
 %package libs-ui
 Summary:       libgutenprintui2 library
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
+# function in the library tries to figure out local printing system by checking for lp binary
+Requires:      cups-client%{?_isa}
 
 %description libs-ui
 This package includes libgutenprintui2 library, which contains
@@ -306,6 +311,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Thu Nov 16 2023 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.4-13
+- make gutenprint and gutenprint-libs-ui dependant on cups-client - both checks for existence of lp
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -496,7 +496,11 @@ BuildRequires: pkgconfig(libavutil)
 # chromium fail to start for rpmfusion users due to ABI break in ffmpeg-free-6.0.1
 # bethween fedora and rpmfussion.
 Conflicts: ffmpeg-libs%{_isa}
+%if 0%{?rhel} == 9 || 0%{?fedora} == 37
+Requires: libavformat-free%{_isa} >= 5.1.4
+%else
 Requires: libavformat-free%{_isa} >= 6.0.1
+%endif
 %endif
 
 # build with system libaom

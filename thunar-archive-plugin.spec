@@ -5,7 +5,7 @@
 %global xfceversion 4.16
 
 Name:           thunar-archive-plugin
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Archive plugin for the Thunar file manager
 

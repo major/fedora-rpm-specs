@@ -1,7 +1,7 @@
-# When bootstrapping sphinx in Fedora, we don't yet have sphinxcontrib-websupport
-# Without it we have warnings in docs, but it's not a hard dependency
-# We don't want to support sphinxcontrib-websupport in RHEL, hence disabling the dependency
-%bcond websupport %{undefined rhel}
+# When bootstrapping sphinx in Fedora, we don't yet have sphinxcontrib-*
+# Without the packages, we have warnings in docs, but it's not a hard dependency
+# We don't want to support sphinxcontrib-* in RHEL, hence disabling the dependencies
+%bcond sphinxcontrib %{undefined rhel}
 # Also, we don't have all the tests requirements
 %bcond tests 1
 
@@ -25,7 +25,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    1%{?dist}
+Release:    3%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -40,13 +40,33 @@ Source:     %{pypi_source sphinx %{upstream_version}}
 # which causes that test to fail.
 Patch:      sphinx-test_theming.diff
 
+# Make the first party extensions optional
+# This removes the runtime dependencies on:
+#  - sphinxcontrib.applehelp
+#  - sphinxcontrib.devhelp
+#  - sphinxcontrib.jsmath
+#  - sphinxcontrib.htmlhelp
+#  - sphinxcontrib.serializinghtml
+#  - sphinxcontrib.qthelp
+# The majority of Fedora RPM packages does not need any of those.
+# By removing the dependencies, we minimize the stuff that's pulled into
+# the buildroots of 700+ of packages.
+#
+# The change is proposed upstream.
+Patch:      https://github.com/sphinx-doc/sphinx/pull/11747.patch
+
 BuildArch:     noarch
 
 BuildRequires: make
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: pyproject-rpm-macros
 
-%if %{with websupport}
+%if %{with sphinxcontrib}
+# applehelp and jsmath have been orphaned, we cannot use the [docs] extra directly
+BuildRequires: python%{python3_pkgversion}-sphinxcontrib-devhelp
+BuildRequires: python%{python3_pkgversion}-sphinxcontrib-htmlhelp
+BuildRequires: python%{python3_pkgversion}-sphinxcontrib-serializinghtml
+BuildRequires: python%{python3_pkgversion}-sphinxcontrib-qthelp
 BuildRequires: python%{python3_pkgversion}-sphinxcontrib-websupport
 %endif
 
@@ -132,6 +152,15 @@ Summary:       Python documentation generator
 Recommends:    graphviz
 Recommends:    ImageMagick
 
+# Upstream Requires those, but we have a patch to remove the dependency.
+# We keep them Recommended to preserve the default user experience.
+%if %{with sphinxcontrib}
+# applehelp and jsmath have been orphaned
+Recommends:    python%{python3_pkgversion}-sphinxcontrib-devhelp
+Recommends:    python%{python3_pkgversion}-sphinxcontrib-htmlhelp
+Recommends:    python%{python3_pkgversion}-sphinxcontrib-serializinghtml
+Recommends:    python%{python3_pkgversion}-sphinxcontrib-qthelp
+%endif
 
 %description -n python%{python3_pkgversion}-sphinx
 Sphinx is a tool that makes it easy to create intelligent and
@@ -369,6 +398,19 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1:7.2.6-3
+- On Fedora, BuildRequire the sphinxcontrib packages to build the documentation
+
+* Wed Nov 08 2023 Miro Hrončok <mhroncok@redhat.com> - 1:7.2.6-2
+- Weaken the runtime dependency on:
+  - python3-sphinxcontrib-applehelp
+  - python3-sphinxcontrib-devhelp
+  - python3-sphinxcontrib-jsmath
+  - python3-sphinxcontrib-htmlhelp
+  - python3-sphinxcontrib-serializinghtml
+  - python3-sphinxcontrib-qthelp
+- Packages that want to use them during build need to BuildRequire them explicitly
+
 * Thu Oct 26 2023 Karolina Surma <ksurma@redhat.com> - 1:7.2.6-1
 - Update to 7.2.6
 - Fixes rhbz#2232469

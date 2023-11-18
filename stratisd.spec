@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.6.1
+Version:        3.6.2
 Release:        1%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -192,6 +192,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Thu Nov 16 2023 Bryan Gurney <bgurney@redhat.com> - 3.6.2-1
+- Update to 3.6.2
+
 * Tue Oct 31 2023 Bryan Gurney <bgurney@redhat.com> - 3.6.1-1
 - Update to 3.6.1
 

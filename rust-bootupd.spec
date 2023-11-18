@@ -4,7 +4,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
@@ -17,7 +17,7 @@ Patch0: 0001-grubconfigs-Ensure-grub2-dir-exists.patch
 # For now, see upstream
 BuildRequires: make
 BuildRequires:  openssl-devel
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 BuildRequires: rust-toolset
 %else
 BuildRequires:  cargo-rpm-macros >= 25
@@ -45,8 +45,10 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 
 %files -n %{crate}
 %license LICENSE
+%if !0%{?rhel}
 %license LICENSE.dependencies
 %license cargo-vendor.txt
+%endif
 %doc README.md
 %{_bindir}/bootupctl
 %{_libexecdir}/bootupd
@@ -54,14 +56,20 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %{_prefix}/lib/bootupd/grub2-static/
 
 %prep
-%autosetup -n %{crate}-%{version} -p1 -a1
+%autosetup -n %{crate}-%{version} -p1 %{!?rhel:-a1}
+%if 0%{?rhel}
+%cargo_prep -V 1
+%else
 %cargo_prep -v vendor
+%endif
 
 %build
 %cargo_build
+%if !0%{?rhel}
 %cargo_vendor_manifest
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%endif
 
 %install
 %make_install INSTALL="install -p -c"
@@ -77,6 +85,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Tue Nov 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2.13-4
+- Fix RHEL build
+
 * Fri Nov 10 2023 Colin Walters <walters@verbum.org> - 0.2.13-3
 - Backport patch for not having separate /boot
 

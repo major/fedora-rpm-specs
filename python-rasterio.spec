@@ -1,7 +1,7 @@
 %global srcname rasterio
 
 Name:           python-%{srcname}
-Version:        1.3.8
+Version:        1.3.9
 Release:        %autorelease
 Summary:        Fast and direct raster I/O for use with Numpy and SciPy
 
@@ -10,6 +10,8 @@ URL:            https://github.com/rasterio/rasterio
 # PyPI tarball doesn't include test data.
 Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
 Patch:          0001-Loosen-up-build-requirements.patch
+# Selective backport of https://github.com/rasterio/rasterio/commit/121335576a5ee5fc739d7b315498cc4a77ac6eb8
+Patch:          rasterio-gdal3.8.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 1.11

@@ -1,15 +1,15 @@
 Name:           libxml2
-Version:        2.11.5
+Version:        2.12.0
 Release:        1%{?dist}
 Summary:        Library providing XML and HTML support
 
 License:        MIT
 URL:            http://xmlsoft.org/
-Source0:        https://download.gnome.org/sources/%{name}/2.11/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/2.12/%{name}-%{version}.tar.xz
 Patch0:         libxml2-multilib.patch
 # Patch from openSUSE.
 # See:  https://bugzilla.gnome.org/show_bug.cgi?id=789714
-Patch1:         libxml2-2.11.1-python3-unicode-errors.patch
+Patch1:         libxml2-2.12.0-python3-unicode-errors.patch
 
 BuildRequires:  cmake-rpm-macros
 BuildRequires:  gcc
@@ -141,6 +141,12 @@ gzip -9 -c doc/libxml2-api.xml > doc/libxml2-api.xml.gz
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Thu Nov 16 2023 David King <amigadave@amigadave.com> - 2.12.0-1
+- Update to 2.12.0 (#2250062)
+
+* Thu Nov 16 2023 David King <amigadave@amigadave.com> - 2.11.6-1
+- Update to 2.11.6
+
 * Wed Aug 16 2023 David King <amigadave@amigadave.com> - 2.11.5-1
 - Update to 2.11.5 (#2190441)
 

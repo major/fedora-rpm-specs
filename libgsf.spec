@@ -6,11 +6,10 @@
 
 Summary: GNOME Structured File library
 Name: libgsf
-Version: 1.14.50
-Release: 4%{?dist}
+Version: 1.14.51
+Release: 1%{?dist}
 License: LGPL-2.1-only
 Source: https://download.gnome.org/sources/%{name}/1.14/%{name}-%{version}.tar.xz
-Patch0: libgsf-configure-c99.patch
 URL: http://www.gnome.org/projects/libgsf/
 
 BuildRequires: bzip2-devel
@@ -115,7 +114,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %ldconfig_scriptlets
 
 %files -f libgsf.lang
-%doc AUTHORS COPYING COPYING.LIB README
+%doc AUTHORS COPYING README
 %{_libdir}/libgsf-1.so.*
 %{_libdir}/girepository-1.0/Gsf-1.typelib
 %{_bindir}/gsf-office-thumbnailer
@@ -137,7 +136,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %if %{with_mingw}
 %files -n mingw32-libgsf -f mingw32-libgsf.lang
-%license COPYING COPYING.LIB
+%license COPYING
 %{mingw32_bindir}/gsf.exe
 %{mingw32_bindir}/gsf-vba-dump.exe
 %{mingw32_bindir}/gsf-office-thumbnailer.exe
@@ -154,7 +153,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{mingw32_datadir}/thumbnailers/gsf-office.thumbnailer
 
 %files -n mingw64-libgsf -f mingw64-libgsf.lang
-%license COPYING COPYING.LIB
+%license COPYING
 %{mingw64_bindir}/gsf.exe
 %{mingw64_bindir}/gsf-vba-dump.exe
 %{mingw64_bindir}/gsf-office-thumbnailer.exe
@@ -172,6 +171,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Thu Nov 16 2023 Dan Horák <dan[at]danny.cz> - 1.14.51-1
+- New upstream release 1.14.51
+- Resolves: rhbz#2214335 rhbz#2249742 rhbz#2249979
+
 * Wed Aug 02 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.14.50-4
 - Add MinGW packages
 

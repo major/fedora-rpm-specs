@@ -1,4 +1,4 @@
-# tox fails if the documentation contains warnings
+# tests require running a solr server
 %bcond_with tests
 
 %global pypi_name django-haystack
@@ -30,7 +30,6 @@ You can find more information at http://haystacksearch.org/.}
 %package -n python3-%{pypi_name}
 Summary:        Haystack provides modular search for Django - Python 3 version
 
-BuildRequires:  make
 BuildRequires:  python3-devel
 
 %description -n python3-%{pypi_name} %_description
@@ -43,6 +42,15 @@ Summary: Documentation for Django Haystack pluggable search
 # Not requiring the main package, as users may wish to install
 # the documentation separately.
 
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
+# Those two sphinxcontrib dependencies are pulled by default by upstream Sphinx,
+# but in preparation for their separation, we explicitly list them to build
+# htmlhelp, json and pickle docs.
+# Upstream's tox.ini is not a good place for those, becasue it only builds html.
+BuildRequires:  python3dist(sphinxcontrib-htmlhelp)
+BuildRequires:  python3dist(sphinxcontrib-serializinghtml)
+
 %description docs
 Documentation for Django Haystack pluggable search
 
@@ -53,7 +61,7 @@ Documentation for Django Haystack pluggable search
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -e docs -t
+%pyproject_buildrequires %{?with_tests:-t}
 
 
 %build

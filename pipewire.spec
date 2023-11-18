@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 84
+%global microversion 85
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 5
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -733,6 +733,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Nov 16 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.85-1
+- Update version to 0.3.85
+
 * Wed Nov 15 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.84-5
 - Disable libcamera in RHEL 10
 

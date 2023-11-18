@@ -20,8 +20,8 @@
 Name: network-manager-applet
 Summary: A network control and status applet for NetworkManager
 Version: 1.34.0
-Release: 1%{?dist}
-License: GPLv2+
+Release: 2%{?dist}
+License: GPL-2.0-or-later
 URL: http://www.gnome.org/projects/NetworkManager/
 Obsoletes: NetworkManager-gnome < %{obsoletes_ver}
 
@@ -150,6 +150,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/nm-connection-edit
 
 
 %changelog
+* Thu Nov  2 2023 Íñigo Huguet <ihuguet@redhat.com> - 1.34.0-2
+- migrate to SPDX license
+
 * Mon Oct 16 2023 Beniamino Galvani <bgalvani@redhat.com> - 1.34.0-1
 - Update to 1.34.0 release
 

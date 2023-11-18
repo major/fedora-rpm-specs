@@ -1,20 +1,11 @@
-# when bootstrapping sphinx, we cannot run tests yet
-%bcond_without check
-
 Name:           python-sphinxcontrib-serializinghtml
 Version:        1.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for serialized HTML
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
 Source:         %{pypi_source sphinxcontrib_serializinghtml}
 BuildArch:      noarch
-
-# Sphinx requires sphinxcontrib-* packages, they've started requiring Sphinx
-# In the RPM environment the dependencies are handled correctly without it
-# Remove the runtime requirement on Sphinx from this package
-# See: https://github.com/sphinx-doc/sphinx/issues/11567
-Patch:          Prevent-circular-dependency-with-Sphinx.patch
 
 BuildRequires:  gettext
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -34,7 +25,7 @@ HTML files (json and pickle).
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_check: -x test}
+%pyproject_buildrequires -x test
 
 
 %prep
@@ -68,10 +59,8 @@ popd
 %find_lang sphinxcontrib.serializinghtml
 
 
-%if %{with check}
 %check
 %pytest
-%endif
 
 
 %files -n python%{python3_pkgversion}-sphinxcontrib-serializinghtml -f sphinxcontrib.serializinghtml.lang
@@ -82,6 +71,10 @@ popd
 
 
 %changelog
+* Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.1.9-2
+- Remove a patch to drop the runtime dependency on Sphinx
+- It is no longer needed, python3-sphinx-7.2.6-2+ no longer Requires this
+
 * Thu Aug 24 2023 Karolina Surma <ksurma@redhat.com> - 1.1.9-1
 - Update to 1.1.9
 Resolves: rhbz#2230148

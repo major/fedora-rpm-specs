@@ -134,7 +134,7 @@ popd
 %pyproject_install
 pushd %{buildroot}%{_bindir} &> /dev/null
 ln -s f2py f2py3
-ln -s f2py f2py3.12
+ln -s f2py f2py%{python3_version}
 ln -s f2py3 f2py.numpy
 popd &> /dev/null
 

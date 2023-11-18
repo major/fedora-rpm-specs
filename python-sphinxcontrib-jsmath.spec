@@ -1,8 +1,5 @@
 %global pypi_name sphinxcontrib-jsmath
 
-# when bootstrapping sphinx, we cannot run tests yet
-%bcond_without check
-
 Name:           python-%{pypi_name}
 Version:        1.0.1
 Release:        23%{?dist}
@@ -18,10 +15,9 @@ Patch:          https://github.com/sphinx-doc/sphinxcontrib-jsmath/pull/10.patch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 
-%if %{with check}
+# test dependencies
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
-%endif
 
 %description
 sphinxcontrib-jsmath is a sphinx extension which renders display math in HTML
@@ -49,10 +45,8 @@ via JavaScript.
 %py3_install
 
 
-%if %{with check}
 %check
 %{__python3} -m pytest
-%endif
 
 
 %files -n python%{python3_pkgversion}-%{pypi_name}

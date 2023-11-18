@@ -4,7 +4,7 @@
 %global _firmwarepath  /usr/lib/firmware
 %global _xz_opts -9 --check=crc32
 
-%global sof_ver 2023.09.1
+%global sof_ver 2023.09.2
 #global sof_ver_pre rc1
 %global sof_ver_rel %{?sof_ver_pre:.%{sof_ver_pre}}
 %global sof_ver_pkg0 %{sof_ver}%{?sof_ver_pre:-%{sof_ver_pre}}
@@ -136,6 +136,9 @@ if st and st.type == "link" then
 end
 
 %changelog
+* Thu Nov 16 2023 Jaroslav Kysela <perex@perex.cz> - 2023.09.2-1
+- Update to v2023.09.2
+
 * Mon Nov  6 2023 Jaroslav Kysela <perex@perex.cz> - 2023.09.1-1
 - Update to v2023.09.1
 

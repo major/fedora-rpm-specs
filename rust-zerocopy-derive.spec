@@ -6,7 +6,7 @@
 %global crate zerocopy-derive
 
 Name:           rust-zerocopy-derive
-Version:        0.7.16
+Version:        0.7.26
 Release:        %autorelease
 Summary:        Custom derive for traits from the zerocopy crate
 
@@ -14,7 +14,7 @@ License:        BSD-2-Clause OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/zerocopy-derive
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * relax trybuild dev-dependency from =1.0.80 to ^1.0.80
+# * relax trybuild dev-dependency from =1.0.85 to ^1.0.85
 Patch:          zerocopy-derive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

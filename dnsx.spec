@@ -3,7 +3,7 @@
 
 # https://github.com/projectdiscovery/dnsx
 %global goipath         github.com/projectdiscovery/dnsx
-Version:                1.1.5
+Version:                1.1.6
 
 %gometa -f
 

@@ -49,8 +49,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.51.7
-Release:       6%{?dist}
+Version:       1.51.8
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -83,14 +83,6 @@ Source7:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
-
-# Fix linking the daemon on OCaml 5.1
-# Upstream in >= 1.51.8
-Patch:         0001-daemon-Find-lcamlstr-nat-byt-and-lunix-nat-byt-and-r.patch
-
-# Allow dhcpcd to be used on Red Hat platforms
-# Upstream in >= 1.51.8
-Patch:         0001-appliance-Allow-dhcpcd-to-be-used-on-Red-Hat-platfor.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
@@ -1102,6 +1094,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Nov 16 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.8-1
+- New upstream development version 1.51.8
+
 * Tue Nov 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.7-6
 - Don't pull in selinux-policy as a requires
 

@@ -3,7 +3,7 @@ Name:           perl-File-Temp
 Epoch:          1
 # Normalized version, compete with perl.spec
 Version:        0.231.100
-Release:        500%{?dist}
+Release:        501%{?dist}
 Summary:        Return name and handle of a temporary file safely
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Temp
@@ -52,11 +52,26 @@ File::Temp constructor or the tempfile() function can be used to return the
 name and the open file handle of a temporary file. The tempdir() function
 can be used to create a temporary directory.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n File-Temp-%{cpan_version}
 chmod -x misc/benchmark.pl
 perl -MConfig -p -i -e 's|\A#!/usr/local/bin/perl\b|$Config{startperl}|' \
     misc/benchmark.pl
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -64,9 +79,26 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -74,10 +106,16 @@ make test
 # Omit CONTRIBUTING (first half is not relevant to a binary package, second
 # half is already presented in POD)
 %doc Changes misc README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/File*
+%{_mandir}/man3/File::Temp*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.231.100-501
+- Package tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.231.100-500
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

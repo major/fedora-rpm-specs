@@ -4,14 +4,22 @@
 %bcond_without python3
 %endif
 
-Name:           s3cmd
-Version:        2.3.0
-Release:        6%{?dist}
+%global commit a2b1bdf82a53ed80d95b8f7c3af0acf5a14c5f20
+%global date 20231020
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
+%define	name	s3cmd
+%define	version	2.3.0
+%define	release	1
+
+Name:           %{name}
+Version:        %{version}^%{date}git%{shortcommit}
+Release:        %{release}%{?dist}
 Summary:        Tool for accessing Amazon Simple Storage Service
 
 License:        GPL-2.0-or-later
-URL:            https://s3tools.org/s3cmd
-Source0:        https://github.com/s3tools/s3cmd/releases/download/v%{version}/s3cmd-%{version}.tar.gz
+URL:            https://s3tools.org/%{name}
+Source0:        https://github.com/s3tools/%{name}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
 BuildArch:      noarch
 
 %if %{with python3}
@@ -40,7 +48,7 @@ S3cmd lets you copy files from/to Amazon S3
 command line client.
 
 %prep
-%setup -q 
+%setup -q -n %{name}-%{commit}
 rm -rf *.egg-info
 %if %{without python3}
 # Not needed on Py2, RPM fails to Bytecompile it
@@ -64,22 +72,25 @@ export S3CMD_PACKAGING=1
 %endif
 
 mkdir -p %{buildroot}%{_mandir}/man1
-install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 s3cmd.1
+install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 
 %files
 %license LICENSE
 %doc NEWS README.md
-%{_bindir}/s3cmd
-%{_mandir}/man1/s3cmd.1*
+%{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
 %if %{with python3}
-%{python3_sitelib}/s3cmd-*.egg-info/
+%{python3_sitelib}/%{name}-*.egg-info/
 %{python3_sitelib}/S3/
 %else
-%{python2_sitelib}/s3cmd-*.egg-info/
+%{python2_sitelib}/%{name}-*.egg-info/
 %{python2_sitelib}/S3/
 %endif
 
 %changelog
+* Thu Nov 16 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.3.0^20231020gita2b1bdf-1
+- Upgraded to latest snapshot as fix for BZ2249487.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

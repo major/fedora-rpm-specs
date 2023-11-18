@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 # Use soversion
-%global soversion 10.1
+%global soversion 11.0
 
 # Set to 1 to enable testsuite. Fails everywhere with GCC 8+.
 %global with_tests 0
@@ -12,7 +12,7 @@
 %global with_ax      0
 
 Name:           openvdb
-Version:        10.1.0
+Version:        11.0.0
 Release:        %autorelease
 Summary:        C++ library for sparse volumetric data discretized on three-dimensional grids
 License:        MPL-2.0
