@@ -40,6 +40,10 @@ Source0:    Ardour-%{version}.tar.bz2
 Source1:    LICENSING
 Source2:    gpl-3.0.txt
 
+# https://github.com/Ardour/ardour/pull/840
+Patch0:     0001-Make-option-to-disable-VST3-support-consistent.patch
+# https://github.com/Ardour/ardour/pull/841
+Patch1:     0001-Fix-failure-to-build-with-libxml2-version-2.12.patch
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.
@@ -162,7 +166,6 @@ export LC_ALL=C.UTF-8
     --mandir="%_mandir" \
     --docdir="%_docdir" \
     --docs \
-    --vst3 \
     --noconfirm \
     --no-phone-home \
     --optimize \

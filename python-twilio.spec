@@ -2,7 +2,7 @@
 %global pypi_name twilio
 
 Name:           python-%{pypi_name}
-Version:        8.10.0
+Version:        8.10.2
 Release:        1%{?dist}
 Summary:        Twilio API client and TwiML generator
 

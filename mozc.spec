@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -75,6 +75,7 @@ BuildRequires:	emacs
 %if 0%{?fedora} < 36
 BuildRequires:	xemacs xemacs-packages-extra
 %endif
+BuildRequires:  desktop-file-utils
 BuildRequires:	libappstream-glib
 BuildRequires:  %{py3_dist six}
 BuildRequires:  binutils
@@ -249,6 +250,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Nov 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-4
+- Add missing BuildRequires: desktop-file-utils
+
 * Thu Aug 17 2023 Akira TAGOH <tagoh@redhat.com> - 2.29.5111.102-3
 - Fix the build issue with newer abseil.
   Resolves: rhbz#2231905

@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -60,12 +60,17 @@ done
 
 %files modules
 %license GPL
+%dir %{_libdir}/rocm
+%dir %{_libdir}/rocm/gfx*
 %dir %{_libdir}/rocm/gfx*/bin
 %dir %{_libdir}/rocm/gfx*/lib
 %dir %{_libdir}/rocm/gfx*/lib/cmake
 %{_datadir}/modulefiles/rocm/
 
 %changelog
+* Fri Nov 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> 1.0-7
+- Add more directory ownership
+
 * Thu Nov 02 2023 Jeremy Newton <alexjnewt at hotmail dot com> 1.0-6
 - change package to arched x86_64 to capture the correct libdir
 

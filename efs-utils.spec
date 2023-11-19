@@ -1,6 +1,7 @@
 %bcond_without tests
 %global with_selinux 1
 %global selinuxtype targeted
+%global watchdog_service_name amazon-efs-mount-watchdog
 
 Name:           efs-utils
 Version:        1.35.0
@@ -85,7 +86,7 @@ bzip2 -9 %{name}.pp
 %install
 # Watchdog service unit file.
 install -m 0755 -vd %{buildroot}%{_unitdir}
-install -vp -m 644 dist/amazon-efs-mount-watchdog.service %{buildroot}%{_unitdir}/
+install -vp -m 644 dist/%{watchdog_service_name}.service %{buildroot}%{_unitdir}/
 
 # Watchdog service itself.
 install -m 0755 -vd %{buildroot}%{_bindir}
@@ -143,14 +144,14 @@ PYTHONPATH=$(pwd)/src %pytest \
 %selinux_relabel_post -s %{selinuxtype}
 
 if [ "$1" -le "1" ]; then # First install
-   %systemd_postun_with_restart %{name}.service
+   %systemd_postun_with_restart %{watchdog_service_name}.service
 fi
 
 %postun selinux
 if [ $1 -eq 0 ]; then
     %selinux_modules_uninstall -s %{selinuxtype} %{name}
     %selinux_relabel_post -s %{selinuxtype}
-    %systemd_postun_with_restart %{name}.service
+    %systemd_postun_with_restart %{watchdog_service_name}.service
 fi
 %endif
 ########################################################################################
@@ -163,7 +164,7 @@ fi
 %dir %{_sysconfdir}/amazon
 %dir %{_sysconfdir}/amazon/efs
 %config(noreplace) %{_sysconfdir}/amazon/efs/efs-utils.conf
-%{_unitdir}/amazon-efs-mount-watchdog.service
+%{_unitdir}/%{watchdog_service_name}.service
 %{_sysconfdir}/amazon/efs/efs-utils.crt
 %{_sbindir}/mount.efs
 %{_bindir}/amazon-efs-mount-watchdog
@@ -180,13 +181,13 @@ fi
 
 
 %post
-%systemd_post amazon-efs-mount-watchdog.service
+%systemd_post %{watchdog_service_name}.service
 
 %preun
-%systemd_preun amazon-efs-mount-watchdog.service
+%systemd_preun %{watchdog_service_name}.service
 
 %postun
-%systemd_postun_with_restart amazon-efs-mount-watchdog.service
+%systemd_postun_with_restart %{watchdog_service_name}.service
 
 %changelog
 %autochangelog

@@ -1,5 +1,11 @@
-# Run the tests by default
+# Run the tests by default on Fedora
+# Some of the network tests fail on RHEL/CentOS Stream due to the network
+# configuration on the builders
+%if 0%{?rhel}
+%bcond tests 0
+%else
 %bcond tests 1
+%endif
 
 Name:           libuv
 Epoch:          1

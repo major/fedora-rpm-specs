@@ -12,7 +12,7 @@ Source0:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.g
 Source1:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.gz.asc
 Source2:        RPM-GPG-KEY-puppet-20250406
 # Get these by checking out the right tag from https://github.com/puppetlabs/puppet-agent and:
-# sed 's|.\+puppetlabs/\([a-z_-]\+\).git.\+tags/\([0-9\.]\+\)"}|https://forge.puppet.com/v3/files/\1-\2.tar.gz|' configs/components/module-puppetlabs-*.json
+# sed 's|.\+puppetlabs/\([a-z_-]\+\).git.\+tags/v\?\([0-9\.]\+\)"}|https://forge.puppet.com/v3/files/\1-\2.tar.gz|' configs/components/module-puppetlabs-*.json
 Source3:        https://forge.puppet.com/v3/files/puppetlabs-augeas_core-1.4.0.tar.gz
 Source4:        https://forge.puppet.com/v3/files/puppetlabs-cron_core-1.2.0.tar.gz
 Source5:        https://forge.puppet.com/v3/files/puppetlabs-host_core-1.2.0.tar.gz

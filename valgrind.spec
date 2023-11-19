@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.22.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -14,7 +14,7 @@ URL: https://www.valgrind.org/
 
 # We never want the openmpi subpackage when building a software collecton.
 # We always want it for fedora.
-# We only want it for older rhel. But not s390x for too old rhel.
+# We only want it for older rhel.
 # And on fedora > 39 i386 dropped openmpi.
 %if %{is_scl}
   %global build_openmpi 0
@@ -30,11 +30,7 @@ URL: https://www.valgrind.org/
     %if 0%{?rhel} > 7
       %global build_openmpi 0
     %else
-      %ifarch s390x
-	%global build_openmpi (%{?rhel} > 6)
-      %else
-	%global build_openmpi 1
-      %endif
+      %global build_openmpi 1
     %endif
   %endif
 %endif
@@ -54,17 +50,11 @@ URL: https://www.valgrind.org/
 # Whether to run the full regtest or only a limited set
 # The full regtest includes gdb_server integration tests
 # and experimental tools.
-# Only run full regtests on fedora, but not on older rhel
-# or when creating scl, the gdb_server tests might hang.
+# Don't run them when creating scl, the gdb_server tests might hang.
 %if %{is_scl}
   %global run_full_regtest 0
 %else
-  %if 0%{?fedora}
-    %global run_full_regtest 1
-  %endif
-  %if 0%{?rhel}
-    %global run_full_regtest (%rhel >= 7)
-  %endif
+  %global run_full_regtest 1
 %endif
 
 # Generating minisymtabs doesn't really work for the staticly linked
@@ -87,6 +77,10 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
+
+# valgrind-monitor.py regular expressions should use raw strings
+# https://bugs.kde.org/show_bug.cgi?id=476708
+Patch5: valgrind-3.22.0-valgrind-monitor-python-re.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -127,13 +121,6 @@ Recommends: elfutils-debuginfod-client
 %endif
 
 %{?scl:Requires:%scl_runtime}
-
-# We need to fixup selinux file context when doing a scl build.
-# In RHEL6 we might need to fix up the labels even though the
-# meta package sets up a fs equivalence. See post.
-%if 0%{?rhel} == 6
-%{?scl:Requires(post): /sbin/restorecon}
-%endif
 
 # We could use %%valgrind_arches as defined in redhat-rpm-config
 # But that is really for programs using valgrind, it defines the
@@ -219,12 +206,10 @@ Valgrind User Manual for details.
 
 %patch -P1 -p1
 %patch -P2 -p1
-
-# Old rhel gcc doesn't have -fstack-protector-strong.
-%if 0%{?fedora} || 0%{?rhel} >= 7
 %patch -P3 -p1
 %patch -P4 -p1
-%endif
+
+%patch -P5 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -236,13 +221,8 @@ Valgrind User Manual for details.
 # Just always autoreconf so we don't need patches to prebuild files.
 ./autogen.sh
 
-# Old openmpi-devel has version depended paths for mpicc.
 %if %{build_openmpi}
-%if 0%{?fedora} >= 13 || 0%{?rhel} >= 6
 %define mpiccpath %{!?scl:%{_libdir}}%{?scl:%{_root_libdir}}/openmpi/bin/mpicc
-%else
-%define mpiccpath %{!?scl:%{_libdir}}%{?scl:%{_root_libdir}}/openmpi/*/bin/mpicc
-%endif
 %else
 # We explicitly don't want the libmpi wrapper. So make sure that configure
 # doesn't pick some random mpi compiler that happens to be installed.
@@ -445,19 +425,11 @@ echo ===============END TESTING===============
 %{_libdir}/valgrind/libmpiwrap*.so
 %endif
 
-%if 0%{?rhel} == 6
-%post
-# There is a bug in rpm (rhbz#214737) that might cause post to be run
-# even thought the binary isn't installed when installing two multilib
-# versions at the same time.
-if [ -x %{_bindir}/valgrind ]; then
-# On RHEL6 the fs equivalency should be setup by the devtoolset meta
-# package, but because of a rpm bug (rhbz#924044) it might not work.
-%{?scl:/sbin/restorecon %{_bindir}/valgrind}%{!?scl:true}
-fi
-%endif
-
 %changelog
+* Fri Nov 17 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-2
+- Add valgrind-3.22.0-valgrind-monitor-python-re.patch
+- Drop support for rhel6
+
 * Tue Oct 31 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-1
 - Upstream 3.22.0 final
 - BuildRequires elfutils-debuginfod for testing

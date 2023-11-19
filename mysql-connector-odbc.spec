@@ -1,8 +1,8 @@
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
-Version:        8.0.33
-Release:        2%{?dist}
+Version:        8.0.35
+Release:        1%{?dist}
 Summary:        ODBC driver for MySQL
 License:        GPLv2 with exceptions
 URL:            https://dev.mysql.com/downloads/connector/odbc/
@@ -79,6 +79,9 @@ rm -rf %{buildroot}/usr/test
 %endif
 
 %changelog
+* Fri Nov 17 2023 Michal Schorm <mschorm@redhat.com> - 8.0.35-1
+- Rebase to 8.0.35
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

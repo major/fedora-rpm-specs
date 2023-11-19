@@ -48,6 +48,10 @@ Patch2:     0003-upgrade-waf-to-2.0.26-includes-new-autowaf.py-versio.patch
 # Deal with kissfft >= 130. Upstream PR: https://github.com/Ardour/ardour/pull/833
 Patch3:     0001-Deal-with-kissfft-130.patch
 
+# Fix FTBFS with libxml2 version 2.12.
+# Upstream PR: https://github.com/Ardour/ardour/pull/841
+Patch4:     0001-Fix-failure-to-build-with-libxml2-version-2.12.patch
+
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.

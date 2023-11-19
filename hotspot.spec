@@ -2,10 +2,10 @@
 
 Name:    hotspot
 Version: 1.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The Linux perf GUI for performance analysis
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     https://github.com/KDAB/hotspot
 
 Source0: https://github.com/KDAB/%{name}/releases/download/v%{version}/%{name}-v%{version}.tar.gz
@@ -72,6 +72,9 @@ KCachegrind around Linux perf.
 
 
 %changelog
+* Fri Nov 17 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.4.1-3
+- Rebuilt for new kddockwidgets
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

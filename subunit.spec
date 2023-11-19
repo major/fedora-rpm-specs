@@ -8,7 +8,7 @@
 %bcond_with bootstrap
 
 Name:           subunit
-Version:        1.4.3
+Version:        1.4.4
 Release:        1%{?dist}
 Summary:        C bindings for subunit
 
@@ -248,6 +248,9 @@ make check
 %{_bindir}/tap2subunit
 
 %changelog
+* Fri Nov 17 2023 Jerry James <loganjerry@gmail.com> - 1.4.4-1
+- Version 1.4.4
+
 * Wed Nov  8 2023 Jerry James <loganjerry@gmail.com> - 1.4.3-1
 - Version 1.4.3
 - python-iso8601 is no longer bundled in python3-subunit

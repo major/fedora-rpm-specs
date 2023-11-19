@@ -32,8 +32,8 @@
 %bcond_with bootstrap
 
 Name:           javacc
-Version:        7.0.12
-Release:        4%{?dist}
+Version:        7.0.13
+Release:        1%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 
@@ -48,9 +48,6 @@ Source0:        https://github.com/javacc/javacc/archive/%{name}-%{version}.tar.
 # Fix javadoc errors in the JavaCharStream template
 # https://github.com/javacc/javacc/pull/257
 Patch0:         0001-Fix-javadoc-errors-in-JavaCharStream.template.patch
-# Remove duplicate @Deprecated annotations
-# https://github.com/javacc/javacc/pull/259
-Patch1:         0002-Remove-extraneous-Deprecated-annotations.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -155,6 +152,10 @@ ln -s javacc %{buildroot}%{_bindir}/javacc.sh
 %doc examples
 
 %changelog
+* Fri Nov 17 2023 Jerry James <loganjerry@gmail.com> - 0:7.0.13-1
+- Update to 7.0.13
+- Drop upstreamed duplicated @Deprecated annotations patch
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:7.0.12-4
 - Rebuild
 

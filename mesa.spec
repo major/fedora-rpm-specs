@@ -76,6 +76,7 @@ Source1:        Mesa-MLAA-License-Clarification-Email.txt
 Patch10:        gnome-shell-glthread-disable.patch
 Patch11:        0001-nir-add-deref-follower-builder-for-casts.patch
 Patch12:        0001-zink-Fix-crash-on-zink_create_screen-error-path.patch
+Patch13:        0001-zink-allow-software-rendering-only-if-selected.patch
 
 BuildRequires:  meson >= 1.2.0
 BuildRequires:  gcc

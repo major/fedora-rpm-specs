@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.42.2
+Version:        2.43.1
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -207,7 +207,7 @@ Recommends:     gi-docgen-fonts
 # Documentation/webkit2gtk-web-extension-4.1/*html is BSD, LGPL-2.1
 # Documentation/webkit2gtk-web-extension-4.1/solarized* is MIT
 # Documentation/webkit2gtk-web-extension-4.1/style.css is Apache-2.0 OR GPL-3.0-or-later
-License:        MIT AND LGPL-2.1-only AND BSD-3-Clause AND  (Apache-2.0 OR GPL-3.0-or-later)
+License:        MIT AND LGPL-2.1-only AND BSD-3-Clause AND (Apache-2.0 OR GPL-3.0-or-later)
 
 %description -n webkitgtk6.0-doc
 This package contains developer documentation for webkitgtk6.0.
@@ -217,6 +217,15 @@ Summary:        Documentation files for webkit2gtk4.1
 BuildArch:      noarch
 Requires:       webkit2gtk4.1 = %{version}-%{release}
 Recommends:     gi-docgen-fonts
+
+# Documentation/jsc-glib-4.1/fzy.js is MIT
+# Documentation/jsc-glib-4.1/*.js and *css is Apache-2.0 OR GPL-3.0-or-later
+# Documentation/jsc-glib-4.1/*html is BSD, LGPL-2.1
+# Documentation/webkit2gtk-4.1/*html is  BSD, LGPL-2.1
+# Documentation/webkit2gtk-web-extension-4.1/*html is BSD, LGPL-2.1
+# Documentation/webkit2gtk-web-extension-4.1/solarized* is MIT
+# Documentation/webkit2gtk-web-extension-4.1/style.css is Apache-2.0 OR GPL-3.0-or-later
+License:        MIT AND LGPL-2.1-only AND BSD-3-Clause AND (Apache-2.0 OR GPL-3.0-or-later)
 
 %description -n webkit2gtk4.1-doc
 This package contains developer documentation for webkit2gtk4.1.
@@ -292,6 +301,7 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
   -DPORT=GTK \
   -DCMAKE_BUILD_TYPE=Release \
   -DUSE_GTK4=ON \
+  -DUSE_LIBBACKTRACE=OFF \
 %if %{without docs}
   -DENABLE_DOCUMENTATION=OFF \
 %endif
@@ -310,6 +320,8 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
   -GNinja \
   -DPORT=GTK \
   -DCMAKE_BUILD_TYPE=Release \
+  -DUSE_GTK4=OFF \
+  -DUSE_LIBBACKTRACE=OFF \
   -DENABLE_WEBDRIVER=OFF \
 %if %{without docs}
   -DENABLE_DOCUMENTATION=OFF \
@@ -325,11 +337,11 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
   %{nil}
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkitgtk-6.0
-export NINJA_STATUS="[1/3][%f/%t %es] "
+export NINJA_STATUS="[1/2][%f/%t %es] "
 %cmake_build %limit_build -m 3072
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.1
-export NINJA_STATUS="[2/3][%f/%t %es] "
+export NINJA_STATUS="[2/2][%f/%t %es] "
 %cmake_build %limit_build -m 3072
 
 %install

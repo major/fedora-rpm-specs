@@ -1,11 +1,14 @@
 Name:    pcp
-Version: 6.1.0
+Version: 6.1.1
 Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
 
 Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.tar.gz
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+ExcludeArch: %{ix86}
+%endif
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -43,6 +46,13 @@ Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.t
 %else
 %global disable_perfevent 1
 %endif
+%endif
+
+# Resource Control kernel feature is on recent Intel/AMD processors only
+%ifarch x86_64
+%global disable_resctrl 0
+%else
+%global disable_resctrl 1
 %endif
 
 # libchan, libhdr_histogram and pmdastatsd
@@ -152,8 +162,8 @@ Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.t
 # Qt development and runtime environment missing components before el6
 %if 0%{?rhel} == 0 || 0%{?rhel} > 5
 %global disable_qt 0
-%if 0%{?fedora} != 0 || 0%{?rhel} > 7
-%global default_qt 5
+%if 0%{?fedora} != 0 || 0%{?rhel} > 9
+%global default_qt 6
 %endif
 %else
 %global disable_qt 1
@@ -282,8 +292,9 @@ BuildRequires: systemd-devel
 %endif
 %if !%{disable_qt}
 BuildRequires: desktop-file-utils
-%if 0%{?default_qt} != 5
-BuildRequires: qt4-devel >= 4.4
+%if 0%{?default_qt} == 6
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtsvg-devel
 %else
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtsvg-devel
@@ -529,7 +540,7 @@ Requires: pcp-pmda-nginx pcp-pmda-nfsclient pcp-pmda-pdns pcp-pmda-postfix pcp-p
 Requires: pcp-pmda-samba pcp-pmda-slurm pcp-pmda-zimbra
 Requires: pcp-pmda-dm pcp-pmda-apache
 Requires: pcp-pmda-bash pcp-pmda-cisco pcp-pmda-gfs2 pcp-pmda-mailq pcp-pmda-mounts
-Requires: pcp-pmda-nvidia-gpu pcp-pmda-roomtemp pcp-pmda-sendmail pcp-pmda-shping pcp-pmda-smart
+Requires: pcp-pmda-nvidia-gpu pcp-pmda-roomtemp pcp-pmda-sendmail pcp-pmda-shping pcp-pmda-smart pcp-pmda-farm
 Requires: pcp-pmda-hacluster pcp-pmda-lustrecomm pcp-pmda-logger pcp-pmda-denki pcp-pmda-docker pcp-pmda-bind2
 Requires: pcp-pmda-sockets pcp-pmda-podman
 %if !%{disable_statsd}
@@ -564,6 +575,9 @@ Requires: pcp-pmda-snmp
 %endif
 %if !%{disable_json}
 Requires: pcp-pmda-json
+%endif
+%if !%{disable_resctrl}
+Requires: pcp-pmda-resctrl
 %endif
 Requires: pcp-pmda-summary pcp-pmda-trace pcp-pmda-weblog
 Requires: pcp-system-tools
@@ -738,6 +752,25 @@ Performance Co-Pilot (PCP) module for exporting metrics from PCP to
 Zabbix via the Zabbix agent - see zbxpcp(3) for further details.
 
 %if !%{disable_python2} || !%{disable_python3}
+#
+# pcp-geolocate
+#
+%package geolocate
+License: GPL-2.0-or-later
+Summary: Performance Co-Pilot geographical location metric labels
+URL: https://pcp.io
+Requires: pcp-libs >= %{version}-%{release}
+%if !%{disable_python3}
+Requires: python3-pcp = %{version}-%{release}
+%else
+Requires: %{__python2}-pcp = %{version}-%{release}
+%endif
+
+%description geolocate
+Performance Co-Pilot (PCP) tools that automatically apply metric labels
+containing latitude and longitude, based on IP-address-based lookups.
+Used with live maps to show metric values from different locations.
+
 #
 # pcp-export-pcp2elasticsearch
 #
@@ -1836,7 +1869,7 @@ URL: https://pcp.io
 Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
 %if !%{disable_python3}
 Requires: python3-pcp
-%if 0%{?rhel} == 0
+%if 0%{?rhel} == 0 || 0%{?rhel} >= 9
 Requires: python3-pyodbc
 BuildRequires: python3-pyodbc
 %endif
@@ -1931,6 +1964,22 @@ collecting metrics about Cisco routers.
 # end pcp-pmda-cisco
 
 #
+# pcp-pmda-farm
+#
+%package pmda-farm
+License: GPL-2.0-or-later
+Summary: Performance Co-Pilot (PCP) metrics for Seagate FARM Log metrics
+URL: https://pcp.io
+Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
+Requires: smartmontools
+%description pmda-farm
+This package contains the PCP Performance Metric Domain Agent (PMDA) for
+collecting metrics from Seagate Hard Drive vendor specific Field Accessible
+Reliability Metrics (FARM) Log making use of data from the smartmontools 
+package.
+#end pcp-pmda-farm
+
+#
 # pcp-pmda-gfs2
 #
 %package pmda-gfs2
@@ -1942,6 +1991,19 @@ Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
 This package contains the PCP Performance Metrics Domain Agent (PMDA) for
 collecting metrics about the Global Filesystem v2.
 # end pcp-pmda-gfs2
+
+#
+# pcp-pmda-hacluster
+#
+%package pmda-hacluster
+License: GPL-2.0-or-later
+Summary: Performance Co-Pilot (PCP) metrics for High Availability Clusters
+URL: https://pcp.io
+Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
+%description pmda-hacluster
+This package contains the PCP Performance Metrics Domain Agent (PMDA) for
+collecting metrics about linux High Availability (HA) Clusters.
+# end pcp-pmda-hacluster
 
 #
 # pcp-pmda-logger
@@ -1995,6 +2057,21 @@ Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
 This package contains the PCP Performance Metrics Domain Agent (PMDA) for
 collecting metrics about Nvidia GPUs.
 # end pcp-pmda-nvidia-gpu
+
+%if !%{disable_resctrl}
+#
+# pcp-pmda-resctrl
+#
+%package pmda-resctrl
+License: GPL-2.0-or-later
+Summary: Performance Co-Pilot (PCP) metrics from Linux resource control
+URL: https://pcp.io
+Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
+%description pmda-resctrl
+This package contains the PCP Performance Metric Domain Agent (PMDA) for
+collecting metrics from the Linux kernel resource control functionality.
+#end pcp-pmda-resctrl
+%endif
 
 #
 # pcp-pmda-roomtemp
@@ -2064,19 +2141,6 @@ Requires: iproute
 This package contains the PCP Performance Metric Domain Agent (PMDA) for
 collecting per-socket statistics, making use of utilities such as 'ss'.
 #end pcp-pmda-sockets
-
-#
-# pcp-pmda-hacluster
-#
-%package pmda-hacluster
-License: GPL-2.0-or-later
-Summary: Performance Co-Pilot (PCP) metrics for High Availability Clusters
-URL: https://pcp.io
-Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
-%description pmda-hacluster
-This package contains the PCP Performance Metrics Domain Agent (PMDA) for
-collecting metrics about linux High Availability (HA) Clusters.
-# end pcp-pmda-hacluster
 
 #
 # pcp-pmda-summary
@@ -2438,13 +2502,12 @@ basic_manifest | keep "$PCP_GUI|pcp-gui|applications|pixmaps|hicolor" | cull 'pm
 basic_manifest | keep 'selinux' | cull 'tmp|testsuite' >pcp-selinux-files
 basic_manifest | keep 'zeroconf|daily[-_]report|/sa$' >pcp-zeroconf-files
 basic_manifest | grep -E -e 'pmiostat|pmrep|dstat|htop|pcp2csv' \
-   -e 'pcp-atop|pcp-dmcache|pcp-dstat|pcp-free|pcp-htop' \
-   -e 'pcp-ipcs|pcp-iostat|pcp-lvmcache|pcp-mpstat|pcp-netstat' \
-   -e 'pcp-buddyinfo|pcp-meminfo|pcp-slabinfo|pcp-zoneinfo' \
-   -e 'pcp-numastat|pcp-pidstat|pcp-shping|pcp-tapestat' \
-   -e 'pcp-uptime|pcp-verify|pcp-ss|pcp-ps' | \
+   -e 'pcp-atop|pcp-dmcache|pcp-dstat|pcp-free' \
+   -e 'pcp-htop|pcp-ipcs|pcp-iostat|pcp-lvmcache|pcp-mpstat' \
+   -e 'pcp-numastat|pcp-pidstat|pcp-shping|pcp-ss' \
+   -e 'pcp-tapestat|pcp-uptime|pcp-verify' | \
    cull 'selinux|pmlogconf|pmieconf|pmrepconf' >pcp-system-tools-files
-
+basic_manifest | keep 'geolocate' >pcp-geolocate-files
 basic_manifest | keep 'sar2pcp' >pcp-import-sar2pcp-files
 basic_manifest | keep 'iostat2pcp' >pcp-import-iostat2pcp-files
 basic_manifest | keep 'sheet2pcp' >pcp-import-sheet2pcp-files
@@ -2477,6 +2540,7 @@ basic_manifest | keep '(etc/pcp|pmdas)/docker(/|$)' >pcp-pmda-docker-files
 basic_manifest | keep '(etc/pcp|pmdas)/ds389log(/|$)' >pcp-pmda-ds389log-files
 basic_manifest | keep '(etc/pcp|pmdas)/ds389(/|$)' >pcp-pmda-ds389-files
 basic_manifest | keep '(etc/pcp|pmdas)/elasticsearch(/|$)' >pcp-pmda-elasticsearch-files
+basic_manifest | keep '(etc/pcp|pmdas)/farm(/|$)' >pcp-pmda-farm-files
 basic_manifest | keep '(etc/pcp|pmdas)/gfs2(/|$)' >pcp-pmda-gfs2-files
 basic_manifest | keep '(etc/pcp|pmdas)/gluster(/|$)' >pcp-pmda-gluster-files
 basic_manifest | keep '(etc/pcp|pmdas)/gpfs(/|$)' >pcp-pmda-gpfs-files
@@ -2516,6 +2580,7 @@ basic_manifest | keep '(etc/pcp|pmdas)/postfix(/|$)' >pcp-pmda-postfix-files
 basic_manifest | keep '(etc/pcp|pmdas)/postgresql(/|$)' >pcp-pmda-postgresql-files
 basic_manifest | keep '(etc/pcp|pmdas)/rabbitmq(/|$)' >pcp-pmda-rabbitmq-files
 basic_manifest | keep '(etc/pcp|pmdas)/redis(/|$)' >pcp-pmda-redis-files
+basic_manifest | keep '(etc/pcp|pmdas)/resctrl(/|$)|sys-fs-resctrl' >pcp-pmda-resctrl-files
 basic_manifest | keep '(etc/pcp|pmdas)/roomtemp(/|$)' >pcp-pmda-roomtemp-files
 basic_manifest | keep '(etc/pcp|pmdas)/rpm(/|$)' >pcp-pmda-rpm-files
 basic_manifest | keep '(etc/pcp|pmdas)/rsyslog(/|$)' >pcp-pmda-rsyslog-files
@@ -2542,6 +2607,7 @@ for pmda_package in \
     cifs cisco \
     dbping denki docker dm ds389 ds389log \
     elasticsearch \
+    farm \
     gfs2 gluster gpfs gpsd \
     hacluster haproxy \
     infiniband \
@@ -2552,7 +2618,7 @@ for pmda_package in \
     nutcracker nvidia \
     openmetrics openvswitch oracle \
     pdns perfevent podman postfix postgresql \
-    rabbitmq redis roomtemp rpm rsyslog \
+    rabbitmq redis resctrl roomtemp rpm rsyslog \
     samba sendmail shping slurm smart snmp \
     sockets statsd summary systemd \
     unbound \
@@ -2578,7 +2644,7 @@ done
 
 for subpackage in \
     pcp-conf pcp-gui pcp-doc pcp-libs pcp-devel pcp-libs-devel \
-    pcp-selinux pcp-system-tools pcp-testsuite pcp-zeroconf \
+    pcp-geolocate pcp-selinux pcp-system-tools pcp-testsuite pcp-zeroconf \
     $pmda_packages $import_packages $export_packages ; \
 do \
     echo $subpackage >> packages.list; \
@@ -2936,8 +3002,14 @@ exit 0
 %preun pmda-cisco
 %{pmda_remove "$1" "cisco"}
 
+%preun pmda-farm
+%{pmda_remove "$1" "farm"}
+
 %preun pmda-gfs2
 %{pmda_remove "$1" "gfs2"}
+
+%preun pmda-hacluster
+%{pmda_remove "$1" "hacluster"}
 
 %preun pmda-logger
 %{pmda_remove "$1" "logger"}
@@ -2950,6 +3022,11 @@ exit 0
 
 %preun pmda-nvidia-gpu
 %{pmda_remove "$1" "nvidia"}
+
+%if !%{disable_resctrl}
+%preun pmda-resctrl
+%{pmda_remove "$1" "resctrl"}
+%endif
 
 %preun pmda-roomtemp
 %{pmda_remove "$1" "roomtemp"}
@@ -2965,9 +3042,6 @@ exit 0
 
 %preun pmda-sockets
 %{pmda_remove "$1" "sockets"}
-
-%preun pmda-hacluster
-%{pmda_remove "$1" "hacluster"}
 
 %preun pmda-summary
 %{pmda_remove "$1" "summary"}
@@ -3221,6 +3295,8 @@ fi
 %endif
 
 %if !%{disable_python2} || !%{disable_python3}
+%files geolocate -f pcp-geolocate-files.rpm
+
 %files pmda-gluster -f pcp-pmda-gluster-files.rpm
 
 %files pmda-zswap -f pcp-pmda-zswap-files.rpm
@@ -3294,7 +3370,11 @@ fi
 
 %files pmda-cisco -f pcp-pmda-cisco-files.rpm
 
+%files pmda-farm -f pcp-pmda-farm-files.rpm
+
 %files pmda-gfs2 -f pcp-pmda-gfs2-files.rpm
+
+%files pmda-hacluster -f pcp-pmda-hacluster-files.rpm
 
 %files pmda-logger -f pcp-pmda-logger-files.rpm
 
@@ -3303,6 +3383,10 @@ fi
 %files pmda-mounts -f pcp-pmda-mounts-files.rpm
 
 %files pmda-nvidia-gpu -f pcp-pmda-nvidia-files.rpm
+
+%if !%{disable_resctrl}
+%files pmda-resctrl -f pcp-pmda-resctrl-files.rpm
+%endif
 
 %files pmda-roomtemp -f pcp-pmda-roomtemp-files.rpm
 
@@ -3313,8 +3397,6 @@ fi
 %files pmda-smart -f pcp-pmda-smart-files.rpm
 
 %files pmda-sockets -f pcp-pmda-sockets-files.rpm
-
-%files pmda-hacluster -f pcp-pmda-hacluster-files.rpm
 
 %files pmda-summary -f pcp-pmda-summary-files.rpm
 
@@ -3364,6 +3446,11 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Fri Nov 17 2023 Nathan Scott <nathans@redhat.com> - 6.1.1-1
+- Resolves i686/x86_64 conflicts of PCP packages (BZ 2248841)
+- Additional selinux policy updates for pmproxy (BZ 2223568)
+- Update to latest PCP sources.
+
 * Tue Sep 05 2023 Nathan Scott <nathans@redhat.com> - 6.1.0-1
 - Remove unintended pmie logging to syslog (BZ 2223348)
 - Update pcp selinux policy to match core (BZ 2223568)
@@ -3601,8 +3688,7 @@ fi
   .config (BZ 1569697)
 - SELinux is preventing pmdalinux from 'search' accesses on
   the directory /var/lib/libvirt/images (BZ 1579988)
-- SELinux is preventing pmdalinux from 'unix_read' accesses
-  on the semáforo Unknown (BZ 1607658)
+- SELinux is preventing pmdalinux from 'unix_read' accesses on the semafore Unknown (BZ 1607658)
 - SELinux is preventing pmdalinux from 'unix_read' accesses
   on the shared memory Unknown (BZ 1618756, BZ 1619381, BZ 1601721)
 - Update to latest PCP sources.
@@ -3650,13 +3736,13 @@ fi
 * Tue Jul 03 2018 Petr Pisar <ppisar@redhat.com> - 4.1.0-6
 - Perl 5.28 rebuild
 
-* Fri Jun 29 2018 Miro Hrončok <mhroncok@redhat.com> - 4.1.0-5
+* Fri Jun 29 2018 Miro Hroncok <mhroncok@redhat.com> - 4.1.0-5
 - Rebuilt for Python 3.7
 
 * Thu Jun 28 2018 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.0-4
 - Perl 5.28 rebuild
 
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 4.1.0-3
+* Tue Jun 19 2018 Miro Hroncok <mhroncok@redhat.com> - 4.1.0-3
 - Rebuilt for Python 3.7
 
 * Fri Jun 15 2018 Nathan Scott <nathans@redhat.com> - 4.1.0-2

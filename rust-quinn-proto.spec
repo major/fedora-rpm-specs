@@ -6,7 +6,7 @@
 %global crate quinn-proto
 
 Name:           rust-quinn-proto
-Version:        0.10.5
+Version:        0.10.6
 Release:        %autorelease
 Summary:        State machine for the QUIC transport protocol
 

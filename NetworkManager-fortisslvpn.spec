@@ -13,8 +13,8 @@
 Summary:   NetworkManager VPN plugin for Fortinet compatible SSLVPN
 Name:      NetworkManager-fortisslvpn
 Version:   1.4.0
-Release:   5%{?dist}
-License:   GPLv2+
+Release:   6%{?dist}
+License:   GPL-2.0-or-later
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source0:   https://download.gnome.org/sources/NetworkManager-fortisslvpn/1.4/%{name}-%{version}.tar.xz
 # backports from upstream: fix build with ppp 2.5.0
@@ -137,6 +137,9 @@ exit 0
 
 
 %changelog
+* Fri Nov 03 2023 Íñigo Huguet <ihuguet@redhat.com> - 1.4.0-6
+- Migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

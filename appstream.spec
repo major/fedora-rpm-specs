@@ -1,28 +1,26 @@
-%global basever 1.0.0
-%global commit d88ed03cb5b3b1803bdee3528c9b99d528ceb065
-%global commitdate 20231102
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: %{basever}%{?commitdate:~git%{commitdate}.%{shortcommit}}
+Version: 1.0.0
 Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:     http://www.freedesktop.org/wiki/Distributions/AppStream
 URL:     https://github.com/ximion/appstream
-Source0: %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
-%dnl Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
+Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
 
-## upstream patches (lookaside cache)
+# upstream patches
+## From: https://github.com/ximion/appstream/commit/32182d7a7a67d0d204cd0a37bd211bfd0177bc27
+Patch0001: 0001-stemmer-Resolve-potential-issue-where-stemmer-may-ne.patch
 
-## upstreamable patches
+# upstreamable patches
+
 
 # needed for cmake auto-provides
 BuildRequires: cmake
 BuildRequires: meson >= 0.62
 BuildRequires: gettext
+BuildRequires: git-core
 BuildRequires: gperf
 BuildRequires: gtk-doc
 BuildRequires: intltool
@@ -39,6 +37,7 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(librsvg-2.0)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(libzstd)
 BuildRequires: pkgconfig(pango)
 BuildRequires: pkgconfig(Qt6Core) >= 6.2.4
 BuildRequires: pkgconfig(xmlb) >= 0.3.14
@@ -92,8 +91,7 @@ Requires: pkgconfig(Qt6Core) >= 6.2.4
 
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
-%dnl %autosetup -n AppStream-%{version} -p1
+%autosetup -n AppStream-%{version} -S git_am
 
 
 %build
@@ -144,7 +142,7 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 %dir %{_libdir}/girepository-1.0/
 %{_libdir}/girepository-1.0/AppStream-1.0.typelib
 %{_libdir}/libappstream.so.5
-%{_libdir}/libappstream.so.%{basever}
+%{_libdir}/libappstream.so.%{version}
 %{_metainfodir}/org.freedesktop.appstream.cli.*.xml
 # put in -devel? -- rex
 %{_datadir}/gettext/its/metainfo.*
@@ -175,7 +173,7 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 %{_libexecdir}/appstreamcli-compose
 %{_mandir}/man1/appstreamcli-compose.1*
 %{_libdir}/libappstream-compose.so.0
-%{_libdir}/libappstream-compose.so.%{basever}
+%{_libdir}/libappstream-compose.so.%{version}
 %{_libdir}/girepository-1.0/AppStreamCompose-1.0.typelib
 %{_metainfodir}/org.freedesktop.appstream.compose.metainfo.xml
 
@@ -190,7 +188,7 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 %files qt
 %{_libdir}/libAppStreamQt.so.3
-%{_libdir}/libAppStreamQt.so.%{basever}
+%{_libdir}/libAppStreamQt.so.%{version}
 
 %files qt-devel
 %{_includedir}/AppStreamQt/
@@ -199,6 +197,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Fri Nov 17 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.0.0-1
+- Update to 1.0.0 final
+
 * Thu Nov 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.0.0~git20231102.d88ed03-1
 - Rebase to 1.0.0 git snapshot
 

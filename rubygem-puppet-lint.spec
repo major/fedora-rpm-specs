@@ -1,19 +1,17 @@
-# Generated from puppet-lint-0.2.0.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name puppet-lint
 
 Name: rubygem-%{gem_name}
-Version: 2.4.2
-Release: 7%{?dist}
+Version: 4.2.1
+Release: 1%{?dist}
 Summary: Ensure your Puppet manifests conform with the Puppetlabs style guide
 License: MIT
-URL: http://puppet-lint.com/
-Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
+URL: https://github.com/puppetlabs/puppet-lint/
+Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby
-BuildRequires: rubygem(rspec)
-BuildRequires: rubygem(rspec-its)
-BuildRequires: rubygem(rspec-collection_matchers) => 1.0
+BuildRequires: ruby >= 2.7
+BuildRequires: rubygem(rspec) >= 3.0
+BuildRequires: rubygem(rspec-its) >= 1.0
 BuildArch: noarch
 
 %description
@@ -37,47 +35,41 @@ gem build ../%{gem_name}-%{version}.gemspec
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
-cp -ap ./%{gem_dir}/* \
+cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 mkdir -p %{buildroot}%{_bindir}
-cp -ap ./%{_bindir}/* \
+cp -a .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
-# remove unecisary execute bit
-chmod a-x %{buildroot}%{gem_instdir}/lib/puppet-lint/bin.rb
 
 %check
 pushd .%{gem_instdir}
 
-sed -i -e "/^require 'simplecov'$/,/^end$/ s/^/#/g" \
-  spec/spec_helper.rb
+COVERAGE=no rspec spec/unit
 
-rspec spec
 popd
 
 %files
 %dir %{gem_instdir}
 %{_bindir}/puppet-lint
+%license %{gem_instdir}/LICENSE
 %{gem_instdir}/bin
 %{gem_libdir}
-%{gem_instdir}/Gemfile
-%doc %{gem_instdir}/LICENSE
 %exclude %{gem_cache}
-%exclude %{gem_instdir}/.*
 %{gem_spec}
-%exclude %{gem_instdir}/appveyor.yml
 
 %files doc
 %doc %{gem_docdir}
-%{gem_instdir}/%{gem_name}.gemspec
-%{gem_instdir}/Rakefile
 %doc %{gem_instdir}/README.md
-%doc %{gem_instdir}/CHANGELOG.md
+%{gem_instdir}/rubocop_baseline.yml
 %{gem_instdir}/spec
 
 %changelog
+* Wed Aug 30 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 4.2.1-1
+- Updated to 4.2.1 (fixes rhbz#1985967)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

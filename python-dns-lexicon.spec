@@ -1,6 +1,6 @@
 
 %global forgeurl    https://github.com/AnalogJ/lexicon
-Version:            3.15.1
+Version:            3.17.0
 %forgemeta
 
 %global pypi_name dns-lexicon
@@ -84,28 +84,6 @@ This is the Python 3 version of the package.
 
 
 
-%package -n     python3-%{pypi_name}+ddns
-Summary:        Meta-package for python3-%{pypi_name} and ddns provider
-%{?python_provide:%python_provide python3-%{pypi_name}+ddns}
-Requires:       python3-%{pypi_name} = %{version}-%{release}
-
-%description -n python3-%{pypi_name}+ddns
-This package installs no files. It requires python3-%{pypi_name} and all
-dependencies necessary to use the ddns provider.
-
-
-
-%package -n     python3-%{pypi_name}+duckdns
-Summary:        Meta-package for python3-%{pypi_name} and duckdns provider
-%{?python_provide:%python_provide python3-%{pypi_name}+duckdns}
-Requires:       python3-%{pypi_name} = %{version}-%{release}
-
-%description -n python3-%{pypi_name}+duckdns
-This package installs no files. It requires python3-%{pypi_name} and all
-dependencies necessary to use the duckdns provider.
-
-
-
 %package -n     python3-%{pypi_name}+gransy
 Summary:        Meta-package for python3-%{pypi_name} and gransy provider
 %{?python_provide:%python_provide python3-%{pypi_name}+gransy}
@@ -157,7 +135,7 @@ rm -rf %{pypi_name}.egg-info
 
 %generate_buildrequires
 %if %{with extras}
-%pyproject_buildrequires -r -t -e light -x ddns,duckdns,gransy,localzone,oci,route53
+%pyproject_buildrequires -r -t -e light -x gransy,localzone,oci,route53
 %else
 %pyproject_buildrequires -r -t -e light
 %endif
@@ -217,12 +195,6 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # {{{
 %if %{with extras}
 
-%files -n python3-%{pypi_name}+ddns
-%{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
-
-%files -n python3-%{pypi_name}+duckdns
-%{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
-
 %files -n python3-%{pypi_name}+gransy
 %{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
 
@@ -239,6 +211,9 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Thu Nov 16 2023 Nick Bebout <nb@fedoraproject.org> - 3.17.0-1
+- Update to 3.17.0
+
 * Fri Oct 13 2023 Jonathan Wright <jonathan@almalinux.org> - 3.15.1-1
 - Update to 3.15.1 rhbz#2232054
 

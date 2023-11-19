@@ -15,7 +15,7 @@ Patch0:           https://patch-diff.githubusercontent.com/raw/Cangjians/pycangj
 
 BuildRequires:    make
 BuildRequires:    autoconf automake libtool
-BuildRequires:    python3dist(cython) < 3~~
+BuildRequires:    python3dist(cython)
 BuildRequires:    python3-devel
 BuildRequires:    libcangjie-devel >= 1.2
 

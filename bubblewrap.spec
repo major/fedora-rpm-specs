@@ -1,12 +1,13 @@
 Name:    bubblewrap
-Version: 0.7.0
-Release: 2%{?dist}
+Version: 0.8.0
+Release: 1%{?dist}
 Summary: Core execution tool for unprivileged containers
 
 License: LGPL-2.0-or-later
 URL:     https://github.com/containers/bubblewrap/
 Source0: https://github.com/containers/bubblewrap/releases/download/v%{version}/bubblewrap-%{version}.tar.xz
 
+BuildRequires: pkgconfig(bash-completion) >= 2.0
 BuildRequires: gcc
 BuildRequires: docbook-style-xsl
 BuildRequires: meson
@@ -23,7 +24,7 @@ user namespaces.
 %autosetup
 
 %build
-%meson -Dman=enabled
+%meson -Dman=enabled -Dselinux=enabled
 %meson_build
 
 %install
@@ -46,6 +47,9 @@ user namespaces.
 %{_mandir}/man1/bwrap.1*
 
 %changelog
+* Thu Nov 16 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.8.0-1
+- Update to 0.8.0 (#2173820)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

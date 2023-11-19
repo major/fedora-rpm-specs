@@ -1,8 +1,8 @@
 Name: debugedit
 Version: 5.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Tools for debuginfo creation
-License: GPLv3+ and GPLv2+ and LGPLv2+
+License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
 Source0: https://sourceware.org/pub/debugedit/%{version}/%{name}-%{version}.tar.xz
 Source1: https://sourceware.org/pub/debugedit/%{version}/%{name}-%{version}.tar.xz.sig
@@ -90,6 +90,9 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Fri Nov 17 2023 Mark Wirlaard <mjw@fedoraproject.org> - 5.0-11
+- migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -99,7 +102,7 @@ make check %{?_smp_mflags}
 * Fri Jun 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 5.0-8
 - Add 0001-find-debuginfo-Prefix-install_dir-to-PATH.patch
 
-* Fri Jan 27 2023 Mark Wielaard <mjw@fedoraproject.org> - 5.0-2
+* Fri Jan 27 2023 Mark Wielaard <mjw@fedoraproject.org> - 5.0-7
 - Refresh 0001-tests-Handle-zero-directory-entry-in-.debug_line-DWA.patch
 - Add new upstream patches:
   0001-use-READELF-not-readelf.patch

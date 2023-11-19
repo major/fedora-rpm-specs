@@ -21,7 +21,7 @@ Version: %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
 Release: 3%{?dist}
 Summary: The password-hashing tools
 
-License: Public Domain or ASL 2.0
+License: LicenseRef-Fedora-Public-Domain OR Apache-2.0
 URL:     https://github.com/%{gh_owner}/%{gh_project}
 Source0: https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 

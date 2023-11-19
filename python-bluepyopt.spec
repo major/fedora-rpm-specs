@@ -152,12 +152,15 @@ sed -i "s/x86_64/$MODSUBDIR/" bluepyopt/tests/test_stochkv.py
     stochkv_prepare l5pc_prepare sc_prepare meta_prepare
 # test fail with a very slight approximation error
 # neuroml test requires pyneuroml which cannot be included in fedora because of java things
-k="not test_metaparameter and not test_NrnRampPulse_instantiate"
-k="$k and not test_DEAPOptimisation_run and not test_DEAPOptimisation_run_from_parents"
-k="$k and not test_optimisationsCMA_SO_run and not test_optimisationsCMA_MO_run"
+k="${k-}${k+ and }not test_metaparameter"
+k="${k-}${k+ and }not test_NrnRampPulse_instantiate"
+k="${k-}${k+ and }not test_DEAPOptimisation_run"
+k="${k-}${k+ and }not test_DEAPOptimisation_run_from_parents"
+k="${k-}${k+ and }not test_optimisationsCMA_SO_run"
+k="${k-}${k+ and }not test_optimisationsCMA_MO_run"
 # This tests still fails after (fixed) `abor` has been added as BR
-k="$k and not test_LFPySquarePulse_instantiate"
-k="$k and not test_write_acc_expsyn"
+k="${k-}${k+ and }not test_LFPySquarePulse_instantiate"
+k="${k-}${k+ and }not test_write_acc_expsyn"
 # Why do we run pytest twice?
 %{pytest} bluepyopt/tests/ -m "unit and not neuroml" "${k:+-k $k}"
 %{pytest} bluepyopt/tests/ -m "not unit and not neuroml" "${k:+-k $k}"

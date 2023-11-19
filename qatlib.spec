@@ -3,7 +3,7 @@
 %global libqat_soversion  4
 %global libusdm_soversion 0
 Name:             qatlib
-Version:          23.08.0
+Version:          23.11.0
 Release:          1%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
@@ -131,6 +131,9 @@ exit 0
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Fri Nov 17 2023 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 23.11.0-1
+- Update to qatlib 23.11.0
+
 * Thu Sep 07 2023 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 23.08.0-1
 - Add chaining_sample to qatlib-tests package
 - Update to qatlib 23.08.0

@@ -20,7 +20,6 @@ BuildRequires:  vulkan-headers
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       vulkan-headers
 
 %description    devel

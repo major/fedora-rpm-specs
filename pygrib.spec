@@ -2,8 +2,8 @@
 %global __provides_exclude_from ^(%{python3_sitearch})/.*\\.so.*$
 
 Name:       pygrib
-Version:    2.1.4
-Release:    9%{?dist}
+Version:    2.1.5
+Release:    1%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -158,6 +158,9 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Fri Nov 17 2023 Jos de Kloe <josdekloe@gmail.com> 2.1.5-1
+- Update to 2.1.5 (#2249583)
+
 * Wed Jul 19 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.1.4-9
 - Rebuild for Python 3.12b4
 

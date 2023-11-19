@@ -8,7 +8,7 @@
 %global obsrel 431.1
 
 Name:           obs-build
-Version:        20231109
+Version:        20231116
 Release:        %{obsrel}.%{autorelease}
 Summary:        A generic package build script
 

@@ -3,7 +3,7 @@
 
 Name:           %{upstream_name}
 Version:        28.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 License:        GPLv2+ and BSD
 URL:            https://beaker-project.org/
@@ -11,6 +11,7 @@ URL:            https://beaker-project.org/
 # To generate git snapshot, see beaker-snapshot.sh
 Source0:        https://beaker-project.org/releases/%{upstream_name}-%{version}.tar.xz
 Patch0:         0000-fix-interpolation-issue-in-sphinx.patch
+Patch1:         0001-Do-not-use-ssl.wrap_socket-removed-in-Python-3.12.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-setuptools
@@ -68,6 +69,8 @@ rm -rf documentation
 %patch -p1 0
 %endif
 
+%patch -p1 1
+
 # The server relies on a great many packages which are intended to be bundled
 # source, and its documentation greatly inflates the number of BR packages
 # required. Until those are packaged separately, building those subpackages is
@@ -124,6 +127,9 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Fri Nov 17 2023 Martin Styk <mart.styk@gmail.com> - 28.3-8
+- Backport patch to fix SSL usage on Python 3.12
+
 * Wed Jul 26 2023 Martin Styk <mart.styk@gmail.com> - 28.3-7
 - Disable tests
 - Fix incompatibility with Sphinx 6+

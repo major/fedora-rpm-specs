@@ -9,8 +9,8 @@
 %global modulename mysql
 
 Name:           mysql-selinux
-Version:        1.0.7
-Release:        2%{?dist}
+Version:        1.0.9
+Release:        1%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/devexp-db/mysql-selinux
@@ -70,6 +70,10 @@ fi
 #   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
+* Fri Nov 17 2023 Packit <hello@packit.dev> - 1.0.9-1
+- Revert "Attempt to fix rhbz#2186996 rhbz#2221433 rhbz#2245705" This reverts commit de84778e555b891fd9ea5f3111c87a4990650d6c. (Michal Schorm)
+- Resolves rhbz#2250360
+
 * Tue Sep 26 2023 Michal Schorm <mschorm@redhat.com> - 1.0.7-2
 - Bump release for rebuild
 
