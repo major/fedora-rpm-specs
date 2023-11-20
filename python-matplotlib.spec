@@ -36,7 +36,7 @@
 %global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.8.1
+Version:        3.8.2
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library

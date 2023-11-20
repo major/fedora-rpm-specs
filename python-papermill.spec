@@ -32,6 +32,8 @@ URL:            https://pypi.org/pypi/papermill
 Source0:        %{pypi_source papermill}
 
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description %_description
 

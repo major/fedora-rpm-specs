@@ -1,4 +1,4 @@
-%global	mainver		1.15.4
+%global	mainver		1.15.5
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -29,6 +29,10 @@ Source1:	rubygem-%{gem_name}-%{version}%{?prever}-full.tar.gz
 Source2:	nokogiri-create-full-tarball.sh
 # Shut down libxml2 version unmatching warning
 Patch0:	%{name}-1.11.0.rc4-shutdown-libxml2-warning.patch
+# https://github.com/sparklemotion/nokogiri/pull/2973
+Patch1:	nokogiri-pr2973-libxml2-2_12_0-error-msg-change.patch
+# https://github.com/sparklemotion/nokogiri/pull/3013
+Patch2:	nokogiri-pr3013-libxml2-2_12_0-recovery-char-change.patch
 BuildRequires:	ruby(release)
 BuildRequires:	ruby(rubygems)
 ##
@@ -81,6 +85,8 @@ mv ../%{gem_name}-%{version}.gemspec .
 
 # patches
 %patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # remove bundled external libraries
 sed -i \
@@ -266,6 +272,10 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Sat Nov 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.5-1
+- 1.15.5
+- Backport upstream patch for libxml2 2.12.0 error handling change
+
 * Sat Aug 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.4-1
 - 1.15.4
 

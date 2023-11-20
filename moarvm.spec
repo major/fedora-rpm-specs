@@ -1,9 +1,5 @@
-%if 0%{?epel}
-%global debug_package %{nil}
-%endif
-
 Name:           moarvm
-Version:        2023.06
+Version:        2023.10
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0
@@ -43,11 +39,7 @@ This package contains development files for developing applications that use
 %autosetup -p1 -n MoarVM-%{version}
 
 # remove bundled libraries
-rm -r 3rdparty/libuv
-rm -r 3rdparty/libatomicops
-rm -r 3rdparty/dyncall
-rm -r 3rdparty/libtommath
-rm -r 3rdparty/mimalloc
+rm -rf 3rdparty/{libuv,libatomicops,dyncall,libtommath,mimalloc}/
 
 %build
 %{__perl} Configure.pl --prefix=%{_prefix} --libdir=%{_libdir} \

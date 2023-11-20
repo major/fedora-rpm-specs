@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        6.29.0
+Version:        7.0.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 License:        GPLv3
@@ -87,6 +87,7 @@ BuildRequires:  /usr/bin/JxrDecApp
 BuildRequires:  python3-pyqt6-webengine-devel
 BuildRequires:  python3-fonttools
 BuildRequires:  python3-zstd
+BuildRequires:  python3dist(xxhash)
 
 %{?pyqt6_requires}
 # once ^^ %%pyqt5_requires is everywhere, can drop python-qt5 dep below -- rex
@@ -138,6 +139,7 @@ Requires:       udisks2
 Requires:       /usr/bin/jpegtran
 Requires:       /usr/bin/JxrDecApp
 Requires:       python3-jeepney
+Requires:       python3-xxhash
 Recommends:     python3dist(zeroconf)
 
 %description

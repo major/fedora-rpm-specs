@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            https://keepassxc.org/
@@ -198,6 +198,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Nov 18 2023 Germano Massullo <germano.massullo@gmail.com> - 2.7.6-4
+- rebuild (qt5) el9-next
+
 * Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 2.7.6-3
 - Rebuild (qt5)
 

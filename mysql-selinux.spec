@@ -9,7 +9,7 @@
 %global modulename mysql
 
 Name:           mysql-selinux
-Version:        1.0.9
+Version:        1.0.10
 Release:        1%{?dist}
 
 License:        GPL-3.0-only
@@ -70,6 +70,10 @@ fi
 #   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
+* Sat Nov 18 2023 Packit <hello@packit.dev> - 1.0.10-1
+- 2nd attempt to fix rhbz#2186996 rhbz#2221433 rhbz#2245705 (Michal Schorm)
+- Resolves rhbz#2250424
+
 * Fri Nov 17 2023 Packit <hello@packit.dev> - 1.0.9-1
 - Revert "Attempt to fix rhbz#2186996 rhbz#2221433 rhbz#2245705" This reverts commit de84778e555b891fd9ea5f3111c87a4990650d6c. (Michal Schorm)
 - Resolves rhbz#2250360

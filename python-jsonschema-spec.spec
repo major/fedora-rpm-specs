@@ -11,18 +11,10 @@ URL:            https://github.com/p1c2u/%{srcname}
 # The GitHub archive has the tests; the PyPI sdist does not.
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-# Do not require quite such a recent version of requests
-#
-# Until python-requests is updated to 2.31.0[1], loosen the minimum version to
-# 2.28.1. It is an optional dependency that was added with “deptry”
-# analysis[2], which is only really useful for upstream CI, but it is also
-# imported from jsonschema_spec/handlers/requests.py. There is no obvious
-# reason why the most recent version (ahead of Rawhide as of this writing)
-# should be needed.
-#
-# [1] https://bugzilla.redhat.com/show_bug.cgi?id=2189970
-# [2] https://github.com/p1c2u/jsonschema-spec/commit/d207d233e31198942ba417875e2c1e09f848ab5d
-Patch:          0001-Do-not-require-quite-such-a-recent-version-of-reques.patch
+# A temporary workaround to avoid FTI
+# We need to retire jsonschema-spec as soon as openapi-core releases a new version
+# which switches to the renamed package jsonschema-path
+Patch:          relax-dependencies.patch
 
 BuildArch:      noarch
 

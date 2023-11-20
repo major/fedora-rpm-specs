@@ -3,7 +3,7 @@
 Name:           kf6-kirigami2-addons
 Epoch:          1
 Version:        0.11.76
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -50,14 +50,19 @@ Tree view Kirigami addon, which is useful for listing files.
 %autosetup -n %{framework}-%{version}
 
 %build
+# Manually rename translation files
+# This change missed the 0.11.76 release tarball
+# REMOVEME when you next update
+find ./po -type f -execdir mv {} kirigami-addons6.po \;
+
 %cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 %install
 %cmake_install
-%find_lang %{orig_name} --all-name
+%find_lang %{orig_name}6 --all-name
 
-%files -f %{orig_name}.lang
+%files -f %{orig_name}6.lang
 %doc README.md
 %license LICENSES/
 %dir %{_kf6_qmldir}/org/kde
@@ -73,6 +78,9 @@ Tree view Kirigami addon, which is useful for listing files.
 %{_kf6_qmldir}/org/kde/kirigamiaddons/treeview/
 
 %changelog
+* Sun Nov 19 2023 Alessandro Astone <ales.astone@gmail.com> - 1:0.11.76-3
+- Backport translation files rename to not conflict with qt5 build
+
 * Mon Nov 13 2023 Steve Cossette <farchord@gmail.com> - 0.11.76-2
 - Fixed a spec mistake
 

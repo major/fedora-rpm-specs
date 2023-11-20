@@ -1,5 +1,7 @@
 %global framework ktexteditor
 
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 # uncomment to enable bootstrap mode
 #global bootstrap 1
 
@@ -9,7 +11,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 with advanced embeddable text editor
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
@@ -93,6 +95,11 @@ developing applications that use %{name}.
 
 %find_lang %{name} --all-name
 
+%if %{with kf6_compat}
+rm -rf %{buildroot}%{_kf5_datadir}/dbus-1/
+rm -rf %{buildroot}%{_kf5_datadir}/polkit-1/
+%endif
+
 # create/own dirs
 mkdir -p %{buildroot}%{_kf5_qtplugindir}/ktexteditor
 
@@ -120,10 +127,12 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_datadir}/kservices5/katepart.desktop
 %{_kf5_datadir}/kservicetypes5/*.desktop
 %{_kf5_datadir}/katepart5/
-%{_kf5_datadir}/dbus-1/system.d/org.kde.ktexteditor.katetextbuffer.conf
 %{_kf5_libexecdir}/kauth/kauth_ktexteditor_helper
+%if %{without kf6_compat}
+%{_kf5_datadir}/dbus-1/system.d/org.kde.ktexteditor.katetextbuffer.conf
 %{_kf5_datadir}/dbus-1/system-services/org.kde.ktexteditor.katetextbuffer.service
 %{_kf5_datadir}/polkit-1/actions/org.kde.ktexteditor.katetextbuffer.policy
+%endif
 
 %files devel
 %{_kf5_libdir}/libKF5TextEditor.so
@@ -136,6 +145,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-2
+- kf6 compatibility support
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

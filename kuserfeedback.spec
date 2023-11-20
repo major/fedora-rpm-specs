@@ -1,7 +1,9 @@
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 Name:    kuserfeedback
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
 Version: 1.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 URL:     https://invent.kde.org/libraries/%{name}
@@ -63,7 +65,8 @@ Analytics and administration tool for UserFeedback servers.
 
 %build
 %cmake_kf5 \
-   -DENABLE_DOCS:BOOL=OFF
+   -DENABLE_DOCS:BOOL=OFF \
+   %{?with_kf6_compat:-DENABLE_CLI=OFF}
 
 %cmake_build
 
@@ -83,7 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 %files -f userfeedbackprovider5.lang
 %doc README.md
 %license COPYING.LIB
+%if %{without kf6_compat}
 %{_bindir}/userfeedbackctl
+%endif
 %{_libdir}/libKUserFeedbackCore.so.1*
 %{_libdir}/libKUserFeedbackWidgets.so.1*
 %{_kf5_qmldir}/org/kde/userfeedback/
@@ -105,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 1.3.0-2
+- kf6 compatibility support
+
 * Thu Nov 02 2023 Yaroslav Sidlovsky <zawertun@gmail.com> - 1.3.0-1
 - version 1.3.0
 

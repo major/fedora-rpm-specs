@@ -3,7 +3,7 @@
 
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
-Version:           3.10.0
+Version:           3.11.1
 Release:           1%{?dist}
 License:           GPLv2+
 URL:               https://ddclient.net/
@@ -13,8 +13,7 @@ Source2:           ddclient.service
 Source3:           ddclient.sysconfig
 Source4:           ddclient.NetworkManager
 Source5:           ddclient-tmpfiles.conf
-Patch0:            fix-version.patch
-Patch1:            skip-tests.patch
+Patch0:            skip-tests.patch
 
 BuildArch:         noarch
 
@@ -143,6 +142,9 @@ fi
 
 
 %changelog
+* Sat Nov 18 2023 Scott Talbert <swt@techie.net> - 3.11.1-1
+- Update to new upstream release 3.11.1 (#2244514)
+
 * Thu Sep 14 2023 kenneth topp <toppk@bllue.org>  - 3.10.0-1
 - Update to new upstream release 3.10.0
 

@@ -1,8 +1,10 @@
 %global framework kio
 
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -192,6 +194,10 @@ KIONTLM provides support for NTLM authentication mechanism in KIO
 
 %find_lang %{name} --all-name --with-man %{?_with_html}
 
+%if %{with kf6_compat}
+rm %{buildroot}%{_datadir}/applications/kcm_trash.desktop
+%endif
+
 
 %files
 %license LICENSES/*.txt
@@ -215,7 +221,10 @@ KIONTLM provides support for NTLM authentication mechanism in KIO
 %{_kf5_datadir}/kservices5/*.desktop
 %{_kf5_datadir}/knotifications5/proxyscout.*
 %{_kf5_datadir}/kf5/kcookiejar/domain_info
-%{_kf5_datadir}/applications/*.desktop
+%if %{without kf6_compat}
+%{_kf5_datadir}/applications/kcm_trash.desktop
+%endif
+%{_kf5_datadir}/applications/ktelnetservice5.desktop
 %{_kf5_datadir}/kconf_update/*
 %{_datadir}/dbus-1/services/org.kde.*.service
 
@@ -286,6 +295,9 @@ KIONTLM provides support for NTLM authentication mechanism in KIO
 %{_kf5_libdir}/cmake/KF5KIO/
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-2
+- kf6 compatibility support
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

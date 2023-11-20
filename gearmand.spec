@@ -1,16 +1,15 @@
 Name:           gearmand
-Version:        1.1.20
+Version:        1.1.21
 Release:        %autorelease
 Summary:        A distributed job system
-
-License:        BSD
+# migrated to SPDX
+License:        BSD-3-Clause
 URL:            http://www.gearman.org
 Source0:        https://github.com/gearman/%{name}/releases/download/%{version}/gearmand-%{version}.tar.gz
 Source1:        gearmand.init
 Source2:        gearmand.sysconfig
 Source3:        gearmand.service
-Patch0:         gearmand-1.1.12-ppc64le.patch
-Patch1:         gearmand-1.1.20-riscv64.patch
+Patch0:         gearmand-1.1.21-ppc64le.patch
 # Fails to build on PPC.
 # See https://bugzilla.redhat.com/987104 and https://bugzilla.redhat.com/987109
 ExcludeArch:    ppc
@@ -23,9 +22,6 @@ BuildRequires:  sqlite-devel
 BuildRequires:  tokyocabinet-devel
 BuildRequires:  libevent-devel
 BuildRequires:  libmemcached-devel, memcached
-# https://src.fedoraproject.org/rpms/libmemcached-awesome/pull-request/1
-# libmemcached-awesome-devel needs cyrus-sasl-devel
-BuildRequires:  cyrus-sasl-devel
 BuildRequires:  hiredis-devel
 BuildRequires:  gperf
 BuildRequires:  mariadb-connector-c-devel openssl-devel

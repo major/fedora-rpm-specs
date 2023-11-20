@@ -1,9 +1,5 @@
-%if 0%{?epel}
-%global debug_package %{nil}
-%endif
-
 Name:           nqp
-Version:        2023.06
+Version:        2023.10
 Release:        %autorelease
 Summary:        Perl 6 compiler implementation that runs on MoarVM
 License:        Artistic-2.0
@@ -13,8 +9,7 @@ Source0:        %{url}/releases/download/%{version}/nqp-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl
-
-BuildRequires:  moarvm-devel >= %{version}
+BuildRequires:  moarvm-devel
 
 %description
 This is "Not Quite Perl" -- a lightweight Raku-like environment for virtual

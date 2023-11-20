@@ -10,7 +10,7 @@ Summary:            %{sum}
 License:            Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:                http://pypi.python.org/pypi/bcrypt
 Source0:            %pypi_source bcrypt
-
+Patch0:             pyo3-0.19.2.patch
 
 %description
 %{sum}.

@@ -54,7 +54,7 @@
 
 # set version for devtoolset and gcc-toolset
 %global dts_version 12
-%if 0%{?rhel} == 9
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %global dts_version 13
 %endif
 

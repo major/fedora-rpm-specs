@@ -1,6 +1,6 @@
 Name:           perl-App-ccdiff
 Version:        0.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Colored Character diff
 
 License:        Artistic-2.0
@@ -24,6 +24,9 @@ BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Capture::Tiny)
 
+
+Requires:       perl(Algorithm::Diff)
+Recommends:     perl(Algorithm::Diff::XS)
 
 # For pod2man / nroff
 Requires:       perl-podlators
@@ -71,6 +74,9 @@ make test
 
 
 %changelog
+* Sat Nov 18 2023 Richard Fearn <richardfearn@gmail.com> - 0.33-2
+- Add dependencies on Algorithm::Diff / Algorithm::Diff::XS
+
 * Sun Nov 12 2023 Richard Fearn <richardfearn@gmail.com> - 0.33-1
 - Update to 0.33 (#2248548)
 

@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global forgeurl https://github.com/nanopb/nanopb
-Version:        0.4.7
+Version:        0.4.8
 %global tag %{version}
 %forgemeta
 
@@ -11,11 +11,6 @@ Summary:        A small code-size Protocol Buffers implementation in ansi C
 License:        Zlib
 URL:            https://jpa.kapsi.fi/nanopb/
 Source0:        %{forgesource}
-# remove binary tools of protoc-based generator
-Patch0:         nanopb-remove-bin.patch
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -53,6 +48,7 @@ implementation in Python. It includes the protoc-based generator, which converts
 %prep
 %forgeautosetup -p1
 
+# remove unneeded files
 rm generator/{nanopb_generator.py2,protoc-gen-nanopb-py2}
 rm generator/*.bat
 
@@ -74,10 +70,12 @@ make -C nanopb/generator/proto
     -Dnanopb_BUILD_GENERATOR=OFF \
 
 %cmake_build
+
 %pyproject_wheel
 
 %install
 %cmake_install
+
 %pyproject_install
 %pyproject_save_files nanopb
 
@@ -95,7 +93,7 @@ popd
 
 %files devel
 %{_libdir}/libprotobuf-nanopb.so
-%{_includedir}/pb*.h
+%{_includedir}/nanopb/
 %dir %{_libdir}/cmake/nanopb
 %{_libdir}/cmake/nanopb/*.cmake
 
