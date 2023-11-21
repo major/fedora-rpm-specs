@@ -1,7 +1,7 @@
 # Upstream has only made one release, but there have been lots of bug fixes
 # since, so we use a git checkout.
-%global commit      d9fcc272b6a08c3e3e5b7919040f0ab5f8952d65
-%global date        20220917
+%global commit      cd9ee4c4449775a2f867acf31c84b7fe4b132ad5
+%global date        20231107
 %global forgeurl    https://github.com/brendangregg/FlameGraph
 
 # The subpackage layout was designed with the following points in mind:
@@ -23,7 +23,7 @@ Summary:        Stack trace visualizer
 
 %forgemeta
 
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        CDDL-1.0
 URL:            http://www.brendangregg.com/flamegraphs.html
 Source0:        %{forgesource}
@@ -98,8 +98,8 @@ fixtimestamp stackcollapse-pmc.pl
 sed -i.orig 's/\r//' stackcollapse-vtune.pl
 fixtimestamp stackcollapse-vtune.pl
 
-# Add a missing executable bit
-chmod a+x stackcollapse-vtune.pl
+# Add missing executable bits
+chmod a+x stackcollapse-ibmjava.pl stackcollapse-vtune.pl
 
 # Fix python shebangs
 %py3_shebang_fix *.py
@@ -109,9 +109,10 @@ chmod a+x stackcollapse-vtune.pl
 HELP2MANFLAGS="-N --version-string=%{version} --no-discard-stderr"
 for fil in aix-perf.pl difffolded.pl files.pl flamegraph.pl range-perf.pl \
            stackcollapse-chrome-tracing.py stackcollapse-elfutils.pl \
-           stackcollapse-go.pl stackcollapse-java-exceptions.pl \
-           stackcollapse-jstack.pl stackcollapse-perf.pl \
-           stackcollapse-vtune-mc.pl stackcollapse-xdebug.php; do
+           stackcollapse-go.pl stackcollapse-ibmjava.pl \
+           stackcollapse-java-exceptions.pl stackcollapse-jstack.pl \
+           stackcollapse-perf.pl stackcollapse-vtune-mc.pl \
+           stackcollapse-xdebug.php; do
   help2man $HELP2MANFLAGS ./$fil > $fil.1
 done
 
@@ -125,6 +126,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp -p *.1 %{buildroot}%{_mandir}/man1
 
 %check
+# The output of the pid and tid tests depends on the architecture on which
+# the tests are run, and the JDK version.  Skip those tests.
+sed -i 's/ pid tid//' test.sh
 ./test.sh
 
 %files
@@ -145,8 +149,10 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/stackcollapse-bpftrace.pl
 %{_bindir}/stackcollapse-chrome-tracing.py
 %{_bindir}/stackcollapse-elfutils.pl
+%{_bindir}/stackcollapse-faulthandler.pl
 %{_bindir}/stackcollapse-gdb.pl
 %{_bindir}/stackcollapse-go.pl
+%{_bindir}/stackcollapse-ibmjava.pl
 %{_bindir}/stackcollapse-instruments.pl
 %{_bindir}/stackcollapse-java-exceptions.pl
 %{_bindir}/stackcollapse-jstack.pl
@@ -164,6 +170,7 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/stackcollapse-chrome-tracing.py.1*
 %{_mandir}/man1/stackcollapse-elfutils.pl.1*
 %{_mandir}/man1/stackcollapse-go.pl.1*
+%{_mandir}/man1/stackcollapse-ibmjava.pl.1*
 %{_mandir}/man1/stackcollapse-java-exceptions.pl.1*
 %{_mandir}/man1/stackcollapse-jstack.pl.1*
 %{_mandir}/man1/stackcollapse-perf.pl.1*
@@ -184,6 +191,9 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/stackcollapse-xdebug.php.1*
 
 %changelog
+* Sat Nov 18 2023 Jerry James <loganjerry@gmail.com> - 1.0-15
+- Update to git HEAD for various enhancements and bug fixes
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

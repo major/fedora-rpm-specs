@@ -1,6 +1,6 @@
 Name:		unixcw
-Version:	3.6.0
-Release:	7%{?dist}
+Version:	3.6.1
+Release:	1%{?dist}
 Summary:	Shared library for Morse programs
 
 License:	GPLv2+
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Nov 19 2023 Richard Shaw <hobbes1069@gmail.com> - 3.6.1-1
+- Update to 3.6.1.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

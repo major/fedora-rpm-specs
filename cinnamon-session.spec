@@ -1,13 +1,13 @@
 %global commit0 829519b1d36668e4a178f15900bd49af55548926
 %global date 20231109
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
-%global cinnamon_desktop_version 5.8.0
+%global cinnamon_desktop_version 6.0.0
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 5.9.0
+Version: 6.0.0
 Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -33,29 +33,27 @@ Requires: dconf
 
 Requires: cinnamon-desktop >= %{cinnamon_desktop_version}
 
-BuildRequires: gcc
-BuildRequires: pkgconfig(gtk+-3.0) >= 2.99.0
-BuildRequires: pkgconfig(cinnamon-desktop) >= 5.8.0
-BuildRequires: pkgconfig(dbus-glib-1)
-BuildRequires: pkgconfig(gl)
-BuildRequires: pkgconfig(libnotify) >= 0.7.0
-BuildRequires: pkgconfig(xtrans)
-BuildRequires: pkgconfig(librsvg-2.0)
-BuildRequires: pkgconfig(json-glib-1.0)
-# this is so the configure checks find /usr/bin/halt etc.
-BuildRequires: usermode
-BuildRequires: pkgconfig(pango)
-BuildRequires: pkgconfig(xapp) >= 1.4.6
-BuildRequires: pkgconfig(xt)
-BuildRequires: pkgconfig(xtst)
-BuildRequires: pkgconfig(upower-glib)
-BuildRequires: pkgconfig(libsystemd)
-BuildRequires: pkgconfig(polkit-agent-1)
+BuildRequires: pkgconfig(gtk+-3.0) >= 3.0.0
+BuildRequires: pkgconfig(gio-2.0)
+BuildRequires: pkgconfig(glib-2.0) >= 2.37.3
 BuildRequires: pkgconfig(libcanberra)
+BuildRequires: pkgconfig(pango)
+BuildRequires: pkgconfig(sm)
+BuildRequires: pkgconfig(ice)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xext)
+BuildRequires: pkgconfig(xapp) >= 1.4.6
+BuildRequires: pkgconfig(xau)
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xtrans)
+BuildRequires: pkgconfig(gl)
+BuildRequires: pkgconfig(cinnamon-desktop) >= 6.0.0
+BuildRequires: pkgconfig(gio-unix-2.0)
+BuildRequires: pkgconfig(libsystemd)
 BuildRequires: meson
+BuildRequires: gcc
 BuildRequires: intltool
 BuildRequires: xmlto
-
 
 %description
 Cinnamon-session manages a Cinnamon desktop or GDM login session. It starts up
@@ -93,6 +91,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231109git829519b
 - Update to git snapshot
 

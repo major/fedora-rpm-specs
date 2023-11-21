@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Simple one-liner tests for common Rails functionality
 License: MIT
 URL: https://matchers.shoulda.io/
@@ -34,6 +34,14 @@ Patch7: rubygem-shoulda-matchers-5.1.0-Always-use-sqlite-1.4.patch
 # catch ruby3.3 format NoMethodError message
 # https://github.com/thoughtbot/shoulda-matchers/pull/1579
 Patch8: rubygem-shoulda-matchers-pr1579-ruby33-NoMethodError-msg.patch
+
+# It seems ruby3.3.0dev needs the following patch:
+# https://github.com/thoughtbot/shoulda-matchers/pull/1506/commits/6a0b3128bdedc7445c444c784275572170a42a62
+Patch9: rubygem-shoulda-matchers-pr1506-action_text_rich_texts.patch
+
+# Fix for Ruby 3.1 `Psych::BadAlias: Unknown alias: default
+# https://github.com/thoughtbot/shoulda-matchers/pull/1506/commits/a4b25f8702e054b160a876af3dc1cb378c5a8670
+Patch10: rubygem-shoulda-matchers-pr1506-psych-load.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -78,6 +86,8 @@ pushd %{_builddir}
 %patch 5 -p1
 %patch 6 -p1
 %patch 7 -p1
+%patch 9 -p1
+%patch 10 -p1
 popd
 
 %build
@@ -135,11 +145,6 @@ sed -i '/def rails_new_command/,/^    end$/ {
 }' \
   spec/support/acceptance/helpers/step_helpers.rb
 
-# Workaround Ruby 3.1 `Psych::BadAlias: Unknown alias: default` issue. Upstream
-# locked Psych to version ~> 3.0.
-# https://github.com/thoughtbot/shoulda-matchers/pull/1474#issuecomment-1211845298
-sed -i '/def load_file/,/end/ s/::load_file/::unsafe_load_file/' spec/support/tests/database_configuration.rb
-
 bundle exec rspec spec/unit
 
 # spring-commands-rspec is not in Fedora yet, but the test suite looks to pass
@@ -176,6 +181,11 @@ popd
 %{gem_instdir}/shoulda-matchers.gemspec
 
 %changelog
+* Sun Nov 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-5
+- Use upstream patch for ruby3.1+ Psych::BadAlias: Unknown alias: default issue
+- Backport upstream patch for RoR 7.0 support which seems to be needed
+  for ruby3.3.0dev
+
 * Sun Nov  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-4
 - Apply upstream PR for ruby3.3 NoMethodError message change
 

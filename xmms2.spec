@@ -1,7 +1,7 @@
 Name:			xmms2
 Summary: 		A modular audio framework and plugin architecture
 Version:		0.9.3
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 # We can't use the upstream source tarball as-is, because it includes an mp4 decoder.
 # Also, the ogg sample included is not under a FOSS license.
@@ -73,6 +73,9 @@ Provides:		xmms2-mad = %{version}-%{release}
 
 Obsoletes:		xmms2-mac < 0.8-24
 Provides:		xmms2-mac = %{version}-%{release}
+
+Obsoletes:		xmms2-mms < 0.8-39
+Provides:		xmms2-mms = %{version}-%{release}
 
 Obsoletes:		xmms2-nyxmms2 < 0.8-89
 Provides:		xmms2-nyxmms2 = %{version}-%{release}
@@ -207,6 +210,9 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}
 %{ruby_vendorarchdir}/xmmsclient_glib.so
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 0.9.3-2
+- provides/obsoletes xmms2-mms (from rpmfusion)
+
 * Tue Sep 12 2023 Tom Callaway <spot@fedoraproject.org> - 0.9.3-1
 - update to 0.9.3
 - add BR: mac-devel

@@ -267,7 +267,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 119.0.6045.159
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -495,11 +495,12 @@ BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libavutil)
 # chromium fail to start for rpmfusion users due to ABI break in ffmpeg-free-6.0.1
 # bethween fedora and rpmfussion.
-Conflicts: ffmpeg-libs%{_isa}
 %if 0%{?rhel} == 9 || 0%{?fedora} == 37
-Requires: libavformat-free%{_isa} >= 5.1.4
+Conflicts: libavformat-free%{_isa} < 5.1.4
+Conflicts: ffmpeg-libs%{_isa} < 5.1.4
 %else
-Requires: libavformat-free%{_isa} >= 6.0.1
+Conflicts: libavformat-free%{_isa} < 6.0.1
+Conflicts: ffmpeg-libs%{_isa} < 6.0.1-2
 %endif
 %endif
 
@@ -1711,6 +1712,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sun Nov 19 2023 Than Ngo <than@redhat.com> - 119.0.6045.159-2
+- fix ffmpeg conflicts
+
 * Wed Nov 15 2023 Than Ngo <than@redhat.com> - 119.0.6045.159-1
 - update to 119.0.6045.159, upstream security release
    High CVE-2023-5997, use after free in Garbage Collection

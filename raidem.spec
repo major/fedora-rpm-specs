@@ -1,6 +1,6 @@
 Name:           raidem
 Version:        0.3.1
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        2d top-down shoot'em up
 License:        zlib
 URL:            http://home.exetel.com.au/tjaden/raidem/
@@ -36,16 +36,16 @@ fun.
 
 %prep
 %setup -q -n %{name}-%{version}-src
-%patch0 -p1 -z .syslibs
-%patch1 -p1
-%patch2 -z .libpng
-%patch3 -p0 -z .gcc47
-%patch4 -p0 -z .newapi
-%patch5 -p1 -z .format-security
-%patch6 -p1 -z .system-flags
-%patch7 -p1 -z .race-condition
-%patch8 -p0 -z .enum
-%patch9 -p0 -z .counter
+%patch -P 0 -p1 -z .syslibs
+%patch -P 1 -p1
+%patch -P 2 -z .libpng
+%patch -P 3 -p0 -z .gcc47
+%patch -P 4 -p0 -z .newapi
+%patch -P 5 -p1 -z .format-security
+%patch -P 6 -p1 -z .system-flags
+%patch -P 7 -p1 -z .race-condition
+%patch -P 8 -p0 -z .enum
+%patch -P 9 -p0 -z .counter
 # remove all included system libs, to avoid using the included system headers.
 mv lib/loadpng .
 rm -fr lib/*
@@ -87,6 +87,9 @@ install -p -m 644 %{SOURCE1} \
 
 
 %changelog
+* Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.3.1-51
+- Rebuild for gnustep-base 1.29.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

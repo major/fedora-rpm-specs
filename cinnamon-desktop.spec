@@ -1,17 +1,16 @@
 %global commit0 fe21fa8c0475b38522db2b7a68f11e95cca4ac91
 %global date 20231109
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 %global gtk3_version                      3.16.0
 %global glib2_version                     2.37.3
-%global startup_notification_version      0.5
 %global gtk_doc_version                   1.9
 %global po_package                        cinnamon-desktop-3.0
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: 5.9.0
+Version: 6.0.0
 Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+ and MIT
 URL:     https://github.com/linuxmint/%{name}
@@ -38,17 +37,22 @@ Requires: system-backgrounds
 # Make sure that gnome-themes-standard gets pulled in for upgrades
 Requires: gnome-themes-standard
 
-
+BuildRequires: pkgconfig(accountsservice)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires: pkgconfig(gtk-doc) >= %{gtk_doc_version}
+BuildRequires: pkgconfig(gdk-pixbuf-2.0)
+BuildRequires: pkgconfig(gio-2.0)
+BuildRequires: pkgconfig(glib-2.0)  >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0)
-BuildRequires: pkgconfig(libstartup-notification-1.0) >= %{startup_notification_version}
+BuildRequires: pkgconfig(libpulse)
 BuildRequires: pkgconfig(libsystemd)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xext)
 BuildRequires: pkgconfig(xkbfile)
 BuildRequires: pkgconfig(xkeyboard-config)
-BuildRequires: pkgconfig(gtk-doc) >= %{gtk_doc_version}
-BuildRequires: pkgconfig(libpulse)
-BuildRequires: pkgconfig(accountsservice) 
+BuildRequires: pkgconfig(xrandr) 
 BuildRequires: meson
+BuildRequires: gcc
 BuildRequires: intltool
 BuildRequires: itstool
 
@@ -62,10 +66,6 @@ CINNAMON user environment.
 Summary:  Libraries and headers for libcinnamon-desktop
 License:  LGPLv2+
 Requires: %{name}%{?_isa} = %{version}-%{release}
-
-Requires: gtk3-devel >= %{gtk3_version}
-Requires: glib2-devel >= %{glib2_version}
-Requires: startup-notification-devel >= %{startup_notification_version}
 
 %description devel
 Libraries and header files for the CINNAMON-internal private library
@@ -109,6 +109,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231109gitfe21fa8
 - Update to git snapshot
 

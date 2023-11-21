@@ -1,9 +1,9 @@
-%global libosmium_version 2.17.0
-%global pybind_version 2.9.2
+%global libosmium_version 2.20.0
+%global pybind_version 2.11.1
 
 Name:           pyosmium
-Version:        3.6.0
-Release:        3%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        Python bindings for libosmium
 
 License:        BSD-2-Clause
@@ -18,9 +18,10 @@ BuildRequires:  cmake make
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel python3-setuptools
 BuildRequires:  python3-sphinx python3-sphinxcontrib-autoprogram
-BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest python3-pytest-httpserver
 BuildRequires:  python3-mock
 BuildRequires:  python3-shapely
+BuildRequires:  python3-werkzeug
 BuildRequires:  pybind11-devel >= %{pybind_version}
 BuildRequires:  boost-devel
 BuildRequires:  libosmium-devel >= %{libosmium_version}
@@ -66,6 +67,9 @@ make -C doc html SPHINXBUILD=sphinx-build-3
 
 
 %changelog
+* Sun Nov 19 2023 Tom Hughes <tom@compton.nu> - 3.7.0-1
+- Update to 3.7.0 upstream release
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

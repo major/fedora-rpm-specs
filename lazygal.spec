@@ -1,5 +1,5 @@
 Name:           lazygal
-Version:        0.10.7
+Version:        0.10.8
 Release:        1%{?dist}
 Summary:        A static web gallery generator
 
@@ -75,6 +75,9 @@ cp -pr build/mo/* %{buildroot}%{_datadir}/locale/
 %{_mandir}/man5/%{name}.conf.5*
 
 %changelog
+* Sun Nov 19 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.10.8-1
+- update to 0.10.8 (#2249340)
+
 * Thu Aug 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.10.7-1
 - update to 0.10.7 (#2216216)
 - Add dependency on ffmpeg for video support and tests

@@ -190,6 +190,8 @@ Obsoletes:     emacs-transient < 0.3.0-4
 Recommends:    ((gcc and gcc-c++) or clang)
 Recommends:    git
 
+Recommends:    libtree-sitter-java
+
 
 %description common
 %desc

@@ -1,6 +1,6 @@
 Name: openssl-gost-engine
-Version: 3.0.1
-Release: 2%{?dist}
+Version: 3.0.3
+Release: 1%{?dist}
 
 URL: https://github.com/gost-engine/engine
 License: OpenSSL
@@ -46,8 +46,6 @@ cp "%{_vpath_builddir}"/bin/gost*sum %buildroot%_bindir/
 cp gost*sum.1 %buildroot%_mandir/man1/
 
 %check
-# tests currently do not work due to missing crypto-policies support
-exit 0
 echo "ALL" > "$PWD/openssl-crypto-policy.override"
 OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 	OPENSSL_SYSTEM_CIPHERS_OVERRIDE="$PWD/openssl-crypto-policy.override" \
@@ -65,6 +63,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Sun Nov 19 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 3.0.3-1
+- Update to version 3.0.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,13 +1,12 @@
 %global nagiospluginsdir %{_libdir}/nagios/plugins
 Name:           nagios-plugins-systemd
-Version:        2.3.1
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Nagios Plugin - check_systemd
 
 License:        LGPL-2.1-only
 URL:            https://exchange.icinga.com/joseffriedrich/check_systemd
 Source:         https://github.com/Josef-Friedrich/check_systemd/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         nagios-plugins-systemd.pymodule.patch
 
 BuildRequires:  python3-devel
 

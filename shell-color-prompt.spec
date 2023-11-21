@@ -45,7 +45,7 @@ install -m 644 -D -t %{buildroot}%{profiledir} bash-color-prompt.sh
 - define PROMPT_COLOR
 - add PROMPT_USERHOST default variable
 - add colorpre and colorsuf variables
-- drop PROMPT_EPROR
+- drop PROMPT_ERROR
 - drop built-in container support for now
 - reset color after $ prompt
 - only define default functions if setting PS1

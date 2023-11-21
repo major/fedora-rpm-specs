@@ -1,11 +1,11 @@
 %global commit0 91900812333bb6ccca9ca0bf57363a3b1d3023a2
 %global date 20231107
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
-Version: 5.9.0
+Version: 6.0.0
 Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -17,20 +17,27 @@ Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 
 ExcludeArch: %{ix86}
 
-BuildRequires: meson
-BuildRequires: intltool
-BuildRequires: glib2-devel
-BuildRequires: libtool
-BuildRequires: gobject-introspection-devel
-BuildRequires: pam-devel
-BuildRequires: python3-devel
-BuildRequires: gtk3-devel
-BuildRequires: libXext-devel
-BuildRequires: libxdo-devel
 BuildRequires: desktop-file-utils
+BuildRequires: meson
+BuildRequires: gcc
+BuildRequires: intltool
+BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(gio-2.0)
+BuildRequires: pkgconfig(gio-unix-2.0)
+BuildRequires: pkgconfig(gthread-2.0)
+BuildRequires: pkgconfig(gobject-2.0)
+BuildRequires: pkgconfig(gdk-x11-3.0)
+BuildRequires: pkgconfig(gobject-introspection-1.0)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xext)
+BuildRequires: pkgconfig(xrandr)
+BuildRequires: pkgconfig(libxdo)
+BuildRequires: pkgconfig(dbus-1)
+BuildRequires: pkgconfig(pam)
 
-Requires: cinnamon-desktop%{?_isa} >= 5.8.0
-Requires: cinnamon-translations >= 5.8.0
+Requires: cinnamon-desktop%{?_isa} >= 6.0.0
+Requires: cinnamon-translations >= 6.0.0
 Requires: accountsservice-libs%{?_isa}
 Requires: libgnomekbd%{?_isa}
 Requires: python3-gobject%{?_isa}
@@ -107,6 +114,9 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 %{_libdir}/girepository-1.0/CScreensaver-1.0.typelib
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git9190081
 - Update to git snapshot
 

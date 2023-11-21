@@ -14,7 +14,7 @@ Version:        1.9.5
 Release:        5%{?dist}
 Summary:        JSON library implemented in C++
 
-License:        Public Domain or MIT
+License:        LicenseRef-Fedora-Public-Domain OR MIT
 URL:            https://github.com/open-source-parsers/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

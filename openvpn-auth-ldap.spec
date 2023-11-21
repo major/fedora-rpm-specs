@@ -1,7 +1,7 @@
 Summary: OpenVPN plugin for LDAP authentication
 Name: openvpn-auth-ldap
 Version: 2.0.4
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: BSD
 URL: https://github.com/threerings/openvpn-auth-ldap
 Source0: https://github.com/threerings/openvpn-auth-ldap/archive/auth-ldap-%{version}.tar.gz
@@ -32,9 +32,9 @@ LDAP for OpenVPN 2.x.
 
 %prep
 %setup -q -n %{name}-auth-ldap-%{version}
-%patch2 -p1 -b .tools-CFLAGS
-%patch4 -p1 -b .remoteAddress
-%patch5 -p1 -b .epel-gcc-objc
+%patch -P 2 -p1 -b .tools-CFLAGS
+%patch -P 4 -p1 -b .remoteAddress
+%patch -P 5 -p1 -b .epel-gcc-objc
 # Fix plugin from the instructions in the included README
 sed -i 's|^plugin .*| plugin %{_libdir}/openvpn/plugins/openvpn-auth-ldap.so "/etc/openvpn/auth/ldap.conf"|g' README.md
 autoconf
@@ -73,6 +73,10 @@ install -D -p -m 0600 auth-ldap.conf \
 
 
 %changelog
+* Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.0.4-11
+- Rebuild for gnustep-base 1.29.0
+- Fix patch commands
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

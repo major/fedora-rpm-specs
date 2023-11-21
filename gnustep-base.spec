@@ -9,8 +9,8 @@
 # GNU Public License.
 
 Name: gnustep-base
-Version: 1.28.0
-Release: 12%{?dist}
+Version: 1.29.0
+Release: 1%{?dist}
 License: GPLv3+ and LGPLv2+
 Summary: GNUstep Base library package
 URL: http://www.gnustep.org/
@@ -18,7 +18,8 @@ Source0: ftp://ftp.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1179297
 Patch0: %{name}-use_system-wide_crypto-policies.patch
-Patch1: gnustep-base-config-c99.patch
+
+Patch1: %{name}-fix_libxml_2.11_compatibility.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-objc
@@ -27,7 +28,7 @@ BuildRequires: gnutls-devel
 BuildRequires: libxml2-devel
 BuildRequires: libxslt-devel
 BuildRequires: pkgconfig
-BuildRequires: gnustep-make >= 2.0.0
+BuildRequires: gnustep-make >= 2.9.1
 BuildRequires: avahi-compat-libdns_sd-devel
 BuildRequires: gmp-devel
 BuildRequires: texi2html texinfo-tex
@@ -50,6 +51,7 @@ support (distributed objects), event loops, loadable bundles, attributed
 unicode strings, xml, mime, user defaults. This package includes development
 headers too.
 
+
 %package libs
 Summary: GNUStep Base Libraries
 
@@ -65,12 +67,14 @@ unicode strings, xml, mime, user defaults. This package includes development
 headers too.
 This packages contains the run-time libraries for %{name}.
 
+
 %package devel
 Summary: Header of the GNUstep Base library packes
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 This package contains the header files of the gnustep-base package.
+
 
 %package doc
 Summary: Documentation for %{name}
@@ -150,10 +154,11 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %{gnustep_dtddir}/
 
 %files libs
-%doc ANNOUNCE ChangeLog* NEWS README
+%doc ANNOUNCE ChangeLog* NEWS README*
 %license COPYING.LIB COPYINGv3
 %{gnustep_libraries}/
-%{_libdir}/libgnustep-base.so.*
+%{_libdir}/libgnustep-base.so.1.29
+%{_libdir}/libgnustep-base.so.%{version}
 
 %files devel
 %{_includedir}/Foundation/
@@ -163,12 +168,14 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %doc Examples
 
 %files doc
-%doc README
 %{_infodir}/*
 %dir %{_datadir}/GNUstep/Documentation
 %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.29.0-1
+- Release 1.29.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

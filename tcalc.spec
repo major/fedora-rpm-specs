@@ -1,14 +1,14 @@
-Name:		tcalc
-Version:	2.1
-Release:	18%{?dist}
-Summary:	The terminal calculator
+Name:           tcalc
+Version:        2.1
+Release:        19%{?dist}
+Summary:        The terminal calculator
 
-License:	GPLv3+
-URL:		http://sites.google.com/site/mohammedisam2000/home/projects
-Source0:	http://sites.google.com/site/mohammedisam2000/home/projects/%{name}-%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            http://sites.google.com/site/mohammedisam2000/home/projects
+Source:         %{url}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
-BuildRequires: gcc
+BuildRequires:  gcc
+BuildRequires:  make
 
 %description
 The terminal calculator is a small and helpful program to help users of the
@@ -32,22 +32,32 @@ argument.
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
+# Install info page
 install -m 0644 -p -D info/tcalc.info* %{buildroot}%{_infodir}/tcalc.info
 
-%files
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_infodir}/*
-%{_docdir}/tcalc
+# Reshuffle docs and examples
+rm -r %{buildroot}%{_docdir}/%{name}
+mkdir examples
+mv test test2 examples/
 
-#%%doc AUTHORS README COPYING ChangeLog test test2
+%files
+%license COPYING
+%doc README AUTHORS ChangeLog examples/
+%{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
+%{_infodir}/%{name}.info*
 
 %changelog
+* Sun Nov 19 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 2.1-19
+- Rework spec to comply with the latest guidelines
+- Convert license tag to SPDX
+- Reshuffle docs and examples
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

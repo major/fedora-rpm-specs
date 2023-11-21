@@ -2,7 +2,7 @@
 
 Name:           unar
 Version:        1.10.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-format extractor
 License:        LGPLv2+
 URL:            https://theunarchiver.com/command-line
@@ -62,6 +62,9 @@ popd
 %{_datadir}/bash-completion/completions/*
 
 %changelog
+* Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.10.8-2
+- Rebuild for gnustep-base-1.29.0
+
 * Thu Oct 12 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.10.8-1
 - Update to 1.10.8 (#2243653)
 

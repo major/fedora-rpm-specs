@@ -14,11 +14,25 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.6.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
+
+#		Fixes for test issues
+#		https://github.com/xrootd/xrootd/pull/2115
+Patch0:		0001-Posix-open-called-with-wrong-flags-in-test.patch
+Patch1:		0002-PATH_MAX-MAXPATHLEN-might-be-undefined.patch
+Patch2:		0003-Don-t-try-to-enable-TCP_CORK-in-GNU-Hurd.patch
+
+#		Installed CMake files are architecture dependent
+#		https://github.com/xrootd/xrootd/pull/2116
+Patch3:		0001-The-installed-cmake-files-are-now-generated-and-cont.patch
+
+#		Fix maybe-uninitialized warning
+#		https://github.com/xrootd/xrootd/pull/2124
+Patch4:		0001-Fix-maybe-uninitialized-warning.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3
@@ -72,6 +86,9 @@ BuildRequires:	davix-devel
 %if %{ceph}
 BuildRequires:	librados-devel
 BuildRequires:	libradosstriper-devel
+%endif
+%ifnarch %{ix86}
+BuildRequires:	isa-l-devel
 %endif
 BuildRequires:	cppunit-devel
 BuildRequires:	gtest-devel
@@ -292,6 +309,11 @@ This package contains the API documentation of the xrootd libraries.
 
 %prep
 %setup -q
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -303,6 +325,10 @@ This package contains the API documentation of the xrootd libraries.
     -DENABLE_TESTS:BOOL=ON \
 %if %{ceph}
     -DXRDCEPH_SUBMODULE:BOOL=ON \
+%endif
+%ifnarch %{ix86}
+    -DENABLE_XRDEC:BOOL=ON \
+    -DUSE_SYSTEM_ISAL:BOOL=ON \
 %endif
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
     -DPIP_OPTIONS="--no-deps --use-pep517 --no-build-isolation --disable-pip-version-check --verbose" \
@@ -335,6 +361,7 @@ rm -f %{buildroot}%{_libdir}/libXrdCephTests.so
 rm -f %{buildroot}%{_libdir}/libXrdClTestMonitor-5.so
 rm -f %{buildroot}%{_libdir}/libXrdClTests.so
 rm -f %{buildroot}%{_libdir}/libXrdClTestsHelper.so
+rm -f %{buildroot}%{_libdir}/libXrdEcTests.so
 
 rm -f %{buildroot}%{python3_sitearch}/xrootd-*.*-info/direct_url.json
 rm -f %{buildroot}%{python3_sitearch}/xrootd-*.*-info/RECORD
@@ -516,6 +543,7 @@ fi
 %ghost %attr(-,xrootd,xrootd) %{_rundir}/%{name}
 
 %files selinux
+%dir %{_datadir}/selinux/packages/%{name}
 %{_datadir}/selinux/packages/%{name}/%{name}.pp
 
 %files libs
@@ -556,11 +584,13 @@ fi
 %{_libdir}/libXrdCryptoLite.so
 %{_libdir}/libXrdUtils.so
 %{_libdir}/libXrdXml.so
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/cmake
+%{_libdir}/cmake/XRootD
 
 %files client-libs
 %{_libdir}/libXrdCl.so.*
+%ifnarch %{ix86}
+%{_libdir}/libXrdEc.so.*
+%endif
 %{_libdir}/libXrdFfs.so.*
 %{_libdir}/libXrdPosix.so.*
 %{_libdir}/libXrdPosixPreload.so.*
@@ -620,6 +650,9 @@ fi
 
 %files private-devel
 %{_includedir}/%{name}/private
+%ifnarch %{ix86}
+%{_libdir}/libXrdEc.so
+%endif
 %{_libdir}/libXrdSsiLib.so
 %{_libdir}/libXrdSsiShMap.so
 
@@ -653,6 +686,7 @@ fi
 %{_libdir}/libXrdSecgsiVOMS-5.so
 %doc %{_mandir}/man1/libXrdVoms.1*
 %doc %{_mandir}/man1/libXrdSecgsiVOMS.1*
+%doc src/XrdVoms/README.md
 
 %files scitokens
 %{_libdir}/libXrdAccSciTokens-5.so
@@ -692,6 +726,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sun Nov 19 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.3-2
+- Enable erasure code support (XrdEc)
+
 * Fri Oct 27 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.3-1
 - Update to version 5.6.3
 - Drop patches accepted upstream or previously backported

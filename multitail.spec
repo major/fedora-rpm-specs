@@ -1,5 +1,5 @@
 Name:		multitail
-Version:	7.1.1
+Version:	7.1.2
 Release:	%autorelease
 Summary:	View one or multiple files like tail but with multiple windows
 

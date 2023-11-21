@@ -1,6 +1,6 @@
 Name:           openiked
-Version:        7.2
-Release:        4%{?dist}
+Version:        7.3
+Release:        1%{?dist}
 Summary:        A free Internet Key Exchange (IKEv2) implementation
 
 License:        ISC
@@ -19,6 +19,7 @@ BuildRequires:  byacc
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  systemd-devel
 
 %description
 OpenIKED is a free, permissively licensed Internet Key Exchange (IKEv2)
@@ -30,7 +31,7 @@ management of IPsec VPNs.
 %autosetup
 
 %build
-%cmake
+%cmake -DWITH_SYSTEMD:BOOL=ON
 %cmake_build
 
 %install
@@ -74,6 +75,8 @@ install -p -m644 %{SOURCE5} %{buildroot}%{_unitdir}/openiked-keygen.target
 %{_sysconfdir}/iked/pubkeys/ipv6
 %{_sysconfdir}/iked/pubkeys/fqdn
 %{_sysconfdir}/iked/pubkeys/ufqdn
+%{_sysconfdir}/ssl/ikeca.cnf
+%{_sysconfdir}/ssl/ikex509v3.cnf
 %attr(0700,root,root) %{_sysconfdir}/iked/private
 %{_libexecdir}/openiked/openiked-keygen
 %{_unitdir}/openiked-keygen.service
@@ -84,6 +87,9 @@ install -p -m644 %{SOURCE5} %{buildroot}%{_unitdir}/openiked-keygen.target
 
 
 %changelog
+* Sun Nov 19 2023 Henrik Boeving <hargonix@gmail.com> 7.3-1
+- Updated to new release 7.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

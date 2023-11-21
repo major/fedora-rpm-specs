@@ -1,10 +1,10 @@
 %global commit0 4b87bf9e647f26136a86b7cf15c9a8db0d313226
 %global date 20231107
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 Name:          muffin
-Version:       5.9.0
+Version:       6.0.0
 Release:       1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
@@ -20,28 +20,63 @@ Patch0:        libinput.patch
 ExcludeArch:   %{ix86}
 
 BuildRequires: meson
+BuildRequires: gcc
 BuildRequires: cvt
-BuildRequires: mesa-libEGL-devel
-BuildRequires: pkgconfig(gbm)
-BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(graphene-gobject-1.0)
-BuildRequires: pkgconfig(gudev-1.0)
-BuildRequires: pkgconfig(json-glib-1.0)
-BuildRequires: pkgconfig(sm)
-BuildRequires: pkgconfig(libcanberra)
-BuildRequires: pkgconfig(libdrm)
-BuildRequires: pkgconfig(libinput)
-BuildRequires: pkgconfig(libpipewire-0.3)
-BuildRequires: pkgconfig(libudev)
-BuildRequires: pkgconfig(libwacom)
-BuildRequires: pkgconfig(cinnamon-desktop) >= 5.8.0
+BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(gdk-pixbuf-2.0)
+BuildRequires: pkgconfig(pango)
+BuildRequires: pkgconfig(cairo)
+BuildRequires: pkgconfig(cairo-gobject)
+BuildRequires: pkgconfig(pangocairo)
+BuildRequires: pkgconfig(fribidi)
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(gio-unix-2.0)
+BuildRequires: pkgconfig(gobject-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
-BuildRequires: pkgconfig(xkeyboard-config)
-BuildRequires: pkgconfig(xkbcommon-x11)
+BuildRequires: pkgconfig(gmodule-no-export-2.0)
+BuildRequires: pkgconfig(json-glib-1.0)
+BuildRequires: pkgconfig(cinnamon-desktop) >= 6.0.0
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(xdamage)
+BuildRequires: pkgconfig(xext)
+BuildRequires: pkgconfig(xfixes)
+BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xtst)
+BuildRequires: pkgconfig(xkbfile)
+BuildRequires: pkgconfig(xkeyboard-config)
+BuildRequires: pkgconfig(xkbcommon)
+BuildRequires: pkgconfig(xkbcommon-x11)
+BuildRequires: pkgconfig(xrender)
+BuildRequires: pkgconfig(x11-xcb)
+BuildRequires: pkgconfig(xrandr)
+BuildRequires: pkgconfig(xcb-randr)
+BuildRequires: pkgconfig(xcb-res)
+BuildRequires: pkgconfig(xinerama)
+BuildRequires: pkgconfig(xau)
+BuildRequires: pkgconfig(ice)
+BuildRequires: pkgconfig(atk)
+BuildRequires: pkgconfig(libcanberra)
+BuildRequires: pkgconfig(wayland-client)
+BuildRequires: pkgconfig(wayland-server)
 BuildRequires: pkgconfig(xwayland)
-BuildRequires: pkgconfig(wayland-eglstream)
+BuildRequires: pkgconfig(wayland-eglstream-protocols)
 BuildRequires: pkgconfig(wayland-protocols)
+BuildRequires: pkgconfig(dbus-1)
+BuildRequires: pkgconfig(gl)
+BuildRequires: mesa-libEGL-devel
+BuildRequires: pkgconfig(libudev)
+BuildRequires: pkgconfig(gudev-1.0)
+BuildRequires: pkgconfig(libdrm)
+BuildRequires: pkgconfig(gbm)
+BuildRequires: pkgconfig(libinput)
+BuildRequires: pkgconfig(libsystemd)
+BuildRequires: pkgconfig(sm)
+BuildRequires: pkgconfig(libpipewire-0.3)
+BuildRequires: pkgconfig(libwacom)
+BuildRequires: pkgconfig(libstartup-notification-1.0)
+BuildRequires: pkgconfig(pangoft2)
 BuildRequires: zenity
 
 Requires: dbus-x11
@@ -108,6 +143,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Wed Nov 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git4b87bf9
 - Update to git snapshot
 

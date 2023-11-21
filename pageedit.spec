@@ -1,6 +1,6 @@
 Name:           pageedit
-Version:        1.9.20
-Release:        3%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        ePub visual XHTML editor
 
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -35,7 +35,7 @@ An ePub visual XHTML editor based on Sigil's Deprecated BookView.
 
 
 %build
-%cmake -DINSTALL_BUNDLED_DICTS=0 -DSHARE_INSTALL_PREFIX:PATH=%{_prefix}
+%cmake -DINSTALL_BUNDLED_DICTS=0 -DSHARE_INSTALL_PREFIX:PATH=%{_prefix} -DUSE_QT5=1
 %cmake_build
 
 
@@ -56,6 +56,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Nov 17 2023 Dan Horák <dan@danny.cz> - 2.0.2-1
+- updated to 2.0.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

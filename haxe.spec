@@ -5,8 +5,8 @@ ExcludeArch: %{ix86}
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
-Version:        4.3.2
-Release:        2%{?dist}
+Version:        4.3.3
+Release:        1%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -26,7 +26,6 @@ URL:            https://haxe.org/
 Source0:        https://github.com/HaxeFoundation/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/HaxeFoundation/haxelib/archive/%{commit_haxelib}.tar.gz#/haxelib-%{commit_haxelib}.tar.gz
 Source2:        https://github.com/HaxeFoundation/hx3compat/archive/%{commit_hx3compat}.tar.gz#/hx3compat-%{commit_hx3compat}.tar.gz
-Patch0:         haxe-ocaml5.patch
 
 BuildRequires:  make
 BuildRequires:  nekovm-devel >= 2.3.0
@@ -66,7 +65,6 @@ by the Haxe compiler.
 
 %prep
 %setup -q
-%patch 0 -p1
 pushd extra/haxelib_src && tar -xf %{SOURCE1} --strip-components=1 && popd
 pushd extra/haxelib_src/hx3compat && tar -xf %{SOURCE2} --strip-components=1 && popd
 
@@ -125,6 +123,10 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Sun Nov 19 2023 Andy Li <andy@onthewings.net> - 4.3.3-1
+- New upstream version 4.3.3. (RHBZ#2250370)
+- Drop haxe-ocaml5.patch which is no longer needed.
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.3.2-2
 - OCaml 5.1 rebuild for Fedora 40
 

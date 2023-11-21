@@ -1,12 +1,12 @@
 %global commit0 f5393cbc75172060a01e031ea749f94e495be16e
 %global date 20231109
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
-%global cinnamon_desktop_version 5.8.0
+%global cinnamon_desktop_version 6.0.0
 
 Name:           cinnamon-settings-daemon
-Version:        5.9.0
+Version:        6.0.0
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
@@ -24,35 +24,40 @@ ExcludeArch:   %{ix86}
 Requires:       cinnamon-desktop%{?_isa} >= %{cinnamon_desktop_version}
 Requires:       iio-sensor-proxy%{?_isa}
 
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  meson
-BuildRequires:  pkgconfig(dbus-glib-1)
+BuildRequires:  intltool
+BuildRequires:  pkgconfig(libcanberra-gtk3)
 BuildRequires:  pkgconfig(cinnamon-desktop) >= %{cinnamon_desktop_version}
-BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(libgnomekbd)
-BuildRequires:  pkgconfig(libnm)
-BuildRequires:  pkgconfig(libnma)
-BuildRequires:  pkgconfig(libnotify)
-BuildRequires:  pkgconfig(libcanberra)
-BuildRequires:  pkgconfig(polkit-agent-1)
-BuildRequires:  pkgconfig(libxklavier)
-BuildRequires:  pkgconfig(upower-glib)
+BuildRequires:  pkgconfig(colord) >= 0.1.27
+BuildRequires:  pkgconfig(cups) >= 1.4
+BuildRequires:  pkgconfig(cvc) >= %{cinnamon_desktop_version}
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(gio-2.0) >= 2.40.0
+BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.40.0
+BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
+BuildRequires:  pkgconfig(libgnomekbd) >= 3.6.0
+BuildRequires:  pkgconfig(libgnomekbdui) >= 3.6.0
+BuildRequires:  pkgconfig(gtk+-3.0) >= 3.14.0
 BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(colord) >= 0.1.12
+BuildRequires:  pkgconfig(libnotify)
+BuildRequires:  pkgconfig(kbproto)
+BuildRequires:  pkgconfig(pango) >= 1.20.0
+BuildRequires:  pkgconfig(polkit-gobject-1) >= 0.97
+BuildRequires:  pkgconfig(libpulse) >= 0.9.16
+BuildRequires:  pkgconfig(upower-glib) >= 0.9.11
+%ifnarch s390 s390x %{?rhel:ppc ppc64}
+BuildRequires:  pkgconfig(libwacom) >= 0.7
+BuildRequires:  pkgconfig(librsvg-2.0) >= 2.36.2
+%endif
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(libxklavier) >= 5.0
 BuildRequires:  pkgconfig(lcms2) >= 2.2
 BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  pkgconfig(xtst)
-BuildRequires:  pkgconfig(ibus-1.0)
-BuildRequires:  cups-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  docbook-style-xsl
-BuildRequires:  intltool
-BuildRequires:  libxslt
-BuildRequires:  pkgconfig(librsvg-2.0)
-%ifnarch s390 s390x %{?rhel:ppc ppc64}
-BuildRequires:  pkgconfig(xorg-wacom)
-BuildRequires:  pkgconfig(libwacom)
-%endif
 
 %description
 A daemon to share settings from CINNAMON to other applications. It also
@@ -61,8 +66,6 @@ handles global keybindings, and many of desktop-wide settings.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-Requires:       dbus-glib-devel
 
 %description    devel
 This package contains libraries and header files for
@@ -146,6 +149,9 @@ rm -rf %{buildroot}%{_libdir}/cinnamon-settings-daemon/
 
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231109gitf5393cb
 - Update to git snapshot
 

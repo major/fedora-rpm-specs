@@ -1443,8 +1443,8 @@ done
 %endif
 
 %if %{without gpupdate}
-rm -f %{_sbindir}/samba-gpupdate
-rm -f %{_mandir}/man8/samba-gpupdate.8
+rm -f %{buildroot}%{_sbindir}/samba-gpupdate
+rm -f %{buildroot}%{_mandir}/man8/samba-gpupdate.8*
 %endif
 
 %if %{without vfs_glusterfs}

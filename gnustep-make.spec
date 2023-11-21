@@ -9,8 +9,8 @@
 d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           gnustep-make
-Version:        2.9.0
-Release:        10%{?dist}
+Version:        2.9.1
+Release:        1%{?dist}
 Summary:        GNUstep makefile package
 License:        GPLv3+
 URL:            http://www.gnustep.org/
@@ -41,6 +41,7 @@ License:        Public Domain
 The gnustep-filesystem package contains the basic directory layout for
 GNUstep packages.
 
+
 %package        doc
 Summary:        Documentation for %{name}
 License:        GPLv3+
@@ -53,7 +54,6 @@ makefiles for a GNUstep-based project.  It allows the user to write a
 project without having to deal with the complex issues associated with
 configuration, building, installation, and packaging.  It also allows
 the user to easily create cross-compiled binaries.
-
 This package contains documentation for %{name}.
 
 %prep
@@ -71,6 +71,9 @@ sed -i "s|/lib$|/%{_lib}|g" FilesystemLayouts/fhs
 sed -i "s|=/share/GNUstep/Makefiles|=/%{_lib}/GNUstep/Makefiles|" \
     FilesystemLayouts/fhs-system
 
+# Fix files location except GNUSTEP_LOCAL_*
+sed -i "67,77!s|=/local|=|" FilesystemLayouts/fhs-system 
+
 %build
 %if 0%{?rhel} >= 8
 export CC=gobjc
@@ -80,9 +83,9 @@ export CC=gobjc
 %make_build V=1
 
 %install
-%make_install
-make -C Documentation GNUSTEP_MAKEFILES=%{buildroot}%{_libdir}/GNUstep/Makefiles
-make -C Documentation install GNUSTEP_MAKEFILES=%{buildroot}%{_libdir}/GNUstep/Makefiles DESTDIR=%{buildroot}
+%make_install GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
+%make_install -C Documentation GNUSTEP_INSTALLATION_DOMAIN=SYSTEM GNUSTEP_MAKEFILES=%{buildroot}%{_libdir}/GNUstep/Makefiles
+%make_install -C Documentation GNUSTEP_INSTALLATION_DOMAIN=SYSTEM GNUSTEP_MAKEFILES=%{buildroot}%{_libdir}/GNUstep/Makefiles
 
 # create remaining GNUstep directories
 for i in Applications WebApplications; do
@@ -94,20 +97,16 @@ mkdir -p %{buildroot}%{_prefix}{,/local}/share/GNUstep/Documentation/Developer
 install -d %{buildroot}%{macrosdir}
 install -p -m 644 macros.gnustep %{buildroot}%{macrosdir}
 
-# Remove injected package_note flag from installed scripts
-# package.note file is missing in Fedora 38+
-%if 0%{?fedora} < 37
-pushd %{buildroot}
-grep -rIl package_note . | \
-    xargs sed -i -e 's|-Wl,[^ \t]*\.package_note[^ \t]*||'
-%endif
-
 %files
 %config(noreplace) %{_sysconfdir}/GNUstep/GNUstep.conf
-%{_bindir}/*
+%{_bindir}/gnustep-config
+%{_bindir}/gnustep-tests
+%{_bindir}/openapp
+%{_bindir}/debugapp
+%{_bindir}/opentool
 %{_libdir}/GNUstep/Makefiles
 %{_mandir}/man*/*
-%{_infodir}/*.info*
+%{_infodir}/gnustep*.info*
 %{macrosdir}/macros.gnustep
 
 %files -n gnustep-filesystem
@@ -125,6 +124,9 @@ grep -rIl package_note . | \
 %doc %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.9.1-1
+- Update to 2.9.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

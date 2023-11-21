@@ -1,6 +1,6 @@
 Name:		poezio
 Version:	0.14
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	IRC-like jabber (XMPP) console client
 
 License:	GPLv3+
@@ -18,6 +18,7 @@ BuildRequires:  python3-pyasn1-modules
 BuildRequires:  python3-cffi
 # For docs
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 Requires:       python3-slixmpp
 Requires:       python3-inotify
 %if 0%{?rhel}
@@ -32,18 +33,18 @@ registration.
 
 
 
-%package -n %{name}-doc
+%package    doc
 Summary:    Documentation for Poezio
 BuildArch:  noarch
 Requires:   %{name} = %{version}-%{release}
 
-%description -n %{name}-doc
+%description doc
 A jabber (XMPP) console client that aims at being similar to popular IRC
 clients such as Irssi or Weechat. Its main goal is to let the user
 connect to the Jabber network and join chat rooms without requiring any
 registration.
 
-This package contains documentation in reST and HTML format.
+This package contains documentation in HTML format.
 
 
 
@@ -53,7 +54,8 @@ This package contains documentation in reST and HTML format.
 
 %build
 %py3_build
-
+# Remove the sphinx readthedocs theme before the build
+rm -rf doc/source/theme/sphinx_rtd_theme/
 # Build sphinx documentation
 pushd doc/
 make html
@@ -63,14 +65,15 @@ popd # doc/
 %install
 %py3_install
 
-mv -f %{buildroot}%{_pkgdocdir}/source/ %{buildroot}%{_pkgdocdir}/rst/
+# Remove sources from doc subpackage, but not from html/ subdirectory
+rm -rf %{buildroot}%{_pkgdocdir}/source/
+
 # Remove duplicated docfiles and remove empty directory
 rm -f %{buildroot}%{_datadir}/%{name}/{CHANGELOG,COPYING,README.rst}
 rmdir %{buildroot}%{_datadir}/%{name}
 
-# Remove buildinfo hidden file generated and sources
+# Remove buildinfo hidden file
 rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
-rm -rf %{buildroot}%{_pkgdocdir}/html/_sources/
 
 
 %check
@@ -95,12 +98,16 @@ rm -rf %{buildroot}%{_pkgdocdir}/html/_sources/
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 
-%files -n %{name}-doc
-%{_pkgdocdir}/
+%files doc
+%{_pkgdocdir}/html/
 
 
 
 %changelog
+* Sun Nov 19 2023 Matthieu Saulnier <fantom@fedoraproject.org> - 0.14-7
+- Cleanup in the doc subpackage
+- Add sphinx readthedocs theme as BuildRequires
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

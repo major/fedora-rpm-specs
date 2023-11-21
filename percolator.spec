@@ -3,16 +3,14 @@
 
 Name:      percolator
 Summary:   Software for postprocessing of shotgun proteomics data
-Version:   3.06.01
-Release:   2%{?dist}
+Version:   3.06.02
+Release:   1%{?dist}
 
-## Code under src/ (except RAMP and Fido sub-directories) is licensed under a ASL 2.0 license.
-## Code under src/Fido under MIT license.
-## Code under src/MSToolkit under BSD license.
+## Code under src/ (except RAMP) is licensed under a ASL 2.0 license.
 ## Code under src/converters/MSToolkit/RAMP is licensed under a LGPLv2+ license.
-License:   ASL 2.0 and MIT and BSD and LGPLv2+
+License:   Apache-2.0 AND LGPL-2.0-or-later
 URL:       https://github.com/percolator/percolator
-Source0:   https://github.com/percolator/percolator/archive/rel-3-06-01/percolator-rel-3-06-01.tar.gz
+Source0:   https://github.com/percolator/percolator/archive/rel-3-06-02/percolator-rel-3-06-02.tar.gz
 ## Example files for testing
 ## https://github.com/percolator/percolator/wiki/Example
 Source1:   http://noble.gs.washington.edu/proj/percolator/data/yeast-01.sqt.tar.gz
@@ -25,21 +23,12 @@ BuildRequires: cmake
 # Needed for testing
 BuildRequires: gtest-devel
 BuildRequires: python3-devel
-
-%if 0%{?el7}
-BuildRequires: boost169-static, boost169-devel
-BuildRequires: pkgconfig(tokyocabinet)
-BuildRequires: pkgconfig(xerces-c)
-BuildRequires: pkgconfig(sqlite3)
-BuildRequires: xsd, zlib-devel, bzip2-devel
-%else
 BuildRequires: boost-static, boost-devel
 BuildRequires: pkgconfig(tokyocabinet)
 BuildRequires: pkgconfig(xerces-c)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(libtirpc)
 BuildRequires: xsd, zlib-devel, bzip2-devel
-%endif
 
 Requires: %{name}-data = %{version}-%{release}
 Obsoletes: fido-pi = 0:0
@@ -73,7 +62,7 @@ Summary: percolator static libraries
 This package contains static libraries of %{name}.
 
 %prep
-%autosetup -n percolator-rel-3-06-01
+%autosetup -n percolator-rel-3-06-02
 tar -xvf %{SOURCE1}
 
 ## Remove spurious executable permissions
@@ -99,19 +88,8 @@ mkdir -p percolator && pushd percolator
 %cmake -Wno-dev \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE=TRUE -DXML_SUPPORT:BOOL=ON \
-%if 0%{?el7}
- -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/xsd/cxx/tree -I%{_includedir}/boost169" \
- -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags}" \
- -DBoost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_filesystem.so \
- -DBoost_SERIALIZATION_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_serialization.so \
- -DBoost_SYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_system.so \
- -DBoost_INCLUDE_DIR:PATH=%{_includedir}/boost169 \
- -DBoost_LIBRARY_DIR_RELEASE:PATH=%{_libdir}/boost169 \
- -DXML_SUPPORT:BOOL=OFF \
-%else
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/xsd/cxx/tree -I%{_includedir}/tirpc" \
  -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -ltirpc" \
-%endif
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DTARGET_ARCH=%{_arch} ..
@@ -137,20 +115,8 @@ mkdir -p fido && pushd fido
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DTokyoCabinet_INCLUDE_DIR=%{_includedir} \
  -DTokyoCabinet_LIBRARY=%{_libdir}/libtokyocabinet.so \
-%if 0%{?el7}
- -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/xsd/cxx/tree -I%{_includedir}/boost169" \
- -DBoost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_filesystem.so \
- -DBoost_SERIALIZATION_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_serialization.so \
- -DBoost_SYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_system.so \
- -DBoost_INCLUDE_DIR:PATH=%{_includedir}/boost169 \
- -DBoost_LIBRARY_DIR:PATH=%{_libdir}/boost169 \
- -DBoost_LIBRARY_DIR_RELEASE:PATH=%{_libdir}/boost169 \
- -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags}" \
- -DXML_SUPPORT:BOOL=OFF \
- %else
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/xsd/cxx/tree -I%{_includedir}/tirpc" \
  -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -ltirpc" \
-%endif
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DTARGET_ARCH=%{_arch} ../src/fido
 %make_build
@@ -160,19 +126,8 @@ mkdir -p converters && pushd converters
 %cmake -Wno-dev \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE=TRUE \
-%if 0%{?el7}
- -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/xsd/cxx/tree -I%{_includedir}/boost169" \
- -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags}" \
- -DBoost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_filesystem.so \
- -DBoost_SERIALIZATION_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_serialization.so \
- -DBoost_SYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_system.so \
- -DBoost_INCLUDE_DIR:PATH=%{_includedir}/boost169 \
- -DBoost_LIBRARY_DIR_RELEASE:PATH=%{_libdir}/boost169 \
- -DXML_SUPPORT:BOOL=OFF \
-%else 
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/xsd/cxx/tree -I%{_includedir}/tirpc" \
  -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -ltirpc" \
-%endif
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DPERCOLATOR-CONVERTERS_BINARY_DIR:STATIC=converters \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES \
@@ -231,9 +186,7 @@ pushd percolator
 popd
 
 %files
-# ASL 2.0 and MIT
 %{_bindir}/percolator
-# ASL 2.0 and LGPLv2+ and MIT and BSD
 %{_bindir}/sqt2pin
 %{_bindir}/qvality
 %{_bindir}/tandem2pin
@@ -255,6 +208,10 @@ popd
 %{_libdir}/percolator/
 
 %changelog
+* Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.06.02-1
+- Release 3.06.02
+- Drop EPEL7 support
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.06.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

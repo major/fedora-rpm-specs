@@ -1,31 +1,21 @@
-%{!?_licensedir:%global license %%doc}
-#% %{!?luaver: %%global luaver %(lua -e "print(string.sub(_VERSION, 5))")}
-%global luaver 5.4
-%global luapkgdir %{_datadir}/lua/%{luaver}
+%global forgeurl https://github.com/luarocks/argparse
+%global tag %{version}
+%global extractdir argparse-412e6aca393e365f92c0315dfe50181b193f1ace
+%global archivename lua-argparse-%{version}
 
-%global commit 412e6aca393e365f92c0315dfe50181b193f1ace
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global pkg_name argparse
-
-# Proper naming for the tarball from github.
-%global gittar %{name}-%{version}.tar.gz
-
-Name:           lua-%{pkg_name}
-Version:        0.6.0
-Release:        8%{?dist}
+Name:           lua-argparse
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        Feature-rich command line parser for Lua
 
 License:        MIT
-URL:            https://github.com/mpeterv/%{pkg_name}
-Source0:        %{url}/archive/%{commit}/%{gittar}
+URL:            %{forgeurl}
+
+%forgemeta
+Source0:        %{forgesource}
 
 BuildArch:      noarch
-BuildRequires:  lua-devel >= %{luaver}
-%if 0%{?fedora}
-Requires:       lua(abi) = %{luaver}
-%else
-Requires:       lua >= %{luaver}
-%endif
+BuildRequires:  lua-devel
 
 %description
 Argparse is a feature-rich command line parser for Lua inspired by argparse
@@ -35,54 +25,46 @@ Argparse supports positional arguments, options, flags, optional arguments,
 subcommands and more. Argparse automatically generates usage, help and error
 messages.
 
-# Sphinx is currently not available for EPEL, so only build the docs for
-# Fedora.
-%if 0%{?fedora}
 %package        doc
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
-BuildRequires:  dos2unix
 Requires:       python3-sphinx_rtd_theme
 
 %description    doc
 This package contains documentation for %{name}.
-%endif
 
 %prep
-%setup -qn %{pkg_name}-%{commit}
-rm -rf doc
+%forgesetup
 
-%if 0%{?fedora}
 %build
-sphinx-build-3 -b html -d build/doctree docsrc doc
-# Remove fonts so that we don't package them..
-rm -rf doc/_static/fonts
-# Additional cleanup...
-rm -rf doc/.buildinfo
-dos2unix doc/_static/jquery.js
-%endif
+sphinx-build-3 -b html docsrc doc
 
 %install
-install -m 644 -D -p src/%{pkg_name}.lua %{buildroot}%{luapkgdir}/%{pkg_name}.lua
+install -m 644 -D -p src/argparse.lua %{buildroot}%{lua_pkgdir}/argparse.lua
+
+%check
+# Smoke test for now
+LUA_PATH="%{buildroot}%{lua_pkgdir}/?.lua;%{buildroot}%{lua_pkgdir}/?/init.lua" \
+lua -e 'local argparse = require "argparse"
+local parser = argparse()
+assert(#parser == 0)'
 
 %files
-%if 0%{?fedora}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc README.md
-%{luapkgdir}/%{pkg_name}.lua
+%doc CHANGELOG.md
+%{lua_pkgdir}/argparse.lua
 
-%if 0%{?fedora}
 %files doc
 %license LICENSE
-%doc doc
-%endif
+%doc doc/*
 
 %changelog
+* Sat Nov 18 2023 Jonny Heggheim <hegjon@gmail.com> - 0.7.1-1
+- Updated to version 0.7.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,18 +1,18 @@
 %global commit0 7360582eb853682764eb4d276d9e8535c96fe763
 %global date 20231107
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 %global _artwork_version 1.7.5
 
-%global cinnamon_desktop_version 5.8.0
-%global csd_version 5.8.0
-%global cinnamon_menus_version 5.8.0
+%global cinnamon_desktop_version 6.0.0
+%global csd_version 6.0.0
+%global cinnamon_menus_version 6.0.0
 %global redhat_menus_version 1.8
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 5.9.0
+Version: 6.0.0
 Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
@@ -48,22 +48,25 @@ BuildRequires: meson
 BuildRequires: intltool
 BuildRequires: pkgconfig(cinnamon-desktop) >= %{cinnamon_desktop_version}
 BuildRequires: pkgconfig(libcinnamon-menu-3.0) >= %{cinnamon_menus_version}
-BuildRequires: pkgconfig(cinnamon-settings-daemon) >= %{csd_version}
-BuildRequires: pkgconfig(colord)
-BuildRequires: pkgconfig(goa-1.0)
+BuildRequires: pkgconfig(gtk+-3.0) >= 3.16.0
+BuildRequires: pkgconfig(glib-2.0) >= 2.44.0
+BuildRequires: pkgconfig(gio-unix-2.0) >= 2.44.0
+BuildRequires: pkgconfig(libgnomekbd) >= 3.0.0
+BuildRequires: pkgconfig(libgnomekbdui) >= 3.0.0
+BuildRequires: pkgconfig(libnotify) >= 0.7.3
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(polkit-gobject-1) >= 0.103
+BuildRequires: pkgconfig(libxklavier) >= 5.1
+BuildRequires: pkgconfig(upower-glib) >= 0.99.8
+BuildRequires: pkgconfig(xproto)
 BuildRequires: pkgconfig(iso-codes)
-BuildRequires: pkgconfig(goa-backend-1.0) >= 3.21.5
-BuildRequires: pkgconfig(libgnomekbd)
-BuildRequires: pkgconfig(libnm) >= 1.2
-BuildRequires: pkgconfig(libnma) >= 1.2
-BuildRequires: pkgconfig(libnotify)
-BuildRequires: pkgconfig(libxklavier)
-BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(libwacom)
+BuildRequires: pkgconfig(libnm) >= 1.2.0
+BuildRequires: pkgconfig(libnma) >= 1.2.0
 BuildRequires: pkgconfig(mm-glib) >= 0.7
-BuildRequires: pkgconfig(polkit-agent-1)
-BuildRequires: pkgconfig(upower-glib)
-BuildRequires: pkgconfig(xkbfile)
+BuildRequires: pkgconfig(colord)
+BuildRequires: pkgconfig(libwacom)
+BuildRequires: pkgconfig(goa-1.0)
+BuildRequires: pkgconfig(goa-backend-1.0) >= 3.21.5
 
 %description
 This package contains configuration utilities for the Cinnamon desktop, which
@@ -153,6 +156,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231107git7360582
 - Update to git snapshot
 

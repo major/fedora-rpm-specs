@@ -1,11 +1,11 @@
 %global commit0 32ab5b1c7893054b266afaa6c88b45c43e8ebd25
 %global date 20231109
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        5.9.0
+Version:        6.0.0
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -17,6 +17,7 @@ Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
+Patch2:         fix_libxml_header.patch
 
 ExcludeArch:   %{ix86}
 
@@ -26,24 +27,33 @@ Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
 Requires:       adwaita-icon-theme
-Requires:       cinnamon-translations >= 5.8.0
+Requires:       cinnamon-translations >= 6.0.0
 Recommends:     nemo-search-helpers
 Recommends:     folder-color-switcher-nemo
 
 BuildRequires:  meson
+BuildRequires:  gcc
 BuildRequires:  intltool
 BuildRequires:  python3-gobject-base
 BuildRequires:  desktop-file-utils
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk+-wayland-3.0)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gio-unix-2.0)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gmodule-no-export-2.0)
+BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(cinnamon-desktop) >= 6.0.0
+BuildRequires:  pkgconfig(gail-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(cinnamon-desktop) >= 5.8.0
-BuildRequires:  pkgconfig(sm)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xapp) >= 2.2.0
+BuildRequires:  pkgconfig(exempi-2.0)
 BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libgsf-1)
-BuildRequires:  pkgconfig(exempi-2.0)
 BuildRequires:  pkgconfig(libselinux)
-BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(libnotify)
-BuildRequires:  pkgconfig(xapp) >= 2.2.0
+BuildRequires:  pkgconfig(pango)
 
 # the main binary links against libnemo-extension.so
 # don't depend on soname, rather on exact version
@@ -167,6 +177,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Thu Nov 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-1.20231109git32ab5b1
 - Update to git snapshot
 

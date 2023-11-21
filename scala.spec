@@ -12,7 +12,7 @@
 
 # Scala needs itself to compile.  Use this if the version in the repository
 # cannot build the current version.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           scala
 Version:        2.13.12
@@ -217,22 +217,24 @@ javac $JAVAC_FLAGS -d ../target/library -cp $(build-classpath junit) \
     $(find library -name \*.java)
 scalac $SCALAC_FLAGS -d ../target/library -classpath ../target/library \
     $(find library -name \*.scala | sort)
-scaladoc $SCALADOC_FLAGS -doc-title 'Scala Standard Library' \
-    -sourcepath $PWD/library -doc-no-compile $PWD/library-aux \
-    -skip-packages scala.concurrent.impl \
-    -doc-root-content $PWD/library/rootdoc.txt \
-    $(find library -name \*.scala | sort)
-mv scala ../target/html/library
+## TODO: Fix the Scaladoc bug (missing webjar)
+# scaladoc $SCALADOC_FLAGS -doc-title 'Scala Standard Library' \
+#    -sourcepath $PWD/library -doc-no-compile $PWD/library-aux \
+#    -skip-packages scala.concurrent.impl \
+#    -doc-root-content $PWD/library/rootdoc.txt \
+#    $(find library -name \*.scala | sort)
+# mv scala ../target/html/library
 
 # Build the reflection library
 javac $JAVAC_FLAGS -d ../target/reflect $(find reflect -name \*.java)
 scalac $SCALAC_FLAGS -d ../target/reflect -classpath ../target/reflect \
     $(find reflect -name \*.scala | sort)
-scaladoc $SCALADOC_FLAGS -doc-title 'Scala Reflection Library' \
-    -sourcepath $PWD/reflect \
-    -skip-packages scala.reflect.macros.internal:scala.reflect.internal:scala.reflect.io \
-    $(find reflect -name \*.scala | sort)
-mv scala ../target/html/reflect
+## TODO: Fix the Scaladoc bug (missing webjar)
+#scaladoc $SCALADOC_FLAGS -doc-title 'Scala Reflection Library' \
+#    -sourcepath $PWD/reflect \
+#    -skip-packages scala.reflect.macros.internal:scala.reflect.internal:scala.reflect.io \
+#    $(find reflect -name \*.scala | sort)
+# mv scala ../target/html/reflect
 
 # Build the compiler
 javac $JAVAC_FLAGS -d ../target/compiler -cp $COMPJAR \
@@ -254,21 +256,25 @@ javac $JAVAC_FLAGS -d ../target/compiler $(find repl-frontend -name \*.java)
 scalac $SCALAC_FLAGS -d ../target/compiler \
     -classpath ../target/compiler:$JLINE_JARS \
     -feature $(find repl-frontend -name \*.scala)
-scaladoc $SCALADOC_FLAGS -doc-title 'Scala Compiler' \
-    -sourcepath $PWD/compiler:$PWD/interactive:$PWD/repl:$PWD/repl-frontend \
-    -doc-root-content $PWD/compiler/rootdoc.txt \
-    -classpath $PWD/../target/library:$PWD/../target/reflect:$JLINE_JARS:$DIFFUTILS_JAR \
-    $(find compiler -name \*.scala) $(find interactive -name \*.scala) \
-    $(find repl -name \*.scala) $(find repl-frontend -name \*.scala)
-mv scala ../target/html/compiler
+
+## TODO: Fix the Scaladoc bug (missing webjar)
+#scaladoc $SCALADOC_FLAGS -doc-title 'Scala Compiler' \
+#    -sourcepath $PWD/compiler:$PWD/interactive:$PWD/repl:$PWD/repl-frontend \
+#    -doc-root-content $PWD/compiler/rootdoc.txt \
+#    -classpath $PWD/../target/library:$PWD/../target/reflect:$JLINE_JARS:$DIFFUTILS_JAR \
+#    $(find compiler -name \*.scala) $(find interactive -name \*.scala) \
+#    $(find repl -name \*.scala) $(find repl-frontend -name \*.scala)
+# mv scala ../target/html/compiler
 
 # Build the documentation generator
 # The order of the source files matters!  Some orderings end with this error:
 # error: scala.reflect.internal.Symbols$CyclicReference: illegal cyclic reference involving <refinement of scala.tools.nsc.doc.model.ModelFactory with scala.tools.nsc.doc.model.ModelFactoryImplicitSupport with scala.tools.nsc.doc.model.ModelFactoryTypeSupport with scala.tools.nsc.doc.model.diagram.DiagramFactory with scala.tools.nsc.doc.model.CommentFactory with scala.tools.nsc.doc.model.TreeFactory with scala.tools.nsc.doc.model.MemberLookup>
 # I do not know why that happens.  This is one order that works.  There are
 # no doubt many more.
-scalac $SCALAC_FLAGS -d ../target/compiler \
-    $(find scaladoc -name \*.scala | sort)
+
+## TODO: Fix the Scaladoc bug (missing webjar)
+# scalac $SCALAC_FLAGS -d ../target/compiler \
+#   $(find scaladoc -name \*.scala | sort)
 
 # Build the bytecode parser
 scalac $SCALAC_FLAGS -d ../target/scalap $(find scalap -name \*.scala)
@@ -300,8 +306,10 @@ done
 cp -p src/library/rootdoc.txt target/library
 cp -p src/compiler/rootdoc.txt target/compiler
 cp -a src/compiler/templates target/compiler
-cp -a src/scaladoc/scala/tools/nsc/doc/html/resource \
-      target/compiler/scala/tools/nsc/doc/html
+
+## TODO: Fix the Scaladoc bug (missing webjar)
+# cp -a src/scaladoc/scala/tools/nsc/doc/html/resource \
+#       target/compiler/scala/tools/nsc/doc/html
 cp -p src/scalap/decoder.properties target/scalap
 
 # Build the compiler jar
