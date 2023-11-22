@@ -1,6 +1,6 @@
 Name:             kvirc
 Version:          5.0.0
-Release:          21%{?dist}
+Release:          22%{?dist}
 Summary:          Free portable IRC client
 License:          GPLv2+ with exceptions
 URL:              http://kvirc.net/
@@ -8,6 +8,8 @@ Source0:          ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/KVIrc-%{versio
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch0:           kvirc-5.0.0_enforce_system_crypto.patch
 Patch1:           kvirc-5.0.0_qt_5.15_fix.patch
+# https://github.com/kvirc/KVIrc/commit/c8a6812fc26d6c240d7b99b517835e7cb9607e68
+Patch2:           upstream-wayland-fixes.patch
 
 BuildRequires:    enchant2-devel
 BuildRequires:    audiofile-devel
@@ -114,6 +116,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Mon Nov 20 2023 Leigh Scott <leigh123linux@gmail.com> - 5.0.0-22
+- Fix crash on startup when running wayland (rhbz#2250579)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

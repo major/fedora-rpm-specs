@@ -3,7 +3,7 @@
 
 # https://github.com/nats-io/nkeys
 %global goipath         github.com/nats-io/nkeys
-Version:                0.4.5
+Version:                0.4.6
 
 %gometa
 

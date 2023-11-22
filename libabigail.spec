@@ -3,10 +3,10 @@
 
 Name: libabigail
 Version: 2.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Set of ABI analysis tools
 
-License: Apache 2.0 WITH LLVM-exception
+License: Apache-2.0 WITH LLVM-exception
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
 Patch1: 0001-Bug-31045-Don-t-try-setting-translation-unit-for-uni.patch
@@ -162,6 +162,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 20 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-4
+- Fix SPDX licensing string
+
 * Wed Nov 15 2023 Dodji Seketeli <dodji@redhat.com> - 2.4-3
 - Fix sourceware.org/PR31017
   "Support Flex array conversion suppression"

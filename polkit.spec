@@ -4,11 +4,13 @@
 Summary: An authorization framework
 Name: polkit
 Version: 123
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: polkit.sysusers
+
+Patch1: remove-IPAddressDeny.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -159,6 +161,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Mon Nov 20 2023 Jan Rybar <jrybar@redhat.com> - 123-3
+- backport of removal of IPAddressDeny sandboxing option
+- Resolves: bz#2248838
+
 * Thu Sep 21 2023 Christian Glombek <cglombek@redhat.com> - 123-2
 - Provide a sysusers.d file to get user() and group() provides
   (see https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format).

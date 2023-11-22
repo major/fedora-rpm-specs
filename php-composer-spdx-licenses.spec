@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-composer-spdx-licenses
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    c848241796da2abf65837d51dce1fae55a960149
+%global gh_commit    560bdcf8deb88ae5d611c80a2de8ea9d0358cc0a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     composer
@@ -15,8 +15,8 @@
 %bcond_without       tests
 
 Name:           php-composer-spdx-licenses
-Version:        1.5.7
-Release:        4%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Version:        1.5.8
+Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        SPDX licenses list and validation library
 
 License:        MIT
@@ -37,14 +37,8 @@ BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer.json, "require-dev": {
 #        "phpunit/phpunit": "phpunit/phpunit": "^4.8.35 || ^5.7 || 6.5 - 7",
-%if 0%{?fedora} >= 26 || 0%{?rhel} >= 8
-%global phpunit %{_bindir}/phpunit7
-# ignore min version, test suite passes with 6.4
-BuildRequires: phpunit7
-%else
-%global phpunit %{_bindir}/phpunit
-BuildRequires: php-phpunit-PHPUnit >= 4.8.35
-%endif
+# ignore min version, test suite passes with 9.6.13
+BuildRequires: phpunit9
 # Autoloader
 BuildRequires:  php-composer(fedora/autoloader)
 %endif
@@ -72,7 +66,7 @@ now extracted and made available as a stand-alone library.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 find . -name \*.rpm -delete -print
 
 
@@ -109,11 +103,13 @@ rm tests/SpdxLicensesUpdaterTest.php
 
 export BUILDROOT_SPDX=%{buildroot}
 
+# compatibility with recent PHPUnit
+sed -e  '/setUp()/s/$/:void/' -i tests/*.php
+
 ret=0
-for cmd in "php %{phpunit}" php74 php80 php81 php82; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
-    set $cmd
-    $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit7} \
+    $cmd -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
       --bootstrap %{buildroot}%{php_home}/Composer/Spdx/autoload.php \
       --no-coverage \
       --verbose || ret=1
@@ -135,6 +131,10 @@ exit $ret
 
 
 %changelog
+* Mon Nov 20 2023 Remi Collet <remi@remirepo.net> - 1.5.8-1
+- update to 1.5.8 (SPDX 3.22)
+- switch to phpunit9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

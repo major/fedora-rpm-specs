@@ -2,7 +2,7 @@
 
 Name:           quarter
 Version:        1.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Lightweight glue library between Coin and Qt
 
 License:        BSD
@@ -83,6 +83,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Mon Nov 20 2023 Richard Shaw <hobbes1069@gmail.com> - 1.1.0-10
+- Rebuild for Coin4.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

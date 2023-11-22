@@ -21,7 +21,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
-BuildRequires:  glslang
 BuildRequires:  jq
 BuildRequires:  meson
 
@@ -91,6 +90,38 @@ plugin system and more.
 Summary:        Header files for %{name}
 License:        BSD-3-Clause AND MIT
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       pkgconfig(cairo)
+Requires:       pkgconfig(egl)
+Requires:       pkgconfig(gbm)
+Requires:       pkgconfig(glesv2)
+Requires:       pkgconfig(hwdata)
+Requires:       pkgconfig(hyprland-protocols)
+Requires:       pkgconfig(libdisplay-info)
+Requires:       pkgconfig(libdrm)
+Requires:       pkgconfig(libinput) >= 1.23.0
+Requires:       pkgconfig(libliftoff) >= 0.4.1
+Requires:       pkgconfig(libseat)
+Requires:       pkgconfig(libudev)
+Requires:       pkgconfig(pango)
+Requires:       pkgconfig(pangocairo)
+Requires:       pkgconfig(pixman-1) >= 0.42.0
+Requires:       pkgconfig(wayland-client)
+Requires:       pkgconfig(wayland-protocols)
+Requires:       pkgconfig(wayland-scanner)
+Requires:       pkgconfig(wayland-server) >= 1.22.0
+Requires:       pkgconfig(xcb)
+Requires:       pkgconfig(xcb-composite)
+Requires:       pkgconfig(xcb-dri3)
+Requires:       pkgconfig(xcb-icccm)
+Requires:       pkgconfig(xcb-present)
+Requires:       pkgconfig(xcb-render)
+Requires:       pkgconfig(xcb-renderutil)
+Requires:       pkgconfig(xcb-res)
+Requires:       pkgconfig(xcb-shm)
+Requires:       pkgconfig(xcb-xfixes)
+Requires:       pkgconfig(xcb-xinput)
+Requires:       pkgconfig(xkbcommon)
+Requires:       pkgconfig(xwayland)
 
 %description    devel
 %{summary}.

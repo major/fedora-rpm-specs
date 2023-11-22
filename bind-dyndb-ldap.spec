@@ -12,7 +12,7 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPLv2+
@@ -130,6 +130,9 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Mon Nov 20 2023 Petr Menšík <pemensik@redhat.com> - 11.10-22
+- Rebuilt for BIND 9.18.20 (#2249835)
+
 * Mon Sep 25 2023 Petr Menšík <pemensik@redhat.com> - 11.10-21
 - Support for bind 9.18.19 (#2232346)
 - Require autoconf-archive at build time

@@ -3,13 +3,13 @@ Library for checking syntax of reStructuredText and code blocks nested within
 it.}
 
 Name:           python-rstcheck-core
-Version:        1.0.3
+Version:        1.1.1
 Release:        %{autorelease}
 Summary:        Checks syntax of reStructuredText and code blocks nested within it
 
 License:        MIT
 URL:            https://pypi.org/pypi/rstcheck-core
-Source0:        %{pypi_source rstcheck_core}
+Source0:        %{pypi_source rstcheck-core}
 
 BuildArch:      noarch
 
@@ -29,11 +29,8 @@ BuildRequires:  gcc gcc-c++
 %description -n python3-rstcheck-core %_description
 
 %prep
-%autosetup -n rstcheck_core-%{version}
+%autosetup -n rstcheck-core-%{version}
 
-# loosen dep versions
-sed -i 's/docutils.*/docutils = ">=0.7"/' pyproject.toml
-sed -i 's/types-docutils.*/types-docutils = ">=0.18"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

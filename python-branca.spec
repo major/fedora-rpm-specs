@@ -1,7 +1,7 @@
 %global srcname branca
 
 Name:           python-%{srcname}
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Generate complex HTML+JS pages with Python
 
@@ -26,6 +26,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(ipykernel)
 BuildRequires:  python3dist(jupyter-client)
 BuildRequires:  python3dist(nbconvert)
+BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pytest)
 
 %description -n python3-%{srcname} %{_description}

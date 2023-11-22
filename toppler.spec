@@ -1,23 +1,34 @@
-Name:           toppler
-Version:        1.1.5
-Release:        27%{?dist}
-Summary:        Platform game
-License:        GPLv2+
-URL:            http://toppler.sf.net
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Patch1:         toppler-1.1.5-move_hiscores_file.patch
-Patch2:         toppler-1.1.5-highscore.patch
-Patch3:         toppler-1.1.5-no-strncpy.patch
-Patch4:         toppler-1.1.5-format-security.patch
+%global commit 5e3e581bb7b58098f54df9b634c7bd4a23ba66b5
 
-BuildRequires: make
-BuildRequires:  gcc-c++
-BuildRequires:  gcc
-BuildRequires:  SDL-devel
-BuildRequires:  SDL_mixer-devel
-BuildRequires:  zlib-devel
-BuildRequires:  gettext
+Name:           toppler
+Version:        1.3
+Release:        1%{?dist}
+Summary:        Platform game
+License:        GPL-3.0-only
+URL:            https://gitlab.com/roever/toppler/
+Source0:        https://gitlab.com/roever/toppler/-/archive/v%{version}/%{name}-%{version}.tar.bz2
+Source1:        toppler.desktop
+Patch2:         toppler-1.1.5-highscore.patch
+Patch100:       toppler-1.3-fix_makefile.patch
+Patch101:       toppler-1.3-format_security.patch
+
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
+BuildRequires:  gettext
+BuildRequires:  libpng-devel
+BuildRequires:  make
+BuildRequires:  SDL2-devel
+BuildRequires:  SDL2_image-devel
+BuildRequires:  SDL2_mixer-devel
+BuildRequires:  zlib-devel
+# Needed to rebuild the graphics from source
+# This is currently segfault'ing
+%if 0
+BuildRequires:  gimp
+BuildRequires:  ImageMagick
+BuildRequires:  povray
+BuildRequires:  pygtk2
+%endif
 
 
 %description
@@ -27,49 +38,54 @@ target you need to avoid a lot of strange robots that guard the tower.
 
 
 %prep
-%setup -q
-%patch1 -p0
-%patch2 -p1
-%patch3 -p1
-%patch4 -p0
-
-for i in AUTHORS ChangeLog toppler.6; do { 
-  iconv -f iso8859-1 -t utf-8 $i > $i.utf8 && \
-  touch -r $i $i.utf8 && \
-  mv -f $i.utf8 $i;
-};
-done;
+%setup -q -n %{name}-v%{version}-%{commit}
+#patch -P2 -p1
+%patch -P100 -p1
+%patch -P101 -p1
 
 
 %build
-%configure
-make %{?_smp_mflags}
+%set_build_flags
+%make_build \
+  CXXFLAGS="$CXXFLAGS" \
+  LDFLAGS="$LDFLAGS" \
+  STATEDIR=%{_localstatedir}/games \
+  toppler translation
 
 
 %install
-make install DESTDIR=%{buildroot}
+%set_build_flags
+%make_install \
+  CXXFLAGS="$CXXFLAGS" \
+  LDFLAGS="$LDFLAGS" \
+  STATEDIR=%{_localstatedir}/games
 
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
-                     %{buildroot}/%{_datadir}/applications/toppler.desktop
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
+mkdir -p %{buildroot}%{_localstatedir}/games/
 touch %{buildroot}%{_localstatedir}/games/toppler.hsc
 
-rm -rf %{buildroot}%{_datadir}/doc/toppler
+mkdir -p %{buildroot}%{_datadir}/pixmaps/
+install -p -m 0644 dist/toppler*.xpm %{buildroot}%{_datadir}/pixmaps/
 
 %find_lang %{name}
 
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING ChangeLog README
+%license COPYING
+%doc AUTHORS README.md doc/changelog.md
 %{_bindir}/toppler
 %{_datadir}/toppler
 %{_datadir}/applications/toppler.desktop
-%{_datadir}/pixmaps/toppler.xpm
+%{_datadir}/pixmaps/toppler*.xpm
 %verify(not md5 size mtime) %config(noreplace) %attr(0664,root,games) %{_localstatedir}/games/toppler.hsc
 %{_mandir}/man6/toppler.6.*
 
 
 %changelog
+* Wed Nov 15 2023 Xavier Bachelot <xavier@bachelot.org> - 1.3-1
+- Update to 1.3 (RHBZ#890426)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

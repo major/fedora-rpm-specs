@@ -1,14 +1,20 @@
 Name:           ptouch-driver
-Version:        1.5.1
-Release:        9%{?dist}
+Version:        1.7
+Release:        1%{?dist}
 Summary:        CUPS driver for Brother P-touch label printers
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/philpem/printer-driver-ptouch
 Source0:        https://github.com/philpem/printer-driver-ptouch/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/philpem/printer-driver-ptouch/pull/35
+Patch001: 0001-Fix-Brother-QL-600.xml.patch
+
+
 # gcc is no longer in buildroot by default (needed for rastertoptch filter)
 BuildRequires:  gcc
+# uses autosetup
+BuildRequires:  git-core
 # uses make
 BuildRequires:  make
 BuildRequires:  cups-devel
@@ -35,22 +41,23 @@ This package contains foomatic database XML entries to generate PPDs
 for driving the family of Brother P-touch label printers.
 
 %prep
-%setup -q
+%autosetup -S git
 
 %build
+%set_build_flags
 # On 64bits, we need to install into lib, not lib64
 # (see _cups_serverbin macro from cups-devel)
 # and this package for some reason uses libdir
 %configure --libdir=%{_prefix}/lib
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 %files
+%license COPYING
 %{_cups_serverbin}/filter/rastertoptch
-%doc AUTHORS ChangeLog COPYING NEWS README
+%doc AUTHORS ChangeLog NEWS README
 
 %files foomatic
 %{_datarootdir}/foomatic/db/source/driver/ptouch-*.xml
@@ -60,6 +67,11 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datarootdir}/foomatic/db/source/opt/Brother-QL-*.xml
 
 %changelog
+* Mon Nov 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.7-1
+- 2250264 - ptouch-driver-1.7 is available
+- SPDX migration
+- spec cleanup
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

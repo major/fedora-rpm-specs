@@ -1,6 +1,6 @@
 Name:           vala-language-server
 Summary:        Language server for the Vala programming language
-Version:        0.48.5
+Version:        0.48.7
 Release:        %autorelease
 
 # The entire source is LGPLv2+, except plugins/gnome-builder/vala_langserv.py, which is GPLv3+.

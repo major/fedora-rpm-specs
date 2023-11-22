@@ -1,15 +1,22 @@
 Name: libcap
-Version: 2.48
-Release: 7%{?dist}
+Version: 2.69
+Release: 1%{?dist}
 Summary: Library for getting and setting POSIX.1e capabilities
 URL: https://sites.google.com/site/fullycapable/
-License: BSD or GPLv2
+License: BSD-3-Clause OR GPL-2.0-only
 
-Source: https://git.kernel.org/pub/scm/libs/libcap/libcap.git/snapshot/%{name}-%{version}.tar.gz
-Patch0: libcap-use-compiler-flag-options.patch
+Source0: https://mirrors.edge.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{name}-%{version}.tar.gz
+Source1: https://mirrors.edge.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{name}-%{version}.tar.sign
+Source2: https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/29EE848AE2CCF3F4.asc
 
-BuildRequires: libattr-devel pam-devel perl-interpreter gcc
+BuildRequires: pam-devel gcc
 BuildRequires: make
+BuildRequires: glibc-static
+BuildRequires: gnupg2
+
+%ifarch aarch64 armv7hl i686 ppc64le s390x x86_64
+BuildRequires: golang >= 1.11
+%endif
 
 %description
 libcap is a library for getting and setting POSIX.1e (formerly POSIX 6)
@@ -39,20 +46,27 @@ draft 15 capabilities.
 Install libcap-devel if you want to develop or compile applications using
 libcap.
 
+%package -n captree
+Summary: Capability inspection utility
+
+%description -n captree
+The captree program was inspired by the utility pstree, but it uses the
+libcap/cap (Go package) API to explore process runtime state and display
+the capability status of processes and threads.
+
 %prep
+gzip -cd %{SOURCE0} | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1
 
+
 %build
-# libcap can not be build with _smp_mflags:
-make prefix=%{_prefix} lib=%{_lib} LIBDIR=%{_libdir} SBINDIR=%{_sbindir} \
-     INCDIR=%{_includedir} MANDIR=%{_mandir} PKGCONFIGDIR=%{_libdir}/pkgconfig/
+%make_build prefix=%{_prefix} lib=%{_lib} GO_BUILD_FLAGS="-ldflags=-linkmode=external" all
+
+%check
+make test
 
 %install
-make install RAISE_SETFCAP=no \
-             DESTDIR=%{buildroot} \
-             LIBDIR=%{_libdir} \
-             SBINDIR=%{_sbindir} \
-             PKGCONFIGDIR=%{_libdir}/pkgconfig/
+%make_install prefix=%{_prefix} lib=%{_lib} GO_BUILD_FLAGS="-ldflags=-linkmode=external"
 
 mkdir -p %{buildroot}/%{_mandir}/man{2,3,8}
 mv -f doc/*.3 %{buildroot}/%{_mandir}/man3/
@@ -63,11 +77,12 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 
 %files
 %license License
-%doc doc/capability.notes
-%{_libdir}/*.so.*
-%{_sbindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man8/*
+%doc doc/capability.md
+%{_libdir}/libcap.so.2{,.*}
+%{_libdir}/libpsx.so.2{,.*}
+%{_sbindir}/{capsh,getcap,getpcaps,setcap}
+%{_mandir}/man1/capsh.1*
+%{_mandir}/man8/{getcap,getpcaps,setcap}.8*
 %{_libdir}/security/pam_cap.so
 
 %files static
@@ -75,14 +90,28 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %{_libdir}/libpsx.a
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
-%{_mandir}/man3/*
-%{_libdir}/pkgconfig/libcap.pc
-%{_libdir}/pkgconfig/libpsx.pc
+%{_includedir}/sys/capability.h
+%{_includedir}/sys/psx_syscall.h
+%{_libdir}/libcap.so
+%{_libdir}/libpsx.so
+%{_mandir}/man3/cap*.3*
+%{_mandir}/man3/libcap.3*
+%{_mandir}/man3/libpsx.3*
+%{_mandir}/man3/psx_*.3*
+%{_mandir}/man3/__psx_syscall.3*
+%{_libdir}/pkgconfig/{libcap,libpsx}.pc
 
+%files -n captree
+%license License
+%{_sbindir}/captree
+%{_mandir}/man8/captree.8*
 
 %changelog
+* Mon Nov 06 2023 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 2.69-1
+- Update to 2.69 (with contribs from Yanko Kaneti <yaneti@declera.com>, and Andrew G. Morgan <morgan@kernel.org>)
+- Update license to SPDX (by Anderson Toshiyuki Sasaki <ansasaki@redhat.com>)
+- Make file lists more explicit to avoid accidental ABI changes (Dominik Mierzejewski <dominik@greysector.net>)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.48-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

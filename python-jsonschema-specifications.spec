@@ -14,7 +14,7 @@ referencing-based Schema Registry.}
 
 Name:           python-%{pypi_name}
 Summary:        JSON Schema meta-schemas and vocabularies, exposed as a Registry
-Version:        2023.7.1
+Version:        2023.11.1
 Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/python-jsonschema/jsonschema-specifications
@@ -107,6 +107,9 @@ rm -rf docs/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Nov 20 2023 Joel Capitao <jcapitao@redhat.com> - 2023.11.1-1
+- Update to 2023.11.1 (rhbz#2249692)
+
 * Mon Aug 07 2023 Joel Capitao <jcapitao@redhat.com> - 2023.7.1-1
 - Initial package.
 

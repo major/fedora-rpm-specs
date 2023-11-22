@@ -7,15 +7,22 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
+%global base_version 0.25.0
+#global prerelease   rc2
+
+%global package_version %{base_version}%{?prerelease:~%{prerelease}}
+%global pypi_version    %{base_version}%{?prerelease}
+
+
 Name:           python-specfile
-Version:        0.24.0
+Version:        %{package_version}
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
 URL:            https://github.com/packit/specfile
 
-Source0:        %{pypi_source specfile}
+Source0:        %{pypi_source specfile %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -39,7 +46,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n specfile-%{version}
+%autosetup -p1 -n specfile-%{pypi_version}
 
 # since we are building from PyPI source, we don't need git-archive
 # support in setuptools_scm
@@ -70,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Mon Nov 20 2023 Packit <hello@packit.dev> - 0.25.0-1
+- There is a new method, `Specfile.update_version()`, that allows updating spec file version even if it is a pre-release. (#317)
+
 * Mon Nov 06 2023 Packit <hello@packit.dev> - 0.24.0-1
 - Improved type annotations for `UserList` subclasses. (#299)
 - Macro definitions gained a new `commented_out` property indicating that a macro definition is commented out. Another new property, `comment_out_style`, determines if it is achieved by using a `%%dnl` (discard next line) directive (e.g. `%%dnl %%global prerelease beta2`) or by replacing the starting `%` with `#` (e.g. `#global prerelease beta2`). (#298)

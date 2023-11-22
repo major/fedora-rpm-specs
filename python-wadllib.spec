@@ -4,7 +4,7 @@ Version:        1.3.6
 Release:        7%{?dist}
 Summary:        Navigate HTTP resources using WADL files as guides
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://launchpad.net/wadllib
 Source0:        %{pypi_source}
 BuildArch:      noarch

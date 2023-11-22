@@ -52,6 +52,9 @@ Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 # away from pkg_resources.
 Patch:          Remove-warning-from-pkg_resources.patch
 
+# Fix setuptools.depends:get_module_constant() on Python 3.13.0a1
+Patch:          https://github.com/pypa/setuptools/pull/4094.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

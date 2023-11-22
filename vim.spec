@@ -29,11 +29,10 @@
 %define withvimspell 0
 %define withhunspell 0
 %define withlua 1
+%define withperl 1
 %if 0%{?flatpak}
-%define withperl 0
 %define withruby 0
 %else
-%define withperl 1
 %define withruby 1
 %endif
 
@@ -486,6 +485,7 @@ mv -f os_unix.h.save os_unix.h
   %endif
   %if "%{withperl}" == "1"
   --enable-perlinterp=dynamic \
+  --with-xsubpp=$(which xsubpp) \
   %else
   --disable-perlinterp \
   %endif
@@ -534,6 +534,7 @@ make clean
 %endif
 %if "%{withperl}" == "1"
   --enable-perlinterp=dynamic \
+  --with-xsubpp=$(which xsubpp) \
 %else
   --disable-perlinterp \
 %endif

@@ -36,6 +36,33 @@ Source0:        %{forgeurl}/releases/download/v%{version}/fflas_ffpack-%{version
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        fflas-ffpack-config.1
 
+# fix perf publisher
+# https://github.com/linbox-team/fflas-ffpack/commit/833bb2fa4e87e51e3f7fa1d97f3b4372c1ee4200
+#
+# This is not only useful for perf/benchmarks; it fixes OpenMP detection in the
+# configure script.
+#
+# Rebased on 2.5.0 (which lacks benchmarks/benchmark-sss.C).
+Patch:          0001-fix-perf-publisher.patch
+
+# Give cblas_ssyrk a return type
+# https://github.com/linbox-team/fflas-ffpack/pull/384
+Patch:          %{forgeurl}/pull/384.patch
+
+# Fix a couple of apparent typos in config-blas.h
+# https://github.com/linbox-team/fflas-ffpack/pull/385
+Patch:          %{forgeurl}/pull/385.patch
+
+# Do not use _mm_permute_ps for simd128_float as it requires AVX. Fix #378
+# https://github.com/linbox-team/fflas-ffpack/pull/379
+#
+# Fixes:
+#
+# bad usage of AVX2 instruction without checking availability of the
+# instruction set
+# https://github.com/linbox-team/fflas-ffpack/issues/378
+Patch:          %{forgeurl}/pull/379.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -97,7 +124,7 @@ This package provides API documentation for fflas-ffpack.
 
 
 %prep
-%autosetup -p0 -n fflas_ffpack-%{version}
+%autosetup -n fflas_ffpack-%{version} -p1
 # Skip test-echelon for now due to failures.
 # See https://github.com/linbox-team/fflas-ffpack/issues/282
 sed -i '/^[[:blank:]]*test-echelon/d' tests/Makefile.am
@@ -128,12 +155,15 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 # Regenerate configure after monkeying with configure.ac
 autoreconf --force --install --verbose
 
+# We define __FFLASFFPACK_HAVE_CBLAS to bypass CBLAS detection so that the
+# configure script detects USER LAPACK. Ideally, this would be reported
+# upstream, but it’s difficult to describe the problem precisely.
 %configure \
   %{?with_doc:--enable-doc --docdir='%{_docdir}/fflas-ffpack'} \
   --disable-static \
   --enable-openmp \
-  --disable-simd \
-  --with-blas-cflags="$(pkgconf --cflags flexiblas)" \
+  --without-archnative \
+  --with-blas-cflags="$(pkgconf --cflags flexiblas) -D__FFLASFFPACK_HAVE_CBLAS=1" \
   --with-blas-libs="$(pkgconf --libs flexiblas)"
 chmod -v a+x fflas-ffpack-config
 %make_build

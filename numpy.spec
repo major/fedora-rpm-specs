@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        1.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -32,6 +32,13 @@ Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-h
 Patch0:         f2py_test.patch
 Patch1:         24772.patch
 Patch2:         24776.patch
+# Python 3.13: Patch vendored meson to work around the removed functions from importlib.resources
+# Upstream commit: https://github.com/numpy/meson/commit/7ade3828313dd437f4e2176ccbbc1ef52322de15
+Patch3:         don-t-use-the-removed-importlib.patch
+# Python 3.13: Replace deprecated ctypes.ARRAY(item_type, size) with item_type * size
+# Upstream PR: https://github.com/numpy/numpy/pull/25198
+Patch4:         replace-deprecated-ctypes.ARRAY.patch
+
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -109,6 +116,10 @@ This package provides the complete documentation for NumPy.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# Enable build with Python 3.13
+# See: https://github.com/numpy/numpy/commit/82d7657ce39c97fcfd86e1a5acee8b5d00682169
+sed -i 's/requires-python = ">=3.9,<3.13"/requires-python = ">=3.9"/' pyproject.toml
+
 # openblas is provided by flexiblas by default; otherwise,
 # Use openblas pthreads as recommended by upstream (see comment in site.cfg.example)
 cat >> site.cfg <<EOF
@@ -153,8 +164,13 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 # Some tests also overflow on 32bit
 %global ix86_k and not test_vector_matrix_values and not test_matrix_vector_values and not test_identityless_reduction_huge_array and not (TestKind and test_all)
 %endif
+# test_deprecate_... fail on Python 3.13+ due to docstrings being dedented
+# Upstream has removed the tests in git HEAD.
+%if v"0%{python3_version}" >= v"3.13"
+%global py313_k and not test_deprecate_help_indentation and not test_deprecate_preserve_whitespace
+%endif
 %ifnarch %{ix86}
-python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{?ix86_k}' \
+python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{?ix86_k} %{?py313_k}' \
                                   -W "ignore:pkg_resources is deprecated as an API::pkg_resources"
 %endif
 
@@ -202,6 +218,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Mon Nov 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.26.0-2
+- Fix FTBFS with Python 3.13.
+
 * Tue Sep 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.26.0-1
 - 1.26.0
 

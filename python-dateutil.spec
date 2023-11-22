@@ -2,15 +2,15 @@
 
 Name:           python-%{modname}
 Version:        2.8.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Epoch:          1
 Summary:        Powerful extensions to the standard datetime module
 
 # According to the LICENSE file:
-# - BSD License applies to all code, even that also covered by ASL 2.0
-# - ASL 2.0 applies to all contributions after 2017-12-01, as well as
+# - Apache-2.0 applies to all contributions after 2017-12-01, as well as
 #   all contributions that have been re-licensed.
-License:        BSD-3-Clause and Apache-2.0
+# - BSD-3-Clause applies to all code, even that also covered by Apache-2.0
+License:        (Apache-2.0 AND BSD-3-Clause) OR BSD-3-Clause
 
 URL:            https://github.com/dateutil/dateutil
 Source:         %{pypi_source}
@@ -99,6 +99,9 @@ make -C docs html
 %doc docs/_build/html
 
 %changelog
+* Sun Nov 05 2023 Miro Hrončok <mhroncok@redhat.com> - 1:2.8.2-11
+- Clarify the SPDX License tag
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

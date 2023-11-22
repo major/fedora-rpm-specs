@@ -6,7 +6,9 @@ Version:        13.4
 Release:        %autorelease
 Summary:        Transport system simulation game
 
-License:        GPLv2+
+# bundled squirrel is under Zlib license
+# bundled fmt is under MIT license
+License:        GPL-2.0-only AND Zlib AND MIT
 URL:            https://www.openttd.org
 Source0:        https://cdn.openttd.org/openttd-releases/%{version}%{?prever:-%{prever}}/%{name}-%{version}%{?prever:-%{prever}}-source.tar.xz
 

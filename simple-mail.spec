@@ -1,16 +1,13 @@
-%undefine __cmake_in_source_build
 %global somajor 0
 
 Name:           simple-mail
-Version:        1.4.0
-Release:        10%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        SMTP Client Library for Qt
 
-License:        LGPLv2+
+License:        LGPL-2.1-only
 URL:            https://github.com/cutelyst/simple-mail
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-Add-GNUInstallDirs-to-CMakeLists.patch
-Patch1:         0001-Fix-wrong-requirement-in-pkgconfig-file.patch
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  make
@@ -52,18 +49,21 @@ Header and development files for libsimplemail-qt5.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libSimpleMailQt5.so.%{somajor}
-%{_libdir}/libSimpleMailQt5.so.%{version}
+%{_libdir}/libSimpleMail2Qt5.so.%{somajor}
+%{_libdir}/libSimpleMail2Qt5.so.%{version}
 
 
 %files devel
-%{_includedir}/simplemail-qt5/
-%{_libdir}/cmake/simplemailqt5/
-%{_libdir}/libSimpleMailQt5.so
-%{_libdir}/pkgconfig/simplemail-qt5.pc
+%{_includedir}/simplemail2-qt5/
+%{_libdir}/cmake/SimpleMail2Qt5/
+%{_libdir}/libSimpleMail2Qt5.so
+%{_libdir}/pkgconfig/SimpleMail2Qt5.pc
 
 
 %changelog
+* Mon Nov 20 2023 Jonathan Wright <jonathan@almalinux.org> - 2.3.0-1
+- Update to 2.3.0 rhbz#1804007
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

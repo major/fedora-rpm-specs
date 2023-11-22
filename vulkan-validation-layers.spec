@@ -1,11 +1,11 @@
 Name:           vulkan-validation-layers
-Version:        1.3.261.1
+Version:        1.3.268.0
 Release:        %autorelease
 Summary:        Vulkan validation layers
 
 License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/Vulkan-ValidationLayers
-Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-ValidationLayers-sdk-%{version}.tar.gz
+Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-ValidationLayers-sdk-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -17,6 +17,7 @@ BuildRequires:  spirv-tools-devel
 BuildRequires:  spirv-headers-devel
 BuildRequires:  vulkan-headers
 BuildRequires:  vulkan-loader-devel
+BuildRequires:  vulkan-utility-libraries-devel
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-server)
@@ -32,13 +33,16 @@ Vulkan validation layers
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       vulkan-headers
+# The devel files are now provided by vulkan-utility-libraries-devel
+# Deprecate vulkan-validation-layers-devel
+Provides:       deprecated()
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1 -n Vulkan-ValidationLayers-sdk-%{version}
+%autosetup -p1 -n Vulkan-ValidationLayers-vulkan-sdk-%{version}
 
 
 %build
@@ -66,13 +70,13 @@ developing applications that use %{name}.
 
 %files
 %license LICENSE.txt
-%doc README.md CONTRIBUTING.md LAYER_CONFIGURATION.md
+%doc README.md CONTRIBUTING.md
 %{_datadir}/vulkan/explicit_layer.d/*.json
 %{_libdir}/libVkLayer_*.so
 
 %files devel
-%{_includedir}/vulkan/
-%{_libdir}/libVkLayer_utils.a
+# The devel files are now provided by vulkan-utility-libraries-devel
+# Keep empty for backwards compatibility
 
 %changelog
 %autochangelog

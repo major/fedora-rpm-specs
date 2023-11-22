@@ -2,18 +2,19 @@
 
 Name:    kf6-%{framework}
 Version: 5.245.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
-License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 # https://invent.kde.org/frameworks/kio/-/issues/26
 # I'm not sending this upstream because I'm not sure it's really
 # exactly what upstream will want, but it solves the practical
 # issue for us for now
+Patch0:  0001-Give-the-kuriikwsfiltereng_private-a-VERSION-and-SOV.patch
 
 %if 0%{?flatpak}
 # Disable the help: and ghelp: protocol for Flatpak builds, to avoid depending
@@ -189,6 +190,7 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 %files widgets
 %dir %{_kf6_plugindir}/urifilters/
 %{_kf6_plugindir}/urifilters/*.so
+%{_kf6_libdir}/libkuriikwsfiltereng_private.so.*
 
 %files widgets-libs
 %{_kf6_libdir}/libKF6KIOWidgets.so.*
@@ -204,6 +206,9 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/KF6KIO/
 
 %changelog
+* Mon Nov 20 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-2
+- Add back kuriikwsfiltereng SOVERSION patch
+
 * Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
 - 5.245.0
 
@@ -211,6 +216,7 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 - Rebuild (qt6)
 
 * Mon Oct 16 2023 Adam Williamson <awilliam@redhat.com> - 5.240.0^20231010.060359.1c34fd4-3
+- Give kuriikwsfiltereng_private library a proper soname to fix deps
 
 * Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231010.060359.1c34fd4-2
 - Fixed a problem with the -doc subpackage building differently on different arches.

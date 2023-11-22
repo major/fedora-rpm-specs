@@ -2,7 +2,7 @@
 
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
-Version:       1.2.0
+Version:       1.2.1
 Release:       1%{?dist}
 
 SourceLicense: GPL-3.0-or-later
@@ -57,11 +57,6 @@ Requires:      gnome-icon-theme
 # runtime required for rendering user guide
 Requires:      webkit2gtk3
 Requires:      mesa-dri-drivers
-
-# https://github.com/ctc-oss/fapolicy-analyzer/issues/947
-# rust-ring-devel does not support s390x and ppc64le:
-# https://bugzilla.redhat.com/show_bug.cgi?id=1869980
-ExcludeArch:   s390x %{power64} %{ix86}
 
 %global module          fapolicy_analyzer
 # pep440 versions handle dev and rc differently, so we call them out explicitly here
@@ -133,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %ghost %attr(640,root,root) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}/%{name}.log
 
 %changelog
+* Fri Nov 17 2023 John Wass <jwass3@gmail.com> 1.2.1-1
+- Update to 1.2.1
+
 * Mon Nov 06 2023 John Wass <jwass3@gmail.com> 1.2.0-1
 - Release 1.2.0
 

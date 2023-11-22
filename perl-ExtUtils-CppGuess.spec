@@ -1,38 +1,43 @@
 Name:           perl-ExtUtils-CppGuess
-Version:        0.26
-Release:        5%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        Guess C++ compiler and flags
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-CppGuess
-Source:         https://cpan.metacpan.org/authors/id/E/ET/ETJ/ExtUtils-CppGuess-%{version}.tar.gz
+Source:         https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-CppGuess-%{version}.tar.gz
 BuildArch:      noarch
-
+# Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(blib)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Module
 BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::CBuilder)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(ExtUtils::Manifest)
-BuildRequires:  perl(ExtUtils::ParseXS)
-BuildRequires:  perl(Fatal)
+BuildRequires:  perl(ExtUtils::ParseXS) >= 3.35
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
+# Test Suite
+BuildRequires:  perl(blib)
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(ExtUtils::CBuilder) >= 0.280231
+BuildRequires:  perl(ExtUtils::Manifest)
+BuildRequires:  perl(Fatal)
+BuildRequires:  perl(File::Path)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(XSLoader)
-
+# Dependencies
+Requires:       perl(ExtUtils::ParseXS) >= 3.35
 
 %description
 ExtUtils::CppGuess attempts to guess the system's C++ compiler that is
@@ -47,8 +52,8 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %make_install
-find %{buildroot} -type f -name '*.bs' -size 0 -delete
-%{_fixperms} %{buildroot}/*
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 %make_build test
@@ -57,9 +62,16 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %doc Changes README
 %dir %{perl_vendorlib}/ExtUtils/
 %{perl_vendorlib}/ExtUtils/CppGuess.pm
-%{_mandir}/man3/ExtUtils::CppGuess*
+%{_mandir}/man3/ExtUtils::CppGuess.3*
 
 %changelog
+* Mon Nov 20 2023 Paul Howarth <paul@city-fan.org> - 0.27-1
+- Update to 0.27 (rhbz#2250558)
+- Use author-independent source URL
+- Use SPDX-format license tag
+- Classify buildreqs by usage
+- Fix permissions verbosely
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

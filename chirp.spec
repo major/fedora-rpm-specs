@@ -8,12 +8,13 @@
 
 Name:		chirp
 Version:	0.4.0^%{git_suffix}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A tool for programming two-way radio equipment
 
 License:	GPL-3.0-or-later
 URL:		http://chirp.danplanet.com/
 Source0:	https://github.com/kk7ds/chirp/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
+Source1:	com.danplanet.CHIRP.metainfo.xml
 
 BuildArch:	noarch
 
@@ -70,6 +71,8 @@ desktop-file-install \
   %{buildroot}%{python3_sitelib}/chirp/share/chirp.desktop
 install -Dpm 0644 %{buildroot}%{python3_sitelib}/chirp/share/chirp.svg \
   %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/chirp.svg
+install -Dpm 0644 %{SOURCE1} \
+  %{buildroot}%{_metainfodir}/com.danplanet.CHIRP.metainfo.xml
 install -Dpm 0644 %{buildroot}%{python3_sitelib}/chirp/share/chirpw.1 \
   %{buildroot}%{_mandir}/man1/chirp.1
 # Symlink to resources
@@ -95,10 +98,14 @@ ln -frs %{buildroot}%{_mandir}/man1/chirp.1.gz \
 %{_bindir}/chirp
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/chirp.svg
+%{_metainfodir}/com.danplanet.CHIRP.metainfo.xml
 %{_mandir}/man1/chirp.1.gz
 
 
 %changelog
+* Mon Nov 20 2023 Daniel Rusek <mail@asciiwolf.com> - 0.4.0^20231101git35c8a1c0-4
+- Added AppStream metadata
+
 * Mon Nov  6 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.0^20231101git35c8a1c0-3
 - Updated according to the review
 

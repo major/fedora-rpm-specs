@@ -1,13 +1,18 @@
 Name:		ndisc6
 Version:	1.0.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	IPv6 diagnostic tools
 
-License:	GPLv2 or GPLv3
-URL:		http://www.remlab.net/ndisc6/
-Source0:	http://www.remlab.net/files/ndisc6/%{name}-%{version}.tar.bz2
+License:	GPL-2.0-only OR GPL-3.0-only
+URL:		https://www.remlab.net/ndisc6/
+Source0:	https://www.remlab.net/files/ndisc6/ndisc6-%{version}.tar.bz2
+Source1:	https://www.remlab.net/files/ndisc6/ndisc6-%{version}.tar.bz2.asc
+# gpg2 --recv-key 0x772D56C80CA8ABF9C475FCA34E3557690BEE0224
+# gpg2 --export --export-options export-minimal 0x772D56C80CA8ABF9C475FCA34E3557690BEE0224 > 772D56C80CA8ABF9C475FCA34E3557690BEE0224.gpg
+Source2:	772D56C80CA8ABF9C475FCA34E3557690BEE0224.gpg
 BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:	gnupg2
 BuildRequires:	perl-generators
 
 %description
@@ -20,6 +25,7 @@ This package gathers a few diagnostic tools for IPv6 networks:
 - tcpspray6, a TCP/IP Discard/Echo bandwidth meter.
 
 %prep
+%{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
 
 %build
@@ -38,14 +44,14 @@ This package gathers a few diagnostic tools for IPv6 networks:
 %{_bindir}/addr2name
 %{_bindir}/dnssort
 %{_bindir}/name2addr
-%{_sbindir}/rdisc6
-%{_sbindir}/ndisc6
-%{_sbindir}/rltraceroute6
 %{_bindir}/tcpspray
 %{_bindir}/tcpspray6
+%{_sbindir}/ndisc6
+%{_sbindir}/rdisc6
+%{_sbindir}/rdnssd
+%{_sbindir}/rltraceroute6
 %{_sbindir}/tcptraceroute6
 %{_sbindir}/tracert6
-%{_sbindir}/rdnssd
 %doc %{_mandir}/man1/addr2name.1.gz
 %doc %{_mandir}/man1/dnssort.1.gz
 %doc %{_mandir}/man1/name2addr.1.gz
@@ -53,12 +59,19 @@ This package gathers a few diagnostic tools for IPv6 networks:
 %doc %{_mandir}/man1/tcpspray6.1.gz
 %doc %{_mandir}/man8/ndisc6.8.gz
 %doc %{_mandir}/man8/rdisc6.8.gz
+%doc %{_mandir}/man8/rdnssd.8.gz
 %doc %{_mandir}/man8/rltraceroute6.8.gz
 %doc %{_mandir}/man8/tcptraceroute6.8.gz
 %doc %{_mandir}/man8/tracert6.8.gz
-%doc %{_mandir}/man8/rdnssd.8.gz
 
 %changelog
+* Mon Nov 20 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.0.7-3
+- Switch to HTTPS URLs
+- Enable tarball signature verification
+- Drop unused patch
+- Sort file list alphabetically
+- Use SPDX identifiers in License: field
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

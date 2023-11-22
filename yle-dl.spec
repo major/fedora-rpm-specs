@@ -1,5 +1,5 @@
 Name:           yle-dl
-Version:        20230611
+Version:        20231120
 Release:        %autorelease
 Summary:        Download videos from Yle servers
 
@@ -13,6 +13,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 Requires:       /usr/bin/ffmpeg
+Recommends:     yle-dl+extra
 # According to README, needed "optionally for few rare streams".
 Recommends:     wget
 
@@ -22,12 +23,18 @@ services of the Finnish national broadcasting company Yle: Yle Areena,
 Elävä arkisto, and Yle news. The videos are saved in Matroska (.mkv) or MP4
 format.
 
+
+# Enables storing video metadata as extended file attributes
+# and automatically detecting filesystems that require restricted character sets.
+%pyproject_extras_subpkg -n yle-dl extra
+
+
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires -x extra -x test
 
 
 %build

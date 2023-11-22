@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1004,6 +1004,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Mon Nov 20 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-11
+- Fix additional AVC denial found when testing on certain architectures
+
 * Wed Nov 15 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-10
 - Fix additional AVC denial found when testing
 

@@ -1,8 +1,11 @@
 Name:           python-eccodes
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
+
+%global sphinx_doc_path build/sphinx/html/
+
 # note: upstream has changed the name on pypi from eccodes-python to eccodes
 URL:            https://pypi.org/project/eccodes/
 Source0:        https://files.pythonhosted.org/packages/source/e/eccodes/eccodes-%{version}.tar.gz
@@ -64,10 +67,6 @@ Summary: %summary
 
 %build
 %py3_build
-# buld documentation
-%{__python3} setup.py build_sphinx
-# remove generated sphinx files that are not part of the actual documentation
-rm build/sphinx/html/.buildinfo
 
 %install
 %py3_install
@@ -82,18 +81,23 @@ rm build/sphinx/html/.buildinfo
 # Therefore this next delete has been disabled.
 #rm %%{buildroot}%%{python3_sitearch}/gribapi/*.h
 
+# build documentation
+# note that the new sphinx-build command only works AFTER installation
+# of the module # so it can no longer be executed during the build stage.
+PYTHONPATH=%{buildroot}%{python3_sitearch} \
+sphinx-build -b html docs %sphinx_doc_path
+
+# remove generated sphinx files that are not part of the actual documentation
+rm %sphinx_doc_path/.buildinfo
+
 %check
 
 %{__python3} -m eccodes selfcheck
-
-# due to a missing sample data file some tests fail, so deselect them.
-# see https://github.com/ecmwf/eccodes-python/issues/66
-
 %{__python3} -m pytest -v
 
 %files -n python3-eccodes
 %doc README.rst
-%doc build/sphinx/html/
+%doc %sphinx_doc_path
 %license LICENSE
 %{python3_sitearch}/eccodes-*-py*.egg-info
 %{python3_sitearch}/eccodes
@@ -101,6 +105,12 @@ rm build/sphinx/html/.buildinfo
 
 
 %changelog
+* Mon Nov 20 2023 Jos de Kloe <josdekloe@gmail.com> 1.6.1-1
+- new upstream release 1.6.1
+
+* Tue Aug 01 2023 Jos de Kloe <josdekloe@gmail.com> 1.6.0-2
+- fix sphinx call #bz2221958
+
 * Sat Jul 29 2023 Jos de Kloe <josdekloe@gmail.com> 1.6.0-1
 - new upstream release 1.6.0
 

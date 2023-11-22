@@ -17,6 +17,11 @@
 %bcond_with gtk2
 %endif
 
+# added in cups-1:2.4.7-3 - remove once F40 is EOL and C10S is released
+# (that's the safe bet for versions where macros will be always available)
+%{!?_cups_datadir:%global _cups_datadir %(/usr/bin/pkg-config --variable=cups_datadir cups)}
+%{!?_cups_serverroot:%global _cups_serverroot %(/usr/bin/pkg-config --variable=cups_serverroot cups)}
+
 Name:           gutenprint
 Summary:        Printer Drivers Package
 Version:        5.3.4
@@ -216,7 +221,7 @@ rm -rf %{buildroot}%{_datadir}/gutenprint/doc
 rm -f %{buildroot}%{_datadir}/foomatic/kitload.log
 
 rm -rf %{buildroot}%{_libdir}/gutenprint/%{majminver}/modules/*.la
-rm -f %{buildroot}%{_sysconfdir}/cups/command.types
+rm -f %{buildroot}%{_cups_serverroot}/command.types
 
 %find_lang %{name}
 sed 's!%{_datadir}/locale/\([^/]*\)/LC_MESSAGES/gutenprint.mo!%{_datadir}/locale/\1/gutenprint_\1.po!g' %{name}.lang >%{name}-po.lang
@@ -300,8 +305,8 @@ exit 0
 
 %files cups
 %doc
-%{_datadir}/cups/calibrate.ppm
-%{_datadir}/cups/usb/net.sf.gimp-print.usb-quirks
+%{_cups_datadir}/calibrate.ppm
+%{_cups_datadir}/usb/net.sf.gimp-print.usb-quirks
 %{_cups_serverbin}/filter/*
 %{_cups_serverbin}/driver/*
 %{_cups_serverbin}/backend/*

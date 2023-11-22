@@ -6,8 +6,8 @@
 Name: perl-%{FullName}
 Summary: Loads the contents of a text file into an array of lines
 License: GPL+ or Artistic
-Version: 1.021
-Release: 6%{?dist}
+Version: 1.040
+Release: 1%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -31,15 +31,19 @@ BuildRequires: perl-generators
 BuildRequires: perl-interpreter
 
 %description
-File-LoadLines provides an easy way to load the contents of a text
-file into an array of lines.
+File-LoadLines provides an easy way to load the contents of a 
+disk file or network resource into your program.
 
-It automatically handles ASCII, Latin and UTF-8 text.
+It can deliver the contents without touching (as a blob) but its most
+useful purpose is to deliver the contents of text data into an array
+of lines. Hence the name, File::LoadLines.
+
+It automatically handles data encodings ASCII, Latin and UTF-8 text.
 When the file has a BOM, it handles UTF-8, UTF-16 LE and BE, and
 UTF-32 LE and BE.
 
 Recognized line terminators are NL (Unix, Linux), CRLF (DOS, Windows)
-and CR (Mac).
+and CR (Mac)
 
 %prep
 %setup -q -n %{FullName}-%{version}
@@ -61,6 +65,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 20 2023 Johan Vromans <jvromans@squirrel.nl> - 1.040-1
+- Upgrade to new upstream version.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.021-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

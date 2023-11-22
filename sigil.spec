@@ -1,5 +1,5 @@
 Name:           sigil
-Version:        1.9.20
+Version:        2.0.2
 Release:        1%{?dist}
 Summary:        WYSIWYG ebook editor
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -11,9 +11,6 @@ Patch2:         %{name}-0.9.3-global-plugin-support.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1632199
 # port to minizip 2.x for F-30+
 Patch3:         %{name}-1.9.20-minizip2.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2083977
-# https://github.com/Sigil-Ebook/Sigil/commit/c89fb7cee02e5b5dd82fa7a605d6505817bdad23
-Patch4:         %{name}-1.9.20-python311.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -104,7 +101,7 @@ rm -rf 3rdparty/{minizip,zlib,hunspell,pcre2}
 
 
 %build
-%cmake -DUSE_SYSTEM_LIBS=1 -DSYSTEM_LIBS_REQUIRED=1 \
+%cmake -DUSE_QT5=1 -DUSE_SYSTEM_LIBS=1 -DSYSTEM_LIBS_REQUIRED=1 \
   -DDISABLE_UPDATE_CHECK=1 -DINSTALL_HICOLOR_ICONS=1 \
   -DINSTALL_BUNDLED_DICTS=0 -DSHARE_INSTALL_PREFIX:PATH=%{_prefix}
 %cmake_build
@@ -150,6 +147,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Nov 19 2023 Dan Horák <dan[at]danny.cz> - 2.0.2-1
+- New upstream release 2.0.2 (#1724109)
+- Resolves: rhbz#1724109 rhbz#2128371 rhbz#2245795
+
 * Mon Oct 30 2023 Dan Horák <dan[at]danny.cz> - 1.9.20-1
 - New upstream release 1.9.20 (#1724109)
 

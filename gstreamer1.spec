@@ -17,7 +17,7 @@
 
 Name:           gstreamer1
 Version:        1.22.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPL-2.1-or-later
@@ -111,9 +111,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %ldconfig_scriptlets
 
-%post
-setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
-
 %files -f gstreamer-%{majorminor}.lang
 %license COPYING
 %doc AUTHORS NEWS README.md README.static-linking RELEASE
@@ -123,7 +120,12 @@ setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstream
 %{_libdir}/libgstcontroller-%{majorminor}.so.*
 %{_libdir}/libgstnet-%{majorminor}.so.*
 
-%{_libexecdir}/gstreamer-%{majorminor}/
+%dir %{_libexecdir}/gstreamer-%{majorminor}/
+%{_libexecdir}/gstreamer-%{majorminor}/gst-completion-helper
+%{_libexecdir}/gstreamer-%{majorminor}/gst-hotdoc-plugins-scanner
+%{_libexecdir}/gstreamer-%{majorminor}/gst-plugins-doc-cache-generator
+%{_libexecdir}/gstreamer-%{majorminor}/gst-plugin-scanner
+%attr(755,root,root) %caps(cap_net_bind_service,cap_net_admin,cap_sys_nice=ep) %{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
 
 %dir %{_libdir}/gstreamer-%{majorminor}
 %{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
@@ -198,6 +200,10 @@ setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstream
 
 
 %changelog
+* Mon Nov 20 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.7-2
+- Set cap information correctly
+- Resolves: rhbz#2238703
+
 * Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
 - 1.22.7
 

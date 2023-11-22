@@ -1,0 +1,68 @@
+%bcond tests 1
+%global forgeurl https://github.com/pydantic/pydantic-extra-types
+
+Name:           python-pydantic-extra-types
+Version:        2.1.0
+%forgemeta
+Release:        1%{?dist}
+Summary:        Extra types for Pydantic
+
+License:        MIT
+URL:            %{forgeurl}
+Source:         %{forgesource}
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+%if %{with tests}
+BuildRequires:  %{py3_dist dirty-equals}
+BuildRequires:  %{py3_dist pytest}
+%endif
+
+%global _description %{expand:
+A place for pydantic types that probably shouldn't exist in the main pydantic
+library.}
+# this is here to fix vim's syntax highlighting
+
+%description %_description
+
+
+%package -n python3-pydantic-extra-types
+Summary:        %{summary}
+
+%description -n python3-pydantic-extra-types %_description
+
+
+%prep
+%autosetup -p1 %{forgesetupargs}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x all
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files pydantic_extra_types
+
+
+%check
+%if %{with tests}
+%pytest -Wdefault
+%endif
+
+
+%files -n python3-pydantic-extra-types -f %{pyproject_files}
+%doc README.md
+%license LICENSE
+
+%pyproject_extras_subpkg -n python3-pydantic-extra-types all
+
+
+%changelog
+* Tue Sep 12 2023 Maxwell G <maxwell@gtmx.me> - 2.1.0-1
+- Initial package. Closes rhbz#2249133.

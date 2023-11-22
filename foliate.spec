@@ -4,11 +4,11 @@
 
 # Git submodules
 #   * foliate-js
-%global commit1 f75fbba096e8fc1c775ea1c162fe1d3322cd5121
+%global commit1 2ea63929c73b6a3b98fc772abf6b9249b3bfadab
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           foliate
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Simple and modern GTK eBook reader
 

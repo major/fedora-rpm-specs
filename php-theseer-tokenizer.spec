@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    34a41e998c2183e22995f158c581e7b5e755ab9e
+%global gh_commit    b2ad5003ca10d4ee50a12da31de12a5774ba6b96
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    theseer
 %global gh_project   tokenizer
@@ -14,8 +14,8 @@
 %global ns_project   Tokenizer
 
 Name:           php-%{gh_vendor}-%{gh_project}
-Version:        1.2.1
-Release:        6%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        Library for converting tokenized PHP source code into XML
 
 License:        BSD-3-Clause
@@ -75,7 +75,7 @@ cp -pr src %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
 
 %check
 ret=0
-for cmdarg in php php80 php81 php82; do
+for cmdarg in php php80 php81 php82 php83; do
   if which $cmdarg; then
       $cmdarg -d auto_prepend_file=%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php \
         %{_bindir}/phpunit9 \
@@ -93,6 +93,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov 20 2023 Remi Collet <remi@remirepo.net> - 1.2.2-1
+- update to 1.2.2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

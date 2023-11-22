@@ -1,25 +1,28 @@
 %global pypi_name plotnine
 
-# Generate HTML documentation
-# Currently not possible. Documentation depends on importlib_resources,
-# which is not yet available in Fedora
-%bcond_with doc
+# Use forge macros to pull from GitHub
+%global forgeurl https://github.com/has2k1/plotnine
 
-# Provide man pages
-%bcond_without man
+# Run selected tests
+%bcond tests 1
 
-# Run tests
-%bcond_without tests
-# For a a more readable input to %%pytest
-%global _skip_tests %{expand:\\
-not logticks and not backtransforms and not se_false and not facet \\
-and not label and not ribbon and not arrow and not adjust_text \\
-and not caption_simple and not theme and not scale and not coords \\
-and not geom_bar_col_histogram and not geom_bin_2d and not geom_boxplot \\
-and not geom_density and not geom_dotplot and not geom_map \\
-and not geom_point and not geom_raster and not geom_violin \\
-and not lint_and_format and not position and not qplot and not stat_ecdf \\
-and not stat_summary}
+# Run all tests
+%bcond all_tests 0
+
+Name:           python-%{pypi_name}
+Version:        0.12.4
+Release:        %{autorelease}
+Summary:        Implementation of a grammar of graphics in Python, based on ggplot2
+%forgemeta
+BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
+# BSD-3-Clause applies to plotnine/themes/seaborn_rcmod.py
+# GPL-2.0-only applies to plotnine/themes/theme_tufte.py
+License:        MIT AND BSD-3-Clause AND GPL-2.0-only
+URL:            https://plotnine.readthedocs.io/en/stable
+Source0:        %forgesource
 
 %global _description %{expand:
 Implementation of a grammar of graphics in Python, based on ggplot2.
@@ -33,21 +36,8 @@ simple.
 
 Welcome to Plot 9 from Outerspace 🪐 🦇}
 
-Name:           python-%{pypi_name}
-Version:        0.12.3
-Release:        %{autorelease}
-Summary:        Implementation of a grammar of graphics in Python, based on ggplot2
-BuildArch:      noarch
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86}
-
-# BSD-3-Clause applies to plotnine/themes/seaborn_rcmod.py
-# GPL-2.0-only applies to plotnine/themes/theme_tufte.py
-License:        MIT AND BSD-3-Clause AND GPL-2.0-only
-URL:            https://pypi.org/pypi/%{pypi_name}
-Source0:        %{pypi_source %{pypi_name}}
-
 %description %_description
+
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
@@ -55,6 +45,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-geopandas
 BuildRequires:  python3-adjustText
 BuildRequires:  comic-neue-fonts
+BuildRequires:  git-core
 %if %{with tests}
 BuildRequires:  python3-pytest
 # Below packages are from extra extra, which we provide, but it looks
@@ -64,41 +55,24 @@ BuildRequires:  python3-scikit-misc
 BuildRequires:  python3-scikit-learn
 BuildRequires:  python3-geopandas
 # Test dependencies
-BuildRequires:  python3-shapely, python3-statsmodels
-%endif
-%if %{with doc}
-BuildRequires:  make
-BuildRequires:  coreutils
-BuildRequires:  python3-sphinx, python3-nbformat, python3-nbsphinx
-# python-importlib-resources currently not available in Fedora
-# jinja2: https://github.com/sphinx-doc/sphinx/issues/10291
-BuildRequires:  python3-importlib-resources python3-jinja2 < 3.1
+BuildRequires:  python3-shapely
+BuildRequires:  python3-statsmodels
 %endif
 
 %description -n python3-%{pypi_name} %_description
 
+
 %pyproject_extras_subpkg -n python3-%{pypi_name} extra
 
 
-%if %{with doc}
-%package doc
-Summary:        HTML documentation for %{name}
-Requires:       python3-%{pypi_name} == %{version}
-
-%description doc
-%{summary}
-%endif
-
-
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%forgeautosetup -p1 -S git
 # Disable coverage in pytest
 sed -i -e 's/--cov=plotnine --cov-report=xml //' pyproject.toml
-# Tests are failing in f36 with ImportError
-# https://github.com/has2k1/plotnine/issues/643
-%if 0%{?fedora} <= 36
-  rm -f tests/test_geom_bar_col_histogram.py tests/test_geom_bin_2d.py
-%endif
+git add --all
+git commit -m '[Fedora]: Disable linters'
+git tag v%{version}
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -106,32 +80,45 @@ sed -i -e 's/--cov=plotnine --cov-report=xml //' pyproject.toml
 
 %build
 %pyproject_wheel
-%if %{with doc}
-  pushd doc
-  make html
-  popd
-%endif
 
 
 %install
 %pyproject_install
-%if %{with doc}
-  mkdir -p ${RPM_BUILD_ROOT}%{_pkgdocdir}
-  cp -a doc/_build/html ${RPM_BUILD_ROOT}%{_pkgdocdir}
-  rm -rf ${RPM_BUILD_ROOT}%{_pkgdocdir}/html/.buildinfo
-%endif
 %pyproject_save_files %{pypi_name}
 
 
 %check
 %if %{with tests}
-  %if 0%{?fedora} <= 36
-    %pytest -k "%_skip_tests and not stat_bin"
-  %else
-    %pytest -k "%_skip_tests"
-  %endif
+%if %{without all_tests}
+# For a a more readable input to %%pytest
+k="${k-}${k+ and }not logticks"
+k="${k-}${k+ and }not facet"
+k="${k-}${k+ and }not label"
+k="${k-}${k+ and }not ribbon"
+k="${k-}${k+ and }not arrow"
+k="${k-}${k+ and }not adjust_text"
+k="${k-}${k+ and }not caption_simple"
+k="${k-}${k+ and }not theme"
+k="${k-}${k+ and }not scale"
+k="${k-}${k+ and }not coords"
+k="${k-}${k+ and }not geom_bar_col_histogram"
+k="${k-}${k+ and }not geom_bin_2d"
+k="${k-}${k+ and }not geom_boxplot"
+k="${k-}${k+ and }not geom_density"
+k="${k-}${k+ and }not geom_dotplot"
+k="${k-}${k+ and }not geom_map"
+k="${k-}${k+ and }not geom_point"
+k="${k-}${k+ and }not geom_raster"
+k="${k-}${k+ and }not geom_violin"
+k="${k-}${k+ and }not lint_and_format"
+k="${k-}${k+ and }not position"
+k="${k-}${k+ and }not qplot"
+k="${k-}${k+ and }not stat_ecdf"
+k="${k-}${k+ and }not stat_summary"
+%endif
+%pytest -v ${k+-k }"${k-}"
 %else
-  %pyproject_check_import
+%pyproject_check_import
 %endif
 
 
@@ -139,11 +126,6 @@ sed -i -e 's/--cov=plotnine --cov-report=xml //' pyproject.toml
 %doc README.md
 %license LICENSE
 
-%if %{with doc}
-  %files doc
-  %dir %{_pkgdocdir}
-  %doc %{_pkgdocdir}/html
-%endif
 
 %changelog
 %autochangelog

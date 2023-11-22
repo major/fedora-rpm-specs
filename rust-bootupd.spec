@@ -3,16 +3,14 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.2.13
-Release:        4%{?dist}
+Version:        0.2.14
+Release:        2%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
 URL:            https://github.com/coreos/bootupd
 Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
-
-Patch0: 0001-grubconfigs-Ensure-grub2-dir-exists.patch
 
 # For now, see upstream
 BuildRequires: make
@@ -85,6 +83,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Mon Nov 20 2023 Colin Walters <walters@verbum.org> - 0.2.14-2
+- https://github.com/coreos/bootupd/releases/tag/v0.2.14
+
 * Tue Nov 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2.13-4
 - Fix RHEL build
 

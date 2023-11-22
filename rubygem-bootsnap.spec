@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -22,6 +22,9 @@ Patch1: rubygem-bootsnap-1.15.0-Use-RbConfig-CONFIG-rubylibdir-to-check-for-stdl
 # Minitest 5.19 puts `MiniTest` constant behind environment variable.
 # https://github.com/Shopify/bootsnap/pull/452
 Patch2: rubygem-bootsnap-1.16.0-Fix-compatibility-with-Minitest-5.19.patch
+# Patch for ruby3.3.0dev: relax method invocation checking for KernelRequireTest
+# https://github.com/Shopify/bootsnap/pull/460
+Patch3: rubygem-bootsnap-pr460-KernelRequireTest-method-invocation-check.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -49,11 +52,12 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-%patch0 -p1
+%patch 0 -p1
 
 pushd %{_builddir}
-%patch1 -p1
-%patch2 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 popd
 
 sed -i -e "/^\s*\$CFLAGS / s/^/#/g" \
@@ -116,6 +120,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Nov 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.0-5
+- Backport upstream fix for ruby3.3.0dev test failure fix for
+  KernelRequireTest
+
 * Thu Aug 03 2023 Vít Ondruch <vondruch@redhat.com> - 1.15.0-4
 - Fix FTBFS due to compatibility with Minitest 5.19+.
 

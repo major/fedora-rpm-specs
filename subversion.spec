@@ -63,7 +63,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -593,6 +593,9 @@ make check-javahl
 %endif
 
 %changelog
+* Mon Nov 20 2023 Joe Orton <jorton@redhat.com> - 1.14.2-22
+- fix mod_authz_svn, mod_dontdothat (#2250182)
+
 * Wed Nov  8 2023 Joe Orton <jorton@redhat.com> - 1.14.2-21
 - restore plaintext password storage by default (per upstream)
 - restrict symbols exposed by DSOs built for httpd

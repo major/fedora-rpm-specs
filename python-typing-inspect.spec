@@ -2,8 +2,8 @@
 %global pypi_srcname typing_inspect
 
 Name:           python-%{pypi_name}
-Version:        0.6.0
-Release:        11%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        Runtime inspection utilities for typing module
 
 License:        MIT
@@ -15,8 +15,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(mypy-extensions) >= 0.3.0
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(typing-extensions) >= 3.7.4
-
-Patch000: typing-3_9.patch
+BuildRequires:  python3dist(pytest)
 
 %description
 Typing Inspect The "%{pypi_srcname}" module defines experimental API for runtime
@@ -55,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_srcname}-%{version}-py*.egg-info
 
 %changelog
+* Mon Nov 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.0-1
+- 0.9.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

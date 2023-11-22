@@ -5,19 +5,20 @@
 
 Summary: Implementation of the JPEG-2000 standard, Part 1
 Name:    jasper
-Version: 3.0.6
-Release: 4%{?dist}
+Version: 4.1.0
+Release: 1%{?dist}
 
 License: JasPer-2.0
 URL:     http://www.ece.uvic.ca/~frodo/jasper/
 Source0: https://github.com/jasper-software/%{name}/archive/refs/tags/version-%{version}.tar.gz
 
 # skip hard-coded prefix/lib rpath
-Patch1: jasper-3.0.0-rpath.patch
+Patch1: jasper-4.1.0-rpath.patch
 
 # architecture related patches
 Patch100: jasper-2.0.2-test-ppc64-disable.patch
 Patch101: jasper-2.0.2-test-ppc64le-disable.patch
+Patch102: jasper-4.1.0-test-i686-disable.patch
 
 # autoreconf
 BuildRequires: cmake
@@ -63,21 +64,24 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %prep
 %setup -q -n %{name}-version-%{version}
 
-%patch1 -p1 -b .rpath
+%patch 1 -p1 -b .rpath
 # Need to disable one test to be able to build it on ppc64 arch
 # At ppc64 this test just stuck (nothing happend - no exception or error)
 
 %if "%{_arch}" == "ppc64"
-%patch100 -p1 -b .test-ppc64-disable
+%patch 100 -p1 -b .test-ppc64-disable
 %endif
 
 # Need to disable two tests to be able to build it on ppc64le arch
 # At ppc64le this tests just stuck (nothing happend - no exception or error)
 
 %if "%{_arch}" == "ppc64le"
-%patch101 -p1 -b .test-ppc64le-disable
+%patch 101 -p1 -b .test-ppc64le-disable
 %endif
 
+%ifarch %ix86
+%patch 102 -p1 -b .test-i686-disable
+%endif
 
 %build
 mkdir builder
@@ -118,7 +122,7 @@ make test -C builder
 %files libs
 %doc README.md
 %license COPYRIGHT.txt LICENSE.txt
-%{_libdir}/libjasper.so.6*
+%{_libdir}/libjasper.so.7*
 
 %files utils
 %{_bindir}/jiv
@@ -126,6 +130,9 @@ make test -C builder
 
 
 %changelog
+* Mon Nov 20 2023 Josef Ridky <jridky@redhat.com> - 4.1.0-1
+- New upstream release 4.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

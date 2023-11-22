@@ -1,7 +1,7 @@
 Name:           linbox
 Version:        1.7.0
 %global so_version 0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 
 License:        LGPL-2.1-or-later
@@ -17,6 +17,9 @@ Source0:        https://github.com/linbox-team/%{name}/archive/v%{version}/%{nam
 # -D_FORTIFY_SOURCE=3
 # https://github.com/linbox-team/linbox/issues/304
 Patch:          https://github.com/linbox-team/%{name}/pull/307.patch
+
+# Fixes an attempt to return a void value in the OpenCL code
+Patch:          https://github.com/linbox-team/%{name}/pull/308.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # The sole dependent package, sagemath, is already not built on i686.
@@ -91,12 +94,10 @@ find -O3 . \( -name \*.h -o -name \*.inl \) -perm /0111 -exec chmod a-x {} +
 # Regenerate configure after monkeying with m4 macros
 autoreconf -fi
 
-export CXXFLAGS="${CXXFLAGS} -Og"
 export CPPFLAGS="-I%{_includedir}/m4rie -I%{_includedir}/saclib"
-export LIBS="-lgomp"
 %configure --disable-silent-rules \
   --disable-static \
-  --enable-openmp \
+  --with-ocl=yes \
   --with-saclib=yes \
   --without-archnative
 chmod -v a+x linbox-config
@@ -145,6 +146,10 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %changelog
+* Mon Nov 20 2023 Jerry James <loganjerry@gmail.com> - 1.7.0-2
+- Fix accidentally-introduced -Og; restore normal optimizations
+- Fix OpenCL support
+
 * Tue Oct 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-1
 - Update to 1.7.0 (close RHBZ#2032716)
 - Stop building Doxygen documentation; drop and Obsolete the -doc subpackage

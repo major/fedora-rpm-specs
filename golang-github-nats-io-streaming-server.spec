@@ -3,7 +3,7 @@
 
 # https://github.com/nats-io/nats-streaming-server
 %global goipath         github.com/nats-io/nats-streaming-server
-Version:                0.25.5
+Version:                0.25.6
 
 %gometa -f
 

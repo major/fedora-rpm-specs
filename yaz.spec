@@ -1,11 +1,15 @@
 Name:           yaz
 Version:        5.34.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
 URL:            http://www.indexdata.com/yaz/
 Source0:        http://ftp.indexdata.com/pub/yaz/yaz-%{version}.tar.gz
+# libxml2 2.12.0 now doesn't include parser.h implicitly
+Patch0:         yaz-5.34.0-libxml2-2_12_0-parser-header.patch
+# missing header for glibc 2.39
+Patch1:         yaz-5.34.0-glibc-atoi-glibc.patch
 
 BuildRequires:  gcc
 BuildRequires:  bison
@@ -65,6 +69,8 @@ server and client.
 
 %prep
 %setup -q
+%patch -P0 -p1 -Z
+%patch -P1 -p1 -Z
 
 %build
 sed -i.rpath configure \
@@ -144,6 +150,10 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Mon Nov 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.0-5
+- Fix header file inclusion for libxml2 2.12.0
+- Fix header file inclusion for glibc 2.39
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

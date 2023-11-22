@@ -56,6 +56,9 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
+# https://commits.webkit.org/270977@main
+Patch:          libxml2-2.12.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  cmake

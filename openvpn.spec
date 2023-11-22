@@ -26,7 +26,7 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.7
+Version:           2.6.8
 Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
@@ -254,6 +254,10 @@ done
 
 
 %changelog
+* Mon Nov 20 2023 David Sommerseth <davids@openvpn.net> - 2.6.8-1
+- Update to upstream OpenPVN 2.6.7
+- Fixes a regression from 2.6.7 resulting in a SIGSEGV (GitHub#449)
+
 * Thu Nov 9 2023 David Sommerseth <davids@openvpn.net> - 2.6.7-1
 - Update to upstream OpenVPN 2.6.7
 - Fixes CVE-2023-46849, CVE-2023-46850
@@ -262,7 +266,7 @@ done
 
 * Mon Aug 21 2023 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.6-1
 - Update to upstream OpenVPN 2.6.6
-- Fix "warning: %patchN is deprecated"
+- Fix "warning: %%patchN is deprecated"
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

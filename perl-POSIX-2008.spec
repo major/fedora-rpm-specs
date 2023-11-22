@@ -1,5 +1,5 @@
 Name:           perl-POSIX-2008
-Version:        0.20
+Version:        0.21
 Release:        1%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
@@ -108,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 20 2023 Petr Pisar <ppisar@redhat.com> - 0.21-1
+- 0.21 bump
+
 * Mon Jul 24 2023 Petr Pisar <ppisar@redhat.com> - 0.20-1
 - 0.20 bump
 

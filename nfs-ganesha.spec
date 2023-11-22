@@ -107,6 +107,9 @@ Requires: openSUSE-release
 %bcond_with sanitize_address
 %global use_sanitize_address %{on_off_switch sanitize_address}
 
+%bcond_with legacy_python_install
+%global use_legacy_python_install %{on_off_switch legacy_python_install}
+
 %if ( 0%{?rhel} && 0%{?rhel} < 7 )
 %global _rundir %{_localstatedir}/run
 %endif
@@ -123,7 +126,7 @@ Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
 Patch0001:	0001-config_samples-log_rotate.patch
-Patch0002:	0002-CMakeLists.txt.patch
+Patch0003:	0003-python-installer.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -284,6 +287,11 @@ BuildRequires:	python-devel
 Requires:	python3-gobject, python3-pyparsing
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
+%if ( ! 0%{?with_legacy_python_install} )
+BuildRequires:	python3-wheel
+BuildRequires:	python3-build
+BuildRequires:	python3-installer
+%endif
 %if ( 0%{?suse_version} )
 Requires:	dbus-1-python
 %else
@@ -554,6 +562,7 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-D_MSPAC_SUPPORT=%{use_mspac_support}		\
 	-DUSE_MONITORING=%{use_monitoring_support}	\
 	-DSANITIZE_ADDRESS=%{use_sanitize_address}	\
+	-DUSE_LEGACY_PYTHON_INSTALL=%{use_legacy_python_install} \
 	-DUSE_MONITORING=ON				\
 %ifarch x86_64 aarch64
        -DCMAKE_LINKER=%{_bindir}/ld.mold                \
@@ -646,12 +655,23 @@ install -p -m 644 selinux/ganesha.if %{buildroot}%{_selinux_store_path}/devel/in
 install -m 0644 selinux/ganesha.pp.bz2 %{buildroot}%{_selinux_store_path}/packages
 %endif
 
+%if ( ! 0%{?with_legacy_python_install} )
+%if ( 0%{?with_gpfs} )
+mv %{buildroot}/usr/bin/gpfs-epoch %{buildroot}/usr/libexec/ganesha/
+%endif
+%endif
+
 %if ( 0%{?rhel} && 0%{?rhel} < 8 )
-rm -f %{buildroot}/%{python_sitelib}/gpfs*
+rm -rf %{buildroot}/%{python_sitelib}/gpfs*
 rm -f %{buildroot}/%{python_sitelib}/__init__.*
 %else
-rm -f %{buildroot}/%{python3_sitelib}/gpfs*
+rm -rf %{buildroot}/%{python3_sitelib}/gpfs*
+rm -rf %{buildroot}/%{python3_sitelib}/ganeshactl*
 rm -f %{buildroot}/%{python3_sitelib}/__init__.*
+rm -rf %{buildroot}/%{python3_sitelib}/__pycache__
+rm -f %{buildroot}/%{python3_sitelib}/Ganesha/__init__.*
+rm -f %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__init__.*
+rm -rf %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__pycache__
 %endif
 
 %post
@@ -869,8 +889,6 @@ exit 0
 %if ( 0%{?rhel} && 0%{?rhel} < 8 )
 %{python_sitelib}/Ganesha/*
 %{python_sitelib}/ganeshactl-*-info
-%else
-%{python3_sitelib}/ganeshactl-*.egg
 %endif
 %if ( 0%{?with_gui_utils} )
 %{_bindir}/ganesha-admin
@@ -878,6 +896,7 @@ exit 0
 %{_bindir}/manage_exports
 %{_bindir}/manage_logger
 %{_bindir}/ganeshactl
+%{python3_sitelib}/Ganesha/*
 %if ( 0%{?with_9P} )
 %{_bindir}/client_stats_9pOps
 %{_bindir}/export_stats_9pOps

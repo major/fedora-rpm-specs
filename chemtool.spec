@@ -1,8 +1,8 @@
 Summary: A program for 2D drawing organic molecules
 Name: chemtool
 Version: 1.6.14
-Release: 23%{?dist}
-License: GPLv2+
+Release: 24%{?dist}
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Source0: http://ruby.chemie.uni-freiburg.de/~martin/chemtool/%{name}-%{version}.tar.gz
 Patch0: %{name}-compile.patch
 Patch1: %{name}-desktop.patch
@@ -12,8 +12,8 @@ URL: http://ruby.chemie.uni-freiburg.de/~martin/chemtool/chemtool.html
 BuildRequires:  gcc
 BuildRequires: desktop-file-utils
 BuildRequires: gtk2-devel
+BuildRequires: kde3-filesystem
 BuildRequires: libXt-devel
-BuildRequires: kdelibs
 BuildRequires: make
 Requires: openbabel
 Requires: transfig
@@ -24,17 +24,13 @@ in a variety of output formats including as a X bitmap, Xfig, SVG or EPS
 file.  It runs under the X Window System using the GTK widget set.
 
 %prep
-%setup -q
-%patch0 -p1 -b .compile
-%patch1 -p1 -b .d
-%patch2 -p1 -b .gmd
-%patch3 -p1 -b .gcc10
+%autosetup -p1
 
 %build
 %configure \
   --with-kdedir=%{_prefix} \
   --with-gnomedir=%{_prefix}
-make %{?_smp_mflags}
+%make_build
 
 %install
 install -d %{buildroot}%{_datadir}/{applications,mimelnk/application,mime-info,mime-types,pixmaps} \
@@ -75,6 +71,11 @@ desktop-file-install \
 %{_mandir}/man1/cht.1*
 
 %changelog
+* Mon Nov 20 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.6.14-24
+- correct build requirement on KDE
+- switch to autosetup macro
+- use SPDX identifier in License field
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.14-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

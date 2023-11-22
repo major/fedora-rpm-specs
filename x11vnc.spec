@@ -1,6 +1,11 @@
+# A git snapshot
+%global commit a61f364e385d98677c04070a994397b287385219
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global gitdate 20230801
+
 Name:           x11vnc
-Version:        0.9.16
-Release:        14%{?dist}
+Version:        0.9.16^%{gitdate}git%{shortcommit}
+Release:        1%{?dist}
 Summary:        VNC server for the current X11 session
 Summary(ru):    VNC-сервер для текущей сессии X11
 # COPYING:                  GPL-2.0-or-later text
@@ -49,20 +54,14 @@ Summary(ru):    VNC-сервер для текущей сессии X11
 # tkx11vnc:     GPL-2.0-or-later
 License:        GPL-2.0-or-later AND GPL-2.0-or-later WITH x11vnc-openssl-exception
 URL:            https://github.com/LibVNC/x11vnc
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# URL for releases: %%{url}/archive/%%{version}/%%{name}-%%{version}.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Enforce system crypto policy
 # <https://fedoraproject.org/wiki/Packaging:CryptoPolicies#C.2FC.2B.2B_applications>
 Patch0:         x11vnc-0.9.16-Respect-a-system-crypto-policy.patch
 # Normalize changlog encoding
 Patch1:         x11vnc-0.9.16-Convert-a-changelog-to-UTF-8.patch
-# Fix building with GCC 10 properly, in upstream after 0.9.16
-Patch2:         x11vnc-0.9.16-Fix-build-with-fno-common.patch
-# Fix a NULL pointer dereference in a cursor handler, upstream bug #123, in
-# upstream after 0.9.16
-Patch3:         x11vnc-0.9.16-src-cursor-fix-xfc-NULL-pointer-dereference.patch
-# Fix CVE-2020-29074 (insecure permissions on a shared memory), bug #1933603,
-# in upstream after 0.9.16
-Patch4:         x11vnc-0.9.16-scan-limit-access-to-shared-memory-segments-to-curre.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 # for autogen.sh script
@@ -85,6 +84,7 @@ BuildRequires:  pkgconfig(inputproto) >= 1.9.99.9
 BuildRequires:  pkgconfig(libvncclient) >= 0.9.8
 BuildRequires:  pkgconfig(libvncserver) >= 0.9.8
 BuildRequires:  pkgconfig(xi) >= 1.2.99
+BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  sed
 # Tests:
 BuildRequires:  desktop-file-utils
@@ -115,12 +115,9 @@ a versatile and productive while still easy to use program.
 в использовании.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%setup -q -n %{name}-%{commit}
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 autoreconf -fi
@@ -153,13 +150,18 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/x11vnc.desktop
 
 %files
 %license COPYING
-%doc ChangeLog NEWS README
+%doc ChangeLog doc/* NEWS README
 %{_bindir}/x11vnc
 %{_bindir}/Xdummy
 %{_datadir}/applications/x11vnc.desktop
 %{_mandir}/man1/x11vnc.1*
 
 %changelog
+* Fri Nov 17 2023 Sérgio Basto <sergio@serjux.com> - 0.9.16^20230801gita61f364-1
+- Update to a61f364e385d98677c04070a994397b287385219 git snapshot from
+  2023-08-01 (a support for acquiring a DRM framebuffer with a drm schema
+  in -rawfb option)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

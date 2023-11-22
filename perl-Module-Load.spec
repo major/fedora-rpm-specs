@@ -2,7 +2,7 @@ Name:           perl-Module-Load
 # Epoch to compete with perl.spec
 Epoch:          1
 Version:        0.36
-Release:        500%{?dist}
+Release:        501%{?dist}
 Summary:        Run-time require of both modules and files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Load
@@ -12,18 +12,21 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 # Run-time:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(warnings)
 # Tests:
-BuildRequires:  perl(Config)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(vars)
+
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
 If you consult "perldoc -f require" you will see that "require" will behave
@@ -37,8 +40,23 @@ notation fitting the particular platform you are on.
 
 "load" eliminates the need for this overhead and will just DWYM.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Data::Dumper)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Module-Load-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -48,16 +66,32 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_install}
 %{_fixperms} '%{buildroot}'/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 unset PERL_CORE
 make test
 
 %files
 %doc CHANGES README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Module*
+%{_mandir}/man3/Module::Load*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.36-501
+- Package tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.36-500
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

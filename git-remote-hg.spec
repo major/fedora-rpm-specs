@@ -1,20 +1,17 @@
 %global debug_package %{nil}
 Name:           git-remote-hg
-Version:        1.0.2.1
-Release:        10%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 BuildArch:      noarch
 Summary:        Mercurial wrapper for git
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/mnauw/git-remote-hg
 Source0:        https://github.com/mnauw/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://github.com/fingolfin/git-remote-hg/commit/e716a9e1a9e460a45663694ba4e9e8894a8452b2.patch
-# https://github.com/felipec/git-remote-hg/pull/28
-# Makes it work with Mercurial 3.2
-# The second commit (to the tests) isn't needed against 0.2
 
 BuildRequires:  asciidoc >= 8.4.1
 BuildRequires:  python3-devel
 BuildRequires:  make
+BuildRequires:  mercurial >= 5.4
 Requires:       python3
 Requires:       git-core >= 2.0.0
 Requires:       mercurial >= 5.4
@@ -38,15 +35,21 @@ make doc
 %install
 export HOME=%{_prefix}
 export DESTDIR=%{buildroot}
+export PYTHON=%{python3}
 make install
 make install-doc
 
 %files
 %doc LICENSE
 %{_bindir}/git-remote-hg
+%{_bindir}/git-hg-helper
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 20 2023 Ondřej Pohořelský <opohorel@redhat.com> - 1.0.4-1
+- update to 1.0.4
+- spdx license update
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

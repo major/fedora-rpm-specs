@@ -5,7 +5,7 @@ Name:           perl-IPC-Cmd
 # Epoch to compete with perl.spec
 Epoch:          2
 Version:        1.04
-Release:        501%{?dist}
+Release:        502%{?dist}
 Summary:        Finding and running system commands made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-Cmd
@@ -15,9 +15,11 @@ Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/IPC-Cmd-%{versi
 Patch0:         IPC-Cmd-0.96-Replace-EU-MM-dependency-with-EU-MM-Utils.patch
 BuildArch:      noarch
 # Build:
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -72,9 +74,24 @@ Requires:       perl(Time::HiRes)
 IPC::Cmd allows you to run commands platform independently, interactively
 if desired, but have them still work.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n IPC-Cmd-%{version}
-%patch0 -p1
+%patch -P0 -p1
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -82,9 +99,19 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT
+%{_fixperms} %{buildroot}
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -92,7 +119,13 @@ make test
 %{perl_vendorlib}/IPC/
 %{_mandir}/man3/IPC::Cmd.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Nov 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:1.04-502
+- Package tests
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.04-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

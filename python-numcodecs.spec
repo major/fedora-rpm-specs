@@ -1,7 +1,7 @@
 %global srcname numcodecs
 
 Name:           python-%{srcname}
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Buffer compression and transformation for data storage and communication
 
@@ -59,7 +59,7 @@ rm -rf c-blosc
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x msgpack
+%pyproject_buildrequires -x msgpack -x test_extras
 
 
 %build

@@ -1,9 +1,7 @@
 Name:           perl-LaTeX-ToUnicode
-Version:        0.53
+Version:        0.54
 Release:        1%{?dist}
 Summary:        Convert LaTeX commands to Unicode
-## Not in the binary package
-# script/UnicodeData.txt:   Unicode-DFS-2015
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LaTeX-ToUnicode
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BORISV/LaTeX-ToUnicode-%{version}.tar.gz
@@ -84,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 20 2023 Petr Pisar <ppisar@redhat.com> - 0.54-1
+- 0.54 bump
+
 * Mon Aug 21 2023 Petr Pisar <ppisar@redhat.com> - 0.53-1
 - 0.53 bump
 - Package the tests

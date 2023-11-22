@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           gplugin
-Version:        0.41.0
+Version:        0.42.1
 Release:        %autorelease
 Summary:        GObject based library that implements a reusable plugin system
 

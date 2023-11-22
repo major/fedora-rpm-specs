@@ -1,18 +1,17 @@
 Name:           python-pydantic
-Version:        1.10.13
+Version:        2.4.2
 Release:        1%{?dist}
 Summary:        Data validation using Python type hinting
 
 License:        MIT
 URL:            https://github.com/pydantic/pydantic
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          Fix-Python-3.12-test-failures.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 # For check phase
-BuildRequires:  python3dist(hypothesis)
-BuildRequires:  python3dist(mypy)
+BuildRequires:  python3dist(dirty-equals)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 
@@ -23,6 +22,9 @@ Data validation and settings management using python type hinting.
 %package -n     python3-pydantic
 Summary:        %{summary}
 Recommends:     python3-pydantic+email
+# The dotenv extra was removed in pydantic v2.
+# Remove the Obsoletes in Fedora 43+
+Obsoletes:      python3-pydantic+dotenv < 2~~
 
 
 %description -n python3-pydantic
@@ -31,6 +33,9 @@ Data validation and settings management using python type hinting.
 
 %prep
 %autosetup -n pydantic-%{version} -p1
+
+# Delete pytest addopts. We don't care about benchmarking or coverage.
+tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 
 
 %generate_buildrequires
@@ -49,17 +54,21 @@ Data validation and settings management using python type hinting.
 
 
 %check
-# Disable mypy plugin tests. We don't use it for downstream packaging.
-%pytest -Wdefault --ignore=tests/mypy/test_mypy.py
+# We don't build docs or care about benchmarking
+%pytest --ignore=tests/{test_docs.py,benchmarks}
 
 
 %files -n python3-pydantic -f %{pyproject_files}
 %license LICENSE
 %doc README.md docs/
 
-%pyproject_extras_subpkg email,dotenv -n python3-pydantic
+%pyproject_extras_subpkg email -n python3-pydantic
 
 %changelog
+* Fri Nov 10 2023 Maxwell G <maxwell@gtmx.me> - 2.4.2-1
+- Update to 2.4.2. Fixes rhbz#2157134.
+- Obsolete dotenv extra that was removed upstream.
+
 * Tue Oct 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.10.13-1
 - Update to 1.10.13.
 
