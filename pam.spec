@@ -4,7 +4,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -33,10 +33,11 @@ Patch5:  pam-1.5.3-userdb-gdbm.patch
 ### Dependencies ###
 Requires: authselect >= 1.3
 Requires: gdbm
-Requires: libdb-convert-util
 Requires: libpwquality%{?_isa}
 Requires: pam-libs%{?_isa} = %{version}-%{release}
 Requires: setup
+
+Suggests: libdb-convert-util
 
 ### Build Dependencies ###
 BuildRequires: audit-libs-devel
@@ -358,6 +359,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Tue Nov 21 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.3-8
+- Suggest libdb-convert-util (#2245149 and #1788543)
+
 * Tue Nov  7 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.3-7
 - Include openssl-devel build dependency
 

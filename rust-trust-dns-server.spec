@@ -5,7 +5,7 @@
 %global crate trust-dns-server
 
 Name:           rust-trust-dns-server
-Version:        0.23.1
+Version:        0.23.2
 Release:        %autorelease
 Summary:        Trust-DNS is a safe and secure DNS server with DNSSEC support
 
@@ -82,6 +82,18 @@ use the "dns-over-https" feature of the "%{crate}" crate.
 %files       -n %{name}+dns-over-https-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dns-over-https-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-https-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-https-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-https-rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+dns-over-openssl-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -92,6 +104,30 @@ This package contains library source intended for building other packages which
 use the "dns-over-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+dns-over-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dns-over-quic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-quic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-quic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-quic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dns-over-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+dns-over-tls-devel
@@ -128,6 +164,18 @@ This package contains library source intended for building other packages which
 use the "dnssec-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+dnssec-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dnssec-ring-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dnssec-ring-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dnssec-ring" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dnssec-ring-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+h2-devel
@@ -202,6 +250,18 @@ use the "rusqlite" feature of the "%{crate}" crate.
 %files       -n %{name}+rusqlite-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+sqlite-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -260,6 +320,18 @@ This package contains library source intended for building other packages which
 use the "tokio-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tokio-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+trust-dns-recursor-devel

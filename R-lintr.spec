@@ -1,12 +1,12 @@
 %global packname lintr
-%global packver  3.0.2
+%global packver  3.1.1
 %global rlibdir  %{_datadir}/R/library
 
 %global with_suggests 0
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          A 'Linter' for R Code
 
 License:          MIT
@@ -15,38 +15,39 @@ Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-rex, R-crayon, R-codetools, R-cyclocomp, R-testthat >= 2.2.1, R-digest, R-rstudioapi >= 0.2, R-httr >= 1.2.1, R-jsonlite, R-knitr, R-stats, R-utils, R-xml2 >= 1.0.0, R-xmlparsedata >= 1.0.3
-# Suggests:  R-covr, R-httr >= 1.2.1, R-mockery, R-patrick, R-pkgdown, R-rmarkdown, R-rstudioapi >= 0.2, R-testthat >= 3.0.0, R-tibble, R-withr
+# Imports:   R-backports >= 1.1.7, R-codetools, R-cyclocomp, R-digest, R-glue, R-knitr, R-rex, R-stats, R-utils, R-xml2 >= 1.0.0, R-xmlparsedata >= 1.0.5
+# Suggests:  R-bookdown, R-covr, R-httr >= 1.2.1, R-jsonlite, R-mockery, R-patrick, R-rlang, R-rmarkdown, R-rstudioapi >= 0.2, R-testthat >= 3.1.5, R-tibble, R-tufte, R-withr
 # LinkingTo:
-# Enhances:
+# Enhances:  R-data.table
 
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-rex
-BuildRequires:    R-crayon
+BuildRequires:    R-backports >= 1.1.7
 BuildRequires:    R-codetools
 BuildRequires:    R-cyclocomp
 BuildRequires:    R-digest
 BuildRequires:    R-glue
-BuildRequires:    R-jsonlite
 BuildRequires:    R-knitr
+BuildRequires:    R-rex
 BuildRequires:    R-stats
 BuildRequires:    R-utils
 BuildRequires:    R-xml2 >= 1.0.0
-BuildRequires:    R-xmlparsedata >= 1.0.3
-BuildRequires:    R-backports
+BuildRequires:    R-xmlparsedata >= 1.0.5
 # Suggests
 %if %{with_suggests}
+BuildRequires:    R-bookdown
 BuildRequires:    R-covr
 BuildRequires:    R-httr >= 1.2.1
+BuildRequires:    R-jsonlite
 BuildRequires:    R-mockery
 BuildRequires:    R-patrick
-BuildRequires:    R-pkgdown
+BuildRequires:    R-rlang
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-rstudioapi >= 0.2
-BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-testthat >= 3.1.5
 BuildRequires:    R-tibble
+BuildRequires:    R-tufte
 BuildRequires:    R-withr
 %endif
 
@@ -87,16 +88,21 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests --no-ex
 %license %{rlibdir}/%{packname}/LICENSE
 %{rlibdir}/%{packname}/INDEX
 %{rlibdir}/%{packname}/NAMESPACE
+%{rlibdir}/%{packname}/WORDLIST
 %{rlibdir}/%{packname}/Meta
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
 %{rlibdir}/%{packname}/example/
+%{rlibdir}/%{packname}/extdata/
 %{rlibdir}/%{packname}/lintr/
 %{rlibdir}/%{packname}/rstudio/
 %{rlibdir}/%{packname}/syntastic/
 
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 3.1.1-1
+- update to 3.1.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

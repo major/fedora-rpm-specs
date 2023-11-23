@@ -2,39 +2,39 @@
 %global gcr_version 3.27.90
 %global gcrypt_version 1.2.2
 
-%bcond_with ssh_agent
+%bcond_without ssh_agent
 
-Name:    gnome-keyring
-Version: 42.1
-Release: 5%{?dist}
-Summary: Framework for managing passwords and other secrets
+Name:           gnome-keyring
+Version:        42.1
+Release:        7%{?dist}
+Summary:        Framework for managing passwords and other secrets
 
-License: GPLv2+ and LGPLv2+
-URL:     https://wiki.gnome.org/Projects/GnomeKeyring
-Source0: https://download.gnome.org/sources/%{name}/42/%{name}-%{version}.tar.xz
+License:        GPLv2+ and LGPLv2+
+URL:            https://wiki.gnome.org/Projects/GnomeKeyring
+Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/52
-Patch0:  gnome-keyring-42.0-fix-strncpy.patch
+Patch0:         gnome-keyring-42.0-fix-strncpy.patch
 
-BuildRequires: pkgconfig(gcr-3) >= %{gcr_version}
-BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
-BuildRequires: pkgconfig(libsystemd)
-BuildRequires: pkgconfig(systemd)
-BuildRequires: pkgconfig(p11-kit-1)
-BuildRequires: docbook-dtds
-BuildRequires: docbook-style-xsl
-BuildRequires: gcc
-BuildRequires: gettext
-BuildRequires: intltool
-BuildRequires: libgcrypt-devel >= %{gcrypt_version}
-BuildRequires: libselinux-devel
-BuildRequires: make
-BuildRequires: pam-devel
-BuildRequires: systemd-rpm-macros
+BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(p11-kit-1)
+BuildRequires:  docbook-dtds
+BuildRequires:  docbook-style-xsl
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  intltool
+BuildRequires:  libgcrypt-devel >= %{gcrypt_version}
+BuildRequires:  libselinux-devel
+BuildRequires:  make
+BuildRequires:  pam-devel
+BuildRequires:  systemd-rpm-macros
 %if %{with ssh_agent}
-BuildRequires: /usr/bin/ssh-add
-BuildRequires: /usr/bin/ssh-agent
+BuildRequires:  /usr/bin/ssh-add
+BuildRequires:  /usr/bin/ssh-agent
 %endif
-BuildRequires: /usr/bin/xsltproc
+BuildRequires:  /usr/bin/xsltproc
 
 %if %{with ssh_agent}
 Requires: /usr/bin/ssh-add
@@ -131,6 +131,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 
 
 %changelog
+* Tue Nov 21 2023 Daiki Ueno <dueno@redhat.com> - 42.1-7
+- Re-enable ssh-agent support (#2250704)
+
 * Fri Oct 20 2023 Dhanuka Warusadura <dhanuka@gnome.org> - 42.1-6
 - ssh-agent: update build instructions to disable ssh component
 - Introduced conditional builds based on ssh component required or not

@@ -1,7 +1,7 @@
 Name:           perl-Getopt-Long-Descriptive
 Summary:        Getopt::Long with usage text
-Version:        0.111
-Release:        3%{?dist}
+Version:        0.112
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long-Descriptive
 Source0:        https://cpan.metacpan.org/modules/by-module/Getopt/Getopt-Long-Descriptive-%{version}.tar.gz
@@ -16,7 +16,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(Getopt::Long) >= 2.33
+BuildRequires:  perl(Getopt::Long) >= 2.55
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Params::Validate) >= 0.97
@@ -36,6 +36,7 @@ BuildRequires:  perl(Test::Warnings) >= 0.005
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(Moose::Conflicts)
 # Dependencies
+# (none)
 
 %description
 Convenient wrapper for Getopt::Long and program usage output.
@@ -63,6 +64,12 @@ make test
 %{_mandir}/man3/Getopt::Long::Descriptive::Usage.3*
 
 %changelog
+* Tue Nov 21 2023 Paul Howarth <paul@city-fan.org> - 0.112-1
+- Update to 0.112 (rhbz#2250751)
+  - This version removes the redundant option warning, which is now provided by
+    Getopt::Long v2.55 and later (which is now required); as before, this will
+    someday become fatal
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.111-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -9,10 +9,10 @@
 # needed for this package
 %global extension_id \{73a6fe31-595d-460b-a920-fcc0f8843232\}
 
-%global nscl_commit ef1ecbea27e39e255d988a8fb0233ab53c46e57c
+%global nscl_commit 4c94bf24f117277f5c00878005d91d0d7aaa18e4
 
 Name:           mozilla-noscript
-Version:        11.4.27
+Version:        11.4.28
 Release:        1%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
@@ -37,8 +37,6 @@ Provides:       bundled(js-flextabs) = 0.2.0
 Provides:       bundled(js-he) = 1.2.0
 # https://mths.be/punycode MIT
 Provides:       bundled(js-punycode) = 1.4.1
-# https://github.com/emn178/js-sha256 MIT
-Provides:       bundled(js-sha256) = 0.9.0
 # https://github.com/hackademix/nscl GPLv3+
 Provides:       bundled(js-nscl) = 0.0.1
 # https://github.com/mozilla/webextension-polyfill MPL
@@ -72,12 +70,16 @@ install -Dpm644 %{SOURCE1} %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 
 %files
-%license LICENSE nscl.COPYING nscl.LICENSE.md src/nscl/lib/{browser-polyfill,punycode,sha256}.js.license
+%license LICENSE nscl.COPYING nscl.LICENSE.md src/nscl/lib/{browser-polyfill,punycode}.js.license
 %{_firefox_extdir}/%{extension_id}.xpi
 # GNOME Software Center metadata
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Tue Nov 21 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.28-1
+- update to 11.4.28 (#2242773)
+- bundled sha256 implementation is gone
+
 * Thu Sep 28 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.27-1
 - update to 11.4.27 (#2238212)
 

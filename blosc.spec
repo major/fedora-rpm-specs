@@ -1,8 +1,8 @@
 Summary: High performance compressor optimized for binary data
 Name: blosc
-Version: 1.21.4
+Version: 1.21.5
 Release: %autorelease
-License: MIT
+License: BSD-3-Clause
 Source: https://github.com/Blosc/c-blosc/archive/v%{version}/blosc-%{version}.tar.gz
 Patch0: %{name}-gcc11.patch
 

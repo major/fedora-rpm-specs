@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -19,10 +19,12 @@ Patch1: 0001-zsh-5.9-do-not-use-egrep-in-tests.patch
 Patch2: 0002-zsh-Use-int-main-in-test-c-codes.patch
 # upstream commit a84fdd7c8f77935ecce99ff2b0bdba738821ed79
 Patch3: 0003-zsh-fix-module-loading-problem-with-full-RELRO.patch
-# upstream commit  1b421e4978440234fb73117c8505dad1ccc68d46
+# upstream commit 1b421e4978440234fb73117c8505dad1ccc68d46
 Patch4: 0004-zsh-enable-PCRE-locale-switching.patch
-# upstream commits b62e911341c8ec7446378b477c47da4256053dc0...b4d1c756f50909b4a13e5c8fe5f26f71e9d54f63
+# upstream commit b62e911341c8ec7446378b477c47da4256053dc0 and 10bdbd8b5b0b43445aff23dcd412f25cf6aa328a
 Patch5: 0005-zsh-port-to-pcre2.patch
+# upstream commit ecd3f9c9506c7720dc6c0833dc5d5eb00e4459c4
+Patch6: 0006-zsh-support-texinfo-7.0.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -168,6 +170,10 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Tue Nov 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-10
+- fix FTBFS caused by texinfo 7.1
+- fix build of the PCRE module
+
 * Mon Aug 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-9
 - port to PCRE 2 (rhbz#1938979)
 

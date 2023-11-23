@@ -7,8 +7,10 @@ License:        BSD-3-Clause
 URL:            http://www.indexdata.com/yaz/
 Source0:        http://ftp.indexdata.com/pub/yaz/yaz-%{version}.tar.gz
 # libxml2 2.12.0 now doesn't include parser.h implicitly
+# https://github.com/indexdata/yaz/pull/103
 Patch0:         yaz-5.34.0-libxml2-2_12_0-parser-header.patch
 # missing header for glibc 2.39
+# https://github.com/indexdata/yaz/pull/105
 Patch1:         yaz-5.34.0-glibc-atoi-glibc.patch
 
 BuildRequires:  gcc

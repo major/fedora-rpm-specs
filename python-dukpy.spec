@@ -3,6 +3,7 @@ Version:        0.3
 Release:        %autorelease
 Summary:        JavaScript runtime environment
 
+# This is SPDX
 License:        MIT
 URL:            https://github.com/kovidgoyal/dukpy
 Source0:        https://github.com/kovidgoyal/dukpy/archive/v%{version}/%{name}-%{version}.tar.gz

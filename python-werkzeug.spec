@@ -1,6 +1,12 @@
 %global srcname Werkzeug
 %global modname werkzeug
 
+# Tests require among others python-greenlet which is not available
+# during the early phases of a new Python integration, which in turn blocks
+# many other important packages from building.
+# With the conditionalized build, the rebuild can proceed
+%bcond tests 1
+
 Name:           python-%{modname}
 Version:        2.2.3
 Release:        3%{?dist}
@@ -42,7 +48,7 @@ Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-# For tests
+%if %{with tests}
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-timeout)
 BuildRequires:  python3dist(pytest-xprocess)
@@ -52,6 +58,7 @@ BuildRequires:  python3dist(cryptography)
 BuildRequires:  python3dist(greenlet)
 BuildRequires:  python3dist(watchdog)
 BuildRequires:  python3dist(ephemeral-port-reserve)
+%endif
 
 %description -n python3-%{modname} %{_description}
 
@@ -83,9 +90,12 @@ popd
 %py3_install
 
 %check
+%py3_check_import werkzeug
+%if %{with tests}
 # deselect the test_exclude_patterns test case as it's failing
 # when we set PYTHONPATH: https://github.com/pallets/werkzeug/issues/2404
 %pytest -Wdefault --deselect tests/test_serving.py::test_exclude_patterns
+%endif
 
 %files -n python3-%{modname}
 %license LICENSE.rst

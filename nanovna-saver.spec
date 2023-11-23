@@ -1,5 +1,5 @@
 Name:		nanovna-saver
-Version:	0.6.2
+Version:	0.6.3
 Release:	1%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 License:	GPLv3
@@ -68,6 +68,10 @@ install -Dpm 0644 icon_48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/app
 %{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Tue Nov 21 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.3-1
+- New version
+  Resolves: rhbz#2250502
+
 * Fri Aug 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.2-1
 - New version
   Resolves: rhbz#2228299

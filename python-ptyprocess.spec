@@ -11,6 +11,9 @@ License:        ISC
 URL:            https://github.com/pexpect/ptyprocess
 Source:         %{pypi_source}
 
+# Remove unittest.makeSuite, gone from Python 3.13
+Patch:          https://github.com/pexpect/ptyprocess/pull/75.patch
+
 BuildArch:      noarch
 
 %description
@@ -30,7 +33,7 @@ Launch a subprocess in a pseudo terminal (pty), and interact with both the
 process and its pty.
 
 %prep
-%autosetup -n ptyprocess-%{version}
+%autosetup -p1 -n ptyprocess-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -1,17 +1,18 @@
-%bcond_without tests
+%bcond tests 1
 
 # for github etc. use the forgemacros
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/SourceURL/#_using_forges_hosted_revision_control
 
 %global _description %{expand:
-versioningit is yet another setuptools plugin for automatically determining
-your package’s version based on your version control repository’s tags. Unlike
-others, it allows easy customization of the version format and even lets you
-easily override the separate functions used for version extraction &
-calculation.
+versioningit is yet another Python packaging plugin for automatically
+determining your package’s version based on your version control repository’s
+tags. Unlike others, it allows easy customization of the version format and
+even lets you easily override the separate functions used for version
+extraction & calculation.
 
 Features:
 
+• Works with both setuptools and Hatch
 • Installed & configured through PEP 518’s pyproject.toml
 • Supports Git, modern Git archives, and Mercurial
 • Formatting of the final version uses format template strings, with fields for
@@ -32,7 +33,7 @@ Features:
   would just be rude.}
 
 Name:           python-versioningit
-Version:        2.2.0
+Version:        2.3.0
 Release:        %{autorelease}
 Summary:        Versioning It with your Version In Git
 

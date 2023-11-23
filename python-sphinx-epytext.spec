@@ -1,7 +1,7 @@
 %global pypi_name sphinx-epytext
 Name:           python-%{pypi_name}
 Version:        0.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Sphinx epytext extension
 
 License:        MIT
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %{python3_sitelib}/sphinx_epytext-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Nov 21 2023 Ondřej Pohořelský <opohorel@redhat.com> - 0.0.4-14
+- Convert license to SPDX format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

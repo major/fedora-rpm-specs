@@ -2,7 +2,7 @@
 
 Name:               python-gattlib
 Version:            0.20210616
-Release:            7%{?dist}
+Release:            8%{?dist}
 Summary:            Library to access Bluetooth LE devices
 
 License:            Apache-2.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -11,6 +11,7 @@ License:            Apache-2.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:                https://github.com/oscaracena/pygattlib
 Source0:            https://files.pythonhosted.org/packages/source/g/%{modname}/%{modname}-%{version}.tar.gz
 Source1:	    COPYING
+Patch0:             py313.patch
 
 BuildRequires:      gcc-c++
 
@@ -22,7 +23,7 @@ Summary:            %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 BuildRequires:      python%{python3_pkgversion}-devel
 BuildRequires:      python%{python3_pkgversion}-setuptools
-BuildRequires:      boost-python3-devel
+BuildRequires:      boost-python%{python3_pkgversion}-devel
 BuildRequires:      glib2-devel
 BuildRequires:      bluez-libs-devel
 
@@ -52,6 +53,9 @@ find . -type f | xargs chmod -x
 %{python3_sitearch}/%{modname}*.egg-info/
 
 %changelog
+* Tue Nov 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.20210616-8
+- Patch for Python 3.13
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210616-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           rpmlint
-Version:        2.4.0
-Release:        11%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -13,20 +13,6 @@ Source1:        fedora.toml
 Source3:        scoring.toml
 Source4:        users-groups.toml
 Source5:        warn-on-functions.toml
-
-# https://bugzilla.redhat.com/2132936
-# https://github.com/rpm-software-management/rpmlint/pull/943
-Patch0:         https://github.com/rpm-software-management/rpmlint/commit/393cde4e.patch#/0001-fix-broken-regex-for-no-manual-page-for-binary-check.patch
-
-# https://bugzilla.redhat.com/2175241
-Patch1:         https://github.com/rpm-software-management/rpmlint/commit/7d707f7f.patch#/0001-TagsCheck-handle-license-exception-in-grouping.patch
-Patch2:         https://github.com/rpm-software-management/rpmlint/commit/48aa148b.patch#/0001-TagsCheck-restore-space-exclusion-to-license_excepti.patch
-Patch3:         https://github.com/rpm-software-management/rpmlint/commit/65abdbd3.patch#/0002-TagsCheck-handle-license-exception-in-first-item-of-.patch
-
-# rpm-4.19.0 api fixes
-# https://github.com/rpm-software-management/rpmlint/pull/1066
-Patch4:         0001-DocCheck-adjust-for-rpm-4.19.0-API-changes.patch
-Patch5:         0002-rpmdiff-adjust-for-rpm-4.19.0-API-changes.patch
 
 BuildArch:      noarch
 
@@ -42,6 +28,7 @@ BuildRequires:  devscripts-checkbashisms
 BuildRequires:  hunspell-cs
 BuildRequires:  hunspell-en-US
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-cov)
 %if ! 0%{?rhel}
 BuildRequires:  python3dist(pytest-xdist)
 %endif
@@ -113,6 +100,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 2.5.0-1
+- update to 2.5.0
+
 * Mon Jul 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.0-11
 - Disable ErlangCheck by default in RHEL builds
 

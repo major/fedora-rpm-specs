@@ -3,13 +3,11 @@
 Summary: Window Navigator Construction Kit
 Name: libwnck3
 Version: 43.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: http://download.gnome.org/sources/%{source_name}/
 Source0: http://download.gnome.org/sources/%{source_name}/40/%{source_name}-%{version}.tar.xz
 License: LGPLv2+
 
-# fix wnck-pager
-Patch1:        libwnck_0001-Revert-pager-do-not-change-workspace-size-from-size_.patch
 # https://gitlab.gnome.org/GNOME/libwnck/-/merge_requests/10
 Patch2:        libwnck_0001-Expose-window-scaling-factor_43.patch
 Patch3:        libwnck_0002-icons-Use-cairo-surfaces-to-render-icons_43.patch
@@ -85,6 +83,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 21 2023 Wolfgang Ulbrich <fedora@raveit.de> - 43.0-6
+- fix rhbz (#2242944)
+- disable Revert-pager-do-not-change-workspace-size-from-size patch
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

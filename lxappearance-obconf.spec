@@ -33,7 +33,7 @@
 
 Name:			lxappearance-obconf
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Plugin to configure Openbox inside LXAppearance
 
 # SPDX confirmed
@@ -46,6 +46,9 @@ Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 %endif
 Source1:		create-%{name}-git-bare-tarball.sh
+# https://github.com/lxde/lxappearance-obconf/pull/5
+# Fix compilation with libxml2 2.12.0
+Patch0:		lxappearance-obconf-pr5-libxml2-2_12_0.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -94,6 +97,8 @@ git add .
 git commit -m "base" -q
 %endif
 
+cat %PATCH0 | git am
+
 sh autogen.sh
 
 %build
@@ -132,6 +137,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Nov 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.3^20230918git63c5dc1b-2
+- Fix compilation with libxml2 2.12.0
+
 * Tue Sep 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.3^20230918git63c5dc1b-1
 - Update to the latest git
 - SPDX migration

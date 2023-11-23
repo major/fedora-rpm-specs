@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname stringr
-%global packver  1.5.0
+%global packver  1.5.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -15,8 +15,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-cli, R-glue >= 1.6.1, R-lifecycle >= 1.0.3, R-magrittr, R-rlang >= 1.0.0, R-stringi >= 1.5.3, R-vctrs
-# Suggests:  R-covr, R-htmltools, R-htmlwidgets, R-knitr, R-rmarkdown, R-testthat >= 3.0.0
+# Imports:   R-cli, R-glue >= 1.6.1, R-lifecycle >= 1.0.3, R-magrittr, R-rlang >= 1.0.0, R-stringi >= 1.5.3, R-vctrs >= 0.4.0
+# Suggests:  R-covr, R-dplyr, R-gt, R-htmltools, R-htmlwidgets, R-knitr, R-rmarkdown, R-testthat >= 3.0.0, R-tibble
 # LinkingTo:
 # Enhances:
 
@@ -29,13 +29,16 @@ BuildRequires:    R-lifecycle >= 1.0.3
 BuildRequires:    R-magrittr
 BuildRequires:    R-rlang >= 1.0.0
 BuildRequires:    R-stringi >= 1.5.3
-BuildRequires:    R-vctrs
+BuildRequires:    R-vctrs >= 0.4.0
 %if %{without bootstrap}
+BuildRequires:    R-dplyr
+# BuildRequires:    R-gt
 BuildRequires:    R-htmltools
 BuildRequires:    R-htmlwidgets
 BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-tibble
 %endif
 
 %description
@@ -66,7 +69,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 %if %{without bootstrap}
 export LANG=C.UTF-8
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 %files

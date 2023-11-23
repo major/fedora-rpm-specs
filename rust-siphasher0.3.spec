@@ -4,8 +4,8 @@
 
 %global crate siphasher
 
-Name:           rust-siphasher
-Version:        1.0.0
+Name:           rust-siphasher0.3
+Version:        0.3.11
 Release:        %autorelease
 Summary:        SipHash-2-4, SipHash-1-3 and 128-bit variants in pure Rust
 

@@ -1,8 +1,8 @@
 Name:          diffoscope
-Version:       251
+Version:       252
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
-License:       GPLv3+
+License:       GPL-3.0-or-later
 URL:           https://diffoscope.org/
 #Source0:       https://files.pythonhosted.org/packages/source/d/diffoscope/diffoscope-%%{version}.tar.gz
 Source0:       https://salsa.debian.org/reproducible-builds/diffoscope/-/archive/%{version}/diffoscope-%{version}.tar.gz

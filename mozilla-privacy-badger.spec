@@ -8,7 +8,7 @@
 %global firefox_inst_dir %{moz_extensions}/%{firefox_app_id}
 
 Name:           mozilla-privacy-badger
-Version:        2023.9.12
+Version:        2023.10.31
 Release:        1%{?dist}
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 
@@ -111,6 +111,9 @@ install -Dpm644 pkg/privacybadger-%{version}.zip %{buildroot}%{firefox_inst_dir}
 %{firefox_inst_dir}/%{ext_id}.xpi
 
 %changelog
+* Tue Nov 21 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.10.31-1
+- update to 2023.10.31 (#2247503)
+
 * Thu Sep 28 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.9.12-1
 - update to 2023.9.12 (#2238923)
 - sync with upstream build process

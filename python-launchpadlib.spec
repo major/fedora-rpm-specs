@@ -4,7 +4,7 @@ Version:        1.11.0
 Release:        2%{?dist}
 Summary:        Script Launchpad through its web services interfaces
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://launchpad.net/launchpadlib 
 Source0:        %{pypi_source}
 BuildArch:      noarch

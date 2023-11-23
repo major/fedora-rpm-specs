@@ -8,7 +8,7 @@ Version:        1.4.1
 Release:        %autorelease
 Summary:        Distributed Evolutionary Algorithms in Python
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://github.com/deap
 Source:         https://github.com/deap/deap/archive/%{version}/deap-%{version}.tar.gz
 

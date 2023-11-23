@@ -6,7 +6,7 @@ Version:        2.git%{shortcommit}
 Release:        %autorelease
 Summary:        Content Addressable Data Synchronizer
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/casync
 %if %{defined commit}
 Source0:        https://github.com/keszybz/casync/archive/%{?commit}/casync-%{shortcommit}.tar.gz

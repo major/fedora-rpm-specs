@@ -1,15 +1,11 @@
 %if ! 0%{?rhel} || 0%{?rhel} >= 10
 %bcond_without testcoverage
-%bcond_with setup_py
+%bcond_without pyproject_build
+%bcond_without genbrs
 %else
 %bcond_with testcoverage
-%bcond_without setup_py
-%endif
-
-%if ! 0%{?rhel} || 0%{?rhel} >= 9
-%bcond_with compatbuild
-%else
-%bcond_without compatbuild
+%bcond_with pyproject_build
+%bcond_with genbrs
 %endif
 
 %if 0%{undefined pyproject_files}
@@ -36,15 +32,11 @@ BuildRequires: python3dist(pytest-cov)
 %endif
 BuildRequires: sed
 
-%if %{without compatbuild}
+%if %{with genbrs}
 %generate_buildrequires
-%if %{without setup.py}
 %{pyproject_buildrequires}
 %else
-( %{pyproject_buildrequires} ) | grep -v poetry
-echo 'python3dist(setuptools)'
-%endif
-%else
+BuildRequires: python3dist(pip)
 BuildRequires: python3dist(setuptools)
 %endif
 
@@ -56,7 +48,7 @@ uses rpmautospec features.}
 
 %package -n python3-%{canonicalname}
 Summary: %{summary}
-%if %{with compatbuild}
+%if %{without pyproject_build}
 %py_provides python3-%{canonicalname}
 %endif
 
@@ -72,23 +64,23 @@ addopts =
 PYTESTINI
 %endif
 
-%if %{with setup_py}
+%if %{without pyproject_build}
 cat << SETUPPY > setup.py
 from setuptools import setup
 
-setup(name="%{canonicalname}", version="%{version}")
+setup(name="%{canonicalname}", version="%{version}", packages=["%{srcname}"])
 SETUPPY
 %endif
 
 %build
-%if %{without compatbuild}
+%if %{with pyproject_build}
 %pyproject_wheel
 %else
 %py3_build
 %endif
 
 %install
-%if %{without compatbuild}
+%if %{with pyproject_build}
 %pyproject_install
 %pyproject_save_files %{srcname}
 # Work around poetry not listing license files as such in package metadata.
@@ -103,7 +95,7 @@ echo '%{python3_sitelib}/%{srcname}*' > %{pyproject_files}
 
 %files -n python3-%{canonicalname} -f %{pyproject_files}
 %doc README.md
-%if %{with compatbuild}
+%if %{without pyproject_build}
 %license LICENSE
 %endif
 

@@ -10,9 +10,6 @@ License:        MIT
 URL:            https://github.com/Textualize/rich
 Source0:        %{url}/archive/v%{version}/rich-%{version}.tar.gz
 
-# Python 3.12 tests adjustments
-Patch:          https://github.com/Textualize/rich/pull/2968.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

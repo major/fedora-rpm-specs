@@ -1,3 +1,8 @@
+# The tests BR httpx-socks, Requires python-socks.
+# The tests of python-socks BR tiny-proxy.
+# To break the loop when bootstrapping Python, we can disable the tests here.
+%bcond tests 1
+
 %global _description %{expand:
 Simple proxy (SOCKS4(a), SOCKS5(h), HTTP tunnel) server built with anyio. It is
 used for testing python-socks, aiohttp-socks and httpx-socks packages.}
@@ -38,7 +43,7 @@ cat requirements-dev.txt
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements-dev.txt
+%pyproject_buildrequires -r %{?with_tests:requirements-dev.txt}
 
 
 %build
@@ -49,7 +54,10 @@ cat requirements-dev.txt
 %pyproject_save_files tiny_proxy
 
 %check
+%pyproject_check_import
+%if %{with tests}
 %{pytest}
+%endif
 
 %files -n python3-tiny-proxy -f %{pyproject_files}
 %doc README.md

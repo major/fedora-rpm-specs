@@ -2,16 +2,20 @@
 %global soversion 2
 
 Name:       fast-cdr
-Version:    2.0.0
+Version:    2.1.0
 Release:    1%{?dist}
 Summary:    Fast Common Data Representation (CDR) Serialization Library
 
 License:    Apache-2.0
 URL:        http://www.eprosima.com
 Source0:    https://github.com/eprosima/%{project}/archive/v%{version}/%{name}-%{version}.tar.gz    
+# Update test macro to confirm equality
+# https://github.com/eProsima/Fast-CDR/issues/178
+Patch0:     %{name}-2.1.0-ldeq.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  gtest-devel
 BuildRequires:  make
 
 %description
@@ -27,14 +31,20 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 Development files and libraries for %{name}
 
 %prep
-%setup -q -n %{project}-%{version} 
+%setup -q -n %{project}-%{version}
+%patch 0 -p0 -b .ldeq
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release
+%cmake \
+  -DBUILD_TESTING:BOOL=ON \
+  -DCMAKE_BUILD_TYPE:STRING=Release
 %cmake_build
 
 %install
 %cmake_install
+
+%check
+%ctest
 
 %files
 %license LICENSE
@@ -49,6 +59,11 @@ Development files and libraries for %{name}
 %{_libdir}/cmake/fastcdr
 
 %changelog
+* Tue Nov 21 2023 Rich Mattes <richmattes@gmail.com> - 2.1.0-1
+- Update to release 2.1.0
+- Enable unit tests
+- Resolves: rhbz#2249762
+
 * Fri Sep 15 2023 Rich Mattes <richmattes@gmail.com> - 2.0.0-1
 - Update to release 2.0.0
 - Resolves: rhbz#2237531

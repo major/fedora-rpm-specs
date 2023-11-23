@@ -15,7 +15,7 @@ Release:        %autorelease
 Source0:        https://gitlab.archlinux.org/pacman/pacman/-/archive/v%{version}/pacman-v%{version}.tar.gz
 Source1:        https://www.archlinux.org/mirrorlist/all
 URL:            https://gitlab.archlinux.org/pacman/pacman
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Summary:        Package manager for the Arch distribution
 
 BuildRequires:  gcc
@@ -69,7 +69,7 @@ This package contains the public headers necessary to use libalpm.
 
 %package filesystem
 Summary: Pacman filesystem layout
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 BuildArch: noarch
 
 %description filesystem

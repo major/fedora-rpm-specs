@@ -1,7 +1,7 @@
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
 Version: 5.27.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://cgit.kde.org/%{name}.git
@@ -45,6 +45,7 @@ Obsoletes:      kbluetooth < 0.4.2-3
 Obsoletes:      bluedevil-devel < 2.0.0-0.10
 
 Requires:       bluez >= 5
+Requires:       bluez-obexd
 Requires:       kf5-kded
 Requires:       pulseaudio-module-bluetooth
 
@@ -98,6 +99,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Mon Nov 20 2023 Timothée Ravier <tim@siosm.fr> - 5.27.9-2
+- Require bluez-obexd
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

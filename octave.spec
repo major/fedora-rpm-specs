@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        8.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -457,6 +457,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Mon Nov 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 6:8.4.0-2
+- Rebuilt for sundials-6.6.2 (fix RHBZ#2249025)
+
 * Tue Nov 07 2023 Orion Poplawski <orion@nwra.com> - 6:8.4.0-1
 - Update to 8.4.0
 

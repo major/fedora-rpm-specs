@@ -36,10 +36,10 @@ MUSIC is distributed under the GNU General Public License v3.}
 
 Name:           MUSIC
 Version:        1.1.16
-Release:        13.20201002git%{shortcommit}%{?dist}
+Release:        14.20201002git%{shortcommit}%{?dist}
 Summary:        The MUltiSimulation Coordinator
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/INCF/%{name}/
 Source0:        https://github.com/INCF/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Patch0:         0001-Disable-sysguess.patch
@@ -389,6 +389,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Mon Nov 13 2023 Benson Muite <benson_muite@emailplus.org> - 1.1.16-14.20201002git8c6b77a
+- Use SPDX license identifier
+
 * Thu Jul 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.16-13.20201002git8c6b77a
 - Use the Cython compat package for now
 

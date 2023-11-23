@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ispc
-Version:	1.21.1
+Version:	1.22.0
 %if %{with_snapshot}
 Release:	%autorelease -p -s 20230102git%{shortcommit}
 %else

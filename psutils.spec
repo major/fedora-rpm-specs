@@ -45,7 +45,7 @@ Summary:    PostScript utilities
 # INSTALL:                  FSFAP
 # old-scripts/fixwfwps:     See LICENSE
 # pre-inst-env.in:          GPLv2+
-License:    GPLv3+ and psutils
+License:    GPL-3.0-or-later
 URL:        https://github.com/rrthomas/%{name}
 Source:     %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch

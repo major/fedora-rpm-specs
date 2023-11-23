@@ -1,16 +1,17 @@
 # Created by pyp2rpm-2.0.0
 
 Name:           python-pypandoc
-Version:        1.11
+Version:        1.12.post318
 Release:        %autorelease
 Summary:        Thin wrapper for pandoc
 
 License:        MIT
 URL:            https://github.com/bebraw/pypandoc
-Source0:        https://files.pythonhosted.org/packages/source/p/pypandoc/pypandoc-%{version}.tar.gz
+Source:         https://github.com/JessicaTegner/pypandoc/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
 BuildArch:      noarch
 
-Patch:          0001-tests-fix-invocation-with-sys.executable.patch
+Patch:          0001-Fix-test-cases-for-python-3.12.patch
 
 # for tests
 BuildRequires:  pandoc
@@ -77,7 +78,7 @@ sed -i -r 's/test_conversion_with_data_files/_disabled_\0/' tests.py
 %license LICENSE
 %doc README.md examples/
 %{python3_sitelib}/pypandoc
-%{python3_sitelib}/pypandoc-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/pypandoc-1.12-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

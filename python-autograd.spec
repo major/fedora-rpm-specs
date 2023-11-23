@@ -1,9 +1,15 @@
+# Why not use forge macros when pulling from GitHub
+%global forgeurl https://github.com/HIPS/autograd
+
 # We’re using a git commit because the PyPI tar does not contain any tests but
 # the github source does; unfortunately, upstream does not tag releases on
 # GitHub, but we are confident we are using the git commit that corresponds to
 # the PyPI release.
 # https://github.com/HIPS/autograd/issues/392
 %global commit 1bb5cbc21d2aa06e0c61654a9cc6f38c174dacc0
+
+# Don't use commit in dist tag
+%global distprefix %{nil}
 
 Name:           python-autograd
 # Because we are using the commit that corresponds to the PyPI release (even
@@ -12,18 +18,17 @@ Name:           python-autograd
 Version:        1.6.2
 Release:        %autorelease
 Summary:        Efficiently computes derivatives of numpy code
-
+%forgemeta
 # SPDX
 License:        MIT
-URL:            https://github.com/HIPS/autograd
-Source0:        %{url}/archive/%{commit}/autograd-%{commit}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(scipy)
+BuildRequires:  python3-pytest
+BuildRequires:  python3-scipy
 
 %global _description %{expand:
 Autograd can automatically differentiate native Python and Numpy code. It can
@@ -40,7 +45,7 @@ gradient-based optimization.}
 %package -n python3-autograd
 Summary:        %{summary}
 
-Recommends:     python3dist(scipy)
+Recommends:     python3-scipy
 
 %description -n python3-autograd %_description
 
@@ -52,7 +57,7 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n autograd-%{commit} -p1
+%forgeautosetup -p1
 
 
 %generate_buildrequires

@@ -2,22 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate siphasher
+%global crate futures-lite
 
-Name:           rust-siphasher
-Version:        1.0.0
+Name:           rust-futures-lite1
+Version:        1.13.0
 Release:        %autorelease
-Summary:        SipHash-2-4, SipHash-1-3 and 128-bit variants in pure Rust
+Summary:        Futures, streams, and async I/O combinators
 
-# Upstream license specification: MIT/Apache-2.0
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/siphasher
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/futures-lite
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-SipHash-2-4, SipHash-1-3 and 128-bit variants in pure Rust.}
+Futures, streams, and async I/O combinators.}
 
 %description %{_description}
 
@@ -31,7 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYING
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE-THIRD-PARTY
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,52 +49,64 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde_json-devel
+%package     -n %{name}+fastrand-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde_json-devel %{_description}
+%description -n %{name}+fastrand-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde_json" feature of the "%{crate}" crate.
+use the "fastrand" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde_json-devel
+%files       -n %{name}+fastrand-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde_no_std-devel
+%package     -n %{name}+futures-io-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde_no_std-devel %{_description}
+%description -n %{name}+futures-io-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde_no_std" feature of the "%{crate}" crate.
+use the "futures-io" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde_no_std-devel
+%files       -n %{name}+futures-io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde_std-devel
+%package     -n %{name}+memchr-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde_std-devel %{_description}
+%description -n %{name}+memchr-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde_std" feature of the "%{crate}" crate.
+use the "memchr" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde_std-devel
+%files       -n %{name}+memchr-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parking-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parking-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parking" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parking-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -105,6 +119,18 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+waker-fn-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+waker-fn-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "waker-fn" feature of the "%{crate}" crate.
+
+%files       -n %{name}+waker-fn-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

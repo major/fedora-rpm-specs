@@ -1,14 +1,12 @@
-%global upstream_name pythondialog
-
 Name:           python-dialog
 Version:        3.5.3
 Release:        %autorelease
 Summary:        Python interface to the Unix dialog utility
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://pythondialog.sourceforge.net
 # Upstream releases two tarballs from the same sources
-Source0:        %{pypi_source %{upstream_name}}
+Source0:        %{pypi_source pythondialog}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -29,7 +27,7 @@ Summary:        %{summary}
 %description -n python3-dialog %_description
 
 %prep
-%autosetup -n %{upstream_name}-%{version}
+%autosetup -n pythondialog-%{version}
 
 find examples -name '*.py' -print -exec sed -r -i 's|(.!)\s+/usr/bin/env python.*|\1%{__python3}|' {} \;
 

@@ -1,5 +1,5 @@
 Name:		python-makefun
-Version:	1.15.1
+Version:	1.15.2
 Release:	%autorelease
 Summary:	Dynamically create python functions with a proper signature
 

@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-libxslt
-Version:        1.1.38
-Release:        2%{?dist}
+Version:        1.1.39
+Release:        1%{?dist}
 Summary:        MinGW Windows Library providing the Gnome XSLT engine
 
 License:        MIT
@@ -147,6 +147,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue Nov 21 2023 Sandro Mani <manisandro@gmail.com> - 1.1.39-1
+- Update to 1.1.39
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.38-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

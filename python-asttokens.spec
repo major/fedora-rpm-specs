@@ -1,9 +1,9 @@
 Name:           python-asttokens
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Module to annotate Python abstract syntax trees with source code positions
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/asttokens
 Source:         https://github.com/gristlabs/asttokens/archive/v%{version}/asttokens-%{version}.tar.gz
 

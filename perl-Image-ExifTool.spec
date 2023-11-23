@@ -1,7 +1,7 @@
 Name:		perl-Image-ExifTool
-Version:	12.60
-Release:	2%{?dist}
-License:	GPL+ or Artistic
+Version:	12.70
+Release:	1%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Utility for reading and writing image meta info
 URL:		http://www.sno.phy.queensu.ca/%7Ephil/exiftool/
 Source0:	http://www.sno.phy.queensu.ca/%7Ephil/exiftool/Image-ExifTool-%{version}.tar.gz
@@ -39,16 +39,17 @@ BuildRequires:	perl(Time::Local)
 Requires:	perl(FileHandle)
 
 %description
-ExifTool is a Perl module with an included command-line application for 
-reading and writing meta information in image, audio, and video files. 
-It reads EXIF, GPS, IPTC, XMP, JFIF, MakerNotes, GeoTIFF, ICC Profile, 
-Photoshop IRB, FlashPix, AFCP, and ID3 meta information from JPG, JP2, 
-TIFF, GIF, PNG, MNG, JNG, MIFF, EPS, PS, AI, PDF, PSD, BMP, THM, CRW, 
-CR2, MRW, NEF, PEF, ORF, DNG, and many other types of images. ExifTool 
-also extracts information from the maker notes of many digital cameras 
-by various manufacturers including Canon, Casio, FujiFilm, GE, HP, 
-JVC/Victor, Kodak, Leaf, Minolta/Konica-Minolta, Nikon, Olympus/Epson, 
-Panasonic/Leica, Pentax/Asahi, Reconyx, Ricoh, Samsung, Sanyo, 
+ExifTool is a Perl module with an included command-line application for
+reading and writing meta information in image, audio, and video files.
+It reads EXIF, GPS, IPTC, XMP, JFIF, MakerNotes, C2PA JUMBF, GeoTIFF,
+ICC Profile, Photoshop IRB, FlashPix, AFCP, ID3 and Lyric3 meta
+information from JPG, JP2, TIFF, GIF, PNG, MNG, JNG, MIFF, EPS, PS, AI,
+PDF, PSD, BMP, THM, CRW, CR2, MRW, NEF, PEF, ORF, DNG, and many other
+types of images. ExifTool also extracts information from the maker
+notes of many digital cameras by various manufacturers including Canon,
+Casio, DJI, FLIR, FujiFilm, GE, GoPro, HP, JVC/Victor, Kodak, Leaf,
+Minolta/Konica-Minolta, Motorola, Nikon, Nintendo, Olympus/Epson,
+Panasonic/Leica, Pentax/Asahi, Phase One, Reconyx, Ricoh, Samsung, Sanyo,
 Sigma/Foveon, and Sony.
 
 %prep
@@ -80,6 +81,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 12.70-1
+- update to latest stable (12.70)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.60-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

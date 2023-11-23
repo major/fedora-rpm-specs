@@ -50,7 +50,7 @@ Summary:    Conversion between character sets and surfaces
 # tests/Makefile.am:    GPLv3+
 # tests/Makefile.in:    FSFULLR and GPLv3+
 # tests/Recode.pyx:     GPLv3+
-License:    GPLv3+ and LGPLv3+ and BSD and OFSFDL
+License:    GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-2-Clause AND LicenseRef-OFSFDL
 URL:        https://github.com/rrthomas/recode
 Source:     %{url}/releases/download/v%{version}/recode-%{version}.tar.gz
 Patch:      recode-3.7.13-Rename-coliding-hash-functions.patch

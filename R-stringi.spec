@@ -1,10 +1,10 @@
 %global packname stringi
-%global packver  1.7.8
+%global packver  1.8.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.7.8
-Release:          6%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Character String Processing Facilities
 
 License:          BSD
@@ -23,7 +23,7 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-tools
 BuildRequires:    R-utils
 BuildRequires:    R-stats
-BuildRequires:    libicu-devel >= 55
+BuildRequires:    libicu-devel >= 61
 
 %description
 A multitude of character string/text/natural language processing tools: pattern
@@ -47,9 +47,8 @@ Development files for %{name}.
 %setup -q -c -n %{packname}
 
 # Remove bundled code.
-rm -r %{packname}/src/icu55/ %{packname}/src/icu69/
-sed -i -e '/src\/icu55\//d' %{packname}/MD5
-sed -i -e '/src\/icu69\//d' %{packname}/MD5
+rm -r %{packname}/src/icu74
+sed -i -e '/src\/icu74\//d' %{packname}/MD5
 
 
 %build
@@ -89,6 +88,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 1.8.1-1
+- update to 1.8.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

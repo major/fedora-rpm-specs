@@ -1,12 +1,12 @@
 %bcond_with suggests
 
 %global packname xfun
-%global packver  0.39
+%global packver  0.41
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Miscellaneous Functions to Support Packages Maintained by 'Yihui Xie'
 
 License:          MIT
@@ -90,6 +90,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes --n
 
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 0.41-1
+- update to 0.41
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

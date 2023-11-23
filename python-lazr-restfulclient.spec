@@ -4,7 +4,7 @@ Version:        0.14.5
 Release:        4%{?dist}
 Summary:        Programmable client library for lazr.restful web services
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://launchpad.net/lazr.restfulclient
 Source0:        %{pypi_source}
 BuildArch:      noarch

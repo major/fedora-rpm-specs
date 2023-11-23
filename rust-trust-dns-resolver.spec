@@ -7,7 +7,7 @@
 %global crate trust-dns-resolver
 
 Name:           rust-trust-dns-resolver
-Version:        0.23.1
+Version:        0.23.2
 Release:        %autorelease
 Summary:        Trust-DNS is a safe and secure DNS library
 
@@ -70,6 +70,18 @@ use the "dns-over-https" feature of the "%{crate}" crate.
 %files       -n %{name}+dns-over-https-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dns-over-https-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-https-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-https-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-https-rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+dns-over-native-tls-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -92,6 +104,30 @@ This package contains library source intended for building other packages which
 use the "dns-over-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+dns-over-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dns-over-quic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-quic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-quic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-quic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dns-over-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+dns-over-tls-devel
@@ -130,6 +166,18 @@ use the "dnssec-openssl" feature of the "%{crate}" crate.
 %files       -n %{name}+dnssec-openssl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dnssec-ring-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dnssec-ring-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dnssec-ring" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dnssec-ring-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+resolv-conf-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -140,6 +188,18 @@ This package contains library source intended for building other packages which
 use the "resolv-conf" feature of the "%{crate}" crate.
 
 %files       -n %{name}+resolv-conf-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -236,6 +296,30 @@ This package contains library source intended for building other packages which
 use the "tokio-runtime" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tokio-runtime-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+webpki-roots-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+webpki-roots-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "webpki-roots" feature of the "%{crate}" crate.
+
+%files       -n %{name}+webpki-roots-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

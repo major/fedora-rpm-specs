@@ -962,7 +962,7 @@ export GRPC_PYTHON_CFLAGS="$(
 export GRPC_PYTHON_LDFLAGS="$(pkg-config --libs protobuf)"
 %py3_build
 %{__python3} %{py_setup} %{?py_setup_args} install \
-    -O1 --skip-build --root "${PYROOT}"
+    -O1 --skip-build --root "${PYROOT}" --prefix %{_prefix}
 
 # ~~ grpcio-tools ~~
 echo '===== Building Python grpcio_tools package =====' 2>&1
@@ -986,7 +986,7 @@ export GRPC_PYTHON_LDFLAGS="$(pkg-config --libs protobuf) -lprotoc"
 # installed without an executable bit:
 find . -type f -name protoc.py -execdir sed -r -i '1{/^#!/d}' '{}' '+'
 %{__python3} %{py_setup} %{?py_setup_args} install \
-    -O1 --skip-build --root "${PYROOT}"
+    -O1 --skip-build --root "${PYROOT}" --prefix %{_prefix}
 popd >/dev/null
 
 echo '===== Building pure-Python packages =====' 1>&2
@@ -1004,7 +1004,7 @@ do
   fi
   %py3_build
   %{__python3} %{py_setup} %{?py_setup_args} install \
-      -O1 --skip-build --root "${PYROOT}"
+      -O1 --skip-build --root "${PYROOT}" --prefix %{_prefix}
   popd >/dev/null
 done
 
@@ -1076,7 +1076,7 @@ done
 #   - Reduces duplication and save space
 #   - Respects system-wide administrative trust configuration
 #   - Keeps “MPLv2.0” from having to be added to a number of License fields
-%global sysbundle %{_sysconfdir}/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+%global sysbundle /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 # We do not own this file; we temporarily install it in the buildroot so we do
 # not have dangling symlinks.
 install -D -t "%{buildroot}$(dirname '%{sysbundle}')" -m 0644 '%{sysbundle}'

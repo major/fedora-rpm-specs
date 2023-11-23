@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname knitr
-%global packver  1.43
+%global packver  1.45
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((JuliaCall|gifski|magick|rgl|sass|webshot)\\)
@@ -12,17 +12,17 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          A General-Purpose Package for Dynamic Report Generation in R
 
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-evaluate >= 0.15, R-highr, R-methods, R-tools, R-yaml >= 2.1.19, R-xfun >= 0.39, R-tools
-# Suggests:  R-bslib, R-codetools, R-DBI>= 0.4-1, R-digest, R-formatR, R-gifski, R-gridSVG, R-htmlwidgets >= 0.7, R-curl, R-jpeg, R-JuliaCall >= 0.11.1, R-magick, R-markdown >= 1.3, R-png, R-ragg, R-reticulate >= 1.4, R-rgl >= 0.95.1201, R-rlang, R-rmarkdown, R-sass, R-showtext, R-styler >= 1.2.0, R-targets >= 0.6.0, R-testit, R-tibble, R-tikzDevice >= 0.10, R-tinytex, R-webshot, R-rstudioapi, R-xml2 >= 1.2.0
+# Suggests:  R-bslib, R-codetools, R-DBI>= 0.4-1, R-digest, R-formatR, R-gifski, R-gridSVG, R-htmlwidgets >= 0.7, R-curl, R-jpeg, R-JuliaCall >= 0.11.1, R-magick, R-markdown >= 1.3, R-png, R-ragg, R-reticulate >= 1.4, R-rgl >= 0.95.1201, R-rlang, R-rmarkdown, R-sass, R-showtext, R-styler >= 1.2.0, R-targets >= 0.6.0, R-testit, R-tibble, R-tikzDevice >= 0.10, R-tinytex >= 0.46, R-webshot, R-rstudioapi, R-svglite, R-xml2 >= 1.2.0
 # LinkingTo:
 # Enhances:
 
@@ -45,7 +45,7 @@ BuildRequires:    R-digest
 BuildRequires:    R-codetools
 BuildRequires:    R-htmlwidgets >= 0.7
 BuildRequires:    R-tikzDevice >= 0.10
-BuildRequires:    R-tinytex
+BuildRequires:    R-tinytex >= 0.46
 BuildRequires:    R-png
 BuildRequires:    R-jpeg
 BuildRequires:    R-xml2 >= 1.2.0
@@ -72,6 +72,7 @@ BuildRequires:    R-sass
 BuildRequires:    R-bslib
 BuildRequires:    R-ragg
 BuildRequires:    R-styler >= 1.2.0
+BuildRequires:    R-svglite
 BuildRequires:    R-targets >= 0.6.0
 # Mostly examples.
 BuildRequires:    lyx
@@ -146,6 +147,9 @@ ARGS=--no-examples
 
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 1.45-1
+- update to 1.45
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

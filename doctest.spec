@@ -5,7 +5,11 @@ Name: doctest
 Version: 2.4.9
 Release: %autorelease
 Summary: Feature-rich header-only C++ testing framework
-License: MIT
+# logo is CC-BY-4.0
+# doctest/doctest.h and doctest/parts/doctest_fwd.h include BSL-1.0
+# scripts/*.cmake are BSD-3-Clause
+# doc/html_generated is GPL-3.0-only but it is not included in binary rpm
+License: MIT AND CC-BY-4.0 AND BSL-1.0 AND BSD-3-Clause
 URL: https://github.com/doctest/%{name}
 Source0: %{url}/archive/refs/tags/v%{version}.tar.gz
 # https://github.com/doctest/doctest/pull/699

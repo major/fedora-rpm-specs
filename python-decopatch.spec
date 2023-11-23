@@ -3,7 +3,7 @@ Version:        1.4.10
 Release:        %autorelease
 Summary:        Helper to write python decorators
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.org/project/decopatch
 Source:	        %{pypi_source decopatch}
 Patch:          0001-Adjust-for-whitespace-changes-with-python-3.12.patch

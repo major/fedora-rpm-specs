@@ -3,7 +3,7 @@ Version:    0.9.1
 Release:    %autorelease
 Summary:    Toolbox for manipulating Ogg video files
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://dev.streamnik.de/oggvideotools.html
 Source0:    https://downloads.sourceforge.net/project/oggvideotools/oggvideotools/%{name}-%{version}/%{name}-%{version}.tar.gz
 

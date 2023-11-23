@@ -1,18 +1,6 @@
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
-
-%if 0%{?fedora} && 0%{?fedora} <= 31
-%bcond_without python2
-%else
-%bcond_with python2
-%endif
-
 Name:           python-scales
 Version:        1.0.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Stats for Python processes
 
 License:        ASL 2.0
@@ -24,20 +12,11 @@ Patch0:         fix_py38_compatibility.patch
 
 BuildArch:      noarch
 
-%if %with python2
-BuildRequires:  python2-devel
-BuildRequires:  python2-six
-BuildRequires:  python2-simplejson
-BuildRequires:  python2-nose
-BuildRequires:  python2-setuptools
-%endif
-%if %with python3
 BuildRequires:  python3-devel
 BuildRequires:  python3-six
 BuildRequires:  python3-simplejson
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
-%endif
 
 %global _description\
 Tracks server state and statistics, allowing you to see what your server is\
@@ -47,24 +26,12 @@ forensics.\
 
 %description %_description
 
-%if %with python2
-%package -n python2-scales
-Summary: %summary
-Requires:       python2-six
-Requires:       python2-simplejson
-%{?python_provide:%python_provide python2-scales}
-
-%description -n python2-scales %_description
-%endif
-
-%if %with python3
 %package -n python3-scales
 Summary:        Stats for Python 3 processes
 Requires:       python3-six
 Requires:       python3-simplejson
 
 %description -n python3-scales %_description
-%endif
 
 
 %prep
@@ -76,65 +43,30 @@ sed -i "s/self.assertEquals/self.assertEqual/g" \
     src/greplin/scales/aggregation_test.py \
     src/greplin/scales/formats_test.py
 
-%if %with python3
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-%endif
-
-
 %build
-%if %with python2
-%{__python2} setup.py build
-%endif
-
-%if %with python3
-cd %{py3dir}
 %{__python3} setup.py build
-%endif
-
 
 
 %install
-%if %with python2
-%{__python2} setup.py install --skip-build --root %{buildroot}
-%endif
-
-%if %with python3
-cd %{py3dir}
 %{__python3} setup.py install --skip-build --root %{buildroot}
-%endif
 
 
 %check
-%if %with python2
-%{__python2} setup.py test
-%endif
-
-%if %with python3
-cd %{py3dir}
-%{__python3} setup.py test
-%endif
+%pytest
 
 
-%if %with python2
-%files -n python2-scales
-%{python2_sitelib}/greplin/
-%{python2_sitelib}/scales*.egg-info/
-%{python2_sitelib}/scales*.pth
-%doc AUTHORS LICENSE README.md
-%endif
-
-
-%if %with python3
 %files -n python3-scales
 %{python3_sitelib}/greplin/
 %{python3_sitelib}/scales*.egg-info
 %{python3_sitelib}/scales*.pth
 %doc AUTHORS LICENSE README.md
-%endif
 
 
 %changelog
+* Mon Sep 04 2023 Charalampos Stratakis <cstratak@redhat.com> - 1.0.9-17
+- Utilize pytest instead of the deprecated nose test runner
+- Remove python2 SPEC conditionals
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

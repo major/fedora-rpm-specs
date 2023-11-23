@@ -1,7 +1,7 @@
 Summary: Graphical Boot Animation and Logger
 Name: plymouth
 Version: 22.02.122
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/Plymouth
 
@@ -147,7 +147,8 @@ Plymouth. It features a two phased boot process that starts with
 a progressing animation synced to boot time and finishes with a
 short, fast one-shot animation.
 
-
+# Don't build charge theme in ELN/RHEL as it's Fedora specific
+%if ! 0%{?rhel}
 %package theme-charge
 Summary: Plymouth "Charge" plugin
 Requires: %{name}-plugin-two-step = %{version}-%{release}
@@ -158,7 +159,7 @@ Requires(post): plymouth-scripts
 This package contains the "charge" boot splash theme for
 Plymouth. It features the shadowy hull of a Fedora logo charge up and
 and finally burst into full form.
-
+%endif
 
 %package theme-fade-in
 Summary: Plymouth "Fade-In" theme
@@ -243,10 +244,12 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/lib/plymouth
 
+%if ! 0%{?rhel}
 # Add charge, our old default
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge
 cp %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge
 cp $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/glow/{box,bullet,entry,lock}.png $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/charge
+%endif
 
 # Drop glow, it's not very Fedora-y
 rm -rf $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/glow
@@ -256,6 +259,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/plymouth/themes/glow
 
 %ldconfig_scriptlets graphics-libs
 
+%if ! 0%{?rhel}
 %postun theme-charge
 export PLYMOUTH_PLUGIN_PATH=%{_libdir}/plymouth/
 if [ $1 -eq 0 ]; then
@@ -263,6 +267,7 @@ if [ $1 -eq 0 ]; then
         %{_sbindir}/plymouth-set-default-theme --reset
     fi
 fi
+%endif
 
 %postun theme-fade-in
 export PLYMOUTH_PLUGIN_PATH=%{_libdir}/plymouth/
@@ -378,8 +383,10 @@ fi
 %files plugin-two-step
 %{_libdir}/plymouth/two-step.so
 
+%if ! 0%{?rhel}
 %files theme-charge
 %{_datadir}/plymouth/themes/charge
+%endif
 
 %files theme-fade-in
 %{_datadir}/plymouth/themes/fade-in
@@ -402,6 +409,9 @@ fi
 
 
 %changelog
+* Tue Nov 21 2023 Tomas Popela <tpopela@redhat.com> - 22.02.122-6
+- Don't build charge theme in ELN/RHEL 10
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.02.122-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

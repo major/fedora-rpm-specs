@@ -4,7 +4,7 @@ Version:        1.0.6
 Release:        7%{?dist}
 Summary:        Parsing and dealing with URIs
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://launchpad.net/lazr.uri
 Source0:        %{pypi_source}
 BuildArch:      noarch

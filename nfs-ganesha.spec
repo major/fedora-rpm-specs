@@ -119,7 +119,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	5.7
-Release:	1%{?dev:%{dev}}%{?dist}
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -916,6 +916,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Nov 21 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-2
+- use python pep517 installer and build
+
 * Fri Nov 3 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-1
 - NFS-Ganesha 5.7 GA
 

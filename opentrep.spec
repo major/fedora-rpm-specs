@@ -4,7 +4,7 @@
 #
 Name:           opentrep
 Version:        0.07.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
 
@@ -13,6 +13,9 @@ Summary:        C++ library providing a clean API for parsing travel-focused req
 License:        LGPLv2+ and BSD
 URL:            https://github.com/trep/%{name}
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+
+# https://github.com/trep/opentrep/pull/19
+Patch0:         Add-Python-3.13-to-cmake-config.patch
 
 BuildRequires:  gcc-c++
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -116,6 +119,7 @@ and it is therefore not reliable.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
+%patch 0 -p1
 
 %build
 %cmake
@@ -197,6 +201,9 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Tue Nov 21 2023 Karolina Surma <ksurma@redhat.com> - 0.07.13-5
+- Add Python 3.13 to cmake config
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

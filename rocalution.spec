@@ -7,9 +7,6 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
-# No debug source produced
-%global debug_package %{nil}
-
 # $gpu will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
 
@@ -18,7 +15,7 @@
 
 Name:           rocalution
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -93,6 +90,7 @@ do
     %cmake %rocm_cmake_options \
            -DCMAKE_MODULE_PATH=%{_libdir}/cmake/hip \
            -DHIP_ROOT_DIR=%{_prefix} \
+           -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if %{with test}
            -DBUILD_CLIENTS_TESTS=ON
 %endif
@@ -106,14 +104,6 @@ for gpu in %{rocm_gpu_list}
 do
     %cmake_install
 done
-
-# fedora-review complains these are unstripped
-# strip *.so
-strip %{buildroot}%{_libdir}/librocalution.so.0.*
-strip %{buildroot}%{_libdir}/rocm/gfx10/lib/librocalution.so.0.*
-strip %{buildroot}%{_libdir}/rocm/gfx11/lib/librocalution.so.0.*
-strip %{buildroot}%{_libdir}/rocm/gfx8/lib/librocalution.so.0.*
-strip %{buildroot}%{_libdir}/rocm/gfx9/lib/librocalution.so.0.*
 
 %files
 %license LICENSE.md
@@ -157,6 +147,9 @@ strip %{buildroot}%{_libdir}/rocm/gfx9/lib/librocalution.so.0.*
 %endif
 
 %changelog
+* Tue Nov 21 2023 Tom Rix <trix@redhat.com> 5.7.1-3
+- Add debug info
+
 * Sat Nov 18 2023 Tom Rix <trix@redhat.com> 5.7.1-2
 - Add modules to the requires
 

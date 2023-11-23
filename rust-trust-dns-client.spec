@@ -5,7 +5,7 @@
 %global crate trust-dns-client
 
 Name:           rust-trust-dns-client
-Version:        0.23.1
+Version:        0.23.2
 Release:        %autorelease
 Summary:        Trust-DNS is a safe and secure DNS library
 
@@ -23,10 +23,10 @@ BuildRequires:  cargo-rpm-macros >= 24
 %global _description %{expand:
 Trust-DNS is a safe and secure DNS library. This is the Client library
 with DNSSEC support. DNSSEC with NSEC validation for negative records,
-is complete. The client supports  dynamic DNS with SIG0 authenticated
-requests, implementing easy to use high level  funtions. Trust-DNS is
-based on the Tokio and Futures libraries, which means  it should be
-easily integrated into other software that also use those  libraries.}
+is complete. The client supports dynamic DNS with SIG0 authenticated
+requests, implementing easy to use high level funtions. Trust-DNS is
+based on the Tokio and Futures libraries, which means it should be
+easily integrated into other software that also use those libraries.}
 
 %description %{_description}
 
@@ -93,6 +93,18 @@ use the "dns-over-https-openssl" feature of the "%{crate}" crate.
 %files       -n %{name}+dns-over-https-openssl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dns-over-https-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-https-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-https-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-https-rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+dns-over-native-tls-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -115,6 +127,30 @@ This package contains library source intended for building other packages which
 use the "dns-over-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+dns-over-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dns-over-quic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-quic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-quic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-quic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dns-over-rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dns-over-rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dns-over-rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dns-over-rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+dns-over-tls-devel
@@ -153,6 +189,18 @@ use the "dnssec-openssl" feature of the "%{crate}" crate.
 %files       -n %{name}+dnssec-openssl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dnssec-ring-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dnssec-ring-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dnssec-ring" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dnssec-ring-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+mdns-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -163,6 +211,18 @@ This package contains library source intended for building other packages which
 use the "mdns" feature of the "%{crate}" crate.
 
 %files       -n %{name}+mdns-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -187,6 +247,18 @@ This package contains library source intended for building other packages which
 use the "serde-config" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-config-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+webpki-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+webpki-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "webpki" feature of the "%{crate}" crate.
+
+%files       -n %{name}+webpki-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

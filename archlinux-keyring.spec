@@ -5,8 +5,8 @@ Url:            https://archlinux.org/packages/core/any/archlinux-keyring/
 Source0:        https://gitlab.archlinux.org/archlinux/archlinux-keyring/-/archive/%{version}/archlinux-keyring-%{version}.tar.gz
 Patch:          archlinux-keyring-revert_to_sq-keyring-linter.diff
 # see https://wiki.archlinux.org/index.php/Pacman-key for introduction
-License:        Public Domain
-Summary:        GPG keys used by Arch distribution to sign packages
+License:        LicenseRef-Fedora-Public-Domain
+Summary:        GPG keys used by Arch Linux distribution to sign packages
 BuildArch:      noarch
 
 BuildRequires:  keyrings-filesystem

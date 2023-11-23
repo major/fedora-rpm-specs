@@ -8,11 +8,11 @@ httpx-socks packages.
 }
 
 Name:           python-socks
-Version:        2.0.3
+Version:        2.4.3
 Release:        %autorelease
 Summary:        Core proxy (SOCKS4, SOCKS5, HTTP tunneling) functionality for Python
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/romis2012/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -37,13 +37,13 @@ Obsoletes:      python3-socks+curio < 2.0.3-7
 
 # remove version lock
 # https://github.com/romis2012/python-socks/blob/master/requirements-dev.txt
-sed -i 's/pytest-asyncio>.*/pytest-asyncio/' requirements-dev.txt
-
 # remove curio
-sed -i '/curio/d' requirements-dev.txt
-
 # remove linters and coverage
-sed -i -e '/flake8/d' -e '/cov/d' requirements-dev.txt
+# remove fixes
+sed -i -e 's/pytest-asyncio=.*/pytest-asyncio/' \
+    -e '/curio/d' \
+    -e '/flake8/d' -e '/cov/d' \
+    -e 's/pytest=.*$/pytest/' requirements-dev.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r requirements-dev.txt

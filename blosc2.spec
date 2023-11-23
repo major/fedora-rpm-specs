@@ -1,5 +1,5 @@
 Name:           blosc2
-Version:        2.10.5
+Version:        2.11.2
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 
@@ -7,8 +7,11 @@ License:        BSD-3-Clause
 URL:            https://www.blosc.org/
 Source:         https://github.com/Blosc/c-blosc2/archive/v%{version}/c-blosc2-%{version}.tar.gz
 
+Patch:          0001-Add-missing-header.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc
+BuildRequires:  ninja-build
 BuildRequires:  lz4-devel
 BuildRequires:  zlib-devel
 BuildRequires:  zlib-ng-devel
@@ -47,7 +50,8 @@ rm -r internal-complibs/* internal-complibs
 
 %build
 OPTIONS=(
-        -DBUILD_STATIC:BOOL=ON
+        -GNinja
+        -DBUILD_STATIC:BOOL=OFF
         -DBUILD_FUZZERS:BOOL=OFF
         -DPREFER_EXTERNAL_LZ4:BOOL=ON
         -DPREFER_EXTERNAL_ZLIB:BOOL=ON
@@ -64,9 +68,6 @@ OPTIONS=(
 
 %install
 %cmake_install
-
-# https://github.com/Blosc/c-blosc2/issues/480
-rm %{buildroot}%{_libdir}/libblosc2.a
 
 %check
 # Tests fail on s390x: https://github.com/Blosc/c-blosc2/issues/467

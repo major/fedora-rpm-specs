@@ -6,7 +6,7 @@ Summary:        Parse and build Cascading Style Sheets
 %global forgeurl https://github.com/ebook-utils/css-parser
 %forgemeta
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 

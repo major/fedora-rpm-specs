@@ -15,7 +15,7 @@
 Name:           mate-panel
 Version:        %{branch}.3
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %else
 Release:        0.18%{?git_rel}%{?dist}
 %endif
@@ -39,6 +39,8 @@ Patch2:         mate-panel_0001-notification-area-stop-warning-on-removal-1.26.p
 Patch3:         mate-panel_0002-status-notifier-fix-a-typo_1.26.patch
 Patch4:         mate-panel_0003-status-notifier-fix-typo_1.26.patch
 Patch5:         mate-panel_0004-status-notifier-Show-AttentionIcon-when-Status-is-Ne_1.26.patch
+# wnck-pager fix
+Patch6:         mate-panel_0001-wnck-pager-update-workspace-switcher-aspect-ratio.1.26.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 #for fish
@@ -106,7 +108,7 @@ NOCONFIGURE=1 ./autogen.sh
            --disable-gtk-doc                      \
            --enable-x11                           \
            --enable-wayland                       \
-           --with-in-process-applets=all
+           --with-in-process-applets=none
 
 # remove unused-direct-shlib-dependency
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
@@ -140,16 +142,15 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 %{_bindir}/mate-desktop-item-edit
 %{_bindir}/mate-panel
 %{_bindir}/mate-panel-test-applets
-#%%{_libexecdir}/mate-panel
+%{_libexecdir}/mate-panel
 %{_datadir}/glib-2.0/schemas/org.mate.panel.*.xml
 %{_datadir}/applications/mate-panel.desktop
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/mate-panel
-#%%{_datadir}/dbus-1/services/org.mate.panel.applet.ClockAppletFactory.service
-#%%{_datadir}/dbus-1/services/org.mate.panel.applet.FishAppletFactory.service
-#%%{_datadir}/dbus-1/services/org.mate.panel.applet.NotificationAreaAppletFactory.service
-#%%{_datadir}/dbus-1/services/org.mate.panel.applet.WnckletFactory.service
-%{_libdir}/mate-panel/
+%{_datadir}/dbus-1/services/org.mate.panel.applet.ClockAppletFactory.service
+%{_datadir}/dbus-1/services/org.mate.panel.applet.FishAppletFactory.service
+%{_datadir}/dbus-1/services/org.mate.panel.applet.NotificationAreaAppletFactory.service
+%{_datadir}/dbus-1/services/org.mate.panel.applet.WnckletFactory.service
 
 %files libs
 %doc COPYING.LIB
@@ -165,6 +166,10 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Tue Nov 21 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-6
+- add wnck-pager update workspace-switcher-aspect-ratio upstream commit
+- build applets out-of-process
+
 * Mon Nov 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-5
 - improve status-notifier with appindicator support
 

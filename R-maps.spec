@@ -9,18 +9,18 @@
 %global bootstrap 1
 
 Name:             R-%{packname}
-Version:          3.4.0
-Release:          4%{?dist}
+Version:          3.4.1.1
+Release:          1%{?dist}
 Summary:          Draw Geographical Maps
 
-License:          GPLv2
+License:          GPL-2.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-graphics, R-utils
-# Suggests:  R-mapproj >= 1.2-0, R-mapdata >= 2.3.0, R-sp, R-maptools, R-rnaturalearth
+# Suggests:  R-mapproj >= 1.2-0, R-mapdata >= 2.3.0, R-sp, R-rnaturalearth
 # LinkingTo:
 # Enhances:
 
@@ -32,7 +32,6 @@ BuildRequires:    R-sp
 %if ! 0%{?bootstrap}
 BuildRequires:    R-mapproj >= 1.2.0
 BuildRequires:    R-mapdata >= 2.3.0
-BuildRequires:    R-maptools
 BuildRequires:    R-rnaturalearth
 %endif
 
@@ -81,6 +80,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 3.4.1.1-1
+- update to 3.4.1.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

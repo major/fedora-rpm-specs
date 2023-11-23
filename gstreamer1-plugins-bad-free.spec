@@ -11,7 +11,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -79,6 +79,7 @@ BuildRequires:  wpebackend-fdo-devel
 %endif
 BuildRequires:  glslc
 BuildRequires:  libdrm-devel
+BuildRequires:  libva-devel
 
 %if %{with extras}
 BuildRequires:  ladspa-devel
@@ -107,7 +108,6 @@ BuildRequires:  libmpcdec-devel
 ## Plugins not ported
 #BuildRequires:  libmusicbrainz-devel
 #BuildRequires:  libtimidity-devel
-BuildRequires:  libva-devel
 BuildRequires:  openal-soft-devel
 %if %{with opencv}
 BuildRequires:  opencv-devel
@@ -288,7 +288,7 @@ aren't tested well enough, or the code is not of good enough quality.
     -D mpeg2enc=disabled -D mplex=disabled \
     -D neon=disabled -D rtmp=disabled \
     -D flite=disabled -D sbc=disabled \
-    %{!?with_extras:-D spandsp=disabled -D va=disabled } \
+    %{!?with_extras:-D spandsp=disabled } \
     %{!?with_extras:-D voamrwbenc=disabled } \
     -D x265=disabled \
     -D dvbsuboverlay=disabled -D dvdspu=disabled -D siren=disabled \
@@ -500,6 +500,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstsndfile.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsoundtouch.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsrtp.so
+%{_libdir}/gstreamer-%{majorminor}/libgstva.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvulkan.so
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/gstreamer-%{majorminor}/libgstwaylandsink.so
@@ -548,7 +549,6 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstspandsp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsrt.so
 %{_libdir}/gstreamer-%{majorminor}/libgstteletext.so
-%{_libdir}/gstreamer-%{majorminor}/libgstva.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvoamrwbenc.so
 
 %files zbar
@@ -589,9 +589,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgsttranscoder-%{majorminor}.so.0{,.*}
 %{_libdir}/libgsturidownloader-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstvulkan-%{majorminor}.so.0{,.*}
-%if %{with extras}
 %{_libdir}/libgstva-%{majorminor}.so.0{,.*}
-%endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so.0{,.*}
 %if %{with extras}
 %{_libdir}/libgstwebrtcnice-%{majorminor}.so.0{,.*}
@@ -609,9 +607,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/girepository-1.0/GstPlay-1.0.typelib
 %{_libdir}/girepository-1.0/GstPlayer-1.0.typelib
 %{_libdir}/girepository-1.0/GstTranscoder-1.0.typelib
-%if %{with extras}
 %{_libdir}/girepository-1.0/GstVa-1.0.typelib
-%endif
 %{_libdir}/girepository-1.0/GstVulkan-1.0.typelib
 %{_libdir}/girepository-1.0/GstVulkanWayland-1.0.typelib
 %{_libdir}/girepository-1.0/GstWebRTC-1.0.typelib
@@ -631,9 +627,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_datadir}/gir-1.0/GstPlay-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstPlayer-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstTranscoder-%{majorminor}.gir
-%if %{with extras}
 %{_datadir}/gir-1.0/GstVa-%{majorminor}.gir
-%endif
 %{_datadir}/gir-1.0/GstVulkan-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstVulkanWayland-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstWebRTC-%{majorminor}.gir
@@ -655,9 +649,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgsttranscoder-%{majorminor}.so
 %{_libdir}/libgsturidownloader-%{majorminor}.so
 %{_libdir}/libgstvulkan-%{majorminor}.so
-%if %{with extras}
 %{_libdir}/libgstva-%{majorminor}.so
-%endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so
 %if %{with extras}
 %{_libdir}/libgstwebrtcnice-%{majorminor}.so
@@ -680,9 +672,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_includedir}/gstreamer-%{majorminor}/gst/sctp
 %{_includedir}/gstreamer-%{majorminor}/gst/transcoder
 %{_includedir}/gstreamer-%{majorminor}/gst/uridownloader
-%if %{with extras}
 %{_includedir}/gstreamer-%{majorminor}/gst/va/
-%endif
 %{_includedir}/gstreamer-%{majorminor}/gst/vulkan/
 %{_includedir}/gstreamer-%{majorminor}/gst/wayland/
 %{_includedir}/gstreamer-%{majorminor}/gst/webrtc/
@@ -699,9 +689,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/pkgconfig/gstreamer-plugins-bad-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-sctp-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-transcoder-%{majorminor}.pc
-%if %{with extras}
 %{_libdir}/pkgconfig/gstreamer-va-%{majorminor}.pc
-%endif
 %{_libdir}/pkgconfig/gstreamer-vulkan-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-vulkan-wayland-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-wayland-%{majorminor}.pc
@@ -712,6 +700,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Tue Nov 21 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 1.22.7-2
+- Move gstva from extras into main package
+
 * Tue Nov 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
 - 1.22.7
 

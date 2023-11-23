@@ -77,7 +77,9 @@ sed -r -i 's/^([[:blank:]]*)("error",)$/\1# \2/' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+# Since we don’t use %%tox (see notes in %%check), we generate test
+# dependencies directly from the requirements file rather than using -t.
+%pyproject_buildrequires requirements-test.txt
 
 
 %build
@@ -96,7 +98,21 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 
 %check
-%tox
+%if 0%{?fedora} > 39
+# Test failure with libxml2 2.12.0 in Fedora Rawhide
+# https://github.com/python-openxml/python-docx/issues/1302
+k="${k-}${k+ and }not (DescribeParseXml and it_accepts_unicode_providing_there_is_no_encoding_declaration)"
+%endif
+
+# Rather than using the %%tox macro, we run test commands from tox.ini manually
+# so that we can pass extra arguments. We can’t reasonably ask upstream to add
+# {posargs} to tox.ini because there are two different test executors (pytest
+# and behave) that accept positional arguments.
+#
+# As long as we have control of the arguments, we choose more verbose output
+# than outstream, and we choose not to halt on the first failing test.
+%{pytest} -k "${k-}" -v
+%{py3_test_envvars} %{python3} -m behave --format plain --tags=-wip
 
 # Fail the build if the tarball accidentally included ISO/IEC standards
 # documents that should not have been redistributed. Note that removing these

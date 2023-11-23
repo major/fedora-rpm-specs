@@ -6,8 +6,8 @@ this configuration file.
 %global srcname PasteDeploy
 
 Name:           python-paste-deploy
-Version:        3.0.1
-Release:        4%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -64,6 +64,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Tue Nov 21 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-1
+- Update to upstream.
+
 * Sat Nov 04 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.1-4
 - Remove dependency on python-paste (upstream not actively maintained)
 

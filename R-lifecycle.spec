@@ -1,12 +1,12 @@
 %global packname lifecycle
-%global packver  1.0.3
+%global packver  1.0.4
 %global rlibdir  %{_datadir}/R/library
 
 %bcond_with check
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          4%{?dist}
+Release:          1%{?dist}
 Summary:          Manage the Life Cycle of your Package Functions
 
 License:          GPLv3
@@ -15,7 +15,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-cli >= 3.4.0, R-glue, R-rlang >= 1.0.6
+# Imports:   R-cli >= 3.4.0, R-glue, R-rlang >= 1.1.0
 # Suggests:  R-covr, R-crayon, R-knitr, R-lintr, R-rmarkdown, R-testthat >= 3.0.1, R-tibble, R-tidyverse, R-tools, R-vctrs, R-withr
 # LinkingTo:
 # Enhances:
@@ -25,7 +25,7 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-cli >= 3.4.0
 BuildRequires:    R-glue
-BuildRequires:    R-rlang >= 1.0.6
+BuildRequires:    R-rlang >= 1.1.0
 %if %{with check}
 BuildRequires:    R-crayon
 BuildRequires:    R-lintr
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.4-1
+- update to 1.0.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

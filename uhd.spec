@@ -29,7 +29,7 @@
 
 Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
-Version:        4.5.0.0
+Version:        4.6.0.0
 %global images_ver %{version}
 Release:        1%{?dist}
 License:        GPLv3+
@@ -279,6 +279,10 @@ exit 0
 %endif
 
 %changelog
+* Tue Nov 21 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.6.0.0-1
+- New version
+  Resolves: rhbz#2247579
+
 * Mon Sep 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.5.0.0-1
 - New version
   Resolves: rhbz#2237074

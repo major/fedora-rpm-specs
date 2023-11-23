@@ -1,6 +1,6 @@
 Name:           jurand
-Version:        1.3.1
-Release:        3%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        A tool for manipulating Java symbols
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/jurand
@@ -9,10 +9,9 @@ Source0:        https://github.com/fedora-java/jurand/archive/refs/tags/%{versio
 
 BuildRequires:  gcc-c++
 
-BuildRequires:  asciidoc
 BuildRequires:  diffutils
 BuildRequires:  make
-BuildRequires:  xmlto
+BuildRequires:  rubygem-asciidoctor
 
 Obsoletes:      javapackages-extra < 6.2.0
 
@@ -42,9 +41,12 @@ make test
 %dir %{_rpmconfigdir}
 %dir %{_rpmmacrodir}
 %license LICENSE NOTICE
-%doc README.md
+%doc README.adoc
 
 %changelog
+* Tue Nov 21 2023 Marian Koncek <mkoncek@redhat.com> - 1.3.2-1
+- Update to upstream version 1.3.2
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3.1-3
 - Obsolete javapackages-extra
 

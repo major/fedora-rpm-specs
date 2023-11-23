@@ -2,7 +2,7 @@ Name:           arch-install-scripts
 Version:        28
 Release:        %autorelease
 Summary:        Scripts to bootstrap Arch Linux distribution
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/archlinux/arch-install-scripts
 %global forgeurl %url
 %forgemeta

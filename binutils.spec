@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -38,8 +38,8 @@ URL: https://sourceware.org/binutils
 %define warn_for_rwx_segments 1
 
 # Turn the above warnings into errors.  Only effective if the warnings are enabled.
-%define error_for_executable_stacks 0
-%define error_for_rwx_segments 0
+%define error_for_executable_stacks 1
+%define error_for_rwx_segments 1
 
 # Enable support for GCC LTO compilation.
 # Disable if it is necessary to work around bugs in LTO.
@@ -1295,6 +1295,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Nov 21 2023 Nick Clifton  <nickc@redhat.com> - 2.41-14
+- Enable errors for executable stacks.
+
 * Fri Nov 10 2023 Nick Clifton  <nickc@redhat.com> - 2.41-13
 - Make the GOLD linker ignore the "-z pack-relative-relocs" option.  (#2248936)
 

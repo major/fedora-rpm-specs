@@ -2,14 +2,15 @@
 
 Name:           gst-devtools
 Version:        1.22.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
 License:        LGPL-2.0-or-later
 URL:            https://gstreamer.freedesktop.org/src/gst-devtools
-# git clone --depth 1 --branch %%{version} https://gitlab.freedesktop.org/gstreamer/gstreamer.git
-# cd gstreamer/subprojects ; tar -czf gst-devtools.tar.gz gst-devtools
-Source0:        %{name}.tar.gz
+Source:         https://gstreamer.freedesktop.org/src/gst-devtools/gst-devtools-%{version}.tar.xz
+
+# Remove deprecated call to gettext.bind_textdomain_codeset(), fixed in 1.24
+Patch:          https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5027.patch
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gobject-2.0)
@@ -33,25 +34,25 @@ Requires:       gstreamer1-devel%{?_isa}
 %description devel
 %{summary}.
 
+%package -n gst-debug-viewer
+Summary:        GStreamer Debug Viewer
+Requires:       gtk3
+Requires:       hicolor-icon-theme
+Requires:       python3-gobject
+BuildArch:      noarch
+
+%description -n gst-debug-viewer
+A simple graphical utility to view and analyze GStreamer debug files.
+
 %prep
-%autosetup -n %{name}
+%autosetup -p3
 
 %build
-%meson -D doc=disabled
+%meson -D doc=disabled -D debug_viewer=enabled
 %meson_build
 
 %install
 %meson_install
-
-for lib in `find %{buildroot} -type f -name '*.py'`; do
- sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
- touch -r $lib $lib.new &&
- mv $lib.new $lib
-done
-
-sed -i "s/env\ //g" %{buildroot}%{_bindir}/gst-validate-launcher
-
-%ldconfig_scriptlets
 
 %files
 %doc validate/README
@@ -74,7 +75,19 @@ sed -i "s/env\ //g" %{buildroot}%{_bindir}/gst-validate-launcher
 %{_datadir}/gir-1.0/GstValidate-%{apiver}.gir
 %{_libdir}/libgstvalidate-default-overrides-1.0.so
 
+%files -n gst-debug-viewer
+%{_bindir}/gst-debug-viewer
+%{python3_sitelib}/GstDebugViewer/
+%{_datadir}/applications/org.freedesktop.GstDebugViewer.desktop
+%{_datadir}/gst-debug-viewer/
+%{_datadir}/icons/hicolor/*/apps/gst-debug-viewer.*
+%{_metainfodir}/org.freedesktop.GstDebugViewer.appdata.xml
+
 %changelog
+* Tue Nov 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.7-2
+- Use upstream source tarball
+- Add gst-debug-viewer
+
 * Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
 - 1.22.7
 

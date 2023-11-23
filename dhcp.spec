@@ -15,7 +15,14 @@
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  10%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  11%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+
+# We want to get rid of DHCP in favour of Kea package, because ISC has announced
+# the end of maintenance for ISC DHCP as of the end of 2022. No package depends
+# on dhcp-server, but dhcp-client is still being used, so we keep it around as
+# deprecated package. There is ongoing effort to replace it with other options:
+# https://fedoraproject.org/wiki/Changes/dhclient_deprecation
+Provides:  deprecated()
 
 # NEVER CHANGE THE EPOCH on this package.  The previous maintainer (prior to
 # dcantrell maintaining the package) made incorrect use of the epoch and
@@ -105,6 +112,7 @@ Obsoletes: %{name}-compat < 12:4.4.2-12.b1
 Requires(post): coreutils grep sed
 %{?sysusers_requires_compat}
 %{?systemd_requires}
+Provides: deprecated()
 
 %description server
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -121,6 +129,7 @@ Requires: %{name}-common = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-compat < 12:4.4.2-12.b1
 Requires(post): grep sed
 %{?systemd_requires}
+Provides: deprecated()
 
 %description relay
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -140,6 +149,7 @@ Requires: coreutils gawk grep ipcalc iproute iputils sed systemd
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
 # Old NetworkManager expects the dispatcher scripts in a different place
 Conflicts: NetworkManager < 1.20
+Provides: deprecated()
 
 %description client
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -154,6 +164,7 @@ This package provides the ISC DHCP client.
 Summary: Common files used by ISC dhcp client, server and relay agent
 BuildArch: noarch
 Obsoletes: dhcp-libs < %{epoch}:%{version}
+Provides: deprecated()
 
 %description common
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -170,6 +181,7 @@ Provides: %{name}-libs%{?_isa} =  %{epoch}:%{version}-%{release}
 Provides: %{name}-libs =  %{epoch}:%{version}-%{release}
 Provides: bundled(bind-export-libs)
 Provides: bundled(bind)
+Provides: deprecated()
 
 %description libs-static
 This package contains shared libraries used by ISC dhcp client and server
@@ -177,6 +189,7 @@ This package contains shared libraries used by ISC dhcp client and server
 %package devel
 Summary: Development headers and libraries for interfacing to the DHCP server
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Provides: deprecated()
 
 %description devel
 Header files and API documentation for using the ISC DHCP libraries.  The
@@ -187,6 +200,7 @@ libdhcpctl and libomapi static libraries are also included in this package.
 Summary: Developer's Guide for ISC DHCP
 Requires: %{name}-libs = %{epoch}:%{version}-%{release}
 BuildArch: noarch
+Provides: deprecated()
 
 %description devel-doc
 This documentation is intended for developers, contributors and other
@@ -196,6 +210,7 @@ This package contains doxygen-generated documentation.
 
 %package keama
 Summary: Experimental migration assistant for Kea
+Provides: deprecated()
 
 %description keama
 The KEA Migration Assistant is an experimental tool which helps to translate
@@ -528,6 +543,9 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Wed Nov 15 2023 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-11.P1
+- Mark dhcp (sub)packages as deprecated
+
 * Mon Oct 02 2023 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-10.P1
 - SPDX migration
 

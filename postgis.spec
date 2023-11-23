@@ -15,8 +15,8 @@
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          postgis
-Version:       3.4.0
-Release:       2%{?dist}
+Version:       3.4.1
+Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -422,6 +422,9 @@ fi
 
 
 %changelog
+* Tue Nov 21 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-1
+- Update to 3.4.1
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 3.4.0-2
 - Rebuild (gdal)
 

@@ -39,7 +39,7 @@
 
 Name:               gfal2-python
 Version:            1.12.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python bindings for gfal 2
 License:            ASL 2.0
 URL:                http://dmc.web.cern.ch/
@@ -49,6 +49,7 @@ URL:                http://dmc.web.cern.ch/
 # popd
 # tar czf gfal2-python-1.12.1.tar.gz --exclude-vcs gfal2-python-1.12.1
 Source0:            %{name}-%{version}.tar.gz
+Patch0:             0000_CMake_FindPython3_13.patch
 
 BuildRequires:      gcc-c++
 BuildRequires:      cmake3
@@ -121,6 +122,7 @@ Documentation files for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 # Make sure the version in the spec file and the version used
@@ -177,6 +179,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 21 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.12.1-2
+- Patch for the Python 3.13 rebuild (close RHBZ#2250873)
+
 * Tue Sep 05 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.12.1-1
 - Upgrade to upstream release 1.12.1
 - Closes bugzilla#2154855, bugzilla#2220000, bugzilla#2225821

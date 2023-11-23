@@ -239,15 +239,8 @@ rm -rf build
 # library to be installed so we don't duplicate it inside the extension
 # That is also why we have to point pkg-config at the installed library
 PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig %py3_build_wheel
-# Fix wheel arch name mismatch for some arches
-%if "%{_arch}" == "i386"
-%define whl_arch "i686"
-%elif "%{_arch}" == "arm"
-%define whl_arch "armv7l"
-%else
-%define whl_arch "%{_arch}"
-%endif
-%py3_install_wheel python_qpid_proton-%{version}-cp%{python3_version_nodots}-cp%{python3_version_nodots}-linux_%{whl_arch}.whl
+%global whl_tags cp%{python3_version_nodots}-cp%{python3_version_nodots}-%(echo %{python3_platform} | tr -- - _)
+%py3_install_wheel python_qpid_proton-%{version}-%{whl_tags}.whl
 # We seem to need to strip the build extension otherwise it seems to embed a reference to
 # the buildroot in the debug info which fails the rpmbuild - probably because we massaged
 # the pkgconfig path above
