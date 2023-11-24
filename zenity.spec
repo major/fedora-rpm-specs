@@ -1,5 +1,5 @@
 Name:          zenity
-Version:       3.99.2
+Version:       3.99.90
 Release:       1%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Zenity.desk
 
 
 %changelog
+* Wed Nov 22 2023 Kalev Lember <klember@redhat.com> - 3.99.90-1
+- Update to 3.99.90
+
 * Thu Sep 21 2023 Kalev Lember <klember@redhat.com> - 3.99.2-1
 - Update to 3.99.2
 

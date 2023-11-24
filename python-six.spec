@@ -11,6 +11,10 @@ License:        MIT
 URL:            https://github.com/benjaminp/six
 Source0:        %{pypi_source six}
 
+# tkinter.tix was removed from Python 3.13, skip the test
+# https://github.com/benjaminp/six/pull/377
+Patch:          tkinter.tix-was-removed-from-Python-3.13.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 License:	ASL 2.0 and GPLv2
 URL:		https://github.com/jopohl/urh
@@ -83,6 +83,9 @@ desktop-file-install --add-category="Utility" \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Wed Nov 22 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.5-3
+- Rebuilt for new uhd
+
 * Mon Nov 13 2023 Karolina Surma <ksurma@redhat.com> - 2.9.5-2
 - Stop pinning Cython to 0.29, package builds with Cython 3 too
 

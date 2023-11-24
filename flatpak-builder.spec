@@ -5,7 +5,7 @@
 %global flatpak_version 0.99.1
 
 Name:           flatpak-builder
-Version:        1.3.4
+Version:        1.3.5
 Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
@@ -101,6 +101,9 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 
 
 %changelog
+* Sun Nov 19 2023 Kalev Lember <klember@redhat.com> - 1.3.5-1
+- Update to 1.3.5
+
 * Mon Nov 13 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.3.4-1
 - Update to 1.3.4 (#2212349)
 - Enable installed tests

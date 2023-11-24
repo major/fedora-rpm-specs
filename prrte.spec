@@ -2,7 +2,12 @@ Name:           prrte
 Version:        3.0.2
 Release:        2%{?dist}
 Summary:        PMIx Reference RunTime Environment (PRRTE)
-License:        BSD
+# src/mca/prtereachable/netlink/reachable_netlink_utils_common.c is BSD-2-Clause
+# -devel related licenses:
+# src/docs/show-help-files/_build/text/_static/jquery.js is MIT
+# docs/_build/html/_static/js/html5shiv.min.js is MIT OR GPL-2.0-or-later
+# docs/_build/html/_static/css/fonts/* are (OFL-1.1 OR MIT)
+License:        BSD-3-Clause-Open-MPI AND BSD-2-Clause
 URL:            https://github.com/openpmix/%{name}
 Source0:        https://github.com/openpmix/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
@@ -39,6 +44,7 @@ Runtime libraries for %{name}.
 
 %package        devel
 Summary:        Development files for %{name}
+License:        BSD-3-Clause-Open-MPI AND BSD-2-Clause AND MIT AND (MIT OR GPL-2.0-or-later) AND (OFL-1.1 OR MIT)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel

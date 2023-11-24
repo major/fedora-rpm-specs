@@ -9,7 +9,7 @@
 Name:           openh264
 Version:        %{openh264_version}
 # Also bump the Release tag for gstreamer1-plugin-openh264 down below
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        H.264 codec library
 
 License:        BSD
@@ -126,9 +126,19 @@ pref("media.gmp-gmpopenh264.version", "system-installed");
 EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
-cat > $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/gmpopenh264.sh << EOF
+cat > $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/gmpopenh264.sh << 'EOF'
 MOZ_GMP_PATH="${MOZ_GMP_PATH}${MOZ_GMP_PATH:+:}%{_libdir}/mozilla/plugins/gmp-gmpopenh264/system-installed"
 export MOZ_GMP_PATH
+EOF
+
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/fish/vendor_conf.d
+cat > $RPM_BUILD_ROOT%{_datadir}/fish/vendor_conf.d/gmpopenh264.fish << 'EOF'
+set -x --path MOZ_GMP_PATH $MOZ_GMP_PATH
+set dir %{_libdir}/mozilla/plugins/gmp-gmpopenh264/system-installed
+if not contains $dir $MOZ_GMP_PATH
+    set -p MOZ_GMP_PATH $dir
+end
+set -e dir
 EOF
 
 # Remove static libraries
@@ -204,6 +214,9 @@ popd
 %dir %{_libdir}/firefox/defaults/pref
 %{_libdir}/firefox/defaults/pref/gmpopenh264.js
 %{_libdir}/mozilla/plugins/gmp-gmpopenh264/
+%dir %{_datadir}/fish
+%dir %{_datadir}/fish/vendor_conf.d
+%{_datadir}/fish/vendor_conf.d/gmpopenh264.fish
 
 %files -n gstreamer1-plugin-openh264
 %{_datadir}/appdata/*.appdata.xml
@@ -211,6 +224,10 @@ popd
 
 
 %changelog
+* Wed Nov 22 2023 NoisyCoil <noisycoil@tutanota.com> - 2.3.1-4
+- Set MOZ_GMP_PATH for fish user shell
+- Partially resolves: rhbz#2250527
+
 * Thu Aug 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 2.3.1-3
 - Add Mozilla plugin path to MOZ_GMP_PATH instead of overriding unconditionally
 - Resolves: rhbz#2225112

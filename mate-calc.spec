@@ -6,6 +6,8 @@ License:       GPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
 
+Patch1:        mate-calc_0001-fix-building-with-libxml_2.12.0.patch
+
 BuildRequires: bison
 BuildRequires: desktop-file-utils
 BuildRequires: flex
@@ -55,6 +57,7 @@ desktop-file-install                               \
 %changelog
 * Mon Nov 20 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-6
 - rebuild to fix mouse input mentioned in rhbz (#2250715)
+- fix building with libxml2-2.12.0
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

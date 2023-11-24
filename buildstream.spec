@@ -20,6 +20,7 @@ BuildRequires: python3-pytest-runner
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinx_rtd_theme
 BuildRequires: python3-sphinx-click
+BuildRequires: python3-sphinxcontrib-devhelp
 
 # These from plugin-requirements.in + requirements.in
 BuildRequires: fuse-libs

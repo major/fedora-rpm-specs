@@ -3,7 +3,7 @@
 
 # https://github.com/google/go-dap
 %global goipath         github.com/google/go-dap
-Version:                0.10.0
+Version:                0.11.0
 
 %gometa
 

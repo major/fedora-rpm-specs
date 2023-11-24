@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    f7a414e7ddbdcd98105506ca1eecc68d4820fb89
+%global gh_commit    e4cd5d01209ca95c4795907bec3565013dcf3224
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.39
+Version:        2.0.4
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -27,16 +27,16 @@ BuildArch:      noarch
 %if %{with_tests}
 # For tests
 %global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10
-BuildRequires:  php(language) >= 5.3
+BuildRequires:  phpunit10 >= 10.1.2
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-pcre
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=5.3",
+#        "php": ">=8.0",
 #        "ext-pcre": "*"
-Requires:       php(language) >= 5.3
+Requires:       php(language) >= 8.0
 Requires:       php-pcre
 # From phpcompatinfo report for version 1.12.4
 # none
@@ -110,6 +110,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 22 2023 Remi Collet <remi@remirepo.net> - 2.0.4-1
+- update to 2.0.4
+- raise dependency on PHP 8
+
 * Mon Oct 23 2023 Remi Collet <remi@remirepo.net> - 1.14.39-1
 - update to 1.14.39 (no change)
 

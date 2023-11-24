@@ -8,8 +8,8 @@
 %global source_directory 1.19-development
 
 Name:           libnbd
-Version:        1.19.1
-Release:        2%{?dist}
+Version:        1.19.2
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -24,9 +24,6 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
-
-# CVE-2023-5871
-Patch:          0001-generator-Fix-assertion-in-ext-mode-BLOCK_STATUS-CVE.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -378,6 +375,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Wed Nov 22 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.2-1
+- New upstream development version 1.19.2
+
 * Tue Oct 31 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.1-2
 - Fix assertion in ext-mode BLOCK_STATUS (CVE-2023-5871)
 

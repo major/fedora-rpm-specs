@@ -1,9 +1,11 @@
 Summary: Modular Assembler
 Name: yasm
 Version: 1.3.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 # See COPYING for the detail, there is quite a lot!
-License: BSD and (GPLv2+ or Artistic or LGPLv2+) and LGPLv2
+# Bitvect is (GPL-1.0-or-later AND GPL-2.0-or-later OR Artistic-1.0-Perl OR LGPL-2.0-or-later
+# Everything else is BSD. Either 2 or 3 clause.
+License: BSD-2-Clause AND BSD-3-Clause AND (GPL-1.0-or-later AND GPL-2.0-or-later OR Artistic-1.0-Perl OR LGPL-2.0-or-later)
 
 URL: http://yasm.tortall.net/
 Source: http://www.tortall.net/projects/yasm/releases/yasm-%{version}.tar.gz
@@ -75,6 +77,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Nov 22 2023 Nick Clifton  <nickc@redhat.com> - 1.3.0-19
+- Spec File: Migrated to SPDX license.  (#2222115)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

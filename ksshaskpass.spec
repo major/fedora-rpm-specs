@@ -1,28 +1,22 @@
 Name:    ksshaskpass
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
 License: GPLv2
 URL:     https://cgit.kde.org/%{name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kwallet-devel
-BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  pkgconfig(Qt6Core)
 
 %description
 %{summary}.
@@ -33,8 +27,7 @@ BuildRequires:  pkgconfig(Qt5Core)
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -46,7 +39,7 @@ BuildRequires:  pkgconfig(Qt5Core)
 # Setup environment variables
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/env/
 cat >    %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/env/ksshaskpass.sh << EOF
-SSH_ASKPASS=%{_kf5_bindir}/ksshaskpass
+SSH_ASKPASS=%{_kf6_bindir}/ksshaskpass
 export SSH_ASKPASS
 EOF
 
@@ -54,12 +47,15 @@ EOF
 %files -f ksshaskpass.lang
 %doc ChangeLog
 %license LICENSES/*
-%{_kf5_bindir}/ksshaskpass
+%{_kf6_bindir}/ksshaskpass
 %config(noreplace) %{_sysconfdir}/xdg/plasma-workspace/env/ksshaskpass.sh
 %{_mandir}/man1/ksshaskpass.1*
 
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

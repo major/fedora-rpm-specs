@@ -2,8 +2,8 @@
 
 Summary:    Library to make writing a VNC server easy
 Name:       libvncserver
-Version:    0.9.13
-Release:    15%{?dist}
+Version:    0.9.14
+Release:    1%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
 License:    GPL-2.0-or-later
@@ -14,22 +14,13 @@ Source0:    https://github.com/LibVNC/libvncserver/archive/LibVNCServer-%{versio
 # https://github.com/LibVNC/libvncserver/pull/234
 Patch10: 0001-libvncserver-Add-API-to-add-custom-I-O-entry-points.patch
 Patch11: 0002-libvncserver-Add-channel-security-handlers.patch
-# https://github.com/LibVNC/libvncserver/commit/87c52ee0551b7c4e76855d270d475b9e3039fe08
-Patch12: 0003-libvncserver-auth-don-t-keep-security-handlers-from-.patch
-# Fix crash on all runs after the first
-# https://github.com/LibVNC/libvncserver/pull/444
-# https://bugzilla.redhat.com/show_bug.cgi?id=1882718
-Patch13: 0004-zlib-Clear-buffer-pointers-on-cleanup-444.patch
-# Fix another crasher
-# https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/issues/45
-# https://bugzilla.redhat.com/show_bug.cgi?id=1882718
-Patch14: 0001-libvncserver-don-t-NULL-out-internal-of-the-default-.patch
+Patch12: ffmpeg.patch
 
 ## downstream patches
 Patch102: libvncserver-LibVNCServer-0.9.13-system-crypto-policy.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(libsystemd)
@@ -45,11 +36,12 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 #BuildRequires:  pkgconfig(lzo2)
-#BuildRequires:  ffmpeg-devel
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  gettext-devel
 BuildRequires:  libgcrypt-devel
-
-
 BuildRequires:  lzo-devel
 BuildRequires:  lzo-minilzo
 BuildRequires:  pkgconfig(libcrypto)
@@ -93,17 +85,30 @@ developing applications that use %{name}.
 %prep
 %setup -q -n %{name}-LibVNCServer-%{version}
 
-%patch10 -p1 -b .tls-1
-%patch11 -p1 -b .tls-2
-%patch12 -p1 -b .handlers
-%patch13 -p1 -b .pointers
-%patch14 -p1 -b .cursor_null
-
-%patch102 -p1 -b .crypto_policy
+%patch -P10 -p1 -b .tls-1
+%patch -P11 -p1 -b .tls-2
+%patch -P12 -p1 -b .include_ffmpeg
+%patch -P102 -p1 -b .crypto_policy
 
 # Nuke bundled minilzo
-rm -fv common/lzodefs.h common/lzoconf.h commmon/minilzo.h common/minilzo.c
-
+#rm common/base64.c
+#rm common/base64.h
+#rm common/crypto.h
+#rm common/crypto_included.c
+#rm common/crypto_libgcrypt.c
+rm common/crypto_openssl.c
+rm common/d3des.c
+rm common/d3des.h
+rm common/minilzo.h
+rm common/sha1.c
+rm common/sha.h
+rm common/sha-private.h
+#rm common/sockets.c
+#rm common/sockets.h
+#rm common/turbojpeg.c
+#rm common/turbojpeg.h
+#rm common/vncauth.c
+#rm common/zywrletemplate.c
 
 # Fix encoding
 for file in ChangeLog ; do
@@ -114,7 +119,7 @@ done
 
 
 %build
-%cmake3
+%cmake
 
 %cmake_build
 
@@ -123,11 +128,9 @@ done
 %cmake_install
 
 
-%ldconfig_scriptlets
-
 %files
 %license COPYING
-%doc AUTHORS ChangeLog NEWS* README* TODO*
+%doc AUTHORS ChangeLog NEWS* README* CONTRIBUTING.md HISTORY.md SECURITY.md
 %{_libdir}/libvncclient.so.1
 %{_libdir}/libvncclient.so.%{version}
 %{_libdir}/libvncserver.so.1
@@ -140,9 +143,14 @@ done
 %{_libdir}/libvncserver.so
 %{_libdir}/pkgconfig/libvncclient.pc
 %{_libdir}/pkgconfig/libvncserver.pc
+%{_libdir}/cmake/LibVNCServer/*.cmake
 
 
 %changelog
+* Wed Nov 15 2023 Sérgio Basto <sergio@serjux.com> - 0.9.14-1
+- Update to 0.9.14 (#2155072)
+- Enable ffmpeg
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

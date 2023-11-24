@@ -15,7 +15,7 @@
 Name:          eom
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       2%{?dist}
+Release:       3%{?dist}
 %else
 Release:       0.18%{?git_rel}%{?dist}
 %endif
@@ -29,6 +29,8 @@ URL:           http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
+Patch1:        eom_0001-fix-building-with-libxml-2.12.0.patch
+
 BuildRequires: desktop-file-utils
 BuildRequires: exempi-devel
 BuildRequires: gobject-introspection-devel
@@ -37,7 +39,7 @@ BuildRequires: ImageMagick-devel
 BuildRequires: lcms2-devel
 BuildRequires: libexif-devel
 BuildRequires: libjpeg-turbo-devel
-BuildRequires: libpeas-devel
+BuildRequires: libpeas1-devel
 BuildRequires: librsvg2-devel
 BuildRequires: libxml2-devel
 BuildRequires: mate-common
@@ -128,6 +130,10 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue Nov 21 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-3
+- update spec file for using libpeas1
+- fix building with libxml 2.12.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

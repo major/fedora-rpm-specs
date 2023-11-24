@@ -8,7 +8,7 @@
 Summary: Cinnamon session manager
 Name:    cinnamon-session
 Version: 6.0.0
-Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release: 2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
 %if 0%{?tag:1}
@@ -16,6 +16,7 @@ Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
 %else
 Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %endif
+Patch0:  %url/pull/158.patch
 
 ExcludeArch: %{ix86}
 
@@ -91,6 +92,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Wed Nov 22 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-2
+- Fix glib warning
+
 * Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
 - Update to 6.0.0 release
 

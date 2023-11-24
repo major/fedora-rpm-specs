@@ -2,12 +2,18 @@
 
 Name:           qadwaitadecorations
 Version:        0.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt decoration plugin implementing Adwaita-like client-side decorations
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/FedoraQt/QAdwaitaDecorations
 Source0:        https://github.com/FedoraQt/QAdwaitaDecorations/archive/%{version}/QAdwaitaDecorations-%{version}.tar.gz
+
+Patch1:         0001-Check-decorations-exist-before-setting-the-dirty-fla.patch
+Patch2:         0002-Fix-indentation-of-buttons-when-placed-on-the-left-s.patch
+Patch3:         0003-Apply-correct-order-to-titlebar-buttons-44.patch
+Patch4:         0004-Add-Adwaita-icon-theme-as-a-fallback.patch
+
 
 BuildRequires:  cmake
 BuildRequires:  make
@@ -86,6 +92,13 @@ Supplements:   (qt6-qtbase and gnome-shell)
 %{_qt6_plugindir}/wayland-decoration-client/libqadwaitadecorations.so
 
 %changelog
+* Wed Nov 22 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.3-2
+- Backport upstream fixes and improvements
+  - fix crash on forcing repaint on non-existing decorations
+  - fix indentation of buttons when placed on the left side
+  - apply correct button order
+  - use Adwaita icons as fallback
+
 * Mon Oct 16 2023 Jan Grulich <jgrulich@redhat.com> - 0.1.3-1
 - 0.1.3
 

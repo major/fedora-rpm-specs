@@ -1,52 +1,47 @@
-%global base_name    xdg-desktop-portal-kde
-
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
-URL:     https://invent.kde.org/plasma/%{base_name}
+License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtquickcontrols2-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-private-devel
-BuildRequires:  qt5-qtwayland-devel
-# libQt5PrintSupport.so.5(Qt_5_PRIVATE_API)(64bit)
 
+BuildRequires:  qt6-qtbase-devel
+# libQt6Gui.so.6(Qt_6.6_PRIVATE_API)(64bit)
+# libQt6PrintSupport.so.6(Qt_6.6_PRIVATE_API)(64bit)
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtbase-static
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtquickcontrols2-devel
+BuildRequires:  qt6-qtwayland-devel
+BuildRequires:  cmake(Qt6WaylandClient)
 
 BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  wayland-devel
 
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5GlobalAccel)
-BuildRequires:  cmake(KF5GuiAddons)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Wayland)
-BuildRequires:  cmake(KF5WidgetsAddons)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5Declarative)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6Wayland)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
 
-BuildRequires:  qt5-qtbase-static
 Requires:       xdg-desktop-portal
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2240211
 Requires:       xdg-desktop-portal-gtk
@@ -58,11 +53,11 @@ pieces of KDE infrastructure.
 
 
 %prep
-%autosetup -n %{base_name}-%{version} -p1
+%autosetup -p1
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -79,12 +74,15 @@ pieces of KDE infrastructure.
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.kde.service
 %{_datadir}/xdg-desktop-portal/portals/kde.portal
 %{_datadir}/applications/org.freedesktop.impl.portal.desktop.kde.desktop
-%{_datadir}/knotifications5/xdg-desktop-portal-kde.notifyrc
-%{_datadir}/qlogging-categories5/xdp-kde.categories
+%{_datadir}/knotifications6/xdg-desktop-portal-kde.notifyrc
+%{_datadir}/qlogging-categories6/xdp-kde.categories
 %{_datadir}/xdg-desktop-portal/kde-portals.conf
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

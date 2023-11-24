@@ -1,24 +1,16 @@
-%undefine __cmake_in_source_build
-
 Name:    plasma-workspace-wallpapers
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 License: LGPLv3
 URL:     https://cgit.kde.org/%{name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 BuildArch: noarch
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
 
 Requires:       kde-filesystem
 
@@ -34,11 +26,11 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 
@@ -80,6 +72,9 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Volna/
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

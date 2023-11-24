@@ -1,35 +1,30 @@
-%global srcname psutil
-%global sum A process and system utilities module for Python
-
-Name:           python-%{srcname}
+Name:           python-psutil
 Version:        5.9.5
 Release:        2%{?dist}
-Summary:        %{sum}
+Summary:        A process and system utilities module for Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/giampaolo/psutil
-Source0:        %{url}/archive/release-%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{url}/archive/release-%{version}/psutil-%{version}.tar.gz
 #
 # skip 2 tests that fail in mock chroots
 #
-Patch0:         python-psutil-skip-tests-in-mock.patch
+Patch:          python-psutil-skip-tests-in-mock.patch
 #
 # avoid: AssertionError: 7883822.420000001 != 7883822.42
 #
-Patch1:         python-psutil-test-sum-floats-via-almost-equal.patch
+Patch:          python-psutil-test-sum-floats-via-almost-equal.patch
 #
 # include unistd.h to avoid (on Python 3.13+):
 #   error: implicit declaration of function ‘syscall’
 #   error: implicit declaration of function ‘close’
 # upstream PR: https://github.com/giampaolo/psutil/pull/2321
 #
-Patch2:         python-psutil-include-unistd.h.patch
+Patch:          python-psutil-include-unistd.h.patch
 
 BuildRequires:  gcc
-BuildRequires:  grep
-BuildRequires:  make
+BuildRequires:  sed
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 # Test dependencies
 BuildRequires:  procps-ng
 
@@ -42,8 +37,7 @@ ifconfig, nice, ionice, iostat, iotop, uptime, pidof, tty, who, taskset, pmap.
 
 
 %package -n python%{python3_pkgversion}-psutil
-Summary:        %{sum}
-
+Summary:        %{summary}
 
 %description -n python%{python3_pkgversion}-psutil
 psutil is a module providing an interface for retrieving information on all
@@ -52,15 +46,17 @@ a portable way by using Python 3, implementing many functionalities offered by
 command line tools such as: ps, top, df, kill, free, lsof, free, netstat,
 ifconfig, nice, ionice, iostat, iotop, uptime, pidof, tty, who, taskset, pmap.
 
+
 %package -n python%{python3_pkgversion}-psutil-tests
-Summary:        %{sum}, test suite
+Summary:        %{summary}, test suite
 Requires:       python%{python3_pkgversion}-psutil%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description -n python%{python3_pkgversion}-psutil-tests
 The test suite for psutil.
 
+
 %prep
-%autosetup -p1 -n %{srcname}-release-%{version}
+%autosetup -p1 -n psutil-release-%{version}
 
 # Remove shebangs
 find psutil -name \*.py | while read file; do
@@ -70,35 +66,40 @@ find psutil -name \*.py | while read file; do
 done
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files psutil
+
 
 # Ignore tests when building with flatpak-module-tools to avoid build failures
 # when building inside VMs or containers. Flatpaks would usually build this package
 # as dependency from stable and already tested branches.
-
 %if ! 0%{?flatpak}
 %check
 # Setting APPVEYOR to convince the test suite this is a CI.
 # That way, some unreliable tests are skipped and some timeouts are extended.
 # Previously, this was done by the CI_TESTING variable, but that works no more.
 # Alternative is to set GITHUB_ACTIONS but that has undesirable side effects.
-make test APPVEYOR=1 PYTHON=%{__python3} PYTHONPATH=%{buildroot}/%{python3_sitearch}
+
+# Note: We deliberately bypass the Makefile here to test the installed modules.
+APPVEYOR=1 %{py3_test_envvars} %{python3} psutil/tests/runner.py
 %endif
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
-%doc CREDITS HISTORY.rst README.rst
-%{python3_sitearch}/%{srcname}/
-%{python3_sitearch}/%{srcname}-%{version}-py%{python3_version}.egg-info/
-%exclude %{python3_sitearch}/%{srcname}/tests
 
-%files -n python%{python3_pkgversion}-%{srcname}-tests
-%{python3_sitearch}/%{srcname}/tests/
+%files -n python%{python3_pkgversion}-psutil -f %{pyproject_files}
+%doc CREDITS HISTORY.rst README.rst
+%exclude %{python3_sitearch}/psutil/tests
+
+%files -n python%{python3_pkgversion}-psutil-tests
+%{python3_sitearch}/psutil/tests/
 
 
 %changelog

@@ -29,7 +29,8 @@ BuildRequires: /usr/bin/rst2man
 BuildRequires: valgrind-devel
 BuildRequires: systemd
 BuildRequires: systemd-devel
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
+# https://github.com/linux-rdma/rdma-core/pull/1405
+%if (0%{?fedora} < 40 && 0%{?fedora} >= 32) || (0%{?rhel} >= 8 && 0%{?rhel} < 10)
 %define with_pyverbs %{?_with_pyverbs: 1} %{?!_with_pyverbs: %{?!_without_pyverbs: 1} %{?_without_pyverbs: 0}}
 %else
 %define with_pyverbs %{?_with_pyverbs: 1} %{?!_with_pyverbs: 0}

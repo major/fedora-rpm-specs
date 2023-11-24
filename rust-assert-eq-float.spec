@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate pythonize
+%global crate assert-eq-float
 
-Name:           rust-pythonize
-Version:        0.20.0
+Name:           rust-assert-eq-float
+Version:        0.1.3
 Release:        %autorelease
-Summary:        Serde Serializer & Deserializer from Rust <--> Python, backed by PyO3
+Summary:        Assert_eq_float! macros that support floats
 
 License:        MIT
-URL:            https://crates.io/crates/pythonize
+URL:            https://crates.io/crates/assert-eq-float
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Serde Serializer & Deserializer from Rust <--> Python, backed by PyO3.}
+This crate provides the `assert_eq_float!` macros that support floats.}
 
 %description %{_description}
 
@@ -31,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

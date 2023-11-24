@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camomile
 Version:        2.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unicode library for OCaml
 
 # LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
@@ -25,6 +25,7 @@ BuildRequires:  ocaml >= 4.13
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-dune >= 3.4
 BuildRequires:  ocaml-dune-site-devel
+BuildRequires:  ocaml-stdlib-random-devel
 
 # The base package requires the data files.  Note that it is possible
 # to install the data files on their own to support other packages
@@ -84,11 +85,8 @@ ulimit -Ss 65536
 sed -i '\@%{_datadir}@d' .ofiles
 
 
-# As of version 2.0.0, the tests only work if stdlib-random is available:
-# https://github.com/ocaml/stdlib-random
-# Reenable this once stdlib-random is packaged for Fedora.
-#%%check
-#%%dune_check
+%check
+%dune_check
 
 
 %files -f .ofiles
@@ -106,6 +104,9 @@ sed -i '\@%{_datadir}@d' .ofiles
 
 
 %changelog
+* Tue Nov 21 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-5
+- Enable tests with stdlib-random
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-4
 - OCaml 5.1 rebuild for Fedora 40
 

@@ -1,8 +1,8 @@
 # ansible-core is built for alternative Python stacks in RHEL which do not have
 # the necessary test deps packaged.
 Name:		ansible-collection-awx-awx
-Version:	23.4.0
-Release:	1%{?dist}
+Version:	23.5.0
+Release:	%autorelease
 Summary:	Ansible modules and plugins for working with AWX
 
 License:	GPL-3.0-or-later AND BSD-2-Clause
@@ -52,23 +52,4 @@ cd awx_collection_build/
 %doc awx_collection_build/README.md
 
 %changelog
-* Thu Nov 16 2023 Andrew H <aheath1992@gmail.com> - 23.4.0-1
-- Update to 23.4.0
-
-* Fri Oct 13 2023 Andrew H <aheath1992@gmail.com> - 23.3.0-1
-- Update to 23.3.0
-
-* Tue Oct 03 2023 Andrew H <aheath1992@gmail.com> - 23.2.0-1
-- Update to 23.2.0.
-
-* Fri Sep 15 2023 Andrew H <aheath1992@gmail.com> - 23.1.0-1
-- Update to 23.1.0.
-
-* Tue Aug 29 2023 Andrew H <aheath1992@gmail.com> - 23.0.0-1
-- Update to 23.0.0.
-
-* Wed Aug 23 2023 Andrew H <aheath1992@gmail.com> - 22.7.0-1
-- Update to 22.7.0.
-
-* Fri Jul 28 2023 Andrew H <aheath1992@gmail.com> - 22.6.0-1
-- Initial Package
+%autochangelog

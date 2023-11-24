@@ -1,6 +1,6 @@
 Name:       resalloc-aws
 Summary:    Resource allocator scripts for AWS
-Version:    1.5
+Version:    1.7
 Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-aws
@@ -45,6 +45,7 @@ mkdir -p %{buildroot}%{_bindir}
 install -p -m 0755 bin/resalloc-aws-new %{buildroot}%{_bindir}
 install -p -m 0755 bin/resalloc-aws-delete %{buildroot}%{_bindir}
 install -p -m 0755 bin/resalloc-aws-list %{buildroot}%{_bindir}
+install -p -m 0755 bin/resalloc-aws-minimal-spot-zone %{buildroot}%{_bindir}
 install -p -m 0755 %{name}-wait-for-ssh %{buildroot}%{_bindir}/resalloc-aws-wait-for-ssh
 
 
@@ -54,10 +55,19 @@ install -p -m 0755 %{name}-wait-for-ssh %{buildroot}%{_bindir}/resalloc-aws-wait
 %{_bindir}/%{name}-delete
 %{_bindir}/%{name}-new
 %{_bindir}/%{name}-list
+%{_bindir}/%{name}-minimal-spot-zone
 %{_bindir}/%{name}-wait-for-ssh
 
 
 %changelog
+* Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 1.7-1
+- resalloc-aws-new: run playbook with stdin=/dev/null
+- resalloc-aws-list: no need to double-kill "shutting-down" instances
+
+* Wed Nov 22 2023 Pavel Raiskup <praiskup@redhat.com> 1.6-1
+- resalloc-aws-list: don't list terminated instances
+- resalloc-aws-minimal-spot-zone helper
+
 * Fri Sep 01 2023 Pavel Raiskup <praiskup@redhat.com> 1.5-1
 - resalloc-aws-new: add `--root-volume-size` option (svashisht@redhat.com)
 

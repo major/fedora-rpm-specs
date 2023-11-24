@@ -1,13 +1,13 @@
 %global libname vterm
 
 Name:           lib%{libname}
-Version:        0.3
-Release:        3%{?dist}
+Version:        0.3.3
+Release:        1%{?dist}
 Summary:        An abstract library implementation of a VT220/xterm/ECMA-48 terminal emulator
 
 License:        MIT
-URL:            http://www.leonerd.org.uk/code/libvterm/
-Source0:        http://www.leonerd.org.uk/code/libvterm/%{name}-%{version}.tar.gz
+URL:            https://www.leonerd.org.uk/code/libvterm
+Source0:        %{url}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -46,9 +46,7 @@ rm -vf %{buildroot}%{_libdir}/*.{a,la}
 
 %check
 %set_build_flags
-make test
-
-%ldconfig_scriptlets
+%make_build test
 
 %files
 %license LICENSE
@@ -66,6 +64,9 @@ make test
 %{_bindir}/%{libname}-dump
 
 %changelog
+* Wed Nov 22 2023 Zephyr Lykos <fedora@mochaa.ws> - 0.3.3-1
+- new version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -15,10 +15,10 @@ arrays. It supports reading from and writing to some common formats (such as \
 OpenDX).
 
 Name: python-%{pname}
-Version: 1.0.1
-Release: 7%{?dist}
+Version: 1.0.2
+Release: 1%{?dist}
 Summary: Read and write data on regular grids in Python
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: https://github.com/orbeckst/GridDataFormats
 Source0: https://github.com/MDAnalysis/GridDataFormats/archive/%{version}/%{pname}-%{version}.tar.gz
 
@@ -69,6 +69,10 @@ pytest-3 -v --numprocesses=auto ./gridData/tests
 %{python3_sitelib}/gridData
 
 %changelog
+* Wed Nov 22 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.0.2-1
+- update to 1.0.2 (resolves rhbz#2245479)
+- use SPDX identifier in License: field
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

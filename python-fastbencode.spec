@@ -1,18 +1,15 @@
 %global pypi_name fastbencode
 
 Name:           python-%{pypi_name}
-Version:        0.0.9
-Release:        6%{?dist}
+Version:        0.2
+Release:        1%{?dist}
 Summary:        Implementation of bencode with optional fast C extensions
 
-License:        GPLv2+ and MIT
+License:        GPL-2.0-or-later AND MIT
 #fastbencode is licensed under GPLv2+
 #_bencode_py.py is licensed under MIT
 URL:            https://github.com/breezy-team/fastbencode
 Source:         %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# Skip test failing with Python 3.12
-# Upstream issue: https://github.com/breezy-team/fastbencode/issues/23
-Patch:          Skip-failing-test-with-Python-3.12.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cython) >= 0.29
@@ -47,7 +44,7 @@ Summary:        %{summary}
 %py3_install
 
 %check
-%{python3} setup.py test
+%{py3_test_envvars} %{python3} -m unittest
 
 %files -n python3-%{pypi_name}
 %license COPYING
@@ -56,6 +53,10 @@ Summary:        %{summary}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Nov 21 2023 Ondřej Pohořelský <opohorel@redhat.com> - 0.2-1
+- Update to 0.2
+- Convert license to SPDX format
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

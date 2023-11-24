@@ -915,6 +915,7 @@ The %{origin_nice} %{featurever} runtime environment.
 
 %endif
 
+%if %{include_normal_build}
 %package docs
 Summary: %{origin_nice} %{featurever} API documentation
 
@@ -930,6 +931,7 @@ Summary: %{origin_nice} %{featurever} miscellany
 
 %description misc
 The %{origin_nice} %{featurever} miscellany.
+%endif
 
 %package sources
 Summary: %{origin_nice} %{featurever} full patched sources of portable JDK
@@ -1302,7 +1304,6 @@ function packagejdk() {
 
     echo "Packaging build from ${imagesdir} to ${packagesdir}..."
     mkdir -p ${packagesdir}
-    pushd ${imagesdir}
 
     if [ "x$suffix" = "x" ] ; then
         nameSuffix=""
@@ -1318,10 +1319,11 @@ function packagejdk() {
     staticarchive=${packagesdir}/%{staticlibsportablearchive -- "$nameSuffix"}
     debugarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.debuginfo"}
     unstrippedarchive=${packagesdir}/%{jdkportablearchive -- "${nameSuffix}.unstripped"}
-    # We only use docs for the release build
-    docname=%{docportablename}
-    docarchive=${packagesdir}/%{docportablearchive}
-    built_doc_archive=jdk-%{filever}%{ea_designator_zip}+%{buildver}%{lts_designator_zip}-docs.zip
+    if [ "x$suffix" = "x" ] ; then
+      docname=%{docportablename}
+      docarchive=${packagesdir}/%{docportablearchive}
+      built_doc_archive=jdk-%{filever}%{ea_designator_zip}+%{buildver}%{lts_designator_zip}-docs.zip
+    fi
     # These are from the source tree so no debug variants
     miscname=%{miscportablename}
     miscarchive=${packagesdir}/%{miscportablearchive}
@@ -1661,15 +1663,16 @@ for suffix in %{build_loop} ; do
     fi
 done
 
-# These definitions should match those in installjdk
-# Install outside the loop as there are no debug variants
-docarchive=${packagesdir}/%{docportablearchive}
-miscarchive=${packagesdir}/%{miscportablearchive}
-
-mv ${docarchive} $RPM_BUILD_ROOT%{_jvmdir}/
-mv ${docarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
-mv ${miscarchive} $RPM_BUILD_ROOT%{_jvmdir}/
-mv ${miscarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+    if [ "x$suffix" = "x" ] ; then
+        # These definitions should match those in installjdk
+        # Install outside the loop as there are no debug variants
+        docarchive=${packagesdir}/%{docportablearchive}
+        miscarchive=${packagesdir}/%{miscportablearchive}
+        mv ${docarchive} $RPM_BUILD_ROOT%{_jvmdir}/
+        mv ${docarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+        mv ${miscarchive} $RPM_BUILD_ROOT%{_jvmdir}/
+        mv ${miscarchive}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+   fi
 
 # To show sha in the build log
 for file in `ls $RPM_BUILD_ROOT%{_jvmdir}/*.sha256sum` ; do
@@ -1744,6 +1747,7 @@ done
 %{_jvmdir}/%{jdkportablesourcesarchiveForFiles}
 %{_jvmdir}/%{jdkportablesourcesarchiveForFiles}.sha256sum
 
+%if %{include_normal_build}
 %files docs
 %{_jvmdir}/%{docportablearchive}
 %{_jvmdir}/%{docportablearchive}.sha256sum
@@ -1751,6 +1755,7 @@ done
 %files misc
 %{_jvmdir}/%{miscportablearchive}
 %{_jvmdir}/%{miscportablearchive}.sha256sum
+%endif
 
 %changelog
 * Wed Nov 22 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.1.0.12-2.rolling
@@ -1765,6 +1770,7 @@ done
 - removed no longer needed jdk8296108-tzdata2022f.patch, jdk8296715-cldr2022f.patch, rh1648644-java_access_bridge_privileged_security.patch
 - added jdk8311630-s390_ffmapi.patch to support virtual threads on s390x
 - aligned fips-21u-75ffdc48eda.patch (gnu_andrew)
+- fixed '--without release' build-ability by moving docs and misc to if-release only
 
 * Wed Sep 20 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.0.0.35-4.rolling
 - removed %{1} from miscportablename

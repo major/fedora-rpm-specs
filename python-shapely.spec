@@ -11,6 +11,17 @@ License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
 Source:         %{pypi_source shapely}
 
+# Adjust tests for docstring indent stripping in Python 3.13
+# https://github.com/shapely/shapely/pull/1938
+#
+# Fixes:
+#
+# Test failure on Python 3.13 because it strips indents from docstrings
+# https://github.com/shapely/shapely/issues/1937
+#
+# Rebased on 2.0.2.
+Patch:          0001-Adjust-tests-for-docstring-indent-stripping-in-Pytho.patch
+
 BuildRequires:  gcc
 BuildRequires:  geos-devel
 
@@ -54,7 +65,7 @@ Provides:       bundled(klib-kvec) = 0.1.0
 
 
 %prep
-%autosetup -n shapely-%{version}
+%autosetup -n shapely-%{version} -p1
 
 # Currently, the PyPI sdist does not ship with pre-generated Cython C sources.
 # We preventively check for them anyway, as they must be removed if they do

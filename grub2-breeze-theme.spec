@@ -2,24 +2,19 @@
 %global         base_name breeze-grub
 
 Name:           grub2-breeze-theme
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary:        Breeze theme for GRUB
 
-License:        GPLv3
-URL:            https://cgit.kde.org/%{base_name}.git
+License:        BSD-2-Clause AND CC-BY-SA-4.0 AND GPL-2.0-or-later WITH Font-exception-2.0 AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
+URL:            https://invent.kde.org/plasma/%{base_name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 Source10: README.fedora
 
 BuildRequires:  findutils
+BuildRequires:  kf6-rpm-macros
 
 # matches grub2 pkg archs
 ExcludeArch:    s390 s390x %{arm}
@@ -64,6 +59,9 @@ find breeze/ -type f -and -not -iname \*.license -print0 \
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

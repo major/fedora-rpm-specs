@@ -16,12 +16,6 @@ Version: 3.8.1
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.2.7-rpath.patch
 
-# Delete only after the kernel has been patched for thested systems
-Patch: gnutls-3.7.8-ktls_disable_keyupdate_test.patch
-
-# follow https://gitlab.com/gnutls/gnutls/-/issues/1443
-Patch: gnutls-3.7.8-ktls_skip_tls12_chachapoly_test.patch
-
 %bcond_without bootstrap
 %bcond_without dane
 %bcond_without fips
@@ -374,7 +368,8 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/ncrypt.dll*
 %if %{with tests}
 pushd native_build
 
-xfail_tests=
+# KeyUpdate is not yet supported in the kernel.
+xfail_tests=ktls_keyupdate.sh
 
 # The ktls.sh test currently only supports kernel 5.11+.  This needs to
 # be checked at run time, as the koji builder might be using a different

@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -30,6 +30,8 @@ Patch1:         tigervnc-vncsession-restore-script-systemd-service.patch
 
 # This is tigervnc-%%{version}/unix/xserver116.patch rebased on the latest xorg
 Patch100:       tigervnc-xserver120.patch
+
+Patch101:       tigervnc-c99-1.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -195,6 +197,8 @@ sed -i -e '/add_subdirectory.*vnc/d' unix/CMakeLists.txt
 %endif
 
 # Downstream patches
+
+%patch101 -p1 -b .c99-1
 
 %build
 %ifarch sparcv9 sparc64 s390 s390x
@@ -379,6 +383,12 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Nov 22 2023 Florian Weimer <fweimer@redhat.com> - 1.13.1-8
+- Drop incorrect tigervnc-c99-2.patch.
+
+* Wed Nov 22 2023 Florian Weimer <fweimer@redhat.com> - 1.13.1-7
+- C compatibility fixes
+
 * Thu Nov 02 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-6
 - Fix CVE-2023-5380 and CVE-2023-5367 (rebuild with fixed Xorg)
 

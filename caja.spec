@@ -16,7 +16,7 @@ Name:        caja
 Summary:     File manager for MATE
 Version:     %{branch}.3
 %if 0%{?rel_build}
-Release:     1%{?dist}
+Release:     2%{?dist}
 %else
 Release:     0.19%{?git_rel}%{?dist}
 %endif
@@ -30,6 +30,8 @@ URL:         http://mate-desktop.org
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
 Patch0:        Enable-showing-in-Budgie-Desktop-and-XFCE.patch
+# fix libxml dependency
+Patch1:        caja_0001-fix-building-with-libxml-2.12.0.patch
 
 BuildRequires: dbus-glib-devel
 BuildRequires: desktop-file-utils
@@ -181,6 +183,9 @@ EOF
 
 
 %changelog
+* Wed Nov 22 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-2
+- fix build with libxml-2.12.0
+
 * Fri Oct 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-1
 - update to 1.26.3
 

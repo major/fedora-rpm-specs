@@ -1,6 +1,6 @@
 Name:           gpodder
 Version:        3.11.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Podcast receiver/catcher written in Python
 # Mostly GPL-3.0-or-later, but some files use something different
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND ISC
@@ -9,6 +9,7 @@ Source0:        https://github.com/gpodder/gpodder/archive/%{version}/gpodder-%{
 # Rename the appdata file to comply with Fedora Packaging Guidelines
 Patch:          rename-appdata.patch
 Patch:          disable-auto-update-check.patch
+Patch:          disable-coverage-report.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel, python3-feedparser, python3-setuptools
 BuildRequires:  desktop-file-utils
@@ -17,15 +18,28 @@ BuildRequires:  intltool
 BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  libappstream-glib
+# Test tools
+BuildRequires:  pytest
+BuildRequires:  python3-minimock
+BuildRequires:  python3-pytest-httpserver
+# Runtime dependencies needed in tests
+BuildRequires:  python3-podcastparser
+BuildRequires:  python3-mygpoclient
+BuildRequires:  python3-requests
 #Requires:       python-gpod, python-eyed3 #re-enable once Python 3 support exists.
 Requires:       python3-gobject
 Requires:       python3-dbus
 Requires:       python3-podcastparser
 Requires:       python3-imaging
 Requires:       python3-mygpoclient
+Requires:       python3-requests
+# Can be removed once Python 3.12 support is available in a release:
+# https://github.com/gpodder/gpodder/pull/1571
+Requires:       python3-zombie-imp
 Requires:       hicolor-icon-theme
 Requires:       yt-dlp
 Requires:       /usr/bin/xdg-open
+Recommends:     python3-html5lib
 %description
 gPodder is a Podcast receiver/catcher written in Python, using GTK. 
 It manages podcast feeds for you and automatically downloads all 
@@ -46,6 +60,7 @@ rm -rf share/gpodder/examples
 make messages
 
 %check
+make unittest
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %install
@@ -75,6 +90,9 @@ desktop-file-install --delete-original          \
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Wed Nov 22 2023 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 3.11.4-2
+- Add missing dependencies (rhbz#2248679)
+
 * Fri Oct 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.11.4-1
 - 3.11.4
 

@@ -1,12 +1,13 @@
 Name:		cbrpager
 Version:	0.9.22
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Simple comic book pager for Linux
 
 License:	GPLv2+
 URL:		http://www.jcoppens.com/soft/cbrpager/index.en.php
 Source0:	http://downloads.sourceforge.net/cbrpager/%{name}-%{version}.tar.gz
 Source1:	http://downloads.sourceforge.net/cbrpager/%{name}-%{version}.md5
+Patch0: cbrpager-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:	libgnomeui-devel
@@ -22,7 +23,7 @@ the executable is small and fast. It views jpg (or jpeg),
 gif and png images, and you can zoom in and out.
 
 %prep
-%setup -q
+%autosetup -p1
 
 for f in \
 	ChangeLog \
@@ -112,6 +113,9 @@ EOF
 
 
 %changelog
+* Wed Nov 22 2023 Florian Weimer <fweimer@redhat.com> - 0.9.22-28
+- C compatibility fix
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.22-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

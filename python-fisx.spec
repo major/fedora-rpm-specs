@@ -3,6 +3,7 @@ Version:        1.3.1
 Release:        %autorelease
 Summary:        Calculate X-ray fluorescence intensities
 
+# This is SPDX
 License:        MIT
 URL:            https://github.com/vasole/fisx
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

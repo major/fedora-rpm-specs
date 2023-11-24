@@ -4,7 +4,7 @@
 
 # Set new source-code build version
 # This tag indicates a new rebuild for Fedora
-%global redhat_ver rh2
+%global redhat_ver rh1
 
 # Exclude ARM for the following error:
 #  terminate called after throwing an instance of 'std::bad_alloc'
@@ -106,7 +106,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   2
-Version: 115.4.0
+Version: 115.5.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -254,8 +254,8 @@ BuildRequires: nss-static >= %{nss_version}
 
 BuildRequires: pango-devel
 BuildRequires: pipewire-devel
-#BuildRequires: python3-devel
-#BuildRequires: python3-setuptools
+BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 BuildRequires: python3.11-devel
 BuildRequires: perl-interpreter
 BuildRequires: pkgconfig(xrender)

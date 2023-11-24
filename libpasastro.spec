@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/pchev/libpasastro/
 
-Version:        1.4.1
+Version:        1.4.2
 %forgemeta
 
 Name:           libpasastro
@@ -29,8 +29,6 @@ with standard astronomy libraries.
 libpasgetdss.so : Interface with GetDSS to work with DSS images.
 libpasplan404.so : Interface with Plan404 to compute planets position.
 libpaswcs.so : Interface with libwcs to work with FITS WCS.
-The library libpasspice.so is not distributed in the Fedora package
-due to unclear license.
 
 
 %prep

@@ -1,24 +1,45 @@
+%global with_libdb_migration 1
+%global libdb_migration_build_dir libdb_migration_build
+%{!?with_system_gsl: %global with_system_gsl (%{undefined rhel} || 0%{?rhel} < 10)}
+
 Summary: Fast anti-spam filtering by Bayesian statistical analysis
 Name: bogofilter
 Version: 1.2.5
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPL-2.0-only
 URL: http://bogofilter.sourceforge.net/
 Source0: http://downloads.sourceforge.net/bogofilter/bogofilter-%{version}.tar.xz
 BuildRequires: gcc
-BuildRequires: flex libdb-devel gsl-devel
+BuildRequires: flex
+BuildRequires: pkgconfig(sqlite3)
 BuildRequires: /usr/bin/iconv
+BuildRequires: /usr/bin/xmlto
 BuildRequires: perl-generators
 BuildRequires: make
+
+%if %{with_system_gsl}
+BuildRequires: gsl-devel
+%else
+Provides: bundled(gsl) = 1.4
+%endif
+
+%if %{with_libdb_migration}
+BuildRequires: libdb-devel-static
+%endif
 
 %description
 Bogofilter is a Bayesian spam filter.  In its normal mode of
 operation, it takes an email message or other text on standard input,
 does a statistical check against lists of "good" and "bad" words, and
 returns a status code indicating whether or not the message is spam.
-Bogofilter is designed with fast algorithms (including Berkeley DB system),
-coded directly in C, and tuned for speed, so it can be used for production
-by sites that process a lot of mail.
+Bogofilter is designed with fast algorithms, coded directly in C, and
+tuned for speed, so it can be used for production by sites that process
+a lot of mail.
+
+%if %{with_libdb_migration}
+The current version switched from Berkeley DB to SQLite format. To migrate
+to the new format run: bogomigrate-berkeley wordlist.db
+%endif
 
 %package bogoupgrade
 Summary: Upgrades bogofilter database to current version
@@ -39,9 +60,38 @@ iconv -f iso-8859-1 -t utf-8 \
 %{__mv} -f doc/bogofilter-faq-fr.html.utf8 \
  doc/bogofilter-faq-fr.html
 
+%if %{with_libdb_migration}
+# make a copy of the sources for the build with the libdb backend
+%{__mkdir} ../%{libdb_migration_build_dir}
+%{__cp} -r * ../%{libdb_migration_build_dir}/
+%{__mv} ../%{libdb_migration_build_dir} .
+%endif
+
 %build
-%configure --disable-rpath
+%configure --disable-rpath \
+	--with-database=sqlite3 \
+%if !%{with_system_gsl}
+	--with-included-gsl=yes \
+%endif
+	%{nil}
+
 %{__make} %{?_smp_mflags}
+
+%if %{with_libdb_migration}
+pushd %{libdb_migration_build_dir}
+STATIC_DB=
+BF_ZAP_LIBDB=
+if [ -e /usr/lib64/libdb-5.3.a ]; then
+   STATIC_DB='/usr/lib64/libdb-5.3.a -lpthread'
+   BF_ZAP_LIBDB=zap
+elif [ -e /usr/lib/libdb-5.3.a ]; then
+   STATIC_DB='/usr/lib/libdb-5.3.a -lpthread'
+   BF_ZAP_LIBDB=zap
+fi
+%configure --disable-rpath --with-database=db BF_ZAP_LIBDB=${BF_ZAP_LIBDB} STATIC_DB="${STATIC_DB}" LIBS="${LIBS} ${STATIC_DB}"
+%{__make} %{?_smp_mflags}
+popd
+%endif
 
 %install
 %{__make} DESTDIR=%{buildroot} install
@@ -56,6 +106,38 @@ iconv -f iso-8859-1 -t utf-8 \
 %{__chmod} -x contrib/*
 %{__rm} -v contrib/bogogrep.o
 %{__rm} -rfv contrib/.deps
+
+%if %{with_libdb_migration}
+pushd %{libdb_migration_build_dir}
+%{__cp} -f src/bogoutil %{buildroot}/%{_bindir}/bogoutil-berkeley
+
+cat >> %{buildroot}%{_bindir}/bogomigrate-berkeley << FOE
+#!/bin/bash
+
+if [ "\${1}" = "" ] || [ "\${1}" = "--help" ]; then
+	echo "Migrate Bogofilter Berkeley database into the current format."
+	echo "Expects one argument, the file name to migrate."
+	echo "Usage: bogomigrate-berkeley wordlist.db"
+	exit 1;
+fi
+
+if [ -e "\${1}" ]; then
+	bogoutil-berkeley -d "\${1}" > "\${1}.txt.migrate" && \\
+	bogoutil -I "\${1}.txt.migrate" -l "\${1}.migrated" && \\
+	rm "\${1}.txt.migrate" && \\
+	mv "\${1}" "\${1}.berkeley.bak" && \\
+	mv "\${1}.migrated" "\${1}" && \\
+	echo "Successfully migrated '\${1}' with \`bogoutil -d "\${1}" | wc -l\` entries." && \\
+	echo "Backup of the original file is stored as '\${1}.berkeley.bak'."
+else
+	echo "File '\${1}' does not exist" 1>&2
+fi
+FOE
+
+%{__chmod} a+x %{buildroot}%{_bindir}/bogomigrate-berkeley
+
+popd
+%endif
 
 %check
 %{__make} %{?_smp_mflags} check
@@ -77,6 +159,9 @@ iconv -f iso-8859-1 -t utf-8 \
 %exclude %{_mandir}/man1/bogoupgrade*
 
 %changelog
+* Wed Nov 22 2023 Milan Crha <mcrha@redhat.com> - 1.2.5-13
+- Resolves: #1788486 (Switch to SQLite database engine)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

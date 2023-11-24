@@ -2,17 +2,13 @@
 %global sphinx_docs 1
 
 Name:		boom-boot
-Version:	1.5.1
-Release:	3%{?dist}
+Version:	1.6.0
+Release:	1%{?dist}
 Summary:	%{summary}
 
 License:	GPL-2.0-only
 URL:		https://github.com/snapshotmanager/boom
 Source0:	https://github.com/snapshotmanager/boom/archive/%{version}/boom-%{version}.tar.gz
-Patch1:		0001-man-Fix-line-starting-with.patch
-Patch2:         0001-Fix-typos-across-tree.patch
-Patch3:         0002-Fix-system-vs.-project-import-ordering.patch
-Patch4:         0003-boom-fix-unclosed-file-warning-for-proc-cmdline.patch
 
 BuildArch:	noarch
 
@@ -24,6 +20,7 @@ BuildRequires:	python3-dbus
 BuildRequires:	python3-sphinx
 %endif
 BuildRequires: make
+BuildRequires: systemd-rpm-macros
 
 Requires: python3-boom = %{version}-%{release}
 Requires: %{name}-conf = %{version}-%{release}
@@ -105,6 +102,9 @@ mkdir -p ${RPM_BUILD_ROOT}/%{_mandir}/man5
 install -m 644 man/man8/boom.8 ${RPM_BUILD_ROOT}/%{_mandir}/man8
 install -m 644 man/man5/boom.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
 
+mkdir -p ${RPM_BUILD_ROOT}/%{_systemdgeneratordir}
+install -m 755 systemd/snapshot-remount-fs ${RPM_BUILD_ROOT}/%{_systemdgeneratordir}
+
 rm doc/Makefile
 rm doc/conf.py
 
@@ -116,6 +116,7 @@ rm doc/conf.py
 %license COPYING
 %doc README.md
 %{_bindir}/boom
+%{_systemdgeneratordir}/snapshot-remount-fs
 %doc %{_mandir}/man*/boom.*
 
 %files -n python3-boom
@@ -138,6 +139,9 @@ rm doc/conf.py
 
 
 %changelog
+* Tue Nov 21 2023 Marian Csontos <mcsontos@redhat.com> - 1.6.0-1
+- Update to release 1.6.0.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

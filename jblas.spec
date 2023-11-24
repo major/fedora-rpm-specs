@@ -2,7 +2,7 @@ Summary: Java bindings for BLAS
 Name: jblas
 Version: 1.2.5
 Release: %autorelease
-License: BSD
+License: BSD-3-Clause
 URL: http://jblas.org
 
 ExcludeArch: %{ix86}
@@ -40,8 +40,7 @@ BuildRequires:  rubygem-fog-json
 
 %description
 Wraps BLAS (e.g. OpenBLAS) using generated code through JNI. Allows Java
-programs to use the full power of BLAS/LAPACK through a convenient
-interface.
+programs to use the full power of BLAS/LAPACK through a convenient interface.
 
 %package javadoc
 Summary:        Javadocs for %{name}

@@ -4,7 +4,7 @@ Version:        2019.1.0.post0
 Release:        %autorelease
 Summary:        Compiler for finite element variational forms
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://fenics-ffc.readthedocs.org/
 Source0:        https://bitbucket.org/fenics-project/ffc/downloads/ffc-%{version}.tar.gz
 Source1:        https://bitbucket.org/fenics-project/ffc/downloads/ffc-%{version}.tar.gz.asc

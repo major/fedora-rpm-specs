@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-244-gd1dcb565a1
+%global glibcsrcdir glibc-2.38.9000-295-g5d7f1bce7d
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 22
+%global baserelease 23
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,10 +230,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-rh2244688.patch
-Patch25: glibc-rh2244992.patch
-Patch26: glibc-rh2248915.patch
-Patch27: glibc-rh2248502-3.patch
+Patch24: glibc-benchtests-aarch64.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2204,6 +2201,60 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Nov 22 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-23
+- Apply glibc-benchtests-aarch64.patch to fix an aarch64 build failure.
+- Drop glibc-rh2244688.patch revert.  Fix applied upstream.
+- Drop glibc-rh2244992.patch, glibc-rh2248915.patch, glibc-rh2248502-3.patch.
+  All applied upstream.
+- Auto-sync with upstream branch master,
+  commit 5d7f1bce7d8eea31f4baeb68bcc3124b35acc751:
+- posix: Revert the removal of the crypt prototype from <unistd.h>
+- elf: Add comments on how LD_AUDIT and LD_PRELOAD handle __libc_enable_secure
+- elf: Ignore LD_LIBRARY_PATH and debug env var for setuid for static
+- elf: Remove any_debug from dl_main_state
+- elf: Remove LD_PROFILE for static binaries
+- elf: Ignore LD_PROFILE for setuid binaries
+- s390: Use dl-symbol-redir-ifunc.h on cpu-tunables
+- x86: Use dl-symbol-redir-ifunc.h on cpu-tunables
+- elf: Emit warning if tunable is ill-formatted
+- elf: Fix _dl_debug_vdprintf to work before self-relocation
+- elf: Do not parse ill-formatted strings
+- elf: Do not process invalid tunable format
+- elf: Add all malloc tunable to unsecvars
+- elf: Ignore GLIBC_TUNABLES for setuid/setgid binaries
+- elf: Add GLIBC_TUNABLES to unsecvars
+- elf: Remove /etc/suid-debug support
+- stdlib: The qsort implementation needs to use heapsort in more cases
+- stdlib: Handle various corner cases in the fallback heapsort for qsort
+- stdlib: Avoid another self-comparison in qsort
+- hurd: fix restarting reauth_dtable on signal
+- hurd: Prevent the final file_exec_paths call from signals
+- manual: Fix termios.c example. (Bug 31078)
+- aarch64: Add vector implementations of expm1 routines
+- linux: Use fchmodat2 on fchmod for flags different than 0 (BZ 26401)
+- intl: Add test case for bug 16621
+- resolv: free only initialized items from gai pool
+- ldconfig: Fixes for skipping temporary files.
+- nptl: Link tst-execstack-threads-mod.so with -z execstack
+- nptl: Rename tst-execstack to tst-execstack-threads
+- localedata: Convert oc_FR locale to UTF-8
+- localedata: Add information for Occitan
+- elf: Fix force_first handling in dlclose (bug 30981)
+- elf: Handle non-directory name in search path (BZ 31035)
+- New Zealand locales (en_NZ & mi_NZ) first day of week should be Monday
+- x86: Fix unchecked AVX512-VBMI2 usage in strrchr-evex-base.S
+- posix: Check pidfd_spawn with tst-spawn7-pid
+- y2038: Fix support for 64-bit time on legacy ABIs
+- AArch64: Remove Falkor memcpy
+- AArch64: Add memset_zva64
+- AArch64: Cleanup emag memset
+- test: Run the tst-tls-allocation-failure-static-patched with test-wrapper.
+- aarch64: Add vector implementations of log1p routines
+- aarch64: Add vector implementations of atan2 routines
+- aarch64: Add vector implementations of atan routines
+- aarch64: Add vector implementations of acos routines
+- aarch64: Add vector implementations of asin routines
+
 * Wed Nov 15 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-22
 - Work around another self-comparison application issue in qsort (#2248502)
 

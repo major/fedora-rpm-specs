@@ -3,7 +3,7 @@
 Summary:    RFC 1413-compliant identification server with NAT support
 Name:       oidentd
 Version:    3.1.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 # COPYING:                  GPL-2.0 text
 # COPYING.DOC:              GFDL-1.3 text
 # doc/book/src/download.md:                                 GFDL-1.3-no-invariants-or-later
@@ -90,6 +90,7 @@ Source4:    oidentd.sysconfig
 # Use sysconfig options in a per-connection unit file, not suitable for
 # the upstream
 Patch0:     oidentd-3.1.0-Make-per-connection-unit-file-similar-to-Fedora-long.patch
+Patch1: oidentd-configure-c-compatibility.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 # ylwrap script is a sh script
@@ -189,6 +190,9 @@ exit 0
 %{_mandir}/man8/oidentd.*
 
 %changelog
+* Wed Nov 22 2023 Florian Weimer <fweimer@redhat.com> - 3.1.0-3
+- Fix C compatibility issue in the configure script
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

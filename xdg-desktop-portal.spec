@@ -5,7 +5,7 @@
 %global pipewire_version 0.2.90
 
 Name:    xdg-desktop-portal
-Version: 1.18.1
+Version: 1.18.2
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 
@@ -41,7 +41,7 @@ Requires:      glib2%{?_isa} >= %{glib_version}
 Recommends:    pipewire >= %{pipewire_version}
 Requires:      pipewire-libs%{?_isa} >= %{pipewire_version}
 # Required for the document portal.
-Requires:      /usr/bin/fusermount3
+Requires:      fuse3
 # Required for the GMemoryMonitor GIO API
 Recommends:    low-memory-monitor >= %{low_memory_monitor_version}
 

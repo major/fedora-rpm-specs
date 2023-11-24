@@ -1,5 +1,5 @@
-%global svnversion 4630
-%global date 20230918
+%global svnversion 4639
+%global date 20231122
 %global maj_ver 4.3
 
 Name:       skychart
@@ -18,7 +18,7 @@ URL:        http://www.ap-i.net/skychart/
 # Download upstream tarball from
 # https://sourceforge.net/projects/skychart/files/0-beta/
 # in the same directory of the script and run:
-# ./generate-tarball.sh 4.3-4630
+# ./generate-tarball.sh 4.3-4639
 Source0:    %{name}-%{maj_ver}-%{svnversion}-src-nopatents.tar.xz
 Source1:    generate-tarball.sh
 # Base source data

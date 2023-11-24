@@ -3,19 +3,12 @@
 
 Name:    pam-kwallet
 Summary: PAM module for KWallet
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
-
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{base_name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -24,26 +17,17 @@ Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{vers
 Provides: %{base_name} = %{version}-%{release}
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: systemd-rpm-macros
 BuildRequires: libgcrypt-devel >= 1.5.0
 BuildRequires: pam-devel
-BuildRequires: cmake(KF5Wallet)
-%if ! 0%{?bootstrap}
+BuildRequires: cmake(KF6Wallet)
 BuildRequires: socat
-%endif
-# add qmake dep explicitly, apparently recently fails without it
-#CMake Warning at /usr/share/ECM/modules/ECMQueryQmake.cmake:16 (message):
-#  Should specify a qmake Qt5 binary.  Can't check QT_INSTALL_DOCS
-#CMake Error at /usr/share/ECM/kde-modules/KDEInstallDirs.cmake:531 (_define_absolute):
-#  _define_absolute Macro invoked with incorrect arguments for macro named:
-#  _define_absolute
-BuildRequires: qt5-qtbase-devel
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1155873
 Requires: socat
 # pam module makes little sense without the actually kwallet service
-Requires: kf5-kwallet
+Requires: kf6-kwallet
 
 %description
 %{summary}.
@@ -54,8 +38,7 @@ Requires: kf5-kwallet
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -71,6 +54,9 @@ Requires: kf5-kwallet
 
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

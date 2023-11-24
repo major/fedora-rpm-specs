@@ -8,7 +8,7 @@
 %bcond tests 1
 
 Name:           python-orjson
-Version:        3.9.8
+Version:        3.9.10
 Release:        1%{?dist}
 Summary:        Fast, correct Python JSON library
 
@@ -94,6 +94,9 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Wed Nov 22 2023 Maxwell G <maxwell@gtmx.me> - 3.9.10-1
+- Update to 3.9.10. Fixes rhbz#2243767.
+
 * Tue Oct 10 2023 Maxwell G <maxwell@gtmx.me> - 3.9.8-1
 - Update to 3.9.8. Fixes rhbz#2229530.
 

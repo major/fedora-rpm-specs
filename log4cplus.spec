@@ -1,16 +1,18 @@
 #%%global prever rc3
 
 Name: log4cplus
-Version: 2.1.0
-Release: 2%{?prever:.%{prever}}%{?dist}
+Version: 2.1.1
+Release: 1%{?prever:.%{prever}}%{?dist}
 Summary: Logging Framework for C++
+
+%define VER %(echo %{version} | tr . _)
 
 # Threadpool is Zlib
 # catch/* is BSL-1.0
 License: (BSD-2-Clause OR Apache-2.0) AND Zlib AND BSL-1.0
-URL: http://sourceforge.net/projects/log4cplus
-Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz
-Source1: http://downloads.sourceforge.net/%{name}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz.sig
+URL: https://github.com/log4cplus/log4cplus
+Source0: https://github.com/log4cplus/log4cplus/releases/download/REL_%{VER}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz
+Source1: https://github.com/log4cplus/log4cplus/releases/download/REL_%{VER}/%{name}-%{version}%{?prever:-%{prever}}.tar.xz.sig
 Source2: codesign.key
 
 %description
@@ -84,6 +86,11 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 
 %changelog
+* Wed Nov 22 2023 Martin Osvald <mosvald@redhat.com> - 2.1.1-1
+- New version 2.1.1 (rhbz#2250290)
+- Fix incorrect upstream URL and SourceX (rhbz#2249526)
+- SPDX migration
+
 * Thu Aug 10 2023 Martin Osvald <mosvald@redhat.com> - 2.1.0-2
 - New version 2.1.0 (rhbz#2169015)
 

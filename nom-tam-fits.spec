@@ -2,7 +2,7 @@ Name:          nom-tam-fits
 Version:       1.15.2
 Release:       %autorelease
 Summary:       Java library for reading and writing FITS files
-License:       Public Domain
+License:       LicenseRef-Fedora-Public-Domain
 URL:           http://nom-tam-fits.github.io/nom-tam-fits/
 Source0:       https://github.com/nom-tam-fits/nom-tam-fits/archive/%{name}-%{version}.tar.gz
 Patch0:        0001-Skip-tests-if-we-cannot-download-images.patch

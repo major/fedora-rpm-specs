@@ -1,6 +1,6 @@
 Name:           perl-Devel-Cover
 Version:        1.40
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Code coverage metrics for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cover
@@ -77,6 +77,7 @@ BuildRequires:  perl(Moose)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Test::More) >= 0.88
+Requires:       perl(:VERSION) = %(eval "`perl -V:version`"; echo ${version:-0})
 Requires:       perl(CPAN::DistnameInfo)
 Requires:       perl(CPAN::Meta)
 # CPAN::Releases::Latest not yet packaged
@@ -124,6 +125,10 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Tue Nov 21 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.40-4
+- Add dependency to Perl version on which was build
+  Resolves: RHBZ#2246773
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

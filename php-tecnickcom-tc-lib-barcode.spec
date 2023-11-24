@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    cd81392e6e1e57e0f6ff8519b1edbc11d8e47a44
+%global gh_commit    976fd907d114c2d8874a99aef98942af63f6edab
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.18.4
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -27,9 +27,9 @@ BuildArch:      noarch
 %if %{with tests}
 # For tests
 %global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10
-BuildRequires:  php(language) >= 5.6
-BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 1.14    with php-composer(%{c_vendor}/tc-lib-color) <  2)
+BuildRequires:  phpunit10 >= 10.1.2
+BuildRequires:  php(language) >= 8.0
+BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 2.0    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 BuildRequires:  php-bcmath
 BuildRequires:  php-ctype
 BuildRequires:  php-date
@@ -41,19 +41,19 @@ BuildRequires:  php-pecl-imagick
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=5.6"
+#        "php": ">=8.0"
 #        "ext-bcmath": "*",
 #        "ext-date": "*",
 #        "ext-gd": "*",
 #        "ext-pcre": "*",
-#        "tecnickcom/tc-lib-color": "^1.14"
-Requires:       php(language) >= 5.6
+#        "tecnickcom/tc-lib-color": "^2.0"
+Requires:       php(language) >= 8.0
 Requires:       php-bcmath
 Requires:       php-ctype
 Requires:       php-date
 Requires:       php-gd
 Requires:       php-pcre
-Requires:      (php-composer(%{c_vendor}/tc-lib-color) >= 1.14    with php-composer(%{c_vendor}/tc-lib-color) <  2)
+Requires:      (php-composer(%{c_vendor}/tc-lib-color) >= 2.0    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 # From phpcompatinfo report for version 1.15.5
 # none
 Requires:       php-composer(fedora/autoloader)
@@ -136,6 +136,14 @@ exit $ret
 
 
 %changelog
+* Wed Nov 22 2023 Remi Collet <remi@remirepo.net> - 2.1.1-1
+- update to 2.1.1
+
+* Wed Nov 22 2023 Remi Collet <remi@remirepo.net> - 2.0.7-1
+- update to 2.0.7
+- raise dependency on PHP 8
+- raise dependency on tc-lib-color 2.0
+
 * Mon Oct 23 2023 Remi Collet <remi@remirepo.net> - 1.18.4-1
 - update to 1.18.4 (no change)
 

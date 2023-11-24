@@ -7,7 +7,7 @@
 
 
 Name:           vdr-tvguide
-Version:        1.3.7
+Version:        1.3.8
 Release:        1%{?dist}
 Summary:        TvGuide is a highly customizable 2D EPG viewer plugin
 License:        GPLv2+
@@ -54,6 +54,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/tvguide/
 
 %changelog
+* Wed Nov 22 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.8-1
+- Update to 1.3.8
+
 * Sat Aug 26 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.7-1
 - Update to 1.3.7
 

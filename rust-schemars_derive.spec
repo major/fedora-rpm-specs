@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate pythonize
+%global crate schemars_derive
 
-Name:           rust-pythonize
-Version:        0.20.0
+Name:           rust-schemars_derive
+Version:        0.8.16
 Release:        %autorelease
-Summary:        Serde Serializer & Deserializer from Rust <--> Python, backed by PyO3
+Summary:        Macros for #[derive(JsonSchema)], for use with schemars
 
 License:        MIT
-URL:            https://crates.io/crates/pythonize
+URL:            https://crates.io/crates/schemars_derive
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Serde Serializer & Deserializer from Rust <--> Python, backed by PyO3.}
+Macros for #[derive(JsonSchema)], for use with schemars.}
 
 %description %{_description}
 
@@ -31,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
