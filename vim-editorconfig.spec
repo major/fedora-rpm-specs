@@ -6,7 +6,7 @@
 # In Fedora, vim plugin packages should ideally start with the vim- prefix:
 Name:           vim-editorconfig
 Summary:        EditorConfig Vim Plugin
-Version:        1.1.1
+Version:        1.2.0
 Release:        %autorelease
 
 # The editorconfig core tests are included as a git submodule do not appear in
@@ -14,8 +14,8 @@ Release:        %autorelease
 # for them.  We do not treat this as a bundled library because the tests do not
 # contribute to the installed files in any way. When the package is updated,
 # the maintainer should check that we still have the correct (latest) version
-# of the tests.
-%global core_tests_version 0.13
+# or snapshot of the tests.
+%global core_tests_commit 5ca0b296dc31124d0303895c163013450bd97958
 %global core_tests_url https://github.com/editorconfig/editorconfig-core-test/
 # Same for the plugin tests; these do not tag releases, so we reference a
 # particular commit.
@@ -30,7 +30,7 @@ Release:        %autorelease
 License:        BSD-2-Clause AND (BSD-2-Clause AND PSF-2.0)
 URL:            https://github.com/editorconfig/editorconfig-vim
 Source0:        %{url}/archive/v%{version}/editorconfig-vim-%{version}.tar.gz
-Source1:        %{core_tests_url}/archive/v%{core_tests_version}/editorconfig-core-test-%{core_tests_version}.tar.gz
+Source1:        %{core_tests_url}/archive/%{core_tests_commit}/editorconfig-core-test-%{core_tests_commit}.tar.gz
 # Files in this source are licensed CC-BY; however, nothing derived from them
 # is installed, so this does not affect the License field.
 Source2:        %{plugin_tests_url}/archive/%{plugin_tests_commit}/editorconfig-plugin-tests-%{plugin_tests_commit}.tar.gz
@@ -66,7 +66,7 @@ This is an EditorConfig plugin for Vim.
 # tarballs.
 rm -rvf tests/core/tests
 %setup -q -T -D -b 1 -n editorconfig-vim-%{version}
-cp -rp ../editorconfig-core-test-%{core_tests_version} tests/core/tests
+cp -rp ../editorconfig-core-test-%{core_tests_commit} tests/core/tests
 %if %{with plugin_tests}
 rm -rvf tests/plugin/spec/plugin_tests
 %setup -q -T -D -b 2 -n editorconfig-vim-%{version}

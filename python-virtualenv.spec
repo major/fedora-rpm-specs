@@ -1,6 +1,6 @@
 Name:           python-virtualenv
 Version:        20.21.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -109,6 +109,11 @@ test ! -f src/virtualenv/seed/embed/wheels/*.whl
 # On Fedora, this should change nothing, but when building for RHEL9+, it will
 sed -i "s|/usr/share/python-wheels|%{python_wheel_dir}|" src/virtualenv/util/path/_system_wheels.py
 
+# Allow platformdirs version 4
+# Backported from release 20.24.7
+# https://github.com/pypa/virtualenv/commit/55650340d9c9415bf035596266f245a8d59c6993
+sed -i "s/platformdirs<4/platformdirs<5/" pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -154,6 +159,9 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Thu Nov 23 2023 Lumír Balhar <lbalhar@redhat.com> - 20.21.1-6
+- Allow platformdirs version 4
+
 * Wed Aug 30 2023 Miro Hrončok <mhroncok@redhat.com> - 20.21.1-5
 - Fix tests with pluggy 1.2.0+
 

@@ -1,5 +1,5 @@
 Name:           jackson-bom
-Version:        2.15.3
+Version:        2.16.0
 Release:        1%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
@@ -40,6 +40,14 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Wed Nov 15 2023 Packit <hello@packit.dev> - 2.16.0-1
+- [maven-release-plugin] prepare release jackson-bom-2.16.0 (Tatu Saloranta)
+- Prepare for 2.16.0 release (Tatu Saloranta)
+- Add version of `jackson-module-android-record` (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Resolves rhbz#2249891
+
 * Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
 - [maven-release-plugin] prepare release jackson-bom-2.15.3 (Tatu Saloranta)
 - Prepare for 2.15.3 release (Tatu Saloranta)

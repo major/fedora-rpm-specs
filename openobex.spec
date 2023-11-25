@@ -5,7 +5,7 @@
 Summary: Library for using OBEX
 Name: openobex
 Version: 1.7.2
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: http://openobex.sourceforge.net
 # git clone https://git.gitorious.org/openobex/mainline.git
@@ -17,6 +17,8 @@ Patch3:  openobex-1.7-strtoul.patch
 
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
+# uses autosetup
+BuildRequires: git-core
 
 BuildRequires: bluez-libs-devel, libusb1-devel
 BuildRequires: cmake, doxygen, libxslt, docbook-style-xsl
@@ -46,11 +48,7 @@ Open OBEX Applications to exchange all kind of objects like files, pictures,
 calendar entries (vCal) and business cards (vCard) using the OBEX protocol.
 
 %prep
-%setup -q -n %{name}-%{version}-Source
-%patch -P 0 -p1 -b .flush
-%patch -P 1 -p1 -b .push
-%patch -P 2 -p1 -b .udev
-%patch -P 3 -p1 -b .strtoul
+%autosetup -n %{name}-%{version}-Source -S git
 
 %build
 export CFLAGS="%{optflags} -std=gnu99 -D_POSIX_C_SOURCE=200809L -D_DEFAULT_SOURCE"
@@ -79,7 +77,8 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/obex_test.1*
 %doc AUTHORS COPYING COPYING.LIB ChangeLog README
 # the HTML doc is distributed in the %%{name}-devel subpackage
 %exclude %{_pkgdocdir}/html
-%{_libdir}/libopenobex*.so.*
+%{_libdir}/libopenobex.so.1.7.2
+%{_libdir}/libopenobex.so.2
 %{_sbindir}/obex-check-device
 %{udevdir}/rules.d/60-openobex.rules
 
@@ -107,6 +106,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/obex_test.1*
 %{_mandir}/man1/obex_push.1*
 
 %changelog
+* Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.7.2-24
+- use autosetup and name shared library
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

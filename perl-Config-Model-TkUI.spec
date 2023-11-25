@@ -1,8 +1,8 @@
 %global use_x11_tests 1
 
 Name:           perl-Config-Model-TkUI
-Version:        1.376
-Release:        3%{?dist}
+Version:        1.377
+Release:        1%{?dist}
 Summary:        TK GUI to edit config data through Config::Model
 License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/Config-Model-TkUI
@@ -42,7 +42,6 @@ BuildRequires:  perl(Tk::Balloon)
 BuildRequires:  perl(Tk::BrowseEntry)
 BuildRequires:  perl(Tk::Dialog)
 BuildRequires:  perl(Tk::DialogBox)
-BuildRequires:  perl(Tk::DirSelect)
 BuildRequires:  perl(Tk::DoubleClick)
 BuildRequires:  perl(Tk::FontDialog)
 BuildRequires:  perl(Tk::Frame)
@@ -61,8 +60,7 @@ BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(YAML)
-BuildRequires:  perl(YAML::XS)
+BuildRequires:  perl(YAML::PP)
 BuildRequires:  perl(XXX)
 %if %{use_x11_tests}
 # X11 tests:
@@ -93,10 +91,13 @@ This class provides a GUI for Config::Model.
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Config/Model*
+%{_mandir}/man3/Config::Model::TkUI*
 
 %changelog
+* Thu Nov 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.377-1
+- 1.377 bump (rhbz#2251182)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.376-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

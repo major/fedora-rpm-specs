@@ -2,32 +2,28 @@
 
 Name:    plasma-thunderbolt
 Summary: Plasma integration for controlling Thunderbolt devices
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+ and BSD
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LicenseRef-KDE-Accepted-GPL
 URL:     https://invent.kde.org/plasma/%{base_name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KCMUtils)
-BuildRequires:  cmake(KF5Notifications)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Notifications)
 
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Quick)
+
+BuildRequires:  desktop-file-utils
 
 Requires:       bolt
 
@@ -44,31 +40,29 @@ kernel.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name
 
-%ldconfig_scriptlets
-
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_bolt.desktop
 
 %files -f %{name}.lang
 %doc README.md
-%license LICENSES/* 
-%{_kf5_libdir}/libkbolt.so
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_bolt.so
-%{_kf5_qtplugindir}/kf5/kded/kded_bolt.so
-%{_kf5_datadir}/knotifications5/kded_bolt.notifyrc
-%{_kf5_datadir}/kpackage/kcms/kcm_bolt/
-%{_kf5_datadir}/applications/kcm_bolt.desktop
-
+%license LICENSES/*
+%{_kf6_libdir}/libkbolt.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_bolt.so
+%{_kf6_qtplugindir}/kf6/kded/kded_bolt.so
+%{_kf6_datadir}/knotifications6/kded_bolt.notifyrc
+%{_kf6_datadir}/applications/kcm_bolt.desktop
 
 %changelog
+* Sat Nov 11 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

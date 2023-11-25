@@ -1,6 +1,6 @@
 Name:           rpmspectool
 Version:        1.99.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Utility for handling RPM spec files
 
 License:        GPLv3+
@@ -10,6 +10,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+Requires:       python3-setuptools
 Requires:       python3-argcomplete
 Requires:       python3-pycurl
 
@@ -35,6 +36,9 @@ RPM spec files.
 %{_datadir}/bash-completion/
 
 %changelog
+* Mon Oct 16 2023 Federico Pellegrin <fede@evolware.org> - 1.99.7-13
+- Requires python3-setuptools as it is needed also at runtime (pkg_resources module)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

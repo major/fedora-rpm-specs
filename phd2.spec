@@ -1,11 +1,11 @@
-#%%global gittag v2.6.11
-%global commit a205f63238c8505cf641057d8d82734e51f9ab15
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230212
+%global gittag v2.6.12
+#%%global commit a205f63238c8505cf641057d8d82734e51f9ab15
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+#%%global date 20230212
 
 Name:           phd2
 %if "%{?gittag}"
-Version:        2.6.11
+Version:        2.6.12
 %else
 Version:        2.6.11^dev4^%{date}%{shortcommit}
 %endif

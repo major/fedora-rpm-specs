@@ -2,41 +2,35 @@
 
 Name:    polkit-kde
 Summary: PolicyKit integration for KDE Desktop
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later AND CC0-1.0
 URL:     https://invent.kde.org/plasma/%{base_name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 
 ## upstreamable patches
 
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kcrash-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-kdeclarative-devel
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Declarative)
 
-BuildRequires:  polkit-qt5-1-devel
+BuildRequires:  polkit-qt6-1-devel
 
 Provides: PolicyKit-authentication-agent = %{version}-%{release}
 Provides: polkit-kde-1 = %{version}-%{release}
@@ -56,8 +50,8 @@ Provides Policy Kit Authentication Agent that nicely fits to KDE.
 
 
 %build
-%cmake_kf5 \
-  -DKDE_INSTALL_LIBEXECDIR:PATH=%{_kf5_libexecdir}
+%cmake_kf6 \
+  -DKDE_INSTALL_LIBEXECDIR:PATH=%{_kf6_libexecdir}
 
 %cmake_build
 
@@ -68,15 +62,18 @@ Provides Policy Kit Authentication Agent that nicely fits to KDE.
 
 
 %files -f polkit-kde-authentication-agent-1.lang
-%license LICENSES
-%{_kf5_libexecdir}/polkit-kde-authentication-agent-1
+%license LICENSES/*
+%{_kf6_libexecdir}/polkit-kde-authentication-agent-1
 %{_sysconfdir}/xdg/autostart/polkit-kde-authentication-agent-1.desktop
-%{_kf5_datadir}/knotifications5/policykit1-kde.notifyrc
-%{_kf5_datadir}/applications/org.kde.polkit-kde-authentication-agent-1.desktop
+%{_kf6_datadir}/knotifications6/policykit1-kde.notifyrc
+%{_kf6_datadir}/applications/org.kde.polkit-kde-authentication-agent-1.desktop
 %{_userunitdir}/plasma-polkit-agent.service
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

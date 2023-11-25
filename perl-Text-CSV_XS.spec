@@ -1,5 +1,5 @@
 Name:           perl-Text-CSV_XS
-Version:        1.52
+Version:        1.53
 Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -18,7 +18,7 @@ BuildRequires:  perl(Config::Tiny)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
-# Specific version ≥ 2.92 for Encode is recommended but not required
+# Specific version ≥ 3.20 for Encode is recommended but not required
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::Handle)
@@ -33,7 +33,7 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::Scalar)
 # Dependencies
-# Specific version ≥ 2.92 for Encode is recommended but not required
+# Specific version ≥ 3.20 for Encode is recommended but not required
 Requires:       perl(Encode)
 # IO::Handle is loaded by XS code
 Requires:       perl(IO::Handle)
@@ -80,6 +80,14 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Thu Nov 23 2023 Paul Howarth <paul@city-fan.org> - 1.53-1
+- Update to 1.53 (rhbz#2251219)
+  - Two casts for -Wformat (GH#50)
+  - Add --skip-empty to csv2xlsx
+  - Add --font and --font-size to csv2xlsx
+  - Fix skip_empty_rows ("skip") and trailing newlines (GH#52)
+  - Fix comment in last line (CPAN RT#150501)
+
 * Thu Sep 21 2023 Paul Howarth <paul@city-fan.org> - 1.52-1
 - Update to 1.52 (rhbz#2240080)
   - Fix possible coredump in cache on non-IO parse (GH#49)

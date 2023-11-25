@@ -1,5 +1,5 @@
 Name:           jackson-annotations
-Version:        2.15.3
+Version:        2.16.0
 Release:        1%{?dist}
 Summary:        Core annotations for Jackson data processor
 License:        Apache-2.0
@@ -56,6 +56,15 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Wed Nov 15 2023 Packit <hello@packit.dev> - 2.16.0-1
+- [maven-release-plugin] prepare release jackson-annotations-2.16.0 (Tatu Saloranta)
+- Prepare for 2.16.0 release (Tatu Saloranta)
+- Improve JavaDoc of `@JsonProperty.required` (#239) (Kim, Joo Hyuk)
+- Bump the github-actions group with 1 update (#238) (dependabot[bot])
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Resolves rhbz#2249892
+
 * Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
 - [maven-release-plugin] prepare release jackson-annotations-2.15.3 (Tatu Saloranta)
 - [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)

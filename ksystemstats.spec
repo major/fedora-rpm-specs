@@ -1,70 +1,56 @@
 Name:    ksystemstats
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
- 
-# KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
-URL:     https://invent.kde.org/plasma/%{name}
- 
-%global majmin %(echo %{version} | cut -d. -f1-2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
 
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
- 
-BuildRequires: desktop-file-utils
-BuildRequires: libappstream-glib
-BuildRequires: libksysguard-devel >= %{majmin}
- 
-BuildRequires: kf5-rpm-macros
-BuildRequires:  systemd-rpm-macros
-BuildRequires: extra-cmake-modules >= 5.82
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5ItemViews)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5Solid)
-BuildRequires: cmake(KF5WindowSystem)
- 
-BuildRequires: cmake(KF5NetworkManagerQt)
- 
-BuildRequires: cmake(Qt5Widgets)
- 
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LicenseRef-KDE-Accepted-GPL
+URL:     https://invent.kde.org/plasma/%{name}
+
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+
+BuildRequires: libksysguard-devel
+
+BuildRequires: kf6-rpm-macros
+BuildRequires: systemd-rpm-macros
+BuildRequires: extra-cmake-modules
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Solid)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6NetworkManagerQt)
+
+BuildRequires: cmake(Qt6Widgets)
+
 BuildRequires:  libnl3-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  systemd-devel
 BuildRequires:  pkgconfig(libpcap)
- 
+
 %description
 KSystemStats is a daemon that collects statistics about the running system.
- 
+
 %package devel
 Summary:  Developer files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
- 
- 
+
+
 %prep
 %autosetup -n %{name}-%{version}
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
@@ -74,14 +60,16 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %files -f ksystemstats_plugins.lang
 %doc README.md
 %license LICENSES/*
-%{_kf5_bindir}/ksystemstats
-%{_kf5_bindir}/kstatsviewer
+%{_kf6_bindir}/ksystemstats
+%{_kf6_bindir}/kstatsviewer
 %{_datadir}/dbus-1/services/org.kde.ksystemstats.service
 %{_userunitdir}/plasma-ksystemstats.service
-%{_qt5_plugindir}/ksystemstats/
-
+%{_qt6_plugindir}/ksystemstats/
 
 %changelog
+* Tue Nov 14 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

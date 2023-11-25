@@ -1,64 +1,53 @@
-%undefine __cmake_in_source_build
-
-## bootstrap, omit problematic optional build deps)
-#global bootstrap 1
-
-%global         base_name   breeze
+%global  base_name breeze
 
 Name:    plasma-breeze
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
-License: GPLv2+
-URL:     https://cgit.kde.org/%{base_name}.git
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
+URL:     https://invent.kde.org/plasma/%{base_name}.git
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
-
-BuildRequires:  gettext
-BuildRequires:  kdecoration-devel >= %{majmin_ver}
-
+# Misc
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-kauth-devel
-BuildRequires:  kf5-frameworkintegration-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kguiaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kirigami2-devel
-BuildRequires:  kf5-kpackage-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-kwayland-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  gettext
 
-BuildRequires:  libxcb-devel
-BuildRequires:  fftw-devel
-%if 0
-# required kpackage plugins
-BuildRequires:  plasma-packagestructure
-%endif
+# Qt5
+BuildRequires:  kf5-rpm-macros
+BuildRequires:  cmake(KF5Config)
+BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(KF5FrameworkIntegration)
+BuildRequires:  cmake(KF5GuiAddons)
+BuildRequires:  cmake(KF5Kirigami2)
+BuildRequires:  cmake(KF5WindowSystem)
 
 BuildRequires:  cmake(Qt5DBus)
 BuildRequires:  cmake(Qt5Quick)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5X11Extras)
 
-Requires:       %{name}-common = %{version}-%{release}
+# Qt6
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6FrameworkIntegration)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KirigamiPlatform)
+BuildRequires:  cmake(KF6WindowSystem)
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Widgets)
+
+Requires:       (%{name}-qt5 if qt5-qtbase-gui)
+Requires:       %{name}-qt6
 
 # since we provide a cmake dev-like file
 Provides:       %{name}-devel = %{version}-%{release}
@@ -66,8 +55,21 @@ Provides:       %{name}-devel = %{version}-%{release}
 %description
 %{summary}.
 
+
+%package        qt6
+Summary:        Breeze application style for Qt6
+Requires:       %{name}-common = %{version}-%{release}
+%description    qt6
+%{summary}.
+
+%package        qt5
+Summary:        Breeze application style for Qt5
+Requires:       %{name}-common = %{version}-%{release}
+%description    qt5
+%{summary}.
+
 %package        common
-Summary:        Common files shared between KDE 4 and Plasma 5 versions of the Breeze style
+Summary:        Common files shared between Plasma 5 and Plasma 6 versions of the Breeze style
 BuildArch:      noarch
 %description    common
 %{summary}.
@@ -76,10 +78,6 @@ BuildArch:      noarch
 Summary:        Breeze cursor theme
 BuildArch:      noarch
 Obsoletes:      breeze-icon-theme < 5.17.0
-%if 0%{?fedora} < 24
-# let's be paranoid on upgrade path
-Requires:       breeze-icon-theme >= 5.17.0
-%endif
 Provides:       breeze-cursor-themes = %{version}-%{release}
 %description -n breeze-cursor-theme
 %{summary}.
@@ -90,60 +88,75 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 
 
 %build
-%cmake_kf5
-
+mkdir -p qt6build
+pushd qt6build
+%cmake_kf6 -S .. -DBUILD_QT6=ON -DBUILD_QT5=OFF
 %cmake_build
+popd
+
+mkdir -p qt5build
+pushd qt5build
+%cmake_kf5 -S .. -DBUILD_QT6=OFF -DBUILD_QT5=ON
+%cmake_build
+popd
 
 
 %install
+pushd qt6build
 %cmake_install
+popd
+
+pushd qt5build
+%cmake_install
+popd
 
 %find_lang breeze --all-name
 
 
-%ldconfig_scriptlets
-
 %files
 %license LICENSES/*.txt
-%{_kf5_qtplugindir}/org.kde.kdecoration2/breezedecoration.so
-%{_kf5_qtplugindir}/styles/breeze.so
-%{_kf5_qtplugindir}/plasma/kcms/breeze/kcm_breezedecoration.so
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/breezestyleconfig.so
-%{_kf5_datadir}/kstyle/themes/breeze.themerc
-%{_kf5_datadir}/kconf_update/breezehighcontrasttobreezedark.upd
-%{_kf5_datadir}/kconf_update/breezetobreezeclassic.upd
-%{_kf5_datadir}/kconf_update/breezetobreezelight.upd
-%{_kf5_datadir}/applications/breezestyleconfig.desktop
-%{_kf5_datadir}/applications/kcm_breezedecoration.desktop
-%{_kf5_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
-%{_kf5_libdir}/kconf_update_bin/breezetobreezeclassic
-%{_kf5_libdir}/kconf_update_bin/breezetobreezelight
-# used by breezedecoration
-%{_libdir}/libbreezecommon5.so.5*
-%{_bindir}/breeze-settings5
-%{_datadir}/icons/hicolor/*/apps/breeze-settings.*
-# fedora does autodep on cmake-filesystem, others?
-%if ! 0%{?fedora}
-%dir %{_libdir}/cmake/
-%endif
+%{_bindir}/breeze-settings6
+%{_kf6_datadir}/applications/breezestyleconfig.desktop
+%{_kf6_datadir}/applications/kcm_breezedecoration.desktop
+%{_kf6_datadir}/kconf_update/breezehighcontrasttobreezedark.upd
+%{_kf6_datadir}/kconf_update/breezetobreezeclassic.upd
+%{_kf6_datadir}/kconf_update/breezetobreezelight.upd
+%{_kf6_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
+%{_kf6_libdir}/kconf_update_bin/breezetobreezeclassic
+%{_kf6_libdir}/kconf_update_bin/breezetobreezelight
+%{_kf6_qtplugindir}/kstyle_config/breezestyleconfig.so
+%{_kf6_qtplugindir}/org.kde.kdecoration2.kcm/kcm_breezedecoration.so
+%{_kf6_qtplugindir}/org.kde.kdecoration2/org.kde.breeze.so
 %{_libdir}/cmake/Breeze/
 
+%files qt5
+%{_kf5_qtplugindir}/styles/breeze5.so
+
+%files qt6
+%{_kf6_qtplugindir}/styles/breeze6.so
+
 %files common -f breeze.lang
+%license LICENSES/*.txt
 %{_datadir}/color-schemes/*.colors
+%{_datadir}/kstyle/themes/breeze.themerc
+%{_datadir}/icons/hicolor/*/apps/breeze-settings.*
 %dir %{_datadir}/QtCurve/
 %{_datadir}/QtCurve/Breeze.qtcurve
 %{_datadir}/wallpapers/Next/
 
 %files -n breeze-cursor-theme
 %doc cursors/Breeze/README
-%dir %{_kf5_datadir}/icons/Breeze_Snow/
-%{_kf5_datadir}/icons/Breeze_Snow/cursors/
-%{_kf5_datadir}/icons/Breeze_Snow/index.theme
-%dir %{_kf5_datadir}/icons/breeze_cursors/
-%{_kf5_datadir}/icons/breeze_cursors/cursors/
-%{_kf5_datadir}/icons/breeze_cursors/index.theme
+%dir %{_kf6_datadir}/icons/Breeze_Light/
+%{_kf6_datadir}/icons/Breeze_Light/cursors/
+%{_kf6_datadir}/icons/Breeze_Light/index.theme
+%dir %{_kf6_datadir}/icons/breeze_cursors/
+%{_kf6_datadir}/icons/breeze_cursors/cursors/
+%{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

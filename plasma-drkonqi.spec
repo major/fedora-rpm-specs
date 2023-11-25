@@ -1,57 +1,55 @@
-%undefine __cmake_in_source_build
-
-%global base_name    drkonqi
+%global base_name drkonqi
 
 Name:    plasma-drkonqi
-Summary: DrKonqi crash handler for KF5/Plasma5
-Version: 5.27.9
-Release: 1%{?dist}
-
-License: GPLv2+
-URL:     https://cgit.kde.org/%{base_name}.git
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Summary: DrKonqi crash handler for KF6/Plasma6
+Version: 5.27.80
+Release: 2%{?dist}
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
+URL:     https://invent.kde.org/plasma/%{base_name}
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 ## upstreamable Patches
 # dnf debuginfo-install
 Patch52:        drkonqi-installdbgsymbols.patch
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  systemd-rpm-macros
 
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Service)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5JobWidgets)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5XmlRpcClient)
-BuildRequires:  cmake(KF5Wallet)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5IdleTime)
-BuildRequires:  cmake(KF5SyntaxHighlighting)
-BuildRequires:  cmake(KUserFeedback)
-BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6JobWidgets)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6IdleTime)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
 BuildRequires:  systemd-devel
+BuildRequires:  git-core
+
+Requires:       kf6-kirigami2
+Requires:       kf6-kitemmodels
+Requires:       kf6-kcmutils
+Requires:       python3-psutil
+Requires:       python3-pygdbmi
+Requires:       python3-sentry-sdk
+Requires:       systemd-udev
 
 # retired from plasma-workspace
 Obsoletes: plasma-workspace-drkonqi < 5.10.95
 Provides: plasma-workspace-drkonqi = %{version}-%{release}
 
 Requires: (dnf-command(debuginfo-install) if dnf)
-Requires: konsole5
+Requires: konsole
 Requires: polkit
+
 # owner of setsebool
 Requires(post): policycoreutils
 
@@ -60,12 +58,10 @@ Requires(post): policycoreutils
 
 
 %prep
-%setup -q -n %{base_name}-%{version}
-
-%patch52 -p1 -b .installdgbsymbols
+%autosetup -n %{base_name}-%{version} -p1
 
 %build
-%{cmake_kf5}
+%cmake_kf6 -DWITH_PYTHON_VENDORING=OFF
 %cmake_build
 
 %install
@@ -87,6 +83,13 @@ if [ "`getsebool deny_ptrace 2>/dev/null`" == 'deny_ptrace --> on' ] ; then
   setsebool -P deny_ptrace off &> /dev/null || :
 fi
 fi
+%systemd_user_post drkonqi-sentry-postman.service
+
+%preun
+%systemd_user_preun drkonqi-sentry-postman.service
+
+%postun
+%systemd_user_postun drkonqi-sentry-postman.service
 
 %files -f plasma-drkonqi.lang
 %license LICENSES/*
@@ -96,14 +99,28 @@ fi
 %{_libexecdir}/drkonqi-coredump-cleanup
 %{_libexecdir}/drkonqi-coredump-launcher
 %{_libexecdir}/drkonqi-coredump-processor
-%{_kf5_datadir}/drkonqi/
-%{_kf5_datadir}/applications/org.kde.*.desktop
-%{_kf5_datadir}/qlogging-categories5/drkonqi.categories
+%{_kf6_datadir}/drkonqi/
+%{_kf6_datadir}/applications/org.kde.*.desktop
+%{_kf6_datadir}/qlogging-categories6/drkonqi.categories
 %{_userunitdir}/drkonqi-coredump-*
 %{_unitdir}/drkonqi-coredump-processor@.service
-%{_qt5_plugindir}/drkonqi/KDECoredumpNotifierTruck.so
+%{_qt6_plugindir}/drkonqi/KDECoredumpNotifierTruck.so
+%{_bindir}/drkonqi-sentry-data
+%{_unitdir}/systemd-coredump@.service.wants/drkonqi-coredump-processor@.service
+%{_userunitdir}/default.target.wants/*
+%{_userunitdir}/drkonqi-sentry-postman.*
+%{_userunitdir}/plasma-core.target.wants/drkonqi-*
+%{_userunitdir}/sockets.target.wants/drkonqi-coredump-launcher.socket
+%{_userunitdir}/timers.target.wants/drkonqi-*
+%{_libexecdir}/drkonqi-sentry-postman
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
+- Fix Plasma 6 runtime requirements
+
+* Sun Nov 12 2023 Justin Zobel <justin.zobel@gmail.com> - 5.27.80-1
+- Update to 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

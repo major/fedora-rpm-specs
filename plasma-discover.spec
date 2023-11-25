@@ -1,56 +1,32 @@
 %global base_name discover
-%global kf5_version 5.73
 %global flatpak_version 0.8.0
 # enable snap support (or not)
-%global snap 1
+%global snap 0
 %global snapd_glib_version 1.39
 # enable fwupd support (or not)
-## enable unconditionally once rhbz#1976408 is resolved
-%if ! 0%{?el8}
 %global fwupd 1
-%endif
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-# KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
 
-%global verdir %(echo %{version} | cut -d. -f1-3)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 ## override some defaults, namely to enable offline updates
 Source10: discoverrc
 
-## upstream patches
-# Backport distro upgrade: https://invent.kde.org/aleasto/discover/-/commits/distro-upgrade-backport/
-Patch100: distro-upgrade.patch
-
-# Set cache-age hint in the RefreshCache transaction
-# https://invent.kde.org/plasma/discover/-/merge_requests/640
-Patch101: discover-pk-cache-age.patch
+## Upstream patches
+Patch0:   fix-rpm-ostree-build.patch
 
 ## downstream patches
 # Adjust periodic refresh from 1/24hr to 1/12hr
 # This ensures that it is checked at least once during the work day.
 # It is double the time that Fedora repos are set to in DNF (6h).
 Patch200: discover-pk-refresh-timer.patch
-
-# Do not use system appstream cache (#2011322)
-# Not sure if this is upstreamable yet, or just a hack
-# DISABLED for appstream-0.15.1+, plasma-discover outputs to console
-#** (process:378626): WARNING **: 10:18:13.957: Not changing AppStream cache location: No longer supported.
-# and feature page shows error: "Unable to load applications" -- rdieter 20211229
-#Patch201: 0001-PackageKit-do-not-use-system-appstream-cache.patch
 
 # Do not distro-upgrade to rawhide
 # Currently we have no way to distinguish rawhide from the beta releases.
@@ -63,13 +39,11 @@ Patch202: distro-upgrade-skip-rawhide.patch
 
 ## upstreamable patches
 
-BuildRequires: appstream-qt-devel >= 0.11.1
-BuildRequires: appstream-devel
+BuildRequires: appstream-qt-devel >= 1.0.0~
 BuildRequires: flatpak-devel >= %{flatpak_version}
 BuildRequires: libstemmer-devel
 BuildRequires: libyaml-devel
 BuildRequires: desktop-file-utils
-BuildRequires: libappstream-glib
 BuildRequires: gettext
 BuildRequires: libxml2-devel
 BuildRequires: pkgconfig(libmarkdown)
@@ -82,51 +56,48 @@ BuildRequires: rpm-ostree-devel
 BuildRequires: pkgconfig(fwupd)
 %endif
 
-BuildRequires: extra-cmake-modules >= %{kf5_version}
-BuildRequires: kf5-attica-devel >= %{kf5_version}
-BuildRequires: kf5-karchive-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kcmutils-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kidletime-devel
-BuildRequires: kf5-kitemmodels-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-knewstuff-devel >= %{kf5_version}
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-ktextwidgets-devel
-BuildRequires: kf5-kwallet-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-plasma-devel
-BuildRequires: kf5-purpose-devel
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-solid-devel
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(KUserFeedback)
-BuildRequires: pkgconfig(packagekitqt5)
-BuildRequires: pkgconfig(phonon4qt5)
-BuildRequires: pkgconfig(Qt5Concurrent)
-BuildRequires: pkgconfig(Qt5DBus) >= 5.10.0
-BuildRequires: pkgconfig(Qt5Network)
-BuildRequires: pkgconfig(Qt5Qml)
-BuildRequires: pkgconfig(Qt5QuickWidgets)
-BuildRequires: pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5Test)
-BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6KirigamiAddons)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Purpose)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6Attica)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6IdleTime)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Kirigami2)
+
+BuildRequires: cmake(KUserFeedbackQt6)
+
+BuildRequires: pkgconfig(packagekitqt6)
+BuildRequires: pkgconfig(phonon4qt6)
+
+
+BuildRequires: pkgconfig(Qt6Concurrent)
+BuildRequires: pkgconfig(Qt6DBus) >= 5.10.0
+BuildRequires: pkgconfig(Qt6Network)
+BuildRequires: pkgconfig(Qt6Qml)
+BuildRequires: pkgconfig(Qt6QuickWidgets)
+BuildRequires: pkgconfig(Qt6Svg)
+BuildRequires: pkgconfig(Qt6Test)
 %ifarch %{qt5_qtwebengine_arches}
-BuildRequires: pkgconfig(Qt5WebView)
+BuildRequires: pkgconfig(Qt6WebView)
 %endif
-BuildRequires: pkgconfig(Qt5Xml)
-BuildRequires: pkgconfig(Qt5X11Extras)
+BuildRequires: pkgconfig(Qt6Widgets)
+BuildRequires: pkgconfig(Qt6Xml)
 
-BuildRequires: kf5-kirigami2-devel >= 2.2
-Requires: kf5-kirigami2%{?_isa} >= 2.2
+Requires: kf6-kirigami2
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -167,8 +138,6 @@ Requires: qt5-qtquickcontrols2%{?_isa}
 Summary: Plasma Discover PackageKit support
 Requires: %{name} = %{version}-%{release}
 Requires: PackageKit
-# Fix for distro-upgrade authentication
-Requires: PackageKit-Qt5 >= 1.1.1-2
 %if 0%{?fedora}
 # Pull in the workstation repositories package
 Recommends: fedora-workstation-repositories
@@ -239,7 +208,7 @@ Plasma Discover backend for rpm-ostree support in %{name}.
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
 %if 0%{?fedora}
   -DBUILD_RpmOstreeBackend:BOOL=ON
 %endif
@@ -254,7 +223,7 @@ install -m644 -p -D %{SOURCE10} %{buildroot}%{_kf5_sysconfdir}/xdg/discoverrc
 
 ## unpackaged files
 %if !0%{?snap}
-rm -fv %{buildroot}%{_datadir}/applications/org.kde.discover.snap.urlhandler.desktop
+rm -fv %{buildroot}%{_datadir}/applications/org.kde.discover.snap.desktop
 %endif
 
 %find_lang libdiscover
@@ -266,88 +235,89 @@ cat kcm_updates.lang plasma-discover.lang | sort | uniq -u > discover.lang
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.discover.appdata.xml ||:
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.discover.flatpak.appdata.xml ||:
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.discover.packagekit.appdata.xml ||:
-# disabled until desktop-file-validate supports xdg spec 1.5
-# desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.flatpak.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.discover.packagekit.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desktop
 
 
 %files -f discover.lang
 %{_bindir}/plasma-discover
 %{_bindir}/plasma-discover-update
-%{_kf5_metainfodir}/org.kde.discover.appdata.xml
+%{_kf6_metainfodir}/org.kde.discover.appdata.xml
 %{_datadir}/applications/org.kde.discover.desktop
 %{_datadir}/applications/org.kde.discover.urlhandler.desktop
 %{_datadir}/icons/hicolor/*/apps/plasmadiscover.*
 %{_datadir}/icons/hicolor/*/apps/flatpak-discover.*
 %{_datadir}/kxmlgui5/plasmadiscover/
+%if 0%{?snap}
 %{_libexecdir}/discover/
-%{_kf5_datadir}/kpackage/kcms/kcm_updates/
-%{_kf5_datadir}/applications/kcm_updates.desktop
+%endif
+%{_kf6_datadir}/applications/kcm_updates.desktop
 
 %files notifier -f plasma-discover-notifier.lang
-%{_datadir}/knotifications5/discoverabstractnotifier.notifyrc
+%{_datadir}/knotifications6/discoverabstractnotifier.notifyrc
 %{_sysconfdir}/xdg/autostart/org.kde.discover.notifier.desktop
 %{_datadir}/applications/org.kde.discover.notifier.desktop
 %{_libexecdir}/DiscoverNotifier
 
-%ldconfig_scriptlets libs
-
 %files libs -f libdiscover.lang
 %license LICENSES/*.txt
-%{_kf5_datadir}/qlogging-categories5/discover.categories
+%{_kf6_datadir}/qlogging-categories6/discover.categories
 %dir %{_libdir}/plasma-discover/
 %{_libdir}/plasma-discover/libDiscoverNotifiers.so
 %{_libdir}/plasma-discover/libDiscoverCommon.so
-%dir %{_kf5_qtplugindir}/discover
-%dir %{_kf5_qtplugindir}/discover-notifier/
+%dir %{_kf6_qtplugindir}/discover
+%dir %{_kf6_qtplugindir}/discover-notifier/
 %if 0%{?fwupd}
-%{_kf5_qtplugindir}/discover/fwupd-backend.so
+%{_kf6_qtplugindir}/discover/fwupd-backend.so
 %endif
-%{_kf5_qtplugindir}/discover/kns-backend.so
+%{_kf6_qtplugindir}/discover/kns-backend.so
 %dir %{_datadir}/libdiscover
 %dir %{_datadir}/libdiscover/categories
-%{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_updates.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_updates.so
 
 %files packagekit
-%{_kf5_metainfodir}/org.kde.discover.packagekit.appdata.xml
-%{_kf5_qtplugindir}/discover-notifier/DiscoverPackageKitNotifier.so
-%{_kf5_qtplugindir}/discover/packagekit-backend.so
+%{_kf6_metainfodir}/org.kde.discover.packagekit.appdata.xml
+%{_kf6_qtplugindir}/discover-notifier/DiscoverPackageKitNotifier.so
+%{_kf6_qtplugindir}/discover/packagekit-backend.so
 %{_datadir}/libdiscover/categories/packagekit-backend-categories.xml
 
 %files flatpak
 %{_datadir}/applications/org.kde.discover-flatpak.desktop
-%{_kf5_metainfodir}/org.kde.discover.flatpak.appdata.xml
-%{_kf5_qtplugindir}/discover-notifier/FlatpakNotifier.so
-%{_kf5_qtplugindir}/discover/flatpak-backend.so
+%{_kf6_metainfodir}/org.kde.discover.flatpak.appdata.xml
+%{_kf6_qtplugindir}/discover-notifier/FlatpakNotifier.so
+%{_kf6_qtplugindir}/discover/flatpak-backend.so
 %{_datadir}/libdiscover/categories/flatpak-backend-categories.xml
 
 %if 0%{?snap}
 %files snap
 %dir %{_libexecdir}/discover/
 %{_libexecdir}/discover/SnapMacaroonDialog
-%{_kf5_libexecdir}/kauth/libsnap_helper
-%{_kf5_metainfodir}/org.kde.discover.snap.appdata.xml
-%{_kf5_qtplugindir}/discover/snap-backend.so
+%{_kf6_libexecdir}/kauth/libsnap_helper
+%{_kf6_metainfodir}/org.kde.discover.snap.appdata.xml
+%{_kf6_qtplugindir}/discover/snap-backend.so
 %{_datadir}/dbus-1/system.d/org.kde.discover.libsnapclient.conf
 %{_datadir}/dbus-1/system-services/org.kde.discover.libsnapclient.service
 %{_datadir}/polkit-1/actions/org.kde.discover.libsnapclient.policy
-%{_kf5_datadir}/applications/org.kde.discover.snap.desktop
+%{_kf6_datadir}/applications/org.kde.discover.snap.desktop
 %endif
 
 %files offline-updates
-%{_kf5_sysconfdir}/xdg/discoverrc
+%{_kf6_sysconfdir}/xdg/discoverrc
 
 %if 0%{?fedora}
 %files rpm-ostree
 %{_datadir}/libdiscover/categories/rpm-ostree-backend-categories.xml
-%{_kf5_qtplugindir}/discover/rpm-ostree-backend.so
-%{_kf5_qtplugindir}/discover-notifier/rpm-ostree-notifier.so
+%{_kf6_qtplugindir}/discover/rpm-ostree-backend.so
+%{_kf6_qtplugindir}/discover-notifier/rpm-ostree-notifier.so
 %endif
 
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

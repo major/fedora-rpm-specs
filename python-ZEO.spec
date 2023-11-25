@@ -1,19 +1,11 @@
-# Python 3.12 support is not available in any current release.
-# Build from git HEAD until the next release.
-%global commit  e5637818c1ce0b4c37c77e843e93cd24dda3c09b
-%global date    20230731
-%global forgeurl https://github.com/zopefoundation/ZEO
-
 Name:           python-ZEO
-Version:        5.4.1
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        Client-server storage implementation for ZODB
 
-%forgemeta
-
-Release:        2%{?dist}
 License:        ZPL-2.1
 URL:            https://www.zodb.org/
-Source0:        %{forgesource}
+Source0:        %pypi_source ZEO
 
 BuildRequires:  gcc
 BuildRequires:  python-ZODB-doc
@@ -49,7 +41,7 @@ Summary:        Client-server storage implementation for ZODB
 %pyproject_extras_subpkg -n python3-ZEO msgpack uvloop
 
 %prep
-%forgeautosetup
+%autosetup -n ZEO-%{version}
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
@@ -106,6 +98,9 @@ rst2html --no-datestamp README.rst README.html
 %doc docs/_build/html
 
 %changelog
+* Thu Nov 23 2023 Jerry James <loganjerry@gmail.com> - 6.0.0-1
+- Version 6.0.0
+
 * Tue Sep 26 2023 Jerry James <loganjerry@gmail.com> - 5.4.1-2
 - Reenable uvloop support
 

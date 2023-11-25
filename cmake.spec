@@ -72,7 +72,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
 %global rcsuf rc3
@@ -117,6 +117,7 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
+Patch101: cmake-c99.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -549,6 +550,9 @@ popd
 
 
 %changelog
+* Thu Nov 23 2023 Florian Weimer <fweimer@redhat.com> - 3.28.0~rc3-2
+- Improve C compatibility of LoadCommand tests
+
 * Tue Oct 24 2023 Björn Esser <besser82@fedoraproject.org> - 3.28.0~rc3-1
 - cmake-3.28.0-rc3
   Fixes rhbz#2243343

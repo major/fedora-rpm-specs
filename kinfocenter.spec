@@ -1,43 +1,34 @@
 Name:    kinfocenter
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: KDE Info Center
 
-License: GPLv2+ and LGPLv2+
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtscript-devel
+BuildRequires:  qt6-qtbase-devel
 
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-solid-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kpackage-devel
-
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libEGL-devel
@@ -45,28 +36,31 @@ BuildRequires:  mesa-libGLU-devel
 BuildRequires:  libX11-devel
 BuildRequires:  pciutils-devel
 BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 %ifnarch s390 s390x
 BuildRequires:  libraw1394-devel
 %endif
 
-BuildRequires: kf5-kirigami2
-Requires: kf5-kirigami2%{?_isa}
+BuildRequires: cmake(KF6Kirigami2)
+Requires: kf6-kirigami2%{?_isa}
 
 # Optional
-BuildRequires:  kf5-kwayland-devel
+BuildRequires:  cmake(KF6Wayland)
 
 # runtime query of usb.ids, oui.txt
 Requires: hwdata
 
-# External runtime checkers
-Recommends: aha
-Recommends: clinfo
-Recommends: egl-utils
-Recommends: fwupd
-Recommends: smartmontools
-Recommends: vulkan-tools
-Recommends: wayland-utils
-Recommends: xdpyinfo
+# Runtime Dependancies
+Requires: plasma-systemsettings
+Requires: wayland-utils
+Requires: dmidecode
+Requires: vulkan-tools
+Requires: xdpyinfo
+Requires: egl-utils
+Requires: fwupd
+Requires: aha
+Requires: clinfo
 
 # When kinfocenter was split out from kde-workspace
 Conflicts:      kde-workspace < 4.11.15-3
@@ -80,51 +74,43 @@ Conflicts:      kde-workspace < 4.11.15-3
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kinfocenter.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_about-distro.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files -f %{name}.lang
+%{_datadir}/applications/kcm_energyinfo.desktop
 %{_bindir}/kinfocenter
-%{_kf5_libdir}/libKInfoCenterInternal.so
-%{_kf5_qtplugindir}/plasma/kcms/*.so
-%{_kf5_qtplugindir}/plasma/kcms/kinfocenter/*.so
+%{_kf6_libdir}/libKInfoCenterInternal.so
+%{_kf6_qtplugindir}/plasma/kcms/*.so
+%{_kf6_qtplugindir}/plasma/kcms/kinfocenter/*.so
 %{_datadir}/metainfo/org.kde.kinfocenter.appdata.xml
 %{_sysconfdir}/xdg/menus/kinfocenter.menu
 %{_datadir}/applications/org.kde.kinfocenter.desktop
 %{_datadir}/applications/kcm_about-distro.desktop
-%{_kf5_datadir}/dbus-1/system-services/org.kde.kinfocenter.dmidecode.service
-%{_kf5_datadir}/dbus-1/system.d/org.kde.kinfocenter.dmidecode.conf
+%{_kf6_datadir}/dbus-1/system-services/org.kde.kinfocenter.dmidecode.service
+%{_kf6_datadir}/dbus-1/system.d/org.kde.kinfocenter.dmidecode.conf
 %{_datadir}/desktop-directories/kinfocenter.directory
-%{_kf5_datadir}/kpackage/kcms/kcm_energyinfo/
-%{_kf5_datadir}/kpackage/kcms/kcmsamba/
-%{_kf5_datadir}/kpackage/kcms/kcm_nic/
-%{_kf5_datadir}/kpackage/kcms/kcm_about-distro/
-%{_kf5_datadir}/kpackage/kcms/kcm_cpu/
-%{_kf5_datadir}/kpackage/kcms/kcm_egl/
-%{_kf5_datadir}/kpackage/kcms/kcm_glx/
-%{_kf5_datadir}/kpackage/kcms/kcm_firmware_security/
-%{_kf5_datadir}/kpackage/kcms/kcm_kwinsupportinfo/
-%{_kf5_datadir}/kpackage/kcms/kcm_interrupts/
-%{_kf5_datadir}/kpackage/kcms/kcm_opencl/
-%{_kf5_datadir}/kpackage/kcms/kcm_pci/
-%{_kf5_datadir}/kpackage/kcms/kcm_vulkan/
-%{_kf5_datadir}/kpackage/kcms/kcm_wayland/
-%{_kf5_datadir}/kpackage/kcms/kcm_xserver/
-%{_kf5_datadir}/kinfocenter/
-%{_kf5_datadir}/polkit-1/actions/org.kde.kinfocenter.dmidecode.policy
-%{_qt5_archdatadir}/qml/org/kde/kinfocenter/
-%{_kf5_libexecdir}/kauth/kinfocenter-dmidecode-helper
+%{_kf6_datadir}/kinfocenter/
+%{_kf6_datadir}/polkit-1/actions/org.kde.kinfocenter.dmidecode.policy
+%{_qt6_archdatadir}/qml/org/kde/kinfocenter/
+%{_kf6_libexecdir}/kauth/kinfocenter-dmidecode-helper
 
 
 %changelog
+* Sun Nov 12 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

@@ -8,7 +8,7 @@
 Summary: A getty replacement for use with data and fax modems
 Name: mgetty
 Version: 1.2.1
-Release: 19%{?dist}
+Release: 20%{?dist}
 Source: ftp://mgetty.greenie.net/pub/mgetty/source/1.2/mgetty-%{version}.tar.gz
 Source1: ftp://mgetty.greenie.net/pub/mgetty/source/1.2/mgetty-%{version}.tar.gz.asc
 Source2: logrotate.mgetty
@@ -51,7 +51,7 @@ Patch29: mgetty-sys_nerr-removed.patch
 Patch30: mgetty-manpage-typos.patch
 Patch31: mgetty-c99.patch
 
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildRequires: libX11-devel, libXext-devel, perl-generators, texinfo-tex, texlive-dvips, lockdev-devel, systemd, gsm-devel
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
@@ -120,35 +120,35 @@ Viewfax is capable of zooming in and out on the displayed fax.
 %prep
 %setup -q
 mv policy.h-dist policy.h
-%patch0 -p1 -b .config
-%patch1 -p1 -b .policy
-%patch2 -p1 -b .system-gsm
+%patch -P 0 -p1 -b .config
+%patch -P 1 -p1 -b .policy
+%patch -P 2 -p1 -b .system-gsm
 rm -r voice/libmgsm
-%patch4 -p1 -b .voiceconfig
-%patch5 -p1 -b .issue
-%patch6 -p1 -b .issue-doc
-%patch7 -p1 -b .helper
-%patch8 -p1 -b .mktemp
-%patch9 -p1 -b .unioninit
-%patch11 -p1 -b .helper2
-%patch12 -p1 -b .no-acroread
-%patch14 -p1 -b .sendmail_path
-%patch15 -p1 -b .lfs
-%patch16 -p1 -b .162174_tcflush
-%patch18 -p1 -b .bug_63843
-%patch19 -p1 -b .167830_tty_access
-%patch20 -p1 -b .167830
-%patch21 -p1 -b .turn
-%patch22 -p1 -b .time_range
-%patch23 -p1 -b .handle_spaces
-%patch24 -p1 -b .man
-%patch25 -p1 -b .sd
-%patch26 -p1 -b .makefile
-%patch27 -p1 -b .lockdev
-%patch28 -p1 -b .hardening
-%patch29 -p1 -b .sys_nerr-removed
-%patch30 -p1 -b .manpage-typos
-%patch31 -p1 -b .c99
+%patch -P 4 -p1 -b .voiceconfig
+%patch -P 5 -p1 -b .issue
+%patch -P 6 -p1 -b .issue-doc
+%patch -P 7 -p1 -b .helper
+%patch -P 8 -p1 -b .mktemp
+%patch -P 9 -p1 -b .unioninit
+%patch -P 11 -p1 -b .helper2
+%patch -P 12 -p1 -b .no-acroread
+%patch -P 14 -p1 -b .sendmail_path
+%patch -P 15 -p1 -b .lfs
+%patch -P 16 -p1 -b .162174_tcflush
+%patch -P 18 -p1 -b .bug_63843
+%patch -P 19 -p1 -b .167830_tty_access
+%patch -P 20 -p1 -b .167830
+%patch -P 21 -p1 -b .turn
+%patch -P 22 -p1 -b .time_range
+%patch -P 23 -p1 -b .handle_spaces
+%patch -P 24 -p1 -b .man
+%patch -P 25 -p1 -b .sd
+%patch -P 26 -p1 -b .makefile
+%patch -P 27 -p1 -b .lockdev
+%patch -P 28 -p1 -b .hardening
+%patch -P 29 -p1 -b .sys_nerr-removed
+%patch -P 30 -p1 -b .manpage-typos
+%patch -P 31 -p1 -b .c99
 
 %build
 %define makeflags CFLAGS="$RPM_OPT_FLAGS -Wall -DAUTO_PPP -D_FILE_OFFSET_BITS=64 -DHAVE_LOCKDEV -fno-strict-aliasing" LIBS="-llockdev" prefix=%{_prefix} spool=%{_var}/spool BINDIR=%{_bindir} SBINDIR=%{_sbindir} LIBDIR=%{_libdir}/mgetty+sendfax HELPDIR=%{_libdir}/mgetty+sendfax CONFDIR=%{_sysconfdir}/mgetty+sendfax MANDIR=%{_mandir} MAN1DIR=%{_mandir}/man1 MAN4DIR=%{_mandir}/man4 MAN5DIR=%{_mandir}/man5 MAN8DIR=%{_mandir}/man8 INFODIR=%{_infodir} ECHO='"echo -e"' INSTALL=%{__install}
@@ -381,6 +381,9 @@ exit 0
 %{_mandir}/man1/viewfax.1*
 
 %changelog
+* Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-20
+- SPDX migration, fix patch warnings
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

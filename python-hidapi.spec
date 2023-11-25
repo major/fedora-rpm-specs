@@ -2,7 +2,7 @@
 
 Name:     python-hidapi
 Version:  0.14.0
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Interface to the hidapi library
 
 License:  GPLv3+ or BSD or Public Domain
@@ -14,10 +14,10 @@ BuildRequires: hidapi-devel
 BuildRequires: libusb-compat-0.1-devel
 BuildRequires: libudev-devel
 
-BuildRequires: python3-Cython
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-setuptools
+BuildRequires: python3dist(cython) < 3
 
 %description
 %{summary}.
@@ -57,6 +57,9 @@ rm -rf hidapi hidapi.egg-info hid.c
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Nov 23 2023 Jonny Heggheim <hegjon@gmail.com> - 0.14.0-4
+- Build with older version of Cython, Cython 3 is not supported
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

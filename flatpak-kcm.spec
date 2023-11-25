@@ -1,21 +1,23 @@
 Name:          flatpak-kcm
-Version:       5.27.9
+Version:       5.27.80
 Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later
 Summary:       Flatpak Permissions Management KCM
 Url:           https://invent.kde.org/plasma/flatpak-kcm
 
-%global        stable %stable_kf5
-Source0:       http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0:       https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Declarative)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5ItemModels)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(Qt5Svg)
+BuildRequires: kf6-rpm-macros
+
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6KCMUtils)
+
+BuildRequires: cmake(Qt6Svg)
+
 BuildRequires: pkgconfig(flatpak)
 
 %description
@@ -25,7 +27,7 @@ BuildRequires: pkgconfig(flatpak)
 %autosetup -p1
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -35,17 +37,13 @@ BuildRequires: pkgconfig(flatpak)
 
 %files -f kcm_flatpak.lang
 %license LICENSES/*
-
-%{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/main.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/permissions.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/KcmPopupModal.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/AddEnvironmentVariableDialog.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/TextPromptDialog.qml
-
-%{_kf5_libdir}/qt5/plugins/plasma/kcms/systemsettings/kcm_flatpak.so
-%{_kf5_datadir}/applications/kcm_flatpak.desktop
+%{_kf6_datadir}/applications/kcm_flatpak.desktop
+%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_flatpak.so
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

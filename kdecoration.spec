@@ -1,46 +1,24 @@
-%undefine __cmake_in_source_build
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-# avoid slow arm archs for now
-%ifnarch %{arm}
-%global tests 1
-%endif
-%endif
-
 Name:    kdecoration
 Summary: A plugin-based library to create window decorations
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
 License: LGPLv2
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/plasma/kdecoration
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  qt5-qtbase-devel
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
 
 # For AutoReq cmake-filesystem
 BuildRequires: cmake
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: make
 
-Requires:       kf5-filesystem
+Requires:       kf6-filesystem
 
 %description
 %{summary}.
@@ -51,53 +29,36 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
 
-
 %prep
 %autosetup -p1
 
-## still needed? -- rex
-# Cleanup includes mess, install everything into %%{_kf5_includedir}/KDecoration2
-sed -i "s/set(KDECORATION2_INCLUDEDIR \"\${CMAKE_INSTALL_INCLUDEDIR}\/KDecoration2\")/set(KDECORATION2_INCLUDEDIR \"\${KF5_INCLUDE_INSTALL_DIR}\/KDecoration2\")/" CMakeLists.txt
-
-
 %build
-%{cmake_kf5} \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
-
 # create/own plugin dir
-mkdir -p %{buildroot}%{_kf5_qtplugindir}/org.kde.kdecoration2/
-
-%check
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
-
-
-%ldconfig_scriptlets
+mkdir -p %{buildroot}%{_kf6_qtplugindir}/org.kde.kdecoration2/
 
 %files
 %license LICENSES/*.txt
-%{_kf5_libdir}/libkdecorations2.so.*
-%{_kf5_libdir}/libkdecorations2private.so.*
+%{_kf6_libdir}/libkdecorations2.so.*
+%{_kf6_libdir}/libkdecorations2private.so.*
 %{_datadir}/locale/*/LC_MESSAGES/kdecoration.mo
-%dir %{_kf5_qtplugindir}/org.kde.kdecoration2/
+%dir %{_kf6_qtplugindir}/org.kde.kdecoration2/
 
 %files devel
-%{_kf5_libdir}/libkdecorations2.so
-%{_kf5_libdir}/libkdecorations2private.so
-%{_kf5_libdir}/cmake/KDecoration2/
-%{_kf5_includedir}/kdecoration2_version.h
+%{_kf6_libdir}/libkdecorations2.so
+%{_kf6_libdir}/libkdecorations2private.so
+%{_kf6_libdir}/cmake/KDecoration2/
+%{_kf6_includedir}/kdecoration2_version.h
 %{_includedir}/KDecoration2
 
-
 %changelog
+* Sat Nov 11 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

@@ -1,41 +1,30 @@
-%undefine __cmake_in_source_build
-
 Name:    sddm-kcm
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: SDDM KDE configuration module
 
-License: GPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+License: GPL-2.0-or-later AND GPL-3.0-only AND CC0-1.0 AND (GPL-2.0-only OR GPL-3.0-only)
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
-
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qtdeclarative-devel
+BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-kauth-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-knewstuff-devel
-BuildRequires:  kf5-karchive-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kdeclarative-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qttools-devel
+
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6Auth)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  cmake(KF6XmlGui)
 
 BuildRequires:  libX11-devel
 BuildRequires:  libXcursor-devel
@@ -54,28 +43,30 @@ SDDM Display Manager
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-%find_lang kcmsddm5_qt --with-qt --all-name
+%find_lang kcmsddm6_qt --with-qt --all-name
 
 
-%files -f kcmsddm5_qt.lang
-%license COPYING
-%{_kf5_bindir}/sddmthemeinstaller
-%{_kf5_datadir}/applications/kcm_sddm.desktop
-%{_kf5_libexecdir}/kauth/kcmsddm_authhelper
+%files -f kcmsddm6_qt.lang
+%license LICENSES/*
+%{_kf6_bindir}/sddmthemeinstaller
+%{_kf6_datadir}/applications/kcm_sddm.desktop
+%{_kf6_libexecdir}/kauth/kcmsddm_authhelper
 %{_datadir}/dbus-1/system.d/org.kde.kcontrol.kcmsddm.conf
 %{_datadir}/knsrcfiles/sddmtheme.knsrc
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmsddm.service
 %{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmsddm.policy
-%{_kf5_datadir}/kpackage/kcms/kcm_sddm/
-%{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
+%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

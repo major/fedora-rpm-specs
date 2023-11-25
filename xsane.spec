@@ -10,7 +10,7 @@
 Name: xsane
 Summary: X Window System front-end for the SANE scanner interface
 Version: 0.999
-Release: 48%{?dist}
+Release: 49%{?dist}
 Source0: http://www.xsane.org/download/%{name}-%{version}.tar.gz
 Source1: xsane-256x256.png
 # use "xdg-open" instead of "netscape" to launch help browser
@@ -75,7 +75,7 @@ Patch101: xsane-configure-c99.patch
 # LGPL-3.0-or-later is due of using gimp libraries
 # src/* - GPL2+
 # lib/* (copies from glibc) - LGPL2+
-License: GPL-2.0-or-later AND LGPL-2.0-or-later
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later
 URL: http://www.xsane.org/
 
 # gcc is no longer in buildroot by default
@@ -272,6 +272,9 @@ fi
 %{_datadir}/sane/xsane
 
 %changelog
+* Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.999-49
+- add license for gimp library - used in plugin which we build it in Fedora because
+
 * Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.999-48
 - SPDX migration
 

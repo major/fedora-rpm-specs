@@ -2,7 +2,7 @@ Name:    filelight
 Summary: Graphical disk usage statistics 
 Epoch:   1
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -32,6 +32,8 @@ BuildRequires: cmake(Qt5Quick)
 BuildRequires: cmake(Qt5QuickControls2)
 BuildRequires: cmake(Qt5Widgets)
 BuildRequires: cmake(Qt5Svg)
+
+Requires:      kf5-kquickcharts
 
 # when split occured
 Conflicts: kdeutils-common < 6:4.7.80
@@ -82,6 +84,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Nov 21 2023 Timothée Ravier <tim@siosm.fr> - 1:23.08.2-2
+- Require kf5-kquickcharts
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.2-1
 - 23.08.2
 

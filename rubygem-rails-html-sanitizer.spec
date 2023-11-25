@@ -2,25 +2,27 @@
 %global gem_name rails-html-sanitizer
 
 Name: rubygem-%{gem_name}
-Version: 1.4.3
-Release: 4%{?dist}
+Version: 1.6.0
+Release: 1%{?dist}
 Summary: This gem is responsible to sanitize HTML fragments in Rails applications
 License: MIT
 URL: https://github.com/rails/rails-html-sanitizer
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/rails/rails-html-sanitizer/pull/143
-# libxml2 2.10.x changes incorrectly opened comments parsing
-Patch0:  %{name}-1.4.3-tests-libxml2-2_10_0-parsing-comments-change.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(loofah)
 BuildRequires: rubygem(minitest)
-BuildRequires: rubygem(rails-dom-testing)
 BuildArch: noarch
 
 %description
-HTML sanitization for Rails applications.
+This gem is responsible for sanitizing HTML fragments in Rails applications.
+Specifically, this is the set of sanitizers used to implement the Action View
+SanitizerHelper methods sanitize, sanitize_css, strip_tags and strip_links.
+
+Rails HTML Sanitizer is only intended to be used with Rails applications. If
+you need similar functionality but aren't using Rails, consider using the
+underlying sanitization library Loofah directly.
 
 
 %package doc
@@ -33,7 +35,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
-%patch0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -64,6 +65,14 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Nov 23 2023 Vít Ondruch <vondruch@redhat.com> - 1.6.0-1
+- Update to rails-html-sanitizer 1.6.0.
+  Resolves: rhbz#2152954
+  Resolves: rhbz#2153702
+  Resolves: rhbz#2153723
+  Resolves: rhbz#2153747
+  Resolves: rhbz#2153753
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

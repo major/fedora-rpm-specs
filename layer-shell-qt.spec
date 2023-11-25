@@ -1,30 +1,21 @@
 Name:    layer-shell-qt
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
-License: LGPLv3+
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 
-BuildRequires: extra-cmake-modules >= 5.82
+BuildRequires: extra-cmake-modules
 
-BuildRequires: qt5-qtbase-devel
-# needs /usr/lib64/libQt5XkbCommonSupport.a
-BuildRequires: qt5-qtbase-private-devel
-BuildRequires: qt5-qtbase-static
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtbase-private-devel
 
-BuildRequires: cmake(Qt5WaylandClient)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5XkbCommonSupport)
+BuildRequires: cmake(Qt6WaylandClient)
+BuildRequires: cmake(Qt6Qml)
 
 BuildRequires: libxkbcommon-devel
 BuildRequires: plasma-wayland-protocols-devel
@@ -38,7 +29,7 @@ based on wlr-layer-shell
 %package devel
 Summary:  Developer files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: cmake(Qt5Gui) >= 5.15.0
+Requires: cmake(Qt6Gui)
 %description devel
 %{summary}.
 
@@ -48,7 +39,7 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -59,8 +50,8 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 %files
 %license LICENSES/*
-%{_libdir}/libLayerShellQtInterface.so.5*
-%{_qt5_plugindir}/wayland-shell-integration/
+%{_libdir}/libLayerShellQtInterface.so.*
+%{_qt6_plugindir}/wayland-shell-integration/
 
 %files devel
 %{_includedir}/LayerShellQt/
@@ -69,6 +60,9 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

@@ -1,55 +1,61 @@
 Name:          arianna
-Version:       23.08.2
+Version:       24.01.75
 Release:       1%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
 License:       GPLv3
 URL:           https://invent.kde.org/graphics/%{name}
 
-Source0:       http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:       http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: gettext
-BuildRequires: qt5-qtbase-devel
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5WebSockets)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5FileMetaData)
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5KirigamiAddons)
-BuildRequires: cmake(KF5QQC2DesktopStyle)
-BuildRequires: cmake(Qt5WebEngine)
-BuildRequires: cmake(KF5Baloo)
-BuildRequires: cmake(KF5QuickCharts)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6WebSockets)
+BuildRequires: cmake(Qt6WebChannel)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6HttpServer)
+BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6FileMetaData)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6QuickCharts)
+BuildRequires: cmake(KF6KirigamiAddons)
+BuildRequires: cmake(KF6QQC2DesktopStyle)
+BuildRequires: cmake(Qt6WebEngineQuick)
+BuildRequires: cmake(KF6Baloo)
 BuildRequires: reuse
 BuildRequires: fdupes
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 # QML module dependencies
-Requires: kf5-kirigami2%{?_isa}
-Requires: kf5-kirigami2-addons%{?_isa}
-Requires: kf5-kquickcharts%{?_isa}
-Requires: qt5-qtgraphicaleffects%{?_isa}
-Requires: qt5-qtquickcontrols2%{?_isa}
-Requires: qt5-qtwebchannel%{?_isa}
-Requires: qt5-qtwebengine%{?_isa}
+Requires: kf6-kirigami2%{?_isa}
+Requires: kf6-kirigami2-addons%{?_isa}
+Requires: kf6-kitemmodels%{?_isa}
+Requires: kf6-kquickcharts%{?_isa}
+Requires: kf6-qqc2-desktop-style%{?_isa}
+Requires: qt6-qt5compat%{?_isa}
+Requires: qt6-qtwebchannel%{?_isa}
+Requires: qt6-qtwebengine%{?_isa}
 
-%if 0%{?fedora} || 0%{?epel} > 7
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # Package doesn't build on arches that qtwebengine is not built on.
-ExclusiveArch: %{qt5_qtwebengine_arches}
-%endif
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 %description
 An ebook reader and library management app
@@ -59,7 +65,7 @@ An ebook reader and library management app
 %autosetup -p1
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 %fdupes
 
@@ -68,19 +74,22 @@ An ebook reader and library management app
 %find_lang %{name} --with-kde --with-man --all-name
 
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.arianna.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.arianna.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.arianna.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.arianna.appdata.xml
 
 %files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
-%{_bindir}/arianna
-%{_datadir}/applications/org.kde.arianna.desktop
-%{_datadir}/icons/hicolor/scalable/apps/org.kde.arianna.svg
-%{_datadir}/metainfo/org.kde.arianna.appdata.xml
-%{_datadir}/qlogging-categories5/arianna.categories
+%{_kf6_bindir}/arianna
+%{_kf6_datadir}/applications/org.kde.arianna.desktop
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.arianna.svg
+%{_kf6_datadir}/qlogging-categories6/arianna.categories
+%{_kf6_metainfodir}/org.kde.arianna.appdata.xml
 
 %changelog
+* Thu Nov 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

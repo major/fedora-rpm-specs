@@ -1,5 +1,5 @@
 Name:           jackson-core
-Version:        2.15.3
+Version:        2.16.0
 Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
@@ -55,6 +55,21 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Wed Nov 15 2023 Packit <hello@packit.dev> - 2.16.0-1
+- [maven-release-plugin] prepare release jackson-core-2.16.0 (Tatu Saloranta)
+- Prepare for 2.16.0 release (Tatu Saloranta)
+- Make JacksonFeatureSet java.io.Serializable (Tatu Saloranta)
+- Update release notes wrt #1136 (Tatu Saloranta)
+- Change error mesage to mention -INF (#1136) (PJ Fanning)
+- Bump the github-actions group with 2 updates (#1134) (dependabot[bot])
+- Add missing name-length check in a test (Tatu Saloranta)
+- Unit test cleanup (Tatu Saloranta)
+- Maximum Property name length affects input/read (#1130) (PJ Fanning)
+- Bump the github-actions group with 2 updates (#1129) (dependabot[bot])
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Resolves rhbz#2249923
+
 * Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
 - [maven-release-plugin] prepare release jackson-core-2.15.3 (Tatu Saloranta)
 - Prepare for 2.15.3 release (Tatu Saloranta)

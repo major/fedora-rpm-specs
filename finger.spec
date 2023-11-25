@@ -3,8 +3,8 @@
 Summary: The finger client
 Name: finger
 Version: 0.17
-Release: 75%{?dist}
-License: BSD
+Release: 76%{?dist}
+License: BSD-4-Clause-UC
 
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/bsd-finger-%{version}.tar.gz
 Source1: finger.socket
@@ -32,6 +32,8 @@ Patch15: bsd-finger-0.17-coverity-bugs.patch
 BuildRequires: gcc
 # uses make
 BuildRequires: make
+# uses autosetup
+BuildRequires: git-core
 
 BuildRequires: glibc-devel, systemd
 BuildRequires: %{__perl}
@@ -65,27 +67,13 @@ and you'd like finger information to be available.
 
 
 %prep
-%setup -q -n bsd-finger-%{version}
-%patch1 -p1 -b .pts
-%patch2 -p1 -b .exact
-%patch3 -p1
-%patch4 -p1 -b .rfc742
-%patch5 -p1 -b .time
-%patch6 -p1 -b .ipv6
-%patch7 -p1 -b .typo
-%patch8 -p1 -b .strip
-%patch9 -p1 -b .utmp
-%patch10 -p1 -b .widechar
-%patch11 -p1 
-%patch12 -p1 -b .host
-%patch13 -p1 -b .match_sigsegv
-%patch14 -p1 -b .systemd
-%patch15 -p1 -b .coverity
+%autosetup -n bsd-finger-%{version} -S git
 
 install -m 644 %{SOURCE3} COPYING
 
 
 %build
+%set_build_flags
 sh configure --enable-ipv6
 %{__perl} -pi -e '
 	s,^CC=.*$,CC=gcc,;
@@ -96,7 +84,7 @@ sh configure --enable-ipv6
 	s,^LDFLAGS=.*$,LDFLAGS=\$(RPM_LD_FLAGS),;
 	' MCONFIG
 
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -108,7 +96,7 @@ mkdir -p %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE1} %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE2} %{buildroot}%{_unitdir}
 
-make INSTALLROOT=%{buildroot} install
+%make_install INSTALLROOT=%{buildroot}
 
 
 %post server
@@ -139,6 +127,9 @@ make INSTALLROOT=%{buildroot} install
 
 
 %changelog
+* Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.17-76
+- SPDX migration, update spec file
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-75
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

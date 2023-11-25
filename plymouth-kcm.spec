@@ -2,42 +2,33 @@
 
 Name:    plymouth-kcm
 Summary: Plymouth configuration module for systemsettings
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
+License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{base_name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 ## FIXME/TODO: document why this patch is needed, ideally work to make upstreamable
 Patch1:         0001-fedora.patch
 
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
-
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kcmutils
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  kf6-kcmutils
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  plymouth-devel
 
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(KF5Archive)
-BuildRequires:  cmake(KF5NewStuff)
-BuildRequires:  cmake(KF5NewStuffCore)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5KCMUtils)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  cmake(KF6NewStuffCore)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6KCMUtils)
 
 Requires:   plymouth
 
@@ -51,31 +42,31 @@ plymouth splash screen.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang kcm_plymouth --all-name --with-html
 
 
 %files -f kcm_plymouth.lang
-%license LICENSES/* 
-%{_kf5_datadir}/dbus-1/system.d/org.kde.kcontrol.kcmplymouth.conf
+%license LICENSES/*
+%{_kf6_datadir}/dbus-1/system.d/org.kde.kcontrol.kcmplymouth.conf
 %{_datadir}/knsrcfiles/plymouth.knsrc
 %{_bindir}/kplymouththemeinstaller
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_plymouth.so
-%{_kf5_libexecdir}/kauth/plymouthhelper
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_plymouth.so
+%{_kf6_libexecdir}/kauth/plymouthhelper
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmplymouth.service
-%{_datadir}/kpackage/kcms/kcm_plymouth/
 %{_datadir}/applications/kcm_plymouth.desktop
 %{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmplymouth.policy
 
 
 %changelog
+* Sat Nov 11 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

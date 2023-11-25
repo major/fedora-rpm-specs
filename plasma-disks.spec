@@ -1,41 +1,35 @@
-%undefine __cmake_in_source_build
-
 Name:    plasma-disks
 Summary: Hard disk health monitoring for KDE Plasma
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+ and LGPLv3+ and BSD and CC0
+License: BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-3.0-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kauth-devel
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Service)
-BuildRequires:  cmake(KF5Solid)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  kf6-kauth-devel
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6KCMUtils)
 
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Core)
 
 BuildRequires:  smartmontools
 Requires:       smartmontools
+BuildRequires:  desktop-file-utils
 
 %description
 Plasma Disks monitors S.M.A.R.T. data of disks and alerts the user when
@@ -47,29 +41,32 @@ signs of imminent failure appear.
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name
 
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_disks.desktop
 
 %files -f %{name}.lang
 %license LICENSES/*.txt
-%{_libexecdir}/kf5/kauth/kded-smart-helper
-%{_qt5_plugindir}/plasma/kcms/kinfocenter/smart.so
-%{_kf5_plugindir}/kded/smart.so
-%{_kf5_datadir}/dbus-1/system-services/org.kde.kded.smart.service
-%{_kf5_datadir}/dbus-1/system.d/org.kde.kded.smart.conf
-%{_kf5_datadir}/knotifications5/org.kde.kded.smart.notifyrc
-%{_kf5_datadir}/kpackage/kcms/plasma_disks/*
-%{_kf5_datadir}/metainfo/org.kde.plasma.disks.metainfo.xml
-%{_kf5_datadir}/polkit-1/actions/org.kde.kded.smart.policy
+%{_libexecdir}/kf6/kauth/kded-smart-helper
+%{_qt6_plugindir}/plasma/kcms/kinfocenter/kcm_disks.so
+%{_kf6_plugindir}/kded/smart.so
+%{_kf6_datadir}/applications/kcm_disks.desktop
+%{_kf6_datadir}/dbus-1/system-services/org.kde.kded.smart.service
+%{_kf6_datadir}/dbus-1/system.d/org.kde.kded.smart.conf
+%{_kf6_datadir}/knotifications6/org.kde.kded.smart.notifyrc
+%{_kf6_datadir}/metainfo/org.kde.plasma.disks.metainfo.xml
+%{_kf6_datadir}/polkit-1/actions/org.kde.kded.smart.policy
 
 %changelog
+* Sat Nov 11 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

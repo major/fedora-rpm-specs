@@ -1,4 +1,4 @@
-%define prerelease beta1
+#define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        12.0.0
-Release:        0.2%{?dist}
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -199,6 +199,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Nov 23 2023 Sandro Mani <manisandro@gmail.com> - 12.0.0-1
+- Update to 12.0.0
+
 * Mon Oct 16 2023 Jan Grulich <jgrulich@redhat.com>
 - Rebuild (qt6)
 

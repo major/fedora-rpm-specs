@@ -1,19 +1,12 @@
 Name:    kscreenlocker
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
-License: GPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global plasmaver %(echo %{version} | cut -d. -f1,2,3)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{plasmaver}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 # help upgrades, split from plasma-workspace since 5.5
 Conflicts: plasma-workspace < 5.5
@@ -23,23 +16,22 @@ Conflicts: plasma-workspace < 5.5
 BuildRequires: cmake(LayerShellQt)
 
 BuildRequires:  perl-generators
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  cmake(Qt6Quick)
 
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 
-BuildRequires:  libkscreen-qt5-devel = %{version}
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kidletime-devel
-BuildRequires:  kf5-kdelibs4support-devel
-BuildRequires:  kf5-kcrash-devel
-BuildRequires:  kf5-kglobalaccel-devel
-
-BuildRequires:  kf5-kwayland-devel
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IdleTime)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6PlasmaQuick)
+BuildRequires:  cmake(KF6Screen)
+BuildRequires:  cmake(KF6Svg)
 
 BuildRequires:  libX11-devel
 BuildRequires:  xcb-util-keysyms-devel
@@ -55,9 +47,6 @@ BuildRequires:  pam-devel
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       kf5-kscreen-devel = %{version}-%{release}
-Provides:       kf5-kscreen-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      kf5-kscreen-devel <= 1:5.2.0
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -68,8 +57,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -79,30 +67,30 @@ developing applications that use %{name}.
 %find_lang %{name} --with-qt --all-name
 
 
-%ldconfig_scriptlets
-
 %files -f %{name}.lang
 %license COPYING
-%{_kf5_libdir}/libKScreenLocker.so.*
-%{_kf5_datadir}/knotifications5/*.notifyrc
-%{_kf5_datadir}/kconf_update/*
+%{_kf6_libdir}/libKScreenLocker.so.*
+%{_kf6_datadir}/knotifications6/*.notifyrc
+%{_kf6_datadir}/kconf_update/*
 %{_libexecdir}/kscreenlocker_greet
-%dir %{_kf5_datadir}/ksmserver/
-%{_kf5_datadir}/ksmserver/screenlocker/
-%{_kf5_datadir}/applications/kcm_screenlocker.desktop
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_screenlocker.so
-%{_kf5_datadir}/kpackage/kcms/kcm_screenlocker/*
-%{_kf5_datadir}/qlogging-categories5/kscreenlocker.categories
+%dir %{_kf6_datadir}/ksmserver/
+%{_kf6_datadir}/ksmserver/screenlocker/
+%{_kf6_datadir}/applications/kcm_screenlocker.desktop
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_screenlocker.so
+%{_kf6_datadir}/qlogging-categories6/kscreenlocker.categories
 
 %files devel
-%{_kf5_libdir}/libKScreenLocker.so
-%{_kf5_libdir}/cmake/ScreenSaverDBusInterface/
-%{_kf5_libdir}/cmake/KScreenLocker/
+%{_kf6_libdir}/libKScreenLocker.so
+%{_kf6_libdir}/cmake/ScreenSaverDBusInterface/
+%{_kf6_libdir}/cmake/KScreenLocker/
 %{_includedir}/KScreenLocker/
 %{_datadir}/dbus-1/interfaces/*.xml
 
 
 %changelog
+* Mon Nov 13 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

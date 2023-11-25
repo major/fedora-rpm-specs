@@ -2,13 +2,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-firmware
-Version:        43.2
+Version:        45.0
 Release:        %autorelease
 Summary:        Install firmware on devices
 
 License:        GPL-2.0-or-later
-URL:            https://gitlab.gnome.org/hughsie/gnome-firmware
-Source0:        https://people.freedesktop.org/~hughsient/releases/%{name}-%{tarball_version}.tar.xz
+URL:            https://gitlab.gnome.org/World/gnome-firmware
+Source0:        %{url}/-/archive/%{tarball_version}/%{name}-%{tarball_version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -17,11 +17,12 @@ BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.46.0
 BuildRequires:  systemd-devel
 BuildRequires:  pkgconfig(appstream-glib)
-BuildRequires:  pkgconfig(fwupd) >= 1.2.10
-BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(fwupd) >= 1.8.11
+BuildRequires:  pkgconfig(gio-2.0) >= 2.74.0
 BuildRequires:  pkgconfig(gtk4) >= 4.6.0
 BuildRequires:  pkgconfig(xmlb) >= 0.1.7
-BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.3.99
+
 Requires:       hicolor-icon-theme
 
 %description

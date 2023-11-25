@@ -1,21 +1,12 @@
-%undefine __cmake_in_source_build
-%global  wayland_min_version 1.3
-
 Name:    kwayland-integration
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Provides integration plugins for various KDE Frameworks for Wayland
 
-License: LGPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only AND LGPL-3.0-only)
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf5}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtbase-static
@@ -32,6 +23,7 @@ BuildRequires:  cmake(KF5GuiAddons)
 
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
+BuildRequires:  plasma-wayland-protocols-devel
 
 Requires:       kf5-filesystem
 
@@ -52,8 +44,6 @@ Requires:       kf5-filesystem
 %cmake_install
 
 
-%ldconfig_scriptlets
-
 %files
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/kwindowsystem.kwayland.categories
@@ -61,6 +51,9 @@ Requires:       kf5-filesystem
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

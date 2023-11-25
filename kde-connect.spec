@@ -5,7 +5,7 @@
 
 Name:    kde-connect
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Summary: KDE Connect client for communication with smartphones
 
@@ -197,6 +197,9 @@ done
 
 
 %changelog
+* Thu Nov 23 2023 Steve Cossette <farchord@gmail.com> - 23.08.2-2
+- Rebuild for new pulseaudio-qt version
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

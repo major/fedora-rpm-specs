@@ -1,38 +1,27 @@
-%undefine __cmake_in_source_build
-
 %define         base_name milou
 
 Name:    plasma-%{base_name}
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
-License: GPLv2+
-URL:     https://cgit.kde.org/%{base_name}.git
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
+URL:     https://invent.kde.org/plasma/%{base_name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
-BuildRequires:  qt5-qtscript-devel
-
-BuildRequires:  kf5-rpm-macros >= 5.25.0-2
 BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  kf5-krunner-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-baloo-devel
-BuildRequires:  kf5-kitemmodels-devel
+BuildRequires:  cmake(KF6Baloo)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KF6Runner)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  qt6-qtbase-devel
 
-Requires:       kf5-filesystem
+Requires:       kf6-filesystem
 
 Obsoletes:      kde-plasma-milou < 5.0.0
 Provides:       kde-plasma-milou = %{version}-%{release}
@@ -46,7 +35,7 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
@@ -55,17 +44,17 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 %find_lang milou --with-qt --all-name
 
 
-%ldconfig_scriptlets
-
 %files -f milou.lang
-%{_libdir}/libmilou.so.*
-%{_kf5_qmldir}/org/kde/milou/
-%{_datadir}/plasma/plasmoids/org.kde.milou/
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.milou.desktop
-%{_kf5_metainfodir}/org.kde.milou.appdata.xml
+%license LICENSES/*
+%{_kf6_qmldir}/org/kde/milou/
+%{_kf6_datadir}/plasma/plasmoids/org.kde.milou/
+%{_kf6_metainfodir}/org.kde.milou.appdata.xml
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

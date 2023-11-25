@@ -1,37 +1,29 @@
 Name:    kactivitymanagerd
 Summary: Plasma service to manage user's activities
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
-
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Core5Compat)
 
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5GlobalAccel)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6I18n)
 
 BuildRequires:  boost-devel
 
@@ -54,34 +46,31 @@ Provides:       kactivities = %{version}-%{release}
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
 
-%find_lang kactivities5 --with-qt
-
-# unpackaged files
-rm -fv %{buildroot}%{_kf5_qmldir}/org/kde/activities/{libkactivitiesextensionplugin.so,qmldir}
+%find_lang kactivities6 --with-qt
 
 
-%files -f kactivities5.lang
+%files -f kactivities6.lang
 %license LICENSES/*
 %doc README.md
-%{_kf5_datadir}/qlogging-categories5/kactivitymanagerd.categories
+%{_kf6_datadir}/qlogging-categories6/kactivitymanagerd.categories
 %{_libexecdir}/kactivitymanagerd
-%{_kf5_libdir}/libkactivitymanagerd_plugin.so
-%{_kf5_qtplugindir}/kactivitymanagerd/
-%{_kf5_datadir}/dbus-1/services/org.kde.ActivityManager.service
-%{_kf5_datadir}/kservices5/kactivitymanagerd.desktop
-%{_kf5_datadir}/krunner/dbusplugins/plasma-runnners-activities.desktop
+%{_kf6_libdir}/libkactivitymanagerd_plugin.so
+%{_kf6_datadir}/dbus-1/services/org.kde.ActivityManager.service
+%{_kf6_datadir}/krunner/dbusplugins/plasma-runnners-activities.desktop
 %{_userunitdir}/plasma-kactivitymanagerd.service
-
+%{_qt6_plugindir}/kactivitymanagerd1/
 
 %changelog
+* Sat Nov 11 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

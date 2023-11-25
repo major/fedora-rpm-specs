@@ -67,7 +67,7 @@ Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description tests
-This package contains the installable tests for %{name}.
+This package contains installed tests for %{name}.
 
 
 %prep

@@ -1,5 +1,5 @@
 Name:           angelfish
-Version:        23.08.2
+Version:        24.01.75
 Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
@@ -7,16 +7,10 @@ License:        MIT and GPLv2+ and LGPLv2 and LGPLv2+
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 URL:            https://invent.kde.org/network/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -24,44 +18,43 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
  
-BuildRequires:  cmake(FutureSQL5)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Purpose)
-BuildRequires:  cmake(KF5QQC2DesktopStyle)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(QCoro5Core)
-BuildRequires:  cmake(QCoro5Quick)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Feedback)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Keychain)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5WebEngine)
-BuildRequires:  cmake(Qt5WebSockets)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(FutureSQL6)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Purpose)
+BuildRequires:  cmake(KF6QQC2DesktopStyle)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(QCoro6Core)
+BuildRequires:  cmake(QCoro6Quick)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6WebEngineCore)
+BuildRequires:  cmake(Qt6WebEngineQuick)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  qt6-qtbase-private-devel
 
 Requires:       hicolor-icon-theme
 # QML module dependencies
-Requires:       kf5-kirigami2%{?_isa} 
-Requires:       kf5-kirigami2-addons%{?_isa}
-Requires:       kf5-purpose%{?_isa}
-Requires:       qt5-qtfeedback%{?_isa} 
-Requires:       qt5-qtgraphicaleffects%{?_isa}
-Requires:       qt5-qtquickcontrols2%{?_isa}
-Requires:       qt5-qtwayland%{?_isa} 
-Requires:       qt5-qtwebengine%{?_isa}
+Requires:       kf6-kirigami2%{?_isa} 
+Requires:       kf6-kirigami2-addons%{?_isa}
+Requires:       kf6-purpose%{?_isa}
+Requires:       kf6-qqc2-desktop-style%{?_isa}
+Requires:       qt6-qt5compat%{?_isa}
+Requires:       qt6-qtwayland%{?_isa} 
+Requires:       qt6-qtwebengine%{?_isa}
 
 %description
 Web browser for mobile devices with Plasma integration
@@ -70,7 +63,7 @@ Web browser for mobile devices with Plasma integration
 %autosetup -n %{name}-%{version}
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -78,25 +71,28 @@ Web browser for mobile devices with Plasma integration
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 
 %files -f %{name}.lang
 %license LICENSES/{MIT,GPL-2.0-or-later,LGPL-2.0-only,LGPL-2.0-or-later}.txt
 %doc README.md
 
-%{_kf5_bindir}/%{name}
-%{_kf5_bindir}/%{name}-webapp
+%{_kf6_bindir}/%{name}
+%{_kf6_bindir}/%{name}-webapp
 
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/config.kcfg/%{name}settings.kcfg
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
-%{_kf5_datadir}/knotifications5/%{name}.notifyrc
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/config.kcfg/%{name}settings.kcfg
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
+%{_kf6_datadir}/knotifications6/%{name}.notifyrc
 
-%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Thu Nov 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

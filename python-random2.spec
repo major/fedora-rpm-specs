@@ -1,11 +1,15 @@
 Name:           python-random2
 Version:        1.0.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Python 2 compatible random module
 
 License:        Python-2.0.1
 URL:            http://pypi.python.org/pypi/random2
 Source0:        %{pypi_source random2 %version zip}
+# unittest.makeSuite() was removed from Python 3.13 - port to a supported
+# unittest.defaultTestLoader.loadTestsFromTestCase()
+Patch0:         Replace-unittest.makeSuite-removed-in-Python-3.13.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -36,7 +40,7 @@ Summary:        Python 2 compatible random module for Python 3
 %description -n python%{python3_pkgversion}-random2 %{common_desc}
 
 %prep
-%autosetup -n random2-%{version}
+%autosetup -n random2-%{version} -p1
 
 # Remove a test that is invalid as of python 3.9
 sed -i '/self\.gen\.getrandbits, 0/d' src/tests.py
@@ -55,6 +59,9 @@ sed -i '/self\.gen\.getrandbits, 0/d' src/tests.py
 %doc CHANGES.txt README.txt
 
 %changelog
+* Thu Nov 23 2023 Karolina Surma <ksurma@redhat.com> - 1.0.1-31
+- Enable build and test run with Python 3.13
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

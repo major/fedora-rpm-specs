@@ -1,7 +1,7 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.15.3
+Version:        2.16.0
 Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
@@ -66,7 +66,9 @@ cp -p mrbean/src/main/resources/META-INF/{LICENSE,NOTICE} .
 %pom_add_dep cglib:cglib:3.2.4:test guice
 
 %pom_disable_module afterburner
+%pom_disable_module android-record
 %pom_disable_module guice
+%pom_disable_module guice7
 %pom_disable_module mrbean
 %pom_disable_module osgi
 %pom_disable_module paranamer
@@ -102,6 +104,26 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Thu Nov 16 2023 Packit <hello@packit.dev> - 2.16.0-1
+- [maven-release-plugin] prepare release jackson-modules-base-2.16.0 (Tatu Saloranta)
+- Prepare for 2.16.0 release (Tatu Saloranta)
+- Updated doc. Added missing test accessor. (eranl)
+- Minor test improvement to android module (Tatu Saloranta)
+- Update release notes wrt #227 (Tatu Saloranta)
+- Updated doc. Moved failing tests to 'failing' package. Added test for differing generic parameter types. Pruned BaseTest and BaseMapTest. Added comment about '-parameters' compiler option. (eranl)
+- Addressed review comments With the goal of maximizing consistency with built-in record support, I copied and "desugared" some unit tests from https://github.com/FasterXML/jackson-databind/tree/2.16/src/test-jdk17/java/com/fasterxml/jackson/databind/records. A few of the test cases are failing, and I marked them with a "Failing" comment and a "notest" name prefix. I'm hoping for guidance about whether and how I should fix them. Fixed handling of getters Added support for injected values Added use of constructor parameter names Skip module if class already has a withArgsCreator (eranl)
+- Add jackson-core dependency, animal-sniffer-maven-plugin, per review comments (eranl)
+- Add Android Record Module (eranl)
+- Move now passing #223 test to non-failing package (Tatu Saloranta)
+- Fix #223: apply check for default (interface) method in all applicable places (Tatu Saloranta)
+- Add test for #223: passes for Blackbird, fails for Afterburner (Tatu Saloranta)
+- Test #30 simplification for blackbird too (Tatu Saloranta)
+- Simplify test for #30 since Java 8 baseline for Jackson 2.x (Tatu Saloranta)
+- Remove maven-wrapper.jar (Tatu Saloranta)
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Resolves rhbz#2249935
+
 * Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
 - [maven-release-plugin] prepare release jackson-modules-base-2.15.3 (Tatu Saloranta)
 - Prepare for 2.15.3 release (Tatu Saloranta)

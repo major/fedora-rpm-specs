@@ -1,6 +1,6 @@
 Name:           squidclamav
 Version:        7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP Antivirus for Squid based on ClamAv and the ICAP protocol
 License:        GPL-3.0-or-later
 URL:            https://squidclamav.darold.net/
@@ -16,8 +16,13 @@ BuildRequires:  make
 BuildRequires:  zlib-devel
 
 Requires:       c-icap
-Requires:       httpd-filesystem
 Requires:       squid
+
+%if 0%{?rhel} == 7
+Requires:       httpd
+%else
+Requires:       httpd-filesystem
+%endif
 
 %description
 SquidClamav is an antivirus for the Squid proxy based on the ICAP protocol and
@@ -61,6 +66,9 @@ rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Nov 23 2023 Simone Caronni <negativo17@gmail.com> - 7.3-2
+- Fix dependencies for el7.
+
 * Sat Nov 11 2023 Simone Caronni <negativo17@gmail.com> - 7.3-1
 - Update to 7.3.
 

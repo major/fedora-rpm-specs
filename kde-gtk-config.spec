@@ -1,44 +1,29 @@
-
-# Toggle xsettingsd, default on
-%global xsettingsd 1
-
 Name:    kde-gtk-config
 Summary: Configure the appearance of GTK apps in KDE
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-# KDE e.V. may determine that future GPL versions are accepted
-# KDE e.V. may determine that future LGPL versions are accepted
-License: (GPLv2 or GPLv3) and (LGPLv2 or LGPLv3)
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/kde-gtk-config-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/kde-gtk-config-%{version}.tar.xz
 
 # upstream patches
 
 ## upstreamable patches
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtsvg-devel
 
-BuildRequires:  kdecoration-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-knewstuff-devel
-BuildRequires:  kf5-karchive-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kguiaddons-devel
+BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6WindowSystem)
 
 BuildRequires:  gsettings-desktop-schemas-devel
 BuildRequires:  gtk3-devel
@@ -50,12 +35,10 @@ Requires:       breeze-gtk-common
 # need kcmshell5 from kde-cli-tools
 Requires:       kde-cli-tools
 
-%if 0%{?xsettingsd}
 # runtime dep checked-for at buildtime
 BuildRequires:  xsettingsd
 # avoid hard dep for now -- rex
 Recommends:     xsettingsd
-%endif
 
 %description
 This is a System Settings configuration module for configuring the
@@ -63,12 +46,11 @@ appearance of GTK apps in KDE.
 
 
 %prep
-%autosetup -n kde-gtk-config-%{version} -p1
+%autosetup -p1
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -83,7 +65,7 @@ appearance of GTK apps in KDE.
 %{_libdir}/kconf_update_bin/remove_deprecated_gtk4_option
 %{_datadir}/kconf_update/gtkconfig.upd
 %{_datadir}/kconf_update/remove_window_decorations_from_gtk_css.sh
-%{_qt5_plugindir}/kf5/kded/gtkconfig.so
+%{_kf6_plugindir}/kded/gtkconfig.so
 %{_libdir}/gtk-3.0/modules/libcolorreload-gtk-module.so
 %{_libdir}/gtk-3.0/modules/libwindow-decorations-gtk-module.so
 %{_datadir}/themes/Breeze/window_decorations.css
@@ -91,6 +73,9 @@ appearance of GTK apps in KDE.
 
 
 %changelog
+* Mon Nov 13 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

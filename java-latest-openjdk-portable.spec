@@ -1,3 +1,8 @@
+%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
+# portable jdk 17 specific bug, _jvmdir being missing
+%define _jvmdir /usr/lib/jvm
+%endif
+
 # debug_package %%{nil} is portable-jdks specific
 %define  debug_package %{nil}
 
@@ -145,7 +150,7 @@
 %global zgc_arches x86_64
 # Set of architectures for which alt-java has SSB mitigation
 %global ssbd_arches x86_64
-# Set of architectures for which java has short vector math library (libsvml.so)
+# Set of architectures for which java has short vector math library (libjsvml.so)
 %global svml_arches x86_64
 # Set of architectures where we verify backtraces with gdb
 # s390x fails on RHEL 7 so we exclude it there
@@ -428,10 +433,6 @@
 # images directories from upstream build
 %global jdkimage                jdk
 %global static_libs_image       static-libs
-# installation directory for static libraries
-%global static_libs_root        lib/static
-%global static_libs_arch_dir    %{static_libs_root}/linux-%{archinstall}
-%global static_libs_install_dir %{static_libs_arch_dir}/glibc
 # output dir stub
 %define buildoutputdir() %{expand:build/jdk%{featurever}.build%{?1}}
 %define installoutputdir() %{expand:install/jdk%{featurever}.install%{?1}}
@@ -739,7 +740,7 @@ BuildRequires: libXtst-devel
 # Requirement for setting up nss.fips.cfg
 BuildRequires: nss-devel
 # Requirement for system security property test
-#N/A
+# N/A for portable. RHEL7 doesn't provide them
 #BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: xorg-x11-proto-devel
@@ -750,13 +751,16 @@ BuildRequires: unzip
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
 # No javapackages-filesystem on el7,nor is needed for portables
 %else
-BuildRequires: javapackages-filesystem
+# BuildRequires: javapackages-filesystem
 BuildRequires: java-latest-openjdk-devel
 %endif
 # Zero-assembler build requirement
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
+# Full documentation build requirements
+BuildRequires: graphviz
+BuildRequires: pandoc
 # 2023c required as of JDK-8305113
 BuildRequires: tzdata-java >= 2023c
 # cacerts build requirement in portable mode
@@ -1117,7 +1121,7 @@ function buildjdk() {
 %endif
     --with-version-build=%{buildver} \
     --with-version-pre="%{ea_designator}" \
-    --with-version-opt=%{lts_designator} \
+    --with-version-opt="%{lts_designator}" \
     --with-vendor-version-string="%{oj_vendor_version}" \
     --with-vendor-name="%{oj_vendor}" \
     --with-vendor-url="%{oj_vendor_url}" \
@@ -1520,7 +1524,6 @@ if ! nm %{altjavaoutputdir}/%{alt_java_name} | grep prctl ; then true ; else fal
 # Check translations are available for new timezones (during flatpak builds, the
 # tzdb.dat used by this test is not where the test expects it, so this is
 # disabled for flatpak builds)
-# Disable test until we are on the latest JDK
 $JAVA_HOME/bin/javac -d . %{SOURCE18}
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
 $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR

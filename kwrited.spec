@@ -1,32 +1,24 @@
 Name:    kwrited
 Summary: KDE Write Daemon
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
+License: CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
-
-## upstreamable patches
-## needs rebasing?
-#Patch0:         kwrited-call-setgroups.patch
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kpty-devel >= 5.13.0-2
-BuildRequires:  kf5-kdelibs4support-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6Pty)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  git-core
 
 # Owns /usr/share/knotifications5
-Requires:       kf5-knotifications
+Requires:       kf6-knotifications
 
 # TODO: Remove once kwrited is split from kde-workspace
 Conflicts:      kde-workspace < 5.0.0-1
@@ -40,28 +32,21 @@ Conflicts:      kde-workspace < 5.0.0-1
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
 
-
 %files
 %license LICENSES/*
-# kpty built with utempter support
-%if 1
-%{_kf5_qtplugindir}/kf5/kded/kwrited.so
-%else
-%{_kf5_bindir}/kwrited
-%{_sysconfdir}/xdg/autostart/kwrited-autostart.desktop
-%endif
-%{_kf5_datadir}/knotifications5/kwrited.notifyrc
-
+%{_qt6_plugindir}/kf6/kded/kwrited.so
+%{_kf5_datadir}/knotifications6/kwrited.notifyrc
 
 %changelog
+* Sat Nov 11 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

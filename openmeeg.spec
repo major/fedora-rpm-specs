@@ -20,8 +20,8 @@ ExcludeArch: s390x
 #%%global relsuf rc4
 
 Name:    openmeeg
-Version: 2.5.5
-Release: 4%{?dist}
+Version: 2.5.7
+Release: 1%{?dist}
 Summary: Low-frequency bio-electromagnetism solving forward problems in the field of EEG and MEG
 License: CeCILL-B
 URL:     http://openmeeg.github.io/
@@ -104,9 +104,11 @@ BuildRequires: CGAL-devel
 The OpenMEEG software is a C++ package for solving the forward
 problems of electroencephalography (EEG) and magnetoencephalography (MEG).
 
+
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use OpenMEEG.
@@ -119,6 +121,8 @@ Summary:        OpenMEEG binding for Python%{python3_pkgversion}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-wheel
 BuildRequires:  swig
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       swig
@@ -178,6 +182,7 @@ export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
 %if %{with python}
 %files -n python%{python3_pkgversion}-openmeeg
 %{python3_sitearch}/%{name}/
+%{python3_sitearch}/%{name}-%{version}.dist-info/
 %endif
 
 %if %{with doc}
@@ -187,6 +192,9 @@ export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
 %endif
 
 %changelog
+* Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.5.7-1
+- Release 2.5.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

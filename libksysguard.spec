@@ -1,53 +1,47 @@
 
 Name:    libksysguard
 Summary: Library for managing processes running on the system
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
-
-# GCC 8 and older need stdc++fs link library set
-Patch1:            libksysguard-5.22.2.1_fix-processcore-on-gcc8.patch
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-# kf5 required
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5Completion)
-BuildRequires:  cmake(KF5Auth)
-BuildRequires:  cmake(KF5WidgetsAddons)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5Service)
-BuildRequires:  cmake(KF5GlobalAccel)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5NewStuff)
-# kf5 optional
-BuildRequires:  cmake(KF5Plasma)
-# qt5 required
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  cmake(Qt5WebChannel)
-# qt5 optional
-%ifarch %{qt5_qtwebengine_arches}
-BuildRequires:  cmake(Qt5WebEngineWidgets)
+BuildRequires:  kf6-rpm-macros
+# kf6 required
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6Auth)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6NewStuff)
+# kf6 optional
+BuildRequires:  cmake(KF6Plasma)
+# qt6 required
+BuildRequires:  qt6-qttools-devel
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Core5Compat)
+
+# Qt6 Web packages do not exist on those architectures.
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  cmake(Qt6WebChannel)
 %endif
+
+BuildRequires:  qt6-qtbase-private-devel
 
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  pkgconfig(libnl-3.0) pkgconfig(libnl-route-3.0)
@@ -71,12 +65,12 @@ running on the system.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt5Core)
-Requires:       cmake(Qt5Network)
-Requires:       cmake(Qt5Widgets)
-Requires:       cmake(KF5Config)
-Requires:       cmake(KF5I18n)
-Requires:       cmake(KF5IconThemes)
+Requires:       cmake(Qt6Core)
+Requires:       cmake(Qt6Network)
+Requires:       cmake(Qt6Widgets)
+Requires:       cmake(KF6Config)
+Requires:       cmake(KF6I18n)
+Requires:       cmake(KF6IconThemes)
 Obsoletes:      kf5-ksysguard-devel < 5.1.95
 Provides:       kf5-ksysguard-devel = %{version}-%{release}
 Conflicts:      kde-workspace-devel < 1:4.11.16-11
@@ -92,68 +86,60 @@ Conflicts:      ksysguard < 5.2
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-
 %prep
 %autosetup -n %{name}-%{version} -p1
 
-
 %build
-%cmake_kf5 \
-  -DKDE_INSTALL_INCLUDEDIR:PATH=%{_kf5_includedir}
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
+%find_lang ksysguard_qt6 --with-qt --with-kde --all-name
 
-%find_lang ksysguard_qt5 --with-qt --with-kde --all-name
-
-
-%ldconfig_scriptlets
-
-%files -f ksysguard_qt5.lang
+%files -f ksysguard_qt6.lang
 %license LICENSES
-%{_kf5_libdir}/liblsofui.so.*
-%{_kf5_libdir}/libprocessui.so.*
-%{_kf5_libdir}/libprocesscore.so.*
-%{_kf5_libdir}/libksignalplotter.so.*
-%{_kf5_libdir}/libksgrd.so.*
-%{_kf5_libdir}/libKSysGuardFormatter.so*
-%{_kf5_libdir}/libKSysGuardSensors.so*
-%{_kf5_libdir}/libKSysGuardSensorFaces.so*
-%{_kf5_datadir}/ksysguard/
-%{_kf5_datadir}/qlogging-categories5/libksysguard.categories
-%{_qt5_plugindir}/kpackage/packagestructure/sensorface_packagestructure.so
-%{_qt5_plugindir}/designer/ksignalplotter5widgets.so
-%{_qt5_plugindir}/designer/ksysguard*.so
-%{_qt5_qmldir}/org/kde/ksysguard/
-
-%{_kf5_libdir}/libKSysGuardSystemStats.so.*
-%{_qt5_plugindir}/ksysguard/
+%{_kf6_libdir}/liblsofui.so.*
+%{_kf6_libdir}/libprocessui.so.*
+%{_kf6_libdir}/libprocesscore.so.*
+%{_kf6_libdir}/libksignalplotter.so.*
+%{_kf6_libdir}/libksgrd.so.*
+%{_kf6_libdir}/libKSysGuardFormatter.so*
+%{_kf6_libdir}/libKSysGuardSensors.so*
+%{_kf6_libdir}/libKSysGuardSensorFaces.so*
+%{_kf6_datadir}/ksysguard/
+%{_kf6_datadir}/qlogging-categories6/libksysguard.categories
+%{_qt6_plugindir}/designer/ksignalplotter5widgets.so
+%{_qt6_plugindir}/designer/ksysguard*.so
+%{_qt6_qmldir}/org/kde/ksysguard/
+%{_kf6_libdir}/libKSysGuardSystemStats.so.*
+%{_qt6_plugindir}/ksysguard/
 %{_libexecdir}/ksysguard/
-%{_kf5_datadir}/dbus-1/interfaces/org.kde.ksystemstats.xml
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.ksystemstats.xml
+%{_qt6_plugindir}/kf6/packagestructure/ksysguard_sensorface.so
 
 %files common
-%{_kf5_libexecdir}/kauth/ksysguardprocesslist_helper
+%{_kf6_libexecdir}/kauth/ksysguardprocesslist_helper
 %{_datadir}/dbus-1/system.d/org.kde.ksysguard.processlisthelper.conf
 %{_datadir}/dbus-1/system-services/org.kde.ksysguard.processlisthelper.service
 %{_datadir}/polkit-1/actions/org.kde.ksysguard.processlisthelper.policy
 %{_datadir}/knsrcfiles/*
 
 %files devel
-%{_kf5_includedir}/ksysguard/
-%{_kf5_libdir}/liblsofui.so
-%{_kf5_libdir}/libprocessui.so
-%{_kf5_libdir}/libprocesscore.so
-%{_kf5_libdir}/libksignalplotter.so
-%{_kf5_libdir}/libksgrd.so
-%{_kf5_libdir}/cmake/KSysGuard/
-%{_kf5_libdir}/cmake/KF5SysGuard/
-%{_kf5_libdir}/libKSysGuardSystemStats.so
+%{_includedir}/ksysguard/
+%{_kf6_libdir}/liblsofui.so
+%{_kf6_libdir}/libprocessui.so
+%{_kf6_libdir}/libprocesscore.so
+%{_kf6_libdir}/libksignalplotter.so
+%{_kf6_libdir}/libksgrd.so
+%{_kf6_libdir}/cmake/KSysGuard/
+%{_kf6_libdir}/libKSysGuardSystemStats.so
 
 
 %changelog
+* Sun Nov 12 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

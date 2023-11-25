@@ -1,35 +1,28 @@
 %global gem_name loofah
 
 Name: rubygem-%{gem_name}
-Version: 2.18.0
-Release: 4%{?dist}
+Version: 2.22.0
+Release: 1%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/flavorjones/loofah.git && cd loofah
-# git archive -v -o loofah-2.18.0-test.tar.gz v2.18.0 test/
+# git archive -v -o loofah-2.22.0-test.tar.gz v2.22.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
-# https://github.com/flavorjones/loofah/commit/d7efe5ef5535e64b42e58be4585c38c4b196170a
-# test: support libxml 2.10.4 behavior around namespaces
-# modified for current Fedora loofah
-Patch0:  loofah-d7efe5ef-test-support-libxml2-2_10_4-backported.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(nokogiri) >= 1.6.6.2
 BuildRequires: rubygem(minitest)
-BuildRequires: rubygem(rr)
 BuildRequires: rubygem(crass)
 BuildArch: noarch
 
 %description
-Loofah is a general library for manipulating and transforming HTML/XML
-documents and fragments, built on top of Nokogiri.
-Loofah excels at HTML sanitization (XSS prevention). It includes some nice
-HTML sanitizers, which are based on HTML5lib's safelist, so it most likely
-won't make your codes less secure. (These statements have not been evaluated
-by Netexperts.)
+Loofah is a general library for manipulating and transforming HTML/XML documents
+and fragments, built on top of Nokogiri. Loofah also includes some HTML
+sanitizers based on `html5lib`'s safelist, which are a specific application of
+the general transformation functionality.
 
 
 %package doc
@@ -42,10 +35,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
-(
-cd %{_builddir}
-%patch -P0 -p1
-)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -62,7 +51,7 @@ cp -a .%{gem_dir}/* \
 pushd .%{gem_instdir}
 cp -a %{_builddir}/test .
 
-ruby -Itest -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
+ruby -Ilib:test -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 popd
 
 %files
@@ -79,6 +68,13 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Thu Nov 23 2023 Vít Ondruch <vondruch@redhat.com> - 2.22.0-1
+- Update to Loofah 2.22.0.
+  Resolves: rhbz#2126896
+  Resolves: rhbz#2153235
+  Resolves: rhbz#2153242
+  Resolves: rhbz#2153263
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

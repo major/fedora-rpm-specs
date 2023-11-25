@@ -1,51 +1,37 @@
-
-%global kf5_version_min 5.98
-
 Name:    plasma-systemmonitor
-Version: 5.27.9
-Release: 1%{?dist}
+Version: 5.27.80
+Release: 2%{?dist}
 Summary: An application for monitoring system resources
 
-License: GPLv2+ and LGPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global verdir %(echo %{version} | cut -d. -f1-3)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
-BuildRequires: extra-cmake-modules >= %{kf5_version_min}
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kirigami2-devel >= %{kf5_version_min}
-Requires: kf5-kirigami2%{?_isa} >= %{kf5_version_min}
-BuildRequires: kf5-kconfig-devel >= %{kf5_version_min}
-BuildRequires: kf5-kdeclarative-devel >= %{kf5_version_min}
-BuildRequires: kf5-ki18n-devel >= %{kf5_version_min}
-BuildRequires: kf5-kiconthemes-devel >= %{kf5_version_min}
-BuildRequires: kf5-kitemmodels-devel >= %{kf5_version_min}
-BuildRequires: kf5-kservice-devel >= %{kf5_version_min}
-BuildRequires: kf5-kglobalaccel-devel >= %{kf5_version_min}
-BuildRequires: kf5-kio-devel >= %{kf5_version_min}
-BuildRequires: kf5-kdbusaddons-devel >= %{kf5_version_min}
-BuildRequires: kf5-knewstuff-devel >= %{kf5_version_min}
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Kirigami2)
+Requires: kf6-kirigami2%{?_isa}
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6KirigamiAddons)
 
-BuildRequires: qt5-qtquickcontrols2-devel
-Requires: qt5-qtquickcontrols2%{?_isa}
+BuildRequires: libksysguard-devel
 
-BuildRequires: libksysguard-devel >= %{majmin_ver}
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtdeclarative-devel
 
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtdeclarative-devel
-
-Requires: ksystemstats%{?_isa} >= %{majmin_ver}
+Requires: ksystemstats%{?_isa}
 
 %description
 An interface for monitoring system sensors, process information and other system
@@ -57,16 +43,13 @@ resources.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
-
 
 %files -f %{name}.lang
 %license LICENSES/*.txt
@@ -74,13 +57,21 @@ resources.
 %{_datadir}/applications/org.kde.plasma-systemmonitor.desktop
 %{_datadir}/plasma/kinfocenter/externalmodules/kcm_external_plasma-systemmonitor.desktop
 %{_datadir}/config.kcfg/systemmonitor.kcfg
-%{_kf5_datadir}/knsrcfiles/
-%{_kf5_datadir}/metainfo/org.kde.plasma-systemmonitor.metainfo.xml
-%{_kf5_datadir}/ksysguard/sensorfaces/
-%{_kf5_datadir}/plasma-systemmonitor/
-%{_kf5_qmldir}/org/kde/ksysguard/
+%{_kf6_datadir}/knsrcfiles/
+%{_kf6_datadir}/metainfo/org.kde.plasma-systemmonitor.metainfo.xml
+%{_kf6_datadir}/ksysguard/sensorfaces/
+%{_kf6_datadir}/plasma-systemmonitor/
+%{_kf6_qmldir}/org/kde/ksysguard/
+%{_libdir}/libPlasmaSystemMonitorPage.so
+%{_libdir}/libPlasmaSystemMonitorTable.so
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
+- Fix Plasma 6 runtime requirements
+
+* Mon Nov 13 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

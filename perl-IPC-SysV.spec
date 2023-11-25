@@ -7,7 +7,7 @@
 
 Name:           perl-IPC-SysV
 Version:        2.09
-Release:        502%{?dist}
+Release:        503%{?dist}
 Summary:        Object interface to System V IPC
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-SysV
@@ -47,6 +47,7 @@ inter-process calls.
 
 %package tests
 Summary:        Tests for %{name}
+BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Config)
@@ -81,7 +82,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+%if %{with perl_IPC_SysV_enables_optional_test} && !%{defined perl_bootstrap}
 rm %{buildroot}%{_libexecdir}/%{name}/t/pod*
+%endif
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -103,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 23 2023 Petr Pisar <ppisar@redhat.com> - 2.09-503
+- Make perl-IPC-SysV-tests package noarch
+
 * Mon Nov 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.09-502
 - Package tests
 

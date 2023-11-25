@@ -1,43 +1,47 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
-
+# Compile Tools
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Wayland)
-BuildRequires:  plasma-wayland-protocols-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-private-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtwayland-devel
 
-BuildRequires:  libavcodec-free-devel
-BuildRequires:  libavutil-free-devel
-BuildRequires:  libavformat-free-devel
-BuildRequires:  libepoxy-devel
+# Fedora
+BuildRequires:  kf6-rpm-macros
+Requires:       kf6-filesystem
+
+# KDE Frameworks
+BuildRequires:  extra-cmake-modules
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Wayland)
+
+# Misc
 BuildRequires:  libdrm-devel
-BuildRequires:  libswscale-free-devel
+BuildRequires:  libepoxy-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  pipewire-devel
 BuildRequires:  wayland-devel
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavfilter)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswscale)
+BuildRequires:  pkgconfig(libva)
 
-Requires:       kf5-filesystem
+# Plasma
+BuildRequires:  plasma-wayland-protocols-devel
+
+# Qt
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtwayland-devel
 
 %description
 It is developed in C++ and it's main use target is QML components.
@@ -69,8 +73,7 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -79,15 +82,13 @@ developing applications that use %{name}.
 
 %find_lang %{name} --with-qt --all-name
 
-%ldconfig_scriptlets
-
 %files -f %{name}.lang
 %license LICENSES/*
 %{_libdir}/libKPipeWire.so.*
 %{_libdir}/libKPipeWireRecord.so.*
 %{_libdir}/libKPipeWireDmaBuf.so.*
-%{_qt5_qmldir}/org/kde/pipewire/*
-%{_kf5_datadir}/qlogging-categories5/*.categories
+%{_qt6_qmldir}/org/kde/pipewire/*
+%{_kf6_datadir}/qlogging-categories6/*.categories
 
 %files devel
 %{_libdir}/libKPipeWire.so
@@ -99,6 +100,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

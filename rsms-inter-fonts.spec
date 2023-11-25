@@ -1,17 +1,8 @@
-Version:        3.19
-Release:        7%{?dist}
+Version:        4.0
+Release:        1%{?dist}
 URL:            https://rsms.me/inter/
 
-%global foundry rsms
-%global fontlicense OFL
-%global fontlicenses LICENSE.txt
-%global fontdocsex %{fontlicenses}
-
-%global fontfamily Inter
-%global fontsummary The Inter font family
-%global fonts "Inter Hinted for Windows"/Desktop/*.ttf
-%global fontconfs %{SOURCE10}
-%global fontdescription %{expand:Inter is a typeface specially designed for user interfaces with focus on high
+%global common_description %{expand:Inter is a typeface specially designed for user interfaces with focus on high
 legibility of small-to-medium sized text on computer screens.
 
 The family features a tall x-height to aid in readability of mixed-case and
@@ -20,10 +11,32 @@ alternates that adjusts punctuation depending on the shape of surrounding
 glyphs, slashed zero for when you need to disambiguate "0" from "o", tabular
 numbers, etc.}
 
-Source0:        https://github.com/rsms/inter/releases/download/v%{version}/inter-%{version}.zip
-Source10:       63-%{fontpkgname}.conf
+%global foundry rsms
+%global fontlicense OFL
+%global fontlicenses LICENSE.txt
+%global fontdocsex %{fontlicenses}
 
-%fontpkg
+%global fontfamily0 Inter
+%global fontsummary0 The Inter font family
+%global fonts0 extras/ttf/*.ttf
+%global fontconfs0 %{SOURCE10}
+%global fontdescription0 %{expand:%{common_description}
+
+This package contains the non-variable font version of the Inter font.}
+
+%global fontfamily1 Inter-VF
+%global fontsummary1 The Inter font family (variable)
+%global fonts1 Inter*.ttf
+%global fontconfs1 %{SOURCE11}
+%global fontdescription1 %{expand:%{common_description}
+
+This package contains the variable font version of the Inter font.}
+
+Source0:        https://github.com/rsms/inter/releases/download/v%{version}/inter-%{version}.zip
+Source10:       63-rsms-inter.conf
+Source11:       63-rsms-inter-vf.conf
+
+%fontpkg -a
 
 
 %prep
@@ -31,21 +44,25 @@ Source10:       63-%{fontpkgname}.conf
 
 
 %build
-%fontbuild
+%fontbuild -a
 
 
 %install
-%fontinstall
+%fontinstall -a
 
 
 %check
-%fontcheck
+%fontcheck -a
 
 
-%fontfiles
+%fontfiles -a
 
 
 %changelog
+* Thu Nov 23 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0-1
+- Update to 4.0
+- Add subpackage for variable fonts
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

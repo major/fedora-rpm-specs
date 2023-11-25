@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.6-0
-%global libsemanagever  3.6-0
-%global libselinuxver   3.6-0
+%global libsepolver     3.6-0.rc2
+%global libsemanagever  3.6-0.rc2
+%global libselinuxver   3.6-0.rc2
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -11,10 +11,10 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.6
-Release: 0.rc1.1%{?dist}
+Release: 0.rc2.1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.6-rc1/selinux-3.6-rc1.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.6-rc2/selinux-3.6-rc2.tar.gz
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
 Source14: sepolicy-icons.tgz
@@ -33,7 +33,7 @@ Source22: selinux-gui.zip
 # wlc --key <apikey> --url https://translate.fedoraproject.org/api/ download selinux/sandbox --output ./
 Source23: selinux-sandbox.zip
 # https://github.com/fedora-selinux/selinux
-# $ git format-patch -N 3.6-rc1 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
+# $ git format-patch -N 3.6-rc2 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
 Patch0001: 0001-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
@@ -78,7 +78,7 @@ load_policy to load policies, setfiles to label filesystems, newrole
 to switch roles.
 
 %prep -p /usr/bin/bash
-%autosetup -p 1 -n selinux-%{version}-rc1
+%autosetup -p 1 -n selinux-%{version}-rc2
 
 cp %{SOURCE13} gui/
 tar -xvf %{SOURCE14} -C python/sepolicy/
@@ -420,6 +420,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Thu Nov 23 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-0.rc2.1
+- SELinux userspace 3.6-rc2 release
+
 * Tue Nov 14 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-0.rc1.1
 - SELinux userspace 3.6-rc1 release
 

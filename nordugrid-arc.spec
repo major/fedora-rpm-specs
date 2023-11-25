@@ -46,7 +46,7 @@
 
 Name:		nordugrid-arc
 Version:	6.18.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		CPL-1.0: src/services/acix/core/hashes.py
@@ -54,6 +54,9 @@ Summary:	Advanced Resource Connector Middleware
 License:	Apache-2.0 AND CPL-1.0 AND MIT
 URL:		http://www.nordugrid.org/
 Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
+
+Patch0:		0001-One-more-xmlsec-include-bug-seen-with-libxml2-2.12.patch
+Patch1:		0001-More-libxml-2.12-fixes.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -802,6 +805,8 @@ management features on the worker nodes (WN).
 
 %prep
 %setup -q
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1760,6 +1765,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Thu Nov 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.18.0-2
+- Fix compilation with libxml2 2.12
+
 * Wed Oct 25 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.18.0-1
 - Update to version 6.18.0
 - Run autoreconf during build (following upstream)

@@ -1,63 +1,41 @@
 Name:    plasma-pa
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
-License: LGPLv2+ and GPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  glib2-devel
-%if 0%{?fedora} < 40 && 0%{?rhel} < 10
-BuildRequires:  kde-filesystem
-%else
-BuildRequires:  kde4-filesystem
-%endif
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-kglobalaccel-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kpackage-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-rpm-macros >= 5.25.0-2
-# Not needed for pipewire, ie, f34+
-%if 0%{?fedora} < 34 && 0%{?rhel} < 9
-BuildRequires:  pkgconfig(gconf-2.0)
-%endif
+BuildRequires:  kf6-rpm-macros
+
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+
+BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libcanberra)
+BuildRequires:  qt6-qtbase-devel
+
 BuildRequires:  perl-generators
-BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  cmake(KF5Notifications)
-%if ! 0%{?bootstrap}
-# required kpackage plugins (-packagestructure comes from plasma-workspace)
-BuildRequires:  plasma-packagestructure
-%endif
 
-# Need to special-case rhel8, since it doesn't Provides: pulseaudio-daemon
-%if 0%{?rhel} == 8
-Requires: (pulseaudio or pipewire-pulseaudio)
-%else
+Requires: kf6-kirigami2
+Requires: kf6-kirigami2-addons
+Requires: kf6-kitemmodels
+
 Requires: pulseaudio-daemon
-%endif
 
-# Not needed for pipewire, ie, f34+
-%if 0%{?fedora} < 34 && 0%{?rhel} < 9
-# support systemsettings->multimedia->audio volume->advanced->automatically switch streams when a new output becomes available
-Recommends: pulseaudio-module-gconf%{?_isa}
-%endif
 
 %description
 %{summary}.
@@ -68,34 +46,30 @@ Recommends: pulseaudio-module-gconf%{?_isa}
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
-## unpackaged files
-rm -rfv %{buildroot}%{_kde4_appsdir}/kconf_update/
-rm -rfv %{buildroot}%{_kde4_appsdir}/kconf_update/
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.volume/
-%{_kf5_qmldir}/org/kde/plasma/private/volume/
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_pulseaudio.so
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.volume.desktop
-%{_kf5_datadir}/kconf_update/*
-%{_kf5_datadir}/kpackage/kcms/kcm_pulseaudio
-%{_kf5_datadir}/applications/kcm_pulseaudio.desktop
-%{_kf5_metainfodir}/org.kde.plasma.volume.appdata.xml
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.volume/
+%{_kf6_qmldir}/org/kde/plasma/private/volume/
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_pulseaudio.so
+%{_kf6_datadir}/kconf_update/*
+%{_kf6_datadir}/applications/kcm_pulseaudio.desktop
+%{_kf6_metainfodir}/org.kde.plasma.volume.appdata.xml
 
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

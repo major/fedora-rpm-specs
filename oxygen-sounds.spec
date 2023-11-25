@@ -1,31 +1,20 @@
-%global kf5_version_min 5.98.0
-
 Name:           oxygen-sounds
-Version:        5.27.9
+Version:        5.27.80
 Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
-License:        LGPLv3+,CC0,BSD
+License:        LGPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0 AND BSD-2-Clause
 URL:            https://invent.kde.org/plasma/oxygen-sounds
 
-%global verdir %(echo %{version} | cut -d. -f1-3)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{verdir}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 Provides:       oxygen-sound-theme = %{version}-%{release}
 Obsoletes:      oxygen-sound-theme <= 5.24.50
 
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros >= %{kf5_version_min}
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
 
 BuildArch:      noarch
 
@@ -37,7 +26,7 @@ BuildArch:      noarch
 %autosetup
 
 %build
-%{cmake_kf5}
+%{cmake_kf6} -DBUILD_WITH_QT6=ON
 %{cmake_build}
 
 %install
@@ -46,10 +35,14 @@ BuildArch:      noarch
 
 %files
 %license LICENSES/*.txt
-%{_kf5_datadir}/sounds/Oxygen-*
+%{_kf6_datadir}/sounds/Oxygen-*
+%{_kf6_datadir}/sounds/oxygen/
 
 
 %changelog
+* Sat Nov 11 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    7e40343e473f17eab3d1d6ca4ae3e1cdfc6e0fd8
+%global gh_commit    b29899b675371aee73920165d1dc5a2235aa104b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   dav
@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        WebDAV Framework for PHP
-Version:        4.5.0
+Version:        4.5.1
 Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
@@ -224,6 +224,9 @@ exit $ret
 
 
 %changelog
+* Thu Nov 23 2023 Remi Collet <remi@remirepo.net> - 4.5.1-1
+- update to 4.5.1
+
 * Tue Nov 14 2023 Remi Collet <remi@remirepo.net> - 4.5.0-1
 - update to 4.5.0
 

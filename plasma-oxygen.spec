@@ -1,91 +1,84 @@
-%undefine __cmake_in_source_build
-
 %global         base_name oxygen
 
 Name:    plasma-%{base_name}
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
-Summary: Plasma and Qt widget style and window decorations for Plasma 5 and KDE 4
+Summary: Plasma and Qt widget style and window decorations for Plasma
 
-License: GPLv2+
-URL:     https://cgit.kde.org/%{base_name}.git
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
+URL:     https://invent.kde.org/plasma/%{base_name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
-# filter plugins
-%global __provides_exclude_from ^(%{_kde4_libdir}/kde4/.*\\.so|%{_kf5_qtplugindir}/.*\\.so)$
 
+# Misc
+BuildRequires:  extra-cmake-modules
+BuildRequires:  gettext
 BuildRequires:  libxcb-devel
 
-# Qt 5
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  qt5-qtdeclarative-devel
-
+# Qt5
 BuildRequires:  kf5-rpm-macros
-BuildRequires:  extra-cmake-modules
+BuildRequires:  cmake(KF5Completion)
+BuildRequires:  cmake(KF5Config)
+BuildRequires:  cmake(KF5FrameworkIntegration)
+BuildRequires:  cmake(KF5GuiAddons)
+BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5Service)
+BuildRequires:  cmake(KF5WidgetsAddons)
+BuildRequires:  cmake(KF5WindowSystem)
 
-# KF5
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kguiaddons-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-frameworkintegration-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kwayland-devel
+BuildRequires:  cmake(Qt5DBus)
+BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt5X11Extras)
 
-BuildRequires:  kdecoration-devel >= %{majmin_ver}
+# Qt6
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6FrameworkIntegration)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6WindowSystem)
 
-%if 0%{?fedora} < 30 && 0%{?rhel} <= 7
-%global qt4 1
-%endif
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  qt6-qtbase-private-devel
 
-Requires:       kf5-filesystem
+Requires:       kf6-filesystem
 
-%if 0%{?qt4}
-Requires:       qt4-style-oxygen = %{version}-%{release}
-%endif
-Requires:       qt5-style-oxygen = %{version}-%{release}
+Requires:       (%{name}-qt5 if qt5-qtbase-gui)
+Requires:       %{name}-qt6
+
 Requires:       oxygen-cursor-themes >= %{version}
 Requires:       oxygen-sound-theme
 # for oxygen look-and-feel
 Requires:       oxygen-icon-theme
 
 # kwin-oxygen was removed in 5.1.95
-Obsoletes:	kwin-oxygen < 5.1.95-1
+Obsoletes:      kwin-oxygen < 5.1.95-1
+Obsoletes:      plasma-oxygen < 5.1.1-2
+Conflicts:      plasma-desktop < 5.16.90
 
 %description
 %{summary}.
 
-%if 0%{?qt4}
-%package -n     qt4-style-oxygen
-Summary:        Oxygen widget style for Qt 4
-# Qt 4 dependencies
-BuildRequires:  kdelibs4-devel
-Provides:       kde-style-oxygen%{?_isa} = %{version}-%{release}
-# When this was created
-Obsoletes:      kde-style-oxygen < 5.1.1-2
-Obsoletes:      plasma-oxygen-kde4 < 5.1.1-2
-%description -n qt4-style-oxygen
-%{summary}.
-%endif
-
-%package -n     qt5-style-oxygen
+%package        qt5
 Summary:        Oxygen widget style for Qt 5
-Obsoletes:      plasma-oxygen < 5.1.1-2
-Conflicts:      plasma-desktop < 5.16.90
-%description -n qt5-style-oxygen
+Obsoletes:      qt5-style-oxygen < %{version}-%{release}
+Provides:       qt5-style-oxygen = %{version}-%{release}
+%description    qt5
+%{summary}.
+
+%package        qt6
+Summary:        Oxygen widget style for Qt 6
+%description    qt6
 %{summary}.
 
 %package -n     oxygen-cursor-themes
@@ -99,96 +92,57 @@ Obsoletes:      plasma-oxygen-common < 5.1.1-2
 %prep
 %autosetup -n %{base_name}-%{version} -p1
 
-%if ! 0%{?fedora}
-sed -i.optional \
-  -e 's| add_subdirectory(cursors)|#add_subdirectory(cursors)|' \
-  -e 's| add_subdirectory(kdecoration)|#add_subdirectory(kdecoration)|' \
-  CMakeLists.txt
-%endif
-
 
 %build
-%if 0%{?qt4}
-# Build for Qt 4
-%global _vpath_builddir %{_target_platform}-qt4
-%{cmake_kde4} -DOXYGEN_USE_KDE4:BOOL=ON -B %{_vpath_builddir}
+mkdir -p qt6build
+pushd qt6build
+%cmake_kf6 -S .. -DBUILD_QT6=ON -DBUILD_QT5=OFF
 %cmake_build
-%undefine _vpath_builddir
-%endif
+popd
 
-# Build for Qt 5
-%global _vpath_builddir %{_target_platform}-qt5
-%{cmake_kf5}
+mkdir -p qt5build
+pushd qt5build
+%cmake_kf5 -S .. -DBUILD_QT6=OFF -DBUILD_QT5=ON
 %cmake_build
-%undefine _vpath_builddir
+popd
 
 %install
-%if 0%{?qt4}
-%global _vpath_builddir %{_target_platform}-qt4
+pushd qt6build
 %cmake_install
-%undefine _vpath_builddir
-%endif
-%global _vpath_builddir %{_target_platform}-qt5
+popd
+
+pushd qt5build
 %cmake_install
-%undefine _vpath_builddir
-
-
-## unpackaged files
-# Don't bother with -devel subpackages, there are no headers anyway
-rm -fv %{buildroot}%{_libdir}/liboxygenstyle5.so
-rm -fv %{buildroot}%{_libdir}/liboxygenstyleconfig5.so
-rm -fv %{buildroot}%{_kde4_libdir}/liboxygenstyle.so
-rm -fv %{buildroot}%{_kde4_libdir}/liboxygenstyleconfig.so
-%if ! 0%{?fedora}
-rm -fv %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/oxygen_kdecoration.mo
-#rm -fv %{buildroot}%{_datadir}/sounds/Oxygen-*
-rm -rfv %{buildroot}%{_datadir}/icons/{KDE_Classic,Oxygen_*}
-rm -fv %{buildroot}%{_kf5_qtplugindir}/org.kde.kdecoration2/oxygendecoration.so
-rm -fv %{buildroot}%{_kf5_datadir}/kservices5/oxygendecorationconfig.desktop
-rm -rfv %{buildroot}%{_kf5_datadir}/plasma/look-and-feel/org.kde.oxygen/
-%endif
+popd
 
 %find_lang oxygen --with-qt --all-name
 
 
-%if 0%{?fedora}
-%files
-%{_kf5_datadir}/plasma/look-and-feel/org.kde.oxygen/
-%endif
+%files -f oxygen.lang
+%license LICENSES/*
+%{_bindir}/oxygen-settings6
+%{_kf6_datadir}/applications/kcm_oxygendecoration.desktop
+%{_kf6_datadir}/color-schemes/Oxygen.colors
+%{_kf6_datadir}/color-schemes/OxygenCold.colors
+%{_kf6_datadir}/icons/hicolor/*/apps/oxygen-settings.*
+%{_kf6_datadir}/kstyle/themes/oxygen.themerc
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.oxygen/
+%{_kf6_qtplugindir}/kstyle_config/kstyle_oxygen_config.so
+%{_kf6_qtplugindir}/org.kde.kdecoration2.kcm/kcm_oxygendecoration.so
+%{_kf6_qtplugindir}/org.kde.kdecoration2/org.kde.oxygen.so
 
-%if 0%{?qt4}
-%ldconfig_scriptlets -n    qt4-style-oxygen
-
-%files -n   qt4-style-oxygen
-%{_kde4_libdir}/liboxygenstyle.so.*
-%{_kde4_libdir}/liboxygenstyleconfig.so.*
-%{_kde4_libdir}/kde4/kstyle_oxygen_config.so
-%{_kde4_libdir}/kde4/plugins/styles/oxygen.so
-%{_kde4_appsdir}/kstyle/themes/oxygen.themerc
-%{_kde4_bindir}/oxygen-demo
-%{_datadir}/color-schemes/*.colors
-%endif
-
-%ldconfig_scriptlets -n qt5-style-oxygen
-
-%files -n   qt5-style-oxygen -f oxygen.lang
+%files qt5
 %{_bindir}/oxygen-demo5
-%{_bindir}/oxygen-settings5
 %{_libdir}/liboxygenstyle5.so.*
 %{_libdir}/liboxygenstyleconfig5.so.*
-%{_kf5_qtplugindir}/styles/oxygen.so
-%{_kf5_qtplugindir}/kstyle_oxygen_config.so
-%if 0%{?fedora}
-%{_kf5_qtplugindir}/org.kde.kdecoration2/oxygendecoration.so
-%{_kf5_datadir}/kservices5/oxygendecorationconfig.desktop
-%endif
-%{_kf5_datadir}/kservices5/oxygenstyleconfig.desktop
-%{_kf5_datadir}/kstyle/themes/oxygen.themerc
-%{_kf5_datadir}/icons/hicolor/*/apps/oxygen-settings.*
-%{_kf5_datadir}/color-schemes/Oxygen.colors
-%{_kf5_datadir}/color-schemes/OxygenCold.colors
+%{_kf5_qtplugindir}/styles/oxygen5.so
 
-%if 0%{?fedora}
+%files qt6
+%{_bindir}/oxygen-demo6
+%{_libdir}/liboxygenstyle6.so.*
+%{_libdir}/liboxygenstyleconfig6.so.*
+%{_kf6_qtplugindir}/styles/oxygen6.so
+
 %files -n   oxygen-cursor-themes
 %{_datadir}/icons/KDE_Classic/
 %{_datadir}/icons/Oxygen_Black/
@@ -196,10 +150,12 @@ rm -rfv %{buildroot}%{_kf5_datadir}/plasma/look-and-feel/org.kde.oxygen/
 %{_datadir}/icons/Oxygen_White/
 %{_datadir}/icons/Oxygen_Yellow/
 %{_datadir}/icons/Oxygen_Zion/
-%endif
 
 
 %changelog
+* Mon Nov 13 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

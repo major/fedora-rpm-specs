@@ -3,17 +3,17 @@
 %global debug_package %{nil}
 
 Name:    plasma-wayland-protocols
-Version: 1.10.0
-Release: 2%{?dist}
+Version: 1.11.0
+Release: 1%{?dist}
 Summary: Plasma Specific Protocols for Wayland
 
-License: LGPLv2+ and MIT and BSD
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND MIT-CMU
 URL:     https://invent.kde.org/libraries/%{name}
 
 Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 ## upstream patches (lookaside cache)
-
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  qt5-qtbase-devel
 
@@ -34,8 +34,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -44,14 +43,17 @@ developing applications that use %{name}.
 
 
 %files
-%license COPYING.LIB
-%{_kf5_datadir}/plasma-wayland-protocols/
+%license LICENSES/* COPYING.LIB
+%{_kf6_datadir}/plasma-wayland-protocols/
 
 %files devel
-%{_kf5_libdir}/cmake/PlasmaWaylandProtocols/
+%{_kf6_libdir}/cmake/PlasmaWaylandProtocols/
 
 
 %changelog
+* Tue Nov 7 2023 Steve Cossette <farchord@gmail.com> - 1.11.0-1
+- 1.11.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

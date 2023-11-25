@@ -1,36 +1,29 @@
-%global base_name    plasma-vault
-
 Name:    plasma-vault
 Summary: Plasma Vault offers strong encryption features in a user-friendly way
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
-URL:     https://invent.kde.org/plasma/%{base_name}
+License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Activities)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KF5SysGuard)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5NetworkManagerQt)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Activities)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6NetworkManagerQt)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KSysGuard)
 
-BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt6Quick)
 
 ## Runtime backends
 Recommends: cryfs
@@ -41,35 +34,32 @@ Recommends: gocryptfs
 Plasma Vault allows to lock and encrypt sets of documents and hide them from
 prying eyes even when the user is logged in.
 
-
 %prep
-%autosetup -n %{base_name}-%{version} -p1
-
+%autosetup -n %{name}-%{version} -p1
 
 %build
-%cmake_kf5
-
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name
-
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_plugindir}/kded/plasmavault.so
-%dir %{_qt5_plugindir}/plasma/applets/
-%{_qt5_plugindir}/plasma/applets/plasma_applet_vault.so
-%{_qt5_plugindir}/kf5/kfileitemaction/plasmavaultfileitemaction.so
-%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.vault/
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.vault.desktop
-%{_kf5_metainfodir}/org.kde.plasma.vault.appdata.xml
+%{_kf6_plugindir}/kded/plasmavault.so
+%dir %{_qt6_plugindir}/plasma/applets/
+%{_qt6_plugindir}/plasma/applets/org.kde.plasma.vault.so
+%{_qt6_plugindir}/kf6/kfileitemaction/plasmavaultfileitemaction.so
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.vault/
+%{_kf6_metainfodir}/org.kde.plasma.vault.appdata.xml
 
 
 %changelog
+* Tue Nov 14 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

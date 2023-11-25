@@ -1,11 +1,10 @@
-# TODO: Enable after shipping Plasma 6
-%bcond kf6_compat 0
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
 
 %global framework kglobalaccel
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for global shortcuts
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -112,6 +111,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 
 
 %changelog
+* Mon Nov 20 2023 Steve Cossette <farchord@gmail.com> - 5.111.0-9
+- Preparation for Plasma 6
+
 * Mon Nov 20 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-8
 - Conflicts kglobalacceld
 

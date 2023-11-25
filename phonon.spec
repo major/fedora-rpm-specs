@@ -1,40 +1,27 @@
-
 Summary: Multimedia framework api
 Name:    phonon
-Version: 4.11.1
-Release: 12%{?dist}
+Version: 4.12.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://community.kde.org/Phonon
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/phonon/%{version}/phonon-%{version}.tar.xz
-
-## upstream patches
-
-## upstreamable patches
-
-# filter plugins
-%global __provides_exclude_from ^(^%{_qt5_plugindir}/.*\\.so)$
+Source0: https://download.kde.org/stable/phonon/%{version}/phonon-%{version}.tar.xz
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
 BuildRequires: kf5-rpm-macros
 BuildRequires: pkgconfig
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(libpulse-mainloop-glib) > 0.9.15
 BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(xkbcommon)
+# Qt6
+BuildRequires: pkgconfig(Qt6DBus) pkgconfig(Qt6Designer) pkgconfig(Qt6OpenGL) pkgconfig(Qt6Widgets) pkgconfig(Qt6Core5Compat)
 # Qt5
 BuildRequires: pkgconfig(Qt5DBus) pkgconfig(Qt5Designer) pkgconfig(Qt5OpenGL) pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(xcb)
-
-## optional features
-
 
 %description
 %{summary}.
@@ -43,6 +30,7 @@ BuildRequires: pkgconfig(xcb)
 Summary: Multimedia framework api for Qt5
 %{?_qt5:Requires: %{_qt5}%{?_isa} >= %{_qt5_version}}
 Recommends: phonon-qt5-backend-gstreamer%{?_isa}
+Requires: %{name}-common = %{version}-%{release}
 %description qt5
 %{summary}.
 
@@ -52,50 +40,86 @@ Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
 %description qt5-devel
 %{summary}.
 
+%package qt6
+Summary: Multimedia framework api for Qt6
+%{?_qt6:Requires: %{_qt6}%{?_isa} >= %{_qt6_version}}
+Requires: %{name}-common = %{version}-%{release}
+Recommends: phonon-qt6-backend-gstreamer%{?_isa}
+%description qt6
+%{summary}.
+
+%package qt6-devel
+Summary: Developer files for %{name}-qt6
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+%description qt6-devel
+%{summary}.
+
+%package common
+Summary: Translation files for %{name}
+BuildArch: noarch
+%description common
+%{summary}.
 
 %prep
 %autosetup -n phonon-%{version} -p1
 
-
 %build
-%cmake_kf5 \
+mkdir -p phononqt6
+pushd phononqt6
+%cmake_kf6 -S .. \
   -DCMAKE_BUILD_TYPE:STRING="Release" \
   -DPHONON_BUILD_DECLARATIVE_PLUGIN:BOOL=%{?declarative:ON}%{!?declarative:OFF} \
-  -DPHONON_BUILD_PHONON4QT5:BOOL=ON \
+  -DPHONON_BUILD_QT5:BOOL=OFF \
+  -DPHONON_BUILD_QT6:BOOL=ON \
+  -DPHONON_QT_IMPORTS_INSTALL_DIR=%{_qt6_importdir} \
+  -DPHONON_QT_MKSPECS_INSTALL_DIR=%{_qt6_archdatadir}/mkspecs/modules \
+  -DPHONON_QT_PLUGIN_INSTALL_DIR=%{_qt6_plugindir}/designer
+%cmake_build
+popd
+
+mkdir -p phononqt5
+pushd phononqt5
+%cmake_kf5 -S .. \
+  -DCMAKE_BUILD_TYPE:STRING="Release" \
+  -DPHONON_BUILD_DECLARATIVE_PLUGIN:BOOL=%{?declarative:ON}%{!?declarative:OFF} \
+  -DPHONON_BUILD_QT5:BOOL=ON \
+  -DPHONON_BUILD_QT6:BOOL=OFF \
   -DPHONON_QT_IMPORTS_INSTALL_DIR=%{_qt5_importdir} \
   -DPHONON_QT_MKSPECS_INSTALL_DIR=%{_qt5_archdatadir}/mkspecs/modules \
-  -DPHONON_QT_PLUGIN_INSTALL_DIR=%{_qt5_plugindir}/designer
-
+  -DPHONON_QT_PLUGIN_INSTALL_DIR=%{_qt5_plugindir}/designer \
+  -DPHONON_BUILD_SETTINGS=OFF
 %cmake_build
+popd
 
 
 %install
+pushd phononqt6
 %cmake_install
+popd
 
+pushd phononqt5
+%cmake_install
+popd
 %find_lang %{name} --with-qt --all-name
-
 # own these dirs
 mkdir -p %{buildroot}%{_qt5_plugindir}/phonon4qt5_backend
-
+mkdir -p %{buildroot}%{_qt6_plugindir}/phonon4qt6_backend
 
 %check
 export PKG_CONFIG_PATH="%{buildroot}%{_datadir}/pkgconfig:%{buildroot}%{_libdir}/pkgconfig${PKG_CONFIG_PATH:+:}${PKG_CONFIG_PATH}"
 test "$(pkg-config --modversion phonon4qt5)" = "%{version}"
+test "$(pkg-config --modversion phonon4qt6)" = "%{version}"
 
 
-%files qt5 -f %{name}.lang
+%files qt5
 %license COPYING.LIB
-%{_bindir}/phononsettings
 %{_libdir}/libphonon4qt5.so.4*
 %{_libdir}/libphonon4qt5experimental.so.4*
 # own backends dir
 %dir %{_qt5_plugindir}/phonon4qt5_backend/
-# designer plugin
-%{_qt5_plugindir}/designer/phononwidgets.so
+%{_qt5_plugindir}/designer/phonon4qt5widgets.so
 
 %files qt5-devel
-%dir %{_datadir}/phonon4qt5
-%{_datadir}/phonon4qt5/buildsystem/
 %{_libdir}/cmake/phonon4qt5/
 %{_includedir}/phonon4qt5/
 %{_libdir}/libphonon4qt5.so
@@ -103,8 +127,27 @@ test "$(pkg-config --modversion phonon4qt5)" = "%{version}"
 %{_libdir}/pkgconfig/phonon4qt5.pc
 %{_qt5_archdatadir}/mkspecs/modules/qt_phonon4qt5.pri
 
+%files qt6
+%{_bindir}/phononsettings
+%{_libdir}/libphonon4qt6.so.4*
+%{_libdir}/libphonon4qt6experimental.so.4*
+# own backends dir
+%dir %{_qt6_plugindir}/phonon4qt6_backend/
+%{_qt6_plugindir}/designer/phonon4qt6widgets.so
+
+%files qt6-devel
+%{_libdir}/cmake/phonon4qt6/
+%{_includedir}/phonon4qt6/
+%{_libdir}/libphonon4qt6.so
+%{_libdir}/libphonon4qt6experimental.so
+%{_libdir}/pkgconfig/phonon4qt6.pc
+
+%files common -f %{name}.lang
 
 %changelog
+* Mon Nov 6 2023 Steve Cossette <farchord@gmail.com> - 4.12.0-1
+- 4.12.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

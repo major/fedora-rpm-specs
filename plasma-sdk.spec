@@ -1,75 +1,50 @@
-%undefine __cmake_in_source_build
-
 Name:    plasma-sdk
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
-Summary: Development tools for Plasma 5
+Summary: Development tools for Plasma 6
 
-License: GPLv2+ and LGPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
-
-ExcludeArch: s390x
+Source0:        http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros >= 5.25.0-2
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qtwebkit-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qttools-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  pkgconfig(Qt6Core5Compat)
 
-%if 0%{?fedora} > 23
-%global plasmate 0
-%if ! 0%{?bootstrap}
-BuildRequires:  git-core
-%endif
-Recommends:     git-core
-BuildRequires:  kdevplatform-devel >= 5.0.1-2
-BuildRequires:  kf5-kdelibs4support-devel
-%endif
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
+BuildRequires:  cmake(KF6TextEditor)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6Plasma5Support)
 
-BuildRequires:  kf5-karchive-devel
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-knewstuff-devel
-BuildRequires:  kf5-kparts-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-syntax-highlighting-devel
-BuildRequires:  kf5-ktexteditor-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-kitemmodels-devel
-%if ! 0%{?bootstrap}
-# required kpackage plugins
-BuildRequires:  plasma-packagestructure
-#BuildRequires:  plasma-workspace-libs%{?_isa}
-%endif
+# Desktop file verification, and appstream validation
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 # lookandfeelexplorer deps
-BuildRequires:  kf5-kirigami2-devel
-
-Requires:       kf5-filesystem
+BuildRequires:  cmake(KF6Kirigami2)
+Requires:       kf6-filesystem
 
 # Little lie: this package does not provide the actual plasmate tool yet (but
 # eventually it will), but it still has some tools that were part of the KDE4
@@ -78,72 +53,60 @@ Obsoletes:      plasmate < 5.2
 Provides:       plasmate = %{version}-%{release}
 
 %description
-Plasma SDK contains the following tools for Plasma-related development:
-    - CuttleFish - icon theme browser
-    - EngineExplorer - tool to browse and interact with data engines
-    - PlasmoidViewer - an isolated Plasma environment for testing applets
-    - ThemeExplorer - shows all components of a widget theme
-
-# Not avilable yet:
-#    - RemoteWidgetsBrowser - browser for applets shared on network
-#    - WallpaperViewer - preview a wallpaper in different form factors
-
+Plasma SDK contains tools for plasma development
 
 %prep
 %autosetup -p1
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-%find_lang plasmasdk5 --with-man --with-qt --all-name
+%find_lang plasmasdk6 --with-man --with-qt --all-name
 
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.themeexplorer.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.iconexplorer.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmaengineexplorer.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewer.desktop
 
-%files -f plasmasdk5.lang
+%files -f plasmasdk6.lang
 %license LICENSES/*.txt
-%{_bindir}/cuttlefish
 %{_bindir}/lookandfeelexplorer
 %{_bindir}/plasmaengineexplorer
 %{_bindir}/plasmathemeexplorer
 %{_bindir}/plasmoidviewer
-%{_qt5_plugindir}/ktexteditor/cuttlefishplugin.so
-%{_kf5_datadir}/kpackage/genericqml/org.kde.plasma.lookandfeelexplorer/
-%{_kf5_datadir}/kpackage/genericqml/org.kde.plasma.themeexplorer
-%{_kf5_datadir}/plasma/shells/org.kde.plasma.plasmoidviewershell
-%{_kf5_datadir}/kservices5/*.desktop
-%{_kf5_datadir}/applications/org.kde.plasma.cuttlefish.desktop
-%{_kf5_datadir}/applications/org.kde.plasma.lookandfeelexplorer.desktop
-%{_kf5_datadir}/applications/org.kde.plasma.themeexplorer.desktop
-%{_kf5_metainfodir}/org.kde.plasma.cuttlefish.appdata.xml
-%{_kf5_datadir}/applications/org.kde.plasmaengineexplorer.desktop
-%{_kf5_datadir}/applications/org.kde.plasmoidviewer.desktop
-%{_kf5_datadir}/metainfo/org.kde.plasmaengineexplorer.appdata.xml
-%{_kf5_datadir}/metainfo/org.kde.plasmoidviewer.appdata.xml
-%{_kf5_datadir}/zsh/site-functions/_plasmoidviewer
-%if ! 0%{?bootstrap}
-%{_kf5_metainfodir}/org.kde.plasma.plasmoidviewershell.appdata.xml
-%{_kf5_metainfodir}/org.kde.plasma.lookandfeelexplorer.appdata.xml
-%endif
-%{_kf5_metainfodir}/org.kde.plasma.themeexplorer.appdata.xml
+%{_bindir}/iconexplorer
+%{_bindir}/kqml
+%{_qt6_plugindir}/ktexteditor/iconexplorerplugin.so
+%{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.lookandfeelexplorer/
+%{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.themeexplorer
+%{_kf6_datadir}/plasma/shells/org.kde.plasma.plasmoidviewershell
+%{_kf6_datadir}/applications/org.kde.iconexplorer.desktop
+%{_kf6_datadir}/applications/org.kde.plasma.themeexplorer.desktop
+%{_kf6_datadir}/applications/org.kde.plasmaengineexplorer.desktop
+%{_kf6_datadir}/applications/org.kde.plasmoidviewer.desktop
+%{_kf6_datadir}/metainfo/org.kde.plasmaengineexplorer.appdata.xml
+%{_kf6_datadir}/metainfo/org.kde.plasmoidviewer.appdata.xml
+%{_kf6_datadir}/zsh/site-functions/_plasmoidviewer
+%{_kf6_datadir}/zsh/site-functions/_kqml
+%{_kf6_metainfodir}/org.kde.plasma.themeexplorer.appdata.xml
+%{_kf6_metainfodir}/org.kde.plasma.iconexplorer.appdata.xml
+%{_kf6_metainfodir}/org.kde.plasma.lookandfeelexplorer.appdata.xml
+%{_kf6_metainfodir}/org.kde.plasma.plasmoidviewershell.appdata.xml
 %{_mandir}/man1/plasmaengineexplorer.1*
 %{_mandir}/man1/plasmoidviewer.1*
-
-%if 0%{?plasmate}
-%{_kf5_sysconfdir}/xdg/plasmate.knsrc
-%{_kf5_bindir}/plasmakconfigxteditor
-%{_kf5_bindir}/plasmate
-%{_qt5_plugindir}/kdevplatform/
-%{_qt5_plugindir}/kdevsavesystemview.so
-%{_kf5_datadir}/applications/plasmate.desktop
-%{_kf5_datadir}/kdevsavesystemview/
-%{_kf5_datadir}/plasmate/
-%endif
+%{_mandir}/man1/kqml.1.gz
 
 %changelog
+* Sun Nov 12 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

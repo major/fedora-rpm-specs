@@ -1,5 +1,5 @@
 Name:           jackson-databind
-Version:        2.15.3
+Version:        2.16.0
 Release:        1%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
@@ -68,6 +68,32 @@ rm src/test/java/com/fasterxml/jackson/databind/TestJDKSerialization.java
 %license LICENSE NOTICE
 
 %changelog
+* Wed Nov 22 2023 Chris Kelley <ckelley@redhat.com> - 2.16.0-1
+- [maven-release-plugin] prepare release jackson-databind-2.16.0 (Tatu Saloranta)
+- Prepare for 2.16.0 release (Tatu Saloranta)
+- Post-commit fixes to #1770 (Tatu Saloranta)
+- issue-1770 - big number not returned as DecimalNode (#4191) (PJ Fanning)
+- minor test comment improvement (Tatu Saloranta)
+- Remove a test for closed issue; no plans to change behavior currently, no benefit from failing test. (Tatu Saloranta)
+- Update release notes wrt #4185 (Tatu Saloranta)
+- Fix for 4185 (#4189) (Kim, Joo Hyuk)
+- test cleanup (Tatu Saloranta)
+- Fix #4184: setCurrentValue() for empty POJO called at wrong time (#4186) (Tatu Saloranta)
+- Bump the github-actions group with 2 updates (#4183) (dependabot[bot])
+- DeserializationContext changed to allow null (#4179) (wrongwrong)
+- Minor clean up (Tatu Saloranta)
+- Exception when deserialization of private `record` with default constructor (fix for #4175) (#4178) (Kim, Joo Hyuk)
+- Move test for #4175 under failing/ for 2.16 (as it's failing) (Tatu Saloranta)
+- Add test for #4715 in 2.15 (passing) (Tatu Saloranta)
+- Update release notes wrt #1172 (Tatu Saloranta)
+- Test `JsonView` works with `JsonCreator` (#4173) (Kim, Joo Hyuk)
+- Minor test improvement (Tatu Saloranta)
+- Create win.yml for windows CI (#4172) (PJ Fanning)
+- Bump the github-actions group with 2 updates (#4171) (dependabot[bot])
+- Try fixing #4168 wrt linefeed diff (#4170) (Tatu Saloranta)
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Mon Nov 06 2023 Chris Kelley <ckelley@redhat.com> - 2.15.3-1
 - [maven-release-plugin] prepare release jackson-databind-2.15.3 (Tatu Saloranta)
 - Prepare for 2.15.3 release (Tatu Saloranta)

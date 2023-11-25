@@ -14,7 +14,7 @@ Package goipp implements the IPP core protocol in pure Go (RFC 8010).}
 %global godocs          README.md index.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        IPP core protocol in pure Go (RFC 8010)
 
 # Upstream license specification: BSD-2-Clause
@@ -41,6 +41,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.0-9
+- Rebuild for any CVE fixes in golang
+
 * Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.0-8
 - SPDX migration
 

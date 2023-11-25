@@ -1,13 +1,14 @@
 Name:           jbigkit
 Version:        2.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        JBIG1 lossless image compression tools
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.cl.cam.ac.uk/~mgk25/jbigkit/
 Source0:        http://www.cl.cam.ac.uk/~mgk25/download/jbigkit-%{version}.tar.gz
 Patch0:         jbigkit-2.1-shlib.patch
 Patch1:         jbigkit-2.0-warnings.patch
+# jbigkit: Partial Fedora build flags injection (bug #1548546)
 Patch2:         jbigkit-ldflags.patch
 # patch for coverity issues - backported from upstream
 Patch3:         jbigkit-covscan.patch
@@ -17,6 +18,8 @@ Patch3:         jbigkit-covscan.patch
 BuildRequires: gcc
 # uses make
 BuildRequires: make
+# uses autosetup
+BuildRequires: git-core
 
 Requires:       jbigkit-libs%{?_isa} = %{version}-%{release}
 
@@ -51,13 +54,8 @@ formats.
 
 
 %prep
-%setup -q -n jbigkit-2.1
-%patch0 -p1 -b .shlib
-%patch1 -p1 -b .warnings
-# jbigkit: Partial Fedora build flags injection (bug #1548546)
-%patch2 -p1 -b .ldflags
-# covscan issues - backported from upstream
-%patch3 -p1 -b .covscan
+%autosetup -n jbigkit-2.1 -S git
+
 
 %build
 # get the correct redhat build flags
@@ -89,20 +87,29 @@ make test
 %ldconfig_scriptlets libs
 
 %files
-%{_bindir}/???to*
-%{_mandir}/man1/*
+%{_bindir}/jbgtopbm
+%{_bindir}/jbgtopbm85
+%{_bindir}/pbmtojbg
+%{_bindir}/pbmtojbg85
+%{_mandir}/man1/jbgtopbm.1.gz
+%{_mandir}/man1/pbmtojbg.1.gz
 %license COPYING
 
 %files libs
-%{_libdir}/libjbig*.so.%{version}
+%{_libdir}/libjbig.so.2.1
+%{_libdir}/libjbig85.so.2.1
 %doc ANNOUNCE TODO CHANGES
 %license COPYING
 
 %files devel
-%{_libdir}/libjbig*.so
+%{_libdir}/libjbig.so
+%{_libdir}/libjbig85.so
 %{_includedir}/jbig*.h
 
 %changelog
+* Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.1-27
+- SPDX migration, spec update
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

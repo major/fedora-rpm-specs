@@ -2,24 +2,18 @@
 %global         base_name breeze-plymouth
 
 Name:    plymouth-theme-breeze
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
 License: GPLv3
 URL:     https://cgit.kde.org/%{name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 Source10: plymouth-theme-breeze.conf
 
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 
 BuildRequires:  plymouth-devel
@@ -38,8 +32,7 @@ Requires:       plymouth-plugin-script
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 %install
@@ -59,6 +52,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 
