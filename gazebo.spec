@@ -2,8 +2,8 @@
 %global abiversion 10
 
 Name:           gazebo
-Version:        10.1.0
-Release:        40%{?dist}
+Version:        10.2.0
+Release:        1%{?dist}
 Summary:        3D multi-robot simulator with dynamics
 
 # gazebo/gui/qgv is LGPLv3+
@@ -42,7 +42,10 @@ Patch15:        %{name}-10.1.0-openal121.patch
 Patch16:        %{name}-10.1.0-qwt.patch
 # https://github.com/gazebosim/gazebo-classic/pull/3290
 Patch17:        %{name}-pr3290-gcc13-array-include.patch
-
+# https://github.com/gazebosim/gazebo-classic/pull/3345
+Patch18:        %{name}-pr3345-fix-build-with-graphviz-9.patch
+# https://github.com/gazebosim/gazebo-classic/pull/2862
+Patch19:        %{name}-pr2862-simpletrackedvehicle-fix-for-boost-1.74.patch
 
 BuildRequires:  python3-pyopengl
 BuildRequires:  boost-devel
@@ -176,22 +179,23 @@ Development documentation for %{name}
 
 %prep
 %setup -q
-%patch0 -p0 -b .fedora
-%patch2 -p0 -b .rpath
-%patch3 -p0 -b .connection
-%patch5 -p0 -b .fixtest
-%patch6 -p1 -b .gaussianstddev
-%patch9 -p1 -b .py3
-%patch10 -p1 -b .automoc
-%patch11 -p1 -b .singleton
-%patch12 -p1 -b .wayland
-%patch13 -p1 -b .tbb
+%patch 0 -p0 -b .fedora
+%patch 2 -p0 -b .rpath
+%patch 3 -p0 -b .connection
+%patch 5 -p0 -b .fixtest
+%patch 6 -p1 -b .gaussianstddev
+%patch 9 -p1 -b .py3
+%patch 10 -p1 -b .automoc
+%patch 11 -p1 -b .singleton
+%patch 12 -p1 -b .wayland
+%patch 13 -p1 -b .tbb
 # Fix boost::placeholders namespace for boost-1.73 (rhbz#1843110)
-%patch14 -p1 -b .boost173
-%patch15 -p1 -b .openal121
-%patch16 -p1 -b .qwt
-%patch17 -p1 -b .gcc13
-
+%patch 14 -p1 -b .boost173
+%patch 15 -p1 -b .openal121
+%patch 16 -p1 -b .qwt
+%patch 17 -p1 -b .gcc13
+%patch 18 -p1 -b .graphviz9
+%patch 19 -p1 -b .boost174
 # These are either unused, or replaced by system versions
 rm -rf deps/ann
 rm -rf deps/fcl
@@ -326,6 +330,11 @@ export GAZEBO_IP=127.0.0.1
 %{_libdir}/cmake/*
 
 %changelog
+* Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 10.2.0-1
+- Update to release 10.2.0
+- Add upstream patch to support Graphviz 9
+- Resolves: rhbz#2250639
+
 * Thu Nov 16 2023 Sandro Mani <manisandro@gmail.com> - 10.1.0-40
 - Rebuild (gdal)
 

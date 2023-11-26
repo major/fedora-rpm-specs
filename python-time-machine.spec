@@ -1,10 +1,14 @@
 Name:           python-time-machine
-Version:        2.12.0
+Version:        2.13.0
 Release:        %autorelease
 Summary:        Travel through time in your Python tests
 License:        MIT
 URL:            https://github.com/adamchainz/time-machine
 Source:         %{url}/archive/%{version}/time-machine-%{version}.tar.gz
+
+# time.clock_gettime and clock_gettime_ns are METH_O in Python 3.13.0a2+
+# From https://github.com/adamchainz/time-machine/pull/409
+Patch:          %{url}/commit/275e88f44b.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

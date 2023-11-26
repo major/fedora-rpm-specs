@@ -7,16 +7,17 @@
 
 Name:           perl-Term-ANSIColor
 Version:        5.01
-Release:        501%{?dist}
+Release:        502%{?dist}
 Summary:        Color screen output using ANSI escape sequences
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ANSIColor
 Source0:        https://cpan.metacpan.org/modules/by-module/Term/Term-ANSIColor-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Spec)
@@ -36,15 +37,39 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(IPC::System::Simple)
 %endif
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Test::RRA.*\\)
+
 %description
 This module has two interfaces, one through color() and colored() and the
 other through constants. It also offers the utility functions uncolor(),
 colorstrip(), colorvalid(), and coloralias(), which have to be explicitly
 imported to be used. 
 
+%package tests
+Summary:        Tests for %{name}
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT AND FSFAP
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+# Optional tests
+%if %{with perl_Term_ANSIColor_enables_optional_test} && !%{defined perl_bootstrap}
+Requires:       perl(IPC::System::Simple)
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Term-ANSIColor-%{version}
 chmod -c -x examples/*
+
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -52,18 +77,37 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author/release tests
+rm -rf %{buildroot}%{_libexecdir}/%{name}/t/docs
+rm -rf %{buildroot}%{_libexecdir}/%{name}/t/style
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes examples README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Term*
+%{_mandir}/man3/Term::ANSIColor*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.01-502
+- Package tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.01-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

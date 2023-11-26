@@ -1,6 +1,6 @@
 Name:    spectacle
 Summary: Screenshot capture utility
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2
@@ -24,38 +24,33 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kdoctools-devel
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(KF5GlobalAccel)
-BuildRequires: cmake(KF5GuiAddons)
-BuildRequires: cmake(KF5Kipi)
-BuildRequires: kf5-libkipi-devel
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Screen)
-BuildRequires: cmake(KF5Wayland)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6KirigamiPlatform)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Purpose)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+
 BuildRequires: cmake(KPipeWire)
-
+BuildRequires: cmake(LayerShellQt)
 BuildRequires: cmake(PlasmaWaylandProtocols)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5WaylandClient)
-BuildRequires: cmake(Qt5X11Extras)
-BuildRequires: qt5-qtbase-private-devel
+
+BuildRequires: qt6-qtbase-private-devel
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6WaylandClient)
+BuildRequires: cmake(Qt6Multimedia)
 
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(xcb-cursor)
@@ -63,15 +58,8 @@ BuildRequires: pkgconfig(xcb-image)
 BuildRequires: pkgconfig(xcb-util)
 BuildRequires: pkgconfig(xcb-xfixes)
 
-BuildRequires: cmake(KDEExperimentalPurpose)
-BuildRequires: cmake(kImageAnnotator)
-BuildRequires: cmake(kColorPicker)
-
 # for systemd-related macros
-BuildRequires:  systemd
-
-# for qdbus-qt5 activation (used in .desktop)
-Requires: qt5-qttools
+BuildRequires:  systemd-devel
 
 # f26+ upgrade path
 %if 0%{?fedora} > 25
@@ -90,8 +78,7 @@ Conflicts: kde-l10n < 17.03
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -102,28 +89,31 @@ Conflicts: kde-l10n < 17.03
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.spectacle.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.spectacle.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.spectacle.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle.desktop
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/spectacle
-%{_kf5_datadir}/man/man1/spectacle.1*
-%{_kf5_metainfodir}/org.kde.spectacle.appdata.xml
-%{_kf5_datadir}/applications/org.kde.spectacle.desktop
-%{_kf5_datadir}/dbus-1/interfaces/org.kde.Spectacle.xml
-%{_kf5_datadir}/dbus-1/services/org.kde.Spectacle.service
-%{_kf5_datadir}/icons/hicolor/*/apps/spectacle.*
-%{_kf5_datadir}/kconf_update/*
-%{_kf5_datadir}/kglobalaccel/org.kde.spectacle.desktop
-%{_kf5_datadir}/knotifications5/spectacle.notifyrc
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_libdir}/kconf_update_bin/spectacle*
-%{_kf5_datadir}/kconf_update/spectacle*
+%{_kf6_bindir}/spectacle
+%{_kf6_datadir}/man/man1/spectacle.1*
+%{_kf6_metainfodir}/org.kde.spectacle.appdata.xml
+%{_kf6_datadir}/applications/org.kde.spectacle.desktop
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.Spectacle.xml
+%{_kf6_datadir}/dbus-1/services/org.kde.Spectacle.service
+%{_kf6_datadir}/dbus-1/services/org.kde.spectacle.service
+%{_kf6_datadir}/icons/hicolor/*/apps/spectacle.*
+%{_kf6_datadir}/kglobalaccel/org.kde.spectacle.desktop
+%{_kf6_datadir}/knotifications6/spectacle.notifyrc
+%{_kf6_datadir}/qlogging-categories6/%{name}*
+%{_kf6_libdir}/kconf_update_bin/spectacle*
+%{_kf6_datadir}/kconf_update/spectacle*
 %{_userunitdir}/app-org.kde.spectacle.service
 
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

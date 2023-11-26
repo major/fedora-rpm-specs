@@ -1,6 +1,6 @@
 Name:           mpv
-Version:        0.36.0
-Release:        5%{?dist}
+Version:        0.37.0
+Release:        1%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -100,7 +100,7 @@ A straightforward C API was designed from the ground up to make mpv usable as
 a library and facilitate easy integration into other applications.
 
 %package libs
-Summary: Dynamic library for Mpv frontends 
+Summary: Dynamic library for Mpv frontends
 
 %description libs
 This package contains the dynamic library libmpv, which provides access to Mpv.
@@ -149,8 +149,6 @@ sed -e "s|/usr/local/etc|%{_sysconfdir}/%{name}|" -i etc/%{name}.conf
     -Dlibavdevice=enabled \
     -Dlibbluray=enabled \
     -Dlibmpv=true \
-    -Dlibplacebo-next=enabled \
-    -Dlibplacebo=enabled \
     -Dlua=enabled \
     -Dmanpage-build=enabled \
     -Dopenal=enabled \
@@ -167,11 +165,9 @@ sed -e "s|/usr/local/etc|%{_sysconfdir}/%{name}|" -i etc/%{name}.conf
     -Dshaderc=enabled \
     -Dsndio=disabled \
     -Dspirv-cross=disabled \
-    -Dstdatomic=enabled \
     -Duchardet=enabled \
     -Dvaapi-drm=enabled \
     -Dvaapi-wayland=enabled \
-    -Dvaapi-x-egl=enabled \
     -Dvaapi-x11=enabled \
     -Dvaapi=enabled \
     -Dvapoursynth=enabled \
@@ -215,7 +211,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files libs
 %license LICENSE.GPL LICENSE.LGPL Copyright
-%{_libdir}/lib%{name}.so.2*
+%{_libdir}/lib%{name}.so.2{,.*}
 
 %files devel
 %{_includedir}/%{name}/
@@ -223,6 +219,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Nov 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.37.0-1
+- Update to 0.37.0
+
 * Sun Nov 12 2023 Sérgio Basto <sergio@serjux.com> - 0.36.0-5
 - Remove unused build requires (https://github.com/rpmfusion/mpv/pull/19)
 

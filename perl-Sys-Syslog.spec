@@ -6,7 +6,7 @@
 %endif
 Name:           perl-Sys-Syslog
 Version:        0.36
-Release:        501%{?dist}
+Release:        502%{?dist}
 Summary:        Perl interface to the UNIX syslog(3) calls
 # README:               GPL+ or Artistic
 # ppport.h:             GPL+ or Artistic
@@ -67,6 +67,19 @@ Requires:       perl(XSLoader)
 Sys::Syslog is an interface to the UNIX syslog(3) function. Call syslog() with
 a string priority and a list of printf() arguments just like at syslog(3).
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+%if !%{defined perl_bootstrap} && %{with perl_Sys_Syslog_enables_optional_test}
+Requires:       perl(Test::NoWarnings)
+%endif
+
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Sys-Syslog-%{version}
 
@@ -81,25 +94,50 @@ for F in Changes; do
     mv "${F}.utf8" "$F"
 done
 
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t -o -name *.pl`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/distchk.t
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod*
+rm %{buildroot}%{_libexecdir}/%{name}/t/portfs.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes eg README 
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Sys*
 %{perl_vendorarch}/Sys*
-%{_mandir}/man3/*
+%{_mandir}/man3/Sys::Syslog*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.36-502
+- Package tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

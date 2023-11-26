@@ -2,8 +2,8 @@
 %global snapshot 1
 %global OWNER schweikert
 %global PROJECT fping
-%global commit 8dc0b7f39a09f0745ba308292c3ac1c6013394c3
-%global commitdate 20221021
+%global commit a3f4c573bfd1ddfc71d2fa672f51c41047473a53
+%global commitdate 20231102
 %global gittag v5.1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
@@ -53,6 +53,9 @@ use in scripting in mind.
 %{_mandir}/man8/*
 
 %changelog
+* Fri Nov 10 2023 Charles R. Anderson <cra@alum.wpi.edu> - 5.1^20231102gita3f4c57-1
+- update to latest git snapshot to see if it fixes fping -n with systemd-resolved
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

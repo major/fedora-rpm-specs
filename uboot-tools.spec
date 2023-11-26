@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -6,8 +6,8 @@
 %endif
 
 Name:     uboot-tools
-Version:  2023.10
-Release:  0.9%{?candidate:.%{candidate}}%{?dist}
+Version:  2024.01
+Release:  0.1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -18,12 +18,13 @@ Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candid
 Source1:  aarch64-boards
 
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
-Patch2:   smbios-Simplify-reporting-of-unknown-values.patch
-Patch3:   disable-VBE-by-default.patch
-Patch4:   enable-bootmenu-by-default.patch
-Patch5:   Add-video-damage-tracking.patch
+Patch2:   disable-VBE-by-default.patch
+Patch3:   0001-smbios-Simplify-reporting-of-unknown-values.patch
+Patch4:   0002-smbios-Fallback-to-the-default-DT-if-sysinfo-nodes-a.patch
+Patch5:   enable-bootmenu-by-default.patch
 Patch6:   uefi-Boot-var-automatic-management-for-removable-medias.patch
-Patch7:   bootstd-Test-and-boot_targets-improvements.patch
+#Patch6:   Add-video-damage-tracking.patch
+#Patch7:   bootstd-Test-and-boot_targets-improvements.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
@@ -215,6 +216,9 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Fri Nov 24 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.01-0.1.rc3
+- Update to 2024.01 RC3
+
 * Tue Oct 31 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2023.10-0.9
 - Rebuild
 

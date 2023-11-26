@@ -30,7 +30,8 @@ Patch0:         skyx_gazebo.patch
 # This patch fixes some issues with building against Ogre 1.9.
 # Not submitted upstream
 Patch1:         %{name}-0.4-ogre19.patch
-
+# Use boost shared libs
+Patch2:         %{name}-0.4-boostshared.patch
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -59,8 +60,9 @@ cp -r SkyX-v0.3/* .
 rm -rf SkyX-v0.*
 rm -f SkyXCommon/Bin/Media/packs/OgreCore.zip
 
-%patch0 -p1
-%patch1 -p0 -b .ogre19
+%patch 0 -p1
+%patch 1 -p0 -b .ogre19
+%patch 2 -p0 -b .boostshared
 
 # Remove Windows line endings
 dos2unix Readme.txt License.txt
@@ -95,6 +97,10 @@ mv %{buildroot}/%{_usr}/lib %{buildroot}%{_libdir}
 %{_datadir}/SKYX/cmake
 
 %changelog
+* Thu Nov 23 2023 Rich Mattes <richmattes@gmail.com> - 0.4-34
+- Fix boost linkage
+- Resolves: rhbz#2114519
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

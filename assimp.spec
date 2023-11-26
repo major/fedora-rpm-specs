@@ -1,14 +1,16 @@
 %undefine __cmake_in_source_build
+%define soversion 5
+
 Name:           assimp
-Version:        5.0.1
-Release:        12%{?dist}
+Version:        5.2.5
+Release:        1%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
 # Bundled contrib/clipper is Boost
 # Bundled contrib/Open3DGC is MIT
 # Bundled contrib/openddlparser is MIT
-# Bundled contrib/stb_image is MIT
+# Bundled contrib/stb is MIT
 # Bundled contrib/unzip is zlib
 # Bundled contrib/zip is unlicense
 # Bundled contrib/zlib is zlib
@@ -21,43 +23,47 @@ Source0:        %{name}-%{version}-free.tar.xz
 Source1:        assimp_generate_tarball.sh
 
 # Un-bundle libraries that are provided by the distribution.
-Patch0:         %{name}-5.0.1-unbundle.patch
+Patch0:         %{name}-5.2.5-unbundle.patch
 # Add /usr/lib64 to library lookup paths for python modules
-Patch1:         %{name}-5.0.1-pythonpath.patch
-# Correct the paths in the installed pkgconfig file
-Patch2:         %{name}-5.0.1-pkgconfig.patch
+Patch1:         %{name}-5.1.0-pythonpath.patch
+# Prevent export of bundled zlibstatic library
+Patch2:         %{name}-5.2.5-nozlib.patch
 # Exclude the build directory from the doxygen-generated documentation
-Patch3:         %{name}-5.0.1-doxyfile.patch
-# Updates for changes in irrxml's API
-Patch4:         %{name}-5.0.1-irrxml.patch
-# Correct the CMake version to match the tarball version.
-Patch5:         %{name}-5.0.1-assimpversion.patch
-# Correct the library installation location
-Patch6:         %{name}-5.0.1-lib-dir.patch
+Patch3:         %{name}-5.1.0-doxyfile.patch
+# Enable ctest
+Patch4:         %{name}-5.2.5-tests.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  doxygen
-BuildRequires:  irrlicht-devel
-BuildRequires:  irrXML-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gtest-devel
 BuildRequires:  make
-BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  poly2tri-devel
+BuildRequires:  pugixml-devel
 BuildRequires:  python3-devel
 # Need to BR -static packages for header-only libraries for tracking, per
 # guidelines
 BuildRequires:  rapidjson-devel
 BuildRequires:  rapidjson-static
-# Enforce the the minimum EVR to contain fixes for all of CVE-2021-28021,
-# CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041.
+# Enforce the the minimum EVR to contain fixes for all of:
+# CVE-2021-28021
+# CVE-2021-42715
+# CVE-2021-42716
+# CVE-2022-28041
+# CVE-2023-43898
+# CVE-2023-45661
+# CVE-2023-45662
+# CVE-2023-45663
+# CVE-2023-45664
+# CVE-2023-45666
+# CVE-2023-45667
 %if 0%{?el7} || 0%{?el8}
-%global min_stb_image 0-0.8.20211022gitaf1a5bc
+%global min_stb_image 2.28-0.39.20231011gitbeebb24
 %else
-%global min_stb_image 2.27^20210910gitaf1a5bc-0.2
+%global min_stb_image 2.28^20231011gitbeebb24-12
 %endif
 BuildRequires:  stb_image-devel >= %{min_stb_image}
 BuildRequires:  stb_image-static
@@ -113,32 +119,38 @@ BuildArch: noarch
 %setup -q
 # Get rid of bundled libs so we can't accidently build against them
 rm -r contrib/android-cmake
-rm -r contrib/irrXML
+rm -r contrib/draco
 rm -r contrib/poly2tri
+rm -r contrib/pugixml
 rm -r contrib/rapidjson
-rm -r contrib/stb_image
+rm -r contrib/stb
 rm -r contrib/utf8cpp
 
-%patch0 -p1 -b .unbundle
-%patch1 -p1 -b .pythonpath
-%patch2 -p1 -b .pkgconfig
-%patch3 -p1 -b .doxyfile
-%patch4 -p1 -b .irrxml
-%patch5 -p1 -b .assimpversion
-%patch6 -p1 -b .libdir
+%patch 0 -p1 -b .unbundle
+%patch 1 -p1 -b .pythonpath
+%patch 2 -p1 -b .nozlib
+%patch 3 -p1 -b .doxyfile
+%patch 4 -p0 -b .tests
+
+mv contrib/openddlparser/LICENSE contrib/openddlparser/LICENSE.openddlparser
 
 %build
+%global optflags %(echo %{optflags} -Wno-error=dangling-reference)
 %cmake \
- -DCMAKE_BUILD_TYPE=None \
+ -DCMAKE_BUILD_TYPE=Release \
  -DASSIMP_LIB_INSTALL_DIR=%{_lib} \
+ -DASSIMP_WARNINGS_AS_ERRORS=OFF \
 %ifarch s390x ppc64
  -DAI_BUILD_BIG_ENDIAN=TRUE \
 %endif
- -DBUILD_DOCS=OFF \
+ -DASSIMP_BUILD_ASSIMP_TOOLS=TRUE \
+ -DASSIMP_BUILD_DOCS=OFF \
+ -DASSIMP_BUILD_DRACO=OFF \
  -DHTML_OUTPUT=%{name}-%{version} \
  -DCMAKE_INSTALL_DOCDIR=%{_docdir} \
+ -DHAVE_POLY2TRI=ON \
  -DPOLY2TRI_INCLUDE_PATH=%{_includedir}/poly2tri \
- -DSYSTEM_IRRXML=ON \
+ -DPOLY2TRI_LIB=poly2tri \
  -DASSIMP_BUILD_ZLIB=ON
 
 # To use system polyclipping if assimp ever becomes compatible:
@@ -146,7 +158,7 @@ rm -r contrib/utf8cpp
 %cmake_build
 
 # Fix file encoding
-dos2unix README LICENSE CREDITS port/PyAssimp/README.md
+dos2unix Readme.md LICENSE CREDITS port/PyAssimp/README.md
 iconv -f iso8859-1 -t utf-8 CREDITS > CREDITS.conv && mv -f CREDITS.conv CREDITS
 
 %install
@@ -155,17 +167,19 @@ mkdir -p %{buildroot}%{python3_sitelib}/pyassimp/
 install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassimp/
 rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 
-%ldconfig_scriptlets
-
+# Exclude tests that rely on nonbsd models
+%check
+%ctest --exclude-regex "utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.importDolphin|utMD2Importer.importFlag|utMD2Importer.importHorse|utQ3BSPImportExport.importerTest|utBlenderImporter.importBob|utBlenderImporter.importFleurOptonl|utPMXImporter.importTest|utXImporter.importDwarf" || :
 
 %files
 %license LICENSE 
 %license contrib/clipper/License.txt
-%license contrib/openddlparser/LICENSE
+%license contrib/openddlparser/LICENSE.openddlparser
 %license contrib/zip/UNLICENSE
 %doc Readme.md CREDITS
 %{_bindir}/assimp
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{version}
+%{_libdir}/*.so.%{soversion}
 
 %files devel
 %{_includedir}/assimp
@@ -183,6 +197,15 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %endif
 
 %changelog
+* Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 5.2.5-1
+- Add check section and fix ctest configuration
+
+* Thu Oct 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 5.2.5-1
+- Ensure stb_image contains the latest CVE patches
+
+* Fri Jul 28 2023 Scott K Logan <logans@cottsay.net> - 5.2.5-1
+- Update to release 5.2.5
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20141121
-Release: 24%{?dist}
+Release: 25%{?dist}
 # https://company.paratype.com/pt-sans-pt-serif
 URL:     http://www.paratype.com/public/
 
@@ -58,15 +58,6 @@ BuildArch: noarch
 This package provides optional documentation files shipped with
 %{source_name}.
 
-%package -n compat-paratype-pt-sans-fonts-f33-f34
-Summary: Fedora-33 & 34 compatibility package
-Provides: paratype-pt-sans-fonts = %{version}-%{release}
-Provides: paratype-pt-sans-caption-fonts = %{version}-%{release}
-Requires: font(ptsans) = %{version}-%{release}
-%description -n compat-paratype-pt-sans-fonts-f33-f34
-Fedora-33 & 34 compatibility package.
-
-%files -n compat-paratype-pt-sans-fonts-f33-f34
 
 %prep
 %setup -q -c
@@ -91,6 +82,9 @@ install -m 0644 -vp %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} \
 %doc *.pdf
 
 %changelog
+* Thu Nov 23 2023 Jens Petersen <petersen@redhat.com> - 20141121-25
+- drop the legacy compat package (#2054527)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -116,7 +116,12 @@ Patch5:      torque-6.1.3-bool-fix.patch
 Patch6:      torque-6.1.3-autoconf-fixes.patch
 
 
-License:     OpenPBS and TORQUEv1.1
+# src/drmaa/ is LGPL-2.1-or-later
+# src/drmaa/src/lookup3.c is LicenseRef-Fedora-Public-Domain
+# src/include/md5.h and src/lib/Libnet/md5.c are RSA-MD
+# src/include/json/json-forwards.h is (LicenseRef-Fedora-Public-Domain OR MIT)
+# src/mom_rcp/extern.h is BSD-4-Clause-UC
+License:     OpenPBS-2.3 AND TORQUE-1.1 AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND RSA-MD AND (LicenseRef-Fedora-Public-Domain OR MIT) AND BSD-4-Clause-UC
 URL:         https://github.com/adaptivecomputing/torque/
 BuildRequires: make
 BuildRequires: gcc-c++

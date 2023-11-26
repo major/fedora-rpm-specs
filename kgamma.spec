@@ -1,36 +1,32 @@
-%undefine __cmake_in_source_build
-%global base_name kgamma5
-
 Name:    kgamma
 Summary: A monitor calibration tool
 Epoch:   1
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
-URL:     https://cgit.kde.org/%{base_name}.git
+URL:     https://invent.kde.org/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc gcc-c++
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kdelibs4support-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: pkgconfig(xxf86vm)
-BuildRequires: pkgconfig(Qt5Gui) pkgconfig(Qt5Widgets)
-BuildRequires: pkgconfig(Qt5X11Extras)
+BuildRequires: kf6-rpm-macros
 
-Provides: %{base_name} = %{version}-%{release}
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KCMUtils)
+
+BuildRequires: pkgconfig(Qt6Core)
+BuildRequires: pkgconfig(Qt6Gui)
+BuildRequires: pkgconfig(Qt6Qml)
+BuildRequires: pkgconfig(Qt6Widgets)
+
+BuildRequires: pkgconfig(xxf86vm)
 
 # when split occurred
 Conflicts: kdegraphics < 7:4.6.95-10
@@ -41,11 +37,11 @@ Conflicts: kdegraphics < 7:4.6.95-10
 
 
 %prep
-%autosetup -n %{base_name}-%{version}
+%autosetup -p1
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
@@ -58,12 +54,16 @@ Conflicts: kdegraphics < 7:4.6.95-10
 %files -f kcmkgamma.lang
 %doc ChangeLog
 %license LICENSES/*
-%{_kf5_datadir}/kgamma/
-%{_qt5_plugindir}/plasma/kcminit/kcm_kgamma_init.so
-%{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_kgamma.so
+%{_datadir}/applications/kcm_kgamma.desktop
+%{_kf6_datadir}/kgamma/
+%{_qt6_plugindir}/plasma/kcminit/kcm_kgamma_init.so
+%{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kgamma.so
 
 
 %changelog
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com>
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 1:5.27.9-1
 - 5.27.9
 

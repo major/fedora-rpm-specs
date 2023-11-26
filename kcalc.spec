@@ -1,18 +1,12 @@
 Name:    kcalc 
 Summary: Scientific Calculator 
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/utils/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
 # fix arithmetic fault in mod, factorial
@@ -23,47 +17,24 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kinit-devel >= 5.10.0-3
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kjobwidgets-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kxmlgui-devel
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(KF5Crash)
+BuildRequires: pkgconfig(Qt6Core)
+BuildRequires: pkgconfig(Qt6Widgets)
+BuildRequires: pkgconfig(Qt6Core5Compat)
 
-BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6DocTools)
 
 BuildRequires: gmp-devel
 BuildRequires: mpfr-devel
-
-%{?kf5_kinit_requires}
-
-# when split occured
-Conflicts: kdeutils-common < 6:4.7.80
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
-
-Obsoletes: kdeutils-kcalc < 6:4.7.80
-Provides:  kdeutils-kcalc = 6:%{version}-%{release}
 
 %description
 KCalc is a calculator which offers many more mathematical
@@ -75,7 +46,7 @@ functions than meet the eye on a first glance.
 
 
 %build
-%cmake_kf5 %{?flatpak:-DINSTALL_ICONS=ON}
+%cmake_kf6 %{?flatpak:-DINSTALL_ICONS=ON}
 
 %cmake_build
 
@@ -87,25 +58,28 @@ functions than meet the eye on a first glance.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop ||:
 
 
 %files -f %{name}.lang
 %license LICENSES/*
 #doc README
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/kglobalaccel/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/kconf_update/%{name}*
-%{_kf5_datadir}/config.kcfg/%{name}.kcfg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/kglobalaccel/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/kconf_update/%{name}*
+%{_kf6_datadir}/config.kcfg/%{name}.kcfg
 %if 0%{?flatpak}
-%{_kf5_datadir}/icons/hicolor/*/*/accessories-calculator.*
+%{_kf6_datadir}/icons/hicolor/*/*/accessories-calculator.*
 %endif
 
 
 %changelog
+* Fri Nov 24 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

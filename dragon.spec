@@ -1,6 +1,6 @@
 Name:    dragon
 Summary: Media player
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -8,52 +8,37 @@ Release: 1%{?dist}
 License: ( GPL-2.0-only OR GPL-3.0-only ) AND GFDL-1.2-or-later
 URL:     https://apps.kde.org/dragonplayer/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
 BuildRequires: desktop-file-utils
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
-BuildRequires: qt5-qtbase-devel
 
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kparts-devel
-BuildRequires: kf5-solid-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-kjobwidgets-devel
-BuildRequires: kf5-kdbusaddons-devel
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
 
-BuildRequires: phonon-qt5-devel
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6Solid)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
 
-%if 0%{?fedora} > 22
-%global appstream_validate 1
+BuildRequires: cmake(Phonon4Qt6)
+
 BuildRequires: libappstream-glib
-%endif
 
-# when split occurred
-Obsoletes: kdemultimedia-dragonplayer < 6:4.8.80
-Provides:  kdemultimedia-dragonplayer = 6:%{version}-%{release}
 Provides:  dragonplayer = %{version}-%{release}
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
 
 %description
 %{summary}.
@@ -64,8 +49,7 @@ Conflicts: kde-l10n < 17.03
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -76,28 +60,28 @@ Conflicts: kde-l10n < 17.03
 
 
 %check
-%if 0%{?appstream_validate}
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.dragonplayer.appdata.xml
-%endif
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.dragonplayer.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.dragonplayer.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.dragonplayer.desktop
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/solid/actions/dragonplayer-opendvd.desktop
-%{_kf5_datadir}/solid/actions/dragonplayer-openaudiocd.desktop
-%{_kf5_bindir}/dragon
-%{_sysconfdir}/xdg/dragonplayerrc
-%{_kf5_datadir}/kservices5/ServiceMenus/dragonplayer_play_dvd.desktop
-%{_kf5_metainfodir}/org.kde.dragonplayer.appdata.xml
-%{_kf5_datadir}/applications/org.kde.dragonplayer.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/dragonplayer.*
-%{_kf5_datadir}/icons/oxygen/*/actions/player-volume-muted.*
-%{_mandir}/man1/dragon.1*
+%{_qt6_settingsdir}/dragonplayerrc
+%{_kf6_bindir}/dragon
+%{_kf6_datadir}/applications/org.kde.dragonplayer.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/dragonplayer.*
+%{_kf6_datadir}/icons/oxygen/*/actions/player-volume-muted.*
+%{_kf6_datadir}/kio/servicemenus/dragonplayer_play_dvd.desktop
+%{_kf6_datadir}/solid/actions/dragonplayer-opendvd.desktop
+%{_kf6_datadir}/solid/actions/dragonplayer-openaudiocd.desktop
+%{_kf6_metainfodir}/org.kde.dragonplayer.appdata.xml
 # -libs subpkg ? --rex
-%{_kf5_plugindir}/parts/dragonpart.so
+%{_kf6_plugindir}/parts/dragonpart.so
 
 
 %changelog
+* Thu Nov 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

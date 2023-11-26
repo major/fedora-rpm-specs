@@ -1,53 +1,37 @@
 Name:    kscreen
 Epoch:   1
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
-# KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtsensors-devel
-BuildRequires:  layer-shell-qt-devel
 
-BuildRequires:  libkscreen-qt5-devel >= %{majmin_ver}
-Requires:       libkscreen-qt5%{?_isa} >= %{majmin_ver}
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtsensors-devel
 
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-kglobalaccel-devel
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KF5KCMUtils)
+BuildRequires:  cmake(LayerShellQt)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6PlasmaQuick)
+BuildRequires:  cmake(KF6Screen)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6XmlGui)
 
 BuildRequires:  pkgconfig(xcb-atom)
 BuildRequires:  pkgconfig(xi)
-
-Requires:       qt5-qtgraphicaleffects
 
 %description
 KCM and KDED modules for managing displays in KDE.
@@ -58,8 +42,7 @@ KCM and KDED modules for managing displays in KDE.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -72,32 +55,26 @@ KCM and KDED modules for managing displays in KDE.
 %files -f %{name}.lang
 %license LICENSES
 %{_bindir}/kscreen-console
-%{_datadir}/kservices5/plasma-applet-org.kde.kscreen.desktop
 %{_datadir}/metainfo/org.kde.kscreen.appdata.xml
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/contents/ui/InhibitionHint.qml
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/contents/ui/PresentationModeItem.qml
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/contents/ui/ScreenLayoutSelection.qml
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/contents/ui/main.qml
-%{_datadir}/plasma/plasmoids/org.kde.kscreen/metadata.desktop
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/metadata.json
-%{_kf5_datadir}/applications/kcm_kscreen.desktop
-%{_kf5_datadir}/dbus-1/services/org.kde.kscreen.osdService.service
-%{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Orientation.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Output.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/OutputPanel.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Panel.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/RotationButton.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Screen.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/main.qml
-%{_kf5_datadir}/qlogging-categories5/kscreen.categories
-%{_kf5_plugindir}/kded/kscreen.so
-%{_kf5_qtplugindir}/plasma/applets/plasma_applet_kscreen.so
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_kscreen.so
+%{_kf6_datadir}/applications/kcm_kscreen.desktop
+%{_kf6_datadir}/dbus-1/services/org.kde.kscreen.osdService.service
+%{_kf6_datadir}/qlogging-categories6/kscreen.categories
+%{_kf6_plugindir}/kded/kscreen.so
+%{_kf6_qtplugindir}/plasma/applets/org.kde.kscreen.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_kscreen.so
 %{_libexecdir}/kscreen_osd_service
 %{_userunitdir}/plasma-kscreen-osd.service
 
 
 %changelog
+* Mon Nov 13 2023 Alessandro Astone <ales.astone@gmail.com> - 1:5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 1:5.27.9-1
 - 5.27.9
 

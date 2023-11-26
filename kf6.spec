@@ -2,7 +2,7 @@ Name:    kf6
 # This version MUST remain in sync with KF6 versions!
 # XXX: Yes, it's 5.x still, this is synced with the version set in extra-cmake-modules
 Version: 5.245.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -37,8 +37,8 @@ mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/qt6/plugins/kf6/
 mkdir -p %{buildroot}%{_prefix}/{lib,%{_lib}}/qt6/qml/org/kde/
 mkdir -p %{buildroot}%{_includedir}/kf6
 mkdir -p %{buildroot}%{_includedir}/KF6
-mkdir -p %{buildroot}%{_datadir}/{kf6,kservicetypes6}
-mkdir -p %{buildroot}%{_datadir}/kservices6/ServiceMenus
+mkdir -p %{buildroot}%{_datadir}/{kf6,kservices6,kservicetypes6}
+mkdir -p %{buildroot}%{_datadir}/kio/servicemenus
 mkdir -p %{buildroot}%{_datadir}/qlogging-categories6/
 mkdir -p %{buildroot}%{_docdir}/qt6
 mkdir -p %{buildroot}%{_libexecdir}/kf6
@@ -61,6 +61,7 @@ sed -i \
 
 %files filesystem
 %{_datadir}/kf6/
+%{_datadir}/kio/
 %{_datadir}/kservices6/
 %{_datadir}/kservicetypes6/
 %{_datadir}/qlogging-categories6/
@@ -88,6 +89,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Fri Nov 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.245.0-2
+- Update servicemenus path
+
 * Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-1
 - 5.245.0
 - Fix macros for unstable releases

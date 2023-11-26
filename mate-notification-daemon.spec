@@ -15,7 +15,7 @@
 Name:           mate-notification-daemon
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %else
 Release:        0.21%{?git_rel}%{?dist}
 %endif
@@ -28,6 +28,8 @@ URL:            http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
+
+Patch1:        mate-notification-daemon_0001-fix-building-with-libxml-2.12.0.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk-layer-shell-devel
@@ -99,6 +101,9 @@ rm -f  %{buildroot}%{_datadir}/applications/mate-notification-daemon.desktop
 
 
 %changelog
+* Fri Nov 24 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-3
+- fix building with libxml-2.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

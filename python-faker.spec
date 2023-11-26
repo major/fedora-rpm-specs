@@ -14,7 +14,7 @@ service, Faker is for you.
 
 Name: python-%{srcname}
 Version: 20.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Faker is a Python package that generates fake data for you
 License: MIT
 URL: https://faker.readthedocs.io
@@ -27,7 +27,6 @@ BuildRequires: python3-pytest
 BuildRequires: python3-dateutil
 BuildRequires: python3-freezegun
 BuildRequires: python3-validators
-BuildRequires: python3-random2
 BuildRequires: python3-pillow
 %endif
 
@@ -71,6 +70,9 @@ Summary: Documentation for %{name}
 %doc README.rst CHANGELOG.md CONTRIBUTING.rst RELEASE_PROCESS.rst docs/*.rst
 
 %changelog
+* Thu Nov 23 2023 Miro Hrončok <mhroncok@redhat.com> - 20.0.0-2
+- Remove unused test dependency on random2 (removed upstream in 15.1.4)
+
 * Sat Nov 11 2023 Juan Orti Alcaine <jortialc@redhat.com> - 20.0.0-1
 - Version 20.0.0 (RHBZ#2218396)
 

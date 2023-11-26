@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        99
+Version:        100
 
 %forgemeta
 
@@ -276,6 +276,49 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Nov 22 2023 Packit <hello@packit.dev> - 100-1
+Changes with 100
+----------------
+  * Add stages to sign ostree commits (#1445)
+    * Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Consolidate functions used by runners (#1446)
+    * Author: Miguel Martin, Reviewers: Michael Vogt
+  * RPM stage: link /proc/self/fd to /dev/fd (#1448)
+    * Author: Miguel Martin, Reviewers: Simon de Vlieger
+  * docs: tweak the man-page a bit to make the example more useful (#1455)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * schutzbot/terraform: aws instance types rework (#1436)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * stage/test: skip kickstart validate test if no ksvalidator (#1438)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt
+  * stages(kickstart): add test for schema validation (#1432)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages(kickstart): add unittest test for zerombr/clearpart (#1430)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages(kickstart): ensure test inputs pass schema validation (#1440)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages(kickstart): implement "display_mode" option and tiny test addition (#1442)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages(kickstart): implement "reboot" option (#1435)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * stages(kickstart): run ksvalidator as part of the tests (#1434)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
+  * stages(kickstart): support autopart (#1449)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane, Simon de Vlieger
+  * stages: add `org.osbuild.update-crypto-policies` stage (#1443)
+    * Author: Miguel Martin, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * stages: add kernel-cmdline.bls-append stage (#1429)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+  * tests: finish the conversion to the parametrized Fedora v2 manifest (#1441)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * tools: tweak `gen-stage-test-diff` to fix defaults for max-size and allow running from a git checkout (#1447)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * tox: move to pylint 3.0.2 for py312 support (#1450)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+
+— Somewhere on the Internet, 2023-11-22
+
+
 * Wed Nov 08 2023 Packit <hello@packit.dev> - 99-1
 Changes with 99
 ----------------

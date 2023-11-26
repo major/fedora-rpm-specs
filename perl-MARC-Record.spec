@@ -1,9 +1,9 @@
 Name:           perl-MARC-Record
 Version:        2.0.7
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Object-oriented abstraction of MARC record handling
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MARC-Record
 Source0:        https://cpan.metacpan.org/authors/id/G/GM/GMCHARLT/MARC-Record-%{version}.tar.gz
 
@@ -38,9 +38,25 @@ The MARC::* series of modules create a simple object-oriented
 abstraction of MARC record handling.
 
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
+
 %prep
 %setup -q -n MARC-Record-%{version}
 chmod -c 644 lib/MARC/*.pm
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 
 %build
@@ -53,6 +69,14 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w $RPM_BUILD_ROOT/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 
 %check
@@ -67,7 +91,15 @@ make test
 %{_mandir}/man3/*.3pm*
 
 
+%files tests
+%{_libexecdir}/%{name}
+
+
 %changelog
+* Wed Nov 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.0.7-19
+- Package tests
+- Update license to SPDX format
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

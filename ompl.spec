@@ -1,10 +1,9 @@
-%undefine __cmake_in_source_build
-%global soversion 16
-%global apiversion 1.5
+%global soversion 17
+%global apiversion 1.6
 
 Name:           ompl
-Version:        1.5.0
-Release:        15%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        The Open Motion Planning Library
 
 License:        BSD
@@ -73,12 +72,13 @@ rm -f %{buildroot}%{_datadir}/%{name}/demos/*.py
 rm -rf %{buildroot}%{_includedir}/%{name}/CMakeFiles
 rm -rf %{buildroot}%{_bindir}
 rm -f %{buildroot}%{_mandir}/man1/plannerareana*
+rm -rf %{buildroot}%{_datadir}/ament_index
 
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 # Test failures can be triggered by builder CPU speed.
 # Accept test failures for slow builders.
-%ctest --verbose  || exit 0
+%ctest || exit 0
 
 
 %files
@@ -96,6 +96,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/%{name}
 
 %changelog
+* Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 1.6.0-1
+- Update to release 1.6.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

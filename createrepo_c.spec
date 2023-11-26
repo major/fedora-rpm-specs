@@ -35,10 +35,13 @@
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
 Version:        1.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         0001-build-Restore-compatiblity-with-libxml2-2.12.0.patch
+
+%global epoch_dep %{?epoch:%{epoch}:}
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -67,7 +70,7 @@ BuildRequires:  libmodulemd
 Requires:       libmodulemd%{?_isa} >= %{libmodulemd_version}
 %endif
 %endif
-Requires:       %{name}-libs =  %{version}-%{release}
+Requires:       %{name}-libs = %{epoch_dep}%{version}-%{release}
 BuildRequires:  bash-completion
 Requires: rpm >= 4.9.0
 %if %{with drpm}
@@ -84,7 +87,7 @@ BuildRequires:  libubsan
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 Obsoletes:      createrepo < 0.11.0
-Provides:       createrepo = %{version}-%{release}
+Provides:       createrepo = %{epoch_dep}%{version}-%{release}
 %endif
 
 %description
@@ -102,7 +105,7 @@ for easy manipulation with a repodata.
 
 %package devel
 Summary:    Library for repodata manipulation
-Requires:   %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:   %{name}-libs%{?_isa} = %{epoch_dep}%{version}-%{release}
 
 %description devel
 This package contains the createrepo_c C library and header files.
@@ -114,7 +117,7 @@ Summary:        Python 3 bindings for the createrepo_c library
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
-Requires:       %{name}-libs = %{version}-%{release}
+Requires:       %{name}-libs = %{epoch_dep}%{version}-%{release}
 
 %description -n python3-%{name}
 Python 3 bindings for the createrepo_c library.
@@ -200,6 +203,9 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Nov 24 2023 Petr Pisar <ppisar@redhat.com> - 1.0.2-3
+- Restore compatiblity with libxml2-2.12.0
+
 * Wed Nov 15 2023 Jan Kolarik <jkolarik@redhat.com> - 1.0.2-2
 - Keep support for DRPM until Fedora 45 for infrastructure building
 

@@ -1,77 +1,65 @@
-%undefine __cmake_in_source_build
-
-%global kf5_version 5.58.0
-
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: LGPLv2+ and GPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+
+
+%ifarch %{qt6_qtwebengine_arches}
+%bcond openconnect 1
 %else
-%global stable stable
+%bcond openconnect 0
 %endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
-# master branch
-
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
 
 BuildRequires:  gettext
 
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  extra-cmake-modules >= %{kf5_version}
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qttools-static
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  extra-cmake-modules
 
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kwallet-devel
-BuildRequires:  kf5-kitemviews-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-solid-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kinit-devel
-BuildRequires:  kf5-kdelibs4support-devel
-BuildRequires:  kf5-networkmanager-qt-devel >= %{kf5_version}
-BuildRequires:  kf5-modemmanager-qt-devel >= %{kf5_version}
-BuildRequires:  kf5-prison-devel
-BuildRequires:  kf5-kirigami2-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  cmake(QCoro6)
+BuildRequires:  cmake(Qca-qt6)
 
-%if ! 0%{?bootstrap}
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6NetworkManagerQt)
+BuildRequires:  cmake(KF6ModemManagerQt)
+BuildRequires:  cmake(KF6Svg)
+# Runtime check
+BuildRequires:  cmake(KF6Prison)
+BuildRequires:  cmake(KF6Kirigami2)
+
 BuildRequires:  pkgconfig(ModemManager) >= 1.0.0
-%endif
 BuildRequires:  pkgconfig(libnm) >= 1.0.0
-%if 0%{?fedora} || 0%{?rhel}
-BuildRequires:  pkgconfig(openconnect) >= 4.00
-%endif
 
-BuildRequires:  qca-qt5-devel
+%if %{with openconnect}
+BuildRequires:  pkgconfig(openconnect) >= 4.00
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+%else
+Obsoletes:      %{name}-openconnect < %{version}-%{release}
+%endif
 
 Requires:       NetworkManager >= 1.0.0
-Requires:       kf5-prison
-Requires:       kf5-kirigami2
+Requires:       kf6-prison
+Requires:       kf6-kirigami2
 
 Obsoletes:      kde-plasma-networkmanagement < 1:0.9.1.0
 Obsoletes:      kde-plasma-networkmanagement-libs < 1:0.9.1.0
@@ -82,23 +70,7 @@ Provides:       kde-plasma-nm = %{version}-%{release}
 Plasma applet and editor for managing your network connections in KDE 4 using
 the default NetworkManager service.
 
-# Required for properly working GMS/CDMA connections
-%package        mobile
-Summary:        Mobile support for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       ModemManager
-%if ! 0%{?bootstrap}
-BuildRequires:  pkgconfig(mobile-broadband-provider-info)
-%endif
-Requires:       mobile-broadband-provider-info
-Requires:       kf5-modemmanager-qt >= 5.0.0-1
-Obsoletes:      kde-plasma-networkmanagement-mobile < 1:0.9.1.0
-Obsoletes:      kde-plasma-nm-mobile < 5.0.0-1
-Provides:       kde-plasma-nm-mobile = %{version}-%{release}
-%description    mobile
-%{summary}.
 
-%if 0%{?fedora} || 0%{?rhel}
 %package        openvpn
 Summary:        OpenVPN support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -109,6 +81,7 @@ Provides:       kde-plasma-nm-openvpn = %{version}-%{release}
 %description    openvpn
 %{summary}.
 
+%if %{with openconnect}
 %package        openconnect
 Summary:        OpenConnect support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -116,8 +89,10 @@ Requires:       NetworkManager-openconnect
 Obsoletes:      kde-plasma-networkmanagement-openconnect < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm-openconnect < 5.0.0-1
 Provides:       kde-plasma-nm-openconnect = %{version}-%{release}
+Provides:       deprecated()
 %description    openconnect
 %{summary}.
+%endif
 
 %package        openswan
 Summary:        Openswan support for %{name}
@@ -168,7 +143,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-fortisslvpn
 %description    fortisslvpn
 %{summary}.
-%endif
 
 %if 0%{?fedora}
 %package        vpnc
@@ -201,25 +175,23 @@ Requires:       NetworkManager-iodine
 
 
 %build
-%cmake_kf5 \
-    -DBUILD_MOBILE:BOOL=ON
-
-%cmake_build 
+%cmake_kf6 %{!?with_openconnect:-DBUILD_OPENCONNECT=OFF}
+%cmake_build
 
 
 %install
 %cmake_install
 
 %if ! 0%{?fedora}
-rm -f %{buildroot}%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
-rm -f %{buildroot}%{_kf5_datadir}/kservices5/plasmanetworkmanagement_vpncui.desktop
-rm -f %{buildroot}%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sshui.so
-rm -f %{buildroot}%{_kf5_datadir}/kservices5/plasmanetworkmanagement_sshui.desktop
-rm -f %{buildroot}%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_iodineui.so
-rm -f %{buildroot}%{_kf5_datadir}/kservices5/plasmanetworkmanagement_iodineui.desktop
+rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
+rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sshui.so
+rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_iodineui.so
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_iodineui.mo
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_sshui.mo
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui.mo 
+%endif
+%if %{without openconnect}
+rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openconnectui.mo
 %endif
 
 %find_lang plasma_applet_org.kde.plasma.networkmanagement
@@ -227,7 +199,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui
 %find_lang plasmanetworkmanagement-kcm
 %find_lang plasmanetworkmanagement-libs
 %find_lang plasmanetworkmanagement_openvpnui
+%if %{with openconnect}
 %find_lang plasmanetworkmanagement_openconnectui
+%endif
 %find_lang plasmanetworkmanagement_libreswanui
 %find_lang plasmanetworkmanagement_strongswanui
 %find_lang plasmanetworkmanagement_l2tpui
@@ -241,92 +215,72 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui
 %endif
 
 
-%ldconfig_scriptlets
-
 %files -f plasma_applet_org.kde.plasma.networkmanagement.lang -f plasmanetworkmanagement-kded.lang -f plasmanetworkmanagement-libs.lang -f plasmanetworkmanagement-kcm.lang
 %{_libdir}/libplasmanm_internal.so
 %{_libdir}/libplasmanm_editor.so
 # plasma-nm applet
-%{_qt5_qmldir}/org/kde/plasma/networkmanagement/
-%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.networkmanagement/
-###%{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.networkmanagement.desktop
-%{_datadir}/qlogging-categories5/plasma-nm.categories
-#{_datadir}/plasma/updates/*.js
+%{_qt6_qmldir}/org/kde/plasma/networkmanagement/
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.networkmanagement/
+%{_datadir}/qlogging-categories6/plasma-nm.categories
 # plasma-nm notifications
-%{_kf5_datadir}/knotifications5/networkmanagement.notifyrc
+%{_kf6_datadir}/knotifications6/networkmanagement.notifyrc
 # plasma-nm kded
-%{_kf5_plugindir}/kded/networkmanagement.so
+%{_kf6_plugindir}/kded/networkmanagement.so
 # appdata
-%{_kf5_metainfodir}/org.kde.plasma.networkmanagement.appdata.xml
+%{_kf6_metainfodir}/org.kde.plasma.networkmanagement.appdata.xml
 
 # kcm
-%{_qt5_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_networkmanagement.so
+%{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_networkmanagement.so
 %{_datadir}/kcm_networkmanagement/qml/
-%{_kf5_datadir}/applications/kcm_networkmanagement.desktop
-%{_datadir}/locale/*/LC_MESSAGES/kcm_mobile_wifi.mo
-%{_datadir}/locale/*/LC_MESSAGES/kcm_mobile_hotspot.mo
+%{_kf6_datadir}/applications/kcm_networkmanagement.desktop
 
-%files mobile
-%{_qt5_plugindir}/kcms/kcm_mobile_hotspot.so
-%{_qt5_plugindir}/kcms/kcm_mobile_wifi.so
-%{_kf5_datadir}/kpackage/kcms/kcm_mobile_hotspot/contents/ui/main.qml
-###%{_kf5_datadir}/kpackage/kcms/kcm_mobile_hotspot/metadata.desktop
-###%{_kf5_datadir}/kpackage/kcms/kcm_mobile_hotspot/metadata.json
-%{_kf5_datadir}/kpackage/kcms/kcm_mobile_wifi/contents/ui/ConnectDialog.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_mobile_wifi/contents/ui/ConnectionItemDelegate.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_mobile_wifi/contents/ui/NetworkSettings.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_mobile_wifi/contents/ui/PasswordField.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_mobile_wifi/contents/ui/main.qml
-###%{_kf5_datadir}/kpackage/kcms/kcm_mobile_wifi/metadata.desktop
-###%{_kf5_datadir}/kpackage/kcms/kcm_mobile_wifi/metadata.json
-###%{_kf5_datadir}/kservices5/hotspotsettings.desktop
-###%{_kf5_datadir}/kservices5/wifisettings.desktop
-
-
-%if 0%{?fedora} || 0%{?rhel}
 %files openvpn -f plasmanetworkmanagement_openvpnui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openvpnui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openvpnui.so
 
+%if %{with openconnect}
 %files openconnect -f plasmanetworkmanagement_openconnectui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_anyconnect.so
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_globalprotectui.so
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_juniperui.so
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_pulseui.so
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_arrayui.so
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_f5ui.so
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_fortinetui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_anyconnect.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_globalprotectui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_juniperui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_pulseui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_arrayui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_f5ui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openconnect_fortinetui.so
+%endif
 
 %files openswan -f plasmanetworkmanagement_libreswanui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_libreswanui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_libreswanui.so
 
 %files strongswan -f plasmanetworkmanagement_strongswanui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_strongswanui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_strongswanui.so
 
 %files l2tp -f plasmanetworkmanagement_l2tpui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_l2tpui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_l2tpui.so
 
 %files pptp -f plasmanetworkmanagement_pptpui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_pptpui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_pptpui.so
 
 %files sstp -f plasmanetworkmanagement_sstpui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sstpui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sstpui.so
 
 %files fortisslvpn -f plasmanetworkmanagement_fortisslvpnui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_fortisslvpnui.so
-%endif
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_fortisslvpnui.so
 
 %if 0%{?fedora}
 %files vpnc -f plasmanetworkmanagement_vpncui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
 
 %files ssh -f plasmanetworkmanagement_sshui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sshui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sshui.so
 
 %files iodine -f plasmanetworkmanagement_iodineui.lang
-%{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_iodineui.so
+%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_iodineui.so
 %endif
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

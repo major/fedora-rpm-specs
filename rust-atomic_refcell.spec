@@ -5,7 +5,7 @@
 %global crate atomic_refcell
 
 Name:           rust-atomic_refcell
-Version:        0.1.12
+Version:        0.1.13
 Release:        %autorelease
 Summary:        Threadsafe RefCell
 

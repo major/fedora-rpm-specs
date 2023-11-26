@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a1
+%global prerel a2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -553,9 +553,6 @@ Conflicts: %{pkgname} < %{version}-%{release}
 This package contains the header files and configuration needed to compile
 Python extension modules (typically written in C or C++), to embed Python
 into other programs, and to make binary distributions for Python libraries.
-
-It also contains the necessary macros to build RPM packages with Python modules
-and 2to3 tool, an automatic source converter from Python 2.X.
 
 
 %package -n %{pkgname}-idle
@@ -1651,6 +1648,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Nov 24 2023 Karolina Surma <ksurma@redhat.com> - 3.13.0~a2-1
+- Update to Python 3.13.0a2
+
 * Wed Nov 15 2023 Miro Hrončok <mhroncok@redhat.com> - 3.13.0~a1-2
 - Build Python 3.13 using Python 3.13
 

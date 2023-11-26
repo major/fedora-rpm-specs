@@ -4,7 +4,7 @@
 
 Name:    kf5-plasma
 Version: 5.111.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: KDE Frameworks 5 Tier 3 framework is foundation to build a primary user interface
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -68,10 +68,6 @@ BuildRequires:  qt5-qtx11extras-devel
 
 Requires:       qt5-qtquickcontrols%{?_isa}
 Requires:       qt5-qtquickcontrols2%{?_isa}
-
-%if %{with kf6_compat}
-Requires:       kf6-plasma%{?_isa}
-%endif
 
 # https://bugzilla.redhat.com/1293415
 Conflicts:      kdeplasma-addons < 5.5.0-3
@@ -170,6 +166,9 @@ sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
 
 
 %changelog
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-6
+- Don't require kf6-plasma
+
 * Mon Nov 13 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-5
 - Don't provide the plasma-frameworks name for Plasma 6
 

@@ -1,40 +1,15 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-# avoid slow arm arch for now
-%ifnarch %{arm}
-%global tests 1
-%endif
-%endif
-
-# Control wayland by default
-%if (0%{?fedora} && 0%{?fedora} < 34) || (0%{?rhel} && 0%{?rhel} < 9)
-%bcond_with wayland_default
-%else
-%bcond_without wayland_default
-%endif
+# X11 session is not shipped anymore
+%bcond x11 0
 
 Name:    kwin
-Version: 5.27.9
-Release: 2%{?dist}
+Version: 5.27.80
+Release: 5%{?dist}
 Summary: KDE Window manager
 
-# all sources are effectively GPLv2+, except for:
-# scripts/enforcedeco/contents/code/main.js
-# KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://userbase.kde.org/KWin
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -42,21 +17,20 @@ Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.
 
 # Base
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
 # Qt
 BuildRequires:  qaccessibilityclient-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-static
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-static
 # KWinQpaPlugin (and others?)
-BuildRequires:  qt5-qtbase-private-devel
-BuildRequires:  qt5-qtsensors-devel
-BuildRequires:  qt5-qtscript-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qttools-static
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  qt5-qtwayland-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtsensors-devel
+BuildRequires:  qt6-qttools-devel
+BuildRequires:  qt6-qttools-static
+BuildRequires:  qt6-qtwayland-devel
+BuildRequires:  cmake(Qt6Core5Compat)
 
 # X11/OpenGL
 BuildRequires:  pkgconfig(libxcvt)
@@ -84,67 +58,56 @@ BuildRequires:  glib2-devel
 BuildRequires:  pipewire-devel
 
 # Wayland
-BuildRequires:  kf5-kwayland-devel
+BuildRequires:  cmake(KF6Wayland)
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  libxkbcommon-devel >= 0.4
 BuildRequires:  pkgconfig(libinput) >= 0.10
 BuildRequires:  pkgconfig(libudev)
 
-# KF5
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kcrash-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kglobalaccel-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kinit-devel >= 5.10.0-3
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-knewstuff-devel
-BuildRequires:  kf5-kactivities-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kidletime-devel
-BuildRequires:  kf5-ktextwidgets-devel
-BuildRequires:  kf5-kirigami2-devel
-BuildRequires:  kf5-krunner-devel
+# KF6
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6Plasma)
+#BuildRequires:  cmake(KF6WidgetAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  cmake(KF6Activities)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6IdleTime)
+BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Runner)
+BuildRequires:  cmake(KF6Svg)
 
-BuildRequires:  kdecoration-devel >= %{majmin_ver}
-BuildRequires:  kscreenlocker-devel >= %{majmin_ver}
-BuildRequires:  plasma-breeze-devel >= %{majmin_ver}
+BuildRequires:  cmake(KDecoration2)
+BuildRequires:  kscreenlocker-devel
+BuildRequires:  plasma-breeze-devel
 BuildRequires:  plasma-wayland-protocols-devel
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: openbox
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires:  cmake(KGlobalAccelD)
+BuildRequires:  libdisplay-info-devel
 
 ## Runtime deps
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-common%{?_isa} = %{version}-%{release}
-Requires:       kdecoration%{?_isa} >= %{majmin_ver}
-Requires:       kscreenlocker%{?_isa} >= %{majmin_ver}
-
-# Runtime-only dependencies
-%if ! 0%{?bootstrap}
-BuildRequires:  qt5-qtmultimedia-devel
-BuildRequires:  qt5-qtvirtualkeyboard
-%endif
-Requires:       qt5-qtmultimedia%{?_isa}
-Recommends:     qt5-qtvirtualkeyboard%{?_isa}
-# libkdeinit5_kwin*
-%{?kf5_kinit_requires}
+Requires:       kscreenlocker%{?_isa}
+Requires:       kf6-kirigami2%{?_isa}
+Requires:       kf6-kdeclarative%{?_isa}
+Requires:       libplasma%{?_isa} >= %{version}
+Requires:       qt6-qtmultimedia%{?_isa}
+Requires:       qt6-qtdeclarative%{?_isa}
 
 # Before kwin was split out from kde-workspace into a subpackage
 Conflicts:      kde-workspace%{?_isa} < 4.11.14-2
@@ -159,13 +122,7 @@ Provides: firstboot(windowmanager) = kwin
 # Split of X11 variant into subpackage
 Obsoletes: kwin < 5.19.5-3
 
-%if ! %{with wayland_default}
-Recommends: %{name}-wayland = %{version}-%{release}
-Requires:   %{name}-x11 = %{version}-%{release}
-%else
 Requires:   %{name}-wayland = %{version}-%{release}
-Recommends: %{name}-x11 = %{version}-%{release}
-%endif
 
 %description
 %{summary}.
@@ -174,7 +131,7 @@ Recommends: %{name}-x11 = %{version}-%{release}
 Summary:        KDE Window Manager with Wayland support
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-common%{?_isa} = %{version}-%{release}
-Requires:       kwayland-integration%{?_isa} >= %{majmin_ver}
+Requires:       kwayland-integration%{?_isa}
 %if ! 0%{?bootstrap}
 BuildRequires:  xorg-x11-server-Xwayland
 %endif
@@ -183,22 +140,23 @@ Requires:       xorg-x11-server-Xwayland
 Provides:       firstboot(windowmanager) = kwin_wayland
 # KWinQpaPlugin (and others?)
 
-# libkdeinit5_kwin*
-%{?kf5_kinit_requires}
 # Obsolete kwin-wayland-nvidia package as this is now done automatically
 # by kwin-wayland
 Obsoletes:      %{name}-wayland-nvidia < 5.20.2-2
 Provides:       %{name}-wayland-nvidia = %{version}-%{release}
+%if ! %{with x11}
+# Obsolete kwin-x11 as we are dropping the package
+Obsoletes:      %{name}-x11 < %{version}-%{release}
+Conflicts:      %{name}-x11 < %{version}-%{release}
+%endif
 %description    wayland
 %{summary}.
 
+%if %{with x11}
 %package        x11
 Summary:        KDE Window Manager with X11 support
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-common%{?_isa} = %{version}-%{release}
-%if ! 0%{?bootstrap}
-BuildRequires:  xorg-x11-server-Xorg
-%endif
 Requires:       xorg-x11-server-Xorg
 # Plasma X11 is deprecated and will be removed with Plasma 6.0
 Provides:       deprecated()
@@ -206,15 +164,14 @@ Provides:       deprecated()
 Provides:       firstboot(windowmanager) = kwin_x11
 # KWinX11Platform (and others?)
 
-# libkdeinit5_kwin*
-%{?kf5_kinit_requires}
 %description    x11
 %{summary}.
+%endif
 
 %package        common
 Summary:        Common files for KWin X11 and KWin Wayland
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       kf5-kwayland%{?_isa} >= 5.91.0
+Requires:       kwayland%{?_isa}
 # Split of X11 variant into subpackage
 Obsoletes:      %{name}-common < 5.19.5-3
 %description    common
@@ -231,9 +188,9 @@ Conflicts:      kde-workspace-libs%{?_isa} < 4.11.14-2
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-common%{?_isa} = %{version}-%{release}
-Requires:       kf5-kconfig-devel
-Requires:       kf5-kservice-devel
-Requires:       kf5-kwindowsystem-devel
+Requires:       kf6-kconfig-devel
+Requires:       kf6-kservice-devel
+Requires:       kf6-kwindowsystem-devel
 Conflicts:      kde-workspace-devel < 5.0.0-1
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -256,77 +213,47 @@ sed -i \
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
 
 %find_lang %{name} --with-html --all-name
-grep "%{_kf5_docdir}" %{name}.lang > %{name}-doc.lang
-cat %{name}.lang %{name}-doc.lang | sort | uniq -u > kwin5.lang
+grep "%{_kf6_docdir}" %{name}.lang > %{name}-doc.lang
+cat %{name}.lang %{name}-doc.lang | sort | uniq -u > kwin6.lang
 
-%if ! %{with wayland_default}
 # temporary(?) hack to allow initial-setup to use /usr/bin/kwin too
-ln -s kwin_x11 %{buildroot}%{_bindir}/kwin
-%else
-# temporary(?) hack to allow initial-setup to use /usr/bin/kwin too
-ln -s kwin_wayland %{buildroot}%{_bindir}/kwin
+ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
+
+%if ! %{with x11}
+# Delete x11 session stuff
+rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwin_x11.service
 %endif
 
-
-%check
-%if 0%{?tests}
-# using low timeout to avoid extending buildtimes too much for now -- rex
-export CTEST_OUTPUT_ON_FAILURE=1
-# ToDo: replace _target_platform variable
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
-%endif
 
 %files
 %{_bindir}/kwin
 
-%files common -f kwin5.lang
+%files common -f kwin6.lang
 %{_datadir}/kwin
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/*.so
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
-%{_kf5_qtplugindir}/kwin/
-%{_kf5_qtplugindir}/kpackage/packagestructure/
-%{_kf5_qtplugindir}/org.kde.kdecoration2/*.so
-%{_qt5_qmldir}/org/kde/kwin
-%{_qt5_qmldir}/org/kde/kwin.2/qmldir
-%{_qt5_qmldir}/org/kde/kwin.2/DesktopThumbnailItem.qml
-%{_kf5_libdir}/kconf_update_bin/kwin5_update_default_rules
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
+%{_kf6_qtplugindir}/kwin/
+%{_kf6_qtplugindir}/kf6/packagestructure/kwin_*.so
+%{_qt6_plugindir}/org.kde.kdecoration2.kcm/kcm_auroraedecoration.so
+%{_kf6_qtplugindir}/org.kde.kdecoration2/*.so
+%{_qt6_qmldir}/org/kde/kwin
+%{_kf6_libdir}/kconf_update_bin/kwin5_update_default_rules
 %{_libexecdir}/kwin_killer_helper
-%{_libexecdir}/kwin_rules_dialog
 %{_libexecdir}/kwin-applywindowdecoration
 %{_datadir}/kconf_update/kwin.upd
-%{_datadir}/kconf_update/kwin-5.16-auto-bordersize.sh
-%{_datadir}/kconf_update/kwin-5.18-move-animspeed.py
-%{_datadir}/kconf_update/kwin-5.21-desktop-grid-click-behavior.py
-%{_datadir}/kconf_update/kwin-5.21-no-swap-encourage.py
-%{_datadir}/kconf_update/kwin-5.23-disable-translucency-effect.sh
-%{_datadir}/kconf_update/kwin-5.23-remove-cover-switch.py
-%{_datadir}/kconf_update/kwin-5.23-remove-cubeslide.py
-%{_datadir}/kconf_update/kwin-5.23-remove-flip-switch.py
-%{_datadir}/kconf_update/kwin-5.23-remove-xrender-backend.py
-%{_datadir}/kconf_update/kwinrules-5.23-virtual-desktop-ids.py
-%{_kf5_datadir}/kservicetypes5/*.desktop
-%{_kf5_datadir}/kpackage/kcms/kcm_*
-%{_kf5_datadir}/knotifications5/kwin.notifyrc
-%{_kf5_datadir}/config.kcfg/kwin.kcfg
-%{_kf5_datadir}/config.kcfg/kwindecorationsettings.kcfg
-%{_kf5_datadir}/config.kcfg/virtualdesktopssettings.kcfg
-%{_kf5_datadir}/config.kcfg/nightcolorsettings.kcfg
-%{_kf5_datadir}/kconf_update/kwinrules-5.19-placement.pl
-%{_kf5_datadir}/kconf_update/kwinrules.upd
-%{_kf5_datadir}/kconf_update/kwin-5.25-effect-pluginid-config-group.py
-%{_kf5_datadir}/kconf_update/kwin-5.27-replace-cascaded-zerocornered.sh
+%{_datadir}/kconf_update/kwin-6.0-overview-activities-shortcuts.py
+%{_kf6_datadir}/knotifications6/kwin.notifyrc
+%{_kf6_datadir}/config.kcfg/kwin.kcfg
+%{_kf6_datadir}/config.kcfg/kwindecorationsettings.kcfg
+%{_kf6_datadir}/config.kcfg/virtualdesktopssettings.kcfg
+%{_kf6_datadir}/config.kcfg/nightcolorsettings.kcfg
 %{_datadir}/icons/hicolor/*/apps/kwin.*
 %{_datadir}/knsrcfiles/*.knsrc
 %{_datadir}/krunner/dbusplugins/kwin-runner-windows.desktop
@@ -334,35 +261,47 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 %files wayland
 %{_bindir}/kwin_wayland_wrapper
-%{_kf5_bindir}/kwin_wayland
+%{_kf6_bindir}/kwin_wayland
 %{_userunitdir}/plasma-kwin_wayland.service
 
+%if %{with x11}
 %files x11
-%{_kf5_bindir}/kwin_x11
+%{_kf6_bindir}/kwin_x11
 %{_userunitdir}/plasma-kwin_x11.service
-
-%ldconfig_scriptlets libs
+%endif
 
 %files libs
-%{_kf5_datadir}/qlogging-categories5/org_kde_kwin.categories
+%{_kf6_datadir}/qlogging-categories6/org_kde_kwin.categories
 %{_libdir}/libkwin.so.*
-%{_libdir}/libkwineffects.so.*
-%{_libdir}/libkwinglutils.so.*
 %{_libdir}/libkcmkwincommon.so.*
 
 %files devel
 %{_datadir}/dbus-1/interfaces/*.xml
 %{_libdir}/cmake/KWinDBusInterface
-%{_libdir}/cmake/KWinEffects
-%{_libdir}/libkwineffects.so
-%{_libdir}/libkwinglutils.so
-%{_includedir}/kwin*.h
+%{_includedir}/kwin
+%{_libdir}/cmake/KWin
+%{_libdir}/libkwin.so
 
 %files doc -f %{name}-doc.lang
 %license LICENSES/*.txt
 
 
 %changelog
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-5
+- Explicit QML runtime dependencies
+
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-4
+- plasma-framework was renamed
+
+* Fri Nov 17 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.80-3
+- Drop -x11 subpackage and have -wayland subpackage obsolete it
+
+* Wed Nov 15 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-2
+- Updated -common requirement mistake
+
+* Mon Nov 13 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Fri Nov 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.9-2
 - Mark kwin-x11 as deprecated
 

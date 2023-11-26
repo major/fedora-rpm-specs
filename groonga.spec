@@ -45,7 +45,7 @@ on relational data model.
 
 %package        libs
 Summary:        Runtime libraries for Groonga
-License:        LGPL-2.1-only and (MIT or GPLv2)
+License:        LGPL-2.1-only AND (MIT OR GPL-2.0-only)
 
 %description    libs
 This package contains the libraries for Groonga.
@@ -79,7 +79,7 @@ This package contains the Groonga GQTP server.
 
 %package        server-http
 Summary:        Groonga HTTP server
-License:        LGPL-2.1-only and BSD-3-Clause
+License:        LGPL-2.1-only AND BSD-3-Clause
 Requires:       %{name}-server-common = %{version}-%{release}
 Requires(pre):  shadow-utils
 Requires(post): systemd
@@ -121,7 +121,7 @@ This package contains munin plugins for Groonga.
 
 %package        doc
 Summary:        Documentation for Groonga
-License:        LGPL-2.1-only and BSD-3-Clause
+License:        LGPL-2.1-only AND BSD-3-Clause
 
 %description doc
 This package contains documentation for Groonga.

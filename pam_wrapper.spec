@@ -1,6 +1,6 @@
 Name:           pam_wrapper
 Version:        1.1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 Summary:        A tool to test PAM applications and PAM modules
 License:        GPL-3.0-or-later
@@ -77,8 +77,7 @@ Requires:       libpamtest = %{version}-%{release}
 
 %description -n python3-libpamtest
 If you plan to develop python tests for a PAM module you can use this
-library, which simplifies testing of modules. This subpackage includes
-the header files for libpamtest
+Python module to quickly write tests in Python.
 
 
 %prep
@@ -145,6 +144,9 @@ sed -i -e 's/assertRaisesRegexp/assertRaisesRegex/' tests/pypamtest_test.py
 %{python3_sitearch}/pypamtest.so
 
 %changelog
+* Fri Nov 24 2023 Andreas Schneider <asn@redhat.com> - 1.1.4-10
+- Fix description of python3-libpamtest
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,18 +1,14 @@
+%bcond qt6 0
+
 Name:    krfb
 Summary: Desktop sharing
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
-License: GPLv2+ and GFDL
-URL:     https://www.kde.org/applications/system/krfb/
+License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
+URL:     https://www.kde.org/applications/network/krfb/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
 
@@ -33,7 +29,9 @@ BuildRequires: kf5-kwidgetsaddons
 BuildRequires: kf5-kxmlgui-devel
 BuildRequires: cmake(KF5Wayland)
 BuildRequires: cmake(KF5WindowSystem)
+%if %{with qt6}
 BuildRequires: cmake(KPipeWire)
+%endif
 
 BuildRequires: cmake(PlasmaWaylandProtocols)
 
@@ -88,7 +86,7 @@ Provides:  kdenetwork-krfb-libs = 7:%{version}-%{release}
 
 
 %build
-%cmake_kf5
+%cmake_kf5 %{!?with_qt6:-DDISABLE_PIPEWIRE=ON}
 
 %cmake_build
 
@@ -124,6 +122,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Sun Nov 19 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
+- 24.01.75
+- Disable kpipewire integration until this is ported to Qt6
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

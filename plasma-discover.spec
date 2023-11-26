@@ -91,7 +91,7 @@ BuildRequires: pkgconfig(Qt6Qml)
 BuildRequires: pkgconfig(Qt6QuickWidgets)
 BuildRequires: pkgconfig(Qt6Svg)
 BuildRequires: pkgconfig(Qt6Test)
-%ifarch %{qt5_qtwebengine_arches}
+%ifarch %{qt6_qtwebengine_arches}
 BuildRequires: pkgconfig(Qt6WebView)
 %endif
 BuildRequires: pkgconfig(Qt6Widgets)

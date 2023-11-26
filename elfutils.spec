@@ -1,12 +1,13 @@
 Name: elfutils
 Version: 0.190
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
 License: GPL-3.0-or-later and (GPL-2.0-or-later or LGPL-3.0-or-later) and GFDL-1.3-no-invariants-or-later
 Source: %{?source_url}%{name}-%{version}.tar.bz2
 Source1: elfutils-debuginfod.sysusers
+Source2: testcore-noncontig.bz2
 Summary: A collection of utilities and DSOs to handle ELF files and DWARF data
 
 # Needed for isa specific Provides and Requires.
@@ -74,6 +75,8 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
+# PR30975: Fix handling of corefiles with non-contiguous .so segments.
+Patch2: elfutils-0.190-fix-core-noncontig.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -257,6 +260,8 @@ autoreconf -f -v -i
 # In case the above patches added any new test scripts, make sure they
 # are executable.
 find . -name \*.sh ! -perm -0100 -print | xargs chmod +x
+
+cp %{SOURCE2} tests
 
 %build
 # Remove -Wall from default flags.  The makefiles enable enough warnings
@@ -442,6 +447,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Nov 24 2023 Aaron Merey <amerey@fedoraproject.org> - 0.190-3
+- Add elfutils-0.190-fix-core-noncontig.patch
+
 * Fri Nov  3 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.190-2
 - Update Fedora license tags to spdx license tags
 

@@ -1,39 +1,20 @@
+%global basever 1.2.0
+%global commit 21fb316bea83e3374eafc7fbf1e25a0ccdda92cb
+%global commitdate 20231511
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Summary: Basic desktop integration functions
 Name:    xdg-utils
-Version: 1.1.3
-Release: 15%{?dist}
+Version: %{basever}%{?commitdate:~git%{commitdate}.%{shortcommit}}
+Release: 1%{?dist}
 
 URL:     https://www.freedesktop.org/wiki/Software/xdg-utils/
 %if 0%{?snap:1}
 Source0: xdg-utils-%{version}-%{snap}.tar.gz
 %else
-Source0:  https://people.freedesktop.org/~rdieter/xdg-utils/xdg-utils-%{version}.tar.gz
-# New location
-#Source0:  https://gitlab.freedesktop.org/xdg/xdg-utils/-/archive/v1.1.3/xdg-utils-v%%{version}.tar.gz
-#Source0: http://portland.freedesktop.org/download/xdg-utils-%%{version}%%{?prerelease:-%%{prerelease}}.tar.gz
+Source0:  https://gitlab.freedesktop.org/xdg/xdg-utils/-/archive/%{commit}/xdg-utils-%{commit}.tar.gz
 %endif
-Source1: xdg-utils-git_checkout.sh
 License: MIT
-
-## upstream patches (treat as sources in lookaside cache)
-Patch1: 0001-open-for-post-1.1.3-development.patch
-Patch2: 0002-xdg-open-better-pcmanfm-check-BR106636-BR106161.patch
-Patch3: 0003-xdg-email-Support-for-Deepin.patch
-Patch4: 0004-Restore-matching-of-older-deepin-names.patch
-Patch5: 0005-xdg-open-handle-file-localhost.patch
-Patch6: 0006-test-lib.sh-run-eat-xdg-open-s-exit-code.patch
-Patch7: 0007-Fix-a-bug-when-xdg-terminal-needs-gsettings-to-get-t.patch
-Patch8: 0008-Fixes-x-argument-which-is-the-default-for-gnome-mate.patch
-Patch9: 0009-xdg-screensaver-Sanitise-window-name-before-sending-.patch
-Patch10: 0010-xdg-su-fix-some-easy-TODOs.patch
-Patch11: 0011-xdg-open-fix-comment-typo.patch
-Patch12: 0012-Enable-cinnamon-screensaver-for-xdg-aware-desktop-en.patch
-Patch13: 0013-support-digits-in-uri-scheme-regex.patch
-Patch14: 0014-xdg-mime-return-correct-exit-code-for-GNOME.patch
-Patch15: 0015-fixed-166-xdg-open-dose-not-search-correctly-in-dire.patch
-Patch16: 0016-Fix-xdg-settings-support-for-default-web-browser-for.patch
-Patch17: 0017-Use-grep-E-instead-of-the-obsoleted-egrep.patch
 
 # make sure BuildArch comes *after* patches, to ensure %%autosetup works right
 # http://bugzilla.redhat.com/1084309
@@ -71,7 +52,7 @@ The following scripts are provided at this time:
 
 
 %prep
-%autosetup -n %{name}-%{version}%{?pre:-%{pre}} -p1
+%autosetup -n %{name}-%{commit} -p1
 
 
 %build
@@ -88,7 +69,7 @@ make man scripts %{?_smp_mflags} -C scripts
 
 
 %files
-%doc ChangeLog README TODO
+%doc ChangeLog README.md TODO
 %license LICENSE
 %{_bindir}/xdg-desktop-icon
 %{_bindir}/xdg-desktop-menu
@@ -109,6 +90,9 @@ make man scripts %{?_smp_mflags} -C scripts
 
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 1.2.0~git20231511.21fb316-1
+- Update to 1.2.0~ git snapshot
+
 * Tue Jul 25 2023 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.1.3-15
 - Use "grep -E" instead of the obsoleted "egrep"
   Resolves: BZ#2140197

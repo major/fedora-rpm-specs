@@ -9,7 +9,7 @@
 
 Name:           libisds
 Version:        0.11.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for accessing the Czech Data Boxes
 # COPYING:      LGPL-3.0 text
 # README:       LGPL-3.0-or-later
@@ -65,6 +65,8 @@ Patch0:         libisds-0.11.2-tests-Do-not-send-multi-line-HTTP-headers-by-serv
 Patch1:         libisds-0.11.2-Use-CURLOPT_XFERINFOFUNCTION-curl-option-if-availabl.patch
 # Fix a use-after-free in an example code, in upstream after 0.11.2
 Patch2:         libisds-0.11.2-client-sendxmldoc-Fix-a-use-after-free-on-two-places.patch
+# Adapt to changes in libxml2-2.12.0, in upstream after 0.11.2
+Patch3:         libisds-0.11.2-Fix-building-with-libxml2-2.12.0.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -175,6 +177,9 @@ rm -rf client/.deps client/Makefile{,.in}
 %doc client
 
 %changelog
+* Fri Nov 24 2023 Petr Pisar <ppisar@redhat.com> - 0.11.2-7
+- Adapt to changes in libxml2-2.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

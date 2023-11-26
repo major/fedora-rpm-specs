@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.31
+Version: 12.32
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Nov 24 2023 Nick Clifron  <nickc@redhat.com> - 12.32-1
+- GCC Plugin: Add support for -fhardended.
+
 * Wed Nov 15 2023 Nick Clifron  <nickc@redhat.com> - 12.31-1
 - Update glibc detection heuristics for PPC64.  (RHEL-16453)
 

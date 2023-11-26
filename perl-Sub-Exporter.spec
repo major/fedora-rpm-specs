@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Sub-Exporter
-Version:	0.990
+Version:	0.991
 Release:	1%{?dist}
 Summary:	Sophisticated exporter for custom-built routines
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -19,6 +19,7 @@ BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
+BuildRequires:	perl(:VERSION) >= 5.12.0
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.78
 # Module
 BuildRequires:	perl(Carp)
@@ -94,6 +95,11 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Sub::Exporter::Util.3*
 
 %changelog
+* Fri Nov 24 2023 Paul Howarth <paul@city-fan.org> - 0.991-1
+- Update to 0.991
+  - Make the requirement for perl v5.12.0 explicit; previously, it was only
+    implicit because of prerequisites
+
 * Sat Jul 22 2023 Paul Howarth <paul@city-fan.org> - 0.990-1
 - Update to 0.990
   - Fixes to keep working in v5.39 (GH#17, GH#18)

@@ -4,11 +4,11 @@
 %global libev_version 4.33
 
 Name: rubygem-%{gem_name}
-Version: 2.5.8
-Release: 4%{?dist}
+Version: 2.6.1
+Release: 1%{?dist}
 Summary: New IO for Ruby
-# The entire source code is MIT, bundled libev is BSD or GPLv2+
-License: MIT and (BSD or GPLv2+)
+# The entire source code is MIT, bundled libev is BSD-2-Clause OR GPL-2.0-or-later
+License: MIT AND (BSD-2-Clause OR GPL-2.0-or-later)
 URL: https://github.com/socketry/nio4r
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
@@ -72,42 +72,38 @@ EV_VERSION_MAJOR=$(grep EV_VERSION_MAJOR ext/libev/ev.h | cut -d ' ' -f3)
 EV_VERSION_MINOR=$(grep EV_VERSION_MINOR ext/libev/ev.h | cut -d ' ' -f3)
 [ "${EV_VERSION_MAJOR}.${EV_VERSION_MINOR}" = '%{libev_version}' ]
 
-# Ignore code coverage.
-sed -i '/require "coveralls"/ s/^/#/' spec/spec_helper.rb
-sed -i '/Coveralls.wear!/ s/^/#/' spec/spec_helper.rb
-
-# Load nio4r_ext.so.
-# Explicitly require openssl, until this gets fixed.
-# https://github.com/socketry/nio4r/issues/283
-rspec -I$(dirs +1)%{gem_extdir_mri} -ropenssl spec
+rspec -I$(dirs +1)%{gem_extdir_mri} spec
 
 # Test also pure Ruby implementation.
-NIO4R_PURE=true rspec -I$(dirs +1)%{gem_extdir_mri} -ropenssl spec
+NIO4R_PURE=true rspec -I$(dirs +1)%{gem_extdir_mri} spec
 popd
 
 %files
 %dir %{gem_instdir}
 %{gem_extdir_mri}
 %exclude %{gem_instdir}/.*
-# License file was removed in favor of README.md
-# https://github.com/socketry/nio4r/issues/228
-%license %{gem_instdir}/README.md
+%license %{gem_instdir}/license.md
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/CHANGES.md
 %{gem_instdir}/Gemfile
 %{gem_instdir}/logo.png
 %{gem_instdir}/rakelib
 %{gem_instdir}/Rakefile
+%doc %{gem_instdir}/changes.md
 %{gem_instdir}/examples
 %{gem_instdir}/nio4r.gemspec
+%doc %{gem_instdir}/readme.md
 %{gem_instdir}/spec
 
 %changelog
+* Fri Nov 24 2023 Vít Ondruch <vondruch@redhat.com> - 2.6.1-1
+- Update to nio4r 2.6.1.
+  Resolves: rhbz#2183888
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

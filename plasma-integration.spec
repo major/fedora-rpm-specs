@@ -1,23 +1,14 @@
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
-Version: 5.27.9
-Release: 1%{?dist}
+Version: 5.27.80
+Release: 2%{?dist}
 
-# KDE e.V. may determine that future LGPL versions are accepted
-License: LGPLv2 or LGPLv3
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  wayland-devel
 BuildRequires:  cmake(PlasmaWaylandProtocols) >= 1.6.0
@@ -25,12 +16,32 @@ BuildRequires:  cmake(PlasmaWaylandProtocols) >= 1.6.0
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcursor)
 
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  pkgconfig(Qt6QuickControls2)
+BuildRequires:  qt6-qtbase-private-devel
+
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6Wayland)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+
+# Qt5 build
 BuildRequires:  cmake(Qt5WaylandClient)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  cmake(Qt5X11Extras)
 BuildRequires:  pkgconfig(Qt5QuickControls2)
-# Qt5PlatformSupport
+BuildRequires:  qt5-qtbase-private-devel
+# Qt5ThemeSupport
 BuildRequires:  qt5-qtbase-static
 
 BuildRequires:  cmake(KF5Config)
@@ -42,53 +53,62 @@ BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5WindowSystem)
 BuildRequires:  cmake(KF5Wayland)
+BuildRequires:  cmake(KF5GuiAddons)
 
-## TODO: verify this is needed, not 100% sure -- rex
-BuildRequires: qt5-qtbase-private-devel
-%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
-
-BuildRequires:  plasma-breeze-devel >= %{majmin_ver}
-Requires:       plasma-breeze >= %{majmin_ver}
-Requires:       breeze-cursor-theme >= %{majmin_ver}
+BuildRequires:  plasma-breeze-devel
+Requires:       plasma-breeze
+Requires:       breeze-cursor-theme
 Requires:       breeze-icon-theme
-Recommends:     plasma-workspace >= %{majmin_ver}
+Recommends:     plasma-workspace
+
+Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
 %description
 %{summary}.
 
+%package        qt5
+Summary:        Qt5 support for %{name}
+%description    qt5
+%{summary}.
 
 %prep
 %autosetup -p1
 
-sed -i.breeze_version \
-  -e "s|^find_package(Breeze \${PROJECT_VERSION} |find_package(Breeze %{majmin_ver} |g" \
-  CMakeLists.txt
-
-
 %build
-%cmake_kf5
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake_kf6 -DBUILD_QT5=OFF -DBUILD_QT6=ON
+%cmake_build
 
+%global _vpath_builddir %{_target_platform}-qt5
+%cmake_kf5 -DBUILD_QT5=ON  -DBUILD_QT6=OFF
 %cmake_build
 
 
 %install
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake_install
+
+%global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
 
 %find_lang plasmaintegration5
 
-
 %files -f plasmaintegration5.lang
 %doc README.md
 %license LICENSES
-%{_kf5_qtplugindir}/platformthemes/KDEPlasmaPlatformTheme.so
-%{_kf5_datadir}/kconf_update/fonts_*
-%{_qt5_plugindir}/platforminputcontexts/plasmaimplatforminputcontextplugin.so
-# -devel subpkg ?
-%{_includedir}/PlasmaKeyData/
-%{_libdir}/pkgconfig/plasma-key-data.pc
+%{_qt6_plugindir}/platformthemes/KDEPlasmaPlatformTheme6.so
+%{_kf6_datadir}/kconf_update/fonts_*
 
+%files qt5
+%{_qt5_plugindir}/platformthemes/KDEPlasmaPlatformTheme5.so
 
 %changelog
+* Mon Nov 20 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
+- Qt5 build
+
+* Tue Nov 14 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

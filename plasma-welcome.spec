@@ -1,45 +1,44 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        5.27.9
+Version:        5.27.80
 Release:        1%{?dist}
-License:        GPLv2+ and BSD
+License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
 Url:            https://invent.kde.org/plasma/%{name}
 
-%global stable %stable_kf5
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 # Upstream patches
 
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Svg)
 
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KAccounts)
-BuildRequires:  cmake(KF5NewStuff)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5NetworkManagerQt)
-BuildRequires:  cmake(KF5Service)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KUserFeedback)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Svg)
+
+Requires:       kf6-kuserfeedback
 
 Provides:       plasma-welcome-app = %{version}-%{release}
 Obsoletes:      plasma-welcome-app < 5.27.0-2
@@ -49,11 +48,11 @@ A Friendly onboarding wizard for Plasma.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
-# It is for generate pot file for translate so we can ignore it. Also CC0 license not allowed
+# It is for generate pot file for translate so we can ignore it.
 rm Messages.sh
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -67,16 +66,16 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{orgname}.deskto
 %files -f %{name}.lang
 %license src/LICENSES/{BSD-3-Clause.txt,GPL-2.0-or-later.txt,FSFAP.txt}
 %doc README.md
-%{_sysconfdir}/xdg/autostart/org.kde.plasma-welcome.desktop
-%{_kf5_qmldir}/org/kde/plasma/welcome/GenericPage.qml
-%{_kf5_qmldir}/org/kde/plasma/welcome/KCM.qml
-%{_kf5_qmldir}/org/kde/plasma/welcome/qmldir
-%{_kf5_bindir}/plasma-welcome
-%{_kf5_datadir}/applications/%{orgname}.desktop
-%{_kf5_metainfodir}/%{orgname}.*.xml
+%{_kf6_bindir}/plasma-welcome
+%{_kf6_datadir}/applications/%{orgname}.desktop
+%{_kf6_metainfodir}/%{orgname}.*.xml
+%{_kf6_plugindir}/kded/kded_plasma-welcome.so
 
 
 %changelog
+* Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

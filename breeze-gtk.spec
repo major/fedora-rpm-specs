@@ -1,32 +1,28 @@
 Name:    breeze-gtk
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: Breeze widget theme for GTK
 
-License: GPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+License: BSD-3-Clause AND CC0-1.0
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildArch:      noarch
 
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
 BuildRequires:  gtk2-engines
-BuildRequires:  plasma-breeze-devel >= 5.20.2-2
+BuildRequires:  plasma-breeze-devel
 BuildRequires:  python3-cairo-devel
 BuildRequires:  sassc
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 
 # not used directly, but is an indirect dep from ECMQueryQmake.cmake
 # probably should be fixed there -- rex
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  cmake(Qt6Core)
 
 # main meta package to depend on all subpkgs, for cleaner/simpler upgrade path
 Requires: %{name}-gtk2 = %{version}-%{release}
@@ -69,16 +65,12 @@ Supplements:    (plasma-breeze and gtk4)
 %prep
 %autosetup -n %{name}-%{version} -p1
 
-
 %build
-%cmake_kf5
-
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
-
 
 %install
 %cmake_install
-
 
 %files
 # empty metapackage
@@ -107,6 +99,9 @@ Supplements:    (plasma-breeze and gtk4)
 
 
 %changelog
+* Tue Nov 14 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

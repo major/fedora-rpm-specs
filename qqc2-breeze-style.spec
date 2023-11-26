@@ -1,44 +1,32 @@
-
-%global kf5_version_min 5.98
-
 Name:    qqc2-breeze-style
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 Summary: QtQuickControls2 breeze style
 
-License: GPLv2+ and LGPLv2+
+License: CC0-1.0 and GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global verdir %(echo %{version} | cut -d. -f1-3)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-
-Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: extra-cmake-modules >= %{kf5_version_min}
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-ki18n-devel >= %{kf5_version_min}
-BuildRequires: kf5-kirigami2-devel >= %{kf5_version_min}
-Requires: kf5-kirigami2%{?_isa} >= %{kf5_version_min}
-BuildRequires: kf5-kconfig-devel >= %{kf5_version_min}
-BuildRequires: kf5-kguiaddons-devel >= %{kf5_version_min}
-BuildRequires: kf5-kiconthemes-devel >= %{kf5_version_min}
-BuildRequires: kf5-kconfigwidgets-devel >= %{kf5_version_min}
-BuildRequires: qt5-qtquickcontrols2-devel
-Requires: qt5-qtquickcontrols2%{?_isa}
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
+BuildRequires: cmake(KF6ColorScheme)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KirigamiPlatform)
+BuildRequires: cmake(KF6QuickCharts)
+
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtdeclarative-devel
+
+Requires:       kf6-kquickcharts
 
 
 %description
@@ -49,8 +37,7 @@ This is a pure Qt Quick/Kirigami Qt Quick Controls style.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
@@ -61,13 +48,15 @@ This is a pure Qt Quick/Kirigami Qt Quick Controls style.
 %files 
 %doc README.md
 %license LICENSES/*.txt
-%{_kf5_plugindir}/kirigami/org.kde.breeze.so
-%{_qt5_qmldir}/QtQuick/Controls.2/org.kde.breeze
-%{_qt5_qmldir}/org/kde/breeze/
-%{_qt5_qmldir}/org/kde/kirigami.2/styles/org.kde.breeze/
-%{_kf5_libdir}/cmake/KF5QQC2BreezeStyle/
+%{_kf6_plugindir}/kirigami/platform/org.kde.breeze.so
+%{_qt6_qmldir}/org/kde/breeze/
+%{_qt6_qmldir}/org/kde/kirigami/styles/org.kde.breeze/
+%{_kf6_libdir}/cmake/QQC2BreezeStyle/
 
 %changelog
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

@@ -6,12 +6,14 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Parse XML
 
 License:          GPLv2+
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+# https://github.com/r-lib/xml2/pull/417
+Patch0:           R-xml2-libxml2-2.12.0-includes.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
@@ -49,6 +51,9 @@ Development files for %{name}.
 
 %prep
 %setup -q -c -n %{packname}
+pushd %{packname}
+%patch -P 0 -p1
+popd
 
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION
@@ -95,6 +100,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Nov 24 2023 David King <amigadave@amigadave.com> - 1.3.4-3
+- Fix building against libxml2 2.12.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

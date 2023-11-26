@@ -14,7 +14,7 @@
 %undefine _include_frame_pointers
 
 # Components enabled if supported by target architecture:
-%define gold_arches %{ix86} x86_64 %{arm} aarch64 %{power64} s390x
+%define gold_arches %{ix86} x86_64 aarch64 %{power64} s390x
 %ifarch %{gold_arches}
   %bcond_without gold
 %else
@@ -49,7 +49,6 @@
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
-%global _lto_cflags -flto=thin
 
 %if %{with compat_build}
 %global pkg_name llvm%{maj_ver}
@@ -85,13 +84,7 @@
 %global _dwz_low_mem_die_limit_s390x 1
 %global _dwz_max_die_limit_s390x 1000000
 
-%ifarch %{arm}
-# koji overrides the _gnu variable to be gnu, which is not correct for clang, so
-# we need to hard-code the correct triple here.
-%global llvm_triple armv7l-redhat-linux-gnueabihf
-%else
 %global llvm_triple %{_target_platform}
-%endif
 
 # https://fedoraproject.org/wiki/Changes/PythonSafePath#Opting_out
 # Don't add -P to Python shebangs
@@ -272,7 +265,7 @@ mv %{third_party_srcdir} third-party
 %global _lto_cflags %nil
 %endif
 
-%ifarch s390 s390x %{arm} %ix86
+%ifarch s390 s390x %ix86
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
@@ -287,7 +280,7 @@ export ASMFLAGS="%{build_cflags}"
 	-DLLVM_PARALLEL_LINK_JOBS=1 \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
-%ifarch s390 %{arm} %ix86
+%ifarch s390 %ix86
 	-DCMAKE_C_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG" \
 	-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG" \
 %endif
@@ -467,14 +460,6 @@ mkdir -p %{buildroot}%{pkg_datadir}/llvm/cmake
 cp -Rv ../cmake/* %{buildroot}%{pkg_datadir}/llvm/cmake
 
 %check
-# Disable check section on arm due to some kind of memory related failure.
-# Possibly related to https://bugzilla.redhat.com/show_bug.cgi?id=1920183
-%ifnarch %{arm}
-
-# TODO: Fix the failures below
-%ifarch %{arm}
-rm test/tools/llvm-readobj/ELF/dependent-libraries.test
-%endif
 
 # non reproducible errors
 rm test/tools/dsymutil/X86/swift-interface.test
@@ -482,8 +467,6 @@ rm test/tools/dsymutil/X86/swift-interface.test
 %if %{with check}
 # FIXME: use %%cmake_build instead of %%__ninja
 LD_LIBRARY_PATH=%{buildroot}/%{install_libdir}  %{__ninja} check-all -C %{_vpath_builddir}
-%endif
-
 %endif
 
 %ldconfig_scriptlets libs

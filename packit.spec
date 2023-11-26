@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.86.2
+Version:        0.87.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,11 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Nov 24 2023 Packit <hello@packit.dev> - 0.87.0-1
+- Packit now correctly sets the specfile content (e.g. changelog entry) even if it syncs the specfile from upstream the first time. (#2170)
+- Packit now supports pre-release version in `propose_downstream` and `pull_from_upstream`. A spec file update might be required, see the documentation for more details. (#2149)
+- Resolves rhbz#2251367
+
 * Mon Nov 20 2023 Packit <hello@packit.dev> - 0.86.2-1
 - Packit _0.86.1_ was not released on PyPI due to an internal bug, it should be fixed in this release.
 

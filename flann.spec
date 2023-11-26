@@ -4,7 +4,7 @@
 
 Name:           flann
 Version:        1.9.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
 License:        BSD
@@ -18,6 +18,8 @@ Patch0:         flann-1.9.1-fixpyflann.patch
 Patch3:         flann-1.9.2-py3.12.patch
 # Install cmake scripts to correct libdir
 Patch4:         flann-1.9.2-cmakeinstall.patch
+# Fix pkgconfig file generation
+Patch5:         flann-1.9.2-pkgconfig.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -49,6 +51,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: boost-devel
 # The cmake files get very unhappy if they can't find the static libs
 Requires: %{name}-static%{?_isa} = %{version}-%{release}
+# lz4 headers are exposed in the public API
+Requires: lz4-devel
 
 %description devel
 Development headers and libraries for flann.
@@ -74,6 +78,7 @@ Python 3 bindings for flann
 %patch 0 -p0 -b .fixpyflann
 %patch 3 -p0 -b .py3.12
 %patch 4 -p0 -b .cmakeinstall
+%patch 5 -p0 -b .pkgconfig
 
 # Fix library install directory
 sed -i 's/"lib"/"%{_lib}"/' cmake/flann_utils.cmake
@@ -122,6 +127,10 @@ rm -rf %{buildroot}%{_datadir}/doc/flann
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 1.9.2-4
+- Fix pkgconfig file and add lz4-devel requirement to -devel package
+- Resolves: rhbz#2240334
+
 * Thu Aug 10 2023 Tom Callaway <spot@fedoraproject.org> - 1.9.2-3
 - the cmake files need to find the static libs or they error out, so -devel depends on -static now
 

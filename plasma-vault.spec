@@ -38,7 +38,7 @@ prying eyes even when the user is logged in.
 %autosetup -n %{name}-%{version} -p1
 
 %build
-%cmake_kf6 -DBUILD_WITH_QT6=ON
+%cmake_kf6
 %cmake_build
 
 

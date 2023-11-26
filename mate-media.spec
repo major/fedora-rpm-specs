@@ -1,6 +1,6 @@
 Name:           mate-media
 Version:        1.26.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MATE media programs
 License:        GPLv2+ and LGPLv2+
 URL:            http://mate-desktop.org
@@ -11,6 +11,8 @@ Source0:        http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar
 Patch1:        mate-media_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
 # https://github.com/mate-desktop/mate-media/commit/0ae3d7f
 Patch2:        mate-media_0001-gvc-stream-status-icon-fix-a-volume-rounding-error-1.patch
+# libxml-2.12.0
+Patch3:        mate-media_0001-fix-building-with-libxml-2.12.0.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
@@ -68,6 +70,9 @@ rm -rf %{buildroot}%{_sysconfdir}/xdg/autostart/mate-volume-control-status-icon.
 
 
 %changelog
+* Fri Nov 24 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-3
+- fix building with libxml-2.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -28,10 +28,13 @@ BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6IdleTime)
 BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6PlasmaQuick)
 BuildRequires:  cmake(KF6Screen)
+BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6XmlGui)
 
 BuildRequires:  libX11-devel
 BuildRequires:  xcb-util-keysyms-devel

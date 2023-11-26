@@ -1,6 +1,6 @@
 Name:           shigofumi
 Version:        0.9
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Command line client for accessing the Czech Data Boxes
 # COPYING:          GPLv3 text
 # README:           GPLv3+
@@ -48,6 +48,8 @@ Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 Patch0:         shigofumi-0.9-Fix-building-with-GCC-12.patch
 # Fix use-after-frees when handling XML ISDS documents, in upstream after 0.9
 Patch1:         shigofumi-0.9-Fix-two-use-after-frees-when-handling-XML-ISDS-docum.patch
+# Adapt to changes in libxml2-2.12.0, in upstream after 0.9
+Patch2:         shigofumi-0.9-Fix-building-with-libxml2-2.12.0.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  file-devel
@@ -87,13 +89,16 @@ autoreconf -fi
 %files -f %{name}.lang
 %license COPYING
 %doc README AUTHORS NEWS TODO ChangeLog
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/*/man1/*
-%{_mandir}/man5/*
-%{_mandir}/*/man5/*
+%{_bindir}/shigofumi
+%{_mandir}/man1/shigofumi.*
+%{_mandir}/*/man1/shigofumi.*
+%{_mandir}/man5/shigofumirc.*
+%{_mandir}/*/man5/shigofumirc.*
 
 %changelog
+* Fri Nov 24 2023 Petr Pisar <ppisar@redhat.com> - 0.9-8
+- Adapt to changes in libxml2-2.12.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

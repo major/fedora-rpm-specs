@@ -1,10 +1,11 @@
 Name:           perl-Encode-JIS2K
-Version:        0.03
-Release:        25%{?dist}
+Version:        0.05
+Release:        1%{?dist}
 Summary:        JIS X 0212 (aka JIS 2000) Encodings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Encode-JIS2K
 Source0:        https://cpan.metacpan.org/modules/by-module/Encode/Encode-JIS2K-%{version}.tar.gz
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -17,7 +18,7 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Encode::CJKConstants)
 BuildRequires:  perl(Encode::Encoding)
 BuildRequires:  perl(Encode::JP::H2Z)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) %{!?el7:>= 6.76}
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Compare)
 BuildRequires:  perl(File::Spec)
@@ -39,20 +40,22 @@ hence the module name).
 %setup -q -n Encode-JIS2K-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
+  %{!?el7:NO_PACKLIST=1 NO_PERLLOCAL=1}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-# Remove the next line from noarch packages (unneeded)
-find $RPM_BUILD_ROOT -type f -name '*.bs' -a -size 0 -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
-%{_fixperms} $RPM_BUILD_ROOT/*
+%make_install
+%if 0%{?el7}
+find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
+find %{buildroot} -type f -name perllocal.pod -exec rm -f {} ';'
+find %{buildroot} -type f -name '*.bs' -a -size 0 -exec rm -f {} ';'
+find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
+%endif
+%{_fixperms} %{buildroot}/*
 
 %check
-make test
+%make_build test
 
 %files
 %doc Changes README
@@ -60,6 +63,9 @@ make test
 %exclude %dir %{perl_vendorarch}/auto/
 
 %changelog
+* Fri Nov 24 2023 Xavier Bachelot <xavier@bachelot.org> - 0.05-1
+- Update to 0.05 (RHBZ#2251183)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

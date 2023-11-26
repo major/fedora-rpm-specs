@@ -1,19 +1,22 @@
 Name:    qaccessibilityclient
-Summary: Accessibility client library for Qt5
-Version: 0.4.1
-Release: 6%{?dist}
+Summary: Accessibility client library for Qt6
+Version: 0.5.0
+Release: 1%{?dist}
 
-# KDE e.V. may determine that future LGPL versions are accepted
-License: LGPLv2 or LGPLv3
+License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://cgit.kde.org/libkdeaccessibilityclient.git/
-Source0: http://download.kde.org/stable/libqaccessibilityclient/libqaccessibilityclient-%{version}.tar.xz
+Source0: https://download.kde.org/stable/libqaccessibilityclient/libqaccessibilityclient-%{version}.tar.xz
 
 ## upstream patches
 
 BuildRequires: cmake
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: gcc-c++
+BuildRequires: cmake(Qt6)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Widgets)
 BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+BuildRequires: pkgconfig(xkbcommon)
 
 # upstream name
 Provides: libqaccessibilityclient = %{version}-%{release}
@@ -25,41 +28,35 @@ Provides: libqaccessibilityclient = %{version}-%{release}
 Summary: Development files for %{name}
 Provides: libqaccessibilityclient-devel = %{version}-%{release}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: qt5-qtbase-devel
+Requires: qt6-qtbase-devel
 %description  devel
 %{summary}.
-
 
 %prep
 %autosetup -n libqaccessibilityclient-%{version} -p1
 
-
 %build
-%cmake_kf5
-
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
-
 
 %install
 %cmake_install
 
-## unpackaged files
-
-
-%ldconfig_scriptlets
-
 %files
-%doc AUTHORS ChangeLog README*
-%license COPYING
-%{_libdir}/libqaccessibilityclient-qt5.so.0*
+%doc AUTHORS README.md
+%license LICENSES/*
+%{_libdir}/libqaccessibilityclient-qt6.so.0*
 
 %files devel
-%{_includedir}/qaccessibilityclient/
-%{_libdir}/cmake/QAccessibilityClient/
-%{_libdir}/libqaccessibilityclient-qt5.so
+%{_includedir}/QAccessibilityClient6/
+%{_libdir}/cmake/QAccessibilityClient6/
+%{_libdir}/libqaccessibilityclient-qt6.so
 
 
 %changelog
+* Mon Nov 6 2023 Steve Cossette <farchord@gmail.com> - 0.5.0-1
+- 0.5.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
