@@ -5,7 +5,7 @@
 %global crate simple_logger
 
 Name:           rust-simple_logger
-Version:        4.2.0
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Logger that prints all messages with a readable output format
 

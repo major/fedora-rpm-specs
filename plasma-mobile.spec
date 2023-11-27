@@ -1,59 +1,61 @@
 Name:           plasma-mobile
-Version:        5.27.9
+Version:        5.27.80
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3 and MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
 Url:            https://invent.kde.org/plasma/plasma-mobile
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source:         https://download.kde.org/%{stable}/plasma/%{version}/plasma-mobile-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/plasma/%{version}/plasma-mobile-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
-BuildRequires: kf5-kdbusaddons-devel
+BuildRequires: kf6-kdbusaddons-devel
 BuildRequires: kwin-devel
-BuildRequires: qt5-qtdeclarative-devel
+BuildRequires: qt6-qtdeclarative-devel
+BuildRequires: libappstream-glib
+BuildRequires: desktop-file-utils
 
-BuildRequires: cmake(KF5Activities)
-BuildRequires: cmake(KF5Auth)
-BuildRequires: cmake(KF5Bookmarks)
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Declarative)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5ItemViews)
-BuildRequires: cmake(KF5JobWidgets)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5KirigamiAddons)
-BuildRequires: cmake(KF5ModemManagerQt)
-BuildRequires: cmake(KF5NetworkManagerQt)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5Package)
-BuildRequires: cmake(KF5People)
-BuildRequires: cmake(KF5Plasma)
-BuildRequires: cmake(KF5PlasmaQuick)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5Solid)
-BuildRequires: cmake(KF5Wayland)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF6Activities)
+BuildRequires: cmake(KF6Auth)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6KirigamiAddons)
+BuildRequires: cmake(KF6ModemManagerQt)
+BuildRequires: cmake(KF6NetworkManagerQt)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Package)
+BuildRequires: cmake(KF6People)
+BuildRequires: cmake(KF6Plasma)
+BuildRequires: cmake(KF6PlasmaQuick)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6Solid)
+BuildRequires: cmake(KF6Wayland)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6Screen)
 BuildRequires: cmake(KPipeWire)
-BuildRequires: cmake(Qt5Svg)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Sensors)
 BuildRequires: cmake(libkworkspace)
+BuildRequires: libepoxy-devel
+BuildRequires: wayland-devel
 
-Requires: kf5-bluez-qt
-Requires: kf5-kactivities
-Requires: kf5-kdeclarative
-Requires: kf5-kirigami2
+Requires: kf6-bluez-qt
+Requires: kf6-kactivities
+Requires: kf6-kdeclarative
+Requires: kf6-kirigami2
 Requires: kpipewire
 # Plasma Mobile uses kscreen to automatically set a logical scaling factor based on hardware
 Requires: kscreen
@@ -61,14 +63,14 @@ Requires: kwin
 Requires: plasma-milou
 Requires: plasma-nano
 Requires: plasma-nm
-Requires: plasma-nm-mobile
 Requires: plasma-pa
 Requires: plasma-workspace >= %{version}
 Requires: qqc2-breeze-style
-Requires: qt5-qtgraphicaleffects
-Requires: qt5-qtquickcontrols
-Requires: qt5-qtquickcontrols2
-Requires: qt5-qtwayland
+Requires: qt6-qtwayland
+
+# This package now integrates what was plasma-nm-mobile
+Obsoletes: plasma-nm-mobile < 5.27.81
+
 
 %description
 %{summary}.
@@ -77,40 +79,60 @@ Requires: qt5-qtwayland
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
 %cmake_install
-
 %find_lang plasma_applet_org.kde.phone.homescreen --all-name
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.xml ||:
+desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_network,mobile_hotspot,mobile_info,mobile_onscreenkeyboard,mobile_power,mobile_time,mobile_wifi}.desktop
 
 %files -f plasma_applet_org.kde.phone.homescreen.lang
 %license LICENSES/*
 
-%{_kf5_bindir}/startplasmamobile
-%{_kf5_datadir}/knotifications5/plasma_phone_components.notifyrc
-%{_kf5_datadir}/kpackage/kcms/kcm_mobileshell
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.*.desktop
-%{_kf5_datadir}/applications/kcm_mobileshell.desktop
-%{_kf5_datadir}/plasma/look-and-feel/org.kde.plasma.phone
-%{_kf5_datadir}/plasma/plasmoids/org.kde.phone.*
-%{_kf5_datadir}/plasma/quicksettings
-%{_kf5_datadir}/plasma/shells/org.kde.plasma.phoneshell
-%{_kf5_datadir}/wayland-sessions/plasma-mobile.desktop
+%{_kf6_bindir}/startplasmamobile
+%{_kf6_bindir}/plasma-mobile-envmanager
+%{_kf6_bindir}/plasma-mobile-initial-start
+%{_kf6_datadir}/plasma/quicksettings
+%{_kf6_datadir}/plasma/shells/org.kde.plasma.phoneshell
+%{_kf6_datadir}/wayland-sessions/plasma-mobile.desktop
 
-%{_kf5_metainfodir}/org.kde.plasma.phone*
-%{_kf5_metainfodir}/org.kde.plasma.quicksetting.*
-%{_kf5_metainfodir}/org.kde.phone.*
+#%{_kf6_metainfodir}/org.kde.plasma.phone*
+%{_kf6_metainfodir}/org.kde.plasma.*
+%{_kf6_metainfodir}/org.kde.breeze.*
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.breeze.mobile
+%{_kf6_datadir}/plasma/mobileinitialstart
+%{_kf6_datadir}/applications/*.desktop
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.plasmashell.Mobile.xml
+%{_kf6_datadir}/knotifications6/plasma_mobile_quicksetting*.notifyrc
+%{_kf6_datadir}/kwin/effects/mobiletaskswitcher
+%{_kf6_datadir}/kwin/scripts/convergentwindows/contents/ui/main.qml
+%{_kf6_datadir}/kwin/scripts/convergentwindows/metadata.json
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.homescreen.folio
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.panel
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.taskpanel
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.homescreen.halcyon
 
-%{_kf5_qmldir}/org/kde/plasma/mm/*
-%{_kf5_qmldir}/org/kde/plasma/private/mobileshell
-%{_kf5_qmldir}/org/kde/plasma/quicksetting
+%{_kf6_qmldir}/org/kde/plasma/mm/*
+%{_kf6_qmldir}/org/kde/plasma/private/mobileshell
+%{_kf6_qmldir}/org/kde/plasma/quicksetting
+%{_kf6_qmldir}/org/kde/plasma/mobileinitialstart
+%{_kf6_qmldir}/org/kde/private/mobile
 
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_mobileshell.so
-%{_kf5_qtplugindir}/plasma/applets/*.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_mobileshell.so
+%{_kf6_qtplugindir}/plasma/applets/*.so
+%{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_start.so
+%{_kf6_qtplugindir}/kwin/effects/plugins/mobiletaskswitcher.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_mobile_*.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_cellular_network.so
 
 %changelog
+* Fri Nov 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

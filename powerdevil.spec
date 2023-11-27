@@ -1,58 +1,46 @@
-%global kf5_version 5.82.0
-
 Name:    powerdevil
-Version: 5.27.9
-Release: 2%{?dist}
+Version: 5.27.80
+Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
-License: GPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global plasma_version %(echo %{version} | cut -d. -f1,2,3)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz
-
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 # Plasma Dependencies
-BuildRequires:  plasma-workspace-devel >= %{plasma_version}
-Requires: libkworkspace5%{?_isa} >= %{plasma_version}
+BuildRequires:  plasma-workspace-devel
 
-# KDE Frameworks 5
+# KDE Frameworks 6
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-bluez-qt-devel
-BuildRequires:  kf5-kactivities-devel
-BuildRequires:  kf5-kauth-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kdelibs4support-devel
-BuildRequires:  kf5-kglobalaccel-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kidletime-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kirigami2-devel
-BuildRequires:  kf5-knotifyconfig-devel
-BuildRequires:  kf5-kwayland-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-networkmanager-qt-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-solid-devel
+BuildRequires:  cmake(KF6Activities)
+BuildRequires:  cmake(KF6Auth)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IdleTime)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6NotifyConfig)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(LayerShellQt)
+
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  cmake(Qt6Qml)
 
 BuildRequires:  libXrandr-devel
 BuildRequires:  libcap-devel
-BuildRequires:  libkscreen-qt5-devel
+BuildRequires:  libkscreen-devel
 BuildRequires:  libxcb-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  xcb-util-image-devel
@@ -66,12 +54,7 @@ BuildRequires:  libddcutil-devel
 %global DDCUTIL OFF
 %endif
 
-%{?_qt5:Requires: %{_qt5}%{?_isa} >= %{_qt5_version}}
-
-# available on rhel 9+
-%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 8)
 Recommends: power-profiles-daemon
-%endif
 
 %description
 Powerdevil is an utility for powermanagement. It consists
@@ -79,57 +62,59 @@ of a daemon (a KDED module) and a KCModule for its configuration.
 
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -p1
 
 
 %build
-%cmake_kf5 -DHAVE_DDCUTIL=%DDCUTIL
-
+%cmake_kf6 -DHAVE_DDCUTIL=%DDCUTIL
 %cmake_build
 
 
 %install
 %cmake_install
 
-%find_lang powerdevil5 --with-html --all-name
+%find_lang powerdevil6 --with-html --all-name
 
 # Don't bother with -devel
 rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 
 
-%ldconfig_scriptlets
-
-%files -f powerdevil5.lang
-%license COPYING*
+%files -f powerdevil6.lang
+%license LICENSES/*
 %{_datadir}/dbus-1/system.d/org.kde.powerdevil.backlighthelper.conf
 %{_datadir}/dbus-1/system.d/org.kde.powerdevil.discretegpuhelper.conf
 %{_datadir}/dbus-1/system-services/org.kde.powerdevil.backlighthelper.service
 %{_datadir}/dbus-1/system-services/org.kde.powerdevil.discretegpuhelper.service
 %{_datadir}/dbus-1/system-services/org.kde.powerdevil.chargethresholdhelper.service
+%{_datadir}/dbus-1/services/org.kde.powerdevil.powerProfileOsdService.service
 %{_datadir}/dbus-1/system.d/org.kde.powerdevil.chargethresholdhelper.conf
 %{_datadir}/polkit-1/actions/org.kde.powerdevil.backlighthelper.policy
 %{_datadir}/polkit-1/actions/org.kde.powerdevil.discretegpuhelper.policy
 %{_datadir}/polkit-1/actions/org.kde.powerdevil.chargethresholdhelper.policy
-%{_datadir}/qlogging-categories5/powerdevil.categories
-%{_kf5_libexecdir}/kauth/backlighthelper
-%{_kf5_libexecdir}/kauth/discretegpuhelper
-%{_kf5_libexecdir}/kauth/chargethresholdhelper
+%{_datadir}/qlogging-categories6/powerdevil.categories
+%{_kf6_libexecdir}/kauth/backlighthelper
+%{_kf6_libexecdir}/kauth/discretegpuhelper
+%{_kf6_libexecdir}/kauth/chargethresholdhelper
 %{_sysconfdir}/xdg/autostart/powerdevil.desktop
 %{_libexecdir}/org_kde_powerdevil
-%{_kf5_libdir}/libpowerdevilconfigcommonprivate.so.*
-%{_kf5_libdir}/libpowerdevilcore.so.*
-%{_kf5_libdir}/libpowerdevilui.so.*
-%{_kf5_qtplugindir}/*.so
-%{_kf5_plugindir}/powerdevil/
-%{_kf5_datadir}/knotifications5/powerdevil.notifyrc
-%{_kf5_datadir}/applications/kcm_powerdevilprofilesconfig.desktop
-%{_kf5_datadir}/applications/kcm_powerdevilactivitiesconfig.desktop
-%{_kf5_datadir}/applications/kcm_powerdevilglobalconfig.desktop
+%{_libexecdir}/power_profile_osd_service
+%{_kf6_libdir}/libpowerdevilconfigcommonprivate.so.*
+%{_kf6_libdir}/libpowerdevilcore.so.*
+%{_kf6_libdir}/libpowerdevilui.so.*
+%{_kf6_plugindir}/powerdevil/
+%{_kf6_qtplugindir}/powerdevil/
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_powerdevilprofilesconfig.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_powerdevilglobalconfig.so
+%{_kf6_datadir}/knotifications6/powerdevil.notifyrc
+%{_kf6_datadir}/applications/kcm_powerdevilprofilesconfig.desktop
+%{_kf6_datadir}/applications/kcm_powerdevilglobalconfig.desktop
 %{_userunitdir}/plasma-powerdevil.service
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_powerdevil*.so
-%{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
+%{_userunitdir}/plasma-powerprofile-osd.service
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Sat Oct 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.9-2
 - Rebuild(ddcutil)
 

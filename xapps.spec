@@ -1,6 +1,6 @@
 Name:           xapps
-Version:        2.6.1
-Release:        4%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
@@ -8,7 +8,6 @@ URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        http://packages.linuxmint.com/pool/main/f/flags/flags_1.0.2.tar.xz
 Patch0:         watcher_fix_libexec.patch
-Patch1:         %{url}/commit/8570496c3f909458c0b8035048ae7671b760577f.patch
 
 ExcludeArch:    %{ix86}
 
@@ -128,6 +127,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Sat Nov 25 2023 Leigh Scott <leigh123linux@gmail.com> - 2.8.0-1
+- Update to 2.8.0 release
+
 * Tue Jul 25 2023 Leigh Scott <leigh123linux@gmail.com> - 2.6.1-4
 - Fix meld issue
 

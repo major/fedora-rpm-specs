@@ -1,7 +1,7 @@
 #%%global gittag 1.6.2
-%global commit cbdeede8a6eee9d8857f9e2b587c984e9fde4181
+%global commit 7ca8fe36bd67b59595359ae40392bfcf5a2a00f3
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230812
+%global date 20231125
 
 Name:           celestia
 %if "%{?gittag}"
@@ -32,6 +32,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext-devel
+BuildRequires:  gperf
 BuildRequires:  libappstream-glib
 BuildRequires:  ImageMagick
 

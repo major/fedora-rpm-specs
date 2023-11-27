@@ -1,62 +1,55 @@
-
-%global kf5_min_version 5.88.0
 %global orig_name org.kde.plasma.nano
 
 Name:    plasma-nano
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
-License: MIT and GPLv2+ and LGPLv2+
+License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/plasma-nano
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source:  https://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-Summary: A minimalist Plasma shell for developing custom experiences on embedded devices.
+Source:  https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
+Summary: Minimalist Plasma shell for developing custom experiences on embedded devices
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  libappstream-glib
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros          >= %{kf5_min_version}
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  desktop-file-utils
 
 
-BuildRequires:  cmake(KF5I18n)              >= %{kf5_min_version}
-BuildRequires:  cmake(KF5KIO)               >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Notifications)     >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Plasma)            >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Service)           >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Wayland)           >= %{kf5_min_version}
-BuildRequires:  cmake(KWinDBusInterface)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5WindowSystem)      >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Package)           >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CoreAddons)        >= %{kf5_min_version}
-BuildRequires:  cmake(Qt5Qml)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6Wayland)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KWinDBusInterface)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Svg)
 
-
-Requires: kf5-plasma
-Requires: kf5-kwayland
-Requires: kf5-kwindowsystem
-Requires: kf5-kservice
-Requires: kf5-kcoreaddons
-Requires: kf5-kpackage
-Requires: qt5-qtdeclarative
+Requires: kf6-plasma
+Requires: kf6-kwayland
+Requires: kf6-kwindowsystem
+Requires: kf6-kservice
+Requires: kf6-kcoreaddons
+Requires: kf6-kpackage
+Requires: qt6-qtdeclarative
 
 
 %description
-%{Summary}
+%{summary}.
 
 %prep
 %autosetup -n %{name}-%{version}
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -65,22 +58,23 @@ sed -i 's,<icon type="stock">plasma</icon>, ,g' %{buildroot}%{_kf5_metainfodir}/
 %find_lang plasma_shell_%{orig_name} --all-name
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{orig_name}.desktoptoolbox.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orig_name}.desktoptoolbox.appdata.xml
 
 
 %files -f plasma_shell_%{orig_name}.lang
 %license LICENSES/*.txt
 %doc README.md
 
-%{_kf5_metainfodir}/%{orig_name}.desktoptoolbox.appdata.xml
-%{_kf5_qmldir}/org/kde/plasma/private/nanoshell
-%{_kf5_datadir}/kservices5/plasma-applet-%{orig_name}.desktop
-%{_kf5_datadir}/kservices5/plasma-package-%{orig_name}.desktoptoolbox.desktop
-%{_kf5_datadir}/plasma/packages/%{orig_name}.desktoptoolbox
-%{_kf5_datadir}/plasma/shells/%{orig_name}
+%{_kf6_metainfodir}/org.kde.plasma.nano.desktoptoolbox.appdata.xml
+%{_kf6_qmldir}/org/kde/plasma/private/nanoshell
+%{_kf6_datadir}/plasma/packages/%{orig_name}.desktoptoolbox
+%{_kf6_datadir}/plasma/shells/%{orig_name}
 
 
 %changelog
+* Fri Nov 17 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

@@ -6,7 +6,7 @@
 %global crate tinystr
 
 Name:           rust-tinystr
-Version:        0.7.4
+Version:        0.7.5
 Release:        %autorelease
 Summary:        Small ASCII-only bounded length string representation
 
@@ -19,7 +19,7 @@ Source:         %{crates_source}
 # * specify license in crate metadata
 Patch:          tinystr-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 A small ASCII-only bounded length string representation.}

@@ -5,7 +5,7 @@
 %global crate primeorder
 
 Name:           rust-primeorder
-Version:        0.13.3
+Version:        0.13.6
 Release:        %autorelease
 Summary:        Complete addition formulas for prime order elliptic curves
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+dev-devel

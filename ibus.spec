@@ -58,7 +58,7 @@
 
 Name:           ibus
 Version:        1.5.29~rc2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -580,6 +580,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sat Nov 25 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-3
+- Resolve #2188800 Error handling with display == null
+- Enhance #2237486 Implement preedit color in Plasma Wayland
+
 * Wed Nov 15 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-2
 - Call strdup() after g_return_if_fail() in im-ibus.so
 

@@ -1,21 +1,22 @@
 Name:           kpublictransport
-Version:        23.08.2
+Version:        24.01.75
 Release:        1%{?dist}
 License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
 Summary:        Library to assist with accessing public transport timetables and other data
 Url:            https://invent.kde.org/libraries/kpublictransport
-Source:         https://download.kde.org/stable/release-service/%{version}/src/kpublictransport-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/kpublictransport-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: zlib-devel
 
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Quick)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Quick)
 
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5NetworkManagerQt)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6NetworkManagerQt)
+BuildRequires: qt6-qtbase-private-devel
 
 %description
 %{summary}.
@@ -24,22 +25,22 @@ BuildRequires: cmake(KF5NetworkManagerQt)
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 %install
 %cmake_install
 
 %files
-%{_kf5_datadir}/qlogging-categories5/org_kde_kpublictransport.categories
+%{_kf6_datadir}/qlogging-categories6/org_kde_kpublictransport.categories
 
-%{_kf5_libdir}/libKPublicTransport.so.1
-%{_kf5_libdir}/libKPublicTransport.so.%{version}
-%{_kf5_libdir}/libKPublicTransportOnboard.so.1
-%{_kf5_libdir}/libKPublicTransportOnboard.so.%{version}
+%{_kf6_libdir}/libKPublicTransport.so.1
+%{_kf6_libdir}/libKPublicTransport.so.%{version}
+%{_kf6_libdir}/libKPublicTransportOnboard.so.1
+%{_kf6_libdir}/libKPublicTransportOnboard.so.%{version}
 
-%{_kf5_qmldir}/org/kde/kpublictransport/*
-%{_kf5_datadir}/qlogging-categories5/org_kde_kpublictransport_onboard.categories
+%{_kf6_qmldir}/org/kde/kpublictransport/*
+%{_kf6_datadir}/qlogging-categories6/org_kde_kpublictransport_onboard.categories
 
 %package devel
 Summary: Development files for %{name}
@@ -52,10 +53,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %files devel
 %{_includedir}/*
 
-%{_kf5_libdir}/cmake/*
-%{_kf5_libdir}/*.so
+%{_kf6_libdir}/cmake/*
+%{_kf6_libdir}/*.so
 
 %changelog
+* Sat Nov 25 2023 Steve Cossette <farchord@gmail.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

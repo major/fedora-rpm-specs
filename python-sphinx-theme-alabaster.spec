@@ -1,60 +1,70 @@
-%global pypi_name alabaster
-%global srcname sphinx-theme-%{pypi_name}
-
-Name:           python-%{srcname}
+Name:           python-sphinx-theme-alabaster
 Version:        0.7.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Configurable sidebar-enabled Sphinx theme
 
 License:        BSD-3-Clause
-URL:            https://pypi.python.org/pypi/%{pypi_name}
-Source0:        https://files.pythonhosted.org/packages/94/71/a8ee96d1fd95ca04a0d2e2d9c4081dac4c2d2b12f7ddb899c8cb9bfd1532/alabaster-0.7.13.tar.gz
+URL:            https://pypi.python.org/pypi/alabaster
+Source:         %{pypi_source alabaster}
 
-BuildArch:      noarch
-
-%description
-This theme is a modified "Kr" Sphinx theme from @kennethreitz (especially as
-used in his Requests project), which was itself originally based on @mitsuhiko's
-theme used for Flask & related projects.
-
-
-%package -n     python%{python3_pkgversion}-%{srcname}
-Summary:        Configurable sidebar-enabled Sphinx theme
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
-%description -n python%{python3_pkgversion}-%{srcname}
-This theme is a modified "Kr" Sphinx theme from @kennethreitz (especially as
-used in his Requests project), which was itself originally based on @mitsuhiko's
-theme used for Flask & related projects.
+# Upstream lists no runtime dependencies,
+# but alabaster/support.py imports from pygments.
+# This is fine, as the module is only used for pygments.
+# This BuildRequires is necessary for a successful import check.
+BuildRequires:  python%{python3_pkgversion}-pygments
+
+%global _description %{expand:
+Alabaster is a visually (c)lean, responsive, configurable theme for the Sphinx
+documentation system.
+
+It began as a third-party theme, and is still maintained separately,
+but as of Sphinx 1.3, Alabaster is an install-time dependency of Sphinx and is
+selected as the default theme.}
+
+%description %_description
+
+
+%package -n     python%{python3_pkgversion}-sphinx-theme-alabaster
+Summary:        %{summary}
+%py_provides    python%{python3_pkgversion}-alabaster
+
+%description -n python%{python3_pkgversion}-sphinx-theme-alabaster %_description
 
 
 %prep
-ls -alh
-%setup -qn %{pypi_name}-%{version}
+%autosetup -p1 -n alabaster-%{version}
 
-# Remove bundled eggs
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files alabaster
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
+%check
+# upstream has no tests
+%pyproject_check_import
+
+
+%files -n python%{python3_pkgversion}-sphinx-theme-alabaster -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
 
 
 %changelog
+* Mon Nov 20 2023 Miro Hrončok <mhroncok@redhat.com> - 0.7.13-2
+- Provide python3-alabaster
+- Run a basic import check when this package is built
+
 * Sat Oct 21 2023 Julien Enselme <jujens@jujens.eu> - 0.7.13-1
 - Update to 0.7.13
 

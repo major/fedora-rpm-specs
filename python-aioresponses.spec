@@ -4,8 +4,8 @@ aiohttp package. The purpose of this package is to provide an\
 easy way  to test asynchronous HTTP requests.
 
 Name:           python-%{srcname}
-Version:        0.7.4
-Release:        3%{?dist}
+Version:        0.7.6
+Release:        1%{?dist}
 Summary:        Mock out requests made by ClientSession from aiohttp package
 
 License:        MIT
@@ -71,6 +71,9 @@ sed -i 's/def \(test_pass_through_with_origin_params\)(/def skip_\1(/' tests/tes
 
 
 %changelog
+* Sat Nov 25 2023 Georg Sauthoff <mail@gms.tf> - 0.7.6-1
+- bump version (fixes fedora#2249536)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate utf8-width
+%global crate bwrap
 
-Name:           rust-utf8-width
-Version:        0.1.7
+Name:           rust-bwrap
+Version:        1.3.0
 Release:        %autorelease
-Summary:        Determine the width of a UTF-8 character by providing its first byte
+Summary:        Fast, lightweight, embedded systems-friendly library for wrapping text
 
-License:        MIT
-URL:            https://crates.io/crates/utf8-width
+License:        MIT OR GPL-3.0-or-later
+URL:            https://crates.io/crates/bwrap
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          bwrap-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-To determine the width of a UTF-8 character by providing its first byte.}
+A fast, lightweight, embedded systems-friendly library for wrapping
+text.}
 
 %description %{_description}
 
@@ -30,7 +33,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-GPL
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/ChangeLog
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -44,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+use_std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+use_std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "use_std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+use_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

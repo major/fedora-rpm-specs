@@ -44,7 +44,7 @@ PDF Arranger is a fork of Konstantinos Poulios’s PDF-Shuffler.
 %autosetup -p1 -n %{name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -R
 
 %build
 %pyproject_wheel
@@ -67,9 +67,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/applications/%{app_id}.desktop
 %{_datadir}/%{name}/
 %{_bindir}/pdfarranger
-%if 0%{?fedora} > 31
 %{_bindir}/pdfshuffler
-%endif
 
 %changelog
 %autochangelog

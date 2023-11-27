@@ -29,7 +29,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        23.11.2
+Version:        23.11.3
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
 

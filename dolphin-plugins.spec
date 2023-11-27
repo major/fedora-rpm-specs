@@ -1,48 +1,34 @@
 Name:    dolphin-plugins
-Summary: Dolphin plugins for revision control systems
-Version: 23.08.2
+Summary: Dolphin plugins
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/sdk/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  dolphin-devel >= %{majmin_ver}
+BuildRequires:  dolphin-devel >= %{maj_ver_kf6}.%{min_ver_kf6}
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kdelibs4support-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-ktexteditor-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6TextEditor)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6DBus)
 
-Requires:       dolphin >= %{majmin_ver}
-
-# translations moved here (omitting since dolphin already has it)
-#Conflicts: kde-l10n < 17.03
-
-Conflicts:      kdesdk-common < 4.10.80
-Provides:       kdesdk-dolphin-plugins = %{version}-%{release}
-Obsoletes:      kdesdk-dolphin-plugins < 4.10.80
+Requires:       dolphin >= %{maj_ver_kf6}.%{min_ver_kf6}
 
 
 %description
-Plugins for the Dolphin file manager integrating the following revision control
-systems:
-* Dropbox
-* Git
-* Subversion (SVN)
-* Bazaar (Bzr)
+Dolphin integration for revision control systems, Dropbox, and disk images.
 
 
 %prep
@@ -50,8 +36,7 @@ systems:
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 
@@ -63,18 +48,19 @@ systems:
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_metainfodir}/org.kde.dolphin-plugins.metainfo.xml
-%dir %{_kf5_qtplugindir}/dolphin/
-%dir %{_kf5_qtplugindir}/dolphin/vcs/
-%{_kf5_qtplugindir}/dolphin/vcs/fileviewbazaarplugin.so
-%{_kf5_qtplugindir}/dolphin/vcs/fileviewdropboxplugin.so
-%{_kf5_qtplugindir}/dolphin/vcs/fileviewgitplugin.so
-%{_kf5_qtplugindir}/dolphin/vcs/fileviewsvnplugin.so
-%{_kf5_qtplugindir}/dolphin/vcs/fileviewhgplugin.so
-%{_kf5_plugindir}/kfileitemaction/mountisoaction.so
-%{_kf5_datadir}/config.kcfg/fileviewgitpluginsettings.kcfg
-%{_kf5_datadir}/config.kcfg/fileviewsvnpluginsettings.kcfg
-%{_kf5_datadir}/config.kcfg/fileviewhgpluginsettings.kcfg
+%{_kf6_metainfodir}/org.kde.dolphin-plugins.metainfo.xml
+%dir %{_kf6_qtplugindir}/dolphin/
+%dir %{_kf6_qtplugindir}/dolphin/vcs/
+%{_kf6_qtplugindir}/dolphin/vcs/fileviewbazaarplugin.so
+%{_kf6_qtplugindir}/dolphin/vcs/fileviewdropboxplugin.so
+%{_kf6_qtplugindir}/dolphin/vcs/fileviewgitplugin.so
+%{_kf6_qtplugindir}/dolphin/vcs/fileviewsvnplugin.so
+%{_kf6_qtplugindir}/dolphin/vcs/fileviewhgplugin.so
+%{_kf6_plugindir}/kfileitemaction/mountisoaction.so
+%{_kf6_plugindir}/kfileitemaction/makefileactions.so
+%{_kf6_datadir}/config.kcfg/fileviewgitpluginsettings.kcfg
+%{_kf6_datadir}/config.kcfg/fileviewsvnpluginsettings.kcfg
+%{_kf6_datadir}/config.kcfg/fileviewhgpluginsettings.kcfg
 
 
 %changelog

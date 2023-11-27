@@ -5,7 +5,7 @@
 %global crate configparser
 
 Name:           rust-configparser
-Version:        3.0.2
+Version:        3.0.3
 Release:        %autorelease
 Summary:        Simple configuration parsing utility with no dependencies
 
@@ -77,9 +77,9 @@ use the "indexmap" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# remove executable bits from files
-chmod -x README.md CHANGELOG.md Cargo.toml.orig src/*.rs tests/*.rs
 %cargo_prep
+# remove executable bits from files
+find -type f -executable -print -exec chmod -x {} +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

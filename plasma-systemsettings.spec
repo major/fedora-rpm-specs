@@ -2,63 +2,44 @@
 
 Name:    plasma-%{base_name}
 Summary: KDE System Settings application
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
+License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5ItemViews)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5Package)
-BuildRequires: cmake(KF5Declarative)
-BuildRequires: cmake(KF5Activities)
-BuildRequires: cmake(KF5ActivitiesStats)
-BuildRequires: cmake(KF5KHtml)
-BuildRequires: cmake(KF5ItemModels)
-BuildRequires: cmake(KF5GuiAddons)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5Runner)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6Activities)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6Runner)
 
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickWidgets)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickWidgets)
+BuildRequires: cmake(Qt6Widgets)
 
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: kf5-kirigami2-devel >= 2.1
-BuildRequires: plasma-workspace-devel >= %{version}
-Requires:      libkworkspace5%{?_isa} >= %{majmin_ver}
-Requires:      kf5-kirigami2%{?_isa} >= 2.1
-
-# kde-cli-tools provides kcmshell5, which is not directly needed by
-# systemsettings, but is an addition expected by users
-Requires:       kde-cli-tools
+BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: plasma-workspace-devel
+Requires:      kf6-kirigami2%{?_isa}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1268493
 # doc/HTML/en/systemsettings conflicts
@@ -79,47 +60,39 @@ Obsoletes: plasma-systemsettings-devel < 5.20.90
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
 
-%find_lang systemsettings5 --with-qt --with-html --all-name
+%find_lang systemsettings6 --with-qt --with-html --all-name
 
 
 %check
-# disabled until desktop-file-validate supports xdg spec 1.5
-# desktop-file-validate %{buildroot}%{_datadir}/applications/kdesystemsettings.desktop
-# desktop-file-validate {buildroot}{_datadir}/applications/systemsettings.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/kdesystemsettings.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/systemsettings.desktop
 
 
-%ldconfig_scriptlets
-
-%files -f systemsettings5.lang
+%files -f systemsettings6.lang
 %license LICENSES/*
-%{_bindir}/systemsettings5
 %{_bindir}/systemsettings
 %{_datadir}/systemsettings/
 %{_datadir}/applications/kdesystemsettings.desktop
 %{_datadir}/applications/systemsettings.desktop
 %{_datadir}/metainfo/org.kde.systemsettings.metainfo.xml
 %{_datadir}/zsh/site-functions/_systemsettings
-%{_kf5_datadir}/kservicetypes5/*.desktop
-%{_kf5_datadir}/kxmlgui5/systemsettings
-%{_kf5_datadir}/kglobalaccel/systemsettings.desktop
-%dir %{_kf5_datadir}/kpackage/genericqml/
-%{_kf5_datadir}/kpackage/genericqml/org.kde.systemsettings.*/
-%{_kf5_datadir}/qlogging-categories5/systemsettings.categories
-%{_kf5_qtplugindir}/systemsettingsview/icon_mode.so
-%{_kf5_qtplugindir}/systemsettingsview/systemsettings_sidebar_mode.so
-%{_kf5_qtplugindir}/kf5/krunner/krunner_systemsettings.so
-%{_kf5_libdir}/libsystemsettingsview.so.*
+%{_kf6_datadir}/kglobalaccel/systemsettings.desktop
+%{_kf6_datadir}/qlogging-categories6/systemsettings.categories
+%{_kf6_plugindir}/krunner/krunner_systemsettings.so
+%{_kf6_libdir}/libsystemsettingsview.so.*
 
 
 %changelog
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

@@ -4,7 +4,7 @@
 %global crate sha1collisiondetection
 
 Name:           rust-sha1collisiondetection
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        SHA-1 hash function with collision detection and mitigation
 
@@ -12,9 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/sha1collisiondetection
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * exclude some files that are only useful for upstream development,
-#   fix building CLI utility by adding required "clap/std" feature:
-#   https://gitlab.com/sequoia-pgp/sha1collisiondetection/-/merge_requests/26
+# * prevent test fixtures from getting installed and shipped
 Patch:          sha1collisiondetection-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

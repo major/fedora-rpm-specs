@@ -1,7 +1,7 @@
 #%%global gittag 1.7.0
-%global commit 4b07c079d31c7b174d1a9d8efbf1db92f54fa05d
+%global commit db53ae319ffc06d2d6fe92d2b65d210fdae7bd67
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230812
+%global date 20231125
 
 # Disable debuginfo generation, no executable or library is built
 %global debug_package %{nil}

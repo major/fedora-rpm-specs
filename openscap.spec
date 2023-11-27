@@ -168,6 +168,7 @@ Tool for scanning Atomic containers.
 %build
 # gconf is a legacy system not used any more, and it blocks testing of oscap-anaconda-addon
 # as gconf is no longer part of the installation medium
+export CFLAGS="$CFLAGS -Wno-error=implicit-function-declaration"
 %cmake \
     -DWITH_PCRE2=ON \
     -DENABLE_PERL=ON \

@@ -2,8 +2,8 @@
 %global srcname frozendict
 
 Name:           python-%{srcname}
-Version:        2.3.8
-Release:        3%{?dist}
+Version:        2.3.9
+Release:        1%{?dist}
 Summary:        An immutable dictionary
 
 License:        MIT
@@ -32,10 +32,11 @@ BuildRequires:  python3-wheel
 
 %build
 # Build the python only version (no python 3.11 support)
-%global py_setup_args py
+export FROZENDICT_PURE_PY=1
 %py3_build_wheel
 
 %install
+export FROZENDICT_PURE_PY=1
 %py3_install
 
 %files -n python3-%{srcname}
@@ -45,6 +46,9 @@ BuildRequires:  python3-wheel
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Sat Nov 25 2023 Orion Poplawski <orion@nwra.com> - 2.3.9-1
+- Update to 2.3.9
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

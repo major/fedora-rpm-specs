@@ -2,12 +2,13 @@
 
 Name:           python-%{srcname}
 Version:        1.4.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Snuggs are S-expressions for Numpy
 
 License:        MIT
 URL:            https://github.com/mapbox/snuggs
 Source0:        %pypi_source
+Patch0:         https://salsa.debian.org/debian-gis-team/python-snuggs/-/raw/master/debian/patches/test.patch
 
 BuildArch:      noarch
 

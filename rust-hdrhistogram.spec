@@ -6,7 +6,7 @@
 %global crate hdrhistogram
 
 Name:           rust-hdrhistogram
-Version:        7.5.3
+Version:        7.5.4
 Release:        %autorelease
 Summary:        Port of HdrHistogram to Rust
 

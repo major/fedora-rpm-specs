@@ -1,118 +1,76 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-#global tests 1
-%endif
+%global base_name kio-extras-kf6
 
 Name:    kio-extras
-Version: 23.08.2
-Release: 2%{?dist}
+Version: 24.01.75
+Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
-URL:     https://invent.kde.org/network/%{name}
+URL:     https://invent.kde.org/network/kio-extras
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 ## upstramable patches
+# It tries to find a higher version than exists
+Patch0:  find-kactivities-stats.patch
 
 ## upstream patches
 
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
 
 BuildRequires:  bzip2-devel
-BuildRequires:  cmake(KF5KExiv2)
 BuildRequires:  gperf
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-kactivities-devel
-BuildRequires:  kf5-karchive-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kdelibs4support-devel
-BuildRequires:  kf5-kdnssd-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-khtml-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kpty-devel
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-solid-devel
-BuildRequires:  cmake(KF5SyntaxHighlighting)
-BuildRequires:  cmake(KF5ActivitiesStats)
+BuildRequires:  kf6-rpm-macros
+
+BuildRequires:  cmake(Qt6)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(QCoro6)
+BuildRequires:  cmake(KF6Activities)
+BuildRequires:  cmake(KF6ActivitiesStats)
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6DNSSD)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
+BuildRequires:  cmake(KF6TextWidgets)
 
 BuildRequires:  cmake(KDSoap) >= 1.9
+BuildRequires:  cmake(KDSoapWSDiscoveryClient)
+BuildRequires:  cmake(KExiv2Qt6)
+
 BuildRequires:  libjpeg-devel
 BuildRequires:  libmtp-devel
 BuildRequires:  libsmbclient-devel
 BuildRequires:  libssh-devel
-%if 0%{?fedora} > 33
-# As of 2.5.x openexr is cmake based.
 BuildRequires:  cmake(OpenEXR)
-%else
-BuildRequires:  OpenEXR-devel
-%endif
-BuildRequires:  openslp-devel
 BuildRequires:  perl-generators
-BuildRequires:  phonon-qt5-devel
+BuildRequires:  phonon-qt6-devel
 BuildRequires:  pkgconfig(libimobiledevice-1.0)
 BuildRequires:  pkgconfig(libplist-2.0)
 BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(xcursor)
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  taglib-devel > 1.11
-BuildRequires:  zlib-devel
 
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: time
-BuildRequires: xorg-x11-server-Xvfb
-%endif
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
-
-# short-lived subpkg, locale conflicts fixed in kio_mtp instead
-Obsoletes:      kio-extras-mtp-common < 5.2.2-3
-
-Obsoletes: kde-runtime-docs < 5.0.0-1
-# when went noarch
-Obsoletes: kio-extras-doc < 5.8.0-2
-# moved to main pkg
-Obsoletes: kio-extras-docs < 17.03
-Provides:  kio-extras-docs = %{version}-%{release}
-
-# -htmlthumbnail removed
-Obsoletes: kio-extras-htmlthumbnail < 18.08.3
-
-# helpful for  imagethumbnail plugin
-Recommends: qt5-qtimageformats%{?_isa}
-# .exe/.ico previews, will limit dep to only if wine-core is installed for now -- rdieter
-Recommends: (icoutils if wine-core)
-
-# when -info was split out
-Obsoletes: kio-extras < 19.04.1-1
+# This package provides plugins for KIO
+Supplements:    kf6-kio-core
 
 %description
 %{summary}.
 
 %package info
 Summary: Info kioslave
-# when -info was split out
-Obsoletes: kio-extras < 19.04.1-1
 %description info
 Kioslave for reading info pages.
 
@@ -124,89 +82,50 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
-%cmake_kf5 \
-  -DLIBSSH_LIBRARIES="$(pkg-config --libs libssh)" \
-  %{?tests:-DBUILD_TESTING:BOOL=ON}
-
+%cmake_kf6 -DLIBSSH_LIBRARIES="$(pkg-config --libs libssh)"
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 
-%check
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a dbus-launch --exit-with-session \
-time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||:
-%endif
-
-
-%ldconfig_scriptlets
-
 %files -f %{name}.lang
-%dir %{_datadir}/konqueror/
-%dir %{_datadir}/konqueror/dirtree/
-%dir %{_datadir}/konqueror/dirtree/remote/
-%dir %{_kf5_plugindir}/kded
-%dir %{_kf5_plugindir}/kio/
-%dir %{_kf5_plugindir}/kiod/
-
 %license LICENSES/*
+
+%{_kf6_plugindir}/kded/
+%{_kf6_plugindir}/kio/
+%{_kf6_plugindir}/kiod/
+%{_kf6_plugindir}/thumbcreator/
+%{_kf6_plugindir}/kfileitemaction/
 
 %{_datadir}/config.kcfg/jpegcreatorsettings5.kcfg
 %{_datadir}/dbus-1/services/org.kde.kmtpd5.service
-%{_datadir}/kio_bookmarks/
+%{_datadir}/applications/kcm_*
 %{_datadir}/kio_docfilter/
-%{_datadir}/konqueror/dirtree/remote/mtp-network.desktop
-%{_datadir}/konqueror/dirtree/remote/smb-network.desktop
 %{_datadir}/mime/packages/org.kde.kio.smb.xml
 %{_datadir}/remoteview/
+%{_datadir}/konqueror/
 
-%{_kf5_datadir}/kservices5/*.desktop
-%{_kf5_datadir}/kservicetypes5/thumbcreator.desktop
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_datadir}/solid/actions/solid_afc.desktop
-%{_kf5_datadir}/solid/actions/solid_mtp.desktop
+%{_kf6_datadir}/qlogging-categories6/kio-extras*
+%{_kf6_datadir}/solid/actions/solid_afc.desktop
+%{_kf6_datadir}/solid/actions/solid_mtp.desktop
 
-%{_kf5_libdir}/libkioarchive.so.5*
+%{_kf6_libdir}/libkioarchive.so.5*
 
-%{_kf5_libexecdir}/smbnotifier
+%{_kf6_libexecdir}/smbnotifier
 
-%{_kf5_plugindir}/kded/filenamesearchmodule.so
-%{_kf5_plugindir}/kded/recentdocumentsnotifier.so
-%{_kf5_plugindir}/kded/smbwatcher.so
-%{_kf5_plugindir}/kfileitemaction/kactivitymanagerd_fileitem_linking_plugin.so
-%{_kf5_plugindir}/kfileitemaction/forgetfileitemaction.so
-%{_kf5_plugindir}/kio/activities.so
-%{_kf5_plugindir}/kio/afc.so
-%{_kf5_plugindir}/kio/archive.so
-%{_kf5_plugindir}/kio/bookmarks.so
-%{_kf5_plugindir}/kio/filter.so
-%{_kf5_plugindir}/kio/fish.so
-%{_kf5_plugindir}/kio/kio_filenamesearch.so
-%{_kf5_plugindir}/kio/man.so
-%{_kf5_plugindir}/kio/mtp.so
-%{_kf5_plugindir}/kio/nfs.so
-%{_kf5_plugindir}/kio/recentdocuments.so
-%{_kf5_plugindir}/kio/recentlyused.so
-%{_kf5_plugindir}/kio/sftp.so
-%{_kf5_plugindir}/kio/smb.so
-%{_kf5_plugindir}/kio/thumbnail.so
-%{_kf5_plugindir}/kiod/kmtpd.so
-%{_kf5_plugindir}/thumbcreator/*.so
-
-%{_kf5_qtplugindir}/kfileaudiopreview.so
+%{_kf6_qtplugindir}/kfileaudiopreview.so
+%{_kf6_qtplugindir}/kcm_trash.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_*.so
 
 %files info
-%{_kf5_plugindir}/kio/info.so
+%{_kf6_plugindir}/kio/info.so
 # perl deps, but required at runtime for the info kioslave to actually work:
 %dir %{_datadir}/kio_info/
 %{_datadir}/kio_info/kde-info2html*
@@ -214,11 +133,15 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %files devel
 %{_includedir}/KioArchive/*.h
 # no soname symlink? --rex
-#{_kf5_libdir}/libkioarchive.so
-%{_kf5_libdir}/cmake/KioArchive/
+#{_kf6_libdir}/libkioarchive.so
+%{_kf6_libdir}/cmake/KioArchive/
 
 
 %changelog
+* Tue Nov 14 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
+- 24.01.75
+- Targets KF6
+
 * Tue Nov 14 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Provide support for extracting JPEG thumbnails
 

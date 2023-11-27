@@ -1,20 +1,12 @@
-%global base_name    plasma-browser-integration
-
 Name:    plasma-browser-integration
-Summary: %{base_name} provides components necessary to integrate browsers into the Plasma Desktop
-Version: 5.27.9
+Summary: %{name} provides components necessary to integrate browsers into the Plasma Desktop
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
-URL:     https://invent.kde.org/plasma/%{base_name}
+License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
+URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## downstream patches
 
@@ -23,23 +15,24 @@ Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}
 ## upstreamable patches
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(KF5Activities)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5FileMetaData)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5ItemModels)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Purpose)
-BuildRequires:  cmake(KF5Runner)
-BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(KF6Activities)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6FileMetaData)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Purpose)
+BuildRequires:  cmake(KF6Runner)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6StatusNotifierItem)
 
 BuildRequires:  plasma-workspace-devel >= %{version}
 
@@ -47,26 +40,24 @@ Supplements: (plasma-workspace and chromium)
 Supplements: (plasma-workspace and firefox)
 
 %description
-%{base_name} coupled with a browser plugin provides integration of the browser in the desktop.
+%{name} coupled with a browser plugin provides integration of the browser in the desktop.
 
 For more information, see
 https://community.kde.org/Plasma/Browser_Integration
 
 
 %prep
-%autosetup -n %{base_name}-%{version} -p1
+%autosetup -n %{name}-%{version} -p1
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
   -DMOZILLA_DIR:PATH=%{_libdir}/mozilla
-
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name
 
 
@@ -77,13 +68,16 @@ https://community.kde.org/Plasma/Browser_Integration
 %config %{_sysconfdir}/opt/edge/native-messaging-hosts/org.kde.plasma.browser_integration.json
 %{_bindir}/plasma-browser-integration-host
 %{_libdir}/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json
-%{_kf5_plugindir}/kded/browserintegrationreminder.so
-%{_kf5_datadir}/krunner/dbusplugins/plasma-runner-browserhistory.desktop
-%{_kf5_datadir}/krunner/dbusplugins/plasma-runner-browsertabs.desktop
-%{_kf5_datadir}/applications/org.kde.plasma.browser_integration.host.desktop
+%{_kf6_plugindir}/kded/browserintegrationreminder.so
+%{_kf6_datadir}/krunner/dbusplugins/plasma-runner-browserhistory.desktop
+%{_kf6_datadir}/krunner/dbusplugins/plasma-runner-browsertabs.desktop
+%{_kf6_datadir}/applications/org.kde.plasma.browser_integration.host.desktop
 
 
 %changelog
+* Fri Nov 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

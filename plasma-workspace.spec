@@ -1,50 +1,22 @@
-# Set (as 1) to enable bootstrap when building plasma-workspace on a new
-# repo or arch where there's no package that would provide plasmashell
-#global bootstrap 1
-
-%global kf5_version_min 5.98.0
-
-# Control wayland by default
-%if (0%{?rhel} && 0%{?rhel} < 9)
-%bcond_with wayland_default
-%else
-%bcond_without wayland_default
-%endif
-
-# Control sddm wayland by default
-%if (0%{?fedora} && 0%{?fedora} < 38) || (0%{?rhel} && 0%{?rhel} < 9)
-%bcond_with sddm_wayland_default
-%else
-%bcond_without sddm_wayland_default
-%endif
-
-# Control systemdBoot by default
-%if 0%{?rhel} && 0%{?rhel} < 9
-%bcond_with systemdBoot
-%else
-%bcond_without systemdBoot
-%endif
+# X11 session is not shipped anymore
+%bcond x11 0
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.27.9.1
-Release: 2%{?dist}
+Version: 5.27.80
+Release: 14%{?dist}
 
-License: GPLv2+
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
 
-# Temporary commenting out as there is a re-release
-#Source0: http://download.kde.org/%{stable_kf5}/plasma/%{version}/%{name}-%{version}.tar.xz
-Source0: http://download.kde.org/%{stable_kf5}/plasma/5.27.9/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-# filter qml/plugins provides
-%global __provides_exclude_from ^(%{_kf5_qmldir}/.*\\.so|%{_kf5_qtplugindir}/.*\\.so)$
-
-# This goes to PAM
-# TODO: this should arguably be in kde-settings with the other pam-related configs
-Source10:       kde
 Source11:       startkderc
-Source15:       fedora.desktop
+Source15:       fedora-lookandfeel.json
+
+Source100:      kde
+Source101:      kde-fingerprint
+Source102:      kde-smartcard
 
 # breeze fedora sddm theme components
 # includes f25-based preview (better than breeze or nothing at least)
@@ -59,22 +31,19 @@ Source41:       spice-vdagent.conf
 ## upstreamable Patches
 
 ## downstream Patches
-# default to folderview (instead of desktop) containment, see also
-# https://mail.kde.org/pipermail/distributions/2016-July/000133.html
-# and example,
-# https://github.com/notmart/artwork-lnf-netrunner-core/blob/master/usr/share/plasma/look-and-feel/org.kde.netrunner-core.desktop/contents/defaults
-Patch105:       plasma-workspace-5.21.90-folderview_layout.patch
 # default to enable open terminal action
-Patch106:       plasma-workspace-5.25.90-enable-open-terminal-action.patch
+Patch106:       plasma-workspace-5.27.80-enable-open-terminal-action.patch
 # default to enable the lock/logout actions
-Patch107:       plasma-workspace-5.25.90-enable-lock-logout-action.patch
+Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
 # Hide virtual keyboard indicator on sddm.
 # Do not remove this as it breaks Fedora's QA policy
 Patch108:       hide-virtual-keyboard-indicator-on-sddm.patch
 
+# Fix for build failing with a crypt error
+Patch109:        plasma-workspace-5.27.80-crypt-fix.patch
+
 # udev
 BuildRequires:  zlib-devel
-BuildRequires:  dbusmenu-qt5-devel
 BuildRequires:  libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  libSM-devel
@@ -105,95 +74,94 @@ BuildRequires:  pam-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  pciutils-devel
 BuildRequires:  pipewire-devel
+BuildRequires:  unity-gtk2-module
 %ifnarch s390 s390x
 BuildRequires:  libraw1394-devel
 %endif
 BuildRequires:  gpsd-devel
 BuildRequires:  libqalculate-devel
-%global kf5_pim 1
-BuildRequires:  kf5-kholidays-devel
-BuildRequires:  kf5-prison-devel
+%global kf6_pim 1
+BuildRequires:  kf6-kholidays-devel
+BuildRequires:  kf6-prison-devel
 BuildRequires:  libicu-devel
 
-BuildRequires:  qt5-qtbase-devel >= 5.15
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
 
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  qt5-qtscript-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qtwayland-devel
-BuildRequires:  phonon-qt5-devel
-BuildRequires:  polkit-qt5-1-devel
-
-BuildRequires:  kf5-rpm-macros >= %{kf5_version_min}
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  qt6-qtwayland-devel
+BuildRequires:  cmake(Qt6ShaderTools)
+BuildRequires:  polkit-qt6-1-devel
+BuildRequires:  libcanberra-devel
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  systemd
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-baloo-devel >= %{kf5_version_min}
-BuildRequires:  kf5-libkexiv2-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kactivities-stats-devel >= %{kf5_version_min}
-BuildRequires:  kf5-karchive-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kcmutils-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kcrash-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kdbusaddons-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kdeclarative-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kdesu-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kdoctools-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kglobalaccel-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kguiaddons-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kidletime-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kinit-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kitemmodels-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kio-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kjsembed-devel >= %{kf5_version_min}
-BuildRequires:  kf5-knewstuff-devel >= %{kf5_version_min}
-BuildRequires:  kf5-knotifications-devel >= %{kf5_version_min}
-BuildRequires:  kf5-knotifyconfig-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kpeople-devel >= %{kf5_version_min}
-BuildRequires:  kf5-krunner-devel >= %{kf5_version_min}
-BuildRequires:  kf5-ktexteditor-devel >= %{kf5_version_min}
-BuildRequires:  kf5-ktextwidgets-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kunitconversion-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kwallet-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kxmlrpcclient-devel >= %{kf5_version_min}
-BuildRequires:  kf5-networkmanager-qt-devel >= %{kf5_version_min}
-BuildRequires:  kf5-plasma-devel >= %{kf5_version_min}
-Requires:       kf5-plasma%{?_isa} >= %{kf5_version_min}
-BuildRequires:  kf5-threadweaver-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kded-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kirigami2-devel >= %{kf5_version_min}
-BuildRequires:  kf5-kquickcharts-devel >= %{kf5_version_min}
-
-BuildRequires:  kf5-kwayland-devel >= %{kf5_version_min}
+BuildRequires:  cmake(KF6Baloo)
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6Su)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6IdleTime)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6NotifyConfig)
+BuildRequires:  cmake(KF6People)
+BuildRequires:  cmake(KF6Runner)
+BuildRequires:  cmake(KF6TextEditor)
+BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6UnitConversion)
+BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6ThreadWeaver)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6QuickCharts)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6Wayland)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6Plasma5Support)
+BuildRequires:  cmake(KF6ActivitiesStats)
+BuildRequires:  cmake(KF6KDED)
+BuildRequires:  cmake(KF6NetworkManagerQt)
+BuildRequires:  cmake(KF6Screen)
+BuildRequires:  kf6-kirigami2-addons
+Requires:       kf6-kirigami2-addons
 BuildRequires:  wayland-devel >= 1.3.0
-BuildRequires:  libkscreen-qt5-devel >= %{majmin_ver_kf5}
-BuildRequires:  libksysguard-devel >= %{majmin_ver_kf5}
-BuildRequires:  kscreenlocker-devel >= %{majmin_ver_kf5}
-BuildRequires:  kwin-devel >= %{majmin_ver_kf5}
-BuildRequires:  layer-shell-qt-devel >= %{majmin_ver_kf5}
-
-BuildRequires:  PackageKit-Qt5-devel
+BuildRequires:  libksysguard-devel
+BuildRequires:  kscreenlocker-devel
+BuildRequires:  kwin-devel
+BuildRequires:  layer-shell-qt-devel
+BuildRequires:  cmake(Phonon4Qt6)
+BuildRequires:  PackageKit-Qt6-devel
+BuildRequires:  cmake(KExiv2Qt6)
 
 # workaround for
 #   The imported target "Qt5::XkbCommonSupport" references the file
 #     "/usr/lib64/libQt5XkbCommonSupport.a"
 #  but this file does not exist.
-BuildRequires:  qt5-qtbase-static
+BuildRequires:  qt6-qtbase-static
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  pkgconfig(libxcrypt)
 
-BuildRequires:  kuserfeedback-devel
+BuildRequires:  cmake(KUserFeedbackQt6)
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  plasma-wayland-protocols-devel
-# Commented out and hardcoded on the next line exclusively due to a re-spin
-# with an extra .1 in the version
-# Revert when possible (possibly on the next plasma-workspace release)
-#BuildRequires:  plasma-breeze-devel >= %{version}
-BuildRequires:  plasma-breeze-devel >= 5.25.3
+BuildRequires:  plasma-breeze-devel >= %{version}
 
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
 
 # Optional
-BuildRequires:  kf5-kactivities-devel
+BuildRequires:  cmake(KF6Activities)
 %if 0%{?fedora}
 BuildRequires:  cmake(AppStreamQt) >= 0.10.4
 %endif
@@ -214,40 +182,36 @@ Requires:       %{name}-geolocation = %{version}-%{release}
 
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       libkworkspace5%{?_isa} = %{version}-%{release}
+Requires:       libkworkspace6%{?_isa} = %{version}-%{release}
 # for selinux settings
 Requires:       (policycoreutils if selinux-policy)
 
 # for libkdeinit5_*
-%{?kf5_kinit_requires}
-Requires:       kactivitymanagerd%{?_isa} >= %{majmin_ver_kf5}
-Requires:       khotkeys%{?_isa} >= %{majmin_ver_kf5}
-Requires:       ksystemstats%{?_isa} >= %{majmin_ver_kf5}
-Requires:       kf5-baloo >= %{kf5_version_min}
-Requires:       kf5-kded >= %{kf5_version_min}
-Requires:       kf5-kdoctools >= %{kf5_version_min}
-Requires:       kf5-kglobalaccel >= %{kf5_version_min}
-Requires:       kf5-kxmlrpcclient >= %{kf5_version_min}
-Requires:       kf5-kquickcharts >= %{kf5_version_min}
-Requires:       qt5-qtquickcontrols
-Requires:       qt5-qtgraphicaleffects
+%{?kf6_kinit_requires}
+Requires:       kactivitymanagerd%{?_isa}
+Requires:       ksystemstats%{?_isa}
+Requires:       kf6-baloo
+Requires:       kf6-kded
+Requires:       kf6-kdoctools
+Requires:       kf6-kglobalaccel
+Requires:       kf6-kquickcharts
 
 # The new volume control for PulseAudio
 %if 0%{?fedora} || 0%{?rhel} > 7
-Recommends:       plasma-pa >= %{majmin_ver_kf5}
+Recommends:       plasma-pa
 %endif
 
 # Without the platformtheme plugins we get broken fonts
-Requires:       kf5-frameworkintegration
+Requires:       kf6-frameworkintegration
 
 # For krunner
-Recommends:       plasma-milou >= %{majmin_ver_kf5}
+Recommends:       plasma-milou
 
 # https://pagure.io/fedora-kde/SIG/issue/303
 Recommends: kde-inotify-survey
 
 # https://pagure.io/fedora-kde/SIG/issue/354
-Recommends: kf5-audiocd-kio
+# Recommends: kf6-audiocd-kio
 
 # For a11y
 Recommends: orca
@@ -256,7 +220,7 @@ Recommends: orca
 # need to avoid this dep when bootstrapping
 %if ! 0%{?bootstrap}
 # Power management
-Requires:       powerdevil >= %{majmin_ver_kf5}
+Requires:       powerdevil
 %endif
 
 Requires:       dbus
@@ -270,7 +234,7 @@ Requires:       redhat-menus
 Requires:       coreutils
 Requires:       socat
 Requires:       xmessage
-Requires:       qt5-qttools
+Requires:       qt6-qttools
 
 Requires:       iceauth xrdb xprop
 
@@ -281,18 +245,19 @@ Requires:       plasma-lookandfeel-fedora = %{version}-%{release}
 
 Requires:       systemd
 
-# Oxygen
-Requires:       oxygen-sounds >= %{majmin_ver_kf5}
+# Default sound theme
+Requires:       ocean-sound-theme
 
 # PolicyKit authentication agent
-Requires:        polkit-kde >= %{majmin_ver_kf5}
+Requires:        polkit-kde
 
 # onscreen keyboard
 Requires:        maliit-keyboard
 
-%if %{with systemdBoot}
+# lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
+Requires:        qt6-qtvirtualkeyboard
+
 Requires:        (uresourced if systemd-oomd-defaults)
-%endif
 
 # needed for task manager thumbnails under wayland and for things like
 # screenshare portal
@@ -305,7 +270,7 @@ Provides:       plasmashell = %{version}
 # Note: We should require >= %%{version}, but that creates a circular dependency
 # at build time of plasma-desktop, because it provides the needed dependency, but
 # also needs plasma-workspace to build. So for now the dependency is unversioned.
-Requires:       plasmashell >= %{majmin_ver_kf5}
+Requires:       plasmashell
 %endif
 
 # when -common, libkworkspace5 was split out
@@ -326,29 +291,27 @@ Requires: iso-codes
 # Split of Xorg session into subpackage
 Obsoletes: plasma-workspace < 5.19.5-2
 
-# Require Xorg/Wayland sessions appropriately
-%if ! %{with wayland_default}
-Recommends: %{name}-wayland = %{version}-%{release}
-Requires:   %{name}-xorg = %{version}-%{release}
-%else
+# khotkeys was dropped
+Obsoletes: khotkeys < 6
+
+# Require Wayland sessions appropriately
 Requires:   %{name}-wayland = %{version}-%{release}
-Recommends: %{name}-xorg = %{version}-%{release}
-%endif
 
 %description
-Plasma 5 libraries and runtime components
+Plasma 6 libraries and runtime components
 
 %package common
 Summary: Common files for %{name}
 %description common
 %{name}.
 
-%package -n libkworkspace5
-Summary: Runtime libkworkspace5 library
+%package -n libkworkspace6
+Summary: Runtime libkworkspace6 library
 # when spilt occurred
 Obsoletes: plasma-workspace < 5.4.2-2
+Obsoletes: libkworkspace5 < %{version}-%{release}
 Requires:  %{name}-common = %{version}-%{release}
-%description -n libkworkspace5
+%description -n libkworkspace6
 %{summary}.
 
 %package libs
@@ -367,7 +330,7 @@ Provides: plasma-packagestructure = %{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       libkworkspace5%{?_isa} = %{version}-%{release}
+Requires:       libkworkspace6%{?_isa} = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -402,11 +365,11 @@ Summary:        SDDM breeze theme
 Requires:       kde-settings-sddm
 # upgrade path, when sddm-breeze was split out
 Obsoletes: plasma-workspace < 5.3.2-8
-Requires:       kf5-plasma >= %{kf5_version_min}
-# Background.qml:import QtQuick
-Requires:       qt5-qtquickcontrols
-# on-screen keyboard
-Recommends:     qt5-qtvirtualkeyboard
+# theme files from breeze plasma
+Requires:       libplasma
+# QML imports:
+# QtQuick.VirtualKeyboard
+Requires:       qt6-qtvirtualkeyboard
 # QML imports:
 # org.kde.plasma.workspace.components
 # org.kde.plasma.workspace.keyboardlayout
@@ -427,15 +390,14 @@ BuildArch: noarch
 Summary:        Plasma Wayland SDDM greeter configuration
 Provides:       sddm-greeter-displayserver
 Conflicts:      sddm-greeter-displayserver
-Requires:       kwin-wayland >= %{majmin_ver_kf5}
+Requires:       kwin-wayland
+Requires:       layer-shell-qt
 Requires:       maliit-keyboard
-%if %{with sddm_wayland_default}
 Supplements:    (sddm and plasma-workspace-wayland)
 %if ! (0%{?fedora} && 0%{?fedora} < 38)
 # Replace sddm-x11 with sddm-wayland-plasma
 ## N.B.: If sddm gets updated in F36/F37, this will need to be bumped
 Obsoletes:      sddm-x11 < 0.19.0^git20230404.e652433-2
-%endif
 %endif
 BuildArch:      noarch
 
@@ -446,16 +408,21 @@ to use KWin for the Wayland compositor for the greeter.
 %package wayland
 Summary:        Wayland support for Plasma
 Requires:       %{name} = %{version}-%{release}
-Requires:       kwin-wayland >= %{majmin_ver_kf5}
-Requires:       kwayland-integration%{?_isa} >= %{majmin_ver_kf5}
+Requires:       kwin-wayland
+Requires:       kwayland-integration%{?_isa}
 Requires:       xorg-x11-server-Xwayland
-Requires:       qt5-qtwayland%{?_isa}
+Requires:       qt6-qtwayland%{?_isa}
 # startplasmacompositor deps
-Requires:       qt5-qttools
-Requires:       xdg-desktop-portal-kde >= %{majmin_ver_kf5}
+Requires:       qt6-qttools
+Requires:       xdg-desktop-portal-kde
+%if ! %{with x11}
+Obsoletes:      %{name}-x11 < %{version}-%{release}
+Conflicts:      %{name}-x11 < %{version}-%{release}
+%endif
 %description wayland
 %{summary}.
 
+%if %{with x11}
 %package x11
 Summary:        Xorg support for Plasma
 # Rename this package to match upstream
@@ -465,17 +432,20 @@ Provides:       %{name}-xorg%{?_isa} = %{version}-%{release}
 # Split of Xorg session into subpackage
 Obsoletes:      %{name} < 5.19.5-2
 Requires:       %{name} = %{version}-%{release}
-Requires:       kwin-x11 >= %{majmin_ver_kf5}
+Requires:       kwin-x11
 Requires:       xorg-x11-server-Xorg
 Requires:       xsetroot
 # Plasma X11 is deprecated and will be removed with Plasma 6.0
 Provides:       deprecated()
 %description x11
 %{summary}.
+%endif
 
 %package -n plasma-lookandfeel-fedora
 Summary:  Fedora look-and-feel for Plasma
 Requires: %{name} = %{version}-%{release}
+# lockscreen look-and-feel imports qml: QtQuick.VirtualKeyboard
+Requires: qt6-qtvirtualkeyboard
 # when switched to noarch
 Obsoletes: plasma-lookandfeel-fedora < 5.8.0-5
 # https://bugzilla.redhat.com/show_bug.cgi?id=1356890
@@ -495,42 +465,39 @@ BuildArch: noarch
 cp -a lookandfeel/org.kde.breeze lookandfeel/org.fedoraproject.fedora
 # Overwrite settings to configure twilight mode
 cp -a lookandfeel/org.kde.breezetwilight/* lookandfeel/org.fedoraproject.fedora
-install -m 0644 %{SOURCE15} lookandfeel/org.fedoraproject.fedora/metadata.desktop
+install -m 0644 %{SOURCE15} lookandfeel/org.fedoraproject.fedora/metadata.json
 cat >> lookandfeel/CMakeLists.txt <<EOL
 plasma_install_package(org.fedoraproject.fedora org.fedoraproject.fedora.desktop look-and-feel lookandfeel)
 EOL
 
 
 %build
-%{cmake_kf5} \
+%cmake_kf6 \
   -DINSTALL_SDDM_WAYLAND_SESSION:BOOL=ON \
-  %{?with_wayland_default:-DPLASMA_WAYLAND_DEFAULT_SESSION:BOOL=ON}
-
+  -DPLASMA_X11_DEFAULT_SESSION:BOOL=OFF
 %cmake_build
 
 
 %install
 %cmake_install
 
-chrpath --delete %{buildroot}%{_kf5_qtplugindir}/phonon_platform/kde.so
-
-# legacy/compat startkde symlink, drop in future releases (f35+)
-%if 0%{?fedora} < 35
-%global startkde 1
-ln -s startplasma-x11 %{buildroot}%{_kf5_bindir}/startkde
+%if ! %{with x11}
+# Delete x11 session stuff
+rm -v %{buildroot}%{_kf6_bindir}/startplasma-x11 %{buildroot}%{_datadir}/xsessions/plasmax11.desktop
 %endif
 
-# remove/replace items to be customized
-ln -sf \
-  %{_datadir}/backgrounds/default.png \
-  %{buildroot}%{_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/components/artwork/background.png
+
+chrpath --delete %{buildroot}%{_kf6_qtplugindir}/phonon_platform/kde.so
+
+# General startplasma symlink
+ln -sr %{buildroot}%{_kf6_bindir}/startplasma-wayland %{buildroot}%{_kf6_bindir}/startplasma
 
 # make fedora-breeze sddm theme variant.
 cp -alf %{buildroot}%{_datadir}/sddm/themes/breeze/ \
         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora
 # replace items
-ln -sf  %{_datadir}/backgrounds/default.png \
-        %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/components/artwork/background.png
+# ln -sf  %{_datadir}/backgrounds/default.png \
+#         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/components/artwork/background.png
 install -m644 -p breeze-fedora/* \
         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/
 # Set Fedora distro vendor logo
@@ -544,15 +511,16 @@ mv %{buildroot}%{_sysconfdir}/sddm.conf.d %{buildroot}%{_prefix}/lib/sddm
 ## customize plasma-lookandfeel-fedora defaults
 # from [Wallpaper] Image=Next to Image=Fedora
 sed -i -e 's|^Image=.*$|Image=Fedora|g' \
-  %{buildroot}%{_kf5_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/defaults
+  %{buildroot}%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/defaults
 
-# Make kcheckpass work
-install -m644 -p -D %{SOURCE10} %{buildroot}%{_sysconfdir}/pam.d/kde
+# PAM
+# https://invent.kde.org/plasma/kscreenlocker/-/merge_requests/163#less-simple-method-for-redhat-and-redhat-adjacent-fedora-opensuse-etc-systems
+install -m644 -p -D %{SOURCE100} %{buildroot}%{_sysconfdir}/pam.d/kde
+install -m644 -p -D %{SOURCE101} %{buildroot}%{_sysconfdir}/pam.d/kde-fingerprint
+install -m644 -p -D %{SOURCE102} %{buildroot}%{_sysconfdir}/pam.d/kde-smartcard
 
-%if %{with systemdBoot}
 # Make kdestart use systemd
 install -m644 -p -D %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/startkderc
-%endif
 
 # systemd user service deps
 mkdir -p %{buildroot}%{_userunitdir}/plasma-core.target.d/
@@ -563,14 +531,14 @@ install -m644 -p -D %{SOURCE41} %{buildroot}%{_userunitdir}/plasma-core.target.d
 
 %find_lang all --with-html --all-name
 
-grep "%{_kf5_docdir}" all.lang > %{name}-doc.lang
-grep libkworkspace.mo all.lang > libkworkspace5.lang
+grep "%{_kf6_docdir}" all.lang > %{name}-doc.lang
+grep libkworkspace.mo all.lang > libkworkspace6.lang
 # any translations not used elsewhere, include in main pkg
 cat *.lang | sort | uniq -u > %{name}.lang
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.{klipper,plasmashell,systemmonitor}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.{plasmashell,systemmonitor,kcolorschemeeditor,kfontview,plasmawindowed}.desktop
 
 %post
 if [ -s /usr/sbin/setsebool ] ; then
@@ -581,49 +549,45 @@ fi
 %license LICENSES
 
 %files -f %{name}.lang
-%{_kf5_bindir}/gmenudbusmenuproxy
-%{_kf5_bindir}/kcminit
-%{_kf5_bindir}/kcminit_startup
-%{_kf5_bindir}/klipper
-%{_kf5_bindir}/krunner
-%{_kf5_bindir}/ksmserver
-%{_kf5_bindir}/ksplashqml
-%{_kf5_bindir}/plasmashell
-%{_kf5_bindir}/plasmawindowed
-%{_kf5_bindir}/plasma_session
-%{_kf5_bindir}/plasma-apply-*
-%{_kf5_bindir}/plasma-interactiveconsole
-%{_kf5_bindir}/plasma-localegen-helper
-%{_kf5_bindir}/plasma-shutdown
-%{_kf5_bindir}/plasma_waitforname
-%{_kf5_bindir}/systemmonitor
-%{_kf5_bindir}/xembedsniproxy
-%{_kf5_bindir}/kcolorschemeeditor
-%{_kf5_bindir}/kde-systemd-start-condition
-%{_kf5_bindir}/kfontinst
-%{_kf5_bindir}/kfontview
-%{_kf5_bindir}/lookandfeeltool
-%{_kf5_qmldir}/org/kde/*
+%{_sysconfdir}/xdg/menus/plasma-applications.menu
+%{_kf6_bindir}/gmenudbusmenuproxy
+%{_kf6_bindir}/kcminit
+%{_kf6_bindir}/kcminit_startup
+%{_kf6_bindir}/krunner
+%{_kf6_bindir}/ksmserver
+%{_kf6_bindir}/ksplashqml
+%{_kf6_bindir}/plasmashell
+%{_kf6_bindir}/plasmawindowed
+%{_kf6_bindir}/plasma_session
+%{_kf6_bindir}/plasma-apply-*
+%{_kf6_bindir}/plasma-interactiveconsole
+%{_kf6_bindir}/plasma-localegen-helper
+%{_kf6_bindir}/plasma-shutdown
+%{_kf6_bindir}/plasma_waitforname
+%{_kf6_bindir}/systemmonitor
+%{_kf6_bindir}/xembedsniproxy
+%{_kf6_bindir}/kcolorschemeeditor
+%{_kf6_bindir}/kde-systemd-start-condition
+%{_kf6_bindir}/kfontinst
+%{_kf6_bindir}/kfontview
+%{_kf6_bindir}/lookandfeeltool
+%{_kf6_qmldir}/org/kde/*
 %{_libexecdir}/baloorunner
 %{_libexecdir}/ksmserver-logout-greeter
-%{_libexecdir}/kf5/kauth/fontinst*
+%{_libexecdir}/kf6/kauth/fontinst*
 %{_libexecdir}/kfontprint
 %{_libexecdir}/plasma-changeicons
 %{_libexecdir}/plasma-dbus-run-session-if-needed
-%{_kf5_datadir}/plasma/avatars/
-%{_kf5_datadir}/plasma/nightcolor/
-%{_kf5_datadir}/plasma/plasmoids/
-%{_kf5_datadir}/plasma/services/
-%{_kf5_datadir}/plasma/wallpapers/
-%dir %{_kf5_datadir}/plasma/look-and-feel/
-%{_kf5_datadir}/plasma/look-and-feel/org.kde.breeze.desktop/
-%{_kf5_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/
-%{_kf5_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/
-%{_kf5_datadir}/solid/
-%{_kf5_datadir}/kstyle/
-%if %{with systemdBoot}
+%{_kf6_datadir}/plasma/avatars/
+%{_kf6_datadir}/plasma/plasmoids/
+%{_kf6_datadir}/plasma/wallpapers/
+%dir %{_kf6_datadir}/plasma/look-and-feel/
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.breeze.desktop/
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.breezedark.desktop/
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.breezetwilight.desktop/
+%{_kf6_datadir}/solid/
+%{_kf6_datadir}/kstyle/
 %{_sysconfdir}/xdg/startkderc
-%endif
 %{_sysconfdir}/xdg/autostart/*.desktop
 %{_datadir}/zsh/site-functions/_plasmashell
 %{_datadir}/icons/hicolor/*/*/*font*.png
@@ -640,43 +604,30 @@ fi
 %{_datadir}/krunner/dbusplugins/plasma-runner-baloosearch.desktop
 %{_datadir}/kxmlgui5/kfontview/kfontviewpart.rc
 %{_datadir}/kxmlgui5/kfontview/kfontviewui.rc
-%{_kf5_datadir}/kservices5/ServiceMenus/installfont.desktop
-%{_kf5_datadir}/kio/servicemenus/setaswallpaper.desktop
-%{_kf5_datadir}/kservices5/*.desktop
-%{_kf5_datadir}/kservicetypes5/*.desktop
-%{_kf5_datadir}/knotifications5/*.notifyrc
-%{_kf5_datadir}/config.kcfg/*
-%{_kf5_datadir}/kio_desktop/
-%{_kf5_datadir}/kconf_update/delete_cursor_old_default_size.pl
-%{_kf5_datadir}/kconf_update/delete_cursor_old_default_size.upd
-%{_kf5_datadir}/kconf_update/icons_remove_effects.upd
-%{_kf5_datadir}/kconf_update/style_widgetstyle_default_breeze.pl
-%{_kf5_datadir}/kconf_update/style_widgetstyle_default_breeze.upd
-%{_kf5_metainfodir}/*.xml
-%{_kf5_datadir}/applications/kcm_*
-%{_kf5_datadir}/applications/org.kde.klipper.desktop
-%{_kf5_datadir}/applications/org.kde.plasmashell.desktop
-%{_kf5_datadir}/applications/org.kde.systemmonitor.desktop
-%{_kf5_datadir}/applications/org.kde.kcolorschemeeditor.desktop
-%{_kf5_datadir}/applications/org.kde.kfontview.desktop
-%{_kf5_datadir}/applications/org.kde.plasmawindowed.desktop
-%{_kf5_datadir}/qlogging-categories5/*.categories
+%{_kf6_datadir}/knotifications6/*.notifyrc
+%{_kf6_datadir}/config.kcfg/*
+%{_kf6_datadir}/kio_desktop/
+%{_kf6_datadir}/plasma5support/services/*.operations
+%{_kf6_datadir}/kconf_update/delete_cursor_old_default_size.pl
+%{_kf6_datadir}/kconf_update/delete_cursor_old_default_size.upd
+%{_kf6_datadir}/kconf_update/icons_remove_effects.upd
+%{_kf6_datadir}/kconf_update/style_widgetstyle_default_breeze.pl
+%{_kf6_datadir}/kconf_update/style_widgetstyle_default_breeze.upd
+%{_kf6_datadir}/kconf_update/plasma6.0-remove-old-shortcuts.upd
+%{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels.upd
+%{_kf6_datadir}/kconf_update/plasmashell-6.0-migrate-panel-hiding-setting.upd
+%{_kf6_metainfodir}/*.xml
+%{_kf6_datadir}/applications/kcm_*
+%{_kf6_datadir}/applications/org.kde.plasmashell.desktop
+%{_kf6_datadir}/applications/org.kde.systemmonitor.desktop
+%{_kf6_datadir}/applications/org.kde.kcolorschemeeditor.desktop
+%{_kf6_datadir}/applications/org.kde.kfontview.desktop
+%{_kf6_datadir}/applications/org.kde.plasmawindowed.desktop
+%{_kf6_datadir}/kio/servicemenus/installfont.desktop
+%{_kf6_datadir}/qlogging-categories6/*.categories
 %{_sysconfdir}/xdg/plasmanotifyrc
-%{_kf5_datadir}/kpackage/kcms/kcm_autostart/
-%{_kf5_datadir}/kpackage/kcms/kcm_colors/
-%{_kf5_datadir}/kpackage/kcms/kcm_cursortheme/
-%{_kf5_datadir}/kpackage/kcms/kcm_desktoptheme/
-%{_kf5_datadir}/kpackage/kcms/kcm_feedback/
-%{_kf5_datadir}/kpackage/kcms/kcm_fonts/
-%{_kf5_datadir}/kpackage/kcms/kcm_lookandfeel/
-%{_kf5_datadir}/kpackage/kcms/kcm_nightcolor/
-%{_kf5_datadir}/kpackage/kcms/kcm_notifications/
-%{_kf5_datadir}/kpackage/kcms/kcm_regionandlang/
-%{_kf5_datadir}/kpackage/kcms/kcm_style/
-%{_kf5_datadir}/kpackage/kcms/kcm_users/
-%{_kf5_datadir}/kpackage/kcms/kcm_icons/
-%{_kf5_datadir}/polkit-1/actions/org.kde.fontinst.policy
-%{_kf5_datadir}/polkit-1/actions/org.kde.localegenhelper.policy
+%{_kf6_datadir}/polkit-1/actions/org.kde.fontinst.policy
+%{_kf6_datadir}/polkit-1/actions/org.kde.localegenhelper.policy
 %{_userunitdir}/*.service
 %{_userunitdir}/plasma-core.target
 %dir %{_userunitdir}/plasma-core.target.d/
@@ -688,15 +639,13 @@ fi
 %dir %{_userunitdir}/plasma-workspace@.target.d/
 # PAM
 %config(noreplace) %{_sysconfdir}/pam.d/kde
+%config(noreplace) %{_sysconfdir}/pam.d/kde-fingerprint
+%config(noreplace) %{_sysconfdir}/pam.d/kde-smartcard
 
 %files doc -f %{name}-doc.lang
 
-%ldconfig_scriptlets -n libkworkspace5
-
-%files -n libkworkspace5 -f libkworkspace5.lang
-%{_libdir}/libkworkspace5.so.5*
-
-%ldconfig_scriptlets libs
+%files -n libkworkspace6 -f libkworkspace6.lang
+%{_libdir}/libkworkspace6.so.*
 
 %files libs
 %{_sysconfdir}/xdg/taskmanagerrulesrc
@@ -706,62 +655,62 @@ fi
 %{_libdir}/libkrdb.so
 %{_libdir}/libnotificationmanager.*
 %{_libdir}/libkfontinst*
+%{_libdir}/libkmpris.so.*
 # multilib'able plugins
-%{_kf5_qtplugindir}/plasma/applets/
-%{_kf5_qtplugindir}/plasma/dataengine/
-%if 0%{?kf5_pim}
-%{_kf5_qtplugindir}/plasmacalendarplugins/
+%{_kf6_qtplugindir}/plasma/applets/
+%if 0%{?kf6_pim}
+%{_kf6_qtplugindir}/plasmacalendarplugins/
 %endif
-%exclude %{_kf5_qtplugindir}/plasma/dataengine/plasma_engine_geolocation.so
-%exclude %{_kf5_qtplugindir}/plasma/geolocationprovider/plasma-geolocation-gps.so
-%exclude %{_kf5_qtplugindir}/plasma/geolocationprovider/plasma-geolocation-ip.so
-%dir %{_kf5_qtplugindir}/phonon_platform/
-%{_kf5_qtplugindir}/phonon_platform/kde.so
-%{_kf5_qtplugindir}/kpackage/packagestructure/*.so
-%{_kf5_plugindir}/kio/*.so
-%{_kf5_plugindir}/kded/*.so
-%{_kf5_plugindir}/krunner/*
-%{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_*.so
+%dir %{_kf6_qtplugindir}/phonon_platform/
+%{_kf6_qtplugindir}/phonon_platform/kde.so
+%{_kf6_plugindir}/kio/*.so
+%{_kf6_plugindir}/kded/*.so
+%{_kf6_plugindir}/krunner/*
+%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_*.so
 %{_libdir}/kconf_update_bin/krunnerhistory
 %{_libdir}/kconf_update_bin/krunnerglobalshortcuts
 %{_libdir}/kconf_update_bin/plasmashell-5.27-use-panel-thickness-in-default-group
-%{_kf5_qtplugindir}/kf5/parts/kfontviewpart.so
-%{_kf5_qtplugindir}/kf5/thumbcreator/fontthumbnail.so
-%{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_applauncher.so
-%{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_contextmenu.so
-%{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_paste.so
-%{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_switchdesktop.so
-%{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_switchwindow.so
-%{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_switchactivity.so
-%{_kf5_qtplugindir}/plasma/kcminit/kcm_fonts_init.so
-%{_kf5_qtplugindir}/plasma/kcminit/kcm_style_init.so
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_fontinst.so
+%{_kf6_qtplugindir}/kf6/parts/kfontviewpart.so
+%{_kf6_qtplugindir}/kf6/thumbcreator/fontthumbnail.so
+%{_kf6_qtplugindir}/kf6/kfileitemaction/wallpaperfileitemaction.so
+%{_kf6_qtplugindir}/kf6/packagestructure/plasma_layouttemplate.so
+%{_kf6_qtplugindir}/kf6/packagestructure/plasma_lookandfeel.so
+%{_kf6_qtplugindir}/kf6/packagestructure/wallpaper_images.so
+%{_kf6_qtplugindir}/plasma/containmentactions/org.kde.applauncher.so
+%{_kf6_qtplugindir}/plasma/containmentactions/org.kde.contextmenu.so
+%{_kf6_qtplugindir}/plasma/containmentactions/org.kde.paste.so
+%{_kf6_qtplugindir}/plasma/containmentactions/org.kde.switchdesktop.so
+%{_kf6_qtplugindir}/plasma/containmentactions/switchwindow.so
+%{_kf6_qtplugindir}/plasma/containmentactions/switchactivity.so
+%{_kf6_qtplugindir}/plasma5support/dataengine/*
+%{_kf6_qtplugindir}/plasma/kcminit/kcm_fonts_init.so
+%{_kf6_qtplugindir}/plasma/kcminit/kcm_style_init.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_fontinst.so
 %{_libexecdir}/plasma-sourceenv.sh
-%{_kf5_datadir}/kconf_update/krunnerhistory.upd
-%{_kf5_datadir}/kconf_update/krunnerglobalshortcuts2.upd
-%{_kf5_datadir}/kconf_update/plasmashell-5.27-use-panel-thickness-in-default-group.upd
-%{_kf5_datadir}/kglobalaccel/org.kde.krunner.desktop
+%{_kf6_datadir}/kconf_update/krunnerhistory.upd
+%{_kf6_datadir}/kconf_update/krunnerglobalshortcuts2.upd
+%{_kf6_datadir}/kconf_update/plasmashell-5.27-use-panel-thickness-in-default-group.upd
+%{_libdir}/kconf_update_bin/plasma6.0-remove-old-shortcuts
+%{_libdir}/kconf_update_bin/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels
+%{_libdir}/kconf_update_bin/plasmashell-6.0-migrate-panel-hiding-setting
+%{_kf6_datadir}/kglobalaccel/org.kde.krunner.desktop
 
 %files geolocation
-%{_kf5_qtplugindir}/plasma/dataengine/plasma_engine_geolocation.so
-%{_kf5_qtplugindir}/plasma/geolocationprovider/plasma-geolocation-gps.so
-%{_kf5_qtplugindir}/plasma/geolocationprovider/plasma-geolocation-ip.so
-
-%ldconfig_scriptlets geolocation-libs
+%{_kf6_qtplugindir}/plasma5support/geolocationprovider/plasma-geolocation-gps.so
+%{_kf6_qtplugindir}/plasma5support/geolocationprovider/plasma-geolocation-ip.so
 
 %files geolocation-libs
-%{_libdir}/libplasma-geolocation-interface.so.5*
+%{_libdir}/libplasma-geolocation-interface.so.*
 
 %files devel
 %{_libdir}/libcolorcorrect.so
 %{_libdir}/libweather_ion.so
 %{_libdir}/libtaskmanager.so
 %{_libdir}/libplasma-geolocation-interface.so
-%{_libdir}/libkworkspace5.so
+%{_libdir}/libkworkspace6.so
 %dir %{_includedir}/plasma/
 %{_includedir}/colorcorrect/
-%{_includedir}/plasma/weather/
-%{_includedir}/kworkspace5/
+%{_includedir}/kworkspace6/
 %{_includedir}/plasma/geolocation/
 %{_includedir}/taskmanager/
 %{_includedir}/notificationmanager/
@@ -772,39 +721,81 @@ fi
 %{_libdir}/cmake/LibTaskManager/
 %{_libdir}/cmake/LibNotificationManager/
 %{_datadir}/dbus-1/interfaces/*.xml
+%{_includedir}/krdb/krdb.h
+%{_includedir}/krdb/krdb_export.h
+%{_includedir}/plasma5support/weather/ion.h
+%{_includedir}/plasma5support/weather/ion_export.h
+%{_libdir}/libkmpris.so
 
 %files -n sddm-breeze
 %{_datadir}/sddm/themes/breeze/
 %{_datadir}/sddm/themes/01-breeze-fedora/
-#%config(noreplace) %{_datadir}/sddm/themes/01-breeze-fedora/theme.conf.user
 
 %files -n sddm-wayland-plasma
 %{_prefix}/lib/sddm/sddm.conf.d/plasma-wayland.conf
 
 %files wayland
-%{_kf5_bindir}/startplasma-wayland
-%if ! %{with wayland_default}
-%{_datadir}/wayland-sessions/plasmawayland.desktop
-%else
+%{_kf6_bindir}/startplasma
+%{_kf6_bindir}/startplasma-wayland
 %{_datadir}/wayland-sessions/plasma.desktop
-%endif
 
+%if %{with x11}
 %files x11
-%{_kf5_bindir}/startplasma-x11
-%if 0%{?startkde}
-%{_kf5_bindir}/startkde
-%endif
-%if ! %{with wayland_default}
-%{_datadir}/xsessions/plasma.desktop
-%else
+%{_kf6_bindir}/startplasma-x11
 %{_datadir}/xsessions/plasmax11.desktop
 %endif
 
 %files -n plasma-lookandfeel-fedora
-%{_kf5_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/
+%{_kf6_datadir}/plasma/look-and-feel/org.fedoraproject.fedora.desktop/
 
 
 %changelog
+* Sat Nov 25 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-14
+- Re-enable downstream patches
+
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-13
+- Add missing QML dependency for lockscreen
+
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-12
+- Add missing QML dependency for sddm-breeze
+
+* Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-11
+- Switch default sound theme
+
+* Tue Nov 21 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-10
+- Convert look-and-feel metadata to json to enable the theme again
+- Re-enable the fedora background
+
+* Mon Nov 20 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-9
+- Rebuild for kf6-kquickcharts versioning
+- Redo PAM to support upstream changes for multiple concurrent pam sessions
+
+* Sun Nov 19 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-8
+- Re-enable 01-breeze-fedora
+
+* Sun Nov 19 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-7
+- sddm-wayland-plasma requries layer-shell-qt
+
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-6
+- Fix Plasma 6 runtime requirements
+
+* Sat Nov 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.80-5
+- Drop -x11 subpackage and have -wayland subpackage obsolete it
+- Remove all legacy conditionals from Plasma 5
+
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-4
+- libkworkspace6 subpackage
+- Require kf6-kirigami2-addons at runtime
+
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-3
+- Remove runtime dependency on deprecated khotkeys
+
+* Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
+- Rebuild against rawhide kuserfeedback
+
+* Wed Nov 15 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Fri Nov 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.9.1-2
 - Mark plasma-workspace-x11 as deprecated
 

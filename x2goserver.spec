@@ -2,7 +2,7 @@
 
 Name:           x2goserver
 Version:        4.1.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        X2Go Server
 
 License:        GPLv2+
@@ -316,7 +316,7 @@ modern desktop environments, namely desktops derived from the GNOME
 desktop shell.
 
 X2Go KDrive does not require an XServer on the client-side, only the
-X11-independent x2gokdriveclient. esktop session data transfers from
+X11-independent x2gokdriveclient. Desktop session data transfers from
 server to client use differential image compression and image data gets
 cached client-side.
 
@@ -581,7 +581,7 @@ exit 0
 %license COPYING
 %doc ChangeLog
 %{_bindir}/x2goagent
-# %{_libdir}/nx/bin/ is owned by nxagent package...
+# %%{_libdir}/nx/bin/ is owned by nxagent package...
 %{_libdir}/nx/bin/x2goagent
 %{_datadir}/x2go/versions/VERSION.x2goserver-x2goagent
 %{_datadir}/pixmaps/x2goagent.xpm
@@ -599,6 +599,9 @@ exit 0
 
 
 %changelog
+* Sat Nov 25 2023 Orion Poplawski <orion@nwra.com> - 4.1.0.6-2
+- Fix typo in description (bz#2251291)
+
 * Fri Aug 18 2023 Orion Poplawski <orion@nwra.com> - 4.1.0.6-1
 - Update to 4.1.0.6
 

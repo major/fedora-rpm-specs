@@ -23,8 +23,7 @@ Patch3:   0001-smbios-Simplify-reporting-of-unknown-values.patch
 Patch4:   0002-smbios-Fallback-to-the-default-DT-if-sysinfo-nodes-a.patch
 Patch5:   enable-bootmenu-by-default.patch
 Patch6:   uefi-Boot-var-automatic-management-for-removable-medias.patch
-#Patch6:   Add-video-damage-tracking.patch
-#Patch7:   bootstd-Test-and-boot_targets-improvements.patch
+Patch7:   Add-video-damage-tracking.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support

@@ -13,6 +13,7 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/rd-util
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump page_size dependency from 0.4 to 0.6
 # * bump simplelog dependency from 0.10 to 0.11:
 #   https://github.com/facebookexperimental/resctl-demo/pull/262
 Patch:          rd-util-fix-metadata.diff

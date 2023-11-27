@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 5.245.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extra API to write KConfigModules
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -40,6 +40,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6ConfigWidgets)
 Requires:       cmake(KF6Service)
+Requires:       cmake(Qt6Qml)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -80,6 +81,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %{_kf6_includedir}/KCMUtilsQuick
 
 %changelog
+* Sat Nov 25 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-2
+- Devel requires Qt6Qml
+
 * Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
 - 5.245.0
 

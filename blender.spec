@@ -1,10 +1,12 @@
-%global blender_api 3.6
+%global blender_api 4.0
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 %bcond clang	1
 %bcond draco	1
 # Needed to enable osl support for cycles rendering
 %bcond llvm	1
+# Manpage build is broken upstream
+%bcond manpage  0
 %bcond openshading	1
 %bcond sdl	0
 %bcond system_eigen3	1
@@ -35,7 +37,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.6.5
+Version:        4.0.1
 Release:        %autorelease
 
 
@@ -49,9 +51,11 @@ Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{v
 # Rename macros extension to avoid clashing with upstream version
 Source2:        macros.%{name}-rpm
 
-Patch1:         %{name}-3.6.1-py312-pyarg-parser-def.patch
-Patch2:         %{name}-3.6.1-py312-pylongobject.patch
-Patch3:         %{name}-3.6.1-py312-opcode.patch
+Patch1:         %{name}-3.6.1-py312-pylongobject.patch
+# Fix: use color_srgb_to_linear_v4 in attribute_convert.h #115098
+# https://projects.blender.org/blender/blender/pulls/115098
+Patch2:         115098.patch
+
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -274,7 +278,9 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %ifnarch x86_64
     -DWITH_CYCLES_EMBREE=OFF \
 %endif
+%if %{with manpage} 
     -DWITH_DOC_MANPAGE=ON \
+%endif
 %if %{with draco}
     -DWITH_DRACO=ON \
 %endif
@@ -283,8 +289,6 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %endif
     -DWITH_INSTALL_PORTABLE=OFF \
     -DWITH_PYTHON_INSTALL=OFF \
-    -DWITH_PYTHON_INSTALL_NUMPY=OFF \
-    -DWITH_PYTHON_INSTALL_REQUESTS=OFF \
 %if %{with sdl}
     -DWITH_GHOST_SDL=ON \
 %endif
@@ -308,6 +312,9 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %install
 %cmake_install
 
+# Install fallback binary
+install -Dm755 release/bin/%{name}-softwaregl %{buildroot}%{_bindir}/%{name}-softwaregl
+
 # Deal with docs in the files section
 rm -rf %{buildroot}%{_docdir}/%{name}/*
 
@@ -315,9 +322,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}/*
 mkdir -p %{buildroot}%{macrosdir}
 sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE2} > %{buildroot}%{macrosdir}/macros.%{name}-rpm
 
-# AppData
-install -p -m 644 -D release/freedesktop/org.%{name}.Blender.appdata.xml \
-          %{buildroot}%{_metainfodir}/org.%{name}.Blender.appdata.xml
+# Metainfo
+install -p -m 644 -D release/freedesktop/org.%{name}.Blender.metainfo.xml \
+          %{buildroot}%{_metainfodir}/org.%{name}.Blender.metainfo.xml
 
 # Localization
 %find_lang %{name}
@@ -328,21 +335,22 @@ find %{buildroot}%{_datadir}/%{name}/%{blender_api}/scripts -name "*.py" -exec c
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Blender.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Blender.metainfo.xml
 
 %files -f %{name}.lang
 %license COPYING
 %license doc/license/*-license.txt
 %license release/text/copyright.txt
 %doc release/text/readme.html
-%{_bindir}/%{name}
-%{_bindir}/%{name}-thumbnailer
+%{_bindir}/%{name}{,-softwaregl,-thumbnailer}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/%{blender_api}/datafiles/locale/
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
+%if %{with manpage}
 %{_mandir}/man1/%{name}.*
-%{_metainfodir}/org.%{name}.Blender.appdata.xml
+%endif
+%{_metainfodir}/org.%{name}.Blender.metainfo.xml
 
 %files rpm-macros
 %{macrosdir}/macros.%{name}-rpm

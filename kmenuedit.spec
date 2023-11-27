@@ -1,43 +1,26 @@
-%global kf5_version 5.82.0
-
 Name:    kmenuedit
 Summary: KDE menu editor
-Version: 5.27.9
+Version: 5.27.80
 Release: 1%{?dist}
 
-License: GPLv2+
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global majmin_ver %(echo %{version} | cut -d. -f1,2).50
-%global stable unstable
-%else
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtscript-devel
+BuildRequires:  qt6-qtbase-devel
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  extra-cmake-modules >= %{kf5_version}
-BuildRequires:  kf5-rpm-macros >= %{kf5_version}
-BuildRequires:  kf5-kdbusaddons-devel >= %{kf5_version}
-BuildRequires:  kf5-kdelibs4support-devel >= %{kf5_version}
-BuildRequires:  kf5-kdoctools-devel >= %{kf5_version}
-BuildRequires:  kf5-ki18n-devel >= %{kf5_version}
-BuildRequires:  kf5-kiconthemes-devel >= %{kf5_version}
-BuildRequires:  kf5-kinit-devel >= %{kf5_version}
-BuildRequires:  kf5-kio-devel >= %{kf5_version}
-BuildRequires:  kf5-kxmlgui-devel >= %{kf5_version}
-BuildRequires:  kf5-sonnet-devel >= %{kf5_version}
-BuildRequires:  kf5-kglobalaccel-devel >= %{kf5_version}
-BuildRequires:  khotkeys-devel >= %{majmin_ver}
-
-# libkdeinit5_*
-%{?kf5_kinit_requires}
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Sonnet)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  libappstream-glib
 
 # when split out from kde-workspace-4.11.x
 Conflicts:      kde-workspace < 4.11.15-3
@@ -51,34 +34,32 @@ Conflicts:      kde-workspace < 4.11.15-3
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
-
 %find_lang kmenuedit5 --with-html --all-name
 
 
 %check
-# disabled until desktop-file-validate supports xdg spec 1.5
-#desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kmenuedit.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kmenuedit.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files -f kmenuedit5.lang
-%license LICENSES/* 
+%license LICENSES/*
 %{_bindir}/kmenuedit
 %{_datadir}/kmenuedit/
 %{_datadir}/applications/org.kde.kmenuedit.desktop
 %{_datadir}/icons/hicolor/*/apps/kmenuedit.*
-%{_kf5_datadir}/kxmlgui5/kmenuedit/
-%{_kf5_datadir}/qlogging-categories5//kmenuedit.categories
-%{_kf5_datadir}/metainfo/org.kde.kmenuedit.appdata.xml
+%{_kf6_datadir}/qlogging-categories6/kmenuedit.categories
+%{_kf6_datadir}/metainfo/org.kde.kmenuedit.appdata.xml
 %{_libdir}/kconf_update_bin/kmenuedit_globalaccel
 
-
 %changelog
+* Sat Nov 18 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
+- 5.27.80
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

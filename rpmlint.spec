@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -54,12 +54,12 @@ and source packages as well as spec files can be checked.
 %autosetup -p1 -Sgit
 
 # Replace python-magic dep with file-magic (rhbz#1899279)
-sed -i 's/python-magic/file-magic/g' setup.py
+sed -i 's/python-magic/file-magic/g' pyproject.toml
 
 %if 0%{?rhel}
 # Avoid extra dependencies for checks not needed in RHEL
 # pybeam: ErlangCheck
-sed -i -e '/pybeam/d' setup.py
+sed -i -e '/pybeam/d' pyproject.toml
 sed -i -e '/ErlangCheck/d' rpmlint/configdefaults.toml test/test_lint.py
 %endif
 
@@ -100,6 +100,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Sat Nov 25 2023 Zephyr Lykos <fedora@mochaa.ws> - 2.5.0-2
+- Migrate patches to pyproject.toml (rhbz#1899279)
+
 * Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 2.5.0-1
 - update to 2.5.0
 
