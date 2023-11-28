@@ -60,7 +60,7 @@ ExclusiveArch:  x86_64
 %global source_directory 1.37-development
 
 Name:           nbdkit
-Version:        1.37.2
+Version:        1.37.3
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -1326,6 +1326,9 @@ fi
 
 
 %changelog
+* Sun Nov 26 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.3-1
+- New upstream development version 1.37.3
+
 * Tue Nov 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.2-1
 - New upstream development version 1.37.2
 - New nbdkit-readonly-filter.

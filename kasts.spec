@@ -1,12 +1,12 @@
-%global kf5_min_version 5.88.0
+%global kf6_min_version 5.240.0
 
 Name:           kasts
-Version:        23.08.2
+Version:        24.01.75
 Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
 Url:            https://apps.kde.org/%{name}
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -16,27 +16,35 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  taglib-devel
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Keychain)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Keychain)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Multimedia)
 
-BuildRequires:  cmake(KF5Config)         >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CoreAddons)     >= %{kf5_min_version}
-BuildRequires:  cmake(KF5I18n)           >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Kirigami2)      >= %{kf5_min_version}
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5Syndication)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5ThreadWeaver)   >= %{kf5_min_version}
-BuildRequires:  kf5-rpm-macros           >= %{kf5_min_version}
+BuildRequires:  cmake(KF6I18n)           >= %{kf6_min_version}
+BuildRequires:  cmake(KF6CoreAddons)     >= %{kf6_min_version}
+BuildRequires:  cmake(KF6Kirigami2)      >= %{kf6_min_version}
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6Syndication)    >= %{kf6_min_version}
+BuildRequires:  cmake(KF6Config)         >= %{kf6_min_version}
+BuildRequires:  cmake(KF6ThreadWeaver)   >= %{kf6_min_version}
+BuildRequires:  cmake(KF6ColorScheme)    >= %{kf6_min_version}
+BuildRequires:  kf6-rpm-macros           >= %{kf6_min_version}
 
 # QML module dependencies
-Requires:  kf5-kirigami2%{?_isa}
-Requires:  kf5-kirigami2-addons%{?_isa}
-Requires:  qt5-qtgraphicaleffects%{?_isa}
-Requires:  qt5-qtquickcontrols2%{?_isa}
+Requires:  kf6-kirigami2%{?_isa}
+Requires:  kf6-kirigami2-addons%{?_isa}
+Requires:  qt6-qt5compat%{?_isa}
+Requires:  qt6-qtmultimedia%{?_isa}
 
 %description
 %{summary}.
@@ -45,7 +53,7 @@ Requires:  qt5-qtquickcontrols2%{?_isa}
 %autosetup 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -53,27 +61,27 @@ Requires:  qt5-qtquickcontrols2%{?_isa}
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %files -f %{name}.lang
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/scalable/actions/media-playback-cloud.svg
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}-tray-dark.svg
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}-tray-light.svg
-%{_kf5_libdir}/libKastsSolidExtras.so
-%{_kf5_libdir}/libKMediaSession.so
-%{_kf5_libdir}/qt5/qml/org/kde/kmediasession/libkmediasession-qmlplugin.so
-%{_kf5_libdir}/qt5/qml/org/kde/kmediasession/qmldir
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_qmldir}/org/kde/%{name}/solidextras/libkasts-solidextrasqmlplugin.so
-%{_kf5_qmldir}/org/kde/%{name}/solidextras/qmldir
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/scalable/actions/media-playback-cloud.svg
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}-tray-dark.svg
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}-tray-light.svg
+%{_kf6_libdir}/libKMediaSession.so
+%{_kf6_qmldir}/org/kde/kmediasession/libkmediasession-qmlplugin.so
+%{_kf6_qmldir}/org/kde/kmediasession/qmldir
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 %license LICENSES/*
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

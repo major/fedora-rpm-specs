@@ -2,25 +2,26 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate rpds
+%global crate fs_at
 
-Name:           rust-rpds
-Version:        1.1.0
+Name:           rust-fs_at
+Version:        0.1.10
 Release:        %autorelease
-Summary:        Persistent data structures with structural sharing
+Summary:        Implementation of 'at' functions for various platforms
 
-License:        MPL-2.0
-URL:            https://crates.io/crates/rpds
+License:        Apache-2.0
+URL:            https://crates.io/crates/fs_at
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# - remove criterion dependency
-# - bump archery dependency
-Patch:          rpds-fix-metadata.diff
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          fs_at-fix-metadata-auto.diff
+# * upstream PR to add missing Apache-2.0 license text:
+#   https://github.com/rbtcollins/fs_at/pull/121
+Patch:          https://github.com/rbtcollins/fs_at/pull/121.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Persistent data structures with structural sharing.}
+Implementation of 'at' functions for various platforms.}
 
 %description %{_description}
 
@@ -34,9 +35,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/release-notes.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -51,40 +52,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fatal-warnings-devel
+%package     -n %{name}+log-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+fatal-warnings-devel %{_description}
+%description -n %{name}+log-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "fatal-warnings" feature of the "%{crate}" crate.
+use the "log" feature of the "%{crate}" crate.
 
-%files       -n %{name}+fatal-warnings-devel
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+workaround-procmon-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+workaround-procmon-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "workaround-procmon" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
+%files       -n %{name}+workaround-procmon-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -102,7 +91,8 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip two tests that are unreliable
+%cargo_test -- -- --exact --skip tests::readdir --skip tests::symlink_at
 %endif
 
 %changelog

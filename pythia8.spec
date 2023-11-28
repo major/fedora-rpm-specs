@@ -6,20 +6,19 @@
 %endif
 
 Name:		pythia8
-Version:	8.3.09
-Release:	4%{?dist}
+Version:	8.3.10
+Release:	2%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
 URL:		https://pythia.org
-Source0:	https://pythia.org/download/pythia83/pythia8309.tgz
+Source0:	https://pythia.org/download/pythia83/pythia8310.tgz
 #		Link plugins to the shared library
 #		Remove rpath
 Patch0:		%{name}-makefile.patch
-#		Update pybind headers for python 3.11
-Patch1:		%{name}-python-3.11.patch
-#		Fix a Syntax Error when using Python 2.7
-Patch2:		%{name}-python-2.7-example-syntax.patch
+#		Python module does nor compile on 32 bit Linux
+#		https://gitlab.com/Pythia8/releases/-/issues/388
+Patch1:		%{name}-python-streamoff.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -110,10 +109,9 @@ BuildArch:	noarch
 This package provides documentation for Pythia 8.
 
 %prep
-%setup -q -n pythia8309
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%setup -q -n pythia8310
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 # Remove DOS end-of-line
 dos2unix -k share/Pythia8/htmldoc/pythia.css \
@@ -235,6 +233,7 @@ echo 'Version: %{version}' >> %{buildroot}%{python3_other_sitearch}/%{name}-%{ve
 %files data
 %dir %{_datadir}/Pythia8
 %{_datadir}/Pythia8/pdfdata
+%{_datadir}/Pythia8/settings
 %{_datadir}/Pythia8/xmldoc
 %license COPYING
 
@@ -249,6 +248,13 @@ echo 'Version: %{version}' >> %{buildroot}%{python3_other_sitearch}/%{name}-%{ve
 %license COPYING
 
 %changelog
+* Sun Nov 26 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.10-2
+- Fix 32 bit compilation of Python module
+
+* Sat Nov 25 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.10-1
+- Update to version 8.3.10
+- Drop patches no longer needed
+
 * Wed Oct 25 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.09-4
 - Update patch for Pythia 3.13.0a1 (rhbz#2245858)
 

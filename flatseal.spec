@@ -7,7 +7,9 @@ Summary:        Manage Flatpak permissions
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/tchx84/Flatseal
-Source0:        %{url}/archive/v%{version}/Flatseal-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/Flatseal-%{version}.tar.gz
+# Fix errors with AppStream 1.0 (rhbz#2251558)
+Patch:          %{url}/pull/617.patch
 
 BuildRequires:  gettext
 BuildRequires:  gjs
@@ -18,9 +20,9 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 # loaded by imports.gi
+Requires:       appstream
 Requires:       gtk4
 Requires:       libadwaita >= 1.4
-Requires:       libappstream-glib
 Requires:       webkitgtk6.0 >= 2.40
 
 BuildArch:      noarch
@@ -31,7 +33,7 @@ Flatpak applications.
 
 
 %prep
-%autosetup -n Flatseal-%{version}
+%autosetup -n Flatseal-%{version} -p1
 
 
 %build

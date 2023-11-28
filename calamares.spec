@@ -1,53 +1,35 @@
-# do not use QtWebEngine because it no longer works with QtWebEngine >= 5.11
-# (it now refuses to run as root unless "export QTWEBENGINE_DISABLE_SANDBOX=1")
-# https://github.com/calamares/calamares/issues/1051
-%if 0
-#ifarch %{?qt5_qtwebengine_arches}%{!?qt5_qtwebengine_arches:%{ix86} x86_64}
-# use QtWebEngine instead of QtWebKit for the optional webview module
-# only possible on qt5_qtwebengine_arches, which for livearches means only x86
-%global webview_qtwebengine 1
-%endif
+# Plasma module not yet ported to Plasma 6
+%global plasma_module 0
 
 Name:           calamares
-Version:        3.2.62
-Release:        5%{?dist}
+Version:        3.3.0~alpha6
+Release:        1%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://calamares.io/
-Source0:        https://github.com/calamares/calamares/%{?snaphash:archive}%{!?snaphash:releases/download}/%{?snaphash}%{!?snaphash:v%{version}%{?prerelease:-%{prerelease}}}/calamares-%{?snaphash}%{!?snaphash:%{version}%{?prerelease:-%{prerelease}}}.tar.gz
+Source0:        https://github.com/calamares/calamares/%{?snaphash:archive}%{!?snaphash:releases/download}/%{?snaphash}%{!?snaphash:v%{version_no_tilde}}/calamares-%{?snaphash}%{!?snaphash:%{version_no_tilde}}.tar.gz
 Source2:        show.qml
 # Run:
-# lupdate-qt5 show.qml -ts calamares-auto_fr.ts
-# then translate the template in linguist-qt5.
+# lupdate-qt6 show.qml -ts calamares-auto_fr.ts
+# then translate the template in linguist-qt6.
 Source3:        calamares-auto_fr.ts
 # Run:
-# lupdate-qt5 show.qml -ts calamares-auto_de.ts
-# then translate the template in linguist-qt5.
+# lupdate-qt6 show.qml -ts calamares-auto_de.ts
+# then translate the template in linguist-qt6.
 Source4:        calamares-auto_de.ts
 # Run:
-# lupdate-qt5 show.qml -ts calamares-auto_it.ts
-# then translate the template in linguist-qt5.
+# lupdate-qt6 show.qml -ts calamares-auto_it.ts
+# then translate the template in linguist-qt6.
 Source5:        calamares-auto_it.ts
 
 # Backports from upstream
-Patch0001:       0001-users-Read-product-from-the-device-tree-on-DT-platfo.patch
-Patch0002:       0002-users-Clean-up-DMI-model-more-for-hostname.patch
-Patch0003:       0003-keyboard-Add-support-for-setting-the-layout-via-loca.patch
-Patch0004:       0004-keyboard-Add-support-for-getting-the-layout-via-loca.patch
-Patch0005:       0005-keyboard-Do-not-update-configs-in-locale1-mode-when-.patch
-Patch0006:       0006-keyboard-Add-an-option-to-disable-layout-guessing.patch
-Patch0007:       0007-keyboard-Use-the-current-keyboard-model-as-the-defau.patch
-Patch0008:       0008-keyboard-Fix-locale1-support-for-alternate-layouts.patch
-Patch0009:       0009-users-Use-usermod-to-disable-passwords.patch
-Patch0010:       0010-Make-HiDPI-SVG-rendering-work-on-Wayland.patch
-Patch0011:       0011-keyboard-Do-the-autodetection-stuff-after-setConfigu.patch
 
 # Fedora-specific changes
 ## adjust some default settings (default shipped .conf files)
-Patch1001:       calamares-3.2.62-default-settings.patch
+Patch1001:       calamares-3.3.0-default-settings.patch
 ## use kdesu instead of pkexec (works around #1171779)
-Patch1002:       calamares-3.2.62-kdesu.patch
+Patch1002:       calamares-3.3.0-kdesu.patch
 
 
 # Calamares is only supported where live images (and GRUB) are. (#1171380)
@@ -56,12 +38,12 @@ ExclusiveArch:  %{ix86} x86_64 aarch64
 
 # Macros
 BuildRequires:  git-core
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 
 # Compilation tools
-BuildRequires:  cmake >= 3.3
-BuildRequires:  extra-cmake-modules >= 5.18
-BuildRequires:  gcc-c++ >= 7.0
+BuildRequires:  cmake >= 3.16
+BuildRequires:  extra-cmake-modules >= 5.245
+BuildRequires:  gcc-c++ >= 9.0.0
 BuildRequires:  pkgconfig
 BuildRequires:  make
 
@@ -69,35 +51,32 @@ BuildRequires:  make
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 
-# Qt 5
-BuildRequires:  qt5-linguist >= 5.10
-BuildRequires:  qt5-qtbase-devel >= 5.10
-BuildRequires:  qt5-qtdeclarative-devel >= 5.10
-BuildRequires:  qt5-qtsvg-devel >= 5.10
-%if 0%{?webview_qtwebengine}
-BuildRequires:  qt5-qtwebengine-devel >= 5.10
-%global webview_force_webkit OFF
-%global webview_engine QtWebEngine
-%else
-BuildRequires:  qt5-qtwebkit-devel >= 5.212
-%global webview_force_webkit ON
-%global webview_engine Qt5WebKit
-%endif
+# Qt 6
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickWidgets)
 
-# KF5
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kcrash-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kpackage-devel
-BuildRequires:  kf5-kparts-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-plasma-devel
+# KF6
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6Plasma)
 
-# KPMCore
-BuildRequires:  kpmcore-devel >= 4.2.0
+# KPMcore
+BuildRequires:  cmake(KPMcore) >= 4.2.0
 
 # Python 3
 BuildRequires:  python3-devel >= 3.3
@@ -107,7 +86,7 @@ BuildRequires:  boost-devel >= 1.55.0
 %global __python %{__python3}
 
 # Other libraries
-BuildRequires:  appstream0.16-qt-devel
+BuildRequires:  cmake(AppStreamQt) >= 1.0.0
 BuildRequires:  libpwquality-devel
 BuildRequires:  libxcrypt-devel
 BuildRequires:  parted-devel
@@ -150,11 +129,17 @@ Requires:       kdesu
 Requires:       hicolor-icon-theme
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+# webview module is no longer available
+Obsoletes:      %{name}-webview < 3.0.0~
+%if ! %{plasma_module}
+Obsoletes:      %{name}-plasmalnf < %{version}-%{release}
+%endif
+
 
 %description
 Calamares is a distribution-independent installer framework, designed to install
 from a live CD/DVD/USB environment to a hard disk. It includes a graphical
-installation program based on Qt 5. This package includes the Calamares
+installation program based on Qt 6. This package includes the Calamares
 framework and the required configuration files to produce a working replacement
 for Anaconda's liveinst.
 
@@ -171,13 +156,14 @@ Requires:       %{name} = %{version}-%{release}
 Summary:        Calamares interactiveterminal module
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       konsole5-part
+Requires:       konsole-part
 
 %description    interactiveterminal
 Optional interactiveterminal module for the Calamares installer, based on the
-KonsolePart (from Konsole 5)
+KonsolePart (from Konsole 6)
 
 
+%if %{plasma_module}
 %package        plasmalnf
 Summary:        Calamares plasmalnf module
 Requires:       %{name} = %{version}-%{release}
@@ -187,15 +173,7 @@ Requires:       plasma-desktop
 %description    plasmalnf
 Optional plasmalnf module for the Calamares installer, based on the KDE Plasma
 Desktop Workspace and its KDE Frameworks (KConfig, KPackage, Plasma)
-
-
-%package        webview
-Summary:        Calamares webview module
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description    webview
-Optional webview module for the Calamares installer, based on %{webview_engine}.
+%endif
 
 
 %package        devel
@@ -209,13 +187,14 @@ developing custom modules for Calamares.
 
 
 %prep
-%autosetup -S git_am
+%autosetup -S git_am -n %{name}-%{version_no_tilde}
 
 %build
-%{cmake_kf5} -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo" \
+%{cmake_kf6} -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo" \
              -DBUILD_TESTING:BOOL=OFF \
-             -DWITH_PYTHONQT:BOOL=OFF \
-             -DWEBVIEW_FORCE_WEBKIT:BOOL="%{webview_force_webkit}"
+             -DWITH_PYBIND11:BOOL=OFF \
+             -DWITH_QT6:BOOL=ON \
+             %{nil}
 %cmake_build
 
 %install
@@ -226,9 +205,9 @@ mkdir -p %{buildroot}%{_datadir}/calamares/branding/auto
 touch %{buildroot}%{_datadir}/calamares/branding/auto/branding.desc
 install -p -m 644 %{SOURCE2} %{buildroot}%{_datadir}/calamares/branding/auto/show.qml
 mkdir -p %{buildroot}%{_datadir}/calamares/branding/auto/lang
-lrelease-qt5 %{SOURCE3} -qm %{buildroot}%{_datadir}/calamares/branding/auto/lang/calamares-auto_fr.qm
-lrelease-qt5 %{SOURCE4} -qm %{buildroot}%{_datadir}/calamares/branding/auto/lang/calamares-auto_de.qm
-lrelease-qt5 %{SOURCE5} -qm %{buildroot}%{_datadir}/calamares/branding/auto/lang/calamares-auto_it.qm
+lrelease-qt6 %{SOURCE3} -qm %{buildroot}%{_datadir}/calamares/branding/auto/lang/calamares-auto_fr.qm
+lrelease-qt6 %{SOURCE4} -qm %{buildroot}%{_datadir}/calamares/branding/auto/lang/calamares-auto_de.qm
+lrelease-qt6 %{SOURCE5} -qm %{buildroot}%{_datadir}/calamares/branding/auto/lang/calamares-auto_it.qm
 # own the local settings directories
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding
@@ -241,8 +220,6 @@ rm -f %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/calamares-dummypythonqt.mo
 desktop-file-validate %{buildroot}%{_datadir}/applications/calamares.desktop
 
 %post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
 # generate the "auto" branding
 . %{_sysconfdir}/os-release
 
@@ -327,8 +304,9 @@ EOF
 %{_datadir}/calamares/branding/auto/lang/
 %{_datadir}/calamares/modules/
 %exclude %{_datadir}/calamares/modules/interactiveterminal.conf
+%if %{plasma_module}
 %exclude %{_datadir}/calamares/modules/plasmalnf.conf
-%exclude %{_datadir}/calamares/modules/webview.conf
+%endif
 %{_datadir}/calamares/qml/
 %{_datadir}/applications/calamares.desktop
 %{_datadir}/icons/hicolor/scalable/apps/calamares.svg
@@ -340,20 +318,19 @@ EOF
 %{_libdir}/libcalamaresui.so.*
 %{_libdir}/calamares/
 %exclude %{_libdir}/calamares/modules/interactiveterminal/
+%if %{plasma_module}
 %exclude %{_libdir}/calamares/modules/plasmalnf/
-%exclude %{_libdir}/calamares/modules/webview/
+%endif
 
 %files interactiveterminal
 %{_datadir}/calamares/modules/interactiveterminal.conf
 %{_libdir}/calamares/modules/interactiveterminal/
 
+%if %{plasma_module}
 %files plasmalnf
 %{_datadir}/calamares/modules/plasmalnf.conf
 %{_libdir}/calamares/modules/plasmalnf/
-
-%files webview
-%{_datadir}/calamares/modules/webview.conf
-%{_libdir}/calamares/modules/webview/
+%endif
 
 %files devel
 %{_includedir}/libcalamares/
@@ -363,6 +340,9 @@ EOF
 
 
 %changelog
+* Sun Nov 26 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.3.0~alpha6-1
+- Rebase to 3.3.0~alpha6 for AppStream 1.0 and Qt 6 compatibility
+
 * Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.2.62-5
 - Switch to appstream0.16-qt
 

@@ -47,6 +47,15 @@ Source0:        %{url}/archive/v%{version}/opentelemetry-python-%{version}.tar.g
 %global proto_url https://github.com/open-telemetry/opentelemetry-proto
 Source1:        %{proto_url}/archive/v%{proto_version}/opentelemetry-proto-%{proto_version}.tar.gz
 
+# Python 3.12 compat.: LogRecord now has a taskName attribute
+# https://github.com/open-telemetry/opentelemetry-python/pull/3557
+#
+# Fixes:
+#
+# Test failure in opentelemetry-sdk on Python 3.12
+# https://github.com/open-telemetry/opentelemetry-python/issues/3370
+Patch:          %{url}/pull/3557.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -492,7 +501,7 @@ This package provides documentation for python-opentelemetry.
 
 
 %prep
-%autosetup -n opentelemetry-python-%{stable_version}
+%autosetup -n opentelemetry-python-%{stable_version} -p1
 
 # In “Pin googleapis-common-protos version”,
 # https://github.com/open-telemetry/opentelemetry-python/pull/2777, upstream
@@ -720,9 +729,6 @@ do
     k="${k-}${k+ and }not (TestLoggingInit and test_initialize_components_resource)"
     k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_disable_default)"
     k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_enable_env)"
-    # Test failure in opentelemetry-sdk on Python 3.12
-    # https://github.com/open-telemetry/opentelemetry-python/issues/3370
-    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_exporter)"
     # Sometimes fails (flakily) with AssertionError: 974 != 1024; this is
     # probably just a runtime performance issue, but it was pointed out to
     # upstream in:

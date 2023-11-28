@@ -1,35 +1,29 @@
 Name:    kamera
 Summary: Digital camera support for KDE 
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2
 URL:     https://www.kde.org/applications/graphics/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/kamera-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/kamera-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-kcmutils-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Core5Compat)
+
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6DocTools)
+
 BuildRequires: pkgconfig(libgphoto2)
-BuildRequires: cmake(Qt5Core)
-
-# when split occurred
-Conflicts: kdegraphics < 7:4.6.95-10
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
 
 Requires: kde-cli-tools
 
@@ -42,7 +36,7 @@ Requires: kde-cli-tools
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -53,17 +47,26 @@ Requires: kde-cli-tools
 %find_lang %{name} --all-name --with-html
 
 
+%check
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kcm_%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
+
+
 %files -f %{name}.lang
 %doc AUTHORS README
-%{_kf5_datadir}/applications/kcm_%{name}.desktop
-%{_kf5_datadir}/solid/actions/solid_camera.desktop
-%{_kf5_datadir}/qlogging-categories5/%{name}.categories
-%{_kf5_libdir}/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kcm_%{name}.so
-%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
-%{_kf5_plugindir}/kio/kio_%{name}.so
+%license LICENSES/*.txt
+%{_kf6_datadir}/applications/kcm_%{name}.desktop
+%{_kf6_datadir}/solid/actions/solid_camera.desktop
+%{_kf6_datadir}/qlogging-categories6/%{name}.categories
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_%{name}.so
+%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_kf6_plugindir}/kio/kio_%{name}.so
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -11,7 +11,8 @@ Summary:        A library for bits of crypto UI and parsing
 # for LicenseRef-Fedora-Public-Domain see https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/424
 # gck/pkcs11x.h is FSFULLRWD
 # ui/icons/render-icons.py is LGPL-3.0-or-later OR CC-BY-SA-3.0
-License:        LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND FSFULLRWD AND (LGPL-3.0-or-later OR CC-BY-SA-3.0) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
+# docs/COPYING is GCR-docs
+License:        LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND FSFULLRWD AND (LGPL-3.0-or-later OR CC-BY-SA-3.0) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GCR-docs
 URL:            https://wiki.gnome.org/Projects/CryptoGlue
 Source0:        https://download.gnome.org/sources/gcr/3.41/gcr-%{version}.tar.xz
 

@@ -113,7 +113,9 @@
 %global aot_arches      x86_64 %{aarch64}
 # Set of architectures which support the serviceability agent
 %global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm}
-%global share_arches    %{ix86} %{power64} x86_64 sparcv9 sparc64 %{aarch64} %{arm} s390x
+# As of JDK-8005165 in OpenJDK 10, class sharing is not arch-specific
+# However, it does segfault on the Zero assembler port, so currently JIT only
+%global share_arches    %{jit_arches}
 # Set of architectures for which we build the Shenandoah garbage collector
 %global shenandoah_arches x86_64 %{aarch64}
 # Set of architectures for which we build the Z garbage collector
@@ -123,7 +125,12 @@
 # Set of architectures for which java has short vector math library (libsvml.so)
 %global svml_arches x86_64
 # Set of architectures where we verify backtraces with gdb
+# s390x fails on RHEL 7 so we exclude it there
+%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
+%global gdb_arches %{arm} %{aarch64} %{ix86} %{power64} sparcv9 sparc64 x86_64 %{zero_arches}
+%else
 %global gdb_arches %{jit_arches} %{zero_arches}
+%endif
 
 # By default, we build a debug build during main build on JIT architectures
 %if %{with slowdebug}
@@ -271,16 +278,17 @@
 # New Version-String scheme-style defines
 %global featurever 17
 %global interimver 0
-%global updatever 8
+%global updatever 9
 %global patchver 0
+
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
   %global lts_designator "LTS"
   %global lts_designator_zip -%{lts_designator}
 %else
- %global lts_designator ""
- %global lts_designator_zip ""
+  %global lts_designator ""
+  %global lts_designator_zip ""
 %endif
 
 # Define vendor information used by OpenJDK
@@ -296,7 +304,7 @@
 %global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=%{name}&version=%{fedora}
 %else
 %if 0%{?rhel}
-%global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%20%{rhel}&component=%{name}
+%global oj_vendor_bug_url https://access.redhat.com/support/cases/
 %else
 %global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi
 %endif
@@ -306,14 +314,21 @@
 
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
+# Define JDK versions
+%global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
+%global javaver         %{featurever}
+# Strip up to 6 trailing zeros in newjavaver, as the JDK does, to get the correct version used in filenames
+%global filever %(svn=%{newjavaver}; for i in 1 2 3 4 5 6 ; do svn=${svn%%.0} ; done; echo ${svn})
+# The tag used to create the OpenJDK tarball
+%global vcstag jdk-%{filever}+%{buildver}%{?tagsuffix:-%{tagsuffix}}
 
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        7
-%global rpmrelease      2
+%global buildver        9
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -326,14 +341,6 @@
 # for techpreview, using 1, so slowdebugs can have 0
 %global priority %( printf '%08d' 1 )
 %endif
-%global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
-%global javaver         %{featurever}
-
-# Strip up to 6 trailing zeros in newjavaver, as the JDK does, to get the correct version used in filenames
-%global filever %(svn=%{newjavaver}; for i in 1 2 3 4 5 6 ; do svn=${svn%%.0} ; done; echo ${svn})
-
-# The tag used to create the OpenJDK tarball
-%global vcstag jdk-%{filever}+%{buildver}%{?tagsuffix:-%{tagsuffix}}
 
 # Define milestone (EA for pre-releases, GA for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -343,7 +350,7 @@
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
-%global ea_designator_zip ""
+%global ea_designator_zip %{nil}
 %global extraver %{nil}
 %global eaprefix %{nil}
 %else
@@ -509,12 +516,15 @@ alternatives \\
   --install %{_bindir}/java $key %{jrebindir -- %{?1}}/java $PRIORITY  --family %{family} \\
   --slave %{_jvmdir}/jre jre %{_jvmdir}/%{sdkdir -- %{?1}} \\
   --slave %{_bindir}/%{alt_java_name} %{alt_java_name} %{jrebindir -- %{?1}}/%{alt_java_name} \\
+  --slave %{_bindir}/jcmd jcmd %{sdkbindir -- %{?1}}/jcmd \\
   --slave %{_bindir}/keytool keytool %{jrebindir -- %{?1}}/keytool \\
   --slave %{_bindir}/rmiregistry rmiregistry %{jrebindir -- %{?1}}/rmiregistry \\
   --slave %{_mandir}/man1/java.1$ext java.1$ext \\
   %{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1$ext \\
   --slave %{_mandir}/man1/%{alt_java_name}.1$ext %{alt_java_name}.1$ext \\
   %{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1$ext \\
+  --slave %{_mandir}/man1/jcmd.1$ext jcmd.1$ext \\
+  %{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1$ext \\
   --slave %{_mandir}/man1/keytool.1$ext keytool.1$ext \\
   %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1$ext \\
   --slave %{_mandir}/man1/rmiregistry.1$ext rmiregistry.1$ext \\
@@ -599,7 +609,6 @@ alternatives \\
   --slave %{_bindir}/jarsigner jarsigner %{sdkbindir -- %{?1}}/jarsigner \\
   --slave %{_bindir}/javadoc javadoc %{sdkbindir -- %{?1}}/javadoc \\
   --slave %{_bindir}/javap javap %{sdkbindir -- %{?1}}/javap \\
-  --slave %{_bindir}/jcmd jcmd %{sdkbindir -- %{?1}}/jcmd \\
   --slave %{_bindir}/jconsole jconsole %{sdkbindir -- %{?1}}/jconsole \\
   --slave %{_bindir}/jdb jdb %{sdkbindir -- %{?1}}/jdb \\
   --slave %{_bindir}/jdeps jdeps %{sdkbindir -- %{?1}}/jdeps \\
@@ -626,8 +635,6 @@ alternatives \\
   %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1$ext \\
   --slave %{_mandir}/man1/javap.1$ext javap.1$ext \\
   %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jcmd.1$ext jcmd.1$ext \\
-  %{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1$ext \\
   --slave %{_mandir}/man1/jconsole.1$ext jconsole.1$ext \\
   %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1$ext \\
   --slave %{_mandir}/man1/jdb.1$ext jdb.1$ext \\
@@ -790,10 +797,11 @@ exit 0
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/bin
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/java
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/%{alt_java_name}
+%{_jvmdir}/%{sdkdir -- %{?1}}/bin/jcmd
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/keytool
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/rmiregistry
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib
-%ifarch %{share_arches}
+%ifarch %{jit_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/classlist
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jexec
@@ -851,7 +859,8 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr/default.jfc
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr/profile.jfc
 %{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1*
-#%{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1* #TODO, resolve alt-java man page
+%{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1*
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/
@@ -900,8 +909,9 @@ exit 0
 %if %is_system_jdk
 %if %{is_release_build -- %{?1}}
 %ghost %{_bindir}/java
-%ghost %{_bindir}/%{alt_java_name}
 %ghost %{_jvmdir}/jre
+%ghost %{_bindir}/%{alt_java_name}
+%ghost %{_bindir}/jcmd
 %ghost %{_bindir}/keytool
 %ghost %{_bindir}/pack200
 %ghost %{_bindir}/rmid
@@ -926,7 +936,6 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/javadoc
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/javap
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jconsole
-%{_jvmdir}/%{sdkdir -- %{?1}}/bin/jcmd
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jdb
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jdeps
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jdeprscan
@@ -999,7 +1008,6 @@ exit 0
 %ghost %{_bindir}/jarsigner
 %ghost %{_bindir}/javadoc
 %ghost %{_bindir}/javap
-%ghost %{_bindir}/jcmd
 %ghost %{_bindir}/jconsole
 %ghost %{_bindir}/jdb
 %ghost %{_bindir}/jdeps
@@ -1028,7 +1036,6 @@ exit 0
 %define files_demo() %{expand:
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %{_jvmdir}/%{sdkdir -- %{?1}}/demo
-%{_jvmdir}/%{sdkdir -- %{?1}}/sample
 }
 
 %define files_src() %{expand:
@@ -1231,7 +1238,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 %global portable_name %{name}-portable
 # the version must match, but sometmes we need to more precise, so including release
-%global portable_version %{version}-3
+%global portable_version %{version}-1
 
 Name:    java-%{javaver}-%{origin}
 Version: %{newjavaver}.%{buildver}
@@ -1294,23 +1301,22 @@ Source16: CheckVendor.java
 Source18: TestTranslations.java
 
 BuildRequires: %{portable_name}-sources >= %{portable_version}
+BuildRequires: %{portable_name}-misc >= %{portable_version}
+BuildRequires: %{portable_name}-docs >= %{portable_version}
 
 %if %{include_normal_build}
-BuildRequires: %{portable_name} >= %{portable_version}
-BuildRequires: %{portable_name}-devel >= %{portable_version}
+BuildRequires: %{portable_name}-unstripped >= %{portable_version}
 %if %{include_staticlibs}
 BuildRequires: %{portable_name}-static-libs >= %{portable_version}
 %endif
 %endif
 %if %{include_fastdebug_build}
-BuildRequires: %{portable_name}-fastdebug >= %{portable_version}
 BuildRequires: %{portable_name}-devel-fastdebug >= %{portable_version}
 %if %{include_staticlibs}
 BuildRequires: %{portable_name}-static-libs-fastdebug >= %{portable_version}
 %endif
 %endif
 %if %{include_debug_build}
-BuildRequires: %{portable_name}-slowdebug >= %{portable_version}
 BuildRequires: %{portable_name}-devel-slowdebug >= %{portable_version}
 %if %{include_staticlibs}
 BuildRequires: %{portable_name}-static-libs-slowdebug >= %{portable_version}
@@ -1695,23 +1701,23 @@ if [ $prioritylength -ne 8 ] ; then
 fi
 
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable*.misc.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable*.docs.%{_arch}.tar.xz
+
 %if %{include_normal_build}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
-#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.unstripped.jdk.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
@@ -1945,6 +1951,8 @@ for suffix in %{build_loop} ; do
 %endif
   jdk_image=${top_dir_abs_main_build_path}
   src_image=`echo ${top_dir_abs_main_build_path} | sed "s/portable.*.%{_arch}/portable.sources.noarch/"`
+  misc_image=`echo ${top_dir_abs_main_build_path} | sed "s/portable.*.%{_arch}/portable.misc.%{_arch}/"`
+  docs_image=`echo ${top_dir_abs_main_build_path} | sed "s/portable.*.%{_arch}/portable.docs.%{_arch}/"`
 
 # Install the jdk
 mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
@@ -1952,7 +1960,7 @@ mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
 # Install icons
 for s in 16 24 32 48 ; do
   install -D -p -m 644 \
-     ${src_image}/openjdk/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
+     ${src_image}/%{vcstag}/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
      $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
 done
 
@@ -2006,11 +2014,11 @@ if ! echo $suffix | grep -q "debug" ; then
   # Install Javadoc documentation
   install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}
   install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}
-  built_doc_archive=javadocs.zip
-  cp -a ${top_dir_abs_main_build_path}/${built_doc_archive} \
-     $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}.zip || ls -l ${top_dir_abs_main_build_path}
+  built_doc_archive=$(basename $(ls ${docs_image}/jdk*docs.zip))
+  cp -a ${docs_image}/${built_doc_archive} \
+     $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}.zip
   pushd $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}
-    unzip ${top_dir_abs_main_build_path}/${built_doc_archive} 
+    unzip ${docs_image}/${built_doc_archive} 
   popd
 fi
 
@@ -2031,7 +2039,6 @@ done
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/.java/.systemPrefs
 
 # copy samples next to demos; samples are mostly js files
-cp -r ${src_image}/%{top_level_dir_name}/src/sample  $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/
 
 # moving config files to /etc
 mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}
@@ -2052,9 +2059,6 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "*.so" -exec chmod 7
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/legal -type f -exec chmod 644 {} \; ;
 
-if [ "x$suffix" = "x" ] ; then
-  rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
-fi
 # end, dual install
 done
 
@@ -2093,10 +2097,11 @@ $JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=tru
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
 
 # Check alt-java launcher has SSB mitigation on supported architectures
+# set_speculation function exists in both cases, so check for prctl call
 %ifarch %{ssbd_arches}
-nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation
+nm $JAVA_HOME/bin/%{alt_java_name} | grep prctl
 %else
-if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation ; then true ; else false; fi
+if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep prctl ; then true ; else false; fi
 %endif
 
 # Check correct vendor values have been set
@@ -2113,8 +2118,8 @@ $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|
 %if %{include_staticlibs}
 # Check debug symbols in static libraries (smoke test)
 export STATIC_LIBS_HOME=${JAVA_HOME}/%{static_libs_install_dir}
-readelf --debug-dump $STATIC_LIBS_HOME/libfdlibm.a | grep w_remainder.c
-readelf --debug-dump $STATIC_LIBS_HOME/libfdlibm.a | grep e_remainder.c
+readelf --debug-dump $STATIC_LIBS_HOME/libnet.a | grep Inet4AddressImpl.c
+readelf --debug-dump $STATIC_LIBS_HOME/libnet.a | grep Inet6AddressImpl.c
 %endif
 
 # Check src.zip has all sources. See RHBZ#1130490
@@ -2377,6 +2382,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Wed Nov 22 2023 Jiri Vanek <jvanek@redhat.com> -  1:17.0.9.0.9-1
+- updated to OpenJDK 17.0.9 (2023-10-17)
+
 * Fri Sep 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:17.0.8.0.7-2
 - Fix flatpak build
 

@@ -9,18 +9,14 @@ Version:        1.3.0
 Release:        %autorelease
 Summary:        Cython interface for the interior point optimizer IPOPT
 
-# The entire source is EPL-2.0, except:
+# The entire source is EPL-2.0.
 #
-# BSD-3-Clause:
+# The GitHub project contains one file that is BSD-3-Clause:
 #   - cyipopt/tests/unit/test_scipy_ipopt_from_scipy.py
-#
-# Note that the licenses in licenses_manylinux_bundled_libraries/ do not apply
-# because this package does not bundle dependencies as the PyPI wheels do.
-License:        EPL-2.0 AND BSD-3-Clause
+# but this is excluded from the PyPI sdist.
+License:        EPL-2.0
 URL:            https://github.com/mechmotum/cyipopt
-# We prefer the GitHub source archive to the PyPI one because it contains
-# the examples.
-Source:         %{url}/archive/v%{version}/cyipopt-%{version}.tar.gz
+Source:         %{pypi_source cyipopt}
 
 # Enable support for cython 3
 # https://github.com/mechmotum/cyipopt/pull/227
@@ -48,6 +44,13 @@ BuildRequires:  python3dist(scipy) >= 1.8
 BuildRequires:  gcc
 
 %if %{with doc_pdf}
+# Add examples/ and docs/requirements.txt to source distribution
+# https://github.com/mechmotum/cyipopt/pull/242
+# numpydoc>=1.2
+BuildRequires:  %{py3_dist numpydoc} >= 1.2
+# sphinx>=4.3.2
+BuildRequires:  %{py3_dist sphinx} >= 4.3.2
+
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
@@ -67,8 +70,6 @@ comfort of the Python programming language.}
 
 %package -n python3-cyipopt
 Summary:        %{summary}
-# This subpackage does not contain the BSD-3-Clause licensed file
-License:        EPL-2.0
 
 # From README.rst:
 #
@@ -98,9 +99,7 @@ This provides the “cyipopt.tests” subpackage.
 
 
 %package doc
-Summary:        Documentation and examples for cyipopt
-# This subpackage does not contain the BSD-3-Clause licensed file
-License:        EPL-2.0
+Summary:        Documentation for cyipopt
 
 BuildArch:      noarch
 
@@ -120,8 +119,6 @@ sed -r -i 's/"oldest-supported-(numpy)"/"\1"/' pyproject.toml
 # https://github.com/mechmotum/cyipopt/issues/135
 echo '' | tee $(find cyipopt/tests -type f -name '*.py' -size 0 | tr '\n' ' ')
 
-%py3_shebang_fix examples
-
 %if %{with doc_pdf}
 # Avoid:
 #   ! LaTeX Error: Too deeply nested.
@@ -131,7 +128,7 @@ echo 'latex_elements["preamble"] = r"\usepackage{enumitem}\setlistdepth{99}"' \
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_doc_pdf:docs/requirements.txt}
+%pyproject_buildrequires
 
 
 %build
@@ -156,23 +153,8 @@ PYTHONPATH="${BLIB}" %make_build -C docs latex \
 # https://github.com/mechmotum/cyipopt/issues/237
 k="${k-}${k+ and }not test_minimize_ipopt_jac_with_scipy_methods[cobyla]"
 %endif
-%ifarch x86_64
-# Flaky failure of TestSLSQP::test_minimize_unbounded_approximated on x86_64
-# https://github.com/mechmotum/cyipopt/issues/238
-k="${k-}${k+ and }not (TestSLSQP and test_minimize_unbounded_approximated)"
-%endif
 
 %pytest -v -rsx -k "${k-}"
-
-# Run the examples for additional confidence.
-while read -r example
-do
-  %{py3_test_envvars} '%{python3}' "${example}"
-done < <(
-  # Skip hs071_scipy_jax.py, since it requires https://pypi.org/project/jax/,
-  # which is not packaged.
-  find examples -type f -name '*.py' ! -name hs071_scipy_jax.py
-)
 
 
 %files -n python3-cyipopt -f %{pyproject_files}
@@ -188,7 +170,6 @@ done < <(
 %license LICENSE
 %doc CHANGELOG.rst
 %doc README.rst
-%doc examples/
 %if %{with doc_pdf}
 %doc docs/build/latex/cyipopt.pdf
 %endif

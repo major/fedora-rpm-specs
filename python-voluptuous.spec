@@ -1,45 +1,55 @@
 %global srcname voluptuous
 
 Name:      python-%{srcname}
-Version:   0.13.1
-Release:   6%{?dist}
+Version:   0.14.1
+Release:   1%{?dist}
 Summary:   Python data validation library
 
-License:   BSD
+License:   BSD-3-Clause
 URL:       http://github.com/alecthomas/voluptuous
 Source0:   %{pypi_source}
 BuildArch: noarch
 
-%description
+%global _description %{expand:
 Voluptuous, despite the name, is a Python data validation library. It is 
-primarily intended for validating data coming into Python as JSON, YAML, etc.
+primarily intended for validating data coming into Python as JSON, YAML, etc.}
+
+%description %_description
 
 %package -n python3-%{srcname}
 Summary: %{summary}
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-%{?python_provide:%python_provide python3-%{srcname}}
+BuildRequires: %{py3_dist setuptools}
+BuildRequires: %{py3_dist pytest}
 
-%description -n python3-%{srcname}
-Voluptuous, despite the name, is a Python data validation library. It is 
-primarily intended for validating data coming into Python as JSON, YAML, etc.
+%description -n python3-%{srcname} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{srcname}
+%pyproject_save_files voluptuous
+
+%check
+%pytest
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md
 %license COPYING
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Sun Nov 26 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.14.1-1
+- New upstream source 0.14.1
+- Updated license to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

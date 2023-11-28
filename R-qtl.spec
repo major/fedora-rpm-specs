@@ -3,8 +3,8 @@
 %global __suggests_exclude ^R\\(testthat\\)
 
 Name:		R-%{packname}
-Version:	1.60
-Release:	3%{?dist}
+Version:	1.62
+Release:	1%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
 License:	GPL-3.0-only
 URL:		https://rqtl.org/
@@ -92,6 +92,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Sun Nov 26 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.62-1
+- Update to 1.62
+
 * Sun Jul 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.60-3
 - Fix build requires
 

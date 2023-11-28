@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           gi-docgen
-Version:        2023.1
+Version:        2023.3
 Release:        %autorelease
 Summary:        Documentation tool for GObject-based libraries
 
@@ -15,6 +15,9 @@ Summary:        Documentation tool for GObject-based libraries
 #
 # The entire source is (Apache-2.0 OR GPL-3.0-or-later) except the following files that are
 # packaged or are used to generate packaged files:
+#
+# (Apache-2.0 OR GPL-3.0-or-later) AND BSD-2-Clause:
+#   - gidocgen/mdext.py
 #
 # MIT:
 #   - gidocgen/templates/basic/fzy.js
@@ -26,8 +29,24 @@ Summary:        Documentation tool for GObject-based libraries
 #   - docs/CODEOWNERS (-doc subpackage)
 #   - examples/*.toml (-doc subpackage)
 #
-# Note that CC0-1.0 is allowed for content only; these files may reasonably be
-# called content.
+# Note that CC0-1.0 is allowed in Fedora for content only; all of the above
+# files may reasonably be called content.
+#
+# Additionally, CC0-1.0 appears in certain sample configuration snippets within
+# the following files, which are otherwise (Apache-2.0 OR GPL-3.0-or-later):
+#   - docs/project-configuration.rst
+#   - docs/tutorial.rst
+# On one hand, these are copied from real projects; on the other hand, they are
+# very trivial. It’s not obvious whether they should be considered “real”
+# CC0-1.0 content or not.
+#
+# The identifier LGPL-2.1-or-later also appears in a sample configuration
+# template in docs/tutorial.rst, but the configuration in question is filled
+# with placeholder values and is not copied from a real project, so it’s
+# reasonable to consider LGPL-2.1-or-later a placeholder rather than a real
+# license as well.
+#
+# -----
 #
 # Additionally, the following sources are under licenses other than (Apache-2.0
 # OR GPL-3.0-or-later), but are not packaged in any of the binary RPMs:
@@ -37,7 +56,8 @@ Summary:        Documentation tool for GObject-based libraries
 #   - .gitlab-ci.yml (not installed)
 #   - gi-docgen.doap (not installed)
 #   - MANIFEST.in (not installed)
-#   - pytest.ini (not installed)
+#   - pytest.ini (not installed; test only)
+#   - tests/data/config/*.toml (not installed; test only)
 #
 # CC-BY-SA-3.0:
 #   - docs/gi-docgen.{png,svg} (for HTML docs; not currently packaged)
@@ -47,14 +67,19 @@ Summary:        Documentation tool for GObject-based libraries
 #   - gidocgen/templates/basic/*.{woff,woff2} (removed in prep)
 #
 # GPL-2.0-or-later:
-#   - test/gir/{Utility-1.0,Regress-1.0}.gir (not installed; test only)
+#   - tests/data/gir/{Utility-1.0,Regress-1.0}.gir (not installed; test only)
 #
 # LGPL-2.0-or-later:
-#   - test/gir/{GLib,GObject,Gio}-2.0.gir (not installed; test only)
+#   - tests/data/gir/{GLib,GObject,Gio}-2.0.gir (not installed; test only)
 #
 # LGPL-2.0-or-later OR MPL-1.1:
-#   - test/gir/cairo-1.0.gir (not installed; test only)
-License:        (Apache-2.0 OR GPL-3.0-or-later) AND MIT AND CC0-1.0
+#   - tests/data/gir/cairo-1.0.gir (not installed; test only)
+License:        %{shrink:
+                (Apache-2.0 OR GPL-3.0-or-later) AND
+                BSD-2-Clause AND
+                MIT AND
+                CC0-1.0
+                }
 URL:            https://gitlab.gnome.org/GNOME/gi-docgen
 Source:         %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 
@@ -196,7 +221,7 @@ cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 
 %files -f %{pyproject_files}
-%license LICENSES/*.txt .reuse/dep5
+%license LICENSES/ .reuse/dep5
 
 %{_bindir}/gi-docgen
 %{_mandir}/man1/gi-docgen.1*
@@ -211,7 +236,7 @@ cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 
 %files doc
-%license LICENSES/*.txt .reuse/dep5
+%license LICENSES/ .reuse/dep5
 %doc %{_pkgdocdir}/
 
 

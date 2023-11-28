@@ -1,6 +1,6 @@
 Name:           eccodes
 Version:        2.32.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -355,6 +355,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sun Nov 26 2023 Jos de Kloe <josdekloe@gmail.com> - 2.32.1-2
+- rebuild after so name jump of libjasper
+
 * Thu Nov 02 2023 Jos de Kloe <josdekloe@gmail.com> - 2.32.1-1
 - Upgrade to upstream version 2.32.1 and add updated test_data package
 

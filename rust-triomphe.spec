@@ -2,25 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate rpds
+%global crate triomphe
 
-Name:           rust-rpds
-Version:        1.1.0
+Name:           rust-triomphe
+Version:        0.1.9
 Release:        %autorelease
-Summary:        Persistent data structures with structural sharing
+Summary:        Fork of std::sync::Arc with some extra functionality and without weak references
 
-License:        MPL-2.0
-URL:            https://crates.io/crates/rpds
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/triomphe
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# - remove criterion dependency
-# - bump archery dependency
-Patch:          rpds-fix-metadata.diff
+# Remove broken unsize optional dependency
+Patch:          triomphe-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Persistent data structures with structural sharing.}
+A fork of std::sync::Arc with some extra functionality and without weak
+references (originally servo_arc).}
 
 %description %{_description}
 
@@ -34,9 +33,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/release-notes.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -51,16 +50,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fatal-warnings-devel
+%package     -n %{name}+arc-swap-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+fatal-warnings-devel %{_description}
+%description -n %{name}+arc-swap-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "fatal-warnings" feature of the "%{crate}" crate.
+use the "arc-swap" feature of the "%{crate}" crate.
 
-%files       -n %{name}+fatal-warnings-devel
+%files       -n %{name}+arc-swap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -73,6 +72,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+stable_deref_trait-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+stable_deref_trait-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "stable_deref_trait" feature of the "%{crate}" crate.
+
+%files       -n %{name}+stable_deref_trait-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

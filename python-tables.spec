@@ -6,7 +6,7 @@
 
 Summary:        HDF5 support in Python
 Name:           python-tables
-Version:        3.8.0
+Version:        3.9.1
 Release:        %autorelease
 #Source0:        https://github.com/PyTables/PyTables/archive/%{commit}/PyTables-%{commit}.tar.gz
 Source0:        https://github.com/PyTables/PyTables/archive/v%{version}/python-tables-%{version}.tar.gz
@@ -18,12 +18,6 @@ Source0:        https://github.com/PyTables/PyTables/archive/v%{version}/python-
 
 Source1:        https://github.com/PyTables/PyTables/releases/download/v%{manual_version}/pytablesmanual-%{manual_version}.pdf
 Patch1:         0001-Skip-tests-that-fail-on-s390x.patch
-Patch2:         0002-Relax-dependency-on-blosc2.patch
-Patch3:         0003-Fix-build-errors-when-compiled-using-cython-3.0.0b1.patch
-Patch4:         0004-Fix-compatibility-with-numpu-v1.25.patch
-Patch5:         0005-python3.12-cython-fix-slice-indexing.patch
-Patch6:         0006-Add-workaround-for-staticmethod-invocation-error.patch
-Patch7:         0007-Drop-misguided-check.patch
 
 License:        BSD
 URL:            https://www.pytables.org
@@ -74,13 +68,6 @@ The %{name}-doc package contains the documentation for %{name}.
 %patch 1 -p1
 %endif
 
-%patch 2 -p1
-%patch 3 -p1
-%patch 4 -p1
-%patch 5 -p1
-%patch 6 -p1
-%patch 7 -p1
-
 cp -a %{SOURCE1} pytablesmanual.pdf
 
 # Make sure we are not using anything from the bundled blosc by mistake
@@ -88,7 +75,7 @@ find c-blosc -mindepth 1 -maxdepth 1 -name hdf5 -prune -o -exec rm -r {} +
 
 # circumvent the broken attempt to detect library location
 sed -r -i \
-  '/def get_blosc2_directories\(\):/a \ \ \ \ return "%{_includedir}","%{_libdir}"' \
+  '/def get_blosc2_directories\(\):/a \ \ \ \ return Path("%{_includedir}"),Path("%{_libdir}"),None' \
   setup.py
 
 %build

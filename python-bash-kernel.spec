@@ -1,6 +1,6 @@
 Name:           python-bash-kernel
-Version:        0.9.1
-Release:        3%{?dist}
+Version:        0.9.3
+Release:        1%{?dist}
 Summary:        Bash kernel for Jupyter
 License:        BSD-3-Clause
 URL:            https://github.com/takluyver/bash_kernel
@@ -25,6 +25,9 @@ This package contains a Jupyter kernel for bash.
 %prep
 %autosetup -n bash_kernel-%{version}
 
+# Work around an install error
+sed -i 's/from \.resources/from bash_kernel.resources/' bash_kernel/install.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -35,8 +38,9 @@ rst2html --no-datestamp README.rst README.html
 %install
 %pyproject_install
 %pyproject_save_files bash_kernel
+export PYTHONPATH=$PWD
 cd bash_kernel
-python3 install.py --prefix %{buildroot}%{_prefix}
+%{python3} install.py --prefix %{buildroot}%{_prefix}
 cd -
 
 %check
@@ -48,6 +52,9 @@ cd -
 %{_datadir}/jupyter/kernels/bash/
 
 %changelog
+* Sun Nov 26 2023 Jerry James <loganjerry@gmail.com> - 0.9.3-1
+- Version 0.9.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

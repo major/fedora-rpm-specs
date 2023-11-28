@@ -10,8 +10,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2023.8.1
-%global tag     2023.8.1
+Version:        2023.11.0
+%global tag     2023.11.0
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
@@ -28,6 +28,12 @@ Patch:          0003-TST-Increase-maximum-for-sizeof-test-to-pass-32-bit.patch
 Patch:          0004-Fix-test_pandas_timestamp_overflow_pyarrow-condition.patch
 # https://github.com/dask/dask/issues/10423
 Patch:          https://salsa.debian.org/python-team/packages/dask/-/raw/08ffea1b7b53e9c71c9a926d5786288c2e6c1b5b/debian/patches/force-little-endian-random.patch
+Patch:          0005-Allow-older-versioneer.patch
+Patch:          0006-Skip-an-unsupported-test.patch
+# Ignore warnings from Pandas.
+# Upstream had https://github.com/dask/dask/pull/10307 but reverted it because
+# a new Pandas was released that fixed the warning, but we don't have it yet.
+Patch:          0007-Ignore-NumPy-warnings-from-Pandas.patch
 
 %description
 Dask is a flexible parallel computing library for analytics.

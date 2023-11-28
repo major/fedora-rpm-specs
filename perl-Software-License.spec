@@ -12,8 +12,8 @@
 %endif
 
 Name:           perl-Software-License
-Version:        0.104004
-Release:        2%{?dist}
+Version:        0.104005
+Release:        1%{?dist}
 Summary:        Package that provides templated software licenses
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Software-License
@@ -61,18 +61,17 @@ Software-License contains templates for common open source software licenses.
 %setup -q -n Software-License-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
-make test
+%{make_build} test
 %if %{with perl_Software_License_enables_extra_test}
-make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
+%{make_build} test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %endif
 
 %files
@@ -84,6 +83,10 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Software::LicenseUtils.3*
 
 %changelog
+* Sun Nov 26 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.104005-1
+- Update to 0.104005
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.104004-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

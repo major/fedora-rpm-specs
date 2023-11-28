@@ -1,31 +1,33 @@
 Name:           perl-Data-Clone
-Version:        0.004
-Release:        30%{?dist}
+Version:        0.006
+Release:        1%{?dist}
 Summary:        Polymorphic data cloning
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Clone
 Source0:        https://cpan.metacpan.org/authors/id/G/GF/GFUJI/Data-Clone-%{version}.tar.gz
-# Remove using of ' as a package name separator (CPAN RT#148415)
-Patch0:         Data-Clone-0.004-Fix-for-perl-5.38.patch
-BuildRequires:  make
-BuildRequires:  perl-devel
+# build requirements
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(warnings)
 BuildRequires:  perl-generators
-BuildRequires:  perl(constant)
-BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Devel::PPPort) >= 3.19
-BuildRequires:  perl(ExtUtils::ParseXS) >= 3.18
-BuildRequires:  perl(inc::Module::Install)
-BuildRequires:  perl(Module::Install::AuthorTests)
-BuildRequires:  perl(parent)
-BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Module::Build::XSUtil) >= 0.03
+# runtime requirements
+BuildRequires:  perl-devel
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::LeakTrace)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Requires)
-BuildRequires:  perl(threads)
+BuildRequires:  perl(XSLoader)
+BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
+# test requirements
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::Requires) >= 0.03
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Time::HiRes)
-BuildRequires:  perl(XSLoader) >= 0.1
+BuildRequires:  perl(constant)
+BuildRequires:  perl(threads)
 Requires:       perl(Exporter)
 
 %{?perl_default_filter}
@@ -40,31 +42,33 @@ polymorphic data cloning.
 
 %prep
 %setup -q -n Data-Clone-%{version}
-%patch -P0 -p1
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+/usr/bin/perl Build.PL --installdirs=vendor --optimize="$RPM_OPT_FLAGS"
+./Build
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} %{buildroot}/*
+./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+./Build test
 
 %files
-%doc Changes README
+%doc Changes README.md
+%license LICENSE
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Data*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 26 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.006-1
+- Update to 0.006
+- Remove upstreamed patch
+- Switch Buildsystem
+- Refresh dependencies
+- Use %%license to indicate the dist license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

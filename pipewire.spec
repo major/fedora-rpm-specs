@@ -1,6 +1,6 @@
-%global majorversion 0
-%global minorversion 3
-%global microversion 85
+%global majorversion 1
+%global minorversion 0
+%global microversion 0
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -44,7 +44,8 @@
 %bcond_without jackserver_plugin
 %bcond_without libmysofa
 %bcond_without lv2
-%bcond_without roc
+#bcond_without roc
+%bcond_with roc
 %endif
 
 %if 0%{?rhel} || ("%{_arch}" == "s390x")
@@ -592,6 +593,48 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/client.conf.avail/20-upmix.conf
 %{_datadir}/pipewire/client-rt.conf
 %{_datadir}/pipewire/client-rt.conf.avail/20-upmix.conf
+%{_mandir}/man7/libpipewire-module-access.7.gz
+%{_mandir}/man7/libpipewire-module-adapter.7.gz
+%{_mandir}/man7/libpipewire-module-avb.7.gz
+%{_mandir}/man7/libpipewire-module-client-device.7.gz
+%{_mandir}/man7/libpipewire-module-client-node.7.gz
+%{_mandir}/man7/libpipewire-module-combine-stream.7.gz
+%{_mandir}/man7/libpipewire-module-echo-cancel.7.gz
+%{_mandir}/man7/libpipewire-module-example-filter.7.gz
+%{_mandir}/man7/libpipewire-module-example-sink.7.gz
+%{_mandir}/man7/libpipewire-module-example-source.7.gz
+%{_mandir}/man7/libpipewire-module-fallback-sink.7.gz
+%{_mandir}/man7/libpipewire-module-ffado-driver.7.gz
+%{_mandir}/man7/libpipewire-module-filter-chain.7.gz
+%{_mandir}/man7/libpipewire-module-jack-tunnel.7.gz
+%{_mandir}/man7/libpipewire-module-jackdbus-detect.7.gz
+%{_mandir}/man7/libpipewire-module-link-factory.7.gz
+%{_mandir}/man7/libpipewire-module-loopback.7.gz
+%{_mandir}/man7/libpipewire-module-metadata.7.gz
+%{_mandir}/man7/libpipewire-module-netjack2-driver.7.gz
+%{_mandir}/man7/libpipewire-module-netjack2-manager.7.gz
+%{_mandir}/man7/libpipewire-module-pipe-tunnel.7.gz
+%{_mandir}/man7/libpipewire-module-portal.7.gz
+%{_mandir}/man7/libpipewire-module-profiler.7.gz
+%{_mandir}/man7/libpipewire-module-protocol-native.7.gz
+%{_mandir}/man7/libpipewire-module-protocol-pulse.7.gz
+%{_mandir}/man7/libpipewire-module-protocol-simple.7.gz
+%{_mandir}/man7/libpipewire-module-pulse-tunnel.7.gz
+%{_mandir}/man7/libpipewire-module-raop-discover.7.gz
+%{_mandir}/man7/libpipewire-module-raop-sink.7.gz
+%{_mandir}/man7/libpipewire-module-roc-sink.7.gz
+%{_mandir}/man7/libpipewire-module-roc-source.7.gz
+%{_mandir}/man7/libpipewire-module-rt.7.gz
+%{_mandir}/man7/libpipewire-module-rtp-sap.7.gz
+%{_mandir}/man7/libpipewire-module-rtp-session.7.gz
+%{_mandir}/man7/libpipewire-module-rtp-sink.7.gz
+%{_mandir}/man7/libpipewire-module-rtp-source.7.gz
+%{_mandir}/man7/libpipewire-module-session-manager.7.gz
+%{_mandir}/man7/libpipewire-module-vban-recv.7.gz
+%{_mandir}/man7/libpipewire-module-vban-send.7.gz
+%{_mandir}/man7/libpipewire-module-x11-bell.7.gz
+%{_mandir}/man7/libpipewire-module-zeroconf-discover.7.gz
+%{_mandir}/man7/libpipewire-modules.7.gz
 
 %files gstreamer
 %{_libdir}/gstreamer-1.0/libgstpipewire.*
@@ -631,7 +674,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_mandir}/man1/pw-cli.1*
 %{_mandir}/man1/pw-config.1*
 %{_mandir}/man1/pw-dot.1*
+%{_mandir}/man1/pw-dump.1*
 %{_mandir}/man1/pw-link.1*
+%{_mandir}/man1/pw-loopback.1*
 %{_mandir}/man1/pw-metadata.1*
 %{_mandir}/man1/pw-mididump.1*
 %{_mandir}/man1/pw-mon.1*
@@ -694,12 +739,45 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %if %{with pulse}
 %files pulseaudio
 %{_bindir}/pipewire-pulse
-%{_mandir}/man1/pipewire-pulse.1*
 %{_userunitdir}/pipewire-pulse.*
 %{_datadir}/pipewire/pipewire-pulse.conf
 %dir %{_datadir}/pipewire/pipewire-pulse.conf.d/
 %{_datadir}/pipewire/pipewire-pulse.conf.avail/20-upmix.conf
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-pulse.so
+%{_mandir}/man1/pipewire-pulse.1*
+%{_mandir}/man5/pipewire-pulse.conf.5.gz
+%{_mandir}/man7/pipewire-pulse-module-alsa-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-alsa-source.7.gz
+%{_mandir}/man7/pipewire-pulse-module-always-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-combine-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-echo-cancel.7.gz
+%{_mandir}/man7/pipewire-pulse-module-gsettings.7.gz
+%{_mandir}/man7/pipewire-pulse-module-jackdbus-detect.7.gz
+%{_mandir}/man7/pipewire-pulse-module-ladspa-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-ladspa-source.7.gz
+%{_mandir}/man7/pipewire-pulse-module-loopback.7.gz
+%{_mandir}/man7/pipewire-pulse-module-native-protocol-tcp.7.gz
+%{_mandir}/man7/pipewire-pulse-module-null-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-pipe-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-pipe-source.7.gz
+%{_mandir}/man7/pipewire-pulse-module-raop-discover.7.gz
+%{_mandir}/man7/pipewire-pulse-module-remap-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-remap-source.7.gz
+%{_mandir}/man7/pipewire-pulse-module-roc-sink-input.7.gz
+%{_mandir}/man7/pipewire-pulse-module-roc-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-roc-source.7.gz
+%{_mandir}/man7/pipewire-pulse-module-rtp-recv.7.gz
+%{_mandir}/man7/pipewire-pulse-module-rtp-send.7.gz
+%{_mandir}/man7/pipewire-pulse-module-simple-protocol-tcp.7.gz
+%{_mandir}/man7/pipewire-pulse-module-switch-on-connect.7.gz
+%{_mandir}/man7/pipewire-pulse-module-tunnel-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-tunnel-source.7.gz
+%{_mandir}/man7/pipewire-pulse-module-virtual-sink.7.gz
+%{_mandir}/man7/pipewire-pulse-module-virtual-source.7.gz
+%{_mandir}/man7/pipewire-pulse-module-x11-bell.7.gz
+%{_mandir}/man7/pipewire-pulse-module-zeroconf-discover.7.gz
+%{_mandir}/man7/pipewire-pulse-module-zeroconf-publish.7.gz
+%{_mandir}/man7/pipewire-pulse-modules.7.gz
 %endif
 
 %if %{with v4l2}
@@ -733,6 +811,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Sun Nov 26 2023 Wim Taymans <wtaymans@redhat.com> - 1.0.0-1
+- Update version to 1.0.0
+- Disable ROC until updated in Fedora.
+
 * Thu Nov 16 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.85-1
 - Update version to 0.3.85
 

@@ -2,20 +2,14 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    ktorrent
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 Summary: A BitTorrent program
 
-License: GPLv2+
+License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://www.kde.org/applications/internet/ktorrent/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -60,16 +54,16 @@ BuildRequires: cmake(KF5Plotting)
 BuildRequires: cmake(KF5TextWidgets)
 
 BuildRequires: cmake(KF5Syndication)
-%if %{undefined flatpak}
-BuildRequires: cmake(LibKWorkspace)
-%endif
+## TODO: Re-enable with Plasma 6 beta or later
+# %if %{undefined flatpak}
+# BuildRequires: cmake(LibKWorkspace)
+# %endif
 
 %ifarch %{qt5_qtwebengine_arches}
 BuildRequires: cmake(Qt5WebEngineWidgets)
 %endif
 
-%global majmin %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-libktorrent-devel >= %{majmin}
+BuildRequires: kf5-libktorrent-devel
 
 # multilib, when -libs was introduced
 Obsoletes: ktorrent < 3.2.3-2
@@ -84,7 +78,6 @@ searching using various search engines, UDP Trackers and UPnP support.
 %package libs
 Summary: Runtime libraries for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: kf5-libktorrent%{?_isa} >= %{majmin}
 %description libs
 %{summary}.
 
@@ -129,13 +122,14 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ktorrent.
 %{_qt5_plugindir}/ktorrent_plugins/*.so
 
 
-%ldconfig_scriptlets libs
-
 %files libs
 %{_kf5_libdir}/libktcore.so.*
 
 
 %changelog
+* Sun Nov 26 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

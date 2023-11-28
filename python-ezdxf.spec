@@ -9,7 +9,7 @@
 %bcond qt6 0
 
 Name:           python-ezdxf
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Create/manipulate DXF drawings
 
@@ -149,7 +149,6 @@ rm docs/graphics/dimtad-dimjust.pdf
 
 # Fix files with CRNL newlines and, in some cases, UTF-16LE encoding:
 dos2unix --keepdate \
-    docs/notes/dxf-group-code-reference.txt \
     examples/copydxf.py \
     examples_dxf/text.dxf \
     examples_dxf/text_negative_extrusion.dxf
@@ -232,7 +231,6 @@ fi
 
 
 %files -n python3-ezdxf -f %{pyproject_files}
-# pyproject-rpm-macros handles the LICENSE file; verify with “rpm -qL -p …”
 %doc README.md
 
 %{_bindir}/ezdxf
@@ -242,15 +240,13 @@ fi
 %files doc
 %license LICENSE
 
-%doc NEWS*.md
 %doc README.md
-%doc TODO.md
 
 %doc autolisp/
 %doc examples/
 %doc examples_dxf/
+%doc examples_hpgl2/
 %doc exploration/
-%doc docs/notes/
 
 %if %{with doc_pdf}
 %doc docs/build/latex/ezdxf.pdf

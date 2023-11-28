@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -209,6 +209,7 @@ Plasma Discover backend for rpm-ostree support in %{name}.
 
 %build
 %cmake_kf6 \
+  -DPACKAGEKIT_AUTOREMOVE:BOOL=ON \
 %if 0%{?fedora}
   -DBUILD_RpmOstreeBackend:BOOL=ON
 %endif
@@ -315,6 +316,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Sun Nov 26 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
+- Enable packagekit autoremove
+
 * Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

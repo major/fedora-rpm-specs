@@ -1,7 +1,7 @@
 %global jsname jsroot
 
 Name:		js-%{jsname}
-Version:	7.3.4
+Version:	7.5.3
 Release:	1%{?dist}
 Summary:	JavaScript ROOT - Interactive numerical data analysis graphics
 
@@ -35,12 +35,12 @@ mkdir -p %{buildroot}%{_jsdir}/%{jsname}
 # ar minified, but in root's bundled version they ar not.
 # Leave them unminified in Fedora.
 for d in modules modules/base modules/draw modules/geom modules/gpad \
-    modules/gui modules/hist modules/hist2d ; do \
-mkdir %{buildroot}%{_jsdir}/%{jsname}/${d} ; \
-install -m 644 -p ${d}/*.mjs %{buildroot}%{_jsdir}/%{jsname}/${d} ; \
+    modules/gui modules/hist modules/hist2d ; do
+mkdir %{buildroot}%{_jsdir}/%{jsname}/${d}
+install -m 644 -p ${d}/*.mjs %{buildroot}%{_jsdir}/%{jsname}/${d}
 done
 
-ln -rs %{buildroot}%{_jsdir}/mathjax@3 %{buildroot}%{_jsdir}/%{jsname}/modules
+ln -rs %{buildroot}%{_jsdir}/mathjax@3 %{buildroot}%{_jsdir}/%{jsname}/mathjax
 
 mkdir %{buildroot}%{_jsdir}/%{jsname}/build
 install -m 644 -p build/jsroot.js %{buildroot}%{_jsdir}/%{jsname}/build
@@ -87,6 +87,9 @@ end
 %doc changes.md demo docs/* index.htm readme.md
 
 %changelog
+* Fri Nov 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.5.3-1
+- Update to version 7.5.3
+
 * Sat Oct 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.3.4-1
 - Update to version 7.3.4
 

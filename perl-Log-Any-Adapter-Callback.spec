@@ -1,14 +1,14 @@
 Name:           perl-Log-Any-Adapter-Callback
-Version:        0.101
-Release:        11%{?dist}
+Version:        0.102
+Release:        1%{?dist}
 Summary:        Send Log::Any logs to a subroutine
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Log-Any-Adapter-Callback
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Log-Any-Adapter-Callback-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -54,6 +54,9 @@ detection methods (like $log->is_warning(), $log->is_fatal(), etc.).
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 26 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.102-1
+- Update to 0.102
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

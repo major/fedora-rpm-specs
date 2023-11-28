@@ -20,7 +20,7 @@ Source:         %{pypi_source shapely}
 # https://github.com/shapely/shapely/issues/1937
 #
 # Rebased on 2.0.2.
-Patch:          0001-Adjust-tests-for-docstring-indent-stripping-in-Pytho.patch
+Patch:          shapely-2.0.2-pr-1938.patch
 
 BuildRequires:  gcc
 BuildRequires:  geos-devel
