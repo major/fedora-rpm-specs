@@ -1,5 +1,5 @@
 Name:           libwacom
-Version:        2.8.0
+Version:        2.9.0
 Release:        1%{?dist}
 Summary:        Tablet Information Client Library
 Requires:       %{name}-data
@@ -10,7 +10,7 @@ URL:            https://github.com/linuxwacom/libwacom
 Source0:        https://github.com/linuxwacom/libwacom/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  meson gcc
-BuildRequires:  glib2-devel libgudev1-devel
+BuildRequires:  glib2-devel libgudev1-devel libevdev-devel
 BuildRequires:  systemd systemd-devel
 BuildRequires:  git-core
 BuildRequires:  libxml2-devel
@@ -93,6 +93,9 @@ install -d ${RPM_BUILD_ROOT}/%{_udevrulesdir}
 %{_mandir}/man1/libwacom-list-devices.1*
 
 %changelog
+* Mon Nov 27 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.9.0-1
+- libwacom 2.9.0
+
 * Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: update to SPDX identifiers.
   Turns out the COPYING file references the HPND, not MIT.

@@ -37,8 +37,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.6.0
-Release: 7%{?dist}
+Version: 6.6.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -87,9 +87,6 @@ Patch56: qtbase-mysql.patch
 # fix FTBFS against libglvnd-1.3.4+
 Patch58: qtbase-libglvnd.patch
 
-# fix FTBS against libxkbcommon 1.6.0
-Patch59: qtbase-libxkbcommon-1.6.0.patch
-
 # Bug 1954359 - Many emoji don't show up in Qt apps because qt does not handle 'emoji' font family
 # FIXME: this change seems to completely break font rendering for some people
 # Patch60: qtbase-cache-emoji-font.patch
@@ -100,7 +97,6 @@ Patch100: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
 %endif
 
 ## upstream patches
-Patch200: qtbase-a11y-fix-race-condition-on-atspi-startup-on-wayland.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -422,7 +418,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.6.0
+Version: 6.6.1
 EOF
 
 # rpm macros
@@ -839,6 +835,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
+- 6.6.1
+
 * Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 6.6.0-7
 - Add xkbcommon as a devel dependency
 

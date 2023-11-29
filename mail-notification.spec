@@ -8,7 +8,7 @@ Version:        5.4
 Release:        107.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.nongnu.org/mailnotify/
 #Source0:        http://savannah.nongnu.org/download/mailnotify/mail-notification-%{version}.tar.bz2
 # Upstream isn't alive any more, use a github forked copy which contains all patches which

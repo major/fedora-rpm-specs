@@ -7,7 +7,7 @@ Name: nmap
 Epoch: 3
 Version: 7.93
 #global prerelease TEST5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Network exploration tool and security scanner
 URL: http://nmap.org/
 # Uses combination of licenses based on GPL license, but with extra modification
@@ -30,6 +30,8 @@ Patch3: ncat_reg_stdin.diff
 Patch4: nmap-6.25-displayerror.patch
 # https://github.com/nmap/nmap/pull/2247
 Patch7: nmap_resolve_config.patch
+# backport of upstream pcre2 migration, rhbz#2128336
+Patch8: nmap-pcre2.patch
 
 
 BuildRequires: automake make
@@ -43,7 +45,7 @@ BuildRequires: libssh2-devel
 BuildRequires: libtool
 BuildRequires: lua-devel
 BuildRequires: openssl-devel
-BuildRequires: pcre-devel
+BuildRequires: pcre2-devel
 BuildRequires: zlib-devel
 BuildRequires: gnupg2
 Requires: %{name}-ncat = %{epoch}:%{version}-%{release}
@@ -86,6 +88,7 @@ uses.
 %prep
 %{gpgverify} --keyring=%{SOURCE2} --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+autoconf -f
 
 
 #be sure we're not using tarballed copies of some libraries
@@ -153,6 +156,9 @@ fi
 %{_mandir}/man1/ncat.1.gz
 
 %changelog
+* Fri Nov 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3:7.93-4
+- Use pcre2 instead of deprecated pcre (rhbz#2128336)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:7.93-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

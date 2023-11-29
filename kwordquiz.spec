@@ -1,7 +1,7 @@
 Name:    kwordquiz
 Summary: Flash Card Trainer 
 Version: 24.01.75
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/edu/%{name}
@@ -17,6 +17,9 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 ## upstream patches
 
 ## upstreamable patches
+
+Requires: kf6-kirigami2-addons
+Requires: kf6-kitemmodels
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -93,13 +96,17 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf6_datadir}/%{name}/
-#{_kf6_datadir}/kconf_update/%{name}*
 %{_kf6_datadir}/knotifications6/%{name}.notifyrc
-#{_kf6_datadir}/sounds/%{name}/
 %{_kf6_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Mon Nov 27 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-3
+- Require kf6-kirigami2-addons, kf6-kitemmodels
+
+* Mon Nov 27 2023 Than Ngo <than@redhat.com> - 24.01.75-2
+- fix bz#2251556, add Require on kf5-kirigami2-addons, kf5-kitemmodels
+
 * Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
 - Update to 24.01.75
 

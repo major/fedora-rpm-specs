@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         11.02.00
-Release:         2%{?dist}
+Release:         3%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -230,6 +230,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 11.02.00-3
+- Rebuild for jasper 4.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.02.00-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

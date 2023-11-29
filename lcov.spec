@@ -1,14 +1,12 @@
 Name: lcov
-Version: 1.14
-Release: 10%{?dist}
+Version: 2.0
+Release: 1%{?dist}
 
 Summary: LTP GCOV extension code coverage tool
 License: GPL-2.0-or-later
 
 URL: https://github.com/linux-test-project/lcov/
 Source0: https://github.com/linux-test-project/lcov/releases/download/v%{version}/lcov-%{version}.tar.gz
-Patch1: 0001-geninfo-Add-intermediate-text-format-support.patch
-Patch2: 0002-geninfo-Add-intermediate-JSON-format-support.patch
 
 BuildArch: noarch
 BuildRequires: perl-generators
@@ -18,6 +16,11 @@ BuildRequires: make
 Requires: /usr/bin/gcov
 Requires: /usr/bin/find
 Requires: perl(GD::Image)
+Requires: perl(JSON::XS)
+
+# lcovutil.pm is a private helper file
+%global __requires_exclude ^perl\\(lcovutil\\)$
+%global __provides_exclude ^perl.*$
 
 %description
 LCOV is an extension of GCOV, a GNU tool which provides information
@@ -27,18 +30,46 @@ of PERL scripts which build on the textual GCOV output to implement
 HTML output and support for large projects.
 
 %prep
-%autosetup -S git_am
+%autosetup
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT BIN_DIR=%{_bindir} MAN_DIR=%{_mandir} CFG_DIR=%{_sysconfdir}
+make install DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} \
+     CFG_DIR=%{_sysconfdir} LIB_DIR=%{_datadir}/lcov
 
 %files
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man5/*
+%{_bindir}/gendesc
+%{_bindir}/genhtml
+%{_bindir}/geninfo
+%{_bindir}/genpng
+%{_bindir}/lcov
+%{_mandir}/man1/gendesc.1*
+%{_mandir}/man1/genhtml.1*
+%{_mandir}/man1/geninfo.1*
+%{_mandir}/man1/genpng.1*
+%{_mandir}/man1/lcov.1*
+%{_mandir}/man5/lcovrc.5*
+%dir %{_datadir}/lcov
+%dir %{_datadir}/lcov/support-scripts
+%{_datadir}/lcov/lcovutil.pm
+%{_datadir}/lcov/support-scripts/analyzeInfoFiles
+%{_datadir}/lcov/support-scripts/criteria
+%{_datadir}/lcov/support-scripts/get_signature
+%{_datadir}/lcov/support-scripts/getp4version
+%{_datadir}/lcov/support-scripts/gitblame
+%{_datadir}/lcov/support-scripts/gitdiff
+%{_datadir}/lcov/support-scripts/p4annotate
+%{_datadir}/lcov/support-scripts/p4udiff
+%{_datadir}/lcov/support-scripts/py2lcov
+%{_datadir}/lcov/support-scripts/spreadsheet.py
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/lcovrc
 
 %changelog
+* Mon Nov 27 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.0-1
+- 2.0
+- Use explicit file listing
+- Remove upstream patches
+- Ship new files
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

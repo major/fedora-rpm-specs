@@ -4,7 +4,7 @@ BuildArch: noarch
 
 Epoch:   1
 Version: 2.004
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: OFL-1.1
 URL:     https://github.com/googlefonts/noto-cjk
 
@@ -28,7 +28,7 @@ supported for compatibility with CJK standards.
 %global fontdescription1  %{expand:
 %{common_description}
 
-The google-noto-sans-hk-fonts package contains Google Noto Sans HK fonts.
+This package contains Google Noto Sans HK fonts.
 }
 
 %global fontfamily2       Noto Sans JP
@@ -40,7 +40,7 @@ The google-noto-sans-hk-fonts package contains Google Noto Sans HK fonts.
 %global fontdescription2  %{expand:
 %{common_description}
 
-The google-noto-sans-hk-fonts package contains Google Noto Sans JP fonts.
+This package contains Google Noto Sans JP fonts.
 }
 
 %global fontfamily3       Noto Sans KR
@@ -52,7 +52,7 @@ The google-noto-sans-hk-fonts package contains Google Noto Sans JP fonts.
 %global fontdescription3  %{expand:
 %{common_description}
 
-The google-noto-sans-hk-fonts package contains Google Noto Sans KR fonts.
+This package contains Google Noto Sans KR fonts.
 }
 
 %global fontfamily4       Noto Sans SC
@@ -64,7 +64,7 @@ The google-noto-sans-hk-fonts package contains Google Noto Sans KR fonts.
 %global fontdescription4  %{expand:
 %{common_description}
 
-The google-noto-sans-hk-fonts package contains Google Noto Sans SC fonts.
+This package contains Google Noto Sans SC fonts.
 }
 
 %global fontfamily5       Noto Sans TC
@@ -76,7 +76,7 @@ The google-noto-sans-hk-fonts package contains Google Noto Sans SC fonts.
 %global fontdescription5  %{expand:
 %{common_description}
 
-The google-noto-sans-hk-fonts package contains Google Noto Sans TC fonts.
+This package contains Google Noto Sans TC fonts.
 }
 
 Source0:  https://github.com/googlefonts/noto-cjk/releases/download/Sans%{version}/05_NotoSansCJK-SubsetOTF.zip
@@ -118,6 +118,10 @@ python3 genfontconf.py "zh-tw:zh-mo" "sans-serif" "Noto Sans TC" | xmllint --for
 
 
 %changelog
+* Mon Nov 27 2023 Peng Wu <pwu@redhat.com> - 1:2.004-4
+- Fix typo
+- Resolves: RHBZ#2251535
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.004-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

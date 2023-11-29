@@ -57,6 +57,13 @@ Requires:       ocl-icd-devel%{?_isa}
 %description devel
 Headers and libraries for developing applications that use CLBlast.
 
+%package clients
+Summary:        Clients for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description clients
+Clients to test and compare performance of %{name} for your OpenCL device.
+
 %package tuners
 Summary:        Tuners for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -74,7 +81,7 @@ sed -i 's,include/openblas,include/openblas include/flexiblas,' cmake/Modules/Fi
 sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.cmake
 
 %build
-%cmake -DTESTS:BOOL=ON
+%cmake -DTESTS:BOOL=ON -DCLIENTS:BOOL=ON -DNETLIB:BOOL=ON
 %cmake_build
 
 %install
@@ -100,8 +107,12 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %{_libdir}/cmake/CLBlast/
 %{_libdir}/pkgconfig/%{name}.pc
 
+%files clients
+%{_bindir}/clblast_client*
+
 %files tuners
-%{_bindir}/clblast*
+%{_bindir}/clblast_test*
+%{_bindir}/clblast_tuner*
 
 %changelog
 %autochangelog

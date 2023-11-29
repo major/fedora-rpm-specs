@@ -3,7 +3,7 @@
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
 Version: 0.21.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD-3-Clause and (CDDL-1.0 or LGPL-2.1-only)
 URL: https://www.libraw.org
 Source0: %{url}/data/%{name}-%{version}.tar.gz
@@ -107,6 +107,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 0.21.1-7
+- Rebuild for jasper 4.1
+
 * Tue Oct 10 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.21.1-6
 - Clean and simplify spec and drop EL7 stuff
 - Use official released tarball

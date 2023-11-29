@@ -5,7 +5,7 @@ Summary:        Simple Note Viewer
 
 # Bijiben is GPLv3+ apart a few files "LGPLv2 or LGPLv3"
 # And ligd is LGPLv2+
-License:        GPLv3+ and LGPLv3 and LGPLv2+
+License:        GPL-3.0-or-later AND LGPL-3.0 AND LGPL-2.0-or-later
 Url:            http://www.gnome.org
 Source0:        http://download.gnome.org/sources/%{name}/40/%{name}-%{version}.tar.xz
 

@@ -1,19 +1,11 @@
-%undefine __cmake_in_source_build
-
 Name:    ksystemlog
 Summary: System Log Viewer for KDE
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     http://www.kde.org/applications/system/ksystemlog/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/ksystemlog/
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
 
@@ -23,25 +15,31 @@ Patch1: ksystemlog-21.12.2-fedora.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-karchive-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-ktextwidgets-devel
-BuildRequires: pkgconfig(libsystemd)
-BuildRequires: pkgconfig(Qt5Gui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
 
-Obsoletes:     kdeadmin < 4.10.80
-# translations moved here
-Conflicts: kde-l10n < 17.03
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6Network)
+
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6DocTools)
+
+BuildRequires: pkgconfig(libsystemd)
+BuildRequires: pkgconfig(audit)
 
 %description
 This program is developed for beginner users, who don't know how to find
@@ -57,7 +55,7 @@ and less commands.
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
@@ -68,19 +66,22 @@ and less commands.
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ksystemlog.appdata.xml
 
 
 %files -f %{name}.lang
 %license LICENSES
-%{_kf5_bindir}/ksystemlog
-%{_kf5_datadir}/kxmlgui5/ksystemlog/
-%{_kf5_datadir}/applications/org.kde.ksystemlog.desktop
-%{_kf5_datadir}/qlogging-categories5/ksystemlog.categories
-%{_kf5_metainfodir}/org.kde.ksystemlog.appdata.xml
+%{_kf6_bindir}/ksystemlog
+%{_kf6_datadir}/applications/org.kde.ksystemlog.desktop
+%{_kf6_datadir}/qlogging-categories6/ksystemlog.categories
+%{_kf6_metainfodir}/org.kde.ksystemlog.appdata.xml
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

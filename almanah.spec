@@ -3,7 +3,7 @@ Version:	0.12.3
 Release:	8%{?dist}
 Summary:	Application for keeping an encrypted diary
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://wiki.gnome.org/Apps/Almanah_Diary
 Source0:	https://download.gnome.org/sources/almanah/0.12/almanah-%{version}.tar.xz
 

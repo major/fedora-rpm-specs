@@ -1,16 +1,14 @@
 %global pypi_name pytest-venv
 
 Name:           python-%{pypi_name}
-Version:        0.2
-Release:        12%{?dist}
+Version:        0.3
+Release:        %autorelease
 Summary:        py.test fixture for creating a virtual environment
 
+# SPDX
 License:        MIT
 URL:            https://github.com/mmerickel/pytest-venv
 Source0:        %{pypi_source}
-# virtualenv no longer installs setuptools by default with Python 3.12
-# https://github.com/mmerickel/pytest-venv/pull/4
-Patch0:         3.12-setuptools-bundle.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -52,38 +50,4 @@ sed -i '/pytest-cov/d' setup.py
 %doc README.rst
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2-11
-- Fix virtualenv usage for Python 3.12
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.2-10
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.2-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.2-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Nov 13 2020 Miro Hrončok <mhroncok@redhat.com> - 0.2-2
-- Don't BR pytest-cov
-
-* Thu Jul 09 2020 Lumír Balhar <lbalhar@redhat.com> - 0.2-1
-- Initial package.
+%autochangelog

@@ -35,6 +35,7 @@ https://www.kdab.com/development-resources/qt-tools/kd-soap/
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel-common%{?_isa} = %{version}-%{release}
 %description    devel
 This package contains header files and associated tools and libraries to
 develop programs which need to access web services using the SOAP protocol.
@@ -47,9 +48,15 @@ Summary:        Qt 6 version of %{name}
 %package     -n kdsoap6-devel
 Summary:        Development files for kdsoap6
 Requires:       kdsoap6%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel-common%{?_isa} = %{version}-%{release}
 %description -n kdsoap6-devel
 This package contains header files and associated tools and libraries to
 develop programs which need to access web services using the SOAP protocol.
+
+%package        devel-common
+Summary:        Header files and other common development files for kdsoap and kdsoap6
+%description    devel-common
+%{summary}.
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -100,11 +107,6 @@ rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
 
 %files devel
 %doc kdsoap.pri kdwsdl2cpp.pri
-%dir %{_datadir}/mkspecs
-%dir %{_datadir}/mkspecs/features
-%{_datadir}/mkspecs/features/kdsoap.prf
-%{_includedir}/KDSoapClient/
-%{_includedir}/KDSoapServer/
 %{_libdir}/libkdsoap-server.so
 %{_libdir}/libkdsoap.so
 %{_bindir}/kdwsdl2cpp
@@ -113,16 +115,19 @@ rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
 
 %files -n kdsoap6-devel
 %doc kdsoap.pri kdwsdl2cpp.pri
-%dir %{_datadir}/mkspecs
-%dir %{_datadir}/mkspecs/features
-%{_datadir}/mkspecs/features/kdsoap.prf
-%{_includedir}/KDSoapClient/
-%{_includedir}/KDSoapServer/
 %{_libdir}/libkdsoap-server-qt6.so
 %{_libdir}/libkdsoap-qt6.so
 %{_bindir}/kdwsdl2cpp-qt6
 %{_libdir}/cmake/KDSoap-qt6/
 %{_libdir}/qt6/mkspecs/modules/*
+
+%files devel-common
+%{_includedir}/KDSoapClient/
+%{_includedir}/KDSoapServer/
+%dir %{_datadir}/mkspecs
+%dir %{_datadir}/mkspecs/features
+%{_datadir}/mkspecs/features/kdsoap.prf
+
 
 %files doc
 %doc docs

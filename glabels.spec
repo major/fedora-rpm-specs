@@ -48,7 +48,7 @@ supply stores.
 
 %package	devel
 Summary:	Development files and documentation for %{name}
-License:	LGPLv3+
+License:	LGPL-3.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description	devel
@@ -57,7 +57,7 @@ libglabels.
 
 
 %package 	libs
-License:	LGPLv3+
+License:	LGPL-3.0-or-later
 Summary:	Development files and documentation for %{name}
 Requires:	%{name}-templates = %{version}-%{release}
 

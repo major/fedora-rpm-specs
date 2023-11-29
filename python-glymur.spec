@@ -13,6 +13,12 @@ Source0:        https://github.com/quintusdias/glymur/archive/v%{version}/%{name
 Source1:        jp2dump.1
 Source2:        tiff2jp2.1
 
+# Partial backport of:
+# Release v0.12.9post1
+# https://github.com/quintusdias/glymur/commit/d0134123978678d33573d53a144ce1634e770e10
+# The release number remains at 0.12.9.
+Patch:          0001-Fix-oversights-in-the-0.12.9-release.patch
+
 # Since the package has had endian-dependent test failures in the past, we give
 # up “noarch” in the base package in order to run tests on all supported
 # architectures.  We can still make all the built RPMs noarch.  Since the

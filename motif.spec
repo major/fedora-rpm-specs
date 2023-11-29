@@ -1,7 +1,7 @@
 Summary: Run-time libraries and programs
 Name: motif
 Version: 2.3.4
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: LGPLv2+
 Source: http://downloads.sf.net/motif/motif-%{version}-src.tgz
 Source1: xmbind
@@ -37,6 +37,10 @@ Patch51: motif-c99-string.patch
 Patch52: motif-c99-bug1602.patch
 Patch53: motif-c99-bug1605.patch
 Patch54: motif-c99-bug1609.patch
+# CVE-2023-43788
+Patch55: 0001-Fix-CVE-2023-43788-Out-of-bounds-read-in-XpmCreateXp.patch
+# CVE-2023-43789
+Patch56: 0001-Fix-CVE-2023-43789-Out-of-bounds-read-on-XPM-with-co.patch
 
 Conflicts: lesstif <= 0.92.32-6
 
@@ -82,6 +86,8 @@ This package contains the static Motif libraries.
 %patch52 -p1
 %patch53 -p1
 %patch54 -p1
+%patch55 -p1
+%patch56 -p1
 
 %build
 ./autogen.sh
@@ -131,6 +137,10 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Mon Nov 27 2023 José Expósito <jexposit@redhat.com> - 2.3.4-30
+- Fix CVE-2023-43788: out of bounds read in XpmCreateXpmImageFromBuffer()
+- Fix CVE-2023-43789: out of bounds read on XPM with corrupted colormap
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

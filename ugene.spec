@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainver		49.0
+%global	mainver		49.1
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -250,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Nov 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 49.1-1
+- 49.1
+
 * Thu Nov  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 49.0-1
 - 49.0
 

@@ -1,42 +1,34 @@
-%undefine __cmake_in_source_build
 Name:    kdf
 Summary: View disk usage
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     http://utils.kde.org/projects/%{name}
-#URL:    https://cgit.kde.org/%{name}.git
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/kdf/
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
 
-# when split occured
-Conflicts: kdeutils-common < 6:4.7.80
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Widgets)
 
-# translations moved here
-Conflicts: kde-l10n < 17.03
-
-Obsoletes: kdeutils-kdf < 6:4.7.80
-Provides:  kdeutils-kdf = 6:%{version}-%{release}
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
 
 %description
 KDiskFree displays the available file devices (hard drive partitions,
@@ -49,7 +41,7 @@ free space, type and mount point.
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
@@ -60,27 +52,28 @@ free space, type and mount point.
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/*kdf.desktop ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.*.appdata.xml
 
-
-%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/kdf
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_datadir}/icons/hicolor/*/apps/*
-%{_kf5_bindir}/kwikdisk
-%{_kf5_libdir}/libkdfprivate.so.*
-%{_kf5_datadir}/applications/org.kde.kdf.desktop
-%{_kf5_datadir}/applications/org.kde.kwikdisk.desktop
-%{_kf5_datadir}/applications/kcm_kdf.desktop
-%{_kf5_metainfodir}/org.kde.*.appdata.xml
-%{_kf5_datadir}/kxmlgui5/kdf/
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kdf.so
+%{_kf6_bindir}/kdf
+%{_kf6_datadir}/qlogging-categories6/%{name}*
+%{_kf6_datadir}/icons/hicolor/*/apps/*
+%{_kf6_bindir}/kwikdisk
+%{_kf6_libdir}/libkdfprivate.so.*
+%{_kf6_datadir}/applications/org.kde.kdf.desktop
+%{_kf6_datadir}/applications/org.kde.kwikdisk.desktop
+%{_kf6_datadir}/applications/kcm_kdf.desktop
+%{_kf6_metainfodir}/org.kde.*.appdata.xml
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kdf.so
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

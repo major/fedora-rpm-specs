@@ -26,12 +26,12 @@
 
 Summary: PHP Extension and Application Repository framework
 Name: php-pear
-Version: 1.10.13
-Release: 7%{?dist}
+Version: 1.10.14
+Release: 1%{?dist}
 Epoch: 1
 # BSD-2-Clause: PEAR, PEAR_Manpages, Archive_Tar, Console_Getopt
 # BSD-3-Clause: XML_Util
-# LGPL-3.0-or-later: Structures_Graph is LGPLv3+
+# LGPL-3.0-or-later: Structures_Graph
 License: BSD-2-Clause AND BSD-3-Clause AND LGPL-3.0-or-later
 URL: http://pear.php.net/package/PEAR
 Source0: http://download.pear.php.net/package/PEAR-%{version}%{?pearprever}.tgz
@@ -47,9 +47,6 @@ Source22: http://pear.php.net/get/Console_Getopt-%{getoptver}.tgz
 Source23: http://pear.php.net/get/Structures_Graph-%{structver}.tgz
 Source24: http://pear.php.net/get/XML_Util-%{xmlutil}.tgz
 Source25: http://pear.php.net/get/PEAR_Manpages-%{manpages}.tgz
-
-# Fix PHP 8.2 deprecations
-Patch0:   pear-php82.patch
 
 BuildArch: noarch
 BuildRequires: php(language) > 5.4
@@ -223,7 +220,7 @@ install -m 644 -D macros.pear \
 
 # apply patches on installed PEAR tree
 pushd %{buildroot}%{peardir}
-  patch -p1 <%{PATCH0}
+  : none
 popd
 
 # Why this file here ?
@@ -336,6 +333,11 @@ fi
 
 
 %changelog
+%changelog
+* Mon Nov 27 2023 Remi Collet <remi@remirepo.net> - 1.10.14-1
+- update to 1.10.14
+- drop patches merged upstream
+
 * Thu Nov 23 2023 Remi Collet <remi@remirepo.net> - 1.10.13-7
 - fix more deprecations from
   https://github.com/pear/pear-core/pull/127

@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.11
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -136,9 +136,6 @@ Patch60: qtbase-opensource-src-5.9.0-mysql.patch
 # this workaround is acceptable, if not nice.
 Patch61: qtbase-5.15.10-work-around-pyside2-brokenness.patch
 
-# fix build against libxkbcommon 1.6.0
-Patch62: qtbase-libxkbcommon-1.6.0.patch
-
 # Bug 1954359 - Many emoji don't show up in Qt apps because qt does not handle 'emoji' font family
 # Patch63: qtbase-cache-emoji-font.patch
 
@@ -149,9 +146,9 @@ Patch90: %{name}-gcc11.patch
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
 # git diff v5.15.11-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Patch100: kde-5.15-rollup-20231006.patch.gz
+Patch100: kde-5.15-rollup-20231127.patch.gz
 # HACK to make 'fedpkg sources' consider it 'used"
-Source100: kde-5.15-rollup-20231006.patch.gz
+Source100: kde-5.15-rollup-20231127.patch.gz
 
 Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # Workaround for font rendering issue with cjk-vf-fonts
@@ -464,7 +461,6 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P60 -p1 -b .mysql
 %endif
 %patch -P61 -p1
-%patch -P62 -p1 -b .libxkbcommon-1.6.0
 # FIXME seems to break text rendering completely for some people
 # %patch -P63 -p1 -b .cache-emoji-font
 
@@ -1186,6 +1182,9 @@ fi
 
 
 %changelog
+* Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-7
+- KDE/Qt patchset collection respin
+
 * Tue Nov 14 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-6
 - Backport another upstream (Qt6) fixes and improvements to QGtk3Theme
 

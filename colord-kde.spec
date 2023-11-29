@@ -1,7 +1,7 @@
 
 Name:           colord-kde
 Version:        23.08.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Colord support for KDE
 
 License:        GPL-2.0-or-later
@@ -36,6 +36,7 @@ BuildRequires:  qt5-qtx11extras-devel
 # colord is a dbus daemon
 Requires:       colord
 Requires:       plasma-systemsettings
+Requires:       kf5-kirigami2-addons
 
 %description
 KDE support for colord including KDE Daemon module and System Settings module.
@@ -68,6 +69,9 @@ KDE support for colord including KDE Daemon module and System Settings module.
 
 
 %changelog
+* Mon Nov 27 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.08.2-2
+- Add missing runtime dep on kf5-kirigami2-addons
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

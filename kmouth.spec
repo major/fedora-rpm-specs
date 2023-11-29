@@ -1,44 +1,32 @@
-%undefine __cmake_in_source_build
-
 Name:    kmouth
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 Summary: A program that speaks for you 
 
 License: GPLv2+
-URL:     http://accessibility.kde.org/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/kmouth/
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
 
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5TextToSpeech)
-BuildRequires: cmake(Qt5Xml)
-BuildRequires: cmake(Qt5Widgets)
-
-# when split occured
-Conflicts: kdeaccessibility < 1:4.7.80
-
-Conflicts: kde-l10n < 17.08.3-2
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6TextToSpeech)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Widgets)
 
 %description
 Program that allows people who have lost their voice to let their
@@ -50,7 +38,7 @@ computer speak for them.
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
@@ -61,23 +49,25 @@ computer speak for them.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kmouth.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmouth.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
-%{_kf5_sysconfdir}/xdg/kmouthrc
-%{_kf5_bindir}/kmouth
-%{_kf5_datadir}/kmouth/
-%{_kf5_datadir}/applications/org.kde.kmouth.desktop
-%{_kf5_metainfodir}/org.kde.kmouth.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kxmlgui5/kmouth/
+%{_kf6_sysconfdir}/xdg/kmouthrc
+%{_kf6_bindir}/kmouth
+%{_kf6_datadir}/kmouth/
+%{_kf6_datadir}/applications/org.kde.kmouth.desktop
+%{_kf6_metainfodir}/org.kde.kmouth.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/*/*
 %{_mandir}/man1/*.1*
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

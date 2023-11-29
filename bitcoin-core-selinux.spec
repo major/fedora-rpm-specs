@@ -1,5 +1,5 @@
-%global commit0 eaa9a049c8e3f645dc92797ca37703d95f885db1
-%global date 20210312
+%global commit0 450561671211f8421c696ade1098d2b0a71b5fe8
+%global date 20231127
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global selinuxtype targeted
@@ -7,7 +7,7 @@
 
 Name:           bitcoin-core-selinux
 Version:        0
-Release:        10.%{date}git%{shortcommit0}%{?dist}
+Release:        11.%{date}git%{shortcommit0}%{?dist}
 Summary:        Bitcoin Core SELinux policy
 License:        GPLv3
 URL:            https://github.com/scaronni/%{name}
@@ -67,6 +67,9 @@ fi
 %ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Mon Nov 27 2023 Simone Caronni <negativo17@gmail.com> - 0-11.20231127git4505616
+- Update policies (#2246255).
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-10.20210312giteaa9a04
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

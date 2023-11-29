@@ -5,7 +5,7 @@ Version:        41.0
 Release:        7%{?dist}
 Summary:        Personal task manager for GNOME
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://git.gnome.org/browse/gnome-todo/
 Source0:        https://download.gnome.org/sources/%{name}/41/%{name}-%{tarball_version}.tar.xz
 Patch0:         gnome-todo-41.0-libportal-0.5.patch

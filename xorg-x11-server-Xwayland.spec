@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   23.2.2
-Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -18,9 +18,13 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
 
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1203
+Patch0:    0001-build-Allow-for-custom-server-config-directory.patch
+
 License:   MIT
 
-Requires: xorg-x11-server-common
+Requires: xkeyboard-config
+Requires: xkbcomp
 Requires: libEGL
 Requires: libepoxy >= 1.5.5
 
@@ -107,6 +111,7 @@ necessary for developing Wayland compositors using Xwayland.
         -Ddefault_font_path=%{default_font_path} \
         -Dbuilder_string="Build ID: %{name} %{version}-%{release}" \
         -Dxkb_output_dir=%{_localstatedir}/lib/xkb \
+        -Dserverconfigdir=%{_datadir}/xwayland \
         -Dxcsecurity=true \
         -Dglamor=true \
         -Ddri3=true
@@ -118,23 +123,26 @@ necessary for developing Wayland compositors using Xwayland.
 
 # Remove unwanted files/dirs
 rm $RPM_BUILD_ROOT%{_mandir}/man1/Xserver.1*
-rm -Rf $RPM_BUILD_ROOT%{_libdir}/xorg
 rm -Rf $RPM_BUILD_ROOT%{_includedir}/xorg
 rm -Rf $RPM_BUILD_ROOT%{_datadir}/aclocal
-rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files
+%dir %{_datadir}/xwayland
 %{_bindir}/Xwayland
 %{_mandir}/man1/Xwayland.1*
 %{_datadir}/applications/org.freedesktop.Xwayland.desktop
+%{_datadir}/xwayland/protocol.txt
 
 %files devel
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Fri Nov 24 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.2.2-2
+- Drop dependency on xorg-x11-server-common
+
 * Thu Oct 26 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.2.2-1
 - xwayland 23.2.2 - (#2246029)
 

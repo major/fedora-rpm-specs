@@ -3,7 +3,7 @@
 Summary: Qt5 - QtImageFormats component
 Name:    qt5-%{qt_module}
 Version: 5.15.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -86,6 +86,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 5.15.11-2
+- Rebuild for jasper 4.1
+
 * Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
 - 5.15.11
 

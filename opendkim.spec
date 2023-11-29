@@ -13,7 +13,7 @@
 Summary: A DomainKeys Identified Mail (DKIM) milter to sign and/or verify mail
 Name: opendkim
 Version: 2.11.0
-Release: 0.35%{?dist}
+Release: 0.36%{?dist}
 License: BSD-3-Clause AND Sendmail
 URL: http://%{name}.org/
 Source0: https://github.com/trusteddomainproject/OpenDKIM/archive/%{full_version}.tar.gz
@@ -30,6 +30,8 @@ Patch0: 0001-support-for-lua-5.3.patch
 Patch1: opendkim-2.11.0-comment-separator.patch
 # systemd service type=simple
 Patch2: opendkim-systemd-service-simple.patch
+# https://github.com/trusteddomainproject/OpenDKIM/pull/189
+Patch3: opendkim-CVE-2022-48521-fix.patch
 
 # Required for all versions
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
@@ -221,6 +223,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Nov 15 2023 Diego Herrera <dherrera@redhat.com> - 2.11.0-0.36
+- Add upstream PR that filters Authentication-Results headers correctly.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-0.35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

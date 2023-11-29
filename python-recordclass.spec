@@ -1,7 +1,7 @@
 %global srcname recordclass
 
 Name:           python-%{srcname}
-Version:        0.21
+Version:        0.21.1
 Release:        %autorelease
 Summary:        Mutable variant of namedtuple
 

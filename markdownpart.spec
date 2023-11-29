@@ -2,24 +2,17 @@
 
 Name:           markdownpart
 Summary:        Markdown KPart
-Version:        23.08.2
+Version:        24.01.75
 Release:        %autorelease
 License:        LGPL-2.1-or-later
 URL:            https://apps.kde.org/categories/utilities/
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source:         https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Parts)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Parts)
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
@@ -34,7 +27,7 @@ display files in Markdown format in the target format.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 
@@ -45,14 +38,14 @@ display files in Markdown format in the target format.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{app_id}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{app_id}.metainfo.xml
 
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*
-%{_kf5_plugindir}/parts/markdownpart.so
-%{_kf5_metainfodir}/%{app_id}.metainfo.xml
+%{_kf6_plugindir}/parts/markdownpart.so
+%{_kf6_metainfodir}/%{app_id}.metainfo.xml
 
 
 %changelog

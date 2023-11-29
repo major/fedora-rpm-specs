@@ -1,7 +1,7 @@
 #global unstable 0
 %global		qt_module qthttpserver
 Name:		qt6-qthttpserver
-Version:	6.6.0
+Version:	6.6.1
 Release:	1%{?dist}
 Summary:	Library to facilitate the creation of an http server with Qt
 
@@ -80,6 +80,9 @@ to the usage of %{name}.
 %{_qt6_libdir}/qt6/examples/
 
 %changelog
+* Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
+- 6.6.1
+
 * Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
 - 6.6.0
 

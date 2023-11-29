@@ -1,6 +1,8 @@
 
 %global qt_module qt5compat
 
+%global examples 1
+
 #global unstable 1
 %if 0%{?unstable}
 %global prerelease rc2
@@ -8,7 +10,7 @@
 
 Summary: Qt6 - Qt 5 Compatibility Libraries
 Name:    qt6-%{qt_module}
-Version: 6.6.0
+Version: 6.6.1
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -48,13 +50,21 @@ Requires: qt6-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
 
+%if 0%{?examples}
+%package examples
+Summary: Programming examples for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description examples
+%{summary}.
+%endif
+
 
 %prep
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 
 %build
-%cmake_qt6
+%cmake_qt6 -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF}
 
 %cmake_build
 
@@ -97,7 +107,15 @@ popd
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
+%if 0%{?examples}
+%files examples
+%{_qt6_examplesdir}/
+%endif
+
 %changelog
+* Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
+- 6.6.1
+
 * Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
 - 6.6.0
 

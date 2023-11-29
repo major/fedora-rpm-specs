@@ -1,34 +1,27 @@
 Name:    kcron
 Summary: Cron KDE configuration module
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/system/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(KF5KCMUtils)
+BuildRequires: kf6-rpm-macros
 
-Obsoletes:     kdeadmin < 4.10.80
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6PrintSupport)
 
-# translations moved here
-Conflicts: kde-l10n < 17.03
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Auth)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6DocTools)
 
 %description
 Systemsettings module for the cron task scheduler.
@@ -39,7 +32,7 @@ Systemsettings module for the cron task scheduler.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -53,16 +46,19 @@ Systemsettings module for the cron task scheduler.
 %files -f %{name}.lang
 %license LICENSES/*
 %doc README
-%{_kf5_datadir}/qlogging-categories5/kcron*
-%{_kf5_metainfodir}/org.kde.kcron.metainfo.xml
-%{_kf5_libexecdir}/kauth/kcron_helper
-%{_kf5_datadir}/dbus-1/system-services/local.kcron.crontab.service
-%{_kf5_datadir}/dbus-1/system.d/local.kcron.crontab.conf
-%{_kf5_datadir}/polkit-1/actions/local.kcron.crontab.policy
-%{_kf5_datadir}/applications/kcm_cron.desktop
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_cron.so
+%{_kf6_datadir}/qlogging-categories6/kcron*
+%{_kf6_metainfodir}/org.kde.kcron.metainfo.xml
+%{_kf6_libexecdir}/kauth/kcron_helper
+%{_kf6_datadir}/dbus-1/system-services/local.kcron.crontab.service
+%{_kf6_datadir}/dbus-1/system.d/local.kcron.crontab.conf
+%{_kf6_datadir}/polkit-1/actions/local.kcron.crontab.policy
+%{_kf6_datadir}/applications/kcm_cron.desktop
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_cron.so
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

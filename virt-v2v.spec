@@ -15,7 +15,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.3.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -47,6 +47,8 @@ ExcludeArch:   %{ix86}
 # not on s390x because it is not useful there
 ExclusiveArch: x86_64
 %endif
+
+Patch:         0001-common-Update-submodule.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -308,6 +310,9 @@ done
 
 
 %changelog
+* Mon Nov 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.6-2
+- Fix build for libxml2 2.12.1
+
 * Thu Nov 02 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.6-1
 - New development branch version 2.3.6
 

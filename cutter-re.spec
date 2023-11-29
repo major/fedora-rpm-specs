@@ -1,13 +1,14 @@
 Name:           cutter-re
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 Summary:        GUI for Rizin reverse engineering framework
 
 # CC-BY-SA: src/img/icons/
 # CC0: src/fonts/Anonymous Pro.ttf
-License:        GPLv3 and CC-BY-SA and CC0
+License:        GPL-3.0-only AND CC-BY-SA-3.0 AND CC0-1.0
 
 URL:            https://cutter.re/
+VCS:            https://github.com/rizinorg/cutter
 Source0:        https://github.com/rizinorg/cutter/releases/download/v%{version}/Cutter-v%{version}-src.tar.gz
 Source1:        cutter-re.desktop
 Source2:        cutter-re.appdata.xml
@@ -95,6 +96,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Nov 13 2023 Michal Ambroz <rebus _AT seznam.cz> - 2.3.2-1
+- Rebase to version 2.3.2
+
 * Mon Aug 21 2023 Riccardo Schirone <rschirone91@gmail.com> - 2.3.1-1
 - Rebase to version 2.3.1
 

@@ -1,37 +1,31 @@
 Name:    keditbookmarks
 Summary: Bookmark organizer and editor
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 # Documentation is GFDL, rest GPLv2 and GPLv3 (note: NOT any later version)
 License: GPLv2 and GPLv3 and GFDL
 URL:     https://www.kde.org/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Bookmarks)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
 
-BuildRequires: cmake(Qt5Core)
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
+BuildRequires: cmake(Qt6Core)
 
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -51,7 +45,7 @@ Requires:      %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -62,29 +56,30 @@ Requires:      %{name} = %{version}-%{release}
 %find_lang %{name} --all-name --with-html --with-man
 
 ## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libkbookmarkmodel_private.so
+rm -fv %{buildroot}%{_kf6_libdir}/libkbookmarkmodel_private.so
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
-%{_kf5_bindir}/keditbookmarks
-%{_kf5_bindir}/kbookmarkmerger
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/config.kcfg/keditbookmarks.kcfg
-%{_kf5_datadir}/qlogging-categories5/%{name}*
+%{_kf6_bindir}/keditbookmarks
+%{_kf6_bindir}/kbookmarkmerger
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/config.kcfg/keditbookmarks.kcfg
+%{_kf6_datadir}/qlogging-categories6/%{name}*
 %{_mandir}/man1/kbookmarkmerger.1*
 
-%ldconfig_scriptlets libs
-
 %files libs
-%{_kf5_libdir}/libkbookmarkmodel_private.so.*
+%{_kf6_libdir}/libkbookmarkmodel_private.so.*
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

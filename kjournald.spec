@@ -1,27 +1,30 @@
 Name:          kjournald
-Version:       23.08.2
+Version:       24.01.75
 Release:       1%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
 License:       BSD-3-Clause and CC0-1.0 and MIT and LGPL-2.1-or-later and MIT
 URL:           https://invent.kde.org/system/%{name}
 
-Source:        https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: systemd-devel
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: cmake
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6I18n)
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
+
+# QML module dependencies
+Requires:      kf6-kirigami2%{?_isa}
 
 %description
 %{summary}.
@@ -35,31 +38,35 @@ Requires:      %{name} = %{version}
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
 %cmake_install
 %find_lang %{name} --with-kde --with-man --all-name
+# unpackaged (headers not installed, no stable API)
+rm -f %{buildroot}%{_kf6_libdir}/libkjournald.so
 
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.kjournaldbrowser.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kjournaldbrowser.appdata.xml
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kjournaldbrowser.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kjournaldbrowser.appdata.xml
 
 %files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
-%{_bindir}/kjournaldbrowser
-%{_datadir}/applications/org.kde.kjournaldbrowser.desktop
-%{_datadir}/metainfo/org.kde.kjournaldbrowser.appdata.xml
-%{_datadir}/qlogging-categories5/kjournald.categories
+%{_kf6_bindir}/kjournaldbrowser
+%{_kf6_datadir}/applications/org.kde.kjournaldbrowser.desktop
+%{_kf6_metainfodir}/org.kde.kjournaldbrowser.appdata.xml
+%{_kf6_datadir}/qlogging-categories6/kjournald.categories
 
 %files libs
-%{_libdir}/libkjournald.so
-%{_libdir}/libkjournald.so.0
-%{_libdir}/libkjournald.so.%{version}
+%{_kf6_libdir}/libkjournald.so.0
+%{_kf6_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

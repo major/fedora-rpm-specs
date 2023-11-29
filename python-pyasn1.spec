@@ -1,9 +1,9 @@
 %global module pyasn1
-%global modules_version 0.2.8
+%global modules_version 0.3.0
 
 Name:           python-pyasn1
-Version:        0.4.8
-Release:        16%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
 Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
@@ -85,6 +85,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %doc docs/build/html/*
 
 %changelog
+* Mon Nov 27 2023 Simon Pichugin <spichugi@redhat.com> - 0.5.1-1
+- Update to 0.5.1
+- Update modules to 0.3.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

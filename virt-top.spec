@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           virt-top
 Version:        1.1.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -30,8 +30,14 @@ Patch1:         virt-top-1.0.9-processcsv-documentation.patch
 # Fix "Input/output error" in journal (RHBZ#2148798)
 Patch2:         0001-virt-top-fix-to-explicitly-disconnect-from-libvirtd.patch
 
+# Fix problem parsing init-file.
+Patch3:         0002-virt-top-fix-to-parse-init-file-correctly.patch
+
+# Fix libxml2 2.12.1 build problems.
+Patch4:         0003-src-Include-libxml-parser.h.patch
+
 # Fix linking problems on bytecode-only architectures
-Patch3:         virt-top-1.1.1-ocaml-bytecode.patch
+Patch5:         virt-top-1.1.1-ocaml-bytecode.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -73,8 +79,10 @@ different virtualization systems.
 %patch -P1 -p1
 %endif
 %patch -P2 -p1
-%ifnarch %{ocaml_native_compiler}
 %patch -P3 -p1
+%patch -P4 -p1
+%ifnarch %{ocaml_native_compiler}
+%patch -P5 -p1
 %endif
 
 # "ocamlfind byte" has been removed as an alias
@@ -128,6 +136,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Mon Nov 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-15
+- Fix build issue with libxml2 2.12.1
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-14
 - OCaml 5.1 rebuild for Fedora 40
 

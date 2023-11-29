@@ -1,11 +1,11 @@
 Name:           tokodon 
-Version:        23.08.2
+Version:        24.01.75
 Release:        1%{?dist}
 License:        GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 Summary:        Kirigami-based mastodon client
 Url:            https://invent.kde.org/network/tokodon
-Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # Doesn't build due to compiler segfault on PPC64le: https://bugzilla.redhat.com/show_bug.cgi?id=2171964
 ExcludeArch:    ppc64le
@@ -14,36 +14,52 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  appstream
 BuildRequires:  pkgconfig(mpv)
 
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5QQC2DesktopStyle)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Keychain)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5WebSockets)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6KirigamiPlatform)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Purpose)
+BuildRequires:  cmake(KF6QQC2DesktopStyle)
+BuildRequires:  cmake(KF6WindowSystem)
 
-Requires:       kf5-kirigami2
-Requires:       kf5-kirigami2-addons
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Keychain)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6WebSockets)
+BuildRequires:  cmake(Qt6WebView)
+BuildRequires:  cmake(Qt6Widgets)
+
 Requires:       hicolor-icon-theme
-Requires:       qt5-qtmultimedia
+# QML module dependencies
+Requires:       kf6-kcoreaddons%{?_isa}
+Requires:       kf6-kirigami2%{?_isa}
+Requires:       kf6-kirigami2-addons%{?_isa}
+Requires:       kf6-kitemmodels%{?_isa}
+Requires:       kf6-knotifications%{?_isa}
+Requires:       kf6-purpose%{?_isa}
+Requires:       kf6-sonnet%{?_isa}
+Requires:       qt6-qt5compat%{?_isa}
+Requires:       qt6-qtwebview%{?_isa}
+
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+# Package doesn't build on arches that qtwebengine is not built on.
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 %description
 Tokodon is a Mastodon client for Plasma and Plasma Mobile.
@@ -52,7 +68,7 @@ Tokodon is a Mastodon client for Plasma and Plasma Mobile.
 %autosetup -n %{name}-%{version}
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -60,23 +76,26 @@ Tokodon is a Mastodon client for Plasma and Plasma Mobile.
 %find_lang %{name}
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_datadir}/metainfo/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
 %doc README.md
-
-%license LICENSES/
-
-%{_kf5_bindir}/%{name}
-
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
-%{_kf5_datadir}/knotifications5/tokodon.notifyrc
-%{_kf5_datadir}/qlogging-categories5/tokodon.categories
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%license LICENSES/*
+%{_kf6_bindir}/%{name}
+%{_kf6_plugindir}/purpose/tokodonplugin.so
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/dbus-1/services/org.kde.%{name}.service
+%{_kf6_datadir}/icons/hicolor/scalable/actions/%{name}-*
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
+%{_kf6_datadir}/knotifications6/tokodon.notifyrc
+%{_kf6_datadir}/qlogging-categories6/tokodon.categories
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

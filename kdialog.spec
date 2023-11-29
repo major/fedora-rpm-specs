@@ -1,32 +1,28 @@
 Name:    kdialog
 Summary: Nice dialog boxes from shell scripts
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://www.kde.org/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5KDELibs4Support)
-BuildRequires: cmake(KF5DBusAddons)
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6DBusAddons)
 
-# translations moved here
-Conflicts: kde-l10n < 17.03
+BuildRequires: cmake(Qt6DBus)
 
 %description
 KDialog can be used to show nice dialog boxes from shell scripts.
@@ -37,7 +33,7 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -50,14 +46,17 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 
 %files -f %{name}.lang
 %license COPYING*
-%{_kf5_bindir}/kdialog
-%{_kf5_bindir}/kdialog_progress_helper
-%{_kf5_datadir}/dbus-1/interfaces/org.kde.kdialog.ProgressDialog.xml
-%{_kf5_datadir}/applications/org.kde.kdialog.desktop
-%{_kf5_metainfodir}/org.kde.kdialog.metainfo.xml
+%{_kf6_bindir}/kdialog
+%{_kf6_bindir}/kdialog_progress_helper
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.kdialog.ProgressDialog.xml
+%{_kf6_datadir}/applications/org.kde.kdialog.desktop
+%{_kf6_metainfodir}/org.kde.kdialog.metainfo.xml
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

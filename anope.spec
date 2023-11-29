@@ -11,7 +11,7 @@
 Summary:        IRC services designed for flexibility and ease of use
 Name:           anope
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Anope itself is GPL-2.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: include/pstdint.h and modules/encryption/enc_sha256.cpp
 # MIT: src/siphash.cpp
@@ -23,18 +23,18 @@ Source0:        https://github.com/anope/anope/archive/%{version}/%{name}-%{vers
 Source1:        anope.service
 Source2:        anope.tmpfilesd
 Source3:        anope.sysusersd
-Source10:       anope-botserv.conf
-Source11:       anope-chanserv.conf
-Source12:       anope-chanstats.conf
-Source13:       anope-global.conf
-Source14:       anope-hostserv.conf
-Source15:       anope-irc2sql.conf
-Source16:       anope-memoserv.conf
-Source17:       anope-modules.conf
-Source18:       anope-nickserv.conf
-Source19:       anope-operserv.conf
-Source20:       anope-services.motd
-Source21:       anope-services.conf
+Source10:       anope.conf
+Source11:       anope.motd
+Source12:       anope-botserv.conf
+Source13:       anope-chanserv.conf
+Source14:       anope-chanstats.conf
+Source15:       anope-global.conf
+Source16:       anope-hostserv.conf
+Source17:       anope-irc2sql.conf
+Source18:       anope-memoserv.conf
+Source19:       anope-modules.conf
+Source20:       anope-nickserv.conf
+Source21:       anope-operserv.conf
 BuildRequires:  cmake >= 2.4
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
@@ -232,18 +232,18 @@ mkdir -p $RPM_BUILD_ROOT{{%{_localstatedir}/log,%{_rundir}}/%{name}/,%{_localsta
 install -D -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
 install -D -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_tmpfilesdir}/%{name}.conf
 install -D -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
-install -D -p -m 0640 %{SOURCE10} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/botserv.conf
-install -D -p -m 0640 %{SOURCE11} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/chanserv.conf
-install -D -p -m 0640 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/chanstats.conf
-install -D -p -m 0640 %{SOURCE13} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/global.conf
-install -D -p -m 0640 %{SOURCE14} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/hostserv.conf
-install -D -p -m 0640 %{SOURCE15} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/irc2sql.conf
-install -D -p -m 0640 %{SOURCE16} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/memoserv.conf
-install -D -p -m 0640 %{SOURCE17} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/modules.conf
-install -D -p -m 0640 %{SOURCE18} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/nickserv.conf
-install -D -p -m 0640 %{SOURCE19} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/operserv.conf
-install -D -p -m 0640 %{SOURCE20} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/services.motd
-install -D -p -m 0640 %{SOURCE21} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/services.conf
+install -D -p -m 0640 %{SOURCE10} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/%{name}.conf
+install -D -p -m 0640 %{SOURCE11} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/motd
+install -D -p -m 0640 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/botserv.conf
+install -D -p -m 0640 %{SOURCE13} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/chanserv.conf
+install -D -p -m 0640 %{SOURCE14} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/chanstats.conf
+install -D -p -m 0640 %{SOURCE15} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/global.conf
+install -D -p -m 0640 %{SOURCE16} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/hostserv.conf
+install -D -p -m 0640 %{SOURCE17} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/irc2sql.conf
+install -D -p -m 0640 %{SOURCE18} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/memoserv.conf
+install -D -p -m 0640 %{SOURCE19} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/modules.conf
+install -D -p -m 0640 %{SOURCE20} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/nickserv.conf
+install -D -p -m 0640 %{SOURCE21} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/operserv.conf
 
 # Remove crontab script (pseudo init script) for anope
 rm -f $RPM_BUILD_ROOT%{_pkgdocdir}/examples/example.chk
@@ -277,7 +277,7 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %exclude %{_sysconfdir}/%{name}/chanstats.conf
 %exclude %{_sysconfdir}/%{name}/irc2sql.conf
 %endif
-%config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/services.motd
+%config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/motd
 %{_unitdir}/%{name}.service
 %{_sysusersdir}/%{name}.conf
 %{_tmpfilesdir}/%{name}.conf
@@ -317,8 +317,8 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 
 %if %{with mysql}
 %files mysql
-%config(noreplace) %attr(0640,root,anope) %{_sysconfdir}/%{name}/chanstats.conf
-%config(noreplace) %attr(0640,root,anope) %{_sysconfdir}/%{name}/irc2sql.conf
+%config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/chanstats.conf
+%config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/irc2sql.conf
 %{_libdir}/%{name}/modules/m_mysql.so
 %{_libdir}/%{name}/modules/m_chanstats.so
 %{_libdir}/%{name}/modules/cs_fantasy_stats.so
@@ -352,6 +352,9 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %endif
 
 %changelog
+* Mon Nov 27 2023 Robert Scheck <robert@fedoraproject.org> 2.1.0-2
+- Reflect upstream configuration file changes and renamings
+
 * Sun Nov 26 2023 Robert Scheck <robert@fedoraproject.org> 2.1.0-1
 - Upgrade to 2.1.0 (#2251530)
 

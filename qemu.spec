@@ -2425,26 +2425,111 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_bindir}/qemu-xtensa
 %{_bindir}/qemu-xtensaeb
 
-%{_datadir}/systemtap/tapset/qemu-i386*.stp
-%{_datadir}/systemtap/tapset/qemu-x86_64*.stp
-%{_datadir}/systemtap/tapset/qemu-aarch64*.stp
-%{_datadir}/systemtap/tapset/qemu-alpha*.stp
-%{_datadir}/systemtap/tapset/qemu-arm*.stp
-%{_datadir}/systemtap/tapset/qemu-cris*.stp
-%{_datadir}/systemtap/tapset/qemu-hppa*.stp
-%{_datadir}/systemtap/tapset/qemu-hexagon*.stp
-%{_datadir}/systemtap/tapset/qemu-loongarch64*.stp
-%{_datadir}/systemtap/tapset/qemu-m68k*.stp
-%{_datadir}/systemtap/tapset/qemu-microblaze*.stp
-%{_datadir}/systemtap/tapset/qemu-mips*.stp
-%{_datadir}/systemtap/tapset/qemu-nios2*.stp
-%{_datadir}/systemtap/tapset/qemu-or1k*.stp
-%{_datadir}/systemtap/tapset/qemu-ppc*.stp
-%{_datadir}/systemtap/tapset/qemu-riscv*.stp
-%{_datadir}/systemtap/tapset/qemu-s390x*.stp
-%{_datadir}/systemtap/tapset/qemu-sh4*.stp
-%{_datadir}/systemtap/tapset/qemu-sparc*.stp
-%{_datadir}/systemtap/tapset/qemu-xtensa*.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64-log.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64_be.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64_be-log.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64_be-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-alpha.stp
+%{_datadir}/systemtap/tapset/qemu-alpha-log.stp
+%{_datadir}/systemtap/tapset/qemu-alpha-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-armeb.stp
+%{_datadir}/systemtap/tapset/qemu-armeb-log.stp
+%{_datadir}/systemtap/tapset/qemu-armeb-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-arm.stp
+%{_datadir}/systemtap/tapset/qemu-arm-log.stp
+%{_datadir}/systemtap/tapset/qemu-arm-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-cris.stp
+%{_datadir}/systemtap/tapset/qemu-cris-log.stp
+%{_datadir}/systemtap/tapset/qemu-cris-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-hexagon.stp
+%{_datadir}/systemtap/tapset/qemu-hexagon-log.stp
+%{_datadir}/systemtap/tapset/qemu-hexagon-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-hppa.stp
+%{_datadir}/systemtap/tapset/qemu-hppa-log.stp
+%{_datadir}/systemtap/tapset/qemu-hppa-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-i386.stp
+%{_datadir}/systemtap/tapset/qemu-i386-log.stp
+%{_datadir}/systemtap/tapset/qemu-i386-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-loongarch64.stp
+%{_datadir}/systemtap/tapset/qemu-loongarch64-log.stp
+%{_datadir}/systemtap/tapset/qemu-loongarch64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-m68k.stp
+%{_datadir}/systemtap/tapset/qemu-m68k-log.stp
+%{_datadir}/systemtap/tapset/qemu-m68k-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-microblaze.stp
+%{_datadir}/systemtap/tapset/qemu-microblaze-log.stp
+%{_datadir}/systemtap/tapset/qemu-microblaze-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-microblazeel.stp
+%{_datadir}/systemtap/tapset/qemu-microblazeel-log.stp
+%{_datadir}/systemtap/tapset/qemu-microblazeel-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-mips.stp
+%{_datadir}/systemtap/tapset/qemu-mips-log.stp
+%{_datadir}/systemtap/tapset/qemu-mips-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-mips64el.stp
+%{_datadir}/systemtap/tapset/qemu-mips64el-log.stp
+%{_datadir}/systemtap/tapset/qemu-mips64el-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-mips64.stp
+%{_datadir}/systemtap/tapset/qemu-mips64-log.stp
+%{_datadir}/systemtap/tapset/qemu-mips64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-mipsel.stp
+%{_datadir}/systemtap/tapset/qemu-mipsel-log.stp
+%{_datadir}/systemtap/tapset/qemu-mipsel-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32-log.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32el.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32el-log.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32el-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-nios2.stp
+%{_datadir}/systemtap/tapset/qemu-nios2-log.stp
+%{_datadir}/systemtap/tapset/qemu-nios2-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-or1k.stp
+%{_datadir}/systemtap/tapset/qemu-or1k-log.stp
+%{_datadir}/systemtap/tapset/qemu-or1k-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-ppc.stp
+%{_datadir}/systemtap/tapset/qemu-ppc-log.stp
+%{_datadir}/systemtap/tapset/qemu-ppc-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64-log.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64le.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64le-log.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64le-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-riscv32.stp
+%{_datadir}/systemtap/tapset/qemu-riscv32-log.stp
+%{_datadir}/systemtap/tapset/qemu-riscv32-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-riscv64.stp
+%{_datadir}/systemtap/tapset/qemu-riscv64-log.stp
+%{_datadir}/systemtap/tapset/qemu-riscv64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-s390x.stp
+%{_datadir}/systemtap/tapset/qemu-s390x-log.stp
+%{_datadir}/systemtap/tapset/qemu-s390x-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-sh4.stp
+%{_datadir}/systemtap/tapset/qemu-sh4-log.stp
+%{_datadir}/systemtap/tapset/qemu-sh4-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-sh4eb.stp
+%{_datadir}/systemtap/tapset/qemu-sh4eb-log.stp
+%{_datadir}/systemtap/tapset/qemu-sh4eb-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-sparc.stp
+%{_datadir}/systemtap/tapset/qemu-sparc-log.stp
+%{_datadir}/systemtap/tapset/qemu-sparc-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-sparc32plus.stp
+%{_datadir}/systemtap/tapset/qemu-sparc32plus-log.stp
+%{_datadir}/systemtap/tapset/qemu-sparc32plus-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-sparc64.stp
+%{_datadir}/systemtap/tapset/qemu-sparc64-log.stp
+%{_datadir}/systemtap/tapset/qemu-sparc64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-x86_64.stp
+%{_datadir}/systemtap/tapset/qemu-x86_64-log.stp
+%{_datadir}/systemtap/tapset/qemu-x86_64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-xtensa.stp
+%{_datadir}/systemtap/tapset/qemu-xtensa-log.stp
+%{_datadir}/systemtap/tapset/qemu-xtensa-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-xtensaeb.stp
+%{_datadir}/systemtap/tapset/qemu-xtensaeb-log.stp
+%{_datadir}/systemtap/tapset/qemu-xtensaeb-simpletrace.stp
 
 
 %files user-binfmt
@@ -2457,7 +2542,11 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files user-static-aarch64
 %{_bindir}/qemu-aarch64-static
 %{_bindir}/qemu-aarch64_be-static
-%{_datadir}/systemtap/tapset/qemu-aarch64.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64-simpletrace-static.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64-static.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64_be-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-aarch64_be-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-aarch64_be-static.stp
 %ifnarch aarch64
 %{_exec_prefix}/lib/binfmt.d/qemu-aarch64-static.conf
@@ -2466,12 +2555,19 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 %files user-static-alpha
 %{_bindir}/qemu-alpha-static
+%{_datadir}/systemtap/tapset/qemu-alpha-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-alpha-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-alpha-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-alpha-static.conf
 
 %files user-static-arm
 %{_bindir}/qemu-arm-static
 %{_bindir}/qemu-armeb-static
+%{_datadir}/systemtap/tapset/qemu-arm-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-arm-simpletrace-static.stp
+%{_datadir}/systemtap/tapset/qemu-arm-static.stp
+%{_datadir}/systemtap/tapset/qemu-armeb-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-armeb-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-armeb-static.stp
 %ifnarch aarch64
 %{_exec_prefix}/lib/binfmt.d/qemu-arm-static.conf
@@ -2480,32 +2576,46 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 %files user-static-cris
 %{_bindir}/qemu-cris-static
+%{_datadir}/systemtap/tapset/qemu-cris-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-cris-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-cris-static.stp
 
 %files user-static-hexagon
 %{_bindir}/qemu-hexagon-static
+%{_datadir}/systemtap/tapset/qemu-hexagon-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-hexagon-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-hexagon-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-hexagon-static.conf
 
 %files user-static-hppa
 %{_bindir}/qemu-hppa-static
+%{_datadir}/systemtap/tapset/qemu-hppa-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-hppa-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-hppa-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-hppa-static.conf
 
 %files user-static-loongarch64
 %{_bindir}/qemu-loongarch64-static
+%{_datadir}/systemtap/tapset/qemu-loongarch64-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-loongarch64-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-loongarch64-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-loongarch64-static.conf
 
 %files user-static-m68k
 %{_bindir}/qemu-m68k-static
+%{_datadir}/systemtap/tapset/qemu-m68k-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-m68k-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-m68k-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-m68k-static.conf
 
 %files user-static-microblaze
 %{_bindir}/qemu-microblaze-static
 %{_bindir}/qemu-microblazeel-static
+%{_datadir}/systemtap/tapset/qemu-microblaze-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-microblaze-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-microblaze-static.stp
+%{_datadir}/systemtap/tapset/qemu-microblazeel-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-microblazeel-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-microblazeel-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-microblaze-static.conf
 %{_exec_prefix}/lib/binfmt.d/qemu-microblazeel-static.conf
@@ -2517,11 +2627,23 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_bindir}/qemu-mipsel-static
 %{_bindir}/qemu-mipsn32-static
 %{_bindir}/qemu-mipsn32el-static
+%{_datadir}/systemtap/tapset/qemu-mips-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-mips-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-mips-static.stp
+%{_datadir}/systemtap/tapset/qemu-mips64-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-mips64-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-mips64-static.stp
+%{_datadir}/systemtap/tapset/qemu-mips64el-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-mips64el-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-mips64el-static.stp
+%{_datadir}/systemtap/tapset/qemu-mipsel-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-mipsel-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-mipsel-static.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-mipsn32-static.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32el-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-mipsn32el-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-mipsn32el-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-mips-static.conf
 %{_exec_prefix}/lib/binfmt.d/qemu-mips64-static.conf
@@ -2532,10 +2654,14 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 %files user-static-nios2
 %{_bindir}/qemu-nios2-static
+%{_datadir}/systemtap/tapset/qemu-nios2-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-nios2-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-nios2-static.stp
 
 %files user-static-or1k
 %{_bindir}/qemu-or1k-static
+%{_datadir}/systemtap/tapset/qemu-or1k-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-or1k-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-or1k-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-or1k-static.conf
 
@@ -2543,8 +2669,14 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_bindir}/qemu-ppc-static
 %{_bindir}/qemu-ppc64-static
 %{_bindir}/qemu-ppc64le-static
+%{_datadir}/systemtap/tapset/qemu-ppc-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-ppc-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-ppc-static.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-ppc64-static.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64le-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-ppc64le-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-ppc64le-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-ppc-static.conf
 %{_exec_prefix}/lib/binfmt.d/qemu-ppc64-static.conf
@@ -2555,7 +2687,11 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files user-static-riscv
 %{_bindir}/qemu-riscv32-static
 %{_bindir}/qemu-riscv64-static
+%{_datadir}/systemtap/tapset/qemu-riscv32-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-riscv32-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-riscv32-static.stp
+%{_datadir}/systemtap/tapset/qemu-riscv64-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-riscv64-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-riscv64-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-riscv32-static.conf
 %ifnarch riscv64
@@ -2564,6 +2700,8 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 %files user-static-s390x
 %{_bindir}/qemu-s390x-static
+%{_datadir}/systemtap/tapset/qemu-s390x-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-s390x-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-s390x-static.stp
 %ifnarch s390x
 %{_exec_prefix}/lib/binfmt.d/qemu-s390x-static.conf
@@ -2572,7 +2710,11 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files user-static-sh4
 %{_bindir}/qemu-sh4-static
 %{_bindir}/qemu-sh4eb-static
+%{_datadir}/systemtap/tapset/qemu-sh4-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-sh4-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-sh4-static.stp
+%{_datadir}/systemtap/tapset/qemu-sh4eb-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-sh4eb-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-sh4eb-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-sh4-static.conf
 %{_exec_prefix}/lib/binfmt.d/qemu-sh4eb-static.conf
@@ -2581,9 +2723,15 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_bindir}/qemu-sparc-static
 %{_bindir}/qemu-sparc32plus-static
 %{_bindir}/qemu-sparc64-static
+%{_datadir}/systemtap/tapset/qemu-sparc-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-sparc-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-sparc-static.stp
-%{_datadir}/systemtap/tapset/qemu-sparc32plus-static.stp
+%{_datadir}/systemtap/tapset/qemu-sparc64-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-sparc64-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-sparc64-static.stp
+%{_datadir}/systemtap/tapset/qemu-sparc32plus-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-sparc32plus-simpletrace-static.stp
+%{_datadir}/systemtap/tapset/qemu-sparc32plus-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-sparc-static.conf
 %{_exec_prefix}/lib/binfmt.d/qemu-sparc32plus-static.conf
 %{_exec_prefix}/lib/binfmt.d/qemu-sparc64-static.conf
@@ -2591,7 +2739,11 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files user-static-x86
 %{_bindir}/qemu-i386-static
 %{_bindir}/qemu-x86_64-static
+%{_datadir}/systemtap/tapset/qemu-i386-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-i386-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-i386-static.stp
+%{_datadir}/systemtap/tapset/qemu-x86_64-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-x86_64-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-x86_64-static.stp
 %ifnarch %{ix86} x86_64
 %{_exec_prefix}/lib/binfmt.d/qemu-i386-static.conf
@@ -2602,7 +2754,11 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files user-static-xtensa
 %{_bindir}/qemu-xtensa-static
 %{_bindir}/qemu-xtensaeb-static
+%{_datadir}/systemtap/tapset/qemu-xtensa-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-xtensa-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-xtensa-static.stp
+%{_datadir}/systemtap/tapset/qemu-xtensaeb-log-static.stp
+%{_datadir}/systemtap/tapset/qemu-xtensaeb-simpletrace-static.stp
 %{_datadir}/systemtap/tapset/qemu-xtensaeb-static.stp
 %{_exec_prefix}/lib/binfmt.d/qemu-xtensa-static.conf
 %{_exec_prefix}/lib/binfmt.d/qemu-xtensaeb-static.conf
@@ -2613,14 +2769,18 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-aarch64
 %files system-aarch64-core
 %{_bindir}/qemu-system-aarch64
-%{_datadir}/systemtap/tapset/qemu-system-aarch64*.stp
+%{_datadir}/systemtap/tapset/qemu-system-aarch64.stp
+%{_datadir}/systemtap/tapset/qemu-system-aarch64-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-aarch64-simpletrace.stp
 %{_mandir}/man1/qemu-system-aarch64.1*
 
 
 %files system-alpha
 %files system-alpha-core
 %{_bindir}/qemu-system-alpha
-%{_datadir}/systemtap/tapset/qemu-system-alpha*.stp
+%{_datadir}/systemtap/tapset/qemu-system-alpha.stp
+%{_datadir}/systemtap/tapset/qemu-system-alpha-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-alpha-simpletrace.stp
 %{_mandir}/man1/qemu-system-alpha.1*
 %{_datadir}/%{name}/palcode-clipper
 
@@ -2629,28 +2789,36 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-arm-core
 %{_bindir}/qemu-system-arm
 %{_datadir}/%{name}/npcm7xx_bootrom.bin
-%{_datadir}/systemtap/tapset/qemu-system-arm*.stp
+%{_datadir}/systemtap/tapset/qemu-system-arm.stp
+%{_datadir}/systemtap/tapset/qemu-system-arm-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-arm-simpletrace.stp
 %{_mandir}/man1/qemu-system-arm.1*
 
 
 %files system-avr
 %files system-avr-core
 %{_bindir}/qemu-system-avr
-%{_datadir}/systemtap/tapset/qemu-system-avr*.stp
+%{_datadir}/systemtap/tapset/qemu-system-avr.stp
+%{_datadir}/systemtap/tapset/qemu-system-avr-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-avr-simpletrace.stp
 %{_mandir}/man1/qemu-system-avr.1*
 
 
 %files system-cris
 %files system-cris-core
 %{_bindir}/qemu-system-cris
-%{_datadir}/systemtap/tapset/qemu-system-cris*.stp
+%{_datadir}/systemtap/tapset/qemu-system-cris.stp
+%{_datadir}/systemtap/tapset/qemu-system-cris-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-cris-simpletrace.stp
 %{_mandir}/man1/qemu-system-cris.1*
 
 
 %files system-hppa
 %files system-hppa-core
 %{_bindir}/qemu-system-hppa
-%{_datadir}/systemtap/tapset/qemu-system-hppa*.stp
+%{_datadir}/systemtap/tapset/qemu-system-hppa.stp
+%{_datadir}/systemtap/tapset/qemu-system-hppa-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-hppa-simpletrace.stp
 %{_mandir}/man1/qemu-system-hppa.1*
 %{_datadir}/%{name}/hppa-firmware.img
 
@@ -2658,14 +2826,18 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-loongarch64
 %files system-loongarch64-core
 %{_bindir}/qemu-system-loongarch64
-%{_datadir}/systemtap/tapset/qemu-system-loongarch64*.stp
+%{_datadir}/systemtap/tapset/qemu-system-loongarch64.stp
+%{_datadir}/systemtap/tapset/qemu-system-loongarch64-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-loongarch64-simpletrace.stp
 %{_mandir}/man1/qemu-system-loongarch64.1*
 
 
 %files system-m68k
 %files system-m68k-core
 %{_bindir}/qemu-system-m68k
-%{_datadir}/systemtap/tapset/qemu-system-m68k*.stp
+%{_datadir}/systemtap/tapset/qemu-system-m68k.stp
+%{_datadir}/systemtap/tapset/qemu-system-m68k-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-m68k-simpletrace.stp
 %{_mandir}/man1/qemu-system-m68k.1*
 
 
@@ -2673,7 +2845,12 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-microblaze-core
 %{_bindir}/qemu-system-microblaze
 %{_bindir}/qemu-system-microblazeel
-%{_datadir}/systemtap/tapset/qemu-system-microblaze*.stp
+%{_datadir}/systemtap/tapset/qemu-system-microblaze.stp
+%{_datadir}/systemtap/tapset/qemu-system-microblaze-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-microblaze-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-microblazeel.stp
+%{_datadir}/systemtap/tapset/qemu-system-microblazeel-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-microblazeel-simpletrace.stp
 %{_mandir}/man1/qemu-system-microblaze.1*
 %{_mandir}/man1/qemu-system-microblazeel.1*
 %{_datadir}/%{name}/petalogix*.dtb
@@ -2685,7 +2862,18 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_bindir}/qemu-system-mipsel
 %{_bindir}/qemu-system-mips64
 %{_bindir}/qemu-system-mips64el
-%{_datadir}/systemtap/tapset/qemu-system-mips*.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-mipsel.stp
+%{_datadir}/systemtap/tapset/qemu-system-mipsel-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-mipsel-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips64.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips64-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips64-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips64el.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips64el-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-mips64el-simpletrace.stp
 %{_mandir}/man1/qemu-system-mips.1*
 %{_mandir}/man1/qemu-system-mipsel.1*
 %{_mandir}/man1/qemu-system-mips64el.1*
@@ -2695,14 +2883,18 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-nios2
 %files system-nios2-core
 %{_bindir}/qemu-system-nios2
-%{_datadir}/systemtap/tapset/qemu-system-nios2*.stp
+%{_datadir}/systemtap/tapset/qemu-system-nios2.stp
+%{_datadir}/systemtap/tapset/qemu-system-nios2-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-nios2-simpletrace.stp
 %{_mandir}/man1/qemu-system-nios2.1*
 
 
 %files system-or1k
 %files system-or1k-core
 %{_bindir}/qemu-system-or1k
-%{_datadir}/systemtap/tapset/qemu-system-or1k*.stp
+%{_datadir}/systemtap/tapset/qemu-system-or1k.stp
+%{_datadir}/systemtap/tapset/qemu-system-or1k-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-or1k-simpletrace.stp
 %{_mandir}/man1/qemu-system-or1k.1*
 
 
@@ -2710,7 +2902,12 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-ppc-core
 %{_bindir}/qemu-system-ppc
 %{_bindir}/qemu-system-ppc64
-%{_datadir}/systemtap/tapset/qemu-system-ppc*.stp
+%{_datadir}/systemtap/tapset/qemu-system-ppc.stp
+%{_datadir}/systemtap/tapset/qemu-system-ppc-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-ppc-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-ppc64.stp
+%{_datadir}/systemtap/tapset/qemu-system-ppc64-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-ppc64-simpletrace.stp
 %{_mandir}/man1/qemu-system-ppc.1*
 %{_mandir}/man1/qemu-system-ppc64.1*
 %{_datadir}/%{name}/bamboo.dtb
@@ -2730,21 +2927,30 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_bindir}/qemu-system-riscv32
 %{_bindir}/qemu-system-riscv64
 %{_datadir}/%{name}/opensbi-riscv*.bin
-%{_datadir}/systemtap/tapset/qemu-system-riscv*.stp
+%{_datadir}/systemtap/tapset/qemu-system-riscv32.stp
+%{_datadir}/systemtap/tapset/qemu-system-riscv32-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-riscv32-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-riscv64.stp
+%{_datadir}/systemtap/tapset/qemu-system-riscv64-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-riscv64-simpletrace.stp
 %{_mandir}/man1/qemu-system-riscv*.1*
 
 
 %files system-rx
 %files system-rx-core
 %{_bindir}/qemu-system-rx
-%{_datadir}/systemtap/tapset/qemu-system-rx*.stp
+%{_datadir}/systemtap/tapset/qemu-system-rx.stp
+%{_datadir}/systemtap/tapset/qemu-system-rx-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-rx-simpletrace.stp
 %{_mandir}/man1/qemu-system-rx.1*
 
 
 %files system-s390x
 %files system-s390x-core
 %{_bindir}/qemu-system-s390x
-%{_datadir}/systemtap/tapset/qemu-system-s390x*.stp
+%{_datadir}/systemtap/tapset/qemu-system-s390x.stp
+%{_datadir}/systemtap/tapset/qemu-system-s390x-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-s390x-simpletrace.stp
 %{_mandir}/man1/qemu-system-s390x.1*
 %{_datadir}/%{name}/s390-ccw.img
 %{_datadir}/%{name}/s390-netboot.img
@@ -2754,7 +2960,12 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-sh4-core
 %{_bindir}/qemu-system-sh4
 %{_bindir}/qemu-system-sh4eb
-%{_datadir}/systemtap/tapset/qemu-system-sh4*.stp
+%{_datadir}/systemtap/tapset/qemu-system-sh4.stp
+%{_datadir}/systemtap/tapset/qemu-system-sh4-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-sh4-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-sh4eb.stp
+%{_datadir}/systemtap/tapset/qemu-system-sh4eb-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-sh4eb-simpletrace.stp
 %{_mandir}/man1/qemu-system-sh4.1*
 %{_mandir}/man1/qemu-system-sh4eb.1*
 
@@ -2763,7 +2974,12 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-sparc-core
 %{_bindir}/qemu-system-sparc
 %{_bindir}/qemu-system-sparc64
-%{_datadir}/systemtap/tapset/qemu-system-sparc*.stp
+%{_datadir}/systemtap/tapset/qemu-system-sparc.stp
+%{_datadir}/systemtap/tapset/qemu-system-sparc-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-sparc-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-sparc64.stp
+%{_datadir}/systemtap/tapset/qemu-system-sparc64-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-sparc64-simpletrace.stp
 %{_mandir}/man1/qemu-system-sparc.1*
 %{_mandir}/man1/qemu-system-sparc64.1*
 %{_datadir}/%{name}/QEMU,tcx.bin
@@ -2773,7 +2989,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-tricore
 %files system-tricore-core
 %{_bindir}/qemu-system-tricore
-%{_datadir}/systemtap/tapset/qemu-system-tricore*.stp
+%{_datadir}/systemtap/tapset/qemu-system-tricore.stp
+%{_datadir}/systemtap/tapset/qemu-system-tricore-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-tricore-simpletrace.stp
 %{_mandir}/man1/qemu-system-tricore.1*
 
 
@@ -2783,8 +3001,12 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_bindir}/qemu-system-x86_64
 %{_libdir}/%{name}/accel-tcg-i386.so
 %{_libdir}/%{name}/accel-tcg-x86_64.so
-%{_datadir}/systemtap/tapset/qemu-system-i386*.stp
-%{_datadir}/systemtap/tapset/qemu-system-x86_64*.stp
+%{_datadir}/systemtap/tapset/qemu-system-i386.stp
+%{_datadir}/systemtap/tapset/qemu-system-i386-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-i386-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-x86_64.stp
+%{_datadir}/systemtap/tapset/qemu-system-x86_64-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-x86_64-simpletrace.stp
 %{_mandir}/man1/qemu-system-i386.1*
 %{_mandir}/man1/qemu-system-x86_64.1*
 %{_datadir}/%{name}/kvmvapic.bin
@@ -2803,7 +3025,12 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files system-xtensa-core
 %{_bindir}/qemu-system-xtensa
 %{_bindir}/qemu-system-xtensaeb
-%{_datadir}/systemtap/tapset/qemu-system-xtensa*.stp
+%{_datadir}/systemtap/tapset/qemu-system-xtensa.stp
+%{_datadir}/systemtap/tapset/qemu-system-xtensa-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-xtensa-simpletrace.stp
+%{_datadir}/systemtap/tapset/qemu-system-xtensaeb.stp
+%{_datadir}/systemtap/tapset/qemu-system-xtensaeb-log.stp
+%{_datadir}/systemtap/tapset/qemu-system-xtensaeb-simpletrace.stp
 %{_mandir}/man1/qemu-system-xtensa.1*
 %{_mandir}/man1/qemu-system-xtensaeb.1*
 # endif !tools_only

@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 24
+%global baserelease 25
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2202,6 +2202,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Nov 27 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-25
+- Fix qsort workaround (#2248502)
+
 * Thu Nov 23 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-24
 - Restore qsort workaround for 389-ds-base.  (#2248502)
 

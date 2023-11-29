@@ -3,42 +3,21 @@ Summary: A screen ruler and color measurement tool
 Version: 24.01.75
 Release: 1%{?dist}
 
-License: GPLv2 and GFDL
+License: GFDL-1.2-or-later AND GPL-2.0-or-later
 URL:     https://www.kde.org/applications/graphics/kruler/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif 
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
 BuildRequires: kf6-rpm-macros
-BuildRequires: kf6-kcompletion-devel
-BuildRequires: kf6-kconfig-devel
-BuildRequires: kf6-kconfigwidgets-devel
-BuildRequires: kf6-kcoreaddons-devel
-BuildRequires: kf6-kdbusaddons-devel
-BuildRequires: kf6-kdeclarative-devel
-BuildRequires: kf6-kdoctools-devel
-BuildRequires: kf6-kguiaddons-devel
-BuildRequires: kf6-ki18n-devel
-BuildRequires: kf6-kiconthemes-devel
-BuildRequires: kf6-kitemviews-devel
-BuildRequires: kf6-kio-devel
-BuildRequires: kf6-kjobwidgets-devel
-BuildRequires: kf6-knewstuff-devel
-BuildRequires: kf6-knotifications-devel
-BuildRequires: kf6-knotifyconfig-devel
-BuildRequires: kf6-knewstuff-devel
-BuildRequires: kf6-kservice-devel
-BuildRequires: kf6-kwindowsystem-devel
-BuildRequires: kf6-kwidgetsaddons-devel
-BuildRequires: kf6-kxmlgui-devel
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Notifications)
 BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
 BuildRequires: pkgconfig(Qt6Widgets)
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: libappstream-glib
@@ -76,19 +55,13 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 %files -f %{name}.lang
 %license LICENSES/*
-#doc README
 %{_kf6_bindir}/%{name}
-#{_sysconfdir}/xdg/%{name}.knsrc
 %{_kf6_datadir}/applications/org.kde.%{name}.desktop
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf6_datadir}/icons/hicolor/*/actions/%{name}*
 %{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf6_datadir}/%{name}/
-#{_kf6_datadir}/kconf_update/%{name}*
 %{_kf6_datadir}/knotifications6/%{name}.notifyrc
-#{_kf6_datadir}/kxmlgui5/%{name}/
-#{_kf6_datadir}/sounds/%{name}/
-#{_kf6_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog

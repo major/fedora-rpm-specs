@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -18,6 +18,10 @@ Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}
 # https://github.com/OpenSCAP/openscap/pull/2056
 Patch1:         openscap-1.3.9-perlpath.patch
 
+
+# Implicit declarations due to missing includes
+# reported in #PR2060, #PR2061, #PR2062
+Patch2:         openscap-1.3.9-includes.patch
 
 BuildRequires:  make
 BuildRequires:  cmake >= 2.6
@@ -41,8 +45,14 @@ BuildRequires:  dbus-devel
 BuildRequires:  libyaml-devel
 BuildRequires:  xmlsec1-devel
 BuildRequires:  xmlsec1-openssl-devel
+
+# apt-libs missing on Centos
+%if 0%{?fedora}
 BuildRequires:  apt-devel
+%endif
+
 BuildRequires:  opendbx-devel
+
 # GConf2 not used on purpose as obsolete and blocking anaconda addon
 # BuildRequires:  GConf2-devel
 BuildRequires:  procps-ng-devel
@@ -66,6 +76,13 @@ Requires:       popt
 # Fedora has procps-ng, which provides procps
 Requires:       procps
 Requires:       xmlsec1 xmlsec1-openssl
+
+# apt-libs missing on Centos
+%if 0%{?fedora}
+Requires:       apt-libs
+%endif
+
+
 
 %description
 OpenSCAP is a set of open source libraries providing an easier path
@@ -99,13 +116,13 @@ libraries can be used by python3.
 %package        perl
 Summary:        Perl bindings for %{name}
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-BuildRequires:	coreutils
-BuildRequires:	findutils
-BuildRequires:	make
-BuildRequires:	perl-generators
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
+BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
-BuildRequires:	perl-XML-Parser
+BuildRequires:  perl-XML-Parser
 
 %description    perl
 The perl package contains the bindings so that %{name}
@@ -168,7 +185,6 @@ Tool for scanning Atomic containers.
 %build
 # gconf is a legacy system not used any more, and it blocks testing of oscap-anaconda-addon
 # as gconf is no longer part of the installation medium
-export CFLAGS="$CFLAGS -Wno-error=implicit-function-declaration"
 %cmake \
     -DWITH_PCRE2=ON \
     -DENABLE_PERL=ON \
@@ -260,6 +276,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Thu Nov 23 2023 Michal Ambroz <rebus _AT seznam.cz> - 1:1.3.9-2
+- adding conditional for apt-devel apt-libs as proposed upstream
+
 * Thu Nov 23 2023 Michal Ambroz <rebus _AT seznam.cz> - 1:1.3.9-1
 - bump to 1.3.9
 - provide perl binding

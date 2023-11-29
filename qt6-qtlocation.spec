@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Location Libraries
 Name:    qt6-%{qt_module}
-Version: 6.6.0
+Version: 6.6.1
 Release: 1%{?dist}
 
 # Rest of the licenses are for Qt code in src/location and src/plugins
@@ -121,6 +121,9 @@ popd
 %endif
 
 %changelog
+* Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
+- 6.6.1
+
 * Tue Oct 10 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-1
 - 6.6.0
 

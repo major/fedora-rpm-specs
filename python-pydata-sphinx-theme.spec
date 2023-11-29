@@ -4,7 +4,7 @@
 %bcond_with docs
 
 Name:           python-pydata-sphinx-theme
-Version:        0.14.3
+Version:        0.14.4
 Release:        1%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
@@ -118,7 +118,7 @@ cd -
 %endif
 
 %check
-# Sphinx 7.1.2 does not have the translation the translation test looks for
+# Translation does not work correctly in an uninstalled tree
 %pytest -k 'not test_translations'
 
 %files -n python3-pydata-sphinx-theme -f %{pyproject_files}
@@ -131,6 +131,9 @@ cd -
 %endif
 
 %changelog
+* Mon Nov 27 2023 Jerry James <loganjerry@gmail.com> - 0.14.4-1
+- Version 0.14.4
+
 * Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 0.14.3-1
 - Version 0.14.3
 

@@ -1,7 +1,7 @@
 %global __requires_exclude .*BugzillaClient.*
 
 Name:           vym
-Version:        2.9.22
+Version:        2.9.26
 Release:        1%{?dist}
 Summary:        View your mind
 
@@ -99,6 +99,9 @@ install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
 
 %changelog
+* Mon Nov 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.9.26-1
+- 2.9.26
+
 * Tue Sep 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.9.22-1
 - 2.9.22
 

@@ -101,8 +101,13 @@ sed -i "s,DESKTOP_FILE = miscellaneous/qpdfview.desktop,DESKTOP_FILE = miscellan
 sed "s/Exec=qpdfview/Exec=qpdfview-qt5/g" miscellaneous/qpdfview.desktop.in  > miscellaneous/qpdfview-qt5.desktop.in
 sed -i "s/Name=qpdfview/Name=qpdfview (Qt5)/g" miscellaneous/qpdfview-qt5.desktop.in
 %{qmake_qt5} \
+    TARGET_INSTALL_PATH="%{_bindir}" \
     PLUGIN_INSTALL_PATH="%{_libdir}/%{name}-qt5" \
-    DATA_INSTALLPATH="%{_datadir}/%{name}" \
+    DATA_INSTALL_PATH="%{_datadir}/%{name}" \
+    MANUAL_INSTALL_PATH="%{_mandir}/man1" \
+    ICON_INSTALL_PATH="%{_datadir}/icons/hicolor/scalable/apps" \
+    LAUNCHER_INSTALL_PATH="%{_datadir}/applications" \
+    APPDATA_INSTALL_PATH="%{_metainfodir}" \
 %if %{with_fitz}
     CONFIG+=with_fitz \
     FITZ_PLUGIN_LIBS="-lmupdf -lmupdf-third -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
@@ -121,8 +126,13 @@ sed -i "s,DESKTOP_FILE = miscellaneous/qpdfview.desktop,DESKTOP_FILE = miscellan
 sed "s/Exec=qpdfview/Exec=qpdfview-qt6/g" miscellaneous/qpdfview.desktop.in  > miscellaneous/qpdfview-qt6.desktop.in
 sed -i "s/Name=qpdfview/Name=qpdfview (Qt6)/g" miscellaneous/qpdfview-qt6.desktop.in
 %{qmake_qt6} \
+    TARGET_INSTALL_PATH="%{_bindir}" \
     PLUGIN_INSTALL_PATH="%{_libdir}/%{name}-qt6" \
-    DATA_INSTALLPATH="%{_datadir}/%{name}" \
+    DATA_INSTALL_PATH="%{_datadir}/%{name}" \
+    MANUAL_INSTALL_PATH="%{_mandir}/man1" \
+    ICON_INSTALL_PATH="%{_datadir}/icons/hicolor/scalable/apps" \
+    LAUNCHER_INSTALL_PATH="%{_datadir}/applications" \
+    APPDATA_INSTALL_PATH="%{_metainfodir}" \
 %if %{with_fitz}
     CONFIG+=with_fitz \
     FITZ_PLUGIN_LIBS="-lmupdf -lmupdf-third -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \

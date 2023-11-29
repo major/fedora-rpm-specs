@@ -3,53 +3,48 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    yakuake
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 Summary: A drop-down terminal emulator
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GLv2 or GPLv3
 URL: https://kde.org/applications/system/org.kde.yakuake
-
-%global revision %(echo %{version} | cut -d. -f3)
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream fixes
 
 # konsolepart
-Requires:       konsole5-part
+Requires:       konsole-part%{?_isa} >= %{version}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-karchive-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kcrash-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kglobalaccel-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-knewstuff-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-knotifyconfig-devel
-BuildRequires:  kf5-kparts-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kwindowsystem-devel
+BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(Qt5X11Extras)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  qt6-qtbase-private-devel
 
-BuildRequires:  cmake(KF5Wayland)
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6NewStuff)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6NotifyConfig)
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6Wayland)
 
 %if 0%{?fedora}
 %global appstream_validate 1
@@ -65,7 +60,7 @@ Yakuake is a drop-down terminal emulator.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -78,25 +73,28 @@ Yakuake is a drop-down terminal emulator.
 
 %check
 %if 0%{?appstream_validate}
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.yakuake.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.yakuake.appdata.xml
 %endif
-desktop-file-validate  %{buildroot}%{_kf5_datadir}/applications/org.kde.yakuake.desktop
+desktop-file-validate  %{buildroot}%{_kf6_datadir}/applications/org.kde.yakuake.desktop
 
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog TODO
 %license LICENSES/*
-%{_kf5_bindir}/yakuake
-%{_kf5_datadir}/knsrcfiles/yakuake.knsrc
-%{_kf5_metainfodir}/org.kde.yakuake.appdata.xml
-%{_kf5_datadir}/applications/org.kde.yakuake.desktop
-%{_kf5_datadir}/knotifications5/yakuake.notifyrc
-%{_kf5_datadir}/yakuake/
-%{_kf5_datadir}/icons/hicolor/*/apps/yakuake.*
-%{_kf5_datadir}/dbus-1/services/org.kde.yakuake.service
+%{_kf6_bindir}/yakuake
+%{_kf6_datadir}/knsrcfiles/yakuake.knsrc
+%{_kf6_metainfodir}/org.kde.yakuake.appdata.xml
+%{_kf6_datadir}/applications/org.kde.yakuake.desktop
+%{_kf6_datadir}/knotifications6/yakuake.notifyrc
+%{_kf6_datadir}/yakuake/
+%{_kf6_datadir}/icons/hicolor/*/apps/yakuake.*
+%{_kf6_datadir}/dbus-1/services/org.kde.yakuake.service
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

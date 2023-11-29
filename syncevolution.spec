@@ -3,7 +3,7 @@ Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
 Release:       9%{?dist}
-License:       LGPLv2+
+License:       LGPL-2.0-or-later
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
 

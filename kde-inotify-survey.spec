@@ -1,5 +1,5 @@
 Name:          kde-inotify-survey
-Version:       23.08.2
+Version:       24.01.75
 Release:       1%{?dist}
 Summary:       Monitors inotify limits and lets the user know when exceeded
 
@@ -13,20 +13,20 @@ Source:        https://download.kde.org/%{stable_kf5}/release-service/%{version}
 # Merge Request: https://invent.kde.org/frameworks/kauth/-/merge_requests/44
 Source1:       org.kde.kded.inotify.conf
 
-Requires:      kf5-kded
+Requires:      kf6-kded
 Requires:      dbus-common
 Requires:      polkit
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: gettext
-BuildRequires: qt5-qtbase-devel
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5Auth)
+BuildRequires: qt6-qtbase-devel
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Auth)
 
 %description
 %{summary}.
@@ -36,7 +36,7 @@ BuildRequires: cmake(KF5Auth)
 %autosetup -n %{name}-%{version} -p1
 
 %build
-%{cmake_kf5}
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
@@ -50,15 +50,18 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/dbus-1/system.d/org.kde.k
 %license LICENSES/* screenshot.png.license
 %doc README.md screenshot.png
 %{_bindir}/kde-inotify-survey
-%{_kf5_plugindir}/kded/inotify.so
-%{_kf5_libexecdir}/kauth/kded-inotify-helper
+%{_kf6_plugindir}/kded/inotify.so
+%{_kf6_libexecdir}/kauth/kded-inotify-helper
 %{_datadir}/dbus-1/system-services/org.kde.kded.inotify.service
 %{_datadir}/dbus-1/system.d/org.kde.kded.inotify.conf
-%{_datadir}/knotifications5/org.kde.kded.inotify.notifyrc
+%{_datadir}/knotifications6/org.kde.kded.inotify.notifyrc
 %{_datadir}/metainfo/org.kde.inotify-survey.metainfo.xml
 %{_datadir}/polkit-1/actions/org.kde.kded.inotify.policy
 
 %changelog
+* Sun Nov 19 2023 Steve Cossette <farchord@gmail.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -1,28 +1,23 @@
 
 Name:    svgpart 
 Summary: SVG KPart
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://www.kde.org/applications/graphics/
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Parts)
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6SvgWidgets)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6XmlGui)
 
 %description
 %{summary}.
@@ -33,7 +28,7 @@ Conflicts: kde-l10n < 17.03
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -46,12 +41,14 @@ Conflicts: kde-l10n < 17.03
 
 %files -f %{name}.lang
 %license LICENSES/* 
-%{_kf5_plugindir}/parts/svgpart.so
-%{_kf5_datadir}/kservices5/svgpart.desktop
-%{_kf5_metainfodir}/org.kde.svgpart.metainfo.xml
+%{_kf6_plugindir}/parts/svgpart.so
+%{_kf6_metainfodir}/org.kde.svgpart.metainfo.xml
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

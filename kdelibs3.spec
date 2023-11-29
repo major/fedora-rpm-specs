@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 123%{?dist}
+Release: 124%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -715,6 +715,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 3.5.10-124
+- Rebuild for jasper 4.1
+
 * Thu Sep 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.5.10-123
 - Update filesystem dependency
 

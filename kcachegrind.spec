@@ -1,18 +1,12 @@
 Name:    kcachegrind
 Summary: GUI to profilers such as Valgrind
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2 and GFDL
 URL:     https://invent.kde.org/sdk/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -21,36 +15,27 @@ BuildRequires: perl-generators
 BuildRequires: python3
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5KIO)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6DBusAddons)
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5LinguistTools)
-BuildRequires: cmake(Qt5Widgets)
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
-
-Conflicts:      kdesdk-common < 4.10.80
-Provides:       kdesdk-kcachegrind = %{version}-%{release}
-Obsoletes:      kdesdk-kcachegrind < 4.10.80
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Widgets)
 
 %description
 Browser for data produced by profiling tools (e.g. cachegrind)
 
 %package converters
 Summary: Converters for kcachegrind
-# when split out
-Obsoletes: kcachegrind < 17.12.3-2
 Requires: %{name} = %{version}-%{release}
 %description converters
 %{summary}.
@@ -71,7 +56,7 @@ sed -i.env -e "s|^#!/usr/bin/env php$|#!%{_bindir}/php|g"  converters/pprof2call
 
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 
 %cmake_build
 
@@ -86,33 +71,33 @@ install -p -m 644 qcachegrind/qcachegrind.desktop %{buildroot}%{_datadir}/applic
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/qcachegrind.desktop
 
 %find_lang %{name} --all-name --with-html
-%find_lang_kf5 kcachegrind_qt
+%find_lang_kf6 kcachegrind_qt
 cat kcachegrind_qt.lang >> kcachegrind.lang
 
 
 %files -f %{name}.lang
 %doc README
 %license LICENSES/*
-%{_kf5_bindir}/kcachegrind
-%{_kf5_datadir}/kcachegrind/
-%{_kf5_datadir}/applications/org.kde.kcachegrind.desktop
-%{_kf5_metainfodir}/org.kde.kcachegrind.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/apps/kcachegrind.*
+%{_kf6_bindir}/kcachegrind
+%{_kf6_datadir}/kcachegrind/
+%{_kf6_datadir}/applications/org.kde.kcachegrind.desktop
+%{_kf6_metainfodir}/org.kde.kcachegrind.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/apps/kcachegrind.*
 
 %files converters
 %doc converters/README
 # perl
-%{_kf5_bindir}/dprof2calltree
-%{_kf5_bindir}/memprof2calltree
-%{_kf5_bindir}/op2calltree
+%{_kf6_bindir}/dprof2calltree
+%{_kf6_bindir}/memprof2calltree
+%{_kf6_bindir}/op2calltree
 # python
-%{_kf5_bindir}/hotshot2calltree
+%{_kf6_bindir}/hotshot2calltree
 # php
-%{_kf5_bindir}/pprof2calltree
+%{_kf6_bindir}/pprof2calltree
 
 %files -n qcachegrind
 %doc README
@@ -125,6 +110,9 @@ cat kcachegrind_qt.lang >> kcachegrind.lang
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

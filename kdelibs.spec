@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 40%{?dist}
+Release: 41%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -905,6 +905,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 6:4.14.38-41
+- Rebuild for jasper 4.1
+
 * Thu Sep 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6:4.14.38-40
 - Update filesystem dependency
 

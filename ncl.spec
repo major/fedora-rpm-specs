@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 License:        BSD
@@ -361,6 +361,9 @@ done
 
 
 %changelog
+* Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 6.6.2-39
+- Rebuild for jasper 4.1
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 6.6.2-38
 - Rebuild (gdal)
 

@@ -4,12 +4,14 @@
 
 Name:          gupnp
 Version:       1.6.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A framework for creating UPnP devices & control points
 
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://www.gupnp.org/
 Source0:       https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gupnp/-/commit/00514fb62ebd341803fa44e26a6482a8c25dbd34
+Patch:         gupnp-1.6.6-libxml2-2.12-includes.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: gi-docgen
@@ -85,6 +87,9 @@ This package contains developer documentation for %{name}.
 %{_docdir}/gupnp-%{apiver}/
 
 %changelog
+* Mon Nov 27 2023 David King <amigadave@amigadave.com> - 1.6.6-2
+- Fix building against libxml2 2.12.0 or above
+
 * Thu Nov 02 2023 Kalev Lember <klember@redhat.com> - 1.6.6-1
 - Update to 1.6.6
 

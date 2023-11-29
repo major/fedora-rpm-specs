@@ -26,7 +26,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.51.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -47,6 +47,8 @@ Source1:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/
 %if 0%{verify_tarball_signature}
 Source2:       libguestfs.keyring
 %endif
+
+Patch1:        0001-common-Update-submodule.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
@@ -405,6 +407,9 @@ end
 
 
 %changelog
+* Mon Nov 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.5-2
+- Fix build for libxml2 2.12.1
+
 * Thu Nov 02 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.5-1
 - New development version 1.51.5
 

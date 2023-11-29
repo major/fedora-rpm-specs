@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  4.6
-%global github_commit   c944acc8be48645a4e5d8e98882e4e54fcf85287
+%global github_commit   872b39721c693fc06ede88b366975bf4e2352c7d
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20231024
+%global github_date     20231125
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -71,9 +71,9 @@
 # critic and (python) yamllint requirements dropped as we don't run those
 # checks in our package build (except Perl::Critic itself as the
 # compile-check-all test fails on the in-tree critic module if we leave
-# that out)
+# that out), ssh-keygen is in openssh in Fedora (openssh-common in SUSE)
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires ShellCheck curl jq os-autoinst-devel perl(App::cpanminus) perl(Perl::Critic) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 postgresql-server
+%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires ShellCheck curl jq openssh os-autoinst-devel perl(App::cpanminus) perl(Perl::Critic) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 postgresql-server
 %ifarch x86_64
 %define qemu qemu qemu-kvm
 %else
@@ -125,10 +125,6 @@ Source4:        23-fedora-messaging.t
 # this is an ugly hack that should be removed if it becomes possible
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
-
-# https://github.com/os-autoinst/openQA/pull/5349
-# fix skipping tests when selenium driver is missing
-Patch:          0001-Fix-skipping-Selenium-tests.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -746,6 +742,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Mon Nov 27 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20231125git872b397-1
+- Update to recent upstream git, resync spec, drop merged patch
+
 * Tue Oct 31 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20231024gitc944acc-1
 - Update to a recent upstream git snapshot, resync spec
 - Backport PR #5349 to fix a test skipping problem

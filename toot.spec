@@ -1,7 +1,7 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.38.2
+Version:        0.39.0
 Release:        %autorelease
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
@@ -32,7 +32,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %py3_install
 
 %check
-%{python3} -m pytest -k 'not test_console'
+%{python3} -m pytest -k 'not test_console' --ignore=tests/tui/test_rich_text.py 
 
 %files -n %{modname}
 %{_bindir}/toot

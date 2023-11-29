@@ -1,39 +1,27 @@
 Name:    kdebugsettings
-Summary: Configure debug output from Qt5 applications
-Version: 23.08.2
+Summary: Configure debug output from Qt6 applications
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: LGPLv2+
-URL:     https://www.kde.org/applications/utilities/
+URL:     https://apps.kde.org/kdebugsettings/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
-
-BuildRequires:  qt5-qtbase-devel
-
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kguiaddons-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kitemviews-devel
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-kio-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  libappstream-glib
 
-# translations moved here
-Conflicts: kde-l10n < 17.03
+BuildRequires:  cmake(Qt6Widgets)
+
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6XmlGui)
 
 %description
 An application to enable/disable qCDebug
@@ -44,7 +32,7 @@ An application to enable/disable qCDebug
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -60,23 +48,26 @@ An application to enable/disable qCDebug
 # RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
 # RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
 %if !0%{?rhel}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kdebugsettings.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kdebugsettings.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kdebugsettings.*.xml
 %endif
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/kdebugsettings
-%{_kf5_datadir}/applications/org.kde.kdebugsettings.desktop
-%{_kf5_datadir}/kdebugsettings/
-%{_kf5_metainfodir}/org.kde.kdebugsettings.*.xml
-%{_kf5_datadir}/qlogging-categories5/kde*
-# multilib?  -- rdieter
-%{_kf5_libdir}/libkdebugsettings.so.*
-%{_kf5_libdir}/libkdebugsettingscore.so.*
+%{_kf6_bindir}/kdebugsettings
+%{_kf6_datadir}/applications/org.kde.kdebugsettings.desktop
+%{_kf6_datadir}/kdebugsettings/
+%{_kf6_metainfodir}/org.kde.kdebugsettings.*.xml
+%{_kf6_datadir}/qlogging-categories6/kde*
+%{_kf6_libdir}/libkdebugsettings.so.*
+%{_kf6_libdir}/libkdebugsettingscore.so.*
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

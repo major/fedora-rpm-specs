@@ -24,7 +24,7 @@ Name: netavark
 %if %{defined copr_username}
 Epoch: 102
 %endif
-Version: 1.8.0
+Version: 1.9.0
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT
@@ -107,9 +107,11 @@ cd docs
 
 %preun
 %systemd_preun %{name}-dhcp-proxy.service
+%systemd_preun %{name}-firewalld-reload.service
 
 %postun
 %systemd_postun %{name}-dhcp-proxy.service
+%systemd_postun %{name}-firewalld-reload.service
 
 %files
 %license LICENSE
@@ -118,6 +120,7 @@ cd docs
 %{_mandir}/man1/%{name}.1*
 %{_unitdir}/%{name}-dhcp-proxy.service
 %{_unitdir}/%{name}-dhcp-proxy.socket
+%{_unitdir}/%{name}-firewalld-reload.service
 
 %changelog
 %autochangelog

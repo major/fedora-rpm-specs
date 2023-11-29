@@ -1,6 +1,6 @@
 Name:           python-lxml
 Version:        4.9.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
@@ -34,6 +34,9 @@ Patch:          https://github.com/lxml/lxml/commit/a03a4b3c6b906d33c5ef1a15f3d5
 # Python 3.13 compatibility
 Patch:          https://github.com/lxml/lxml/commit/34187968a67151f02db491a56a0037b55319931d.patch
 Patch:          https://github.com/lxml/lxml/commit/98025653e182f9203189cbde0ab2d6ebec556db8.patch
+
+# libxml2 2.12.0 Unicode test compatibility
+Patch:          https://github.com/lxml/lxml/commit/2a6770566ab57d601abc7c2f49a8051b9d97b64c.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
@@ -104,6 +107,10 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Sun Nov 26 2023 David King <amigadave@amigadave.com> - 4.9.3-4
+- Fix building against libxml2 2.12.0
+- Resolves: rhbz#2250838
+
 * Mon Oct 30 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9.3-3
 - Fix build with a future mock version
 

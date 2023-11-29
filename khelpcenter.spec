@@ -2,45 +2,48 @@ Name:    khelpcenter
 Summary: Show documentation for KDE applications
 # Override khelpcenter subpackage from kde-runtime-15.04 (no longer built)
 Epoch:   1
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: GPLv2 or GPLv3
 URL:     https://invent.kde.org/system/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
-BuildRequires:  grantlee-qt5-devel
-BuildRequires:  kf5-karchive-devel
-BuildRequires:  kf5-kbookmarks-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-khtml-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
+
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6Bookmarks)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6TextTemplate)
+
 BuildRequires:  libxml2-devel
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtscript-devel
 BuildRequires:  xapian-core-devel
 
-# translations moved here
-Conflicts: kde-l10n < 17.04.1-2
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+# Package doesn't build on arches that qtwebengine is not built on.
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 %description
 %{summary}.
@@ -51,7 +54,7 @@ Conflicts: kde-l10n < 17.04.1-2
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -59,17 +62,16 @@ Conflicts: kde-l10n < 17.04.1-2
 %install
 %cmake_install
 
-# Provide khelpcenter service for KDE 3 applications
-mkdir -p %{buildroot}%{_datadir}/services
-cp -alf \
-  %{buildroot}%{_datadir}/kservices5/khelpcenter.desktop \
-  %{buildroot}%{_datadir}/services/
+# Provide khelpcenter service for KDE 3/4/5 applications
+install -D -m0644 -t %{buildroot}%{_datadir}/services/ khelpcenter.desktop
+install -D -m0644 -t %{buildroot}%{_datadir}/kde4/services/ khelpcenter.desktop
+install -D -m0644 -t %{buildroot}%{_datadir}/kservices5/ khelpcenter.desktop
 
 %find_lang %{name} --all-name --with-html
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 ## currently fails on all RHEL releases
 # RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
 # RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
@@ -81,12 +83,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %doc README.metadata
 %license LICENSES/*
 %{_bindir}/%{name}
-%{_kf5_datadir}/qlogging-categories5/%{name}.*
+%{_kf6_datadir}/qlogging-categories6/%{name}.*
 %{_libexecdir}/khc_mansearch.pl
 %{_libexecdir}/khc_xapianindexer
 %{_libexecdir}/khc_xapiansearch
-%{_kf5_datadir}/%{name}/
-%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_kf6_datadir}/%{name}/
+%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 %{_datadir}/applications/org.kde.%{name}.desktop
 %{_datadir}/config.kcfg/%{name}.kcfg
 %{_datadir}/dbus-1/services/org.kde.%{name}.service
@@ -96,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 1:24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.2-1
 - 23.08.2
 

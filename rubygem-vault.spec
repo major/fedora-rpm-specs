@@ -2,7 +2,7 @@
 %global gem_name vault
 
 Name: rubygem-%{gem_name}
-Version: 0.18.0
+Version: 0.18.2
 Release: 1%{?dist}
 Summary: A Ruby API client for interacting with a Vault server
 License: MPLv2.0
@@ -69,6 +69,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Nov 27 2023 Ed Marshall <esm@logic.net> - 0.18.2-1
+- Update to 0.18.2
+
 * Thu Sep 14 2023 Ed Marshall <esm@logic.net> - 0.18.0-1
 - Update to 0.18.0
 - Don't need to clean up VCS/CI/etc leftovers anymore

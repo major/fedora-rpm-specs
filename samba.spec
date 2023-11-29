@@ -143,8 +143,8 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.19.2
-%global baserelease 2
+%global samba_version 4.19.3
+%global baserelease 1
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -4468,6 +4468,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 27 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.3-1
+- resolves: #2251766 - Update to version 4.19.3
+
 * Wed Nov 15 2023 Andreas Schneider <asn@redhat.com> - 4.19.2-2
 - Package samba-gpupdate also for RHEL9
 

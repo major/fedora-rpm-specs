@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    e88da8d679acc3824ff231fdc553565b802ac016
+%global gh_commit    039de174cd9c17a8389754d3b877a2ed22743e18
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,7 +23,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.8.1
+Version:        6.9.1
 Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
@@ -184,7 +184,7 @@ popd
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd  -d "sendmail_path=$PWD/test/fakesendmail.sh -t -i " \
       %{phpunit} --exclude slow,pop3,languages --verbose || ret=1
@@ -208,6 +208,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov 27 2023 Remi Collet <remi@remirepo.net> - 6.9.1-1
+- update to 6.9.1
+
 * Tue Aug 29 2023 Remi Collet <remi@remirepo.net> - 6.8.1-1
 - update to 6.8.1
 

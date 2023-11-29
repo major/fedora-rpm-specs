@@ -5,7 +5,7 @@ Version:        45.1
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeShell
 Source0:        https://download.gnome.org/sources/gnome-shell/45/%{name}-%{tarball_version}.tar.xz
 

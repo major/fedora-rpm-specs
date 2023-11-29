@@ -169,7 +169,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        120.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -249,6 +249,7 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
 Patch411:        mozilla-1762816.patch
+Patch412:        D194727.1701168293.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -541,6 +542,7 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .D167159
 %patch411 -p1 -b .mozilla-1762816
+%patch412 -p1 -b .D194727
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1149,6 +1151,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Nov 27 2023 Martin Stransky <stransky@redhat.com>- 120.0-3
+- Add fix for rhbz#2251202
+
 * Mon Nov 20 2023 Martin Stransky <stransky@redhat.com>- 120.0-2
 - Updated to 120.0 Build 2
 

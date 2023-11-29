@@ -4,16 +4,16 @@
 
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
-Version:        4.8.0
-Release:        17%{?dist}
+Version:        4.9.0
+Release:        1%{?dist}
 
-License:        ISC
+# All the files have ISC license except the
+# following two that have BSD license:
+# python-pexpect/pexpect-4.8.0/pexpect/pty_spawn.py
+# python-pexpect/pexpect-4.8.0/pexpect/spawnbase.py
+License:        ISC AND BSD-3-Clause
 URL:            https://github.com/pexpect/pexpect
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
-Patch0:         %{url}/pull/715/commits/52af5b0ae0627139524448a3f2e83d9f40802bc2.patch
-Patch1:         %{url}/pull/737/commits/dae602d37493bae239e0e8db5b3dabafebfd59db.patch
-Patch2:         %{url}/pull/739/commits/31fab7b0edbe9b3401507b5dfa4db6aaf3fabca5.patch
-Patch3:         %{url}/pull/742/commits/373679020c6b1875293bf0e3a26d3116d605bff8.patch
 
 BuildRequires:  /usr/bin/man
 %if %{with check}
@@ -45,6 +45,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-ptyprocess
+BuildRequires:  zsh
 Requires:       python3-ptyprocess
 
 %description -n python3-%{modname}
@@ -96,6 +97,9 @@ TRAVIS=true py.test-3 --verbose
 %{python3_sitelib}/%{modname}-*.egg-info
 
 %changelog
+* Mon Nov 27 2023 Dan Radez <dradez@redhat.com> - 4.9.0-1
+- Update to new upstream release 4.9.0 (#2251454)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

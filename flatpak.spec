@@ -1,16 +1,18 @@
 %global appstream_version 1.0.0~
-%global bubblewrap_version 0.5.0
+%global bubblewrap_version 0.8.0
 %global glib_version 2.46.0
 %global gpgme_version 1.8.0
 %global libcurl_version 7.29.0
 %global ostree_version 2020.8
+%global wayland_protocols_version 1.32
+%global wayland_scanner_version 1.15
 
 # Disable parental control for RHEL builds
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           flatpak
-Version:        1.15.4
-Release:        5%{?dist}
+Version:        1.15.6
+Release:        1%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPL-2.1-or-later
@@ -25,8 +27,6 @@ Source1:        flatpak-add-fedora-repos.service
 # systemd-sysusers config. Only used for the %%pre macro. Must be kept in sync
 # with the config from upstream sources.
 Source2:        flatpak.sysusers.conf
-
-Patch0:         flatpak-appstream-regressions-and-1.0-API.patch
 
 BuildRequires:  pkgconfig(appstream) >= %{appstream_version}
 BuildRequires:  pkgconfig(dconf)
@@ -47,6 +47,9 @@ BuildRequires:  pkgconfig(malcontent-0)
 %endif
 BuildRequires:  pkgconfig(ostree-1) >= %{ostree_version}
 BuildRequires:  pkgconfig(polkit-gobject-1)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-protocols) >= %{wayland_protocols_version}
+BuildRequires:  pkgconfig(wayland-scanner) >= %{wayland_scanner_version}
 BuildRequires:  pkgconfig(xau)
 BuildRequires:  bison
 BuildRequires:  bubblewrap >= %{bubblewrap_version}
@@ -151,11 +154,13 @@ This package contains installed tests for %{name}.
     -Dinstalled_tests=true \
     -Dsystem_bubblewrap=/usr/bin/bwrap \
     -Dsystem_dbus_proxy=/usr/bin/xdg-dbus-proxy \
+    -Dtmpfilesdir=%{_tmpfilesdir} \
 %if %{with malcontent}
     -Dmalcontent=enabled \
 %else
     -Dmalcontent=disabled \
 %endif
+    -Dwayland_security_context=enabled \
     %{nil}
 %meson_build
 
@@ -246,6 +251,7 @@ fi
 %{_userunitdir}/flatpak-portal.service
 %{_systemd_system_env_generator_dir}/60-flatpak-system-only
 %{_systemd_user_env_generator_dir}/60-flatpak
+%{_tmpfilesdir}/%{name}.conf
 
 %if 0%{?fedora}
 %{_unitdir}/flatpak-add-fedora-repos.service
@@ -280,6 +286,9 @@ fi
 
 
 %changelog
+* Thu Nov 16 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.15.6-1
+- Update to 1.15.6 (#2249763)
+
 * Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.15.4-5
 - Fix appstream_version macro for prerelease appstream 1.0 package
 

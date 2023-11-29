@@ -1,45 +1,32 @@
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
-Version: 23.08.2
+Version: 24.01.75
 Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/utils/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5ActivitiesStats)
-BuildRequires: cmake(KF5Bookmarks)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6ActivitiesStats)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6XmlGui)
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Widgets)
-
-# when split occured
-Conflicts: kdeutils-common < 6:4.7.80
-
-Obsoletes: kdeutils-sweeper < 6:4.7.80
-Provides:  kdeutils-sweeper = 6:%{version}-%{release}
-
-Conflicts: kde-l10n < 17.08.3-2
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Widgets)
 
 %description
 Sweeper helps to clean unwanted traces the user leaves on the system.
@@ -50,7 +37,7 @@ Sweeper helps to clean unwanted traces the user leaves on the system.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -62,20 +49,22 @@ Sweeper helps to clean unwanted traces the user leaves on the system.
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.sweeper.desktop
-
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.sweeper.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.sweeper.appdata.xml
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/sweeper
-%{_kf5_datadir}/qlogging-categories5/sweeper*
-%{_kf5_datadir}/applications/org.kde.sweeper.desktop
-%{_kf5_metainfodir}/org.kde.sweeper.appdata.xml
-%{_kf5_datadir}/kxmlgui5/sweeper/
+%{_kf6_bindir}/sweeper
+%{_kf6_datadir}/qlogging-categories6/sweeper*
+%{_kf6_datadir}/applications/org.kde.sweeper.desktop
+%{_kf6_metainfodir}/org.kde.sweeper.appdata.xml
 %{_datadir}/dbus-1/interfaces/org.kde.sweeper.xml
 
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -31,7 +31,7 @@ ExcludeArch: %{ix86}
 
 # If there are patches which touch autotools files, set this to 1.
 %if !0%{?rhel}
-%global patches_touch_autotools 1
+%global patches_touch_autotools %{nil}
 %else
 # On RHEL the downstream patches always touch autotools files.
 %global patches_touch_autotools 1
@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -83,6 +83,8 @@ Source7:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
+
+Patch:         0001-lib-Include-libxml-parser.h-for-xmlReadMemory.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
@@ -1094,6 +1096,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Nov 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.8-2
+- Fix build for libxml2 2.12.1
+
 * Thu Nov 16 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.8-1
 - New upstream development version 1.51.8
 

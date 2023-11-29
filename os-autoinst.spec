@@ -30,9 +30,9 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  4.6
-%global github_commit   64b339c8f5623ce314126972d9fd171ab3190bcd
+%global github_commit   a2deffd6181a780a229681bbd61a5dddb316165b
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20231025
+%global github_date     20231124
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
@@ -253,6 +253,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Mon Nov 27 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20231124gita2deffd-1
+- Update to latest git
+
 * Wed Oct 25 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20231025git64b339c-1
 - Update to latest git, resync spec
 
