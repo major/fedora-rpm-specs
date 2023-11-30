@@ -1,27 +1,31 @@
-
-%global commit0 4d195e4dc7a47ff5cb51e36a83d4d05808c5befe
+%global gitdate 20231015.171500
+%global commit0 011bd155f3bec52d747e177960add1398788e56a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global tag0 VERSION_%{version}
 
 Name:           signon
-Version:        8.60
-Release:        13%{?dist}
+Version:        8.60^%{gitdate}.%{shortcommit0}
+Release:        1%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPLv2
 URL:            https://gitlab.com/accounts-sso/signond
 
-%if 0%{?tag0:1}
-Source0:        https://gitlab.com/accounts-sso/signond/repository/archive.tar.gz?ref=%{tag0}#/%{name}-%{version}.tar.gz
-%else
-Source0:        https://gitlab.com/accounts-sso/signond/repository/archive.tar.gz?ref=%{commit0}#/%{name}-%{shortcommit0}.tar.gz
-%endif
+# Temporary source, for plasma6 compatibility
+Source0:        https://gitlab.com/nicolasfella/signond/-/archive/%{commit0}/signond-%{commit0}.tar.gz
+
+# Original Sources
+#%%if 0%{?tag0:1}
+#Source0:        https://gitlab.com/accounts-sso/signond/repository/archive.tar.gz?ref=%%{tag0}#/%%{name}-%{version}.tar.gz
+#%%else
+#Source0:        https://gitlab.com/accounts-sso/signond/repository/archive.tar.gz?ref=%%{commit0}#/%%{name}-%%{shortcommit0}.tar.gz
+#%%endif
 
 # cmake config files still define SIGNONQT_LIBRARIES_STATIC, but meh, anyone who
 # tries to use that deserves what they get
-Patch1: signon-8.57-no_static.patch
+#Patch1: signon-8.57-no_static.patch
 # drop -Werror -fno-rtti
-Patch2: signond-cxxflags.patch
+#Patch2: signond-cxxflags.patch
 
 BuildRequires: make
 BuildRequires:  dbus-x11
@@ -31,6 +35,7 @@ BuildRequires:  graphviz
 BuildRequires:  libproxy-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  time
+BuildRequires:  qt6-qtbase-devel
 
 # signon-qt5 was in ktp-5 COPR
 Obsoletes:      signon-qt5 < 8.57-5
@@ -69,39 +74,41 @@ The %{name}-doc package contains documentation for %{name}.
 
 
 %prep
-%setup -q -n signond-%{tag0}-%{commit0}
-
-%patch1 -p1 -b .no_static
-%patch2 -p1 -b .cxxflags
+%autosetup -n signond-%{commit0} -p1
 
 
 %build
 # Make sure it compiles against Fedora's Qt5
-sed -i "s/qdbusxml2cpp/qdbusxml2cpp-qt5/" src/signond/signond.pro
+#sed -i "s/qdbusxml2cpp/qdbusxml2cpp-qt5/" src/signond/signond.pro
 
-export PATH=%{_qt5_bindir}:$PATH
+#export PATH=%{_qt5_bindir}:$PATH
 
 # FIXME: out-of-src tree build fails -- rex
-%qmake_qt5 signon.pro \
+mkdir %{name}_qt5
+pushd %{name}_qt5
+%qmake_qt5 \
   CONFIG+=release \
-  QMF_INSTALL_ROOT=%{_prefix} LIBDIR=%{_libdir}
+  QMF_INSTALL_ROOT=%{_prefix} LIBDIR=%{_libdir} ../signon.pro
+popd
+%make_build -C %{name}_qt5
 
-%make_build
-
+mkdir %{name}_qt6
+pushd %{name}_qt6
+%qmake_qt6 \
+  CONFIG+=release \
+  QMF_INSTALL_ROOT=%{_prefix} LIBDIR=%{_libdir} ../signon.pro
+popd
+%make_build -C %{name}_qt6
 
 %install
-make install INSTALL_ROOT=%{buildroot}
+make install INSTALL_ROOT=%{buildroot} -C %{name}_qt5
+make install INSTALL_ROOT=%{buildroot} -C %{name}_qt6
+# Removing additional unneeded files
+rm %{buildroot}%{_libdir}/libsignon-qt5.a
+rm %{buildroot}%{_libdir}/libsignon-qt6.a
 
 # create/own libdir/extensions
 mkdir -p %{buildroot}%{_libdir}/extensions/
-
-
-%check
-time \
-make check ||:
-
-
-%ldconfig_scriptlets
 
 %files
 ## fixme: common/shared _docdir/signon content below gets in the way
@@ -114,6 +121,7 @@ make check ||:
 %{_libdir}/libsignon-plugins-common.so.1*
 %{_libdir}/libsignon-plugins.so.1*
 %{_libdir}/libsignon-qt5.so.1*
+%{_libdir}/libsignon-qt6.so.1*
 %{_libdir}/signon/
 %{_datadir}/dbus-1/services/*.service
 
@@ -121,17 +129,22 @@ make check ||:
 %{_includedir}/signon-extension/
 %{_includedir}/signon-plugins/
 %{_includedir}/signon-qt5/
+%{_includedir}/signon-qt6/
 %{_includedir}/signond/
 %{_libdir}/cmake/SignOnQt5/
+%{_libdir}/cmake/SignOnQt6/
 %{_libdir}/libsignon-extension.so
 %{_libdir}/libsignon-plugins-common.so
 %{_libdir}/libsignon-plugins.so
 %{_libdir}/libsignon-qt5.so
+%{_libdir}/libsignon-qt6.so
 %{_libdir}/pkgconfig/SignOnExtension.pc
 %{_libdir}/pkgconfig/libsignon-qt5.pc
+%{_libdir}/pkgconfig/libsignon-qt6.pc
 %{_libdir}/pkgconfig/signon-plugins-common.pc
 %{_libdir}/pkgconfig/signon-plugins.pc
 %{_libdir}/pkgconfig/signond.pc
+
 
 %files doc
 %{_docdir}/signon/
@@ -141,6 +154,9 @@ make check ||:
 
 
 %changelog
+* Tue Nov 21 2023 Steve Cossette <farchord@gmail.com> - 8.60^20231015.171500.011bd15-1
+- Qt6 Build
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.60-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

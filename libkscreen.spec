@@ -1,7 +1,7 @@
 Name:    libkscreen
 Summary: KDE display configuration library
 Version: 5.27.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -33,9 +33,6 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtwayland-devel
 BuildRequires:  cmake(Qt6WaylandClient)
-
-# Renamed from libkscreen-qt5
-Obsoletes:      libkscreen-qt5 < %{version}-%{release}
 
 %description
 LibKScreen is a library that provides access to current configuration
@@ -82,6 +79,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/KF6Screen.pc
 
 %changelog
+* Tue Nov 28 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
+- Don't obsolete libkscreen-qt5 now that it can co-exist
+
 * Sat Nov 11 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - Renamed from libkscreen-qt5
 - 5.27.80

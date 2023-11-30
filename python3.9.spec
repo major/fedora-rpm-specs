@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -378,6 +378,10 @@ Patch353: 00353-architecture-names-upstream-downstream.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00407 # 17dbfc39d1118a479e7ea244ad46fb6eeeb38280
+# gh-99086: Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
+Patch407: 00407-gh-99086-fix-implicit-int-compiler-warning-in-configure-check-for-pthread_scope_system.patch
 
 # (New patches go here ^^^)
 #
@@ -1805,6 +1809,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Nov 23 2023 Miro Hrončok <mhroncok@redhat.com> - 3.9.18-2
+- Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
+- Resolves: rhbz#2147519
+
 * Mon Aug 28 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.18-1
 - Update to 3.9.18
 

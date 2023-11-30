@@ -1,6 +1,6 @@
 Name:           discount
 Version:        2.2.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A command-line utility for converting Markdown files into HTML
 License:        BSD
 URL:            http://www.pell.portland.or.us/~orc/Code/%{name}
@@ -41,10 +41,10 @@ libmarkdown.
 %prep
 %setup -q
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 
 
 %build
@@ -62,16 +62,16 @@ CFLAGS='%{optflags}' ./configure.sh \
 
 
 %install
-%make_install DESTDIR=%{buildroot}
+%make_install install.man install.samples DESTDIR=%{buildroot}
 install -D -m 644 libmarkdown.pc %{buildroot}%{_libdir}/pkgconfig/
 cp -pav libmarkdown.pc %{buildroot}%{_libdir}/pkgconfig/
 # Rename sample programs (names are too generic) and matching man1 pages
-install -D -m 755 makepage %{buildroot}%{_bindir}/discount-makepage
-install -D -m 755 mkd2html %{buildroot}%{_bindir}/discount-mkd2html
-install -D -m 755 theme %{buildroot}%{_bindir}/discount-theme
-install -D -m 644 makepage.1 %{buildroot}%{_mandir}/man1/discount-makepage.1
-install -D -m 644 mkd2html.1 %{buildroot}%{_mandir}/man1/discount-mkd2html.1
-install -D -m 644 theme.1 %{buildroot}%{_mandir}/man1/discount-theme.1
+mv %{buildroot}%{_bindir}/makepage %{buildroot}%{_bindir}/discount-makepage
+mv %{buildroot}%{_bindir}/mkd2html %{buildroot}%{_bindir}/discount-mkd2html
+mv %{buildroot}%{_bindir}/theme %{buildroot}%{_bindir}/discount-theme
+mv %{buildroot}%{_mandir}/man1/makepage.1 %{buildroot}%{_mandir}/man1/discount-makepage.1
+mv %{buildroot}%{_mandir}/man1/mkd2html.1 %{buildroot}%{_mandir}/man1/discount-mkd2html.1
+mv %{buildroot}%{_mandir}/man1/theme.1 %{buildroot}%{_mandir}/man1/discount-theme.1
 
 %ldconfig_scriptlets -n libmarkdown
 
@@ -88,6 +88,11 @@ done
 %{_bindir}/discount-mkd2html
 %{_bindir}/discount-theme
 %{_mandir}/man1/discount-*.1*
+%{_mandir}/man1/markdown.1.gz
+%{_mandir}/man3/markdown.3.gz
+%{_mandir}/man3/mkd*
+%{_mandir}/man7/markdown.7.gz
+%{_mandir}/man7/mkd-extensions.7.gz
 
 
 %files -n libmarkdown
@@ -102,6 +107,10 @@ done
 
 
 %changelog
+* Tue Nov 28 2023 Greg Hellings <greg.hellings@gmail.com> - 2.2.7-6
+- Use upstream manpage install command
+- Rename man pages whose names are bad
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

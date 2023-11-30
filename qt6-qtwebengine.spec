@@ -48,8 +48,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.6.0
-Release: 2%{?dist}
+Version: 6.6.1
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -671,6 +671,9 @@ done
 
 
 %changelog
+* Tue Nov 28 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
+- 6.6.1
+
 * Fri Oct 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.0-2
 - Move v8_context_snapshot file to correct subpackage
 

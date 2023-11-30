@@ -3,7 +3,7 @@
 
 Name:       python-%{srcname}
 Version:    1.6.1
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    Pure-Python implementation of AES block-cipher and common modes of operation
 License:    MIT
 

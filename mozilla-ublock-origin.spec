@@ -6,7 +6,7 @@
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
 Name:           mozilla-ublock-origin
-Version:        1.53.0
+Version:        1.54.0
 Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
@@ -110,6 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Tue Nov 28 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.54.0-1
+- update to 1.54.0 (#2251068)
+
 * Tue Nov 21 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.53.0-1
 - update to 1.53.0 (#2247578)
 

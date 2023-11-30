@@ -1,7 +1,7 @@
 %global module	redisearch
 Name:		RediSearch
 Version:	1.2.2
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Full-text search over Redis
 
 %global disable_tests 0
@@ -11,6 +11,7 @@ URL:		https://goodformcode.com/
 Source0:	https://github.com/GoodFORM/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch1:		fix-tests-linkage.patch
+Patch2:		fix-py3-compat.patch
 
 # "RediSearch is developed and tested on Linux and Mac OS, on x86_64 CPUs." from docs/index.md
 ExclusiveArch:  x86_64
@@ -35,8 +36,7 @@ and numeric filtering for text queries, that are not possible or
 efficient with traditional Redis search approaches.
 
 %prep
-%setup -q
-%patch1 -p1
+%autosetup -p1
 
 %build
 make %{?_smp_mflags} LD="cc" LDFLAGS="%{?__global_ldflags}"
@@ -57,6 +57,9 @@ install -pDm755 src/%{module}.so %{buildroot}%{redis_modules_dir}/%{module}.so
 %{redis_modules_dir}/%{module}.so
 
 %changelog
+* Tue Nov 28 2023 Nathan Scott <nathans@redhat.com> - 1.2.2-11
+- Fix build with latest Redis python modules (BZ #2114518)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

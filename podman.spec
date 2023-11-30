@@ -31,6 +31,10 @@
 %define build_with_btrfs 1
 %endif
 
+%if %{defined copr_username}
+%define copr_build 1
+%endif
+
 %global container_base_path github.com/containers
 %global container_base_url https://%{container_base_path}
 
@@ -48,7 +52,7 @@
 %global import_path_plugins %{container_base_path}/%{repo_plugins}
 
 Name: podman
-%if %{defined copr_username}
+%if %{defined copr_build}
 Epoch: 102
 %else
 Epoch: 5
@@ -59,7 +63,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 4.8.0~rc1
+Version: 4.8.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -105,7 +109,11 @@ BuildRequires: python3
 Requires: catatonit
 Requires: conmon >= 2:2.1.7-2
 Requires: containers-common-extra
+%if %{defined rhel} && !%{defined eln}
+Recommends: gvisor-tap-vsock-gvforwarder
+%else
 Requires: gvisor-tap-vsock-gvforwarder
+%endif
 Recommends: gvisor-tap-vsock
 Provides: %{name}-quadlet
 Obsoletes: %{name}-quadlet <= 5:4.4.0-1
@@ -203,6 +211,14 @@ when `%{_bindir}/%{name}sh` is set as a login shell or set as os.Args[0].
 %autosetup -Sgit -n %{name}-%{version_no_tilde}
 sed -i 's;@@PODMAN@@\;$(BINDIR);@@PODMAN@@\;%{_bindir};' Makefile
 
+# These changes are only meant for copr builds
+%if %{defined copr_build}
+# podman --version should show short sha
+sed -i "s/^const RawVersion = .*/const RawVersion = \"##VERSION##-##SHORT_SHA##\"/" version/rawversion/version.go
+# use ParseTolerant to allow short sha in version
+sed -i "s/^var Version.*/var Version, err = semver.ParseTolerant(rawversion.RawVersion)/" version/version.go
+%endif
+
 # untar dnsname
 tar zxf %{SOURCE1}
 
@@ -218,6 +234,8 @@ CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-an
 %ifarch x86_64
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"
 %endif
+
+export GOPROXY=direct
 
 LDFLAGS="-X %{ld_libpod}/define.buildInfo=$(date +%s) \
          -X %{ld_libpod}/config._installPrefix=%{_prefix} \

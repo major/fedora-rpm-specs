@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
 Version:        3.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 License:        LGPLv2+
@@ -19,11 +19,15 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  xml-security-c-devel
 BuildRequires:  xsd
+BuildRequires:  zlib-devel
 # Provide xxd
 BuildRequires:  vim-common
 
 # Dynamically loaded libraries
 Requires:       opensc%{?_isa}
+
+Provides: bundled(minizip)
+
 
 %description
 Libdigidocpp library offers creating, signing and verification of digitally
@@ -116,6 +120,9 @@ rm -rf doc/sample_files.zip
 
 
 %changelog
+* Tue Nov 28 2023 Germano Massullo <germano.massullo@gmail.com> - 3.16.0-3
+- adds BuildRequires: zlib-devel and Provides: bundled(minizip)
+
 * Thu Nov 16 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 3.16.0-2
 - 3.16.0 remove minizip-compat dependency
 

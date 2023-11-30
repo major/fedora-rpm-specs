@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit b1374e9fc76c7f53d634a5f16d2cffaec6347824
+%global commit 048e9da4ddef5829bef5141a48b5ad083c17c361
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.5
+Version: 40.6
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,19 @@ exit 0
 %endif
 
 %changelog
+* Tue Nov 28 2023 Zdenek Pytela <zpytela@redhat.com> - 40.6-1
+- Add afterburn to modules-targeted-contrib.conf
+- Update cifs interfaces to include fs_search_auto_mountpoints()
+- Allow sudodomain read var auth files
+- Allow spamd_update_t read hardware state information
+- Allow virtnetworkd domain transition on tc command execution
+- Allow sendmail MTA connect to sendmail LDA
+- Allow auditd read all domains process state
+- Allow rsync read network sysctls
+- Add dhcpcd bpf capability to run bpf programs
+- Dontaudit systemd-hwdb dac_override capability
+- Allow systemd-sleep create efivarfs files
+
 * Tue Nov 14 2023 Zdenek Pytela <zpytela@redhat.com> - 40.5-1
 - Allow map xserver_tmpfs_t files when xserver_clients_write_xshm is on
 - Allow graphical applications work in Wayland

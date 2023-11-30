@@ -8,8 +8,8 @@
 Summary:	Point Data Abstraction Library
 Name:		PDAL
 # NOTE: Re-verifiy test exclusions in %%check when updating
-Version:	2.6.0
-Release:	5%{?dist}
+Version:	2.6.1
+Release:	1%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
 # - vendor/arbiter/*, plugins/nitf/io/nitflib.h and plugins/oci/io/OciWrapper.* are Expat/MIT
@@ -51,6 +51,9 @@ Patch4:         PDAL_pdalcpp.patch
 
 # Fix perms
 Patch5:         PDAL_perms.patch
+
+# Fix build against recent libxml2
+Patch6:         PDAL_libxml.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake
@@ -241,6 +244,9 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 2.6.1-1
+- Update to 2.6.1
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 2.6.0-5
 - Rebuild (gdal)
 

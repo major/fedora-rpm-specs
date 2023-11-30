@@ -1,10 +1,11 @@
 Name:           perl-IO-Tty
 Version:        1.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
 URL:            https://metacpan.org/release/IO-Tty
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Tty-%{version}.tar.gz
+Patch0: perl-IO-Tty-c99.patch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -37,7 +38,7 @@ BuildRequires:  perl(Test::More)
 IO::Tty and IO::Pty provide an interface to pseudo tty's.
 
 %prep
-%setup -q -n IO-Tty-%{version}
+%autosetup -p1 -n IO-Tty-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -60,6 +61,9 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Tue Nov 28 2023 Florian Weimer <fweimer@redhat.com> - 1.17-5
+- Backport upstream patch to fix C99 compatibility issue
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

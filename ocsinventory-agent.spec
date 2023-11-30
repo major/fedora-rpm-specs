@@ -22,7 +22,7 @@ Name:      ocsinventory-agent
 Summary:   Open Computer and Software Inventory Next Generation client
 
 Version:   2.10.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 
 Source0:   https://github.com/OCSInventory-NG/UnixAgent/releases/download/v%{official_version}/Ocsinventory-Unix-Agent-%{official_version}.tar.gz
 
@@ -67,7 +67,7 @@ Requires:  dmidecode
 Requires:  libx86
 %endif
 
-Requires:  %{_sysconfdir}/logrotate.d
+Requires:  logrotate
 
 Obsoletes: ocsinventory-client < %{version}
 Provides:  ocsinventory-client = %{version}-%{release}
@@ -308,6 +308,9 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 
 
 %changelog
+* Tue Nov 28 2023 Pat Riehecky <riehecky@fnal.gov> - 2.10.0-4
+- Fix requires for logrotate
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

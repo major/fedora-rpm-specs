@@ -8,6 +8,15 @@ License:        MIT AND PSF-2.0
 URL:            https://github.com/python-cffi/cffi
 Source:         %{url}/archive/v%{version}/cffi-%{version}.tar.gz
 
+# Use PyErr_FormatUnraisable() on Python 3.13+
+# The private _PyErr_WriteUnraisableMsg() function was removed.
+# Merged upstream.
+Patch:          https://github.com/python-cffi/cffi/commit/49127c6929.patch
+
+# Update unraisable tests to use sys.unraisablehook (for Python 3.13+ compatibility)
+# From https://github.com/python-cffi/cffi/pull/24 -- proposed upstream.
+Patch:          https://github.com/python-cffi/cffi/commit/364621f848.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  make

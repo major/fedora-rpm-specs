@@ -10,8 +10,8 @@
 #Dolphin uses gitsnapshots for its versions.
 #See upstream release notes for this snapshot:
 #https://dolphin-emu.org/download/dev/$commit
-%global commit 032c77b462a220016f23c5079e71bb23e0ad2adf
-%global snapnumber 19870
+%global commit dc0814ae4622313d513468bdc377ee9c031de199
+%global snapnumber 20347
 #We should try to use beta whenever possible
 %global branch beta
 
@@ -22,7 +22,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -42,9 +42,6 @@ License:        GPLv2+ and BSD and MIT and zlib
 Source0:        https://github.com/%{name}/dolphin/archive/%{commit}/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
 Source4:        https://github.com/epezent/implot/archive/refs/tags/v0.16.tar.gz#/implot-0.16.tar.gz
-
-#Fix for newer Linux Kernels (not sure when it started):
-Patch0:         https://github.com/dolphin-emu/dolphin/pull/12218/commits/c284580bb0f0c27c4ec1ea16104895ba82533efc.patch
 
 #Quick and dirty way to get it building with fmt 10, but it breaks logging:
 %if 0%{?fedora} > 38
@@ -98,6 +95,7 @@ BuildRequires:  libXi-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libzstd-devel >= 1.4.0
 BuildRequires:  lzo-devel
+BuildRequires:  lz4-devel >= 1.8
 BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  minizip-ng-devel >= 3.0.0
@@ -287,6 +285,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Mon Nov 27 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.19870-1
+- Update to 5.0-20347
+
 * Sun Nov 05 2023 Sérgio Basto <sergio@serjux.com> - 5.0.19870-5
 - Rebuild for SFML-2.6.1
 

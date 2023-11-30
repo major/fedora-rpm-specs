@@ -106,9 +106,9 @@ This package contains documentation files for %{name}.
 
 %if 0%{?with_guile}
 %package -n guile-%{name}
-%{!?guile_pkgconf: %global guile_pkgconf %(pkg-config --list-all | grep guile%{?guile_ver:-%{guile_ver}} | sed -e 's! .*$!!g')}
-%{!?guile_sitedir: %global guile_sitedir %(pkg-config --variable=sitedir %{guile_pkgconf})}
-%{!?guile_extdir:  %global guile_extdir  %(pkg-config --variable=extensiondir %{guile_pkgconf})}
+%{!?guile_pkgconf: %global guile_pkgconf %(%___build_pre; pkg-config --list-all | grep guile%{?guile_ver:-%{guile_ver}} | sed -e 's! .*$!!g')}
+%{!?guile_sitedir: %global guile_sitedir %(%___build_pre; pkg-config --variable=sitedir %{guile_pkgconf})}
+%{!?guile_extdir:  %global guile_extdir  %(%___build_pre; pkg-config --variable=extensiondir %{guile_pkgconf})}
 
 Summary:           Guile bindings for %{name}
 
@@ -198,6 +198,7 @@ done
   -DNLOPT_TESTS=ON                          \
   -DBUILD_SHARED_LIBS=ON                    \
   -DPYTHON_EXECUTABLE=%{__python3}          \
+  -DINSTALL_PYTHON_DIR=%{python3_sitearch}  \
   -DINSTALL_M_DIR=%{octpkgdir}              \
   -DINSTALL_OCT_DIR=%{octpkglibdir}
 %cmake3_build

@@ -4,14 +4,14 @@
 %global srcname Vulkan-Headers
 
 Name:          mingw-%{pkgname}
-Version:       1.3.261.1
+Version:       1.3.268.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       Apache-2.0
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{srcname}
-Source0:       https://github.com/KhronosGroup/%{srcname}/archive/sdk-%{version}/%{srcname}-%{version}.tar.gz
+Source0:       https://github.com/KhronosGroup/%{srcname}/archive/vulkan-sdk-%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: cmake
@@ -42,7 +42,7 @@ MinGW Windows %{pkgname}.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-sdk-%{version}
+%autosetup -p1 -n %{srcname}-vulkan-sdk-%{version}
 
 
 %build
@@ -70,6 +70,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 1.3.268.0-1
+- Update to 1.3.268.0
+
 * Tue Sep 12 2023 Sandro Mani <manisandro@gmail.com> - 1.3.261.1-1
 - Update to 1.3.261.1
 

@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 124%{?dist}
+Release: 125%{?dist}
 
 License: LGPL-2.0-only
 Url: http://www.kde.org/
@@ -174,6 +174,8 @@ Patch304: kdelibs-3.5.10-configure.patch
 # autoconf 2.7x
 Patch305: kde3-autoconf-version.patch
 Patch306: kdelibs3-c99.patch
+# Fix compilation with libxml2 2.12.0
+Patch307: kdelibs-3.5.10-libxml2-2_12_0.patch
 
 Requires: ca-certificates
 Requires: hicolor-icon-theme
@@ -374,6 +376,7 @@ This package includes tools kgrantpty and kpac_dhcp_helper.
 %patch304 -p1 -b .configure
 %patch305 -p1 -b .autoconf2.7x
 %patch306 -p1
+%patch -P307 -p1 -b .libxml2_2_12_0
 
 make -f admin/Makefile.common cvs
 
@@ -715,6 +718,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Tue Nov 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.51.10-125
+- Fix build with libxml2 2.12.0
+
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 3.5.10-124
 - Rebuild for jasper 4.1
 

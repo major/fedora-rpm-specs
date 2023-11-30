@@ -11,7 +11,7 @@
 Name:           python-ezdxf
 Version:        1.1.3
 Release:        %autorelease
-Summary:        Create/manipulate DXF drawings
+Summary:        Python package to create/manipulate DXF drawings
 
 # The entire source is MIT, except:
 #
@@ -90,11 +90,15 @@ BuildRequires:  /usr/bin/rsvg-convert
 %endif
 
 %global common_description %{expand:
-This Python package is for creating and modifying DXF documents, regardless of
-the DXF version. The package supports loading and rewriting DXF file without
-losing any content except comments. Unknown DXF tags in the document are
-ignored but kept for rewriting. This behavior allows processing DXF documents
-that contain data from third-party applications without loosing information.}
+This Python package is designed to facilitate the creation and manipulation of
+DXF documents, with compatibility across various DXF versions. It empowers
+users to seamlessly load and edit DXF files while preserving all content,
+except for comments.
+
+Any unfamiliar DXF tags encountered in the document are gracefully ignored but
+retained for future modifications. This feature enables the processing of DXF
+documents containing data from third-party applications without any loss of
+valuable information.}
 
 %description %{common_description}
 
@@ -147,11 +151,11 @@ BuildArch:      noarch
 echo "latex_engine = 'xelatex'" >> docs/source/conf.py
 rm docs/graphics/dimtad-dimjust.pdf
 
-# Fix files with CRNL newlines and, in some cases, UTF-16LE encoding:
-dos2unix --keepdate \
-    examples/copydxf.py \
-    examples_dxf/text.dxf \
-    examples_dxf/text_negative_extrusion.dxf
+# Fix a Python source file with CRLF newlines. Upstream doesn’t want to worry
+# about standardizing this. Don’t modify dxf files even though they are a
+# text-based file format; see the PR “Convert examples/copydxf.py from CRLF to
+# LF lines” and discussion at https://github.com/mozman/ezdxf/pull/975.
+dos2unix --keepdate examples/copydxf.py
 
 # qtviewer.py is not executable and is not script-like (no main routine or
 # useful side effects), so it does not need a shebang

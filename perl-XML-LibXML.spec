@@ -8,7 +8,7 @@ Name:           perl-XML-LibXML
 # it might not be needed anymore
 # this module is maintained, the other is not
 Version:        2.0209
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Perl interface to the libxml2 library
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
@@ -19,6 +19,11 @@ Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/XML-LibXML-%{v
 Patch0:         XML-LibXML-2.0202-Parse-an-ampersand-entity-in-SAX-interface.patch
 # To reduce dependencies replace Alien::Libxml2 with pkg-config
 Patch1:         XML-LibXML-2.0208-Use-pkgconfig-instead-of-Alien-Libxml2.patch
+# Fix callback prototypes, in upstream after 2.0209, bug #2251181
+Patch2:         XML-LibXML-2.0209-libxml-mm-Fix-function-prototypes-in-function-pointe.patch
+# Adjust external entity callback to libxml2-2.12.0, proposed to the upstream,
+# bug #2251181, <https://github.com/shlomif/perl-XML-LibXML/issues/82>
+Patch3:         XML-LibXML-2.0209-Fix-copying-external-entity-from-an-ext_ent_handler-.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  glibc-common
@@ -120,9 +125,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n XML-LibXML-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n XML-LibXML-%{version}
 chmod -x *.c
 for i in Changes; do
   /usr/bin/iconv -f iso8859-1 -t utf-8 $i > $i.conv && /bin/mv -f $i.conv $i
@@ -191,6 +194,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 28 2023 Petr Pisar <ppisar@redhat.com> - 1:2.0209-3
+- Restore compatibility with libxml-2.12.0 (bug #2251181)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0209-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

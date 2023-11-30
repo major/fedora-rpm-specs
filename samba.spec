@@ -121,9 +121,12 @@
 #endif fedora || rhel >= 8
 %endif
 
-# Build the ctdb-pcp-pmda package by default on Fedora
+# Build the ctdb-pcp-pmda package by default on Fedora, except for i686 where
+# pcp is no longer supported
 %if 0%{?fedora}
+%ifnarch i686
 %bcond_without pcp_pmda
+%endif
 %else
 %bcond_with pcp_pmda
 %endif
@@ -144,7 +147,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.3
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -4468,6 +4471,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 28 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.3-2
+- Disable performance co-pilot support for i686
+
 * Mon Nov 27 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.3-1
 - resolves: #2251766 - Update to version 4.19.3
 

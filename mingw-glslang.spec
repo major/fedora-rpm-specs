@@ -4,14 +4,14 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.3.261.1
+Version:       1.3.268.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
-License:       BSD and GPLv3+ and ASL 2.0
+License:       BSD-3-clause AND GPL-3.0-or-later AND Apache-2.0
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{pkgname}
-Source0:       %url/archive/sdk-%{version}/%{pkgname}-sdk-%{version}.tar.gz
+Source0:       %url/archive/vulkan-sdk-%{version}/%{pkgname}-vulkan-sdk-%{version}.tar.gz
 # Remove debug suffix for mingw builds
 Patch0:        glslang_debug-suffix.patch
 # Add missing cstdint include
@@ -51,11 +51,11 @@ MinGW Windows %{pkgname} library.
 
 
 %prep
-%autosetup -p1 -n %{pkgname}-sdk-%{version}
+%autosetup -p1 -n %{pkgname}-vulkan-sdk-%{version}
 
 
 %build
-%mingw_cmake -DBUILD_SHARED_LIBS=OFF
+%mingw_cmake -DBUILD_SHARED_LIBS=OFF -DENABLE_OPT=OFF
 %mingw_make_build
 
 
@@ -101,6 +101,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.268.0-1
+- Update to 1.3.268.0
+
 * Tue Sep 12 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.261.1-1
 - Update to 1.3.261.1
 

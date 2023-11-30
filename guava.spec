@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           guava
-Version:        31.1
-Release:        8%{?dist}
+Version:        32.1.3
+Release:        1%{?dist}
 Summary:        Google Core Libraries for Java
 # Most of the code is under ASL 2.0
 # Few classes are under CC0, grep for creativecommons
@@ -65,7 +65,12 @@ find . -name '*.jar' -delete
 # javadoc generation fails due to strict doclint in JDK 1.8.0_45
 %pom_remove_plugin -r :maven-javadoc-plugin
 
+%pom_remove_plugin -r :build-helper-maven-plugin
+
 %pom_xpath_inject /pom:project/pom:build/pom:plugins/pom:plugin/pom:configuration/pom:instructions "<_nouses>true</_nouses>" guava/pom.xml
+
+# missing error_prone_core artifact
+%pom_xpath_remove pom:annotationProcessorPaths
 
 %pom_remove_dep -r :error_prone_annotations
 %pom_remove_dep -r :j2objc-annotations
@@ -92,11 +97,14 @@ find . -name '*.jar' -delete
 
 %files -f .mfiles-guava
 %doc CONTRIBUTORS README*
-%license COPYING
+%license LICENSE
 
 %files testlib -f .mfiles-guava-testlib
 
 %changelog
+* Tue Nov 21 2023 Marian Koncek <mkoncek@redhat.com> - 32.1.3-1
+- Update to upstream version 32.1.3
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-8
 - Rebuild to regenerate auto-Requires on java
 

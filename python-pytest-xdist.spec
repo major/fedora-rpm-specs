@@ -1,7 +1,7 @@
 %global pypi_name pytest-xdist
 
 Name:           python-%{pypi_name}
-Version:        3.4.0
+Version:        3.5.0
 Release:        1%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
@@ -54,6 +54,9 @@ Summary:        %{summary}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Wed Nov 29 2023 Scott Talbert <swt@techie.net> - 3.5.0-1
+- Update to new upstream release 3.5.0 (#2250980)
+
 * Sat Nov 18 2023 Scott Talbert <swt@techie.net> - 3.4.0-1
 - Update to new upstream release 3.4.0 (#2249319)
 

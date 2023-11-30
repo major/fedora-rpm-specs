@@ -1,11 +1,19 @@
 Name:           dnsmap
-Version:        0.30
-Release:        26%{?dist}
+Version:        0.36
+Release:        1%{?dist}
 Summary:        Sub-domains bruteforcer
+License:        GPL-2.0-or-later
+URL:            https://github.com/resurrecting-open-source-projects/dnsmap
+# was URL:      http://code.google.com/p/dnsmap/
 
-License:        GPLv2+
-URL:            http://code.google.com/p/dnsmap/
-Source0:        http://dnsmap.googlecode.com/files/dnsmap-%{version}.tar.gz
+%global         gituser         resurrecting-open-source-projects
+%global         gitname         dnsmap
+%global         gitdate         20210226
+%global         commit          2e3c23390a47cdf897367737db80f593475ed2a1
+%global         shortcommit     %(c=%{commit}; echo ${c:0:7})
+
+Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Was Source0:  http://dnsmap.googlecode.com/files/dnsmap-%%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires: make
@@ -15,20 +23,28 @@ It can use a built-in list or an external dictionary file and
 saves output to TXT/CSV format.
 
 %prep
-%autosetup
+%autosetup -p 1
+autoreconf -v -i
 
 %build
-make %{?_smp_mflags} CFLAGS="%{optflags}"
+%configure
+%make_build
 
 %install
-make install DESTDIR=%{buildroot} BINDIR="%{_bindir}"
+%make_install
 
 %files
-%doc Changelog.txt CREDITS.txt README.txt TODO.txt use_cases.txt
-%license gpl-2.0.txt
+%doc doc ChangeLog README.md TODO
+%license COPYING
 %{_bindir}/dnsmap*
+%{_mandir}/man1/dnsmap-bulk.1*
+%{_mandir}/man1/dnsmap.1*
 
 %changelog
+* Tue Nov 28 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.36-1
+- switch over to the ressurected project on github
+- bump to release 0.36
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,10 +1,12 @@
 %global	pkg		w3m
 %global	pkgname		Emacs-w3m
-%global	archivedate	20180618cvs
+%global ver		1.4.632
+%global	snap		e3b87d61
+
 
 Name:			emacs-common-%{pkg}
-Version:		1.4.631
-Release:		0.14.%{archivedate}%{?dist}
+Version:		%{ver}~0.%{snap}
+Release:		1%{?dist}
 Summary:		W3m interface for Emacsen
 
 # GPLv3+ bookmark-w3m.el
@@ -20,7 +22,7 @@ URL:			http://emacs-w3m.namazu.org/
 # 4. cd emacs-w3m
 # 5. autoconf
 # 6. make dist
-Source0:		emacs-w3m-%{version}.tar.gz
+Source0:		emacs-w3m-%{ver}.tar.gz
 Source1:		w3m-init.el
 
 BuildArch:		noarch
@@ -78,7 +80,7 @@ XEmacs.
 
 
 %prep
-%setup -q -n emacs-w3m-%{version}
+%setup -q -n emacs-w3m-%{ver}
 
 
 %build
@@ -143,6 +145,10 @@ rm -rf $RPM_BUILD_ROOT%{_xemacs_sitelispdir}/%{pkg}/{ChangeLog,ChangeLog.1,sChan
 %endif
 
 %changelog
+* Tue Nov 28 2023 Akira TAGOH <tagoh@redhat.com> - 1.4.632~0.e3b87d61-1
+- Rebase to 1.4.632 in git.
+  Resolves: rhbz#2249352
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.631-0.14.20180618cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

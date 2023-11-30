@@ -44,6 +44,7 @@ Source2:    gpl-3.0.txt
 Patch0:     0001-Make-option-to-disable-VST3-support-consistent.patch
 # https://github.com/Ardour/ardour/pull/841
 Patch1:     0001-Fix-failure-to-build-with-libxml2-version-2.12.patch
+Patch2:     ardour8-c99.patch
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.

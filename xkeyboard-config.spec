@@ -7,8 +7,8 @@
 Summary:    X Keyboard Extension configuration data
 Name:       xkeyboard-config
 Version:    2.40
-Release:    1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
-License:    MIT
+Release:    2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+License:    HPND AND HPND-sell-variant AND X11 AND X11-distribute-modifications-variant AND MIT AND MIT-open-group AND xkeyboard-config-Zinoviev
 URL:        http://www.freedesktop.org/wiki/Software/XKeyboardConfig
 
 %if 0%{?gitdate}
@@ -78,6 +78,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Wed Nov 29 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.40-2
+- SPDX migration
+
 * Fri Oct 13 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.40-1
 - xkeyboard-config 2.40
 

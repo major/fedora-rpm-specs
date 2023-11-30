@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.7
-%global specversion 2.rc1
+%global specversion 3.rc2
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit d0ef74d6431339f2f5782ab9061fa31734f4869c
+%global commit 7534cc50aefbf3c161c7ed258daa1019a94d5079
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -216,9 +216,6 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz/%{nagios_archive_github_url}
 Source2:       pacemaker.sysusers
 # upstream commits
-
-Patch0:        0001-Fix-libcrmcommon-Drop-deprecated-libxml2-symbols.patch
-Patch1:        0002-Fix-libcrmcommon-Use-const-for-xmlCtxtGetLastError.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -851,6 +848,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Mon Nov 27 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.7-0.3.rc2
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.7-rc2,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.7-rc2
+
 * Tue Nov 21 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.7-0.2.rc1
 - Fix build with libxml-2.12.0
 

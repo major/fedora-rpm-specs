@@ -62,7 +62,12 @@ BuildRequires: pkgconfig(x11) pkgconfig(xproto)
 %if 0%{?qt5_qtwebengine_arches:1}
 %ifarch %{?qt5_qtwebengine_arches}
 %global qwebengine 1
+%if 0%{?fedora} >= 38
+BuildRequires: cmake(KF5Akonadi)
+BuildRequires: cmake(KF5Contacts)
+%else
 BuildRequires: cmake(KF5AkonadiContact)
+%endif
 BuildRequires: pkgconfig(Qt5WebEngine)
 %else
 BuildRequires: pkgconfig(Qt5WebKit)

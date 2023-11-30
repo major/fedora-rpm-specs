@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-295-g5d7f1bce7d
+%global glibcsrcdir glibc-2.38.9000-304-g9469261cf1
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 25
+%global baserelease 26
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,8 +230,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-benchtests-aarch64.patch
-Patch25: glibc-rh2248502.patch
+Patch24: glibc-rh2248502.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2202,6 +2201,20 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Nov 28 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-26
+- Drop glibc-benchtests-aarch64.patch; fix applied upstream, and
+- Auto-sync with upstream branch master,
+  commit 9469261cf1924d350feeec64d2c80cafbbdcdd4d:
+- x86: Only align destination to 1x VEC_SIZE in memset 4x loop
+- elf: Fix TLS modid reuse generation assignment (BZ 29039)
+- Add TCP_MD5SIG_FLAG_IFINDEX from Linux 5.6 to netinet/tcp.h.
+- elf: Relocate libc.so early during startup and dlmopen (bug 31083)
+- elf: Introduce the _dl_open_relocate_one_object function
+- elf: In _dl_relocate_object, skip processing if object is relocated
+- Remove __access_noerrno
+- malloc: Use __get_nprocs on arena_get2 (BZ 30945)
+- aarch64: Fix libmvec benchmarks
+
 * Mon Nov 27 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-25
 - Fix qsort workaround (#2248502)
 

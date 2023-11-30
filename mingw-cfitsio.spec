@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
-Version:       4.3.0
+Version:       4.3.1
 Release:       1%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
@@ -108,6 +108,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/Funpack.exe
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 4.3.1-1
+- Update to 4.3.1
+
 * Tue Aug 29 2023 Sandro Mani <manisandro@gmail.com> - 4.3.0-1
 - Update to 4.3.0
 

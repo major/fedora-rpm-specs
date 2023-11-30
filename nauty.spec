@@ -1,6 +1,6 @@
 Name:           nauty
-Version:        2.8.6
-Release:        5%{?dist}
+Version:        2.8.8
+Release:        1%{?dist}
 Summary:        Graph canonical labeling and automorphism group computation
 
 %global nautytarver %(tr . _ <<< %{version})
@@ -39,9 +39,6 @@ Patch9:         %{name}-uninitialized.patch
 Patch10:        %{name}-fall-off.patch
 # Mark functions as noreturn to improve compiler diagnostics
 Patch11:        %{name}-noreturn.patch
-# Fix gentreeg bug
-# https://github.com/sagemath/sage/issues/35157
-Patch12:        %{name}-gentreeg.patch
 
 BuildRequires:  cliquer-devel
 BuildRequires:  gcc
@@ -95,6 +92,9 @@ This package contains files needed to develop programs that use libnauty.
 # Remove the pregenerated makefile
 rm -f makefile
 
+# Avoid obsolescence warnings
+sed -i 's/egrep/grep -E/' configure.ac
+
 # Regenerate the configure script with libtool support
 autoreconf -fi
 
@@ -135,6 +135,7 @@ rm %{buildroot}%{_bindir}/nauty-pickg
 ln -s nauty-countg %{buildroot}%{_bindir}/nauty-pickg
 
 %check
+chmod a+x runalltests
 LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 
 %files
@@ -146,7 +147,7 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 
 %files -n libnauty
 %doc changes24-28.txt formats.txt
-%license COPYRIGHT
+%license COPYRIGHT LICENSE-2.0.txt
 %{_libdir}/libnauty*.so.2*
 
 %files -n libnauty-devel
@@ -156,6 +157,10 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 28 2023 Jerry James <loganjerry@gmail.com> - 2.8.8-1
+- Version 2.8.8
+- Drop upstreamed gentreeg patch
+
 * Sat Sep 30 2023 Jerry James <loganjerry@gmail.com> - 2.8.6-5
 - Add patch to fix gentreeg bug (bz 2241471)
 

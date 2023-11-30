@@ -3,10 +3,13 @@ Version:        0.8.0
 Release:        %autorelease
 Summary:        Unit converter
 License:        GPL-2.0-or-later
-URL:            https://convertall.bellz.org/
-Source0:        https://github.com/doug-101/ConvertAll/releases/download/v%{version}/convertall-%{version}.tar.gz
+URL:            https://bellz.org/ConvertAll-py/
+Source:         https://github.com/doug-101/ConvertAll-py/releases/download/v%{version}/convertall-%{version}.tar.gz
 # use XDG_CONFIG_HOME
-Patch0:         xdg-config.patch
+Patch:          xdg-config.patch
+# upstream patches post 0.8.0
+Patch:          0001-tweak-unit-data-formulas-to-work-better-with-dart-fl.patch
+Patch:          0003-added-units-teenth-Bohr-radius-kip-dunam-MGD-MLD-mm-.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -55,8 +58,8 @@ cat > %{buildroot}%{_metainfodir}/%{name}.appdata.xml <<EOF
   <name>ConvertAll</name>
   <developer_name>Doug Bell</developer_name>
   <summary>A flexible unit converter</summary>
-  <url type="homepage">https://convertall.bellz.org/</url>
-  <url type="bugtracker">https://github.com/doug-101/ConvertAll/issues</url>
+  <url type="homepage">https://bellz.org/ConvertAll-py/</url>
+  <url type="bugtracker">https://github.com/doug-101/ConvertAll-py/issues</url>
   <content_rating type="oars-1.0" />
   <description>
     <p>With ConvertAll, you can combine the units any way you want. If you want to convert from inches 
@@ -65,7 +68,7 @@ cat > %{buildroot}%{_metainfodir}/%{name}.appdata.xml <<EOF
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://convertall.bellz.org/convertall.png</image>
+      <image>https://bellz.org/ConvertAll-py/convertall.png</image>
     </screenshot>
   </screenshots>
   <launchable type="desktop-id">convertall.desktop</launchable>
@@ -74,10 +77,6 @@ cat > %{buildroot}%{_metainfodir}/%{name}.appdata.xml <<EOF
   </releases>
 </component>
 EOF
-
-appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
-
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # unwanted files
 find %{buildroot}%{_docdir}/%{name} -delete
@@ -90,6 +89,8 @@ rm -f %{buildroot}%{_datadir}/%{name}/translations/{*.ts,qt_*.qm}
 %check
 %{python3} source/convertall.py -q mile^2/hr acre/s
 # 1.0 mile^2 / hr = 0.17777778 acre / s
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %files -f %{name}.lang

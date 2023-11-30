@@ -1,20 +1,16 @@
+%bcond kf6_compat %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+
 %global base_name    libkscreen
 
 Name:    libkscreen-qt5
 Summary: KDE display configuration library
 Version: 5.27.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{base_name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf5}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 Patch1:  libkscreen-5.6.4-rhel-nowayland.patch
 
@@ -45,6 +41,11 @@ Requires:       kf5-filesystem
 Provides:       kf5-kscreen%{?_isa} = %{version}-%{release}
 Provides:       kf5-kscreen = %{version}-%{release}
 Obsoletes:      kf5-kscreen <= 1:5.2.0
+
+%if %{with kf6_compat}
+# Install the KF6 service
+Requires:       libkscreen
+%endif
 
 
 %description
@@ -81,21 +82,29 @@ developing applications that use %{name}.
 
 %find_lang_kf5 libkscreen5_qt
 
-%ldconfig_scriptlets
+%if %{with kf6_compat}
+rm -rf %{buildroot}%{_datadir}/dbus-1/
+rm -rf %{buildroot}%{_userunitdir}/
+rm -rf %{buildroot}%{_kf5_bindir}/
+rm -rf %{buildroot}%{_kf5_libexecdir}/
+rm -rf %{buildroot}%{_kf5_datadir}/zsh
+%endif
 
 %files -f libkscreen5_qt.lang
 %license LICENSES/*
-%{_kf5_bindir}/kscreen-doctor
-%{_kf5_libexecdir}/kscreen_backend_launcher
 %{_kf5_libdir}/libKF5Screen.so.5.*
 %{_kf5_libdir}/libKF5Screen.so.8*
 %{_kf5_libdir}/libKF5ScreenDpms.so.5.*
 %{_kf5_libdir}/libKF5ScreenDpms.so.8*
 %{_kf5_plugindir}/kscreen/
-%{_datadir}/dbus-1/services/org.kde.kscreen.service
 %{_kf5_datadir}/qlogging-categories5/libkscreen.categories
+%if %{without kf6_compat}
+%{_kf5_bindir}/kscreen-doctor
+%{_kf5_libexecdir}/kscreen_backend_launcher
+%{_datadir}/dbus-1/services/org.kde.kscreen.service
 %{_kf5_datadir}/zsh/site-functions/_kscreen-doctor
 %{_userunitdir}/plasma-kscreen.service
+%endif
 
 %files devel
 %{_kf5_includedir}/KScreen/
@@ -107,6 +116,9 @@ developing applications that use %{name}.
 %{_kf5_archdatadir}/mkspecs/modules/qt_KScreen.pri
 
 %changelog
+* Tue Nov 28 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.9-2
+- Allow co-existing with KF6 libkscreen
+
 * Tue Oct 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.9-1
 - 5.27.9
 

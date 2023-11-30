@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -365,6 +365,10 @@ Patch251: 00251-change-user-install-location.patch
 # Python/importlib_external.h to this patch but it'd make rebasing
 # a nightmare because it's basically a binary file.
 Patch353: 00353-architecture-names-upstream-downstream.patch
+
+# 00407 # 17dbfc39d1118a479e7ea244ad46fb6eeeb38280
+# gh-99086: Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
+Patch407: 00407-gh-99086-fix-implicit-int-compiler-warning-in-configure-check-for-pthread_scope_system.patch
 
 # (New patches go here ^^^)
 #
@@ -1706,6 +1710,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Nov 23 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.18-2
+- Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
+- Resolves: rhbz#2147519
+
 * Mon Aug 28 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.8.18-1
 - Update to 3.8.18
 

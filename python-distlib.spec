@@ -10,10 +10,14 @@ License:    Python
 URL:        https://readthedocs.org/projects/distlib/
 Source0:    %pypi_source %{srcname} %{version}
 
+# Handle deprecation removals in Python 3.13
+Patch:      https://github.com/pypa/distlib/commit/e27569b02d.patch
+
 BuildArch:  noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-test
 BuildRequires:  pyproject-rpm-macros
 
 %description

@@ -1,6 +1,6 @@
 Name:       kst
 Version:    2.0.8
-Release:    46%{?dist}
+Release:    47%{?dist}
 Summary:    A data viewing program
 
 License:    GPL-3.0-only
@@ -173,6 +173,9 @@ rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
 #%{_datadir}/services/kst/kstdata_dirfilesource.desktop
 
 %changelog
+* Tue Nov 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.0.8-47
+- cfitsio rebuild
+
 * Tue Oct 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.0.8-46
 - cfitsio rebuild
 

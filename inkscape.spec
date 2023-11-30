@@ -22,7 +22,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:10})
 
 Name:           inkscape
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Vector-based drawing program using SVG
 
@@ -30,8 +30,8 @@ License:        GPL-2.0-or-later AND CC-BY-3.0
 URL:            https://inkscape.org/
 Source0:        https://media.inkscape.org/dl/resources/file/inkscape-%{version}.tar.xz
 
-# The signatures were uploaded by the responsible release manager, and includes release date and commit
-Source1:        https://media.inkscape.org/media/resources/sigs/inkscape-%{version}_%{inkscape_date}_%{shortcommit}.tar.xz.sig#/inkscape-%{version}.tar.xz.sig
+# The signatures were uploaded by the responsible release manager, and includes release date and commit, not using macros because it's inconsistent.
+Source1:        https://media.inkscape.org/media/resources/sigs/inkscape-1.3.2_2023-11-25_091e20ef0f.tar.xz.sig
 
 # Keyring(s)
 Source10:       https://inkscape.org/~MarcJeanmougin/gpg/#/MarcJeanmougin.gpg
@@ -179,7 +179,7 @@ graphics in W3C standard Scalable Vector Graphics (SVG) file format.
 %prep
 %{gpgverify} --keyring='%{SOURCE10}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
-%autosetup -n inkscape-%{version}_%{inkscape_date}_%{shortcommit} -p1
+%autosetup -n inkscape-1.3.2_2023-11-25_091e20ef0f -p1
 %py3_shebang_fix .
 
 # https://bugs.launchpad.net/inkscape/+bug/314381

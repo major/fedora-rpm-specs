@@ -16,7 +16,7 @@
 
 Name:          qpid-dispatch
 Version:       1.19.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Dispatch router for Qpid
 License:       ASL 2.0
 URL:           http://qpid.apache.org/
@@ -31,6 +31,7 @@ Source2:       qpid-dispatch-console-%{version}.tar.gz
 
 Patch1:        dispatch.patch
 Patch2:        qpid-dispatch-1.19.0.patch
+Patch3:        qpid-dispatch-1.19.0-1.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -151,6 +152,7 @@ Requires: python3-qpid-proton >= %{proton_minimum_version}
 %setup -q
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 mkdir pre_built
 cd pre_built
@@ -196,6 +198,9 @@ rm -fr %{buildroot}/%{_includedir}/qpid/dispatch
 
 
 %changelog
+* Tue Nov 28 2023 Irina Boverman <iboverma@redhat.com> - 1.19.0-7
+- Added patch to resolve bz 2245601
+
 * Mon Jul 31 2023 Irina Boverman <iboverma@redhat.com> - 1.19.0-6
 - Added patch to resolve bz 2226386
 

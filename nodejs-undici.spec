@@ -6,7 +6,7 @@
 
 Name:       nodejs-%{npm_name}
 Summary:    An HTTP/1.1 client, written from scratch for Node.js
-Version:    5.27.2
+Version:    5.28.1
 Release:    %autorelease
 
 License:    MIT

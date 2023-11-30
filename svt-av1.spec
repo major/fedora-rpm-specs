@@ -10,14 +10,15 @@ Version:        1.4.1
 Release:        %autorelease
 Summary:        Scalable Video Technology for AV1 Encoder
 
-# Main library: BSD-3
+# Main library: BSD-3-Clause-Clear and AOMPL
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/383
 # Source/Lib/Common/Codec/EbHmCode.c: BSD
 # Source/App/EncApp/EbAppString.*
 # Source/Lib/Common/Codec/EbString.*
-# Source/Lib/Common/Codec/vector.*: MIT
+# Source/Lib/Encoder/Codec/vector.*: MIT
 # Source/Lib/Common/ASM_SSE2/x86inc.asm: ISC
 # Source/App/DecApp/EbMD5Utility.*: PublicDomain
-License:        BSD-3-Clause and MIT and ISC and Public Domain
+License:        LicenseRef-BSD-3-Clause-Clear-WITH-AdditionRef-AOMPL-1.0 AND MIT AND ISC AND LicenseRef-Fedora-Public-Domain
 URL:            https://gitlab.com/AOMediaCodec/SVT-AV1
 Source0:        %url/-/archive/v%{version}/%{name}-%{version}.tar.bz2
 

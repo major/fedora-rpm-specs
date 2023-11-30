@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 41%{?dist}
+Release: 42%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -238,6 +238,9 @@ Patch74: kdelibs-4.14.38-jasper3.patch
 
 # error: 'uintmax_t' does not name a type
 Patch75: kdelibs-4.14.38-stdint.patch
+
+# Fix compilation with libxml2 2.12.0
+Patch76: kdelibs-4.14.38-libxml2-2_12_0.patch
 
 ## upstream
 ## security fixes from the 4.14 branch:
@@ -543,6 +546,7 @@ sed -i -e "s|@@VERSION_RELEASE@@|%{version}-%{release}|" kio/kio/kprotocolmanage
 %patch74 -p1 -b .jasper3
 %endif
 %patch75 -p1 -b .stdint
+%patch -P76 -p1 -b .xml2
 
 # upstream patches
 %patch100 -p1 -b .CVE-2019-14744
@@ -905,6 +909,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Tue Nov 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6:4.14.38-42
+- Fix build with libxml2 2.12.0
+
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 6:4.14.38-41
 - Rebuild for jasper 4.1
 

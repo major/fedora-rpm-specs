@@ -5,14 +5,14 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.3.261.1
+Version:       1.3.268.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       MIT
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{srcname}
-Source0:       %url/archive/sdk-%{version}/%{srcname}-sdk-%{version}.tar.gz
+Source0:       %url/archive/vulkan-sdk-%{version}/%{srcname}-vulkan-sdk-%{version}.tar.gz
 
 BuildRequires: cmake
 
@@ -43,7 +43,7 @@ MinGW Windows %{pkgname}.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-sdk-%{version}
+%autosetup -p1 -n %{srcname}-vulkan-sdk-%{version}
 
 
 %build
@@ -68,6 +68,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.268.0-1
+- Update to 1.3.268.0
+
 * Tue Sep 12 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.261.1-1
 - Update to 1.3.261.1
 

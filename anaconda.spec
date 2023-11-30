@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.10
+Version: 40.11
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -16,12 +16,13 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # match the requires versions of things).
 
 %if ! 0%{?rhel}
+%bcond_without glade
 %bcond_without live
 %define blivetguiver 2.4.2-3
 %else
+%bcond_with glade
 %bcond_with live
 %endif
-%define cockpitver 275
 %define dasbusver 1.3
 %define dbusver 1.2.3
 %define dnfver 3.6.0
@@ -29,7 +30,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define fcoeutilsver 1.0.12-3.20100323git
 %define gettextver 0.19.8
 %define gtk3ver 3.22.17
-%define helpver 26.2-1
 %define isomd5sumver 1.0.10
 %define langtablever 0.0.60
 %define libarchivever 3.0.4
@@ -55,7 +55,9 @@ BuildRequires: gtk-doc
 BuildRequires: gtk3-devel-docs >= %{gtk3ver}
 BuildRequires: glib2-doc
 BuildRequires: gobject-introspection-devel
+%if %{with glade}
 BuildRequires: glade-devel
+%endif
 BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
@@ -212,7 +214,6 @@ Recommends: kdump-anaconda-addon
 Requires: btrfs-progs
 Requires: ntfs-3g
 Requires: ntfsprogs
-Requires: jfsutils
 Requires: f2fs-tools
 %endif
 Requires: xfsprogs
@@ -267,20 +268,6 @@ The anaconda-install-img-deps metapackage lists all boot.iso installation
 image dependencies. Add this package to an image build (eg. with lorax) to
 ensure all Anaconda capabilities are supported in the resulting image.
 
-%package webui
-Summary: Cockpit based user interface for the Anaconda installer
-# ours + what npm brings in and we vendor
-License: GPL-2.0-or-later AND MIT AND 0BSD
-Requires: cockpit-bridge >= %{cockpitver}
-Requires: cockpit-ws >= %{cockpitver}
-# Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
-# it can often fall back to a diferent browser. This does not work in the limited installer
-# environment, so we need to make sure Firefox is available.
-Requires: firefox
-
-%description webui
-This package contains Cockpit based user interface for the Anaconda installer.
-
 %package gui
 Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
@@ -295,8 +282,6 @@ Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
 %endif
-Requires: anaconda-user-help >= %{helpver}
-Requires: yelp
 %if ! 0%{?rhel}
 Requires: blivet-gui-runtime >= %{blivetguiver}
 %endif
@@ -326,7 +311,9 @@ installer.
 
 %package widgets-devel
 Summary: Development files for anaconda-widgets
+%if %{with glade}
 Requires: glade
+%endif
 Requires: %{name}-widgets%{?_isa} = %{version}-%{release}
 
 %description widgets-devel
@@ -352,7 +339,7 @@ runtime on NFS/HTTP/FTP servers or local disks.
 
 %build
 # use actual build-time release number, not tarball creation time release number
-%configure ANACONDA_RELEASE=%{release}
+%configure ANACONDA_RELEASE=%{release} %{!?with_glade:--disable-glade}
 %{__make} %{?_smp_mflags}
 
 %install
@@ -401,7 +388,6 @@ rm -rf \
 %license COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
-%{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_bindir}/anaconda-nm-disable-autocons
 %{_sbindir}/anaconda
@@ -441,30 +427,6 @@ rm -rf \
 
 %endif
 
-%files webui
-%dir %{_datadir}/cockpit/anaconda-webui
-%{_datadir}/cockpit/anaconda-webui/logo.svg
-%{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
-%{_datadir}/cockpit/anaconda-webui/index.css.LEGAL.txt
-%{_datadir}/cockpit/anaconda-webui/index.html
-%{_datadir}/cockpit/anaconda-webui/index.js.gz
-%{_datadir}/cockpit/anaconda-webui/index.js.map
-%{_datadir}/cockpit/anaconda-webui/index.css.gz
-%{_datadir}/cockpit/anaconda-webui/index.css.map
-%{_datadir}/cockpit/anaconda-webui/manifest.json
-%{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
-%{_datadir}/cockpit/anaconda-webui/po.*.js.gz
-%dir %{_datadir}/anaconda/firefox-theme
-%dir %{_datadir}/anaconda/firefox-theme/default
-%dir %{_datadir}/anaconda/firefox-theme/default/chrome
-%{_datadir}/anaconda/firefox-theme/default/user.js
-%{_datadir}/anaconda/firefox-theme/default/chrome/userChrome.css
-%dir %{_datadir}/anaconda/firefox-theme/live
-%dir %{_datadir}/anaconda/firefox-theme/live/chrome
-%{_datadir}/anaconda/firefox-theme/live/user.js
-%{_datadir}/anaconda/firefox-theme/live/chrome/userChrome.css
-%{_libexecdir}/webui-desktop
-
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*
 %{_datadir}/anaconda/pixmaps
@@ -488,10 +450,12 @@ rm -rf \
 %{python3_sitearch}/gi/overrides/*
 
 %files widgets-devel
-%{_libdir}/libAnacondaWidgets.so
-%{_libdir}/glade/modules/libAnacondaWidgets.so
 %{_includedir}/*
+%{_libdir}/libAnacondaWidgets.so
+%if %{with glade}
+%{_libdir}/glade/modules/libAnacondaWidgets.so
 %{_datadir}/glade/catalogs/AnacondaWidgets.xml
+%endif
 %{_datadir}/gtk-doc
 
 %files dracut
@@ -500,6 +464,61 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 22 2023 Packit <hello@packit.dev> - 40.11-1
+- Remove all support of the built-in help system (vponcova)
+- Make possible to start TUI with installed WebUI (akankovs)
+- workflows: Drop COCKPITUOUS_TOKEN from trigger-webui.yml (kkoukiou)
+- Use 'os.uname().machine' to get machine architecture instead of 'uname -i'
+  (kkoukiou)
+- docs: Describe l10n CI changes for new Fedoras (vslavik)
+- docs: Describe caveats for inst.sdboot and live (vslavik)
+- docs: Mention efibootmgr with the invalid byte bug (vslavik)
+- logging: split image package list message into 8K chunks (rvykydal)
+- webui: pixel tests reference update (account on review screen) (rvykydal)
+- webui: add account information to review screen (rvykydal)
+- Update translations from Weblate for master (github-actions)
+- Remove instperf (mkolman)
+- webui: update pixel test images (rvykydal)
+- webui: fix password strength indicator layout in horizontal form (rvykydal)
+- webui: update end2end tests for the new users screen (rvykydal)
+- webui: create required user when reaching a test step by default (rvykydal)
+- webui: allow to create user more easily for reaching a step in test
+  (rvykydal)
+- webui: add users screen to tests for sidebar navigation (rvykydal)
+- webui: add simple test for users screen (rvykydal)
+- webui: hide user screen on live images (rvykydal)
+- webui: make created user administarator by default (rvykydal)
+- webui: apply the created user to the backend (rvykydal)
+- webui: make partitioning reset on going back more robust (rvykydal)
+- webui: keep the state of Create Account UI (rvykydal)
+- webui: add simplest user name check to Create Accounts (rvykydal)
+- webui: share length password rule between users and disk encryption
+  (rvykydal)
+- webui: use password form component for Create Account screen (rvykydal)
+- webui: add a simple Create Account screen (rvykydal)
+- webui: move pasword form component into a separate file (rvykydal)
+- webui: move also password strength logic into pw form component (rvykydal)
+- webui: use dynamic rules in password form component (rvykydal)
+- spec: Remove dependency on jfsutils (vtrefny)
+- widgets: disable glade in RHEL builds (yselkowi)
+- Adjust test_mount_filesystems to the latest blivet changes (vtrefny)
+- webui: package.json: bump patternfly dependencies (kkoukiou)
+- webui: package.json: update some eslint packages (kkoukiou)
+- webui: package.json: use exact versions of all package dependencies
+  (kkoukiou)
+- webui: don't repeat code in the src/apis/ (kkoukiou)
+- webui: split src/apis/storage.js into multiple files (kkoukiou)
+- webui: tests: expect reboot when killing the webui-desktop script (kkoukiou)
+- webui: when rebooting the machine the dbus clients close and throw error
+  messages (kkoukiou)
+- webui: tests: Robustify JS error modal pixel test (kkoukiou)
+- webui: bump Cockpit version of testlib (kkoukiou)
+- webui: pixel-tests: wait for animations for finish before taking screenshots
+  (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- Add new substitution members in dnf tests (vslavik)
+- webui: Conditional enable networking hint (akankovs)
+
 * Tue Oct 24 2023 Packit <hello@packit.dev> - 40.10-1
 - Update translations from Weblate for master (github-actions)
 - webui: use global password policy in DiskEncryption (rvykydal)

@@ -1,6 +1,6 @@
 Name:     lldpd
 Version:  1.0.16
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 
 License:  ISC
@@ -10,6 +10,7 @@ Source1:  %{name}-fedora.service
 Source2:  %{name}-tmpfiles
 Source3:  %{name}-fedora.sysconfig
 Source4:  %{name}-systemd-sysusers.conf
+Patch1:   lldpd-configure-c99.patch
 
 BuildRequires: check-devel
 BuildRequires: gcc
@@ -113,6 +114,9 @@ exit 0
 
 
 %changelog
+* Tue Nov 28 2023 Florian Weimer <fweimer@redhat.com> - 1.0.16-4
+- Reapply C99 compatibility fix
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

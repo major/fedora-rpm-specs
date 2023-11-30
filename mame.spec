@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 260
+%global baseversion 261
 
 %undefine _auto_set_build_flags
 
@@ -39,12 +39,6 @@ BuildRequires:  jack-audio-connection-kit
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXinerama-devel
-# https://sourceware.org/bugzilla/show_bug.cgi?id=30930
-%if 0%{?fedora} >= 40
-%ifarch aarch64
-BuildRequires:  lld
-%endif
-%endif
 BuildRequires:  lua-devel >= 5.3.0
 BuildRequires:  make
 BuildRequires:  portaudio-devel
@@ -250,11 +244,6 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
     SDL_INI_PATH="%{_sysconfdir}/%{name};" \
     TOOLS=1 \
     LDOPTS="$RPM_LD_FLAGS" \
-%if 0%{?fedora} >= 40
-%ifarch aarch64
-    LDOPTS+="-fuse-ld=lld" \
-%endif
-%endif
     OPT_FLAGS="$RPM_OPT_FLAGS"
 
 pushd docs

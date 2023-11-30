@@ -1,6 +1,8 @@
+%bcond_with bootstrap
+
 Name:           jaxb
-Version:        4.0.2
-Release:        3%{?dist}
+Version:        4.0.3
+Release:        1%{?dist}
 Summary:        JAXB Reference Implementation
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-ri
@@ -9,20 +11,29 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}-RI/%{name}-%{version}.tar.gz
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
+BuildRequires:  mvn(com.github.relaxng:relaxngDatatype)
+BuildRequires:  mvn(com.sun.istack:istack-commons-maven-plugin)
 BuildRequires:  mvn(com.sun.istack:istack-commons-runtime)
 BuildRequires:  mvn(com.sun.istack:istack-commons-tools)
 BuildRequires:  mvn(com.sun.xml.dtd-parser:dtd-parser)
 BuildRequires:  mvn(com.sun.xml.fastinfoset:FastInfoset)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
+BuildRequires:  mvn(net.java.dev.msv:xsdlib)
 BuildRequires:  mvn(org.apache.ant:ant)
+BuildRequires:  mvn(org.apache.ant:ant-junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.jvnet.staxex:stax-ex)
+%endif
 
 %description
 GlassFish JAXB Reference Implementation.
@@ -82,7 +93,7 @@ Summary:        TXW2 Runtime
 TXW is a library that allows you to write XML documents.
 
 %package xjc
-# jaxb-ri/xjc/src/main/java/com/sun/tools/xjc/reader/internalizer/NamespaceContextImpl.java is under ASL 2.0
+# jaxb-ri/xjc/src/main/java/com/sun/tools/xjc/reader/internalizer/NamespaceContextImpl.java is under Apache-2.0
 License:        BSD-3-Clause AND Apache-2.0
 Summary:        JAXB XJC
 
@@ -131,11 +142,22 @@ pushd jaxb-ri
 %mvn_package :jaxb-samples __noinstall
 %mvn_package :jaxb-txw-parent __noinstall
 %mvn_package :jaxb-www __noinstall
+
+%if %{with bootstrap}
+%pom_disable_module core
+%pom_disable_module codemodel-annotation-compiler codemodel
+%pom_disable_module runtime
+%pom_disable_module relaxng-datatype external
+%pom_disable_module rngom external
+%pom_disable_module xjc
+%pom_disable_module xsom
+%pom_disable_module txw
+%endif
 popd
 
 %build
 pushd jaxb-ri
-%mvn_build -s -f -j
+%mvn_build -s -f -j -- -Dproject.build.sourceEncoding=UTF-8
 popd
 
 %install
@@ -145,19 +167,25 @@ popd
 
 %files codemodel -f jaxb-ri/.mfiles-codemodel
 %license LICENSE.md NOTICE.md
+
+%if %{without bootstrap}
 %files codemodel-annotation-compiler -f jaxb-ri/.mfiles-codemodel-annotation-compiler
+%files core -f jaxb-ri/.mfiles-jaxb-core
 %files relaxng-datatype -f jaxb-ri/.mfiles-relaxng-datatype
 %license LICENSE.md NOTICE.md
 %files xsom -f jaxb-ri/.mfiles-xsom
-%files core -f jaxb-ri/.mfiles-jaxb-core
 %files rngom -f jaxb-ri/.mfiles-rngom
-%files runtime -f jaxb-ri/.mfiles-jaxb-runtime
 %files txw2 -f jaxb-ri/.mfiles-txw2
 %license LICENSE.md NOTICE.md
 %files txwc2 -f jaxb-ri/.mfiles-txwc2
+%files runtime -f jaxb-ri/.mfiles-jaxb-runtime
 %files xjc -f jaxb-ri/.mfiles-jaxb-xjc
+%endif
 
 %changelog
+* Mon Nov 27 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.3-1
+- Update to upstream version 4.0.3
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.2-3
 - Convert License tag to SPDX format
 

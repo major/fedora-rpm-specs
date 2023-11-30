@@ -6,7 +6,7 @@
 
 Name:		uim
 Version:	1.8.9
-Release:	5%{?dist}
+Release:	6%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
@@ -35,6 +35,7 @@ Source1:	xinput.d-uim
 Source2:	uim-init.el
 Patch1:		uim-emacs-utf8.patch
 Patch2:		uim-configure-c99.patch
+Patch3:		uim-fix-emacs29.patch
 
 
 Summary:	A multilingual input method library
@@ -496,6 +497,10 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Tue Nov 28 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.9-6
+- Fix symbol error on Emacs 29.
+  Resolves: rhbz#2251120
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

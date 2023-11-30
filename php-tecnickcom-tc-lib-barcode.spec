@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    976fd907d114c2d8874a99aef98942af63f6edab
+%global gh_commit    4a823cc16e80c7277e2681f1f14fc6c03bf37731
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.1.1
+Version:        2.1.2
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -113,7 +113,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" "php80 %{_bindir}/phpunit9" php81 php82 php83; do
+for cmdarg in "php %{phpunit}" php81 php82 php83; do
    if which $cmdarg; then
       set $cmdarg
       cp phpunit.xml.dist phpunit.xml
@@ -136,6 +136,9 @@ exit $ret
 
 
 %changelog
+* Tue Nov 28 2023 Remi Collet <remi@remirepo.net> - 2.1.2-1
+- update to 2.1.2 (no change)
+
 * Wed Nov 22 2023 Remi Collet <remi@remirepo.net> - 2.1.1-1
 - update to 2.1.1
 

@@ -51,7 +51,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          18.12.1
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.4
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.5
 License:          GPLv2
 URL:              http://www.asterisk.org/
 
@@ -94,6 +94,8 @@ Patch2:           asterisk-18.4.0-astmm_ignore_for_console_board.patch
 
 # Removed macros from ilbc library for RFC 3951 compatibility.
 Patch3:           asterisk-18.12.1-ilbc_macros.patch
+
+Patch4:           asterisk-configure-c99.patch
 
 # Asterisk now builds against a bundled copy of pjproject, as they apply some patches
 # directly to pjproject before the build against it
@@ -657,6 +659,8 @@ echo '*************************************************************************'
 %patch2 -p1
 
 %patch3 -p1
+
+%patch4 -p1
 
 cp %{S:3} menuselect.makedeps
 cp %{S:4} menuselect.makeopts
@@ -1685,6 +1689,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 28 2023 Florian Weimer <fweimer@redhat.com> - 18.12.1-1.5
+- Backport upstream patch to fix C compatibility issue
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.12.1-1.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

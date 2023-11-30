@@ -1,6 +1,6 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
-%global llvm_test_suite_version 17.0.5
+%global llvm_test_suite_version 17.0.6
 #global rc_ver 4
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:rc%{rc_ver}}.src.fedora
 
@@ -80,6 +80,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Tue Nov 28 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.6-1
+- Update to LLVM 17.0.6
+
 * Thu Nov 16 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.5-1
 - Update to LLVM 17.0.5
 

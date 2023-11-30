@@ -57,7 +57,7 @@ Version: 13.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1252,12 +1252,19 @@ fi
 %endif
 
 %changelog
+* Tue Nov 28 2023 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commits 1f0fab7ff86, aa19bc1d259, acc117b57f7,
+  aff250145af, and 3644f41dc80.  These commits reduce the size of the
+  generated gdb-index file, and also ensure that the gdb-index and
+  dwarf-5 index are generated consistently even as the number of
+  worker threads that GDB uses changes (RHBZ 2232086).
+
 * Thu Oct 19 2023 Alexandra Hájková <ahajkova@redhat.com>
 - Remove gdb-6.5-ia64-libunwind-leak-test.patch.
   The patch doesn't include any actual fixes, the architecture
   is end of life and the kernel is planning to drop IA64 support.
 
-* Wed Oct 11 2022 Guinevere Larsen <blarsen@redhat.com>
+* Wed Oct 11 2023 Guinevere Larsen <blarsen@redhat.com>
 - Remove gdb-rhbz1186476-internal-error-unqualified-name-re-set-test.patch
   as it was upstreamed back in 2010 with a different test name.
 

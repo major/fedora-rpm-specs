@@ -10,7 +10,7 @@
 
 Name:  anthy
 Version: 9100h
-Release: 51%{?dist}
+Release: 52%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.1-or-later AND GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:  http://sourceforge.jp/projects/anthy/
@@ -29,6 +29,7 @@ Patch10: %{name}-corpus.patch
 Patch11: %{name}-fix-elisp.patch
 Patch12: %{name}-aarch64.patch
 Patch13: %{name}-fix-segfault.patch
+Patch14: %{name}-fix-emacs29.patch
 
 Summary: Japanese character set input library
 Requires: emacs-filesystem >= %{_emacs_version}
@@ -177,6 +178,10 @@ popd
 
 
 %changelog
+* Tue Nov 28 2023 Akira TAGOH <tagoh@redhat.com> - 9100h-52
+- Fix symbol error on Emacs 29.
+  Resolves: rhbz#2251128
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9100h-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

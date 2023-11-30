@@ -2,7 +2,7 @@
 
 Name:		julius
 Version:	4.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Large vocabulary continuous speech recognition (LVCSR) decoder software
 License:	BSD-3-Clause AND MIT
 URL:		https://github.com/julius-speech/julius
@@ -25,6 +25,7 @@ Patch4:		187.patch
 Patch5:		julius-4.6-configure-fixup.patch
 # The viz code depends on GTK1 and we don't want it
 Patch6:		julius-4.6-noviz.patch
+Patch7:		julius-configure-c99.patch
 
 BuildRequires:	perl-generators
 BuildRequires:	perl(Jcode), alsa-lib-devel, libsndfile-devel, pulseaudio-libs-devel, zlib-devel, readline-devel
@@ -74,6 +75,7 @@ models (Phonetic tied-mixture triphone / monophone) for use with Julius.
 %patch -P4 -p1 -b .187
 %patch -P5 -p1 -b .fixup
 %patch -P6 -p1 -b .noviz
+%patch -P7 -p1 -b .c99
 
 # Fix end-of-line encoding
 sed -i 's/\r//' Release.txt
@@ -158,6 +160,9 @@ mv %{buildroot}%{_bindir}/jcontrol %{buildroot}%{_bindir}/julius-jcontrol
 %{_datadir}/julius/model/
 
 %changelog
+* Tue Nov 28 2023 Florian Weimer <fweimer@redhat.com> - 4.6-2
+- Fix C99 compatibility issue in configure script
+
 * Tue Oct  3 2023 Tom Callaway <spot@fedoraproject.org> - 4.6-1
 - update to 4.6
 

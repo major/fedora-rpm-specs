@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.50
+Version:   3.51
 Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
@@ -78,6 +78,9 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Tue Nov 28 2023 Brian C. Lane <bcl@redhat.com> - 3.51-1
+- Deprecate the nvdimm kickstart command (vponcova)
+
 * Fri Nov 10 2023 Brian C. Lane <bcl@redhat.com> - 3.50-1
 - Add Fedora 40 support (bcl)
 - remove control characters from license (cmdr)

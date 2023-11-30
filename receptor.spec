@@ -5,7 +5,7 @@
 
 # https://github.com/ansible/receptor
 %global goipath         github.com/ansible/receptor
-Version:                1.4.2
+Version:                1.4.3
 
 %gometa -f
 
@@ -104,7 +104,6 @@ License:        Apache-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 Source1:	vendor-%{version}.tar.gz
-Source2:        bundle_go_deps_for_rpm.sh
 Source3: 	receptor.service
 Source4: 	receptor@.service
 Source5: 	receptor.conf

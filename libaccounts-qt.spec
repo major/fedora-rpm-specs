@@ -1,16 +1,20 @@
 
-%global commit0 525ec684cfa8d234f797d7e49e21c476eea04d8e
+%global commit0 29fd38e02920b255f7ef080609e191ce0f1afbfc
+%global shortcommit %(c=%{commit0}; echo ${c:0:7})
+%global gitdate 20231010.211051
 %global tag0 VERSION_%{version}
 
 Name:           libaccounts-qt
 Summary:        Accounts framework Qt bindings
-Version:        1.16
-Release:        8%{?dist}
+Version:        1.16^%{gitdate}.%{shortcommit}
+Release:        1%{?dist}
 
 License:        LGPLv2
 URL:            https://gitlab.com/accounts-sso/libaccounts-qt
-
-Source0:        https://gitlab.com/accounts-sso/libaccounts-qt/repository/archive.tar.gz?ref=%{tag0}#/libaccounts-qt-%{version}.tar.gz
+# We're currently using this, as the main branch of libaccounts-qt does not work with plasma 6
+Source0:        https://gitlab.com/nicolasfella/libaccounts-qt/-/archive/%{commit0}/libaccounts-qt-%{commit0}.tar.gz
+# Main Branch
+# Source0:        https://gitlab.com/accounts-sso/libaccounts-qt/repository/archive.tar.gz?ref=%{tag0}#/libaccounts-qt-%{commit0}.tar.gz
 
 BuildRequires:  pkgconfig(libaccounts-glib) >= 1.23
 BuildRequires:  doxygen
@@ -40,6 +44,20 @@ Requires:       libaccounts-qt5%{?_isa} = %{version}-%{release}
 %description    -n libaccounts-qt5-devel
 %{summary}.
 
+%package        -n libaccounts-qt6
+Summary:        Accounts framework Qt6 bindings
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  make
+BuildRequires:  cmake(Qt6Test)
+%description    -n libaccounts-qt6
+%{summary}.
+
+%package        -n libaccounts-qt6-devel
+Summary:        Development files for %{name}
+Requires:       libaccounts-qt6%{?_isa} = %{version}-%{release}
+%description    -n libaccounts-qt6-devel
+%{summary}.
+
 %package        doc
 Summary:        User and developer documentation for %{name}
 Obsoletes:      libaccounts-qt5-doc < 1.13-10
@@ -50,24 +68,33 @@ BuildArch:      noarch
 
 
 %prep
-%setup -q -n libaccounts-qt-%{tag0}-%{commit0}
+%setup -q -n libaccounts-qt-%{commit0}
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
+mkdir %{_target_platform}_qt5
+pushd %{_target_platform}_qt5
 %{qmake_qt5} \
     QMF_INSTALL_ROOT=%{_prefix} \
     CONFIG+=release \
     LIBDIR=%{_libdir} \
     ../accounts-qt.pro
 popd
+%make_build -C %{_target_platform}_qt5
 
-%make_build -C %{_target_platform}
-
+mkdir %{_target_platform}_qt6
+pushd %{_target_platform}_qt6
+%{qmake_qt6} \
+    QMF_INSTALL_ROOT=%{_prefix} \
+    CONFIG+=release \
+    LIBDIR=%{_libdir} \
+    ../accounts-qt.pro
+popd
+%make_build -C %{_target_platform}_qt6
 
 %install
-make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
+make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}_qt5
+make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}_qt6
 
 # create/own dirs
 mkdir -p %{buildroot}%{_datadir}/accounts/{providers,services}
@@ -78,9 +105,6 @@ rm -fv %{buildroot}%{_datadir}/doc/accounts-qt/html/installdox
 #remove tests for now
 rm -rfv %{buildroot}%{_datadir}/libaccounts-qt-tests
 rm -fv %{buildroot}%{_bindir}/accountstest
-
-
-%ldconfig_scriptlets -n libaccounts-qt5
 
 %files -n libaccounts-qt5
 %license COPYING
@@ -95,11 +119,28 @@ rm -fv %{buildroot}%{_bindir}/accountstest
 %{_libdir}/pkgconfig/accounts-qt5.pc
 %{_libdir}/cmake/AccountsQt5
 
+%files -n libaccounts-qt6
+%license COPYING
+%{_libdir}/libaccounts-qt6.so.*
+%dir %{_datadir}/accounts/
+%dir %{_datadir}/accounts/providers/
+%dir %{_datadir}/accounts/services/
+
+%files -n libaccounts-qt6-devel
+%{_libdir}/libaccounts-qt6.so
+%{_includedir}/accounts-qt6/
+%{_libdir}/pkgconfig/accounts-qt6.pc
+%{_libdir}/cmake/AccountsQt6
+
+
 %files doc
 %{_docdir}/accounts-qt/
 
 
 %changelog
+* Mon Nov 20 2023 Steve Cossette <farchord@gmail.com> - 1.16^20231010.211051.29fd38e-1
+- Qt6 Build
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

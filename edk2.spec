@@ -9,14 +9,14 @@
 ExclusiveArch: x86_64 aarch64 riscv64
 
 # edk2-stable202308
-%define GITDATE        20230825
-%define GITCOMMIT      819cfc6b42a6
+%define GITDATE        20231122
+%define GITCOMMIT      8736b8fdca85
 %define TOOLCHAIN      GCC
+
+%define PLATFORMS_COMMIT 10e2eb030de3
 
 %define OPENSSL_VER    3.0.7
 %define OPENSSL_COMMIT 3adb22b68e9fe61fc4863c2d2dc6cc6fc094b005
-
-%define PLATFORMS_COMMIT e509ac5a729e
 
 %define DBXDATE        20230509
 
@@ -112,13 +112,10 @@ Patch0013: 0013-UefiCpuPkg-MpInitLib-fix-apic-mode-for-cpu-hotplug.patch
 Patch0014: 0014-ArmPkg-Add-Pcd-to-disable-EFI_MEMORY_ATTRIBUTE_PROTO.patch
 Patch0015: 0015-CryptoPkg-CrtLib-add-stat.h.patch
 Patch0016: 0016-CryptoPkg-CrtLib-add-access-open-read-write-close-sy.patch
-Patch0017: 0017-OvmfPkg-IoMmuDxe-don-t-rely-on-TPLs-to-manage-concur.patch
-Patch0018: 0018-OvmfPkg-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
-Patch0019: 0019-OvmfPkg-AmdSev-Disable-PcdFirstTimeWakeUpAPsBySipi.patch
-Patch0020: 0020-OvmfPkg-AmdSev-fix-BdsPlatform.c-assertion-failure-d.patch
-Patch0021: 0021-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
-Patch0022: 0022-debug-add-logging-for-cpuid-topology.patch
-Patch0023: 0023-UefiCpuPkg-BaseXApicX2ApicLib-fix-CPUID_V2_EXTENDED_.patch
+Patch0017: 0017-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+Patch0018: 0018-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
+%endif
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -321,6 +318,9 @@ tar -xf %{SOURCE4} --strip-components=1 "*/Drivers" "*/Features" "*/Platform" "*
 tar -xf %{SOURCE5} --strip-components=1 --directory RedfishPkg/Library/JsonLib/jansson
 # include paths pointing to unused submodules
 mkdir -p MdePkg/Library/MipiSysTLib/mipisyst/library/include
+mkdir -p CryptoPkg/Library/MbedTlsLib/mbedtls/include
+mkdir -p CryptoPkg/Library/MbedTlsLib/mbedtls/include/mbedtls
+mkdir -p CryptoPkg/Library/MbedTlsLib/mbedtls/library
 
 # Done by %setup, but we do not use it for the auxiliary tarballs
 chmod -Rf a+rX,u+w,g-w,o-w .
@@ -388,6 +388,10 @@ virt-fw-vars --input   RHEL-9/ovmf/OVMF_VARS.fd \
              --output  RHEL-9/ovmf/OVMF_VARS.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
+virt-fw-vars --input   RHEL-9/ovmf/OVMF.inteltdx.fd \
+             --output  RHEL-9/ovmf/OVMF.inteltdx.secboot.fd \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
+             --enroll-redhat --secure-boot
 build_iso RHEL-9/ovmf
 cp DBXUpdate-%{DBXDATE}.x64.bin RHEL-9/ovmf
 
@@ -401,6 +405,10 @@ virt-fw-vars --input   Fedora/ovmf/OVMF_VARS.fd \
              --enroll-redhat --secure-boot
 virt-fw-vars --input   Fedora/ovmf/OVMF_VARS_4M.fd \
              --output  Fedora/ovmf/OVMF_VARS_4M.secboot.fd \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
+             --enroll-redhat --secure-boot
+virt-fw-vars --input   Fedora/ovmf/OVMF.inteltdx.fd \
+             --output  Fedora/ovmf/OVMF.inteltdx.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
 virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
@@ -624,6 +632,7 @@ done
 %{_datadir}/%{name}/ovmf/OVMF_VARS.secboot.fd
 %{_datadir}/%{name}/ovmf/OVMF.amdsev.fd
 %{_datadir}/%{name}/ovmf/OVMF.inteltdx.fd
+%{_datadir}/%{name}/ovmf/OVMF.inteltdx.secboot.fd
 %{_datadir}/%{name}/ovmf/UefiShell.iso
 %{_datadir}/%{name}/ovmf/Shell.efi
 %{_datadir}/%{name}/ovmf/EnrollDefaultKeys.efi

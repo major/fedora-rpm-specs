@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-libxml2
-Version:        2.12.0
+Version:        2.12.1
 Release:        1%{?dist}
 Summary:        MinGW Windows libxml2 XML processing library
 
@@ -135,6 +135,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 2.12.1-1
+- Update to 2.12.1
+
 * Tue Nov 21 2023 Sandro Mani <manisandro@gmail.com> - 2.12.0-1
 - Update to 2.12.0
 

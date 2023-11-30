@@ -13,6 +13,8 @@ Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
 Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2482.patch
 # Improve screenshot on Wayland
 Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2431.patch
+# Avoid unhandled exception (and thus crash report) when cancelling template copy
+Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2505.patch
 # Not needed for multilib
 ExcludeArch:    %{ix86}
 BuildArch:      noarch

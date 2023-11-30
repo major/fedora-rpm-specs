@@ -1,5 +1,5 @@
 Name:		tlpi
-Version:	230522
+Version:	231120
 Release:	%autorelease
 Summary:	Utilities to display namespaces and control groups
 
@@ -7,6 +7,7 @@ License:	GPL-3.0-or-later
 URL:		https://man7.org/tlpi/index.html
 Source:		https://man7.org/tlpi/code/download/tlpi-%version-dist.tar.gz
 Patch:		Makefile.patch
+Patch:		crypt.patch
 
 BuildRequires:	gcc-go
 BuildRequires:	libacl-devel

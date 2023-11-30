@@ -6,14 +6,14 @@
 %define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
 
 Name:          mingw-%{pkgname}
-Version:       1.3.261.1
+Version:       1.3.268.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       Apache-2.0
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{srcname}
-Source0:       https://github.com/KhronosGroup/%{srcname}/archive/sdk-%{version}/%{srcname}-%{version}.tar.gz
+Source0:       https://github.com/KhronosGroup/%{srcname}/archive/vulkan-sdk-%{version}/%{srcname}-%{version}.tar.gz
 
 # Omit def file, results in vulkan-1.dll.a containing non @-decorated symbols, while vulkan-1.dll contains @-decorated symbols
 # Fix include oder resulting in windows.h getting included before winsock2.h
@@ -54,7 +54,7 @@ MinGW Windows %{pkgname} library.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-sdk-%{version}
+%autosetup -p1 -n %{srcname}-vulkan-sdk-%{version}
 
 
 %build
@@ -71,6 +71,7 @@ MinGW Windows %{pkgname} library.
 %license LICENSE.txt
 %{mingw32_bindir}/vulkan-1.dll
 %{mingw32_libdir}/libvulkan-1.dll.a
+%{mingw32_libdir}/cmake/VulkanLoader/
 %{mingw32_libdir}/pkgconfig/vulkan.pc
 
 
@@ -79,10 +80,14 @@ MinGW Windows %{pkgname} library.
 %license LICENSE.txt
 %{mingw64_bindir}/vulkan-1.dll
 %{mingw64_libdir}/libvulkan-1.dll.a
+%{mingw64_libdir}/cmake/VulkanLoader/
 %{mingw64_libdir}/pkgconfig/vulkan.pc
 
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 1.3.268.0-1
+- Update to 1.3.268.0
+
 * Tue Sep 12 2023 Sandro Mani <manisandro@gmail.com> - 1.3.261.1-1
 - Update to 1.3.261.1
 
@@ -99,7 +104,7 @@ MinGW Windows %{pkgname} library.
 - Update to 1.3.243.0
 
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1.3.239.0-1
-- Update to sdk 1.3.239.0
+- Update to vulkan-sdk 1.3.239.0
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.231.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -87,7 +87,7 @@ export INPUTRC=$PWD/.inputrc
 
 %{__python3} ./tools/display-sighandlers.py
 %{__python3} ./tools/display-terminalinfo.py
-TRAVIS=true py.test-3 --verbose
+CI=true py.test-3 --verbose
 %endif
 
 %files -n python3-%{modname}
@@ -97,6 +97,9 @@ TRAVIS=true py.test-3 --verbose
 %{python3_sitelib}/%{modname}-*.egg-info
 
 %changelog
+* Wed Nov 29 2023 Scott Talbert <swt@techie.net> - 4.9.0-2
+- Fix tests when running in CI-like environments (#2251910)
+
 * Mon Nov 27 2023 Dan Radez <dradez@redhat.com> - 4.9.0-1
 - Update to new upstream release 4.9.0 (#2251454)
 

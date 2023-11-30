@@ -4,7 +4,7 @@
 %{!?_httpd_statedir: %global _httpd_statedir %{_localstatedir}/lib/httpd}
 
 Name:           mod_md
-Version:        2.4.24
+Version:        2.4.25
 Release:        1%{?dist}
 Summary:        Certificate provisioning using ACME for the Apache HTTP Server
 License:        Apache-2.0
@@ -59,6 +59,9 @@ echo "LoadModule md_module modules/mod_md.so" > %{buildroot}%{_httpd_modconfdir}
 %dir %{_httpd_statedir}/md
 
 %changelog
+* Tue Nov 28 2023 Joe Orton <jorton@redhat.com> - 1:2.4.25-1
+- update to 2.4.25
+
 * Mon Sep 11 2023 Luboš Uhliarik <luhliari@redhat.com> - 1:2.4.24-1
 - new version 2.4.24
 

@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    e4cd5d01209ca95c4795907bec3565013dcf3224
+%global gh_commit    c465d628808ee152c8a14fe012291d2e167b9ecc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.0.4
+Version:        2.0.5
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -86,7 +86,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in php "php80 %{_bindir}/phpunit9" php81 php82 php83; do
+for cmdarg in php php81 php82 php83; do
    if which $cmdarg; then
       set $cmdarg
       cp phpunit.xml.dist phpunit.xml
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Tue Nov 28 2023 Remi Collet <remi@remirepo.net> - 2.0.5-1
+- update to 2.0.5 (no change)
+
 * Wed Nov 22 2023 Remi Collet <remi@remirepo.net> - 2.0.4-1
 - update to 2.0.4
 - raise dependency on PHP 8
