@@ -12,6 +12,8 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+Patch:          Add-Python-3.13-to-cmake-config.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -79,7 +81,7 @@ This package contains Python libraries for %{name}
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake

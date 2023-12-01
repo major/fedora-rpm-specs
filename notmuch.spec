@@ -46,6 +46,9 @@ Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
 Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
 Patch1:         0001-test-allow-to-use-full-scan.patch
 Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
+# https://github.com/notmuch/notmuch/commit/4f82acce17ca51b03bea2abe3eefb7c3026138fe
+# Patch for testsuite for glibc-2.38.9000-20 qsort behavior change
+Patch3:         notmuch-4f82acc-qsort-stablize.patch
 
 BuildRequires:  make
 BuildRequires:  bash-completion

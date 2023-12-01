@@ -3,8 +3,8 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2023.10
-Release: 4%{?dist}
+Version: 2023.11
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
@@ -251,6 +251,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Wed Nov 29 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.11-1
+- https://github.com/coreos/rpm-ostree/releases/tag/v2023.11
+
 * Wed Nov 15 2023 Timothée Ravier <tim@siosm.fr> - 2023.10-4
 - Setup rpm-ostree-countme.timer according to presets
 

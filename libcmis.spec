@@ -8,6 +8,8 @@ Summary: A C/C++ client library for CM interfaces
 License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
 URL: https://github.com/tdf/libcmis
 Source: https://github.com/tdf/libcmis/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# https://github.com/tdf/libcmis/issues/51
+Patch:  libxmis-0.6.2-libxml2-2.12.0-includes.patch
 
 BuildRequires: boost-devel
 BuildRequires: gcc-c++

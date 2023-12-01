@@ -21,7 +21,7 @@ Patch0:         XML-LibXML-2.0202-Parse-an-ampersand-entity-in-SAX-interface.pat
 Patch1:         XML-LibXML-2.0208-Use-pkgconfig-instead-of-Alien-Libxml2.patch
 # Fix callback prototypes, in upstream after 2.0209, bug #2251181
 Patch2:         XML-LibXML-2.0209-libxml-mm-Fix-function-prototypes-in-function-pointe.patch
-# Adjust external entity callback to libxml2-2.12.0, proposed to the upstream,
+# Adjust external entity callback to libxml2-2.12.0, in upstream after 2.0209,
 # bug #2251181, <https://github.com/shlomif/perl-XML-LibXML/issues/82>
 Patch3:         XML-LibXML-2.0209-Fix-copying-external-entity-from-an-ext_ent_handler-.patch
 BuildRequires:  coreutils

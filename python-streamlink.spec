@@ -7,7 +7,7 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        6.3.1
+Version:        6.4.2
 Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
@@ -19,11 +19,12 @@ Source0:        %{pypi_source}
 Patch0:         %{name}-6.2.1-pycryptodomex.patch
 # - Drop development dependencies not available in Fedora or not usefull for tests
 # - Fix dependency versions
-Patch1:         %{name}-6.3.0-dependencies.patch
+Patch1:         %{name}-6.4.1-dependencies.patch
 # Fix documentation build
 Patch2:         %{name}-6.2.1-documentation.patch
 BuildRequires:  make
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist shtab}
 BuildArch:      noarch
 
 %description
@@ -122,6 +123,12 @@ install -Dm644 completions/zsh/_%{srcname} $RPM_BUILD_ROOT%{_datadir}/zsh/site-f
 
 
 %changelog
+* Wed Nov 29 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.4.2-1
+- Update to 6.4.2
+
+* Sat Nov 25 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.4.1-1
+- Update to 6.4.1
+
 * Sun Oct 29 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.3.1-1
 - Update to 6.3.1
 

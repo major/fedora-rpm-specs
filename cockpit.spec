@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        305
+Version:        306
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -84,6 +84,14 @@ Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{v
 %define disallow_root 0
 %else
 %define disallow_root 1
+%endif
+
+# pcp stopped building on ix86
+%define build_pcp 1
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%ifarch %ix86
+%define build_pcp 0
+%endif
 %endif
 
 # Ship custom SELinux policy (but not for cockpit-appstream)
@@ -124,15 +132,19 @@ BuildRequires: glib2-devel >= 2.50.0
 BuildRequires: systemd-devel >= 235
 %if 0%{?suse_version}
 BuildRequires: distribution-release
+%if %{build_pcp}
 BuildRequires: libpcp-devel
 BuildRequires: pcp-devel
 BuildRequires: libpcp3
 BuildRequires: libpcp_import1
+%endif
 BuildRequires: openssh
 BuildRequires: distribution-logos
 BuildRequires: wallpaper-branding
 %else
+%if %{build_pcp}
 BuildRequires: pcp-libs-devel
+%endif
 BuildRequires: openssh-clients
 BuildRequires: docbook-style-xsl
 %endif
@@ -199,6 +211,9 @@ BuildRequires:  python3-tox-current-env
 %if 0%{?build_basic} == 0
     --disable-ssh \
 %endif
+%if %{build_pcp} == 0
+    --disable-pcp \
+%endif
 
 %make_build
 
@@ -230,8 +245,10 @@ find %{buildroot}%{_datadir}/cockpit/ssh -type f >> base.list
 %endif
 echo '%{_libexecdir}/cockpit-ssh' >> base.list
 
+%if %{build_pcp}
 echo '%dir %{_datadir}/cockpit/pcp' > pcp.list
 find %{buildroot}%{_datadir}/cockpit/pcp -type f >> pcp.list
+%endif
 
 echo '%dir %{_datadir}/cockpit/shell' >> system.list
 find %{buildroot}%{_datadir}/cockpit/shell -type f >> system.list
@@ -424,7 +441,7 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@babel/runtime)) = 7.23.2
+Provides: bundled(npm(@babel/runtime)) = 7.23.4
 Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
 Provides: bundled(npm(@patternfly/react-core)) = 5.1.1
 Provides: bundled(npm(@patternfly/react-icons)) = 5.1.1
@@ -755,6 +772,8 @@ These files are not required for running Cockpit.
 %{_unitdir}/cockpit-session.socket
 %{_unitdir}/cockpit-session@.service
 
+%if %{build_pcp}
+
 %package -n cockpit-pcp
 Summary: Cockpit PCP integration
 Requires: cockpit-bridge >= %{required_base}
@@ -769,6 +788,8 @@ Cockpit support for reading PCP metrics and loading PCP archives.
 
 %post -n cockpit-pcp
 systemctl reload-or-try-restart pmlogger
+
+%endif
 
 %package -n cockpit-packagekit
 Summary: Cockpit user interface for packages
@@ -790,6 +811,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 29 2023 Packit <hello@packit.dev> - 306-1
+- Kdump: Add Ansible/shell automation
+
 * Wed Nov 15 2023 Packit <hello@packit.dev> - 305-1
 - Performance and stability improvements
 

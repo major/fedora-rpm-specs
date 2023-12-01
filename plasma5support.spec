@@ -1,7 +1,7 @@
 Name:    plasma5support
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
 Version: 5.27.80
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -69,6 +69,9 @@ Provides:       kf6-plasma5support-devel = 1:%{version}-%{release}
 %{_kf6_includedir}/plasma5support_version.h
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-3
+- Rebuild (qt6)
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
 - Add Obsoletes/Provides to the devel subpackage
 

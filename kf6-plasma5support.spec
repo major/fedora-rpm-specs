@@ -7,7 +7,7 @@
 Name:    kf6-%{framework}
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
 Version: %{cmakever}^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{framework}
@@ -69,5 +69,8 @@ Requires:       qt6-qtbase-devel
 %{_kf6_includedir}/plasma5support_version.h
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.240.0^20231011.222045.245b3dd-2
+- Rebuild (qt6)
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231011.222045.245b3dd-1
 - Initial release

@@ -25,7 +25,7 @@ License:        GPL-3.0-only
 URL:            %{gourl}
 Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
-Patch0:         8c19d5ac3d5731750c935e1e23e9f4add49bff48.patch
+Patch100:       8c19d5ac3d5731750c935e1e23e9f4add49bff48.patch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  meson
@@ -37,7 +37,7 @@ BuildRequires:  pkgconfig(dbus-1)
 
 %prep
 %goprep %{?rhel:-k}
-%autopatch -p1
+%autopatch -p1 %{?rhel:-M 99}
 
 %if %{undefined rhel}
 %generate_buildrequires

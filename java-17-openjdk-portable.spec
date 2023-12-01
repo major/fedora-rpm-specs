@@ -339,7 +339,7 @@
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver 17
+%global buildjdkver %{featurever}
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -366,11 +366,11 @@
 # Define what url should JVM offer in case of a crash report
 # order may be important, epel may have rhel declared
 %if 0%{?epel}
-%global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora%20EPEL&component=%{name}&version=epel%{epel}
+%global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora%20EPEL&component=%{component}&version=epel%{epel}
 %else
 %if 0%{?fedora}
 # Does not work for rawhide, keeps the version field empty
-%global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=%{name}&version=%{fedora}
+%global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=%{component}&version=%{fedora}
 %else
 %if 0%{?rhel}
 %global oj_vendor_bug_url https://access.redhat.com/support/cases/
@@ -555,6 +555,10 @@ ExcludeArch: %{ix86}
 # Prevent brp-java-repack-jars from being run
 %global __jar_repack 0
 
+# portables have grown out of its component, moving back to java-x-vendor
+# this expression, when declared as global, filled component with java-x-vendor portable
+%define component %(echo %{name} | sed "s;-portable;;g")
+
 Name:    java-%{javaver}-%{origin}-portable
 Version: %{newjavaver}.%{buildver}
 Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
@@ -569,11 +573,6 @@ Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # provides >= 1.6.0 must specify the epoch, "java >= 1:1.6.0".
 
 Epoch:   1
-
-# portables have grown out of its component, moving back to java-x-vendor
-# this expression, when declared as global, filled component with java-x-vendor portable
-%define component %(echo %{name} | sed "s;-portable;;g")
-
 Summary: %{origin_nice} %{featurever} Runtime Environment portable edition
 # Groups are only used up to RHEL 8 and on Fedora versions prior to F30
 %if (0%{?rhel} > 0 && 0%{?rhel} <= 8) || (0%{?fedora} >= 0 && 0%{?fedora} < 30)
@@ -959,10 +958,10 @@ The %{origin_nice} %{featurever} full patched sources of portable JDK to build, 
 echo "Preparing %{oj_vendor_version}"
 
 # Using the echo macro breaks rpmdev-bumpspec, as it parses the first line of stdout :-(
-%if 0%{?stapinstall:1}
-  echo "CPU: %{_target_cpu}, arch install directory: %{archinstall}, SystemTap install directory: %{stapinstall}"
+%if 0%{?_build_cpu:1}
+  echo "CPU: %{_target_cpu}, arch install directory: %{archinstall}, SystemTap install directory: %{_build_cpu}"
 %else
-  %{error:Unrecognised architecture %{_target_cpu}}
+  %{error:Unrecognised architecture %{_build_cpu}}
 %endif
 
 if [ %{include_normal_build} -eq 0 -o  %{include_normal_build} -eq 1 ] ; then
@@ -1002,7 +1001,6 @@ if [ $prioritylength -ne 8 ] ; then
 fi
 
 # OpenJDK patches
-
 %if %{system_libs}
 # Remove libraries that are linked by both static and dynamic builds
 sh %{SOURCE12} %{top_level_dir_name}
@@ -1418,7 +1416,6 @@ packFullPatchedSources
 %endif
 
 for suffix in %{build_loop} ; do
-
   if [ "x$suffix" = "x" ] ; then
       debugbuild=release
   else
@@ -1498,7 +1495,7 @@ export JAVA_HOME=${top_dir_abs_main_build_path}/images/%{jdkimage}
 
 # Check Shenandoah is enabled
 %if %{use_shenandoah_hotspot}
-$JAVA_HOME/bin/java -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -version
+$JAVA_HOME/bin/java -XX:+UseShenandoahGC -version
 %endif
 
 # Check unlimited policy has been used
@@ -1698,7 +1695,6 @@ for file in `ls $RPM_BUILD_ROOT%{_jvmdir}/*.sha256sum` ; do
 done
 
 %if %{include_normal_build}
-
 %files
 # main package builds always
 %{_jvmdir}/%{jreportablearchiveForFiles}

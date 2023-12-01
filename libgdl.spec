@@ -1,23 +1,24 @@
 Name:		libgdl
 Epoch:		1
 Version:	3.40.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	GNOME docking library
 
-License:	LGPLv2+
-URL:		http://www.gnome.org/
-Source0:	http://download.gnome.org/sources/gdl/3.40/gdl-%{version}.tar.xz
+License:	LGPL-2.1-or-later
+URL:		https://gitlab.gnome.org/GNOME/gdl
+Source0:	https://download.gnome.org/sources/gdl/3.40/gdl-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gdl/-/merge_requests/4
+Patch:		libgdl-3.40.0-libxml2-2.12.0-includes.patch
 
 BuildRequires:	gettext
 BuildRequires:	gobject-introspection-devel
-BuildRequires:	gtk3-devel
 BuildRequires:	gtk-doc
-
 BuildRequires:	intltool
-BuildRequires:	libtool
-BuildRequires:	libxml2-devel
+BuildRequires:	make
 BuildRequires:	perl(XML::Parser)
-BuildRequires: make
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(libxml-2.0)
 
 %description
 GDL adds dockable widgets to GTK+. The user can rearrange those widgets by drag
@@ -32,7 +33,7 @@ Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 This package contains development files for %{name}.
 
 %prep
-%setup -q -n gdl-%{version}
+%autosetup -n gdl-%{version} -p1
 
 %build
 %configure \
@@ -43,7 +44,7 @@ This package contains development files for %{name}.
 # Omit unused direct shared library dependencies.
 sed --in-place --expression 's! -shared ! -Wl,--as-needed\0!g' libtool
 
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -78,6 +79,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_includedir}/%{name}-3.0/gdl
 
 %changelog
+* Wed Nov 29 2023 David King <amigadave@amigadave.com> - 1:3.40.0-6
+- Fix building against libxml2 2.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.40.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

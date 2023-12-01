@@ -15,7 +15,7 @@
 
 %global maj_ver 17
 %global min_ver 0
-%global patch_ver 5
+%global patch_ver 6
 #global rc_ver 4
 
 %if %{with snapshot_build}
@@ -205,11 +205,6 @@ Recommends: libatomic%{?_isa}
 Recommends: libomp-devel%{_isa} = %{version}
 Recommends: libomp%{_isa} = %{version}
 
-# Use lld as the default linker on ARM due to rhbz#1918924
-%ifarch %{arm}
-Requires: lld
-%endif
-
 %description libs
 Runtime library for clang.
 
@@ -327,8 +322,6 @@ rm test/CodeGen/profile-filter.c
 
 %build
 
-# Use ThinLTO to limit build time.
-%define _lto_cflags -flto=thin
 # And disable LTO on AArch64 entirely.
 %ifarch aarch64
 %define _lto_cflags %{nil}
@@ -339,14 +332,7 @@ rm test/CodeGen/profile-filter.c
 %global _lto_cflags %nil
 %endif
 
-
-%if 0%{?__isa_bits} == 64
-sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@/64/g' test/lit.cfg.py
-%else
-sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
-%endif
-
-%ifarch s390 s390x %{arm} aarch64 %ix86 ppc64le
+%ifarch s390 s390x aarch64 %ix86 ppc64le
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
@@ -368,7 +354,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DPYTHON_EXECUTABLE=%{__python3} \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
-%ifarch s390 s390x %{arm} %ix86 ppc64le
+%ifarch s390 s390x %ix86 ppc64le
 	-DCMAKE_C_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG" \
 	-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG" \
 %endif
@@ -418,9 +404,6 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DBUILD_SHARED_LIBS=OFF \
 	-DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}" \
 	-DCLANG_RESOURCE_DIR=../lib/clang/%{maj_ver} \
-%ifarch %{arm}
-	-DCLANG_DEFAULT_LINKER=lld \
-%endif
 	-DCLANG_DEFAULT_UNWINDLIB=libgcc
 
 %cmake_build
@@ -514,13 +497,7 @@ ln -s %{_datadir}/clang/clang-format-diff.py %{buildroot}%{_bindir}/clang-format
 %cmake_build --target clang-test-depends \
     ExtraToolsUnitTests ClangdUnitTests ClangIncludeCleanerUnitTests ClangPseudoUnitTests
 # requires lit.py from LLVM utilities
-# FIXME: Fix failing ARM tests
-LD_LIBRARY_PATH=%{buildroot}/%{_libdir} %{__ninja} check-all -C %{__cmake_builddir} || \
-%ifarch %{arm}
-:
-%else
-false
-%endif
+LD_LIBRARY_PATH=%{buildroot}/%{_libdir} %{__ninja} check-all -C %{__cmake_builddir}
 %endif
 %endif
 
@@ -645,6 +622,9 @@ false
 %endif
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Tue Nov 28 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.6-1
+- Update to LLVM 17.0.6
 
 * Tue Nov 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.5-1
 - Update to LLVM 17.0.5

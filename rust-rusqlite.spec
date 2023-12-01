@@ -13,6 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/rusqlite
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump fallible-iterator dependency from 0.2 to 0.3
 # * drop features for building with bundled dependencies
 # * drop Windows- and WASM-specific features and dependencies
 Patch:          rusqlite-fix-metadata.diff

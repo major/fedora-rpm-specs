@@ -8,7 +8,7 @@
 %bcond_with tests
 
 Name:           python-%{pkg_name}
-Version:        3.11.1
+Version:        3.12.0
 Release:        1%{?dist}
 Summary:        Module for text manipulation
 
@@ -91,6 +91,9 @@ install jaraco/text/Lorem\ ipsum.txt \
 %endif
 
 %changelog
+* Wed Nov 29 2023 Dan Radez <dradez@redhat.com> - 3.12.0-1
+- update to upstream 3.12 rhbz#2251804
+
 * Wed Aug 16 2023 Dan Radez <dradez@redhat.com> - 3.11.1-1
 - update to upstream 3.11 rhbz#2232234
 

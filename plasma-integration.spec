@@ -1,7 +1,7 @@
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
 Version: 5.27.80
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -103,6 +103,9 @@ Summary:        Qt5 support for %{name}
 %{_qt5_plugindir}/platformthemes/KDEPlasmaPlatformTheme5.so
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-3
+- Rebuild (qt6)
+
 * Mon Nov 20 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
 - Qt5 build
 

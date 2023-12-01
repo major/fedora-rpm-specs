@@ -43,7 +43,7 @@ infodir="%{_infodir}"
 
 Name:           cc65
 Version:        2.19
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A free C compiler for 6502 based systems
 
 # For license clarification see:
@@ -51,6 +51,7 @@ Summary:        A free C compiler for 6502 based systems
 License:        zlib
 URL:            https://cc65.github.io
 Source0:        %{git_url}/archive/V%{version}/%{name}-%{version}.tar.gz
+Patch0: cc65-c99.patch
 
 # Backported from upstream.
 # none
@@ -266,6 +267,9 @@ they have been split into this package.
 
 
 %changelog
+* Wed Nov 29 2023 Florian Weimer <fweimer@redhat.com> - 2.19-8
+- Build testsuite reference in C89 mode
+
 * Thu Jul 20 2023 Dan Horák <dan[at]danny.cz> - 2.19-7
 - don't build docs in info format as a workaround (rhbz#2188018)
 

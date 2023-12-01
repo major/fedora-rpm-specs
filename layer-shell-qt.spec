@@ -1,6 +1,6 @@
 Name:    layer-shell-qt
 Version: 5.27.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later AND MIT
@@ -60,6 +60,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
+- Rebuild (qt6)
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

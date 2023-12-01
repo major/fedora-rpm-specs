@@ -1,6 +1,6 @@
 Name:           xwaylandvideobridge
 Version:        0.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        (GPL-2.0-only or GPL-3.0-only) and LGPL-2.0-or-later and BSD-3-Clause
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 0.3.0-3
+- Rebuild (qt6)
+
 * Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 0.3.0-2
 - Build against Qt6/KF6
 

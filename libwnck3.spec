@@ -6,7 +6,7 @@ Version: 43.0
 Release: 6%{?dist}
 URL: http://download.gnome.org/sources/%{source_name}/
 Source0: http://download.gnome.org/sources/%{source_name}/40/%{source_name}-%{version}.tar.xz
-License: LGPLv2+
+License: LGPL-2.0-or-later
 
 # https://gitlab.gnome.org/GNOME/libwnck/-/merge_requests/10
 Patch2:        libwnck_0001-Expose-window-scaling-factor_43.patch

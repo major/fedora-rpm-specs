@@ -2,7 +2,7 @@
 %global pgversion 15
 Name:		postgresql%{pgversion}-%{majorname}
 Version:	1.7.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -62,7 +62,7 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
-* Tue Nov 28 2023 Filip Janus <fjanus@redhat.com> - 1.7.0-5
+* Tue Nov 28 2023 Filip Janus <fjanus@redhat.com> - 1.7.0-6
 - Import demodularized version
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-4

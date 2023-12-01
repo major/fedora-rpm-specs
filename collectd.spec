@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 32%{?dist}
+Release: 34%{?dist}
 License: GPLv2
 URL: https://collectd.org/
 
@@ -25,6 +25,7 @@ Patch1: %{name}-gcc11.patch
 Patch2: %{name}-remove-des-support-from-snmp-plugin.patch
 Patch3: %{name}-py311-dont-include-longintrepr.patch
 Patch4: collectd-c99.patch
+Patch5: collectd-c99-2.patch
 
 BuildRequires: perl-devel
 BuildRequires: perl-generators
@@ -1236,6 +1237,12 @@ make check
 
 
 %changelog
+* Wed Nov 29 2023 Kevin Fenzi <kevin@scrye.com> - 5.12.0-34
+- Rebuild for new xen version
+
+* Wed Nov 29 2023 Florian Weimer <fweimer@redhat.com> - 5.12.0-33
+- Backport upstream patch to address another C compatibility issue
+
 * Fri Aug 18 2023 Eric Sandeen <sandeen@sandeen.net> - 5.12.0-32
 - Re-enable mqtt plugin
 

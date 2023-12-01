@@ -1,19 +1,17 @@
 Name:           perl-Unix-Mknod
-Version:        0.04
-Release:        27%{?dist}
+Version:        0.05
+Release:        1%{?dist}
 Summary:        Perl extension for mknod, major, minor, and makedev
 License:        NCSA
 URL:            https://metacpan.org/release/Unix-Mknod
 Source0:        https://cpan.metacpan.org/authors/id/P/PI/PIRZYK/Unix-Mknod-%{version}.tar.gz
-# Adapt to changes in glibc-2.27.9000, bug #1551656, CPAN RT#124687
-Patch0:         Unix-Mknod-0.04-Include-sys-sysmacros.h-on-glibc.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
@@ -30,29 +28,59 @@ BuildRequires:  perl(Test)
 This module allows access to the device routines major()/minor()/makedev()
 that may or may not be macros in .h files.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Unix-Mknod-%{version}
-%patch0 -p1
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Unix*
 %{perl_vendorarch}/Unix*
-%{_mandir}/man3/*
+%{_mandir}/man3/Unix::Mknod*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 29 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-1
+- 0.05 bump (rhbz#2252003)
+- Package tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

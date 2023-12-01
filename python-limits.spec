@@ -1,34 +1,34 @@
 # Run (limited set of) tests
-%bcond_without tests
+%bcond tests 1
 # Specific test conditionals
 # Requires `hiro`
-%bcond_with hiro
+%bcond hiro 0
 # Requires `lovely-pytest-docker` and not suitable for mock
-%bcond_with docker
+%bcond docker 0
 # Requires `pytest-benchmark[histogram]` (we are not interested in benchmarks)
-%bcond_with benchmark
+%bcond benchmark 0
 
 # Don't build extras with missing dependencies
-%bcond_without redis
-%bcond_without rediscluster
-%bcond_without memcached
-%bcond_without mongodb
-%bcond_without etcd
+%bcond redis 1
+%bcond rediscluster 1
+%bcond memcached 1
+%bcond mongodb 1
+%bcond etcd 1
 # async-redis needs `coredis`
-%bcond_with async_redis
+%bcond async_redis 0
 # async-memcached needs `emcache`
-%bcond_with async_memcached
-# async-mongodb needs `motor`
-%bcond_with async_mongodb
+%bcond async_memcached 0
+# async-mongodb needs `motor` 0
+%bcond async_mongodb 0
 # async-etcd needs `aetcd`
-%bcond_with async_etcd
+%bcond async_etcd 0
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # Using Sphinx for generating documentation, pulls in a myriad of
 # dependencies. Instead we simply provide the source `.rst` files.
-%bcond_without doc
+%bcond doc 1
 
 # Use forge macros for pulling from GitHub
 %global forgeurl https://github.com/alisaifee/limits
@@ -36,23 +36,23 @@
 %global pypi_name limits
 
 %global _description %{expand:
-This package is a python library to perform rate
-limiting with commonly used storage backends
-(Redis, Memcached & MongoDB).}
+This package is a python library to perform rate limiting with commonly used
+storage backends (Redis, Memcached, MongoDB & Etcd).}
 
 Name:           python-%{pypi_name}
-Version:        3.6.0
+Version:        3.7.0
 Release:        %autorelease
-Summary:        Utilities to implement rate limiting using various strategies
+Summary:        Rate limiting utilities
 %global tag %{version}
 %forgemeta
 # SPDX
 License:        MIT
 URL:            %forgeurl
-Source0:        %forgesource
-# `importlib_resources` is part of standard library since Python 3.7
-# https://github.com/alisaifee/limits/pull/184
-Patch:          %{forgeurl}/pull/184.patch
+Source:         %forgesource
+
+# Remove unnecessary use of importlib_resources
+# https://github.com/alisaifee/limits/commit/d9a8fba0616f6736c845a156e669b7d1e13cbd86
+Patch:          %{forgeurl}/commit/d9a8fba0616f6736c845a156e669b7d1e13cbd86.patch
 
 BuildArch:      noarch
 
@@ -105,7 +105,7 @@ Documentation for %{name}.
 %endif
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 %{forgesetupargs}
 
 # Remove requirements for extras we cannot build
 %if %{without redis}

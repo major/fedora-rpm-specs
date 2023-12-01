@@ -1,7 +1,7 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
 Version: 5.27.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -100,6 +100,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
+- Rebuild (qt6)
+
 * Fri Nov 10 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

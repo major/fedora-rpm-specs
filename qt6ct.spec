@@ -9,9 +9,9 @@
 Name:    qt6ct
 Version: 0.9
 %if 0%{?usesnapshot}
-Release: 0.4%{?snapshottag}%{?dist}
+Release: 0.5%{?snapshottag}%{?dist}
 %else
-Release: 3%{?dist}
+Release: 4%{?dist}
 %endif
 Summary: Qt6 - Configuration Tool
 
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libqt6ct-common.so.%{version}*
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 0.9-4
+- Rebuild (qt6)
+
 * Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 0.9-3
 - Rebuild (qt6)
 

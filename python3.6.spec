@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 20%{?dist}
+Release: 21%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -625,6 +625,26 @@ Patch394: 00394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decode
 #
 # Backported from Python 3.12
 Patch399: 00399-cve-2023-24329.patch
+
+# 00407 # f562db9763f424318fd311e3267d2aed0afadbbe
+# gh-99086: Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
+Patch407: 00407-gh-99086-fix-implicit-int-compiler-warning-in-configure-check-for-pthread_scope_system.patch
+
+# 00409 # e9d6272416d44decf99497e4eca478e44be6a8e2
+# bpo-13497: Fix `broken nice` configure test
+#
+# Per POSIX, `nice(3)` requires `unistd.h` and `exit(3)` requires `stdlib.h`.
+#
+# Fixing the test will prevent false positives with pedantic compilers like clang.
+Patch409: 00409-bpo-13497-fix-broken-nice-configure-test.patch
+
+# 00410 # ea9f02d63dc0f772362f520967bce90e4f4d3abd
+# bpo-42598: Fix implicit function declarations in configure
+#
+# This is invalid in C99 and later and is an error with some compilers
+# (e.g. clang in Xcode 12), and can thus cause configure checks to
+# produce incorrect results.
+Patch410: 00410-bpo-42598-fix-implicit-function-declarations-in-configure.patch
 
 # (New patches go here ^^^)
 #
@@ -1883,6 +1903,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Nov 28 2023 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-21
+- Fix implicit-function-declarations in configure
+- Fixes: rhbz#2147519
+
 * Wed Aug 02 2023 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-20
 - Remove extra distro-applied CFLAGS passed to user built C extensions
 - https://fedoraproject.org/wiki/Changes/Python_Extension_Flags_Reduction

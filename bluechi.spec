@@ -4,7 +4,7 @@
 %endif
 
 Name:           bluechi
-Version:        0.5.0
+Version:        0.6.0
 Release:        1%{?dist}
 Summary:        A systemd service controller for multi-nodes environments
 License:        LGPL-2.1-or-later AND CC0-1.0
@@ -25,43 +25,52 @@ BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  golang-github-cpuguy83-md2man
 
+%description
+BlueChi is a systemd service controller for multi-node environments with a
+predefined number of nodes and with a focus on highly regulated environments
+such as those requiring functional safety (for example in cars).
+
+%package controller
+Summary:        BlueChi service controller
 Requires:       systemd
 Recommends:     bluechi-selinux
 Provides:       hirte = %{version}-%{release}
 Obsoletes:      hirte < 0.4.0
+Provides:       bluechi = %{version}-%{release}
+Obsoletes:      bluechi < 0.7.0
 
-%description
+%description controller
 BlueChi is a systemd service controller for multi-nodes environements with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 
-This package contains the controller and command line tool.
+This package contains the controller service.
 
-%post
-%systemd_post bluechi.service
+%post controller
+%systemd_post bluechi-controller.service
 
-%preun
-%systemd_preun bluechi.service
+%preun controller
+%systemd_preun bluechi-controller.service
 
-%postun
-%systemd_postun_with_restart bluechi.service
+%postun controller
+%systemd_postun_with_restart bluechi-controller.service
 
-%files
-%ghost %{_sysconfdir}/bluechi/bluechi.conf
+%files controller
+%ghost %{_sysconfdir}/bluechi/controller.conf
 %doc README.md
 %doc README.developer.md
 %license LICENSE
 %dir %{_sysconfdir}/bluechi
-%dir %{_sysconfdir}/bluechi/bluechi.conf.d
-%{_bindir}/bluechi
+%dir %{_sysconfdir}/bluechi/controller.conf.d
+%{_libexecdir}/bluechi-controller
 %{_datadir}/dbus-1/interfaces/org.eclipse.bluechi.*.xml
 %{_datadir}/dbus-1/system.d/org.eclipse.bluechi.conf
-%{_datadir}/bluechi/config/bluechi.conf
-%{_mandir}/man1/bluechi.*
-%{_mandir}/man5/bluechi.conf.*
-%{_sysconfdir}/bluechi/bluechi.conf.d/README.md
-%{_unitdir}/bluechi.service
-%{_unitdir}/bluechi.socket
+%{_datadir}/bluechi/config/controller.conf
+%{_mandir}/man1/bluechi-controller.*
+%{_mandir}/man5/bluechi-controller.conf.*
+%{_sysconfdir}/bluechi/controller.conf.d/README.md
+%{_unitdir}/bluechi-controller.service
+%{_unitdir}/bluechi-controller.socket
 
 #--------------------------------------------------
 
@@ -93,8 +102,8 @@ This package contains the node agent.
 %license LICENSE
 %dir %{_sysconfdir}/bluechi
 %dir %{_sysconfdir}/bluechi/agent.conf.d
-%{_bindir}/bluechi-agent
-%{_bindir}/bluechi-proxy
+%{_libexecdir}/bluechi-agent
+%{_libexecdir}/bluechi-proxy
 %{_datadir}/dbus-1/system.d/org.eclipse.bluechi.Agent.conf
 %{_datadir}/bluechi-agent/config/agent.conf
 %{_datadir}/dbus-1/interfaces/org.eclipse.bluechi.Agent.xml
@@ -239,6 +248,10 @@ popd
 
 
 %changelog
+* Wed Nov 29 2023 Michael Engel <mengel@redhat.com> - 0.6.0-1
+- Update to 0.6.0
+- Rename bluechi package to controller
+
 * Tue Sep 05 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.5.0-1
 - Update to 0.5.0
 - Rename package to BlueChi

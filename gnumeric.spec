@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.56
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -13,6 +13,8 @@ Summary:          Spreadsheet program for GNOME
 License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://www.gnumeric.org
 Source:           https://download.gnome.org/sources/%{name}/1.12/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnumeric/-/merge_requests/32
+Patch:            gnumeric-1.12.56-libxml2-2.12.0-includes.patch
 BuildRequires:    bison
 BuildRequires:    desktop-file-utils
 BuildRequires:    docbook-dtds
@@ -151,6 +153,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Nov 29 2023 David King <amigadave@amigadave.com> - 1:1.12.56-3
+- Fix building against libxml2 2.12.0
+
 * Mon Nov 06 2023 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.56-2
 - Rebuild
 

@@ -5,15 +5,17 @@
 
 Name:    libsoup
 Version: 2.74.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Soup, an HTTP library implementation
 
 License: LGPL-2.0-only
 URL: https://wiki.gnome.org/Projects/libsoup
 Source0: https://download.gnome.org/sources/%{name}/2.74/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/385
+Patch:   libsoup-2.74.3-libxml2-2.12.0-includes.patch
 
 BuildRequires: gettext
-BuildRequires: glib2-devel >= %{glib2_version}
+BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: glib-networking
 %if %{with_docs}
 BuildRequires: gtk-doc
@@ -112,6 +114,9 @@ This package contains developer documentation for %{name}.
 %endif
 
 %changelog
+* Wed Nov 29 2023 David King <amigadave@amigadave.com> - 2.74.3-4
+- Fix building against libxml2 2.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.74.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

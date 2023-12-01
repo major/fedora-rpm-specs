@@ -22,7 +22,7 @@
 %bcond recompile_assets 1
 
 Name:           python-qdarkstyle
-Version:        3.2.1
+Version:        3.2.3
 Release:        %autorelease
 Summary:        The most complete dark/light style sheet for C++/Python and Qt applications
 
@@ -30,7 +30,7 @@ License:        MIT
 URL:            https://github.com/ColinDuquesnoy/QDarkStyleSheet
 # The PyPI sdist does not have all of the files (such as SVG files) needed to
 # rebuild the generated assets.
-Source:         %{url}/archive/v%{version}/QDarkStyleSheet-%{version}.tar.gz
+Source:         %{url}/archive/v.%{version}/QDarkStyleSheet-v.%{version}.tar.gz
 
 # Downstream-only for now, in hopes that PySide2 being broken on Python 3.12
 # can be fixed:
@@ -90,7 +90,7 @@ Recommends:     %{py3_dist helpdev}
 
 
 %prep
-%autosetup -n QDarkStyleSheet-%{version} -N
+%autosetup -n QDarkStyleSheet-v.%{version} -N
 %autopatch -M 99 -p1
 %if %{without pyside2}
 dos2unix --keepdate setup.py
@@ -121,12 +121,11 @@ find 'qdarkstyle' -type f -name '*.py' \
 
 %build
 %if %{with recompile_assets}
-# choices=['pyqt5', 'pyqt6', 'pyside2', 'pyside6', 'qtpy', 'pyqtgraph', 'qt',
-#          'qt5', 'all'],
-# Upstream would prefer to compile with pyside6, but it is not packaged. We use
-# pyqt6 instead; the result seems to work well enough on at least pyqt5.
+# The upstream default is to compile with pyside6, but it is not packaged. We
+# can use pyqt6 instead; the result seems to work well enough on at least
+# pyqt5. For 3.2.2, we follow upstream in compiling with pyqt5 instead.
 xvfb-run -a env PYTHONPATH="${PWD}" %{python3} -m qdarkstyle.utils \
-    --create 'pyqt6'
+    --create 'pyqt5'
 %endif
 %pyproject_wheel
 

@@ -1,11 +1,10 @@
 Name:           perl-IO-Tty
-Version:        1.17
-Release:        5%{?dist}
+Version:        1.18
+Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
 URL:            https://metacpan.org/release/IO-Tty
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Tty-%{version}.tar.gz
-Patch0: perl-IO-Tty-c99.patch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -29,7 +28,8 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -38,7 +38,7 @@ BuildRequires:  perl(Test::More)
 IO::Tty and IO::Pty provide an interface to pseudo tty's.
 
 %prep
-%autosetup -p1 -n IO-Tty-%{version}
+%setup -q -n IO-Tty-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -61,6 +61,11 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Tue Nov 28 2023 Paul Howarth <paul@city-fan.org> - 1.18-1
+- Update to 1.18 (rhbz#2251844)
+  - Address Freebsd build issue: make function checks more robust within
+    shared lib (GH#35)
+
 * Tue Nov 28 2023 Florian Weimer <fweimer@redhat.com> - 1.17-5
 - Backport upstream patch to fix C99 compatibility issue
 

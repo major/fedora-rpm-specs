@@ -16,7 +16,7 @@
 Name:           libgda5
 Epoch:          1
 Version:        5.2.10
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPL-2.1-or-later
@@ -33,6 +33,10 @@ Patch4:         libgda-5.2.10-mysql-bool-fix.patch
 Patch5:         bebdffb4de586fb43fd07ac549121f4b22f6812d.patch
 Patch6:         libgda5-configure-c99.patch
 Patch7:         libgda5-gtksourceview-c99.patch
+Patch8:         libgda5-configure-c99-2.patch
+Patch9:         libgda5-c99-2.patch
+Patch10:        libgda5-c99-3.patch
+Patch11:        libgda5-c99-4.patch
 
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
@@ -389,6 +393,9 @@ rm %{buildroot}/%{_sysconfdir}/%{upstream}-%{apiver}/sales_test.db
 %endif
 
 %changelog
+* Wed Nov 29 2023 Florian Weimer <fweimer@redhat.com> - 1:5.2.10-18
+- Further C compatibility fixes (still incomplete)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.2.10-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

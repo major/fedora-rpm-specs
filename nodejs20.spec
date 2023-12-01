@@ -812,7 +812,7 @@ end
 %if 0%{?nodejs_default}
 %{_bindir}/node
 %doc %{_mandir}/man1/node.1*
-%dir %{nodejs_default_sitelib}
+%{nodejs_default_sitelib}
 
 
 %endif

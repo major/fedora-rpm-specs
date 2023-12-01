@@ -1,8 +1,8 @@
 %global srcname idna
 
 Name:           python-%{srcname}
-Version:        3.4
-Release:        5%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 Summary:        Internationalized Domain Names in Applications (IDNA)
 
 License:        BSD-3-Clause
@@ -57,9 +57,12 @@ rm -rf %{srcname}.egg-info
 
 %files -n python3-%{srcname} -f %pyproject_files
 %license LICENSE.md
-%doc README.rst HISTORY.rst
+%doc README.rst
 
 %changelog
+* Tue Nov 28 2023 Lumír Balhar <lbalhar@redhat.com> - 3.6-1
+- Update to 3.6 (rhbz#2251399)
+
 * Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 3.4-5
 - Update the package's license
 

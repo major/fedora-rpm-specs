@@ -1,22 +1,22 @@
 %global commit0 5a73d4065f3ad757053dd5db931bc1372ade724e
 %global date 20231107
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
-%global cjs_version 5.8.0
-%global cinnamon_desktop_version 5.8.0
-%global cinnamon_translations_version 5.8.0
+%global cjs_version 6.0.0
+%global cinnamon_desktop_version 6.0.0
+%global cinnamon_translations_version 6.0.0
 %global gobject_introspection_version 1.38.0
-%global muffin_version 5.8.0
+%global muffin_version 6.0.0
 %global json_glib_version 0.13.2
 
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.9.0
-Release:        2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        6.0.0
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -36,7 +36,6 @@ Patch1:         set_wheel.patch
 Patch3:         default_panal_launcher.patch
 Patch4:         remove_crap_from_menu.patch
 Patch5:         fix_path.patch
-Patch6:         0001-add-xdg-portal-conf.patch
 
 ExcludeArch:    %{ix86}
 
@@ -345,6 +344,9 @@ EOF
 %endif
 
 %changelog
+* Wed Nov 29 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Fri Nov 10 2023 Leigh Scott <leigh123linux@gmail.com> - 5.9.0-2.20231107git5a73d40
 - Rebuild against correct muffin
 

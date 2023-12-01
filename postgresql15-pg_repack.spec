@@ -2,7 +2,7 @@
 %global pgversion 15
 Name:           postgresql%{pgversion}-%{majorname}
 Version:        1.4.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD-3-Clause
@@ -72,6 +72,9 @@ make
 
 
 %changelog
+* Mon Apr 24 2023 Filip Januš <fjanus@redhat.com> - 1.4.8-5
+- Release bump to enable this component instead of pg_repack component
+
 * Mon Apr 24 2023 Filip Januš <fjanus@redhat.com> - 1.4.8-4
 - Build without modules
 

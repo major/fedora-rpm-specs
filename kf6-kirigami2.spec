@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}2
 Version:	5.245.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:	BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -66,6 +66,9 @@ cp %{_builddir}/%{framework}-%{version}/templates/kirigami6/LICENSES/* %{_buildd
 
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.245.0-2
+- Rebuild (qt6)
+
 * Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
 - 5.245.0
 

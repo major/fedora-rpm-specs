@@ -1,6 +1,6 @@
 Name:       kwayland
 Version:    5.27.80
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Qt-style API to interact with the wayland-client API
 
 License:    BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT-CMU AND MIT
@@ -73,6 +73,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/pkgconfig/KF6WaylandClient.pc
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
+- Rebuild (qt6)
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - Renamed from kf6-kwayland
 - 5.27.80

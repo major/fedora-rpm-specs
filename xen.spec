@@ -50,12 +50,12 @@
 %endif
 
 # Hypervisor ABI
-%define hv_abi  4.17
+%define hv_abi  4.18
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.17.2
-Release: 5%{?dist}
+Version: 4.18.0
+Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -112,35 +112,6 @@ Patch46: xen.efi.build.patch
 Patch47: xen.gcc13.fixes.patch
 Patch49: xen.python3.12.patch
 Patch50: xen.ocaml5.fixes.patch
-Patch51: xsa437.patch
-Patch52: xsa438-4.17.patch
-Patch53: xsa439-0001-x86-AMD-extend-Zenbleed-check-to-models-good-ucode-i.patch
-Patch54: xsa439-0002-x86-spec-ctrl-Fix-confusion-between-SPEC_CTRL_EXIT_T.patch
-Patch55: xsa439-0003-x86-spec-ctrl-Fold-DO_SPEC_CTRL_EXIT_TO_XEN-into-it-.patch
-Patch56: xsa439-0004-x86-spec-ctrl-Turn-the-remaining-SPEC_CTRL_-ENTRY-EX.patch
-Patch57: xsa439-0005-x86-spec-ctrl-Improve-all-SPEC_CTRL_-ENTER-EXIT-_-co.patch
-Patch58: xsa439-0006-x86-entry-Adjust-restore_all_xen-to-hold-stack_end-i.patch
-Patch59: xsa439-0007-x86-entry-Track-the-IST-ness-of-an-entry-for-the-exi.patch
-Patch60: xsa439-0008-x86-spec-ctrl-Issue-VERW-during-IST-exit-to-Xen.patch
-Patch61: xsa439-0009-x86-amd-Introduce-is_zen-1-2-_uarch-predicates.patch
-Patch62: xsa439-0010-x86-spec-ctrl-Mitigate-the-Zen1-DIV-leakage.patch
-Patch63: xsa440-4.17.patch
-Patch64: xsa442-4.17.patch
-Patch65: xsa443-4.17-01.patch
-Patch66: xsa443-4.17-02.patch
-Patch67: xsa443-4.17-03.patch
-Patch68: xsa443-4.17-04.patch
-Patch69: xsa443-4.17-05.patch
-Patch70: xsa443-4.17-06.patch
-Patch71: xsa443-4.17-07.patch
-Patch72: xsa443-4.17-08.patch
-Patch73: xsa443-4.17-09.patch
-Patch74: xsa443-4.17-10.patch
-Patch75: xsa443-4.17-11.patch
-Patch76: xsa444-4.17-1.patch
-Patch77: xsa444-4.17-2.patch
-Patch78: xsa445-4.17.patch
-Patch79: xsa446.patch
 
 
 %if %build_qemutrad
@@ -357,35 +328,6 @@ manage Xen virtual machines.
 %if "%dist" != ".fc38"
 %patch 50 -p1
 %endif
-%patch 51 -p1
-%patch 52 -p1
-%patch 53 -p1
-%patch 54 -p1
-%patch 55 -p1
-%patch 56 -p1
-%patch 57 -p1
-%patch 58 -p1
-%patch 59 -p1
-%patch 60 -p1
-%patch 61 -p1
-%patch 62 -p1
-%patch 63 -p1
-%patch 64 -p1
-%patch 65 -p1
-%patch 66 -p1
-%patch 67 -p1
-%patch 68 -p1
-%patch 69 -p1
-%patch 70 -p1
-%patch 71 -p1
-%patch 72 -p1
-%patch 73 -p1
-%patch 74 -p1
-%patch 75 -p1
-%patch 76 -p1
-%patch 77 -p1
-%patch 78 -p1
-%patch 79 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -737,7 +679,6 @@ fi
 #files -f xen-xm.lang
 %files
 %doc COPYING README
-%{_bindir}/xencons
 %{python3_sitearch}/%{name}
 %{python3_sitearch}/xen-*.egg-info
 
@@ -993,6 +934,13 @@ fi
 %endif
 
 %changelog
+* Wed Nov 29 2023 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-1
+- update to xen-4.18.0
+  rebase xen.canonicalize.patch and xen.ocaml5.fixes.patch
+  remove or adjust patches now included or superceded upstream
+- xencons has been dropped
+
+
 * Tue Nov 14 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.2-5
 - x86/AMD: mismatch in IOMMU quarantine page table levels [XSA-445,
 	CVE-2023-46835]

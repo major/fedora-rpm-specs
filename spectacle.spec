@@ -1,7 +1,7 @@
 Name:    spectacle
 Summary: Screenshot capture utility
 Version: 24.01.75
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2
 URL:     https://www.kde.org/applications/graphics/spectacle/
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 24.01.75-2
+- Rebuild (qt6)
+
 * Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
 - 24.01.75
 

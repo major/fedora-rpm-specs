@@ -78,7 +78,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 35%{?dist}
+Release: 36%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -926,6 +926,14 @@ Patch405: 00405-fix-c99-build-error.patch
 # Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2022-48565
 Patch406: 00406-cve-2022-48565.patch
 
+# 00408 # 7cfb7e151bb64b384c47bfe0dddf5c2d6837772f
+# Security fix for CVE-2022-48560: python3: use after free in heappushpop()
+# of heapq module
+# Resolved upstream: https://github.com/python/cpython/issues/83602
+#
+# Backported from Python 3.6.11.
+Patch408: 00408-cve-2022-48560.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python2" and "python3" in Fedora, EL, etc.,
@@ -1099,6 +1107,7 @@ git apply %{PATCH351}
 %patch403 -p1
 %patch405 -p1
 %patch406 -p1
+%patch408 -p1
 
 %if %{without tkinter}
 %patch4000 -p1
@@ -1800,6 +1809,10 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Mon Nov 27 2023 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-36
+- Security fix for CVE-2022-48560
+Resolves: rhbz#2250592
+
 * Fri Oct 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-35
 - Fix for CVE-2022-48565
 Resolves: rhbz#2240062

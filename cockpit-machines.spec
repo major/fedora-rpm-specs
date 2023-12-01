@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        302
+Version:        303
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -65,7 +65,7 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.23.2
+Provides: bundled(npm(@babel/runtime)) = 7.23.4
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
 Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
 Provides: bundled(npm(@patternfly/react-console)) = 5.0.0
@@ -172,6 +172,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 29 2023 Packit <hello@packit.dev> - 303-1
+- Change "Add disk" default behavior
+
 * Wed Nov 15 2023 Packit <hello@packit.dev> - 302-1
 - Performance and stability improvements
 

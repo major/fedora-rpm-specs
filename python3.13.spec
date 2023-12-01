@@ -1193,30 +1193,52 @@ CheckPython optimized
 
 %license %{pylibdir}/LICENSE.txt
 
-%dir %{pylibdir}/unittest/
-%dir %{pylibdir}/unittest/__pycache__/
-%{pylibdir}/unittest/*.py
-%{pylibdir}/unittest/__pycache__/*%{bytecode_suffixes}
+# Pure Python modules
+%{pylibdir}/*.py
+%dir %{pylibdir}/__pycache__/
+%{pylibdir}/__pycache__/*%{bytecode_suffixes}
 
-%dir %{pylibdir}/asyncio/
-%dir %{pylibdir}/asyncio/__pycache__/
-%{pylibdir}/asyncio/*.py
-%{pylibdir}/asyncio/__pycache__/*%{bytecode_suffixes}
+%{pylibdir}/__phello__/
+%{pylibdir}/asyncio/
+%{pylibdir}/collections/
+%{pylibdir}/concurrent/
+%{pylibdir}/ctypes/
+%{pylibdir}/curses/
+%{pylibdir}/dbm/
+%{pylibdir}/encodings/
+%{pylibdir}/html/
+%{pylibdir}/http/
+%{pylibdir}/importlib/
+%{pylibdir}/json/
+%{pylibdir}/logging/
+%{pylibdir}/multiprocessing/
+%{pylibdir}/pydoc_data/
+%{pylibdir}/re/
+%{pylibdir}/sqlite3/
+%{pylibdir}/sysconfig/
+%{pylibdir}/tomllib/
+%{pylibdir}/unittest/
+%{pylibdir}/urllib/
+%{pylibdir}/venv/
+%{pylibdir}/wsgiref/
+%{pylibdir}/xml/
+%{pylibdir}/xmlrpc/
+%{pylibdir}/zipfile/
+%{pylibdir}/zoneinfo/
 
-%dir %{pylibdir}/venv/
-%dir %{pylibdir}/venv/__pycache__/
-%{pylibdir}/venv/*.py
-%{pylibdir}/venv/__pycache__/*%{bytecode_suffixes}
-%{pylibdir}/venv/scripts
+# Handle the email module in detail to mark architecture.rst as %%doc
+%dir %{pylibdir}/email/
+%dir %{pylibdir}/email/__pycache__/
+%{pylibdir}/email/*.py
+%{pylibdir}/email/__pycache__/*%{bytecode_suffixes}
+%{pylibdir}/email/mime/
+%doc %{pylibdir}/email/architecture.rst
 
-%{pylibdir}/wsgiref
-%{pylibdir}/xmlrpc
-
+# Handle the ensurepip module in detail to not accidentally ship wheels
 %dir %{pylibdir}/ensurepip/
 %dir %{pylibdir}/ensurepip/__pycache__/
 %{pylibdir}/ensurepip/*.py
 %{pylibdir}/ensurepip/__pycache__/*%{bytecode_suffixes}
-
 %if %{with rpmwheels}
 %exclude %{pylibdir}/ensurepip/_bundled
 %else
@@ -1224,190 +1246,94 @@ CheckPython optimized
 %{pylibdir}/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
 %endif
 
-%dir %{pylibdir}/concurrent/
-%dir %{pylibdir}/concurrent/__pycache__/
-%{pylibdir}/concurrent/*.py
-%{pylibdir}/concurrent/__pycache__/*%{bytecode_suffixes}
+# This will be in the tkinter package
+%exclude %{pylibdir}/turtle.py
+%exclude %{pylibdir}/__pycache__/turtle*%{bytecode_suffixes}
 
-%dir %{pylibdir}/concurrent/futures/
-%dir %{pylibdir}/concurrent/futures/__pycache__/
-%{pylibdir}/concurrent/futures/*.py
-%{pylibdir}/concurrent/futures/__pycache__/*%{bytecode_suffixes}
-
-%dir %{pylibdir}/sysconfig/
-%dir %{pylibdir}/sysconfig/__pycache__/
-%{pylibdir}/sysconfig/*.py
-%{pylibdir}/sysconfig/__pycache__/*%{bytecode_suffixes}
-
-%{pylibdir}/pydoc_data
-
-%{dynload_dir}/_blake2.%{SOABI_optimized}.so
-%{dynload_dir}/_md5.%{SOABI_optimized}.so
-%{dynload_dir}/_sha1.%{SOABI_optimized}.so
-%{dynload_dir}/_sha2.%{SOABI_optimized}.so
-%{dynload_dir}/_sha3.%{SOABI_optimized}.so
-
-%{dynload_dir}/_asyncio.%{SOABI_optimized}.so
-%{dynload_dir}/_bisect.%{SOABI_optimized}.so
-%{dynload_dir}/_bz2.%{SOABI_optimized}.so
-%{dynload_dir}/_codecs_cn.%{SOABI_optimized}.so
-%{dynload_dir}/_codecs_hk.%{SOABI_optimized}.so
-%{dynload_dir}/_codecs_iso2022.%{SOABI_optimized}.so
-%{dynload_dir}/_codecs_jp.%{SOABI_optimized}.so
-%{dynload_dir}/_codecs_kr.%{SOABI_optimized}.so
-%{dynload_dir}/_codecs_tw.%{SOABI_optimized}.so
-%{dynload_dir}/_contextvars.%{SOABI_optimized}.so
-%{dynload_dir}/_csv.%{SOABI_optimized}.so
-%{dynload_dir}/_ctypes.%{SOABI_optimized}.so
-%{dynload_dir}/_curses.%{SOABI_optimized}.so
-%{dynload_dir}/_curses_panel.%{SOABI_optimized}.so
-%{dynload_dir}/_dbm.%{SOABI_optimized}.so
-%{dynload_dir}/_decimal.%{SOABI_optimized}.so
-%{dynload_dir}/_elementtree.%{SOABI_optimized}.so
-%if %{with gdbm}
-%{dynload_dir}/_gdbm.%{SOABI_optimized}.so
-%endif
-%{dynload_dir}/_hashlib.%{SOABI_optimized}.so
-%{dynload_dir}/_heapq.%{SOABI_optimized}.so
-%{dynload_dir}/_json.%{SOABI_optimized}.so
-%{dynload_dir}/_lsprof.%{SOABI_optimized}.so
-%{dynload_dir}/_lzma.%{SOABI_optimized}.so
-%{dynload_dir}/_multibytecodec.%{SOABI_optimized}.so
-%{dynload_dir}/_multiprocessing.%{SOABI_optimized}.so
-%{dynload_dir}/_opcode.%{SOABI_optimized}.so
-%{dynload_dir}/_pickle.%{SOABI_optimized}.so
-%{dynload_dir}/_posixsubprocess.%{SOABI_optimized}.so
-%{dynload_dir}/_queue.%{SOABI_optimized}.so
-%{dynload_dir}/_random.%{SOABI_optimized}.so
-%{dynload_dir}/_socket.%{SOABI_optimized}.so
-%{dynload_dir}/_sqlite3.%{SOABI_optimized}.so
-%{dynload_dir}/_ssl.%{SOABI_optimized}.so
-%{dynload_dir}/_statistics.%{SOABI_optimized}.so
-%{dynload_dir}/_struct.%{SOABI_optimized}.so
-%{dynload_dir}/array.%{SOABI_optimized}.so
-%{dynload_dir}/binascii.%{SOABI_optimized}.so
-%{dynload_dir}/cmath.%{SOABI_optimized}.so
-%{dynload_dir}/_datetime.%{SOABI_optimized}.so
-%{dynload_dir}/fcntl.%{SOABI_optimized}.so
-%{dynload_dir}/grp.%{SOABI_optimized}.so
-%{dynload_dir}/math.%{SOABI_optimized}.so
-%{dynload_dir}/mmap.%{SOABI_optimized}.so
-%{dynload_dir}/_posixshmem.%{SOABI_optimized}.so
-%{dynload_dir}/pyexpat.%{SOABI_optimized}.so
-%{dynload_dir}/readline.%{SOABI_optimized}.so
-%{dynload_dir}/resource.%{SOABI_optimized}.so
-%{dynload_dir}/select.%{SOABI_optimized}.so
-%{dynload_dir}/syslog.%{SOABI_optimized}.so
-%{dynload_dir}/termios.%{SOABI_optimized}.so
-%{dynload_dir}/unicodedata.%{SOABI_optimized}.so
-%{dynload_dir}/_uuid.%{SOABI_optimized}.so
-%{dynload_dir}/xxlimited.%{SOABI_optimized}.so
-%{dynload_dir}/xxlimited_35.%{SOABI_optimized}.so
-%{dynload_dir}/_xxsubinterpreters.%{SOABI_optimized}.so
-%{dynload_dir}/xxsubtype.%{SOABI_optimized}.so
-%{dynload_dir}/zlib.%{SOABI_optimized}.so
-%{dynload_dir}/_zoneinfo.%{SOABI_optimized}.so
-
-%dir %{pylibdir}/site-packages/
-%dir %{pylibdir}/site-packages/__pycache__/
-%{pylibdir}/site-packages/README.txt
-
+# This will be in the debug package
 %if %{with debug_build}
 %exclude %{pylibdir}/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}.py
 %exclude %{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
 %endif
 
-%{pylibdir}/*.py
-%dir %{pylibdir}/__pycache__/
-%{pylibdir}/__pycache__/*%{bytecode_suffixes}
+# Extension modules
+# This is macronized for reuse in the -debug package
+%define extension_modules() \
+%{dynload_dir}/_asyncio.%{1}.so\
+%{dynload_dir}/_bisect.%{1}.so\
+%{dynload_dir}/_blake2.%{1}.so\
+%{dynload_dir}/_bz2.%{1}.so\
+%{dynload_dir}/_codecs_cn.%{1}.so\
+%{dynload_dir}/_codecs_hk.%{1}.so\
+%{dynload_dir}/_codecs_iso2022.%{1}.so\
+%{dynload_dir}/_codecs_jp.%{1}.so\
+%{dynload_dir}/_codecs_kr.%{1}.so\
+%{dynload_dir}/_codecs_tw.%{1}.so\
+%{dynload_dir}/_contextvars.%{1}.so\
+%{dynload_dir}/_csv.%{1}.so\
+%{dynload_dir}/_ctypes.%{1}.so\
+%{dynload_dir}/_curses.%{1}.so\
+%{dynload_dir}/_curses_panel.%{1}.so\
+%{dynload_dir}/_datetime.%{1}.so\
+%{dynload_dir}/_dbm.%{1}.so\
+%if %{with gdbm}\
+%{dynload_dir}/_gdbm.%{1}.so\
+%endif\
+%{dynload_dir}/_decimal.%{1}.so\
+%{dynload_dir}/_elementtree.%{1}.so\
+%{dynload_dir}/_hashlib.%{1}.so\
+%{dynload_dir}/_heapq.%{1}.so\
+%{dynload_dir}/_json.%{1}.so\
+%{dynload_dir}/_lsprof.%{1}.so\
+%{dynload_dir}/_lzma.%{1}.so\
+%{dynload_dir}/_md5.%{1}.so\
+%{dynload_dir}/_multibytecodec.%{1}.so\
+%{dynload_dir}/_multiprocessing.%{1}.so\
+%{dynload_dir}/_opcode.%{1}.so\
+%{dynload_dir}/_pickle.%{1}.so\
+%{dynload_dir}/_posixshmem.%{1}.so\
+%{dynload_dir}/_posixsubprocess.%{1}.so\
+%{dynload_dir}/_queue.%{1}.so\
+%{dynload_dir}/_random.%{1}.so\
+%{dynload_dir}/_sha1.%{1}.so\
+%{dynload_dir}/_sha2.%{1}.so\
+%{dynload_dir}/_sha3.%{1}.so\
+%{dynload_dir}/_socket.%{1}.so\
+%{dynload_dir}/_sqlite3.%{1}.so\
+%{dynload_dir}/_ssl.%{1}.so\
+%{dynload_dir}/_statistics.%{1}.so\
+%{dynload_dir}/_struct.%{1}.so\
+%{dynload_dir}/_uuid.%{1}.so\
+%{dynload_dir}/_xxsubinterpreters.%{1}.so\
+%{dynload_dir}/_zoneinfo.%{1}.so\
+%{dynload_dir}/array.%{1}.so\
+%{dynload_dir}/binascii.%{1}.so\
+%{dynload_dir}/cmath.%{1}.so\
+%{dynload_dir}/fcntl.%{1}.so\
+%{dynload_dir}/grp.%{1}.so\
+%{dynload_dir}/math.%{1}.so\
+%{dynload_dir}/mmap.%{1}.so\
+%{dynload_dir}/pyexpat.%{1}.so\
+%{dynload_dir}/readline.%{1}.so\
+%{dynload_dir}/resource.%{1}.so\
+%{dynload_dir}/select.%{1}.so\
+%{dynload_dir}/syslog.%{1}.so\
+%{dynload_dir}/termios.%{1}.so\
+%{dynload_dir}/unicodedata.%{1}.so\
+%{dynload_dir}/xxlimited.%{1}.so\
+%{dynload_dir}/xxlimited_35.%{1}.so\
+%{dynload_dir}/xxsubtype.%{1}.so\
+%{dynload_dir}/zlib.%{1}.so
 
-%dir %{pylibdir}/collections/
-%dir %{pylibdir}/collections/__pycache__/
-%{pylibdir}/collections/*.py
-%{pylibdir}/collections/__pycache__/*%{bytecode_suffixes}
+%extension_modules %{SOABI_optimized}
 
-%dir %{pylibdir}/ctypes/
-%dir %{pylibdir}/ctypes/__pycache__/
-%{pylibdir}/ctypes/*.py
-%{pylibdir}/ctypes/__pycache__/*%{bytecode_suffixes}
-%{pylibdir}/ctypes/macholib
-
-%{pylibdir}/curses
-
-%dir %{pylibdir}/dbm/
-%dir %{pylibdir}/dbm/__pycache__/
-%{pylibdir}/dbm/*.py
-%{pylibdir}/dbm/__pycache__/*%{bytecode_suffixes}
-
-%dir %{pylibdir}/email/
-%dir %{pylibdir}/email/__pycache__/
-%{pylibdir}/email/*.py
-%{pylibdir}/email/__pycache__/*%{bytecode_suffixes}
-%{pylibdir}/email/mime
-%doc %{pylibdir}/email/architecture.rst
-
-%{pylibdir}/encodings
-
-%{pylibdir}/html
-%{pylibdir}/http
-
-%dir %{pylibdir}/importlib/
-%dir %{pylibdir}/importlib/__pycache__/
-%{pylibdir}/importlib/*.py
-%{pylibdir}/importlib/__pycache__/*%{bytecode_suffixes}
-
-%dir %{pylibdir}/importlib/metadata/
-%dir %{pylibdir}/importlib/metadata/__pycache__/
-%{pylibdir}/importlib/metadata/*.py
-%{pylibdir}/importlib/metadata/__pycache__/*%{bytecode_suffixes}
-
-%dir %{pylibdir}/importlib/resources/
-%dir %{pylibdir}/importlib/resources/__pycache__/
-%{pylibdir}/importlib/resources/*.py
-%{pylibdir}/importlib/resources/__pycache__/*%{bytecode_suffixes}
-
-%dir %{pylibdir}/json/
-%dir %{pylibdir}/json/__pycache__/
-%{pylibdir}/json/*.py
-%{pylibdir}/json/__pycache__/*%{bytecode_suffixes}
-
-%{pylibdir}/logging
-%{pylibdir}/multiprocessing
-
-%dir %{pylibdir}/re/
-%{pylibdir}/re/*.py
-%{pylibdir}/re/__pycache__/*%{bytecode_suffixes}
-
-%dir %{pylibdir}/sqlite3/
-%dir %{pylibdir}/sqlite3/__pycache__/
-%{pylibdir}/sqlite3/*.py
-%{pylibdir}/sqlite3/__pycache__/*%{bytecode_suffixes}
-
-%dir %{pylibdir}/tomllib/
-%{pylibdir}/tomllib/*.py
-%{pylibdir}/tomllib/__pycache__/*%{bytecode_suffixes}
-%exclude %{pylibdir}/turtle.py
-%exclude %{pylibdir}/__pycache__/turtle*%{bytecode_suffixes}
-
-%{pylibdir}/urllib
-%{pylibdir}/xml
-
-%dir %{pylibdir}/zipfile/
-%{pylibdir}/zipfile/*.py
-%{pylibdir}/zipfile/__pycache__/*%{bytecode_suffixes}
-%{pylibdir}/zipfile/_path/*.py
-%{pylibdir}/zipfile/_path/__pycache__/*%{bytecode_suffixes}
-
-%{pylibdir}/zoneinfo
-
-%dir %{pylibdir}/__phello__
-%{pylibdir}/__phello__/__init__.py
-%{pylibdir}/__phello__/spam.py
-%{pylibdir}/__phello__/__pycache__/*%{bytecode_suffixes}
+%dir %{pylibdir}/site-packages/
+%dir %{pylibdir}/site-packages/__pycache__/
+%{pylibdir}/site-packages/README.txt
 
 %if "%{_lib}" == "lib64"
-%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}
-%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}/site-packages
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}/
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}/site-packages/
 %attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}/site-packages/__pycache__/
 %endif
 
@@ -1419,6 +1345,7 @@ CheckPython optimized
 %dir %{_includedir}/python%{LDVERSION_optimized}/
 %{_includedir}/python%{LDVERSION_optimized}/%{_pyconfig_h}
 
+# Finally, libpython
 %{_libdir}/%{py_INSTSONAME_optimized}
 %if %{with main_python}
 %{_libdir}/libpython3.so
@@ -1487,25 +1414,31 @@ CheckPython optimized
 
 
 %files -n %{pkgname}-test
-%{pylibdir}/test
-%{dynload_dir}/_ctypes_test.%{SOABI_optimized}.so
-%{dynload_dir}/_testbuffer.%{SOABI_optimized}.so
-%{dynload_dir}/_testcapi.%{SOABI_optimized}.so
-%{dynload_dir}/_testclinic.%{SOABI_optimized}.so
-%{dynload_dir}/_testclinic_limited.%{SOABI_optimized}.so
-%{dynload_dir}/_testimportmultiple.%{SOABI_optimized}.so
-%{dynload_dir}/_testinternalcapi.%{SOABI_optimized}.so
-%{dynload_dir}/_testmultiphase.%{SOABI_optimized}.so
-%{dynload_dir}/_testsinglephase.%{SOABI_optimized}.so
-%{dynload_dir}/_xxinterpchannels.%{SOABI_optimized}.so
-%{dynload_dir}/_xxtestfuzz.%{SOABI_optimized}.so
+%{pylibdir}/test/
+
+# Extension modules
+# This is macronized for reuse in the -debug package
+%define extension_modules_test() \
+%{dynload_dir}/_ctypes_test.%{1}.so\
+%{dynload_dir}/_testbuffer.%{1}.so\
+%{dynload_dir}/_testcapi.%{1}.so\
+%{dynload_dir}/_testclinic.%{1}.so\
+%{dynload_dir}/_testclinic_limited.%{1}.so\
+%{dynload_dir}/_testimportmultiple.%{1}.so\
+%{dynload_dir}/_testinternalcapi.%{1}.so\
+%{dynload_dir}/_testmultiphase.%{1}.so\
+%{dynload_dir}/_testsinglephase.%{1}.so\
+%{dynload_dir}/_xxinterpchannels.%{1}.so\
+%{dynload_dir}/_xxtestfuzz.%{1}.so
+
+%extension_modules_test %{SOABI_optimized}
+
 
 # We don't bother splitting the debug build out into further subpackages:
-# if you need it, you're probably a developer.
+# if you need it, you're debugging and you probably don't mind having it all.
 
 # Hence the manifest is the combination of analogous files in the manifests of
 # all of the other subpackages
-
 %if %{with debug_build}
 %files -n %{pkgname}-debug
 %if %{with main_python}
@@ -1516,111 +1449,22 @@ CheckPython optimized
 # Analog of the core subpackage's files:
 %{_bindir}/python%{LDVERSION_debug}
 
-# Analog of the -libs subpackage's files:
-# ...with debug builds of the built-in "extension" modules:
-
-%{dynload_dir}/_blake2.%{SOABI_debug}.so
-%{dynload_dir}/_md5.%{SOABI_debug}.so
-%{dynload_dir}/_sha1.%{SOABI_debug}.so
-%{dynload_dir}/_sha2.%{SOABI_debug}.so
-%{dynload_dir}/_sha3.%{SOABI_debug}.so
-
-%{dynload_dir}/_asyncio.%{SOABI_debug}.so
-%{dynload_dir}/_bisect.%{SOABI_debug}.so
-%{dynload_dir}/_bz2.%{SOABI_debug}.so
-%{dynload_dir}/_codecs_cn.%{SOABI_debug}.so
-%{dynload_dir}/_codecs_hk.%{SOABI_debug}.so
-%{dynload_dir}/_codecs_iso2022.%{SOABI_debug}.so
-%{dynload_dir}/_codecs_jp.%{SOABI_debug}.so
-%{dynload_dir}/_codecs_kr.%{SOABI_debug}.so
-%{dynload_dir}/_codecs_tw.%{SOABI_debug}.so
-%{dynload_dir}/_contextvars.%{SOABI_debug}.so
-%{dynload_dir}/_csv.%{SOABI_debug}.so
-%{dynload_dir}/_ctypes.%{SOABI_debug}.so
-%{dynload_dir}/_curses.%{SOABI_debug}.so
-%{dynload_dir}/_curses_panel.%{SOABI_debug}.so
-%{dynload_dir}/_dbm.%{SOABI_debug}.so
-%{dynload_dir}/_decimal.%{SOABI_debug}.so
-%{dynload_dir}/_elementtree.%{SOABI_debug}.so
-%if %{with gdbm}
-%{dynload_dir}/_gdbm.%{SOABI_debug}.so
-%endif
-%{dynload_dir}/_hashlib.%{SOABI_debug}.so
-%{dynload_dir}/_heapq.%{SOABI_debug}.so
-%{dynload_dir}/_json.%{SOABI_debug}.so
-%{dynload_dir}/_lsprof.%{SOABI_debug}.so
-%{dynload_dir}/_lzma.%{SOABI_debug}.so
-%{dynload_dir}/_multibytecodec.%{SOABI_debug}.so
-%{dynload_dir}/_multiprocessing.%{SOABI_debug}.so
-%{dynload_dir}/_opcode.%{SOABI_debug}.so
-%{dynload_dir}/_pickle.%{SOABI_debug}.so
-%{dynload_dir}/_posixsubprocess.%{SOABI_debug}.so
-%{dynload_dir}/_queue.%{SOABI_debug}.so
-%{dynload_dir}/_random.%{SOABI_debug}.so
-%{dynload_dir}/_socket.%{SOABI_debug}.so
-%{dynload_dir}/_sqlite3.%{SOABI_debug}.so
-%{dynload_dir}/_ssl.%{SOABI_debug}.so
-%{dynload_dir}/_statistics.%{SOABI_debug}.so
-%{dynload_dir}/_struct.%{SOABI_debug}.so
-%{dynload_dir}/array.%{SOABI_debug}.so
-%{dynload_dir}/binascii.%{SOABI_debug}.so
-%{dynload_dir}/cmath.%{SOABI_debug}.so
-%{dynload_dir}/_datetime.%{SOABI_debug}.so
-%{dynload_dir}/fcntl.%{SOABI_debug}.so
-%{dynload_dir}/grp.%{SOABI_debug}.so
-%{dynload_dir}/math.%{SOABI_debug}.so
-%{dynload_dir}/mmap.%{SOABI_debug}.so
-%{dynload_dir}/_posixshmem.%{SOABI_debug}.so
-%{dynload_dir}/pyexpat.%{SOABI_debug}.so
-%{dynload_dir}/readline.%{SOABI_debug}.so
-%{dynload_dir}/resource.%{SOABI_debug}.so
-%{dynload_dir}/select.%{SOABI_debug}.so
-%{dynload_dir}/syslog.%{SOABI_debug}.so
-%{dynload_dir}/termios.%{SOABI_debug}.so
-%{dynload_dir}/unicodedata.%{SOABI_debug}.so
-%{dynload_dir}/_uuid.%{SOABI_debug}.so
-%{dynload_dir}/xxlimited.%{SOABI_debug}.so
-%{dynload_dir}/xxlimited_35.%{SOABI_debug}.so
-%{dynload_dir}/_xxsubinterpreters.%{SOABI_debug}.so
-%{dynload_dir}/xxsubtype.%{SOABI_debug}.so
-%{dynload_dir}/zlib.%{SOABI_debug}.so
-%{dynload_dir}/_zoneinfo.%{SOABI_debug}.so
-
-# No need to split things out the "Makefile" and the config-32/64.h file as we
-# do for the regular build above (bug 531901), since they're all in one package
-# now; they're listed below, under "-devel":
-
+# Analog to the -libs subpackage's files:
 %{_libdir}/%{py_INSTSONAME_debug}
 
+# Analog of the libs, test, and tkinter extension modules:
+%extension_modules %{SOABI_debug}
+%extension_modules_test %{SOABI_debug}
+%{dynload_dir}/_tkinter.%{SOABI_debug}.so
+
 # Analog of the -devel subpackage's files:
-%{pylibdir}/config-%{LDVERSION_debug}-%{platform_triplet}
-%{_includedir}/python%{LDVERSION_debug}
+%{pylibdir}/config-%{LDVERSION_debug}-%{platform_triplet}/
+%{_includedir}/python%{LDVERSION_debug}/
 %{_bindir}/python%{LDVERSION_debug}-config
 %{_bindir}/python%{LDVERSION_debug}-*-config
 %{_libdir}/libpython%{LDVERSION_debug}.so
-%{_libdir}/libpython%{LDVERSION_debug}.so.%{py_SOVERSION}
 %{_libdir}/pkgconfig/python-%{LDVERSION_debug}.pc
 %{_libdir}/pkgconfig/python-%{LDVERSION_debug}-embed.pc
-
-# Analog of the -tools subpackage's files:
-#  None for now; we could build precanned versions that have the appropriate
-# shebang if needed
-
-# Analog  of the tkinter subpackage's files:
-%{dynload_dir}/_tkinter.%{SOABI_debug}.so
-
-# Analog  of the -test subpackage's files:
-%{dynload_dir}/_ctypes_test.%{SOABI_debug}.so
-%{dynload_dir}/_testbuffer.%{SOABI_debug}.so
-%{dynload_dir}/_testcapi.%{SOABI_debug}.so
-%{dynload_dir}/_testclinic.%{SOABI_debug}.so
-%{dynload_dir}/_testclinic_limited.%{SOABI_debug}.so
-%{dynload_dir}/_testimportmultiple.%{SOABI_debug}.so
-%{dynload_dir}/_testinternalcapi.%{SOABI_debug}.so
-%{dynload_dir}/_testmultiphase.%{SOABI_debug}.so
-%{dynload_dir}/_testsinglephase.%{SOABI_debug}.so
-%{dynload_dir}/_xxinterpchannels.%{SOABI_debug}.so
-%{dynload_dir}/_xxtestfuzz.%{SOABI_debug}.so
 
 %{pylibdir}/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}.py
 %{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}%{bytecode_suffixes}

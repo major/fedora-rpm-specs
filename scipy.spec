@@ -4,12 +4,10 @@
 # Pythran is an optional build dependency.
 # When used, it makes some modules faster,
 # but it is usually not available soon enough for new major Python versions.
-%ifarch i686 armv7hl
-# It seems pythran is broken on 32-bit arches, disable it
-%bcond_with pythran
-%else
 %bcond_without pythran
-%endif
+
+# The code is not safe to build with LTO
+%global _lto_cflags %{nil}
 
 # Set to pre-release version suffix if building pre-release, else %%{nil}
 %global rcver %{nil}
@@ -24,39 +22,54 @@
 
 Summary:    Scientific Tools for Python
 Name:       scipy
-Version:    1.11.1
-Release:    1%{?dist}
+Version:    1.11.3
+Release:    2%{?dist}
 
-# BSD -- whole package except:
-# Boost -- scipy/special/cephes/scipy_iv.c
-# Public Domain -- scipy/odr/__odrpack.c
-License:    BSD and Boost and Public Domain
+# BSD-3-Clause -- whole package except:
+# BSD-2-Clause -- scipy/_lib/_pep440.py
+#                 scipy/_lib/decorator.py
+#                 scipy/optimize/lbfgsb_src
+#                 scipy/special/_ellip_harm.pxd
+# MIT -- scipy/cluster/_optimal_leaf_ordering.pyx
+#        scipy/io/_idl.py
+#        scipy/linalg/_basic.py (in part)
+#        scipy/optimize/_highs
+#        scipy/optimize/_lbfgsb_py.py
+#        scipy/optimize/_tnc.py
+#        scipy/optimize/_trlib
+#        scipy/optimize/tnc
+#        scipy/special/Faddeeva.{cc,hh}
+# BSL-1.0 -- scipy/_lib/boost_math
+#            scipy/special/cephes
+# Boehm-GC -- scipy/sparse/linalg/_dsolve/SuperLU
+# Qhull -- scipy/spatial/qhull_src
+# LicenseRef-Fedora-Public-Domain -- scipy/odr/__odrpack.c
+License:    BSD-3-Clause AND BSD-2-Clause AND MIT AND BSL-1.0 AND Boehm-GC AND Qhull AND LicenseRef-Fedora-Public-Domain
 Url:        http://www.scipy.org/scipylib/index.html
 Source0:    https://github.com/scipy/scipy/releases/download/v%{version}/scipy-%{version}.tar.gz
 
-# Fix build failure with Cython 3 when scipy is already installed
-Patch:      https://github.com/scipy/scipy/commit/3c89445b6439f3ce7bffc4cf11c6407c39faedc5.patch
+# TST: Fix #19442 minimally
+# https://github.com/scipy/scipy/pull/19443
+#
+# Fixes:
+#
+# BUG: Error collecting tests due to inconsistent parameterization order in
+# test_b_orthonormalize
+# https://github.com/scipy/scipy/issues/19442
+Patch:          https://github.com/scipy/scipy/pull/19443.patch
 
-BuildRequires: fftw-devel, suitesparse-devel
 BuildRequires: %{blaslib}-devel
-BuildRequires: gcc-gfortran, swig, gcc-c++
-BuildRequires: qhull-devel
+BuildRequires: gcc-gfortran, gcc-c++
 
 BuildRequires:  pybind11-devel
-BuildRequires:  python3-pybind11 >= 2.4.0
-BuildRequires:  python3-numpy, python3-devel, python3-numpy-f2py
-BuildRequires:  python3-pooch
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-Cython
+BuildRequires:  python3-devel, python3-numpy-f2py
+
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-timeout
 %if ! 0%{?rhel}
 BuildRequires:  python3-pytest-xdist
 %endif
-BuildRequires:  python3-pytest-timeout
-
-%if %{with pythran}
-BuildRequires:  pythran
-%endif
+BuildRequires:  python3-pooch
 
 %if %{with doc}
 BuildRequires:  python3-sphinx
@@ -80,7 +93,20 @@ leading scientists and engineers.}
 %package -n python3-scipy
 Summary:    Scientific Tools for Python
 Requires:   python3-numpy, python3-f2py, python3-pooch
-%{?python_provide:%python_provide python3-scipy}
+Provides:   bundled(arpack) = 3.3.0
+Provides:   bundled(biasedurn)
+Provides:   bundled(boost-math)
+Provides:   bundled(coin-or-HiGHS) = 1.2
+Provides:   bundled(Faddeeva)
+Provides:   bundled(id)
+Provides:   bundled(l-bfgs-b) = 3.0
+Provides:   bundled(LAPJVsp)
+Provides:   bundled(python3-decorator) = 4.0.5
+Provides:   bundled(python3-pep440)
+Provides:   bundled(python3-pypocketfft) = bf2c431c21213b7c5e23c2f542009b0bd3ec1445
+Provides:   bundled(qhull) = 2019.1
+Provides:   bundled(SuperLU) = 5.2.0
+Provides:   bundled(unuran) = 1.8.1
 %description -n python3-scipy %_description
 
 %if %{with doc}
@@ -100,60 +126,87 @@ Scipy test files
 
 %prep
 %autosetup -p1 -n %{name}-%{version}%{?rcver}
-cat > site.cfg << EOF
+cat >> pyproject.toml << EOF
 
-[amd]
-library_dirs = %{_libdir}
-include_dirs = /usr/include/suitesparse
-amd_libs = amd
-
-[umfpack]
-library_dirs = %{_libdir}
-include_dirs = /usr/include/suitesparse
-umfpack_libs = umfpack
-
-[openblas]
-libraries = %{blaslib}%{blasvar}
-library_dirs = %{_libdir}
+[tool.meson-python.args]
+setup = ['-Dblas=%{blaslib}%{blasvar}', '-Dlapack=%{blaslib}%{blasvar}'%{!?with_pythran:, '-Duse-pythran=false'}]
 EOF
 
+# Enable build with Python 3.13+
+# Upstream only allows Python pre-releases in git HEAD, not in releases.
+# However in Fedora, we actively build packages with Python pre-releases very soon.
+sed -i 's/requires-python = ">=3.9,<3.13"/requires-python = ">=3.9"/' pyproject.toml
+
 # Docs won't build unless the .dat files are specified here
-sed -i 's/metadata = dict(/metadata = dict(package_data={"": ["*.dat"]},/' setup.py
+sed -i 's/metadata = dict(/metadata = dict(package_data={"": ["*.dat"]},/' _setup.py
 
 rm $(grep -rl '/\* Generated by Cython') PKG-INFO
 
+# numpy no longer contains a copy of distutils
+for f in $(grep -Frl numpy.distutils); do
+  sed -i.orig 's/numpy\.\(distutils\)/\1/g' $f
+  touch -r $f.orig $f
+  rm $f.orig
+done
+
+# Do not do benchmarking or coverage testing for RPM builds
+sed -i '/^[[:blank:]]*"(asv|pytest-cov)"/d' pyproject.toml
+
+# No scikit-umfpack in Fedora
+sed -i '/^[[:blank:]]*"scikit-umfpack"/d' pyproject.toml
+
+# No pytest-xdist in RHEL
+%if 0%{?rhel}
+sed -i '/^[[:blank:]]*"pytest-xdist"/d' pyproject.toml
+%endif
+
+# Remove pythran dependency if not explicitly required
+%if %{without pythran}
+sed -i '/pythran/d' pyproject.toml
+%endif
+
+# Loosen the lower bound on numpy
+sed -i "/numpy.*python_version=='3.12'/s/1\.26\.0/1\.24\.4/" pyproject.toml
+
+# Loosen the upper bound on meson-python
+sed -i '/meson-python/s/0\.15\.0/0\.16\.0/' pyproject.toml
+
+# Loosen the upper bound on Cython
+sed -i '/Cython/s/3\.0/3\.1/' pyproject.toml
+
+# Loosen the upper bound on pybind11
+sed -i '/pybind11/s/2\.11\.1/2.12.0/' pyproject.toml
+
+# Work around failure to detect open_memstream.  In glibc, open_memstream is
+# not a real function.  It is a weak alias to __open_memstream.
+sed -i "s/\('has_openmemstream', \)'0'/\1'1'/" scipy/_lib/meson.build
+
+%generate_buildrequires
+%pyproject_buildrequires -R
+
 %build
-export SCIPY_USE_PYTHRAN=0%{?with_pythran}
+%pyproject_wheel
 
+%if %{with doc}
 for PY in %{python3_version}; do
-  # Adding -fallow-argument-mismatch workaround for https://github.com/scipy/scipy/issues/11611
-  env CFLAGS="$RPM_OPT_FLAGS -lm" \
-  %if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
-      FFLAGS="$RPM_OPT_FLAGS -fPIC -fallow-argument-mismatch" \
-  %else
-      FFLAGS="$RPM_OPT_FLAGS -fPIC" \
-  %endif
-    LDFLAGS="%{__global_ldflags}" \
-    %{_bindir}/python$PY setup.py config_fc \
-    --fcompiler=gnu95 --noarch \
-    build
-
-  %if %{with doc}
   pushd doc
   export PYTHONPATH=$(echo ../build/lib.linux-*-$PY/)
   make html SPHINXBUILD=sphinx-build-$PY
   rm -rf build/html/.buildinfo
   mv build build-$PY
   popd
-  %endif
 done
+%endif
 
 %install
-export SCIPY_USE_PYTHRAN=0%{?with_pythran}
+%pyproject_install
+%pyproject_save_files scipy
 
-%py3_install
 # Some files got ambiguous python shebangs, we fix them after everything else is done
 %py3_shebang_fix %{buildroot}%{python3_sitearch}
+
+# Fix executable bits
+chmod 0755 %{buildroot}%{python3_sitearch}/scipy/sparse/linalg/_isolve/tests/test_gcrotmk.py
 
 %check
 # check against the reference BLAS/LAPACK
@@ -200,19 +253,20 @@ TIMEOUT=1000
 %endif
 
 %ifarch x86_64
-# skip also failing test_sygst for now
+%if 0%{?rhel}
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
-%{?rhel:not TestPPoly and \
+not TestPPoly and \
 not TestLinprogIPSparse and \
-not test_axis_nan_policy_full and} \
-not test_sygst'"
+not test_axis_nan_policy_full'"
+%else
+export PYTEST_ADDOPTS="-k '$SKIP_ALL'"
+%endif
 %endif
 
 %ifarch i686 armv7hl
 # skip also test_cython_api: https://bugzilla.redhat.com/show_bug.cgi?id=2068496
 # https://github.com/scipy/scipy/issues/17213
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
-not test_sygst and \
 not test_cython_api and \
 not test_examples and \
 not test_shifts and \
@@ -228,13 +282,11 @@ pushd %{buildroot}/%{python3_sitearch}
 %{pytest} --timeout=${TIMEOUT} scipy %{?!rhel:--numprocesses=auto}
 # Remove test remnants
 rm -rf gram{A,B}
-rm -rf scipy/.pytest_cache
+rm -rf .pytest_cache
 popd
 
-%files -n python3-scipy
-%doc LICENSE.txt
-%{python3_sitearch}/scipy/
-%{python3_sitearch}/*.egg-info
+%files -n python3-scipy -f %{pyproject_files}
+%license LICENSE.txt
 %exclude %{python3_sitearch}/scipy/*/tests/
 %exclude %{python3_sitearch}/scipy/*/*/tests/
 %exclude %{python3_sitearch}/scipy/*/*/*/tests/
@@ -253,6 +305,21 @@ popd
 %endif
 
 %changelog
+* Wed Nov 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.11.3-2
+- Patch error collecting tests with pytest-xdist
+
+* Wed Oct 11 2023 Jerry James <loganjerry@gmail.com> - 1.11.3-1
+- New upstream release 1.11.3
+  resolves: #2211813
+- Convert License tag to SPDX
+- Add Provides for bundled projects
+- Disable LTO
+- Pythran works on 32-bit architectures again
+- Fix detection of open_memstream
+- Use pyproject macros instead of the deprecated py3 macros
+- Reenable some tests that work again
+- Remove unused BuildRequires
+
 * Wed Jul 12 2023 psimovec <psimovec@redhat.com> - 1.11.1-1
 - New upstream release 1.11.1
   resolves: #2211813

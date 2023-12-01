@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        81
+Version:        82
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -38,7 +38,7 @@ Requires:       podman >= 2.0.4
 Requires:       criu-libs
 %endif
 
-Provides: bundled(npm(@babel/runtime)) = 7.23.2
+Provides: bundled(npm(@babel/runtime)) = 7.23.4
 Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
 Provides: bundled(npm(@patternfly/react-core)) = 5.1.1
 Provides: bundled(npm(@patternfly/react-icons)) = 5.1.1
@@ -88,6 +88,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Nov 29 2023 Packit <hello@packit.dev> - 82-1
+- Delete intermediate images
+
 * Wed Nov 15 2023 Packit <hello@packit.dev> - 81-1
 - Performance and stability improvements
 

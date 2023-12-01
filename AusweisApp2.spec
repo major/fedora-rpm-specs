@@ -40,7 +40,7 @@ fi                                               \
 
 Name:             AusweisApp2
 Version:          1.26.7
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -314,6 +314,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 1.26.7-4
+- Rebuild (qt6)
+
 * Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 1.26.7-3
 - Rebuild (qt6)
 

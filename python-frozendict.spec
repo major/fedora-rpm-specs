@@ -2,7 +2,7 @@
 %global srcname frozendict
 
 Name:           python-%{srcname}
-Version:        2.3.9
+Version:        2.3.10
 Release:        1%{?dist}
 Summary:        An immutable dictionary
 
@@ -46,6 +46,9 @@ export FROZENDICT_PURE_PY=1
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Thu Nov 30 2023 Orion Poplawski <orion@nwra.com> - 2.3.10-1
+- Update to 2.3.10
+
 * Sat Nov 25 2023 Orion Poplawski <orion@nwra.com> - 2.3.9-1
 - Update to 2.3.9
 

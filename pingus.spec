@@ -1,6 +1,6 @@
 Name:           pingus
 Version:        0.7.6
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Guide the penguins safely home before they drop of the cliff
 License:        GPL-2.0-or-later
 URL:            http://pingus.seul.org/
@@ -91,6 +91,7 @@ SentUpstream: 2014-09-25
     <screenshot type="default">http://pingus.seul.org/images/screen_0.7.0-4.jpg</screenshot>
     <screenshot>http://pingus.seul.org/images/screen_0.7.0-3.jpg</screenshot>
   </screenshots>
+  <launchable type="desktop-id">pingus.desktop</launchable>
 </application>
 EOF
 
@@ -107,6 +108,9 @@ EOF
 
 
 %changelog
+* Wed Nov 29 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.6-46
+- Update appdata
+
 * Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.6-45
 - Respect default linker flags
 

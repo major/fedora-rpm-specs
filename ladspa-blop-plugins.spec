@@ -1,10 +1,11 @@
 Name:           ladspa-blop-plugins
 Version:        0.2.8
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Bandlimited LADSPA Oscillator Plugins
 License:        GPLv2+
 URL:            http://blop.sourceforge.net/
 Source:         http://downloads.sourceforge.net/blop/blop-%{version}.tar.gz
+Patch1:         ladspa-blop-plugins-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  ladspa-devel
 BuildRequires: make
@@ -23,7 +24,7 @@ harmonic content as high as possible over a wide pitch range.
 
 
 %prep
-%setup -q -n blop-%{version}
+%autosetup -p1 -n blop-%{version}
 chmod -x src/lp4pole_filter.c src/include/lp4pole_filter.h
 # Enable optimiziation
 sed -i 's|-O0||g' src/Makefile.in
@@ -59,6 +60,9 @@ export LDADD="$RPM_LD_FLAGS"
 
 
 %changelog
+* Wed Nov 29 2023 Florian Weimer <fweimer@redhat.com> - 0.2.8-36
+- Update spec file to actually apply ladspa-blop-plugins-configure-c99.patch
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           angelfish
 Version:        24.01.75
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 License:        MIT and GPLv2+ and LGPLv2 and LGPLv2+
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 24.01.75-2
+- Rebuild (qt6)
+
 * Thu Nov 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.75-1
 - 24.01.75
 

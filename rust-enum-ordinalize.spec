@@ -2,23 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate remoteprocess
+%global crate enum-ordinalize
 
-Name:           rust-remoteprocess
-Version:        0.4.13
+Name:           rust-enum-ordinalize
+Version:        3.1.15
 Release:        %autorelease
-Summary:        Cross platform api for getting information on a running processes
+Summary:        Construct enum variant from its ordinal
 
 License:        MIT
-URL:            https://crates.io/crates/remoteprocess
+URL:            https://crates.io/crates/enum-ordinalize
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          remoteprocess-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Cross platform api for getting information on a running processes.}
+This crates provides a procedural macro to let enums not only get its
+variants' ordinal but also be constructed from an ordinal.}
 
 %description %{_description}
 
@@ -48,16 +47,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unwind-devel
+%package     -n %{name}+nightly-test-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unwind-devel %{_description}
+%description -n %{name}+nightly-test-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unwind" feature of the "%{crate}" crate.
+use the "nightly-test" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unwind-devel
+%files       -n %{name}+nightly-test-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

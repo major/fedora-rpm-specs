@@ -1,11 +1,15 @@
 Name:          gupnp-tools
 Version:       0.12.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A collection of dev tools utilising GUPnP and GTK+
 
-License:       GPLv2+
+License:       GPL-2.0-or-later
 URL:           https://wiki.gnome.org/Projects/GUPnP
 Source0:       https://download.gnome.org/sources/%{name}/0.12/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gupnp-tools/-/issues/27
+Patch:         gupnp-tools-0.12.1-libxml2-2.12.0-deprecations.patch
+# https://gitlab.gnome.org/GNOME/gupnp-tools/-/issues/28
+Patch:         gupnp-tools-0.12.1-libxml2-2.12.0-includes.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
@@ -68,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gupnp-universal-cp.de
 %{_datadir}/icons/hicolor/*/apps/universal-cp.png
 
 %changelog
+* Wed Nov 29 2023 David King <amigadave@amigadave.com> - 0.12.1-2
+- Fix building against libxml2 2.12.0
+
 * Wed Aug 02 2023 Kalev Lember <klember@redhat.com> - 0.12.1-1
 - Update to 0.12.1
 

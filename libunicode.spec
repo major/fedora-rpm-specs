@@ -1,28 +1,21 @@
-%global sover 0.2
-
 Name:           libunicode
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
-Summary:        Modern C++17 Unicode library
+Summary:        Modern C++20 Unicode Library
 License:        Apache-2.0
 URL:            https://github.com/contour-terminal/libunicode
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# fix to enable the customized defined ucd path
-Patch0:         fix-ucd.patch
+Patch0:         libunicode-fix-catch-in-cmake.patch
 
 ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  ninja-build
 BuildRequires:  fmt-devel
 BuildRequires:  range-v3-devel
 BuildRequires:  unicode-ucd
-
-%if %{?fedora} <= 38
 BuildRequires:  catch-devel
-%else
-BuildRequires:  catch2-devel
-%endif
 
 %description
 The goal of libunicode library is to bring painless unicode support to C++
@@ -34,8 +27,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains development files for %{name}.
 
 %package        tools
 Summary:        Tools for %{name}
@@ -45,10 +37,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-tools package contains tools about %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
-%cmake -DLIBUNICODE_UCD_DIR=%{_datadir}/unicode/ucd
+%cmake \
+    -GNinja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIBUNICODE_UCD_DIR=%{_datadir}/unicode/ucd \
+
 %cmake_build
 
 %install
@@ -60,14 +56,12 @@ The %{name}-tools package contains tools about %{name}.
 %files
 %license LICENSE
 %doc README.md Changelog.md
-%{_libdir}/%{name}*.so.%{sover}*
+%{_libdir}/libunicode*.so.0.4*
 
 %files devel
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*.h
-%dir %{_libdir}/cmake/%{name}
-%{_libdir}/cmake/%{name}/*.cmake
-%{_libdir}/%{name}*.so
+%{_includedir}/libunicode/
+%{_libdir}/cmake/libunicode/
+%{_libdir}/libunicode*.so
 
 %files tools
 %{_bindir}/unicode-query

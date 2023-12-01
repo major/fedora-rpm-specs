@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 5.245.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -206,6 +206,9 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/KF6KIO/
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.245.0-3
+- Rebuild (qt6)
+
 * Mon Nov 20 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-2
 - Add back kuriikwsfiltereng SOVERSION patch
 

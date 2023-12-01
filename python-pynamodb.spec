@@ -6,7 +6,7 @@
 
 Name:           python-pynamodb
 Summary:        A pythonic interface to Amazon’s DynamoDB
-Version:        5.5.0
+Version:        5.5.1
 Release:        %autorelease
 
 # SPDX
@@ -15,6 +15,10 @@ URL:            https://github.com/pynamodb/PynamoDB
 # We use the GitHub tarball instead of the PyPI tarball to get documentation
 # and tests.
 Source:         %{url}/archive/%{version}/PynamoDB-%{version}.tar.gz
+
+# In setup.cfg, avoid deprecated license_file
+# https://github.com/pynamodb/PynamoDB/pull/1207
+Patch:          %{url}/pull/1207.patch
 
 BuildArch:      noarch
 
@@ -56,8 +60,11 @@ Summary:        Documentation and examples for PynamoDB
 
 {
 %if %{with doc_pdf}
-  # Un-pin exact versions in doc dependencies
-  sed -r 's/==/>=/' docs/requirements.txt
+  # Un-pin exact versions in doc dependencies.
+  #
+  # We can’t handle self-referential dependencies like .[signals]; we use the
+  # -x argument to %%pyproject_buildrequires instead
+  sed -r -e 's/==/>=/' -e 's/^\.\[/# &/' docs/requirements.txt
 %endif
   # Get non-CI dev dependencies (no coverage/linting)
   awk '/^# only used in CI/ {ci=1}; !ci' requirements-dev.txt
@@ -67,7 +74,7 @@ sed -r -i 's/[-]rrequirements-dev\.txt//' tox.ini
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t requirements-filtered.txt
+%pyproject_buildrequires -x signals -t requirements-filtered.txt
 
 
 %build

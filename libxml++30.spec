@@ -2,19 +2,21 @@
 
 Name:           libxml++30
 Version:        3.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ wrapper for the libxml2 XML parser library
 
-License:        LGPLv2+
-URL:            http://libxmlplusplus.sourceforge.net/
+License:        LGPL-2.1-or-later
+URL:            https://libxmlplusplus.github.io/libxmlplusplus/
 Source0:        https://download.gnome.org/sources/libxml++/3.2/libxml++-%{version}.tar.xz
+# https://github.com/libxmlplusplus/libxmlplusplus/commit/6e7e90984418a983101f51352f91231be56efb32
+Patch:          libxml++30-3.2.4-libxml2-2.12.0-includes.patch
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  doxygen, graphviz
 BuildRequires:  gcc-c++
-BuildRequires:  glibmm24-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  libxslt
+BuildRequires:  pkgconfig(glibmm-2.4)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  meson
 
 %description
@@ -73,6 +75,9 @@ This package contains the full API documentation for %{name}.
 
 
 %changelog
+* Wed Nov 29 2023 David King <amigadave@amigadave.com> - 3.2.4-4
+- Fix building against libxml2 2.12.0 and above
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

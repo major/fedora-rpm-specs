@@ -1,6 +1,6 @@
 Name:           libesedb
-Version:        20181229
-Release:        13%{?dist}
+Version:        20231120
+Release:        1%{?dist}
 Summary:        Library to access the Extensible Storage Engine (ESE) Database File (EDB) format
 
 %global         common_description %{expand:
@@ -18,14 +18,14 @@ Windows Mail, Exchange, Active Directory, etc.}
 %bcond_without  python3
 
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/libyal/libesedb
 #               https://github.com/libyal/libesedb/releases
-# Source0:      https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+# Source0:      https://github.com/%%{gituser}/%%{gitname}/archive/%%{commit}/%%{name}-%%{version}-%%{shortcommit}.tar.gz
 Source0:        https://github.com/%{gituser}/%{gitname}/releases/download/%{version}/%{gitname}-experimental-%{version}.tar.gz
 
 # Patch build to use the shared system libraries rather than using embedded ones
-# Patch0:         %{name}-libs.patch
+# Patch0:         %%{name}-libs.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -39,26 +39,27 @@ BuildRequires:  gettext-devel
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-%endif # if with_python3
+# if with_python3
+%endif
 
-Provides: bundled(libbfio)      = 20180910
-Provides: bundled(libcdata)     = 20181228
-Provides: bundled(libcerror)    = 20181117
-Provides: bundled(libcfile)     = 20180102
-Provides: bundled(libclocale)   = 20180721
-Provides: bundled(libcnotify)   = 20180102
-Provides: bundled(libcpath)     = 20181228
-Provides: bundled(libcsplit)    = 20180103
-Provides: bundled(libcthreads)  = 20180724
-Provides: bundled(libfcache)    = 20181011
-Provides: bundled(libfdata)     = 20181216
-Provides: bundled(libfdatetime) = 20180910
-Provides: bundled(libfguid)     = 20180724
-Provides: bundled(libfmapi)     = 20180714
-Provides: bundled(libfvalue)    = 20180817
-Provides: bundled(libfwnt)      = 20181227
-Provides: bundled(libmapidb)    = 20170304
-Provides: bundled(libuna)       = 20181006
+Provides: bundled(libbfio)      = 20231120
+Provides: bundled(libcdata)     = 20231120
+Provides: bundled(libcerror)    = 20231120
+Provides: bundled(libcfile)     = 20231120
+Provides: bundled(libclocale)   = 20231120
+Provides: bundled(libcnotify)   = 20231120
+Provides: bundled(libcpath)     = 20231120
+Provides: bundled(libcsplit)    = 20231120
+Provides: bundled(libcthreads)  = 20231120
+Provides: bundled(libfcache)    = 20231120
+Provides: bundled(libfdata)     = 20231120
+Provides: bundled(libfdatetime) = 20231120
+Provides: bundled(libfguid)     = 20231120
+Provides: bundled(libfmapi)     = 20231120
+Provides: bundled(libfvalue)    = 20231120
+Provides: bundled(libfwnt)      = 20231120
+Provides: bundled(libmapidb)    = 20231120
+Provides: bundled(libuna)       = 20231120
 
 %description
 %{common_description}
@@ -95,7 +96,7 @@ aclocal
 %build
 %configure --disable-static \
 %if 0%{?with_python3}
-           --enable-python3 \
+           --enable-python \
 %endif
            --enable-wide-character-type \
            --enable-multi-threading-support

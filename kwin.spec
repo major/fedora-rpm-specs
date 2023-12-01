@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 5.27.80
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -287,6 +287,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-6
+- Rebuild (qt6)
+
 * Fri Nov 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-5
 - Explicit QML runtime dependencies
 

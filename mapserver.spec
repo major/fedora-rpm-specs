@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -27,7 +27,9 @@ URL:            http://www.mapserver.org
 Source0:        https://github.com/%{project_owner}/%{project_name}/archive/rel-%{dashver}/%{project_name}-%{version}.tar.gz
 # Avoid implicit declarations of strlcat
 Patch0:         mapserver-implicit-declarations.patch
-
+# https://github.com/MapServer/MapServer/pull/6975
+# Fix build with libxml2 2.12.0
+Patch1:         mapserver-pr6975-libxml2-2_12_0.patch
 Requires:       httpd
 Requires:       dejavu-sans-fonts
 
@@ -312,6 +314,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Wed Nov 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.1-9
+- Backport upstream patch for compilation with libxml2 2.12.0
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 8.0.1-8
 - Rebuild (gdal)
 

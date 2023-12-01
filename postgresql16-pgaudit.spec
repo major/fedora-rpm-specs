@@ -1,8 +1,8 @@
 %global majorname pgaudit
 %global pgversion 16
 Name:		postgresql%{pgversion}-%{majorname}
-Version:	1.7.0
-Release:	5%{?dist}
+Version:	16.0
+Release:	1%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -15,7 +15,7 @@ BuildRequires:	gcc
 BuildRequires:	postgresql-server-devel >= 16, postgresql-server-devel < 17
 BuildRequires:	openssl-devel
 
-%{?postgresql_module_requires}
+Requires(pre): postgresql-server >= 16, postgresql-server < 17
 
 %global precise_version %{?epoch:%epoch:}%version-%release
 Provides: %{majorname} = %precise_version
@@ -57,12 +57,15 @@ trail or audit log. The term audit log is used in this documentation.
 %{_libdir}/pgsql/bitcode/%{majorname}.index.bc
 %{_libdir}/pgsql/bitcode/%{majorname}/%{majorname}.bc
 %endif
-%{_datadir}/pgsql/extension/%{majorname}--1.7.sql
+%{_datadir}/pgsql/extension/%{majorname}--1*.sql
 %{_datadir}/pgsql/extension/%{majorname}.control
 
 
 %changelog
-* Tue Nov 28 2023 Filip Janus <fjanus@redhat.com> - 1.7.0-5
+* Tue Nov 28 2023 Filip Janus <fjanus@redhat.com> - 16.0-1
+- Update to 16.0
+
+* Tue Nov 28 2023 Filip Janus <fjanus@redhat.com> - 1.7.0-6
 - Initial import of demodularized version
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-4

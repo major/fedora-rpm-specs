@@ -2,7 +2,7 @@
 
 Name:       c-icap
 Version:    0.6.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -18,6 +18,7 @@ Patch0:     %{name}-conf.in.patch
 Patch1:     %{name}-libdb-path.patch
 # Patches from the c_icap_0_6_x branch:
 Patch2:     https://github.com/c-icap/c-icap-server/commit/6f21a68bee126c3c03412db983387960f0b2671c.patch
+Patch3: c-icap-configure-c99.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -212,6 +213,9 @@ exit 0
 %{_libdir}/c_icap/perl_handler.so
 
 %changelog
+* Wed Nov 29 2023 Florian Weimer <fweimer@redhat.com> - 0.6.0-3
+- Fix C compatibility issue in the configure script
+
 * Sat Sep 30 2023 Simone Caronni <negativo17@gmail.com> - 0.6.0-2
 - Fix InterProcessLockingScheme bug:
   https://github.com/c-icap/c-icap-server/issues/56
