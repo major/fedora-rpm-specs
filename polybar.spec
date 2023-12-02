@@ -1,6 +1,6 @@
 # Git submodules
 #   * i3ipcpp
-%global commit1         36b2a1b05083837abe259b1990d738feaf4fa866
+%global commit1         0daa58349ab3373161a4a73c1ccd2822328d2c73
 %global shortcommit1    %(c=%{commit1}; echo ${c:0:7})
 
 #   * xpp
@@ -10,7 +10,7 @@
 %global url1    https://github.com/%{name}
 
 Name:           polybar
-Version:        3.7.0
+Version:        3.7.1
 Release:        %autorelease
 Summary:        Fast and easy-to-use status bar
 

@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	3.8.2
+Version:	3.8.3
 Release:	1%{?dist}
 Summary:	Simple document viewer
 
@@ -168,6 +168,9 @@ LDFLAGS+=' -lX11 -lICE -lSM'
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.3-1
+- Update to 3.8.3 release
+
 * Fri Aug 04 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.2-1
 - Update to 3.8.2 release
 

@@ -7,7 +7,7 @@
 
 Name:           sympy
 Version:        1.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Python library for symbolic mathematics
 
 # The project as a whole is BSD-3-Clause.
@@ -19,6 +19,8 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{name}-%{version}.ta
 Patch0:         %{name}-circuitplot.patch
 # Adapt to python 3.12
 Patch1:         %{name}-python3.12.patch
+# Fix incompatible pointers, which are an error with GCC 14
+Patch2:         %{name}-incompatible-pointer.patch
 
 # This package used to be noarch, and should still be noarch.  However, because
 # there is no JDK available on i686 anymore, the antlr4 package is also not
@@ -241,6 +243,9 @@ fi
 %{_docdir}/%{name}-doc/html
 
 %changelog
+* Thu Nov 30 2023 Jerry James <loganjerry@gmail.com> - 1.12-3
+- Fix incompatible pointer types for GCC 14 compatibility
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

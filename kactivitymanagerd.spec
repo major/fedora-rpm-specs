@@ -1,7 +1,7 @@
 Name:    kactivitymanagerd
 Summary: Plasma service to manage user's activities
 Version: 5.27.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -68,6 +68,9 @@ Provides:       kactivities = %{version}-%{release}
 %{_qt6_plugindir}/kactivitymanagerd1/
 
 %changelog
+* Thu Nov 30 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
+- Rebuild (qt6)
+
 * Sat Nov 11 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

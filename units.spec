@@ -1,7 +1,7 @@
 Summary: A utility for converting amounts from one unit to another
 Name: units
 Version: 2.22
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source: https://ftp.gnu.org/gnu/units/%{name}-%{version}.tar.gz
 URL: https://www.gnu.org/software/units/units.html
 License: GPL-3.0-or-later
@@ -14,6 +14,7 @@ BuildRequires: readline-devel
 
 # do not update currency.units from network during build
 Patch1: 0001-units-2.22-no-network.patch
+Patch2: units-configure-c99.patch
 
 %description
 Units converts an amount from one unit to another, or tells you what
@@ -52,6 +53,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Thu Nov 30 2023 Florian Weimer <fweimer@redhat.com> - 2.22-7
+- C compatibility fix for the configure script (#2252276)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

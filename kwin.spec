@@ -108,6 +108,8 @@ Requires:       kf6-kdeclarative%{?_isa}
 Requires:       libplasma%{?_isa} >= %{version}
 Requires:       qt6-qtmultimedia%{?_isa}
 Requires:       qt6-qtdeclarative%{?_isa}
+# Cube effect
+Requires:       qt6-qtquick3d%{?_isa}
 
 # Before kwin was split out from kde-workspace into a subpackage
 Conflicts:      kde-workspace%{?_isa} < 4.11.14-2

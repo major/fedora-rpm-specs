@@ -3,7 +3,7 @@
 #%%global prever P1
 
 Name:           kea
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 
@@ -116,7 +116,7 @@ This package contains shared libraries used by Kea DHCP server.
 
 
 %prep
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 8
 %{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %endif
 rm -rf doc/sphinx/_build
@@ -226,6 +226,7 @@ install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
 %{_tmpfilesdir}/kea.conf
 
 %files doc
+%{_pkgdocdir}
 %{_pkgdocdir}/AUTHORS
 %{_pkgdocdir}/ChangeLog
 %{_pkgdocdir}/README
@@ -245,6 +246,7 @@ install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
 
 %files libs
 %license COPYING
+# find `rpm --eval %%{_topdir}`/BUILDROOT/kea-*/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
 %{_libdir}/libkea-asiodns.so.35*
 %{_libdir}/libkea-asiolink.so.56*
 %{_libdir}/libkea-cc.so.54*
@@ -252,13 +254,13 @@ install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
 %{_libdir}/libkea-cryptolink.so.38*
 %{_libdir}/libkea-d2srv.so.30*
 %{_libdir}/libkea-database.so.48*
-%{_libdir}/libkea-dhcp++.so.73*
 %{_libdir}/libkea-dhcp_ddns.so.41*
-%{_libdir}/libkea-dhcpsrv.so.89*
+%{_libdir}/libkea-dhcp++.so.74*
+%{_libdir}/libkea-dhcpsrv.so.90*
 %{_libdir}/libkea-dns++.so.42*
 %{_libdir}/libkea-eval.so.52*
 %{_libdir}/libkea-exceptions.so.23*
-%{_libdir}/libkea-hooks.so.77*
+%{_libdir}/libkea-hooks.so.78*
 %{_libdir}/libkea-http.so.56*
 %{_libdir}/libkea-log.so.48*
 %{_libdir}/libkea-mysql.so.53*

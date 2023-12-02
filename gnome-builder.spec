@@ -39,6 +39,8 @@ Summary:        IDE for writing GNOME-based software
 License:        GPLv3+ and GPLv2+ and LGPLv3+ and LGPLv2+ and MIT and CC-BY-SA and CC0
 URL:            https://wiki.gnome.org/Apps/Builder
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-builder/-/merge_requests/768
+Patch:          gnome-builder-45.0-libxml2-2.12.0-includes.patch
 
 BuildRequires:  clang-devel
 BuildRequires:  ctags

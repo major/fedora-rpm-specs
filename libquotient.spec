@@ -8,7 +8,7 @@ older use the previous name - libQMatrixClient.}
 
 Name: libquotient
 Version: 0.8.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
@@ -138,6 +138,9 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/pkgconfig/%{appname}Qt6.pc
 
 %changelog
+* Thu Nov 30 2023 Alessandro Astone <ales.astone@gmail.com> - 0.8.1.2-2
+- Rebuild (qt6)
+
 * Wed Nov 22 2023 Steve Cossette <farchord@gmail.com> - 0.8.1.2-1
 - 0.8.1.2 (And branching into qt6)
 

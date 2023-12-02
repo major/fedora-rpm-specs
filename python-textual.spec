@@ -1,5 +1,5 @@
 Name:           python-textual
-Version:        0.37.0
+Version:        0.43.2
 Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
@@ -57,7 +57,7 @@ Summary:        Docs and examples for python3-textual
 # skip these tests until https://github.com/Textualize/pytest-textual-snapshot
 # is packaged
 rm -rf tests/snapshot_tests
-%pytest -k "not test_textual_env_var"
+%pytest -k "not test_textual_env_var and not test_register_language and not test_register_language_existing_language"
 
 
 %files -n python3-textual -f %{pyproject_files}
@@ -69,6 +69,9 @@ rm -rf tests/snapshot_tests
 
 
 %changelog
+* Thu Nov 30 2023 Jonathan Wright <jonathan@almalinux.org> - 0.43.2-1
+- Update to 0.43.2 rhbz#2239239
+
 * Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 0.37.0-1
 - Update to 0.37.0 rhbz#2192888
 

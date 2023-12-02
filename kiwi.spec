@@ -41,7 +41,6 @@ BuildRequires:  shadow-utils
 
 # doc build requirements
 BuildRequires:  python3dist(docopt) >= 0.6.2
-BuildRequires:  python3dist(future)
 BuildRequires:  python3dist(lxml)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(requests)

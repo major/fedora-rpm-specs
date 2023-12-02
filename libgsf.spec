@@ -4,23 +4,26 @@
 %global with_mingw 1
 %endif
 
-Summary: GNOME Structured File library
 Name: libgsf
 Version: 1.14.51
-Release: 1%{?dist}
+Release: 2%{?dist}
+Summary: GNOME Structured File library
+
 License: LGPL-2.1-only
-Source: https://download.gnome.org/sources/%{name}/1.14/%{name}-%{version}.tar.xz
-URL: http://www.gnome.org/projects/libgsf/
+URL:     https://gitlab.gnome.org/GNOME/libgsf/
+Source:  https://download.gnome.org/sources/%{name}/1.14/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/libgsf/-/merge_requests/14
+Patch:   libgsf-1.14.51-libxml2-2.12.0-includes.patch
 
 BuildRequires: bzip2-devel
 BuildRequires: chrpath
 BuildRequires: gettext
-BuildRequires: glib2-devel
-BuildRequires: gobject-introspection-devel
 BuildRequires: intltool
-BuildRequires: libxml2-devel
-BuildRequires: gdk-pixbuf2-devel
 BuildRequires: make
+BuildRequires: pkgconfig(gdk-pixbuf-2.0)
+BuildRequires: pkgconfig(gio-2.0)
+BuildRequires: pkgconfig(gobject-introspection-1.0)
+BuildRequires: pkgconfig(libxml-2.0)
 
 Obsoletes: libgsf-gnome < 1.14.22
 Obsoletes: libgsf-python < 1.14.26
@@ -83,7 +86,7 @@ ln -s ../../doc/html doc # some day meson... libgsf!4
 --with-typelib_dir=%{_libdir}/girepository-1.0 --with-gir-dir=%{_datadir}/gir-1.0
 %endif
 
-make %{?_smp_mflags} V=1
+%make_build
 popd
 
 %if %{with_mingw}
@@ -94,7 +97,7 @@ popd
 %install
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 pushd build
-make DESTDIR=%{buildroot} install
+%make_install
 popd
 
 %if %{with_mingw}
@@ -109,12 +112,13 @@ popd
 chrpath --delete %{buildroot}%{_bindir}/gsf*
 
 # Remove .la files
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -name '*.la' -delete -print
 
 %ldconfig_scriptlets
 
 %files -f libgsf.lang
-%doc AUTHORS COPYING README
+%doc AUTHORS README
+%license COPYING
 %{_libdir}/libgsf-1.so.*
 %{_libdir}/girepository-1.0/Gsf-1.typelib
 %{_bindir}/gsf-office-thumbnailer
@@ -171,6 +175,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Thu Nov 30 2023 David King <amigadave@amigadave.com> - 1.14.51-2
+- Fix building against libxml 2.12.0
+- Use pkgconfig for BuildRequires
+
 * Thu Nov 16 2023 Dan Horák <dan[at]danny.cz> - 1.14.51-1
 - New upstream release 1.14.51
 - Resolves: rhbz#2214335 rhbz#2249742 rhbz#2249979

@@ -13,7 +13,7 @@
 
 Name:           mlt
 Version:        7.20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -21,6 +21,9 @@ Summary:        Toolkit for broadcasters, video editors, media players, transcod
 License:        GPLv3 and LGPLv2+
 URL:            http://www.mltframework.org/
 Source0:        https://github.com/mltframework/mlt/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/mltframework/mlt/pull/963
+# Support compilation with libxml2 2.12.0
+Patch0:         mlt-pr963-libxml2_2_12.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -234,6 +237,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Thu Nov 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.20.0-2
+- Backport upstream PR for compilation with libxml2 2.12.0
+
 * Tue Oct 03 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 7.20.0-1
 - Update to 7.20.0 (#2241895)
 

@@ -60,6 +60,9 @@ Source215:      https://raw.githubusercontent.com/blinxen/tree-sitter-smithy/mai
 # Remove windows dependencies
 Patch:          remove-windows-dependency.patch
 
+Patch:          helix-c99-1.patch
+Patch:          helix-c99-2.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib

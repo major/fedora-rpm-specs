@@ -35,7 +35,7 @@ Obsoletes:      libsbml-sharp < 0:5.18.0-20
 
 Name:           libsbml
 Version:        5.19.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Systems Biology Markup Language library
 License:        LGPLv2+
 URL:            http://sbml.org/Software/libSBML
@@ -60,6 +60,9 @@ Patch4:         %{name}-drop-formatter-import.diff
 Patch5:         https://github.com/sbmlteam/%{name}/pull/178/commits/b12b7f9372424f5271a838c95605d9946c7ea1fb.patch
 
 Patch6:         %{name}-rhbz_2128592.patch
+# https://github.com/sbmlteam/libsbml/pull/358
+# Support compilation with libxml2 2.12.x
+Patch7:         %{name}-pr358-libxml2_2_12.patch
 
 BuildRequires:  cmake
 BuildRequires:  zlib-devel
@@ -419,6 +422,9 @@ popd
 %endif
 
 %changelog
+* Thu Nov 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.19.0-29
+- Fix compilation with libxml2 2.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.19.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

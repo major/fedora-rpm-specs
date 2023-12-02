@@ -241,7 +241,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 9.9.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -251,7 +251,15 @@ URL: https://libvirt.org/
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
 
 # Fix crash with snapshot restore (bz #2247754)
-Patch0001: 0001-qemu_process-fix-crash-in-qemuSaveImageDecompression.patch
+Patch: 0001-qemu_process-fix-crash-in-qemuSaveImageDecompression.patch
+# Fix libxml2 API changes
+Patch: 0002-vbox_snapshot_conf-Parse-XMLs-without-net-access.patch
+Patch: 0003-vbox_snapshot_conf-Keep-indent-in-snapshot-XML.patch
+Patch: 0004-virxml-include-libxml-xmlsave.h-for-xmlIndentTreeOut.patch
+Patch: 0005-virXMLParseHelper-Store-XML-parsing-flags-in-a-varia.patch
+Patch: 0006-virxml-Introduce-parsing-APIs-that-keep-indentation.patch
+Patch: 0007-lib-Replace-xmlKeepBlanksDefault-with-virXMLParseWit.patch
+Patch: 0008-lib-Replace-qsort-with-g_qsort_with_data.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -2503,6 +2511,9 @@ exit 0
 
 
 %changelog
+* Thu Nov 30 2023 Richard W.M. Jones <rjones@redhat.com> - 9.9.0-3
+- Bump and rebuild for xen 4.18.0
+
 * Mon Nov 06 2023 Cole Robinson <crobinso@redhat.com> - 9.9.0-2
 - Fix crash with snapshot restore (bz #2247754)
 

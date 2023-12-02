@@ -1,7 +1,7 @@
 Name:           mint-themes
 Epoch:          1
-Version:        2.1.5
-Release:        2%{?dist}
+Version:        2.1.6
+Release:        1%{?dist}
 Summary:        Mint themes
 
 License:        GPLv3+
@@ -103,6 +103,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 1:2.1.6-1
+- New upstream release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

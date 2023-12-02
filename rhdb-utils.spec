@@ -3,12 +3,12 @@
 # <overholt@redhat.com>, Tom Lane <tgl@redhat.com>
 # Copyright (C) 2002-2012 Red Hat, Inc.
 
-%global tarballname REL_14_1
+%global tarballname REL_16_0
 
 Summary: Miscellaneous utilities for PostgreSQL - Red Hat Edition
 Name: rhdb-utils
-Version: 14.1
-Release: 4%{?dist}
+Version: 16.0
+Release: 1%{?dist}
 URL: https://github.com/df7cb/pg_filedump
 License: GPLv2+
 
@@ -17,13 +17,9 @@ BuildRequires: clang
 BuildRequires: postgresql-server-devel, postgresql-static
 BuildRequires: lz4-devel
 
-Source0: https://github.com/df7cb/pg_filedump/archive/refs/tags/pg_filedump-%{tarballname}.tar.gz
+Source0: https://github.com/df7cb/pg_filedump/archive/refs/tags/%{tarballname}.tar.gz
 
-# This is kind of work-around;  even though we don't install PostgreSQL server
-# modules in this package, we still want to depend on the major version of
-# PostgreSQL server (or rather we want to be notified that new rebuild is needed
-# for new major version of PostgreSQL)
-%{?postgresql_module_requires}
+Requires(pre): postgresql-server
 
 Provides: pg_filedump = %{version}-%{release}
 
@@ -43,10 +39,14 @@ install -p -m 755 pg_filedump ${RPM_BUILD_ROOT}%{_bindir}
 
 %files
 %{_bindir}/pg_filedump
-%doc README.pg_filedump
+%doc README.pg_filedump.md
 
 
 %changelog
+* Thu Nov 30 2023 Filip Janus <fjanus@redhat.com> - 16.0-1
+- Update to 16.0
+- Fix requires section fro demodularized version of postgresql
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

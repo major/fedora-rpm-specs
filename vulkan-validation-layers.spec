@@ -7,6 +7,8 @@ License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/Vulkan-ValidationLayers
 Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-ValidationLayers-sdk-%{version}.tar.gz
 
+Requires:       vulkan-utility-libraries-devel
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3

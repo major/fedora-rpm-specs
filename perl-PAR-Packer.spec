@@ -1,6 +1,6 @@
 Name:           perl-PAR-Packer
 Version:        1.059
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PAR Packager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PAR-Packer
@@ -144,6 +144,9 @@ make test
 %{_datadir}/icons/hicolor/32x32/apps/tkpp.png
 
 %changelog
+* Thu Nov 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.059-2
+- Rebuild for Perl 5.38.2
+
 * Fri Jul 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.059-1
 - 1.059 bump (rhbz#2224383)
 

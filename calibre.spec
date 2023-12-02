@@ -19,6 +19,9 @@ Patch1:         calibre-no-update.patch
 # This is so gnome-software only 'sees' calibre once.
 Patch3:         calibre-nodisplay.patch
 
+# Upstream fixes
+Patch10:        calibre-fix-sqlite-breaking-test.patch
+
 ExclusiveArch: aarch64 x86_64
 
 BuildRequires:  python3-devel

@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 5.245.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution with parallelized query system
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/runner6python.tar.bz2
 
 %changelog
+* Thu Nov 30 2023 Jan Grulich <jgrulich@redhat.com> - 5.245.0-2
+- Rebuild (qt6)
+
 * Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
 - 5.245.0
 

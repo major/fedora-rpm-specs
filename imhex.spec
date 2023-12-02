@@ -1,10 +1,10 @@
 Name:           imhex
-Version:        1.30.1
-Release:        5%{?dist}
+Version:        1.31.0
+Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
-# imhex is gplv2.  capstone is custom.  nativefiledialog is Zlib.
+# imhex is gplv2.  capstone is custom.
 # see license dir for full breakdown
 URL:            https://imhex.werwolv.net/
 # We need the archive with deps bundled
@@ -24,18 +24,27 @@ BuildRequires:  libglvnd-devel
 BuildRequires:  glfw-devel
 BuildRequires:  json-devel
 BuildRequires:  libcurl-devel
+%if 0%{?fedora} < 39 || 0%{?rhel}
 BuildRequires:  llvm-devel
+%else
+BuildRequires:  llvm16-devel
+%endif
 BuildRequires:  mbedtls-devel
 BuildRequires:  yara-devel
 BuildRequires:  nativefiledialog-extended-devel
 %if 0%{?rhel}
-BuildRequires:  gcc-toolset-12
+BuildRequires:  gcc-toolset-13
+%endif
+%if 0%{?fedora} >= 40
+BuildRequires:  capstone-devel
 %endif
 
 Recommends:     imhex-patterns = %{version}-%{release}
 
 Provides:       bundled(gnulib)
+%if 0%{?fedora} < 40
 Provides:       bundled(capstone) = 5.0-rc2
+%endif
 Provides:       bundled(imgui)
 Provides:       bundled(libromfs)
 Provides:       bundled(microtar)
@@ -75,10 +84,13 @@ the ImHex Hex Editor
 %autosetup -n ImHex
 # remove bundled libs we aren't using
 rm -rf lib/external/{curl,fmt,llvm,nlohmann_json,yara}
+%if 0%{?fedora} >= 40
+rm -rf lib/external/capstone
+%endif
 
 %build
 %if 0%{?rhel}
-. /opt/rh/gcc-toolset-12/enable
+. /opt/rh/gcc-toolset-13/enable
 %set_build_flags
 CXXFLAGS+=" -std=gnu++2b"
 %endif
@@ -90,11 +102,14 @@ CXXFLAGS+=" -std=gnu++2b"
  -D USE_SYSTEM_FMT=ON                    \
  -D USE_SYSTEM_CURL=ON                   \
  -D USE_SYSTEM_LLVM=ON                   \
+%if 0%{?fedora >= 39}
+ -D LLVM_ROOT=%{_libdir}/llvm16/lib/cmake/llvm/ \
+%endif
  -D USE_SYSTEM_YARA=ON                   \
  -D USE_SYSTEM_NFD=ON                    \
-# when capstone >= 5.x is released we should be able to build against \
-# system libs of it \
-# -D USE_SYSTEM_CAPSTONE=ON
+%if 0%{?fedora} >= 40
+ -D USE_SYSTEM_CAPSTONE=ON
+%endif
 
 %cmake_build
 
@@ -117,9 +132,10 @@ rm -f %{buildroot}%{_metainfodir}/net.werwolv.%{name}.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/net.werwolv.%{name}.metainfo.xml
 
 # install licenses
-cp -a lib/external/nativefiledialog/LICENSE                       %{buildroot}%{_datadir}/licenses/%{name}/nativefiledialog-LICENSE
+%if ! 0%{?fedora} >= 40
 cp -a lib/external/capstone/LICENSE.TXT                           %{buildroot}%{_datadir}/licenses/%{name}/capstone-LICENSE
 cp -a lib/external/capstone/suite/regress/LICENSE                 %{buildroot}%{_datadir}/licenses/%{name}/capstone-regress-LICENSE
+%endif
 cp -a lib/external/microtar/LICENSE                               %{buildroot}%{_datadir}/licenses/%{name}/microtar-LICENSE
 cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{_datadir}/licenses/%{name}/xdgpp-LICENSE
 
@@ -148,6 +164,12 @@ done
 
 
 %changelog
+* Thu Nov 30 2023 Jonathan Wright <jonathan@almalinux.org> - 1.31.0-1
+- Build fedora 40+ against system capstone
+- Build fedora 39+ with llvm16-devel (compat package) rhbz#2246094
+- Build EPEL9 with GCC 13
+- update to 1.31.0 rhbz#2217232
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

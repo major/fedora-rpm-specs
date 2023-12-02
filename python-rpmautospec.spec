@@ -19,7 +19,7 @@
 %global canonicalname %{py_dist_name %{srcname}}
 
 Name: python-%{canonicalname}
-Version: 0.3.8
+Version: 0.4.0
 Release: %autorelease
 Summary: Package and CLI tool to generate release fields and changelogs
 License: MIT
@@ -32,7 +32,6 @@ BuildRequires: git
 # the langpacks are needed for tests
 BuildRequires: glibc-langpack-de
 BuildRequires: glibc-langpack-en
-BuildRequires: koji
 BuildRequires: python3-devel >= 3.9.0
 # The dependencies needed for testing don’t get auto-generated.
 BuildRequires: python3dist(pytest)
@@ -52,11 +51,6 @@ A package and CLI tool to generate RPM release fields and changelogs.}
 Summary: %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
-Requires: koji
-Requires: rpm
-# for "rpm --specfile"
-Requires: rpm-build >= 4.9
-
 %description -n python3-%{canonicalname} %_description
 
 %package -n %{canonicalname}
@@ -65,14 +59,6 @@ Requires: python3-%{canonicalname} = %{version}-%{release}
 
 %description -n %{canonicalname}
 CLI tool for generating RPM releases and changelogs
-
-%package -n koji-builder-plugin-rpmautospec
-Summary: Koji plugin for generating RPM releases and changelogs
-Requires: python3-%{canonicalname} = %{version}-%{release}
-Requires: koji-builder-plugins
-
-%description -n koji-builder-plugin-rpmautospec
-A Koji plugin for generating RPM releases and changelogs.
 
 %if %{with rpmmacropkg}
 %package -n rpmautospec-rpm-macros
@@ -103,12 +89,6 @@ enabled packages locally.
 # Work around poetry not listing license files as such in package metadata.
 sed -i -e 's|^\(.*/LICENSE\)|%%license \1|g' %{pyproject_files}
 
-mkdir -p  %{buildroot}%{_prefix}/lib/koji-builder-plugins/
-install -m 0644 koji_plugins/rpmautospec_builder.py \
-    %{buildroot}%{_prefix}/lib/koji-builder-plugins/
-
-%py_byte_compile %{python3} %{buildroot}%{_prefix}/lib/koji-builder-plugins/
-
 %if %{with rpmmacropkg}
 mkdir -p %{buildroot}%{rpmmacrodir}
 install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
@@ -125,9 +105,6 @@ install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 
 %files -n %{canonicalname}
 %{_bindir}/rpmautospec
-
-%files -n koji-builder-plugin-rpmautospec
-%{_prefix}/lib/koji-builder-plugins/*
 
 %if %{with rpmmacropkg}
 %files -n rpmautospec-rpm-macros

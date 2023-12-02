@@ -3,12 +3,13 @@
 
 Name: bless
 Version: 0.6.3
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: High quality, full featured hex editor    
 
 License: GPLv2+        
 URL: https://github.com/afrantzis/bless/
 Source0: https://github.com/afrantzis/bless/archive/v%{version}.tar.gz
+Source1: bless.metainfo.xml
 Patch1: bless-0.6.2-default-editmode-overwrite.patch
 Patch2: bless-0.6.3-fix-reloading-file.patch
 
@@ -23,9 +24,12 @@ BuildRequires: gettext-devel
 BuildRequires: nunit-devel
 BuildRequires: docbook-style-xsl
 BuildRequires: itstool
+BuildRequires: libappstream-glib
 
 Requires: mono-core
 Requires: gtk-sharp2
+
+Obsoletes: %{name}-doc < 0.6.3-11
 
 # Mono only available on these:
 ExclusiveArch: %mono_arches
@@ -34,12 +38,6 @@ ExclusiveArch: %mono_arches
 Bless is a binary (hex) editor, a program that 
 enables you to edit files as sequences of bytes.
 
-%package doc
-Summary: Bless user manual
-
-%description doc
-This package contains the documentation for the 
-bless hex editor.
 
 %prep
 %setup -q
@@ -48,33 +46,34 @@ bless hex editor.
 sed -i "s~html_xsl = 'http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl'~html_xsl = '/usr/share/sgml/docbook/xsl-stylesheets-1.79.2/xhtml/chunk.xsl'~" doc/user/meson.build
 
 %build
-meson setup build -Dprefix=$RPM_BUILD_ROOT/usr --buildtype=release
-sed -i "s~$RPM_BUILD_ROOT~~" build/src/ConfigureDefines.cs
-ninja -C build
+%meson
+%meson_build
 
 %install
-ninja -C build install
-rm -f $RPM_BUILD_ROOT%{docdir}/%{name}/bless.spec
-rm -f $RPM_BUILD_ROOT%{docdir}/%{name}/INSTALL
-desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
-  ${RPM_BUILD_ROOT}%{_datadir}/applications/bless.desktop
-mkdir -p ${RPM_BUILD_ROOT}/%{_monodir}
-mv ${RPM_BUILD_ROOT}/usr/lib/bless ${RPM_BUILD_ROOT}/%{_monodir}/bless
-sed -i "s~${RPM_BUILD_ROOT}/usr/lib/bless/bless.exe~%{_monodir}/bless/bless.exe~" ${RPM_BUILD_ROOT}/usr/bin/bless
-mkdir -p ${RPM_BUILD_ROOT}/%{_docdir}
-mv ${RPM_BUILD_ROOT}/usr/share/help/C/bless ${RPM_BUILD_ROOT}/%{_docdir}
+%meson_install
 
-%files
+desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/bless.desktop
+
+install -D -m0644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_metainfodir}/bless.metainfo.xml
+appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_metainfodir}/bless.metainfo.xml
+
+%find_lang %{name} --with-gnome
+
+%files -f %{name}.lang
+%doc AUTHORS NEWS README
+%license COPYING
 %{_bindir}/bless
-%{_monodir}/bless/
+%{_libdir}/bless/
 %{_datadir}/bless/
 %{_datadir}/icons/hicolor/48x48/apps/bless.png
 %{_datadir}/applications/bless.desktop
-
-%files doc
-%{_docdir}/bless/
+%{_metainfodir}/bless.metainfo.xml
 
 %changelog
+* Wed Nov 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.3-11
+- Simplify packaging
+- Add appstream data
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

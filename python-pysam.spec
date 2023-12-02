@@ -9,6 +9,7 @@ Summary:        pysam
 License:        MIT AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause
 URL:            https://github.com/pysam-developers/pysam
 Source0:        %{pypi_source}
+Patch:          python-pysam-configure-c99.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)

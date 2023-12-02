@@ -1,3 +1,11 @@
+%bcond_with build_with_qt6
+%if 0%{?fedora} > 39
+%ifarch %{?qt6_qtwebengine_arches}
+%bcond_without build_with_qt6
+%global qwebengine 1
+%endif
+%endif
+
 # use ninja or not
 %global ninja 1
 
@@ -5,8 +13,8 @@
 
 Name:    digikam
 Summary: A digital camera accessing & photo management application
-Version: 8.1.0
-Release: 4%{?beta}%{?dist}
+Version: 8.2.0
+Release: 2%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -42,8 +50,6 @@ BuildRequires: ImageMagick-devel
 BuildRequires: ImageMagick-c++-devel >= 6.7
 BuildRequires: libjpeg-devel
 BuildRequires: libtiff-devel
-BuildRequires: marble-astro-devel
-BuildRequires: marble-widget-qt5-devel
 BuildRequires: perl-generators
 BuildRequires: pkgconfig(exiv2) >= 0.26
 BuildRequires: pkgconfig(glib-2.0)
@@ -52,27 +58,56 @@ BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libgphoto2_port) pkgconfig(libusb-1.0) pkgconfig(libusb)
 BuildRequires: pkgconfig(libpng) >= 1.2.7
 BuildRequires: pkgconfig(glu)
+BuildRequires: pkgconfig(x11) pkgconfig(xproto)
+%if %{with build_with_qt6}
+BuildRequires: pkgconfig(Qt6NetworkAuth)
+BuildRequires: pkgconfig(Qt6OpenGL)
+BuildRequires: pkgconfig(Qt6Svg)
+BuildRequires: pkgconfig(Qt6Multimedia)
+BuildRequires: pkgconfig(Qt6StateMachine)
+BuildRequires: pkgconfig(Qt6WebEngineWidgets)
+# missing Qt6 deps
+#BuildRequires: marble-astro-devel
+#BuildRequires: marble-widget-qt6-devel
+#BuildRequires: kf6-libksane-devel
+BuildRequires: kf6-kcalendarcore-devel
+BuildRequires: kf6-kconfig-devel
+BuildRequires: kf6-kdoctools-devel
+BuildRequires: kf6-kfilemetadata-devel
+BuildRequires: kf6-kwindowsystem-devel
+BuildRequires: kf6-kxmlgui-devel
+BuildRequires: kf6-ki18n-devel
+BuildRequires: kf6-kitemmodels-devel
+BuildRequires: kf6-kio-devel
+BuildRequires: kf6-kservice-devel
+BuildRequires: kf6-kiconthemes-devel
+BuildRequires: kf6-karchive-devel
+BuildRequires: kf6-threadweaver-devel
+BuildRequires: kf6-kcoreaddons-devel
+BuildRequires: kf6-knotifyconfig-devel
+BuildRequires: kf6-knotifications-devel
+BuildRequires: kf6-solid-devel
+BuildRequires: kf6-sonnet-devel
+BuildRequires: kf6-kitemviews-devel
+BuildRequires: kf6-kbookmarks-devel
+BuildRequires: kf6-rpm-macros
+BuildRequires: qt6-qtbase-private-devel
+%else
 BuildRequires: pkgconfig(Qt5NetworkAuth)
 BuildRequires: pkgconfig(Qt5OpenGL)
 BuildRequires: pkgconfig(Qt5Svg)
 BuildRequires: pkgconfig(Qt5XmlPatterns)
 BuildRequires: pkgconfig(Qt5X11Extras)
-BuildRequires: pkgconfig(Qt5WebKit)
-BuildRequires: pkgconfig(x11) pkgconfig(xproto)
 %if 0%{?qt5_qtwebengine_arches:1}
 %ifarch %{?qt5_qtwebengine_arches}
 %global qwebengine 1
-%if 0%{?fedora} >= 38
-BuildRequires: cmake(KF5Akonadi)
-BuildRequires: cmake(KF5Contacts)
-%else
-BuildRequires: cmake(KF5AkonadiContact)
-%endif
 BuildRequires: pkgconfig(Qt5WebEngine)
 %else
 BuildRequires: pkgconfig(Qt5WebKit)
 %endif
 %endif
+BuildRequires: marble-astro-devel
+BuildRequires: marble-widget-qt5-devel
 BuildRequires: kf5-libksane-devel >= 16.03
 BuildRequires: kf5-kcalendarcore-devel
 BuildRequires: kf5-kconfig-devel
@@ -95,6 +130,7 @@ BuildRequires: kf5-sonnet-devel
 BuildRequires: kf5-kitemviews-devel
 BuildRequires: kf5-kbookmarks-devel
 BuildRequires: kf5-rpm-macros
+%endif
 
 ## not actually checked-for or used -- rex
 ## rely on explicit cmake build options instead
@@ -119,7 +155,6 @@ BuildRequires: pkgconfig(libavfilter)
 BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libswscale)
 BuildRequires: pkgconfig(libass)
-BuildRequires: pkgconfig(openal)
 BuildRequires: pkgconfig(libpulse)
 BuildRequires: pkgconfig(libva)
 BuildRequires: pkgconfig(xext)
@@ -136,8 +171,13 @@ Recommends: hugin-base
 #Recommends: kf5-kipi-plugins
 # thumbnailers, better default access to mtp-enabled devices
 Recommends: kio-extras
+%if %{with build_with_qt6}
+Recommends: qt6-qtbase-mysql%{?_isa}
+Recommends: qt6-qtimageformats%{?_isa}
+%else
 Recommends: qt5-qtbase-mysql%{?_isa}
 Recommends: qt5-qtimageformats%{?_isa}
+%endif
 
 # core/libs/rawengine/libraw/
 Provides: bundled(LibRaw) = 0.21.1
@@ -177,9 +217,14 @@ needed to develop applications using %{name}.
 
 
 %build
+%if %{with build_with_qt6}
+%cmake_kf6 \
+  -DBUILD_WITH_QT6:BOOL=ON \
+  -DENABLE_QTMULTIMEDIA:BOOL=ON \
+%else
 %cmake_kf5 \
+%endif
   %{?ninja:-G Ninja} \
-  -DENABLE_AKONADICONTACTSUPPORT:BOOL=ON \
   -DENABLE_APPSTYLES:BOOL=ON \
   -DENABLE_KFILEMETADATASUPPORT:BOOL=ON \
 %if 0%{?rhel} && 0%{?rhel} < 9
@@ -203,26 +248,68 @@ desktop-file-install --vendor="" \
 
 
 %check
-for i in %{buildroot}%{_kf5_datadir}/applications/*.desktop ; do
+for i in %{buildroot}%{_datadir}/applications/*.desktop ; do
 desktop-file-validate $i ||:
 done
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 %post
-touch --no-create %{_kf5_datadir}/icons/hicolor &> /dev/null || :
+touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
-  touch --no-create %{_kf5_datadir}/icons/hicolor &> /dev/null
-  gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &> /dev/null || :
+  touch --no-create %{_datadir}/icons/hicolor &> /dev/null
+  gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
   update-desktop-database -q &> /dev/null
 fi
 
 %posttrans
-gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &> /dev/null || :
+gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 update-desktop-database -q &> /dev/null
 %endif
 
+
+%ldconfig_scriptlets libs
+
+
+%if %{with build_with_qt6}
+%files -f %{name}.lang
+%doc AUTHORS ChangeLog
+%doc NEWS README.md
+%license LICENSES/GPL-2.0-or-later.txt
+%{_kf6_bindir}/digikam
+%{_kf6_bindir}/digitaglinktree
+%{_kf6_bindir}/cleanup_digikamdb
+%{_kf6_bindir}/showfoto
+%{_kf6_datadir}/kxmlgui5/digikam/
+%{_kf6_datadir}/kxmlgui5/showfoto/
+%{_kf6_datadir}/knotifications6/digikam.notifyrc
+%{_kf6_datadir}/digikam/
+%{_kf6_datadir}/showfoto/
+%{_kf6_datadir}/solid/actions/digikam*.desktop
+%{_kf6_metainfodir}/org.kde.digikam.appdata.xml
+%{_kf6_metainfodir}/org.kde.showfoto.appdata.xml
+%{_kf6_datadir}/applications/digikam-import.desktop
+%{_kf6_datadir}/applications/org.kde.digikam.desktop
+%{_kf6_datadir}/applications/org.kde.showfoto.desktop
+%{_mandir}/man1/digitaglinktree.1*
+%{_mandir}/man1/cleanup_digikamdb.1*
+%{_kf6_datadir}/icons/hicolor/*/*/*
+
+%files libs
+%{_kf6_libdir}/libdigikamcore.so.*
+%{_kf6_libdir}/libdigikamdatabase.so.*
+%{_kf6_libdir}/libdigikamgui.so.*
+%{_kf6_qtplugindir}/digikam/
+
+%files devel
+%{_kf6_libdir}/libdigikamcore.so
+%{_kf6_libdir}/libdigikamdatabase.so
+%{_kf6_libdir}/libdigikamgui.so
+%{_kf6_libdir}/cmake/Digikam*/
+%{_includedir}/digikam/
+
+%else
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog
 %doc NEWS README.md
@@ -246,8 +333,6 @@ update-desktop-database -q &> /dev/null
 %{_mandir}/man1/cleanup_digikamdb.1*
 %{_kf5_datadir}/icons/hicolor/*/*/*
 
-%ldconfig_scriptlets libs
-
 %files libs
 %{_kf5_libdir}/libdigikamcore.so.*
 %{_kf5_libdir}/libdigikamdatabase.so.*
@@ -260,9 +345,16 @@ update-desktop-database -q &> /dev/null
 %{_kf5_libdir}/libdigikamgui.so
 %{_kf5_libdir}/cmake/Digikam*/
 %{_includedir}/digikam/
+%endif
 
 
 %changelog
+* Thu Nov 30 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.2.0-2
+- Build with Qt6 for F40+ and qt6_qtwebengine_arches
+
+* Thu Nov 30 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.2.0-1
+- digiKam-8.2.0
+
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 8.1.0-4
 - Rebuild for jasper 4.1
 

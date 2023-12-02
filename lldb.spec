@@ -19,6 +19,11 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_v
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
 
+# Backport from https://github.com/llvm/llvm-project/pull/70443
+Patch:		0001-lldb-Replace-the-usage-of-module-imp-with-module-imp.patch
+# Backport from https://github.com/llvm/llvm-project/pull/70445
+Patch:		0001-lldb-Adapt-code-to-Python-3.13.patch
+
 BuildRequires:	clang
 BuildRequires:	cmake
 BuildRequires:	ninja-build

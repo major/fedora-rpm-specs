@@ -1,6 +1,6 @@
 Name:           xgap
 Version:        4.31
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GUI for GAP
 
 # The project as a whole is GPL-2.0-or-later.
@@ -14,7 +14,8 @@ Source1:        %{name}.desktop
 # Created by Paulo César Pereira de Andrade
 # <paulo.cesar.pereira.de.andrade@gmail.com>
 Source2:        XGap
-# Sent upstream 9 May 2012.  This patch quiets some compiler warnings.
+# This patch quiets some compiler warnings.
+# https://github.com/gap-packages/xgap/pull/29
 Patch0:         %{name}-warning.patch
 # Fix computation of GAParch
 Patch1:         %{name}-gaparch.patch
@@ -118,6 +119,9 @@ mv %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g.orig \
 %{gap_archdir}/pkg/%{name}/htm/
 
 %changelog
+* Thu Nov 30 2023 Jerry James <loganjerry@gmail.com> - 4.31-9
+- Fix incompatible pointer type warning
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.31-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

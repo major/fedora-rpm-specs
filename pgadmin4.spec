@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        7.8
-Release:        3%{?dist}
+Version:        8.0
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -69,19 +69,19 @@ BuildRequires:  optipng
 # cd pgadmin4-<ver>
 # patch -p1 < pgadmin4_requirements.patch
 # python3 /usr/lib/rpm/redhat/pyproject_buildrequires.py -N requirements.txt 2>/dev/null --output requires && cat requires | awk '{print "Requires: "$0}'
-Requires: (python3dist(flask) >= 2.2 with python3dist(flask) < 2.3)
+Requires: python3dist(flask) >= 2.2
 Requires: (python3dist(flask-gravatar) >= 0 with python3dist(flask-gravatar) < 1)
 Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
 Requires: (python3dist(flask-mail) >= 0 with python3dist(flask-mail) < 1)
 Requires: (python3dist(flask-migrate) >= 4 with python3dist(flask-migrate) < 5)
-Requires: (python3dist(flask-sqlalchemy) >= 3 with python3dist(flask-sqlalchemy) < 3.1)
-Requires: python3dist(flask-wtf) >= 1.1.1
+Requires: python3dist(flask-sqlalchemy) >= 3
+Requires: (python3dist(flask-wtf) >= 1.2 with python3dist(flask-wtf) < 1.3)
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
-Requires: (python3dist(flask-babel) >= 3.1 with python3dist(flask-babel) < 3.2)
-Requires: (python3dist(flask-security-too) >= 5.1 with python3dist(flask-security-too) < 5.2)
+Requires: python3dist(flask-babel) >= 3.1
+Requires: python3dist(flask-security-too) >= 5.1
 Requires: (python3dist(flask-socketio) >= 5.3 with python3dist(flask-socketio) < 5.4)
-Requires: (python3dist(wtforms) >= 3 with python3dist(wtforms) < 3.1)
+Requires: python3dist(wtforms) >= 3
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
 Requires: (python3dist(pytz) >= 2023 with python3dist(pytz) < 2024)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
@@ -90,7 +90,7 @@ Requires: python3dist(psycopg) >= 3.1.12
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: python3dist(sqlalchemy) >= 1.4
 Requires: (python3dist(bcrypt) >= 4 with python3dist(bcrypt) < 4.1)
-Requires: python3dist(cryptography) >= 40
+Requires: (python3dist(cryptography) >= 41 with python3dist(cryptography) < 41.1)
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
@@ -109,8 +109,8 @@ Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.10
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
 Requires: python3dist(google-auth-oauthlib) >= 0.8
-Requires: python3dist(werkzeug) = 2.2.3
-Requires: python3dist(keyring) >= 23
+Requires: (python3dist(keyring) >= 24 with python3dist(keyring) < 25)
+Requires: python3dist(werkzeug) >= 2.2.3
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -262,6 +262,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Nov 30 2023 Sandro Mani <manisandro@gmail.com> - 8.0-1
+- Update to 8.0
+
 * Thu Nov 16 2023 Sandro Mani <manisandro@gmail.com> - 7.8-3
 - Relax boto3 and botocore requirements
 

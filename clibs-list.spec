@@ -10,6 +10,7 @@ Summary:        C doubly linked list implementation
 License:        MIT
 URL:            https://github.com/clibs/list
 Source:         %{url}/archive/%{version}/list-%{version}.tar.gz
+Patch0: clibs-list-c99.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -37,7 +38,7 @@ applications that use clibs-list.
 
 
 %prep
-%autosetup -n list-%{version}
+%autosetup -p1 -n list-%{version}
 
 
 %build

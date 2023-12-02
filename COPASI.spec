@@ -1,4 +1,4 @@
-%global buildid    278
+%global buildid    283
 %global octpkg  COPASI
 
 %global with_python  1
@@ -27,8 +27,8 @@
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.40.%{buildid}
-Release: 3%{?dist}
+Version: 4.41.%{buildid}
+Release: 1%{?dist}
 
 ## Artistic 2.0 is main license
 ## GPLv2+ is related to a Mixed Source Licensing Scenario
@@ -38,19 +38,21 @@ Release: 3%{?dist}
 ## BSD is related to a Mixed Source Licensing Scenario
 # with 'copasi/randomGenerator/Cmt19937.cpp' file
 ## Any files with different licenses are not involved
-License: Artistic 2.0 and GPLv3+ and BSD
+License: Artistic-2.0 AND GPL-3.0-or-later AND BSD-3-Clause
 URL:   http://copasi.org/
 Source0: https://github.com/copasi/COPASI/archive/Build-%{buildid}/%{name}-Build-%{buildid}.tar.gz
 Source1: %{name}.appdata.xml
 
 %if 0%{?with_qwt6}
 BuildRequires: qwt-devel
+BuildRequires: qcustomplot-qt6-devel
 %endif
 BuildRequires: qwt-qt5-devel
 BuildRequires: qwtplot3d-qt5-devel >= 0.3.1a-4
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtwebkit-devel
 BuildRequires: qt5-qtdatavis3d-devel
+BuildRequires: qcustomplot-qt5-devel
 BuildRequires: libmml-qt5-devel
 BuildRequires: freeglut-devel
 BuildRequires: libsbml-devel
@@ -134,6 +136,12 @@ Patch12: %{name}-find_raptor.patch
 # qwt-6.2 compatibility
 Patch13: %{name}-qwt62.patch
 
+# This patch fixes a missing header request
+Patch14: %{name}-%{version}-fix_missing_header.patch
+
+# This patch sets path to find qcustomplot-qt5 libraries on Fedora
+Patch15: %{name}-find_qcp_libs.patch
+
 %description
 COPASI is a software application for simulation and analysis of biochemical
 networks and their dynamics.
@@ -146,6 +154,7 @@ COPASI carries out several analyses of the network and its dynamics and
 has extensive support for parameter estimation and optimization. 
 COPASI provides means to visualize data in customizable plots, histograms and 
 animations of network diagrams.
+
 
 %package gui
 Summary: The COPASI graphical user interface
@@ -164,8 +173,8 @@ COPASI carries out several analyses of the network and its dynamics and
 has extensive support for parameter estimation and optimization. 
 COPASI provides means to visualize data in customizable plots, histograms and 
 animations of network diagrams.
-
 This package provides the COPASI graphical user interface.
+
 
 %package data
 Summary: COPASI data files 
@@ -270,6 +279,8 @@ done
 %patch -P 10 -p0 -b .find_sbw
 %patch -P 12 -p1 -b .find_raptor
 %patch -P 13 -p1 -b .qwt
+%patch -P 14 -p1 -b .backup
+%patch -P 15 -p1 -b .backup
 
 %if 0%{?with_python}
 %if 0%{?python3_version_nodots} > 39
@@ -344,9 +355,7 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
 %if 0%{?with_qwt6}
  -DQWT_VERSION_STRING:STRING="%(pkg-config --modversion qwt)" \
 %endif
-%if 0%{?fedora} > 35
  -DENABLE_JIT:BOOL=OFF \
-%endif
  -DSELECT_QT=Qt5 \
  -DSITE:STRING=fedora -DF2C_INTEGER=int -DF2C_LOGICAL=long \
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{build_cxxflags} -I$PWD/copasi/lapack -I$PWD/copasi/CopasiSBW -I%{_includedir}/%{blaslib} %{__global_ldflags} -DNDEBUG" \
@@ -376,7 +385,7 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DENABLE_GPROF:BOOL=OFF \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DENABLE_FLEX_BISON:BOOL=ON -DBISON_EXECUTABLE:FILEPATH=%{_bindir}/bison \
- -DPREFER_STATIC:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=YES
+ -DPREFER_STATIC:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=YES -DCOPASI_USE_QCUSTOMPLOT:BOOL=ON
 
 %cmake_build
 
@@ -487,6 +496,10 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Thu Nov 30 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.41.283-1
+- Release 4.41 build-283
+- Add COPASI_USE_QCUSTOMPLOT cmake option (upstream bug #3202)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.40.278-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

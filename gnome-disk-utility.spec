@@ -3,7 +3,7 @@
 %global libhandy_version 1.5.0
 
 Name:           gnome-disk-utility
-Version:        45.0
+Version:        45.1
 Release:        1%{?dist}
 Summary:        Disks
 
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Nov 30 2023 Kalev Lember <klember@redhat.com> - 45.1-1
+- Update to 45.1
+
 * Thu Sep 21 2023 Kalev Lember <klember@redhat.com> - 45.0-1
 - Update to 45.0
 

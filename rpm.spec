@@ -27,7 +27,7 @@
 
 %global rpmver 4.19.0
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -141,6 +141,8 @@ rpm-4.18.90-weak-user-group.patch
 # Patches already upstream:
 # ...
 rpm-4.19.0-sysusers-fixes.patch
+0001-Fix-getncpus-proc-thread-potentially-returning-zero.patch
+0002-Fix-integer-overflow-in-memory-calculations-on-32bit.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -617,6 +619,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Nov 30 2023 Stephen Gallagher <sgallagh@redhat.com> - 4.19.0-3
+- Fix issues with %%getncpus sometimes returning 0 on i686 systems
+
 * Mon Nov 13 2023 Panu Matilainen <pmatilai@redhat.com> - 4.19.0-2
 - Ensure central package ops log via rpm-plugin-audit recommends (#1476926)
 - Own our Python module directory (#2248555)

@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
 Version: 0.9.7
-Release: 1%{?dist}
+Release: 4%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 License: GPLv2
 URL:     http://christophe.varoqui.free.fr/
@@ -171,8 +171,8 @@ fi
 %{_mandir}/man8/mpathpersist.8*
 %config /usr/lib/udev/rules.d/62-multipath.rules
 %config /usr/lib/udev/rules.d/11-dm-mpath.rules
-%dir /usr/lib/modules-load.d
-/usr/lib/modules-load.d/scsi_dh.conf
+%dir %{_modulesloaddir}
+%{_modulesloaddir}/scsi_dh.conf
 %{_tmpfilesdir}/multipath.conf
 %doc README.md
 %doc multipath.conf
@@ -231,6 +231,18 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Thu Nov 30 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.7-4
+- Use modulesloaddir macro for installing scsi_dh.conf
+
+* Wed Nov 29 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.7-3
+- Fix multipath_conf_syntax test
+- Fix restate_module test
+
+* Tue Nov 28 2023 Paul Donohue <git@PaulSD.com> - 0.9.7-2
+- Modify 0006-RH-add-mpathconf.patch
+- Modify 0008-RH-reset-default-find_mutipaths-value-to-off.patch
+  * Fix find_multipaths values in docs and mpathconf
+
 * Tue Nov 21 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.7-1
 - Update source to upstream version 0.9.7
   * Previous patches 0001-0040 are included in the source tarball

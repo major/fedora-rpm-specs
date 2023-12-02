@@ -1,16 +1,15 @@
 # Don't bother building debug packages as koji bitches about n-v-r from nemo package
 %global debug_package %{nil}
-%global cjs_version 5.8.0
+%global cjs_version 6.0.0
 
 Name:           nemo-extensions
-Version:        5.8.0
-Release:        4%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         %{url}/commit/d25b09fcd00c4970c70485fb50d3595d8e6c8ef8.patch
 
 ExcludeArch:    %{ix86}
 
@@ -19,7 +18,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(cryptui-0.0) 
 BuildRequires:  pkgconfig(gcr-3)
-BuildRequires:  pkgconfig(libnemo-extension) >= 5.8.0
+BuildRequires:  pkgconfig(libnemo-extension) >= 6.0.0
 BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -77,7 +76,7 @@ License:     GPLv2+
 Obsoletes:   python2-nemo < %{version}-%{release}
 Obsoletes:   python3-nemo < %{version}-%{release}
 Provides:    python3-nemo = %{version}-%{release}
-Requires:    nemo >= 5.6.0
+Requires:    nemo >= 6.0.0
 Requires:    python3-gobject-base
 
 %description -n nemo-python
@@ -334,6 +333,9 @@ desktop-file-install                                    \
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
+- Update to 6.0.0 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

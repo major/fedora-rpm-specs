@@ -3,7 +3,7 @@
 %{!?arm64: %global arm64 aarch64}
 
 Name:           libva-nvidia-driver
-Version:        0.0.10
+Version:        0.0.11
 Release:        %autorelease
 Summary:        A VA-API implemention using NVIDIA's NVDEC
 

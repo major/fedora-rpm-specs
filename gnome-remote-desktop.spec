@@ -2,21 +2,15 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-# In RHEL/ELN FreeRDP is built without server support
-%if 0%{?rhel} >= 10
-%global enable_rdp 1
-%elif 0%{?rhel} >= 9
-%global enable_rdp 0
-%else
-%global enable_rdp 1
-%endif
+%bcond rdp %[0%{?fedora} || 0%{?rhel} >= 10]
+%bcond vnc %[0%{?fedora} || 0%{?rhel} < 10]
 
 %global libei_version 1.0.901
 %global pipewire_version 0.3.49
 
 Name:           gnome-remote-desktop
 Version:        45.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
@@ -33,7 +27,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  pkgconfig(ffnvcodec)
-%if 0%{?enable_rdp}
+%if %{with rdp}
 BuildRequires:  pkgconfig(fdk-aac)
 BuildRequires:  pkgconfig(freerdp2)
 BuildRequires:  pkgconfig(fuse3)
@@ -49,7 +43,9 @@ BuildRequires:  pkgconfig(libei-1.0) >= %{libei_version}
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libsecret-1)
+%if %{with vnc}
 BuildRequires:  pkgconfig(libvncserver) >= 0.9.11-7
+%endif
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(tss2-esys)
@@ -73,16 +69,20 @@ GNOME desktop environment.
 
 %build
 %meson \
-%if 0%{?enable_rdp}
+%if %{with rdp}
     -Drdp=true \
     -Dfdk_aac=true \
 %else
     -Drdp=false \
     -Dfdk_aac=false \
 %endif
+%if %{with vnc}
+    -Dvnc=true \
+%else
+    -Dvnc=false \
+%endif
     -Dsystemd=true \
-    -Dtests=false \
-    -Dvnc=true
+    -Dtests=false
 %meson_build
 
 
@@ -112,13 +112,16 @@ GNOME desktop environment.
 %{_userunitdir}/%{systemd_unit}
 %{_datadir}/glib-2.0/schemas/org.gnome.desktop.remote-desktop.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.desktop.remote-desktop.enums.xml
-%if 0%{?enable_rdp}
+%if %{with rdp}
 %{_datadir}/gnome-remote-desktop/
 %endif
 %{_mandir}/man1/grdctl.1*
 
 
 %changelog
+* Fri Nov 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 45.1-2
+- Disable VNC in RHEL 10+
+
 * Sun Oct 22 2023 Kalev Lember <klember@redhat.com> - 45.1-1
 - Update to 45.1
 

@@ -1,7 +1,7 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.29.1
+Version:          0.30.0
 Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
@@ -15,6 +15,7 @@ BuildRequires:    python3-dbus
 BuildRequires:    python3-devel
 BuildRequires:    python3-setuptools
 BuildRequires:    python3-gobject
+BuildRequires:    python3-pytest
 BuildRequires:    dbus-x11
 BuildRequires:    upower
 
@@ -51,6 +52,12 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Thu Nov 30 2023 Packit <hello@packit.dev> - 0.30.0-1
+- api: Add pytest support and helpers
+- api: Factor the server spawning into a new SpawnedMock object (thanks Peter Hutterer)
+- doc: generate sphinx docs on https://martinpitt.github.io/python-dbusmock/ (thanks Peter Hutterer)
+- cli: Add support for running custom commands on the mock environment (thanks Marco Trevisan)
+
 * Thu Jul 27 2023 Packit <hello@packit.dev> - 0.29.1-1
 - spec: Update License: to SPDX format
 - Test fixes (thanks Marco Trevisan)

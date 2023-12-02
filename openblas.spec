@@ -14,13 +14,13 @@
 # "obsoleted" features are still kept in the spec.
 
 Name:           openblas
-Version:        0.3.24
+Version:        0.3.25
 Release:        1%{?dist}
 Summary:        An optimized BLAS library based on GotoBLAS2
 
 License:        BSD-3-Clause
-URL:            https://github.com/xianyi/OpenBLAS/
-Source0:        %url/archive/v%{version}/openblas-%{version}.tar.gz
+URL:            https://github.com/OpenMathLib/OpenBLAS
+Source0:        %url/archive/v%{version}/OpenBLAS-%{version}.tar.gz
 
 # Use system lapack
 Patch0:         openblas-0.2.15-system_lapack.patch
@@ -648,6 +648,9 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 %endif
 
 %changelog
+* Thu Nov 30 2023 Ismail Doenmez <ismail@i10z.com> - 0.3.25-1
+- Update to 0.3.25
+
 * Fri Oct 27 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.3.24-1
 - Update to 0.3.24
 

@@ -14,7 +14,7 @@
 
 Name:           polymake
 Version:        4.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -318,6 +318,9 @@ make test
 %doc doc/*
 
 %changelog
+* Thu Nov 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.11-2
+- Rebuild for perl 5.38.2
+
 * Mon Nov  6 2023 Jerry James <loganjerry@gmail.com> - 4.11-1
 - Version 4.11
 - Drop dependency on tplib

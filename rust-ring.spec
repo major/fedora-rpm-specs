@@ -6,7 +6,7 @@
 %global crate ring
 
 Name:           rust-ring
-Version:        0.17.5
+Version:        0.17.6
 Release:        %autorelease
 Summary:        Safe, fast, small crypto using Rust
 
@@ -76,6 +76,18 @@ This package contains library source intended for building other packages which
 use the "dev_urandom_fallback" feature of the "%{crate}" crate.
 
 %files       -n %{name}+dev_urandom_fallback-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+less-safe-getrandom-custom-or-rdrand-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+less-safe-getrandom-custom-or-rdrand-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "less-safe-getrandom-custom-or-rdrand" feature of the "%{crate}" crate.
+
+%files       -n %{name}+less-safe-getrandom-custom-or-rdrand-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+slow_tests-devel

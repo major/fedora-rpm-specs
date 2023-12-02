@@ -2,8 +2,8 @@
 
 %global name1 sqlite
 
-%global realver 3360000
-%global rpmver 3.36.0.0
+%global realver 3440100
+%global rpmver 3.44.1
 
 # bcond default logic is nicely backwards...
 %bcond_with tcl
@@ -11,12 +11,12 @@
 
 Name:           mingw-%{name1}
 Version:        %{rpmver}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        MinGW Windows port of sqlite embeddable SQL database engine
 
 License:        Public Domain
 URL:            http://www.sqlite.org/
-Source0:        http://www.sqlite.org/2021/%{name1}-src-%{realver}.zip
+Source0:        http://www.sqlite.org/2023/%{name1}-src-%{realver}.zip
 
 BuildArch:      noarch
 
@@ -26,7 +26,7 @@ Patch1001:      sqlite-dont-search-for-pthreads-on-non-unix.patch
 # Don't force build exe extension same as target exe extension
 Patch1002:      sqlite-mingw-crosscompile.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
@@ -134,21 +134,11 @@ This package contains static cross-compiled library
 
 
 %prep
-%setup -q -n %{name1}-src-%{realver}
-%patch1001 -p0 -b .pthread
-%patch1002 -p0 -b .cc
+%autosetup -p1 -n %{name1}-src-%{realver}
 autoreconf -i --force
 
 
 %build
-# I think there's a bug in the configure script where, if
-# cross-compiling, it cannot correctly determine the target executable
-# extension (ie. .exe).  As a result it doesn't correctly detect that
-# the target is Windows and so tries to use Unix-specific functions
-# which don't exist.  In any case we can work around this by forcing
-# the extension via this export.
-#   - RWMJ 2008-09-30
-export config_TARGET_EXEEXT=.exe
 # add compile flags to enable rtree, fts3
 export MINGW32_CFLAGS="%{mingw32_cflags} -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_DISABLE_DIRSYNC=1 -DSQLITE_ENABLE_FTS3=3 -DSQLITE_ENABLE_RTREE=1 -fno-strict-aliasing"
 export MINGW64_CFLAGS="%{mingw64_cflags} -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_DISABLE_DIRSYNC=1 -DSQLITE_ENABLE_FTS3=3 -DSQLITE_ENABLE_RTREE=1 -fno-strict-aliasing"
@@ -164,25 +154,26 @@ for i in build_win32 build_win64 ; do
     popd
 done
 
-%mingw_make %{?_smp_mflags}
+%mingw_make_build
 
 
 %install
-%mingw_make_install DESTDIR=$RPM_BUILD_ROOT
+%mingw_make_install
 
-chmod 0644 $RPM_BUILD_ROOT%{mingw32_libdir}/libsqlite3.dll.a
-chmod 0644 $RPM_BUILD_ROOT%{mingw64_libdir}/libsqlite3.dll.a
+chmod 0644 %{buildroot}%{mingw32_libdir}/libsqlite3.dll.a
+chmod 0644 %{buildroot}%{mingw64_libdir}/libsqlite3.dll.a
 
 %if %{with tcl}
-install -d -m755 $RPM_BUILD_ROOT%{mingw32_datadir}/tcl%{tclversion}/sqlite3/
-mv $RPM_BUILD_ROOT%{_datadir}/tcl%{tclversion}/sqlite3/pkgIndex.tcl $RPM_BUILD_ROOT%{mingw32_datadir}/tcl%{tclversion}/sqlite3/
+install -d -m755 %{buildroot}%{mingw32_datadir}/tcl%{tclversion}/sqlite3/
+mv %{buildroot}%{_datadir}/tcl%{tclversion}/sqlite3/pkgIndex.tcl %{buildroot}%{mingw32_datadir}/tcl%{tclversion}/sqlite3/
 
-install -d -m755 $RPM_BUILD_ROOT%{mingw64_datadir}/tcl%{tclversion}/sqlite3/
-mv $RPM_BUILD_ROOT%{_datadir}/tcl%{tclversion}/sqlite3/pkgIndex.tcl $RPM_BUILD_ROOT%{mingw64_datadir}/tcl%{tclversion}/sqlite3/
+install -d -m755 %{buildroot}%{mingw64_datadir}/tcl%{tclversion}/sqlite3/
+mv %{buildroot}%{_datadir}/tcl%{tclversion}/sqlite3/pkgIndex.tcl %{buildroot}%{mingw64_datadir}/tcl%{tclversion}/sqlite3/
 %endif
 
 # Drop all .la files
-find $RPM_BUILD_ROOT -name "*.la" -delete
+find %{buildroot} -name "*.la" -delete
+
 
 # Win32
 %files -n mingw32-%{name1}
@@ -220,6 +211,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Nov 30 2023 Sandro Mani <manisandro@gmail.com> - 3.44.1-1
+- Update to 3.44.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

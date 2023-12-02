@@ -4,8 +4,8 @@
 %global crate pleaser
 
 Name:           rust-pleaser
-Version:        0.5.3
-Release:        4%{?dist}
+Version:        0.5.4
+Release:        1%{?dist}
 Summary:        Please, a polite regex-first sudo alternative
 
 License:        GPL-3.0-or-later
@@ -40,12 +40,15 @@ License:        GPL-3.0-or-later AND Apache-2.0 AND MIT AND Unicode-DFS-2016
 %doc CHANGELOG.md
 %doc CONTRIBUTING.md
 %doc README.md
+%doc please.ini.md
+%doc please.md
 %{_bindir}/please
 %{_bindir}/pleaseedit
 %{_mandir}/man1/please.1*
 %{_mandir}/man5/please.ini.5*
 %config(noreplace) /etc/pam.d/please
 %config(noreplace) /etc/pam.d/pleaseedit
+/etc/bash_completion.d/please
 
 %package        devel
 Summary:        %{summary}
@@ -61,6 +64,8 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/please.ini.md
+%doc %{crate_instdir}/please.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -76,7 +81,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -84,6 +89,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %build
 %cargo_build
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install
@@ -92,6 +98,7 @@ use the "default" feature of the "%{crate}" crate.
 %{__install} -Dpm4755 -t %{buildroot}%{_bindir} target/release/pleaseedit
 %{__install} -Dpm0644 -t %{buildroot}%{_mandir}/man1 man/please.1
 %{__install} -Dpm0644 -t %{buildroot}%{_mandir}/man5 man/please.ini.5
+%{__install} -Dpm0644 -t %{buildroot}/etc/bash_completion.d completions/bash/please
 
 mkdir -p $RPM_BUILD_ROOT/etc/pam.d
 cat > $RPM_BUILD_ROOT/etc/pam.d/please << EOF
@@ -117,10 +124,14 @@ EOF
 
 %if %{with check}
 %check
-%cargo_test
+# TODO: upstream to change test to be search for something more appropriate
+%cargo_test -- --tests -- --skip test::test_search_bin_default_sbin
 %endif
 
 %changelog
+* Thu Nov 30 2023  ed neville <ed@s5h.net> - 0.5.4-1
+- Version bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
