@@ -4,7 +4,7 @@
 
 Name:           libkrun
 Version:        1.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -162,6 +162,9 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 1.5.0-7
+- Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
+
 * Tue Sep 19 2023 Fabio Valentini <decathorpe@gmail.com> - 1.5.0-6
 - Rebuild for vm-memory v0.12.2 / CVE-2023-41051.
 

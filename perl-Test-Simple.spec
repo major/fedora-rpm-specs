@@ -12,7 +12,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302197
+Version:        1.302198
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -201,6 +201,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Trace.3*
 
 %changelog
+* Fri Dec  1 2023 Paul Howarth <paul@city-fan.org> - 3:1.302198-1
+- Update to 1.302198
+  - Remove use of defined-or operator
+
 * Wed Nov 29 2023 Paul Howarth <paul@city-fan.org> - 3:1.302197-1
 - Update to 1.302197
   - Add ability to attach timestamps to trace objects via API or environment

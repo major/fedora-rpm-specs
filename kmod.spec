@@ -16,10 +16,53 @@
 
 Name:		kmod
 Version:	31
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Linux kernel module management utilities
 
-License:	GPLv2+
+# https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
+# GPL-2.0-or-later:
+#   build-aux/compile
+#   build-aux/depcomp
+#   build-aux/ltmain.sh
+#   build-aux/ltmain.sh
+#   build-aux/missing
+#   build-aux/py-compile
+#   build-aux/test-driver
+#   m4/attributes.m4
+#   m4/features.m4
+#   tools
+# GPL-3.0-or-later:
+#   build-aux/config.guess
+#   build-aux/config.sub
+#   build-aux/git-version-gen
+#   libkmod/docs/gtk-doc.make
+#   m4/gtk-doc.m4
+# FSFUL:
+#   configure
+# FSFULLRWD:
+#   aclocal.m4
+#   libkmod/docs/Makefile.in
+#   m4/libtool.m4
+#   m4/lt~obsolete.m4
+#   m4/ltoptions.m4
+#   m4/ltsugar.m4
+#   m4/ltversion.m4
+#   Makefile.in
+# LGPL-2.1-only:
+#   libkmod/python/kmod/error.py
+#   libkmod/python/kmod/__init__.py
+#   libkmod/python/kmod/version.py
+#   libkmod/python/kmod/version.py.in
+# LGPL-2.1-or-later:
+#   config.h.in (no explicit license, the one in COPYING is assumed)
+#   libkmod
+#   man (no explicit license, the one in COPYING is assumed)
+#   shared
+#   shell-completion/bash/kmod
+#   testsuite
+# X11:
+#   build-aux/install-sh
+License:	GPL-2.0-or-later AND GPL-3.0-or-later AND FSFUL AND FSFULLRWD AND LGPL-2.1-only AND LGPL-2.1-or-later AND X11
 URL:		https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
 Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
 Source1:	weak-modules
@@ -54,7 +97,6 @@ examples of loaded and unloaded modules.
 
 %package libs
 Summary:	Libraries to handle kernel module loading and unloading
-License:	LGPLv2+
 
 %description libs
 The kmod-libs package provides runtime libraries for any application that
@@ -151,6 +193,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Fri Dec 01 2023 Eugene Syromiatnikov <esyr@redhat.com> - 31-3
+- migrated to SPDX license
+
 * Thu Nov 09 2023 Josh Boyer <jwboyer@fedoraproject.org> - 31-2
 - Add upstream patches to enable SHA3 support
 - New upstream v31

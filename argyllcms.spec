@@ -2,7 +2,7 @@
 %undefine _include_frame_pointers
 
 Name: argyllcms
-Version: 3.0.2
+Version: 3.1.0
 Release: 1%{?dist}
 
 # Main code - AGPL-3.0-or-later
@@ -158,6 +158,9 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_datadir}/color/argyll/
 
 %changelog
+* Fri Dec 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.0-1
+- 3.1.0
+
 * Mon Oct 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.2-1
 - 3.0.2
 

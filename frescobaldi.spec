@@ -2,7 +2,7 @@
 
 Name:           frescobaldi
 Version:        3.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
@@ -27,7 +27,6 @@ Requires:       python3-poppler-qt5
 Requires:       portmidi
 Requires:       python3-portmidi
 Requires:       python3-ly >= 0.9.4
-Requires:	python3-qt5-webkit
 Requires:	python3-qt5-webengine
 Requires:       python3-qpageview
 
@@ -57,7 +56,7 @@ yet lightweight and easy to use. It features:
 %setup -q
 find -name "*.py"  -exec sed -i -e 's|#! python||' {} \;
 
-%patch0 -p0
+%patch -P 0 -p0
 
 %build
 python3 ./setup.py build
@@ -93,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Fri Dec 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3.0-4
+- Drop webkit dependency.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

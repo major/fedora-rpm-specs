@@ -19,6 +19,9 @@ Patch: gnutls-3.2.7-rpath.patch
 # follow https://gitlab.com/gnutls/gnutls/-/issues/1443
 Patch: gnutls-3.7.8-ktls_skip_tls12_chachapoly_test.patch
 
+# tentatively reverted for https://gitlab.com/gnutls/gnutls/-/issues/1515
+Patch: gnutls-3.8.2-revert-pkcs11-ed448.patch
+
 %bcond_without bootstrap
 %bcond_without dane
 %bcond_without fips

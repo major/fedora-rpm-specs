@@ -17,7 +17,7 @@
 Name:           zabbix
 Epoch:          1
 Version:        6.0.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPLv2
@@ -50,6 +50,7 @@ Patch1:         %{srcname}-out-of-tree.patch
 # Enforce Fedora Crypto Policy
 Patch2:         %{srcname}-crypto-policy.patch
 Patch3:		%{srcname}-configure-sscanf.patch
+Patch4:         ZBX-23738-6.0.patch
 
 # Patch1 patches automake files so we need to autoreconf
 BuildRequires:   libtool
@@ -794,6 +795,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Fri Dec 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:6.0.22-3
+- Patch for libxml2 2.12.x
+
 * Sat Oct 28 2023 Orion Poplawski <orion@nwra.com> - 1:6.0.22-2
 - Add dontaudit SELinux rules for spurious AVC denial messages (bz#2170630)
 

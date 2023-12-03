@@ -1,5 +1,5 @@
 Name:           libdecor
-Version:        0.2.0
+Version:        0.2.1
 Release:        1%{?dist}
 Summary:        Wayland client side decoration library
 
@@ -61,6 +61,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Dec 01 2023 Jonas Ådahl <jadahl@redhat.com> - 0.2.1-1
+- Bump version to 0.2.1
+
 * Mon Sep 25 2023 Jonas Ådahl <jadahl@redhat.com> - 0.2.0-1
 - Bump version to 0.2.0
 

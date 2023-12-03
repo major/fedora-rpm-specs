@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global ocamlver 501
 
 Name:           ocaml-merlin
-Version:        4.12
-Release:        2%{?dist}
+Version:        4.13
+Release:        1%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
@@ -147,6 +147,9 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Fri Dec  1 2023 Jerry James <loganjerry@gmail.com> - 4.13-1
+- Version 4.13
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.12-2
 - OCaml 5.1 rebuild for Fedora 40
 

@@ -1,10 +1,7 @@
-# https://savannah.nongnu.org/bugs/index.php?62519
-%define _fortify_level 2
-
 Summary: Access control list utilities
 Name: acl
 Version: 2.3.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: gettext
@@ -28,6 +25,10 @@ Patch2: 0002-add-georgian.patch
 # preserve failed setfacl return code (RHEL-3909)
 # https://git.savannah.nongnu.org/cgit/acl.git/commit/?id=7ce89c695e76ec41fcebd83f8b728f63b0361a2d
 Patch3: 0003-acl-2.3.1-setfacl-preserve-failed-status.patch
+
+# make acl compatible with -D_FORTIFY_SOURCE=3 (rhbz#2249839)
+# https://git.savannah.nongnu.org/cgit/acl.git/commit/?id=6f9b9246ee91eaf09c3774ff95950624ef818476
+Patch4: 0004-acl-2.3.1-libobj-declare-s_str-directly-in-string_obj_tag.patch
 
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://savannah.nongnu.org/projects/acl
@@ -137,6 +138,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Fri Dec 01 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.3.1-11
+- make acl compatible with -D_FORTIFY_SOURCE=3 (rhbz#2249839)
+
 * Fri Oct 06 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.3.1-10
 - preserve failed setfacl return code (RHEL-3909)
 - make the license tag more precise

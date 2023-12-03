@@ -10,7 +10,7 @@
 %endif
 
 Name:           perl-DBD-MySQL
-Version:        5.002
+Version:        5.003
 Release:        1%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -195,6 +195,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.003-1
+- 5.003 bump (rhbz#2252375)
+
 * Tue Oct 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.002-1
 - 5.002 bump (rhbz#2245834)
 

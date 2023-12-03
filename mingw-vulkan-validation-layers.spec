@@ -25,6 +25,7 @@ BuildRequires: mingw32-glslang
 BuildRequires: mingw32-spirv-headers
 BuildRequires: mingw32-spirv-tools
 BuildRequires: mingw32-vulkan-headers >= %{baseversion}
+BuildRequires: mingw32-vulkan-utility-libraries >= %{baseversion}
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc-c++
@@ -32,6 +33,7 @@ BuildRequires: mingw64-glslang
 BuildRequires: mingw64-spirv-headers
 BuildRequires: mingw64-spirv-tools
 BuildRequires: mingw64-vulkan-headers >= %{baseversion}
+BuildRequires: mingw64-vulkan-utility-libraries >= %{baseversion}
 
 
 %description

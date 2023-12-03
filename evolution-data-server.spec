@@ -59,7 +59,7 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.50.1
+Version: 3.50.2
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
@@ -350,10 +350,12 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %dir %{_libexecdir}/evolution-data-server
 %{_libexecdir}/evolution-data-server/addressbook-export
 %{_libexecdir}/evolution-data-server/evolution-alarm-notify
+%{_libexecdir}/evolution-data-server/evolution-oauth2-handler
 %{_libexecdir}/evolution-data-server/list-sources
 
 %{_sysconfdir}/xdg/autostart/org.gnome.Evolution-alarm-notify.desktop
 %{_datadir}/applications/org.gnome.Evolution-alarm-notify.desktop
+%{_datadir}/applications/org.gnome.evolution-data-server.OAuth2-handler.desktop
 
 # GSettings schemas:
 %{_datadir}/GConf/gsettings/evolution-data-server.convert
@@ -501,6 +503,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Dec 01 2023 Milan Crha <mcrha@redhat.com> - 3.50.2-1
+- Update to 3.50.2
+
 * Fri Oct 20 2023 Milan Crha <mcrha@redhat.com> - 3.50.1-1
 - Update to 3.50.1
 

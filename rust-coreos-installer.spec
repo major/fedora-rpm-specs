@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -177,6 +177,9 @@ from the initramfs in IoT/Edge and is supported by the community.
 %endif
 
 %changelog
+* Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 0.18.0-2
+- Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
+
 * Fri Sep 8 2023 Nikita Dubrovskii <nikita@linux.ibm.com> - 0.18.0-1
 - New release
 

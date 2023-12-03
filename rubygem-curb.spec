@@ -2,19 +2,23 @@
 %global gem_name curb
 
 Name: rubygem-%{gem_name}
-Version: 1.0.1
-Release: 5%{?dist}
+Version: 1.0.5
+Release: 1%{?dist}
 Summary: Ruby libcurl bindings
 License: Ruby
 URL: https://github.com/taf2/curb
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-Patch0: curb-disable-network-lookup-test.patch
+# Make sure no external connectivity is needed to pass the test suite.
+# https://github.com/taf2/curb/pull/448
+Patch0: rubygem-curb-1.0.5-Use-TestServlet-url-instead-of-external-connectivity.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
 BuildRequires: rubygem(test-unit)
 BuildRequires: rubygem(webrick)
 BuildRequires: libcurl-devel
+# https://github.com/taf2/curb/blob/13144ec5d50ffea0460298cc5de8a0b33db78d22/tests/tc_curl_multi.rb#L42
+BuildRequires: %{_sbindir}/ss
 BuildRequires: gcc
 
 %description
@@ -34,7 +38,7 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-%patch0 -p1
+%patch 0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -54,13 +58,11 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 
 %check
 pushd .%{gem_instdir}
+# Enable mistakenly disabled test case
+# https://github.com/taf2/curb/issues/447
+sed -i '/omit/ s/^/#/' tests/tc_curl_multi.rb
 
-# Skip test as it requires actual remote connection opened
-sed -i '/^  def test_connection_keepalive/ a omit' \
-  tests/tc_curl_multi.rb
-
-export RUBYLIB=lib:%{buildroot}%{gem_extdir_mri}
-ruby -e 'Dir.glob "./tests/tc_*.rb", &method(:require)'
+ruby -I$(dirs +1)%{gem_extdir_mri} -e 'Dir.glob "./tests/tc_*.rb", &method(:require)'
 popd
 
 %files
@@ -79,6 +81,10 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Fri Dec 01 2023 Vít Ondruch <vondruch@redhat.com> - 1.0.5-1
+- Update to curb 1.0.5.
+  Resolves: rhbz#2156782
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -100,7 +106,7 @@ popd
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Tue Jan 18 2022 Pavel Valena <pvalena@redhat.com> - 1.0.0-1
+* Wed Jan 26 2022 Pavel Valena <pvalena@redhat.com> - 1.0.0-1
 - Update to curb 1.0.0.
   Resolves: rhbz#2041001
 

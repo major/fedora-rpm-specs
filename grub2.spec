@@ -17,9 +17,9 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	109%{?dist}
+Release:	110%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
 Obsoletes:	grub < 1:0.98
 Source0:	https://ftp.gnu.org/gnu/grub/grub-%{tarversion}.tar.xz
@@ -555,6 +555,10 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Fri Dec 1 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-110
+- fs/xfs: Add several fixes/improvements to xfs fs from upstream
+- Resolves: #2247926
+
 * Wed Nov 15 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-109
 - Linker: added --no-warn-rwx-segments as build will fail after
 ld.bfd default options have been changed.

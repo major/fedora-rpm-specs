@@ -31,7 +31,7 @@
 %global jspspec 2.3
 %global major_version 9
 %global minor_version 0
-%global micro_version 82
+%global micro_version 83
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 4.0
 %global elspec 3.0
@@ -550,6 +550,9 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Fri Dec 01 2023 Hui Wang <huwang@redhat.com> - 1:9.0.83-1
+- Update to 9.0.83
+
 * Mon Oct 16 2023 Hui Wang <huwang@redhat.com> - 1:9.0.82-1
 - Update to 9.0.82
 - Resolves: rhbz#2244333 Wrong dbcp class in tomcat 9

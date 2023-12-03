@@ -49,8 +49,9 @@ Requires:       /usr/bin/patchelf
 %prep
 %autosetup -n meson_python-%{version}
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i "s/'pytest-cov/# &/" pyproject.toml
+# build: used only by skipped PEP 518 test
+# pytest-cov: https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i "s/^  '(build|pytest-cov)/#&/" pyproject.toml
 
 
 %generate_buildrequires

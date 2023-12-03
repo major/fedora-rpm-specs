@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
@@ -13,9 +13,6 @@ License:        LGPL-2.1-or-later AND MIT
 URL:            https://gitlab.gnome.org/GNOME/libadwaita
 Source0:        https://download.gnome.org/sources/%{name}/1.4/%{name}-%{tarball_version}.tar.xz
 
-# Patches to fix the build with appstream 1.0, backported from upstream
-Patch:          Fix-the-build-with-appstream-1.0.patch
-
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -23,12 +20,12 @@ BuildRequires:  gi-docgen
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  vala
-
 BuildRequires:  pkgconfig(appstream)
 BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4) >= %{gtk_version}
+
 Requires:       gtk4%{?_isa} >= %{gtk_version}
 
 %description

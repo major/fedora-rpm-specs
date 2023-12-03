@@ -2174,6 +2174,11 @@ do
     # These tests require network access.
     k="${k-}${k+ and }not (TestTornadoInstrumentation and test_credential_removal)"
     ;;
+  instrumentation/opentelemetry-instrumentation-urllib)
+    # Flaky failure, especially (exclusively?) on ppc64le/s390x.
+    # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2033#issuecomment-1836278182
+    k="${k-}${k+ and }not (TestUrllibMetricsInstrumentation and test_metric_uninstrument)"
+    ;;
   opentelemetry-contrib-instrumentations)
     # This package has no tests; it is effectively a metapackage, and it is not
     # importable due to a hyphen in the ”package“ directory name.

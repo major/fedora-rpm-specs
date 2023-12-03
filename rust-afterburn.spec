@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -143,6 +143,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 5.4.3-2
+- Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
+
 * Wed Oct 04 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.4.3-1
 - Update to 5.4.3
 

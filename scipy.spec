@@ -23,7 +23,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.11.3
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -126,6 +126,12 @@ Scipy test files
 
 %prep
 %autosetup -p1 -n %{name}-%{version}%{?rcver}
+
+# Remove pythran dependency if not explicitly required
+%if %{without pythran}
+sed -i '/pythran/d' pyproject.toml
+%endif
+
 cat >> pyproject.toml << EOF
 
 [tool.meson-python.args]
@@ -158,11 +164,6 @@ sed -i '/^[[:blank:]]*"scikit-umfpack"/d' pyproject.toml
 # No pytest-xdist in RHEL
 %if 0%{?rhel}
 sed -i '/^[[:blank:]]*"pytest-xdist"/d' pyproject.toml
-%endif
-
-# Remove pythran dependency if not explicitly required
-%if %{without pythran}
-sed -i '/pythran/d' pyproject.toml
 %endif
 
 # Loosen the lower bound on numpy
@@ -305,6 +306,9 @@ popd
 %endif
 
 %changelog
+* Thu Nov 30 2023 Karolina Surma <ksurma@redhat.com> - 1.11.3-3
+- Fix the build without pythran
+
 * Wed Nov 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.11.3-2
 - Patch error collecting tests with pytest-xdist
 

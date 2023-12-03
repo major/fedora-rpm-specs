@@ -1,4 +1,4 @@
-Version:        2.7.6
+Version:        2.8.2
 
 %global forgeurl https://github.com/cminyard/gensio
 %forgemeta

@@ -3,17 +3,25 @@
 
 Name:       rwhoisd 
 Version:    1.5.9.6
-Release:    27%{?dist}
+Release:    28%{?dist}
 Summary:    ARIN's Referral WHOIS server
-# tools/tcpd_wrapper/DISCLAIMER:    BSD (tcp_wrappers variant)
-# tools/tcpd_wrapper/strcasecmp.c:  BSD
-# regexp/COPYRIGHT:                 zlib
-# mkdb/metaphon.c:                  Public Domain
-# mkdb/y.tab.c:                     (GPLv2+ or FSFUL)
-# LICENSE:                          GPLv2+
-# common/strerror.c:                GPLv2+ (libiberty)
+# common/strerror.c:                GPL-2.0-or-later (libiberty)
+# LICENSE:                          GPL-2.0 text
+# mkdb/metaphon.c:                  LicenseRef-Fedora-Public-Domain (Waiting
+#                                   for an approval
+#                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/416>)
+# mkdb/y.tab.c:                     GPL-2.0-or-later WITH
+#                                   Bison-exception-1.24 (Waiting on an
+#                                   approval
+#                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/417>)
+# regexp/COPYRIGHT:                 Spencer-86
+## Not in any binary package
 # configure:                        FSFUL
-License:    Public Domain and zlib and GPLv2+
+## Unbundled
+# tools/tcpd_wrapper/DISCLAIMER:    TCP-wrappers (Waiting on an approval
+#                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/415>)
+# tools/tcpd_wrapper/strcasecmp.c:  BSD-4.3TAHOE
+License:    Public Domain and HSRL and GPLv2+
 URL:        http://projects.arin.net/rwhois/
 Source0:    %{url}ftp/%{name}-%{version}.tar.gz
 Source1:    %{name}.service
@@ -33,7 +41,12 @@ Patch5:     %{name}-1.5.9.5-Select-which-way-to-call-sort.patch
 Patch6:     %{name}-1.5.9.5-Adjust-sample-configuration.patch
 # Disable TCP wrappers, bug #1518781
 Patch7:     %{name}-1.5.9.6-Allow-disabling-TCP-wrappers.patch
-Patch8: rwhoisd-c99.patch
+# Fix building with GCC 13, proposed to na upstream,
+# <https://github.com/arineng/rwhoisd/pull/2>
+Patch8:     %{name}-1.5.9.6-c99.patch
+# Fix a signal handler return value, proposed to an upstream,
+# <https://github.com/arineng/rwhoisd/pull/3>
+Patch9:     %{name}-1.5.9.6-Fix-a-return-value-of-signal-handlers.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -69,18 +82,9 @@ Recommended how-to is <http://www.unixadmin.cc/rwhois/>.
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .destdir
-%patch1 -p1 -b .config_gcc
-%patch2 -p1 -b .config_lfs
-%patch3 -p1 -b .config_libwrap
-%patch4 -p1 -b .system_tcp
-%patch5 -p1 -b .sort
-%patch6 -p1 -b .config
-%patch7 -p1 -b .tcpwrappers
-%patch8 -p1
+%autosetup -p1
 # Remove bundled tcp_wrappers for sure
-find tools/tcpd_wrapper -depth -mindepth 1 \! -name Makefile.in -exec rm {} +
+find tools/tcpd_wrapper -depth -mindepth 1 \! -name Makefile.in -delete
 # Keep System V8 regexp library
 # TODO: port to GNU glibc
 autoreconf
@@ -106,7 +110,7 @@ autoreconf
 make
 
 %install
-make install DESTDIR='%{buildroot}'
+%{make_install}
 install -d '%{buildroot}%{_mandir}/man8'
 install -m 0644 -t '%{buildroot}%{_mandir}/man8' doc/*.8
 install -d '%{buildroot}%{_unitdir}'
@@ -138,11 +142,14 @@ exit 0
 %systemd_postun_with_restart %{name}.service 
 
 %files
-%license LICENSE
+%license LICENSE regexp/COPYRIGHT
 %doc doc/operations_guide.txt doc/security.txt doc/TODO doc/UPGRADE README
-%{_bindir}/*
-%{_sbindir}/*
-%{_mandir}/man8/*
+%{_bindir}/rwhois_deleter
+%{_bindir}/rwhois_indexer
+%{_bindir}/rwhois_repack
+%{_sbindir}/rwhoisd
+%{_mandir}/man8/rwhois_indexer.*
+%{_mandir}/man8/rwhoisd.*
 %{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}.dir
@@ -157,6 +164,10 @@ exit 0
 
 
 %changelog
+* Fri Dec 01 2023 Petr Pisar <ppisar@redhat.com> - 1.5.9.6-28
+- Fix a signal handler return value (GH#3)
+- Correct a license to "Public Domain and HSRL and GPLv2+"
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9.6-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

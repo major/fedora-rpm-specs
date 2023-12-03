@@ -375,13 +375,8 @@ Requires:       qt6-qtvirtualkeyboard
 # org.kde.plasma.workspace.keyboardlayout
 Requires:       %{name} = %{version}-%{release}
 # /usr/share/backgrounds/default.png
-%if 0%{?fedora}
 BuildRequires:  desktop-backgrounds-compat
 Requires:       desktop-backgrounds-compat
-%endif
-%if 0%{?rhel}
-Requires:       system-logos
-%endif
 BuildArch: noarch
 %description -n sddm-breeze
 %{summary}.

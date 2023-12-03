@@ -168,13 +168,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        120.0
-Release:        3%{?pre_tag}%{?dist}
+Version:        120.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20231120.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20231201.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -249,7 +249,6 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
 Patch411:        mozilla-1762816.patch
-Patch412:        D194727.1701168293.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -542,7 +541,6 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .D167159
 %patch411 -p1 -b .mozilla-1762816
-%patch412 -p1 -b .D194727
 
 # PGO patches
 %if %{build_with_pgo}
@@ -876,7 +874,7 @@ mkdir -p %{buildroot}{%{_libdir},%{_bindir},%{_datadir}/applications}
 # We can't use desktop-file-install as it refuses to install firefox.desktop file.
 # We need to change it to org.mozilla.firefox.desktop and also update
 # gnome shell default applications.
-# 
+#
 #desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE20}
 cp %{SOURCE20} %{buildroot}%{_datadir}/applications
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE31}
@@ -1151,6 +1149,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Dec 01 2023 Martin Stransky <stransky@redhat.com>- 120.0.1-1
+- Updated to 120.0.1
+
 * Mon Nov 27 2023 Martin Stransky <stransky@redhat.com>- 120.0-3
 - Add fix for rhbz#2251202
 

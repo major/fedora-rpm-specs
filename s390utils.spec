@@ -16,7 +16,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.29.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -1023,6 +1023,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 2:2.29.0-6
+- Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
+
 * Fri Nov 10 2023 Dan Horák <dan[at]danny.cz> - 2:2.29.0-5
 - enable multi-arch build
 

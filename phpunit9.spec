@@ -9,7 +9,7 @@
 #
 
 
-%global gh_commit    f3d767f7f9e191eab4189abe41ab37797e30b1be
+%global gh_commit    43653e6ad7adc22e7b667dd561bf8fcb74c10cf0
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,7 +23,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.13
+%global upstream_version 9.6.14
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -145,6 +145,11 @@ Requires:       php-pcre
 Requires:       php-phar
 Requires:       php-spl
 
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+Provides:       php-composer(phpunit/phpunit) = %{version}
+Provides:       phpunit                       = %{version}-%{release}
+%endif
+
 
 %description
 PHPUnit is a programmer-oriented testing framework for PHP.
@@ -235,7 +240,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php80 php81 php82 php83; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
      $cmd ./phpunit $OPT --verbose || ret=1
   fi
@@ -252,6 +257,9 @@ exit $ret
 
 
 %changelog
+* Fri Dec  1 2023 Remi Collet <remi@remirepo.net> - 9.6.14-1
+- update to 9.6.14 (no change)
+
 * Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 9.6.13-1
 - update to 9.6.13
 

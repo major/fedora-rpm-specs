@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        41.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -137,6 +137,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 41.0.5-2
+- Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
+
 * Thu Oct 26 2023 Christian Heimes <cheimes@redhat.com> - 41.0.5-1
 - Update to 41.0.5, resolves RHBZ#2239707
 

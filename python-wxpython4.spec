@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -29,6 +29,7 @@ Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{sr
 Patch:          sipMalloc-and-sipFree-are-now-implemented-using-PyMe.patch
 # https://www.riverbankcomputing.com/hg/sip/rev/d36867e54192
 Patch:          For-Python-v3.12-implement-sipPyTypeDict-using-PyTyp.patch
+Patch:          https://github.com/wxWidgets/Phoenix/commit/aeb557d01e7cd37176ebbf0f1ae6d0b53c115378.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -52,6 +53,7 @@ BuildRequires:  vulkan-loader
 %package -n python3-%{pkgname}
 Summary:        %{sum}
 %{?python_provide:%python_provide python3-%{pkgname}}
+BuildRequires:  python3-cython
 BuildRequires:  python3-devel
 BuildRequires:  python3-pillow
 BuildRequires:  python3-setuptools
@@ -162,6 +164,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Fri Dec 01 2023 Scott Talbert <swt@techie.net> - 4.2.1-4
+- BR python3-cython to fix FTBFS with Python 3.13 (#2252055)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

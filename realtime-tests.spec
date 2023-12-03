@@ -1,8 +1,8 @@
 Name: realtime-tests
 Summary: Programs that test various rt-features
-Version: 2.5
-Release: 3%{?dist}
-License: GPLv2
+Version: 2.6
+Release: 1%{?dist}
+License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL: https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
 Source0: https://www.kernel.org/pub/linux/utils/rt-tests/rt-tests-%{version}.tar.xz
 
@@ -15,9 +15,9 @@ Requires: bash
 Requires: bc
 
 #Patches
-Patch1: rt-tests-deadline_test-Fix-spelling-to-single-in-com.patch
-Patch2: rt-tests-hwlatdetect-Add-field-cpu-to-samples-output.patch
-Patch3: rt-tests-Makefile-Use-sysconfig-instead-of-distutils.patch
+Patch1: 0001-rt-tests-Makefile-Restore-support-for-Exuberant-Ctag.patch
+Patch2: 0002-rt-tests-Add-missing-SPDX-licenses.patch
+Patch3: 0003-rt-tests-Remove-remaining-unnecessary-texts-after-ad.patch
 
 %description
 realtime-tests is a set of programs that test and measure various components of
@@ -76,6 +76,10 @@ latency. It also tests the functioning of priority-inheritance mutexes.
 %{_mandir}/man8/determine_maximum_mpps.8.*
 
 %changelog
+* Fri Dec 01 2023 John Kacur <jkacur@redhat.com> - 2.6-1
+- Update to latest version upstream v2.6
+- Include SPDX changes
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@ Name: grubby
 Version: 8.40
 Release: 72%{?dist}
 Summary: Command line tool for updating bootloader configs
-License: GPLv2+
+License: GPL-2.0-or-later
 Source1: grubby-bls
 # Source2: rpm-sort.c
 Source3: COPYING

@@ -11,7 +11,13 @@
 
 %bcond_without       tests
 
-%global gh_commit    cacd8b9dd224efa8eb28beb69004126c7ca1a1a1
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+%bcond_without       defcmd
+%else
+%bcond_with          defcmd
+%endif
+
+%global gh_commit    80cab181aebc2efac422940443e28db556137637
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,9 +29,9 @@
 %global ns_vendor    PHPUnit10
 %global php_home     %{_datadir}/php
 %global ver_major    10
-%global ver_minor    4
+%global ver_minor    5
 
-%global upstream_version 10.4.2
+%global upstream_version 10.5.0
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -226,6 +232,10 @@ mkdir          %{buildroot}%{php_home}/%{ns_vendor}/Extensions
 install -D -p -m 755 phpunit %{buildroot}%{_bindir}/%{name}
 install -p -m 644 phpunit.xsd %{buildroot}%{php_home}/%{ns_vendor}/phpunit.xsd
 
+%if %{with defcmd}
+ln -s %{name} %{buildroot}%{_bindir}/phpunit
+%endif
+
 
 %if %{with tests}
 %check
@@ -249,10 +259,17 @@ exit $ret
 %doc README.md ChangeLog-%{ver_major}.%{ver_minor}.md
 %doc composer.json
 %{_bindir}/%{name}
+%if %{with defcmd}
+%{_bindir}/phpunit
+%endif
 %{php_home}/%{ns_vendor}
 
 
 %changelog
+* Fri Dec  1 2023 Remi Collet <remi@remirepo.net> - 10.5.0-1
+- update to 10.5.0
+- provide phpunit command
+
 * Thu Oct 26 2023 Remi Collet <remi@remirepo.net> - 10.4.2-1
 - update to 10.4.2
 

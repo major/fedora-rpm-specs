@@ -13,13 +13,13 @@
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  a03bda14ba866a34e7f90399078c73eadb1ecbfe
+%global gh_commit  15d672e84caa6015d1b2b509aa13a0528d6e9a7e
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
 %global upstream_version 3.3.0
-%global upstream_prever  alpha3
-%global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
+#global upstream_prever  alpha3
+#global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
 %global _configure       ../%{sources}/configure
 
@@ -29,10 +29,8 @@
 Name:           php-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
-
-Patch0:         https://patch-diff.githubusercontent.com/raw/xdebug/xdebug/pull/916.patch
 
 License:        Xdebug-1.03
 URL:            https://xdebug.org/
@@ -44,7 +42,7 @@ BuildRequires:  php-pear
 BuildRequires:  php-simplexml
 BuildRequires:  libtool
 BuildRequires:  php-soap
-# BuildRequires:  gdb
+BuildRequires:  pkgconfig(zlib) >= 1.2.9
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -89,8 +87,6 @@ mv %{sources}/package.xml .
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
-%patch -P0 -p1
-
 # Check extension version
 ver=$(sed -n '/XDEBUG_VERSION/{s/.* "//;s/".*$//;p}' php_xdebug.h)
 if test "$ver" != "%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
@@ -110,7 +106,6 @@ zend_extension=%{pecl_name}.so
 
 ; Configuration
 ; See https://xdebug.org/docs/all_settings
-
 EOF
 sed -e '1,2d' %{sources}/%{pecl_name}.ini >>%{ini_name}
 
@@ -124,6 +119,7 @@ cd %{sources}
 cd ../NTS
 %configure \
     --enable-xdebug  \
+    --with-xdebug-compression \
     --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
@@ -131,6 +127,7 @@ make %{?_smp_mflags}
 cd ../ZTS
 %configure \
     --enable-xdebug  \
+    --with-xdebug-compression \
     --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
@@ -208,6 +205,9 @@ cd %{sources}
 rm tests/base/bug02036.phpt
 # Erratic result
 rm tests/debugger/bug00998-ipv6.phpt
+# see https://bugs.xdebug.org/view.php?id=2220
+rm tests/debugger/bug01388-08.phpt
+rm tests/debugger/bug02006-001.phpt
 
 # bug00886 is marked as slow as it uses a lot of disk space
 TEST_OPTS="-q -x --show-diff"
@@ -236,6 +236,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Fri Dec  1 2023 Remi Collet <remi@remirepo.net> - 3.3.0-1
+- update to 3.3.0
+
 * Sun Oct 22 2023 Remi Collet <remi@remirepo.net> - 3.3.0~alpha3-2
 - fix configuration file using patch from
   https://github.com/xdebug/xdebug/pull/916

@@ -5,7 +5,7 @@
 
 Name:           rust-pleaser
 Version:        0.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Please, a polite regex-first sudo alternative
 
 License:        GPL-3.0-or-later
@@ -48,7 +48,8 @@ License:        GPL-3.0-or-later AND Apache-2.0 AND MIT AND Unicode-DFS-2016
 %{_mandir}/man5/please.ini.5*
 %config(noreplace) /etc/pam.d/please
 %config(noreplace) /etc/pam.d/pleaseedit
-/etc/bash_completion.d/please
+%{bash_completions_dir}/please
+%zsh_completions_dir/_please
 
 %package        devel
 Summary:        %{summary}
@@ -98,7 +99,8 @@ use the "default" feature of the "%{crate}" crate.
 %{__install} -Dpm4755 -t %{buildroot}%{_bindir} target/release/pleaseedit
 %{__install} -Dpm0644 -t %{buildroot}%{_mandir}/man1 man/please.1
 %{__install} -Dpm0644 -t %{buildroot}%{_mandir}/man5 man/please.ini.5
-%{__install} -Dpm0644 -t %{buildroot}/etc/bash_completion.d completions/bash/please
+%{__install} -Dpm0644 -t %{buildroot}%{bash_completions_dir} completions/bash/please
+%{__install} -Dpm0644 -t %{buildroot}%{zsh_completions_dir} completions/zsh/_please
 
 mkdir -p $RPM_BUILD_ROOT/etc/pam.d
 cat > $RPM_BUILD_ROOT/etc/pam.d/please << EOF

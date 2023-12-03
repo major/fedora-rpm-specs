@@ -1,10 +1,10 @@
 Name:		rteval
-Version:	3.6
-Release:	4%{?dist}
+Version:	3.7
+Release:	1%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
-License:	GPLv2
+License:	GPL-2.0-only AND GPL-2.0-or-later
 URL:		https://git.kernel.org/pub/scm/utils/rteval/rteval.git
 Source0:	https://www.kernel.org/pub/linux/utils/%{name}/%{name}-%{version}.tar.xz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -15,7 +15,7 @@ Requires:	python3-lxml
 Requires:	python3-libxml2
 Requires:	python3-dmidecode >= 3.10
 Requires:	realtime-tests
-Requires:	rteval-loads >= 1.6-3
+Requires:	rteval-loads >= 1.6-5
 Requires:	sysstat
 Requires:	xz bzip2 tar gzip m4 gawk
 Requires:	kernel-headers
@@ -32,6 +32,8 @@ Requires:	dwarves
 BuildArch:	noarch
 
 # Patches
+Patch1: 0001-rteval-Change-the-default-kernel-for-kcompile-to-lin.patch
+Patch2: 0002-rteval-Remove-upstream-spec-file.patch
 
 %description
 The rteval script is a utility for measuring various aspects of
@@ -44,6 +46,8 @@ to the screen.
 
 %prep
 %setup -q
+%patch 1 -p1
+%patch 2 -p1
 
 %build
 %{__python3} setup.py build
@@ -64,6 +68,11 @@ to the screen.
 %{_bindir}/rteval
 
 %changelog
+* Fri Dec 01 2023 John Kacur <jkacur@redhat.com> - 3.7-1
+- Update to the latest rteval upstream
+- Include a patch to use the latest rteval-loads with a newer kernel to
+  compile that works with newer tool chains for example with arm
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

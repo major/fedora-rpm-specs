@@ -6,7 +6,7 @@
 %global tag v%{version}
 
 Name:           komikku
-Version:        1.29.0
+Version:        1.30.1
 %forgemeta
 Release:        %autorelease
 Summary:        A manga reader for GNOME

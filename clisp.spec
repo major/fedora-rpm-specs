@@ -26,7 +26,7 @@ Version:	2.49.93
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	34%{?dist}
+Release:	35%{?dist}
 URL:		http://www.clisp.org/
 Source0:	%{forgesource}
 # Upstream dropped this file from the distribution
@@ -45,7 +45,10 @@ Patch2:		%{name}-register-volatile.patch
 # Perhaps we are racing with something else that allocates a pty.  Disable
 # the test for now.
 Patch3:         %{name}-pts-access.patch
-Patch4:         clisp-c99.patch
+# Fix HAVE_DB_STAT_ACCEPT_TXN test in the Berkeley DB module
+Patch4:         %{name}-c99.patch
+# Fix mismatched pointer types in the Berkeley DB module
+Patch5:         %{name}-bdb-mismatched-pointer.patch
 
 # Work around a problem inlining a function on ppc64le
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2049371
@@ -444,6 +447,9 @@ make -C build base-mod-check
 
 
 %changelog
+* Fri Dec  1 2023 Jerry James <loganjerry@gmail.com> - 2.49.93-35
+- Fix a mismatched pointer type error with GCC 14
+
 * Wed Aug 16 2023 Jerry James <loganjerry@gmail.com> - 2.49.93-34
 - Build without pcre support (rhbz#2128278)
 

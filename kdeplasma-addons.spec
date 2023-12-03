@@ -54,6 +54,9 @@ Requires:       kf6-plasma
 BuildRequires:  cmake(KF6Purpose)
 Recommends:     kf6-purpose%{?_isa}
 
+# Cube effect
+Requires:       qt6-qtquick3d%{?_isa}
+
 %description
 %{summary}.
 

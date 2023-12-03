@@ -27,7 +27,7 @@
 
 Name:           bigloo
 Version:        4.5a
-Release:        3%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
+Release:        4%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
 Summary:        A compiler for the Scheme programming language
 
 # The compiler and tools are GPL-2.0-or-later.
@@ -63,10 +63,14 @@ Patch8:         %{name}-return.patch
 # Fix signal numbers in the Java code
 Patch9:         %{name}-java-signum.patch
 # Migrate K&R C in the config scripts to ANSI C
+# https://github.com/manuel-serrano/bigloo/pull/104
 Patch10:        %{name}-configure-c99.patch
+# Support Emacs 29
+Patch11:        %{name}-emacs29.patch
 
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2160579
-ExcludeArch:    ppc64le
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    ppc64le %{ix86}
 
 BuildRequires:  emacs
 BuildRequires:  gcc
@@ -365,6 +369,11 @@ fi
 
 
 %changelog
+* Fri Dec  1 2023 Jerry James <loganjerry@gmail.com> - 4.5a-4.1
+- Fix potential GCC 14 errors
+- Support Emacs 29
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5a-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

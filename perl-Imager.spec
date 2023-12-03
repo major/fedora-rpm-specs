@@ -1,5 +1,5 @@
 Name:           perl-Imager
-Version:        1.020
+Version:        1.021
 Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -9,7 +9,7 @@ BuildRequires:  freetype-devel
 BuildRequires:  giflib-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
-BuildRequires:  libtiff-devel
+BuildRequires:  libtiff-devel >= 4.1.0
 BuildRequires:  t1lib-devel
 # rgb.txt, c.f. lib/Imager/Color.pm
 BuildRequires:  rgb
@@ -123,6 +123,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Fri Dec 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.021-1
+- 1.021 bump (rhbz#2252370)
+
 * Mon Nov 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.020-1
 - 1.020 bump (rhbz#2249324)
 

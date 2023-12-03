@@ -1,5 +1,5 @@
 Name:           qmasterpassword
-Version:        1.2.4
+Version:        2.0
 Release:        1%{?dist}
 Summary:        Stateless graphical Master Password Manager
 
@@ -9,17 +9,16 @@ Summary:        Stateless graphical Master Password Manager
 License:        GPL-3.0-only
 URL:            https://github.com/bkueng/qMasterPassword
 Source0:        https://github.com/bkueng/%{project_name}/archive/%{git_tag}/%{project_name}-%{git_tag}.tar.gz
-Patch1:         qmasterpassword-1.2.4-fix-test-use-toString-for-QXmlStreamReader-name.patch
 
-BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-devel >= 6.5.0
+BuildRequires:  qt6-qttools-devel >= 6.5.0
 BuildRequires:  openssl-devel
 BuildRequires:  libscrypt-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  libX11-devel
-BuildRequires:  libXtst-devel
 
 %description
 qMasterPassword is a password manager based on Qt. Access all your passwords
@@ -35,16 +34,19 @@ platforms, like Android or iOS.
 
 %prep
 %setup -qn %{project_name}-%{version}
-%patch -P 1 -p1 -b.fix-test-use-toString-for-QXmlStreamReader-name
 
 
 %build
-%{qmake_qt6} %{project_name}.pro
-make %{?_smp_mflags}
+%{cmake} \
+        -GNinja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DDISABLE_FILL_FORM_SHORTCUTS=1
+%{cmake_build}
 
 
 %install
-make install INSTALL_ROOT=%{buildroot}
+%{cmake_install}
+%find_lang translation --with-qt
 
 desktop-file-install --dir %{buildroot}%{_datadir}/applications \
         data/%{project_name}.desktop
@@ -58,11 +60,13 @@ install -m 0644 -p -D data/%{project_name}.appdata.xml \
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{project_name}.appdata.xml
-make clean && make %{?_smp_mflags} debug
-./qMasterPassword --test test/tests.xml
+%{cmake} \
+        -GNinja \
+        -DCMAKE_BUILD_TYPE=Debug
+%{cmake_build} --target test
 
 
-%files
+%files -f translation.lang
 %license LICENSE
 %doc README.md HISTORY
 %{_bindir}/%{project_name}
@@ -72,6 +76,13 @@ make clean && make %{?_smp_mflags} debug
 
 
 %changelog
+* Fri Dec 01 2023 Stefan Becker <chemobejk@gmail.com> 2.0-1
+- update to version 2.0
+- drop downstream patches
+- switch from qmake + make to cmake + ninja
+- disable fill form shortcuts as they don't work under Wayland anyway
+- add translations (de, pl)
+
 * Fri Oct 06 2023 Stefan Becker <chemobejk@gmail.com> 1.2.4-1
 - update to version 1.2.4
 - change from Qt5 to Qt6

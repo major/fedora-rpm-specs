@@ -5,7 +5,7 @@
 %global crate linux-raw-sys
 
 Name:           rust-linux-raw-sys
-Version:        0.4.11
+Version:        0.4.12
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 
@@ -123,6 +123,18 @@ use the "ioctl" feature of the "%{crate}" crate.
 %files       -n %{name}+ioctl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+mempolicy-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+mempolicy-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "mempolicy" feature of the "%{crate}" crate.
+
+%files       -n %{name}+mempolicy-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+net-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -193,6 +205,18 @@ This package contains library source intended for building other packages which
 use the "system" feature of the "%{crate}" crate.
 
 %files       -n %{name}+system-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+xdp-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+xdp-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "xdp" feature of the "%{crate}" crate.
+
+%files       -n %{name}+xdp-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-jasper
-Version:        3.0.6
-Release:        4%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        MinGW Windows Jasper library
 
 License:        JasPer-2.0
@@ -15,8 +15,6 @@ Source0:        https://github.com/mdadams/jasper/archive/version-%{version}/jas
 Patch1:         jasper-libversion.patch
 # Add some missing exports, needed by mingw-gdal
 Patch2:         jasper-exports.patch
-# Backport patch for CVE-2022-2963
-Patch3:         https://patch-diff.githubusercontent.com/raw/jasper-software/jasper/pull/333.patch
 
 BuildArch:      noarch
 
@@ -101,7 +99,7 @@ rmdir %{buildroot}%{mingw64_datadir}
 %{mingw32_bindir}/imgcmp.exe
 %{mingw32_bindir}/imginfo.exe
 %{mingw32_bindir}/jasper.exe
-%{mingw32_bindir}/libjasper-6.dll
+%{mingw32_bindir}/libjasper-7.dll
 %{mingw32_libdir}/libjasper.dll.a
 %{mingw32_libdir}/pkgconfig/jasper.pc
 %{mingw32_includedir}/jasper/
@@ -114,7 +112,7 @@ rmdir %{buildroot}%{mingw64_datadir}
 %{mingw64_bindir}/imgcmp.exe
 %{mingw64_bindir}/imginfo.exe
 %{mingw64_bindir}/jasper.exe
-%{mingw64_bindir}/libjasper-6.dll
+%{mingw64_bindir}/libjasper-7.dll
 %{mingw64_libdir}/libjasper.dll.a
 %{mingw64_libdir}/pkgconfig/jasper.pc
 %{mingw64_includedir}/jasper/
@@ -124,6 +122,9 @@ rmdir %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 4.1.0-1
+- Update to 4.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
