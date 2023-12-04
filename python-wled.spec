@@ -2,12 +2,16 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python client for WLED
 
 License:        MIT
 URL:            https://github.com/frenck/python-wled
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+# Replace async_timeout with asyncio.timeout
+# https://github.com/frenck/python-wled/pull/1163
+# Backported to 0.4.4
+Patch:          0001-Replace-async_timeout-with-asyncio.timeout-1163.patch
 BuildArch:      noarch
 
 %description
@@ -34,7 +38,7 @@ programmatically. It is mainly created to allow third-party
 programs to automate the behavior of WLED.
 
 %prep
-%autosetup -n python-%{pypi_name}-%{version}
+%autosetup -n python-%{pypi_name}-%{version} -p1
 rm -rf %{pypi_name}.egg-info
 
 %build
@@ -52,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Dec 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.4.4-11
+- Backport “Replace async_timeout with asyncio.timeout”, PR#1163
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

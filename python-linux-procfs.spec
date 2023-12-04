@@ -4,9 +4,9 @@
 %endif
 
 Name: python-linux-procfs
-Version: 0.7.1
-Release: 3%{?dist}
-License: GPLv2
+Version: 0.7.3
+Release: 2%{?dist}
+License: GPL-2.0-only
 Summary: Linux /proc abstraction classes
 Source: https://cdn.kernel.org/pub/software/libs/python/%{name}/%{name}-%{version}.tar.xz
 URL: https://rt.wiki.kernel.org/index.php/Tuna
@@ -15,7 +15,6 @@ BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 
 # Patches
-Patch1: python_linux_procfs-setup.py-Remove-distutils.patch
 
 %global _description\
 Abstractions to extract information from the Linux kernel /proc files.
@@ -49,6 +48,13 @@ rm -rf %{buildroot}
 %license COPYING
 
 %changelog
+* Sat Dec 02 2023 John Kacur <jkacur@redhat.com> - 0.7.3-2
+- Update the SPDX license tag in the specfile
+
+* Sat Dec 02 2023 John Kacur <jkacur@redhat.com> - 0.7.3-1
+- Update to the latest upstream version v0.7.3
+- Use an SPDX license tag in the specfile
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

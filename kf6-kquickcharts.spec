@@ -2,16 +2,13 @@
 
 Name:		kf6-%{framework}
 Summary:	A QtQuick module providing high-performance charts
-Version:	5.245.0
-Release:	2%{?dist}
+Version:	5.246.0
+Release:	1%{?dist}
 
 License:	BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
-
-# https://invent.kde.org/frameworks/kquickcharts/-/merge_requests/68
-Patch0: 0001-Set-libraries-VERSION-and-SOVERSION.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -64,6 +61,9 @@ developing applications that use %{name}.
 %{_libdir}/libQuickChartsControls.so
 
 %changelog
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
+- Update to 5.246.0
+
 * Mon Nov 20 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-2
 - Set libraries version
 

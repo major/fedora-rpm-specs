@@ -1,7 +1,7 @@
 %global framework kparts
 
 Name:    kf6-%{framework}
-Version: 5.245.0
+Version: 5.246.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for KParts
 
@@ -72,6 +72,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/parts/
 %{_kf6_datadir}/kdevappwizard/templates/kparts6-app.tar.bz2
 
 %changelog
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
+- Update to 5.246.0
+
 * Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
 - 5.245.0
 

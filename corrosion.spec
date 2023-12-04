@@ -1,5 +1,5 @@
 Name:           corrosion
-Version:        0.4.2
+Version:        0.4.5
 Release:        %autorelease
 Summary:        Easy Rust and C/C++ Integration
 SourceLicense:  MIT
@@ -13,8 +13,8 @@ License:        MIT AND (Apache-2.0 OR BSL-1.0) AND (MIT OR Apache-2.0)
 URL:            https://github.com/corrosion-rs/corrosion
 Source:         %{url}/archive/v%{version}/corrosion-%{version}.tar.gz
 
-# relax Rust crate dependencies to allow newer (compatible) versions
-Patch:          0001-generator-relax-dependencies-to-allow-newer-MSRV.patch
+# drop support for building with older versions of Rust
+Patch:          0001-drop-build-rules-that-depend-on-Cargo.lock-files-bei.patch
 
 BuildRequires:  cmake
 BuildRequires:  cargo-rpm-macros
@@ -33,6 +33,7 @@ package manifest (Cargo.toml file).
 %autosetup -p1
 %cargo_prep
 find -name "Cargo.lock" -print -delete
+rm generator/Compat.Cargo.*
 
 %generate_buildrequires
 cd generator

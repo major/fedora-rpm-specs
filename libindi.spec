@@ -11,7 +11,7 @@
 %global build_tests 1
 
 Name:       libindi
-Version:    2.0.4
+Version:    2.0.5
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -24,11 +24,9 @@ License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
 
-# Not upstreamed
-%if 0%{?fedora}
-# Use system provided cpp-httplib in Fedora
-Patch500:       use-system-httplib.patch
-%endif
+# Unbundle cpp json library
+# https://github.com/indilib/indi/pull/1970
+Patch:      system-jsonlib.patch
 
 BuildRequires: cmake
 BuildRequires: libev-devel
@@ -39,7 +37,13 @@ BuildRequires: libXISF-devel
 BuildRequires: systemd-rpm-macros
 
 %if 0%{?fedora}
+%global system_httplib ON
 BuildRequires: cpp-httplib-static
+%global system_jsonlib ON
+BuildRequires: json-static
+%else
+%global system_httplib OFF
+%global system_jsonlib OFF
 %endif
 
 BuildRequires: pkgconfig(cfitsio)
@@ -76,10 +80,10 @@ BuildRequires: pkgconfig(gmock)
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 Provides: bundled(fpack) = 1.7.0
-Provides: bundled(json) = 3.10.5
 Provides: bundled(hidapi)
 %if !0%{?fedora}
 Provides: bundled(httplib) = 0.12.4
+Provides: bundled(json) = 3.10.5
 %endif
 
 %description
@@ -132,14 +136,18 @@ chmod -x drivers/telescope/pmc8driver.cpp
 
 %if 0%{?fedora}
 # Remove bundled httplib-headers and license file
-rm -rf libs/httplib*
+rm -rf libs/httplib
+# Remove bundled json library
+rm -rf libs/nlohmann
 %endif
 
 %build
 %cmake \
     -DINDI_BUILD_QT5_CLIENT="%{qt5_client}" \
     -DINDI_BUILD_UNITTESTS="%{tests}" \
-    -DINDI_BUILD_WEBSOCKET="%{websocket}"
+    -DINDI_BUILD_WEBSOCKET="%{websocket}" \
+    -DINDI_SYSTEM_HTTPLIB="%{system_httplib}" \
+    -DINDI_SYSTEM_JSONLIB="%{system_jsonlib}"
 
 %cmake_build
 

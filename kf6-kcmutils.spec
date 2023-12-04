@@ -1,8 +1,8 @@
 %global framework kcmutils
 
 Name:    kf6-%{framework}
-Version: 5.245.0
-Release: 2%{?dist}
+Version: 5.246.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extra API to write KConfigModules
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -81,6 +81,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %{_kf6_includedir}/KCMUtilsQuick
 
 %changelog
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
+- Update to 5.246.0
+
 * Sat Nov 25 2023 Alessandro Astone <ales.astone@gmail.com> - 5.245.0-2
 - Devel requires Qt6Qml
 

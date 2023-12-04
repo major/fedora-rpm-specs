@@ -6,7 +6,7 @@
 %global crate zerocopy
 
 Name:           rust-zerocopy
-Version:        0.7.26
+Version:        0.7.28
 Release:        %autorelease
 Summary:        Utilities for zero-copy parsing and serialization
 
@@ -44,7 +44,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/POLICIES.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/generate-readme.sh
+%exclude %{crate_instdir}/{cargo.sh,generate-readme.sh}
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

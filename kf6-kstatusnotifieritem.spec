@@ -1,7 +1,7 @@
 %global framework kstatusnotifieritem
 
 Name:           kf6-%{framework}
-Version:        5.245.0
+Version:        5.246.0
 Release:        1%{?dist}
 Summary:        Implementation of Status Notifier Items
 
@@ -54,6 +54,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6StatusNotifierItem.so
 
 %changelog
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
+- Update to 5.246.0
+
 * Thu Nov 09 2023 Steve Cossette <farchord@gmail.com> - 5.245.0-1
 - 5.245.0
 

@@ -2,8 +2,8 @@
 
 Name: tuna
 Version: 0.19
-Release: 4%{?dist}
-License: GPLv2
+Release: 5%{?dist}
+License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
 URL: https://rt.wiki.kernel.org/index.php/Tuna
@@ -15,6 +15,8 @@ Requires: python3-linux-procfs >= 0.6
 # Requires: python-inet_diag
 
 # Patches
+Patch1: 0001-Add-SPDX-license-identifiers.patch
+Patch2: 0002-tuna-Remove-spec-file-from-git.patch
 
 %description
 Provides interface for changing scheduler and IRQ tunables, at whole CPU and at
@@ -45,6 +47,8 @@ priority is changed, be it using tuna or plain chrt & taskset.
 
 %prep
 %setup -q
+%patch 1 -p1
+%patch 2 -p1
 
 %build
 %py3_build
@@ -99,6 +103,9 @@ done
 %endif
 
 %changelog
+* Sat Dec 02 2023 John Kacur <jkacur@redhat.com> - 0.19-5
+- Convert to SPDX licenses and use this in the specfile too
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

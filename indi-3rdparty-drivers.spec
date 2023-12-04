@@ -1,9 +1,11 @@
 %global aagcloudwatcher_ng_pkg indi-3rdparty-aagcloudwatcher-ng
+%global ahpxc_pkg indi-3rdparty-ahp-xc
 %global aok_pkg indi-3rdparty-aok
 %global apogee_pkg indi-3rdparty-apogee
 %global astrolink4_pkg indi-3rdparty-astrolink4
 %global astromechfoc_pkg indi-3rdparty-astromechfoc
 %global avalon_pkg indi-3rdparty-avalon
+%global avalonud_pkg indi-3rdparty-avalonud
 %global beefocus_pkg indi-3rdparty-beefocus
 %global bresser_pkg indi-3rdparty-bresserexos2
 %global caux_pkg indi-3rdparty-celestronaux
@@ -30,14 +32,14 @@
 %global webcam_pkg indi-3rdparty-webcam
 %global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 2.0.4
+%global indi_version 2.0.5
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
 %global build_tests 1
 
 Name:           indi-3rdparty-drivers
-Version:        2.0.4
+Version:        %{indi_version}
 Release:        %autorelease
 Summary:        INDI 3rdparty drivers
 License:        LGPL-2.1-or-later
@@ -49,6 +51,11 @@ URL:            http://indilib.org
 # https://github.com/indilib/indi-3rdparty/archive/refs/tags/v%%{version}.tar.gz
 Source0:        %{name}-%{version}.tar.xz
 Source1:        generate-drivers-tarball.sh
+
+# In Fedora we unbundle json library from libindi
+# I'm working with upstream on an official patch
+# meanwhile just hard patch things here
+Patch:          system-jsonlib.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -75,6 +82,13 @@ BuildRequires:  pkgconfig(libindi) = %{version}
 BuildRequires:  pkgconfig(libraw)
 BuildRequires:  pkgconfig(libusb-1.0)
 
+%if 0%{?fedora}
+%global system_jsonlib ON
+BuildRequires: json-static
+%else
+%global system_jsonlib OFF
+%endif
+
 %if 0%{?build_tests}
 BuildRequires: pkgconfig(gtest)
 BuildRequires: pkgconfig(gmock)
@@ -86,11 +100,13 @@ BuildRequires: pkgconfig(gmock)
 # We want this metapackage to install all drivers at once.
 # Just use weak dependencies to avoid possible errors.
 Recommends:     %{aagcloudwatcher_ng_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{ahpxc_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{aok_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{apogee_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{astrolink4_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{astromechfoc_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{avalon_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{avalonud_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{beefocus_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{bresser_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{caux_pkg}%{?_isa} = %{version}-%{release}
@@ -125,11 +141,13 @@ the drivers you need from the appropriate subpackage.
 
 We currently ship the following drivers:
 - %{aagcloudwatcher_ng_pkg}
+- %{ahpxc_pkg}
 - %{aok_pkg}
 - %{apogee_pkg}
 - %{astrolink4_pkg}
 - %{astromechfoc_pkg}
 - %{avalon_pkg}
+- %{avalonud_pkg}
 - %{beefocus_pkg}
 - %{bresser_pkg}
 - %{caux_pkg}
@@ -176,6 +194,17 @@ BuildArch:      noarch
 
 %description -n %{aagcloudwatcher_ng_pkg}-doc
 Documentation files of the INDI driver for the AAG Cloud Watcher NG.
+
+
+%package -n %{ahpxc_pkg}
+License:        LGPL-2.1-or-later
+Summary:        The INDI driver for AHP XC correlators
+
+BuildRequires:  libahp-xc-devel
+Requires:       libindi = %{indi_version}
+
+%description -n %{ahpxc_pkg}
+The INDI driver for AHP XC correlators.
 
 
 %package -n %{aok_pkg}
@@ -231,6 +260,18 @@ Requires:       libindi = %{indi_version}
 
 %description -n %{avalon_pkg}
 INDI driver to control Avalon Instruments mounts with StarGO control.
+
+
+%package -n %{avalonud_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for AvalonInstruments StarGO+ and StarGO2
+
+BuildRequires:  pkgconfig(libzmq)
+Requires:       libindi = %{indi_version}
+
+%description -n %{avalonud_pkg}
+This package provides the INDI driver for mounts equipped with
+AvalonInstruments StarGO+ and StarGO2 controllers.
 
 
 %package -n %{beefocus_pkg}
@@ -523,6 +564,9 @@ This driver uses the WeeWX JSON plugin to provide weather data to INDI.
 # We don't want to apply upstream customized build flags
 sed -i 's|include(CMakeCommon)||g' CMakeLists.txt
 
+# libahp_xc comes as pre-built software, but in Fedora we use system's provided
+sed -i 's|SET(WITH_AHP_XC Off)|SET(WITH_AHP_XC On)|g' CMakeLists.txt
+
 # For Fedora we want to put udev rules in %%{_udevrulesdir}
 find . -mindepth 2 -name CMakeLists.txt \
     -exec echo 'Processing {}' \; \
@@ -533,15 +577,14 @@ find . -mindepth 2 -name CMakeLists.txt \
 # Options explanation:
 # -DNO_PRE_BUILT=ON         disable all pre-built drivers
 # -DINDI_BUILD_UNITTESTS=ON build and run tests
-# -DWITH_AHP_GT=OFF         needs libahp_gt to be packaged
 # -DWITH_FFMV=OFF           needs libdc1394 which is not available on s390x
 # -DWITH_LIMESDR=OFF        needs limesuite to be packaged
 %cmake -DBUILD_LIBS=OFF \
     -DNO_PRE_BUILT=ON \
     -DINDI_BUILD_UNITTESTS=ON \
-    -DWITH_AHP_GT=OFF \
     -DWITH_FFMV=OFF \
-    -DWITH_LIMESDR=OFF
+    -DWITH_LIMESDR=OFF \
+    -DINDI_SYSTEM_JSONLIB="%{system_jsonlib}"
 
 %cmake_build
 
@@ -572,6 +615,12 @@ find . -mindepth 2 -name CMakeLists.txt \
 
 %files -n %{aagcloudwatcher_ng_pkg}-doc
 %doc indi-aagcloudwatcher-ng/docs
+
+
+%files -n %{ahpxc_pkg}
+%license LICENSE
+%{_bindir}/indi_ahp_xc
+%{_datadir}/indi/indi_ahp_xc.xml
 
 
 %files -n %{aok_pkg}
@@ -608,6 +657,15 @@ find . -mindepth 2 -name CMakeLists.txt \
 %doc indi-avalon/README
 %{_bindir}/indi_lx200stargo
 %{_datadir}/indi/indi_avalon.xml
+
+
+%files -n %{avalonud_pkg}
+%license LICENSE
+%doc indi-avalonud/README indi-avalonud/ChangeLog
+%{_bindir}/indi_avalonud_aux
+%{_bindir}/indi_avalonud_focuser
+%{_bindir}/indi_avalonud_telescope
+%{_datadir}/indi/indi_avalonud.xml
 
 
 %files -n %{beefocus_pkg}

@@ -54,6 +54,14 @@ can only use conda to create and manage new environments.}
 %description %_description
 
 
+%package tests
+Summary:        conda tests
+
+%description tests
+Data for conda tests.  Set CONDA_TEST_DATA_DIR to
+%{_datadir}/conda/tests/data.
+
+
 %package -n python%{python3_pkgversion}-conda
 Summary:        %{summary}
 
@@ -129,7 +137,6 @@ sed -i -e '/"--cov/d' pyproject.toml
 %install
 %pyproject_install
 %py3_shebang_fix %{buildroot}%{python3_sitelib}/conda/shell/bin/conda
-rm -r %{buildroot}%{python3_sitelib}/tests
 %pyproject_save_files conda*
 
 mkdir -p %{buildroot}%{_sysconfdir}/conda/condarc.d
@@ -139,6 +146,9 @@ pkgs_dirs:
  - /var/cache/conda/pkgs
  - ~/.conda/pkgs
 EOF
+
+mv %{buildroot}%{python3_sitelib}/tests %{buildroot}%{_datadir}/conda/
+cp -rp tests/data %{buildroot}%{_datadir}/conda/tests/
 
 mkdir -p %{buildroot}%{_localstatedir}/cache/conda/pkgs/cache
 
@@ -176,6 +186,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # tests/cli/test_conda_argparse.py::test_list_through_python_api does not recognize /usr as a conda environment
 # tests/cli/test_main_{clean,info,list,list_reverse,rename}.py tests require network access
 # tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands needs a conda_build fixture that we remove
+# tests/cli/test_main_notices.py::test_notices_cannot_read_cache_files - TypeError: '<' not supported between instances of 'MagicMock' and 'int'
 # tests/cli/test_main_run.py require /usr/bin/conda to be installed
 # tests/cli/test_subcommands.py tests require network access
 # tests/cli/test_subcommands.py::test_rename seems to need an active environment
@@ -199,6 +210,7 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/cli/test_main_list.py::test_list \
     --deselect=tests/cli/test_main_list.py::test_list_reverse \
     --deselect=tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands \
+    --deselect=tests/cli/test_main_notices.py::test_notices_cannot_read_cache_files \
     --deselect=tests/cli/test_main_rename.py \
     --deselect=tests/cli/test_main_run.py \
     --deselect=tests/cli/test_subcommands.py::test_env_create \
@@ -236,10 +248,14 @@ py.test-%{python3_version} -vv -m "not integration" \
 /etc/profile.d/conda.sh
 /etc/profile.d/conda.csh
 
+%files tests
+%{_datadir}/conda/tests/
+
 %files -n python%{python3_pkgversion}-conda -f %pyproject_files
 %doc CHANGELOG.md README.md
 %{_localstatedir}/cache/conda/
-%{_datadir}/conda/
+%dir %{_datadir}/conda/
+%{_datadir}/conda/condarc.d/
 
 
 %changelog

@@ -5,7 +5,7 @@
 %global crate fs-set-times
 
 Name:           rust-fs-set-times
-Version:        0.20.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Set filesystem timestamps
 

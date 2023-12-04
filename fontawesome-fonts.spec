@@ -1,7 +1,7 @@
 Name:		fontawesome-fonts
 Summary:	Support files for the FontAwesome fonts
 Epoch:		1
-Version:	6.5.0
+Version:	6.5.1
 Release:	1%{?dist}
 
 License:	MIT
@@ -20,7 +20,7 @@ with the power of CSS.}
 
 %global fontfamily1	FontAwesome 6 Free
 %global fontsummary1	Iconic font set
-%global fonts1		free/otfs/*Free*
+%global fonts1		otfs/*Free*
 %global fontconfs1	%{SOURCE3}
 %global fontpkgheader1	%{expand:
 # This can be removed when F42 reaches EOL
@@ -34,7 +34,7 @@ font files.}
 
 %global fontfamily2	FontAwesome 6 Brands Regular
 %global fontsummary2	Iconic font set
-%global fonts2		free/otfs/*Brands*
+%global fonts2		otfs/*Brands*
 %global fontconfs2	%{SOURCE4}
 %global fontpkgheader2	%{expand:
 # This can be removed when F42 reaches EOL
@@ -108,10 +108,8 @@ cp -p %SOURCE2 .
 
 # Install the web files
 mkdir -p %{buildroot}%{_datadir}/fontawesome
-cd free
 cp -a css js less metadata scss sprites svgs webfonts \
    %{buildroot}%{_datadir}/fontawesome
-cd -
 
 # Fix up the generated metainfo; see bz 1943727
 sed -e 's,updatecontact,update_contact,g' \
@@ -131,6 +129,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %{_datadir}/fontawesome/
 
 %changelog
+* Sat Dec  2 2023 Jerry James <loganjerry@gmail.com> - 1:6.5.1-1
+- Version 6.5.1
+
 * Thu Nov 30 2023 Jerry James <loganjerry@gmail.com> - 1:6.5.0-1
 - Version 6.5.0
 

@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.6.0
+Version:        6.6.1
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
@@ -824,6 +824,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Sat Dec 02 2023 Sandro Mani <manisandro@gmail.com> - 6.6.1-1
+- Update to 6.6.1
+
 * Tue Oct 17 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 

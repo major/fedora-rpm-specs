@@ -2,17 +2,14 @@
 
 Name:    kf6-%{framework}
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
-Version: 5.245.0
-Release: 4%{?dist}
+Version: 5.246.0
+Release: 1%{?dist}
 
 License: MIT AND CC0-1.0 AND BSD-3-Clause
 URL:     https://invent.kde.org/frameworks/%{framework}
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 ## upstream patches
-# https://invent.kde.org/frameworks/kuserfeedback/-/merge_requests/36
-Patch0:  rename-translation-files-qt6.patch
-Patch1:  rename-translation-files-qt6.sync.patch
 
 BuildRequires: cmake
 BuildRequires: gnupg2
@@ -91,18 +88,20 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 %doc README.md
 %license LICENSES/*
 %{_bindir}/userfeedbackctl
-%{_libdir}/libKUserFeedbackCoreQt6.so.*
-%{_libdir}/libKUserFeedbackWidgetsQt6.so.*
+%{_libdir}/libKF6UserFeedbackCore.so.*
+%{_libdir}/libKF6UserFeedbackWidgets.so.*
 %{_kf6_qmldir}/org/kde/userfeedback/
 %{_kf6_datadir}/qlogging-categories6/org_kde_UserFeedback.categories
 
 
 %files devel
-%{_includedir}/KUserFeedbackQt6/
-%{_libdir}/libKUserFeedbackCoreQt6.so
-%{_libdir}/libKUserFeedbackWidgetsQt6.so
-%{_kf6_libdir}/cmake/KUserFeedbackQt6/
-%{_kf6_archdatadir}/mkspecs/modules/qt_KUserFeedback*.pri
+%{_kf6_includedir}/KUserFeedback/kuserfeedback_version.h
+%{_kf6_includedir}/KUserFeedbackCore/
+%{_kf6_includedir}/KUserFeedbackWidgets/
+%{_libdir}/libKF6UserFeedbackCore.so
+%{_libdir}/libKF6UserFeedbackWidgets.so
+%{_kf6_libdir}/cmake/KF6UserFeedback/
+%{_kf6_archdatadir}/mkspecs/modules/qt_KF6UserFeedback*.pri
 
 
 %files console -f userfeedbackconsole6.lang
@@ -112,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %changelog
+* Sat Dec 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.246.0-1
+- 5.246.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.245.0-4
 - Rebuild (qt6)
 

@@ -5,7 +5,7 @@
 %global crate pcre2
 
 Name:           rust-pcre2
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        High level wrapper library for PCRE2
 

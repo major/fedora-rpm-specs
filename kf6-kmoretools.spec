@@ -5,7 +5,7 @@
 %global framework kmoretools
 
 Name:    kf6-%{framework}
-Version: %{cmakever}^%{gitdate}.%{shortcommit0}
+Version: 5.246.0
 Release: 1%{?dist}
 Summary: KDE library to support for downloading application assets from the network
 
@@ -67,5 +67,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6MoreTools.so
 
 %changelog
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
+- Update to 5.246.0
+
 * Sat Sep 23 2023 Steve Cossette <farchord@gmail.com> - 5.240.0^20231011.024803.f7e03a0-1
 - Initial release

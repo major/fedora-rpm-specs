@@ -2,8 +2,8 @@
 
 Name:           kf6-kirigami2-addons
 Epoch:          1
-Version:        0.11.76
-Release:        4%{?dist}
+Version:        5.246.0
+Release:        1%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -78,6 +78,9 @@ find ./po -type f -execdir mv {} kirigami-addons6.po \;
 %{_kf6_qmldir}/org/kde/kirigamiaddons/treeview/
 
 %changelog
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 1:5.246.0-1
+- Update to 5.246.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 1:0.11.76-4
 - Rebuild (qt6)
 

@@ -17,6 +17,10 @@ Source0:        %{pypi_source %{srcname}}
 # Written for Fedora in groff_man(7) format based on the output of “cffsubr --help”
 Source1:        %{srcname}.1
 
+# Handle importlib.resources.path removal in Python 3.13
+# https://github.com/adobe-type-tools/cffsubr/pull/24
+Patch:          https://github.com/adobe-type-tools/cffsubr/pull/24.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -43,7 +47,7 @@ Requires:       %{txbin}
 Standalone CFF subroutinizer based on the AFDKO tx tool.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 # Patch out setuptools-git-ls-files dependency
 sed -r -i '/setuptools-git-ls-files/d' setup.py pyproject.toml

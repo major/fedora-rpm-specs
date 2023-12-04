@@ -4,17 +4,26 @@
 
 %global crate notify
 
-Name:           rust-notify
-Version:        6.1.1
+Name:           rust-notify5
+Version:        5.2.0
 Release:        %autorelease
 Summary:        Cross-platform filesystem notification library
 
+# * license in crate metadata is misleading:
+#   - old code is covered by the CC0-1.0 license,
+#   - new code is dual-licensed under CC0-1.0 or (non-standard) Artistic-2.0
+# * choose to use this project under only the CC0-1.0 license due to the unusual
+#   and non-standard "choice of venue" clause that was attached to the
+#   Artistic-2.0 license text by upstream
+# https://github.com/notify-rs/notify/issues/514
 License:        CC0-1.0
 URL:            https://crates.io/crates/notify
 Source:         %{crates_source}
+Source:         https://github.com/notify-rs/notify/raw/notify-5.1.0/LICENSE
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          notify-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * update license in crate metadata
 # * remove macOS-specific features
 Patch:          notify-fix-metadata.diff
 
@@ -35,7 +44,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-CC0
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -102,6 +111,8 @@ use the "timing_tests" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# include actual license text
+cp -pav %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

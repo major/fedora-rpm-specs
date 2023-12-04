@@ -27,9 +27,11 @@
 
 %if %{with system_libs}
 %global system_libs 1
+%global link_type system
 %global jpeg_lib |libjavajpeg[.]so.*
 %else
 %global system_libs 0
+%global link_type bundled
 %global jpeg_lib |libjpeg[.]so.*
 %endif
 
@@ -82,7 +84,6 @@
 # == rpm -ql           java-11-openjdk-headless-slowdebug-11.0.1.13-8.fc29.x86_64.rpm  | grep bin
 # != rpm -ql           java-11-openjdk-headless-11.0.1.13-8.fc29.x86_64.rpm  | grep bin
 # similarly for other %%{_jvmdir}/{jre,java} and %%{_javadocdir}/{java,java-zip}
-%define is_release_build() %( if [ "%{?1}" == "%{debug_suffix_unquoted}" -o "%{?1}" == "%{fastdebug_suffix_unquoted}" ]; then echo "0" ; else echo "1"; fi )
 
 # while JDK is a techpreview(is_system_jdk=0), some provides are turned off. Once jdk stops to be an techpreview, move it to 1
 # as sytem JDK, we mean any JDK which can run whole system java stack without issues (like bytecode issues, module issues, dependencies...)
@@ -112,14 +113,14 @@
 # See https://bugzilla.redhat.com/show_bug.cgi?id=513605
 # MetaspaceShared::generate_vtable_methods is not implemented for the PPC JIT
 %global share_arches    %{ix86} x86_64 sparcv9 sparc64 %{aarch64}
-# Set of architectures which support JFR
+# Set of architectures which support Java Flight Recorder (JFR)
 %global jfr_arches      %{jit_arches}
 # Set of architectures for which alt-java has SSB mitigation
 %global ssbd_arches x86_64
 # Set of architectures where we verify backtraces with gdb
 %global gdb_arches %{jit_arches} %{zero_arches}
 # Set of architectures for which we have a portable build
-%global portable_build_arches %{aarch64} %{ix86} %{power64} x86_64
+%global portable_build_arches %{aarch64} %{ix86} %{power64} s390x x86_64
 
 # By default, we build a debug build during main build on JIT architectures
 %if %{with slowdebug}
@@ -254,6 +255,17 @@
 # New Version-String scheme-style defines
 %global majorver 8
 
+# Define version of OpenJDK 8 used
+%global project openjdk
+%global repo shenandoah-jdk8u
+%global openjdk_revision jdk8u392-b08
+%global shenandoah_revision shenandoah-%{openjdk_revision}
+# Define IcedTea version used for SystemTap tapsets and desktop files
+# Define IcedTea version used for SystemTap tapsets and desktop file
+%global icedteaver      3.15.0
+# Define current Git revision for the cacerts patch
+%global cacertsver 8139f2361c2
+
 %ifarch %{ix86} x86_64
 %global with_openjfx_binding 1
 %global openjfx_path %{_jvmdir}/openjfx8
@@ -274,23 +286,19 @@
 %global with_openjfx_binding 0
 %endif
 
-# Define IcedTea version used for SystemTap tapsets and desktop file
-%global icedteaver      3.15.0
-# Define current Git revision for the cacerts patch
-%global cacertsver 8139f2361c2
 
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
-%global top_level_dir_name   %{origin}
+%global top_level_dir_name   %{shenandoah_revision}
 
 # Settings for local security configuration
-#%%global security_file %%{top_level_dir_name}/jdk/src/share/lib/security/java.security-$%%{_target_os}
+%global security_file %{top_level_dir_name}/jdk/src/share/lib/security/java.security-%{_target_os}
 %global cacerts_file /etc/pki/java/cacerts
 
 # Define vendor information used by OpenJDK
 %global oj_vendor Red Hat, Inc.
-%global oj_vendor_url https://www.redhat.com/
+%global oj_vendor_url "https://www.redhat.com/"
 # Define what url should JVM offer in case of a crash report
 # order may be important, epel may have rhel declared
 %if 0%{?epel}
@@ -301,26 +309,15 @@
 %global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=%{name}&version=%{fedora}
 %else
 %if 0%{?rhel}
-%global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%20%{rhel}&component=%{name}
+%global oj_vendor_bug_url https://access.redhat.com/support/cases/
 %else
 %global oj_vendor_bug_url  https://bugzilla.redhat.com/enter_bug.cgi
 %endif
 %endif
 %endif
 
-# note, following three variables are sedded from update_sources if used correctly. Hardcode them rather there.
-%global shenandoah_project      openjdk
-%global shenandoah_repo         shenandoah-jdk8u
-%global openjdk_revision        jdk8u382-b05
-%global shenandoah_revision     shenandoah-%{openjdk_revision}
-# Define old aarch64/jdk8u tree variables for compatibility
-%global project         %{shenandoah_project}
-%global repo            %{shenandoah_repo}
-%global revision        %{shenandoah_revision}
-
-
 # e.g. aarch64-shenandoah-jdk8u212-b04-shenandoah-merge-2019-04-30 -> aarch64-shenandoah-jdk8u212-b04
-%global version_tag     %(VERSION=%{revision}; echo ${VERSION%%-shenandoah-merge*})
+%global version_tag     %(VERSION=%{shenandoah_revision}; echo ${VERSION%%-shenandoah-merge*})
 # eg # jdk8u60-b27 -> jdk8u60 or # aarch64-jdk8u60-b27 -> aarch64-jdk8u60  (dont forget spec escape % by %%)
 %global whole_update    %(VERSION=%{version_tag}; echo ${VERSION%%-*})
 # eg  jdk8u60 -> 60 or aarch64-jdk8u60 -> 60
@@ -335,13 +332,11 @@
 # - N%%{?extraver}{?dist} for GA releases
 %global is_ga           1
 %if %{is_ga}
-%global build_type GA
 %global milestone          fcs
 %global milestone_version  %{nil}
 %global extraver %{nil}
 %global eaprefix %{nil}
 %else
-%global build_type EA
 %global milestone          ea
 %global milestone_version  "-ea"
 %global extraver .%{milestone}
@@ -351,8 +346,8 @@
 %if %is_system_jdk
 %global priority        1800%{updatever}
 %else
-# for techpreview, using 1, so slowdebugs can have 0
-%global priority        0000001
+# for non-default using, using 1, so slowdebugs can have 0
+%global priority 0000001
 %endif
 
 %global javaver         1.%{majorver}.0
@@ -360,19 +355,20 @@
 # parametrized macros are order-sensitive
 %global compatiblename  %{name}
 %global fullversion     %{compatiblename}-%{version}-%{release}
-# images directories from upstream build
-%global jdkimage       j2sdk-image
+# output dir stub
+%define installoutputdir() %{expand:install/jdk8.install%{?1}}
 # we can copy the javadoc to not arched dir, or make it not noarch
 %define uniquejavadocdir()    %{expand:%{fullversion}%{?1}}
 # main id and dir of this jdk
 %define uniquesuffix()        %{expand:%{fullversion}.%{_arch}%{?1}}
 
-#################################################################
-# fix for https://bugzilla.redhat.com/show_bug.cgi?id=1111349
-#         https://bugzilla.redhat.com/show_bug.cgi?id=1590796#c14
-#         https://bugzilla.redhat.com/show_bug.cgi?id=1655938
+# Fix for https://bugzilla.redhat.com/show_bug.cgi?id=1111349.
+# https://bugzilla.redhat.com/show_bug.cgi?id=1590796
+# as to why some libraries *cannot* be excluded. In particular,
 %global _privatelibs libattach[.]so.*|libawt_headless[.]so.*|libawt[.]so.*|libawt_xawt[.]so.*|libdt_socket[.]so.*|libfontmanager[.]so.*|libhprof[.]so.*|libinstrument[.]so.*|libj2gss[.]so.*|libj2pcsc[.]so.*|libj2pkcs11[.]so.*|libjaas_unix[.]so.*|libjava_crw_demo[.]so.*|libjdwp[.]so.*|libjli[.]so.*|libjsdt[.]so.*|libjsoundalsa[.]so.*|libjsound[.]so.*|liblcms[.]so.*|libmanagement[.]so.*|libmlib_image[.]so.*|libnet[.]so.*|libnio[.]so.*|libnpt[.]so.*|libsaproc[.]so.*|libsctp[.]so.*|libsplashscreen[.]so.*|libsunec[.]so.*|libsystemconf[.]so.*|libunpack[.]so.*|libzip[.]so.*|lib[.]so\\(SUNWprivate_.*%{jpeg_lib}
 %global _publiclibs libjawt[.]so.*|libjava[.]so.*|libjvm[.]so.*|libverify[.]so.*|libjsig[.]so.*
+
+
 %if %is_system_jdk
 %global __provides_exclude ^(%{_privatelibs})$
 %global __requires_exclude ^(%{_privatelibs})$
@@ -1280,6 +1276,10 @@ Provides: jre-%{origin}-headless%{?1} = %{epoch}:%{version}-%{release}
 Provides: jre-headless%{?1} = %{epoch}:%{version}-%{release}
 Provides: java-headless%{?1} = %{epoch}:%{version}-%{release}
 %endif
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=1312019
+Provides: /usr/bin/jjs
+
 }
 
 %define java_devel_rpo() %{expand:
@@ -1297,9 +1297,9 @@ Provides: java-sdk-%{javaver}%{?1} = %{epoch}:%{version}-%{release}
 Provides: java-%{javaver}-devel%{?1} = %{epoch}:%{version}-%{release}
 Provides: java-%{javaver}-%{origin}-devel%{?1} = %{epoch}:%{version}-%{release}
 %if %is_system_jdk
+Provides: java-%{origin}-devel%{?1} = %{epoch}:%{version}-%{release}
 Provides: java-sdk-%{origin}%{?1} = %{epoch}:%{version}-%{release}
 Provides: java-devel%{?1} = %{epoch}:%{version}-%{release}
-Provides: java-%{origin}-devel%{?1} = %{epoch}:%{version}-%{release}
 Provides: java-sdk%{?1} = %{epoch}:%{version}-%{release}
 %endif
 }
@@ -1384,6 +1384,16 @@ Group:   Development/Languages
 License:  ASL 1.1 and ASL 2.0 and BSD and BSD with advertising and GPL+ and GPLv2 and GPLv2 with exceptions and IJG and LGPLv2+ and MIT and MPLv2.0 and Public Domain and W3C and zlib
 URL:      http://openjdk.java.net/
 
+# Shenandoah HotSpot
+# aarch64-port/jdk8u-shenandoah contains an integration forest of
+# OpenJDK 8u, the aarch64 port and Shenandoah
+# To regenerate, use:
+# VERSION=%%{shenandoah_revision}
+# FILE_NAME_ROOT=%%{project}-%%{repo}-${VERSION}
+# REPO_ROOT=<path to checked-out repository> generate_source_tarball.sh
+# where the source is obtained from http://github.com/%%{project}/%%{repo}
+%global toplevel_sourcelike_dir %{project}-%{repo}-%{shenandoah_revision}
+
 # Use 'icedtea_sync.sh' to update the following
 # They are based on code contained in the IcedTea project (3.x).
 # Systemtap tapsets. Zipped up to keep it small.
@@ -1418,15 +1428,12 @@ BuildRequires: %{portable_name}-sources >= %{portable_version}
 
 # JDK8 portable do not build static-libs-* so that portion is skipped here too
 %if %{include_normal_build}
-BuildRequires: %{portable_name} >= %{portable_version}
-BuildRequires: %{portable_name}-devel >= %{portable_version}
+BuildRequires: %{portable_name}-unstripped >= %{portable_version}
 %endif
 %if %{include_fastdebug_build}
-BuildRequires: %{portable_name}-fastdebug >= %{portable_version}
 BuildRequires: %{portable_name}-devel-fastdebug >= %{portable_version}
 %endif
 %if %{include_debug_build}
-BuildRequires: %{portable_name}-slowdebug >= %{portable_version}
 BuildRequires: %{portable_name}-devel-slowdebug >= %{portable_version}
 %endif
 
@@ -1455,6 +1462,14 @@ BuildRequires: tzdata-java >= 2023c
 BuildRequires: systemtap-sdt-devel
 %endif
 
+%if %{system_libs}
+BuildRequires: giflib-devel
+BuildRequires: lcms2-devel
+BuildRequires: libjpeg-devel
+BuildRequires: libpng-devel
+%else
+# Version in jdk/src/share/native/java/util/zip/zlib/zlib.h
+Provides: bundled(zlib) = 1.2.13
 # Version in jdk/src/share/native/sun/awt/giflib/gif_lib.h
 Provides: bundled(giflib) = 5.2.1
 # Version in jdk/src/share/native/sun/java2d/cmm/lcms/lcms2.h
@@ -1462,10 +1477,7 @@ Provides: bundled(lcms2) = 2.10.0
 # Version in jdk/src/share/native/sun/awt/image/jpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in jdk/src/share/native/sun/awt/libpng/png.h
-Provides: bundled(libpng) = 1.6.37
-%ifnarch %{portable_build_arches}
-# We link statically against libstdc++ to increase portability
-BuildRequires: libstdc++-static
+Provides: bundled(libpng) = 1.6.39
 %endif
 
 # this is always built, also during debug-only build
@@ -1786,6 +1798,10 @@ fi
 echo "Update version: %{updatever}"
 echo "Build number: %{buildver}"
 echo "Milestone: %{milestone}"
+# it seems that whoever was repacking starting this spec file, dropped setup macro
+# as a resutl, whole repack is counting by being directly in uncleaned BUILD dir
+# to fix this will need some thingking and maybe a lot fo refactoring
+%setup -q -c -n %{uniquesuffix ""} -T
 # https://bugzilla.redhat.com/show_bug.cgi?id=1189084
 prioritylength=`expr length %{priority}`
 if [ $prioritylength -ne 7 ] ; then
@@ -1794,23 +1810,23 @@ if [ $prioritylength -ne 7 ] ; then
 fi
 # For old patches
 ln -s %{top_level_dir_name} jdk8
+ln -s %{top_level_dir_name} openjdk
 
 # JDK8 portable do not build static-libs-* so that portion is skipped here too
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.misc.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.docs.%{_arch}.tar.xz
 %if %{include_normal_build}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
-#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.unstripped.jdk.%{_arch}.tar.xz
 %endif
 %if %{include_fastdebug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jre.%{_arch}.tar.xz
 %endif
 %if %{include_debug_build}
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jre.%{_arch}.tar.xz
 %endif
 
-# Shenandoah patches
+# OpenJDK patches
 
 # Extract systemtap tapsets
 %if %{with_systemtap}
@@ -1861,7 +1877,7 @@ done
 
 # Commented as this is not there in JDK11
 # Setup security policy
-sed -i -e "s:^security.systemCACerts=.*:security.systemCACerts=%{cacerts_file}:" `find . -name "java.security-%{_target_os}"`
+#sed -i -e "s:^security.systemCACerts=.*:security.systemCACerts=%{cacerts_file}:" `find . -name "java.security-%{_target_os}"`
 
 %build
 
@@ -1960,13 +1976,13 @@ function debugcheckjdk() {
             fi
         done
 
-        # Make sure gdb can do a backtrace based on line numbers on libjvm.so
-        # javaCalls.cpp:58 should map to:
-        # http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/ff3b27e6bcc2/src/share/vm/runtime/javaCalls.cpp#l58
-        # Using line number 1 might cause build problems. See:
-        # https://bugzilla.redhat.com/show_bug.cgi?id=1539664
-        # https://bugzilla.redhat.com/show_bug.cgi?id=1538767
-        gdb -q "${imagepath}/bin/java" <<EOF | tee gdb.out
+# Make sure gdb can do a backtrace based on line numbers on libjvm.so
+# javaCalls.cpp:58 should map to:
+# http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/ff3b27e6bcc2/src/share/vm/runtime/javaCalls.cpp#l58
+# Using line number 1 might cause build problems. See:
+# https://bugzilla.redhat.com/show_bug.cgi?id=1539664
+# https://bugzilla.redhat.com/show_bug.cgi?id=1538767
+gdb -q "${imagepath}/bin/java" <<EOF | tee gdb.out
 handle SIGSEGV pass nostop noprint
 handle SIGILL pass nostop noprint
 set breakpoint pending on
@@ -2029,16 +2045,19 @@ for suffix in %{build_loop} ; do
 
   jdk_image=${top_dir_abs_main_build_path}
   src_image=`echo ${top_dir_abs_main_build_path} | sed "s/\.portable.*.%{_arch}/.portable.sources.noarch/"`
-  
+  docdir=`echo ${top_dir_abs_main_build_path} | sed "s/\.portable.*.%{_arch}/.portable.docs.%{_arch}/"`
+  miscdir=`echo ${top_dir_abs_main_build_path} | sed "s/\.portable.*.%{_arch}/.portable.misc.%{_arch}/"`
+
   # Install release notes
   commondocdir=${RPM_BUILD_ROOT}%{_defaultdocdir}/%{uniquejavadocdir -- $suffix}
   install -d -m 755 ${commondocdir}
   cp -a ${top_dir_abs_main_build_path}/NEWS ${commondocdir}
 
+  # there was bug in one jdk, which packed symlink instead of sources, using copy in misc
   # Install icons and menu entries
 for s in 16 24 32 48 ; do
   install -D -p -m 644 \
-    ${src_image}/openjdk/jdk/src/solaris/classes/sun/awt/X11/java-icon${s}.png \
+    ${miscdir}/java-icon${s}.png \
     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
 done
 
@@ -2051,11 +2070,12 @@ cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 #JDK8 specific, binary file in sources
 find "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/" -type f -name "*.so" -exec rm -vf {} \;
 find "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/" -type f -executable
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/security/pkcs11/nss/lib/"
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/"
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/"
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/linux-i586/"
-rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-amd64/"
+#uncomment once sources are fixed
+#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/security/pkcs11/nss/lib/"
+#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/"
+#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/"
+#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/linux-i586/"
+#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-amd64/"
 
 # Install the jdk
 pushd ${jdk_image}
@@ -2128,11 +2148,10 @@ if ! echo $suffix | grep -q "debug" ; then
   # Install Javadoc documentation
   install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}
   install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}
-  built_doc_archive=javadocs.zip
-cp -a ${top_dir_abs_main_build_path}/${built_doc_archive} \
-     $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}.zip || ls -l ${top_dir_abs_main_build_path}
+cp -a $docdir/jdk*.zip \
+     $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}.zip
   pushd $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}
-    unzip ${top_dir_abs_main_build_path}/${built_doc_archive}
+    unzip $docdir/jdk*.zip
   popd
 fi
 
@@ -2230,10 +2249,6 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {}
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "ASSEMBLY_EXCEPTION" -exec chmod 644 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "LICENSE" -exec chmod 644 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "THIRD_PARTY_README" -exec chmod 644 {} \; ;
-
-if [ "x$suffix" = "x" ] ; then
-  rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
-fi
 
 # end, dual install
 done

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-lablgl
 Epoch:          1
 Version:        1.07
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        LablGL is an OpenGL interface for Objective Caml
 License:        BSD-3-Clause
 
@@ -16,6 +16,9 @@ Patch0:         %{name}-ocaml5.patch
 # Fix a use-after-free bug
 # https://github.com/garrigue/lablgl/pull/5
 Patch1:         %{name}-use-after-free.patch
+# Fix a build error with the Modern C initiative
+# https://github.com/garrigue/lablgl/pull/6
+Patch2:         %{name}-mismatched-types.patch
 
 BuildRequires:  make
 BuildRequires:  freeglut-devel 
@@ -133,6 +136,9 @@ popd
 
 
 %changelog
+* Fri Dec  1 2023 Jerry James <loganjerry@gmail.com> - 1:1.07-5
+- Fix a build error with the Modern C initiative
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.07-4
 - OCaml 5.1 rebuild for Fedora 40
 

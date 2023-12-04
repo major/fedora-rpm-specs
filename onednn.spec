@@ -1,5 +1,5 @@
 Name:           onednn
-Version:        3.3
+Version:        3.3.2
 Release:        1%{?dist}
 Summary:        oneAPI Deep Neural Network Library
 
@@ -89,6 +89,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Sat Dec 02 2023 Nicolas Chauvet <kwizart@gmail.com> - 3.3.2-1
+- Update to 3.3.2
+
 * Fri Oct 13 2023 Nicolas Chauvet <kwizart@gmail.com> - 3.3-1
 - Update to 3.3
 

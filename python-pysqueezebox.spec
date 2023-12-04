@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python library to control Logitech Media Server
 
 License:        ASL 2.0
@@ -20,7 +20,13 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(aiohttp)
+BuildRequires:  python3dist(async-timeout)
 %{?python_provide:%python_provide python3-%{pypi_name}}
+
+# This can be removed after the package is updated to 0.6.2 or later; upstream
+# added the dependency to the metadata in
+# https://github.com/rajlaud/pysqueezebox/commit/8cfc54b28992ea3c9034e5dfb73e486a24501673.
+Requires:       python3dist(async-timeout)
 
 %description -n python3-%{pypi_name}
 Python library to control a Logitech Media Server asynchronously.
@@ -45,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Dec 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.5-11
+- Add explicit async-timeout dependency
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

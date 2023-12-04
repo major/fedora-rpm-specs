@@ -1,4 +1,4 @@
-%global buildid    283
+%global buildid    284
 %global octpkg  COPASI
 
 %global with_python  1
@@ -27,7 +27,7 @@
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.41.%{buildid}
+Version: 4.42.%{buildid}
 Release: 1%{?dist}
 
 ## Artistic 2.0 is main license
@@ -137,7 +137,7 @@ Patch12: %{name}-find_raptor.patch
 Patch13: %{name}-qwt62.patch
 
 # This patch fixes a missing header request
-Patch14: %{name}-%{version}-fix_missing_header.patch
+Patch14: %{name}-4.41.283-fix_missing_header.patch
 
 # This patch sets path to find qcustomplot-qt5 libraries on Fedora
 Patch15: %{name}-find_qcp_libs.patch
@@ -496,6 +496,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Sat Dec 02 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.42.284-1
+- Release 4.42 build-284
+
 * Thu Nov 30 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.41.283-1
 - Release 4.41 build-283
 - Add COPASI_USE_QCUSTOMPLOT cmake option (upstream bug #3202)

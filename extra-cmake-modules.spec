@@ -11,11 +11,11 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 5.245.0
-Release: 2%{?dist}
+Version: 5.246.1
+Release: 1%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
-Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/5.246.0/%{framework}-%{version}.tar.xz
 BuildArch:      noarch
 
 ## upstreamable patches
@@ -74,6 +74,12 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.1-1
+- Update to 5.246.1
+
+* Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
+- Update to 5.246.0
+
 * Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 5.245.0-2
 - Explicitly BuildRequire python3-sphinxcontrib-qthelp
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lwt
 Version:        5.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -14,6 +14,8 @@ Summary:        OCaml lightweight thread library
 License:        MIT AND BSD-2-Clause
 URL:            https://ocsigen.org/lwt
 Source0:        https://github.com/ocsigen/lwt/archive/%{version}/lwt-%{version}.tar.gz
+# Fix GCC 14 incompatibilites: https://github.com/ocsigen/lwt/pull/1004
+Patch0:         0001-Prepare-for-stricter-checking-in-GCC-14.patch
 
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 1.8.0
@@ -142,6 +144,9 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Fri Dec  1 2023 Jerry James <loganjerry@gmail.com> - 5.7.0-3
+- Add patch for stricter checking in GCC 14
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.7.0-2
 - OCaml 5.1 rebuild for Fedora 40
 

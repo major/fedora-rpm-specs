@@ -267,7 +267,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 119.0.6045.199
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -413,6 +413,8 @@ Patch351: chromium-117-mnemonic-error.patch
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
 Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
+# enable fstack-protector-strong
+Patch353: chromium-119-fstack-protector-strong.patch
 
 # upstream patches
 # revert due to build error redefine ATSPI version macros
@@ -1025,6 +1027,7 @@ udev.
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
 
+%patch -P353 -p1 -b .fstack-protector-strong
 %patch -P400 -p1 -R -b .revert-dont-redefine-ATSPI-version-macros.patch
 %patch -P401 -p1 -b .nullptr_t-without-namespace-std
 %patch -P402 -p1 -b .nvidia-use-separate-bo-to-verify-modifiers
@@ -1712,6 +1715,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sat Dec 02 2023 Than Ngo <than@redhat.com> - 119.0.6045.199-2
+- enable build flag -fstack-protector-strong for improved security
+
 * Wed Nov 29 2023 Than Ngo <than@redhat.com> - 119.0.6045.199-1
 - update to 119.0.6045.199
 

@@ -35,7 +35,7 @@
 Name:           systemd
 Url:            https://systemd.io
 %if %{without inplace}
-Version:        255~rc3
+Version:        255~rc4
 %else
 # determine the build information from local checkout
 Version:        %(tools/meson-vcs-tag.sh . error | sed -r 's/-([0-9])/.^\1/; s/-g/_g/')
@@ -104,24 +104,6 @@ GIT_DIR=../../src/systemd/.git git diffab -M v233..master@{2017-06-15} -- hwdb/[
 # https://bugzilla.redhat.com/show_bug.cgi?id=2164404
 # Drop when dracut-060 is available.
 Patch0001:      https://github.com/systemd/systemd/pull/26494.patch
-
-Patch0002:      0001-meson-always-install-network-example-files.patch
-
-# https://github.com/systemd/systemd/pull/30197
-# https://bugzilla.redhat.com/show_bug.cgi?id=2251394
-# Drop vconsole restart limit to prevent it sometimes failing on boot
-Patch0003:      0001-units-disable-start-rate-limit-for-systemd-vconsole-.patch
-
-# https://github.com/systemd/systemd/pull/30170
-# https://bugzilla.redhat.com/show_bug.cgi?id=2250930
-# restrict use of bpf_outer_map_fd to help avoid selinux denials
-Patch0004:      0001-core-pass-bpf_outer_map_fd-to-sd-executor-only-if-Re.patch
-Patch0005:      0002-core-remove-redundant-check-when-serializing-FDs.patch
-Patch0006:      0003-test-add-a-couple-of-tests-for-RestrictFileSystems.patch
-# https://github.com/systemd/systemd/pull/30266
-# https://bugzilla.redhat.com/show_bug.cgi?id=2250930
-# close bpf_outer_map_fd to avoid selinux denials
-Patch0007:      0001-Make-sure-we-close-bpf-outer-map-fd-in-systemd-execu.patch
 
 
 # Those are downstream-only patches, but we don't want them in packit builds:
@@ -849,43 +831,8 @@ ln -s --relative %{buildroot}%{_bindir}/kernel-install %{buildroot}%{_sbindir}/i
 
 %find_lang %{name}
 
-# Split files in build root into rpms. See split-files.py for the
-# rules towards the end, anything which is an exception needs a line
-# here.
-python3 %{SOURCE2} %buildroot <<EOF
-%ghost %config(noreplace) /etc/crypttab
-%ghost %attr(0444,root,root) /etc/udev/hwdb.bin
-/etc/inittab
-/usr/lib/systemd/purge-nobody-user
-%ghost %config(noreplace) /etc/vconsole.conf
-%ghost %config(noreplace) /etc/X11/xorg.conf.d/00-keyboard.conf
-%ghost %attr(0664,root,root) %verify(not group) /run/utmp
-%ghost %attr(0664,root,root) %verify(not group) /var/log/wtmp
-%ghost %attr(0660,root,root) %verify(not group) /var/log/btmp
-%ghost %attr(0664,root,root) %verify(not md5 size mtime group) /var/log/lastlog
-%ghost %config(noreplace) /etc/hostname
-%ghost %config(noreplace) /etc/localtime
-%ghost %config(noreplace) /etc/locale.conf
-%ghost %attr(0444,root,root) %config(noreplace) /etc/machine-id
-%ghost %config(noreplace) /etc/machine-info
-%ghost %attr(0700,root,root) %dir /var/cache/private
-%ghost %attr(0700,root,root) %dir /var/lib/private
-%ghost %dir /var/lib/private/systemd
-%ghost %dir /var/lib/private/systemd/journal-upload
-%ghost /var/lib/private/systemd/journal-upload/state
-%ghost %dir /var/lib/systemd/timesync
-%ghost /var/lib/systemd/timesync/clock
-%ghost %dir /var/lib/systemd/backlight
-%ghost /var/lib/systemd/catalog/database
-%ghost %dir /var/lib/systemd/coredump
-%ghost /var/lib/systemd/journal-upload
-%ghost %dir /var/lib/systemd/linger
-%ghost %attr(0600,root,root) /var/lib/systemd/random-seed
-%ghost %dir /var/lib/systemd/rfkill
-%ghost %dir %verify(not mode group) /var/log/journal
-%ghost %dir /var/log/journal/remote
-%ghost %attr(0700,root,root) %dir /var/log/private
-EOF
+# Split files in build root into rpms
+python3 %{SOURCE2} %buildroot %{!?want_bootloader:--no-bootloader}
 
 %check
 %if %{with tests}
