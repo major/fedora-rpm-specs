@@ -1,7 +1,7 @@
 %global kf6_min_version 5.240.0
 
 Name:           kasts
-Version:        24.01.75
+Version:        24.01.80
 Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
@@ -32,7 +32,7 @@ BuildRequires:  cmake(Qt6Multimedia)
 
 BuildRequires:  cmake(KF6I18n)           >= %{kf6_min_version}
 BuildRequires:  cmake(KF6CoreAddons)     >= %{kf6_min_version}
-BuildRequires:  cmake(KF6Kirigami2)      >= %{kf6_min_version}
+BuildRequires:  cmake(KF6Kirigami)       >= %{kf6_min_version}
 BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6Syndication)    >= %{kf6_min_version}
 BuildRequires:  cmake(KF6Config)         >= %{kf6_min_version}
@@ -41,8 +41,8 @@ BuildRequires:  cmake(KF6ColorScheme)    >= %{kf6_min_version}
 BuildRequires:  kf6-rpm-macros           >= %{kf6_min_version}
 
 # QML module dependencies
-Requires:  kf6-kirigami2%{?_isa}
-Requires:  kf6-kirigami2-addons%{?_isa}
+Requires:  kf6-kirigami%{?_isa}
+Requires:  kf6-kirigami-addons%{?_isa}
 Requires:  qt6-qt5compat%{?_isa}
 Requires:  qt6-qtmultimedia%{?_isa}
 
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

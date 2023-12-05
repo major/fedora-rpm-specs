@@ -1,10 +1,10 @@
 %bcond_without mingw
 
-%global data_version 1.14
+%global data_version 1.16
 
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.3.0
+Version:        9.3.1
 Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
@@ -163,6 +163,7 @@ Supplements:  proj\
 %{extrafile}
 
 
+%data_subpkg -c ar -n Argentina
 %data_subpkg -c at -n Austria
 %data_subpkg -c au -n Australia
 %data_subpkg -c be -n Belgium
@@ -336,6 +337,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sun Dec 03 2023 Sandro Mani <manisandro@gmail.com> - 9.3.1-1
+- Update to 9.3.1
+
 * Sat Sep 02 2023 Sandro Mani <manisandro@gmail.com> - 9.3.0-1
 - Update to 9.3.0
 

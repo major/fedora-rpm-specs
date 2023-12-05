@@ -1,5 +1,5 @@
 Name:          kontrast
-Version:       24.01.75
+Version:       24.01.80
 Release:       1%{?dist}
 Summary:       Color contrast checker
 # BSD, CC0 are only for build files
@@ -17,7 +17,7 @@ BuildRequires: cmake(FutureSQL6)
 BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: cmake(KF6Kirigami)
 BuildRequires: cmake(QCoro6Core)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)
@@ -31,8 +31,8 @@ BuildRequires: cmake(Qt6Widgets)
 Requires:      hicolor-icon-theme
 Requires:      kf6-filesystem
 # QML dependencies
-Requires:      kf6-kirigami2%{?_isa}
-Requires:      kf6-kirigami2-addons%{?_isa}
+Requires:      kf6-kirigami%{?_isa}
+Requires:      kf6-kirigami-addons%{?_isa}
 
 %description
 Kontrast is a color contrast checker and tell you if your color combinations
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Nov 23 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

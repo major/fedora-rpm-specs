@@ -1,5 +1,5 @@
 Name:           kongress
-Version:        24.01.75
+Version:        24.01.80
 Release:        1%{?dist}
 License:        CC0 and CC-BY-SA and BSD and GPLv3+
 Summary:        A companion application for conferences made by KDE
@@ -22,7 +22,7 @@ BuildRequires: cmake(Qt6Network)
 BuildRequires: cmake(Qt6Widgets)
 
 BuildRequires: cmake(KF6Config)
-BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: cmake(KF6Kirigami)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6CalendarCore)
 BuildRequires: cmake(KF6CoreAddons)
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

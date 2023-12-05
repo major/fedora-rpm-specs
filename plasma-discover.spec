@@ -8,8 +8,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -19,10 +19,7 @@ Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%
 ## override some defaults, namely to enable offline updates
 Source10: discoverrc
 
-## Upstream patches
-Patch0:   fix-rpm-ostree-build.patch
-
-## downstream patches
+# downstream patches
 # Adjust periodic refresh from 1/24hr to 1/12hr
 # This ensures that it is checked at least once during the work day.
 # It is double the time that Fedora repos are set to in DNF (6h).
@@ -77,8 +74,7 @@ BuildRequires: cmake(KF6Declarative)
 BuildRequires: cmake(KF6IdleTime)
 BuildRequires: cmake(KF6NewStuff)
 BuildRequires: cmake(KF6Kirigami2)
-
-BuildRequires: cmake(KUserFeedbackQt6)
+BuildRequires: cmake(KF6UserFeedback)
 
 BuildRequires: pkgconfig(packagekitqt6)
 BuildRequires: pkgconfig(phonon4qt6)
@@ -316,6 +312,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 26 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
 - Enable packagekit autoremove
 

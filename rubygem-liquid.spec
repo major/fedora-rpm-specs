@@ -25,6 +25,12 @@ Patch3:         03-fix-parse-tree-visitor-test-for-ruby-3.patch
 # Patch for supporting ruby 3.2, ruby3.2 removes "tainted"ness completely
 # Partially backported from https://github.com/Shopify/liquid/commit/065ccbc4aa5b4955dae9743509907bd9ad0db0b9
 Patch4:         04-ruby32-remove-tainted.patch
+# 2 patches related to glibc 2.38.9000-20 qsort behavior change
+# Extracted from https://github.com/Shopify/liquid/pull/1476 :
+# applying only the part needed for the above glibc qsort change
+Patch5:         05-pr1476-nil_safe_compare-comparison-func.patch
+# https://github.com/Shopify/liquid/pull/1760
+Patch6:         06-pr1760-change-make-nil_safe_casecmp-judge-compatible-for-ni.patch
 
 BuildArch:      noarch
 

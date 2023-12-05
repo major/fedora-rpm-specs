@@ -3,8 +3,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.27.80
-Release: 15%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -81,8 +81,6 @@ BuildRequires:  libraw1394-devel
 BuildRequires:  gpsd-devel
 BuildRequires:  libqalculate-devel
 %global kf6_pim 1
-BuildRequires:  kf6-kholidays-devel
-BuildRequires:  kf6-prison-devel
 BuildRequires:  libicu-devel
 
 BuildRequires:  qt6-qtbase-devel
@@ -98,6 +96,7 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  systemd
+
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake(KF6Baloo)
 BuildRequires:  cmake(KF6Archive)
@@ -121,20 +120,20 @@ BuildRequires:  cmake(KF6TextEditor)
 BuildRequires:  cmake(KF6TextWidgets)
 BuildRequires:  cmake(KF6UnitConversion)
 BuildRequires:  cmake(KF6Wallet)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6ThreadWeaver)
-BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6QuickCharts)
 BuildRequires:  cmake(KF6StatusNotifierItem)
-BuildRequires:  cmake(KF6Wayland)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6Plasma5Support)
-BuildRequires:  cmake(KF6ActivitiesStats)
 BuildRequires:  cmake(KF6KDED)
 BuildRequires:  cmake(KF6NetworkManagerQt)
 BuildRequires:  cmake(KF6Screen)
-BuildRequires:  kf6-kirigami2-addons
-Requires:       kf6-kirigami2-addons
+BuildRequires:  cmake(KF6Holidays)
+BuildRequires:  cmake(KF6Prison)
+BuildRequires:  cmake(KF6UserFeedback)
+
 BuildRequires:  wayland-devel >= 1.3.0
 BuildRequires:  libksysguard-devel
 BuildRequires:  kscreenlocker-devel
@@ -144,6 +143,11 @@ BuildRequires:  cmake(Phonon4Qt6)
 BuildRequires:  PackageKit-Qt6-devel
 BuildRequires:  cmake(KExiv2Qt6)
 
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(KWayland)
+BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  cmake(PlasmaActivitiesStats)
+
 # workaround for
 #   The imported target "Qt5::XkbCommonSupport" references the file
 #     "/usr/lib64/libQt5XkbCommonSupport.a"
@@ -152,7 +156,6 @@ BuildRequires:  qt6-qtbase-static
 BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  pkgconfig(libxcrypt)
 
-BuildRequires:  cmake(KUserFeedbackQt6)
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:  plasma-breeze-devel >= %{version}
@@ -161,7 +164,6 @@ BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
 
 # Optional
-BuildRequires:  cmake(KF6Activities)
 %if 0%{?fedora}
 BuildRequires:  cmake(AppStreamQt) >= 0.10.4
 %endif
@@ -186,8 +188,6 @@ Requires:       libkworkspace6%{?_isa} = %{version}-%{release}
 # for selinux settings
 Requires:       (policycoreutils if selinux-policy)
 
-# for libkdeinit5_*
-%{?kf6_kinit_requires}
 Requires:       kactivitymanagerd%{?_isa}
 Requires:       ksystemstats%{?_isa}
 Requires:       kf6-baloo
@@ -195,6 +195,8 @@ Requires:       kf6-kded
 Requires:       kf6-kdoctools
 Requires:       kf6-kglobalaccel
 Requires:       kf6-kquickcharts
+Requires:       kf6-kirigami
+Requires:       kf6-kirigami-addons
 
 # The new volume control for PulseAudio
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -533,7 +535,7 @@ cat *.lang | sort | uniq -u > %{name}.lang
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.{plasmashell,systemmonitor,kcolorschemeeditor,kfontview,plasmawindowed}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.{plasmashell,kcolorschemeeditor,kfontview,plasmawindowed}.desktop
 
 %post
 if [ -s /usr/sbin/setsebool ] ; then
@@ -559,7 +561,6 @@ fi
 %{_kf6_bindir}/plasma-localegen-helper
 %{_kf6_bindir}/plasma-shutdown
 %{_kf6_bindir}/plasma_waitforname
-%{_kf6_bindir}/systemmonitor
 %{_kf6_bindir}/xembedsniproxy
 %{_kf6_bindir}/kcolorschemeeditor
 %{_kf6_bindir}/kde-systemd-start-condition
@@ -614,7 +615,6 @@ fi
 %{_kf6_metainfodir}/*.xml
 %{_kf6_datadir}/applications/kcm_*
 %{_kf6_datadir}/applications/org.kde.plasmashell.desktop
-%{_kf6_datadir}/applications/org.kde.systemmonitor.desktop
 %{_kf6_datadir}/applications/org.kde.kcolorschemeeditor.desktop
 %{_kf6_datadir}/applications/org.kde.kfontview.desktop
 %{_kf6_datadir}/applications/org.kde.plasmawindowed.desktop
@@ -745,6 +745,9 @@ fi
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-15
 - Rebuild (qt6)
 

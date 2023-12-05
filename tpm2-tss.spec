@@ -5,7 +5,7 @@
 
 Name:          tpm2-tss
 Version:       4.0.1
-Release:       5%{?candidate:.%{candidate}}%{?dist}
+Release:       6%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 # The entire source code is under BSD except implementation.h and tpmb.h which
@@ -44,6 +44,17 @@ tpm2-tss is a software stack supporting Trusted Platform Module(TPM) 2.0 system
 APIs. It sits between TPM driver and applications, providing TPM2.0 specified
 APIs for applications to access TPM module through kernel TPM drivers.
 
+%package fapi
+Summary:       High-level TPM2.0 Software Stack
+Requires:      %{name}%{_isa} = %{version}-%{release}
+
+%description fapi
+tpm2-tss is a software stack supporting Trusted Platform Module(TPM) 2.0 system
+APIs. It sits between TPM driver and applications, providing TPM2.0 specified
+APIs for applications to access TPM module through kernel TPM drivers.
+
+This package provides the high-level "Feature API" library.
+
 %prep
 %autosetup -n %{name}-%{version}%{?candidate:-%{candidate}} -p1
 
@@ -78,7 +89,6 @@ exit 0
 %{_libdir}/libtss2-mu.so.0*
 %{_libdir}/libtss2-sys.so.1*
 %{_libdir}/libtss2-esys.so.0*
-%{_libdir}/libtss2-fapi.so.1*
 %{_libdir}/libtss2-policy.so.0*
 %{_libdir}/libtss2-rc.so.0*
 %{_libdir}/libtss2-tctildr.so.0*
@@ -89,12 +99,16 @@ exit 0
 %{_libdir}/libtss2-tcti-spi-helper.so.0*
 %{_libdir}/libtss2-tcti-swtpm.so.0*
 %{_sysusersdir}/tpm2-tss.conf
-%{_tmpfilesdir}/tpm2-tss-fapi.conf
 %{_udevrulesdir}/%{udevrules_prefix}tpm-udev.rules
+
+%files fapi
+%{_libdir}/libtss2-fapi.so.1*
+%{_tmpfilesdir}/tpm2-tss-fapi.conf
 
 %package        devel
 Summary:        Headers and libraries for building apps that use tpm2-tss 
 Requires:       %{name}%{_isa} = %{version}-%{release}
+Requires:       %{name}-fapi%{_isa} = %{version}-%{release}
 
 %description    devel
 This package contains headers and libraries required to build applications that
@@ -134,6 +148,10 @@ use tpm2-tss.
 
 
 %changelog
+* Sat Dec  2 2023 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.1-6
+- Split out fapi subpackage
+  Resolves: rhbz#2252535
+
 * Tue Sep 26 2023 Štěpán Horáček <shoracek@redhat.com> - 4.0.1-5
 - Migrate license to SPDX
 

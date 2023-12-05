@@ -1,6 +1,6 @@
 Name:    powerdevil
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -14,7 +14,6 @@ BuildRequires:  plasma-workspace-devel
 # KDE Frameworks 6
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6Auth)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6Crash)
@@ -46,6 +45,8 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  xcb-util-image-devel
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  xcb-util-wm-devel
+
+BuildRequires:  cmake(PlasmaActivities)
 
 %ifnarch s390 s390x
 BuildRequires:  libddcutil-devel
@@ -100,7 +101,6 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_libexecdir}/power_profile_osd_service
 %{_kf6_libdir}/libpowerdevilconfigcommonprivate.so.*
 %{_kf6_libdir}/libpowerdevilcore.so.*
-%{_kf6_libdir}/libpowerdevilui.so.*
 %{_kf6_plugindir}/powerdevil/
 %{_kf6_qtplugindir}/powerdevil/
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_powerdevilprofilesconfig.so
@@ -112,6 +112,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_userunitdir}/plasma-powerprofile-osd.service
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
 - Rebuild (qt6)
 

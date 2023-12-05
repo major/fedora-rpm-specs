@@ -1,5 +1,5 @@
 Name:           oxygen-sounds
-Version:        5.27.80
+Version:        5.90.0
 Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
@@ -40,6 +40,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sat Nov 11 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.6.0
-Release:        2%{?dist}
+Version:        6.6.1
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtImageFormats component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -146,6 +146,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Sun Dec 03 2023 Sandro Mani <manisandro@gmail.com> - 6.6.1-1
+- Update to 6.6.1
+
 * Fri Dec 01 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-2
 - Rebuild (jasper)
 

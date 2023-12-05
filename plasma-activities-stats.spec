@@ -1,23 +1,22 @@
-%global base_name kactivities-stats
-
 Name:    plasma-activities-stats
 Summary: Library to access the usage statistics data collected by the KDE activity manager
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: CC0-1.0, GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
-URL:     https://invent.kde.org/plasma/%{base_name}
+URL:     https://invent.kde.org/plasma/%{name}
 
-Source0:    https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:    https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  boost-devel
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  pkgconfig
+
+BuildRequires:  cmake(PlasmaActivities)
 
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6-qtbase-devel
@@ -43,7 +42,7 @@ Provides:       kf6-kactivities-stats-devel = 1:%{version}-%{release}
 
 
 %prep
-%autosetup -n %{base_name}-%{version} -p1
+%autosetup -n %{name}-%{version} -p1
 
 
 %build
@@ -57,17 +56,20 @@ Provides:       kf6-kactivities-stats-devel = 1:%{version}-%{release}
 %files
 %doc MAINTAINER README.developers TODO
 %license LICENSES/*.txt
-%{_kf6_datadir}/qlogging-categories6/%{base_name}.*
-%{_kf6_libdir}/libKF6ActivitiesStats.so.1
-%{_kf6_libdir}/libKF6ActivitiesStats.so.5.*
+%{_kf6_datadir}/qlogging-categories6/%{name}.*
+%{_kf6_libdir}/libPlasmaActivitiesStats.so.1
+%{_kf6_libdir}/libPlasmaActivitiesStats.so.5.*
 
 %files devel
-%{_kf6_includedir}/KActivitiesStats/
-%{_kf6_libdir}/cmake/KF6ActivitiesStats/
-%{_kf6_libdir}/libKF6ActivitiesStats.so
-%{_kf6_libdir}/pkgconfig/KF6ActivitiesStats.pc
+%{_includedir}/PlasmaActivitiesStats/
+%{_kf6_libdir}/cmake/PlasmaActivitiesStats/
+%{_kf6_libdir}/libPlasmaActivitiesStats.so
+%{_kf6_libdir}/pkgconfig/PlasmaActivitiesStats.pc
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - Renamed from kf6-kactivities-stats
 - 5.27.80

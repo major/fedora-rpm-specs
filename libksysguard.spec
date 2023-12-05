@@ -1,8 +1,8 @@
 
 Name:    libksysguard
 Summary: Library for managing processes running on the system
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -26,8 +26,6 @@ BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6NewStuff)
-# kf6 optional
-BuildRequires:  cmake(KF6Plasma)
 # qt6 required
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  cmake(Qt6DBus)
@@ -137,6 +135,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
 - Rebuild (qt6)
 

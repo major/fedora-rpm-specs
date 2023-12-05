@@ -30,7 +30,7 @@ Release:        1%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
-Source0:        http://downloads.sourceforge.net/sylpheed-claws/%{name}-%{version}.tar.xz
+Source0:        https://claws-mail.org/releases/%{name}-%{version}.tar.xz
 
 # rhbz#1179279
 Patch11:        claws-mail-system-crypto-policies.patch
@@ -76,7 +76,7 @@ BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  libytnef-devel
 BuildRequires:  ghostscript
 BuildRequires:  pkgconfig(poppler-glib) >= 0.12.0
-BuildRequires:  webkit2gtk4.1-devel
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
 BuildRequires:  pkgconfig(libnotify) >= 0.4.3
 
 %if 0%{?with_python2}
@@ -650,6 +650,7 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 - Update web_extensions dir entry to new location.
 - libgumbo 0.12 (gumbo-parser) does not exist in Fedora yet -> bug 2245541
 - New configure script explicitly searches also for webkit2gtk4.1
+- Merge new Source URL and webkit pkgconfig BR from PR #5
 
 * Sat Nov  4 2023 Michael Schwendt <mschwendt@fedoraproject.org>
 - update webkit2gtk3-devel BR to webkit2gtk4.0-devel since it's been

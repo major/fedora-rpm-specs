@@ -1,5 +1,5 @@
 Name:          kjournald
-Version:       24.01.75
+Version:       24.01.80
 Release:       1%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
@@ -24,7 +24,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 # QML module dependencies
-Requires:      kf6-kirigami2%{?_isa}
+Requires:      kf6-kirigami%{?_isa}
 
 %description
 %{summary}.
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kj
 %{_kf6_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

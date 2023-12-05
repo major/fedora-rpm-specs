@@ -1,7 +1,7 @@
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://cgit.kde.org/%{name}.git
@@ -23,10 +23,12 @@ BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6KDED)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
+
+# Plasma
+BuildRequires:  cmake(Plasma)
 
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtdeclarative-devel
@@ -90,6 +92,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Tue Nov 21 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
 - 5.27.80
 

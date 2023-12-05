@@ -1,6 +1,6 @@
 Name:           arpwatch
 Epoch:          14
-Version:        3.4
+Version:        3.5
 Release:        %autorelease
 Summary:        Network monitoring tools for tracking IP addresses on a network
 
@@ -37,7 +37,7 @@ Source0:        https://ee.lbl.gov/downloads/arpwatch/arpwatch-%{version}.tar.gz
 # updated), we store the file directly in the repository with the spec file;
 # see the update-oui-csv script.
 #
-# File oui.csv last fetched 2023-11-10T18:21:28+00:00.
+# File oui.csv last fetched 2023-12-04T01:01:41+00:00.
 Source1:        oui.csv
 Source2:        arpwatch.service
 Source3:        arpwatch.sysconfig
@@ -69,12 +69,12 @@ Patch:          arpwatch-3.1-configure-no-local-pcap.patch
 Patch:          arpwatch-3.1-all-zero-bogon.patch
 # When arpwatch is terminated cleanly by a signal (INT/TERM/HUP) handler, the
 # exit code should be zero for success instead of nonzero for failure.
-Patch:          arpwatch-3.4-exitcode.patch
+Patch:          arpwatch-3.5-exitcode.patch
 # When -i is not given, do not just try the first device found, but keep
 # checking devices until a usable one is found, if any is available.
 # Additionally, handle the case where a device provides both supported and
 # unsupported datalink types.
-Patch:          arpwatch-3.4-devlookup.patch
+Patch:          arpwatch-3.5-devlookup.patch
 
 # Replace _getshort(), “a glibc function that hasn't been declared in the
 # installed headers for many, many years,” with ns_get16(). Fixes C99

@@ -95,7 +95,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %files devel
-%{_kf6_includedir}/KUserFeedback/kuserfeedback_version.h
+%{_kf6_includedir}/KUserFeedback/
 %{_kf6_includedir}/KUserFeedbackCore/
 %{_kf6_includedir}/KUserFeedbackWidgets/
 %{_libdir}/libKF6UserFeedbackCore.so

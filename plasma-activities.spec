@@ -1,14 +1,15 @@
-%global base_name kactivities
-
 Name:    plasma-activities
 Summary: Core components for the KDE Activity concept
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
-URL:     https://invent.kde.org/plasma/%{base_name}
+URL:     https://invent.kde.org/plasma/%{name}
 
-Source0:    https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0:    https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+
+# https://invent.kde.org/plasma/plasma-activities/-/merge_requests/41
+Patch0:     41.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  extra-cmake-modules
@@ -46,7 +47,7 @@ Provides:       kf6-kactivities-devel = 1:%{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup -n %{base_name}-%{version} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -58,20 +59,24 @@ Provides:       kf6-kactivities-devel = 1:%{version}-%{release}
 %files
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_bindir}/kactivities-cli6
-%{_kf6_datadir}/qlogging-categories6/%{base_name}.*
-%{_kf6_libdir}/libKF6Activities.so.5.*
-%{_kf6_libdir}/libKF6Activities.so.6
+%{_kf6_bindir}/plasma-activities-cli6
+%{_kf6_datadir}/qlogging-categories6/plasma-activities.categories
+%{_kf6_datadir}/qlogging-categories6/plasma-activities.renamecategories
+%{_kf6_libdir}/libPlasmaActivities.so.5.*
+%{_kf6_libdir}/libPlasmaActivities.so.6
 %{_kf6_qmldir}/org/kde/activities/
 
 %files devel
-%{_kf6_includedir}/KActivities/
-%{_kf6_libdir}/cmake/KF6Activities/
-%{_kf6_libdir}/libKF6Activities.so
-%{_kf6_libdir}/pkgconfig/KF6Activities.pc
+%{_includedir}/PlasmaActivities/
+%{_kf6_libdir}/cmake/PlasmaActivities/
+%{_kf6_libdir}/libPlasmaActivities.so
+%{_kf6_libdir}/pkgconfig/PlasmaActivities.pc
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - Renamed from kf6-kactivities
 - 5.27.80

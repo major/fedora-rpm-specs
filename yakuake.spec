@@ -3,7 +3,7 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    yakuake
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: A drop-down terminal emulator
 
@@ -25,7 +25,7 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Svg)
-BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  qt6-qtbase-private-devel
 
 BuildRequires:  cmake(KF6Archive)
@@ -44,7 +44,7 @@ BuildRequires:  cmake(KF6Parts)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6StatusNotifierItem)
-BuildRequires:  cmake(KF6Wayland)
+BuildRequires:  cmake(KWayland)
 
 %if 0%{?fedora}
 %global appstream_validate 1
@@ -92,6 +92,9 @@ desktop-file-validate  %{buildroot}%{_kf6_datadir}/applications/org.kde.yakuake.
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

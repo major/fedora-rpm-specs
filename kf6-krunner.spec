@@ -23,7 +23,6 @@ BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6ThreadWeaver)
 BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtdeclarative-devel
 

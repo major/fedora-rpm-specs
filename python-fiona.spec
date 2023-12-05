@@ -12,6 +12,12 @@ License:        BSD-3-Clause
 URL:            https://fiona.readthedocs.io
 Source0:        https://github.com/Toblerity/%{Srcname}/archive/%{uversion}/%{Srcname}-%{uversion}.tar.gz
 Patch:          0001-Expand-build-requirement-limits.patch
+# https://github.com/Toblerity/Fiona/pull/1314
+Patch:          0002-Fix-leak-in-set_proj_search_path-1314.patch
+# https://github.com/Toblerity/Fiona/pull/1315
+Patch:          0003-Remove-duplicate-CRS.__hash__-definition.patch
+Patch:          0004-Fix-warnings-of-losing-const-ness-of-pointers.patch
+Patch:          0005-Fix-maybe-uninitialized-warning-in-WritingSession.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 3.1

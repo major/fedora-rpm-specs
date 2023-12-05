@@ -193,6 +193,12 @@
 %global use_qt 0
 %endif
 
+%if 0%{?rhel} >9 || 0%{?fedora}
+%global use_qt6 1
+%else
+%global use_qt6 0
+%endif
+
 # enable gtk3 by default
 %global gtk3 1
 
@@ -527,6 +533,11 @@ BuildRequires:	gperf
 %if %{use_qt}
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Widgets)
+%endif
+
+%if %{use_qt6}
+BuildRequires: pkgconfig(Qt6Core)
+BuildRequires: pkgconfig(Qt6Widgets)
 %endif
 
 %if ! %{bundleharfbuzz}
@@ -1090,9 +1101,6 @@ sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channe
 # Fix hardcoded path in remoting code
 sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
 
-# change moc to moc-qt5 for fedora
-sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
-
 %build
 # utf8 issue on epel7, Internal parsing error 'ascii' codec can't
 # decode byte 0xe2 in position 474: ordinal not in range(128)
@@ -1229,9 +1237,15 @@ CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_h264=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_kerberos=true'
 
 %if %{use_qt}
-CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=true'
+CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=true moc_qt5_path="%{_libdir}/qt5/bin/"'
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=false'
+%endif
+
+%if %{use_qt6}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_qt6=true moc_qt6_path="%{_libdir}/qt6/libexec/"'
+%else
+CHROMIUM_BROWSER_GN_DEFINES+=' use_qt6=false'
 %endif
 
 CHROMIUM_BROWSER_GN_DEFINES+=' use_gio=true use_pulseaudio=true'
@@ -1265,7 +1279,7 @@ CHROMIUM_HEADLESS_GN_DEFINES+=' v8_use_external_startup_data=false enable_print_
 CHROMIUM_HEADLESS_GN_DEFINES+=' use_alsa=false use_bluez=false use_cups=false use_dbus=false use_gio=false use_kerberos=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' use_libpci=false use_pulseaudio=false use_udev=false rtc_use_pipewire=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' v8_enable_lazy_source_positions=false use_glib=false use_gtk=false use_pangocairo=false'
-CHROMIUM_HEADLESS_GN_DEFINES+=' use_qt=false is_component_build=false enable_ffmpeg_video_decoders=false media_use_ffmpeg=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' use_qt=false use_qt6=false is_component_build=false enable_ffmpeg_video_decoders=false media_use_ffmpeg=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' media_use_libvpx=false proprietary_codecs=false'
 export CHROMIUM_HEADLESS_GN_DEFINES
 
@@ -1423,6 +1437,10 @@ pushd %{builddir}
 
 	%if %{use_qt}
 		cp -a libqt5_shim.so %{buildroot}%{chromium_path}
+	%endif
+
+	%if %{use_qt6}
+		cp -a libqt6_shim.so %{buildroot}%{chromium_path}
 	%endif
 
 	%if %{build_clear_key_cdm}
@@ -1597,6 +1615,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %attr(4755, root, root) %{chromium_path}/chrome-sandbox
 %if %{use_qt}
 %{chromium_path}/libqt5_shim.so
+%endif
+%if %{use_qt6}
+%{chromium_path}/libqt6_shim.so
 %endif
 %{_mandir}/man1/%{chromium_browser_channel}.*
 %{_datadir}/icons/hicolor/*/apps/%{chromium_browser_channel}.png

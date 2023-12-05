@@ -1,20 +1,21 @@
 Name:    filelight
 Summary: Graphical disk usage statistics
 Epoch:   1
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
-URL:     http://utils.kde.org/projects/filelight
+URL:     https://utils.kde.org/projects/filelight
 
-Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Declarative)
 BuildRequires: cmake(KF6DocTools)
@@ -27,22 +28,13 @@ BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(Qt6Svg)
 
 # Runtime Deps
 Requires: kf6-qqc2-desktop-style
 Requires: kf6-kcoreaddons
-Requires: kf6-kirigami2
+Requires: kf6-kirigami
+Requires: kf6-kirigami-addons
 Requires: kf6-kquickcharts
-
-# when split occured
-Conflicts: kdeutils-common < 6:4.7.80
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
-
-Obsoletes: kdeutils-filelight < 6:4.7.80
-Provides:  kdeutils-filelight = 6:%{version}-%{release}
 
 
 %description
@@ -80,6 +72,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_sysconfdir}/xdg/filelightrc
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 1:24.01.80-1
+- 24.01.80
+
 * Tue Nov 21 2023 Steve Cossette <farchord@gmail.com> - 1:24.01.75-1
 - 24.01.75
 

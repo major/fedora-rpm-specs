@@ -1,7 +1,7 @@
 %global base_name elisa
 
 Name:       elisa-player
-Version:    24.01.75
+Version:    24.01.80
 Release:    %autorelease
 Summary:    Elisa music player
 
@@ -35,7 +35,7 @@ BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6QuickWidgets)
 BuildRequires:  qt6-qtbase-private-devel
 
-BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Kirigami)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6IconThemes)
@@ -54,7 +54,7 @@ BuildRequires:  cmake(KF6QQC2DesktopStyle)
 Requires:       hicolor-icon-theme
 Requires:       dbus-common
 # QML module dependencies
-Requires:       kf6-kirigami2%{?_isa}
+Requires:       kf6-kirigami%{?_isa}
 Requires:       kf6-qqc2-desktop-style%{?_isa}
 Requires:       qt6-qt5compat%{?_isa}
 

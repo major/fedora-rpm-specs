@@ -1,6 +1,6 @@
 Name:    plasma-vault
 Summary: Plasma Vault offers strong encryption features in a user-friendly way
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -11,18 +11,22 @@ Source0:        http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(KF6CoreAddons)
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6NetworkManagerQt)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KSysGuard)
 
+# Plasma
+
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(PlasmaActivities)
+
+# Qt
 BuildRequires:  cmake(Qt6Quick)
 
 ## Runtime backends
@@ -57,6 +61,9 @@ prying eyes even when the user is logged in.
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Tue Nov 14 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

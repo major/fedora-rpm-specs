@@ -4,7 +4,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.111.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for global shortcuts
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -37,9 +37,7 @@ BuildRequires:  libxcb-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%if %{with kf6_compat}
-Requires:       kglobalacceld
-%else
+%if %{without kf6_compat}
 Conflicts:      kglobalacceld
 %endif
 
@@ -111,6 +109,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-10
+- Don't require kglobalacceld
+
 * Mon Nov 20 2023 Steve Cossette <farchord@gmail.com> - 5.111.0-9
 - Preparation for Plasma 6
 

@@ -1,7 +1,7 @@
 Name:    libkscreen
 Summary: KDE display configuration library
-Version: 5.27.80
-Release: 3%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -79,6 +79,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/KF6Screen.pc
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-3
 - Rebuild (qt6)
 

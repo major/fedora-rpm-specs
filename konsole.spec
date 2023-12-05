@@ -2,8 +2,8 @@
 
 Name:    konsole
 Summary: KDE Terminal emulator
-Version: 24.01.75
-Release: 1%{?dist}
+Version: 24.01.80
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://www.kde.org/applications/system/konsole/
@@ -11,7 +11,7 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 
 ## upstreamable patches
 # https://invent.kde.org/utilities/konsole/-/merge_requests/928
-Patch0:  0001-Increase-KONSOLEPRIVATE-SOVERSION.patch
+Patch0:  library-versions.patch
 
 ## upstream patches
 
@@ -97,7 +97,7 @@ Summary: Konsole kpart plugin
 %install
 %cmake_install
 
-install -m644 -p -b -D %{SOURCE10} %{buildroot}%{_kf6_sysconfdir}/xdg/konsolerc
+install -m644 -p -D %{SOURCE10} %{buildroot}%{_kf6_sysconfdir}/xdg/konsolerc
 
 %find_lang konsole --with-html
 
@@ -112,7 +112,6 @@ xvfb-run -a bash -c "%ctest" || :
 %files -f konsole.lang
 %dir %{_kf6_datadir}/knsrcfiles/
 %doc README*
-%{_kf6_sysconfdir}/xdg/konsolerc~
 %{_kf6_bindir}/konsole
 %{_kf6_bindir}/konsoleprofile
 %{_kf6_datadir}/applications/org.kde.konsole.desktop
@@ -142,5 +141,11 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
+- Restore upstream config that defaults to hiding the menu bar
+
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Sat Nov 25 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
 - Re-import as Plasma 6 konsole

@@ -1,48 +1,47 @@
 Name:           alligator 
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 License:        GPLv2 or GPLv3
 Summary:        Kirigami-based RSS reader
-Url:            https://invent.kde.org/plasma-mobile/alligator
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Url:            https://invent.kde.org/network/alligator
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+# upstream validates with appstreamcli but not appstream-util
+Patch:          appstream-util-validate.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  appstream
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Sql)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Sql)
 
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Syndication)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Syndication)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KirigamiAddons)
 
 Requires:       hicolor-icon-theme
 # QML module dependencies
-Requires:       kf5-kirigami2%{?_isa}
-Requires:       kf5-kirigami2-addons%{?_isa}
-Requires:       qt5-qtquickcontrols2%{?_isa}
+Requires:       kf6-kirigami%{?_isa}
+Requires:       kf6-kirigami-addons%{?_isa}
 
 %description
 Alligator is a convergent RSS/Atom feed reader.
 
 %prep
-%autosetup -n alligator-%{version}
+%autosetup -n alligator-%{version} -p1
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -52,19 +51,22 @@ chmod -x %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
+appstream-util validate --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

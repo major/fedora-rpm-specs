@@ -1,6 +1,6 @@
 Name:    kcalc 
 Summary: Scientific Calculator 
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Fri Nov 24 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

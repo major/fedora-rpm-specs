@@ -1,7 +1,7 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        5.27.80
+Version:        5.90.0
 Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
@@ -34,9 +34,10 @@ BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6Svg)
+
+BuildRequires:  cmake(Plasma)
 
 Requires:       kf6-kuserfeedback
 
@@ -73,6 +74,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

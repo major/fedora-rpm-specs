@@ -1,5 +1,5 @@
 Name:    kinfocenter
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -21,7 +21,6 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6WindowSystem)
@@ -44,9 +43,6 @@ BuildRequires:  libraw1394-devel
 
 BuildRequires: cmake(KF6Kirigami2)
 Requires: kf6-kirigami2%{?_isa}
-
-# Optional
-BuildRequires:  cmake(KF6Wayland)
 
 # runtime query of usb.ids, oui.txt
 Requires: hwdata
@@ -108,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

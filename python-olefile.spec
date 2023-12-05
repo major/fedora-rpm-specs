@@ -1,6 +1,6 @@
 Name:           python-olefile
-Version:        0.46
-Release:        21%{?dist}
+Version:        0.47
+Release:        1%{?dist}
 Summary:        Python package to parse, read and write Microsoft OLE2 files
 
 %global         srcname         olefile
@@ -13,27 +13,12 @@ Outlook messages, StickyNotes, several Microscopy file formats, McAfee
 antivirus quarantine files, etc.
 }
 
-# Build with python3 package by default
-%bcond_without  python3
-
-# Build without python2 package for newer releases > fc32 and > rhel8
-# python2 package already released for rhel8
-# https://pagure.io/fesco/issue/2266
-%if (0%{?fedora} && 0%{?fedora} > 33 ) || ( 0%{?rhel} && 0%{?rhel} > 8 ) || 0%{?flatpak}
-%bcond_with     python2
-%else
-%bcond_without  python2
-%endif
-
-
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://www.decalage.info/olefile
-#               https://pypi.python.org/pypi/olefile/
-#               https://github.com/decalage2/olefile/releases
-Source0:        https://files.pythonhosted.org/packages/source/o/%{srcname}/%{srcname}-%{version}.zip
+Source0:        %{pypi_source olefile %version zip}
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  dos2unix
 BuildRequires:  /usr/bin/find
 
@@ -45,39 +30,20 @@ BuildArch:      noarch
 # Fedora >= 31 does not have python2-sphinx anymore.
 # There is python-sphinx in RHEL 7, but it's possibly too old.
 # Python26 sphinx works
-BuildRequires:  python%{python3_pkgversion}-sphinx
-BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 
 %description doc %{_description}
 This package contains documentation for %{name}.
 
 
-
-%if 0%{?with_python2}
-%package -n python2-%{srcname}
+%package -n python3-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-%{?python_provide:%python_provide python2-%{srcname}}
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
-%description -n python2-%{srcname} %{_description}
-Python2 version.
-%endif
-
-
-
-%if 0%{?with_python3}
-%package -n python%{python3_pkgversion}-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-#BuildRequires:  python%%{python3_pkgversion}-sphinx_rtd_theme
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-
-%description -n python%{python3_pkgversion}-%{srcname} %{_description}
+%description -n python3-%{srcname} %{_description}
 Python3 version.
-%endif
-
 
 
 %prep
@@ -89,63 +55,32 @@ dos2unix doc/*.rst
 
 
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-
-%if 0%{?with_python3}
 %py3_build
-%endif
-
 make -C doc html BUILDDIR=_doc_build SPHINXBUILD=sphinx-build-%{python3_version}
 
 
-
 %install
-%if 0%{?with_python2}
-%py2_install
-%endif
-
-%if 0%{?with_python3}
 %py3_install
-%endif
-
 
 
 %check
-# Tests got left out in the 0.44 source archive
-# https://github.com/decalage2/olefile/issues/56
-%if 0%{?with_python2}
-PYTHONPATH=%{buildroot}%{python2_sitelib} %{__python2} tests/test_olefile.py
-%endif
-
-%if 0%{?with_python3}
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/test_olefile.py
-%endif
 
 
 %files doc
 %doc doc/_doc_build/html
 
-
-%if 0%{?with_python2}
-%files -n python2-%{srcname}
-%doc README.md
-%license doc/License.rst
-%{python2_sitelib}/olefile-*.egg-info
-%{python2_sitelib}/olefile/
-%endif
-
-%if 0%{?with_python3}
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python3-%{srcname}
 %doc README.md
 %license doc/License.rst
 %{python3_sitelib}/olefile-*.egg-info
 %{python3_sitelib}/olefile/
-%endif
 
 
 %changelog
+* Sun Dec 03 2023 Sandro Mani <manisandro@gmail.com> - 0.47-1
+- Update to 0.47
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

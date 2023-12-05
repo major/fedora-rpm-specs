@@ -7,7 +7,7 @@
 Name:           libaccounts-qt
 Summary:        Accounts framework Qt bindings
 Version:        1.16^%{gitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPLv2
 URL:            https://gitlab.com/accounts-sso/libaccounts-qt
@@ -138,6 +138,9 @@ rm -fv %{buildroot}%{_bindir}/accountstest
 
 
 %changelog
+* Sun Dec 3 2023 Steve Cossette <farchord@gmail.com> - 1.16^20231010.211051.29fd38e-2
+- Rebuild for new qt version (Not sure if needed)
+
 * Mon Nov 20 2023 Steve Cossette <farchord@gmail.com> - 1.16^20231010.211051.29fd38e-1
 - Qt6 Build
 

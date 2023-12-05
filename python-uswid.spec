@@ -1,7 +1,7 @@
 %global srcname uswid
 
 Name:           python-%{srcname}
-Version:        0.4.5
+Version:        0.4.7
 Release:        %autorelease
 Summary:        Python module for working with Firmware SBoMs
 

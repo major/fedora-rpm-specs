@@ -1,6 +1,6 @@
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -27,7 +27,6 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  cmake(QCoro6)
 BuildRequires:  cmake(Qca-qt6)
 
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6Service)
@@ -43,6 +42,10 @@ BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6NetworkManagerQt)
 BuildRequires:  cmake(KF6ModemManagerQt)
 BuildRequires:  cmake(KF6Svg)
+
+# Plasma
+BuildRequires:  cmake(Plasma)
+
 # Runtime check
 BuildRequires:  cmake(KF6Prison)
 BuildRequires:  cmake(KF6Kirigami2)
@@ -278,6 +281,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

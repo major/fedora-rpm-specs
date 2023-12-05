@@ -1,5 +1,5 @@
 Name:          arianna
-Version:       24.01.75
+Version:       24.01.80
 Release:       1%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
@@ -25,7 +25,7 @@ BuildRequires: cmake(Qt6Svg)
 BuildRequires: cmake(Qt6Sql)
 BuildRequires: cmake(Qt6Xml)
 BuildRequires: cmake(Qt6HttpServer)
-BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: cmake(KF6Kirigami)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6CoreAddons)
@@ -44,8 +44,8 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 # QML module dependencies
-Requires: kf6-kirigami2%{?_isa}
-Requires: kf6-kirigami2-addons%{?_isa}
+Requires: kf6-kirigami%{?_isa}
+Requires: kf6-kirigami-addons%{?_isa}
 Requires: kf6-kitemmodels%{?_isa}
 Requires: kf6-kquickcharts%{?_isa}
 Requires: kf6-qqc2-desktop-style%{?_isa}
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ar
 %{_kf6_metainfodir}/org.kde.arianna.appdata.xml
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Nov 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.75-1
 - 24.01.75
 

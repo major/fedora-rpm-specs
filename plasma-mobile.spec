@@ -1,5 +1,5 @@
 Name:           plasma-mobile
-Version:        5.27.80
+Version:        5.90.0
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3 and MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
@@ -14,7 +14,6 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
 
-BuildRequires: cmake(KF6Activities)
 BuildRequires: cmake(KF6Auth)
 BuildRequires: cmake(KF6Bookmarks)
 BuildRequires: cmake(KF6Codecs)
@@ -34,11 +33,8 @@ BuildRequires: cmake(KF6NetworkManagerQt)
 BuildRequires: cmake(KF6Notifications)
 BuildRequires: cmake(KF6Package)
 BuildRequires: cmake(KF6People)
-BuildRequires: cmake(KF6Plasma)
-BuildRequires: cmake(KF6PlasmaQuick)
 BuildRequires: cmake(KF6Service)
 BuildRequires: cmake(KF6Solid)
-BuildRequires: cmake(KF6Wayland)
 BuildRequires: cmake(KF6WidgetsAddons)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6XmlGui)
@@ -51,6 +47,10 @@ BuildRequires: cmake(Qt6Sensors)
 BuildRequires: cmake(libkworkspace)
 BuildRequires: libepoxy-devel
 BuildRequires: wayland-devel
+
+BuildRequires: cmake(PlasmaActivities)
+BuildRequires: cmake(Plasma)
+BuildRequires: cmake(KWayland)
 
 Requires: kf6-bluez-qt
 Requires: kf6-kactivities
@@ -97,10 +97,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_networ
 %{_kf6_bindir}/plasma-mobile-envmanager
 %{_kf6_bindir}/plasma-mobile-initial-start
 %{_kf6_datadir}/plasma/quicksettings
-%{_kf6_datadir}/plasma/shells/org.kde.plasma.phoneshell
 %{_kf6_datadir}/wayland-sessions/plasma-mobile.desktop
-
-#%{_kf6_metainfodir}/org.kde.plasma.phone*
+%{_kf6_datadir}/plasma/shells/org.kde.plasma.mobileshell
 %{_kf6_metainfodir}/org.kde.plasma.*
 %{_kf6_metainfodir}/org.kde.breeze.*
 %{_kf6_datadir}/plasma/look-and-feel/org.kde.breeze.mobile
@@ -130,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_networ
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_cellular_network.so
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Fri Nov 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

@@ -2,7 +2,7 @@
 
 Name:    plasma-%{base_name}
 Summary: KDE System Settings application
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -27,7 +27,6 @@ BuildRequires: cmake(KF6XmlGui)
 BuildRequires: cmake(KF6DBusAddons)
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6Activities)
 BuildRequires: cmake(KF6ItemModels)
 BuildRequires: cmake(KF6GuiAddons)
 BuildRequires: cmake(KF6Runner)
@@ -36,6 +35,8 @@ BuildRequires: cmake(Qt6Qml)
 BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6QuickWidgets)
 BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: cmake(PlasmaActivities)
 
 BuildRequires: cmake(KF6Kirigami2)
 BuildRequires: plasma-workspace-devel
@@ -90,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/systemsettings.deskto
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

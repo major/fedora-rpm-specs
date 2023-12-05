@@ -1,7 +1,7 @@
 %global kf6_min_version 5.240.0
 
 Name:           kalk
-Version:        24.01.75
+Version:        24.01.80
 Release:        1%{?dist}
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later
 Summary:        %{name} is a convergent calculator for Plasma.
@@ -13,10 +13,6 @@ BuildRequires: cmake
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
 
-BuildRequires: bison
-BuildRequires: flex
-BuildRequires: mpfr-devel
-
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
@@ -24,16 +20,24 @@ BuildRequires: cmake(KF6Config) >= %{kf6_min_version}
 BuildRequires: cmake(KF6I18n) >= %{kf6_min_version}
 BuildRequires: cmake(KF6CoreAddons) >= %{kf6_min_version}
 BuildRequires: cmake(KF6UnitConversion) >= %{kf6_min_version}
-BuildRequires: cmake(KF6Kirigami2) >= %{kf6_min_version}
+BuildRequires: cmake(KF6Kirigami) >= %{kf6_min_version}
 
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: pkgconfig(libqalculate) > 4.7.0
 
 # QML module dependencies
-Requires:  kf6-kirigami2%{?_isa}
+Requires:  kf6-kcoreaddons%{?_isa}
+Requires:  kf6-kirigami%{?_isa}
+Requires:  kf6-kirigami-addons%{?_isa}
 Requires:  kf6-qqc2-desktop-style%{?_isa}
 Requires:  kf6-sonnet%{?_isa}
+Requires:  qt6-qt5compat%{?_isa}
 
 %description
 %{summary}.
@@ -64,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
 - Update to 24.01.75
 

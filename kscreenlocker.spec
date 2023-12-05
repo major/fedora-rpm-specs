@@ -1,6 +1,6 @@
 Name:    kscreenlocker
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -30,7 +30,6 @@ BuildRequires:  cmake(KF6IdleTime)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6PlasmaQuick)
 BuildRequires:  cmake(KF6Screen)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6Svg)
@@ -40,6 +39,9 @@ BuildRequires:  libX11-devel
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  wayland-devel
 BuildRequires:  pkgconfig(xi)
+
+# Plasma
+BuildRequires:  cmake(PlasmaQuick)
 
 BuildRequires:  libXcursor-devel
 BuildRequires:  pam-devel
@@ -91,6 +93,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
 - Rebuild (qt6)
 

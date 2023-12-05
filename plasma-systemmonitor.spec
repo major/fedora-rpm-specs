@@ -1,6 +1,6 @@
 Name:    plasma-systemmonitor
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 Summary: An application for monitoring system resources
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -66,6 +66,9 @@ resources.
 %{_libdir}/libPlasmaSystemMonitorTable.so
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-2
 - Fix Plasma 6 runtime requirements
 

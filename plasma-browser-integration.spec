@@ -1,6 +1,6 @@
 Name:    plasma-browser-integration
 Summary: %{name} provides components necessary to integrate browsers into the Plasma Desktop
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
@@ -20,7 +20,6 @@ BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6FileMetaData)
 BuildRequires:  cmake(KF6KIO)
@@ -33,6 +32,8 @@ BuildRequires:  cmake(KF6Purpose)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6StatusNotifierItem)
+
+BuildRequires:  cmake(PlasmaActivities)
 
 BuildRequires:  plasma-workspace-devel >= %{version}
 
@@ -75,6 +76,9 @@ https://community.kde.org/Plasma/Browser_Integration
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Fri Nov 24 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

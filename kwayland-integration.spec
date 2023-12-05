@@ -1,12 +1,12 @@
 Name:    kwayland-integration
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 Summary: Provides integration plugins for various KDE Frameworks for Wayland
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only AND LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
-Source0: https://download.kde.org/%{stable_kf5}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtbase-static
@@ -15,6 +15,7 @@ BuildRequires:  qt5-qtwayland-devel
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 
 BuildRequires:  kf5-kidletime-devel
 BuildRequires:  kf5-kwindowsystem-devel
@@ -51,6 +52,9 @@ Requires:       kf5-filesystem
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

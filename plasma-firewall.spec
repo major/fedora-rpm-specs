@@ -7,7 +7,7 @@
 %endif
 
 Name:    plasma-firewall
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -26,7 +26,6 @@ BuildRequires: cmake(KF6KCMUtils)
 BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(KF6Declarative)
 BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6Plasma)
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -121,6 +120,9 @@ rm -rfv %{buildroot}%{_kf6_libexecdir}/kauth/kde_ufw_plugin_helper
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

@@ -1,18 +1,14 @@
-%global base_name kio-extras-kf6
-
 Name:    kio-extras
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
 URL:     https://invent.kde.org/network/kio-extras
 
-Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstramable patches
-# It tries to find a higher version than exists
-Patch0:  find-kactivities-stats.patch
 
 ## upstream patches
 
@@ -28,8 +24,6 @@ BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(QCoro6)
-BuildRequires:  cmake(KF6Activities)
-BuildRequires:  cmake(KF6ActivitiesStats)
 BuildRequires:  cmake(KF6Archive)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6ConfigWidgets)
@@ -44,6 +38,9 @@ BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
 BuildRequires:  cmake(KF6TextWidgets)
+
+BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  cmake(PlasmaActivitiesStats)
 
 BuildRequires:  cmake(KDSoap) >= 1.9
 BuildRequires:  cmake(KDSoapWSDiscoveryClient)
@@ -82,7 +79,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{base_name}-%{version} -p1
+%autosetup -p1
 
 
 %build
@@ -138,6 +135,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Tue Nov 14 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
 - 24.01.75
 - Targets KF6

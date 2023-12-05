@@ -47,6 +47,7 @@ between QWidget-based and QML-based apps.
 %{_kf6_libdir}/cmake/KF6QQC2DesktopStyle/
 %{_qt6_qmldir}/org/kde/desktop/
 %{_qt6_qmldir}/org/kde/qqc2desktopstyle/
+%{_kf6_plugindir}/kirigami/platform/org.kde.desktop.so
 
 %changelog
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1

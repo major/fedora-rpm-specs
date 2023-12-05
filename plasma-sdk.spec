@@ -1,5 +1,5 @@
 Name:    plasma-sdk
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -28,7 +28,6 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6NewStuff)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
 BuildRequires:  cmake(KF6TextEditor)
@@ -37,6 +36,8 @@ BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6Plasma5Support)
+
+BuildRequires:  cmake(Plasma)
 
 # Desktop file verification, and appstream validation
 BuildRequires:  desktop-file-utils
@@ -104,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_mandir}/man1/kqml.1.gz
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

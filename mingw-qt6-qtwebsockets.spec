@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.6.0
+Version:        6.6.1
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebsockets component
 
@@ -130,6 +130,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Sun Dec 03 2023 Sandro Mani <manisandro@gmail.com> - 6.6.1-1
+- Update to 6.6.1
+
 * Wed Oct 18 2023 Sandro Mani <manisandro@gmail.com> - 6.6.0-1
 - Update to 6.6.0
 

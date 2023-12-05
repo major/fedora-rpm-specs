@@ -1,3 +1,6 @@
+#FATAILITY 
+%global debug_package %{nil}
+
 # RPM conditionals so as to be able to dynamically produce
 # slowdebug/release builds. See:
 # http://rpm.org/user_doc/conditional_builds.html
@@ -324,7 +327,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      3
+%global rpmrelease      4
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -1425,6 +1428,8 @@ Source19: README.md
 Source20: repackReproduciblePolycies.sh
 
 BuildRequires: %{portable_name}-sources >= %{portable_version}
+BuildRequires: %{portable_name}-misc >= %{portable_version}
+BuildRequires: %{portable_name}-docs >= %{portable_version}
 
 # JDK8 portable do not build static-libs-* so that portion is skipped here too
 %if %{include_normal_build}
@@ -1838,7 +1843,6 @@ cp -r tapset tapset%{debug_suffix}
 cp -r tapset tapset%{fastdebug_suffix}
 %endif
 
-
 for suffix in %{build_loop} ; do
   for file in "tapset"$suffix/*.in; do
     OUTPUT_FILE=`echo $file | sed -e "s:\.stp\.in$:-%{version}-%{release}.%{_arch}.stp:g"`
@@ -2065,18 +2069,16 @@ mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
 
 cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
-#JDK11 specific, bianry file in sources
-#rm -vf "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/test/jdk/sun/management/jmxremote/bootstrap/solaris-sparcv9/launcher"
+#JDK8 specific, bianry file in sources
+rm -vf "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/*/test/jdk/sun/management/jmxremote/bootstrap/solaris-sparcv9/launcher"
 #JDK8 specific, binary file in sources
 find "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/" -type f -name "*.so" -exec rm -vf {} \;
 find "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/" -type f -executable
-#uncomment once sources are fixed
-#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/security/pkcs11/nss/lib/"
-#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/"
-#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/"
-#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/linux-i586/"
-#rm -vr "$RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/openjdk/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-amd64/"
-
+rm -vr $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/*/jdk/test/sun/security/pkcs11/nss/lib/
+rm -vr $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/*/jdk/test/sun/management/jmxremote/bootstrap/solaris-sparcv9/
+rm -vr $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/*/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-sparcv9/
+rm -vr $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/*/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/linux-i586/
+rm -vr $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/*/jdk/test/java/nio/channels/spi/SelectorProvider/inheritedChannel/lib/solaris-amd64/
 # Install the jdk
 pushd ${jdk_image}
 
@@ -2098,10 +2100,11 @@ pushd ${jdk_image}
   fi
 
 %if %{with_systemtap}
+
   # Install systemtap support files
   install -dm 755 $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset
-  # note, that uniquesuffix  is in BUILD dir in this case
-  cp -a $RPM_BUILD_DIR/tapset$suffix/*.stp $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
+  # note, that uniquesuffix  is in BUILD dir in this case; the {uniquesuffix} call was added once setup was added
+  cp -a $RPM_BUILD_DIR/%{uniquesuffix ""}/tapset$suffix/*.stp $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
   pushd  $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
    tapsetFiles=`ls *.stp`
   popd
@@ -2555,6 +2558,12 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Sep 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.8.0.392.b08-4
+- updated to jdk8u392+b08
+- adjsuted to use unstripped portables
+- temporarily manually turned off debuginfo
+- returned setup macro
+
 * Fri Sep 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.8.0.382.b05-3
 - Fix flatpak build by handling different installation prefixes of package dependencies
 

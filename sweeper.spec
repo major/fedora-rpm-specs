@@ -1,6 +1,6 @@
 Name:    sweeper
 Summary: Clean unwanted traces the user leaves on the system
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -12,7 +12,6 @@ BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
-BuildRequires: cmake(KF6ActivitiesStats)
 BuildRequires: cmake(KF6Bookmarks)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6Config)
@@ -23,6 +22,7 @@ BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6TextWidgets)
 BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(PlasmaActivitiesStats)
 
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.sw
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

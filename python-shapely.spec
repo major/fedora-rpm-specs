@@ -21,6 +21,9 @@ Source:         %{pypi_source shapely}
 #
 # Rebased on 2.0.2.
 Patch:          shapely-2.0.2-pr-1938.patch
+# Fix incompatible pointer type passed to GEOSPolygonize_r
+# https://github.com/shapely/shapely/pull/1945
+Patch:          %{url}/pull/1945.patch
 
 BuildRequires:  gcc
 BuildRequires:  geos-devel

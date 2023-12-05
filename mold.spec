@@ -4,7 +4,7 @@
 %endif
 
 Name:		mold
-Version:	2.3.3
+Version:	2.4.0
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -111,6 +111,9 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Sun Dec 03 2023 Christoph Erhardt <fedora@sicherha.de> - 2.4.0-1
+- Bump version to 2.4.0 (rhbz#2252444)
+
 * Tue Nov 14 2023 Christoph Erhardt <fedora@sicherha.de> - 2.3.3-1
 - Bump version to 2.3.3
 

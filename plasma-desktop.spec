@@ -5,8 +5,8 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 5.27.80
-Release: 5%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -14,9 +14,6 @@ URL:     https://invent.kde.org/plasma/%{name}
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
-# OpenQA uses this shortcut, but it broke in Plasma 6 alpha
-# https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/1876
-Patch0: desktop-settings-shortcut.patch
 
 ## downstream patches
 # default kickoff favorites: +konsole +apper
@@ -52,7 +49,6 @@ BuildRequires:  scim-devel
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KCMUtils)
@@ -83,15 +79,17 @@ BuildRequires:  kwin-devel
 BuildRequires:  plasma-breeze-qt6
 BuildRequires:  plasma-workspace-devel
 
+BuildRequires:  cmake(PlasmaActivities)
+BuildRequires:  cmake(PlasmaActivitiesStats)
+BuildRequires:  cmake(Plasma)
+
 # Optional
 %if 0%{?fedora}
 BuildRequires:  cmake(AppStreamQt)
 %endif
 #BuildRequires:  cmake(KAccounts) intltool
-BuildRequires:  cmake(KUserFeedbackQt6)
+BuildRequires:  cmake(KF6UserFeedback)
 BuildRequires:  PackageKit-Qt6-devel
-BuildRequires:  cmake(KF6Activities)
-BuildRequires:  cmake(KF6ActivitiesStats)
 BuildRequires:  libcanberra-devel
 BuildRequires:  boost-devel
 BuildRequires:  pulseaudio-libs-devel
@@ -258,7 +256,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_datadir}/kglobalaccel/org.kde.plasma.emojier.desktop
 %{_datadir}/qlogging-categories6/*.categories
 %{_kf6_datadir}/dbus-1/interfaces/org.kde.touchpad.xml
-%{_kf6_datadir}/kconf_update/*
 %{_kf6_datadir}/kcmkeys
 %{_kf6_datadir}/knsrcfiles/
 %{_kf6_datadir}/kcm_recentFiles/workspace/settings/qml/recentFiles/BlacklistApplicationView.qml
@@ -289,6 +286,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-5
 - Rebuild (qt6)
 

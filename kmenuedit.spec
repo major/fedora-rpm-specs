@@ -1,6 +1,6 @@
 Name:    kmenuedit
 Summary: KDE menu editor
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later
@@ -54,9 +54,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/kmenuedit.*
 %{_kf6_datadir}/qlogging-categories6/kmenuedit.categories
 %{_kf6_datadir}/metainfo/org.kde.kmenuedit.appdata.xml
-%{_libdir}/kconf_update_bin/kmenuedit_globalaccel
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sat Nov 18 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

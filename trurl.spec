@@ -1,5 +1,5 @@
 Name:           trurl
-Version:        0.8
+Version:        0.9
 Release:        %autorelease
 Summary:        Command line tool for URL parsing and manipulation
 

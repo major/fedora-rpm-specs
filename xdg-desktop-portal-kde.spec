@@ -1,7 +1,7 @@
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -36,11 +36,12 @@ BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6StatusNotifierItem)
-BuildRequires:  cmake(KF6Wayland)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
+
+# Plasma
+BuildRequires:  cmake(KWayland)
 
 Requires:       xdg-desktop-portal
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2240211
@@ -80,6 +81,9 @@ pieces of KDE infrastructure.
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
 - Rebuild (qt6)
 

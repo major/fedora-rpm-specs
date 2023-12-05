@@ -1,7 +1,7 @@
 %define         base_name milou
 
 Name:    plasma-%{base_name}
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
@@ -18,8 +18,13 @@ BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KF6Runner)
-BuildRequires:  cmake(KF6Plasma)
+BuildRequires:  cmake(KF6Svg)
+
+# Qt
 BuildRequires:  qt6-qtbase-devel
+
+# Plasma
+BuildRequires:  cmake(Plasma)
 
 Requires:       kf6-filesystem
 
@@ -52,6 +57,9 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Sun Nov 12 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - 5.27.80
 

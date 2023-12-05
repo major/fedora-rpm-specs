@@ -1,19 +1,16 @@
-%global base_name plasma-framework
-
 Name:    libplasma
-Version: 5.27.80
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
 # LicenseRef-QtCommercial is also in the licenses, but is being omitted as it is optional.
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND Qt-LGPL-exception-1.1
 URL:     https://invent.kde.org/plasma/plasma-framework
 
-Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6Archive)
 BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6Su)
@@ -31,6 +28,7 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6-qtsvg-devel
 
+# KDE Frameworks
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6CoreAddons)
@@ -48,10 +46,15 @@ BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(PlasmaWaylandProtocols)
+
+# Qt
 BuildRequires:  cmake(Qt6WaylandClient)
 
+# Plasma
+BuildRequires:  cmake(PlasmaActivities)
+
 BuildRequires:  wayland-devel
-BuildRequires:  kf6-kwayland-devel
+BuildRequires:  kwayland-devel
 
 Requires:       kf6-filesystem
 
@@ -76,7 +79,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{base_name}-%{version} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %cmake_kf6
@@ -95,12 +98,12 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %dir %{_kf6_qmldir}/org/kde/
 %dir %{_kf6_qmldir}/org/kde/private/
 %doc README.md
-%lang(lt) %{_datadir}/locale/lt/LC_SCRIPTS/libplasma6/
+#%%lang(lt) %{_datadir}/locale/lt/LC_SCRIPTS/libplasma6/
 %license LICENSES/*.txt
 %{_kf6_datadir}/plasma/
 %{_kf6_datadir}/qlogging-categories6/*plasma*
-%{_kf6_libdir}/libKF6Plasma.so.*
-%{_kf6_libdir}/libKF6PlasmaQuick.so.*
+%{_libdir}/libPlasma.so.*
+%{_libdir}/libPlasmaQuick.so.*
 %{_kf6_plugindir}/kirigami/
 %{_kf6_plugindir}/packagestructure
 %{_kf6_qmldir}/org/kde/plasma/
@@ -110,14 +113,17 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %files devel
 %dir %{_kf6_datadir}/kdevappwizard/
 %{_kf6_datadir}/kdevappwizard/templates/
-%{_kf6_includedir}/Plasma/
-%{_kf6_includedir}/PlasmaQuick/
-%{_kf6_libdir}/cmake/KF6Plasma/
-%{_kf6_libdir}/cmake/KF6PlasmaQuick/
-%{_kf6_libdir}/libKF6Plasma.so
-%{_kf6_libdir}/libKF6PlasmaQuick.so
+%{_includedir}/Plasma/
+%{_includedir}/PlasmaQuick/
+%{_libdir}/cmake/Plasma/
+%{_libdir}/cmake/PlasmaQuick/
+%{_libdir}/libPlasma.so
+%{_libdir}/libPlasmaQuick.so
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
 - Rebuild (qt6)
 

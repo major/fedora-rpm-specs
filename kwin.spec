@@ -2,8 +2,8 @@
 %bcond x11 0
 
 Name:    kwin
-Version: 5.27.80
-Release: 6%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -58,7 +58,6 @@ BuildRequires:  glib2-devel
 BuildRequires:  pipewire-devel
 
 # Wayland
-BuildRequires:  cmake(KF6Wayland)
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  libxkbcommon-devel >= 0.4
@@ -73,17 +72,16 @@ BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6Plasma)
-#BuildRequires:  cmake(KF6WidgetAddons)
+BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6NewStuff)
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6IdleTime)
@@ -98,6 +96,9 @@ BuildRequires:  plasma-breeze-devel
 BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:  cmake(KGlobalAccelD)
 BuildRequires:  libdisplay-info-devel
+
+BuildRequires:  cmake(KWayland)
+BuildRequires:  cmake(Plasma)
 
 ## Runtime deps
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -287,6 +288,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-6
 - Rebuild (qt6)
 

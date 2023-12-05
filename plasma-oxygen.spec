@@ -1,7 +1,7 @@
 %global         base_name oxygen
 
 Name:    plasma-%{base_name}
-Version: 5.27.80
+Version: 5.90.0
 Release: 2%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
@@ -153,6 +153,12 @@ popd
 
 
 %changelog
+* Sun Dec 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.90.0-2
+- Rebuild
+
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.80-2
 - Rebuild (qt6)
 

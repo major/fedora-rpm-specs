@@ -1,7 +1,7 @@
 %global orig_name org.kde.plasma.nano
 
 Name:    plasma-nano
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/plasma-nano
@@ -18,23 +18,27 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  desktop-file-utils
 
-
+# KDE Frameworks
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Notifications)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6Wayland)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KWinDBusInterface)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6Package)
 BuildRequires:  cmake(KF6CoreAddons)
+
+# Qt
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6Svg)
 
-Requires: kf6-plasma
-Requires: kf6-kwayland
+# Plasma
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(KWayland)
+
+Requires: libplasma
+Requires: kwayland
 Requires: kf6-kwindowsystem
 Requires: kf6-kservice
 Requires: kf6-kcoreaddons
@@ -72,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orig_nam
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Fri Nov 17 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        5.246.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -27,6 +27,7 @@ Requires:       qt6-qt5compat
 # Renamed from kf6-kirigami2
 Obsoletes:      kf6-kirigami2 < 5.246.0
 Provides:       kf6-kirigami2 = %{version}-%{release}
+Provides:       kf6-kirigami2%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}.
@@ -36,6 +37,7 @@ Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Obsoletes:      kf6-kirigami2-devel < 5.246.0
 Provides:       kf6-kirigami2-devel = %{version}-%{release}
+Provides:       kf6-kirigami2-devel%{?_isa} = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -76,6 +78,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 5.246.0-2
+- Add arch-ed provides
+
 * Thu Nov 30 2023 Alessandro Astone <ales.astone@gmail.com> - 5.246.0-1
 - 5.246.0
 - Renamed from kf6-kirigami2

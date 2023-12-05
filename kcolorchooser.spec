@@ -1,6 +1,6 @@
 Name:    kcolorchooser
 Summary: A color chooser 
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: BSD 
@@ -51,6 +51,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

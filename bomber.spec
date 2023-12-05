@@ -1,6 +1,6 @@
 Name:    bomber
 Summary: Arcade bombing game
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 # code LGPLv2+, docs GFDL
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Dec 04 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

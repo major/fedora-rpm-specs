@@ -1,15 +1,13 @@
 %global srcname gpxpy
 
 Name:           python-%{srcname}
-Version:        1.6.1
+Version:        1.6.2
 Release:        %autorelease
 Summary:        GPX file parser and GPS track manipulation library
 
 License:        Apache-2.0
 URL:            https://github.com/tkrajina/gpxpy
-Source0:        %pypi_source
-# https://github.com/tkrajina/gpxpy/pull/241
-Patch0001:      0001-Remove-call-to-deprecated-assertEquals.patch
+Source0:        %pypi_source %{srcname}
 
 BuildArch:      noarch
 

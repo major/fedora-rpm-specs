@@ -1,6 +1,6 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -17,7 +17,6 @@ BuildRequires:  cmake(Qt6WebEngineQuick)
 Obsoletes: kdeplasma-addons-libs < 5.0.0
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6ConfigWidgets)
@@ -28,7 +27,6 @@ BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6NewStuff)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6Service)
-BuildRequires:  cmake(KF6Plasma)
 BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Sonnet)
@@ -46,6 +44,9 @@ BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  libappstream-glib
 BuildRequires:  plasma-workspace-devel
 BuildRequires:  libksysguard-devel
+
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(PlasmaActivities)
 
 # for notes.svgz
 Requires:       kf6-plasma
@@ -122,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Fri Nov 17 2023 Steve Cossette <farchord@gmail.com> - 5.27.80-1
 - 5.27.80
 

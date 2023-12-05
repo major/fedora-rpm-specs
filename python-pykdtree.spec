@@ -1,7 +1,7 @@
 %global srcname pykdtree
 
 Name:           python-%{srcname}
-Version:        1.3.9
+Version:        1.3.10
 Release:        %autorelease
 Summary:        Fast kd-tree implementation with OpenMP-enabled queries
 

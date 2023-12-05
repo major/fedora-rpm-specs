@@ -1,5 +1,5 @@
 Name:           bfs
-Version:        3.0.2
+Version:        3.0.4
 Release:        %autorelease
 Summary:        A breadth-first version of the UNIX find command
 
@@ -13,6 +13,7 @@ BuildRequires:  pkgconfig(libacl)
 BuildRequires:  pkgconfig(libattr)
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(oniguruma)
+BuildRequires:  pkgconfig(liburing)
 # needed to run check
 BuildRequires:  acl
 

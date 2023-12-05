@@ -9,7 +9,7 @@
 
 Name:    konsole5
 Summary: KDE Terminal emulator
-Version: 23.08.2
+Version: 23.08.3
 Release: 1%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
@@ -117,7 +117,7 @@ Summary: Konsole5 kpart plugin
 %install
 %cmake_install
 
-install -m644 -p -b -D %{SOURCE10} %{buildroot}%{_kf5_sysconfdir}/xdg/konsolerc
+install -m644 -p -D %{SOURCE10} %{buildroot}%{_kf5_sysconfdir}/xdg/konsolerc
 
 %find_lang konsole --with-html
 
@@ -141,7 +141,8 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 %files -f konsole.lang
 %dir %{_kf5_datadir}/knsrcfiles/
 %doc README*
-%{_kf5_sysconfdir}/xdg/konsolerc~
+%config(noreplace) %{_kf5_sysconfdir}/xdg/konsolerc
+%{_kf5_datadir}/konsole/
 %{_kf5_bindir}/konsole
 %{_kf5_bindir}/konsoleprofile
 %{_kf5_datadir}/applications/org.kde.konsole.desktop
@@ -164,8 +165,6 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 %ldconfig_scriptlets part
 
 %files part
-%config(noreplace) %{_kf5_sysconfdir}/xdg/konsolerc
-%{_kf5_datadir}/konsole/
 %{_kf5_libdir}/libkonsoleapp.so.*
 %{_kf5_libdir}/libkonsoleprivate.so.*
 %{_kf5_qtplugindir}/konsolepart.so
@@ -174,6 +173,11 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.3-1
+- Update to 23.08.3
+- Restore upstream config that defaults to hiding the menu bar
+- Make konsole5-part co-installable with konsole-part from Plasma 6
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

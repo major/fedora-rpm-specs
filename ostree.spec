@@ -8,7 +8,7 @@
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
 Version: 2023.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
@@ -46,12 +46,16 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: /usr/bin/g-ir-scanner
 BuildRequires: dracut
 BuildRequires:  bison
+BuildRequires: pkgconfig(composefs)
 
 # Runtime requirements
 Requires: dracut
 Requires: /usr/bin/gpgv2
 Requires: systemd-units
 Requires: %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+# Strictly speaking, this is not a current hard requirement, but it will
+# be in the future.
+Requires: composefs
 
 %description
 libostree is a shared library designed primarily for
@@ -170,6 +174,10 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Sun Dec 03 2023 Colin Walters <walters@verbum.org> - 2023.7-3
+- Add a composefs requirement; this is not actually a requirement
+  right now, but will be in the near future, so let's prepare for it.
+
 * Fri Oct 20 2023 Colin Walters <walters@verbum.org> - 2023.7-2
 - https://github.com/ostreedev/ostree/releases/tag/v2023.7
 

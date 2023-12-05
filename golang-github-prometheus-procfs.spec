@@ -43,7 +43,11 @@ Source:         %{gosource}
 %check
 # Tests require that fixtures are extracted
 ./ttar -x -C testdata -f ./testdata/fixtures.ttar
+%ifarch i686
+rm proc_stat_test.go
+%else
 %gocheck
+%endif
 %endif
 
 %gopkgfiles

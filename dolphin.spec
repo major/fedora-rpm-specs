@@ -2,17 +2,12 @@
 
 Name:           dolphin
 Summary:        KDE File Manager
-Version:        24.01.75
-Release:        2%{?dist}
+Version:        24.01.80
+Release:        1%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/system/dolphin
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# https://invent.kde.org/system/dolphin/-/merge_requests/648
-Patch0:         port-away-from-kmoretools.patch
-# https://invent.kde.org/system/dolphin/-/merge_requests/660
-Patch1:         find-kactivities.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -21,7 +16,6 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6Baloo)
 BuildRequires:  cmake(KF6BalooWidgets)
 BuildRequires:  cmake(KF6Bookmarks)
@@ -42,8 +36,11 @@ BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Parts)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6UserFeedback)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
+
+BuildRequires:  cmake(PlasmaActivities)
 
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6Core)
@@ -52,7 +49,6 @@ BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  qt6-qtbase-private-devel
 
-BuildRequires:  cmake(KUserFeedbackQt6)
 BuildRequires:  cmake(packagekitqt6)
 BuildRequires:  cmake(Phonon4Qt6)
 
@@ -160,6 +156,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 24.01.75-2
 - Rebuild (qt6)
 

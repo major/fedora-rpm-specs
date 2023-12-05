@@ -5,7 +5,7 @@
 
 Name:           signon
 Version:        8.60^%{gitdate}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPLv2
@@ -154,6 +154,9 @@ mkdir -p %{buildroot}%{_libdir}/extensions/
 
 
 %changelog
+* Sun Nov 3 2023 Steve Cossette <farchord@gmail.com> - 8.60^20231015.171500.011bd15-2
+- Rebuild
+
 * Tue Nov 21 2023 Steve Cossette <farchord@gmail.com> - 8.60^20231015.171500.011bd15-1
 - Qt6 Build
 

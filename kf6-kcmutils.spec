@@ -21,7 +21,6 @@ BuildRequires:  cmake(KF6Package)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(KF6KIO)
-BuildRequires:  cmake(KF6Activities)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6ColorScheme)

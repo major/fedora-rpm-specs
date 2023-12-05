@@ -1,6 +1,6 @@
 Name:           angelfish
-Version:        24.01.75
-Release:        2%{?dist}
+Version:        24.01.80
+Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 License:        MIT and GPLv2+ and LGPLv2 and LGPLv2+
@@ -26,7 +26,7 @@ BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6I18n)
-BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Kirigami)
 BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Purpose)
@@ -48,8 +48,8 @@ BuildRequires:  qt6-qtbase-private-devel
 
 Requires:       hicolor-icon-theme
 # QML module dependencies
-Requires:       kf6-kirigami2%{?_isa} 
-Requires:       kf6-kirigami2-addons%{?_isa}
+Requires:       kf6-kirigami%{?_isa} 
+Requires:       kf6-kirigami-addons%{?_isa}
 Requires:       kf6-purpose%{?_isa}
 Requires:       kf6-qqc2-desktop-style%{?_isa}
 Requires:       qt6-qt5compat%{?_isa}
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 24.01.75-2
 - Rebuild (qt6)
 

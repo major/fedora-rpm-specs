@@ -1,6 +1,6 @@
 Name:    kfind
 Summary: KDE Find File Utility
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 # Documentation is GFDL, rest GPLv2+
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.75-1
 - 24.01.75
 

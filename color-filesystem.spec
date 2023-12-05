@@ -3,7 +3,7 @@ Version:        1
 Release:        31%{?dist}
 Summary:        Color filesystem layout
 
-License:        Public Domain
+License:        LicenseRef-Not-Copyrightable
 BuildArch:      noarch
 
 Requires:  filesystem

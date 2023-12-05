@@ -2,7 +2,7 @@
 
 Name:    plasma-print-manager
 Summary: Printer management for KDE
-Version: 5.27.80
+Version: 5.90.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -32,13 +32,14 @@ BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Kirigami2)
 BuildRequires: cmake(KF6KirigamiAddons)
 BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6Plasma)
 BuildRequires: cmake(KF6WidgetsAddons)
 BuildRequires: cmake(KF6WindowSystem)
 
 BuildRequires: qt6-qtbase-devel
 BuildRequires: cmake(Qt6Core5Compat)
 BuildRequires: cmake(Qt6Qml)
+
+BuildRequires: cmake(Plasma)
 
 BuildRequires: cups-devel >= 1.5.0
 # /usr/bin/smbspool (runtime dep, but checked-for at build-time)
@@ -115,6 +116,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 
 
 %changelog
+* Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
+- Update to 5.90.0
+
 * Mon Nov 13 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.80-1
 - Renamed from kde-print-manager
 - 5.27.80
