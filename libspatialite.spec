@@ -6,7 +6,7 @@
 
 Name:          libspatialite
 Version:       5.1.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Enables SQLite to support spatial data
 
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
@@ -27,7 +27,7 @@ BuildRequires: geos-devel >= 3.7.1
 BuildRequires: librttopo-devel
 BuildRequires: libxml2-devel
 BuildRequires: make
-BuildRequires: minizip-devel
+BuildRequires: minizip-ng-compat-devel
 BuildRequires: proj-devel >= 6.2.0
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel
@@ -179,6 +179,10 @@ make check  -C build_native %{?_smp_mflags} || :
 %endif
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 5.1.0-3
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Sun Sep 03 2023 Sandro Mani <manisandro@gmail.com> - 5.1.0-2
 - Rebuild (proj)
 

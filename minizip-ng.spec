@@ -1,6 +1,19 @@
+%bcond_without compat
+
+%global compat_soname libminizip.so.1
+
+# Compatible with the following minizip-compat version.
+%global minizip_ver 1.2.13
+# Obsoletes minizip versions less than.
+%global minizip_obsoletes 1.3
+# Old minizip-ng version before it was renamed to minizip-ng-compat
+%global minizip_ng_ver 3.0.7
+# Obsolete version of old minizip-ng
+%global minizip_ng_obsoletes 3.0.7-5
+
 Name:           minizip-ng
-Version:        3.0.7
-Release:        4%{?dist}
+Version:        3.0.10
+Release:        3%{?dist}
 Summary:        Minizip-ng contrib in zlib-ng with the latest bug fixes and advanced features
 
 License:        Zlib
@@ -16,10 +29,7 @@ BuildRequires: libzstd-devel
 BuildRequires: xz-devel
 BuildRequires: openssl-devel
 
-# This part is mandatory for the renaming process
-# It can be removed in Fedora 42
-Provides: minizip <= %{version}-%{release}
-Obsoletes: minizip < 3.0.3
+Patch0001: Fix-soname-version-in-compat-lib.patch
 
 %description
 Minizip-ng zlib-ng contribution that includes:
@@ -34,13 +44,51 @@ Summary:    Development files for %{name}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   zlib-devel
 
+%description devel
+Development files for %{name} library.
+
+%if %{with compat}
+
+%package       compat
+Summary:       Minizip implementation provided by %{name}
+Provides:      minizip = %{minizip_ver}
+Provides:      minizip-compat%{?_isa} = %{minizip_ver}
+Obsoletes:     minizip-compat < %{minizip_obsoletes}
+# We need to Provide and Obsolete the old minizip-ng package before it was rename to minizip-ng-compat
+Provides:      minizip-ng = %{minizip_ng_ver}
+Obsoletes:     minizip-ng < %{minizip_ng_obsoletes}
+
+# This part is mandatory for the renaming process
+# It can be removed in Fedora 42
+Provides: minizip <= %{version}-%{release}
+Obsoletes: minizip < 3.0.3
+
+%description   compat
+minizip-ng is a minizip replacement that provides optimizations for "next generation"
+systems.
+The %{name}-compat package contains the library that is API and binary
+compatible with minizip.
+
+%package       compat-devel
+Summary:       Development files for %{name}-compat
+Requires:      %{name}-compat%{?_isa} = %{version}-%{release}
+Provides:      minizip-compat-devel = %{minizip_ver}
+Provides:      minizip-compat-devel%{?_isa} = %{minizip_ver}
+Obsoletes:     minizip-compat-devel < %{minizip_obsoletes}
+# We need to Provide and Obsolete the old minizip-ng package before it was rename to minizip-ng-compat
+Provides:      minizip-ng-devel = %{minizip_ng_ver}
+Obsoletes:     minizip-ng-devel < %{minizip_ng_obsoletes}
+
 # This part is mandatory for the renaming process
 # It can be removed in Fedora 42
 Provides: minizip-devel <= %{version}-%{release}
 Obsoletes: minizip-devel < 3.0.3
 
-%description devel
-Development files for %{name} library.
+%description   compat-devel
+The %{name}-compat-devel package contains libraries and header files for
+developing application that use minizip.
+
+%endif
 
 
 %prep
@@ -48,28 +96,79 @@ Development files for %{name} library.
 
 
 %build
+
+cat <<_EOF_
+###########################################################################
+#
+# Build the default minizip-ng library
+#
+###########################################################################
+_EOF_
+
+%global __cmake_builddir %{_vpath_builddir}
+%cmake \
+  -DMZ_BUILD_TESTS:BOOL=ON \
+  -DSKIP_INSTALL_BINARIES:BOOL=ON \
+  -DCMAKE_INSTALL_INCLUDEDIR=include/minizip-ng \
+  -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+  -DMZ_FORCE_FETCH_LIBS:BOOL=OFF \
+  -DMZ_COMPAT:BOOL=OFF
+
+%cmake_build
+
+%if %{with compat}
+cat <<_EOF_
+###########################################################################
+#
+# Build the compat mode library
+#
+###########################################################################
+_EOF_
+
+%global __cmake_builddir %{_vpath_builddir}-compat
 %cmake \
   -DMZ_BUILD_TESTS:BOOL=ON \
   -DSKIP_INSTALL_BINARIES:BOOL=ON \
   -DCMAKE_INSTALL_INCLUDEDIR=include/minizip \
-  -DMZ_FORCE_FETCH_LIBS:BOOL=OFF
+  -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+  -DMZ_FORCE_FETCH_LIBS:BOOL=OFF \
+  -DMZ_COMPAT:BOOL=ON
 
 %cmake_build
-
+%endif
 
 %install
+%global __cmake_builddir %{_vpath_builddir}
 %cmake_install
+
+%if %{with compat}
+%global __cmake_builddir %{_vpath_builddir}-compat
+%cmake_install
+%endif
 
 
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libminizip.so.3
-%{_libdir}/libminizip.so.%{version}
-
+%{_libdir}/libminizip-ng.so.3
+%{_libdir}/libminizip-ng.so.3{,.*}
 
 
 %files devel
+%{_libdir}/libminizip-ng.so
+%{_libdir}/pkgconfig/minizip-ng.pc
+%{_libdir}/cmake/minizip-ng/
+%{_includedir}/minizip-ng/mz*.h
+
+
+# Compat files
+%if %{with compat}
+
+%files compat
+%{_libdir}/%{compat_soname}
+%{_libdir}/libminizip.so.3{,.*}
+
+%files compat-devel
 %{_libdir}/libminizip.so
 %{_libdir}/pkgconfig/minizip.pc
 %{_libdir}/cmake/minizip/
@@ -77,8 +176,17 @@ Development files for %{name} library.
 %{_includedir}/minizip/unzip.h
 %{_includedir}/minizip/zip.h
 
+%endif
+
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.10-3
+- Release bump
+
+* Tue Aug 29 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.10-1
+- Rebase to version 3.0.10
+- Build both compat and classic minizip-ng libraries
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

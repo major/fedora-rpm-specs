@@ -1,51 +1,43 @@
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global freerdp11 1
-%global freerdp_ver 1:1.1.0
-%else
-%global freerdp_ver 1:1.0.2
-%endif
-
 Name:    krdc
 Summary: Remote desktop client
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://invent.kde.org/network/krdc
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-kbookmarks-devel
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kcmutils-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdnssd-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-kwallet-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kxmlgui-devel
 BuildRequires: kf5-rpm-macros
 
-BuildRequires: freerdp >= %{freerdp_ver}
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(KF5Config)
+BuildRequires: cmake(KF5KCMUtils)
+BuildRequires: cmake(KF5DNSSD)
+BuildRequires: cmake(KF5NotifyConfig)
+BuildRequires: cmake(KF5Notifications)
+BuildRequires: cmake(KF5Bookmarks)
+BuildRequires: cmake(KF5IconThemes)
+BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF5Completion)
+BuildRequires: cmake(KF5Wallet)
+BuildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5KIO)
+#BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF5DocTools)
+
+BuildRequires: cmake(KF5Activities)
+BuildRequires: cmake(FreeRDP) >= 2.10
+BuildRequires: cmake(FreeRDP-Client) >= 2.10
+BuildRequires: cmake(WinPR)
+# winpr-makecert
+BuildRequires: freerdp
 BuildRequires: libvncserver-devel
 BuildRequires: pkgconfig(libssh)
 
@@ -53,18 +45,6 @@ BuildRequires: pkgconfig(libssh)
 BuildRequires: oxygen-icon-theme
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: freerdp >= %{freerdp_ver}
-%if ! 0%{?freerdp11}
-Requires: freerdp < 1:1.1.0
-%endif
-
-# when split occurred
-Conflicts: kdenetwork-common < 7:4.10.80
-Obsoletes: kdenetwork-krdc < 7:4.10.80
-Provides:  kdenetwork-krdc = 7:%{version}-%{release}
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
 
 %description
 %{summary}.
@@ -72,16 +52,12 @@ Conflicts: kde-l10n < 17.03
 %package libs
 Summary: Runtime libraries for %{name}
 Requires: %{name} = %{version}-%{release}
-Obsoletes: kdenetwork-krdc-libs < 7:4.10.80
-Provides:  kdenetwork-krdc-libs = 7:%{version}-%{release}
 %description libs
 %{summary}.
 
 %package devel
 Summary: Developer files for %{name}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Obsoletes: kdenetwork-krdc-devel < 7:4.10.80
-Provides:  kdenetwork-krdc-devel = 7:%{version}-%{release}
 %description devel
 %{summary}.
 
@@ -123,9 +99,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/krdc.*
 %{_kf5_datadir}/config.kcfg/krdc.kcfg
-%{_kf5_datadir}/kio/servicemenus/smb2rdc.desktop
-
-%ldconfig_scriptlets libs
 
 %files libs
 %{_kf5_libdir}/libkrdccore.so.5*
@@ -139,6 +112,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -15,7 +15,7 @@ BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc-c++
 BuildRequires:  libxml2-devel
-BuildRequires:  minizip-devel
+BuildRequires:  minizip-ng-compat-devel
 BuildRequires:  uriparser-devel
 BuildRequires:  zlib-devel
 

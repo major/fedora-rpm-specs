@@ -1,5 +1,5 @@
 Name:           python-geopy
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Geocoding library for Python
 

@@ -9,7 +9,7 @@
 #
 
 
-%global gh_commit    43653e6ad7adc22e7b667dd561bf8fcb74c10cf0
+%global gh_commit    05017b80304e0eb3f31d90194a563fd53a6021f1
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,7 +23,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.14
+%global upstream_version 9.6.15
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -257,6 +257,9 @@ exit $ret
 
 
 %changelog
+* Sat Dec  2 2023 Remi Collet <remi@remirepo.net> - 9.6.15-1
+- update to 9.6.15
+
 * Fri Dec  1 2023 Remi Collet <remi@remirepo.net> - 9.6.14-1
 - update to 9.6.14 (no change)
 

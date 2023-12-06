@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-parent
-Version:        61
-Release:        2%{?dist}
+Version:        65
+Release:        1%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
 URL:            https://commons.apache.org/commons-parent-pom.html
@@ -50,7 +50,7 @@ The Project Object Model files for the apache-commons packages.
 %pom_remove_dep org.junit:junit-bom
 
 # For now avoid moditect
-%pom_xpath_remove 'pom:profile[pom:id="moditect"]'
+%pom_remove_plugin :moditect-maven-plugin
 
 # Remove profiles for plugins that are useless in package builds
 for profile in animal-sniffer japicmp jacoco cobertura; do
@@ -68,6 +68,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 65-1
+- Update to upstream version 65
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 61-2
 - Rebuild
 

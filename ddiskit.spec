@@ -11,10 +11,10 @@ Version:        3.6
 
 %forgemeta
 
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Tool for Red Hat Enterprise Linux Driver Update Disk creation
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -71,6 +71,9 @@ find %{buildroot} -size 0 -delete
 %config(noreplace) /etc/ddiskit.config
 
 %changelog
+* Mon Dec 04 2023 Eugene Syromiatnikov <esyr@redhat.com> - 3.6-22
+- Migrated to SPDX license
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

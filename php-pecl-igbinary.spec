@@ -11,7 +11,7 @@
 %global with_zts   0%{?__ztsphp:1}
 %global ini_name   40-%{pecl_name}.ini
 
-%global upstream_version 3.2.14
+%global upstream_version 3.2.15
 #global upstream_prever  RC1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 %global _configure       ../%{sources}/configure
@@ -19,7 +19,7 @@
 Summary:        Replacement for the standard PHP serializer
 Name:           php-pecl-igbinary
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 License:        BSD-3-Clause
 
@@ -194,6 +194,9 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Dec  4 2023 Remi Collet <remi@remirepo.net> - 3.2.15-1
+- update to 3.2.15
+
 * Wed Oct  4 2023 Remi Collet <remi@remirepo.net> - 3.2.14-2
 - build out of sources tree
 

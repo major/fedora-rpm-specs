@@ -5,9 +5,11 @@
 overpy is a wrapper written in Python to access the Overpass API.}
 
 Name:           python-%{pretty_name}
-Version:        0.6
-Release:        9%{?dist}
+Version:        0.7
+Release:        2%{?dist}
 Summary:        Python Wrapper to access the Overpass API
+
+# SPDX
 License:        MIT
 URL:            https://github.com/DinoTools/python-overpy
 Source0:        %{url}/archive/%{version}/%{github_name}-%{version}.tar.gz
@@ -24,8 +26,6 @@ BuildRequires:  python3-setuptools
 
 #for tests
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-hypothesis
 
 #for docs
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html/
 
 %changelog
+* Mon Dec 4 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.7-1
+- Update to 0.7
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

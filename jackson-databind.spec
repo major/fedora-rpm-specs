@@ -1,6 +1,6 @@
 Name:           jackson-databind
 Version:        2.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
 
@@ -44,6 +44,7 @@ sed -i 's/\r//' LICENSE NOTICE
 %pom_remove_dep javax.measure:jsr-275
 rm src/test/java/com/fasterxml/jackson/databind/introspect/NoClassDefFoundWorkaroundTest.java
 %pom_xpath_remove pom:classpathDependencyExcludes
+%pom_xpath_remove '//pom:compilerArgs/pom:arg[contains(text(),"enable-preview")]'
 
 # TestTypeFactoryWithClassLoader fails to compile
 # - it's the only test that uses powermock, so drop the powermock dependencies
@@ -68,6 +69,9 @@ rm src/test/java/com/fasterxml/jackson/databind/TestJDKSerialization.java
 %license LICENSE NOTICE
 
 %changelog
+* Mon Dec 04 2023 Marco Fargetta <mfargett@redhat.com> - 2.16.0-2
+- Fix pom file to work with java 11
+
 * Wed Nov 22 2023 Chris Kelley <ckelley@redhat.com> - 2.16.0-1
 - [maven-release-plugin] prepare release jackson-databind-2.16.0 (Tatu Saloranta)
 - Prepare for 2.16.0 release (Tatu Saloranta)

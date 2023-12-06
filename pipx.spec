@@ -1,11 +1,13 @@
 Name:           pipx
-Version:        1.2.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
 # SPDX
 License:        MIT
 URL:            https://pypa.github.io/pipx
+# We need to use the GitHub source archive instead of the PyPI sdist in order
+# to get the script to generate the man page.
 %global forgeurl https://github.com/pypa/pipx
 Source:         %{forgeurl}/archive/%{version}/pipx-%{version}.tar.gz
 
@@ -45,13 +47,16 @@ applications.
 %generate_buildrequires
 # We do not run the tests; but we add the runtime requirements as BR’s anyway
 # so that the build will fail if some are not available in the distribution.
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 # Generate shell completions. “pipx completions” says:
+#
 # Add the appropriate command to your shell's config file
 # so that it is run on startup. You will likely have to restart
 # or re-login for the autocompletion to start working.
@@ -74,7 +79,8 @@ applications.
 #     eval `register-python-argcomplete --shell tcsh pipx`
 #
 # fish:
-#     register-python-argcomplete --shell fish pipx | source
+#     # Not required to be in the config file, only run once
+#     register-python-argcomplete --shell fish pipx >~/.config/fish/completions/pipx.fish
 for sh in bash tcsh fish
 do
   # We don’t need to be able to import pipx for this command to work.

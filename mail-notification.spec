@@ -5,7 +5,7 @@
 
 Name:           mail-notification
 Version:        5.4
-Release:        107.git.%{git_revision}%{?dist}
+Release:        108.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
 License:        GPL-3.0-or-later
@@ -39,6 +39,9 @@ Patch4:         mail-notification-eds3_23_2.patch
 Patch5:		mail-notification-gstreamer1.patch
 
 Patch6:		mail-notification-jb-c99.patch
+Patch7:		0001-incompatible-pointer-types.patch
+Patch8:		0002-maybe-uninitialized.patch
+Patch9:		0003-libxml2.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -106,6 +109,9 @@ Evolution support for Mail Notification.
 %patch4 -p1 -b .eds3_23_2
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1 -b .incompatible-pointer-types
+%patch8 -p1 -b .maybe-uninitialized
+%patch9 -p1 -b .libxml2
 
 # update config.{guess,sub} manually
 cp -p /usr/lib/rpm/redhat/config.{guess,sub} jbsrc/tools/
@@ -126,8 +132,8 @@ popd
 
 ./jb configure \
   cc="%{__cc}" \
-  cflags="$RPM_OPT_FLAGS" \
-  cppflags="-D_GNU_SOURCE" \
+  cflags="$RPM_OPT_FLAGS -Wno-deprecated-declarations" \
+  cppflags="-D_GNU_SOURCE -Wno-deprecated-declarations" \
   ldflags="$RPM_LD_FLAGS" \
   destdir=$RPM_BUILD_ROOT \
   prefix=%{_prefix} \
@@ -223,6 +229,10 @@ desktop-file-install \
 
 
 %changelog
+* Mon Dec 04 2023 Milan Crha <mcrha@redhat.com> 5.4-108.git.9ae8768
+- Add patches to fix "incompatible-pointer-types" and "maybe-uninitialized" compiler warnings
+- Add patch to adapt to libxml2 changes
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-107.git.9ae8768
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

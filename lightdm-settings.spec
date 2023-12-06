@@ -1,5 +1,5 @@
 Name:		lightdm-settings
-Version:	2.0.0
+Version:	2.0.1
 Release:	1%{?dist}
 Summary:	Configuration tool for the LightDM display manager
 
@@ -59,6 +59,9 @@ This tool currently lets users configure slick-greeter.
 
 
 %changelog
+* Mon Dec 04 2023 Leigh Scott <leigh123linux@gmail.com> - 2.0.1-1
+- Update to 2.0.1 release
+
 * Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 2.0.0-1
 - Update to 2.0.0 release
 

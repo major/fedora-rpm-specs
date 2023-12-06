@@ -54,14 +54,14 @@ ExclusiveArch:  x86_64
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools %{nil}
+%global patches_touch_autotools 1
 
 # The source directory.
 %global source_directory 1.37-development
 
 Name:           nbdkit
 Version:        1.37.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -91,6 +91,9 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
+
+# Upstream fix for GCC 14
+Patch:          0001-configure-Fix-initialization-from-incompatible-point.patch
 
 BuildRequires: make
 %if 0%{patches_touch_autotools}
@@ -1326,6 +1329,9 @@ fi
 
 
 %changelog
+* Mon Dec 04 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.3-2
+- Add upstream fix for GCC 14
+
 * Sun Nov 26 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.3-1
 - New upstream development version 1.37.3
 

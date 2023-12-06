@@ -59,7 +59,7 @@ BuildRequires:  libdc1394-devel
 %endif
 BuildRequires:  libgeotiff-devel
 BuildRequires:  libjpeg-turbo-devel
-BuildRequires:  minizip-devel
+BuildRequires:  minizip-ng-compat-devel
 # Does not build with latest version
 # https://github.com/vxl/vxl/issues/627
 # BuildRequires:  openjpeg2-devel

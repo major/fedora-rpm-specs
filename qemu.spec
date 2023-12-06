@@ -160,6 +160,13 @@
 %define have_libcacard 0
 %endif
 
+%define have_rutabaga_gfx 0
+%if 0%{?fedora} >= 40
+%ifarch x86_64 aarch64
+%define have_rutabaga_gfx 1
+%endif
+%endif
+
 # LTO still has issues with qemu on armv7hl and aarch64
 # https://bugzilla.redhat.com/show_bug.cgi?id=1952483
 %global _lto_cflags %{nil}
@@ -240,6 +247,16 @@
 %define requires_device_display_virtio_gpu_pci_gl %{nil}
 %endif
 
+%if %{have_rutabaga_gfx}
+%define requires_device_display_virtio_gpu_rutabaga Requires: %{name}-device-display-virtio-gpu-rutabaga = %{evr}
+%define requires_device_display_virtio_gpu_pci_rutabaga Requires: %{name}-device-display-virtio-gpu-pci-rutabaga = %{evr}
+%define requires_device_display_virtio_vga_rutabaga Requires: %{name}-device-display-virtio-vga-rutabaga = %{evr}
+%else
+%define requires_device_display_virtio_gpu_rutabaga %{nil}
+%define requires_device_display_virtio_gpu_pci_rutabaga %{nil}
+%define requires_device_display_virtio_vga_rutabaga %{nil}
+%endif
+
 %if %{have_jack}
 %define jack_drv jack,
 %define requires_audio_jack Requires: %{name}-audio-jack = %{evr}
@@ -306,10 +323,13 @@
 %{requires_device_display_virtio_gpu} \
 %{requires_device_display_virtio_gpu_ccw} \
 %{requires_device_display_virtio_gpu_gl} \
+%{requires_device_display_virtio_gpu_rutabaga} \
 %{requires_device_display_virtio_gpu_pci} \
 %{requires_device_display_virtio_gpu_pci_gl} \
+%{requires_device_display_virtio_gpu_pci_rutabaga} \
 %{requires_device_display_virtio_vga} \
 %{requires_device_display_virtio_vga_gl} \
+%{requires_device_display_virtio_vga_rutabaga} \
 %{requires_device_usb_host} \
 %{requires_device_usb_redirect} \
 %{requires_device_usb_smartcard} \
@@ -330,18 +350,18 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 # Release candidate version tracking
-# global rcver rc4
+%global rcver rc2
 %if 0%{?rcver:1}
 %global rcrel .%{rcver}
 %global rcstr -%{rcver}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 3
+%global baserelease 0.1
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 8.1.2
+Version: 8.2.0
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-3.0
@@ -517,7 +537,16 @@ BuildRequires: SDL2_image-devel
 # Used by vnc-display-test
 BuildRequires: pkgconfig(gvnc-1.0)
 %endif
+# Used by pipewire audio backend
 BuildRequires: pipewire-devel
+# Used by cryptodev-backend-lkcf
+BuildRequires: keyutils-libs-devel
+# Used by net AF_XDP
+BuildRequires: libxdp-devel
+# used by virtio-gpu-rutabaga
+%if %{have_rutabaga_gfx}
+BuildRequires: rutabaga-gfx-ffi-devel
+%endif
 
 %if %{user_static}
 BuildRequires: glibc-static glib2-static zlib-static
@@ -835,6 +864,14 @@ Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 This package provides the virtio-gpu-gl display device for QEMU.
 %endif
 
+%if %{have_rutabaga_gfx}
+%package device-display-virtio-gpu-rutabaga
+Summary: QEMU virtio-gpu-rutabaga display device
+Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
+%description device-display-virtio-gpu-rutabaga
+This package provides the virtio-gpu-rutabaga display device for QEMU.
+%endif
+
 %package device-display-virtio-gpu-pci
 Summary: QEMU virtio-gpu-pci display device
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
@@ -847,6 +884,14 @@ Summary: QEMU virtio-gpu-pci-gl display device
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description device-display-virtio-gpu-pci-gl
 This package provides the virtio-gpu-pci-gl display device for QEMU.
+%endif
+
+%if %{have_rutabaga_gfx}
+%package device-display-virtio-gpu-pci-rutabaga
+Summary: QEMU virtio-gpu-pci-rutabaga display device
+Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
+%description device-display-virtio-gpu-pci-rutabaga
+This package provides the virtio-gpu-pci-rutabaga display device for QEMU.
 %endif
 
 %package device-display-virtio-gpu-ccw
@@ -866,6 +911,15 @@ Summary: QEMU virtio-vga-gl display device
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description device-display-virtio-vga-gl
 This package provides the virtio-vga-gl display device for QEMU.
+
+%if %{have_rutabaga_gfx}
+%package device-display-virtio-vga-rutabaga
+Summary: QEMU virtio-vga-rutabaga display device
+Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
+%description device-display-virtio-vga-rutabaga
+This package provides the virtio-vga-rutabaga display device for QEMU.
+%endif
+
 
 %package device-usb-host
 Summary: QEMU usb host device
@@ -1451,6 +1505,7 @@ mkdir -p %{static_builddir}
 %build
 %define disable_everything         \\\
   --audio-drv-list=                \\\
+  --disable-af-xdp                 \\\
   --disable-alsa                   \\\
   --disable-attr                   \\\
   --disable-auth-pam               \\\
@@ -1497,7 +1552,7 @@ mkdir -p %{static_builddir}
   --disable-gtk-clipboard          \\\
   --disable-guest-agent            \\\
   --disable-guest-agent-msi        \\\
-  --disable-hax                    \\\
+  --disable-hv-balloon             \\\
   --disable-hvf                    \\\
   --disable-iconv                  \\\
   --disable-jack                   \\\
@@ -1505,6 +1560,7 @@ mkdir -p %{static_builddir}
   --disable-l2tpv3                 \\\
   --disable-libdaxctl              \\\
   --disable-libdw                  \\\
+  --disable-libkeyutils            \\\
   --disable-libiscsi               \\\
   --disable-libnfs                 \\\
   --disable-libpmem                \\\
@@ -1534,13 +1590,17 @@ mkdir -p %{static_builddir}
   --disable-parallels              \\\
   --disable-pie                    \\\
   --disable-pipewire               \\\
+  --disable-pixman                 \\\
+  --disable-plugins                \\\
   --disable-pvrdma                 \\\
   --disable-qcow1                  \\\
   --disable-qed                    \\\
   --disable-qom-cast-debug         \\\
   --disable-rbd                    \\\
   --disable-rdma                   \\\
+  --disable-relocatable            \\\
   --disable-replication            \\\
+  --disable-rutabaga-gfx           \\\
   --disable-rng-none               \\\
   --disable-safe-stack             \\\
   --disable-sanitizers             \\\
@@ -1639,6 +1699,7 @@ run_configure \
 %if %{defined block_drivers_ro_list}
   --block-drv-ro-whitelist=%{block_drivers_ro_list} \
 %endif
+  --enable-af-xdp \
   --enable-alsa \
   --enable-attr \
 %ifarch %{ix86} x86_64
@@ -1696,9 +1757,11 @@ run_configure \
   --enable-pa \
   --enable-pie \
   --enable-pipewire \
+  --enable-pixman \
 %if %{have_block_rbd}
   --enable-rbd \
 %endif
+  --enable-relocatable \
 %if %{have_librdma}
   --enable-rdma \
 %endif
@@ -1744,8 +1807,10 @@ run_configure \
   --enable-glusterfs \
 %endif
   --enable-gtk \
+  --enable-hv-balloon \
   --enable-libdaxctl \
   --enable-libdw \
+  --enable-libkeyutils \
 %if %{have_block_nfs}
   --enable-libnfs \
 %endif
@@ -1763,6 +1828,9 @@ run_configure \
   --enable-qed \
   --enable-qom-cast-debug \
   --enable-replication \
+%if %{have_rutabaga_gfx}
+  --enable-rutabaga-gfx \
+%endif
   --enable-sdl \
 %if %{have_sdl_image}
   --enable-sdl-image \
@@ -2341,11 +2409,19 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %files device-display-virtio-gpu-gl
 %{_libdir}/%{name}/hw-display-virtio-gpu-gl.so
 %endif
+%if %{have_rutabaga_gfx}
+%files device-display-virtio-gpu-rutabaga
+%{_libdir}/%{name}/hw-display-virtio-gpu-rutabaga.so
+%endif
 %files device-display-virtio-gpu-pci
 %{_libdir}/%{name}/hw-display-virtio-gpu-pci.so
 %if %{have_virgl}
 %files device-display-virtio-gpu-pci-gl
 %{_libdir}/%{name}/hw-display-virtio-gpu-pci-gl.so
+%endif
+%if %{have_rutabaga_gfx}
+%files device-display-virtio-gpu-pci-rutabaga
+%{_libdir}/%{name}/hw-display-virtio-gpu-pci-rutabaga.so
 %endif
 %files device-display-virtio-gpu-ccw
 %{_libdir}/%{name}/hw-s390x-virtio-gpu-ccw.so
@@ -2353,6 +2429,10 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_libdir}/%{name}/hw-display-virtio-vga.so
 %files device-display-virtio-vga-gl
 %{_libdir}/%{name}/hw-display-virtio-vga-gl.so
+%if %{have_rutabaga_gfx}
+%files device-display-virtio-vga-rutabaga
+%{_libdir}/%{name}/hw-display-virtio-vga-rutabaga.so
+%endif
 %files device-usb-host
 %{_libdir}/%{name}/hw-usb-host.so
 %files device-usb-redirect
@@ -3042,6 +3122,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Sat Dec 02 2023 Cole Robinson <crobinso@redhat.com> - 8.2.0-0.1-rc2
+- Rebase to qemu 8.2.0-rc2
+
 * Wed Nov 29 2023 Richard W.M. Jones <rjones@redhat.com> - 2:8.1.2-3
 - Bump and rebuild for xen 4.18.0
 

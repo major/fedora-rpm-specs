@@ -1,6 +1,6 @@
 Name:           libxlsxwriter
 Version:        1.1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A C library for creating Excel XLSX files
 
 # BSD: Most files
@@ -15,7 +15,7 @@ Patch0:         libxlsxwriter_minizip.patch
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  minizip-ng-devel
+BuildRequires:  minizip-ng-compat-devel
 BuildRequires:  zlib-devel
 BuildRequires:  python3-pytest
 
@@ -74,6 +74,10 @@ rm test/functional/test_output_buffer.py
 
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.1.5-4
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

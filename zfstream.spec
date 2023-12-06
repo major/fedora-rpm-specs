@@ -4,7 +4,7 @@
 
 Name:           zfstream
 Version:        %{vyear}%{vmonth}%{vday}
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Library for reading and writing compressed and non-compressed files
 
 License:        LGPLv2+
@@ -25,7 +25,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  bzip2-devel
 BuildRequires:  libtool
-BuildRequires:  minizip-devel
+BuildRequires:  minizip-ng-compat-devel
 
 %description
 zfstream is a small C++ library which provides an abstraction API for reading
@@ -82,6 +82,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 20041202-39
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

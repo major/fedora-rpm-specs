@@ -9,7 +9,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit   f7cc1a1472868f25a02636c99d1054232292bc26
+%global gh_commit   1e66f73ffcf25e17c7a910a1317e9720a95497c7
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    maxmind
 %global gh_project  MaxMind-DB-Reader-php
@@ -30,8 +30,8 @@
 
 Summary:       MaxMind DB Reader extension
 Name:          php-maxminddb
-Version:       1.11.0
-Release:       11%{?dist}
+Version:       1.11.1
+Release:       1%{?dist}
 License:       Apache-2.0
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
@@ -96,7 +96,7 @@ Recommends:    php-bcmath
 Recommends:    php-gmp
 Recommends:    php-maxminddb
 # from composer.json "conflict": {
-#        "ext-maxminddb": "<1.10.0,>=2.0.0"
+#        "ext-maxminddb": "<1.11.1,>=2.0.0"
 Conflicts:     php-maxminddb < %{version}
 # Weak dependencies on databases
 Recommends:    geolite2-country
@@ -221,7 +221,7 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 %if %{with tests}
 cd ..
 : Upstream test suite for the library
-for cmd in php php72 php73 php74 php80 php81; do
+for cmd in php php80 php81 php82 php83; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 \
       --bootstrap %{buildroot}%{_datadir}/php/MaxMind/Db/Reader/autoload.php \
@@ -261,6 +261,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec  4 2023 Remi Collet <remi@remirepo.net> - 1.11.1-1
+- update to 1.11.1
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.11.0-11
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 

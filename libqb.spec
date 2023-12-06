@@ -2,14 +2,14 @@
 
 Name:           libqb
 Version:        2.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing high performance logging, tracing, ipc, and poll
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ClusterLabs/libqb
 Source0:        https://github.com/ClusterLabs/libqb/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
-#Patch0: connretry-recv.patch
+Patch0: include-libxml-parser.patch
 
 BuildRequires:  autoconf automake libtool
 BuildRequires:  check-devel
@@ -31,7 +31,7 @@ and polling.
 
 %prep
 %setup -q -n %{name}-%{version}
-#%patch0 -p1 -b .connretry-recv.patch
+%patch -P0 -p1 -b .include-libxml-parser.patch
 
 %build
 ./autogen.sh
@@ -87,6 +87,9 @@ This package contains a program to create nicely-formatted man pages from Doxyge
 
 
 %changelog
+* Mon Dec  4 2023 Christine Caulfield <ccaulfie@redhat.com> 2.0.8-2
+- update doxygen2man for latest libXML2 - include parser.h
+
 * Fri Jul 21 2023 Christine Caulfield <ccaulfie@redhat.com> 2.0.8-1
 - rebase to v2.0.8
 

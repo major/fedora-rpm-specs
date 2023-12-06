@@ -1252,6 +1252,11 @@ fi
 %endif
 
 %changelog
+* Mon Dec 4 2023 Kevin Buettner <kevinb@redhat.com>
+- Remove gdb-6.5-missed-trap-on-step-test.patch.  Testing what happens
+  when stepping over/through a statement which triggers a watchpoint
+  is being added, upstream, to gdb.base/watchpoint.exp.
+
 * Tue Nov 28 2023 Andrew Burgess <aburgess@redhat.com>
 - Backport upstream commits 1f0fab7ff86, aa19bc1d259, acc117b57f7,
   aff250145af, and 3644f41dc80.  These commits reduce the size of the

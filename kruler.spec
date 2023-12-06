@@ -1,7 +1,7 @@
 Name:    kruler
 Summary: A screen ruler and color measurement tool 
-Version: 24.01.75
-Release: 2%{?dist}
+Version: 24.01.80
+Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later
 URL:     https://www.kde.org/applications/graphics/kruler/
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 24.01.75-2
 - Rebuild (qt6)
 

@@ -2,7 +2,7 @@
 
 Name:           xiphos
 Version:        4.2.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Bible study and research tool
 License:        GPLv2+
 URL:            http://xiphos.org/
@@ -23,7 +23,7 @@ BuildRequires:  intltool
 BuildRequires:  itstool
 BuildRequires:  libappstream-glib
 BuildRequires:  libuuid-devel
-BuildRequires:  minizip-devel
+BuildRequires:  minizip-ng-compat-devel
 BuildRequires:  rarian-compat
 BuildRequires:  sword-devel >= 1.8
 BuildRequires:  util-linux
@@ -99,6 +99,10 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 4.2.1-21
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

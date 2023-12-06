@@ -7,7 +7,7 @@ Documentation is available at https://neurom.readthedocs.io/
 %global forgeurl    https://github.com/BlueBrain/NeuroM
 
 Name:           python-neurom
-Version:        3.2.4
+Version:        3.2.5
 Release:        %autorelease
 Summary:        Neuronal Morphology Analysis Tool
 
@@ -17,14 +17,6 @@ Summary:        Neuronal Morphology Analysis Tool
 License:        BSD-3-Clause
 URL:            %forgeurl
 Source:         %forgesource
-
-# Remove a few useless shebang lines
-# https://github.com/BlueBrain/NeuroM/pull/1083
-Patch:          %{url}/pull/1083.patch
-
-# Replace PyPI mock test dependency with unittest.mock
-# https://github.com/BlueBrain/NeuroM/pull/1084
-Patch:          %{url}/pull/1084.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -75,11 +67,11 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/tests/
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 # tests failing
 # reported upstream: https://github.com/BlueBrain/NeuroM/issues/983
-k="${k-}${k+ and }not test_extract_dataframe_multiproc"
-k="${k-}${k+ and }not test_extract_stats_scalar_feature"
-k="${k-}${k+ and }not test_markers"
-k="${k-}${k+ and }not test_single_neurite_no_soma"
-k="${k-}${k+ and }not test_skip_header"
+k="${k-}${k+ and }not test_extract_dataframe_multiproc"  # failing with 3.2.5
+k="${k-}${k+ and }not test_extract_stats_scalar_feature"  # failing with 3.2.5
+k="${k-}${k+ and }not test_markers"  # failing with 3.2.5
+k="${k-}${k+ and }not test_single_neurite_no_soma"  # failing with 3.2.5
+k="${k-}${k+ and }not test_skip_header"  # failing with 3.2.5
 %tox -- -- -k "${k-}"
 
 %files -n python3-neurom -f %{pyproject_files}

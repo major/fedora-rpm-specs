@@ -1,7 +1,7 @@
 %bcond_without tests
 # Packaging unstable?
 #%%global prerel rc1
-%global general_version 5.3.1
+%global general_version 5.3.6
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-celery

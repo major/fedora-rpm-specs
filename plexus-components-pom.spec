@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-components-pom
-Version:        14.1
-Release:        2%{?dist}
+Version:        14.2
+Release:        1%{?dist}
 Summary:        Plexus Components POM
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-components
@@ -39,6 +39,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 14.2-1
+- Update to upstream version 14.2
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 14.1-2
 - Rebuild
 

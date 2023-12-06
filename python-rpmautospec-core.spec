@@ -1,9 +1,8 @@
+%bcond_with testcoverage
 %if ! 0%{?rhel} || 0%{?rhel} >= 10
-%bcond_without testcoverage
 %bcond_without pyproject_build
 %bcond_without genbrs
 %else
-%bcond_with testcoverage
 %bcond_with pyproject_build
 %bcond_with genbrs
 %endif

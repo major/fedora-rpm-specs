@@ -39,7 +39,7 @@ BuildRequires:  libtool
 BuildRequires:  expat-devel
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  minizip-devel
+BuildRequires:  minizip-ng-compat-devel
 
 %if %{with mingw}
 BuildRequires:  mingw32-filesystem

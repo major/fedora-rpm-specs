@@ -22,7 +22,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -98,7 +98,7 @@ BuildRequires:  lzo-devel
 BuildRequires:  lz4-devel >= 1.8
 BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  minizip-ng-devel >= 3.0.0
+BuildRequires:  minizip-ng-compat-devel >= 3.0.0
 BuildRequires:  miniupnpc-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  picojson-static
@@ -285,6 +285,10 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 5.0.20347-3
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.20347-2
 - Rebuild (qt6)
 

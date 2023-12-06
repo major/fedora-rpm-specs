@@ -5,7 +5,7 @@
 
 Name:           OpenColorIO
 Version:        2.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 License:        BSD
@@ -35,7 +35,7 @@ BuildRequires:  glew-devel
 BuildRequires:  imath-devel
 BuildRequires:  libX11-devel libXmu-devel libXi-devel
 BuildRequires:  mesa-libGL-devel mesa-libGLU-devel
-BuildRequires:  minizip-ng-devel >= 3.0.6
+BuildRequires:  minizip-ng-compat-devel >= 3.0.6
 BuildRequires:  opencv-devel
 BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
@@ -179,6 +179,10 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.2.1-6
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

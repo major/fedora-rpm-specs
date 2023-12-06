@@ -1,30 +1,26 @@
 
 Name:    libkmahjongg
 Summary: Common code, backgrounds and tile sets for games using Mahjongg tiles
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/games/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-kcompletion-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  gcc-c++
+BuildRequires:  kf6-rpm-macros
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Svg)
+
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6I18n)
 
 Requires: %{name}-data = %{version}-%{release}
 
@@ -40,17 +36,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %package data
 Summary:  Common data for %{name}
 BuildArch: noarch
-# when -data split out
-Conflicts:     libkmahjongg < 16.04.2-2
-%if 0%{?fedora}
-Conflicts:     libkmahjongg4 < 14.12.3-5
-BuildRequires: kde-filesystem
-Requires:      kde-filesystem
-%endif
-# Introduced here: https://src.fedoraproject.org/rpms/kde-filesystem/c/3cc17949d085bef5476638f2fbade0f19dbcea32?branch=rawhide
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-BuildRequires: kde4-filesystem
-%endif
 
 %description data
 %{summary}, including backgrounds and tilesets.
@@ -61,7 +46,7 @@ BuildRequires: kde4-filesystem
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -71,35 +56,27 @@ BuildRequires: kde4-filesystem
 
 %find_lang %{name} --all-name --with-html
 
-%if 0%{?fedora}
-mkdir -p  %{buildroot}%{_kde4_appsdir}/kmahjongglib
-cp -alfv \
-  %{buildroot}%{_kf5_datadir}/kmahjongglib/* \
-  %{buildroot}%{_kde4_appsdir}/kmahjongglib/
-%endif
-
-
-%ldconfig_scriptlets
 
 %files
 %doc README
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/libkmahjong*
-%{_kf5_libdir}/libKF5KMahjongglib.so.5*
+%{_kf6_datadir}/qlogging-categories6/libkmahjong*
+%{_kf6_libdir}/libKMahjongg6.so.6{,.*}
 
 %files devel
-%{_kf5_libdir}/libKF5KMahjongglib.so
-%{_kf5_libdir}/cmake/KF5KMahjongglib/
-%{_kf5_includedir}/KMahjongg/
+%{_kf6_libdir}/libKMahjongg6.so
+%{_kf6_libdir}/cmake/KMahjongglib6/
+%{_includedir}/KMahjongg6/
 
 %files data -f %{name}.lang
-%if 0%{?fedora}
-%{_kde4_appsdir}/kmahjongglib/
-%endif
-%{_kf5_datadir}/kmahjongglib/
+%{_kf6_datadir}/kmahjongglib/
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+- Drop KDE4 compatibility
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

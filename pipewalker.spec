@@ -2,16 +2,25 @@ Name: pipewalker
 Summary: Puzzle game about connecting components into a single circuit
 License: GPL-3.0-or-later
 
-Version: 0.9.4
-Release: 8%{?dist}
+Version: 0.9.5
+Release: 1%{?dist}
 
-URL: http://pipewalker.sourceforge.net
-Source0: https://downloads.sourceforge.net/project/pipewalker/pipewalker/%{version}/pipewalker-%{version}.tar.gz
-Source10: %{name}.man
+URL: https://github.com/artemsen/pipewalker
+Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source11: %{name}.metainfo.xml
 
-Patch0: %{name}--format-security.patch
+# Respect XDG Base Directory Specification when storing the config file.
+# Backport of upstream commit:
+# https://github.com/artemsen/pipewalker/commit/5dbaf4e2c9b20aba2fee21f1d840eb90db7bba1e.patch
+Patch1: 0001-follow-xdg-basedir-spec.patch
 
+# Store data files in /usr/share/pipewalker, not /usr/share/games/pipewalker.
+# Reverse-patch created from upstream commit:
+# https://github.com/artemsen/pipewalker/commit/3927dd99f5cd2037a746b1ff92d6a4fb7480a2d9.patch
+Patch2: 0002-no-games-subdir-for-data.patch
+
+BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
@@ -43,6 +52,7 @@ required to play PipeWalker.
 
 %prep
 %autosetup -p1
+autoreconf -fiv
 
 # Fix violation of Icon Theme Specification
 sed -e 's/^Icon=pipewalker\.xpm$/Icon=pipewalker/' -i extra/%{name}.desktop
@@ -59,7 +69,7 @@ convert extra/%{name}.ico extra/%{name}.png
 %make_install
 
 install -m 755 -d %{buildroot}%{_mandir}/man6
-install -m 644 -p %{SOURCE10} %{buildroot}%{_mandir}/man6/%{name}.6
+install -m 644 -p extra/%{name}.6 %{buildroot}%{_mandir}/man6/%{name}.6
 
 install -m 755 -d %{buildroot}%{_metainfodir}
 install -m 644 -p %{SOURCE11} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
@@ -93,6 +103,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Tue Nov 28 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.5-1
+- Update to v0.9.5
+- Drop Patch0 (format string security - fixed upstream)
+- Drop custom man page in favour of one provided by upstream
+
 * Mon Oct 30 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.4-8
 - Convert license tag to SPDX
 - Move themes and sound effects to a -data subpackage

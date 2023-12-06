@@ -5,7 +5,7 @@ Summary:	Client Tools for dCache
 
 #		plugins/gssapi/{base64.[ch],util.c} - BSD license
 #		the rest - LGPLv2+ license
-License:	LGPL-version-2.0-or-later AND BSD-3-Clause
+License:	LGPL-2.0-or-later AND BSD-3-Clause
 URL:		https://www.dcache.org/manuals/libdcap.shtml
 Source0:	https://github.com/dCache/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 #		https://github.com/dCache/dcap/pull/28
@@ -29,7 +29,7 @@ This package contains the client tools.
 
 %package libs
 Summary:	Client Libraries for dCache
-License:	LGPL-version-2.0-or-later
+License:	LGPL-2.0-or-later
 
 %description libs
 dCache is a distributed mass storage system.
@@ -37,7 +37,7 @@ This package contains the client libraries.
 
 %package devel
 Summary:	Client Development Files for dCache
-License:	LGPL-version-2.0-or-later
+License:	LGPL-2.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -46,7 +46,7 @@ This package contains the client development files.
 
 %package tunnel-gsi
 Summary:	GSI tunnel for dCache
-License:	LGPL-version-2.0-or-later AND BSD-3-Clause
+License:	LGPL-2.0-or-later AND BSD-3-Clause
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-gsi
@@ -55,7 +55,7 @@ This library is dynamically loaded at runtime.
 
 %package tunnel-krb
 Summary:	Kerberos tunnel for dCache
-License:	LGPL-version-2.0-or-later AND BSD-3-Clause
+License:	LGPL-2.0-or-later AND BSD-3-Clause
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-krb
@@ -64,7 +64,7 @@ This library is dynamically loaded at runtime.
 
 %package tunnel-ssl
 Summary:	SSL tunnel for dCache
-License:	LGPL-version-2.0-or-later
+License:	LGPL-2.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-ssl
@@ -73,7 +73,7 @@ This library is dynamically loaded at runtime.
 
 %package tunnel-telnet
 Summary:	Telnet tunnel for dCache
-License:	LGPL-version-2.0-or-later
+License:	LGPL-2.0-or-later
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description tunnel-telnet

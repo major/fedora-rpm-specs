@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open source realtime-strategy game
 
 License:        GPLv2+
@@ -39,7 +39,7 @@ BuildRequires: gcc-c++
 BuildRequires: glew-devel
 BuildRequires: libpng-devel
 BuildRequires: libcurl-devel
-BuildRequires: minizip-devel
+BuildRequires: minizip-ng-compat-devel
 BuildRequires: python3
 # For the %%build part generating the symlinks
 BuildRequires: fontconfig %{fonts}
@@ -198,6 +198,10 @@ popd
 
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.1-4
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        5.0.0
-Release:        11%{?dist}
+Version:        5.1.0
+Release:        %autorelease
 Summary:        Promises, promises, promises
 
 License:        BSD
@@ -72,7 +72,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %if %{with tests}
 %check
-py.test-3 -xv --cov=vine --cov-report=xml --no-cov-on-fail
+%pytest -xv --cov=vine --cov-report=xml --no-cov-on-fail
 %endif
 
 %files -n python3-%{pypi_name}
@@ -87,93 +87,4 @@ py.test-3 -xv --cov=vine --cov-report=xml --no-cov-on-fail
 %endif
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.0.0-10
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 5.0.0-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.0.0-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Sep 30 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.0-2
-- Enable tests
-
-* Tue Sep 29 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.0-1
-- python-vine 5.0.0
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon May 25 2020 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-6
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-3
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jul 02 2019 Nils Philippsen <nils@redhat.com> - 1.3.0-1
-- Update to 1.3.0
-
-* Fri Jun 28 2019 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-3
-- Subpackage python2-vine has been removed
-  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Jan 26 2019 Neal Gompa <ngompa13@gmail.com> - 1.2.0-1
-- Update to 1.2.0
-- Switch to using bconds for controlling build behaviors
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Mon Jul 09 2018 Matthias Runge <mrunge@redhat.com> - 1.1.4-1
-- update to 1.1.4 (rhbz#1471577)
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.3-6
-- Rebuilt for Python 3.7
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jan 31 2018 Iryna Shcherbina <ishcherb@redhat.com> - 1.1.3-4
-- Update Python 2 dependency declarations to new packaging standards
-  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Tue Dec 27 2016 Matthias Runge <mrunge@redhat.com> - 1.1.3-1
-- Initial package. (rhbz#1408869)
+%autochangelog

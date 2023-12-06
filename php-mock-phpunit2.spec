@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    56edee85ad3232caa0202f98f2a3c899ab16bdb7
+%global gh_commit    3dabfd474d43da4d1d2fee5260c634457c5da344
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
@@ -14,7 +14,7 @@
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.8.0
+Version:        2.9.0
 Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
@@ -32,6 +32,7 @@ BuildRequires: (php-composer(php-mock/php-mock)             >= 2.2    with php-c
 BuildRequires: (php-composer(mockery/mockery)               >= 1.3.6  with php-composer(mockery/mockery)               < 2)
 BuildRequires:  phpunit8
 BuildRequires:  phpunit9
+BuildRequires:  phpunit10 >= 10.0.17
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
 %endif
@@ -151,6 +152,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec  4 2023 Remi Collet <remi@remirepo.net> - 2.9.0-1
+- update to 2.9.0
+
 * Mon Oct 30 2023 Remi Collet <remi@remirepo.net> - 2.8.0-1
 - update to 2.8.0
 

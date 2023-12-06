@@ -35,7 +35,7 @@ Obsoletes:      libsbml-sharp < 0:5.18.0-20
 
 Name:           libsbml
 Version:        5.19.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Systems Biology Markup Language library
 License:        LGPLv2+
 URL:            http://sbml.org/Software/libSBML
@@ -70,7 +70,7 @@ BuildRequires:  bzip2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  expat-devel
 BuildRequires:  check-devel
-BuildRequires:  minizip-ng-devel
+BuildRequires:  minizip-ng-compat-devel
 BuildRequires:  swig
 BuildRequires:  hostname
 
@@ -422,6 +422,10 @@ popd
 %endif
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 5.19.0-30
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Thu Nov 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.19.0-29
 - Fix compilation with libxml2 2.12.0
 

@@ -19,25 +19,25 @@ BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildREquires: kf5-knewstuff-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
+BuildRequires: kf6-rpm-macros
+BuildRequires: kf6-kcoreaddons-devel
+BuildRequires: kf6-kconfig-devel
+BuildRequires: kf6-kconfigwidgets-devel
+BuildRequires: kf6-kdbusaddons-devel
+BuildRequires: kf6-kguiaddons-devel
+BuildRequires: kf6-ki18n-devel
+BuildRequires: kf6-kiconthemes-devel
+BuildRequires: kf6-kitemviews-devel
+BuildRequires: kf6-kio-devel
+BuildRequires: kf6-knewstuff-devel
+BuildRequires: kf6-knotifyconfig-devel
+BuildRequires: kf6-kxmlgui-devel
+BuildREquires: kf6-knewstuff-devel
+BuildRequires: kf6-kwidgetsaddons-devel
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
 
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5Svg)
+BuildRequires: pkgconfig(Qt6Widgets) pkgconfig(Qt6Svg)
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires: libkdegames-devel >= %{majmin_ver}
@@ -54,7 +54,7 @@ progress.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -66,19 +66,19 @@ progress.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/*/%{name}.*
-%{_kf5_datadir}/%{name}/
-%{_kf5_datadir}/config.kcfg/%{name}.kcfg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/qlogging-categories5/%{name}*
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/*/%{name}.*
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog

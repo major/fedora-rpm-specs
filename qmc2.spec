@@ -24,7 +24,7 @@ BuildRequires:  libXmu-devel
 BuildRequires:  make
 #https://bugzilla.redhat.com/show_bug.cgi?id=1998742
 %if 0%{?fedora} >= 38
-BuildRequires:  minizip-devel
+BuildRequires:  minizip-ng-compat-devel
 %endif
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtscript-devel

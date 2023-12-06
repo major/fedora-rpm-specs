@@ -6,8 +6,8 @@
 
 Name:           maven
 Epoch:          1
-Version:        3.9.4
-Release:        3%{?dist}
+Version:        3.9.6
+Release:        1%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is Apache-2.0
 # bundled slf4j is MIT
@@ -314,6 +314,9 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config %{_javaconfdir}/maven.conf-openjdk21
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.6-1
+- Update to upstream version 3.9.6
+
 * Thu Sep 21 2023 Trung Lê <8@tle.id.au> - 1:3.9.4-3
 - Add maven-openjdk21
 

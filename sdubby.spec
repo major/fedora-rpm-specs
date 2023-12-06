@@ -4,7 +4,7 @@
 
 Name: sdubby
 Version: 1.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Set of systemd-boot shims that don't fit anywhere else in the distro
 License: GPLv2+
 URL:	 https://pagure.io/sdubby.git
@@ -30,7 +30,7 @@ BuildRequires:	gzip
 # turn confuses many tools about whether they should be doing
 # grub things, or systemd-boot things.
 Conflicts: grubby
-Provides:  grubby
+Provides:  grubby = 8.41
 
 %description
 This package provides a place to drop systemd-boot shimming
@@ -76,6 +76,9 @@ gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
 
 
 %changelog
+* Mon Dec  4 2023 Jeremy Linton <jeremy.linton@arm.com> - 1.0-5
+- BZ 2250498 Add hacky grubby = 8.41 line to assure that anaconda-core, as used by initial-setup-gui, for xfce/etc is satisfied
+
 * Wed Sep 20 2023 Jeremy Linton <jeremy.linton@arm.com> - 1.0-4
 - Merge PR#1, fixes independent loaderentries
 

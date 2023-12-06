@@ -4,9 +4,9 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.90.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
-License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
@@ -19,8 +19,8 @@ Source101:      kde-fingerprint
 Source102:      kde-smartcard
 
 # breeze fedora sddm theme components
-# includes f25-based preview (better than breeze or nothing at least)
-Source20:       breeze-fedora-0.2.tar.gz
+# includes f40-based preview (better than breeze or nothing at least)
+Source20:       breeze-fedora-0.3.tar.gz
 
 ## systemd user service dependencies
 ## (debating whether these be owned here or somewhere better...
@@ -377,7 +377,6 @@ Requires:       qt6-qtvirtualkeyboard
 # org.kde.plasma.workspace.keyboardlayout
 Requires:       %{name} = %{version}-%{release}
 # /usr/share/backgrounds/default.png
-BuildRequires:  desktop-backgrounds-compat
 Requires:       desktop-backgrounds-compat
 BuildArch: noarch
 %description -n sddm-breeze
@@ -493,10 +492,10 @@ ln -sr %{buildroot}%{_kf6_bindir}/startplasma-wayland %{buildroot}%{_kf6_bindir}
 cp -alf %{buildroot}%{_datadir}/sddm/themes/breeze/ \
         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora
 # replace items
-# ln -sf  %{_datadir}/backgrounds/default.png \
-#         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/components/artwork/background.png
 install -m644 -p breeze-fedora/* \
         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/
+# Set Fedora background
+sed -i -e 's|^background=.*$|background=/usr/share/backgrounds/default.png|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
 # Set Fedora distro vendor logo
 sed -i -e 's|^showlogo=.*$|showlogo=shown|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
 sed -i -e 's|^logo=.*$|logo=%{_datadir}/pixmaps/fedora_whitelogo.svg|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
@@ -745,6 +744,9 @@ fi
 
 
 %changelog
+* Mon Dec 04 2023 Alessandro Astone <ales.astone@gmail.com> - 5.90.0-2
+- Update breeze-fedora sddm theme
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

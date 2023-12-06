@@ -1,28 +1,47 @@
 Name:           plasmatube
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 Summary:        YouTube video player based on QtMultimedia and youtube-dl
 Url:            https://apps.kde.org/plasmatube/
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
 
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Kirigami2)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6DBus)
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6WindowSystem)
 
-BuildRequires:  pkgconfig(mpv)
+BuildRequires:  cmake(MpvQt)
+BuildRequires:  cmake(Qt6Keychain)
+
+Requires:       hicolor-icon-theme
+# QML module dependencies
+Requires:       kf6-kcoreaddons%{?_isa}
+Requires:       kf6-kirigami%{?_isa}
+Requires:       kf6-kirigami-addons%{?_isa}
+Requires:       kf6-kitemmodels%{?_isa}
+Requires:       kf6-knotifications%{?_isa}
+Requires:       kf6-purpose%{?_isa}
+Requires:       qt6-qt5compat%{?_isa}
 
 %description
 %{summary}.
@@ -31,7 +50,7 @@ BuildRequires:  pkgconfig(mpv)
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -45,14 +64,18 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.kde.%{nam
 %files -f %{name}.lang
 %license LICENSES/*
 
-%{_kf5_bindir}/%{name}
+%{_kf6_bindir}/%{name}
 
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/org.kde.%{name}.*
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/actions/%{name}-*
+%{_kf6_datadir}/icons/hicolor/*/apps/org.kde.%{name}.*
 
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

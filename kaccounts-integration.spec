@@ -1,24 +1,34 @@
+%global gitdate 20231204.133905
+%global commit0 fe713c756d9f17713f017888492bbe989e923ac6
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:    kaccounts-integration
-Version: 23.08.2
+Version: 24.01.80^%{gitdate}.%{shortcommit0}
 Release: 1%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
 URL:     https://invent.kde.org/network/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
+# Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://invent.kde.org/network/%{name}/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 ## upstream fixes
 
 ## upstreamable fixes
 
 BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  kf6-kcmutils-devel
+BuildRequires:  kf6-kdeclarative-devel
+BuildRequires:  kf6-kio-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-kwidgetsaddons-devel
+BuildRequires:  kf6-kcoreaddons-devel
+BuildRequires:  kf6-kiconthemes-devel
+BuildRequires:  kf6-kconfig-devel
+BuildRequires:  kf6-kwallet-devel
+BuildRequires:  kf6-kdbusaddons-devel
+BuildRequires:  cmake(QCoro6)
+
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  kf5-kcmutils-devel
 BuildRequires:  kf5-kdeclarative-devel
@@ -32,79 +42,147 @@ BuildRequires:  kf5-kwallet-devel
 BuildRequires:  kf5-kdbusaddons-devel
 BuildRequires:  cmake(QCoro5)
 
+
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Qml)
+BuildRequires:  qt6-qtbase-private-devel
+
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  qt5-qtbase-private-devel
 
-BuildRequires:  pkgconfig(accounts-qt5) >= 1.13
+BuildRequires:  pkgconfig(accounts-qt6)
 BuildRequires:  pkgconfig(libaccounts-glib) >= 1.21
-BuildRequires:  pkgconfig(libsignon-qt5) >= 8.55
+BuildRequires:  cmake(SignOnQt6)
+
+BuildRequires:  pkgconfig(accounts-qt5)
+BuildRequires:  cmake(SignOnQt5)
 
 # For AutoReq cmake-filesystem
 BuildRequires:  cmake
-
-Requires:       accounts-qml-module%{?_isa}
-Requires:       signon-plugin-oauth2%{?_isa}
-
-Obsoletes:      kaccounts < 15.03
-Provides:       kaccounts = %{version}-%{release}
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
 
 %description
 Small system to administer web accounts for the sites and services
 across the KDE desktop.
 
-%package        devel
+%package        qt5
+Summary:        qt5 runtime for %{name}
+Requires:       accounts-qml-module%{?_isa}
+Requires:       signon-plugin-oauth2%{?_isa}
+Obsoletes:      kaccounts < 15.03
+Provides:       kaccounts = %{version}-%{release}
+Obsoletes:      kaccounts-integration < 24.01.75
+Provides:       kaccounts-integration = %{version}-%{release}
+# translations moved here
+Conflicts: kde-l10n < 17.03
+
+%description    qt5
+Small system to administer web accounts for the sites and services
+across the KDE desktop.
+
+%package        qt5-devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
 Requires:       qt5-qtbase-devel%{?_isa}
 Requires:       kf5-kcoreaddons-devel%{?_isa}
 Requires:       libaccounts-glib-devel%{?_isa}
 Requires:       libaccounts-qt5-devel%{?_isa}
 Requires:       signon-devel%{?_isa}
 Requires:       intltool
-%description    devel
+Obsoletes:      kaccounts-integration-devel < 24.01.75
+Provides:       kaccounts-integration-devel = %{version}-%{release}
+
+%description    qt5-devel
+Headers, development libraries and documentation for %{name}.
+
+%package        qt6
+Summary:        qt6 runtime for %{name}
+Requires:       accounts-qml-module%{?_isa}
+Requires:       signon-plugin-oauth2%{?_isa}
+
+%description    qt6
+Small system to administer web accounts for the sites and services
+across the KDE desktop.
+
+%package        qt6-devel
+Summary:        Development files for %{name}
+Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
+Requires:       qt6-qtbase-devel%{?_isa}
+Requires:       kf6-kcoreaddons-devel%{?_isa}
+Requires:       libaccounts-glib-devel%{?_isa}
+Requires:       libaccounts-qt6-devel%{?_isa}
+Requires:       signon-devel%{?_isa}
+Requires:       intltool
+
+%description    qt6-devel
 Headers, development libraries and documentation for %{name}.
 
 
+
 %prep
-%autosetup -p1
+%autosetup -n %{name}-%{commit0} -p1
 
 
 %build
-%cmake_kf5
-
+mkdir %{name}_qt5
+mkdir %{name}_qt6
+pushd %{name}_qt6
+%cmake_kf6 -S ..
 %cmake_build
+popd
 
+pushd %{name}_qt5
+%cmake_kf5 -DKF6_COMPAT_BUILD=ON -S ..
+%cmake_build
+popd
 
 %install
+pushd %{name}_qt6
 %cmake_install
-
+popd
 %find_lang %{name} --all-name --with-html
+pushd %{name}_qt5
+%cmake_install
+popd
 
-
-%ldconfig_scriptlets
-
-%files -f %{name}.lang
+%files qt6 -f %{name}.lang
 %doc README*
 %license LICENSES/*
-%{_kf5_datadir}/kpackage/kcms/kcm_kaccounts/
-%{_kf5_datadir}/applications/kcm_kaccounts.desktop
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_kaccounts.so
-%{_kf5_plugindir}/kded/kded_accounts.so
-%{_qt5_plugindir}/kaccounts/daemonplugins/kaccounts_kio_webdav_plugin.so
-%{_kf5_libdir}/libkaccounts.so.2
-%{_kf5_libdir}/libkaccounts.so.%{version}
+%{_kf6_datadir}/applications/kcm_kaccounts.desktop
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_kaccounts.so
+%{_kf6_plugindir}/kded/kded_accounts.so
+%{_qt6_plugindir}/kaccounts/daemonplugins/kaccounts_kio_webdav_plugin.so
+%{_kf6_libdir}/libkaccounts6.so.*
+%{_kf6_qmldir}/org/kde/kaccounts/
+
+%files qt6-devel
+%{_kf6_libdir}/libkaccounts6.so
+%{_kf6_libdir}/cmake/KAccounts6/
+%{_includedir}/KAccounts6/
+
+%files qt5 -f %{name}.lang
+%doc README*
+%license LICENSES/*
+%{_kf5_libdir}/libkaccounts.so.*
 %{_kf5_qmldir}/org/kde/kaccounts/
 
-%files devel
+%files qt5-devel
 %{_kf5_libdir}/libkaccounts.so
 %{_kf5_libdir}/cmake/KAccounts/
 %{_includedir}/KAccounts/
 
 
+
 %changelog
+* Mon Dec 4 2023 Steve Cossette <farchord@gmail.com> - 24.01.80^20231204.133905.fe713c7-1
+- Using a git commit to fix co-instability
+
+* Sun Dec 3 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
+* Tue Nov 28 2023 Steve Cossette <farchord@gmail.com> - 24.01.75-1
+- 24.01.75
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

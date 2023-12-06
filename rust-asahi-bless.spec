@@ -4,7 +4,7 @@
 %global crate asahi-bless
 
 Name:           rust-asahi-bless
-Version:        0.2.0
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Tool to select active boot partition on ARM Macs
 
@@ -34,6 +34,31 @@ License:        MIT AND Zlib AND (Apache-2.0 OR MIT)
 %license LICENSE
 %license LICENSE.dependencies
 %{_bindir}/asahi-bless
+
+%package        devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description    devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "%{crate}" crate.
+
+%files          devel
+%license %{crate_instdir}/LICENSE
+%{crate_instdir}/
+
+%package     -n %{name}+default-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+default-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "default" feature of the "%{crate}" crate.
+
+%files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1

@@ -1,10 +1,10 @@
 Summary:   Portable Hardware Locality - portable abstraction of hierarchical architectures
 Name:      hwloc
-Version:   2.9.3
+Version:   2.10.0
 Release:   %autorelease
 License:   BSD-2-Clause
 URL:       http://www.open-mpi.org/projects/hwloc/
-Source0:   https://download.open-mpi.org/release/hwloc/v2.9/hwloc-%{version}.tar.bz2
+Source0:   https://download.open-mpi.org/release/hwloc/v2.10/hwloc-%{version}.tar.bz2
 Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
 
 BuildRequires: gcc

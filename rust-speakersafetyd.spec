@@ -4,7 +4,7 @@
 %global crate speakersafetyd
 
 Name:           rust-speakersafetyd
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Speaker protection daemon for embedded Linux systems
 

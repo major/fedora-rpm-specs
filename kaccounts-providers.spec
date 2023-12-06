@@ -1,40 +1,37 @@
+%global gitdate 20231204.145657
+%global commit0 59c3b37240e95b1cd1c6176bdd1e76b9dbe2dcdf
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:    kaccounts-providers
-Version: 23.08.2
+Version: 24.01.80^%{gitdate}.%{shortcommit0}
 Release: 1%{?dist}
 Summary: Additional service providers for KAccounts framework
 License: GPLv2
 URL:     https://invent.kde.org/network/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://invent.kde.org/network/%{name}/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
+# Source0:        http://download.kde.org/%%{stable_kf6}/release-service/%%{version}/src/%%{name}-%%{version}.tar.xz
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  intltool
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  kaccounts-integration-devel >= %{majmin_ver}
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kaccounts-integration-qt6-devel
+BuildRequires:  kf6-kdeclarative-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-kio-devel
+BuildRequires:  kf6-rpm-macros
 
 BuildRequires:  pkgconfig(libaccounts-glib)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Qml)
-BuildRequires:  pkgconfig(Qt5WebEngine)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Qml)
+BuildRequires:  pkgconfig(Qt6WebEngineQuick)
 
 Requires:       signon-ui
 
 # https://pagure.io/fedora-kde/SIG/issue/66
-Supplements:    kaccounts-integration
+Supplements:    kaccounts-integration-qt6
 
 # switched to arch'd pkg
 Obsoletes: kaccounts-providers < 15.12.0
@@ -42,20 +39,15 @@ Obsoletes: kaccounts-providers < 15.12.0
 %description
 %{summary}.
 
-
 %prep
-%autosetup -p1
-
+%autosetup -n %{name}-%{commit0} -p1
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name
 
 
@@ -63,20 +55,21 @@ Obsoletes: kaccounts-providers < 15.12.0
 %license LICENSES/*
 %config %{_sysconfdir}/signon-ui/webkit-options.d/*
 %{_datadir}/accounts/providers/kde/
-%dir %{_kf5_datadir}/kpackage/genericqml
-%{_kf5_datadir}/kpackage/genericqml/org.kde.kaccounts.owncloud/
-%dir %{_qt5_plugindir}/kaccounts/
-%dir %{_qt5_plugindir}/kaccounts/ui/
-%{_qt5_plugindir}/kaccounts/ui/nextcloud_plugin_kaccounts.so
+%dir %{_kf6_datadir}/kpackage/genericqml
+%{_kf6_datadir}/kpackage/genericqml/org.kde.kaccounts.owncloud/
+%dir %{_qt6_plugindir}/kaccounts/
+%dir %{_qt6_plugindir}/kaccounts/ui/
+%{_qt6_plugindir}/kaccounts/ui/nextcloud_plugin_kaccounts.so
 %{_datadir}/accounts/services/kde/
-%{_qt5_plugindir}/kaccounts/ui/owncloud_plugin_kaccounts.so
-%{_kf5_metainfodir}/org.kde.kaccounts.owncloud.appdata.xml
-%{_kf5_datadir}/kpackage/genericqml/org.kde.kaccounts.nextcloud/
-%{_kf5_metainfodir}/org.kde.kaccounts.nextcloud.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/*/*
+%{_qt6_plugindir}/kaccounts/ui/owncloud_plugin_kaccounts.so
+%{_kf6_datadir}/kpackage/genericqml/org.kde.kaccounts.nextcloud/
+%{_kf6_datadir}/icons/hicolor/*/*/*
 
 
 %changelog
+* Mon Dec 4 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

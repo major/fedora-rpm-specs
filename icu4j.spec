@@ -1,40 +1,31 @@
-%global gittag %(v=%{version}; echo "release-$v" | sed 's/\\./-/')
-%global srctgz %(v=%{version}; echo "icu4j-$v" | sed 's/\\./_/')
+%global dashver %(echo "%{version}" | sed 's/\\./-/')
+%global gittag  release-%{dashver}
 
 Name:           icu4j
-Version:        73.2
-Release:        2%{?dist}
+Version:        74.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
-# ICU itself is covered by the Unicode-DFS-2016 license.  Other licenses:
-# NAIST-2003 AND BSD-3-Clause: cjdict.dict (in main/shared/data/icudata.jar)
-# BSD-2-Clause: laodict.dict (in main/shared/data/icudata.jar)
-# BSD-3-Clause: burmesedict.dict (in main/shared/data/icudata.jar)
-# LicenseRef-Fedora-Public-Domain: main/shared/data/icutzdata.jar
-License:        Unicode-DFS-2016 AND NAIST-2003 AND BSD-3-Clause AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
+License:        Unicode-DFS-2016
 URL:            https://icu.unicode.org/
 
-Source0:        https://github.com/unicode-org/icu/releases/download/%{gittag}/%{srctgz}.tgz
+Source0:        https://github.com/unicode-org/icu/archive/%{gittag}/icu-%{version}.tar.gz
 
-# Add better OSGi metadata to core jar
-Patch0:         0001-Improve-OSGi-manifest.patch
-
-# Use default Doclet due to Doclet API changes in Java 9+
-# that prevent ICU's custom one from being built
-Patch1:         0002-Use-default-doclet.patch
-
-# Update the code for Java 8.  Patch courtesy of OpenSuSE.
-Patch2:         0003-java8.patch
-
-# Ivy is no longer available from Fedora
-Patch3:         0004-remove-ivy.patch
-
-# Fix some invalid javadoc characters
-Patch4:         0005-javadoc.patch
-
-BuildRequires:  ant
-BuildRequires:  ant-junit
-BuildRequires:  javapackages-local
+BuildRequires:  maven-local
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-resources-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-shade-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:exec-maven-plugin)
+BuildRequires:  mvn(pl.pragmatists:JUnitParams)
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -54,69 +45,81 @@ performance, keeping current with the Unicode standard, and providing
 richer APIs, while remaining as compatible as possible with the original
 Java text and internationalization API design.
 
-%package charset
-Summary: Charset converter library of %{name}
+%package        charset
+Summary:        Charset converter library of %{name}
+Requires:       %{name} = %{version}-%{release}
 
-%description charset
+%description    charset
 Charset converter library of %{name}.
 
-%package localespi
-Summary: Locale SPI library of %{name}
+%package        localespi
+Summary:        Locale SPI library of %{name}
+Requires:       %{name} = %{version}-%{release}
 
-%description localespi
+%description    localespi
 Locale SPI library of %{name}.
 
-%package javadoc
-Summary: Javadoc for %{name}
-Requires: java-javadoc
+%package        parent
+Summary:        Parent POM for %{name}
 
-%description javadoc
+%description    parent
+Parent POM for %{name}.
+
+%package        javadoc
+Summary:        API documentation for %{name}
+
+%description    javadoc
 API documentation for %{name}.
 
 %prep
-%autosetup -p1 -c
+%autosetup -p1 -n icu-release-%{dashver}
+cd icu4j
 
-# Missing dep on pl.pragmatists:JUnitParams for tests, so delete tests that
-# requires it for now
-sed -i -e '/pl.pragmatists/d' ivy.xml
-rm main/tests/core/src/com/ibm/icu/dev/test/format/DataDrivenFormatTest.java
-rm main/tests/core/src/com/ibm/icu/dev/test/calendar/DataDrivenCalendarTest.java
-rm main/tests/core/src/com/ibm/icu/dev/test/serializable/CompatibilityTest.java
-rm main/tests/core/src/com/ibm/icu/dev/test/serializable/CoverageTest.java
-rm main/tests/core/src/com/ibm/icu/dev/test/util/LocaleMatcherTest.java
-rm main/tests/charset/src/com/ibm/icu/dev/test/charset/TestConversion.java
-rm main/tests/translit/src/com/ibm/icu/dev/test/translit/TransliteratorDisorderedMarksTest.java
+# Unnecessary plugins for an RPM build
+%pom_remove_plugin -r :maven-clean-plugin
+%pom_remove_plugin -r :maven-deploy-plugin
+%pom_remove_plugin :maven-install-plugin
+%pom_remove_plugin :maven-javadoc-plugin
+%pom_remove_plugin :maven-project-info-reports-plugin
+%pom_remove_plugin :maven-release-plugin
+%pom_remove_plugin :maven-site-plugin
+cd -
 
 %build
-export JAVA_HOME=%{_jvmdir}/java/
-mkdir -p ~/.ant/lib
-ant -Djavac.source=8 -Djavac.target=8 -Divy.mode=local -Doffline=true -Ddoclint.option='-Xdoclint:none' -Dicu4j.api.doc.jdk.link= all
-
-for jar in icu4j icu4j-charset icu4j-localespi ; do
-  sed -i -e 's/@POMVERSION@/%{version}/' maven/$jar/pom.xml
-  %mvn_artifact maven/$jar/pom.xml $jar.jar
-  %mvn_package :$jar $jar
-done
+cd icu4j
+%mvn_build -s
+cd -
 
 %install
-%mvn_install -J doc
+cd icu4j
+%mvn_install
+cd -
 
-# No poms for these, so install manually
-install -m 644 icu4j-charset.jar   %{buildroot}%{_javadir}/icu4j/
-install -m 644 icu4j-localespi.jar %{buildroot}%{_javadir}/icu4j/
+# Since we have the all-in-one jar, we don't want the component jars too
+rm %{buildroot}%{_javadir}/icu4j/{c,d,f,l,p,r,s,t,u}*
+rm %{buildroot}%{_datadir}/maven-metadata/icu4j-{c,d,f,l,p,r,s,t,u}*
+rm %{buildroot}%{_mavenpomdir}/icu4j/{c,d,f,l,p,r,s,t,u}*
 
-%files -f .mfiles-icu4j
-%license main/shared/licenses/*
-%doc readme.html APIChangeReport.html
+%files -f icu4j/.mfiles-icu4j
+%license LICENSE
+%doc icu4j/readme.html icu4j/APIChangeReport.html
 
-%files charset -f .mfiles-icu4j-charset
+%files charset -f icu4j/.mfiles-icu4j-charset
 
-%files localespi -f .mfiles-icu4j-localespi
+%files localespi -f icu4j/.mfiles-icu4j-localespi
 
-%files javadoc -f .mfiles-javadoc
-%license main/shared/licenses/*
+%files parent -f icu4j/.mfiles-icu4j-root
+
+%files javadoc -f icu4j/.mfiles-javadoc
+%license LICENSE
 
 %changelog
+* Mon Dec  4 2023 Jerry James <loganjerry@gmail.com> - 1:74.1-1
+- Version 74.1
+- Drop all patches
+- License is now simply Unicode-DFS-2016
+- Build with maven
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:73.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

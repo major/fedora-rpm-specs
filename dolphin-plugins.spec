@@ -1,6 +1,6 @@
 Name:    dolphin-plugins
 Summary: Dolphin plugins
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -36,7 +36,7 @@ Dolphin integration for revision control systems, Dropbox, and disk images.
 
 
 %build
-%cmake_kf6 -DBUILD_WITH_QT6=ON
+%cmake_kf6
 %cmake_build
 
 
@@ -64,6 +64,9 @@ Dolphin integration for revision control systems, Dropbox, and disk images.
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Sun Nov 26 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
 - 24.01.75
 

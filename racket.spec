@@ -1,6 +1,6 @@
 Name:           racket
 Version:        7.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose programming language
 
 # see LICENSE.txt
@@ -10,8 +10,11 @@ URL:            https://racket-lang.org
 Source0:        https://mirror.racket-lang.org/installers/%{version}/%{name}-%{version}-src.tgz
 Patch1: racket-configure-c99.patch
 
+ExcludeArch: %{arm} s390x
+%if 0%{?fedora} || 0%{?rhel} >= 10
 # ppc64le: https://bugzilla.redhat.com/show_bug.cgi?id=2226390
-ExcludeArch: %{arm} s390x ppc64le
+ExcludeArch: ppc64le
+%endif
 
 # To compile the program
 BuildRequires: make
@@ -228,6 +231,9 @@ A local installation of the Racket documentation system.
 %{_datadir}/doc/racket
 
 %changelog
+* Thu Aug 31 2023 Jens Petersen <petersen@redhat.com> - 7.9-2
+- re-enable ppc64le for epel
+
 * Mon Aug 28 2023 Jens Petersen <petersen@redhat.com> - 7.9-1
 - update to 7.9
 - drop the nonfree doc patch

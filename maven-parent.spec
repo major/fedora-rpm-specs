@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           maven-parent
-Version:        40
-Release:        2%{?dist}
+Version:        41
+Release:        1%{?dist}
 Summary:        Apache Maven parent POM
 License:        Apache-2.0
 URL:            https://maven.apache.org
@@ -45,6 +45,9 @@ Apache Maven parent POM file used by other Maven projects.
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 41-1
+- Update to upstream version 41
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 40-2
 - Rebuild
 

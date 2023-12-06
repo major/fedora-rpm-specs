@@ -1,5 +1,5 @@
 Name:           Coin4
-Version:        4.0.1
+Version:        4.0.2
 Release:        1%{?dist}
 Summary:        High-level 3D visualization library
 
@@ -160,6 +160,9 @@ fi
 
 
 %changelog
+* Mon Dec 04 2023 Richard Shaw <hobbes1069@gmail.com> - 4.0.2-1
+- Update to 4.0.2.
+
 * Mon Nov 20 2023 Richard Shaw <hobbes1069@gmail.com> - 4.0.1-1
 - Update to 4.0.1.
 

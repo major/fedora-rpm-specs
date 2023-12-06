@@ -10,8 +10,8 @@
 %{bcond_without perl_File_MimeInfo_enables_usage}
 
 Name:           perl-File-MimeInfo
-Version:        0.33
-Release:        4%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 Summary:        Determine file type and open application
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-MimeInfo
@@ -136,6 +136,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-1
+- 0.34 bump (rhbz#2252645)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

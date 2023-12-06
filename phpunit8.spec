@@ -9,7 +9,7 @@
 #
 
 
-%global gh_commit    c14b7dce827341b330519db07cf9bd16461dec1a
+%global gh_commit    9652df58e06a681429d8cfdaec3c43d6de581d5a
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,7 +23,7 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.35
+%global upstream_version 8.5.36
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -238,6 +238,9 @@ exit $ret
 
 
 %changelog
+* Sat Dec  2 2023 Remi Collet <remi@remirepo.net> - 8.5.36-1
+- update to 8.5.36 (no change)
+
 * Fri Dec  1 2023 Remi Collet <remi@remirepo.net> - 8.5.35-1
 - update to 8.5.35 (no change)
 

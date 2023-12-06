@@ -11,7 +11,7 @@ Version:       0.0.99.4
 %gometa -f
 %endif
 
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -25,6 +25,7 @@ Source1:       %{name}.conf
 Patch0:        toolbox-Build-fixes.patch
 Patch1:        toolbox-cmd-initContainer-Be-aware-of-security-hardened-moun.patch
 Patch2:        toolbox-Simplify-removing-the-user-s-password.patch
+Patch3:        toolbox-cmd-Track-the-active-container-on-Fedora-Linux-Asahi.patch
 
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
@@ -172,6 +173,7 @@ The %{name}-tests package contains system tests for %{name}.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %if 0%{?fedora}
 %ifnarch ppc64
@@ -254,6 +256,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Thu Nov 30 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-7
+- Track the active container on Fedora Linux Asahi Remix
+
 * Thu Nov 09 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-6
 - Drop the custom /etc/containers/toolbox.conf from RHEL 10 onwards
 

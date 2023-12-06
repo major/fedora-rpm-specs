@@ -1,11 +1,11 @@
 %global core_name timescale
 
 Name:           %{core_name}db
-Version:        2.12.2
-Release:        2%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://www.%{core_name}.com
 Source0:        https://github.com/%{core_name}/%{name}/archive/refs/tags/%{version}.tar.gz
 
@@ -49,6 +49,12 @@ rm -rf tsl
 
 
 %changelog
+* Mon Dec 04 2023 Ondrej Sloup <osloup@redhat.com> - 2.13.0-1
+- Rebase to the latest upstream version (Related: rhbz#2252232)
+
+* Mon Dec 04 2023 Ondrej Sloup <osloup@redhat.com> - 2.12.2-3
+- Update license tag to the SPDX format (Apache-2.0)
+
 * Thu Nov 30 2023 Filip Janus <fjanus@redhat.com> - 2.12.2-2
 - Rebuild due to Postgresql update
 

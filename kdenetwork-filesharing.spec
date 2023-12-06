@@ -1,46 +1,36 @@
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
 URL:     https://invent.kde.org/network/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 
-BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-rpm-macros
-BuildRequires: pkgconfig(packagekitqt5)
-BuildRequires: cmake(QCoro5)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6QuickWidgets)
+
+BuildRequires: cmake(KF6Auth)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6WidgetsAddons)
+
+BuildRequires: cmake(packagekitqt6)
+BuildRequires: cmake(QCoro6Core)
 
 # or gets pulled in via PK at runtime
 Recommends: samba
-
-# when split occurred
-Conflicts: kdenetwork-common < 7:4.10.80
-Obsoletes: kdenetwork-fileshare-samba < 7:4.10.80
-Provides:  kdenetwork-fileshare-samba = 7:%{version}-%{release}
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
 
 %description
 %{summary}.
@@ -51,7 +41,7 @@ Conflicts: kde-l10n < 17.03
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -62,19 +52,26 @@ Conflicts: kde-l10n < 17.03
 %find_lang %{name} --all-name --with-html
 
 
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kdenetwork-filesharing.metainfo.xml
+
+
 %files -f %{name}.lang
 %license LICENSES/*
-%dir %{_kf5_plugindir}/propertiesdialog/
-%{_kf5_plugindir}/propertiesdialog/sambausershareplugin.so
-%{_kf5_plugindir}/propertiesdialog/SambaAcl.so
-%{_kf5_metainfodir}/org.kde.kdenetwork-filesharing.metainfo.xml
-%{_kf5_libexecdir}/kauth/authhelper
-%{_kf5_datadir}/dbus-1/system-services/org.kde.filesharing.samba.service
-%{_kf5_datadir}/dbus-1/system.d/org.kde.filesharing.samba.conf
-%{_kf5_datadir}/polkit-1/actions/org.kde.filesharing.samba.policy
+%dir %{_kf6_plugindir}/propertiesdialog/
+%{_kf6_plugindir}/propertiesdialog/sambausershareplugin.so
+%{_kf6_plugindir}/propertiesdialog/SambaAcl.so
+%{_kf6_metainfodir}/org.kde.kdenetwork-filesharing.metainfo.xml
+%{_kf6_libexecdir}/kauth/authhelper
+%{_kf6_datadir}/dbus-1/system-services/org.kde.filesharing.samba.service
+%{_kf6_datadir}/dbus-1/system.d/org.kde.filesharing.samba.conf
+%{_kf6_datadir}/polkit-1/actions/org.kde.filesharing.samba.policy
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -1,6 +1,6 @@
 Name:           python-virtualenv
 Version:        20.21.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -24,6 +24,9 @@ Patch3:         3.12-support-and-no-setuptools-wheel-on-3.12-2558.patch
 # (20.24.0) Fix tests with pluggy 1.2.0+
 # Manually cherry-picked from https://github.com/pypa/virtualenv/pull/2593
 Patch4:         Fix-tests-with-pluggy-1.2.0.patch
+# Fix compatibility with Python 3.13
+# https://github.com/pypa/virtualenv/pull/2673
+Patch5:         py3.13.patch
 
 BuildArch:      noarch
 
@@ -159,6 +162,10 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Mon Dec 04 2023 Lumír Balhar <lbalhar@redhat.com> - 20.21.1-7
+- Fix compatibility with Python 3.13
+Resolves: rhbz#2251781
+
 * Thu Nov 23 2023 Lumír Balhar <lbalhar@redhat.com> - 20.21.1-6
 - Allow platformdirs version 4
 

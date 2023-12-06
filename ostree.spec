@@ -4,14 +4,25 @@
 %else
     %bcond_without tests
 %endif
+%if 0%{?rhel} < 10
+    %bcond_with composefs
+%else
+    %bcond_without composefs
+%endif
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
 Version: 2023.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
+
+# Conditional to ELN right now to reduce blast radius; xref
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
 
 BuildRequires: make
 BuildRequires: git
@@ -46,7 +57,9 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: /usr/bin/g-ir-scanner
 BuildRequires: dracut
 BuildRequires:  bison
+%if %{with composefs}
 BuildRequires: pkgconfig(composefs)
+%endif
 
 # Runtime requirements
 Requires: dracut
@@ -55,7 +68,9 @@ Requires: systemd-units
 Requires: %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 # Strictly speaking, this is not a current hard requirement, but it will
 # be in the future.
+%if %{with composefs}
 Requires: composefs
+%endif
 
 %description
 libostree is a shared library designed primarily for
@@ -110,7 +125,8 @@ env NOCONFIGURE=1 ./autogen.sh
            --with-selinux \
            --with-curl \
            --with-openssl \
-           --with-composefs \
+           --without-soup \
+           %{?with_composefs:--with-composefs} \
            %{?with_tests:--with-soup3} \
            %{?with_tests:--enable-installed-tests=exclusive} \
            --with-dracut=yesbutnoconf
@@ -174,6 +190,12 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Mon Dec 04 2023 Colin Walters <walters@verbum.org> - 2023.7-4
+- Enable composefs only on fedora/rhel10 to fix COPR builds
+  which pull from this dist-git
+- Exclude x86 on FedoraELN since composefs is
+- Always disable soup to re-sync with ostree upstream logic
+
 * Sun Dec 03 2023 Colin Walters <walters@verbum.org> - 2023.7-3
 - Add a composefs requirement; this is not actually a requirement
   right now, but will be in the near future, so let's prepare for it.

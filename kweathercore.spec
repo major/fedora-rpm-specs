@@ -1,14 +1,8 @@
-%{!?docs: %global docs 1}
-
-%if 0%{?flatpak}
-%global docs 0
-%endif
-
-%global libver 6
+%bcond docs %{undefined flatpak}
 
 Name:           kweathercore
-Version:        0.7
-Release:        3%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 License:        LGPLv2+
 Summary:        Library to facilitate retrieval of weather information
 Url:            https://invent.kde.org/libraries/kweathercore
@@ -18,11 +12,12 @@ Source0:        https://download.kde.org/stable/kweathercore/%{version}/%{name}-
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Positioning)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Holidays)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Positioning)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Holidays)
 
 
 %description
@@ -41,8 +36,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %package docs
 Summary:        Documentation for %{name}
 BuildRequires:  doxygen
-BuildRequires:  qt5-doctools
-BuildRequires:  qt5-qttools-libs-help
+BuildRequires:  qt6-doctools
+BuildRequires:  qt6-qttools-libs-help
 BuildArch: noarch
 
 %description docs
@@ -52,42 +47,43 @@ BuildArch: noarch
 %autosetup -n %{name}-%{version}
 
 %build
-%cmake_kf5 \
-  %if 0%{?flatpak}
-  %{?docs:-DBUILD_QCH:BOOL=OFF} \
-  %else
-  %{?docs:-DBUILD_QCH:BOOL=ON} \
-  %endif
+%cmake_kf6 \
+  -DBUILD_QCH:BOOL=%{?with_docs:ON}%{!?with_docs:OFF}
 
 %cmake_build
 
 %install
 %cmake_install
 
+%find_lang kweathercore6
 
-%files
+
+%files -f kweathercore6.lang
 %license LICENSES/*.txt
-%{_kf5_libdir}/libKF5KWeatherCore.so.%{version}.0
-%{_kf5_libdir}/libKF5KWeatherCore.so.5
+%{_kf6_libdir}/libKWeatherCore.so.%{version}
+%{_kf6_libdir}/libKWeatherCore.so.6
 
 %files devel
 %license LICENSES/*.txt
-%{_kf5_includedir}/KWeatherCore/
-%{_kf5_libdir}/cmake/KF5KWeatherCore/
-%{_kf5_includedir}/kweathercore_version.h
-%{_kf5_libdir}/libKF5KWeatherCore.so
-%{_kf5_archdatadir}/mkspecs/modules/qt_KWeatherCore.pri
+%{_includedir}/KWeatherCore/
+%{_includedir}/kweathercore_version.h
+%{_kf6_libdir}/cmake/KWeatherCore/
+%{_kf6_libdir}/libKWeatherCore.so
+%{_kf6_archdatadir}/mkspecs/modules/qt_KWeatherCore.pri
 
 
-%if 0%{?docs}
+%if %{with docs}
 %files docs
 %doc README.md
 %license LICENSES/*.txt
-%{_qt5_docdir}/KF5KWeatherCore.qch
-%{_qt5_docdir}/KF5KWeatherCore.tags
+%{_qt6_docdir}/KWeatherCore.qch
+%{_qt6_docdir}/KWeatherCore.tags
 %endif
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 0.8.0-1
+- 0.8.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

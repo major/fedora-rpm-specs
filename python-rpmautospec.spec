@@ -35,7 +35,6 @@ BuildRequires: glibc-langpack-en
 BuildRequires: python3-devel >= 3.9.0
 # The dependencies needed for testing don’t get auto-generated.
 BuildRequires: python3dist(pytest)
-BuildRequires: python3dist(pytest-cov)
 %if %{with xdist}
 BuildRequires: python3dist(pytest-xdist)
 %endif
@@ -79,6 +78,9 @@ enabled packages locally.
 %if %{with oldpoetry}
 %autopatch 100
 %endif
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -i -e '/pytest-cov/d' pyproject.toml
 
 %build
 %pyproject_wheel

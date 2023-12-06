@@ -1,11 +1,11 @@
 Name:           isoimagewriter
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        24.01.80
+Release:        1%{?dist}
 Summary:        KDE ISO Image Writer, a tool to write a .iso file to a USB disk
 
 License:        GPLv3+
-URL:            https://community.kde.org/ISOImageWriter
-Source0:        https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
+URL:            https://apps.kde.org/isoimagewriter/
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # General build time stuff
 BuildRequires:  cmake
@@ -15,23 +15,23 @@ BuildRequires:  libappstream-glib
 
 # Libs
 BuildRequires:  cmake(Gpgmepp)
-BuildRequires:  cmake(QGpgme)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(QGpgmeQt6)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Test)
 BuildRequires:  pkgconfig(libudev)
 
 # KF5
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(KF5Auth)
-BuildRequires:  cmake(KF5Archive)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5Solid)
-BuildRequires:  cmake(KF5WidgetsAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6Solid)
 
 
 %description
@@ -43,7 +43,7 @@ The KDE ISO Image Writer is a tool to write a .iso file to a USB disk.
 
 
 %build
-%cmake_kf5 
+%cmake_kf6
 %cmake_build
 
 
@@ -55,20 +55,24 @@ The KDE ISO Image Writer is a tool to write a .iso file to a USB disk.
 
 %check
 appstream-util validate-relax --nonet \
-    %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+    %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license LICENSES/*
 %{_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/%{name}
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/org.kde.%{name}.*
+%{_kf6_datadir}/%{name}
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

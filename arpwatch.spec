@@ -25,6 +25,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  /usr/sbin/sendmail
 BuildRequires:  systemd-rpm-macros
+%{?sysuser_requires_compat}
 BuildRequires:  python3-devel
 BuildRequires:  libpcap-devel
 
@@ -43,6 +44,7 @@ Source2:        arpwatch.service
 Source3:        arpwatch.sysconfig
 Source4:        arp2ethers.8
 Source5:        massagevendor.8
+Source6:        arpwatch.sysusers
 
 # The latest versions of all “arpwatch-3.1-*” patches were sent upstream by
 # email 2021-04-24.
@@ -86,15 +88,6 @@ Patch:          arpwatch-3.3-c99.patch
 ExcludeArch:    %{ix86}
 
 %global pkgstatedir %{_sharedstatedir}/arpwatch
-%global service_user arpwatch
-%global service_group arpwatch
-# Soft static UID and GID; see
-# https://fedoraproject.org/wiki/Packaging:UsersAndGroups#Soft_static_allocation
-# for information, and the uidgid file in the setup package
-# (https://pagure.io/setup/blob/master/f/uidgid) for the list of allocations,
-# including the one for arpwatch.
-%global service_uid 77
-%global service_gid 77
 
 %description
 The arpwatch package contains arpwatch and arpsnmp. Arpwatch and arpsnmp are
@@ -140,6 +133,8 @@ export CPPFLAGS="${CPPFLAGS-} -DTIME_WITH_SYS_TIME=1"
 
 
 %install
+install -p -D -m 0644 %{SOURCE6} '%{buildroot}%{_sysusersdir}/arpwatch.conf'
+
 # The upstream Makefile does not create the directories it requires, so we must
 # do it manually. Additionally, it attempts to comment out the installation of
 # the init script on non-FreeBSD platforms, but this does not quite work as
@@ -200,22 +195,7 @@ fi
 
 
 %pre
-getent group %{service_group} >/dev/null ||
-  groupadd -f -g %{service_gid} -r %{service_group}
-if ! getent passwd %{service_user} >/dev/null
-then
-  if ! getent passwd %{service_uid} >/dev/null
-  then
-    useradd -r -u %{service_uid} -g %{service_group} \
-        -d %{pkgstatedir} -s /sbin/nologin \
-        -c "Service user for arpwatch" %{service_user}
-  else
-    useradd -r -g %{service_group} \
-        -d %{pkgstatedir} -s /sbin/nologin \
-        -c "Service user for arpwatch" %{service_user}
-  fi
-fi
-exit 0
+%sysusers_create_compat %{SOURCE6}
 
 
 %postun
@@ -246,13 +226,14 @@ exit 0
 %attr(0644,-,-) %{_mandir}/man8/*.8*
 
 %{_unitdir}/arpwatch.service
+%{_sysusersdir}/arpwatch.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/arpwatch
 
-%attr(1775,-,%{service_group}) %dir %{pkgstatedir}
-%attr(0644,%{service_user},%{service_group}) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/arp.dat
-%attr(0644,%{service_user},%{service_group}) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/arp.dat-
-%attr(0600,%{service_user},%{service_group}) %verify(not md5 size mtime) %ghost %{pkgstatedir}/arp.dat.new
-%attr(0644,-,%{service_group}) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/ethercodes.dat
+%attr(1775,-,arpwatch) %dir %{pkgstatedir}
+%attr(0644,arpwatch,arpwatch) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/arp.dat
+%attr(0644,arpwatch,arpwatch) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/arp.dat-
+%attr(0600,arpwatch,arpwatch) %verify(not md5 size mtime) %ghost %{pkgstatedir}/arp.dat.new
+%attr(0644,-,arpwatch) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/ethercodes.dat
 
 
 %changelog

@@ -1,17 +1,11 @@
 Name:    ffmpegthumbs
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: KDE ffmpegthumbnailer service
 
 License: GPL-2.0-or-later
 URL:     https://apps.kde.org/%{name}/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -19,14 +13,13 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: pkgconfig(libjpeg)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Config)
 BuildRequires: ffmpeg-free-devel
-BuildRequires: pkgconfig(taglib)
 
 Provides: kffmpegthumbnailer = %{version}-%{release}
-Provides: kdemultimedia-extras-freeworld = %{version}-%{release}
 
 %description
 %{summary}.
@@ -37,8 +30,7 @@ Provides: kdemultimedia-extras-freeworld = %{version}-%{release}
 
 
 %build
-%{cmake_kf5}
-
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
@@ -47,20 +39,21 @@ Provides: kdemultimedia-extras-freeworld = %{version}-%{release}
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 
 %files
 %license LICENSES/GPL-2.0-or-later.txt
-%{_kf5_qtplugindir}/kf5/thumbcreator/ffmpegthumbs.so
-%dir %{_kf5_datadir}/config.kcfg
-%{_kf5_datadir}/config.kcfg/ffmpegthumbnailersettings5.kcfg
-%dir %{_kf5_datadir}/qlogging-categories5
-%{_kf5_datadir}/qlogging-categories5/ffmpegthumbs.categories
-%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_kf6_plugindir}/thumbcreator/ffmpegthumbs.so
+%{_kf6_datadir}/config.kcfg/ffmpegthumbnailersettings5.kcfg
+%{_kf6_datadir}/qlogging-categories6/ffmpegthumbs.categories
+%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

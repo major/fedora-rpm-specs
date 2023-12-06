@@ -1,6 +1,6 @@
 Name: libnl3
-Version: 3.8.0
-Release: 2%{?dist}
+Version: 3.9.0
+Release: 1%{?dist}
 Summary: Convenience library for kernel netlink sockets
 License: LGPL-2.1-only
 URL: http://www.infradead.org/~tgr/libnl/
@@ -153,6 +153,9 @@ popd
 %endif
 
 %changelog
+* Mon Dec  4 2023 Thomas Haller <thaller@redhat.com> - 3.9.0-1
+- Update to 3.9.0 release
+
 * Mon Oct 30 2023 Thomas Haller <thaller@redhat.com> - 3.8.0-2
 - Use SPDX license identifier in package
 

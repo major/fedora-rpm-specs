@@ -1,5 +1,5 @@
-%global git_date 20231113
-%global git_commit b402e825597286b4da8ddf69b22da9bff94bf942
+%global git_date 20231204
+%global git_commit 1e3a2e499877c6c1d1438459aa1049942c305698
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -212,6 +212,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Mon Dec 04 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20231204-1.git1e3a2e4
+- TEST-PQ: add a subpolicy to test post-quantum algorithms. Do not rely on.
+
 * Mon Nov 13 2023 Clemens Lang <cllang@redhat.com> - 20231113-1.gitb402e82
 - fips-mode-setup: Write error messages to stderr
 - fips-mode-setup: Fix some shellcheck warnings

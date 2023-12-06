@@ -1,9 +1,12 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
+# BPF decoder dependencies
+%define with_bpf 1
+
 Name:           v4l-utils
 
-Version:        1.25.0
-Release:        4%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
 License:        GPL-2.0-or-later AND GPL-2.0-only
@@ -26,11 +29,10 @@ BuildRequires:  systemd
 BuildRequires:  meson >= 0.56
 BuildRequires:  json-c-devel
 
-# BPF decoder dependencies
-%define with_bpf 1
-
 %if %{with_bpf}
-BuildRequires:  elfutils-libelf-devel clang libbpf-devel
+BuildRequires:  clang
+BuildRequires:  elfutils-libelf-devel
+BuildRequires:  libbpf-devel
 %endif
 
 # For /lib/udev/rules.d ownership
@@ -129,6 +131,7 @@ files for developing applications that use libdvbv5.
 %prep
 %autosetup -p1
 
+%build
 %meson -Dbpf=auto -Ddoxygen-man=true -Ddoxygen-html=false \
   %{!?with_qt5:-Dqv4l2=disabled -Dqvidcap=disabled -Dv4l2-tracer=disabled}
 
@@ -138,7 +141,6 @@ files for developing applications that use libdvbv5.
 #%meson -Dbpf=disabled -Ddoxygen-man=true -Ddoxygen-html=false
 #%endif
 
-%build
 #export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 %meson_build
 
@@ -230,6 +232,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 
 
 %changelog
+* Mon Dec 04 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.26.0-1
+- Update to 1.26.0
+
 * Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.25.0-4
 - Disable qv4l2 in RHEL 10 builds
 

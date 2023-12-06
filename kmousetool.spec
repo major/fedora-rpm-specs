@@ -1,42 +1,36 @@
-%undefine __cmake_in_source_build
-
 Name:    kmousetool
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: A program that clicks the mouse for you
 
 License: GPLv2+
-URL:     http://accessibility.kde.org/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/kmousetool/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Widgets)
 
-BuildRequires: cmake(Phonon4Qt5)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6DocTools)
 
 BuildRequires: pkgconfig(xt)
 BuildRequires: pkgconfig(xtst)
-
-# when split occured
-Conflicts: kdeaccessibility < 1:4.7.80
 
 %description
 A program for people whom it hurts to click the mouse.
@@ -47,7 +41,7 @@ A program for people whom it hurts to click the mouse.
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
@@ -58,22 +52,25 @@ A program for people whom it hurts to click the mouse.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop ||:
 
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog README TODO
 %license LICENSES/*
-%{_kf5_bindir}/kmousetool
-%{_kf5_datadir}/kmousetool/
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/*/*
+%{_kf6_bindir}/kmousetool
+%{_kf6_datadir}/kmousetool/
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/*/*
 %{_mandir}/man1/*.1*
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

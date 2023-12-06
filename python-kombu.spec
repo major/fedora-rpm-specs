@@ -2,7 +2,7 @@
 %global srcname kombu
 # Packaging unstable?
 # %%global prerel b3
-%global general_version 5.3.2
+%global general_version 5.3.4
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-%{srcname}
@@ -16,12 +16,6 @@ License:        BSD and Python
 URL:            http://kombu.readthedocs.org/
 Source0:        https://github.com/celery/kombu/archive/v%{upstream_version}/%{srcname}-%{upstream_version}.tar.gz
 
-# Python 3.12: https://github.com/celery/kombu/commit/3ad075a536d177170a7a5d7b04d81e94bd5bf404
-Patch01:        3ad075a536d177170a7a5d7b04d81e94bd5bf404.patch
-
-# Python 3.12: https://github.com/celery/kombu/commit/7187021ecc9f65601c50754d0fc6ec6c5264eea1
-# and part of https://github.com/celery/kombu/commit/6c8e7e6b2815ae03eb77f7625c3c196e0390a749
-Patch02:        7187021ecc9f65601c50754d0fc6ec6c5264eea1.patch
 
 BuildArch: noarch
 

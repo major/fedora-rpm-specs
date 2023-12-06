@@ -19,14 +19,16 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdelibs4support-devel
-BuildREquires: kf5-knewstuff-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildREquires: kf5-knewstuff-devel
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5Qml) pkgconfig(Qt5Quick) pkgconfig(Qt5QuickWidgets) pkgconfig(Qt5Svg) pkgconfig(Qt5Concurrent)
+BuildRequires: kf6-rpm-macros
+BuildRequires: kf6-kcoreaddons-devel
+BuildRequires: kf6-kdeclarative-devel
+BuildRequires: kf6-knewstuff-devel
+BuildRequires: kf6-kxmlgui-devel
+BuildRequires: kf6-knewstuff-devel
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: pkgconfig(Qt6Widgets) pkgconfig(Qt6Qml) pkgconfig(Qt6Quick) pkgconfig(Qt6QuickWidgets) pkgconfig(Qt6Svg) pkgconfig(Qt6Concurrent)
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires: libkdegames-devel >= %{majmin_ver}
 %if 0%{?fedora} > 19
@@ -45,7 +47,7 @@ horizontally or diagonally.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 
@@ -56,18 +58,18 @@ horizontally or diagonally.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop ||:
 
 
 %files -f %{name}.lang
 %doc AUTHORS
 %license COPYING*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/%{name}/
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/%{name}/
 
 
 %changelog

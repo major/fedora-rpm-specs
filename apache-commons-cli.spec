@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-cli
-Version:        1.5.0
-Release:        8%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Command Line Interface Library for Java
 License:        Apache-2.0
 URL:            http://commons.apache.org/cli/
@@ -15,8 +15,10 @@ Source0:        http://www.apache.org/dist/commons/cli/source/commons-cli-%{vers
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.junit.vintage:junit-vintage-engine)
 %endif
 
 %description
@@ -43,6 +45,9 @@ command line arguments and options.
 %doc README.md RELEASE-NOTES.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.6.0-1
+- Update to upstream version 1.6.0
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.5.0-8
 - Rebuild to regenerate auto-Requires on java
 

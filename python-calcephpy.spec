@@ -1,8 +1,8 @@
 %global srcname calcephpy
 
 Name:           python-%{srcname}
-Version:        3.5.3
-Release:        2%{?dist}
+Version:        3.5.4
+Release:        1%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
@@ -76,6 +76,9 @@ find doc -name .buildinfo -exec rm -f {} \;
 
 
 %changelog
+* Sun Dec 03 2023 Mattia Verga <mattia.verga@protonm.me> - 3.5.4-1
+- Update to 3.5.4 (fedora#2252667)
+
 * Sat Sep 09 2023 Mattia Verga <mattia.verga@protonm.me> - 3.5.3-2
 - Fix build flags
 

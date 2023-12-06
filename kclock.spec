@@ -2,51 +2,51 @@
 %global orig_name org.kde.kclock
 
 Name:           kclock
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2.1+ and CC-BY and GPLv3+
 Summary:        Clock app for Plasma Mobile
-Url:            https://invent.kde.org/utilities/kclock
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Url:            https://apps.kde.org/kclock/
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  appstream
  
-BuildRequires:  libsodium-devel
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Widgets)
 
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Plasma)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6KirigamiAddons)
+
+BuildRequires:  cmake(Plasma)
 
  
-Requires:       kf5-kirigami2
 Requires:       hicolor-icon-theme
-Requires:       kf5-kirigami2-addons-dateandtime
+# QML module dependencies
+Requires:       kf6-kcoreaddons%{?_isa}
+Requires:       kf6-kirigami%{?_isa}
+Requires:       kf6-kirigami-addons-dateandtime%{?_isa}
+Requires:       kf6-ksvg%{?_isa}
+Requires:       qt6-qtmultimedia%{?_isa}
 
 
 %description
@@ -54,8 +54,12 @@ A convergent clock application for Plasma.
 
 
 %package plasma-applet
-Summary: Plasma5 applet for kclock
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Plasma applet for kclock
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+# QML module dependencies
+Requires:       kf6-kcmutils%{?_isa}
+Requires:       kf6-kirigami%{?_isa}
+Requires:       libplasma%{?_isa}
 
 %description plasma-applet
 %{summary}.
@@ -66,12 +70,11 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
 %cmake_install
-sed -i 's/GPL-2+/GPL-2.0-or-later/g' %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
 %find_lang %{name} --all-name
 
 
@@ -82,23 +85,26 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*
-%{_kf5_bindir}/%{name}
-%{_kf5_bindir}/%{name}d
-%{_kf5_datadir}/applications/%{orig_name}.desktop
-%{_kf5_metainfodir}/%{orig_name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
+%{_kf6_bindir}/%{name}
+%{_kf6_bindir}/%{name}d
+%{_kf6_datadir}/applications/%{orig_name}.desktop
+%{_kf6_metainfodir}/%{orig_name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_sysconfdir}/xdg/autostart/%{klockd_name}-autostart.desktop
 %{_datadir}/dbus-1/services/org.kde.%{name}d.service
-%{_kf5_datadir}/knotifications5/%{name}d.notifyrc
-%{_kf5_datadir}/dbus-1/interfaces/*.xml
+%{_kf6_datadir}/knotifications6/%{name}d.notifyrc
+%{_kf6_datadir}/dbus-1/interfaces/*.xml
 
 %files plasma-applet
-%{_kf5_metainfodir}/org.kde.plasma.%{name}_1x2.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}_plasmoid_1x2.svg
+%{_kf6_metainfodir}/org.kde.plasma.%{name}_1x2.appdata.xml
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}_plasmoid_1x2.svg
 %{_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x2/
-%{_qt5_plugindir}/plasma/applets/plasma_applet_%{name}_1x2.so
+%{_qt6_plugindir}/plasma/applets/org.kde.plasma.%{name}_1x2.so
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

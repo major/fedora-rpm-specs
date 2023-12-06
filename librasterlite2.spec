@@ -4,7 +4,7 @@
 # and gaiagraphics solved in the past. It is not a drop-in replacement for either.
 Name:          librasterlite2
 Version:       1.1.0
-Release:       0.13%{?pre:.%pre}%{?dist}
+Release:       0.14%{?pre:.%pre}%{?dist}
 Summary:       Stores and retrieves huge raster coverages using a SpatiaLite DBMS
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:           https://www.gaia-gis.it/fossil/librasterlite2
@@ -23,7 +23,7 @@ BuildRequires: libwebp-devel
 BuildRequires: libxml2-devel
 BuildRequires: libzstd-devel
 BuildRequires: lz4-devel
-BuildRequires: minizip-devel
+BuildRequires: minizip-ng-compat-devel
 BuildRequires: openjpeg2-devel
 BuildRequires: proj-devel
 BuildRequires: sqlite-devel
@@ -107,6 +107,10 @@ make check || true
 
 
 %changelog
+* Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.1.0-0.14.beta1
+- Rebuilt for minizip-ng transition Fedora change
+- Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
+
 * Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 1.1.0-0.13.beta1
 - Rebuild (libspatialite)
 
