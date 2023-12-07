@@ -1,9 +1,9 @@
-%global majorversion 15
+%global majorversion 16
 %global obsoletes_version %( echo $(( %majorversion + 1 )) )
 
 Summary: PostgreSQL client library
 Name: libpq
-Version: %{majorversion}.3
+Version: %{majorversion}.1
 Release: 1%{?dist}
 
 License: PostgreSQL
@@ -27,6 +27,7 @@ BuildRequires: openldap-devel
 BuildRequires: gettext
 BuildRequires: multilib-rpm-config
 BuildRequires: make
+BuildRequires: libicu-devel
 
 Obsoletes: postgresql-libs < %obsoletes_version
 Provides: postgresql-libs = %version-%release
@@ -130,6 +131,10 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Tue Dec 5 2023 Filip Janus <fjanus@redhat.com> - 16.1-1
+- Update to 16.1
+- Build with ICU by default - new upstream feature
+
 * Wed Aug 2 2023 Filip Janus <fjanus@redhat.com> - 15.3-1
 - Update to the latest upstream version
 

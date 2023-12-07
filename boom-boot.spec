@@ -3,7 +3,7 @@
 
 Name:		boom-boot
 Version:	1.6.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	%{summary}
 
 License:	GPL-2.0-only
@@ -24,6 +24,7 @@ BuildRequires: systemd-rpm-macros
 
 Requires: python3-boom = %{version}-%{release}
 Requires: %{name}-conf = %{version}-%{release}
+Requires: systemd >= 254
 
 Obsoletes: boom-boot-grub2 <= 1.3
 # boom-grub2 was not an official name of subpackage in fedora, but was used upstream:

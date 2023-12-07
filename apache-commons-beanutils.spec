@@ -2,7 +2,7 @@
 
 Name:           apache-commons-beanutils
 Version:        1.9.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Java utility methods for accessing and modifying the properties of arbitrary JavaBeans
 License:        Apache-2.0
 URL:            http://commons.apache.org/beanutils
@@ -44,7 +44,7 @@ sed -i 's/\r//' *.txt
 
 %build
 # Some tests fail in Koji
-%mvn_build -f -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7 -Dcommons.osgi.symbolicName=org.apache.commons.beanutils
+%mvn_build -f -- -Dcommons.packageId=beanutils
 
 %install
 %mvn_install
@@ -57,6 +57,9 @@ sed -i 's/\r//' *.txt
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.9.4-15
+- Port to apache-commons-parent 65
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.9.4-14
 - Convert License tag to SPDX format
 

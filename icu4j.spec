@@ -3,7 +3,7 @@
 
 Name:           icu4j
 Version:        74.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
 License:        Unicode-DFS-2016
@@ -47,14 +47,14 @@ Java text and internationalization API design.
 
 %package        charset
 Summary:        Charset converter library of %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = 1:%{version}-%{release}
 
 %description    charset
 Charset converter library of %{name}.
 
 %package        localespi
 Summary:        Locale SPI library of %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = 1:%{version}-%{release}
 
 %description    localespi
 Locale SPI library of %{name}.
@@ -66,7 +66,11 @@ Summary:        Parent POM for %{name}
 Parent POM for %{name}.
 
 %package        javadoc
+# Unicode-DFS-2016: the content
+# MIT: jquery
+License:        Unicode-DFS-2016 AND MIT
 Summary:        API documentation for %{name}
+Provides:       bundled(js-jquery)
 
 %description    javadoc
 API documentation for %{name}.
@@ -95,12 +99,12 @@ cd icu4j
 %mvn_install
 cd -
 
-# Since we have the all-in-one jar, we don't want the component jars too
-rm %{buildroot}%{_javadir}/icu4j/{c,d,f,l,p,r,s,t,u}*
-rm %{buildroot}%{_datadir}/maven-metadata/icu4j-{c,d,f,l,p,r,s,t,u}*
-rm %{buildroot}%{_mavenpomdir}/icu4j/{c,d,f,l,p,r,s,t,u}*
+# We do not want the dev and test component jars
+rm %{buildroot}%{_javadir}/icu4j/{common_tests,demos,framework,perf-tests,samples,tools_misc,utilities-for-cldr}.jar
+rm %{buildroot}%{_datadir}/maven-metadata/icu4j-{common_tests,demos,framework,perf-tests,samples,tools_misc,utilities-for-cldr}.xml
+rm %{buildroot}%{_mavenpomdir}/icu4j/{common_tests,demos,framework,perf-tests,samples,tools_misc,utilities-for-cldr}.pom
 
-%files -f icu4j/.mfiles-icu4j
+%files -f icu4j/.mfiles-icu4j -f icu4j/.mfiles-collate -f icu4j/.mfiles-core -f icu4j/.mfiles-currdata -f icu4j/.mfiles-langdata -f icu4j/.mfiles-regiondata -f icu4j/.mfiles-translit
 %license LICENSE
 %doc icu4j/readme.html icu4j/APIChangeReport.html
 
@@ -114,6 +118,9 @@ rm %{buildroot}%{_mavenpomdir}/icu4j/{c,d,f,l,p,r,s,t,u}*
 %license LICENSE
 
 %changelog
+* Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 1:74.1-2
+- Also ship the component jars (bz 2252982)
+
 * Mon Dec  4 2023 Jerry James <loganjerry@gmail.com> - 1:74.1-1
 - Version 74.1
 - Drop all patches

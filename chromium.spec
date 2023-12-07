@@ -180,9 +180,9 @@
 %global bundlepylibs 0
 
 # RHEL 7.9 dropped minizip.
-# It exists everywhere else though.
+# enable bundleminizip for Fedora > 39 due to switch to minizip-ng
 %global bundleminizip 0
-%if 0%{?rhel} == 7
+%if 0%{?rhel} == 7 || 0%{?fedora} > 39
 %global bundleminizip 1
 %endif
 
@@ -947,12 +947,9 @@ udev.
 
 %patch -P20 -p1 -b .disable-font-test
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%patch -P52 -p1 -b .unbundle-zlib
-%endif
-
 %if ! %{bundleminizip}
 %patch -P61 -p1 -b .system-minizip
+%patch -P52 -p1 -b .unbundle-zlib
 %endif
 
 %patch -P65 -p1 -b .java-only-allowed
@@ -1738,6 +1735,8 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %changelog
 * Sat Dec 02 2023 Than Ngo <than@redhat.com> - 119.0.6045.199-2
 - enable build flag -fstack-protector-strong for improved security
+- fixed bz#2242271, built with bundleminizip in fedora > 39
+- fixed bz#2251884, built with fstack-protector-strong for improved security
 
 * Wed Nov 29 2023 Than Ngo <than@redhat.com> - 119.0.6045.199-1
 - update to 119.0.6045.199

@@ -1,16 +1,12 @@
 # Coq's plugin architecture requires cmxs files, so:
 ExclusiveArch: %{ocaml_native_compiler}
 
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 # Without this, gcc flags are passed to frama-c in the test suite
 %undefine _auto_set_build_flags
 
 Name:           frama-c
 Version:        27.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -276,6 +272,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 27.1-7
+- Rebuild for ocaml-dune 3.12.1 (rhbz#2252981)
+
 * Tue Nov 14 2023 Jerry James <loganjerry@gmail.com> - 27.1-6
 - Fix failure to find plugins (bz 2249607)
 - Install the zsh completion file

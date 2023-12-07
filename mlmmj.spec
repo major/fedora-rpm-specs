@@ -1,13 +1,18 @@
 %global __requires_exclude perl\\(.*[.]pl\\)|\/bin\/bash
 %define _legacy_common_support 1
+%global modulename mlmmj
+%global selinuxtype targeted
 
 Name:           mlmmj
 Version:        1.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A simple and slim mailing list manager inspired by ezmlm
 License:        MIT
 URL:            http://mlmmj.org/
 Source0:        http://mlmmj.org/releases/%{name}-%{version}.tar.bz2
+Source1:        %{modulename}.te
+Source2:        %{modulename}.fc
+Source3:        README.SELinux
 
 BuildRequires:  gcc
 BuildRequires:  findutils
@@ -41,12 +46,32 @@ set of features, including:
 - Delivery Status Notification (RFC1891) support
 - Rich, customisable texts for automated operations
 
+%package        selinux
+Summary:        SELinux support for mlmmj
+BuildArch:      noarch
+Requires:       %{name} = %{version}
+Requires:       selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype}
+BuildRequires:  selinux-policy-devel
+
+%description selinux
+This package adds SELinux enforcement support to mlmmj.
+
 %prep
 %setup -q
+# SELinux
+mkdir selinux
+cp -p %{SOURCE1} selinux/%{modulename}.te
+cp -p %{SOURCE2} selinux/%{modulename}.fc
+cp -p %{SOURCE3} selinux/README.SELinux
+touch selinux/%{modulename}.if
 
 %build
 %configure --enable-receive-strip
 make %{?_smp_mflags}
+# SELinux
+make -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
+bzip2 -9 %{modulename}.pp
 
 %install
 %make_install
@@ -55,17 +80,47 @@ mkdir -p %{buildroot}%{_localstatedir}/spool/%{name}
 find contrib/ -type f -name *.pl -exec chmod -x {} ";"
 find contrib/ -type f -name *.cgi -exec chmod -x {} ";"
 
+# SELinux
+install -D -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
+
+%pre
+getent group mlmmj &>/dev/null || %{_sbindir}/groupadd -r mlmmj
+getent passwd mlmmj &>/dev/null || \
+    %{_sbindir}/useradd -r -g mlmmj -s /sbin/nologin -c "mlmmj user" -d %{_localstatedir}/spool/%{name} mlmmj
+
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s %{selinuxtype} %{modulename}
+fi
+
+%posttrans selinux
+%selinux_relabel_post -s %{selinuxtype}
+
 %files
-%{!?_licensedir:%global license %doc}
 %license COPYING
 %doc AUTHORS ChangeLog FAQ README* TODO TUNABLES UPGRADE
 %doc contrib/web/
 %{_bindir}/*
 %{_mandir}/man1/mlmmj*.1*
 %{_datadir}/%{name}/
-%{_localstatedir}/spool/%{name}
+%dir %attr(0700,mlmmj,root) %{_localstatedir}/spool/%{name}
+
+%files selinux
+%doc selinux/README.SELinux
+%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Mon Dec 04 2023 Denis Fateyev <denis@fateyev.com> - 1.3.0-17
+- Add system user and group assignment
+- Add initial SELinux support
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 # Not yet packaged: python3dist(pettingzoo)
 %bcond gymnasium 0
-# PyTorch is not yet packaged. See:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2242971
+# While python-torch is packaged in F40+, it’s not quite ready to use yet:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2253018
 %bcond torch 0
 
 Name:           python-ratinabox
-Version:        1.11.1
+Version:        1.11.2
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 
@@ -24,6 +24,9 @@ BuildRequires:  python3-devel
 
 # Run tests in parallel (“-n auto”)
 BuildRequires:  %{py3_dist pytest-xdist}
+%if %{with torch}
+BuildRequires:  %{py3_dist torch}
+%endif
 
 %global common_description %{expand:
 RatInABox is a toolkit for generating locomotion trajectories and complementary

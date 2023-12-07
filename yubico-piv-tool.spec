@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 
 Name:		yubico-piv-tool
-Version:	2.3.1
-Release:	2%{?dist}
+Version:	2.4.0
+Release:	1%{?dist}
 Summary:	Tool for interacting with the PIV applet on a YubiKey
 
 License:	GPLv3+
@@ -19,6 +19,7 @@ BuildRequires:	gnupg2 gengetopt help2man
 BuildRequires:	check-devel
 BuildRequires:	gcc gcc-c++
 BuildRequires:	cmake3
+BuildRequires:	zlib-devel
 Requires:		pcsc-lite-ccid
 
 %description
@@ -83,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
 
 
 %changelog
+* Tue Dec 05 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.0-1
+- New upstream release (#2252823)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

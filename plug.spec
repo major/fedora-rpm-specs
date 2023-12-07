@@ -1,13 +1,14 @@
 Name: plug
-Version: 1.4.3
-Release: 4%{?dist}
+Version: 1.4.4
+Release: 1%{?dist}
 Summary: Linux software for Fender Mustang amplifiers
 License: GPL-3.0-or-later
 Url: https://github.com/offa/plug
 
 Source0: https://github.com/offa/plug/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0: fix_gcc_13_ftbfs.patch
+# https://github.com/offa/plug/pull/23
+Patch1: plug-1.4.4-udev-install.patch
 
 BuildRequires: cmake
 BuildRequires: systemd-rpm-macros
@@ -19,22 +20,20 @@ BuildRequires: desktop-file-utils
 # For unittests.
 BuildRequires: gmock-devel
 
+
 %description
 Linux replacement for Fender FUSE software for Mustang amps.
 
-%prep
-%autosetup -p0 -n %{name}-%{version}
 
-# Fix udev rules.
-sed -e 's/GROUP="plugdev"/TAG+="uaccess"/g' -i cmake/50-mustang.rules
+%prep
+%autosetup -p1
+
 
 %build
-%cmake \
-    -DPLUG_DESKTOP_PATH=%{_datadir}/applications/ \
-    -DPLUG_UDEV_RULE_PATH=%{_udevrulesdir} \
-    -DBUILD_SHARED_LIBS:BOOL=OFF
+%cmake -DBUILD_SHARED_LIBS:BOOL=OFF
 
 %cmake_build
+
 
 %install
 %cmake_install
@@ -42,10 +41,12 @@ sed -e 's/GROUP="plugdev"/TAG+="uaccess"/g' -i cmake/50-mustang.rules
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # Remove unwanted files.
-rm -rf %{buildroot}%{_datadir}/plug
+rm -rf %{buildroot}%{_libdir}/cmake/plug
+
 
 %check
 make unittest -C %__cmake_builddir
+
 
 %files
 %doc README.md
@@ -53,8 +54,15 @@ make unittest -C %__cmake_builddir
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_udevrulesdir}/50-mustang.rules
+%{_udevrulesdir}/70-mustang-*.rules
+%{_datadir}/icons/hicolor/scalable/apps/mustang-plug.svg
+
 
 %changelog
+* Tue Dec 05 2023 Dan Horák <dan[at]danny.cz> - 1.4.4-1
+- Updated to 1.4.4
+- Resolves: rbhz#2252689
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

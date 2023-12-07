@@ -2,8 +2,8 @@
 
 Summary:	IPv4/v6 type and IPv4/v6 range index type for PostgreSQL
 Name:		postgresql-%{sname}
-Version:	2.4.1
-Release:	14%{?dist}
+Version:	2.4.2
+Release:	1%{?dist}
 License:	BSD
 # Note that the URL is generated, needs to be changed.
 Source0:	https://github.com/RhodiumToad/%sname/archive/%version/%name-%version.tar.gz
@@ -15,8 +15,7 @@ BuildRequires:	gcc
 BuildRequires:	clang-devel llvm-devel
 BuildRequires:	postgresql-server-devel
 
-
-%{?postgresql_module_requires}
+Requires(pre): postgresql-server
 
 %description
 ip4, ip4r, ip6, ip6r, ipaddress and iprange are types that contain a single
@@ -44,10 +43,18 @@ be used as a more flexible, indexable version of the cidr type.
 %doc README.ip4r
 %{_datadir}/pgsql/extension/*
 %{_libdir}/pgsql/%{sname}.so
+%if 0%{?postgresql_server_llvmjit}
 %{_libdir}/pgsql/bitcode/%{sname}*.bc
 %{_libdir}/pgsql/bitcode/%{sname}/src/*.bc
+%endif
 
 %changelog
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 2.4.2-1
+- Update to 2.4.2
+
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 2.4.1-15
+- disable postgresql_module_compat macro
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

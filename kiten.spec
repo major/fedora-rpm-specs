@@ -1,50 +1,38 @@
+# kanjistrokeorders-fonts was retired since F34
+%global bundle_font 1
+
 Name:    kiten
 Summary: Japanese Reference/Study Tool
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-License: GPLv2+
-URL:     https://www.kde.org/applications/education/kiten/
-#URL:    https://edu.kde.org/kiten/
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-# We have to strip the skip codes out of kanjidic
-# stripped tarball is generated as follows:
-# $ wget http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-# $ ./strip.sh %{name}-%{version}.tar.xz
-#Source0: %{name}-stripped-%{version}.tar.xz
-Source1: strip.sh
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause AND CC-BY-SA-3.0 AND CC-BY-SA-4.0
+URL:     https://apps.kde.org/kiten/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
-# kf5 deps
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-karchive-devel
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-khtml-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-knotifications-devel
-# qt deps
-BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6XmlGui)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
-%if 0%{?fedora} > 34 || 0%{?rhel} >= 9
-%global bundle_font 1
-%else
+%if !0%{?bundle_font}
 Requires: kanjistrokeorders-fonts
 %endif
 
@@ -55,17 +43,13 @@ Requires: kanjistrokeorders-fonts
 %package  libs
 Summary:  Runtime files for %{name}
 Requires: %{name} = %{version}-%{release}
-# when split occurred
-Conflicts: kdeedu-libs < 4.7.0-10
-License: LGPLv2+
+License: LGPL-2.0-or-later
 %description libs
 %{summary}.
 
 %package devel
 Summary:  Development files for %{name}
-# when split occurred
-Conflicts: kdeedu-devel < 4.7.0-10
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
@@ -76,7 +60,7 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -93,42 +77,40 @@ rm -fv %{buildroot}%{_datadir}/fonts/kanjistrokeorders/KanjiStrokeOrders.ttf
 
 
 %check
-for f in %{buildroot}%{_kf5_datadir}/applications/org.kde.kiten*.desktop ; do
+for f in %{buildroot}%{_kf6_datadir}/applications/org.kde.kiten*.desktop ; do
 desktop-file-validate $f
 done
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kiten.appdata.xml
 
 
 %files -f %{name}.lang
 %license COPYING*
 %license LICENSES/*
-%doc AUTHORS README TODO
-%{_kf5_bindir}/kiten
-%{_kf5_bindir}/kitengen
-%{_kf5_bindir}/kitenkanjibrowser
-%{_kf5_bindir}/kitenradselect
-%{_kf5_datadir}/kiten/
-%{_kf5_metainfodir}/org.kde.kiten.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kiten*.desktop
-%{_kf5_datadir}/config.kcfg/kiten.kcfg
-%{_kf5_datadir}/kxmlgui5/kiten/
-%{_kf5_datadir}/kxmlgui5/kitenkanjibrowser/
-%{_kf5_datadir}/kxmlgui5/kitenradselect/
-%{_kf5_datadir}/icons/hicolor/*/*/kiten.*
+%doc AUTHORS README.md TODO
+%{_kf6_bindir}/kiten
+%{_kf6_bindir}/kitenkanjibrowser
+%{_kf6_bindir}/kitenradselect
+%{_kf6_datadir}/kiten/
+%{_kf6_metainfodir}/org.kde.kiten.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kiten*.desktop
+%{_kf6_datadir}/config.kcfg/kiten.kcfg
+%{_kf6_datadir}/icons/hicolor/*/*/kiten.*
 %if 0%{?bundle_font}
 %{_datadir}/fonts/kanjistrokeorders/KanjiStrokeOrders.ttf
 %endif
 
-%ldconfig_scriptlets libs
-
 %files libs
-%{_kf5_libdir}/libkiten.so.5*
+%{_kf6_libdir}/libkiten.so.6{,.*}
 
 %files devel
-%{_kf5_libdir}/libkiten.so
+%{_kf6_libdir}/libkiten.so
 %{_includedir}/libkiten/
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -2,7 +2,7 @@
 
 Name:           apache-commons-collections
 Version:        3.2.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Provides new interfaces, implementations and utilities for Java Collections
 License:        Apache-2.0
 URL:            http://commons.apache.org/collections/
@@ -71,7 +71,7 @@ sed -i 's/\r//' LICENSE.txt PROPOSAL.html README.txt NOTICE.txt
 %mvn_file ':commons-collections{,-testframework}' %{name}@1 commons-collections@1
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7 -Dcommons.osgi.symbolicName=org.apache.commons.collections
+%mvn_build -- -Dcommons.packageId=collections
 
 %install
 %mvn_artifact commons-collections:commons-collections-testframework:%{version} target/commons-collections-testframework-%{version}.jar
@@ -87,6 +87,9 @@ sed -i 's/\r//' LICENSE.txt PROPOSAL.html README.txt NOTICE.txt
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.2.2-32
+- Port to apache-commons-parent 65
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.2.2-31
 - Convert License tag to SPDX format
 

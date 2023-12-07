@@ -15,8 +15,8 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.3.4
-Release:        3%{?dist}
+Version:        1.3.5
+Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
 # --- rust ---
@@ -170,6 +170,9 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 
 
 %changelog
+* Tue Dec 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.3.5-1
+- Update to 1.3.5
+
 * Mon Nov 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.3.4-3
 - Verify signatures for sources
 

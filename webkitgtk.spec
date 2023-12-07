@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.43.1
+Version:        2.43.2
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -55,9 +55,6 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --import aperez.key carlosgc.key
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
-
-# https://commits.webkit.org/270977@main
-Patch:          libxml2-2.12.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -126,8 +123,6 @@ BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-egl)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(wpe-1.0)
-BuildRequires:  pkgconfig(wpebackend-fdo-1.0)
 BuildRequires:  pkgconfig(xt)
 
 # Filter out provides for private libraries
@@ -456,18 +451,16 @@ export NINJA_STATUS="[2/2][%f/%t %es] "
 
 %if %{with docs}
 %files -n webkitgtk6.0-doc
-%dir %{_datadir}/gtk-doc
-%dir %{_datadir}/gtk-doc/html
-%{_datadir}/gtk-doc/html/javascriptcoregtk-6.0/
-%{_datadir}/gtk-doc/html/webkitgtk-6.0/
-%{_datadir}/gtk-doc/html/webkitgtk-web-process-extension-6.0/
+%dir %{_datadir}/doc
+%{_datadir}/doc/javascriptcoregtk-6.0/
+%{_datadir}/doc/webkitgtk-6.0/
+%{_datadir}/doc/webkitgtk-web-process-extension-6.0/
 
 %files -n webkit2gtk4.1-doc
-%dir %{_datadir}/gtk-doc
-%dir %{_datadir}/gtk-doc/html
-%{_datadir}/gtk-doc/html/javascriptcoregtk-4.1/
-%{_datadir}/gtk-doc/html/webkit2gtk-4.1/
-%{_datadir}/gtk-doc/html/webkit2gtk-web-extension-4.1/
+%dir %{_datadir}/doc
+%{_datadir}/doc/javascriptcoregtk-4.1/
+%{_datadir}/doc/webkit2gtk-4.1/
+%{_datadir}/doc/webkit2gtk-web-extension-4.1/
 %endif
 
 %changelog

@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -73,12 +73,12 @@ BuildRequires:  mvn(antlr:antlr)
 BuildRequires:  mvn(bcel:bcel)
 BuildRequires:  mvn(bsf:bsf)
 BuildRequires:  mvn(com.jcraft:jsch)
-BuildRequires:  mvn(commons-logging:commons-logging-api)
 BuildRequires:  mvn(commons-net:commons-net)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.mail:jakarta.mail-api)
 BuildRequires:  mvn(jdepend:jdepend)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.commons:commons-logging::api:)
 BuildRequires:  mvn(org.tukaani:xz)
 BuildRequires:  mvn(oro:oro)
 BuildRequires:  mvn(regexp:regexp)
@@ -392,7 +392,9 @@ mv LICENSE.utf8 LICENSE
 %pom_xpath_remove pom:optional src/etc/poms/ant-antlr/pom.xml
 
 # fix javamail dependency coordinates (remove once javamail is updated)
-%pom_change_dep -r com.sun.mail:jakarta.mail jakarta.mail:jakarta.mail-api src/etc/poms/ant-jakartamail/pom.xml
+%pom_change_dep com.sun.mail:jakarta.mail jakarta.mail:jakarta.mail-api src/etc/poms/ant-jakartamail/pom.xml
+
+%pom_change_dep commons-logging:commons-logging-api org.apache.commons:commons-logging::api: src/etc/poms/ant-commons-logging/pom.xml
 
 %build
 %if %{with ant_minimal}
@@ -656,6 +658,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Tue Dec 05 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-3
+- Update Maven coordinates for commons-logging API
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-2
 - Rebuild
 

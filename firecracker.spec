@@ -8,7 +8,7 @@
 %bcond jailer   %{lua:print(rpm.expand("%{cargo_target}"):find("musl") or 0)}
 
 Name:           firecracker
-Version:        1.5.0
+Version:        1.5.1
 Release:        1%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
@@ -26,11 +26,11 @@ Provides:       bundled(crate(micro_http)) = 0.1.0^gita4d632f
 # Edit crate dependencies to track what is packaged in Fedora.
 Patch:          %{name}-1.5.0-remove-aws-lc-rs.patch
 Patch:          %{name}-1.5.0-remove-cargo_toml.patch
-Patch:          %{name}-1.5.0-remove-criterion.patch
-Patch:          %{name}-1.5.0-remove-device_tree.patch
+Patch:          %{name}-1.5.1-remove-criterion.patch
+Patch:          %{name}-1.5.1-remove-device_tree.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %defined cargo_target
+%if %{defined cargo_target}
 BuildRequires:  rust-std-static-%{cargo_target}
 %endif
 
@@ -69,7 +69,7 @@ sed -i -e 's,../../forks,forks,' Cargo.toml
 %{cargo_license} > LICENSE.dependencies
 
 %install
-install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/release/{cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin}
+install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/rpm/{cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin}
 
 # Ship the built-in seccomp JSON as an example that can be edited and compiled.
 ln -fn resources/seccomp/%{cargo_target}.json seccomp-filter.json ||
@@ -99,6 +99,9 @@ done
 
 
 %changelog
+* Tue Dec 05 2023 David Michael <fedora.dm0@gmail.com> - 1.5.1-1
+- Update to the 1.5.1 release.
+
 * Thu Oct 12 2023 David Michael <fedora.dm0@gmail.com> - 1.5.0-1
 - Update to the 1.5.0 release.
 
@@ -125,4 +128,7 @@ done
 - Update to the 1.3.2 release.
 
 * Mon Mar 06 2023 David Michael <fedora.dm0@gmail.com> - 1.3.1-1
+- Update to the 1.3.1 release.
+
+* Thu Mar 02 2023 David Michael <fedora.dm0@gmail.com> - 1.3.0-1
 - Initial package.

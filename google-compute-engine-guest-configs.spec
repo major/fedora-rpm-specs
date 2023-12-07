@@ -12,7 +12,6 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
-Requires:       dhcp-client
 Requires:       dracut
 
 BuildRequires:  systemd-rpm-macros

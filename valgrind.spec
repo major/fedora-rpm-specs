@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.22.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -81,6 +81,10 @@ Patch4: valgrind-3.16.0-some-Wl-z-now.patch
 # valgrind-monitor.py regular expressions should use raw strings
 # https://bugs.kde.org/show_bug.cgi?id=476708
 Patch5: valgrind-3.22.0-valgrind-monitor-python-re.patch
+
+# valgrind 3.22.0 fails on assertion when loading debuginfo
+# https://bugs.kde.org/show_bug.cgi?id=476548
+Patch6: valgrind-3.22.0-rodata.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -210,6 +214,7 @@ Valgrind User Manual for details.
 %patch -P4 -p1
 
 %patch -P5 -p1
+%patch -P6 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -426,6 +431,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Tue Dec  5 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-3
+- Add valgrind-3.22.0-rodata.patch
+
 * Fri Nov 17 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-2
 - Add valgrind-3.22.0-valgrind-monitor-python-re.patch
 - Drop support for rhel6

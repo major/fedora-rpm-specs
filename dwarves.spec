@@ -3,8 +3,8 @@
 
 Name: dwarves
 Version: 1.25
-Release: 2%{?dist}
-License: GPLv2
+Release: 3%{?dist}
+License: GPL-2.0-only
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
 Source: http://fedorapeople.org/~acme/dwarves/%{name}-%{version}.tar.xz
@@ -131,6 +131,9 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Wed Oct 11 2023 Viktor Malik <vmalik@redhat.com> - 1.25-3
+- Migrate license to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,10 +1,14 @@
 Name:    realmd
 Version: 0.17.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
 Source0: https://gitlab.freedesktop.org/realmd/realmd/uploads/204d05bd487908ece2ce2705a01d2b26/realmd-%{version}.tar.gz
+
+Patch0001: 0001-service-allow-multiple-names-and-_srv_-ad_server-opt.patch
+Patch0002: 0002-service-fix-error-message-when-removing-host-from-AD.patch
+Patch0003: 0003-doc-fix-reference-in-realmd.conf-man-page.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -91,6 +95,10 @@ make check
 %doc ChangeLog
 
 %changelog
+* Fri Dec 01 2023 Sumit Bose <sbose@redhat.com> - 0.17.1-5
+- allow multiple names and _srv_ ad_server option
+  Resolves: jira#SSSD-6077
+
 * Wed Oct 18 2023 Sumit Bose <sbose@redhat.com> - 0.17.1-4
 - migrated to SPDX license
 

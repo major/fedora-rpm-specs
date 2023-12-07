@@ -5,7 +5,7 @@
 
 Name:          muffin
 Version:       6.0.0
-Release:       1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:       2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -61,7 +61,6 @@ BuildRequires: pkgconfig(libcanberra)
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(wayland-server)
 BuildRequires: pkgconfig(xwayland)
-BuildRequires: pkgconfig(wayland-eglstream-protocols)
 BuildRequires: pkgconfig(wayland-protocols)
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(gl)
@@ -112,8 +111,7 @@ utilities for testing Metacity/Muffin themes.
 
 %build
 %meson \
- -Degl_device=true\
- -Dwayland_eglstream=true \
+ -Degl_device=true
 %meson_build
 
 %install
@@ -143,6 +141,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Dec 04 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-2
+- Drop eglstreams support
+
 * Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
 - Update to 6.0.0 release
 

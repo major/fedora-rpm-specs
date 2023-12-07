@@ -13,6 +13,10 @@ Summary:        Convert 24/32-bit images to 8-bit palette with alpha channel
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/imagequant-sys
 Source:         %{crates_source}
+# * compatibility fixes for cargo-c v0.9.26 and newer:
+#   https://github.com/lu-zero/cargo-c/pull/346
+#   https://github.com/lu-zero/cargo-c/pull/352
+Patch:          0001-explicitly-set-version_suffix_components-for-recent-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

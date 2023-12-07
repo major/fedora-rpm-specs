@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2023.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -17,8 +17,6 @@ BuildRequires: mesa-libGLU-devel libXmu-devel sqlite-devel vigra-devel
 BuildRequires: perl-podlators fftw-devel lcms2-devel
 # contains deprecated distutils
 BuildRequires: python-setuptools
-# this is a flann packaging bug
-BuildRequires: lz4-devel lz4
 
 %description
 hugin can be used to stitch multiple images together. The resulting image can
@@ -41,10 +39,6 @@ sed -i 's^/usr/bin/env python3^/usr/bin/python3^' \
 src/hugin_script_interface/plugins-dev/*.py \
 src/hugin_script_interface/*.py \
 src/hugin_script_interface/plugins/*.py
-
-# workaround flann pkgconfig bug
-# https://bugzilla.redhat.com/show_bug.cgi?id=2240334
-sed -i 's^GLEW_LIBRARIES})^GLEW_LIBRARIES} lz4)^' src/CMakeLists.txt
 
 %build
 %cmake -DBUILD_HSI=1 -DUSE_GDKBACKEND_X11=ON
@@ -177,6 +171,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Tue Dec 05 2023 Bruno Postle <bruno@postle.net> - 2023.0.0-2
+- build without lz4 workarounds see bug #2240334
+
 * Sat Nov 11 2023 Bruno Postle <bruno@postle.net> - 2023.0.0-1
 - 2023.0.0 stable release
 

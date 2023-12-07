@@ -9,7 +9,7 @@
 
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
 Name:			postgresql-%{short_name}
-Version:		4.4.4
+Version:		4.4.5
 Release:		1%{?dist}
 License:		BSD
 URL:			http://pgpool.net
@@ -69,7 +69,7 @@ Development headers and libraries for pgpool-II.
 Summary:	Postgresql extensions for pgpool-II
 Obsoletes:	postgresql-pgpool-II-recovery <= 3.3.4-1
 Provides:	postgresql-pgpool-II-recovery = %{version}-%{release}
-Requires:	postgresql-server(:MODULE_COMPAT_%{postgresql_major})
+Requires:	postgresql-server
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 
@@ -240,6 +240,13 @@ fi
 
 
 %changelog
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.4.5-1
+- Update to 4.4.5
+
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.4.4-2
+- Rebuild for demodularized version of postgresql
+- remove postgresq-_module_compat since it is not working with demodularized packages
+
 * Tue Aug 22 2023 Ondrej Sloup <osloup@redhat.com> -  4.4.4-1
 - Rebase to the latest upstream version (rhbz#2232454)
 

@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        1
+Version:        2
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -101,5 +101,8 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Dec 5 2023 Packit <hello@packit.dev> - 2-1
+- Improved field validation and other improvements in the user creation step
+
 * Wed Nov 24 2021 Katerina Koukiou <kkoukiou@redhat.com> - 1-1
 - First public preview of Anaconda Web UI after repository move

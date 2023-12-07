@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # There is a bootstrap loop between libpysal and networkx when tests/docs are
 # enabled
 %bcond_with     bootstrap
@@ -11,8 +10,8 @@
 %endif
 
 Name:           python-networkx
-Version:        3.1
-Release:        4%{?dist}
+Version:        3.2.1
+Release:        1%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -116,25 +115,17 @@ sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/ht
 %endif
 
 # Permit older versions of doc packages where Fedora is behind
-sed -e 's/\(sphinx>=\)6\.1/\15.3/' \
-    -e 's/\(sphinx-gallery>=\)0\.12/\10.11/' \
-    -e 's/\(numpydoc>=1.\)5/\14/' \
-    -i requirements/doc.txt
-
-# Permit older versions of example packages where Fedora is behind
-sed -e 's/\(seaborn>=0\.1\)2/\11/' \
-    -e 's/\(cairocffi>=1\.\)4/\13/' \
-    -i requirements/example.txt
+# Also permit a newer version of nbconvert
+sed -e 's/\(sphinx-gallery>=\)0\.14/\10.11.1/' \
+    -e 's/\(numpydoc>=1.\)6/\14.0/' \
+    -e 's/\(nbconvert<\)7\.9/\17.13/' \
+    -i pyproject.toml requirements/doc.txt
 
 # Fedora does not have osmnx or momepy
 sed -i '/osmnx/d;/momepy/d' requirements/example.txt
 
 %generate_buildrequires
-%if %{with doctest}
-%pyproject_buildrequires -x doc,extra,test requirements/example.txt
-%else
-%pyproject_buildrequires
-%endif
+%pyproject_buildrequires %{?with_doctest:-x doc,extra,test requirements/example.txt}
 
 %build
 %pyproject_wheel
@@ -148,8 +139,6 @@ rst2html --no-datestamp README.rst README.html
 %install
 %pyproject_install
 %pyproject_save_files networkx
-mv %{buildroot}%{_docdir}/networkx-%{version} ./installed-docs
-rm -f installed-docs/INSTALL.txt
 
 %if %{with doctest}
 # Repack uncompressed zip archives
@@ -172,7 +161,7 @@ done
 
 %files -n python3-networkx -f %{pyproject_files}
 %if %{with doctest}
-%doc README.html installed-docs/*
+%doc README.html
 %endif
 
 %if %{with doctest}
@@ -181,6 +170,9 @@ done
 %endif
 
 %changelog
+* Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 3.2.1-1
+- Version 3.2.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,13 +3,14 @@
 
 
 Name:		xed
-Version:	3.4.2
-Release:	2%{?dist}
+Version:	3.4.4
+Release:	1%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 License:	GPLv2+
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:     fix_libxml_include.patch
 
 ExcludeArch:   %{ix86}
 
@@ -128,6 +129,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Tue Dec 05 2023 Leigh Scott <leigh123linux@gmail.com> - 3.4.4-1
+- Update to 3.4.4 release
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,22 @@
-%global srcname immutables
-
 %bcond_without  tests
+
+Name:           python-immutables
+Version:        0.20
+Release:        %autorelease
+Summary:        Immutable Collections
+# The entire source code is Apache-2.0, except pythoncapi_compat.h, which is
+# 0BSD. While this file is unbundled, it is a header-only library; its entire
+# contents are compiled into the binary RPM, and packaging guidelines treat it
+# as a static library. Its license therefore contributes to the license of the
+# binary RPM. See discussion in
+# https://src.fedoraproject.org/rpms/python-immutables/pull-request/2, and the
+# (Rust-specific but relevant) policy
+# https://docs.fedoraproject.org/en-US/legal/license-field/#_rust_packages.
+License:        Apache-2.0 AND 0BSD
+URL:            https://github.com/MagicStack/immutables
+Source:         %{pypi_source immutables}
+
+BuildRequires:  gcc
 
 %global common_description %{expand:
 An immutable mapping type for Python.
@@ -14,31 +30,10 @@ Immutable mappings based on HAMT have O(log N) performance for both set() and
 get() operations, which is essentially O(1) for relatively small mappings.}
 
 
-Name:           python-%{srcname}
-Version:        0.19
-Release:        6%{?dist}
-Summary:        Immutable Collections
-# The entire source code is Apache-2.0, except pythoncapi_compat.h, which is
-# 0BSD. While this file is unbundled, it is a header-only library; its entire
-# contents are compiled into the binary RPM, and packaging guidelines treat it
-# as a static library. Its license therefore contributes to the license of the
-# binary RPM. See discussion in
-# https://src.fedoraproject.org/rpms/python-immutables/pull-request/2, and the
-# (Rust-specific but relevant) policy
-# https://docs.fedoraproject.org/en-US/legal/license-field/#_rust_packages.
-License:        Apache-2.0 AND 0BSD
-URL:            https://github.com/MagicStack/immutables
-Source:         %pypi_source
-# https://github.com/MagicStack/immutables/pull/105
-Patch:          0001-Python-3.12-compatibility-105.patch
-
-BuildRequires:  gcc
-
-
 %description %{common_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-immutables
 Summary:        %{summary}
 BuildRequires:  python3-devel
 %if %{with tests}
@@ -47,11 +42,11 @@ BuildRequires:  python3-pytest
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
 BuildRequires:  pythoncapi-compat-static
 
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-immutables %{common_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p 1
+%autosetup -n immutables-%{version} -p 1
 
 # don't install source files
 sed -e '/include_package_data=/ s/True/False/' -i setup.py
@@ -73,7 +68,7 @@ rm -vf immutables/pythoncapi_compat.h
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files immutables
 
 
 %check
@@ -84,53 +79,9 @@ rm -vf immutables/pythoncapi_compat.h
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-immutables -f %{pyproject_files}
 %doc README.rst
 
 
 %changelog
-* Mon Jul 24 2023 Carl George <carl@george.computer> - 0.19-6
-- Use upstream merged commit for Python 3.12 compatibility
-
-* Fri Jul 21 2023 Carl George <carl@george.computer> - 0.19-5
-- Python 3.12 compatibility, resolves rhbz#2220276
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.19-3
-- Rebuilt for Python 3.12
-
-* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.19-2
-- Unbundle pythoncapi-compat
-
-* Fri Dec 16 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.19-1
-- Update License to SPDX
-- Indicate bundling of pythoncapi-compat header-only library
-- Update to 0.19 (close RHBZ#2126990)
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.18-2
-- Rebuilt for Python 3.11
-
-* Wed Jun 01 2022 Carl George <carl@george.computer> - 0.18-1
-- Latest upstream, resolves: rhbz#2092222
-- Convert to pyproject macros
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.15-3
-- Rebuilt for Python 3.10
-
-* Wed Apr 21 2021 Carl George <carl@george.computer> - 0.15-2
-- Include missing upstream license
-- Disable package data in setup.py to avoid installing source files
-
-* Wed Apr 21 2021 Carl George <carl@george.computer> - 0.15-1
-- Initial package rhbz#1951868
+%autochangelog

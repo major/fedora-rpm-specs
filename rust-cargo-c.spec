@@ -5,10 +5,10 @@
 %global rustflags_debuginfo 1
 
 %global crate cargo-c
-%global upstream_version 0.9.27+cargo-0.74.0
+%global upstream_version 0.9.28+cargo-0.75.0
 
 Name:           rust-cargo-c
-Version:        0.9.27
+Version:        0.9.28
 Release:        %autorelease
 Summary:        Helper program to build and install c-like libraries
 
@@ -19,8 +19,7 @@ Source1:        macros.cargo-c
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          cargo-c-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop +cargo version suffix from crate version
-# * remove vendored OpenSSL feature
+# * remove feature for building / statically linking vendored OpenSSL sources
 Patch:          cargo-c-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

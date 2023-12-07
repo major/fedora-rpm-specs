@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.24.4
+Version:    2.24.5
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,12 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Tue Dec 05 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.5-1
+- Update to 2.24.5
+- Fix first character disappearing when compose was involved in WhatsApp and Telegram
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/471
+- Update emoji annotations from CLDR
+
 * Wed Oct 18 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.4-1
 - Update to 2.24.4
 - Fix typos which prevented autosettings from working when the attempting

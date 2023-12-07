@@ -1,24 +1,11 @@
-# This package depends on automagic byte compilation
-%global py_byte_compile 1
-
-# only works with python3
-%global __python /usr/bin/python3
-
 Name:    kajongg
 Summary: Classical Mah Jongg game for four players
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND GFDL-1.1-or-later
-URL:     https://invent.kde.org/games/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/kajongg/
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildArch: noarch
 
@@ -28,37 +15,34 @@ BuildArch: noarch
 # NEEDSWORK: KDEPython.cmake assumes relative paths
 Patch1: kajongg-20.04.1-KDEPython_paths.patch
 
+BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5KMahjongglib)
+BuildRequires: libappstream-glib
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6SvgWidgets)
+BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KMahjongglib6)
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 # versioned dep often not strictly required -- rex
 BuildRequires: libkmahjongg-devel >= %{majmin_ver}
 Requires:      libkmahjongg-data >= %{majmin_ver}
 
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Widgets)
-
-BuildRequires: desktop-file-utils
-BuildRequires: pkgconfig(sqlite3)
-BuildRequires: libappstream-glib
-
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-ki18n-devel
-
+BuildRequires: python3-devel
 # https://bugzilla.redhat.com/show_bug.cgi?id=1460506
 # strictly only a runtime dep, but checked at buildtime for sanity -- rex
 BuildRequires: python3-twisted >= 16.6.0
 Requires:      python3-twisted >= 16.6.0
 
-Requires: python3-qt5
+Requires: python3-pyqt6-base
 # for ogg123
 Requires: vorbis-tools
 Requires: python3-QtPy
-
-Conflicts: kdegames < 6:4.9.60
 
 %description
 Kajongg is the ancient Chinese board game for 4 players. Kajongg can
@@ -73,33 +57,37 @@ of other human players or computer players.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
 
 %install
 %cmake_install
+%py_byte_compile %{__python3} %{buildroot}%{_kf6_datadir}/%{name}
 
 %find_lang %{name} --all-name --with-html
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
 %license voices/female2/COPYRIGHT
-%{_kf5_bindir}/%{name}*
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/%{name}/
+%{_kf6_bindir}/%{name}*
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/%{name}/
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

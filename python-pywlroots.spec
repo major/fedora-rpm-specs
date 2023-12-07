@@ -10,9 +10,7 @@ Source:         %{pypi_source pywlroots}
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: gcc
-BuildRequires: wlroots-devel
-
-Requires:  wlroots
+BuildRequires: (pkgconfig(wlroots) >= 0.16.0 with pkgconfig(wlroots) < 0.17)
 
 
 %global _description %{expand:

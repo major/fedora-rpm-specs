@@ -16,7 +16,7 @@
 # All arches have mpich
 %bcond_without mpich
 
-%if 0%{?fedora} >= 40
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 %ifarch %{ix86}
     # No OpenMPI support on these arches
     %bcond_with openmpi

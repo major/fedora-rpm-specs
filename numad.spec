@@ -1,8 +1,6 @@
-%global systemctl_bin /usr/bin/systemctl
-
 Name: numad
 Version: 0.5
-Release: 41.20150602git%{?dist}
+Release: 42.20150602git%{?dist}
 Summary: NUMA user daemon
 
 License: LGPL-2.1-only
@@ -12,17 +10,14 @@ URL: https://pagure.io/numad
 #   git clone https://pagure.io/numad.git numad-0.5git
 #   tar --exclude-vcs -cJf numad-0.5git.tar.xz numad-0.5git/
 Source0: %{name}-%{version}git.tar.xz
+
 Patch0: 0000-remove-conf.patch
 Patch1: 0001-numad_log-fix-buffer-overflow.patch
+Patch2: 0002-recognize--m-option-correctly.patch
 
-Requires: systemd-units
-Requires(post): systemd-units
-Requires(preun): systemd-units
+BuildRequires: gcc
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires: systemd-units
-
-ExcludeArch: s390 %{arm}
+BuildRequires: systemd-rpm-macros
 
 %description
 Numad, a daemon for NUMA (Non-Uniform Memory Architecture) systems,
@@ -30,27 +25,21 @@ that monitors NUMA characteristics and manages placement of processes
 and memory to minimize memory latency and thus provide optimum performance.
 
 %prep
-%setup -q -n %{name}-%{version}git
-%patch0 -p1
-%patch1 -p1
+%autosetup -n %{name}-%{version}git
 
 %build
-make CFLAGS="$RPM_OPT_FLAGS -std=gnu99" LDFLAGS="$RPM_LD_FLAGS -lpthread -lrt -lm"
+%make_build CFLAGS="$CFLAGS"
 
 %install
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
-mkdir -p %{buildroot}%{_unitdir}
-mkdir -p %{buildroot}%{_mandir}/man8/
-install -p -m 644 numad.service %{buildroot}%{_unitdir}/
-install -p -m 644 numad.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -D -p -m 644 {,%{buildroot}%{_unitdir}/}numad.service
+install -D -p -m 644 {,%{buildroot}%{_sysconfdir}/logrotate.d/%{name}/}numad.logrotate
 %make_install prefix=%{buildroot}/usr
 
 %files
-%{_bindir}/numad
-%{_unitdir}/numad.service
 %config(noreplace) %{_sysconfdir}/logrotate.d/numad
-%doc %{_mandir}/man8/numad.8.gz
+%{_bindir}/numad
+%{_mandir}/man8/numad.8.*
+%{_unitdir}/numad.service
 
 %post
 %systemd_post numad.service
@@ -62,6 +51,15 @@ install -p -m 644 numad.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 %systemd_postun numad.service
 
 %changelog
+* Tue Nov 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.5-42.20150602git
+- recognize the -m option
+- modernize the specfile
+    - use recommended systemd macros
+    - fix manual pages installation
+    - sort file list and BuildRequires
+    - use modern make macros
+    - simplify %%install section
+
 * Wed Sep 06 2023 Lukas Nykryn <lnykryn@redhat.com> - 0.5-41.20150602git
 - fix buffer overflow
 

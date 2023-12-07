@@ -1,5 +1,5 @@
 Name:          ktextaddons
-Version:       1.5.1
+Version:       1.5.2
 Release:       1%{?dist}
 Summary:       Various text handling addons
 
@@ -7,17 +7,23 @@ License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clau
 
 URL:           https://invent.kde.org/libraries/%{name}
 
-Source0:       http://download.kde.org/stable/ktextaddons/%{name}-%{version}.tar.xz
+Source0:       http://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
 
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Keychain)
 BuildRequires: cmake(Qt5TextToSpeech)
 BuildRequires: cmake(Qt5UiPlugin)
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Keychain)
+BuildRequires: cmake(Qt6TextToSpeech)
+BuildRequires: cmake(Qt6UiPlugin)
 
 BuildRequires: cmake(KF5Archive)
 BuildRequires: cmake(KF5ConfigWidgets)
@@ -28,34 +34,83 @@ BuildRequires: cmake(KF5Sonnet)
 BuildRequires: cmake(KF5SyntaxHighlighting)
 BuildRequires: cmake(KF5XmlGui)
 
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Sonnet)
+BuildRequires: cmake(KF6SyntaxHighlighting)
+BuildRequires: cmake(KF6XmlGui)
+
 
 %description
 %{summary}.
 
 
-%package        devel
-Summary:        Development files for %{name}
-%description    devel
+%package        qt5
+Obsoletes:      ktextaddons < 1.5.2
+Provides:       ktextaddons = %{version}-%{release}
+Summary:        Qt5 libraries for %{name}
+Requires:       %{name}-docs
+%description    qt5
 %{summary}.
 
+%package        qt5-devel
+Summary:        Development files for %{name}
+Obsoletes:      ktextaddons-devel < 1.5.2
+Provides:       ktextaddons-devel = %{version}-%{release}
+%description    qt5-devel
+%{summary}.
+
+%package        qt6
+Summary:        Qt6 libraries for %{name}
+Requires:       %{name}-docs
+%description    qt6
+%{summary}.
+
+%package        qt6-devel
+Summary:        Development files for %{name}
+%description    qt6-devel
+%{summary}.
+
+%package        docs
+Summary:        Translations and documents for %{name}
+BuildArch:      noarch
+%description    docs
+%{summary}.
 
 %prep
 %autosetup -p1
 
 
 %build
-%{cmake_kf5}
+mkdir %{name}_qt5
+mkdir %{name}_qt6
+pushd %{name}_qt6
+%cmake_kf6 -S .. -DQT_MAJOR_VERSION=6
 %cmake_build
+popd
+
+pushd %{name}_qt5
+%cmake_kf5 -DQT_MAJOR_VERSION=5 -S ..
+%cmake_build
+popd
+
 
 
 %install
+pushd %{name}_qt6
 %cmake_install
-%find_lang %{name} --all-name
+popd
+%find_lang %{name} --all-name --with-html
+pushd %{name}_qt5
+%cmake_install
+popd
 
 
-%files -f %{name}.lang
+%files qt5
 %license LICENSES/
-%doc README.md
 %{_kf5_libdir}/libKF5TextAddonsWidgets.so.1
 %{_kf5_libdir}/libKF5TextAddonsWidgets.so.%{version}
 %{_kf5_libdir}/libKF5TextAutoCorrectionCore.so.1
@@ -97,8 +152,7 @@ Summary:        Development files for %{name}
 %{_kf5_datadir}/qlogging-categories5/ktextaddons.categories
 %{_kf5_datadir}/qlogging-categories5/ktextaddons.renamecategories
 
-
-%files devel
+%files qt5-devel
 %{_kf5_includedir}/TextAddonsWidgets/
 %{_kf5_includedir}/TextAutoCorrectionCore/
 %{_kf5_includedir}/TextAutoCorrectionWidgets/
@@ -130,8 +184,89 @@ Summary:        Development files for %{name}
 %{_kf5_libdir}/cmake/KF5TextTranslator/
 %{_kf5_libdir}/cmake/KF5TextUtils/
 
+%files qt6
+%license LICENSES/
+%{_kf6_libdir}/libKF6TextAddonsWidgets.so.1
+%{_kf6_libdir}/libKF6TextAddonsWidgets.so.%{version}
+%{_kf6_libdir}/libKF6TextAutoCorrectionCore.so.1
+%{_kf6_libdir}/libKF6TextAutoCorrectionCore.so.%{version}
+%{_kf6_libdir}/libKF6TextAutoCorrectionWidgets.so.1
+%{_kf6_libdir}/libKF6TextAutoCorrectionWidgets.so.%{version}
+%{_kf6_libdir}/libKF6TextCustomEditor.so.1
+%{_kf6_libdir}/libKF6TextCustomEditor.so.%{version}
+%{_kf6_libdir}/libKF6TextEmoticonsCore.so.1
+%{_kf6_libdir}/libKF6TextEmoticonsCore.so.%{version}
+%{_kf6_libdir}/libKF6TextEmoticonsWidgets.so.1
+%{_kf6_libdir}/libKF6TextEmoticonsWidgets.so.%{version}
+%{_kf6_libdir}/libKF6TextEditTextToSpeech.so.1
+%{_kf6_libdir}/libKF6TextEditTextToSpeech.so.%{version}
+%{_kf6_libdir}/libKF6TextGrammarCheck.so.1
+%{_kf6_libdir}/libKF6TextGrammarCheck.so.%{version}
+%{_kf6_libdir}/libKF6TextTranslator.so.1
+%{_kf6_libdir}/libKF6TextTranslator.so.%{version}
+%{_kf6_libdir}/libKF6TextUtils.so.1
+%{_kf6_libdir}/libKF6TextUtils.so.%{version}
+%{_kf6_qtplugindir}/designer/textcustomeditor.so
+%{_kf6_qtplugindir}/designer/texttranslatorwidgets6.so
+%{_kf6_plugindir}/translator/translator_bing.so
+%{_kf6_plugindir}/translator/translator_deepl.so
+%{_kf6_plugindir}/translator/translator_google.so
+%{_kf6_plugindir}/translator/translator_libretranslate.so
+%{_kf6_plugindir}/translator/translator_lingva.so
+%{_kf6_plugindir}/translator/translator_yandex.so
+%{_kf6_datadir}/qlogging-categories6/ktextaddons.categories
+%{_kf6_datadir}/qlogging-categories6/ktextaddons.renamecategories
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_textaddonswidgets.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_textcustomeditor.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_textemoticonscore.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_textemoticonswidgets.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_textutils.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextAutoCorrectionCore.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextAutoCorrectionWidgets.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextEditTextToSpeech.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextGrammarCheck.pri
+%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextTranslator.pri
+
+
+%files qt6-devel
+%{_kf6_includedir}/TextAddonsWidgets/
+%{_kf6_includedir}/TextAutoCorrectionCore/
+%{_kf6_includedir}/TextAutoCorrectionWidgets/
+%{_kf6_includedir}/TextCustomEditor/
+%{_kf6_includedir}/TextEditTextToSpeech/
+%{_kf6_includedir}/TextEmoticonsCore/
+%{_kf6_includedir}/TextEmoticonsWidgets/
+%{_kf6_includedir}/TextGrammarCheck/
+%{_kf6_includedir}/TextTranslator/
+%{_kf6_includedir}/TextUtils/
+%{_kf6_libdir}/libKF6TextAddonsWidgets.so
+%{_kf6_libdir}/libKF6TextAutoCorrectionCore.so
+%{_kf6_libdir}/libKF6TextAutoCorrectionWidgets.so
+%{_kf6_libdir}/libKF6TextCustomEditor.so
+%{_kf6_libdir}/libKF6TextEditTextToSpeech.so
+%{_kf6_libdir}/libKF6TextEmoticonsCore.so
+%{_kf6_libdir}/libKF6TextEmoticonsWidgets.so
+%{_kf6_libdir}/libKF6TextGrammarCheck.so
+%{_kf6_libdir}/libKF6TextTranslator.so
+%{_kf6_libdir}/libKF6TextUtils.so
+%{_kf6_libdir}/cmake/KF6TextAddonsWidgets/
+%{_kf6_libdir}/cmake/KF6TextAutoCorrectionCore/
+%{_kf6_libdir}/cmake/KF6TextAutoCorrectionWidgets/
+%{_kf6_libdir}/cmake/KF6TextCustomEditor/
+%{_kf6_libdir}/cmake/KF6TextEmoticonsCore/
+%{_kf6_libdir}/cmake/KF6TextEmoticonsWidgets/
+%{_kf6_libdir}/cmake/KF6TextEditTextToSpeech/
+%{_kf6_libdir}/cmake/KF6TextGrammarCheck/
+%{_kf6_libdir}/cmake/KF6TextTranslator/
+%{_kf6_libdir}/cmake/KF6TextUtils/
+
+%files docs -f %{name}.lang
+%doc README.md
 
 %changelog
+* Tue Dec 5 2023 Steve Cossette <farchord@gmail.com> - 1.5.2-1
+- 1.5.2
+
 * Sun Sep 24 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.5.1-1
 - Update to 1.5.1
 

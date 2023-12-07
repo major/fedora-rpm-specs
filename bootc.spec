@@ -18,6 +18,7 @@ URL:            https://github.com/containers/bootc
 Source0:        %{url}/releases/download/v%{version}/bootc-%{version}.tar.zstd
 Source1:        %{url}/releases/download/v%{version}/bootc-%{version}-vendor.tar.zstd
 
+
 BuildRequires: make
 BuildRequires: ostree-devel
 BuildRequires: openssl-devel
@@ -28,6 +29,8 @@ BuildRequires: cargo-rpm-macros >= 25
 %endif
 BuildRequires: systemd
 
+# Backing storage tooling https://github.com/containers/composefs/issues/125
+Requires: composefs
 # For OS updates
 Requires: skopeo
 # For bootloader updates

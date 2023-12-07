@@ -1,0 +1,68 @@
+Name:    kpimtextedit
+Version: 24.01.80
+Release: 1%{?dist}
+Summary: The KPimTextEdit Library
+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
+URL:     https://invent.kde.org/frameworks/%{name}
+
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  extra-cmake-modules
+BuildRequires:  cmake(KF6TextEmoticonsWidgets)
+BuildRequires:  cmake(KF6Codecs)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Sonnet)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
+BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6XmlGui)
+
+BuildRequires:  qt6-qtbase-devel
+
+# translations moved here
+Conflicts: kde-l10n < 17.03
+
+%description
+%{summary}.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(KF5TextWidgets)
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%prep
+%autosetup -p1
+
+%build
+%cmake_kf6
+%cmake_build
+
+
+%install
+%cmake_install
+%find_lang %{name} --all-name --with-html
+
+%files -f %{name}.lang
+%license LICENSES/*
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_libdir}/libKPim6TextEdit.so.*
+
+%files devel
+%{_kf6_libdir}/libKPim6TextEdit.so
+%{_includedir}/KPim6/KPIMTextEdit/
+%{_kf6_libdir}/cmake/KPim6TextEdit
+
+%changelog
+* Tue Dec 5 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80

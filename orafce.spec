@@ -2,13 +2,13 @@
 
 Name:		orafce
 Version:	4.2.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Implementation of some Oracle functions into PostgreSQL
 License:	BSD
 URL:		http://github.com/orafce/orafce
 Source0:	https://github.com/orafce/orafce/archive/VERSION_%{githubversion}.tar.gz
 
-%{?postgresql_module_requires}
+Requires(pre): postgresql-server
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -44,6 +44,10 @@ for production work.
 
 
 %changelog
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.2.6-3
+- remove macro postgresql_module_requires
+- add simple require
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

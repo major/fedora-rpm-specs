@@ -1,5 +1,5 @@
 Name:           jmol
-Version:        16.1.41
+Version:        16.1.45
 Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
@@ -210,6 +210,9 @@ cd ../..
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 16.1.45-1
+- Version 16.1.45
+
 * Mon Oct 23 2023 Jerry James <loganjerry@gmail.com> - 16.1.41-1
 - Version 16.1.41
 - Update license: LGPL-2.0-or-later -> LGPL-2.1-or-later

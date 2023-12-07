@@ -2,6 +2,8 @@
 #global bootstrap 1
 
 %if !0%{?bootstrap}
+# analitza has been ported to Qt6, but cantor has not yet
+%global analitza 0
 %global qalculate 1
 %if 0%{?fedora} && ! 0%{?flatpak}
 # match julia.spec: ExclusiveArch:  x86_64
@@ -23,19 +25,12 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 23.08.3
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
-URL:     https://edu.kde.org/cantor/
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/cantor/
+Source:  https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
@@ -46,8 +41,6 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 # Kill using cantor internal API
 Patch2:  cantor-21.04.3-no-julia-internal.patch
 
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: analitza-devel >= %{majmin_ver}
 BuildRequires: openblas-devel
 
 BuildRequires: desktop-file-utils
@@ -83,6 +76,10 @@ BuildRequires: pkgconfig(Qt5Test)
 BuildRequires: poppler-qt5-devel
 
 # optional deps/plugins
+
+%if 0%{?analitza}
+BuildRequires: cmake(Analitza5)
+%endif
 %if 0%{?qalculate}
 BuildRequires: pkgconfig(libqalculate)
 %endif
@@ -173,7 +170,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/knsrcfiles/cantor.knsrc
+%if 0%{?analitza}
 %{_kf5_datadir}/knsrcfiles/cantor_kalgebra.knsrc
+%endif
 %if 0%{?luajit}
 %{_kf5_datadir}/knsrcfiles/cantor_lua.knsrc
 %endif
@@ -188,7 +187,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/knsrcfiles/cantor_sage.knsrc
 %{_kf5_datadir}/knsrcfiles/cantor_scilab.knsrc
 %{_kf5_datadir}/knsrcfiles/cantor-documentation.knsrc
-%dir %{_kf5_datadir}/kxmlgui5/cantor/
 %{_datadir}/icons/hicolor/*/*/*
 %dir %{_kf5_datadir}/cantor/
 %{_kf5_datadir}/cantor/latex/
@@ -197,9 +195,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/cantor/octavebackend/
 %{_kf5_datadir}/cantor/xslt/
 %{_kf5_datadir}/config.kcfg/*
-%{_kf5_datadir}/kxmlgui5/cantor/cantor_scripteditor.rc
-%{_kf5_datadir}/kxmlgui5/cantor/cantor_shell.rc
-%{_kf5_datadir}/kxmlgui5/cantor/cantor_*assistant.rc
 %{_kf5_datadir}/mime/packages/cantor.xml
 
 %if 0%{?julia}
@@ -228,7 +223,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_libdir}/libcantorlibs.so.%{version}
 %{_libdir}/libcantor_config.so
 %{_kf5_plugindir}/parts/cantorpart.so
-%{_kf5_datadir}/kxmlgui5/cantor/cantor_part.rc
 ## backend/plugins
 %if 0%{?python3}
 %{_kf5_datadir}/cantor/python/
@@ -239,7 +233,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_qtplugindir}/cantor/assistants/
 %{_kf5_qtplugindir}/cantor/panels/
 %dir %{_kf5_qtplugindir}/cantor/backends/
+%if 0%{?analitza}
 %{_kf5_qtplugindir}/cantor/backends/cantor_kalgebrabackend.so
+%endif
 %if 0%{?luajit}
 %{_kf5_qtplugindir}/cantor/backends/cantor_luabackend.so
 %endif
@@ -258,6 +254,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+- Disable KAlgebra/Analitza backend (until cantor is ported to Qt6)
+
 * Tue Nov 21 2023 Tom Callaway <spot@fedoraproject.org> - 23.08.3-1
 - 23.08.3
 

@@ -1,7 +1,8 @@
-%global irr_version 1.9.0mt10
+%global irr_version 1.9.0mt13
+%global minetest_game_version 5.7.0
 Name:     minetest
-Version:  5.7.0
-Release:  2%{?dist}
+Version:  5.8.0
+Release:  1%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 License:  LGPLv2+ and CC-BY-SA
@@ -13,7 +14,7 @@ Source2:  %{name}@.service
 Source3:  %{name}.rsyslog
 Source4:  %{name}.logrotate
 Source5:  %{name}.README
-Source6:  https://github.com/minetest/minetest_game/archive/%{version}/%{name}_game-%{version}.tar.gz
+Source6:  https://github.com/minetest/minetest_game/archive/%{minetest_game_version}/%{name}_game-%{minetest_game_version}.tar.gz
 Source7:  http://www.gnu.org/licenses/lgpl-2.1.txt
 Source8:  default.conf
 Source9:  https://github.com/minetest/irrlicht/archive/%{irr_version}/%{name}-%{irr_version}.tar.gz
@@ -51,7 +52,11 @@ BuildRequires:  libzstd-devel
 BuildRequires:  libXi-devel
 
 Requires:       %{name}-server = %{version}-%{release}
-Requires:       %{name}-data-game = %{version}-%{release}
+
+#Drop after f42
+Provides:       %{name}-data-game = %{version}-%{release}
+Obsoletes:      %{name}-data-game < 5.8.0-1
+
 Requires:       hicolor-icon-theme
 
 Provides:  bundled(irrlicht) = %{irr_version}
@@ -69,7 +74,6 @@ Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
 Requires:         %{name}-data-common = %{version}-%{release}
-Recommends:       %{name}-data-game = %{version}-%{release}
 
 %description server
 Minetest multiplayer server. This package does not require X Window System.
@@ -80,21 +84,8 @@ Summary:  Minetest common data between client and server
 %description data-common
 Minetest common data. This package is shared between minetest server and client.
 
-%package data-game
-Summary:  Minetest default and minimal game data
-Requires: %{name}-data-common = %{version}-%{release}
-
-%description data-game
-Minetest default game data. This package is optional for a server if you install
-your own game.
-
 %prep
 %autosetup -p1
-
-pushd games
-tar xf %{SOURCE6}
-mv %{name}_game-%{version} %{name}_game
-popd
 
 pushd lib
 tar xf %{SOURCE9}
@@ -154,6 +145,13 @@ install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}-server
 # /var/lib/minetest directory for server data files
 install -d -m 0775 %{buildroot}%{_sharedstatedir}/%{name}/
 install -d -m 0775 %{buildroot}%{_sharedstatedir}/%{name}/default/
+install -d -m 0775 %{buildroot}%{_sharedstatedir}/%{name}/.minetest/
+install -d -m 0775 %{buildroot}%{_sharedstatedir}/%{name}/.minetest/games/
+
+pushd %{buildroot}%{_sharedstatedir}/%{name}/.minetest/games/
+tar xf %{SOURCE6}
+mv %{name}_game-%{minetest_game_version} %{name}_game
+popd
 
 # /etc/minetest/default.conf
 install -d -m 0775 %{buildroot}%{_sysconfdir}/%{name}/
@@ -180,7 +178,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 %pre server
 getent group %{name} >/dev/null || groupadd -r %{name}
 getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
+    useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /bin/bash \
     -c "Minetest multiplayer server" %{name}
 exit 0
 
@@ -209,7 +207,7 @@ exit 0
 
 %files server
 %license doc/lgpl-2.1.txt
-%doc README.md doc/world_format.txt doc/protocol.txt README.fedora
+%doc README.md doc/protocol.txt README.fedora
 %{_bindir}/%{name}server
 %{_unitdir}/%{name}@.service
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}-server
@@ -223,12 +221,12 @@ exit 0
 %license doc/lgpl-2.1.txt
 %{_datadir}/%{name}/builtin
 
-%files data-game
-%license doc/lgpl-2.1.txt
-%{_datadir}/%{name}/games
-
 
 %changelog
+* Tue Dec 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.8.0-1
+- 5.8.0
+- Drop game package per upstream, install minetest_game in server package.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

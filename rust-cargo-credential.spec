@@ -5,16 +5,13 @@
 %global crate cargo-credential
 
 Name:           rust-cargo-credential
-Version:        0.3.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Library to assist writing Cargo credential helpers
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cargo-credential
 Source:         %{crates_source}
-# https://github.com/rust-lang/cargo/pull/12953
-Source:         https://github.com/rust-lang/cargo/raw/0.74.0/LICENSE-APACHE
-Source:         https://github.com/rust-lang/cargo/raw/0.74.0/LICENSE-MIT
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          cargo-credential-fix-metadata-auto.diff
 
@@ -55,7 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE1} %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

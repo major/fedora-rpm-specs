@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.11
+Version: 40.13
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -39,7 +39,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.47-1
+%define pykickstartver 3.51-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.8.1-1
 %define rpmver 4.15.0
@@ -164,6 +164,7 @@ system.
 
 %package live
 Summary: Live installation specific files and dependencies
+BuildArchitectures: noarch
 BuildRequires: desktop-file-utils
 # live installation currently implies a graphical installation
 Requires: anaconda-gui = %{version}-%{release}
@@ -464,6 +465,23 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 05 2023 Packit <hello@packit.dev> - 40.13-1
+- Keyboard layout descriptions: more liberal language name check (awilliam)
+- Don't prepend random language to keyboard layout names (awilliam)
+
+* Tue Dec 05 2023 Packit <hello@packit.dev> - 40.12-1
+- Update translations from Weblate for master (github-actions)
+- docs: Add release note for bootupd support (vslavik)
+- bootloader: Detect bootupd and skip regular install (vslavik)
+- ostree: Use bootupd if installed by payload (vslavik)
+- storage: Ignore NVDIMM namespaces in a non-sector mode (vponcova)
+- storage: Remove support for NVDIMM namespaces (vponcova)
+- spec: Add noarch where applicable (vslavik)
+- bootloader: Create an installation task for collecting kernel arguments
+  (vponcova)
+- bootloader: Add the collect_arguments method (vponcova)
+- bootloader: Remove the install_boot_loader function (vponcova)
+
 * Wed Nov 22 2023 Packit <hello@packit.dev> - 40.11-1
 - Remove all support of the built-in help system (vponcova)
 - Make possible to start TUI with installed WebUI (akankovs)

@@ -1,50 +1,40 @@
 
 Name:    kanagram
 Summary: Letter Order Game 
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/edu/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-sonnet-devel
-BuildRequires: pkgconfig(Qt5Core)
-BuildRequires: pkgconfig(Qt5Qml)
-BuildRequires: pkgconfig(Qt5Quick)
-BuildRequires: pkgconfig(Qt5OpenGL)
-## TODO
-BuildRequires: pkgconfig(Qt5TextToSpeech)
+BuildRequires: kf6-rpm-macros
 BuildRequires: libappstream-glib
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6TextToSpeech)
+
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Sonnet)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6XmlGui)
+
+BuildRequires: cmake(LibKEduVocDocument)
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires: libkeduvocdocument-devel >= %{majmin_ver}
 
 Requires: kdeedu-data
-
-# when split occurred
-Conflicts: kdeedu < 4.7.0-10
-
-Obsoletes: kanagram-devel < 4.13.90
-Obsoletes: kanagram-libs < 4.13.90
 
 %description
 %{summary}.
@@ -55,20 +45,13 @@ Obsoletes: kanagram-libs < 4.13.90
 
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 
 %cmake_build
 
 
 %install
 %cmake_install
-
-if [ -f "%{buildroot}%{_sysconfdir}/xdg/%{name}.knsrc" ]; then
-mkdir -p %{buildroot}%{_kf5_datadir}/knsrcfiles
-mv \
-  %{buildroot}%{_sysconfdir}/xdg/%{name}.knsrc \
-  %{buildroot}%{_kf5_datadir}/knsrcfiles/%{name}.knsrc
-fi
 
 %find_lang %{name} --all-name --with-html --with-man --with-qt
 
@@ -77,24 +60,25 @@ rm -fv %{buildroot}%{_kf5_datadir}/icons/hicolor/*/*/kanagram-harmattan.*
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop ||:
 
 
 %files -f %{name}.lang
 %license COPYING*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/knsrcfiles/%{name}.knsrc
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/kxmlgui5/%{name}/
-#{_kf5_datadir}/sounds/%{name}/
-%{_kf5_datadir}/config.kcfg/%{name}.kcfg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/knsrcfiles/%{name}.knsrc
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

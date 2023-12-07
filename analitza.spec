@@ -3,45 +3,36 @@
 #global bootstrap 1
 
 %if !0%{?bootstrap}
-%global tests 1
+%global tests %[!(0%{?rhel} >= 10)]
 %endif
 
 Name:    analitza
 Summary: Library of mathematical features
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/education/%{name}
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:  http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: extra-cmake-modules >= 1.3
-BuildRequires: kf5-rpm-macros
-BuildRequires: pkgconfig(eigen3)
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5Xml) pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5Test) pkgconfig(Qt5Qml) pkgconfig(Qt5Quick)
-BuildRequires: pkgconfig(Qt5OpenGL)
-# technically QtQuick private api, but this should be good enough -- rex
-BuildRequires: qt5-qtbase-private-devel
-BuildRequires: cmake(Qt5LinguistTools)
-
-BuildRequires: readline-devel
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6OpenGLWidgets)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Eigen3)
 
 %if 0%{?tests}
 BuildRequires: xorg-x11-server-Xvfb
 %endif
-
-Conflicts: kalgebra < 4.7.80
-
-Obsoletes: kalgebra-libs < 4.7.80
-Provides:  kalgebra-libs = %{version}-%{release}
 
 %description
 %{summary}.
@@ -54,11 +45,11 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
@@ -67,7 +58,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %install
 %cmake_install
 
-%find_lang_kf5 analitza_qt
+%find_lang_kf6 analitza_qt
 
 
 %check
@@ -79,29 +70,30 @@ popd
 %endif
 
 
-%ldconfig_scriptlets
-
 %files -f analitza_qt.lang
 #doc TODO
 %license COPYING*
 %dir %{_datadir}/libanalitza/
 %{_datadir}/libanalitza/plots/
-%{_kf5_libdir}/libAnalitza.so.8*
-%{_kf5_libdir}/libAnalitzaGui.so.8*
-%{_kf5_libdir}/libAnalitzaPlot.so.8*
-%{_kf5_libdir}/libAnalitzaWidgets.so.8*
-%{_kf5_qmldir}/org/kde/analitza/
+%{_kf6_libdir}/libAnalitza.so.8*
+%{_kf6_libdir}/libAnalitzaGui.so.8*
+%{_kf6_libdir}/libAnalitzaPlot.so.8*
+%{_kf6_libdir}/libAnalitzaWidgets.so.8*
+%{_kf6_qmldir}/org/kde/analitza/
 
 %files devel
-%{_includedir}/Analitza5/
-%{_kf5_libdir}/libAnalitza.so
-%{_kf5_libdir}/libAnalitzaGui.so
-%{_kf5_libdir}/libAnalitzaPlot.so
-%{_kf5_libdir}/libAnalitzaWidgets.so
-%{_kf5_libdir}/cmake/Analitza5/
+%{_includedir}/Analitza6/
+%{_kf6_libdir}/libAnalitza.so
+%{_kf6_libdir}/libAnalitzaGui.so
+%{_kf6_libdir}/libAnalitzaPlot.so
+%{_kf6_libdir}/libAnalitzaWidgets.so
+%{_kf6_libdir}/cmake/Analitza6/
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

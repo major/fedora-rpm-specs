@@ -1,37 +1,20 @@
-
-## disable for now, but leave option open if needed for awhile -- rex
-#global kde4_compat 1
-
 Name:    kdeedu-data
 Summary: Shared icons, artwork and data files for educational applications
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2
 URL:     https://invent.kde.org/education/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 BuildArch: noarch
 
 BuildRequires: kde-filesystem
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 # ECM macro used in kdeedu-data needs qmake
-BuildRequires: qt5-qtbase-devel
-
-# when kdeedu-data was split out from libkdeedu, upgrade path
-Obsoletes: libkdeedu < 14
+BuildRequires: qt6-qtbase-devel
 
 Requires: hicolor-icon-theme
-%if 0%{?kde4_compat}
-Requires: kde-filesystem
-%endif
 
 %description
 %{summary}.
@@ -42,7 +25,7 @@ Requires: kde-filesystem
 
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 
 %cmake_build
 
@@ -50,26 +33,17 @@ Requires: kde-filesystem
 %install
 %cmake_install
 
-%if 0%{?kde4_compat}
-# previous packages shipped %%{_kde4_appsdir}/kvtml , so let's
-# (hard)link data in in both places
-mkdir -p %{buildroot}%{_kde4_appsdir}
-cp -alf \
-   %{buildroot}%{_kf5_datadir}/apps/kvtml/ \
-   %{buildroot}%{_kde4_appsdir}
-%endif
-
 
 %files
 %license COPYING
-%if 0%{?kde4_compat}
-%{_kde4_appsdir}/kvtml/
-%endif
-%{_kf5_datadir}/apps/kvtml/
+%{_kf6_datadir}/apps/kvtml/
 %{_datadir}/icons/hicolor/*/*/*
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

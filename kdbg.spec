@@ -1,7 +1,7 @@
 Name: kdbg
 Summary: A GUI for gdb, the GNU debugger, and KDE
-Version: 3.0.1
-Release: 5%{?dist}
+Version: 3.1.0
+Release: 1%{?dist}
 Epoch: 1
 Source: http://download.sourceforge.net/kdbg/%{name}-%{version}.tar.gz
 # No version specified.
@@ -36,39 +36,31 @@ requires X and KDE to be installed in order to run.
 # don't install icons, which are included in oxygen-icon-theme
 rm -f kdbg/pics/*action-debug-run*
 
-mkdir -p %{_target_platform}
-pushd %{_target_platform}
+%cmake_kf5
 
-%{cmake_kde4} \
-  -DKDE_DISTRIBUTION_TEXT="%{version}-%{release} Fedora" \
-  ..
-popd
-
-make %{?_smp_mflags} -C %{_target_platform}
+%cmake_build
 
 %install
-rm -rf %{buildroot}
-
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 %find_lang %{name}
 
-mkdir -p %{buildroot}%{_datadir}/icons
-mv %{buildroot}%{_datadir}/kde4/apps/icons/hicolor %{buildroot}%{_datadir}/icons/
-
 %files -f %{name}.lang
-%doc BUGS ChangeLog* COPYING README TODO ReleaseNotes-*
+%doc BUGS COPYING README TODO ReleaseNotes-*
 %config (noreplace) /etc/xdg/kdbgrc
 %{_bindir}/*
 %{_datadir}/kxmlgui5/%{name}
 %{_datadir}/applications/*
-%{_kde4_appsdir}/%{name}
+%{_kf5_datadir}/%{name}
 %{_datadir}/icons/*/*/*/*
 %lang(de) %{_docdir}/HTML/de/%{name}
 %lang(en) %{_docdir}/HTML/en/%{name}
 %lang(ru) %{_docdir}/HTML/ru/%{name}
 
 %changelog
+* Mon Dec 04 2023 Than Ngo <than@redhat.com> - 3.1.0-1
+- 3.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

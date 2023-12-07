@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 37%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 81%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -54,14 +54,13 @@ Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 # lib/sflow*.[ch] files are SISSL.
 License: ASL 2.0 and LGPLv2+ and SISSL
 
-%if 0%{?commit0:1}
-Source: https://github.com/openvswitch/ovs/archive/%{commit0}.tar.gz#/openvswitch-%{shortcommit0}.tar.gz
-%else
-Source: https://www.openvswitch.org/releases/ovn-%{version}.tar.gz
-%endif
+%define ovncommit 56d5cf6ccf4a7b034b3d0c009fbca7c509f2f42a
 
-%define ovscommit 1d78a3f3164a6bf651b34f52812f38655b28a9ce
-%define ovsshortcommit 1d78a3f
+# Always pull an upstream release, since this is what we rebase to.
+Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
+
+%define ovscommit 0dd10cd803a2e5b8fb34b268e72748202eb4002a
+%define ovsshortcommit 0dd10cd
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -159,11 +158,7 @@ Docker network plugins for OVN.
 %endif
 
 %prep
-%if 0%{?commit0:1}
-%autosetup -v -n ovs-%{commit0} -p 1
-%else
-%autosetup -n ovn-%{version} -a 10 -p 1
-%endif
+%autosetup -n ovn-%{ovncommit} -a 10 -p 1
 
 %build
 %if 0%{?commit0:1}
@@ -438,6 +433,140 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Tue Dec 05 2023 Numan Siddique <numans@ovn.org> - 23.09.0-81
+- Sync to upstream OVN branch-23.09. Below are the commits
+since last update (23.09.0-37)
+- ovn: add geneve PMTUD support (#2241711)
+[Upstream: e42ca82fb92cd69bbfd4da72b3c22bc57fc1ecd0]
+
+- fmt_pkt: make sure scapy-server is started once
+[Upstream: b788911812171ee5d9c51806b1e287be910164c9]
+
+- fmt_pkt: improve scapy-server logging
+[Upstream: 820e11754bff7b7029abf8bd8f166c169bdd8d04]
+
+- fmt_pkt: use -S check to wait for scapy sock file
+[Upstream: 2d710c3b1d9444a49f80db6058462e7d33253644]
+
+- fmt_pkt: don't subshell when calling ovs-appctl
+[Upstream: fc311bb6d6108d49b356d9c785f6d47e7dc8faff]
+
+- controller: fix group_table and meter_table allocation
+[Upstream: acc63727d14ff7e9f447ed90115f74235f968499]
+
+- Prepare for 23.09.2.
+[Upstream: 8a000cc863773030828a4cda2167840f08c4a65c]
+
+- Set release date for 23.09.1.
+[Upstream: 0afd4e59e95b5f8c7b56760e91269786b0e0e52a]
+
+- northd: Add missing stopwatch initialization.
+[Upstream: 7fd87c5d0b1492c14d90faec4af4069496ae3609]
+
+- controller: avoid extra flows if localnet_learn_fdb is disabled
+[Upstream: b2f839849c36c058f940c417dc29e26165a1d30e]
+
+- controller: FDB entries for localnet should not overwrite entries for vifs (#2242830)
+[Upstream: 33b0117598b23b8c0877e482ee350283a147bb5f]
+
+- controller: Disable inactivity probe for statctrl
+[Upstream: bbd07439b9a8cd6db901bffcac7ac17f58e33a07]
+
+- pinctrl: reset success and failures n_count regardless of svc state
+[Upstream: 617b84d7dd2ce3501b49e988e1ba06e86889c9bd]
+
+- pinctrl: send RST instead of RST_ACK bit for lb hc
+[Upstream: beb26027cf26271c7cd780869b540737c7916e99]
+
+- controller: Don't artificially limit group and meter IDs to 16bit.
+[Upstream: e9e716ad531e34766d2f02783ac08955096bf636]
+
+- tests: fixed race_condition with max_prefix
+[Upstream: d257d800e41388bd2a387e0b6d5a0e41c2e8d8f1]
+
+- tests: have CHECK_NO_CHANGE_AFTER_RECOMPUTE potentially wait for ports up
+[Upstream: dab54b81c7ee767943163f2aaaa27b2c4b367964]
+
+- tests: fixed "ovn-nbctl - daemon retry connection"
+[Upstream: d2e0acb2a6aa510282da5e04036ec5258454c351]
+
+- tests: fixed system test "LR with SNAT fragmentation needed for external server".
+[Upstream: 0bb6ba908421825428ec904d5316ae13090adbbf]
+
+- tests: fixed "interconnection - static multicast" and "- IGMP/MLD multicast"
+[Upstream: 810d83e77ce3398bc94469404d85a01eb63e40bd]
+
+- ovn-ctl man: Add election timer config to manpage
+[Upstream: 25d4b6855f6ce3795314e9439716f775994c7f4d]
+
+- Fix flows not removed in ha migration
+[Upstream: 5375cdd96eaf8e527e5afea402f279990398710c]
+
+- binding: handle pb->chassis and pb->up from if-status module
+[Upstream: 619abe5c5e18f417fe20b252ca41b70e644466e0]
+
+- binding: slight refactor if no local binding in consider_iface_release
+[Upstream: d039b4332b9ea739bdf6b2efc9f5f3e422fe9a42]
+
+- controller: have I+P assigning ct_zones for l3gateway ports
+[Upstream: f5d01be7f1337bdc7885dd45592aa3b376467790]
+
+- tests: fixed another set of flaky ovn-ic tests
+[Upstream: 650bffdbe0562dc364faaef51f51f99e82cccc56]
+
+- tests: wait for all flows to be installed before sending packets
+[Upstream: b3d03b94178bee2479d6f66ffa34255a7feb79eb]
+
+- tests: fixed "ipsec -- basic configuration"
+[Upstream: ac3ece28ca04cb74b21c80e2bd73767e29cca9a3]
+
+- tests: fixed "LSP incremental processing"
+[Upstream: fcbc0ae1c66e31c38ad9d5e099237e7446958035]
+
+- tests: do not start backup-northd by default
+[Upstream: 54fae8cbb5db827da95a2a52ff28f29e6c7740fe]
+
+- tests: fixed multiple tests not properly waiting for packets to be received
+[Upstream: a1422144228bb9924dbc75782734a09c6ecfa534]
+
+- ci: Pin Python, Fedora and Ubuntu runner versions.
+[Upstream: 627955eb79c2cd374853319c1d271c2fd1aeac37]
+
+- ovs: Bump submodule to include E721 fixes.
+[Upstream: 1fa7628db4155d3a39d55fe61d8d19fa7d3030af]
+
+- tests: Remove broken "feature inactivity probe" test.
+[Upstream: 5044376da0a1c14d1ccc4b41dfdbae14e74746b2]
+
+- readthedocs: Add the configuration file.
+[Upstream: 84c93511ce9a612b9a815cc1403b4841cc2e4c58]
+
+- Documentation: Use theme from Read The Docs.
+[Upstream: 39236dc3151baa3ace58c3ecd62ba0384b4c7a05]
+
+- ovs: Bump submodule to v3.2.1.
+[Upstream: 74172ed481f7c239d9258845eb493f17d731df99]
+
+- py-requirements: Remove hacking dependency and use recent flake8.
+[Upstream: c6a631f066eea105c57c265dc68257d1b5ee18e4]
+
+- ovn-ic: wakeup on ovsdb transaction failures
+[Upstream: be4364e62ac739744c1ef5bdd74a85fe39d6e37d]
+
+- ovn-ic: fix potential segmentation violation when ts is deleted
+
+- controller, northd: Wait for cleanup before replying to exit
+[Upstream: aae5b2ec8ec9f4f9f7c9738d23818c2c4967627c]
+
+- tests: Add missing check for scapy.
+[Upstream: ea9310a5f1e37b373abffd85f7a8dd4fefc30c4e]
+
+- ci: Apply the ASAN workaround only for Clang <16
+[Upstream: 15bf24b889b178d4cdbb6166d3bc5434ec59f9fc]
+
+- ci: Use proper uname argument to get the HW type
+[Upstream: 2efc23f3edf0293ec81a167e1c4bf99fe5601ca2]
+
 * Tue Oct 17 2023 Numan Siddique <numans@ovn.org> - 23.09.0-37
 - Sync to upstream OVN branch-23.09. Below are the commits
 since last update (23.09.0-0)

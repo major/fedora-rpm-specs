@@ -1,17 +1,14 @@
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
-Version: 22.12.0
-Release: 4%{?dist}
+Version: 24.01.80
+Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
-URL:     https://invent.kde.org/games/kbreakout
-
-%global stable     %stable_kf5
-%global majmin_ver %majmin_ver_kf5
+URL:     https://apps.kde.org/kbreakout/
 
 # Upstream source. Cannot be used because we need to *PATCH* the sources
-#Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/kbreakout-%{version}.tar.xz
-Source0: kbrickbuster-22.12.0.tar.xz
+#Source:  https://download.kde.org/%%{stable_kf6}/release-service/%%{version}/src/kbreakout-%%{version}.tar.xz
+Source:  kbrickbuster-%{version}.tar.xz
 # This patch is needed to modify upstream sources. They must be uploaded to the
 # side-cache
 Source1: patch.sh
@@ -19,32 +16,26 @@ Source1: patch.sh
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kjobwidgets-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5Qml) pkgconfig(Qt5Quick) pkgconfig(Qt5QuickWidgets)  pkgconfig(Qt5Svg)
-BuildRequires: libkdegames-devel >= %{majmin_ver}
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
 
-Obsoletes: kbreakout < 1:4.14.3-1
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickWidgets)
+
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6DocTools)
+
+BuildRequires: cmake(KDEGames6)
+
 Provides:  kbreakout = 1:%{version}-%{release}
 
 %description
@@ -57,7 +48,7 @@ without losing the ball.
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
 %cmake_build
 
 
@@ -68,19 +59,23 @@ without losing the ball.
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.kde.%{name}.appdata.xml
 
 
 %files -f %{name}.lang
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_kf5_datadir}/%{name}/
-%{_kf5_datadir}/metainfo/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/qlogging-categories5/%{name}.categories
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/metainfo/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/qlogging-categories6/%{name}.categories
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- new version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name: cvise
-Version: 2.8.0
+Version: 2.9.0
 Release: 1%{?dist}
 Summary: Super-parallel Python port of the C-Reduce
 License: BSD
@@ -27,6 +27,7 @@ Requires: unifdef
 Requires: python3-pebble
 Requires: python3-psutil
 Requires: indent
+Requires: colordiff
 
 %description
 C-Vise is a super-parallel Python port of the C-Reduce. The port is fully
@@ -65,6 +66,10 @@ export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=restrict"
 %{_datadir}/cvise
 
 %changelog
+* Tue Dec 05 2023 Marek Polacek <polacek@redhat.com> - 2.9.0-1
+- update to cvise-2.9.0 (#2113164)
+- require colordiff (#2252760)
+
 * Wed Jul 26 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 2.8.0-1
 - update to cvise-2.8.0 (#2123703)
   various spec file improvements

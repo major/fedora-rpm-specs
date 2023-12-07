@@ -1,19 +1,15 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-logging
-Version:        1.2
-Release:        35%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Apache Commons Logging
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/commons-logging/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://www.apache.org/dist/commons/logging/source/commons-logging-%{version}-src.tar.gz
-Source2:        http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.pom
-
-Patch0:         0001-Generate-different-Bundle-SymbolicName-for-different.patch
-Patch1:         0002-Port-to-maven-jar-plugin-3.0.0.patch
+Source0:        https://www.apache.org/dist/commons/logging/source/commons-logging-%{version}-src.tar.gz
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -44,12 +40,17 @@ logging implementation.
 %prep
 %autosetup -p1 -n commons-logging-%{version}-src
 
-%pom_remove_dep -r :avalon-framework
-%pom_remove_dep -r :logkit
+%pom_remove_dep :avalon-framework
+%pom_remove_dep :logkit
 rm src/main/java/org/apache/commons/logging/impl/AvalonLogger.java
 rm src/main/java/org/apache/commons/logging/impl/LogKitLogger.java
 rm -r src/test/java/org/apache/commons/logging/{avalon,logkit}
 rm src/test/java/org/apache/commons/logging/pathable/{Parent,Child}FirstTestCase.java
+
+%if %{with bootstrap}
+%pom_remove_dep :log4j
+%pom_remove_dep :log4j-core
+%endif
 
 # Avoid hard-coded versions in OSGi metadata
 %pom_xpath_set "pom:properties/pom:commons.osgi.import" '*;resolution:=optional'
@@ -63,15 +64,14 @@ sed -i 's/\r//' RELEASE-NOTES.txt LICENSE.txt NOTICE.txt
 %mvn_file ":commons-logging{*}" "commons-logging@1" "%{name}@1"
 %mvn_alias ":commons-logging{*}" "org.apache.commons:commons-logging@1" "apache:commons-logging@1"
 
+%mvn_package ":::{*}:"
+
 # Remove log4j12 tests
 rm -rf src/test/java/org/apache/commons/logging/log4j/log4j12
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7 -Dcommons.osgi.symbolicName=org.apache.commons.logging
-
-# The build produces more artifacts from one pom
-%mvn_artifact %{SOURCE2} target/commons-logging-%{version}-api.jar
-%mvn_artifact commons-logging:commons-logging-adapters:%{version} target/commons-logging-%{version}-adapters.jar
+# missing test dependencies
+%mvn_build -f
 
 %install
 %mvn_install
@@ -81,6 +81,9 @@ rm -rf src/test/java/org/apache/commons/logging/log4j/log4j12
 %doc PROPOSAL.html RELEASE-NOTES.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3.0-1
+- Update to upstream version 1.3.0
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2-35
 - Rebuild
 

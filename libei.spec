@@ -4,8 +4,8 @@
 # Here there are packaged as libei, libeis and liboeffis plus respective subpackages.
 
 Name:           libei
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Library for Emulated Input
 
 License:        MIT
@@ -121,6 +121,9 @@ Library for XDG RemoteDesktop Portal Setup Development Package
 %{_bindir}/ei-debug-events
 
 %changelog
+* Wed Dec 06 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.0-1
+- libei 1.2.0
+
 * Thu Sep 07 2023 Kalev Lember <klember@redhat.com> - 1.1.0-2
 - Rebuild
 

@@ -5,7 +5,7 @@
 %global crate snap
 
 Name:           rust-snap
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Pure Rust implementation of the Snappy compression algorithm
 

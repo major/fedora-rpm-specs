@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.5.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Easily work with 'Font Awesome' Icons
 %if 0%{?fedora} > 38
 License:          MIT
@@ -32,6 +32,7 @@ Provides:         bundled(fontawesome-fonts-web) = 6.4.0
 %endif
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    tex(inconsolata.sty)
 BuildRequires:    R-rlang >= 1.0.6
 BuildRequires:    R-htmltools >= 0.5.1.1
 # Suggests
@@ -74,6 +75,22 @@ ln -s ../../../fontawesome %{buildroot}%{rlibdir}/%{packname}
 %check
 %{_bindir}/R CMD check %{packname}
 
+# This and the %%ghost entry in %%files can be removed when F43 reaches EOL
+%pretrans -p <lua>
+path = "%{rlibdir}/%{packname}/fontawesome"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
+
 %files
 %dir %{rlibdir}/%{packname}
 %doc %{rlibdir}/%{packname}/html
@@ -87,8 +104,13 @@ ln -s ../../../fontawesome %{buildroot}%{rlibdir}/%{packname}
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/apps
 %{rlibdir}/%{packname}/fontawesome
+%ghost %{rlibdir}/%{packname}/fontawesome.rpmmoved
 
 %changelog
+* Mon Dec  4 2023 Jerry James <loganjerry@gmail.com> - 0.5.1-3
+- Fix upgrade issue (bz 2252701)
+- Add missing inconsolata BR
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

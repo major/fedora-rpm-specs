@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.6.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
@@ -33,6 +33,33 @@ Patch3:		0001-The-installed-cmake-files-are-now-generated-and-cont.patch
 #		Fix maybe-uninitialized warning
 #		https://github.com/xrootd/xrootd/pull/2124
 Patch4:		0001-Fix-maybe-uninitialized-warning.patch
+
+#		Avoid /tmp when running some tests
+#		https://github.com/xrootd/xrootd/pull/2129
+Patch5:		0001-Avoid-tmp-when-running-some-tests.patch
+
+#		Fail gracefully in case of unsupported extended file attributes
+#		https://github.com/xrootd/xrootd/pull/2130
+Patch6:		0001-If-extended-attributes-are-not-supported-xattr-Get-r.patch
+
+#		Avoid null bytes in error message strings
+#		https://github.com/xrootd/xrootd/pull/2138
+Patch7:		0001-Reapply-XrdCl-Make-sure-error-message-does-not-inclu.patch
+
+#		Fix include path in XRootDConfig.cmake
+#		https://github.com/root-project/root/issues/12631
+#		https://github.com/xrootd/xrootd/pull/2142
+Patch8:		0001-CMake-Trace-actual-variables.patch
+Patch9:		0002-CMake-Fix-include-path-in-XRootDConfig.cmake.patch
+
+#		Avoid dereferencing unaligned pointers
+#		https://github.com/xrootd/xrootd/pull/2144
+Patch10:	0001-Avoid-bus-errors.patch
+
+#		Support big endian in XrdZip
+#		https://github.com/xrootd/xrootd/pull/2145
+Patch11:	0001-XrdZip-Include-cstdint-for-standard-int-types.patch
+Patch12:	0001-XrdZip-Support-Big-Endian.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3
@@ -90,6 +117,7 @@ BuildRequires:	libradosstriper-devel
 %ifnarch %{ix86}
 BuildRequires:	isa-l-devel
 %endif
+BuildRequires:	attr
 BuildRequires:	cppunit-devel
 BuildRequires:	gtest-devel
 BuildRequires:	openssl
@@ -314,6 +342,14 @@ This package contains the API documentation of the xrootd libraries.
 %patch -P 2 -p1
 %patch -P 3 -p1
 %patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -726,6 +762,14 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Dec 05 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.3-3
+- Avoid /tmp when running some tests
+- Fail gracefully in case of unsupported extended file attributes
+- Avoid null bytes in error message strings
+- Fix include path in XRootDConfig.cmake
+- Avoid dereferencing unaligned pointers
+- Support big endian in XrdZip
+
 * Sun Nov 19 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.3-2
 - Enable erasure code support (XrdEc)
 

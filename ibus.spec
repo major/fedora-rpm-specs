@@ -58,7 +58,7 @@
 
 Name:           ibus
 Version:        1.5.29~rc2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -580,6 +580,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Dec 05 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-4
+- Complete preedit signals for PostProcessKeyEvent
+
 * Sat Nov 25 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-3
 - Resolve #2188800 Error handling with display == null
 - Enhance #2237486 Implement preedit color in Plasma Wayland

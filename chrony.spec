@@ -1,6 +1,5 @@
 %global _hardened_build 1
 %global clknetsim_ver 5d1dc0
-%global prerelease -pre1
 %bcond_without debug
 %bcond_without nts
 
@@ -10,7 +9,7 @@
 
 Name:           chrony
 Version:        4.5
-Release:        0.1.pre1%{?dist}
+Release:        1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -206,6 +205,9 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Tue Dec 05 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.5-1
+- update to 4.5
+
 * Wed Nov 22 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.5-0.1.pre1
 - update to 4.5-pre1
 

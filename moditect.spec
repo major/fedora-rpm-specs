@@ -1,6 +1,8 @@
+%bcond_with bootstrap
+
 Name:           moditect
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tooling for the Java Module System
 License:        Apache-2.0
 URL:            https://github.com/moditect/moditect
@@ -9,11 +11,15 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}.Final/%{name}-%{version}.Final.tar.gz
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.javaparser:javaparser-core)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.assertj:assertj-core)
+%endif
 
 %description
 The ModiTect project aims at providing productivity tools for working with the
@@ -66,6 +72,9 @@ rm core/src/test/java/org/moditect/test/AddModuleInfoTest.java
 %license LICENSE.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.0.0-3
+- Implement bootstrap mode
+
 * Tue Aug 22 2023 Marian Koncek <mkoncek@redhat.com> - 1.0.0-2
 - Rebuild
 

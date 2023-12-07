@@ -1,54 +1,34 @@
 
 Name:    klettres
 Summary: Learn the alphabet and read some syllables in different languages
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     http://edu.kde.org/klettres/
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/klettres/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdelibs4support-devel
-BuildRequires: kf5-kdnssd-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kitemmodels-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kjobwidgets-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: pkgconfig(phonon4qt5)
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5Test) pkgconfig(Qt5Svg)
+BuildRequires: kf6-rpm-macros
 BuildRequires: libappstream-glib
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: libkeduvocdocument-devel >= %{majmin_ver}
 
-# when split occurred
-Conflicts: kdeedu < 4.7.0-10
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: cmake(Phonon4Qt6)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6XmlGui)
 
 %description
 KLettres aims to help to learn the alphabet and then to read some
@@ -61,7 +41,7 @@ very first sounds of a new language, for children or for adults.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -73,28 +53,27 @@ very first sounds of a new language, for children or for adults.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
 #doc README
-%{_kf5_bindir}/%{name}*
-%{_kf5_datadir}/knsrcfiles/%{name}.knsrc
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/kconf_update/%{name}*
-#{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_datadir}/kxmlgui5/%{name}/
-#{_kf5_datadir}/sounds/%{name}*
-%{_kf5_datadir}/config.kcfg/%{name}.kcfg
-%{_kf5_datadir}/qlogging-categories5/%{name}*
+%{_kf6_bindir}/%{name}*
+%{_kf6_datadir}/knsrcfiles/%{name}.knsrc
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/config.kcfg/%{name}.kcfg
+%{_kf6_datadir}/qlogging-categories6/%{name}*
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

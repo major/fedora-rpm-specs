@@ -5,13 +5,19 @@ Version:       0.0.99.4
 
 %global goipath github.com/containers/%{name}
 
+%if 0%{?fedora}
+%gometa -f
+%endif
+
+%if 0%{?rhel}
 %if 0%{?rhel} <= 9
 %gometa
 %else
 %gometa -f
 %endif
+%endif
 
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -224,8 +230,10 @@ export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_
 %install
 %meson_install
 
+%if 0%{?rhel}
 %if 0%{?rhel} <= 9
 install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
+%endif
 %endif
 
 
@@ -256,6 +264,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Tue Dec 05 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-8
+- Fix the conditionals for 'if RHEL <= 9'
+
 * Thu Nov 30 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-7
 - Track the active container on Fedora Linux Asahi Remix
 

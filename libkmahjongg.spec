@@ -2,7 +2,7 @@
 Name:    libkmahjongg
 Summary: Common code, backgrounds and tile sets for games using Mahjongg tiles
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/games/%{name}
@@ -30,6 +30,8 @@ Requires: %{name}-data = %{version}-%{release}
 %package devel
 Summary:  Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: cmake(Qt6Gui)
+Requires: cmake(KF6ConfigWidgets)
 %description devel
 %{summary}.
 
@@ -73,6 +75,9 @@ BuildArch: noarch
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-2
+- Fix devel dependencies
+
 * Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 - Drop KDE4 compatibility

@@ -3,35 +3,28 @@
 #global bootstrap 1
 
 %if !0%{?bootstrap}
-%global tests 1
+%global tests %[!(0%{?rhel} >= 10)]
 %endif
 
 Name:    libkeduvocdocument
 Summary: Library to parse, convert, and manipulate KVTML files
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://cgit.kde.org/%{name}.git
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://invent.kde.org/education/libkeduvocdocument/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 # master branch
 
 BuildRequires: make
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf6-karchive-devel
-BuildRequires:  kf6-ki18n-devel
-BuildRequires:  kf6-kio-devel
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  pkgconfig(Qt6Xml)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6KIO)
 
 %if 0%{?tests}
 BuildRequires: xorg-x11-server-Xvfb
@@ -59,6 +52,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %build
 %cmake_kf6 \
+  -DQT_MAJOR_VERSION=6 \
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
@@ -96,6 +90,9 @@ xvfb-run -a \
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
 - Update to 24.01.75
 

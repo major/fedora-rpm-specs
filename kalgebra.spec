@@ -1,54 +1,56 @@
 
 Name:    kalgebra
 Summary: 2D and 3D Graph Calculator
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
-URL:     https://invent.kde.org/edu/%{name}
+URL:     https://apps.kde.org/kalgebra/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
-
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: analitza-devel >= %{majmin_ver}
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-%if 0%{?fedora}
-%global validate_appdata 1
+BuildRequires: kf6-rpm-macros
 BuildRequires: libappstream-glib
-%endif
-BuildRequires: pkgconfig(Qt5Qml)
-BuildRequires: pkgconfig(Qt5Quick)
-BuildRequires: pkgconfig(Qt5Xml)
-BuildRequires: pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5OpenGL)
-BuildRequires: pkgconfig(Qt5PrintSupport)
-BuildRequires: pkgconfig(Qt5Test)
-# currently hard-codes linking -lGL -lGLU, can probably be removed -- rex
-BuildRequires: pkgconfig(gl) pkgconfig(glu)
-# mobile
-BuildRequires: pkgconfig(Qt5WebEngine)
 
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-plasma-devel
-BuildRequires: kf5-kwidgetsaddons-devel
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6OpenGLWidgets)
+BuildRequires: cmake(Qt6WebEngineWidgets)
+
+BuildRequires: cmake(Analitza6)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(Plasma)
+
 # calgebra deps
 BuildRequires: ncurses-devel readline-devel
 
+Recommends: (%{name}-plasma-applet%{?_isa} = %{version}-%{release} if plasma-workspace)
+
 %description
+%{summary}.
+
+%package plasma-applet
+Summary:        Plasma plotting applet
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+# QML module dependencies
+Requires:       libplasma%{?_isa}
+
+%description plasma-applet
 %{summary}.
 
 
@@ -57,7 +59,7 @@ BuildRequires: ncurses-devel readline-devel
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -69,31 +71,34 @@ BuildRequires: ncurses-devel readline-devel
 
 
 %check
-%if 0%{?validate_appdata}
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kalgebra.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kalgebramobile.appdata.xml
-%endif
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalgebra.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalgebramobile.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kalgebra.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kalgebramobile.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalgebra.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalgebramobile.desktop
 
 
 %files -f %{name}.lang
 %doc TODO
 %license COPYING*
-%{_kf5_bindir}/calgebra
-%{_kf5_bindir}/kalgebra
-%{_kf5_bindir}/kalgebramobile
+%{_kf6_bindir}/calgebra
+%{_kf6_bindir}/kalgebra
+%{_kf6_bindir}/kalgebramobile
 %{_datadir}/icons/hicolor/*/*/kalgebra.*
-%{_kf5_metainfodir}/org.kde.graphsplasmoid.appdata.xml
-%{_kf5_metainfodir}/org.kde.kalgebra.appdata.xml
-%{_kf5_metainfodir}/org.kde.kalgebramobile.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kalgebra.desktop
-%{_kf5_datadir}/applications/org.kde.kalgebramobile.desktop
-%{_kf5_datadir}/katepart5/syntax/kalgebra.xml
-%{_kf5_datadir}/plasma/plasmoids/org.kde.graphsplasmoid/
+%{_kf6_metainfodir}/org.kde.kalgebra.appdata.xml
+%{_kf6_metainfodir}/org.kde.kalgebramobile.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kalgebra.desktop
+%{_kf6_datadir}/applications/org.kde.kalgebramobile.desktop
+%{_kf6_datadir}/katepart5/syntax/kalgebra.xml
+
+%files plasma-applet
+%{_kf6_metainfodir}/org.kde.graphsplasmoid.appdata.xml
+%{_kf6_datadir}/plasma/plasmoids/org.kde.graphsplasmoid/
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -11,7 +11,7 @@ Source0:        https://github.com/%{core_name}/%{name}/archive/refs/tags/%{vers
 
 BuildRequires:  cmake gcc openssl-devel postgresql-server-devel
 
-%{?postgresql_module_requires}
+Requires(pre): postgresql-server
 
 %description
 TimescaleDB is an open-source database designed to make SQL scalable for
@@ -49,6 +49,9 @@ rm -rf tsl
 
 
 %changelog
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 2.13.0-2
+- Requirement from module require to simple require
+
 * Mon Dec 04 2023 Ondrej Sloup <osloup@redhat.com> - 2.13.0-1
 - Rebase to the latest upstream version (Related: rhbz#2252232)
 

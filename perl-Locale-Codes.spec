@@ -1,5 +1,5 @@
 Name:           perl-Locale-Codes
-Version:        3.76
+Version:        3.77
 Release:        1%{?dist}
 Summary:        Distribution of modules to handle locale codes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Dec 05 2023 Michal Josef Špaček <mspacek@redhat.com> - 3.77-1
+- 3.77 bump
+
 * Tue Sep 05 2023 Michal Josef Špaček <mspacek@redhat.com> - 3.76-1
 - 3.76 bump
 

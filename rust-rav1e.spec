@@ -33,6 +33,9 @@ Patch:          rav1e-fix-metadata-auto.diff
 # * drop unused and outdated optional clap_lex dependency
 # * drop WASM-specific wasm-bindgen dependency and wasm feature
 # * drop unused, benchmark-only criterion dev-dependency
+# * compatibility fixes for cargo-c v0.9.26 and newer:
+#   https://github.com/lu-zero/cargo-c/pull/346
+#   https://github.com/lu-zero/cargo-c/pull/352
 Patch:          rav1e-fix-metadata.diff
 Patch:          0001-remove-references-to-removed-built-and-rust_hawktrac.patch
 

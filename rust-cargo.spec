@@ -3,13 +3,13 @@
 %bcond_with check
 %global debug_package %{nil}
 
-%global crate cargo
-
 # drop unnecessary debuginfo generation to fix OOM problems on 32-bit arches
 %global rustflags_debuginfo 0
 
+%global crate cargo
+
 Name:           rust-cargo
-Version:        0.74.0
+Version:        0.75.1
 Release:        %autorelease
 Summary:        Package manager for Rust
 

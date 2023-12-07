@@ -1,5 +1,5 @@
 Version:        23.11.08
-%global tag v%{version}-BeginningOfWinter.ff83be8a
+%global tag %{version}-BeginningOfWinter.ff83be8a
 
 Name:           goldendict-ng
 Release:        %autorelease
@@ -15,7 +15,7 @@ Summary:        The Next Generation GoldenDict
 # src/scripts/jquery-3.6.0.slim.min.js - MIT
 License:        GPL-3.0-or-later AND GPL-1.0-or-later AND GPL-2.0-or-later AND GPL-3.0-only AND MIT
 URL:            https://xiaoyifang.github.io/goldendict-ng/
-Source0:        https://github.com/xiaoyifang/goldendict-ng/archive/%{tag}/goldendict-ng-%{tag}.tar.gz
+Source0:        https://github.com/xiaoyifang/goldendict-ng/archive/v%{tag}/goldendict-ng-v%{tag}.tar.gz
 
 # https://src.fedoraproject.org/rpms/qt6-qtwebengine/blob/rawhide/f/qt6-qtwebengine.spec#_90
 ExclusiveArch: aarch64 x86_64
@@ -70,7 +70,7 @@ The Next Generation GoldenDict. A feature-rich open-source dictionary lookup
 program, supporting multiple dictionary formats and online dictionaries.
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n %{name}-%{tag}
 
 # remove unneeded third-party libraries
 rm -r thirdparty/{fmt,qwebengine_ts,tomlplusplus}

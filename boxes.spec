@@ -7,7 +7,7 @@ Version:        2.2.1
 Release:        %autorelease
 Summary:        Command line ASCII boxes unlimited!
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            http://boxes.thomasjensen.com
 Source0:        https://github.com/ascii-%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 

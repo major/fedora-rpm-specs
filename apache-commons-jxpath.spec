@@ -2,7 +2,7 @@
 
 Name:           apache-commons-jxpath
 Version:        1.3
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Simple XPath interpreter
 License:        Apache-2.0
 URL:            http://commons.apache.org/jxpath/
@@ -56,7 +56,7 @@ rm src/test/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
 
 %build
 # we are skipping tests because we don't have com.mockrunner in repos yet
-%mvn_build -f -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7 -Dcommons.osgi.symbolicName=org.apache.commons.jxpath
+%mvn_build -f -- -Dcommons.packageId=jxpath
 
 %install
 %mvn_install
@@ -68,6 +68,9 @@ rm src/test/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3-48
+- Port to apache-commons-parent 65
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3-47
 - Convert License tag to SPDX format
 

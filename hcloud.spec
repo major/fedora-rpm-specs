@@ -31,11 +31,13 @@ ExcludeArch:    %{ix86}
 %prep
 %goprep
 
+# Upstream uses goreleaser to set the version, but we need to set it manually here.
+sed 's/"unknown"/"%{version}"/' -i internal/version/version.go
+
 %generate_buildrequires
 %go_generate_buildrequires
 
 %build
-#LDFLAGS="-X 'github.com/hetznercloud/cli/internal/version.Version=%{version}'"
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done

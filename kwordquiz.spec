@@ -1,64 +1,49 @@
 Name:    kwordquiz
 Summary: Flash Card Trainer 
-Version: 24.01.75
-Release: 3%{?dist}
+Version: 24.01.80
+Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://invent.kde.org/edu/%{name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL:     https://apps.kde.org/kwordquiz/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
 ## upstreamable patches
 
-Requires: kf6-kirigami2-addons
-Requires: kf6-kitemmodels
-
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf6-kcompletion-devel
-BuildRequires: kf6-kconfig-devel
-BuildRequires: kf6-kconfigwidgets-devel
-BuildRequires: kf6-kcoreaddons-devel
-BuildRequires: kf6-kcrash-devel
-BuildRequires: kf6-kdbusaddons-devel
-BuildRequires: kf6-kdeclarative-devel
-BuildRequires: kf6-kdelibs4support-devel
-BuildRequires: kf6-kdoctools-devel
-BuildRequires: kf6-kguiaddons-devel
-BuildRequires: kf6-ki18n-devel
-BuildRequires: kf6-kiconthemes-devel
-BuildRequires: kf6-kio-devel
-BuildRequires: kf6-kitemviews-devel
-BuildRequires: kf6-kjobwidgets-devel
-BuildRequires: kf6-knewstuff-devel
-BuildRequires: kf6-knotifications-devel
-BuildRequires: kf6-knotifyconfig-devel
-BuildRequires: kf6-kservice-devel
-BuildRequires: kf6-kwidgetsaddons-devel
-BuildRequires: kf6-kwindowsystem-devel
-BuildRequires: kf6-kxmlgui-devel
 BuildRequires: kf6-rpm-macros
-BuildRequires: cmake(KF6KirigamiAddons)
-BuildRequires: cmake(KF6Kirigami2)
-BuildRequires: cmake(Qt6Multimedia)
-BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: libappstream-glib
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: libkeduvocdocument-devel >= %{majmin_ver}
-BuildRequires: pkgconfig(phonon4qt6)
-BuildRequires: pkgconfig(Qt6Widgets) pkgconfig(Qt6Svg)
 
-# when split occurred
-Conflicts: kdeedu < 4.7.0-10
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Xml)
+
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Kirigami)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6KirigamiAddons)
+
+BuildRequires: libkeduvocdocument-devel >= %{majmin_ver_kf6}
+
+# QML module dependencies
+Requires: kf6-kirigami%{?_isa}
+Requires: kf6-kirigami-addons%{?_isa}
+Requires: kf6-kitemmodels%{?_isa}
+Requires: kf6-knewstuff%{?_isa}
+Requires: qt6-qtmultimedia%{?_isa}
 
 %description
 %{summary}.
@@ -96,11 +81,13 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf6_datadir}/%{name}/
-%{_kf6_datadir}/knotifications6/%{name}.notifyrc
 %{_kf6_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Mon Nov 27 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-3
 - Require kf6-kirigami2-addons, kf6-kitemmodels
 

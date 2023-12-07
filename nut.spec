@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -281,10 +281,10 @@ fi
 /usr/sbin/usermod -G dialout,tty %{name}
 
 %post client
-%systemd_post nut-monitor.service
+%systemd_post nut-monitor.service nut.target
 
 %preun client
-%systemd_preun nut-monitor.service
+%systemd_preun nut-monitor.service nut.target
 
 %postun client
 %systemd_postun_with_restart nut-monitor.service
@@ -422,6 +422,8 @@ fi
 %{_sbindir}/upssched
 %{_bindir}/upssched-cmd
 %{_unitdir}/nut-monitor.service
+# nut-monitor.service also needs nut.target
+%{_unitdir}/nut.target
 /lib/systemd/system-shutdown/nutshutdown
 %{_libdir}/libupsclient.so.*
 %{_libdir}/libnutclient.so.*
@@ -477,6 +479,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Thu Nov 30 2023 Orion Poplawski <orion@nwra.com> - 2.8.1-2
+- Re-add nut.target to nut-client (bz#2156504)
+
 * Wed Nov 01 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.1-1
 - updated to 2.8.1 (#2247337)
 

@@ -2,7 +2,7 @@
 
 Name:           apache-commons-parent
 Version:        65
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
 URL:            https://commons.apache.org/commons-parent-pom.html
@@ -20,13 +20,13 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache:apache:pom:)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-%endif
-
+BuildRequires:  mvn(org.moditect:moditect-maven-plugin)
 # Not generated automatically
-%if %{without bootstrap}
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 %endif
+
 Requires:       mvn(org.codehaus.mojo:build-helper-maven-plugin)
+Requires:       mvn(org.moditect:moditect-maven-plugin)
 
 %description
 The Project Object Model files for the apache-commons packages.
@@ -49,9 +49,6 @@ The Project Object Model files for the apache-commons packages.
 
 %pom_remove_dep org.junit:junit-bom
 
-# For now avoid moditect
-%pom_remove_plugin :moditect-maven-plugin
-
 # Remove profiles for plugins that are useless in package builds
 for profile in animal-sniffer japicmp jacoco cobertura; do
     %pom_xpath_remove "pom:profile[pom:id='${profile}']"
@@ -68,6 +65,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 65-2
+- Enable moditect-maven-plugin
+
 * Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 65-1
 - Update to upstream version 65
 

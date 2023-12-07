@@ -45,7 +45,7 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.30.00
+Version:	6.30.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
 Release:	1%{?dist}
 Summary:	Numerical data analysis framework
@@ -99,20 +99,16 @@ Patch9:		%{name}-ignore-warnings-about-RooNaNPacker-not-being-impleme.patch
 #		https://github.com/root-project/root/issues/11395
 #		https://github.com/root-project/root/pull/13771
 Patch10:	%{name}-pcre2.patch
-#		src/RBDT.cxx is a source file of both libTMVA and libTMVAUtils
-#		https://github.com/root-project/root/pull/13863
-Patch11:	%{name}-tmva-rbdt.patch
-#		Fix cmake/modules/FindZeroMQ.cmake
-#		https://github.com/root-project/root/pull/13995
-Patch12:	%{name}-Fix-cmake-modules-FindZeroMQ.cmake.patch
 #		https://github.com/root-project/root/pull/14111
-Patch13:	%{name}-avoid-out-of-memory-during-linking.patch
+Patch11:	%{name}-avoid-out-of-memory-during-linking.patch
 #		https://github.com/root-project/root/pull/14112
-Patch14:	%{name}-clad.patch
-Patch15:	%{name}-gtest-back.patch
-Patch16:	%{name}-np32.patch
+Patch12:	%{name}-clad.patch
+Patch13:	%{name}-gtest-back.patch
+Patch14:	%{name}-np32.patch
+#		https://github.com/root-project/root/pull/14164
+Patch15:	%{name}-adjust-test-for-failures-on-aarch64-ppc64le-s390x.patch
 #		Only for EPEL 8 - disable tests not working with old gtest
-Patch17:	%{name}-old-gtest.patch
+Patch16:	%{name}-old-gtest.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -2003,9 +1999,8 @@ This package contains utility functions for ntuples.
 %patch -P 13 -p1
 %patch -P 14 -p1
 %patch -P 15 -p1
-%patch -P 16 -p1
 %if %{?rhel}%{!?rhel:0} == 8
-%patch -P 17 -p1
+%patch -P 16 -p1
 %endif
 
 # Remove bundled sources in order to be sure they are not used
@@ -3726,6 +3721,9 @@ fi
 %endif
 
 %changelog
+* Sat Dec 02 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-1
+- Update to 6.30.02
+
 * Sat Nov 25 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.00-1
 - Update to 6.30.00
 - Removed subpackages: root-io-gfal and root-roofit-common
