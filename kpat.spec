@@ -98,7 +98,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 #{_kf6_datadir}/kxmlgui5/%{name}/
 #{_kf6_datadir}/sounds/%{name}/
 %{_kf6_datadir}/config.kcfg/%{name}.kcfg
-%{_kf6_datadir}/qlogging-categories5/%{name}*
+%{_kf6_datadir}/qlogging-categories6/%{name}*
 %{_kf6_libdir}/libkcardgame.so
 %{_datadir}/mime/packages/kpatience.xml
 %{_mandir}/man6/kpat.6*

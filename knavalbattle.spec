@@ -1,6 +1,6 @@
 Name:    knavalbattle
 Summary: A ship sinking game
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -16,28 +16,28 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kdnssd-devel
-BuildRequires:  kf5-kguiaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-knotifyconfig-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-rpm-macros
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5TextWidgets)
+BuildRequires:  kf6-kconfig-devel
+BuildRequires:  kf6-kconfigwidgets-devel
+BuildRequires:  kf6-kcoreaddons-devel
+BuildRequires:  kf6-kdbusaddons-devel
+BuildRequires:  kf6-kdnssd-devel
+BuildRequires:  kf6-kguiaddons-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-kiconthemes-devel
+BuildRequires:  kf6-kio-devel
+BuildRequires:  kf6-knotifications-devel
+BuildRequires:  kf6-knotifyconfig-devel
+BuildRequires:  kf6-kwidgetsaddons-devel
+BuildRequires:  kf6-kxmlgui-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6TextWidgets)
 
 #BuildRequires:  libappstream-glib
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires:  libkdegames-devel >= %{majmin_ver}
-BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt6Widgets)
 
 %description
 Naval Battle is a ship sinking game for KDE. Ships are placed on a board
@@ -51,7 +51,7 @@ ships wins the game.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -63,21 +63,24 @@ ships wins the game.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
-%{_kf5_bindir}/%{name}
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/%{name}/
-%{_kf5_datadir}/qlogging-categories5/%{name}*
+%{_kf6_bindir}/%{name}
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/qlogging-categories6/%{name}*
 
 
 %changelog
+* Mon Dec 04 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

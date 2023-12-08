@@ -1,0 +1,139 @@
+%global srcname conda-libmamba-solver
+
+Name:           python-%{srcname}
+Version:        23.11.1
+Release:        1%{?dist}
+Summary:        The libmamba based solver for conda
+
+License:        BSD-3-Clause
+URL:            https://github.com/conda/conda-libmamba-solver
+Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-conda-index
+# For tests
+BuildRequires:  conda
+BuildRequires:  conda-build
+BuildRequires:  conda-tests
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-pytest-xprocess
+
+%global _description %{expand:
+conda-libmamba-solver is a new solver for the conda package manager which
+uses the solver from the mamba project behind the scenes, while carefully
+implementing conda's functionality and expected behaviors on top. The
+library used by mamba to do the heavy-lifting is called libsolv.}
+
+%description %_description
+
+%package -n python3-%{srcname}
+Summary:        %{summary}
+
+%description -n python3-%{srcname} %_description
+
+
+%prep
+%autosetup -p1 -n %{srcname}-%{version}
+sed -i -e '/tool.hatch.version/afallback-version = "%{version}"' pyproject.toml
+sed -i -e '/doctest/d' -e '/reruns/d' pyproject.toml
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files conda_libmamba_solver
+
+
+%check
+# Most tests require network access
+# FileNotFoundError: [Errno 2] No such file or directory: 'conda-lock'
+export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
+%pytest -v \
+  --deselect=tests/test_channels.py::test_channel_matchspec \
+  --deselect=tests/test_channels.py::test_channels_prefixdata \
+  --deselect=tests/test_channels.py::test_channels_installed_unavailable \
+  --deselect=tests/test_channels.py::test_mirrors_do_not_leak_channels\[_setup_channels_alias\] \
+  --deselect=tests/test_channels.py::test_mirrors_do_not_leak_channels\[_setup_channels_custom\] \
+  --deselect=tests/test_channels.py::test_jax_and_jaxlib \
+  --deselect=tests/test_channels.py::test_encoding_file_paths \
+  --deselect=tests/test_channels.py::test_conda_build_with_aliased_channels \
+  --deselect=tests/test_downstream.py::test_build_recipe\[jedi] \
+  --deselect=tests/test_downstream.py::test_build_recipe\[multioutput] \
+  --deselect=tests/test_downstream.py::test_build_recipe\[stackvana] \
+  --deselect=tests/test_downstream.py::test_conda_lock \
+  --deselect=tests/test_performance.py::test_a_warmup\[mambaforge.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_a_warmup\[mambaforge.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_python\[mambaforge.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_python\[mambaforge.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[mambaforge.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[mambaforge.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_all\[mambaforge.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_all\[mambaforge.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_a_warmup\[gvleobas.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_a_warmup\[gvleobas.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_python\[gvleobas.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_python\[gvleobas.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[gvleobas.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[gvleobas.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_all\[gvleobas.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_all\[gvleobas.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_a_warmup\[pangeo_ml_notebook.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_a_warmup\[pangeo_ml_notebook.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_python\[pangeo_ml_notebook.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_python\[pangeo_ml_notebook.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[pangeo_ml_notebook.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[pangeo_ml_notebook.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_all\[pangeo_ml_notebook.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_all\[pangeo_ml_notebook.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_a_warmup\[silverback9876.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_a_warmup\[silverback9876.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_python\[silverback9876.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_python\[silverback9876.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[silverback9876.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[silverback9876.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_all\[silverback9876.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_all\[silverback9876.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_a_warmup\[scipipe.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_a_warmup\[scipipe.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_python\[scipipe.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_python\[scipipe.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[scipipe.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_install_python_update_deps\[scipipe.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_update_all\[scipipe.linux-64.lock-libmamba] \
+  --deselect=tests/test_performance.py::test_update_all\[scipipe.linux-64.lock-classic] \
+  --deselect=tests/test_performance.py::test_install_vaex_from_conda_forge_and_defaults\[libmamba] \
+  --deselect=tests/test_performance.py::test_install_vaex_from_conda_forge_and_defaults\[classic] \
+  --deselect=tests/test_repoquery.py \
+  --deselect=tests/test_solver_differences.py \
+  --deselect=tests/test_solvers.py::test_python_downgrade_reinstalls_noarch_packages \
+  --deselect=tests/test_solvers.py::test_defaults_specs_work \
+  --deselect=tests/test_solvers.py::test_determinism \
+  --deselect=tests/test_solvers.py::test_update_from_latest_not_downgrade \
+  --deselect=tests/test_solvers.py::test_too_aggressive_update_to_conda_forge_packages \
+  --deselect=tests/test_solvers.py::test_pinned_with_cli_build_string \
+  --deselect=tests/test_solvers.py::test_constraining_pin_and_requested \
+  --deselect=tests/test_solvers.py::test_locking_pins \
+  --deselect=tests/test_solvers.py::test_ca_certificates_pins \
+  --deselect=tests/test_solvers.py::test_python_update_should_not_uninstall_history \
+  --deselect=tests/test_solvers.py::test_python_downgrade_with_pins_removes_truststore \
+  --deselect=tests/test_state.py::test_create_requested_and_pinned \
+  --deselect=tests/test_state.py::test_python_updates \
+  --deselect=tests/test_workarounds.py::test_matchspec_star_version \
+  --deselect=tests/test_workarounds.py::test_build_string_filters \
+  --deselect='tests/test_workarounds.py::test_ctrl_c[Solving environment]'
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.*
+
+%changelog
+* Sat Dec 02 2023 Orion Poplawski <orion@nwra.com> - 23.11.1-1
+- Initial Fedora package

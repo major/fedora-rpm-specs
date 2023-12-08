@@ -5,19 +5,12 @@
 
 Name:    kwalletmanager5
 Summary: Manage KDE passwords
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://invent.kde.org/utils/%{base_name}
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+URL:     https://apps.kde.org/kwalletmanager5/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 # upstream patches
 
@@ -25,48 +18,33 @@ Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src
 # better/sane defaults (no autoclose mostly)
 Patch1: kwalletmanager-15.12.1-defaults.patch
 
-BuildRequires:  desktop-file-utils
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-kauth-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kservice-devel
-BuildRequires:  kf5-kwallet-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  kf5-rpm-macros
+BuildRequires: desktop-file-utils
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
 
-BuildRequires: cmake(KF5Archive)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6DBus)
+
 %if ! 0%{?flatpak}
-BuildRequires: cmake(KF5Auth)
+BuildRequires: cmake(KF6Auth)
 %endif
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5JobWidgets)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
-
-BuildRequires:  polkit-qt5-1-devel
-BuildRequires:  qt5-qtbase-devel
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6StatusNotifierItem)
 
 %if 0%{?kwalletmanager}
 Obsoletes: kwalletmanager < 15.04.3-100
@@ -82,7 +60,7 @@ KDE Wallet Manager is a tool to manage the passwords on your KDE system.
 
 
 %build
-%cmake_kf5 %{?flatpak:-DENABLE_KAUTH=OFF}
+%cmake_kf6 %{?flatpak:-DENABLE_KAUTH=OFF}
 
 %cmake_build
 
@@ -94,30 +72,33 @@ KDE Wallet Manager is a tool to manage the passwords on your KDE system.
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kwalletmanager5.appdata.xml
 
 
 %files -f %{name}.lang
 %license LICENSES/*
 %{_datadir}/dbus-1/services/org.kde.kwalletmanager5.service
-%{_kf5_bindir}/kwalletmanager5
-%{_kf5_datadir}/applications/kwalletmanager5-kwalletd.desktop
-%{_kf5_datadir}/applications/org.kde.kwalletmanager5.desktop
-%{_kf5_datadir}/icons/hicolor/*/actions/wallet-*
-%{_kf5_datadir}/icons/hicolor/*/apps/kwalletmanager*.*
-%{_kf5_datadir}/kservices5/*.desktop
-%{_kf5_datadir}/qlogging-categories5/kwalletmanager*
-%{_kf5_metainfodir}/org.kde.kwalletmanager5.appdata.xml
+%{_kf6_bindir}/kwalletmanager5
+%{_kf6_datadir}/applications/kwalletmanager5-kwalletd.desktop
+%{_kf6_datadir}/applications/org.kde.kwalletmanager5.desktop
+%{_kf6_datadir}/icons/hicolor/*/actions/wallet-*
+%{_kf6_datadir}/icons/hicolor/*/apps/kwalletmanager*.*
+%{_kf6_datadir}/qlogging-categories6/kwalletmanager*
+%{_kf6_metainfodir}/org.kde.kwalletmanager5.appdata.xml
 %if ! 0%{?flatpak}
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkwallet5.service
 %{_datadir}/dbus-1/system.d/org.kde.kcontrol.kcmkwallet5.conf
 %{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmkwallet5.policy
-%{_kf5_libexecdir}/kauth/kcm_kwallet_helper5
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kwallet5.so
+%{_kf6_libexecdir}/kauth/kcm_kwallet_helper5
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kwallet5.so
 %endif
 
 
 %changelog
+* Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

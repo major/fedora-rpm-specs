@@ -2,7 +2,7 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        0.32.3
+Version:        0.32.4
 Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
@@ -117,7 +117,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 %exclude %{_libdir}/libshotwell-plugin-dev-1.0.so
 %{_libexecdir}/shotwell/
 %{_datadir}/applications/org.gnome.Shotwell.desktop
-%{_datadir}/applications/org.gnome.Shotwell-Profile-Browser.desktop
 %{_datadir}/applications/org.gnome.Shotwell-Viewer.desktop
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Shotwell.png
@@ -131,6 +130,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Wed Dec 06 2023 Kalev Lember <klember@redhat.com> - 0.32.4-1
+- Update to 0.32.4
+
 * Thu Nov 16 2023 Kalev Lember <klember@redhat.com> - 0.32.3-1
 - Update to 0.32.3
 

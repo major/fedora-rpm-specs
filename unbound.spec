@@ -311,7 +311,7 @@ install -p -m 0644 %{SOURCE15} %{buildroot}%{_unitdir}/unbound-anchor.timer
 install -p -m 0644 %{SOURCE17} %{buildroot}%{_unitdir}/unbound-anchor.service
 install -p -m 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/unbound
 install -p -m 0644 %{SOURCE14} %{buildroot}%{_sysconfdir}/sysconfig/unbound
-install -p -D -m 0644 %{SOURCE20} %{buildroot}%{_sysusersdir}/%{name}.sysusers
+install -p -D -m 0644 %{SOURCE20} %{buildroot}%{_sysusersdir}/%{name}.conf
 %if %{with_munin}
 # Install munin plugin and its softlinks
 install -d -m 0755 %{buildroot}%{_sysconfdir}/munin/plugin-conf.d
@@ -476,10 +476,10 @@ popd
 %doc doc/README
 %license doc/LICENSE
 %attr(0755,root,root) %dir %{_sysconfdir}/%{name}
-%{_sysusersdir}/%{name}.sysusers
+%{_sysusersdir}/%{name}.conf
 %{_libdir}/libunbound.so.8*
 %dir %attr(0755,unbound,unbound) %{_sharedstatedir}/%{name}
-%verify(not size mtime filedigest link mode user group) %{_sharedstatedir}/%{name}/root.key
+%config(noreplace) %verify(not link user group) %{_sharedstatedir}/%{name}/root.key
 # just left for backwards compat with user changed unbound.conf files - format is different!
 %attr(0644,root,root) %config %{_sysconfdir}/%{name}/root.key
 %attr(0644,root,root) %config %{_sysconfdir}/%{name}/dnssec-root.key

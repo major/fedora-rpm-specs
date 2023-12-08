@@ -1,11 +1,13 @@
 Name:           libdecor
 Version:        0.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland client side decoration library
 
 License:        MIT
 URL:            https://gitlab.freedesktop.org/libdecor/libdecor
 Source:         %{url}/-/releases/%{version}/downloads/libdecor-%{version}.tar.xz
+Patch0:         0001-gtk-Don-t-early-out-of-frame-free-function.patch
+Patch1:         0002-gtk-Use-g_clear_pointer-in-a-couple-of-places.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -61,6 +63,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Dec 06 2023 Jonas Ådahl <jadahl@redhat.com> - 0.2.1-2
+- Fix crash when hiding/showing
+
 * Fri Dec 01 2023 Jonas Ådahl <jadahl@redhat.com> - 0.2.1-1
 - Bump version to 0.2.1
 

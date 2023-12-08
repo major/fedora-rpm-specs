@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkit2gtk4.0
-Version:        2.42.2
+Version:        2.42.3
 Release:        %autorelease
 Summary:        WebKitGTK for GTK 3 and libsoup 2
 
@@ -182,7 +182,7 @@ Recommends:     gi-docgen-fonts
 # Documentation/webkit2gtk-web-extension-4.1/*html is BSD, LGPL-2.1
 # Documentation/webkit2gtk-web-extension-4.1/solarized* is MIT
 # Documentation/webkit2gtk-web-extension-4.1/style.css is Apache-2.0 OR GPL-3.0-or-later
-License:        MIT AND LGPL-2.1-only AND BSD-3-Clause AND  (Apache-2.0 OR GPL-3.0-or-later)
+License:        MIT AND LGPL-2.1-only AND BSD-3-Clause AND (Apache-2.0 OR GPL-3.0-or-later)
 
 %description    doc
 This package contains developer documentation for webkit2gtk4.0.
@@ -247,6 +247,7 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
   -GNinja \
   -DPORT=GTK \
   -DCMAKE_BUILD_TYPE=Release \
+  -DUSE_GTK4=OFF \
   -DUSE_SOUP2=ON \
   -DENABLE_WEBDRIVER=OFF \
 %if %{without docs}

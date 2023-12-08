@@ -3,7 +3,7 @@ Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
 Version:        23.08.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdevelop-%{version}.tar.xz
@@ -224,6 +224,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Wed Dec 06 2023 Than Ngo <than@redhat.com> - 23.08.2-2
+- Fix bz#2252983, rebuilt against new libksysguard
+
 * Thu Oct 12 2023 Than Ngo <than@redhat.com> - 23.08.2-1
 - update to 23.08.2
 

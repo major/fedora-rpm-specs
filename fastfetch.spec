@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.2.3
+Version:        2.3.2
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -25,6 +25,9 @@ BuildRequires:  xfconf-devel
 BuildRequires:  glib2-devel
 BuildRequires:  ocl-icd-devel
 BuildRequires:  rpm-devel
+BuildRequires:  libdrm-devel
+BuildRequires:  pulseaudio-libs-devel
+BuildRequires:  NetworkManager-libnm-devel
 # not available on s390x
 %if "%{_arch}" != "s390x"
 BuildRequires:  libddcutil-devel
@@ -51,6 +54,9 @@ Recommends:     glib2
 Recommends:     ocl-icd
 Recommends:     chafa
 Recommends:     ddcutil
+Recommends:     libdrm
+Recommends:     pulseaudio-libs
+Recommends:     NetworkManager-libnm
 
 %description
 fastfetch is a neofetch-like tool for fetching system information and
@@ -67,6 +73,17 @@ BuildArch: noarch
 
 
 %description bash-completion
+%{summary}
+
+
+%package fish-completion
+Summary: Fish completion files for %{name}
+Requires: fish
+Requires: %{name} = %{version}-%{release}
+BuildArch: noarch
+
+
+%description fish-completion
 %{summary}
 
 
@@ -93,11 +110,19 @@ BuildArch: noarch
 %{_bindir}/%{name}
 %{_bindir}/flashfetch
 %{_datadir}/%{name}/
+%{_mandir}/man1/fastfetch.1*
 
 %files bash-completion
 %{_datadir}/bash-completion/completions/%{name}
 
+%files fish-completion
+%{_datadir}/fish/vendor_completions.d/%{name}.fish
+
 %changelog
+* Wed Dec 06 2023 Jonathan Wright <jonathan@almalinux.org> - 2.3.2-1
+- Update to 2.3.2 rhbz#2253219
+- Add fish completions and new optional deps rhbz#2252977
+
 * Wed Nov 08 2023 Jonathan Wright <jonathan@almalinux.org> - 2.2.3-1
 - Update to 2.2.3 rhbz#2248630
 

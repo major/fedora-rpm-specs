@@ -79,7 +79,7 @@ export FONTTOOLS_WITH_CYTHON=1
 
 %if %{with tests}
 %check
-PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/otlLib/optimize_test.py --ignore Tests/varLib/merger_test.py --ignore Tests/varLib/varLib_test.py
+PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/otlLib/optimize_test.py --ignore Tests/varLib/merger_test.py --ignore Tests/varLib/varLib_test.py --ignore Tests/svgLib/path/path_test.py
 %endif
 
 %files

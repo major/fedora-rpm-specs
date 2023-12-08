@@ -1,14 +1,16 @@
 Name:           wsdd
-Version:        0.7.0
-Release:        5%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        Web Services Dynamic Discovery host daemon
 License:        MIT 
 URL:            https://github.com/christgau/wsdd 
 Source0:        https://github.com/christgau/wsdd/archive/v%{version}/wsdd-%{version}.tar.gz
-Source1:        wsdd.service
-Source2:        wsdd.xml
-Source3:        wsdd-http.xml
-Source4:        wsdd.sysconfig
+Source1:        wsdd.xml
+Source2:        wsdd-http.xml
+
+# https://github.com/christgau/wsdd/issues/149
+Patch:          c4a5f346bbb22777a8f66b0d6c6ef899f6d6cc74.patch
+
 BuildArch:      noarch
 BuildRequires:  systemd
 Requires(pre):  shadow-utils
@@ -21,15 +23,16 @@ like Windows.
 
 
 %prep
-%autosetup
+%autosetup -p1
+sed -i "s/;BindsTo=smb.service/BindsTo=smb.service/" etc/systemd/wsdd.service
 
 
 %install
-install -pDm644 %{S:1} %{buildroot}%{_unitdir}/wsdd.service
-install -pDm644 %{S:2} %{buildroot}%{_usr}/lib/firewalld/services/wsdd.xml
-install -pDm644 %{S:3} %{buildroot}%{_usr}/lib/firewalld/services/wsdd-http.xml
-install -pDm644 %{S:4} %{buildroot}%{_sysconfdir}/sysconfig/wsdd
-install -pDm644 man/wsdd.1 %{buildroot}%{_mandir}/man1/wsdd.1
+install -pDm644 %{S:1} %{buildroot}%{_usr}/lib/firewalld/services/wsdd.xml
+install -pDm644 %{S:2} %{buildroot}%{_usr}/lib/firewalld/services/wsdd-http.xml
+install -pDm644 etc/systemd/wsdd.defaults %{buildroot}%{_sysconfdir}/sysconfig/wsdd
+install -pDm644 etc/systemd/wsdd.service %{buildroot}%{_unitdir}/wsdd.service
+install -pDm644 man/wsdd.8 %{buildroot}%{_mandir}/man8/wsdd.8
 install -pDm755 src/wsdd.py %{buildroot}%{_bindir}/wsdd
 
 
@@ -55,12 +58,15 @@ exit 0
 %{_usr}/lib/firewalld/services/wsdd-http.xml
 %config(noreplace) %{_sysconfdir}/sysconfig/wsdd
 %{_bindir}/wsdd
-%{_mandir}/man1/wsdd.1*
+%{_mandir}/man8/wsdd.8*
 %license LICENSE
 %doc AUTHORS README.md
 
 
 %changelog
+* Fri Oct 06 2023 Ondrej Holy <oholy@redhat.com> - 0.7.1-1
+- Update to 0.7.1.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,6 @@
-%define _hardened_build 1
 Name:           chkrootkit
 Version:        0.57
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to locally check for signs of a rootkit
 License:        BSD-2-Clause AND GPL-2.0-or-later
 URL:            http://www.chkrootkit.org
@@ -22,8 +21,9 @@ BuildRequires:  desktop-file-utils perl-interpreter
 BuildRequires:  glibc-static gcc
 BuildRequires: make
 
-Requires:       %{_bindir}/consolehelper
+Requires:       usermode
 Requires:	net-tools
+Requires:       polkit
 
 %description
 chkrootkit is a tool to locally check for signs of a rootkit.
@@ -107,6 +107,9 @@ install -p -m0644 %{SOURCE6} .
 
 
 %changelog
+* Wed Dec 06 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.57-3
+- Update desktop file to use pkexec
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

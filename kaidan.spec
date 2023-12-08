@@ -12,6 +12,10 @@ License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0 AND LGP
 URL:            https://www.kaidan.im
 Source0:        https://invent.kde.org/network/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
+# kquickimageeditor is actually a runtime dep, not used during the build,
+# and the qt5 and qt6 builds use the same cmake package name.
+Patch0:         kquickimageeditor-devel.patch
+
 %if 0%{?fedora} || 0%{?epel} > 7
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 # Package doesn't build on arches that qtwebengine is not built on.
@@ -37,11 +41,12 @@ BuildRequires:  cmake(Qt5Xml)
 BuildRequires:  cmake(Qt5Multimedia)
 BuildRequires:  cmake(Qt5Positioning)
 BuildRequires:  cmake(Qt5Location)
+BuildRequires:  cmake(Qt5LinguistTools)
 
 BuildRequires:  cmake(KF5KIO)
 BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KQuickImageEditor)
+#BuildRequires:  cmake(KQuickImageEditor)
 BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  kf5-rpm-macros

@@ -2,12 +2,12 @@
 %define major 2
 %define minor 10
 Name:           cpprest
-Version:        2.10.18
-Release:        8%{?dist}
+Version:        2.10.19
+Release:        1%{?dist}
 Summary:        C++ REST library
 License:        MIT
 Url:            https://github.com/Microsoft/cpprestsdk
-Source0:        https://github.com/Microsoft/cpprestsdk/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Microsoft/cpprestsdk/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Disable outside, failing and sometimes failing tests
 Patch1:         cpprest-2.10.17-disable-outside-and-failing-tests.patch
 # Disable tests with long timeouts
@@ -94,6 +94,9 @@ cd Release/%{_vpath_builddir}/Binaries
 
 
 %changelog
+* Wed Dec 06 2023 Wolfgang Stöggl <c72578@yahoo.de> - 2.10.19-1
+- New upstream version 2.10.19
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.18-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

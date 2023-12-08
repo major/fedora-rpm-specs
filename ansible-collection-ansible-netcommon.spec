@@ -1,8 +1,8 @@
 %global _docdir_fmt %{name}
 
 Name:           ansible-collection-ansible-netcommon
-Version:        4.1.0
-Release:        3%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        Ansible Network Collection for Common Code
 
 # All files are licensed under GPL-3.0-or-later except:
@@ -23,12 +23,10 @@ Summary:        Ansible Network Collection for Common Code
 # plugins/module_utils/network/restconf/restconf.py:# SPDX-License-Identifier: BSD-2-Clause
 License:        GPL-3.0-or-later AND BSD-2-Clause
 URL:            %{ansible_collection_url ansible netcommon}
-Source:         https://github.com/ansible-collections/ansible.netcommon/archive/%{version}/%{name}-%{version}.tar.gz
-# Patch galaxy.yml to exclude unnecessary files from the built collection.
-# This is a downstream only patch.
-Patch:          0001-build_ignore-unnecessary-files.patch
+Source:         https://github.com/ansible-collections/ansible.netcommon/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ansible-packaging
+BuildRequires:  %{py3_dist pyyaml}
 
 BuildArch:      noarch
 
@@ -48,8 +46,40 @@ This subpackage provides documentation for ansible-collection-ansible-netcommon.
 
 %prep
 %autosetup -n ansible.netcommon-%{version} -p1
-sed -i -e '/version:/s/null/%{version}/' galaxy.yml
 find -type f ! -executable -type f -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
+
+# Patch galaxy.yml to exclude unnecessary files from the built collection.
+# This is a downstream only patch.
+%{python3} - <<EOF
+import yaml
+
+build_ignores = """
+- .pre-commit-config.yaml
+- .gitignore
+- .yamllint
+- .github
+- .flake8
+- .isort.cfg
+- .prettierignore
+- tests
+- changelogs/fragments/
+- requirements.txt
+- test-requirements.txt
+- tox.ini
+# We install these files with %%doc/%%license. We don't want them duplicated.
+- CHANGELOG.rst
+- README.md
+- LICENSE
+- LICENSES
+- docs
+"""
+ignores = yaml.safe_load(build_ignores)
+with open("galaxy.yml") as fp:
+    data = yaml.safe_load(fp)
+data.setdefault("build_ignore", []).extend(ignores)
+with open("galaxy.yml", "w") as fp2:
+    yaml.safe_dump(data, fp2)
+EOF
 
 %build
 %ansible_collection_build
@@ -66,6 +96,9 @@ find -type f ! -executable -type f -name '*.py' -print -exec sed -i -e '1{\@^#!.
 %doc docs
 
 %changelog
+* Fri Dec 01 2023 Maxwell G <maxwell@gtmx.me> - 6.0.0-1
+- Update to 6.0.0.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

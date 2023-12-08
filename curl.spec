@@ -1,6 +1,6 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.4.0
+Version: 8.5.0
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
@@ -9,6 +9,9 @@ Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
+
+# add missing test script tests/errorcodes.pl to the tarball
+Patch001: 001-dist-add-tests-errorcodes.pl-to-the-tarball.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -410,6 +413,11 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Dec 06 2023 Jan Macku <jamacku@redhat.com> - 8.5.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2023-46218 - cookie mixed case PSL bypass
+    CVE-2023-46219 - HSTS long file name clears contents
+
 * Wed Oct 11 2023 Jan Macku <jamacku@redhat.com> - 8.4.0-1
 - new upstream release, which fixes the following vulnerabilities
     CVE-2023-38545 - SOCKS5 heap buffer overflow

@@ -12,8 +12,8 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2023.7
-Release: 4%{?dist}
+Version: 2023.8
+Release: 2%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
@@ -190,6 +190,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Wed Dec 06 2023 Colin Walters <walters@verbum.org> - 2023.8-2
+- https://github.com/ostreedev/ostree/releases/tag/v2023.8
+
 * Mon Dec 04 2023 Colin Walters <walters@verbum.org> - 2023.7-4
 - Enable composefs only on fedora/rhel10 to fix COPR builds
   which pull from this dist-git

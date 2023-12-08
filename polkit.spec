@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 123
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -95,7 +95,7 @@ Libraries files for polkit.
 
 %install
 %meson_install
-install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/polkitd.conf
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/polkit.conf
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
@@ -131,7 +131,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %dir %{_sysconfdir}/polkit-1
 %{_datadir}/polkit-1/rules.d/50-default.rules
 %attr(0750,root,polkitd) %dir %{_sysconfdir}/polkit-1/rules.d
-%{_sysusersdir}/polkitd.conf
+%{_sysusersdir}/polkit.conf
 %{_sysconfdir}/pam.d/polkit-1
 %{_bindir}/pkaction
 %{_bindir}/pkcheck
@@ -161,6 +161,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Wed Dec 06 2023 Jan Rybar <jrybar@redhat.com> - 123-4
+- align sysusers implementation with Fedora guidelines, fixes upstream CI
+
 * Mon Nov 20 2023 Jan Rybar <jrybar@redhat.com> - 123-3
 - backport of removal of IPAddressDeny sandboxing option
 - Resolves: bz#2248838

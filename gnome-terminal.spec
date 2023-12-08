@@ -3,11 +3,12 @@
 %global gettext_version 0.19.8
 %define glib2_version 2.52.0
 %define gtk3_version 3.24.0
-%define vte_version 0.68.0
+%define libhandy_version 1.6.0
+%define vte_version 0.74.0
 %define desktop_file_utils_version 0.2.90
 
 Name:    gnome-terminal
-Version: 3.48.3
+Version: 3.50.1
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -22,6 +23,7 @@ BuildRequires: pkgconfig(dconf)
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires: pkgconfig(libhandy-1) >= %{libhandy_version}
 BuildRequires: pkgconfig(libnautilus-extension-4)
 BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(uuid)
@@ -42,6 +44,7 @@ Requires: dbus
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas
 Requires: gtk3%{?_isa} >= %{gtk3_version}
+Requires: libhandy%{?_isa} >= %{libhandy_version}
 Requires: vte291%{?_isa} >= %{vte_version}
 
 %description
@@ -112,6 +115,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %{_metainfodir}/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Mon Dec 04 2023 David King <amigadave@amigadave.com> - 3.50.1-1
+- Update to 3.50.1 (#2247910)
+
 * Mon Dec 04 2023 David King <amigadave@amigadave.com> - 3.48.3-1
 - Update to 3.48.3
 

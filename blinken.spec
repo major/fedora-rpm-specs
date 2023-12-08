@@ -1,38 +1,34 @@
 Name:    blinken 
 Summary: Memory Enhancement Game 
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://apps.kde.org/blinken/
+Source:  https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-BuildRequires: cmake(KF5Crash)
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: pkgconfig(phonon4qt5)
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5Svg)
+BuildRequires: kf6-rpm-macros
 BuildRequires: libappstream-glib
-BuildRequires: readline-devel 
 
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Svg)
+
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Crash)
+
+BuildRequires: cmake(Phonon4Qt6)
+
+Requires: hicolor-icon-theme
 Requires: sj-stevehand-fonts
-
-# when split occurred
-Conflicts: kdeedu < 4.7.0-10
 
 %description
 %{summary}.
@@ -43,7 +39,7 @@ Conflicts: kdeedu < 4.7.0-10
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -55,27 +51,29 @@ Conflicts: kdeedu < 4.7.0-10
 
 ## unpackaged files
 # omit bundled steve font
-rm -fv %{buildroot}%{_kf5_datadir}/blinken/fonts/steve.ttf
+rm -fv %{buildroot}%{_kf6_datadir}/blinken/fonts/steve.ttf
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc AUTHORS 
 %license LICENSES/*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/kxmlgui5/%{name}/
-%{_kf5_datadir}/config.kcfg/%{name}.kcfg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

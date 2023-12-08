@@ -8,7 +8,7 @@ older use the previous name - libQMatrixClient.}
 
 Name: libquotient
 Version: 0.8.1.2
-Release: 2%{?dist}
+Release: 5%{?dist}
 
 License: BSD-3-Clause AND LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
@@ -31,7 +31,6 @@ BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: cmake(Qt6Network)
 BuildRequires: cmake(Qt6Sql)
 BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(QtOlm)
 BuildRequires: pkgconfig(openssl)
 
 BuildRequires: cmake
@@ -53,8 +52,8 @@ Provides: %{name}-devel = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes: %{name}-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: %{name}-qt5%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: cmake(Olm)
+Requires: cmake(Qt5Keychain)
 Requires: cmake(Qt5Sql)
-Requires: cmake(QtOlm)
 Requires: pkgconfig(openssl)
 %description qt5-devel %_description
 
@@ -66,8 +65,8 @@ Summary: Files for qt6
 Summary: Development files for %{name} for qt6
 Requires: %{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires: cmake(Olm)
+Requires: cmake(Qt6Keychain)
 Requires: cmake(Qt6Sql)
-Requires: cmake(QtOlm)
 Requires: pkgconfig(openssl)
 %description qt6-devel %_description
 
@@ -91,6 +90,7 @@ pushd %{name}_qt6
 %cmake -G Ninja \
     -S'..' \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/%{appname}Qt6 \
     -DQuotient_ENABLE_E2EE:BOOL=ON \
     -DQuotient_INSTALL_TESTS:BOOL=OFF \
     -DQuotient_INSTALL_EXAMPLE:BOOL=OFF \
@@ -133,11 +133,21 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/%{libname}Qt6.so.0*
 
 %files qt6-devel
+%{_includedir}/%{appname}Qt6/
 %{_libdir}/cmake/%{appname}Qt6/
 %{_libdir}/%{libname}Qt6.so
 %{_libdir}/pkgconfig/%{appname}Qt6.pc
 
 %changelog
+* Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 0.8.1.2-5
+- Make headers parallel-installable
+
+* Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 0.8.1.2-4
+- Add devel dependencies on QtKeychain
+
+* Wed Dec 06 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.8.1.2-3
+- Drop unused dependency on QtOlm
+
 * Thu Nov 30 2023 Alessandro Astone <ales.astone@gmail.com> - 0.8.1.2-2
 - Rebuild (qt6)
 

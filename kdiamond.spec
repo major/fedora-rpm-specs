@@ -1,6 +1,6 @@
 Name:    kdiamond
 Summary: A three-in-a-row game
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -19,31 +19,31 @@ BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kjobwidgets-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5Notifications)
+BuildRequires: kf6-rpm-macros
+BuildRequires: kf6-kcompletion-devel
+BuildRequires: kf6-kconfig-devel
+BuildRequires: kf6-kconfigwidgets-devel
+BuildRequires: kf6-kcoreaddons-devel
+BuildRequires: kf6-kdbusaddons-devel
+BuildRequires: kf6-kdeclarative-devel
+BuildRequires: kf6-kguiaddons-devel
+BuildRequires: kf6-ki18n-devel
+BuildRequires: kf6-kiconthemes-devel
+BuildRequires: kf6-kitemviews-devel
+BuildRequires: kf6-kio-devel
+BuildRequires: kf6-kjobwidgets-devel
+BuildRequires: kf6-knewstuff-devel
+BuildRequires: kf6-knotifyconfig-devel
+BuildRequires: kf6-knewstuff-devel
+BuildRequires: kf6-kservice-devel
+BuildRequires: kf6-kwindowsystem-devel
+BuildRequires: kf6-kwidgetsaddons-devel
+BuildRequires: kf6-kxmlgui-devel
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6Notifications)
 
-BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: pkgconfig(Qt6Widgets)
 
 BuildRequires: libappstream-glib
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
@@ -58,7 +58,7 @@ The object of the game is to build lines of three similar diamonds.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -70,24 +70,27 @@ The object of the game is to build lines of three similar diamonds.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop ||:
 
 
 %files -f %{name}.lang
 #doc README
 %license LICENSES/*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/knsrcfiles/%{name}.knsrc
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_kf5_datadir}/%{name}/
-%{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_datadir}/sounds/KDiamond*
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/knsrcfiles/%{name}.knsrc
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/knotifications6/%{name}.notifyrc
+%{_kf6_datadir}/sounds/KDiamond*
 
 
 %changelog
+* Mon Dec 04 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

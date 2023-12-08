@@ -1,6 +1,6 @@
 %global packname  units
 %global packvers  0.8
-%global packrel   4
+%global packrel   5
 %global rlibdir   %{_libdir}/R/library
 
 Name:           R-%{packname}

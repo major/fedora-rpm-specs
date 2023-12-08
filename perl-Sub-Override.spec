@@ -1,15 +1,17 @@
 Name:           perl-Sub-Override
-Version:        0.09
-Release:        31%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        Perl extension for easily overriding subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Override
 Source0:        https://cpan.metacpan.org/authors/id/O/OV/OVID/Sub-Override-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(lib)
@@ -22,8 +24,23 @@ BuildRequires:  perl(Test::More) >= 0.47
 %description
 Perl extension for easily overriding subroutines.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Sub-Override-%{version}
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -31,17 +48,33 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Sub*
+%{_mandir}/man3/Sub::Override*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 06 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.10-1
+- 0.10 bump (rhbz#2253024)
+- Package tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

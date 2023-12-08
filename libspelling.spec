@@ -1,15 +1,12 @@
-%global commit      65185023db95ec464970aeaeab766fe3ba26ae7d
-%global shortcommit %{lua:print(macros.commit:sub(1,7))}
-
 Name:           libspelling
-Version:        0.1.0~^1.%{shortcommit}
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Spellcheck library for GTK 4
 # main source is LGPL-2.1-or-later
 # lib/egg-action-group.h is GPL-3.0-or-later
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/chergert/libspelling
-Source:         %{url}/-/archive/%{commit}/libspelling-%{shortcommit}.tar.gz
+Source:         %{url}/-/archive/%{version}/libspelling-%{version}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -40,7 +37,7 @@ applications that use %{name}.
 
 
 %prep
-%autosetup -n libspelling-%{commit}
+%autosetup -n libspelling-%{version}
 
 
 %build
@@ -50,6 +47,10 @@ applications that use %{name}.
 
 %install
 %meson_install
+
+
+%check
+%meson_test
 
 
 %files

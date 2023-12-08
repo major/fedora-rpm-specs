@@ -3,8 +3,8 @@
 %global mozjs115_version 115.4.0
 
 Name:           gjs
-Version:        1.78.0
-Release:        3%{?dist}
+Version:        1.78.1
+Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -94,6 +94,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Wed Dec 06 2023 Kalev Lember <klember@redhat.com> - 1.78.1-1
+- Update to 1.78.1
+
 * Tue Nov 07 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.78.0-3
 - Rebuild against mozjs115-115.4.0-1
 

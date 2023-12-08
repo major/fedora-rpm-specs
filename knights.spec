@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	24.01.75
+Version:	24.01.80
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -53,7 +53,7 @@ checking, themes, and nice animations
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.desktop
 
 %files -f %{name}.lang
 %doc README* ChangeLog DESIGN doc/
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Mon Dec 04 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Wed Nov 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 24.01.75-1
 - 24.01.75
 

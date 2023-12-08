@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        8.0.2
+Version:        8.1.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -86,6 +86,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst*
 
 %changelog
+* Tue Dec 05 2023 Maxwell G <maxwell@gtmx.me> - 8.1.0-1
+- Update to 8.1.0.
+
 * Sun Nov 19 2023 Maxwell G <maxwell@gtmx.me> - 8.0.2-1
 - Update to 8.0.2. Fixes rhbz#2247589.
 

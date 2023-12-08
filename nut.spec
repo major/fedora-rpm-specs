@@ -144,8 +144,10 @@ find . -mtime -1 -print0 | xargs -0 touch --reference %{SOURCE0}
 sed -i 's|\(PYTHON3\?_SITE_PACKAGES=\)".*"|\1"%{python3_sitelib}"|' m4/nut_check_python.m4
 
 %build
+%if 0%{?fedora} > 38
 #--without-gpio is not enough to stop it complaining about missing library
 sed -i 's|with_gpio="[^"]*"|with_gpio="no"|g' configure.ac
+%endif
 autoreconf -i
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 # prevent assignment of default value, it would break configure's tests
@@ -173,7 +175,7 @@ export LDFLAGS="-Wl,-z,now"
     --sysconfdir=%{_sysconfdir}/ups \
     --with-cgipath=%{cgidir} \
     --with-drvpath=%{modeldir} \
-%if 0%{?fedora} < 39
+%if 0%{?fedora} > 38
     --without-gpio \
 %endif
     --with-systemdsystemunitdir=%{_unitdir} \

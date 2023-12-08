@@ -1,6 +1,6 @@
 Name:    ksirk
 Summary: Conquer-the-world strategy game
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -22,32 +22,32 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
 
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Widgets)
-
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: libkdegames-devel >= %{majmin_ver}
-BuildRequires: cmake(KF5KDEGames)
 BuildRequires: libkdegames-private-devel
-BuildRequires: cmake(Phonon4Qt5)
-BuildRequires: cmake(Qca-qt5)
+BuildRequires: cmake(Phonon4Qt6)
+BuildRequires: cmake(Qca-qt6)
 
 BuildRequires: zlib-devel
 
-Requires: qca-qt5-ossl%{?_isa}
+Requires: qca-qt6-ossl%{?_isa}
 
 Conflicts: kde-l10n < 17.08.3-2
 
@@ -61,7 +61,7 @@ neighbors with your armies.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -72,29 +72,32 @@ neighbors with your armies.
 %find_lang %{name} --all-name --with-html
 
 ## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libiris_ksirk.a
+rm -fv %{buildroot}%{_kf6_libdir}/libiris_ksirk.a
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
-%{_kf5_bindir}/%{name}*
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/applications/org.kde.%{name}skineditor.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/%{name}*/
-%{_kf5_datadir}/config.kcfg/%{name}*
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}*
-%{_kf5_datadir}/kxmlgui5/%{name}*/
-%{_kf5_datadir}/knsrcfiles/%{name}.knsrc
+%{_kf6_bindir}/%{name}*
+%{_kf6_datadir}/qlogging-categories6/%{name}*
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/applications/org.kde.%{name}skineditor.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/%{name}*/
+%{_kf6_datadir}/config.kcfg/%{name}*
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}*
+#%%{_kf6_datadir}/kxmlgui6/%{name}*/
+%{_kf6_datadir}/knsrcfiles/%{name}.knsrc
 
 
 %changelog
+* Mon Dec 04 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

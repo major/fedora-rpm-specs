@@ -1,42 +1,49 @@
 Name: neochat
-Version: 23.08.2
-Release: 1%{?dist}
+Version: 24.01.80
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
 Summary: Client for matrix, the decentralized communication protocol
-Source0: https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # Proposed upstream
 
-BuildRequires: cmake(Qt5Concurrent)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Keychain)
-BuildRequires: cmake(Qt5LinguistTools)
-BuildRequires: cmake(Qt5Multimedia)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Svg)
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires: cmake(Qt6WebView)
+%endif
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6LinguistTools)
 
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5ItemModels)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: cmake(KF5KirigamiAddons)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5QQC2DesktopStyle)
-BuildRequires: cmake(KF5Sonnet)
-BuildRequires: cmake(KF5SyntaxHighlighting)
-BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: cmake(KF6Kirigami)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Sonnet)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6ColorScheme)
+BuildRequires: cmake(KF6KirigamiAddons)
+BuildRequires: cmake(KF6QQC2DesktopStyle)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
 
 BuildRequires: cmake(KQuickImageEditor)
-BuildRequires: cmake(QCoro5)
-BuildRequires: cmake(Quotient)
+BuildRequires: cmake(QuotientQt6)
+BuildRequires: cmake(QCoro6Core)
+BuildRequires: cmake(QCoro6Network)
+
+BuildRequires: pkgconfig(icu-uc)
 BuildRequires: pkgconfig(libcmark)
 
 BuildRequires: cmake
@@ -45,21 +52,30 @@ BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc
 BuildRequires: gcc-c++
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: libappstream-glib
 BuildRequires: ninja-build
 
 Requires: breeze-icon-theme
 Requires: hicolor-icon-theme
-Requires: kf5-kirigami2%{?_isa}
-Requires: kf5-kirigami2-addons%{?_isa}
-Requires: kf5-kitemmodels%{?_isa}
-Requires: kf5-kquickcharts%{?_isa}
-Requires: kf5-syntax-highlighting%{?_isa}
-Requires: kquickimageeditor%{?_isa}
-Requires: qqc2-breeze-style%{?_isa}
-Requires: qqc2-desktop-style%{?_isa}
-Requires: qt5-qtquickcontrols2%{?_isa}
+# QML module dependencies
+Requires: kf6-kirigami%{?_isa}
+Requires: kf6-kirigami-addons%{?_isa}
+Requires: kf6-kitemmodels%{?_isa}
+Requires: kf6-knotifications%{?_isa}
+Requires: kf6-kquickcharts%{?_isa}
+Requires: kf6-prison%{?_isa}
+Requires: kf6-purpose%{?_isa}
+Requires: kf6-sonnet%{?_isa}
+Requires: kf6-syntax-highlighting%{?_isa}
+Requires: kf6-qqc2-desktop-style%{?_isa}
+Requires: kquickimageeditor-qt6%{?_isa}
+Requires: qt6-qtlocation%{?_isa}
+Requires: qt6-qtmultimedia%{?_isa}
+Requires: qt6-qtpositioning%{?_isa}
+%ifarch %{qt6_qtwebengine_arches}
+Requires: qt6-qtwebview%{?_isa}
+%endif
 
 Recommends: google-noto-emoji-color-fonts
 Recommends: google-noto-emoji-fonts
@@ -76,13 +92,13 @@ notably Kirigami, KConfig and KI18n.
 %autosetup -p1
 
 %build
-%cmake_kf5 -G Ninja \
+%cmake_kf6 -G Ninja \
     -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 
 %install
 %cmake_install
-%find_lang %{name} --with-qt
+%find_lang %{name} --with-qt --with-man
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
@@ -95,11 +111,19 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 %{_metainfodir}/*.appdata.xml
-%{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_datadir}/krunner/dbusplugins/*.desktop
-%{_kf5_datadir}/qlogging-categories5/neochat.categories
+%{_kf6_datadir}/knotifications6/%{name}.notifyrc
+%{_kf6_datadir}/krunner/dbusplugins/*.desktop
+%{_kf6_datadir}/qlogging-categories6/neochat.categories
+%{_mandir}/man1/neochat.1*
 
 %changelog
+* Thu Dec 07 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.80-2
+- Fix QML module dependencies
+- Build without webview on unsupported arches
+
+* Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

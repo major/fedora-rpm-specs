@@ -122,11 +122,17 @@
 
 # enable|disable debuginfo
 %global enable_debug 1
+# disable debuginfo due to a bug in debugedit on el7
+# error: canonicalization unexpectedly shrank by one character
+# https://bugzilla.redhat.com/show_bug.cgi?id=304121
+%if 0%{?rhel} == 7
+%global enable_debug 0
+%endif
 %if ! %{enable_debug}
 %global debug_package %{nil}
 %global debug_level 0
 %else
-%global debug_level 1
+%global debug_level 0
 # workaround for the error empty file debugsource
 %undefine _debugsource_packages
 %endif
@@ -150,8 +156,19 @@
 %global __provides_exclude_from ^(%{chromium_path}/.*\\.so|%{chromium_path}/.*\\.so.*)$
 %global __requires_exclude ^(%{chromium_path}/.*\\.so|%{chromium_path}/.*\\.so.*)$
 
+# enable|disable use_custom_libcxx
+%global use_custom_libcxx 1
+
 # enable clang by default
 %global clang 1
+
+# enable|disable control flow integrity support
+%global cfi 0
+%if %{clang}
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global cfi 1
+%endif
+%endif
 
 # set correct toolchain
 %if %{clang}
@@ -181,6 +198,7 @@
 
 # RHEL 7.9 dropped minizip.
 # enable bundleminizip for Fedora > 39 due to switch to minizip-ng
+# which breaks the build
 %global bundleminizip 0
 %if 0%{?rhel} == 7 || 0%{?fedora} > 39
 %global bundleminizip 1
@@ -193,7 +211,7 @@
 %global use_qt 0
 %endif
 
-%if 0%{?rhel} >9 || 0%{?fedora}
+%if 0%{?rhel} > 9 || 0%{?fedora}
 %global use_qt6 1
 %else
 %global use_qt6 0
@@ -272,7 +290,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 119.0.6045.199
+Version: 120.0.6099.62
 Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -285,7 +303,7 @@ Patch0: chromium-70.0.3538.67-sandbox-pie.patch
 Patch1: chromium-115-initial_prefs-etc-path.patch
 
 # system libusb
-Patch2: chromium-119-system-libusb.patch
+Patch2: chromium-120-system-libusb.patch
 
 # Do not mangle zlib
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
@@ -329,7 +347,8 @@ Patch89: chromium-116-system-brotli.patch
 
 # disable GlobalMediaControlsCastStartStop to avoid crash
 # when using the address bar media player button
-Patch90: chromium-119-disable-GlobalMediaControlsCastStartStop.patch
+# it works with use_custom_libcxx=true
+Patch90: chromium-120-disable-GlobalMediaControlsCastStartStop.patch
 
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
@@ -349,7 +368,7 @@ Patch104: chromium-99.0.4844.51-epel7-old-cups.patch
 
 # libdrm on EL7 is rather old and chromium assumes newer
 # This gets us by for now
-Patch105: chromium-85.0.4183.83-el7-old-libdrm.patch
+Patch105: chromium-120-el7-old-libdrm.patch
 
 # error: no matching function for call to 'std::basic_string<char>::erase(std::basic_string<char>::const_iterator, __gnu_cxx::__normal_iterator<const char*, std::basic_string<char> >&)'
 #   33 |   property_name.erase(property_name.cbegin(), cur);
@@ -357,7 +376,7 @@ Patch105: chromium-85.0.4183.83-el7-old-libdrm.patch
 Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 
 # Add additional operator== to make el7 happy.
-Patch107: chromium-99.0.4844.51-el7-extra-operator.patch
+Patch107: chromium-120-el7-extra-operator.patch
 # old v4l2 on el7
 Patch108: chromium-118-el7_v4l2_quantization.patch 
 # workaround for clang bug on el7
@@ -365,12 +384,16 @@ Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
 Patch111: chromium-116-constexpr.patch
 Patch112: chromium-117-el7-default_constructor.patch
+# old clang on el7
+
+Patch113: chromium-120-el7-clang-version-warning.patch
+Patch114: chromium-120-el7-clang-build-failure.patch
 
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9 and fedora 37
-Patch114: chromium-107-ffmpeg-5.x-duration.patch
+Patch115: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
-Patch115: chromium-107-proprietary-codecs.patch
+Patch116: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch117: chromium-118-sigtrap_system_ffmpeg.patch
 
@@ -382,35 +405,32 @@ Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # fixes for old clang version in fedora < 38 end epel < 8 (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
-Patch300: chromium-119-no_matching_constructor.patch
+Patch300: chromium-120-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-118-workaround_clang_bug-structured_binding.patch
+Patch302: chromium-120-workaround_clang_bug-structured_binding.patch
 
 # missing typename
-Patch303: chromium-117-typename.patch
+Patch303: chromium-120-typename.patch
 
 # error: invalid operands to binary expression
 Patch304: chromium-117-string-convert.patch
-
-# error: constexpr constructor's 3rd parameter type 'std::string' (aka 'basic_string<char>') is not a literal type
-Patch305: chromium-119-constexpr.patch
 
 Patch306: chromium-119-assert.patch
 
 # disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
 # not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
-Patch307: chromium-118-arm64-memory_tagging.patch
+Patch307: chromium-120-arm64-memory_tagging.patch
 
 # missing include header files
-Patch310: chromium-119-missing-header-files.patch
+Patch310: chromium-120-missing-header-files.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
 
-# imp module is removed in python-3.12 in fedora 39 and newer
-Patch312: chromium-118-python-3.12-deprecated.patch
+# enable fstack-protector-strong
+Patch312: chromium-119-fstack-protector-strong.patch
 
 # build error
 Patch351: chromium-117-mnemonic-error.patch
@@ -419,19 +439,19 @@ Patch351: chromium-117-mnemonic-error.patch
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
 Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
-# enable fstack-protector-strong
-Patch353: chromium-119-fstack-protector-strong.patch
+
+# gn workaround for the error: Assignment had no effect
+Patch353: chromium-120-gn-workaround-atspi.patch
+# remove flag split-threshold-for-reg-with-hint, it' not supported in clang <= 17
+Patch354: chromium-120-split-threshold-for-reg-with-hint.patch
+# error: unknown type name 'nullptr_t'
+Patch355: chromium-120-nullptr_t-without-namespace-std.patch
+# disable FFmpegAllowLists by default to allow external ffmpeg
+patch356: chromium-120-disable-FFmpegAllowLists.patch
+# remove ldflags -Wl,-mllvm,-disable-auto-upgrade-debug-info which is not supported
+Patch357: chromium-120-clang16-disable-auto-upgrade-debug-info.patch
 
 # upstream patches
-# revert due to build error redefine ATSPI version macros
-Patch400: chromium-119-dont-redefine-ATSPI-version-macros.patch
-# fix build error, nullptr_t without namespace std::
-Patch401: chromium-119-nullptr_t-without-namespace-std.patch
-# workaround for buggy Nvidia drivers fail to return FDs for planes
-# of a BO which had already an imported BO destroyed before.
-Patch402: chromium-119-nvidia-use-separate-bo-to-verify-modifier.patch
-# hide UseChromeOSDirectVideoDecoder flag on VA-API devices to avoid crashes
-Patch403: chromium-119-hide-UseChromeOSDirectVideoDecoder-flag-on-VA-API-devices.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -486,7 +506,7 @@ BuildRequires: %{toolset}-%{dts_version}-libatomic-devel
 %endif
 %else
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
-BuildRequires: %{toolset}-%{dts_version}-toolchain, %{toolset}-%{dts_version}-libatomic-devel
+BuildRequires: %{toolset}-%{dts_version}-binutils, %{toolset}-%{dts_version}-libatomic-devel
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires: gcc-c++
@@ -538,6 +558,10 @@ BuildRequires: pkgconfig(Qt5Widgets)
 %if %{use_qt6}
 BuildRequires: pkgconfig(Qt6Core)
 BuildRequires: pkgconfig(Qt6Widgets)
+%endif
+
+%if %{cfi}
+BuildRequires: compiler-rt
 %endif
 
 %if ! %{bundleharfbuzz}
@@ -948,8 +972,8 @@ udev.
 %patch -P20 -p1 -b .disable-font-test
 
 %if ! %{bundleminizip}
-%patch -P61 -p1 -b .system-minizip
 %patch -P52 -p1 -b .unbundle-zlib
+%patch -P61 -p1 -b .system-minizip
 %endif
 
 %patch -P65 -p1 -b .java-only-allowed
@@ -961,7 +985,9 @@ udev.
 %patch -P89 -p1 -b .system-brotli
 %endif
 
+%if ! %{use_custom_libcxx}
 %patch -P90 -p1 -b .disable-GlobalMediaControlsCastStartStop
+%endif
 
 %if ! %{bundleopus}
 %patch -P91 -p1 -b .system-opus
@@ -974,9 +1000,9 @@ udev.
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9 || 0%{?fedora} == 37
-%patch -P114 -p1 -b .ffmpeg-5.x-duration
+%patch -P115 -p1 -b .ffmpeg-5.x-duration
 %endif
-%patch -P115 -p1 -b .prop-codecs
+%patch -P116 -p1 -b .prop-codecs
 %patch -P117 -p1 -b .sigtrap_system_ffmpeg
 %endif
 
@@ -994,6 +1020,8 @@ udev.
 %patch -P110 -p1 -b .buildflag-el7
 %patch -P111 -p1 -b .constexpr
 %patch -P112 -p1 -b .default_constructor
+%patch -P113 -p1 -b .el7-clang-version-warning
+%patch -P114 -p1 -R -b .clang-build-failure
 %endif
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
@@ -1011,7 +1039,6 @@ udev.
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
 %patch -P303 -p1 -b .typename
 %patch -P304 -p1 -b .string-convert
-%patch -P305 -p1 -b .constexpr
 %patch -P306 -p1 -b .assert
 %endif
 %endif
@@ -1024,10 +1051,7 @@ udev.
 
 %patch -P310 -p1 -b .missing-header-files
 %patch -P311 -p1 -b .clang-warnings
-
-%if 0%{?rhel} > 9 || 0%{?fedora} > 38
-%patch -P312 -p1 -b .python-3.12-deprecated
-%endif
+%patch -P312 -p1 -b .fstack-protector-strong
 
 %patch -P351 -p1 -b .mnemonic-error
 
@@ -1035,11 +1059,13 @@ udev.
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
 
-%patch -P353 -p1 -b .fstack-protector-strong
-%patch -P400 -p1 -R -b .revert-dont-redefine-ATSPI-version-macros.patch
-%patch -P401 -p1 -b .nullptr_t-without-namespace-std
-%patch -P402 -p1 -b .nvidia-use-separate-bo-to-verify-modifiers
-%patch -P403 -p1 -b .UseChromeOSDirectVideoDecoder-flag-on-VA-API-devices
+%patch -P353 -p1 -b .gn-workaround-atspi
+%patch -P354 -p1 -b .revert-split-threshold-for-reg-with-hint
+%if ! %{use_custom_libcxx}
+%patch -P355 -p1 -b .nullptr_t-without-namespace-std
+%endif
+%patch -P356 -p1 -b .disable-FFmpegAllowLists
+%patch -P357 -p1 -b .clang16-disable-auto-upgrade-debug-info
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1167,8 +1193,14 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}
-CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true use_thin_lto=false is_cfi=false chrome_pgo_phase=0 use_debug_fission=true'
+CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true chrome_pgo_phase=0 use_debug_fission=true'
 sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/generate_shim_headers.py
+%endif
+
+%if %{cfi}
+CHROMIUM_CORE_GN_DEFINES+=' use_thin_lto=true is_cfi=true'
+%else
+CHROMIUM_CORE_GN_DEFINES+=' use_thin_lto=false is_cfi=false'
 %endif
 
 %if %{useapikey}
@@ -1193,7 +1225,7 @@ CHROMIUM_CORE_GN_DEFINES+=' use_lld=false'
 # disable rust, it's only using for testing
 CHROMIUM_CORE_GN_DEFINES+=' enable_rust=false'
 
-CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false disable_fieldtrial_testing_config=true rtc_enable_symbol_export=true'
+CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false disable_fieldtrial_testing_config=true'
 
 %if %{use_gold}
 CHROMIUM_CORE_GN_DEFINES+=' use_gold=true'
@@ -1209,7 +1241,11 @@ CHROMIUM_CORE_GN_DEFINES+=' icu_use_data_file=true'
 CHROMIUM_CORE_GN_DEFINES+=' target_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' current_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' treat_warnings_as_errors=false'
+%if %{use_custom_libcxx}
+CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=true'
+%else
 CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=false'
+%endif
 CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
@@ -1733,8 +1769,18 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Dec 06 2023 Than Ngo <than@redhat.com> - 120.0.6099.62-2
+- drop unsupported ldflag which caused build failure
+
+* Tue Dec 05 2023 Than Ngo <than@redhat.com> - 120.0.6099.62-1
+- update to 120.0.6099.62
+- fixed bz#2252874, built with control flow integrity (CFI) support
+
+* Sat Dec 02 2023 Than Ngo <than@redhat.com> - 120.0.6099.56-1
+- update to 120.0.6099.56 
+- enable qt6 UI backend
+
 * Sat Dec 02 2023 Than Ngo <than@redhat.com> - 119.0.6045.199-2
-- enable build flag -fstack-protector-strong for improved security
 - fixed bz#2242271, built with bundleminizip in fedora > 39
 - fixed bz#2251884, built with fstack-protector-strong for improved security
 

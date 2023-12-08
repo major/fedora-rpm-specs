@@ -1,46 +1,52 @@
-%global kf5_min_version 5.86.0
+%global kf6_min_version 5.240.0
 
 Name:           audiotube
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
 Url:            https://apps.kde.org/audiotube/
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 BuildRequires:  gcc-c++
-BuildRequires:  extra-cmake-modules >= %{kf5_min_version}
-BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
+BuildRequires:  extra-cmake-modules >= %{kf6_min_version}
+BuildRequires:  kf6-rpm-macros      >= %{kf6_min_version}
 
 BuildRequires: pybind11-devel
 BuildRequires: python3-devel
 BuildRequires: python3-ytmusicapi
 BuildRequires: yt-dlp
 
-BuildRequires: cmake(FutureSQL5)
-BuildRequires: cmake(QCoro5)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5QmlModels)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6DBus)
 
-BuildRequires: cmake(KF5CoreAddons)   >= %{kf5_min_version}
-BuildRequires: cmake(KF5Crash)        >= %{kf5_min_version}
-BuildRequires: cmake(KF5I18n)         >= %{kf5_min_version}
-BuildRequires: cmake(KF5Kirigami2)    >= %{kf5_min_version}
-BuildRequires: cmake(KF5KirigamiAddons)
-BuildRequires: cmake(KF5WindowSystem) >= %{kf5_min_version}
+BuildRequires: cmake(KF6Kirigami)     >= %{kf6_min_version}
+BuildRequires: cmake(KF6I18n)         >= %{kf6_min_version}
+BuildRequires: cmake(KF6CoreAddons)   >= %{kf6_min_version}
+BuildRequires: cmake(KF6Crash)        >= %{kf6_min_version}
+BuildRequires: cmake(KF6WindowSystem) >= %{kf6_min_version}
+BuildRequires: cmake(KF6KirigamiAddons)
+
+BuildRequires: cmake(FutureSQL6)
+BuildRequires: cmake(QCoro6Core)
 
 Requires:   hicolor-icon-theme
-Requires:   kf5-kirigami2
+Requires:   kf6-kirigami%{?_isa}
+Requires:   kf6-kirigami-addons%{?_isa}
+Requires:   kf6-purpose%{?_isa}
+Requires:   qt6-qt5compat%{?_isa}
+Requires:   qt6-qtmultimedia%{?_isa}
 Requires:   python3-ytmusicapi
 Requires:   yt-dlp
 
@@ -51,7 +57,7 @@ Requires:   yt-dlp
 %autosetup -p1
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 %install
@@ -59,19 +65,22 @@ Requires:   yt-dlp
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 
 %changelog
+* Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

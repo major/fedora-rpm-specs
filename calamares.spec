@@ -3,7 +3,7 @@
 
 Name:           calamares
 Version:        3.3.0~alpha6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -73,7 +73,9 @@ BuildRequires:  cmake(KF6Package)
 BuildRequires:  cmake(KF6Parts)
 BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  cmake(KF6Plasma)
+
+# Plasma
+BuildRequires:  cmake(Plasma)
 
 # KPMcore
 BuildRequires:  cmake(KPMcore) >= 4.2.0
@@ -340,6 +342,9 @@ EOF
 
 
 %changelog
+* Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 3.3.0~alpha6-2
+- Rebuilt for KDE Frameworks 5.246.0 and Gear 24.01.80
+
 * Sun Nov 26 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.3.0~alpha6-1
 - Rebase to 3.3.0~alpha6 for AppStream 1.0 and Qt 6 compatibility
 

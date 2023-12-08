@@ -30,7 +30,7 @@ Release:        %autorelease
 Summary:        GRPC for low-memory environments
 
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 # Convert to github.com/golang/protobuf

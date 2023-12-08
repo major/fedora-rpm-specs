@@ -4,7 +4,7 @@
 %global rlibdir %{_datadir}/R/library
 
 Name:           R-%{packname}
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Uncertainty Propagation for R Vectors
 

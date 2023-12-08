@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        100
+Version:        101
 
 %forgemeta
 
@@ -227,6 +227,7 @@ exit 0
 %exclude %{pkgdir}/inputs/org.osbuild.ostree*
 %exclude %{pkgdir}/sources/org.osbuild.ostree*
 %exclude %{pkgdir}/stages/org.osbuild.ostree*
+%exclude %{pkgdir}/stages/org.osbuild.experimental.ostree*
 %exclude %{pkgdir}/stages/org.osbuild.rpm-ostree
 
 %files -n       python3-%{pypi_name}
@@ -249,6 +250,7 @@ exit 0
 %{pkgdir}/inputs/org.osbuild.ostree*
 %{pkgdir}/sources/org.osbuild.ostree*
 %{pkgdir}/stages/org.osbuild.ostree*
+%{pkgdir}/stages/org.osbuild.experimental.ostree*
 %{pkgdir}/stages/org.osbuild.rpm-ostree
 
 %files selinux
@@ -276,6 +278,61 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Dec 06 2023 Packit <hello@packit.dev> - 101-1
+Changes with 101
+----------------
+  * Create fake `machine-id` and cleanup before exiting (#1458)
+    * Author: Miguel Martin, Reviewers: Brian C. Lane, Michael Vogt, Simon de Vlieger
+  * Move org.osbuild.experimental.ostree.config to osbuild-ostree subpackage (#1464)
+    * Author: Alexander Larsson, Reviewers: Simon de Vlieger
+  * Packit: make COPR builds for new releases in a separate project (#1479)
+    * Author: Tomáš Hozza, Reviewers: Eric Curtin, Simon Steinbeiß
+  * Readme update (#1483)
+    * Author: Paweł Poławski, Reviewers: Simon de Vlieger
+  * enhance support for creating 4k native disk images (#1461)
+    * Author: Dusty Mabe, Reviewers: Simon de Vlieger
+  * osbuild-mpp: Print better errors if eval fails (#1477)
+    * Author: Alexander Larsson, Reviewers: Simon de Vlieger
+  * osbuild-mpp: conditional losetup (#1478)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Alexander Larsson, Michael Vogt
+  * osbuild. add comment why AST is used and not importlib (#1463)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * osbuild/util/fscache: calculate actual size of files (#1453)
+    * Author: Dusty Mabe, Reviewers: Simon de Vlieger
+  * osbuild: ensure loop.Loop() has the required device node (#1468)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai
+  * osbuild: fix missing initialization of fd in osbuild.loop.Loop (#1467)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Ondřej Budai
+  * osbuild: improve monitor docstrings/signatures (#1473)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stage(oscap.remediation): link /proc/self/fd to /dev/fd (#1459)
+    * Author: Marcos Libanori Sanches Júnior, Reviewers: Gianluca Zuccarelli, Simon de Vlieger
+  * stages(autotailor): add small unit test (#1481)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli, Simon de Vlieger
+  * stages(erofs): add org.osbuild.erofs (#1437)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages(kickstart): add `network` support to kickstart (#1451)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages(machine-id): add a new "machine-id"  stage (#1452)
+    * Author: Michael Vogt, Reviewers: Nobody
+  * stages(ostree.post-copy): add stage unit test and comment (#1465)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages: Add stages to support ostree signatures and composefs (#1343)
+    * Author: Alexander Larsson, Reviewers: Nobody
+  * stages:oscap.autotailor: add key/value overrides (#1407)
+    * Author: Gianluca Zuccarelli, Reviewers: Evgeny Kolesnikov, Simon de Vlieger
+  * test: fix broken oscap remediation tests (#1470)
+    * Author: Gianluca Zuccarelli, Reviewers: Simon de Vlieger
+  * test: stage tests -> stage integration tests (#1469)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt
+  * tests: remove custom tempdir_fixture (#1462)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * tests: remove custom tmpdir() fixtures and use tmp_path (#1466)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+
+— Somewhere on the Internet, 2023-12-06
+
+
 * Wed Nov 22 2023 Packit <hello@packit.dev> - 100-1
 Changes with 100
 ----------------

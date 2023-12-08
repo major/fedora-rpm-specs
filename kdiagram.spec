@@ -1,31 +1,20 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 Name:    kdiagram
 Summary: Powerful libraries (KChart, KGantt) for creating business diagrams
-Version: 2.8.0
-Release: 7%{?dist}
+Version: 3.0.0
+Release: 1%{?dist}
 
-License: GPLv2+
+License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Url:     https://invent.kde.org/graphics/kdiagram
+
 Source0: http://download.kde.org/stable/kdiagram/%{version}/kdiagram-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Help)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Sql)
-BuildRequires: cmake(Qt5Svg)
-
-%if 0%{?tests}
-BuildRequires: cmake(Qt5Test)
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Help)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Svg)
 
 # For AutoReq cmake-filesystem
 BuildRequires: cmake
@@ -36,61 +25,49 @@ Powerful libraries (KChart, KGantt) for creating business diagrams.
 %package devel
 Summary: Developer files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: cmake(Qt5Svg)
-Requires: cmake(Qt5Widgets)
-Requires: cmake(Qt5PrintSupport)
+Requires: cmake(Qt6Svg)
+Requires: cmake(Qt6Widgets)
+Requires: cmake(Qt6PrintSupport)
 %description devel
 %{summary}.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{?!tests:OFF}
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
-
-%find_lang_kf5 kchart_qt
-%find_lang_kf5 kgantt_qt
-cat kchart_qt.lang kgantt_qt.lang > %{name}.lang
-
-
-%check
-%if 0%{?tests}
-# FIXME/TODO: make macros better to not have to do this when using xvfb-run
-echo "%ctest" > ./rpm-check.sh
-chmod +x ./rpm-check.sh
-xvfb-run -a ./rpm-check.sh
-%endif
-
-
-%ldconfig_scriptlets
+%find_lang_kf6 kchart6_qt
+%find_lang_kf6 kgantt6_qt
+cat kchart6_qt.lang kgantt6_qt.lang > %{name}.lang
 
 %files -f %{name}.lang
 %license LICENSE.GPL.txt
-%{_kf5_libdir}/libKChart.so.2*
-%{_kf5_libdir}/libKGantt.so.2*
+%{_kf6_libdir}/libKChart6.so.3*
+%{_kf6_libdir}/libKGantt6.so.3*
 
 %files devel
-%{_includedir}/KChart/
-%{_includedir}/KGantt/
-%{_includedir}/kchart_version.h
-%{_includedir}/kgantt_version.h
-%{_kf5_libdir}/libKChart.so
-%{_kf5_libdir}/libKGantt.so
-%{_kf5_libdir}/cmake/KChart/
-%{_kf5_libdir}/cmake/KGantt/
-%{_kf5_archdatadir}/mkspecs/modules/qt_KChart.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGantt.pri
+%{_includedir}/KChart6/
+%{_includedir}/KGantt6/
+%{_kf6_libdir}/libKChart6.so
+%{_kf6_libdir}/libKGantt6.so
+%{_kf6_libdir}/cmake/KChart6/
+%{_kf6_libdir}/cmake/KGantt6/
+%{_kf6_archdatadir}/mkspecs/modules/qt_KChart6.pri
+%{_kf6_archdatadir}/mkspecs/modules/qt_KGantt6.pri
 
 
 %changelog
+* Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 3.0.0-1
+- 3.0.0
+
+* Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 2.8.0^20231206.021638.8f51a2d-1
+- Update to qt6 from git
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

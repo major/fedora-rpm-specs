@@ -15,14 +15,14 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  1.17.0
+%global upstream_version  1.17.1
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 %global _configure        ../%{sources}/configure
 
 # Bundled versions
-%global bundled_libmongo  1.25.1
+%global bundled_libmongo  1.25.2
 %global bundled_libcrypt  1.8.2
 
 # Build dependencies
@@ -188,6 +188,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Dec  6 2023 Remi Collet <remi@remirepo.net> - 1.17.1-1
+- update to 1.17.1
+
 * Wed Nov 15 2023 Remi Collet <remi@remirepo.net> - 1.17.0-1
 - update to 1.17.0
 - raise dependency on PHP 7.4

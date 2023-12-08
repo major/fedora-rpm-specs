@@ -1,43 +1,101 @@
 Name:    kquickimageeditor
-Version: 0.2.0
-Release: 5%{?dist}
+Version: 0.3.0
+Release: 1%{?dist}
 Summary: QtQuick components providing basic image editing capabilities
 License: GPLv2+
 URL:     https://invent.kde.org/libraries/%{name}
-Source0: https://invent.kde.org/libraries/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: qt5-qtbase-devel        >= 5.12.0
-BuildRequires: qt5-qtdeclarative-devel >= 5.12.0
+
+BuildRequires: kf5-rpm-macros
+BuildRequires: cmake(Qt5Core)  >= 5.15.0
+BuildRequires: cmake(Qt5Quick) >= 5.15.0
+
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Quick)
 
 %description
 %{summary}
 
-%package devel
-Summary: Development files for %{name}
+%package qt5
+Summary: Qt5 QtQuick components providing basic image editing capabilities
+Obsoletes: %{name} < 0.3.0
 
-%description devel
-The %{name}-devel package contains cmake and mkspecs for developing
-applications that use %{name}.
+%description qt5
+%{summary}
+
+%package qt5-devel
+Summary: Development files for %{name}-qt5
+Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Obsoletes: %{name}-devel < 0.3.0
+
+%description qt5-devel
+The %{name}-qt5-devel package contains cmake and mkspecs for developing
+applications that use %{name}-qt5.
+
+%package qt6
+Summary: Qt6 QtQuick components providing basic image editing capabilities
+
+%description qt6
+%{summary}
+
+%package qt6-devel
+Summary: Development files for %{name}-qt6
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+
+%description qt6-devel
+The %{name}-qt6-devel package contains cmake and mkspecs for developing
+applications that use %{name}-qt6.
 
 %prep
-%autosetup -n %{name}-v%{version}
+%autosetup -n %{name}-%{version}
 
 %build
-%{cmake_kf5}
-%{cmake_build}
+mkdir -p build-qt5
+pushd build-qt5
+%cmake_kf5 -S ..
+%cmake_build
+popd
+
+mkdir -p build-qt6
+pushd build-qt6
+%cmake_kf6 -S .. -DQT_MAJOR_VERSION=6
+%cmake_build
+popd
+
 
 %install
-%{cmake_install}
+pushd build-qt5
+%cmake_install
+popd
 
-%files
-%{_libdir}/qt5/qml/org/kde/kquickimageeditor
+pushd build-qt6
+%cmake_install
+popd
 
-%files devel
-%{_libdir}/cmake/KQuickImageEditor
-%{_libdir}/qt5/mkspecs/modules/qt_KQuickImageEditor.pri
+%files qt5
+%{_kf5_qmldir}/org/kde/kquickimageeditor
+
+%files qt5-devel
+# the qt5 and qt6 cmake packages conflict
+# https://invent.kde.org/libraries/kquickimageeditor/-/merge_requests/23
+#{_kf5_libdir}/cmake/KQuickImageEditor
+%{_kf5_archdatadir}/mkspecs/modules/qt_KQuickImageEditor.pri
+
+%files qt6
+%{_kf6_qmldir}/org/kde/kquickimageeditor
+
+%files qt6-devel
+%{_kf6_libdir}/cmake/KQuickImageEditor
+%{_kf6_archdatadir}/mkspecs/modules/qt_KQuickImageEditor.pri
 
 %changelog
+* Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 0.3.0-1
+- 0.3.0
+- Create parallel qt5 and qt6 builds
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

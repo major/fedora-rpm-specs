@@ -1,37 +1,23 @@
-## uncomment to enable bootstrap mode
-#global bootstrap 1
-
-## use webengine by default or not
-%global webengine_default 1
-
 ## experimental ninja support
 #global ninja 1
 ## FIXME: many tests require GLX, which doesn't appear to work as-is under koji
 #global tests 1
 
 Name:    konqueror
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
 License: GPLv2+ and LGPLv2+ and GFDL
-URL:     https://konqueror.org/
+URL:     https://apps.kde.org/konqueror/
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstream patches
 
 ## upstreamable patches
-Patch100: konqueror-webengine_optional.patch
 # toggle 'Always try to have one preloaded instance' to default off
 # https://bugzilla.redhat.com/1523082
 # https://bugs.kde.org/398996
@@ -40,30 +26,45 @@ Patch101: konqueror-18.12.2-preloaded.patch
 ## Fedora specific patches
 
 BuildRequires: desktop-file-utils
+BuildRequires: extra-cmake-modules >= 5.101
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
 
-BuildRequires: extra-cmake-modules >= 5.71
-BuildRequires: cmake(KDED)
-BuildRequires: cmake(KF5Activities)
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5KDELibs4Support)
-BuildRequires: cmake(KF5KHtml)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5Su)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6WebEngineWidgets)
+BuildRequires: qt6-qtbase-private-devel
 
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Script)
-%ifarch %{qt5_qtwebengine_arches}
-%global webengine 1
-%else
-# for thumbnailer, if webengine not used
-BuildRequires: cmake(Qt5WebKit)
-%endif
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5X11Extras)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Sonnet)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(PlasmaActivities)
+# libkonq
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: pkgconfig(zlib)
+# webenginepart
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6Notifications)
+# plugins
+BuildRequires: cmake(Qt6TextToSpeech)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Su)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6XmlGui)
+# sidebar
+BuildRequires: cmake(KF6JobWidgets)
 
 %if 0%{?ninja}
 BuildRequires:  ninja-build
@@ -77,22 +78,7 @@ BuildRequires: time
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
-BuildRequires: pkgconfig(zlib)
-BuildRequires: libtidy-devel
-
-%if !0%{?bootstrap}
-BuildRequires:  cmake(Qt5TextToSpeech)
-%endif
-
-%if 0%{?webengine} && 0%{?webengine_default}
-Requires: kwebenginepart%{_isa} = %{version}-%{release}
-%else
-Requires: kwebkitpart%{?_isa} >= 1.4.0
-%endif
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
-
+Requires:      kwebenginepart%{?_isa} = %{version}-%{release}
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release} 
 Requires:      hicolor-icon-theme
 Requires:      keditbookmarks
@@ -115,16 +101,12 @@ Requires:      %{name} = %{version}-%{release}
 %description libs
 %{summary}.
 
-%if 0%{?webengine}
 %package -n kwebenginepart
 Summary:  A KPart based on QtWebEngine
-BuildRequires: cmake(Qt5WebEngine)
-BuildRequires: cmake(KF5Wallet)
 %description -n kwebenginepart
 KWebEnginePart is a web browser component for KDE (KPart)
 based on (Qt)WebEngine. You can use it for example for
 browsing the web in Konqueror.
-%endif
 
 
 %prep
@@ -132,11 +114,11 @@ browsing the web in Konqueror.
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
+  -DQT_MAJOR_VERSION=6 \
   -Wno-dev \
   %{?ninja:-G Ninja} \
-  %{?tests:-DBUILD_TESTING:BOOL=ON} \
-  %{!?webengine:-DTHUMBNAIL_USE_WEBKIT:BOOL=ON}
+  %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
 
@@ -144,21 +126,15 @@ browsing the web in Konqueror.
 %install
 %cmake_install
 
-# omit some extraneous webenginepart files when building without webengine support
-%if ! 0%{?webengine}
-rm -rfv %{buildroot}%{_kf5_datadir}/webenginepart/
-%endif
-
-
 %find_lang %{name} --all-name --with-html
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.konqueror.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kfmclient.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kfmclient_html.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kfmclient_war.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/konqbrowser.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.konqueror.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kfmclient.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kfmclient_html.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kfmclient_war.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/konqbrowser.desktop
 %if 0%{?tests}
 export CTEST_OUTPUT_ON_FAILURE=1
 ## cant use %%ninja_test here for some reason, doesn't inherit env vars from xvfb or dbus -- rex
@@ -174,70 +150,67 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %doc AUTHORS ChangeLog
-%{_kf5_datadir}/qlogging-categories5/*
-%{_kf5_bindir}/fsview
-%{_kf5_bindir}/kcreatewebarchive
-%{_kf5_bindir}/kfmclient
-%{_kf5_bindir}/konqueror
-%{_kf5_datadir}/akregator/pics/feed.png
-%{_kf5_metainfodir}/org.kde.konqueror.appdata.xml
-%{_kf5_datadir}/applications/*.desktop
-%{_kf5_datadir}/config.kcfg/*.kcfg
-%{_kf5_datadir}/dbus-1/interfaces/*.xml
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kcmcss/
-%{_kf5_datadir}/kcontrol/
-%{_kf5_datadir}/kf5/kbookmark/
-%{_kf5_datadir}/konqueror/
-%{_kf5_sysconfdir}/xdg/autostart/konqy_preload.desktop
-%{_kf5_sysconfdir}/xdg/translaterc
-%{_kf5_sysconfdir}/xdg/konqs*
-%{_kf5_sysconfdir}/xdg/useragenttemplatesrc
-%{_kf5_datadir}/konqsidebartng/
-%{_kf5_datadir}/kxmlgui5/fsview/
-
-
-%ldconfig_scriptlets libs
+%{_kf6_datadir}/qlogging-categories6/*
+%{_kf6_bindir}/fsview
+%{_kf6_bindir}/kcreatewebarchive
+%{_kf6_bindir}/kfmclient
+%{_kf6_bindir}/konqueror
+%{_kf6_datadir}/akregator/pics/feed.png
+%{_kf6_metainfodir}/org.kde.konqueror.appdata.xml
+%{_kf6_datadir}/applications/*.desktop
+%{_kf6_datadir}/config.kcfg/*.kcfg
+%{_kf6_datadir}/dbus-1/interfaces/*.xml
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/kcmcss/
+%{_kf6_datadir}/kcontrol/
+%{_kf6_datadir}/kf6/kbookmark/
+%{_kf6_datadir}/kio_bookmarks/
+%{_kf6_datadir}/konqueror/
+%{_kf6_sysconfdir}/xdg/autostart/konqy_preload.desktop
+%{_kf6_sysconfdir}/xdg/translaterc
+%{_kf6_sysconfdir}/xdg/konqs*
+%{_kf6_sysconfdir}/xdg/useragenttemplatesrc
+%{_kf6_datadir}/konqsidebartng/
 
 %files libs
-%{_kf5_datadir}/kservices5/*
-%{_kf5_libdir}/lib*.so.*
-%{_kf5_libdir}/libkdeinit5*.so
-%{_kf5_qtplugindir}/*.so
-%{_kf5_qtplugindir}/konqueror_kcms/
-%{_kf5_qtplugindir}/dolphinpart/kpartplugins/dirfilterplugin.so
-%{_kf5_qtplugindir}/dolphinpart/kpartplugins/kimgallery.so
-%{_kf5_qtplugindir}/dolphinpart/kpartplugins/konq_shellcmdplugin.so
-%{_kf5_qtplugindir}/khtml/kpartplugins/
-%{_kf5_qtplugindir}/konqueror/kpartplugins/
-%{_kf5_qtplugindir}/kwebkitpart/kpartplugins/
-%{_kf5_qtplugindir}/webenginepart/kpartplugins/*
-%{_kf5_plugindir}/kfileitemaction/akregatorplugin.so
-%dir %{_kf5_plugindir}/parts/
-%{_kf5_plugindir}/parts/fsviewpart.so
-%{_kf5_plugindir}/parts/konq_sidebar.so
+%{_kf6_libdir}/libKF6Konq.so.{7,*.*}
+%{_kf6_libdir}/libkonqsidebarplugin.so.{6,*.*}
+%{_kf6_libdir}/libkonquerorprivate.so.{5,*.*}
+%{_kf6_qtplugindir}/*.so
+%{_kf6_qtplugindir}/konqueror_kcms/
+%{_kf6_qtplugindir}/dolphinpart/kpartplugins/dirfilterplugin.so
+%{_kf6_qtplugindir}/dolphinpart/kpartplugins/kimgallery.so
+%{_kf6_qtplugindir}/dolphinpart/kpartplugins/konq_shellcmdplugin.so
+%{_kf6_qtplugindir}/khtml/kpartplugins/
+%{_kf6_qtplugindir}/konqueror/kpartplugins/
+%{_kf6_qtplugindir}/konqueror/sidebar/
+%{_kf6_qtplugindir}/kwebkitpart/kpartplugins/
+%{_kf6_qtplugindir}/webenginepart/kpartplugins/*
+%{_kf6_plugindir}/kfileitemaction/akregatorplugin.so
+%{_kf6_plugindir}/kio/bookmarks.so
+%dir %{_kf6_plugindir}/parts/
+%{_kf6_plugindir}/parts/fsviewpart.so
+%{_kf6_plugindir}/parts/konq_sidebar.so
 
 %files devel
-%{_includedir}/konqsidebarplugin.h
-%{_kf5_includedir}/konq*.h
-%{_kf5_includedir}/libkonq_export.h
-%{_kf5_libdir}/cmake/KF5Konq/
-%{_kf5_libdir}/libKF5Konq.so
-%{_kf5_libdir}/libkonqsidebarplugin.so
-%if 0%{?webengine}
-%{_kf5_includedir}/asyncselectorinterface.h
-%endif
+#{_includedir}/konqsidebarplugin.h
+%{_kf6_includedir}/konq*.h
+%{_kf6_includedir}/libkonq_export.h
+%{_kf6_libdir}/cmake/KF6Konq/
+%{_kf6_libdir}/libKF6Konq.so
+%{_kf6_libdir}/libkonqsidebarplugin.so
+%{_kf6_includedir}/asyncselectorinterface.h
 
-%if 0%{?webengine}
 %files -n kwebenginepart
-%{_kf5_datadir}/kxmlgui5/webenginepart/
-%{_kf5_datadir}/webenginepart/
-%{_kf5_datadir}/kconf_update/webengine*
-%{_kf5_libdir}/libkwebenginepart.so
-%{_kf5_plugindir}/parts/webenginepart.so
-%endif
+%{_kf6_datadir}/webenginepart/
+%{_kf6_datadir}/kconf_update/webengine*
+%{_kf6_libdir}/libkwebenginepart.so
+%{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

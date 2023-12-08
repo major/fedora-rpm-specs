@@ -4,7 +4,7 @@
 
 Name:    kaccounts-providers
 Version: 24.01.80^%{gitdate}.%{shortcommit0}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional service providers for KAccounts framework
 License: GPLv2
 URL:     https://invent.kde.org/network/%{name}
@@ -12,8 +12,8 @@ URL:     https://invent.kde.org/network/%{name}
 Source0: https://invent.kde.org/network/%{name}/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 # Source0:        http://download.kde.org/%%{stable_kf6}/release-service/%%{version}/src/%%{name}-%%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  intltool
@@ -67,6 +67,9 @@ Obsoletes: kaccounts-providers < 15.12.0
 
 
 %changelog
+* Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
+- Fixed an issue with the qtwebengine arches
+
 * Mon Dec 4 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 

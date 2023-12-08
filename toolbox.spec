@@ -17,7 +17,7 @@ Version:       0.0.99.4
 %endif
 %endif
 
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -165,6 +165,8 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 Requires:      coreutils
 Requires:      gawk
 Requires:      grep
+# for htpasswd
+Requires:      httpd-tools
 Requires:      skopeo
 %if ! 0%{?rhel}
 Requires:      bats
@@ -264,6 +266,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Wed Dec 06 2023 Adam Williamson <awilliam@redhat.com> - 0.0.99.4-9
+- tests subpackage: require httpd-tools for htpasswd
+
 * Tue Dec 05 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-8
 - Fix the conditionals for 'if RHEL <= 9'
 

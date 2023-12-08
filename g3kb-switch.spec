@@ -1,7 +1,7 @@
 %global uuid g3kb-switch@g3kb-switch.org
 
 Name:           g3kb-switch
-Version:        1.3
+Version:        1.4
 Release:        %autorelease
 Summary:        CLI keyboard layout switcher for GNOME Shell
 
@@ -10,7 +10,6 @@ Summary:        CLI keyboard layout switcher for GNOME Shell
 License:        BSD-2-Clause AND GPL-2.0-only
 URL:            https://github.com/lyokha/g3kb-switch
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch:          g3kb-switch-gnome45.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

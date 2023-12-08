@@ -2,7 +2,7 @@
 
 Name:           plasma-welcome
 Version:        5.90.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
 Url:            https://invent.kde.org/plasma/%{name}
@@ -10,6 +10,7 @@ Url:            https://invent.kde.org/plasma/%{name}
 Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 # Upstream patches
+Patch0:         0001-pages-Live-Use-ApplicationInfo-for-ApplicationIcon.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-devel
@@ -74,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Wed Dec 06 2023 Alessandro Astone <ales.astone@gmail.com> - 5.90.0-2
+- Backport patch to fix live installer
+
 * Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

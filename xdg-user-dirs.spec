@@ -6,7 +6,7 @@ Version:	0.18
 Release:	3%{?dist}
 Summary:	Handles user special directories
 
-License:	GPLv2+ and MIT
+License:	GPL-2.0-or-later AND MIT
 URL:		https://freedesktop.org/wiki/Software/xdg-user-dirs
 Source0:	https://user-dirs.freedesktop.org/releases/%{name}-%{version}.tar.gz
 

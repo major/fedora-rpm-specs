@@ -1,18 +1,15 @@
-%if 0%{?el6}
- %global bashcompdir /usr/share/bash-completion/
-%else
- %global bashcompdir %(pkg-config --variable=completionsdir bash-completion)
-%endif
+%global bashcompdir %(pkg-config --variable=completionsdir bash-completion)
 
 Name:           lynis
 Version:        3.0.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Security and system auditing tool
 License:        GPL-3.0-only
 URL:            https://cisofy.com/lynis/
 Source0:        https://cisofy.com/files/%{name}-%{version}.tar.gz
 Patch0:         1386.patch
 Patch1:         1438.patch
+Patch2:         0d77a367c59a0b5f1bdcb46380a518519160503b.patch
 BuildArch:      noarch
 BuildRequires:  bash-completion
 BuildRequires:  git-core
@@ -83,6 +80,9 @@ touch %{buildroot}%{_localstatedir}/log/lynis-report.dat
 %ghost %{_localstatedir}/log/lynis-report.dat
 
 %changelog
+* Wed Dec 06 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.9-4
+- pgrep patch
+
 * Tue Sep 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.9-3
 - Additional egrep patch
 

@@ -3,10 +3,9 @@
 %global _description %{expand:
 HighFive is a modern header-only C++11 friendly interface for libhdf5.
 
-HighFive supports STL vector/string, Boost::UBLAS, Boost::Multi-array, Eigen
-and Xtensor. It handles C++ from/to HDF5 with automatic type mapping. HighFive
-does not require additional libraries (see dependencies) and supports both HDF5
-thread safety and Parallel HDF5 (contrary to the official hdf5 cpp)
+HighFive supports STL vector/string, Boost::UBLAS, Boost::Multi-array and
+Xtensor. It handles C++ from/to HDF5 with automatic type mapping. HighFive does
+not require additional libraries (see dependencies).
 
 It integrates nicely with other CMake projects by defining (and exporting) a
 HighFive target.
@@ -26,30 +25,49 @@ Feature support:
 - selection() / slice support
 - parallel Read/Write operations from several nodes with Parallel HDF5
 - Advanced types: Compound, Enum, Arrays of Fixed-length strings, References
-  etc... (see ChangeLog)
-}
+  etc… (see ChangeLog)
 
-%bcond_without tests
-%bcond_without docs
+Known flaws:
+- HighFive is not thread-safe. At best it has the same limitations as the HDF5
+  library. However, HighFive objects modify their members without protecting
+  these writes. Users have reported that HighFive is not thread-safe even when
+  using the threadsafe HDF5 library, e.g.,
+  https://github.com/BlueBrain/HighFive/discussions/675.
+- Eigen support in core HighFive is broken. See
+  https://github.com/BlueBrain/HighFive/issues/532. H5Easy is not affected.
+- The support of fixed length strings isn’t ideal.}
+
+%bcond tests 1
+# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
+# bundle inserted by Doxygen itself. See discussion at
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
+#
+# We could enable the Doxygen PDF documentation as a substitute, but beginning
+# with 2.8.0 we encounter:
+#
+#   ! LaTeX Error: File `topics.tex' not found.
+#
+# This seems like a Doxygen bug, but it’s not clear exactly what kind of bug,
+# or what can be done about it.
+%bcond docs 0
 
 # Header only, so no debuginfo is generated
 %global debug_package %{nil}
 
 Name:           highfive
-Version:        2.7.1
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Header-only C++ HDF5 interface
 
 License:        Boost
 URL:            https://bluebrain.github.io/HighFive/
-Source0:        https://github.com/BlueBrain/HighFive/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/BlueBrain/HighFive/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  git-core
 BuildRequires:  hdf5-devel
 BuildRequires:  catch-devel
 # Technically optional, enabled by default
@@ -70,6 +88,8 @@ BuildRequires:  xtensor-static
 
 %if %{with docs}
 BuildRequires:  doxygen
+BuildRequires:  doxygen-latex
+BuildRequires:  make
 %endif
 
 %description %_description
@@ -98,16 +118,23 @@ Documentation for %{name}
 
 
 %prep
-%autosetup -n %{pretty_name}-%{version} -S git -p1
+%autosetup -n %{pretty_name}-%{version}
+
+%if %{with docs}
+# We enable the Doxygen PDF documentation as a substitute. We must enable
+# GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
+# already be set as we like them. We also disable GENERATE_HTML, since we will
+# not use it.
+sed -r -i \
+    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
+PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
+    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
+[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
+    doc/Doxyfile
+%endif
 
 
 %build
-# With g++13, warnings are generated from xtl side, e.g.
-# /usr/include/xtl/xsequence.hpp:132:24: error: 'ret' may be used uninitialized
-# [-Werror=maybe-uninitialized]
-# Disabling -Werror
-sed -i CMake/config/CompilerFlagsHelpers.cmake -e 's|-Werror ||'
-
 %if %{with tests}
 %set_build_flags
 # The unit tests intentionally test deprecated APIs; silence these warnings so
@@ -128,6 +155,9 @@ CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
 %cmake_build
 %if %{with docs}
 %cmake_build --target doc
+%make_build -C %{_vpath_builddir}/doc/latex
+mv %{_vpath_builddir}/doc/latex/refman.pdf \
+    %{_vpath_builddir}/doc/latex/%{pretty_name}.pdf
 %endif
 
 
@@ -157,7 +187,7 @@ mv -v '%{buildroot}/%{_datadir}/%{pretty_name}/CMake' \
 %if %{with docs}
 %files doc
 %license LICENSE
-%doc %{_vpath_builddir}/doc/html
+%doc %{_vpath_builddir}/doc/latex/%{pretty_name}.pdf
 %endif
 
 

@@ -1,5 +1,3 @@
-%global framework libkgapi
-
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
@@ -7,40 +5,28 @@
 %global _lto_cflags %{nil}
 
 Name:    libkgapi
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: Library to access to Google services
 
 License: GPLv2+
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# libical (and thus kcalendarcore) not on all arches for RHEL8.
-%if 0%{?rhel} == 8
-ExclusiveArch: x86_64 ppc64le aarch64 %{arm}
-%endif
-
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
-BuildRequires:  qt5-qttools-static
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  qt6-qttools-static
 
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kwallet-devel
-BuildRequires:  kf5-kwindowsystem-devel
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  cmake(KF6WindowSystem)
 
-BuildRequires:  kf5-kcalendarcore-devel >= %{version}
-BuildRequires:  kf5-kcontacts-devel >= %{version}
+BuildRequires:  cmake(KF6CalendarCore)
+BuildRequires:  cmake(KF6Contacts)
 
 BuildRequires:  cyrus-sasl-devel
 
@@ -54,9 +40,9 @@ to build akonadi-google resources.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       kf5-kcoreaddons-devel
-Requires:       kf5-kcalendarcore-devel
-Requires:       kf5-kcontacts-devel
+Requires:       cmake(KF6CoreAddons)
+Requires:       cmake(KF6CalendarCore)
+Requires:       cmake(KF6Contacts)
 Obsoletes:      libkgoogle-devel < 0.3.2
 Provides:       libkgoogle-devel = %{version}-%{release}
 %description devel
@@ -69,57 +55,33 @@ resources.
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
-%find_lang_kf5 libkgapi_qt
-
-
-%ldconfig_scriptlets
+%find_lang_kf6 libkgapi_qt
 
 %files -f libkgapi_qt.lang
 %doc README*
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
 %{_libdir}/sasl2/libkdexoauth2.so*
-%{_kf5_libdir}/libKPim5GAPIBlogger.so.5*
-%{_kf5_libdir}/libKPim5GAPICalendar.so.5*
-%{_kf5_libdir}/libKPim5GAPICore.so.5*
-%{_kf5_libdir}/libKPim5GAPIDrive.so.5*
-%{_kf5_libdir}/libKPim5GAPILatitude.so.5*
-%{_kf5_libdir}/libKPim5GAPIMaps.so.5*
-%{_kf5_libdir}/libKPim5GAPIPeople.so.5*
-%{_kf5_libdir}/libKPim5GAPITasks.so.5*
+%{_kf6_libdir}/libKPim6GAPI*.so.5*
+%{_kf6_libdir}/libKPim6GAPI*.so.6*
 
 %files devel
-%{_kf5_libdir}/libKPim5GAPIPeople.so
-%{_kf5_libdir}/libKPim5GAPIBlogger.so
-%{_kf5_libdir}/libKPim5GAPICalendar.so
-%{_kf5_libdir}/libKPim5GAPICore.so
-%{_kf5_libdir}/libKPim5GAPIDrive.so
-%{_kf5_libdir}/libKPim5GAPILatitude.so
-%{_kf5_libdir}/libKPim5GAPIMaps.so
-%{_kf5_libdir}/libKPim5GAPITasks.so
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPIBlogger.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPICalendar.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPICore.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPIDrive.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPILatitude.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPIMaps.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPITasks.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_KGAPIPeople.pri
-%{_kf5_libdir}/cmake/KPimGAPI/
-%{_kf5_libdir}/cmake/KPim5GAPI/
-%dir %{_includedir}/KPim5/
-%{_includedir}/KPim5/KGAPI/
+%{_kf6_libdir}/libKPim6GAPI*.so
+%{_kf6_libdir}/cmake/KPim6GAPI/
+%dir %{_includedir}/KPim6/
+%{_includedir}/KPim6/KGAPI/
 
 
 %changelog
+* Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

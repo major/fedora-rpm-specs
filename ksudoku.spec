@@ -1,6 +1,6 @@
 Name:    ksudoku
 Summary: A logic-based symbol placement puzzle
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -20,37 +20,36 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5Declarative)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5GuiAddons)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires: libkdegames-devel >= %{majmin_ver}
-BuildRequires: cmake(KF5KDEGames) >= 4.9.0
 BuildRequires: libkdegames-private-devel
 
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickWidgets)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5OpenGL)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Test)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickWidgets)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6OpenGL)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Test)
 
 BuildRequires: pkgconfig(gl) pkgconfig(glu)
 
@@ -68,7 +67,7 @@ it is your job to fill in the rest.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -80,24 +79,27 @@ it is your job to fill in the rest.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
 %doc README
-%{_kf5_bindir}/%{name}*
-%{_kf5_metainfodir}/org.kde.%{name}.*.xml
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/config.kcfg/%{name}.kcfg
-#{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_sysconfdir}/xdg/ksudokurc
+%{_kf6_bindir}/%{name}*
+%{_kf6_metainfodir}/org.kde.%{name}.*.xml
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/%{name}/
+#{_kf6_datadir}/config.kcfg/%{name}.kcfg
+#{_kf6_datadir}/knotifications6/%{name}.notifyrc
+%{_kf6_sysconfdir}/xdg/ksudokurc
 
 
 %changelog
+* Mon Dec 04 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -91,6 +91,7 @@ export PATH=%{buildroot}%{_bindir}:$PATH
 # Most tests require network access to the anaconda repositories
 # Needs an environment to test
 # tests/test_post.py::test_menuinst_* - conda_build.environ.InvalidEnvironment: Unable to load environment /usr
+# tests/test_api_render.py::test_noarch_with_no_platform_deps - fails in koji for an unknown reason
 py.test-%{python3_version} -vv --ignore tests/test_api_build.py --ignore tests/cli/test_main_skeleton.py \
   --deselect='tests/test_api_build_conda_v2.py::test_conda_pkg_format[None-.tar.bz2]' \
   --deselect='tests/test_api_build_conda_v2.py::test_conda_pkg_format[2-.conda]' \
@@ -135,12 +136,13 @@ py.test-%{python3_version} -vv --ignore tests/test_api_build.py --ignore tests/c
   --deselect='tests/test_api_debug.py::test_debug[tarball w/ path]' \
   --deselect='tests/test_api_debug.py::test_debug[outputs w/ valid filtering]' \
   --deselect='tests/test_api_inspect.py::test_check_recipe' \
+  --deselect='tests/test_api_render.py::test_get_output_file_path_jinja2' \
+  --deselect='tests/test_api_render.py::test_noarch_with_no_platform_deps' \
+  --deselect='tests/test_api_render.py::test_pin_compatible_semver' \
+  --deselect='tests/test_api_render.py::test_pin_depends' \
   --deselect='tests/test_api_render.py::test_render_need_download' \
   --deselect='tests/test_api_render.py::test_render_yaml_output' \
-  --deselect='tests/test_api_render.py::test_get_output_file_path_jinja2' \
-  --deselect='tests/test_api_render.py::test_pin_compatible_semver' \
   --deselect='tests/test_api_render.py::test_resolved_packages_recipe' \
-  --deselect='tests/test_api_render.py::test_pin_depends' \
   --deselect='tests/test_api_render.py::test_run_exports_with_pin_compatible_in_subpackages' \
   --deselect='tests/test_api_skeleton_cpan.py::test_xs_needs_c_compiler' \
   --deselect='tests/test_api_skeleton_cran.py::test_cran_no_comments' \

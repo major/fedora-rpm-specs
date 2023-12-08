@@ -1,48 +1,56 @@
 Name:           koko
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 License:        GPLv2+ and GPLv3 and LGPLv2 and LGPLv2+ and CC0 and BSD
 Summary:        An Image gallery application
 Url:            https://apps.kde.org/koko/
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/koko-%{version}.tar.xz
-Source1:        http://download.geonames.org/export/dump/cities1000.zip
-Source2:        http://download.geonames.org/export/dump/admin1CodesASCII.txt
-Source3:        http://download.geonames.org/export/dump/admin2Codes.txt
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source1:        https://download.geonames.org/export/dump/cities1000.zip
+Source2:        https://download.geonames.org/export/dump/admin1CodesASCII.txt
+Source3:        https://download.geonames.org/export/dump/admin2Codes.txt
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
-BuildRequires: kf5-rpm-macros
-BuildRequires: kquickimageeditor-devel
-BuildRequires: libgexiv2-devel
-BuildRequires: xcb-util-devel
+BuildRequires: kf6-rpm-macros
+BuildRequires: libappstream-glib
 
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5Declarative)
-BuildRequires: cmake(KF5FileMetaData)
-BuildRequires: cmake(KF5GuiAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: cmake(KF5Notifications)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Positioning)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: qt6-qtbase-private-devel
 
-BuildRequires: cmake(Qt5Positioning)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5X11Extras)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6FileMetaData)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Kirigami)
+BuildRequires: cmake(KQuickImageEditor)
+
+BuildRequires: pkgconfig(exiv2)
+BuildRequires: pkgconfig(xcb)
+BuildRequires: pkgconfig(xcb-atom)
 
 # QML module dependencies
-Requires:      kf5-kdeclarative%{?_isa}
-Requires:      kf5-kirigami2%{?_isa}
-Requires:      kf5-kirigami2-addons%{?_isa}
-Requires:      kf5-purpose%{?_isa}
-Requires:      kquickimageeditor%{?_isa}
-Requires:      qt5-qtgraphicaleffects%{?_isa}
-Requires:      qt5-qtmultimedia%{?_isa}
-Requires:      qt5-qtquickcontrols2%{?_isa}
+Requires:      kf6-kcoreaddons%{?_isa}
+Requires:      kf6-kdeclarative%{?_isa}
+Requires:      kf6-kirigami%{?_isa}
+Requires:      kf6-kirigami-addons%{?_isa}
+Requires:      kf6-purpose%{?_isa}
+Requires:      kquickimageeditor-qt6%{?_isa}
+Requires:      qt6-qtmultimedia%{?_isa}
+
+Obsoletes:     %{name}-devel < 24.01.80
 
 %description
 %{summary}.
@@ -55,41 +63,37 @@ cp %{_topdir}/SOURCES/admin1CodesASCII.txt src/
 cp %{_topdir}/SOURCES/admin2Codes.txt src/
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
 %cmake_install
 %find_lang %{name}
-desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot}/%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+
+%check
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %files -f %{name}.lang
-%{_kf5_bindir}/%{name}
+%{_kf6_bindir}/%{name}
 
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_kf5_datadir}/knotifications5/*
-%{_kf5_datadir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/org.kde.%{name}.*
+%{_kf6_datadir}/knotifications6/*
+%{_kf6_datadir}/%{name}
 
-%{_kf5_libdir}/libkokocommon.so.0.0.1
-# Confirmed with upstream that unversioned so belongs in main package.
-%{_kf5_libdir}/qt5/qml/org/kde/%{name}/libkokoqmlplugin.so
+%{_kf6_libdir}/libkokocommon.so.0.0.1
+# internal library, no public API, no need for devel package
+%exclude %{_kf6_libdir}/libkokocommon.so
 
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
-%{_kf5_qmldir}/org/kde/%{name}/*
-
-%package devel
-Summary: Development files for koko
-Requires: %{name}%{?_isa} = %{version}-%{release}
-
-%description devel
-%{summary}.
-
-%files devel
-%{_kf5_libdir}/libkokocommon.so
+%{_kf6_qmldir}/org/kde/%{name}/
 
 %changelog
+* Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

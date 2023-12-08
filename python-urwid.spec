@@ -3,7 +3,7 @@
 %global srcname urwid
 
 Name:          python-%{srcname}
-Version:       2.2.3
+Version:       2.3.4
 Release:       1%{?dist}
 Summary:       Console user interface library
 
@@ -59,6 +59,9 @@ PYTHON=%{__python3} %{__python3} setup.py test || :
 %{python3_sitearch}/urwid-%{version}*.egg-info/
 
 %changelog
+* Tue Dec 05 2023 Packit <hello@packit.dev> - 2.3.4-1
+- New upstream release 2.3.4
+
 * Thu Oct 19 2023 Packit <hello@packit.dev> - 2.2.3-1
 - New upstream release 2.2.3
 

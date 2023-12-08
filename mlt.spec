@@ -12,8 +12,8 @@
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.20.0
-Release:        2%{?dist}
+Version:        7.22.0
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -237,6 +237,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Thu Dec 07 2023 Sérgio Basto <sergio@serjux.com> - 7.22.0-1
+- Update mlt to 7.22.0 (#2252089)
+
 * Thu Nov 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.20.0-2
 - Backport upstream PR for compilation with libxml2 2.12.0
 

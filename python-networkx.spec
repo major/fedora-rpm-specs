@@ -25,6 +25,9 @@ Source0:        https://github.com/networkx/networkx/archive/networkx-%{version}
 # - osmnx requires osmnx
 # - plot_lines requires momepy
 Patch0:         %{name}-doc.patch
+# Temporary workaround for a failing test.
+# See https://github.com/networkx/networkx/issues/5913
+Patch1:         %{name}-test.patch
 
 BuildArch:      noarch
 
@@ -172,6 +175,7 @@ done
 %changelog
 * Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 3.2.1-1
 - Version 3.2.1
+- Bring back the test patch
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
