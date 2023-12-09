@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 2.2.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -38,6 +38,7 @@ Patch9: mutt-1.9.0-ssl_ciphers.patch
 Patch10: mutt-1.9.4-lynx_no_backscapes.patch
 Patch12: mutt-1.9.5-nodotlock.patch
 Patch13: mutt-1.12.1-optusegpgagent.patch
+Patch14: mutt-configure-c99.patch
 
 Url: http://www.mutt.org
 Requires: mailcap, urlview
@@ -86,6 +87,7 @@ for selecting groups of messages.
 
 %patch10 -p1 -b .lynx_no_backscapes
 %patch12 -p1 -b .nodotlock
+%patch14 -p1
 
 autoreconf --install
 %patch1 -p1 -b .muttrc
@@ -218,6 +220,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu Dec  7 2023 Florian Weimer <fweimer@redhat.com> - 5:2.2.12-2
+- Fix C99 compatibility issue
+
 * Mon Nov 13 2023 Matej Mužila <mmuzila@redhat.com> - 5:2.2.12-1
 - Upgrade to 2.2.12
 - Resolves: #2232712

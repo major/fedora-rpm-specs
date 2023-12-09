@@ -19,12 +19,7 @@
 %{!?tcl:%global tcl 1}
 %{!?lualang:%global lualang 1}
 %{!?perllang:%global perllang 1}
-# https://github.com/swig/swig/issues/2490
-%ifarch i686
-%{!?phplang:%global phplang 0}
-%else
 %{!?phplang:%global phplang 1}
-%endif
 %{!?rubylang:%global rubylang 1}
 %{!?python3lang:%global python3lang 1}
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
@@ -63,7 +58,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -85,6 +80,8 @@ Patch2: swig-ocaml-5.0.patch
 Patch3: swig-python-3.12.patch
 # Fix a test that is broken with PHP 8.3
 Patch4: swig-PHP-Fix-testcase-director_finalizer-with-PHP-8.3.patch
+# Fix director_classes testcase failures on x86
+Patch5: swig-PHP-Fix-director_classes-testcase-failures-on-x86.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -368,7 +365,10 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
-* Fri Oct 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-11
+* Thu Dec 07 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-13
+- Fix PHP director_classes testcase failures on x86
+
+* Fri Oct 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-12
 - Stop using Python's 2to3
 
 * Wed Oct 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-11

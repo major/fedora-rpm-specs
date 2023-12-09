@@ -1,7 +1,7 @@
 %global require_ibus_version 1.4.0
 
 Name:       ibus-m17n
-Version:    1.4.24
+Version:    1.4.27
 Release:    1%{?dist}
 Summary:    The M17N engine for IBus platform
 License:    GPL-2.0-or-later
@@ -63,6 +63,14 @@ make check
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.m17n.gschema.xml
 
 %changelog
+* Sat Dec 02 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.27-1
+- Update to 1.4.27
+- Prefer commit to "return FALSE;" for space, and other keys
+  where the msymbol name is exactly one character, add a
+  sleep for Return.  This is to avoid ordering problems in
+  mutter.
+  (Resolves: https://github.com/ibus/ibus-m17n/issues/72)
+
 * Fri Nov 10 2023 Mike FABIAN <mfabian@redhat.com> - 1.4.24-1
 - Update to 1.4.24
 - Make IBusEngineSimple read ~/.XCompose

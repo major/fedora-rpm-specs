@@ -1,5 +1,5 @@
 Name: gretl	
-Version: 2023b
+Version: 2023c
 Release: 1%{?dist}
 Summary: A tool for econometric analysis	
 
@@ -128,7 +128,7 @@ desktop-file-install						\
 %{_datadir}/icons/hicolor/48x48/apps/gretl.png
 %{_datadir}/icons/hicolor/64x64/apps/gretl.png
 %{_datadir}/applications/gretl*
-%{_datadir}/appdata/gretl.appdata.xml
+%{_datadir}/metainfo/gretl.appdata.xml
 
 %doc ChangeLog CompatLog README gretl_plugins.txt
 
@@ -141,6 +141,9 @@ desktop-file-install						\
 %{_libdir}/openmpi/bin/gretl_openmpi
 
 %changelog
+* Thu Dec 07 2023 Johannes Lips <hannes@fedoraproject.org> - 2023c-1
+- Update to 2023c
+
 * Sun Jul 23 2023 Johannes Lips <hannes@fedoraproject.org> - 2023b-1
 - Update to 2023b
 

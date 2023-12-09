@@ -1,4 +1,4 @@
-%global candidate rc3
+%global candidate rc4
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2024.01
-Release:  0.1%{?candidate:.%{candidate}}%{?dist}
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -19,8 +19,7 @@ Source1:  aarch64-boards
 
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 Patch2:   disable-VBE-by-default.patch
-Patch3:   0001-smbios-Simplify-reporting-of-unknown-values.patch
-Patch4:   0002-smbios-Fallback-to-the-default-DT-if-sysinfo-nodes-a.patch
+Patch3:   Provide-a-fallback-to-smbios-tables.patch
 Patch5:   enable-bootmenu-by-default.patch
 Patch6:   uefi-Boot-var-automatic-management-for-removable-medias.patch
 Patch7:   Add-video-damage-tracking.patch
@@ -215,6 +214,10 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Thu Dec 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.01-0.2.rc4
+- Update to 2024.01 RC4
+- Rebase SMBIOS patch to latest rev
+
 * Fri Nov 24 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.01-0.1.rc3
 - Update to 2024.01 RC3
 

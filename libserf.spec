@@ -1,6 +1,6 @@
 Name:           libserf
 Version:        1.3.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        Apache-2.0
 URL:            http://serf.apache.org/
@@ -15,6 +15,7 @@ Patch0:         %{name}-norpath.patch
 Patch1:         %{name}-1.3.9-errgetfunc.patch
 Patch2:		%{name}-1.3.9-multihome.patch
 Patch3:		%{name}-1.3.9-cmake.patch
+Patch4:		%{name}-1.3.10-gssapi.patch
 
 %description
 The serf library is a C-based HTTP client library built upon the Apache 
@@ -46,12 +47,11 @@ popd
 %endif
 
 %build
-%cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir}
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} -DGSSAPI=ON -DSKIP_STATIC=ON
 %cmake_build
 
 %install
 %cmake_install
-find %{buildroot}%{_libdir} -type f -name '*.*a' -delete -print
 
 mkdir -p  %{buildroot}%{_libdir}/pkgconfig
 mv %{buildroot}%{_datadir}/pkgconfig/serf.pc %{buildroot}%{_libdir}/pkgconfig/serf.pc
@@ -77,6 +77,10 @@ true
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Thu Dec 07 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.10-3
+- Add linking of gssapi to support Kerberos authentication
+- Resolves: rhbz#2245095
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

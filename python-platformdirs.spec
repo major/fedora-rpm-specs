@@ -6,8 +6,8 @@ A small Python module for determining appropriate platform-specific dirs, e.g.
 a "user data dir".}
 
 Name:           python-%{srcname}
-Version:        3.9.1
-Release:        2%{?dist}
+Version:        3.11.0
+Release:        1%{?dist}
 Summary:        Python module for determining appropriate platform-specific dirs
 License:        MIT
 URL:            https://github.com/platformdirs/platformdirs
@@ -65,6 +65,9 @@ sed -r -i '/^[[:blank:]]*"covdefaults\b/d' pyproject.toml
 
 
 %changelog
+* Sat Dec 02 2023 Orion Poplawski <orion@nwra.com> - 3.11.0-1
+- Update to 3.11.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

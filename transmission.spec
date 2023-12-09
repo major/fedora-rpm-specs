@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           transmission
-Version:        4.0.4
+Version:        4.0.5
 Release:        1%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
@@ -177,6 +177,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Thu Dec 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-1
+- 4.0.5
+
 * Mon Aug 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.4-1
 - 4.0.4
 

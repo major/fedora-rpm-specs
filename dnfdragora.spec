@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 Name:		dnfdragora
-Version:	2.1.4
+Version:	2.1.5
 Release:	1%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
@@ -130,6 +130,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Wed Dec 06 2023 Jonathan Wright <jonathan@almalinux.org> - 2.1.5-1
+- Update to 2.1.5 rhbz#2251548
+
 * Wed Aug 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.4-1
 - Version 2.1.4
 

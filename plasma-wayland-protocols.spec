@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:    plasma-wayland-protocols
-Version: 1.11.1
+Version: 1.12.0
 Release: 1%{?dist}
 Summary: Plasma Specific Protocols for Wayland
 
@@ -10,10 +10,6 @@ License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND MIT-CMU
 URL:     https://invent.kde.org/libraries/%{name}
 
 Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
-
-# Upstream patch already merged
-# https://invent.kde.org/libraries/plasma-wayland-protocols/-/merge_requests/66
-Patch1: a95fc86fba3895308ce803876e0bc4f72e42e658.patch
 
 ## upstream patches (lookaside cache)
 BuildRequires:  kf6-rpm-macros
@@ -54,6 +50,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Dec 07 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.12.0-1
+- 1.12.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 1.11.1-1
 - Update to 1.11.1
 

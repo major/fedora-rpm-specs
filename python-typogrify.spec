@@ -5,7 +5,8 @@ Version:        2.0.7
 Release:        17%{?dist}
 Summary:        Filters to enhance web typography, with support for Django & Jinja templates
 
-License:        BSD
+# typogrify/packages/titlecase/__init__.py is MIT
+License:        BSD-3-Clause AND MIT
 URL:            https://github.com/mintchaos/typogrify
 Source0:        %{pypi_source}
 BuildArch:      noarch

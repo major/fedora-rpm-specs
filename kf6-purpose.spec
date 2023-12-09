@@ -3,7 +3,7 @@
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
 Version: 5.246.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -29,6 +29,7 @@ BuildRequires: pkgconfig(Qt6Network)
 BuildRequires: pkgconfig(Qt6Qml)
 BuildRequires: pkgconfig(xkbcommon)
 Requires: hicolor-icon-theme
+Requires: kf6-bluez-qt >= %{majmin_ver_kf6}
 
 %description
 Purpose offers the possibility to create integrate services and actions on
@@ -83,6 +84,9 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Thu Dec 07 2023 Nicolas Fella <nicolas.fella@gmx.de> - 5.246.0-2
+- Add missing bluez-qt QML module dependency
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

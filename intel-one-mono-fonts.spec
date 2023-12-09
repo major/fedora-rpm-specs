@@ -1,4 +1,4 @@
-Version: 1.2.1
+Version: 1.3.0
 Release: %autorelease
 URL:     https://github.com/intel/intel-one-mono
 
@@ -8,7 +8,7 @@ URL:     https://github.com/intel/intel-one-mono
 %global fontdocs          README.md
 %global fontdocsex        %{fontlicenses}
 
-%global fontfamily        IntelOne Mono
+%global fontfamily        Intel One Mono
 %global fontsummary       An expressive monospaced font family
 
 %global fonts             fonts/otf/*.otf
@@ -34,6 +34,10 @@ official release of fonts ready to use as well as editable sources.
 
 Source0:  %{url}/archive/V%{version}/%{name}-V%{version}.tar.gz
 Source10: 59-%{fontpkgname}.conf
+
+# Font family name changed from "IntelOne Mono" to "Intel One Mono"
+Provides: intelone-mono-fonts = 1.3.0
+Obsoletes: intelone-mono-fonts < 1.3.0
 
 %fontpkg
 

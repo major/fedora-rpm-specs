@@ -1,6 +1,6 @@
 Name:       intel-media-driver-free
 Version:    23.4.2
-Release:    1%{?dist}
+Release:    %autorelease
 Summary:    The Intel Media Driver for VAAPI
 License:    MIT and BSD
 URL:        https://github.com/intel/media-driver
@@ -57,7 +57,7 @@ Conflicts: intel-media-driver
 
 %package -n     libigfxcmrt
 Summary:        Library to load own GPU kernels on render engine via Intel media driver.
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libva-intel-media-driver%{?_isa} = %{version}-%{release}
 
 %description -n libigfxcmrt
 libigfxcmrt is a runtime library needed when user wants to execute their own GPU kernels on render engine.
@@ -136,5 +136,4 @@ fn=%{buildroot}%{_metainfodir}/intel-media-driver.metainfo.xml
 
 
 %changelog
-* Wed Dec 06 2023 Frantisek Zatloukal <Zatloukal.Frantisek@gmail.com> - 23.4.2-1
-- Initial package, taken from rpmfusion and reduced to contain only free parts
+%autochangelog

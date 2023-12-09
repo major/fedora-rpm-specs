@@ -1,6 +1,6 @@
 Name:          initoverlayfs
-Version:       0.96
-Release:       2%{?dist}
+Version:       0.98
+Release:       1%{?dist}
 Summary:       An initial scalable filesystem for Linux operating systems
 
 License:       GPL-2.0-only
@@ -9,6 +9,8 @@ Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc
 Recommends: erofs-utils
+Recommends: lz4
+Recommends: gzip
 Requires: dracut
 
 %global debug_package %{nil}
@@ -31,12 +33,20 @@ install -D -m755 lib/dracut/modules.d/81initoverlayfs/module-setup.sh $RPM_BUILD
 %files
 %license LICENSE
 %doc README.md
-%attr(0755,root,root) 
+%attr(0755,root,root)
 %{_bindir}/initoverlayfs-install
 %{_prefix}/sbin/storage-init
 %{_prefix}/lib/dracut/modules.d/81initoverlayfs/
 
 %changelog
+* Thu Dec  7 2023 Stephen Smoogen <ssmoogen@redhat.com> - 0.98-1
+- Release 0.98
+- Improve documentation (PR31 and ecurtin)
+- Only wait for bootfs storage device if it is configured (PR32)
+
+* Fri Nov 17 2023 Eric Curtin <ecurtin@redhat.com> - 0.97-1
+- Raspberry Pi 4 enablement.
+
 * Wed Nov  8 2023 Stephen Smoogen <ssmoogen@redhat.com> - 0.96-2
 - Make changes to pass fedora-review tests on permissions and other items
 

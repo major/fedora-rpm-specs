@@ -2,7 +2,7 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_39/src/
 # update the obsrel to match the upstream release number
-%global obsrel 391.1
+%global obsrel 397.1
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -16,7 +16,7 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.5.0
+Version:        1.5.1
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -127,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Thu Dec 07 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.5.1-397.1.1
+- New upstream release 1.5.1, fixes rhbz#2253104
+
 * Thu Nov 23 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.5.0-391.1.1
 - New upstream release 1.5.0, fixes rhbz#2249726
 

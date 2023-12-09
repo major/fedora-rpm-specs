@@ -4,7 +4,7 @@ Name:           octave-%{octpkg}
 Version:        0.8.0
 Release:        %autorelease
 Summary:        Documentation tests for Octave
-License:        BSD
+License:        BSD-3-Clause AND FSFAP
 URL:            https://octave.sourceforge.io/%{octpkg}/
 Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 

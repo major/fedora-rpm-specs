@@ -1,71 +1,105 @@
 Name:           nikto
-
-# Handle the old versioning system 2.01, 2.02, 2.03 ...
+Version:        2.5.0
+Release:        2%{?dist}
 Epoch:          1
-Version:        2.1.6
-Release:        13%{?dist}
 Summary:        Web server scanner
-
-
-# We consider the nikto database to be content.
-License:        GPLv2+ and Redistributable, no modification permitted
 URL:            https://www.cirt.net/Nikto2
+VCS:            https://github.com/sullo/nikto
+
+# =========== License review ===============
+# GPL-2.0-only - for the code and whole package
+# BSD-2-Clause - for the embedded library /program/plugins/LW2.pm
+# /nikto-2.5.0/program/databases have "Redistributable, no modification permitted" type of license
+# during review it was considered the nikto database to be content, similar to firmware.
+# Also potentially the content is tainted by the GPL license as it is distributed in a bundle,
+# which itself released with GPL-2.0-only license.
+# 
+# License text for the db files extracted and attached as nikto-database-license.txt
+#
+License:        GPL-2.0-only AND BSD-2-Clause AND nikto-database-license
 Source0:        https://github.com/sullo/nikto/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        nikto-database-license.txt
 
-# use system libwhisker2
-Patch0:         nikto-libwhisker2.patch
+# nikto contains customized / fixed libwhisker library,
+# tested with the system-wide libwhisker 2.5, but it was not working any more
+# Patch use system-wide libwhisker2 instead of the embedded one
+# Patch0:         nikto-2.5.0-libwhisker2.patch
 
-# Patch CVE-2018-11652 
-# https://github.com/sullo/nikto/commit/e759b3300aace5314fe3d30800c8bd83c81c29f7
-# https://nvd.nist.gov/vuln/detail/CVE-2018-11652
-Patch1:         nikto-CVE-2018-11652.patch
-
+# Update obsolete FSF address in the license text
+Patch1:         https://github.com/sullo/nikto/pull/805.patch#/nikto-2.5.0-fsf-address.patch
 
 
 BuildArch:      noarch
 BuildRequires:  perl-generators
-Requires:       nmap
+
+# Nikto can work well with outputs from nmap.
+# It can parse hosts in a form of the nmap grepable optput
+Recommends:     nmap
 
 # Requires potentially not found by the auto dependency search
 Requires:       perl(Time::HiRes)
 Requires:       perl(bignum)
 Requires:       perl(List::Util)
+Requires:       perl(Net::hostent)
+Requires:       perl(Net::SSLeay)
+Requires:       perl(Net::SSLeay)
+Requires:       perl(Text::ParseWords)
+Requires:       perl(JSON::PP)
+Requires:       perl(List::Util)
+Requires:       perl(Getopt::Long)
+
+
+# Nikto contains patched version of the libwhisker library
+# forked at version 2.5, but heavily fixed over the years
+# Nikto talks about this version as 2.5.1
+Provides: bundled(perl-libwhisker2)  = 2.5
+
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(plugins::LW2\\)\\s*$
 
 
 # We don't provide any perl modules
 %global __provides_exclude_from %{_datadir}/nikto/plugins/JSON-PP.pm
 
 %description
-Nikto is a web server scanner which performs comprehensive tests against web
-servers for multiple items, including over 3300 potentially dangerous
-files/CGIs, versions on over 625 servers, and version specific problems
-on over 230 servers. Scan items and plugins are frequently updated and
-can be automatically updated (if desired).
+Nikto is an Open Source (GPL) web server scanner which performs comprehensive
+tests against web servers for multiple items, including over 7000 potentially
+dangerous files/programs, checks for outdated versions of over 1250 servers,
+and version specific problems on over 270 servers.
+    It also checks for server configuration items such as the presence of
+multiple index files, HTTP server options, and will attempt to identify
+installed web servers and software. Scan items and plugins are frequently
+updated and can be automatically updated.
+
+Nikto is not designed as a stealthy tool. It will test a web server in the
+quickest time possible, and is obvious in log files or to an IPS/IDS.
+However, there is support for LibWhisker's anti-IDS methods in case you want
+to give it a try (or test your IDS system).
+
 
 %prep
 %autosetup -p 1
 
-#change configfile path
+# change configfile path
 sed -i "s:/etc/nikto.conf:%{_sysconfdir}/nikto/config:" program/nikto.pl
 
-#enable nmap by default and set plugindir path
+# enable nmap by default and set plugindir path
 sed -i "s:# EXECDIR=/opt/nikto:EXECDIR=%{_datadir}/nikto:;
         s:# PLUGINDIR=/opt/nikto/plugins:PLUGINDIR=%{_datadir}/nikto/plugins:;
         s:# TEMPLATEDIR=/opt/nikto/templates:TEMPLATEDIR=%{_datadir}/nikto/templates:;
-        s:# DOCDIR=/opt/nikto/docs:DOCDIR=%{_datadir}/nikto/docs:" program/nikto.conf
+        s:# DOCDIR=/opt/nikto/docs:DOCDIR=%{_datadir}/nikto/docs:" program/nikto.conf.default
 
-#Disable RFIURL by default - let users configure it themselves to trustworthy source
-sed -i "s:^RFIURL=:#RFIURL=:" program/nikto.conf
+# Disable RFIURL by default - let users configure it themselves to trustworthy source
+sed -i "s:^RFIURL=:#RFIURL=:" program/nikto.conf.default
 
-cp %{SOURCE1} program/docs/database-license.txt
+# Copy the nikto-database-license snippet to build directory for packaging
+cp -p %{SOURCE1} ./
+
 
 %build
-#no build required
+# no build required
 
 
 %install
-rm -rf %{buildroot}
 install -pD program/nikto.pl %{buildroot}%{_bindir}/nikto
 install -pD program/replay.pl %{buildroot}%{_bindir}/nikto-replay
 install -m 0644 -pD program/docs/nikto.1 %{buildroot}%{_mandir}/man1/nikto.1
@@ -75,22 +109,29 @@ mkdir -p %{buildroot}%{_datadir}/nikto/plugins/
 install -m 0644 -p program/plugins/* %{buildroot}%{_datadir}/nikto/plugins/
 mkdir -p %{buildroot}%{_datadir}/nikto/templates/
 install -m 0644 -p program/templates/* %{buildroot}%{_datadir}/nikto/templates/
-install -m 0644 -pD program/nikto.conf %{buildroot}%{_sysconfdir}/nikto/config
+install -m 0644 -pD program/nikto.conf.default %{buildroot}%{_sysconfdir}/nikto/config
 
-#remove unneeded files
-rm -f %{buildroot}%{_datadir}/nikto/plugins/LW2.pm
+# # remove unneeded files
+# rm -f %%{buildroot}%%{_datadir}/nikto/plugins/LW2.pm
 
 
 %files
-%license program/docs/LICENSE.txt program/docs/database-license.txt
-%doc program/docs/CHANGES.txt program/docs/manual.xml program/docs/nikto.dtd program/docs/nikto_manual.html
-%{_bindir}/*
+%license COPYING
+%license nikto-database-license.txt
+%doc README.md Dockerfile program/docs/nikto.dtd program/docs/nikto_schema.sql
+%{_bindir}/nikto*
 %config(noreplace) %{_sysconfdir}/nikto
 %{_datadir}/nikto
-%{_mandir}/man?/*
+%{_mandir}/man1/nikto.1*
 
 
 %changelog
+* Thu Dec 07 2023 Michal Ambroz <rebus AT seznam.cz> - 1:2.5.0-2
+- adding license info for the embedded libwhisker2 library
+
+* Thu Dec 07 2023 Michal Ambroz <rebus AT seznam.cz> - 1:2.5.0-1
+- bump to 2.5.0 release
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

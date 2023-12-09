@@ -1,62 +1,72 @@
 Name:           kio-gdrive
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 Summary:        An Google Drive KIO slave for KDE
 
 License:        GPL-2.0-or-later
 URL:            https://community.kde.org/KIO_GDrive
 # use releaseme
-Source0:        https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
+# 24.01.80: Enable Kaccounts6. Can probably be removed on beta 2.
+Patch0:         24.01.80-Enable-KAccounts6.patch
+
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # arch's where libkgapi is available (due to inderect dependencies on qtwebengine)
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Notifications)
+BuildRequires:  cmake
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  extra-cmake-modules
 BuildRequires:  desktop-file-utils
-BuildRequires:  kaccounts-integration-devel
+BuildRequires:  cmake(KAccounts6)
 BuildRequires:  libkgapi-devel
 BuildRequires:  libaccounts-glib-devel
-BuildRequires:  kf5-kdoctools-devel
+BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  libappstream-glib
 BuildRequires:  intltool
+BuildRequires:  cmake(KF6Purpose)
 Requires:       kaccounts-providers
 
 %description
 Provides KIO Access to Google Drive using the gdrive:/// protocol.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
-%{cmake_kf5}
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 %install
 %cmake_install
-%find_lang kio5_gdrive --all-name --with-html
+%find_lang kio6_gdrive --all-name --with-html
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/remoteview/*.desktop
-# appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml ||:
 
-%files -f kio5_gdrive.lang
+%files -f kio6_gdrive.lang
 %license COPYING
 %doc HACKING README.md
-%{_qt5_plugindir}/kf5/kio/gdrive.so
-%dir %{_kf5_plugindir}/kfileitemaction/
-%{_kf5_plugindir}/kfileitemaction/gdrivecontextmenuaction.so
-%{_kf5_plugindir}/propertiesdialog/gdrivepropertiesplugin.so
-%{_qt5_plugindir}/kaccounts/daemonplugins/gdrive.so
-%{_kf5_datadir}/accounts/services/kde/google-drive.service
-%{_kf5_datadir}/knotifications5/gdrive.notifyrc
-%{_kf5_datadir}/remoteview/gdrive-network.desktop
-%{_kf5_datadir}/metainfo/org.kde.kio_gdrive.metainfo.xml
+%{_qt6_plugindir}/kaccounts/daemonplugins/gdrive.so
+%{_kf6_plugindir}/kfileitemaction/gdrivecontextmenuaction.so
+%{_kf6_plugindir}/propertiesdialog/gdrivepropertiesplugin.so
+%{_kf6_plugindir}/purpose/purpose_gdrive.so
+%{_kf6_datadir}/accounts/services/kde/google-drive.service
+%{_kf6_datadir}/knotifications6/gdrive.notifyrc
+%{_kf6_datadir}/remoteview/gdrive-network.desktop
+%{_kf6_datadir}/metainfo/org.kde.kio_gdrive.metainfo.xml
+%{_kf6_qtplugindir}/kf6/kio/gdrive.so
+%{_datadir}/purpose/purpose_gdrive_config.qml
 
 %changelog
+* Thu Dec 7 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

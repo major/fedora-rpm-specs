@@ -1,11 +1,12 @@
 Name:           iperf3
-Version:        3.15
+Version:        3.16
 Release:        1%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
 License:        BSD
 URL:            https://github.com/esnet/iperf
 Source0:        %{url}/archive/%{version}/iperf-%{version}.tar.gz
+# https://github.com/esnet/iperf/pull/1278
 Patch0:         1278-rebase.patch
 BuildRequires:  libuuid-devel
 BuildRequires:  gcc
@@ -53,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Wed Dec 06 2023 Jonathan Wright <jonathan@almalinux.org> - 3.16-1
+- Update to 3.16 rhbz#2252641
+
 * Tue Oct 17 2023 Jonathan Wright <jonathan@almalinux.org> - 3.15-1
 - Update to 3.15 rhbz#2239199 rhbz#2244708
 

@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.7
-%global specversion 3.rc2
+%global specversion 4.rc3
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 7534cc50aefbf3c161c7ed258daa1019a94d5079
+%global commit 80f8a320e3046986ae81b28470276163c0b0bdfa
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -256,7 +256,7 @@ BuildRequires: sed
 
 # Required for core functionality
 BuildRequires: pkgconfig(glib-2.0) >= 2.42
-BuildRequires: libxml2-devel
+BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel
 BuildRequires: libuuid-devel
 BuildRequires: %{pkgname_bzip2_devel}
@@ -421,7 +421,7 @@ Requires:      libqb-devel%{?_isa}
 Requires:      %{?pkgname_libtool_devel_arch}
 %endif
 Requires:      libuuid-devel%{?_isa}
-Requires:      libxml2-devel%{?_isa}
+Requires:      libxml2-devel%{?_isa} >= 2.6.0
 Requires:      libxslt-devel%{?_isa}
 
 %description -n %{pkgname_pcmk_libs}-devel
@@ -848,6 +848,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Thu Dec 8 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.7-0.4.rc3
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.7-rc3,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.7-rc3
+
 * Mon Nov 27 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.7-0.3.rc2
 - Update for new upstream tarball for release candidate: Pacemaker-2.1.7-rc2,
   for full details, see included ChangeLog file or

@@ -6,7 +6,7 @@
 
 Summary:        HDF5 support in Python
 Name:           python-tables
-Version:        3.9.1
+Version:        3.9.2
 Release:        %autorelease
 #Source0:        https://github.com/PyTables/PyTables/archive/%{commit}/PyTables-%{commit}.tar.gz
 Source0:        https://github.com/PyTables/PyTables/archive/v%{version}/python-tables-%{version}.tar.gz

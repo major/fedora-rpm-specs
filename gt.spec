@@ -1,6 +1,6 @@
 Name:           gt
 Version:        0.4
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Modified Timidity which supportes enhanced gus format patches
 License:        GPLv2+
 URL:            http://alsa.opensrc.org/GusSoundfont
@@ -19,7 +19,7 @@ Patch6:         gt-0.4-unsf-tremolo.patch
 Patch7:         gt-0.4-gcc10.patch
 BuildRequires:  gcc
 BuildRequires:  alsa-lib-devel libvorbis-devel flex
-BuildRequires: make
+BuildRequires:  make
 Requires:       timidity++-patches
 
 %description
@@ -38,6 +38,8 @@ disassembler.
 %prep
 %autosetup -p1
 cp -p src/README README.timidity
+# ugly hack to change DEFAULT_PATH as CONFIG_FILE setting is completely ignored
+sed -i -e "s#\$(TIMID_DIR)#%{_sysconfdir}#" src/Makefile.in
 
 
 %build
@@ -70,6 +72,9 @@ touch -r utils/midifile.c $RPM_BUILD_ROOT%{_mandir}/man1/midi-disasm.1
 
 
 %changelog
+* Thu Dec 07 2023 Karel Volný <kvolny@redhat.com> - 0.4-42
+- Change path to read config provided by fluid-soundfont-lite-patches (#2253073)
+
 * Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 0.4-41
 - Set build_type_safety_c to 0 (#2160035)
 

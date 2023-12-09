@@ -1,0 +1,60 @@
+Name:    kimap
+Version: 24.01.80
+Release: 1%{?dist}
+Summary: The KIMAP Library
+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later
+URL:     https://invent.kde.org/frameworks/%{name}
+
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires:  cmake
+BuildRequires:  boost-devel
+BuildRequires:  cyrus-sasl-devel
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KPim6Mime)
+
+%description
+%{summary}.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(KF6CoreAddons)
+Requires:       boost-devel
+Requires:       cyrus-sasl-devel
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%prep
+%autosetup -n %{name}-%{version} -p1
+
+
+%build
+%cmake_kf6
+%cmake_build
+
+%install
+%cmake_install
+%find_lang %{name} --all-name --with-html
+
+%files -f %{name}.lang
+%license LICENSES/*
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_libdir}/libKPim6IMAP.so.*
+
+%files devel
+%{_includedir}/KPim6/KIMAP/
+%{_kf6_libdir}/libKPim6IMAP.so
+%{_kf6_libdir}/cmake/KPim6IMAP/
+
+%changelog
+* Thu Dec 7 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80

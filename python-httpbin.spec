@@ -18,6 +18,9 @@ Summary:        HTTP Request & Response Service, written in Python + Flask
 License:        MIT
 URL:            https://github.com/psf/httpbin
 Source:         https://files.pythonhosted.org/packages/source/h/%{modname}/%{modname}-%{version}.tar.gz
+# https://github.com/psf/httpbin/pull/29
+# Adds support for Flask/Werzeug >= 3.0
+Patch:          Add-fallback-for-Werkzeug-3.patch
 # https://github.com/psf/httpbin/issues/26
 # https://github.com/psf/httpbin/pull/32
 # Make the dependency on flasgger optional - it has a heavy dep chain

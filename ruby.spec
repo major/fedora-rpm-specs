@@ -1002,26 +1002,12 @@ MSPECOPTS=""
 # Avoid `hostname' dependency.
 %{!?with_hostname:MSPECOPTS="-P 'Socket.gethostname returns the host name'"}
 
-%ifarch armv7hl
-# TestReadline#test_interrupt_in_other_thread fails on 32 bit arches according
-# to upstream, but the test is disabled just on Travis, not in test suite.
-# https://bugs.ruby-lang.org/issues/18393
-DISABLE_TESTS="$DISABLE_TESTS -n !/TestReadline#test_interrupt_in_other_thread/"
-%endif
-
 %ifarch i686
 # i686 specific failures.
-# https://bugs.ruby-lang.org/issues/19147
+# https://bugs.ruby-lang.org/issues/20045
 DISABLE_TESTS="$DISABLE_TESTS -n !/TestFileExhaustive#test_expand_path_for_existent_username/"
 DISABLE_TESTS="$DISABLE_TESTS -n !/TestDir#test_home/"
 MSPECOPTS="$MSPECOPTS -P 'File.expand_path expands ~ENV..USER..* to.* the user.s home directory'"
-%endif
-
-%ifarch i686
-# The MJIT test cases are failing so often, that it is recently impossible
-# to get past the test cases :/
-# https://bugzilla.redhat.com/show_bug.cgi?id=2125026
-mv test/ruby/test_jit.rb{,.disable} || :
 %endif
 
 # Give an option to increase the timeout in tests.

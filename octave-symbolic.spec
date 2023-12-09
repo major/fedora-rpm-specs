@@ -7,7 +7,7 @@ Name:           octave-%{octpkg}
 Version:        3.1.1
 Release:        %autorelease
 Summary:        Symbolic computations for Octave
-License:        GPLv3+
+License:        GPL-3.0-or-later AND FSFAP
 URL:            https://octave.sourceforge.io/%{octpkg}
 Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 

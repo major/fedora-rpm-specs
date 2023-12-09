@@ -64,13 +64,13 @@
 %bcond_with      imap
 %bcond_without   lmdb
 
-%global upver        8.3.0
-#global rcver        RC6
+%global upver        8.3.1
+%global rcver        RC3
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1552,6 +1552,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Dec  7 2023 Remi Collet <remi@remirepo.net> - 8.3.1~RC3-1
+- update to 8.3.1RC3
+
 * Thu Nov 30 2023 Remi Collet <remi@remirepo.net> - 8.3.0-2
 - rebuild for libcapstone
 

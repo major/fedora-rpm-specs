@@ -3,7 +3,7 @@
 Name:    kf5-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
 Version: 5.111.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -33,6 +33,7 @@ BuildRequires: kf5-kcoreaddons-devel >= %{majmin}
 BuildRequires: kf5-ki18n-devel >= %{majmin}
 BuildRequires: kf5-kio-devel >= %{majmin}
 BuildRequires: kf5-kirigami2-devel >= %{majmin}
+Requires: kf5-bluez-qt >= %{majmin}
 
 BuildRequires: cmake(KF5Kirigami2)
 
@@ -120,6 +121,9 @@ rm -fv %{buildroot}%{_datadir}/icons/hicolor/*/actions/kipiplugin_youtube.png
 
 
 %changelog
+* Thu Dec 07 2023 Nicolas Fella <nicolas.fella@gmx.de> - 5.111.0-2
+- Add missing bluez-qt QML module dependency
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

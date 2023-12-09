@@ -16,7 +16,7 @@ BuildRequires:  Agda
 BuildArch:      noarch
 Obsoletes:      ghc-agda-lib-ffi < 0.0.2-6, ghc-agda-lib-ffi-devel < 0.0.2-6
 Provides:       agda-stdlib = %{version}-%{release}
-Requires:       Agda = 2.6.4
+Requires:       Agda = 2.6.4.1
 # Agda can't build on armv7hl and ix86 currently
 ExcludeArch:    armv7hl %{ix86}
 

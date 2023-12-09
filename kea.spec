@@ -1,3 +1,4 @@
+# TODO: no support for netconf/sysconf yet
 %global sysrepo 0
 
 #%%global prever P1
@@ -119,8 +120,8 @@ This package contains shared libraries used by Kea DHCP server.
 %if 0%{?fedora} || 0%{?rhel} > 8
 %{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %endif
-rm -rf doc/sphinx/_build
 %autosetup -p1 -n kea-%{version}%{?prever:-%{prever}}
+rm -rf doc/sphinx/_build
 
 # to be able to build on ppc64(le)
 # https://sourceforge.net/p/flex/bugs/197
@@ -159,6 +160,11 @@ autoreconf --verbose --force --install
 
 # Get rid of .la files
 find %{buildroot} -type f -name "*.la" -delete -print
+
+%if !%{sysrepo}
+# remove netconf files
+rm %{buildroot}%{_mandir}/man8/kea-netconf.8
+%endif
 
 # Install systemd units
 install -Dpm 0644 %{S:3} %{buildroot}%{_unitdir}/kea-dhcp4.service
@@ -218,7 +224,9 @@ install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
 %{_mandir}/man8/kea-dhcp4.8*
 %{_mandir}/man8/kea-dhcp6.8*
 %{_mandir}/man8/kea-lfc.8*
+%if %{sysrepo}
 %{_mandir}/man8/kea-netconf.8*
+%endif
 %{_mandir}/man8/kea-shell.8*
 %{_mandir}/man8/keactrl.8*
 %{_mandir}/man8/perfdhcp.8*
@@ -226,15 +234,15 @@ install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
 %{_tmpfilesdir}/kea.conf
 
 %files doc
-%{_pkgdocdir}
-%{_pkgdocdir}/AUTHORS
-%{_pkgdocdir}/ChangeLog
-%{_pkgdocdir}/README
-%{_pkgdocdir}/examples
-%{_pkgdocdir}/CONTRIBUTING.md
-%{_pkgdocdir}/platforms.rst
-%{_pkgdocdir}/code_of_conduct.md
-%{_pkgdocdir}/html
+%dir %{_pkgdocdir}
+%doc %{_pkgdocdir}/AUTHORS
+%doc %{_pkgdocdir}/ChangeLog
+%doc %{_pkgdocdir}/README
+%doc %{_pkgdocdir}/examples
+%doc %{_pkgdocdir}/CONTRIBUTING.md
+%doc %{_pkgdocdir}/platforms.rst
+%doc %{_pkgdocdir}/code_of_conduct.md
+%doc %{_pkgdocdir}/html
 
 %files devel
 %{_includedir}/kea

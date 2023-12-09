@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.70
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -21,6 +21,7 @@ Source1: bluez.gitignore
 Patch2: power-state-adapter-property.patch
 # Upstream backport
 Patch3: rhbz2247548.patch
+Patch4: CVE-2023-45866.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -200,6 +201,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_libdir}/bluetooth/
 #copy bluetooth config file and setup auto enable
 install -D -p -m0644 src/main.conf ${RPM_BUILD_ROOT}/etc/bluetooth/main.conf
 install -D -p -m0644 mesh/mesh-main.conf ${RPM_BUILD_ROOT}/etc/bluetooth/mesh-main.conf
+install -D -p -m0644 profiles/input/input.conf ${RPM_BUILD_ROOT}/etc/bluetooth/input.conf
+install -D -p -m0644 profiles/network/network.conf ${RPM_BUILD_ROOT}/etc/bluetooth/network.conf
+
 sed -i 's/#\[Policy\]$/\[Policy\]/; s/#AutoEnable=false/AutoEnable=true/' ${RPM_BUILD_ROOT}/%{_sysconfdir}/bluetooth/main.conf
 
 # Install the HCI emulator, useful for testing
@@ -241,6 +245,8 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 # https://github.com/bluez/bluez/issues/329#issuecomment-1102459104
 %attr(0555, root, root) %dir %{_sysconfdir}/bluetooth
 %config(noreplace) %{_sysconfdir}/bluetooth/main.conf
+%config(noreplace) %{_sysconfdir}/bluetooth/input.conf
+%config(noreplace) %{_sysconfdir}/bluetooth/network.conf
 %{_bindir}/avinfo
 %{_bindir}/bluemoon
 %{_bindir}/bluetoothctl
@@ -331,6 +337,12 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Thu Dec 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.70-5
+- Install default input.conf/network.conf
+
+* Thu Dec 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.70-4
+- Add mitigation for CVE-2023-45866
+
 * Sun Nov 19 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.70-3
 - Fix some input devices disconnecting right after connecting
 - Explicitly enable Bluetooth BAP/BASS/CSIP/MCP/MICP/VCP profiles

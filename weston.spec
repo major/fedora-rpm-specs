@@ -1,7 +1,7 @@
-%global apiver 12
+%global apiver 13
 
 Name:           weston
-Version:        %{apiver}.0.2
+Version:        %{apiver}.0.0
 Release:        1%{?dist}
 Summary:        Reference compositor for Wayland
 
@@ -100,9 +100,6 @@ Common headers for weston
 %setup -q
 
 %build
-# ninja injects -Wl,--no-undefined, which intereferes with LTO, so undo
-# the setting.  Thanks to the SuSE folks for the workaround.
-export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %meson
 %meson_build
 
@@ -163,7 +160,7 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_bindir}/weston-calibrator
 %{_bindir}/weston-clickdot
 %{_bindir}/weston-cliptest
-%{_bindir}/weston-confine
+%{_bindir}/weston-constraints
 %{_bindir}/weston-dnd
 %{_bindir}/weston-editor
 %{_bindir}/weston-eventdemo
@@ -198,6 +195,11 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Thu Dec 07 2023 Erico Nunes <ernunes@redhat.com> - 13.0.0-1
+- Update to 13.0.0
+- Remove LDFLAGS which interfered with meson lcms2 function check
+- Update demo clients list following upstream
+
 * Thu Aug 03 2023 Erico Nunes <ernunes@redhat.com> - 12.0.2-1
 - Update to 12.0.2
 

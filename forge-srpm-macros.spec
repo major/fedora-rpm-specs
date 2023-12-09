@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           forge-srpm-macros
-Version:        0.1.0
+Version:        0.2.0
 Release:        1%{?dist}
 Summary:        Macros to simplify packaging of forge-hosted projects
 
@@ -62,5 +62,8 @@ export MACRO_LUA_DIR="%{buildroot}%{_rpmluadir}"
 
 
 %changelog
+* Thu Dec 7 2023 Maxwell G <maxwell@gtmx.me> - 0.2.0-1
+- Update to 0.2.0.
+
 * Mon Sep 4 2023 Maxwell G <maxwell@gtmx.me> - 0.1.0-1
 - Initial package. Closes rhbz#2237933.

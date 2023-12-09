@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-qcheck
-Version:        0.21.2
-Release:        2%{?dist}
+Version:        0.21.3
+Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -15,11 +15,6 @@ URL:            https://c-cube.github.io/qcheck/
 Source0:        https://github.com/c-cube/qcheck/archive/v%{version}/%{name}-%{version}.tar.gz
 # Expose a dependency on the math library so RPM can see it
 Patch0:         %{name}-mathlib.patch
-# Remove references to the bytes library for OCaml 5.0
-Patch1:         %{name}-ocaml5.patch
-# Fix an asciidoc error
-# https://github.com/c-cube/qcheck/pull/284
-Patch2:         %{name}-asciidoc.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  ocaml >= 4.08.0
@@ -199,6 +194,10 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Thu Dec  7 2023 Jerry James <loganjerry@gmail.com> - 0.21.3-1
+- Version 0.21.3
+- Drop upstreamed ocaml5 and asciidoc patches
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.21.2-2
 - OCaml 5.1 rebuild for Fedora 40
 

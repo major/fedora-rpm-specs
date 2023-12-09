@@ -11,7 +11,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -114,17 +114,13 @@ BuildRequires: clang-devel = %{version}
 # For origin certification
 BuildRequires: gnupg2
 
+Requires: %{name}-runtime = %{version}-%{release}
+Conflicts: flang-devel < 17.0.6-2
+
 %description
 
 Flang is a ground-up implementation of a Fortran front end written in modern
 C++.
-
-%package devel
-Summary: Flang header files
-Requires: %{name}%{?_isa} = %{version}-%{release}
-
-%description devel
-Flang header files.
 
 %package doc
 Summary: Documentation for Flang
@@ -133,6 +129,13 @@ Requires: %{name} = %{version}-%{release}
 
 %description doc
 Documentation for Flang
+
+%package runtime
+Summary: Flang runtime libraries
+Conflicts: flang < 17.0.6-2
+
+%description runtime
+Flang runtime libraries.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -187,6 +190,27 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %install
 %cmake_install
 
+# Remove unnecessary files.
+rm -rf %{buildroot}/%{_libdir}/cmake/
+rm -f %{buildroot}/%{_libdir}/libFIRAnalysis.so \
+      %{buildroot}/%{_libdir}/libFIRBuilder.so \
+      %{buildroot}/%{_libdir}/libFIRCodeGen.so \
+      %{buildroot}/%{_libdir}/libFIRDialect.so \
+      %{buildroot}/%{_libdir}/libFIRDialectSupport.so \
+      %{buildroot}/%{_libdir}/libFIRSupport.so \
+      %{buildroot}/%{_libdir}/libFIRTestAnalysis.so \
+      %{buildroot}/%{_libdir}/libFIRTransforms.so \
+      %{buildroot}/%{_libdir}/libflangFrontend.so \
+      %{buildroot}/%{_libdir}/libflangFrontendTool.so \
+      %{buildroot}/%{_libdir}/libFortranCommon.so \
+      %{buildroot}/%{_libdir}/libFortranEvaluate.so \
+      %{buildroot}/%{_libdir}/libFortranLower.so \
+      %{buildroot}/%{_libdir}/libFortranParser.so \
+      %{buildroot}/%{_libdir}/libFortranSemantics.so \
+      %{buildroot}/%{_libdir}/libHLFIRDialect.so \
+      %{buildroot}/%{_libdir}/libHLFIRTransforms.so
+find %{buildroot}/%{_includedir}/flang -type f -a ! -iname '*.mod' -delete
+
 # this is a test binary
 rm -f %{buildroot}%{_bindir}/f18-parse-demo
 
@@ -226,15 +250,30 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %{_bindir}/flang-to-external-fc
 %{_bindir}/fir-opt
 %{_bindir}/flang-new
-%{_libdir}/libFortranLower.so.%{maj_ver}*
-%{_libdir}/libFortranSemantics.so.%{maj_ver}*
-%{_libdir}/libFortranCommon.so.%{maj_ver}*
-%{_libdir}/libFortranRuntime.so.%{maj_ver}*
-%{_libdir}/libFortranDecimal.so.%{maj_ver}*
-%{_libdir}/libFortranEvaluate.so.%{maj_ver}*
-%{_libdir}/libFortranParser.so.%{maj_ver}*
-%{_libdir}/libflangFrontend.so.%{maj_ver}*
-%{_libdir}/libflangFrontendTool.so.%{maj_ver}*
+%{_includedir}/flang/__cuda_builtins.f18.mod
+%{_includedir}/flang/__cuda_builtins.mod
+%{_includedir}/flang/__fortran_builtins.f18.mod
+%{_includedir}/flang/__fortran_builtins.mod
+%{_includedir}/flang/__fortran_ieee_exceptions.f18.mod
+%{_includedir}/flang/__fortran_ieee_exceptions.mod
+%{_includedir}/flang/__fortran_type_info.f18.mod
+%{_includedir}/flang/__fortran_type_info.mod
+%{_includedir}/flang/__ppc_intrinsics.f18.mod
+%{_includedir}/flang/__ppc_intrinsics.mod
+%{_includedir}/flang/__ppc_types.f18.mod
+%{_includedir}/flang/__ppc_types.mod
+%{_includedir}/flang/ieee_arithmetic.f18.mod
+%{_includedir}/flang/ieee_arithmetic.mod
+%{_includedir}/flang/ieee_exceptions.f18.mod
+%{_includedir}/flang/ieee_exceptions.mod
+%{_includedir}/flang/ieee_features.f18.mod
+%{_includedir}/flang/ieee_features.mod
+%{_includedir}/flang/iso_c_binding.f18.mod
+%{_includedir}/flang/iso_c_binding.mod
+%{_includedir}/flang/iso_fortran_env.f18.mod
+%{_includedir}/flang/iso_fortran_env.mod
+%{_includedir}/flang/omp_lib.f18.mod
+%{_includedir}/flang/omp_lib.mod
 %{_libdir}/libFIRAnalysis.so.%{maj_ver}
 %{_libdir}/libFIRBuilder.so.%{maj_ver}
 %{_libdir}/libFIRCodeGen.so.%{maj_ver}
@@ -243,38 +282,31 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %{_libdir}/libFIRSupport.so.%{maj_ver}
 %{_libdir}/libFIRTestAnalysis.so.%{maj_ver}
 %{_libdir}/libFIRTransforms.so.%{maj_ver}
+%{_libdir}/libflangFrontend.so.%{maj_ver}*
+%{_libdir}/libflangFrontendTool.so.%{maj_ver}*
+%{_libdir}/libFortranCommon.so.%{maj_ver}*
+%{_libdir}/libFortranDecimal.so
+%{_libdir}/libFortranEvaluate.so.%{maj_ver}*
+%{_libdir}/libFortranLower.so.%{maj_ver}*
+%{_libdir}/libFortranParser.so.%{maj_ver}*
+%{_libdir}/libFortranRuntime.so
+%{_libdir}/libFortranSemantics.so.%{maj_ver}*
+%{_libdir}/libFortran_main.a
 %{_libdir}/libHLFIRDialect.so.%{maj_ver}
 %{_libdir}/libHLFIRTransforms.so.%{maj_ver}
-
-%files devel
-%{_libdir}/libFortranLower.so
-%{_libdir}/libFortranParser.so
-%{_libdir}/libFortranCommon.so
-%{_libdir}/libFortranSemantics.so
-%{_libdir}/libFortran_main.a
-%{_libdir}/libFIRAnalysis.so
-%{_libdir}/libFIRBuilder.so
-%{_libdir}/libFIRCodeGen.so
-%{_libdir}/libFIRDialect.so
-%{_libdir}/libFIRDialectSupport.so
-%{_libdir}/libFIRSupport.so
-%{_libdir}/libFIRTestAnalysis.so
-%{_libdir}/libFIRTransforms.so
-%{_libdir}/libFortranDecimal.so
-%{_libdir}/libFortranRuntime.so
-%{_libdir}/libFortranEvaluate.so
-%{_libdir}/libflangFrontend.so
-%{_libdir}/libflangFrontendTool.so
-%{_libdir}/libHLFIRDialect.so
-%{_libdir}/libHLFIRTransforms.so
-%{_includedir}/flang
-%{_libdir}/cmake/
 
 %files doc
 %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/html/
 
+%files runtime
+%{_libdir}/libFortranDecimal.so.%{maj_ver}*
+%{_libdir}/libFortranRuntime.so.%{maj_ver}*
+
 %changelog
+* Thu Nov 30 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.6-2
+- Move DSO to flang-runtime. Fixes rhbz#2172522.
+
 * Wed Nov 29 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.6-1
 - Update to LLVM 17.0.6
 

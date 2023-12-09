@@ -1,17 +1,18 @@
-%global version_base 3.6.1
-#global gitnum 120
-#global githash 1a0b1ae238e1deb132a0ae4a8d0c589d583cc5b0
-#global githashshort %{lua:print(string.sub(rpm.expand('%{githash}'), 1, 11))}
+%global version_base 3.6.4
+%dnl %global gitnum 120
+%dnl %global githash 1a0b1ae238e1deb132a0ae4a8d0c589d583cc5b0
+%dnl %global githashshort %{lua:print(string.sub(rpm.expand('%{githash}'), 1, 11))}
 
 Name:           fish
 Version:        %{version_base}%{?gitnum:^%{gitnum}g%{githashshort}}
 Release:        %autorelease
 Summary:        Friendly interactive shell
+# see also doc_src/license.rst
 # GPLv2
 #   - src/fish.cpp
 #   and rest…
 # GPLv2+
-#   - src/builtin_printf.cpp
+#   - src/builtins/printf.cpp
 # BSD
 #   - src/fallback.cpp
 #   - share/tools/create_manpage_completions.py
@@ -27,7 +28,9 @@ Summary:        Friendly interactive shell
 #   - share/tools/web_config/js/angular-route.js
 #   - share/tools/web_config/js/angular-sanitize.js
 #   - share/tools/web_config/js/angular.js
-License:        GPLv2 and BSD and ISC and LGPLv2+ and MIT
+# PSF-2.0
+#   - doc_src/python_docs_theme/,
+License:        GPL-2.0-only AND AND BSD-3-Clause AND ISC AND LGPL-2.0-or-later AND MIT AND PSF-2.0
 URL:            https://fishshell.com
 %if %{undefined gitnum}
 Source0:        https://github.com/fish-shell/fish-shell/releases/download/%{version}/%{name}-%{version}.tar.xz

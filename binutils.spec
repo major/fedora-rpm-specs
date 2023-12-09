@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -290,6 +290,15 @@ Patch24: binutils-aarch64-big-bti-programs.patch
 # Lifetime: Fixed in 2.42 (maybe)
 Patch25: binutils-gold-pack-relative-relocs.patch
 
+# Purpose:  Add support for Intel's AVX10.1 architecture extension to gas.
+# Lifetime: Fixed in 2.42
+Patch26: i686-AVX10.1-part-1.patch
+Patch27: i686-AVX10.1-part-2.patch
+Patch28: i686-AVX10.1-part-3.patch
+Patch29: i686-AVX10.1-part-4.patch
+Patch30: i686-AVX10.1-part-5.patch
+Patch31: i686-AVX10.1-part-6.patch
+
 #----------------------------------------------------------------------------
 
 Provides: bundled(libiberty)
@@ -321,7 +330,10 @@ Conflicts: gcc-c++ < 4.0.0
 %endif
 
 %if %{without bootstrap}
-BuildRequires: gettext, flex, zlib-devel, jansson-devel
+BuildRequires: gettext, flex, jansson-devel
+%if %{with systemzlib}
+BuildRequires: zlib-devel
+%endif
 %endif
 
 %if %{with docs}
@@ -337,7 +349,10 @@ BuildRequires: findutils
 %if %{with testsuite}
 # relro_test.sh uses dc which is part of the bc rpm, hence its inclusion here.
 # sharutils is needed so that we can uuencode the testsuite results.
-BuildRequires: dejagnu, zlib-static, glibc-static, sharutils, bc, libstdc++
+BuildRequires: dejagnu, glibc-static, sharutils, bc, libstdc++
+%if %{with systemzlib}
+BuildRequires: zlib-static
+%endif
 %endif
 
 %if %{with debuginfod}
@@ -384,7 +399,9 @@ converting addresses to file and line).
 %package devel
 Summary: BFD and opcodes static and dynamic libraries and header files
 Provides: binutils-static = %{version}-%{release}
+%if %{with systemzlib}
 Requires: zlib-devel
+%endif
 Requires: binutils = %{version}-%{release}
 # BZ 1215242: We need touch...
 Requires: coreutils
@@ -464,7 +481,10 @@ of Linux applications.
 %package -n cross-binutils-aarch64
 Summary: Cross targeted AArch64 binutils for developer use.  Not intended for production.
 Provides: cross-binutils-aarch64 = %{version}-%{release}
-Requires: zlib-devel coreutils
+Requires: coreutils
+%if %{with systemzlib}
+Requires: zlib-devel
+%endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 ExcludeArch: aarch64-linux-gnu aarch64-redhat-linux
 
@@ -476,7 +496,10 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-ppc64le
 Summary: Cross targeted PPC64LE binutils for developer use.  Not intended for production.
 Provides: cross-binutils-ppc64le = %{version}-%{release}
-Requires: zlib-devel coreutils
+Requires: coreutils
+%if %{with systemzlib}
+Requires: zlib-devel
+%endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 ExcludeArch: ppc64le-linux-gnu ppc64le-redhat-linux
 
@@ -488,7 +511,10 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-s390x
 Summary: Cross targeted S390X binutils for developer use.  Not intended for production.
 Provides: cross-binutils-s390x = %{version}-%{release}
-Requires: zlib-devel coreutils
+Requires: coreutils
+%if %{with systemzlib}
+Requires: zlib-devel
+%endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 ExcludeArch: s390x-linux-gnu s390x-redhat-linux
 
@@ -500,7 +526,10 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %package -n cross-binutils-x86_64
 Summary: Cross targeted X86_64 binutils for developer use.  Not intended for production.
 Provides: cross-binutils-x86_64 = %{version}-%{release}
-Requires: zlib-devel coreutils
+Requires: coreutils
+%if %{with systemzlib}
+Requires: zlib-devel
+%endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 ExcludeArch: x86_64-linux-gnu x86_64-redhat-linux i686-linux-gnu i686-redhat-linux
 
@@ -1295,6 +1324,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Dec 07 2023 Nick Clifton  <nickc@redhat.com> - 2.41-16
+- Add support for Intel's AVX10.1 ISA.
+
 * Tue Nov 28 2023 Nick Clifton  <nickc@redhat.com> - 2.41-15
 - Disable errors for executable stacks (enabled too early by previous delta).
 

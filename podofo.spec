@@ -7,7 +7,7 @@
 #global pre rc1
 
 Name:           podofo
-Version:        0.10.2
+Version:        0.10.3
 Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
@@ -182,7 +182,7 @@ rmdir %{buildroot}%{_datadir}/podofo/
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING
-%{_libdir}/*.so.0.10.2
+%{_libdir}/*.so.0.10.3
 %{_libdir}/*.so.2
 
 %files devel
@@ -210,6 +210,9 @@ rmdir %{buildroot}%{_datadir}/podofo/
 
 
 %changelog
+* Thu Dec 07 2023 Sandro Mani <manisandro@gmail.com> - 0.10.3-1
+- Update to 0.10.3
+
 * Wed Nov 01 2023 Sandro Mani <manisandro@gmail.com> - 0.10.2-1
 - Update to 0.10.2
 

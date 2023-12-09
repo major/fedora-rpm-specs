@@ -5,7 +5,7 @@ Version:        2.0.1
 Release:        17%{?dist}
 Summary:        plug-in that easily translates ASCII punctuation characters into smart entities
 
-License:        BSD
+License:        BSD-3-Clause AND BSD-2-Clause
 URL:            https://github.com/leohemsted/smartypants.py
 Source0:        %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
