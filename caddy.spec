@@ -19,7 +19,7 @@ ExclusiveArch:  %{golang_arches}
 BuildRequires:  go-rpm-macros
 %endif
 
-# see create-vendor-tarball.sh in this distgit repo
+# see create-vendor-tarball.sh for how to create this
 Source0:        caddy-%{version}-vendored.tar.gz
 
 # based on reference files upstream
@@ -30,6 +30,9 @@ Source21:       caddy-api.service
 Source22:       caddy.sysusers
 Source30:       poweredby-white.png
 Source31:       poweredby-black.png
+
+# Script that creates vendor tarball
+Source100:      create-vendor-tarball.sh
 
 # downstream only patch to disable commands that can alter the binary
 Patch:          0001-Disable-commands-that-can-alter-the-binary.patch

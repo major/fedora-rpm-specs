@@ -1,6 +1,6 @@
 Name:           jaxb-api
-Version:        4.0.0
-Release:        5%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-api
@@ -13,6 +13,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
+BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
@@ -49,6 +50,9 @@ This package contains javadoc for %{name}.
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Dec 08 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.1-1
+- Update to upstream version 4.0.1
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.0-5
 - Rebuild
 

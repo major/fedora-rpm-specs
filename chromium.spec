@@ -132,7 +132,7 @@
 %global debug_package %{nil}
 %global debug_level 0
 %else
-%global debug_level 0
+%global debug_level 1
 # workaround for the error empty file debugsource
 %undefine _debugsource_packages
 %endif
@@ -177,9 +177,28 @@
 %global toolchain gcc
 %endif
 
+# enable qt backend for el >= 8 and fedora
+%if 0%{?rhel} >= 8 || 0%{?fedora}
+%global use_qt 1
+%else
+%global use_qt 0
+%endif
+
+%if 0%{?rhel} > 9 || 0%{?fedora}
+%global use_qt6 1
+%else
+%global use_qt6 0
+%endif
+
+# enable gtk3 by default
+%global gtk3 1
+
 # enable|disable system brotli
-# disable system brotli due to old system brotli
+# disable system brotli due to old system brotli on el and fedora < 38
 %global bundlebrotli 1
+%if 0%{?fedora} > 38
+%global bundlebrotli 0
+%endif
 
 # Chromium's fork of ICU is now something we can't unbundle.
 # This is left here to ease the change if that ever switches.
@@ -203,22 +222,6 @@
 %if 0%{?rhel} == 7 || 0%{?fedora} > 39
 %global bundleminizip 1
 %endif
-
-# enable qt backend for el >= 8 and fedora
-%if 0%{?rhel} >= 8 || 0%{?fedora}
-%global use_qt 1
-%else
-%global use_qt 0
-%endif
-
-%if 0%{?rhel} > 9 || 0%{?fedora}
-%global use_qt6 1
-%else
-%global use_qt6 0
-%endif
-
-# enable gtk3 by default
-%global gtk3 1
 
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
 %global bundleopus 1
@@ -290,8 +293,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 120.0.6099.62
-Release: 2%{?dist}
+Version: 120.0.6099.71
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1193,14 +1196,14 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}
-CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true chrome_pgo_phase=0 use_debug_fission=true'
+CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true'
 sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/generate_shim_headers.py
 %endif
 
 %if %{cfi}
-CHROMIUM_CORE_GN_DEFINES+=' use_thin_lto=true is_cfi=true'
+CHROMIUM_CORE_GN_DEFINES+=' is_cfi=true'
 %else
-CHROMIUM_CORE_GN_DEFINES+=' use_thin_lto=false is_cfi=false'
+CHROMIUM_CORE_GN_DEFINES+=' is_cfi=false'
 %endif
 
 %if %{useapikey}
@@ -1250,7 +1253,7 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
-CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=%{debug_level} symbol_level=%{debug_level} v8_symbol_level=%{debug_level}'
+CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level}'
 CHROMIUM_CORE_GN_DEFINES+=' blink_enable_generated_code_formatting=false'
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 export CHROMIUM_CORE_GN_DEFINES
@@ -1406,8 +1409,6 @@ mkdir -p %{builddir} && cp -a %{_bindir}/gn %{builddir}/
 %build_target %{builddir} policy_templates
 
 %if %{build_remoting}
-# remote client
-# ninja -C ../%{builddir} -vvv remoting_me2me_host remoting_start_host remoting_it2me_native_messaging_host remoting_me2me_native_messaging_host remoting_native_messaging_manifests remoting_resources
 %build_target %{remotingbuilddir} remoting_all
 %endif
 
@@ -1769,6 +1770,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Fri Dec 08 2023 Than Ngo <than@redhat.com> - 120.0.6099.71-1
+- update to 120.0.6099.71
+
 * Wed Dec 06 2023 Than Ngo <than@redhat.com> - 120.0.6099.62-2
 - drop unsupported ldflag which caused build failure
 

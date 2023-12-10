@@ -203,6 +203,9 @@
 %global vm_variant server
 %endif
 
+# debugedit tool for rewriting ELF file paths
+%global debugedit %( if [ -f "%{_rpmconfigdir}/debugedit"  ]; then echo "%{_rpmconfigdir}/debugedit" ; else echo "/usr/bin/debugedit"; fi )
+
 # With disabled nss is NSS deactivated, so NSS_LIBDIR can contain the wrong path
 # the initialization must be here. Later the pkg-config have buggy behavior
 # looks like openjdk RPM specific bug
@@ -1787,10 +1790,23 @@ ln -s $src_image/%{vcstag} %{vcstag} # this one shpuld be enoug
 # cpio is complaining baout several files from build dir. Attempt here, but seems not to be correct
 # as those sources are generated during build and so it have to be fixed in portables first
 mkdir build
-cd build
-ln -s ../$src_image/%{vcstag}/src jdk21.build
-ln -s ../$src_image/%{vcstag}/src jdk21.build-fastdebug
-ln -s ../$src_image/%{vcstag}/src jdk21.build-slowdebug
+pushd build
+  ln -s ../$src_image/%{vcstag}/src jdk21.build
+  ln -s ../$src_image/%{vcstag}/src jdk21.build-fastdebug
+  ln -s ../$src_image/%{vcstag}/src jdk21.build-slowdebug
+popd
+doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
+# in addition the builddir must match the builddir of the portables, including release
+# be aware, even os may be different, especially with buildonce, repack everywhere
+# so deducting it from installed deps
+portablenvr=`ls -d %{compatiblename}*%{version}*portable*.misc.%{_arch} | sed "s/portable.*.misc.//"`
+portablebuilddir=/builddir/build/BUILD
+  # Fix build paths in ELF files so it looks like we built them
+  for file in $(find `pwd` -type f | grep -v -e "$src_image" -e "$doc_image") ; do
+      if file ${file} | grep -q 'ELF'; then
+          %{debugedit} -b "${portablebuilddir}/${portablenvr}" -d "$(pwd)" -n "${file}"
+      fi
+  done
 
 %install
 function installjdk() {

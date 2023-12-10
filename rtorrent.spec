@@ -2,7 +2,7 @@ Name:          rtorrent
 # OpenSSL exception, see README
 License:       GPLv2+ with exceptions
 Version:       0.9.8
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       BitTorrent client based on libtorrent 
 URL:           https://github.com/rakshasa/rtorrent
 Source0:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ Source1:       rtorrent.1
 Patch0:        rtorrent-0.9.3-makefile-am.patch
 Patch1:        rtorrent-0.9.3-makefile-in.patch
 Patch2:        rtorrent-0.9.8-src-utils-lockfile.cc.patch
+Patch3:        rtorrent-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: curl-devel
@@ -38,6 +39,9 @@ do
     chmod -x "$file"
 done
 
+# Avoid an attempt to re-run autoconf.
+touch -r aclocal.m4 scripts/common.m4
+
 %build
 %configure --with-xmlrpc-c --enable-ipv6
 %make_build
@@ -53,6 +57,9 @@ install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 %{_mandir}/man1/rtorrent.1.gz
 
 %changelog
+* Fri Dec 08 2023 Florian Weimer <fweimer@redhat.com> - 0.9.8-13
+- C compatibility fix for the configure script
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

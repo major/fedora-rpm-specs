@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate palette_derive
+%global crate memmap2
 
-Name:           rust-palette_derive
-Version:        0.7.3
+Name:           rust-memmap2_0.7
+Version:        0.7.1
 Release:        %autorelease
-Summary:        Automatically implement traits from the palette crate
+Summary:        Cross-platform Rust API for memory-mapped file IO
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/palette_derive
+URL:            https://crates.io/crates/memmap2
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Automatically implement traits from the palette crate.}
+Cross-platform Rust API for memory-mapped file IO.}
 
 %description %{_description}
 
@@ -32,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,16 +48,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+find-crate-devel
+%package     -n %{name}+stable_deref_trait-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+find-crate-devel %{_description}
+%description -n %{name}+stable_deref_trait-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "find-crate" feature of the "%{crate}" crate.
+use the "stable_deref_trait" feature of the "%{crate}" crate.
 
-%files       -n %{name}+find-crate-devel
+%files       -n %{name}+stable_deref_trait-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

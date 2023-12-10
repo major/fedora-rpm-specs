@@ -54,7 +54,7 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        0%{?dist}.1
+Release:        0%{?dist}.2
 Summary:        .NET Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
@@ -90,6 +90,19 @@ Source21:       dotnet.sh.in
 Patch1:         roslyn-analyzers-ppc64le-apphost.patch
 # https://github.com/dotnet/source-build/discussions/3481
 Patch2:         vstest-intent-net8.0.patch
+# https://github.com/dotnet/source-build/issues/3571
+Patch3:         fix-mono-typeloadexception.patch
+# https://github.com/dotnet/runtime/pull/91008
+Patch4:         runtime-91008-mono-var-opcode-OP_REGOFFSET.patch
+# https://github.com/dotnet/runtime/pull/91865
+Patch5:         runtime-91865-arm64-page-size.patch
+# https://github.com/dotnet/runtime/pull/92274
+Patch6:         runtime-92274-webcil-s390x.patch
+# https://github.com/dotnet/runtime/pull/92441
+Patch7:         runtime-92441-s390x-host-le.patch
+# https://github.com/dotnet/sdk/pull/35600
+Patch8:         sdk-35600-skip-windows-gui.patch
+
 
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
 
@@ -508,7 +521,14 @@ sed -e 's|[@]LIBDIR[@]|%{_libdir}|g' %{SOURCE21} > dotnet.sh
 %install
 install -dm 0755 %{buildroot}%{_libdir}/dotnet
 ls artifacts/%{runtime_arch}/Release
-tar xf artifacts/%{runtime_arch}/Release/dotnet-sdk-%{sdk_version}-%{runtime_id}.tar.gz -C %{buildroot}%{_libdir}/dotnet/
+mkdir -p built-sdk
+tar xf artifacts/%{runtime_arch}/Release/dotnet-sdk-%{sdk_version}-%{runtime_id}.tar.gz -C built-sdk/
+
+# Convert hardlinks to actual copies. This takes up quite a bit of
+# extra disk space, but works around RHEL issues in post-rpmbuild tools
+# when they encounter hardlinks.
+cp -r --preserve=mode,ownership,timestamps built-sdk/* %{buildroot}%{_libdir}/dotnet/
+ls %{buildroot}%{_libdir}/dotnet
 
 # Delete bundled certificates: we want to use the system store only,
 # except for when we have no other choice and ca-certificates doesn't
@@ -525,12 +545,8 @@ fi
 tar xf artifacts/%{runtime_arch}/Release/dotnet-runtime-symbols-%{runtime_id}-%{runtime_version}.tar.gz \
    -C %{buildroot}%{_libdir}/dotnet/shared/Microsoft.NETCore.App/%{runtime_version}/
 
-# Remove static files
-find %{buildroot}%{_libdir}/dotnet/ -type f -name 'libmono-*.a' -exec rm {} \;
-
 # Fix executable permissions on files
 find %{buildroot}%{_libdir}/dotnet/ -type f -name 'apphost' -exec chmod +x {} \;
-#find %{buildroot}%{_libdir}/dotnet/ -type f -name 'containerize' -exec chmod +x {} \;
 find %{buildroot}%{_libdir}/dotnet/ -type f -name 'singlefilehost' -exec chmod +x {} \;
 find %{buildroot}%{_libdir}/dotnet/ -type f -name 'lib*so' -exec chmod +x {} \;
 find %{buildroot}%{_libdir}/dotnet/ -type f -name '*.a' -exec chmod -x {} \;
@@ -649,6 +665,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Fri Dec 08 2023 Omair Majid <omajid@redhat.com> - 8.0.100~rc.1-0.2
+- Add various fixes from CentOS Stream 9
+
 * Fri Sep 15 2023 Omair Majid <omajid@redhat.com> - 8.0.100~rc.1-0.1
 - Update to .NET SDK 8.0.100 RC 1 and Runtime 8.0.0 RC 1
 

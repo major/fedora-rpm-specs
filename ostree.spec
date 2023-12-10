@@ -128,6 +128,7 @@ env NOCONFIGURE=1 ./autogen.sh
            --without-soup \
            %{?with_composefs:--with-composefs} \
            %{?with_tests:--with-soup3} \
+           %{?!with_tests:--without-soup3} \
            %{?with_tests:--enable-installed-tests=exclusive} \
            --with-dracut=yesbutnoconf
 %make_build

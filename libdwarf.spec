@@ -1,6 +1,6 @@
 Name:          libdwarf
 Epoch:         1
-Version:       0.8.0
+Version:       0.9.0
 Release:       1%{?dist}
 Summary:       Library to access the DWARF Debugging file format 
 
@@ -86,6 +86,9 @@ TZ=:America/Los_Angeles %__make check
 
 
 %changelog
+* Fri Dec  8 2023 Tom Hughes <tom@compton.nu> - 1:0.9.0-1
+- Update to 0.9.0 upstream release
+
 * Mon Sep 18 2023 Tom Hughes <tom@compton.nu> - 1:0.8.0-1
 - Update to 0.8.0 upstream release
 

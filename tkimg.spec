@@ -3,7 +3,7 @@
 
 Name:		tkimg
 Version:	1.4.14
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Image support library for Tk
 # This has some bundled "fun" in it.
 # The fork of libjpeg is licensed IJG
@@ -16,6 +16,7 @@ Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/1.4/Img-%{version
 # I do not think it impacts tkimg, but better safe than sorry.
 # https://gitlab.com/libtiff/libtiff/-/commit/e813112545942107551433d61afd16ac094ff246
 Patch0:		tkimg-libtiff-CVE-2022-4645.patch
+Patch1: tkimg-c99.patch
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	tcl-devel tk-devel tcllib
@@ -53,6 +54,7 @@ These are the header files needed to develop a %{name} application
 %prep
 %setup -q -n Img-%{version}-Source
 %patch0 -p1 -b .CVE-2022-4645
+%patch1 -p1
 
 %build
 %configure --with-tcl=%{tcl_sitearch} --with-tk=%{_libdir} --libdir=%{tcl_sitearch} --disable-threads --enable-64bit
@@ -75,6 +77,9 @@ make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 1.4.14-5
+- Backport part of an upstream patch to fix C compatibility issues
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

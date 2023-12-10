@@ -373,6 +373,9 @@ Source0: https://download.qemu.org/%{name}-%{version}%{?rcstr}.tar.xz
 # Fix pvh.img ld build failure on fedora rawhide
 Patch: 0001-pc-bios-optionrom-Fix-pvh.img-ld-build-failure-on-fe.patch
 
+# See https://lists.gnu.org/archive/html/qemu-devel/2023-12/msg01035.html
+Patch: 0001-fix-qemu-build-with-xen-4.18.0.patch
+
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
 Source12: bridge.conf

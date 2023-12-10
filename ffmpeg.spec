@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -135,6 +135,10 @@ Patch8:         FFmpeg-devel-v10-Support-enhanced-flv-in-FFmpeg.patch
 # Courtesy of GloriousEggroll
 ## Adapted from: https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=9594
 Patch9:         ffmpeg-ge-av1-vaapi-encode-support.patch
+
+# Drop openh264 runtime version checks
+# https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=10211
+Patch10:        0001-lavc-libopenh264-Drop-openh264-runtime-version-check.patch
 
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch
@@ -352,6 +356,7 @@ Requires:       libswresample%{?pkg_suffix}%{_isa} = %{version}-%{release}
 ## Note, we can do this because openh264 is provided in a default-enabled
 ## third party repository provided by Cisco.
 Recommends:     libopenh264.so.%{openh264_soversion}%{?lib64_suffix}
+Suggests:       openh264%{_isa}
 
 %description -n libavcodec%{?pkg_suffix}
 The libavcodec library provides a generic encoding/decoding framework
@@ -875,6 +880,10 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Wed Dec 06 2023 Kalev Lember <klember@redhat.com> - 6.0.1-2
+- Prefer openh264 over noopenh264
+- Backport upstream patch to drop openh264 runtime version checks
+
 * Sat Nov 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.0.1-1
 - Update to 6.0.1
 - Add ffmpeg chromium support patch (#2240127)

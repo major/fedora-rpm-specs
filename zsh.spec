@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -25,6 +25,7 @@ Patch4: 0004-zsh-enable-PCRE-locale-switching.patch
 Patch5: 0005-zsh-port-to-pcre2.patch
 # upstream commit ecd3f9c9506c7720dc6c0833dc5d5eb00e4459c4
 Patch6: 0006-zsh-support-texinfo-7.0.patch
+Patch7: zsh-configure-c99.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -170,6 +171,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 5.9-11
+- Fix C compatibility issue in the configure script
+
 * Tue Nov 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-10
 - fix FTBFS caused by texinfo 7.1
 - fix build of the PCRE module

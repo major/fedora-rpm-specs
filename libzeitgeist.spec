@@ -1,9 +1,12 @@
 Name:           libzeitgeist
 Version:        0.3.18
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Client library for applications that want to interact with the Zeitgeist daemon
 
-License:        LGPLv3 and GPLv3
+# LGPL-2.1-or-later: Overall
+# GPL-3.0-only: examples tests(not included)
+# SPDX confirmed
+License:        LGPL-2.1-or-later
 URL:            https://launchpad.net/libzeitgeist
 Source0:        http://launchpad.net/%{name}/0.3/%{version}/+download/%{name}-%{version}.tar.gz
 Patch0:         %{name}-disable-log-test.patch
@@ -15,7 +18,7 @@ Patch1:         %{name}-tests-glib-2.40-envnull.patch
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(glib-2.0) >= 2.26
 BuildRequires:  gtk-doc
-BuildRequires: make
+BuildRequires:  make
 
 %description
 This project provides a client library for applications that want to interact
@@ -24,6 +27,7 @@ an asynchronous GObject oriented API.
 
 %package        devel
 Summary:        Development files for %{name}%{?_isa}
+License:        LGPL-2.1-or-later AND GPL-3.0-only
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
@@ -60,29 +64,42 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 %files
 
 # documentation
-%doc COPYING COPYING.GPL README
+%license COPYING
+%license README
 
 # essential
-%{_libdir}/*.so.*
+%{_libdir}/%{name}-1.0.so.1{,.*}
 
 
 %files devel
 
 # Documentation
-%doc AUTHORS ChangeLog COPYING COPYING.GPL MAINTAINERS NEWS 
-%doc examples/*.vala examples/*.c
+%license COPYING
+%license COPYING.GPL
+%license README
+%doc AUTHORS
+%doc ChangeLog
+%doc MAINTAINERS
+%doc NEWS
+%doc examples/*.vala
+%doc examples/*.c
+
 %{_datadir}/gtk-doc/html/zeitgeist-1.0/
 
 # essential
 %{_includedir}/zeitgeist-1.0/
 %{_libdir}/pkgconfig/zeitgeist-1.0.pc
-%{_libdir}/*.so
+%{_libdir}/%{name}-1.0.so
 
 # extra
 %{_datadir}/vala/vapi/
 
 
 %changelog
+* Fri Dec  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.18-27
+- SPDX migration
+- List library name explicitly
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.18-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

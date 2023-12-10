@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    15873c65b207b07765dbc3c95d20fdf4a320cbe2
+%global gh_commit    d4f454f7e1193933f04e6500de3e79191648ed0c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy
@@ -15,8 +15,8 @@
 %bcond_with          phpspec
 
 Name:           php-phpspec-prophecy
-Version:        1.17.0
-Release:        4%{?dist}
+Version:        1.18.0
+Release:        1%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
@@ -28,32 +28,33 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 7.2
 %if %{with tests}
 BuildRequires:  (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
-BuildRequires:  (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 5)
-BuildRequires:  (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 5)
+BuildRequires:  (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 6)
+BuildRequires:  (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 6)
 BuildRequires:  (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # from composer.json, "require-dev": {
-#        "phpspec/phpspec": "^6.0 | ^7.0"
+#        "phpspec/phpspec": "^6.0 || ^7.0"
 #        "phpstan/phpstan": "^1.9",
-#        "phpunit/phpunit": "^8.0 || ^9.0"
+#        "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0"
 %if %{with phpspec}
 BuildRequires:  php-composer(phpspec/phpspec) >= 6.0
 %endif
-%global phpunit %{_bindir}/phpunit9
-BuildRequires:  %{phpunit}
+BuildRequires:  phpunit8
+BuildRequires:  phpunit9
+BuildRequires:  phpunit10
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # from composer.json, "requires": {
-#        "php":                               "^7.2 || 8.0.* || 8.1.* || 8.2.*",
+#        "php":                               "^7.2 || 8.0.* || 8.1.* || 8.2.* || 8.3.*",
 #        "phpdocumentor/reflection-docblock": "^5.2",
-#        "sebastian/comparator":              "^3.0|^4.0",
+#        "sebastian/comparator":              "^3.0 || ^4.0 || ^5.0",
 #        "doctrine/instantiator":             "^1.2 || ^2.0",
-#        "sebastian/recursion-context":       "^3.0|^4.0"
+#        "sebastian/recursion-context":       "^3.0 || ^4.0 || ^5.0"
 Requires:       php(language) >= 7.2
 Requires:       (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
-Requires:       (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 5)
-Requires:       (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 5)
+Requires:       (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 6)
+Requires:       (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 6)
 Requires:       (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # From phpcompatinfo report for version 1.11.0
 Requires:       php-pcre
@@ -96,6 +97,7 @@ if (PHP_VERSION_ID > 80100) {
 if (!class_exists('SebastianBergmann\\Comparator\\Comparator')) { // v2 from phpunit, v1 from phpspec
     \Fedora\Autoloader\Dependencies::required([
         [
+            '%{_datadir}/php/SebastianBergmann/Comparator5/autoload.php',
             '%{_datadir}/php/SebastianBergmann/Comparator4/autoload.php',
             '%{_datadir}/php/SebastianBergmann/Comparator3/autoload.php',
         ],
@@ -104,6 +106,7 @@ if (!class_exists('SebastianBergmann\\Comparator\\Comparator')) { // v2 from php
 if (!class_exists('SebastianBergmann\\RecursionContext\\Context')) { // v2 from phpunit, v1 from phpspec
     \Fedora\Autoloader\Dependencies::required([
         [
+            '%{_datadir}/php/SebastianBergmann/RecursionContext5/autoload.php',
             '%{_datadir}/php/SebastianBergmann/RecursionContext4/autoload.php',
             '%{_datadir}/php/SebastianBergmann/RecursionContext3/autoload.php',
         ],
@@ -137,16 +140,20 @@ phpspec --version
 
 ret=0
 # ignore it_can_not_double_an_enum on all version. Not ready
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
-  if which $cmdarg; then
-    set $cmdarg
+for cmd in php php81 php82 php83; do
+  if which $cmd; then
 %if %{with phpspec}
-    $1 -d auto_prepend_file=vendor/autoload.php \
+    $cmd -d auto_prepend_file=vendor/autoload.php \
       %{_bindir}/phpspec run --format pretty --verbose --no-ansi || ret=1
 %endif
-    $1 -d auto_prepend_file=vendor/autoload.php \
-       ${2:-%{_bindir}/phpunit9} \
-         --filter '^((?!(it_can_not_double_an_enum)).)*$' \
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+       %{_bindir}/phpunit8 \
+         || ret=1
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+       %{_bindir}/phpunit9 \
+         || ret=1
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+       %{_bindir}/phpunit10 \
          || ret=1
   fi
 done
@@ -164,6 +171,10 @@ exit $ret
 
 
 %changelog
+* Fri Dec  8 2023 Remi Collet <remi@remirepo.net> - 1.18.0-1
+- update to 1.18.0
+- run test suite with phpunit8, phpunit9 and phpunit10
+
 * Wed Sep 27 2023 Remi Collet <remi@remirepo.net> - 1.17.0-4
 - disable phpspec tests
 

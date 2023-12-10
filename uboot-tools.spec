@@ -191,17 +191,9 @@ install -p -m 0644 doc/mkimage.1 %{buildroot}%{_mandir}/man1
 install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 ( cd %{buildroot}%{_bindir}; ln -sf fw_printenv fw_setenv )
 
-# Copy some useful docs over
-mkdir -p builds/docs
-cp -p board/hisilicon/hikey/README builds/docs/README.hikey
-cp -p board/rockchip/evb_rk3399/README builds/docs/README.evb_rk3399
-cp -p board/sunxi/README.sunxi64 builds/docs/README.sunxi64
-cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
-
 %files
 %doc README doc/develop/distro.rst doc/README.gpt
-%doc doc/README.rockchip doc/develop/uefi doc/usage doc/arch/arm64.rst
-%doc builds/docs/* doc/board/amlogic/ doc/board/rockchip/
+%doc doc/develop/uefi doc/usage doc/arch/arm64.rst
 %{_bindir}/*
 %{_mandir}/man1/mkimage.1*
 %dir %{_datadir}/uboot/

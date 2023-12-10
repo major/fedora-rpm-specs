@@ -1,18 +1,21 @@
 # To get the gmp-api commit to use, run:
 # rm -rf gmp-api;make gmp-bootstrap;cd gmp-api;git rev-parse HEAD
-%global commit1 3a01c086d1b0394238ff1b5ad22e76022830625a
+%global commit1 e7d30b921df736a1121a0c8e0cf3ab1ce5b8a4b7
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
-%global openh264_version 2.3.1
-%global gst_version 1.22.1
+%global openh264_version 2.4.0
+%global gst_version 1.22.7
+
+# Filter out soname provides for the mozilla plugin
+%global __provides_exclude_from ^%{_libdir}/mozilla/plugins/
 
 Name:           openh264
 Version:        %{openh264_version}
 # Also bump the Release tag for gstreamer1-plugin-openh264 down below
-Release:        4%{?dist}
+Release:        2%{?dist}
 Summary:        H.264 codec library
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://www.openh264.org/
 Source0:        https://github.com/cisco/openh264/archive/v%{openh264_version}/openh264-%{openh264_version}.tar.gz
 Source1:        https://github.com/mozilla/gmp-api/archive/%{commit1}/gmp-api-%{shortcommit1}.tar.gz
@@ -22,6 +25,9 @@ Source1:        https://github.com/mozilla/gmp-api/archive/%{commit1}/gmp-api-%{
 Source2:        gst-plugins-bad-openh264-%{gst_version}.tar.xz
 Source3:        gst-p-bad-cleanup.sh
 
+# Backported from upstream
+# https://github.com/cisco/openh264/pull/3704
+Patch1:         0001-Fix-off-by-one-regression-in-decoder-3704.patch
 # Don't use pkg-config for finding openh264 as we are building against an in-tree copy
 Patch2:         hardcode-openh264-dep.patch
 
@@ -32,6 +38,9 @@ BuildRequires:  make
 BuildRequires:  meson
 BuildRequires:  nasm
 
+# Replace the stub package
+Obsoletes:      noopenh264 < 1:0
+
 %description
 OpenH264 is a codec library which supports H.264 encoding and decoding. It is
 suitable for use in real time applications such as WebRTC.
@@ -40,6 +49,8 @@ suitable for use in real time applications such as WebRTC.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{openh264_version}-%{release}
+# Replace the stub package
+Obsoletes:      noopenh264-devel < 1:0
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -58,7 +69,7 @@ browsers.
 
 %package     -n gstreamer1-plugin-openh264
 Version:        %{gst_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        GStreamer H.264 plugin
 
 %description -n gstreamer1-plugin-openh264
@@ -70,6 +81,7 @@ This package contains the H.264 plugin.
 
 %prep
 %setup -q
+%patch1 -p1
 
 # Extract gmp-api archive
 tar -xf %{S:1}
@@ -127,8 +139,10 @@ EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 cat > $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/gmpopenh264.sh << 'EOF'
-MOZ_GMP_PATH="${MOZ_GMP_PATH}${MOZ_GMP_PATH:+:}%{_libdir}/mozilla/plugins/gmp-gmpopenh264/system-installed"
-export MOZ_GMP_PATH
+if [[ ":$MOZ_GMP_PATH:" != *":%{_libdir}/mozilla/plugins/gmp-gmpopenh264/system-installed:"* ]]; then
+    MOZ_GMP_PATH="${MOZ_GMP_PATH}${MOZ_GMP_PATH:+:}%{_libdir}/mozilla/plugins/gmp-gmpopenh264/system-installed"
+    export MOZ_GMP_PATH
+fi
 EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/fish/vendor_conf.d
@@ -224,6 +238,16 @@ popd
 
 
 %changelog
+* Mon Dec 04 2023 Kalev Lember <klember@redhat.com> - 2.4.0-2
+- Fix off by one regression in decoder
+- Filter out soname provides for mozilla gmp plugin
+
+* Fri Nov 24 2023 Kalev Lember <klember@redhat.com> - 2.4.0-1
+- Update to 2.4.0
+- Update gstreamer plugin to 1.22.7
+- Obsolete noopenh264 stub package
+- Use SPDX license identifiers
+
 * Wed Nov 22 2023 NoisyCoil <noisycoil@tutanota.com> - 2.3.1-4
 - Set MOZ_GMP_PATH for fish user shell
 - Partially resolves: rhbz#2250527

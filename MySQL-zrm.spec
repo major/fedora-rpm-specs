@@ -1,6 +1,6 @@
 Name:           MySQL-zrm
 Version:        3.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        MySQL backup manager
 
 License:        GPLv2
@@ -27,6 +27,8 @@ Patch4:         MySQL-zrm-taropt.patch
 Patch5:         MySQL-zrm-pipestatus.patch
 # Remove duplicate command logging
 Patch6:         MySQL-zrm-command-log.patch
+# Avoid "tar: .: file changed as we read it" by touching the output file first
+Patch7:         MySQL-zrm-tar.patch
 
 BuildArch:      noarch
 BuildRequires:  perl-generators
@@ -51,13 +53,14 @@ server.
 %prep
 %setup -q -c
 # Cannot do backups, they get installed
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
 # FIx permissions
 find -name \*.pm -o -name \*.smf | xargs chmod -x
 # Fix FSF address
@@ -130,6 +133,9 @@ chmod 640 %{buildroot}%{_sysconfdir}/mysql-zrm/mysql-zrm.conf
 
 
 %changelog
+* Fri Dec 08 2023 Orion Poplawski <orion@nwra.com> - 3.0-38
+- Add patch to fix tar complaining that ". changed as we read it"
+
 * Thu Oct 12 2023 Orion Poplawski <orion@nwra.com> - 3.0-37
 - Require /usr/bin/mail instead of mailx
 

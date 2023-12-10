@@ -1,14 +1,15 @@
 %global tarname FreeFem-sources
-%global tarvers 4.13
+%global tarvers 4.14
+%global ffvers 4.14
 
 %bcond_without serial
 
 # Allow disabling building with/against openmpi
-# Build with --without openmpi to not build openmpi
 %if 0%{?fedora} >= 40
 %ifarch %{ix86}
 %bcond_with openmpi
 %else
+# Build with --without openmpi to not build openmpi
 %bcond_without openmpi
 %endif
 %else
@@ -32,7 +33,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 7%{?dist}
+Release: 1%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -51,46 +52,53 @@ Patch11: 0011-Install-docs-into-docdir.patch
 Patch12: 0012-Use-libdir-to-setup-ff_prefix_dir.patch
 Patch13: 0013-Misc-build-fixes.patch
 Patch14: 0014-Wmisleading-indentation.patch
-Patch15: 0015-Mark-failing-tests-XFAIL.patch
-Patch16: 0016-Fix-missing-includes-for-gcc-11.patch
-Patch17: 0017-Modernize-autotools.patch
-Patch18: 0018-Unbundle-boost.patch
-Patch19: 0019-Fedora-hacks.patch
-Patch20: 0020-Modernize-autotools.patch
+Patch15: 0015-Fix-missing-includes-for-gcc-11.patch
+Patch16: 0016-Modernize-autotools.patch
+Patch17: 0017-Unbundle-boost.patch
+Patch18: 0018-Fedora-hacks.patch
+Patch19: 0019-Modernize-autotools.patch
 
 # --disable-download doesn't work
 # Bundle hpddm.zip to prevent downloading during builds.
 # cf. hpddm in 3rdparty/getall
-%if 0%{fedora} > 38
+%if 0%{fedora} > 39
+# Bleeding edge
+# petsc-3.20.x compatible
+# hpddm-20231112gita789a19
+%global hpddm_git_hash a789a193f3c9c7c3c2674eb8d1f8db95cd1ae48c
+%global hpddm_git_md5sum debcabc4cb0100cd5e79f9efb8cbafe3
+%global hpddm_gitdate 20231112
+%elif 0%{fedora} > 38
 # petsc-3.18.5 compatible
 # hpddm-20221104gitff61cf3
 %global hpddm_git_hash ff61cf3ced922c2f896ebe1fff1a42f1f2805a3a
-%global hpddm_git_checksum 872bf9c2bf1de6c6943a0f7712f89c5c
-%global hpddm_gitcommit %(c=%{hpddm_git_hash}; echo ${c:0:7})
+%global hpddm_git_md5sum 872bf9c2bf1de6c6943a0f7712f89c5c
 %global hpddm_gitdate 20221104
 %else
 # petsc-3.17.4 compatible
 # hpddm-20210919git7113b9a
 %global hpddm_git_hash 7113b9a6b77fceee3f52490cb27941a87b96542f
-%global hpddm_git_checksum 6910b7b974f0b60d9c247c666e7f3862
-%global hpddm_gitcommit %(c=%{hpddm_git_hash}; echo ${c:0:7})
+%global hpddm_git_md5sum 6910b7b974f0b60d9c247c666e7f3862
 %global hpddm_gitdate 20210919
 %endif
+%global hpddm_gitcommit %(c=%{hpddm_git_hash}; echo ${c:0:7})
 
-%global htool_gitcommit 946875d
+%global htool_git_hash 946875d79d0036afb4dc2c0c13c165a607d830df
+%global htool_git_md5sum 1403db4800a2d4b69f3da7eb3f6687a2
+%global htool_gitcommit %(c=%{htool_git_hash}; echo ${c:0:7})
 %global htool_gitdate 20230530
 
-%global bemtool_gitcommit 435b9d8
-%global bemtool_gitdate 20230609
-
-%global ffvers 4.13
+%global bemtool_git_hash 629c44513698405b58c50650cba69419474062ad
+%global bemtool_git_md5sum 869832f5cbec4dfb2c16e2d94bad0b7d
+%global bemtool_gitcommit %(c=%{bemtool_git_hash}; echo ${c:0:7})
+%global bemtool_gitdate 20230917
 
 Source1: https://github.com/hpddm/hpddm/archive/%{hpddm_gitcommit}/master.zip#/hpddm-%{hpddm_gitdate}git%{hpddm_gitcommit}.zip
 
 # FreeFEM doesn't build docs anymore.
 # Use pre-build binary, d/l'ed from
 # https://doc.freefem.org/pdf/FreeFEM-documentation.pdf
-Source2: https://raw.githubusercontent.com/FreeFem/FreeFem-doc/pdf/FreeFEM-documentation.pdf#/FreeFEM-documentation-4.12-20230414.pdf
+Source2: https://raw.githubusercontent.com/FreeFem/FreeFem-doc/pdf/FreeFEM-documentation.pdf#/FreeFEM-documentation-4.13-20231206.pdf
 
 # Bundled libraries
 Source3: https://www.ljll.math.upmc.fr/frey/ftp/archives/freeyams.2012.02.05.tgz
@@ -234,21 +242,30 @@ pushd serial
 %patch -P 17 -p1
 %patch -P 18 -p1
 %patch -P 19 -p1
-%patch -P 20 -p1
+
+sed -i \
+  -e 's,/hpddm/zip/7113b9a6b77fceee3f52490cb27941a87b96542f,/hpddm/zip/%{hpddm_git_hash},' \
+  -e "s,'6910b7b974f0b60d9c247c666e7f3862','%{hpddm_git_md5sum}'," \
+  3rdparty/getall
+
+sed -i \
+  -e 's,/htool/archive/946875d79d0036afb4dc2c0c13c165a607d830df.zip,/htool/archive/%{htool_git_hash}.zip,' \
+  -e "s,'1403db4800a2d4b69f3da7eb3f6687a2','%{htool_git_md5sum}'," \
+  3rdparty/getall
+
+sed -i \
+  -e 's,/BemTool/archive/629c44513698405b58c50650cba69419474062ad.zip,/BemTool/archive/%{bemtool_git_hash}.zip,' \
+  -e "s,'869832f5cbec4dfb2c16e2d94bad0b7d','%{bemtool_git_md5sum}'," \
+  3rdparty/getall
 
 %if 0%{fedora} > 38
-sed -i \
-  -e 's,/hpddm/zip/7113b9a6b77fceee3f52490cb27941a87b96542f,/hpddm/zip/%hpddm_git_hash,' \
-  -e "s,'6910b7b974f0b60d9c247c666e7f3862','%hpddm_git_checksum'," \
-  3rdparty/getall
-
 sed -i -e 's,XFAIL_TESTS = ,XFAIL_TESTS = Pinocchio.edp ,' examples/3dSurf/Makefile.am
 %endif
-
-sed -i \
-  -e 's,BemTool/archive/6042818bd7585a1ba01c1fc8889dc27f9e608a3f,BemTool/archive/61aa37bcea9eeba23308489de9d32c16b9232484,' \
-  -e "s,'1ee3a9eea2451314dcbb0a3ebd6c6be3','7774bb2369128e4c4068e348d5ca45bf'," \
-  3rdparty/getall
+%if 0%{fedora} > 37
+sed -i -e 's,XFAIL_TESTS = ,XFAIL_TESTS = testvtk.edp ,' examples/3dSurf/Makefile.am
+%endif
+sed -i -e 's,XFAIL_TESTS =$,XFAIL_TESTS = ,' examples/3d/Makefile.am
+sed -i -e 's,XFAIL_TESTS =,XFAIL_TESTS = fallingspheres.edp ,'	examples/3d/Makefile.am
 
 sed -i \
   -e 's,MUMPS_5.4.0.tar.gz,MUMPS_5.5.1.tar.gz,' \
@@ -380,7 +397,7 @@ done
 %if %{with checks}
 %if %{with serial}
 pushd serial
-make check
+make -j1 check
 popd
 %endif
 
@@ -388,7 +405,7 @@ for mpi in %{?with_mpich:mpich} %{?with_openmpi:openmpi} ; do
   pushd ${mpi}
   . /etc/profile.d/modules.sh
   module load mpi/${mpi}-%{_arch}
-  make check
+  make -j1 check
   module unload mpi/${mpi}-%{_arch}
   popd
 done
@@ -429,6 +446,13 @@ done
 %endif
 
 %changelog
+* Fri Dec 08 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.14-1
+- Update to 4.14.
+- Run tests single-threaded (make -j1 check).
+- Use different versions of hdppm on different Fedora releases.
+- Drop 0015-Mark-failing-tests-XFAIL.patch.
+- Mark failing tests XFAIL from inside spec.
+
 * Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 4.13-7
 - Rebuild for openmpi 5.0.0, drops i686 and C++ API
 

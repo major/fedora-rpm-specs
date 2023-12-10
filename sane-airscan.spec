@@ -5,7 +5,7 @@
 
 Name:           sane-airscan
 Version:        0.99.27
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        SANE backend for AirScan (eSCL) and WSD document scanners
 # SANE related source and header files - GPL 2.0+ with SANE exception
 # http_parser.c/.h - MIT
@@ -15,6 +15,10 @@ URL:            https://github.com/alexpevzner/sane-airscan
 Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # backported from upstream
+# https://github.com/alexpevzner/sane-airscan/commit/c042a6895 - missing stdlib
+Patch001: 0001-Fixed-missed-include-stdlib.h-see-305.patch
+# https://github.com/alexpevzner/sane-airscan/commit/144e7d4187 - fix warning by conversion
+Patch002: 0002-Fixed-build-with-recent-versions-of-libxml2-fixes-30.patch
 
 
 # needed for querying and getting mDNS messages from local network
@@ -98,6 +102,9 @@ rm -f %{buildroot}%{_libdir}/sane/libsane-airscan.so
 
 
 %changelog
+* Fri Dec 08 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.99.27-11
+- fix FTBFS
+
 * Wed Aug 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.99.27-10
 - applied accepted license exception - SANE-exception
 

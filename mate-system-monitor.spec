@@ -1,10 +1,10 @@
 Name:           mate-system-monitor
-Version:        1.26.0
-Release:        5%{?dist}
+Version:        1.26.2
+Release:        1%{?dist}
 Summary:        Process and resource monitor
 License:        GPLv2+
 URL:            http://mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.25/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc-c++
 BuildRequires: dbus-glib-devel
@@ -63,6 +63,9 @@ desktop-file-install --delete-original             \
 
 
 %changelog
+* Fri Dec 8 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

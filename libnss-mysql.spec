@@ -1,7 +1,7 @@
 Summary:   NSS library for MySQL
 Name:      libnss-mysql
 Version:   1.5
-Release:   46%{?dist}
+Release:   47%{?dist}
 Source0:   http://prdownloads.sourceforge.net/libnss-mysql/libnss-mysql-%{version}.tar.gz
 Source1:   README
 Source2:   nsswitch.conf
@@ -77,6 +77,9 @@ cp -af %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{authselect_vendor}/
 %{_datadir}/authselect/vendor/%{name}/*
 
 %changelog
+* Fri Dec 08 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.5-47
+- Use mysql for initgroups nsswich.conf entry too
+
 * Fri Sep 29 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.5-46
 - Build against the 'mariadb-connector-c-devel' package (PR#1)
 - Replace setup and patchN with autosetup macro

@@ -67,16 +67,13 @@
 It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
-Version:        4.18.1
-Release:        2%{?dist}
+Version:        4.18.2
+Release:        1%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
 URL:            https://github.com/rpm-software-management/dnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-DNS-key-verification-Fix-parsing-an-armored-PGP-key.patch
-Patch1:         0002-DNS-key-verification-Fix-handling-keys-without-an-e-.patch
-Patch2:         0003-DNS-key-verification-Fix-caching-negative-responses.patch
 BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext
@@ -386,6 +383,10 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Fri Dec 08 2023 Jan Kolarik <jkolarik@redhat.com> - 4.18.2-1
+- Update to 4.18.2
+- automatic: Add feature to allow emitters to invoke on dnf error
+
 * Tue Nov 14 2023 Petr Pisar <ppisar@redhat.com> - 4.18.1-2
 - Fix a crash and a revocation misreport in DNS key validation (RhBug:2249380)
 

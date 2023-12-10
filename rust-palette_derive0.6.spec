@@ -4,8 +4,8 @@
 
 %global crate palette_derive
 
-Name:           rust-palette_derive
-Version:        0.7.3
+Name:           rust-palette_derive0.6
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Automatically implement traits from the palette crate
 
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+find-crate-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+find-crate-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "find-crate" feature of the "%{crate}" crate.
-
-%files       -n %{name}+find-crate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

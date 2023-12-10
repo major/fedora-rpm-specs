@@ -14,7 +14,7 @@ BuildRequires: make
 BuildRequires: glibc-static
 BuildRequires: gnupg2
 
-%ifarch aarch64 armv7hl i686 ppc64le s390x x86_64
+%ifarch %{golang_arches}
 BuildRequires: golang >= 1.11
 %endif
 
@@ -46,6 +46,7 @@ draft 15 capabilities.
 Install libcap-devel if you want to develop or compile applications using
 libcap.
 
+%ifarch %{golang_arches}
 %package -n captree
 Summary: Capability inspection utility
 
@@ -53,6 +54,7 @@ Summary: Capability inspection utility
 The captree program was inspired by the utility pstree, but it uses the
 libcap/cap (Go package) API to explore process runtime state and display
 the capability status of processes and threads.
+%endif
 
 %prep
 gzip -cd %{SOURCE0} | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
@@ -84,6 +86,7 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %{_mandir}/man1/capsh.1*
 %{_mandir}/man8/{getcap,getpcaps,setcap}.8*
 %{_libdir}/security/pam_cap.so
+%exclude %{_mandir}/man8/captree.8*
 
 %files static
 %{_libdir}/libcap.a
@@ -101,10 +104,12 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %{_mandir}/man3/__psx_syscall.3*
 %{_libdir}/pkgconfig/{libcap,libpsx}.pc
 
+%ifarch %{golang_arches}
 %files -n captree
 %license License
 %{_sbindir}/captree
 %{_mandir}/man8/captree.8*
+%endif
 
 %changelog
 * Mon Nov 06 2023 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 2.69-1

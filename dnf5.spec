@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 8
+%global project_version_patch 9
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
@@ -42,7 +42,9 @@ Provides:       dnf5-command(reinstall)
 Provides:       dnf5-command(swap)
 Provides:       dnf5-command(mark)
 Provides:       dnf5-command(autoremove)
+Provides:       dnf5-command(check)
 Provides:       dnf5-command(check-upgrade)
+Provides:       dnf5-command(provides)
 
 Provides:       dnf5-command(leaves)
 Provides:       dnf5-command(repoquery)
@@ -258,6 +260,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man8/dnf5.8.*
 %{_mandir}/man8/dnf5-advisory.8.*
 %{_mandir}/man8/dnf5-autoremove.8.*
+%{_mandir}/man8/dnf5-check.8.*
 %{_mandir}/man8/dnf5-clean.8.*
 %{_mandir}/man8/dnf5-distro-sync.8.*
 %{_mandir}/man8/dnf5-downgrade.8.*
@@ -272,6 +275,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man8/dnf5-mark.8.*
 # TODO(jkolarik): module is not ready yet
 # %%{_mandir}/man8/dnf5-module.8.*
+%{_mandir}/man8/dnf5-provides.8.*
 %{_mandir}/man8/dnf5-reinstall.8.*
 %{_mandir}/man8/dnf5-remove.8.*
 %{_mandir}/man8/dnf5-repo.8.*
@@ -755,6 +759,31 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Fri Dec 08 2023 Packit <hello@packit.dev> - 5.1.9-1
+- Release 5.1.9
+- Update translations from weblate
+- Fix builds for RISC-V arch
+- Fix architecture autodetection
+- Move `am_i_root` function to common library
+- Implement `module info` command
+- Add user confirmation request if `history store` overwrites a file
+- Add `history store` command
+- Add API to serialize base::transaction in JSON
+- Add API to serialize transaction::transaction in JSON
+- Add docs for `provides`
+- Implement command `provides`
+- Read `copr.vendor.conf` in `/usr/share` first
+- Add docs for `check` command
+- Implement `check` command
+- Expose `utis/fs/file.hpp` and `temp.hpp` on API
+- Document dropping of the `skip-broken` for `upgrade`
+- Update man pages with missing dependency resolving-related options
+- Document `skip-broken` option only for related commands
+- Test for adding an empty list to memory file
+- Check serialized temporary files memory is non-empty
+- Add `microcode_ctl` to needs-restarting's reboot list
+- Fix reporting spec matches only source
+
 * Fri Nov 24 2023 Packit <hello@packit.dev> - 5.1.8-1
 - Release 5.1.8
 - Update translations from weblate

@@ -1,18 +1,15 @@
 %define		gem_name		zoom
 
-%if 0%{?fedora} < 19
-%define		rubyabi		1.9.1
-%endif
-
-
 Name:		rubygem-%{gem_name}
 Version:	0.5.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Ruby binding to ZOOM
 
-License:	LGPLv2+
-URL:		http://ruby-zoom.rubyforge.org/
-Source0:	http://gems.rubyforge.org/gems/%{gem_name}-%{version}.gem
+# README.md
+# SPDX confirmed
+License:	LGPL-2.1-only
+URL:		https://github.com/bricestacey/ruby-zoom
+Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygem(rake)
@@ -49,45 +46,41 @@ This package contains documentation for %{name}.
 
 
 %prep
-%setup -q -c -T
-TOPDIR=$(pwd)
-
-mkdir TMP
-cd TMP
-
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 %{_fixperms} .
 
-gem build %{gem_name}.gemspec
-cp -p ./%{gem_name}-%{version}.gem $TOPDIR
-
 %build
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
-chmod 0644 ./%{gem_cache}
 find . -type f -print0 | xargs --null chmod ugo+r
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
 cp -a ./%{gem_dir}/* %{buildroot}%{gem_dir}/
 
-# If there are C extensions, mv them to the extdir.
-# $REQUIRE_PATHS is taken from the first value of the require_paths field in
-# the gemspec file.  It will typically be either "lib" or "ext".  For instance:
-#  s.require_paths = ["lib"] 
 mkdir -p %{buildroot}%{gem_extdir_mri}
 cp -a ./%{gem_extdir_mri}/* %{buildroot}%{gem_extdir_mri}/
 
-pushd %{buildroot}
-rm -f .%{gem_extdir_mri}/{gem_make.out,mkmf.log}
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_extdir_mri}
+rm -f \
+	gem_make.out \
+	mkmf.log \
+	%{nil}
 popd
 
 # clean the built bits out
-rm -rf %{buildroot}%{gem_instdir}/ext/
-rm -rf %{buildroot}%{gem_instdir}/.yardoc
+pushd %{buildroot}%{gem_instdir}
+rm -rf  \
+	Rakefile \
+	%{gem_name}.gemspec \
+	ext/ \
+	test/ \
+	%{nil}
+popd
 
 %check
 # Net connection needed, disabling now.
@@ -101,22 +94,24 @@ ruby \
 popd
 
 %files
-%dir %{gem_extdir_mri}
+%dir	%{gem_instdir}/
+%doc	%{gem_instdir}/ChangeLog
+%license	%{gem_instdir}/README.md
+
+%dir	%{gem_extdir_mri}
 %{gem_extdir_mri}/*
-%dir %{gem_instdir}/
-%doc %{gem_instdir}/[A-Z]*
 
 %{gem_spec}
 
-%exclude	%{gem_cache}
-
 %files doc
 %{gem_docdir}/
-%exclude	%{gem_instdir}/Rakefile
 %{gem_instdir}/sample/
-%exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Dec  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-30
+- Update to the modern spec style
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,6 +12,10 @@ URL: http://gretl.sourceforge.net/
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 #Licensing of plugins used in gretl
 Source1: gretl_plugins.txt
+%if 0%{?fedora} >= 40
+ExcludeArch: %{ix86}
+%endif
+
 
 
 BuildRequires:	bash-completion
@@ -143,6 +147,7 @@ desktop-file-install						\
 %changelog
 * Thu Dec 07 2023 Johannes Lips <hannes@fedoraproject.org> - 2023c-1
 - Update to 2023c
+- disable 32bit builds starting with f40
 
 * Sun Jul 23 2023 Johannes Lips <hannes@fedoraproject.org> - 2023b-1
 - Update to 2023b

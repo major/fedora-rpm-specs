@@ -2,21 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate palette_derive
+%global crate fast-srgb8
 
-Name:           rust-palette_derive
-Version:        0.7.3
+Name:           rust-fast-srgb8
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Automatically implement traits from the palette crate
+Summary:        Very fast conversions between linear float and 8-bit sRGB
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/palette_derive
+URL:            https://crates.io/crates/fast-srgb8
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * remove non-acceptable "CC0-1.0" license alternative from crate metadata
+Patch:          fast-srgb8-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Automatically implement traits from the palette crate.}
+Very fast conversions between linear float and 8-bit sRGB (with no_std
+support).}
 
 %description %{_description}
 
@@ -45,18 +49,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+find-crate-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+find-crate-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "find-crate" feature of the "%{crate}" crate.
-
-%files       -n %{name}+find-crate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

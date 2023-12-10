@@ -1,6 +1,6 @@
 Name:           subnetcalc
-Version:        2.4.22
-Release:        2%{?dist}
+Version:        2.4.23
+Release:        1%{?dist}
 Summary:        IPv4/IPv6 Subnet Calculator
 License:        GPLv3+
 URL:            https://www.nntb.no/~dreibh/subnetcalc/
@@ -36,6 +36,9 @@ interface ID, etc.).
 %{_mandir}/man1/subnetcalc.1*
 
 %changelog
+* Fri Dec  8 2023 Yanko Kaneti <yaneti@declera.com> - 2.4.23-1
+- Update to 2.4.23
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

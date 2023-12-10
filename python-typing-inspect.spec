@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Runtime inspection utilities for typing module
 
 License:        MIT
@@ -54,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_srcname}-%{version}-py*.egg-info
 
 %changelog
+* Fri Dec 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.0-2
+- Affirm SPDX license tag
+
 * Mon Nov 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.0-1
 - 0.9.0
 

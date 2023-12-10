@@ -10,7 +10,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -78,6 +78,12 @@ Patch3: patch-cyrus-perl-linking
 # TODO: report upstream with patch
 Patch4: patch-cyrus-remove-always-inline-for-buf-len
 Patch5: patch-cyrus-rename-imtest
+# Port to pcre2posix instead of the deprecated pcreposix
+# https://github.com/cyrusimap/cyrus-imapd/pull/4736
+Patch6: patch-cyrus-pcre2
+# Fix build with libxml2 2.12.0
+# https://github.com/cyrusimap/cyrus-imapd/pull/4745
+Patch7: patch-cyrus-libxml212
 
 BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
 BuildRequires: groff libtool make pkgconfig rsync systemd transfig
@@ -93,7 +99,7 @@ BuildRequires: clamav-devel shapelib-devel
 BuildRequires: CUnit-devel cyrus-sasl-devel glib2-devel
 BuildRequires: jansson-devel krb5-devel libical-devel libicu-devel
 BuildRequires: libnghttp2-devel libxml2-devel mariadb-connector-c-devel net-snmp-devel
-BuildRequires: openldap-devel openssl-devel pcre-devel libpq-devel
+BuildRequires: openldap-devel openssl-devel pcre2-devel libpq-devel
 BuildRequires: sqlite-devel xapian-core-devel
 
 # Miscellaneous modules needed for 'make check' to function:
@@ -364,6 +370,9 @@ for i in perl/annotator perl/imap perl/sieve/managesieve; do
     perl Makefile.PL INSTALLDIRS=vendor # NO_PERLOCAL=1 NO_PACKLIST=1
     popd
 done
+
+# rebuild for patch-cyrus-pcre2
+rm -f sieve/sieve.c
 
 %make_build
 
@@ -812,6 +821,10 @@ exclude+=("!Master.maxforkrate")
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Thu Nov 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.8.1-3
+- Use pcre2posix instead of the deprecated pcreposix (rhbz#2128286)
+- Fix build with libxml2 2.12.0 (rhbz#2251888)
+
 * Mon Oct 02 2023 Martin Osvald <mosvald@redhat.com> - 3.8.1-2
 - SPDX migration
 

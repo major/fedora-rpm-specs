@@ -40,7 +40,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -66,6 +66,7 @@ Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
 Patch4:			proftpd-1.3.6-no-mod-wrap.patch
 Patch5:			proftpd-1.3.6-no-mod-geoip.patch
 Patch7:			proftpd-1.3.8-configure-c99.patch
+Patch8:			proftpd-configure-c99-2.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -264,6 +265,9 @@ mv contrib/README contrib/README.contrib
 
 # Port configure script to C99: https://github.com/proftpd/proftpd/pull/1665
 %patch -P 7 -p1 -b .c99
+
+# C compatibility port part 2: https://github.com/proftpd/proftpd/pull/1754
+%patch -P 8 -p1 -b .c99-2
 
 # OpenSSL Cipher Profiles introduced in Fedora 21
 # Elsewhere, we use the default of DEFAULT:!ADH:!EXPORT:!DES
@@ -502,6 +506,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 1.3.8a-2
+- Additional C compatibility fix
+
 * Mon Oct  9 2023 Paul Howarth <paul@city-fan.org> - 1.3.8a-1
 - Update to 1.3.8a
   - Fix mod_sftp failure to handle SFTP requests to truncate files to zero size

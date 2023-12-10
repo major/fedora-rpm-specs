@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        23.10.0
+Version:        23.11.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -216,6 +216,7 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/cli/test_main_notices.py::test_notices_cannot_read_cache_files \
     --deselect=tests/cli/test_main_rename.py \
     --deselect=tests/cli/test_main_run.py \
+    --deselect=tests/cli/test_subcommands.py::test_create[libmamba] \
     --deselect=tests/cli/test_subcommands.py::test_env_create \
     --deselect=tests/cli/test_subcommands.py::test_env_update \
     --deselect=tests/cli/test_subcommands.py::test_init \
@@ -227,6 +228,8 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/cli/test_subcommands.py::test_rename \
     --deselect=tests/cli/test_subcommands.py::test_run \
     --deselect=tests/cli/test_subcommands.py::test_search \
+    --deselect=tests/cli/test_subcommands.py::test_update[libmamba-update] \
+    --deselect=tests/cli/test_subcommands.py::test_update[libmamba-upgrade] \
     --deselect=tests/cli/test_subcommands.py::test_update[update] \
     --deselect=tests/cli/test_subcommands.py::test_update[upgrade] \
     --deselect=tests/core/test_package_cache_data.py::test_ProgressiveFetchExtract_prefers_conda_v2_format \
@@ -241,6 +244,8 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/core/test_solve.py::test_timestamps_1[libmamba] \
     --deselect=tests/core/test_solve.py::test_remove_with_constrained_dependencies[libmamba] \
     --deselect=tests/gateways/test_jlap.py::test_download_and_hash \
+    --deselect=tests/gateways/test_jlap.py::test_jlap_fetch_ssl[True] \
+    --deselect=tests/gateways/test_jlap.py::test_jlap_fetch_ssl[False] \
     --deselect=tests/test_plan.py::test_pinned_specs_conda_meta_pinned \
     --deselect=tests/test_plan.py::test_pinned_specs_condarc \
     --deselect=tests/test_plan.py::test_pinned_specs_all \

@@ -3,14 +3,14 @@
 
 Name:      percolator
 Summary:   Software for postprocessing of shotgun proteomics data
-Version:   3.06.03
+Version:   3.06.04
 Release:   1%{?dist}
 
 ## Code under src/ (except RAMP) is licensed under a ASL 2.0 license.
 ## Code under src/converters/MSToolkit/RAMP is licensed under a LGPLv2+ license.
 License:   Apache-2.0 AND LGPL-2.0-or-later
 URL:       https://github.com/percolator/percolator
-Source0:   https://github.com/percolator/percolator/archive/rel-3-06-02/percolator-rel-3-06-03.tar.gz
+Source0:   https://github.com/percolator/percolator/archive/rel-3-06-04/percolator-rel-3-06-04.tar.gz
 ## Example files for testing
 ## https://github.com/percolator/percolator/wiki/Example
 Source1:   http://noble.gs.washington.edu/proj/percolator/data/yeast-01.sqt.tar.gz
@@ -62,7 +62,7 @@ Summary: percolator static libraries
 This package contains static libraries of %{name}.
 
 %prep
-%autosetup -n percolator-rel-3-06-03
+%autosetup -n percolator-rel-3-06-04
 tar -xvf %{SOURCE1}
 
 ## Remove spurious executable permissions
@@ -208,6 +208,9 @@ popd
 %{_libdir}/percolator/
 
 %changelog
+* Fri Dec 08 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.06.04-1
+- Release 3.06.04
+
 * Sun Dec 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.06.03-1
 - Release 3.06.03
 
