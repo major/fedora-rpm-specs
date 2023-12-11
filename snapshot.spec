@@ -9,7 +9,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           snapshot
-Version:        45.0
+Version:        45.1
 Release:        %autorelease
 Summary:        Take pictures and videos
 
@@ -33,9 +33,6 @@ Source:         https://download.gnome.org/sources/snapshot/45/snapshot-%{tarbal
 
 # Downstream patch to disable linting as part of self tests
 Patch:          0001-Disable-cargo-clippy-test.patch
-
-# https://gitlab.gnome.org/GNOME/snapshot/-/merge_requests/168
-Patch:          168.patch
 
 # https://gitlab.gnome.org/GNOME/snapshot/-/merge_requests/175
 Patch:          175.patch

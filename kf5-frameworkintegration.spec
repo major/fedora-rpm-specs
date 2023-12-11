@@ -1,8 +1,8 @@
 %global framework frameworkintegration
 
 Name:    kf5-%{framework}
-Version: 5.111.0
-Release: 3%{?dist}
+Version: 5.113.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -108,6 +108,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
+- 5.113.0
+
 * Tue Nov 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.111.0-3
 - Disable appstream support for F40+
 

@@ -6,7 +6,10 @@ Version:        3.25.0
 Release:        3%{?dist}
 Summary:        Braille translation and back-translation library
 
-License:        LGPLv3+
+# project moved LGPL-2.1-or-later
+# but some files remained under orginal LGPL-3.0-or-later
+# cli utils are GPL-3.0-or-later
+License:        LGPL-2.1-or-later AND LGPL-3.0-or-later AND GPL-3.0-or-later
 URL:            http://liblouis.org
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 

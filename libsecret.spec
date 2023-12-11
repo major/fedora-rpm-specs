@@ -6,7 +6,7 @@
 %endif
 
 Name:           libsecret
-Version:        0.21.1
+Version:        0.21.2
 Release:        1%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
@@ -89,6 +89,9 @@ rm -rf build/valgrind/
 
 
 %changelog
+* Sat Dec 09 2023 Kalev Lember <klember@redhat.com> - 0.21.2-1
+- Update to 0.21.2
+
 * Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 0.21.1-1
 - Update to 0.21.1
 

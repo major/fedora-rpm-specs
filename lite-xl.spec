@@ -1,7 +1,8 @@
+%global rc 2.1.2-rc3
 %global forgeurl    https://github.com/lite-xl/lite-xl
 
 Name:    lite-xl
-Version: 2.1.1
+Version: 2.1.2~rc3
 
 Release: %autorelease
 
@@ -10,7 +11,7 @@ Release: %autorelease
 Summary: A lightweight text editor written in Lua, adapted from lite
 License: MIT and OFL
 URL:     https://lite-xl.com/
-Source:  %{forgesource}
+Source:  https://github.com/lite-xl/lite-xl/archive/refs/tags/v2.1.2-rc3.tar.gz
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -34,10 +35,11 @@ The aim of Lite XL compared to lite is to be more user friendly,
 improve the quality of font rendering, and reduce CPU usage.
 
 %prep
-%forgesetup
+# %forgesetup 
+%autosetup -n lite-xl-2.1.2-rc3
 
 %build
-%meson -Darch_tuple=%{_arch}-linux
+%meson -Darch_tuple=%{_arch}-linux -Duse_system_lua=true
 %meson_build
 
 %install

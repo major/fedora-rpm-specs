@@ -23,23 +23,15 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %endif
 Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
-
-BuildRequires:  cyrus-sasl-devel
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
 %global kf5_ver 5.83
-BuildRequires:  kf5-kdbusaddons-devel >= %{kf5_ver}
 BuildRequires:  kf5-kio-devel >= %{kf5_ver}
 BuildRequires:  kf5-kconfig-devel >= %{kf5_ver}
 BuildRequires:  kf5-ki18n-devel >= %{kf5_ver}
-BuildRequires:  kf5-kcmutils-devel >= %{kf5_ver}
-BuildRequires:  kf5-kitemmodels-devel >= %{kf5_ver}
 BuildRequires:  kf5-prison-devel >= %{kf5_ver}
 
 BuildRequires:  cmake(Grantlee5) >= 5.1
-BuildRequires:  qt5-qtwebengine-devel
 BuildRequires:  cmake(Qt5Widgets) >= 5.8
 
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
@@ -52,7 +44,7 @@ BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
 %endif
 BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
 BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkleo-devel >= %{majmin_ver}
+#BuildRequires:  kf5-libkleo-devel >= %{majmin_ver}
 
 %if 0%{?tests}
 BuildRequires: kf5-akonadi-server >= %{majmin_ver}

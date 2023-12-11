@@ -6,7 +6,7 @@
 %endif
 
 Name:           guacamole-server
-Version:        1.5.3
+Version:        1.5.4
 Release:        1%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
@@ -196,7 +196,7 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %files -n libguac
 %license LICENSE
 %doc README CONTRIBUTING
-%{_libdir}/libguac.so.21*
+%{_libdir}/libguac.so.23*
 %{_libdir}/libguac-terminal.so.0*
 
 %files -n libguac-devel
@@ -245,6 +245,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Sat Dec 09 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.4-1
+- Update to 1.5.4 (#2223510)
+
 * Wed Aug 02 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.3-1
 - Update to 1.5.3 (#2223510)
 

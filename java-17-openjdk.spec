@@ -203,6 +203,9 @@
 %global vm_variant server
 %endif
 
+# debugedit tool for rewriting ELF file paths
+%global debugedit %( if [ -f "%{_rpmconfigdir}/debugedit"  ]; then echo "%{_rpmconfigdir}/debugedit" ; else echo "/usr/bin/debugedit"; fi )
+
 # With disabled nss is NSS deactivated, so NSS_LIBDIR can contain the wrong path
 # the initialization must be here. Later the pkg-config have buggy behavior
 # looks like openjdk RPM specific bug
@@ -325,10 +328,10 @@
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
-%global top_level_dir_name   %{origin}
+%global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1693,6 +1696,8 @@ if [ %{include_debug_build} -eq 0 -a  %{include_normal_build} -eq 0 -a  %{includ
   echo "You have disabled all builds (normal,fastdebug,slowdebug). That is a no go."
   exit 14
 fi
+
+%setup -q -c -n %{uniquesuffix ""} -T
 # https://bugzilla.redhat.com/show_bug.cgi?id=1189084
 prioritylength=`expr length %{priority}`
 if [ $prioritylength -ne 8 ] ; then
@@ -1770,6 +1775,29 @@ done
 done
 
 %build
+# we need to symlink sources to expected lcoation, so debuginfo strip can locate debugsources
+src_image=`ls -d %{compatiblename}*%{version}*portable.sources.noarch`
+ln -s $src_image/%{vcstag} %{vcstag} # this one shpuld be enoug
+# cpio is complaining baout several files from build dir. Attempt here, but seems not to be correct
+# as those sources are generated during build and so it have to be fixed in portables first
+mkdir build
+pushd build
+  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build
+  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build-fastdebug
+  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build-slowdebug
+popd
+doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
+# in addition the builddir must match the builddir of the portables, including release
+# be aware, even os may be different, especially with buildonce, repack everywhere
+# so deducting it from installed deps
+portablenvr=`ls -d %{compatiblename}*%{version}*portable*.misc.%{_arch} | sed "s/portable.*.misc.//"`
+portablebuilddir=/builddir/build/BUILD
+  # Fix build paths in ELF files so it looks like we built them
+  for file in $(find `pwd` -type f | grep -v -e "$src_image" -e "$doc_image") ; do
+      if file ${file} | grep -q 'ELF'; then
+          %{debugedit} -b "${portablebuilddir}/${portablenvr}" -d "$(pwd)" -n "${file}"
+      fi
+  done
 
 %install
 function installjdk() {
@@ -1974,7 +2002,7 @@ pushd ${jdk_image}
   # Install systemtap support files
   install -dm 755 $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset
   # note, that uniquesuffix  is in BUILD dir in this case
-  cp -a $RPM_BUILD_DIR/tapset$suffix/*.stp $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
+  cp -a $RPM_BUILD_DIR/%{uniquesuffix ""}/tapset$suffix/*.stp $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
   pushd  $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
    tapsetFiles=`ls *.stp`
   popd
@@ -2382,6 +2410,13 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Sat Dec 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.9.0.9-2
+- proeprly filing debugsources pkg
+  by addedd symlinks restructuring the structure for original build sources
+- according to logs, some are still missing
+  probably generated during the build, and thus not existing in prep,
+  when the sources subpkg is created after patching
+
 * Wed Nov 22 2023 Jiri Vanek <jvanek@redhat.com> -  1:17.0.9.0.9-1
 - updated to OpenJDK 17.0.9 (2023-10-17)
 

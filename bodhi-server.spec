@@ -1,6 +1,6 @@
 %global pypi_name bodhi-server
 %global src_name bodhi_server
-%global pypi_version 7.2.2
+%global pypi_version 8.0.0
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
@@ -32,8 +32,8 @@ BuildRequires:  createrepo_c
 BuildRequires:  skopeo
 BuildRequires:  dnf
 
-Requires: bodhi-client >= 7.0.0
-Requires: python3-bodhi-messages >= 7.2.0
+Requires: bodhi-client >= 8.0.0
+Requires: python3-bodhi-messages >= 8.0.0
 Requires: fedora-messaging
 Requires: git
 Requires: httpd
@@ -67,7 +67,7 @@ Summary: Bodhi composer backend
 Requires: %{py3_dist jinja2}
 Requires: bodhi-server == %{version}-%{release}
 Requires: pungi >= 4.1.20
-Requires: python3-createrepo_c
+Requires: python3-createrepo_c >= 1.0.0
 Requires: skopeo
 
 %description -n bodhi-composer
@@ -119,8 +119,8 @@ install -p -D -m 0644 %{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.sysus
 # config file url doesn't work in Koji
 export BODHI_CONFIG=$(pwd)/tests/testing.ini
 
-# sanity check repodata is broken with createrepo_c v1.0 when using compression
-# excluding tests while fixing upstream
+# sanity_checks tests rely on dnf command, but system's dnf cache is not accessible
+# within koji
 %{pytest} -v -k 'not sanity_check and not TestSanityCheckRepodata'
 
 %pre -n %{pypi_name}
@@ -136,7 +136,6 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %{_bindir}/bodhi-push
 %{_bindir}/bodhi-sar
 %{_bindir}/bodhi-shell
-%{_bindir}/bodhi-skopeo-lite
 %{_bindir}/bodhi-untag-branched
 %{_bindir}/initialize_bodhi_db
 %config(noreplace) %{_sysconfdir}/bodhi/alembic.ini
@@ -163,6 +162,9 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Sat Dec 09 2023 Mattia Verga <mattia.verga@proton.me> - 8.0.0-1
+- Update to 8.0.0
+
 * Tue Oct 03 2023 Mattia Verga <mattia.verga@proton.me> - 7.2.2-1
 - Update to 7.2.2
 

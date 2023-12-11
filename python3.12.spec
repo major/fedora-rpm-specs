@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.0
+%global general_version %{pybasever}.1
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -1388,6 +1388,7 @@ CheckPython optimized
 %{pylibdir}/multiprocessing
 
 %dir %{pylibdir}/re/
+%dir %{pylibdir}/re/__pycache__/
 %{pylibdir}/re/*.py
 %{pylibdir}/re/__pycache__/*%{bytecode_suffixes}
 
@@ -1397,6 +1398,7 @@ CheckPython optimized
 %{pylibdir}/sqlite3/__pycache__/*%{bytecode_suffixes}
 
 %dir %{pylibdir}/tomllib/
+%dir %{pylibdir}/tomllib/__pycache__/
 %{pylibdir}/tomllib/*.py
 %{pylibdir}/tomllib/__pycache__/*%{bytecode_suffixes}
 %exclude %{pylibdir}/turtle.py
@@ -1406,14 +1408,18 @@ CheckPython optimized
 %{pylibdir}/xml
 
 %dir %{pylibdir}/zipfile/
+%dir %{pylibdir}/zipfile/__pycache__/
 %{pylibdir}/zipfile/*.py
 %{pylibdir}/zipfile/__pycache__/*%{bytecode_suffixes}
+%dir %{pylibdir}/zipfile/_path/
+%dir %{pylibdir}/zipfile/_path/__pycache__/
 %{pylibdir}/zipfile/_path/*.py
 %{pylibdir}/zipfile/_path/__pycache__/*%{bytecode_suffixes}
 
 %{pylibdir}/zoneinfo
 
-%dir %{pylibdir}/__phello__
+%dir %{pylibdir}/__phello__/
+%dir %{pylibdir}/__phello__/__pycache__/
 %{pylibdir}/__phello__/__init__.py
 %{pylibdir}/__phello__/spam.py
 %{pylibdir}/__phello__/__pycache__/*%{bytecode_suffixes}
@@ -1666,6 +1672,11 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Dec 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.1-1
+- Update to 3.12.1
+- Own stray directories in /usr/lib64/python3.12
+- Fixes: rhbz#2252143
+
 * Thu Oct 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.0-2
 - Use bundled libb2 in RHEL builds
 

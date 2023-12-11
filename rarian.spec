@@ -1,6 +1,6 @@
 
 Name: rarian
-Version: 0.8.4
+Version: 0.8.5
 Release: %{autorelease}
 License: LGPL-2.1-or-later AND Zlib
 Summary: Documentation meta-data library

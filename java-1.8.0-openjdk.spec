@@ -1,6 +1,3 @@
-#FATAILITY 
-%global debug_package %{nil}
-
 # RPM conditionals so as to be able to dynamically produce
 # slowdebug/release builds. See:
 # http://rpm.org/user_doc/conditional_builds.html
@@ -171,7 +168,7 @@
 %endif
 
 # debugedit tool for rewriting ELF file paths
-%global debugedit %{_rpmconfigdir}/debugedit
+%global debugedit %( if [ -f "%{_rpmconfigdir}/debugedit"  ]; then echo "%{_rpmconfigdir}/debugedit" ; else echo "/usr/bin/debugedit"; fi )
 
 # With disabled nss is NSS deactivated, so NSS_LIBDIR can contain the wrong path
 # the initialization must be here. Later the pkg-config have buggy behavior
@@ -256,6 +253,7 @@
 %endif
 
 # New Version-String scheme-style defines
+%global featurever 8
 %global majorver 8
 
 # Define version of OpenJDK 8 used
@@ -294,6 +292,7 @@
 %global origin          openjdk
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{shenandoah_revision}
+%global vcstag   %{shenandoah_revision}
 
 # Settings for local security configuration
 %global security_file %{top_level_dir_name}/jdk/src/share/lib/security/java.security-%{_target_os}
@@ -327,7 +326,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      4
+%global rpmrelease      5
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -1884,6 +1883,31 @@ done
 #sed -i -e "s:^security.systemCACerts=.*:security.systemCACerts=%{cacerts_file}:" `find . -name "java.security-%{_target_os}"`
 
 %build
+# we need to symlink sources to expected lcoation, so debuginfo strip can locate debugsources
+src_image=`ls -d %{compatiblename}*%{version}*portable.sources.noarch`
+ln -s $src_image/%{vcstag} %{vcstag} # this one shpuld be enoug
+# cpio is complaining baout several files from build dir. Attempt here, but seems not to be correct
+# as those sources are generated during build and so it have to be fixed in portables first
+mkdir build
+pushd build
+  ln -s ../$src_image/%{vcstag} jdk%{featurever}.build
+  ln -s ../$src_image/%{vcstag} jdk%{featurever}.build-fastdebug
+  ln -s ../$src_image/%{vcstag} jdk%{featurever}.build-slowdebug
+popd
+doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
+# in addition the builddir must match the builddir of the portables, including release
+# be aware, even os may be different, especially with buildonce, repack everywhere
+# so deducting it from installed deps
+# portable jdk8 are currently wrongly named as java-1.8.0-openjdk-portable instead just java-1.8.0-openjdk
+# thus the regex must be slightly stricter. todo, fix in portables
+portablenvr=`ls -d %{compatiblename}*%{version}*portable*.misc.%{_arch} | sed "s/portable.misc.//"`
+portablebuilddir=/builddir/build/BUILD
+  # Fix build paths in ELF files so it looks like we built them
+  for file in $(find `pwd` -type f | grep -v -e "$src_image" -e "$doc_image") ; do
+      if file ${file} | grep -q 'ELF'; then
+          %{debugedit} -b "${portablebuilddir}/${portablenvr}" -d "$(pwd)" -n "${file}"
+      fi
+  done
 
 %install
 function installjdk() {
@@ -2558,7 +2582,14 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
-* Fri Sep 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.8.0.392.b08-4
+* Sat Dec 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.392.b08-5
+- proeprly filing debugsources pkg
+  by addedd symlinks restructuring the structure for original build sources
+- according to logs, some are still missing
+  probably generated during the build, and thus not existing in prep,
+  when the sources subpkg is created after patching
+
+* Wed Nov 22 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.392.b08-4
 - updated to jdk8u392+b08
 - adjsuted to use unstripped portables
 - temporarily manually turned off debuginfo

@@ -14,7 +14,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.3.6
+Version:       2.3.7
 Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -30,6 +30,9 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:       copy-patches.sh
+
+# Fixes a crash in virt-v2v and virt-customize
+Patch:         0001-Update-common-submodule.patch
 
 %if !0%{?rhel}
 # libguestfs hasn't been built on i686 for a while since there is no
@@ -47,8 +50,6 @@ ExcludeArch:   %{ix86}
 # not on s390x because it is not useful there
 ExclusiveArch: x86_64
 %endif
-
-Patch:         0001-common-Update-submodule.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -310,6 +311,9 @@ done
 
 
 %changelog
+* Sat Dec 09 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.7-2
+- New development branch version 2.3.7
+
 * Mon Nov 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.6-2
 - Fix build for libxml2 2.12.1
 

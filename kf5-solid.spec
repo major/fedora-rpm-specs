@@ -1,7 +1,7 @@
 %global framework solid
 
 Name:    kf5-%{framework}
-Version: 5.111.0
+Version: 5.113.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
@@ -103,6 +103,9 @@ sed -i -e 's/if(WITH_NEW_SOLID_JOB AND WITH_NEW_POWER_ASYNC_API)/if(0)/g' \
 
 
 %changelog
+* Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
+- 5.113.0
+
 * Tue Oct 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.111.0-1
 - 5.111.0
 

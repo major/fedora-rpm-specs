@@ -52,13 +52,13 @@
 # set esbuild_version
 %global esbuild_version 0.19.2
 
-# set version for devtoolset and gcc-toolset
+# set latest version for devtoolset and gcc-toolset
 %global dts_version 12
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %global dts_version 13
 %endif
 
-# set version for llvm-toolset on el7
+# set latest version for llvm-toolset on el7
 %global llvm_toolset_version 14.0
 
 # set name for toolset
@@ -1196,7 +1196,7 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}
-CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true'
+CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true chrome_pgo_phase=0'
 sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/generate_shim_headers.py
 %endif
 

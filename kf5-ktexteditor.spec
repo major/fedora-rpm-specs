@@ -10,8 +10,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.111.0
-Release: 2%{?dist}
+Version: 5.113.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 with advanced embeddable text editor
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND MIT
@@ -145,6 +145,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
+- 5.113.0
+
 * Sat Nov 18 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-2
 - kf6 compatibility support
 

@@ -24,7 +24,7 @@
 %global xamarinrelease 199
 Name:           mono
 Version:        6.12.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -58,6 +58,7 @@ Patch11:        0001-Replace-new-Csharp-features-with-old-ones.patch
 Patch12:        0001-Reenable-mdoc.exe-build.patch
 # fix issue with conflicts between i686 and x86_64 package (#1853724)
 Patch13:	mono-6.6.0-fix-multi-arch-issue.patch
+Patch14:        mono-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  bison
@@ -349,6 +350,7 @@ pushd external/api-doc-tools
 popd
 %patch -P 12 -p1
 %patch -P 13 -p1
+%patch -P 14 -p1
 
 # don't build mono-helix-client which requires the helix-binaries to build
 sed -i 's|mono-helix-client||g' mcs/tools/Makefile
@@ -941,6 +943,9 @@ cert-sync --quiet /etc/pki/tls/certs/ca-bundle.crt
 %files complete
 
 %changelog
+* Sat Dec  9 2023 Florian Weimer <fweimer@redhat.com> - 6.12.0-14
+- Fix C compatibility issue in the configure script
+
 * Sat Aug 12 2023 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 6.12.0-13
 - Upgrade to Mono 6.12.0.199
 

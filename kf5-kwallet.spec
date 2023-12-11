@@ -11,8 +11,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.111.0
-Release: 4%{?dist}
+Version: 5.113.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
@@ -146,6 +146,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
+- 5.113.0
+
 * Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-4
 - Require kf6-kwallet if compat build
 

@@ -1,6 +1,6 @@
 Name:           libxml2
 Version:        2.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing XML and HTML support
 
 # Libxml2 is covered under MIT, and the conformance and test suite data in
@@ -17,6 +17,8 @@ Patch0:         libxml2-multilib.patch
 # Patch from openSUSE.
 # See:  https://bugzilla.gnome.org/show_bug.cgi?id=789714
 Patch1:         libxml2-2.12.0-python3-unicode-errors.patch
+# https://gitlab.gnome.org/GNOME/libxml2/-/issues/642
+Patch2:         libxml2-2.12.2-add-missing-includes.patch
 
 BuildRequires:  cmake-rpm-macros
 BuildRequires:  gcc
@@ -89,7 +91,6 @@ find doc -type f -executable -print -exec chmod 0644 {} ';'
     --enable-static \
     --with-legacy \
     --with-ftp \
-    --with-xptr-locs \
     --with-python=%{__python3}
 %make_build
 
@@ -158,6 +159,9 @@ popd
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Sat Dec 09 2023 David King <amigadave@amigadave.com> - 2.12.2-2
+- Upstream patch to add extra includes
+
 * Wed Dec 06 2023 David King <amigadave@amigadave.com> - 2.12.2-1
 - Update to 2.12.2 (#2137281)
 - Enable W3C XML Conformance and Schema test suites

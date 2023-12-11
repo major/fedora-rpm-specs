@@ -1,5 +1,5 @@
 Name: bandit
-Version: 1.7.5
+Version: 1.7.6
 Release: %autorelease
 Summary: A framework for performing security analysis of Python source code
 
@@ -32,10 +32,6 @@ that lists security issues identified within the target source code.
 
 # remove test that requires bs4
 rm tests/unit/formatters/test_html.py
-
-# Add missing requirement on pbr
-# https://github.com/PyCQA/bandit/pull/959
-echo "pbr" >> requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r

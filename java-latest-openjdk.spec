@@ -1791,9 +1791,9 @@ ln -s $src_image/%{vcstag} %{vcstag} # this one shpuld be enoug
 # as those sources are generated during build and so it have to be fixed in portables first
 mkdir build
 pushd build
-  ln -s ../$src_image/%{vcstag}/src jdk21.build
-  ln -s ../$src_image/%{vcstag}/src jdk21.build-fastdebug
-  ln -s ../$src_image/%{vcstag}/src jdk21.build-slowdebug
+  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build
+  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build-fastdebug
+  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build-slowdebug
 popd
 doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
 # in addition the builddir must match the builddir of the portables, including release
@@ -2418,7 +2418,7 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
-* Wed Nov 22 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.1.0.12-3.rolling
+* Sat Dec 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.1.0.12-3.rolling
 - proeprly filing debugsources pkg
   by addedd symlinks restructuring the structure for original build sources
 - according to logs, some are still missing

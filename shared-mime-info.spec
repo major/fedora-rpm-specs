@@ -16,6 +16,9 @@ Source7: shared-mime-info-2.1-CFLAGS.patch
 
 # Work-around for https://bugs.freedesktop.org/show_bug.cgi?id=40354
 Patch0: 0001-Remove-sub-classing-from-OO.o-mime-types.patch
+# Fix build with libxml2 2.12.0
+# https://gitlab.freedesktop.org/xdg/shared-mime-info/-/issues/219
+Patch1: 0002-Fix-build-with-libxml2-2.12.0.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

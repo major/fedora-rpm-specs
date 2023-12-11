@@ -1,8 +1,8 @@
 %global appid com.github.quaternion
 %global forgeurl    https://github.com/quotient-im/Quaternion
-%global commit      3d7083aad02b8892b2ba6843d64ff9766095f52f
+%global commit      c287f84237ffbfd73298c4054b677622287a0572
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snapdate    20230827
+%global snapdate    20231202
 
 Name:       quaternion
 Version:    0.0.95.50~%{snapdate}g%{shortcommit}
@@ -10,7 +10,7 @@ Release:    %autorelease
 
 %forgemeta
 
-Summary:    A Qt5-based IM client for Matrix
+Summary:    A Qt-based IM client for Matrix
 License:    GPL-3.0-or-later
 URL:        %{forgeurl}
 Source0:    %{forgesource}
@@ -22,21 +22,19 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: cmake(Olm)
-BuildRequires: cmake(QtOlm)
-BuildRequires: cmake(Quotient)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5LinguistTools)
-BuildRequires: cmake(Qt5Multimedia)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5QuickWidgets)
-BuildRequires: cmake(Qt5Keychain)
+BuildRequires: cmake(QuotientQt6)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6QuickWidgets)
+BuildRequires: cmake(Qt6Keychain)
 
-Requires:       qt5-qtquickcontrols%{?_isa}
-Requires:       qt5-qtquickcontrols2%{?_isa}
+Requires:       qt6-qtquickcontrols2%{?_isa}
 Requires:       hicolor-icon-theme
 
 %description
@@ -48,7 +46,6 @@ Quaternion is a cross-platform desktop IM client for the Matrix protocol.
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_WITH_QT6=NO \
     -DUSE_INTREE_LIBQMC=NO
 %cmake_build
 

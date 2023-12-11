@@ -3,8 +3,8 @@
 %global framework kglobalaccel
 
 Name:    kf5-%{framework}
-Version: 5.111.0
-Release: 10%{?dist}
+Version: 5.113.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for global shortcuts
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -109,6 +109,9 @@ rm -fv %{buildroot}%{_prefix}/lib/systemd/user/plasma-kglobalaccel.service
 
 
 %changelog
+* Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
+- 5.113.0
+
 * Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-10
 - Don't require kglobalacceld
 

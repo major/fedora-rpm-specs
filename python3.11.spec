@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.6
+%global general_version %{pybasever}.7
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -316,6 +316,10 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00412 # cf7ebcc048985d04e2b253b7d1de81829ed267c9
+# Include new dir test/regrtestdata in the installation (GH-112765) (GH-112784)
+Patch412: 00412-include-new-dir-test-regrtestdata-in-the-installation-gh-112765-gh-112784.patch
 
 # (New patches go here ^^^)
 #
@@ -1340,6 +1344,7 @@ CheckPython optimized
 %{pylibdir}/multiprocessing
 
 %dir %{pylibdir}/re/
+%dir %{pylibdir}/re/__pycache__/
 %{pylibdir}/re/*.py
 %{pylibdir}/re/__pycache__/*%{bytecode_suffixes}
 
@@ -1349,6 +1354,7 @@ CheckPython optimized
 %{pylibdir}/sqlite3/__pycache__/*%{bytecode_suffixes}
 
 %dir %{pylibdir}/tomllib/
+%dir %{pylibdir}/tomllib/__pycache__/
 %{pylibdir}/tomllib/*.py
 %{pylibdir}/tomllib/__pycache__/*%{bytecode_suffixes}
 %exclude %{pylibdir}/turtle.py
@@ -1358,7 +1364,8 @@ CheckPython optimized
 %{pylibdir}/xml
 %{pylibdir}/zoneinfo
 
-%dir %{pylibdir}/__phello__
+%dir %{pylibdir}/__phello__/
+%dir %{pylibdir}/__phello__/__pycache__/
 %{pylibdir}/__phello__/__init__.py
 %{pylibdir}/__phello__/spam.py
 %{pylibdir}/__phello__/__pycache__/*%{bytecode_suffixes}
@@ -1616,6 +1623,11 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Dec 06 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.7-1
+- Update to 3.11.7
+- Own stray directories in /usr/lib64/python3.11
+- Fixes: rhbz#2252144
+
 * Tue Oct 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.11.6-2
 - Use bundled libb2 in RHEL builds
 

@@ -3,8 +3,8 @@
 %global framework kguiaddons
 
 Name:    kf5-%{framework}
-Version: 5.111.0
-Release: 4%{?dist}
+Version: 5.113.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with various classes on top of QtGui
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -78,6 +78,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
+- 5.113.0
+
 * Mon Oct 16 2023 Alessandro Astone <ales.astone@gmail.com> - 5.111.0-4
 - Fix kf6-kguiaddons requires to be arch-specific
 

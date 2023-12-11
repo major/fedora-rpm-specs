@@ -53,11 +53,11 @@ Name: %{?scl_prefix}gdb
 # See timestamp of source gnulib installed into gnulib/ .
 %global snapgnulib 20220501
 %global tarname gdb-%{version}
-Version: 13.2
+Version: 14.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 12%{?dist}
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -639,9 +639,7 @@ COMMON_GDB_CONFIGURE_FLAGS="\
 	--without-mmap						\
 %endif
 	--enable-64-bit-bfd					\
-%if 0%{!?rhel:1} || 0%{?rhel} > 6
-	--with-mpfr						\
-%else
+%if 0%{?rhel:1} && 0%{?rhel} <= 6
 	--without-mpfr						\
 %endif
 	--with-system-zlib					\
@@ -1252,6 +1250,33 @@ fi
 %endif
 
 %changelog
+* Fri Dec 8 2023 Kevin Buettner <kevinb@redhat.com> - 14.1-1
+- Rebase to FSF GDB 14.1.
+- Update local patches:
+    gdb-6.5-bz185337-resolve-tls-without-debuginfo-v2.patch
+    gdb-6.6-buildid-locate-rpm.patch
+    gdb-6.6-buildid-locate.patch
+    gdb-container-rh-pkg.patch
+    gdb-core-open-vdso-warning.patch
+    gdb-fedora-libncursesw.patch
+    gdb-linux_perf-bundle.patch
+- Update backported patches which didn't make it into 14.1:
+    gdb-rhbz-2232086-cpp-ify-mapped-symtab.patch
+    gdb-rhbz-2232086-generate-gdb-index-consistently.patch
+- Drop upstreamed local patches:
+    gdb-6.5-sharedlibrary-path.patch
+- Drop gdb-13.2 backports (which are now in gdb-14.1):
+    gdb-binutils29988-read_indexed_address.patch
+    gdb-bz2196395-debuginfod-legacy-openssl-crash.patch
+    gdb-bz2237392-dwarf-obstack-allocation.patch
+    gdb-bz2237515-debuginfod-double-free.patch
+    gdb-rhbz2192105-ftbs-dangling-pointer
+    gdb-rhbz2233961-CVE-2022-4806.patch
+    gdb-rhbz2233965-memory-leak.patch
+- Adjust gdb.spec so that --with-mpfr is no longer passed to
+  configure; doing so, combined with some configury changes triggered
+  a latent build problem.
+
 * Mon Dec 4 2023 Kevin Buettner <kevinb@redhat.com>
 - Remove gdb-6.5-missed-trap-on-step-test.patch.  Testing what happens
   when stepping over/through a statement which triggers a watchpoint

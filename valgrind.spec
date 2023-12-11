@@ -3,9 +3,9 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.22.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
-License: GPLv2+
+License: GPLv2+ AND BSD
 URL: https://www.valgrind.org/
 
 # Are we building for a Software Collection?
@@ -85,6 +85,10 @@ Patch5: valgrind-3.22.0-valgrind-monitor-python-re.patch
 # valgrind 3.22.0 fails on assertion when loading debuginfo
 # https://bugs.kde.org/show_bug.cgi?id=476548
 Patch6: valgrind-3.22.0-rodata.patch
+
+# Add fchmodat2 syscall on linux
+# https://bugs.kde.org/show_bug.cgi?id=477198
+Patch7: valgrind-3.22.0-fchmodat2.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -179,6 +183,11 @@ profiler (callgrind), and a heap profiler (massif).
 
 %package devel
 Summary: Development files for valgrind aware programs
+# This is really Hybrid-BSD
+# https://fedoraproject.org/wiki/Licensing:BSD#Hybrid_BSD_(half_BSD,_half_zlib)
+# But that doesnt have a SPDX identifier yet
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/422
+License: BSD
 Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
 
 %description devel
@@ -197,6 +206,7 @@ Header files and libraries for development of valgrind tools.
 %if %{build_openmpi}
 %package openmpi
 Summary: OpenMPI support for valgrind
+License: BSD
 Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
 
 %description openmpi
@@ -215,6 +225,7 @@ Valgrind User Manual for details.
 
 %patch -P5 -p1
 %patch -P6 -p1
+%patch -P7 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -431,6 +442,10 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Sat Dec  9 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-4
+- Add valgrind-3.22.0-fchmodat2.patch
+- Prep for migration to SPDX identifiers
+
 * Tue Dec  5 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-3
 - Add valgrind-3.22.0-rodata.patch
 

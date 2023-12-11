@@ -1,4 +1,4 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 # LTO triggers a compilation error for a source level issue.  Given that LTO should not
 # change the validity of any given source and the nature of the error (undefined enum), I
@@ -8,22 +8,22 @@
 
 %global dotnetver 8.0
 
-%global host_version 8.0.0-rc.1.23419.4
-%global runtime_version 8.0.0-rc.1.23419.4
-%global aspnetcore_runtime_version 8.0.0-rc.1.23421.29
-%global sdk_version 8.0.100-rc.1.23455.1
+%global host_version 8.0.0
+%global runtime_version 8.0.0
+%global aspnetcore_runtime_version 8.0.0
+%global sdk_version 8.0.100
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
-%global templates_version 8.0.0-rc.1.23421.29
+%global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
 
 # upstream can produce releases with a different tag than the SDK version
-%global upstream_tag v8.0.0-rc.1.23419.4
+%global upstream_tag v8.0.0
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
-%global host_rpm_version 8.0.0~rc.1
-%global runtime_rpm_version 8.0.0~rc.1
-%global aspnetcore_runtime_rpm_version 8.0.0~rc.1
-%global sdk_rpm_version 8.0.100~rc.1
+%global host_rpm_version %{host_version}
+%global runtime_rpm_version %{runtime_version}
+%global aspnetcore_runtime_rpm_version %{aspnetcore_runtime_version}
+%global sdk_rpm_version %{sdk_version}
 
 %if 0%{?fedora} || 0%{?rhel} < 8
 %global use_bundled_libunwind 0
@@ -48,13 +48,13 @@
 %global runtime_arch x64
 %endif
 
-%global mono_archs s390x ppc64le
+%global mono_archs ppc64le s390x
 
 %{!?runtime_id:%global runtime_id %(. /etc/os-release ; echo "${ID}.${VERSION_ID%%.*}")-%{runtime_arch}}
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        0%{?dist}.2
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
@@ -73,15 +73,9 @@ Source2:        dotnet-prebuilts-%{bootstrap_sdk_version}-ppc64le.tar.gz
 # Generated manually, same pattern as the arm64 tarball
 Source3:        dotnet-prebuilts-%{bootstrap_sdk_version}-s390x.tar.gz
 %else
-# For non-releases, the source is generated on a Fedora box via:
-# ./build-dotnet-tarball %%{upstream_tag} or commit
-%global tarball_name dotnet-sdk-source-%{upstream_tag}
-Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%{upstream_tag}.tar.gz#/dotnet-%{upstream_tag}.tar.gz
+Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%{upstream_tag}.tar.gz#/dotnet-%{upstream_tag_without_v}.tar.gz
 %endif
 Source5:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/release.json
-
-#Source10:       %%{tarball_name}-nm-dev.tgz
-#Source11:       %%{tarball_name}-nm-prod.tgz
 
 Source20:       check-debug-symbols.py
 Source21:       dotnet.sh.in
@@ -90,18 +84,6 @@ Source21:       dotnet.sh.in
 Patch1:         roslyn-analyzers-ppc64le-apphost.patch
 # https://github.com/dotnet/source-build/discussions/3481
 Patch2:         vstest-intent-net8.0.patch
-# https://github.com/dotnet/source-build/issues/3571
-Patch3:         fix-mono-typeloadexception.patch
-# https://github.com/dotnet/runtime/pull/91008
-Patch4:         runtime-91008-mono-var-opcode-OP_REGOFFSET.patch
-# https://github.com/dotnet/runtime/pull/91865
-Patch5:         runtime-91865-arm64-page-size.patch
-# https://github.com/dotnet/runtime/pull/92274
-Patch6:         runtime-92274-webcil-s390x.patch
-# https://github.com/dotnet/runtime/pull/92441
-Patch7:         runtime-92441-s390x-host-le.patch
-# https://github.com/dotnet/sdk/pull/35600
-Patch8:         sdk-35600-skip-windows-gui.patch
 
 
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
@@ -380,7 +362,7 @@ if [[ ${release_json_tag} != %{upstream_tag} ]]; then
 fi
 
 %if %{without bootstrap}
-%setup -q -n dotnet-%{upstream_tag}
+%setup -q -n dotnet-%{upstream_tag_without_v}
 
 # Remove all prebuilts
 find -iname '*.dll' -type f -delete
@@ -525,7 +507,7 @@ mkdir -p built-sdk
 tar xf artifacts/%{runtime_arch}/Release/dotnet-sdk-%{sdk_version}-%{runtime_id}.tar.gz -C built-sdk/
 
 # Convert hardlinks to actual copies. This takes up quite a bit of
-# extra disk space, but works around RHEL issues in post-rpmbuild tools
+# extra disk space, but works around issues in post-rpmbuild tools
 # when they encounter hardlinks.
 cp -r --preserve=mode,ownership,timestamps built-sdk/* %{buildroot}%{_libdir}/dotnet/
 ls %{buildroot}%{_libdir}/dotnet
@@ -665,6 +647,12 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Sat Dec 09 2023 Omair Majid <omajid@redhat.com> - 8.0.100-1
+- Update to .NET SDK 8.0.100 and Runtime 8.0.0
+
+* Fri Dec 08 2023 Omair Majid <omajid@redhat.com> - 8.0.100~rc.2-0.1
+- Update to .NET SDK 8.0.100 RC 2 and Runtime 8.0.0 RC 2
+
 * Fri Dec 08 2023 Omair Majid <omajid@redhat.com> - 8.0.100~rc.1-0.2
 - Add various fixes from CentOS Stream 9
 
