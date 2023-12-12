@@ -11,6 +11,8 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-podlators
 
+Requires:       perl-autodie
+
 ExclusiveArch:  %{ix86} x86_64
 
 %description

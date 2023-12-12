@@ -17,6 +17,13 @@
 # x264 is not in Fedora
 %bcond_with x264
 
+%ifarch x86_64 aarch64
+# OBS-CEF is only available on x86_64 and aarch64
+%bcond_without cef
+%else
+%bcond_with cef
+%endif
+
 %if "%{__isa_bits}" == "64"
 %global lib64_suffix ()(64bit)
 %endif
@@ -24,6 +31,8 @@
 
 
 %global obswebsocket_version 5.3.3
+%global obsbrowser_commit e397df52e70392ebb9146e0ab6317c0d1a30bce4
+%global cef_version 5060
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
 #global snapdate 202303261743
@@ -31,7 +40,7 @@
 
 Name:           obs-studio
 Version:        30.0.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -44,6 +53,9 @@ Source0:        https://github.com/obsproject/obs-studio/archive/%{commit}/%{nam
 Source0:        https://github.com/obsproject/obs-studio/archive/%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 %endif
 Source1:        https://github.com/obsproject/obs-websocket/archive/%{obswebsocket_version}/obs-websocket-%{obswebsocket_version}.tar.gz
+Source2:        https://github.com/obsproject/obs-browser/archive/%{obsbrowser_commit}/obs-browser-%{obsbrowser_commit}.tar.gz
+# CMake snippets for finding systemwide obs-cef
+Source3:        FindCEF.cmake
 
 # Backports from upstream
 
@@ -93,6 +105,9 @@ BuildRequires:  libxkbcommon-devel
 BuildRequires:  luajit-devel
 %endif
 BuildRequires:  mbedtls-devel
+%if %{with cef}
+BuildRequires:  obs-cef-devel
+%endif
 %if %{with vpl}
 BuildRequires:  oneVPL-devel
 %endif
@@ -128,6 +143,13 @@ Recommends:     libopenh264.so.%{openh264_soversion}%{?lib64_suffix}
 %if %{with x264}
 Requires:       x264
 %endif
+%if %{with cef}
+# Filter out bogus libcef.so requires as this is handled manually
+# with an explicit dependency
+%global __requires_exclude ^libcef\\.so.*$
+
+Requires:       (obs-cef%{?_isa} with obs-cef(abi) = %{cef_version})
+%endif
 
 # Ensure QtWayland is installed when libwayland-client is installed
 Requires:      (qt6-qtwayland%{?_isa} if libwayland-client%{?_isa})
@@ -161,7 +183,6 @@ Provides:      bundled(libnsgif)
 ## Cf. https://github.com/obsproject/obs-studio/pull/8327
 Provides:      bundled(intel-mediasdk)
 
-
 %description
 Open Broadcaster Software is free and open source
 software for video recording and live streaming.
@@ -185,6 +206,7 @@ Header files for Open Broadcaster Software
 %setup -q -n %{name}-%{?snapdate:%{commit}}%{!?snapdate:%{version_no_tilde}}
 # Prepare plugins/obs-websocket
 tar -xf %{SOURCE1} -C plugins/obs-websocket --strip-components=1
+tar -xf %{SOURCE2} -C plugins/obs-browser --strip-components=1
 %autopatch -p1
 
 # rpmlint reports E: hardcoded-library-path
@@ -192,10 +214,16 @@ tar -xf %{SOURCE1} -C plugins/obs-websocket --strip-components=1
 sed -e 's|OBS_MULTIARCH_SUFFIX|LIB_SUFFIX|g' -i cmake/Modules/ObsHelpers.cmake
 
 # Kill rpath settings
-sed -e '\|set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${OBS_LIBRARY_DESTINATION}")|d' -i cmake/Modules/ObsHelpers_Linux.cmake
+sed -e '/CMAKE_INSTALL_RPATH/d' -i cmake/Modules/ObsDefaults_Linux.cmake
 
-# touch the missing submodules
-touch plugins/obs-browser/CMakeLists.txt
+# Fix FindCEF to use systemwide obs-cef
+cp %{SOURCE3} cmake/Modules/FindCEF.cmake
+# Fix include paths
+sed -e 's,include/,obs-cef/,g' -i plugins/obs-browser/{cef-headers.hpp,browser-scheme.cpp}
+# Remove obs-cef install
+sed -e '/setup_target_browser(/d' -i cmake/Modules/ObsHelpers.cmake
+# Fix obs-browser rpath setting
+sed -e 's,INSTALL_RPATH ".*",INSTALL_RPATH "%{_libdir}/obs-cef/",' -i plugins/obs-browser/cmake/{os-linux,legacy}.cmake
 
 %if ! %{with x264}
 # disable x264 plugin
@@ -243,8 +271,9 @@ cp plugins/obs-qsv11/obs-qsv11-LICENSE.txt .fedora-rpm/licenses/plugins/
 %build
 %cmake -DOBS_VERSION_OVERRIDE=%{version_no_tilde} \
        -DUNIX_STRUCTURE=1 -GNinja \
-       -DCMAKE_SKIP_RPATH=1 \
+%if ! %{with cef}
        -DBUILD_BROWSER=OFF \
+%endif
 %if ! %{with vlc}
        -DENABLE_VLC=OFF \
 %endif
@@ -307,6 +336,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Mon Dec 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0-4
+- Filter out bogus libcef.so automatic dependency
+
+* Sun Dec 10 2023 Asahi Lina <lina@asahilina.net> - 30.0.0-3
+- Add obs-browser support using obs-cef
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 30.0.0-2
 - Rebuild (qt6)
 

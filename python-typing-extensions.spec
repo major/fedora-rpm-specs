@@ -1,14 +1,11 @@
 Name:      python-typing-extensions
-Version:   4.8.0
+Version:   4.9.0
 Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
 URL:       https://pypi.org/project/typing-extensions/
 Source0:   %{pypi_source typing_extensions}
-
-# Fix tests on Python 3.13
-Patch:     https://github.com/python/typing_extensions/pull/291.patch
 
 BuildArch: noarch
 
@@ -44,7 +41,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -p1 -n typing_extensions-%{version}
+%autosetup -n typing_extensions-%{version}
 
 
 %generate_buildrequires
@@ -73,6 +70,9 @@ cd src
 
 
 %changelog
+* Sun Dec 10 2023 Jonny Heggheim <hegjon@gmail.com> - 4.9.0-1
+- Updated to version 4.9.0
+
 * Mon Sep 18 2023 Jonny Heggheim <hegjon@gmail.com> - 4.8.0-1
 - Updated to version 4.8.0
 

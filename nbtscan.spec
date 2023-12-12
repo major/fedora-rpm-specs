@@ -1,20 +1,15 @@
 Name:           nbtscan
-Version:        1.5.1
-Release:        31%{?dist}
+Version:        1.7.2
+Release:        1%{?dist}
 Summary:        Tool to gather NetBIOS info from Windows networks
+License:        GPL-2.0-or-later
+URL:            https://github.com/resurrecting-open-source-projects/nbtscan
+# was URL:      http://www.inetcat.net/software/nbtscan.html
+VCS:            https://github.com/resurrecting-open-source-projects/nbtscan
 
-License:        GPLv2+
-URL:            http://www.inetcat.net/software/nbtscan.html
-Source0:        http://www.inetcat.net/software/%{name}-%{version}.tar.gz
-#add $DESTDIR to make install
-Patch0:         nbtscan-1.5.1-makefile.patch
-Patch1:         nbtscan-configure-c99.patch
-Patch2:         nbtscan-missing-unistd.patch
-Patch3:         nbtscan-print_banner-implicit-int.patch
-Patch4:         nbtscan-statusq-ctype.patch
-Patch5:         nbtscan-prototypes.patch
+Source0:        https://github.com/resurrecting-open-source-projects/nbtscan/archive/refs/tags/%{version}.tar.gz#/nbtscan-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel, m4, readline-devel, autoconf, automake
 
@@ -24,33 +19,32 @@ It sends a NetBIOS status query to each address in supplied range and lists
 received information in human readable form.
 
 %prep
-%setup -qn %{name}-%{version}a
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+%autosetup -n %{name}-%{version}
 
 %build
+autoreconf -vif #BZ926202 - support aarch64
 %configure
-
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-autoreconf -vif #BZ926202 - support aarch64
-make install DESTDIR=$RPM_BUILD_ROOT
-
+%make_install
 
 
 %files
-%doc ChangeLog COPYING README
+%doc ChangeLog README
+%license COPYING
 %{_bindir}/*
+%{_mandir}/man1/nbtscan.1*
+
 
 
 %changelog
+* Sat Dec 09 2023 Michal Ambroz <rebus _AT seznam.cz> - 1.7.2-1
+- change to new github fork
+- bump to latest release
+- fix the SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,8 +5,7 @@
 %bcond draco	1
 # Needed to enable osl support for cycles rendering
 %bcond llvm	1
-# Manpage build is broken upstream
-%bcond manpage  0
+%bcond manpage  1
 %bcond openshading	1
 %bcond sdl	0
 %bcond system_eigen3	1
@@ -37,7 +36,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.0.1
+Version:        4.0.2
 Release:        %autorelease
 
 
@@ -52,10 +51,6 @@ Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{v
 Source2:        macros.%{name}-rpm
 
 Patch1:         %{name}-3.6.1-py312-pylongobject.patch
-# Fix: use color_srgb_to_linear_v4 in attribute_convert.h #115098
-# https://projects.blender.org/blender/blender/pulls/115098
-Patch2:         115098.patch
-
 
 # Development stuff
 BuildRequires:  boost-devel

@@ -60,7 +60,7 @@ Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       pkgconfig
 Requires:       eigen3-devel, qhull-devel, flann-devel, vtk-devel
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 Requires:       openni-devel
 %endif
 

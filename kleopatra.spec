@@ -1,51 +1,56 @@
 Name:    kleopatra
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
-# code: GPLv2+
-# docs: GFDL
-License: GPLv2+ and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
 
 BuildRequires:  boost-devel
-BuildRequires:  extra-cmake-modules >= 5.23.0
-BuildRequires:  kf5-rpm-macros >= 5.23.0
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5Network)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6PrintSupport)
 
-BuildRequires:  gpgmepp-devel >= 1.7.1
-BuildRequires:  cmake(QGpgme)
+BuildRequires:  gpgmepp-devel
+BuildRequires:  cmake(QGpgmeQt6)
 BuildRequires:  libassuan2-devel
 
-BuildRequires:  cmake(KF5Codecs)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5KCMUtils)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5TextWidgets)
-BuildRequires:  cmake(KF5DocTools)
+BuildRequires:  cmake(KF6Codecs)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6TextWidgets)
 
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  kf5-libkleo-devel >= %{majmin_ver} 
-BuildRequires:  kf5-kmime-devel >= %{majmin_ver} 
+BuildRequires:  cmake(KPim6Libkleo)
+BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KPim6IdentityManagementCore)
+BuildRequires:  cmake(KPim6MailTransport)
+BuildRequires:  cmake(KPim6AkonadiMime)
+BuildRequires:  cmake(KPim6MimeTreeParserWidgets)
+BuildRequires:  cmake(KPim6Mbox)
+
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+BuildRequires:  hicolor-icon-theme
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -64,44 +69,45 @@ Requires:       %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
-
-# Remove non-version .so files, we don't have -devel pkg anyway
-rm -fv %{buildroot}%{_kf5_libdir}/libkleopatraclientcore.so
-rm -fv %{buildroot}%{_kf5_libdir}/libkleopatraclientgui.so
-
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kwatchgnupg.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kleopatra.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/kleopatra_import.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/kleopatra
-%{_kf5_bindir}/kwatchgnupg
-%{_kf5_datadir}/applications/kleopatra_import.desktop
-%{_kf5_datadir}/applications/org.kde.kleopatra.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/kleopatra.*
-%{_kf5_datadir}/kconf_update/*
-%{_kf5_datadir}/kio
-%{_kf5_datadir}/kleopatra/
-%{_kf5_datadir}/kwatchgnupg/
-%{_kf5_datadir}/mime/packages/application-vnd-kde-kleopatra.xml
-%{_kf5_datadir}/qlogging-categories5/kleopatra.*
-%{_kf5_metainfodir}/org.kde.kleopatra.appdata.xml
-
-%ldconfig_scriptlets libs
+%{_datadir}/kleopatra/pics/kleopatra_*
+%{_datadir}/kwatchgnupg/pics/kwatchgnupg*
+%{_kf6_bindir}/kleopatra
+%{_kf6_bindir}/kwatchgnupg
+%{_kf6_datadir}/applications/kleopatra_import.desktop
+%{_kf6_datadir}/applications/org.kde.kleopatra.desktop
+%{_kf6_datadir}/applications/org.kde.kwatchgnupg.desktop
+%{_kf6_datadir}/mime/packages/kleopatra-mime.xml
+%{_kf6_datadir}/kio/servicemenus/kleopatra_*.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/kleopatra.*
+%{_kf6_datadir}/icons/hicolor/*/apps/kwatchgnupg.*
+%{_kf6_datadir}/kconf_update/*
+%{_kf6_datadir}/mime/packages/application-vnd-kde-kleopatra.xml
+%{_kf6_datadir}/qlogging-categories6/kleopatra.*
+%{_kf6_metainfodir}/org.kde.kleopatra.appdata.xml
 
 %files libs
-%{_kf5_libdir}/libkleopatraclientcore.so.*
-%{_kf5_libdir}/libkleopatraclientgui.so.*
-%{_kf5_qtplugindir}/pim5/kcms/kleopatra/kleopatra_config_gnupgsystem.so
+%{_kf6_libdir}/libkleopatraclientcore.so.*
+%{_kf6_libdir}/libkleopatraclientgui.so.*
+%{_kf6_qtplugindir}/pim6/kcms/kleopatra/kleopatra_config_gnupgsystem.so
 
 %changelog
+* Sun Dec 10 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

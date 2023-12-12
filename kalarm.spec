@@ -1,92 +1,65 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 24.01.75
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://www.kde.org/applications/utilities/kalarm
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-## upstreamable patches
+# Linking issue about a binary not linking. (ktextwidgets)
+Patch0:  24.01.80-find-textwidgets.patch
+BuildRequires: cmake(KF6TextWidgets)
 
-# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
-%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
-
-BuildRequires: boost-devel
+BuildRequires: cmake
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
 BuildRequires: desktop-file-utils
-BuildRequires: gettext
 BuildRequires: libappstream-glib
-BuildRequires: perl-generators
 
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core5Compat)
 
-# kf6
-BuildRequires: extra-cmake-modules
-BuildRequires: kf6-rpm-macros
-BuildRequires: cmake(Grantlee5)
 BuildRequires: cmake(KF6Auth)
+BuildRequires: cmake(KF6CalendarCore)
 BuildRequires: cmake(KF6Codecs)
 BuildRequires: cmake(KF6Completion)
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6DBusAddons)
-BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6GlobalAccel)
 BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6Holidays)
 BuildRequires: cmake(KF6I18n)
-BuildRequires: cmake(KF6IconThemes)
-BuildRequires: cmake(KF6IdleTime)
+BuildRequires: cmake(KF6ItemModels)
 BuildRequires: cmake(KF6JobWidgets)
-BuildRequires: cmake(KF6KCMUtils)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Notifications)
 BuildRequires: cmake(KF6NotifyConfig)
 BuildRequires: cmake(KF6Service)
-BuildRequires: cmake(KF6TextEditTextToSpeech)
 BuildRequires: cmake(KF6WidgetsAddons)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(Phonon4Qt6)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6TextTemplate)
 
-BuildRequires: pkgconfig(phonon4qt6)
-
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf6-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires: kf6-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires: kf6-akonadi-server-devel >= %{majmin_ver}
-BuildRequires: kf6-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires: kf6-kcalendarutils-devel >= %{majmin_ver}
-BuildRequires: kf6-kholidays-devel >= %{majmin_ver}
-BuildRequires: kf6-kidentitymanagement-devel >= %{majmin_ver}
-BuildRequires: kf6-kmailtransport-devel >= %{majmin_ver}
-BuildRequires: kf6-kmime-devel >= %{majmin_ver}
-BuildRequires: kf6-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf6-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf6-mailcommon-devel >= %{majmin_ver}
-BuildRequires: kf6-pimcommon-devel >= %{majmin_ver}
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
-
-Requires: kdepim-runtime >= %{majmin_ver}
+BuildRequires: cmake(KPim6CalendarUtils)
+BuildRequires: cmake(KPim6IdentityManagementWidgets)
+BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KF6TextEditTextToSpeech)
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KPim6AkonadiContactWidgets)
+BuildRequires: cmake(KPim6AkonadiMime)
+BuildRequires: cmake(KPim6MailTransport)
 
 Provides:  kf6-kalarmcal = %{version}-%{release}
 
@@ -97,8 +70,7 @@ KAlarm is a personal alarm message, command and email scheduler.
 %autosetup -p1
 
 %build
-%cmake_kf6 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
+%cmake_kf6 -DWITHOUT_X11=ON
 %cmake_build
 
 %install
@@ -108,12 +80,6 @@ KAlarm is a personal alarm message, command and email scheduler.
 %check
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml ||:
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
 
 %files -f %{name}.lang
 %license LICENSES/*
@@ -121,30 +87,29 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_datadir}/dbus-1/system-services/org.kde.kalarm.rtcwake.service
 %{_datadir}/dbus-1/system.d/org.kde.kalarm.rtcwake.conf
 %{_datadir}/polkit-1/actions/org.kde.kalarm.rtcwake.policy
+%{_datadir}/kalarm/icons/oxygen/16x16/actions/*.png
 %{_kf6_bindir}/kalarm
 %{_kf6_bindir}/kalarmautostart
 %{_kf6_datadir}/applications/org.kde.kalarm.desktop
 %{_kf6_datadir}/config.kcfg/kalarmconfig.kcfg
 %{_kf6_datadir}/icons/hicolor/*/apps/kalarm.*
-%{_kf6_datadir}/icons/breeze-dark/actions/16/show-today.svg
-%{_kf6_datadir}/icons/breeze-dark/actions/22/show-today.svg
-%{_kf6_datadir}/icons/breeze/actions/16/show-today.svg
-%{_kf6_datadir}/icons/breeze/actions/22/show-today.svg
-%{_kf6_datadir}/kalarm/
+%{_kf6_datadir}/kalarm/icons/oxygen/22x22/actions/*.png
 %{_kf6_datadir}/knotifications6/kalarm.notifyrc
-%{_kf6_datadir}/kxmlgui5/kalarm/kalarmui.rc
-%{_kf6_datadir}/qlogging-categories5/*%{name}.*
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
 %{_kf6_libexecdir}/kauth/kalarm_helper
 %{_kf6_metainfodir}/org.kde.kalarm.appdata.xml
 %{_sysconfdir}/xdg/autostart/kalarm.autostart.desktop
-%{_kf6_libdir}/libkalarmcalendar.so.5
-%{_kf6_libdir}/libkalarmcalendar.so.5.*
-%{_kf6_libdir}/libkalarmplugin.so.5
-%{_kf6_libdir}/libkalarmplugin.so.5.*
-%{_kf6_qtplugindir}/pim5/kalarm/akonadiplugin.so
+%{_kf6_libdir}/libkalarmcalendar.so.*
+%{_kf6_libdir}/libkalarmplugin.so.*
+%{_kf6_qtplugindir}/pim6/kalarm/akonadiplugin.so
 
 
 %changelog
+* Sun Dec 10 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+- Reworked all the build dependancies
+- Disabled X11
+
 * Mon Nov 13 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.75-1
 - Update to 24.01.75
 

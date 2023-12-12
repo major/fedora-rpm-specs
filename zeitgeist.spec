@@ -1,15 +1,28 @@
 Name:           zeitgeist
 Version:        1.0.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Framework providing Desktop activity awareness
-# most of the source code is LGPLv2+, except:
-# datahub/ is LGPLv3+
-# examples/c/ is GPLv3
-# extensions/fts++/ is GPLv2+
-# src/notify.vala: GPLv2+
-# test/c/ is GPLv3
-# tools/zeitgeist-explorer/ is GPLv2+
-License:        LGPLv2+ and LGPLv3+ and GPLv2+
+
+# data/ontology/*.trig	BSD-3-Clause OR CC-BY-SA-3.0 -> main
+#   Original: https://sourceforge.net/projects/oscaf/files/shared-desktop-ontologies/0.7/shared-desktop-ontologies-0.7.1.tar.bz2/
+#   See: LICENSE.CC-BY in the above tarball
+# data/ontology2code	 LGPL-2.0-or-later
+# datahub/	 LGPL-3.0-or-later -> main
+# doc/libzeitgeist/docs_vala/scripts.js	LGPL-2.0-or-later
+# examples/c/	 GPL-3.0-only
+# extensions/*.c	LGPL-2.0-or-later
+# extensions/fts++/	GPL-2.0-or-later -> main
+# libzeitgeist/		LGPL-2.0-or-later
+# python/*.py	LGPL-2.0-or-later
+# src/	(except for some files) LGPL-2.0-or-later
+# src/notify.vala	GPL-2.0-or-later -> main
+# test/c/	GPL-3.0-only
+# test/	(other files) LGPL-2.0-or-later
+# tools/	(except for some files) LGPL-2.0-or-later
+# tools/zeitgeist-explorer/	GPL-2.0-or-later
+
+# SPDX confirmed
+License:		LGPL-2.0-or-later AND LGPL-3.0-or-later AND GPL-2.0-or-later AND (BSD-3-Clause OR CC-BY-SA-3.0)
 
 URL:            https://launchpad.net/zeitgeist
 Source0:        %{url}/1.0/%{version}/+download/%{name}-%{version}.tar.xz
@@ -50,6 +63,7 @@ together with several different user interfaces.
 
 %package -n python3-zeitgeist
 Summary:        Python 3 bindings for zeitgeist
+License:        LGPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
@@ -61,7 +75,7 @@ This package contains the Python 3 bindings for zeitgeist.
 
 %package        libs
 Summary:        Client library for interacting with the Zeitgeist daemon
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 
 %description    libs
 Libzeitgeist is a client library for interacting with the Zeitgeist
@@ -69,7 +83,7 @@ daemon.
 
 %package        devel
 Summary:        Development files for %{name}
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel
@@ -93,10 +107,8 @@ sed -i.disable test/c/Makefile.in \
 # python 3.11 removes inspect.getargspec (bug 2159916)
 # https://gitlab.freedesktop.org/zeitgeist/zeitgeist/-/issues/26
 # https://docs.python.org/3.11/whatsnew/3.11.html#removed
-%if 0%{?fedora} >= 37
 sed -i.py311 python/client.py \
 	-e 's|inspect.getargspec|inspect.getfullargspec|'
-%endif
 
 %build
 %configure --enable-fts --enable-datahub --disable-silent-rules
@@ -132,9 +144,12 @@ make check
 
 %{_bindir}/zeitgeist-daemon
 %{_bindir}/zeitgeist-datahub
-%{_libexecdir}/%{name}/
+%dir	%{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/zeitgeist-fts
 
-%{_datadir}/%{name}/
+%dir	%{_datadir}/%{name}/
+%dir	%{_datadir}/%{name}/ontology/
+%{_datadir}/%{name}/ontology/*.trig
 %{_datadir}/dbus-1/services/org.gnome.zeitgeist*.service
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
@@ -166,6 +181,9 @@ make check
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Sun Dec 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-11
+- SPDX migration
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

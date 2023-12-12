@@ -4,20 +4,21 @@
 %global libtqslver 2.5
 
 Name:           trustedqsl
-Version:        2.6.5
-Release:        4%{?dist}
+Version:        2.7.1
+Release:        1%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 License:        BSD
 URL:            http://sourceforge.net/projects/trustedqsl/
 
-Source0:        http://www.arrl.org/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        https://www.arrl.org/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        tqsl.appdata.xml
 
 Patch0:         tqsl-tqsllib.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake%{?rhel:3}
-BuildRequires:  lmdb-devel
+#BuildRequires:  lmdb-devel
+BuildRequires:  sqlite-devel
 BuildRequires:  openssl-devel
 BuildRequires:  curl-devel
 BuildRequires:  expat-devel
@@ -76,17 +77,7 @@ find %{buildroot}%{_datadir}/locale/ -type f -name wxstd.mo -exec rm -f {} \;
 
 %find_lang tqslapp
 
-# Install desktop files
-mkdir -p %{buildroot}%{_datadir}/applications
-sed -i -e "s/.png//g" -e "s/Application;/Network;/g" -e "s/Utility;/GTK;/g" apps/tqsl.desktop
-desktop-file-install \
-        --dir=%{buildroot}%{_datadir}/applications apps/tqsl.desktop
-
-# Install icons
-for size in 16 32 48 64 128; do
-    install -Dpm 0644 apps/icons/key${size}.png \
-    %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/TrustedQSL.png
-done
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.arrl.trustedqsl.desktop
 
 %if 0%{?fedora}
 # Install appdata file
@@ -104,9 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %license LICENSE.txt
 %doc AUTHORS.txt README
 %{_bindir}/tqsl
-%{_datadir}/applications/tqsl.desktop
+%{_datadir}/applications/org.arrl.trustedqsl.desktop
 %{?fedora:%{_datadir}/appdata/tqsl.appdata.xml}
-%{_datadir}/icons/hicolor/*/apps/TrustedQSL.png
+%{_datadir}/icons/hicolor/*/apps/org.arrl.trustedqsl.png
 %{_datadir}/pixmaps/TrustedQSL.png
 %{_datadir}/TrustedQSL
 %{_mandir}/man5/*.5*
@@ -121,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Sun Dec 10 2023 Richard Shaw <hobbes1069@gmail.com> - 2.7.1-1
+- Update to 2.7.1.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

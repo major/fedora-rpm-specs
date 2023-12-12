@@ -1,10 +1,18 @@
+#global date 20231209
+#global commit 35311b68945f25c10397f4e894e7045f8359143a
+%{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
+
 Name:           asahi-audio
-Version:        0.6
+Version:        0.6%{?commit:^%{date}git%{shortcommit}}
 Release:        %autorelease
 Summary:        PipeWire DSP profiles for Apple Silicon machines
 License:        MIT
 URL:            https://github.com/AsahiLinux/asahi-audio
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%if %{defined commit}
+Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+%else
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%endif
 
 BuildArch:      noarch
 
@@ -21,7 +29,7 @@ PipeWire and WirePlumber DSP profiles and configurations to
 drive the speaker arrays in Apple Silicon laptops and desktops.
 
 %prep
-%autosetup
+%autosetup %{?commit:-n %{name}-%{commit}}
 
 %build
 %make_build

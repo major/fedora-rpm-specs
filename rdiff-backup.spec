@@ -3,7 +3,7 @@
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Sun Dec 10 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.6-3
+- Rebuild for pyinstall CVE-2023-49797 BZ2253844
+
 * Sat Sep 09 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.6-2
 - Final minor release v2.2.6 - Fedora/EPEL Release
 - Fix release number in spec file.

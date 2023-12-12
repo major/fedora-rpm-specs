@@ -2,7 +2,7 @@
 %global modname pyongc
 
 Name:           python-%{modname}
-Version:        1.0.2
+Version:        1.1.0
 Release:        %autorelease
 Summary:        A python interface for accessing OpenNGC database data
 # Code license is MIT, database is CC-BY-SA-4.0

@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           mockito
-Version:        3.12.4
-Release:        7%{?dist}
+Version:        5.5.0
+Release:        1%{?dist}
 Summary:        Tasty mocking framework for unit tests in Java
 License:        MIT
 URL:            https://site.mockito.org/
@@ -14,10 +14,10 @@ Source0:        %{name}-%{version}.tar.gz
 Source1:        generate-tarball.sh
 
 # A custom build script to allow building with maven instead of gradle
-Source2:        mockito-core.pom
+Source2:        aggregator.pom
 
 # Maven central POMs for subprojects
-Source3:        https://repo1.maven.org/maven2/org/mockito/mockito-inline/%{version}/mockito-inline-%{version}.pom
+Source3:        https://repo1.maven.org/maven2/org/mockito/mockito-core/%{version}/mockito-core-%{version}.pom
 Source4:        https://repo1.maven.org/maven2/org/mockito/mockito-junit-jupiter/%{version}/mockito-junit-jupiter-%{version}.pom
 
 # Mockito expects byte-buddy to have a shaded/bundled version of ASM, but
@@ -54,92 +54,45 @@ Summary: Javadocs for %{name}
 %description javadoc
 This package contains the API documentation for %{name}.
 
-%package inline
-Summary:        Mockito preconfigured inline mock maker
-Requires:       %{name} = %{version}-%{release}
-
-%description inline
-Mockito preconfigured inline mock maker (intermediate and to be
-superseded by automatic usage in a future version).
-
-%if %{without bootstrap}
 %package junit-jupiter
 Summary:        Mockito JUnit 5 support
 Requires:       %{name} = %{version}-%{release}
 
 %description junit-jupiter
 Mockito JUnit 5 support.
-%endif
 
 %prep
 %autosetup -p1
 
+cp %{SOURCE2} aggregator.pom
+cp %{SOURCE3} pom.xml
+cp %{SOURCE4} subprojects/junit-jupiter/pom.xml
+
 # Disable failing test
 # TODO check status: https://github.com/mockito/mockito/issues/2162
 sed -i '/add_listeners_concurrently_sanity_check/i @org.junit.Ignore' src/test/java/org/mockitousage/debugging/StubbingLookupListenerCallbackTest.java
-
-# Use our custom build script
-sed -e 's/@VERSION@/%{version}/' %{SOURCE2} > pom.xml
 
 # Workaround easymock incompatibility with Java 17 that should be fixed
 # in easymock 4.4: https://github.com/easymock/easymock/issues/274
 %pom_add_plugin :maven-surefire-plugin . "<configuration>
     <argLine>--add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED</argLine></configuration>"
 
-# OSGi metadata configuration
-cat > osgi.bnd <<EOF
-Automatic-Module-Name: org.mockito
-Bundle-SymbolicName: org.mockito
-Bundle-Name: Mockito Mock Library for Java.
-Import-Package: junit.*;resolution:=optional,org.junit.*;resolution:=optional,org.hamcrest;resolution:=optional,org.mockito*;version="%{version}",*
-Private-Package: org.mockito.*
--removeheaders: Bnd-LastModified,Include-Resource,Private-Package
-EOF
-
-# OSGi metadata configuration for the junit-jupiter jar
-cat > osgi-junit-jupiter.bnd <<EOF
-Automatic-Module-Name: org.mockito.junit.jupiter
-Bundle-SymbolicName: org.mockito.junit-jupiter
-Bundle-Name: Mockito Extension Library for JUnit 5.
-Import-Package: org.junit.jupiter.api.extension;version="[5.7,6)",org.junit.platform.commons.support;version="[1.7,2)",org.mockito*;version="%{version}",*
--removeheaders: Bnd-LastModified,Include-Resource
-Export-Package: org.mockito.junit.jupiter;version="%{version}";uses:="org.junit.jupiter.api.extension,org.mockito.quality"
-EOF
-
 # Compatibility alias
 %mvn_alias org.%{name}:%{name}-core org.%{name}:%{name}-all
 
+%pom_add_dep junit:junit
+%pom_add_dep net.bytebuddy:byte-buddy-dep
+%pom_remove_dep org.objenesis:objenesis
+%pom_add_dep org.objenesis:objenesis
+%pom_add_dep org.opentest4j:opentest4j
+
+%pom_remove_dep org.junit.jupiter:junit-jupiter-api subprojects/junit-jupiter
+%pom_add_dep org.junit.jupiter:junit-jupiter-api subprojects/junit-jupiter
+
 %build
-# See the usage of exec-maven-plugin in the pom
-mkdir -p target/classes/
-javac --release 8 -d target/classes/ src/main/java/org/mockito/internal/creation/bytebuddy/inject/MockMethodDispatcher.java
-mv target/classes/org/mockito/internal/creation/bytebuddy/inject/MockMethodDispatcher.{class,raw}
+%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8 -f aggregator.pom
 
-%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8
-
-# Build the inline subproject
-cd subprojects/inline/src/main/resources
-jar cf ../../../../../target/mockito-inline.jar mockito-extensions
-cd -
-%mvn_artifact %{SOURCE3} target/mockito-inline.jar
-%mvn_package org.mockito:mockito-inline inline
-
-%if %{without bootstrap}
-# Build the junit-jupiter subproject
-cd subprojects/junit-jupiter
-mkdir -p target/classes/
-CLASSPATH=$(build-classpath apiguardian junit5/junit-jupiter-api junit5/junit-platform-commons)
-javac --release 8 -d target/classes/ \
-      -cp ../../target/mockito-core-%{version}.jar:$CLASSPATH \
-      src/main/java/org/mockito/junit/jupiter/*.java
-jar -cf ../../target/mockito-junit-jupiter.unwrapped.jar -C target/classes org
-cd -
-bnd wrap --properties osgi-junit-jupiter.bnd --version %{version} \
-    --output target/mockito-junit-jupiter.jar \
-    target/mockito-junit-jupiter.unwrapped.jar
-%mvn_artifact %{SOURCE4} target/mockito-junit-jupiter.jar
 %mvn_package org.mockito:mockito-junit-jupiter junit-jupiter
-%endif
 
 %install
 %mvn_install
@@ -148,16 +101,15 @@ bnd wrap --properties osgi-junit-jupiter.bnd --version %{version} \
 %license LICENSE
 %doc README.md doc/design-docs/custom-argument-matching.md
 
-%files inline -f .mfiles-inline
-
-%if %{without bootstrap}
 %files junit-jupiter -f .mfiles-junit-jupiter
-%endif
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog
+* Fri Sep 01 2023 Marian Koncek <mkoncek@redhat.com> - 5.5.0-1
+- Update to upstream version 5.5.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

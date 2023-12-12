@@ -12,8 +12,8 @@
 %bcond_with test
 
 Name:           z3
-Version:        4.12.2
-Release:        7%{?dist}
+Version:        4.12.4
+Release:        1%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -21,14 +21,6 @@ URL:            https://github.com/Z3Prover/z3
 Source0:        https://github.com/Z3Prover/z3/archive/%{name}-%{version}.tar.gz
 # Do not try to build or install native OCaml artifacts on bytecode-only arches
 Patch0:         %{name}-ocaml.patch
-# Change the way python finds the shared object; see bz 1910923
-Patch1:         %{name}-python.patch
-# Add a missing include of cstdint
-# https://github.com/Z3Prover/z3/pull/6720
-Patch2:         %{name}-stdint.patch
-# Fix malformed python escape sequences
-# https://github.com/Z3Prover/z3/pull/6797
-Patch3:         %{name}-escapes.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -317,6 +309,10 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Sat Dec  9 2023 Jerry James <loganjerry@gmail.com> - 4.12.4-1
+- Version 4.12.4
+- Drop upstreamed patches: python, stdint, escapes
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.12.2-7
 - OCaml 5.1 rebuild for Fedora 40
 

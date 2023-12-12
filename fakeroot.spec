@@ -2,7 +2,7 @@
 
 Summary: Gives a fake root environment
 Name: fakeroot
-Version: 1.32.1
+Version: 1.32.2
 Release: 1%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
@@ -165,6 +165,9 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Mon Nov 06 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.32.2-1
+- Update to 1.32.2 (#2248160)
+
 * Thu Aug 31 2023 Sérgio Basto <sergio@serjux.com> - 1.32.1-1
 - Update fakeroot to 1.32.1
 

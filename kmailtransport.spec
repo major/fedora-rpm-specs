@@ -1,0 +1,71 @@
+Name:    kmailtransport
+Version: 24.01.80
+Release: 1%{?dist}
+Summary: The KMailTransport Library
+
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
+URL:     https://invent.kde.org/frameworks/%{name}
+
+Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Wallet)
+
+BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KPim6AkonadiMime)
+BuildRequires:  cmake(KPim6Akonadi)
+BuildRequires:  cmake(KPim6SMTP)
+BuildRequires:  cmake(KPim6GAPI)
+
+BuildRequires:  cmake(Qt6Core)
+
+BuildRequires:  cmake(Qt6Keychain)
+
+%description
+%{summary}.
+
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(KPim6Mime)
+Requires:       cmake(KPim6AkonadiMime)
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%prep
+%autosetup -n %{name}-%{version} -p1
+
+
+%build
+%cmake_kf6
+%cmake_build
+
+
+%install
+%cmake_install
+%find_lang %{name} --all-name --with-html
+
+%files -f %{name}.lang
+%license LICENSES/*
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_libdir}/libKPim6MailTransport.so.*
+%{_kf6_datadir}/config.kcfg/mailtransport.kcfg
+%dir %{_kf6_qtplugindir}/pim6
+%{_kf6_qtplugindir}/pim6/mailtransport/mailtransport_smtpplugin.so
+
+
+%files devel
+%{_includedir}/KPim6/MailTransport/
+%{_kf6_libdir}/libKPim6MailTransport.so
+%{_kf6_libdir}/cmake/KPim6MailTransport/
+
+%changelog
+* Sun Dec 10 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80

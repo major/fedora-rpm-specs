@@ -2,13 +2,18 @@
 
 Name:           libhandy
 Version:        1.8.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Building blocks for modern adaptive GNOME apps
 License:        LGPLv2+
 
 URL:            https://gitlab.gnome.org/GNOME/libhandy
 %global majmin %(echo %{version} | cut -d . -f -2)
 Source0:        https://download.gnome.org/sources/%{name}/%{majmin}/%{name}-%{version}.tar.xz
+
+# Backported from upstream
+# https://gitlab.gnome.org/GNOME/libhandy/-/commit/7e8a8529c4d79119d0f0acd81b1f1dbbd558978f
+# https://bugzilla.redhat.com/show_bug.cgi?id=2253814
+Patch:          0001-Revert-settings-Always-free-variant.patch
 
 BuildRequires:  gcc
 BuildRequires:  gi-docgen
@@ -101,6 +106,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Dec 10 2023 Kalev Lember <klember@redhat.com> - 1.8.2-5
+- Backport an upstream patch to fix a write after free issue (rhbz#2253814)
+
 * Tue Oct 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.2-4
 - Disable glade catalog in RHEL builds
 

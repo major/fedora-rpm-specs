@@ -3,9 +3,6 @@
 # These vendored components must have the same version. If it is not the case,
 # pick the oldest version on c/image, c/common, c/storage vendored in
 # Buildah/Podman/Skopeo.
-%global skopeo_branch main
-%global podman_branch main
-%global buildah_branch main
 %global image_branch  main
 %global common_branch main
 %global storage_branch main
@@ -42,8 +39,8 @@ Source12: %{github_containers}/image/%{image_branch}/docs/containers-transports.
 Source13: %{github_containers}/image/%{image_branch}/registries.conf
 Source14: %{github_containers}/common/%{common_branch}/docs/containers-mounts.conf.5.md
 Source15: %{github_containers}/shortnames/%{shortnames_branch}/shortnames.conf
-Source16: %{github_containers}/skopeo/%{skopeo_branch}/default.yaml
-Source17: %{github_containers}/skopeo/%{skopeo_branch}/default-policy.json
+Source16: %{github_containers}/image/%{image_branch}/default.yaml
+Source17: %{github_containers}/image/%{image_branch}/default-policy.json
 Source18: %{github_containers}/storage/%{storage_branch}/docs/containers-storage.conf.5.md
 Source19: %{github_containers}/storage/%{storage_branch}/storage.conf
 Source20: RPM-GPG-KEY-redhat-release
@@ -130,6 +127,7 @@ cp man5/containerignore.5 man5/.containerignore.5
 install -dp %{buildroot}%{_sysconfdir}/containers/{certs.d,oci/hooks.d,systemd}
 install -dp %{buildroot}%{_sharedstatedir}/containers/sigstore
 install -dp %{buildroot}%{_datadir}/containers/systemd
+install -dp %{buildroot}%{_prefix}/lib/containers/storage
 install -Dp -m0644 default.yaml -t %{buildroot}%{_sysconfdir}/containers/registries.d
 install -Dp -m0644 storage.conf -t %{buildroot}%{_datadir}/containers
 install -Dp -m0644 registries.conf -t %{buildroot}%{_sysconfdir}/containers
@@ -169,6 +167,7 @@ ln -s ../../../..%{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/
 %dir %{_sysconfdir}/containers/registries.conf.d
 %dir %{_sysconfdir}/containers/registries.d
 %dir %{_sysconfdir}/containers/systemd
+%dir %{_prefix}/lib/containers/storage
 %config(noreplace) %{_sysconfdir}/containers/policy.json
 %config(noreplace) %{_sysconfdir}/containers/registries.conf
 %config(noreplace) %{_sysconfdir}/containers/registries.conf.d/000-shortnames.conf

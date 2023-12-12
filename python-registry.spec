@@ -7,7 +7,7 @@ Version:        1.4
 Release:        11%{?dist}
 Summary:        Read access to Windows Registry files
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/williballenthin/python-registry
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 Patch0001:      0001-Replace-unicodecsv-by-standard-csv-module.patch
@@ -20,17 +20,17 @@ interface is two-fold: a high-level interface suitable for most tasks, and
 a low level set of parsing objects and methods which may be used for advanced
 study of the Windows NT Registry.
 
-%package -n     python3-%{srcname}
+%package -n     python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-six
-BuildRequires:  python3-pytest
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-six
+BuildRequires:  python%{python3_pkgversion}-pytest
 
-%{?python_provide:%python_provide python3-%{srcname}}
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
-%description -n python3-%{srcname}
+%description -n python%{python3_pkgversion}-%{srcname}
 python-registry is a pure Python library that provides read-only access to
 Windows NT Registry files. These include NTUSER.DAT, userdiff, and SAM. The
 interface is two-fold: a high-level interface suitable for most tasks, and
@@ -51,7 +51,7 @@ sed -i -e '/^#!\//, 1d' Registry/*.py
 %check
 %pytest -v tests -k "not test_regsz_value and not test_decoding and not test_utf16le_kanji_with_nulls"
 
-%files -n python3-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname}
 %doc CHANGELOG.TXT README.MD
 %license LICENSE.TXT
 %{python3_sitelib}/Registry/

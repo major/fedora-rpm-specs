@@ -1,8 +1,11 @@
 Summary:	3-dimensional perspective star map viewer
 Name:		starplot
 Version:	0.95.5
-Release:	37%{?dist}
-License:	GPLv2+
+Release:	38%{?dist}
+
+# See README
+# SPDX confirmed
+License:	GPL-2.0-or-later
 URL:		http://starplot.org/
 Source0:	http://starplot.org/downloads/%{name}-%{version}.tar.gz
 
@@ -19,7 +22,7 @@ Patch4:		starplot-0.95.5-specclass-init-at-operator.patch
 
 Requires:	xdg-utils
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:	gcc-c++
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -32,11 +35,11 @@ interactively to view three-dimensional perspective charts of stars.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1 -b .format
-%patch2 -p1 -b .c++11
-%patch3 -p1 -b .new_qsort
-%patch4 -p1 -b .specclass_init
+%patch -P0 -p1
+%patch -P1 -p1 -b .format
+%patch -P2 -p1 -b .c++11
+%patch -P3 -p1 -b .new_qsort
+%patch -P4 -p1 -b .specclass_init
 
 # Suppress rpmlint error.
 iconv --from-code ISO8859-1 --to-code UTF-8 ./doc/examples/example.spec \
@@ -47,24 +50,22 @@ sed -i src/classes/strings.h \
 	-e '\@def.*_STRINGS_H@s@_STRINGS_H@STARPLOT_STRINGS_H@'
 
 %build
-%configure --docdir=%{_pkgdocdir} \
-  --disable-rpath --with-webbrowser=xdg-open
-make %{?_smp_mflags}
+%configure \
+  --docdir=%{_pkgdocdir} \
+  --disable-rpath \
+  --with-webbrowser=xdg-open
+%make_build
 
 %install
-make install INSTALL="%{__install} -p" DESTDIR=$RPM_BUILD_ROOT
-
-desktop-file-install --delete-original \
-%if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 7)
-  --vendor fedora \
-%endif
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
+%make_install
 
 # Remove *.stars files from documentation.
 rm -f ./doc/examples/*.stars
 
 %find_lang %{name}
+
+%check
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 
 %files -f %{name}.lang
 %doc AUTHORS
@@ -76,20 +77,24 @@ rm -f ./doc/examples/*.stars
 %doc TODO
 %doc doc/examples
 %doc doc/html
+
 %{_bindir}/%{name}
 %{_bindir}/starconvert
 %{_bindir}/starpkg
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/pixmaps/%{name}32x32.xpm
-%{_mandir}/man1/%{name}.1.gz
-%{_mandir}/man1/starconvert.1.gz
-%{_mandir}/man1/starpkg.1.gz
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/starconvert.1*
+%{_mandir}/man1/starpkg.1*
 
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/sample.stars
 %{_datadir}/%{name}/test.stars
 
 %changelog
+* Sun Dec 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.95.5-38
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.5-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

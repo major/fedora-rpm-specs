@@ -10,7 +10,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -60,6 +60,10 @@ Source92: patch-cassandane-fix-annotator
 # try to get fixed the below upstream to work on Fedora:
 # https://github.com/cyrusimap/cyrus-imapd/commit/f10eee167313418d84e63d215310477d4fe68e94
 Source93: patch-cassandane-xapian-delve-path
+# Syslog depending tests started to fail after perl fix:
+# https://github.com/Perl/perl5/commit/80c1f1e45e8ef8c27d170fae7ade41971fe20218
+# https://github.com/Perl/perl5/issues/21240
+Source94: patch-cassandane-getsyslog-fix
 
 # Adapt a timeout to handle our slower builders
 Patch0: patch-cyrus-testsuite-timeout
@@ -83,6 +87,7 @@ Patch5: patch-cyrus-rename-imtest
 Patch6: patch-cyrus-pcre2
 # Fix build with libxml2 2.12.0
 # https://github.com/cyrusimap/cyrus-imapd/pull/4745
+# https://github.com/cyrusimap/cyrus-imapd/pull/4768
 Patch7: patch-cyrus-libxml212
 
 BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
@@ -144,6 +149,7 @@ BuildRequires: perl(Net::LDAP::Server)
 BuildRequires: perl(Module::Load::Conditional)
 BuildRequires: cpan cld2-devel
 BuildRequires: perl(Plack::Loader) perl(Test::TCP) perl(Data::GUID) perl(Digest::CRC) perl(Moo) perl(Types::Standard)
+BuildRequires: perl(DBD::SQLite)
 
 # These were only for JMAP-Tester
 # perl(Moo), perl(Moose), perl(MooseX::Role::Parameterized) perl(Throwable), perl(Safe::Isa)
@@ -252,6 +258,7 @@ tar xf %SOURCE80
 patch -p1 < %SOURCE91
 patch -p1 < %SOURCE92
 patch -p1 < %SOURCE93
+patch -p1 < %SOURCE94
 
 cp %SOURCE81 cassandane.ini
 # RF rpm-buildroot-usage
@@ -352,6 +359,7 @@ autoreconf -vi
     --enable-http \
     --enable-idled \
     --enable-murder \
+    --enable-jmap \
     --enable-nntp \
     --enable-replication \
     --enable-unit-tests \
@@ -591,7 +599,7 @@ exclude+=("!Master.maxforkrate")
 %endif
 
 # Add -vvv for too much output
-./testrunner.pl %{?_smp_mflags} -v -f pretty ${exclude[@]} 2>&1
+sudo -u cyrus LD_LIBRARY_PATH=%buildroot/%_libdir ./testrunner.pl %{?_smp_mflags} -v -f pretty ${exclude[@]} 2>&1
 
 %pre
 %sysusers_create_compat %{SOURCE19}
@@ -821,6 +829,9 @@ exclude+=("!Master.maxforkrate")
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Fri Dec 08 2023 Martin Osvald <mosvald@redhat.com> - 3.8.1-4
+- Enable jmap support again (rhbz#1940012)
+
 * Thu Nov 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.8.1-3
 - Use pcre2posix instead of the deprecated pcreposix (rhbz#2128286)
 - Fix build with libxml2 2.12.0 (rhbz#2251888)

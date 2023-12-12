@@ -35,7 +35,7 @@ that require calculating eigenvalues of large matrices.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}-static%{?_isa} = %{version}-%{release}
+Provides:       %{name}-static%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains development files for %{name}.

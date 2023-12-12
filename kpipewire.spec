@@ -3,7 +3,7 @@ Summary: Set of convenient classes to use PipeWire in Qt projects
 Version: 5.90.0
 Release: 1%{?dist}
 
-License: LGPL-2.0-or-later
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/plasma/%{name}
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 

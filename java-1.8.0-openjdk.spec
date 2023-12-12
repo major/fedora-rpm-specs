@@ -326,7 +326,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      5
+%global rpmrelease      6
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -1898,9 +1898,7 @@ doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
 # in addition the builddir must match the builddir of the portables, including release
 # be aware, even os may be different, especially with buildonce, repack everywhere
 # so deducting it from installed deps
-# portable jdk8 are currently wrongly named as java-1.8.0-openjdk-portable instead just java-1.8.0-openjdk
-# thus the regex must be slightly stricter. todo, fix in portables
-portablenvr=`ls -d %{compatiblename}*%{version}*portable*.misc.%{_arch} | sed "s/portable.misc.//"`
+portablenvr=`ls -d %{compatiblename}*%{version}*portable*.misc.%{_arch} | sed "s/portable.*.misc.//"`
 portablebuilddir=/builddir/build/BUILD
   # Fix build paths in ELF files so it looks like we built them
   for file in $(find `pwd` -type f | grep -v -e "$src_image" -e "$doc_image") ; do
@@ -2582,6 +2580,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Sat Dec 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.392.b08-6
+- repacking renamed portable tarballs, thus making the regex more geenric again
+
 * Sat Dec 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.392.b08-5
 - proeprly filing debugsources pkg
   by addedd symlinks restructuring the structure for original build sources
