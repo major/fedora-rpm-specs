@@ -8,8 +8,8 @@ directory that matches ALL of the regexps given on the command line, in\
 order.
 
 Name:		%{projname}
-Version:	1.11
-Release:	8%{?dist}
+Version:	1.12
+Release:	1%{?dist}
 Summary:	Maintains a jump-list of the directories you actually use
 License:	WTFPL
 Source0:	https://github.com/rupa/%{projname}/archive/v%{version}.tar.gz
@@ -39,6 +39,9 @@ install -pm 644 z.1 %{buildroot}%{_mandir}/man1/z.1
 %{_mandir}/man1/z.1*
 
 %changelog
+* Mon Dec 11 2023 Ben Cotton <bcotton@fedoraproject.org> - 1.12-1
+- Upstream release 1.12
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

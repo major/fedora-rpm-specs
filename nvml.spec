@@ -28,7 +28,7 @@
 %endif
 
 %define min_ndctl_ver 60.1
-%define upstreamversion 2.0.0
+%define upstreamversion 2.0.1
 
 Name:		nvml
 Version:	%{upstreamversion}
@@ -488,6 +488,9 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 
 
 %changelog
+* Mon Dec 11 2023 Emanuel Lima <emlima@redhat.com> - 2.0.1-1
+- PMDK 2.0.1
+
 * Mon Nov 06 2023 Emanuel Lima <emlima@redhat.com> - 2.0.0-1
 - PMDK 2.0.0
 

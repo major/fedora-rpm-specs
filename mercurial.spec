@@ -9,7 +9,7 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.6
+Version: 6.6.1
 Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
@@ -260,6 +260,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Mon Dec 11 2023 Mads Kiilerich <mads@kiilerich.com> - 6.6.1-1
+- mercurial 6.6.1
+
 * Tue Nov 21 2023 Mads Kiilerich <mads@kiilerich.com> - 6.6-1
 - mercurial 6.6 and patch to use cargo toml 0.8
 

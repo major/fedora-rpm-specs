@@ -4,8 +4,8 @@
 %define utils_version 1.3
 
 Name:           cbmc
-Version:        5.50.0
-Release:        6%{?dist}
+Version:        5.95.1
+Release:        1%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
 License:        BSD-4-Clause
@@ -14,27 +14,16 @@ URL:            https://www.cprover.org/cbmc
 Source0:        https://github.com/diffblue/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/aufover/%{name}-utils/archive/v%{utils_version}/%{name}-utils-%{utils_version}.tar.gz
 
-# Adapt to recent versions of glpk
-Patch0:         %{name}-5.9-glpk.patch
-# Regression test regression/cpp/virtual0 is failing - hotfix
-Patch1:         %{name}-5.12-fix-f33.patch
-# Use minisat from Fedora repos
-Patch2:         %{name}-minisat.patch
-# Skip some c++ tests as cbmc cannot parse some GCC 11 headers
-Patch3:         %{name}-f34-fix-build.patch
-# Revert https://github.com/diffblue/cbmc/commit/a5b3008411f89a7800fde9003017242a80d84103
-# due deprecated python2 in fedora
-Patch4:         %{name}-f35-deprecated-python.patch
 # Disable -Werror flag
-Patch5:         %{name}-disable-werror.patch
-# Enable SSE2 (https://fedoraproject.org/wiki/Changes/Update_i686_architectural_baseline_to_include_SSE2)
-Patch6:         %{name}-f35-enable_sse2.patch
+Patch0:         %{name}-disable-werror.patch
+
+# FIXME: Upstream these patches!
+# Adapt to recent versions of glpk
+Patch1:         %{name}-5.9-glpk.patch
 # Implements https://github.com/diffblue/cbmc/issues/5965
-Patch7:         %{name}-add-cmd-line-arg.patch
-# Skip tests not compatible with gcc12
-Patch8:         %{name}-f36-fix-build-gcc12-incompatibility.patch
-# Fix compatibility with GCC 13
-Patch9:         %{name}-f38-gcc13.patch
+Patch2:         %{name}-add-cmd-line-arg.patch
+# Fix compilation on F40
+Patch3:         %{name}-f40-fix-build.patch
 
 BuildRequires:  bison
 BuildRequires:  cmake
@@ -47,16 +36,19 @@ BuildRequires:  ninja-build
 BuildRequires:  zlib-devel
 
 %ifarch x86_64
-# For the tests.
-BuildRequires:  jq
+# For the tests
+BuildRequires:  cvc5
 BuildRequires:  gdb
+BuildRequires:  jq
 BuildRequires:  perl
 BuildRequires:  python3
 BuildRequires:  z3
+
+# For %%py3_shebang_fix
+BuildRequires:  python3-devel
 %endif
 
 Requires:       gcc-c++
-Requires:       sed
 
 %description
 CBMC generates traces that demonstrate how an assertion can be violated, or
@@ -77,25 +69,14 @@ Output conversion utilities for CBMC (GCC like format).
 
 %prep
 %setup -T -q -b 1 -n %{name}-utils-%{utils_version}
-%setup -T -q -b 0 -n %{name}-%{name}-%{version}
-
-# FIXME: Upstream the patches
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
-%patch5 -p0
-%ifarch %{ix86}
-%patch6 -p0
-%endif
-%patch7 -p0
-%patch8 -p0
-%patch9 -p0
+%autosetup -p1 -b 0 -n %{name}-%{name}-%{version}
 
 %build
 %cmake -GNinja -DWITH_JBMC:BOOL=OFF \
-               -DWITH_SYSTEM_SAT_SOLVER:BOOL=ON \
+               -Dsat_impl:STRING=system-minisat2 \
+%ifarch %{ix86} x86_64
+               -DWITH_MEMORY_ANALYZER:BOOL=ON \
+%endif
                -DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
 %cmake_build --target doc
@@ -106,12 +87,19 @@ Output conversion utilities for CBMC (GCC like format).
 install -p -m 0755 "%{_builddir}/%{name}-utils-%{utils_version}/cbmc_utils/formatCBMCOutput.py" %{buildroot}%{_bindir}/%{name}-convert-output
 install -p -m 0755 "%{_builddir}/%{name}-utils-%{utils_version}/cbmc_utils/csexec-cbmc.sh" %{buildroot}%{_bindir}/csexec-%{name}
 
-# FIXME: What is this.
-# Feed the debuginfo generator
-ln -s xml_y.tab.h src/xmllang/xml_y.tab.hpp
+# Remove Cprover API stuff because static libraries are not allowed!
+rm -rf %{buildroot}%{_includedir}
+rm -rf %{buildroot}%{_libdir}/libcprover.*.a
+
+# FIXME: Report to upstream that the target directory for completions is wrong!
+mkdir -p %{buildroot}%{bash_completions_dir}
+mv %{buildroot}{/usr/etc/bash_completion.d/cbmc,%{bash_completions_dir}}
 
 %ifarch x86_64
 %check
+# Fix unversioned shebang!
+%py3_shebang_fix scripts/cpplint.py
+
 # The tests were written with the assumption that they would be executed on
 # an x86_64.  Other platforms suffer a large number of spurious test failures.
 %ctest --label-regex CORE
@@ -122,15 +110,22 @@ ln -s xml_y.tab.h src/xmllang/xml_y.tab.hpp
 %doc README.md
 %license LICENSE
 %{_bindir}/cbmc
+%{_bindir}/cprover
 %{_bindir}/crangler
 %{_bindir}/goto-*
 %{_bindir}/ls_parse.py
 %{_bindir}/symtab2gb
+%{bash_completions_dir}
 %{_mandir}/man1/cbmc*.1.*
+%{_mandir}/man1/crangler*.1.*
 %{_mandir}/man1/goto-*.1.*
+%ifarch %{ix86} x86_64
+%{_mandir}/man1/memory-analyzer.1.*
+%endif
+%{_mandir}/man1/symtab2gb.1.*
 
 %files doc
-%doc %{__cmake_builddir}/doc/html
+%doc %{__cmake_builddir}/doc/html README.md TOOLS_OVERVIEW.md
 %license LICENSE
 
 %files utils
@@ -139,6 +134,9 @@ ln -s xml_y.tab.h src/xmllang/xml_y.tab.hpp
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Tue Nov 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.95.1-1
+- Update to 5.95.1 (rhbz#2239079)
+
 * Fri Jul 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.50.0-6
 - Exclude installation of test dependencies on non-x86_64 architectures
 

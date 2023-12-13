@@ -51,7 +51,8 @@ Summary:        A free C compiler for 6502 based systems
 License:        zlib
 URL:            https://cc65.github.io
 Source0:        %{git_url}/archive/V%{version}/%{name}-%{version}.tar.gz
-Patch0: cc65-c99.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2253946
+Patch0:         cc65-c99.patch
 
 # Backported from upstream.
 # none

@@ -1,11 +1,14 @@
+%global forgeurl https://github.com/python-quantities/python-quantities/
 Name:       python-quantities
-Version:    0.14.1
+Version:    0.15.0
 Release:    %autorelease
 Summary:    Support for physical quantities with units, based on numpy
 
+%forgemeta
+
 License:    BSD-3-Clause
-URL:        http://python-quantities.readthedocs.io/
-Source0:    %{pypi_source quantities}
+URL:        %forgeurl
+Source0:    %forgesource
 
 BuildArch:      noarch
 
@@ -29,26 +32,27 @@ BuildRequires:  python3-pytest
 %description -n python3-quantities %_description
 
 %prep
-%autosetup -n quantities-%{version}
+%forgesetup
 # Work around confusion with SPECPARTS directory looking like a package to
 # setuptools automatic discovery:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2213013#c2
 rm -rf SPECPARTS
 
-# remove spurious
-sed -i '/python (>=3.7)/ d' setup.py
-
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
 %pyproject_save_files quantities
 
 %check
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 PY_IGNORE_IMPORTMISMATCH=1 %{pytest}
 
 %files -n python3-quantities -f %{pyproject_files}

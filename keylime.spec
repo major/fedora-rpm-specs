@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 7.7.0
+Version: 7.8.0
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
@@ -17,8 +17,6 @@ Source0:        https://github.com/keylime/keylime/archive/refs/tags/v%{version}
 Source1:        %{srcname}.sysusers
 # The selinux policy for keylime is distributed via this repo: https://github.com/RedHat-SP-Security/keylime-selinux
 Source2:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
-
-Patch: 01-duplicate-str-to-version.patch
 
 # Main program: BSD
 # Icons: MIT

@@ -4,8 +4,8 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        1.2.2
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
 # SPDX
@@ -18,8 +18,6 @@ Source:         https://docs.readthedocs.io/en/latest/objects.inv
 # Remove all traces of html5shiv.  We have no interest in supporting ancient
 # versions of Internet Explorer.
 Patch:          %{name}-html5shiv.patch
-# Backport changes to support Sphinx 7
-Patch:          https://github.com/readthedocs/sphinx_rtd_theme/pull/1464.patch
 
 BuildArch:      noarch
 
@@ -66,11 +64,6 @@ readthedocs.org.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-
-# Make theme work with docutils 0.20+ in Fedora 39+
-# This is not officially supported yet, tracked upstram in:
-# https://github.com/readthedocs/sphinx_rtd_theme/issues/1323
-sed -i "s|docutils <0.19|docutils <0.21|" setup.cfg
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.readthedocs\.io/en/stable/', \)None|\1'%{SOURCE1}'|" \
@@ -194,6 +187,10 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Mon Dec 04 2023 Karolina Surma <ksurma@redhat.com> - 2.0.0-1
+- Update to 2.0.0
+Fixes rhbz#2233302
+
 * Mon Oct 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.2-2
 - Do not BuildRequire python3-sphinxcontrib-httpdomain, it was not needed
 

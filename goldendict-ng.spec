@@ -1,5 +1,5 @@
-Version:        23.11.08
-%global tag %{version}-BeginningOfWinter.ff83be8a
+Version:        23.12.07
+%global tag %{version}-HeavySnow.b0086d5c
 
 Name:           goldendict-ng
 Release:        %autorelease
@@ -14,8 +14,8 @@ Summary:        The Next Generation GoldenDict
 # src/scripts/{iframeResizer.contentWindow.min.js,iframeResizer.min.js} - MIT
 # src/scripts/jquery-3.6.0.slim.min.js - MIT
 License:        GPL-3.0-or-later AND GPL-1.0-or-later AND GPL-2.0-or-later AND GPL-3.0-only AND MIT
-URL:            https://xiaoyifang.github.io/goldendict-ng/
-Source0:        https://github.com/xiaoyifang/goldendict-ng/archive/v%{tag}/goldendict-ng-v%{tag}.tar.gz
+URL:            https://github.com/xiaoyifang/goldendict-ng
+Source0:        %{url}/archive/v%{tag}/goldendict-ng-%{tag}.tar.gz
 
 # https://src.fedoraproject.org/rpms/qt6-qtwebengine/blob/rawhide/f/qt6-qtwebengine.spec#_90
 ExclusiveArch: aarch64 x86_64

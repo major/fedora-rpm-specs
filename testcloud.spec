@@ -1,7 +1,7 @@
 Name:           testcloud
 # Update also version in testcloud/__init__.py and docs/source/conf.py when changing this!
 Version:        0.9.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for running cloud images locally
 
 License:        GPL-2.0-or-later
@@ -40,6 +40,7 @@ BuildRequires:  python3-requests
 BuildRequires:  python3-setuptools
 
 Requires:       genisoimage
+Requires:       libvirt-daemon
 Requires:       libvirt-daemon-config-network
 Requires:       libvirt-daemon-driver-qemu
 Requires:       libvirt-daemon-driver-storage-core
@@ -125,7 +126,10 @@ rm -rf %{buildroot}%{_sysconfdir}/testcloud/__pycache__
 %{python3_sitelib}/*.egg-info
 
 %changelog
-* Mon Sep 04 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-1
+* Mon Dec 11 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.9.10-2
+- Require libvirt-daemon as it's no longer pulled in indirectly
+
+* Mon Sep 04 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.9.10-1
 - configuration abstraction (domain/apiv2 by lbrabec)
 - Add workaround for Ubuntu
 - Remove compatibility code for tmt < 1.22

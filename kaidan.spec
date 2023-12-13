@@ -73,7 +73,7 @@ Requires:       qt5-qtgraphicaleffects%{?_isa}
 Requires:       qt5-qtquickcontrols2%{?_isa}
 Requires:       qt5-qtwebchannel%{?_isa}
 Requires:       qt5-qtwebengine%{?_isa}
-Requires:       kquickimageeditor%{?_isa}
+Requires:       kquickimageeditor-qt5%{?_isa}
 Requires:       hicolor-icon-theme
 
 %description

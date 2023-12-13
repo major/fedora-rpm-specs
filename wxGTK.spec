@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -30,7 +30,7 @@ BuildRequires:  expat-devel
 BuildRequires:  SDL2-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  libSM-devel
-BuildRequires:  gstreamer1-plugins-base-devel
+BuildRequires:  gstreamer1-plugins-bad-free-devel
 BuildRequires:  gettext
 BuildRequires:  cppunit-devel
 BuildRequires:  libmspack-devel
@@ -318,6 +318,9 @@ fi
 %doc html
 
 %changelog
+* Sun Dec 10 2023 Scott Talbert <swt@techie.net> - 3.2.4-2
+- Rebuild wxMediaCtrl with gstplayer for Wayland support
+
 * Thu Nov 16 2023 Scott Talbert <swt@techie.net> - 3.2.4-1
 - Update to new upstream release 3.2.4
 

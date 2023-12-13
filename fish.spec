@@ -30,7 +30,7 @@ Summary:        Friendly interactive shell
 #   - share/tools/web_config/js/angular.js
 # PSF-2.0
 #   - doc_src/python_docs_theme/,
-License:        GPL-2.0-only AND AND BSD-3-Clause AND ISC AND LGPL-2.0-or-later AND MIT AND PSF-2.0
+License:        GPL-2.0-only AND BSD-3-Clause AND ISC AND LGPL-2.0-or-later AND MIT AND PSF-2.0
 URL:            https://fishshell.com
 %if %{undefined gitnum}
 Source0:        https://github.com/fish-shell/fish-shell/releases/download/%{version}/%{name}-%{version}.tar.xz

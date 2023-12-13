@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global ocamlver 501
 
 Name:           ocaml-merlin
-Version:        4.13
+Version:        4.13.1
 Release:        1%{?dist}
 Summary:        Context sensitive completion for OCaml
 
@@ -147,6 +147,9 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Mon Dec 11 2023 Jerry James <loganjerry@gmail.com> - 4.13.1-1
+- Version 4.13.1
+
 * Fri Dec  1 2023 Jerry James <loganjerry@gmail.com> - 4.13-1
 - Version 4.13
 

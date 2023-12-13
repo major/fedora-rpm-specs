@@ -2,11 +2,11 @@
 %global srcname GeoIP2-python
 %global desc This package provides an API for the GeoIP2 web services.
 %global test_data MaxMind-DB
-%global test_data_rls 2b37923df61aa3b5fb6c7edfbf4dc5fafa10258a
+%global test_data_rls 1271107ccad72c320bc7dc8aefd767cba550101a
 
 Name:           python-%{pypi_name}
-Version:        4.7.0
-Release:        3%{?dist}
+Version:        4.8.0
+Release:        1%{?dist}
 Summary:        MaxMind GeoIP2 API
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest tests/databas
 %license LICENSE
 
 %changelog
+* Thu Dec 07 2023 Lumír Balhar <lbalhar@redhat.com> - 4.8.0-1
+- Update to 4.8.0 (rhbz#2253301)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

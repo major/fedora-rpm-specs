@@ -87,7 +87,7 @@ BuildRequires:  libwebp-tools
 BuildRequires:  poppler-utils
 # Those are only used for tests. Do not add to runtime deps.
 BuildRequires:  /usr/bin/jpegtran
-BuildRequires:  /usr/bin/JxrDecApp
+BuildRequires:  jxrlib
 BuildRequires:  python3-pyqt6-webengine-devel
 BuildRequires:  python3-fonttools
 BuildRequires:  python3-zstd
@@ -139,9 +139,11 @@ Requires:       python3dist(html2text)
 Requires:       python3dist(markdown) >= 3.0
 Requires:       python3dist(pychm)
 Requires:       python3dist(pyqt6-sip)
+%if %{undefined flatpak}
 Requires:       udisks2
+%endif
 Requires:       /usr/bin/jpegtran
-Requires:       /usr/bin/JxrDecApp
+Requires:       jxrlib
 Requires:       python3-jeepney
 Requires:       python3-xxhash
 Recommends:     python3dist(zeroconf)
@@ -204,6 +206,9 @@ mkdir -p %{buildroot}%{_datadir}/zsh/site-functions
 
 LIBPATH="%{_libdir}" \
 CALIBRE_PY3_PORT=1 \
+PODOFO_INC_DIR=%{_includedir}/podofo \
+PODOFO_LIB_DIR=%{_libdir} \
+PODOFO_LIB_NAME=%{_libdir}/libpodofo.so \
 %python3 setup.py install \
     --root=%{buildroot}%{_prefix} \
     --prefix=%{_prefix} \
@@ -257,40 +262,40 @@ rm -rf %{buildroot}%{_libdir}/calibre/odf
 # unbundle Liberation fonts
 rm -f %{buildroot}%{_datadir}/calibre/fonts/liberation/*
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-mono/LiberationMono-BoldItalic.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-mono/LiberationMono-BoldItalic.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationMono-BoldItalic.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-mono/LiberationMono-Bold.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-mono/LiberationMono-Bold.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationMono-Bold.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-mono/LiberationMono-Italic.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-mono/LiberationMono-Italic.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationMono-Italic.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-mono/LiberationMono-Regular.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-mono/LiberationMono-Regular.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationMono-Regular.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-sans/LiberationSans-BoldItalic.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-sans/LiberationSans-BoldItalic.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSans-BoldItalic.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-sans/LiberationSans-Bold.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-sans/LiberationSans-Bold.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSans-Bold.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-sans/LiberationSans-Italic.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-sans/LiberationSans-Italic.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSans-Italic.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-sans/LiberationSans-Regular.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-sans/LiberationSans-Regular.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSans-Regular.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-serif/LiberationSerif-BoldItalic.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-serif/LiberationSerif-BoldItalic.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSerif-BoldItalic.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-serif/LiberationSerif-Bold.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-serif/LiberationSerif-Bold.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSerif-Bold.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-serif/LiberationSerif-Italic.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-serif/LiberationSerif-Italic.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSerif-Italic.ttf
 ln --symbolic --relative \
-    %{buildroot}%{_datadir}/fonts/liberation-serif/LiberationSerif-Regular.ttf \
+    %{buildroot}%{_usr}/share/fonts/liberation-serif/LiberationSerif-Regular.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSerif-Regular.ttf
 
 # Remove these 2 appdata files, we can only include one

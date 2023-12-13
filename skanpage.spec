@@ -41,7 +41,7 @@ BuildRequires:  cmake(KQuickImageEditor)
 
 Requires: qt5-qtquickcontrols2
 Requires: kf5-kirigami2              >= %{kf5_min_version}
-Requires: kquickimageeditor
+Requires: kquickimageeditor-qt5
 
 Recommends: sane-backends-drivers-scanners
 

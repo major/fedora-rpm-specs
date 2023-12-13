@@ -42,8 +42,8 @@ ExcludeArch: %{ix86}
 %global rcver %{nil}
 
 Name:           ocaml
-Version:        5.1.0
-Release:        5%{?dist}
+Version:        5.1.1
+Release:        1%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -64,22 +64,18 @@ Source2:        ocaml_files.py
 #
 # https://pagure.io/fedora-ocaml
 #
-# Current branch: fedora-40-5.1.0
+# Current branch: fedora-40-5.1.1
 #
 # ALTERNATIVELY add a patch to the end of the list (leaving the
 # existing patches unchanged) adding a comment to note that it should
 # be incorporated into the git repo at a later time.
 
-# Patches added after 5.1.0 was released.
-Patch:          0001-Fix-variance-composition-12623.patch
-
 # Fedora-specific patches
-Patch:          0002-Don-t-add-rpaths-to-libraries.patch
-Patch:          0003-configure-Allow-user-defined-C-compiler-flags.patch
-# https://github.com/ocaml/ocaml/pull/12530
-Patch:          0004-Fix-x86_64-delivery-of-effect-related-exceptions.patch
+Patch:          0001-Don-t-add-rpaths-to-libraries.patch
+Patch:          0002-configure-Allow-user-defined-C-compiler-flags.patch
+
 # https://github.com/ocaml/ocaml/pull/11594
-Patch:          0005-Update-framepointers-tests-to-avoid-false-positive-w.patch
+Patch:          0003-Update-framepointers-tests-to-avoid-false-positive-w.patch
 
 BuildRequires:  make
 BuildRequires:  git
@@ -470,6 +466,9 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Mon Dec 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.1-1
+- New upstream version 5.1.1 (RHBZ#2239227)
+
 * Tue Nov 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.0-5
 - Drop unused BR parallel
 

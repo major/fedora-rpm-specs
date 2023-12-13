@@ -9,14 +9,14 @@
 
 %bcond_without       tests
 
-%global gh_commit    9f26c224a2fa335f33e6666cc078fbf388255e87
+%global gh_commit    29f8114c2c319a4308e6b070902211e062efa392
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy-phpunit
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.0.2
-Release:        2%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Integrating the Prophecy mocking library in PHPUnit test cases
 
 License:        MIT
@@ -27,7 +27,8 @@ Source2:        makesrc.sh
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.3
 %if %{with tests}
-BuildRequires: (php-composer(phpspec/prophecy) >= 1.3   with php-composer(phpspec/prophecy) < 2)
+BuildRequires: (php-composer(phpspec/prophecy) >= 1.18  with php-composer(phpspec/prophecy) < 2)
+BuildRequires:  phpunit10 >= 10.1
 BuildRequires:  phpunit9 >= 9.1
 %endif
 # Autoloader
@@ -35,11 +36,11 @@ BuildRequires:  php-fedora-autoloader-devel
 
 # from composer.json, "requires": {
 #        "php": "^7.3 || ^8",
-#        "phpspec/prophecy": "^1.3",
+#        "phpspec/prophecy": "^1.18",
 #        "phpunit/phpunit":"^9.1"
 Requires:       php(language) >= 7.3
-Requires:      (php-composer(phpspec/prophecy) >= 1.3   with php-composer(phpspec/prophecy) < 2)
-Requires:       phpunit9 >= 9.1
+Requires:      (php-composer(phpspec/prophecy) >= 1.18  with php-composer(phpspec/prophecy) < 2)
+Requires:      (phpunit9 >= 9.1 or phpunit10 >= 10.1)
 # From phpcompatinfo report for version 2.0.1
 #none
 # Autoloader
@@ -78,11 +79,11 @@ cp -pr src/* %{buildroot}%{_datadir}/php/Prophecy/PhpUnit/
 %if %{with tests}
 : Dev autoloader
 mkdir vendor
-phpab --output vendor/autoload.php fixtures tests
+phpab --output vendor/autoload.php.in fixtures tests
 
-cat << 'EOF' | tee -a vendor/autoload.php
+cat << 'EOF' | tee -a vendor/autoload.php.in
 require_once '%{buildroot}%{_datadir}/php/Prophecy/PhpUnit/autoload.php';
-require_once '%{_datadir}/php/PHPUnit9/autoload.php';
+require_once '%{_datadir}/php/@PHPUNIT@/autoload.php';
 EOF
 
 : check autoloader
@@ -93,10 +94,15 @@ sed -e 's:src/::' -i tests/MockFailure.phpt
 
 : upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
+	sed -e 's/@PHPUNIT@/PHPUnit9/' vendor/autoload.php.in > vendor/autoload.php
     $cmd -d auto_prepend_file=vendor/autoload.php \
-      %{_bindir}/phpunit9 || ret=1
+      %{_bindir}/phpunit9 --no-coverage|| ret=1
+
+	sed -e 's/@PHPUNIT@/PHPUnit10/' vendor/autoload.php.in > vendor/autoload.php
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+      %{_bindir}/phpunit10 --no-coverage|| ret=1
   fi
 done
 exit $ret
@@ -113,6 +119,11 @@ exit $ret
 
 
 %changelog
+* Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 2.1.0-1
+- update to 2.1.0
+- raise dependency on phpspec/prophecy 1.18
+- allow phpunit9 or phpunit10
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

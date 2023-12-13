@@ -7,12 +7,12 @@
 %endif
 
 Name:           python-%{pkg_name}
-Version:        3.1.0
+Version:        4.0.0
 Release:        1%{?dist}
 Summary:        Adds i18n/l10n support to Flask applications
 License:        BSD
 URL:            https://github.com/mitsuhiko/%{pkg_name}/
-Source0:        https://github.com/python-babel/flask-babel/archive/refs/heads/v%{version}/%{pkg_name}-%{version}.tar.gz
+Source0:        https://github.com/python-babel/flask-babel/archive/v%{version}/%{pkg_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 # For documentation
@@ -78,6 +78,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Dec 08 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.0.0-1
+- Update to 4.0.0
+
 * Tue Jul 25 2023 Sandro Mani <manisandro@gmail.com> - 3.1.0-1
 - Update to 3.1.0
 

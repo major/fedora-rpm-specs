@@ -2,14 +2,7 @@
 #
 # As the test suite takes a very long time to run and is somewhat
 # unreliable on !x86 architectures, only run it on x86-64.
-%if !0%{?rhel}
 %global test_arches x86_64
-%else
-# RHEL 9 only:
-# x86-64:  "/lib64/libc.so.6: CPU ISA level is lower than required"
-#          (RHBZ#1919389)
-%global test_arches NONE
-%endif
 
 # Verify tarball signature with GPGv2.
 %global verify_tarball_signature 1

@@ -1,81 +1,48 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
-%global framework accountwizard
-
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# FIX: Build has a versionless soname. Has been fixed upstream, likely to be fixed next update.
+Patch0:  24.01.80-fix-versionless-soname.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
+BuildRequires: cmake
 BuildRequires: perl-generators
 
 BuildRequires: pkgconfig(shared-mime-info)
 BuildRequires: cmake(QGpgme)
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Xml)
-BuildRequires: cmake(Qt5UiTools)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Keychain)
+BuildRequires: qt6-qtbase-private-devel
 
-# kf5
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5NotifyConfig)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5TextEditor)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5Kross)
-BuildRequires: cmake(KF5NewStuff)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Package)
 
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires: kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires: kf5-kidentitymanagement-devel >= %{majmin_ver}
-BuildRequires: kf5-kldap-devel >= %{majmin_ver}
-BuildRequires: kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-libkleo-devel >= %{majmin_ver}
-BuildRequires: kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-messagelib-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KPim6IdentityManagementCore)
+BuildRequires: cmake(KPim6MailTransport)
+BuildRequires: cmake(KPim6LdapCore)
+BuildRequires: cmake(KPim6Libkleo)
+BuildRequires: cmake(QGpgmeQt6)
+BuildRequires: cmake(KPim6IMAP)
 
 # when split out
 Conflicts: kdepim-common < 16.12
@@ -89,9 +56,7 @@ Conflicts: kdepim-common < 16.12
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
@@ -102,33 +67,27 @@ Conflicts: kdepim-common < 16.12
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.accountwizard.desktop
-%endif
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_datadir}/knsrcfiles/%{framework}.knsrc
-%{_kf5_bindir}/accountwizard
-%{_kf5_bindir}/ispdb
-%{_kf5_datadir}/akonadi/accountwizard/
-%{_kf5_datadir}/applications/org.kde.accountwizard.desktop
-%{_kf5_datadir}/mime/packages/accountwizard-mime.xml
-# subpkg to be multilib-friendly?
-%{_qt5_plugindir}/accountwizard_plugin.so
+%{_bindir}/accountwizard
+%{_libdir}/libaccountwizard.so.*
+%{_kf6_datadir}/qlogging-categories6/accountwizard.*
+%{_kf6_qmldir}/org/kde/pim/accountwizard/
+#%{_kf6_datadir}/knsrcfiles/%{name}.knsrc
+#%{_kf6_bindir}/accountwizard
+#%{_kf6_bindir}/ispdb
+#%{_kf6_datadir}/akonadi/accountwizard/
+%{_kf6_datadir}/applications/org.kde.accountwizard.desktop
+#%{_kf6_datadir}/mime/packages/accountwizard-mime.xml
+#%{_qt6_plugindir}/accountwizard_plugin.so
 
 
 %changelog
+* Sun Dec 10 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

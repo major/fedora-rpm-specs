@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.18.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -22,10 +22,6 @@ Source0:        https://crates.io/api/v1/crates/%{crate}/%{version}/download#/%{
 # not used on Fedora
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
 Source2:        https://github.com/coreos/coreos-installer-dracut/archive/%{dracutcommit}/coreos-installer-dracut-%{dracutshortcommit}.tar.gz
-
-## RHEL specific patches
-# enable rdcore in default feature set (RHEL macros do not take -f)
-Patch1000:         enable-rdcore.patch
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel}
@@ -83,9 +79,10 @@ Obsoletes:      coreos-installer-dracut < 0.0.1
 %description -n %{crate} %{_description}
 
 %prep
-%autosetup -n %{crate}-%{version} -N -a 2
-%autopatch -p1 %{?!rhel:-M 999}
+%autosetup -n %{crate}-%{version} -a 2 -p1
 %if 0%{?rhel}
+# Hackily enable rdcore manually on RHEL (RHEL macros do not take -f)
+sed -i '/^\[features\]/a \ \ default = ["rdcore"]' Cargo.toml
 %cargo_prep -V 1
 %else
 %cargo_prep
@@ -177,6 +174,9 @@ from the initramfs in IoT/Edge and is supported by the community.
 %endif
 
 %changelog
+* Thu Dec 07 2023 Steven Presti <spresti@redhat.com> - 0.18.0-3
+- Remove rdcore patch, and move its logic into %prep
+
 * Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 0.18.0-2
 - Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
 

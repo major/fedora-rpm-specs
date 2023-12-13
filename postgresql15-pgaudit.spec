@@ -1,14 +1,24 @@
+%{!?postgresql_default:%global postgresql_default 0}
+
 %global majorname pgaudit
 %global pgversion 15
 Name:		postgresql%{pgversion}-%{majorname}
 Version:	1.7.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
 URL:		http://pgaudit.org
 
 Source0:	https://github.com/%{majorname}/%{majorname}/archive/%{version}/%{majorname}-%{version}.tar.gz
+
+%if %?postgresql_default
+%global pkgname %{majorname}
+%package -n %{pkgname}
+Summary: PostgreSQL Audit Extension
+%else
+%global pkgname %name
+%endif
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -18,9 +28,13 @@ BuildRequires:	openssl-devel
 Requires(pre): postgresql-server >= 15, postgresql-server < 16
 
 %global precise_version %{?epoch:%epoch:}%version-%release
-Provides: %{majorname} = %precise_version
-Provides: %{majorname}%{?_isa} = %precise_version
-Conflicts: %{majorname}
+Provides: %{pkgname} = %precise_version
+%if %?postgresql_default
+Provides: postgresql-%{majorname} = %precise_version
+%endif
+Provides: %{pkgname}%{?_isa} = %precise_version
+Provides: %{majorname}-any
+Conflicts: %{pkgname}
 
 %description
 The PostgreSQL Audit extension (pgaudit) provides detailed session
@@ -37,6 +51,20 @@ the PostgreSQL Audit extension (pgaudit) is properly called an audit
 trail or audit log. The term audit log is used in this documentation.
 
 
+%description -n %{pkgname}
+The PostgreSQL Audit extension (pgaudit) provides detailed session
+and/or object audit logging via the standard PostgreSQL logging
+facility.
+
+The goal of the PostgreSQL Audit extension (pgaudit) is to provide
+PostgreSQL users with capability to produce audit logs often required to
+comply with government, financial, or ISO certifications.
+
+An audit is an official inspection of an individual's or organization's
+accounts, typically by an independent body. The information gathered by
+the PostgreSQL Audit extension (pgaudit) is properly called an audit
+trail or audit log. The term audit log is used in this documentation.
+
 %prep
 %setup -q -n %{majorname}-%{version}
 
@@ -49,7 +77,7 @@ trail or audit log. The term audit log is used in this documentation.
 %make_install USE_PGXS=1 PG_CONFIG=/usr/bin/pg_server_config
 
 
-%files
+%files -n %{pkgname}
 %doc README.md
 %license LICENSE
 %{_libdir}/pgsql/%{majorname}.so
@@ -62,6 +90,10 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Mon Dec 11 2023 Filip Janus <fjanus@redhat.com> - 1.7.0-7
+- Add macro postgresql_default to be able set up default version in distro
+- Add symbop pgaudit-any
+
 * Tue Nov 28 2023 Filip Janus <fjanus@redhat.com> - 1.7.0-6
 - Import demodularized version
 

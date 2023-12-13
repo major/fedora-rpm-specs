@@ -1,6 +1,6 @@
 Name:          volk
-Version:       3.0.0
-Release:       4%{?dist}
+Version:       3.1.0
+Release:       1%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       GPLv3+
 URL:           https://github.com/gnuradio/%{name}
@@ -110,6 +110,10 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Mon Dec 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.1.0-1
+- New version
+  Resolves: rhbz#2253664
+
 * Thu Oct 19 2023 Marcus Müller <marcus_fedora@baseband.digital> - 3.0.0-4
 - Depend on system google-cpu_features-devel instead of using the vendored
 - Fixes rhbz#2245047

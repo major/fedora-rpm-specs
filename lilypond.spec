@@ -3,8 +3,8 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.25.4
-Release:	3%{?dist}
+Version:	2.25.11
+Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -12,7 +12,6 @@ URL:		https://lilypond.org
 Source0:	https://lilypond.org/download/sources/v2.25/lilypond-%{version}.tar.gz
 Source1:        century-schoolbook-l.metainfo.xml
 Patch0:		lilypond-2.21.2-gcc44-relocate.patch
-Patch1:         scheme.patch
 
 Requires:	ghostscript >= 8.15
 Obsoletes: 	lilypond-fonts <= 2.12.1-1
@@ -73,7 +72,6 @@ This contains the directory common to all lilypond fonts.
 %setup -q
 
 %patch -P 0 -p0
-%patch -P 1 -p1
 
 %build
 PYTHON=/usr/bin/python3
@@ -120,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Mon Dec 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.11-1
+- 2.25.11
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

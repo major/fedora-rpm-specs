@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 
 Name:		yubico-piv-tool
-Version:	2.4.1
+Version:	2.4.2
 Release:	1%{?dist}
 Summary:	Tool for interacting with the PIV applet on a YubiKey
 
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
 
 
 %changelog
+* Mon Dec 11 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.2-1
+- New upstream release related to the previous issue (#2253499)
+
 * Wed Dec 06 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.1-1
 - Fix the build for i686 architecture (#2252823)
 

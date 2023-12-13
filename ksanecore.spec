@@ -1,61 +1,115 @@
 Name:    ksanecore
 Summary: Library providing logic to interface scanners
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: BSD and LGPLv2.1-only and LGPLv3.0-only
 URL:     https://invent.kde.org/libraries/ksanecore
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+Patch0:  qt5-qt6-coinstallability.patch
 
 BuildRequires: cmake
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
+
+BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(KF5I18n)
 BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5Gui)
+
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+
 BuildRequires: pkgconfig(sane-backends)
 
 %description
 %{summary}.
 
-%package devel
-Summary:  Development files for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%description devel
+%package qt5
+Summary: Qt5 library providing logic to interface scanners
+Requires: %{name}-common = %{version}-%{release}
+Obsoletes: %{name} < 24.01
+%description qt5
 %{summary}.
+
+%package qt5-devel
+Summary: Development files for %{name}-qt5
+Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
+Requires: cmake(Qt5Gui)
+Obsoletes: %{name}-devel < 24.01
+%description qt5-devel
+%{summary}.
+
+%package qt6
+Summary: Qt6 library providing logic to interface scanners
+Requires: %{name}-common = %{version}-%{release}
+%description qt6
+%{summary}.
+
+%package qt6-devel
+Summary:  Development files for %{name}-qt6
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Requires: cmake(Qt6Gui)
+%description qt6-devel
+%{summary}.
+
+%package common
+Summary: Files shared between the Qt5 and Qt6 versions of the library
+%description common
+%{summary}.
+Provides internationalization files.
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 
 %build
-%cmake_kf5
+%global _vpath_builddir %{_target_platform}-qt5
+%cmake_kf5 -DBUILD_WITH_QT6=OFF
 %cmake_build
 
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake_kf6 -DBUILD_WITH_QT6=ON
+%cmake_build
 
 %install
+%global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
+
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake_install
+
 %find_lang %{name} --all-name --with-html
 
-
-%files -f %{name}.lang
+%files common -f %{name}.lang
 %doc README.md
 %license LICENSES/*
-%{_kf5_libdir}/libKSaneCore.so.*
 
-%files devel
-%{_includedir}/KSaneCore/*
-%{_kf5_libdir}/cmake/KSaneCore/*
-%{_kf5_libdir}/libKSaneCore.so
+%files qt5
+%{_libdir}/libKSaneCore.so.{1,%{maj_ver_kf6}.*}
+
+%files qt5-devel
+%{_includedir}/KSaneCore/
+%{_libdir}/cmake/KSaneCore/
+%{_libdir}/libKSaneCore.so
+
+%files qt6
+%{_libdir}/libKSaneCore6.so.{1,%{maj_ver_kf6}.*}
+
+%files qt6-devel
+%{_includedir}/KSaneCore6/
+%{_libdir}/cmake/KSaneCore6/
+%{_libdir}/libKSaneCore6.so
 
 
 %changelog
+* Mon Dec 11 2023 Alessandro Astone <ales.astone@gmail.com>
+- Update to 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

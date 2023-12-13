@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.58
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -96,10 +96,12 @@ Patch41: httpd-2.4.43-r1861793+.patch
 Patch42: httpd-2.4.48-r1828172+.patch
 Patch45: httpd-2.4.43-logjournal.patch
 Patch46: httpd-2.4.53-separate-systemd-fns.patch
+Patch47: httpd-2.4.58-r1912477+.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
 Patch60: httpd-2.4.43-enable-sslv3.patch
+Patch61: httpd-2.4.58-r1914013.patch
 Patch63: httpd-2.4.46-htcacheclean-dont-break.patch
 Patch65: httpd-2.4.51-r1894152.patch
 
@@ -271,8 +273,10 @@ written in the Lua programming language.
 %patch -P45 -p1 -b .logjournal
 %patch -P46 -p1 -b .separatesystemd
 %patch -P25 -p1 -b .selinux
+%patch -P47 -p1 -b .r1912477+
 
 %patch -P60 -p1 -b .enable-sslv3
+%patch -P61 -p1 -b .r1914013
 %patch -P63 -p1 -b .htcacheclean-dont-break
 %patch -P65 -p1 -b .r1894152
 
@@ -859,6 +863,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri Dec  8 2023 Joe Orton <jorton@redhat.com> - 2.4.58-3
+- mod_dav_fs: add DAVLockDBType, use global lock around lockdb
+
 * Thu Nov  2 2023 Joe Orton <jorton@redhat.com> - 2.4.58-2
 - add dependency on apr-util-1(dbm) so a DBM provider is present
 

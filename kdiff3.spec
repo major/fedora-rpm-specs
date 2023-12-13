@@ -3,7 +3,7 @@
 # %%global gitcommit %%(c=%%{gitcommit_full}; echo ${c:0:7})
 
 Name:           kdiff3
-Version:        1.10.6
+Version:        1.10.7
 Release:        1%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
@@ -44,8 +44,6 @@ KDiff3 is a program that
 %prep
 %autosetup -p1
 #-n KDE-%{name}-%{gitcommit}
-#Already fixed at master branch
-sed -i 's|#include <QtGlobal>|#include <QtGlobal>\n#include <limits>|' src/TypeUtils.h
 
 
 %build
@@ -81,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Mon Dec 11 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.10.7-1
+- Update to 1.10.7
+
 * Mon Sep 25 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.10.6-1
 - Update to 1.10.6
 

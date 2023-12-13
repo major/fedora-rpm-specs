@@ -9,46 +9,62 @@
 #
 # Please, preserve the changelog entries
 #
-%{!?__pear:       %global __pear       %{_bindir}/pear}
-%global pear_name     PHP_CodeSniffer
+
+
+%bcond_without       tests
+
+%global gh_commit    5805f7a4e4958dbb5e944ef1e6edae0a303765e7
+%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
+%global gh_owner     PHPCSStandards
+%global gh_project   PHP_CodeSniffer
+# keep in old PEAR tree
+%global pear_phpdir  %{_datadir}/pear
+
 
 Name:           php-pear-PHP-CodeSniffer
-Version:        3.7.2
-Release:        2%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD 3-Clause
-URL:            http://pear.php.net/package/PHP_CodeSniffer
-Source0:        http://pear.php.net/get/%{pear_name}-%{version}.tgz
+URL:            https://github.com/%{gh_owner}/%{gh_project}
+# git snapshot to retrieve test suite
+Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
+
+# RPM installation path
+Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 5.4
-BuildRequires:  php-pear
-# to run test suite
-%global phpunit %{_bindir}/phpunit7
+BuildRequires:  php-tokenizer
+BuildRequires:  php-xmlwriter
+BuildRequires:  php-simplexml
+BuildRequires:  php-dom
+BuildRequires:  php-iconv
+BuildRequires:  php-intl
+%if %{with tests}
+# to run test suite, from composer.json "require-dev"
+#        "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
+%global phpunit %{_bindir}/phpunit9
 BuildRequires:  %{phpunit}
+%endif
 
-Requires(post): %{__pear}
-Requires(postun): %{__pear}
-# From package.xml
-Requires:       php-pear(PEAR)
+# from composer.json "require": {
+#        "php": ">=5.4.0",
+#        "ext-tokenizer": "*",
+#        "ext-xmlwriter": "*",
+#        "ext-simplexml": "*"
 Requires:       php(language) >= 5.4
 Requires:       php-tokenizer
 Requires:       php-xmlwriter
 Requires:       php-simplexml
-# From phpcompatinfo report for version 3.0.0
-Requires:       php-reflection
-Requires:       php-ctype
-Requires:       php-date
+# From phpcompatinfo report for version 3.8.0
 Requires:       php-dom
-Requires:       php-json
 Requires:       php-iconv
-Requires:       php-pcntl
-Requires:       php-pcre
-Requires:       php-soap
-Requires:       php-spl
+Requires:       php-intl
 
-Provides:       php-pear(%{pear_name}) = %{version}
+Provides:       php-pear(%{gh_project}) = %{version}
 Provides:       php-composer(squizlabs/php_codesniffer) = %{version}
 Provides:       phpcs = %{version}
 Obsoletes:      phpcs < %{version}
@@ -60,10 +76,8 @@ certain standards, such as PEAR, or user-defined.
 
 
 %prep
-%setup -q -c
-
-cd %{pear_name}-%{version}
-mv ../package.xml %{pear_name}.xml
+%setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1 -b .rpm
 
 
 %build
@@ -71,21 +85,23 @@ mv ../package.xml %{pear_name}.xml
 
 
 %install
-cd %{pear_name}-%{version}
+: Install the library
+mkdir -p               %{buildroot}%{pear_phpdir}/PHP/CodeSniffer
+cp -pr src             %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/src/
+cp -pr autoload.php    %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
+cp -p  phpcs.xml.dist  %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
+cp -p  phpcs.xsd       %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
 
-%{__pear} install --nodeps --packagingroot %{buildroot} %{pear_name}.xml
+: Cleanup
+find %{buildroot}%{pear_phpdir}/PHP/CodeSniffer -depth -type d -name Tests -exec rm -r {} \; -print
 
-# Clean up unnecessary files
-rm -rf %{buildroot}%{pear_metadir}/.??*
-
-# Install XML package description
-mkdir -p %{buildroot}%{pear_xmldir}
-install -pm 644 %{pear_name}.xml %{buildroot}%{pear_xmldir}
+: Install the commands
+install -Dpm 755 bin/phpcs  %{buildroot}%{_bindir}/phpcs
+install -Dpm 755 bin/phpcbf %{buildroot}%{_bindir}/phpcbf
 
 
+%if %{with tests}
 %check
-cd %{pear_name}-%{version}
-
 # fails with js: Couldn't read source file
 rm src/Standards/Generic/Tests/Debug/JSHintUnitTest.*
 
@@ -96,44 +112,38 @@ sed -e "/@copyright/s/2021/${YEAR}/" \
 
 # Version 3.6.2: Tests: 1327, Assertions: 8476, Skipped: 8.
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
-    if [ $($1 -r 'echo PHP_VERSION_ID;') -ge 80200 ]; then
-      # failing upstream
-      FILTER="--filter '^((?!(testNotReadonly)).)*$'"
-    else
-      FILTER=""
-    fi
-    $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit7} \
-       $FILTER || ret=1
+    $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
+       || ret=1
   fi
 done
 exit $ret
+%endif
 
 
 %post
-%{__pear} install --nodeps --soft --force --register-only \
-    %{pear_xmldir}/%{pear_name}.xml >/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    %{__pear} uninstall --nodeps --ignore-errors --register-only \
-        %{pear_name} >/dev/null || :
+# no more from pear channel
+if [ -x %{_bindir}/pear ]; then
+  %{_bindir}/pear uninstall --nodeps --ignore-errors --register-only %{gh_project} >/dev/null || :
 fi
 
 
 %files
-%doc %{pear_docdir}/%{pear_name}
-%{pear_xmldir}/%{pear_name}.xml
-%{pear_testdir}/%{pear_name}
-%{pear_datadir}/%{pear_name}
+%{!?_licensedir:%global license %%doc}
+%license licence.txt
+%doc *.md
 %{pear_phpdir}/PHP
 %{_bindir}/phpcbf
 %{_bindir}/phpcs
 
 
 %changelog
+* Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 3.8.0-1
+- update to 3.8.0
+- sources from github instead or pear channel
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

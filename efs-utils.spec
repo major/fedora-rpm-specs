@@ -1,6 +1,7 @@
 %bcond_without tests
 %global with_selinux 1
 %global selinuxtype targeted
+%global modulename efsutils
 %global watchdog_service_name amazon-efs-mount-watchdog
 
 Name:           efs-utils
@@ -12,10 +13,10 @@ License:        MIT
 URL:            https://github.com/aws/efs-utils
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Source1:        selinux/efs-utils.te
-Source2:        selinux/efs-utils.if
-Source3:        selinux/efs-utils.fc
-Source4:        selinux/efs-utils_selinux.8
+Source1:        efsutils.te
+Source2:        efsutils.if
+Source3:        efsutils.fc
+Source4:        efsutils_selinux.8
 
 # Patch a deprecation warning to avoid having it fill the logs.
 # https://github.com/aws/efs-utils/pull/189
@@ -78,8 +79,8 @@ cp -p %{SOURCE2} selinux/
 cp -p %{SOURCE3} selinux/
 cp -p %{SOURCE4} selinux/
 
-%make_build -f %{_datadir}/selinux/devel/Makefile %{name}.pp
-bzip2 -9 %{name}.pp
+%make_build -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
+bzip2 -9 %{modulename}.pp
 %endif
 
 
@@ -109,9 +110,9 @@ install -vp -m 644 man/mount.efs.8 %{buildroot}%{_mandir}/man8/
 install -m 0755 -vd %{buildroot}%{_localstatedir}/log/amazon/efs
 
 %if 0%{?with_selinux}
-install -D -m 0644 -t %{buildroot}%{_mandir}/man8 selinux/%{name}_selinux.8
-install -D -m 0644 %{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
-install -D -p -m 0644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
+install -D -m 0644 -t %{buildroot}%{_mandir}/man8 selinux/%{modulename}_selinux.8
+install -D -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
+install -D -p -m 0644 selinux/%{modulename}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{modulename}.if
 %endif
 
 
@@ -140,7 +141,7 @@ PYTHONPATH=$(pwd)/src %pytest \
 %selinux_relabel_pre -s %{selinuxtype}
 
 %post selinux
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
 %selinux_relabel_post -s %{selinuxtype}
 
 if [ "$1" -le "1" ]; then # First install
@@ -149,7 +150,7 @@ fi
 
 %postun selinux
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s %{selinuxtype} %{name}
+    %selinux_modules_uninstall -s %{selinuxtype} %{modulename}
     %selinux_relabel_post -s %{selinuxtype}
     %systemd_postun_with_restart %{watchdog_service_name}.service
 fi
@@ -173,10 +174,10 @@ fi
 
 %if 0%{?with_selinux}
 %files selinux
-%{_mandir}/man8/%{name}_selinux.8.*
-%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.*
-%{_datadir}/selinux/devel/include/distributed/%{name}.if
-%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
+%{_mandir}/man8/%{modulename}_selinux.8.*
+%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
+%{_datadir}/selinux/devel/include/distributed/%{modulename}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 %endif
 
 

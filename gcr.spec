@@ -7,7 +7,11 @@ Version:        4.1.0
 Release:        2%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
-License:        LGPLv2+
+# gck/pkcs11n.h is MPL 1.1/GPL 2.0/LGPL 2.1
+# gck/pkcs11x.h is FSFULLRWD
+# ui/icons/render-icons.py is LGPL-3.0-or-later OR CC-BY-SA-3.0
+# docs/COPYING is GCR-docs
+License:        LGPL-2.1-or-later AND FSFULLRWD AND (LGPL-3.0-or-later OR CC-BY-SA-3.0) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GCR-docs
 URL:            https://gitlab.gnome.org/GNOME/gcr
 Source0:        https://download.gnome.org/sources/%{name}/4.1/%{name}-%{version}.tar.xz
 

@@ -49,10 +49,10 @@ features offered by PostgreSQL.
 
 Summary:	%{sum}
 Name:		python-%{srcname}
-Version:	2.9.6
-Release:	3%{?dist}
+Version:	2.9.9
+Release:	1%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
-License:	LGPL-3.0-or-later AND (GPL-2.0-or-later WITH Classpath-exception-2.0)
+License:	LGPL-3.0-or-later WITH openvpn-openssl-exception
 Url:		http://initd.org/psycopg/
 
 Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-8/psycopg2-%{version}.tar.gz
@@ -311,6 +311,13 @@ done
 
 
 %changelog
+* Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> -  2.9.9-1
+- Rebase to the latest upstream version
+
+* Fri Nov 03 2023 Ondrej Sloup <osloup@redhat.com> -  2.9.6-4
+- Update license and use SPDX formula according to fedora-license-data
+- https://gitlab.com/fedora/legal/fedora-license-data/-/issues/153
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

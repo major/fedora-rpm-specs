@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.32
+Version: 12.33
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Dec 11 2023 Nick Clifron  <nickc@redhat.com> - 12.33-1
+- Tests: Fix implicit-values test so that it will compile with gcc 14+.
+
 * Fri Nov 24 2023 Nick Clifron  <nickc@redhat.com> - 12.32-1
 - GCC Plugin: Add support for -fhardended.
 

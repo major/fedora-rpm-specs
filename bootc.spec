@@ -18,6 +18,8 @@ URL:            https://github.com/containers/bootc
 Source0:        %{url}/releases/download/v%{version}/bootc-%{version}.tar.zstd
 Source1:        %{url}/releases/download/v%{version}/bootc-%{version}-vendor.tar.zstd
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires: make
 BuildRequires: ostree-devel

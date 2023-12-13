@@ -1,7 +1,7 @@
 %global         modname greenlet
 
 Name:           python-%{modname}
-Version:        3.0.1
+Version:        3.0.2
 Release:        1%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT AND PSF-2.0
@@ -67,6 +67,9 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" \
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Mon Dec 11 2023 Terje Rosten <terje.rosten@ntnu.no> - 3.0.2-1
+- 3.0.2
+
 * Sat Nov 25 2023 Terje Rosten <terje.rosten@ntnu.no> - 3.0.1-1
 - 3.0.1
 

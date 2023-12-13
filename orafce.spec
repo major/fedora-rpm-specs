@@ -1,8 +1,8 @@
-%global githubversion 4_2_6
+%global githubversion 4_7_0
 
 Name:		orafce
-Version:	4.2.6
-Release:	3%{?dist}
+Version:	4.7.0
+Release:	1%{?dist}
 Summary:	Implementation of some Oracle functions into PostgreSQL
 License:	BSD
 URL:		http://github.com/orafce/orafce
@@ -44,7 +44,10 @@ for production work.
 
 
 %changelog
-* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.2.6-3
+* Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> - 4.7.0-1
+- Rebase to the latest upstream version
+
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.2.6-3
 - remove macro postgresql_module_requires
 - add simple require
 

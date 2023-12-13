@@ -1,23 +1,19 @@
 Summary: Spherical data types, functions, and operators for PostgreSQL
 Name: pgsphere
-Version: 1.1.1
-Release: 38%{?dist}
-License: BSD
+Version: 1.4.1
+Release: 1%{?dist}
+License: BSD-3-Clause
 
-# https://github.com/akorotkov/pgsphere/issues/15
-Source0: http://pgfoundry.org/frs/download.php/2558/%{name}-%{version}.tar.gz
-Patch0: pgsphere-pgsl93.patch
-# The changes are upstream already, fixed via a number of different commits.
-# Most of the changes seem to be in this one 2d97f1652afb4ef5405e0e1e5988c.
-Patch1: pgsphere-pgsl11.patch
-Patch2: pgsphere-pgsl12.patch
-URL: http://pgfoundry.org/projects/pgsphere
+Source0: https://github.com/postgrespro/%{name}/archive/refs/tags/%{version}.tar.gz
+URL: https://github.com/postgrespro/pgsphere/
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: postgresql-server-devel
 BuildRequires: clang-devel
 BuildRequires: llvm-devel
+BuildRequires: healpix-c++-devel
+BuildRequires: zlib-devel
 %{?postgresql_module_requires}
 
 %description
@@ -26,30 +22,27 @@ working with spherical coordinates and objects. It also supports indexing of
 spherical objects.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
-%make_build USE_PGXS=1 PG_CONFIG=%_bindir/pg_server_config
+%make_build 
 
 %install
-install -d %{buildroot}%{_libdir}/pgsql/
-install -d %{buildroot}%{_datadir}/%{name}
-
-install -m 755 pg_sphere.so %{buildroot}%{_libdir}/pgsql/pg_sphere.so
-install -m 644 pg_sphere.sql %{buildroot}%{_datadir}/%{name}/
-
-%ldconfig_scriptlets
+%make_install
 
 %files
-%doc README.pg_sphere
-%license COPYRIGHT.pg_sphere
-%{_datadir}/%{name}
-%{_libdir}/pgsql/pg_sphere.so
+%doc %{_datadir}/doc/pgsql/extension/README.pg_sphere
+%license %{_datadir}/doc/pgsql/extension/COPYRIGHT.pg_sphere
+%{_libdir}/pgsql/pg_sphere*
+%{_datadir}/pgsql/extension/pg_sphere*
 
 %changelog
+* Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> - 1.4.1-1
+- Rebase to the latest upstream version
+- Change upstream to https://github.com/postgrespro/pgsphere/
+- Update license to SPDX format (BSD-3-Clause)
+- Remove merged patches
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

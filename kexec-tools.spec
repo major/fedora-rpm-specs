@@ -5,7 +5,7 @@
 
 Name: kexec-tools
 Version: 2.0.27
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-only
 Summary: The kexec/kdump userspace component
 
@@ -271,6 +271,7 @@ touch /etc/kdump.conf
 servicelog_notify --remove --command=/usr/lib/kdump/kdump-migrate-action.sh 2>/dev/null
 servicelog_notify --add --command=/usr/lib/kdump/kdump-migrate-action.sh --match='refcode="#MIGRATE" and serviceable=0' --type=EVENT --method=pairs_stdin >/dev/null
 %endif
+:
 
 
 %postun
@@ -374,6 +375,9 @@ fi
 %endif
 
 %changelog
+* Mon Dec 11 2023 Coiby Xu <coxu@redhat.com> - 2.0.27-5
+- Let %post scriptlet always exits with the zero exit status
+
 * Wed Nov 08 2023 Coiby Xu <coxu@redhat.com> - 2.0.27-4
 - update to makedumpfile-1.7.4
 - kdump-lib.sh: add extra 64M to default crashkernel if sme/sev is active

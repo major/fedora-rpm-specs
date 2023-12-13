@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -147,6 +147,11 @@ Recommends: nss-mdns
 # avahi is needed for mDNS discovery and sharing queues
 Recommends: avahi
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 9
+# for better migration - cups-browsed was part of cups-filters in the past,
+# now it was splitted and no longer depends on cups-filters - the daemon will
+# vanish during upgrade without a weak dependency at least
+# remove once C10X is released
+Recommends: cups-browsed
 # for IPP-over-USB device support
 Recommends: ipp-usb
 %endif
@@ -792,6 +797,10 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Dec 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-4
+- make a weak dep on cups-browsed to prevent cups-browsed disappearing
+  during upgrade
+
 * Mon Nov 06 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-3
 - use pkgconfig in macros.cups and add new macros
 

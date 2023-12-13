@@ -7,8 +7,6 @@
 # Please, preserve the changelog entries
 #
 
-# For compatibility with SCL
-%undefine __brp_mangle_shebangs
 
 %if 0%{?fedora}
 %bcond_without tests
@@ -17,7 +15,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    a6303e50c90c355c7eeee2c4a8b27fe8dc8fef1d
+%global gh_commit    1bcbb2179f97633e98bbbc87044ee2611c7d7999
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -27,7 +25,7 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.17.1
+Version:        4.18.0
 Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
@@ -128,7 +126,7 @@ AUTOLOAD
 FILTER="--filter '^((?!(testLexNewFeatures)).)*$'"
 
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
+for cmdarg in "php %{phpunit}" php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d include_path=%{php_home} \
@@ -151,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 4.18.0-1
+- update to 4.18.0
+
 * Fri Aug 18 2023 Remi Collet <remi@remirepo.net> - 4.17.1-1
 - update to 4.17.1
 

@@ -16,7 +16,7 @@
 %undefine       prever
 %global         prerpmver    %(echo "%{?prever}" | sed -e 's|-||g')
 
-%global         baserelease     3
+%global         baserelease     4
 
 %if 0%{?usegitbare} >= 1
 %global         gitcommit   54cd5fc0af2407a70717ed3e8577d3ae9ae1a849
@@ -43,7 +43,24 @@ Version:        %{mainver}
 Release:        %{fedorarel}%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
-License:        GPLv2+
+# src/actions/	GPL-2.0-or-later
+# src/base/	LGPL-2.1-or-later
+# src/demo/	GPL-2.0-or-later
+# src/extra/	LGPL-2.1-or-later
+# src/fm-gtk.{c,h}	GPL-2.0-or-later
+# src/gtk-compat.c	GPL-2.0-or-later
+# src/*.c		(rest) LGPL-2.1-or-later
+# src/gio/		GPL-2.0-or-later
+# src/gtk/exo/	LGPL-2.1-or-later AND GPL-2.0-or-later
+# src/gtk/		GPL-2.0-or-later AND LGPL-2.1-or-later
+# src/job/		LGPL-2.1-or-later
+# src/modules/	GPL-2.0-or-later
+# src/tests/	GPL-2.0-or-later
+# src/tools/	GPL-2.0-or-later
+# src/udisks/	GPL-2.0-or-later
+
+# SPDX confirmed
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            http://pcmanfm.sourceforge.net/
 %if 0%{?userelease} >= 1
 Source0:        http://downloads.sourceforge.net/pcmanfm/%{name}-%{mainver}%{?prever}.tar.xz
@@ -229,7 +246,7 @@ done
 %endif
 
 cat %PATCH1 | git am
-%patch1000 -p1 -Z
+%patch -P1000 -p1 -Z
 # Patch1000 needs below
 sh autogen.sh
 git commit -m "Use gtk version specific module directory" -a
@@ -449,6 +466,9 @@ fi
 %endif
 
 %changelog
+* Mon Dec 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2-4
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

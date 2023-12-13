@@ -263,7 +263,7 @@ export LIBGUESTFS_TRACE=1
 # working.
 for f in windows.img fedora.img; do
     make -C test-data/phony-guests $f
-    if -s test-data/phony-guests/$f; then
+    if test -s test-data/phony-guests/$f; then
         ./run virt-v2v -v -x -i disk test-data/phony-guests/$f -o null
     fi
 done

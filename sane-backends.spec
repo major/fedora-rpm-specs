@@ -24,7 +24,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -57,6 +57,8 @@ Patch2: sane-backends-1.0.23-sane-config-multilib.patch
 Patch3: sane-genesys-plustek7600i-8100-support.patch
 # Fix for c99
 Patch4: sane-backends-1.2.1-fedora-c99.patch
+# https://gitlab.com/sane-project/backends/-/merge_requests/814
+Patch5: sane-backends-1.2.1-libxml2-2.12.0.patch
 
 URL: http://www.sane-project.org
 
@@ -404,6 +406,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Sat Dec 09 2023 David King <amigadave@amigadave.com> - 1.2.1-7
+- Fix building against libxml2 2.12.0
+
 * Wed Aug 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-6
 - applied accepted license exception - SANE-exception
 

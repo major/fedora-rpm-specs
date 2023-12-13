@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    b29899b675371aee73920165d1dc5a2235aa104b
+%global gh_commit    554145304b4a026477d130928d16e626939b0b2a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   dav
@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        WebDAV Framework for PHP
-Version:        4.5.1
+Version:        4.6.0
 Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
@@ -47,7 +47,7 @@ BuildRequires: (php-composer(sabre/xml)       >= 2.0.1  with php-composer(sabre/
 BuildRequires: (php-composer(sabre/http)      >= 5.0.5  with php-composer(sabre/http)     < 6)
 BuildRequires: (php-composer(sabre/uri)       >= 2.0    with php-composer(sabre/uri)      < 3)
 BuildRequires: (php-composer(psr/log)         >= 1.0.1  with php-composer(psr/log)        < 4)
-BuildRequires: (php-composer(monolog/monolog) >= 1.27 with php-composer(monolog/monolog)  < 2)
+BuildRequires: (php-composer(monolog/monolog) >= 1.27 with php-composer(monolog/monolog)  < 3)
 BuildRequires:  php-dom
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
@@ -62,7 +62,7 @@ BuildRequires:  php-pdo
 BuildRequires:  php-json
 # From composer.json, "require-dev" : {
 #        "friendsofphp/php-cs-fixer": "^2.19",
-#        "monolog/monolog": "^1.27",
+#        "monolog/monolog": "^1.27 || ^2.0",
 #        "phpstan/phpstan": "^0.12 || ^1.0",
 #        "phpstan/phpstan-phpunit": "^1.0",
 #        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6"
@@ -224,6 +224,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 4.6.0-1
+- update to 4.6.0
+
 * Thu Nov 23 2023 Remi Collet <remi@remirepo.net> - 4.5.1-1
 - update to 4.5.1
 

@@ -29,8 +29,10 @@
 Name:           php-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
+
+Patch0:         upstream.patch
 
 License:        Xdebug-1.03
 URL:            https://xdebug.org/
@@ -87,6 +89,8 @@ mv %{sources}/package.xml .
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 # Check extension version
 ver=$(sed -n '/XDEBUG_VERSION/{s/.* "//;s/".*$//;p}' php_xdebug.h)
 if test "$ver" != "%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
@@ -205,9 +209,6 @@ cd %{sources}
 rm tests/base/bug02036.phpt
 # Erratic result
 rm tests/debugger/bug00998-ipv6.phpt
-# see https://bugs.xdebug.org/view.php?id=2220
-rm tests/debugger/bug01388-08.phpt
-rm tests/debugger/bug02006-001.phpt
 
 # bug00886 is marked as slow as it uses a lot of disk space
 TEST_OPTS="-q -x --show-diff"
@@ -236,6 +237,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 3.3.0-2
+- add upstream patch for test suite
+
 * Fri Dec  1 2023 Remi Collet <remi@remirepo.net> - 3.3.0-1
 - update to 3.3.0
 

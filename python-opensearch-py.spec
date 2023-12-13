@@ -1,8 +1,8 @@
 %global pypi_name opensearch-py
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
-Release:        3%{?dist}
+Version:        2.4.2
+Release:        %autorelease
 Summary:        Python low-level client for OpenSearch
 
 License:        Apache-2.0
@@ -52,34 +52,4 @@ Summary:        %{summary}
 
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.2.0-2
-- Rebuilt for Python 3.12
-
-* Fri May 12 2023 Steve Traylen <steve.traylen@cern.ch> - 2.2.0-1
-- Update to 2.2.0
-- Enable python extra packages
-- Update license to SPDX string.
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Sep 30 2022 Steve Traylen <steve.traylen@cern.ch> - 2.0.0-1
-- Upgrade to version 2.0.0
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.0.0-4
-- Rebuilt for Python 3.11
-
-* Wed Feb 9 2022 Steve Traylen <steve.traylen@cern.ch> - 1.0.0-3
-- Migrate to pyproject macros
-
-* Thu Dec 9 2021 Steve Traylen <steve.traylen@cern.ch> - 1.0.0-2
-- Review corrections rhbz#2016597
-
-* Fri Oct 22 2021 Steve Traylen <steve.traylen@cern.ch> - 1.0.0-1
-- Initial package.
+%autochangelog

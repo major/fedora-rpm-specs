@@ -1,13 +1,23 @@
+%{!?postgresql_default:%global postgresql_default 0}
+
 %global majorname pg_repack
 %global pgversion 15
 Name:           postgresql%{pgversion}-%{majorname}
 Version:        1.4.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD-3-Clause
 URL:            http://reorg.github.io/%{majorname}/
 Source0:        https://github.com/reorg/%{majorname}/archive/ver_%{version}.tar.gz
+
+%if %?postgresql_default
+%global pkgname %{majorname}
+%package -n %{pkgname}
+Summary: Reorganize tables in PostgreSQL databases without any locks
+%else
+%global pkgname %name
+%endif
 
 BuildRequires: make
 BuildRequires:  gcc, openssl-devel, lz4-devel
@@ -16,13 +26,16 @@ BuildRequires:  postgresql-server >= 15, postgresql-server < 16
 BuildRequires:  postgresql-static >= 15, postgresql-static < 16
 BuildRequires:  readline-devel, zlib-devel
 BuildRequires:  python3-docutils
-##%{?postgresql_module_requires}
 Requires(pre): postgresql-server >= 15, postgresql-server < 16
 
 %global precise_version %{?epoch:%epoch:}%version-%release
-Provides: %{majorname} = %precise_version
-Provides: %{majorname}%{?_isa} = %precise_version
-Conflicts: %{majorname}
+Provides: %{pkgname} = %precise_version
+%if %?postgresql_default
+Provides: postgresql-%{majorname} = %precise_version
+%endif
+Provides: %{pkgname}%{?_isa} = %precise_version
+Provides: %{majorname}-any
+Conflicts: %{pkgname}
 
 %description
 pg_repack is a PostgreSQL extension which lets you remove
@@ -35,6 +48,19 @@ with performance comparable to using CLUSTER directly.
 
 Please check the documentation (in the doc directory or online)
 for installation and usage instructions.
+
+%description -n %{pkgname}
+pg_repack is a PostgreSQL extension which lets you remove
+bloat from tables and indexes, and optionally
+restore the physical order of clustered indexes.
+Unlike CLUSTER and VACUUM FULL it works online,
+without holding an exclusive lock on the processed tables during processing.
+pg_repack is efficient to boot,
+with performance comparable to using CLUSTER directly.
+
+Please check the documentation (in the doc directory or online)
+for installation and usage instructions.
+
 %prep
 %setup -n %{majorname}-ver_%{version} -q
 
@@ -49,7 +75,7 @@ make
 %install
 %make_install
 
-%files
+%files -n %{pkgname}
 %{_bindir}/%{majorname}
 %{_libdir}/pgsql/%{majorname}.so
 %if 0%{?postgresql_server_llvmjit}
@@ -72,8 +98,11 @@ make
 
 
 %changelog
-* Mon Apr 24 2023 Filip Januš <fjanus@redhat.com> - 1.4.8-5
-- Release bump to enable this component instead of pg_repack component
+* Wed Dec 06 2023 Filip Janus <fjanus@redhat.com> - 1.4.8-6
+- Add postgresql_default macro to be able to decide which version of extension 
+  is the default one in the repository
+- Release bump
+- Add pg_repack-any symbol
 
 * Mon Apr 24 2023 Filip Januš <fjanus@redhat.com> - 1.4.8-4
 - Build without modules

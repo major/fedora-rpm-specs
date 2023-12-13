@@ -2,8 +2,8 @@
 %bcond_with bootstrap
 
 Name:           xmvn-generator
-Version:        1.2.1
-Release:        4%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        RPM dependency generator for Java
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/xmvn-generator
@@ -63,6 +63,9 @@ install -D -p -m 644 src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/xmvn
 %doc README.md
 
 %changelog
+* Mon Dec 11 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.2-1
+- Update to upstream version 1.2.2
+
 * Wed Aug 30 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.1-4
 - Enable JPMS provides and JAR transformation in ELN
 

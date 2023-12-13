@@ -1,9 +1,5 @@
 %global pkgname fedora-messaging
 %global srcname fedora_messaging
-%global desc \
-Tools and APIs to make working with AMQP in Fedora easier.
-
-%{?python_enable_dependency_generator}
 
 Name:           %{pkgname}
 Version:        3.4.1
@@ -15,33 +11,27 @@ URL:            https://github.com/fedora-infra/fedora-messaging
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-blinker
-BuildRequires:  python3-click
-BuildRequires:  python3-crochet
-BuildRequires:  python3-jsonschema
-BuildRequires:  python3-toml
-BuildRequires:  python3-twisted
-BuildRequires:  python3-pytz
-BuildRequires:  python3-pyOpenSSL
-BuildRequires:  python3-pika
-BuildRequires:  python3-service-identity
-# For testing
-BuildRequires:  python3-pytest
-#BuildRequires:  python3-pytest-twisted
-BuildRequires:  python3-sphinx
+BuildRequires:  python%{python3_pkgversion}-devel
+# For the docs
+BuildRequires:  python%{python3_pkgversion}-sphinx
 
-Requires:       python3-%{pkgname} = %{version}-%{release}
+Requires:       python%{python3_pkgversion}-%{pkgname} = %{version}-%{release}
 
 BuildRequires: systemd-rpm-macros
 
-%description %{desc}
+%{?python_enable_dependency_generator}
 
-%package     -n python3-%{pkgname}
+%global _description \
+Tools and APIs to make working with AMQP in Fedora easier.
+
+%description %{_description}
+
+%package -n python%{python3_pkgversion}-%{pkgname}
 Summary:        %{summary}
+%{?python_provide:%python_provide python3-%{pkgname}}
 
-%description -n python3-%{pkgname} %{desc}
+
+%description -n python%{python3_pkgversion}-%{pkgname} %{_description}
 
 
 %package doc
@@ -54,8 +44,12 @@ Documentation for %{pkgname}.
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 # generate docs
 PYTHONPATH=${PWD} sphinx-build-3 -M html -d docs/_build/doctrees docs docs/_build/html
 PYTHONPATH=${PWD} sphinx-build-3 -M man -d docs/_build/doctrees docs docs/_build/man
@@ -64,7 +58,8 @@ rm -rf docs/_build/*/.buildinfo
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 install -D -p -m 644 config.toml.example $RPM_BUILD_ROOT%{_sysconfdir}/fedora-messaging/config.toml
 install -D -p -m 644 configs/fedora.toml $RPM_BUILD_ROOT%{_sysconfdir}/fedora-messaging/fedora.toml
 install -D -p -m 644 configs/fedora.stg.toml $RPM_BUILD_ROOT%{_sysconfdir}/fedora-messaging/fedora.stg.toml
@@ -80,8 +75,8 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 
 
 %check
-#export PYTHONPATH=.
-#pytest-3 -vv
+# We need pytest-twisted but it's not in Fedora (yet)
+#%%tox
 
 
 %files
@@ -101,10 +96,8 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 %{_bindir}/%{name}
 %{_unitdir}/fm-consumer@.service
 
-%files -n python3-%{pkgname}
+%files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-*.egg-info
 
 %files doc
 %license LICENSE

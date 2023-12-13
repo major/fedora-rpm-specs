@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    b8e0bb7d8c604046539c1115994632c74dcb361e
+%global gh_commit    0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mockery
 %global gh_project   mockery
@@ -16,7 +16,7 @@
 %global major        1
 
 Name:           php-mockery
-Version:        1.6.6
+Version:        1.6.7
 Release:        1%{?dist}
 Summary:        Mockery is a simple but flexible PHP mock object framework
 
@@ -32,10 +32,8 @@ BuildArch:      noarch
 %if %{with tests}
 BuildRequires:  php(language) >= 7.3
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^8.5|^9.6.10",
-#        "psalm/plugin-phpunit": "^0.18.4",
-#        "symplify/easy-coding-standard": "^11.5.0",
-#        "vimeo/psalm": "^4.30"
+#        "phpunit/phpunit": "^8.5 || ^9.6.10",
+#        "symplify/easy-coding-standard": "^12.0.8"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires: phpunit9 >= 9.6.10
 BuildRequires: (php-composer(hamcrest/hamcrest-php) >= 2.0.1 with php-composer(hamcrest/hamcrest-php) < 3)
@@ -109,7 +107,7 @@ ret=0
 # need investigation
 rm tests/Mockery/MockeryCanMockClassesWithSemiReservedWordsTest.php
 
-for cmd in php php80 php81 php82 php83; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 \
       --no-coverage \
@@ -129,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 1.6.7-1
+- update to 1.6.7
+
 * Thu Aug 24 2023 Remi Collet <remi@remirepo.net> - 1.6.6-1
 - update to 1.6.6
 

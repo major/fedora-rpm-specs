@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Mon Oct 09 2023 Maxwell G <maxwell@gtmx.me> - 3.12-5
+- Fix python macro memoizing to account for changing %%__python3
+
 * Tue Sep 05 2023 Maxwell G <maxwell@gtmx.me> - 3.12-4
 - Remove %%py3_build_egg and %%py3_install_egg macros.
 

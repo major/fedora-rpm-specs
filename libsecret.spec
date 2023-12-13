@@ -5,14 +5,18 @@
 %global has_valgrind 1
 %endif
 
+%bcond_without gnutls
+
 Name:           libsecret
 Version:        0.21.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/Libsecret
 Source0:        https://download.gnome.org/sources/libsecret/%{release_version}/libsecret-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/libsecret/-/merge_requests/133
+Patch:          0001-tests-Remove-unnecessary-inclusion-of-gcrypt.h.patch
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
@@ -21,7 +25,11 @@ BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+%if %{with gnutls}
+BuildRequires:  pkgconfig(gnutls) >= 3.8.2
+%else
 BuildRequires:  pkgconfig(libgcrypt) >= 1.2.2
+%endif
 BuildRequires:  /usr/bin/xsltproc
 %if 0%{?has_valgrind}
 BuildRequires:  valgrind-devel
@@ -54,7 +62,14 @@ rm -rf build/valgrind/
 
 
 %build
-%meson
+%meson \
+%if %{with gnutls}
+-Dcrypto=gnutls \
+%else
+-Dcrypto=libgcrypt \
+%endif
+%{nil}
+
 %meson_build
 
 
@@ -89,6 +104,9 @@ rm -rf build/valgrind/
 
 
 %changelog
+* Sun Dec 10 2023 Daiki Ueno <dueno@redhat.com> - 0.21.2-2
+- Use GnuTLS as the default crypto backend
+
 * Sat Dec 09 2023 Kalev Lember <klember@redhat.com> - 0.21.2-1
 - Update to 0.21.2
 

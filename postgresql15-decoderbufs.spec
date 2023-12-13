@@ -1,10 +1,12 @@
+%{!?postgresql_default:%global postgresql_default 0}
+
 %global pre Final
 %global majorname postgres-decoderbufs
 %global pgversion 15
 
 Name:		postgresql%{pgversion}-decoderbufs
 Version:	1.9.7
-Release:	3%{?pre:.%pre}%{?dist}
+Release:	4%{?pre:.%pre}%{?dist}
 Summary:	PostgreSQL Protocol Buffers logical decoder plugin
 
 License:	MIT
@@ -13,6 +15,14 @@ URL:		https://github.com/debezium/postgres-decoderbufs
 %global full_version %{version}.%{?pre:%pre}%{?!pre:Final}
 
 Source0:	https://github.com/debezium/%{majorname}/archive/v%{full_version}.tar.gz
+
+%if %?postgresql_default
+%global pkgname %{majorname}
+%package -n %{pkgname}
+Summary: PostgreSQL Audit Extension
+%else
+%global pkgname %name
+%endif
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -23,13 +33,19 @@ Requires:	protobuf-c
 Requires(pre): postgresql-server >= 15, postgresql-server < 16
 
 %global precise_version %{?epoch:%epoch:}%version-%release
-Provides: %{majorname} = %precise_version
-Provides: %{majorname}%{?_isa} = %precise_version
-Conflicts: %{majorname}
+Provides: %{pkgname} = %precise_version
+%if %?postgresql_default
+Provides: postgresql-%{majorname} = %precise_version
+%endif
+Provides: %{pkgname}%{?_isa} = %precise_version
+Provides: %{majorname}-any
+Conflicts: %{pkgname}
 
 %description
 A PostgreSQL logical decoder output plugin to deliver data as Protocol Buffers messages.
 
+%description -n %{pkgname}
+A PostgreSQL logical decoder output plugin to deliver data as Protocol Buffers messages.
 
 %if 0%{?postgresql_server_llvmjit}
 %package llvmjit
@@ -49,7 +65,7 @@ Just-in-time compilation support for %{majorname}.
 %install
 %make_install
 
-%files
+%files -n %{pkgname}
 %doc README.md
 %license LICENSE
 %{_libdir}/pgsql/decoderbufs.so
@@ -63,6 +79,10 @@ Just-in-time compilation support for %{majorname}.
 
 
 %changelog
+* Mon Dec 11 2023 Filip Janus <fjanus@redhat.com> - 1.9.7-4.Final
+- Add macro postgresql_default to be able set up default version in distro
+- Add symbol postgres-decoderbufs-any
+
 * Wed Nov 29 2023 Filip Janus <fjanus@redhat.com> - 1.9.7-3.Final
 - Release bump
 
