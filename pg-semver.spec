@@ -5,22 +5,18 @@
 %endif
 
 Name:		pg-semver
-Version:	0.31.0
-Release:	11%{?dist}
+Version:	0.32.1
+Release:	2%{?dist}
 Summary:	A semantic version data type for PostgreSQL
 License:	PostgreSQL
 Url:		https://github.com/theory/pg-semver
 Source0:	http://api.pgxn.org/dist/semver/%{version}/semver-%{version}.zip
-BuildRequires:  clang
-BuildRequires:  gcc
-BuildRequires:  llvm
-BuildRequires:  make
+BuildRequires:	clang
+BuildRequires:	gcc
+BuildRequires:	llvm
+BuildRequires:	make
 BuildRequires:	postgresql-server-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%{?postgresql_module_requires}
-%else
-Requires:	postgresql-server
-%endif
+Requires(pre):	postgresql-server
 
 %description
 PostgreSQL server extension implementing data type called "semver".
@@ -46,10 +42,14 @@ rm -f %{buildroot}%{_docdir}/pgsql/extension/semver.mmd
 %{_libdir}/pgsql/semver.so
 %{_datadir}/pgsql/extension/semver*.sql
 %{_datadir}/pgsql/extension/semver.control
-%{_libdir}/pgsql/bitcode/src/semver.index.bc
-%{_libdir}/pgsql/bitcode/src/semver/src/semver.bc
 
 %changelog
+* Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> - 0.32.1-2
+- Remove macro %%{?postgresql_module_requires}
+
+* Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> - 0.32.1-1
+- Rebase to the latest upstream version
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

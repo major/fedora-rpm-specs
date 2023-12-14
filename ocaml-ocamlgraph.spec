@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocamlgraph
 Version:        2.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml library for arc and node graphs
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -116,6 +116,9 @@ install -m 0755 -p _build/default/view_graph/viewGraph_test.exe \
 %{_bindir}/ocamlgraph*
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.1.0-3
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.1.0-2
 - OCaml 5.1 rebuild for Fedora 40
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-fields-conv
 Version:        0.16.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generate accessor & iteration functions for OCaml records
 
 License:        MIT
@@ -57,6 +57,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-5
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-4
 - OCaml 5.1 rebuild for Fedora 40
 

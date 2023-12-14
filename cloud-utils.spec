@@ -1,3 +1,10 @@
+# Disable the growpart subpackage in EPEL, as RHEL ships it on its own
+%if 0%{?epel}
+%bcond_with growpart
+%else
+%bcond_without growpart
+%endif
+
 Summary:	Cloud image management utilities
 Name:		cloud-utils
 Version:	0.33
@@ -25,6 +32,7 @@ cloud-utils package provides several scripts that wrap the complicated tasks
 with a much simpler interface.
 
 
+%if %{with growpart}
 %package growpart
 Summary:	A script for growing a partition
 
@@ -41,6 +49,7 @@ Recommends:	lvm2
 This package provides the growpart script for growing a partition. It is
 primarily used in cloud images in conjunction with the dracut-modules-growroot
 package to grow the root partition on first boot.
+%endif
 
 
 %package cloud-localds
@@ -143,17 +152,24 @@ rm -f %{buildroot}%{_mandir}/man1/cloud-run-instances.*
 rm -f %{buildroot}%{_bindir}/cloud-publish-*
 rm -f %{buildroot}%{_mandir}/man1/cloud-publish-*
 
+%if %{without growpart}
+rm -f %{buildroot}%{_bindir}/growpart
+rm -f %{buildroot}%{_mandir}/man1/growpart.*
+%endif
+
 
 %files
 %doc ChangeLog
 %license LICENSE
 
 
+%if %{with growpart}
 %files growpart
 %doc ChangeLog
 %license LICENSE
 %{_bindir}/growpart
 %doc %{_mandir}/man1/growpart.*
+%endif
 
 
 %files cloud-localds

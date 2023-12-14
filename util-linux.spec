@@ -2,7 +2,7 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -622,7 +622,6 @@ fi
 %{_mandir}/man8/rfkill.8*
 %{_mandir}/man8/rtcwake.8*
 %{_mandir}/man8/setarch.8*
-%{_mandir}/man8/sulogin.8.gz
 %{_mandir}/man8/swaplabel.8*
 %{_mandir}/man8/wdctl.8.gz
 %{_mandir}/man8/wipefs.8*
@@ -651,7 +650,6 @@ fi
 %{_sbindir}/rfkill
 %{_sbindir}/rtcwake
 %{_sbindir}/runuser
-%{_sbindir}/sulogin
 %{_sbindir}/swaplabel
 %{_sbindir}/wipefs
 %{_sbindir}/zramctl
@@ -831,6 +829,7 @@ fi
 %{_mandir}/man8/mkswap.8*
 %{_mandir}/man8/mount.8*
 %{_mandir}/man8/partx.8*
+%{_mandir}/man8/sulogin.8*
 %{_mandir}/man8/swapoff.8*
 %{_mandir}/man8/swapon.8*
 %{_mandir}/man8/switch_root.8*
@@ -842,6 +841,7 @@ fi
 %{_sbindir}/losetup
 %{_sbindir}/mkswap
 %{_sbindir}/partx
+%{_sbindir}/sulogin
 %{_sbindir}/swapoff
 %{_sbindir}/swapon
 %{_sbindir}/switch_root
@@ -930,6 +930,9 @@ fi
 
 
 %changelog
+* Fri Dec  2 2023 Daan De Meyer <daandemeyer@gmail.com> - 2.39.2-2
+- Move sulogin to util-linux-core
+
 * Thu Aug 17 2023 Karel Zak <kzak@redhat.com> - 2.39.2-1
 - fix libmount atime regression
 - upgrade to v2.39.2

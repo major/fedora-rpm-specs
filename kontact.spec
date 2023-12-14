@@ -1,70 +1,48 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 Name:    kontact
 Summary: Personal Information Manager
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5WebEngine)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6WebEngineWidgets)
 
-# kf5
+# kf6
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(Grantlee5)
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5IconThemes)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6TextTemplate)
 
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires: kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires: kf5-kontactinterface-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6KontactInterface)
+BuildRequires: cmake(KPim6Libkdepim)
+BuildRequires: cmake(KPim6GrantleeTheme)
+BuildRequires: cmake(KPim6PimCommon)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 # core/runtime deps
-Requires: kaddressbook >= %{majmin_ver}
-Requires: kmail >= %{majmin_ver}
-Requires: korganizer >= %{majmin_ver}
+Requires: kaddressbook
+Requires: kmail
+Requires: korganizer
 
 %description
 Kontact is the integrated solution to your personal information management
@@ -84,55 +62,42 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-for f in %{buildroot}%{_kf5_datadir}/applications/*.desktop ; do
+for f in %{buildroot}%{_kf6_datadir}/applications/*.desktop ; do
   desktop-file-validate $f
 done
-%endif
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{name}.*
-%{_kf5_bindir}/kontact
-%{_kf5_metainfodir}/org.kde.kontact.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kontact.desktop
-%{_kf5_datadir}/config.kcfg/kontact.kcfg
-%{_kf5_datadir}/messageviewer/about/default/introduction_kontact.html
-%{_kf5_datadir}/messageviewer/about/default/loading_kontact.html
-%{_kf5_datadir}/icons/hicolor/*/apps/kontact.*
-%{_kf5_datadir}/dbus-1/services/org.kde.kontact.service
-
-%ldconfig_scriptlets libs
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_bindir}/kontact
+%{_kf6_metainfodir}/org.kde.kontact.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kontact.desktop
+%{_kf6_datadir}/config.kcfg/kontact.kcfg
+%{_kf6_datadir}/messageviewer/about/default/introduction_kontact.html
+%{_kf6_datadir}/messageviewer/about/default/loading_kontact.html
+%{_kf6_datadir}/icons/hicolor/*/apps/kontact.*
+%{_kf6_datadir}/dbus-1/services/org.kde.kontact.service
 
 %files libs
-%{_kf5_libdir}/libkontactprivate.so.*
-%{_qt5_plugindir}/pim5/kcms/kontact/kcm_kontact.so
+%{_kf6_libdir}/libkontactprivate.so.*
+%{_qt6_plugindir}/pim6/kcms/kontact/kcm_kontact.so
 
 
 %changelog
+* Tue Dec 12 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

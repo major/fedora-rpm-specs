@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-pyml
 Version:        20231101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml bindings for Python
 
 # The project is BSD-2-Clause except for pycaml.mli, which is LGPLv2+
@@ -82,6 +82,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 20231101-2
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Mon Nov  6 2023 Jerry James <loganjerry@gmail.com> - 20231101-1
 - Version 20231101
 - Drop the library-unload patch

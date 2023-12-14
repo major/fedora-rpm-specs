@@ -4,15 +4,15 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.9.6
-Release:       2%{?dist}
+Version:       2.9.9
+Release:       1%{?dist}
 BuildArch:     noarch
 
 
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
 # LGPLv3+ with exceptions: most files
-# BSD: psycopg/adapter*.{h,c} and psycopg/microprotocol*.{h,c}
-License:       (LGPLv3+ with exceptions) and BSD
+# The exceptions allow linking to OpenSSL and PostgreSQL's libpq
+License:	LGPL-3.0-or-later WITH openvpn-openssl-exception
 URL:           https://www.psycopg.org/
 Source0:       %{pypi_source}
 
@@ -83,6 +83,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Tue Dec 12 2023 Sandro Mani <manisandro@gmail.com> - 2.9.9-1
+- Update to 2.9.9
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

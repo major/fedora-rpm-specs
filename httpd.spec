@@ -865,6 +865,7 @@ exit $rv
 %changelog
 * Fri Dec  8 2023 Joe Orton <jorton@redhat.com> - 2.4.58-3
 - mod_dav_fs: add DAVLockDBType, use global lock around lockdb
+- fix build with libxml2 2.12
 
 * Thu Nov  2 2023 Joe Orton <jorton@redhat.com> - 2.4.58-2
 - add dependency on apr-util-1(dbm) so a DBM provider is present

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlbz2
 Version:        0.7.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        OCaml bindings for bzip2
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -76,6 +76,9 @@ make install DESTDIR=$OCAMLFIND_DESTDIR INSTALL='%{_bindir}/install -p'
 %doc doc/*
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-14
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-13
 - OCaml 5.1 rebuild for Fedora 40
 

@@ -6,7 +6,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           frama-c
 Version:        27.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Cobalt
@@ -272,6 +272,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 27.1-8
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 27.1-7
 - Rebuild for ocaml-dune 3.12.1 (rhbz#2252981)
 

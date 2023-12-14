@@ -1,7 +1,7 @@
 Summary: Spherical data types, functions, and operators for PostgreSQL
 Name: pgsphere
 Version: 1.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause
 
 Source0: https://github.com/postgrespro/%{name}/archive/refs/tags/%{version}.tar.gz
@@ -14,7 +14,7 @@ BuildRequires: clang-devel
 BuildRequires: llvm-devel
 BuildRequires: healpix-c++-devel
 BuildRequires: zlib-devel
-%{?postgresql_module_requires}
+Requires(pre):	postgresql-server
 
 %description
 pgSphere is a server side module for PostgreSQL. It contains methods for 
@@ -37,6 +37,9 @@ spherical objects.
 %{_datadir}/pgsql/extension/pg_sphere*
 
 %changelog
+* Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> - 1.4.1-2
+- Remove macro %%{?postgresql_module_requires}
+
 * Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> - 1.4.1-1
 - Rebase to the latest upstream version
 - Change upstream to https://github.com/postgrespro/pgsphere/

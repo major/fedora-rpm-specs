@@ -54,7 +54,7 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        .NET Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
@@ -74,6 +74,8 @@ Source2:        dotnet-prebuilts-%{bootstrap_sdk_version}-ppc64le.tar.gz
 Source3:        dotnet-prebuilts-%{bootstrap_sdk_version}-s390x.tar.gz
 %else
 Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%{upstream_tag}.tar.gz#/dotnet-%{upstream_tag_without_v}.tar.gz
+Source1:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/dotnet-%{upstream_tag_without_v}.tar.gz.sig
+Source2:        https://dotnet.microsoft.com/download/dotnet/release-key-2023.asc
 %endif
 Source5:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/release.json
 
@@ -99,6 +101,7 @@ BuildRequires:  dotnet-sdk-%{dotnetver}-source-built-artifacts
 BuildRequires:  findutils
 BuildRequires:  git
 BuildRequires:  glibc-langpack-en
+BuildRequires:  gnupg2
 BuildRequires:  hostname
 BuildRequires:  krb5-devel
 BuildRequires:  libicu-devel
@@ -355,6 +358,11 @@ These are not meant for general use.
 
 
 %prep
+%if %{without bootstrap}
+# check gpg signatures only for non-bootstrap builds; bootstrap "sources" are hand-crafted
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
+
 release_json_tag=$(grep tag %{SOURCE5} | cut -d: -f2 | sed -E 's/[," ]*//g')
 if [[ ${release_json_tag} != %{upstream_tag} ]]; then
    echo "error: tag in release.json doesn't match tag in spec file"
@@ -419,13 +427,7 @@ popd
 
 %endif
 
-# tar -x --strip-components=1 -f %%{SOURCE10}
-# tar -x --strip-components=1 -f %%{SOURCE11}
-
 %autopatch -p1 -M 999
-
-# Fix bad hardcoded path in build
-sed -i 's|/usr/share/dotnet|%{_libdir}/dotnet|' src/runtime/src/native/corehost/hostmisc/pal.unix.cpp
 
 %if ! %{use_bundled_libunwind}
 sed -i -E 's|( /p:BuildDebPackage=false)|\1 --cmakeargs -DCLR_CMAKE_USE_SYSTEM_LIBUNWIND=TRUE|' src/runtime/eng/SourceBuild.props
@@ -647,6 +649,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Dec 12 2023 Omair Majid <omajid@redhat.com> - 8.0.100-2
+- Enable gpg signature verification
+
 * Sat Dec 09 2023 Omair Majid <omajid@redhat.com> - 8.0.100-1
 - Update to .NET SDK 8.0.100 and Runtime 8.0.0
 

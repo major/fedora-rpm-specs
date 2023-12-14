@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-logs
 Version:        0.7.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Logging infrastructure for OCaml
 
 License:        ISC
@@ -76,6 +76,9 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-14
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-13
 - OCaml 5.1 rebuild for Fedora 40
 

@@ -5,7 +5,7 @@
 %global flatpak_version 0.99.1
 
 Name:           flatpak-builder
-Version:        1.3.5
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
@@ -101,6 +101,9 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 
 
 %changelog
+* Tue Dec 12 2023 Kalev Lember <klember@redhat.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Sun Nov 19 2023 Kalev Lember <klember@redhat.com> - 1.3.5-1
 - Update to 1.3.5
 

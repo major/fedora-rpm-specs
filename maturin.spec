@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           maturin
-Version:        1.3.2
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Build and publish Rust crates as Python packages
 SourceLicense:  MIT OR Apache-2.0

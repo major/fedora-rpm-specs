@@ -1,100 +1,67 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
-%global framework %{name}
-
 Name:    knotes
 Summary: Popup notes
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
 URL:     https://www.kde.org/applications/utilities/knotes/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# libical (and thus kcalendarcore) not on all arches for RHEL8.
-%if 0%{?rhel} == 8
-ExclusiveArch: x86_64 %{arm}
-%else
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
-%endif
-
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Xml)
-BuildRequires: cmake(Qt5X11Extras)
-BuildRequires: cmake(Grantlee5)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Test)
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DNSSD)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5GlobalAccel)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5ItemModels)
-BuildRequires: cmake(KF5ItemViews)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5NotifyConfig)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5TextAutoCorrectionWidgets)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DNSSD)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6TextAutoCorrectionWidgets)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6TextTemplate)
 
-#global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global majmin_ver %{version}
-BuildRequires:  kf5-akonadi-notes-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-search-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires:  kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarutils-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
-BuildRequires:  kf5-kontactinterface-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
-BuildRequires:  kf5-kpimtextedit-devel >= %{majmin_ver}
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KPim6AkonadiNotes)
+BuildRequires: cmake(KPim6CalendarUtils)
+BuildRequires: cmake(KPim6KontactInterface)
+BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KPim6PimCommonAkonadi)
+BuildRequires: cmake(KPim6GrantleeTheme)
+BuildRequires: cmake(KF6TextUtils)
+BuildRequires: cmake(KF6TextCustomEditor)
+BuildRequires: cmake(KPim6AkonadiSearch)
+BuildRequires: cmake(KPim6Libkdepim)
 
 # akonadi_notes_agent moved here
 Conflicts: kmail < 16.12
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: kdepim-runtime >= %{majmin_ver}
 
 %description
 KNotes is a program that lets you write the computer equivalent of sticky
@@ -113,9 +80,7 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
@@ -126,52 +91,42 @@ Requires: %{name} = %{version}-%{release}
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-for f in %{buildroot}%{_kf5_datadir}/applications/*.desktop ; do
+for f in %{buildroot}%{_kf6_datadir}/applications/*.desktop ; do
   desktop-file-validate $f
 done
-%endif
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %files -f %{name}.lang
 %license LICENSES/*
 %{_datadir}/dbus-1/interfaces/org.kde.KNotes.xml
 %{_datadir}/dbus-1/interfaces/org.kde.kontact.KNotes.xml
-%{_kf5_bindir}/akonadi_notes_agent
-%{_kf5_bindir}/knotes
-%{_kf5_datadir}/akonadi/agents/notesagent.desktop
-%{_kf5_datadir}/applications/org.kde.knotes.desktop
-%{_kf5_datadir}/config.kcfg/knotesglobalconfig.kcfg
-%{_kf5_datadir}/config.kcfg/notesagentsettings.kcfg
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/knotes/
-%{_kf5_datadir}/knotifications5/akonadi_notes_agent.notifyrc
-%{_kf5_datadir}/knsrcfiles/knotes_printing_theme.knsrc
-%{_kf5_datadir}/kxmlgui5/knotes/
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_metainfodir}/org.kde.knotes.appdata.xml
-
-%ldconfig_scriptlets libs
+%{_kf6_bindir}/akonadi_notes_agent
+%{_kf6_bindir}/knotes
+%{_kf6_datadir}/akonadi/agents/notesagent.desktop
+%{_kf6_datadir}/applications/org.kde.knotes.desktop
+%{_kf6_datadir}/config.kcfg/knotesglobalconfig.kcfg
+%{_kf6_datadir}/config.kcfg/notesagentsettings.kcfg
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/knotes/
+%{_kf6_datadir}/knotifications6/akonadi_notes_agent.notifyrc
+%{_kf6_datadir}/knsrcfiles/knotes_printing_theme.knsrc
+%{_kf6_datadir}/kxmlgui5/knotes/
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_metainfodir}/org.kde.knotes.appdata.xml
 
 %files libs
-%{_kf5_libdir}/libknotesprivate.so.*
-%{_kf5_libdir}/libnotesharedprivate.so.*
-%{_kf5_qtplugindir}/pim5/kontact/kontact_knotesplugin.so
-%{_kf5_qtplugindir}/pim5/kcms/knotes/*
-%{_kf5_qtplugindir}/pim5/kcms/summary/*
+%{_kf6_libdir}/libknotesprivate.so.*
+%{_kf6_libdir}/libnotesharedprivate.so.*
+%{_kf6_qtplugindir}/pim6/kontact/kontact_knotesplugin.so
+%{_kf6_qtplugindir}/pim6/kcms/knotes/*
+%{_kf6_qtplugindir}/pim6/kcms/summary/*
 
 
 %changelog
+* Tue Dec 12 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

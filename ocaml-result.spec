@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-result
 Version:        1.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Compat result type
 
 License:        BSD-3-Clause
@@ -52,6 +52,9 @@ files for developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-20
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-19
 - OCaml 5.1 rebuild for Fedora 40
 

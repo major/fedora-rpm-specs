@@ -2,7 +2,7 @@ Summary:	The GIMP ToolKit
 Name:		gtk+
 Epoch:		1
 Version:	1.2.10
-Release:	104%{?dist}
+Release:	105%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/gtk+/1.2/gtk+-%{version}.tar.gz
@@ -85,6 +85,8 @@ Patch36:	gtk+-1.2.10-autotools.patch
 Patch37:	gtk+-1.2.10-format.patch
 # C99 compiler support
 Patch38:	gtk+-1.2.10-c99.patch
+# Fix incompatible pointer type in call to XmbTextListToTextProperty
+Patch39:	gtk+-1.2.10-ptrtype.patch
 
 BuildRequires:	coreutils
 BuildRequires:	gettext
@@ -152,6 +154,7 @@ Libraries, header files and documentation for developing GTK+
 %patch -P 36 -p0 -b .autotools
 %patch -P 37 -p0 -b .format
 %patch -P 38 -p1 -b .c99
+%patch -P 39 -p1 -b .ptrtype
 
 # The original config.{guess,sub} do not work on x86_64, aarch64 etc.
 #
@@ -245,6 +248,9 @@ make check LIBTOOL=/usr/bin/libtool
 %{_mandir}/man1/gtk-config.1*
 
 %changelog
+* Tue Dec 12 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-105
+- Fix incompatible pointer type in call to XmbTextListToTextProperty
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-104
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

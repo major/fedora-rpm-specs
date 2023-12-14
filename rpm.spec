@@ -25,9 +25,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.19.0
+%global rpmver 4.19.1
 #global snapver rc1
-%global baserelease 3
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -140,9 +140,6 @@ rpm-4.18.90-weak-user-group.patch
 
 # Patches already upstream:
 # ...
-rpm-4.19.0-sysusers-fixes.patch
-0001-Fix-getncpus-proc-thread-potentially-returning-zero.patch
-0002-Fix-integer-overflow-in-memory-calculations-on-32bit.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -410,7 +407,7 @@ cd _build
 # init an empty database for %ghost'ing for all supported backends
 for be in %{?with_ndb:ndb} %{?with_sqlite:sqlite}; do
     mkdir ${be}
-    ./rpmdb --rcfile rpmrc --define "_db_backend ${be}" --dbpath=${PWD}/${be} --initdb
+    tools/rpmdb --rcfile rpmrc --define "_db_backend ${be}" --dbpath=${PWD}/${be} --initdb
     cp -va ${be}/. $RPM_BUILD_ROOT/usr/lib/sysimage/rpm/
 done
 
@@ -425,6 +422,9 @@ find $RPM_BUILD_ROOT -name "*.la"|xargs rm -f
 rm -f $RPM_BUILD_ROOT/%{rpmhome}/{perldeps.pl,perl.*,pythond*}
 rm -f $RPM_BUILD_ROOT/%{_fileattrsdir}/{perl*,python*}
 rm -rf $RPM_BUILD_ROOT/var/tmp
+
+# workaround for https://github.com/rpm-software-management/rpm/issues/2811
+rm $RPM_BUILD_ROOT/%{_defaultdocdir}/rpm/README.md
 
 %pre
 # Symlink all rpmdb files to the new location if we're still using /var/lib/rpm
@@ -619,6 +619,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Tue Dec 12 2023 Michal Domonkos <mdomonko@redhat.com> - 4.19.1-1
+- Update to 4.19.1 (https://rpm.org/wiki/Releases/4.19.1)
+
 * Thu Nov 30 2023 Stephen Gallagher <sgallagh@redhat.com> - 4.19.0-3
 - Fix issues with %%getncpus sometimes returning 0 on i686 systems
 

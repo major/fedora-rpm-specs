@@ -115,7 +115,7 @@ Patch0017: 0017-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
 Patch0018: 0018-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
-Patch0019: 0019-ArmVirtPkg-add-runtime-option-to-enable-disable-Memo.patch
+Patch0019: 0019-ArmVirt-Allow-memory-attributes-protocol-to-be-disab.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.

@@ -15,7 +15,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.3.7
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -311,6 +311,9 @@ done
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.7-3
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Sat Dec 09 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.7-2
 - New development branch version 2.3.7
 

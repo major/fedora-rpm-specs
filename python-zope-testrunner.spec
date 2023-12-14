@@ -6,7 +6,7 @@
 
 Name:           python-zope-testrunner
 Version:        6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
@@ -15,6 +15,12 @@ Source0:        https://github.com/zopefoundation/zope.testrunner/archive/%{vers
 
 # Work around a test failure with python 3.12
 Patch0:         %{name}-python3.12.patch
+
+# Adapt to changes in python 3.13.  See:
+# https://github.com/zopefoundation/zope.testrunner/issues/155
+# https://github.com/zopefoundation/zope.testrunner/issues/157
+# https://github.com/zopefoundation/zope.testrunner/pull/158
+Patch1:         %{name}-python3.13.patch
 
 BuildArch:      noarch
 BuildRequires:  help2man
@@ -118,6 +124,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Tue Dec 12 2023 Jerry James <loganjerry@gmail.com> - 6.2-2
+- Add patch for python 3.13 compatibility
+
 * Wed Nov  8 2023 Jerry James <loganjerry@gmail.com> - 6.2-1
 - Version 6.2
 

@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{srcname}
 Version:        1.7.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lightweight and colorful test framework for OCaml
 
 License:        ISC
@@ -107,6 +107,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.0-6
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.0-5
 - OCaml 5.1 rebuild for Fedora 40
 

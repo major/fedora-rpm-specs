@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sedlex
 Version:        3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -74,6 +74,9 @@ sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml \
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2-5
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2-4
 - OCaml 5.1 rebuild for Fedora 40
 

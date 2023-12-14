@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-yojson
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.1.2-2
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Mon Dec 11 2023 Jerry James <loganjerry@gmail.com> - 2.1.2-1
 - Version 2.1.2
 

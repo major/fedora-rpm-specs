@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zmq
 Version:        5.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
@@ -82,6 +82,9 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.2-2
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Tue Nov 14 2023 Jerry James <loganjerry@gmail.com> - 5.2.2-1
 - Version 5.2.2
 - Drop upstreamed func-type patch

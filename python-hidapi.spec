@@ -2,12 +2,15 @@
 
 Name:     python-hidapi
 Version:  0.14.0
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Interface to the hidapi library
 
 License:  GPLv3+ or BSD or Public Domain
 URL:      https://github.com/trezor/cython-hidapi
 Source0:  %{pypi_source hidapi}
+
+# Fix build with Cython 3
+Patch:    https://github.com/trezor/cython-hidapi/commit/5cc527e4cc.patch
 
 BuildRequires: gcc
 BuildRequires: hidapi-devel
@@ -17,7 +20,7 @@ BuildRequires: libudev-devel
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-setuptools
-BuildRequires: python3dist(cython) < 3
+BuildRequires: python3-cython
 
 %description
 %{summary}.
@@ -31,7 +34,7 @@ Summary:  %{summary}
 
 
 %prep
-%autosetup -n hidapi-%{version}
+%autosetup -p1 -n hidapi-%{version}
 
 # Remove pre-built and bundled hidapi.
 rm -rf hidapi hidapi.egg-info hid.c
@@ -57,6 +60,10 @@ rm -rf hidapi hidapi.egg-info hid.c
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Dec 12 2023 Miro Hrončok <mhroncok@redhat.com> - 0.14.0-5
+- Backport Cython 3 support
+- Fixes: rhbz#2254042
+
 * Thu Nov 23 2023 Jonny Heggheim <hegjon@gmail.com> - 0.14.0-4
 - Build with older version of Cython, Cython 3 is not supported
 

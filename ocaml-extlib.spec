@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-extlib
 Version:        1.7.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 
@@ -87,6 +87,9 @@ make -C test all run
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.9-5
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.9-4
 - OCaml 5.1 rebuild for Fedora 40
 

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mccs
 Version:        1.1
-Release:        43.%{extraver}%{?dist}
+Release:        45.%{extraver}%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -71,6 +71,12 @@ cp -p src/glpk/dune-shared src/glpk/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-45.16
+- Bump release and rebuild
+
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-44.16
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-43.16
 - OCaml 5.1 rebuild for Fedora 40
 

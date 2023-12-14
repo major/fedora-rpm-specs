@@ -1,5 +1,5 @@
 Name:           foomuuri
-Version:        0.21
+Version:        0.22
 Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
@@ -115,6 +115,9 @@ fi
 
 
 %changelog
+* Tue Dec 12 2023 Kim B. Heino <b@bbbs.net> - 0.22-1
+- Upgrade to 0.22
+
 * Fri Oct 06 2023 Kim B. Heino <b@bbbs.net> - 0.21-1
 - Upgrade to 0.21
 

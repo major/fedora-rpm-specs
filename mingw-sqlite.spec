@@ -10,11 +10,11 @@
 %global tclversion 8.6
 
 Name:           mingw-%{name1}
-Version:        %{rpmver}
+Version:        3.44.2
 Release:        1%{?dist}
 Summary:        MinGW Windows port of sqlite embeddable SQL database engine
 
-License:        Public Domain
+License:        blessing
 URL:            http://www.sqlite.org/
 Source0:        http://www.sqlite.org/2023/%{name1}-src-%{realver}.zip
 
@@ -211,6 +211,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue Dec 12 2023 Sandro Mani <manisandro@gmail.com> - 3.44.2-1
+- Update to 3.44.2
+
 * Thu Nov 30 2023 Sandro Mani <manisandro@gmail.com> - 3.44.1-1
 - Update to 3.44.1
 

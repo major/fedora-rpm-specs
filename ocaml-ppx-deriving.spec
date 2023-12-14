@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-deriving
 Version:        5.2.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Type-driven code generation for OCaml
 
 License:        MIT
@@ -83,6 +83,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-24
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.2.1-23
 - OCaml 5.1 rebuild for Fedora 40
 

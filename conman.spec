@@ -1,9 +1,10 @@
 Name:               conman
-Version:            0.3.0
-Release:            10%{?dist}
+Version:            0.3.1
+Release:            1%{?dist}
 Summary:            ConMan - The Console Manager
 
-License:            GPLv3+
+# GPLv3+, but strlc*.c is under ISC
+License:            GPL-3.0-or-later AND ISC
 URL:                https://dun.github.io/conman/
 Source0:            https://github.com/dun/%{name}/archive/%{name}-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -15,7 +16,8 @@ BuildRequires:      gcc
 BuildRequires:      perl-generators
 BuildRequires:      freeipmi-devel
 BuildRequires:      systemd
-BuildRequires: make
+BuildRequires:      make
+BuildRequires:      autoconf automake libtool
 
 %description
 ConMan is a serial console management program designed to support a large
@@ -32,35 +34,22 @@ Its features include:
 
 
 %prep
-%setup -qn %{name}-%{name}-%{version}
+%autosetup -n %{name}-%{name}-%{version}
 
-# fix paths
-sed -i -e 's|lib\/|share\/|g' lib/examples/*.exp
-
-# fix shebang
-sed -i -e 's|\/usr\/bin\/env perl|\/usr\/bin\/perl|g' conmen
+sh ./bootstrap
 
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-
-# clean sysvinit stuff
-rm -r $RPM_BUILD_ROOT/etc/{init.d,sysconfig}
+%make_install
 
 # make log directories
-mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/%{name}
-mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/%{name}.old
-
-# examples don't belong in libdir
-rm -r $RPM_BUILD_ROOT/usr/lib/%{name}/examples
-# move scripts to proper place
-mv $RPM_BUILD_ROOT/usr/lib/%{name} $RPM_BUILD_ROOT%{_datadir}/%{name}
-chmod -x $RPM_BUILD_ROOT%{_datadir}/%{name}/*.exp
+mkdir -p %{buildroot}%{_localstatedir}/log/%{name}
+mkdir -p %{buildroot}%{_localstatedir}/log/%{name}.old
 
 
 %post
@@ -76,19 +65,25 @@ chmod -x $RPM_BUILD_ROOT%{_datadir}/%{name}/*.exp
 %files
 %license COPYING
 %doc AUTHORS FAQ NEWS
-%doc lib/examples
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_unitdir}/%{name}.service
 %dir %{_localstatedir}/log/%{name}
 %dir %{_localstatedir}/log/%{name}.old
-%{_bindir}/*
-%{_sbindir}/*
+%{_bindir}/conman
+%{_bindir}/conmen
+%{_sbindir}/conmand
 %{_datadir}/%{name}/
-%{_mandir}/*/*
+%{_mandir}/man1/conman.*
+%{_mandir}/man5/conman.conf.*
+%{_mandir}/man8/conmand.*
 
 
 %changelog
+* Tue Dec 12 2023 Dan Horák <dan[at]danny.cz> - 0.3.1-1
+- updated to 0.3.1
+- modernize spec file
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

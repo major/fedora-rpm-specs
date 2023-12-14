@@ -2,12 +2,16 @@
 
 Name:           libcomps
 Version:        0.1.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/libcomps
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Fix build with libxml2 2.12.0
+# https://github.com/rpm-software-management/libcomps/pull/109
+Patch0:         fix-build-libxml2-2.12.0.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -116,6 +120,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Dec 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.1.20-2
+- Fix build with libxml2-2.12.0
+
 * Thu Oct 05 2023 Jan Kolarik <jkolarik@redhat.com> - 0.1.20-1
 - Update to 0.1.20
 - Fixes of xml parsing

@@ -57,10 +57,10 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
-License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
+License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
 Requires(post): systemd systemd-sysv hostname
 Requires(post): %{_sbindir}/alternatives
 Requires(post): %{_bindir}/openssl
@@ -836,6 +836,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.3-2
+- Converted license tag to SPDX
+
 * Thu Nov  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.3-1
 - New version
   Resolves: rhbz#2247553

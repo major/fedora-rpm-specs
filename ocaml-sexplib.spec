@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-sexplib
 Version:        0.16.0
 Epoch:          1
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Automated S-expression conversion
 
 # The project as a whole is MIT, but code in the src subdirectory is BSD.
@@ -86,6 +86,12 @@ cp -p vim/syntax/sexplib.vim %{buildroot}%{vimfiles_root}/syntax
 %{vimfiles_root}/syntax/sexplib.vim
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1:0.16.0-6
+- Bump release and rebuild
+
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1:0.16.0-5
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:0.16.0-4
 - OCaml 5.1 rebuild for Fedora 40
 

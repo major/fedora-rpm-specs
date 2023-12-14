@@ -1,7 +1,7 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.6.3
+Version:       2.6.4
 Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
@@ -162,7 +162,7 @@ find %{buildroot} -name '*.la' -delete
 %dir %{_libdir}/enchant-2
 %{_libdir}/enchant-2/enchant_hunspell.so
 %{_mandir}/man1/*
-%{_datadir}/enchant-2
+%{_datadir}/enchant-2-2
 
 %if !0%{?rhel}
 %files nuspell
@@ -198,7 +198,7 @@ find %{buildroot} -name '*.la' -delete
 %endif
 %{mingw32_libdir}/libenchant-2.dll.a
 %{mingw32_libdir}/pkgconfig/enchant-2.pc
-%{mingw32_datadir}/enchant-2/
+%{mingw32_datadir}/enchant-2-2/
 
 %files -n mingw64-%{name}
 %license COPYING.LIB
@@ -215,11 +215,14 @@ find %{buildroot} -name '*.la' -delete
 %endif
 %{mingw64_libdir}/libenchant-2.dll.a
 %{mingw64_libdir}/pkgconfig/enchant-2.pc
-%{mingw64_datadir}/enchant-2/
+%{mingw64_datadir}/enchant-2-2/
 %endif
 
 
 %changelog
+* Tue Dec 12 2023 Sandro Mani <manisandro@gmail.com> - 2.6.4-1
+- Update to 2.6.4
+
 * Sun Dec 03 2023 Sandro Mani <manisandro@gmail.com> - 2.6.3-1
 - Update to 2.6.3
 

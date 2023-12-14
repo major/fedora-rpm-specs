@@ -11,6 +11,7 @@ License:        GPL-2.0-or-later
 URL:            https://www.pylint.org/
 Source0:        %{forgeurl}/archive/v%{basever}/pylint-%{basever}.tar.gz
 #Patch0:         7829.patch apply when rebased then re-enable tests
+Patch1:         isort.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros

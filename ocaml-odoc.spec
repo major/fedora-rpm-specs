@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-odoc
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
@@ -124,6 +124,9 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 %license LICENSE
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.1-2
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Tue Nov 21 2023 Jerry James <loganjerry@gmail.com> - 2.3.1-1
 - Version 2.3.1
 - Build with tests now that crunch is available

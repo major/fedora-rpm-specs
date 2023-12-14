@@ -8,8 +8,8 @@
 Summary: Mail processing program
 Name: procmail
 Version: 3.24
-Release: 2%{?dist}
-License: GPLv2+ or Artistic
+Release: 3%{?dist}
+License: gpl-2.0-or-later
 URL: https://github.com/BuGlessRB/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source2: http://www.linux.org.uk/~telsa/BitsAndPieces/procmailrc
@@ -63,6 +63,9 @@ cp -p %{SOURCE2} telsas_procmailrc
 %{_mandir}/man[15]/*
 
 %changelog
+* Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.24-3
+- Converted license tag to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

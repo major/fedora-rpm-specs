@@ -3,11 +3,12 @@
 Name:           httpcomponents-core
 Summary:        Set of low level Java HTTP transport components for HTTP services
 Version:        4.4.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Apache-2.0
 URL:            http://hc.apache.org/
 Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/%{version}/httpcomponents-core-%{version}-source-release.zip
-Patch0:         0001-Port-to-mockito-2.patch
+Patch1:         0001-Port-to-mockito-2.patch
+Patch2:         0002-Port-to-Mockito-5.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -41,7 +42,8 @@ HTTP connections in a resource efficient manner.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 # Tests failing with Java 17
 sed -i '/testAwaitInputInBuffer\|testAwaitInputInSocket\|testNotStaleWhenHasData\|testWriteSmallFragmentBuffering\|testWriteSmallFragmentNoBuffering/i@org.junit.Ignore' httpcore/src/test/java/org/apache/http/impl/{TestBHttpConnectionBase,io/TestSessionInOutBuffers}.java
@@ -95,6 +97,9 @@ done
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Tue Dec 12 2023 Marian Koncek <mkoncek@redhat.com> - 4.4.16-4
+- Port to Mockito 5
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.4.16-3
 - Rebuild to regenerate auto-Requires on java
 

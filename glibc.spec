@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-304-g9469261cf1
+%global glibcsrcdir glibc-2.38.9000-328-gb3bee76c5f
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 26
+%global baserelease 27
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,7 +230,6 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-rh2248502.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2201,6 +2200,35 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Fri Dec 08 2023 Carlos O'Donell <carlos@redhat.com> - 2.38.9000-27
+- Drop glibc-rh2248502.patch; fix applied upstream, and
+- Auto-sync with upstream branch master,
+  commit b3bee76c5f59498b9c189608f0a3132e2013fa1a:
+- elf: Initialize GLRO(dl_lazy) before relocating libc in dynamic startup
+- Move CVE information into advisories directory
+- powerpc: Optimized strcmp for power10
+- elf: Fix wrong break removal from 8ee878592c
+- localedata: Convert day names in nn_NO locale to UTF-8
+- localedata: Remove trailing whitespace in weekday names in nn_NO locale
+- elf: Refactor process_envvars
+- elf: Ignore LD_BIND_NOW and LD_BIND_NOT for setuid binaries
+- elf: Ignore loader debug env vars for setuid
+- Adapt the security policy for the security page
+- aarch64: correct CFI in rawmemchr (bug 31113)
+- math: Add new exp10 implementation
+- aarch64: fix tested ifunc variants
+- stdlib: Fix array bounds protection in insertion sort phase of qsort
+- Revert "Update code to handle the new ABI for sending inlined port rights."
+- Revert "hurd: Fix build"
+- hurd: Fix build
+- Update code to handle the new ABI for sending inlined port rights.
+- hurd: [!__USE_MISC] Do not #undef BSD macros in ioctls
+- linux: Make fdopendir fail with O_PATH (BZ 30373)
+- Avoid padding in _init and _fini. [BZ #31042]
+- aarch64: Improve special-case handling in AdvSIMD double-precision libmvec routines
+- malloc: Improve MAP_HUGETLB with glibc.malloc.hugetlb=2
+- elf: Add a way to check if tunable is set (BZ 27069)
+
 * Tue Nov 28 2023 Arjun Shankar <arjun@redhat.com> - 2.38.9000-26
 - Drop glibc-benchtests-aarch64.patch; fix applied upstream, and
 - Auto-sync with upstream branch master,

@@ -179,7 +179,7 @@ for cmd in mvn mvnDebug; do
     cat <<EOF >%{buildroot}%{_datadir}/%{name}/bin/$cmd
 #!/bin/sh -e
 export _FEDORA_MAVEN_HOME="%{_datadir}/%{name}"
-exec %{_datadir}/maven/bin/$cmd "\${@}"
+exec %{_datadir}/maven%{?maven_version_suffix}/bin/$cmd "\${@}"
 EOF
     chmod 755 %{buildroot}%{_datadir}/%{name}/bin/$cmd
 done

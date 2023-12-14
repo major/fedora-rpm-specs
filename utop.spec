@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           utop
 Version:        2.13.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Improved toplevel for OCaml
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ cp -p src/top/utop.elc %{buildroot}%{_emacs_sitelispdir}
 %{_emacs_sitestartdir}/%{name}-autoloads.el*
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.13.1-5
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.13.1-4
 - OCaml 5.1 rebuild for Fedora 40
 

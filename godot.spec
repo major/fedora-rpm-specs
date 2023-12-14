@@ -15,7 +15,7 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.1.2
+Version:        4.2.1
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -27,8 +27,8 @@ URL:            https://godotengine.org
 Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{?prerel:%{status}/}%{name}-%{uversion}.tar.xz
 Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{?prerel:%{status}/}%{name}-%{uversion}.tar.xz.sha256
 
-# Preconfigure Blender path to use system-installed version to import .blend files
-Patch0:         preconfigure-blender-path.patch
+# Preconfigure Blender and oidnDenoise paths to use system-installed versions.
+Patch0:         preconfigure-blender-oidn-paths.patch
 
 # Upstream does not support this arch (for now)
 ExcludeArch:    s390x
@@ -57,7 +57,6 @@ BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libwslay)
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(ogg)
-BuildRequires:  pkgconfig(openxr)
 BuildRequires:  pkgconfig(speech-dispatcher)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(vorbis)
@@ -80,7 +79,8 @@ BuildRequires:  python3-scons
 
 # See bundled section for explanations.
 %define system_embree 0%{?mageia} || (0%{?fedora} && 0%{?fedora} < 38)
-%define system_glslang 0%{?mageia}
+%define system_glslang 0
+%define system_openxr 0%{?fedora} >= 39
 %define system_recastnavigation 0%{?mageia}
 
 %if %{system_embree}
@@ -91,6 +91,10 @@ BuildRequires:  embree-devel < 4
 
 %if %{system_glslang}
 BuildRequires:  glslang-devel
+%endif
+
+%if %{system_openxr}
+BuildRequires:  pkgconfig(openxr)
 %endif
 
 %if %{system_recastnavigation}
@@ -110,6 +114,8 @@ Requires:       hicolor-icon-theme
 
 # To support importing .blend files
 Recommends:     blender
+# For better denoising of lightmaps, using oidnDenoise
+Recommends:     oidn
 
 # Bundled libraries: many of the libraries code in `thirdparty` can be
 # unbundled when the libraries are provided by the system. Keep in mind
@@ -127,18 +133,17 @@ Provides:       bundled(embree) = 3.13.5
 Provides:       bundled(enet)
 %if ! %{system_glslang}
 # Fedora package only provides static libs, needs more work to be usable.
-Provides:       bundled(glslang) = 12.2.0
+Provides:       bundled(glslang) = 12.3.1
 %endif
-# Has custom changes to support seeking in zip archives
+# Has custom changes to support seeking in zip archives.
 # Should not be unbundled.
-Provides:       bundled(minizip) = 1.2.13
+# Includes fix for CVE-2023-45853.
+Provides:       bundled(minizip) = 1.3
 # Could be unbundled if packaged.
 Provides:       bundled(msdfgen) = 1.10
-%ifarch x86_64
-# Could be unbundled but requires some upstream work, and it's not clear if
-# upstream code would be compatible with more recent OIDN releases.
-# Godot 4.2+ will drop this and allow using oidnDenoise from command line.
-Provides:       bundled(oidn) = 1.1.0
+%if ! %{system_openxr}
+# Needs at least 1.0.28.
+Provides:       bundled(openxr) = 1.0.31
 %endif
 %if ! %{system_recastnavigation}
 # Could be unbundled if packaged.
@@ -162,7 +167,7 @@ export games from the source code), use the --headless flag.
 
 %files
 %doc CHANGELOG.md DONORS.md README.md
-%license AUTHORS.md COPYRIGHT.txt LICENSE.txt LOGO_LICENSE.md
+%license AUTHORS.md COPYRIGHT.txt LICENSE.txt LOGO_LICENSE.txt
 %{_bindir}/%{name}
 %{_datadir}/applications/%{rdnsname}.desktop
 %{_datadir}/bash-completion/completions/%{name}
@@ -218,13 +223,16 @@ end}
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="brotli freetype graphite harfbuzz icu4c libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc openxr pcre2 squish wslay zlib zstd"
+to_unbundle="brotli freetype graphite harfbuzz icu4c libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc pcre2 squish wslay zlib zstd"
 
 %if %{system_embree}
 to_unbundle+=" embree"
 %endif
 %if %{system_glslang}
 to_unbundle+=" glslang"
+%endif
+%if %{system_openxr}
+to_unbundle+=" openxr"
 %endif
 %if %{system_recastnavigation}
 to_unbundle+=" recastnavigation"
@@ -239,15 +247,7 @@ for lib in $to_unbundle; do
     rm -rf thirdparty/$lib
 done
 
-use_lto="use_lto=yes"
-%if 0%{?fedora} && 0%{?fedora} < 37
-%ifarch %{arm32}
-# We run out of memory when linking.
-use_lto="use_lto=no"
-%endif
-%endif
-
-%define _scons scons-3 %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" arch=%{godot_arch} $system_libs $use_lto use_static_cpp=no debug_symbols=yes progress=no
+%define _scons scons-3 %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" arch=%{godot_arch} $system_libs use_lto=yes use_static_cpp=no debug_symbols=yes progress=no
 
 %if 0%{?fedora}
 export BUILD_NAME="fedora"
@@ -290,6 +290,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Tue Dec 12 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.2.1-1
+- Version 4.2.1-stable
+- OIDN no longer bundled, recommend system package for the oidnDenoise binary
+
 * Thu Oct 12 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.1.2-1
 - Version 4.1.2-stable
 - Updates tinyexr to 1.0.7, fixes CVE-2022-34300 (rhbz#2233637)

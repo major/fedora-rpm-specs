@@ -10,7 +10,7 @@ Source:         https://git.sr.ht/~technomancy/fennel/archive/%{version}.tar.gz#
 Patch:          fennel-replace_deprecated_math_pow.diff
 # not upstreaming, test expects luaX.Y to exist which is not unreasonable
 # follow up with other Fedora Lua maintainers when revamping packaging
-Patch:          fennel-unversioned_lua.diff
+Patch1:         fennel-unversioned_lua.diff
 
 BuildArch:      noarch
 

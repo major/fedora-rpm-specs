@@ -1,74 +1,44 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 Name:    kaddressbook
 Summary: Contact Manager
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://www.kde.org/applications/office/kaddressbook
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
-
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
 
 # kf5
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Grantlee5)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5Prison)
-
-BuildRequires: cmake(Gpgmepp)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6UserFeedback)
+BuildRequires: cmake(KF6TextTemplate)
 
 Obsoletes: kdepim-apps-libs < 20.11.90
 
-# kde-apps
-#global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global majmin_ver %{version}
-BuildRequires: kf5-akonadi-search-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires: kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires: kf5-kontactinterface-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-libkleo-devel >= %{majmin_ver}
-BuildRequires: kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KPim6KontactInterface)
+BuildRequires: cmake(KPim6Libkdepim)
+BuildRequires: cmake(KPim6PimCommonAkonadi)
+BuildRequires: cmake(KPim6AkonadiSearch)
+BuildRequires: cmake(KPim6AkonadiContactWidgets)
+BuildRequires: cmake(KPim6GrantleeTheme)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: kdepim-runtime >= %{majmin_ver}
 
 %description
 KAddressBook stores all the personal details of your family, friends
@@ -94,70 +64,49 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
-## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libkorganizer_{core,interfaces}.so
-
-
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kaddressbook-importer.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kaddressbook-view.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%endif
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kaddressbook-importer.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kaddressbook-view.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %files -f %{name}.lang
-%{_kf5_datadir}/qlogging-categories5/*%{name}.*
-#{_kf5_sysconfdir}/xdg/kaddressbook_themes.knsrc
-%{_kf5_bindir}/kaddressbook
-%{_kf5_metainfodir}/org.kde.kaddressbook.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kaddressbook.desktop
-%{_kf5_datadir}/applications/kaddressbook-importer.desktop
-%{_kf5_datadir}/applications/kaddressbook-view.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/kaddressbook.*
-%{_kf5_datadir}/kaddressbook/
-
-%ldconfig_scriptlets libs
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_bindir}/kaddressbook
+%{_kf6_metainfodir}/org.kde.kaddressbook.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kaddressbook.desktop
+%{_kf6_datadir}/applications/kaddressbook-importer.desktop
+%{_kf6_datadir}/applications/kaddressbook-view.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/kaddressbook.*
+%{_kf6_datadir}/kaddressbook/
 
 %files libs
-%{_kf5_libdir}/libkaddressbookprivate.so.*
-%{_kf5_qtplugindir}/kaddressbookpart.so
-%{_qt5_plugindir}/pim5/kcms/kaddressbook/kaddressbook_config_plugins.so
-# Kontact integration
-%{_kf5_qtplugindir}/pim5/kontact/kontact_kaddressbookplugin.so
-# put in own subpkg?
-%{_kf5_libdir}/libKPim5AddressbookImportExport.so.*
+%{_kf6_libdir}/libkaddressbookprivate.so.*
+%{_kf6_qtplugindir}/kaddressbookpart.so
+%{_qt6_plugindir}/pim6/kcms/kaddressbook/kaddressbook_config_plugins.so
+%{_qt6_plugindir}/pim6/kcms/kaddressbook/kaddressbook_config_userfeedback.so
+%{_kf6_qtplugindir}/pim6/kontact/kontact_kaddressbookplugin.so
+%{_kf6_libdir}/libKPim6AddressbookImportExport.so.*
 
 %files devel
-%{_kf5_libdir}/libKPim5AddressbookImportExport.so
-%{_includedir}/KPim5/
-%{_libdir}/cmake/KPimAddressbookImportExport/
-%{_libdir}/cmake/KPim5AddressbookImportExport/
-%{_kf5_archdatadir}/mkspecs/modules/qt_KAddressbookImportExport.pri
+%{_kf6_libdir}/libKPim6AddressbookImportExport.so
+%{_includedir}/KPim6/
+%{_libdir}/cmake/KPim6AddressbookImportExport/
 
 
 %changelog
+* Tue Dec 12 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

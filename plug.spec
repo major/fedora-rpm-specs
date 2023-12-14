@@ -1,14 +1,11 @@
 Name: plug
-Version: 1.4.4
+Version: 1.4.5
 Release: 1%{?dist}
 Summary: Linux software for Fender Mustang amplifiers
 License: GPL-3.0-or-later
 Url: https://github.com/offa/plug
 
 Source0: https://github.com/offa/plug/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/offa/plug/pull/23
-Patch1: plug-1.4.4-udev-install.patch
 
 BuildRequires: cmake
 BuildRequires: systemd-rpm-macros
@@ -59,6 +56,9 @@ make unittest -C %__cmake_builddir
 
 
 %changelog
+* Tue Dec 12 2023 Dan Horák <dan[at]danny.cz> - 1.4.5-1
+- Updated to 1.4.5 (rhbz#2253592)
+
 * Tue Dec 05 2023 Dan Horák <dan[at]danny.cz> - 1.4.4-1
 - Updated to 1.4.4
 - Resolves: rbhz#2252689

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-biniou
 Version:        1.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Safe and fast binary data format
 
 License:        BSD-3-Clause
@@ -80,6 +80,9 @@ sed -i '/bdump/d' .ofiles
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-5
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-4
 - OCaml 5.1 rebuild for Fedora 40
 

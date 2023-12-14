@@ -4,14 +4,14 @@
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
 Version: %{vers}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch:   1
-License: TCL
+License: TCL AND HPND-Pbmplus AND CC-BY-SA-3.0 AND MIT-open-group AND MIT
 URL: http://tcl.sourceforge.net
 Source0: http://download.sourceforge.net/sourceforge/tcl/%{name}%{version}-src.tar.gz
 Requires: tcl = %{epoch}:%{vers}
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: tcl-devel = %{epoch}:%{vers}, autoconf
 BuildRequires: libX11-devel
 BuildRequires: libXft-devel
@@ -102,6 +102,9 @@ sed -i -e "s|$PWD/unix|%{_libdir}|; s|$PWD|%{_includedir}/%{name}-private|" %{bu
 %{_datadir}/%{name}%{majorver}/tkAppInit.c
 
 %changelog
+* Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.13-2
+- Converted license to SPDX
+
 * Tue Aug 29 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.13-1
 - New version
   Related: rhbz#2231272

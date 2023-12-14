@@ -1,12 +1,12 @@
 Name:		pptp
 Version:	1.10.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Point-to-Point Tunneling Protocol (PPTP) Client
-License:	GPLv2+
+License:	gpl-2.0-or-later
 URL:		http://pptpclient.sourceforge.net/
 Source0:	http://downloads.sf.net/pptpclient/pptp-%{version}.tar.gz
 Source1:	pptp-tmpfs.conf
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	/usr/bin/pod2man
 BuildRequires:	gcc, perl-generators
 Requires:	ppp >= 2.4.2, /sbin/ip
@@ -62,6 +62,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_prefix}/lib/tmpfiles.d/pptp.conf
 %{_mandir}/man8/pptpsetup.8*
 
 %changelog
+* Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.0-18
+- Converted license tag to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

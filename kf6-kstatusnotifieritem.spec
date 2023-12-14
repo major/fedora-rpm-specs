@@ -17,7 +17,6 @@ BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  qt-devel
 BuildRequires:  pkgconfig(xkbcommon)
 Requires:  kf6-filesystem
 

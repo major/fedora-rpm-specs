@@ -5,17 +5,13 @@
 %bcond cython_compile 1
 
 Name:           Cython
-Version:        3.0.5
+Version:        3.0.6
 Release:        1%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
-
-# Fix C++17 error: standard attributes in middle of decl-specifiers (CYTHON_UNUSED)
-# This is only relevant on Python 3.13+
-Patch:          https://github.com/cython/cython/pull/5791.patch
 
 BuildRequires:  python3-devel
 
@@ -122,6 +118,10 @@ Provides:       bundled(python3dist(tempita))
 
 
 %changelog
+* Thu Nov 30 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.6-1
+- Update to 3.0.6
+- Fixes: rhbz#2251973
+
 * Tue Oct 31 2023 Miro Hrončok <mhroncok@redhat.com> - 3.0.5-1
 - Update to 3.0.5
 

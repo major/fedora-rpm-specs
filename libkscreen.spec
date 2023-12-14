@@ -11,7 +11,6 @@ Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{vers
 # KDE Frameworks
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake(KF6Config)
-BuildRequires:  cmake(KF6Wayland)
 
 # Fedora
 BuildRequires:  kf6-rpm-macros

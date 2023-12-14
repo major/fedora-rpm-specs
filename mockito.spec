@@ -28,18 +28,14 @@ Patch0:         use-unbundled-asm.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(biz.aQute.bnd:biz.aQute.bnd)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy-agent)
-BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apiguardian:apiguardian-api)
-BuildRequires:  mvn(org.assertj:assertj-core)
-BuildRequires:  mvn(org.hamcrest:hamcrest)
+BuildRequires:  mvn(net.bytebuddy:byte-buddy-dep)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.objenesis:objenesis)
 BuildRequires:  mvn(org.opentest4j:opentest4j)
-BuildRequires:  mvn(org.ow2.asm:asm)
 %endif
 
 %description
@@ -88,6 +84,43 @@ sed -i '/add_listeners_concurrently_sanity_check/i @org.junit.Ignore' src/test/j
 
 %pom_remove_dep org.junit.jupiter:junit-jupiter-api subprojects/junit-jupiter
 %pom_add_dep org.junit.jupiter:junit-jupiter-api subprojects/junit-jupiter
+
+mkdir -p src/main/resources/mockito-extensions
+echo 'member-accessor-module' > src/main/resources/mockito-extensions/org.mockito.plugins.MemberAccessor
+echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.plugins.MockMaker
+
+# see gradle/mockito-core/inline-mock.gradle
+%pom_xpath_inject 'pom:project/pom:build/pom:plugins' '
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-antrun-plugin</artifactId>
+  <version>any</version>
+  <executions>
+    <execution>
+      <phase>process-classes</phase>
+      <configuration>
+        <target>
+          <copy file="${project.build.outputDirectory}/org/mockito/internal/creation/bytebuddy/inject/MockMethodDispatcher.class"
+            tofile="${project.build.outputDirectory}/org/mockito/internal/creation/bytebuddy/inject/MockMethodDispatcher.raw"/>
+        </target>
+      </configuration>
+      <goals>
+        <goal>run</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-jar-plugin</artifactId>
+  <version>any</version>
+  <configuration>
+    <excludes>
+      <exclude>org/mockito/internal/creation/bytebuddy/inject/*.class</exclude>
+    </excludes>
+  </configuration>
+</plugin>
+'
 
 %build
 %mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8 -f aggregator.pom

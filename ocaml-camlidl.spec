@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlidl
 Version:        1.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -102,6 +102,9 @@ sed '/version/adirectory = "^"' %{SOURCE1} > \
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.12-3
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.12-2
 - OCaml 5.1 rebuild for Fedora 40
 

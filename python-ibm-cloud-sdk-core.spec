@@ -1,5 +1,5 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.18.0
+Version:        3.18.2
 Release:        1%{?dist}
 Summary:        Core library used by SDKs for IBM Cloud Services
 
@@ -54,6 +54,12 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
+* Mon Dec 11 2023 Packit <hello@packit.dev> - 3.18.2-1
+- chore(release): 3.18.2 release notes (semantic-release-bot)
+- Bump version: 3.18.1 → 3.18.2 (semantic-release-bot)
+- fix: use retry_interval as retry backoff_max (#184) (Phil Adams)
+- Resolves rhbz#2254090
+
 * Wed Nov 15 2023 Packit <hello@packit.dev> - 3.18.0-1
 - chore(release): 3.18.0 release notes (semantic-release-bot)
 - Bump version: 3.17.3 → 3.18.0 (semantic-release-bot)

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
 Version:        2.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adaptable Type Definitions for cross-language data types
 
 License:        BSD-3-Clause
@@ -283,6 +283,9 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{d,j,py,s,ts}
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.15.0-2
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 2.15.0-1
 - Version 2.15.0
 

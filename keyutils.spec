@@ -1,20 +1,21 @@
 %define libapivermajor 1
-%define libapiversion %{libapivermajor}.9
+%define libapiversion %{libapivermajor}.10
 
 # % define buildid .local
 
 Name:    keyutils
-Version: 1.6.1
-Release: 8%{?buildid}%{?dist}
+Version: 1.6.3
+Release: 1%{?buildid}%{?dist}
 Summary: Linux Key Management Utilities
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
-Url:     http://people.redhat.com/~dhowells/keyutils/
+Url:   https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git
 
-Source0: http://people.redhat.com/~dhowells/keyutils/keyutils-%{version}.tar.bz2
+Source0: %{url}/snapshot/keyutils-%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: glibc-kernheaders >= 2.4-9.1.92
 BuildRequires: make
+BuildRequires: g++
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
@@ -96,6 +97,10 @@ make \
 %{_mandir}/man3/*
 
 %changelog
+* Mon Dec 11 2023 Pavel Reichl <preichl@redhat.com> - 1.6.3-1
+- Update to upstream version 1.6.3
+- Related: rhbz#2121553
+
 * Mon Oct 16 2023 Pavel Reichl <preichl@redhat.com> - 1.6.1-8
 - Convert License tag to SPDX format
 

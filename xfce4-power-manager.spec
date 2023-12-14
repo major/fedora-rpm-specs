@@ -1,7 +1,7 @@
 %global xfceversion 4.18
 
 Name:		xfce4-power-manager
-Version:	4.18.2
+Version:	4.18.3
 Release:	%autorelease
 Summary:	Power management for the Xfce desktop environment
 

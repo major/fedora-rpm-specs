@@ -25,7 +25,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -54,6 +54,10 @@ Patch:      sphinx-test_theming.diff
 #
 # The change is proposed upstream.
 Patch:      https://github.com/sphinx-doc/sphinx/pull/11747.patch
+
+# Fix the expected test docstring to match output in Python 3.11.7, 3.12.1 and later
+# Proposed upstream.
+Patch:      https://github.com/sphinx-doc/sphinx/pull/11774.patch
 
 BuildArch:     noarch
 
@@ -398,6 +402,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Tue Dec 12 2023 Karolina Surma <ksurma@redhat.com> - 1:7.2.6-4
+- Fix the tests run when building with Python 3.11.7, 3.12.1 and later
+
 * Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1:7.2.6-3
 - On Fedora, BuildRequire the sphinxcontrib packages to build the documentation
 

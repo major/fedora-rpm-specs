@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-tyxml
 Version:        4.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Build valid HTML and SVG documents
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -140,6 +140,9 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.6.0-3
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 4.6.0-2
 - OCaml 5.1 rebuild for Fedora 40
 

@@ -2,9 +2,9 @@
 %undefine __cmake_in_source_build
 
 Name:           kokkos
-Version:        4.1.00
-%global         sover 4.1
-Release:        2%{?dist}
+Version:        4.2.00
+%global         sover 4.2
+Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -79,6 +79,9 @@ This package contains the development files of %{name}.
 %{_bindir}/kokkos_launch_compiler
 
 %changelog
+* Tue Nov 21 2023 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 4.2.00-1
+- Version bump to v4.2.00 (bug #2250814)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.00-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

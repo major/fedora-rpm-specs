@@ -5,10 +5,10 @@
 
 Name:           gsm
 Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Shared libraries for GSM speech compressor
 
-License:        MIT
+License:        tu-berlin-2.0
 URL:            http://www.quut.com/gsm/
 Source:         http://www.quut.com/gsm/%{name}-%{version}.tar.gz
 Patch0:         %{name}-makefile.patch
@@ -113,6 +113,9 @@ export LDFLAGS="%{?__global_ldflags}"
 %{_mandir}/man3/gsm_print.3*
 
 %changelog
+* Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.22-4
+- License converted to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

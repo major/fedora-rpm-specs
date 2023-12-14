@@ -1,9 +1,9 @@
 Name:             powertop
 Version:          2.15
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Power consumption monitor
 
-License:          GPLv2
+License:          gpl-2.0-only AND lgpl-2.1-only AND isc
 URL:              http://01.org/powertop/
 Source0:          http://github.com/fenrus75/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:          powertop.service
@@ -75,6 +75,9 @@ touch %{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.
 %{_datadir}/bash-completion/completions/powertop
 
 %changelog
+* Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.15-4
+- Converted license to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

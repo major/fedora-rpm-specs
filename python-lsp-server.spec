@@ -43,9 +43,9 @@ Provides:       pylsp = %{version}-%{release}
 # Do this inline instead of a patch for automatic updates using Packit
 sed -r -i \
 -e 's/(flake8)>.*"/\1"/g' \
--e 's/(pycodestyle)>.*"/\1"/g' \
--e 's/(pyflakes)>.*"/\1"/g' \
--e 's/(pylint)>.*"/\1"/g' pyproject.toml
+-e '/pycodestyle>.*/d' \
+-e '/pyflakes>.*/d' \
+-e '/pylint>.*/d' pyproject.toml
 git add pyproject.toml
 git commit -m '[Fedora] Remove version pinning from linters'
 git tag v%{version}

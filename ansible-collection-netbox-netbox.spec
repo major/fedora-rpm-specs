@@ -5,8 +5,8 @@
 %endif
 
 Name:           ansible-collection-netbox-netbox
-Version:        3.9.0
-Release:        3%{?dist}
+Version:        3.16.0
+Release:        1%{?dist}
 Summary:        Netbox modules for Ansible
 
 License:        GPL-3.0-or-later
@@ -16,6 +16,8 @@ Source:         %{furl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Remove unnecessary files from the collection tarball.
 # This is a downstream only patch.
 Patch:          build_ignore.patch
+# Fix incorrect unittest.mock.Mock calls
+Patch:          Fix-incorrect-unittest.mock.Mock-calls.patch
 
 BuildRequires:  ansible-packaging
 %if %{with tests}
@@ -47,6 +49,9 @@ sed -i -e '1{\@^#!.*@d}' plugins/modules/*.py
 %doc README.md CHANGELOG.rst
 
 %changelog
+* Tue Dec 12 2023 Maxwell G <maxwell@gtmx.me> - 3.16.0-1
+- Update to 3.16.0. Fixes rhbz#2143247.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

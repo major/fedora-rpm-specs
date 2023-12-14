@@ -9,7 +9,7 @@ Name:           tmux
 
 Version:        3.3a
 # forge meta appends commit info
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -17,6 +17,11 @@ URL:            https://tmux.github.io/
 Source0:        %{forgesource}
 # Examples has been removed - so include the bash_completion here
 Source1:        bash_completion_tmux.sh
+
+# don't crash instead of displaying certain glyphs
+# https://bugzilla.redhat.com/show_bug.cgi?id=2253441
+# applied by upstream: https://github.com/tmux/tmux/issues/3729
+Patch0:         mitigate-character-length-crash.patch
 
 BuildRequires:  byacc
 BuildRequires:  gcc
@@ -39,6 +44,7 @@ as GNU Screen.
 
 %prep
 %forgesetup
+%patch 0 -p0
 
 %build
 %if "%0{?commit}" != "0"
@@ -80,6 +86,10 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Tue Dec 12 2023 Sven Lankes <sven@lank.es> - 3.3a-7.20230918gitb202a2f
+- Don't crash on showing certain glyph
+  Resolves: rhbz#2253441
+
 * Mon Oct 02 2023 David Cantrell <dcantrell@redhat.com> - 3.3a-6.20230918gitb202a2f
 - Convert License tag to SPDX expression
 

@@ -10,7 +10,7 @@ Version: 2.5
 %forgemeta
 
 Name:           ocaml-xml-light
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Minimal XML parser and printer for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.5-6
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.5-5
 - OCaml 5.1 rebuild for Fedora 40
 

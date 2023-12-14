@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   27%{?gitdate:.%{gitdate}}%{?dist}
+Release:   28%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 # SPDX
 License:   Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
@@ -151,6 +151,10 @@ Patch3801: 0001-Disallow-byte-swapped-clients-by-default.patch
 Patch3810: 0001-Xi-randr-fix-handling-of-PropModeAppend-Prepend.patch
 # CVE-2023-5380
 Patch3811: 0002-mi-reset-the-PointerWindows-reference-on-screen-swit.patch
+# CVE-2023-6377
+Patch3812: 0001-Xi-allocate-enough-XkbActions-for-our-buttons.patch
+# CVE-2023-6478
+Patch3813: 0001-randr-avoid-integer-truncation-in-length-check-of-Pr.patch
 
 
 BuildRequires: make
@@ -567,6 +571,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Wed Dec 13 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-28
+- CVE fix for: CVE-2023-6377, CVE-2023-6478
+
 * Fri Nov 10 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-27
 - Update with full SPDX license list
 

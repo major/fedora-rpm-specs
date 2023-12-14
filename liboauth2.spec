@@ -1,5 +1,5 @@
 Name: liboauth2
-Version: 1.5.2
+Version: 1.6.0
 Release: 1%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: AGPLv3
@@ -90,6 +90,12 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Thu Dec 7 2023 Packit <hello@packit.dev> - 1.6.0-1
+- 1.6.0: use libcurl version macro that works on older platforms (Hans Zandbelt)
+- 1.6.0: add support for the OAuth 2.0 Client Credentials grant type (Hans Zandbelt)
+- Use CURLOPT_REDIR_PROTOCOLS_STR when curl >= 7.85.0 (Nicolas Mora)
+- Resolves rhbz#2253482
+
 * Fri Nov 10 2023 Packit <hello@packit.dev> - 1.5.2-1
 - 1.5.2: update DPoP support to RFC 9449 (Hans Zandbelt)
 - printout more cjose error details in JWT access token verification (Hans Zandbelt)

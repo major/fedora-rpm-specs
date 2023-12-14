@@ -2,7 +2,7 @@
 
 Name:		python-%{srcname}
 Version:	1.1.8
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Lightweight markup language-based html5 slideshow generator
 
 License:	ASL 2.0
@@ -22,6 +22,7 @@ Summary:	%{summary}
 
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
+BuildRequires:  python3-six
 BuildRequires:	python3-sphinx
 # Test dependencies:
 BuildRequires:  python3dist(docutils)
@@ -67,6 +68,9 @@ find %{buildroot} -name 'main.py' | xargs chmod 0755
 
 
 %changelog
+* Tue Dec 12 2023 Michel Lind <salimma@fedoraproject.org> - 1.1.8-12
+- Explicitly BR on six
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

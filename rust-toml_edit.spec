@@ -6,7 +6,7 @@
 %global crate toml_edit
 
 Name:           rust-toml_edit
-Version:        0.20.2
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Yet another format-preserving TOML parser
 
@@ -46,6 +46,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+display-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+display-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "display" feature of the "%{crate}" crate.
+
+%files       -n %{name}+display-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parse-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parse-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parse" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parse-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+perf-devel

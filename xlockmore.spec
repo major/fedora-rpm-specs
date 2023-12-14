@@ -1,7 +1,7 @@
 Summary: Screen lock and screen saver
 Name: xlockmore
-Version: 5.70
-Release: 4%{?dist}
+Version: 5.74
+Release: 1%{?dist}
 License: BSD
 URL: http://sillycycle.com/xlockmore.html
 Source0: http://sillycycle.com/xlock/xlockmore-%{version}.tar.xz
@@ -101,6 +101,9 @@ desktop-file-install \
 %{_bindir}/xglock
 
 %changelog
+* Tue Dec 12 2023 Adrian Reber <adrian@lisas.de> - 5.74-1
+- Updated to 5.74 (#1837169)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.70-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

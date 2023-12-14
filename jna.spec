@@ -6,8 +6,8 @@
 %endif
 
 Name:           jna
-Version:        5.13.0
-Release:        3%{?dist}
+Version:        5.14.0
+Release:        1%{?dist}
 Summary:        Pure Java access to native libraries
 # Most of code is dual-licensed under either LGPL 2.1+ only or Apache
 # License 2.0.  WeakIdentityHashMap.java was taken from Apache CXF,
@@ -87,13 +87,13 @@ This package contains the contributed examples for %{name}.
 %prep
 %setup -q
 cp %{SOURCE1} .
-%patch0 -p1 -b .build
-%patch1 -p1 -b .loadlib
-%patch2 -p1 -b .tests-headless
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P 0 -p1 -b .build
+%patch -P 1 -p1 -b .loadlib
+%patch -P 2 -p1 -b .tests-headless
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
 
 chmod -Rf a+rX,u+w,g-w,o-w .
 sed -i 's|@LIBDIR@|%{_libdir}/%{name}|' src/com/sun/jna/Native.java
@@ -167,6 +167,9 @@ install -m 755 build/native*/libjnidispatch*.so %{buildroot}%{_libdir}/%{name}/
 
 
 %changelog
+* Mon Dec 11 2023 Zuzana Miklankova <zmiklank@redhat.com> - 5.14.0-1
+- Rebase to version 5.14.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

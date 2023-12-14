@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cudf
 Version:        0.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Format for describing upgrade scenarios
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -79,6 +79,9 @@ cp -a doc/cudf-check.1* %{buildroot}%{_mandir}/man1
 %license COPYING
 
 %changelog
+* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10-5
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10-4
 - OCaml 5.1 rebuild for Fedora 40
 

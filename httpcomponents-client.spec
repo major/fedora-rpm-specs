@@ -3,15 +3,16 @@
 Name:              httpcomponents-client
 Summary:           HTTP agent implementation based on httpcomponents HttpCore
 Version:           4.5.14
-Release:           3%{?dist}
+Release:           4%{?dist}
 License:           Apache-2.0
 URL:               http://hc.apache.org/
 Source0:           https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/%{version}/httpcomponents-client-%{version}-source-release.zip
 BuildArch:         noarch
 ExclusiveArch:     %{java_arches} noarch
 
-Patch0:            0001-Use-system-copy-of-effective_tld_names.dat.patch
-Patch1:            0002-Port-to-mockito-2.patch
+Patch1:            0001-Use-system-copy-of-effective_tld_names.dat.patch
+Patch2:            0002-Port-to-mockito-2.patch
+Patch3:            0003-Port-to-Mockito-5.patch
 
 %if %{with bootstrap}
 BuildRequires:     javapackages-bootstrap
@@ -44,8 +45,9 @@ encouraged to upgrade.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 %mvn_package :::tests: __noinstall
 
@@ -125,6 +127,9 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Tue Dec 12 2023 Marian Koncek <mkoncek@redhat.com> - 4.5.14-4
+- Port to Mockito 5
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.5.14-3
 - Rebuild to regenerate auto-Requires on java
 

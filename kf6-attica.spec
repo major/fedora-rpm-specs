@@ -13,7 +13,7 @@ BuildRequires:	cmake
 BuildRequires:	extra-cmake-modules >= %{version}
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	qt6-qtbase-devel
-BuildRequires:	reuse
+
 
 Requires:	kf6-filesystem
 

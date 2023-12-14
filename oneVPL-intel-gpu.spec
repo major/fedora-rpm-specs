@@ -1,8 +1,8 @@
 %global mfx_ver_major 2
-%global mfx_ver_minor 9
+%global mfx_ver_minor 10
 
 Name:           oneVPL-intel-gpu
-Version:        23.4.0
+Version:        23.4.3
 Release:        1%{?dist}
 Summary:        Intel oneVPL GPU Runtime
 
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Mon Dec 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 23.4.3-1
+- Update to 23.4.3
+
 * Wed Nov 01 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 23.4.0-1
 - Update to 23.4.0 (RHBZ #2246790)
 

@@ -1,8 +1,8 @@
 Name:           targetd
 License:        GPL-3.0-only
 Summary:        Service to make storage remotely configurable
-Version:        0.10.2
-Release:        3%{?dist}
+Version:        0.10.3
+Release:        1%{?dist}
 URL:            https://github.com/open-iscsi/targetd
 Source:         https://github.com/open-iscsi/targetd/archive/v%{version}/targetd-%{version}.tar.gz
 Source1:        targetd.service
@@ -56,6 +56,9 @@ install -m 644 targetd.yaml.5 %{buildroot}%{_mandir}/man5/
 %config(noreplace) %{_sysconfdir}/target/targetd.yaml
 
 %changelog
+* Mon Dec 11 2023 Tony Asleson <tasleson@redhat.com> - 0.10.3-1
+- New upstream release
+
 * Fri Jul 21 2023 Tony Asleson <tasleson@redhat.com> - 0.10.2-3
 - migrated to SPDX license
 

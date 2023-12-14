@@ -1,6 +1,6 @@
 Name:           libshout
 Version:        2.4.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Icecast source streaming library
 
 # COPYING:              GPLv2 text
@@ -71,7 +71,7 @@ Summary:        Icecast source streaming library
 # src/common/timing/Makefile.in:    FSFULLR
 # src/Makefile.in:      FSFULLR
 # win32/Makefile.in:    FSFULLR
-License:        LGPLv2+ and MIT
+License:        LGPL-2.0-or-later
 URL:            https://www.icecast.org/
 Source:         https://downloads.us.xiph.org/releases/libshout/libshout-%{version}.tar.gz
 # Fedora does not support ckport. Enable disabling it.
@@ -156,6 +156,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_datadir}/aclocal/shout.m4
 
 %changelog
+* Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.4.6-4
+- Converted license tag to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

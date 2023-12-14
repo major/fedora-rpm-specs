@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.104.1
+Version:        0.105.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -40,6 +40,10 @@ Patch:          %{url}/pull/4409.patch
 # Upgrade databases and SQLAlchemy
 # https://github.com/tiangolo/fastapi/pull/5799
 Patch:          %{url}/pull/5799.patch
+# Fix PydanticV2.5 tests
+# https://github.com/tiangolo/fastapi/pull/10646
+# Squashed and rebased on 0.105.0
+Patch:          0001-Fix-pydanticV2.5-tests.patch
 
 BuildRequires:  python3-devel
 

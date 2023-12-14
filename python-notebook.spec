@@ -3,8 +3,6 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-notebook
-%global _docdir_fmt %{name}
-
 Version:        7.0.6
 Release:        %autorelease
 Summary:        A web-based notebook environment for interactive computing
@@ -34,6 +32,10 @@ Requires:       python-jupyter-filesystem
 %py_provides    python3-ipython-notebook
 %py_provides    notebook
 %py_provides    jupyter-notebook
+# We stopped shipping doc a long time ago, but there are possible conflicts.
+# For details, see https://bugzilla.redhat.com/2254087
+# (Keep this around at least until Fedora 41.)
+Obsoletes:      python-notebook-doc < 7
 
 %description -n python3-notebook %_description
 

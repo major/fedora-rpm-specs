@@ -9,17 +9,20 @@
 %endif
 
 Name:           kio-fuse
-Version:        5.0.1
-Release:        6%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        KIO FUSE
 
 License:        GPLv3+
 URL:            https://invent.kde.org/system/kio-fuse
-Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+Source1:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz.sig
+Source2:        gpgkey-21EC3FD75D26B39E820BE6FBD27C2C1AF21D8BAD.gpg
 
 ## upstream fixes
 
 BuildRequires:  cmake
+BuildRequires:  gnupg2
 BuildRequires:  gcc-c++
 BuildRequires:  systemd
 BuildRequires:  kf5-rpm-macros
@@ -36,7 +39,7 @@ BuildRequires:  cmake(KF5CoreAddons) >= %{min_kf_version}
 %if 0%{?tests}
 BuildRequires:  dbus-x11
 BuildRequires:  kio-extras
-BuildRequires:  make
+BuildRequires:  fuse3
 %endif
 
 Requires:       systemd
@@ -48,7 +51,8 @@ FUSE.
 
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1
 
 
 %build
@@ -64,13 +68,13 @@ FUSE.
 %if 0%{?tests}
 export CTEST_OUTPUT_ON_FAILURE=1
 dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
+%ctest --timeout 30 ||:
 %endif
 
 
 %files
 %license LICENSES/GPL-3.0-or-later.txt
-%doc README
+%doc README.md DESIGN.md
 %{_libexecdir}/kio-fuse
 %{_userunitdir}/kio-fuse.service
 %{_kf5_datadir}/dbus-1/services/org.kde.KIOFuse.service
@@ -78,6 +82,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Dec 12 2023 Yaroslav Sidlovsky <zawertun@gmail.com> - 5.1.0-1
+- version 5.1.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
