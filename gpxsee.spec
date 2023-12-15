@@ -1,7 +1,7 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        13.9
+Version:        13.12
 Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
@@ -70,6 +70,33 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Dec 12 2023 Packit <hello@packit.dev> - 13.12-1
+- Code cleanup (Martin Tůma)
+- Fixed broken TMS maps rendering (Martin Tůma)
+- Asynchronous rendering of online vector maps (Martin Tůma)
+- Added support for online vector maps overzoom (Martin Tůma)
+- Limit the overzoom to max 3 levels (Martin Tůma)
+- Added support for MVT overzoom (Martin Tůma)
+- Code cleanup (Martin Tůma)
+- Provide the zoom level to QImageReader when fetching the tile size (Martin Tůma)
+- Cosmetics (Martin Tůma)
+- Added workaround for broken Qt SVG image plugin colliding with the MVT plugin (Martin Tůma)
+- Translated using Weblate (Ukrainian) (Vadym Nekhai)
+- Translated using Weblate (Esperanto) (Nikolay Korotkiy)
+- Translated using Weblate (Ukrainian) (Nikolay Korotkiy)
+- Translated using Weblate (Russian) (Nikolay Korotkiy)
+- Translated using Weblate (Finnish) (Nikolay Korotkiy)
+- Fixed possible double delete (Martin Tůma)
+- Improved error reporting (Martin Tůma)
+- Fixed crash on empty MBTiles files (Martin Tůma)
+- Version++ (Martin Tůma)
+- Metadata update (Martin Tůma)
+- Translated using Weblate (Catalan) (raf)
+- Translated using Weblate (Hungarian) (99 efi)
+- Translated using Weblate (Swedish) (bittin1ddc447d824349b2)
+- Code cleanup (Martin Tůma)
+- Resolves rhbz#2231722
+
 * Wed Oct 11 2023 Packit <hello@packit.dev> - 13.9-1
 - Fixed storing of WMTS tiles with file system incompatible tile matrix names (Martin Tůma)
 - Decreased map zoom level treshold to 80% (Martin Tůma)

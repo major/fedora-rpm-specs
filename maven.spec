@@ -1,13 +1,13 @@
 %bcond_with bootstrap
 
 %global bundled_slf4j_version 1.7.36
-%global homedir %{_datadir}/%{name}%{?maven_version_suffix}
-%global confdir %{_sysconfdir}/%{name}%{?maven_version_suffix}
+%global homedir %{_datadir}/maven%{?maven_version_suffix}
+%global confdir %{_sysconfdir}/maven%{?maven_version_suffix}
 
 Name:           maven
 Epoch:          1
 Version:        3.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is Apache-2.0
 # bundled slf4j is MIT
@@ -16,7 +16,7 @@ URL:            https://maven.apache.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://archive.apache.org/dist/%{name}/%{name}-3/%{version}/source/apache-%{name}-%{version}-src.tar.gz
+Source0:        https://archive.apache.org/dist/maven/maven-3/%{version}/source/apache-maven-%{version}-src.tar.gz
 Source1:        maven-bash-completion
 Source2:        mvn.1
 
@@ -114,11 +114,11 @@ Core part of Apache Maven that can be used as a library.
 %package openjdk8
 Summary:        OpenJDK 8 binding for Maven
 RemovePathPostfixes: -openjdk8
-Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
-Requires: maven = %{epoch}:%{version}-%{release}
+Provides: %{name}-jdk-binding = %{epoch}:%{version}-%{release}
+Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: java-1.8.0-openjdk-headless
 Recommends: java-1.8.0-openjdk-devel
-Conflicts: maven-jdk-binding
+Conflicts: %{name}-jdk-binding
 
 %description openjdk8
 Configures Maven to run with OpenJDK 8.
@@ -126,11 +126,11 @@ Configures Maven to run with OpenJDK 8.
 %package openjdk11
 Summary:        OpenJDK 11 binding for Maven
 RemovePathPostfixes: -openjdk11
-Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
-Requires: maven = %{epoch}:%{version}-%{release}
+Provides: %{name}-jdk-binding = %{epoch}:%{version}-%{release}
+Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: java-11-openjdk-headless
 Recommends: java-11-openjdk-devel
-Conflicts: maven-jdk-binding
+Conflicts: %{name}-jdk-binding
 
 %description openjdk11
 Configures Maven to run with OpenJDK 11.
@@ -138,11 +138,11 @@ Configures Maven to run with OpenJDK 11.
 %package openjdk17
 Summary:        OpenJDK 17 binding for Maven
 RemovePathPostfixes: -openjdk17
-Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
-Requires: maven = %{epoch}:%{version}-%{release}
+Provides: %{name}-jdk-binding = %{epoch}:%{version}-%{release}
+Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: java-17-openjdk-headless
 Recommends: java-17-openjdk-devel
-Conflicts: maven-jdk-binding
+Conflicts: %{name}-jdk-binding
 
 %description openjdk17
 Configures Maven to run with OpenJDK 17.
@@ -150,11 +150,11 @@ Configures Maven to run with OpenJDK 17.
 %package openjdk21
 Summary:        OpenJDK 21 binding for Maven
 RemovePathPostfixes: -openjdk21
-Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
-Requires: maven = %{epoch}:%{version}-%{release}
+Provides: %{name}-jdk-binding = %{epoch}:%{version}-%{release}
+Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: java-21-openjdk-headless
 Recommends: java-21-openjdk-devel
-Conflicts: maven-jdk-binding
+Conflicts: %{name}-jdk-binding
 
 %description openjdk21
 Configures Maven to run with OpenJDK 21.
@@ -162,7 +162,7 @@ Configures Maven to run with OpenJDK 21.
 %{?javadoc_package}
 
 %prep
-%setup -q -n apache-%{name}-%{version}
+%setup -q -n apache-maven-%{version}
 
 find -name '*.java' -exec sed -i 's/\r//' {} +
 find -name 'pom.xml' -exec sed -i 's/\r//' {} +
@@ -170,6 +170,7 @@ find -name 'pom.xml' -exec sed -i 's/\r//' {} +
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
+sed -i "s/@{maven_version_suffix}/%{?maven_version_suffix}/" apache-maven/src/bin/mvn
 
 # not really used during build, but a precaution
 find -name '*.jar' -not -path '*/test/*' -delete
@@ -261,10 +262,10 @@ ln -s %{homedir}/bin/mvnDebug.1.gz %{buildroot}%{_mandir}/man1/mvnDebug%{maven_v
 
 # JDK bindings
 install -d -m 755 %{buildroot}%{_javaconfdir}/
-echo JAVA_HOME=%{_jvmlibdir}/jre-1.8.0-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk8
-echo JAVA_HOME=%{_jvmlibdir}/jre-11-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk11
-echo JAVA_HOME=%{_jvmlibdir}/jre-17-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk17
-echo JAVA_HOME=%{_jvmlibdir}/jre-21-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk21
+echo JAVA_HOME=%{_jvmlibdir}/jre-1.8.0-openjdk >%{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk8
+echo JAVA_HOME=%{_jvmlibdir}/jre-11-openjdk >%{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk11
+echo JAVA_HOME=%{_jvmlibdir}/jre-17-openjdk >%{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk17
+echo JAVA_HOME=%{_jvmlibdir}/jre-21-openjdk >%{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk21
 
 
 %post
@@ -302,18 +303,21 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %endif
 
 %files openjdk8
-%config %{_javaconfdir}/maven.conf-openjdk8
+%config %{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk8
 
 %files openjdk11
-%config %{_javaconfdir}/maven.conf-openjdk11
+%config %{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk11
 
 %files openjdk17
-%config %{_javaconfdir}/maven.conf-openjdk17
+%config %{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk17
 
 %files openjdk21
-%config %{_javaconfdir}/maven.conf-openjdk21
+%config %{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk21
 
 %changelog
+* Wed Dec 13 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.6-2
+- Make JDK bindings work with different Maven version suffixes
+
 * Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.6-1
 - Update to upstream version 3.9.6
 

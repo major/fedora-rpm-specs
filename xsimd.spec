@@ -1,5 +1,5 @@
 Name:           xsimd
-Version:        11.1.0
+Version:        12.1.1
 Release:        %autorelease
 Summary:        C++ wrappers for SIMD intrinsics
 License:        BSD-3-Clause

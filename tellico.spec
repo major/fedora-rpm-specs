@@ -1,6 +1,6 @@
 Name:           tellico
 Version:        3.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection manager
 
 License:        GPL-2.0-or-later
@@ -111,6 +111,9 @@ sed \
 
 
 %changelog
+* Wed Dec 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.5.1-2
+- Rebuild for libksane bump
+
 * Thu Sep  7 2023 José Matos <jamatos@fedoraproject.org> - 3.5.1-1
 - Update to 3.5.1
 - Update SPDX license identifier

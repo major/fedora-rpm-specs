@@ -1,80 +1,54 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
-%global framework %{name}
-
 Name:    akregator
 Summary: Feed Reader
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://www.kde.org/applications/internet/akregator/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5WebEngine)
-BuildRequires: cmake(Qt5WebEngineWidgets)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6WebEngineWidgets)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(QGpgmeQt6)
 
-BuildRequires: cmake(Grantlee5)
-
-# kf5
+# kf6
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5NotifyConfig)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5TextEditTextToSpeech)
-BuildRequires: cmake(KF5TextEditor)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Syndication)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6DocTools)
 
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires: kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires: kf5-kontactinterface-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-libkleo-devel >= %{majmin_ver}
-BuildRequires: kf5-messagelib-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
-# in kf5 since 5.50.0
-BuildRequires: kf5-syndication-devel >= %{majmin_ver}
-BuildRequires: make
-BuildRequires: cmake(KPim5MessageViewer)
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6GrantleeTheme)
+BuildRequires: cmake(KPim6KontactInterface)
+BuildRequires: cmake(KPim6Libkdepim)
+BuildRequires: cmake(KPim6MessageViewer)
+BuildRequires: cmake(KF6TextEditTextToSpeech)
+BuildRequires: cmake(KF6TextUtils)
+BuildRequires: cmake(KPim6WebEngineViewer)
+BuildRequires: cmake(KPim6PimCommon)
+BuildRequires: cmake(KF6UserFeedback)
+BuildRequires: cmake(KF6TextTemplate)
+BuildRequires: cmake
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -95,65 +69,46 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
-
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
-
-## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libakregatorinterfaces.so
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%endif
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
 
 
 %files -f %{name}.lang
 %license LICENSES/*
 %{_datadir}/dbus-1/interfaces/org.kde.akregator.part.xml
-%{_kf5_bindir}/akregator
-%{_kf5_bindir}/akregatorstorageexporter
-%{_kf5_datadir}/akregator/
-%{_kf5_datadir}/applications/org.kde.akregator.desktop
-%{_kf5_datadir}/config.kcfg/akregator.kcfg
-%{_kf5_datadir}/icons/hicolor/*/apps/akregator.*
-%{_kf5_datadir}/icons/hicolor/*/apps/akregator_empty.png
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_metainfodir}/org.kde.akregator.appdata.xml
-# Kontact integration
-%{_kf5_datadir}/knotifications5/akregator.notifyrc
-
-%ldconfig_scriptlets libs
+%{_kf6_bindir}/akregator
+%{_kf6_bindir}/akregatorstorageexporter
+%{_kf6_datadir}/akregator/
+%{_kf6_datadir}/applications/org.kde.akregator.desktop
+%{_kf6_datadir}/config.kcfg/akregator.kcfg
+%{_kf6_datadir}/icons/hicolor/*/apps/akregator.*
+%{_kf6_datadir}/icons/hicolor/*/apps/akregator_empty.png
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_metainfodir}/org.kde.akregator.appdata.xml
+%{_kf6_datadir}/knotifications6/akregator.notifyrc
 
 %files libs
-%{_kf5_libdir}/libakregatorinterfaces.so.*
-%{_kf5_libdir}/libakregatorprivate.so.*
-%{_kf5_qtplugindir}/akregatorpart.so
-# Kontact integration
-%dir %{_kf5_qtplugindir}/pim5/kontact/
-%{_kf5_qtplugindir}/pim5/kontact/kontact_akregatorplugin.so
-%{_kf5_qtplugindir}/pim5/kcms/akregator/
+%{_kf6_libdir}/libakregatorinterfaces.so.*
+%{_kf6_libdir}/libakregatorprivate.so.*
+%{_kf6_qtplugindir}/akregatorpart.so
+%dir %{_kf6_qtplugindir}/pim6/kontact/
+%{_kf6_qtplugindir}/pim6/kontact/kontact_akregatorplugin.so
+%{_kf6_qtplugindir}/pim6/kcms/akregator/
 
 
 %changelog
+* Wed Dec 13 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

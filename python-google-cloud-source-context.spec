@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.4.3
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Source Context
 
@@ -57,8 +57,6 @@ sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -70,7 +68,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst README.rst SECURITY.md
-%{python3_sitelib}/google_cloud_source_context-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

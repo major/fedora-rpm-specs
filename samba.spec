@@ -368,6 +368,10 @@ BuildRequires: librados-devel
 BuildRequires: python3-etcd
 %endif
 
+%if %{with gpupdate}
+BuildRequires: cepces
+%endif
+
 # pidl requirements
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: perl(FindBin)

@@ -8,7 +8,7 @@ BuildRequires: make
 %global fontconf 66-%{fontname}
 
 Version: 0.3
-Release: 44%{?dist}
+Release: 45%{?dist}
 License: GPL-2.0-only AND MIT AND LicenseRef-Lucida
 
 %global foundry           Bitmap
@@ -144,37 +144,41 @@ Summary:  Selected set of bitmap fonts
 %description
 %wordwrap -v common_description
 
-%package -n %{fontname}-fonts-compat
+%package -n %{fontname}-fonts-all
 Summary: Compatibility files of bitmap-font families
 Provides: bitmap-fonts = %{version}-%{release}
+Obsoletes: bitmap-fonts < %{version}-%{release}
+Provides: bitmap-fonts-compat = %{version}-%{release}
+Obsoletes: bitmap-fonts-compat < %{version}-%{release}
 Requires: %{fontname}-lucida-typewriter-fonts = %{version}-%{release}
 Requires: %{fontname}-fangsongti-fonts = %{version}-%{release}
 Requires: %{fontname}-console-fonts = %{version}-%{release}
 Requires: %{fontname}-fixed-fonts = %{version}-%{release}
 Requires: ucs-miscfixed-fonts
-Obsoletes: bitmap-fonts < %{version}-%{release}
-Conflicts: %{fontname}-opentype-fonts-compat
+Conflicts: %{fontname}-opentype-fonts-all
 
-%description -n %{fontname}-fonts-compat
+%description -n %{fontname}-fonts-all
 %common_desc
 Meta-package for installing all font families of bitmap.
 
-%files -n %{fontname}-fonts-compat
+%files -n %{fontname}-fonts-all
 
-%package -n %{fontname}-opentype-fonts-compat
+%package -n %{fontname}-opentype-fonts-all
 Summary:  Compatibility files of bitmap-font families (opentype version)
+Provides: bitmap-opentype-fonts-compat = %{version}-%{release}
+Obsoletes: bitmap-opentype-fonts-compat < %{version}-%{release}
 Requires: %{fontname}-lucida-typewriter-opentype-fonts = %{version}-%{release}
 Requires: %{fontname}-fangsongti-opentype-fonts = %{version}-%{release}
 Requires: %{fontname}-console-opentype-fonts = %{version}-%{release}
 Requires: %{fontname}-fixed-opentype-fonts = %{version}-%{release}
 Requires: ucs-miscfixed-opentype-fonts
-Conflicts: %{fontname}-fonts-compat
+Conflicts: %{fontname}-fonts-all
 
-%description -n %{fontname}-opentype-fonts-compat
+%description -n %{fontname}-opentype-fonts-all
 %common_desc
 Meta-package for installing all font families of opentype bitmap.
 
-%files -n %{fontname}-opentype-fonts-compat
+%files -n %{fontname}-opentype-fonts-all
 
 
 %fontpkg -a
@@ -218,6 +222,10 @@ gzip *.pcf fixfont-3.5/*.pcf
 %fontfiles -a
 
 %changelog
+* Wed Dec 13 2023 Peng Wu <pwu@redhat.com> - 0.3-45
+- Rename bitmap-fonts-compat and bitmap-opentype-fonts-compat metapkgs
+- Resolves: RHBZ#2254164
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

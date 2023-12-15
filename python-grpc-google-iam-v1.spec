@@ -3,7 +3,7 @@
 
 %global         srcname     grpc-google-iam-v1
 %global         forgeurl    https://github.com/googleapis/python-grpc-google-iam-v1
-Version:        0.12.7
+Version:        0.13.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -52,8 +52,6 @@ Summary:        %{summary}
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -64,7 +62,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/grpc_google_iam_v1-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

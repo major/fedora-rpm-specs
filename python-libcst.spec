@@ -110,7 +110,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e 'libcst.tests.*'
 %if %{with tests}
 %if %{with all_tests}
 %pytest

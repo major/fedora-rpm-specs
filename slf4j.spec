@@ -187,7 +187,7 @@ install -d -m 0755 $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 rm -rf target/site/{.htaccess,apidocs}
 cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 
-%files -n %{?module_prefix}%{name} -f .mfiles
+%files -f .mfiles
 %license LICENSE.txt APACHE-LICENSE
 
 %files jdk14 -f .mfiles-%{name}-jdk14

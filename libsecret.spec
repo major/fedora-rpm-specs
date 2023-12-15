@@ -12,7 +12,11 @@ Version:        0.21.2
 Release:        2%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
-License:        LGPLv2+
+# libsecret/mock/aes.py is Apache-2.0
+# libsecret/mock/hkdf.py is GPL-2.0-or-later OR LicenseRef-scancode-tgppl-1.0
+# ^^^ See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/412
+# part of libsecret/mock/dh.py is LicenseRef-Fedora-Public-Domain
+License:        LGPL-2.1-or-later AND Apache-2.0 AND AND (GPL-2.0-or-later OR LicenseRef-scancode-tgppl-1.0) AND LicenseRef-Fedora-Public-Domain
 URL:            https://wiki.gnome.org/Projects/Libsecret
 Source0:        https://download.gnome.org/sources/libsecret/%{release_version}/libsecret-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/libsecret/-/merge_requests/133

@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.15.3
+Version:        1.16.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud OS Config API
 
@@ -64,8 +64,6 @@ rm -f %{buildroot}%{_bindir}/fixup_keywords.py
 
 
 %check
-%pyproject_check_import -e 'google.cloud.osconfig_v1.types*' -e 'google.cloud.osconfig_v1alpha.types*'
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -77,7 +75,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/google_cloud_os_config-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

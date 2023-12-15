@@ -1,5 +1,5 @@
 Name:           AMF
-Version:        1.4.30
+Version:        1.4.32
 Release:        1%{?dist}
 Summary:        Advanced Media Framework (AMF) SDK
 License:        MIT
@@ -54,6 +54,9 @@ ln -sf ../../include/AMF %{buildroot}%{_usrsrc}/%{name}/include
 %{_usrsrc}/%{name}
 
 %changelog
+* Wed Dec 13 2023 Simone Caronni <negativo17@gmail.com> - 1.4.32-1
+- Update to 1.4.32.
+
 * Mon Aug 07 2023 Simone Caronni <negativo17@gmail.com> - 1.4.30-1
 - Update to 1.4.30.
 

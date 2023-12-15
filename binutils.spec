@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -1324,6 +1324,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Dec 11 2023 Nick Clifton  <nickc@redhat.com> - 2.41-17
+- Fix failure in binutils testsuite for RiscV architecture.
+
 * Thu Dec 07 2023 Nick Clifton  <nickc@redhat.com> - 2.41-16
 - Add support for Intel's AVX10.1 ISA.
 

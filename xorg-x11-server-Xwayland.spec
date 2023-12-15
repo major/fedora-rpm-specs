@@ -8,8 +8,8 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   23.2.2
-Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Version:   23.2.3
+Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -17,9 +17,6 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 %else
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
-
-# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1203
-Patch0:    0001-build-Allow-for-custom-server-config-directory.patch
 
 License:   MIT
 
@@ -140,6 +137,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Dec 13 2023 Peter Hutterer <peter.hutterer@redhat.com> - 23.2.3-1
+- xwayland 23.2.3 
+  CVE fix for: CVE-2023-6377, CVE-2023-6478
+
 * Fri Nov 24 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.2.2-2
 - Drop dependency on xorg-x11-server-common
 

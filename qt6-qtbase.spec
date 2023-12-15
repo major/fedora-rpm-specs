@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -195,7 +195,7 @@ Requires: %{name}-common = %{version}-%{release}
 %if 0%{?fedora} || 0%{?epel}
 %global ibase 1
 %endif
-	
+
 
 %description
 Qt is a software toolkit for developing applications.
@@ -303,6 +303,8 @@ Summary: Qt6 GUI-related libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Recommends: mesa-dri-drivers%{?_isa}
 Recommends: qt6-qtwayland%{?_isa}
+# Required for some locales: https://pagure.io/fedora-kde/SIG/issue/311
+Recommends: qt6-qttranslations
 # for Source6: 10-qt6-check-opengl2.sh:
 # glxinfo
 Requires: glx-utils
@@ -835,6 +837,9 @@ make check -k ||:
 
 
 %changelog
+* Tue Dec 12 2023 Timothée Ravier <tim@siosm.fr> - 6.6.1-2
+- Recommend qt6-qttranslations
+
 * Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
 - 6.6.1
 

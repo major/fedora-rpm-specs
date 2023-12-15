@@ -7,12 +7,13 @@ Provides:	perl(IO::AIO) = %{upstream_version}%{extraversion}
 
 Name:		perl-IO-AIO
 Version:	%{upstream_version}%{extraversion}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Asynchronous Input/Output
 License:	GPL-2.0-or-later
 URL:		https://metacpan.org/release/IO-AIO
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-AIO-%{upstream_version}.tar.gz
 Patch0:		IO-AIO-4.4-shellbang.patch
+Patch1:		IO-AIO-4.8-ptrtype.patch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -73,6 +74,9 @@ If no paths are given, treescan will use the current directory.
 # Fix shellbang in treescan
 %patch -P 0
 
+# Fix use of incompatible pointer type in configure test for fexecve()
+%patch -P 1
+
 %build
 PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL \
 	INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
@@ -99,6 +103,9 @@ make test
 %{_mandir}/man1/treescan.1*
 
 %changelog
+* Wed Dec 13 2023 Paul Howarth <paul@city-fan.org> - 4.80-4
+- Fix use of incompatible pointer type in configure test for fexecve()
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.80-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name:           skanlite
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
 License:        GPL-2.0-only OR GPL-3.0-only
 URL:            https://www.kde.org/applications/graphics/%{name}/
-Source0:        https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -13,17 +13,17 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  libpng-devel
-BuildRequires:  qt5-qtbase-devel
 
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Sane)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  cmake(KSaneCore)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Core5Compat)
 
-Requires:       kde-filesystem
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KSaneWidgets6)
 
 
 %description
@@ -35,15 +35,14 @@ Skanlite is a light-weight scanning application based on libksane.
 
 
 %build
-%cmake
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 
 %install
 %cmake_install
 %find_lang %{name} --all-name --with-html
-install -Dpm 0644 hotkeys_and_scripts/%{name}.khotkeys %{buildroot}%{_kf5_datadir}/khotkeys/%{name}.khotkeys
-install -Dpm 0644 logo.png %{buildroot}%{_kf5_datadir}/icons/hicolor/128x128/apps/%{name}.png
+install -Dpm 0644 logo.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 
 %check
@@ -53,16 +52,17 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 
 %files -f %{name}.lang
 %license LICENSES
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/128x128/apps/%{name}.png
-%{_kf5_datadir}/icons/hicolor/48x48/apps/org.kde.skanlite.svg
-%dir %{_kf5_datadir}/khotkeys
-%{_kf5_datadir}/khotkeys/%{name}.khotkeys
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_bindir}/%{name}
+%{_datadir}/applications/org.kde.%{name}.desktop
+%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
+%{_datadir}/icons/hicolor/48x48/apps/org.kde.skanlite.svg
+%{_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %changelog
+* Wed Dec 13 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

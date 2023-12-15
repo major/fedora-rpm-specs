@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -383,6 +383,10 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Dec 13 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-9
+- Rebuild for Xorg CVEs
+  Fixes: CVE-2023-6377, CVE-2023-6478
+
 * Wed Nov 22 2023 Florian Weimer <fweimer@redhat.com> - 1.13.1-8
 - Drop incorrect tigervnc-c99-2.patch.
 

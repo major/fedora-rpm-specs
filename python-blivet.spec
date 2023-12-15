@@ -5,7 +5,7 @@ Version: 3.8.2
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -16,6 +16,8 @@ Source1: http://github.com/storaged-project/blivet/archive/%{realname}-%{realver
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
+
+Patch1: 0002-add-udev-builtin-path_id-property-to-zfcp-attached-S.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -112,6 +114,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Wed Dec 13 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.8.2-2
+- add udev-builtin-path_id property to zfcp-attached SCSI disks
+
 * Thu Oct 12 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.8.2-1
 - tests: Ignore new pylint false positive with pylint 3.0 (vtrefny)
 - pylint: Use 'exit' instead of 'do_exit' for pylint.lint.Run (vtrefny)

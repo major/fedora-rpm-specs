@@ -58,7 +58,7 @@ Requires: qt6-qtdeclarative
 
 %install
 %cmake_install
-sed -i 's,<icon type="stock">plasma</icon>, ,g' %{buildroot}%{_kf5_metainfodir}/%{orig_name}.desktoptoolbox.appdata.xml
+sed -i 's,<icon type="stock">plasma</icon>, ,g' %{buildroot}%{_kf6_metainfodir}/%{orig_name}.desktoptoolbox.appdata.xml
 %find_lang plasma_shell_%{orig_name} --all-name
 
 %check

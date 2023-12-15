@@ -2,8 +2,8 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        17.0.3
-Release:        2%{?dist}
+Version:        17.4
+Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 # Disabled while can't fix build
@@ -31,7 +31,7 @@ ExcludeArch: s390x
 
 
 License:        zlib and CC-BY-SA and ASL 2.0 and MIT and Public Domain
-URL:            https://ddnet.tw/
+URL:            https://ddnet.org/
 Source0:        https://github.com/ddnet/ddnet/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Disable network lookup test because without internet access tests not pass
@@ -59,6 +59,7 @@ BuildRequires:  pkgconfig(gtest)
 BuildRequires:  pkgconfig(json-parser)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libnotify)
+BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(opus)
@@ -77,8 +78,6 @@ BuildRequires:  glslang
 #BuildRequires:  pkgconfig(x264)
 BuildRequires:  (crate(cxx/default) >= 1.0.0 with crate(cxx/default) < 2.0.0~)
 BuildRequires:  gmock-devel
-# pkgconfig not available
-BuildRequires:  pnglite-devel
 
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -178,6 +177,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue Dec 12 2023 Rafael Fontenelle <rafaelff@gnome.org>- 17.4-1
+- Update to 17.4 (#2219010)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

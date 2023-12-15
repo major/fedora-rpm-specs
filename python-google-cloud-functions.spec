@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.13.3
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Functions
 
@@ -64,8 +64,6 @@ rm -f %{buildroot}/%{_bindir}/fixup_functions_v1_keywords.py
 
 
 %check
-%pyproject_check_import -e 'google.cloud.functions_v2*' -e 'google.cloud.functions*'
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -76,7 +74,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/google_cloud_functions-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

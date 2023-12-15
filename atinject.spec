@@ -43,7 +43,7 @@ beneficial to most nontrivial applications.
 %install
 %mvn_install
 
-%files -n %{?module_prefix}%{name} -f .mfiles
+%files -f .mfiles
 %license LICENSE.txt NOTICE.md
 
 %changelog

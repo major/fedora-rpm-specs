@@ -193,23 +193,20 @@
 # enable gtk3 by default
 %global gtk3 1
 
-# enable|disable system brotli
-# disable system brotli due to old system brotli on el and fedora < 38
-%global bundlebrotli 1
-%if 0%{?fedora} > 38
-%global bundlebrotli 0
-%endif
-
 # Chromium's fork of ICU is now something we can't unbundle.
 # This is left here to ease the change if that ever switches.
 %global bundleicu 1
 
+# system libre2.so is not supported with use_custom_libcxx=true
+# because the library's interface relies on libstdc++'s std::string and std::vector.
 %global bundlere2 1
 
 # The libxml_utils code depends on the specific bundled libxml checkout
 # which is not compatible with the current code in the Fedora package as of
 # 2017-06-08.
 %global bundlelibxml 1
+
+%global bundlelibaom 1
 
 # Fedora's Python 2 stack is being removed, we use the bundled Python libraries
 # This can be revisited once we upgrade to Python 3
@@ -234,13 +231,18 @@
 %global bundlelibdrm 1
 %global bundlefontconfig 1
 %global bundleffmpegfree 1
-%global bundlelibaom 1
+%global bundlebrotli 1
 %else
-# Chromium really wants to use its bundled harfbuzz. Sigh.
 %if 0%{?fedora} > 37
 %global bundleharfbuzz 0
 %else
 %global bundleharfbuzz 1
+%endif
+# disable system brotli due to old system brotli on el and fedora < 38
+%if 0%{?fedora} > 38
+%global bundlebrotli 0
+%else
+%global bundlebrotli 1
 %endif
 %global bundleopus 0
 %global bundlelibusbx 0
@@ -250,13 +252,7 @@
 %global bundlelibdrm 0
 %global bundlefontconfig 0
 %global bundleffmpegfree 0
-%global bundlelibaom 1
-# system freetype on fedora > 36
-%if 0%{?fedora}
 %global bundlefreetype 0
-%else
-%global bundlefreetype 1
-%endif
 %endif
 
 ### From 2013 until early 2021, Google permitted distribution builds of
@@ -293,7 +289,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 120.0.6099.71
+Version: 120.0.6099.109
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1196,8 +1192,12 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}
-CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true chrome_pgo_phase=0'
+CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true'
 sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/generate_shim_headers.py
+%endif
+
+%if 0%{?rhel} || 0%{?fedora} < 39
+CHROMIUM_CORE_GN_DEFINES+=' chrome_pgo_phase=0'
 %endif
 
 %if %{cfi}
@@ -1770,6 +1770,15 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Dec 13 2023 Than Ngo <than@redhat.com> - 120.0.6099.109-1
+- update to 120.0.6099.109
+   * High CVE-2023-6702: Type Confusion in V8
+   * High CVE-2023-6703: Use after free in Blink
+   * High CVE-2023-6704: Use after free in libavif
+   * High CVE-2023-6705: Use after free in WebRTC
+   * High CVE-2023-6706: Use after free in FedCM
+   * Medium CVE-2023-6707: Use after free in CSS
+
 * Fri Dec 08 2023 Than Ngo <than@redhat.com> - 120.0.6099.71-1
 - update to 120.0.6099.71
 

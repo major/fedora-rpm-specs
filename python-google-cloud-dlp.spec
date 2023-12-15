@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        3.13.0
+Version:        3.14.0
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Data Loss Prevention API
 
@@ -66,8 +66,6 @@ rm -f %{buildroot}%{_bindir}/fixup*
 
 
 %check
-%pyproject_check_import -e google.cloud.dlp*
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -78,8 +76,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md samples
-%{python3_sitelib}/google_cloud_dlp-%{version}-py%{python3_version}-nspkg.pth
-
 
 
 %changelog

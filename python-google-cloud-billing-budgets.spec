@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        1.12.1
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Billing Budget API
 
@@ -60,8 +60,6 @@ rm -f %{buildroot}%{_bindir}/fixup_budgets*.py
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -73,7 +71,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/google_cloud_billing_budgets-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

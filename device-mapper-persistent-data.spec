@@ -9,17 +9,15 @@
 
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
-Version: 1.0.6
-Release: 2%{?dist}%{?release_suffix}
+Version: 1.0.9
+Release: 1%{?dist}%{?release_suffix}
 License: GPLv3+
 #ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
 #Source0: https://github.com/jthornber/thin-provisioning-tools/archive/thin-provisioning-tools-%%{version}.tar.gz
 Source0: https://github.com/jthornber/thin-provisioning-tools/archive/v%{version}%{?version_suffix}.tar.gz
-Source1: dmpd106-vendor.tar.gz
+Source1: dmpd109-vendor.tar.gz
 Patch1: 0001-Tweak-cargo.toml-to-work-with-vendor-directory.patch
-Patch2: 0002-file_utils-Fix-the-ioctl-request-code-for-the-powerp.patch
-Patch3: 0003-file_utils-Verify-ioctl-request-code-in-tests.patch
 
 %if %{defined rhel}
 BuildRequires: rust-toolset
@@ -44,7 +42,39 @@ snapshot eras
 #%%cargo_generate_buildrequires
 tar xf %{SOURCE1}
 mkdir -p .cargo
-cat > .cargo/config <<END
+(
+# Part from %%cargo_prep:
+set -euo pipefail
+/usr/bin/mkdir -p target/rpm
+/usr/bin/ln -s rpm target/release
+/usr/bin/rm -rf .cargo/
+/usr/bin/mkdir -p .cargo
+cat > .cargo/config << EOF
+[build]
+rustc = "/usr/bin/rustc"
+rustdoc = "/usr/bin/rustdoc"
+
+[profile.rpm]
+inherits = "release"
+opt-level = 3
+codegen-units = 1
+debug = 2
+strip = "none"
+
+[env]
+CFLAGS = "-O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -m64  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer "
+CXXFLAGS = "-O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -m64  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer "
+LDFLAGS = "-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1  "
+
+[install]
+root = "/home/mcsontos/rpmbuild/BUILDROOT/%{NAME}-%{VERSION}-%{RELEASE}.x86_64/usr"
+
+[term]
+verbose = true
+EOF
+
+# Our own part:
+cat >> .cargo/config <<END
 [source.crates-io]
 replace-with = "vendored-sources"
 
@@ -52,6 +82,7 @@ replace-with = "vendored-sources"
 directory = "vendor"
 
 END
+)
 echo %{version}-%{release} > VERSION
 
 %generate_buildrequires
@@ -118,6 +149,9 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Mon Dec 11 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.9-1
+- Update to latest upstream release 1.0.9.
+
 * Thu Aug 31 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.6-2
 - Fix broken installation on ppc64le caused by incorrect ioctl call.
 

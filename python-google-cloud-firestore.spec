@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-firestore
 %global         forgeurl    https://github.com/googleapis/python-firestore
-Version:        2.13.1
+Version:        2.14.0
 %global         tag         v%{version_no_tilde %{quote:%nil}}
 %forgemeta
 
@@ -26,6 +26,7 @@ BuildRequires:  python3-devel
 
 %if %{with tests}
 BuildRequires:  python3dist(aiounittest)
+BuildRequires:  python3dist(freezegun)
 BuildRequires:  python3dist(google-cloud-testutils)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -72,8 +73,6 @@ rm -f %{buildroot}%{_bindir}/fixup*.py
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -84,7 +83,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc *.rst *.md samples
-%{python3_sitelib}/google_cloud_firestore-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

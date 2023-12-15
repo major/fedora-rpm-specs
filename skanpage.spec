@@ -1,47 +1,51 @@
-%global kf5_min_version 5.87.0
-
 Name:     skanpage
-Version:  23.08.2
-Release:  2%{?dist}
+Version:  24.01.80
+Release:  1%{?dist}
 Summary:  Utility to scan images and multi-page documents
-# For a breakdown of the licensing, see PACKAGE-LICENSING
-License:  GPLv3 and GPLv2 and CC0-1.0 and BSD
+License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
 
 URL:      https://invent.kde.org/utilities/%{name}
-Source0:  https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+## Upstream patches
+Patch0:   ksanecore-qt6-name-change.patch
+
+## Downstream patches
+# gcc13 with binutils-2.41 (as in f40 rawhide) fails to compile this project with -fopenmp even though it seems unused?
+Patch100: disable-openmp.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 BuildRequires:  cmake
-BuildRequires:  extra-cmake-modules >= %{kf5_min_version}
+BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
+BuildRequires:  kf6-rpm-macros
 
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Widgets)
 
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5PrintSupport)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Widgets)
-
-
-BuildRequires:  cmake(KF5Config)     >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CoreAddons) >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Crash)      >= %{kf5_min_version}
-BuildRequires:  cmake(KF5I18n)       >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Kirigami2)  >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Plasma)     >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Purpose)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Sane)       >= %{kf5_min_version}
-BuildRequires:  cmake(KSaneCore)
-BuildRequires:  cmake(KF5XmlGui)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6Purpose)
+BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KQuickImageEditor)
+BuildRequires:  cmake(KSaneCore6)
 
-Requires: qt5-qtquickcontrols2
-Requires: kf5-kirigami2              >= %{kf5_min_version}
-Requires: kquickimageeditor-qt5
+BuildRequires:  cmake(Tesseract) >= 4
+BuildRequires:  cmake(Leptonica)
+
+Requires: qt6-qtquickcontrols2
+Requires: kf6-kirigami
+Requires: kquickimageeditor-qt6
 
 Recommends: sane-backends-drivers-scanners
 
@@ -55,7 +59,7 @@ It supports saving to image and PDF files.
 %autosetup -p1
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -64,22 +68,25 @@ It supports saving to image and PDF files.
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
 %{_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_datadir}/applications/org.kde.%{name}.desktop
+%{_metainfodir}/org.kde.%{name}.appdata.xml
 
-%{_kf5_datadir}/qlogging-categories5/%{name}.categories
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_kf5_datadir}/icons/hicolor/48x48/apps/%{name}.png
+%{_kf6_datadir}/qlogging-categories6/%{name}.categories
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Tue Dec 12 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Wed Oct 25 2023 Vasiliy Glazov <vascom2@gmail.com> - 23.08.2-2
 - Added requires kquickimageeditor
 

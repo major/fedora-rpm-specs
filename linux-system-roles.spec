@@ -18,7 +18,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.63.0
+Version: 1.64.0
 Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
@@ -98,13 +98,13 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 4 1.4.3
 
 %global rolename5 network
-%deftag 5 1.14.1
+%deftag 5 1.14.2
 
 %global rolename6 storage
-%deftag 6 1.14.1
+%deftag 6 1.15.0
 
 %global rolename7 metrics
-%deftag 7 1.9.0
+%deftag 7 1.10.0
 
 %global rolename8 tlog
 %deftag 8 1.3.1
@@ -133,10 +133,10 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 15 v0.23.0
 
 %global rolename16 ssh
-%deftag 16 1.3.0
+%deftag 16 1.3.1
 
 %global rolename17 ha_cluster
-%deftag 17 1.13.3
+%deftag 17 1.13.4
 
 %global rolename18 vpn
 %deftag 18 1.6.2
@@ -148,13 +148,13 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 20 1.5.1
 
 %global rolename21 podman
-%deftag 21 1.4.1
+%deftag 21 1.4.2
 
 %global rolename22 ad_integration
 %deftag 22 1.3.1
 
 %global rolename23 rhc
-%deftag 23 1.3.0
+%deftag 23 1.4.0
 
 %global rolename24 journald
 %deftag 24 1.1.1
@@ -660,6 +660,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Wed Dec  13 2023 Packit <hello@packit.dev> - 1.64.0-1
+- Update to upstream version 1.64.0
+
 * Sat Dec  9 2023 Packit <hello@packit.dev> - 1.63.0-1
 - Update to upstream version 1.63.0
 

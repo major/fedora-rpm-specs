@@ -15,7 +15,7 @@ Source0:        https://github.com/eclipse-ee4j/cdi/archive/%{version}.tar.gz
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  %{?module_prefix}mvn(jakarta.inject:jakarta.inject-api)
+BuildRequires:  mvn(jakarta.inject:jakarta.inject-api)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 

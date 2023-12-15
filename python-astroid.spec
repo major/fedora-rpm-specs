@@ -1,8 +1,6 @@
 %global srcname     astroid
-%global commit      0191f534213364a844e8138dd68bb71f3ba603e3
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-Version:        3.0.1
+Version:        3.0.2
 
 Name:           python-astroid
 # Note: please check that this doesn't break pylint before committing and building! -GC
@@ -10,8 +8,7 @@ Release:        %autorelease
 Summary:        Common base representation of python source code for pylint and other projects
 License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
-Source0:        https://github.com/pylint-dev/%{srcname}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
-
+Source0:        https://github.com/pylint-dev/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -36,7 +33,7 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{commit} -p1
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -18,7 +18,7 @@ framework.}
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        2.6.0
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Extensions to the Python standard library unit testing framework
 License:        MIT
@@ -57,7 +57,7 @@ This package contains HTML documentation for %{name}.
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{!?with_bootstrap:-x test}
+%pyproject_buildrequires %{!?with_bootstrap:-x test -x twisted}
 
 
 %build

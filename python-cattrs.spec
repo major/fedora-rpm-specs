@@ -4,91 +4,77 @@
 # We can generate PDF documentation as a substitute.
 %bcond_without doc_pdf
 
-# Currently, the version of python-cbor2 in Rawhide (and all Fedora releases)
-# is too old; at least 5.4.6 is required.
-%bcond_with cbor2
+# Currently, the version of python-cbor2 in Rawhide is too old; at least 5.4.6
+# is required. See: https://bugzilla.redhat.com/show_bug.cgi?id=2245361
+%bcond cbor2 0
+
+# Currently, the version of python-pymongo in Rawhide is too old; at least
+# 4.4.0 is required. See: https://bugzilla.redhat.com/show_bug.cgi?id=1823014
+%bcond bson 0
 
 Name:           python-cattrs
-Version:        23.1.2
+Version:        23.2.3
 Release:        %autorelease
 Summary:        Python library for structuring and unstructuring data
 
+# SPDX
 License:        MIT
 URL:            https://github.com/python-attrs/cattrs
 BuildArch:      noarch
 # The GitHub archive contains tests and docs, which the PyPI sdist lacks
-Source0:        %{url}/archive/v%{version}/cattrs-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/cattrs-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 
-# [tool.poetry.dev-dependencies]
-# We can’t easily generate the “dev” dependencies from Poetry, so we maintain
-# them manually:
+# There is no obvious, straightforward way to generate dependencies from
+# [tool.pdm.dev-dependencies] in pyproject.toml, so we maintain them here
+# manually.
 
-# Test dependencies:
-# hypothesis = "^6.54.5"
-BuildRequires:  (python3dist(hypothesis) >= 6.54.5 with python3dist(hypothesis) < 7~~)
-# immutables = "^0.18"
-# Unpinned; F37, F38, and F39 have 0.19
-BuildRequires:  python3dist(immutables) >= 0.18
-# msgpack = "^1.0.2"
-BuildRequires:  (python3dist(msgpack) >= 1.0.2 with python3dist(msgpack) < 2~~)
-# orjson = { version = "^3.5.2", markers = "implementation_name == 'cpython'" }
-BuildRequires:  (python3dist(orjson) >= 3.5.2 with python3dist(orjson) < 4~~)
-# pymongo = "^4.2.0"
-BuildRequires:  (python3dist(pymongo) >= 4.2 with python3dist(pymongo) < 5~~)
-# pytest = "^7.1.3"
-BuildRequires:  (python3dist(pytest) >= 7.1.3 with python3dist(pytest) < 8~~)
-# PyYAML = "^6.0"
-BuildRequires:  (python3dist(pyyaml) >= 6 with python3dist(pyyaml) < 7~~)
-# tomlkit = { version = "^0.11.4", python = "<4" }
-BuildRequires:  (python3dist(tomlkit) >= 0.11.4 with python3dist(tomlkit) < 0.12~~)
-# ujson = "^5.4.0"
-BuildRequires:  (python3dist(ujson) >= 5.4 with python3dist(ujson) < 6~~)
+# test = [
+#    "hypothesis>=6.79.4",
+BuildRequires:  %{py3_dist hypothesis} >= 6.79.4
+#    "pytest>=7.4.0",
+BuildRequires:  %{py3_dist pytest} >= 7.4
+#    "pytest-benchmark>=4.0.0",
+# We choose not to run benchmarks with the tests.
+# BuildRequires:  %%{py3_dist pytest-benchmark} >= 4.0.0
+#    "immutables>=0.20",
+BuildRequires:  %{py3_dist immutables} >= 0.20
+#    "typing-extensions>=4.7.1",
+BuildRequires:  %{py3_dist typing-extensions} >= 4.7.1
+#    "coverage>=7.2.7",
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# BuildRequires:  %%{py3_dist coverage} >= 7.2.7
+#]
 
-# Run tests in parallel:
-BuildRequires:  python3dist(pytest-xdist)
+# Added to the test dev-dependencies upstream after the packaged release, but
+# still useful to run the tests in parallel
+#    "pytest-xdist>=3.4.0",
+BuildRequires:  %{py3_dist pytest-xdist} >= 3.4
 
-# https://github.com/python-attrs/cattrs/issues/369#issuecomment-1569445335
-BuildRequires:  python3dist(typing-extensions)
-
-# Documentation dependencies:
 %if %{with doc_pdf}
+# docs = [
+#     "sphinx>=5.3.0",
+BuildRequires:  %{py3_dist sphinx} >= 5.3
+#     "furo>=2023.3.27",
+BuildRequires:  %{py3_dist furo} >= 2023.3.27
+#     "sphinx-copybutton>=0.5.2",
+# Loosened until https://bugzilla.redhat.com/show_bug.cgi?id=2186733 is fixed.
+BuildRequires:  %{py3_dist sphinx-copybutton} >= 0.5.1
+#     "myst-parser>=1.0.0",
+BuildRequires:  %{py3_dist myst-parser} >= 1
+#     "pendulum>=2.1.2",
+BuildRequires:  %{py3_dist pendulum} >= 2.1.2
+#     "sphinx-autobuild",
+BuildRequires:  %{py3_dist sphinx-autobuild}
+#     "typing-extensions>=4.8.0",
+BuildRequires:  %{py3_dist typing-extensions} >= 4.8
+# ]
+
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
-# Handled by an “extra”:
-# cbor2 = "^5.4.5"
-# Unpinned; F39 has 1.0.0
-# myst-parser = "^0.18.1"
-BuildRequires:  python3dist(myst-parser) >= 0.18.1
-# pendulum = "^2.1.2"
-BuildRequires:  (python3dist(pendulum) >= 2.1.2 with python3dist(pendulum) < 3~~)
-# Sphinx = "^5.3.0"
-# Unpinned; F39 has 6.x
-BuildRequires:  python3dist(sphinx) >= 5.3
-# sphinx-copybutton = "^0.5.0"
-BuildRequires:  (python3dist(sphinx-copybutton) >= 0.5 with python3dist(sphinx-copybutton) < 0.6~~)
-# We won’t build HTML documentation, so we don’t need the HTML theme.
-# furo = "^2023.3.27"
-# docs/conf.py imports from pkg_resources
-# usage removed upstream in https://github.com/python-attrs/cattrs/commit/4bfc32c5e172
-BuildRequires:  python3dist(setuptools)
 %endif
-
-# Unused test dependencies; we don’t run tests via tox, and we don’t want
-# coverage or benchmarks. See also:
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-# black. = "^23.3.0"
-# coverage. = "^6.2"
-# flake8. = "^5.0.4"
-# isort. = { version = "5.10.1", python = "<4" }
-# pyperf = "^2.6.0"
-# pytest-benchmark = "^3.2.3"
-# tox = "^3.26.0"
-
-# Unused Makefile help target dependency
-# urllib3 = { version = "^1.26.12", python = "<4" }
 
 %global _description %{expand:
 cattrs is an open source Python library for structuring and
@@ -101,6 +87,8 @@ manually registering converters.}
 %package -n python3-cattrs
 Summary:        %{summary}
 
+Obsoletes:      python3-cattrs+bson < 23.2.3-1
+
 %description -n python3-cattrs %_description
 
 %package        doc
@@ -108,16 +96,13 @@ Summary:        Documentation for python-cattrs
 
 %description    doc %{_description}
 
-%pyproject_extras_subpkg -n python3-cattrs ujson orjson msgpack pyyaml tomlkit %{?with_cbor2:cbor2} bson
+%pyproject_extras_subpkg -n python3-cattrs ujson orjson msgpack pyyaml tomlkit %{?with_cbor2:cbor2} %{?with_bson:bson}
 
 %prep
 %autosetup -n cattrs-%{version}
-
-# loosen requirement
-sed -i 's/poetry-core.*"/poetry-core"/' pyproject.toml
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/coverage run.* -m/python3 -m/' tox.ini
-# Don’t run benchmarks, either.
+sed -r -i 's/"(coverage)\b/# &/' pyproject.toml
+# Don’t run benchmarks when testing, either
+sed -r -i 's/"(pytest-benchmark)\b/# &/' pyproject.toml
 sed -r -i 's/ --benchmark[^[:blank:]"]*//g' pyproject.toml
 # The version-finding code in docs/conf.py relies on a real installed
 # “distribution” with metadata, which we don’t have at the time the
@@ -125,12 +110,15 @@ sed -r -i 's/ --benchmark[^[:blank:]"]*//g' pyproject.toml
 sed -r -i 's/^(version = ).*/\1 "%{version}"/' docs/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x ujson,orjson,msgpack,pyyaml,tomlkit%{?with_cbor2:,cbor2},bson
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+%pyproject_buildrequires -x ujson,orjson,msgpack,pyyaml,tomlkit%{?with_cbor2:,cbor2}%{?with_bson:,bson}
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 %if %{with doc_pdf}
 PYTHONPATH="${PWD}/src" %make_build -C docs latex \
+    SPHINXBUILD=sphinx-build \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif

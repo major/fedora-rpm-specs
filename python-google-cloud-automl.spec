@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        2.11.4
+Version:        2.12.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud AutoML API
 
@@ -69,8 +69,6 @@ rm -f %{buildroot}%{_bindir}/fixup_automl*.py
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -82,7 +80,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/google_cloud_automl-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

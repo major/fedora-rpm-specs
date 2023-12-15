@@ -5,7 +5,7 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    25.1
+Version:    26.0
 Release:    1%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
@@ -246,9 +246,9 @@ done
 rm -f %{buildroot}%{_datadir}/pixmaps/%{project_name}*
 
 # Bash completion
-install -D -m644 -p contrib/completions/bash/%{project_name}-cli.bash-completion %{buildroot}%{_compldir}/%{project_name}-cli
-install -D -m644 -p contrib/completions/bash/%{project_name}-tx.bash-completion %{buildroot}%{_compldir}/%{project_name}-tx
-install -D -m644 -p contrib/completions/bash/%{project_name}d.bash-completion %{buildroot}%{_compldir}/%{project_name}d
+install -D -m644 -p contrib/completions/bash/%{project_name}-cli.bash %{buildroot}%{_compldir}/%{project_name}-cli
+install -D -m644 -p contrib/completions/bash/%{project_name}-tx.bash %{buildroot}%{_compldir}/%{project_name}-tx
+install -D -m644 -p contrib/completions/bash/%{project_name}d.bash %{buildroot}%{_compldir}/%{project_name}d
 
 # Server log directory
 mkdir -p %{buildroot}%{_localstatedir}/log/%{project_name}/
@@ -340,6 +340,9 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Wed Dec 13 2023 Simone Caronni <negativo17@gmail.com> - 26.0-1
+- Update to 26.0.
+
 * Fri Oct 20 2023 Simone Caronni <negativo17@gmail.com> - 25.1-1
 - Update to 25.1.
 

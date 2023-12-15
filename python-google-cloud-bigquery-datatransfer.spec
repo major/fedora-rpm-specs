@@ -4,7 +4,7 @@
 %global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
-Version:        3.12.1
+Version:        3.13.0
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud BigQuery Data Transfer API
 
@@ -67,9 +67,6 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}%{_bindir}/fixup_bigquery_datatransfer_v1_keywords.py
 
 %check
-# Skip import as these are not meant to be directly imported on their own
-#%%pyproject_check_import 
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -80,7 +77,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md samples
-%{python3_sitelib}/google_cloud_bigquery_datatransfer-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        12.0.0
-Release:        2%{?dist}
+Version:        12.0.1
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -199,7 +199,10 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
-* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com>
+* Wed Dec 13 2023 Sandro Mani <manisandro@gmail.com> - 12.0.1-1
+- Update to 12.0.1
+
+* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 12.0.0-2
 - Rebuild (qt6)
 
 * Thu Nov 23 2023 Sandro Mani <manisandro@gmail.com> - 12.0.0-1

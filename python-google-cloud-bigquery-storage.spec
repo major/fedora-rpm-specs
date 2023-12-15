@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-bigquery-storage
 %global         forgeurl    https://github.com/googleapis/python-bigquery-storage
-Version:        2.23.0
+Version:        2.24.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -96,8 +96,6 @@ rm -f %{buildroot}%{_bindir}/fixup*.py
 
 
 %check
-%pyproject_check_import -e google.cloud.bigquery_storage_v1.types.annotations
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -108,7 +106,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md UPGRADING.md samples
-%{python3_sitelib}/google_cloud_bigquery_storage-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

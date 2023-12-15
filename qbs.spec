@@ -10,14 +10,16 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        2.1.1
-Release:        4%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
 ExcludeArch:    i686
 
-# See LGPL_EXCEPTION.txt
-License:        LGPLv2 with exceptions and LGPLv3 with exceptions
+# See https://doc.qt.io/qbs/attributions.html
+# -docs and -examples have a separate license tag
+#               (    Qbs library and tools   )     (                  Shared functionality                  )     (               tests                )
+License:        LGPL-3.0-only AND GPL-2.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1 AND LGPL-3.0-only AND GPL-3.0-only WITH QT-GPL-exception-1.0
 URL:            https://wiki.qt.io/qbs
 %if 0%{?commit:1}
 Source0:        https://code.qt.io/cgit/qbs/qbs.git/snapshot/qbs-%{commit}.tar.xz
@@ -76,6 +78,7 @@ developing applications that use %{name}.
 
 %package        examples
 Summary:        Example projects using %{name}
+License:        BSD-3-Clause
 Requires:       %{name} = %{epoch}:%{version}-%{release}
 BuildArch:      noarch
 
@@ -130,7 +133,7 @@ rm %{buildroot}%{_bindir}/tst_*
 %doc README.md
 %{_bindir}/%{name}*
 %{_libdir}/%{name}/
-%{_libdir}/libqbs*.so.2.1*
+%{_libdir}/libqbs*.so.2.2*
 %{_libexecdir}/qbs/
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
@@ -148,6 +151,9 @@ rm %{buildroot}%{_bindir}/tst_*
 
 
 %changelog
+* Wed Dec 13 2023 Sandro Mani <manisandro@gmail.com> - 1:2.2.1-1
+- Update to 2.2.1
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 1:2.1.1-4
 - Rebuild (qt6)
 

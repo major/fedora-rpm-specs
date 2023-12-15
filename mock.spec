@@ -9,7 +9,7 @@
 
 Summary: Builds packages inside chroots
 Name: mock
-Version: 5.2
+Version: 5.3
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
@@ -65,6 +65,7 @@ BuildRequires: python%{python3_pkgversion}-devel
 %if %{with lint}
 BuildRequires: python%{python3_pkgversion}-pylint
 %endif
+BuildRequires: python%{python3_pkgversion}-rpmautospec-core
 
 %if 0%{?fedora} >= 38
 # DNF5 stack
@@ -131,6 +132,15 @@ Requires: lvm2
 %description lvm
 Mock plugin that enables using LVM as a backend and support creating snapshots
 of the buildroot.
+
+%package rpmautospec
+Summary: Rpmautospec plugin for mock
+Requires: %{name} = %{version}-%{release}
+# This lets mock determine if a spec file needs to be processed with rpmautospec.
+Requires: python%{python3_pkgversion}-rpmautospec-core
+
+%description rpmautospec
+Mock plugin that preprocesses spec files using rpmautospec.
 
 %package filesystem
 Summary:  Mock filesystem layout
@@ -266,6 +276,10 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %{python_sitelib}/mockbuild/plugins/lvm_root.*
 %{python3_sitelib}/mockbuild/plugins/__pycache__/lvm_root.*.py*
 
+%files rpmautospec
+%{python_sitelib}/mockbuild/plugins/rpmautospec.*
+%{python3_sitelib}/mockbuild/plugins/__pycache__/rpmautospec.*.py*
+
 %files filesystem
 %license COPYING
 %dir  %{_sysconfdir}/mock
@@ -275,6 +289,17 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
+* Wed Dec 13 2023 Pavel Raiskup <praiskup@redhat.com> 5.3-1
+- orphanskill: log command line arguments of the terminated process
+- docs: migrate the community from IRC to Matrix
+- dnf5: don't output to a PTY (mail@evangoo.de)
+- new rpmautospec plugin (sgallagh@redhat.com, nils@redhat.com)
+- fix bash completion with multiple file arguments (orion@nwra.com)
+- only %%prep once when running %%generate_buildrequires multiple times (miro@hroncok.cz)
+- Dynamic BuildRequires: Prevent generation of unsatisfied dependency (miro@hroncok.cz)
+- Identify buildroot package management earlier (praiskup@redhat.com)
+- Dump also dnf5 info into logs
+
 * Wed Sep 27 2023 Pavel Raiskup <praiskup@redhat.com> 5.2-1
 - Fix '~' user source expansion for --copyout
 - Compatibility fix with EL 8

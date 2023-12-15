@@ -1,14 +1,13 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.5.0
-Release:        2%{?dist}
+Version:        4.6.0
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
-Patch1:         0001-osbuild-manifest-type-in-config.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -57,7 +56,7 @@ Requires:       python3-libmodulemd >= 2.8.0
 Requires:       python3-gobject
 Requires:       python3-createrepo_c
 Requires:       python3-PyYAML
-Requires:       python3-productmd >= 1.28
+Requires:       python3-productmd >= 1.38
 Requires:       python3-flufl-lock
 
 # This package is not available on i686, hence we cannot require it
@@ -142,6 +141,18 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Wed Dec 13 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.6.0-1
+- Add ostree container to image metadata (lsedlar)
+- Updates for ostree-container phase (lsedlar)
+- Add ostree native container support (tim)
+- Improve autodetection of productmd image type for osbuild images (awilliam)
+- pkgset: ignore events for modular content tags (lsedlar)
+- pkgset: Ignore duplicated module builds (lsedlar)
+- Drop buildinstall method (abisoi)
+- Add step to send UMB message (lzhuang)
+- Fix minor Ruff/flake8 warnings (tim)
+- osbuild: manifest type in config (cmdr)
+
 * Mon Sep 25 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.5.0-7
 - Backport patch for explicit setting of osbuild image type in metadata
 

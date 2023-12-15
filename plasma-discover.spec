@@ -216,7 +216,7 @@ Plasma Discover backend for rpm-ostree support in %{name}.
 %install
 %cmake_install
 
-install -m644 -p -D %{SOURCE10} %{buildroot}%{_kf5_sysconfdir}/xdg/discoverrc
+install -m644 -p -D %{SOURCE10} %{buildroot}%{_kf6_sysconfdir}/xdg/discoverrc
 
 ## unpackaged files
 %if !0%{?snap}

@@ -1,6 +1,6 @@
 %global pkgver 2.2.14
 #global prerel rc1
-%global baserelease 4
+%global baserelease 5
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -12,6 +12,8 @@ Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?p
 Patch0:		bluefish-2.2.13-strict-aliasing.patch
 Patch1:		bluefish-2.2.12-shellbang.patch
 Patch2:		bluefish-c99.patch
+Patch3:		bluefish-2.2.14-ptrtype.patch
+Patch4:		bluefish-2.2.14-int-conversion.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	enchant-devel >= 1.4.2
@@ -80,7 +82,14 @@ Files common to every architecture version of %{name}.
 # Also change /usr/bin/python → /usr/bin/python3
 %patch -P 1
 
+# Improve C99 compatibility
 %patch -P 2 -p1
+
+# Fix use of incompatible pointer types (upstream rev 8991)
+%patch -P 3 -p2
+
+# Fix improper use of pointer (https://sourceforge.net/p/bluefish/tickets/80/)
+%patch -P 4 -p1
 
 %build
 %configure	--disable-dependency-tracking \
@@ -187,7 +196,11 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
-* Fri Sep 01 2023 Florian Weimer <fweimer@redhat.com> - 2.2.14-5
+* Wed Dec 13 2023 Paul Howarth <paul@city-fan.org> - 2.2.14-5
+- Fix use of incompatible pointer types (upstream rev 8991)
+- Fix improper use of pointer: https://sourceforge.net/p/bluefish/tickets/80/
+
+* Fri Sep  1 2023 Florian Weimer <fweimer@redhat.com> - 2.2.14-4
 - Improve C99 compatibility
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.14-3

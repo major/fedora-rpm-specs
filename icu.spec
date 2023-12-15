@@ -8,7 +8,7 @@
 
 Name:      icu
 Version:   73.2
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
@@ -22,6 +22,10 @@ Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/ic
 Source5:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/zoneinfo64.txt
 %endif
 Source10:   icu-config.sh
+
+# Fix broken TestHebrewCalendarInTemporalLeapYear
+# https://github.com/unicode-org/icu/pull/2610 (fixed in icu 74)
+Patch0:    intltest-fix-hebrew-cal.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -193,6 +197,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Wed Dec 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 73.2-3
+- Fix broken TestHebrewCalendarInTemporalLeapYear
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 73.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

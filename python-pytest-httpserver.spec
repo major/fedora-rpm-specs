@@ -1,14 +1,14 @@
 %global srcname pytest-httpserver
 
 %global desc %{expand: \
-This library is designed to help to test http clients without contacting 
-the real http server. In other words, it is a fake http server which is 
-accessible via localhost can be started with the pre-defined expected 
+This library is designed to help to test http clients without contacting
+the real http server. In other words, it is a fake http server which is
+accessible via localhost can be started with the pre-defined expected
 http requests and their responses.}
 
 Name:		python-%{srcname}
-Version:	1.0.4
-Release:	5%{?dist}
+Version:	1.0.8
+Release:	1%{?dist}
 Summary:	HTTP server for pytest
 
 License:	MIT
@@ -21,6 +21,8 @@ BuildArch:	noarch
 
 BuildRequires:	python3-devel
 BuildRequires:	python3-pytest
+BuildRequires:	python3-requests
+BuildRequires:	python3-toml
 BuildRequires:	pyproject-rpm-macros
 
 %description
@@ -58,6 +60,9 @@ sed -i '/types-requests/d' pyproject.toml
 %doc README.md CHANGES.rst CONTRIBUTION.md
 
 %changelog
+* Thu Dec 07 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.8-1
+- pytest-httpserver 1.0.8
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

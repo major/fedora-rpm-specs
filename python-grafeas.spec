@@ -2,18 +2,16 @@
 %bcond_with     tests
 
 %global         srcname     grafeas
-%global         forgeurl    https://github.com/googleapis/python-grafeas
-Version:        1.8.1
-%global         tag         v%{version}
-%forgemeta
+%global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Grafeas API
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/google-cloud-python
+Source0:        %{url}/archive/refs/tags/%{srcname}-v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -39,7 +37,10 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=3 \
+    %{reponame}-%{srcname}-v%{version}/packages/%{srcname}
 
 # Allow a slightly older protobuf.
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
@@ -66,8 +67,6 @@ rm -f %{buildroot}%{_bindir}/fixup*
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -77,8 +76,7 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md UPGRADING.md samples
-%{python3_sitelib}/grafeas-%{version}-py%{python3_version}-nspkg.pth
+%doc README.rst CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.rst SECURITY.md samples
 
 
 %changelog

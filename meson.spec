@@ -14,6 +14,9 @@ License:        ASL 2.0
 URL:            https://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
 
+# Don't use the removed importlib.resources.path with Python 3.13+
+Patch:          https://github.com/mesonbuild/meson/pull/12402.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

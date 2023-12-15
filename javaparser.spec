@@ -1,18 +1,32 @@
+%bcond_with bootstrap
+
+%if !0%{?rhel} && %{without bootstrap}
+%bcond_without bnd_maven_plugin
+%else
+%bcond_with bnd_maven_plugin
+%endif
+
 Name:          javaparser
 Version:       3.25.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Java 1 to 13 Parser and Abstract Syntax Tree for Java
-License:       LGPLv3+ or ASL 2.0
-URL:           http://javaparser.org
+License:       LGPL-2.0-or-later OR Apache-2.0
+URL:           https://javaparser.org
 Source0:       https://github.com/javaparser/javaparser/archive/%{name}-parent-%{version}.tar.gz
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
-BuildRequires:  mvn(biz.aQute.bnd:bnd-maven-plugin)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(junit:junit)
+%endif
+%if %{with bnd_maven_plugin}
+BuildRequires:  mvn(biz.aQute.bnd:bnd-maven-plugin)
+%endif
 
 BuildArch:     noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -38,6 +52,12 @@ sed -i 's/\r//' readme.md
 %pom_remove_plugin -r :jacoco-maven-plugin
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :coveralls-maven-plugin
+
+%if %{without bnd_maven_plugin}
+%pom_remove_plugin :bnd-maven-plugin javaparser-core
+mkdir -p javaparser-core/target/classes/META-INF/
+touch javaparser-core/target/classes/META-INF/MANIFEST.MF
+%endif
 
 # Compatibility alias
 %mvn_alias :javaparser-core com.google.code.javaparser:javaparser
@@ -88,6 +108,9 @@ sed -i \
 %license LICENSE LICENSE.APACHE LICENSE.GPL LICENSE.LGPL
 
 %changelog
+* Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.25.6-2
+- Implement bootstrap mode
+
 * Sat Nov 11 2023 Markku Korkeala <markku.korkeala@iki.fi> - 3.25.6-1
 - Update to upstream version 3.25.6, resolves rhbz#2192489
 

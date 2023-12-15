@@ -55,7 +55,7 @@ Summary:        Component metadata from %{name}
 %package component-annotations
 Summary:        Component API from %{name}
 
-%description -n %{?module_prefix}%{name}-component-annotations
+%description component-annotations
 %{summary}.
 
 %package container-default

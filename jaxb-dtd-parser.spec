@@ -1,6 +1,6 @@
 Name:           jaxb-dtd-parser
-Version:        1.5.0
-Release:        8%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        SAX-like API for parsing XML DTDs
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-dtd-parser
@@ -10,6 +10,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
+BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
@@ -52,6 +53,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Mon Dec 11 2023 Marian Koncek <mkoncek@redhat.com> - 1.5.1-1
+- Update to upstream version 1.5.1
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.5.0-8
 - Convert License tag to SPDX format
 

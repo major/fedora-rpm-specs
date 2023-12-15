@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20231111
+Version:	20231211
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -15,6 +15,7 @@ Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar
 
 BuildRequires:	make
 BuildRequires:	git-core
+# Not required but de-dupes FW so reduces size
 BuildRequires:	rdfind
 
 Requires:	linux-firmware-whence
@@ -25,13 +26,10 @@ Conflicts:	microcode_ctl < 2.1-0
 Recommends:	amd-gpu-firmware
 Recommends:	intel-gpu-firmware
 Recommends:	nvidia-gpu-firmware
-# The AMD ucode is x86_64 specific
-%ifarch x86_64
 %if 0%{?fedora} && 0%{?fedora} < 40
 Requires:	amd-ucode-firmware
 %else
 Recommends:	amd-ucode-firmware
-%endif
 %endif
 %if 0%{?fedora} && 0%{?fedora} < 39
 Requires:	atheros-firmware
@@ -498,6 +496,40 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Wed Dec 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20231211-1
+- Update to upstream 20231211 release
+- wfx: update to firmware 3.17
+- wfx: fix broken firmware
+- Update AMD cpu microcode
+- cxgb4: Update firmware to revision 1.27.5.0
+- add firmware for en8811h 2.5G ethernet phy
+- s5p-mfc: Add MFC v12 Firmware
+- Add a COPYOPTS variable
+- rtl_bt: Update RTL8852A BT USB firmware to 0xDFC8_145F
+- ice: update ice DDP wireless_edge package to 1.3.13.0
+- Update firmware for MT7921/MT7922 Bluetooth device
+- Update firmware for MT7921/MT7922 WiFi device
+- amdgpu: update DMCUB firmware to 0.0.194.0 for DCN321 and DCN32
+- qcom: update qcm2290/qrb4210 firmware
+- qcom: update qcm2290/qrb4210 WiFi firmware file
+- qcom: update Venus firmware file for v6.0
+- powervr: add firmware for Imagination Technologies AXE-1-16M GPU
+- ice: update ice DDP comms package to 1.3.45.0
+- ice: update ice DDP package to 1.3.35.0
+- mediatek: Remove an unused packed library
+- mediatek: Sync shared memory structure changes
+- Intel Bluetooth: Update firmware file for Intel Bluetooth BE200
+- amdgpu: update DMCUB firmware to 0.0.193.0 for DCN31 and DCN314
+- i915: Update MTL DMC to v2.19
+- iwlwifi: fix for the new FWs from core83-55 release
+- iwlwifi: add new FWs from core83-55 release
+- iwlwifi: update cc/Qu/QuZ firmwares for core83-55 release
+- Add firmware for Cirrus CS35L41 for HP G11 Laptops/2024 ASUS Zenbook Laptops
+- add firmware for mt7988 internal 2.5G ethernet phy
+- Update firmware for Magnetor Intel Bluetooth AX101/AX203/AX211
+- Update firmware for SolarF Intel Bluetooth AX101/AX203/AX211
+- Update firmware for Solar Intel Bluetooth AX101/AX203/AX210/AX211
+
 * Tue Nov 14 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20231111-1
 - Update to upstream 20231111 release
 - Move AMD SEV and TEE firmware to amd-ucode package

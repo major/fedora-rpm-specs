@@ -6,7 +6,7 @@ Version:        45~beta
 Release:        %autorelease
 Summary:        Background logo extension for GNOME Shell
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pagure.io/background-logo-extension
 Source0:        https://releases.pagure.org/background-logo-extension/background-logo-extension-%{tarball_version}.tar.xz
 BuildArch:      noarch

@@ -7,7 +7,7 @@
 
 %global         srcname     google-cloud-bigquery
 %global         forgeurl    https://github.com/googleapis/python-bigquery
-Version:        3.13.0
+Version:        3.14.0
 %global         tag         v%{version_no_tilde %{quote:%nil}}
 %forgemeta
 
@@ -93,8 +93,6 @@ sed -i 's/Shapely>=1.8.4, <2.0dev/Shapely>=1.8.4/' setup.py
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -106,7 +104,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/google_cloud_bigquery-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

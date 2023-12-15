@@ -12,11 +12,11 @@
 %global default_jdk %{_prefix}/lib/jvm/java-17-openjdk
 %global default_jre %{_prefix}/lib/jvm/jre-17-openjdk
 
-%global maven_home %{_datadir}/xmvn
+%global maven_home %{_usr}/share/xmvn
 
 Name:           javapackages-tools
 Version:        6.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD-3-Clause
 URL:            https://github.com/fedora-java/javapackages
@@ -204,10 +204,22 @@ cp -p %{SOURCE21} %{buildroot}%{maven_home}/conf/toolchains.xml-openjdk21
 
 install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config.json
 
+%if 0%{?flatpak}
+# make both /app (runtime deps) and /usr (build-only deps) builds discoverable
+sed -e '/^JAVA_LIBDIR=/s|$|:/usr/share/java|' \
+    -e '/^JNI_LIBDIR=/s|$|:/usr/lib/java|' \
+    -i %{buildroot}%{_sysconfdir}/java/java.conf
+# /usr path is hard-coded in xmvn
+ln -s %{_datadir}/java-utils %{buildroot}%{_usr}/share/java-utils
+%endif
+
 %check
 ./check
 
 %files -f files-tools
+%if 0%{?flatpak}
+%{_usr}/share/java-utils
+%endif
 
 %files -n javapackages-filesystem -f files-filesystem
 
@@ -245,6 +257,9 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %license LICENSE
 
 %changelog
+* Mon Nov 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.2.0-6
+- Fix flatpak builds of Java packages
+
 * Thu Oct 19 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.2.0-5
 - Backport upstream patch to fix Flatpak builds
 

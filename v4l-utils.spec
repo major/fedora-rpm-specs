@@ -5,7 +5,7 @@
 
 Name:           v4l-utils
 
-Version:        1.26.0
+Version:        1.26.1
 Release:        1%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
@@ -232,6 +232,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 
 
 %changelog
+* Wed Dec 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.26.1-1
+- Update to 1.26.1
+
 * Mon Dec 04 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.26.0-1
 - Update to 1.26.0
 

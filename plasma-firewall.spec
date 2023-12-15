@@ -1,11 +1,4 @@
 
-# Disable ufw for RHEL
-%if 0%{?rhel}
-%bcond_with ufw
-%else
-%bcond_without ufw
-%endif
-
 Name:    plasma-firewall
 Version: 5.90.0
 Release: 1%{?dist}
@@ -52,7 +45,6 @@ Requires: firewalld
 This package provides the backend code for Plasma Firewall
 to interface with FirewallD.
 
-%if %{with ufw}
 %package ufw
 Summary: UFW backend for Plasma Firewall
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -67,7 +59,7 @@ Requires: polkit
 %description ufw
 This package provides the backend code for Plasma Firewall
 to interface with the Uncomplicated Firewall (UFW).
-%endif
+
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -84,17 +76,6 @@ to interface with the Uncomplicated Firewall (UFW).
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml || :
 desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 
-%if ! %{with ufw}
-# Delete ufw stuff when we don't need it
-rm -rfv %{buildroot}%{_qt6_plugindir}/kf6/plasma_firewall/ufwbackend.so
-rm -rfv %{buildroot}%{_libexecdir}/kde_ufw_plugin_helper.py
-rm -rfv %{buildroot}%{_datadir}/dbus-1/system-services/org.kde.ufw.service
-rm -rfv %{buildroot}%{_datadir}/dbus-1/system.d/org.kde.ufw.conf
-rm -rfv %{buildroot}%{_datadir}/kcm_ufw/defaults
-rm -rfv %{buildroot}%{_datadir}/polkit-1/actions/org.kde.ufw.policy
-rm -rfv %{buildroot}%{_kf6_libexecdir}/kauth/kde_ufw_plugin_helper
-%endif
-
 %files -f %{name}.lang
 %license LICENSES/*.txt
 %{_libdir}/libkcm_firewall_core.so
@@ -106,7 +87,6 @@ rm -rfv %{buildroot}%{_kf6_libexecdir}/kauth/kde_ufw_plugin_helper
 %files firewalld
 %{_qt6_plugindir}/kf6/plasma_firewall/firewalldbackend.so
 
-%if %{with ufw}
 %files ufw
 %{_qt6_plugindir}/kf6/plasma_firewall/ufwbackend.so
 %{_libexecdir}/kde_ufw_plugin_helper.py
@@ -116,8 +96,6 @@ rm -rfv %{buildroot}%{_kf6_libexecdir}/kauth/kde_ufw_plugin_helper
 %dir %{_datadir}/kcm_ufw
 %{_datadir}/kcm_ufw/defaults
 %{_datadir}/polkit-1/actions/org.kde.ufw.policy
-%endif
-
 
 %changelog
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1

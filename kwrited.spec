@@ -41,7 +41,7 @@ Conflicts:      kde-workspace < 5.0.0-1
 %files
 %license LICENSES/*
 %{_qt6_plugindir}/kf6/kded/kwrited.so
-%{_kf5_datadir}/knotifications6/kwrited.notifyrc
+%{_kf6_datadir}/knotifications6/kwrited.notifyrc
 
 %changelog
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1

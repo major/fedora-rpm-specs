@@ -4,14 +4,13 @@
 %global libname flask_restx
 
 Name:           python-%{srcname}
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Framework for fast, easy and documented API development with Flask
 License:        BSD-3-Clause
 URL:            https://github.com/python-restx/flask-restx
 Source0:        %{pypi_source %srcname}
 Patch0:         0001-Use-importlib.resources.patch
-Patch1:         0002-Remove-jsonschema-restriction.patch
 BuildArch:      noarch
 
 %global _description %{expand:

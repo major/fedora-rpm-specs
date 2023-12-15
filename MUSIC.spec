@@ -2,11 +2,7 @@
 # built.
 # https://github.com/INCF/MUSIC/issues/55
 
-# Fix for CC CXX
-# https://lists.fedoraproject.org/archives/list/scitech@lists.fedoraproject.org/thread/BNKLXKY4O7BOTZ7LH7XDUTQO6FG2UWUT/
-
-%global commit 8c6b77a5780c0c66191aa7e8f07f9d33614dcc16
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global forgeurl https://github.com/INCF/MUSIC/
 
 # For debugging
 %bcond_without mpich
@@ -35,19 +31,28 @@ MUSIC is distributed under the GNU General Public License v3.}
 
 
 Name:           MUSIC
-Version:        1.1.16
-Release:        14.20201002git%{shortcommit}%{?dist}
+Version:        1.2.1
+Release:        %autorelease
 Summary:        The MUltiSimulation Coordinator
 
-License:        GPL-3.0-or-later
-URL:            https://github.com/INCF/%{name}/
-Source0:        https://github.com/INCF/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-Patch0:         0001-Disable-sysguess.patch
-Patch1:         0002-Enable-tests-and-extras.patch
-Patch2:         0003-Make-python-bits-ourselves.patch
-Patch3:         0004-Make-bundled-rudeconfig-also-follow-all-flags.patch
-Patch4:         0005-Remove-src-flags.patch
+%global tag %{version}
+%forgemeta
 
+License:        GPL-3.0-or-later
+URL:            %forgeurl
+Source0:        %forgesource
+
+# MPI unavailable
+ExcludeArch:    %{ix86}
+
+# https://github.com/sanjayankur31/MUSIC/tree/fedora-1.2.1
+
+Patch:         0001-Disable-sysguess.patch
+Patch:         0002-Enable-tests-and-extras.patch
+Patch:         0003-Make-python-bits-ourselves.patch
+Patch:         0004-Make-bundled-rudeconfig-also-follow-all-flags.patch
+Patch:         0005-Remove-src-flags.patch
+#
 # Bundled rudeconfig
 Provides:       bundled(rudeconfig) = 5.0.5-1
 
@@ -60,14 +65,9 @@ BuildRequires:  libtool
 BuildRequires:  patch
 BuildRequires:  hwloc-devel
 BuildRequires:  python3-devel
-# MUSIC is not compatible with Cython 3
-# https://bugzilla.redhat.com/show_bug.cgi?id=2224366
-# reported upstream: https://github.com/INCF/MUSIC/issues/77
-BuildRequires:  python3dist(cython) < 3~~
-# For distutils in Python 3.12+:
-# See: “In Python 3.12, the distutils package is removed”
-#      https://github.com/INCF/MUSIC/issues/74
-BuildRequires:  python3-setuptools
+BuildRequires:  python3dist(looseversion)
+BuildRequires:  python3dist(cython)
+BuildRequires:  python3dist(setuptools)
 # Currently bundles a modified version of rudeconfig which cannot be unbundled
 # until MUSIC upstream sends their changes upstream to rudeconfig.
 # https://github.com/INCF/MUSIC/issues/56
@@ -144,32 +144,32 @@ Requires:       %{name}-openmpi%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -c -n %{name}-%{commit} -N
+%autosetup -c -n %{name}-%{version} -N
 # Unable to use autosetup directly because we need three copies of the source
 # in here now
 # Apply patches
-pushd %{name}-%{commit}
+pushd %{name}-%{version}
 %patch -p1 -P 0 1 2 3 4
 # on Fedora, we have mpichversion, not mpich2version
 sed -i 's|mpich2version|mpichversion|' configure.ac
 popd
 
-cp %{name}-%{commit}/LICENSE .
-cp %{name}-%{commit}/README .
+cp %{name}-%{version}/LICENSE .
+cp %{name}-%{version}/README .
 
 %if %{with mpich}
-    cp -a %{name}-%{commit} %{name}-%{commit}-mpich
+    cp -a %{name}-%{version} %{name}-%{version}-mpich
 %endif
 
 %if %{with openmpi}
-    cp -a %{name}-%{commit} %{name}-%{commit}-openmpi
+    cp -a %{name}-%{version} %{name}-%{version}-openmpi
 %endif
 
 %build
 
 %global do_build %{expand:
 echo "** BUILDING $MPI_COMPILE_TYPE **"
-pushd %{name}-%{commit}$MPI_COMPILE_TYPE
+pushd %{name}-%{version}$MPI_COMPILE_TYPE
 ./autogen.sh &&
 %{set_build_flags}
 MPI_CXXFLAGS="$CXXFLAGS $(pkg-config --cflags $MPI_VARIANT)"
@@ -202,7 +202,7 @@ SYSGUESS="mpich"
 
 MPI_COMPILE_TYPE="-mpich"
 PYTHON_VERSION=3
-PYTHON_BIN="%{__python3}"
+PYTHON_BIN="%{python3}"
 %{do_build}
 
 %{_mpich_unload}
@@ -216,14 +216,14 @@ SYSGUESS="openmpi"
 
 MPI_COMPILE_TYPE="-openmpi"
 PYTHON_VERSION=3
-PYTHON_BIN="%{__python3}"
+PYTHON_BIN="%{python3}"
 %{do_build}
 %{_openmpi_unload}
 %endif
 
 %install
 %global do_install %{expand:
-%make_install -C %{name}-%{commit}$MPI_COMPILE_TYPE
+%make_install -C %{name}-%{version}$MPI_COMPILE_TYPE
 mv $RPM_BUILD_ROOT/$MPI_HOME/lib/%{lname}-%{version}/* $RPM_BUILD_ROOT/$MPI_BIN/ -v && rm -vrf $RPM_BUILD_ROOT/$MPI_HOME/lib/%{lname}-%{version}
 for f in contsink eventcounter eventgenerator eventlogger eventselect eventsink eventsource messagesource music viewevents waveconsumer waveproducer clocksource constsource contdelay eventdelay launchtest multiport musicrun test_ag
 do
@@ -236,21 +236,14 @@ done
 rm -f "$RPM_BUILD_ROOT/$MPI_BIN/music_tests.sh"
 
 # Install python bits
-pushd %{name}-%{commit}$MPI_COMPILE_TYPE/pymusic
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT --install-lib=$MPI_PYTHON3_SITEARCH
+pushd %{name}-%{version}$MPI_COMPILE_TYPE/pymusic
+%{python3} setup.py install --skip-build --root $RPM_BUILD_ROOT --install-lib=$MPI_PYTHON3_SITEARCH
 popd
 
 # Move other files to correct location also
-mv -v "$RPM_BUILD_ROOT/$MPI_HOME/lib/python%{python3_version}/site-packages/music/config" "$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/%{lname}/"
-mv -v "$RPM_BUILD_ROOT/$MPI_HOME/%{_lib}/python%{python3_version}/site-packages/music/pymusic.so" "$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/%{lname}"
-mv -v "$RPM_BUILD_ROOT/$MPI_HOME/%{_lib}/python%{python3_version}/site-packages/music/pybuffer.so" "$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/%{lname}"
-
-# Delete the folders
-rm -vrf "$RPM_BUILD_ROOT/$MPI_HOME/lib/python%{python3_version}/site-packages/music"
-# If 64 bit, then we also need to delete this folder
-%if "%{_lib}" == "lib64"
-    rm -vrf "$RPM_BUILD_ROOT/$MPI_HOME/%{_lib}/python%{python3_version}/site-packages/music"
-%endif
+mv -v "$RPM_BUILD_ROOT/%{python3_sitearch}/%{lname}/config" "$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/%{lname}/"
+mv -v "$RPM_BUILD_ROOT/%{python3_sitearch}/%{lname}/pymusic.so" "$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/%{lname}"
+mv -v "$RPM_BUILD_ROOT/%{python3_sitearch}/%{lname}/pybuffer.so" "$RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/%{lname}"
 }
 
 
@@ -322,7 +315,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/mpich/lib/libmusic.so.1
 %{_libdir}/mpich/lib/libmusic-c.so.1
 %{_libdir}/mpich/lib/libmusic.so.1.0.0
-%{_libdir}/mpich/lib/libmusic-c.so.1.0.0
+%{_libdir}/mpich/lib/libmusic-c.so.1.0.2
 %{_mandir}/mpich-%{_arch}/man1/*
 
 %files mpich-devel
@@ -369,7 +362,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/openmpi/lib/libmusic.so.1
 %{_libdir}/openmpi/lib/libmusic-c.so.1
 %{_libdir}/openmpi/lib/libmusic.so.1.0.0
-%{_libdir}/openmpi/lib/libmusic-c.so.1.0.0
+%{_libdir}/openmpi/lib/libmusic-c.so.1.0.2
 %{_mandir}/openmpi-%{_arch}/man1/*
 
 %files openmpi-devel
@@ -389,81 +382,4 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
-* Mon Nov 13 2023 Benson Muite <benson_muite@emailplus.org> - 1.1.16-14.20201002git8c6b77a
-- Use SPDX license identifier
-
-* Thu Jul 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.16-13.20201002git8c6b77a
-- Use the Cython compat package for now
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-12.20201002git8c6b77a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.16-11.20201002git8c6b77a
-- Rebuilt for Python 3.12
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-10.20201002git8c6b77a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-9.20201002git8c6b77a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.1.16-8.20201002git8c6b77a
-- Rebuilt for Python 3.11
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-7.20201002git8c6b77a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-6.20201002git8c6b77a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun Jul 04 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.16-5.20210507git8c6b77a
-- Re-enable openmpi builds (disabled by mistake!)
-
-* Sat Jul 03 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.16-4.20210507git8c6b77a
-- Update to latest upstream commit
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.1.16-3.20201002git262f6f5
-- Rebuilt for Python 3.10
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-2.20201002git262f6f5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Oct 02 2020 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.16-1.20201002git262f6f5
-- Update to latest commit
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-8.20190717gita78a8e2
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-7.20190717gita78a8e2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.1.15-6.20190717gita78a8e2
-- Rebuilt for Python 3.9
-
-* Thu Apr 02 2020 Björn Esser <besser82@fedoraproject.org> - 1.1.15-5.20190717gita78a8e2
-- Fix string quoting for rpm >= 4.16
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-4.20190717gita78a8e2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Oct 15 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.15-3.20190717git78a8e2
-- Add bundled provides
-- Remove ldconfig scriptlets
-- Move arch independent bits to _datadir in separate sub-package
-
-* Mon Sep 09 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.15-2.20190717git78a8e2
-- Add hwloc dep
-
-* Fri Jul 19 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.15-2.20190717gita78a8e2
-- Build python ourselves
-- Bundle rudeconfig
-- Remove python 2 subpackage
-
-* Sat Oct 20 2018 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0-1.20181020gita77e5787
-- Depend on packaged rudeconfig
-- Remove non MPI packages
-- Use macros
-- Put common files into separate sub package
-- Correct autosetup usage
-- Initial build
+%autochangelog

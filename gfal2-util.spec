@@ -11,25 +11,25 @@
 %endif
 
 %if 0%{with python2}
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from sysconfig import get_path; print get_path('purelib')")}
 %endif
 
 %if 0%{with python3}
-%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from sysconfig import get_path; print(get_path('purelib'))")}
 %endif
 
 Name:           gfal2-util
-Version:        1.8.0
-Release:        3%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        GFAL2 utility tools
 Group:          Applications/Internet
 License:        ASL 2.0
 URL:            http://dmc.web.cern.ch/
-# git clone https://gitlab.cern.ch/dmc/gfal2-util.git gfal2-util-1.8.0 --depth=1
-# pushd gfal2-util-1.8.0
-# git checkout v1.8.0
+# git clone https://gitlab.cern.ch/dmc/gfal2-util.git gfal2-util-1.8.1 --depth=1
+# pushd gfal2-util-1.8.1
+# git checkout v1.8.1
 # popd
-# tar czf gfal2-util-1.8.0.tar.gz --exclude-vcs gfal2-util-1.8.0
+# tar czf gfal2-util-1.8.1.tar.gz --exclude-vcs gfal2-util-1.8.1
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
@@ -107,6 +107,7 @@ Summary:        gfal2 clients for python2
 BuildRequires:  python2-gfal2 >= 1.12.0
 BuildRequires:  python2
 BuildRequires:  python2-rpm-macros
+BuildRequires:  python2-setuptools
 BuildRequires:  python2-future
 Requires:       python2-gfal2 >= 1.12.0
 Requires:       gfal2-util-scripts = %{version}-%{release}
@@ -136,6 +137,7 @@ Summary:        gfal2 clients for python3
 BuildRequires:  python3-gfal2 >= 1.12.0
 BuildRequires:  python3
 BuildRequires:  python3-rpm-macros
+BuildRequires:  python3-setuptools
 Requires:       python3-gfal2 >= 1.12.0
 Requires:       gfal2-util-scripts = %{version}-%{release}
 Requires:       gfal2-plugin-file
@@ -158,6 +160,9 @@ Obsoletes:      gfal2-util < %{version}-%{release}
 %endif
 
 %changelog
+* Wed Dec 13 2023 Mihai Patrascoiu <mipatras@cern.ch> - 1.8.1-1
+- Upgrade to upstream release 1.8.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

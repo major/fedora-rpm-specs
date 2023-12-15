@@ -4,15 +4,13 @@
 %global srcname the_Foundation
 
 Name:           the_foundation
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Opinionated C11 library for low-level functionality
 
 License:        BSD-2-Clause
 URL:            https://codeberg.org/skyjake/the_Foundation
 Source:         %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://codeberg.org/skyjake/the_Foundation/issues/13
-# Patch:          %%{name}-soname_major_ver_only.diff
 
 BuildRequires:  cmake
 BuildRequires:  gcc

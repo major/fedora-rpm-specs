@@ -12,6 +12,12 @@ Release: %autorelease
 License: LGPL-2.1-or-later
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
+
+### Patches ###
+# Fix build with libxml2-2.12.0
+# https://gitlab.com/libosinfo/libosinfo/-/merge_requests/155
+Patch: 0001-osinfo-Make-xmlError-struct-constant.patch
+
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: gtk-doc
@@ -213,3 +219,4 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %endif
 
 %changelog
+%autochangelog

@@ -16,13 +16,17 @@ Summary:        Python implementation of JSON RPC 2.0 protocol
 %forgemeta
 License:        MIT
 URL:            https://github.com/python-lsp/python-lsp-jsonrpc
-Source0:        %forgesource
+Source:         %forgesource
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  git-core
+
+# Everything in the “test” extra except pytest is a coverage analysis or
+# linting tool.
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+BuildRequires:  %{py3_dist pytest}
 
 %description %_description
 
@@ -35,9 +39,11 @@ Summary:        %{summary}
 %prep
 %forgeautosetup -S git
 git tag v%{version}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^addopts = "[^"]*"/# &/' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -48,7 +54,7 @@ git tag v%{version}
 %pyproject_save_files pylsp_jsonrpc
 
 %check
-%pytest -v --no-cov -k "not test_writer_bad_message"
+%pytest -v -k "not test_writer_bad_message"
 
 %files -n python3-%{short_name} -f %{pyproject_files}
 %license LICENSE

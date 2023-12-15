@@ -19,14 +19,13 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-BuildRequires:  %{?module_prefix}mvn(org.codehaus.plexus:plexus-utils)
-BuildRequires:  %{?module_prefix}mvn(org.sonatype.plexus:plexus-cipher)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.sonatype.plexus:plexus-cipher)
 %endif
 
 %description
 Plexus Security Dispatcher Component
 
-%{?module_package}
 %{?javadoc_package}
 
 %prep
@@ -48,7 +47,7 @@ cp %{SOURCE1} .
 %install
 %mvn_install
 
-%files -n %{?module_prefix}%{name} -f .mfiles
+%files -f .mfiles
 %license LICENSE-2.0.txt
 
 %changelog

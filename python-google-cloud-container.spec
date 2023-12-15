@@ -5,7 +5,7 @@
 
 
 Name:           python-%{srcname}
-Version:        2.34.0
+Version:        2.36.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Kubernetes Engine API
 
@@ -66,8 +66,6 @@ rm -f %{buildroot}%{_bindir}/fixup_container_v1_keywords.py \
 
 
 %check
-%pyproject_check_import
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -79,7 +77,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.md
-%{python3_sitelib}/google_cloud_container-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

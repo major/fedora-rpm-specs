@@ -38,22 +38,21 @@
 %global __provides_exclude_from ^((%{python2_sitearch})|(%{python3_sitearch})/.*\\.so)$
 
 Name:               gfal2-python
-Version:            1.12.1
-Release:            2%{?dist}
+Version:            1.12.2
+Release:            1%{?dist}
 Summary:            Python bindings for gfal 2
 License:            ASL 2.0
 URL:                http://dmc.web.cern.ch/
-# git clone --branch master https://gitlab.cern.ch/dmc/gfal2-bindings.git gfal2-python-1.12.1
-# pushd gfal2-python-1.12.1
-# git checkout v1.12.1
+# git clone --branch master https://gitlab.cern.ch/dmc/gfal2-bindings.git gfal2-python-1.12.2
+# pushd gfal2-python-1.12.2
+# git checkout v1.12.2
 # popd
-# tar czf gfal2-python-1.12.1.tar.gz --exclude-vcs gfal2-python-1.12.1
+# tar czf gfal2-python-1.12.2.tar.gz --exclude-vcs gfal2-python-1.12.2
 Source0:            %{name}-%{version}.tar.gz
-Patch0:             0000_CMake_FindPython3_13.patch
 
 BuildRequires:      gcc-c++
 BuildRequires:      cmake3
-BuildRequires:      gfal2-devel >= 2.21.0
+BuildRequires:      gfal2-devel >= 2.22.0
 BuildRequires:      boost-devel
 # Python 2
 %if 0%{?with_python2}
@@ -81,7 +80,7 @@ for the file operations in grids and cloud environments.
 %if 0%{?with_python2}
 %package -n python2-gfal2
 Summary:            %summary
-Requires:           gfal2-core >= 2.21.0
+Requires:           gfal2-core >= 2.22.0
 Requires:           python2
 %{?python_provide:%python_provide python2-gfal2}
 # Remove before F30
@@ -95,7 +94,7 @@ Obsoletes:          gfal2-python < %{version}-%{release}
 %if 0%{?with_python3}
 %package -n python3-gfal2
 Summary:            gfal2 python bindings for Python 3
-Requires:           gfal2-core >= 2.21.0
+Requires:           gfal2-core >= 2.22.0
 Requires:           python3
 # Remove before F30
 Provides:           gfal2-python3 = %{version}-%{release}
@@ -122,7 +121,6 @@ Documentation files for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 # Make sure the version in the spec file and the version used
@@ -179,6 +177,9 @@ fi
 %endif
 
 %changelog
+* Wed Dec 13 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.12.2-1
+- Upgrade to upstream release 1.12.2
+
 * Tue Nov 21 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.12.1-2
 - Patch for the Python 3.13 rebuild (close RHBZ#2250873)
 

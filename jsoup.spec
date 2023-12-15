@@ -38,7 +38,6 @@ jsoup is designed to deal with all varieties of HTML found in the wild; from
 pristine and validating, to invalid tag-soup; jsoup will create a sensible parse
 tree.
 
-%{?module_package}
 %{?javadoc_package}
 
 %prep
@@ -60,7 +59,7 @@ tree.
 %install
 %mvn_install
 
-%files -n %{?module_prefix}%{name} -f .mfiles
+%files -f .mfiles
 %doc README.md CHANGES
 %license LICENSE
 

@@ -2,7 +2,7 @@
 
 Name:           python-cairocffi
 Version:        1.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        cffi-based cairo bindings for Python
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/cairocffi/
@@ -38,7 +38,7 @@ Requires:       gtk3
 
 %prep
 %autosetup -n cairocffi-%{version} -p1
-sed -i -e 's/, "flake8"//' -e 's/, "isort"//' pyproject.toml
+sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -60,6 +60,9 @@ sed -i -e 's/, "flake8"//' -e 's/, "isort"//' pyproject.toml
 %doc README.rst
 
 %changelog
+* Wed Dec 13 2023 Miro Hrončok <mhroncok@redhat.com> - 1.6.1-3
+- Don't BuildRequire linters
+
 * Sat Aug 26 2023 Orion Poplawski <orion@nwra.com> - 1.6.1-2
 - Drop rmdir SPECPARTS
 

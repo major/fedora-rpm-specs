@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-odoc
-Version:        2.3.1
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
@@ -29,7 +29,7 @@ BuildRequires:  ocaml-mdx-devel
 BuildRequires:  ocaml-ppx-expect-devel
 BuildRequires:  ocaml-result-devel
 BuildRequires:  ocaml-sexplib0-devel
-BuildRequires:  ocaml-tyxml-devel >= 4.3.0
+BuildRequires:  ocaml-tyxml-devel >= 4.4.0
 BuildRequires:  ocaml-yojson-devel >= 1.6.0
 
 Requires:       ocaml-odoc-parser%{?_isa} = %{version}-%{release}
@@ -95,7 +95,7 @@ Documentation for %{name}.
 %autosetup -n odoc-%{version}
 
 %build
-%dune_build @default @doc
+%dune_build @install @doc
 
 %install
 %dune_install -s
@@ -103,6 +103,9 @@ Documentation for %{name}.
 # Install the man page
 mkdir -p %{buildroot}%{_mandir}/man1
 _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.1
+
+# We don't want the benchmark package
+rm -fr %{buildroot}%{ocamldir}/odoc-bench
 
 %check
 %dune_check
@@ -124,6 +127,9 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 %license LICENSE
 
 %changelog
+* Wed Dec 13 2023 Jerry James <loganjerry@gmail.com> - 2.4.0-1
+- Version 2.4.0
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.1-2
 - OCaml 5.1.1 rebuild for Fedora 40
 

@@ -1,5 +1,5 @@
 # Circular test dependency on conda-build
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           python-conda-index
 Version:        0.3.0
@@ -49,6 +49,8 @@ BuildRequires:  python%{python3_pkgversion}-sphinx-click
 %autosetup -p1 -n conda-index-%{version}
 # do not run coverage in pytest
 sed -i -E '/".*cov.*"/d' pyproject.toml
+# Upstream has removed this test that uses tlz
+rm tests/test_groupby_strategies.py
 
 
 %generate_buildrequires

@@ -6,7 +6,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.48.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
@@ -17,6 +17,9 @@ Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.48/%{name}-%
 # https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/issues/63
 # https://bugzilla.redhat.com/show_bug.cgi?id=1913641
 Patch0:		0001-google-Remove-Photos-support.patch
+# Fix build with libxml2 2.12
+# https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/merge_requests/145
+Patch1:         0001-goabackend-Fix-build-with-libxml2-2.12.patch
 
 
 BuildRequires:	pkgconfig(gcr-3)
@@ -67,6 +70,8 @@ developing applications that use %{name}.
 %if 0%{?rhel} >= 9
 %patch0 -p1
 %endif
+
+%patch 1 -p1
 
 %build
 %meson \
@@ -133,6 +138,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Tue Dec 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.48.0-4
+- Fix build with libxml2 2.12
+
 * Wed Oct 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.48.0-3
 - Disable backend components in flatpak builds
 

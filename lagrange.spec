@@ -2,13 +2,13 @@
 %global appid fi.skyjake.Lagrange
 
 # Ensure we are not built and installed with a too-old the_Foundation
-%global min_foundation_ver 1.6.0
+%global min_foundation_ver 1.7.0
 
 # this seems buggy on Wayland: see https://github.com/skyjake/lagrange/issues/575
 %bcond_with x11_xlib
 
 Name:           lagrange
-Version:        1.16.7
+Version:        1.17.5
 Release:        %autorelease
 Summary:        A Beautiful Gemini Client
 

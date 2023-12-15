@@ -1,46 +1,33 @@
-%undefine __cmake_in_source_build
-
 Name:    kolourpaint
 Summary: An easy-to-use paint program 
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 License: BSD 
 URL:     https://www.kde.org/applications/graphics/kolourpaint/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
-# Introduced here: https://src.fedoraproject.org/rpms/kde-filesystem/c/3cc17949d085bef5476638f2fbade0f19dbcea32?branch=rawhide
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-BuildRequires: kde4-filesystem
-%endif
-
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KDELibs4Support)
+BuildRequires: kf6-rpm-macros
 
-## optional deps
-%if ! 0%{?bootstrap}
-BuildRequires: cmake(KF5Sane)
-%endif
-Recommends: qt5-qtimageformats%{?_isa}}
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6PrintSupport)
+
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KSaneWidgets6)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-
-# when split occurred
-Conflicts: kdegraphics < 7:4.6.95-10
-
-# translations moved here
-Conflicts: kde-l10n < 17.03
 
 %description
 %{summary}.
@@ -58,8 +45,7 @@ License: LGPLv2
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 
@@ -69,31 +55,32 @@ License: LGPLv2
 %find_lang %{name} --all-name --with-html
 
 ## unpackaged files
-rm -fv %{buildroot}%{_kde4_libdir}/libkolourpaint_lgpl.so
+rm -fv %{buildroot}%{_libdir}/libkolourpaint_lgpl.so
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc AUTHORS BUGS ChangeLog NEWS README.md
 %license COPYING*
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/%{name}/
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kxmlgui5/%{name}/
-
-%ldconfig_scriptlets libs
+%{_bindir}/%{name}
+%{_datadir}/%{name}/
+%{_metainfodir}/org.kde.%{name}.appdata.xml
+%{_datadir}/applications/org.kde.%{name}.desktop
+%{_datadir}/icons/hicolor/*/*/*
+%dnl %{_kf6_datadir}/kxmlgui5/%{name}/
 
 %files libs
-%{_kf5_libdir}/libkolourpaint_lgpl.so.5
+%{_libdir}/libkolourpaint_lgpl.so.5
 
 
 %changelog
+* Wed Dec 13 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

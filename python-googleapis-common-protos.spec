@@ -7,7 +7,7 @@
 
 %global         srcname     googleapis-common-protos
 %global         forgeurl    https://github.com/googleapis/python-api-common-protos/
-Version:        1.61.0
+Version:        1.62.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -60,11 +60,6 @@ Summary:        %{summary}
 
 
 %check
-# Upstream has no tests.
-#
-# Note that google and google.logging are namespace packages.
-%pyproject_check_import %{?with_bootstrap:-e 'google.longrunning.*grpc*'}
-
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
@@ -78,7 +73,6 @@ PYTHONUSERBASE=%{buildroot}%{_prefix} \
 %doc CONTRIBUTING.md
 %doc CODE_OF_CONDUCT.md
 %doc README.rst
-%{python3_sitelib}/googleapis_common_protos-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog

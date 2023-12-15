@@ -122,7 +122,7 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %install
 %mvn_install
 
-%files -n %{?module_prefix}%{name} -f .mfiles
+%files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc README.txt RELEASE_NOTES.txt
 

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -136,6 +136,16 @@ Provides: bundled(python3dist(packaging)) = 23
 # (the -debug subpackages)
 %bcond_without debug_build
 
+# Extra build without GIL, the freethreading PEP 703 provisional way
+# (the -freethreading subpackage)
+# support for the excluded arches is being added upstream and is expected to land in 3.13.0a3
+# https://github.com/python/cpython/issues/112535
+%ifnarch ppc64le s390x
+%bcond_without freethreading_build
+%else
+%bcond_with freethreading_build
+%endif
+
 # Support for the GDB debugger
 %bcond_without gdb_hooks
 
@@ -168,11 +178,15 @@ Provides: bundled(python3dist(packaging)) = 23
 
 # ABIFLAGS, LDVERSION and SOABI are in the upstream configure.ac
 # See PEP 3149 for some background: http://www.python.org/dev/peps/pep-3149/
-%global ABIFLAGS_optimized %{nil}
-%global ABIFLAGS_debug     d
+%global ABIFLAGS_optimized           %{nil}
+%global ABIFLAGS_debug               d
+%global ABIFLAGS_freethreading       t
+%global ABIFLAGS_freethreading_debug td
 
-%global LDVERSION_optimized %{pybasever}%{ABIFLAGS_optimized}
-%global LDVERSION_debug     %{pybasever}%{ABIFLAGS_debug}
+%global LDVERSION_optimized           %{pybasever}%{ABIFLAGS_optimized}
+%global LDVERSION_debug               %{pybasever}%{ABIFLAGS_debug}
+%global LDVERSION_freethreading       %{pybasever}%{ABIFLAGS_freethreading}
+%global LDVERSION_freethreading_debug %{pybasever}%{ABIFLAGS_freethreading_debug}
 
 # We use the upstream arch triplets, we convert them from %%{_arch}-linux%%{_gnu}
 %global platform_triplet %{expand:%(echo %{_arch}-linux%{_gnu} | sed -E \\
@@ -180,8 +194,10 @@ Provides: bundled(python3dist(packaging)) = 23
     -e 's/^mips64(el)?-linux-gnu$/mips64\\1-linux-gnuabi64/' \\
     -e 's/^ppc(64)?(le)?-linux-gnu$/powerpc\\1\\2-linux-gnu/')}
 
-%global SOABI_optimized cpython-%{pyshortver}%{ABIFLAGS_optimized}-%{platform_triplet}
-%global SOABI_debug     cpython-%{pyshortver}%{ABIFLAGS_debug}-%{platform_triplet}
+%global SOABI_optimized           cpython-%{pyshortver}%{ABIFLAGS_optimized}-%{platform_triplet}
+%global SOABI_debug               cpython-%{pyshortver}%{ABIFLAGS_debug}-%{platform_triplet}
+%global SOABI_freethreading       cpython-%{pyshortver}%{ABIFLAGS_freethreading}-%{platform_triplet}
+%global SOABI_freethreading_debug cpython-%{pyshortver}%{ABIFLAGS_freethreading_debug}-%{platform_triplet}
 
 # All bytecode files are in a __pycache__ subdirectory, with a name
 # reflecting the version of the bytecode.
@@ -202,8 +218,10 @@ Provides: bundled(python3dist(packaging)) = 23
 # (if these get out of sync, the payload of the libs subpackage will fail
 # and halt the build)
 %global py_SOVERSION 1.0
-%global py_INSTSONAME_optimized libpython%{LDVERSION_optimized}.so.%{py_SOVERSION}
-%global py_INSTSONAME_debug     libpython%{LDVERSION_debug}.so.%{py_SOVERSION}
+%global py_INSTSONAME_optimized           libpython%{LDVERSION_optimized}.so.%{py_SOVERSION}
+%global py_INSTSONAME_debug               libpython%{LDVERSION_debug}.so.%{py_SOVERSION}
+%global py_INSTSONAME_freethreading       libpython%{LDVERSION_freethreading}.so.%{py_SOVERSION}
+%global py_INSTSONAME_freethreading_debug libpython%{LDVERSION_freethreading_debug}.so.%{py_SOVERSION}
 
 # Disable automatic bytecompilation. The python3 binary is not yet be
 # available in /usr/bin when Python is built. Also, the bytecompilation fails
@@ -659,6 +677,67 @@ The debug runtime additionally supports debug builds of C-API extensions
 %endif # with debug_build
 
 
+%if %{with freethreading_build}
+# This deliberately does not use the %%{pkgname}- prefix,
+# we want to call this python3.X-threading even when built as a main Python.
+# At least until the PEP 703 build remains provisional.
+%package -n python%{pybasever}-freethreading
+Summary: Free Threading (PEP 703) version of the Python runtime
+
+# The freethreading build is an all-in-one package version of the regular build, and
+# shares the same .py/.pyc files and directories as the regular build. Hence
+# we depend on all of the subpackages of the regular build:
+Requires: %{pkgname}%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-devel%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-test%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-tkinter%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-idle%{?_isa} = %{version}-%{release}
+
+%description -n python%{pybasever}-freethreading
+The provisional Free Threading (PEP 703) build of Python.
+
+CPython’s global interpreter lock (“GIL”) prevents multiple threads from
+executing Python code at the same time. The GIL is an obstacle to using
+multi-core CPUs from Python efficiently.
+
+This build of Python is built with the --disable-gil option.
+It lets the interpreter run Python code without the global interpreter lock
+and with the necessary changes needed to make the interpreter thread-safe.
+%endif # with freethreading_build
+
+
+%if %{with freethreading_build} && %{with debug_build}
+%package -n python%{pybasever}-freethreading-debug
+Summary: Free Threading (PEP 703) version of the Python runtime (debug build)
+
+# The debug build is an all-in-one package version of the regular build, and
+# shares the same .py/.pyc files and directories as the regular build. Hence
+# we depend on all of the subpackages of the regular build:
+Requires: %{pkgname}%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-devel%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-test%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-tkinter%{?_isa} = %{version}-%{release}
+Requires: %{pkgname}-idle%{?_isa} = %{version}-%{release}
+
+%description -n python%{pybasever}-freethreading-debug
+The provisional Free Threading (PEP 703) build of Python. Debug build.
+
+CPython’s global interpreter lock (“GIL”) prevents multiple threads from
+executing Python code at the same time. The GIL is an obstacle to using
+multi-core CPUs from Python efficiently.
+
+This build of Python is built with the --disable-gil option.
+It lets the interpreter run Python code without the global interpreter lock
+and with the necessary changes needed to make the interpreter thread-safe.
+
+This package provides a version of the Python runtime with numerous debugging
+features enabled, aimed at advanced Python users such as developers of Python
+extension modules.
+%endif # with freethreading_build && debug_build
+
+
 # ======================================================
 # The prep phase of the build:
 # ======================================================
@@ -820,6 +899,18 @@ BuildPython optimized \
   "--without-ensurepip %{optimizations_flag}" \
   ""
 
+%if %{with freethreading_build} && %{with debug_build}
+BuildPython freethreading-debug \
+  "--without-ensurepip --with-pydebug --disable-gil" \
+  "-O0 -Wno-cpp"
+%endif # with freethreading_build && debug_build
+
+%if %{with freethreading_build}
+BuildPython freethreading \
+  "--without-ensurepip %{optimizations_flag} --disable-gil" \
+  ""
+%endif # with freethreading_build
+
 # ======================================================
 # Installing the built code:
 # ======================================================
@@ -918,14 +1009,30 @@ EOF
   echo FINISHED: INSTALL OF PYTHON FOR CONFIGURATION: $ConfName
 }
 
-# Install the "debug" build first; any common files will be overridden with
+# Install the "freethreading" and "debug" builds first; any common files will be overridden with
 # later builds
+%if %{with freethreading_build} && %{with debug_build}
+# Now the freethreading debug build:
+InstallPython freethreading-debug \
+  %{py_INSTSONAME_freethreading_debug} \
+  "" \
+  %{LDVERSION_freethreading_debug}
+%endif # with freethreading_build && debug_build
+
 %if %{with debug_build}
 InstallPython debug \
   %{py_INSTSONAME_debug} \
   -O0 \
   %{LDVERSION_debug}
 %endif # with debug_build
+
+%if %{with freethreading_build}
+# Now the freethreading optimized build:
+InstallPython freethreading \
+  %{py_INSTSONAME_freethreading} \
+  "" \
+  %{LDVERSION_freethreading}
+%endif # with freethreading_build
 
 # Now the optimized build:
 InstallPython optimized \
@@ -1160,6 +1267,12 @@ CheckPython() {
 CheckPython debug
 %endif # with debug_build
 CheckPython optimized
+%if %{with freethreading_build} && %{with debug_build}
+CheckPython freethreading-debug
+%endif # with freethreading_build && debug_build
+%if %{with freethreading_build}
+CheckPython freethreading
+%endif # with freethreading_build
 
 %endif # with tests
 
@@ -1471,6 +1584,60 @@ CheckPython optimized
 
 %endif # with debug_build
 
+%if %{with freethreading_build}
+%files -n python%{pybasever}-freethreading
+# Analog of the core subpackage's files:
+%{_bindir}/python%{LDVERSION_freethreading}
+
+# Analog to the -libs subpackage's files:
+%{_libdir}/%{py_INSTSONAME_freethreading}
+
+# Analog of the libs, test, and tkinter extension modules:
+%extension_modules %{SOABI_freethreading}
+%extension_modules_test %{SOABI_freethreading}
+%{dynload_dir}/_tkinter.%{SOABI_freethreading}.so
+
+# Analog of the -devel subpackage's files:
+%{pylibdir}/config-%{LDVERSION_freethreading}-%{platform_triplet}/
+%{_includedir}/python%{LDVERSION_freethreading}/
+%{_bindir}/python%{LDVERSION_freethreading}-config
+%{_bindir}/python%{LDVERSION_freethreading}-*-config
+%{_libdir}/libpython%{LDVERSION_freethreading}.so
+%{_libdir}/pkgconfig/python-%{LDVERSION_freethreading}.pc
+%{_libdir}/pkgconfig/python-%{LDVERSION_freethreading}-embed.pc
+
+%{pylibdir}/_sysconfigdata_%{ABIFLAGS_freethreading}_linux_%{platform_triplet}.py
+%{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_freethreading}_linux_%{platform_triplet}%{bytecode_suffixes}
+
+%endif # with freethreading_build
+
+%if %{with freethreading_build} && %{with debug_build}
+%files -n python%{pybasever}-freethreading-debug
+# Analog of the core subpackage's files:
+%{_bindir}/python%{LDVERSION_freethreading_debug}
+
+# Analog to the -libs subpackage's files:
+%{_libdir}/%{py_INSTSONAME_freethreading_debug}
+
+# Analog of the libs, test, and tkinter extension modules:
+%extension_modules %{SOABI_freethreading_debug}
+%extension_modules_test %{SOABI_freethreading_debug}
+%{dynload_dir}/_tkinter.%{SOABI_freethreading_debug}.so
+
+# Analog of the -devel subpackage's files:
+%{pylibdir}/config-%{LDVERSION_freethreading_debug}-%{platform_triplet}/
+%{_includedir}/python%{LDVERSION_freethreading_debug}/
+%{_bindir}/python%{LDVERSION_freethreading_debug}-config
+%{_bindir}/python%{LDVERSION_freethreading_debug}-*-config
+%{_libdir}/libpython%{LDVERSION_freethreading_debug}.so
+%{_libdir}/pkgconfig/python-%{LDVERSION_freethreading_debug}.pc
+%{_libdir}/pkgconfig/python-%{LDVERSION_freethreading_debug}-embed.pc
+
+%{pylibdir}/_sysconfigdata_%{ABIFLAGS_freethreading_debug}_linux_%{platform_triplet}.py
+%{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_freethreading_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
+
+%endif # with freethreading_build && debug_build
+
 # We put the debug-gdb.py file inside /usr/lib/debug to avoid noise from ldconfig
 # See https://bugzilla.redhat.com/show_bug.cgi?id=562980
 #
@@ -1492,6 +1659,11 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Dec 05 2023 Miro Hrončok <mhroncok@redhat.com> - 3.13.0~a2-2
+- Add the python3.13-freethreading and python3.13-freethreading-debug packages
+- See https://peps.python.org/pep-0703/
+- ppc64le and s390x are excluded for now, support is expected in 3.13.0a3
+
 * Fri Nov 24 2023 Karolina Surma <ksurma@redhat.com> - 3.13.0~a2-1
 - Update to Python 3.13.0a2
 

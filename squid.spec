@@ -1,7 +1,7 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  6.5
+Version:  6.6
 Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
@@ -335,6 +335,9 @@ fi
 
 
 %changelog
+* Wed Dec 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 7:6.6-1
+- new version 6.6
+
 * Tue Nov 07 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:6.5-1
 - new version 6.5
 

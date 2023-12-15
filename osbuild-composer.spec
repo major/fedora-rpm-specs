@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        95
+Version:        96
 
 %gometa
 
@@ -47,10 +47,10 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  git
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
-Provides: bundled(golang(cloud.google.com/go)) = 0.110.8
+Provides: bundled(golang(cloud.google.com/go)) = 0.110.10
 Provides: bundled(golang(cloud.google.com/go/compute)) = 1.23.3
 Provides: bundled(golang(cloud.google.com/go/compute/metadata)) = 0.2.3
-Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.3
+Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.5
 Provides: bundled(golang(cloud.google.com/go/storage)) = 1.35.1
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go)) = 68.0.0+incompatible
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.7.2
@@ -70,7 +70,7 @@ Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.3.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.48.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.48.13
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
@@ -118,7 +118,7 @@ Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.7
 Provides: bundled(golang(github.com/google/uuid)) = 1.4.0
 Provides: bundled(golang(github.com/googleapis/enterprise-certificate-proxy)) = 0.3.2
 Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = 2.12.0
-Provides: bundled(golang(github.com/gophercloud/gophercloud)) = 1.7.0
+Provides: bundled(golang(github.com/gophercloud/gophercloud)) = 1.8.0
 Provides: bundled(golang(github.com/gorilla/css)) = 1.0.0
 Provides: bundled(golang(github.com/gorilla/mux)) = 1.8.0
 Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
@@ -165,9 +165,9 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.0-rc5
 Provides: bundled(golang(github.com/opencontainers/runc)) = 1.1.10
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.1.0
-Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.385
+Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.388
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.18.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.21.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = e969a9d
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
@@ -201,23 +201,23 @@ Provides: bundled(golang(github.com/vmware/govmomi)) = 0.33.1
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.11.3
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = 33d0574
 Provides: bundled(golang(go.opencensus.io)) = 0.24.0
-Provides: bundled(golang(golang.org/x/crypto)) = 0.15.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.16.0
 Provides: bundled(golang(golang.org/x/exp)) = 7918f67
 Provides: bundled(golang(golang.org/x/mod)) = 0.13.0
-Provides: bundled(golang(golang.org/x/net)) = 0.18.0
-Provides: bundled(golang(golang.org/x/oauth2)) = 0.14.0
+Provides: bundled(golang(golang.org/x/net)) = 0.19.0
+Provides: bundled(golang(golang.org/x/oauth2)) = 0.15.0
 Provides: bundled(golang(golang.org/x/sync)) = 0.5.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.14.0
-Provides: bundled(golang(golang.org/x/term)) = 0.14.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.15.0
+Provides: bundled(golang(golang.org/x/term)) = 0.15.0
 Provides: bundled(golang(golang.org/x/text)) = 0.14.0
-Provides: bundled(golang(golang.org/x/time)) = 0.3.0
+Provides: bundled(golang(golang.org/x/time)) = 0.5.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.14.0
 Provides: bundled(golang(golang.org/x/xerrors)) = 04be3eb
-Provides: bundled(golang(google.golang.org/api)) = 0.151.0
+Provides: bundled(golang(google.golang.org/api)) = 0.153.0
 Provides: bundled(golang(google.golang.org/appengine)) = 1.6.8
-Provides: bundled(golang(google.golang.org/genproto)) = 49dd2c1
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 49dd2c1
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = d783a09
+Provides: bundled(golang(google.golang.org/genproto)) = bbf56f3
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = bbf56f3
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 83a465c
 Provides: bundled(golang(google.golang.org/grpc)) = 1.59.0
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.31.0
 Provides: bundled(golang(gopkg.in/go-jose/go-jose.v2)) = 2.6.1
@@ -598,6 +598,31 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Dec 13 2023 Packit <hello@packit.dev> - 96-1
+Changes with 96
+----------------
+  * .gitlab-ci.yml: upgade neetle early to workaround RHEL-17890 (#3847)
+    * Author: Alexander Todorov, Reviewers: Tomáš Hozza
+  * README: remove IRC in favour of matrix channel (#3844)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Worker status heartbeat (#3766)
+    * Author: Sanne Raymaekers, Reviewers: Nobody
+  * build(deps): bump actions/github-script from 6 to 7 (#3806)
+    * Author: dependabot[bot], Reviewers: Nobody
+  * build(deps): bump the go-deps group with 5 updates (#3837)
+    * Author: dependabot[bot], Reviewers: Achilleas Koutsou
+  * cloudapi/v2: fix verbiage of customizations (#3839)
+    * Author: Sanne Raymaekers, Reviewers: Diaa Sami
+  * rpmbuild: add fedora-40 (#3838)
+    * Author: Jakub Rusz, Reviewers: Alexander Todorov
+  * test: fix ansible playbook conditional statements error (#3845)
+    * Author: Xiaofeng Wang, Reviewers: Achilleas Koutsou
+  * test: remove persistent log checking on minimal raw test (#3836)
+    * Author: Xiaofeng Wang, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2023-12-13
+
+
 * Wed Nov 29 2023 Packit <hello@packit.dev> - 95-1
 Changes with 95
 ----------------

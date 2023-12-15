@@ -5,7 +5,7 @@
 
 Name:           libei
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for Emulated Input
 
 License:        MIT
@@ -22,6 +22,8 @@ BuildRequires:  python3-attrs
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-rpm-macros
 BuildRequires:  systemd-devel
+
+Patch01: 0001-oeffis-OEFFIS_DEVICE_ALL_DEVICES-should-translate-to.patch
 
 # libei packages
 %description
@@ -121,6 +123,9 @@ Library for XDG RemoteDesktop Portal Setup Development Package
 %{_bindir}/ei-debug-events
 
 %changelog
+* Wed Dec 13 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.0-2
+- Handle OEFFIS_DEVICE_ALL_DEVICES correctly
+
 * Wed Dec 06 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.0-1
 - libei 1.2.0
 

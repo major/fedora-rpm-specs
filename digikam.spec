@@ -14,7 +14,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.2.0
-Release: 2%{?beta}%{?dist}
+Release: 3%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -349,6 +349,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Wed Dec 13 2023 Alessandro Astone <ales.astone@gmail.com> - 8.2.0-3
+- Rebuild (libksane)
+
 * Thu Nov 30 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.2.0-2
 - Build with Qt6 for F40+ and qt6_qtwebengine_arches
 

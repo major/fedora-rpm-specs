@@ -9,60 +9,45 @@
 
 Name:    pim-sieve-editor
 Summary: Sieve Editor
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# Uses QtWebEngine: KPim6KSieveUi
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstreamable patches
 
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 BuildRequires: gettext
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Widgets)
 
-# kf5
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Bookmarks)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KIO)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6UserFeedback)
 
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-libksieve-devel >= %{majmin_ver}, cmake(KF5SyntaxHighlighting)
-BuildRequires: kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires: kf5-messagelib-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-
-BuildRequires: cmake(KUserFeedback)
-BuildRequires: cmake(Qt5Keychain)
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6MailTransport)
+BuildRequires: cmake(KPim6PimCommon)
+BuildRequires: cmake(KPim6KSieveUi)
+BuildRequires: cmake(KPim6IMAP)
+BuildRequires: cmake(Qt6Keychain)
 
 # split from kdepim/kmail
 Conflicts: kmail < 16.12
@@ -76,47 +61,33 @@ on a mail server.
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.sieveeditor.desktop
-%endif
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
-
-
-%ldconfig_scriptlets
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.sieveeditor.desktop
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_bindir}/sieveeditor
-%{_kf5_datadir}/applications/org.kde.sieveeditor.desktop
-%{_kf5_metainfodir}/org.kde.sieveeditor.appdata.xml
-%{_kf5_datadir}/config.kcfg/sieveeditorglobalconfig.kcfg
-# -libs?
-%{_kf5_libdir}/libsieveeditor.so.5*
+%{_kf6_datadir}/qlogging-categories6/*%{framework}.*
+%{_kf6_bindir}/sieveeditor
+%{_kf6_datadir}/applications/org.kde.sieveeditor.desktop
+%{_kf6_metainfodir}/org.kde.sieveeditor.appdata.xml
+%{_kf6_datadir}/config.kcfg/sieveeditorglobalconfig.kcfg
+%{_kf6_libdir}/libsieveeditor.so.*
 
 
 %changelog
+* Wed Dec 13 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -49,6 +49,9 @@ Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 # https://github.com/ibm-s390-linux/s390-tools/pull/155
 Patch2:         snmp-semicolon.patch
+# fix build with libxml2-2.12.0
+# https://github.com/ibm-s390-linux/s390-tools/pull/160
+Patch3:         libxml2-parser.patch
 
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
