@@ -2,7 +2,7 @@ Name:           perl-Mozilla-CA
 # You do not need to back-port a new version for updating a list of the
 # certificates. They are taken from ca-certificates package instead
 # per bug #738383.
-Version:        20230821
+Version:        20231213
 Release:        1%{?dist}
 Summary:        Mozilla's CA certificate bundle in PEM format
 # README:                       MPL-2.0
@@ -13,7 +13,7 @@ License:        MPL-2.0
 URL:            https://metacpan.org/release/Mozilla-CA
 Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABH/Mozilla-CA-%{version}.tar.gz
 # Use a CA bundle from ca-certificates package, bug #738383
-Patch0:         Mozilla-CA-20230821-Redirect-to-ca-certificates-bundle.patch
+Patch0:         Mozilla-CA-20231213-Redirect-to-ca-certificates-bundle.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -81,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Dec 14 2023 Michal Josef Špaček <mspacek@redhat.com> - 20231213-1
+- 20231213 bump
+
 * Fri Aug 25 2023 Michal Josef Špaček <mspacek@redhat.com> - 20230821-1
 - 20230821 bump
 

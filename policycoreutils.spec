@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.6-0.rc2
-%global libsemanagever  3.6-0.rc2
-%global libselinuxver   3.6-0.rc2
+%global libsepolver     3.6-1
+%global libsemanagever  3.6-1
+%global libselinuxver   3.6-1
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -11,10 +11,10 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.6
-Release: 0.rc2.1%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.6-rc2/selinux-3.6-rc2.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.6/selinux-3.6.tar.gz
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
 Source14: sepolicy-icons.tgz
@@ -33,7 +33,7 @@ Source22: selinux-gui.zip
 # wlc --key <apikey> --url https://translate.fedoraproject.org/api/ download selinux/sandbox --output ./
 Source23: selinux-sandbox.zip
 # https://github.com/fedora-selinux/selinux
-# $ git format-patch -N 3.6-rc2 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
+# $ git format-patch -N 3.6 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
 Patch0001: 0001-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
@@ -42,7 +42,6 @@ Patch0003: 0003-sepolicy-generate-Handle-more-reserved-port-types.patch
 Patch0004: 0004-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
 Patch0005: 0005-Use-SHA-2-instead-of-SHA-1.patch
 Patch0006: 0006-python-sepolicy-Fix-spec-file-dependencies.patch
-Patch0007: 0007-sepolicy-port-to-dnf4-python-API.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -78,7 +77,7 @@ load_policy to load policies, setfiles to label filesystems, newrole
 to switch roles.
 
 %prep -p /usr/bin/bash
-%autosetup -p 1 -n selinux-%{version}-rc2
+%autosetup -p 1 -n selinux-%{version}
 
 cp %{SOURCE13} gui/
 tar -xvf %{SOURCE14} -C python/sepolicy/
@@ -272,7 +271,10 @@ The policycoreutils-devel package contains the management tools use to develop p
 %package sandbox
 Summary: SELinux sandbox utilities
 Requires: python3-policycoreutils = %{version}-%{release}
-Requires: xorg-x11-server-Xephyr >= 1.14.1-2 /usr/bin/rsync /usr/bin/xmodmap
+%if 0%{?fedora} || 0%{?rhel} <= 9
+Requires: xorg-x11-server-Xephyr >= 1.14.1-2
+%endif
+Requires: /usr/bin/rsync /usr/bin/xmodmap
 Requires: matchbox-window-manager
 BuildRequires: libcap-ng-devel
 
@@ -420,6 +422,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Thu Dec 14 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-1
+- SELinux userspace 3.6 release
+
 * Thu Nov 23 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-0.rc2.1
 - SELinux userspace 3.6-rc2 release
 

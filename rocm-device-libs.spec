@@ -5,7 +5,7 @@
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 1
+%global bugfix_version 2
 %global upstreamname ROCm-Device-Libs
 
 # This might be needed because EL9 llvm is built with clang:
@@ -55,6 +55,9 @@ libraries in the form of bit code. Specifically:
 %install
 %cmake_install
 
+%check
+%ctest
+
 %files
 %license LICENSE.TXT
 %doc README.md doc/*.md
@@ -64,6 +67,9 @@ libraries in the form of bit code. Specifically:
 %clang_resource_dir/amdgcn
 
 %changelog
+* Thu Dec 14 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.2-1
+- Update to 17.2
+
 * Fri Oct 20 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.1-1
 - Update to 17.1
 

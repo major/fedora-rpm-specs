@@ -1,6 +1,6 @@
 Name:           python-jupyter-server-fileid
 Version:        0.9.0
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        A Jupyter Server extension for the File ID service
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/jupyter-server-fileid/
@@ -58,24 +58,7 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 %{_bindir}/jupyter-fileid
 %config(noreplace) %{_sysconfdir}/jupyter/jupyter_server_config.d/jupyter_server_fileid.json
 
+%pyproject_extras_subpkg -n python3-jupyter-server-fileid test
+
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.9.0-2
-- Rebuilt for Python 3.12
-
-* Tue Apr 11 2023 Lumír Balhar <lbalhar@redhat.com> - 0.9.0-1
-- Update to 0.9.0 (rhbz#2185465)
-
-* Wed Mar 01 2023 Lumír Balhar <lbalhar@redhat.com> - 0.8.0-1
-- Update to 0.8.0 (rhbz#2173025)
-
-* Fri Feb 17 2023 Lumír Balhar <lbalhar@redhat.com> - 0.7.0-1
-- Update to 0.7.0 (rhbz#2170695)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Dec 05 2022 Lumír Balhar <lbalhar@redhat.com> - 0.6.0-1
-- Initial package
+%autochangelog

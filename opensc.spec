@@ -1,6 +1,6 @@
 Name:           opensc
-Version:        0.23.0
-Release:        5%{?dist}
+Version:        0.24.0
+Release:        1%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPL-2.1-or-later AND BSD 3-Clause
@@ -10,10 +10,6 @@ Source1:        opensc.module
 Patch1:         opensc-0.19.0-pinpad.patch
 # File caching by default (#2000626)
 Patch8:         %{name}-0.22.0-file-cache.patch
-# https://github.com/OpenSC/OpenSC/pull/2656
-Patch9:         %{name}-0.23.0-pkcs11-tool-import.patch
-# https://github.com/OpenSC/OpenSC/pull/2787
-Patch10:        %{name}-0.23.0-cardos-buffer-overrun.patch
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -53,8 +49,6 @@ every software/card that does so, too.
 %setup -q
 %patch1 -p1 -b .pinpad
 %patch8 -p1 -b .file-cache
-%patch9 -p1 -b .pkcs11-tool-import
-%patch10 -p1 -b .cardos-buffer-overrun
 
 # The test-pkcs11-tool-allowed-mechanisms already works in Fedora
 sed -i -e '/XFAIL_TESTS/,$ {
@@ -203,6 +197,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Thu Dec 14 2023 Veronika Hanulikova <vhanulik@redhat.com> - 0.24.0-1
+- New upstream release (#2240701)
+
 * Tue Aug 08 2023 Veronika Hanulikova <vhanulik@redhat.com> - 0.23.0-5
 - Fix buffer overrun vulnerability (#2211088), fixes CVE-2023-2977
 

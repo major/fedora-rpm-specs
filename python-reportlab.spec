@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Version:        4.0.7
+Version:        4.0.8
 Release:        %autorelease
 Summary:        Library for generating PDFs and graphics
 License:        BSD and GPLv2+
@@ -18,6 +18,7 @@ BuildRequires:  gcc
 BuildRequires:  freetype-devel
 BuildRequires:  ghostscript
 Buildrequires:  fontpackages-devel
+Buildrequires:  python3-html5lib+chardet
 %global fonts font(dejavusans)
 BuildRequires:  %{fonts}
 

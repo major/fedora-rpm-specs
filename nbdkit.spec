@@ -61,7 +61,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.37.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1329,6 +1329,9 @@ fi
 
 
 %changelog
+* Thu Dec 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.3-3
+- OCaml 5.1.1 rebuild for Fedora 40
+
 * Mon Dec 04 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.3-2
 - Add upstream fix for GCC 14
 

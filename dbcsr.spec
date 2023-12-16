@@ -8,11 +8,22 @@
 # Currently does not build with opencl/libxsmm
 %bcond_with opencl
 
+# No openmpi on i668 with openmpi 5 in Fedora 40+
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
+
 Name: dbcsr
 # SONAME is based on major.minor version
 %global sover 2.6
 Version: %{sover}.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Distributed Block Compressed Sparse Row matrix library
 License: GPL-2.0-or-later
 URL: https://cp2k.github.io/dbcsr/develop/
@@ -65,8 +76,10 @@ Requires: gcc-gfortran%{_isa}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-%global mpi_list openmpi mpich
+%global mpi_list mpich
 
+%if %{with openmpi}
+%global mpi_list %{mpi_list} openmpi
 %package openmpi
 Summary: DBCSR - openmpi version
 BuildRequires:  openmpi-devel
@@ -84,6 +97,7 @@ Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
 %description openmpi-devel
 The %{name}-openmpi-devel package contains libraries and header files for
 developing applications that use %{name}-openmpi.
+%endif
 
 %package mpich
 Summary: DBCSR - mpich version
@@ -129,10 +143,10 @@ export FFLAGS="%{optflags} -fPIC"
 for mpi in %{mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  [ $mpi = "mpich" ] && CMAKE_OPTS=-DUSE_MPI_F08=ON || CMAKE_OPTS=
-  %cmake -DCMAKE_INSTALL_Fortran_MODULES=$MPI_FORTRAN_MOD_DIR %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm} $CMAKE_OPTS \
+  %cmake -DCMAKE_INSTALL_Fortran_MODULES=$MPI_FORTRAN_MOD_DIR %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm} \
    -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
-   -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB
+   -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB \
+   -DUSE_MPI_F08=ON
   %cmake_build
   module purge
 done
@@ -174,6 +188,7 @@ done
 %{_libdir}/cmake/dbcsr/
 %{_libdir}/libdbcsr.so
 
+%if %{with openmpi}
 %files openmpi
 %license LICENSE
 %doc README.md
@@ -188,6 +203,7 @@ done
 %{_libdir}/openmpi/lib/cmake/dbcsr/
 %{_libdir}/openmpi/lib/libdbcsr.so
 %{_libdir}/openmpi/lib/libdbcsr_c.so
+%endif
 
 %files mpich
 %license LICENSE
@@ -205,5 +221,9 @@ done
 %{_libdir}/mpich/lib/libdbcsr_c.so
 
 %changelog
+* Wed Dec 13 2023 Orion Poplawski <orion@nwra.com> - 2.6.0-2
+- No openmpi on i686 for Fedora 40+
+- Set -DUSE_MPI_F08 with openmpi
+
 * Sun Sep 10 2023 Orion Poplawski <orion@nwra.com> - 2.6.0-1
 - Initial package

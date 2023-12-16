@@ -9,8 +9,8 @@
 
 Name:           python-cherrypy
 %global         camelname CherryPy
-Version:        18.8.0
-Release:        7%{?dist}
+Version:        18.9.0
+Release:        1%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 License:        BSD
 URL:            https://cherrypy.dev/
@@ -26,6 +26,10 @@ Patch2:         pytest-ignore-urllib3-pyopenssl-DeprecationWarnings.patch
 # github issue #1973 https://github.com/cherrypy/cherrypy/issues/1973
 # github pr https://github.com/cherrypy/cherrypy/pull/1993
 Patch3:         0001-GitHub-Issue-1973-RFE-Replace-use-of-pkg_resources-w.patch
+
+# replace utcnow with datetime.UTC
+# github pr https://github.com/cherrypy/cherrypy/pull/2007
+Patch4:         0001-Replace-deprecated-utcnow-datetime-function.patch
 
 BuildArch:      noarch
 
@@ -110,6 +114,9 @@ export WEBTEST_INTERACTIVE=false
 %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Thu Dec 14 2023 Dan Radez <dradez@redhat.com> - 18.9.0-1
+- updating to upsteam 18.9.0 rhbz#2254371
+
 * Tue Oct 10 2023 Dan Radez <dradez@redhat.com> - 18.8.0-8
 - adding -devel package to provide test and tutorial modules
 

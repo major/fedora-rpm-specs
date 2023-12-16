@@ -14,6 +14,7 @@ BuildRequires: lzo-devel
 BuildRequires: libattr-devel
 BuildRequires: lz4-devel
 BuildRequires: libzstd-devel
+BuildRequires: libselinux-devel
 BuildRequires: help2man
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}

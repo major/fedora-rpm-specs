@@ -48,6 +48,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KPim6AkonadiContactCore)
 Requires:       cmake(KPim6Akonadi)
 Requires:       cmake(KF6CalendarCore)
+Requires:       cmake(KPim6IdentityManagementCore)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.

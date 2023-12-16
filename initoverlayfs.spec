@@ -1,5 +1,5 @@
 Name:          initoverlayfs
-Version:       0.98
+Version:       0.99
 Release:       1%{?dist}
 Summary:       An initial scalable filesystem for Linux operating systems
 
@@ -39,6 +39,14 @@ install -D -m755 lib/dracut/modules.d/81initoverlayfs/module-setup.sh $RPM_BUILD
 %{_prefix}/lib/dracut/modules.d/81initoverlayfs/
 
 %changelog
+* Thu Dec 14 2023 Stephen Smoogen <ssmoogen@redhat.com> - 0.99-1
+- Update to 0.99 release.
+- shellcheck corrections (Yariv)
+- install: detect where the initramfs exists (Douglas)
+- fix bootfs wait (Eric)
+- Add code for packit
+- Add autotools items for building.
+
 * Thu Dec  7 2023 Stephen Smoogen <ssmoogen@redhat.com> - 0.98-1
 - Release 0.98
 - Improve documentation (PR31 and ecurtin)

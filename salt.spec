@@ -10,7 +10,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3006.4
+Version: 3006.5
 Release: 1%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
@@ -333,6 +333,9 @@ chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 
 
 %changelog
+* Thu Dec 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.5-1
+- 3006.5
+
 * Mon Oct 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.4-1
 - 3006.4
 

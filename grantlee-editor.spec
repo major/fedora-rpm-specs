@@ -1,73 +1,42 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
-%global framework grantleeditor
-
 Name:    grantlee-editor
 Summary: KMail Theme Editor
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
-#BuildRequires: libappstream-glib
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5WebEngine)
-BuildRequires: cmake(Qt5WebEngineWidgets)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6WebEngineWidgets)
+BuildRequires: cmake(QGpgmeQt6)
 
-# kf5
+# kf6
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Grantlee5)
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5SyntaxHighlighting)
-BuildRequires: cmake(KF5TextEditor)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6TextTemplate)
+BuildRequires: cmake(KF6SyntaxHighlighting)
+BuildRequires: cmake(KF6TextCustomEditor)
+BuildRequires: cmake(KF6XmlGui)
 
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: cmake(KF5AkonadiMime)
-BuildRequires: cmake(KF5PimTextEdit)
-BuildRequires: cmake(KPim5AkonadiContact)
-BuildRequires: cmake(KPim5ContactEditor)
-BuildRequires: cmake(KPim5GrantleeTheme)
-BuildRequires: cmake(KPim5IMAP)
-BuildRequires: cmake(KPim5Libkdepim)
-BuildRequires: cmake(KPim5MessageViewer)
-BuildRequires: cmake(KPim5Mime)
-BuildRequires: cmake(KPim5PimCommonAkonadi)
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6PimCommon)
+BuildRequires: cmake(KPim6MessageViewer)
+BuildRequires: cmake(KPim6GrantleeTheme)
+BuildRequires: cmake(KPim6AkonadiContactWidgets)
+BuildRequires: cmake(KPim6IMAP)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -87,52 +56,39 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
-
-## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libgrantleethemeeditor.so
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.contactprintthemeeditor.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.contactthemeeditor.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.headerthemeeditor.desktop
-#appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
-
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.contactprintthemeeditor.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.contactthemeeditor.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.headerthemeeditor.desktop
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_bindir}/contactprintthemeeditor
-%{_kf5_bindir}/contactthemeeditor
-%{_kf5_bindir}/headerthemeeditor
-%{_kf5_datadir}/config.kcfg/grantleethemeeditor.kcfg
-%{_kf5_datadir}/applications/org.kde.contactprintthemeeditor.desktop
-%{_kf5_datadir}/applications/org.kde.contactthemeeditor.desktop
-%{_kf5_datadir}/applications/org.kde.headerthemeeditor.desktop
-
-%ldconfig_scriptlets libs
+%{_kf6_datadir}/qlogging-categories6/grantleeditor.*
+%{_kf6_bindir}/contactprintthemeeditor
+%{_kf6_bindir}/contactthemeeditor
+%{_kf6_bindir}/headerthemeeditor
+%{_kf6_datadir}/config.kcfg/grantleethemeeditor.kcfg
+%{_kf6_datadir}/applications/org.kde.contactprintthemeeditor.desktop
+%{_kf6_datadir}/applications/org.kde.contactthemeeditor.desktop
+%{_kf6_datadir}/applications/org.kde.headerthemeeditor.desktop
 
 %files libs
-%{_kf5_libdir}/libgrantleethemeeditor.so.5*
+%{_kf6_libdir}/libgrantleethemeeditor.so.*
 
 
 %changelog
+* Wed Dec 13 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -1,67 +1,48 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 %global framework importwizard
 
 Name:    akonadi-import-wizard
 Summary: Akonadi Import Wizard
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
-#BuildRequires: libappstream-glib
 
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Gui)
 
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(Grantlee5)
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Auth)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Wallet)
+BuildRequires: cmake
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Auth)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6I18n)
 
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-kidentitymanagement-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires:  kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires:  kf5-mailimporter-devel >= %{majmin_ver}
-BuildRequires:  kf5-messagelib-devel >= %{majmin_ver}
-BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
-
-BuildRequires: cmake(Qt5Keychain)
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-BuildRequires: make
-%endif
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(KPim6IdentityManagementCore)
+BuildRequires: cmake(KPim6MailTransport)
+BuildRequires: cmake(KPim6MailCommon)
+BuildRequires: cmake(KPim6MailImporterAkonadi)
+BuildRequires: cmake(KPim6MessageViewer)
+BuildRequires: cmake(KPim6PimCommonAkonadi)
+BuildRequires: cmake(KPim6Libkdepim)
+BuildRequires: cmake(KF6TextTemplate)
+BuildRequires: cmake(Qt6Keychain)
+BuildRequires: cmake(QGpgmeQt6)
 
 # when split out
 Conflicts: kdepim-common < 16.12
@@ -72,7 +53,7 @@ Conflicts: kdepim-common < 16.12
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(KF5MailTransport)
+Requires:       cmake(KPim6MailTransport)
 %description    devel
 %{summary}.
 
@@ -83,55 +64,39 @@ Requires:       cmake(KF5MailTransport)
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.akonadiimportwizard.desktop
-%endif
-#appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.akonadiimportwizard.desktop
 
-
-%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_bindir}/akonadiimportwizard
-%{_kf5_datadir}/applications/org.kde.akonadiimportwizard.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/kontact-import-wizard.*
-%{_kf5_datadir}/importwizard/
-# -libs?
-%{_kf5_libdir}/libKPim5ImportWizard.so.5*
-%{_kf5_qtplugindir}/pim5/importwizard/
+%{_kf6_datadir}/qlogging-categories6/*%{framework}.*
+%{_kf6_bindir}/akonadiimportwizard
+%{_kf6_datadir}/applications/org.kde.akonadiimportwizard.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/kontact-import-wizard.*
+%{_kf6_datadir}/importwizard/
+%{_kf6_libdir}/libKPim6ImportWizard.so.*
+%{_kf6_qtplugindir}/pim6/importwizard/
 
 %files devel
-%{_kf5_libdir}/libKPim5ImportWizard.so
-%{_kf5_libdir}/cmake/KPimImportWizard/
-%{_kf5_libdir}/cmake/KPim5ImportWizard/
-%dir %{_includedir}/KPim5/
-%{_includedir}/KPim5/ImportWizard/
+%{_kf6_libdir}/libKPim6ImportWizard.so
+%{_kf6_libdir}/cmake/KPim6ImportWizard/
+%dir %{_includedir}/KPim6/
+%{_includedir}/KPim6/ImportWizard/
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

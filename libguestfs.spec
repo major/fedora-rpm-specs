@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.9
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -83,6 +83,10 @@ Source7:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
+
+# Fixes for https://github.com/ocaml/ocaml/issues/12820
+Patch: 0001-ocaml-Use-Gc.finalise-instead-of-a-C-finalizer.patch
+Patch: 0002-ocaml-Nullify-custom-block-before-releasing-runtime-.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
@@ -1094,6 +1098,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Dec 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.9-3
+- Fixes for https://github.com/ocaml/ocaml/issues/12820
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.9-2
 - OCaml 5.1.1 rebuild for Fedora 40
 

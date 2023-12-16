@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	110%{?dist}
+Release:	111%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -555,6 +555,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Dec 12 2023 leo sandoval <lsandova@redhat.com> - 2.06-111
+- chainloader: remove device path debug message
+
 * Fri Dec 1 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-110
 - fs/xfs: Add several fixes/improvements to xfs fs from upstream
 - Resolves: #2247926

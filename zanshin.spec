@@ -1,64 +1,45 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-## * significantly increases build-time and there at least several failures
-##   ping upstream if this is expected
-## * FTBFS on arm (disable for now)
-#ifnarch %%{arm}
-#global tests 1
-#endif
-%endif
-
 Name:           zanshin
-Version:        23.08.2
+Version:        24.01.80
 Release:        1%{?dist}
 Summary:        Todo/action management software
 
-License:        GPLv2
+License:        CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:            http://zanshin.kde.org/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
 BuildRequires:  intltool
-## kf5
-BuildRequires:  cmake(KPim5Akonadi)
-BuildRequires:  cmake(KPim5AkonadiCalendar) cmake(KPim5AkonadiContact)
-BuildRequires:  cmake(KPim5AkonadiNotes)
-BuildRequires:  cmake(KPim5AkonadiSearch)
-BuildRequires:  cmake(KPim5IdentityManagement)
-BuildRequires:  cmake(KPim5KontactInterface)
-BuildRequires:  cmake(KPim5Ldap)
-BuildRequires:  cmake(KF5Runner)
-BuildRequires:  cmake(KF5TextEditTextToSpeech)
-BuildRequires:  cmake(KF5Wallet)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5Test)
+BuildRequires:  cmake
+BuildRequires:  kf6-rpm-macros
 ## %%check
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-%if 0%{?tests}
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Test)
+
 BuildRequires:  boost-devel
-BuildRequires:  dbus-x11
-BuildRequires:  kf5-akonadi-server
-BuildRequires:  kf5-akonadi-server-devel
-BuildRequires:  time
-BuildRequires:  xorg-x11-server-Xvfb
-%endif
+
+BuildRequires:  cmake(KF6Runner)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6CalendarCore)
+BuildRequires:  cmake(KF6Parts)
+
+BuildRequires:  cmake(KPim6Akonadi)
+BuildRequires:  cmake(KPim6AkonadiCalendar)
+BuildRequires:  cmake(KPim6KontactInterface)
+BuildRequires:  cmake(KPim6IdentityManagementCore)
+
+
 
 Provides: zanshin-frontend = %{version}-%{release}
 Requires: zanshin-common = %{version}-%{release}
@@ -86,41 +67,34 @@ BuildArch: noarch
 
 
 %build
-%{cmake_kf5} \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name
 
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-time \
-%ctest --timeout 30
-%endif
 
 %files common -f %{name}.lang
-%{_kf5_datadir}/icons/hicolor/*/*/zanshin.*
+%{_kf6_datadir}/icons/hicolor/*/*/zanshin.*
 
 %files
-%{_kf5_bindir}/zanshin*
-%{_kf5_metainfodir}/org.kde.zanshin.metainfo.xml
-%{_kf5_datadir}/applications/org.kde.zanshin.desktop
-%{_kf5_datadir}/kxmlgui5/zanshin/
-%{_qt5_plugindir}/pim5/kontact/kontact_zanshinplugin.so
-%{_qt5_plugindir}/zanshin_part.so
-%{_kf5_plugindir}/krunner/org.kde.%{name}.so
+%{_kf6_bindir}/zanshin*
+%{_kf6_metainfodir}/org.kde.zanshin.metainfo.xml
+%{_kf6_datadir}/applications/org.kde.zanshin.desktop
+%{_qt6_plugindir}/pim6/kontact/kontact_zanshinplugin.so
+%{_qt6_plugindir}/zanshin_part.so
+%{_kf6_plugindir}/krunner/org.kde.%{name}.so
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

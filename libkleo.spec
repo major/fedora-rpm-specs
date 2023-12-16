@@ -43,6 +43,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 # INTERFACE_LINK_LIBRARIES "QGpgme;Gpgmepp"
 Requires:       cmake(Gpgmepp)
 Requires:       cmake(QGpgme)
+Requires:       cmake(QGpgmeQt6)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.

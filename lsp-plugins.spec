@@ -1,11 +1,13 @@
 Name:           lsp-plugins
 Version:        1.2.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
 URL:            https://lsp-plug.in/
 Source0:        https://github.com/sadko4u/%{name}/releases/download/%{version}/%{name}-src-%{version}.tar.gz
+# Upstream PR: https://github.com/lsp-plugins/lsp-dsp-lib/pull/20
+Patch0:         0001-Fix-aarch64-msmatrix-code.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -159,6 +161,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/clap/%{name}-clap.clap
 
 %changelog
+* Thu Dec 14 2023 Hector Martin <marcan@fedoraproject.org> - 1.2.13-2
+- Add patch to fix aarch64
+
 * Mon Oct 30 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.2.13-1
 - Update to 1.2.13
 

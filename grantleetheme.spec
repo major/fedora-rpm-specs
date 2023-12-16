@@ -41,6 +41,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Conflicts:      kf5-grantleetheme-devel < 0:24.01.75
 Obsoletes:      kf5-grantleetheme-devel < 0:24.01.75
+Requires:       cmake(KF6TextTemplate)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.

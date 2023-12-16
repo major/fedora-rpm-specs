@@ -1,16 +1,14 @@
 Name:           composefs
-Version:        1.0.1
-Release:        4%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Tools to handle creating and mounting composefs images
 
 License:        GPL-3.0-or-later AND LGPL-2.0-or-later AND Apache-2.0
 URL:            https://github.com/containers/composefs
 Source0:        https://github.com/containers/composefs/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# Use go-md2man instead of pandoc for building manpages
-# https://github.com/containers/composefs/pull/227 (backported)
-Patch0:         227.patch
 
-BuildRequires:  gcc automake libtool openssl-devel yajl-devel go-md2man fuse3-devel
+BuildRequires:  gcc automake libtool openssl-devel go-md2man fuse3-devel
+
 Requires:       %{name}-libs = %{version}-%{release}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -48,7 +46,6 @@ autoreconf -fiv
 %configure \
            --disable-static \
            --enable-man \
-           --with-yajl \
            --with-fuse
 %make_build
 
@@ -66,6 +63,7 @@ rm -rf %{buildroot}%{_libdir}/libcomposefs.la
 %{_libdir}/libcomposefs.so.*
 
 %files
+%license COPYING COPYING.LIB COPYING.LESSERv3 COPYINGv3 LICENSE.Apache-2.0 BSD-2-Clause.txt
 %doc README.md
 %{_bindir}/mkcomposefs
 %{_bindir}/composefs-info
@@ -73,4 +71,5 @@ rm -rf %{buildroot}%{_libdir}/libcomposefs.la
 %{_mandir}/man*/*
 
 %changelog
+
 %autochangelog

@@ -4,7 +4,7 @@
 %global crate bankstown-lv2
 
 Name:           rust-bankstown-lv2
-Version:        1.0.0
+Version:        1.0.2
 Release:        %autorelease
 Summary:        Barebones, fast LV2 bass enhancement plugin
 

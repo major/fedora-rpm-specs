@@ -1,6 +1,6 @@
 Name:           python-netaddr
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
@@ -32,6 +32,10 @@ Layer 2 addresses\
  * looking up IEEE organisational information (OUI, IAB)\
  * generating derived IPv6 addresses
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2246093
+# Merged upstream via https://github.com/netaddr/netaddr/pull/272
+# To be removed when version > 0.9.0 released
+Patch0: 0001-Improve-Python-3.13-compatibility-272.patch
 
 %global _description\
 %{desc}
@@ -57,7 +61,7 @@ Requires:  python3-ipython
 An IPython-based shell environment for the netaddr library
 
 %prep
-%setup -q -n netaddr-%{version}
+%autosetup -n netaddr-%{version} -p1
 
 # Make rpmlint happy, rip out python shebang lines from most python
 # modules
@@ -96,6 +100,9 @@ py.test-%{python3_version}
 %{_bindir}/netaddr
 
 %changelog
+* Thu Dec 14 2023 John Eckersberg <jeckersb@redhat.com> - 0.9.0-2
+- Add patch for Python 3.13 compatibility (rhbz#2246093)
+
 * Tue Sep 19 2023 John Eckersberg <jeckersb@redhat.com> - 0.9.0-1
 - New upstream release 0.9.0 (rhbz#2239532)
 

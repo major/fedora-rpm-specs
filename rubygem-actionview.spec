@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -25,6 +25,8 @@ Source2: rails-%{version}%{?prerelease}-tools.txz
 Patch0: rubygem-actionview-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
 # https://github.com/rails/rails/pull/45370
 Patch1: rubygem-actionview-7.0.2.3-Fix-tests-for-minitest-5.16.patch
+# https://github.com/rails/rails/pull/49416
+Patch2: rubygem-actionview-pr49416-RenderCallExtractor-ruby33-compat.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -57,6 +59,7 @@ pushd %{_builddir}
 %patch 0 -p2
 %patch 1 -p2
 popd
+%patch 2 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -81,6 +84,11 @@ mv %{_builddir}/test .
 # https://github.com/rails/rails/issues/46130
 mv test/template/date_helper_i18n_test.rb{,.disable}
 
+# Make it sure that we are using fixed library, not
+# using library already installed in system path
+# (dependency loop)
+export RUBYLIB=$(pwd)/lib
+
 # Run separately as we need to avoid superclass mismatch errors
 find test -type f -name '*_test.rb' -print0 | \
   sort -z | \
@@ -102,6 +110,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Mon Oct  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.0.8-2
+- Apply upstream fix for RipperTrackerTest testsuite with ruby 3.3
+
 * Sun Sep 10 2023 Pavel Valena <pvalena@redhat.com> - 7.0.8-1
 - Update to actionview 7.0.8.
 

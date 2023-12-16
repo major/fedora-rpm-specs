@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 17
+%global baserelease 18
 
 Name: dracut
 Version: 059
@@ -93,6 +93,10 @@ Patch16: https://github.com/dracutdevs/dracut/pull/2527.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2249112
 # https://github.com/dracutdevs/dracut/pull/2481
 Patch17: 2481-remove-microcode-check-based-on-CONFIG_MICROCODE_.patch
+
+# Fix for Lenovo x13s
+# https://github.com/dracutdevs/dracut/pull/2531
+Patch: 2531.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -494,6 +498,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Fri Dec 08 2023 Dennis Gilmore <dennis@ausil.us> - 059-18
+- Add Qualcomm IPC router to enable USB(Lenovo x13s)
+
 * Thu Nov 16 2023 Pavel Valena <pvalena@redhat.com> - 059-17
 - fix(dracut.sh): remove microcode check based on
 

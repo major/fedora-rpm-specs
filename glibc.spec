@@ -119,12 +119,26 @@
 -- https://github.com/projectatomic/rpm-ostree/pull/1869
 -- If we add new lua actions to the %%post code we should coordinate
 -- with rpm-ostree and ensure that their glibc install is functional.
---
+-- We must not use rpm.execute because this is a RPM 4.15 features and
+-- we must still support downstream bootstrap with RPM 4.14 and missing
+-- containerized boostrap.
+
+-- Open-code rpm.execute with error message handling.
+function post_exec (msg, program, ...)
+  local pid = posix.fork ()
+  if pid == 0 then
+    posix.exec (program, ...)
+    io.stdout:write (msg)
+    assert (nil)
+  elseif pid > 0 then
+    posix.wait (pid)
+  end
+end
+
 -- Note: We use _prefix because Fedora's UsrMove says so.
 function call_ldconfig ()
-  if not rpm.execute("%{_prefix}/sbin/ldconfig") then
-    io.stdout:write ("Error: call to %{_prefix}/sbin/ldconfig failed.\n")
-  end
+  post_exec("Error: call to %{_prefix}/sbin/ldconfig failed.\n",
+	    "%{_prefix}/sbin/ldconfig")
 end
 
 function update_gconv_modules_cache ()
@@ -133,13 +147,11 @@ function update_gconv_modules_cache ()
   local iconv_modules = iconv_dir .. "/gconv-modules"
   if posix.utime(iconv_modules) == 0 then
     if posix.utime (iconv_cache) == 0 then
-      if not rpm.execute("%{_prefix}/sbin/iconvconfig",
-		         "-o", iconv_cache,
-		         "--nostdlib",
-		         iconv_dir)
-      then
-	io.stdout:write ("Error: call to %{_prefix}/sbin/iconvconfig failed.\n")
-      end
+      post_exec ("Error: call to %{_prefix}/sbin/iconvconfig failed.\n",
+		 "%{_prefix}/sbin/iconvconfig",
+		 "-o", iconv_cache,
+		 "--nostdlib",
+		 iconv_dir)
     else
       io.stdout:write ("Error: Missing " .. iconv_cache .. " file.\n")
     end
@@ -159,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 27
+%global baserelease 28
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2200,6 +2212,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Dec 13 2023 Carlos O'Donell <carlos@redhat.com> - 2.38.9000-28
+- Depend only on RPM 4.14 features (RHEL-19045)
+
 * Fri Dec 08 2023 Carlos O'Donell <carlos@redhat.com> - 2.38.9000-27
 - Drop glibc-rh2248502.patch; fix applied upstream, and
 - Auto-sync with upstream branch master,

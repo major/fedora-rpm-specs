@@ -1,82 +1,58 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 Name:    akonadiconsole
 Summary: Akonadi developer tool
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL
 URL:     https://invent.kde.org/pim/akonadiconsole/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
-#BuildRequires: libappstream-glib
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Sql)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6TextTemplate)
+
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(KF6CalendarCore)
+BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KPim6AkonadiMime)
+BuildRequires: cmake(KPim6Libkdepim)
+BuildRequires: cmake(KPim6AkonadiContactWidgets)
+BuildRequires: cmake(KPim6CalendarSupport)
+BuildRequires: cmake(KPim6MessageViewer)
+BuildRequires: cmake(KPim6AkonadiSearch)
+BuildRequires: xapian-core-devel
+BuildRequires: cmake(QGpgmeQt6)
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Grantlee5)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5ItemModels)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KPim5MessageViewer)
-
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-search-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires:  kf5-calendarsupport-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
-BuildRequires:  kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkleo-devel  >= %{majmin_ver}
-BuildRequires:  kf5-messagelib-devel  >= %{majmin_ver}
-BuildRequires:  cmake(KPim5AkonadiSearch)
-
-BuildRequires: pkgconfig(xapian-core)
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-BuildRequires: make
-%endif
+BuildRequires: kf6-rpm-macros
 
 # upgrade path, previously included here
-Requires: akonadi-calendar-tools >= %{majmin_ver}
+Requires: akonadi-calendar-tools
 
 %description
 Akonadi Console is a tool for Akonadi developers that provides means of direct
@@ -89,42 +65,31 @@ other tools.
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-#appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
-
-
-%ldconfig_scriptlets
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{name}.*
-%{_kf5_bindir}/akonadiconsole
-%{_kf5_datadir}/applications/org.kde.akonadiconsole.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/akonadiconsole.*
-# -libs ?
-%{_kf5_libdir}/libakonadiconsole.so.*
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_bindir}/akonadiconsole
+%{_kf6_datadir}/applications/org.kde.akonadiconsole.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/akonadiconsole.*
+%{_kf6_libdir}/libakonadiconsole.so.*
 
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -70,9 +70,6 @@ echo "=== Start prep ==="
 tar c -C vendor/ . | tar x -C %{gobuilddir}/src
 %autopatch -v -p1
 
-%generate_buildrequires
-%go_generate_buildrequires
-
 %build
 echo "=== Start build ==="
 %gobuild -o %{gobuilddir}/bin/dlv %{goipath}/cmd/dlv

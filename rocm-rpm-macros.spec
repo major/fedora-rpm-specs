@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -13,6 +13,9 @@ Source3:        gfx8
 Source4:        gfx9
 Source5:        gfx10
 Source6:        gfx11
+Source7:        gfx906
+Source8:        gfx908
+Source9:        gfx90a
 
 %global gpu_list gfx8 gfx9 gfx10 gfx11
 
@@ -40,6 +43,9 @@ install -pm 644 %{SOURCE3} modules
 install -pm 644 %{SOURCE4} modules
 install -pm 644 %{SOURCE5} modules
 install -pm 644 %{SOURCE6} modules
+install -pm 644 %{SOURCE7} modules
+install -pm 644 %{SOURCE8} modules
+install -pm 644 %{SOURCE9} modules
 
 
 %install
@@ -68,6 +74,9 @@ done
 %{_datadir}/modulefiles/rocm/
 
 %changelog
+* Tue Dec 12 2023 Tom Rix <trix@redhat.com> 1.0-8
+- Add gfx906, gfx908 and gfx90a modules
+
 * Fri Nov 17 2023 Jeremy Newton <alexjnewt at hotmail dot com> 1.0-7
 - Add more directory ownership
 

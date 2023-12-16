@@ -10,7 +10,7 @@ ExcludeArch: s390x
 %bcond_without netfilteracct
 %endif
 
-# Because cups is too old in el7
+# Because cups is too old in el7 and log2journal is not available
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %bcond_with cups
 %bcond_with log2journal
@@ -44,7 +44,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.44.0
+%global upver        1.44.1
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -422,6 +422,9 @@ echo "Netdata go plugin can be easily installed with %{_sbindir}/netdata-install
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Thu Dec 14 2023 Didier Fabert <didier.fabert@gmail.com> 1.44.1-1
+- Update from upstream
+
 * Thu Dec 07 2023 Didier Fabert <didier.fabert@gmail.com> 1.44.0-1
 - Update from upstream
 

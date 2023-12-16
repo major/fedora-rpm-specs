@@ -22,10 +22,13 @@
 
 Name: oddjob
 Version: 0.34.7
-Release: 9%{?dist}
+Release: 10%{?dist}
 Source0: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz
 Source1: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz.asc
 Patch1: oddjob-override-mask-fix.patch
+# Fix build with libxml2-2.12.0
+# https://pagure.io/oddjob/pull-request/24
+Patch2: oddjob-libxml2.patch
 Summary: A D-Bus service which runs odd jobs on behalf of client applications
 License: BSD
 BuildRequires: make
@@ -90,6 +93,7 @@ This package contains a trivial sample oddjob service.
 %prep
 %setup -q
 %patch1 -p1
+%patch -P2 -p1
 
 %build
 sample_flag=
@@ -249,6 +253,9 @@ fi
 exit 0
 
 %changelog
+* Wed Dec 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.34.7-10
+- Fix build with libxml2-2.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,18 +1,16 @@
+%global mfx_major 2
+%global mfx_minor 10
+
 Name:           oneVPL
-Version:        2023.3.1
-Release:        1%{?dist}
+Version:        2023.4.0
+Release:        2%{?dist}
 Summary:        oneAPI Video Processing Library
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
 ExclusiveArch:  x86_64
 
-Source0:        https://github.com/oneapi-src/oneVPL/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/intel/libvpl/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-system-analyzer.patch
-# https://github.com/oneapi-src/oneVPL/issues/94
-# https://bugzilla.redhat.com/show_bug.cgi?id=2177912
-# Don't install stuff to /usr/etc , it's all kinds of wrong and breaks
-# ostree
-Patch1:         %{name}-etc.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -26,7 +24,6 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.15
 BuildRequires:  pkgconfig(x11)
 
 Recommends:     intel-mediasdk
-Recommends:     oneVPL-cpu
 Recommends:     oneVPL-intel-gpu
 
 # The Python bindings were removed in 2023.0.0
@@ -41,7 +38,6 @@ The base package is limited to the dispatcher and samples. To use oneVPL for
 video processing you need to install at least one implementation. Current
 implementations:
 
-- oneVPL-cpu for use on CPU
 - oneVPL-intel-gpu for use on Intel Xe graphics and newer
 - intel-mediasdk for use on legacy Intel graphics
 
@@ -61,16 +57,14 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 This package contains sample programs and applications that use %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n libvpl-%{version}
 
 %build
-%cmake
+%cmake -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
 %cmake_build
 
 %install
 %cmake_install
-
-find %{buildroot} -name '*.la' -delete
 
 # Let RPM pick up documents in the files section
 rm -fr %{buildroot}%{_datadir}/vpl/licensing
@@ -80,19 +74,15 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %doc README.md CONTRIBUTING.md third-party-programs.txt
 %dir %{_sysconfdir}/vpl
 %{_sysconfdir}/vpl/vars.sh
-%dir %{_sysconfdir}/modulefiles
-%{_sysconfdir}/modulefiles/vpl
+%{_bindir}/system_analyzer
+%{_libdir}/libvpl.so.%{mfx_major}
+%{_libdir}/libvpl.so.%{mfx_major}.%{mfx_minor}
 %dir %{_libdir}/vpl
 %{_libdir}/vpl/libvpl_wayland.so
-%{_bindir}/system_analyzer
-%{_libdir}/libvpl.so.2
-%{_libdir}/libvpl.so.2.9
 
 %files devel
 %{_includedir}/vpl
-%dir %{_libdir}/cmake/vpl
-%{_libdir}/cmake/vpl/VPLConfig.cmake
-%{_libdir}/cmake/vpl/VPLConfigVersion.cmake
+%{_libdir}/cmake/vpl
 %{_libdir}/libvpl.so
 %{_libdir}/pkgconfig/vpl.pc
 
@@ -102,10 +92,15 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_bindir}/sample_multi_transcode
 %{_bindir}/sample_vpp
 %{_bindir}/vpl-inspect
-%dir %{_datadir}/vpl
-%{_datadir}/vpl/examples
+%{_datadir}/vpl
 
 %changelog
+* Thu Dec 14 2023 Simone Caronni <negativo17@gmail.com> - 2023.4.0-2
+- Drop patch, adjust file section.
+
+* Mon Dec 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2023.4.0-1
+- Update to 2023.4.0
+
 * Tue Oct 03 2023 Simone Caronni <negativo17@gmail.com> - 2023.3.1-1
 - Update to 2023.3.1.
 

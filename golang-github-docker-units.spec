@@ -4,7 +4,7 @@
 
 # https://github.com/docker/go-units
 %global goipath         github.com/docker/go-units
-Version:                0.4.0
+Version:                0.5.0
 
 %gometa
 

@@ -9,7 +9,7 @@
 
 Name:           libnbd
 Version:        1.19.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -24,6 +24,10 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
+
+# Fixes for https://github.com/ocaml/ocaml/issues/12820
+Patch: 0001-ocaml-Use-Gc.finalize-instead-of-a-C-finalizer.patch
+Patch: 0002-ocaml-Nullify-custom-block-before-releasing-runtime-.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -375,6 +379,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Dec 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.2-3
+- Fixes for https://github.com/ocaml/ocaml/issues/12820
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.2-2
 - OCaml 5.1.1 rebuild for Fedora 40
 

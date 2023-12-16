@@ -1,7 +1,7 @@
 Name:           s-nail
 Version:        14.9.24
-Release:        7%{?dist}
-Summary:        Environment for sending and receiving mail
+Release:        8%{?dist}
+Summary:        Environment for sending and receiving mail, providing functionality of POSIX mailx
 
 # Everything is ISC except parts coming from the original Heirloom mailx which are BSD
 License:        ISC AND BSD-4-Clause-UC AND BSD-3-Clause AND RSA-MD AND HPND-sell-variant
@@ -23,9 +23,10 @@ BuildRequires:  krb5-devel
 BuildRequires:  libidn2-devel
 BuildRequires:  ncurses-devel
 
-Requires(post):   %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
-Requires(preun):  %{_sbindir}/update-alternatives
+Requires(pre):  %{_sbindir}/update-alternatives
+
+Provides:       mailx = %{version}-%{release}
+Obsoletes:      mailx < 12.6
 
 # For backwards compatibility
 Provides: /bin/mail
@@ -81,11 +82,11 @@ EOF
 # s-nail binary is installed with 0555 permissions, fix that
 chmod 0755 %{buildroot}%{_bindir}/%{name}
 
-# provide files for alternative usage
-ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/mailx.%{name}
-touch %{buildroot}%{_bindir}/{Mail,mail,mailx,nail}
-ln -s %{_mandir}/man1/%{name}.1 %{buildroot}%{_mandir}/man1/mailx.%{name}.1
-touch %{buildroot}%{_mandir}/man1/{Mail,mail,mailx,nail}.1
+# compatibility symlinks
+for f in Mail mail mailx nail; do
+    ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/$f
+    ln -s %{_mandir}/man1/%{name}.1 %{buildroot}%{_mandir}/man1/$f.1
+done
 
 
 %check
@@ -97,63 +98,29 @@ make test
 
 
 %pre
-# remove alternativized files if they are not symlinks
-for f in Mail mail mailx nail; do
-    [ -L %{_bindir}/$f ] || rm -f %{_bindir}/$f >/dev/null 2>&1 || :
-    [ -L %{_mandir}/man1/$f.1.gz ] || rm -f %{_mandir}/man1/$f.1.gz >/dev/null 2>&1 || :
-done
-
-
-%preun
-if [ $1 -eq 0 ]; then
-    %{_sbindir}/update-alternatives --remove mailx %{_bindir}/mailx.%{name} >/dev/null 2>&1 || :
-fi
-
-
-%post -e
-ALTERNATIVES_DOCS=""
-[ "%%{_excludedocs}" = 1 ] || ALTERNATIVES_DOCS='
-    --slave %{_mandir}/man1/mailx.1.gz mailx.1.gz %{_mandir}/man1/mailx.%{name}.1.gz
-    --slave %{_mandir}/man1/Mail.1.gz Mail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz
-    --slave %{_mandir}/man1/mail.1.gz mail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz
-    --slave %{_mandir}/man1/nail.1.gz nail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz'
-
-# set up the alternatives files
-%{_sbindir}/update-alternatives --install %{_bindir}/mailx mailx %{_bindir}/mailx.%{name} 100 \
-    --slave %{_bindir}/Mail Mail %{_bindir}/mailx.%{name} \
-    --slave %{_bindir}/mail mail %{_bindir}/mailx.%{name} \
-    --slave %{_bindir}/nail nail %{_bindir}/mailx.%{name} \
-    $ALTERNATIVES_DOCS \
-    >/dev/null 2>&1 || :
-
-
-%postun
-if [ $1 -ge 1 ]; then
-    if [ "$(readlink %{_sysconfdir}/alternatives/mailx)" == "%{_bindir}/mailx.%{name}" ]; then
-        %{_sbindir}/update-alternatives --set mailx %{_bindir}/mailx.%{name} >/dev/null 2>&1 || :
-    fi
-fi
+%{_sbindir}/update-alternatives --remove-all mailx >/dev/null 2>&1 || :
 
 
 %files
 %license COPYING
 %doc README
-%ghost %{_bindir}/Mail
-%ghost %{_bindir}/mail
-%ghost %{_bindir}/mailx
-%ghost %{_bindir}/nail
-%{_bindir}/mailx.%{name}
+%{_bindir}/Mail
+%{_bindir}/mail
+%{_bindir}/nail
+%{_bindir}/mailx
 %{_bindir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}.rc
-%ghost %{_mandir}/man1/Mail.1*
-%ghost %{_mandir}/man1/mail.1*
-%ghost %{_mandir}/man1/mailx.1*
-%ghost %{_mandir}/man1/nail.1*
-%{_mandir}/man1/mailx.%{name}.1*
+%{_mandir}/man1/Mail.1*
+%{_mandir}/man1/mail.1*
+%{_mandir}/man1/nail.1*
+%{_mandir}/man1/mailx.1*
 %{_mandir}/man1/%{name}.1*
 
 
 %changelog
+* Mon Dec 11 2023 Nikola Forró <nforro@redhat.com> - 14.9.24-8
+- Replace and obsolete mailx
+
 * Wed Nov 01 2023 Tomas Korbar <tkorbar@redhat.com> - 14.9.24-7
 - Add licenses to fully conform to SPDX
 

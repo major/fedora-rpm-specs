@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 048e9da4ddef5829bef5141a48b5ad083c17c361
+%global commit 21648f766d2f09a86df8eaede5bb3262db488b92
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.6
+Version: 40.7
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,25 @@ exit 0
 %endif
 
 %changelog
+* Wed Dec 13 2023 Zdenek Pytela <zpytela@redhat.com> - 40.7-1
+- Make named_zone_t and named_var_run_t a part of the mountpoint attribute
+- Allow sysadm execute traceroute in sysadm_t domain using sudo
+- Allow sysadm execute tcpdump in sysadm_t domain using sudo
+- Allow opafm search nfs directories
+- Add support for syslogd unconfined scripts
+- Allow gpsd use /dev/gnss devices
+- Allow gpg read rpm cache
+- Allow virtqemud additional permissions
+- Allow virtqemud manage its private lock files
+- Allow virtqemud use the io_uring api
+- Allow ddclient send e-mail notifications
+- Allow postfix_master_t map postfix data files
+- Allow init create and use vsock sockets
+- Allow thumb_t append to init unix domain stream sockets
+- Label /dev/vas with vas_device_t
+- Change domain_kernel_load_modules boolean to true
+- Create interface selinux_watch_config and add it to SELinux users
+
 * Tue Nov 28 2023 Zdenek Pytela <zpytela@redhat.com> - 40.6-1
 - Add afterburn to modules-targeted-contrib.conf
 - Update cifs interfaces to include fs_search_auto_mountpoints()

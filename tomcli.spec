@@ -4,8 +4,22 @@
 # SPDX-License-Identifier: MIT
 # License text: https://spdx.org/licenses/MIT.html
 
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
+%if %{with tests} && %{with bootstrap}
+%{error:--with tests and --with bootstrap are mutually exclusive}
+%endif
+
+# Add minimal py3_test_envvars for EPEL 9
+%if %{undefined py3_test_envvars}
+%define py3_test_envvars %{shrink:
+PYTHONPATH=%{buildroot}%{python3_sitelib}
+PATH=%{buildroot}%{_bindir}:${PATH}
+}
+%endif
+
 Name:           tomcli
-Version:        0.3.0
+Version:        0.5.0
 Release:        1%{?dist}
 Summary:        CLI for working with TOML files. Pronounced "tom clee."
 
@@ -39,7 +53,11 @@ tomcli is a CLI for working with TOML files. Pronounced "tom clee."
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x all,tomlkit,tomli,test %{?el9:-w}
+%{pyproject_buildrequires %{shrink:
+    -x tomli
+    %{!?with_bootstrap:-x all,tomlkit}
+    %{?with_tests:-x test}
+}}
 
 
 %build
@@ -55,27 +73,38 @@ mkdir -p %{buildroot}%{fish_completions_dir}
 mkdir -p %{buildroot}%{zsh_completions_dir}
 
 (
-export PYTHONPATH="%{buildroot}%{python3_sitelib}"
-export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
-for command in %{buildroot}%{_bindir}/tomcli*; do
-    $command --show-completion=bash > "%{buildroot}%{bash_completions_dir}/$(basename $command)"
-    $command --show-completion=fish > "%{buildroot}%{fish_completions_dir}/$(basename $command).fish"
-    $command --show-completion=zsh > "%{buildroot}%{zsh_completions_dir}/_$(basename $command)"
-done
+export %{py3_test_envvars}
+%{python3} compgen.py \
+    --installroot %{buildroot} \
+    --bash-dir %{bash_completions_dir} \
+    --fish-dir %{fish_completions_dir} \
+    --zsh-dir %{zsh_completions_dir}
 )
 
 
 %check
+# Smoke test
+(
+export %{py3_test_envvars}
+cp pyproject.toml test.toml
+name="$(tomcli-get test.toml project.name)"
+test "${name}" = "tomcli"
+
+tomcli-set test.toml str project.name not-tomcli
+newname="$(tomcli-get test.toml project.name)"
+test "${newname}" = "not-tomcli"
+)
+
+%pyproject_check_import
+%if %{with tests}
 %pytest
+%endif
 
 
 %pyproject_extras_subpkg -n tomcli all tomli tomlkit
 
 
 %files -f %{pyproject_files}
-# I prefer not to rely on %%pyproject_save_files to mark files with %%license.
-# Also, Fedora's hatchling supports the current draft of PEP 639, but EPEL 9's
-# does not.
 %license LICENSES/*.txt
 %doc README.md
 %doc NEWS.md
@@ -86,6 +115,9 @@ done
 
 
 %changelog
+* Thu Dec 14 2023 Maxwell G <maxwell@gtmx.me> - 0.5.0-1
+- Update to 0.5.0.
+
 * Thu Sep 07 2023 Maxwell G <maxwell@gtmx.me> - 0.3.0-1
 - Update to 0.3.0.
 

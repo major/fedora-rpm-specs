@@ -1,119 +1,95 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 Name:    kmail
 Summary: Mail client
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
 URL:     https://www.kde.org/applications/internet/kmail
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstream patches (lookaside cache)
 
-BuildRequires: boost-devel
-BuildRequires: cmake(Gpgmepp) cmake(QGpgme)
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
-BuildRequires: pkgconfig(phonon4qt5)
+BuildRequires: cmake(Gpgmepp)
+BuildRequires: cmake(QGpgmeQt6)
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5WebEngine)
-BuildRequires: cmake(Qt5Xml)
-
-# kf5
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Grantlee5)
-BuildRequires: cmake(KF5Bookmarks)
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5GuiAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5ItemViews)
-BuildRequires: cmake(KF5JobWidgets)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5NotifyConfig)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5Sonnet)
-BuildRequires: cmake(KF5TextAutoCorrectionWidgets)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6Sonnet)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(KF6CalendarCore)
+BuildRequires: cmake(KF6StatusNotifierItem)
 
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-search-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires: kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires: kf5-kcalendarutils-devel >= %{majmin_ver}
-BuildRequires: kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires: kf5-kidentitymanagement-devel >= %{majmin_ver}
-BuildRequires: kf5-kldap-devel >= %{majmin_ver}
-BuildRequires: kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires: kf5-kmime-devel >= %{majmin_ver}
-BuildRequires: kf5-kontactinterface-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf5-ktnef-devel >= %{majmin_ver}
-BuildRequires: kf5-libgravatar-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-libkleo-devel >= %{majmin_ver}
-BuildRequires: kf5-libksieve-devel >= %{majmin_ver}, cmake(KF5SyntaxHighlighting)
-BuildRequires: kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-messagelib-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
-
-BuildRequires: cmake(KUserFeedback)
-BuildRequires: cmake(Qt5Keychain)
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KPim6AkonadiContactWidgets)
+BuildRequires: cmake(KPim6AkonadiMime)
+BuildRequires: cmake(KPim6CalendarUtils)
+BuildRequires: cmake(KPim6IdentityManagementCore)
+BuildRequires: cmake(KPim6LdapWidgets)
+BuildRequires: cmake(KPim6MailTransport)
+BuildRequires: cmake(KPim6TextEdit)
+BuildRequires: cmake(KPim6KontactInterface)
+BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KPim6Gravatar)
+BuildRequires: cmake(KPim6Libkdepim)
+BuildRequires: cmake(KPim6Libkleo)
+BuildRequires: cmake(KPim6KSieveUi)
+BuildRequires: cmake(KPim6MailCommon)
+BuildRequires: cmake(KPim6MessageCore)
+BuildRequires: cmake(KPim6MessageComposer)
+BuildRequires: cmake(KPim6MessageList)
+BuildRequires: cmake(KPim6MessageViewer)
+BuildRequires: cmake(KPim6PimCommonAkonadi)
+BuildRequires: cmake(KPim6TemplateParser)
+BuildRequires: cmake(KPim6Tnef)
+BuildRequires: cmake(KPim6MailTransportDBusService)
+BuildRequires: cmake(KPim6AkonadiSearch)
+BuildRequires: cmake(KF6TextEditTextToSpeech)
+BuildRequires: cmake(KF6TextAutoCorrectionWidgets)
+BuildRequires: cmake(KF6TextUtils)
+BuildRequires: cmake(KF6TextCustomEditor)
+BuildRequires: cmake(KF6TextTemplate)
+BuildRequires: cmake(Qt6Keychain)
 
 Obsoletes: pim-storage-service-manager < 17.03
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 ## runtime deps
-Requires: akonadi-import-wizard >= %{majmin_ver}
-Requires: grantlee-editor >= %{majmin_ver}
-Requires: kdepim-runtime >= %{majmin_ver}
-Requires: kmail-account-wizard >= %{majmin_ver}
-Requires: pim-data-exporter >= %{majmin_ver}
-Requires: pim-sieve-editor >= %{majmin_ver}
+Requires: akonadi-import-wizard
+Requires: grantlee-editor
+Requires: kdepim-runtime
+Requires: kmail-account-wizard
+Requires: pim-data-exporter
+Requires: pim-sieve-editor
 
 %description
 %{summary}.
@@ -130,99 +106,66 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
-## unpackaged files
-rm -rfv %{buildroot}%{_kf5_datadir}/icons/locolor
-
-
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
 for f in %{buildroot}%{_kf5_datadir}/applications/*.desktop ; do
   desktop-file-validate $f
 done
-%endif
-for f in %{buildroot}%{_kf5_metainfodir}/*.appdata.xml ; do
+for f in %{buildroot}%{_kf6_metainfodir}/*.appdata.xml ; do
 appstream-util validate-relax --nonet $f
 done
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
 
-
-# symlink replaced by dir in 16 -> 17 upgrade
-# https://fedoraproject.org/wiki/Packaging:Directory_Replacement
-%pretrans -p <lua>
-path = "%{_kf5_docdir}/HTML/en/kmail2"
-st = posix.stat(path)
-if st and st.type == "link" then
-  os.remove(path)
-end
 
 %files -f %{name}.lang
 %license LICENSES/*
 %{_datadir}/dbus-1/interfaces/org.kde.kmail.*.xml
 %{_datadir}/dbus-1/services/org.kde.kmail.service
-%{_kf5_bindir}/kmail
-%{_kf5_bindir}/kmail-refresh-settings
-%{_kf5_datadir}/applications/kmail_view.desktop
-%{_kf5_datadir}/applications/org.kde.kmail-refresh-settings.desktop
-%{_kf5_datadir}/applications/org.kde.kmail2.desktop
-%{_kf5_datadir}/config.kcfg/kmail.kcfg
-%{_kf5_datadir}/icons/breeze-dark/*/*/*
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kmail2/
-%{_kf5_datadir}/knotifications5/kmail2.notifyrc
-%{_kf5_datadir}/qlogging-categories5/*kmail.*
-%{_kf5_metainfodir}/org.kde.kmail2.appdata.xml
-# Kontact integration
-%{_kf5_datadir}/kxmlgui5/kontactsummary/
-# agents
-%{_kf5_datadir}/akonadi/agents/*.desktop
-%{_kf5_bindir}/akonadi_*_agent
-%{_kf5_datadir}/config.kcfg/archivemailagentsettings.kcfg
-%{_kf5_datadir}/knotifications5/akonadi_archivemail_agent.notifyrc
-%{_kf5_datadir}/knotifications5/akonadi_followupreminder_agent.notifyrc
-%{_kf5_datadir}/knotifications5/akonadi_mailfilter_agent.notifyrc
-%{_kf5_datadir}/knotifications5/akonadi_mailmerge_agent.notifyrc
-%{_kf5_datadir}/knotifications5/akonadi_sendlater_agent.notifyrc
-# ktnef
-%{_kf5_bindir}/ktnef
-%{_kf5_datadir}/applications/org.kde.ktnef.desktop
-## covered by hicolor glob above -- rex
-#{_kf5_datadir}/icons/*/*/actions/ktnef_extract_all_to.png
-#{_kf5_datadir}/icons/*/*/actions/ktnef_extract_to.png
-#{_kf5_datadir}/icons/*/*/apps/ktnef.png
-
-%ldconfig_scriptlets libs
+%{_kf6_bindir}/kmail
+%{_kf6_bindir}/kmail-refresh-settings
+%{_kf6_datadir}/applications/kmail_view.desktop
+%{_kf6_datadir}/applications/org.kde.kmail-refresh-settings.desktop
+%{_kf6_datadir}/applications/org.kde.kmail2.desktop
+%{_kf6_datadir}/config.kcfg/kmail.kcfg
+%{_kf6_datadir}/icons/breeze-dark/*/*/*
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/kmail2/
+%{_kf6_datadir}/knotifications6/kmail2.notifyrc
+%{_kf6_datadir}/qlogging-categories6/*kmail.*
+%{_kf6_metainfodir}/org.kde.kmail2.appdata.xml
+%{_kf6_datadir}/akonadi/agents/*.desktop
+%{_kf6_bindir}/akonadi_*_agent
+%{_kf6_datadir}/config.kcfg/archivemailagentsettings.kcfg
+%{_kf6_datadir}/knotifications6/akonadi_archivemail_agent.notifyrc
+%{_kf6_datadir}/knotifications6/akonadi_followupreminder_agent.notifyrc
+%{_kf6_datadir}/knotifications6/akonadi_mailfilter_agent.notifyrc
+%{_kf6_datadir}/knotifications6/akonadi_mailmerge_agent.notifyrc
+%{_kf6_datadir}/knotifications6/akonadi_sendlater_agent.notifyrc
+%{_kf6_bindir}/ktnef
+%{_kf6_datadir}/applications/org.kde.ktnef.desktop
 
 %files libs
-%{_kf5_libdir}/libkmailprivate.so.*
-%{_kf5_qtplugindir}/pim5/kcms/kmail/*
-%{_kf5_qtplugindir}/pim5/kcms/summary/*
-%{_kf5_qtplugindir}/kmailpart.so
-%dir %{_kf5_qtplugindir}/pim5/kontact/
-%{_kf5_qtplugindir}/pim5/kontact/kontact_kmailplugin.so
-%{_kf5_qtplugindir}/pim5/kontact/kontact_summaryplugin.so
-%{_kf5_qtplugindir}/pim5/akonadi/config/
+%{_kf6_libdir}/libkmailprivate.so.*
+%{_kf6_qtplugindir}/pim6/kcms/kmail/*
+%{_kf6_qtplugindir}/pim6/kcms/summary/*
+%{_kf6_qtplugindir}/kmailpart.so
+%dir %{_kf6_qtplugindir}/pim6/kontact/
+%{_kf6_qtplugindir}/pim6/kontact/kontact_kmailplugin.so
+%{_kf6_qtplugindir}/pim6/kontact/kontact_summaryplugin.so
+%{_kf6_qtplugindir}/pim6/akonadi/config/
+%{_kf6_libdir}/libmailfilteragentprivate.so.*
 
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

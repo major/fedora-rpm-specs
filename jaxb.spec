@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           jaxb
-Version:        4.0.3
+Version:        4.0.4
 Release:        1%{?dist}
 Summary:        JAXB Reference Implementation
 License:        BSD-3-Clause
@@ -183,6 +183,9 @@ popd
 %endif
 
 %changelog
+* Wed Nov 29 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.4-1
+- Update to upstream version 4.0.4
+
 * Mon Nov 27 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.3-1
 - Update to upstream version 4.0.3
 

@@ -1,16 +1,22 @@
 Name: kstart
 Version: 4.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Daemon version of kinit for Kerberos v5
 License: MIT
 URL: http://www.eyrie.org/~eagle/software/kstart/
 Source0: http://archives.eyrie.org/software/kerberos/%{name}-%{version}.tar.gz
-# https://github.com/rra/kstart/pull/4
-Patch0: https://patch-diff.githubusercontent.com/raw/rra/kstart/pull/4.diff
-BuildRequires:  gcc
+# Add krenew systemd user and system units
+Patch0: https://github.com/rra/kstart/pull/13.patch
+# For Patch0
+BuildRequires: automake
+BuildRequires: gcc
 BuildRequires: krb5-devel
 BuildRequires: make
+BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
+# For tests
+BuildRequires: fakeroot
+BuildRequires: perl
 
 %description
 k5start is a modified version of kinit which can use keytabs to authenticate, 
@@ -23,31 +29,41 @@ credentials until the command exits.
 %patch0 -p1
 
 %build
+# For Patch0
+./bootstrap
 %configure --enable-setpag --enable-reduced-depends --with-aklog=%{_bindir}/aklog
 
 %make_build
 
 %install
 %make_install
-mkdir -p %{buildroot}%{_userunitdir}/
-install -p -D -m 0644 systemd/krenew.service %{buildroot}%{_userunitdir}/krenew.service
 
 %files
 %license LICENSE
 %doc NEWS README
 %{_bindir}/k5start
 %{_bindir}/krenew
+%{_unitdir}/k5start@.service
 %{_userunitdir}/krenew.service
 %{_mandir}/man1/k5start.1.gz
 %{_mandir}/man1/krenew.1.gz
 
+%check
+make check
+
 %post
+%systemd_post k5start@\*.service
 %systemd_user_post krenew.service
 
 %preun
+%systemd_preun k5start@\*.service
 %systemd_user_preun krenew.service
 
 %changelog
+* Thu Dec 14 2023 Orion Poplawski <orion@nwra.com> - 4.3-6
+- Addition of k5start@.service system instance unit (bz#785925)
+- Run make check
+
 * Tue Nov 14 2023 Steve Traylen <steve.traylen@cern.ch> - 4.3-5
 - Addition of krenew.service user unit
 

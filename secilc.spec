@@ -1,14 +1,14 @@
-%global libsepolver 3.6-0.rc2
+%global libsepolver 3.6-1
 
 Name:           secilc
 Version:        3.6
-Release:        0.rc2%{?dist}
+Release:        1%{?dist}
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
 URL:            https://github.com/SELinuxProject/selinux/wiki
-Source0:        https://github.com/SELinuxProject/selinux/releases/download/3.6-rc2/secilc-3.6-rc2.tar.gz
-# fedora-selinux/selinux: git format-patch -N 3.6-rc2 -- secilc
+Source0:        https://github.com/SELinuxProject/selinux/releases/download/3.6/secilc-3.6.tar.gz
+# fedora-selinux/selinux: git format-patch -N 3.6 -- secilc
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -36,7 +36,7 @@ http://github.com/SELinuxProject/cil/wiki/
 for more information about the goals and features on the CIL language.
 
 %prep
-%autosetup -p 2 -n secilc-%{version}-rc2
+%autosetup -p 2 -n secilc-%{version}
 
 
 %build
@@ -66,6 +66,9 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
+* Thu Dec 14 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-1
+- SELinux userspace 3.6 release
+
 * Thu Nov 23 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-0.rc2
 - SELinux userspace 3.6-rc2 release
 

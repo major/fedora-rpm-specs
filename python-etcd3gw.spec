@@ -14,7 +14,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        An etcd3 gateway Python client
 
@@ -126,6 +126,9 @@ py.test-3
 
 
 %changelog
+* Thu Dec 14 2023 John Eckersberg <jeckersb@redhat.com> - 2.3.0-1
+- New upstream version 2.3.0 (rhbz#2254543)
+
 * Thu Nov 16 2023 John Eckersberg <jeckersb@redhat.com> - 2.2.0-1
 - New upstream version 2.2.0 (rhbz#2250040)
 

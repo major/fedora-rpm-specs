@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        0.83.4
+Version:        0.83.5
 Release:        %autorelease
 
 # SPDX
@@ -26,7 +26,7 @@ Requires:       (python3dist(pygraphviz) or python3dist(pydot))
 
 BuildRequires:  hardlink
 
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist pytest}
 
 # One function in cfnlint.maintenance calls “git grep”. It’s not entirely clear
 # if this is really usable in a system-wide installation or not; it might be

@@ -1,14 +1,13 @@
 Name:           libid3tag
-Version:        0.16.2
-Release:        3%{?dist}
+Version:        0.16.3
+Release:        1%{?dist}
 Summary:        ID3 tag manipulation library
 
 License:        GPLv2+
-URL:            https://github.com/tenacityteam/libid3tag
-Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://codeberg.org/tenacityteam/libid3tag
+Source0:        %url/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Based on https://github.com/tenacityteam/libid3tag/pull/3
 Patch0:         cmake-hook-genre.dat-and-gperf-files-generation.patch
-Patch1:         Add_unversioned_so.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -29,7 +28,7 @@ ID3 tag library development files.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}
 
 %build
 %cmake
@@ -38,7 +37,7 @@ ID3 tag library development files.
 
 %install
 %cmake_install
-rm -vf $RPM_BUILD_ROOT%{_libdir}/*.la
+
 
 %ldconfig_scriptlets
 
@@ -55,6 +54,9 @@ rm -vf $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Dec 14 2023 Leigh Scott <leigh123linux@gmail.com> - 0.16.3-1
+- Update to 0.16.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

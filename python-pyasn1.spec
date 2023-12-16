@@ -6,9 +6,9 @@ Version:        0.5.1
 Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
-Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
-Source1:        https://github.com/etingof/pyasn1-modules/archive/v%{modules_version}.tar.gz
-URL:            https://github.com/etingof/pyasn1
+Source0:        https://github.com/pyasn1/pyasn1/archive/v%{version}.tar.gz
+Source1:        https://github.com/pyasn1/pyasn1-modules/archive/v%{modules_version}.tar.gz
+URL:            https://github.com/pyasn1/pyasn1
 BuildArch:      noarch
 
 %description

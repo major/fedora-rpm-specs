@@ -1,56 +1,31 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
 Name:    akonadi-calendar-tools
 Summary: Akonadi Calendar Tools
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
 URL:     https://userbase.kde.org/Akonadi/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
-#BuildRequires: libappstream-glib
 
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Widgets)
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5TextEditTextToSpeech)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
 
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  kf5-akonadi-calendar-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires:  kf5-calendarsupport-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarutils-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-BuildRequires: make
-%endif
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KF6CalendarCore)
+BuildRequires: cmake(KPim6AkonadiCalendar)
+BuildRequires: cmake(KPim6CalendarSupport)
 
 # when split out
 Conflicts: akonadiconsole < 16.12
@@ -66,39 +41,32 @@ Provides: konsolekalendar = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/konsolekalendar.desktop
-#appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/konsolekalendar.desktop
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*console.*
-%{_kf5_bindir}/calendarjanitor
-%{_kf5_bindir}/konsolekalendar
-%{_kf5_datadir}/applications/konsolekalendar.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/konsolekalendar.*
+%{_kf6_datadir}/qlogging-categories6/*console.*
+%{_kf6_bindir}/calendarjanitor
+%{_kf6_bindir}/konsolekalendar
+%{_kf6_datadir}/applications/konsolekalendar.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/konsolekalendar.*
 
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

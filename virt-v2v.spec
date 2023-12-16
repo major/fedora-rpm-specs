@@ -95,6 +95,7 @@ BuildRequires: nbdkit-file-plugin
 BuildRequires: nbdkit-null-plugin
 BuildRequires: nbdkit-python-plugin
 BuildRequires: nbdkit-cow-filter >= 1.28.3-1.el9
+BuildRequires: mingw-srvany-redistributable >= 1.1-6
 %ifarch x86_64
 BuildRequires: glibc-static
 %endif

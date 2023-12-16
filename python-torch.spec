@@ -21,7 +21,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        PyTorch AI/ML framework
 # See below for details
 License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Apache-2.0 AND MIT AND BSL-1.0 AND GPL-3.0-or-later AND Zlib
@@ -337,6 +337,16 @@ sed -i -f br.sed devel.files
 %{python3_sitearch}/torch/lib/libtorch_global_deps.so.*
 %{python3_sitearch}/torch/lib/libtorch_python.so.*
 
+# devel libs
+# Normal python 'import torch' expects these libs
+# https://bugzilla.redhat.com/show_bug.cgi?id=2253018
+%{python3_sitearch}/torch/lib/libc10.so
+%{python3_sitearch}/torch/lib/libshm.so
+%{python3_sitearch}/torch/lib/libtorch.so
+%{python3_sitearch}/torch/lib/libtorch_cpu.so
+%{python3_sitearch}/torch/lib/libtorch_global_deps.so
+%{python3_sitearch}/torch/lib/libtorch_python.so
+
 # misc
 %{python3_sitearch}/torch/utils/model_dump/{*.js,*.mjs,*.html}
 %{python3_sitearch}/torchgen/packaged/ATen/native/*.yaml
@@ -353,14 +363,6 @@ sed -i -f br.sed devel.files
 # devel package
 #
 %files -n python3-%{pypi_name}-devel -f devel.files
-
-# devel libs
-%{python3_sitearch}/torch/lib/libc10.so
-%{python3_sitearch}/torch/lib/libshm.so
-%{python3_sitearch}/torch/lib/libtorch.so
-%{python3_sitearch}/torch/lib/libtorch_cpu.so
-%{python3_sitearch}/torch/lib/libtorch_global_deps.so
-%{python3_sitearch}/torch/lib/libtorch_python.so
 
 # devel cmake
 %{python3_sitearch}/torch/share/cmake/{ATen,Caffe2,Torch}/*.cmake
@@ -746,6 +748,9 @@ sed -i -f br.sed devel.files
 # aten/src/ATen/native/cpu/avx_mathfun.h
 
 %changelog
+* Wed Dec 13 2023 Tom Rix <trix@redhat.com> - 2.1.0-11
+- Move unversioned *.so's to main package
+
 * Fri Dec 1 2023 Tom Rix <trix@redhat.com> - 2.1.0-10
 - Disable gold linker
 - Remove python requires

@@ -1,32 +1,16 @@
-# uncomment to enable bootstrap mode
-#global bootstrap 1
-
-%if !0%{?bootstrap}
-## skipping tests, seem to hang indefinitely starting with 18.04.0
-#global tests 1
-%endif
-
-%global framework %{name}
-
 Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-License: GPLv2
+License: AGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstream patches
 
@@ -48,81 +32,50 @@ Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(Qca-qt6)
 
-BuildRequires:  cmake(Grantlee5)
-BuildRequires:  cmake(KF5Codecs)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5DAV)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5Holidays)
-BuildRequires:  cmake(KF5ItemModels)
-BuildRequires:  cmake(KF5KCMUtils)
-BuildRequires:  cmake(KF5KDELibs4Support)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Kross)
-BuildRequires:  cmake(KF5NotifyConfig)
-BuildRequires:  cmake(KF5TextWidgets)
-BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6NetworkAuth)
+BuildRequires:  cmake(Qt6Keychain)
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtlocation-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
-BuildRequires:  qt5-qtwebchannel-devel
-BuildRequires:  qt5-qtwebengine-devel
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6NotifyConfig)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KF6Codecs)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6DAV)
+BuildRequires:  cmake(KF6TextCustomEditor)
+BuildRequires:  cmake(KF6Wallet)
 
-BuildRequires:  cmake(Qt5Keychain)
-BuildRequires:  cmake(Qt5NetworkAuth)
+BuildRequires:  cmake(KPim6Akonadi)
+BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KPim6AkonadiMime)
+BuildRequires:  cmake(KPim6MailTransport)
+BuildRequires:  cmake(KPim6IdentityManagementWidgets)
+BuildRequires:  cmake(KF6Contacts)
+BuildRequires:  cmake(KF6CalendarCore)
+BuildRequires:  cmake(KPim6CalendarUtils)
+BuildRequires:  cmake(KPim6Mbox)
+BuildRequires:  cmake(KPim6IMAP)
+BuildRequires:  cmake(KPim6AkonadiNotes)
+BuildRequires:  cmake(KPim6AkonadiCalendar)
+BuildRequires:  cmake(KPim6GAPI)
+BuildRequires:  cmake(KPim6LdapWidgets)
+BuildRequires:  cmake(KF6TextTemplate)
 
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires:  kf5-akonadi-calendar-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-contact-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-notes-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires:  kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarutils-devel >= %{majmin_ver}
-BuildRequires:  kf5-kidentitymanagement-devel >= %{majmin_ver}
-BuildRequires:  kf5-kimap-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmbox-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
-BuildRequires:  kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
-BuildRequires:  kf5-syndication-devel >= %{majmin_ver}
-BuildRequires:  libkgapi-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires:  kf5-kldap-devel >= %{majmin_ver}
-# https://bugzilla.redhat.com/show_bug.cgi?id=1662756
-Requires: libkgapi%{?_isa} >= %{majmin_ver}
-BuildRequires:  cmake(KPim5PimCommon)
-
-BuildRequires:  cmake(Qca-qt5)
-
-## bundled patched version, as stock one FTBFS at the moment
-#BuildRequires:  libkolab-devel >= 1.0
-Provides: bundled(libkolab) = 1.0.2
-
-BuildRequires:  libkolabxml-devel >= 1.1
-
-# needed by google calendar resource
-BuildRequires:  pkgconfig(libical)
-BuildRequires:  pkgconfig(libxslt) pkgconfig(libxml-2.0)
-
-BuildRequires:  pkgconfig(shared-mime-info)
-
-%if !0%{?bootstrap}
-BuildRequires:  cmake(Qt5TextToSpeech)
-%endif
-
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: kf5-akonadi-server-mysql >= %{majmin_ver}
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+# --- Optional
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  cmake(Qt6TextToSpeech)
+BuildRequires:  cmake(Libkolabxml)
 
 %description
 %{summary}.
@@ -133,7 +86,7 @@ Summary: %{name} runtime libraries
 Obsoletes: kdepim-runtime < 1:16.04
 Obsoletes: kf5-kmailtransport-akonadi < 23.08.0
 Requires: %{name} = %{epoch}:%{version}-%{release}
-Requires: kf5-akonadi-server%{?_isa} >= %{version}
+Requires: akonadi-server%{?_isa} >= %{version}
 %description libs
 %{summary}.
 
@@ -143,60 +96,55 @@ Requires: kf5-akonadi-server%{?_isa} >= %{version}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
-# unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/lib{akonadi-filestore,folderarchivesettings,libakonadi-singlefileresource,kmindexreader,maildir}.so
-
-
 %check
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_contacts_resource.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_davgroupware_resource.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_vcarddir_resource.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_imap_resource.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_openxchange_resource.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_google_resource.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_vcard_resource.desktop
+
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/akonadi_*
-%{_kf5_bindir}/gidmigrator
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_datadir}/akonadi/accountwizard/*
-%{_kf5_datadir}/akonadi/agents/*
-%{_kf5_datadir}/akonadi/firstrun/*
-%{_kf5_datadir}/knotifications5/*
-%{_kf5_datadir}/kservices5/akonadi/davgroupware-providers/*
-%{_kf5_datadir}/mime/packages/kdepim-mime.xml
-%{_kf5_datadir}/icons/hicolor/*/apps/*
-%{_kf5_datadir}/dbus-1/interfaces/*.xml
-%{_kf5_datadir}/applications/org.kde.akonadi_*.desktop
-
-%ldconfig_scriptlets libs
+%{_kf6_bindir}/akonadi_*
+%{_kf6_bindir}/gidmigrator
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_datadir}/akonadi/agents/*
+%{_kf6_datadir}/akonadi/firstrun/*
+%{_kf6_datadir}/knotifications6/*
+%{_kf6_datadir}/mime/packages/kdepim-mime.xml
+%{_kf6_datadir}/icons/hicolor/*/apps/*
+%{_kf6_datadir}/dbus-1/interfaces/*.xml
+%{_kf6_datadir}/applications/org.kde.akonadi_*.desktop
+%{_datadir}/akonadi/davgroupware-providers/*
 
 %files libs
-%{_kf5_libdir}/libakonadi-filestore.so.5*
-%{_kf5_libdir}/libfolderarchivesettings.so.5*
-%{_kf5_libdir}/libakonadi-singlefileresource.so.5*
-%{_kf5_libdir}/libkmindexreader.so.5*
-%{_kf5_libdir}/libmaildir.so.5*
-%{_kf5_plugindir}/kio/akonadi.so
-# todo: enumerate akonadi config plugins -- rdieter
-%{_kf5_qtplugindir}/pim5/akonadi/config/
-%{_kf5_qtplugindir}/pim5/kcms/kaddressbook/kcm_ldap.so
-%{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_akonadiplugin.so
+%{_kf6_libdir}/libakonadi-filestore.so.*
+%{_kf6_libdir}/libfolderarchivesettings.so.*
+%{_kf6_libdir}/libakonadi-singlefileresource.so.*
+%{_kf6_libdir}/libkmindexreader.so.*
+%{_kf6_libdir}/libmaildir.so.*
+%{_kf6_libdir}/libnewmailnotifier.so.*
+%{_kf6_plugindir}/kio/akonadi.so
+%{_kf6_qtplugindir}/pim6/akonadi/config/
+%{_kf6_qtplugindir}/pim6/kcms/kaddressbook/kcm_ldap.so
+%{_kf6_qtplugindir}/pim6/mailtransport/mailtransport_akonadiplugin.so
 
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 1:24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.2-1
 - 23.08.2
 

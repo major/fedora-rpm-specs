@@ -1,12 +1,9 @@
-# TZ data for Java 6/7, requires Java 8 or older to compile
-%bcond java7 %[!(0%{?fedora} >= 40 || 0%{?rhel} >= 10)]
-
 Summary: Timezone data
 Name: tzdata
 Version: 2023c
 %define tzdata_version 2023c
 %define tzcode_version 2023c
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -18,9 +15,6 @@ Patch003: 0003-continue-to-ship-posixrules.patch
 BuildRequires: make
 BuildRequires: gawk, glibc, perl-interpreter
 BuildRequires: java-devel
-%if %{with java7}
-BuildRequires: java-1.8.0-devel
-%endif
 BuildRequires: glibc-common >= 2.5.90-7
 Conflicts: glibc-common <= 2.3.2-63
 BuildArchitectures: noarch
@@ -32,13 +26,7 @@ the world.
 
 %package java
 Summary: Timezone data for Java
-Source3: javazic.tar.gz
-Source4: javazic-1.8-37392f2f5d59.tar.xz
-Patch100: javazic-fixup.patch
-Patch101: rebase-01.patch
-Patch102: rebase-02.patch
-Patch103: 7090844.patch
-Patch104: 7133138.patch
+Source3: javazic-1.8-37392f2f5d59.tar.xz
 
 %description java
 This package contains timezone information for use by Java runtimes.
@@ -65,30 +53,7 @@ popd
 tar zxf rearguard/tzdata%{version}-rearguard.tar.gz
 %endif
 
-%if %{with java7}
-mkdir javazic
-tar zxf %{SOURCE3} -C javazic
-pushd javazic
-%patch -P 100
-%patch -P 101
-%patch -P 102
-%patch -P 103
-%patch -P 104
-
-# Hack alert! sun.tools may be defined and installed in the
-# VM. In order to guarantee that we are using IcedTea/OpenJDK
-# for creating the zoneinfo files, rebase all the packages
-# from "sun." to "rht.". Unfortunately, gcj does not support
-# any of the -Xclasspath options, so we must go this route
-# to ensure the greatest compatibility.
-mv sun rht
-find . -type f -name '*.java' -print0 \
-    | xargs -0 -- sed -i -e 's:sun\.tools\.:rht.tools.:g' \
-                         -e 's:sun\.util\.:rht.util.:g'
-popd
-%endif
-
-tar xf %{SOURCE4}
+tar xf %{SOURCE3}
 
 echo "%{name}%{tzdata_version}" >> VERSION
 
@@ -117,17 +82,6 @@ JAVA_FILES="rearguard/africa rearguard/antarctica rearguard/asia \
       rearguard/southamerica rearguard/etcetera \
       rearguard/backward"
 
-%if %{with java7}
-# Java 6/7 tzdata
-pushd javazic
-/usr/lib/jvm/java-1.8.0-openjdk/bin/javac -source 1.6 -target 1.6 -classpath . `find . -name \*.java`
-popd
-
-java -classpath javazic/ rht.tools.javazic.Main -V %{version} \
-  -d javazi \
-  $JAVA_FILES javazic/tzdata_jdk/gmt javazic/tzdata_jdk/jdk11_backward
-%endif
-
 # Java 8 tzdata
 pushd javazic-1.8
 /usr/lib/jvm/java-17-openjdk/bin/javac -source 1.8 -target 1.8 -classpath . `find . -name \*.java`
@@ -143,9 +97,6 @@ rm -fr $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}
 cp -prd zoneinfo $RPM_BUILD_ROOT%{_datadir}
 install -p -m 644 zone.tab zone1970.tab iso3166.tab leap-seconds.list leapseconds tzdata.zi $RPM_BUILD_ROOT%{_datadir}/zoneinfo
-%if %{with java7}
-cp -prd javazi $RPM_BUILD_ROOT%{_datadir}/javazi
-%endif
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/javazi-1.8
 install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 
@@ -158,12 +109,12 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %doc tz-art.html
 
 %files java
-%if %{with java7}
-%{_datadir}/javazi
-%endif
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed Dec 13 2023 Patsy Griffin <patsy@redhat.com> - 2023c-5
+- Remove Java 6/7 support for Fedora 40 and RHEL 10 forward.
+
 * Tue  Oct  3 2023 David Cantrell <dcantrell@redhat.com> - 2023c-4
 - Use the new syntax for the %%patch macro in the spec file
 

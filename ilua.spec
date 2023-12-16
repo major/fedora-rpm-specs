@@ -1,27 +1,31 @@
 Name:           ilua
 Version:        0.2.1
-Release:        15%{?dist}
+Release:        %autorelease
 Summary:        Portable Lua kernel for Jupyter
 
 # The package contains the Lua logo, which has some modification restrictions.
 # It was permitted by legal, but advised not to declare the license in the tag:
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/UDFBEBDR4NTSP6TATQEONDJAYHSYXUUQ/
 # Hence, only listing the license of the code.
-# ilua is GPLv2
+# ilua is GPL-2.0-only
 # Bundled lua files in ilua/ext are all MIT
-License:        GPLv2 and MIT
+License:        GPL-2.0-only AND MIT
 URL:            https://github.com/guysv/ilua
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Twisted 23+ started using posix_nspawn in spawnProcess().
+# For unknown reasons, this breaks ilua.
+# Report: https://github.com/guysv/ilua/issues/30
+# As a workaround, we force the old twisted behavior (fork)
+# by setting a convenient internal attribute:
+Patch:          ilua-never-use-spawn.patch
 
 BuildArch:      noarch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
-%endif
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 
 # For %%check
 BuildRequires:  lua
@@ -45,7 +49,7 @@ interpreter out of the box.
 %autosetup -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -65,7 +69,6 @@ grep assertme check.log
 grep Traceback check.log && exit 1 || true
 
 %files -f %pyproject_files
-%license LICENSE
 %doc README.md CHANGES.md
 %{_bindir}/ilua
 %dir %{_datadir}/jupyter/kernels/lua/
@@ -74,47 +77,4 @@ grep Traceback check.log && exit 1 || true
 %license %{_datadir}/jupyter/kernels/lua/logo-license.txt
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.2.1-14
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Jan 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.1-12
-- Drop support for i686
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jul 02 2021 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-8
-- Run a smoke test when building the package
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.2.1-7
-- Rebuilt for Python 3.10
-
-* Thu Feb 11 2021 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-6
-- Prperly own site-packages/ilua/__pycache__
-
-* Sat Feb 06 2021 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-5
-- Declare bundled Lua libraries, MIT-licensed
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Sep 03 2020 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-3
-- Include the Lua logo from upstream
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon May 11 2020 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-1
-- Initial package (#1834280)
+%autochangelog

@@ -1,65 +1,54 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
-%global framework pimdataexporter
-
 Name:    pim-data-exporter
 Summary: Pim Data Exporter
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
-
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Xml)
+BuildRequires: cmake(QGpgmeQt6)
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Grantlee5)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
 
-%global majmin_ver %(echo %{version} | cut -d. -f1,2,3)
-BuildRequires:  kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-notes-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires:  kf5-calendarsupport-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires:  kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires:  kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires:  kf5-mailcommon-devel >= %{majmin_ver}
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Test)
 
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6TextTemplate)
+
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(KPim6IdentityManagementCore)
+BuildRequires: cmake(KPim6MailCommon)
+BuildRequires: cmake(KPim6MailTransport)
+BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KPim6PimCommonAkonadi)
+BuildRequires: cmake(KF6CalendarCore)
+BuildRequires: cmake(KPim6AkonadiNotes)
+BuildRequires: cmake(KF6TextCustomEditor)
+BuildRequires: cmake(KF6UserFeedback)
+BuildRequires: cmake(KPim6Libkdepim)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -79,9 +68,7 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
@@ -92,37 +79,28 @@ Requires: %{name} = %{version}-%{release}
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.pimdataexporter.desktop
-%endif
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.pimdataexporter.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.pimdataexporter.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.pimdataexporter.appdata.xml
+
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_bindir}/pimdataexporter
-%{_kf5_bindir}/pimdataexporterconsole
-%{_kf5_datadir}/applications/org.kde.pimdataexporter.desktop
-%{_kf5_datadir}/config.kcfg/pimdataexporterglobalconfig.kcfg
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_metainfodir}/org.kde.pimdataexporter.appdata.xml
-
-%ldconfig_scriptlets libs
+%{_kf6_bindir}/pimdataexporter
+%{_kf6_bindir}/pimdataexporterconsole
+%{_kf6_datadir}/applications/org.kde.pimdataexporter.desktop
+%{_kf6_datadir}/config.kcfg/pimdataexporterglobalconfig.kcfg
+%{_kf6_datadir}/qlogging-categories6/*pimdataexporter.*
+%{_kf6_metainfodir}/org.kde.pimdataexporter.appdata.xml
 
 %files libs
-%{_kf5_libdir}/libpimdataexporterprivate.so.*
+%{_kf6_libdir}/libpimdataexporterprivate.so.*
 
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 
