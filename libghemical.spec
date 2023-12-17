@@ -1,8 +1,10 @@
 Name:           libghemical
 Summary:        Libraries for the Ghemical chemistry package
 Version:        3.0.0
-Release:        21%{?dist}
-License:        GPLv2+
+Release:        22%{?dist}
+
+# SPDX confirmed
+License:        GPL-2.0-or-later
 URL:            http://www.bioinformatics.org/ghemical/ghemical/index.html
 Source0:        http://www.bioinformatics.org/ghemical/download/current/%{name}-%{version}.tar.gz
 
@@ -69,6 +71,9 @@ find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 
 %changelog
+* Fri Dec 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-22
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

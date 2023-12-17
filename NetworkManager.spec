@@ -4,9 +4,9 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.44.2
+%global real_version 1.45.9
 %global rpm_version %{real_version}
-%global release_version 2
+%global release_version 1
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
@@ -293,21 +293,10 @@ BuildRequires: mobile-broadband-provider-info-devel
 BuildRequires: newt-devel
 %endif
 BuildRequires: /usr/bin/dbus-launch
-%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
 BuildRequires: python3
 BuildRequires: python3-gobject-base
 BuildRequires: python3-dbus
 BuildRequires: python3-pexpect
-%else
-BuildRequires: python2
-BuildRequires: pygobject3-base
-BuildRequires: dbus-python
-BuildRequires: pexpect
-%if 0%{?rhel} >= 7 && %{with meson}
-BuildRequires: python36-dbus
-BuildRequires: python36-gobject
-%endif
-%endif
 BuildRequires: libselinux-devel
 BuildRequires: polkit-devel
 BuildRequires: jansson-devel
@@ -1262,6 +1251,10 @@ fi
 
 
 %changelog
+* Fri Dec 15 2023 Íñigo Huguet <ihuguet@redhat.com> - 1:1.45.9-1
+- Update to 1.45.9 release (development)
+- Dropped the support to build with Python 2
+
 * Thu Nov  2 2023 Íñigo Huguet <ihuguet@redhat.com> - 1:1.44.2-2
 - migrated to SPDX license
 

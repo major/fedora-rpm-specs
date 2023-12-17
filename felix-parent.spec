@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           felix-parent
-Version:        7
-Release:        12%{?dist}
+Version:        8
+Release:        1%{?dist}
 Summary:        Parent POM file for Apache Felix Specs
 License:        Apache-2.0
 URL:            https://felix.apache.org/
@@ -27,9 +27,9 @@ Parent POM file for Apache Felix Specs.
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :maven-release-plugin
-%pom_remove_plugin org.codehaus.mojo:ianal-maven-plugin
 %pom_remove_plugin :apache-rat-plugin
 %pom_remove_plugin :animal-sniffer-maven-plugin
+%pom_remove_plugin org.apache.geronimo.genesis.plugins:tools-maven-plugin
 
 # wagon ssh dependency unneeded
 %pom_xpath_remove pom:extensions
@@ -44,6 +44,9 @@ Parent POM file for Apache Felix Specs.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Dec 08 2023 Marian Koncek <mkoncek@redhat.com> - 8-1
+- Update to upstream version 8
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 7-12
 - Convert License tag to SPDX format
 

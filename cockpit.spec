@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        306
+Version:        307
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -441,13 +441,13 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@babel/runtime)) = 7.23.4
+Provides: bundled(npm(@babel/runtime)) = 7.23.6
 Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-icons)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-styles)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.1
+Provides: bundled(npm(@patternfly/react-core)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-icons)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-table)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
 Provides: bundled(npm(argparse)) = 1.0.10
 Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
@@ -500,7 +500,7 @@ Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(object-inspect)) = 1.13.1
 Provides: bundled(npm(object-is)) = 1.1.5
 Provides: bundled(npm(object-keys)) = 1.1.1
-Provides: bundled(npm(object.assign)) = 4.1.4
+Provides: bundled(npm(object.assign)) = 4.1.5
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.2.0
 Provides: bundled(npm(react-dropzone)) = 14.2.3
@@ -753,7 +753,6 @@ BuildArch: noarch
 The Cockpit component for managing storage.  This package uses udisks.
 
 %files -n cockpit-storaged -f storaged.list
-%dir %{_datadir}/cockpit/storaged/images
 %{_datadir}/metainfo/org.cockpit-project.cockpit-storaged.metainfo.xml
 
 %package -n cockpit-tests
@@ -811,6 +810,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Dec 15 2023 Martin Pitt <mpitt@redhat.com> - 307-1
+- Storage redesign
+
 * Wed Nov 29 2023 Packit <hello@packit.dev> - 306-1
 - Kdump: Add Ansible/shell automation
 

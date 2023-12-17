@@ -17,17 +17,13 @@ BuildRequires:  pkgconfig(gio-2.0)
 
 Requires:       gnome-shell
 
+Obsoletes:      %{name}-devel < 1.4-2
+
 %description
 This is a CLI keyboard layout switcher for Gnome 3 and 4x. It is
 not based on the X interface but rather implements direct D-Bus
 messaging with the Gnome Shell.
 
-%package devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    devel
-%{summary}.
 
 %package        zsh-completion
 Summary:        Zsh completion for %{name}
@@ -56,6 +52,7 @@ Bash command line completion support for %{name}.
 sed -i '1{\@#!/usr/bin/env bash@d}' g3kb-switch-completion.bash
 
 %build
+export GITHUB_REF_NAME=%{version}
 %cmake -DG3KBSWITCH_WITH_GNOME_SHELL_EXTENSION:BOOL=ON \
        -DG3KBSWITCH_VIM_XKBSWITCH_LIB_PATH:PATH=%{_lib}/%{name}
 %cmake_build
@@ -63,7 +60,7 @@ sed -i '1{\@#!/usr/bin/env bash@d}' g3kb-switch-completion.bash
 
 %install
 %cmake_install
-
+rm %{buildroot}%{_datadir}/pkgconfig/%{name}.pc
 
 %files
 %license LICENSE
@@ -73,9 +70,6 @@ sed -i '1{\@#!/usr/bin/env bash@d}' g3kb-switch-completion.bash
 %{_libdir}/%{name}/libg3kbswitch.so
 %{_datadir}/gnome-shell/extensions/%{uuid}/
 %{_mandir}/man1/%{name}.1*
-
-%files devel
-%{_datadir}/pkgconfig/%{name}.pc
 
 %files zsh-completion
 %{zsh_completions_dir}/_%{name}

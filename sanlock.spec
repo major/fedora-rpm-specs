@@ -1,6 +1,6 @@
 Name:           sanlock
-Version:        3.8.5
-Release:        4%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        A shared storage lock manager
 
 License:        GPLv2 and GPLv2+ and LGPLv2+
@@ -55,7 +55,7 @@ make -C python \
 
 
 install -D -m 0644 init.d/sanlock.service.native $RPM_BUILD_ROOT/%{_unitdir}/sanlock.service
-install -D -m 0755 init.d/wdmd $RPM_BUILD_ROOT/usr/lib/systemd/systemd-wdmd
+install -D -m 0755 init.d/wdmd $RPM_BUILD_ROOT/%{_libdir}/systemd/systemd-wdmd
 install -D -m 0644 init.d/wdmd.service.native $RPM_BUILD_ROOT/%{_unitdir}/wdmd.service
 
 install -D -m 0644 src/logrotate.sanlock \
@@ -88,7 +88,7 @@ getent passwd sanlock > /dev/null || /usr/sbin/useradd \
 %systemd_postun wdmd.service sanlock.service
 
 %files
-/usr/lib/systemd/systemd-wdmd
+%{_libdir}/systemd/systemd-wdmd
 %{_unitdir}/sanlock.service
 %{_unitdir}/wdmd.service
 %{_sbindir}/sanlock
@@ -157,6 +157,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Fri Dec 15 2023 David Teigland <teigland@redhat.com> - 3.9.0-1
+- rebase to new upstream release
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

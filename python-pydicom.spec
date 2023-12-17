@@ -18,7 +18,7 @@ data cannot easily be modified.
 Documentation is available at https://pydicom.github.io/pydicom}
 
 Name:           python-pydicom
-Version:        2.4.3
+Version:        2.4.4
 Release:        %autorelease
 Summary:        Read, modify and write DICOM files with python code
 

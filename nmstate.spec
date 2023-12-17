@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.15
+Version:        2.2.21
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later
@@ -11,9 +11,7 @@ Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.g
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
 Source2:        https://nmstate.io/nmstate.gpg
 Source3:        %{url}/releases/download/v%{version}/%{srcname}-vendor-%{version}.tar.xz
-# We use `dep: dep_name` to prevent rust packaging generate incorect dependency
-# https://bugzilla.redhat.com/show_bug.cgi?id=2161128
-# but list Requires manually
+# https://github.com/nmstate/nmstate/pull/2497
 Patch1:         0001-Workaround-for-Fedora-rust-packaging.patch
 BuildRequires:  patchelf
 BuildRequires:  python3-devel
@@ -130,7 +128,7 @@ This package contains library source intended for building other packages
 which use "%{name}" crate with gen_conf feature.
 
 %package -n rust-%{name}+query_apply-devel
-Summary:        Rust crate of nmstate with default feature
+Summary:        Rust crate of nmstate with query_apply feature
 BuildArch:      noarch
 License:        Apache-2.0
 # https://bugzilla.redhat.com/show_bug.cgi?id=2161128
@@ -141,6 +139,15 @@ Requires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
 %description -n rust-%{name}+query_apply-devel
 This package contains library source intended for building other packages
 which use "%{name}" crate with query_apply feature.
+
+%package -n rust-%{name}+gen_revert-devel
+Summary:        Rust crate of nmstate with gen_revert feature
+BuildArch:      noarch
+License:        Apache-2.0
+
+%description -n rust-%{name}+gen_revert-devel
+This package contains library source intended for building other packages
+which use "%{name}" crate with gen_revert feature.
 %endif
 
 %prep
@@ -230,6 +237,9 @@ popd
 %ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
 
 %files -n rust-%{name}+query_apply-devel
+%ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
+
+%files -n rust-%{name}+gen_revert-devel
 %ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
 %endif
 

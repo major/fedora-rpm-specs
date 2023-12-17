@@ -7,6 +7,8 @@ License:        MIT
 URL:            https://github.com/Washington-University/gradunwarp
 Source0:        %{url}/archive/v%{version}/gradunwarp-%{version}.tar.gz
 Source1:        gradient_unwarp.1
+# numpy.distutils has been removed from numpy
+Patch:          numpy.distutils.patch
 
 BuildRequires:  gcc
 
@@ -34,7 +36,7 @@ Python/Numpy package used to unwarp the distorted volumes (due to the gradient
 field inhomogenities).
 
 %prep
-%autosetup -n gradunwarp-%{version}
+%autosetup -p1 -n gradunwarp-%{version}
 # correct version string
 # remove extra compilation flags
 sed -i -e "s/HCP-%{version}/%{version}/" \
@@ -67,9 +69,6 @@ install -m 0644 %{SOURCE1} -Dt $RPM_BUILD_ROOT/%{_mandir}/man1/
 
 %files -n python3-gradunwarp -f %{pyproject_files}
 %exclude %{python3_sitearch}/gradunwarp/core/gradient_unwarp.py
-%exclude %{python3_sitearch}/gradunwarp/core/interp3_ext.c
-%exclude %{python3_sitearch}/gradunwarp/core/legendre_ext.c
-%exclude %{python3_sitearch}/gradunwarp/core/transform_coordinates_ext.c
 %license Copying.md
 %doc README.md
 %{_bindir}/gradient_unwarp

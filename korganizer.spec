@@ -1,94 +1,68 @@
-# uncomment to enable bootstrap mode
-%global bootstrap 1
-
-%if !0%{?bootstrap}
-%global tests 1
-%endif
-
-%global framework %{name}
-
 Name:    korganizer
 Summary: Personal Organizer
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 
-# code (generally) GPLv2, docs GFDL
-License: GPLv2 and GFDL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires: boost-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
-BuildRequires: pkgconfig(phonon4qt5)
-
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5UiTools)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5X11Extras)
-BuildRequires: cmake(Qt5Xml)
-
-# kf5
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Grantlee5)
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5GlobalAccel)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Service)
+BuildRequires: kf6-rpm-macros
 
-# kde-apps
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-BuildRequires: kf5-akonadi-calendar-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-contacts-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-mime-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-notes-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-search-devel >= %{majmin_ver}
-BuildRequires: kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires: kf5-calendarsupport-devel >= %{majmin_ver}
-BuildRequires: kf5-eventviews-devel >= %{majmin_ver}
-BuildRequires: kf5-incidenceeditor-devel >= %{majmin_ver}
-BuildRequires: kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires: kf5-kcalendarutils-devel >= %{majmin_ver}
-BuildRequires: kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires: kf5-kholidays-devel >= %{majmin_ver}
-BuildRequires: kf5-kidentitymanagement-devel >= %{majmin_ver}
-BuildRequires: kf5-kldap-devel >= %{majmin_ver}
-BuildRequires: kf5-kmailtransport-devel >= %{majmin_ver}
-BuildRequires: kf5-kmime-devel >= %{majmin_ver}
-BuildRequires: kf5-kontactinterface-devel >= %{majmin_ver}
-BuildRequires: kf5-kpimtextedit-devel >= %{majmin_ver}
-BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
-BuildRequires: kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6UiTools)
 
-%if 0%{?tests}
-BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
-%endif
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Holidays)
+BuildRequires: cmake(KF6UserFeedback)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6TextTemplate)
+
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(KF6CalendarCore)
+BuildRequires: cmake(KPim6AkonadiContactWidgets)
+BuildRequires: cmake(KPim6IdentityManagementCore)
+BuildRequires: cmake(KPim6MailTransport)
+BuildRequires: cmake(KPim6CalendarUtils)
+BuildRequires: cmake(KPim6LdapWidgets)
+BuildRequires: cmake(KPim6AkonadiCalendar)
+BuildRequires: cmake(KPim6KontactInterface)
+BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KPim6AkonadiNotes)
+BuildRequires: cmake(KPim6PimCommonAkonadi)
+BuildRequires: cmake(KPim6Libkdepim)
+BuildRequires: cmake(KPim6IncidenceEditor)
+BuildRequires: cmake(KPim6CalendarSupport)
+BuildRequires: cmake(KPim6EventViews)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: kdepim-runtime >= %{majmin_ver}
+Requires: kdepim-runtime
 
 %description
 KOrganizer is the calendar and scheduling component of the Kontact suite.
@@ -106,72 +80,55 @@ Requires: %{name} = %{version}-%{release}
 
 
 %build
-%cmake_kf5 \
-  -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
-
-## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libkorganizer_{core,interfaces}.so
 
 
 %check
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/korganizer-import.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/korganizer-view.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%endif
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-dbus-launch --exit-with-session \
-make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
-%endif
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/korganizer-import.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/korganizer-view.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %files -f %{name}.lang
-#{_kf5_bindir}/ical2vcal
 %license LICENSES/*
 %{_datadir}/dbus-1/interfaces/org.kde.Korganizer.*.xml
 %{_datadir}/dbus-1/interfaces/org.kde.korganizer.*.xml
 %{_datadir}/dbus-1/services/org.kde.korganizer.service
-%{_kf5_bindir}/korganizer
-%{_kf5_datadir}/applications/korganizer-import.desktop
-%{_kf5_datadir}/applications/korganizer-view.desktop
-%{_kf5_datadir}/applications/org.kde.korganizer.desktop
-%{_kf5_datadir}/config.kcfg/korganizer.kcfg
-%{_kf5_datadir}/icons/hicolor/*
-%{_kf5_datadir}/knsrcfiles/korganizer.knsrc
-%{_kf5_datadir}/korganizer/
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_metainfodir}/org.kde.korganizer.appdata.xml
-
-%ldconfig_scriptlets libs
+%{_kf6_bindir}/korganizer
+%{_kf6_datadir}/applications/korganizer-import.desktop
+%{_kf6_datadir}/applications/korganizer-view.desktop
+%{_kf6_datadir}/applications/org.kde.korganizer.desktop
+%{_kf6_datadir}/config.kcfg/korganizer.kcfg
+%{_kf6_datadir}/icons/hicolor/*
+%{_kf6_datadir}/knsrcfiles/korganizer.knsrc
+%{_kf6_datadir}/korganizer/
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+%{_kf6_metainfodir}/org.kde.korganizer.appdata.xml
 
 %files libs
-%{_kf5_libdir}/libkorganizer_interfaces.so.*
-%{_kf5_libdir}/libkorganizer_core.so.*
-%{_kf5_libdir}/libkorganizerprivate.so.*
-%{_kf5_qtplugindir}/pim5/kcms/korganizer/*
-%{_kf5_qtplugindir}/pim5/kcms/summary/*
-%{_kf5_qtplugindir}/korganizerpart.so
+%{_kf6_libdir}/libkorganizer_interfaces.so.*
+%{_kf6_libdir}/libkorganizer_core.so.*
+%{_kf6_libdir}/libkorganizerprivate.so.*
+%{_kf6_qtplugindir}/pim6/kcms/korganizer/*
+%{_kf6_qtplugindir}/pim6/kcms/summary/*
+%{_kf6_qtplugindir}/korganizerpart.so
 # Kontact integration
-%{_kf5_qtplugindir}/pim5/kontact/kontact_korganizerplugin.so
-%{_kf5_qtplugindir}/pim5/kontact/kontact_todoplugin.so
-%{_kf5_qtplugindir}/pim5/kontact/kontact_journalplugin.so
-%{_kf5_qtplugindir}/pim5/kontact/kontact_specialdatesplugin.so
+%{_kf6_qtplugindir}/pim6/kontact/kontact_korganizerplugin.so
+%{_kf6_qtplugindir}/pim6/kontact/kontact_todoplugin.so
+%{_kf6_qtplugindir}/pim6/kontact/kontact_journalplugin.so
+%{_kf6_qtplugindir}/pim6/kontact/kontact_specialdatesplugin.so
 
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

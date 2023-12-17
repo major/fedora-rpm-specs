@@ -3,8 +3,8 @@
 %global sum Simple and extensible admin interface framework for Flask
 
 Name:		python-%{pkgname}
-Version:	1.6.0
-Release:	6%{?dist}
+Version:	1.6.1
+Release:	1%{?dist}
 Summary:	%{sum}
 License:	BSD
 URL:		https://github.com/flask-admin/flask-admin/
@@ -80,6 +80,9 @@ rm flask_admin/translations/README.md
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Thu Dec 14 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.6.1-1
+- Update to 1.6.1 (Fixes RHBZ#2172123)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

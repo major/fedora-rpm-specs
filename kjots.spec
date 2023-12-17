@@ -1,47 +1,47 @@
-%undefine __cmake_in_source_build
+%global gitdate 20231210.013931
+%global commit0 1d19021adc7c99618baa617c16e1877681f72cac
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           kjots
 Summary:        KDE Notes application
-Version:        5.1.1
-Release:        3%{?dist}
+Version:        5.1.1^%{gitdate}.%{shortcommit0}
+Release:        1%{?dist}
 License:        GPLv2
 URL:            https://userbase.kde.org/KJots
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        https://download.kde.org/%{stable}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+#Source0:        https://download.kde.org/%{stable_kf6}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://invent.kde.org/pim/%{name}/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 
+# Qt
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6PrintSupport)
+
 # KDE Frameworks:
-BuildRequires:  cmake(KF5Bookmarks)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5KCMUtils)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Parts)
-BuildRequires:  cmake(KF5XmlGui)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6Bookmarks)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6TextWidgets)
 
 # KDE PIM
-BuildRequires:  cmake(KF5Akonadi)
-BuildRequires:  cmake(KF5AkonadiNotes)
-BuildRequires:  cmake(KPim5KontactInterface)
-BuildRequires:  cmake(KF5Mime)
-BuildRequires:  cmake(KF5PimTextEdit)
-BuildRequires:  cmake(KF5TextEditTextToSpeech)
-
-BuildRequires:  cmake(Grantlee5)
-
-# xsltproc
-BuildRequires:  libxslt
+BuildRequires:  cmake(KPim6Akonadi)
+BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KPim6AkonadiNotes)
+BuildRequires:  cmake(KPim6TextEdit)
+BuildRequires:  cmake(KPim6KontactInterface)
+BuildRequires:  cmake(KF6TextCustomEditor)
+BuildRequires:  cmake(KF6TextAddonsWidgets)
+BuildRequires:  cmake(KF6TextTemplate)
+BuildRequires:  cmake(KF6TextEditTextToSpeech)
 
 # Checks:
 BuildRequires:  desktop-file-utils
@@ -52,45 +52,44 @@ KJots is an application for writing and organizing notes.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{commit0}
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang kjots --with-kde
 
 
 %check
-for f in %{buildroot}%{_kf5_datadir}/applications/*.desktop ; do
+for f in %{buildroot}%{_kf6_datadir}/applications/*.desktop ; do
   desktop-file-validate $f
 done
-appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.kjots.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/org.kde.kjots.appdata.xml
 
 
 %files -f kjots.lang
 %doc README
 %license LICENSES/*
-%{_kf5_bindir}/kjots
-%{_kf5_datadir}/applications/org.kde.kjots.desktop
-%{_kf5_datadir}/config.kcfg/kjots.kcfg
-%{_kf5_datadir}/icons/hicolor/*/apps/kjots.*
-%{_kf5_datadir}/kjots/
-%{_kf5_datadir}/kservices5/kjots_config_misc.desktop
-%{_kf5_datadir}/kservices5/kjotspart.desktop
-%{_kf5_datadir}/kxmlgui5/kjots/
-%{_kf5_metainfodir}/org.kde.kjots.appdata.xml
-%{_kf5_qtplugindir}/kcm_kjots.so
-%{_kf5_qtplugindir}/kjotspart.so
-%{_kf5_qtplugindir}/pim5/kontact/kontact_kjotsplugin.so
+%{_kf6_bindir}/kjots
+%{_kf6_datadir}/applications/org.kde.kjots.desktop
+%{_kf6_datadir}/config.kcfg/kjots.kcfg
+%{_kf6_datadir}/icons/hicolor/*/apps/kjots.*
+%{_kf6_datadir}/kjots/
+%{_kf6_metainfodir}/org.kde.kjots.appdata.xml
+%{_kf6_qtplugindir}/kcm_kjots.so
+%{_kf6_qtplugindir}/kjotspart.so
+%{_kf6_qtplugindir}/pim6/kontact/kontact_kjotsplugin.so
 
 
 %changelog
+* Fri Dec 15 2023 Steve Cossette <farchord@gmail.com> - 5.1.1^20231210.013931.1d19021-1
+- Updated against git (For Qt6)
+
 * Mon Sep 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.1.1-3
 - Rebuild against ktextaddons 1.5.1
 

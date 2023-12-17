@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           mockito
-Version:        5.5.0
+Version:        5.8.0
 Release:        1%{?dist}
 Summary:        Tasty mocking framework for unit tests in Java
 License:        MIT
@@ -122,8 +122,10 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
 </plugin>
 '
 
+%mvn_package :aggregator __noinstall
+
 %build
-%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8 -f aggregator.pom
+%mvn_build -f -- -Dmaven.compiler.release=11 -Dproject.build.sourceEncoding=UTF-8 -f aggregator.pom
 
 %mvn_package org.mockito:mockito-junit-jupiter junit-jupiter
 
@@ -140,6 +142,9 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
 %license LICENSE
 
 %changelog
+* Wed Dec 13 2023 Marian Koncek <mkoncek@redhat.com> - 5.8.0-1
+- Update to upstream version 5.8.0
+
 * Fri Sep 01 2023 Marian Koncek <mkoncek@redhat.com> - 5.5.0-1
 - Update to upstream version 5.5.0
 

@@ -47,7 +47,7 @@
 Name:		root
 Version:	6.30.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -2549,6 +2549,7 @@ popd
 #
 # - test-import-numba
 # - tutorial-pyroot-pyroot004_NumbaDeclare-py
+# - pyunittests-pyroot-numbadeclare
 #   these tests require the numba python module which is not available
 #
 # - test-webgui-ping
@@ -2588,6 +2589,7 @@ tutorial-tmva-tmva103_Application|\
 tutorial-tmva-RBatchGenerator_NumPy-py|\
 test-import-numba|\
 tutorial-pyroot-pyroot004_NumbaDeclare-py|\
+pyunittests-pyroot-numbadeclare|\
 test-webgui-ping"
 
 %if ! ( %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} == 8 )
@@ -3721,6 +3723,9 @@ fi
 %endif
 
 %changelog
+* Fri Dec 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-2
+- Exclude pyunittests-pyroot-numbadeclare test
+
 * Sat Dec 02 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-1
 - Update to 6.30.02
 

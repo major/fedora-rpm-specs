@@ -7,8 +7,8 @@
 # produce a smaller package.
 %bcond doc_pdf 0
 
-%global commit 5bf2fb2f2d12217ce5a7c906703b249af6b4787d
-%global snapdate 20231114
+%global commit deb6f40255c05985dad09565566bc75c84f4addf
+%global snapdate 20231214
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility
@@ -110,7 +110,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %check
-%{python3} runtests.py
+%{py3_test_envvars} %{python3} runtests.py --current --verbose
 
 
 %files devel

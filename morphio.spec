@@ -32,14 +32,14 @@ read/write one.
 %bcond_without pytests
 
 Name:           morphio
-Version:        3.3.6
+Version:        3.3.7
 Release:        %autorelease
 Summary:        A python and C++ library for reading and writing neuronal morphologies
 %forgemeta
-# The entire source is LGPL-3.0-only except the following, which is BSD-3-Clause:
+# The entire source is Apache-2.0 except the following, which is BSD-3-Clause:
 #   - CMake/CodeCoverage.cmake
-# The “effective license” remains LGPLv3.
-License:        LGPL-3.0-only AND BSD-3-Clause
+# The “effective license” remains Apache-2.0.
+License:        Apache-2.0 AND BSD-3-Clause
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -48,12 +48,8 @@ Source0:        %forgesource
 # Some sent upstream: https://github.com/BlueBrain/MorphIO/pull/293
 # Do not let cmake use $FLAGS env var
 Patch:          stop-them-using-a-random-env-var.patch
-# Use CMake GNUInstallDirs to install things in the right places
-Patch:          use-gnuinstall-dirs.patch
 # Remove more hard-coded compiler flags
 Patch:          remove-upstreams-flags.patch
-# Set a shared object version (0.0.0)
-Patch:          version-soname.patch
 # Add install target for the compiled python module
 Patch:          install-python-shared-object.patch
 # Stop setup.py from running the cmake build, we’ll run it ourselves
@@ -75,8 +71,6 @@ Patch:          allow_use_of_external_ghc_filesystem.patch
 #  Target "ghc_filesystem" not found.
 # So let's circumvent CMake foo for ghc_filesystem
 Patch:          dont_use_cmake_for_finding_ghc_filesystem.patch
-# https://github.com/BlueBrain/MorphIO/pull/475
-Patch:          fix_failing_test_due_to_type_conversion.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -272,7 +266,7 @@ k="${k} and not test_dendritic_spine_round_trip_empty_postsynaptic_density"
 
 
 %files
-%license COPYING COPYING.LESSER
+%license LICENSE.txt
 %{_libdir}/libmorphio.so.0.0.0
 
 
@@ -283,14 +277,14 @@ k="${k} and not test_dendritic_spine_round_trip_empty_postsynaptic_density"
 
 
 %files -n python3-%{name}
-%license COPYING COPYING.LESSER
+%license LICENSE.txt
 %{python3_sitearch}/%{name}
 %{python3_sitearch}/%{pretty_name}-%{version}-py%{python3_version}.egg-info
 
 
 %files doc
-%license COPYING COPYING.LESSER
-%doc CHANGELOG.md CONTRIBUTING.md README.rst examples
+%license LICENSE.txt
+%doc AUTHORS.txt CHANGELOG.md CONTRIBUTING.md README.rst examples
 
 %changelog
 %autochangelog

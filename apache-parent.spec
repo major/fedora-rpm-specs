@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           apache-parent
-Version:        30
-Release:        2%{?dist}
+Version:        31
+Release:        1%{?dist}
 Summary:        Parent POM file for Apache projects
 License:        Apache-2.0
 URL:            https://apache.org/
@@ -42,6 +42,9 @@ This package contains the parent pom file for apache projects.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Dec 08 2023 Marian Koncek <mkoncek@redhat.com> - 31-1
+- Update to upstream version 31
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 30-2
 - Rebuild
 

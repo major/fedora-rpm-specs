@@ -1,6 +1,6 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	35%{?dist}
+Release:	36%{?dist}
 License:	LGPLv2+
 Summary:	Encryption algorithms library
 URL:		http://mcrypt.sourceforge.net/
@@ -14,6 +14,7 @@ Patch1:		libmcrypt-2.5.8-uninitialized.patch
 Patch2:		libmcrypt-2.5.8-prototypes.patch
 Patch3: libmcrypt-configure-c99.patch
 Patch4: libmcrypt-c99.patch
+Patch5: libmcrypt-configure-c99-2.patch
 BuildRequires:	libtool-ltdl-devel
 BuildRequires:	gcc-c++
 BuildRequires: make
@@ -37,6 +38,7 @@ use libmcrypt.
 %patch2 -p1 -b .prototypes
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %configure
@@ -67,6 +69,9 @@ touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/libmcrypt-config
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 2.5.8-36
+- Additional C compatibility fixes
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

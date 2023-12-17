@@ -22,8 +22,10 @@ Patch1:         qt-creator_desktop.patch
 Patch2:         qt-creator_qmake-names.patch
 # Fix debuginfod detection
 Patch3:         qt-creator-debuginfod.patch
+%if 0%{?fedora}
 # Fix build against litehtml-0.8
 Patch4:         qt-creator-litehtml.patch
+%endif
 
 BuildRequires:  chrpath
 BuildRequires:  cmake

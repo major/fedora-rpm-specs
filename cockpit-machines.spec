@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        303
+Version:        304
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -65,15 +65,15 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.23.4
+Provides: bundled(npm(@babel/runtime)) = 7.23.6
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
 Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
 Provides: bundled(npm(@patternfly/react-console)) = 5.0.0
-Provides: bundled(npm(@patternfly/react-core)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-icons)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-styles)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.1
+Provides: bundled(npm(@patternfly/react-core)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-icons)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-table)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
@@ -123,14 +123,14 @@ Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(object-inspect)) = 1.13.1
 Provides: bundled(npm(object-is)) = 1.1.5
 Provides: bundled(npm(object-keys)) = 1.1.1
-Provides: bundled(npm(object.assign)) = 4.1.4
+Provides: bundled(npm(object.assign)) = 4.1.5
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.2.0
 Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
-Provides: bundled(npm(redux-thunk)) = 2.4.2
-Provides: bundled(npm(redux)) = 4.2.1
+Provides: bundled(npm(redux-thunk)) = 3.1.0
+Provides: bundled(npm(redux)) = 5.0.0
 Provides: bundled(npm(regenerator-runtime)) = 0.14.0
 Provides: bundled(npm(regexp.prototype.flags)) = 1.5.1
 Provides: bundled(npm(scheduler)) = 0.23.0
@@ -172,6 +172,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Dec 15 2023 Martin Pitt <mpitt@redhat.com> - 304-1
+- Performance and stability improvements
+
 * Wed Nov 29 2023 Packit <hello@packit.dev> - 303-1
 - Change "Add disk" default behavior
 

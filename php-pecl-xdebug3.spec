@@ -13,11 +13,11 @@
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  15d672e84caa6015d1b2b509aa13a0528d6e9a7e
+%global gh_commit  1943c479139008da3f9d26a4e2a6005e75c5ab34
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.3.0
+%global upstream_version 3.3.1
 #global upstream_prever  alpha3
 #global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
@@ -31,8 +31,6 @@ Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
 Release:        2%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
-
-Patch0:         upstream.patch
 
 License:        Xdebug-1.03
 URL:            https://xdebug.org/
@@ -89,8 +87,6 @@ mv %{sources}/package.xml .
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
-%patch -P0 -p1
-
 # Check extension version
 ver=$(sed -n '/XDEBUG_VERSION/{s/.* "//;s/".*$//;p}' php_xdebug.h)
 if test "$ver" != "%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}"; then
@@ -237,6 +233,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Fri Dec 15 2023 Remi Collet <remi@remirepo.net> - 3.3.1-1
+- update to 3.3.1
+
 * Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 3.3.0-2
 - add upstream patch for test suite
 

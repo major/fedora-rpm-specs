@@ -58,7 +58,7 @@
 
 Name:           ibus
 Version:        1.5.29~rc2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -365,6 +365,7 @@ autoreconf -f -i -v
     --enable-introspection \
     --enable-install-tests \
     %{nil}
+make -C ui/gtk3 maintainer-clean-generic
 
 %make_build
 
@@ -580,6 +581,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Dec 15 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-5
+- Refactor object initialization
+- Fix some warnings
+
 * Tue Dec 05 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-4
 - Complete preedit signals for PostProcessKeyEvent
 

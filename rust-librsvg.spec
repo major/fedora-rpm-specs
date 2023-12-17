@@ -6,7 +6,7 @@
 %global crate librsvg
 
 Name:           rust-librsvg
-Version:        2.57.0
+Version:        2.57.1
 Release:        %autorelease
 Summary:        Library to render SVG images to Cairo surfaces
 

@@ -12,7 +12,7 @@ BuildRequires: automake
 BuildRequires: gcc
 BuildRequires: krb5-devel
 BuildRequires: make
-BuildRequires: systemd-devel
+BuildRequires: pkgconfig(systemd)
 BuildRequires: systemd-rpm-macros
 # For tests
 BuildRequires: fakeroot

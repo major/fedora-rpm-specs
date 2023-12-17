@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-compress
-Version:        1.21
-Release:        7%{?dist}
+Version:        1.25.0
+Release:        1%{?dist}
 Summary:        Java API for working with compressed files and archivers
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/commons-compress/
@@ -11,21 +11,19 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://archive.apache.org/dist/commons/compress/source/commons-compress-%{version}-src.tar.gz
 
-Patch0:         0001-Remove-Brotli-compressor.patch
-Patch1:         0002-Remove-ZSTD-compressor.patch
-Patch2:         0003-Remove-Pack200-compressor.patch
+Patch1:         0001-Remove-Brotli-compressor.patch
+Patch2:         0002-Remove-ZSTD-compressor.patch
+Patch3:         0003-Remove-Pack200-compressor.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
-BuildRequires:  mvn(org.hamcrest:hamcrest)
-BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.osgi:org.osgi.core)
+BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.tukaani:xz)
 %endif
 
@@ -45,23 +43,20 @@ This package provides %{summary}.
 %setup -q -n commons-compress-%{version}-src
 
 # Unavailable Google Brotli library (org.brotli.dec)
-%patch0 -p1
+%patch 1 -p1
 %pom_remove_dep org.brotli:dec
 rm -r src/{main,test}/java/org/apache/commons/compress/compressors/brotli
 
 # Unavailable ZSTD JNI library
-%patch1 -p1
+%patch 2 -p1
 %pom_remove_dep :zstd-jni
 rm -r src/{main,test}/java/org/apache/commons/compress/compressors/zstandard
-rm src/test/java/org/apache/commons/compress/compressors/DetectCompressorTestCase.java
 
 # Remove support for pack200 which depends on ancient asm:asm:3.2
-%patch2 -p1
-%pom_remove_dep asm:asm
+%patch 3 -p1
 rm -r src/{main,test}/java/org/apache/commons/compress/harmony
 rm -r src/main/java/org/apache/commons/compress/compressors/pack200
 rm src/main/java/org/apache/commons/compress/java/util/jar/Pack200.java
-rm src/test/java/org/apache/commons/compress/compressors/Pack200TestCase.java
 rm -r src/test/java/org/apache/commons/compress/compressors/pack200
 rm src/test/java/org/apache/commons/compress/java/util/jar/Pack200Test.java
 
@@ -92,6 +87,9 @@ rm src/test/java/org/apache/commons/compress/archivers/tar/TarMemoryFileSystemTe
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Dec 08 2023 Marian Koncek <mkoncek@redhat.com> - 1.25.0-1
+- Update to upstream version 1.25.0
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.21-7
 - Convert License tag to SPDX format
 

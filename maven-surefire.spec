@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           maven-surefire
-Version:        3.0.0~M6
-Release:        7%{?dist}
+Version:        3.2.2
+Release:        1%{?dist}
 Summary:        Test framework project
 License:        Apache-2.0 AND CPL-1.0
 URL:            https://maven.apache.org/surefire/
@@ -19,7 +19,6 @@ Source2:        https://junit.sourceforge.net/cpl-v10.html
 
 Patch1:         0001-Port-to-TestNG-7.4.0.patch
 Patch2:         0002-Disable-JUnit-4.8-test-grouping.patch
-Patch3:         0003-Port-to-JUnit-5.8.1.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -40,12 +39,13 @@ BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-java)
+BuildRequires:  mvn(org.eclipse.aether:aether-util)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.fusesource.jansi:jansi)
 BuildRequires:  mvn(org.junit.platform:junit-platform-launcher)
 BuildRequires:  mvn(org.testng:testng)
 BuildRequires:  mvn(org.testng:testng::jdk15:)
 %endif
-
 
 # PpidChecker relies on /usr/bin/ps to check process uptime
 Requires:       procps-ng
@@ -110,9 +110,8 @@ Javadoc for %{name}.
 %setup -q -n surefire-%{upstream_version}
 cp -p %{SOURCE2} .
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 # Disable strict doclint
 sed -i /-Xdoclint:all/d pom.xml
@@ -122,6 +121,7 @@ sed -i /-Xdoclint:all/d pom.xml
 %pom_disable_module surefire-shadefire
 
 %pom_disable_module surefire-grouper
+%pom_remove_dep org.junit:junit-bom
 %pom_remove_dep :surefire-grouper surefire-providers/common-junit48
 %pom_remove_dep :surefire-grouper surefire-providers/surefire-testng-utils
 rm surefire-providers/common-junit48/src/main/java/org/apache/maven/surefire/common/junit48/{FilterFactory,GroupMatcherCategoryFilter}.java
@@ -173,6 +173,9 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %license LICENSE NOTICE cpl-v10.html
 
 %changelog
+* Wed Dec 13 2023 Marian Koncek <mkoncek@redhat.com> - 3.2.2-1
+- Update to upstream version 3.2.2
+
 * Sat Sep 02 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0~M6-7
 - Rebuild
 

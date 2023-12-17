@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -78,6 +78,7 @@ Patch9:           0009-redact-weak-ciphers.patch
 # https://github.com/grafana/grafana/commit/bae86dbeb0ad68a205454e98e76985dc393183d4
 Patch10:          0010-skip-tests.patch
 Patch11:          0011-remove-email-lookup.patch
+Patch12:          0012-coredump-selinux-error.patch
 
 # Patches affecting the vendor tarball
 Patch1001:        1001-vendor-patch-removed-backend-crypto.patch
@@ -762,6 +763,7 @@ cp -p %{SOURCE8} %{SOURCE9} %{SOURCE10} SELinux
 %patch -P 9 -p1
 %patch -P 10 -p1
 %patch -P 11 -p1
+%patch -P 12 -p1
 
 %patch -P 1001 -p1
 %if %{enable_fips_mode}
@@ -1004,6 +1006,10 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Fri  Dec 15 2023 Sam Feifer <sfeifer@redhat.com> 9.2.10-13
+- Fixes coredump issue introduced by selinux
+- Patches out call to panic when trying to walk "/" directory
+
 * Thu Nov 30 2023 Sam Feifer <sfeifer@redhat.com> - 9.2.10-12
 - Fix another set of AVC denials found testing only on some architectures
 

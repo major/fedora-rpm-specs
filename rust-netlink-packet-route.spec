@@ -6,7 +6,7 @@
 %global crate netlink-packet-route
 
 Name:           rust-netlink-packet-route
-Version:        0.17.1
+Version:        0.18.1
 Release:        %autorelease
 Summary:        Netlink packet types
 

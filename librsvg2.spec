@@ -18,7 +18,7 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.57.0
+Version:        2.57.1
 Release:        %autorelease
 
 # librsvg itself is LGPL-2.1-or-later
@@ -48,9 +48,6 @@ Source1:        librsvg-%{version}-vendor.tar.xz
 # Patches to build with Fedora-packaged rust crates
 Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
 %endif
-
-# Fix self tests with newer pango
-Patch:          0001-1019-Fix-small-caps-and-bump-the-version-of-Pango-re.patch
 
 BuildRequires:  chrpath
 BuildRequires:  gcc

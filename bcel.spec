@@ -1,6 +1,6 @@
 Name:           bcel
-Version:        6.7.0
-Release:        3%{?dist}
+Version:        6.8.0
+Release:        1%{?dist}
 Summary:        Byte Code Engineering Library
 License:        Apache-2.0
 URL:            http://commons.apache.org/proper/commons-bcel/
@@ -60,6 +60,9 @@ This package provides %{summary}.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Dec 11 2023 Marian Koncek <mkoncek@redhat.com> - 6.8.0-1
+- Update to upstream version 6.8.0
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.7.0-3
 - Convert License tag to SPDX format
 

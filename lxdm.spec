@@ -8,19 +8,25 @@
 %global git_rev  2d4ba970e9bf97ec7d9c2730c940cabc58c54d27
 %global git_date 20220831
 %global git_short %(echo %{git_rev} | cut -c-8)
-%global git_version D%{git_date}git%{git_short}
+%global git_version %{git_date}git%{git_short}
 %endif
 
+%global main_version 0.5.3
+
 Name:           lxdm
-Version:        0.5.3
-Release:        27%{?git_version:.%{?git_version}}%{?dist}
+Version:        %{main_version}%{?git_version:^%{?git_version}}
+Release:        1%{?dist}
 Summary:        Lightweight X11 Display Manager
 
-License:        GPLv2+ and LGPLv2+
+# src/*.c	GPL-3.0-or-later
+# src/gdm/		GPL-2.0-or-later AND LGPL-2.1-or-later
+# src/greeter.c	GPL-2.0-or-later
+# SPDX confirmed
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://lxde.org
 
 %if 0%{?git_snapshot}
-Source0:        %{name}-%{version}-%{?git_version}.tar.bz2
+Source0:        %{name}-%{main_version}-D%{?git_version}.tar.bz2
 %else
 Source0:        http://downloads.sourceforge.net/sourceforge/lxdm/%{name}-%{version}.tar.xz
 %endif
@@ -83,10 +89,10 @@ KDM in LXDE distros. It's still in very early stage of development.
 
 
 %prep
-%setup -q %{?git_version:-n %{name}-%{version}-%{?git_version}}
+%setup -q %{?git_version:-n %{name}-%{main_version}-D%{?git_version}}
 
-%patch50 -p1 -b .config
-%patch60 -p1 -b .ssh_agent
+%patch -P50 -p1 -b .config
+%patch -P60 -p1 -b .ssh_agent
 
 # Reset X after logout (bug 1269917)
 sed -i.reset data/lxdm.conf.in \
@@ -149,7 +155,7 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 %files -f %{name}.lang
 # FIXME add ChangeLog and NEWS if not empty
 %doc AUTHORS
-%doc COPYING
+%license COPYING
 %doc README TODO
 %license gpl-2.0.txt
 %license lgpl-2.1.txt
@@ -190,6 +196,10 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 
 
 %changelog
+* Fri Dec 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-1
+- LXDM migration
+- Change EVR scheme to use hat
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-27.D20220831git2d4ba970
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

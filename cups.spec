@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -91,6 +91,8 @@ Patch1001: 0001-Use-purge-job-instead-of-purge-jobs-when-canceling-a.patch
 Patch1002: cups-colorman-leak.patch
 # https://github.com/OpenPrinting/cups/pull/813/
 Patch1003: cups-unload-job-leak.patch
+# https://github.com/OpenPrinting/cups/pull/839
+Patch1004: 0001-httpAddrConnect2-Check-for-error-if-POLLHUP-is-in-va.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -325,6 +327,8 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %patch -P 1002 -p1 -b .colorman
 # https://github.com/OpenPrinting/cups/pull/813/
 %patch -P 1003 -p1 -b .unloadjob
+# https://github.com/OpenPrinting/cups/pull/839
+%patch -P 1004 -p1 -b .httpaddrconnect-pollhup
 
 
 %if %{lspp}
@@ -797,6 +801,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Dec 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-5
+- 2254578 - cupsGetJobs() failes because libcups fails to connect to domain socket
+
 * Mon Dec 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-4
 - make a weak dep on cups-browsed to prevent cups-browsed disappearing
   during upgrade

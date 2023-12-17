@@ -2,8 +2,8 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: qmapshack
-Version: 1.17.0
-Release: 2%{?dist}
+Version: 1.17.1
+Release: 1%{?dist}
 Summary: GPS mapping and management tool
 
 # src/animation = WTFPL
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Thu Dec 14 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.17.1-1
+- Update to 1.17.1 (rhbz#2254510)
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 1.17.0-2
 - Rebuild (gdal)
 

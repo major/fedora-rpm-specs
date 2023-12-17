@@ -1,16 +1,12 @@
 %global dbus_user_id 81
 
 Name:                 dbus-broker
-Version:              33
+Version:              34
 Release:              %autorelease
 Summary:              Linux D-Bus Message Broker
 License:              Apache-2.0 AND LGPL-2.0-or-later and LGPL-2.1-or-later AND (Apache-2.0 OR LGPL-2.1-or-later)
 URL:                  https://github.com/bus1/dbus-broker
 Source0:              https://github.com/bus1/dbus-broker/releases/download/v%{version}/dbus-broker-%{version}.tar.xz
-# https://github.com/bus1/dbus-broker/pull/318
-Patch0001:            0001-util-selinux-try-opening-the-status-page.patch
-Patch0002:            0002-util-selinux-provide-helper-to-check-enforcing-mode.patch
-Patch0003:            0003-util-selinux-follow-permissive-mode.patch
 BuildRequires:        pkgconfig(audit)
 BuildRequires:        pkgconfig(expat)
 BuildRequires:        pkgconfig(dbus-1)

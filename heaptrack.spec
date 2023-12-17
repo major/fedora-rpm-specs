@@ -1,7 +1,7 @@
 
 Name:    heaptrack
 Version: 1.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A heap memory profiler for Linux
 
 License: GPLv2+
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 1.4.0-3
+- Fix C compatibility issues in CMake probes
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

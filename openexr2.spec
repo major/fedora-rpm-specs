@@ -5,15 +5,23 @@
 
 Name:           %{pkgname}
 Version:        2.5.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
 URL:            https://www.openexr.com/
 Source0:        https://github.com/AcademySoftwareFoundation/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Backport updated binary files for the tests.
+Source1:        https://github.com/AcademySoftwareFoundation/%{srcname}/raw/v3.1.11/src/test/OpenEXRTest/v1.7.test.interleaved.exr
+Source2:        https://github.com/AcademySoftwareFoundation/%{srcname}/raw/v3.1.11/src/test/OpenEXRTest/v1.7.test.planar.exr
+Source3:        https://github.com/AcademySoftwareFoundation/%{srcname}/raw/v3.1.11/src/test/OpenEXRTest/v1.7.test.tiled.exr
 
 Patch0:         openexr-gcc11.patch
 Patch1:         openexr2-cstdint.patch
+# Backport of commit 25a11d9a34fcf3c70f7f32680bdbe910a84d85d5 to v2.5.8.
+# The binary files got removed from the patch as they are not supported by the
+# patch command.
+Patch2:         0001-use-NO_COMPRESSION-in-OpenEXTest-testBackwardCompati.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc gcc-c++
@@ -86,6 +94,7 @@ Summary:        Development files for %{name}
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+mv %{SOURCE1} %{SOURCE2} %{SOURCE3} OpenEXR/IlmImfTest/
 
 
 %build
@@ -137,6 +146,9 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 
 
 %changelog
+* Fri Dec 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 2.5.8-5
+- Fix test with zlib-ng-compat
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

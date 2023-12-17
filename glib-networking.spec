@@ -10,7 +10,7 @@ Version:        2.78.0
 Release:        %autorelease
 Summary:        Networking support for GLib
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://gitlab.gnome.org/GNOME/glib-networking
 Source0:        https://download.gnome.org/sources/glib-networking/2.78/%{name}-%{tarball_version}.tar.xz
 
@@ -43,6 +43,10 @@ implementation.
 
 %package tests
 Summary: Tests for the glib-networking package
+# glib-networking-2.78.0/tls/tests/mock-pkcs11.c is Apache-2.0
+# pkcs11t.h is RSA-MD
+# dtls-connection.c is LGPL-2.0-or-later but not currently included in the binaries
+License: LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception AND Apache-2.0 AND RSA-MD
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description tests
@@ -65,10 +69,13 @@ the functionality of the installed glib-networking package.
 %install
 %meson_install
 
+%check
+%meson_test
+
 %find_lang %{name}
 
 %files -f %{name}.lang
-%license COPYING
+%license COPYING LICENSE_EXCEPTION
 %doc NEWS README
 %{_libdir}/gio/modules/libgiognomeproxy.so
 %{_libdir}/gio/modules/libgiognutls.so

@@ -1,6 +1,6 @@
 Name: tin
 Version: 2.6.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Basic Internet news reader
 License: BSD
 URL: http://www.tin.org/
@@ -81,6 +81,9 @@ rm -r ${workdir}
 %{_mandir}/man5/*
 
 %changelog
+* Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 2.6.2-6
+- Further C compatibility fixes for the configure script
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

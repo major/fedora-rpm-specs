@@ -1,14 +1,19 @@
+%global gitdate 20231214.040100
+%global commit0 22bac4191f1977f64ee6c7116e5d807407ee2003
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
 %bcond_without qt5
 %bcond_without qt6
 
 Name:           qtkeychain
-Version:        0.13.2
-Release:        5%{?dist}
+Version:        0.14.1^%{gitdate}.%{shortcommit0}
+Release:        1%{?dist}
 Summary:        A password store library
 
 License:        BSD
 Url:            https://github.com/frankosterfeld/qtkeychain
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+#Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{commit0}.zip
 # Fix qt6 detection broken by including ECMGeneratePriFile
 Patch0:         qtkeychain-qt6.patch
 
@@ -68,7 +73,7 @@ This package contains development files for qt6keychain.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{commit0}
 
 
 %build
@@ -100,15 +105,15 @@ This package contains development files for qt6keychain.
 %define _vpath_builddir %{_target_platform}-qt6
 %cmake_install
 %endif
-
-%find_lang %{name} --with-qt
-
-grep %{_datadir}/qt5keychain/translations %{name}.lang > %{name}-qt5.lang
-grep %{_datadir}/qt6keychain/translations %{name}.lang > %{name}-qt6.lang
+# In the git version, there's no translations.
+#%find_lang %{name} --with-qt
+#grep %{_datadir}/qt5keychain/translations %{name}.lang > %{name}-qt5.lang
+#grep %{_datadir}/qt6keychain/translations %{name}.lang > %{name}-qt6.lang
 
 
 %if %{with qt5}
-%files qt5 -f %{name}-qt5.lang
+#%%files qt5 -f %{name}-qt5.lang
+%files qt5
 %license COPYING
 %{_libdir}/libqt5keychain.so.1
 %{_libdir}/libqt5keychain.so.0*
@@ -121,7 +126,8 @@ grep %{_datadir}/qt6keychain/translations %{name}.lang > %{name}-qt6.lang
 %endif
 
 %if %{with qt6}
-%files qt6 -f %{name}-qt6.lang
+#%%files qt6 -f %{name}-qt6.lang
+%files qt6
 %license COPYING
 %{_libdir}/libqt6keychain.so.1
 %{_libdir}/libqt6keychain.so.0*
@@ -133,13 +139,16 @@ grep %{_datadir}/qt6keychain/translations %{name}.lang > %{name}-qt6.lang
 %endif
 
 %changelog
+* Fri Dec 15 2023 Steve Cossette <farchord@gmail.com> - 0.14.1^20231214.040100.22bac41-1
+- Built from git
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Fri Nov 30 2022 Sandro Mani <manisandro@gmail.com> - 0.13.2-3
+* Wed Nov 30 2022 Sandro Mani <manisandro@gmail.com> - 0.13.2-3
 - Add qt6 build
 
 * Tue Dec 13 2022 Troy Dawson <tdawson@redhat.com> - 0.13.2-2

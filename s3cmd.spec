@@ -4,22 +4,18 @@
 %bcond_without python3
 %endif
 
-%global commit a2b1bdf82a53ed80d95b8f7c3af0acf5a14c5f20
-%global date 20231020
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 %define	name	s3cmd
-%define	version	2.3.0
+%define	version	2.4.0
 %define	release	1
 
 Name:           %{name}
-Version:        %{version}^%{date}git%{shortcommit}
+Version:        %{version}
 Release:        %{release}%{?dist}
 Summary:        Tool for accessing Amazon Simple Storage Service
 
 License:        GPL-2.0-or-later
 URL:            https://s3tools.org/%{name}
-Source0:        https://github.com/s3tools/%{name}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
+Source0:        https://github.com/s3tools/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 %if %{with python3}
@@ -48,7 +44,7 @@ S3cmd lets you copy files from/to Amazon S3
 command line client.
 
 %prep
-%setup -q -n %{name}-%{commit}
+%setup -q
 rm -rf *.egg-info
 %if %{without python3}
 # Not needed on Py2, RPM fails to Bytecompile it
@@ -88,6 +84,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 %endif
 
 %changelog
+* Fri Dec 15 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.4.0-1
+- New upstream release.
+
 * Thu Nov 16 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.3.0^20231020gita2b1bdf-1
 - Upgraded to latest snapshot as fix for BZ2249487.
 

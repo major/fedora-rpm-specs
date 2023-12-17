@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           objectweb-asm
-Version:        9.5
-Release:        3%{?dist}
+Version:        9.6
+Release:        1%{?dist}
 Summary:        Java bytecode manipulation and analysis framework
 License:        BSD-3-Clause
 URL:            https://asm.ow2.org/
@@ -64,6 +64,8 @@ for pom in asm asm-analysis asm-commons asm-test asm-tree asm-util; do
   %pom_xpath_inject pom:parent '<relativePath>..</relativePath>' ${pom}
 done
 
+%pom_add_dep org.ow2.asm:asm-tree:%{version} asm-analysis
+
 # Don't ship poms used for build only
 %mvn_package :aggregator __noinstall
 %mvn_package :tools-retrofitter __noinstall
@@ -87,6 +89,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Mon Dec 11 2023 Marian Koncek <mkoncek@redhat.com> - 9.6-1
+- Update to upstream version 9.6
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 9.5-3
 - Convert License tag to SPDX format
 

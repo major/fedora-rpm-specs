@@ -5,7 +5,7 @@
 %global fonts font(dejavusans)
 
 # For rpmdev-bumpspec
-%global baserelease 30
+%global baserelease 31
 
 Name:		lincity-ng
 Version:	2.9
@@ -32,6 +32,7 @@ Patch4:		lincity-ng-PHYSFS-remove-getLastModTime.patch
 # use PHYSFS_mount instead of
 # deprecated PHYSFS_addToSearchPath
 Patch5:		lincity-ng-PHYSFS-remove-addToSearchPath.patch
+Patch6: lincity-ng-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	jam, physfs-devel, zlib-devel, libxml2-devel
@@ -134,6 +135,9 @@ EOF
 %{_datadir}/lincity-ng/
 
 %changelog
+* Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 2.9-0.31.20210424gitd35c3be
+- Fix incompatible-pointer-types bug in configure script
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-0.30.20210424gitd35c3be
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,33 +1,32 @@
 %ifarch %{power64} s390x
 # LuaJIT is not available for POWER and IBM Z
-%bcond_with lua_scripting
+%bcond lua_scripting 0
 %else
-%bcond_without lua_scripting
+%bcond lua_scripting 1
 %endif
 
 %ifarch x86_64
 # VPL/QSV is only available on x86_64
-%bcond_without vpl
+%bcond vpl 1
 %else
-%bcond_with vpl
+%bcond vpl 0
 %endif
 
-# VLC is not yet in Fedora
-%bcond_with vlc
 # x264 is not in Fedora
-%bcond_with x264
+%bcond x264 0
 
 %ifarch x86_64 aarch64
 # OBS-CEF is only available on x86_64 and aarch64
-%bcond_without cef
+%bcond cef 1
 %else
-%bcond_with cef
+%bcond cef 0
 %endif
 
 %if "%{__isa_bits}" == "64"
 %global lib64_suffix ()(64bit)
 %endif
 %global openh264_soversion 7
+%global libvlc_soversion 5
 
 
 %global obswebsocket_version 5.3.3
@@ -40,7 +39,7 @@
 
 Name:           obs-studio
 Version:        30.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -105,9 +104,6 @@ BuildRequires:  libxkbcommon-devel
 BuildRequires:  luajit-devel
 %endif
 BuildRequires:  mbedtls-devel
-%if %{with cef}
-BuildRequires:  obs-cef-devel
-%endif
 %if %{with vpl}
 BuildRequires:  oneVPL-devel
 %endif
@@ -124,9 +120,6 @@ BuildRequires:  qt6-qtwayland-devel
 BuildRequires:  speexdsp-devel
 BuildRequires:  swig
 BuildRequires:  systemd-devel
-%if %{with vlc}
-BuildRequires:  vlc-devel
-%endif
 BuildRequires:  wayland-devel
 BuildRequires:  websocketpp-devel
 %if %{with x264}
@@ -140,15 +133,14 @@ Requires:       /usr/bin/ffmpeg
 ## Note, we can do this because openh264 is provided in a default-enabled
 ## third party repository provided by Cisco.
 Recommends:     libopenh264.so.%{openh264_soversion}%{?lib64_suffix}
+# We dlopen() libvlc
+Requires:       libvlc.so.%{libvlc_soversion}%{?lib64_suffix}
+# Replace split out plugin package
+Obsoletes:      %{name}-plugin-vlc < %{version}-%{release}
+Provides:       %{name}-plugin-vlc = %{version}-%{release}
+Provides:       %{name}-plugin-vlc%{?_isa} = %{version}-%{release}
 %if %{with x264}
 Requires:       x264
-%endif
-%if %{with cef}
-# Filter out bogus libcef.so requires as this is handled manually
-# with an explicit dependency
-%global __requires_exclude ^libcef\\.so.*$
-
-Requires:       (obs-cef%{?_isa} with obs-cef(abi) = %{cef_version})
 %endif
 
 # Ensure QtWayland is installed when libwayland-client is installed
@@ -187,12 +179,42 @@ Provides:      bundled(intel-mediasdk)
 Open Broadcaster Software is free and open source
 software for video recording and live streaming.
 
+%files
+%doc README.rst
+%license UI/data/license/gplv2.txt
+%license COPYING
+%{_bindir}/obs
+%{_bindir}/obs-ffmpeg-mux
+%{_datadir}/metainfo/com.obsproject.Studio.appdata.xml
+%{_datadir}/applications/com.obsproject.Studio.desktop
+%{_datadir}/icons/hicolor/*/apps/com.obsproject.Studio.*
+%{_datadir}/obs/
+%exclude %{_datadir}/obs/obs-plugins/vlc-video/
+%exclude %{_datadir}/obs/obs-plugins/obs-browser*
+
+# --------------------------------------------------------------------------
+
 %package libs
 Summary: Open Broadcaster Software Studio libraries
-%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 
 %description libs
 Library files for Open Broadcaster Software
+
+%files libs
+%license COPYING
+%license .fedora-rpm/licenses/*
+%dir %{_libexecdir}/obs-plugins
+%{_libdir}/obs-plugins/
+%if %{with cef}
+%exclude %{_libdir}/obs-plugins/obs-browser*
+%endif
+%exclude %{_libdir}/obs-plugins/vlc-video.so
+%{_libdir}/obs-scripting/
+# unversioned so files packaged for third-party plugins (cf. rfbz#5999)
+%{_libdir}/*.so
+%{_libdir}/*.so.*
+
+# --------------------------------------------------------------------------
 
 %package devel
 Summary: Open Broadcaster Software Studio header files
@@ -201,6 +223,61 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description devel
 Header files for Open Broadcaster Software
 
+%files devel
+%{_libdir}/cmake/libobs/
+%{_libdir}/cmake/obs-frontend-api/
+%{_libdir}/pkgconfig/libobs.pc
+%{_includedir}/obs/
+
+# --------------------------------------------------------------------------
+
+%if %{with cef}
+%package plugin-browser
+Summary:        Open Broadcaster Software Studio - CEF-based browser plugin
+BuildRequires:  obs-cef-devel
+
+# Filter out bogus libcef.so requires as this is handled manually
+# with an explicit dependency
+%global __requires_exclude ^libcef\\.so.*$
+
+Requires:       (obs-cef%{?_isa} with obs-cef(abi) = %{cef_version})
+Requires:       obs-studio%{?_isa} = %{version}-%{release}
+Supplements:    obs-studio%{?_isa}
+
+%description plugin-browser
+Open Broadcaster Software is free and open source software
+for video recording and live streaming.
+
+This package contains the plugin for integrated web-based overlays in
+a video stream or recording using the Chromium Embedded Framework (CEF).
+
+%files plugin-browser
+%{_libdir}/obs-plugins/obs-browser*
+%{_datadir}/obs/obs-plugins/obs-browser*
+%endif
+
+# --------------------------------------------------------------------------
+
+%package plugin-vlc-video
+Summary:        Open Broadcaster Software Studio - VLC-based video plugin
+BuildRequires:  vlc-devel
+# We dlopen() libvlc
+Requires:       libvlc.so.%{libvlc_soversion}%{?lib64_suffix}
+Requires:       obs-studio%{?_isa} = %{version}-%{release}
+Supplements:    obs-studio%{?_isa}
+
+%description plugin-vlc-video
+Open Broadcaster Software is free and open source software
+for video recording and live streaming.
+
+This package contains the plugin for using VLC to embed video
+as an overlay in a video stream or recording.
+
+%files plugin-vlc-video
+%{_libdir}/obs-plugins/vlc-video.so
+%{_datadir}/obs/obs-plugins/vlc-video/
+
+# --------------------------------------------------------------------------
 
 %prep
 %setup -q -n %{name}-%{?snapdate:%{commit}}%{!?snapdate:%{version_no_tilde}}
@@ -274,9 +351,6 @@ cp plugins/obs-qsv11/obs-qsv11-LICENSE.txt .fedora-rpm/licenses/plugins/
 %if ! %{with cef}
        -DBUILD_BROWSER=OFF \
 %endif
-%if ! %{with vlc}
-       -DENABLE_VLC=OFF \
-%endif
        -DENABLE_JACK=ON \
        -DENABLE_LIBFDK=ON \
        -DENABLE_AJA=OFF \
@@ -307,35 +381,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/com.obsproject.Studi
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
 
 
-%files
-%doc README.rst
-%license UI/data/license/gplv2.txt
-%license COPYING
-%{_bindir}/obs
-%{_bindir}/obs-ffmpeg-mux
-%{_datadir}/metainfo/com.obsproject.Studio.appdata.xml
-%{_datadir}/applications/com.obsproject.Studio.desktop
-%{_datadir}/icons/hicolor/*/apps/com.obsproject.Studio.*
-%{_datadir}/obs/
-
-%files libs
-%license COPYING
-%license .fedora-rpm/licenses/*
-%dir %{_libexecdir}/obs-plugins
-%{_libdir}/obs-plugins/
-%{_libdir}/obs-scripting/
-# unversioned so files packaged for third-party plugins (cf. rfbz#5999)
-%{_libdir}/*.so
-%{_libdir}/*.so.*
-
-%files devel
-%{_libdir}/cmake/libobs/
-%{_libdir}/cmake/obs-frontend-api/
-%{_libdir}/pkgconfig/libobs.pc
-%{_includedir}/obs/
-
-
 %changelog
+* Fri Dec 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0-5
+- Enable VLC video plugin
+- Split out browser plugin as a subpackage
+- Restructure spec and conditionals
+
 * Mon Dec 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0-4
 - Filter out bogus libcef.so automatic dependency
 

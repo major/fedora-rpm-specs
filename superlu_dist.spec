@@ -6,8 +6,16 @@
 %undefine _ld_as_needed
 
 %bcond_without mpich
-%bcond_without openmpi
 
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 %if 0%{?rhel} || 0%{?rhel} >= 9
 %bcond_with colamd
 %else
@@ -62,15 +70,15 @@ BuildRequires: metis-devel
 %endif
 
 Name: superlu_dist
-Version: 8.1.2
-Release: 6%{?dist}
+Version: 8.2.0
+Release: 1%{?dist}
 Epoch:   1
-
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD
 URL: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/
 Source0: https://github.com/xiaoyeli/superlu_dist/archive/v%version/%name-%version.tar.gz
 
+Patch0: %name-%version-fix-release-number.patch
 Patch1: %name-fix_pkgconfig_creation.patch
 Patch3: %name-scotch_parmetis.patch
 
@@ -109,7 +117,6 @@ the refined solutions.\
 \
 This version uses MPI and OpenMP.
 
-
 %description
 %desc
 
@@ -126,8 +133,8 @@ Requires:      gcc-gfortran%{?_isa}
 
 %description openmpi
 %desc
-
 This is the openmpi version.
+
 
 %package openmpi-devel
 Summary: Development files for %name-openmpi
@@ -138,6 +145,7 @@ Provides: %name-openmpi-static = %{epoch}:%version-%release
 %description openmpi-devel
 Development files for %name-openmpi
 %endif
+
 
 %package doc
 Summary: Documentation for %name
@@ -159,8 +167,8 @@ Requires:      gcc-gfortran%{?_isa}
 
 %description mpich
 %desc
-
 This is the mpich version.
+
 
 %package mpich-devel
 Summary: Development files for %name-mpich
@@ -178,6 +186,7 @@ Development files for %name-mpich
 %autosetup -n superlu_dist-%version -N
 
 dos2unix CMakeLists.txt
+%patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .fix_pkgconfig_creation
 %patch -P 4 -p1 -b .only_short_tests
 
@@ -323,7 +332,7 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 %files openmpi
 %license License.txt
 %_libdir/openmpi/lib/*.so.8
-%_libdir/openmpi/lib/*.so.8.1.2
+%_libdir/openmpi/lib/*.so.%{version}
 
 %files openmpi-devel
 %_libdir/openmpi/lib/*.so
@@ -340,7 +349,7 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 %files mpich
 %license License.txt
 %_libdir/mpich/lib/*.so.8
-%_libdir/mpich/lib/*.so.8.1.2
+%_libdir/mpich/lib/*.so.%{version}
 
 %files mpich-devel
 %_libdir/mpich/lib/*.so
@@ -351,6 +360,9 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 
 
 %changelog
+* Fri Dec 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.2.0-1
+- Release 8.2.0
+
 * Thu Aug 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.2-6
 - Rebuild for scotch-7.0.4
 

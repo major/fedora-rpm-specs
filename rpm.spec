@@ -27,7 +27,7 @@
 
 %global rpmver 4.19.1
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -139,6 +139,7 @@ rpm-4.18.92-disable-sysusers.patch
 rpm-4.18.90-weak-user-group.patch
 
 # Patches already upstream:
+0001-Fix-regression-in-Lua-scriptlet-runaway-child-detect.patch
 # ...
 
 # These are not yet upstream
@@ -619,6 +620,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Fri Dec 15 2023 Panu Matilainen <pmatilai@redhat.com> - 4.19.1-2
+- Fix bogus warnings about runaway Lua scripts (#2254463)
+
 * Tue Dec 12 2023 Michal Domonkos <mdomonko@redhat.com> - 4.19.1-1
 - Update to 4.19.1 (https://rpm.org/wiki/Releases/4.19.1)
 

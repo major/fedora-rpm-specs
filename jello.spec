@@ -9,6 +9,10 @@ URL:            https://github.com/kellyjonbrazil/jello
 # GitHub archive contains tests; PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/jello-%{version}.tar.gz
 
+# Replace deprecated license_file with license_files in setup.cfg
+# https://github.com/kellyjonbrazil/jello/pull/68
+Patch:          %{url}/pull/68.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -19,7 +23,7 @@ Python syntax.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %generate_buildrequires
@@ -32,7 +36,7 @@ Python syntax.
 
 %install
 %pyproject_install
-%pyproject_save_files jello
+%pyproject_save_files -l jello
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 man/*
 
@@ -42,7 +46,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 man/*
 
 
 %files -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc ADVANCED_USAGE.md
 %doc CHANGELOG
 %doc README.md

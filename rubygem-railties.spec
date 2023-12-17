@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: http://rubyonrails.org
@@ -29,6 +29,9 @@ Patch1: rubygem-railties-7.0.2.3-Remove-the-multi-call-form-of-assert_called_wit
 Patch2: rubygem-railties-7.1.0-Fix-tests-for-minitest-5.16.patch
 # https://github.com/rails/rails/pull/45848
 Patch3: rubygem-railties-7.1.0-Fix-unmarshalable-test-for-minitest-5.16.3.patch
+# Fix `FullStackConsoleTest` test cases for Ruby 3.3.
+# https://github.com/rails/rails/pull/48369/commits/cf45394d104b00679c900e9d2dd09154cadcbe11
+Patch4: rubygem-railties-7.1.0-Run-Rails-console-test-against-IRB-with-Reline-instead-of.patch
 
 # Needed by `rails console`.
 Recommends: rubygem(irb)
@@ -98,6 +101,7 @@ pushd %{_builddir}
 %patch 1 -p2
 %patch 2 -p2
 %patch 3 -p2
+%patch 4 -p2
 popd
 
 %build
@@ -242,6 +246,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Dec 15 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.8-2
+- Fix test compatibility with Ruby 3.3.
+
 * Sun Sep 10 2023 Pavel Valena <pvalena@redhat.com> - 7.0.8-1
 - Update to railties 7.0.8.
 

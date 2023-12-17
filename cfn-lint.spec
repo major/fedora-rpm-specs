@@ -65,7 +65,7 @@ for resource properties and best practices.
 # contents of a directory owned by this package are guaranteed to be on a
 # single filesystem.
 hardlink '%{buildroot}%{python3_sitelib}/cfnlint'
-%pyproject_save_files cfnlint
+%pyproject_save_files -l cfnlint
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
@@ -93,8 +93,6 @@ LANG=en_US.UTF-8 AWS_DEFAULT_REGION=us-east-1 %pytest -k 'TestCli'
 
 
 %files -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE and NOTICE (verify with “rpm -qL -p …”)
-
 # We don’t provide a separate documentation package since all of the following
 # documentation is still not very big. As of this writing, it totals ~250kB
 # extracted and a couple dozen files, in the context of a base package that is

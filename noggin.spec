@@ -1,6 +1,6 @@
 Name:           noggin
-Version:        1.7.1
-Release:        4%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -14,14 +14,12 @@ Source10:       noggin-README.Fedora
 
 # Backports from upstream
 ## From:
-## * https://github.com/fedora-infra/noggin/commit/f98c22f627e7563d4b3f05f3b1f72d7115f27d22
-## * https://github.com/fedora-infra/noggin/commit/f16bf889440bb98b25e29a83eca00c11a67b229b
-Patch0001:      0001-Use-poetry-core.patch
+## * https://github.com/fedora-infra/noggin/commit/ab4a69cfafef0523ead1780569522892a018f6db
+## Babel 4 and Flask 3 support backport
+Patch0001:      ab4a69cfafef0523ead1780569522892a018f6db.patch
 
 # Proposed upstream
-## Support flask-babel v3
-## From: https://github.com/fedora-infra/noggin/pull/1282
-Patch0101:      noggin-PR1282.patch
+## From:
 
 # Downstream Fedora changes
 ## Loosen a few version requirements for rhel
@@ -132,6 +130,9 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Wed Dec 13 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.8.0-1
+- Rebase to 1.8.0 (Fixes RHBZ#2254144)
+
 * Tue Sep 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.7.1-4
 - Add patch to support flask-babel v3
 - Reorganize patches to apply unconditionally

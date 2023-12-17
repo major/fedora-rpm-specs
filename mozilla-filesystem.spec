@@ -2,7 +2,7 @@ Name:           mozilla-filesystem
 Version:        1.9
 Release:        31%{?dist}
 Summary:        Mozilla filesytem layout
-License:        MPLv1.1
+License:        MPL-1.1
 
 %description
 This package provides some directories required by packages which use

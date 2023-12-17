@@ -1,98 +1,91 @@
 Name:    kdepim-addons
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
-License: GPLv2 and LGPLv2+
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/pim/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
 ## upstream patches (master)
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # libphonenumber is not build for i686 anymore (i686 is not in
 # %%{java_arches}), see https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 # Since libphonenumber is a transitive dependency of this package, we must
 # drop i686 support as well
-%{?qt5_qtwebengine_arches:ExclusiveArch: %(echo %{qt5_qtwebengine_arches} | sed -e 's/i686//g')}
+%{?qt6_qtwebengine_arches:ExclusiveArch: %(echo %{qt6_qtwebengine_arches} | sed -e 's/i686//g')}
 
-BuildRequires:  extra-cmake-modules >= 5.39.0
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cargo-rpm-macros
+BuildRequires:  cmake(QGpgmeQt6)
 
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5WebEngine)
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Test)
+#Adblock addon - packages currently not in fedora and/or out of date
+#BuildRequires:  rust
+#BuildRequires:  cargo
+#BuildRequires:  corrosion
 
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5Holidays)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KHtml)
-BuildRequires:  cmake(KF5Prison)
-BuildRequires:  cmake(KF5TextGrammarCheck)
-BuildRequires:  cmake(KF5TextTranslator)
-BuildRequires:  cmake(KF5XmlGui)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6SyntaxHighlighting)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6Prison)
+BuildRequires:  cmake(KF6Holidays)
+BuildRequires:  cmake(KF6GuiAddons)
 
-BuildRequires:  cmake(KPim5Akonadi)
-BuildRequires:  cmake(KPim5AkonadiNotes)
-BuildRequires:  cmake(KPim5CalendarSupport)
-BuildRequires:  cmake(KPim5EventViews)
-BuildRequires:  cmake(KPim5GrantleeTheme)
-BuildRequires:  cmake(KPim5Gravatar)
-BuildRequires:  cmake(KPim5IncidenceEditor)
-BuildRequires:  cmake(KPim5KontactInterface)
-BuildRequires:  cmake(KPim5AddressbookImportExport)
+BuildRequires:  cmake(KPim6Mime)
+BuildRequires:  cmake(KPim6AkonadiNotes)
+BuildRequires:  cmake(KF6CalendarCore)
+BuildRequires:  cmake(KPim6CalendarUtils)
+BuildRequires:  cmake(KPim6WebEngineViewer)
+BuildRequires:  cmake(KPim6TemplateParser)
+BuildRequires:  cmake(KPim6MailCommon)
+BuildRequires:  cmake(KPim6AddressbookImportExport)
+BuildRequires:  cmake(KPim6Libkleo)
+BuildRequires:  cmake(KPim6GrantleeTheme)
+BuildRequires:  cmake(KPim6PimCommonAkonadi)
+BuildRequires:  cmake(KF6TextGrammarCheck)
+BuildRequires:  cmake(KF6TextTranslator)
+BuildRequires:  cmake(KF6TextAddonsWidgets)
+BuildRequires:  cmake(KF6TextUtils)
+BuildRequires:  cmake(KPim6Libkdepim)
+BuildRequires:  cmake(KPim6IncidenceEditor)
+BuildRequires:  cmake(KPim6MessageCore)
+BuildRequires:  cmake(KPim6MessageComposer)
+BuildRequires:  cmake(KPim6MessageList)
+BuildRequires:  cmake(KPim6CalendarSupport)
+BuildRequires:  cmake(KPim6EventViews)
+BuildRequires:  cmake(KPim6Akonadi)
+BuildRequires:  cmake(KPim6AkonadiCalendar)
+BuildRequires:  cmake(KPim6Gravatar)
+BuildRequires:  cmake(KPim6TextEdit)
+BuildRequires:  cmake(KPim6IdentityManagementCore)
+BuildRequires:  cmake(KPim6IMAP)
+BuildRequires:  cmake(KPim6KSieveUi)
 
-BuildRequires:  cmake(KPim5Libkdepim)
-BuildRequires:  cmake(KPim5Libkleo)
-BuildRequires:  cmake(KPim5MailCommon)
-BuildRequires:  cmake(KPim5MailImporterAkonadi)
-BuildRequires:  cmake(KPim5MessageComposer)
-BuildRequires:  cmake(KPim5MessageCore)
-BuildRequires:  cmake(KPim5MessageList)
-BuildRequires:  cmake(KPim5MessageViewer)
-BuildRequires:  cmake(KPim5PimCommon)
-BuildRequires:  cmake(KPim5Tnef)
-BuildRequires:  cmake(KPim5ImportWizard)
-BuildRequires:  cmake(KPim5Itinerary)
-BuildRequires:  cmake(KPim5PkPass)
-
-#global majmin_ver %%(echo %%{version} | cut -d. -f1,2)
-%global majmin_ver %{version}
-BuildRequires:  akonadi-import-wizard-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-notes-devel >= %{majmin_ver}
-BuildRequires:  kf5-akonadi-server-devel >= %{majmin_ver}
-BuildRequires:  kf5-calendarsupport-devel >= %{majmin_ver}
-BuildRequires:  kf5-eventviews-devel >= %{majmin_ver}
-BuildRequires:  kf5-grantleetheme-devel >= %{majmin_ver}
-BuildRequires:  kf5-incidenceeditor-devel >= %{majmin_ver}
-BuildRequires:  kf5-kitinerary-devel >= %{majmin_ver}
-BuildRequires:  kf5-kontactinterface-devel >= %{majmin_ver}
-BuildRequires:  kf5-kpkpass-devel >= %{majmin_ver}
-BuildRequires:  kf5-ktnef-devel >= %{majmin_ver}
-BuildRequires:  kf5-libgravatar-devel >= %{majmin_ver}
-BuildRequires:  kf5-libkleo-devel >= %{majmin_ver}
-BuildRequires:  kf5-libksieve-devel >= %{majmin_ver}
-BuildRequires:  kf5-mailcommon-devel >= %{majmin_ver}
-BuildRequires:  kf5-mailimporter-devel >= %{majmin_ver}
-BuildRequires:  kf5-messagelib-devel >= %{majmin_ver}
-BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
-BuildRequires:  libkgapi-devel >= %{majmin_ver}
-
-BuildRequires:  cmake(Grantlee5)
-BuildRequires:  pkgconfig(libmarkdown)
-BuildRequires:  pkgconfig(poppler-qt5)
-BuildRequires:  pkgconfig(shared-mime-info)
+BuildRequires:  cmake(KPim6Tnef)
+BuildRequires:  cmake(KPim6MailTransport)
+BuildRequires:  cmake(KF6Contacts)
+BuildRequires:  cmake(KPim6AkonadiContactWidgets)
+BuildRequires:  cmake(KPim6ImportWizard)
+BuildRequires:  cmake(KPim6MailImporterAkonadi)
+BuildRequires:  cmake(KPim6PkPass)
+BuildRequires:  cmake(KPim6Itinerary)
+BuildRequires:  cmake(KF6TextTemplate)
+BuildRequires:  cmake(Gpgmepp)
+BuildRequires:  discount
 
 Conflicts:      kdepim-common < 16.04.0
 
@@ -104,13 +97,23 @@ Supplements:    korganizer
 %description
 %{summary}.
 
+# Adblock Addon
+#%generate_buildrequires
+#cd plugins/webengineurlinterceptor/adblock
+#%%cargo_generate_buildrequires
+#cd ../../../..
+
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+# Adblock addon
+#%%cargo_prep
+# Delete the Cargo.lock (So it doesn't fail building)
+#find -name "Cargo.lock" -print -delete
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
   -DKDEPIMADDONS_BUILD_EXAMPLES:BOOL=FALSE
 
 %cmake_build
@@ -118,59 +121,51 @@ Supplements:    korganizer
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
-
-
-%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/icons/hicolor/scalable/status/moon-phase-*
-%{_kf5_datadir}/kconf_update/webengineurlinterceptoradblock.upd
-%{_kf5_datadir}/qlogging-categories5/*%{name}.*
-%{_kf5_libdir}/libadblocklibprivate.so.5*
-%{_kf5_libdir}/libakonadidatasetools.so.5*
-%{_kf5_libdir}/libdkimverifyconfigure.so.5*
-%{_kf5_libdir}/libexpireaccounttrashfolderconfig.so.5*
-%{_kf5_libdir}/libfolderconfiguresettings.so.5*
-%{_kf5_libdir}/libkmailconfirmbeforedeleting.so.5*
-%{_kf5_libdir}/libopenurlwithconfigure.so.5*
-%{_kf5_libdir}/libscamconfiguresettings.so.5*
-%{_kf5_qmldir}/org/kde/plasma/PimCalendars/
-%{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_sendplugin.so
-%{_kf5_qtplugindir}/plasmacalendarplugins/pimevents.so
-%{_kf5_qtplugindir}/plasmacalendarplugins/pimevents/
-%{_kf5_qtplugindir}/pim5/webengineviewer/
-
-# TODO: Split to per-app subpackages?
-# KAddressBook
-%{_kf5_qtplugindir}/pim5/contacteditor/editorpageplugins/cryptopageplugin.so
-%{_kf5_libdir}/libkaddressbookmergelibprivate.so*
-
-%{_kf5_qtplugindir}/pim5/kaddressbook/
+%{_kf6_datadir}/icons/hicolor/scalable/status/moon-phase-*
+#%{_kf6_datadir}/kconf_update/webengineurlinterceptoradblock.upd
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
+#%{_kf6_libdir}/libadblocklibprivate.so.*
+%{_kf6_libdir}/libakonadidatasetools.so.*
+%{_kf6_libdir}/libdkimverifyconfigure.so.*
+%{_kf6_libdir}/libexpireaccounttrashfolderconfig.so.*
+%{_kf6_libdir}/libfolderconfiguresettings.so.*
+%{_kf6_libdir}/libkmailconfirmbeforedeleting.so.*
+%{_kf6_libdir}/libopenurlwithconfigure.so.*
+%{_kf6_libdir}/libscamconfiguresettings.so.*
+%{_kf6_qmldir}/org/kde/plasma/PimCalendars/
+%{_kf6_qtplugindir}/pim6/mailtransport/mailtransport_sendplugin.so
+%{_kf6_qtplugindir}/plasmacalendarplugins/pimevents.so
+%{_kf6_qtplugindir}/plasmacalendarplugins/pimevents/
+%{_kf6_qtplugindir}/pim6/webengineviewer/
+%{_kf6_qtplugindir}/pim6/contacteditor/editorpageplugins/cryptopageplugin.so
+%{_kf6_libdir}/libkaddressbookmergelibprivate.so*
+%{_kf6_qtplugindir}/pim6/kaddressbook/
 
 # KMail
-%{_kf5_bindir}/kmail_*.sh
-%{_kf5_libdir}/libkmailmarkdown.so.*
-%{_kf5_libdir}/libkmailquicktextpluginprivate.so.*
-%{_kf5_qtplugindir}/pim5/akonadi/
-%{_kf5_qtplugindir}/pim5/importwizard/
-%{_kf5_qtplugindir}/pim5/kmail/
-%{_kf5_qtplugindir}/pim5/libksieve/
-%{_kf5_qtplugindir}/pim5/templateparser/
-%{_kf5_sysconfdir}/xdg/kmail.antispamrc
-%{_kf5_sysconfdir}/xdg/kmail.antivirusrc
+%{_kf6_bindir}/kmail_*.sh
+#%{_kf6_libdir}/libkmailmarkdown.so.*
+%{_kf6_libdir}/libkmailquicktextpluginprivate.so.*
+%{_kf6_qtplugindir}/pim6/akonadi/
+%{_kf6_qtplugindir}/pim6/importwizard/
+%{_kf6_qtplugindir}/pim6/kmail/
+%{_kf6_qtplugindir}/pim6/libksieve/
+%{_kf6_qtplugindir}/pim6/templateparser/
+%{_kf6_sysconfdir}/xdg/kmail.antispamrc
+%{_kf6_sysconfdir}/xdg/kmail.antivirusrc
 
 # KOrganizer
-%{_kf5_qtplugindir}/pim5/korganizer/
+%{_kf6_qtplugindir}/pim6/korganizer/
 
 # PimCommon
-%{_kf5_libdir}/libshorturlpluginprivate.so*
-%{_kf5_qtplugindir}/pim5/pimcommon/
+%{_kf6_libdir}/libshorturlpluginprivate.so*
+%{_kf6_qtplugindir}/pim6/pimcommon/
 
 # BodyPartFormatter, MessageViewer, MessageViewer_headers
-%{_kf5_qtplugindir}/pim5/messageviewer/
+%{_kf6_qtplugindir}/pim6/messageviewer/
 
 # qtcreator templates
 %dir %{_datadir}/qtcreator
@@ -180,6 +175,9 @@ Supplements:    korganizer
 
 
 %changelog
+* Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

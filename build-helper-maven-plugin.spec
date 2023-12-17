@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           build-helper-maven-plugin
-Version:        3.4.0
+Version:        3.5.0
 Release:        1%{?dist}
 Summary:        Build Helper Maven Plugin
 License:        MIT
@@ -70,6 +70,9 @@ find -name BeanshellPropertyMojo.java -delete
 %license LICENSE.txt
 
 %changelog
+* Thu Dec 14 2023 Marian Koncek <mkoncek@redhat.com> - 3.5.0-1
+- Update to upstream version 3.5.0
+
 * Thu Aug 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.0-1
 - Update to upstream version 3.4.0
 

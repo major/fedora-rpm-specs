@@ -1,12 +1,13 @@
 Name:           ogmtools
 Version:        1.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Tools for Ogg media streams
 
 License:        GPL-2.0-or-later
 URL:            https://www.bunkus.org/videotools/ogmtools
 Source:         %{url}/%{name}-%{version}.tar.bz2
 Patch:          ogmtools-1.5-optflags.patch
+Patch:          ogmtools-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -56,6 +57,9 @@ export CXXFLAGS="-std=c++14 %{optflags}"
 %{_mandir}/man1/ogmsplit.1*
 
 %changelog
+* Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 1.5-35
+- Fix C99 compatibility issue in the configure script
+
 * Mon Aug 28 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1.5-34
 - Rework specfile to follow latest guidelines
 - Convert license tag to SPDX

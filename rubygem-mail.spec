@@ -2,24 +2,16 @@
 %global gem_name mail
 
 Name: rubygem-%{gem_name}
-Version: 2.7.1
-Release: 9%{?dist}
+Version: 2.8.1
+Release: 1%{?dist}
 Summary: Mail provides a nice Ruby DSL for making, sending and reading emails
 License: MIT
 URL: https://github.com/mikel/mail
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Specs are not shipped with the gem. You can get them like so:
 # git clone https://github.com/mikel/mail.git --no-checkout
-# cd mail && git archive -v -o mail-2.7.1-specs.txz 2.7.1 spec/
+# cd mail && git archive -v -o mail-2.8.1-specs.txz 2.8.1 spec/
 Source1: %{gem_name}-%{version}-specs.txz
-# Fix compatibility with Psych 4.0+.
-# https://github.com/mikel/mail/pull/1476
-Patch0: rubygem-mail-2.7.1-Add-Mail-YAML-load-compatible-with-Psych-3.x-and-Psych-4.x.patch
-Patch1: rubygem-mail-2.7.1-Add-Mail-YAML-load-compatible-with-Psych-3.x-and-Psych-4.x-test.patch
-# net-smtp is bundled gem, shipped in ruby-default-gems since Ruby 3.1.
-# There might be explicit dependencies introduced later:
-# https://github.com/mikel/mail/pull/1439
-Requires: rubygem(net-smtp)
 BuildRequires: rubygem(net-smtp)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -42,12 +34,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
 
-%patch0 -p1
-
-pushd %{_builddir}
-%patch1 -p1
-popd
-
 %gemspec_add_file 'lib/mail/yaml.rb'
 
 %build
@@ -62,6 +48,12 @@ cp -a .%{gem_dir}/* \
 %check
 pushd .%{gem_instdir}
 ln -s %{_builddir}/spec .
+
+# We don't want benchmarks
+sed -i -e '/require..rspec.benchmark/ s/^/#/' \
+       -e '/include.RSpec..Benchmark/ s/^/#/' \
+  spec/spec_helper.rb
+
 rspec spec
 popd
 
@@ -77,6 +69,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Sep 21 2023 Pavel Valena <pvalena@redhat.com> - 2.8.1-1
+- Update to mail 2.8.1.
+  Resolves: rhbz#2150476
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

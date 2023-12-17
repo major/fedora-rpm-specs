@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.13.37
+Version:            2.15.1
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -109,7 +109,7 @@ export TESTS_REMOVE_REPO_ROOT_FROM_PATH=1 TZ=UTC
 %if 0%{?rhel}
 export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
-%pytest --verbose %{!?rhel:--numprocesses=auto --dist=loadfile} tests/unit tests/functional
+%pytest --verbose %{!?rhel:--numprocesses=auto --dist=loadfile --maxprocesses=4} tests/unit tests/functional
 
 
 %files -f %{pyproject_files}

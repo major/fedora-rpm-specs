@@ -24,7 +24,7 @@
 
 Name:           haskell-platform
 Version:        2023.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD-3-Clause
@@ -51,6 +51,8 @@ Source20:       stack-symlink-distro-ghc
 # https://github.com/commercialhaskell/stack/pull/6028
 Patch0:         6028-2.9.3.1.patch
 Patch1:         stack-disable-ghc-Cabal-version-warnings.patch
+# https://github.com/commercialhaskell/stack/issues/6379
+Patch2:         stack-Setup-Platforms.patch
 
 BuildRequires:  ghc
 BuildRequires:  alex
@@ -479,6 +481,9 @@ rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 
 
 %changelog
+* Fri Dec 15 2023 Jens Petersen <petersen@redhat.com> - 2023.1-27
+- patch Stack.Setup to accept PPC64 and S390X Linux platforms
+
 * Tue Nov  7 2023 Jens Petersen <petersen@redhat.com> - 2023.1-26
 - make stack-symlink-distro-ghc executable
 

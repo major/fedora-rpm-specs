@@ -1,51 +1,54 @@
 Name:    kgpg
-Summary: Manage GPG encryption keys 
-Version: 23.08.2
+Summary: Manage GPG encryption keys
+Version: 24.01.80
 Release: 1%{?dist}
 
-License: GPLv2+
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LicenseRef-KDE-Accepted-GPL
 URL:     https://www.kde.org/applications/utilities/kgpg/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# 24.01.80: Beta qt6 patch
+Patch0:  24.01.80-kgpg-qt6.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core5Compat)
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5JobWidgets)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: kf6-rpm-macros
+
 
 # pim-related deps below are available only where qtwebengine is
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
-BuildRequires: cmake(KPim5AkonadiContact)
-BuildRequires: cmake(KF5Contacts)
-BuildRequires: cmake(KPim5GrantleeTheme)
-BuildRequires: cmake(Grantlee5)
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
+
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6TextTemplate)
+
+BuildRequires: cmake(KPim6AkonadiContactWidgets)
+
 
 # support kde4 servicemenus too
 BuildRequires: kde-filesystem
@@ -75,56 +78,55 @@ KGpg is a simple interface for GnuPG, a powerful encryption utility.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 # only plasma supports X-KDE-autostart-condition, else it starts unconditionally
 # everywhere else, see also https://bugzilla.redhat.com/1427707
 desktop-file-edit \
   --add-only-show-in=KDE \
-  %{buildroot}%{_kf5_sysconfdir}/xdg/autostart/org.kde.kgpg.desktop
+  %{buildroot}%{_kf6_sysconfdir}/xdg/autostart/org.kde.kgpg.desktop
 
 # support kde4 servicemenu
 mkdir -p %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus
 cp -alf \
-  %{buildroot}%{_kf5_datadir}/kio/servicemenus/*.desktop \
+  %{buildroot}%{_kf6_datadir}/kio/servicemenus/*.desktop \
   %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc AUTHORS
 %license LICENSES/*
-%{_kf5_bindir}/kgpg
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_sysconfdir}/xdg/autostart/org.kde.kgpg.desktop
-%{_kf5_metainfodir}/org.kde.kgpg.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kgpg.desktop
-%{_kf5_datadir}/config.kcfg/kgpg.kcfg
-%{_kf5_datadir}/dbus-1/interfaces/org.kde.kgpg.Key.xml
-%{_kf5_datadir}/kgpg/
-%{_kf5_datadir}/kio/servicemenus/*.desktop
+%{_kf6_bindir}/kgpg
+%{_kf6_datadir}/qlogging-categories6/%{name}*
+%{_kf6_sysconfdir}/xdg/autostart/org.kde.kgpg.desktop
+%{_kf6_metainfodir}/org.kde.kgpg.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kgpg.desktop
+%{_kf6_datadir}/config.kcfg/kgpg.kcfg
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.kgpg.Key.xml
+%{_kf6_datadir}/kio/servicemenus/*.desktop
 %{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
-%{_kf5_datadir}/kxmlgui5/kgpg/
-%{_kf5_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/icons/hicolor/*/*/*
 
 
 %changelog
+* Fri Dec 15 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

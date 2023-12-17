@@ -1,5 +1,5 @@
 Name:           cinfo
-Version:        0.5.2
+Version:        0.5.4
 Release:        1%{?dist}
 Summary:        Fast and minimal system information tool
 
@@ -18,6 +18,14 @@ BuildRequires:  make
 
 
 %build
+# remove lines that build for pacman
+sed -i -e '/\*PKGS_CMD/d' -e '/\*PKGS_DESC/d' config.def.h
+# add lines to build for dnf
+cat >> config.def.h << EOL
+static const char *PKGS_CMD             = "rpm -qa | wc -l",
+                  *PKGS_DESC            = " [dnf]";
+EOL
+
 %set_build_flags
 %make_build
 
@@ -34,6 +42,10 @@ BuildRequires:  make
 
 
 %changelog
+* Thu Dec 14 2023 Jonathan Wright <jonathan@almalinux.org> - 0.5.4-1
+- Update to 0.5.4
+- Patch compile to look for rpm packages, not pacman rhbz#2254464
+
 * Fri Aug 04 2023 Jonathan Wright <jonathan@almalinux.org> - 0.5.2-1
 - Update to 0.5.2 rhbz#2223912
 

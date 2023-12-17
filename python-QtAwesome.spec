@@ -2,8 +2,8 @@
 %global simple_name qtawesome
 
 Name:		python-%{pypi_name}
-Version:	1.2.3
-Release:	4%{?dist}
+Version:	1.3.0
+Release:	1%{?dist}
 
 Summary:	FontAwesome icons in PyQt and PySide applications
 # MIT: QtAwesome code and the bundled phosphor and remixicon fonts
@@ -110,6 +110,9 @@ ln -s %{_datadir}/fontawesome/webfonts/fa-solid-900.ttf \
 %{_bindir}/qta-browser
 
 %changelog
+* Thu Dec 14 2023 Jonathan Wright <jonathan@almalinux.org> - 1.3.0-1
+- Update to 1.3.0 rhbz#2254511
+
 * Tue Oct 03 2023 Alessandro Astone <ales.astone@gmail.com> - 1.2.3-4
 - Fix using the system fontawesome fonts rhbz#2241351
 

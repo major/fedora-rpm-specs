@@ -93,7 +93,7 @@ PYTHONPATH="${PWD}/src" %{python3} scripts/generate_man.py
 
 %install
 %pyproject_install
-%pyproject_save_files pipx
+%pyproject_save_files -l pipx
 
 install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' pipx.1
 

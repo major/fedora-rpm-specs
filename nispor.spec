@@ -2,14 +2,13 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.12
+Version:        1.2.15
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        Apache-2.0
 URL:            https://github.com/nispor/nispor
 Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/nispor/nispor/releases/download/v%{version}/nispor-vendor-%{version}.tar.xz
-Patch1:         0001-Makefile-Fix-version-1.2.12.patch
 BuildRequires:  make
 BuildRequires:  pkg-config
 BuildRequires:  python3-devel
@@ -29,10 +28,10 @@ BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4
 BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
 BuildRequires:  (crate(mptcp-pm/default) >= 0.1.3 with crate(mptcp-pm/default) < 0.2)
-BuildRequires:  (crate(netlink-packet-route/default) >= 0.17.0 with crate(netlink-packet-route/default) < 0.18)
+BuildRequires:  (crate(netlink-packet-route/default) >= 0.18.0 with crate(netlink-packet-route/default) < 0.19)
 BuildRequires:  (crate(netlink-packet-utils/default) >= 0.5.2 with crate(netlink-packet-utils/default) < 0.6)
 BuildRequires:  (crate(netlink-sys/default) >= 0.8.4 with crate(netlink-sys/default) < 0.9)
-BuildRequires:  (crate(rtnetlink/default) >= 0.13.1 with crate(rtnetlink/default) < 0.14)
+BuildRequires:  (crate(rtnetlink/default) >= 0.14.0 with crate(rtnetlink/default) < 0.15)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
