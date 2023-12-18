@@ -1,12 +1,12 @@
 Summary:        Python package with an object-oriented approach to text processing
 Name:           pyparsing
-Version:        3.0.9
+Version:        3.1.1
 Release:        %autorelease
 
 # SPDX
 License:        MIT
 URL:            https://github.com/pyparsing/pyparsing
-Source0:        https://github.com/%{name}/%{name}/archive/%{name}_%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  dos2unix
@@ -60,7 +60,7 @@ The package contains documentation for pyparsing.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{name}_%{version}
+%autosetup -p1
 
 dos2unix -k examples/*
 

@@ -6,7 +6,7 @@
 
 Summary:        Open Source IRC server
 Name:           unrealircd
-Version:        6.1.3
+Version:        6.1.4
 Release:        1%{?dist}
 # UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
 # a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
@@ -240,6 +240,9 @@ fi
 %endif
 
 %changelog
+* Sat Dec 16 2023 Robert Scheck <robert@fedoraproject.org> 6.1.4-1
+- Upgrade to 6.1.4 (#2254828)
+
 * Sat Dec 09 2023 Robert Scheck <robert@fedoraproject.org> 6.1.3-1
 - Upgrade to 6.1.3 (#2252372)
 

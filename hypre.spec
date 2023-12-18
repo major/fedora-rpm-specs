@@ -2,11 +2,18 @@
 # Copyright (c) 2018  Dave Love, University of Manchester
 # MIT licence, per Fedora policy
 
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
+
 %bcond_without mpich
-
 %bcond_with check
-
 %bcond_without flexiblas
 
 %if %{with flexiblas}
@@ -23,7 +30,7 @@
 
 Name:           hypre
 Version:        2.24.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        High performance matrix preconditioners
 License:        LGPLv2
 URL:            http://www.llnl.gov/casc/hypre/
@@ -204,11 +211,17 @@ make -C src install HYPRE_INSTALL_DIR=%{buildroot}%{_prefix} \
      HYPRE_LIB_INSTALL=%{buildroot}%{_libdir} \
      HYPRE_INC_INSTALL=%{buildroot}%{_includedir}/%{name} SONAME=libHYPRE.so.%soversion
 
+ln -s libHYPRE.so.%soversion %{buildroot}%{_libdir}/libHYPRE.so.%somajor
+
 %if %{with openmpi}
 %_openmpi_load
 make -C openmpi install HYPRE_INSTALL_DIR=%{buildroot}$MPI_HOME \
      HYPRE_LIB_INSTALL=%{buildroot}$MPI_LIB \
      HYPRE_INC_INSTALL=%{buildroot}$MPI_INCLUDE/%{name} SONAME=libHYPRE.so.%soversion
+
+for l in openmpi/lib; do
+  ln -s libHYPRE.so.%soversion %{buildroot}%{_libdir}/$l/libHYPRE.so.%somajor
+done
 %_openmpi_unload
 %endif
 
@@ -217,12 +230,12 @@ make -C openmpi install HYPRE_INSTALL_DIR=%{buildroot}$MPI_HOME \
 make -C mpich install HYPRE_INSTALL_DIR=%{buildroot}$MPI_HOME \
      HYPRE_LIB_INSTALL=%{buildroot}$MPI_LIB \
      HYPRE_INC_INSTALL=%{buildroot}$MPI_INCLUDE/%{name} SONAME=libHYPRE.so.%soversion
+     
+for l in mpich/lib; do
+  ln -s libHYPRE.so.%soversion %{buildroot}%{_libdir}/$l/libHYPRE.so.%somajor
+done
 %_mpich_unload
 %endif
-
-for l in '' mpich/lib openmpi/lib; do
-  ln -s libHYPRE.so.%soversion %{buildroot}%_libdir/$l/libHYPRE.so.%somajor
-done
 
 %files
 %doc CHANGELOG README.md
@@ -263,16 +276,19 @@ done
 %endif
 
 %changelog
-* Thu Aug 17 2023 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-8
+* Fri Dec 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.24.0-9
+- Rebuild for superlu_dist-8.2.0
+
+* Thu Aug 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.24.0-8
 - Rebuild for Scotch-7.0.4
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Sun Jul 16 2023 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-6
+* Sun Jul 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.24.0-6
 - Rebuild for SuperLU-6.0.0
 
-* Thu Apr 13 2023 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-5
+* Thu Apr 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.24.0-5
 - Rebuild for Scotch-7
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-4
@@ -281,16 +297,16 @@ done
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Fri Jun 24 2022 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-2
+* Fri Jun 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.24.0-2
 - Rebuild for superlu_dist-8.0.0
 
-* Sat Apr 02 2022 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-1
+* Sat Apr 02 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.24.0-1
 - Release 2.24.0
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Sat Oct 30 2021 Antoio Trande <sagitter@fedoraproject.org> - 2.18.2-5
+* Sat Oct 30 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.18.2-5
 - Rebuild for SuperLU-5.3.0
 
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-4

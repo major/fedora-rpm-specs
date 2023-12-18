@@ -1,10 +1,14 @@
+%if (0%{?fedora} && 0%{?fedora} < 40) || (0%{?rhel} && 0%{?rhel} < 10)
 %bcond as_wget 0
+%else
+%bcond as_wget 1
+%endif
 
 %global somajor 2
 
 Name:           wget2
 Version:        2.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -166,6 +170,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Sat Dec 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-3
+- Enable wget2-wget for F40+ / RHEL10+
+
 * Fri Sep 01 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.1.0-2
 - Add gpg signature check
 

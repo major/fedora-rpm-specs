@@ -1,6 +1,6 @@
 Name:    akonadi-mime
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Mime Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -25,6 +25,9 @@ BuildRequires:  pkgconfig(shared-mime-info)
 
 BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KPim6Mime)
+
+# Plasma 6
+Obsoletes:      kf5-akonadi-mime < 24.01.80-1
 
 %description
 %{summary}.
@@ -62,11 +65,14 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKPim6AkonadiMime.so.*
 %{_kf6_qtplugindir}/akonadi_serializer_mail.so
 
-%files devel 
+%files devel
 %{_includedir}/KPim6/AkonadiMime/
 %{_kf6_libdir}/cmake/KPim6AkonadiMime/
 %{_kf6_libdir}/libKPim6AkonadiMime.so
 
 %changelog
+* Sat Dec 16 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
+- Obsoletes the old version
+
 * Fri Dec 8 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

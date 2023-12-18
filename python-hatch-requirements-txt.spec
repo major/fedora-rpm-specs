@@ -4,12 +4,13 @@
 Name:           python-hatch-requirements-txt
 Version:        0.4.0
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hatchling plugin to read project dependencies from requirements.txt
 
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
+Patch:          %{url}/pull/47.patch#/tests-handle-hatchling-dependency-spec-formatting-ch.patch
 
 BuildArch:      noarch
 
@@ -67,5 +68,8 @@ find hatch_requirements_txt/ -type f ! -executable -name '*.py' -print \
 
 
 %changelog
+* Fri Dec 15 2023 Maxwell G <maxwell@gtmx.me> - 0.4.0-2
+- Fix test failures with latest hatchling release
+
 * Thu Oct 19 2023 Maxwell G <maxwell@gtmx.me> - 0.4.0-1
 - Initial package. Closes rhbz#2244976.

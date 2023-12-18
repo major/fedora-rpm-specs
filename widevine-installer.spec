@@ -13,12 +13,9 @@ URL:            https://github.com/AsahiLinux/widevine-installer
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 # Use /var/lib instead of /opt
 Patch:          %{url}/pull/2.patch
-# Use environment.d instead of the bash profile
-Patch:          %{url}/pull/5.patch
 
 BuildRequires:  bash
 BuildRequires:  coreutils
-BuildRequires:  systemd-rpm-macros
 BuildRequires:  sed
 
 Requires:       bash
@@ -28,7 +25,6 @@ Requires:       glibc >= 2.36
 Requires:       python3
 Requires:       setup
 Requires:       squashfs-tools
-Requires:       systemd
 
 Enhances:       chromium
 Enhances:       firefox
@@ -65,7 +61,6 @@ DESTDIR="%{buildroot}" ./widevine-installer --distinstall
 %dir %{_libdir}/firefox/defaults
 %dir %{_libdir}/firefox/defaults/pref
 %{_libdir}/firefox/defaults/pref/gmpwidevine.js
-%{_environmentdir}/50-gmpwidevine.conf
 %dir %{_sharedstatedir}/widevine
 %dir %ghost %{_sharedstatedir}/widevine/gmp-widevinecdm
 %dir %ghost %{_sharedstatedir}/widevine/gmp-widevinecdm/system-installed
@@ -82,6 +77,7 @@ DESTDIR="%{buildroot}" ./widevine-installer --distinstall
 %ghost %{_sharedstatedir}/widevine/WidevineCdm/_platform_specific/linux_arm64/libwidevinecdm.so
 %dir %ghost %{_sharedstatedir}/widevine/WidevineCdm/_platform_specific/linux_x64
 %ghost %{_sharedstatedir}/widevine/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
+%config(noreplace) %{_sysconfdir}/profile.d/gmpwidevine.sh
 
 %changelog
 %autochangelog

@@ -4,10 +4,10 @@
 
 Name:		voms-api-java
 Version:	3.3.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://wiki.italiangrid.it/VOMS
 Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -23,6 +23,8 @@ Patch1:		%{name}-expired-2022-09-24.patch
 Patch2:		%{name}-expired-2022-10-08.patch
 #		2022-12-12 (test_host_2_cnaf_infn_it.cert.pem)
 Patch3:		%{name}-expired-2022-12-12.patch
+#		Adjust to removed deprecaded API in Mockito
+Patch4:		%{name}-mockito4.patch
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
@@ -52,10 +54,11 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 # Remove unused dependency
 %pom_remove_dep net.jcip:jcip-annotations
@@ -94,6 +97,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Sat Dec 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-14
+- Adjust to removed deprecaded API in Mockito
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

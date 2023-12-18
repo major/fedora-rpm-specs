@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.08c
+Version:       4.09c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.08c
+%global tag    v4.09c
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -163,6 +163,7 @@ test -n '%{clang_major}'
 %{_bindir}/afl-gcc
 %endif
 %{_bindir}/afl-analyze
+%{_bindir}/afl-addseeds
 %{_bindir}/afl-cc
 %{_bindir}/afl-c++
 %{_bindir}/afl-cmin
@@ -188,6 +189,7 @@ test -n '%{clang_major}'
 %{_mandir}/man8/afl-c++.8*
 %{_mandir}/man8/afl-cc.8*
 %endif
+%{_mandir}/man8/afl-addseeds.8*
 %{_mandir}/man8/afl-analyze.8*
 %{_mandir}/man8/afl-as.8*
 %{_mandir}/man8/afl-cmin.8*
@@ -261,6 +263,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Sat Dec 16 2023 Richard W.M. Jones <rjones@redhat.com> - 4.09c-1
+- New upstream release 4.09c (RHBZ#2254824)
+
 * Wed Sep 20 2023 Richard W.M. Jones <rjones@redhat.com> - 4.08c-3
 - clang subpackage recommends compiler-rt so ASAN works
 

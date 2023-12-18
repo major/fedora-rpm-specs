@@ -1,6 +1,6 @@
 Name:    akonadi-contacts
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Contacts Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -26,6 +26,8 @@ BuildRequires:  cmake(KPim6GrantleeTheme)
 BuildRequires:  cmake(KF6Contacts)
 BuildRequires:  cmake(KPim6Mime)
 BuildRequires:  cmake(KF6IconThemes)
+
+Obsoletes:      kf5-akonadi-contacts < 24.01.80-1
 
 %description
 %{summary}.
@@ -74,5 +76,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKPim6AkonadiContactWidgets.so
 
 %changelog
+* Sat Dec 16 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
+- Obsoletes the old version
+
 * Sat Dec 9 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

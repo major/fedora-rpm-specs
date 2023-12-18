@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -68,6 +68,9 @@ Recommends:     %{name}-mysql = %{version}-%{release}
 %endif
 
 Conflicts:      akonadi < 1.13.0-100
+
+# Plasma 6
+Obsoletes:      kf5-akonadi-server < 24.01.80-1
 
 %description
 %{summary}.
@@ -237,5 +240,8 @@ fi
 
 
 %changelog
+* Sat Dec 16 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
+- Obsolete the old Akonadi
+
 * Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

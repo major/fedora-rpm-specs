@@ -21,7 +21,7 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  extra-cmake-modules
 
-# Qt6 support seems to be in the new release
+# Qt6 support seems to be in the future new release
 BuildRequires:  cmake(Qt5Concurrent)
 BuildRequires:  cmake(Qt5Gui)
 BuildRequires:  cmake(Qt5PrintSupport)
@@ -29,6 +29,7 @@ BuildRequires:  cmake(Qt5Sql)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5Test)
+BuildRequires:  cmake(Qt5SerialPort)
 
 BuildRequires:  cmake(KF5Archive)
 BuildRequires:  cmake(KF5Completion)
@@ -54,7 +55,7 @@ BuildRequires:  poppler-qt5-devel
 
 BuildRequires:  gsl-devel
 BuildRequires:  gettext-devel
-%ifarch %{Qt5_qtwebengine_arches}
+%ifarch %{qt5_qtwebengine_arches}
 BuildRequires:  cantor-devel
 %endif
 BuildRequires:  bison
@@ -66,16 +67,15 @@ BuildRequires:  libspectre-devel
 BuildRequires:  lz4-devel
 BuildRequires:  netcdf-devel
 BuildRequires:  readstat-devel
+BuildRequires:  kuserfeedback-devel
+BuildRequires:  liborigin-devel
+# QXlsx is built against Qt6
+#BuildRequires:  QXlsx-devel
+BuildRequires:  matio-devel
+BuildRequires:  libmarkdown-devel
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-
-# optional dependencies
-BuildRequires:  kuserfeedback-devel
-BuildRequires:  liborigin-devel
-BuildRequires:  QXlsx-devel
-BuildRequires:  matio-devel
-BuildRequires:  libmarkdown-devel
 
 ExcludeArch:  sparc64 s390 s390x
 

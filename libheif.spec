@@ -6,14 +6,22 @@
 %bcond_with check
 
 Name:           libheif
-Version:        1.16.2
-Release:        2%{?dist}
+Version:        1.17.5
+Release:        1%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/strukturag/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         libheif-no-hevc-tests.patch
+# fix for CVE-2023-49460 (https://github.com/strukturag/libheif/issues/1046)
+Patch10:        https://github.com/strukturag/libheif/commit/fd5b02aca3e29088bf0a1fc400bd661be4a6ed76.patch
+# fix for CVE-2023-49462 (https://github.com/strukturag/libheif/issues/1043)
+Patch11:        https://github.com/strukturag/libheif/commit/730a9d80bea3434f75c79e721878cc67f3889969.patch
+# fix for CVE-2023-49463 (https://github.com/strukturag/libheif/issues/1042)
+Patch12:        https://github.com/strukturag/libheif/commit/26ec3953d46bb5756b97955661565bcbc6647abf.patch
+# fix for CVE-2023-49464 (https://github.com/strukturag/libheif/issues/1044)
+Patch13:        https://github.com/strukturag/libheif/commit/56ef61d8daa55b56d782e5d8ab6f0ed31b98b494.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -21,12 +29,11 @@ BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(aom)
 BuildRequires:  pkgconfig(dav1d)
 BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
 BuildRequires:  pkgconfig(libsharpyuv)
 BuildRequires:  pkgconfig(rav1e)
-%endif
-%if ! ((0%{?rhel} && 0%{?rhel} <= 9) || (0%{?fedora} && 0%{?fedora} < 38))
 BuildRequires:  pkgconfig(SvtAv1Enc)
 %endif
 
@@ -41,8 +48,6 @@ file format decoder and encoder.
 %dir %{_libdir}/%{name}
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
 %{_libdir}/%{name}/%{name}-rav1e.so
-%endif
-%if ! ((0%{?rhel} && 0%{?rhel} <= 9) || (0%{?fedora} && 0%{?fedora} < 38))
 %{_libdir}/%{name}/%{name}-svtenc.so
 %endif
 
@@ -118,6 +123,10 @@ developing applications that use %{name}.
 %if %{without hevc}
 %patch 0 -p1
 %endif
+%patch 10 -p1
+%patch 11 -p1
+%patch 12 -p1
+%patch 13 -p1
 rm -rf third-party/
 
 
@@ -125,6 +134,18 @@ rm -rf third-party/
 %cmake \
  -GNinja \
  -DPLUGIN_DIRECTORY=%{_libdir}/%{name} \
+ -DWITH_DAV1D=ON \
+ -DWITH_DAV1D_PLUGIN=OFF \
+ -DWITH_JPEG_DECODER=ON \
+ -DWITH_JPEG_ENCODER=ON \
+ -DWITH_OpenJPEG_DECODER=ON \
+ -DWITH_OpenJPEG_DECODER_PLUGIN=OFF \
+ -DWITH_OpenJPEG_ENCODER=ON \
+ -DWITH_OpenJPEG_ENCODER_PLUGIN=OFF \
+%if ! (0%{?rhel} && 0%{?rhel} <= 9)
+ -DWITH_RAV1E=ON \
+ -DWITH_SvtEnc=ON \
+%endif
  -DWITH_UNCOMPRESSED_CODEC=ON \
  %{?with_check:-DBUILD_TESTING=ON -DWITH_REDUCED_VISIBILITY=OFF} \
  %{?with_hevc:-DWITH_LIBDE265_PLUGIN:BOOL=ON -DWITH_X265_PLUGIN:BOOL=ON} \
@@ -145,6 +166,15 @@ rm -rf third-party/
 
 
 %changelog
+* Fri Dec 15 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.17.5-2
+- Update to 1.17.5 (rhbz#2244583)
+- Backport fixes for: CVE-2023-49460 (rhbz#2253575, rhbz#2253576)
+                      CVE-2023-49462 (rhbz#2253567, rhbz#2253568)
+                      CVE-2023-49463 (rhbz#2253565, rhbz#2253566)
+                      CVE-2023-49464 (rhbz#2253562, rhbz#2253563)
+- Simplify conditionals for rav1e and svt-av1 encoders
+- Enable JPEG2000 and dav1d decoders/encoders
+
 * Fri Sep 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.16.2-2
 - Enable uncompressed codec (rhbz#2237849)
 - Run tests conditionally (requires making all symbols visible)

@@ -1,6 +1,6 @@
 Name:    akonadi-calendar
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -38,6 +38,8 @@ BuildRequires:  cmake(KPim6AkonadiContactCore)
 BuildRequires:  cmake(KPim6AkonadiMime)
 BuildRequires:  cmake(KPim6MailTransport)
 BuildRequires:  cmake(KF6TextTemplate)
+
+Obsoletes:      kf5-akonadi-calendar < 24.01.80-1
 
 %description
 %{summary}.
@@ -90,5 +92,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Dec 16 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
+- Obsoletes the old plasma 5 package
+
 * Wed Dec 13 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

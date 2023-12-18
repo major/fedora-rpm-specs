@@ -1,33 +1,107 @@
+Name:           python-pwntools
+Version:        4.11.1
+Release:        5%{?dist}
+Summary:        A CTF framework and exploit development library
+URL:            https://github.com/Gallopsled/pwntools/
+VCS:            https://github.com/Gallopsled/pwntools/
+
+# ./LICENSE-pwntools.txt - base project of pwntools is licensed as MIT
+# ./pwnlib/data/includes/LICENSE.txt
+#    - header files from FreeBSD licensed with BSD 2-clause license
+#    - header files from dietlibc licensed with GPLv2 or later
+# ./pwnlib/data/useragents/LICENSE.txt - script `download-useragents.py licensed with BSD 2-clause license
+License:        MIT AND BSD-2-Clause AND GPL-2.0-or-later
+
 %global srcname pwntools
 
-Name:           python-%{srcname}
-Version:        4.11.0
-Release:        2%{?dist}
-Summary:        A CTF framework and exploit development library
 
-# Source contains four LICENSE*.txt files which explain the licenses which cover
-# pwntools.
-License:        MIT and BSD and GPLv2
-URL:            https://github.com/Gallopsled/%{srcname}/
-Source0:        https://github.com/Gallopsled/%{srcname}/archive/%{srcname}-%{version}.tar.gz
+# Source0:      https://github.com/Gallopsled/%%{srcname}/archive/%%{srcname}-%%{version}.tar.gz
+Source0:        https://github.com/Gallopsled/%{srcname}/archive/refs/tags/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
+
+# some modules for the pwn command do have python2 shabeng even though imported from python3 lib
+Patch0:         https://github.com/Gallopsled/pwntools/pull/2301.patch#/%{name}-4.11.1-shabeng.patch
+
+# Regular expressions matching binary need to be escaped in python 3.12
+Patch1:         https://github.com/Gallopsled/pwntools/pull/2302.patch#/%{name}-4.11.1-python3.12.patch
+
+# fix pwn libcdb file [something]
+# libcdb failing on binaries not containing /bin/sh
+Patch2:         https://github.com/Gallopsled/pwntools/pull/2307.patch#/%{name}-4.11.1-binsh_search.patch
+
+# Unicorn package currently doesn't build on s390x platform, but it is used ony for resolving plt.
+# Other functionality of pwntools should be still working
+Patch3:         python-pwntools-4.11.1-weak-unicorn.patch
+
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
 # Waiting on pwntools to support newer sphinx shipped by Fedora.
-# BuildRequires:  python3-sphinx
+# BuildRequires:  python%%{python3_pkgversion}-sphinx
+
+# Build requirements for %%check
+BuildRequires:  python%{python3_pkgversion}-capstone
+BuildRequires:  python%{python3_pkgversion}-mako
+BuildRequires:  python%{python3_pkgversion}-packaging
+BuildRequires:  python%{python3_pkgversion}-paramiko
+BuildRequires:  python%{python3_pkgversion}-pip
+BuildRequires:  python%{python3_pkgversion}-psutil
+BuildRequires:  python%{python3_pkgversion}-pyelftools
+BuildRequires:  python%{python3_pkgversion}-pygments
+BuildRequires:  python%{python3_pkgversion}-pyserial
+BuildRequires:  python%{python3_pkgversion}-pysocks
+BuildRequires:  python%{python3_pkgversion}-dateutil
+BuildRequires:  python%{python3_pkgversion}-requests
+BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-six
+BuildRequires:  python%{python3_pkgversion}-sortedcontainers
+BuildRequires:  python%{python3_pkgversion}-wheel
+
+# some packages missing on EPEL
+%if (0%{?fedora})
+BuildRequires:  python%{python3_pkgversion}-intervaltree
+BuildRequires:  python%{python3_pkgversion}-colored-traceback
+BuildRequires:  python%{python3_pkgversion}-ROPGadget
+BuildRequires:  python%{python3_pkgversion}-rpyc
+
+# Omiting the unicorn on purpose for now as it creates unwanted src.rpm build dependency on s390x for some reason
+# %%ifnarch s390x s390
+# BuildRequires:  python%%{python3_pkgversion}-unicorn
+# %%endif
+%endif
+
+
+
+# Unicorn python3 module currently not available on s390x architecture F39/F40
+# limited functionality will be available
+#%%if ( 0%%{?fedora} && 0%%{?fedora} >= 39 )
+#%%global __requires_exclude ^python.*unicorn.*
+#%%endif
+
+# Some packages are missing in EPEL9/8
+# limited functionality will be available
+%if 0%{?rhel}
+%global __requires_exclude python%{python3_pkgversion}-unicorn,python%{python3_pkgversion}-intervaltree,python%{python3_pkgversion}-colored-traceback,python%{python3_pkgversion}-ROPGadget,python%{python3_pkgversion}-rpyc
+%endif
+
 
 %description
 Pwntools is a CTF framework and exploit development library. Written
 in Python, it is designed for rapid prototyping and development, and
 intended to make exploit writing as simple as possible.
 
-%package -n python3-%{srcname}
+%package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 Requires:       binutils
 
-%description -n python3-%{srcname}
+# As we have ignored the requirement of unicorn, lets at least recommend it
+# Recommends only supported on fedora and rhel8+
+# %%if (0%%{?fedora}) || ( 0%%{?rhel} && 0%%{?rhel} >= 8 )
+Recommends:      python%{python3_pkgversion}-unicorn
+# %%endif
+
+%description -n python%{python3_pkgversion}-%{srcname}
 Pwntools is a CTF framework and exploit development library. Written
 in Python, it is designed for rapid prototyping and development, and
 intended to make exploit writing as simple as possible.
@@ -41,6 +115,16 @@ intended to make exploit writing as simple as possible.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+
+#wrong permission
+chmod -x docs/requirements.txt
+
+# Generate buildrequres is failing to generate viable deps:
+# - s390x due to missing (optional) python3 unicorn module
+# - epel due to missing python3 modules colored-traceback, intervaltree, rpyc, unicorn
+# generate_buildrequires
+# pyproject_buildrequires
+
 
 %build
 %py3_build
@@ -61,7 +145,14 @@ mv %{buildroot}%{_bindir}/checksec %{buildroot}%{_bindir}/checksec-pwntools
 rm -rf %{buildroot}%{python3_sitelib}/pwntools-doc
 rm -rf %{buildroot}%{_prefix}/pwntools-doc
 
-%files -n python3-%{srcname}
+
+%check
+export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}}"
+%py3_check_import pwn pwnlib
+%{__python3} -c "from pwn import *; sh=process('bash'); sh.sendline(b'echo hello | md5sum'); x=sh.read(); assert (x == b'b1946ac92492d2347c6235b4d2611184  -\n');"
+
+
+%files -n python%{python3_pkgversion}-%{srcname}
 %doc CHANGELOG.md CONTRIBUTING.md README.md TESTING.md docs/requirements.txt
 %license LICENSE-pwntools.txt
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
@@ -97,10 +188,27 @@ rm -rf %{buildroot}%{_prefix}/pwntools-doc
 # %%license LICENSE-pwntools.txt
 
 %changelog
-* Mon Sep 25 2023 W. Michael Petullo <mike@flyn.org - 4.11.0-2
+* Sat Nov 30 2023 Michal Ambroz <rebus _AT seznam.cz> - 4.11.1-5
+- Weak dependency for unicorn engine
+
+* Sat Nov 25 2023 Michal Ambroz <rebus _AT seznam.cz> - 4.11.1-4
+- Fix pwn libcdb file
+
+* Tue Nov 21 2023 Michal Ambroz <rebus _AT seznam.cz> - 4.11.1-3
+- Tweak build requirements needed for the tests to run
+- Prepare for the EPEL builds
+
+* Mon Nov 20 2023 Michal Ambroz <rebus _AT seznam.cz> - 4.11.1-1
+- New upstream version 4.11.1
+- change license references to new SPDX format
+- patch python 3.12 regex
+- patch unnecessary shabeng in librery modules
+- add basic check
+
+* Mon Sep 25 2023 W. Michael Petullo <mike@flyn.org> - 4.11.0-2
 - Deal with requirements.txt, which moved.
 
-* Mon Sep 25 2023 W. Michael Petullo <mike@flyn.org - 4.11.0-1
+* Mon Sep 25 2023 W. Michael Petullo <mike@flyn.org> - 4.11.0-1
 - New upstream version
 
 * Sat Sep 09 2023 W. Michael Petullo <mike@flyn.org> - 4.9.0-5

@@ -1,4 +1,4 @@
-%global commit 4892c96996d23a77c153737ace2d1f171938f560
+%global commit f29c1fa51cfe3771ad156a05cc3962d4ffbbe102
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global __cmake_in_source_build 1
 
@@ -30,23 +30,20 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           gdl
-Version:        1.0.2
-Release:        4%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 Summary:        GNU Data Language
 
 License:        GPL-2.0-or-later
 URL:            http://gnudatalanguage.sourceforge.net/
-Source0:        https://github.com/gnudatalanguage/gdl/archive/v%{version}/gdl-%{version}.tar.gz
-#Source0:        https://github.com/gnudatalanguage/gdl/archive/%{commit}/gdl-%{version}-git-%{shortcommit}.tar.gz
+Source0:        https://github.com/gnudatalanguage/gdl/releases/download/v%{version}/gdl-v%{version}.tar.gz
+#Source0:        https://github.com/gnudatalanguage/gdl/releases/download/weekly-release/gdl-unstable-f29c1fa.tar.gz
 Source1:        gdl.csh
 Source2:        gdl.sh
 Source4:        xorg.conf
 # Build with system antlr library.  Request for upstream change here:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2685215&group_id=97659&atid=618686
 Patch1:         gdl-antlr.patch
-# Fix install directory for drivers
-Patch2:         https://patch-diff.githubusercontent.com/raw/gnudatalanguage/gdl/pull/1486.patch
-Patch3:         gdl-size.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  antlr-C++
@@ -81,7 +78,7 @@ Provides:       bundled(dSFMT)
 BuildRequires:  shapelib-devel
 %if %{with grib}
 # eccodes not available on these arches
-%ifnarch i686 s390x armv7hl
+%ifnarch i686 s390x
 BuildRequires:  eccodes-devel
 %else
 BuildRequires:  grib_api-devel
@@ -142,13 +139,11 @@ Provides:       %{name}-runtime = %{version}-%{release}
 
 
 %prep
-%setup -q -n gdl-%{version}
+%setup -q -n %{name}-v%{version}
 rm -rf src/antlr
 # Not yet possible to build with external dSFMT
 #rm -r src/dSFMT
 %patch -P1 -p1 -b .antlr
-%patch -P2 -p1 -b .libdir
-%patch -P3 -p1 -b .size
 
 # Find grib_api on architectures where needed
 sed -i -e '/find_library(GRIB_LIBRARIES/s/eccodes/eccodes grib_api/' CMakeModules/FindGrib.cmake
@@ -178,10 +173,6 @@ popd
 
 %build
 export CXXFLAGS="%optflags -fcommon"
-%ifarch %{arm}
-# Work around https://github.com/gnudatalanguage/gdl/issues/677
-export LDFLAGS="%{build_ldflags} -Wl,--allow-multiple-definition"
-%endif
 mkdir build build-python
 #Build the standalone executable
 pushd build
@@ -240,9 +231,6 @@ sleep 2
 %ifarch aarch64
 failing_tests="test_(byte_conversion|bytscl)"
 %endif
-%ifarch %{arm}
-failing_tests="test_(byte_conversion|bytscl|l64)"
-%endif
 %ifarch %{ix86}
 failing_tests="test_l64"
 %endif
@@ -276,6 +264,9 @@ cat xorg.log
 
 
 %changelog
+* Sat Dec 16 2023 Orion Poplawski <orion@nwra.com> - 1.0.4-1
+- Update to 1.0.4
+
 * Fri Aug 11 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.2-4
 - rebuild against new qhull
 

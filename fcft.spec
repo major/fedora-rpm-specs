@@ -1,14 +1,14 @@
 %global abi_ver 4
 
 Name:           fcft
-Version:        3.1.6
-Release:        2%{?dist}
+Version:        3.1.7
+Release:        1%{?dist}
 Summary:        Simple library for font loading and glyph rasterization
 
 # main source:  MIT
-# unicode/*:    Unicode
-# nanosvg:      zlib
-License:        MIT and Unicode and zlib
+# unicode/*:    Unicode-DFS-2016
+# nanosvg:      Zlib
+License:        MIT AND Unicode-DFS-2016 AND Zlib
 URL:            https://codeberg.org/dnkl/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -49,6 +49,7 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n %{name}
+cp 3rd-party/nanosvg/LICENSE.txt LICENSE.nanosvg
 cp unicode/LICENSE LICENSE.Unicode
 
 
@@ -69,8 +70,10 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %files
-%license LICENSE LICENSE.Unicode
-%{_libdir}/lib%{name}.so.%{abi_ver}*
+%license LICENSE
+%license LICENSE.nanosvg
+%license LICENSE.Unicode
+%{_libdir}/lib%{name}.so.%{abi_ver}{,.*}
 %dir %{_docdir}/%{name}
 %{_docdir}/%{name}/CHANGELOG.md
 %{_docdir}/%{name}/README.md
@@ -83,6 +86,10 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Sat Dec 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.7-1
+- Update to 3.1.7 (#2254699)
+- Convert License tag to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

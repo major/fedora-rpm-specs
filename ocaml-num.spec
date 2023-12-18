@@ -20,22 +20,18 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-num
-Version:        1.4
-Release:        14%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/ocaml/num
 Source0:        https://github.com/ocaml/num/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# Downstream patches to add -g flag.
-Patch4:         0004-toplevel-Add-g-flag.patch
-Patch5:         0005-src-Add-g-flag-to-mklib.patch
-
-BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-rpm-macros
 
 # Do not require ocaml-compiler-libs at runtime
@@ -70,30 +66,31 @@ developing applications that use %{name}.
 
 
 %build
-%make_build ARCH=%{num_arch} FLAMBDA=true
+%dune_build @install ;#@doc
 
 
 %check
-make -j1 test ARCH=%{num_arch} FLAMBDA=true
+%dune_check
 
 
 %install
-export OCAMLFIND_DESTDIR=%{buildroot}%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR/stublibs
-%make_install ARCH=%{num_arch}
-%ocaml_files
+%dune_install -s
 
 
-%files -f .ofiles
+%files -f .ofiles-num
 %doc Changelog README.md
 %license LICENSE
 
 
-%files devel -f .ofiles-devel
+%files devel -f .ofiles-num-devel
 %license LICENSE
 
 
 %changelog
+* Sat Dec 16 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-1
+- New upstream version 1.5 (RHBZ#2254845)
+- Use dune as build system.
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4-14
 - OCaml 5.1.1 rebuild for Fedora 40
 
