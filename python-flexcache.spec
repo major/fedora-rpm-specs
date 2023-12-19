@@ -40,7 +40,7 @@ sed -r -i 's/^([[:blank:]]*)("pytest-cov")/\1# \2/' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files flexcache
+%pyproject_save_files -l flexcache
 
 # Upstream probably doesn’t want to install flexcache.testsuite, but we don’t
 # know how to suggest a fix given “[BUG] options.packages.find.exclude not
@@ -58,7 +58,6 @@ sed -r -i '/\/flexcache\/testsuite/d' %{pyproject_files}
 
 
 %files -n python3-flexcache -f %{pyproject_files}
-# pyproject_files handles AUTHORS and LICENSE; verify with “rpm -qL -p …”
 %doc README.rst
 %doc CHANGES
 

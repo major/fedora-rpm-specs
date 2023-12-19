@@ -80,7 +80,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 %install
 %pyproject_install
-%pyproject_save_files frozenlist
+%pyproject_save_files -l frozenlist
 
 
 %check

@@ -116,6 +116,7 @@ Source26:       80-kde.preset
 Source27:       81-desktop.preset
 Source28:       longer-default-shutdown-timeout.conf
 Source29:       org.gnome.settings-daemon.plugins.power.gschema.override
+Source30:       fedora-sway.conf
 
 BuildArch:      noarch
 
@@ -1463,12 +1464,6 @@ install -Dm0644 %{SOURCE27} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -Dm0644 %{SOURCE17} -t %{buildroot}%{_datadir}/polkit-1/rules.d/
 %endif
 
-%if %{with iot} || %{with ostree_desktop}
-# Statically enable rpm-ostree-countme timer
-install -dm0755 %{buildroot}%{_unitdir}/timers.target.wants/
-ln -s ../rpm-ostree-countme.timer %{buildroot}%{_unitdir}/timers.target.wants/
-%endif
-
 %if %{with xfce}
 # Xfce
 cp -p os-release \
@@ -1514,6 +1509,8 @@ echo "VARIANT_ID=sway" >> %{buildroot}%{_prefix}/lib/os-release.sway
 sed -i -e "s|(%{release_name}%{?prerelease})|(Sway%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.sway
 sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sway/SIG/-/issues"|' %{buildroot}/%{_prefix}/lib/os-release.sway
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sway/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
+# Add Fedora Sway dnf protected packages list
+install -Dm0644 %{SOURCE30} -t %{buildroot}%{_sysconfdir}/dnf/protected.d/
 %endif
 
 %if %{with sericea}
@@ -1692,7 +1689,6 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_prefix}/lib/systemd/user-preset/80-iot-user.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.iot
 %{_prefix}/lib/zezere-ignition-url
-%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
 %endif
 
 
@@ -1736,7 +1732,6 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.gschema.override
 %{_prefix}/lib/systemd/system-preset/80-workstation.preset
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
-%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
 %endif
 
 
@@ -1747,7 +1742,6 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_prefix}/lib/systemd/system-preset/80-kde.preset
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.kinoite
-%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
 %endif
 
 
@@ -1823,6 +1817,7 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_prefix}/lib/os-release.sway
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%{_sysconfdir}/dnf/protected.d/fedora-sway.conf
 %endif
 
 
@@ -1832,7 +1827,6 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_prefix}/lib/os-release.sericea
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
-%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
 %endif
 
 %if %{with onyx}
@@ -1841,7 +1835,6 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_prefix}/lib/os-release.onyx
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.onyx
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
-%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
 %endif
 
 

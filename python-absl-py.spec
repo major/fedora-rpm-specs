@@ -48,7 +48,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files absl
+%pyproject_save_files -l absl
 
 
 %check

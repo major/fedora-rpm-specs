@@ -71,7 +71,7 @@ Documentation for Flask-Migrate.
 
 %install
 %pyproject_install
-%pyproject_save_files flask_migrate
+%pyproject_save_files -l flask_migrate
 
 
 %check

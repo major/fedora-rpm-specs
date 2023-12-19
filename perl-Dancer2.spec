@@ -1,8 +1,8 @@
 Name:           perl-Dancer2
-Version:        1.0.0
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Dancer2
 Source0:        https://cpan.metacpan.org/authors/id/C/CR/CROMEDOME/Dancer2-%{version}.tar.gz
@@ -184,6 +184,10 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sun Dec 17 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.1.0-1
+- Update to 1.1.0
+- Migrate to SPDX license
+
 * Sun Oct 22 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.0-1
 - Update to 1.0.0
 

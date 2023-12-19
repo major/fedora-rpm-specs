@@ -13,8 +13,8 @@
 %bcond exhaustive 1
 
 Name:           fast_float
-Summary:        Fast & exact implementation of C++ from_chars for float/double
-Version:        5.3.0
+Summary:        Fast & exact implementation of C++ from_chars for number types
+Version:        6.0.0
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float
@@ -42,11 +42,11 @@ BuildRequires:  doctest-static
 
 %global common_description %{expand:
 The fast_float library provides fast header-only implementations for the C++
-from_chars functions for float and double types. These functions convert ASCII
-strings representing decimal values (e.g., 1.3e10) into binary types. We
-provide exact rounding (including round to even). In our experience, these
-fast_float functions many times faster than comparable number-parsing functions
-from existing C++ standard libraries.}
+from_chars functions for float and double types as well as integer types. These
+functions convert ASCII strings representing decimal values (e.g., 1.3e10) into
+binary types. We provide exact rounding (including round to even). In our
+experience, these fast_float functions many times faster than comparable
+number-parsing functions from existing C++ standard libraries.}
 
 %description %{common_description}
 

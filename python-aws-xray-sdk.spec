@@ -144,7 +144,7 @@ cp -p sample-apps/LICENSE LICENSE.sample-apps
 
 %install
 %pyproject_install
-%pyproject_save_files aws_xray_sdk
+%pyproject_save_files -l aws_xray_sdk
 
 install -t '%{buildroot}%{_pkgdocdir}' -p -m 0644 -D \
     %{?with_doc_pdf:docs/_build/latex/aws-xray-sdk.pdf} \

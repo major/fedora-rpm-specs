@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Long-Descriptive
 Summary:        Getopt::Long with usage text
-Version:        0.112
+Version:        0.113
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long-Descriptive
@@ -57,13 +57,20 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README
+%doc Changes eg/ README
 %{perl_vendorlib}/Getopt/
 %{_mandir}/man3/Getopt::Long::Descriptive.3*
 %{_mandir}/man3/Getopt::Long::Descriptive::Opts.3*
 %{_mandir}/man3/Getopt::Long::Descriptive::Usage.3*
 
 %changelog
+* Sun Dec 17 2023 Paul Howarth <paul@city-fan.org> - 0.113-1
+- Update to 0.113 (rhbz#2254783)
+  - Improve line wrapping so spacers (non-option text lines) can use more
+    horizontal characters
+  - Replace tabs (generally 8 space) indents in output with four spaces
+- Package examples as documentation
+
 * Tue Nov 21 2023 Paul Howarth <paul@city-fan.org> - 0.112-1
 - Update to 0.112 (rhbz#2250751)
   - This version removes the redundant option warning, which is now provided by

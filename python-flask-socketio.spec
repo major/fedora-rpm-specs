@@ -72,7 +72,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files flask_socketio
+%pyproject_save_files -l flask_socketio
 
 
 %check

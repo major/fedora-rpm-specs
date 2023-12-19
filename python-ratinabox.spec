@@ -1,8 +1,5 @@
 # Not yet packaged: python3dist(pettingzoo)
 %bcond gymnasium 0
-# While python-torch is packaged in F40+, it’s not quite ready to use yet:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2253018
-%bcond torch 0
 
 Name:           python-ratinabox
 Version:        1.11.4
@@ -24,9 +21,8 @@ BuildRequires:  python3-devel
 
 # Run tests in parallel (“-n auto”)
 BuildRequires:  %{py3_dist pytest-xdist}
-%if %{with torch}
 BuildRequires:  %{py3_dist torch}
-%endif
+Recommends:     %{py3_dist torch}
 
 %global common_description %{expand:
 RatInABox is a toolkit for generating locomotion trajectories and complementary
@@ -61,14 +57,13 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files ratinabox
+%pyproject_save_files -l ratinabox
 
 
 %check
 # Let’s do this in addition to running the tests, so we can be aware of any
 # issues in contribs that may not be tested.
 %{pyproject_check_import \
-    %{?!with_torch:-e '*.contribs.NeuralNetworkNeurons'} \
     %{?!with_gymnasium:-e '*.contribs.TaskEnvironment'} }
 
 %if %{without gymnasium}

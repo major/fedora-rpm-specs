@@ -88,7 +88,7 @@ BuildRequires:  grib_api-devel
 BuildRequires:  qhull-devel
 %endif
 BuildRequires:  udunits2-devel
-BuildRequires:  wxGTK-devel
+BuildRequires:  wxGTK%{?el8:3}-devel
 BuildRequires:  cmake3
 # For tests
 # EL8 s390x missing xorg-x11-drv-dummy
@@ -235,11 +235,13 @@ failing_tests="test_(byte_conversion|bytscl)"
 failing_tests="test_l64"
 %endif
 %ifarch ppc64le
-failing_tests="test_(byte_conversion|bytscl|finite|matrix_multiply)"
+# gaussfit - https://github.com/gnudatalanguage/gdl/issues/1695
+failing_tests="test_(byte_conversion|bytscl|finite|gaussfit|matrix_multiply)"
 %endif
 %ifarch s390x
 # test_hdf5 - https://github.com/gnudatalanguage/gdl/issues/1488
-failing_tests="test_(byte_conversion|bytsc|hdf5)"
+# save_restore - https://github.com/gnudatalanguage/gdl/issues/1655
+failing_tests="test_(byte_conversion|bytsc|hdf5|save_restore)"
 %endif
 make test VERBOSE=1 ARGS="-V -E '$failing_tests'"
 make test VERBOSE=1 ARGS="-V -R '$failing_tests' --timeout 600" || :

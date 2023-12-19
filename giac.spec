@@ -6,7 +6,7 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .69
+%global subversion .73
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
@@ -467,6 +467,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Sun Dec 17 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.73-1
+- Update to 1.9.0 sub-73 (rhbz#2253863)
+
 * Sat Nov 04 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.69-1
 - Update to 1.9.0 sub-69 (rhbz#2245682)
 

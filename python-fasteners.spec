@@ -47,7 +47,7 @@ Obsoletes:      python-fasteners-doc < 0.18-1
 
 %install
 %pyproject_install
-%pyproject_save_files fasteners
+%pyproject_save_files -l fasteners
 
 
 %check
@@ -59,7 +59,6 @@ Obsoletes:      python-fasteners-doc < 0.18-1
 
 
 %files -n python3-fasteners -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc CHANGELOG.md
 %doc README.md
 

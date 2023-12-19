@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.7.0%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
+Version:        1.8.1%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -53,26 +53,22 @@ Source1000:     hatch-run.1
 Source1100:     hatch-shell.1
 Source1200:     hatch-status.1
 Source1300:     hatch-version.1
-
-# Fix the sdist target when strict-naming is disabled (#834)
-# https://github.com/pypa/hatch/commit/1b10663e645efd6f37d616c5de34451dc2e015c0
-#
-# Backporting this commit makes tests/backend/builders/test_sdist.py compatible
-# with hatchling 1.14.1.
-Patch:          %{url}/commit/1b10663e645efd6f37d616c5de34451dc2e015c0.patch
-
-# Fix CI (#940)
-# fix unrelated ci issue
-# https://github.com/pypa/hatch/commit/4ddbf0a9a720caed18d19c083ff88427c9d2a993
-#
-# This patch adjusts the expected whitespace in two tests to match recent
-# versions of tomlkit; the change in tomlkit was introduced no later than
-# 0.12.1 and no earlier than 0.11.5.
-Patch:          %{url}/commit/4ddbf0a9a720caed18d19c083ff88427c9d2a993.patch
+Source1400:     hatch-fmt.1
+Source1500:     hatch-python.1
+Source1510:     hatch-python-find.1
+Source1520:     hatch-python-install.1
+Source1530:     hatch-python-remove.1
+Source1540:     hatch-python-show.1
+Source1550:     hatch-python-update.1
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+%if %{with tests}
+# As of 1.8.0, a number of tests in TestBuildBootstrap require cargo.
+BuildRequires:  cargo
+%endif
 
 BuildRequires:  git-core
 Requires:       git-core
@@ -93,9 +89,13 @@ Features:
 %prep
 %autosetup -n %{archivename} -p1
 
+# Extract environment dependencies from hatch.toml
+'%{SOURCE1}' -v
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^pytest-cov/# &/' _req/env.test.txt
+
 
 %generate_buildrequires
-'%{SOURCE1}' -v
 %pyproject_buildrequires %{?with_tests:_req/env.test.txt}
 
 
@@ -111,7 +111,7 @@ Features:
 
 %install
 %pyproject_install
-%pyproject_save_files hatch
+%pyproject_save_files -l hatch
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE100}' \
@@ -129,7 +129,10 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE1000}' \
     '%{SOURCE1100}' \
     '%{SOURCE1200}' \
-    '%{SOURCE1300}'
+    '%{SOURCE1300}' \
+    '%{SOURCE1400}' \
+    '%{SOURCE1500}' '%{SOURCE1510}' '%{SOURCE1520}' '%{SOURCE1530}' \
+      '%{SOURCE1540}' '%{SOURCE1550}'
 
 
 %check
@@ -144,16 +147,18 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 # E             Full diff:
 # E             - (2020, 2, 2, 0, 0, 0)
 # E             + (2022, 5, 18, 0, 0, 0)
-k="${k-}${k+ and }not (TestBuildStandard and test_editable_pth)"
-k="${k-}${k+ and }not (TestBuildStandard and test_editable_exact)"
-k="${k-}${k+ and }not (TestBuildStandard and test_editable_default)"
+k="${k-}${k+ and }not (TestBuildStandard and test_editable_)"
 k="${k-}${k+ and }not (TestBuildStandard and test_default_auto_detection)"
 k="${k-}${k+ and }not test_explicit_path"
 k="${k-}${k+ and }not test_default"
 
-# tests/cli/env/test_show.py::test_context_formatting fails with packaging 23.2
-# https://github.com/pypa/hatch/issues/982
-k="${k-}${k+ and }not test_context_formatting"
+%ifnarch x86_64
+# Several tests related to Python distributions fail on Fedora Linux on
+# non-x86_64 architectures
+# https://github.com/pypa/hatch/issues/1145
+k="${k-}${k+ and }not (TestGetInstalled and test_order)"
+k="${k-}${k+ and }not test_variants[linux-"
+%endif
 
 %pytest -k "${k-}" -vv
 %else

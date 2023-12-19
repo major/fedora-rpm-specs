@@ -61,7 +61,7 @@ find bioread/runners/ -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 
 %install
 %pyproject_install
-%pyproject_save_files bioread
+%pyproject_save_files -l bioread
 
 # Do this in %%install rather than %%build because we need the entry points:
 install -d '%{buildroot}%{_mandir}/man1'

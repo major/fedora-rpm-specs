@@ -1,10 +1,11 @@
 %bcond	gnome		1
+%bcond	gnome45		%[0%{?fedora} >= 39 || 0%{?rhel} >= 10]
 %bcond	gnome_flashback	1
 %bcond	mate		1
 %bcond	xfce		1
 
 Name:          workrave
-Version:       1.10.51.1
+Version:       1.10.52
 Release:       %autorelease
 Summary:       Program that assists in the recovery and prevention of RSI
 # Based on older packages by Dag Wieers <dag@wieers.com> and Steve Ratcliffe
@@ -143,6 +144,9 @@ fi
   --enable-gnome3 \
 %else
   --disable-gnome3 \
+%endif
+%if %{with gnome45}
+  --enable-gnome45 \
 %endif
 %if %{with mate}
   --enable-mate \

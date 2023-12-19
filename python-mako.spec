@@ -3,8 +3,9 @@ Version: 1.2.3
 Release: 4%{?dist}
 Summary: Mako template library for Python
 
-# Mostly MIT, but _ast_util.py is Python licensed
-License: MIT and Python
+# Mostly MIT, but _ast_util.py is Python-2.0 licensed
+# examples/bench/basic.py is BSD-3-Clause
+License: MIT AND Python-2.0 AND BSD-3-Clause
 URL:     https://www.makotemplates.org/
 Source0: https://github.com/sqlalchemy/mako/archive/rel_%(echo %{version} | sed "s/\./_/g").tar.gz
 

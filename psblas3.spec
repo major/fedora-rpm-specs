@@ -34,7 +34,7 @@ ExcludeArch: %{ix86}
 Name: psblas3
 Summary: Parallel Sparse Basic Linear Algebra Subroutines
 Version: %{major_minor}.1
-Release: 1.post2%{?dist}
+Release: 2.post2%{?dist}
 License: BSD-3-Clause
 URL: https://github.com/sfilippone/psblas3
 Source0: https://github.com/sfilippone/psblas3/archive/v%{version}%{?postrelease_version}/psblas3-%{version}%{?postrelease_version}.tar.gz
@@ -89,7 +89,6 @@ This is a PSBLAS version in pure serial mode.
 %package serial-devel
 Summary: Development files for %{name}
 Requires: %{name}-serial%{?_isa} = %{version}-%{release}
-Provides: %{name}-serial-static = %{version}-%{release}
 
 %description serial-devel
 Shared links, header files and static libraries for serial %{name}.
@@ -143,7 +142,7 @@ Shared links, header files and static libraries for %{name}-serial64.
 %if 0%{?with_openmpi}
 %package openmpi
 Summary: OpenMPI %{name}
-BuildRequires:	openmpi-devel
+BuildRequires: openmpi-devel
 Requires: openmpi%{?_isa}
 Requires: %{name}-common = %{version}-%{release}
 Obsoletes: %{name}-serial < 0:3.8.1-1
@@ -165,6 +164,7 @@ This is a OpenMPI PSBLAS version.
 %package openmpi-static
 Summary: OpenMPI static libraries of %{name}
 Requires: openmpi%{?_isa}
+Obsoletes: %{name}-openmpi-devel < 0:3.8.1-2
 
 %description openmpi-static
 The PSBLAS library, developed with the aim to facilitate the parallelization
@@ -182,7 +182,6 @@ model operating with message passing.
 %package openmpi-devel
 Summary: The OpenMPI %{name} headers and development-related files
 Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
-Provides: %{name}-openmpi-static = %{version}-%{release}
 
 %description openmpi-devel
 Shared links, header files and static libraries for OpenMPI %{name}.
@@ -214,6 +213,7 @@ This is a MPICH PSBLAS version.
 %package mpich-static
 Summary: MPICH static libraries of %{name}
 Requires: mpich%{?_isa}
+Obsoletes: %{name}-mpich-devel < 0:3.8.1-2
 
 %description mpich-static
 The PSBLAS library, developed with the aim to facilitate the parallelization
@@ -231,7 +231,6 @@ model operating with message passing.
 %package mpich-devel
 Summary: The MPICH %{name} headers and development-related files
 Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
-Provides: %{name}-mpich-static = %{version}-%{release}
 
 %description mpich-devel
 Shared links, header files and static libraries for MPICH %{name}.
@@ -651,6 +650,9 @@ popd
 ######################################################
 
 %changelog
+* Sun Dec 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.8.1-2.post2
+- Static packages obsolete older devel packages
+
 * Sat Dec 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.8.1-1.post2
 - Release 3.8.1 post-release 2
 - Exclude serial* libraries (not fully supported)

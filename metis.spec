@@ -10,7 +10,7 @@ Name:    metis
 Version: 5.1.0.3
 Release: %autorelease
 Summary: Serial Graph Partitioning and Fill-reducing Matrix Ordering
-License: ASL 2.0 and BSD and LGPLv2+
+License: Apache-2.0 AND LGPL-2.0-or-later
 URL:     http://glaros.dtc.umn.edu/gkhome/views/%{name}
 Source0: https://github.com/scivision/METIS/archive/refs/tags/v%{version}/METIS-%{version}.tar.gz
 
@@ -106,7 +106,6 @@ PCRE_LDFLAGS="-lpcre2-posix"
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DGKLIB_PATH=METIS-%{version}/src//GKlib \
  -DGKRAND:BOOL=ON \
- -DGKRAND:BOOL=ON \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES\
  -DSHARED:BOOL=TRUE \
  -DOPENMP:BOOL=ON \
@@ -128,7 +127,6 @@ PCRE_LDFLAGS="-lpcre2-posix"
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -Dintsize:STRING=64 -Drealsize:STRING=64 \
  -DGKLIB_PATH=METIS-%{version}/src/GKlib \
- -DGKRAND:BOOL=ON \
  -DGKRAND:BOOL=ON \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES\
  -DSHARED:BOOL=TRUE \

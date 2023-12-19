@@ -96,7 +96,7 @@ export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 
 %install
 %pyproject_install
-%pyproject_save_files asyncpg
+%pyproject_save_files -l asyncpg
 
 
 %check

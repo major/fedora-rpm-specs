@@ -144,7 +144,7 @@ PYTHONPATH="${BLIB}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files cyipopt ipopt ipopt_wrapper
+%pyproject_save_files -l cyipopt ipopt ipopt_wrapper
 
 
 %check
@@ -158,7 +158,6 @@ k="${k-}${k+ and }not test_minimize_ipopt_jac_with_scipy_methods[cobyla]"
 
 
 %files -n python3-cyipopt -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE; verify with “rpm -qL -p …”
 %exclude %{python3_sitearch}/cyipopt/tests/
 
 

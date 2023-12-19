@@ -68,7 +68,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %install
 %pyproject_install
-%pyproject_save_files compreffor
+%pyproject_save_files -l compreffor
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 
 

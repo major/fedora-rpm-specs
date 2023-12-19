@@ -1,6 +1,6 @@
 Name:    grantleetheme
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE PIM library for Grantlee template system
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -26,10 +26,6 @@ BuildRequires:  cmake(KF6TextTemplate)
 Conflicts:      kdepim-libs < 7:16.04.0
 Obsoletes:      kdepim-libs < 7:16.04.0
 
-# Move to plasma 6
-Conflicts:      kf5-grantleetheme < 0:24.01.75
-Obsoletes:      kf5-grantleetheme < 0:24.01.75
-
 # translations moved here
 Conflicts: kde-l10n < 17.03
 
@@ -39,8 +35,6 @@ Conflicts: kde-l10n < 17.03
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Conflicts:      kf5-grantleetheme-devel < 0:24.01.75
-Obsoletes:      kf5-grantleetheme-devel < 0:24.01.75
 Requires:       cmake(KF6TextTemplate)
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -69,5 +63,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KPim6GrantleeTheme/
 
 %changelog
+* Sun Dec 17 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
+- Allow coexisting with kf5-grantleetheme
+
 * Sun Dec 3 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

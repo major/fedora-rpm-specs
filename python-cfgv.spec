@@ -39,7 +39,7 @@ sed -r -i 's/^(cov|flake8)/# &/' requirements-dev.txt
 
 %install
 %pyproject_install
-%pyproject_save_files cfgv
+%pyproject_save_files -l cfgv
 
 
 %check

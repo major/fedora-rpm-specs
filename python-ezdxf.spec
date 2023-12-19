@@ -202,7 +202,7 @@ PYTHONPATH="${BLIB}" %make_build -C docs -f Makefile.linux latex \
 
 %install
 %pyproject_install
-%pyproject_save_files ezdxf
+%pyproject_save_files -l ezdxf
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \

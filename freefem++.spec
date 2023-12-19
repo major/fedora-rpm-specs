@@ -135,7 +135,8 @@ BuildRequires:	fftw-devel
 BuildRequires:	hdf5-devel
 BuildRequires:	metis-devel
 # mmg's packaging is a mess
-BuildRequires:	mmg-devel mmg2d-devel mmgs-devel mmg3d-devel
+# By installing mmg* packages, mmg3d plugin will be automatically enabled and test files will require mmg3d-v4 bundled library
+# BuildRequires:	mmg-devel mmg2d-devel mmgs-devel mmg3d-devel
 BuildRequires:	MUMPS-devel
 BuildRequires:	NLopt-devel
 BuildRequires:	flexiblas-devel
@@ -446,7 +447,7 @@ done
 %endif
 
 %changelog
-* Sat Dec 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.14-2
+* Sun Dec 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.14-2
 - Rebuild for superlu_dist-8.2.0
 
 * Fri Dec 08 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.14-1

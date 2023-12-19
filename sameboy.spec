@@ -1,7 +1,7 @@
 
 Name:           sameboy
-Version:        0.15.8
-Release:        4%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Game Boy and Game Boy Color emulator written in C
 
 License:        MIT
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Dec 17 2023 Jan Drögehoff <sentrycraft123@gmail.com> - 0.16-1
+- Update to 0.16
+
 * Fri Sep 08 2023 Jan Drögehoff <sentrycraft123@gmail.com> - 0.15.8-4
 - remove terminal desktop entry
 

@@ -39,7 +39,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files bsmschema
+%pyproject_save_files -l bsmschema
 
 
 %check

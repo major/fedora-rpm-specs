@@ -100,7 +100,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files brukerapi
+%pyproject_save_files -l brukerapi
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
@@ -119,7 +119,6 @@ k="${k-}${k+ and }not test_data_save"
 
 
 %files -n python3-brukerapi -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %{_bindir}/bruker
 %{_mandir}/man1/bruker*.1*
 

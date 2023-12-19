@@ -81,7 +81,7 @@ mv ../editorconfig-core-test-%{tests_commit}/ tests/
 
 %install
 %pyproject_install
-%pyproject_save_files editorconfig
+%pyproject_save_files -l editorconfig
 
 # The command-line tool would conflict with the one from the C version of
 # EditorConfig. It could be installed under a different name, if anyone ever
@@ -95,7 +95,6 @@ export %{py3_test_envvars}
 
 
 %files -n python3-editorconfig -f %{pyproject_files}
-# pyproject_files handles COPYING and LICENSE.*; verify with “rpm -qL -p …”
 %doc README.rst
 
 

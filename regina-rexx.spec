@@ -11,6 +11,7 @@ Summary:        Regina Rexx Interpreter
 License:        LGPL-2.0-only and LGPL-2.0-or-later and LGPL-2.1-or-later and MPL-1.0 and GPL-2.0-or-later and BSD-4-Clause and Unlicense
 URL:            https://regina-rexx.sourceforge.io
 Source:         https://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{version}.tar.gz
+Patch0: regina-rexx-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -49,7 +50,7 @@ BuildArch:      noarch
 The %{name}-doc package contains additional documentation for %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 # Do not strip on install
 sed -i Makefile.in -e 's:$(INSTALL) -s:$(INSTALL):g'
 # Fix permissions

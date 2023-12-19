@@ -85,7 +85,7 @@ sed -zi 's/filterwarnings = error/filterwarnings = default/' setup.cfg
 
 %install
 %pyproject_install
-%pyproject_save_files aiosignal
+%pyproject_save_files -l aiosignal
 
 
 %check
@@ -93,7 +93,6 @@ sed -zi 's/filterwarnings = error/filterwarnings = default/' setup.cfg
 
 
 %files -n python3-aiosignal -f %{pyproject_files}
-# pyproject-rpm-macros marks LICENSE in dist-info; verify with “rpm -qL -p …”
 %if %{without doc}
 %doc CHANGES.rst CONTRIBUTORS.txt README.rst
 %endif

@@ -66,7 +66,7 @@ sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files dirty_equals
+%pyproject_save_files -l dirty_equals
 
 
 %check
@@ -78,7 +78,6 @@ TZ=UTC %pytest -v ${ignore-}
 
 
 %files -n python3-dirty-equals -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.md
 
 

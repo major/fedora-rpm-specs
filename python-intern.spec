@@ -89,7 +89,7 @@ k="${k-}${k+ and }not (TestMesh and test_invalid_voxel_unit)"
 
 
 %files -n python3-intern -f %{pyproject_files}
-# pyproject_files handles license; verify with “rpm -qL -p …”
+%license license
 
 
 %files doc

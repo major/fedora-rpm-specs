@@ -209,7 +209,7 @@ Obsoletes:      python-databases-doc < 0.5.2-4
 
 %install
 %pyproject_install
-%pyproject_save_files databases
+%pyproject_save_files -l databases
 
 
 %check

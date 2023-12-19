@@ -12,6 +12,9 @@ BuildRequires:  mscore
 BuildRequires:  xorg-x11-server-Xvfb
 
 BuildArch:      noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# Also, musescore is not built on i686.
+ExcludeArch:    %{ix86}
 
 # Use the same directory of the main package for subpackage licence and docs
 %global _docdir_fmt %{name}

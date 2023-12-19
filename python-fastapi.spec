@@ -463,7 +463,7 @@ rm -rvf docs/*/docs/js docs/*/docs/css
 
 %install
 %pyproject_install
-%pyproject_save_files fastapi
+%pyproject_save_files -l fastapi
 
 
 %check

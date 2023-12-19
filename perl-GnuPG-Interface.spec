@@ -1,10 +1,12 @@
 Name:           perl-GnuPG-Interface
-Version:        1.02
-Release:        8%{?dist}
+Version:        1.04
+Release:        2%{?dist}
 Summary:        Perl interface to GnuPG
-License:        GPLv2+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GnuPG-Interface
-Source0:        http://cpan.org/modules/by-module/GnuPG/GnuPG-Interface-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/GnuPG-Interface-%{version}.tar.gz
+# https://github.com/bestpractical/gnupg-interface/issues/8
+Patch0:         version-stdin.patch
 BuildArch:      noarch
 BuildRequires:  gpg
 
@@ -52,7 +54,7 @@ Requires:       gpg
 %{summary}.
 
 %prep
-%setup -q -n GnuPG-Interface-%{version}
+%autosetup -p1 -n GnuPG-Interface-%{version}
 perldoc -t perlgpl > GPL
 perldoc -t perlartistic > Artistic
 # gpg as being used by the testsuite requires test to be 0700
@@ -70,12 +72,22 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{make_build} test
 
 %files
+%license GPL Artistic
 %doc Changes README
 %{perl_vendorlib}/GnuPG
 %{_mandir}/man3/*.3*
 
 
 %changelog
+* Sun Dec 17 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.04-2
+- Migrate to SPDX license
+
+* Wed Dec 13 2023 Xavier Bachelot <xavier@bachelot.org> - 1.04-1
+- Update to 1.0.4 (RHBZ#2239168, RHBZ#2208967)
+- Update Source0 URL
+- Distribute licenses
+- Add patch to add stdin handler to _version sub
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

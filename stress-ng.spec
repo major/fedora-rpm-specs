@@ -1,9 +1,9 @@
 Name:		stress-ng
-Version:	0.17.01
+Version:	0.17.03
 Release:	1%{?dist}
 Summary:	Stress test a computer system in various ways
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://github.com/ColinIanKing/stress-ng
 Source0:	https://github.com/ColinIanKing/stress-ng/archive/V%{version}/%{name}-%{version}.tar.gz
 # darn is not supported in Power ISA < 3.0, while Fedora aims for Power ISA 2.07
@@ -54,6 +54,14 @@ install -pm 644 bash-completion/%{name} \
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Dec 17 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 0.17.03-1
+- Update to 0.17.03
+- Fixes rhbz#2253639
+
+* Mon Dec 04 2023 John Kacur <jkacur@redhat.com> - 0.17.01-2
+- Update the License field to the SPDX format using the tools
+  license-fedora2spdx and verified by license-validate
+
 * Sat Nov 11 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 0.17.01-1
 - Update to 0.17.01
 - Fixes rhbz#2242847

@@ -102,7 +102,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files chardet
+%pyproject_save_files -l chardet
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE2}'
 
 

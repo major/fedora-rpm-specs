@@ -1,13 +1,10 @@
-%global commit  ac0334979f8eae907ed50f280f2067d6d0df0b47
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           mpvqt
-Version:        1.0.0~20231202git%{shortcommit}
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        QML wrapper for libmpv
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/libraries/mpvqt
-Source:         %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.bz2
+Source:         https://download.kde.org/stable/mpvqt/mpvqt-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
@@ -28,7 +25,7 @@ Development headers and link library for building packages which use %{name}.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup
 
 
 %build
@@ -52,5 +49,8 @@ Development headers and link library for building packages which use %{name}.
 
 
 %changelog
+* Sun Dec 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.0-1
+- 1.0.0
+
 * Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 1.0.0~20231202gitac03349-1
 - Initial import

@@ -112,7 +112,7 @@ cp -rp example test_example
 
 %install
 %pyproject_install
-%pyproject_save_files cmake_build_extension
+%pyproject_save_files -l cmake_build_extension
 
 
 %check

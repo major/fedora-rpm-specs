@@ -5,9 +5,9 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 24.01.80
-Release: 2%{?dist}
+Release: 3%{?dist}
 
-License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/akonadi-%{version}.tar.xz
@@ -67,8 +67,6 @@ Requires(postun): /usr/sbin/update-alternatives
 Recommends:     %{name}-mysql = %{version}-%{release}
 %endif
 
-Conflicts:      akonadi < 1.13.0-100
-
 # Plasma 6
 Obsoletes:      kf5-akonadi-server < 24.01.80-1
 
@@ -82,6 +80,7 @@ Requires:       cmake(KF6Config)
 Requires:       cmake(KF6ConfigWidgets)
 Requires:       cmake(KF6CoreAddons)
 Requires:       cmake(KF6ItemModels)
+Requires:       cmake(KF6KIO)
 Requires:       cmake(KF6XmlGui)
 Requires:       cmake(Qt6Core)
 Requires:       cmake(Qt6DBus)
@@ -91,7 +90,6 @@ Requires:       cmake(Qt6Widgets)
 Requires:       cmake(Qt6Xml)
 # For testing
 Requires:       cmake(Qt6Test)
-Requires:       cmake(KF6KIO)
 
 # at least dbus-1/interfaces conflict, maybe more -- rex
 Conflicts:      akonadi-devel
@@ -102,7 +100,7 @@ Conflicts:      kf5-akonadi-server-devel
 %package mysql
 Summary:        Akonadi MySQL backend support
 # upgrade path
-Provides:       akonadi-mysql = %{version}-%{release}
+Obsoletes:      kf5-akonadi-server-mysql < 24.01.80-1
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       mysql-server
 Requires:       qt6-qtbase-mysql%{?_isa}
@@ -240,6 +238,9 @@ fi
 
 
 %changelog
+* Sun Dec 17 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-3
+- Make upgrade path for mysql subpackage
+
 * Sat Dec 16 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
 - Obsolete the old Akonadi
 

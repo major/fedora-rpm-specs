@@ -94,7 +94,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files docx
+%pyproject_save_files -l docx
 
 
 %check

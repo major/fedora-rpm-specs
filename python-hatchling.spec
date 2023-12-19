@@ -1,5 +1,5 @@
 Name:           python-hatchling
-Version:        1.18.0
+Version:        1.20.0
 Release:        %autorelease
 Summary:        The build backend used by Hatch
 
@@ -45,7 +45,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files hatchling
+%pyproject_save_files -l hatchling
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE100}' \

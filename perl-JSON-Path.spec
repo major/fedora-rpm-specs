@@ -1,44 +1,39 @@
 Name:           perl-JSON-Path
-Version:        1.0.3
-Release:        3%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 Summary:        Search nested hashref/arrayref structures using JSONPath
 
-License:        MIT
+License:        X11
 URL:            https://metacpan.org/release/JSON-Path
 Source0:        https://cpan.metacpan.org/authors/id/P/PO/POPEFELIX/JSON-Path-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires: make
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-interpreter >= 1:5.16.0
 BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime requirements
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Carp::Assert)
-BuildRequires:  perl(Exporter)
-BuildRequires:  perl(Exporter::Easy)
-BuildRequires:  perl(Exporter::Tiny)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Exporter::Shiny)
 BuildRequires:  perl(JSON::MaybeXS)
-BuildRequires:  perl(JSON::Parse)
 BuildRequires:  perl(LV)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Safe)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Storable)
-BuildRequires:  perl(Sys::Hostname)
-BuildRequires:  perl(Test::Deep)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Most)
-BuildRequires:  perl(Test2::V0)
-BuildRequires:  perl(Tie::IxHash)
 BuildRequires:  perl(Try::Tiny)
-BuildRequires:  perl(base)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(JSON)
-BuildRequires:  perl(LV)
+# test requirements
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Tie::IxHash)
 
 # Those are only needed when building for RHEL, on Fedora they come in as
 # dependencies of the above
@@ -78,6 +73,11 @@ like structures.
 
 
 %changelog
+* Sun Dec 17 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.4-1
+- Update to 1.0.4
+- Update dependencies
+- Migrate to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

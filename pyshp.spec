@@ -99,7 +99,7 @@ cp -p '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
 
 %install
 %pyproject_install
-%pyproject_save_files shapefile
+%pyproject_save_files -l shapefile
 
 
 %check
@@ -109,7 +109,6 @@ cp -p '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
 
 
 %files -n python3-pyshp -f %{pyproject_files}
-# pyproject_files handles LICENSE.TXT; verify with “rpm -qL -p …”
 %doc changelog.txt
 %doc README.md
 

@@ -7,7 +7,7 @@
 %bcond_with debug
 
 # Package documentation files
-%if 0%{?el7} || 0%{?fedora} || 0%{?eln}
+%if 0%{?el7} || 0%{?el10} || 0%{?fedora} || 0%{?eln}
 %bcond_without doc
 %else
 %bcond_with doc
@@ -62,7 +62,7 @@ Scons documentation.
 
 %package -n     python3-%{name}
 Summary: An Open Source software construction tool
-%if 0%{?el7} || 0%{?el9} || 0%{?fedora} || 0%{?eln}
+%if 0%{?el7} || 0%{?el9} || 0%{?el10} || 0%{?fedora} || 0%{?eln}
 BuildRequires: python3-devel
 BuildRequires: python3-lxml
 BuildRequires: python3-wheel
@@ -122,7 +122,7 @@ for file in %{name}-%{version}/src/*.txt; do
     mv $file.new $file
 done
 
-%if 0%{?fedora} || 0%{?eln}
+%if 0%{?fedora} || 0%{?eln} || 0%{?el10}
 %py3_shebang_fix %{name}-%{version}/scripts/scons.py
 %else
 pathfix%{python3_version}.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
@@ -136,7 +136,7 @@ pathfix3.9.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
 sed -i -e 's!env.AddPostAction(tgz_file, Delete(man_pages))! !g' %{name}-%{version}/SConstruct
 
 %build
-%if 0%{?el7} || 0%{?el9} || 0%{?fedora} || 0%{?eln}
+%if 0%{?el7} || 0%{?el9} || 0%{?el10} || 0%{?fedora} || 0%{?eln}
 %{__python3} scripts/scons.py \
 %else
 %{_bindir}/python3.9 scripts/scons.py \
@@ -151,7 +151,7 @@ sed -i -e 's!env.AddPostAction(tgz_file, Delete(man_pages))! !g' %{name}-%{versi
 %install
 export LDFLAGS="%{build_ldflags}"
 export CFLAGS="%{build_cflags}"
-%if 0%{?el7} || 0%{?el9} || 0%{?fedora} || 0%{?eln}
+%if 0%{?el7} || 0%{?el9} || 0%{?el10} || 0%{?fedora} || 0%{?eln}
 %py3_install -- --install-scripts=%{_bindir} --install-data=%{_datadir}
 
 pushd %{buildroot}%{_bindir} 
