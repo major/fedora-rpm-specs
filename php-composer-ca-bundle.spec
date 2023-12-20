@@ -9,14 +9,14 @@
 
 %bcond_without       tests
 
-%global gh_commit    76e46335014860eec1aa5a724799a00a2e47cc85
+%global gh_commit    b66d11b7479109ab547f9405b97205640b17d385
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.3.7
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
@@ -39,18 +39,8 @@ BuildRequires:  php-cli
 #        "symfony/phpunit-bridge": "^4.2 || ^5",
 #        "phpstan/phpstan": "^0.12.55",
 #        "psr/log": "^1.0",
-#        "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
-%if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
-BuildRequires:  phpunit8
-%global phpunit %{_bindir}/phpunit8
-BuildRequires: (php-composer(psr/log)         >= 1.0   with php-composer(psr/log)         < 2)
-BuildRequires: (php-composer(symfony/process) >= 2.5   with php-composer(symfony/process) < 7)
-%else
-BuildRequires:  phpunit
-%global phpunit %{_bindir}/phpunit
-BuildRequires:  php-PsrLog
-BuildRequires:  php-symfony-process
-%endif
+#        "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
+BuildRequires:  phpunit10
 # Autoloader
 BuildRequires:  php-composer(fedora/autoloader)
 # ca-certificates
@@ -112,23 +102,14 @@ mkdir vendor
 cat << 'EOF' | tee vendor/autoload.php
 <?php
 require_once '%{buildroot}%{php_home}/Composer/CaBundle/autoload.php';
-\Fedora\Autoloader\Dependencies::required(array(
-    array(
-        '%{php_home}/Symfony6/Component/Process/autoload.php',
-        '%{php_home}/Symfony5/Component/Process/autoload.php',
-        '%{php_home}/Symfony4/Component/Process/autoload.php',
-        '%{php_home}/Symfony3/Component/Process/autoload.php',
-        '%{php_home}/Symfony/Component/Process/autoload.php',
-    ),
-    '%{php_home}/Psr/Log/autoload.php',
-));
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
-  if which $cmdarg; then
-    set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
+%{_bindir}/phpunit10 --migrate-configuration
+
+for cmd in php php81 php82 php83; do
+  if which $cmd; then
+    $cmd %{_bindir}/phpunit10 --no-coverage || ret=1
   fi
 done
 exit $ret
@@ -147,6 +128,10 @@ exit $ret
 
 
 %changelog
+* Mon Dec 18 2023 Remi Collet <remi@remirepo.net> - 1.4.0-1
+- update to 1.4.0 (no change)
+- drop build dependencies on symfony/process and psr/log
+
 * Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 1.3.7-1
 - update to 1.3.7 (no change)
 

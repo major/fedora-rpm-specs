@@ -1,13 +1,12 @@
 Name: gnucash
 Summary: Finance management application
-Version: 5.4
+Version: 5.5
 URL: https://gnucash.org/
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
 Patch0: rpath.patch
-Patch1: 1d8c525afc31ba3b02fcd86fb8dc1f484ead6c05.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1563466
 ExcludeArch: ppc64 s390x
@@ -110,6 +109,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.5-1
+- 5.5
+
 * Mon Nov 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.4-3
 - Patch for Python 3.13
 

@@ -17,7 +17,7 @@
 
 
 Name:           certbot
-Version:        2.7.2
+Version:        2.8.0
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -373,6 +373,9 @@ fi
 
 
 %changelog
+* Mon Dec 18 2023 Jonathan Wright <jonathan@almalinux.org> - 2.8.0-1
+- Update to 2.8.0 rhbz#2246252
+
 * Fri Oct 20 2023 Jonathan Wright <jonathan@almalinux.org> - 2.7.2-1
 - Update to 2.7.2 rhbz#2242065
 

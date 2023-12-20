@@ -95,6 +95,9 @@ Source:         %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 # local system fonts.
 Patch:          gi-docgen-2022.2-no-web-fonts.patch
 
+# https://gitlab.gnome.org/GNOME/gi-docgen/-/issues/179
+Patch:          fix-broken-since-obsoletes.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

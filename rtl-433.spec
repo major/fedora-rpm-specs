@@ -1,9 +1,9 @@
-%global commit_date     20231101
-%global commit_long     2a7fe211cee2c54ef6d47827324176d49a4e942d
+%global commit_date     20231218
+%global commit_long     60bdd62d18aed44c942f257dd25a1c433e315565
 %global commit_short    %(c=%{commit_long}; echo ${c:0:7})
 
 Name: rtl-433
-Version: 22.11
+Version: 23.11
 Release: 1.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
@@ -94,6 +94,9 @@ rm -rf %{buildroot}%{_usr}%{_sysconfdir}
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Mon Dec 18 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 23.11-1.20231218git60bdd62
+- bump to latest git release
+
 * Mon Nov 06 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 22.11-1.20231101git2a7fe21
 - bump to latest git release
 

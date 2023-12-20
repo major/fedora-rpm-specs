@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD-3-Clause
 
@@ -249,6 +249,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-17
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-16
 - OCaml 5.1.1 rebuild for Fedora 40
 

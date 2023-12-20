@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zed
 Version:        3.2.3
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Abstract engine for text editing in OCaml
 
 License:        BSD-3-Clause
@@ -67,6 +67,12 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2.3-5
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2.3-4
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.2.3-3
 - OCaml 5.1.1 rebuild for Fedora 40
 

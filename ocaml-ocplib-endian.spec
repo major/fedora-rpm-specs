@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocplib-endian
 Version:        1.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Functions to read/write int16/32/64 from strings, bigarrays
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -61,6 +61,9 @@ signature files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2-13
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2-12
 - OCaml 5.1.1 rebuild for Fedora 40
 

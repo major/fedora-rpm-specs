@@ -5,7 +5,7 @@ Version:        1.13.3
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 
-License:        GPLv2 with linking exception
+License:        GPL-2.0-only WITH GCC-exception-2.0
 URL:            https://www.pygit2.org/
 Source0:        https://github.com/libgit2/pygit2/archive/v%{version}.tar.gz#/%{pkgname}-%{version}.tar.gz
 # This patch lowers the Python-level dependency on cffi. Fedora package python-cffi-1.15.1-5 and

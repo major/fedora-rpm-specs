@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlp-streams
 Version:        5.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Stream and Genlex libraries for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -66,6 +66,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-10
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-9
 - OCaml 5.1.1 rebuild for Fedora 40
 

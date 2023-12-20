@@ -21,7 +21,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-num
 Version:        1.5
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -87,6 +87,12 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-3
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-2
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Sat Dec 16 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-1
 - New upstream version 1.5 (RHBZ#2254845)
 - Use dune as build system.

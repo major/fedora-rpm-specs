@@ -18,7 +18,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -296,6 +296,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-9
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-8
 - OCaml 5.1.1 rebuild for Fedora 40
 

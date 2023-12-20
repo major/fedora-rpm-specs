@@ -1,8 +1,11 @@
+# correct the Obsoletes version in case of disabling it after being enabled
+%global with_akonadi 0
+
 Summary:       SyncML client for evolution
 Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       LGPL-2.0-or-later
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
@@ -14,8 +17,15 @@ Patch4:        004-cpp-curl.patch
 
 BuildRequires: pkgconfig(dbus-glib-1)
 
-BuildRequires: perl-generators
+%if 0%{with_akonadi}
 BuildRequires: pkgconfig(akonadi)
+BuildRequires: kdelibs-devel
+BuildRequires: kdepimlibs-devel
+%else
+Obsoletes: %{name}-libs-akonadi < 2.0.0-10
+%endif
+
+BuildRequires: perl-generators
 BuildRequires: bluez-libs-devel
 BuildRequires: boost-devel >= 1.73.0
 BuildRequires: cppunit-devel
@@ -24,8 +34,6 @@ BuildRequires: expat-devel
 BuildRequires: glib2-devel
 BuildRequires: gnome-online-accounts-devel
 BuildRequires: gtk3-devel
-BuildRequires: kdelibs-devel
-BuildRequires: kdepimlibs-devel
 BuildRequires: libcurl-devel
 BuildRequires: libgnome-keyring-devel
 BuildRequires: libical-devel >= 2.0.0
@@ -84,11 +92,13 @@ Requires: %{name} = %{epoch}:%{version}-%{release}
 %description perl
 Perl utils for use with %{name}.
 
+%if 0%{with_akonadi}
 %package libs-akonadi
 Summary: Akonadi backend package for %{name}
 
 %description libs-akonadi
 Akonadi backend for %{name}.
+%endif
 
 %prep
 %autosetup -p1 -S gendiff
@@ -110,7 +120,12 @@ popd
 %configure --enable-libcurl --disable-libsoup --enable-dbus-service --enable-shared \
     --disable-static --enable-gtk=3 --enable-gui --with-gio-gdbus \
     --enable-dav --disable-static --enable-gtk=3 --enable-gui \
-    --enable-gnome-keyring --enable-akonadi --enable-pbap \
+    --enable-gnome-keyring --enable-pbap \
+%if 0%{with_akonadi}
+     --enable-akonadi \
+%else
+     --disable-akonadi \
+%endif
 %ifnarch s390 s390x
     --enable-bluetooth
 %else
@@ -126,6 +141,11 @@ find . -type d -perm 02755 -exec chmod 0755 '{}' \;
 %install
 make install DESTDIR=%{buildroot} docdir=%{_docdir}
 rm -rf %{buildroot}%{_datadir}/doc
+
+# even the build is disabled, there is still created the file with some minimal content
+%if !0%{with_akonadi}
+rm %{buildroot}%{_libdir}/syncevolution/backends/syncakonadi.so
+%endif
 
 #Remove libtool archives
 find %{buildroot} -type f -name "*.la" -delete
@@ -177,8 +197,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_libdir}/syncevolution/backends/synctdepimnotes.so
 %{_libdir}/syncevolution/backends/syncxmlrpc.so
 
+%if 0%{with_akonadi}
 %files libs-akonadi
 %{_libdir}/syncevolution/backends/syncakonadi.so
+%endif
 
 %files devel
 %{_includedir}/syncevo
@@ -198,6 +220,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_datadir}/syncevolution/xml/*.pl
 
 %changelog
+* Mon Dec 18 2023 Milan Crha <mcrha@redhat.com> - 1:2.0.0-10
+- Disable build of libs-akonadi subpackage
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

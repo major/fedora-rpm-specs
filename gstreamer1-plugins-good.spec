@@ -27,8 +27,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.22.7
-Release:        2%{?dist}
+Version:        1.22.8
+Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -355,6 +355,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
+- 1.22.8
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 1.22.7-2
 - Rebuild (qt6)
 

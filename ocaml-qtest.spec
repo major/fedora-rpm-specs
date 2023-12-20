@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
@@ -84,6 +84,9 @@ asciidoc README.adoc
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-18
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-17
 - OCaml 5.1.1 rebuild for Fedora 40
 

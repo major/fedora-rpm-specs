@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cppo
 Version:        1.6.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Equivalent of the C preprocessor for OCaml programs
 
 License:        BSD-3-Clause
@@ -71,6 +71,9 @@ at build time.  To use it, call ocamlbuild with the argument
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.9-6
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.9-5
 - OCaml 5.1.1 rebuild for Fedora 40
 

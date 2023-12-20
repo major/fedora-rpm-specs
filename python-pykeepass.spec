@@ -46,7 +46,7 @@ sed -r -i 's/==/>=/' requirements.txt
 
 %install
 %pyproject_install
-%pyproject_save_files pykeepass
+%pyproject_save_files -l pykeepass
 
 
 %check

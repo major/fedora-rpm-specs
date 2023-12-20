@@ -26,13 +26,17 @@ Source1:        nose2.1
 # modern Python versions).
 Patch:          nose2-0.11.0-tox-no-dev-extra.patch
 # Downstream-only: skip test_skip_reason_in_message on Python 3.13+
+#
+# The message format has changed in Python 3.12.1 and in pre-releases of
+# Python 3.13.
+#
 # This is a workaround while we wait for an upstream fix.
 #
 # Python 3.13: test_skip_reason_in_message fails
 # https://github.com/nose-devs/nose2/issues/588
 #
 # https://bugzilla.redhat.com/show_bug.cgi?id=2246281
-Patch:          0001-Downstream-only-skip-test_skip_reason_in_message-on-.patch
+Patch:          0001-Downstream-only-skip-test_skip_reason_in_message.patch
 
 BuildArch:      noarch
 
@@ -111,7 +115,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files nose2
+%pyproject_save_files -l nose2
 hardlink -v '%{buildroot}%{_bindir}'
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 

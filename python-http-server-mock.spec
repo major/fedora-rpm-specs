@@ -48,7 +48,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files http_server_mock
+%pyproject_save_files -l http_server_mock
 
 
 %check
@@ -56,7 +56,6 @@ Summary:        %{summary}
 
 
 %files -n python3-http-server-mock -f %{pyproject_files}
-# pyproject_files handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.rst
 
 

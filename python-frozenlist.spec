@@ -1,11 +1,5 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc 1
-
 Name:           python-frozenlist
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        List-like structure which can be made immutable
 
@@ -13,19 +7,19 @@ License:        Apache-2.0
 URL:            https://github.com/aio-libs/frozenlist
 Source:         %{pypi_source frozenlist}
 
+# Downstream-only: Build normal wheels in-place
+#
+# Upstream wants to build only editable wheels in-place, building normal
+# wheels in a temporary directory. This is reasonable in principle, but
+# the implementation conflicts with the pyproject-rpm-macros, resulting in
+# an unbounded recursion of nested temporary directories.
+Patch:          0001-Downstream-only-Build-normal-wheels-in-place.patch
+
 BuildRequires:  python3-devel
 
 BuildRequires:  gcc
-BuildRequires:  python3dist(cython)
 
-BuildRequires:  python3dist(pytest)
-
-%if %{with doc}
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 FrozenList is a list-like structure which implements
@@ -40,26 +34,15 @@ Summary:        %{summary}
 %description -n python3-frozenlist %{common_description}
 
 
-%if %{with doc}
-%package        doc
-Summary:        Documentation for python-frozenlist
-
-BuildArch:      noarch
-
-%description    doc %{common_description}
-%endif
-
-
 %prep
-%autosetup -n frozenlist-%{version}
+%autosetup -n frozenlist-%{version} -p1
 
 # Remove Cython-generated sources; we must ensure they are regenerated.
 find . -type f -name '*.c' -print -delete
 
-# Drop intersphinx mappings, since we can’t download remote inventories and
-# can’t easily produce working hyperlinks from inventories in local
-# documentation packages.
-echo 'intersphinx_mapping.clear()' >> docs/conf.py
+# Patch out coverage-related pytest options:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^([[:blank:]]*)(.*[-_]cov)/\1# \2/' pytest.ini
 
 
 %generate_buildrequires
@@ -67,15 +50,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %build
-# Re-generate C sources with Cython. Imitates Makefile on GitHub.
-%{python3} -m cython -3 frozenlist/*.pyx -I frozenlist
-
 %pyproject_wheel
-
-%if %{with doc}
-%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install
@@ -84,21 +59,13 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %check
-%pytest
+%pytest -v
 
 
 %files -n python3-frozenlist -f %{pyproject_files}
-%if %{without doc}
-%doc CHANGES.rst CONTRIBUTORS.txt README.rst
-%endif
-
-
-%if %{with doc}
-%files doc
-%license LICENSE
-%doc CHANGES.rst CONTRIBUTORS.txt README.rst
-%doc docs/_build/latex/frozenlist.pdf
-%endif
+%doc CHANGES.rst
+%doc CONTRIBUTORS.txt
+%doc README.rst
 
 
 %changelog

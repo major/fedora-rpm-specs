@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       18%{?dist}
+Release:       19%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -229,6 +229,9 @@ make check || {
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-19
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-18
 - OCaml 5.1.1 rebuild for Fedora 40
 

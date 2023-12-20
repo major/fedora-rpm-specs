@@ -58,7 +58,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -365,6 +365,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-15
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-14
 - OCaml 5.1.1 rebuild for Fedora 40
 

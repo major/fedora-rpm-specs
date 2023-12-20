@@ -16,8 +16,8 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.22.7
-Release:        2%{?dist}
+Version:        1.22.8
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPL-2.1-or-later
@@ -200,6 +200,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
+- 1.22.8
+
 * Mon Nov 20 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.7-2
 - Set cap information correctly
 - Resolves: rhbz#2238703

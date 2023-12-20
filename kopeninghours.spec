@@ -1,5 +1,5 @@
 Name:    kopeninghours
-Version: 23.08.2
+Version: 24.01.80
 Release: 1%{?dist}
 Summary: Library for parsing and evaluating OSM opening hours expressions
 
@@ -10,17 +10,17 @@ Source0: https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake
-BuildRequires:  cmake(KF5Holidays)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(KF6Holidays)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(Qt6Core)
 BuildRequires:  flex
 BuildRequires:  bison
-BuildRequires:  cmake(Qt5Qml)
+BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  python3-devel
 BuildRequires:  boost-devel
-Requires:       kf5-filesystem
+Requires:       kf6-filesystem
 
 %description
 %{summary}.
@@ -38,7 +38,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
@@ -49,18 +49,21 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*.txt
 %doc README.md
-%{_kf5_libdir}/libKOpeningHours.so.*
-%{_qt5_qmldir}/org/kde/kopeninghours
-%{_datadir}/qlogging-categories5/org_kde_kopeninghours.categories
+%{_kf6_libdir}/libKOpeningHours.so.*
+%{_qt6_qmldir}/org/kde/kopeninghours
+%{_datadir}/qlogging-categories6/org_kde_kopeninghours.categories
 %{python3_sitelib}/PyKOpeningHours/
 
 %files devel
 %{_includedir}/KOpeningHours
-%{_kf5_libdir}/cmake/KOpeningHours
-%{_kf5_libdir}/libKOpeningHours.so
+%{_kf6_libdir}/cmake/KOpeningHours
+%{_kf6_libdir}/libKOpeningHours.so
 %{_includedir}/kopeninghours
 %{_includedir}/kopeninghours_version.h
 
 %changelog
+* Mon Dec 18 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Mon Oct 09 2023 Steve Cossette <farchord@gmail.com> - 23.08.2-1
 - Initial Release

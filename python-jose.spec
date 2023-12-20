@@ -133,7 +133,7 @@ sed -r -i '/pytest-cov/d' tox.ini
 
 %install
 %pyproject_install
-%pyproject_save_files jose
+%pyproject_save_files -l jose
 
 
 %check

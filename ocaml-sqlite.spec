@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sqlite
 Version:        5.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OCaml library for accessing SQLite3 databases
 License:        MIT
 
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-11
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-10
 - OCaml 5.1.1 rebuild for Fedora 40
 

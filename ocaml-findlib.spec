@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-findlib
 Version:        1.9.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -112,6 +112,9 @@ sed -i '/ocamlfind\.conf/d' .ofiles
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-8
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-7
 - OCaml 5.1.1 rebuild for Fedora 40
 

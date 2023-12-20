@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocp-indent
 Version:        1.8.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A simple tool to indent OCaml programs
 
 # The entire source code is LGPL with the OCaml linking exception except
@@ -91,6 +91,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.8.2-23
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.8.2-22
 - OCaml 5.1.1 rebuild for Fedora 40
 

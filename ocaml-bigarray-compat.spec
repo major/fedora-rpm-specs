@@ -17,7 +17,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bigarray-compat
 Version:        1.1.0
-Release:        10%{?dist}
+Release:        12%{?dist}
 Summary:        Compatibility library to use Stdlib.Bigarray when possible
 
 License:        ISC
@@ -59,6 +59,12 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.0-12
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.0-11
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.0-10
 - OCaml 5.1.1 rebuild for Fedora 40
 

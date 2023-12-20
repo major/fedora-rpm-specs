@@ -1,6 +1,6 @@
 Name: fluent-bit
 Version: 1.9.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Fast data collector for Linux
 License: ASL 2.0
 URL: https://github.com/fluent/fluent-bit
@@ -14,6 +14,10 @@ Patch2: 0003-onigmo-add-fPIC-to-CFLAGS.patch
 # Fix Tail input plugin tests. https://github.com/fluent/fluent-bit/issues/5723
 Patch3: 0004-tests-runtime-in_tail-allow-to-append-to-local-files.patch
 Patch4: fluent-bit-cmake-c99.patch
+Patch5: fluent-bit-cmake-c99-2.patch
+Patch6: fluent-bit-c99-3.patch
+Patch7: fluent-bit-c99-4.patch
+Patch8: fluent-bit-c99-5.patch
 
 BuildRequires: pkgconfig
 BuildRequires: make
@@ -87,6 +91,9 @@ rm -rvf %{buildroot}%{_includedir}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 1.9.9-5
+- Partial fix for C compatibility issues
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

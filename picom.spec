@@ -16,6 +16,8 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://fedoraproject.org/wiki/PcreDeprecation
 # https://github.com/yshui/picom/issues/895
 Patch0:         https://github.com/yshui/picom/pull/937.patch#/c2:-replace-pcre-with-pcre2.patch
+# Hide picom desktop file by default
+Patch1:         https://github.com/yshui/picom/pull/1155.patch#/picom.desktop-Hide-from-menus-by-default.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  desktop-file-utils

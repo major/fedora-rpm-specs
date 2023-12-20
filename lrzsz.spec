@@ -1,7 +1,7 @@
 Summary: The lrz and lsz modem communications programs
 Name: lrzsz
 Version: 0.12.20
-Release: 61%{?dist}
+Release: 62%{?dist}
 License: GPL-2.0-or-later AND GPL-2.0-only
 Source: http://www.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch1: lrzsz-0.12.20-glibc21.patch
@@ -10,6 +10,7 @@ Patch3: lrzsz-0.12.20-man.patch
 Patch4: lrzsz-0.12.20-aarch64.patch
 Patch5: lrzsz-configure-c99.patch
 Patch6: lrzsz-c99.patch
+Patch7: lrzsz-socklen.patch
 Url: http://www.ohse.de/uwe/software/lrzsz.html
 BuildRequires: gcc gettext
 BuildRequires: make
@@ -29,6 +30,7 @@ copylefted Zmodem solution for Linux systems.
 %patch4 -p1 -b .aarch64
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 rm -f po/*.gmo
 
@@ -53,6 +55,9 @@ for m in sb sx; do ln -s sz.1 %{buildroot}%{_mandir}/man1/$m.1; done
 %{_mandir}/*/*
 
 %changelog
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 0.12.20-62
+- Fix socket length incompatibility (C compatibility issue)
+
 * Tue Oct 31 2023 Tomas Korbar <tkorbar@redhat.com> - 0.12.20-61
 - Add additional SPDX licenses found by scancode tool
 

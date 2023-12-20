@@ -1,4 +1,3 @@
-
 Name:    kanagram
 Summary: Letter Order Game 
 Version: 24.01.80
@@ -56,7 +55,7 @@ Requires: kdeedu-data
 %find_lang %{name} --all-name --with-html --with-man --with-qt
 
 ## unpackaged files
-rm -fv %{buildroot}%{_kf5_datadir}/icons/hicolor/*/*/kanagram-harmattan.*
+rm -fv %{buildroot}%{_kf6_datadir}/icons/hicolor/*/*/kanagram-harmattan.*
 
 
 %check

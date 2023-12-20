@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-newt
 Version:        0.9
-Release:        77%{?dist}
+Release:        79%{?dist}
 Summary:        OCaml library for using newt text mode window system
 License:        LGPL-2.1-or-later
 
@@ -89,6 +89,12 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9-79
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9-78
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9-77
 - OCaml 5.1.1 rebuild for Fedora 40
 

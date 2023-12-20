@@ -61,7 +61,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %install
 %pyproject_install
-%pyproject_save_files mapvbvd
+%pyproject_save_files -l mapvbvd
 
 
 %check
@@ -69,7 +69,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %files -n python3-pymapvbvd -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.md
 
 

@@ -12,10 +12,12 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.1.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
+Patch0: autofs-configure-c99.patch
+Patch1: autofs-c99.patch
 
 %if %{with_systemd}
 BuildRequires: systemd-units
@@ -71,7 +73,7 @@ unmountar dem när de har varit oanvända en bestämd tid.  Detta kan
 inkludera nätfilsystem, CD-ROM, floppydiskar, och så vidare.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 echo %{version}-%{release} > .version
 %if %{with_systemd}
   %define unitdir %{?_unitdir:/usr/lib/systemd/system}
@@ -82,6 +84,7 @@ echo %{version}-%{release} > .version
 %endif
 
 %build
+autoreconf -iv
 LDFLAGS=-Wl,-z,now
 %configure \
 	--disable-mount-locking \
@@ -187,6 +190,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 1:5.1.9-4
+- Further C compatibility fixes, run autoconf
+
 * Tue Nov 07 2023 Ian Kent <ikent@redhat.com> - 1:5.1.9-3
 - Also update package revision.
 

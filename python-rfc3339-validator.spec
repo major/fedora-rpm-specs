@@ -67,7 +67,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files rfc3339_validator
+%pyproject_save_files -l rfc3339_validator
 
 
 %check
@@ -79,7 +79,6 @@ Summary:        %{summary}
 
 
 %files -n python3-rfc3339-validator -f %{pyproject_files}
-%doc AUTHORS.rst
 %doc CONTRIBUTING.rst
 %doc HISTORY.rst
 %doc README.md

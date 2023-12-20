@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-re
 Version:        1.11.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A regular expression library for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -68,6 +68,9 @@ sed -i 's/oUnit/ounit2/' lib_test/fort_unit/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.11.0-4
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.11.0-3
 - OCaml 5.1.1 rebuild for Fedora 40
 

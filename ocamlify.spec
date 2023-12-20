@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocamlify
 Version:        0.0.2
-Release:        39%{?dist}
+Release:        41%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -70,6 +70,12 @@ ocaml -I +camlp-streams setup.ml -test
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.0.2-41
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.0.2-40
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.0.2-39
 - OCaml 5.1.1 rebuild for Fedora 40
 

@@ -52,7 +52,7 @@ rm -vf example/src/stub/.keepdir
 
 %install
 %pyproject_install
-%pyproject_save_files pytest_grpc
+%pyproject_save_files -l pytest_grpc
 
 
 %check

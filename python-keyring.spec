@@ -1,6 +1,6 @@
-%bcond_without tests
+%bcond tests 1
 # The xvfb tests sometimes hang in koji.
-%bcond_with xvfb_tests
+%bcond xvfb_tests 0
 
 Name:           python-keyring
 Version:        24.3.0
@@ -104,7 +104,7 @@ done
 
 %install
 %pyproject_install
-%pyproject_save_files keyring
+%pyproject_save_files -l keyring
 install -D -p -m 0644 keyring.bash \
     '%{buildroot}%{bash_completions_dir}/keyring'
 install -D -p -m 0644 keyring.zsh \
@@ -132,8 +132,8 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
 
 
 %files -n python3-keyring -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
-%doc NEWS.rst README.rst
+%doc NEWS.rst
+%doc README.rst
 
 %{_bindir}/keyring
 %{_mandir}/man1/keyring.1*

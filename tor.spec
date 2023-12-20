@@ -19,7 +19,7 @@
 %endif
 
 Name:       tor
-Version:    0.4.8.9
+Version:    0.4.8.10
 Release:    1%{?dist}
 License:    BSD
 Summary:    Anonymizing overlay network for TCP
@@ -184,6 +184,10 @@ fi
 
 
 %changelog
+* Mon Dec 18 2023 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.10-1
+- update to latest upstream release https://forum.torproject.org/t/security-release-0-4-8-10/10536
+- security fixes for bz#2253846 & bz#2211726 & bz#2253847
+
 * Thu Nov 09 2023 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.9-1
 - update to latest upstream release https://forum.torproject.org/t/security-release-0-4-8-9/10155
 - security fixes for bz#2248562 & bz#2248563

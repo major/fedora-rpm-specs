@@ -42,6 +42,7 @@ BuildRequires: kf6-knotifications-devel
 BuildRequires: kf6-knotifyconfig-devel
 BuildRequires: kf6-knewstuff-devel
 BuildRequires: kf6-kservice-devel
+BuildRequires: kf6-kstatusnotifieritem-devel
 BuildRequires: kf6-kwindowsystem-devel
 BuildRequires: kf6-kwidgetsaddons-devel
 BuildRequires: kf6-kxmlgui-devel

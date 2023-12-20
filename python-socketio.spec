@@ -87,7 +87,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files socketio
+%pyproject_save_files -l socketio
 
 
 %check

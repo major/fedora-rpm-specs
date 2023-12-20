@@ -1,18 +1,26 @@
 Summary: Collection of performance monitoring tools for Linux
 Name: sysstat
-Version: 12.7.4
-Release: 2%{?dist}
+Version: 12.7.5
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 
 URL: http://sebastien.godard.pagesperso-orange.fr
 Source: https://github.com/sysstat/sysstat/archive/v%{version}.tar.gz
+
+# PCP is no longer available for %%{ix86} on F40
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%ifnarch %{ix86}
+BuildRequires: pcp-libs-devel
+%endif
+%else
+BuildRequires: pcp-libs-devel
+%endif
 
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: git
 BuildRequires: lm_sensors-devel
 BuildRequires: make
-BuildRequires: pcp-libs-devel
 BuildRequires: systemd-rpm-macros
 
 Requires: findutils
@@ -102,6 +110,9 @@ fi
 %{_localstatedir}/log/sa
 
 %changelog
+* Mon Dec 18 2023 Lukáš Zaoral <lzaoral@redhat.com> - 12.7.5-1
+- rebase to latest upstream release (rhbz#2254956)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

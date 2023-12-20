@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ctypes
 Version:        0.21.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -81,6 +81,9 @@ sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.21.1-4
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.21.1-3
 - OCaml 5.1.1 rebuild for Fedora 40
 

@@ -1,23 +1,25 @@
 Name:           khealthcertificate
-Version:        23.01.0
-Release:        2%{?dist}
+Version:        24.01.80
+Release:        1%{?dist}
 License:        Apache2.0 and BSD and CC-BY-4.0 and CC0-1.0 and EUPL-1.2 and LGPL-2.0 and MIT and W3C-20120513
 Summary:        Handling of digital vaccination, test and recovery certificates.
 Url:            https://invent.kde.org/pim/khealthcertificate
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/khealthcertificate-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: gcc-c++
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel
 
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6I18n)
 
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Qml)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Test)
 
 %description
 %{summary}.
@@ -26,18 +28,16 @@ BuildRequires: cmake(Qt5Qml)
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 %install
 %cmake_install
 
 %files
-%{_kf5_datadir}/qlogging-categories5/org_kde_khealthcertificate.categories
-
-%{_kf5_libdir}/*.so.*
-
-%{_kf5_qmldir}/org/kde/khealthcertificate/
+%{_kf6_datadir}/qlogging-categories6/org_kde_khealthcertificate.categories
+%{_kf6_libdir}/*.so.*
+%{_kf6_qmldir}/org/kde/khealthcertificate/
 
 %license LICENSES/*
 
@@ -50,11 +50,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files devel
 %{_includedir}/*
-
-%{_kf5_libdir}/cmake/KHealthCertificate
-%{_kf5_libdir}/*.so
+%{_kf6_libdir}/cmake/KHealthCertificate
+%{_kf6_libdir}/*.so
 
 %changelog
+* Mon Dec 18 2023 Steve cossette <farchord@gmail.com> - 24.01.80-1
+- 24.01.80
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

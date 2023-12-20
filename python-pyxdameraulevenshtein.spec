@@ -58,7 +58,7 @@ dos2unix --keepdate CHANGES.md
 
 %install
 %pyproject_install
-%pyproject_save_files pyxdameraulevenshtein
+%pyproject_save_files -l pyxdameraulevenshtein
 
 
 %check
@@ -66,7 +66,6 @@ dos2unix --keepdate CHANGES.md
 
 
 %files -n python3-pyxdameraulevenshtein -f %{pyproject_files}
-# pyproject_files handles AUTHORS.md and LICENSE; verify with “rpm -qL -p …”
 %doc CHANGES.md
 %doc README.md
 

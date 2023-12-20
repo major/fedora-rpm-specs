@@ -1,6 +1,6 @@
 Name:           perl-PAR-Packer
-Version:        1.059
-Release:        2%{?dist}
+Version:        1.061
+Release:        1%{?dist}
 Summary:        PAR Packager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PAR-Packer
@@ -128,14 +128,18 @@ make test
 %files
 %license LICENSE
 %doc AUTHORS Changes README
-%{perl_vendorlib}/*
+%{perl_vendorlib}/App*
+%{perl_vendorlib}/PAR*
+%{perl_vendorlib}/pp*
 %{_bindir}/par.pl
 %{_bindir}/parl
 %{_bindir}/parldyn
 %{_bindir}/pp
-%{_mandir}/man1/*.1.*
-%exclude %{_mandir}/man1/tkpp.1.*
-%{_mandir}/man3/*
+%{_mandir}/man1/par*.1.*
+%{_mandir}/man1/pp*.1.*
+%{_mandir}/man3/App::*
+%{_mandir}/man3/PAR::*
+%{_mandir}/man3/pp*
 
 %files Tk
 %{_bindir}/tkpp
@@ -144,6 +148,9 @@ make test
 %{_datadir}/icons/hicolor/32x32/apps/tkpp.png
 
 %changelog
+* Mon Dec 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.061-1
+- 1.061 bump (rhbz#2254730)
+
 * Thu Nov 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.059-2
 - Rebuild for Perl 5.38.2
 

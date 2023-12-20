@@ -172,6 +172,10 @@ sed -r -i '1{/^#!/d}' pdfminer/psparser.py
 # git tag when publishing to PyPI. See .github/workflows/actions.yml.
 sed -r -i 's/__VERSION__/%{version}/g' pdfminer/__init__.py
 
+# Copy the pyHanko license to the top-level directory so it is automatically
+# included in the licenses in the installed dist-info directory.
+cp -p docs/licenses/LICENSE.pyHanko ./
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x %{?with_doc:docs,}image
@@ -197,7 +201,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files pdfminer
+%pyproject_save_files -l pdfminer
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE2}' '%{SOURCE3}'
@@ -225,13 +229,13 @@ k="${k-}${k+ and }not test_paint_path_quadrilaterals"
 k="${k-}${k+ and }not test_pdf_with_empty_characters_horizontal"
 k="${k-}${k+ and }not test_pdf_with_empty_characters_vertical"
 
-%pytest -k "${k-}" \
-    --ignore='tests/test_tools_dumppdf.py' \
-    --ignore='tests/test_tools_pdf2txt.py'
+ignore="${ignore-} --ignore=tests/test_tools_dumppdf.py"
+ignore="${ignore-} --ignore=tests/test_tools_pdf2txt.py"
+
+%pytest -k "${k-}" ${ignore-}
 
 
 %files -n python3-pdfminer -f %{pyproject_files}
-%license LICENSE docs/licenses/LICENSE.pyHanko
 %if %{without doc}
 %doc CHANGELOG.md README.md
 %endif

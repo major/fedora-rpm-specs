@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-deriving-yojson
 Version:        3.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        JSON codec generator for OCaml
 
 License:        MIT
@@ -69,6 +69,9 @@ ln -s ../../src/ppx_deriving_yojson.cppo.ml _build/default
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 3.7.0-10
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.7.0-9
 - OCaml 5.1.1 rebuild for Fedora 40
 

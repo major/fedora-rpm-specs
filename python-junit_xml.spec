@@ -65,7 +65,7 @@ sed -r -i '1{/^#!/d}' junit_xml/__init__.py
 
 %install
 %pyproject_install
-%pyproject_save_files junit_xml
+%pyproject_save_files -l junit_xml
 
 
 %check

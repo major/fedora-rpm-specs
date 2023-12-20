@@ -3,8 +3,8 @@
 %global __provides_exclude_from ^%{_qt5_plugindir}/.*\\.so$
 
 Name:           qt5-qtpbfimageformat
-Version:        2.3
-Release:        10%{?dist}
+Version:        3.0
+Release:        1%{?dist}
 Summary:        Qt image plugin for displaying Mapbox vector tiles
 
 License:        GPLv3
@@ -55,6 +55,17 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Mon Dec 18 2023 Packit <hello@packit.dev> - 3.0-1
+- Increase major version due to the API change (Martin Tůma)
+- Code samples cleanup (Martin Tůma)
+- Added HiDPI and Overzoom sections (Martin Tůma)
+- Cosmetics (Martin Tůma)
+- Added overzoom description (Martin Tůma)
+- Keep the overzoom and scaled size separated (Martin Tůma)
+- Version++ (Martin Tůma)
+- Added support for overzoom (Martin Tůma)
+- Example codes cleanup (Martin Tůma)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

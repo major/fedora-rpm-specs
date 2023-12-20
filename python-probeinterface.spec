@@ -113,7 +113,7 @@ install -t "${PROBE_CACHE}/cambridgeneurotech" -p -m 0644 -D '%{SOURCE2}'
 
 %install
 %pyproject_install
-%pyproject_save_files probeinterface
+%pyproject_save_files -l probeinterface
 
 %if %{with doc_pdf}
 # Building this in %%install instead of %%build is a hack, but it is the
@@ -136,7 +136,6 @@ k="${k-}${k+ and }not test_get_from_cache"
 
 
 %files -n python3-probeinterface -f %{pyproject_files}
-# pyproject-rpm-macros handles the LICENSE file; verify with “rpm -qL -p …”
 %doc README.md
 
 

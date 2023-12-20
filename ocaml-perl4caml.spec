@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-perl4caml
 Version:        0.9.5
-Release:        104%{?dist}
+Release:        105%{?dist}
 Summary:        OCaml library for calling Perl libraries and code
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -126,6 +126,9 @@ install -c -m 0755 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.5-105
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.5-104
 - OCaml 5.1.1 rebuild for Fedora 40
 

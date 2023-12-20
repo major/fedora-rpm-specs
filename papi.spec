@@ -7,17 +7,23 @@
 %else
 %{!?with_rdma: %global with_rdma 1}
 %endif
+%ifarch %{ix86}
+%{!?with_pcp: %global with_pcp (0%{?fedora} < 40 && 0%{?rhel} < 10)}
+%else
 %{!?with_pcp: %global with_pcp 1}
+%endif
 Summary: Performance Application Programming Interface
 Name: papi
 Version: 7.0.1
-Release: 5%{?dist}
+Release: 7%{?dist}
 License: BSD-3-Clause
 Requires: papi-libs = %{version}-%{release}
 URL: http://icl.cs.utk.edu/papi/
 Source0: http://icl.cs.utk.edu/projects/papi/downloads/%{name}-%{version}.tar.gz
 Patch1: papi-python3.patch
 Patch5: papi-nostatic.patch
+Patch6: papi-configure-c99-1.patch
+Patch7: papi-configure-c99-2.patch
 BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: doxygen
@@ -91,6 +97,8 @@ the PAPI user-space libraries and interfaces.
 %setup -q
 %patch1 -p1 -b .python3
 %patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 
@@ -185,6 +193,12 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 %endif
 
 %changelog
+* Mon Dec 18 2023 William Cohen <wcohen@redhat.com> - 7.0.1-7
+- Fix i686 rawhide FTBFS. (rhbz#2254963)
+
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 7.0.1-6
+- Backport upstream patch, add new patch for autoconf C compatibility
+
 * Wed Aug 9 2023 William Cohen <wcohen@redhat.com> - 7.0.1-5
 - migrated to SPDX license
 

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{libname}
 Version:        1.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A streaming XML codec
 
 License:        ISC
@@ -80,6 +80,9 @@ grep expected invalid-err.log >/dev/null
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-6
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-5
 - OCaml 5.1.1 rebuild for Fedora 40
 

@@ -1,6 +1,6 @@
 Name:      zint
-Version:   2.12.0
-Release:   3%{?dist}
+Version:   2.13.0
+Release:   1%{?dist}
 Summary:   Barcode generator library
 License:   GPLv3+
 URL:       http://www.zint.org.uk
@@ -67,8 +67,8 @@ C library and header files needed to develop applications that use libQZint.
 
 %prep
 %setup -q -n %{name}-%{version}-src
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # fix line endings
 sed -i "s|\r||g" docs/manual.txt
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 
 %changelog
+* Mon Dec 18 2023 Martin Gieseking <martin.gieseking@uos.de> - 2.13.0-1
+- Update to 2.13.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

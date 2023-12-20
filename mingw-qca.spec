@@ -3,12 +3,12 @@
 %global pkgname qca
 
 Name:           mingw-%{pkgname}
-Version:        2.3.6
-Release:        2%{?dist}
+Version:        2.3.7
+Release:        1%{?dist}
 Summary:        MinGW Windows Qt Cryptographic Architecture
 BuildArch:      noarch
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://userbase.kde.org/QCA
 Source0:        http://download.kde.org/stable/%{pkgname}/%{version}/%{pkgname}-%{version}.tar.xz
 # Install pkgconfig file
@@ -136,6 +136,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Mon Dec 18 2023 Sandro Mani <manisandro@gmail.com> - 2.3.7-1
+- Update to 2.3.7
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

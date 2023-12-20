@@ -26,7 +26,6 @@ BuildRequires:  python3-devel
 
 %if %{with doc_pdf}
 BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
@@ -88,7 +87,7 @@ sed -r -i 's/[-]rrequirements-dev\.txt//' tox.ini
 
 %install
 %pyproject_install
-%pyproject_save_files pynamodb
+%pyproject_save_files -l pynamodb
 
 
 %check
@@ -96,7 +95,6 @@ sed -r -i 's/[-]rrequirements-dev\.txt//' tox.ini
 
 
 %files -n python3-pynamodb -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE; verify with “rpm -qL -p …”
 %doc README.rst
 
 

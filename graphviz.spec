@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		9.0.0
-Release:		4%{?dist}
+Release:		5%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -777,6 +777,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 9.0.0-5
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 9.0.0-4
 - OCaml 5.1.1 rebuild for Fedora 40
 

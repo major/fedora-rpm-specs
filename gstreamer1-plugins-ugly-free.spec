@@ -5,7 +5,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-ugly-free
-Version:        1.22.7
+Version:        1.22.8
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
@@ -152,6 +152,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
+- 1.22.8
+
 * Tue Nov 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.7-1
 - 1.22.7
 

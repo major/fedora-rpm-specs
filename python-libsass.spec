@@ -108,7 +108,7 @@ PYTHONPATH="${PWD}/build/${LIB}" %make_build -C docs latex \
 %install
 export SYSTEM_SASS='1'
 %pyproject_install
-%pyproject_save_files sass pysassc sasstests sassutils _sass
+%pyproject_save_files -l sass pysassc sasstests sassutils _sass
 
 # We build the man page in %%install rather than %%build because we need to use
 # the entry point in %%{buildroot}/%%{_bindir}.

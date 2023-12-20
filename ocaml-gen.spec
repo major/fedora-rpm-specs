@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-gen
 Version:        1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple, efficient iterators for OCaml
 
 License:        BSD-2-Clause
@@ -64,6 +64,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-7
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-6
 - OCaml 5.1.1 rebuild for Fedora 40
 

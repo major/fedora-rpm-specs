@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bos
 Version:        0.2.1
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Basic OS interaction for OCaml
 
 License:        ISC
@@ -72,6 +72,12 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-15
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-14
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-13
 - OCaml 5.1.1 rebuild for Fedora 40
 

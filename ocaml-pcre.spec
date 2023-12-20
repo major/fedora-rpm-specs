@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-pcre
 Version:        7.5.0
-Release:        14%{?dist}
+Release:        16%{?dist}
 Summary:        Perl compatibility regular expressions (PCRE) for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -56,6 +56,12 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 7.5.0-16
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 7.5.0-15
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 7.5.0-14
 - OCaml 5.1.1 rebuild for Fedora 40
 

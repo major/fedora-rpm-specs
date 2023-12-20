@@ -52,7 +52,7 @@ BuildArch:      noarch
 
 %install
 %pyproject_install
-%pyproject_save_files py27hash
+%pyproject_save_files -l py27hash
 
 
 %check
@@ -69,7 +69,6 @@ export SKIPSLOW='%{?!with_slow_tests:skipslow}'
 
 
 %files -n python3-py27hash -f %{pyproject_files}
-# pyproject-rpm-macros takes care of LICENSE; verify with “rpm -qL -p …”
 %doc README.md
 
 

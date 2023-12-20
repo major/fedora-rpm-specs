@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           prooftree
 Version:        0.13
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Proof tree visualization for Proof General
 
 License:        GPL-3.0-or-later
@@ -62,6 +62,9 @@ sed -i 's/cp /cp -p /' Makefile.in
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.13-29
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.13-28
 - OCaml 5.1.1 rebuild for Fedora 40
 

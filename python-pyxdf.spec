@@ -47,7 +47,7 @@ ln -s ../example-files-%{ex_commit}/ example-files
 
 %install
 %pyproject_install
-%pyproject_save_files pyxdf
+%pyproject_save_files -l pyxdf
 
 
 %check

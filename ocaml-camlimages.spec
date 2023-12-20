@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlimages
 Version:        5.0.4
-Release:        16%{?dist}
+Release:        18%{?dist}
 Summary:        OCaml image processing library
 License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 
@@ -74,6 +74,12 @@ Includes documentation provided by odoc.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.4-18
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.4-17
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.4-16
 - OCaml 5.1.1 rebuild for Fedora 40
 

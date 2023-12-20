@@ -37,7 +37,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 

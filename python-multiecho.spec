@@ -58,8 +58,7 @@ sed -r -i '1{/^#!/d}' multiecho/combination.py
 
 %install
 %pyproject_install
-%pyproject_save_files multiecho
-#install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+%pyproject_save_files -l multiecho
 
 
 %check
@@ -70,7 +69,6 @@ sed -r -i '1{/^#!/d}' multiecho/combination.py
 
 
 %files -n python3-multiecho -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.md
 
 %{_bindir}/mecombine

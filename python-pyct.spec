@@ -96,7 +96,7 @@ find pyct -type f -exec \
 
 %install
 %pyproject_install
-%pyproject_save_files pyct
+%pyproject_save_files -l pyct
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
      '%{SOURCE10}' '%{SOURCE11}'
@@ -123,7 +123,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %files -n python3-pyct -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.md
 
 %{_bindir}/pyct

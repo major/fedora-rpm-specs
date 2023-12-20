@@ -42,7 +42,7 @@ find . -type f -exec dos2unix --keepdate '{}' '+'
 
 %install
 %pyproject_install
-%pyproject_save_files jschema_to_python
+%pyproject_save_files -l jschema_to_python
 
 
 %check
@@ -50,8 +50,6 @@ find . -type f -exec dos2unix --keepdate '{}' '+'
 
 
 %files -n python3-jschema-to-python -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE; verify with “rpm -qL -p …”
-%doc CODE_OF_CONDUCT.md
 %doc README.rst
 %doc SECURITY.md
 

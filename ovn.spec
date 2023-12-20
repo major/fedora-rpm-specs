@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 81%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 91%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -433,6 +433,39 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Mon Dec 18 2023 Numan Siddique <numans@ovn.org> - 23.09.0-91
+- Sync to upstream OVN branch-23.09. Below are the commits
+since last update (23.09.0-81)
+- Revert "ovn: add geneve PMTUD support"
+[Upstream: ed4e4a94ba44f5d5be5148ee82f336cab3adc7ec]
+
+- northd: forward arp request to lrp snat on.
+[Upstream: 20ea3b63fb3a2fce2c9e273bfbdcb4d8399b8091]
+
+- northd: fix missing port up when deleting and adding back an lsp
+[Upstream: 8cabb443ae88dded5cd1800bdcea5c5760954d25]
+
+- ovn-macros: Make sure stopped daemons continue before the test ends.
+[Upstream: e54ec661ef67cd93d1a72de907b37fab522bc2f9]
+
+- system-test: Fix tcpdump usage in LB template tests.
+[Upstream: 5141c9d4c7c861f6a65a711e59a4e64ae7d2fcdb]
+
+- tests: Move SCTP test from kernel only to general OVN system tests.
+[Upstream: 49d33629595a9c7fc44d7ac86926c83e475b322d]
+
+- tests: Remove 'protoinfo' from the conntrack entries for SCTP tests.
+[Upstream: d87ffbe44d5b5c3f143c1e38e868f9db636b4565]
+
+- northd: Skip transient IDL records.
+[Upstream: 44a40011f0b7f465c1eb60c9016bd56e09d7e538]
+
+- system-tests: Consolidate wait condition in CoPP test
+[Upstream: ba7a45bde1de25868e0b16d8e58e6d523e2034ab]
+
+- pinctrl: Fix up comments about sending RST packets for healthcheck.
+[Upstream: 4ef375edc8bee094f24b9e649dc01ce3edd2034b]
+
 * Tue Dec 05 2023 Numan Siddique <numans@ovn.org> - 23.09.0-81
 - Sync to upstream OVN branch-23.09. Below are the commits
 since last update (23.09.0-37)

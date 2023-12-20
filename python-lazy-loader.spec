@@ -68,7 +68,7 @@ Summary:        %{summary}
 
 
 %files -n python3-lazy-loader -f %{pyproject_files}
-# pyproject_files handles LICENSE.md; verify with “rpm -qL -p …”
+%license LICENSE.md
 %doc CHANGELOG.md
 %doc README.md
 

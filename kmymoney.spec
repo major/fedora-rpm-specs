@@ -12,7 +12,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.1.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -71,7 +71,7 @@ BuildRequires: cmake(KF5Activities)
 
 BuildRequires: cmake(Gpgmepp)
 BuildRequires: cmake(QGpgme)
-BuildRequires: cmake(KChart)
+BuildRequires: cmake(KChart6)
 
 BuildRequires: cmake(Qt5DBus)
 BuildRequires: cmake(Qt5Widgets)
@@ -225,6 +225,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 
 
 %changelog
+* Mon Dec 18 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 5.1.3-6
+- Rebuild for new kdiagram
+
 * Mon Aug 14 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 5.1.3-5
 - Rebuild
 

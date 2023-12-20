@@ -4,7 +4,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -359,6 +359,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Mon Dec 18 2023 Ding-Yi Chen <dchen@redhat.com> - 1.5.3-9
+- pam.conf: Remove tallylog (#2253817)
+
 * Tue Nov 21 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.3-8
 - Suggest libdb-convert-util (#2245149 and #1788543)
 

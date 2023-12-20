@@ -6,8 +6,9 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-ocplib-simplex
+Epoch:          1
 Version:        0.4.1
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Simplex algorithm for solving systems of linear inequalities
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -24,7 +25,7 @@ BuildRequires:  autoconf
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.01.0
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-num-devel
+#BuildRequires:  ocaml-num-devel
 BuildRequires:  ocaml-rpm-macros
 
 %description
@@ -62,11 +63,13 @@ mkdir -p $OCAMLFIND_DESTDIR
 rm -fr %{buildroot}%{_prefix}%{_prefix}
 %ocaml_files
 
-%ifarch %{ocaml_native_compiler}
-# The tests assume the availability of ocamlopt
-%check
-make local-tests
-%endif
+# Tests disabled due to incompatibility with ocaml-num 1.5
+#
+#%%ifarch %{ocaml_native_compiler}
+## The tests assume the availability of ocamlopt
+#%%check
+#make local-tests
+#%%endif
 
 %files -f .ofiles
 %doc README.md
@@ -76,6 +79,14 @@ make local-tests
 %doc extra/simplex_invariants.txt
 
 %changelog
+* Mon Dec 18 2023 Jerry James <loganjerry@gmail.com> - 1:0.4.1-1
+- Revert to version 0.4.1 to avoid alt-ergo breakage
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5-1
+- New upstream version 0.5
+- Uses dune build system (instead of autotools).
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4.1-5
 - OCaml 5.1.1 rebuild for Fedora 40
 

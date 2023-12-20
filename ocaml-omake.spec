@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-omake
 Version:        0.10.6
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Build system with automated dependency analysis
 
 # License breakdown:
@@ -129,6 +129,12 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10.6-8
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10.6-7
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10.6-6
 - OCaml 5.1.1 rebuild for Fedora 40
 

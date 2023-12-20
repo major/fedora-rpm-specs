@@ -10,7 +10,7 @@
 
 Name:           hivex
 Version:        1.3.23
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -326,6 +326,9 @@ fi
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-15
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-14
 - OCaml 5.1.1 rebuild for Fedora 40
 

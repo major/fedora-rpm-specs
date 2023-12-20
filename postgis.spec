@@ -1,7 +1,8 @@
 %{!?javabuild:%global javabuild 0}
 %{!?utils:%global utils 1}
 %{!?gcj_support:%global gcj_support 0}
-%{!?upgrade:%global upgrade 0}
+%{!?upgrade:%global upgrade 1}
+%{!?upgrade_prev:%global upgrade_prev 0}
 %{!?runselftest:%global runselftest 1}
 %{!?llvmjit:%global llvmjit 0}
 
@@ -16,19 +17,21 @@
 
 Name:          postgis
 Version:       3.4.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
 URL:           https://www.postgis.net
 Source0:       https://download.osgeo.org/%{name}/source/%{name}-%{version}.tar.gz
 Source2:       https://download.osgeo.org/%{name}/docs/%{name}-%{version}-en.pdf
+%if %upgrade_prev
 Source3:       https://download.osgeo.org/%{name}/source/%{name}-%{prevversion}.tar.gz
 
 # Add proj8 compatibility to postgis-2.x (needed for upgrade package)
 Patch1:        postgis2-proj8.patch
 Patch2:	       postgis-c99.patch
 Patch3:	       postgis-c99-2.patch
+%endif
 
 %ifnarch armv7hl
 BuildRequires: SFCGAL-devel
@@ -132,9 +135,15 @@ Requires:      postgresql-upgrade
 Provides:      bundled(postgis) = %prevversion
 
 %description upgrade
+%if %upgrade_prev
 The postgis-upgrade package contains the previous version of Postgis as well as
 the current version of Postgis built against the previous version of PostgreSQL
 necessary for correct dump of schema from previous version of PostgreSQL.
+%else
+The postgis-upgrade package contains the current version of Postgis built against
+the previous version of PostgreSQL necessary for correct dump of schema from previous
+version of PostgreSQL.
+%endif
 %endif
 
 %package gui
@@ -152,17 +161,23 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 The client package provides shp2pgsql, raster2pgsql and pgsql2shp for PostGIS.
 
 %prep
+%if %upgrade_prev
 %setup -q -n %{name}-%{version} -a 3
+%else
+%setup -q -n %{name}-%{version}
+%endif
 
 %if %upgrade
 (
 tar xf %{SOURCE0}
 
+%if %upgrade_prev
 cd %{name}-%{prevversion}
-%patch1 -p1
+%patch -P 1 -p1
 %patch -P 2 -p2
 %patch -P 3 -p1
 ./autogen.sh
+%endif
 )
 %endif
 cp -p %{SOURCE2} .
@@ -210,8 +225,11 @@ cd %{name}-%{version}
 # directory respects the `pg_config` output (liblwgeom especially).
 ./configure %configure_opts \
 	--with-pgconfig=%postgresql_upgrade_prefix/bin/pg_config \
+	--bindir=%postgresql_upgrade_prefix/bin \
 	--libdir=%postgresql_upgrade_prefix/lib \
-	--includedir=%postgresql_upgrade_prefix/include
+	--includedir=%postgresql_upgrade_prefix/include \
+	--datadir=%postgresql_upgrade_prefix/share \
+	--mandir=%postgresql_upgrade_prefix/share/man
 sed -i 's| -fstack-clash-protection | |' postgis/Makefile
 sed -i 's| -fstack-clash-protection | |' raster/rt_pg/Makefile
 sed -i 's| -fstack-clash-protection | |' topology/Makefile
@@ -219,6 +237,7 @@ sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefil
 %make_build
 )
 
+%if %upgrade_prev
 (
 cd %{name}-%{prevversion}
 
@@ -250,6 +269,7 @@ sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefil
 %make_build
 )
 %endif
+%endif
 
 
 %install
@@ -259,16 +279,21 @@ sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefil
 
 %if %upgrade
 (cd %{name}-%{version} && %make_install)
+%if %upgrade_prev
 (cd %{name}-%{prevversion} && %make_install)
+%endif
 
 # drop unused stuff from upgrade-only installation
 /bin/rm -rf %buildroot%postgresql_upgrade_prefix/bin
 /bin/rm -rf %buildroot%postgresql_upgrade_prefix/lib/lib*
+/bin/rm -rf %buildroot%postgresql_upgrade_prefix/share
 
 # Manually install compat-build binary.
+%if %upgrade_prev
 for so in %so_files; do
 %{__install} -m 644 compat-build/$so-%{prevmajorversion}.so %{buildroot}/%{_libdir}/pgsql
 done
+%endif
 %endif
 
 rm -f  %{buildroot}%{_datadir}/*.sql
@@ -395,7 +420,9 @@ fi
 %if %upgrade
 %files upgrade
 %postgresql_upgrade_prefix/*
-%_libdir/pgsql/*-%{prevmajorversion}.so
+%if %upgrade_prev
+%{_libdir}/pgsql/*-%{prevmajorversion}.so
+%endif
 %endif
 
 
@@ -422,6 +449,9 @@ fi
 
 
 %changelog
+* Mon Dec 18 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-2
+- Re-enable upgrade package for previous postgres version only
+
 * Tue Nov 21 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-1
 - Update to 3.4.1
 

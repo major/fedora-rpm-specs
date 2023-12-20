@@ -122,7 +122,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files pyrsistent _pyrsistent_version pvectorc
+%pyproject_save_files -l pyrsistent _pyrsistent_version pvectorc
 
 
 %check

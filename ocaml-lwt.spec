@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lwt
 Version:        5.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.7.0-5
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.7.0-4
 - OCaml 5.1.1 rebuild for Fedora 40
 

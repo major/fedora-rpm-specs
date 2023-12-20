@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-expat
 Version:        1.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OCaml wrapper for the Expat XML parsing library
 License:        MIT
 
@@ -77,6 +77,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-6
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.0-5
 - OCaml 5.1.1 rebuild for Fedora 40
 

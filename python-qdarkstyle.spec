@@ -132,7 +132,7 @@ xvfb-run -a env PYTHONPATH="${PWD}" %{python3} -m qdarkstyle.utils \
 
 %install
 %pyproject_install
-%pyproject_save_files qdarkstyle
+%pyproject_save_files -l qdarkstyle
 
 # Generating man pages in %%install rather than %%build is not ideal, but it
 # allows us to use the installed entry points.

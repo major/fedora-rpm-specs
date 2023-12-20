@@ -116,7 +116,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files pybv
+%pyproject_save_files -l pybv
 
 
 %check

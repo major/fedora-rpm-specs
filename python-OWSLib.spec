@@ -101,7 +101,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files owslib
+%pyproject_save_files -l owslib
 
 
 %check
@@ -145,7 +145,6 @@ k="${k-}${k+ and } not (TestOffline and test_wms_130_remotemd_parse_single)"
 
 
 %files -n python3-OWSLib -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 
 
 %files doc

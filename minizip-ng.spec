@@ -13,7 +13,7 @@
 
 Name:           minizip-ng
 Version:        3.0.10
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Minizip-ng contrib in zlib-ng with the latest bug fixes and advanced features
 
 License:        Zlib
@@ -30,6 +30,12 @@ BuildRequires: xz-devel
 BuildRequires: openssl-devel
 
 Patch0001: Fix-soname-version-in-compat-lib.patch
+# Upstream commit: https://github.com/zlib-ng/minizip-ng/commit/341760887456e78ed9b86b5b3008c3ddfbd96f97
+Patch0002: Check-for-zero-length-path-in-mz_path_has_slash.patch
+# Upstream commit: https://github.com/zlib-ng/minizip-ng/commit/fbd844312266ad903a46caa4f906e79e937bfc3b
+Patch0003: Fix-unzLocateFile-3rd-parameter.patch
+# Upstream commit: https://github.com/zlib-ng/minizip-ng/commit/bacf5122ace8b2b3b3dc08f9313f5e9b165419a4
+Patch0004: Fixed-compat-layer-structures-layout-and-types.-749.patch
 
 %description
 Minizip-ng zlib-ng contribution that includes:
@@ -180,6 +186,13 @@ _EOF_
 
 
 %changelog
+* Mon Dec 18 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.10-5
+- Fix unzLocateFile incompability (upstream commit)
+- Fix zip_fileinfo incompability (upstream commit)
+
+* Mon Dec 18 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.10-4
+- Fix CVE-2023-48107 (Heapbuffer Overflow)
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.10-3
 - Release bump
 

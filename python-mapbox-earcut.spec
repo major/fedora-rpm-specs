@@ -78,7 +78,7 @@ export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
 
 %install
 %pyproject_install
-%pyproject_save_files mapbox_earcut
+%pyproject_save_files -l mapbox_earcut
 
 
 %check
@@ -86,7 +86,6 @@ export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
 
 
 %files -n python3-mapbox-earcut -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE.md; verify with “rpm -qL -p …”
 %doc README.md
 
 

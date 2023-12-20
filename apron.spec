@@ -1,7 +1,7 @@
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -282,6 +282,9 @@ test/ctest1
 %endif
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.14-4
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.14-3
 - OCaml 5.1.1 rebuild for Fedora 40
 

@@ -2,8 +2,8 @@
 %global sum A fast and thorough lazy object proxy
 
 Name:           python-%{srcname}
-Version:        1.9.0
-Release:        5%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -14,6 +14,9 @@ BuildRequires:  gcc
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools_scm
+BuildRequires:  python%{python3_pkgversion}-tox-current-env
+BuildRequires:  python%{python3_pkgversion}-wheel
+BuildRequires:  python%{python3_pkgversion}-pip
 
 %description
 A fast and thorough lazy object proxy.
@@ -29,14 +32,17 @@ A fast and thorough lazy object proxy.
 %prep
 %autosetup -n python-%{srcname}-%{version} -p0
 
+#%%generate_buildrequires
+#%%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
-%{__python3} setup.py test
+%tox
 
 # Note that there is no %%files section for the unversioned python module if we are building for several python runtimes
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -47,6 +53,9 @@ A fast and thorough lazy object proxy.
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.10.0-1
+- 1.10.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -93,7 +93,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %install
 %pyproject_install
-%pyproject_save_files param
+%pyproject_save_files -l param numbergen
 
 
 %check
@@ -115,9 +115,7 @@ k="${k-}${k+ and }not (TestFileDeserialization and test_data_frame_parquet)"
 
 
 %files -n python3-param -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.md
-%{python3_sitelib}/numbergen/
 
 
 %changelog

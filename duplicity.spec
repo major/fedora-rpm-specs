@@ -48,7 +48,6 @@ BuildRequires:  python3dist(wheel)
 BuildRequires:  gnupg >= 1.0.6
 BuildRequires:  python3dist(setuptools-scm)
 BuildRequires:  python3dist(fasteners)
-BuildRequires:  python3dist(future)
 BuildRequires:  python3dist(pexpect)
 BuildRequires:  python3dist(pytest)
 

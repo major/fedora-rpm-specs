@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lacaml
 Version:        11.0.10
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        BLAS/LAPACK-interface for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -71,6 +71,12 @@ export LACAML_LIBS=-lflexiblas
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 11.0.10-7
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 11.0.10-6
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 11.0.10-5
 - OCaml 5.1.1 rebuild for Fedora 40
 

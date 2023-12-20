@@ -223,7 +223,9 @@ Recommends:	%{name}-gui-skins2%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends:	%{name}-plugin-ffmpeg%{?_isa} = %{epoch}:%{version}-%{release}
 
 Requires:       hicolor-icon-theme
+%if %{undefined flatpak}
 Requires:       kf5-filesystem
+%endif
 # For xdg-screensaver (libxdg_screensaver_plugin)
 Recommends:	xdg-utils
 

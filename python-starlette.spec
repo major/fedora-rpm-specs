@@ -88,7 +88,7 @@ o {
 
 %install
 %pyproject_install
-%pyproject_save_files starlette
+%pyproject_save_files -l starlette
 
 
 %check

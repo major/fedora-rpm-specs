@@ -1,9 +1,9 @@
 Name:		stalld
 Version:	1.16
-Release:	4%{?dist}
+Release:	7%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
-License:	GPLv2
+License:	GPL-2.0-or-later AND GPL-2.0-only
 URL:		https://gitlab.com/rt-linux-tools/%{name}/%{name}.git
 Source0:	https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
 
@@ -13,6 +13,7 @@ BuildRequires:	make
 BuildRequires:	systemd-rpm-macros
 
 Requires:	systemd
+Requires:	libbpf
 
 %description
 The stalld program monitors the set of system threads,
@@ -51,6 +52,15 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Mon Dec 18 2023 Clark Williams <williams@redhat.com> - 1.16.7
+- fix to sync versions
+
+* Mon Dec 18 2023 Clark Williams <williams@redhat.com> - 1.16.6
+- remove un-needed BuildRequire for bpftool
+
+* Mon Dec 18 2023 Clark Williams <williams@redhat.com> - 1.16.5
+- changed package license to match SPDX values
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

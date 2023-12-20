@@ -3,8 +3,8 @@
 
 Name:           frozen
 Version:        1.1.1
-Release:        3%{?dist}
-Summary:        A header-only, constexpr alternative to gperf for C++14 users 
+Release:        4%{?dist}
+Summary:        A header-only, constexpr alternative to gperf for C++14 users
 
 License:        Apache-2.0
 URL:            https://github.com/serge-sans-paille/frozen
@@ -12,6 +12,8 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fixes FTBFS, already present in upstream main branch.
 Patch0:         includes.patch
 Patch1:         079f73cc5c6413127d47f325cbb34a607e2cb030.patch
+# related: https://github.com/serge-sans-paille/frozen/pull/167
+Patch2:         frozen-fix-arch-in-cmake.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -36,6 +38,7 @@ Development files for %{name}.
 
 %patch -P 0 -p0
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release

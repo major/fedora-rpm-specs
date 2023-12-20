@@ -20,13 +20,14 @@
 
 Name:           scorep
 Version:        8.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/scorep/tags/scorep-%{version}/scorep-%{version}.tar.gz
 %{?with_libunwind:Source1:        https://github.com/score-p/libunwind/archive/%{libuwcommit}/libunwind-%{libuwshort}.tar.gz}
 Patch1:         scorep-rpath.patch
+Patch2:         scorep-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-gfortran
 BuildRequires:  bison
@@ -218,6 +219,7 @@ mkdir bin
 # configure expects llvm-config
 ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
 %patch -P 1 -p1 -b .rpath
+%patch -P 2 -p1
 %{?with_libunwind:tar fx %SOURCE1}
 
 
@@ -464,6 +466,9 @@ make -C serial check V=1
 
 
 %changelog
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 8.1-5
+- Fix C compatibility issue in the configure script
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        8.0
+Version:        8.1
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -100,8 +100,7 @@ Requires: python3dist(user-agents) = 2.2
 Requires: (python3dist(authlib) >= 1.2 with python3dist(authlib) < 1.3)
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 7 with python3dist(qrcode) < 8)
-Requires: python3dist(boto3) >= 1.28
-Requires: python3dist(botocore) >= 1.31
+Requires: python3dist(boto3) >= 1.33
 Requires: (python3dist(urllib3) >= 1.26 with python3dist(urllib3) < 1.27)
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 23.0.1
@@ -262,6 +261,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Dec 18 2023 Sandro Mani <manisandro@gmail.com> - 8.1-1
+- Update to 8.1
+
 * Thu Nov 30 2023 Sandro Mani <manisandro@gmail.com> - 8.0-1
 - Update to 8.0
 

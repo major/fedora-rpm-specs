@@ -91,7 +91,7 @@ sed -r -i 's/\x07nd/and/g' docs/build/latex/ncclient.tex
 
 %install
 %pyproject_install
-%pyproject_save_files ncclient
+%pyproject_save_files -l ncclient
 
 
 %check

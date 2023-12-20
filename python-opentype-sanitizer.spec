@@ -70,7 +70,7 @@ export BINDIR=/usr/bin
 %pyproject_install
 # Fix the symlink, which was dereferenced during “wheelification”:
 ln -svf '%{_bindir}/ots-sanitize' '%{buildroot}%{python3_sitelib}/ots/'
-%pyproject_save_files ots
+%pyproject_save_files -l ots
 
 
 %check

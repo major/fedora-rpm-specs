@@ -86,7 +86,7 @@ Recommends:     %{py3_dist PySide2}
 
 %install
 %pyproject_install
-%pyproject_save_files qtsass
+%pyproject_save_files -l qtsass
 
 install -d '%{buildroot}%{_mandir}/man1'
 # Building the man page in %%install instead of %%build is a little weird, but

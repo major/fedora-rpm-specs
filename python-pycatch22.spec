@@ -76,7 +76,7 @@ find src/C -type f ! -name 'catch22_wrap.c' -print -delete
 
 %install
 %pyproject_install
-%pyproject_save_files pycatch22 catch22_C
+%pyproject_save_files -l pycatch22 catch22_C
 
 
 %check

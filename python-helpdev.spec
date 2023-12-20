@@ -102,7 +102,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files helpdev
+%pyproject_save_files -l helpdev
 
 # Generating the man page in %%install allows us to use the installed entry
 # point; horrible hacks would be required to do this in %%build.

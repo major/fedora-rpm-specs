@@ -8,7 +8,11 @@ Summary:  Library for manipulating Apple Binary and XML Property Lists
 License:  LGPL-2.0-or-later
 URL:      https://www.libimobiledevice.org/
 Source:   %{forgeurl}/releases/download/%{version}/%{name}-%{version}.tar.bz2
+Patch0: libplist-configure-c99.patch
 
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: libtool
 BuildRequires: gcc gcc-c++
 BuildRequires: python3-Cython
 BuildRequires: python3-devel
@@ -38,6 +42,7 @@ Requires: python3
 %autosetup -p1
 
 %build
+autoreconf -iv
 %configure --disable-static
 %make_build
 

@@ -45,7 +45,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files pytest_env
+%pyproject_save_files -l pytest_env
 
 
 %check
@@ -54,7 +54,6 @@ Summary:        %{summary}
 
 
 %files -n python3-pytest-env -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.md
 
 

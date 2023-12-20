@@ -17,7 +17,7 @@ Summary:        OCaml bindings for MPFR
 
 # FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
 License:        LGPL-3.0-only
-Release:        4%{?dist}%{?bugfix:.%{bugfix}}
+Release:        6%{?dist}%{?bugfix:.%{bugfix}}
 URL:            https://github.com/thvnx/mlmpfr
 Source0:        %{forgesource}
 
@@ -68,6 +68,12 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.0-6
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.0-5
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.0-4
 - OCaml 5.1.1 rebuild for Fedora 40
 

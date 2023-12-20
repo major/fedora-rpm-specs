@@ -4,7 +4,7 @@
 Summary: File transfer utilities between Linux and PalmPilots
 Name: pilot-link
 Version: 0.12.5
-Release: 56%{?dist}
+Release: 57%{?dist}
 Epoch: 2
 # libpisock/md5.c       Public Domain
 # libpisock/blob.c      LGPLv2+
@@ -27,6 +27,8 @@ Patch5: pilot-link-0.12.5-compiler_warnings.patch
 Patch6: pilot-link-0.12.5-ftbfs-f19.patch
 Patch7: pilot-link-0.12.5-aarch64.patch
 Patch8: pilot-link-0.12.5-ftbfs-f21.patch
+Patch9: pilot-link-configure-c99.patch
+Patch10: pilot-link-c99.patch
 
 ExcludeArch: s390 s390x
 BuildRequires: make
@@ -90,6 +92,8 @@ Libraries for applications communicating with PalmPilot
 %patch6 -p1 -b .ftbfs-f19
 %patch7 -p1 -b .aarch64
 %patch8 -p1 -b .ftbfs-f21
+%patch9 -p1
+%patch10 -p1
 iconv -f windows-1252 -t UTF8 doc/README.usb > doc/README.usb.aux
 mv doc/README.usb.aux doc/README.usb
 iconv -f windows-1252 -t UTF8 ChangeLog > ChangeLog.aux
@@ -199,6 +203,9 @@ install -p -m644 %{SOURCE4} %{buildroot}/lib/udev/rules.d/
 /lib/udev/rules.d/69-pilot-link.rules
 
 %changelog
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 2:0.12.5-57
+- Fix C compatibility issues
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.12.5-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camomile
 Version:        2.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Unicode library for OCaml
 
 # LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception: the project as a whole
@@ -104,6 +104,9 @@ sed -i '\@%{_datadir}@d' .ofiles
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-8
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-7
 - Bump release and rebuild
 

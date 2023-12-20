@@ -399,7 +399,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      2
+%global rpmrelease      3
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -442,6 +442,7 @@
 # output dir stub
 %define buildoutputdir() %{expand:build/jdk%{featurever}.build%{?1}}
 %define installoutputdir() %{expand:install/jdk%{featurever}.install%{?1}}
+%global miscinstalloutputdir install
 %define packageoutputdir() %{expand:packages/jdk%{featurever}.packages%{?1}}
 # we can copy the javadoc to not arched dir, or make it not noarch
 %define uniquejavadocdir()    %{expand:%{fullversion}.%{_arch}%{?1}}
@@ -513,6 +514,7 @@
 %define jrebindir()     %{expand:%{_jvmdir}/%{sdkdir -- %{?1}}/bin}
 
 %global alt_java_name     alt-java
+%global generated_sources_name     generated_sources
 
 %global rpm_state_dir %{_localstatedir}/lib/rpm-state/
 
@@ -685,7 +687,7 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
 # RH1940064: Enable XML Signature provider in FIPS mode
 # RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized
-Patch1001: fips-17u-%{fipsver}.patch
+Patch1001: fips-%{featurever}u-%{fipsver}.patch
 
 #############################################
 #
@@ -1309,6 +1311,28 @@ function packFullPatchedSources() {
   genchecksum ${srcpackagesdir}/%{jdkportablesourcesarchive -- ""}
 }
 
+function findgeneratedsources() {
+  local targetDir=${1}
+  local targetDirParent=$(dirname ${targetDir})
+  local builtJdk=${2}
+  local builtJdkName=$(basename ${builtJdk})
+  local sources=${3}
+  local sourcesName=$(basename ${sources})
+  local sourcesParent=$(dirname ${sources})
+  local target=${sourcesParent}/${targetDirParent}/%{generated_sources_name}
+  local suffixes="cpp\|hpp\|h\|hh\|rl"
+  suffixes=".*\.\($suffixes\)$"
+  mkdir -p $target
+  pushd ${builtJdk}
+    mkdir -p ${target}/${builtJdkName}
+    cp --parents $(find . | grep -e "$suffixes" -e "NONE$") ${target}/${builtJdkName}
+  popd
+  pushd ${sources}
+    mkdir -p ${target}/${sourcesName}
+    cp --parents $(find make | grep -e ".$suffixes" -e "NONE$") ${target}/${sourcesName}
+  popd
+}
+
 function packagejdk() {
     local imagesdir=$(pwd)/${1}/images
     local docdir=$(pwd)/${1}/images/docs
@@ -1316,6 +1340,7 @@ function packagejdk() {
     local packagesdir=$(pwd)/${2}
     local srcdir=$(pwd)/%{top_level_dir_name}
     local tapsetdir=$(pwd)/tapset
+    local gensources=$(pwd)/%{miscinstalloutputdir}/%{generated_sources_name}
 
     echo "Packaging build from ${imagesdir} to ${packagesdir}..."
     mkdir -p ${packagesdir}
@@ -1375,6 +1400,7 @@ function packagejdk() {
 %if %{with_systemtap}
         cp -a ${tapsetdir}* ${miscname}
 %endif
+        cp -avr ${gensources} ${miscname}
         tar -cJf ${miscarchive} ${miscname}
         genchecksum ${miscarchive}
     fi
@@ -1454,11 +1480,13 @@ for suffix in %{build_loop} ; do
       buildjdk ${bootbuilddir} ${systemjdk} "%{bootstrap_targets}" ${debugbuild} ${link_opt} ${debug_symbols}
       installjdk ${bootbuilddir} ${bootinstalldir}
       buildjdk ${builddir} $(pwd)/${bootinstalldir}/images/%{jdkimage} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
+      findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
       stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
       %{!?with_artifacts:rm -rf ${bootinstalldir}}
   else
       buildjdk ${builddir} ${systemjdk} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
+      findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
       stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
   fi
@@ -1524,10 +1552,11 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendo
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
 
 # Check alt-java launcher has SSB mitigation on supported architectures
+# set_speculation function exists in both cases, so check for prctl call
 %ifarch %{ssbd_arches}
-nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation
+nm $JAVA_HOME/bin/%{alt_java_name} | grep prctl
 %else
-if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation ; then true ; else false; fi
+if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep prctl ; then true ; else false; fi
 %endif
 
 %if ! 0%{?flatpak}
@@ -1544,9 +1573,8 @@ $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|
 export STATIC_LIBS_HOME=${top_dir_abs_staticlibs_build_path}/images/%{static_libs_image}
 ls -l $STATIC_LIBS_HOME
 ls -l $STATIC_LIBS_HOME/lib
-# they are here, but grep do not find the remainders
-#readelf --debug-dump $STATIC_LIBS_HOME/lib/libfdlibm.a | grep w_remainder.c
-#readelf --debug-dump $STATIC_LIBS_HOME/lib/libfdlibm.a | grep e_remainder.c
+readelf --debug-dump $STATIC_LIBS_HOME/lib/libnet.a | grep Inet4AddressImpl.c
+readelf --debug-dump $STATIC_LIBS_HOME/lib/libnet.a | grep Inet6AddressImpl.c
 %endif
 
 # Release builds strip the debug symbols into external .debuginfo files
@@ -1771,6 +1799,9 @@ done
 %endif
 
 %changelog
+* Wed Dec 13 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.9.0.9-3
+- packing generated sources
+
 * Wed Nov 22 2023 Jiri Vanek <jvanek@redhat.com> -  1:17.0.9.0.9-2
 - updated to OpenJDK 17.0.9 (2023-10-17)
 - adjsuted generate_source_tarball

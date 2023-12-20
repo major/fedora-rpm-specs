@@ -1,8 +1,8 @@
 %global apiver 1.0
 
 Name:           gst-devtools
-Version:        1.22.7
-Release:        2%{?dist}
+Version:        1.22.8
+Release:        1%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
 License:        LGPL-2.0-or-later
@@ -84,6 +84,9 @@ A simple graphical utility to view and analyze GStreamer debug files.
 %{_metainfodir}/org.freedesktop.GstDebugViewer.appdata.xml
 
 %changelog
+* Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
+- 1.22.8
+
 * Tue Nov 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.7-2
 - Use upstream source tarball
 - Add gst-debug-viewer

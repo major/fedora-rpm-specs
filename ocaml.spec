@@ -43,7 +43,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml
 Version:        5.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -76,6 +76,10 @@ Patch:          0002-configure-Allow-user-defined-C-compiler-flags.patch
 
 # https://github.com/ocaml/ocaml/pull/11594
 Patch:          0003-Update-framepointers-tests-to-avoid-false-positive-w.patch
+
+# https://github.com/ocaml/ocaml/issues/12829
+# https://github.com/ocaml/ocaml/pull/12831
+Patch:          0004-Fix-s390x-stack-reallocation-code-in-PIC-mode.patch
 
 BuildRequires:  make
 BuildRequires:  git
@@ -466,6 +470,10 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.1-2
+- Add s390x code generation fix
+  https://github.com/ocaml/ocaml/issues/12829
+
 * Mon Dec 11 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.1-1
 - New upstream version 5.1.1 (RHBZ#2239227)
 

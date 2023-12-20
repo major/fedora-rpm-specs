@@ -77,7 +77,7 @@ PYTHONPATH="${PWD}" sphinx-build -b latex -j%{?_smp_build_ncpus} \
 
 %install
 %pyproject_install
-%pyproject_save_files plac_core plac_ext plac_tk plac
+%pyproject_save_files -l plac_core plac_ext plac_tk plac
 install -t '%{buildroot}%{_mandir}/man1' -m 0644 -p -D '%{SOURCE1}'
 
 

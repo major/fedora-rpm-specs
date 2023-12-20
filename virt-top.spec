@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           virt-top
 Version:        1.1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -136,6 +136,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-17
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-16
 - OCaml 5.1.1 rebuild for Fedora 40
 

@@ -393,7 +393,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        12
-%global rpmrelease      2
+%global rpmrelease      3
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -436,7 +436,8 @@
 # output dir stub
 %define buildoutputdir() %{expand:build/jdk%{featurever}.build%{?1}}
 %define installoutputdir() %{expand:install/jdk%{featurever}.install%{?1}}
-%global altjavaoutputdir install/altjava.install
+%global miscinstalloutputdir install
+%global altjavaoutputdir %{miscinstalloutputdir}/altjava.install
 %define packageoutputdir() %{expand:packages/jdk%{featurever}.packages%{?1}}
 # we can copy the javadoc to not arched dir, or make it not noarch
 %define uniquejavadocdir()    %{expand:%{fullversion}.%{_arch}%{?1}}
@@ -508,6 +509,7 @@
 %define jrebindir()     %{expand:%{_jvmdir}/%{sdkdir -- %{?1}}/bin}
 
 %global alt_java_name     alt-java
+%global generated_sources_name     generated_sources
 
 %global rpm_state_dir %{_localstatedir}/lib/rpm-state/
 
@@ -1066,7 +1068,8 @@ EXTRA_CPP_FLAGS="$(echo ${EXTRA_CPP_FLAGS} | sed -e 's|-mstackrealign|-mincoming
 export EXTRA_CFLAGS EXTRA_CPP_FLAGS
 
 echo "Building %{SOURCE11}"
-mkdir -p %{altjavaoutputdir}
+mkdir %{miscinstalloutputdir}
+mkdir %{altjavaoutputdir}
 gcc ${EXTRA_CFLAGS} -o %{altjavaoutputdir}/%{alt_java_name} %{SOURCE11}
 
 echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
@@ -1291,6 +1294,28 @@ function packFullPatchedSources() {
   genchecksum ${srcpackagesdir}/%{jdkportablesourcesarchive -- ""}
 }
 
+function findgeneratedsources() {
+  local targetDir=${1}
+  local targetDirParent=$(dirname ${targetDir})
+  local builtJdk=${2}
+  local builtJdkName=$(basename ${builtJdk})
+  local sources=${3}
+  local sourcesName=$(basename ${sources})
+  local sourcesParent=$(dirname ${sources})
+  local target=${sourcesParent}/${targetDirParent}/%{generated_sources_name}
+  local suffixes="cpp\|hpp\|h\|hh\|rl"
+  suffixes=".*\.\($suffixes\)$"
+  mkdir -p $target
+  pushd ${builtJdk}
+    mkdir -p ${target}/${builtJdkName}
+    cp --parents $(find . | grep -e "$suffixes" -e "NONE$") ${target}/${builtJdkName}
+  popd
+  pushd ${sources}
+    mkdir -p ${target}/${sourcesName}
+    cp --parents $(find make | grep -e ".$suffixes" -e "NONE$") ${target}/${sourcesName}
+  popd
+}
+
 function packagejdk() {
     local imagesdir=$(pwd)/${1}/images
     local docdir=$(pwd)/${1}/images/docs
@@ -1299,6 +1324,7 @@ function packagejdk() {
     local srcdir=$(pwd)/%{top_level_dir_name}
     local tapsetdir=$(pwd)/tapset
     local altjavadir=$(pwd)/${3}
+    local gensources=$(pwd)/%{miscinstalloutputdir}/%{generated_sources_name}
 
     echo "Packaging build from ${imagesdir} to ${packagesdir}..."
     mkdir -p ${packagesdir}
@@ -1358,6 +1384,7 @@ function packagejdk() {
         cp -a ${tapsetdir}* ${miscname}
 %endif
         cp -av ${altjavadir}/%{alt_java_name} ${miscname}
+        cp -avr ${gensources} ${miscname}
         tar -cJf ${miscarchive} ${miscname}
         genchecksum ${miscarchive}
     fi
@@ -1437,11 +1464,13 @@ for suffix in %{build_loop} ; do
       buildjdk ${bootbuilddir} ${systemjdk} "%{bootstrap_targets}" ${debugbuild} ${link_opt} ${debug_symbols}
       installjdk ${bootbuilddir} ${bootinstalldir}
       buildjdk ${builddir} $(pwd)/${bootinstalldir}/images/%{jdkimage} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
+      findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
       stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
       %{!?with_artifacts:rm -rf ${bootinstalldir}}
   else
       buildjdk ${builddir} ${systemjdk} "${maketargets}" ${debugbuild} ${link_opt} ${debug_symbols}
+      findgeneratedsources ${installdir} ${builddir} $(pwd)/%{top_level_dir_name}
       stripjdk ${builddir}
       installjdk ${builddir} ${installdir}
   fi
@@ -1754,6 +1783,9 @@ done
 %endif
 
 %changelog
+* Wed Dec 13 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.1.0.12-3.rolling
+- packing generated sources
+
 * Wed Nov 22 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.1.0.12-2.rolling
 - updated to OpenJDK 21.0.1 (2023-10-17)
 - adjsuted generate_source_tarball

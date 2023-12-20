@@ -14,6 +14,7 @@ Patch3:		rtpproxy-0003-Updated-SysV-init-script-for-legacy-systems.patch
 Patch4:		rtpproxy-0004-Improve-configure.ac.patch
 Patch5:		rtpproxy-0005-Reverse-debug-nodebug-flags.patch
 Patch6:		rtpproxy-0006-Remove-bundled-libucl.patch
+Patch7:         rtpproxy-c99.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake

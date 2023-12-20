@@ -16,7 +16,7 @@
 
 Name:           emacs-common-%{pkg}
 Version:        3.0.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Emacs mode for editing OCaml code
 
 License:        GPL-2.0-or-later
@@ -97,6 +97,12 @@ make check
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 3.0.1-5
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 3.0.1-4
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.0.1-3
 - OCaml 5.1.1 rebuild for Fedora 40
 

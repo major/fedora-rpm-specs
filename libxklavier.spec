@@ -2,7 +2,7 @@ Summary:	High-level API for X Keyboard Extension
 Name:		libxklavier
 Version:	5.4
 Release: 	23%{?dist}
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/LibXklavier
 BuildRequires: make
 BuildRequires: libxml2-devel

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mysql
 Version:        1.2.4
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml library for accessing MySQL databases
 License:        LGPL-2.1-or-later
 
@@ -74,6 +74,12 @@ mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-9
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-8
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-7
 - OCaml 5.1.1 rebuild for Fedora 40
 

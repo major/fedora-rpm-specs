@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lambda-term
 Version:        3.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Terminal manipulation library for OCaml
 
 License:        BSD-3-Clause
@@ -71,6 +71,9 @@ sed -e 's,%{_datadir}/lambda-termrc,%{_datadir}/lambda-term,' \
 %license LICENSE
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 3.3.2-5
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 3.3.2-4
 - OCaml 5.1.1 rebuild for Fedora 40
 

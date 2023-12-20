@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curl
 Version:        0.9.2
-Release:        10%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -88,6 +88,12 @@ make -C examples clean
 
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.2-12
+- Bump release and rebuild
+
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.2-11
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.2-10
 - OCaml 5.1.1 rebuild for Fedora 40
 

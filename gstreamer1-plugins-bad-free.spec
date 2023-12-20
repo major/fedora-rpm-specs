@@ -10,8 +10,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.22.7
-Release:        2%{?dist}
+Version:        1.22.8
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -700,6 +700,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
+- 1.22.8
+
 * Tue Nov 21 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 1.22.7-2
 - Move gstva from extras into main package
 

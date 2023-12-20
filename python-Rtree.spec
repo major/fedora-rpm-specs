@@ -88,7 +88,7 @@ Requires:       spatialindex
 
 %install
 %pyproject_install
-%pyproject_save_files rtree
+%pyproject_save_files -l rtree
 
 
 %check
@@ -96,7 +96,6 @@ Requires:       spatialindex
 
 
 %files -n python3-rtree -f %{pyproject_files}
-# pyproject_files handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.md
 
 

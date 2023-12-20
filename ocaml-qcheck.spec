@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qcheck
 Version:        0.21.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -194,6 +194,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.21.3-3
+- OCaml 5.1.1 + s390x code gen fix for Fedora 40
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.21.3-2
 - OCaml 5.1.1 rebuild for Fedora 40
 

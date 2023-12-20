@@ -7,7 +7,7 @@
 
 Name: privoxy
 Version: 3.0.34
-Release: 5%{?dist}
+Release: 7%{?dist}
 Summary: Privacy enhancing proxy
 License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/ijbswa/%{name}-%{version}-%{beta_or_stable}-src.tar.gz
@@ -16,6 +16,7 @@ Source2: privoxy.logrotate
 Patch0: 53748ca8ca3c893025be34dd4f104546fcbd0602.patch
 Patch1: e73b93ea9ad1f3e980bd78ed3ebf65dedbb598a2.patch
 Patch2: 87253c999d5628a6e9287bb0cc613d7b44bcec09.patch
+Patch3: privoxy-configure-c99.patch
 URL: http://www.privoxy.org/
 Requires(pre): shadow-utils
 BuildRequires: make
@@ -37,6 +38,7 @@ Privoxy is based on the Internet Junkbuster.
 %patch -P 0 -p 1
 %patch -P 1 -p 1
 %patch -P 2 -p 1
+%patch -P 3 -p 1
 
 %build
 rm -rf autom4te.cache
@@ -110,6 +112,12 @@ fi
 %doc doc
 
 %changelog
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 3.0.34-7
+- Fix bug in C compatibility fixes
+
+* Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 3.0.34-6
+- Fix C compatibility issue in configure script
+
 * Mon Aug 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.34-5
 - Additional pcre2 patches from upstream.
 
