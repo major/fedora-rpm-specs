@@ -1,11 +1,12 @@
 Name:          libtorrent
 License:       GPLv2+
 Version:       0.13.8
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       BitTorrent library with a focus on high performance & good code
 URL:           https://github.com/rakshasa/libtorrent/
 Source0:       http://rtorrent.net/downloads/libtorrent-%{version}.tar.gz
 Patch0:        libtorrent-configure-c99.patch
+Patch1: libtorrent-configure-c99-2.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -60,6 +61,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/*.so
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 0.13.8-13
+- Fix another C compatibility issue in the configure script
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

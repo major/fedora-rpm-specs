@@ -4,7 +4,7 @@
 
 Name:           xine-ui
 Version:        0.99.14
-Release:        4%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Release:        5%{?snapshot:.%{date}hg%{commit}}%{?dist}
 Summary:        A skinned xlib-based gui for xine-lib
 License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
@@ -52,6 +52,8 @@ Source100:      make_xineui_snapshot.sh
 
 # Patch to use UTF-8 documentation, BZ #512598
 Patch1:         xine-ui-0.99.13-utf8doc.patch
+
+Patch2:         xine-ui-configure-c99.patch
 
 BuildRequires:  aalib-devel >= 1.2.0
 BuildRequires:  autoconf
@@ -114,6 +116,7 @@ It also contains the color ascii art and framebuffer versions.
 %setup -T -D -n %{name}-%{version}%{?snapshot:hg}
 
 %patch1 -p1
+%patch2 -p1
 
 # By default aaxine dlopen()'s a nonversioned libX11.so, however in Fedora
 # it's provided by libX11-devel => version the dlopen()
@@ -247,6 +250,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 0.99.14-5
+- Fix C compatibility issues in the configure script
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -41,7 +41,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files sshpubkeys
+%pyproject_save_files -l sshpubkeys
 
 
 %check

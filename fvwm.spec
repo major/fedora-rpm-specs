@@ -1,6 +1,6 @@
 Name:		fvwm
 Version:	2.7.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Highly configurable multiple virtual desktop window manager
 License:	GPLv2+
 URL:		https://www.fvwm.org/
@@ -13,6 +13,7 @@ Patch3:		fvwm-0003-FvwmPager-be-more-careful-with-window-labels.patch
 # Fedora-specific
 Patch4:		fvwm-0004-Skip-install-data-hook-for-default-configs.patch
 Patch5: fvwm-configure-c99.patch
+Patch6: fvwm-configure-c99-2.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	fribidi-devel
@@ -81,6 +82,9 @@ install -D -m0644 -p %{SOURCE1} \
 
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 2.7.0-5
+- Further C compatibility fixes for the configure script
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

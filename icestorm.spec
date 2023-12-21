@@ -1,13 +1,13 @@
-%global commit0 d20a5e9001f46262bf0cef220f1a6943946e421d
+%global commit0 1a40ae75d4eebee9cce73a2c4d634fd42ed0110f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20230220
+%global snapdate 20231218
 
 %global __python %{__python3}
 
 Name:           icestorm
 Version:        0
-Release:        0.29.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        0.30.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Lattice iCE40 FPGA bitstream creation/analysis/programming tools
 License:        ISC
 URL:            http://bygone.clairexen.net/%{name}
@@ -26,7 +26,7 @@ FPGAs and providing simple tools for analyzing and creating bitstream files.
 
 %prep
 %setup -q -n %{name}-%{commit0}
-%patch1 -p1 -b .datadir
+%patch 1 -p1 -b .datadir
 
 # fix shebang lines in Python scripts
 find . -name \*.py -exec sed -i 's|/usr/bin/env python3|/usr/bin/python3|' {} \;
@@ -60,6 +60,9 @@ install -pm644 icefuzz/timings_*.txt %{buildroot}%{_datarootdir}/%{name}
 %{_datarootdir}/%{name}
 
 %changelog
+* Mon Dec 18 2023 Gabriel Somlo <gsomlo@gmail.com> - 0-0.30.20231218git1a40ae7
+- Update to newer snapshot
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29.20230220gitd20a5e9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

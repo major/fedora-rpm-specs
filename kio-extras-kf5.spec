@@ -5,15 +5,15 @@
 #global tests 1
 %endif
 
-%global srcname kio-extras
-
 Name:    kio-extras-kf5
-Version: 23.08.2
-Release: 5%{?dist}
+Version: 24.01.80
+Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
-URL:     https://invent.kde.org/network/%{srcname}
+URL:     https://invent.kde.org/network/kio-extras
+
+%global srcname %{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -26,12 +26,10 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{srcn
 ## upstramable patches
 
 ## upstream patches
-
-# filter plugin provides
-%global __provides_exclude_from ^(%{_kf5_qtplugindir}/.*\\.so)$
+# https://invent.kde.org/network/kio-extras/-/commit/c3c07bb4fd49d1952bcf84cd1ffd8322fb9e788a
+Patch100: c3c07bb4fd49d1952bcf84cd1ffd8322fb9e788a.patch
 
 BuildRequires:  bzip2-devel
-BuildRequires:  cmake(KF5KExiv2)
 BuildRequires:  gperf
 
 BuildRequires:  extra-cmake-modules
@@ -53,6 +51,7 @@ BuildRequires:  kf5-rpm-macros
 BuildRequires:  kf5-solid-devel
 BuildRequires:  cmake(KF5SyntaxHighlighting)
 BuildRequires:  cmake(KF5ActivitiesStats)
+BuildRequires:  cmake(KF5KExiv2)
 
 BuildRequires:  cmake(KDSoap) >= 1.9
 BuildRequires:  libjpeg-devel
@@ -121,14 +120,6 @@ Kioslave for reading info pages.
 rm -rf %{buildroot}%{_includedir}/KioArchive/
 rm -rf %{buildroot}%{_kf5_libdir}/cmake/KioArchive/
 rm -rf %{buildroot}%{_kf5_libdir}/libkioarchive.so*
-rm -rf %{buildroot}%{_datadir}/config.kcfg
-rm -rf %{buildroot}%{_datadir}/dbus-1/
-rm -rf %{buildroot}%{_datadir}/mime/
-rm -rf %{buildroot}%{_datadir}/kio_docfilter/
-rm -rf %{buildroot}%{_datadir}/kio_info/
-rm -rf %{buildroot}%{_datadir}/konqueror/
-rm -rf %{buildroot}%{_datadir}/remoteview/
-rm -rf %{buildroot}%{_kf5_datadir}/solid/
 
 %check
 %if 0%{?tests}
@@ -138,8 +129,6 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %endif
 
 
-%ldconfig_scriptlets
-
 %files -f %{srcname}.lang
 %dir %{_kf5_plugindir}/kded
 %dir %{_kf5_plugindir}/kio/
@@ -147,11 +136,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 %license LICENSES/*
 
-%{_datadir}/kio_bookmarks/
-
 %{_kf5_datadir}/kservices5/*.desktop
 %{_kf5_datadir}/kservicetypes5/thumbcreator.desktop
-%{_kf5_datadir}/qlogging-categories5/%{srcname}*
+%{_kf5_datadir}/qlogging-categories5/kio-extras*
 
 %{_kf5_libexecdir}/smbnotifier
 
@@ -163,7 +150,6 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %{_kf5_plugindir}/kio/activities.so
 %{_kf5_plugindir}/kio/afc.so
 %{_kf5_plugindir}/kio/archive.so
-%{_kf5_plugindir}/kio/bookmarks.so
 %{_kf5_plugindir}/kio/filter.so
 %{_kf5_plugindir}/kio/fish.so
 %{_kf5_plugindir}/kio/kio_filenamesearch.so
@@ -185,6 +171,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
+- Update to 24.01.80
+
 * Mon Nov 27 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.08.2-5
 - Clean up useless obsoletes+provides and supplement kf5-kio
 

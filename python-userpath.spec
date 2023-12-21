@@ -50,7 +50,7 @@ sed -r '/^(coverage)$/d' requirements-dev.txt |
 
 %install
 %pyproject_install
-%pyproject_save_files userpath
+%pyproject_save_files -l userpath
 
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'

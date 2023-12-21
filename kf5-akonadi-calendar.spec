@@ -9,7 +9,7 @@
 
 Name:    kf5-%{base_name}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -57,13 +57,19 @@ BuildRequires: dbus-x11
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 %{summary}.
 
+%package        libs
+Summary:        Only the linkable libraries for %{name}
+%description    libs
+%{summary}.
+
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kf5-akonadi-contacts-devel
 Requires:       kf5-akonadi-server-devel
 Requires:       kf5-kcalendarcore-devel
@@ -106,13 +112,14 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_datadir}/akonadi/plugins/serializer/
 %{_kf5_datadir}/dbus-1/services/org.kde.kalendarac.service
 %{_kf5_datadir}/knotifications5/kalendarac.notifyrc
-%{_kf5_datadir}/qlogging-categories5/*%{base_name}.*
 %{_kf5_datadir}/qlogging-categories5/org_kde_kalendarac.categories
-%{_kf5_libdir}/libKPim5AkonadiCalendar.so.*
 %{_kf5_qtplugindir}/akonadi_serializer_kcalcore.so
 %{_kf5_qtplugindir}/kf5/org.kde.kcalendarcore.calendars/libakonadicalendarplugin.so
 %{_kf5_sysconfdir}/xdg/autostart/org.kde.kalendarac.desktop
 
+%files libs
+%{_kf5_libdir}/libKPim5AkonadiCalendar.so.*
+%{_kf5_datadir}/qlogging-categories5/*%{base_name}.*
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiCalendar.pri
@@ -125,6 +132,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Split libs subpackage, to co-install with kf6 akonadi
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

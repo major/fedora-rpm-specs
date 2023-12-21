@@ -55,7 +55,7 @@ sed -r -i "s/'nose'/'pytest'/" setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files testing
+%pyproject_save_files -l testing
 
 
 %check

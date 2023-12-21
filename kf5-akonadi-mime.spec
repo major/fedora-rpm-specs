@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: The Akonadi Mime Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -50,6 +50,8 @@ BuildRequires: kf5-akonadi-server-mysql
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
+Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
+
 # when conflicts with kdepimlibs was fixed
 # https://bugzilla.redhat.com/show_bug.cgi?id=2088779
 Conflicts: kdepimlibs < 4.14.10-40
@@ -60,9 +62,14 @@ Obsoletes: kf5-akonadi < 16.07
 %description
 %{summary}.
 
+%package   libs
+Summary:   Only the linkable libraries for %{name}
+%description    libs
+%{summary}.
+
 %package   devel
 Summary:   Development files for %{name}
-Requires:  %{name}%{?_isa} = %{version}-%{release}
+Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
 # split from kf5-akonadi/kdepimlibs in 16.07
 Obsoletes: kf5-akonadi-devel < 16.07
 Requires: cmake(KF5Akonadi)
@@ -104,9 +111,11 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_datadir}/akonadi/plugins/serializer/
 %{_kf5_datadir}/config.kcfg/specialmailcollections.kcfg
 %{_kf5_datadir}/mime/packages/x-vnd.kde.contactgroup.xml
+%{_kf5_qtplugindir}/akonadi_serializer_mail.so
+
+%files libs
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5AkonadiMime.so.*
-%{_kf5_qtplugindir}/akonadi_serializer_mail.so
 
 %files devel 
 %if 0%{?tests}
@@ -119,6 +128,12 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKPim5AkonadiMime.so
 
 %changelog
+* Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-3
+- Make libs requirement arched
+
+* Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com>
+- Split libs subpackage, to co-install with kf6 akonadi
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

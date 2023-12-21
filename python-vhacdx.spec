@@ -70,7 +70,7 @@ cp -p /usr/share/licenses/v-hacd-devel/LICENSE ./LICENSE-VHACD
 
 %install
 %pyproject_install
-%pyproject_save_files vhacdx
+%pyproject_save_files -l vhacdx
 
 # We have no idea what to suggest upstream should change to keep pybind11 from
 # installing C++ source files, but it isn’t useful to package them.

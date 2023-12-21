@@ -1,15 +1,17 @@
 Name:           liboglappth
 Summary:        An OpenGL wrapper library
 Version:        1.0.0
-Release:        17%{?dist}
-License:        GPLv2+
+Release:        18%{?dist}
+
+# SPDX confirmed
+License:        GPL-2.0-or-later
 URL:            http://www.bioinformatics.org/ghemical/ghemical/index.html
 Source0:        http://www.bioinformatics.org/ghemical/download/current/%{name}-%{version}.tar.gz
 BuildRequires:  libtool
-BuildRequires:	gcc-c++
+BuildRequires:  gcc-c++
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Library for creating portable OpenGL applications with easy-to-code
@@ -17,34 +19,35 @@ scene setup and selection operations.
 
 %package devel
 Summary:    Libraries and header files from %{name}
-Requires:   %{name} = %{version}-%{release}
-Requires:   pkgconfig
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Libraries and header include files for developing programs
 based on %{name}.
 
 %prep
-%setup -n %{name}-%{version} -q
+%setup -q
 # FIXME: set -e behavior change between f26 and f27??
 [ -s NEWS ] && exit 1 || :
 [ -s README ] && exit 1 || :
+autoreconf -v -f -i
 
 %build
-autoreconf -v -f -i
 %configure --disable-static
 make %{?_smp_mflags} CCOPTIONS="%{optflags}" LIBS="-lGL -lGLU"
 
 %install
-rm -rf %{buildroot}
-make DESTDIR="%{buildroot}" INSTALL="install -p" install
+%make_install
 find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 %ldconfig_scriptlets
 
 %files
-%doc AUTHORS ChangeLog COPYING
-%{_libdir}/liboglappth.so.*
+%doc AUTHORS
+%doc ChangeLog
+%license COPYING
+
+%{_libdir}/liboglappth.so.2{,.*}
 
 %files devel
 %{_includedir}/oglappth/
@@ -53,6 +56,9 @@ find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 
 %changelog
+* Tue Dec 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.0-18
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

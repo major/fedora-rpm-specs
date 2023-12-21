@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -51,12 +51,19 @@ BuildRequires: time
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
 %description
+%{summary}.
+
+%package   libs
+Summary:   Only the linkable libraries for %{name}
+%description    libs
 %{summary}.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       qt5-qtbase-devel
 Requires:       kf5-kcoreaddons-devel
 Requires:       kf5-akonadi-server-devel
@@ -104,14 +111,16 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_bindir}/akonadi_html_to_text
 %{_kf5_bindir}/akonadi_indexing_agent
 %{_kf5_datadir}/akonadi/agents/akonadiindexingagent.desktop
+%{_kf5_plugindir}/krunner/kcms/kcm_krunner_pimcontacts.so
+%{_kf5_plugindir}/krunner/krunner_pimcontacts.so
+%{_kf5_qtplugindir}/pim5/akonadi/
+
+%files libs
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5AkonadiSearchCore.so.*
 %{_kf5_libdir}/libKPim5AkonadiSearchDebug.so.*
 %{_kf5_libdir}/libKPim5AkonadiSearchPIM.so.*
 %{_kf5_libdir}/libKPim5AkonadiSearchXapian.so.*
-%{_kf5_plugindir}/krunner/kcms/kcm_krunner_pimcontacts.so
-%{_kf5_plugindir}/krunner/krunner_pimcontacts.so
-%{_kf5_qtplugindir}/pim5/akonadi/
 
 %files devel
 %{_includedir}/KPim5/AkonadiSearch/
@@ -122,6 +131,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKPim5AkonadiSearchXapian.so
 
 %changelog
+* Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Split libs subpackage, to co-install with kf6 akonadi
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

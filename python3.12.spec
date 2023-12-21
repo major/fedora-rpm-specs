@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -363,6 +363,15 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00415 # 83e0fc3ec7bc38055c536f482578a10f6efcc08c
+# [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
+#
+# Detect email address parsing errors and return empty tuple to
+# indicate the parsing error (old API). Add an optional 'strict'
+# parameter to getaddresses() and parseaddr() functions. Patch by
+# Thomas Dwyer.
+Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
 
 # (New patches go here ^^^)
 #
@@ -1672,6 +1681,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Dec 18 2023 Lumír Balhar <lbalhar@redhat.com> - 3.12.1-2
+- Security fix for CVE-2023-27043 (rhbz#2196190)
+
 * Fri Dec 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.1-1
 - Update to 3.12.1
 - Own stray directories in /usr/lib64/python3.12

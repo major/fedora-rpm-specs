@@ -64,8 +64,7 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKPim6AkonadiContactCore.so.*
 %{_kf6_libdir}/libKPim6AkonadiContactWidgets.so.*
 %{_kf6_qtplugindir}/akonadi_serializer_*.so
-%{_datadir}/kf6/akonadi/contact/data/zone.tab
-%{_datadir}/kf6/akonadi/contact/pics/world.jpg
+%{_datadir}/kf6/akonadi/contact/
 
 %files devel
 %{_includedir}/KPim6/AkonadiContactCore/

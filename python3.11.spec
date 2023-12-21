@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -320,6 +320,15 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 # 00412 # cf7ebcc048985d04e2b253b7d1de81829ed267c9
 # Include new dir test/regrtestdata in the installation (GH-112765) (GH-112784)
 Patch412: 00412-include-new-dir-test-regrtestdata-in-the-installation-gh-112765-gh-112784.patch
+
+# 00415 # 9ca4533e0b4a03d919953017026f66c6a060756e
+# [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
+#
+# Detect email address parsing errors and return empty tuple to
+# indicate the parsing error (old API). Add an optional 'strict'
+# parameter to getaddresses() and parseaddr() functions. Patch by
+# Thomas Dwyer.
+Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
 
 # (New patches go here ^^^)
 #
@@ -1623,6 +1632,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Dec 18 2023 Lumír Balhar <lbalhar@redhat.com> - 3.11.7-2
+- Security fix for CVE-2023-27043 (rhbz#2196188)
+
 * Wed Dec 06 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.7-1
 - Update to 3.11.7
 - Own stray directories in /usr/lib64/python3.11

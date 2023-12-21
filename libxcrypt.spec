@@ -168,7 +168,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.36
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -179,6 +179,7 @@ Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.gpg
 Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.sha256sum
+Patch0: libxcrypt-configure-c99.patch
 
 # Patch 0000 - 2999: Backported patches from upstream.
 
@@ -584,6 +585,9 @@ done
 
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 4.4.36-3
+- Fix C compatibility issue in the configure script
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.0.5
+Version:        4.0.7
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -287,7 +287,7 @@ export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 # %%pyproject_save_files cannot handle skipping byte-compilation for
 # blender_boolean.py, so we list files manually:
 %{python3_sitelib}/trimesh
-%{python3_sitelib}/trimesh-%(echo '%{version}' | tr -d '~').dist-info
+%{python3_sitelib}/trimesh-%{version}.dist-info
 
 
 %changelog

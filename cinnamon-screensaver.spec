@@ -5,7 +5,7 @@
 
 Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
-Version: 6.0.0
+Version: 6.0.1
 Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -114,6 +114,9 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 %{_libdir}/girepository-1.0/CScreensaver-1.0.typelib
 
 %changelog
+* Tue Dec 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
+- Update to 6.0.1 release
+
 * Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
 - Update to 6.0.0 release
 

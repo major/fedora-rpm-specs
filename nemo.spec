@@ -5,7 +5,7 @@
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.0.0
+Version:        6.0.1
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -17,7 +17,6 @@ Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
-Patch2:         fix_libxml_header.patch
 
 ExcludeArch:   %{ix86}
 
@@ -177,6 +176,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Tue Dec 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
+- Update to 6.0.1 release
+
 * Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
 - Update to 6.0.0 release
 

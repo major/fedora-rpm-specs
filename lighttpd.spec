@@ -50,7 +50,7 @@
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
 Version: 1.4.73
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -63,6 +63,7 @@ Source12: http://www.lighttpd.net/light_button.png
 Source13: http://www.lighttpd.net/light_logo.png
 Source14: lighttpd-empty.png
 Patch0: lighttpd-1.4.65-defaultconf.patch
+Patch1: lighttpd-configure-c99.patch
 Requires: system-logos
 Requires: %{name}-filesystem
 Requires(post): systemd
@@ -327,6 +328,7 @@ for the directories.
 %prep
 %setup -q
 %patch -P 0 -p0 -b .defaultconf
+%patch -P 1 -p1
 
 %build
 autoreconf -if
@@ -604,6 +606,9 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 1.4.73-2
+- Fix C compatibility issue in configure script
+
 * Tue Oct 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4.73-1
 - 1.4.73
 

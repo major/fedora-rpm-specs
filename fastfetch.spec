@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.3.4
+Version:        2.4.0
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -8,6 +8,7 @@ URL:            https://github.com/fastfetch-cli/fastfetch
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  python3
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  pciutils-devel
@@ -119,6 +120,9 @@ BuildArch: noarch
 %{_datadir}/fish/vendor_completions.d/%{name}.fish
 
 %changelog
+* Mon Dec 18 2023 Jonathan Wright <jonathan@almalinux.org> - 2.4.0-1
+- update to 2.4.0 rhbz#2255169
+
 * Thu Dec 14 2023 Jonathan Wright <jonathan@almalinux.org> - 2.3.4-1
 - Update to 2.3.4 rhbz#2253586 rhbz#2253389
 

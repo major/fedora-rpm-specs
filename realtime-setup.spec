@@ -1,10 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
 Name: realtime-setup
-Version: 2.3.2
-Release: 2%{?dist}
-License: GPLv2
+Version: 2.4
+Release: 1%{?dist}
+License: GPL-2.0-or-later
 Summary: Setup RT/low-latency environment details
-Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
 URL:  https://gitlab.com/rt-linux-tools/realtime-setup.git
 
 BuildRequires: gcc
@@ -47,7 +46,7 @@ Neither the slub script or realtime-entsk are active by default.
 
 
 %prep
-%setup -q -n %{name}-v%{version}
+%setup -q -n %{name}-%{version}
 
 
 %build
@@ -72,13 +71,18 @@ Neither the slub script or realtime-entsk are active by default.
 %{_unitdir}/realtime-setup.service
 %{_bindir}/realtime-setup
 %{_unitdir}/realtime-entsk.service
-%{_bindir}/realtime-setup-kdump
 
 %changelog
+* Tue Dec 05 2023 Clark Williams <williams@redhat.com> - 2.4-1
+- Makefile cleanups and added .gitignore
+- remove Red Hat Makefile targets and specfile
+- ensure all files have valid SPDX license identifiers
+- version bump
+
 * Thu Jul 27 2023 Clark Williams <williams@redhat.com> - 2.3.2-1
-* Remove rpm specific logic from Makefile
-* Remove unused SysVinit script
-* version bump
+- Remove rpm specific logic from Makefile
+- Remove unused SysVinit script
+- version bump
 
 * Wed Jul 05 2023 Clark Williams <williams@redhat.com> - 2.3.1-1
 - Fix build require of annobin package

@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        3.5.0
-Release:        2%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -11,8 +11,6 @@ URL:            https://pre-commit.com
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-
-Patch:          https://github.com/%{name}/%{name}/commit/75f2710bd4ffdce232fd1a37e9accbcac3ade14a.patch
 
 BuildRequires:  python3-devel
 
@@ -198,6 +196,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Tue Dec 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.0-1
+- Update to 3.6.0 (close RHBZ#2253802)
+
 * Fri Nov 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-2
 - Patch for Python 3.13 (close RHBZ#2247263)
 

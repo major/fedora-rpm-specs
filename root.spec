@@ -47,7 +47,7 @@
 Name:		root
 Version:	6.30.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -2554,6 +2554,10 @@ popd
 #
 # - test-webgui-ping
 #   error: Cannot display window in native
+#
+# - gtest-core-metacling-test-TClingLoadUnloadFile
+#   random failures
+#   terminate called after throwing an instance of 'std::bad_alloc'
 excluded="\
 test-stressIOPlugins|\
 tutorial-dataframe-df101_h1Analysis|\
@@ -2590,7 +2594,8 @@ tutorial-tmva-RBatchGenerator_NumPy-py|\
 test-import-numba|\
 tutorial-pyroot-pyroot004_NumbaDeclare-py|\
 pyunittests-pyroot-numbadeclare|\
-test-webgui-ping"
+test-webgui-ping|\
+gtest-core-metacling-test-TClingLoadUnloadFile"
 
 %if ! ( %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} == 8 )
 # - test-import-pandas
@@ -3723,6 +3728,10 @@ fi
 %endif
 
 %changelog
+* Mon Dec 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-3
+- Use "standardsymbolsps" instead of "symbol" when searching for the
+  Symbols font in order to not find Noto Symbols instead
+
 * Fri Dec 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-2
 - Exclude pyunittests-pyroot-numbadeclare test
 

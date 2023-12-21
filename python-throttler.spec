@@ -44,7 +44,7 @@ sed -r -i 's/^(codecov|flake8|pytest-cov)/# &/' requirements-dev.txt
 
 %install
 %pyproject_install
-%pyproject_save_files throttler
+%pyproject_save_files -l throttler
 
 
 %check
@@ -52,7 +52,6 @@ sed -r -i 's/^(codecov|flake8|pytest-cov)/# &/' requirements-dev.txt
 
 
 %files -n python3-throttler -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc examples/
 
 

@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -207,6 +207,7 @@ Patch0032:	0032-cmake-modules-BuildBoost.cmake.patch
 Patch0033:	0033-boost-asm.patch
 Patch0034:	0034-src-pybind-rbd-rbd.pyx.patch
 Patch0035:	0035-src-CMakeLists.txt.patch
+Patch0036:	0036-18.2.1.release.patch
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
 %if 0%{?suse_version}
@@ -2635,6 +2636,10 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Tue Dec 19 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-3
+- ceph-18.2.1, incorporate changes from *final* 18.2.1 release from
+  https://download.ceph.com/rpm-18.2.1/el9/SRPMS/ceph-18.2.1-0.el9.src.rpm
+
 * Wed Nov 15 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-2
 - ceph-18.2.1, rebuild for f40-build-side-76708, w/ libarrow-14.0.1,
   and liborc-1.9.2

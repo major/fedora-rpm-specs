@@ -5,7 +5,7 @@
 %global crate sequoia-net
 
 Name:           rust-sequoia-net
-Version:        0.27.0
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Network services for OpenPGP
 
@@ -14,11 +14,6 @@ URL:            https://crates.io/crates/sequoia-net
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-net-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * don't drop default features from rand dev-dependency
-# * bump trust-dns-resolver and trust-dns-client dependencies from 0.22 to 0.23
-Patch:          sequoia-net-fix-metadata.diff
-Patch:          0001-Port-to-trust-dns-resolver-0.23.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -61,6 +56,7 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+# build with the default crypto backend (Nettle)
 %cargo_build -f sequoia-openpgp/crypto-nettle
 
 %install
@@ -68,7 +64,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test -f sequoia-openpgp/crypto-nettle
+%cargo_test
 %endif
 
 %changelog

@@ -15,6 +15,12 @@ License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak-builder/releases/download/%{version}/%{name}-%{version}.tar.xz
 
+# ostree not on i686 for RHEL 10
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  appstream-compose >= %{appstream_version}
 BuildRequires:  gettext
 BuildRequires:  debugedit >= %{debugedit_version}

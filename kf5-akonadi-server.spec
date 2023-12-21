@@ -26,7 +26,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -99,6 +99,7 @@ BuildRequires: xorg-x11-server-Xvfb
 Requires(post): /usr/sbin/update-alternatives
 Requires(postun): /usr/sbin/update-alternatives
 
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %if ! 0%{?flatpak}
 Recommends:     %{name}-mysql = %{version}-%{release}
 %endif
@@ -114,14 +115,17 @@ Obsoletes: kf5-akonadi-socialutils < 16.07
 %description
 %{summary}.
 
+%package libs
+Summary:        KDE PIM core libraries
+%description libs
+%{summary}.
+
 %package devel
 Summary:        Developer files for %{name}
 Obsoletes:      kf5-akonadi-devel < 16.03
-## see if we can get away with droping this in 16.08 -- rex
-#Provides:      kf5-akonadi-devel = %{version}-%{release}
 # when kf5-akonadi was split, -socialutils was dropped
 Obsoletes: kf5-akonadi-socialutils-devel < 16.07
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       boost-devel
 Requires:       kf5-kcompletion-devel
 Requires:       kf5-kjobwidgets-devel
@@ -245,27 +249,26 @@ fi
 %{_kf5_bindir}/akonadi_rds
 %{_kf5_bindir}/akonadictl
 %{_kf5_bindir}/akonadiserver
-%{_kf5_libdir}/akonadi/
 %{_kf5_datadir}/dbus-1/services/org.freedesktop.Akonadi.*.service
 %{_kf5_datadir}/mime/packages/akonadi-mime.xml
 %{_kf5_datadir}/akonadi/
 %{_kf5_datadir}/config.kcfg/resourcebase.kcfg
 %{_kf5_datadir}/kf5/akonadi/
-%if ! 0%{?bootstrap}
-%{_kf5_qtplugindir}/designer/akonadi5widgets.so
-%endif
-%{_kf5_qtplugindir}/designer/akonadi5widgets.so
-%{_kf5_libdir}/libKPim5AkonadiAgentBase.so.5*
-%{_kf5_libdir}/libKPim5AkonadiCore.so.5*
-%{_kf5_libdir}/libKPim5AkonadiPrivate.so.5*
-%{_kf5_libdir}/libKPim5AkonadiWidgets.so.5*
-%{_kf5_libdir}/libKPim5AkonadiXml.so.5*
 # let newer %%trigger-based scriptlets catch this -- rex
 %{_kf5_datadir}/icons/hicolor/*/apps/akonadi.*
 
 # akonadi_knut_resource
 %{_kf5_bindir}/akonadi_knut_resource
 %{_kf5_datadir}/kf5/akonadi_knut_resource/
+
+%files libs
+%{_kf5_qtplugindir}/designer/akonadi5widgets.so
+%{_kf5_libdir}/akonadi/
+%{_kf5_libdir}/libKPim5AkonadiAgentBase.so.5*
+%{_kf5_libdir}/libKPim5AkonadiCore.so.5*
+%{_kf5_libdir}/libKPim5AkonadiPrivate.so.5*
+%{_kf5_libdir}/libKPim5AkonadiWidgets.so.5*
+%{_kf5_libdir}/libKPim5AkonadiXml.so.5*
 
 %files devel
 %{_kf5_bindir}/akonadi2xml
@@ -312,6 +315,9 @@ fi
 
 
 %changelog
+* Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com>
+- Split libs subpackage, to co-install with kf6 akonadi
+
 * Fri Oct 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-2
 - Rebuild (Qt5)
 

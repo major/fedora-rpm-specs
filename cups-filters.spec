@@ -9,11 +9,11 @@
 # we build CUPS also with relro
 %global _hardened_build 1
 
-Summary: OpenPrinting CUPS filters and backends for CUPS 2.X
+Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.0
-Release: 1%{?dist}
+Release: 4%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -28,6 +28,11 @@ Source2: lftocrlf
 
 # Patches
 
+
+# driverless backend/driver was moved into a separate package to
+# remove avahi dependency for filters
+# remove once C10S is released and F40 is EOL
+Conflicts: cups-filters-driverless < 2.0.0-3
 
 # autogen.sh
 BuildRequires: autoconf
@@ -58,16 +63,6 @@ BuildRequires: python3-cups
 %if %{with braille}
 Recommends: braille-printer-app
 %endif
-# ippfind is used in driverless backend, not needed classic PPD based print queue
-Recommends: cups-ipptool
-# cups-browsed needs systemd-resolved or nss-mdns for resolving .local addresses of remote print queues
-# let's not require a specific package and let the user decide what he wants to use.
-# just recommend nss-mdns for Fedora for now to have working default, but
-# don't hardwire it for resolved users
-%if %{with mdns}
-Recommends: nss-mdns
-%endif
-
 # needs cups dirs
 Requires: cups-filesystem
 
@@ -79,6 +74,36 @@ Apple Inc. In addition it contains additional filters developed
 independently of Apple, especially filters for the PDF-centric printing
 workflow introduced by OpenPrinting.
 
+%package driverless
+Summary: OpenPrinting driverless backends and drivers for CUPS 2.X
+License: Apache-2.0 WITH LLVM-exception
+
+# backends and drivers has been moved from the main package to subpackage
+# to remove the avahi/mdns dependency needed for driverless
+# remove after F40 is EOL and C10S is released
+Conflicts: cups-filters < 2.0.0-3
+
+# finding device via driverless depends on running avahi-daemon
+Requires: avahi
+# ippfind is used in driverless backend, not needed classic PPD based print queue
+Requires: cups-ipptool
+# cups-browsed needs systemd-resolved or nss-mdns for resolving .local addresses of remote print queues
+# let's not require a specific package and let the user decide what he wants to use.
+# just recommend nss-mdns for Fedora for now to have working default, but
+# don't hardwire it for resolved users
+%if %{with mdns}
+Recommends: nss-mdns
+%endif
+
+# needs cups dirs
+Requires: cups-filesystem
+
+%description driverless
+Contains backends and drivers for driverless implementation for cups-filters,
+which makes driverless printers to be seen when listing printers nearby and gives
+a specific generated driver for driverless printer in the local network. They are
+tools for backward compatibility with applications which don't handle CUPS temporary
+queues.
 
 %prep
 %autosetup -S git
@@ -105,9 +130,10 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/ppd/cupsfilters/lftocrlf.p
 
 # LSB3.2 requires /usr/bin/foomatic-rip,
 # create it temporarily as a relative symlink
-# (2.0b3) try using universal filter, it should have foomatic-rip functionality
-#ln -sf %{_cups_serverbin}/filter/foomatic-rip %{buildroot}%{_bindir}/foomatic-rip
-ln -sf %{_cups_serverbin}/filter/universal %{buildroot}%{_bindir}/foomatic-rip
+# we may use symlink to universal filter, but LSB is about guaranteed compatibility set
+# among distibutions, so rather have the strict foomatic-rip filter...
+ln -sf %{_cups_serverbin}/filter/foomatic-rip %{buildroot}%{_bindir}/foomatic-rip
+#ln -sf %{_cups_serverbin}/filter/universal %{buildroot}%{_bindir}/foomatic-rip
 
 # remove license files which are in %%pkgdocdir
 rm -f %{buildroot}%{_pkgdocdir}/{COPYING,NOTICE,LICENSE}
@@ -127,15 +153,11 @@ make check
 %license COPYING LICENSE NOTICE
 %doc AUTHORS ABOUT-NLS CHANGES.md CONTRIBUTING.md DEVELOPING.md README.md
 %{_bindir}/foomatic-rip
-%{_bindir}/driverless
-%{_bindir}/driverless-fax
 %attr(0744,root,root) %{_cups_serverbin}/backend/beh
 # all backends needs to be run only as root because of kerberos
 %attr(0744,root,root) %{_cups_serverbin}/backend/parallel
 # Serial backend needs to run as root (bug #212577#c4).
 %attr(0744,root,root) %{_cups_serverbin}/backend/serial
-%{_cups_serverbin}/backend/driverless
-%{_cups_serverbin}/backend/driverless-fax
 %attr(0755,root,root) %{_cups_serverbin}/filter/bannertopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/commandtoescpx
 %attr(0755,root,root) %{_cups_serverbin}/filter/commandtopclx
@@ -162,8 +184,6 @@ make check
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttops
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttotext
 %attr(0755,root,root) %{_cups_serverbin}/filter/universal
-%{_cups_serverbin}/driver/driverless
-%{_cups_serverbin}/driver/driverless-fax
 %{_datadir}/cups/drv/cupsfilters.drv
 %{_datadir}/cups/mime/cupsfilters.types
 %{_datadir}/cups/mime/cupsfilters.convs
@@ -176,10 +196,29 @@ make check
 %{_datadir}/ppdc/escp.h
 %{_datadir}/ppdc/pcl.h
 %{_mandir}/man1/foomatic-rip.1.gz
+
+%files driverless
+%license COPYING LICENSE NOTICE
+%{_bindir}/driverless
+%{_bindir}/driverless-fax
+%{_cups_serverbin}/backend/driverless
+%{_cups_serverbin}/backend/driverless-fax
+%{_cups_serverbin}/driver/driverless
+%{_cups_serverbin}/driver/driverless-fax
 %{_mandir}/man1/driverless.1.gz
 
 
 %changelog
+* Tue Dec 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-4
+- make driverless subpackage require avahi and ipptool - they don't 
+  work without them
+
+* Tue Dec 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-3
+- introduce cups-filters-driverless to strip avahi dependency for filters
+
+* Tue Dec 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-2
+- use exact foomatic-rip filter to comply with LSB
+
 * Thu Oct 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-1
 - rebase to 2.0.0
 

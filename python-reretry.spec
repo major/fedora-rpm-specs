@@ -72,7 +72,7 @@ Recommends:     python3dist(decorator)
 
 %install
 %pyproject_install
-%pyproject_save_files reretry
+%pyproject_save_files -l reretry
 
 
 %check
@@ -80,7 +80,6 @@ Recommends:     python3dist(decorator)
 
 
 %files -n python3-reretry -f %{pyproject_files}
-# pyproject-rpm-macros takes care of LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.md
 
 

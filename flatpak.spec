@@ -28,6 +28,12 @@ Source1:        flatpak-add-fedora-repos.service
 # with the config from upstream sources.
 Source2:        flatpak.sysusers.conf
 
+# ostree not on i686 for RHEL 10
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  pkgconfig(appstream) >= %{appstream_version}
 BuildRequires:  pkgconfig(dconf)
 BuildRequires:  pkgconfig(fuse3)

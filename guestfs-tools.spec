@@ -18,8 +18,8 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.51.6
-Release:       5%{?dist}
+Version:       1.51.7
+Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -40,9 +40,6 @@ Source1:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/
 %if 0%{verify_tarball_signature}
 Source2:       libguestfs.keyring
 %endif
-
-# Fixes a crash in virt-v2v and virt-customize
-Patch:         0001-Update-common-submodule.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
@@ -401,6 +398,9 @@ end
 
 
 %changelog
+* Tue Dec 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.7-1
+- New development version 1.51.7
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.6-5
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

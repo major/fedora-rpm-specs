@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-ocplib-simplex
 Epoch:          1
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simplex algorithm for solving systems of linear inequalities
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -35,7 +35,7 @@ optimizing linear objective functions.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and signature
@@ -79,6 +79,9 @@ rm -fr %{buildroot}%{_prefix}%{_prefix}
 %doc extra/simplex_invariants.txt
 
 %changelog
+* Mon Dec 18 2023 Jerry James <loganjerry@gmail.com> - 1:0.4.1-2
+- Fix devel package dependency on the main package
+
 * Mon Dec 18 2023 Jerry James <loganjerry@gmail.com> - 1:0.4.1-1
 - Revert to version 0.4.1 to avoid alt-ergo breakage
 

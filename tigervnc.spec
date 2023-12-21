@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -211,7 +211,7 @@ export CXXFLAGS="$CFLAGS -std=c++11"
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 10
 %define __cmake_builddir %{_target_platform}
 
-mkdir -p %{%__cmake_builddir}
+mkdir -p %{__cmake_builddir}
 %endif
 
 %cmake -DCMAKE_INSTALL_UNITDIR=%{_unitdir}
@@ -260,6 +260,7 @@ pushd media
 make
 popd
 %endif
+
 
 
 %install
@@ -383,6 +384,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Dec 20 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.13.1-10
+- Fix cmake builddir creation
+
 * Wed Dec 13 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-9
 - Rebuild for Xorg CVEs
   Fixes: CVE-2023-6377, CVE-2023-6478

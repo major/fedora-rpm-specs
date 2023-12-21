@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Contacts Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -52,6 +52,8 @@ BuildRequires: kf5-akonadi-server-mysql
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
+Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
+
 # split from kf5-akonadi/kdepimlibs in 16.07
 Obsoletes: kf5-akonadi < 16.07
 Obsoletes: kf5-akonadi-contact < 16.07
@@ -63,9 +65,14 @@ Obsoletes: kdepim-apps-libs < 20.11.90
 %description
 %{summary}.
 
+%package   libs
+Summary:   Only the linkable libraries for %{name}
+%description    libs
+%{summary}.
+
 %package   devel
 Summary:   Development files for %{name}
-Requires:  %{name}%{?_isa} = %{version}-%{release}
+Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
 # split from kf5-akonadi/kdepimlibs in 16.07
 Obsoletes: kf5-akonadi-devel < 16.07
 Obsoletes: kf5-akonadi-contact-devel < 16.07
@@ -112,10 +119,12 @@ xvfb-run -a \
 %dir %{_kf5_datadir}/kf5/akonadi/
 %{_kf5_datadir}/akonadi/plugins/serializer/
 %{_kf5_datadir}/kf5/akonadi/contact/
+%{_kf5_qtplugindir}/akonadi_serializer_*.so
+
+%files libs
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5AkonadiContact.so.*
 %{_kf5_libdir}/libKPim5ContactEditor.so.*
-%{_kf5_qtplugindir}/akonadi_serializer_*.so
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiContact.pri
@@ -130,6 +139,9 @@ xvfb-run -a \
 
 
 %changelog
+* Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Split libs subpackage, to co-install with kf6 akonadi
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

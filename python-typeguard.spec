@@ -102,7 +102,7 @@ PYTHONPATH="${PWD}/src" sphinx-build -b latex -j%{?_smp_build_ncpus} \
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_install
-%pyproject_save_files typeguard
+%pyproject_save_files -l typeguard
 
 
 %check
@@ -110,7 +110,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %files -n python3-typeguard -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %if %{without doc}
 %doc README.rst
 %endif

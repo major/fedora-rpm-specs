@@ -1,6 +1,6 @@
 Name:    akonadi-notes
 Version: 24.01.80
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The Akonadi Notes Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -18,9 +18,6 @@ BuildRequires:  cmake(Qt6Xml)
 
 BuildRequires:  cmake(KPim6Akonadi)
 BuildRequires:  cmake(KPim6Mime)
-
-#Plasma 6
-Obsoletes:      kf5-akonadi-notes < 24.01.80-1
 
 %description
 %{summary}.
@@ -58,6 +55,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-3
+- Don't obsolete kf5-akonadi-notes, this is coinstallable
+
 * Sat Dec 16 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
 - Obsoletes the old version
 

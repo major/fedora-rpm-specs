@@ -1,7 +1,7 @@
 # there is no debug package - this is just cmake modules
 %global debug_package %{nil}
 
-%global rocm_release 5.7
+%global rocm_release 6.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 

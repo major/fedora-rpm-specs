@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 5%{?dist}
+Release: 6%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -156,6 +156,11 @@ Recommends: avahi
 Recommends: cups-browsed
 # for IPP-over-USB device support
 Recommends: ipp-usb
+%endif
+
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 9
+# driverless stuff was splitted from cups-filters
+Recommends: cups-filters-driverless
 %endif
 
 # We ship udev rules which use setfacl.
@@ -801,6 +806,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Tue Dec 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-6
+- add weak dependency on cups-filters-driverless for F40+
+
 * Fri Dec 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-5
 - 2254578 - cupsGetJobs() failes because libcups fails to connect to domain socket
 

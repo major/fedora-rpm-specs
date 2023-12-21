@@ -6,7 +6,7 @@
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
 Version: 5.90.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -16,8 +16,8 @@ Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{vers
 ## upstream patches
 
 ## downstream patches
-# default kickoff favorites: +konsole +apper
-#Patch100: plasma-desktop-5.8-default_favorites.patch
+# default kickoff/kicker favorites: +kwrite +konsole
+Patch100: plasma-desktop-5.90.0-default_favorites.patch
 
 ## upstreamable patches
 
@@ -286,6 +286,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Tue Dec 19 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.90.0-2
+- Refresh and apply default favorites patch
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 
@@ -340,7 +343,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 * Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
 - 5.27.0
 
-* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+* Fri Jan 20 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
 - 5.26.90
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.5-2

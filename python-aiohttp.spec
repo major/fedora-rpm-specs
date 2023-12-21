@@ -60,8 +60,7 @@ sed -r \
 %endif
    tee requirements/test.in.filtered
 %if 0%{?el9}
-# This is normally a hard dependency, but we can still make a usable package
-# without it.
+# This is normally a test dependency, but we can still run tests without it
 sed -r -i 's/^uvloop\b/# &/' requirements/base.in
 %endif
 
@@ -73,7 +72,7 @@ sed -i 's/"-W", "error"/"-W", "error", "-W", "ignore::DeprecationWarning"/' test
 %generate_buildrequires
 %{pyproject_buildrequires \
     requirements/cython.in \
-    requirements/base.in %{?with_tests:requirements/test.in.filtered}}
+    %{?with_tests:requirements/test.in.filtered}}
 
 %build
 # Recreate removed Cython files using commands extracted from the Makefile.
@@ -135,7 +134,8 @@ k="${k-}${k+ and }not test_cookie_jar_clear_expired"
 %endif
 %pytest -Wdefault ${ignore-} -k "${k-}" -m 'not dev_mode'
 %else
-%pyproject_check_import -e aiohttp.pytest_plugin
+# aiohttp.worker requires gunicorn
+%pyproject_check_import -e aiohttp.pytest_plugin -e aiohttp.worker
 %endif
 
 %files -n python3-aiohttp -f %{pyproject_files}

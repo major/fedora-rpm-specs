@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python
 
 
@@ -369,6 +369,15 @@ Patch353: 00353-architecture-names-upstream-downstream.patch
 # 00407 # 17dbfc39d1118a479e7ea244ad46fb6eeeb38280
 # gh-99086: Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
 Patch407: 00407-gh-99086-fix-implicit-int-compiler-warning-in-configure-check-for-pthread_scope_system.patch
+
+# 00415 # 401882b46aea7903729b6f4fb0990824b45b12b3
+# [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
+#
+# Detect email address parsing errors and return empty tuple to
+# indicate the parsing error (old API). Add an optional 'strict'
+# parameter to getaddresses() and parseaddr() functions. Patch by
+# Thomas Dwyer.
+Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
 
 # (New patches go here ^^^)
 #
@@ -1710,6 +1719,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Dec 18 2023 Lumír Balhar <lbalhar@redhat.com> - 3.8.18-3
+- Security fix for CVE-2023-27043 (rhbz#2196193)
+
 * Thu Nov 23 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.18-2
 - Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
 - Resolves: rhbz#2147519

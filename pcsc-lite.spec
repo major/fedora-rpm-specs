@@ -21,7 +21,7 @@ BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  /usr/bin/pod2man
+BuildRequires:  perl-podlators
 %if %{with_polkit}
 BuildRequires:  polkit-devel
 %endif
@@ -95,8 +95,8 @@ done
 %build
 %configure \
   --disable-static \
-%if %{with_polkit}
-  --enable-polkit \
+%if ! %{with_polkit}
+  --disable-polkit \
 %endif
   --with-systemdsystemunitdir=%{_unitdir} \
   --enable-usbdropdir=%{_libdir}/pcsc/drivers

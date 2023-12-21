@@ -2,7 +2,7 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        17.4.1
+Version:        17.4.2
 Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
@@ -177,6 +177,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Dec 18 2023 Packit <hello@packit.dev> - 17.4.2-1
+- Version 17.4.2 (Dennis Felsing)
+- Fix multi sampling accuracy (Jupeyy)
+- Resolves rhbz#2255154
+
 * Fri Dec 15 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 17.4.1-1
 - Update to 17.4.1 (#2254661)
 

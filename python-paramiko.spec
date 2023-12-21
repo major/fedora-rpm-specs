@@ -1,7 +1,7 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       3.3.1
+Version:       3.4.0
 Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
@@ -91,6 +91,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Tue Dec 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-1
+- 3.4.0
+
 * Sun Jul 30 2023 Paul Howarth <paul@city-fan.org> - 3.3.1-1
 - Update to 3.3.1 (rhbz#2227478)
   - Cleaned up some very old root level files, mostly just to exercise some of

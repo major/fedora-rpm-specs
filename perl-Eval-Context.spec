@@ -1,44 +1,44 @@
 Name:       perl-Eval-Context 
 Version:    0.09.11 
-Release:    32%{?dist}
+Release:    33%{?dist}
 # see lib/Eval/Context.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Evalute perl code in context wraper 
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Eval-Context-%{version}.tar.gz 
+Url:        https://metacpan.org/release/Eval-Context
 # Perl 5.18 comptability, CPAN RT#86017
 Patch0:     Eval-Context-0.09.11-hash-randomization.patch
-Url:        https://metacpan.org/release/Eval-Context
+# Fix failing test t/012_safe.t CPAN RT#150480
+Patch1:     Eval-Context-0.09.11-adapt-test-for-Data-TreeDumper-0.41.patch
 BuildArch:  noarch
 
+BuildRequires: coreutils
 BuildRequires: make
-BuildRequires: perl-interpreter
 BuildRequires: perl-generators
+BuildRequires: perl-interpreter
+BuildRequires: perl(Module::Build::Compat)
+BuildRequires: perl(strict)
+BuildRequires: perl(warnings)
+# Runtime
 BuildRequires: perl(Carp)
-BuildRequires: perl(constant)
-BuildRequires: perl(Data::Compare)
 BuildRequires: perl(Data::Dumper)
-BuildRequires: perl(Data::TreeDumper)
-BuildRequires: perl(Directory::Scratch::Structured)
 BuildRequires: perl(English)
 BuildRequires: perl(File::Slurp)
-BuildRequires: perl(Module::Build::Compat)
-BuildRequires: perl(Package::Generator)
 BuildRequires: perl(Readonly)
 BuildRequires: perl(Safe) >= 2.16
-BuildRequires: perl(strict)
-BuildRequires: perl(Sub::Exporter)
 BuildRequires: perl(Sub::Install)
 BuildRequires: perl(Symbol)
+BuildRequires: perl(vars)
+# Tests
+BuildRequires: perl(constant)
+BuildRequires: perl(Data::TreeDumper) >= 0.41
+BuildRequires: perl(Directory::Scratch::Structured)
 BuildRequires: perl(Test::Block)
 BuildRequires: perl(Test::Exception)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(Test::NoWarnings)
 BuildRequires: perl(Test::Output)
 BuildRequires: perl(Test::Warn)
-BuildRequires: perl(vars)
-BuildRequires: perl(version) >= 0.5
-BuildRequires: perl(warnings)
-
 
 %description
 This module defines a subroutine that let you evaluate Perl code in a
@@ -50,15 +50,16 @@ in a safe compartment.
 
 %prep
 %setup -q -n Eval-Context-%{version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
+%{make_install}
+find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -66,10 +67,13 @@ make test
 
 %files
 %doc README Changes Todo.txt 
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/Eval*
+%{_mandir}/man3/Eval::Context*.3*
 
 %changelog
+* Tue Dec 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.09.11-33
+- Fix failing test t/012_safe.t (rhbz#2249049)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09.11-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

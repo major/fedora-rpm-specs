@@ -34,6 +34,12 @@ Source0:   https://download.gnome.org/sources/gnome-software/45/%{name}-%{tarbal
 # https://gitlab.gnome.org/GNOME/gnome-software/-/merge_requests/1810
 Patch:     0001-port-to-appstream1.patch
 
+# ostree and flatpak not on i686 for RHEL 10
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires: docbook-style-xsl
 BuildRequires: desktop-file-utils
 BuildRequires: gcc

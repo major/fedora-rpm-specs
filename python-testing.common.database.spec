@@ -45,7 +45,7 @@ Summary:        %{summary}
 # could co-own it, but in practice will most likely depend on this package.
 # This is true of python-testing.postgresql and (if it packaged in the future)
 # python-testing.mysqld.
-%pyproject_save_files testing
+%pyproject_save_files -l testing
 
 
 %check

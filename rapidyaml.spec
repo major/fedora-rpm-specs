@@ -222,7 +222,7 @@ rm -vf '%{buildroot}%{_includedir}/ryml.natvis'
 
 %if %{with python}
 %pyproject_install
-%pyproject_save_files ryml
+%pyproject_save_files -l ryml
 %endif
 
 
@@ -260,7 +260,6 @@ rm -vf '%{buildroot}%{_includedir}/ryml.natvis'
 
 %if %{with python}
 %files -n python3-rapidyaml -f %{pyproject_files}
-# pyproject_files takes care of LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.md
 %endif
 

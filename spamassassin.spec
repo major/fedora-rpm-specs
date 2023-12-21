@@ -60,7 +60,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.0
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: Apache-2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -96,6 +96,7 @@ Source102: https://www.apache.org/dist/spamassassin/KEYS
 Patch0: spamassassin-4.0.0-gnupg2.patch
 # add a logfile and homedir for razor
 Patch1: spamassassin-4.0.0-add-logfile-homedir-options.patch
+Patch2: spamassassin-configure-c99.patch
 # end of patches
 %if %{use_systemd} == 0
 Requires: /sbin/chkconfig /sbin/service
@@ -217,6 +218,7 @@ To filter spam for all users, add that line to /etc/procmailrc
 # Patches 0-99 are RH specific
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 # end of patches
 
 echo "RHEL=%{?rhel} FEDORA=%{?fedora}"
@@ -397,6 +399,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 4.0.0-8
+- Bring back still needed part of configure C compatibility fix
+
 * Thu Sep 21 2023 Martin Osvald <mosvald@redhat.com> - 4.0.0-7
 - SPDX migration
 

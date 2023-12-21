@@ -1,5 +1,5 @@
 Name:           zchunk
-Version:        1.3.2
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Compressed file format that allows easy deltas
 License:        BSD-2-Clause AND MIT
@@ -84,6 +84,11 @@ install contrib/gen_xml_dictionary %{buildroot}%{_libexecdir}/zck_gen_xml_dictio
 %{_includedir}/zck.h
 
 %changelog
+* Tue Dec 19 2023 Jonathan Dieter <jdieter@gmail.com> - 1.4.0-1
+- Add native OpenSSL 3 compatibility
+- Add new function for getting zchunk context from chunk
+- Fix bug when assembling from multiple sources
+
 * Thu Oct  5 2023 Jonathan Dieter <jdieter@gmail.com> - 1.3.2-1
 - Fix a couple of unsigned integer overflow bugs
 

@@ -71,7 +71,7 @@ sed -r -i 's/(__version__ *= *")DEVELOPMENT_VERSION"/\1%{version}"/' \
 
 %install
 %pyproject_install
-%pyproject_save_files strictyaml
+%pyproject_save_files -l strictyaml
 
 
 %check

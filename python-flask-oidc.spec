@@ -3,7 +3,7 @@
 
 Name:           python-%{project_name}
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenID Connect extension for Flask
 
 License:        BSD-2-Clause
@@ -13,9 +13,7 @@ Source1:        BSD-2-Clause.txt
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  poetry
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-responses
 
 %global _description %{expand:
@@ -38,7 +36,7 @@ cp -p %{SOURCE1} ./LICENSES/
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -49,7 +47,7 @@ cp -p %{SOURCE1} ./LICENSES/
 %pyproject_save_files %{mod_name}
 
 %check
-%pytest --cov %{mod_name} tests
+%pytest
 
 %files -n python3-%{project_name} -f %{pyproject_files}
 %doc README.rst
@@ -57,6 +55,9 @@ cp -p %{SOURCE1} ./LICENSES/
 
 
 %changelog
+* Tue Dec 19 2023 Miro Hrončok <mhroncok@redhat.com> - 2.1.1-2
+- Reduce unneeded build dependencies
+
 * Fri Nov 03 2023 Aurelien Bompard <abompard@fedoraproject.org> - 2.1.1-1
 - Version 2.1.1
 

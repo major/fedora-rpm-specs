@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -645,6 +645,15 @@ Patch409: 00409-bpo-13497-fix-broken-nice-configure-test.patch
 # (e.g. clang in Xcode 12), and can thus cause configure checks to
 # produce incorrect results.
 Patch410: 00410-bpo-42598-fix-implicit-function-declarations-in-configure.patch
+
+# 00415 # b2fcdad7812f48865b2186b08c1ae28e9af65975
+# [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
+#
+# Detect email address parsing errors and return empty tuple to
+# indicate the parsing error (old API). Add an optional 'strict'
+# parameter to getaddresses() and parseaddr() functions. Patch by
+# Thomas Dwyer.
+Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
 
 # (New patches go here ^^^)
 #
@@ -1903,6 +1912,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Dec 18 2023 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-22
+- Security fix for CVE-2023-27043 (rhbz#2196191)
+
 * Tue Nov 28 2023 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-21
 - Fix implicit-function-declarations in configure
 - Fixes: rhbz#2147519

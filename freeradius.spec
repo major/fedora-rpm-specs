@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -28,6 +28,7 @@ Patch4: freeradius-no-buildtime-cert-gen.patch
 Patch5: freeradius-bootstrap-make-permissions.patch
 Patch6: freeradius-ldap-infinite-timeout-on-starttls.patch
 Patch7: freeradius-ease-openssl-version-check.patch
+Patch8: freeradius-configure-c99.patch
 
 %global docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
@@ -211,6 +212,7 @@ This plugin provides the REST support for the FreeRADIUS server project.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 # Force compile/link options, extra security for network facing daemon
@@ -894,6 +896,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 3.2.3-2
+- Fix C compatibility issue in configure script
+
 * Tue Oct 24 2023 Antonio Torres <antorres@redhat.com> - 3.2.3-1
 - Update to upstream release 3.2.3
 

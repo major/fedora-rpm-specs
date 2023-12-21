@@ -6,7 +6,7 @@
 %global crate openpgp-cert-d
 
 Name:           rust-openpgp-cert-d
-Version:        0.1.2
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Shared OpenPGP Certificate Directory
 

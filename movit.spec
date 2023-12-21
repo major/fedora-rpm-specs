@@ -27,9 +27,7 @@ BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(libpng)
 #BuildRequires:  pkgconfig(microbenchmark)
-%if ! (0%{?rhel} >= 8)
 BuildRequires:  pkgconfig(SDL2_image)
-%endif
 BuildRequires:  gtest-devel
 Requires:       %{name}-data = %{version}-%{release}
 

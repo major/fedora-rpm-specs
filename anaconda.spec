@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.13
+Version: 40.15
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -41,7 +41,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define nmver 1.0
 %define pykickstartver 3.51-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.8.1-1
+%define pythonblivetver 1:3.8.2-2
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.26
@@ -465,6 +465,24 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 19 2023 Packit <hello@packit.dev> - 40.15-1
+- fix missing emit of zfcp kickstart statements (maier)
+- DeviceTreeViewer: Add path-id attribute to zfcp-attached SCSI disks (maier)
+- fix missing WWID values for multipath devices in advanced storage UI
+  (#2046654) (maier)
+- Update translations from Weblate for master (github-actions)
+- storage: do not add /boot among required partitions (rvykydal)
+- storage: add a new more generic API for mount point constraints (rvykydal)
+- Update translations from Weblate for master (github-actions)
+- tests: no need in HFS+ on Apple Macs (vponcova)
+- storage: no need in HFS+ on Apple Macs (temap)
+- bootupd: Use --write-uuid (walters)
+- network: ignore BOOTIF connections when creating device configurations
+  (rvykydal)
+- network: ignore BOOTIF connections when looking for initramfs bond ports
+  (rvykydal)
+- anaconda-diskroot: wait before dying on media check fail (awilliam)
+
 * Tue Dec 05 2023 Packit <hello@packit.dev> - 40.13-1
 - Keyboard layout descriptions: more liberal language name check (awilliam)
 - Don't prepend random language to keyboard layout names (awilliam)

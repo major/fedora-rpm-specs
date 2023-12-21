@@ -76,6 +76,7 @@ Requires: R-core%{?_isa}
 
 # Remove -O0 flag for tests compiling
 Patch0: %{name}-remove_testflag.patch
+Patch1: bz2254779.diff
 
 %description
 OpenMS is a C++ library for LC-MS data management and analyses.
@@ -190,6 +191,7 @@ HTML documentation of OpenMS.
 %autosetup -N -n OpenMS-Release%{version}
 
 %patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
 
 # Remove invalid tags
 sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata.xml

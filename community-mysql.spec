@@ -76,7 +76,7 @@
 
 Name:             community-mysql
 Version:          8.0.35
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -118,6 +118,7 @@ Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
 Patch54:          %{pkgnamepatch}-arm32-timer.patch
+Patch55:	  community-mysql-c99.patch
 
 # Patches taken from boost 1.59
 Patch111:         boost-1.58.0-pool.patch
@@ -388,6 +389,7 @@ the MySQL sources.
 %patch -P52 -p1
 %patch -P53 -p1
 %patch -P54 -p1
+%patch -P55 -p1
 
 # Patch Boost
 pushd boost/boost_$(echo %{boost_bundled_version}| tr . _)
@@ -984,6 +986,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 8.0.35-2
+- Fix int-conversion type error in memcached
+
 * Thu Sep 21 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.35-1
 - Update to MySQL 8.0.35
 - Remove patches now upstream

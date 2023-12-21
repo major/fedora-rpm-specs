@@ -174,7 +174,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        121.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -254,6 +254,9 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
+Patch409:        D196554.diff
+Patch410:        D196555.diff
+Patch411:        D196556.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -1165,6 +1168,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Dec 19 2023 Martin Stransky <stransky@redhat.com>- 121.0-2
+- Added Wayland proxy cache (mzbz#1743144)
+
 * Mon Dec 18 2023 Martin Stransky <stransky@redhat.com>- 121.0-2
 - Enable Gnome Shell Search provider for Fedora 40+
 - Don't ship firefox-x11 and firefox-wayland on Fedora 40+

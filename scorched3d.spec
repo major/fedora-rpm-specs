@@ -2,7 +2,7 @@
 
 Name:           scorched3d
 Version:        44
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Game based loosely on the classic DOS game Scorched Earth
 License:        GPLv2+ and CC-BY-SA
 URL:            http://www.scorched3d.co.uk/
@@ -18,6 +18,7 @@ Patch5:         %{name}-returntype.patch
 Patch6:         %{name}-wx3.0.patch
 Patch7:         %{name}-lua54.patch
 Patch8:         %{name}-fix-hang-on-fast-machines.patch
+Patch9:         scorched3d-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  wxGTK-devel SDL_net-devel libGLU-devel
@@ -56,6 +57,7 @@ pushd scorched
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p2
 touch NEWS AUTHORS ChangeLog
 autoreconf -ivf
 install -m 755 %{SOURCE2} .
@@ -149,6 +151,9 @@ EOF
 
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 44-34
+- Fix C type error in configure script (#2255225)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

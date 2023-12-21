@@ -3,8 +3,8 @@
 %global __suggests_exclude ^R\\(.*\\)
 
 Name:		R-%{packname}
-Version:	0.3.18
-Release:	4%{?dist}
+Version:	0.3.19
+Release:	1%{?dist}
 Summary:	littler: R at the Command-Line via 'r'
 
 License:	GPL-2.0-or-later
@@ -52,6 +52,7 @@ mkdir -p %{buildroot}%{_libdir}/R/library
 %{_bindir}/R CMD INSTALL -l %{buildroot}%{_libdir}/R/library %{packname}
 test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 rm %{packname}/inst/bin/r %{packname}/src/r
+rm %{packname}/src/Makevars
 rm -rf %{buildroot}%{_libdir}/R/library/R.css
 rm -rf %{buildroot}%{_libdir}/R/library/%{packname}/script-tests
 
@@ -94,6 +95,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Tue Dec 19 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.3.19-1
+- New upstream release 0.3.19
+
 * Sun Jul 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.3.18-4
 - Fix build requires
 

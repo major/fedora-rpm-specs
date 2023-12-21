@@ -115,7 +115,7 @@ make -C "%{_vpath_builddir}"
 %doc armadillo_icon.png
 %doc mex_interface
 %doc armadillo_nicta_2010.pdf
-%doc rcpp_armadillo_csda_2014.pdf
+%doc armadillo_rcpp_2014.pdf
 %doc armadillo_joss_2016.pdf
 %doc armadillo_spcs_2017.pdf
 %doc armadillo_lncs_2018.pdf

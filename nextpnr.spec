@@ -1,11 +1,11 @@
-%global commit 4c6003ac0b60a25811d764a6c70e6ef5f7af28f9
+%global commit 535709a9a933c2343247c7f204d3ed707308bf47
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20231108
+%global snapdate 20231218
 
 Name:		nextpnr
 Version:	1
-Release:	30.%{snapdate}git%{shortcommit}%{?dist}
+Release:	31.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -28,7 +28,7 @@ BuildRequires:	boost-python3-devel
 BuildRequires:	eigen3-devel
 #BuildRequires:	pybind11-devel
 # NOTE: remember to update icestorm & trellis before rebuilding nextpnr!!!
-BuildRequires:	icestorm >= 0-0.28
+BuildRequires:	icestorm >= 0-0.30
 BuildRequires:	trellis-devel >= 1.2.1-23
 
 # License: ISC
@@ -86,6 +86,10 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Mon Dec 18 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-31.20231218git535709a
+- Update to newer snapshot
+- fix Python 3.13 FTBFS (BZ #2250854)
+
 * Wed Nov 08 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-30.20231108git4c6003a
 - Update to newer snapshot
 

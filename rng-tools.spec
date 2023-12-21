@@ -12,7 +12,7 @@
 Summary:        Random number generator related utilities
 Name:           rng-tools
 Version:        6.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2+
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -46,6 +46,7 @@ Requires: (selinux-policy >= 36.5 if selinux-policy)
 
 Patch0: 1-rt-comment-out-have-aesni.patch
 Patch1: 2-rt-revert-build-randstat.patch
+Patch2: rng-tools-configure-c99.patch
 
 %description
 This is a random number generator daemon and its tools. It monitors
@@ -104,6 +105,9 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 6.16-3
+- Fix C compatibility issue in configure script
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

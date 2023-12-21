@@ -50,7 +50,7 @@ export XXHASH_LINK_SO='1'
 
 %install
 %pyproject_install
-%pyproject_save_files xxhash
+%pyproject_save_files -l xxhash
 
 
 %check

@@ -72,7 +72,7 @@ find vecrec -type f -exec \
 
 
 %files -n python3-vecrec -f %{pyproject_files}
-# pyproject-rpm-macros takes care of LICENSE.txt; verify with “rpm -qL -p …”
+%license LICENSE.txt
 %doc README.rst
 
 

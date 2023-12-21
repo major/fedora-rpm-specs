@@ -2,12 +2,16 @@
 
 Name:           python-basemap
 Version:        1.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
 Source0:        https://github.com/matplotlib/basemap/archive/v%{version}/basemap-%{version}.tar.gz
 Patch0:         requirements.patch
+# Support Cython 3.0
+# https://github.com/matplotlib/basemap/pull/593
+# Rebased on 1.3.8
+Patch1:         basemap-1.3.8-cython3.patch
 
 BuildRequires:  gcc
 
@@ -32,7 +36,7 @@ BuildRequires:  python3-devel, proj-devel, shapelib-devel, python3-numpy-f2py, g
 BuildRequires:  python3-setuptools
 BuildRequires:  chrpath
 # Needed to regenerate Cython generated files.
-BuildRequires:  python3-Cython < 3~~
+BuildRequires:  python3-Cython
 BuildRequires:  python3-httplib2
 BuildRequires:  python3-matplotlib >= 0.98
 BuildRequires:  python3-pyproj
@@ -45,11 +49,9 @@ Basemap is a matplotlib toolkit that allows you to plot data on map
 projections (with continental and political boundaries).
 
 %prep
-%autosetup -n basemap-%{version} -p0
+%autosetup -n basemap-%{version} -p1
 
 %build
-# regenerate Cython generated files
-%python3 -m cython packages/basemap/src/*.pyx
 export GEOS_LIB="/usr/"
 
 pushd packages/basemap
@@ -93,6 +95,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Sat Nov 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.8-2
+- Patch for Cython 3
+
 * Fri Aug 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3.8-1
 - 1.3.8
 

@@ -60,11 +60,12 @@
 
 Name: evolution-data-server
 Version: 3.50.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.50/%{name}-%{version}.tar.xz
+Patch0: evolution-data-server-cmake-c99.patch
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
@@ -503,6 +504,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 3.50.2-2
+- Backport upstream patch to fix C issue in CMake probing
+
 * Fri Dec 01 2023 Milan Crha <mcrha@redhat.com> - 3.50.2-1
 - Update to 3.50.2
 

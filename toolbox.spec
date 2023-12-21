@@ -1,7 +1,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:          toolbox
-Version:       0.0.99.4
+Version:       0.0.99.5
 
 %global goipath github.com/containers/%{name}
 
@@ -17,8 +17,8 @@ Version:       0.0.99.4
 %endif
 %endif
 
-Release:       9%{?dist}
-Summary:       Tool for containerized command line environments on Linux
+Release:       2%{?dist}
+Summary:       Tool for interactive command line environments on Linux
 
 License:       ASL 2.0
 URL:           https://containertoolbx.org/
@@ -26,12 +26,6 @@ Source0:       https://github.com/containers/%{name}/releases/download/%{version
 
 # RHEL specific
 Source1:       %{name}.conf
-
-# Upstream
-Patch0:        toolbox-Build-fixes.patch
-Patch1:        toolbox-cmd-initContainer-Be-aware-of-security-hardened-moun.patch
-Patch2:        toolbox-Simplify-removing-the-user-s-password.patch
-Patch3:        toolbox-cmd-Track-the-active-container-on-Fedora-Linux-Asahi.patch
 
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
@@ -44,7 +38,7 @@ Patch202:      toolbox-Add-migration-paths-for-coreos-toolbox-users.patch
 
 BuildRequires: gcc
 BuildRequires: go-md2man
-BuildRequires: golang >= 1.19.4
+BuildRequires: golang >= 1.20
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: shadow-utils-subid-devel
@@ -54,14 +48,15 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: golang(github.com/HarryMichal/go-version) >= 1.0.1
 BuildRequires: golang(github.com/acobaugh/osrelease) >= 0.1.0
 BuildRequires: golang(github.com/briandowns/spinner) >= 1.17.0
-BuildRequires: golang(github.com/docker/go-units) >= 0.4.0
+BuildRequires: golang(github.com/docker/go-units) >= 0.5.0
 BuildRequires: golang(github.com/fsnotify/fsnotify) >= 1.5.1
 BuildRequires: golang(github.com/godbus/dbus) >= 5.0.6
 BuildRequires: golang(github.com/sirupsen/logrus) >= 1.8.1
 BuildRequires: golang(github.com/spf13/cobra) >= 1.3.0
 BuildRequires: golang(github.com/spf13/viper) >= 1.10.1
-BuildRequires: golang(golang.org/x/sys/unix)
-BuildRequires: golang(golang.org/x/term)
+BuildRequires: golang(golang.org/x/sys/unix) >= 0.1.0
+BuildRequires: golang(golang.org/x/text) >= 0.3.8
+BuildRequires: golang(gopkg.in/yaml.v3) >= 3.0.0
 BuildRequires: pkgconfig(fish)
 # for tests
 # BuildRequires: codespell
@@ -69,108 +64,42 @@ BuildRequires: pkgconfig(fish)
 # BuildRequires: ShellCheck
 %endif
 
+Recommends:    skopeo
+Recommends:    subscription-manager
+
 Requires:      containers-common
-Requires:      podman >= 1.4.0
+Requires:      podman >= 1.6.4
 %if ! 0%{?rhel}
 Requires:      flatpak-session-helper
 %endif
 
 
 %description
-Toolbox is a tool for Linux operating systems, which allows the use of
-containerized command line environments. It is built on top of Podman and
-other standard container technologies from OCI.
+Toolbx is a tool for Linux, which allows the use of interactive command line
+environments for development and troubleshooting the host operating system,
+without having to install software on the host. It is built on top of Podman
+and other standard container technologies from OCI.
 
-%if ! 0%{?rhel}
+Toolbx environments have seamless access to the user's home directory, the
+Wayland and X11 sockets, networking (including Avahi), removable devices (like
+USB sticks), systemd journal, SSH agent, D-Bus, ulimits, /dev and the udev
+database, etc..
 
-# The list of requires packages for -support and -experience should be in sync with:
-# https://github.com/containers/toolbox/blob/master/images/fedora/f33/extra-packages
-%package       support
-Summary:       Required packages for the container image to support %{name}
-
-# These are really required to make the image work with toolbox
-Requires:      passwd
-Requires:      shadow-utils
-Requires:      util-linux
-Requires:      vte-profile
-
-%description   support
-The %{name}-support package contains all the required packages that are needed
-to be installed in the OCI image to make it work with %{name}.
-
-The %{name}-support package should be typically installed from the Dockerfile
-if the image isn't based on the fedora-toolbox image.
-
-
-%package       experience
-Summary:       Set of packages to enhance the %{name} experience
-
-Requires:      %{name}-support = %{version}-%{release}
-Requires:      bash-completion
-Requires:      bc
-Requires:      bzip2
-Requires:      diffutils
-Requires:      dnf-plugins-core
-Requires:      findutils
-Requires:      flatpak-spawn
-Requires:      fpaste
-Requires:      git
-Requires:      gnupg
-Requires:      gnupg2-smime
-Requires:      gvfs-client
-Requires:      hostname
-Requires:      iproute
-Requires:      iputils
-Requires:      jwhois
-Requires:      keyutils
-Requires:      krb5-libs
-Requires:      less
-Requires:      lsof
-Requires:      man-db
-Requires:      man-pages
-Requires:      mtr
-Requires:      nano-default-editor
-Requires:      nss-mdns
-Requires:      openssh-clients
-Requires:      pigz
-Requires:      procps-ng
-Requires:      rsync
-Requires:      sudo
-Requires:      tcpdump
-Requires:      time
-Requires:      traceroute
-Requires:      tree
-Requires:      unzip
-Requires:      wget
-Requires:      which
-Requires:      words
-Requires:      xorg-x11-xauth
-Requires:      xz
-Requires:      zip
-
-%description   experience
-The %{name}-experience package contains all the packages that should be
-installed in the container to provide the same default experience as working
-on the host.
-
-The %{name}-experience package should be typically installed from the
-Dockerfile if the image isn't based on the fedora-toolbox image.
-
-%endif
 
 %package       tests
 Summary:       Tests for %{name}
 
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Requires:      coreutils
-Requires:      gawk
 Requires:      grep
 # for htpasswd
 Requires:      httpd-tools
+Requires:      openssl
 Requires:      skopeo
 %if ! 0%{?rhel}
-Requires:      bats
+Requires:      bats >= 1.7.0
 %endif
+
 
 %description   tests
 The %{name}-tests package contains system tests for %{name}.
@@ -178,10 +107,6 @@ The %{name}-tests package contains system tests for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %if 0%{?fedora}
 %ifnarch ppc64
@@ -253,19 +178,21 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 %{_sysconfdir}/profile.d/%{name}.sh
 %{_tmpfilesdir}/%{name}.conf
 
-%if ! 0%{?rhel}
-
-%files support
-
-%files experience
-
-%endif
 
 %files tests
 %{_datadir}/%{name}
 
 
 %changelog
+* Tue Dec 19 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-2
+- Drop the experience and support subpackages
+
+* Tue Dec 19 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-1
+- Update to 0.0.99.5
+
+* Tue Dec 19 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-10
+- Require openssl(1) for the system tests in the tests subpackage
+
 * Wed Dec 06 2023 Adam Williamson <awilliam@redhat.com> - 0.0.99.4-9
 - tests subpackage: require httpd-tools for htpasswd
 

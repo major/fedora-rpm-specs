@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global forgeurl https://gitlab.cern.ch/VecGeom/VecGeom
-Version:        1.2.6
+Version:        1.2.7
 %global tag v%{version}
 %forgemeta
 
@@ -23,8 +23,8 @@ Patch0:         vecgeom-add-soversion.patch
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
-BuildRequires:  xerces-c-devel
-BuildRequires:  veccore-devel
+BuildRequires:  pkgconfig(xerces-c)
+BuildRequires:  cmake(veccore)
 
 %description
 VecGeom is a geometry modeller library with hit-detection features as needed by

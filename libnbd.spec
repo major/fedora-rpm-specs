@@ -1,15 +1,30 @@
+# i686 no longer has any kind of OCaml compiler, not even ocamlc.
+%ifnarch %{ix86}
+%global have_ocaml 1
+%endif
+
+# No ublk in RHEL 9.
+%if !0%{?rhel}
+%global have_ublk 1
+%endif
+
+# No nbd.ko in RHEL 9.
+%if !0%{?rhel}
+%global have_nbd_ko 1
+%endif
+
 # If we should verify tarball signature with GPGv2.
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools %{nil}
+%global patches_touch_autotools 1
 
 # The source directory.
 %global source_directory 1.19-development
 
 Name:           libnbd
-Version:        1.19.2
-Release:        4%{?dist}
+Version:        1.19.3
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -25,9 +40,8 @@ Source2:       libguestfs.keyring
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
 
-# Fixes for https://github.com/ocaml/ocaml/issues/12820
-Patch: 0001-ocaml-Use-Gc.finalize-instead-of-a-C-finalizer.patch
-Patch: 0002-ocaml-Nullify-custom-block-before-releasing-runtime-.patch
+# Fixes bug in generator/Makefile.am which causes builds to fail on i686.
+Patch:          0001-generator-Makefile.am-Fix-missing-continuation-backs.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -47,7 +61,7 @@ BuildRequires:  libxml2-devel
 # For nbdfuse.
 BuildRequires:  fuse3, fuse3-devel
 
-%if !0%{?rhel}
+%if 0%{?have_ublk}
 # For nbdublk
 BuildRequires:  liburing-devel >= 2.2
 BuildRequires:  ubdsrv-devel >= 1.0-3.rc6
@@ -56,7 +70,7 @@ BuildRequires:  ubdsrv-devel >= 1.0-3.rc6
 # For the Python 3 bindings.
 BuildRequires:  python3-devel
 
-%ifnarch %{ix86}
+%if 0%{?have_ocaml}
 # For the OCaml bindings.
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib-devel
@@ -75,7 +89,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gnutls-utils
 BuildRequires:  iproute
 BuildRequires:  jq
-%if !0%{?rhel}
+%if 0%{?have_nbd_ko}
 BuildRequires:  nbd
 %endif
 BuildRequires:  util-linux
@@ -96,7 +110,7 @@ BuildRequires:  nbdkit-sh-plugin
 BuildRequires:  nbdkit-sparse-random-plugin
 %endif
 
-%ifnarch %{ix86}
+%if 0%{?have_ocaml}
 # The OCaml runtime system does not provide this symbol
 %global __ocaml_requires_opts -x Stdlib__Callback
 %endif
@@ -132,7 +146,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains development headers for %{name}.
 
 
-%ifnarch %{ix86}
+%if 0%{?have_ocaml}
 %package -n ocaml-%{name}
 Summary:        OCaml language bindings for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -178,7 +192,7 @@ Recommends:     fuse3
 This package contains FUSE support for %{name}.
 
 
-%if !0%{?rhel}
+%if 0%{?have_ublk}
 %package -n nbdublk
 Summary:        Userspace NBD block device
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -222,14 +236,20 @@ autoreconf -i
     --with-tls-priority=@LIBNBD,SYSTEM \
     PYTHON=%{__python3} \
     --enable-python \
-%ifnarch %{ix86}
+%if 0%{?have_ocaml}
     --enable-ocaml \
 %else
     --disable-ocaml \
 %endif
     --enable-fuse \
     --disable-golang \
-    --disable-rust
+    --disable-rust \
+%if 0%{?have_ublk}
+    --enable-ublk \
+%else
+    --disable-ublk \
+%endif
+    %{nil}
 
 make %{?_smp_mflags}
 
@@ -243,12 +263,14 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 # Delete the golang man page since we're not distributing the bindings.
 rm $RPM_BUILD_ROOT%{_mandir}/man3/libnbd-golang.3*
 
-%ifarch %{ix86}
+%if !0%{?have_ocaml}
 # Delete the OCaml man page on i686.
 rm $RPM_BUILD_ROOT%{_mandir}/man3/libnbd-ocaml.3*
 %endif
 
-%if 0%{?rhel}
+# Remove this section in libnbd >= 1.20, since upstream was fixed to
+# not install nbdublk completion if nbdublk was not built.
+%if !0%{?have_ublk}
 # Delete nbdublk on RHEL.
 rm $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/nbdublk
 %endif
@@ -263,12 +285,6 @@ function skip_test ()
         chmod +x "$f"
     done
 }
-
-# interop/structured-read.sh fails with the old qemu-nbd in Fedora 29,
-# so disable it there.
-%if 0%{?fedora} <= 29
-skip_test interop/structured-read.sh
-%endif
 
 # interop/interop-qemu-storage-daemon.sh fails in RHEL 9 because of
 # this bug in qemu:
@@ -320,7 +336,7 @@ make %{?_smp_mflags} check || {
 %{_mandir}/man3/nbd_*.3*
 
 
-%ifnarch %{ix86}
+%if 0%{?have_ocaml}
 %files -n ocaml-%{name}
 %dir %{_libdir}/ocaml/nbd
 %{_libdir}/ocaml/nbd/META
@@ -359,7 +375,7 @@ make %{?_smp_mflags} check || {
 %{_mandir}/man1/nbdfuse.1*
 
 
-%if !0%{?rhel}
+%if 0%{?have_ublk}
 %files -n nbdublk
 %{_bindir}/nbdublk
 %{_mandir}/man1/nbdublk.1*
@@ -373,12 +389,15 @@ make %{?_smp_mflags} check || {
 %{_datadir}/bash-completion/completions/nbdfuse
 %{_datadir}/bash-completion/completions/nbdinfo
 %{_datadir}/bash-completion/completions/nbdsh
-%if !0%{?rhel}
+%if 0%{?have_ublk}
 %{_datadir}/bash-completion/completions/nbdublk
 %endif
 
 
 %changelog
+* Tue Dec 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.3-2
+- New upstream development version 1.19.3
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.2-4
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

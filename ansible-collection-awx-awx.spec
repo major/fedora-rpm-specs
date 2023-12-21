@@ -1,24 +1,13 @@
 # ansible-core is built for alternative Python stacks in RHEL which do not have
 # the necessary test deps packaged.
 Name:		ansible-collection-awx-awx
-Version:	23.5.0
+Version:	23.5.1
 Release:	%autorelease
 Summary:	Ansible modules and plugins for working with AWX
 
 License:	GPL-3.0-or-later AND BSD-2-Clause
 URL:		%{ansible_collection_url awx awx}
 Source0:	https://github.com/ansible/awx/archive/%{version}/awx-%{version}.tar.gz
-# This patch is removing the following files / folders:
-# - Test & Tests: remove any unnecessary test files that we are not uising at
-#   this time.
-# - images: No need to have an image of the completed test in the collection RPM.
-# - Testing.md: Removed instructions for building and testing the collection.
-# Files used for Execution build and python requirements
-# - requirements.txt
-# - bindep.txt
-# We install these files with the license and doc section. We don't want them duplicated.
-# - COPYING
-# - README
 Patch0:		build_ignore-unnecessary-files.patch
 
 BuildArch:	noarch

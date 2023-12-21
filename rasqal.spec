@@ -1,6 +1,6 @@
 Name:           rasqal
 Version:        0.9.33
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        RDF Query Library
 
 License:        LGPL-2.1-or-later OR Apache-2.0
@@ -19,6 +19,7 @@ BuildRequires:  perl(XML::DOM)
 
 # Upstream PR: https://github.com/dajobe/rasqal/pull/11
 Patch1: define-printf.patch
+Patch2: rasqal-configure-c99-2.patch
 
 %description
 Rasqal is a library providing full support for querying Resource
@@ -36,6 +37,7 @@ Libraries, includes etc to develop with the Rasqal RDF query language library.
 %prep
 %setup -q
 %patch1 -p1 -b .printf
+%patch2 -p1
 
 # hack to nuke rpaths
 %if "%{_libdir}" != "/usr/lib"
@@ -97,6 +99,9 @@ fi
 
 
 %changelog
+* Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 0.9.33-26
+- Fix another C compatibility issue in configure script
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
