@@ -26,7 +26,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -253,7 +253,7 @@ fi
 %{_kf5_datadir}/mime/packages/akonadi-mime.xml
 %{_kf5_datadir}/akonadi/
 %{_kf5_datadir}/config.kcfg/resourcebase.kcfg
-%{_kf5_datadir}/kf5/akonadi/
+%dir %{_kf5_datadir}/kf5/akonadi/
 # let newer %%trigger-based scriptlets catch this -- rex
 %{_kf5_datadir}/icons/hicolor/*/apps/akonadi.*
 
@@ -262,7 +262,6 @@ fi
 %{_kf5_datadir}/kf5/akonadi_knut_resource/
 
 %files libs
-%{_kf5_qtplugindir}/designer/akonadi5widgets.so
 %{_kf5_libdir}/akonadi/
 %{_kf5_libdir}/libKPim5AkonadiAgentBase.so.5*
 %{_kf5_libdir}/libKPim5AkonadiCore.so.5*
@@ -276,6 +275,7 @@ fi
 %{_kf5_bindir}/akonaditest
 %{_kf5_bindir}/asapcat
 
+%{_kf5_datadir}/kf5/akonadi/
 %{_kf5_datadir}/dbus-1/interfaces/org.freedesktop.Akonadi.*.xml
 %{_includedir}/KPim5/Akonadi/
 %{_includedir}/KPim5/AkonadiAgentBase/
@@ -291,6 +291,7 @@ fi
 %{_kf5_libdir}/cmake/KPim5Akonadi/
 %{_kf5_archdatadir}/mkspecs/modules/qt_Akonadi*.pri
 %{_kf5_qtplugindir}/pim5/akonadi/akonadi_test_searchplugin.so
+%{_kf5_qtplugindir}/designer/akonadi5widgets.so
 %{_kf5_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
 %{_kf5_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
 
@@ -315,6 +316,9 @@ fi
 
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-4
+- Move more devel files to the devel subpackage
+
 * Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com>
 - Split libs subpackage, to co-install with kf6 akonadi
 

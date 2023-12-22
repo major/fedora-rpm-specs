@@ -40,12 +40,12 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 1
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.8a
+Version:		1.3.8b
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -506,6 +506,14 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Wed Dec 20 2023 Paul Howarth <paul@city-fan.org> - 1.3.8b-1
+- Update to 1.3.8b
+  - Compiling ProFTPD 1.3.8a mod_sftp, mod_tls using libressl 3.7.3 failed
+    (GH#1735)
+  - Build system failed for specific module names (GH#1756)
+  - "Terrapin" Prefix Truncation Attacks in SSH Specification affected mod_sftp
+    (CVE-2023-48795, GH#1760)
+
 * Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 1.3.8a-2
 - Additional C compatibility fix
 

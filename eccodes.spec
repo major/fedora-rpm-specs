@@ -1,6 +1,10 @@
+%if 0%{?el8}
+%undefine __cmake_in_source_build
+%endif
+
 Name:           eccodes
-Version:        2.32.1
-Release:        2%{?dist}
+Version:        2.33.0
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -10,7 +14,7 @@ Summary:        WMO data format decoding and encoding
 # note that the test_data package provided on the ECMWF version
 # is unversioned, so use the download date to discriminate
 # between different versions.
-%global datapack_date    20231101
+%global datapack_date    20231216
 
 # latest fedora-38/rawhide grib_api version is 1.27.0-18
 # but this version number is to be updated as soon as we know
@@ -43,7 +47,7 @@ Source0:        https://confluence.ecmwf.int/download/attachments/45757960/eccod
 # note: this data package is unversioned upstream but still it is updated
 # now and then so rename the datapack using the download date
 # to make it versioned in fedora
-Source1:        http://download.ecmwf.org/test-data/eccodes/eccodes_test_data.tar.gz#/eccodes_test_data_%{datapack_date}.tar.gz
+Source1:        https://get.ecmwf.int/repository/test-data/eccodes/eccodes_test_data.tar.gz#/eccodes_test_data_%{datapack_date}.tar.gz
 
 # a custom script to create man pages
 Source2:        eccodes_create_man_pages.sh
@@ -105,8 +109,6 @@ Obsoletes:      grib_api < %{final_grib_api_version}
 
 # as explained in bugzilla #1562066
 ExcludeArch: i686
-# as explained in bugzilla #1562084
-ExcludeArch: armv7hl
 
 %description
 ecCodes is a package developed by ECMWF which provides an application
@@ -355,6 +357,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sun Dec 17 2023 Orion Poplawski <orion@nwra.com> - 2.33.0-1
+- Update to 2.33.0
+
 * Sun Nov 26 2023 Jos de Kloe <josdekloe@gmail.com> - 2.32.1-2
 - rebuild after so name jump of libjasper
 

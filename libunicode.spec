@@ -12,10 +12,10 @@ ExclusiveArch:  x86_64 aarch64
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
-BuildRequires:  fmt-devel
-BuildRequires:  range-v3-devel
+BuildRequires:  cmake(fmt)
+BuildRequires:  cmake(range-v3)
 BuildRequires:  unicode-ucd
-BuildRequires:  catch-devel
+BuildRequires:  pkgconfig(catch2)
 
 %description
 The goal of libunicode library is to bring painless unicode support to C++

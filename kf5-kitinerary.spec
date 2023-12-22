@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -86,6 +86,11 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
+# Rename translation files to avoid conflict with KF6
+find ./po -type f -execdir mv {} kitinerary5.po \;
+sed -i "/TRANSLATION_DOMAIN/ s/kitinerary/kitinerary5/" CMakeLists.txt
+sed -i "s/kitinerary/kitinerary5/" src/lib/Messages.sh
+
 
 %build
 %cmake_kf5 \
@@ -98,6 +103,9 @@ developing applications that use %{name}.
 %cmake_install
 
 %find_lang %{name} --all-name
+
+# Remove mime file conflicting with kitinerary (kf6)
+rm -rf %{buildroot}%{_kf5_datadir}/mime/
 
 
 %check
@@ -117,7 +125,6 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5Itinerary.so.5*
 %{_kf5_libexecdir}/kitinerary-extractor
-%{_kf5_datadir}/mime/packages/application-vnd-kde-itinerary.xml
 
 %files devel
 %{_includedir}/KPim5/kitinerary/
@@ -129,6 +136,10 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Rename translation files to avoid conflict with KF6
+- Remove conflicting mime file
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

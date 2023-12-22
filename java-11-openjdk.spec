@@ -324,7 +324,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -404,6 +404,7 @@
 %define jrebindir()     %{expand:%{_jvmdir}/%{sdkdir -- %{?1}}/bin}
 
 %global alt_java_name     alt-java
+%global generated_sources_name     generated_sources
 
 %global rpm_state_dir %{_localstatedir}/lib/rpm-state/
 
@@ -1059,6 +1060,7 @@ exit 0
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/src.zip
 %{_jvmdir}/%{sdkdir -- %{?1}}/full_sources
+%{_jvmdir}/%{sdkdir -- %{?1}}/%{generated_sources_name}
 }
 
 %define files_static_libs() %{expand:
@@ -1785,22 +1787,20 @@ done
 done
 
 %build
-# we need to symlink sources to expected lcoation, so debuginfo strip can locate debugsources
+# we need to symlink sources to expected location, so debuginfo strip can locate debugsources
 src_image=`ls -d %{compatiblename}*%{version}*portable.sources.noarch`
-ln -s $src_image/%{vcstag} %{vcstag} # this one shpuld be enoug
-# cpio is complaining baout several files from build dir. Attempt here, but seems not to be correct
-# as those sources are generated during build and so it have to be fixed in portables first
+misc_image=`ls -d %{compatiblename}*%{version}*portable.misc.%{_arch}`
+cp -rf $misc_image/%{generated_sources_name}/%{vcstag}/ $src_image # it would be nice to remove them once debugsources are generated:(
+ln -s $src_image/%{vcstag} %{vcstag}
 mkdir build
 pushd build
-  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build
-  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build-fastdebug
-  ln -s ../$src_image/%{vcstag}/src jdk%{featurever}.build-slowdebug
+  cp -r ../$misc_image/%{generated_sources_name}/jdk%{featurever}.build* .
 popd
 doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
 # in addition the builddir must match the builddir of the portables, including release
 # be aware, even os may be different, especially with buildonce, repack everywhere
 # so deducting it from installed deps
-portablenvr=`ls -d %{compatiblename}*%{version}*portable*.misc.%{_arch} | sed "s/portable.*.misc.//"`
+portablenvr=`echo ${misc_image} | sed "s/portable.*.misc.//"`
 portablebuilddir=/builddir/build/BUILD
   # Fix build paths in ELF files so it looks like we built them
   for file in $(find `pwd` -type f | grep -v -e "$src_image" -e "$doc_image") ; do
@@ -1984,7 +1984,7 @@ cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 # JDK11 specific, bianry file in sources
 rm -v $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources/*/test/jdk/sun/management/jmxremote/bootstrap/solaris-sparcv9/launcher
-
+cp -a ${misc_image}/%{generated_sources_name} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 
 pushd ${jdk_image}
 
@@ -2055,8 +2055,6 @@ done
 # Install /etc/.java/.systemPrefs/ directory
 # See https://bugzilla.redhat.com/show_bug.cgi?id=741821
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/.java/.systemPrefs
-
-# copy samples next to demos; samples are mostly js files
 
 # moving config files to /etc
 mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}
@@ -2422,6 +2420,9 @@ end
 %endif
 
 %changelog
+* Sat Dec 16 2023 Jiri Vanek <jvanek@redhat.com> - 1:11.0.21.0.9-3
+* using generated sources from portables for final debuginfo
+
 * Sat Dec 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:11.0.21.0.9-2
 - proeprly filing debugsources pkg
   by addedd symlinks restructuring the structure for original build sources

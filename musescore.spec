@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.1.1
+%global musescore_ver             4.2.0
 %global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
 
 # Font versions.  Use otfinfo -v to extract these values.
@@ -19,7 +19,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -216,8 +216,6 @@ Patch4:         %{name}-ffmpeg.patch
 # - Remove an invalid <icon> tag
 # - Remove duplicated <release> data
 Patch5:         %{name}-appdata.patch
-# Fix build errors on ARM with neon
-Patch6:         %{name}-neon.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -264,6 +262,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gmock)
+BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavdevice)
 BuildRequires:  pkgconfig(libavfilter)
@@ -316,7 +315,7 @@ Requires:       steinberg-petaluma-fonts-all
 # The following products have been modified from their upstream versions,
 # or MuseScore uses internal (non-public) APIs
 Provides:       bundled(beatroot-vamp) = 1.0
-Provides:       bundled(fluidsynth) = 2.1.4
+Provides:       bundled(fluidsynth) = 2.3.3
 Provides:       bundled(liblouis) = 3.24.0
 Provides:       bundled(intervaltree) = 0.1
 Provides:       bundled(rtf2html) = 0.2.0
@@ -412,7 +411,9 @@ cd ..
     -DCMAKE_CXX_FLAGS_RELEASE:STRING='%{build_cxxflags} -fPIC -DNDEBUG -DQT_NO_DEBUG' \
     -DMUE_BUILD_CRASHPAD_CLIENT:BOOL=OFF \
     -DMUE_BUILD_VIDEOEXPORT_MODULE:BOOL=ON \
+    -DMUE_COMPILE_USE_SYSTEM_FREETYPE:BOOL=ON \
     -DMUE_DOWNLOAD_SOUNDFONT:BOOL=OFF \
+    -DMUE_ENABLE_AUDIO_JACK:BOOL=ON \
     -DMUE_ENABLE_LOGGER_DEBUGLEVEL:BOOL=OFF \
     -DMUE_ENABLE_STRING_DEBUG_HACK:BOOL=OFF
 PREFIX=%{_prefix} %cmake_build --target lrelease
@@ -496,8 +497,8 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 #rm -fr $XDG_RUNTIME_DIR
 
 %files
-%doc README*
-%license LICENSE.GPL COPYING* MS?Basic_License.md
+%doc README* share/sound/MS?Basic_Readme.md share/sound/MS_Basic_Changelog.md
+%license LICENSE.txt share/sound/MS?Basic_License.md
 %{_bindir}/mscore
 %{_mandir}/man1/mscore.1*
 %{_mandir}/man1/musescore.1*
@@ -545,6 +546,10 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Wed Dec 20 2023 Jerry James <loganjerry@gmail.com> - 4.2.0-5
+- Version 4.2.0
+- Drop upstreamed neon patch
+
 * Fri Oct 20 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-4
 - Another attempt at fixing font metadata loading (bz 2244606)
 

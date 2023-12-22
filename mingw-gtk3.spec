@@ -6,11 +6,11 @@
 
 Name:           mingw-gtk3
 # Drop Source2 on next update!
-Version:        3.24.38
-Release:        2%{?dist}
+Version:        3.24.39
+Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.gtk.org
 Source0:        http://download.gnome.org/sources/gtk+/%{release_version}/gtk+-%{version}.tar.xz
 # wine /usr/i686-w64-mingw32/sys-root/mingw/bin/gtk-query-immodules-3.0.exe | sed -e 's@Z:/usr/i686-w64-mingw32/sys-root/mingw@..@' -e 's@/usr/i686-w64-mingw32/sys-root/mingw@..@' > gtk.immodules
@@ -315,6 +315,9 @@ fi
 
 
 %changelog
+* Wed Dec 20 2023 Sandro Mani <manisandro@gmail.com> - 3.24.39-1
+- Update to 3.24.39
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.38-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           netcdf
 Version:        4.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        NetCDF
@@ -12,6 +12,8 @@ Source0:        https://github.com/Unidata/netcdf-c/archive/v%{version}/%{name}-
 Patch0:         https://patch-diff.githubusercontent.com/raw/Unidata/netcdf-c/pull/2431.patch
 # Fix blosc test - https://github.com/Unidata/netcdf-c/issues/2572
 Patch1:         netcdf-tst-blosc.patch
+# Fix segfault in octave-netcdf on exit
+Patch2:         https://github.com/Unidata/netcdf-c/pull/2827.patch
 
 BuildRequires:  libtool
 BuildRequires:  make
@@ -406,6 +408,9 @@ done
 
 
 %changelog
+* Wed Dec 20 2023 Orion Poplawski <orion@nwra.com> - 4.9.2-2
+- Add upstream patch to fix octave-netcdf segfault on exit
+
 * Wed Nov 08 2023 Orion Poplawski <orion@nwra.com> - 4.9.2-1
 - Update to 4.9.2
 - Drop -DH5_USE_110_API

@@ -19,6 +19,7 @@ BuildRequires:  meson >= 0.59.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
+Requires:       gjs
 # loaded by imports.gi
 Requires:       appstream
 Requires:       gtk4

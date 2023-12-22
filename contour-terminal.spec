@@ -1,15 +1,11 @@
-%bcond_without qt6
-
 Name:           contour-terminal
-Version:        0.3.12.262
+Version:        0.4.0.6245
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
 
 License:        Apache-2.0
 URL:            https://github.com/contour-terminal/contour
 Source0:        %{url}/archive/v%{version}/contour-%{version}.tar.gz
-# fix build with fmt 10
-Patch0:         https://github.com/contour-terminal/contour/commit/782fb7248d6fe643e7163bf57b0bcef50a81a8f7.patch
 
 ExcludeArch:    s390x i686 ppc64le
 
@@ -26,35 +22,29 @@ BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
 BuildRequires:  harfbuzz-devel
 BuildRequires:  libxkbcommon-devel
-BuildRequires:  libunicode-devel
+BuildRequires:  libunicode-devel >= 0.4.0
+BuildRequires:  boxed-cpp-devel >= 1.1.0
 BuildRequires:  libutempter-devel
+BuildRequires:  pkgconfig(libssh2)
 # provides tic
 BuildRequires:  ncurses
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-%if %{?fedora} <= 37
 BuildRequires:  catch-devel
-%else
-BuildRequires:  catch2-devel
-%endif
 
-%if %{with qt6}
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
 BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6OpenGL)
 BuildRequires:  cmake(Qt6OpenGLWidgets)
-BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  cmake(Qt6Multimedia)
-%else
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5X11Extras)
-%endif
+BuildRequires:  cmake(Qt6Core5Compat)
 
 Requires:       hicolor-icon-theme
 Requires:       kf5-kservice
@@ -72,11 +62,8 @@ for everyday use. It is aiming for power users with a modern feature mindset.
 %cmake \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
-%if %{with qt6}
+    -DCONTOUR_TESTING=ON \
     -DCONTOUR_QT_VERSION=6 \
-%else
-    -DCONTOUR_QT_VERSION=5 \
-%endif
 
 %cmake_build
 
@@ -89,8 +76,7 @@ rm %{buildroot}%{_datadir}/contour/LICENSE.txt
 rm %{buildroot}%{_datadir}/contour/README.md
 
 %check
-./%{_vpath_builddir}/src/crispy/crispy_test
-./%{_vpath_builddir}/src/vtbackend/vtbackend_test
+%ctest
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml

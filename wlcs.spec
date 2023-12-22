@@ -18,7 +18,7 @@
 %bcond tsan 0%{?arch_has_tsan:1}
 
 Name:           wlcs
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Wayland Conformance Test Suite
 

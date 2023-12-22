@@ -1,5 +1,5 @@
 Name:           intel-gmmlib
-Version:        22.3.15
+Version:        22.3.16
 Release:        %autorelease
 Summary:        Intel Graphics Memory Management Library
 

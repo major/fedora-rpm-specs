@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.8.1%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
+Version:        1.9.0%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -60,6 +60,10 @@ Source1520:     hatch-python-install.1
 Source1530:     hatch-python-remove.1
 Source1540:     hatch-python-show.1
 Source1550:     hatch-python-update.1
+
+# Add the requires_internet mark to a few tests
+# https://github.com/pypa/hatch/pull/1167
+Patch:          %{url}/pull/1167.patch
 
 BuildArch:      noarch
 

@@ -11,7 +11,7 @@
 %global bundled_hunspell_version    1.3
 %global bundled_synctex_version     1.17
 %global bundled_gsllite_version     0.34.0
-%global bundled_ace_version         1.4.5
+%global bundled_ace_version         1.28
 %global bundled_datatables_version  1.10.4
 %global bundled_jquery_version      3.5.1
 %global bundled_pdfjs_version       1.3.158
@@ -22,14 +22,15 @@
 %global bundled_xtermjs_version     3.14.5
 %global bundled_inertpol_version    0.2.5
 %global bundled_focusvis_version    5.0.2
+%global bundled_jsyaml_version      5.0.2
 %global mathjax_short               27
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
-%global rstudio_version_minor       09
-%global rstudio_version_patch       1
-%global rstudio_version_suffix      494
-%global rstudio_git_revision_hash   cd7011dce393115d3a7c3db799dda4b1c7e88711
-%global quarto_git_revision_hash    867949c912fc03f4f967a7142bb37a876c61e9e5
+%global rstudio_version_minor       12
+%global rstudio_version_patch       0
+%global rstudio_version_suffix      369
+%global rstudio_git_revision_hash   960e8fa44552e2c0e917260463dfec48c83f215c
+%global quarto_git_revision_hash    d379a090ffcc482fd383f43b0d598e7c3cb6776b
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
 %global rstudio_flags \
     export RSTUDIO_VERSION_MAJOR=%{rstudio_version_major} ; \
@@ -46,7 +47,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -140,6 +141,7 @@ Provides:       bundled(js-qunit) = %{bundled_qunitjs_version}
 Provides:       bundled(js-xterm) = %{bundled_xtermjs_version}
 Provides:       bundled(js-inert-polyfill) = %{bundled_inertpol_version}
 Provides:       bundled(js-focus-visible) = %{bundled_focusvis_version}
+Provides:       bundled(js-yaml) = %{bundled_jsyaml_version}
 
 %global _description %{expand:
 RStudio is an integrated development environment (IDE) for R. It includes a
@@ -208,6 +210,7 @@ ln -sf %{_includedir}/catch2 src/cpp/tests/cpp/tests/vendor
     -DRSTUDIO_USE_SYSTEM_BOOST=Yes \
     -DRSTUDIO_USE_SYSTEM_YAML_CPP=Yes \
     -DBOOST_ROOT=%{_prefix} -DBOOST_LIBRARYDIR=%{_lib} \
+    -DRSTUDIO_BOOST_REQUESTED_VERSION=1.78.0 \
     -DCMAKE_INSTALL_PREFIX=%{_libexecdir}/%{name}
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 %make_build -C build # ALL
@@ -347,6 +350,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Wed Dec 20 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.12.0+369-1
+- Update to 2023.12.0+369
+
 * Tue Oct 31 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.09.1+494-2
 - Fix Copilot's node path resolution
 

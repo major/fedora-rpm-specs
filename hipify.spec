@@ -1,6 +1,6 @@
 %global upstreamname HIPIFY
 
-%global rocm_release 5.7
+%global rocm_release 6.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -9,7 +9,7 @@
 
 Name:           hipify
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm-Developer-Tools
@@ -65,8 +65,4 @@ rm -rf %{buildroot}/usr/hip
 %{_bindir}/hipify-perl
 
 %changelog
-* Fri Oct 13 2023 Tom Rix <trix@redhat.com> - 5.7.0-2
-- Address review comments
-
-* Sun Oct 1 2023 Tom Rix <trix@redhat.com> - 5.7.0-1
-- Initial package
+%autochangelog

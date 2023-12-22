@@ -19,9 +19,12 @@
 #   /usr/lib64/python3.12/site-packages/torch/bin/test_api, test_lazy
 %bcond_with test
 
+# For testing rocm
+%bcond_with rocm
+
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        PyTorch AI/ML framework
 # See below for details
 License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Apache-2.0 AND MIT AND BSL-1.0 AND GPL-3.0-or-later AND Zlib
@@ -32,6 +35,12 @@ Source0:        %{forgeurl}/archive/%{commit0}/pytorch-%{shortcommit0}.tar.gz
 Source1:        pyproject.toml
 %else
 Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
+%endif
+%if %{with rocm}
+# Public version is references the /opt install location
+# Replace it with one that uses the system install location
+Source100:      LoadHIP.cmake
+Patch100:       0001-add-rocm_version-fallback.patch
 %endif
 
 # Misc cmake changes that would be difficult to upstream
@@ -95,6 +104,24 @@ BuildRequires:  python3-typing-extensions
 BuildRequires:  sleef-devel
 BuildRequires:  valgrind-devel
 BuildRequires:  xnnpack-devel
+%if %{with rocm}
+BuildRequires:  hipblas-devel
+BuildRequires:  hipcub-devel
+BuildRequires:  hipfft-devel
+BuildRequires:  hipsparse-devel
+BuildRequires:  hipsolver-devel
+BuildRequires:  rocblas-devel
+BuildRequires:  rocprim-devel
+BuildRequires:  rocm-cmake
+BuildRequires:  rocm-comgr-devel
+BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-rpm-macros
+BuildRequires:  rocm-rpm-macros-modules
+BuildRequires:  rocthrust-devel
+
+Requires:       rocm-rpm-macros-modules
+%endif
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(filelock)
@@ -156,6 +183,13 @@ rm -rf %{pypi_name}.egg-info
 cp %{SOURCE1} .
 %else
 %autosetup -p1 -n pytorch-v%{version}
+
+%if %{with rocm}
+cp %{SOURCE100} cmake/public
+
+# hipify
+./tools/amd_build/build_amd.py 
+%endif
 
 # Release comes fully loaded with third party src
 # Remove what we can
@@ -238,7 +272,14 @@ export USE_NUMPY=ON
 export USE_OPENMP=OFF
 export USE_PYTORCH_QNNPACK=OFF
 export USE_QNNPACK=OFF
+%if %{with rocm}
+export USE_ROCM=ON
+export USE_NCCL=OFF
+export BUILD_NVFUSER=OFF
+export HIP_PATH=%{_prefix}
+%else
 export USE_ROCM=OFF
+%endif
 export USE_SYSTEM_LIBS=ON
 export USE_TENSORPIPE=OFF
 export USE_XNNPACK=ON
@@ -748,6 +789,9 @@ sed -i -f br.sed devel.files
 # aten/src/ATen/native/cpu/avx_mathfun.h
 
 %changelog
+* Wed Dec 20 2023 Tom Rix <trix@redhat.com> - 2.1.0-12
+- Stub in rocm to test in flight packages
+
 * Wed Dec 13 2023 Tom Rix <trix@redhat.com> - 2.1.0-11
 - Move unversioned *.so's to main package
 

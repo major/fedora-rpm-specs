@@ -2,11 +2,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.1.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A gem for controlling external programs running in the background
 License: MIT
 URL: http://github.com/enkessler/childprocess
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix `validates cleanly` spec compatibility with RubyGems 3.5+
+# https://github.com/enkessler/childprocess/pull/193
+Patch0: rubygem-childprocess-4.1.0-Make-validates-cleanly-spec-compatible-with-RubyGems-3-5-.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(ffi)
@@ -30,6 +33,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch 0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -82,6 +86,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Wed Dec 20 2023 Vít Ondruch <vondruch@redhat.com> - 4.1.0-6
+- Fix specs for compatibility with RubyGems 3.5+ / Ruby 3.3+.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

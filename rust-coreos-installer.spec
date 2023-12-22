@@ -11,8 +11,8 @@
 %global crate coreos-installer
 
 Name:           rust-%{crate}
-Version:        0.18.0
-Release:        3%{?dist}
+Version:        0.20.0
+Release:        1%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -174,6 +174,9 @@ from the initramfs in IoT/Edge and is supported by the community.
 %endif
 
 %changelog
+* Wed Dec 20 2023 Packit <hello@packit.dev> - 0.20.0-1
+- New upstream release
+
 * Thu Dec 07 2023 Steven Presti <spresti@redhat.com> - 0.18.0-3
 - Remove rdcore patch, and move its logic into %prep
 

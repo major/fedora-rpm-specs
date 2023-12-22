@@ -823,7 +823,13 @@ find %{buildroot}%{_pkgdocdir} -name "*.html" -print0 | xargs -r0 linkchecker
 # t5559-http-fetch-smart-http2 runs t5551-http-fetch-smart with
 # HTTP_PROTO=HTTP/2.  Unfortunately, it fails quite regularly.
 # https://lore.kernel.org/git/Y4fUntdlc1mqwad5@pobox.com/
-GIT_SKIP_TESTS="t5559"
+#
+# t6300.35 t6300.107 t6300.108 are skipped due to them failing
+# with zlib-ng
+# https://bugzilla.redhat.com/show_bug.cgi?id=2253368
+# These tests will be enabled again in next git release, where
+# fix should be in place.
+GIT_SKIP_TESTS="t5559 t6300.35 t6300.107 t6300.108"
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 # Skip tests which require mod_http2 on el7

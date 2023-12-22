@@ -1,5 +1,5 @@
 Name:           python-jupyter-server-fileid
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        A Jupyter Server extension for the File ID service
 License:        BSD-3-Clause

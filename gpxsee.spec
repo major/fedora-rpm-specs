@@ -1,7 +1,7 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        13.12
+Version:        13.13
 Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
@@ -70,6 +70,13 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Dec 19 2023 Packit <hello@packit.dev> - 13.13-1
+- Increase the default pixmap cache size on Android to 384MB (Martin Tůma)
+- Fixed broken map scale (ruler) on HiDPI maps (Martin Tůma)
+- Limit the overzoom by the resulting tile size rather than number of levels (Martin Tůma)
+- Version++ (Martin Tůma)
+- Resolves rhbz#2255189
+
 * Tue Dec 12 2023 Packit <hello@packit.dev> - 13.12-1
 - Code cleanup (Martin Tůma)
 - Fixed broken TMS maps rendering (Martin Tůma)

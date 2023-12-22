@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Sieve support library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -52,15 +52,22 @@ BuildRequires:  kf5-kpimtextedit-devel >= %{majmin_ver}
 BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
 BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
 
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
 Obsoletes:      kdepim-libs < 7:16.04.0
 Conflicts:      kdepim-libs < 7:16.04.0
 
 %description
 %{summary}.
 
+%package        libs
+Summary:        Only the linkable libraries for %{name}
+%description    libs
+%{summary}.
+
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5SyntaxHighlighting)
 %description    devel
 %{summary}.
@@ -68,6 +75,11 @@ Requires:       cmake(KF5SyntaxHighlighting)
 
 %prep
 %autosetup -n %{framework}-%{version}
+
+# Rename translation files to avoid conflict with KF6
+find ./po -type f -execdir mv {} libksieve5.po \;
+sed -i "/TRANSLATION_DOMAIN/ s/libksieve/libksieve5/" src/CMakeLists.txt
+sed -i "s/libksieve/libksieve5/" src/Messages.sh
 
 
 %build
@@ -87,8 +99,10 @@ Requires:       cmake(KF5SyntaxHighlighting)
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/knsrcfiles/ksieve_script.knsrc
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_datadir}/sieve/
+
+%files libs
+%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5KManageSieve.so.*
 %{_kf5_libdir}/libKPim5KSieve.so.*
 %{_kf5_libdir}/libKPim5KSieveUi.so.*
@@ -106,6 +120,10 @@ Requires:       cmake(KF5SyntaxHighlighting)
 
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Split libs subpackage, to co-install with KF6 libksieve
+- Rename translation files to avoid conflict with KF6 libksieve
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

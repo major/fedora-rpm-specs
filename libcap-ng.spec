@@ -1,13 +1,10 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
-Version: 0.8.3
-Release: 8%{?dist}
+Version: 0.8.4
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://people.redhat.com/sgrubb/libcap-ng/
 Source0: https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
-# This patch can be removed when 1899540 is resolved
-Patch1: libcap-ng-0.8.3-apply-disable.patch
-Patch2: libcap-ng-0.8.3-wur.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: kernel-headers >= 2.6.11 
@@ -50,8 +47,6 @@ lets you set the file system based capabilities.
 
 %prep
 %setup -q
-%patch 1 -p1
-%patch 2 -p1
 
 %build
 %configure --libdir=%{_libdir} --with-python=no --with-python3
@@ -97,11 +92,15 @@ make check
 %attr(0644,root,root) %{_mandir}/man8/*
 
 %changelog
+* Wed Dec 20 2023 Steve Grubb <sgrubb@redhat.com> 0.8.4-1
+- New upstream bugfix release
+- Drop libcap-ng-0.8.3-apply-disable.patch since things should be fixed
+
 * Mon Sep 04 2023 Steve Grubb <sgrubb@redhat.com> 0.8.3-8
 - Add function annotations to warn on unused results
 - SPDX Migration
 
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-7
+* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> 0.8.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.3-6

@@ -1,6 +1,6 @@
 %global upstreamname rocPRIM
-%global rocm_release 5.7
-%global rocm_patch 1
+%global rocm_release 6.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain clang
@@ -14,7 +14,7 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        ROCm parallel primatives
 
 License:        MIT and BSD
@@ -87,31 +87,4 @@ cp NOTICES.txt %{buildroot}%{_docdir}/rocprim/
 %{_datadir}/cmake/rocprim
 
 %changelog
-* Fri Oct 20 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.1-1
-- Update to 5.7.1
-
-* Tue Oct 03 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
-- Update to 5.7
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 30 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-1
-- Update to 5.6
-
-* Tue Jun 20 2023 Tom Rix <trix@redhat.com> - 5.5.1-4
-- For cxx flags change
-
-* Fri Jun 16 2023 Tom Rix <trix@redhat.com> - 5.5.1-3
-- Cleanup licenses
-- Cleanup docdir ownership
-
-* Thu Jun 15 2023 Tom Rix <trix@redhat.com> - 5.5.1-2
-- add provides rocprim-static
-- change *.cmake install location
-- fix bad include dir another way
-- add doxygen proactively for expected upstream change
-- add NOTICES.txt to license files
-
-* Tue Jun 6 2023 Tom Rix <trix@redhat.com> - 5.5.1-1
-- Initial package
+%autochangelog

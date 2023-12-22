@@ -3,7 +3,7 @@
 %global cjs_version 6.0.0
 
 Name:           nemo-extensions
-Version:        6.0.0
+Version:        6.0.1
 Release:        1%{?dist}
 Summary:        Extensions for Nemo
 
@@ -246,13 +246,6 @@ popd
 
 rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 
-desktop-file-install                                    \
- --delete-original                                      \
- --dir=%{buildroot}%{_datadir}/applications             \
- %{buildroot}/%{_datadir}/applications/nemo-seahorse-pgp-*.desktop
-
-%find_lang nemo-preview
-
 %files -n nemo-audio-tab
 %license nemo-audio-tab/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-audio-tab.py
@@ -296,7 +289,7 @@ desktop-file-install                                    \
 %{_datadir}/glib-2.0/schemas/org.nemo.extensions.nemo-terminal.gschema.xml
 %{python3_sitelib}/nemo_terminal-%{version}-py%{python3_version}.egg-info/
 
-%files -n nemo-preview -f nemo-preview.lang
+%files -n nemo-preview
 %doc nemo-preview/README
 %license nemo-preview/COPYING
 %{_bindir}/nemo-preview
@@ -327,12 +320,14 @@ desktop-file-install                                    \
 %doc nemo-seahorse/{AUTHORS,COPYING,README,NEWS,ChangeLog}
 %{_bindir}/nemo-seahorse-tool
 %{_libdir}/nemo/extensions-3.0/libnemo-seahorse.so
-%{_datadir}/applications/nemo-seahorse-pgp-*.desktop
 %{_datadir}/glib-2.0/schemas/org.nemo.plugins.seahorse*gschema.xml
 %{_datadir}/nemo-seahorse/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Wed Dec 20 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
+- Update to 6.0.1 release
+
 * Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
 - Update to 6.0.0 release
 

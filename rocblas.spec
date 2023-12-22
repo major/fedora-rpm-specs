@@ -1,6 +1,6 @@
 %global upstreamname rocBLAS
-%global rocm_release 5.7
-%global rocm_patch 1
+%global rocm_release 6.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -16,7 +16,7 @@
 
 Name:           rocblas
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -119,28 +119,4 @@ done
 %endif
 
 %changelog
-* Sun Oct 22 2023 Tom Rix <trix@redhat.com> - 5.7.1-3
-- Change url
-- capitalize AND
-
-* Sat Oct 21 2023 Tom Rix <trix@redhat.com> - 5.7.1-2
-- Fix so location
-- glob gpu family location
-
-* Sun Oct 15 2023 Tom Rix <trix@redhat.com> - 5.7.1-1
-- Update to 5.7.1
-- Use rocm-rpm-macros
-
-* Sat Oct 7 2023 Tom Rix <trix@redhat.com> - 5.7.0-1
-- Update to 5.7
-- Use WIP rocm-rpm-macros
-- Convert to environent modules
-
-* Sun Oct 1 2023 Tom Rix <trix@redhat.com> - 5.6.0-2
-- Split the build into gpu families
-
-* Sat Sep 23 2023 Tom Rix <trix@redhat.com> - 5.6.0-1
-- Update to 5.6
-
-* Tue Jun 6 2023 Tom Rix <trix@redhat.com> - 5.5.1-1
-- Initial package
+%autochangelog

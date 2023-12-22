@@ -1,7 +1,7 @@
 %global pymodule_name openscap_report
 
 Name:           openscap-report
-Version:        0.2.5
+Version:        0.2.6
 Release:        1%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
@@ -60,6 +60,21 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Wed Dec 20 2023 Packit <hello@packit.dev> - 0.2.6-1
+- 0.2.6 (Jan Rodak)
+- Extend the condition to account empty strings in href (Jan Černý)
+- Add comments for the pylint tool (Jan Černý)
+- Add special classes to table element (Jan Černý)
+- Account for missing reference href attribute (Jan Černý)
+- Add pragmas to avoid PEP8 warnings (Jan Černý)
+- Present references in a table (Jan Černý)
+- Collapse CPE tree when is true (Jan Rodak)
+- Fix typo (Jan Rodak)
+- Add titles (Jan Rodak)
+- Fix performace of generation of graphs (Jan Rodak)
+- Rearrange fields of rule detail and OVAL definition detail (Jan Rodak)
+- Fix bugs in html (Jan Rodak)
+
 * Mon Sep 11 2023 Packit <hello@packit.dev> - 0.2.5-1
 - 0.2.5 (Jan Rodak)
 - Show referenced OVAL State (Jan Rodak)

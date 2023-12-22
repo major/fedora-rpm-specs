@@ -3,8 +3,8 @@
 #
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
-Version: 8.0.3
-Release: 5%{?dist}
+Version: 8.0.4
+Release: 1%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.gz
@@ -18,29 +18,7 @@ Requires: binutils
 Provides: bundled(libiberty)
 Provides: bundled(gdb) = 10.2
 Patch0: lzo_snappy_zstd.patch
-Patch1: crash-8.0.3_build.patch
-Patch2: 0001-Fix-kernel-version-macros-for-revision-numbers-over-.patch
-Patch3: 0002-Fix-failure-of-dev-d-D-options-on-Linux-6.4-and-late.patch
-Patch4: 0003-Fix-kmem-v-option-displaying-no-regions-on-Linux-6.3.patch
-Patch5: 0004-arm64-x86_64-Enhance-vtop-command-to-show-zero_pfn-i.patch
-Patch6: 0005-diskdump-netdump-fix-segmentation-fault-caused-by-fa.patch
-Patch7: 0006-Fix-segfault-in-arm64_is_kernel_exception_frame-when.patch
-Patch8: 0007-Output-prompt-when-stdin-is-not-a-TTY.patch
-Patch9: 0008-x86_64-Fix-bt-command-printing-stale-entries-on-Linu.patch
-Patch10: 0009-Fix-invalid-structure-size-error-during-crash-startu.patch
-Patch11: 0010-Revert-Fix-segfault-in-arm64_is_kernel_exception_fra.patch
-Patch12: 0011-arm64-Fix-again-segfault-in-arm64_is_kernel_exceptio.patch
-Patch13: 0012-ppc64-Remove-redundant-PTE-checks.patch
-Patch14: 0013-Support-module-memory-layout-change-on-Linux-6.4.patch
-Patch15: 0014-Fix-failure-of-gathering-task-table-on-Linux-6.5-rc1.patch
-Patch16: 0015-Fix-compilation-error-due-to-new-strlcpy-function-th.patch
-Patch17: 0016-Fix-irq-a-option-on-Linux-6.0-and-later.patch
-Patch18: 0017-vmware-Improve-output-when-we-fail-to-read-vmware-vm.patch
-Patch19: 0018-Exclude-zero-entries-from-do_maple_tree-return-value.patch
-Patch20: 0019-Fix-irq-a-s-options-on-Linux-6.5-rc1-and-later.patch
-Patch21: 0020-Fix-segmentation-fault-by-tree-s-option-with-Maple-T.patch
-Patch22: 0021-Fix-warning-about-kernel-version-inconsistency-durin.patch
-Patch23: 0022-Fix-get_linux_banner_from_vmlinux-for-vmlinux-withou.patch
+Patch1: crash-8.0.4_build.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -60,30 +38,8 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 
 %prep
 %setup -n %{name}-%{version} -q
-%patch0 -p1 -b lzo_snappy_zstd.patch
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
+%patch -P 0 -p1 -b lzo_snappy_zstd.patch
+%patch -P 1 -p1
 
 %build
 
@@ -109,6 +65,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Thu Nov 16 2023 Lianbo Jiang <lijiang@redhat.com> - 8.0.4-1
+- Rebase to upstream crash 8.0.4
+
 * Tue Jul 25 2023 Lianbo Jiang <lijiang@redhat.com> - 8.0.3-5
 - Fix warning about kernel version inconsistency during crash startup
 

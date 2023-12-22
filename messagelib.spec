@@ -1,6 +1,6 @@
 Name:    messagelib
 Version: 24.01.80
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Message libraries
 
 License: BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -70,6 +70,7 @@ BuildRequires:  cmake(KF6TextCustomEditor)
 BuildRequires:  cmake(KF6TextAddonsWidgets)
 BuildRequires:  cmake(KPim6AkonadiSearch)
 
+Obsoletes:      kf5-messagelib < 24.01.80
 
 %description
 %{summary}.
@@ -155,6 +156,9 @@ Requires:       cmake(Qt6WebEngineWidgets)
 
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-4
+- Obsolete kf5-messagelib
+
 * Wed Dec 13 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-3
 - Updated devel requirements
 

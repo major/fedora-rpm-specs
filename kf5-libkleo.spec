@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE PIM cryptographic library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later WITH GCC-exception-3.1
@@ -44,6 +44,8 @@ BuildRequires:  cmake(KF5WindowSystem)
 
 Obsoletes:      kdepim-libs < 7:16.04.0
 
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
 # gpg support ui
 %if 0%{?fedora} < 26 && 0%{?rhel} < 8
 Requires:       pinentry-gui
@@ -57,9 +59,14 @@ Conflicts: kde-l10n < 17.03
 %description
 %{summary}.
 
+%package        libs
+Summary:        Only the linkable libraries for %{name}
+%description    libs
+%{summary}.
+
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # INTERFACE_LINK_LIBRARIES "QGpgme;Gpgmepp"
 Requires:       cmake(Gpgmepp)
 Requires:       cmake(QGpgme)
@@ -70,6 +77,11 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n %{framework}-%{version} -p1
+
+# Rename translation files to avoid conflict with KF6
+find ./po -type f -execdir mv {} libkleopatra5.po \;
+sed -i "/TRANSLATION_DOMAIN/ s/libkleopatra/libkleopatra5/" src/CMakeLists.txt
+sed -i "s/libkleopatra/libkleopatra5/" src/Messages.sh
 
 
 %build
@@ -89,9 +101,11 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_sysconfdir}/xdg/libkleopatrarc
+%{_kf5_datadir}/libkleopatra/
+
+%files libs
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5Libkleo.so.*
-%{_kf5_datadir}/libkleopatra/
 
 %files devel
 %{_kf5_libdir}/libKPim5Libkleo.so
@@ -102,6 +116,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Split libs subpackage, to co-install with KF6 libkleo
+- Rename translation files to avoid conflict with KF6 libkleo
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

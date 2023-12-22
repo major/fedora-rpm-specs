@@ -83,7 +83,7 @@ Conflicts: NetworkManager < 1.20
 
 %description
 Squid is a high-performance proxy caching server for Web clients,
-supporting FTP, gopher, and HTTP data objects. Unlike traditional
+supporting FTP and HTTP data objects. Unlike traditional
 caching software, Squid handles all requests in a single,
 non-blocking, I/O-driven process. Squid keeps meta data and especially
 hot objects cached in RAM, caches DNS lookups, supports non-blocking

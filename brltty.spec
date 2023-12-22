@@ -47,13 +47,14 @@
 
 Name: brltty
 Version: 6.6
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
 Source1: brltty.service
 Source2: brlapi-config.h
 Source3: brlapi-forbuild.h
+Source4: brltty.sysusers
 Patch1: brltty-6.3-loadLibrary.patch
 # libspeechd.h moved in latest speech-dispatch (NOT sent upstream)
 Patch2: brltty-6.3-libspeechd.patch
@@ -67,6 +68,9 @@ BuildRequires: glibc-kernheaders
 BuildRequires: gcc
 BuildRequires: bluez-libs-devel
 BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
+%{?sysusers_requires_compat}
+BuildRequires: lua-devel
 BuildRequires: gettext
 BuildRequires: at-spi2-core-devel
 BuildRequires: alsa-lib-devel
@@ -549,6 +553,8 @@ popd
 rm -f doc/Initramfs/Dracut/README*
 rmdir doc/Initramfs/Dracut doc/Initramfs
 
+# Install group creation file
+install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/brltty.conf
 
 %if %{!JAVA}
 find . -type d -name 'Java' | xargs rm -rf
@@ -565,7 +571,7 @@ find %{buildroot}%{_datadir} -type d -name 'Java' | xargs rm -rf
 %systemd_postun_with_restart brltty.service
 
 %pre -n brlapi
-getent group brlapi >/dev/null || groupadd -r brlapi >/dev/null
+%sysusers_create_compat %{SOURCE4}
 
 %post -n brlapi
 if [ ! -e %{_sysconfdir}/brlapi.key ]; then
@@ -651,6 +657,8 @@ fi
 %doc %{_mandir}/man1/xbrlapi.*
 %doc %{_mandir}/man1/vstp.*
 %doc %{_mandir}/man1/eutp.*
+%{_sysusersdir}/brltty.conf
+%{lua_libdir}/brlapi.so
 
 %files -n brlapi-devel
 %{_libdir}/libbrlapi.so
@@ -694,6 +702,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Wed Dec 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-9
+- Migrate group creation to sysusers
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 6.6-8
 - Bump release and rebuild
 

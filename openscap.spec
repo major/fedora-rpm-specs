@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -10,10 +10,6 @@ Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}
 
 %bcond_without  check
 
-# merged to 1.3.9
-# port to PCRE2 (PR#2015), minus CI-specific changes
-# Patch0:       2015.patch
-
 # Fedora arched lib directories
 # https://github.com/OpenSCAP/openscap/pull/2056
 Patch1:         openscap-1.3.9-perlpath.patch
@@ -22,6 +18,9 @@ Patch1:         openscap-1.3.9-perlpath.patch
 # Implicit declarations due to missing includes
 # reported in #PR2060, #PR2061, #PR2062
 Patch2:         openscap-1.3.9-includes.patch
+
+# Fix test test_sysctl_probe_all.sh
+Patch3: openscap-1.3.10-fix_sysctl_probe_tests-PR-2050.patch
 
 BuildRequires:  make
 BuildRequires:  cmake >= 2.6
@@ -276,6 +275,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Wed Dec 20 2023 Jan Černý <jcerny@redhat.com> - 1:1.3.9-3
+- Fix test test_sysctl_probe_all.sh
+- Clean up the repository
+
 * Thu Nov 23 2023 Michal Ambroz <rebus _AT seznam.cz> - 1:1.3.9-2
 - adding conditional for apt-devel apt-libs as proposed upstream
 

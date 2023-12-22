@@ -26,7 +26,7 @@
 
 # This package is named ardour8 to allow parallel installation with older versions of Ardour.
 Name:       ardour8
-Version:    8.1.0
+Version:    8.2.0
 
 Release:    %autorelease
 Summary:    Digital Audio Workstation
@@ -40,11 +40,10 @@ Source0:    Ardour-%{version}.tar.bz2
 Source1:    LICENSING
 Source2:    gpl-3.0.txt
 
-# https://github.com/Ardour/ardour/pull/840
-Patch0:     0001-Make-option-to-disable-VST3-support-consistent.patch
-# https://github.com/Ardour/ardour/pull/841
-Patch1:     0001-Fix-failure-to-build-with-libxml2-version-2.12.patch
-Patch2:     ardour8-c99.patch
+# Don’t build new_aaf_session tool which needs bundled libaaf library for now,
+# which is not packaged for Fedora yet.
+Patch:      ardour8-8.2.0-noaaf.patch
+
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.

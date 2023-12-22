@@ -3,7 +3,7 @@
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        2%{?svn_date:.%{svn_date}}%{?dist}
+Release:        3%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 License:        BSD and GPLv2+
@@ -22,6 +22,7 @@ Patch12:        kBuild-configure-c99.patch
 Patch13:        kBuild-c99.patch
 Patch14:        changeset_3572.diff
 Patch15:        changeset_trunk_3566.diff
+Patch16:        kBuild-c99-2.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -69,6 +70,7 @@ repository.
 %patch14 -p1 -R -b .revert
 %patch15 -p1 -R -b .revert2
 %endif
+%patch16 -p0
 
 %build
 echo KBUILD_SVN_URL := http://svn.netlabs.org/repos/kbuild/trunk  >  SvnInfo.kmk
@@ -112,6 +114,9 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Wed Dec 20 2023 Florian Weimer <fweimer@redhat.com> - 0.1.9998.r3589-3.20230220
+- Fix another C compatibility issue (#2154544)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3589-2.20230220
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

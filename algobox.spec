@@ -1,6 +1,6 @@
 Name:           algobox
-Version:        1.0.3
-Release:        8%{?dist}
+Version:        1.1.1
+Release:        %autorelease
 Summary:        Algorithmic software
 Summary(fr):    Logiciel d'algorithmique
 
@@ -17,6 +17,7 @@ BuildRequires:  qt5-qtbase-devel >= 5.7
 BuildRequires:  qt5-qtwebengine-devel
 
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 BuildRequires: make
 
 %description
@@ -46,6 +47,9 @@ chmod -x license.txt
 desktop-file-validate \
   %{buildroot}%{_datadir}/applications/algobox.desktop
 
+appstream-util validate-relax --nonet \
+  %{buildroot}%{_metainfodir}/*.metainfo.xml
+
 
 %files
 %license license.txt
@@ -55,29 +59,8 @@ desktop-file-validate \
 %{_datadir}/applications/algobox.desktop
 %{_datadir}/mime/packages/x-algobox.xml
 %{_datadir}/pixmaps/algobox.png
+%{_datadir}/metainfo/algobox.metainfo.xml
 
 
 %changelog
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Mar 03 2020 Nicolas Chauvet <kwizart@gmail.com> - 1.0.3-1
-- Initial spec file
+%autochangelog

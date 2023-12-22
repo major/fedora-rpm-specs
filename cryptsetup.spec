@@ -1,6 +1,6 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
-Version: 2.7.0~rc0
+Version: 2.7.0~rc1
 Release: 1%{?dist}
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup
@@ -19,7 +19,7 @@ Obsoletes: %{name}-reencrypt <= %{version}
 Provides: %{name}-reencrypt = %{version}
 
 %global upstream_version %{version_no_tilde}
-Source0: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.6/cryptsetup-%{upstream_version}.tar.xz
+Source0: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.7/cryptsetup-%{upstream_version}.tar.xz
 
 %description
 The cryptsetup package contains a utility for setting up
@@ -121,6 +121,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 %{_sbindir}/cryptsetup-ssh
 
 %changelog
+* Wed Dec 20 2023 Milan Broz <gmazyland@gmail.com> - 2.7.0~rc1-1
+- Update to cryptsetup 2.7.0-rc1.
+
 * Wed Nov 29 2023 Ondrej Kozina <okozina@redhat.com> - 2.7.0~rc0-1
 - Update to cryptsetup 2.7.0-rc0.
 

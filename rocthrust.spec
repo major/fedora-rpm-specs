@@ -1,7 +1,7 @@
 %global upstreamname rocThrust
 
-%global rocm_release 5.7
-%global rocm_patch 1
+%global rocm_release 6.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Compiler is hipcc, which is clang based:
@@ -16,7 +16,7 @@
 
 Name:           rocthrust
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        ROCm Thrust libary
 
 Url:            https://github.com/ROCmSoftwarePlatform
@@ -96,17 +96,4 @@ mv %{buildroot}/usr/lib/cmake %{buildroot}%{_datadir}
 %{_datadir}/cmake/%{name}
 
 %changelog
-* Fri Oct 20 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.1-1
-- Update to 5.7.1
-
-* Tue Oct 03 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.7.0-1
-- Update to 5.7
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 2 2023 Tom Rix <trix@redhat.com> - 5.6.0-1
-- noarch the package
-
-* Fri Jun 30 2023 Tom Rix <trix@redhat.com> - 5.5.1-1
-- Initial package
+%autochangelog

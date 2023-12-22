@@ -1,5 +1,7 @@
+%bcond tests 1
+
 Name:           python-pydantic
-Version:        2.4.2
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        Data validation using Python type hinting
 
@@ -11,9 +13,12 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  tomcli
 # For check phase
-BuildRequires:  python3dist(dirty-equals)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-mock)
+%if %{with tests}
+BuildRequires:  %{py3_dist cloudpickle}
+BuildRequires:  %{py3_dist dirty-equals}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-mock}
+%endif
 
 %description
 Data validation and settings management using python type hinting.
@@ -54,8 +59,11 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 
 
 %check
+%pyproject_check_import -e pydantic.mypy -e pydantic.v1.mypy
+%if %{with tests}
 # We don't build docs or care about benchmarking
 %pytest --ignore=tests/{test_docs.py,benchmarks}
+%endif
 
 
 %files -n python3-pydantic -f %{pyproject_files}
@@ -65,6 +73,9 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 %pyproject_extras_subpkg email -n python3-pydantic
 
 %changelog
+* Sat Nov 25 2023 Maxwell G <maxwell@gtmx.me> - 2.5.2-1
+- Update to 2.5.2. Fixes rhbz#2157134.
+
 * Fri Nov 10 2023 Maxwell G <maxwell@gtmx.me> - 2.4.2-1
 - Update to 2.4.2. Fixes rhbz#2157134.
 - Obsolete dotenv extra that was removed upstream.

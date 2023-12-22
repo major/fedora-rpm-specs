@@ -4,13 +4,13 @@
 %bcond tests 1
 
 Name:           python-pygments
-Version:        2.16.1
+Version:        2.17.2
 Release:        1%{?dist}
 Summary:        Syntax highlighting engine written in Python
 
 License:        BSD-2-Clause
 URL:            https://pygments.org/
-Source0:        %{pypi_source Pygments}
+Source0:        %{pypi_source pygments}
 
 BuildArch:      noarch
 
@@ -58,7 +58,7 @@ Provides:       pygmentize = %{?epoch:%{epoch}:}%{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n Pygments-%{version}
+%autosetup -p1 -n pygments-%{version}
 
 
 %generate_buildrequires
@@ -98,6 +98,10 @@ chmod -x %{buildroot}%{_mandir}/man1/*.1
 
 
 %changelog
+* Wed Dec 13 2023 Karolina Surma <ksurma@redhat.com> - 2.17.2-1
+- Update to 2.17.2
+- Fixes: rhbz#2250432
+
 * Mon Aug 14 2023 Karolina Surma <ksurma@redhat.com> - 2.16.1-1
 - Update to 2.16.1
 - Fixes: rhbz#2229493

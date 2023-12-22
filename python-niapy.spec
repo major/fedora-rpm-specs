@@ -11,9 +11,9 @@
 %global tag %{version}
 
 Name:           python-niapy
-Version:        2.0.5
+Version:        2.1.0
 %forgemeta
-Release:        3%{?dist}
+Release:        2%{?dist}
 Summary:        Microframework for building nature-inspired algorithms
 
 License:        MIT
@@ -37,6 +37,7 @@ use without spending time implementing algorithms from scratch.}
 %package -n python3-niapy
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  python3-toml-adapt
 
 %if %{with tests}
 # setup.py: tests_require
@@ -101,6 +102,13 @@ echo "latex_engine = 'xelatex'" >> docs/source/conf.py
 #
 #   ! LaTeX Error: \begin{list} on input line 21785 ended by \end{itemize}.
 
+# optional step but let's ensure that there is no problems with dependency versions
+toml-adapt -path pyproject.toml -a change -dep python -ver X
+toml-adapt -path pyproject.toml -a change -dep numpy -ver X
+toml-adapt -path pyproject.toml -a change -dep pandas -ver X
+toml-adapt -path pyproject.toml -a change -dep matplotlib -ver X
+toml-adapt -path pyproject.toml -a change -dep openpyxl -ver X
+
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_pdf_doc:docs/requirements.txt}
 
@@ -124,7 +132,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %endif
 
 %files -n python3-niapy -f %{pyproject_files}
-%doc README.rst README.md CHANGELOG.md Algorithms.md Problems.md CITATION.cff
+%doc README.md CHANGELOG.md Algorithms.md Problems.md CITATION.cff
 
 %files doc
 %license LICENSE
@@ -136,6 +144,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %doc CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 %changelog
+* Wed Dec 20 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 2.1.0-1
+- Update to 2.1.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for common kdepim apps
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -61,6 +61,11 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{framework}-%{version}
 
+# Rename translation files to avoid conflict with KF6
+find ./po -type f -execdir mv {} libkdepim5.po \;
+sed -i '0,/ecm_set_disabled_deprecation_versions/s//add_definitions(-DTRANSLATION_DOMAIN=\\"libkdepim5\\")\n&/' CMakeLists.txt
+sed -i "s/libkdepim/libkdepim5/" src/Messages.sh
+
 
 %build
 %cmake_kf5
@@ -98,6 +103,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Rename translation files to avoid conflict with KF6
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

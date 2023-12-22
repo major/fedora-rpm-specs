@@ -101,12 +101,13 @@ ExcludeArch: s390x
 %global build_with_clang  0
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1908792
+# https://bugzilla.redhat.com/show_bug.cgi?id=2255254
 %global __provides_exclude_from ^%{icecatappdir}
-%global __requires_exclude_from ^%{icecatappdir}
+%global __requires_exclude ^(%%(find %{buildroot}%{icecatappdir} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 Name:    icecat
 Epoch:   2
-Version: 115.5.0
+Version: 115.6.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -823,7 +824,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*x*/apps/%{name}*.png
 %{_metainfodir}/*.appdata.xml
-#%%{_mandir}/man1/%%{name}*
 %dir %{icecatappdir}
 %{icecatappdir}/glxtest
 %{icecatappdir}/vaapitest

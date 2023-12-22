@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.16.0
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -122,7 +122,8 @@ install -D -m644 -pv completions/just.zsh  %{buildroot}%{zsh_completions_dir}/_j
 
 %if %{with check}
 %check
-%cargo_test
+# * Skip flaky test: https://github.com/casey/just/issues/855
+%cargo_test -- -- --skip justfile::tests::run_shebang
 %endif
 
 %changelog

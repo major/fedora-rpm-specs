@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail applications support library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -81,6 +81,11 @@ Requires:       cmake(KPim5PimCommon)
 %prep
 %autosetup -n %{framework}-%{version}
 
+# Rename translation files to avoid conflict with KF6
+find ./po -type f -execdir mv {} libmailcommon5.po \;
+sed -i "/TRANSLATION_DOMAIN/ s/libmailcommon/libmailcommon5/" src/CMakeLists.txt
+sed -i "s/libmailcommon/libmailcommon5/" src/Messages.sh
+
 
 %build
 %cmake_kf5
@@ -111,6 +116,9 @@ Requires:       cmake(KPim5PimCommon)
 
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Rename translation files to avoid conflict with KF6
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

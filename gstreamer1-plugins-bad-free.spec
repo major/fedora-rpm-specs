@@ -11,18 +11,18 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
 URL:            http://gstreamer.freedesktop.org/
 %if 0%{?gitrel}
-# git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-good
-# cd gst-plugins-good; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
+# git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
+# cd gst-plugins-bad; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
 # modified with gst-p-bad-cleanup.sh from SOURCE1
 %else
 # The source is:
-# http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-%{version}.tar.xz
+# https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-%{version}.tar.xz
 # modified with gst-p-bad-cleanup.sh from SOURCE1
 %endif
 Source0:        gst-plugins-bad-free-%{version}.tar.xz
@@ -128,6 +128,9 @@ BuildRequires:  pkgconfig(ldacBT-enc)
 BuildRequires:  qrencode-devel
 BuildRequires:  json-glib-devel
 BuildRequires:  vo-amrwbenc-devel
+BuildRequires:  libavtp-devel
+BuildRequires:  libdca-devel
+BuildRequires:  flite-devel
 %endif
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -136,6 +139,8 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # libgstfdkaac.so used to be shipped in -nonfree
 Obsoletes: gstreamer1-plugins-bad-nonfree < 1.16.1-2
 %endif
+# dtsdec, dvbsuboverlay, siren used to be shipped in -freeworld
+Conflicts: gstreamer1-plugins-bad-freeworld < 1.22.7-2
 
 # Drop after f36
 Provides: gst-transcoder = 1.16.0-4
@@ -283,17 +288,19 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D teletext=disabled -D srt=disabled } \
     %{!?with_extras:-D openmpt=disabled -D microdns=disabled } \
     %{!?with_extras:-D ladspa=disabled } \
+    %{!?with_extras:-D avtp=disabled -D dts=disabled } \
+    %{!?with_extras:-D flite=disabled } \
     -D doc=disabled -D magicleap=disabled -D msdk=disabled \
-    -D dts=disabled -D faac=disabled -D faad=disabled \
+    -D faac=disabled -D faad=disabled \
     -D mpeg2enc=disabled -D mplex=disabled \
     -D neon=disabled -D rtmp=disabled \
-    -D flite=disabled -D sbc=disabled \
+    -D sbc=disabled \
     %{!?with_extras:-D spandsp=disabled } \
     %{!?with_extras:-D voamrwbenc=disabled } \
     -D x265=disabled \
-    -D dvbsuboverlay=disabled -D dvdspu=disabled -D siren=disabled \
+    -D dvdspu=disabled \
     -D opensles=disabled -D tinyalsa=disabled \
-    -D wasapi=disabled -D wasapi2=disabled -D avtp=disabled \
+    -D wasapi=disabled -D wasapi2=disabled \
     -D dc1394=disabled -D directfb=disabled -D iqa=disabled \
     -D libde265=disabled -D openni2=disabled \
     %{!?with_extras:-D musepack=disabled } \
@@ -418,13 +425,10 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstcoloreffects.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdash.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvbsubenc.so
+%{_libdir}/gstreamer-%{majorminor}/libgstdvbsuboverlay.so
 %{_libdir}/gstreamer-%{majorminor}/libgstfaceoverlay.so
 %if %{with extras}
 %{_libdir}/gstreamer-%{majorminor}/libgstfbdevsink.so
-%endif
-
-%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
-%{_libdir}/gstreamer-%{majorminor}/libgstfdkaac.so
 %endif
 %{_libdir}/gstreamer-%{majorminor}/libgstfestival.so
 %{_libdir}/gstreamer-%{majorminor}/libgstfieldanalysis.so
@@ -462,6 +466,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstsdpelem.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsegmentclip.so
 %{_libdir}/gstreamer-%{majorminor}/libgstshm.so
+%{_libdir}/gstreamer-%{majorminor}/libgstsiren.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsmooth.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsmoothstreaming.so
 %{_libdir}/gstreamer-%{majorminor}/libgstspeed.so
@@ -489,6 +494,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstclosedcaption.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcolormanagement.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdtls.so
+%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
+%{_libdir}/gstreamer-%{majorminor}/libgstfdkaac.so
+%endif
 %{_libdir}/gstreamer-%{majorminor}/libgsthls.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgsm.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgtkwayland.so
@@ -528,10 +536,13 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 # Plugins with external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstaom.so
 %{_libdir}/gstreamer-%{majorminor}/libgstassrender.so
+%{_libdir}/gstreamer-%{majorminor}/libgstavtp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstbs2b.so
 %{_libdir}/gstreamer-%{majorminor}/libgstchromaprint.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcurl.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdecklink.so
+%{_libdir}/gstreamer-%{majorminor}/libgstdtsdec.so
+%{_libdir}/gstreamer-%{majorminor}/libgstflite.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgme.so
 %{_libdir}/gstreamer-%{majorminor}/libgstkate.so
 %{_libdir}/gstreamer-%{majorminor}/libgstladspa.so
@@ -700,6 +711,10 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Wed Dec 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.8-2
+- Enable dvbsuboverlay and siren plugins
+- Enable avtp, dtsdec, and flite plugins in extras
+
 * Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
 - 1.22.8
 

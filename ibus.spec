@@ -58,7 +58,7 @@
 
 Name:           ibus
 Version:        1.5.29~rc2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -581,6 +581,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Dec 21 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-6
+- Fix game control keys with language layout
+
 * Fri Dec 15 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~rc2-5
 - Refactor object initialization
 - Fix some warnings

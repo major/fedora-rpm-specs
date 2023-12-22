@@ -3,15 +3,13 @@
 #
 # remirepo spec file for php-pecl-ds
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
 %if 0%{?fedora}
 %bcond_without       tests
 %else
@@ -22,9 +20,11 @@
 %global pecl_name    ds
 # After json
 %global ini_name     40-%{pecl_name}.ini
+%global sources      %{pecl_name}-%{version}
+%global _configure   ../%{sources}/configure
 
 # For test suite, see https://github.com/php-ds/tests/commits/master
-%global gh_commit    d4f0a9123a82764841d57aa59b2cf1172a413f1d
+%global gh_commit    3d14aa6f8c25d38d79c90924150c51636544e4a8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-ds
 %global gh_project   tests
@@ -32,26 +32,23 @@
 
 Summary:        Data Structures for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.4.0
-Release:        7%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 License:        MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 # Only use for tests during the build, no value to be packaged separately
-# in composer.json:  "require-dev": {  "php-ds/tests": "dev-master" }
+# in composer.json:  "require-dev": {  "php-ds/tests": "^1.5.0" }
 Source1:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{gh_short}.tar.gz
-
-# Upstream patch for 8.3
-Patch0:         0001-fast_add_function-removed-in-PHP-8.3-use-add_functio.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  php-devel >= 7.3
+BuildRequires:  php-devel >= 7.4
 BuildRequires:  php-pear
 BuildRequires:  php-gmp
 BuildRequires:  php-json
 %if %{with tests}
-BuildRequires:  %{_bindir}/phpunit8
+BuildRequires:  %{_bindir}/phpunit9
 BuildRequires:  %{_bindir}/phpab
 %endif
 
@@ -72,15 +69,12 @@ to the PHP array.
 
 %prep
 %setup -q -c -a 1
-mv %{pecl_name}-%{version} NTS
 mv %{gh_project}-%{gh_commit} tests
 
 # Don't install/register tests, install examples as doc
 %{?_licensedir:sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml}
 
-cd NTS
-%patch -P0 -p1 -b .up
-
+cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_DS_VERSION/{s/.* "//;s/".*$//;p}' php_ds.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
@@ -89,9 +83,9 @@ if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Create configuration file
@@ -110,14 +104,15 @@ peclbuild() {
 make %{?_smp_mflags}
 }
 
-cd NTS
-%{_bindir}/phpize
-peclbuild %{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+peclbuild %{__phpconfig}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-peclbuild %{_bindir}/zts-php-config
+peclbuild %{__ztsphpconfig}
 %endif
 
 
@@ -138,7 +133,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
@@ -166,9 +161,9 @@ done
    tests
 
 : Run upstream test suite
-%{_bindir}/php \
+%{__php} \
    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-   %{_bindir}/phpunit8 \
+   %{_bindir}/phpunit9 \
       --do-not-cache-result \
       --bootstrap tests/autoload.php \
       --verbose tests
@@ -176,7 +171,7 @@ done
 
 
 %files
-%{?_licensedir:%license NTS/LICENSE}
+%{?_licensedir:%license %{sources}/LICENSE}
 %{!?_licensedir:%doc %{pecl_docdir}/%{pecl_name}}
 %{pecl_xmldir}/%{name}.xml
 
@@ -190,6 +185,11 @@ done
 
 
 %changelog
+* Wed Dec 20 2023 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0
+- raise dependency on PHP 7.4
+- build out of sources tree
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 1.4.0-7
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 - add upstream patch for PHP 8.3

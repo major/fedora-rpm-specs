@@ -63,6 +63,10 @@ Provides:       bundled(python3dist(cypy)) = 0.2
 sed -i -e 's/bs4/beautifulsoup4/' -e '/backports/ d' -e 's/importlib-metadata.*/importlib-metadata/' setup.cfg
 sed -i -e 's/backports.tempfile/tempfile/' sciunit/utils.py
 
+# Fix for compatibility with nbconvert 7.13.0
+# https://github.com/scidash/sciunit/issues/220
+sed -i 's/from nbconvert.preprocessors.execute import CellExecutionError/from nbclient.exceptions import CellExecutionError/' sciunit/utils.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 

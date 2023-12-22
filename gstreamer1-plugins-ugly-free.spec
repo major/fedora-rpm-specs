@@ -1,12 +1,19 @@
 %global         majorminor 1.0
 
+# Only build amrnb/amrwbdec on fedora
+%if 0%{?fedora}
+%bcond_without amr
+%else
+%bcond_with amr
+%endif
+
 #global gitrel     140
 #global gitcommit  4ca3a22b6b33ad8be4383063e76f79c4d346535d
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-ugly-free
 Version:        1.22.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -14,14 +21,10 @@ URL:            http://gstreamer.freedesktop.org/
 %if 0%{?gitrel}
 # git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-ugly
 # cd gst-plugins-ugly; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
-# modified with gst-p-ugly-cleanup.sh from SOURCE1
+Source0:        gst-plugins-ugly-%{version}.tar.xz
 %else
-# The source is:
-# http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-%{version}.tar.xz
-# modified with gst-p-ugly-cleanup.sh from SOURCE1
+Source0:        https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-%{version}.tar.xz
 %endif
-Source0:        gst-plugins-ugly-free-%{version}.tar.xz
-Source1:        gst-p-ugly-cleanup.sh
 
 BuildRequires:	meson >= 0.48.0
 BuildRequires:	gcc
@@ -36,10 +39,12 @@ BuildRequires:  liba52-devel
 BuildRequires:  libcdio-devel
 BuildRequires:  libdvdread-devel
 BuildRequires:  libmpeg2-devel
+%if %{with amr}
 BuildRequires:  opencore-amr-devel
+%endif
 
-# when amr* were moved here from -ugly
-Conflicts: gstreamer1-plugins-ugly < 1.20.5-2
+# when asfdemux, dvdlpcmdec, dvdsub, and realmedia were moved here
+Conflicts: gstreamer1-plugins-ugly < 1.22.7-2
 
 %description
 GStreamer is a streaming media framework, based on graphs of elements which
@@ -70,10 +75,11 @@ is not fully compatible with LGPL.
 %meson \
     -D package-name="Fedora GStreamer-plugins-ugly package" \
     -D package-origin="http://download.fedoraproject.org" \
+    %{!?with_amr:-D amrnb=disabled -D amrwbdec=disabled } \
     -D doc=disabled \
     -D sidplay=disabled \
-    -D x264=disabled -D asfdemux=disabled -D dvdlpcmdec=disabled \
-    -D dvdsub=disabled -D realmedia=disabled -D gpl=enabled
+    -D x264=disabled \
+    -D gpl=enabled
 
 %meson_build
 
@@ -136,15 +142,21 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_datadir}/appdata/*.appdata.xml
 
 # Plugins without external dependencies
+%{_libdir}/gstreamer-%{majorminor}/libgstasf.so
+%{_libdir}/gstreamer-%{majorminor}/libgstdvdlpcmdec.so
+%{_libdir}/gstreamer-%{majorminor}/libgstdvdsub.so
+%{_libdir}/gstreamer-%{majorminor}/libgstrealmedia.so
 
 # Plugins with external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgsta52dec.so
-%{_libdir}/gstreamer-%{majorminor}/libgstamrnb.so
-%{_libdir}/gstreamer-%{majorminor}/libgstamrwbdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcdio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvdread.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmpeg2dec.so
+%if %{with amr}
+%{_libdir}/gstreamer-%{majorminor}/libgstamrnb.so
+%{_libdir}/gstreamer-%{majorminor}/libgstamrwbdec.so
 %{_datadir}/gstreamer-%{majorminor}/presets/GstAmrnbEnc.prs
+%endif
 
 %if 0
 %files devel
@@ -152,6 +164,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Wed Dec 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.8-2
+- Enable asfdemux, dvdlpcmdec, dvdsub, and realmedia plugins
+- Disable AMR plugins in RHEL builds
+- Resolves: rhbz#2236889
+
 * Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
 - 1.22.8
 

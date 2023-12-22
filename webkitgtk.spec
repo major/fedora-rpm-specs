@@ -6,9 +6,9 @@
         cp -p %1 _license_files/$(echo '%1' | sed -e 's!/!.!g')
 
 # No libmanette in RHEL
-%if !0%{?rhel}
-%global with_gamepad 1
-%endif
+%bcond gamepad %{undefined rhel}
+%bcond avif %[%{undefined rhel} || %{defined epel}]
+%bcond jpegxl %[%{undefined rhel} || %{defined epel}]
 
 %global _lto_cflags %{nil}
 
@@ -98,11 +98,15 @@ BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  pkgconfig(lcms2)
+%if %{with avif}
 BuildRequires:  pkgconfig(libavif)
+%endif
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(libjpeg)
+%if %{with jpegxl}
 BuildRequires:  pkgconfig(libjxl)
+%endif
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
@@ -114,7 +118,7 @@ BuildRequires:  pkgconfig(libtasn1)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libwoff2dec)
 BuildRequires:  pkgconfig(libxslt)
-%if 0%{?with_gamepad}
+%if %{with gamepad}
 BuildRequires:  pkgconfig(manette-0.2)
 %endif
 BuildRequires:  pkgconfig(sqlite3)
@@ -303,8 +307,14 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
 %if %{without docs}
   -DENABLE_DOCUMENTATION=OFF \
 %endif
-%if !0%{?with_gamepad}
+%if %{without gamepad}
   -DENABLE_GAMEPAD=OFF \
+%endif
+%if %{without avif}
+  -DUSE_AVIF=OFF \
+%endif
+%if %{without jpegxl}
+  -DUSE_JPEGXL=OFF \
 %endif
 %if 0%{?rhel}
 %ifarch aarch64
@@ -324,8 +334,14 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
 %if %{without docs}
   -DENABLE_DOCUMENTATION=OFF \
 %endif
-%if !0%{?with_gamepad}
+%if %{without gamepad}
   -DENABLE_GAMEPAD=OFF \
+%endif
+%if %{without avif}
+  -DUSE_AVIF=OFF \
+%endif
+%if %{without jpegxl}
+  -DUSE_JPEGXL=OFF \
 %endif
 %if 0%{?rhel}
 %ifarch aarch64

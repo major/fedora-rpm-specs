@@ -1,6 +1,6 @@
 Name:    libkleo
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE PIM cryptographic library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later WITH GCC-exception-3.1
@@ -33,6 +33,8 @@ BuildRequires:  cmake(KF6WindowSystem)
 
 # gpg support ui
 Recommends:     pinentry-gui
+
+Obsoletes:      kf5-libkleo < 24.01.80
 
 %description
 %{summary}.
@@ -74,5 +76,8 @@ developing applications that use %{name}.
 %{_includedir}/KPim6/Libkleo/
 
 %changelog
+* Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
+- Obsolete kf5-libkleo
+
 * Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

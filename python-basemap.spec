@@ -2,7 +2,7 @@
 
 Name:           python-basemap
 Version:        1.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
@@ -12,6 +12,12 @@ Patch0:         requirements.patch
 # https://github.com/matplotlib/basemap/pull/593
 # Rebased on 1.3.8
 Patch1:         basemap-1.3.8-cython3.patch
+
+# Submitted upstream: <https://github.com/matplotlib/basemap/pull/595>
+Patch2: python-base-map-c99-1.patch
+Patch3: python-base-map-c99-2.patch
+Patch4: python-base-map-c99-3.patch
+Patch5: python-base-map-c99-4.patch
 
 BuildRequires:  gcc
 
@@ -95,6 +101,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Wed Dec 20 2023 Florian Weimer <fweimer@redhat.com> - 1.3.8-3
+- Fix C type errors due to incorrect Cython usage
+
 * Sat Nov 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.8-2
 - Patch for Cython 3
 

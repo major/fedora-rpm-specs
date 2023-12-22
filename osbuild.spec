@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        101
+Version:        102
 
 %forgemeta
 
@@ -278,6 +278,43 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Dec 20 2023 Packit <hello@packit.dev> - 102-1
+Changes with 102
+----------------
+  * Add tests for org.osbuild.xz and org.osbuild.zstd (#1496)
+    * Author: Brian C. Lane, Reviewers: Michael Vogt
+  * Fedora 40 (#1486)
+    * Author: Jakub Rusz, Reviewers: Alexander Todorov, Simon de Vlieger
+  * HMS-3235 sources/skopeo: check containers-storage (#1489)
+    * Author: Gianluca Zuccarelli, Reviewers: Achilleas Koutsou
+  * Switch nightly testing to RHEL-8.10 and RHEL-9.4 (#1422)
+    * Author: Jakub Rusz, Reviewers: Alexander Todorov
+  * Update containers storage conf stage (#1487)
+    * Author: Alexander Larsson, Reviewers: Giuseppe Scrivano, Simon de Vlieger
+  * create org.osbuild.ostree.aleph stage (#1475)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+  * fix for inaccurate mountinfo inside bwrap env (#1493)
+    * Author: Dusty Mabe, Reviewers: Michael Vogt
+  * fscache: implement "last_used()" helper (#1498)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * org.osbuild.systemd: Support masking generators (#1505)
+    * Author: Alexander Larsson, Reviewers: Michael Vogt
+  * osbuild: include std{out,err} in FileSystemMountService.mount() errors (#1497)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * osbuild: pytoml is deprecated, replace with toml (#1499)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages(kickstart): add `ostreecontainer` (#1488)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt
+  * stages(mkfs.ext4): add basic unit test (#1502)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane
+  * stages/skopeo: destinations (#1494)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  * test,util: fix mount and add test that ensures mount output is part of the exception (#1490)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+
+— Somewhere on the Internet, 2023-12-20
+
+
 * Wed Dec 06 2023 Packit <hello@packit.dev> - 101-1
 Changes with 101
 ----------------

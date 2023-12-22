@@ -20,7 +20,7 @@
 
 Name:           EMBOSS
 Version:        6.6.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        The European Molecular Biology Open Software Suite
 
 # Files under jemboss/, ajax/ensembl/ are LGPLv2+
@@ -38,7 +38,7 @@ Summary:        The European Molecular Biology Open Software Suite
 # emboss/data/OBO/pathway.obo : CC-BY-3.0
 # emboss/data/OBO/ro.obo : CC-BY-3.0
 # emboss/data/OBO/so.obo : Public Domain
-License:        GPLv2+ and LGPLv2+ and CC-BY and GPLv3+ and Public Domain
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0 AND GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            http://emboss.sf.net/
 Source0:        ftp://emboss.open-bio.org/pub/EMBOSS/%{name}-%{version}.tar.gz
 # Source1:        ftp://emboss.open-bio.org/pub/EMBOSS/fixes/README.fixes
@@ -65,7 +65,7 @@ Patch9:		EMBOSS-6.6.0-fix-conflict-with-pscan.patch
 Patch10:	EMBOSS-6.6.0-no-update.patch
 
 # PCRE2
-Patch11:	EMBOSS-6.6.0-pcre2.patch
+Patch11:	EMBOSS-6.6.0-pcre2-v2.patch
 
 BuildRequires:  gd-devel
 BuildRequires:  pam-devel
@@ -332,6 +332,10 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/EMBOSS/jemboss
 %{_includedir}/EMBOSS/eplplot/
 
 %changelog
+* Wed Dec 20 2023 Tom Callaway <spot@fedoraproject.org> - 6.6.0-26
+- fix pcre2 patch (no more segfaults, hopefully)
+- update license tag
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
