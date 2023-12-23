@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 24.01.80
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -16,6 +16,7 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/a
 Source10:       akonadiserverrc.mysql
 Source11:       akonadiserverrc.sqlite
 
+Patch0:  move-translations.patch
 Patch1:  akonadi-24.01.80-reenable-kaccounts.patch
 
 ## upstreamable patches
@@ -118,6 +119,9 @@ See also: %{_sysconfdir}/akonadi/mysql-global.conf
 %prep
 %autosetup -n akonadi-%{version} -p1
 
+# Remove together with move-translations.patch once released
+find ./po -type f -name libakonadi5.po -execdir mv {} libakonadi6.po \;
+
 
 %build
 %cmake_kf6 \
@@ -132,9 +136,9 @@ See also: %{_sysconfdir}/akonadi/mysql-global.conf
 %install
 %cmake_install
 
-%find_lang libakonadi5
+%find_lang libakonadi6
 %find_lang akonadi_knut_resource
-cat akonadi_knut_resource.lang >> libakonadi5.lang
+cat akonadi_knut_resource.lang >> libakonadi6.lang
 
 install -p -m644 -D %{SOURCE10} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql
 install -p -m644 -D %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.sqlite
@@ -173,7 +177,7 @@ if [ $1 -eq 0 ] ; then
 fi
 
 
-%files -f libakonadi5.lang
+%files -f libakonadi6.lang
 %doc AUTHORS
 %doc README*
 %license LICENSES/*
@@ -238,6 +242,9 @@ fi
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-4
+- Backport rename translation files
+
 * Sun Dec 17 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-3
 - Make upgrade path for mysql subpackage
 

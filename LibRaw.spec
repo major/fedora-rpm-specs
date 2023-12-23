@@ -2,18 +2,18 @@
 
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
-Version: 0.21.1
-Release: 7%{?dist}
+Version: 0.21.2
+Release: 1%{?dist}
 License: BSD-3-Clause and (CDDL-1.0 or LGPL-2.1-only)
 URL: https://www.libraw.org
 Source0: %{url}/data/%{name}-%{version}.tar.gz
 Patch0: LibRaw-pkgconfig.patch
-Patch1: 9ab70f6dca19229cb5caad7cc31af4e7501bac93.patch
 
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(jasper)
 BuildRequires: pkgconfig(libjpeg)
+BuildRequires: pkgconfig(zlib)
 BuildRequires: autoconf automake libtool
 BuildRequires: make
 
@@ -60,7 +60,8 @@ autoreconf -if
     --enable-jasper \
     --enable-jpeg \
     --enable-lcms \
-    --enable-openmp
+    --enable-openmp \
+    --enable-zlib
 
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Beware_of_Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -107,6 +108,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Thu Dec 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.2
+- 0.21.2, enable zlib support.
+
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 0.21.1-7
 - Rebuild for jasper 4.1
 

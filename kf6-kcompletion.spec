@@ -1,7 +1,7 @@
 %global framework kcompletion
 
 Name:           kf6-%{framework}
-Version: 5.246.0
+Version: 5.247.0
 Release: 1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon with auto completion widgets and classes
 # BSD-3-Clause is in the LICENSES folder but goes unused.
@@ -17,8 +17,6 @@ BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  pkgconfig(Qt6Widgets)
-BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  cmake(Qt6UiPlugin)
 BuildRequires:  cmake(KF6Codecs)
 
 %description
@@ -59,6 +57,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

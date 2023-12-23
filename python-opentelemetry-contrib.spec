@@ -1,15 +1,15 @@
 # See eachdist.ini. Note that this package must have the same version as the
 # ”prerel_version” (pre-release version) and “stable_version” in the
 # python-opentelemetry package, and the two packages must be updated together.
-%global stable_version 1.21.0
-%global prerel_version 0.42~b0
+%global stable_version 1.22.0
+%global prerel_version 0.43~b0
 # There are a few subpackages that have their *own* versioning scheme!
 %global aws_propagator_version 1.0.1
 %global aws_sdk_version 2.0.1
 %global rd_azure_version 0.1.0
 # Adjust this to ensure the release is monotonic, unless the base package
 # version and the above versions all change at the same time.
-%global baserel 33
+%global baserel 34
 
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
@@ -30,7 +30,7 @@
 # Some tests need elasticsearch-dsl; python-elasticsearch-dsl is not packaged
 %bcond elasticsearch_dsl 0
 
-# A subpackage needs falcon >= 1.4.1, < 4.0.0; F40 has 4.0.0
+# A subpackage needs falcon >= 1.4.1, < 3.1.2; F40 has 4.0.0
 %bcond falcon 0
 
 # It seems like we need a newer version of grpc, which would require protobuf4.
@@ -96,24 +96,6 @@ Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{src
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       opentelemetry-bootstrap.1
 Source11:       opentelemetry-instrument.1
-
-# Revert “Fix expected URL in aiohttp instrumentation test”
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1772
-#
-# Upstream adjusted this when updating to yarl 1.9.1; maybe this changed back
-# from 1.9.1 to 1.9.2? The fact that I had to revert the commit was reported
-# upstream in:
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1821#issuecomment-1560136536
-Patch:          0001-Revert-Fix-expected-URL-in-aiohttp-instrumentation-t.patch
-
-# Downstream-only: remove vestiges of aiohttp server instrumentation
-# This new instrumentation was removed from the release at the last minute.
-#
-# Fixes:
-#
-# ERROR: No matching distribution found for opentelemetry-instrumentation-aiohttp-server==0.42b0
-# https://github.com/open-telemetry/opentelemetry-python-contrib/issues/2053
-Patch:          0001-Downstream-only-remove-vestiges-of-aiohttp-server-in.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -1911,6 +1893,8 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 (
   # - We do not use formatters/linters/type-checkers/coverage.
   #
+  # - Unpin exact-version dependencies, converting them to lower bounds
+  #
   # - Similarly, we do not run the “spellcheck” tox environment, so we do not
   #   need codespell.
   # - readme-renderer is needed only if we run
@@ -1926,6 +1910,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
   #   so we do both, unpinning and then removing
   sed -r \
       -e '/\b(black|flake8|isort|mypy|mypy-protobuf|pylint|pytest-cov)\b/d' \
+      -e '/==/>=/' \
       -e '/\b(codespell|readme-renderer|bleach)\b/d' \
       -e '/\b(sphinx)/d' \
       -e '/\b(grpcio-tools)\b/d' \
@@ -1950,6 +1935,8 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
         sub(/==/, ">=")
         # Loosen the bound on sphinx-rtd-theme
         sub(/sphinx-rtd-theme~=/, "sphinx-rtd-theme>=")
+        # Remove the bound on sphinx-autodoc-typehints
+        sub(/sphinx-autodoc-typehints[>~=]=.*/, "sphinx-autodoc-typehints")
         print
       }' docs-requirements.txt | tee docs-requirements-prefiltered.txt
 %endif
@@ -2178,6 +2165,11 @@ do
     # Flaky failure, especially (exclusively?) on ppc64le/s390x.
     # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2033#issuecomment-1836278182
     k="${k-}${k+ and }not (TestUrllibMetricsInstrumentation and test_metric_uninstrument)"
+    ;;
+  resource/opentelemetry-resource-detector-azure)
+    # Test failure regression in TestAzureVMResourceDetector
+    # https://github.com/open-telemetry/opentelemetry-python-contrib/issues/2102
+    k="${k-}${k+ and }not TestAzureVMResourceDetector"
     ;;
   opentelemetry-contrib-instrumentations)
     # This package has no tests; it is effectively a metapackage, and it is not

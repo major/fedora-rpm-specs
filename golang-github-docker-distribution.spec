@@ -4,7 +4,7 @@
 # https://github.com/docker/distribution
 %global goipath         github.com/docker/distribution
 Version:                2.8.1
-%global commit          bc6b7455cb168d3000c18714ee1c57d2cd03b953
+%global tag             v%{version_no_tilde}
 
 %gometa
 

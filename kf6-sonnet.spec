@@ -1,7 +1,7 @@
 %global		framework sonnet
 
 Name:		kf6-%{framework}
-Version:	5.246.0
+Version:	5.247.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -72,6 +72,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

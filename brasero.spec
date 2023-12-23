@@ -17,7 +17,10 @@ Summary:   Gnome CD/DVD burning application
 
 
 # see https://bugzilla.gnome.org/show_bug.cgi?id=683503
-License:   GPLv3+
+# SVG files are GPL-2.0-only
+# data/icons/hicolor_actions_scalable_transform-crop-and-resize.svg is CC-BY-SA-2.0
+# libbrasero-media is GPL-2.0-or-later WITH GStreamer-exception-2008                                                                                                                         
+License:   GPL-3.0-or-later AND LGPL-2.0-or-later AND GPL-2.0-only AND CC-BY-SA-2.0 AND GPL-2.0-or-later WITH GStreamer-exception-2008
 URL:       https://wiki.gnome.org/Apps/Brasero
 Source0:   https://download.gnome.org/sources/%{name}/%{basever}/%{name}-%{version}.tar.xz
 

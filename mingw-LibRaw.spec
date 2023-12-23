@@ -3,13 +3,13 @@
 %global pkgname LibRaw
 
 Name:          mingw-%{pkgname}
-Version:       0.21.1
-Release:       4%{?dist}
+Version:       0.21.2
+Release:       1%{?dist}
 Summary:       Library for reading RAW files obtained from digital photo cameras
 
 # LibRaw base package is dual licensed (actually triple licensed LGPLv2+, CDDL, LibRaw Software License)
 # LibRaw-%%{version}/internal/dcb_demosaicing.c is BSD (3 clause)
-License:       (LGPLv2+ or CDDL) and BSD
+License:       BSD-3-Clause AND (CDDL-1.0 OR LGPL-2.1-only)
 BuildArch:     noarch
 URL:           http://www.libraw.org
 Source0:       http://www.libraw.org/data/%{pkgname}-%{version}.tar.gz
@@ -17,8 +17,6 @@ Source0:       http://www.libraw.org/data/%{pkgname}-%{version}.tar.gz
 Patch0:        LibRaw_wsock32.patch
 # Replace obsolete configure.ac macros
 Patch1:        LibRaw_obsolete-macros.patch
-# Backport patch for CVE-2023-1729
-Patch2:        https://github.com/LibRaw/LibRaw/commit/9ab70f6dca19229cb5caad7cc31af4e7501bac93.patch
 
 BuildRequires: make
 BuildRequires: autoconf automake libtool
@@ -150,6 +148,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Thu Dec 21 2023 Sandro Mani <manisandro@gmail.com> - 0.21.2-1
+- Update to 0.21.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global framework kdeclarative
 
 Name:    kf6-%{framework}
-Version: 5.246.0
+Version: 5.247.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for Qt declarative
 
@@ -73,6 +73,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6Declarative/
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

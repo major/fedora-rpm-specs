@@ -1,12 +1,15 @@
 Name:    kontactinterface
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Kontact Interface Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# https://invent.kde.org/pim/kontactinterface/-/merge_requests/22
+Patch0:         move-translations.patch
 
 BuildRequires: make
 BuildRequires:  extra-cmake-modules
@@ -41,6 +44,9 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# Remove together with move-translations.patch once released
+find ./po -type f -name kontactinterfaces5.po -execdir mv {} kontactinterfaces6.po \;
+
 
 %build
 %cmake_kf6
@@ -63,5 +69,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
+- Backport rename translation files
+
 * Tue Dec 5 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

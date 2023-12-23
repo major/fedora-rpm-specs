@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    599109c8ca6bae97b23482d557d2874c25a65e59
+%global gh_commit    78c3b7625965c2513ee96569a4dbb62601784145
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
 %global gh_project   php-code-coverage
@@ -24,7 +24,7 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.10
+Version:        10.1.11
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -41,7 +41,7 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
-BuildRequires:  (php-composer(nikic/php-parser)                   >= 4.15   with php-composer(nikic/php-parser)                   < 5)
+BuildRequires:  (php-composer(nikic/php-parser)                   >= 4.18   with php-composer(nikic/php-parser)                   < 6)
 BuildRequires:  (php-composer(phpunit/php-file-iterator)          >= 4.0    with php-composer(phpunit/php-file-iterator)          < 5)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 3.0    with php-composer(phpunit/php-text-template)          < 4)
 BuildRequires:  (php-composer(sebastian/code-unit-reverse-lookup) >= 3.0    with php-composer(sebastian/code-unit-reverse-lookup) < 4)
@@ -70,7 +70,7 @@ BuildRequires:  php-xdebug
 #        "ext-dom": "*",
 #        "ext-libxml": "*",
 #        "ext-xmlwriter": "*",
-#        "nikic/php-parser": "^4.15",
+#        "nikic/php-parser": "^4.18 || ^5.0",
 #        "phpunit/php-file-iterator": "^4.0",
 #        "phpunit/php-text-template": "^3.0",
 #        "sebastian/code-unit-reverse-lookup": "^3.0",
@@ -83,7 +83,7 @@ Requires:       php(language) >= 8.1
 Requires:       php-dom
 Requires:       php-libxml
 Requires:       php-xmlwriter
-Requires:       (php-composer(nikic/php-parser)                   >= 4.15   with php-composer(nikic/php-parser)                   < 5)
+Requires:       (php-composer(nikic/php-parser)                   >= 4.18   with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-file-iterator)          >= 4.0    with php-composer(phpunit/php-file-iterator)          < 5)
 Requires:       (php-composer(phpunit/php-text-template)          >= 3.0    with php-composer(phpunit/php-text-template)          < 4)
 Requires:       (php-composer(sebastian/code-unit-reverse-lookup) >= 3.0    with php-composer(sebastian/code-unit-reverse-lookup) < 4)
@@ -138,7 +138,10 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 
 cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/PhpParser4/autoload.php',
+    [
+        '%{php_home}/PhpParser5/autoload.php',
+        '%{php_home}/PhpParser4/autoload.php',
+    ],
     '%{php_home}/%{ns_vendor}/FileIterator4/autoload.php',
     '%{php_home}/%{ns_vendor}/Template3/autoload.php',
     '%{php_home}/%{ns_vendor}/CodeUnitReverseLookup3/autoload.php',
@@ -196,6 +199,10 @@ exit $ret
 
 
 %changelog
+* Thu Dec 21 2023 Remi Collet <remi@remirepo.net> - 10.1.11-1
+- update to 10.1.11
+- raise dependency on nikic/php-parser 4.18 and allow 5.0
+
 * Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 10.1.10-1
 - update to 10.1.10
 

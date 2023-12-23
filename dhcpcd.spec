@@ -1,7 +1,7 @@
 %global forgeurl0 https://github.com/NetworkConfiguration/dhcpcd
 
 Name: dhcpcd
-Version: 10.0.5
+Version: 10.0.6
 Release: %autorelease
 Summary: A minimalistic network configuration daemon with DHCPv4, rdisc and DHCPv6 support
 License: BSD-2-Clause AND ISC AND MIT
@@ -68,7 +68,10 @@ install -d %{buildroot}%{_sharedstatedir}/%{_name}
 %systemd_postun_with_restart %{name}.service
 
 %files
+%license LICENSE
 %config(noreplace) %{_sysconfdir}/%{name}.conf
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/hooks
 %{_datadir}/%{name}/hooks/10-wpa_supplicant
 %{_datadir}/%{name}/hooks/15-timezone
 %{_datadir}/%{name}/hooks/29-lookup-hostname

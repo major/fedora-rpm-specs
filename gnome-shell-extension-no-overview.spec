@@ -2,7 +2,7 @@
 %global uuid        %{extension}@fthx
 
 Name:           gnome-shell-extension-%{extension}
-Version:        15
+Version:        16
 Release:        1%{?dist}
 Summary:        GNOME Shell extension for no overview at start-up
 License:        GPL-3.0-only
@@ -43,6 +43,9 @@ cp -rp *.js metadata.json \
 
 
 %changelog
+* Fri Dec 22 2023 Takao Fujiwara <tfujiwar@redhat.com> - 16-1
+- Bump to 16
+
 * Fri Sep 22 2023 Takao Fujiwara <tfujiwar@redhat.com> - 15-1
 - Bump to 15
 

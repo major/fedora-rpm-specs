@@ -63,8 +63,8 @@
 %bcond_with autogen
 
 Name:           openmpi%{?_cc_name_suffix}
-Version:        5.0.0
-Release:        2%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -449,6 +449,9 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 
 
 %changelog
+* Thu Dec 21 2023 Orion Poplawski <orion@nwra.com> - 5.0.1-1
+- Update to 5.0.1
+
 * Tue Oct 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0.0-2
 - Disable building docs in RHEL builds
 

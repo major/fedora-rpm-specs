@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    68cfb347a44871f01e33ab0ef8215966432f6957
+%global gh_commit    68ff824baeae169ec9f2137158ee529584553799
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   complexity
@@ -24,7 +24,7 @@
 %global ns_project   Complexity
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.1.0
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        Calculating the complexity of PHP code units, version %{major}
 
@@ -36,7 +36,7 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
-BuildRequires: (php-composer(nikic/php-parser)     >= 4.10  with php-composer(nikic/php-parser)     < 5)
+BuildRequires: (php-composer(nikic/php-parser)     >= 4.18  with php-composer(nikic/php-parser)     < 6)
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
@@ -47,9 +47,9 @@ BuildRequires:  phpunit10
 
 # from composer.json, "require": {
 #        "php": ">=8.1",
-#        "nikic/php-parser": "^4.10"
+#        "nikic/php-parser": "^4.18 || ^5.0"
 Requires:       php(language) >= 8.1
-Requires:      (php-composer(nikic/php-parser)     >= 4.10  with php-composer(nikic/php-parser)     < 5)
+Requires:      (php-composer(nikic/php-parser)     >= 4.18  with php-composer(nikic/php-parser)     < 6)
 # from phpcompatinfo report for version 3.0.0
 # none
 # Autoloader
@@ -76,7 +76,10 @@ phpab --template fedora --output src/autoload.php src
 
 cat <<EOF | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/PhpParser4/autoload.php',
+    [
+        '%{php_home}/PhpParser5/autoload.php',
+        '%{php_home}/PhpParser4/autoload.php',
+    ],
 ]);
 EOF
 
@@ -114,6 +117,10 @@ exit $ret
 
 
 %changelog
+* Thu Dec 21 2023 Remi Collet <remi@remirepo.net> - 3.2.0-1
+- update to 3.2.0
+- raise dependency on nikic/php-parser 4.18 and allow 5.0
+
 * Thu Sep 28 2023 Remi Collet <remi@remirepo.net> - 3.1.0-1
 - update to 3.1.0
 

@@ -6,7 +6,7 @@
 %global crate zerocopy-derive
 
 Name:           rust-zerocopy-derive
-Version:        0.7.28
+Version:        0.7.32
 Release:        %autorelease
 Summary:        Custom derive for traits from the zerocopy crate
 

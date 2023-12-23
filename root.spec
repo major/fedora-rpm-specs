@@ -47,7 +47,7 @@
 Name:		root
 Version:	6.30.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -109,6 +109,9 @@ Patch14:	%{name}-np32.patch
 Patch15:	%{name}-adjust-test-for-failures-on-aarch64-ppc64le-s390x.patch
 #		Only for EPEL 8 - disable tests not working with old gtest
 Patch16:	%{name}-old-gtest.patch
+#		Adjust tests for zlib-ng
+#		https://github.com/root-project/root/pull/14295
+Patch17:	%{name}-new-zlib.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -2002,6 +2005,7 @@ This package contains utility functions for ntuples.
 %if %{?rhel}%{!?rhel:0} == 8
 %patch -P 16 -p1
 %endif
+%patch -P 17 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2556,7 +2560,7 @@ popd
 #   error: Cannot display window in native
 #
 # - gtest-core-metacling-test-TClingLoadUnloadFile
-#   random failures
+#   random failures: https://github.com/root-project/root/issues/14121
 #   terminate called after throwing an instance of 'std::bad_alloc'
 excluded="\
 test-stressIOPlugins|\
@@ -3728,6 +3732,9 @@ fi
 %endif
 
 %changelog
+* Thu Dec 21 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-4
+- Adjust tests for zlib-ng
+
 * Mon Dec 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-3
 - Use "standardsymbolsps" instead of "symbol" when searching for the
   Symbols font in order to not find Noto Symbols instead

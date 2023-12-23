@@ -1,7 +1,7 @@
 %global		framework kconfig
 
 Name:		kf6-%{framework}
-Version:	5.246.0
+Version:	5.247.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with advanced configuration system
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
@@ -28,6 +28,7 @@ parts: KConfigCore and KConfigGui.
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	pkgconfig(Qt6Xml)
+Requires: cmake(Qt6Qml)
 %description	devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -78,6 +79,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6ConfigQml.so
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

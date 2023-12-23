@@ -2,7 +2,7 @@ Summary: Common RPM Macros for building EFI-related packages
 Name: efi-rpm-macros
 Version: 5
 Release: 9%{?dist}
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: https://github.com/rhboot/%{name}/
 BuildRequires: git sed
 BuildRequires: make
@@ -69,6 +69,10 @@ git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86}"
 %dir /boot/efi/EFI/%{_efi_vendor_}
 
 %changelog
+* Wed Dec 13 2023 Nicolas Frayer <nfrayer@redhat.com>
+- Migrate to SPDX license
+- Please refer to https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

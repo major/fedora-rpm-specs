@@ -11,11 +11,11 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 5.246.1
-Release: 2%{?dist}
+Version: 5.247.0
+Release: 1%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
-Source0: http://download.kde.org/%{stable_kf6}/frameworks/5.246.0/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{version}/%{framework}-%{version}.tar.xz
 BuildArch:      noarch
 
 ## upstreamable patches
@@ -75,6 +75,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Thu Dec 07 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.246.1-2
 - Only pull in kf5-rpm-macros if qt5-qtbase-devel is installed
 

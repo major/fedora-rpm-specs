@@ -5,7 +5,7 @@
 %global crate vm-memory
 
 Name:           rust-vm-memory
-Version:        0.12.2
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Safe abstractions for accessing the VM physical memory
 

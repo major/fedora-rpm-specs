@@ -2,7 +2,7 @@
 %global abi_ver 12
 
 Name:           wlroots
-Version:        0.17.0
+Version:        0.17.1
 Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
@@ -34,8 +34,6 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
-# https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4461
-Patch:          wlroots-0.17-backports.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -129,6 +127,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Thu Dec 21 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.17.1-1
+- Update to 0.17.1 (#2255547)
+
 * Tue Nov 21 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.17.0-1
 - Update to 0.17.0 (#2250885)
 - Use xcb-errors util library

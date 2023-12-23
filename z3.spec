@@ -13,7 +13,7 @@
 
 Name:           z3
 Version:        4.12.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -170,7 +170,7 @@ sed \
 # Comply with the Java packaging guidelines and fill in the version for python
 majver=$(cut -d. -f-2 <<< %{version})
 sed -e '/libz3java/s,\(System\.load\)Library("\(.*\)"),\1("%{_libdir}/z3/\2.so"),' \
-    -e "s/@MAJVER@/$majver/" \
+    -e "s/'so'/'so.$majver'/" \
     -i scripts/update_api.py
 
 # Turn off HTML timestamps for reproducible builds
@@ -309,6 +309,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Thu Dec 21 2023 Jerry James <loganjerry@gmail.com> - 4.12.4-4
+- Fix python package library load name (bz 2255464)
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.12.4-3
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

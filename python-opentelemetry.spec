@@ -1,6 +1,6 @@
 # See eachdist.ini:
-%global stable_version 1.21.0
-%global prerel_version 0.42~b0
+%global stable_version 1.22.0
+%global prerel_version 0.43~b0
 # WARNING: Because python-opentelemetry-contrib has some exact-version
 # dependencies on subpackages of this package, it must be updated
 # simultaneously with this package, preferably using a side tag, such that its
@@ -47,15 +47,6 @@ Source0:        %{url}/archive/v%{version}/opentelemetry-python-%{version}.tar.g
 %global proto_url https://github.com/open-telemetry/opentelemetry-proto
 Source1:        %{proto_url}/archive/v%{proto_version}/opentelemetry-proto-%{proto_version}.tar.gz
 
-# Python 3.12 compat.: LogRecord now has a taskName attribute
-# https://github.com/open-telemetry/opentelemetry-python/pull/3557
-#
-# Fixes:
-#
-# Test failure in opentelemetry-sdk on Python 3.12
-# https://github.com/open-telemetry/opentelemetry-python/issues/3370
-Patch:          %{url}/pull/3557.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -81,10 +72,7 @@ BuildRequires:  latexmk
       exporter/opentelemetry-exporter-otlp
       exporter/opentelemetry-exporter-otlp-proto-common
       exporter/opentelemetry-exporter-otlp-proto-grpc
-      exporter/opentelemetry-exporter-otlp-proto-http
-      exporter/opentelemetry-exporter-jaeger-thrift
-      exporter/opentelemetry-exporter-jaeger-proto-grpc
-      exporter/opentelemetry-exporter-jaeger}
+      exporter/opentelemetry-exporter-otlp-proto-http}
 %global prerel_distinfo %(echo '%{prerel_version}' | tr -d '~^').dist-info
 # See eachdist.ini:
 %global prerel_pkgdirs %{shrink:
@@ -101,77 +89,12 @@ OpenTelemetry Python API and SDK.}
 %{common_description}
 
 
-%package -n python3-opentelemetry-exporter-jaeger-proto-grpc
-Summary:        Jaeger Protobuf Exporter for OpenTelemetry
-Version:        %{stable_version}
-
-# Dependencies across subpackages should be fully-versioned.
-Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
-Requires:       python3-opentelemetry-sdk = %{stable_version}-%{release}
-
-# All Jaeger exporters were deprecated upstream in 1.16.0/0.37b0.
-Provides:       deprecated()
-
-%description -n python3-opentelemetry-exporter-jaeger-proto-grpc
-This library allows to export tracing data to Jaeger
-(https://www.jaegertracing.io/).
-
-Warning: Since v1.35, the Jaeger supports OTLP natively. Please use the OTLP
-exporter instead. Upstream support for this exporter will end July 2023.
-
-
-%package -n python3-opentelemetry-exporter-jaeger-thrift
-Summary:        Jaeger Thrift Exporter for OpenTelemetry
-Version:        %{stable_version}
-
-# Dependencies across subpackages should be fully-versioned.
-Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
-Requires:       python3-opentelemetry-sdk = %{stable_version}-%{release}
-
-# All Jaeger exporters were deprecated upstream in 1.16.0/0.37b0.
-Provides:       deprecated()
-
-%description -n python3-opentelemetry-exporter-jaeger-thrift
-This library allows to export tracing data to Jaeger
-(https://www.jaegertracing.io/) using Thrift.
-
-Warning: Since v1.35, the Jaeger supports OTLP natively. Please use the OTLP
-exporter instead. Upstream support for this exporter will end July 2023.
-
-
-%package -n python3-opentelemetry-exporter-jaeger
-Summary:        Jaeger Exporters for OpenTelemetry
-Version:        %{stable_version}
-
-Obsoletes:      python3-opentelemetry-ext-jaeger < 1.0
-
-# Dependencies across subpackages should be fully-versioned.
-Requires:       python3-opentelemetry-exporter-jaeger-proto-grpc = %{stable_version}-%{release}
-Requires:       python3-opentelemetry-exporter-jaeger-thrift = %{stable_version}-%{release}
-
-# All Jaeger exporters were deprecated upstream in 1.16.0/0.37b0.
-Provides:       deprecated()
-
-%description -n python3-opentelemetry-exporter-jaeger
-This library is provided as a convenience to install all supported Jaeger
-Exporters. Currently it installs:
-  • opentelemetry-exporter-jaeger-proto-grpc
-  • opentelemetry-exporter-jaeger-thrift
-
-To avoid unnecessary dependencies, users should install the specific package
-once they’ve determined their preferred serialization method.
-
-Warning: Since v1.35, the Jaeger supports OTLP natively. Please use the OTLP
-exporter instead. Upstream support for this exporter will end July 2023.
-
-
-
 %if %{with prerelease} && %{without protobuf4}
 %package -n python3-opentelemetry-exporter-opencensus
 Summary:        OpenCensus Exporter
 Version:        %{prerel_version}
 
-Obsoletes:      python3-opentelemetry-ext-opencensusexporter < 1.0
+Obsoletes:      python3-opentelemetry-ext-opencensusexporter < 1.0-1
 
 # Dependencies across subpackages should be fully-versioned.
 Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
@@ -254,7 +177,7 @@ once they’ve determined their preferred serialization and protocol method.
 Summary:        OpenTelemetry Prometheus Exporter
 Version:        %{prerel_version}
 
-Obsoletes:      python3-opentelemetry-ext-prometheus < 1.0
+Obsoletes:      python3-opentelemetry-ext-prometheus < 1.0-1
 
 Requires:       ((%{py3_dist prometheus_client} >= 0.5) with (%{py3_dist prometheus_client} < 1))
 # Dependencies across subpackages should be fully-versioned.
@@ -304,7 +227,7 @@ Version:        %{stable_version}
 Requires:       python3-opentelemetry-exporter-zipkin-json = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-exporter-zipkin-proto-http = %{stable_version}-%{release}
 
-Obsoletes:      python3-opentelemetry-ext-wsgi < 1.0
+Obsoletes:      python3-opentelemetry-ext-wsgi < 1.0-1
 
 %description -n python3-opentelemetry-exporter-zipkin
 This library is provided as a convenience to install all supported
@@ -333,7 +256,7 @@ Version:        %{stable_version}
 # release 1.6.1/0.25~b1. We therefore obsolete it…
 Obsoletes:      python3-opentelemetry-instrumentation < 0.25~b1.1
 # …and its pre-1.0 name…
-Obsoletes:      python3-opentelemetry-auto-instrumentation < 1.0
+Obsoletes:      python3-opentelemetry-auto-instrumentation < 1.0-1
 # …and the pre-1.0 packages it was obsoleting. (Most of these are
 # instrumentation extensions.)
 
@@ -347,45 +270,52 @@ Obsoletes:      python3-opentelemetry-auto-instrumentation < 1.0
 # obsoleted by the corresponding new packages.
 
 #   • opentelemetry-instrumentation-aiohttp-client
-Obsoletes:      python3-opentelemetry-ext-aiohttp-client < 1.0
+Obsoletes:      python3-opentelemetry-ext-aiohttp-client < 1.0-1
 #   • opentelemetry-instrumentation-asgi
-Obsoletes:      python3-opentelemetry-ext-asgi < 1.0
+Obsoletes:      python3-opentelemetry-ext-asgi < 1.0-1
 #   • opentelemetry-instrumentation-dbapi
-Obsoletes:      python3-opentelemetry-ext-dbapi < 1.0
+Obsoletes:      python3-opentelemetry-ext-dbapi < 1.0-1
 #   • opentelemetry-instrumentation-django
-Obsoletes:      python3-opentelemetry-ext-django < 1.0
+Obsoletes:      python3-opentelemetry-ext-django < 1.0-1
 #   • opentelemetry-instrumentation-flask
-Obsoletes:      python3-opentelemetry-ext-flask < 1.0
+Obsoletes:      python3-opentelemetry-ext-flask < 1.0-1
 #   • opentelemetry-instrumentation-grpc
-Obsoletes:      python3-opentelemetry-ext-grpc < 1.0
+Obsoletes:      python3-opentelemetry-ext-grpc < 1.0-1
 #   • opentelemetry-instrumentation-jinja2
-Obsoletes:      python3-opentelemetry-ext-jinja2 < 1.0
+Obsoletes:      python3-opentelemetry-ext-jinja2 < 1.0-1
 #   • opentelemetry-instrumentation-mysql
-Obsoletes:      python3-opentelemetry-ext-mysql < 1.0
+Obsoletes:      python3-opentelemetry-ext-mysql < 1.0-1
 #   • opentelemetry-instrumentation-psycopg2
-Obsoletes:      python3-opentelemetry-ext-psycopg2 < 1.0
+Obsoletes:      python3-opentelemetry-ext-psycopg2 < 1.0-1
 #   • opentelemetry-instrumentation-pymongo
-Obsoletes:      python3-opentelemetry-ext-pymongo < 1.0
+Obsoletes:      python3-opentelemetry-ext-pymongo < 1.0-1
 #   • opentelemetry-instrumentation-pymysql
-Obsoletes:      python3-opentelemetry-ext-pymysql < 1.0
+Obsoletes:      python3-opentelemetry-ext-pymysql < 1.0-1
 #   • opentelemetry-instrumentation-redis
-Obsoletes:      python3-opentelemetry-ext-redis < 1.0
+Obsoletes:      python3-opentelemetry-ext-redis < 1.0-1
 #   • opentelemetry-instrumentation-requests
-Obsoletes:      python3-opentelemetry-ext-requests < 1.0
+Obsoletes:      python3-opentelemetry-ext-requests < 1.0-1
 #   • opentelemetry-instrumentation-sqlalchemy
-Obsoletes:      python3-opentelemetry-ext-sqlalchemy < 1.0
+Obsoletes:      python3-opentelemetry-ext-sqlalchemy < 1.0-1
 #   • opentelemetry-instrumentation-sqlite3
-Obsoletes:      python3-opentelemetry-ext-sqlite3 < 1.0
+Obsoletes:      python3-opentelemetry-ext-sqlite3 < 1.0-1
 #   • opentelemetry-instrumentation-wsgi
-Obsoletes:      python3-opentelemetry-ext-wsgi < 1.0
+Obsoletes:      python3-opentelemetry-ext-wsgi < 1.0-1
 
 #   • opentelemetry-exporter-datadog
-Obsoletes:      python3-opentelemetry-ext-datadog < 1.0
+Obsoletes:      python3-opentelemetry-ext-datadog < 1.0-1
+#   • opentelemetry-exporter-jaeger (removed in 1.22.0)
+Obsoletes:      python3-opentelemetry-ext-jaeger < 1.0-1
 
 # The opentelemetry-distro package was moved to “contrib” in release
 # 1.6.1/0.25~b1.
 Obsoletes:      python3-opentelemetry-distro < 0.25~b1.1
 Obsoletes:      python3-opentelemetry-distro+otlp < 0.25~b1.1
+
+# These were first deprecated, then finally removed in 1.22.0.
+Obsoletes:      python3-opentelemetry-exporter-jaeger-proto-grpc < 1.22.0-1
+Obsoletes:      python3-opentelemetry-exporter-jaeger-thrift < 1.22.0-1
+Obsoletes:      python3-opentelemetry-exporter-jaeger < 1.22.0-1
 
 %description -n python3-opentelemetry-api
 %{summary}.
@@ -462,7 +392,7 @@ Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
 Summary:        OpenTracing Shim for OpenTelemetry
 Version:        %{prerel_version}
 
-Obsoletes:      python3-opentelemetry-ext-opentracing-shim < 1.0
+Obsoletes:      python3-opentelemetry-ext-opentracing-shim < 1.0-1
 
 # Dependencies across subpackages should be fully-versioned.
 Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
@@ -503,14 +433,6 @@ This package provides documentation for python-opentelemetry.
 %prep
 %autosetup -n opentelemetry-python-%{stable_version} -p1
 
-# In “Pin googleapis-common-protos version”,
-# https://github.com/open-telemetry/opentelemetry-python/pull/2777, upstream
-# pinned “googleapis-common-protos ~= 1.52, < 1.56.3” to work around some test
-# failures. However, we must deal with the system-wide versions of all
-# dependencies, so we will have to skip any failing tests until and unless
-# upstream is able to fix them properly.
-sed -r -i 's/("googleapis-common-protos.*), <[^"]*/\1/' \
-    exporter/opentelemetry-exporter-jaeger-proto-grpc/pyproject.toml
 # In “Bug fix: detect and adapt to backoff package version”,
 # https://github.com/open-telemetry/opentelemetry-python/pull/2980, upstream
 # pinned test dependency “responses == 0.22.0”. While this matches the packaged
@@ -520,14 +442,6 @@ sed -r -i 's/(responses )== /\1>= /' \
     exporter/opentelemetry-exporter-otlp-proto-http/pyproject.toml
 
 %py3_shebang_fix .
-# These are not installed with executable permissions, so shebangs are not
-# useful:
-thriftgen='exporter/opentelemetry-exporter-jaeger-thrift/src'
-thriftgen="${thriftgen}/opentelemetry/exporter/jaeger/thrift/gen"
-sed -r -i '1{/^#!/d}' \
-    "${thriftgen}/agent/Agent-remote" \
-    "${thriftgen}/jaeger/Collector-remote" \
-    "${thriftgen}/zipkincore/ZipkinCollector-remote"
 
 # Fix a test that shells out to the unversioned Python command. This is OK
 # upstream, but not in Fedora.
@@ -563,13 +477,15 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
   #
   # - we must allow Flask 2.x, as in opentelemetry-test-utils
   #
-  # - we must allow Sphinx 3.6+ and 4.x
-  # - we must allow sphinx-autodoc-typehints 1.17
+  # - we must allow whatever Sphinx and Sphinx extension versions we have and
+  #   build documentation on a best-effort basis
   # - we must allow opentracing 2.3.x and 2.4.x
   # - we must allow protobuf 3.19.x; furthermore, we are not generating the
   #   bindings from the proto files, so we don’t have to respect the version
   #   specification in dev-requirements.txt, only the ones in individual
   #   packages
+  # - we must allow psutil 5.9.5 for now (wants 5.9.6); since it it is a test
+  #   dependency, we just remove the version bound and hope for the best
   #
   # - upstream pins markupsafe==2.0.1:
   #     temporary fix. we should update the jinja, flask deps
@@ -591,8 +507,10 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
       -e '/\b(ddtrace|sphinx-(rtd-theme|jekyll-builder)|wrapt)\b/d' \
       -e '/\b(grpcio-tools|httpretty|readme-renderer|bleach)\b/d' \
       -e 's/\b(flask~=)1\.[[:digit:]]\b/\12\.0/' \
-      -e 's/\b(sphinx(-autodoc-typehints)?|opentracing)~=/\1>=/' \
+      -e 's/\b(sphinx.*)[=~]=.*/\1/' \
+      -e 's/\b(opentracing)~=/\1>=/' \
       -e 's/\b(protobuf)[>~]=.*/\1/' \
+      -e 's/\b(psutil)[=~]=.*/\1/' \
       -e 's/\b(markupsafe|pytest|requests|ruamel\.yaml)==.*/\1/' \
       -e '/\b(requests|ruamel\.yaml)\b/d' \
       %{?!with_doc_pdf:-e '/\b(sphinx|django)\b/d'} \
@@ -657,14 +575,7 @@ done
   for pkgdir in %{?with_prerelease:%{prerel_pkgdirs}} %{stable_pkgdirs}
   do
     pushd "${pkgdir}" >/dev/null
-    if [[ "${pkgdir}" = 'exporter/opentelemetry-exporter-otlp' ]]
-    then
-      # No “test” extra:
-      %pyproject_buildrequires
-    else
-      # Typical subpackage:
-      %pyproject_buildrequires -x test "${reqs}"
-    fi
+    %pyproject_buildrequires -x test "${reqs}"
     popd >/dev/null
   done
 ) | grep -vE '\bopentelemetry-' | sort -u
@@ -739,54 +650,6 @@ do
 
   %pytest "${pkgdir}" ${ignore-} -k "${k-}"
 done
-
-
-%files -n python3-opentelemetry-exporter-jaeger-proto-grpc
-# Note that the contents are identical to the top-level LICENSE file.
-%license exporter/opentelemetry-exporter-jaeger-proto-grpc/LICENSE
-%doc exporter/opentelemetry-exporter-jaeger-proto-grpc/README.rst
-%doc exporter/opentelemetry-exporter-jaeger-proto-grpc/examples
-
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry
-%{python3_sitelib}/opentelemetry/py.typed
-%dir %{python3_sitelib}/opentelemetry/exporter/
-%dir %{python3_sitelib}/opentelemetry/exporter/jaeger/
-%{python3_sitelib}/opentelemetry/exporter/jaeger/py.typed
-%dir %{python3_sitelib}/opentelemetry/exporter/jaeger/proto/
-
-%{python3_sitelib}/opentelemetry/exporter/jaeger/proto/grpc/
-%{python3_sitelib}/opentelemetry_exporter_jaeger_proto_grpc-%{stable_distinfo}/
-
-
-%files -n python3-opentelemetry-exporter-jaeger-thrift
-# Note that the contents are identical to the top-level LICENSE file.
-%license exporter/opentelemetry-exporter-jaeger-thrift/LICENSE
-%doc exporter/opentelemetry-exporter-jaeger-thrift/README.rst
-%doc exporter/opentelemetry-exporter-jaeger-thrift/examples/
-
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry/
-%{python3_sitelib}/opentelemetry/py.typed
-%dir %{python3_sitelib}/opentelemetry/exporter/
-%dir %{python3_sitelib}/opentelemetry/exporter/jaeger/
-%{python3_sitelib}/opentelemetry/exporter/jaeger/py.typed
-
-%{python3_sitelib}/opentelemetry/exporter/jaeger/thrift/
-%{python3_sitelib}/opentelemetry_exporter_jaeger_thrift-%{stable_distinfo}/
-
-
-%files -n python3-opentelemetry-exporter-jaeger
-# Note that the contents are identical to the top-level LICENSE file.
-%license exporter/opentelemetry-exporter-jaeger/LICENSE
-%doc exporter/opentelemetry-exporter-jaeger/README.rst
-
-# Shared namespace directories are already (co)-owned by the implementation
-# subpackages (-proto-grpc, -thrift) upon which this subpackage depends.
-
-%dir %{python3_sitelib}/opentelemetry/exporter/jaeger/__pycache__/
-%pycached %{python3_sitelib}/opentelemetry/exporter/jaeger/version.py
-%{python3_sitelib}/opentelemetry_exporter_jaeger-%{stable_distinfo}/
 
 
 %if %{with prerelease} && %{without protobuf4}

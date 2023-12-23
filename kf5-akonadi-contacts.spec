@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The Akonadi Contacts Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -115,13 +115,13 @@ xvfb-run -a \
 
 %ldconfig_scriptlets
 
-%files -f %{name}.lang
+%files
 %dir %{_kf5_datadir}/kf5/akonadi/
 %{_kf5_datadir}/akonadi/plugins/serializer/
 %{_kf5_datadir}/kf5/akonadi/contact/
 %{_kf5_qtplugindir}/akonadi_serializer_*.so
 
-%files libs
+%files libs -f %{name}.lang
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5AkonadiContact.so.*
 %{_kf5_libdir}/libKPim5ContactEditor.so.*
@@ -139,6 +139,9 @@ xvfb-run -a \
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-3
+- Include translations in libs subpackage
+
 * Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Split libs subpackage, to co-install with kf6 akonadi
 

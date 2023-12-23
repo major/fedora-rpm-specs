@@ -11,7 +11,7 @@ Name: syslinux
 Version: 6.04
 %define tarball_version 6.04-pre1
 Release: 0.25%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project
 Source0: http://www.kernel.org/pub/linux/utils/boot/syslinux/%{name}-%{tarball_version}.tar.xz
 Patch0001: 0001-Add-install-all-target-to-top-side-of-HAVE_FIRMWARE.patch
@@ -260,6 +260,10 @@ fi
 %endif
 
 %changelog
+* Wed Dec 13 2023 Nicolas Frayer <nfrayer@redhat.com>
+- Migrate to SPDX license
+- Please refer to https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-0.25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

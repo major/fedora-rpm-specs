@@ -5,13 +5,13 @@
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.16.1
+Version:       2.17.2
 Release:       1%{?dist}
 BuildArch:     noarch
 
-License:       BSD
+License:       BSD-2-Clause
 URL:           https://pygments.org/
-Source0:       %{pypi_source}
+Source0:       %{pypi_source pygments}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Thu Dec 21 2023 Sandro Mani <manisandro@gmail.com> - 2.17.2-1
+- Update to 2.17.2
+
 * Tue Sep 12 2023 Sandro Mani <manisandro@gmail.com> - 2.16.1-1
 - Update to 2.16.1
 

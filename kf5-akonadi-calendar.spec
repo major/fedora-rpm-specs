@@ -9,7 +9,7 @@
 
 Name:    kf5-%{base_name}
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -92,7 +92,11 @@ developing applications that use %{name}.
 %install
 %cmake_install
 
-%find_lang %{name} --all-name --with-html
+%find_lang libakonadi-calendar5
+%find_lang libakonadi-calendar5-serializer
+cat libakonadi-calendar5-serializer.lang >> libakonadi-calendar5.lang
+
+%find_lang kalendarac
 
 
 %check
@@ -106,7 +110,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 %ldconfig_scriptlets
 
-%files -f %{name}.lang
+%files -f kalendarac.lang
 %license LICENSES/*
 %{_kf5_bindir}/kalendarac
 %{_kf5_datadir}/akonadi/plugins/serializer/
@@ -117,7 +121,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_qtplugindir}/kf5/org.kde.kcalendarcore.calendars/libakonadicalendarplugin.so
 %{_kf5_sysconfdir}/xdg/autostart/org.kde.kalendarac.desktop
 
-%files libs
+%files libs -f libakonadi-calendar5.lang
 %{_kf5_libdir}/libKPim5AkonadiCalendar.so.*
 %{_kf5_datadir}/qlogging-categories5/*%{base_name}.*
 
@@ -132,6 +136,12 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-4
+- Split translation files into their subpackages
+
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-3
+- Include translations in libs subpackage
+
 * Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Split libs subpackage, to co-install with kf6 akonadi
 

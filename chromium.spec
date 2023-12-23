@@ -289,7 +289,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 120.0.6099.109
+Version: 120.0.6099.129
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1770,6 +1770,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Dec 21 2023 Than Ngo <than@redhat.com> - 120.0.6099.129-1
+- update to 120.0.6099.129
+  * High CVE-2023-7024: Heap buffer overflow in WebRTC
+
 * Wed Dec 13 2023 Than Ngo <than@redhat.com> - 120.0.6099.109-1
 - update to 120.0.6099.109
    * High CVE-2023-6702: Type Confusion in V8

@@ -21,7 +21,7 @@ Epoch: 3
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 4.8.0.post1
+Version: 4.8.1
 License: Apache-2.0
 Release: %autorelease
 Summary: RESTful API for Podman

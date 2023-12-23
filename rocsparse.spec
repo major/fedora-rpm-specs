@@ -1,6 +1,6 @@
 %global upstreamname rocSPARSE
-%global rocm_release 5.7
-%global rocm_patch 1
+%global rocm_release 6.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -17,7 +17,7 @@
 
 Name:           rocsparse
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -40,7 +40,7 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-rpm-macros-modules
-BuildRequires:  rocprim-devel
+BuildRequires:  rocprim-static
 
 %if %{with test}
 BuildRequires:  gtest-devel
@@ -117,8 +117,4 @@ done
 %endif
 
 %changelog
-* Fri Nov 3 2023 Tom Rix <trix@redhat.com>  - 5.7.1-2
-- Address review comments
-
-* Wed Nov 1 2023 Tom Rix <trix@redhat.com>  - 5.7.1-1
-- Initial package
+%autochangelog

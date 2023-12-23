@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.7
-%global specversion 4.rc4
+%global specversion 4
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit c858c13cb79431b5c8e5dda3ca44dd305fce946c
+%global commit 0f7f88312f7a1ccedee60bf768aba79ee13d41e0
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -88,7 +88,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_without pre_release
+%bcond_with pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -848,6 +848,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Thu Dec 21 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.7-4
+- Update for new upstream release tarball: Pacemaker-2.1.7,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.7
+
 * Wed Dec 13 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.7-0.4.rc4
 - Update for new upstream tarball for release candidate: Pacemaker-2.1.7-rc4,
   for full details, see included ChangeLog file or

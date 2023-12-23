@@ -7,14 +7,14 @@ BuildRequires:  %{*} \
 %undefine		minorver	
 %undefine		ifpre	
 
-%define		baserelease	3
+%define		baserelease	4
 %define		rel		%{?ifpre:0.}%{baserelease}%{?minorver:.%minorver}
 
 
 
 Name:		alexandria
 Version:	%{majorver}
-Release:	%{rel}%{?dist}.1
+Release:	%{rel}%{?dist}
 Summary:	Book collection manager
 
 License:	GPLv2+
@@ -163,25 +163,25 @@ Alexandria is a GNOME application to help you manage your book collection.
 %setup -q -n %{name}-book-collection-manager-%{majorver}%{?minorver:-%{?minorver}}
 
 # Check if patch2 issue is fixed in rev 1154
-#%%patch2 -p0 -b .up25348
-%patch3 -p1 -b .up28263.isdn
-#%%patch4 -p0 -b .up29479.search
-%patch14 -p1 -b .ascii -Z
-#%%patch15 -p1 -b .kcodefix 
-%patch18 -p1 -b .ruby19_utf8 -Z
-%patch19 -p1 -b .export_html -Z
-%patch20 -p1 -b .export_csv -Z
-%patch21 -p1 -b .icon_kanji -Z
-%patch22 -p1 -b .broken_yaml -Z
-%patch23 -p1 -b .delete_yaml -Z
-%patch25 -p1 -b .nothread -Z
-%patch26 -p1 -b .z3950_count -Z
-#%%patch27 -p1 -b .negative -Z
-%patch29 -p1 -b .gettext -Z
-%patch30 -p1 -b .utf8_2 -Z
-%patch31 -p1 -b .undefined_method -Z
-%patch32 -p1 -b .reset_search -Z
-%patch33 -p1 -b .image_size -Z
+#%%patch -P2 -p0 -b .up25348
+%patch -P3 -p1 -b .up28263.isdn
+#%%patch -P4 -p0 -b .up29479.search
+%patch -P14 -p1 -b .ascii -Z
+#%%patch -P15 -p1 -b .kcodefix 
+%patch -P18 -p1 -b .ruby19_utf8 -Z
+%patch -P19 -p1 -b .export_html -Z
+%patch -P20 -p1 -b .export_csv -Z
+%patch -P21 -p1 -b .icon_kanji -Z
+%patch -P22 -p1 -b .broken_yaml -Z
+%patch -P23 -p1 -b .delete_yaml -Z
+%patch -P25 -p1 -b .nothread -Z
+%patch -P26 -p1 -b .z3950_count -Z
+#%%patch -P27 -p1 -b .negative -Z
+%patch -P29 -p1 -b .gettext -Z
+%patch -P30 -p1 -b .utf8_2 -Z
+%patch -P31 -p1 -b .undefined_method -Z
+%patch -P32 -p1 -b .reset_search -Z
+%patch -P33 -p1 -b .image_size -Z
 
 # Part of https://github.com/mvz/alexandria-book-collection-manager/commit/d9116e99242c209129bf09c3c1ad9a4ff6fdcf44
 # Needed for ruby3.2 - removes File.exists?
@@ -296,6 +296,9 @@ touch FAKE/bundler/setup.rb
 touch FAKE/simplecov.rb
 export RUBYLIB=$(pwd)/FAKE
 
+# Disable z3950 provider test
+disable_test spec/alexandria/book_providers/bl_provider_spec.rb "works"
+
 ping -w3 www.google.co.jp && \
 	{
 		# Need taking a look at this
@@ -305,7 +308,6 @@ ping -w3 www.google.co.jp && \
 	|| \
 	{
 		disable_test spec/alexandria/book_providers/thalia_provider_spec.rb "works when searching by ISBN";
-		disable_test spec/alexandria/book_providers/bl_provider_spec.rb "works";
 		disable_test spec/alexandria/book_providers/loc_provider_spec.rb "works for a book";
 		disable_test spec/alexandria/book_providers/sbn_provider_spec.rb "works";
 		sed -i spec/alexandria/book_providers_spec.rb -e "\@Alexandria::BookProviders::SBNProvider@{n;s|it|xit|}";
@@ -356,6 +358,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Fri Dec 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.9-4
+- Disable z3950x provider test
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

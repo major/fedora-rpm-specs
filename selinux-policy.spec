@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 21648f766d2f09a86df8eaede5bb3262db488b92
+%global commit 48593ca48ec2df52a28d65cc3d87d95f393578fc
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.7
+Version: 40.8
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,26 @@ exit 0
 %endif
 
 %changelog
+* Thu Dec 21 2023 Zdenek Pytela <zpytela@redhat.com> - 40.8-1
+- Allow hypervkvp_t write access to NetworkManager_etc_rw_t
+- Add interface for write-only access to NetworkManager rw conf
+- Allow systemd-sleep send a message to syslog over a unix dgram socket
+- Allow init create and use netlink netfilter socket
+- Allow qatlib load kernel modules
+- Allow qatlib run lspci
+- Allow qatlib manage its private runtime socket files
+- Allow qatlib read/write vfio devices
+- Label /etc/redis.conf with redis_conf_t
+- Remove the lockdown-class rules from the policy
+- Allow init read all non-security socket files
+- Replace redundant dnsmasq pattern macros
+- Remove unneeded symlink perms in dnsmasq.if
+- Add additions to dnsmasq interface
+- Allow nvme_stas_t create and use netlink kobject uevent socket
+- Allow collectd connect to statsd port
+- Allow keepalived_t to use sys_ptrace of cap_userns
+- Allow dovecot_auth_t connect to postgresql using UNIX socket
+
 * Wed Dec 13 2023 Zdenek Pytela <zpytela@redhat.com> - 40.7-1
 - Make named_zone_t and named_var_run_t a part of the mountpoint attribute
 - Allow sysadm execute traceroute in sysadm_t domain using sudo

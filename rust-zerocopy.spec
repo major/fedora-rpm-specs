@@ -6,7 +6,7 @@
 %global crate zerocopy
 
 Name:           rust-zerocopy
-Version:        0.7.28
+Version:        0.7.32
 Release:        %autorelease
 Summary:        Utilities for zero-copy parsing and serialization
 

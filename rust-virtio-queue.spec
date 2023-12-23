@@ -5,8 +5,8 @@
 %global crate virtio-queue
 
 Name:           rust-virtio-queue
-Version:        0.9.0
-Release:        2%{?dist}
+Version:        0.10.0
+Release:        %autorelease
 Summary:        Virtio queue implementation
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -88,47 +88,4 @@ cp %{SOURCE2} .
 %endif
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jul 12 2023 Sergio Lopez <slp@redhat.com> - 0.9.0-1
-- Update to version 0.9.0
-- Regenerate with rust2rpm 24
-
-* Tue Apr 04 2023 Sergio Lopez <slp@redhat.com> - 0.7.1-1
-- Update to version 0.7.1
-- Drop virtio-queue-fix-endianess-issues-in-mock-queue.diff patch
-
-* Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.7.0-1
-- Update to version 0.7.0
-- Add virtio-queue-fix-endianess-issues-in-mock-queue.diff patch
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Nov 04 2022 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-2
-- Drop unused, benchmark-only criterion dev-dependency.
-- Regenerate with rust2rpm 23.
-
-* Tue Jul 26 2022 Sergio Lopez <slp@redhat.com> - 0.4.0-1
-- Update to crate version 0.4.0
-- Switch to rust-packaging 21
-- Drop patch for s390x, as fix has been merged upstream
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 01 2022 Sergio Lopez <slp@redhat.com> - 0.3.0-1
-- Update to crate version 0.3.0
-- Enable all rust_arches except i686 (32 bits targets are not supported)
-- Add a patch fixing a new test broken on s390x
-
-* Thu Mar 10 2022 Sergio Lopez <slp@redhat.com> - 0.2.0-1
-- Update to crate version 0.2.0
-- Drop patch for s390x, as fix has been merged upstream
-
-* Tue Mar 01 2022 Sergio Lopez <slp@redhat.com> - 0.1.0-2
-- Add a patch fixing unit tests on s390x
-
-* Wed Feb 16 2022 Sergio Lopez <slp@redhat.com> - 0.1.0-1
-- Initial package
+%autochangelog

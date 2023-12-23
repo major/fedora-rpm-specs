@@ -1,5 +1,5 @@
 Name:           mint-y-icons
-Version:        1.6.9
+Version:        1.7.1
 Release:        1%{?dist}
 Summary:        The Mint-Y icon theme
 
@@ -52,6 +52,9 @@ done
 
 
 %changelog
+* Thu Dec 21 2023 Leigh Scott <leigh123linux@gmail.com> - 1.7.1-1
+- New upstream release
+
 * Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 1.6.9-1
 - New upstream release
 

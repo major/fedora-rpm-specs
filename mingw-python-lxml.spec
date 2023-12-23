@@ -4,11 +4,15 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       4.9.3
+Version:       4.9.4
 Release:       1%{?dist}
 BuildArch:     noarch
 
-License:       BSD
+# The lxml project is licensed under BSD-3-Clause
+# Some code is derived from ElementTree and cElementTree
+# thus using the MIT-CMU elementtree license
+# .xsl schematron files are under the MIT license
+License:       BSD-3-Clause AND MIT-CMU AND MIT
 URL:           https://lxml.de/
 Source0:       %{pypi_source}
 # Don't attempt to link against librt
@@ -82,6 +86,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Thu Dec 21 2023 Sandro Mani <manisandro@gmail.com> - 4.9.4-1
+- Update to 4.9.4
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 4.9.3-1
 - Update to 4.9.3
 

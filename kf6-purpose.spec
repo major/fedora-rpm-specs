@@ -2,8 +2,8 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 5.246.0
-Release: 2%{?dist}
+Version: 5.247.0
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -74,7 +74,7 @@ Requires: cmake(KF6CoreAddons)
 %dir %{_kf6_plugindir}/kfileitemaction/
 %{_kf6_plugindir}/kfileitemaction/sharefileitemaction.so
 %{_kf6_qmldir}/org/kde/purpose/
-%{_datadir}/icons/hicolor/*/apps/*-purpose.*
+%{_datadir}/icons/hicolor/*/apps/*-purpose6.*
 
 %files devel
 %{_kf6_libdir}/libKF6Purpose.so
@@ -84,6 +84,9 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Thu Dec 07 2023 Nicolas Fella <nicolas.fella@gmx.de> - 5.246.0-2
 - Add missing bluez-qt QML module dependency
 

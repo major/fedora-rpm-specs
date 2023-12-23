@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Message libraries
 
 License: BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -106,13 +106,13 @@ Requires:       cmake(Qt5WebEngine)
 %autosetup -n %{framework}-%{version} -p1
 
 # Rename translation files to avoid conflict with KF6
-find ./po -type f -name libmessagecomposer -execdir mv {} libmessagecomposer5.po \;
-find ./po -type f -name libmessagecore -execdir mv {} libmessagecore5.po \;
-find ./po -type f -name libmessagelist -execdir mv {} libmessagelist5.po \;
-find ./po -type f -name libmessageviewer -execdir mv {} libmessageviewer5.po \;
-find ./po -type f -name libmimetreeparser -execdir mv {} libmimetreeparser5.po \;
-find ./po -type f -name libtemplateparser -execdir mv {} libtemplateparser5.po \;
-find ./po -type f -name libwebengineviewer -execdir mv {} libwebengineviewer5.po \;
+find ./po -type f -name libmessagecomposer.po -execdir mv {} libmessagecomposer5.po \;
+find ./po -type f -name libmessagecore.po -execdir mv {} libmessagecore5.po \;
+find ./po -type f -name libmessagelist.po -execdir mv {} libmessagelist5.po \;
+find ./po -type f -name libmessageviewer.po -execdir mv {} libmessageviewer5.po \;
+find ./po -type f -name libmimetreeparser.po -execdir mv {} libmimetreeparser5.po \;
+find ./po -type f -name libtemplateparser.po -execdir mv {} libtemplateparser5.po \;
+find ./po -type f -name libwebengineviewer.po -execdir mv {} libwebengineviewer5.po \;
 sed -i "/TRANSLATION_DOMAIN/ s/libmessagecomposer/libmessagecomposer5/" messagecomposer/src/CMakeLists.txt
 sed -i "/TRANSLATION_DOMAIN/ s/libmessagecore/libmessagecore5/" messagecore/src/CMakeLists.txt
 sed -i "/TRANSLATION_DOMAIN/ s/libmessagelist/libmessagelist5/" messagelist/src/CMakeLists.txt
@@ -120,13 +120,13 @@ sed -i "/TRANSLATION_DOMAIN/ s/libmessageviewer/libmessageviewer5/" messageviewe
 sed -i "/TRANSLATION_DOMAIN/ s/libmimetreeparser/libmimetreeparser5/" mimetreeparser/src/CMakeLists.txt
 sed -i "/TRANSLATION_DOMAIN/ s/libtemplateparser/libtemplateparser5/" templateparser/src/CMakeLists.txt
 sed -i "/TRANSLATION_DOMAIN/ s/libwebengineviewer/libwebengineviewer5/" webengineviewer/src/CMakeLists.txt
-sed -i "s/messagecomposer/messagecomposer5/" messagecomposer/src/Messages.sh
-sed -i "s/messagecore/messagecore5/" messagecore/src/Messages.sh
-sed -i "s/messagelist/messagelist5/" messagelist/src/Messages.sh
-sed -i "s/messageviewer/messageviewer5/" messageviewer/src/Messages.sh
-sed -i "s/mimetreeparser/mimetreeparser5/" mimetreeparser/Messages.sh
-sed -i "s/templateparser/templateparser5/" templateparser/src/Messages.sh
-sed -i "s/webengineviewer/webengineviewer5/" webengineviewer/src/Messages.sh
+sed -i "s/libmessagecomposer/libmessagecomposer5/" messagecomposer/src/Messages.sh
+sed -i "s/libmessagecore/libmessagecore5/" messagecore/src/Messages.sh
+sed -i "s/libmessagelist/libmessagelist5/" messagelist/src/Messages.sh
+sed -i "s/libmessageviewer/libmessageviewer5/" messageviewer/src/Messages.sh
+sed -i "s/libmimetreeparser/libmimetreeparser5/" mimetreeparser/Messages.sh
+sed -i "s/libtemplateparser/libtemplateparser5/" templateparser/src/Messages.sh
+sed -i "s/libwebengineviewer/libwebengineviewer5/" webengineviewer/src/Messages.sh
 
 %build
 %cmake_kf5
@@ -142,7 +142,7 @@ sed -i "s/webengineviewer/webengineviewer5/" webengineviewer/src/Messages.sh
 
 %ldconfig_scriptlets
 
-%files -f %{name}.lang
+%files
 %license LICENSES/*
 %{_kf5_datadir}/config.kcfg/customtemplates_kfg.kcfg
 %{_kf5_datadir}/config.kcfg/templatesconfiguration_kfg.kcfg
@@ -157,7 +157,7 @@ sed -i "s/webengineviewer/webengineviewer5/" webengineviewer/src/Messages.sh
 %dir %{_kf5_datadir}/org.kde.syntax-highlighting/
 %{_kf5_datadir}/org.kde.syntax-highlighting/syntax/kmail-template.xml
 
-%files libs
+%files libs -f %{name}.lang
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5MessageComposer.so.*
 %{_kf5_libdir}/libKPim5MessageCore.so.*
@@ -205,6 +205,9 @@ sed -i "s/webengineviewer/webengineviewer5/" webengineviewer/src/Messages.sh
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-3
+- Fix translations and package them in the libs subpackage
+
 * Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Split libs subpackage, to co-install with KF6 libksieve
 - Rename translation files to avoid conflict with KF6 libksieve

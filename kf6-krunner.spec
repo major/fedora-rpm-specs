@@ -1,7 +1,7 @@
 %global framework krunner
 
 Name:    kf6-%{framework}
-Version: 5.246.0
+Version: 5.247.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution with parallelized query system
 
@@ -66,6 +66,12 @@ developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/runner6python.tar.bz2
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
+* Sun Dec 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.246.0-2
+- Remove unneeded BuildRequires
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

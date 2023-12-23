@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-compiler
-Version:        2.13.0
-Release:        2%{?dist}
+Version:        2.14.1
+Release:        1%{?dist}
 Summary:        Compiler call initiators for Plexus
 # extras subpackage has a bit different licensing
 # parts of compiler-api are Apache-2.0/MIT
@@ -23,6 +23,7 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 %endif
 
 %description
@@ -83,10 +84,10 @@ cp %{SOURCE2} LICENSE.MIT
 %pom_xpath_remove "pom:dependency[pom:artifactId[text()='plexus-compiler-test']]" plexus-compilers
 
 %pom_remove_plugin :maven-site-plugin
-%pom_remove_plugin :animal-sniffer-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
 
 %pom_remove_dep -r org.codehaus.plexus:plexus-compiler-javac-errorprone
+%pom_remove_dep org.codehaus.plexus:plexus-xml plexus-compiler-manager
 
 %build
 # Tests are skipped because of unavailable plexus-compiler-test artifact
@@ -104,6 +105,9 @@ cp %{SOURCE2} LICENSE.MIT
 %license LICENSE LICENSE.MIT
 
 %changelog
+* Mon Dec 18 2023 Marian Koncek <mkoncek@redhat.com> - 2.14.1-1
+- Update to upstream version 2.14.1
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.13.0-2
 - Convert License tag to SPDX format
 

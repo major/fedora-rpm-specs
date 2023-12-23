@@ -1,6 +1,6 @@
 Name:    ksmtp
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE SMTP libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -9,6 +9,8 @@ URL:     https://invent.kde.org/frameworks/%{name}/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# https://invent.kde.org/pim/ksmtp/-/merge_requests/18
+Patch0:         move-translations.patch
 
 ## upstreamable patches
 
@@ -43,6 +45,9 @@ Requires:       cmake(KPim6Mime)
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# Remove together with move-translations.patch once released
+find ./po -type f -name libksmtp5.po -execdir mv {} libksmtp6.po \;
+
 
 %build
 %cmake_kf6
@@ -66,5 +71,8 @@ Requires:       cmake(KPim6Mime)
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
+- Backport rename translation files
+
 * Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

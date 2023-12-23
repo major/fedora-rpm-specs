@@ -5,7 +5,7 @@
 %global crate self_cell
 
 Name:           rust-self_cell
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Safe-to-use proc-macro-free self-referential structs in stable Rust
 

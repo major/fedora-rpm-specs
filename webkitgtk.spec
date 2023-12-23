@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.43.2
+Version:        2.43.3
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -73,6 +73,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  perl(English)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(JSON::PP)
+BuildRequires:  perl(bigint)
 BuildRequires:  python3
 BuildRequires:  ruby
 BuildRequires:  rubygems

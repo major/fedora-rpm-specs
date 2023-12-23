@@ -26,7 +26,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -183,7 +183,6 @@ See also: %{_sysconfdir}/akonadi/mysql-global.conf
 
 %find_lang libakonadi5
 %find_lang akonadi_knut_resource
-cat akonadi_knut_resource.lang >> libakonadi5.lang
 
 install -p -m644 -D %{SOURCE10} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql
 install -p -m644 -D %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.sqlite
@@ -235,7 +234,7 @@ if [ $1 -eq 0 ] ; then
 fi
 
 
-%files -f libakonadi5.lang
+%files -f akonadi_knut_resource.lang
 %doc AUTHORS
 %doc README*
 %license LICENSES/*
@@ -261,7 +260,7 @@ fi
 %{_kf5_bindir}/akonadi_knut_resource
 %{_kf5_datadir}/kf5/akonadi_knut_resource/
 
-%files libs
+%files libs -f libakonadi5.lang
 %{_kf5_libdir}/akonadi/
 %{_kf5_libdir}/libKPim5AkonadiAgentBase.so.5*
 %{_kf5_libdir}/libKPim5AkonadiCore.so.5*
@@ -316,6 +315,9 @@ fi
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-5
+- Include translations in libs subpackage
+
 * Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-4
 - Move more devel files to the devel subpackage
 

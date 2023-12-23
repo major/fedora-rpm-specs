@@ -1,12 +1,15 @@
 Name:    kidentitymanagement
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KIdentityManagement Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{name}
 
 Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# https://invent.kde.org/pim/kidentitymanagement/-/merge_requests/26.patch
+Patch0:         move-translations.patch
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -40,6 +43,9 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# Remove together with move-translations.patch once released
+find ./po -type f -name libkpimidentities5.po -execdir mv {} libkpimidentities6.po \;
+
 
 %build
 %cmake_kf6
@@ -72,5 +78,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKPim6IdentityManagementQuick.so
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
+- Backport rename translation files
+
 * Thu Dec 7 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

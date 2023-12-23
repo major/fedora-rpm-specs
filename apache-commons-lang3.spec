@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-lang3
-Version:        3.13.0
-Release:        3%{?dist}
+Version:        3.14.0
+Release:        1%{?dist}
 Summary:        Provides a host of helper utilities for the java.lang API
 License:        Apache-2.0
 URL:            https://commons.apache.org/lang
@@ -82,6 +82,9 @@ sed -i '/<argLine>/d' pom.xml
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Mon Dec 18 2023 Marian Koncek <mkoncek@redhat.com> - 3.14.0-1
+- Update to upstream version 3.14.0
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.13.0-3
 - Rebuild to regenerate auto-Requires on java
 

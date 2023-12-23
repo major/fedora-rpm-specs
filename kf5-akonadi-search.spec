@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -79,6 +79,10 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
+find ./po -type f -execdir mv {} akonadi_search5.po \;
+sed -i "/TRANSLATION_DOMAIN/ s/akonadi_search/akonadi_search5/" CMakeLists.txt
+sed -i "s/akonadi_search/akonadi_search5/" Messages.sh
+
 
 %build
 %cmake_kf5 \
@@ -105,8 +109,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 %ldconfig_scriptlets
 
-%files -f %{name}.lang
-
+%files
 %license LICENSES/*
 %{_kf5_bindir}/akonadi_html_to_text
 %{_kf5_bindir}/akonadi_indexing_agent
@@ -115,7 +118,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_plugindir}/krunner/krunner_pimcontacts.so
 %{_kf5_qtplugindir}/pim5/akonadi/
 
-%files libs
+%files libs -f %{name}.lang
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKPim5AkonadiSearchCore.so.*
 %{_kf5_libdir}/libKPim5AkonadiSearchDebug.so.*
@@ -131,6 +134,12 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKPim5AkonadiSearchXapian.so
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-4
+- Rename translation files to avoid conflict with KF6
+
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-3
+- Include translations in libs subpackage
+
 * Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Split libs subpackage, to co-install with kf6 akonadi
 

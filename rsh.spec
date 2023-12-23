@@ -3,7 +3,7 @@
 Summary: Clients for remote access commands (rsh, rlogin, rcp)
 Name: rsh
 Version: 0.17
-Release: 106%{?dist}
+Release: 107%{?dist}
 License: BSD-4-Clause-UC
 
 BuildRequires: make
@@ -95,6 +95,7 @@ Patch52: netkit-rsh-0.17-union-wait.patch
 Patch53: netkit-rsh-0.17-cmdbuflen.patch
 Patch54: netkit-rsh-0.17-CVE-2019-7282.patch
 Patch55: netkit-rsh-0.17-c99.patch
+Patch56: netkit-rsh-0.17-c99-2.patch
 
 %description
 The rsh package contains a set of programs which allow users to run
@@ -177,6 +178,7 @@ from other machines
 %patch53 -p1 -b .cmdbuflen
 %patch54 -p1 -b .cve-2019-7282
 %patch55 -p1 -b .c99
+%patch56 -p1 -b .c99-2
 
 # No, I don't know what this is doing in the tarball.
 rm -f rexec/rexec
@@ -259,6 +261,9 @@ install -m644 %SOURCE10 %{buildroot}%{_unitdir}/rexec.socket
 %{_mandir}/man8/*.8*
 
 %changelog
+* Thu Dec 21 2023 Florian Weimer <fweimer@redhat.com> - 0.17-107
+- Further C compatibility fixes (#2165891)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-106
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

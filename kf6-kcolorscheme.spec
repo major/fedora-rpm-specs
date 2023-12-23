@@ -1,7 +1,7 @@
 %global framework kcolorscheme
 
 Name:    kf6-%{framework}
-Version: 5.246.0
+Version: 5.247.0
 Release: 1%{?dist}
 Summary: Classes to read and interact with KColorScheme
 License: BSD-2-Clause and CC0-1.0 and LGPL-2.0-or-later and LGPL-2.1-only and LGPL-3.0-only and LicenseRef-KDE-Accepted-LGPL
@@ -14,6 +14,7 @@ BuildRequires:  cmake
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  pkgconfig(xkbcommon)
 
 Requires:       kf6-filesystem
@@ -52,6 +53,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKF6ColorScheme.so
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

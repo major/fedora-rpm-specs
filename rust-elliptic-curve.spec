@@ -5,7 +5,7 @@
 %global crate elliptic-curve
 
 Name:           rust-elliptic-curve
-Version:        0.13.7
+Version:        0.13.8
 Release:        %autorelease
 Summary:        General purpose Elliptic Curve Cryptography
 

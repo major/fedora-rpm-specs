@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    649e40d279e243d985aa8fb6e74dd5bb28dc185d
+%global gh_commit    856e7f6a75a84e339195d48c556f23be2ebf75d0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   lines-of-code
@@ -24,7 +24,7 @@
 %global ns_project   LinesOfCode
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.0.1
+Version:        2.0.2
 Release:        1%{?dist}
 Summary:        Counting the lines of code in PHP source code, version %{major}
 
@@ -36,7 +36,7 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
-BuildRequires: (php-composer(nikic/php-parser)     >= 4.10  with php-composer(nikic/php-parser)     < 5)
+BuildRequires: (php-composer(nikic/php-parser)     >= 4.18  with php-composer(nikic/php-parser)     < 6)
 BuildRequires:  php-spl
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
@@ -50,7 +50,7 @@ BuildRequires:  phpunit10
 #        "php": ">=8.1",
 #        "nikic/php-parser": "^4.10"
 Requires:       php(language) >= 8.1
-Requires:      (php-composer(nikic/php-parser)     >= 4.10  with php-composer(nikic/php-parser)     < 5)
+Requires:      (php-composer(nikic/php-parser)     >= 4.18  with php-composer(nikic/php-parser)     < 6)
 # from phpcompatinfo report for version 2.0.0
 Requires:       php-spl
 # Autoloader
@@ -77,7 +77,10 @@ phpab --template fedora --output src/autoload.php src
 
 cat <<EOF | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/PhpParser4/autoload.php',
+    [
+        '%{php_home}/PhpParser5/autoload.php',
+        '%{php_home}/PhpParser4/autoload.php',
+    ],
 ]);
 EOF
 
@@ -115,6 +118,10 @@ exit $ret
 
 
 %changelog
+* Thu Dec 21 2023 Remi Collet <remi@remirepo.net> - 2.0.2-1
+- update to 2.0.2
+- raise dependency on nikic/php-parser 4.18 and allow 5.0
+
 * Thu Aug 31 2023 Remi Collet <remi@remirepo.net> - 2.0.1-1
 - update to 2.0.1
 

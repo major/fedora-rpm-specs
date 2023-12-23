@@ -5,8 +5,8 @@
 %global crate vhost
 
 Name:           rust-vhost
-Version:        0.8.1
-Release:        2%{?dist}
+Version:        0.9.0
+Release:        %autorelease
 Summary:        Pure rust library for vdpa, vhost and vhost-user
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -98,28 +98,28 @@ use the "vhost-user" feature of the "%{crate}" crate.
 %files       -n %{name}+vhost-user-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vhost-user-master-devel
+%package     -n %{name}+vhost-user-backend-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+vhost-user-master-devel %{_description}
+%description -n %{name}+vhost-user-backend-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "vhost-user-master" feature of the "%{crate}" crate.
+use the "vhost-user-backend" feature of the "%{crate}" crate.
 
-%files       -n %{name}+vhost-user-master-devel
+%files       -n %{name}+vhost-user-backend-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vhost-user-slave-devel
+%package     -n %{name}+vhost-user-frontend-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+vhost-user-slave-devel %{_description}
+%description -n %{name}+vhost-user-frontend-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "vhost-user-slave" feature of the "%{crate}" crate.
+use the "vhost-user-frontend" feature of the "%{crate}" crate.
 
-%files       -n %{name}+vhost-user-slave-devel
+%files       -n %{name}+vhost-user-frontend-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+vhost-vdpa-devel
@@ -179,31 +179,4 @@ cp %{SOURCE2} .
 %endif
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 18 2023 Sergio Lopez <slp@redhat.com> - 0.8.1-1
-- Update to version 0.8.1
-- Drop no longer needed temporary patch
-
-* Wed Jul 12 2023 Sergio Lopez <slp@redhat.com> - 0.8.0-1
-- Update to version 0.8.0
-- Regenerate with rust2rpm 24
-- Add a temporary patch for fix a dependency problem
-
-* Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.6.0-1
-- Regenerate with rust2rpm 23
-- Update to version 0.6.0
-- Add license files, since crate has moved into a workspace
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 01 2022 Sergio Lopez <slp@redhat.com> - 0.4.0-1
-- Update to 0.4.0
-
-* Thu Feb 17 2022 Sergio Lopez <slp@redhat.com> - 0.3.0-1
-- Initial package
+%autochangelog

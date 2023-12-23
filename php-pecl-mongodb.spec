@@ -15,7 +15,7 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  1.17.1
+%global upstream_version  1.17.2
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -188,6 +188,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Dec 21 2023 Remi Collet <remi@remirepo.net> - 1.17.2-1
+- update to 1.17.2
+
 * Wed Dec  6 2023 Remi Collet <remi@remirepo.net> - 1.17.1-1
 - update to 1.17.1
 

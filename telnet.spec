@@ -3,7 +3,7 @@
 Summary: The client program for the Telnet remote login protocol
 Name: telnet
 Version: 0.17
-Release: 90%{?dist}
+Release: 91%{?dist}
 Epoch: 1
 License: BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-telnet-%{version}.tar.gz
@@ -42,6 +42,7 @@ Patch31: netkit-telnet-0.17-telnetrc.patch
 Patch32: telnet-log-address.patch
 Patch33: telnet-0.17-overflow-exploit.patch
 Patch34: telnet-0.17-pty-retry.patch
+Patch35: telnet-c99.patch
 
 BuildRequires: make
 BuildRequires: ncurses-devel systemd gcc gcc-c++
@@ -100,6 +101,7 @@ mv telnet telnet-NETKIT
 %patch32 -p1 -b .log-address
 %patch33 -p1 -b .overflow
 %patch34 -p1 -b .pty-retry
+%patch35 -p1 -b .c99
 
 %build
 %ifarch s390 s390x
@@ -162,6 +164,9 @@ install -D -p -m644 %SOURCE6 ${RPM_BUILD_ROOT}%{_unitdir}/telnet.socket
 %{_mandir}/man8/telnetd.8*
 
 %changelog
+* Thu Dec 21 2023 Florian Weimer <fweimer@redhat.com> - 1:0.17-91
+- Fix tracefile setting, C type errors (#2255510)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17-90
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

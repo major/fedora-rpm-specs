@@ -1,7 +1,7 @@
 %global framework ktexteditor
 
 Name:    kf6-%{framework}
-Version: 5.246.0
+Version: 5.247.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 with advanced embeddable text editor
 
@@ -72,9 +72,9 @@ rm -f %{buildroot}%{_kf6_datadir}/katepart5/script/README.md
 %dir %{_kf6_plugindir}/parts/
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_datadir}/dbus-1/system-services/org.kde.ktexteditor.katetextbuffer.service
-%{_kf6_datadir}/dbus-1/system.d/org.kde.ktexteditor.katetextbuffer.conf
-%{_kf6_datadir}/polkit-1/actions/org.kde.ktexteditor.katetextbuffer.policy
+%{_kf6_datadir}/dbus-1/system-services/org.kde.ktexteditor6.katetextbuffer.service
+%{_kf6_datadir}/dbus-1/system.d/org.kde.ktexteditor6.katetextbuffer.conf
+%{_kf6_datadir}/polkit-1/actions/org.kde.ktexteditor6.katetextbuffer.policy
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
 %{_kf6_libdir}/libKF6TextEditor.so.*
 %{_kf6_plugindir}/parts/katepart.so
@@ -88,6 +88,9 @@ rm -f %{buildroot}%{_kf6_datadir}/katepart5/script/README.md
 %{_kf6_libdir}/libKF6TextEditor.so
 
 %changelog
+* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+- 5.247.0
+
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1
 - Update to 5.246.0
 

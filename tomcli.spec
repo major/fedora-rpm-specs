@@ -20,7 +20,7 @@ PATH=%{buildroot}%{_bindir}:${PATH}
 
 Name:           tomcli
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI for working with TOML files. Pronounced "tom clee."
 
 License:        MIT
@@ -105,7 +105,7 @@ test "${newname}" = "not-tomcli"
 
 
 %files -f %{pyproject_files}
-%license LICENSES/*.txt
+%license LICENSE
 %doc README.md
 %doc NEWS.md
 %{_bindir}/tomcli*
@@ -115,6 +115,9 @@ test "${newname}" = "not-tomcli"
 
 
 %changelog
+* Fri Dec 22 2023 Maxwell G <maxwell@gtmx.me> - 0.5.0-2
+- Fix installation of license files
+
 * Thu Dec 14 2023 Maxwell G <maxwell@gtmx.me> - 0.5.0-1
 - Update to 0.5.0.
 

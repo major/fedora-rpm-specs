@@ -4,7 +4,7 @@ Name: efibootmgr
 Version: 18
 Release: 4%{?dist}
 Summary: EFI Boot Manager
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://github.com/rhboot/%{name}/
 
 BuildRequires: efi-srpm-macros >= 3-2
@@ -46,6 +46,10 @@ git config --local --add efibootmgr.efidir %{efi_vendor}
 %doc README
 
 %changelog
+* Wed Dec 13 2023 Nicolas Frayer <nfrayer@redhat.com>
+- Migrate to SPDX license
+- Please refer to https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

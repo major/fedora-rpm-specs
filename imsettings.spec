@@ -1,5 +1,5 @@
 Name:		imsettings
-Version:	1.8.7
+Version:	1.8.8
 Release:	1%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
@@ -338,8 +338,13 @@ fi
 %endif
 
 %changelog
+* Thu Dec 21 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.8-1
+- New upstream release.
+- Disable none.conf for all the wayland sessions.
+  Resolves: rhbz#2252900
+
 * Tue Sep 26 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.7-1
-- New upstreasm release.
+- New upstream release.
 - Fix unexpected setup against none.conf on Plasma Wayland.
   Resolves: rhbz#2240722
 

@@ -51,6 +51,10 @@ BuildArch: noarch
 # https://bugzilla.kernel.org/show_bug.cgi?id=53781
 Patch21: man-pages-3.42-close.patch
 
+# resolves: #2247682
+# upstream commit b34c2340657cfe467a0c2cde4933422bddf4348b
+Patch22: man-pages-6.05-unix.7-SO_PEERCRED.patch
+
 %description
 A large collection of manual pages from the Linux Documentation Project (LDP).
 
@@ -58,6 +62,7 @@ A large collection of manual pages from the Linux Documentation Project (LDP).
 %setup -q -a 1
 
 %patch -P 21 -p1
+%patch -P 22 -p1
 
 ## Remove man pages we are not going to use ##
 

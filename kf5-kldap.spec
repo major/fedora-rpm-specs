@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KLDAP Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND MIT
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
+# Rename translation files to avoid conflict with KF6
+find ./po -type f -name kio_ldap.po -execdir mv {} kio_ldap5.po \;
+
 
 %build
 %cmake_kf5 \
@@ -106,6 +109,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
+- Rename translation files to avoid conflict with KF6
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

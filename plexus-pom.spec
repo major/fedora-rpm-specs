@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:          plexus-pom
-Version:       14
-Release:       2%{?dist}
+Version:       15
+Release:       1%{?dist}
 Summary:       Root Plexus Projects POM
 License:       Apache-2.0
 URL:           https://github.com/codehaus-plexus/plexus-pom
@@ -12,7 +12,7 @@ BuildArch:     noarch
 ExclusiveArch: %{java_arches} noarch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap
+BuildRequires: javapackages-bootstrap
 %else
 BuildRequires: maven-local
 %endif
@@ -42,6 +42,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Mon Dec 18 2023 Marian Koncek <mkoncek@redhat.com> - 15-1
+- Update to upstream version 15
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 14-2
 - Rebuild
 

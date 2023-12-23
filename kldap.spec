@@ -1,6 +1,6 @@
 Name:    kldap
 Version: 24.01.80
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: The KLDAP Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND MIT
@@ -8,12 +8,17 @@ URL:     https://api.kde.org/kdepim/kldap/html
 
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
+# https://invent.kde.org/pim/kldap/-/merge_requests/17
+Patch0:         move-translations.patch
+
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openldap-devel
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(KF6Completion)
-BuildRequires:  cmake(KF6DocTools)
+# Temporarily disabled: docs translations are broken and conflict with kf5-kldap:
+# https://invent.kde.org/pim/kldap/-/merge_requests/17#note_837048
+# BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6I18n)
@@ -40,6 +45,9 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+
+# Remove together with move-translations.patch once released
+find ./po -type f -name libkldap5.po -execdir mv {} libkldap6.po \;
 
 
 %build
@@ -68,5 +76,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-3
+- Disable docs until translations stop conflicting with kf5-kldap
+
+* Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
+- Backport rename translation files
+
 * Fri Dec 8 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

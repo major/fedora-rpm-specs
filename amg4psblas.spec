@@ -41,7 +41,7 @@ Summary: Algebraic Multigrid Package based on PSBLAS
 # Mixed Source Licensing
 Version: %{major_minor}.2
 Release: 1%{?dist}.1
-License: CMU-MIT AND BSD-3-Clause
+License: MIT-CMU AND BSD-3-Clause
 URL: https://psctoolkit.github.io/products/amg4psblas/
 Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}%{?postrelease_version}.tgz
 BuildRequires: gcc-gfortran

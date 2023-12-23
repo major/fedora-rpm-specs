@@ -41,6 +41,10 @@ This package contains header files and libraries for %{name}.
 iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 
 %build
+%ifarch %{ix86}
+# avoid implicit declaration of fseeko64, lseek64
+export CPPFLAGS="$CPPFLAGS -D_LARGEFILE64_SOURCE"
+%endif
 %configure \
 	--disable-vcd-info \
 	--disable-dependency-tracking \

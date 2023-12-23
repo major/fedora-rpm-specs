@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-languages
-Version:        1.1.2
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Plexus Languages
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-languages
@@ -11,7 +11,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
-Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
+Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 # Sources contain bundled jars that we cannot verify for licensing
 Source2:        generate-tarball.sh
 
@@ -51,6 +51,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Mon Dec 18 2023 Marian Koncek <mkoncek@redhat.com> - 1.2.0-1
+- Update to upstream version 1.2.0
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1.2-2
 - Convert License tag to SPDX format
 

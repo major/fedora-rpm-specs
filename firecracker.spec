@@ -8,7 +8,7 @@
 %bcond jailer   %{lua:print(rpm.expand("%{cargo_target}"):find("musl") or 0)}
 
 Name:           firecracker
-Version:        1.5.1
+Version:        1.6.0
 Release:        1%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
@@ -24,10 +24,10 @@ Provides:       bundled(crate(kvm-bindings)) = 0.6.0^gitb158595
 Provides:       bundled(crate(micro_http)) = 0.1.0^gita4d632f
 
 # Edit crate dependencies to track what is packaged in Fedora.
-Patch:          %{name}-1.5.0-remove-aws-lc-rs.patch
-Patch:          %{name}-1.5.0-remove-cargo_toml.patch
-Patch:          %{name}-1.5.1-remove-criterion.patch
-Patch:          %{name}-1.5.1-remove-device_tree.patch
+Patch:          %{name}-1.6.0-remove-aws-lc-rs.patch
+Patch:          %{name}-1.6.0-remove-cargo_toml.patch
+Patch:          %{name}-1.6.0-remove-criterion.patch
+Patch:          %{name}-1.6.0-remove-device_tree.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{defined cargo_target}
@@ -65,11 +65,11 @@ sed -i -e 's,../../forks,forks,' Cargo.toml
 %cargo_generate_buildrequires
 
 %build
-%cargo_build -- --package={cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler} %{?cargo_target:--target=%{cargo_target}}
+%cargo_build -- --package={cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler,snapshot-editor} %{?cargo_target:--target=%{cargo_target}}
 %{cargo_license} > LICENSE.dependencies
 
 %install
-install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/rpm/{cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin}
+install -pm 0755 -Dt %{buildroot}%{_bindir} target/%{?cargo_target}/rpm/{cpu-template-helper,firecracker,%{?with_jailer:jailer,}rebase-snap,seccompiler-bin,snapshot-editor}
 
 # Ship the built-in seccomp JSON as an example that can be edited and compiled.
 ln -fn resources/seccomp/%{cargo_target}.json seccomp-filter.json ||
@@ -92,6 +92,7 @@ done
 %{?with_jailer:%{_bindir}/jailer}
 %{_bindir}/rebase-snap
 %{_bindir}/seccompiler-bin
+%{_bindir}/snapshot-editor
 %doc seccomp-filter.json
 %doc src/api_server/swagger/firecracker.yaml
 %doc docs CHANGELOG.md CHARTER.md CODE_OF_CONDUCT.md CONTRIBUTING.md CREDITS.md FAQ.md MAINTAINERS.md README.md SECURITY.md SPECIFICATION.md
@@ -99,6 +100,9 @@ done
 
 
 %changelog
+* Wed Dec 20 2023 David Michael <fedora.dm0@gmail.com> - 1.6.0-1
+- Update to the 1.6.0 release.
+
 * Tue Dec 05 2023 David Michael <fedora.dm0@gmail.com> - 1.5.1-1
 - Update to the 1.5.1 release.
 
