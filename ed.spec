@@ -12,7 +12,11 @@ Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8FE99503132D774
 
 BuildRequires: gcc
 BuildRequires: make
+%if 0%{?rhel}
+BuildRequires: bsdtar
+%else
 BuildRequires: lzip
+%endif
 # for gpg verification
 BuildRequires: gnupg2
 
@@ -24,7 +28,13 @@ replaced in normal usage by full-screen editors (emacs and vi, for example).
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
+%if 0%{?rhel}
+# no lzip in RHEL; bsdtar can handle it but not from within %%setup.
+%setup -q -c -T
+bsdtar -xf %{SOURCE0} -C %{_builddir}
+%else
 %autosetup
+%endif
 
 %build
 %set_build_flags

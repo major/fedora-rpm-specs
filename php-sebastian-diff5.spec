@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    912dc2fbe3e3c1e7873313cc801b100b6c68c87b
+%global gh_commit    fbf413a49e54f6b9b17e12d900ac7f6101591b7f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   diff
@@ -24,8 +24,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.0.3
-Release:        3%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Fri Dec 22 2023 Remi Collet <remi@remirepo.net> - 5.1.0-1
+- update to 5.1.0
+
 * Wed Aug 23 2023 Remi Collet <remi@remirepo.net> - 5.0.3-3
 - Enable test suite
 

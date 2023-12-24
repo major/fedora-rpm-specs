@@ -1,23 +1,13 @@
 Name:		mmv
-Version:	1.01b
-Release:	40%{?dist}
-Summary:	Move/copy/append/link multiple files
+Version:	2.5.1
+Release:	1%{?dist}
+Summary:	Move/copy/link multiple files
 
-License:	GPL+
-URL:		http://packages.qa.debian.org/m/mmv.html
-Source0:	http://ftp.debian.org/debian/pool/main/m/mmv/mmv_1.01b.orig.tar.gz
-Source1:	copyright
-Source2:	changelog
-Patch0:		mmv-debian-patches-as-of-mmv-1.01b-15.patch
-Patch1:		mmv-debian-man-page-fixes.patch
-Patch2:		mmv-debian-format-security.patch
-Patch3:		mmv-debian-better-diagnostics-for-directories-584850.patch
-Patch4:		mmv-debian-man-page-examples.patch
-Patch5:		mmv-debian-man-page-warning-149873.patch
-Patch6:		mmv-1.01b-makefile.patch
+License:	GPL-3.0-or-later
+URL:		https://github.com/rrthomas/mmv
+Source0:	https://github.com/rrthomas/mmv/releases/download/v%{version}/mmv-%{version}.tar.gz
+BuildRequires:	make gcc gc-devel
 
-BuildRequires: make
-BuildRequires:  gcc
 %description
 This is mmv, a program to move/copy/append/link multiple files
 according to a set of wildcard patterns. This multiple action is
@@ -29,41 +19,34 @@ specified and gives the user the choice of either aborting before
 beginning, or proceeding by avoiding the offending parts.
 
 %prep
-%setup -q -n mmv-1.01b.orig
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-cp -p %{SOURCE1} . 
-cp -p %{SOURCE2} .
+%setup -q
 
 %build
-make CONF="$RPM_OPT_FLAGS -fpie $(getconf LFS_CFLAGS)" LDCONF="-pie" %{?_smp_mflags}
+%configure
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-ln -s mmv $RPM_BUILD_ROOT/%{_bindir}/mcp
-ln -s mmv $RPM_BUILD_ROOT/%{_bindir}/mad
-ln -s mmv $RPM_BUILD_ROOT/%{_bindir}/mln
-ln -s mmv.1.gz $RPM_BUILD_ROOT/%{_mandir}/man1/mcp.1.gz
-ln -s mmv.1.gz $RPM_BUILD_ROOT/%{_mandir}/man1/mad.1.gz
-ln -s mmv.1.gz $RPM_BUILD_ROOT/%{_mandir}/man1/mln.1.gz
+%make_install
+ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mcp.1.gz
+ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mln.1.gz
+
+%check
+make check
 
 %files
-%doc copyright changelog
-%defattr(-,root,root,-)
-%doc ANNOUNCE ARTICLE READ.ME
+%license COPYING
+%doc ChangeLog README README.md
 %{_bindir}/mmv
 %{_bindir}/mcp
-%{_bindir}/mad
 %{_bindir}/mln
-%{_mandir}/man1/*
+%{_mandir}/man1/*.1*
 
 %changelog
+* Tue Nov 21 2023 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 2.5.1-1
+- upgrade to release 2.5.1 based on fork from Reuben Thomas
+- Debian has moved as well and was used a upstream by the previous version of this package
+- upstream removed multi append (mad) from project 
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01b-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

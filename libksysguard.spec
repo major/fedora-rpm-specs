@@ -1,7 +1,7 @@
 
 Name:    libksysguard
 Summary: Library for managing processes running on the system
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -113,7 +113,7 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKSysGuardSystemStats.so.*
 %{_qt6_plugindir}/ksysguard/
 %{_libexecdir}/ksysguard/
-%{_kf6_datadir}/dbus-1/interfaces/org.kde.ksystemstats.xml
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.ksystemstats1.xml
 %{_qt6_plugindir}/kf6/packagestructure/ksysguard_sensorface.so
 
 %files common
@@ -135,6 +135,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

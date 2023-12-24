@@ -1,8 +1,8 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        5.90.0
-Release:        2%{?dist}
+Version:        5.91.0
+Release:        1%{?dist}
 License:        GPL-2.0-or-later and BSD-3-Clause
 Summary:        Plasma Welcome
 Url:            https://invent.kde.org/plasma/%{name}
@@ -10,7 +10,6 @@ Url:            https://invent.kde.org/plasma/%{name}
 Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 # Upstream patches
-Patch0:         0001-pages-Live-Use-ApplicationInfo-for-ApplicationIcon.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-devel
@@ -75,6 +74,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Wed Dec 06 2023 Alessandro Astone <ales.astone@gmail.com> - 5.90.0-2
 - Backport patch to fix live installer
 

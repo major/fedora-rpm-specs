@@ -25,18 +25,26 @@ Source1:        nose2.1
 # deprecated PyPI “mock” package (which is not actually needed for the tests on
 # modern Python versions).
 Patch:          nose2-0.11.0-tox-no-dev-extra.patch
-# Downstream-only: skip test_skip_reason_in_message on Python 3.13+
+# Fix verbose reporting of skipped tests
 #
-# The message format has changed in Python 3.12.1 and in pre-releases of
-# Python 3.13.
+# On 3.12.1+, unittest doesn't call `startTest` for skipped tests. This
+# is treated as a fix to how tests are counted, which is why it appeared
+# in a point release.
 #
-# This is a workaround while we wait for an upstream fix.
+# Because the nose2 path for test reporting uses the test result methods
+# as the point of connection between `unittest` and nose2 plugins,
+# losing the `startTest` call in this case means that the reporter
+# plugin doesn't emit proper output.
+#
+# The test result object now tracks whether or not a test has been
+# started, and the reporter will check this attribute to ensure that the
+# skipped test output is correct.
+#
+#   Fixes:
 #
 # Python 3.13: test_skip_reason_in_message fails
 # https://github.com/nose-devs/nose2/issues/588
-#
-# https://bugzilla.redhat.com/show_bug.cgi?id=2246281
-Patch:          0001-Downstream-only-skip-test_skip_reason_in_message.patch
+Patch:          %{forgeurl}/commit/58cbe5ff35e2cc0633e7ff7c46d48a66d597a025.patch
 
 BuildArch:      noarch
 

@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.47.1
+Version:        0.48.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -48,6 +48,11 @@ One Git library to Rule!
 
 
 %changelog
+* Thu Dec 21 2023 Packit <hello@packit.dev> - 0.48.0-1
+- There is a new get_pr_files_diff method supported for Pagure. (#826)
+- We have fixed a bug that GithubRelease.url returned an API URL. (#824)
+- Resolves rhbz#2255524
+
 * Mon Oct 30 2023 Packit <hello@packit.dev> - 0.47.1-1
 - Fixed an issue where getting a list of GitLab merge requests using `.list()` would return only 20 items. (#819)
 - Resolves rhbz#2246994

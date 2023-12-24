@@ -1,12 +1,16 @@
-# Enable Emacs support
-%bcond_without autoconf_enables_emacs
 # Run extended test
 %bcond_without autoconf_enables_optional_test
 
-Summary:    A GNU tool for automatically configuring source code
+# The design goal is to allow use of the same specfile on the original
+# `autoconf` package and the `autoconf-latest` package by just changing the
+# `Name` property.
+# The `autoconf-latest` package aims to provide a versioned sub-package which
+# enables the user to install different updates in parallel on long term
+# releases. Hence, the versioned package installs its artifacts in
+# `/opt/{namespace}/{versioned name}`.
 Name:       autoconf
 Version:    2.71
-Release:    7%{?dist}
+Release:    8%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -54,6 +58,28 @@ Patch0: 0001-_AC_PROG_CXX_STDCXX_EDITION_TRY-fix-typo-in-variable.patch
 # Cherry-pick from upstream 412166e185c00d6eacbe67dfcb0326f622ec4020
 Patch1: 0001-Fix-testsuite-failures-with-bash-5.2.patch
 
+%if "%{name}" != "autoconf"
+# Set this to the sub-package base name, for "autoconf-latest"
+%global autoconf %(echo autoconf%{version} | tr -d .)
+# Enforce use of system provided emacs support
+%global autoconf_enables_emacs 0
+
+%if 0%{?rhel} > 0
+%global _prefix /opt/rh/%{autoconf}
+%else
+# We intentionally do not define a case for Fedora, as it should not
+# need this functionality, and letting it error avoids accidents.
+%{error:"Each downstream must specify its own /opt namespace"}
+%endif
+Summary:    Meta package to include latest version of autoconf
+%else
+#name == autoconf
+# Enable Emacs support
+%bcond_without autoconf_enables_emacs
+%global autoconf %{name}
+Summary:    A GNU tool for automatically configuring source code
+%endif
+
 BuildArch:  noarch
 
 
@@ -97,7 +123,18 @@ BuildRequires:      erlang
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Autom4te::
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Autom4te::
 
-%description
+%if "%{name}" != "autoconf"
+# We're still on the autoconf-latest package
+Requires: %{autoconf}
+%description -n autoconf-latest
+The latest GNU Autoconf, with a version-specific install
+%files -n autoconf-latest
+
+%package -n %{autoconf}
+Summary: A GNU tool for automatically configuring source code
+%endif
+
+%description -n %{autoconf}
 GNU's Autoconf is a tool for configuring source code and Makefiles.
 Using Autoconf, programmers can create portable and configurable
 packages, since the person building the package is allowed to
@@ -115,7 +152,7 @@ their use.
 
 
 %prep
-%autosetup -p1
+%autosetup -n autoconf-%{version} -p1
 
 %build
 %if %{with autoconf_enables_emacs}
@@ -147,7 +184,16 @@ mkdir -p %{buildroot}%{_emacs_sitestartdir}
 install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %endif
 
-%files
+%if "%{name}" != "autoconf"
+install -d -m 755 ${RPM_BUILD_ROOT}/etc/scl/prefixes
+dirname %{_prefix} > %{autoconf}.prefix
+install -p -m 644 %{autoconf}.prefix ${RPM_BUILD_ROOT}/etc/scl/prefixes/%{autoconf}
+
+echo "export PATH=%{_prefix}/bin:\$PATH" > enable.scl
+install -p -m 755 enable.scl ${RPM_BUILD_ROOT}/%{_prefix}/enable
+%endif
+
+%files -n %{autoconf}
 %license COPYING*
 %{_bindir}/*
 %{_infodir}/autoconf.info*
@@ -162,9 +208,16 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %endif
 %{_mandir}/man1/*
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
+%if "%{name}" != "autoconf"
+/etc/scl/prefixes/%{autoconf}
+%{_prefix}/enable
+%endif
 
 
 %changelog
+* Fri Dec 22 2023 Frederic Berat <fberat@redhat.com> - 2.71-8
+- Modify spec file to support autoconf-latest package
+
 * Mon Aug 07 2023 Frederic Berat <fberat@redhat.com> - 2.71-7
 - Migrate to SPDX licences (#2222088)
 

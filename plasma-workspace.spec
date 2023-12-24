@@ -3,8 +3,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.90.0
-Release: 2%{?dist}
+Version: 5.91.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -584,6 +584,7 @@ fi
 %{_kf6_datadir}/kstyle/
 %{_sysconfdir}/xdg/startkderc
 %{_sysconfdir}/xdg/autostart/*.desktop
+%{_datadir}/zsh/site-functions/_krunner
 %{_datadir}/zsh/site-functions/_plasmashell
 %{_datadir}/icons/hicolor/*/*/*font*.png
 %{_datadir}/icons/hicolor/scalable/apps/preferences-desktop-font-installer.svgz
@@ -603,14 +604,6 @@ fi
 %{_kf6_datadir}/config.kcfg/*
 %{_kf6_datadir}/kio_desktop/
 %{_kf6_datadir}/plasma5support/services/*.operations
-%{_kf6_datadir}/kconf_update/delete_cursor_old_default_size.pl
-%{_kf6_datadir}/kconf_update/delete_cursor_old_default_size.upd
-%{_kf6_datadir}/kconf_update/icons_remove_effects.upd
-%{_kf6_datadir}/kconf_update/style_widgetstyle_default_breeze.pl
-%{_kf6_datadir}/kconf_update/style_widgetstyle_default_breeze.upd
-%{_kf6_datadir}/kconf_update/plasma6.0-remove-old-shortcuts.upd
-%{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels.upd
-%{_kf6_datadir}/kconf_update/plasmashell-6.0-migrate-panel-hiding-setting.upd
 %{_kf6_metainfodir}/*.xml
 %{_kf6_datadir}/applications/kcm_*
 %{_kf6_datadir}/applications/org.kde.plasmashell.desktop
@@ -661,9 +654,6 @@ fi
 %{_kf6_plugindir}/kded/*.so
 %{_kf6_plugindir}/krunner/*
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_*.so
-%{_libdir}/kconf_update_bin/krunnerhistory
-%{_libdir}/kconf_update_bin/krunnerglobalshortcuts
-%{_libdir}/kconf_update_bin/plasmashell-5.27-use-panel-thickness-in-default-group
 %{_kf6_qtplugindir}/kf6/parts/kfontviewpart.so
 %{_kf6_qtplugindir}/kf6/thumbcreator/fontthumbnail.so
 %{_kf6_qtplugindir}/kf6/kfileitemaction/wallpaperfileitemaction.so
@@ -681,12 +671,12 @@ fi
 %{_kf6_qtplugindir}/plasma/kcminit/kcm_style_init.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_fontinst.so
 %{_libexecdir}/plasma-sourceenv.sh
-%{_kf6_datadir}/kconf_update/krunnerhistory.upd
-%{_kf6_datadir}/kconf_update/krunnerglobalshortcuts2.upd
-%{_kf6_datadir}/kconf_update/plasmashell-5.27-use-panel-thickness-in-default-group.upd
+%{_kf6_datadir}/kconf_update/plasma6.0-remove-dpi-settings.upd
+%{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels.upd
+%{_kf6_datadir}/kconf_update/plasma6.0-remove-old-shortcuts.upd
 %{_libdir}/kconf_update_bin/plasma6.0-remove-old-shortcuts
 %{_libdir}/kconf_update_bin/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels
-%{_libdir}/kconf_update_bin/plasmashell-6.0-migrate-panel-hiding-setting
+%{_libdir}/kconf_update_bin/plasma6.0-remove-dpi-settings
 %{_kf6_datadir}/kglobalaccel/org.kde.krunner.desktop
 
 %files geolocation
@@ -744,6 +734,9 @@ fi
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Mon Dec 04 2023 Alessandro Astone <ales.astone@gmail.com> - 5.90.0-2
 - Update breeze-fedora sddm theme
 

@@ -1,5 +1,5 @@
 Name:           deja-dup
-Version:        45.1
+Version:        45.2
 Release:        1%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Fri Dec 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 45.2-1
+- 45.2
+
 * Fri Sep 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 45.1-1
 - 45.1
 

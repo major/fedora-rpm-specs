@@ -9,7 +9,7 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    739b35e53379900cc9ac327b2147867b8b6efd88
+%global gh_commit    25f207c40d62b8b7aa32f5ab026c53561964053a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   complexity
@@ -23,8 +23,8 @@
 %global ns_project   Complexity
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.0.2
-Release:        8%{?dist}
+Version:        2.0.3
+Release:        1%{?dist}
 Summary:        Calculating the complexity of PHP code units, version 2
 
 License:        BSD-3-Clause
@@ -35,7 +35,7 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.3
-BuildRequires: (php-composer(nikic/php-parser)     >= 4.7   with php-composer(nikic/php-parser)     < 5)
+BuildRequires: (php-composer(nikic/php-parser)     >= 4.18  with php-composer(nikic/php-parser)     < 6)
 BuildRequires:  php-spl
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
@@ -47,9 +47,9 @@ BuildRequires:  phpunit9 >= 9.3
 
 # from composer.json, "require": {
 #        "php": ">=7.3",
-#        "nikic/php-parser": "^4.7"
+#        "nikic/php-parser": "^4.18 || ^5.0"
 Requires:       php(language) >= 7.3
-Requires:      (php-composer(nikic/php-parser)     >= 4.7   with php-composer(nikic/php-parser)     < 5)
+Requires:      (php-composer(nikic/php-parser)     >= 4.18  with php-composer(nikic/php-parser)     < 6)
 # from phpcompatinfo report for version 2.0.0
 Requires:       php-spl
 # Autoloader
@@ -76,7 +76,10 @@ phpab --template fedora --output src/autoload.php src
 
 cat <<EOF | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/PhpParser4/autoload.php',
+    [
+        '%{php_home}/PhpParser5/autoload.php',
+        '%{php_home}/PhpParser4/autoload.php',
+    ],
 ]);
 EOF
 
@@ -114,6 +117,10 @@ exit $ret
 
 
 %changelog
+* Fri Dec 22 2023 Remi Collet <remi@remirepo.net> - 2.0.3-1
+- update to 2.0.3
+- raise dependency on nikic/php-parser 4.18 and allow 5.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

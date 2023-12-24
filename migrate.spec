@@ -7,7 +7,7 @@
 
 # This list of drivers are included when compiling the 'migrate' program.
 %global _gobuildtags cassandra cockroachdb mongodb mysql postgres redshift \\\
-                     sqlite3 github gitlab go_bindata godoc_vfs \\\
+                     sqlite3 sqlite github gitlab go_bindata godoc_vfs \\\
                      google_cloud_storage iofs pkger aws_s3 filesystem
 
 # This list of drivers are removed before the package is built. This ensures
@@ -19,17 +19,17 @@
                         database/neo4j \\\
                         database/pgx \\\
                         database/ql \\\
+                        database/rqlite \\\
                         database/snowflake \\\
                         database/spanner \\\
                         database/sqlcipher \\\
-                        database/sqlite \\\
                         database/sqlserver \\\
                         database/yugabytedb \\\
                         source/bitbucket
 
 # https://github.com/golang-migrate/migrate
 %global goipath         github.com/golang-migrate/migrate/v4
-Version:                4.16.2
+Version:                4.17.0
 
 %gometa -f
 
@@ -46,6 +46,7 @@ This package is built with the following databases backends:
 * postgres
 * redshift
 * sqlite3
+* sqlite
 
 This package is built with the following source backends:
 * github
@@ -67,6 +68,7 @@ This package is built with the following source backends:
                        redshift-README.md \\\
                        postgres-README.md \\\
                        sqlite3-README.md \\\
+                       sqlite-README.md \\\
                        file-README.md \\\
                        github-README.md \\\
                        gitlab-README.md \\\
@@ -112,6 +114,7 @@ BuildRequires: golang(go.uber.org/atomic)
 BuildRequires: golang(golang.org/x/tools/godoc/vfs)
 BuildRequires: golang(golang.org/x/tools/godoc/vfs/httpfs)
 BuildRequires: golang(google.golang.org/api/iterator)
+BuildRequires: golang(modernc.org/sqlite)
 
 %description %{common_description}
 
@@ -147,6 +150,7 @@ mv database/mysql/README.md              mysql-README.md
 mv database/postgres/README.md           postgres-README.md
 mv database/redshift/README.md           redshift-README.md
 mv database/sqlite3/README.md            sqlite3-README.md
+mv database/sqlite/README.md             sqlite-README.md
 mv source/aws_s3/README.md               s3-README.md
 mv source/file/README.md                 file-README.md
 mv source/github/README.md               github-README.md
@@ -172,6 +176,7 @@ mv source/pkger/README.md                pkger-README.md
 %doc postgres-README.md
 %doc redshift-README.md
 %doc sqlite3-README.md
+%doc sqlite-README.md
 %doc file-README.md
 %doc github-README.md
 %doc gitlab-README.md

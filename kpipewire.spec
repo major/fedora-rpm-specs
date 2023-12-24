@@ -1,6 +1,6 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -99,6 +99,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

@@ -28,7 +28,7 @@ Release:        7%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/chrisjbillington/%sname
 Source0:        https://pypi.org/packages/source/i/%sname/%sname-%version.tar.gz
 

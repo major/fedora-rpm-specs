@@ -1,7 +1,7 @@
 Name:    kde-gtk-config
 Summary: Configure the appearance of GTK apps in KDE
-Version: 5.90.0
-Release: 2%{?dist}
+Version: 5.91.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -73,6 +73,9 @@ appearance of GTK apps in KDE.
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.90.0-2
 - Rebuild
 

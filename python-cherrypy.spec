@@ -10,7 +10,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 License:        BSD
 URL:            https://cherrypy.dev/
@@ -33,7 +33,6 @@ Patch4:         0001-Replace-deprecated-utcnow-datetime-function.patch
 
 BuildArch:      noarch
 
-BuildRequires:  dos2unix
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm)
@@ -75,15 +74,8 @@ Obsoletes: python2-cherrypy < 3.5.1
 %prep
 %autosetup -p1 -n %{camelname}-%{version}
 
-dos2unix cherrypy/tutorial/tutorial.conf
-
 # These tests still fail (reason unknown):
 rm cherrypy/test/test_session.py
-rm cherrypy/test/test_static.py
-
-# Derecation Warning in Python 3.11
-# https://github.com/cherrypy/cherrypy/pull/1959
-sed -i 's/readfp/read_file/' cherrypy/lib/reprconf.py
 
 %build
 %py3_build
@@ -114,6 +106,11 @@ export WEBTEST_INTERACTIVE=false
 %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Fri Dec 22 2023 Dan Radez <dradez@redhat.com> - 18.9.0-2
+- reenabled static tests
+- removed dos2unix fix
+- removed readfp with read_file fix, it's upstream
+
 * Thu Dec 14 2023 Dan Radez <dradez@redhat.com> - 18.9.0-1
 - updating to upsteam 18.9.0 rhbz#2254371
 

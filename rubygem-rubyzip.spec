@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.3.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A ruby module for reading and writing zip files
 License: Ruby or BSD
 URL: http://github.com/rubyzip/rubyzip
@@ -15,6 +15,9 @@ Source1: %{gem_name}-%{version}-test.txz
 # https://github.com/rubyzip/rubyzip/issues/535
 # https://github.com/rubyzip/rubyzip/pull/445
 Patch1: rubygem-rubyzip-2.3.2-fix-test_extract_incorrect_size-in-s390x-arch.patch
+# Make test compatibility with zlib-ng.
+# https://github.com/rubyzip/rubyzip/pull/447/commits/99d8f59eaf8baebf971fb603b437d24a26d93c3a
+Patch2: rubygem-rubyzip-3.0.0-Change-encryption-test-less-implementation-specific.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -37,7 +40,8 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 pushd %{_builddir}
-%patch1 -p1
+%patch 1 -p1
+%patch 2 -p1
 popd
 
 %build
@@ -74,6 +78,9 @@ popd
 
 
 %changelog
+* Fri Dec 22 2023 Vít Ondruch <vondruch@redhat.com> - 2.3.2-7
+- Fix test failures due to zlib-ng providing slightly different output.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

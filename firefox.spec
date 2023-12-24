@@ -174,7 +174,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        121.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -1168,6 +1168,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Dec 22 2023 Martin Stransky <stransky@redhat.com>- 121.0-3
+- Disabled DBus activations
+
 * Tue Dec 19 2023 Martin Stransky <stransky@redhat.com>- 121.0-2
 - Added Wayland proxy cache (mzbz#1743144)
 

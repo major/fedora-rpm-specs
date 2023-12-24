@@ -1,6 +1,6 @@
 Name:    plasma-activities-stats
 Summary: Library to access the usage statistics data collected by the KDE activity manager
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 
 License: CC0-1.0, GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -67,6 +67,9 @@ Provides:       kf6-kactivities-stats-devel = 1:%{version}-%{release}
 %{_kf6_libdir}/pkgconfig/PlasmaActivitiesStats.pc
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

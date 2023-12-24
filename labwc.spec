@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.6.6
+Version:    0.7.0
 Release:    %autorelease
 Summary:    Openbox alternative for Wayland
 
@@ -11,6 +11,9 @@ Summary:    Openbox alternative for Wayland
 License:    GPL-2.0-only
 URL:        %{forgeurl}
 Source0:    %{forgesource}
+
+# Backport pipemenus support
+Patch0:     https://github.com/labwc/labwc/pull/1216.patch#/labwc-PR1216.patch
 
 BuildRequires: gcc
 BuildRequires: meson >= 0.59.0
@@ -25,11 +28,12 @@ BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(scdoc)
 BuildRequires: pkgconfig(wayland-protocols)
 BuildRequires: pkgconfig(wayland-server) >= 0.19.0
-BuildRequires: pkgconfig(wlroots) >= 0.16.0
+BuildRequires: (pkgconfig(wlroots) >= 0.17.0 with pkgconfig(wlroots) < 0.18.0)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
 
 Requires:   xorg-x11-server-Xwayland
+Requires:   xdg-desktop-portal-wlr
 
 # Upstream recommendations
 # https://github.com/labwc/labwc#6-integration
@@ -43,7 +47,7 @@ Suggests:   lavalauncher waybar yambar  %dnl # Panel
 
 # Downstream usefull stuff which already packaged in Fedora
 Suggests:   wdisplays                   %dnl # GUI display configurator for wlroots compositors
-  
+
 
 %description
 Labwc stands for Lab Wayland Compositor, where lab can mean any of the

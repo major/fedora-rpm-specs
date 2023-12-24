@@ -1,5 +1,5 @@
 Name:    kscreenlocker
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
@@ -76,7 +76,6 @@ developing applications that use %{name}.
 %license COPYING
 %{_kf6_libdir}/libKScreenLocker.so.*
 %{_kf6_datadir}/knotifications6/*.notifyrc
-%{_kf6_datadir}/kconf_update/*
 %{_libexecdir}/kscreenlocker_greet
 %dir %{_kf6_datadir}/ksmserver/
 %{_kf6_datadir}/ksmserver/screenlocker/
@@ -93,6 +92,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

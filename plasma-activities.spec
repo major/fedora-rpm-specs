@@ -1,15 +1,12 @@
 Name:    plasma-activities
 Summary: Core components for the KDE Activity concept
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
 
 Source0:    https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
-
-# https://invent.kde.org/plasma/plasma-activities/-/merge_requests/41
-Patch0:     41.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  extra-cmake-modules
@@ -74,6 +71,9 @@ Provides:       kf6-kactivities-devel = 1:%{version}-%{release}
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

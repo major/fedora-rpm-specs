@@ -3,7 +3,7 @@
 
 Name:    pam-kwallet
 Summary: PAM module for KWallet
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{base_name}.git
@@ -54,6 +54,9 @@ Requires: kf6-kwallet
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

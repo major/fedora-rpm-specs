@@ -3,13 +3,13 @@
 %global libcmatrix_commit 702b894675f12ecd43439b3b3eee66cc74899b82
 
 Name: chatty
-Version: 0.8.0~rc0
+Version: 0.8.0
 Release: 1%{?dist}
 Summary: A libpurple messaging client
 
-License: GPLv3+
-URL: https://source.puri.sm/Librem5/chatty
-Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v0.8.0_rc0/%{name}-v0.8.0_rc0.tar.gz
+License: GPL-3.0-or-later AND LGPL-2.1-or-later
+URL: https://gitlab.gnome.org/World/Chatty
+Source0: %{url}/-/archive/v%{version}/Chatty-v%{version}.tar.gz
 Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/%{libcmatrix_commit}/libcmatrix-%{libcmatrix_commit}.tar.gz
 
 # Chatty links against a libpurple private library (libjabber).
@@ -19,37 +19,35 @@ Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/%{libcmatrix_commit
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
 
-# Temporary. Test failure on ppc64le
-ExcludeArch:	ppc64le
-ExcludeArch:	i686
+ExcludeArch:    i686
 
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  dbus-daemon
-BuildRequires:	dbus-x11
-BuildRequires:	itstool
+BuildRequires:  dbus-x11
+BuildRequires:  itstool
 BuildRequires:  pkgconfig(libebook-contacts-1.2)
 BuildRequires:  pkgconfig(libebook-1.2) >= 3.42.0
 BuildRequires:  pkgconfig(libfeedback-0.0)
-BuildRequires:	pkgconfig(libadwaita-1) >= 1.2
-BuildRequires:	pkgconfig(gtk4) >= 4.6
-BuildRequires:	pkgconfig(gio-2.0) >= 2.66
-BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.62
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.2
+BuildRequires:  pkgconfig(gtk4) >= 4.8
+BuildRequires:  pkgconfig(gio-2.0) >= 2.66
+BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.62
 BuildRequires:  pkgconfig(purple)
 BuildRequires:  pkgconfig(sqlite3) >= 3.26.0
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(folks)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
-BuildRequires:	pkgconfig(gnome-desktop-3.0)
+BuildRequires:  pkgconfig(gnome-desktop-4) >= 43
 BuildRequires:  pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(mm-glib) >= 1.12.0
-BuildRequires:	gspell-devel
+BuildRequires:  gspell-devel
 BuildRequires:  libolm-devel
-BuildRequires:	openssl1.1-devel
+BuildRequires:  openssl1.1-devel
 BuildRequires:  libphonenumber-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  libsecret-devel
@@ -57,7 +55,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  /usr/bin/xvfb-run
 BuildRequires:  /usr/bin/xauth
-BuildRequires:	at-spi2-core
+BuildRequires:  at-spi2-core
 
 Requires: hicolor-icon-theme
 
@@ -76,7 +74,7 @@ works best with the phosh mobile DE.
 # Copy private libjabber library in so we can build against it
 cp `pkg-config --variable=plugindir purple`/libjabber.so.0 /tmp/libjabber.so
 
-%setup -a1 -n %{name}-v0.8.0_rc0
+%setup -a1 -n Chatty-v%{version}
 %patch -P 0 -p1
 
 rm -rf subprojects/libcmatrix

@@ -10,7 +10,7 @@
 %global compat_soname libz.so.1
 
 # Compatible with the following zlib version.
-%global zlib_ver 1.2.13
+%global zlib_ver 1.3.0
 # Obsoletes zlib versions less than.
 %global zlib_obsoletes 1.3
 
@@ -18,8 +18,8 @@
 %global supported_abi_test aarch64 ppc64le x86_64
 
 Name:		zlib-ng
-Version:	2.1.3
-Release:	7%{?dist}
+Version:	2.1.5
+Release:	1%{?dist}
 Summary:	Zlib replacement with optimizations
 License:	zlib
 Url:		https://github.com/zlib-ng/zlib-ng
@@ -194,6 +194,9 @@ CHOST=%{target_cpu}-%{vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 
 
 %changelog
+* Wed Dec 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 2.1.5-1
+- Update to zlib-ng 2.1.5
+
 * Wed Oct 18 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 2.1.3-7
 - Improve the patch that defines the FAR macro
 

@@ -12,6 +12,10 @@ Patch2:         fix-biosemi-close-hangups.patch
 Patch3:         fix-bison-grammar-file.patch
 Patch4:         include-config_h.patch
 Patch5:         fix-unaligned-memory-access.patch
+Patch6:         work-around-flex-bug.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  automake autoconf libtool

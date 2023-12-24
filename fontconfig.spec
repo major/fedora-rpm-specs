@@ -4,8 +4,8 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.14.2
-Release:	5%{?dist}
+Version:	2.15.0
+Release:	1%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -156,7 +156,7 @@ if [ $1 == 0 ] && [ -e %{_sysconfdir}/xml/catalog ]; then
 fi
 
 %files -f %{name}.lang
-%doc README AUTHORS
+%doc README.md AUTHORS
 %doc fontconfig-user.txt fontconfig-user.html
 %doc %{_fontconfig_confdir}/README
 %license COPYING
@@ -192,6 +192,10 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Fri Dec 22 2023 Akira TAGOH <tagoh@redhat.com> - 2.15.0-1
+- New upstream release.
+  Resolves: rhbz#2255623
+
 * Thu Aug 17 2023 Akira TAGOH <tagoh@redhat.com> - 2.14.2-5
 - Update 65-nonlatin.conf to 69-nonlatin.conf
   This basically provides substitutes for certain languages and is helpful

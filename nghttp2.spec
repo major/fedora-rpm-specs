@@ -10,7 +10,7 @@ Version: 1.58.0
 Release: 1%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
-# Kevlin Henney (this one is not recognized by Fedora!) but they are NOT shipped.
+# HPND-Kevlin-Henney but they are NOT shipped.
 License: MIT
 
 URL: https://nghttp2.org/

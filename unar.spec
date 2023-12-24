@@ -2,12 +2,13 @@
 
 Name:           unar
 Version:        1.10.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multi-format extractor
 License:        LGPLv2+
 URL:            https://theunarchiver.com/command-line
 Source0:        https://github.com/MacPaw/XADMaster/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/MacPaw/universal-detector/archive/%{detectorver}/universal-detector-%{detectorver}.tar.gz
+Patch1: unar-int-conversion.patch
 BuildRequires:  bzip2-devel
 BuildRequires:  gcc-objc
 BuildRequires:  gcc-c++
@@ -25,6 +26,7 @@ replacement of unrar.
 %prep
 %setup -q -c
 tar -xf %{SOURCE1}
+%patch1 -p1
 mv universal-detector-%{detectorver} UniversalDetector
 rm -fr __MACOSX The\ Unarchiver
 # recursively remove executable bit from every file, skipping directories
@@ -62,6 +64,9 @@ popd
 %{_datadir}/bash-completion/completions/*
 
 %changelog
+* Fri Dec 22 2023 Florian Weimer <fweimer@redhat.com> - 1.10.8-3
+- Fix int-conversion error
+
 * Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.10.8-2
 - Rebuild for gnustep-base-1.29.0
 

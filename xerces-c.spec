@@ -1,15 +1,15 @@
 Name:		xerces-c
-Version:	3.2.3
-Release:	9%{?dist}
+Version:	3.2.5
+Release:	1%{?dist}
 Summary:	Validating XML Parser
 
 License:	ASL 2.0
 URL:		http://xml.apache.org/xerces-c/
 Source0:	https://downloads.apache.org/xerces/c/3/sources/xerces-c-%{version}.tar.xz
 
-BuildRequires: make
 BuildRequires:	gcc-c++
 BuildRequires:	dos2unix
+BuildRequires:	make
 
 %description 
 Xerces-C is a validating XML parser written in a portable
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc README NOTICE CREDITS doc _docs/*
 
 %changelog
+* Fri Dec 22 2023 Kalev Lember <klember@redhat.com> - 3.2.5-1
+- Update to 3.2.5, fixing CVE-2018-1311 and CVE-2023-37536
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

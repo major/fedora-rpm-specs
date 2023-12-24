@@ -1,5 +1,5 @@
 Name:           plasma-mobile
-Version:        5.90.0
+Version:        5.91.0
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3 and MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
@@ -44,6 +44,7 @@ BuildRequires: cmake(KF6Screen)
 BuildRequires: cmake(KPipeWire)
 BuildRequires: cmake(Qt6Svg)
 BuildRequires: cmake(Qt6Sensors)
+BuildRequires: cmake(QCoro6)
 BuildRequires: cmake(libkworkspace)
 BuildRequires: libepoxy-devel
 BuildRequires: wayland-devel
@@ -128,6 +129,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_networ
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_cellular_network.so
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

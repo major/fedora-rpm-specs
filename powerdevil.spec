@@ -1,5 +1,5 @@
 Name:    powerdevil
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
@@ -104,14 +104,15 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_plugindir}/powerdevil/
 %{_kf6_qtplugindir}/powerdevil/
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_powerdevilprofilesconfig.so
-%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_powerdevilglobalconfig.so
 %{_kf6_datadir}/knotifications6/powerdevil.notifyrc
 %{_kf6_datadir}/applications/kcm_powerdevilprofilesconfig.desktop
-%{_kf6_datadir}/applications/kcm_powerdevilglobalconfig.desktop
 %{_userunitdir}/plasma-powerdevil.service
 %{_userunitdir}/plasma-powerprofile-osd.service
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

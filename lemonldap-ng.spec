@@ -28,7 +28,7 @@
 #global pre_release beta1
 
 Name:           lemonldap-ng
-Version:        2.17.2
+Version:        2.18.1
 Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
@@ -57,17 +57,22 @@ BuildRequires:  perl(Apache2::ServerUtil)
 BuildRequires:  perl(Apache::Session)
 BuildRequires:  perl(Apache::Session::Browseable)
 BuildRequires:  perl(Apache::Session::Generate::MD5)
+BuildRequires:  perl(Apache::Session::Lock::File)
 BuildRequires:  perl(APR::Table)
 BuildRequires:  perl(AuthCAS)
 BuildRequires:  perl(Authen::Captcha)
 BuildRequires:  perl(Authen::PAM)
 BuildRequires:  perl(Authen::Radius)
+%{!?el7:BuildRequires:  perl(Authen::WebAuthn)}
+# Not available
+#BuildRequires:  perl(Auth::Yubikey_WebClient)
 BuildRequires:  perl(AutoLoader)
 BuildRequires:  perl(base)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Cache::Cache)
 BuildRequires:  perl(Cache::FileCache)
 BuildRequires:  perl(Cache::Memcached)
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(CGI)
 BuildRequires:  perl(Class::Inspector)
 BuildRequires:  perl(Clone)
@@ -75,13 +80,17 @@ BuildRequires:  perl(Config::IniFiles)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Convert::Base32)
 BuildRequires:  perl(Convert::PEM)
+BuildRequires:  perl(Crypt::JWT)
 BuildRequires:  perl(Crypt::OpenSSL::Bignum)
 BuildRequires:  perl(Crypt::OpenSSL::RSA)
 BuildRequires:  perl(Crypt::OpenSSL::X509)
 BuildRequires:  perl(Crypt::Rijndael)
+%{?fedora:BuildRequires:  perl(Crypt::U2F::Server::Simple)}
 BuildRequires:  perl(Crypt::URandom)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
+%{!?el7:BuildRequires:  perl(Data::Password::zxcvbn)}
+BuildRequires:  perl(Date::Parse)
 BuildRequires:  perl(DateTime::Format::RFC3339)
 BuildRequires:  perl(DBI)
 BuildRequires:  perl(Digest::HMAC_SHA1)
@@ -100,21 +109,21 @@ BuildRequires:  perl(FCGI::Client)
 BuildRequires:  perl(FCGI::ProcManager)
 BuildRequires:  perl(feature)
 BuildRequires:  perl(fields)
+BuildRequires:  perl(File::Compare)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(GD::SecurityImage)
-%if 0%{?fedora}%{?el8}%{?el9}
-BuildRequires:  perl(GeoIP2)
-%endif
+%{!?el7:BuildRequires:  perl(GeoIP2::Database::Reader)}
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(Getopt::Std)
 BuildRequires:  perl(GSSAPI)
 BuildRequires:  perl(Hash::Merge::Simple)
+BuildRequires:  perl(HTML::Entities)
+BuildRequires:  perl(HTML::FormatText::WithLinks)
 BuildRequires:  perl(HTML::Template)
-%if 0%{?fedora}%{?el8}%{?el9}
-BuildRequires:  perl(HTTP::BrowserDetect)
-%endif
+%{!?el7:BuildRequires:  perl(HTTP::BrowserDetect)}
+BuildRequires:  perl(HTTP::Date)
 BuildRequires:  perl(HTTP::Headers)
-BuildRequires:  perl(HTTP::Message)
+BuildRequires:  perl(HTTP::Message::PSGI)
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(Image::Magick)
 BuildRequires:  perl(IO::Pipe)
@@ -129,63 +138,93 @@ BuildRequires:  perl(JSON::XS)
 BuildRequires:  perl(Lasso)
 BuildRequires:  perl(Glib)
 %endif
+BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(Log::Log4perl)
+BuildRequires:  perl(Log::Log4perl::MDC)
 BuildRequires:  perl(LWP::Protocol::https)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(MIME::Entity)
 BuildRequires:  perl(mod_perl2)
+BuildRequires:  perl(Moose)
 BuildRequires:  perl(Mouse)
+BuildRequires:  perl(Mouse::Role)
 BuildRequires:  perl(Net::CIDR)
 BuildRequires:  perl(Net::Facebook::Oauth2)
 BuildRequires:  perl(Net::LDAP)
+BuildRequires:  perl(Net::LDAP::Control::PasswordPolicy)
 BuildRequires:  perl(Net::LDAP::Extension::SetPassword)
 BuildRequires:  perl(Net::LDAP::Util)
 BuildRequires:  perl(Net::OAuth)
 BuildRequires:  perl(Net::OpenID::Consumer)
 BuildRequires:  perl(Net::OpenID::Server)
+BuildRequires:  perl(Net::SSLeay)
+BuildRequires:  perl(parent)
+BuildRequires:  perl(Perl::Tidy)
 BuildRequires:  perl(Plack)
 BuildRequires:  perl(Plack::Handler::CGI)
 BuildRequires:  perl(Plack::Handler::FCGI)
 BuildRequires:  perl(Plack::Middleware)
 BuildRequires:  perl(Plack::Request)
 BuildRequires:  perl(Plack::Runner)
-BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Plack::Util)
 BuildRequires:  perl(Plack::Util::Accessor)
+BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Regexp::Assemble)
 BuildRequires:  perl(Regexp::Common)
 BuildRequires:  perl(Safe)
 BuildRequires:  perl(Scalar::Util)
-%if ! 0%{?el7}
-BuildRequires:  perl(Sentry::Raven)
-%endif
+%{!?el7:BuildRequires:  perl(Sentry::Raven)}
 BuildRequires:  perl(SOAP::Lite)
 BuildRequires:  perl(SOAP::Transport::HTTP)
+BuildRequires:  perl(Storable)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(String::Random)
 BuildRequires:  perl(Sys::Syslog)
-BuildRequires:  perl(Test::LeakTrace)
 BuildRequires:  perl(Test::MockObject)
-BuildRequires:  perl(Test::Output)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Text::Unidecode)
-BuildRequires:  perl(Time::Fake)
+BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(Unicode::String)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(URI::QueryParam)
 BuildRequires:  perl(URI::URL)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-%if ! 0%{?el7}
-BuildRequires:  perl(Web::ID)
-%endif
+%{!?el7:BuildRequires:  perl(Web::ID)}
+%{!?el7:BuildRequires:  perl(WWW::Form::UrlEncoded)}
 BuildRequires:  perl(XML::LibXML)
 BuildRequires:  perl(XML::LibXSLT)
 BuildRequires:  perl(XML::Simple)
 BuildRequires:  perl(YAML)
+# Tests
+BuildRequires:  perl(Apache::Session::File)
+%{?fedora:BuildRequires:  perl(Authen::U2F::Tester)}
+%{?fedora:BuildRequires:  perl(Crypt::U2F::Server)}
+BuildRequires:  perl(DBD::SQLite)
+BuildRequires:  perl(Email::Sender::Transport)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Find)
+BuildRequires:  perl(File::Path)
+%{!?el7:BuildRequires:  perl(GeoIP2)}
+BuildRequires:  perl(HTTP::Request::Common)
+BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(locale)
+BuildRequires:  perl(LWP::Protocol::PSGI)
+BuildRequires:  perl(Plack::Builder)
+BuildRequires:  perl(Plack::Response)
+BuildRequires:  perl(Plack::Test)
+BuildRequires:  perl(Test::LeakTrace)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::Output)
+BuildRequires:  perl(Time::Fake)
+BuildRequires:  perl(Time::HiRes)
+
 %if 0%{?fedora}%{?el9}
 BuildRequires:  systemd-rpm-macros
 %else
@@ -256,7 +295,6 @@ Summary:        LemonLDAP-NG handler
 Requires:       crontabs
 Requires:       lemonldap-ng-conf = %{version}-%{release}
 Requires:       perl(Lemonldap::NG::Handler) = %{version}-%{release}
-Requires:       perl-Lemonldap-NG-SSOaaS-Apache-Client = %{version}-%{release}
 
 %description handler
 This package deploys the Apache Handler.
@@ -279,9 +317,34 @@ Summary:        LemonLDAP-NG authentication portal
 Requires:       crontabs
 Requires:       lemonldap-ng-conf = %{version}-%{release}
 Requires:       perl(Lemonldap::NG::Portal) = %{version}-%{release}
+%if 0%{?el7}
+# Facebook
 Requires:       perl(Net::Facebook::Oauth2)
+# OpenID
 Requires:       perl(Net::OAuth)
 Requires:       perl(Net::OpenID::Consumer)
+# TOTP
+Requires:       perl(Convert::Base32)
+Requires:       perl(Digest::HMAC_SHA1)
+%else
+# Fido2
+Recommends:     perl(Authen::WebAuthn)
+# Password entropy
+Recommends:     perl(Data::Password::zxcvbn)
+# Location
+Recommends:     perl(GeoIP2)}
+Recommends:     perl(HTTP::BrowserDetect)}
+# SAML
+%{?fedora:Recommends:    perl(Lasso)}
+# Facebook
+Recommends:     perl(Net::Facebook::Oauth2)
+# OpenID
+Recommends:     perl(Net::OAuth)
+Recommends:     perl(Net::OpenID::Consumer)
+# TOTP
+Recommends:     perl(Convert::Base32)
+Recommends:     perl(Digest::HMAC_SHA1)
+%endif
 Provides:       bundled(fontawesome-fonts) = 4.7.0
 Provides:       bundled(js-bootstrap) = 4.5.2
 Provides:       bundled(js-fingerprint2) = 2.1.4
@@ -700,6 +763,12 @@ fi
 
 
 %changelog
+* Fri Dec 22 2023 Clement Oudot <clem.oudot@gmail.com> - 2.18.1-1
+- Update to 2.18.1
+
+* Wed Dec 20 2023 Clement Oudot <clem.oudot@gmail.com> - 2.18.0-1
+- Update to 2.18.0
+
 * Tue Nov 14 2023 Clement Oudot <clem.oudot@gmail.com> - 2.17.2-1
 - Update to 2.17.2
 

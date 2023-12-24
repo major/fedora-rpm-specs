@@ -7,6 +7,10 @@ License:        GPLv2+
 URL:            https://github.com/performancecopilot/pcp2pdf
 Source0:        https://github.com/performancecopilot/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         fix-spurious-python-interpreter.patch
+# pcp stopped building on ix86
+%if 0%{?fedora} >= 40
+ExcludeArch: %{ix86}
+%endif
 
 Requires:       python3-reportlab
 Requires:       python3-matplotlib

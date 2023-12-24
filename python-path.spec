@@ -1,8 +1,8 @@
 %global pypi_name path
 
 Name:           python-path
-Version:        16.7.1
-Release:        2%{?dist}
+Version:        16.9.0
+Release:        1%{?dist}
 Summary:        Python module wrapper for os.path
 
 License:        MIT
@@ -12,6 +12,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(more-itertools)
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -52,6 +53,9 @@ operations on files to be invoked on those path objects directly.
 
 
 %changelog
+* Thu Dec 21 2023 Dan Radez <dradez@redhat.com> - 16.9.0-1
+- update to 16.9.0 rhbz#2253604
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

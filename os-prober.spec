@@ -4,7 +4,7 @@ Release:        4%{?dist}
 Summary:        Probes disks on the system for installed operating systems
 
 # For more information about licensing, see copyright file.
-License:        GPLv2+ and GPL+
+License:        GPL-2.0-or-later AND GPL-1.0-or-later
 URL:            http://kitenet.net/~joey/code/os-prober/
 Source0:        http://ftp.us.debian.org/debian/pool/main/o/os-prober/%{name}_%{version}.tar.xz
 Patch0:         os-prober-no-dummy-mach-kernel.patch
@@ -91,6 +91,10 @@ fi
 %{_var}/lib/%{name}
 
 %changelog
+* Thu Dec 21 2023 Nicolas Frayer <nfrayer@redhat.com>
+- Migrate to SPDX license
+- Please refer to https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

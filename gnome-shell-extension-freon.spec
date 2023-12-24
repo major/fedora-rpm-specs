@@ -1,28 +1,34 @@
-# Variables for if/when I need to source a commit instead of a release tag.
-%global  commit_date   20230413
-%global  commit_long   0d39ef0488fa45fff6279c5461639741399f2c4a
-%global  commit_short  %(c=%{commit_long}; echo ${c:0:7})
-
-
 Name:       gnome-shell-extension-freon
 Summary:    GNOME Shell extension to display system temperature, voltage, and fan speed
-Epoch:      2
-Version:    49
-Release:    2.%{commit_date}git%{commit_short}%{?dist}
+Version:    54
+%global     baserelease 1
 URL:        https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki
-License:    GPLv2
+VCS:        https://github.com/UshakovVasilii/gnome-shell-extension-freon
+# Releases  https://github.com/UshakovVasilii/gnome-shell-extension-freon/tags
+License:    GPL-2.0-only
 BuildArch:  noarch
+Epoch:      2
+
+# Variables for if/when I need to source a commit instead of a release tag.
+%global  commit_date   20231020
+%global  commit_long   ce5a3963979014693a5df1d9e4bb5e2997958ceb
+%global  commit_short  %(c=%{commit_long}; echo ${c:0:7})
+
+# Release:    0.%%{baserelease}.%%{commit_date}git%%{commit_short}%%{?dist}
+Release:    %{baserelease}%{?dist}
+
+
 
 # You can see the latest source releases here:
 # https://github.com/UshakovVasilii/gnome-shell-extension-freon/releases
-Source0: https://github.com/UshakovVasilii/%{name}/archive/EGO-%{version}/%{name}-EGO-%{version}.tar.gz
 # Source0: https://github.com/UshakovVasilii/%%{name}/archive/%%{commit_long}/%%{name}-%%{commit_short}.tar.gz
+Source0: https://github.com/UshakovVasilii/%{name}/archive/EGO-%{version}/%{name}-EGO-%{version}.tar.gz
 
 BuildRequires: glib2
 
 # Dependencies described here:
 # https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki/Dependency
-Requires: gnome-shell >= 40
+Requires: gnome-shell >= 45
 Requires: gnome-shell-extension-common
 Requires: lm_sensors
 
@@ -132,6 +138,9 @@ mv  %{final_install_dir}/locale  %{buildroot}/%{_datadir}/
 
 
 %changelog
+* Fri Nov 10 2023 Michal Ambroz <rebus _AT seznam.cz> - 2:54-1
+- bump to version 54 supporting the gnome 45
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:49-2.20230413git0d39ef0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

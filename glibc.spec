@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-328-gb3bee76c5f
+%global glibcsrcdir glibc-2.38.9000-372-g61bac1a9d2
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 28
+%global baserelease 29
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2212,6 +2212,50 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Fri Dec 22 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-29
+- Auto-sync with upstream branch master,
+  commit 61bac1a9d2ab80ebcbc51484722e6ea43414bec7:
+- nss: Remove unused allocation from get_nscd_addresses in getaddrinfo
+- x86/cet: Don't disable CET if not single threaded
+- x86: Modularize sysdeps/x86/dl-cet.c
+- x86/cet: Update tst-cet-vfork-1
+- elf: Add TLS modid reuse test for bug 29039
+- aarch64: Add SIMD attributes to math functions with vector versions
+- aarch64: Add half-width versions of AdvSIMD f32 libmvec routines
+- Fix elf/tst-env-setuid[-static] if test needs to be rerun.
+- Fix elf: Do not duplicate the GLIBC_TUNABLES string
+- tst-setcontext10.c: Undef _FORTIFY_SOURCE
+- Fix elf: Do not duplicate the GLIBC_TUNABLES string
+- riscv: Fix feenvupdate with FE_DFL_ENV (BZ 31022)
+- manual: Clarify undefined behavior of feenableexcept (BZ 31019)
+- x86: Do not raises floating-point exception traps on fesetexceptflag (BZ 30990)
+- i686: Do not raise exception traps on fesetexcept (BZ 30989)
+- powerpc: Do not raise exception traps for fesetexcept/fesetexceptflag (BZ 30988)
+- elf: Do not set invalid tunables values
+- elf: Do not duplicate the GLIBC_TUNABLES string
+- x86/cet: Check CPU_FEATURE_ACTIVE in permissive mode
+- x86/cet: Check legacy shadow stack code in .init_array section
+- x86/cet: Add tests for GLIBC_TUNABLES=glibc.cpu.hwcaps=-SHSTK
+- x86/cet: Check CPU_FEATURE_ACTIVE when CET is disabled
+- x86/cet: Check legacy shadow stack applications
+- localedata: id_ID: change first weekday to Sunday
+- s390: Set psw addr field in getcontext and friends.
+- x86: Unifies 'strlen-evex' and 'strlen-evex512' implementations.
+- x86/cet: Don't assume that SHSTK implies IBT
+- id_ID: Update Time Locales
+- Update code to handle the new ABI for sending inlined port rights.
+- x86/cet: Check user_shstk in /proc/cpuinfo
+- Add a test for setjmp/longjmp within user context
+- Add a test for longjmp from user context
+- powerpc: Add space for HWCAP3/HWCAP4 in the TCB for future Power.
+- powerpc: Fix performance issues of strcmp power10
+- localedata: Convert el_GR and el_CY locales to UTF-8
+- localedata: el_GR: Greece now uses the 24h format for time
+- powerpc : Add optimized memchr for POWER10
+- intl: Treat C.UTF-8 locale like C locale, part 2 (BZ# 16621)
+- resolv: Fix a few unaligned accesses to fields in HEADER
+- x86: Check PT_GNU_PROPERTY early
+
 * Wed Dec 13 2023 Carlos O'Donell <carlos@redhat.com> - 2.38.9000-28
 - Depend only on RPM 4.14 features (RHEL-19045)
 

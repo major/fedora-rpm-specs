@@ -1,5 +1,5 @@
 Name:           cura-fdm-materials
-Version:        5.4.0
+Version:        5.6.0
 Release:        %autorelease
 Summary:        Cura FDM Material database
 

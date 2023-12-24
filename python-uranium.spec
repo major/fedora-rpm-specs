@@ -1,5 +1,5 @@
 Name:           python-uranium
-Version:        5.4.0
+Version:        5.6.0
 Release:        %autorelease
 Summary:        A Python framework for building desktop applications
 License:        LGPL-3.0-or-later

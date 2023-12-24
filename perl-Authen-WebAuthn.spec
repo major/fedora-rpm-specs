@@ -1,11 +1,12 @@
 Name:           perl-Authen-WebAuthn
-Version:        0.001
-Release:        6%{?dist}
+Version:        0.002
+Release:        1%{?dist}
 Summary:        Library to add Web Authentication support to server applications
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Authen-WebAuthn
 Source0:        https://cpan.metacpan.org/authors/id/M/MB/MBESSON/Authen-WebAuthn-%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
@@ -19,11 +20,12 @@ BuildRequires:  perl(Crypt::PK::ECC)
 BuildRequires:  perl(Crypt::PK::RSA)
 BuildRequires:  perl(Crypt::URandom)
 BuildRequires:  perl(Digest::SHA)
-BuildRequires:  perl(ExtUtils::MakeMaker) %{!?el7:>= 6.76}
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Hash::Merge::Simple)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Mouse)
+BuildRequires:  perl(Net::SSLeay) >= 1.88
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(URI)
@@ -46,18 +48,13 @@ scope and could be handled by a dedicated JS library.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor %{!?el7:NO_PACKLIST=1}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %make_build
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-%if 0%{?el7}
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%endif
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%make_install
+%{_fixperms} %{buildroot}/*
 
 
 %check
@@ -67,11 +64,16 @@ make test
 %files
 %license LICENSE
 %doc README README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Authen
+%{_mandir}/man3/Authen::WebAuthn.3*
 
 
 %changelog
+* Fri Dec 22 2023 Xavier Bachelot <xavier@bachelot.org> - 0.002-1
+- Update to 0.002
+- Convert License to SPDX
+- Cleanup specfile
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

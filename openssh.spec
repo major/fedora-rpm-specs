@@ -54,7 +54,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}
+Release: %{openssh_rel}%{?dist}.1
 URL: http://www.openssh.com/portable.html
 #URL1: https://github.com/jbeverly/pam_ssh_agent_auth/
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
@@ -306,7 +306,7 @@ Requires: openssh = %{version}-%{release}
 %package -n pam_ssh_agent_auth
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
-Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}
+Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.1
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant AND OpenSSL
 
 %description
@@ -744,6 +744,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Fri Dec 22 2023 Florian Weimer <fweimer@redhat.com> - 9.3p1-13.1
+- Fix type errors in downstream gssapi-keyex patch
+
 * Mon Oct 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-13
 - Fix issue with read-only ssh buffer during gssapi key exchange (rhbz#1938224)
 - https://github.com/openssh-gsskex/openssh-gsskex/pull/19

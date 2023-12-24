@@ -1,8 +1,8 @@
 %global  base_name breeze
 
 Name:    plasma-breeze
-Version: 5.90.0
-Release: 2%{?dist}
+Version: 5.91.0
+Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -118,12 +118,6 @@ popd
 %{_bindir}/breeze-settings6
 %{_kf6_datadir}/applications/breezestyleconfig.desktop
 %{_kf6_datadir}/applications/kcm_breezedecoration.desktop
-%{_kf6_datadir}/kconf_update/breezehighcontrasttobreezedark.upd
-%{_kf6_datadir}/kconf_update/breezetobreezeclassic.upd
-%{_kf6_datadir}/kconf_update/breezetobreezelight.upd
-%{_kf6_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
-%{_kf6_libdir}/kconf_update_bin/breezetobreezeclassic
-%{_kf6_libdir}/kconf_update_bin/breezetobreezelight
 %{_kf6_qtplugindir}/kstyle_config/breezestyleconfig.so
 %{_kf6_qtplugindir}/org.kde.kdecoration2.kcm/kcm_breezedecoration.so
 %{_kf6_qtplugindir}/org.kde.kdecoration2/org.kde.breeze.so
@@ -154,6 +148,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.90.0-2
 - Rebuild
 

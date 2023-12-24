@@ -1,5 +1,5 @@
 Name:    ksystemstats
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
@@ -62,11 +62,14 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %license LICENSES/*
 %{_kf6_bindir}/ksystemstats
 %{_kf6_bindir}/kstatsviewer
-%{_datadir}/dbus-1/services/org.kde.ksystemstats.service
+%{_datadir}/dbus-1/services/org.kde.ksystemstats1.service
 %{_userunitdir}/plasma-ksystemstats.service
 %{_qt6_plugindir}/ksystemstats/
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

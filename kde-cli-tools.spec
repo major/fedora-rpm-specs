@@ -1,5 +1,5 @@
 Name:    kde-cli-tools
-Version: 5.90.0
+Version: 5.91.0
 Release: 1%{?dist}
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -94,6 +94,7 @@ ln -s %{_kf6_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 %{_datadir}/applications/org.kde.keditfiletype.desktop
 %{_datadir}/applications/org.kde.plasma.settings.open.desktop
 %{_datadir}/applications/kcm_filetypes.desktop
+%{_datadir}/zsh/site-functions/_kde-inhibit
 
 %files -n kdesu
 %{_bindir}/kdesu
@@ -105,6 +106,9 @@ ln -s %{_kf6_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 
 
 %changelog
+* Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
+- 5.91.0
+
 * Sun Dec 03 2023 Justin Zobel <justin.zobel@gmail.com> - 5.90.0-1
 - Update to 5.90.0
 

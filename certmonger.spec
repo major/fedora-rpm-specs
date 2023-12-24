@@ -28,12 +28,14 @@
 
 Name:		certmonger
 Version:	0.79.19
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
 URL:		http://pagure.io/certmonger/
 Source0:	http://releases.pagure.org/certmonger/certmonger-%{version}.tar.gz
+Patch0: certmonger-c99.patch
+Patch1: certmonger-c99-2.patch
 #Source1:	http://releases.pagure.org/certmonger/certmonger-%%{version}.tar.gz.sig
 
 BuildRequires:	autoconf
@@ -264,6 +266,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Dec 22 2023 Florian Weimer <fweimer@redhat.com> - 0.79.19-2
+- Fix C compatibility issues
+
 * Tue Oct 10 2023 Rob Crittenden <rcritten@redhat.com> - 0.79.19-1
 - Update to upstream 0.79.19
 

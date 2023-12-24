@@ -1,52 +1,50 @@
 %global libcall_ui_commit 6798b38d4d66d069751151b3e9a202c6de8d7f3c
 
-Name:		calls
-Version:	45~alpha.0
-Release:	3%{?dist}
-Summary:	A phone dialer and call handler
+Name:       calls
+Version:    45.0
+Release:    1%{?dist}
+Summary:    A phone dialer and call handler
 
-License:	GPLv3+ and MIT
-URL:		https://gitlab.gnome.org/GNOME/calls
-Source0:	https://gitlab.gnome.org/GNOME/calls/-/archive/v45_alpha.0/%{name}-v45_alpha.0.tar.gz
-Source1:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
-Patch0:		calls-c99.patch
+License:    GPL-3.0-or-later AND LGPL-2.1-or-later
+URL:        https://gitlab.gnome.org/GNOME/calls
+Source0:    https://gitlab.gnome.org/GNOME/calls/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source1:    https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
 
-BuildRequires:	gcc
-BuildRequires:	meson
-BuildRequires:	cmake
-BuildRequires:	gcc-c++
+BuildRequires:  gcc
+BuildRequires:  meson
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  dbus-daemon
 
-BuildRequires:	pkgconfig(libcallaudio-0.1)
-BuildRequires:	pkgconfig(gobject-2.0)
-BuildRequires:	pkgconfig(glib-2.0) >= 2.50.0
-BuildRequires:	pkgconfig(gtk+-3.0)
-BuildRequires:	pkgconfig(libhandy-1) >= 1.0.0
-BuildRequires:	pkgconfig(gsound)
-BuildRequires:	pkgconfig(libpeas-1.0)
-BuildRequires:	pkgconfig(gom-1.0)
-BuildRequires:	pkgconfig(libebook-contacts-1.2)
-BuildRequires:	pkgconfig(folks)
-BuildRequires:	pkgconfig(mm-glib)
-BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.0.1
-BuildRequires:	pkgconfig(gstreamer-1.0)
-BuildRequires:	gstreamer1-plugins-good-gtk
-BuildRequires:	sofia-sip-glib-devel
+BuildRequires:  pkgconfig(libcallaudio-0.1)
+BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  pkgconfig(glib-2.0) >= 2.50.0
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libhandy-1) >= 1.0.0
+BuildRequires:  pkgconfig(gsound)
+BuildRequires:  pkgconfig(libpeas-1.0)
+BuildRequires:  pkgconfig(gom-1.0)
+BuildRequires:  pkgconfig(libebook-contacts-1.2)
+BuildRequires:  pkgconfig(folks)
+BuildRequires:  pkgconfig(mm-glib)
+BuildRequires:  pkgconfig(libfeedback-0.0) >= 0.0.1
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  gstreamer1-plugins-good-gtk
+BuildRequires:  sofia-sip-glib-devel
 
-BuildRequires:	desktop-file-utils
-BuildRequires:	/usr/bin/xvfb-run
-BuildRequires:	/usr/bin/xauth
-BuildRequires:	libappstream-glib
+BuildRequires:  desktop-file-utils
+BuildRequires:  /usr/bin/xvfb-run
+BuildRequires:  /usr/bin/xauth
+BuildRequires:  libappstream-glib
 BuildRequires:  python3-docutils
 
-Requires: hicolor-icon-theme
+Requires:  hicolor-icon-theme
 
 %description
 A phone dialer and call handler.
 
 %prep
-%setup -a1 -q -n %{name}-v45_alpha.0
-%patch -P 0 -p1
+%autosetup -a1 -p1 -n %{name}-v%{version}
 
 mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
 
@@ -135,10 +133,10 @@ SH
 %license COPYING
 
 %changelog
+%autochangelog
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
 * Wed May 03 2023 Florian Weimer <fweimer@redhat.com> - 45~alpha.0-2
 - Port to C99
-
-%autochangelog

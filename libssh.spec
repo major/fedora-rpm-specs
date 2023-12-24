@@ -1,6 +1,6 @@
 Name:           libssh
 Version:        0.10.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
@@ -11,6 +11,8 @@ Source2:        https://cryptomilk.org/gpgkey-8DFF53E18F2ABC8D8F3C92237EE0FC4DCC
 Source3:        libssh_client.config
 Source4:        libssh_server.config
 Patch1:         libssh-0.10.6-rekey-timeout.patch
+# https://gitlab.com/libssh/libssh-mirror/-/merge_requests/431
+Patch2:         libssh-0.10.6-ipv6-hostname.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -132,6 +134,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Fri Dec 22 2023 Jakub Jelen <jjelen@redhat.com> - 0.10.6-2
+- Fix regression in IPv6 hosntames parsing
+
 * Mon Dec 18 2023 Jakub Jelen <jjelen@redhat.com> - 0.10.6-1
 - New upstream release fixing (CVE-2023-48795, CVE-2023-6004, CVE-2023-6918)
 
