@@ -1,5 +1,5 @@
 Name:    kio-extras
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -113,7 +113,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_datadir}/solid/actions/solid_afc.desktop
 %{_kf6_datadir}/solid/actions/solid_mtp.desktop
 
-%{_kf6_libdir}/libkioarchive.so.5*
+%{_kf6_libdir}/libkioarchive6.so.6{,.*}
 
 %{_kf6_libexecdir}/smbnotifier
 
@@ -128,13 +128,16 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_datadir}/kio_info/kde-info2html*
 
 %files devel
-%{_includedir}/KioArchive/*.h
+%{_includedir}/KioArchive6/*.h
 # no soname symlink? --rex
 #{_kf6_libdir}/libkioarchive.so
-%{_kf6_libdir}/cmake/KioArchive/
+%{_kf6_libdir}/cmake/KioArchive6/
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
 - Update to 24.01.80
 

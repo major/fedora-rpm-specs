@@ -6,24 +6,21 @@
 
 %global forgeurl https://github.com/KDAB/KDSingleApplication/
 # bumping this requires rebuild of dependent pkgs!
-%global soversion 1.0
+%global soversion 1.1
 
-%define cmake_args -DKDSingleApplication_TESTS=true
+%global cmake_args -DKDSingleApplication_TESTS=true
 %if %{with docs}
-%define cmake_args %cmake_args -DKDSingleApplication_DOCS=true
+%global cmake_args %cmake_args -DKDSingleApplication_DOCS=true
 %endif
 
 Name:           kdsingleapplication
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        KDAB's helper class for single-instance policy applications
 %forgemeta
 URL:            %{forgeurl}
 Source:         %{forgesource}
 License:        MIT
-
-Patch0: %{forgeurl}/commit/c49b0514738e0c1fef8ec60a706e4a1ee1284604.patch#/000-cmake-lint-fix.patch
-Patch1: %{forgeurl}/commit/250ab66f58aa37193f2e8b7814946e7a43d25cc7.patch#/001-fix-versioning.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

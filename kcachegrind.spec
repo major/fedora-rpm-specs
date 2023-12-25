@@ -1,6 +1,6 @@
 Name:    kcachegrind
 Summary: GUI to profilers such as Valgrind
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2 and GFDL
@@ -110,6 +110,9 @@ cat kcachegrind_qt.lang >> kcachegrind.lang
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 

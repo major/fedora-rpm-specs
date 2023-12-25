@@ -2,7 +2,7 @@ Name:    khelpcenter
 Summary: Show documentation for KDE applications
 # Override khelpcenter subpackage from kde-runtime-15.04 (no longer built)
 Epoch:   1
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2 or GPLv3
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 1:24.01.85-1
+- 24.01.85
+
 * Sun Dec 03 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 1:24.01.80-1
 - 24.01.80
 

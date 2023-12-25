@@ -1,7 +1,7 @@
 %global base_name elisa
 
 Name:       elisa-player
-Version:    24.01.80
+Version:    24.01.85
 Release:    %autorelease
 Summary:    Elisa music player
 

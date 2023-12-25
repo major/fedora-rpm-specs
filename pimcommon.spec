@@ -1,6 +1,6 @@
 Name:    pimcommon
-Version: 24.01.80
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: PIM common libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
@@ -102,6 +102,9 @@ developing applications that use %{name}.
 %{_includedir}/KPim6/PimCommonAkonadi/
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Tue Dec 12 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
 - Updated devel requirements
 

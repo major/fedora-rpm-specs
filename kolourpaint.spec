@@ -1,6 +1,6 @@
 Name:    kolourpaint
 Summary: An easy-to-use paint program 
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: BSD 
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Wed Dec 13 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
 - 24.01.80
 

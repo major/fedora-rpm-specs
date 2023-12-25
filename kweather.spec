@@ -1,12 +1,10 @@
-Name:           kweather 
-Version:        24.01.80
+Name:           kweather
+Version:        24.01.85
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Convergent KDE weather application
 Url:            https://apps.kde.org/kweather/
-Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-# use de-frameworked kweathercore, fixed for 24.01.85
-Patch:          https://invent.kde.org/utilities/kweather/-/merge_requests/95.patch
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -94,6 +92,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_qtplugindir}/plasma/applets/plasma_applet_%{name}_1x4.so
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Mon Dec 04 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 

@@ -1,6 +1,6 @@
 Name:    kldap
-Version: 24.01.80
-Release: 3%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: The KLDAP Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND MIT
@@ -76,6 +76,9 @@ find ./po -type f -name libkldap5.po -execdir mv {} libkldap6.po \;
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-3
 - Disable docs until translations stop conflicting with kf5-kldap
 

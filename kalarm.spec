@@ -1,16 +1,12 @@
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://www.kde.org/applications/utilities/kalarm
 
 Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# Linking issue about a binary not linking. (ktextwidgets)
-Patch0:  24.01.80-find-textwidgets.patch
-BuildRequires: cmake(KF6TextWidgets)
 
 BuildRequires: cmake
 BuildRequires: extra-cmake-modules
@@ -105,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Dec 10 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 - Reworked all the build dependancies

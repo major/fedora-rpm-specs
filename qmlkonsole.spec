@@ -1,10 +1,10 @@
 Name:           qmlkonsole
-Version:        24.01.80
+Version:        24.01.85
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Terminal app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/qmlkonsole
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -22,15 +22,15 @@ BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6QuickControls2)
-BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Kirigami)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6WindowSystem)
 
-Requires:       kf6-kirigami2
-Requires:       kf6-kirigami2-addons
+Requires:       kf6-kirigami
+Requires:       kf6-kirigami-addons
 Requires:       qmltermwidget
 Recommends:     dejavu-fonts-all
 
@@ -49,7 +49,7 @@ Recommends:     dejavu-fonts-all
 %find_lang %{name}
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/config.kcfg/terminalsettings.kcfg
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Dec 17 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
 - Update to 24.01.80
 

@@ -2,7 +2,7 @@
 
 Name:    akonadi-import-wizard
 Summary: Akonadi Import Wizard
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.akonadiim
 %{_includedir}/KPim6/ImportWizard/
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 

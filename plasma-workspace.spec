@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.91.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -149,8 +149,8 @@ BuildRequires:  cmake(PlasmaActivities)
 BuildRequires:  cmake(PlasmaActivitiesStats)
 
 # workaround for
-#   The imported target "Qt5::XkbCommonSupport" references the file
-#     "/usr/lib64/libQt5XkbCommonSupport.a"
+#   The imported target "Qt6::XkbCommonSupport" references the file
+#     "/usr/lib64/libQt6XkbCommonSupport.a"
 #  but this file does not exist.
 BuildRequires:  qt6-qtbase-static
 BuildRequires:  cmake(Qt6Core5Compat)
@@ -163,24 +163,15 @@ BuildRequires:  plasma-breeze-devel >= %{version}
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
 
-# Optional
-%if 0%{?fedora}
-BuildRequires:  cmake(AppStreamQt) >= 0.10.4
-%endif
+BuildRequires:  cmake(AppStreamQt) >= 1.0.0
 
 # when kded_desktopnotifier.so moved here
 Conflicts:      kio-extras < 5.4.0
 
-%if 0%{?fedora} > 35
 Recommends:     plasma-welcome
-%endif
 
-%if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     %{name}-geolocation = %{version}-%{release}
 Suggests:       imsettings-qt
-%else
-Requires:       %{name}-geolocation = %{version}-%{release}
-%endif
 
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -199,9 +190,7 @@ Requires:       kf6-kirigami
 Requires:       kf6-kirigami-addons
 
 # The new volume control for PulseAudio
-%if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:       plasma-pa
-%endif
 
 # Without the platformtheme plugins we get broken fonts
 Requires:       kf6-frameworkintegration
@@ -218,7 +207,7 @@ Recommends: kde-inotify-survey
 # For a11y
 Recommends: orca
 
-# powerdevil has a versioned dep on libkworkspace5, so (may?)
+# powerdevil has a versioned dep on libkworkspace6, so (may?)
 # need to avoid this dep when bootstrapping
 %if ! 0%{?bootstrap}
 # Power management
@@ -275,14 +264,8 @@ Provides:       plasmashell = %{version}
 Requires:       plasmashell
 %endif
 
-# when -common, libkworkspace5 was split out
-Obsoletes:      plasma-workspace < 5.4.2-2
-
 # plasmashell provides dbus service org.freedesktop.Notifications
 Provides: desktop-notification-daemon
-
-# upgrade path, when sddm-breeze was split out
-Obsoletes: plasma-workspace < 5.3.2-8
 
 # digitalclock applet
 %if ! 0%{?bootstrap}
@@ -734,6 +717,9 @@ fi
 
 
 %changelog
+* Sat Dec 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.91.0-2
+- Clean up uneeded conditionals in packaging
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

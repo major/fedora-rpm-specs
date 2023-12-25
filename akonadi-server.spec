@@ -4,8 +4,8 @@
 
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 24.01.80
-Release: 4%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -17,7 +17,6 @@ Source10:       akonadiserverrc.mysql
 Source11:       akonadiserverrc.sqlite
 
 Patch0:  move-translations.patch
-Patch1:  akonadi-24.01.80-reenable-kaccounts.patch
 
 ## upstreamable patches
 
@@ -242,6 +241,9 @@ fi
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-4
 - Backport rename translation files
 

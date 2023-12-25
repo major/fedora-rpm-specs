@@ -1,16 +1,12 @@
-%global gitdate 20231204.133905
-%global commit0 fe713c756d9f17713f017888492bbe989e923ac6
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 Name:    kaccounts-integration
-Version: 24.01.80^%{gitdate}.%{shortcommit0}
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
-License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/network/%{name}
 
-# Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-Source0: https://invent.kde.org/network/%{name}/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
 ## upstream fixes
 
 ## upstreamable fixes
@@ -120,7 +116,7 @@ Headers, development libraries and documentation for %{name}.
 
 
 %prep
-%autosetup -n %{name}-%{commit0} -p1
+%autosetup -p1
 
 
 %build
@@ -174,6 +170,9 @@ popd
 
 
 %changelog
+* Sat Dec 23 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Mon Dec 4 2023 Steve Cossette <farchord@gmail.com> - 24.01.80^20231204.133905.fe713c7-1
 - Using a git commit to fix co-instability
 

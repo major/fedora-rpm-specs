@@ -1,6 +1,6 @@
 Name:    granatier
 Summary: Place bombs to kill enemies and remove obstacles
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Mon Dec 04 2023 Justin Zobel <justin.zobel@gmail.com> - 24.01.80-1
 - Update to 24.01.80
 

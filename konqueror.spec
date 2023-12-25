@@ -4,7 +4,7 @@
 #global tests 1
 
 Name:    konqueror
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
@@ -208,6 +208,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 

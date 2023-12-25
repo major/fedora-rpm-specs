@@ -25,7 +25,7 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -254,6 +254,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 - Disable KAlgebra/Analitza backend (until cantor is ported to Qt6)

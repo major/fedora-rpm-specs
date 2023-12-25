@@ -1,5 +1,5 @@
 Name:    calendarsupport
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: KDE PIM library for calendar and event handling
 
@@ -74,5 +74,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

@@ -2,7 +2,7 @@
 
 Name:    krfb
 Summary: Desktop sharing
-Version: 24.01.75
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
@@ -122,6 +122,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Nov 19 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.75-1
 - 24.01.75
 - Disable kpipewire integration until this is ported to Qt6

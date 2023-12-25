@@ -1,5 +1,5 @@
 Name:           kio-gdrive
-Version:        24.01.80
+Version:        24.01.85
 Release:        1%{?dist}
 Summary:        An Google Drive KIO slave for KDE
 
@@ -7,9 +7,6 @@ License:        GPL-2.0-or-later
 URL:            https://community.kde.org/KIO_GDrive
 # use releaseme
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# 24.01.80: Enable Kaccounts6. Can probably be removed on beta 2.
-Patch0:         24.01.80-Enable-KAccounts6.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # arch's where libkgapi is available (due to inderect dependencies on qtwebengine)
@@ -64,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/purpose/purpose_gdrive_config.qml
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 7 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:    kio-extras-kf5
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -26,8 +26,6 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{srcn
 ## upstramable patches
 
 ## upstream patches
-# https://invent.kde.org/network/kio-extras/-/commit/c3c07bb4fd49d1952bcf84cd1ffd8322fb9e788a
-Patch100: c3c07bb4fd49d1952bcf84cd1ffd8322fb9e788a.patch
 
 BuildRequires:  bzip2-devel
 BuildRequires:  gperf
@@ -98,6 +96,12 @@ Summary: Info kioslave
 %description info
 Kioslave for reading info pages.
 
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+%description devel
+%{summary}.
+
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
@@ -116,10 +120,6 @@ Kioslave for reading info pages.
 
 %find_lang %{srcname} --all-name --with-html
 
-# Purge all stuff conflicting with kio-extras
-rm -rf %{buildroot}%{_includedir}/KioArchive/
-rm -rf %{buildroot}%{_kf5_libdir}/cmake/KioArchive/
-rm -rf %{buildroot}%{_kf5_libdir}/libkioarchive.so*
 
 %check
 %if 0%{?tests}
@@ -139,6 +139,8 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %{_kf5_datadir}/kservices5/*.desktop
 %{_kf5_datadir}/kservicetypes5/thumbcreator.desktop
 %{_kf5_datadir}/qlogging-categories5/kio-extras*
+
+%{_kf5_libdir}/libkioarchive.so.5{,.*}
 
 %{_kf5_libexecdir}/smbnotifier
 
@@ -169,8 +171,17 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 %files info
 %{_kf5_plugindir}/kio/info.so
 
+%files devel
+%{_includedir}/KioArchive/*.h
+# no soname symlink? --rex
+#{_kf6_libdir}/libkioarchive.so
+%{_kf6_libdir}/cmake/KioArchive/
+
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com
+- 24.01.85
+
 * Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
 - Update to 24.01.80
 

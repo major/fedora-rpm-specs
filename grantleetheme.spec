@@ -1,6 +1,6 @@
 Name:    grantleetheme
-Version: 24.01.80
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: KDE PIM library for Grantlee template system
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KPim6GrantleeTheme/
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Dec 17 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
 - Allow coexisting with kf5-grantleetheme
 

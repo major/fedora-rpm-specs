@@ -1,6 +1,6 @@
 Name:    kmime
-Version: 24.01.80
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: The KMime Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -60,6 +60,9 @@ find ./po -type f -name libkmime5.po -execdir mv {} libkmime6.po \;
 %{_kf6_libdir}/cmake/KPim6Mime/
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
 - Backport rename translation files
 

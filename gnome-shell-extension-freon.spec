@@ -1,6 +1,6 @@
 Name:       gnome-shell-extension-freon
 Summary:    GNOME Shell extension to display system temperature, voltage, and fan speed
-Version:    54
+Version:    55
 %global     baserelease 1
 URL:        https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki
 VCS:        https://github.com/UshakovVasilii/gnome-shell-extension-freon
@@ -10,19 +10,19 @@ BuildArch:  noarch
 Epoch:      2
 
 # Variables for if/when I need to source a commit instead of a release tag.
-%global  commit_date   20231020
-%global  commit_long   ce5a3963979014693a5df1d9e4bb5e2997958ceb
+%global  commit_date   20231215
+%global  commit_long   8fee2fb9648bf77cdcb47c380282efcf68e6f5c8
 %global  commit_short  %(c=%{commit_long}; echo ${c:0:7})
 
-# Release:    0.%%{baserelease}.%%{commit_date}git%%{commit_short}%%{?dist}
-Release:    %{baserelease}%{?dist}
+Release:    %{baserelease}.%{commit_date}git%{commit_short}%{?dist}
+# Release:    %%{baserelease}%%{?dist}
 
 
 
 # You can see the latest source releases here:
 # https://github.com/UshakovVasilii/gnome-shell-extension-freon/releases
-# Source0: https://github.com/UshakovVasilii/%%{name}/archive/%%{commit_long}/%%{name}-%%{commit_short}.tar.gz
-Source0: https://github.com/UshakovVasilii/%{name}/archive/EGO-%{version}/%{name}-EGO-%{version}.tar.gz
+Source0: https://github.com/UshakovVasilii/%{name}/archive/%{commit_long}/%{name}-EGO-%{version}-%{commit_short}.tar.gz
+# Source0: https://github.com/UshakovVasilii/%%{name}/archive/EGO-%%{version}/%%{name}-EGO-%%{version}.tar.gz
 
 BuildRequires: glib2
 
@@ -67,8 +67,8 @@ unfortunately won't work for Nvidia cards.)
 %global  final_install_dir     %{buildroot}/%{gnome_extensions_dir}/%{UUID}
 
 %prep
-%autosetup -n %{name}-EGO-%{version}
-# %%autosetup -n %%{name}-%%{commit_long}
+# %%autosetup -n %%{name}-EGO-%%{version}
+%autosetup -n %{name}-%{commit_long}
 
 cat > ./README-fedora.md << EOF
 **NOTE** that if you want to see GPU temperature, you will need to
@@ -138,8 +138,12 @@ mv  %{final_install_dir}/locale  %{buildroot}/%{_datadir}/
 
 
 %changelog
+* Fri Dec 22 2023 Michel Lind <salimma@fedoraproject.org> - 2:55-1.20231215git8fee2fb
+- bump to version 55 with PR 274 to fix pkexec issues
+
 * Fri Nov 10 2023 Michal Ambroz <rebus _AT seznam.cz> - 2:54-1
 - bump to version 54 supporting the gnome 45
+- Use SPDX license identifier
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:49-2.20230413git0d39ef0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

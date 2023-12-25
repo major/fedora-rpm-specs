@@ -1,6 +1,6 @@
 Name:    kontact
 Summary: Personal Information Manager
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Tue Dec 12 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 

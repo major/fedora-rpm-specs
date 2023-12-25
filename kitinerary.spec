@@ -1,5 +1,5 @@
 Name:    kitinerary
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
@@ -85,5 +85,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Fri Dec 8 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

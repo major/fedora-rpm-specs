@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 
 Name:           stellarium
-Version:        23.3
+Version:        23.4
 Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
@@ -40,6 +40,8 @@ BuildRequires:  libindi-devel
 BuildRequires:  QXlsx-devel
 BuildRequires:  libnova-devel
 BuildRequires:  libxkbcommon-devel
+BuildRequires:  exiv2-devel
+BuildRequires:  NLopt-devel
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can
@@ -97,6 +99,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Sat Dec 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.4-1
+- 23.4
+
 * Wed Dec 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.3-1
 - 23.3
 

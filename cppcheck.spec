@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           cppcheck
-Version:        2.12.1
+Version:        2.13.0
 Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
@@ -10,6 +10,9 @@ Source0:        https://github.com/danmar/%{name}/archive/%{version}.tar.gz#/%{n
 
 # Fix location of translations
 Patch0:         cppcheck-2.11-translations.patch
+# Fix failing test under i686
+# https://github.com/danmar/cppcheck/pull/5803
+Patch1:         cppcheck-2.13.0-fix_test_failure_on_32bit_platform.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  pcre-devel
@@ -53,7 +56,8 @@ from xml files first generated using cppcheck.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .translations
+%patch0 -p1 -b .translations
+%patch1 -p1 -b .fix_test_failure
 # Make sure bundled tinyxml2 is not used
 rm -r externals/tinyxml2
 # Generate the Qt online-help file
@@ -67,9 +71,6 @@ pandoc man/manual.md -o man/manual.html -s --number-sections --toc
 pandoc man/reference-cfg-format.md -o man/reference-cfg-format.html -s --number-sections --toc
 
 # Binaries
-# Add -fsigned-char to CXXFLAGS, to make all tests pass also on aarch64
-# ppc64le and s390x, see https://trac.cppcheck.net/ticket/11537
-export CXXFLAGS="$RPM_OPT_FLAGS -fsigned-char"
 # Upstream doesn't support shared libraries (unversioned solib)
 %cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=yes -DHAVE_RULES=yes -DBUILD_GUI=1 -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTS=yes -DFILESDIR=%{_datadir}/Cppcheck -DUSE_BUNDLED_TINYXML2=OFF -DENABLE_OSS_FUZZ=OFF
 %cmake_build
@@ -112,6 +113,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Sat Dec 23 2023 Wolfgang Stöggl <c72578@yahoo.de> - 2.13.0-1
+- Update to 2.13.0
+
 * Wed Sep 20 2023 Wolfgang Stöggl <c72578@yahoo.de> - 2.12.1-1
 - Update to 2.12.1
 

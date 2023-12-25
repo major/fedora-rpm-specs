@@ -1,15 +1,12 @@
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/pim/%{name}
 
 Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# FIX: Build has a versionless soname. Has been fixed upstream, likely to be fixed next update.
-Patch0:  24.01.80-fix-versionless-soname.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
@@ -85,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.accountwi
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Dec 10 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 

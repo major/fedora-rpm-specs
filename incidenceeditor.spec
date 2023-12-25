@@ -1,5 +1,5 @@
 Name:    incidenceeditor
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: KDE PIM library for creating and editing calendar incidences
 
@@ -7,9 +7,6 @@ License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-
 URL:     https://invent.kde.org/pim/%{name}
 
 Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-Patch0:         24.01.80-kgantt-rename.patch
-Patch1:         24.01.80-ktextwidgets.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # available only where kf6-eventviews is
@@ -85,5 +82,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

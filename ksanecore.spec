@@ -1,13 +1,11 @@
 Name:    ksanecore
 Summary: Library providing logic to interface scanners
-Version: 24.01.80
-Release: 3%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 
 License: BSD and LGPLv2.1-only and LGPLv3.0-only
 URL:     https://invent.kde.org/libraries/ksanecore
 Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-Patch0:  qt5-qt6-coinstallability.patch
 
 BuildRequires: cmake
 BuildRequires: extra-cmake-modules
@@ -108,6 +106,9 @@ Provides internationalization files.
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Wed Dec 13 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-3
 - Explicit conflicts ksanecore-common
 

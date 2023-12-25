@@ -1,12 +1,12 @@
 Name:    kdepim-addons
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/pim/%{name}
 
-Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -171,10 +171,12 @@ Supplements:    korganizer
 %dir %{_datadir}/qtcreator
 %dir %{_datadir}/qtcreator/templates
 %{_datadir}/qtcreator/templates/kmaileditorconvertertextplugins/
-%{_datadir}/qtcreator/templates/kmaileditorplugins/
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 

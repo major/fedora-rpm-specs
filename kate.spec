@@ -6,7 +6,7 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 
 # kwrite LGPLv2+
@@ -175,6 +175,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 

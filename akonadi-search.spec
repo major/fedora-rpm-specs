@@ -1,6 +1,6 @@
 Name:    akonadi-search
-Version: 24.01.80
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
 # Rust crate licensing:
@@ -101,6 +101,9 @@ cd ../../..
 %{_kf6_libdir}/libKPim6AkonadiSearchXapian.so
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sat Dec 16 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-2
 - Obsoletes the old plasma5 package
 

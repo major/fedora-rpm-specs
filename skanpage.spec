@@ -1,5 +1,5 @@
 Name:     skanpage
-Version:  24.01.80
+Version:  24.01.85
 Release:  1%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
@@ -8,10 +8,9 @@ URL:      https://invent.kde.org/utilities/%{name}
 Source0:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## Upstream patches
-Patch0:   ksanecore-qt6-name-change.patch
 
 ## Downstream patches
-# gcc13 with binutils-2.41 (as in f40 rawhide) fails to compile this project with -fopenmp even though it seems unused?
+# gcc fails to compile this project with -fopenmp even though it seems unused?
 Patch100: disable-openmp.patch
 
 BuildRequires:  desktop-file-utils
@@ -84,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 %{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Tue Dec 12 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-1
 - 24.01.80
 

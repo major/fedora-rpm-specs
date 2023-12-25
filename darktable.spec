@@ -6,7 +6,7 @@
 ###
 
 Name: darktable
-Version: 4.4.2
+Version: 4.6.0
 Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
@@ -105,6 +105,8 @@ Requires: iso-codes >= 3.66
 # Concerning rawspeed bundled library, see
 # https://fedorahosted.org/fpc/ticket/550#comment:9
 Provides: bundled(rawspeed)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2252432
+Provides: bundled(libraw)
 Provides: bundled(lua)
 
 # Unsupported CPU architectures
@@ -249,6 +251,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Sat Dec 23 2023 Germano Massullo <germano.massullo@gmail.com> - 4.6.0-1
+- 4.6.0 release
+- adds Provides: bundled(libraw)
+
 * Sun Jul 23 2023 Germano Massullo <germano.massullo@gmail.com> - 4.4.2-1
 - 4.4.2 release
 

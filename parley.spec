@@ -1,15 +1,12 @@
 
 Name:    parley
-Summary: Vocabulary Trainer 
-Version: 24.01.80
+Summary: Vocabulary Trainer
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://apps.kde.org/parley/
-Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# Port to Qt6, merged upstream for 24.01.85
-Patch:   https://invent.kde.org/education/parley/-/merge_requests/28.patch
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -85,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 

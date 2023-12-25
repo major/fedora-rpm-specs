@@ -1,5 +1,5 @@
 Name:    kpimtextedit
-Version: 24.01.80
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: The KPimTextEdit Library
 
@@ -64,5 +64,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KPim6TextEdit
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Tue Dec 5 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80

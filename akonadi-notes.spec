@@ -1,6 +1,6 @@
 Name:    akonadi-notes
-Version: 24.01.80
-Release: 4%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: The Akonadi Notes Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -61,6 +61,9 @@ find ./po -type f -name akonadinotes5.po -execdir mv {} akonadinotes6.po \;
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-4
 - Backport rename translation files
 

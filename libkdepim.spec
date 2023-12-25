@@ -1,6 +1,6 @@
 Name:    libkdepim
-Version: 24.01.80
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: Library for common kdepim apps
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -62,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Tue Dec 12 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - Additional cleanup
 

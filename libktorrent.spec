@@ -1,6 +1,6 @@
 Name:           libktorrent
 Summary:        Torrent downloading library for KDE 6 applications
-Version:        24.01.80
+Version:        24.01.85
 Release:        1%{?dist}
 # CC0 is only for CI tooling, BSD3 for cmake macros, MIT for win32 support code
 License:        GPL-2.0-or-later
@@ -48,10 +48,6 @@ Requires:       cmake(Qt6Network)
 %prep
 %autosetup -p1
 
-# avoid collisions with kf5-libktorrent, fixed for 24.01.85
-sed -i -e 's/libktorrent5/libktorrent6/' CMakeLists.txt
-for f in po/*/libktorrent5.po; do mv $f ${f%/*}/libktorrent6.po; done
-
 
 %build
 %cmake_kf6
@@ -77,6 +73,9 @@ for f in po/*/libktorrent5.po; do mv $f ${f%/*}/libktorrent6.po; done
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Mon Nov 27 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 24.01.80-1
 - 24.01.80
 

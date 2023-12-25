@@ -1,6 +1,6 @@
 Name:    libksieve
-Version: 24.01.80
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 Summary: Sieve support library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -89,6 +89,9 @@ Requires:       cmake(KF6SyntaxHighlighting)
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
 - Obsolete kf5-libksieve
 

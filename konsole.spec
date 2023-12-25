@@ -2,16 +2,14 @@
 
 Name:    konsole
 Summary: KDE Terminal emulator
-Version: 24.01.80
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://www.kde.org/applications/system/konsole/
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
-# https://invent.kde.org/utilities/konsole/-/merge_requests/928
-Patch0:  library-versions.patch
 
 ## upstream patches
 
@@ -141,6 +139,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.80-2
 - Restore upstream config that defaults to hiding the menu bar
 

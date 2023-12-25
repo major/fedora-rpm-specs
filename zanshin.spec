@@ -1,5 +1,5 @@
 Name:           zanshin
-Version:        24.01.80
+Version:        24.01.85
 Release:        1%{?dist}
 Summary:        Todo/action management software
 
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_plugindir}/krunner/org.kde.%{name}.so
 
 %changelog
+* Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
+- 24.01.85
+
 * Thu Dec 14 2023 Steve Cossette <farchord@gmail.com> - 24.01.80-1
 - 24.01.80
 

@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -32,7 +32,9 @@ BuildRequires:  make
 # Documentation build requirements
 BuildRequires:  doxygen
 BuildRequires:  git-core
+%if ! 0%{?rhel}
 BuildRequires:  pandoc
+%endif
 
 # Wget2 build requirements
 BuildRequires:  bzip2-devel
@@ -56,9 +58,11 @@ BuildRequires:  pkgconfig(libpsl)
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(zlib)
 
+%if ! 0%{?rhel}
 # Test suite
 BuildRequires:  lcov
 BuildRequires:  lzip
+%endif
 
 # For gpg signature verification
 BuildRequires:  gnupg2
@@ -119,15 +123,22 @@ the system provider of wget.
 
 %build
 %configure --disable-static
-# Remove RPATH
+%if ! 0%{?rhel}
+# Remove RPATH, rely on default -Wl,--enable-new-dtags in Fedora.
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+%endif
 %make_build
 
 
 %install
 %make_install
 %find_lang %{name}
+
+%if 0%{?rhel}
+# tarball includes a pre-built manpage
+install -D -m0644 -t %{buildroot}%{_mandir}/man1/ docs/man/man1/wget2.1
+%endif
 
 # Purge all libtool archives
 find %{buildroot} -type f -name "*.la" -delete -print
@@ -170,6 +181,10 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Thu Dec 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.0-4
+- Avoid pandoc dependency on RHEL
+- Fix tests on RHEL
+
 * Sat Dec 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-3
 - Enable wget2-wget for F40+ / RHEL10+
 
