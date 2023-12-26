@@ -1,20 +1,21 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		relnumber	1
+%define		baserelease	2
 %define		srcname		mecab-perl
 
 Name:		perl-mecab
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.32
+Release:	%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}%{?dist}
 Summary:	Perl binding for MeCab
 
 # License is the same as MeCab
-License:	BSD or LGPLv2+ or GPL+
+# SPDX confirmed
+License:	BSD-3-Clause OR LGPL-2.1-or-later OR GPL-2.0-or-later
 URL:		http://mecab.sourceforge.net/
 Source0:	http://mecab.googlecode.com/files/%{srcname}-%{mainver}%{?betaver}.tar.gz
 
 # This is not release number specific
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	mecab-devel = %{version}
 BuildRequires:	perl-devel
@@ -54,12 +55,16 @@ find $RPM_BUILD_ROOT -depth -type d | xargs rmdir 2>/dev/null || :
 
 %files
 %doc bindings.html
-%doc AUTHORS COPYING BSD GPL LGPL
+%doc AUTHORS
+%license	COPYING BSD GPL LGPL
 
 %{perl_vendorarch}/MeCab.pm
 %{perl_vendorarch}/auto/MeCab/
 
 %changelog
+* Sun Dec 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-2
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-1.32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

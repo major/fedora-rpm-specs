@@ -3,8 +3,8 @@
 %bcond_with check
 
 Name:           libkrun
-Version:        1.5.0
-Release:        7%{?dist}
+Version:        1.7.2
+Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -13,12 +13,8 @@ Source:         https://github.com/containers/libkrun/archive/refs/tags/v%{versi
 # Remove references to unused deps so we don't need to install them for
 # building this package
 Patch0:         libkrun-remove-unused-deps.diff
-# Update and relax vm-memory dependency
-Patch1:         libkrun-update-relax-vm-memory.diff
 # For aarch64, remove references to SEV deps which are only available on x86_64
-Patch2:         libkrun-remove-sev-deps.diff
-# Temporarily patch against a change in kvm-ioctls API
-Patch3:         libkrun-fix-kvm-ioctls.diff
+Patch1:         libkrun-remove-sev-deps.diff
 
 # libkrun only supports x86_64 and aarch64
 ExclusiveArch:  x86_64 aarch64
@@ -37,21 +33,23 @@ BuildRequires:  rust-packaging >= 21
 BuildRequires:  glibc-static
 BuildRequires:  patchelf
 BuildRequires:  binutils
-BuildRequires:  libkrunfw-devel >= 3.6.3
+BuildRequires:  libkrunfw-devel >= 4.0.0
 %ifarch x86_64
-BuildRequires:  libkrunfw-sev-devel >= 3.6.3
+BuildRequires:  libkrunfw-sev-devel >= 4.0.0
 %endif
 %ifarch aarch64
 BuildRequires:  libfdt-devel
 %endif
 
 BuildRequires:  crate(libc/default) >= 0.2.39
-BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.12.0 with crate(vm-memory/backend-mmap) < 0.13.0~)
-BuildRequires:  (crate(vm-memory/default) >= 0.12.0 with crate(vm-memory/default) < 0.13.0~)
+BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.13.0 with crate(vm-memory/backend-mmap) < 0.14.0~)
+BuildRequires:  (crate(vm-memory/default) >= 0.13.0 with crate(vm-memory/default) < 0.14.0~)
 BuildRequires:  crate(kvm-bindings/default) >= 0.6.0
 BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.6.0
-BuildRequires:  crate(kvm-ioctls/default) >= 0.14.0
+BuildRequires:  crate(kvm-ioctls/default) >= 0.15.0
 BuildRequires:  crate(vmm-sys-util/default) >= 0.11.0
+BuildRequires:  crate(vm-fdt/default) >= 0.2.0
+BuildRequires:  (crate(virtio-bindings/default) >= 0.2.0 with crate(virtio-bindings/default) < 0.3.0~)
 BuildRequires:  (crate(bitflags/default) >= 1.2.0 with crate(bitflags/default) < 2.0.0~)
 BuildRequires:  (crate(env_logger/default) >= 0.9.0 with crate(env_logger/default) < 0.10.0~)
 BuildRequires:  (crate(log/default) >= 0.4.0 with crate(log/default) < 0.5.0~)
@@ -59,6 +57,9 @@ BuildRequires:  (crate(nix/default) >= 0.24.1 with crate(nix/default) < 0.25.0~)
 BuildRequires:  (crate(rand/default) >= 0.8.5 with crate(rand/default) < 0.9.0~)
 BuildRequires:  (crate(once_cell/default) >= 1.4.1 with crate(once_cell/default) < 2.0.0~)
 BuildRequires:  (crate(crossbeam-channel/default) >= 0.5.0 with crate(crossbeam-channel/default) < 0.6.0~)
+BuildRequires:  (crate(kbs-types/default) >= 0.5.0 with crate(kbs-types/default) < 0.6.0~)
+BuildRequires:  (crate(kbs-types/tee-sev) >= 0.5.0 with crate(kbs-types/tee-sev) < 0.6.0~)
+BuildRequires:  (crate(kbs-types/tee-snp) >= 0.5.0 with crate(kbs-types/tee-snp) < 0.6.0~)
 
 %ifarch x86_64
 # SEV variant dependencies
@@ -110,15 +111,14 @@ capabilities.
 %prep
 %setup -q -n %{name}-%{version_no_tilde} 
 %patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 3 -p1
 %ifnarch x86_64
-%patch -P 2 -p1
+%patch -P 1 -p1
 %endif
 %cargo_prep
 
 %build
 %make_build init/init
+%make_build libkrun.pc
 %cargo_build
 patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version} target/release/libkrun.so
 %ifarch x86_64
@@ -143,6 +143,7 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 
 %files devel
 %{_libdir}/libkrun.so
+%{_libdir}/pkgconfig/libkrun.pc
 %{_includedir}/libkrun.h
 
 %ifarch x86_64
@@ -162,6 +163,9 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Sun Dec 24 2023 Sergio Lopez <slp@redhat.com> - 1.7.2-1
+- Update to version 1.7.2
+
 * Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 1.5.0-7
 - Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
 

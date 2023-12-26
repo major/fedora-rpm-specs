@@ -1,9 +1,9 @@
 Name:           python-mdx_gh_links
-Version:        0.3.1
+Version:        0.4
 Release:        1%{?dist}
 Summary:        Python-Markdown Github-Links Extension
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/Python-Markdown/github-links
 Source0:        https://github.com/Python-Markdown/github-links/archive/%{version}/mdx_gh_links-%{version}.tar.gz
 BuildArch:      noarch
@@ -52,6 +52,9 @@ shorthand links to GitHub users, repositories, issues and commits.
 
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 0.4-1
+- Update to 0.4
+
 * Sat Jul 29 2023 Sandro Mani <manisandro@gmail.com> - 0.3.1-1
 - Update to 0.3.1
 

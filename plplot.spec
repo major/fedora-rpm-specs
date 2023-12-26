@@ -65,7 +65,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        60%{?dist}
+Release:        61%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -774,6 +774,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 5.15.0-61
+- Rebuild (shapelib)
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.15.0-60
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

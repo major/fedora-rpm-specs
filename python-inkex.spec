@@ -5,14 +5,17 @@ Version:        1.3.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python extensions for Inkscape core
 
 License:        GPL-2.0-or-later
 URL:            %forgeurl
 Source:         %{pypi_source %{srcname}}
 Patch:          scour-version.patch
-
+# https://gitlab.com/inkscape/extensions/-/commit/629c79f6f530c0f97316683023a8ae6c956fd8f6
+# BZ2250853
+# Patch can be removed on next release
+Patch:          py3.13.patch 
 BuildRequires:  python3-devel
 # Tests
 BuildRequires:  python3dist(pytest)
@@ -80,6 +83,8 @@ sed -i /env\ python/d %{buildroot}%{python3_sitelib}/inkex/tester/inx.py
 %license LICENSE.txt
  
 %changelog
+* Sun Dec 24 2023 Benson Muite <benson_muite@emailplus.org> - 1.3.0-2
+- Enable building with Python 3.13
 * Fri Sep 08 2023 Benson Muite <benson_muite@emailplus.org> - 1.3.0-1
 - Initial package
 

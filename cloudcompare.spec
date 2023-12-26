@@ -19,7 +19,7 @@
 %global cname   CloudCompare
 Name:           cloudcompare
 Version:        2.11.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        3D point cloud and mesh processing software
 
 # Main part is GPLv2+
@@ -286,6 +286,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
 %doc doc
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 2.11.3-10
+- Rebuild (shapelib)
+
 * Thu Nov 16 2023 Sandro Mani <manisandro@gmail.com> - 2.11.3-9
 - Rebuild (gdal)
 

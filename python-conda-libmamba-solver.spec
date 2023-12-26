@@ -1,8 +1,10 @@
 %global srcname conda-libmamba-solver
 
+%bcond tests 1
+
 Name:           python-%{srcname}
 Version:        23.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The libmamba based solver for conda
 
 License:        BSD-3-Clause
@@ -11,14 +13,15 @@ Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-conda-index
-# For tests
+%if %{with tests}
 BuildRequires:  conda
 BuildRequires:  conda-build
 BuildRequires:  conda-tests
+BuildRequires:  python3-conda-index
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
 BuildRequires:  python3-pytest-xprocess
+%endif
 
 %global _description %{expand:
 conda-libmamba-solver is a new solver for the conda package manager which
@@ -41,7 +44,11 @@ sed -i -e '/doctest/d' -e '/reruns/d' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+# When not testing, we don't need runtime dependencies.
+# Normally, we would still BuildRequire them to not accidentally
+# build an uninstallabe package,
+# but there is a runtime dependency loop with conda
+%pyproject_buildrequires %{!?with_tests:-R}
 
 
 %build
@@ -54,6 +61,7 @@ sed -i -e '/doctest/d' -e '/reruns/d' pyproject.toml
 
 
 %check
+%if %{with tests}
 # Most tests require network access
 # FileNotFoundError: [Errno 2] No such file or directory: 'conda-lock'
 export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
@@ -130,10 +138,14 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
   --deselect=tests/test_workarounds.py::test_matchspec_star_version \
   --deselect=tests/test_workarounds.py::test_build_string_filters \
   --deselect='tests/test_workarounds.py::test_ctrl_c[Solving environment]'
+%endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.*
 
 %changelog
+* Wed Dec 20 2023 Karolina Surma <ksurma@redhat.com> - 23.11.1-2
+- Conditionalize test run to avoid circular dependency on conda
+
 * Sat Dec 02 2023 Orion Poplawski <orion@nwra.com> - 23.11.1-1
 - Initial Fedora package

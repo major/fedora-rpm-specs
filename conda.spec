@@ -129,7 +129,10 @@ sed -i -e s/linux-64/%{python3_platform}/ tests/data/conda_format_repo/%{python3
 sed -i -e '/"--cov/d' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires
+# When not testing, we don't need runtime dependencies.
+# Normally, we would still BuildRequire them to not accidentally build an uninstallable package,
+# but there is a runtime dependency loop with python3-conda-libmamba-solver.
+%pyproject_buildrequires %{!?with_tests:-R}
 
 %build
 %pyproject_wheel

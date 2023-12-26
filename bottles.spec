@@ -10,6 +10,8 @@ BuildArch:  noarch
 # https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
 ExcludeArch:    s390x
 
+%global tag %{version}
+
 %forgemeta
 
 # The following two files are licensed as MIT:

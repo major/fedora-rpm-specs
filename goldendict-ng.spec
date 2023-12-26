@@ -1,5 +1,5 @@
-Version:        23.12.07
-%global tag %{version}-HeavySnow.b0086d5c
+%global tag 23.12.07-HeavySnow.b0086d5c
+Version:        %(echo %{tag} | awk -F'-' '{print $1}')
 
 Name:           goldendict-ng
 Release:        %autorelease

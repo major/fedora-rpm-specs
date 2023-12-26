@@ -2,7 +2,7 @@
 
 Name:		socnetv
 Version:	3.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPLv3
 Summary:	A Social Networks Analyser and Visualiser
 URL:		https://socnetv.org/
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Dec 24 2023 TI_Eugene <ti.eugene@gmail.com> 3.1-4
+- Rebuild against fresh Qt6
+
 * Fri Jul 28 2023 TI_Eugene <ti.eugene@gmail.com> 3.1-3
 - Rebuild against fresh Qt6
 

@@ -7,15 +7,15 @@
 %endif
 
 Name:          shapelib
-Version:       1.5.0
-Release:       16%{?pre:.%pre}%{?dist}
+Version:       1.6.0
+Release:       1%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
 # - contrib/csv2shp.c: GPLv2+
 # - contrib/dbfinfo.c: Public domain
 # - contrib/dbfcat.c:  Public domain
-License:       (LGPLv2+ or MIT) and GPLv2+ and Public Domain
+License:       (LGPL-2.0-or-later OR MIT) AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:           http://shapelib.maptools.org/
 Source0:       http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}.tar.gz
 # Man pages from debian package
@@ -24,8 +24,6 @@ Source0:       http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}
 # tar -czf shapelib-man.tar.gz man/
 # rm -r man
 Source1:       %{name}-man.tar.gz
-# Backport fix for CVE-2022-0699
-Patch0:        https://github.com/OSGeo/shapelib/commit/df1e996c541b3dc3f6bc8d589a140fdc8c544373.patch
 
 BuildRequires: automake autoconf libtool
 BuildRequires: gcc-c++
@@ -170,8 +168,8 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 %files
 %doc README README.tree ChangeLog web/*.html
-%license COPYING
-%{_libdir}/libshp.so.2*
+%license LICENSE*
+%{_libdir}/libshp.so.4*
 
 %files devel
 %{_includedir}/shapefil.h
@@ -185,8 +183,8 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 %if %{with mingw}
 %files -n mingw32-%{name}
-%license COPYING
-%{mingw32_bindir}/libshp-2.dll
+%license LICENSE*
+%{mingw32_bindir}/libshp-4.dll
 %{mingw32_includedir}/shapefil.h
 %{mingw32_libdir}/libshp.dll.a
 %{mingw32_libdir}/pkgconfig/shapelib.pc
@@ -198,8 +196,8 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 %{mingw32_bindir}/*.exe
 
 %files -n mingw64-%{name}
-%license COPYING
-%{mingw64_bindir}/libshp-2.dll
+%license LICENSE*
+%{mingw64_bindir}/libshp-4.dll
 %{mingw64_includedir}/shapefil.h
 %{mingw64_libdir}/libshp.dll.a
 %{mingw64_libdir}/pkgconfig/shapelib.pc
@@ -213,6 +211,9 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Dec 22 2023 Sandro Mani <manisandro@gmail.com> - 1.6.0-1
+- Update to 1.6.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          gpsbabel
 Version:       1.9.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A tool to convert between various formats used by GPS devices
 
 License:       GPL-2.0-or-later
@@ -98,6 +98,9 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %endif
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 1.9.0-4
+- Rebuild (shapelib)
+
 * Fri Oct 27 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.9.0-3
 - Add -DGPSBABEL_WITH_LIBUSB=pkgconfig.
 - Remove -DGPS_BABEL_WITH_SHAPE_LIB=pkgconfig.

@@ -2,7 +2,7 @@ Name:           accountsservice
 Version:        23.13.9
 Release:        2%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
 
 #VCS: git:git://gitlab.freedesktop.org/accountsservice/accountsservice

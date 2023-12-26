@@ -2,7 +2,7 @@ Summary: Amateur Station Tracking and Reporting system for amateur radio
 Name:    xastir
 Epoch:   1
 Version: 2.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Source0: https://github.com/Xastir/Xastir/archive/Release-%{version}.tar.gz
 Source1: %{name}.desktop
@@ -82,6 +82,9 @@ install -D -p -m644 %{SOURCE4} %{buildroot}%{_metainfodir}/org.xastir.Xastir.met
 %doc README.MAPS UPGRADE
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 1:2.2.0-2
+- Rebuild (shapelib)
+
 * Wed Nov 01 2023 Lucian Langa <lucilanga@7pot.org> - 1:2.2.0-1
 - drop pcre
 - re-add shapelib depdency - interal shapelib dropped upstream

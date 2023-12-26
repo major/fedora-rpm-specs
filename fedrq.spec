@@ -91,7 +91,12 @@ FEDRQ_BACKEND=dnf %pytest -v -m "not no_rpm_mock"
     and not test_baseurl_repog
 }
 %endif
+# Disable libdnf5 tests on Rawhide until the fix for
+# https://github.com/rpm-software-management/dnf5/issues/1080
+# is released.
+%if 0%{?fedora} < 40
 FEDRQ_BACKEND=libdnf5 %pytest -v -m "not no_rpm_mock" %{?skips:-k '%{skips}'}
+%endif
 %endif
 
 

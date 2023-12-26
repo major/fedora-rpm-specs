@@ -2,7 +2,7 @@ Name:           pyxdg
 Version:        0.27
 Release:        9%{?dist}
 Summary:        Python library to access freedesktop.org standards
-License:        LGPLv2
+License:        LGPL-2.0-only
 URL:            http://freedesktop.org/Software/pyxdg
 Source0:        %pypi_source
 # Upstream did not include the test/examples directory in the source tarball

@@ -6,7 +6,7 @@
 %bcond tests 1
 
 Name:           python-pydantic-core
-Version:        2.14.5
+Version:        2.14.6
 Release:        1%{?dist}
 Summary:        Core validation logic for pydantic written in rust
 
@@ -108,6 +108,9 @@ export RUSTFLAGS="%{build_rustflags}"
 
 
 %changelog
+* Sat Dec 23 2023 Maxwell G <maxwell@gtmx.me> - 2.14.6-1
+- Update to 2.14.6.
+
 * Sat Nov 25 2023 Maxwell G <maxwell@gtmx.me> - 2.14.5-1
 - Update to 2.14.5.
 

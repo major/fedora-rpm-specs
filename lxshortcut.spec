@@ -1,16 +1,19 @@
 Name:           lxshortcut
 Version:        0.1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Small utility to edit application shortcuts
 
-License:        GPLv2+
+# COPYING	GPL-3.0-or-later
+# src		GPL-2.0-or-later
+# SPDX confirmed
+License:        GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            http://lxde.org
 #VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/lxshortcut
 Source0:        http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel
+BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  gettext
 BuildRequires:  intltool
 
@@ -26,23 +29,29 @@ becomes quite easy.
 
 %build
 %configure
-make %{?_smp_mflags}
-
+%make_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 %find_lang %{name}
 
 
 
 %files -f %{name}.lang
-%doc ChangeLog COPYING README
+%doc ChangeLog
+%doc README
+%license COPYING
+
 %{_bindir}/%{name}
-%{_datadir}/%{name}/
+%dir %{_datadir}/%{name}/
+%{_datadir}/%{name}/*.ui
 
 
 %changelog
+* Sun Dec 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.2-26
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

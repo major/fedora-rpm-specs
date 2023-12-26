@@ -1,6 +1,6 @@
 Name:           virtiofsd
-Version:        1.7.0
-Release:        5%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
 License:        Apache-2.0 AND BSD-3-Clause
@@ -38,7 +38,7 @@ Provides:       qemu-virtiofsd = 2:7.2.1-1
 %install
 mkdir -p %{buildroot}%{_libexecdir}
 install -D -p -m 0755 target/release/virtiofsd %{buildroot}%{_libexecdir}/virtiofsd
-install -D -p -m 0644 50-qemu-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
+install -D -p -m 0644 50-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %files
 %license LICENSE-APACHE LICENSE-BSD-3-Clause
@@ -47,6 +47,9 @@ install -D -p -m 0644 50-qemu-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-
 %{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %changelog
+* Sun Dec 24 2023 Sergio Lopez <slp@redhat.com> - 1.9.0-1
+- Update to version 1.9.0
+
 * Fri Sep 29 2023 Colin Walters <walters@verbum.org> - 1.7.0-5
 - Rebuild with latest vhost-user-backend; xref
   https://gitlab.com/virtio-fs/virtiofsd/-/issues/62#note_1584371000

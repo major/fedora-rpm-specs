@@ -31,7 +31,7 @@ ExcludeArch: %{ix86}
 
 Name:           gdl
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNU Data Language
 
 License:        GPL-2.0-or-later
@@ -266,6 +266,9 @@ cat xorg.log
 
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 1.0.4-2
+- Rebuild (shapelib)
+
 * Sat Dec 16 2023 Orion Poplawski <orion@nwra.com> - 1.0.4-1
 - Update to 1.0.4
 

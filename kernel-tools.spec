@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 6
+%global rcrev 7
 # Set rpm version accordingly
 %global pkgversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -304,8 +304,12 @@ pushd tools/tracing/rtla
 %{tools_make}
 popd
 
+if [ -f  /usr/src/%{KVERREL}/vmlinux.h ; then
+RPM_VMLINUX_H=/usr/src/%{KVERREL}/vmlinux.h
+fi
+
 %global bpftool_make \
-  make EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" DESTDIR=$RPM_BUILD_ROOT V=1
+  make EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" DESTDIR=$RPM_BUILD_ROOT VMLINUX_H="${RPM_VMLINUX_H}" V=1
 
 pushd tools/bpf/bpftool
 %{bpftool_make}
@@ -586,6 +590,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Sun Dec 24 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.7.0-0.rc7.git0.1
+- Linux v6.7-rc7
+
 * Mon Dec 18 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.7.0-0.rc6.git0.1
 - Linux v6.7-rc6
 

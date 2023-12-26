@@ -1,12 +1,13 @@
 %global	gem_name	glu
 
-%global	need_bootstrap	0
+%bcond_with bootstrap
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 
 Summary:	Glu bindings for the opengl gem
+# SPDX confirmed
 License:	MIT
 URL:		https://github.com/larskanis/glu
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -17,16 +18,14 @@ BuildRequires:	ruby-devel
 BuildRequires:	libGL-devel
 BuildRequires:	libGLU-devel
 # %%check
-%if 0%{?need_bootstrap} < 1
+%if %{without bootstrap}
 BuildRequires:	rubygem(minitest) >= 5
 BuildRequires:	rubygem(opengl)
 BuildRequires:	%{_bindir}/xvfb-run
 BuildRequires:	mesa-dri-drivers
 BuildRequires:	rubygem(opengl) >= 0.9
 BuildRequires:	rubygem(glut)
-%if 0%{?fedora} >= 36
 BuildRequires:	rubygem(matrix)
-%endif
 %endif
 
 %description
@@ -41,12 +40,11 @@ BuildArch:	noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -57,8 +55,11 @@ cp -a .%{gem_dir}/* \
 mkdir -p %{buildroot}%{gem_extdir_mri}
 cp -a .%{gem_extdir_mri}/* %{buildroot}%{gem_extdir_mri}/
 
-pushd %{buildroot}
-rm -f .%{gem_extdir_mri}/{gem_make.out,mkmf.log}
+pushd %{buildroot}%{gem_extdir_mri}
+rm -f \
+	gem_make.out \
+	mkmf.log \
+	%{nil}
 popd
 
 
@@ -69,19 +70,20 @@ rm -rf \
 	ext/ \
 	test/
 popd
+rm -f %{buildroot}%{gem_cache}
 
 %check
-%if 0%{?need_bootstrap} < 1
+%if %{without bootstrap}
 pushd .%{gem_instdir}
 
 %ifarch %arm
 exit 0
 %endif
 
+export RUBYLIB=$(pwd)/lib:$(pwd):%{buildroot}%{gem_extdir_mri}
 xvfb-run \
 	-s "-screen 0 640x480x24" \
 	ruby \
-		-Ilib:.:%{buildroot}%{gem_extdir_mri} \
 		-e "Dir.glob('test/test_*.rb').each { |f| require f }"
 popd
 %endif
@@ -95,14 +97,16 @@ popd
 
 %{gem_libdir}/
 %{gem_extdir_mri}/
-
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Dec 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-25
+- Use recent gem2rpm style
+- Use recent bootstrap style
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

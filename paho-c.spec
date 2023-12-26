@@ -1,48 +1,52 @@
-Name:               paho-c
-Version:            1.3.13
-Release:            %autorelease
-Summary:            MQTT C Client
-License:            BSD-3-Clause AND EPL-2.0
-URL:                https://eclipse.org/paho/clients/c/
-Source0:            https://github.com/eclipse/paho.mqtt.c/archive/v%{version}/paho.mqtt.c-%{version}.tar.gz
-Source1:            unused.abignore
+Name:           paho-c
+Version:        1.3.13
+Release:        %autorelease
+Summary:        MQTT C Client
+License:        BSD-3-Clause AND EPL-2.0
+URL:            https://eclipse.org/paho/clients/c/
+Source0:        https://github.com/eclipse/paho.mqtt.c/archive/v%{version}/paho.mqtt.c-%{version}.tar.gz
+Source1:        unused.abignore
 
-BuildRequires:      cmake
-BuildRequires:      gcc
-BuildRequires:      gcc-c++
-BuildRequires:      graphviz
-BuildRequires:      doxygen
-BuildRequires:      openssl-devel
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  ninja-build
+BuildRequires:  graphviz
+BuildRequires:  doxygen
+BuildRequires:  openssl-devel
 
 %description
 The Paho MQTT C Client is a fully fledged MQTT client written in C.
 
+%package        devel
+Summary:        MQTT C Client development kit
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%package devel
-Summary:            MQTT C Client development kit
-Requires:           %{name}%{?_isa} = %{version}-%{release}
-
-%description devel
+%description    devel
 Development files and samples for the the Paho MQTT C Client.
 
+%package        doc
+Summary:        MQTT C Client development kit documentation
+BuildArch:      noarch
 
-%package doc
-Summary:            MQTT C Client development kit documentation
-BuildArch:          noarch
-
-%description doc
+%description    doc
 Development documentation files for the the Paho MQTT C Client.
 
 %prep
 %autosetup -n paho.mqtt.c-%{version}
 
 %build
-%cmake -DPAHO_WITH_SSL=TRUE -DPAHO_BUILD_DOCUMENTATION=TRUE -DPAHO_BUILD_SAMPLES=TRUE -DPAHO_ENABLE_CPACK=FALSE
+%cmake \
+    -GNinja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DPAHO_WITH_SSL=ON \
+    -DPAHO_BUILD_DOCUMENTATION=ON \
+    -DPAHO_BUILD_SAMPLES=ON \
+    -DPAHO_ENABLE_CPACK=OFF \
 %cmake_build
 
 %install
 %cmake_install
-install -D -p -m 755 %{SOURCE0} %{buildroot}%{_datadir}/%{name}/abi/paho-c.abignore
+install -pDm755 %{SOURCE1} %{buildroot}%{_datadir}/%{name}/abi/paho-c.abignore
 
 # Move the man pages to the correct directory
 mkdir -p %{buildroot}%{_mandir}/man3

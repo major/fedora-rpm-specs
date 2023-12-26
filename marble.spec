@@ -3,7 +3,7 @@ Name:    marble
 Summary: Virtual globe and world atlas 
 Epoch:   1
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     http://edu.kde.org/marble/
@@ -262,6 +262,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 1:23.08.2-2
+- Rebuild (shapelib)
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.2-1
 - 23.08.2
 

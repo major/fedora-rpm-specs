@@ -9,7 +9,7 @@ Version:        2.28.3
 Release:        3%{?dist}
 Summary:        C++ interface for the ATK library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/atkmm/%{release_version}/atkmm-%{version}.tar.xz
 
@@ -43,6 +43,7 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Developer's documentation for the atkmm library
 BuildArch:      noarch
+License:        LGPL-2.1-or-later AND MIT AND GPL-2.0-or-later AND (MIT OR GPL-2.0-or-later)
 Requires:       %{name} = %{version}-%{release}
 Requires:       glibmm24-doc
 

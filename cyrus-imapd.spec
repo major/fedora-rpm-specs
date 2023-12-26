@@ -10,7 +10,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -829,6 +829,9 @@ sudo -u cyrus LD_LIBRARY_PATH=%buildroot/%_libdir ./testrunner.pl %{?_smp_mflags
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 3.8.1-5
+- Rebuild (shapelib)
+
 * Fri Dec 08 2023 Martin Osvald <mosvald@redhat.com> - 3.8.1-4
 - Enable jmap support again (rhbz#1940012)
 
