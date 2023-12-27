@@ -1,7 +1,7 @@
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
 Version: 5.91.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -60,6 +60,9 @@ Requires:       breeze-cursor-theme
 Requires:       breeze-icon-theme
 Recommends:     plasma-workspace
 
+# The default QtQuick style
+Requires:       qqc2-breeze-style
+
 Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
 %description
@@ -101,6 +104,9 @@ Summary:        Qt5 support for %{name}
 %{_qt5_plugindir}/platformthemes/KDEPlasmaPlatformTheme5.so
 
 %changelog
+* Mon Dec 25 2023 Alessandro Astone <ales.astone@gmail.com> - 5.91.0-2
+- Add Requires qqc2-breeze-style as the default QtQuick style
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

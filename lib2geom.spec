@@ -9,8 +9,6 @@ Summary:        Easy to use 2D geometry library in C++
 License:        LGPL-2.1-only AND MPL-1.1
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Fix EllipticalArc::expandToTransformed()
-#Patch0:         https://gitlab.com/inkscape/lib2geom/-/merge_requests/107.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -35,14 +33,14 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains development files for %{name}.
 
 %prep
 %forgeautosetup -p1
 
 %build
-%cmake -GNinja \
+%cmake \
+    -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
     -D2GEOM_BUILD_SHARED=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
@@ -70,8 +68,7 @@ developing applications that use %{name}.
 %files devel
 %dir %{_includedir}/2geom-*
 %{_includedir}/2geom-*/2geom/
-%dir %{_libdir}/cmake/2Geom
-%{_libdir}/cmake/2Geom/*.cmake
+%{_libdir}/cmake/2Geom/
 %{_libdir}/lib2geom.so
 %{_libdir}/pkgconfig/2geom.pc
 

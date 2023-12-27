@@ -1,13 +1,15 @@
 
 Name: qt6
 Version: 6.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Qt6 meta package
 License: GPL-3.0-only
 URL: https://getfedora.org/
 Source0: macros.qt6
 Source1: macros.qt6-srpm
 Source2: qmake-qt6.sh
+Source3: qt6qml.attr
+Source4: qt6qml.prov
 BuildArch: noarch
 
 Requires: qt6-qt3d
@@ -99,9 +101,11 @@ Summary: RPM macros for source Qt6 packages
 
 
 %install
-install -Dpm644 %{SOURCE0} %{buildroot}%{_rpmconfigdir}/macros.d/macros.qt6
-install -Dpm644 %{SOURCE1} %{buildroot}%{_rpmconfigdir}/macros.d/macros.qt6-srpm
+install -Dpm644 %{SOURCE0} %{buildroot}%{_rpmmacrodir}/macros.qt6
+install -Dpm644 %{SOURCE1} %{buildroot}%{_rpmmacrodir}/macros.qt6-srpm
 install -Dpm755 %{SOURCE2} %{buildroot}%{_bindir}/qmake-qt6.sh
+install -Dpm644 %{SOURCE3} %{buildroot}%{_fileattrsdir}/qt6qml.attr
+install -Dpm644 %{SOURCE4} %{buildroot}%{_rpmconfigdir}/qt6qml.prov
 mkdir -p %{buildroot}%{_datadir}/qt6/wrappers
 ln -s %{_bindir}/qmake-qt6.sh %{buildroot}%{_datadir}/qt6/wrappers/qmake-qt6
 ln -s %{_bindir}/qmake-qt6.sh %{buildroot}%{_datadir}/qt6/wrappers/qmake
@@ -133,6 +137,8 @@ echo "- Qt6 devel meta package" > %{buildroot}%{_docdir}/qt6-devel/README
 %endif
 
 %files rpm-macros
+%{_fileattrsdir}/qt6qml.attr
+%{_rpmconfigdir}/qt6qml.prov
 %{_rpmmacrodir}/macros.qt6
 %{_bindir}/qmake-qt6.sh
 %{_datadir}/qt6/wrappers/
@@ -142,6 +148,9 @@ echo "- Qt6 devel meta package" > %{buildroot}%{_docdir}/qt6-devel/README
 
 
 %changelog
+* Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 6.6.1-2
+- Auto-generate qt6qml() virtual provides
+
 * Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
 - 6.6.1
 

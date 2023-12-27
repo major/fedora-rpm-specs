@@ -13,9 +13,11 @@ Source0:        %{forgesource}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
+%if 0%{?fedora}
 # testing dependencies
 BuildRequires:  cmake(gtest)
 BuildRequires:  cmake(benchmark)
+%endif
 
 %description
 %{summary}.
@@ -34,7 +36,11 @@ The %{name}-devel package contains development files for %{name}.
 %cmake \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
+%if 0%{?fedora}
     -DFTXUI_BUILD_TESTS=ON \
+%else
+    -DFTXUI_BUILD_TESTS=OFF \
+%endif
 
 %cmake_build
 
@@ -42,7 +48,9 @@ The %{name}-devel package contains development files for %{name}.
 %cmake_install
 
 %check
+%if 0%{?fedora}
 %ctest
+%endif
 
 %files
 %license LICENSE

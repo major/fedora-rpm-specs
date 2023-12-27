@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.9.0%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
+Version:        1.9.1%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -61,9 +61,9 @@ Source1530:     hatch-python-remove.1
 Source1540:     hatch-python-show.1
 Source1550:     hatch-python-update.1
 
-# Add the requires_internet mark to a few tests
-# https://github.com/pypa/hatch/pull/1167
-Patch:          %{url}/pull/1167.patch
+# Fix test that fails for openSUSE and other re-distributors
+# https://github.com/pypa/hatch/pull/1177
+Patch:          %{url}/pull/1177.patch
 
 BuildArch:      noarch
 
@@ -155,14 +155,6 @@ k="${k-}${k+ and }not (TestBuildStandard and test_editable_)"
 k="${k-}${k+ and }not (TestBuildStandard and test_default_auto_detection)"
 k="${k-}${k+ and }not test_explicit_path"
 k="${k-}${k+ and }not test_default"
-
-%ifnarch x86_64
-# Several tests related to Python distributions fail on Fedora Linux on
-# non-x86_64 architectures
-# https://github.com/pypa/hatch/issues/1145
-k="${k-}${k+ and }not (TestGetInstalled and test_order)"
-k="${k-}${k+ and }not test_variants[linux-"
-%endif
 
 %pytest -k "${k-}" -vv
 %else

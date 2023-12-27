@@ -2,6 +2,14 @@
 # ----------------------------------------------------------------------------
 # Preamble
 # ----------------------------------------------------------------------------
+# fedpkg lint: W: no-documentation
+# The %%doc directive below installs COPYING and uw_copy_040507.html
+# as part of the main package, so this warning should not be generated; see
+# https://fedoraproject.org/wiki/Common_Rpmlint_issues#no-documentation
+# 'This would be rare as most packages should have some license text,
+# a changelog or other information that is better placed in the main package
+# instead of a -doc subpackage.'
+#
 # fedpkg lint: W: files-duplicate: 
 # the files user_guide.html index.html in directory /usr/share/doc/cppad 
 # are the same. This is because a redirect from index.hml to user_guide.html 
@@ -21,10 +29,10 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
 Version: 20230000.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
-License: EPL-2.0 or GPLv2+
+License: EPL-2.0 OR GPL-2.0-or-later
 URL:     https://github.com/coin-or/CppAD
 Source:  %{url}/archive/%{version}/CppAD-%{version}.tar.gz
 #
@@ -58,6 +66,8 @@ algorithm that computes its derivative values. A brief introduction to
 Algorithmic Differentiation (AD) can be found at 
      http://en.wikipedia.org/wiki/Automatic_differentiation
 See the package %{name}-doc for documentation of this version of %{name}. 
+The documentation, for the most recent version of %{name}, can be found at
+     https://cppad.readthedocs.io
 
 # ----------------------------------------------------------------------------
 %package doc
@@ -89,6 +99,7 @@ echo '[input_files]'      >> CppAD-%{version}/xrst.toml
 echo 'data = [ ]'         >> CppAD-%{version}/xrst.toml
 #
 # CppAD-%%{version}/build/html
+# run xrst to create the documentation files in the directory above
 mkdir CppAD-%{version}/build
 xrst --version
 xrst \
@@ -100,6 +111,7 @@ xrst \
    --group_list default app \
    --suppress_spell_warnings
 #
+# CppAD-%%{version}/build/html
 # remove hidden files not needed for viewing documentation
 rm CppAD-%{version}/build/html/.buildinfo
 rm -r CppAD-%{version}/build/html/.doctrees
@@ -108,6 +120,7 @@ rm -r CppAD-%{version}/build/html/.doctrees
 # COPYING, uw_copy_040507.html
 mv CppAD-%{version}/COPYING  COPYING
 mv CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
+#
 # ----------------------------------------------------------------------------
 # cppad_lib: replace soversion number and ensure build type is release 
 sed -i.bak CppAD-%{version}/cppad_lib/CMakeLists.txt \
@@ -236,14 +249,14 @@ cppad_cxx_flags=\
 %files
 %{_libdir}/libcppad_lib.so.%{soversion}
 
+# These documentation files come from the source code tarball
+%doc COPYING uw_copy_040507.html
+
 %files devel
 %{_includedir}/%{name}
 %{_datadir}/pkgconfig/%{name}.pc
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/libcppad_lib.so
-
-# These documentation files come from the source code tarball
-%doc COPYING uw_copy_040507.html
 
 %files doc
 # These documentation files are build by the xrst command above
@@ -261,6 +274,10 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Mon Dec 25 2023 Brad Bell <bradbell at seanet dot com> - 20230000.0-3
+- migrated to SPDX license
+- move %%doc directive before subpackages (becasue it is in main package)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230000.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

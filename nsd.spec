@@ -1,8 +1,8 @@
 %global _hardened_build 1
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
-Version: 4.7.0
-Release: 2%{?dist}
+Version: 4.8.0
+Release: 1%{?dist}
 License: BSD
 Url: http://www.nlnetlabs.nl/nsd/
 Source0: http://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?prever}.tar.gz
@@ -112,6 +112,10 @@ exit 0
 %systemd_postun_with_restart nsd.service
 
 %changelog
+* Mon Dec 25 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 4.8.0-1
+- Update to 4.8.0
+- Resolves: rhbz#2252122
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -104,7 +104,7 @@ Requires:       python3-pybids+test = %{version}-%{release}
 
 # loosen formulaic dep: one test fails, reported upstream
 # https://github.com/bids-standard/pybids/issues/1000
-sed -i 's/formulaic .*"/formulaic <0.7"/' pyproject.toml
+sed -i 's/formulaic .*"/formulaic"/' pyproject.toml
 
 # Remove bundled inflect
 rm -rf bids/external

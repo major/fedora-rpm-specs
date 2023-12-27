@@ -8,6 +8,13 @@ URL: http://www.freedesktop.org/wiki/Software/Plymouth
 Source0: https://gitlab.freedesktop.org/plymouth/plymouth/-/archive/%{version}/%{name}-%{version}.tar.bz2
 Source2: charge.plymouth
 
+Patch: 0001-plymouth-populate-initrd-Fix-usage-message.patch
+Patch: 0001-meson-Fix-PLY_ENABLE_SYSTEMD_INTEGRATION-define.patch
+Patch: 0001-plymouth-populate-initrd-Handle-xkb-and-fontconfig-n.patch
+Patch: 0001-plymouth-populate-initrd-More-dependency-softificati.patch
+Patch: 0001-ply-device-manager-Fall-back-to-text-plugin-if-no-re.patch
+Patch: 0001-Fix-checks-for-existence-of-vars-set-by-fc-match.patch
+
 BuildRequires: meson
 BuildRequires: fedora-logos
 BuildRequires: gcc libtool git
@@ -30,6 +37,8 @@ BuildRequires: systemd-rpm-macros
 
 Requires: %{name}-core-libs = %{version}-%{release}
 Requires: %{name}-scripts = %{version}-%{release}
+# For keyboard layouts
+Requires: xkeyboard-config
 Suggests: logrotate
 
 %description
@@ -76,6 +85,7 @@ This package contains the libraries and headers needed to develop
 %package scripts
 Summary: Plymouth related scripts
 Requires: findutils, coreutils, gzip, cpio, dracut
+Requires: xkeyboard-config
 Requires: %{name} = %{version}-%{release}
 
 %description scripts

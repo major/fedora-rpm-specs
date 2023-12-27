@@ -4,7 +4,7 @@
 Summary:        Utility to clone and restore a partition
 Name:           partclone
 Version:        0.3.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -36,6 +36,10 @@ BuildRequires:  libblkid-devel
 BuildRequires:  libmount-devel
 %if 0%{?fedora}
 BuildRequires:  nilfs-utils-devel
+%endif
+# Building fail-mbr.bin requires a compiler that can build x86 binaries
+%ifnarch %{ix86} x86_64
+BuildRequires:  gcc-x86_64-linux-gnu
 %endif
 %if 0%{?testsuite}
 BuildRequires:  e2fsprogs
@@ -70,6 +74,12 @@ libraries, e.g. e2fslibs is used to read and write the ext2 partition.
 %prep
 %setup -q
 autoreconf -i -f
+
+# Building fail-mbr.bin requires a compiler that can build x86 binaries
+%ifnarch %{ix86} x86_64
+sed -e '/^case\s/{N;/.*)/d}' -e '/^\s*;;$/,$d' -e 's/\(gcc\|obj\S\)/x86_64-linux-gnu-\1/g' \
+    -i fail-mbr/compile-mbr.sh
+%endif
 
 %build
 # src/progress.c:50: undefined reference to `__fpclassifyf',
@@ -109,11 +119,6 @@ export LDFLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)-lm"
 %install
 %make_install
 
-# Building fail-mbr.bin requires a compiler that can build x86 binaries
-%ifnarch %{ix86} x86_64
-rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/
-%endif
-
 %find_lang %{name}
 
 %if 0%{?testsuite}
@@ -141,12 +146,13 @@ make check || (cat tests/test-suite.log; exit 1)
 %license COPYING
 %doc AUTHORS ChangeLog
 %{_sbindir}/%{name}.*
-%ifarch %{ix86} x86_64
 %{_datadir}/%{name}/
-%endif
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Mon Dec 25 2023 Robert Scheck <robert@fedoraproject.org> 0.3.27-2
+- Build fail-mbr.bin on all architectures (using cross-compile)
+
 * Wed Oct 04 2023 Robert Scheck <robert@fedoraproject.org> 0.3.27-1
 - Upgrade to 0.3.27 (#2242163)
 

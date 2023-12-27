@@ -16,7 +16,9 @@ Source0:        %{forgesource}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
+%if 0%{?fedora} >= 39
 BuildRequires:  catch-devel
+%endif
 
 %description
 %{summary}
@@ -37,6 +39,8 @@ The %{name}-devel package contains development files for %{name}.
     -DCMAKE_BUILD_TYPE=Release \
 %if 0%{?fedora} >= 39
     -DBOXED_CPP_TESTS=ON \
+%else
+    -DBOXED_CPP_TESTS=OFF \
 %endif
 
 %cmake_build
@@ -45,7 +49,9 @@ The %{name}-devel package contains development files for %{name}.
 %cmake_install
 
 %check
+%if 0%{?fedora} >= 39
 %ctest
+%endif
 
 %files devel
 %license LICENSE.txt

@@ -4,16 +4,13 @@
 %bcond_without tests
 
 Name:           python-%{projname}
-Version:        20.3.0
+Version:        20.3.1
 Release:        %autorelease
 Summary:        Full-featured Python IRC library for Python
 
 License:        MIT
 URL:            https://github.com/jaraco/%{projname}
 Source0:        %{pypi_source %{projname}}
-
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-Patch:          0001-Disable-linters.patch
 
 BuildArch:      noarch
 
@@ -33,6 +30,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{projname}-%{version}
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -E -i '/\t(pytest-|python_implementation )/d' setup.cfg
 
 %if 0%{?rhel}
 # relax setuptools requirement in EPEL

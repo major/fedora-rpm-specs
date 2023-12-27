@@ -19,7 +19,7 @@ It provides:
 - support for symbolic differentiation of formulas (and hence model matrices).}
 
 Name:           python-formulaic
-Version:        0.6.6
+Version:        1.0.1
 Release:        %{autorelease}
 Summary:        A high-performance implementation of Wilkinson formulas
 
