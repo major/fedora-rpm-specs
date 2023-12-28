@@ -1,12 +1,10 @@
-%global appid com.github.quaternion
+%global appid       com.github.quaternion
 %global forgeurl    https://github.com/quotient-im/Quaternion
-%global commit      c287f84237ffbfd73298c4054b677622287a0572
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snapdate    20231202
+%global tag         %{version}-rc1
 
 Name:       quaternion
-Version:    0.0.95.50~%{snapdate}g%{shortcommit}
-Release:    %autorelease
+Version:    0.0.96
+Release:    %autorelease -p -e rc1
 
 %forgemeta
 
@@ -34,7 +32,6 @@ BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6QuickWidgets)
 BuildRequires: cmake(Qt6Keychain)
 
-Requires:       qt6-qtquickcontrols2%{?_isa}
 Requires:       hicolor-icon-theme
 
 %description

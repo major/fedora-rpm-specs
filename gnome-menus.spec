@@ -5,7 +5,7 @@ Version: 3.36.0
 Release: 9%{?dist}
 Summary:  A menu system for the GNOME project
 
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/gnome-menus
 Source0: https://download.gnome.org/sources/gnome-menus/3.36/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gnome-menus/merge_requests/14

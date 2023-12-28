@@ -3,7 +3,7 @@
 
 Name:           dropbox-api-command
 Version:        2.13
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Dropbox API wrapper command
 
 License:        MIT
@@ -50,11 +50,13 @@ A command line tool to manage a directory synced with Dropbox.
 %{_bindir}/dropbox-api
 %{_bindir}/upload-to-dropbox
 %{perl_vendorlib}/*
-%{_mandir}/man1/*.1*
 %{_mandir}/man3/*.3*
 
 
 %changelog
+* Tue Dec 26 2023 Ben Boeckel <fedora@me.benboeckel.net> - 2.13-13
+- Fix manpages in filelists (rhbz#2189098)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

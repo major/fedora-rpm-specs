@@ -36,7 +36,7 @@
 
 %if %{without hadrian}
 %ifarch s390x
-%if %{defined rhel9}
+%if %{defined el9}
 %undefine with_haddock
 %endif
 %endif
@@ -56,7 +56,7 @@
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
-%if 0%{?rhel} == 9
+%if %{defined el9}
 %global llvm_major 12
 %else
 %global llvm_major 14
@@ -429,7 +429,18 @@ rm libffi-tarballs/libffi-*.tar.gz
 
 %ifarch %{ghc_unregisterized_arches}
 %patch -P15 -p1 -b .orig
+%endif
+
+%if %{with hadrian}
+%ifarch %{ghc_unregisterized_arches}
 %patch -P16 -p1 -b .orig
+%endif
+# remove if epel9 ghc using llvm
+%ifarch s390x
+%if %{defined el9}
+%patch -P16 -p1 -b .orig
+%endif
+%endif
 %endif
 
 %ifarch s390x

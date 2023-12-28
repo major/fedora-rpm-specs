@@ -1,5 +1,5 @@
 Name:           groonga
-Version:        13.0.9
+Version:        13.1.0
 Release:        %autorelease
 Summary:        An Embeddable Fulltext Search Engine
 
@@ -10,27 +10,31 @@ Source0:        https://github.com/groonga/groonga/releases/download/v%{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
-BuildRequires:  ruby
-BuildRequires:  mecab-devel
-BuildRequires:  zlib-devel
-BuildRequires:  lz4-devel
-BuildRequires:  msgpack-devel
-BuildRequires:  zeromq-devel
-BuildRequires:  libevent-devel
-BuildRequires:  libedit-devel
-BuildRequires:  systemd-rpm-macros
-BuildRequires:  libstemmer-devel
-BuildRequires:  openssl-devel
-BuildRequires:  libzstd-devel
-BuildRequires:  rapidjson-devel
-BuildRequires:  xxhash-devel
+
 %ifnarch %{ix86}
 BuildRequires:  libarrow-devel
 %endif
-
+BuildRequires:  zlib-devel
+BuildRequires:  libzstd-devel
+BuildRequires:  rapidjson-devel
+BuildRequires:  mecab-devel
+BuildRequires:  libstemmer-devel
+BuildRequires:  zeromq-devel
+BuildRequires:  libevent-devel
+BuildRequires:  msgpack-devel
+BuildRequires:  xxhash-devel
+BuildRequires:  lz4-devel
+BuildRequires:  croaring-devel
+%if 0%{?fedora} >= 40
 BuildRequires:  blosc2-devel
 # required by blosc2-devel
 BuildRequires:  zlib-ng-devel
+%endif
+BuildRequires:  ruby
+BuildRequires:  libedit-devel
+BuildRequires:  openssl-devel
+
+BuildRequires:  systemd-rpm-macros
 
 Requires:       %{name}-libs = %{version}-%{release}
 Requires:       %{name}-plugin-suggest = %{version}-%{release}
@@ -149,12 +153,28 @@ This package contains the tools for Groonga.
 %cmake \
   -GNinja \
   -DCMAKE_BUILD_TYPE=Release \
-  -DGRN_WITH_MRUBY=ON \
   -DGRN_FOR_RHEL=ON \
-  -DGRN_WITH_BLOSC=OFF \
 %ifnarch %{ix86}
   -DGRN_WITH_APACHE_ARROW=ON \
 %endif
+  -DGRN_WITH_ZLIB=ON \
+  -DGRN_WITH_ZSTD=ON \
+  -DGRN_WITH_RAPIDJSON=ON \
+  -DGRN_WITH_MECAB=ON \
+  -DGRN_WITH_KYTEA=OFF \
+  -DGRN_WITH_LIBSTEMMER=ON \
+  -DGRN_WITH_ZEROMQ=ON \
+  -DGRN_WITH_LIBEVENT=ON \
+  -DGRN_WITH_MESSAGE_PACK=ON \
+  -DGRN_WITH_XXHASH=ON \
+  -DGRN_WITH_LZ4=ON \
+  -DGRN_WITH_ROARING_BITMAPS=ON \
+%if 0%{?fedora} >= 40
+  -DGRN_WITH_BLOSC=ON \
+%else
+  -DGRN_WITH_BLOSC=OFF \
+%endif
+  -DGRN_WITH_MRUBY=ON \
   -DGRN_WITH_MUNIN_PLUGINS=ON \
   -DGRN_WITH_DOC=ON \
   -DGRN_WITH_EXAMPLES=ON \

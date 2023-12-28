@@ -8,8 +8,11 @@ Name:           v4l-utils
 Version:        1.26.1
 Release:        1%{?dist}
 Summary:        Utilities for video4linux and DVB devices
-# libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
-License:        GPL-2.0-or-later AND GPL-2.0-only
+# libdvbv5, dvbv5 utils, ir-keytable are GPL-2.0-only
+# e.g. utils/cec-follower/cec-follower.cpp is (GPL-2.0-only OR BSD-3-Clause) 
+# utils/qvidcap/capture.cpp, paint.cpp are LicenseRef-Fedora-Public-Domain
+# utils/v4l2-sysfs-path/v4l2-sysfs-path.c is HPND-sell-variant
+License:        GPL-2.0-or-later AND GPL-2.0-only AND (GPL-2.0-only OR BSD-3-Clause) AND LicenseRef-Fedora-Public-Domain AND HPND-sell-variant
 URL:            http://www.linuxtv.org/downloads/v4l-utils/
 
 Source0:        http://linuxtv.org/downloads/v4l-utils/v4l-utils-%{version}.tar.xz
@@ -47,8 +50,8 @@ v4l2-sysfs-path.
 
 %package        devel-tools
 Summary:        Utilities for v4l2 / DVB driver development and debugging
-# decode_tm6000 is GPLv2 only
-License:        GPLv2+ and GPLv2
+# decode_tm6000 is GPL-2.0-only
+License:        GPL-2.0-or-later AND GPL-2.0-only
 Requires:       libv4l%{?_isa} = %{version}-%{release}
 
 %description    devel-tools
@@ -59,7 +62,8 @@ v4l2-dbg.
 %if %{with qt5}
 %package -n     qv4l2
 Summary:        QT v4l2 test control and streaming test application
-License:        GPLv2+
+# utils/qv4l2/qv4l2.svg is CC-BY-SA-3.0
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 Requires:       libv4l%{?_isa} = %{version}-%{release}
 
 %description -n qv4l2
@@ -69,8 +73,10 @@ QT v4l2 test control and streaming test application.
 
 %package -n     libv4l
 Summary:        Collection of video4linux support libraries 
-# Some of the decompression helpers are GPLv2, the rest is LGPLv2+
-License:        LGPLv2+ and GPLv2
+# Some of the decompression helpers are GPL-2.0-or-later, the rest is LGPL-2.1-or-later
+# lib/libv4lconvert/jidctflt.c and jpeg_memsrcdest.c are IJG-short
+# lib/libv4lconvert/helper-funcs.h and libv4lsyscall-priv.h are BSD-2-Clause
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND IJG-short AND BSD-2-Clause
 URL:            http://hansdegoede.livejournal.com/3636.html
 
 %description -n libv4l
@@ -93,7 +99,8 @@ application transparent libv4lconvert conversion where necessary.
 
 %package -n     libdvbv5
 Summary:        Libraries to control, scan and zap on Digital TV channels
-License:        GPLv2
+# /lib/include/libdvbv5/dvb-frontend.h is LGPL-2.1-or-later WITH Linux-syscall-note
+License:        LGPL-2.1-or-later AND LGPL-2.1-or-later WITH Linux-syscall-note
 
 %description -n libdvbv5
 Libraries to control, scan and zap on Digital TV channels
@@ -101,7 +108,7 @@ Libraries to control, scan and zap on Digital TV channels
 
 %package -n libdvbv5-gconv
 Summary:        Gconv files with the charsets For Digital TV.
-License:        GPLv2
+License:        LGPL-2.1-or-later
 
 %description -n libdvbv5-gconv
 Some digital TV standards define their own charsets. Add library
@@ -109,7 +116,7 @@ support for them: EN 300 468 and ARIB STD-B24
 
 %package -n     libv4l-devel
 Summary:        Development files for libv4l
-License:        LGPLv2+
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND IJG-short AND BSD-2-Clause
 URL:            http://hansdegoede.livejournal.com/3636.html
 Requires:       libv4l%{?_isa} = %{version}-%{release}
 
@@ -120,7 +127,7 @@ developing applications that use libv4l.
 
 %package -n     libdvbv5-devel
 Summary:        Development files for libdvbv5
-License:        GPLv2
+License:        LGPL-2.1-or-later AND LGPL-2.1-or-later WITH Linux-syscall-note
 Requires:       libdvbv5%{?_isa} = %{version}-%{release}
 
 %description -n libdvbv5-devel

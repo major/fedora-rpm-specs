@@ -3,7 +3,7 @@
 
 %global		mainver		1.5
 
-%global		baserelease	6
+%global		baserelease	7
 %global		rpmrel		%{baserelease}%{?postver:.%postrpmver}
 
 Name:		tideEditor
@@ -11,11 +11,12 @@ Version:	%{mainver}
 Release:	%{rpmrel}%{?dist}
 Summary:	Editor for Tide Constituent Database (TCD) files
 
-License:	GPLv3+
+# SPDX confirmed
+License:	GPL-3.0-or-later
 URL:		http://www.flaterco.com/xtide/
 Source0:	ftp://ftp.flaterco.com/xtide/tideeditor-%{version}%{?postver}.tar.xz
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	qt4-devel
 BuildRequires:	libtcd-devel
@@ -52,10 +53,16 @@ make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 
 %files
-%doc AUTHORS COPYING ChangeLog README
+%doc AUTHORS
+%doc ChangeLog
+%doc README
+%license COPYING
 %{_bindir}/tideEditor
 
 %changelog
+* Wed Dec 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5-7.r2
+- SPDX migration
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5-6.r2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

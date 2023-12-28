@@ -1,5 +1,5 @@
 Name:           latexmk
-Version:        4.81
+Version:        4.82
 Release:        1%{?dist}
 Summary:        A make-like utility for LaTeX files
 
@@ -7,7 +7,7 @@ Summary:        A make-like utility for LaTeX files
 
 License:        GPL-2.0-or-later
 URL:            https://www.cantab.net/users/johncollins/latexmk/
-Source0:        %{url}/%{name}-%{upstreamver}.zip
+Source0:        %{url}%{name}-%{upstreamver}.zip
 Source1:        latexmkrc
 Source2:        latexmk-README.fedora
 
@@ -59,6 +59,9 @@ rm -f extra-scripts/*.bat
 %license COPYING
 
 %changelog
+* Tue Dec 26 2023 Jerry James <loganjerry@gmail.com> - 4.82-1
+- Version 4.82
+
 * Tue Nov  7 2023 Jerry James <loganjerry@gmail.com> - 4.81-1
 - Version 4.81
 - New project URL

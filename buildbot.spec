@@ -20,7 +20,7 @@
 %endif
 
 Name:           buildbot
-Version:        3.10.0
+Version:        3.10.1
 Release:        1%{?dist}
 
 Summary:        Build/test automation system
@@ -40,10 +40,7 @@ Source8:        %{pypi_source buildbot-pkg}
 # Service template units for buildbot instances
 Source10:       buildbot-master@.service
 Source11:       buildbot-worker@.service
-Patch0:         twisted-pin.patch
 Patch1:         undo-importlib.patch
-Patch2:         7268.patch
-Patch3:         7026.patch
 
 BuildArch:      noarch
 
@@ -335,10 +332,7 @@ Summary:        Buildbot documentation
 
 %prep
 %setup -q -b0 -b1 -b2 -b3 -b4 -b5 -b6 -b7 -b8
-%patch -P 0 -p0 -b .twisted
 %patch -P 1 -p0 -b .importlib
-%patch -P 2 -p2 -b .7268
-%patch -P 3 -p2 -b .7026
 cd ..
 
 
@@ -416,6 +410,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Tue Dec 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.10.1-1
+- 3.10.1
+
 * Tue Dec 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.10.0-1
 - 3.10.0
 

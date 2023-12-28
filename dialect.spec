@@ -1,10 +1,10 @@
 %global         uuid app.drey.Dialect
 %global         forgeurl0 https://github.com/dialect-app/dialect
 %global         forgeurl1 https://github.com/dialect-app/po
-%global         adw_version 1.2.0
+%global         adw_version 1.4.0
 
 Name:           dialect
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        A translation app for GNOME based on Google Translate
 
@@ -41,6 +41,7 @@ Requires:       libsoup3
 Requires:       python3-gobject
 Requires:       python3-dbus
 Requires:       python3-gtts
+Requires:       python3-beautifulsoup4
 
 %description
 A translation app for GNOME based on Google Translate.
@@ -70,6 +71,7 @@ mv po-%{tag1} po
 %py_byte_compile %{python3} %{buildroot}%{_datadir}/%{name}/
 
 %find_lang %{name}
+%find_lang %{name}-cldr-langs
 
 
 %check
@@ -77,7 +79,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{uuid}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{uuid}.metainfo.xml
 
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f %{name}-cldr-langs.lang
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}

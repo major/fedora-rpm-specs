@@ -1,9 +1,11 @@
 Name:           autoconf-archive
 Version:        2023.02.20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Autoconf Macro Archive
 
-License:        GPLv3+ with exceptions
+# The following licenses were seen in the binary rpm.
+# We only try to make an exhaustive list, not to decide what is to be applied.
+License:        GPL-2.0-or-later WITH Autoconf-exception-macro AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-3.0 AND GPL-3.0-or-later WITH Autoconf-exception-macro AND GFDL-1.3-or-later AND LGPL-3.0-or-later WITH Autoconf-exception-macro AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND FSFAP-no-warranty-disclaimer AND FSFULLR
 URL:            https://www.gnu.org/software/autoconf-archive/
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
@@ -42,6 +44,9 @@ rm -frv %{buildroot}%{_datadir}/doc/%{name}
 %{_infodir}/autoconf-archive.info*
 
 %changelog
+* Wed Sep 27 2023 Frederic Berat <fberat@redhat.com> - 2023.02.20-3
+- Migrate to SPDX licenses (#2222089)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.02.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

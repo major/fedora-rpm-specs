@@ -1,6 +1,6 @@
 Name:    kaccounts-integration
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/network/%{name}
@@ -63,8 +63,6 @@ across the KDE desktop.
 
 %package        qt5
 Summary:        qt5 runtime for %{name}
-Requires:       accounts-qml-module%{?_isa}
-Requires:       signon-plugin-oauth2%{?_isa}
 Obsoletes:      kaccounts < 15.03
 Provides:       kaccounts = %{version}-%{release}
 Obsoletes:      kaccounts-integration < 24.01.75
@@ -79,11 +77,11 @@ across the KDE desktop.
 %package        qt5-devel
 Summary:        Development files for %{name}
 Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
-Requires:       qt5-qtbase-devel%{?_isa}
-Requires:       kf5-kcoreaddons-devel%{?_isa}
-Requires:       libaccounts-glib-devel%{?_isa}
-Requires:       libaccounts-qt5-devel%{?_isa}
-Requires:       signon-devel%{?_isa}
+Requires:       cmake(Qt5Widgets)
+Requires:       cmake(KF5CoreAddons)
+Requires:       cmake(AccountsQt5)
+Requires:       cmake(SignOnQt5)
+Requires:       pkgconfig(libaccounts-glib)
 Requires:       intltool
 Obsoletes:      kaccounts-integration-devel < 24.01.75
 Provides:       kaccounts-integration-devel = %{version}-%{release}
@@ -93,8 +91,6 @@ Headers, development libraries and documentation for %{name}.
 
 %package        qt6
 Summary:        qt6 runtime for %{name}
-Requires:       accounts-qml-module%{?_isa}
-Requires:       signon-plugin-oauth2%{?_isa}
 
 %description    qt6
 Small system to administer web accounts for the sites and services
@@ -103,11 +99,11 @@ across the KDE desktop.
 %package        qt6-devel
 Summary:        Development files for %{name}
 Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
-Requires:       qt6-qtbase-devel%{?_isa}
-Requires:       kf6-kcoreaddons-devel%{?_isa}
-Requires:       libaccounts-glib-devel%{?_isa}
-Requires:       libaccounts-qt6-devel%{?_isa}
-Requires:       signon-devel%{?_isa}
+Requires:       cmake(Qt6Widgets)
+Requires:       cmake(KF6CoreAddons)
+Requires:       cmake(AccountsQt6)
+Requires:       cmake(SignOnQt6)
+Requires:       pkgconfig(libaccounts-glib)
 Requires:       intltool
 
 %description    qt6-devel
@@ -170,6 +166,10 @@ popd
 
 
 %changelog
+* Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
+- Use the correct libsignon-qt subpacakges
+- Remove signon-oauth2-plugin and accounts-qml-module requirements
+
 * Sat Dec 23 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
 - 24.01.85
 

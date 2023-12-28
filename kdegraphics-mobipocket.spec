@@ -19,8 +19,6 @@ BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(Qt5Gui)
 BuildRequires: cmake(KF5KIO)
 
-Requires: qmobipocket%{?_isa} = %{version}-%{release}
-
 Obsoletes: qmobipocket < 16.12.0
 Provides:  qmobipocket = %{version}-%{release}
 Provides:  qmobipocket%{?_isa} = %{version}-%{release}

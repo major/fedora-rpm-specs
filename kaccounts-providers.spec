@@ -1,6 +1,6 @@
 Name:    kaccounts-providers
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional service providers for KAccounts framework
 License: GPLv2
 URL:     https://invent.kde.org/network/%{name}
@@ -24,6 +24,9 @@ BuildRequires:  pkgconfig(Qt6Qml)
 BuildRequires:  pkgconfig(Qt6WebEngineQuick)
 
 Requires:       signon-ui
+
+# google provider
+Requires:       signon-plugin-oauth2
 
 # https://pagure.io/fedora-kde/SIG/issue/66
 Supplements:    kaccounts-integration-qt6
@@ -62,6 +65,9 @@ Obsoletes: kaccounts-providers < 15.12.0
 
 
 %changelog
+* Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
+- Require signon-plugin-oauth2 for the google provider
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

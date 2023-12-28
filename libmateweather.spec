@@ -13,7 +13,7 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          libmateweather
-Version:       %{branch}.2
+Version:       %{branch}.3
 %if 0%{?rel_build}
 Release:       1%{?dist}
 %else
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.a' -exec rm -fv {} ';'
 
 
 %changelog
+* Tue Dec 26 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-1
+- update to 1.26.3 release
+
 * Thu Oct 19 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
 - update to 1.26.2 release
 

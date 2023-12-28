@@ -6,7 +6,7 @@
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
 Version: 5.91.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{name}
@@ -87,7 +87,8 @@ BuildRequires:  cmake(Plasma)
 %if 0%{?fedora}
 BuildRequires:  cmake(AppStreamQt)
 %endif
-#BuildRequires:  cmake(KAccounts) intltool
+BuildRequires:  intltool
+BuildRequires:  cmake(KAccounts6)
 BuildRequires:  cmake(KF6UserFeedback)
 BuildRequires:  PackageKit-Qt6-devel
 BuildRequires:  libcanberra-devel
@@ -142,12 +143,14 @@ Requires:       kwin
 # kickoff -> edit applications (#1229393)
 Requires:       kmenuedit
 
-BuildRequires:  cmake(KF6Kirigami2)
-Requires:       kf6-kirigami2%{?_isa}
+BuildRequires:  cmake(KF6Kirigami)
+Requires:       kf6-kirigami%{?_isa}
 BuildRequires:  cmake(KF6KirigamiAddons)
-Requires:       kf6-kirigami2-addons%{?_isa}
+Requires:       kf6-kirigami-addons%{?_isa}
 BuildRequires:  kf6-qqc2-desktop-style
 Requires:       kf6-qqc2-desktop-style%{?_isa}
+BuildRequires:  kpipewire
+Requires:       kpipewire%{?_isa}
 
 # for kimpanel-ibus-panel and kimpanel-ibus-panel-launcher
 Recommends: ibus
@@ -234,6 +237,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_libexecdir}/kimpanel-ibus-panel
 %{_libexecdir}/kimpanel-ibus-panel-launcher
 %{_kf6_qmldir}/org/kde/plasma/private
+%{_kf6_qtplugindir}/attica_kde.so
 %{_kf6_qtplugindir}/plasma/kcms/desktop/kcm_krunnersettings.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
@@ -269,6 +273,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_datadir}/dbus-1/system-services/*.service
 %{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmclock.policy
 %{_sysconfdir}/xdg/autostart/*.desktop
+%{_kf6_datadir}/accounts/providers/kde/*.provider
+%{_kf6_datadir}/accounts/services/kde/*.service
 
 # How to include these in the .lang file?
 %{_kf6_datadir}/locale/sr/LC_SCRIPTS/kfontinst/kfontinst.js
@@ -286,6 +292,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 5.91.0-2
+- Re-enable optional dependency on KAccounts6
+- Add missing QML dependency on org.kde.pipewire
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

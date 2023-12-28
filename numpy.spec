@@ -19,8 +19,8 @@
 %global modname numpy
 
 Name:           numpy
-Version:        1.26.0
-Release:        2%{?dist}
+Version:        1.26.2
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -30,11 +30,6 @@ URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
 Patch0:         f2py_test.patch
-Patch1:         24772.patch
-Patch2:         24776.patch
-# Python 3.13: Patch vendored meson to work around the removed functions from importlib.resources
-# Upstream commit: https://github.com/numpy/meson/commit/7ade3828313dd437f4e2176ccbbc1ef52322de15
-Patch3:         don-t-use-the-removed-importlib.patch
 # Python 3.13: Replace deprecated ctypes.ARRAY(item_type, size) with item_type * size
 # Upstream PR: https://github.com/numpy/numpy/pull/25198
 Patch4:         replace-deprecated-ctypes.ARRAY.patch
@@ -202,6 +197,7 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 %{python3_sitearch}/%{name}/py.typed
 %{python3_sitearch}/%{name}/typing/
 %{python3_sitearch}/%{name}/array_api/
+%{python3_sitearch}/%{name}/_core/
 %{python3_sitearch}/%{name}/_pyinstaller/
 %{python3_sitearch}/%{name}/_typing/
 %{python3_sitearch}/%{name}/_utils/
@@ -218,6 +214,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Tue Dec 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.26.2-1
+- 1.26.2
+
 * Mon Nov 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.26.0-2
 - Fix FTBFS with Python 3.13.
 

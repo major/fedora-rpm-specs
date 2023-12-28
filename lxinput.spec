@@ -2,21 +2,22 @@
 
 Name:           lxinput
 Version:        0.3.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Keyboard and mouse settings dialog for LXDE
 
-License:        GPLv2+
+# SPDX confirmed
+License:        GPL-2.0-or-later
 URL:            http://lxde.org/
 #VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/lxinput
 Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel
+BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
-BuildRequires:  %{_bindir}/xsltproc
+BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  docbook-utils
 BuildRequires:  docbook-style-xsl
 Requires:       lxsession >= 0.4.0
@@ -34,12 +35,12 @@ Lightweight X11 Desktop Environment.
 	--enable-man \
 	--disable-silent-rules \
 	%{nil}
-make %{?_smp_mflags}
+%make_build
 
 
 %install
 rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} INSTALL='install -p'
+%make_install
 desktop-file-install \
   --delete-original \
   --add-category=X-LXDE \
@@ -51,14 +52,23 @@ desktop-file-install \
 
 %files -f %{name}.lang
 #FIXME: add ChangeLog and NEWS if there is content
-%doc AUTHORS COPYING README
+%doc AUTHORS
+%doc README
+%license COPYING
+
 %{_bindir}/%{name}
-%{_datadir}/%{name}/
+%dir %{_datadir}/%{name}/
+%{_datadir}/%{name}/*.png
+%{_datadir}/%{name}/*.ui
+
 %{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1.*
 
 
 %changelog
+* Tue Dec 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-17
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

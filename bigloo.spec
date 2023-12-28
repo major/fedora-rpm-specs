@@ -6,12 +6,8 @@
 # patch_suffix is defined to be empty when patch_ver is not defined,
 # so that when updating, the Source and %%setup lines do not have to be
 # changed, only the Version and patch_ver
-%global patch_ver 1
-%global patch_suffix %{?patch_ver:-%{patch_ver}}
-
-# prerelease
-#%%global prerel 20151208beta
-#%%global ver_suffix -beta08Dec15
+#%%global patch_ver 1
+#%%global patch_suffix %%{?patch_ver:-%%{patch_ver}}
 
 # For Emacs subpackages
 %global pkg     %{name}
@@ -26,8 +22,8 @@
 %global         bundlelbt 1.0.20210529
 
 Name:           bigloo
-Version:        4.5a
-Release:        4%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
+Version:        4.5b%{?patch_ver:.%{patch_ver}}
+Release:        1%{?dist}
 Summary:        A compiler for the Scheme programming language
 
 # The compiler and tools are GPL-2.0-or-later.
@@ -40,7 +36,7 @@ Summary:        A compiler for the Scheme programming language
 # - api/text/src/Llib/levenshtein.scm is LGPL-3.0-or-later
 License:        GPL-2.0-or-later
 URL:            https://www-sop.inria.fr/mimosa/fp/Bigloo
-Source0:        ftp://ftp-sop.inria.fr/indes/fp/Bigloo/%{name}-%{version}%{?patch_suffix}%{?ver_suffix}.tar.gz
+Source0:        ftp://ftp-sop.inria.fr/indes/fp/Bigloo/%{name}-%{version}%{?patch_suffix}.tar.gz
 # Not yet sent upstream: fix some bugs in the Emacs interface, and also
 # modernizes the code somewhat.
 Patch0:         %{name}-emacs.patch
@@ -62,15 +58,9 @@ Patch7:         %{name}-javac.patch
 Patch8:         %{name}-return.patch
 # Fix signal numbers in the Java code
 Patch9:         %{name}-java-signum.patch
-# Migrate K&R C in the config scripts to ANSI C
-# https://github.com/manuel-serrano/bigloo/pull/104
-Patch10:        %{name}-configure-c99.patch
-# Support Emacs 29
-Patch11:        %{name}-emacs29.patch
 
-# See https://bugzilla.redhat.com/show_bug.cgi?id=2160579
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    ppc64le %{ix86}
+ExcludeArch:    %{ix86}
 
 BuildRequires:  emacs
 BuildRequires:  gcc
@@ -226,16 +216,8 @@ export LDFLAGS="-Wl,-z,relro -Wl,--as-needed"
         --jvm=no \
 %endif
         --bee=full \
-%if %{with customgc}
-        --customgc=yes \
-%else
-        --customgc=no \
-%endif
-%if %{with customlbt}
-        --customlibbacktrace=yes \
-%else
-        --customlibbacktrace=no \
-%endif
+        --customgc=%{?with_customgc:yes}%{!?with_customgc:no} \
+        --customlibbacktrace=%{?with_customlbt:yes}%{!?with_customlbt:no} \
         --coflags="$CFLAGS" \
         --cpicflags="-fPIC" \
         --sharedbde=yes \
@@ -320,6 +302,8 @@ rm -f bmacs-xemacs.el xemacs-etags.el
 %{_emacs_bytecompile} bmacs.el bmacs-config.el bmacs-gnu-emacs.el
 popd
 
+# FIXME: Unexplained segfaults when running tests on ppc64le
+%ifnarch %{power64}
 %check
 ulimit -s unlimited
 export TZ=$(date +%%Z)
@@ -338,6 +322,7 @@ cd -
 if [ "$JVMBACKEND" = yes ]; then
   make jvm-test
 fi
+%endif
 
 
 %files
@@ -369,6 +354,10 @@ fi
 
 
 %changelog
+* Tue Dec 26 2023 Jerry James <loganjerry@gmail.com> - 4.5b-1
+- Version 4.5b
+- Drop upstreamed configure-c99 and emacs29 patches
+
 * Fri Dec  1 2023 Jerry James <loganjerry@gmail.com> - 4.5a-4.1
 - Fix potential GCC 14 errors
 - Support Emacs 29

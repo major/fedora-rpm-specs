@@ -1,17 +1,13 @@
 %global debug_package %{nil}
-%global ver 0.2.20
 
 Name:           functionalplus
-Version:        %{ver}.p0
+Version:        0.2.22
 Release:        %autorelease
 Summary:        Functional Programming Library for C++
 
 License:        BSL-1.0
 URL:            https://github.com/Dobiasd/FunctionalPlus
-Source:         %{url}/archive/v%{ver}-p0/%{name}-%{version}.tar.gz
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  doctest-devel
@@ -32,25 +28,28 @@ Provides:       %{name}-static = %{version}-%{release}
 
 
 %prep
-%autosetup -n FunctionalPlus-%{ver}-p0
+%autosetup -n FunctionalPlus-%{version}
 
 
 %build
 %cmake -DFunctionalPlus_INSTALL_CMAKEDIR=%{_datadir}/cmake/FunctionalPlus
 %cmake_build
+%ifnarch %{ix86}
 pushd test
 %cmake
 %cmake_build
 popd
-
+%endif
 
 %install
 %cmake_install
 
 
 %check
+%ifnarch %{ix86}
 pushd test
 %ctest
+%endif
 
 
 %files devel

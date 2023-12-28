@@ -11,7 +11,7 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.9.8
+Version: 1.10.0
 Release: 1%{?dist}
 # No version is specified.
 License: GPL-1.0-or-later
@@ -297,6 +297,9 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %endif
 
 %changelog
+* Tue Dec 26 2023 Than Ngo <than@redhat.com> - 1.10.0-1
+- bz#2255826, update to 1.10
+
 * Mon Sep 11 2023 Than Ngo <than@redhat.com> - 1.9.8-1
 - fix bz#2235035, update to 1.9.8
 

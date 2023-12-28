@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:    signon-kwallet-extension
-Version: 23.08.2
-Release: 1%{?dist}
+Version: 24.01.85
+Release: 2%{?dist}
 Summary: KWallet integration for Sign-on framework
 
 License: GPLv2+
@@ -14,13 +14,15 @@ URL:     https://cgit.kde.org/%{name}.git
 %else
 %global stable stable
 %endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kwallet-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  signon-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  kf6-kwallet-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  pkgconfig(signon-plugins)
+
+Supplements:    (kf6-kwallet and signon)
 
 %description
 %{summary}.
@@ -31,7 +33,9 @@ BuildRequires:  signon-devel
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6 \
+    -DQT_MAJOR_VERSION=6
+
 %cmake_build
 
 
@@ -45,6 +49,12 @@ BuildRequires:  signon-devel
 
 
 %changelog
+* Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
+- Recommend when kf6-kwallet and signon are both installed
+
+* Mon Dec 25 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

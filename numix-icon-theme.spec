@@ -5,7 +5,7 @@
 
 Name:		numix-icon-theme
 Summary:	Numix Project icon theme
-Version:	23.01.12
+Version:	23.12.02
 Release:	%autorelease
 License:	GPL-3.0-or-later
 

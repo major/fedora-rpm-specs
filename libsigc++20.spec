@@ -6,7 +6,7 @@ Version:        2.12.1
 Release:        1%{?dist}
 Summary:        Typesafe signal framework for C++
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/libsigcplusplus/libsigcplusplus
 Source0:        https://download.gnome.org/sources/libsigc++/%{release_version}/libsigc++-%{version}.tar.xz
 

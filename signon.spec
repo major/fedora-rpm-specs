@@ -5,10 +5,10 @@
 
 Name:           signon
 Version:        8.60^%{gitdate}.%{shortcommit0}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
-License:        LGPLv2
+License:        LGPL-2.1-only
 URL:            https://gitlab.com/accounts-sso/signond
 
 # Temporary source, for plasma6 compatibility
@@ -20,12 +20,6 @@ Source0:        https://gitlab.com/nicolasfella/signond/-/archive/%{commit0}/sig
 #%%else
 #Source0:        https://gitlab.com/accounts-sso/signond/repository/archive.tar.gz?ref=%%{commit0}#/%%{name}-%%{shortcommit0}.tar.gz
 #%%endif
-
-# cmake config files still define SIGNONQT_LIBRARIES_STATIC, but meh, anyone who
-# tries to use that deserves what they get
-#Patch1: signon-8.57-no_static.patch
-# drop -Werror -fno-rtti
-#Patch2: signond-cxxflags.patch
 
 BuildRequires: make
 BuildRequires:  dbus-x11
@@ -56,6 +50,16 @@ applications. It consists of a secure storage of login credentials (for example
 usernames and passwords), plugins for different authentication systems and a
 client library for applications to communicate with this system.
 
+%package qt5
+Summary:        Single Sign On client library for Qt5-based applications
+%description qt5
+%{summary}.
+
+%package qt6
+Summary:        Single Sign On client library for Qt6-based applications
+%description qt6
+%{summary}.
+
 %package devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -64,6 +68,16 @@ Provides:       signond-devel = %{version}-%{release}
 %description devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
+
+%package qt5-devel
+Summary:        Development files for %{name}-qt5
+%description qt5-devel
+%{summary}.
+
+%package qt6-devel
+Summary:        Development files for %{name}-qt6
+%description qt6-devel
+%{summary}.
 
 %package doc
 Summary:        Documentation for %{name}
@@ -78,12 +92,6 @@ The %{name}-doc package contains documentation for %{name}.
 
 
 %build
-# Make sure it compiles against Fedora's Qt5
-#sed -i "s/qdbusxml2cpp/qdbusxml2cpp-qt5/" src/signond/signond.pro
-
-#export PATH=%{_qt5_bindir}:$PATH
-
-# FIXME: out-of-src tree build fails -- rex
 mkdir %{name}_qt5
 pushd %{name}_qt5
 %qmake_qt5 \
@@ -120,31 +128,38 @@ mkdir -p %{buildroot}%{_libdir}/extensions/
 %{_libdir}/libsignon-extension.so.1*
 %{_libdir}/libsignon-plugins-common.so.1*
 %{_libdir}/libsignon-plugins.so.1*
-%{_libdir}/libsignon-qt5.so.1*
-%{_libdir}/libsignon-qt6.so.1*
 %{_libdir}/signon/
 %{_datadir}/dbus-1/services/*.service
+
+%files qt5
+%{_libdir}/libsignon-qt5.so.1{,.*}
+
+%files qt6
+%{_libdir}/libsignon-qt6.so.1{,.*}
 
 %files devel
 %{_includedir}/signon-extension/
 %{_includedir}/signon-plugins/
-%{_includedir}/signon-qt5/
-%{_includedir}/signon-qt6/
 %{_includedir}/signond/
-%{_libdir}/cmake/SignOnQt5/
-%{_libdir}/cmake/SignOnQt6/
 %{_libdir}/libsignon-extension.so
 %{_libdir}/libsignon-plugins-common.so
 %{_libdir}/libsignon-plugins.so
-%{_libdir}/libsignon-qt5.so
-%{_libdir}/libsignon-qt6.so
 %{_libdir}/pkgconfig/SignOnExtension.pc
-%{_libdir}/pkgconfig/libsignon-qt5.pc
-%{_libdir}/pkgconfig/libsignon-qt6.pc
 %{_libdir}/pkgconfig/signon-plugins-common.pc
 %{_libdir}/pkgconfig/signon-plugins.pc
 %{_libdir}/pkgconfig/signond.pc
 
+%files qt5-devel
+%{_includedir}/signon-qt5/
+%{_libdir}/cmake/SignOnQt5/
+%{_libdir}/pkgconfig/libsignon-qt5.pc
+%{_libdir}/libsignon-qt5.so
+
+%files qt6-devel
+%{_includedir}/signon-qt6/
+%{_libdir}/cmake/SignOnQt6/
+%{_libdir}/pkgconfig/libsignon-qt6.pc
+%{_libdir}/libsignon-qt6.so
 
 %files doc
 %{_docdir}/signon/
@@ -154,7 +169,10 @@ mkdir -p %{buildroot}%{_libdir}/extensions/
 
 
 %changelog
-* Sun Nov 3 2023 Steve Cossette <farchord@gmail.com> - 8.60^20231015.171500.011bd15-2
+* Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 8.60^20231015.171500.011bd15-3
+- Split libsignon-qt in subpackages
+
+* Sun Dec 3 2023 Steve Cossette <farchord@gmail.com> - 8.60^20231015.171500.011bd15-2
 - Rebuild
 
 * Tue Nov 21 2023 Steve Cossette <farchord@gmail.com> - 8.60^20231015.171500.011bd15-1

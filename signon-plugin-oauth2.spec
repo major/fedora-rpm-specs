@@ -1,23 +1,20 @@
-
-%global git_commit 2dd9ba521a0dd4277c4bf6970a7f4e3894fd85ae
+%global gitdate 20231216
+%global commit0 fab698862466994a8fdc9aa335c87b4f05430ce6
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           signon-plugin-oauth2
-Version:        0.24
-Release:        7%{?dist}
+Version:        0.25^%{gitdate}.%{shortcommit0}
+Release:        1%{?dist}
 Summary:        OAuth2 plugin for the Accounts framework
 
 License:        LGPLv2
 URL:            https://gitlab.com/accounts-sso/signon-plugin-oauth2
 
-Source0:        https://gitlab.com/accounts-sso/signon-plugin-oauth2/repository/archive.tar.gz?ref=VERSION_%{version}#/%{name}-%{version}.tar.gz
-
-# drop -Werror -fno-rtti
-Patch100: signon-plugin-oauth2-cxxflags.patch
+Source0:        https://gitlab.com/accounts-sso/signon-plugin-oauth2/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 
 BuildRequires: make
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
-BuildRequires:  signon-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  pkgconfig(signon-plugins)
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  libproxy-devel
@@ -33,12 +30,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{name}-VERSION_%{version}-%{git_commit} -p1
+%autosetup -n %{name}-%{commit0} -p1
 
 
 %build
-export PATH=%{_qt5_bindir}:$PATH
-%qmake_qt5 \
+%qmake_qt6 \
     QMF_INSTALL_ROOT=%{_prefix} \
     CONFIG+=release \
     LIBDIR=%{?_libdir} \
@@ -74,6 +70,9 @@ rm -rvf %{buildroot}/%{_sysconfdir}
 
 
 %changelog
+* Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 0.25^20231216.fab6988-1
+- Build from git snapshot for qt6
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

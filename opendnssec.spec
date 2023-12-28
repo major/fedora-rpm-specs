@@ -20,6 +20,7 @@ Patch1: 0001-Pass-right-remaining-buffer-size-in-hsm_hex_unparse-.patch
 Patch2: opendnssec-configure-c99.patch
 Patch3: opendnssec-c99-1.patch
 Patch4: opendnssec-c99-2.patch
+Patch5: opendnssec-implicit-declarations.patch
 
 Requires: opencryptoki, softhsm >= 2.5.0 , systemd-units
 Requires: libxml2, libxslt sqlite
@@ -53,6 +54,7 @@ name server. It requires a PKCS#11 crypto module library, such as softhsm
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch -P5 -p1
 # Prevent re-running autoconf.
 touch -r aclocal.m4 configure* m4/*
 

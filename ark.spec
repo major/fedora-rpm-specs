@@ -4,8 +4,8 @@
 
 Name:    ark
 Summary: Archive manager
-Version: 23.08.2
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://www.kde.org/applications/utilities/ark/
@@ -16,38 +16,35 @@ URL:     https://www.kde.org/applications/utilities/ark/
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
 
 ## upstream patches
-# https://invent.kde.org/utilities/ark/-/commit/9bcbcb056c43abef88540c54f25bc6c1a78c7c0e
-Patch0:        9bcbcb056c43abef88540c54f25bc6c1a78c7c0e.patch
 
 BuildRequires: bzip2-devel
 BuildRequires: desktop-file-utils
 
 BuildRequires: extra-cmake-modules >= 5.71
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-karchive-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-khtml-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kpty-devel
-BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: cmake(KF5ItemModels)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6Pty)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6IconThemes)
 
 BuildRequires: libappstream-glib
 BuildRequires: pkgconfig(libarchive)
 BuildRequires: pkgconfig(liblzma)
 BuildRequires: pkgconfig(libzip)
-BuildRequires: qt5-qtbase-devel
+BuildRequires: qt6-qtbase-devel
 BuildRequires: zlib-devel
 
 # when split occured
@@ -101,7 +98,7 @@ Provides: ark-part%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -112,40 +109,42 @@ Provides: ark-part%{?_isa} = %{version}-%{release}
 %find_lang %{name} --all-name --with-html --with-man
 
 # unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libkerfuffle.so
+rm -fv %{buildroot}%{_kf6_libdir}/libkerfuffle.so
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ark.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ark.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ark.appdata.xml ||:
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ark.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
 %{_sysconfdir}/xdg/arkrc
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_bindir}/ark
-%{_kf5_datadir}/config.kcfg/ark.kcfg
-%{_kf5_metainfodir}/org.kde.ark.appdata.xml
-%{_kf5_datadir}/applications/org.kde.ark.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/ark.*
+%{_kf6_datadir}/qlogging-categories6/%{name}*
+%{_kf6_bindir}/ark
+%{_kf6_datadir}/config.kcfg/ark.kcfg
+%{_kf6_metainfodir}/org.kde.ark.appdata.xml
+%{_kf6_datadir}/applications/org.kde.ark.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/ark.*
 %{_mandir}/man1/ark.1*
-%{_kf5_datadir}/kconf_update/ark.upd
-%{_kf5_datadir}/kconf_update/ark_add_hamburgermenu_to_toolbar.sh
-%{_kf5_datadir}/kservices5/ark_part.desktop
+%{_kf6_datadir}/kconf_update/ark.upd
+%{_kf6_datadir}/kconf_update/ark_add_hamburgermenu_to_toolbar.sh
 
 %ldconfig_scriptlets
 
 %files libs
-%{_kf5_libdir}/libkerfuffle.so.*
-%{_kf5_plugindir}/parts/arkpart.so
-%{_kf5_qtplugindir}/kerfuffle/
-%{_kf5_plugindir}/kio_dnd/extracthere.so
-%{_kf5_plugindir}/kfileitemaction/compressfileitemaction.so
-%{_kf5_plugindir}/kfileitemaction/extractfileitemaction.so
+%{_kf6_libdir}/libkerfuffle.so.*
+%{_kf6_plugindir}/parts/arkpart.so
+%{_kf6_qtplugindir}/kerfuffle/
+%{_kf6_plugindir}/kio_dnd/extracthere.so
+%{_kf6_plugindir}/kfileitemaction/compressfileitemaction.so
+%{_kf6_plugindir}/kfileitemaction/extractfileitemaction.so
 
 
 %changelog
+* Mon Dec 25 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Sat Oct 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-2
 - Add upstream patch to fi bzip2 format with shared-mime-info 2.3
 

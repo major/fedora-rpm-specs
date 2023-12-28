@@ -42,7 +42,7 @@ BuildRequires: cmake(KF5KDcraw)
 
 
 %build
-%{cmake_kf5} -DDISABLE_MOBIPOCKET=TRUE
+%{cmake_kf5}
 %cmake_build
 
 
