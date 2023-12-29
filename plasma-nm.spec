@@ -1,7 +1,7 @@
 Name:    plasma-nm
 Summary: Plasma for managing network connections
 Version: 5.91.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -52,6 +52,7 @@ BuildRequires:  cmake(KF6Kirigami2)
 
 BuildRequires:  pkgconfig(ModemManager) >= 1.0.0
 BuildRequires:  pkgconfig(libnm) >= 1.0.0
+BuildRequires:  pkgconfig(mobile-broadband-provider-info)
 
 %if %{with openconnect}
 BuildRequires:  pkgconfig(openconnect) >= 4.00
@@ -281,6 +282,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Wed Dec 27 2023 Nicolas Fella <nicolas.fella@gmx.de> - 5.91.0-2
+- Add missing mobile-broadband-provider-info dep
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

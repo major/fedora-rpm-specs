@@ -11,8 +11,6 @@ Summary:        CAnonical Time-series CHaracteristics in Python
 # version,” https://github.com/DynamicsAndNeuralSystems/pycatch22/issues/16.
 License:        GPL-3.0-or-later
 URL:            %{forgeurl}
-# Missing 0.4.3 release on PyPI
-# https://github.com/DynamicsAndNeuralSystems/pycatch22/issues/14
 Source:         %{forgesource}
 
 # Downstream-only: use unbundled catch22 library
@@ -59,7 +57,7 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+%autosetup %{forgesetupargs} -p1
 
 # Remove the bundled copy of the catch22 package, but not the Python extension
 # module implementation in the same directory.

@@ -5,6 +5,7 @@
 %if 0%{?fedora}
 %global chm 1
 %global ebook 1
+%global postscript 1
 %endif
 # uncomment to include -mobile (currently doesn't work)
 # it links libokularpart.so, but fails to file/load at runtime
@@ -13,7 +14,7 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPL-2.0-only
@@ -34,49 +35,46 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KDEExperimentalPurpose)
-BuildRequires: cmake(KF5Activities)
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Bookmarks)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5JS)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5Pty)
-BuildRequires: cmake(KF5ThreadWeaver)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5KHtml)
-BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(PlasmaActivities)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: cmake(KF6KirigamiAddons)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6Pty)
+BuildRequires: cmake(KF6ThreadWeaver)
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6WindowSystem)
 
-BuildRequires: qt5-qtbase-private-devel
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5X11Extras)
+BuildRequires: qt6-qtbase-private-devel
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
 
 # okular-mobile
-BuildRequires: kf5-purpose-devel
-Requires: kf5-purpose%{?_isa}
+BuildRequires: kf6-purpose-devel
+Requires: kf6-purpose%{?_isa}
 
-BuildRequires: pkgconfig(phonon4qt5)
-BuildRequires: cmake(Qca-qt5)
+BuildRequires: pkgconfig(phonon4qt6)
+BuildRequires: cmake(Qca-qt6)
 
 ## generater/plugin deps
-BuildRequires: cmake(KF5KExiv2)
-BuildRequires: kdegraphics-mobipocket-devel
+BuildRequires: cmake(KExiv2Qt6)
+BuildRequires: cmake(QMobipocket6)
 %if 0%{?chm}
 BuildRequires: chmlib-devel
 BuildRequires: pkgconfig(libzip)
@@ -84,23 +82,26 @@ BuildRequires: pkgconfig(libzip)
 %if 0%{?ebook}
 BuildRequires: ebook-tools-devel
 %endif
+%if 0%{?postscript}
+BuildRequires: pkgconfig(libspectre)
+%endif
 BuildRequires: libjpeg-devel
 BuildRequires: libtiff-devel
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(libmarkdown)
 BuildRequires: pkgconfig(libspectre)
-BuildRequires: pkgconfig(poppler-qt5)
+BuildRequires: pkgconfig(poppler-qt6)
 BuildRequires: pkgconfig(zlib)
 %if 0%{?fedora}
 BuildRequires: pkgconfig(ddjvuapi) 
 %endif
 
 %if !0%{?bootstrap}
-BuildRequires:  cmake(Qt5TextToSpeech)
+BuildRequires:  cmake(Qt6TextToSpeech)
 %endif
 
 Requires: %{name}-part%{?_isa} = %{version}-%{release}
-Requires: kf5-kirigami2%{_isa}
+Requires: kf6-kirigami2%{_isa}
 
 %description
 %{summary}.
@@ -117,7 +118,6 @@ Requires: %{name}-part%{?_isa} = %{version}-%{release}
 
 %package devel
 Summary:  Development files for %{name}
-Provides: okular5-devel = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
@@ -136,8 +136,6 @@ Recommends: ghostscript-core
 
 %package part
 Summary: Okular kpart plugin
-Provides: okular5-part = %{version}-%{release}
-Provides: okular5-part%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 # translations moved here
 Conflicts: kde-l10n < 17.03
@@ -155,7 +153,7 @@ sed -i -e 's|^add_subdirectory( mobile )|#add_subdirectory( mobile )|' CMakeList
 
 
 %build
-%cmake_kf5 -DOKULAR_UI=both \
+%cmake_kf6 -DOKULAR_UI=both \
 	-DFORCE_NOT_REQUIRED_DEPENDENCIES="CHM;LibZip;DjVuLibre;EPub;"
 
 %cmake_build
@@ -167,67 +165,67 @@ sed -i -e 's|^add_subdirectory( mobile )|#add_subdirectory( mobile )|' CMakeList
 %find_lang all --all-name --with-html --with-man
 grep -v \
   -e %{_mandir} \
-  -e %{_kf5_docdir} \
+  -e %{_kf6_docdir} \
   all.lang > okular-part.lang
 cat all.lang okular-part.lang | sort | uniq -u > okular.lang
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.okular.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.okular.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.okular.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.okular.appdata.xml
 %if 0%{?mobile}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.okular.kirigami.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.okular.kirigami.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.okular.kirigami.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.okular.kirigami.appdata.xml
 %endif
 
 %files -f okular.lang
 %license LICENSES/*
-%{_kf5_bindir}/okular
-%{_kf5_datadir}/applications/org.kde.okular.desktop
-%{_kf5_metainfodir}/org.kde.okular.appdata.xml
-%{_kf5_datadir}/applications/okularApplication_*.desktop
-%{_kf5_metainfodir}/org.kde.okular-*.metainfo.xml
-%{_kf5_datadir}/okular/
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kconf_update/okular.upd
+%{_kf6_bindir}/okular
+%{_kf6_datadir}/applications/org.kde.okular.desktop
+%{_kf6_metainfodir}/org.kde.okular.appdata.xml
+%{_kf6_datadir}/applications/okularApplication_*.desktop
+%{_kf6_metainfodir}/org.kde.okular-*.metainfo.xml
+%{_kf6_datadir}/okular/
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/kconf_update/okular.upd
 %{_mandir}/man1/okular.1*
-%{_kf5_datadir}/qlogging-categories5/okular.categories
+%{_kf6_datadir}/qlogging-categories6/okular.categories
 
 %if 0%{?mobile}
 %files mobile
-%{_kf5_bindir}/okularkirigami
-%{_qt5_qmldir}/org/kde/okular/
-%{_kf5_metainfodir}/org.kde.okular.kirigami.appdata.xml
-%{_kf5_datadir}/applications/org.kde.okular.kirigami.desktop
-%{_kf5_datadir}/applications/org.kde.mobile.okular_*.desktop
+%{_kf6_bindir}/okularkirigami
+%{_qt6_qmldir}/org/kde/okular/
+%{_kf6_metainfodir}/org.kde.okular.kirigami.appdata.xml
+%{_kf6_datadir}/applications/org.kde.okular.kirigami.desktop
+%{_kf6_datadir}/applications/org.kde.mobile.okular_*.desktop
 %endif
 
 %files devel
 %{_includedir}/okular/
-%{_libdir}/libOkular5Core.so
-%{_libdir}/cmake/Okular5/
+%{_libdir}/libOkular6Core.so
+%{_libdir}/cmake/Okular6/
 
 %ldconfig_scriptlets libs
 
 %files libs
-%{_libdir}/libOkular5Core.so.11*
+%{_libdir}/libOkular6Core.so.*
 
 %files part -f okular-part.lang
 %if 0%{?fedora}
-%{_kf5_plugindir}/kio/kio_msits.so
+# Disabled upstream?
+# %%{_kf6_plugindir}/kio/kio_msits.so
 %endif
-%{_kf5_datadir}/config.kcfg/*.kcfg
-%{_kf5_datadir}/kservices5/okular[A-Z]*.desktop
-%{_kf5_datadir}/kservices5/okular_part.desktop
-%{_kf5_datadir}/kservicetypes5/okularGenerator.desktop
-%{_kf5_datadir}/kxmlgui5/okular/
-%dir %{_qt5_plugindir}/okular/
-%dir %{_qt5_plugindir}/okular/generators/
-%{_qt5_plugindir}/okular/generators/okularGenerator_*.so
-%{_qt5_plugindir}/okularpart.so
+%{_kf6_datadir}/config.kcfg/*.kcfg
+%dir %{_qt6_plugindir}/okular/
+%dir %{_qt6_plugindir}/okular/generators/
+%{_qt6_plugindir}/okular/generators/okularGenerator_*.so
+%{_qt6_plugindir}/okularpart.so
 
 
 %changelog
+* Mon Dec 25 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

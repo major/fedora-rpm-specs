@@ -2,8 +2,8 @@
 
 Summary: Network monitoring tools including ping
 Name: iputils
-Version: 20221126
-Release: 4%{?dist}
+Version: 20231222
+Release: 1%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
 License: BSD-4-Clause-UC AND GPL-2.0-or-later
@@ -40,11 +40,8 @@ ECHO_REQUEST packets to a specified network host to discover whether
 the target machine is alive and receiving network traffic.
 
 %prep
-%setup -q -a 1 -n %{name}-%{version}
+%autosetup -a 1 -n %{name}-%{version}
 cp %{SOURCE4} %{SOURCE5} .
-
-%patch100 -p1
-%patch101 -p1
 
 %build
 %meson
@@ -88,6 +85,10 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
+* Wed Dec 27 2023 Kevin Fenzi <kevin@scrye.com> - 20231222-1
+- Update to 20231222. Fixes rhbz#2255687
+- Fix PatchN warnings
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221126-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

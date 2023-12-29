@@ -6,7 +6,7 @@
 %global crate actix-router
 
 Name:           rust-actix-router
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Resource path matching and router
 
@@ -34,6 +34,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGES.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

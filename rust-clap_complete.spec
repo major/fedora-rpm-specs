@@ -6,7 +6,7 @@
 %global crate clap_complete
 
 Name:           rust-clap_complete
-Version:        4.4.4
+Version:        4.4.5
 Release:        %autorelease
 Summary:        Generate shell completion scripts for your clap::Command
 
@@ -58,6 +58,18 @@ This package contains library source intended for building other packages which
 use the "debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-doc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-doc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-doc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-doc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unstable-dynamic-devel

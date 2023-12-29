@@ -7,6 +7,12 @@ License:        MIT OR Apache-2.0
 URL:            https://github.com/MagicStack/uvloop
 Source:         %{url}/archive/v%{version}/uvloop-%{version}.tar.gz
 
+# Fix compatibility with Cython 3.
+# Notice that it doesn't work with older Cython (<3).
+# From https://github.com/MagicStack/uvloop/issues/586#issuecomment-1862458472
+# Amended metadata changes to BuildRequire Cython>=3.
+Patch:          cython3.patch
+
 BuildRequires:  gcc
 BuildRequires:  libuv-devel
 
@@ -53,10 +59,6 @@ sed -r -i \
 # We don’t have aiohttp==3.9.0b0; see if we can make do with the packaged
 # version.
 sed -r -i 's/aiohttp==3.9.0b0;/aiohttp>=3.8.5;/' pyproject.toml
-# Similarly:
-# Cython 0.29.36 is available
-# https://bugzilla.redhat.com/show_bug.cgi?id=2244399
-sed -r -i 's/(Cython\(>=0.29.3)6,/\15,/' pyproject.toml setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

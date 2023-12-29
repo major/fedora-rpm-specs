@@ -2,7 +2,7 @@
 %global base_name kdesdk-kio
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2 and GPLv2+
@@ -14,14 +14,14 @@ URL:     https://cgit.kde.org/%{name}.git
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/kdesdk-kio-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/kdesdk-kio-%{version}.tar.xz
 
 BuildRequires: perl-generators
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
 
 # translations moved here
 Conflicts: kde-l10n < 17.03
@@ -42,7 +42,9 @@ KDE SDK kioslaves:
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
+
 %cmake_build
 
 %install
@@ -52,11 +54,14 @@ KDE SDK kioslaves:
 
 
 %files -f %{base_name}.lang
-%{_kf5_plugindir}/kio/perldoc.so
-%{_kf5_datadir}/kio_perldoc/
+%{_kf6_plugindir}/kio/perldoc.so
+%{_kf6_datadir}/kio_perldoc/
 
 
-%changelog
+%changelog	
+* Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

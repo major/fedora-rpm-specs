@@ -1,11 +1,8 @@
 Name:           python-starlette
-Version:        0.27.0
+Version:        0.32.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
-# The entire source is BSD-3-Clause, with the possible exception of the
-# pre-compiled/minified JavaScript for the Gitter chat app for the
-# documentation, which is removed in %%prep anyway.
 License:        BSD-3-Clause
 URL:            https://www.starlette.io/
 Source:         https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
@@ -50,11 +47,6 @@ Summary:        %{summary}
 %prep
 %autosetup -n starlette-%{version}
 
-# Remove Gitter chat app from documentation; it relies on pre-compiled/minified
-# JavaScript, which is not acceptable in Fedora. Since we are not building
-# documentation, we do this very bluntly:
-rm -vrf docs/js
-
 # Produce a filtered version of requirements.txt, which contains testing
 # dependencies.
 awk '
@@ -73,6 +65,8 @@ o {
   if ($1 ~ /^(black|coverage|mypy|ruff|types-)/) { next }
   # Drop version pins
   sub(/[>=]=.*$/, "", $0)
+  # Of course we cannot depend on a version pulled from git!
+  sub(/@git.*$/, "", $0)
   print $0
 }
 ' requirements.txt | tee requirements-filtered.txt
@@ -101,7 +95,7 @@ o {
 #           Trio 0.22.0; use BaseExceptionGroup (on Python 3.11 and later) or
 #           exceptiongroup.BaseExceptionGroup (earlier versions) instead
 #           (https://github.com/python-trio/trio/issues/2211)
-%pytest -W 'ignore::trio.TrioDeprecationWarning'
+%pytest -W 'ignore::trio.TrioDeprecationWarning' -k "${k-}"
 
 
 %files -n python3-starlette -f %{pyproject_files}

@@ -28,7 +28,6 @@ BuildRequires:  devscripts-checkbashisms
 BuildRequires:  hunspell-cs
 BuildRequires:  hunspell-en-US
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
 %if ! 0%{?rhel}
 BuildRequires:  python3dist(pytest-xdist)
 %endif
@@ -65,7 +64,7 @@ sed -i -e '/ErlangCheck/d' rpmlint/configdefaults.toml test/test_lint.py
 
 # Don't lint the code or measure coverage in %%check
 # On RHEL, also avoid xdist by disabling parallelism
-sed -i -e 's/ --cov=rpmlint//' -e 's/ --flake8//' %{?rhel:-e 's/ -n auto//'} setup.cfg
+sed -i -e '/^ *--cov=rpmlint$/d' %{?rhel:-e '/^ *-n auto$/d'} pytest.ini
 
 # Avoid warnings about pytest.mark.no_cover marker
 sed -i '/^@pytest.mark.no_cover/d' test/test_lint.py

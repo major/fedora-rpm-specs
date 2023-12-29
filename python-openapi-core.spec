@@ -12,6 +12,11 @@ License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname}}
 
+# Bump starlette from 0.31.1 to 0.32.0.post1
+# https://github.com/python-openapi/openapi-core/commit/8f77adab98d94ca5778dbdd5a4886b5d784148be
+# Cherry-picked without noisy changes to poetry.lock, which we do not use.
+Patch:          0001-Bump-starlette-from-0.31.1-to-0.32.0.post1.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

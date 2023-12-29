@@ -93,7 +93,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Chatty.deskt
 # and the appstream file
 
 LC_ALL=C.UTF-8 xvfb-run sh <<'SH'
-%meson_test -t 2
+%meson_test -t 2 --num-processes 1
 SH
 
 %install

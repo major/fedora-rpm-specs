@@ -1,7 +1,7 @@
 Name:		meshlab
 Summary:	A system for processing and editing unstructured 3D triangular meshes
 Version:	2022.02
-Release:	4%{?dist}
+Release:	5%{?dist}
 URL:		https://github.com/cnr-isti-vclab/meshlab
 # Bundled e57 is Boost-licensed
 License:	GPLv2+ and BSD and Public Domain and ASL 2.0 and Boost
@@ -39,7 +39,6 @@ BuildRequires:	lib3ds-devel
 BuildRequires:	muParser-devel
 BuildRequires:	qhull-devel
 BuildRequires:	qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtxmlpatterns-devel qt5-qtscript-devel
-BuildRequires:	qtsoap5-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	ImageMagick
 BuildRequires:	xerces-c-devel
@@ -161,6 +160,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/meshlab.desktop
 # %%license unsupported/plugins_unsupported/filter_poisson/license.txt
 
 %changelog
+* Mon Dec 18 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.02-5
+- Drop a redundant BuildRequires: qtsoap5-devel
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

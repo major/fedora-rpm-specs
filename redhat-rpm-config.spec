@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 271
+%global baserelease 272
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -114,6 +114,7 @@ Requires: pyproject-srpm-macros
 Requires: fpc-srpm-macros
 Requires: gnat-srpm-macros
 Requires: ansible-srpm-macros
+Requires: zig-srpm-macros
 %endif
 
 Requires: rpm >= 4.11.0
@@ -255,6 +256,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Tue Dec 26 2023 Jan Drögehoff <sentrycraft123@gmail.com> - 272-1
+- Add zig-srpm-macros
+
 * Fri Nov 03 2023 Stephen Gallagher <sgallagh@redhat.com> - 271-1
 - ELN: Enable frame pointers for RHEL 11+ (for now)
 

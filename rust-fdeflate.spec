@@ -5,7 +5,7 @@
 %global crate fdeflate
 
 Name:           rust-fdeflate
-Version:        0.3.1
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Fast specialized deflate implementation
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGES.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

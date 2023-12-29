@@ -1,31 +1,28 @@
-
 Name:    heaptrack
-Version: 1.4.0
-Release: 3%{?dist}
+Version: 1.5.0
+Release: 1%{?dist}
 Summary: A heap memory profiler for Linux
 
 License: GPLv2+
 URL:     https://cgit.kde.org/heaptrack.git/
 
-Source0: http://download.kde.org/stable/heaptrack/%{version}/src/%{name}-%{version}.tar.xz
-
-Patch0:  heaptrack-gcc13.patch
+Source0: https://download.kde.org/stable/heaptrack/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kitemmodels-devel
-BuildRequires:  kf5-threadweaver-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kiconthemes-devel
+BuildRequires:  kf6-kcoreaddons-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-kitemmodels-devel
+BuildRequires:  kf6-threadweaver-devel
+BuildRequires:  kf6-kconfigwidgets-devel
+BuildRequires:  kf6-kio-devel
+BuildRequires:  kf6-kiconthemes-devel
 
 BuildRequires:  kdiagram-devel
 
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtsvg-devel
 
 BuildRequires:  boost-devel
 BuildRequires:  libunwind-devel
@@ -57,7 +54,8 @@ profile to:
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
+	-DHEAPTRACK_USE_QT6=1 \
 %if "%{?_lib}" == "lib64"
   %{?_cmake_lib_suffix64}
 %endif
@@ -92,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Wed Dec 27 2023 Marie Loise Nolden <loise@kde.org> - 1.5.0-1
+- Update to 1.5.0 using Qt6
+
 * Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 1.4.0-3
 - Fix C compatibility issues in CMake probes
 

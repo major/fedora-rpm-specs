@@ -18,7 +18,7 @@
 %bcond uvicorn 1
 
 Name:           python-fastapi
-Version:        0.105.0
+Version:        0.108.0
 Release:        %autorelease
 Summary:        %{sum_en}
 

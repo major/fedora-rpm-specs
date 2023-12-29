@@ -3,21 +3,22 @@
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version: 5.247.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:            https://invent.kde.org/frameworks/%{framework}
 
-Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  kf6-karchive-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6Archive)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6I18n)
-BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(QMobipocket6)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  libattr-devel
 BuildRequires:  pkgconfig(exiv2) >= 0.20
@@ -28,8 +29,6 @@ BuildRequires:  ffmpeg-free-devel
 BuildRequires:  pkgconfig(poppler-qt6)
 BuildRequires:  pkgconfig(taglib) >= 1.9
 BuildRequires:  pkgconfig(xkbcommon)
-# Not packaged yet -- remove once it is!
-# BuildRequires:  pkgconfig(QMobipocket6)
 
 %description
 %{summary}.
@@ -68,6 +67,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %{_kf6_includedir}/KFileMetaData/
 
 %changelog
+* Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
+- add kdegraphics-mobipocket (QMobipocket6) as dependency (optional)
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

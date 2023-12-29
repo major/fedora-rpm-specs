@@ -1,13 +1,14 @@
 Name: tin
-Version: 2.6.2
-Release: 6%{?dist}
+Version: 2.6.3
+Release: 1%{?dist}
 Summary: Basic Internet news reader
-License: BSD
+# all sources built into binaries are BSD-3-Clause except
+# src/parsdate.{c,y} which are Public Domain
+License: BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL: http://www.tin.org/
 Source0: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz
 Source1: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz.sign
 Source2: tin-pgp-key-0x5A49550EB490B4D1.txt
-Patch0: tin-configure-c99.patch
 BuildRequires: make
 BuildRequires: %{_bindir}/ispell
 BuildRequires:  gcc-c++
@@ -81,6 +82,11 @@ rm -r ${workdir}
 %{_mandir}/man5/*
 
 %changelog
+* Wed Dec 27 2023 Dominik Mierzejewski <dominik@greysector.net> 2.6.3-1
+- update to 2.6.3 (#2255732)
+- drop obsolete patch
+- use SPDX identifiers in License field
+
 * Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 2.6.2-6
 - Further C compatibility fixes for the configure script
 

@@ -1,12 +1,15 @@
 Name:    kdiagram
 Summary: Powerful libraries (KChart, KGantt) for creating business diagrams
 Version: 3.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Url:     https://invent.kde.org/graphics/kdiagram
 
 Source0: http://download.kde.org/stable/kdiagram/%{version}/kdiagram-%{version}.tar.xz
+
+# https://invent.kde.org/graphics/kdiagram/-/merge_requests/21
+Patch0:  0001-Fix-KChart6Config.cmake-includes-after-rename.patch
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros
@@ -62,6 +65,9 @@ cat kchart6_qt.lang kgantt6_qt.lang > %{name}.lang
 
 
 %changelog
+* Wed Dec 27 2023 Alessandro Astone <ales.astone@gmail.com> - 3.0.0-2
+- Backport patch to fix cmake(KChart6)
+
 * Wed Dec 6 2023 Steve Cossette <farchord@gmail.com> - 3.0.0-1
 - 3.0.0
 

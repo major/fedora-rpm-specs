@@ -97,6 +97,12 @@ Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{src
 Source10:       opentelemetry-bootstrap.1
 Source11:       opentelemetry-instrument.1
 
+# Downstream-only: patch out opentelemetry-instrumentation-aiohttp-server dependencies
+#
+# These were incompletely removed in “Remove unreleaseable packages”:
+# https://github.com/open-telemetry/opentelemetry-python-contrib/commit/8c9df875e4bdbde95f22d874ee5be53ec7de3306
+Patch:          0001-Downstream-only-patch-out-opentelemetry-instrumentat.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # While this package is noarch, excluding i686 unblocks many dependent packages

@@ -5,7 +5,7 @@
 %global crate serde_yaml
 
 Name:           rust-serde_yaml
-Version:        0.9.27
+Version:        0.9.29
 Release:        %autorelease
 Summary:        YAML data format for Serde
 

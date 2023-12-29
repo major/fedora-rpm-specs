@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.26.0
+Version:       1.26.2
 Release:       1%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
@@ -72,12 +72,6 @@ MinGW Windows Python3 %{pypi_name} library.
 %mingw32_py3_install
 %mingw64_py3_install
 
-# FIXME: These files are not installed for some reason
-cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw32_python3_hostsitearch}/numpy/core/include/numpy/
-cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw64_python3_hostsitearch}/numpy/core/include/numpy/
-
 # Symlink includedir
 mkdir -p %{buildroot}%{mingw32_includedir}
 mkdir -p %{buildroot}%{mingw64_includedir}
@@ -92,14 +86,10 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw32_bindir}/f2py
-%{mingw32_bindir}/f2py3
-%{mingw32_bindir}/f2py%{mingw32_python3_version}
 %{mingw32_includedir}/%{pypi_name}
 %{mingw32_python3_sitearch}/%{pypi_name}/
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
 %{_prefix}/%{mingw32_target}/bin/f2py
-%{_prefix}/%{mingw32_target}/bin/f2py3
-%{_prefix}/%{mingw32_target}/bin/f2py%{mingw32_python3_version}
 %dir %{_prefix}/%{mingw32_target}/include/
 %{_prefix}/%{mingw32_target}/include/%{pypi_name}
 %{mingw32_python3_hostsitearch}/%{pypi_name}/
@@ -108,14 +98,10 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw64_bindir}/f2py
-%{mingw64_bindir}/f2py3
-%{mingw64_bindir}/f2py%{mingw32_python3_version}
 %{mingw64_includedir}/%{pypi_name}
 %{mingw64_python3_sitearch}/%{pypi_name}/
 %{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
 %{_prefix}/%{mingw64_target}/bin/f2py
-%{_prefix}/%{mingw64_target}/bin/f2py3
-%{_prefix}/%{mingw64_target}/bin/f2py%{mingw32_python3_version}
 %dir %{_prefix}/%{mingw64_target}/include/
 %{_prefix}/%{mingw64_target}/include/%{pypi_name}
 %{mingw64_python3_hostsitearch}/%{pypi_name}/
@@ -123,6 +109,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 
 
 %changelog
+* Wed Dec 27 2023 Sandro Mani <manisandro@gmail.com> - 1.26.2-1
+- Update to 1.26.2
+
 * Tue Sep 26 2023 Sandro Mani <manisandro@gmail.com> - 1.26.0-1
 - Update to 1.26.0
 

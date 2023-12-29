@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Summary:        Simple, blog aware, static site generator
-Version:        4.3.2
+Version:        4.3.3
 Release:        %autorelease
 License:        MIT
 
@@ -17,13 +17,9 @@ Patch:          0004-tests-related_posts-disable-tests-requiring-classifi.patch
 Patch:          0005-test-coffeescript-disable-tests-requiring-coffeescri.patch
 Patch:          0006-test-plugin_manager-disable-tests-requiring-gemspec-.patch
 Patch:          0007-Revert-tests-to-expect-jekyll-sass-converter-2.patch
-# https://github.com/jekyll/jekyll/pull/9285
-Patch:          0008-test-use-hash-explicitly-for-Struct-initializer-for-.patch
 # Use `shoulda-context` in place of `shoulda` to reduce dependency chain.
 # https://github.com/jekyll/jekyll/pull/9441
 Patch:          0009-Test-suite-uses-shoulda-context-only-.patch
-# https://github.com/jekyll/jekyll/pull/9392/
-Patch:          0010-pr9392-logger-ruby33.patch
 
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel

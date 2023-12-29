@@ -9,8 +9,8 @@
 
 Name:    konsole5
 Summary: KDE Terminal emulator
-Version: 23.08.3
-Release: 1%{?dist}
+Version: 23.08.4
+Release: 2%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
 License: GPL-2.0-only AND GFDL-1.1-or-later
@@ -23,7 +23,7 @@ URL:     http://www.kde.org/applications/system/konsole/
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 ## upstreamable patches
 
@@ -173,6 +173,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Wed Dec 27 2023 Marie Loise Nolden <loise@kde.org> - 23.08.4-2
+- Update to 23.08.4-2 to be on par with f39 and co-installability
+
 * Sun Dec 03 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.3-1
 - Update to 23.08.3
 - Restore upstream config that defaults to hiding the menu bar

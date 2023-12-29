@@ -19,7 +19,7 @@
 Name:           kf5-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        5.113.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:            https://cgit.kde.org/%{framework}
@@ -32,7 +32,6 @@ Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framewo
 %global __provides_exclude_from ^(%{_kf5_plugindir}/.*\\.so)$
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
-BuildRequires:  kdegraphics-mobipocket-devel
 BuildRequires:  kf5-karchive-devel >= %{majmin}
 BuildRequires:  kf5-kcoreaddons-devel >= %{majmin}
 BuildRequires:  kf5-ki18n-devel >= %{majmin}
@@ -115,6 +114,9 @@ mkdir -p %{buildroot}%{_kf5_plugindir}/kfilemetadata/writers/
 
 
 %changelog
+* Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 5.113.0-2
+- remove kdegraphics-mobipocket optional file format to go to kf6 version
+
 * Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
 - 5.113.0
 

@@ -1,11 +1,11 @@
 %bcond_without tests
 
 Name:           python-more-itertools
-Version:        8.13.0
-Release:        5%{?dist}
+Version:        10.1.0
+Release:        1%{?dist}
 Summary:        More routines for operating on Python iterables, beyond itertools
 License:        MIT
-URL:            https://github.com/erikrose/more-itertools
+URL:            https://github.com/more-itertools/more-itertools
 Source0:        %{pypi_source more-itertools}
 BuildArch:      noarch
 
@@ -46,6 +46,10 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Thu Dec 21 2023 Maxwell G <maxwell@gtmx.me> - 10.1.0-1
+- Update to 10.1.0. Fixes rhbz#2133312.
+- Use canonical upstream URL.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

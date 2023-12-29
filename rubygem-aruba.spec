@@ -4,7 +4,7 @@
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
 Version:    2.2.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -16,6 +16,10 @@ Source1:        %{name}-%{version}-testsuite.tar.gz
 Source2:        %{gem_name}-create-test-suite-tarball.sh
 # Make bundler runtime dependency optional
 Patch1:         rubygem-aruba-2.0.0-make-bundler-optional.patch
+# https://github.com/cucumber/aruba/pull/914
+# Patch for ruby3.3
+Patch2:         aruba-pr914-ruby33.patch
+
 
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
@@ -59,6 +63,7 @@ done
 ln -sf ../lib
 popd
 %patch -P1 -p1
+%patch -P2 -p1
 
 mv ../%{gem_name}-%{version}.gemspec .
 
@@ -160,6 +165,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Wed Dec 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-5
+- Patch for ruby3.3
+
 * Thu Nov  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-4
 - Explicitly add BR: less for BR: pry
 - Change cucumber publish quiet method

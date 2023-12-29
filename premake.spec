@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/premake/premake-core
-%global date 20230714
-%global commit 26725da04823f54ac324c186ed183f2ac3e6b271
+%global date 20231215
+%global commit 78afb221e6996ed96be955212bd75fc953e0a69a
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %forgemeta
 
@@ -12,7 +12,7 @@ Release:        %autorelease
 Summary:        Cross-platform build configuration tool
 
 License:        BSD-3-Clause
-URL:            %{forgeurl}
+URL:            https://premake.github.io/
 Source:         %{forgesource}
 
 BuildRequires:  gcc

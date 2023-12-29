@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    kdegraphics-mobipocket 
 Summary: A collection of plugins to handle mobipocket files 
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -12,12 +12,12 @@ URL:     https://www.kde.org/applications/graphics/
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(KF5KIO)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Core5Compat)
 
 Obsoletes: qmobipocket < 16.12.0
 Provides:  qmobipocket = %{version}-%{release}
@@ -41,7 +41,9 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
+    
 %cmake_build
 
 
@@ -53,15 +55,18 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 
 %files
 %license COPYING
-%{_libdir}/libqmobipocket.so.2*
+%{_libdir}/libQMobipocket6.so.2*
 
 %files devel
-%{_libdir}/libqmobipocket.so
-%{_includedir}/QMobipocket/
-%{_libdir}/cmake/QMobipocket/
+%{_libdir}/libQMobipocket6.so
+%{_includedir}/QMobipocket6/
+%{_libdir}/cmake/QMobipocket6/
 
 
 %changelog
+* Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -1,6 +1,6 @@
 Name:    kdesdk-thumbnailers
 Summary: Thumbnailers for KDE
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -12,16 +12,16 @@ URL:     https://invent.kde.org/sdk/%{name}
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext-devel
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  kf6-kconfig-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-kio-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  pkgconfig(Qt6Widgets)
 
 # translations moved here
 Conflicts: kde-l10n < 17.03
@@ -43,7 +43,8 @@ gettext translation templates
 
 
 %build
-%cmake_kf5
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
 
 %cmake_build
 
@@ -56,12 +57,15 @@ gettext translation templates
 
 %files -f %{name}.lang
 %license LICENSES/*
-%dir %{_qt5_plugindir}/kf5/thumbcreator
-%{_qt5_plugindir}/kf5/thumbcreator/pothumbnail.so
-%{_kf5_datadir}/config.kcfg/pocreatorsettings.kcfg
+%dir %{_qt6_plugindir}/kf6/thumbcreator
+%{_qt6_plugindir}/kf6/thumbcreator/pothumbnail.so
+%{_kf6_datadir}/config.kcfg/pocreatorsettings.kcfg
 
 
-%changelog
+%changelog	
+* Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 
