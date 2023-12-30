@@ -16,7 +16,6 @@ Source1:        %{name}.desktop
 Source2:        %{name}-gl.desktop
 # https://github.com/ArtifexSoftware/mupdf/pull/42
 Patch1:		dc339ceab37d962e91527068321790768262a42c.patch
-Patch2:		0001-adjust-to-changed-leptonica-lib-name.patch
 BuildRequires:  gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:  openjpeg2-devel desktop-file-utils
 BuildRequires:  libjpeg-devel freetype-devel libXext-devel curl-devel

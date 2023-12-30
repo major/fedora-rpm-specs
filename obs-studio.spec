@@ -39,7 +39,7 @@
 
 Name:           obs-studio
 Version:        30.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -133,12 +133,6 @@ Requires:       /usr/bin/ffmpeg
 ## Note, we can do this because openh264 is provided in a default-enabled
 ## third party repository provided by Cisco.
 Recommends:     libopenh264.so.%{openh264_soversion}%{?lib64_suffix}
-# We dlopen() libvlc
-Requires:       libvlc.so.%{libvlc_soversion}%{?lib64_suffix}
-# Replace split out plugin package
-Obsoletes:      %{name}-plugin-vlc < %{version}-%{release}
-Provides:       %{name}-plugin-vlc = %{version}-%{release}
-Provides:       %{name}-plugin-vlc%{?_isa} = %{version}-%{release}
 %if %{with x264}
 Requires:       x264
 %endif
@@ -382,6 +376,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Dec 28 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0-6
+- Drop broken obsoletes+provides for vlc plugin
+- Drop redundant dependency on libvlc in main package
+
 * Fri Dec 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0-5
 - Enable VLC video plugin
 - Split out browser plugin as a subpackage

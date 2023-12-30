@@ -1,5 +1,5 @@
 Name:           kicad
-Version:        7.0.9
+Version:        7.0.10
 Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
@@ -56,13 +56,6 @@ Requires:       unixODBC
 # We also recommend the models.
 Recommends:     libngspice
 Recommends:     ngspice-codemodel
-
-# wxGTK has been patched to no longer need redhat-lsb-core, but this
-# only happened in F38 and above.  So we keep the "recommends" for
-# F37 and below.  Once F37 is obsolete, we can remove this completely.
-%if 0%{?fedora} <= 37
-Recommends:     redhat-lsb-core
-%endif
 
 Suggests:       kicad
 
@@ -219,6 +212,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Thu Dec 28 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.10-1
+- Update to 7.0.10
+
 * Sun Nov 05 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.9-1
 - Update to 7.0.9
 

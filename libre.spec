@@ -1,6 +1,6 @@
 Summary:        Generic library for real-time communications
 Name:           libre
-Version:        3.7.0
+Version:        3.8.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
@@ -10,12 +10,18 @@ BuildRequires:  cmake
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
-%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  gcc-c++
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
+%else
+%if 0%{?rhel} >= 8
+# https://github.com/baresip/re/pull/1015
+BuildRequires:  openssl3-devel
 %else
 BuildRequires:  openssl11-devel
 # https://github.com/baresip/re/commit/3d079f67aa1bec733d668fb116e09a509bd806db
 BuildRequires:  devtoolset-8-toolchain
+%endif
 %endif
 BuildRequires:  zlib-devel
 # Cover multiple third party repositories
@@ -42,10 +48,14 @@ Protocol (RTMP).
 Summary:        Development files for the re library
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       pkgconfig
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} >= 9
 Requires:       openssl-devel
 %else
+%if 0%{?rhel} >= 8
+Requires:       openssl3-devel
+%else
 Requires:       openssl11-devel
+%endif
 %endif
 Requires:       zlib-devel
 # Cover multiple third party repositories
@@ -77,7 +87,10 @@ developing programs which use the re C library.
 %endif
 
 %cmake \
-%if 0%{?rhel} && 0%{?rhel} < 8
+%if 0%{?rhel} == 8
+  -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl3;%{_libdir}/openssl3"
+%endif
+%if 0%{?rhel} == 7
   -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl11;%{_libdir}/openssl11"
 %endif
 
@@ -94,7 +107,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.19*
+%{_libdir}/%{name}.so.20*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -104,6 +117,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Dec 28 2023 Robert Scheck <robert@fedoraproject.org> 3.8.0-1
+- Upgrade to 3.8.0 (#2256017)
+
 * Sun Nov 26 2023 Robert Scheck <robert@fedoraproject.org> 3.7.0-1
 - Upgrade to 3.7.0 (#2251345)
 

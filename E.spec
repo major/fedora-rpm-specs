@@ -1,6 +1,6 @@
 Name:		E
-Version:	2.6
-Release:	6%{?dist}
+Version:	3.0.03
+Release:	1%{?dist}
 Summary:	Equational Theorem Prover
 
 # The content is GPL-2.0-or-later OR LGPL-2.1-or-later.  The remaining licenses
@@ -10,15 +10,16 @@ Summary:	Equational Theorem Prover
 # CM-Super: GPL-1.0-or-later
 License:	(GPL-2.0-or-later OR LGPL-2.1-or-later) AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 URL:		https://www.eprover.org/
-Source0:	https://wwwlehre.dhbw-stuttgart.de/~sschulz/WORK/E_DOWNLOAD/V_%{version}/%{name}.tgz
+Source0:	https://github.com/eprover/eprover/archive/%{name}-%{version}.tar.gz
 # Bibliography file, courtesy of Debian, with modifications by Jerry James
 Source1:	eprover.bbl
 # Unbundle picosat
 Patch0:		%{name}-picosat.patch
 # Fix potential buffer overflows due to use of sprintf
 Patch1:		%{name}-format-overflow.patch
-# Fix linking in SIMPLE_APPS
-Patch2:		%{name}-simple-apps.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:	gcc
 BuildRequires:	help2man
@@ -46,7 +47,7 @@ the 2011 competition, it won second place in the FOF division, and
 placed highly in CNF and UEQ.
 
 %prep
-%autosetup -p0 -n %{name}
+%autosetup -p0 -n eprover-%{name}-%{version}
 
 # Fix the character encoding of one file
 iconv -f ISO8859-1 -t UTF-8 DOC/E-REMARKS > DOC/E-REMARKS.utf8
@@ -62,6 +63,9 @@ cp -p %{SOURCE1} DOC
 # Make sure we do not use the bundled picosat
 rm -fr include/picosat.h CONTRIB
 
+# Fix breakage from the higher-order logic build name change
+sed -i '/DOC/s,PROVER/eprover,&-ho,' Makefile
+
 %build
 # Set up Fedora CFLAGS and paths
 sed -e "s|^EXECPATH = .*|EXECPATH = %{buildroot}%{_bindir}|" \
@@ -74,15 +78,26 @@ sed -e "s|^EXECPATH = .*|EXECPATH = %{buildroot}%{_bindir}|" \
 make remake
 make man
 
+# We need one more pdflatex invocation to fix up cross references
+cd DOC
+bibtex eprover || :
+pdflatex eprover
+cd -
+
 %install
 %make_install
 
+# Backwards compatibility links
+ln -s eprover-ho %{buildroot}%{_bindir}/eprover
+cat > %{buildroot}%{_mandir}/man1/eprover-ho.1 << EOF
+.so man1/eprover.1
+EOF
+
 %check
-./PROVER/eprover -s --tstp-in EXAMPLE_PROBLEMS/TPTP/SYN190-1.p \
+./PROVER/eprover-ho -s --tstp-in EXAMPLE_PROBLEMS/TPTP/SYN190-1.p \
   | sed '/Freeing FVIndex/d' | tail -1 > test-results
 echo "# SZS status Unsatisfiable" > test-expected-results
 diff -u test-results test-expected-results
-
 
 %files
 %license COPYING
@@ -113,6 +128,7 @@ diff -u test-results test-expected-results
 %{_bindir}/ekb_insert
 %{_bindir}/epclextract
 %{_bindir}/eprover
+%{_bindir}/eprover-ho
 %{_mandir}/man1/checkproof.1*
 %{_mandir}/man1/e_axfilter.1*
 %{_mandir}/man1/e_deduction_server.1*
@@ -125,8 +141,15 @@ diff -u test-results test-expected-results
 %{_mandir}/man1/ekb_insert.1*
 %{_mandir}/man1/epclextract.1*
 %{_mandir}/man1/eprover.1*
+%{_mandir}/man1/eprover-ho.1*
 
 %changelog
+* Thu Dec 28 2023 Jerry James <loganjerry@gmail.com> - 3.0.03-1
+- Version 3.0.03
+- Stop building for 32-bit x86
+- Retrieve the source tarball from github
+- Drop upstreamed simple-apps patch
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

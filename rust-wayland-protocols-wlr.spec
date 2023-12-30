@@ -2,31 +2,35 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate smithay-client-toolkit
+%global crate wayland-protocols-wlr
 
-Name:           rust-smithay-client-toolkit
-Version:        0.18.0
+Name:           rust-wayland-protocols-wlr
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Toolkit for making client wayland applications
+Summary:        Generated API for the WLR wayland protocol extensions
 
-License:        MIT
-URL:            https://crates.io/crates/smithay-client-toolkit
+# Main license: MIT
+# Bundled wlr-protocols: MIT AND HPND-sell-variant
+License:        MIT AND HPND-sell-variant
+URL:            https://crates.io/crates/wayland-protocols-wlr
 Source:         %{crates_source}
+# https://github.com/Smithay/wayland-rs/pull/683
+Source:         https://github.com/Smithay/wayland-rs/raw/master/LICENSE.txt
 # Manually created patch for downstream crate metadata changes
-#  * Drop examples with unpackaged dependencies
-Patch:          smithay-client-toolkit-fix-metadata.diff
+#  * Exclude unwanted files
+Patch:          wayland-protocols-wlr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Toolkit for making client wayland applications.}
+Generated API for the WLR wayland protocol extensions.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       libxkbcommon-devel
+Provides:       bundled(wlr-protocols) = 0^20220905git4264185
 
 %description    devel %{_description}
 
@@ -36,7 +40,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE.txt
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -52,71 +55,58 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bytemuck-devel
+%package     -n %{name}+client-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bytemuck-devel %{_description}
+%description -n %{name}+client-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bytemuck" feature of the "%{crate}" crate.
+use the "client" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bytemuck-devel
+%files       -n %{name}+client-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+calloop-devel
+%package     -n %{name}+server-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+calloop-devel %{_description}
+%description -n %{name}+server-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "calloop" feature of the "%{crate}" crate.
+use the "server" feature of the "%{crate}" crate.
 
-%files       -n %{name}+calloop-devel
+%files       -n %{name}+server-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+calloop-wayland-source-devel
+%package     -n %{name}+wayland-client-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+calloop-wayland-source-devel %{_description}
+%description -n %{name}+wayland-client-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "calloop-wayland-source" feature of the "%{crate}" crate.
+use the "wayland-client" feature of the "%{crate}" crate.
 
-%files       -n %{name}+calloop-wayland-source-devel
+%files       -n %{name}+wayland-client-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pkg-config-devel
+%package     -n %{name}+wayland-server-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pkg-config-devel %{_description}
+%description -n %{name}+wayland-server-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pkg-config" feature of the "%{crate}" crate.
+use the "wayland-server" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pkg-config-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+xkbcommon-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+xkbcommon-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "xkbcommon" feature of the "%{crate}" crate.
-
-%files       -n %{name}+xkbcommon-devel
+%files       -n %{name}+wayland-server-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Drop examples with unpackaged dependencies
-rm -f examples/{relative_pointer.rs,wgpu.rs}
+cp -pav %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

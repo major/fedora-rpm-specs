@@ -5,14 +5,14 @@
 
 Summary: KDE Photo Album 
 Name:	 kphotoalbum
-Version: 5.9.1
-Release: 3%{?dist}
+Version: 5.12.0
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: (GPLv2 or GPLv3) and GFDL
 
 URL:	 http://kphotoalbum.org/
-Source0: http://download.kde.org/stable/kphotoalbum/%{version}/kphotoalbum-%{version}.tar.xz
+Source0: https://download.kde.org/stable/kphotoalbum/%{version}/kphotoalbum-%{version}.tar.xz
 
 ## upstream patches (lookaside cache)
 
@@ -83,7 +83,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kphotoalb
 
 
 %files -f %{name}.lang
-%doc ChangeLog
 %license LICENSES/*
 %config(noreplace) %{_kf5_sysconfdir}/xdg/kphotoalbumrc
 %{_kf5_bindir}/kpa-backup.sh
@@ -94,7 +93,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kphotoalb
 %{_kf5_libdir}/libkpathumbnails.so
 %{_kf5_libdir}/libkpaexif.so
 %{_kf5_datadir}/kphotoalbum/
-%{_kf5_datadir}/kxmlgui5/kphotoalbum/
 %{_kf5_metainfodir}/org.kde.kphotoalbum.*.xml
 %{_kf5_datadir}/applications/org.kde.kphotoalbum.desktop
 %{_kf5_datadir}/applications/org.kde.kphotoalbum-import.desktop
@@ -103,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kphotoalb
 
 
 %changelog
+* Wed Dec 27 2023 Marie Loise Nolden <loise@kde.org> - 5.12.0-1
+- Update to 5.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

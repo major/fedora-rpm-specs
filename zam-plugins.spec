@@ -1,20 +1,20 @@
-%global gittag 4.1
+%global gittag 4.2
 %global dpf DPF
 
 # Disable lto
 %define _lto_cflags %{nil}
 
 # DPF git submodule
-%global commit1 88180608a206b529fcb660d406ddf6f934002806
+%global commit1 63dfb7610bc37dee69f4a303f3e3362529d95f24
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 # pugl git submodule
-%global commit2 844528e197c51603f6cef3238b4a48d23bf60eb7
+%global commit2 2e98e220b5b860c1c8cd5809fad61baf27380a37
 %global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
 
 Name:           zam-plugins
 Version:        %{gittag}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A collection of LV2/LADSPA/JACK audio plugins
 
 License:        GPLv2+ and ISC
@@ -95,6 +95,9 @@ chmod -x %{buildroot}%{_libdir}/lv2/*.lv2/*.ttl
 %doc README.md
 
 %changelog
+* Mon Nov 20 2023 Guido Aulisi <guido.aulisi@gmail.com> - 4.2-1
+- Version 4.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

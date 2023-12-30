@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           nvme-cli
-Version:        2.6
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
@@ -17,7 +17,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 
-BuildRequires:  libnvme-devel >= 1.6
+BuildRequires:  libnvme-devel >= 1.7
 BuildRequires:  json-c-devel >= 0.13
 
 BuildRequires:  asciidoc
@@ -69,13 +69,18 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 %{_unitdir}/nvmf-autoconnect.service
 %{_unitdir}/nvmf-connect.target
 %{_unitdir}/nvmf-connect@.service
+%{_unitdir}/nvmf-connect-nbft.service
+%{_udevrulesdir}/65-persistent-net-nbft.rules
 %{_udevrulesdir}/70-nvmf-autoconnect.rules
-%{_udevrulesdir}/71-nvmf-iopolicy-netapp.rules
+%{_udevrulesdir}/71-nvmf-netapp.rules
 # Do not install the dracut rule yet.  See rhbz 1742764
 # /usr/lib/dracut/dracut.conf.d/70-nvmf-autoconnect.conf
 
 
 %changelog
+* Thu Dec 28 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.7.1-1
+- Update to 2.7.1
+
 * Fri Sep 29 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.6-1
 - Update to 2.6
 

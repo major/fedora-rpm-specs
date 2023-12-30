@@ -11,7 +11,7 @@ Version:        0.10.3
 Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
-License:        GPL-2.0-or-later
+License:        LGPL-2.0-or-later
 URL:            https://github.com/podofo/podofo
 Source0:        https://github.com/podofo/podofo/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
 

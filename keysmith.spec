@@ -1,33 +1,33 @@
 Name:           keysmith
-Version:        23.08.2
+Version:        24.01.85
 Release:        1%{?dist}
 License:        GPLv3+
 Summary:        Convergent OTP client
 Url:            https://invent.kde.org/utilities/keysmith
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
 BuildRequires:  cmake
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  gcc-c++
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  appstream
 
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  libsodium-devel
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Concurrent)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Concurrent)
 
-Requires:       kf5-kirigami2
+Requires:       kf6-kirigami
 Requires:       hicolor-icon-theme
 
 
@@ -38,7 +38,7 @@ OTP client for Plasma Mobile and Desktop
 %autosetup -n %{name}-%{version}
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -47,18 +47,24 @@ OTP client for Plasma Mobile and Desktop
 
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
 %doc README.md
 %license COPYING LICENSES/*.txt
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Thu Dec 28 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
+* Sat Dec 16 2023 Marie Loise Nolden <loise@kde.org> - 24.01.80-1
+- 24.01.80
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

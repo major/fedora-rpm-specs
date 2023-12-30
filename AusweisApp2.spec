@@ -6,10 +6,10 @@
 %{?__debug_package:%{__debug_install_post}}      \
 %{__arch_install_post}                           \
 %{__os_install_post}                             \
-fipshmac %{buildroot}%{_bindir}/%{name}          \\\
-  %{buildroot}%{_libexecdir}/%{name}             \\\
-  %{buildroot}%{_datadir}/%{name}/openssl.cnf    \
-c="%{buildroot}%{_datadir}/%{name}/config.json"  \
+fipshmac %{buildroot}%{_bindir}/%{newname}          \\\
+  %{buildroot}%{_libexecdir}/%{newname}             \\\
+  %{buildroot}%{_datadir}/%{newname}/openssl.cnf    \
+c="%{buildroot}%{_datadir}/%{newname}/config.json"  \
 if [[ -f ${c} ]]; then                           \
   fipshmac ${c}                                  \
 fi                                               \
@@ -37,10 +37,12 @@ fi                                               \
 # Package summary.  Gets overwritten by subpackages otherwise.
 %global pkg_sum   Online identification with German ID card (Personalausweis)
 
+# Upstream renamed to AusweisApp with 2.0 release
+%global newname   AusweisApp
 
 Name:             AusweisApp2
-Version:          1.26.7
-Release:          4%{?dist}
+Version:          2.0.1
+Release:          1%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -53,10 +55,10 @@ URL:              https://www.ausweisapp.bund.de/en
 # gpg2 --keyserver keyserver.ubuntu.com --recv-keys 699BF3055B0A49224EFDE7C72D7479A531451088
 # gpg2 --export --export-options export-minimal 699BF3055B0A49224EFDE7C72D7479A531451088 > %%{name}-pubring.gpg
 
-Source0000:       %{rel_url}/%{name}-%{version}.tar.gz
-Source0001:       %{rel_url}/%{name}-%{version}.tar.gz.asc
+Source0000:       %{rel_url}/%{newname}-%{version}.tar.gz
+Source0001:       %{rel_url}/%{newname}-%{version}.tar.gz.asc
 Source0002:       %{name}-pubring.gpg
-Source0003:       %{rel_url}/%{name}-%{version}.tar.gz.sha256
+Source0003:       %{rel_url}/%{newname}-%{version}.tar.gz.sha256
 Source0004:       https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/2020-03/EUPL-1.2%%20EN.txt#/EUPL-12_EN.txt
 Source1000:       gen_openssl_cnf.py
 
@@ -180,7 +182,7 @@ pushd %{_sourcedir}
 sha256sum -c %{SOURCE3}
 popd
 
-%autosetup -p 1
+%autosetup -p 1 -n %{newname}-%{version}
 install -pm 0644 %{SOURCE4} LICENSE.en.txt
 
 # Generate application specific OpenSSL configuration.
@@ -192,13 +194,13 @@ install -pm 0644 %{SOURCE4} LICENSE.en.txt
 cat << EOF > fedora_%{name}_wrapper.sh
 #!/bin/sh
 # /usr/bin/fipscheck                               \\
-#     %{_bindir}/%{name}                         \\
-#     %{_libexecdir}/%{name}                     \\
-#     %{_datadir}/%{name}/config.json           \\
-#     %{_datadir}/%{name}/openssl.cnf           \\
+#     %{_bindir}/%{newname}                         \\
+#     %{_libexecdir}/%{newname}                     \\
+#     %{_datadir}/%{newname}/config.json           \\
+#     %{_datadir}/%{newname}/openssl.cnf           \\
 # || exit \$?;
-OPENSSL_CONF=%{_datadir}/%{name}/openssl.cnf  \\
-%{_libexecdir}/%{name} "\$@";
+OPENSSL_CONF=%{_datadir}/%{newname}/openssl.cnf  \\
+%{_libexecdir}/%{newname} "\$@";
 EOF
 
 
@@ -220,13 +222,13 @@ EOF
 
 %if (0%{?fedora} || 0%{?rhel} > 8)
 # Documentation.
-%cmake_build --target inst inte notes sdk
+%cmake_build --target installation_integration notes sdk
 %if %{with doxy}
 %cmake_build --target doxy
 %endif
 %else
 # Documentation.
-%ninja_build -C %{_vpath_builddir} inst inte notes sdk
+%ninja_build -C %{_vpath_builddir} installation_integration notes sdk
 %if %{with doxy}
 %ninja_build -C %{_vpath_builddir} doxy
 %endif
@@ -239,29 +241,28 @@ EOF
 # Relocate the application binary so we can call it through
 # a shell wrapper and move installed files to proper locations.
 mkdir -p %{buildroot}{%{_libexecdir},%{_qt5_translationdir}}
-mv %{buildroot}%{_bindir}/%{name} %{buildroot}%{_libexecdir}/%{name}
+mv %{buildroot}%{_bindir}/%{newname} %{buildroot}%{_libexecdir}/%{newname}
 
 # Install the shell wrapper and custom OpenSSL configuration.
-install -pm 0755 fedora_%{name}_wrapper.sh %{buildroot}%{_bindir}/%{name}
+install -pm 0755 fedora_%{name}_wrapper.sh %{buildroot}%{_bindir}/%{newname}
 install -pm 0644 fedora_%{name}_openssl.cnf   \
-  %{buildroot}%{_datadir}/%{name}/openssl.cnf
+  %{buildroot}%{_datadir}/%{newname}/openssl.cnf
 
 # Move translation in proper location.
 %if !(0%{?qt6_build})
-mv %{buildroot}%{_datadir}/%{name}/translations/* \
+mv %{buildroot}%{_datadir}/%{newname}/translations/* \
   %{buildroot}%{_qt5_translationdir}
-rm -fr %{buildroot}%{_datadir}/%{name}/translations
+rm -fr %{buildroot}%{_datadir}/%{newname}/translations
 %endif
 
 # Excessive docs.
-mkdir -p %{buildroot}%{_pkgdocdir}/{installation,integration,notes,sdk}
+mkdir -p %{buildroot}%{_pkgdocdir}/{installation_integration,notes,sdk}
 install -pm 0644 README.rst %{buildroot}%{_pkgdocdir}
 %if %{with doxy}
 mkdir -p %{buildroot}%{_pkgdocdir}/doxy
 cp -a %{_vpath_builddir}/doc/html/* %{buildroot}%{_pkgdocdir}/doxy
 %endif
-cp -a %{_vpath_builddir}/docs/inst/html/* %{buildroot}%{_pkgdocdir}/installation
-cp -a %{_vpath_builddir}/docs/inte/html/* %{buildroot}%{_pkgdocdir}/integration
+cp -a %{_vpath_builddir}/docs/installation_integration/html/* %{buildroot}%{_pkgdocdir}/installation_integration
 cp -a %{_vpath_builddir}/docs/notes/html/* %{buildroot}%{_pkgdocdir}/notes
 cp -a %{_vpath_builddir}/docs/sdk/html/* %{buildroot}%{_pkgdocdir}/sdk
 find %{buildroot}%{_pkgdocdir} -type d -print0 | xargs -0 chmod -c 0755
@@ -291,12 +292,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license AUTHORS
 %license LICENSE.en.txt
 %license LICENSE.txt
-%{_bindir}/.%{name}.hmac
-%{_bindir}/%{name}
+%{_bindir}/.%{newname}.hmac
+%{_bindir}/%{newname}
 %{_datadir}/applications/com.governikus.%{lc_name}.desktop
-%{_libexecdir}/.%{name}.hmac
-%{_libexecdir}/%{name}
-%{_mandir}/man1/%{name}.1*
+%{_libexecdir}/.%{newname}.hmac
+%{_libexecdir}/%{newname}
+%{_mandir}/man1/%{newname}.1*
 %{_metainfodir}/com.governikus.%{lc_name}.metainfo.xml
 
 
@@ -305,7 +306,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %else
 %files data -f %{lc_name}.icons -f %{lc_name}.lang
 %endif
-%{_datadir}/%{name}
+%{_datadir}/%{newname}
 
 
 %files doc
@@ -314,6 +315,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Dec 28 2023 Julian Sikorski <belegdol@fedoraproject.org> - 2.0.1-1
+- Update to 2.0.1
+- Fix up config.json.in section names
+
 * Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 1.26.7-4
 - Rebuild (qt6)
 

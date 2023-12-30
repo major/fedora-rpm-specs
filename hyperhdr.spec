@@ -1,11 +1,11 @@
 Name:           hyperhdr
-Version:        19.0.0.0
-Release:        6%{?dist}
+Version:        20.0.0.0
+Release:        0.1%{?dist}
 Summary:        Ambient lighting
 
 License:        MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
 URL:            https://github.com/awawa-dev/HyperHDR
-Source0:        %{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}beta1/hyperhdr-%{version}beta1.tar.gz
 Patch0:         fix.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -45,13 +45,13 @@ The %{name}-common package contains LUT files for
 %{name}.
 
 %prep
-%autosetup -p1 -n HyperHDR-%{version}
+%autosetup -p1 -n HyperHDR-%{version}beta1
 
-mkdir dependencies/bonjour
-ln -svf %{_includedir}/mdns.h ./dependencies/bonjour/mdns.h
-sed -i  -e 's|file(DOWNLOAD "https://raw.githubusercontent.com/mjansson/mdns/${MJANSSON_MDNS_VERSION}/mdns.h"||' \
-        -e 's|"${CMAKE_SOURCE_DIR}/dependencies/bonjour/mdns.h"||' \
-        -e 's|STATUS MJANSSON_MDNS_STATUS_H)||' CMakeLists.txt
+#mkdir dependencies/bonjour
+#ln -svf %{_includedir}/mdns.h ./dependencies/bonjour/mdns.h
+#sed -i  -e 's|file(DOWNLOAD "https://raw.githubusercontent.com/mjansson/mdns/${MJANSSON_MDNS_VERSION}/mdns.h"||' \
+#        -e 's|"${CMAKE_SOURCE_DIR}/dependencies/bonjour/mdns.h"||' \
+#        -e 's|STATUS MJANSSON_MDNS_STATUS_H)||' CMakeLists.txt
 
 %build
 %cmake -G Ninja \
@@ -70,7 +70,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/lut/
 tar -xf resources/lut/lut_lin_tables.tar.xz -C %{buildroot}%{_datadir}/%{name}/lut/
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %post
 %systemd_user_post %{name}.service
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}
 
 %changelog
+* Thu Dec 28 2023 Vasiliy Glazov <vascom2@gmail.com> - 20.0.0.0-0.1
+- Update to 20.0.0.0.beta1
+
 * Tue Oct 24 2023 Vasiliy Glazov <vascom2@gmail.com> - 19.0.0.0-6
 - Rebuild for new Qt6
 

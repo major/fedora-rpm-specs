@@ -543,7 +543,8 @@ fi
     data" errors due to small ProFTPD buffer (GH#1694)
   - Fix high session memory usage caused by SFTP outgoing data buffering
     (GH#1678)
-  - Out-of-bounds buffer read when handling FTP commands (GH#1683)
+  - Out-of-bounds buffer read when handling FTP commands (GH#1683,
+    CVE-2023-51713)
   - SFTP algorithm settings in <Global> section were not being used (GH#1712)
 
 * Thu Jul 27 2023 Paul Howarth <paul@city-fan.org> - 1.3.8-7

@@ -4,8 +4,8 @@
 %global tag %{version}
 
 Name:          muffin
-Version:       6.0.0
-Release:       2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:       6.0.1
+Release:       1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -141,6 +141,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Dec 28 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
+- Update to 6.0.1 release
+
 * Mon Dec 04 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-2
 - Drop eglstreams support
 

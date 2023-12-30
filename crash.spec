@@ -4,7 +4,7 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 8.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.gz
@@ -19,6 +19,20 @@ Provides: bundled(libiberty)
 Provides: bundled(gdb) = 10.2
 Patch0: lzo_snappy_zstd.patch
 Patch1: crash-8.0.4_build.patch
+Patch2: 0001-Fix-rd-command-for-zram-data-display-in-Linux-6.2-an.patch
+Patch3: 0002-Fix-typos-in-offset_table-and-missing-help-o-items.patch
+Patch4: 0003-zram-Fixes-for-lookup_swap_cache.patch
+Patch5: 0004-symbols-expand-all-kernel-module-symtable-if-not-all.patch
+Patch6: 0005-symbols-skip-load-.init.-sections-if-module-was-succ.patch
+Patch7: 0006-use-NR_SWAPCACHE-when-nr_swapper_spaces-isn-t-availa.patch
+Patch8: 0007-Fix-identity_map_base-value-dump-on-S390.patch
+Patch9: 0008-s390x-fix-virtual-vs-physical-address-confusion.patch
+Patch10: 0009-s390x-uncouple-physical-and-virtual-memory-spaces.patch
+Patch11: 0010-RISCV64-Dump-NT_PRSTATUS-in-help-n.patch
+Patch12: 0011-RISCV64-Fix-bt-output-when-no-ra-on-the-stack-top.patch
+Patch13: 0012-arm64-rewrite-the-arm64_get_vmcoreinfo_ul-to-arm64_g.patch
+Patch14: 0013-help.c-Remove-kmem-l-help-messages.patch
+Patch15: 0014-x86_64-check-bt-bptr-before-calculate-framesize.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -40,6 +54,20 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %setup -n %{name}-%{version} -q
 %patch -P 0 -p1 -b lzo_snappy_zstd.patch
 %patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
+%patch -P 14 -p1
+%patch -P 15 -p1
 
 %build
 
@@ -65,6 +93,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Thu Dec 28 2023 Lianbo Jiang <lijiang@redhat.com> - 8.0.4-2
+- Update to the latest upstream commit: 53d2577cef98
+
 * Thu Nov 16 2023 Lianbo Jiang <lijiang@redhat.com> - 8.0.4-1
 - Rebase to upstream crash 8.0.4
 

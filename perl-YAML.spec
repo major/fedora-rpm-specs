@@ -12,8 +12,8 @@
 %endif
 
 Name:           perl-YAML
-Version:        1.30
-Release:        16%{?dist}
+Version:        1.31
+Release:        1%{?dist}
 Summary:        YAML Ain't Markup Language (tm)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML
@@ -59,7 +59,7 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(Test::Pod) >= 1.41
 %endif
 %endif
-# Runtime
+# Dependencies
 Requires:       perl(B::Deparse)
 Requires:       perl(Carp)
 
@@ -68,11 +68,21 @@ Requires:       perl(Carp)
 %global __provides_exclude ^perl\\(yaml_
 
 %description
-The YAML.pm module implements a YAML Loader and Dumper based on the YAML 1.0
-specification (http://www.yaml.org/spec/). YAML is a generic data serialization
-language that is optimized for human readability. It can be used to express the
-data structures of most modern programming languages, including Perl.  For
-information on the YAML syntax, please refer to the YAML specification.
+If you need to use YAML with Perl, it is likely that you will have a look at
+this module (YAML.pm) first. There are several YAML modules in Perl and they
+all support the simple Load() and Dump() API. Since this one has the obvious
+name "YAML", it may seem obvious to pick this one.
+
+The author of this module humbly asks you to choose another. YAML.pm was the
+very first YAML implementation in the world, released in 2001. It was
+originally made as a prototype, over 2 years before the YAML 1.0 spec was
+published. Although it may work for your needs, it has numerous bugs and is
+barely maintained.
+
+Please consider using these first:
+ * YAML::PP - Pure Perl, full featured, well maintained
+ * YAML::PP::LibYAML - A libyaml Perl binding like YAML::XS but with the
+   YAML::PP API
 
 %prep
 %setup -q -n YAML-%{version}
@@ -133,6 +143,11 @@ make test AUTHOR_TESTING=%{with perl_YAML_enables_extra_test}
 %{_mandir}/man3/YAML::Types.3*
 
 %changelog
+* Thu Dec 28 2023 Paul Howarth <paul@city-fan.org> - 1.31-1
+- Update to 1.31 (rhbz#2255994)
+  - Update docs to recommend YAML::PP
+- Package description updated as per upstream documentation
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name pynetbox
 
 Name:           python-%{pypi_name}
-Version:        7.1.0
+Version:        7.2.0
 Release:        %autorelease
 Summary:        Python API client library for Netbox
 

@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.7.0
+Version:        3.8.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -11,19 +11,25 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
+Patch0:         https://github.com/baresip/baresip/pull/2850/commits/ad6a48ad4a10580841cb5b07b27a96a26b26ada1.patch#/baresip-3.8.0-rpath.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 3.7.0
-%if 0%{?fedora} || 0%{?rhel} >= 8
-BuildRequires:  openssl-devel >= 1.1.0
+BuildRequires:  libre-devel >= 3.8.0
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openssl-devel
+%else
+%if 0%{?rhel} >= 8
+# https://github.com/baresip/re/pull/1015
+BuildRequires:  openssl3-devel
 %else
 BuildRequires:  openssl11-devel
 # Atomic support in libre >= 2.1.0
 BuildRequires:  devtoolset-8-toolchain
+%endif
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 8
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
@@ -365,7 +371,7 @@ Baresip is a modular SIP user-agent with audio and video support.
 This module provides the X11 video output driver.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -383,7 +389,10 @@ This module provides the X11 video output driver.
 %else
   -DDEFAULT_AUDIO_DEVICE:STRING="pulse" \
 %endif
-%if 0%{?rhel} && 0%{?rhel} < 8
+%if 0%{?rhel} == 8
+  -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl3;%{_libdir}/openssl3"
+%endif
+%if 0%{?rhel} == 7
   -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl11;%{_libdir}/openssl11"
 %endif
 
@@ -444,7 +453,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.11*
+%{_libdir}/lib%{name}.so.12*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -584,6 +593,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Thu Dec 28 2023 Robert Scheck <robert@fedoraproject.org> 3.8.0-1
+- Upgrade to 3.8.0 (#2256050)
+
 * Sun Nov 26 2023 Robert Scheck <robert@fedoraproject.org> 3.7.0-1
 - Upgrade to 3.7.0 (#2251125)
 

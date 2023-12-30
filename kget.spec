@@ -1,6 +1,6 @@
 Name:    kget
 Summary: Download manager
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -12,7 +12,10 @@ URL:     https://invent.kde.org/network/%{name}
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# https://invent.kde.org/network/kget/-/merge_requests/69
+Patch0:  mms-plugin-kcmutils-dependency.patch
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 
@@ -22,45 +25,45 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5KDELibs4Support)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5NotifyConfig)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5Solid)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6Solid)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Sql)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Xml)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
 
-# relax from >= %%{majmin_ver}
-BuildRequires: kf5-libktorrent-devel
+BuildRequires: cmake(KTorrent6)
 
 BuildRequires: cmake(Gpgmepp)
-BuildRequires: cmake(QGpgme)
-BuildRequires: pkgconfig(qca2-qt5)
+BuildRequires: cmake(QGpgmeQt6)
+BuildRequires: pkgconfig(qca2-qt6)
 BuildRequires: pkgconfig(sqlite3)
+BuildRequires: pkgconfig(libmms)
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -88,7 +91,7 @@ Provides:  kdenetwork-kget-libs = 7:%{version}-%{release}
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -99,39 +102,41 @@ Provides:  kdenetwork-kget-libs = 7:%{version}-%{release}
 %find_lang %{name} --all-name --with-html
 
 ## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libkgetcore.so
+rm -fv %{buildroot}%{_kf6_libdir}/libkgetcore.so
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc AUTHORS README TODO
 %license COPYING*
-%{_kf5_bindir}/kget
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/config.kcfg/kget*
-%{_kf5_datadir}/dbus-1/services/org.kde.kget.service
-%{_kf5_datadir}/icons/hicolor/*/apps/kget.*
-%{_kf5_datadir}/kget/
-%{_kf5_datadir}/kio/servicemenus/kget_download.desktop
-%{_kf5_datadir}/knotifications5/kget*
-%{_kf5_datadir}/kservicetypes5/kget*
-%{_kf5_datadir}/kxmlgui5/kget/
-%{_kf5_datadir}/qlogging-categories5/%{name}*
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_bindir}/kget
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/config.kcfg/kget*
+%{_kf6_datadir}/dbus-1/services/org.kde.kget.service
+%{_kf6_datadir}/icons/hicolor/*/apps/kget.*
+%{_kf6_datadir}/kget/
+%{_kf6_datadir}/kio/servicemenus/kget_download.desktop
+%{_kf6_datadir}/kio/servicemenus/kget_plugin.desktop
+%{_kf6_datadir}/knotifications6/kget*
+%{_kf6_datadir}/qlogging-categories6/%{name}*
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %ldconfig_scriptlets libs
 
 %files libs
-%{_kf5_libdir}/libkgetcore.so.5*
-%{_kf5_qtplugindir}/kget/
-%{_kf5_qtplugindir}/kget_kcms/
+%{_kf6_libdir}/libkgetcore.so.*
+%{_kf6_qtplugindir}/kget/
+%{_kf6_qtplugindir}/kget_kcms/
 
 
 %changelog
+* Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

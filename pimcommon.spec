@@ -1,6 +1,6 @@
 Name:    pimcommon
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: PIM common libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
@@ -49,7 +49,7 @@ BuildRequires:  cmake(Qt6Xml)
 %{summary}.
 
 %package        akonadi
-Summary:        The PimCommonAkondi runtime library
+Summary:        The PimCommon Akondi runtime library
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description akonadi
 %{summary}.
@@ -102,6 +102,12 @@ developing applications that use %{name}.
 %{_includedir}/KPim6/PimCommonAkonadi/
 
 %changelog
+* Thu Dec 28 2023 Steve Cossette <farchord@gmail.com> - 24.01.85-3
+- Reverted last commit
+
+* Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
+- Add obsoletes for upgrade path
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

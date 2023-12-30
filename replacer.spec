@@ -45,6 +45,10 @@ This package contains javadoc for %{name}.
 # trivial port to commons-lang3
 %pom_change_dep :commons-lang org.apache.commons:commons-lang3:3.8.1
 
+# "No mojo definitions were found for plugin" with maven-plugin-plugin 3.9
+%pom_xpath_inject "pom:build/pom:plugins/pom:plugin[pom:artifactId='maven-plugin-plugin']" \
+    '<configuration><skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound></configuration>'
+
 for i in $(find -name "*.java"); do
     sed -i "s/org.apache.commons.lang./org.apache.commons.lang3./g" $i;
 done

@@ -1,6 +1,6 @@
 Name:           exec-maven-plugin
-Version:        3.1.0
-Release:        3%{?dist}
+Version:        3.1.1
+Release:        1%{?dist}
 Summary:        Exec Maven Plugin
 
 License:        ASL 2.0
@@ -45,7 +45,7 @@ find . -name *.jar -delete
 #Drop test part. sonatype-aerther not available
 %pom_remove_dep :mockito-core
 %pom_remove_dep :maven-plugin-testing-harness
-%pom_remove_dep :plexus-interpolation
+%pom_remove_dep :plexus-xml
 %pom_remove_dep :slf4j-simple
 
 %pom_remove_plugin :maven-dependency-plugin
@@ -63,6 +63,9 @@ rm -rf src/test/
 %dir %{_javadir}/%{name}
 
 %changelog
+* Tue Dec 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.1-1
+- Update to upstream version 3.1.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
