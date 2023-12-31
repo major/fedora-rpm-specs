@@ -4,7 +4,7 @@
 
 Summary:	Multi-purpose calculator library
 Name:		libqalculate
-Version:	4.8.1
+Version:	4.9.0
 Release:	%autorelease
 License:	GPLv2+
 

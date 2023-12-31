@@ -13,20 +13,20 @@
 %global	userelease	1
 %endif
 
-%global	majorver	41
+%global	majorver	42
 #%%global	minorver	3
-%global	docver	41
+%global	docver	42
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
 %if 0%{?usegitbare} >= 1
-# master
-%global	gitcommit	2275fb85da31a8c802ebf9730935c8c00d6cdea0
-%global	gitdate	20230814
+# pre-master-42
+%global	gitcommit	c87df54f24969de0c9d503c349258d9953ae208a
+%global	gitdate	20231111
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20230816
-%global	tarballtime	0753
+%global	tarballdate	20231112
+%global	tarballtime	1636
 %endif
 
 %if	0%{?userelease} >= 1
@@ -35,6 +35,8 @@
 %if	0%{?usegitbare} >= 1
 %global	fedoraver		%{majorver}%{?minorver:.%minorver}^%{gitdate}git%{shortcommit}
 %endif
+
+%bcond_with	adms
 
 %undefine       _changelog_trimtime
 
@@ -53,7 +55,9 @@ Source0:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{ma
 Source0:       	ngspice-%{tarballdate}T%{tarballtime}.tar.gz
 %endif
 Source1:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{majorver}/ngspice-%{docver}-manual.pdf
+%if %{with adms}
 Source2:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{majorver}/ngspice-adms-va.7z
+%endif
 Source10:		create-ngspice-git-bare-tarball.sh
 
 
@@ -170,6 +174,7 @@ git config user.email "%{name}-maintainers@fedoraproject.org"
 git checkout -b %{name}-%{majorver}-fedora %{gitcommit}
 %endif
 
+%if %{with adms}
 pushd src/spicelib/devices/adms
 %if 0%{?userelease} >= 1
 7za x %{SOURCE2}
@@ -185,7 +190,9 @@ do
 	test -f $f || exit 1
 done
 %endif
+
 popd
+%endif
 
 %patch -P0 -p2 -b .link
 git commit -m "Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or not" -a
@@ -237,7 +244,11 @@ sed -i \
 git commit -m "Fix include path" -a
 
 export ACLOCAL_FLAGS=-Im4
-./autogen.sh --adms
+./autogen.sh \
+%if %{with adms}
+	--adms \
+%endif
+	%{nil}
 git commit -m "Execute autogen" -a || :
 
 chmod +x configure
@@ -273,8 +284,11 @@ export CPPFLAGS=-DUSE_INTERP_RESULT
 # by the request from the upstream
 %configure \
 	--disable-silent-rules \
+%if %{with adms}
 	--enable-adms \
+%endif
 	--enable-xspice \
+	--enable-klu \
 	--enable-osdi \
 	--enable-maintainer-mode \
 	--enable-dependency-tracking \
@@ -312,9 +326,12 @@ do
 %configure \
 	--disable-silent-rules \
 	${SHARED_OPT} \
+%if %{with adms}
 	--enable-adms \
+%endif
 	--enable-xspice \
 	--enable-osdi \
+	--enable-klu \
 	--enable-maintainer-mode \
 	--enable-dependency-tracking \
 	--enable-cider \
@@ -452,6 +469,11 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Fri Dec 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 42-1
+- Update to 42
+- Kill --with-adms
+- Enable --with-klu
+
 * Wed Aug 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 41-1
 - Update to 41
 

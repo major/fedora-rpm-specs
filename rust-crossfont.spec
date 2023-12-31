@@ -5,7 +5,7 @@
 %global crate crossfont
 
 Name:           rust-crossfont
-Version:        0.5.2
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Cross platform native font loading and rasterization
 

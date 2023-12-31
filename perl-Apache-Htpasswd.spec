@@ -1,19 +1,27 @@
 Name:           perl-Apache-Htpasswd
 Version:        1.9
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Manage Unix crypt-style password file
-
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Apache-Htpasswd
 Source0:        https://cpan.metacpan.org/authors/id/K/KM/KMELTZ/Apache-Htpasswd-%{version}.tar.gz
-
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Crypt::PasswdMD5)
 BuildRequires:  perl(Digest::SHA)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) %{!?el7:>= 6.76}
+BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
 
 
 %description
@@ -29,30 +37,34 @@ was written specifically for .htaccess style files.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor %{!?el7:NO_PACKLIST=1 NO_PERLLOCAL=1}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%make_install
+%if 0%{?el7}
+find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
+find %{buildroot} -type f -name perllocal.pod -exec rm -f {} ';'
+find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
+%endif
+%{_fixperms} %{buildroot}/*
 
 
 %check
 make test
 
 
-
 %files
 %doc README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/Apache
+%{_mandir}/man3/Apache::Htpasswd.3pm.*
 
 
 %changelog
+* Fri Dec 29 2023 Xavier Bachelot <xavier@bachelot.org> - 1.9-31
+- Cleanup specfile
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,10 +5,10 @@
 
 Name:             mpc
 Summary:          Command-line client for MPD
-Version:          0.34
-Release:          5%{?dist}
+Version:          0.35
+Release:          1%{?dist}
 
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              http://www.musicpd.org/
 Source0:          http://www.musicpd.org/download/mpc/0/mpc-%{version}.tar.xz
 BuildRequires:    bash-completion
@@ -51,6 +51,9 @@ rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %changelog
+* Fri Dec 29 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 0.35-1
+- Update to 0.35
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

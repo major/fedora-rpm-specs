@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-pdfminer
-Version:        20221105
+Version:        20231228
 Release:        %autorelease
 Summary:        Tool for extracting information from PDF documents
 
@@ -69,6 +69,7 @@ Source3:        pdf2txt.1
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  git-core
 BuildRequires:  make
 
 # We use the Japan1, Korea1, GB1, and CNS1 CMaps:
@@ -158,7 +159,7 @@ License:        MIT
 
 
 %prep
-%autosetup -n pdfminer.six-%{version}
+%autosetup -n pdfminer.six-%{version} -S git
 
 # Unbundle cmap data; it will be replaced in %%build.
 rm -vf cmaprsrc/* pdfminer/cmap/*
@@ -167,10 +168,6 @@ rm -vf cmaprsrc/* pdfminer/cmap/*
 sed -r -i '1{/^#!/d}' pdfminer/psparser.py
 # Fix unversioned Python shebangs
 %py3_shebang_fix tools
-
-# Imitate the “publish” GitHub action, which sets the version metadata from the
-# git tag when publishing to PyPI. See .github/workflows/actions.yml.
-sed -r -i 's/__VERSION__/%{version}/g' pdfminer/__init__.py
 
 # Copy the pyHanko license to the top-level directory so it is automatically
 # included in the licenses in the installed dist-info directory.
@@ -190,7 +187,26 @@ do
 done
 %make_build cmap PYTHON='%{python3}'
 
+# Make an updated git commit and set a tag for setuptools_git_version.
+#
+# Normally this kind of thing would be in %%prep, but we must do this
+# immediately before building the wheel, and after any other changes such as
+# rebuilding the pickled CMap resources, lest setuptools_git_version determine
+# that the tree is “dirty” and produce a “post” version, appearing in the
+# binary RPMs as something like YYYYMMDD^post0.
+#
+# We *also* need to ensure that git ignores anything that might be written
+# during %%pyproject_wheel, or we will still end up with a dirty/postrelease
+# version.
+echo '*pyproject*' >> .gitignore
+git add -A
+git commit -m 'Imitate upstream release %{version}'
+git tag '%{version}'
+
 %pyproject_wheel
+# Debug dynamic versioning:
+# git status
+# %%{python3} -m setuptools_git_versioning --verbose
 
 %if %{with doc}
 PYTHONPATH="${PWD}" %make_build -C docs latex \

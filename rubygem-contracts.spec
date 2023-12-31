@@ -2,10 +2,11 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.17
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 Summary:	Contracts for Ruby
-License:	BSD
+# SPDX confirmed
+License:	BSD-2-Clause
 URL:		http://egonschiele.github.io/contracts.ruby/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Upstream patches
@@ -81,6 +82,9 @@ popd
 %{gem_instdir}/benchmarks/
 
 %changelog
+* Fri Dec 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.17-8
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

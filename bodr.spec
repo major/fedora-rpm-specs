@@ -1,9 +1,9 @@
 Name:           bodr
 Version:        10
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Blue Obelisk Data Repository
 
-License:        MIT
+License:        CC0-1.0
 URL:            http://www.blueobelisk.org
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 
@@ -11,7 +11,7 @@ BuildArch:      noarch
 BuildRequires:  libxml2
 BuildRequires:  libxslt
 BuildRequires:  perl(diagnostics)
-BuildRequires: make
+BuildRequires:  make
 Requires:       pkgconfig
 
 %description
@@ -44,6 +44,9 @@ mv $RPM_BUILD_ROOT%{_docdir}/bodr DOC
 
 
 %changelog
+* Fri Dec 29 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 10-21
+- Switch to SPDX license identifier
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

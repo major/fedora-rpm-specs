@@ -2,29 +2,35 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate glutin_egl_sys
+%global crate libbpf-cargo
 
-Name:           rust-glutin_egl_sys
-Version:        0.6.0
+Name:           rust-libbpf-cargo0.21
+Version:        0.21.2
 Release:        %autorelease
-Summary:        Egl bindings for glutin
+Summary:        Cargo plugin to build bpf programs
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/glutin_egl_sys
+License:        LGPL-2.1-only OR BSD-2-Clause
+URL:            https://crates.io/crates/libbpf-cargo
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          glutin_egl_sys-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * disable bin - compat crate
+Patch:          libbpf-cargo-fix-metadata.diff
+# by default, test.rs expects libbpf-rs to be in the same checkout
+# fix to point to /usr/share/cargo/registry
+Patch:          libbpf-cargo-fix-finding-libbpf-rs.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-The egl bindings for glutin.}
+Cargo plugin to build bpf programs.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       clang
+Requires:       rustfmt
 
 %description    devel %{_description}
 
@@ -33,6 +39,9 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.BSD-2-Clause
+%license %{crate_instdir}/LICENSE.LGPL-2.1
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,12 +57,26 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+novendor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+novendor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "novendor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+novendor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+echo 'clang'
+echo 'rustfmt'
 
 %build
 %cargo_build

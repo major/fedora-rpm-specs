@@ -1,11 +1,14 @@
 Name:           chemical-mime-data
 Version:        0.1.94
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Support for chemical/* MIME types
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/dleidert/chemical-mime
-Source0:        http://downloads.sourceforge.net/chemical-mime/%{name}-%{version}.tar.bz2
+# The SF page has been removed
+# Source0:        http://downloads.sourceforge.net/chemical-mime/%%{name}-%%{version}.tar.bz2
+# The latest release is in the lookaside cache
+Source0:        %{name}-%{version}.tar.bz2
 Patch0:         chemical-mime-data-0.1.94-turbomole.patch
 
 BuildArch:      noarch
@@ -59,6 +62,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 
 %changelog
+* Fri Dec 29 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.1.94-35
+- Switch to SPDX license identifier
+- Remove defunct URLs 
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.94-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

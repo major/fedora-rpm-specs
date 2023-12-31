@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %bcond_with test
 
 Name:           ocaml-ppx-inline-test
-Version:        0.16.0
-Release:        6%{?dist}
+Version:        0.16.1
+Release:        1%{?dist}
 Summary:        Syntax extension for writing inline tests in OCaml code
 
 License:        MIT
@@ -16,7 +16,7 @@ Source0:        %{url}/archive/v%{version}/ppx_inline_test-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-base-devel >= 0.16
-BuildRequires:  ocaml-dune >= 2.0.0
+BuildRequires:  ocaml-dune >= 3.8.0
 BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 BuildRequires:  ocaml-time-now-devel >= 0.16
 
@@ -60,6 +60,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Dec 28 2023 Jerry James <loganjerry@gmail.com> - 0.16.1-1
+- Version 0.16.1
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-6
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

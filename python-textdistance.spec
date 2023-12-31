@@ -6,7 +6,7 @@
 %global tag %{version}
 
 Name:           python-textdistance
-Version:        4.6.0
+Version:        4.6.1
 Release:        %autorelease
 Summary:        Compute distance between the two texts
 

@@ -1,12 +1,17 @@
 Name:    messagelib
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Message libraries
 
 License: BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/pim/%{name}/
 
 Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# Updates kmail to change the "HTML message" bar to a simple button.
+# See: https://invent.kde.org/pim/messagelib/-/merge_requests/169
+# (If the patch needs rebased, ask Carl Schwann in Matrix!)
+Patch0:  html-message-bar-to-button.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -156,6 +161,9 @@ Requires:       cmake(Qt6WebEngineWidgets)
 
 
 %changelog
+* Fri Dec 29 2023 Steve Cossette <farchord@gmail.com> - 24.01.85-2
+- Added patch that changes the ugly HTML message bar into a button
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

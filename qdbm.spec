@@ -1,7 +1,8 @@
 Name:		qdbm
 Version:	1.8.78
-Release:	58%{?dist}
-License:	LGPLv2+
+Release:	59%{?dist}
+# SPDX confirmed
+License:	LGPL-2.1-or-later
 
 URL:		http://fallabs.com/qdbm/
 Source0:	http://fallabs.com/qdbm/%{name}-%{version}.tar.gz
@@ -374,6 +375,9 @@ popd
 
 
 %changelog
+* Fri Dec 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-59
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.78-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

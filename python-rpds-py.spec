@@ -2,7 +2,7 @@
 %global modname rpds_py
 
 Name:           python-rpds-py
-Version:        0.13.2
+Version:        0.16.2
 Release:        %autorelease
 Summary:        Python bindings to the Rust rpds crate
 # Full license breakdown in LICENSES.dependencies
@@ -30,6 +30,9 @@ Summary:        %{summary}
 
 # Fix line terminations
 dos2unix README* LICENSE* *.pyi
+
+# Fix for bad requirements dependency
+sed -r -i 's/^file:/# &/' tests/requirements.in
 
 %cargo_prep
 

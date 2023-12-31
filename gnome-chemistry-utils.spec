@@ -1,10 +1,10 @@
 Name:           gnome-chemistry-utils
 Version:        0.14.17
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        A set of chemical utilities
 
 #openbabel/* is GPLv2+
-License:        GPLv3+ and GPLv2+
+License:        GPL-3.0-or-later AND GPL-2.0-or-later
 URL:            http://www.nongnu.org/gchemutils/
 Source0:        http://download.savannah.nongnu.org/releases/gchemutils/0.14/%{name}-%{version}.tar.xz
 Patch0:         %{name}-%{version}-gnm11242.patch
@@ -271,6 +271,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Dec 29 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.14.17-44
+- Switch to SPDX license identifier
+
 * Mon Nov 06 2023 Julian Sikorski <belegdol@fedoraproject.org> - 0.14.17-43
 - Rebuild
 

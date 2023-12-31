@@ -1,7 +1,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-settings
-Version:        4.18.3
+Version:        4.18.4
 Release:        %autorelease
 Summary:        Settings Manager for Xfce
 

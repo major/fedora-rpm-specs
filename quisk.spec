@@ -1,11 +1,14 @@
 Name:           quisk
 Version:        4.2.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 License:        GPLv2 and BSD
 URL:            http://james.ahlstrom.name/quisk/
 Source0:        https://files.pythonhosted.org/packages/source/q/%{name}/%{name}-%{version}.tar.gz
+Source1:        quisk.desktop
+Source2:        quisk.png
+Source3:        name.ahlstrom.james.Quisk.metainfo.xml
 
 BuildRequires:  gcc
 BuildRequires:  python3-setuptools
@@ -17,6 +20,9 @@ BuildRequires:  portaudio-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  dos2unix
 BuildRequires:  libsoundio-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  hicolor-icon-theme
+Requires:       hicolor-icon-theme
 Requires:       python3-wxpython4
 Suggests:       codec2-devel
 
@@ -56,6 +62,15 @@ do
     grep -E -q '^#!' $f && chmod a+x $f
 done
 
+desktop-file-install \
+  --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+
+install -Dpm 0644 %{SOURCE2} \
+  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/quisk.png
+
+install -Dpm 0644 %{SOURCE3} \
+  %{buildroot}%{_metainfodir}/name.ahlstrom.james.Quisk.metainfo.xml
+
 %files
 %license license.txt
 %doc docs.html defaults.html
@@ -63,9 +78,15 @@ done
 %{_bindir}/%{name}{,_vna}
 %{python3_sitearch}/%{name}
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
+%{_metainfodir}/name.ahlstrom.james.Quisk.metainfo.xml
 
 
 %changelog
+* Thu Dec 14 2023 Daniel Rusek <mail@asciiwolf.com> - 4.2.27-2
+- Added desktop files and AppStream metadata
+
 * Mon Dec 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.27-1
 - New version
   Resolves: rhbz#2253680

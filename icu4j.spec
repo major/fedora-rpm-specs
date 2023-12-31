@@ -2,8 +2,8 @@
 %global gittag  release-%{dashver}
 
 Name:           icu4j
-Version:        74.1
-Release:        2%{?dist}
+Version:        74.2
+Release:        1%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
 License:        Unicode-DFS-2016
@@ -118,6 +118,9 @@ rm %{buildroot}%{_mavenpomdir}/icu4j/{common_tests,demos,framework,perf-tests,sa
 %license LICENSE
 
 %changelog
+* Thu Dec 28 2023 Jerry James <loganjerry@gmail.com> - 1:74.2-1
+- Version 74.2
+
 * Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 1:74.1-2
 - Also ship the component jars (bz 2252982)
 

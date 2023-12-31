@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump derive_builder dependency from 0.11 to 0.12
 # * bump nix dependency from 0.25 to 0.26
+# * bump vte dependency from 0.11.0 to 0.13.0
 Patch:          skim-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

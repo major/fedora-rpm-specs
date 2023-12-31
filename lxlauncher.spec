@@ -2,18 +2,24 @@
 
 Name:           lxlauncher
 Version:        0.2.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Open source replacement for Launcher on the EeePC
 
-License:        GPLv2+
+# src/exo-wrap-table.c	LGPL-2.0-or-later
+# Otherwise	GPL-2.0-or-later
+# SPDX confirmed
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            http://lxde.org/
 Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel >= 2.12 startup-notification-devel
-BuildRequires:  menu-cache-devel >= 0.3.2
-BuildRequires:  gettext intltool
+BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(libstartup-notification-1.0)
+BuildRequires:  pkgconfig(libmenu-cache)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  gettext
+BuildRequires:  intltool
 
 %description
 LXLauncher is designed as an open source replacement for the Asus Launcher
@@ -35,16 +41,18 @@ make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+%make_install
 mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}
 mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/backgrounds
 mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/icons
 %find_lang %{name}
 
 
-
 %files -f %{name}.lang
-%doc AUTHORS COPYING README
+%doc AUTHORS
+%doc README
+%license COPYING
+
 %dir %{_sysconfdir}/xdg/lxlauncher/
 %config(noreplace) %{_sysconfdir}/xdg/lxlauncher/gtkrc
 %config(noreplace) %{_sysconfdir}/xdg/lxlauncher/gtk.css
@@ -57,6 +65,9 @@ mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/icons
 
 
 %changelog
+* Fri Dec 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.5-17
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

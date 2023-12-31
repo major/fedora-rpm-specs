@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.71
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -19,6 +19,7 @@ Source1: bluez.gitignore
 #Patch1: 0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
 # https://lore.kernel.org/linux-bluetooth/20220901110719.176944-1-hadess@hadess.net/T/#m9c08d004cd5422783ee1d93154f42303bba9169f
 Patch2: power-state-adapter-property.patch
+Patch3: ghi-686.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -334,6 +335,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Dec 29 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.71-2
+- Fix link key address type for old kernels
+
 * Sat Dec 16 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.71-1
 - Update to 5.71
 

@@ -14,7 +14,7 @@ License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/strip-ansi-escapes
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump vte dependency from 0.10 to 0.11
+# * bump vte dependency from 0.10 to 0.13
 Patch:          strip-ansi-escapes-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

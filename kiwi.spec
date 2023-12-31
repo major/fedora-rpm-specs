@@ -12,12 +12,16 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        9.25.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
 # We must use the version uploaded to pypi, as it contains all the required files.
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
+
+# Backports from upstream
+## From: https://github.com/OSInside/kiwi/commit/41b71c3753a471970a34fd3939cbc6860e3a8111
+Patch0001:      0001-Ensure-setfiles-is-detected-inside-the-image-root.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -567,6 +571,9 @@ done
 # Empty metapackage
 
 %changelog
+* Fri Dec 29 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.21-2
+- Backport fix for detecting setfiles properly
+
 * Tue Dec 19 2023 Neal Gompa <ngompa@fedoraproject.org> - 9.25.21-1
 - Update to 9.25.21 (RH#2244597)
 
