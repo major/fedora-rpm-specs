@@ -1,82 +1,86 @@
-# Created by pyp2rpm-1.1.1
-%global sname wrapt
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond docs 1
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global with_docs 1
-%endif
-
-%{!?_licensedir: %global license %%doc}
-
-Name:           python-%{sname}
-Version:        1.14.1
+Name:           python-wrapt
+Version:        1.16.0
 Release:        %autorelease
 Summary:        A Python module for decorators, wrappers and monkey patching
 
 License:        BSD-2-Clause
 URL:            https://github.com/GrahamDumpleton/wrapt
-Source0:        https://github.com/GrahamDumpleton/%{sname}/archive/%{version}.tar.gz
+Source:         %{url}/archive/%{version}/wrapt-%{version}.tar.gz
 
 BuildRequires:  gcc
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+
+# We bypass tox and instead BR and use pytest directly; this is simpler and
+# avoids the need to patch out coverage analysis
+# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters).
+BuildRequires:  %{py3_dist pytest}
 
 %global _description %{expand:
-The aim of the wrapt module is to provide a transparent object proxy
-for Python, which can be used as the basis for the construction of
-function wrappers and decorator functions.}
+The aim of the wrapt module is to provide a transparent object proxy for
+Python, which can be used as the basis for the construction of function
+wrappers and decorator functions.}
 
 %description %_description
 
-%if 0%{?with_docs}
+%package -n python3-wrapt
+Summary:        %{summary}
+
+%description -n python3-wrapt %_description
+
+%if %{with docs}
 %package doc
 Summary:        Documentation for the wrapt module
 
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
+BuildArch:      noarch
+
+BuildRequires:  make
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+# docs/requirements.txt
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinx_rtd_theme}
 
 %description doc
-Documentation for the wrapt module
+%{summary}.
 %endif
 
-%package -n python3-wrapt
-Summary:        A Python module for decorators, wrappers and monkey patching
-%{?python_provide:%python_provide python3-wrapt}
-
-%description -n python3-wrapt
-The aim of the wrapt module is to provide a transparent object proxy
-for Python, which can be used as the basis for the construction of
-function wrappers and decorator functions.
-
 %prep
-%setup -q -n %{sname}-%{version}
+%autosetup -n wrapt-%{version}
 
-# Remove bundled egg-info in case it exists
-rm -rf %{sname}.egg-info
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
-%if 0%{?with_docs}
-# for docs
-pushd docs
-sphinx-build -b html -d build/doctrees . build/html
-popd
+%if %{with docs}
+PYTHONPATH="${PWD}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l wrapt
 
-%if 0%{?with_docs}
+%check
+%pytest -v
+
+%if %{with docs}
 %files doc
-%doc docs/build/html
+%license LICENSE
+%doc docs/_build/latex/wrapt.pdf
 %endif
 
-%files -n python3-wrapt
+%files -n python3-wrapt -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%{python3_sitearch}/%{sname}
-%{python3_sitearch}/%{sname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

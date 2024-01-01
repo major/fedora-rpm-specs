@@ -1,16 +1,16 @@
 %global srcname contextily
 
 # Some tests require the network.
-%bcond_with network
+%bcond network 0
 
 Name:           python-%{srcname}
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Context geo-tiles in Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/geopandas/contextily
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %pypi_source %{srcname}
 
 BuildArch:      noarch
 
@@ -34,26 +34,19 @@ both WGS84 (EPSG:4326) and Spheric Mercator (EPSG:3857).
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files -l %{srcname}
 
 %check
-%if %{with network}
-%{pytest}
-%else
-%{pytest} -m 'not network'
-%endif
+%{pytest} %{!?with_network:-m 'not network'}
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE.txt
 %doc README.md
 
 %changelog

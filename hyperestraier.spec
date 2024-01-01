@@ -6,10 +6,15 @@
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	55%{?dist}
+Release:	56%{?dist}
 Summary:	A full-text search system
 
-License:	LGPLv2+
+# Overall	LGPL-2.1-or-later
+# javapure/*.java	BSD-3-Clause
+# md5.c	Zlib
+# rubypure/estcall.rb	BSD-3-Clause
+# SPDX confimed
+License:	LGPL-2.1-or-later AND BSD-3-Clause
 URL:		http://hyperestraier.sourceforge.net/
 Source0:	http://hyperestraier.sourceforge.net/%{name}-%{version}.tar.gz
 # Taken from Debian:
@@ -81,8 +86,8 @@ This package contains a Ruby interface for Hyper Estraier.
 %prep
 %setup -q
 
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 ## 0. First:
@@ -210,7 +215,9 @@ popd
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING ChangeLog THANKS
+%license COPYING
+%doc ChangeLog
+%doc THANKS
 %doc example/
 %doc doc/*guide-en.html doc/*.png doc/*.css
 %lang(ja) %doc doc/*guide-ja.html
@@ -266,6 +273,9 @@ popd
 
 
 %changelog
+* Sat Dec 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-56
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.13-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

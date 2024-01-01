@@ -1,5 +1,5 @@
 Name:           minuet
-Version:        23.08.2
+Version:        24.01.85
 Release:        1%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
@@ -7,25 +7,29 @@ Summary:        A KDE Software for Music Education
 License:        GPL-2.0-or-later AND OFL-1.1
 URL:            http://www.kde.org
 Source:         https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
+	
 BuildRequires:  gcc-c++
+BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules >= 5.15.0
-BuildRequires:  kf5-filesystem
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  kf6-filesystem
 BuildRequires:  desktop-file-utils
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(Qt5Core) >= 5.7.0
-BuildRequires:  cmake(Qt5Gui) >= 5.7.0
-BuildRequires:  cmake(Qt5Qml) >= 5.7.0
-BuildRequires:  cmake(Qt5Quick) >= 5.7.0
-BuildRequires:  cmake(Qt5QuickControls2) >= 5.7.0
-BuildRequires:  cmake(Qt5Svg) >= 5.7.0
+
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6I18n)
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Svg)
+
 BuildRequires:  pkgconfig(fluidsynth)
 BuildRequires:  libappstream-glib
 # Runtime requirement
-Requires:       qt5-qtquickcontrols2
 Requires:       hicolor-icon-theme
 Requires:       %{name}-data
 
@@ -62,7 +66,9 @@ Data files for Minuet.
 chmod -x src/app/org.kde.%{name}.desktop
 
 %build
-%cmake_kf5
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
+
 %cmake_build
 
 %install
@@ -71,30 +77,33 @@ chmod -x src/app/org.kde.%{name}.desktop
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %files -f %{name}.lang
 %doc README*
 %license COPYING*
 %{_datadir}/applications/org.kde.%name.desktop
-%{_kf5_metainfodir}/org.kde.%name.appdata.xml
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_libdir}/libminuetinterfaces.so.*
-%{_qt5_plugindir}/%{name}
+%{_kf6_metainfodir}/org.kde.%name.appdata.xml
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_libdir}/libminuetinterfaces.so.*
+%{_qt6_plugindir}/%{name}
 
 %files devel
 %doc README*
 %license COPYING*
 %{_includedir}/%{name}
-%{_kf5_libdir}/libminuetinterfaces.so
+%{_kf6_libdir}/libminuetinterfaces.so
 
 %files data
-%{_kf5_datadir}/%{name}
+%{_kf6_datadir}/%{name}
 
 
 %changelog
+* Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

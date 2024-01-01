@@ -1,5 +1,5 @@
 %global pypi_name torch
-%global pypi_version 2.1.0
+%global pypi_version 2.1.2
 
 # Where the src comes from
 %global forgeurl https://github.com/pytorch/pytorch
@@ -22,9 +22,15 @@
 # For testing rocm
 %bcond_with rocm
 
+# For testing openmp
+%bcond_with openmp
+
+# For testing caffe2
+%bcond_with caffe2
+
 Name:           python-%{pypi_name}
-Version:        2.1.0
-Release:        12%{?dist}
+Version:        2.1.2
+Release:        1%{?dist}
 Summary:        PyTorch AI/ML framework
 # See below for details
 License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Apache-2.0 AND MIT AND BSL-1.0 AND GPL-3.0-or-later AND Zlib
@@ -57,8 +63,6 @@ Patch2:         0003-Stub-in-kineto-ActivityType.patch
 Patch3:         0004-torch-python-3.12-changes.patch
 # Short circuit looking for things that can not be downloade by mock
 Patch4:         0005-disable-submodule-search.patch
-# Fedora requires versioned so's
-Patch5:         0001-pytorch-use-SO-version-by-default.patch
 # libtorch_python.so: undefined symbols: Py*
 Patch6:         0001-python-torch-link-with-python.patch
 # E: unused-direct-shlib-dependency libshm.so.2.1.0 libtorch.so.2.1
@@ -94,7 +98,11 @@ BuildRequires:  ninja-build
 BuildRequires:  onnx-devel
 BuildRequires:  openblas-devel
 BuildRequires:  pocketfft-devel
+%if %{with caffe2}
+BuildRequires:  protobuf-lite-devel
+%else
 BuildRequires:  protobuf-devel
+%endif
 BuildRequires:  pthreadpool-devel
 BuildRequires:  psimd-devel
 BuildRequires:  python3-numpy
@@ -104,6 +112,17 @@ BuildRequires:  python3-typing-extensions
 BuildRequires:  sleef-devel
 BuildRequires:  valgrind-devel
 BuildRequires:  xnnpack-devel
+
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(filelock)
+BuildRequires:  python3dist(fsspec)
+BuildRequires:  python3dist(jinja2)
+BuildRequires:  python3dist(networkx)
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(sympy)
+BuildRequires:  python3dist(typing-extensions)
+BuildRequires:  python3dist(sphinx)
+
 %if %{with rocm}
 BuildRequires:  hipblas-devel
 BuildRequires:  hipcub-devel
@@ -123,15 +142,13 @@ BuildRequires:  rocthrust-devel
 Requires:       rocm-rpm-macros-modules
 %endif
 
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(filelock)
-BuildRequires:  python3dist(fsspec)
-BuildRequires:  python3dist(jinja2)
-BuildRequires:  python3dist(networkx)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(sympy)
-BuildRequires:  python3dist(typing-extensions)
-BuildRequires:  python3dist(sphinx)
+%if %{with caffe2}
+BuildRequires:  foxi-devel
+%endif
+
+%if %{with test}
+BuildRequires:  google-benchmark-devel
+%endif
 
 Provides:       bundled(miniz) = 2.1.0
 
@@ -191,6 +208,14 @@ cp %{SOURCE100} cmake/public
 ./tools/amd_build/build_amd.py 
 %endif
 
+%if %{with opencv}
+# Reduce requirements, *FOUND is not set 
+sed -i -e 's/USE_OPENCV AND OpenCV_FOUND AND USE_FFMPEG AND FFMPEG_FOUND/USE_OPENCV AND USE_FFMPEG/' caffe2/video/CMakeLists.txt
+sed -i -e 's/USE_OPENCV AND OpenCV_FOUND/USE_OPENCV/' caffe2/image/CMakeLists.txt
+sed -i -e 's/STATUS/FATAL/' caffe2/image/CMakeLists.txt
+cat caffe2/image/CMakeLists.txt
+%endif
+
 # Release comes fully loaded with third party src
 # Remove what we can
 #
@@ -226,13 +251,8 @@ cp %{_includedir}/valgrind/* third_party/valgrind-headers
 
 # Remove unneeded OpenCL files that confuse the lincense scanner
 rm caffe2/contrib/opencl/OpenCL/cl.hpp
-rm caffe2/mobile/contrib/libopencl-stub/include/CL/cl.h
-rm caffe2/mobile/contrib/libopencl-stub/include/CL/cl.hpp
-rm caffe2/mobile/contrib/libopencl-stub/include/CL/cl_ext.h
-rm caffe2/mobile/contrib/libopencl-stub/include/CL/cl_gl.h
-rm caffe2/mobile/contrib/libopencl-stub/include/CL/cl_gl_ext.h
-rm caffe2/mobile/contrib/libopencl-stub/include/CL/cl_platform.h
-rm caffe2/mobile/contrib/libopencl-stub/include/CL/opencl.h
+rm caffe2/mobile/contrib/libopencl-stub/include/CL/*.h
+rm caffe2/mobile/contrib/libopencl-stub/include/CL/*.hpp
 
 %endif
 
@@ -249,6 +269,11 @@ rm caffe2/mobile/contrib/libopencl-stub/include/CL/opencl.h
 # Manually set this hardening flag
 export CMAKE_EXE_LINKER_FLAGS=-pie
 
+%if %{with caffe2}
+export BUILD_CAFFE2=ON
+export INTERN_BUILD_MOBILE=OFF
+export USE_LITE_PROTO=ON
+%endif
 export BUILD_CUSTOM_PROTOBUF=OFF
 export BUILD_SHARED_LIBS=ON
 %if %{with test}
@@ -269,7 +294,12 @@ export USE_LITE_INTERPRETER_PROFILER=OFF
 export USE_MKLDNN=OFF
 export USE_NNPACK=OFF
 export USE_NUMPY=ON
+%if %{with openmp}
+export USE_OPENMP=ON
+%else
 export USE_OPENMP=OFF
+%endif
+
 export USE_PYTORCH_QNNPACK=OFF
 export USE_QNNPACK=OFF
 %if %{with rocm}
@@ -315,28 +345,6 @@ done
 # shebangs
 %py3_shebang_fix %{buildroot}%{python3_sitearch}
 
-# Remove copies of the *.so's
-#
-# *.so should be symlinks, not copies
-# there is a copy of *.so.x.y.z to *.so and *.so.x.y
-# remove the copies and do the link
-#
-%global lib_list c10 shm torch torch_cpu torch_global_deps torch_python
-{
-    cd %{buildroot}%{python3_sitearch}/torch/lib
-    for l in %{lib_list}
-    do
-        long_name=lib${l}.so.%{version}
-        short_name=${long_name%.*}
-        devel_name=lib${l}.so
-        rm ${short_name}
-        rm ${devel_name}
-        ln -s ${long_name} ${short_name}
-        ln -s ${long_name} ${devel_name}
-    done
-    cd -
-}
-
 # Programatically create the list of dirs
 echo "s|%{buildroot}%{python3_sitearch}|%%dir %%{python3_sitearch}|g" > br.sed
 find %{buildroot}%{python3_sitearch} -mindepth 1 -type d  > dirs.files
@@ -371,16 +379,6 @@ sed -i -f br.sed devel.files
 # libs
 %{python3_sitearch}/functorch/_C.cpython*.so
 %{python3_sitearch}/torch/_C.cpython*.so
-%{python3_sitearch}/torch/lib/libc10.so.*
-%{python3_sitearch}/torch/lib/libshm.so.*
-%{python3_sitearch}/torch/lib/libtorch.so.*
-%{python3_sitearch}/torch/lib/libtorch_cpu.so.*
-%{python3_sitearch}/torch/lib/libtorch_global_deps.so.*
-%{python3_sitearch}/torch/lib/libtorch_python.so.*
-
-# devel libs
-# Normal python 'import torch' expects these libs
-# https://bugzilla.redhat.com/show_bug.cgi?id=2253018
 %{python3_sitearch}/torch/lib/libc10.so
 %{python3_sitearch}/torch/lib/libshm.so
 %{python3_sitearch}/torch/lib/libtorch.so
@@ -789,6 +787,14 @@ sed -i -f br.sed devel.files
 # aten/src/ATen/native/cpu/avx_mathfun.h
 
 %changelog
+* Wed Dec 27 2023 Tom Rix <trix@redhat.com> - 2.1.2-1
+- Update to 2.1.2
+- Stop versioning *.so's - 2.1.2's version is wrong
+- Stub in caffe2 to test in flight package
+
+* Wed Dec 27 2023 Tom Rix <trix@redhat.com> - 2.1.0-13
+- Stub in openmp to test in openmp
+
 * Wed Dec 20 2023 Tom Rix <trix@redhat.com> - 2.1.0-12
 - Stub in rocm to test in flight packages
 

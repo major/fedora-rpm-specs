@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.24.5
+Version:    2.24.10
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,26 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Fri Dec 29 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.10-1
+- Update to 2.24.10
+- Update the preedit to empty right after deleting surrounding text when reopening a preedit
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/474)
+- Improve do_reset()
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/473)
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/474)
+- Fix _record_in_database_and_push_context()
+- Avoid updating the preedit to empty or  hiding it if the preedit is already hidden or empty
+- Do not pass through a key release event if the corresponding key press event was handled
+- Remove two probably redundant calls to get_surrounding_text()
+- Hide and clear lookup table and aux in _update_ui_empty_input_try_completion() if no candidates are found
+- Make self._ibus_event_sleep_seconds settable via gsettings
+- Avoid more duplicate calls of _update_preedit()
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/473)
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/474)
+- Fix disappearing first characters or words in the web clients of WhatsApp and Telegram used in Firefox
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/473)
+- Update emoji annotations from CLDR
+
 * Tue Dec 05 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.5-1
 - Update to 2.24.5
 - Fix first character disappearing when compose was involved in WhatsApp and Telegram

@@ -11,11 +11,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20230915
-%global		gittartime		1104
+%global		gittardate		20231231
+%global		gittartime		1058
 
-%global		gitbaredate	20230913
-%global		git_rev		3438fc58e65d90761009d5c108584d0730653741
+%global		gitbaredate	20231013
+%global		git_rev		95eef260885a5ef211602422f013c10c06383e9f
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -136,6 +136,9 @@ cd ..
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sun Dec 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.5^20231013git95eef260-1
+- Update to the latest git
+
 * Fri Sep 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.5^20230913git3438fc58-1
 - Update to the latest git
 

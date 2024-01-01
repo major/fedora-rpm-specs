@@ -4,7 +4,7 @@
 
 Name:           json
 Version:        3.11.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # The entire source is MIT except
 # include/nlohmann/thirdparty/hedley/hedley.hpp, which is CC0-1.0
@@ -34,6 +34,12 @@ library available at Github.
 %package devel
 Summary:        Development files for %{name}
 Provides:       %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
+# This package is also known as nlohmann-json, provide some alternate names
+# to make it easier to find
+Provides:       nlohmann-json-devel = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       nlohmann-json-static = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       nlohmann_json-devel = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       nlohmann_json-static = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       bundled(hedley) = %{bundled_hedley_version}
 Requires:       libstdc++-devel%{?_isa}
 
@@ -76,6 +82,9 @@ ln -svf %{_includedir}/doctest/doctest.h ./tests/thirdparty/doctest/doctest.h
 %{_datadir}/pkgconfig/nlohmann_json.pc
 
 %changelog
+* Sat Dec 23 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 3.11.2-5
+- Add provides for nlohmann-json and nlohmann_json as alternate names
+
 * Mon Oct 09 2023 Carl George <carlwgeorge@fedoraproject.org> - 3.11.2-4
 - Add patches to fix test failures under GCC 13
 

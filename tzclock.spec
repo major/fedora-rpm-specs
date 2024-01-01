@@ -1,9 +1,10 @@
 Name:		tzclock
 Version:	3.1.7
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	GTK+ graphical Clock displaying the time around the world
 
-License:	GPLv2
+# SPDX confirmed
+License:	GPL-2.0-only
 URL:		https://theknight.co.uk/
 Source0:	http://www.tzclock.org/releases/source/%{name}-%{version}.tar.bz2
 
@@ -41,17 +42,10 @@ desktop-file-install \
 	--delete-original \
 	%{buildroot}%{_datadir}/applications/tzclock.desktop
 
-# Backward compatibility
-%if 0%{?fedora} < 28
-ln -sf tzclock %{buildroot}%{_bindir}/TzClock
-ln -sf tzclock.1.gz %{buildroot}%{_mandir}/man1/TzClock.1.gz
-mv %{buildroot}%{_datadir}/applications/{tzclock,TzClock}.desktop
-%endif
-
 %files
 %defattr(-,root,root,-)
 %doc	AUTHORS
-%doc	COPYING
+%license	COPYING
 
 %{_bindir}/*
 %{_datadir}/appdata/%{name}.appdata.xml
@@ -61,6 +55,9 @@ mv %{buildroot}%{_datadir}/applications/{tzclock,TzClock}.desktop
 %{_mandir}/man1/*
 
 %changelog
+* Sat Dec 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.7-13
+- SPDX migration
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

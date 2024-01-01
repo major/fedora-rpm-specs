@@ -1,16 +1,20 @@
 Name:           home-assistant-cli
 Version:        0.9.6
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Command-line tool for Home Assistant
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/home-assistant/home-assistant-cli
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 # Allow later dateparser
 # https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/403
-Patch:          %{url}/pull/403.patch
+Patch0:          %{url}/pull/403.patch
+
+# Allow later ruamel
+# https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/412
+Patch1:          %{url}/pull/412.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -56,6 +60,12 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Sat Dec 30 2023 Daniel Milnes <daniel@daniel-milnes.uk> - 0.9.6-7
+- Migrate license to SPDX
+
+* Sat Dec 30 2023 Daniel Milnes <daniel@daniel-milnes.uk> - 0.9.6-6
+- Allow newer ruamel (closes rhbz#2246610)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

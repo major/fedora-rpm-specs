@@ -2,19 +2,20 @@
 %global debug_package %{nil}
 
 # Avoid Epoch inflation
-%global module_version 0.65
+%global module_version 0.66
 
 Name:           perl-Spreadsheet-ParseExcel
-Version:        0.6500
-Release:        35%{?dist}
+Version:        0.6600
+Release:        1%{?dist}
 Summary:        Extract information from an Excel file
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Spreadsheet-ParseExcel
-Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOUGW/Spreadsheet-ParseExcel-%{module_version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Spreadsheet/Spreadsheet-ParseExcel-%{module_version}.tar.gz
 # Build
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -47,6 +48,7 @@ BuildRequires:  perl(Pod::Simple) >= 3.07
 BuildRequires:  perl(Test::CPAN::Meta) >= 0.12
 BuildRequires:  perl(Test::MinimumVersion) >= 0.008
 BuildRequires:  perl(Test::Pod) >= 1.26
+# Dependencies
 Requires:       perl(Text::CSV_XS)
 
 %description
@@ -55,7 +57,7 @@ Excel 95-2003 file.
 
 %prep
 %setup -q -n Spreadsheet-ParseExcel-%{module_version}
-chmod -c a-x Changes examples/*.pl sample/*.pl
+
 # Fix line-endings of sample files
 for file in sample/* ; do
     [ -f "$file" ] && %{__perl} -pi -e 's/\r\n/\n/' "$file"
@@ -67,7 +69,7 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 # For Spreadsheet::ParseExcel::FmtJapan2; see README for details
 install -D -m 644 -p CP932Excel.map \
     %{buildroot}%{perl_vendorarch}/Unicode/Map/MS/WIN/CP932Excel.map
@@ -79,23 +81,34 @@ make test AUTOMATED_TESTING=1
 %doc Changes README README_Japan.htm examples/ sample/
 %{perl_vendorarch}/Unicode/
 %{perl_vendorlib}/Spreadsheet/
-%{_mandir}/man3/Spreadsheet::ParseExcel.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::Cell.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::Dump.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::FmtDefault.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::FmtJapan.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::FmtJapan2.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::FmtUnicode.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::Font.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::Format.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::SaveParser.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::SaveParser::Workbook.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::SaveParser::Worksheet.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::Utility.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::Workbook.3pm*
-%{_mandir}/man3/Spreadsheet::ParseExcel::Worksheet.3pm*
+%{_mandir}/man3/Spreadsheet::ParseExcel.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::Cell.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::Dump.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::FmtDefault.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::FmtJapan.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::FmtJapan2.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::FmtUnicode.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::Font.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::Format.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::SaveParser.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::SaveParser::Workbook.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::SaveParser::Worksheet.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::Utility.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::Workbook.3*
+%{_mandir}/man3/Spreadsheet::ParseExcel::Worksheet.3*
 
 %changelog
+* Sat Dec 30 2023 Paul Howarth <paul@city-fan.org> - 0.6600-1
+- Update to 0.66
+  - Fix for CVE-2023-7101 (unvalidated input can lead to arbitrary code
+    execution vulnerability)
+    https://github.com/runrig/spreadsheet-parseexcel/issues/33
+- Use author-independent source URL
+- Use SPDX-format license tag
+- No longer need to fix document file permissions
+- Fix permissions verbosely
+- Don't assume "pm" suffix on manpage files
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6500-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

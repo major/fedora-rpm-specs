@@ -2,8 +2,8 @@
 %global module_name sql
 
 Name:           python-%{module_name}
-Version:        1.4.0
-Release:        6%{?dist}
+Version:        1.4.3
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -52,6 +52,9 @@ rm -rf */*.egg-info
 
 
 %changelog
+* Sat Dec 30 2023 Dan Horák <dan[at]danny.cz> - 1.4.3-1
+- updated to 1.4.3 (rhbz#2215589)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

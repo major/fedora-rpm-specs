@@ -16,7 +16,7 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.9.23.1
+Version:   0.9.24
 Release:   1%{?dist}
 License:   ASL 2.0 and GPLv2+ and MIT
 URL:       http://www.xrdp.org/
@@ -37,9 +37,6 @@ Patch5:    xrdp-0.9.16-arch.patch
 Patch6:    xrdp-0.9.18-vnc-uninit.patch
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
 Patch7:    xrdp-0.9.20-sesman-ini.patch
-%endif
-%if ! 0%{?fedora} && 0%{?rhel} <= 7
-Patch8:    xrdp-0.9.22.1-no-c99.patch
 %endif
 
 BuildRequires: make
@@ -298,6 +295,10 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Sun Dec 31 2023 Bojan Smojver <bojan@rexursive.com> - 1:0.9.24-1
+- Update to 0.9.24
+- Remove already applied patch affecting compilation on EL7
+
 * Thu Sep 28 2023 Bojan Smojver <bojan@rexursive.com> - 1:0.9.23.1-1
 - Update to 0.9.23.1
 - CVE-2023-42822

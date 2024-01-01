@@ -1,73 +1,65 @@
-# enable experimental (default off) bluetooth support
-#global bluetooth 1
-
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 23.08.2
-Release: 2%{?dist}
-License: GPLv2+
+Version: 24.01.85
+Release: 1%{?dist}
+License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
 Url:     https://community.kde.org/KDEConnect
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
-
+	
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+	
+ 
 ## upstream patches (lookaside cache)
 
-BuildRequires:  desktop-file-utils
-BuildRequires:  firewalld-filesystem
-BuildRequires:  libappstream-glib
 BuildRequires:  gcc-c++
-BuildRequires:  libxkbcommon-devel
+BuildRequires:  cmake
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+BuildRequires:  firewalld-filesystem
+BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(openssl)
 
-BuildRequires:  extra-cmake-modules >= 5.42
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5GuiAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5KCMUtils)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5ModemManagerQt)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Package)
-BuildRequires:  cmake(KF5People)
-BuildRequires:  cmake(KF5PeopleVCard)
-BuildRequires:  cmake(KF5Service)
-BuildRequires:  cmake(KF5Wayland)
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6ModemManagerQt)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(KF6People)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(KF6QQC2DesktopStyle)
 
-BuildRequires:  cmake(KF5QQC2DesktopStyle)
-
-%if 0%{?bluetooth}
-BuildRequires:  cmake(Qt5Bluetooth)
-%endif
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  cmake(Qt6Bluetooth)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Core5Compat)
 # wayland/clipboard deps
-BuildRequires:  cmake(Qt5WaylandClient)
+BuildRequires:  cmake(Qt6WaylandClient)
 BuildRequires:  cmake(PlasmaWaylandProtocols)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  wayland-protocols-devel
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  qt6-qtbase-private-devel
 
-BuildRequires:  cmake(Qca-qt5)
+BuildRequires:  cmake(Qca-qt6)
 
-BuildRequires:  cmake(KF5PulseAudioQt)
-#BuildRequires:  cmake(KF5PeopleVCard)
+BuildRequires:  cmake(KF6PulseAudioQt)
 
 BuildRequires:  libXtst-devel
 BuildRequires:  pkgconfig(libfakekey)
@@ -82,14 +74,14 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kdeconnectd = %{version}-%{release}
 
 Requires:       fuse-sshfs
-Requires:       qca-qt5-ossl%{?_isa}
+Requires:       qca-qt6-ossl%{?_isa}
 # /usr/bin/plasmawindowed (make optional at least until this is split out for bug #1286431)
 #Recommends:     plasma-workspace
 # /usr/bin/kcmshell5
 Requires:       kde-cli-tools
 # /usr/bin/kdeconnect-app
-Requires:       kf5-kirigami2%{?_isa}
-Requires:       kf5-kirigami2-addons
+Requires:       kf6-kirigami2%{?_isa}
+Requires:       kf6-kirigami2-addons
 
 %description
 KDE Connect adds communication between KDE and your smartphone.
@@ -131,9 +123,8 @@ Supplements: (kdeconnectd and nautilus)
 
 
 %build
-%cmake_kf5 \
-  -Wno-dev \
-  %{?bluetooth:-DBLUETOOTH_ENABLED:BOOL=ON}
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
 
 %cmake_build
 
@@ -145,38 +136,40 @@ Supplements: (kdeconnectd and nautilus)
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1296523
 desktop-file-edit --remove-key=OnlyShowIn %{buildroot}%{_sysconfdir}/xdg/autostart/org.kde.kdeconnect.daemon.desktop
-
+	
+## unpackaged files
+# this is a static version of the shared lib dropped in the beta
+rm -fv %{buildroot}%{_kf6_libdir}/libkdeconnectinterfaces.a
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kdeconnect.kcm.appdata.xml ||:
-for i in %{buildroot}%{_datadir}/applications/org.kde.kdeconnect*.desktop ; do
-desktop-file-validate $i ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kdeconnect.appdata.xml ||:
+for i in %{buildroot}%{_kf6_datadir}/applications/org.kde.kdeconnect*.desktop ; do
+desktop-file-validate $i
 done
 
 
 %files -f %{name}.lang
-%dir %{_kf5_datadir}/kdeconnect/
+%dir %{_kf6_datadir}/kdeconnect/
 %license LICENSES/*
 %{_datadir}/Thunar/
-%{_datadir}/applications/org.kde.kdeconnect*.desktop
 %{_datadir}/contractor/
 %{_datadir}/deepin/
-%{_datadir}/icons/hicolor/*/apps/kdeconnect*
-%{_datadir}/icons/hicolor/*/status/*
 %{_datadir}/zsh/
-%{_kf5_bindir}/kdeconnect-*
-%{_kf5_datadir}/kdeconnect/kdeconnect_*.qml
-%{_kf5_datadir}/knotifications5/*
-%{_kf5_datadir}/kservices5/*.desktop
-%{_kf5_datadir}/plasma/plasmoids/org.kde.kdeconnect/
-%{_kf5_datadir}/qlogging-categories5/kdeconnect*
-%{_kf5_datadir}/applications/kcm_kdeconnect.desktop
-%{_kf5_metainfodir}/org.kde.kdeconnect.appdata.xml
-%{_kf5_metainfodir}/org.kde.kdeconnect.metainfo.xml
-%{_kf5_plugindir}/kfileitemaction/kdeconnectfileitemaction.so
-%{_kf5_plugindir}/kio/kdeconnect.so
-%{_qt5_archdatadir}/qml/org/kde/kdeconnect/
-%{_qt5_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
+%{_kf6_datadir}/applications/org.kde.kdeconnect*.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/kdeconnect*
+%{_kf6_datadir}/icons/hicolor/*/status/*
+%{_kf6_bindir}/kdeconnect-*
+%{_kf6_datadir}/kdeconnect/kdeconnect_*.qml
+%{_kf6_datadir}/knotifications6/*
+%{_kf6_datadir}/plasma/plasmoids/org.kde.kdeconnect/
+%{_kf6_datadir}/qlogging-categories6/kdeconnect*
+%{_kf6_datadir}/applications/kcm_kdeconnect.desktop
+%{_kf6_metainfodir}/org.kde.kdeconnect.appdata.xml
+%{_kf6_metainfodir}/org.kde.kdeconnect.metainfo.xml
+%{_kf6_plugindir}/kfileitemaction/kdeconnectfileitemaction.so
+%{_kf6_plugindir}/kio/kdeconnect.so
+%{_qt6_archdatadir}/qml/org/kde/kdeconnect/
+%{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
 
 %files -n kdeconnectd
 %{_sysconfdir}/xdg/autostart/org.kde.kdeconnect.daemon.desktop
@@ -187,16 +180,18 @@ done
 %ldconfig_scriptlets libs
 
 %files libs
-%{_kf5_libdir}/libkdeconnectpluginkcm.so.*
-%{_kf5_libdir}/libkdeconnectinterfaces.so.*
-%{_kf5_libdir}/libkdeconnectcore.so.*
-%{_qt5_plugindir}/kdeconnect/
+%{_kf6_libdir}/libkdeconnectpluginkcm.so.*
+%{_kf6_libdir}/libkdeconnectcore.so.*
+%{_qt6_plugindir}/kdeconnect/
 
 %files nautilus
 %{_datadir}/nautilus-python/extensions/kdeconnect-share.py*
 
 
 %changelog
+* Sat Dec 30 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Nov 23 2023 Steve Cossette <farchord@gmail.com> - 23.08.2-2
 - Rebuild for new pulseaudio-qt version
 

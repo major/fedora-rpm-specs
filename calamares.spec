@@ -2,8 +2,8 @@
 %global plasma_module 0
 
 Name:           calamares
-Version:        3.3.0~alpha6
-Release:        2%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -342,6 +342,9 @@ EOF
 
 
 %changelog
+* Sat Dec 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.3.0-1
+- Update to 3.3.0 final
+
 * Wed Dec 06 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 3.3.0~alpha6-2
 - Rebuilt for KDE Frameworks 5.246.0 and Gear 24.01.80
 

@@ -1,5 +1,5 @@
 Name:           wl-mirror
-Version:        0.14.2
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Simple Wayland output mirror client
 
@@ -23,7 +23,7 @@ BuildRequires:  wayland-protocols-devel
 
 # wlr-protocols may have different licenses, but it does not affect
 # the generated code or the binary file license
-Provides:       bundled(wlr-protocols) = 0^20220627g8cdeaac
+Provides:       bundled(wlr-protocols) = 0^20220905g4264185
 
 %description
 Simple output mirror client for Wlroots-based compositors.

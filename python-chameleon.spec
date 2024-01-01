@@ -1,7 +1,7 @@
 %global srcname Chameleon
 
 Name:           python-chameleon
-Version:        4.4.1
+Version:        4.4.3
 Release:        1%{?dist}
 Summary:        XML-based template compiler
 
@@ -14,7 +14,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-lxml
-BuildRequires:  python3-zope-interface
 
 
 %global _description\
@@ -32,7 +31,6 @@ use run-time interpretation.
 Summary: %summary
 
 Requires:   python3-setuptools
-Requires:   python3-zope-interface
 Requires:   python3-lxml
 %{?python_provide:%python_provide python3-chameleon}
 
@@ -62,6 +60,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Sat Dec 30 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.4.3-1
+- Update to upstream.
+
 * Mon Dec 18 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.4.1-1
 - Update to upstream.
 

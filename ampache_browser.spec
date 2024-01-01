@@ -7,7 +7,7 @@ Name: ampache_browser
 # is likely to break API users due to not finding files any longer.
 %global vername %{name}_1
 
-Version: 1.0.6
+Version: 1.0.7
 Release: 1%{?dist}
 Summary: C++ and Qt based client library for Ampache access
 
@@ -76,6 +76,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/cmake/%{vername}
 
 %changelog
+* Sat Dec 30 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.7-1
+- Update to 1.0.7.
+
 * Sat Nov  4 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.6-1
 - Update to 1.0.6 for Qt 6 support but build with USE_QT6=OFF.
 

@@ -1,14 +1,3 @@
-# For release builds set to 1, for snapshots set to 0
-%global relbuild 1 
-
-%if !0%{?relbuild}
-%global commit 3fa56a6406ddd7aee0e735aa5ba8b02d11a48780
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20170411
-%global git_ver -git%{gitdate}.%{shortcommit}
-%global git_rel .git%{gitdate}.%{shortcommit}
-%endif # !0%%{?relbuild}
-
 %global srcname pyvo
 
 %global sum Access to remote data and services of the Virtual observatory (VO) using Python
@@ -24,32 +13,23 @@ The pyvo module currently provides these main capabilities:              \
 * Get information about an object via its name                   
 
 Name:           python-%{srcname}
-Version:        1.4.1
-Release:        3%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/astropy/%{srcname}
-%if 0%{?relbuild}
 Source0:        %{pypi_source} 
-%else  # 0%%{?relbuild}
-Source0:        %{url}/archive/%{commit}.tar.gz#/%{srcname}-%{version}%{?git_ver}.tar.gz
-%endif # 0%%{?relbuild}
 
 BuildArch:      noarch
 
-BuildRequires:  python3-astropy
-BuildRequires:  python3-dateutil
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-requests
-BuildRequires:  python3-six
-BuildRequires:  python3-pip
-BuildRequires:  python3-wheel
-# Needed to generate docs
-BuildRequires:  python3-numpydoc
-BuildRequires:  python3-sphinx
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist setuptools_scm}
+# testing
+BuildRequires:  %{py3_dist pytest-doctestplus}
+BuildRequires:  %{py3_dist pytest-astropy}
+BuildRequires:  %{py3_dist requests-mock}
 
 Provides:       python3-pyvo-doc = %{version}-%{release}
 Obsoletes:      python3-pyvo-doc = %{version}-%{release}
@@ -60,37 +40,42 @@ Obsoletes:      python3-pyvo-doc = %{version}-%{release}
 %package -n python3-%{srcname}
 Summary:        %{sum}
 Requires:       astropy-tools
-Requires:       python3-astropy
-Requires:       python3-dateutil
-Requires:       python3-requests
-Requires:       python3-six
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 %{desc}
 
 %prep
-%if 0%{?relbuild}
 %autosetup -n %{srcname}-%{version} -p 1
-%else  # 0%%{?relbuild}
-%autosetup -n %{srcname}-%{commit} -p 1
-%endif # 0%%{?relbuild}
 sed -i -e 's|mimeparse|python-mimeparse|' setup.cfg
 
+%generate_buildrequires
+%pyproject_buildrequires 
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{srcname}
+%pyproject_save_files pyvo
+
+%check
+# Override "warning is error" in setup.cfg
+%pytest -Wdefault pyvo
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license licenses/LICENSE.rst
 %doc CHANGES.rst README.rst
-%{python3_sitelib}/*
 
 
 %changelog
+* Sat Dec 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.5-1
+- Update to version 1.5
+- SPDX license
+- Using modern spec
+
+* Wed Sep 14 2022 Christian Dersch <lupinix@fedoraproject.org> - 1.3-1
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

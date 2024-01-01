@@ -14,11 +14,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20230831
-%global		gittartime		1615
+%global		gittardate		20231231
+%global		gittartime		1038
 
-%global		gitbaredate	20230828
-%global		git_rev		a349c517c17c236bc74b3cbb62796b61447cf30c
+%global		gitbaredate	20230917
+%global		git_rev		9b4299c292567b371158368686088900a4c0a128
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -181,6 +181,9 @@ cd ..
 
 
 %changelog
+* Sun Dec 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20230917git9b4299c2-1
+- Update to the latest git
+
 * Thu Aug 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20230828gita349c517-1
 - Update to the latest git
 

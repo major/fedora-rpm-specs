@@ -1,37 +1,22 @@
-%undefine __cmake_in_source_build
-## feeture macros
-# LibRaw not in all arches of RHEL8
-%if !(0%{?rhel} == 8 && ( "%{_arch}" == "aarch64" || "%{_arch}" == "s390x" ))
-%global libraw 1
-%endif
-
 Name:    kdegraphics-thumbnailers
-Summary: Thumbnailers for various graphic types 
-Version: 23.08.2
+Summary: Thumbnailers for various graphic types
+Version: 24.01.85
 Release: 1%{?dist}
 
-# most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+, 
-License: GPLv2+
+# most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+,
+License: GPL-2.0-or-later
 URL:     https://www.kde.org/applications/graphics/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5KExiv2)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(QMobipocket)
-BuildRequires: cmake(Qt5Gui)
-%if 0%{?libraw}
-BuildRequires: cmake(KF5KDcraw)
-%endif
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KExiv2Qt6)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(QMobipocket6)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(KDcrawQt6)
 
 %description
 %{summary}.
@@ -42,7 +27,8 @@ BuildRequires: cmake(KF5KDcraw)
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
 %cmake_build
 
 
@@ -52,16 +38,17 @@ BuildRequires: cmake(KF5KDcraw)
 
 %files
 %license COPYING*
-%{_kf5_metainfodir}/org.kde.kdegraphics-thumbnailers.metainfo.xml
-%{_kf5_qtplugindir}/kf5/thumbcreator/blenderthumbnail.so
-%{_kf5_qtplugindir}/kf5/thumbcreator/gsthumbnail.so
-%{_kf5_qtplugindir}/kf5/thumbcreator/mobithumbnail.so
-%if 0%{?libraw}
-%{_kf5_qtplugindir}/kf5/thumbcreator/rawthumbnail.so
-%endif
+%{_kf6_metainfodir}/org.kde.kdegraphics-thumbnailers.metainfo.xml
+%{_kf6_qtplugindir}/kf6/thumbcreator/blenderthumbnail.so
+%{_kf6_qtplugindir}/kf6/thumbcreator/gsthumbnail.so
+%{_kf6_qtplugindir}/kf6/thumbcreator/mobithumbnail.so
+%{_kf6_qtplugindir}/kf6/thumbcreator/rawthumbnail.so
 
 
 %changelog
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 
