@@ -1,25 +1,19 @@
 %global srcname pytest-remotedata
-%global sum The py.test remotedata plugin
+%global sum Pytest plugin for controlling remote data access
 
 Name:           python-%{srcname}
-Version:        0.3.3
-Release:        7%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
-License:        BSD
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/astropy/pytest-remotedata
+Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-wheel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-six
-BuildRequires:  python3-wheel
 
-%description
+%global _description %{expand:
 This package provides a plugin for the pytest framework that allows developers
 to control unit tests that require access to data from the internet. 
 
@@ -28,45 +22,46 @@ internet. These features need to be tested, but unit tests that access the
 internet can dominate the overall runtime of a test suite. The pytest-remotedata
 plugin allows developers to indicate which unit tests require access to the
 internet, and to control when and whether such tests should execute as part of
-any given run of the test suite.
+any given run of the test suite.}
 
+%description %_description
 
 %package -n python3-%{srcname}
 Summary:        %{sum}
-Requires:       python3-pytest
-Requires:       python3-six
-%{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{srcname}
-This package provides a plugin for the pytest framework that allows developers
-to control unit tests that require access to data from the internet. 
-
-Many software packages provide features that require access to data from the
-internet. These features need to be tested, but unit tests that access the
-internet can dominate the overall runtime of a test suite. The pytest-remotedata
-plugin allows developers to indicate which unit tests require access to the
-internet, and to control when and whether such tests should execute as part of
-any given run of the test suite.
-
+%description -n python3-%{srcname} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-# Remove source tests directory installed by mistake
-rm -fr %{buildroot}%{python3_sitelib}/tests
+%pyproject_install
+%pyproject_save_files pytest_remotedata
 
-# Note that there is no %%files section for the unversioned python module if we are building for several python runtimes
-%files -n python3-%{srcname}
+%check
+# Deselect tests that require internet
+%pytest \
+--deselect "test_strict_with_decorator.py::test_internet_access" \
+--deselect "tests/test_strict_check.py::test_default_behavior" \
+--deselect "tests/test_strict_check.py::test_strict_with_decorator[any]"
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.rst
 %doc CHANGES.rst README.rst
-%{python3_sitelib}/*
 
 %changelog
+* Sun Dec 31 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.4.1-1
+- New upstream source 0.4.1
+- SPDX migration, license is BSD-3-Clause
+- Run tests
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

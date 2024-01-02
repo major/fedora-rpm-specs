@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/warp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump async-compression dependency from 0.3.7 to 0.4
+# * bump tracing-log dev-dependency from 0.1 to 0.2
 # * drop unused tls feature
 Patch:          warp-fix-metadata.diff
 

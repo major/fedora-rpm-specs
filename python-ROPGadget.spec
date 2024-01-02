@@ -1,7 +1,7 @@
 %global srcname ROPGadget
 
 Name:           python-%{srcname}
-Version:        7.3
+Version:        7.4
 Release:        %autorelease
 Summary:        A tool to find ROP gadgets in program files
 

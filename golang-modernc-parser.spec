@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/parser
 %global goipath         modernc.org/parser
 %global forgeurl        https://gitlab.com/cznic/parser
-Version:                1.0.8
+Version:                1.1.0
 %global tag             v%{version}
 
 %gometa -f

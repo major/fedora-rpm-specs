@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate pyo3-macros-backend
+%global crate erased-serde
 
-Name:           rust-pyo3-macros-backend
-Version:        0.20.1
+Name:           rust-erased-serde0.3
+Version:        0.3.31
 Release:        %autorelease
-Summary:        Code generation for PyO3 package
+Summary:        Type-erased Serialize and Serializer traits
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pyo3-macros-backend
+URL:            https://crates.io/crates/erased-serde
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Code generation for PyO3 package.}
+Type-erased Serialize and Serializer traits.}
 
 %description %{_description}
 
@@ -32,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,16 +47,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+abi3-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+abi3-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "abi3" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+abi3-devel
+%files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-debug-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-debug-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-debug" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-debug-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -16,11 +16,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20230915
-%global		gittartime		1222
+%global		gittardate		20231231
+%global		gittartime		1128
 
-%global		gitbaredate	20230913
-%global		git_rev		5423cc46ce738ad8b01818957e0393811225681d
+%global		gitbaredate	20230917
+%global		git_rev		655fd083a98e7b11d61119bdf0d97aae6c774780
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -175,6 +175,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Dec 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20230917git655fd083-1
+- Update to the latest git
+
 * Fri Sep 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20230913git5423cc46-1
 - Update to the latest git
 

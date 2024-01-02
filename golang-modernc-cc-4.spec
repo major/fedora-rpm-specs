@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/cc
 %global goipath         modernc.org/cc/v4
 %global forgeurl        https://gitlab.com/cznic/cc
-Version:                4.13.2
+Version:                4.18.0
 %global tag             v%{version}
 %global distprefix      %nil
 

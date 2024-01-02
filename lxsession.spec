@@ -3,38 +3,26 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=442268
 
 %global		use_release	0
-%global		use_git		0
 %global		use_gitbare	1
 
-%if 0%{?use_git} < 1
 %if 0%{?use_gitbare} < 1
 # force
 %global		use_release	1
-%endif
 %endif
 
 %global		git_version	%{nil}
 %global		git_ver_rpm	%{nil}
 %global		git_builddir	%{nil}
 
-%if 0%{?use_git}
-%global		git_rev		138ff9b22b45192a3b020ebbbed04e9060470a66
-%global		git_date		20161125
-%global		git_short		%(echo %{git_rev} | cut -c-8)
-%global		git_version	%{git_date}git%{git_short}
-%endif
-
 %if 0%{?use_gitbare}
-%global		gittardate		20230815
-%global		gittartime		1413
+%global		gittardate		20231231
+%global		gittartime		1207
 
-%global		gitbaredate	20230810
-%global		git_rev		27c1eaf63019da8b67634a9b0f3623800e79f88a
+%global		gitbaredate	20230917
+%global		git_rev		e0fffa6645f7c8b1ee9ea1088acd051ba8e733d4
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
-%endif
 
-%if 0%{?use_git} || 0%{?use_gitbare}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
 %endif
@@ -57,9 +45,6 @@ License:		GPL-2.0-or-later AND HPND AND LGPL-3.0-or-later
 URL:			http://lxde.sourceforge.net/
 %if 0%{?use_gitbare}
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
-%endif
-%if 0%{?use_git}
-Source0:		%{name}-%{version}-%{?git_version}.tar.bz2
 %endif
 %if 0%{?use_release}
 Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
@@ -145,7 +130,7 @@ LXPolKit is a simple PolicyKit authentication agent developed for LXDE, the
 Lightweight X11 Desktop Environment.
 
 %prep
-%if 0%{?use_release} || 0%{?use_git}
+%if 0%{?use_release}
 %setup -q -n %{name}-%{main_version}%{git_builddir}
 
 git init
@@ -174,7 +159,7 @@ done
 git config user.name "lxpanel Fedora maintainer"
 git config user.email "lxpanel-maintainers@fedoraproject.org"
 
-%if 0%{?use_release} || 0%{?use_git}
+%if 0%{?use_release}
 git add .
 git commit -m "base" -q
 %endif
@@ -310,6 +295,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Sun Dec 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20230917gite0fffa66-1
+- Update to the latest git
+
 * Tue Aug 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20230810git27c1eaf6-1
 - Update to the latest git
 

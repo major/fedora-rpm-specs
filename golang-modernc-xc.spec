@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/xc
 %global goipath         modernc.org/xc
 %global forgeurl        https://gitlab.com/cznic/xc
-Version:                1.0.5
+Version:                1.1.0
 %global tag             v%{version}
 
 %gometa -f

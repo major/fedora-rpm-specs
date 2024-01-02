@@ -1,6 +1,6 @@
 Name:           spim
-Version:        20211206
-Release:        0.5.svn%{?dist}
+Version:        20230804
+Release:        0.6.svn%{?dist}
 Summary:        An assembly language MIPS32 simulator
 License:        BSD
 URL:            http://spimsimulator.sourceforge.net/
@@ -14,9 +14,9 @@ URL:            http://spimsimulator.sourceforge.net/
 #
 # The sources are taken from SVN because the upstream tarballs contain
 # compiled code.
-Source0:        spimsimulator-spim-20211206.tar.gz
-Source1:        spimsimulator-CPU-20211206.tar.gz
-Source2:        spimsimulator-Documentation-20211206.tar.gz
+Source0:        spimsimulator-spim-20230804.tar.gz
+Source1:        spimsimulator-CPU-20230804.tar.gz
+Source2:        spimsimulator-Documentation-20230804.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc-c++ flex bison
@@ -54,13 +54,4 @@ install -p -m 644 -D Documentation/spim.man %{buildroot}%{_mandir}/man1/spim.1
 %doc README
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20211206-0.5.svn
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20211206-0.4.svn
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20211206-0.3.svn
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 %autochangelog

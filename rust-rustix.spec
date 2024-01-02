@@ -5,9 +5,9 @@
 %global crate rustix
 
 Name:           rust-rustix
-Version:        0.38.25
+Version:        0.38.28
 Release:        %autorelease
-Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls
+Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock-like syscalls
 
 License:        Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/rustix
@@ -21,7 +21,7 @@ Patch:          rustix-fix-metadata.diff
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls.}
+Safe Rust bindings to POSIX/Unix/Linux/Winsock-like syscalls.}
 
 %description %{_description}
 

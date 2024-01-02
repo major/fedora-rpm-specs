@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.20.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -13,11 +13,9 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pyo3
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop send_wrapper and widestring dev-dependencies (not packaged yet)
+# * bump widestring dev-dependency from 0.5 to 1.0
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-fix-metadata.diff
-# * skip the single doctest that depends on send_wrapper
-Patch:          0001-ignore-doctests-with-missing-send_wrapper-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -96,6 +94,18 @@ use the "abi3-py311" feature of the "%{crate}" crate.
 %files       -n %{name}+abi3-py311-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+abi3-py312-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3-py312-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3-py312" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3-py312-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+abi3-py37-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -166,6 +176,18 @@ This package contains library source intended for building other packages which
 use the "chrono" feature of the "%{crate}" crate.
 
 %files       -n %{name}+chrono-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+either-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+either-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "either" feature of the "%{crate}" crate.
+
+%files       -n %{name}+either-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+experimental-inspect-devel
@@ -360,6 +382,18 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+smallvec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+smallvec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "smallvec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+smallvec-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+unindent-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -376,8 +410,6 @@ use the "unindent" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version} -p1
 # drop files that are not useful
 rm -r emscripten/ newsfragments/
-# drop the tests for which dependencies were removed
-rm tests/test_pep_587.rs
 %cargo_prep
 
 %generate_buildrequires

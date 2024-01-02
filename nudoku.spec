@@ -1,13 +1,10 @@
 Name:           nudoku
-Version:        2.1.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Ncurses based Sudoku game
-License:        GPLv3
+License:        GPL-3.0-only
 Url:            https://github.com/jubalh/%{name}
 Source0:        https://github.com/jubalh/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-# Backport of https://github.com/jubalh/nudoku/commit/93899a0fd72e04b9f257e5f54af53466106b5959
-Patch0:         0001-fix-for-ncurses-6_3.patch
 
 BuildRequires:  make
 BuildRequires:  gcc

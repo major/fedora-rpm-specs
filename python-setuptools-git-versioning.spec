@@ -56,7 +56,7 @@ BuildRequires:  help2man
 
 %install
 %pyproject_install
-%pyproject_save_files setuptools_git_versioning
+%pyproject_save_files -l setuptools_git_versioning
 
 for binary in setuptools-git-versioning
 do

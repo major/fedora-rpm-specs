@@ -1,9 +1,9 @@
 Name:           perl-Data-Validate-Domain
 Version:        0.15
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Domain validation methods Perl module
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Validate-Domain
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Data-Validate-Domain-%{version}.tar.gz
 
@@ -62,6 +62,9 @@ The value to test is always the first (and often only) argument.
 
 
 %changelog
+* Sun Dec 31 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-7
+- Migrate to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.20.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 
@@ -85,6 +85,18 @@ This package contains library source intended for building other packages which
 use the "abi3-py311" feature of the "%{crate}" crate.
 
 %files       -n %{name}+abi3-py311-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+abi3-py312-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3-py312-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3-py312" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3-py312-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+abi3-py37-devel

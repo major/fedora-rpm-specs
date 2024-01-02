@@ -1,5 +1,5 @@
 Name:           duply
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        Wrapper for duplicity
 License:        GPLv2
@@ -52,6 +52,9 @@ mv gpl-2.0.txt LICENSE
 
 
 %changelog
+* Sun Dec 31 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2.5.2-1
+- Update to 2.5.2.
+
 * Sun Oct 22 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2.5.1-1
 - Update to 2.5.1.
 

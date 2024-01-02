@@ -1,14 +1,14 @@
 %global srcname pytest-doctestplus
 %global pythonicname pytest_doctestplus
-%global sum The py.test doctestplus plugin
+%global sum Pytest plugin with advanced doctest features
 
 Name:           python-%{srcname}
-Version:        0.12.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        %{sum}
 
-License:        BSD
-URL:            https://pypi.python.org/pypi/%{srcname}
+License:        BSD-3-Clause
+URL:            https://github.com/scientific-python/pytest-doctestplus
 Source0:        %{pypi_source}
 
 BuildArch:      noarch

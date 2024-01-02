@@ -1,6 +1,6 @@
-%global commit 79ace5c3844ec53c42e96995fd951683845e446c
+%global commit 8f37f07a1ac425ed8769da65f7a0a2d26b1392a7
 %global short_commit %(c=%{commit}; echo ${c:0:7})
-%global commit_date 20230517
+%global commit_date 20231220
 %global commit_release .%{commit_date}git%{short_commit}
 
 # To make rpmdev-bumpspec and similar tools happy
@@ -78,13 +78,4 @@ find %{buildroot}%{_libdir} -name '*.a' -delete -print
 %{_bindir}/*
 
 %changelog
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-7.20230517git79ace5c
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-5.20220512git932a87a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-4.20220512git932a87a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 %autochangelog

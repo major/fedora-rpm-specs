@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.74.1
+Version:        1.75.0
 Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.73.0
-%global bootstrap_channel 1.73.0
-%global bootstrap_date 2023-10-05
+%global bootstrap_version 1.74.0
+%global bootstrap_channel 1.74.0
+%global bootstrap_date 2023-11-16
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -63,7 +63,7 @@ ExclusiveArch:  %{rust_arches}
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 15.0+.
 %global min_llvm_version 15.0.0
-%global bundled_llvm_version 17.0.4
+%global bundled_llvm_version 17.0.5
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.7, and not the next minor soname change.
@@ -118,13 +118,16 @@ Patch3:         0001-Let-environment-variables-override-some-default-CPUs.patch
 Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
+# https://github.com/rust-lang/rust/pull/117982
+Patch6:         0001-bootstrap-only-show-PGO-warnings-when-verbose.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
 Source100:      macros.rust-toolset
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.74.0-disable-libssh2.patch
+Patch100:       rustc-1.75.0-disable-libssh2.patch
 
 # Get the Rust triple for any arch.
 %{lua: function rust_triple(arch)
@@ -558,6 +561,7 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %if %without bundled_wasi_libc
 %patch -P5 -p1
 %endif
+%patch -P6 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -596,7 +600,7 @@ rm -rf vendor/libssh2-sys*/
 %endif
 
 # This only affects the transient rust-installer, but let it use our dynamic xz-libs
-sed -i.lzma -e '/LZMA_API_STATIC/d' src/bootstrap/tool.rs
+sed -i.lzma -e '/LZMA_API_STATIC/d' src/bootstrap/src/core/build_steps/tool.rs
 
 %if %{without bundled_llvm} && %{with llvm_static}
 # Static linking to distro LLVM needs to add -lffi
@@ -854,11 +858,12 @@ rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
 %{export_rust_env}
 
 # Sanity-check the installed binaries, debuginfo-stripped and all.
-%{buildroot}%{_bindir}/cargo new build/hello-world
+TMP_HELLO=$(mktemp -d)
 (
-  cd build/hello-world
+  cd "$TMP_HELLO"
   export RUSTC=%{buildroot}%{_bindir}/rustc \
     LD_LIBRARY_PATH="%{buildroot}%{_libdir}:$LD_LIBRARY_PATH"
+  %{buildroot}%{_bindir}/cargo init --name hello-world
   %{buildroot}%{_bindir}/cargo run --verbose
 
   # Sanity-check that code-coverage builds and runs
@@ -870,6 +875,7 @@ rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
     %{buildroot}%{_bindir}/cargo build --verbose --target=$triple
   done
 )
+rm -rf "$TMP_HELLO"
 
 # The results are not stable on koji, so mask errors and just log it.
 # Some of the larger test artifacts are manually cleaned to save space.
@@ -1027,6 +1033,9 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 
 %changelog
+* Sun Dec 31 2023 Josh Stone <jistone@redhat.com> - 1.75.0-1
+- Update to 1.75.0.
+
 * Thu Dec 07 2023 Josh Stone <jistone@redhat.com> - 1.74.1-1
 - Update to 1.74.1.
 

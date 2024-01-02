@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 1.0.0
+%global version 1.1.0
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git
@@ -12,21 +12,23 @@ to make rebase-based and squash-based workflows simpler.}
 
 Name: rubygem-%{gem_name}
 Version: %{version}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: A git/github helper utility
 License: ASL 2.0
 URL: http://www.github.com/jaymzh/sugarjar
 Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # git clone https://github.com/jaymzh/sugarjar.git
-# git checkout v1.0.0
-# tar -cf rubygem-sugarjar-1.0.0-specs.tar.gz spec/
-Source1: %{name}-%{version}-specs.tar.gz
+# version='1.1.0'
+# git checkout v${version?}
+# tar -cf rubygem-sugarjar-${version?}-specs.tar spec/
+Source1: %{name}-%{version}-specs.tar
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(mixlib-shellout)
 %if %{with tests}
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(mixlib-log)
-BuildRequires: (hub or gh)
+BuildRequires: rubygem(deep_merge)
+BuildRequires: (gh or hub)
 BuildRequires: git
 %endif
 BuildArch: noarch
@@ -36,7 +38,7 @@ BuildArch: noarch
 
 %package -n sugarjar
 Summary: A git/github helper utility
-Requires: (hub or gh)
+Requires: (gh or hub)
 Requires: git
 Requires: git-core
 %description -n sugarjar
@@ -61,6 +63,11 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 %check
 pushd .%{gem_instdir}
 cp -a %{_builddir}/spec .
+# repoconfig_spec requires a git repo
+# and in general isn't very applicable to ensuring
+# the resulting install is functional, so nuke it
+# and run the rest
+rm spec/repoconfig_spec.rb
 rspec spec
 %endif
 
@@ -81,6 +88,10 @@ rm -rf %{buildroot}
 %{gem_spec}
 
 %changelog
+* Sun Dec 31 2023 Phil Dibowitz <phil@ipom.com> - 1.1.0-1
+- Update to upstream 1.1.0
+- Prefer gh over hub
+
 * Sun Oct 22 2023 Phil Dibowitz <phil@ipom.com> - 1.0.0-1
 - Update to upstream 1.0.0
 

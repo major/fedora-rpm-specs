@@ -1,7 +1,7 @@
 %global srcname markdown2
 
 Name:           python-%{srcname}
-Version:        2.4.10
+Version:        2.4.12
 Release:        1%{?dist}
 Summary:        A fast and complete Python implementation of Markdown
 License:        MIT
@@ -78,6 +78,12 @@ popd
 
 
 %changelog
+* Sun Dec 31 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2.4.12-1
+- Update to 2.4.12.
+
+* Sun Dec 31 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2.4.11-1
+- Update to 2.4.11.
+
 * Fri Jul 28 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2.4.10-1
 - Update to 2.4.10.
 

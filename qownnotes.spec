@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 # Git submodules
-%global qmarkdowntextedit_commit        405b423b3eff5cdc30be8560d68b56d8cb6e56e1
+%global qmarkdowntextedit_commit        b1cb6a7d20d2849f31f37822ef24e033c9d7c044
 %global qmarkdowntextedit_shortcommit   %(c=%{qmarkdowntextedit_commit}; echo ${c:0:7})
 
 %global qttoolbareditor_commit          ca0728c9924c6464234f7e477aa9509293d0a324
@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 %global qtcsv_commit                    ae15c33b066fea9373a07bed5dc898c10b45ce2a
 %global qtcsv_shortcommit               %(c=%{qtcsv_commit}; echo ${c:0:7})
 
-%global piwiktracker_commit             925272c2913932f7b0885ef41a12d2d07e9d215d
+%global piwiktracker_commit             955a77443dcf3ecb99bb1b7e73408e2835672b32
 %global piwiktracker_shortcommit        %(c=%{piwiktracker_commit}; echo ${c:0:7})
 
 %global qkeysequencewidget_commit       8cbb54a12f33e41bf7c4795405f4235db1ee8ff1
@@ -29,7 +29,7 @@ ExcludeArch: %{ix86}
 %global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
-Version:        23.12.3
+Version:        24.1.0
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
 

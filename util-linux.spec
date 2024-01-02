@@ -1,8 +1,8 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.39.2
-Release: 2%{?dist}
+Version: 2.39.3
+Release: 1%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -97,11 +97,6 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
-
-### Upstream
-###
-Patch2: libmount-Fix-regression-when-mounting-with-atime.patch
-
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -930,7 +925,11 @@ fi
 
 
 %changelog
-* Fri Dec  2 2023 Daan De Meyer <daandemeyer@gmail.com> - 2.39.2-2
+* Sun Dec 31 2023 Karel Zak <kzak@redhat.com> - 2.39.3-1
+- upgrade to v2.39.3
+  https://kernel.org/pub/linux/utils/util-linux/v2.39/v2.39.3-ReleaseNotes
+
+* Sat Dec  2 2023 Daan De Meyer <daandemeyer@gmail.com> - 2.39.2-2
 - Move sulogin to util-linux-core
 
 * Thu Aug 17 2023 Karel Zak <kzak@redhat.com> - 2.39.2-1

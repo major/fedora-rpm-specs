@@ -1,6 +1,6 @@
 Summary: test VT100-type terminal
 
-%define AppPatched 20230201
+%define AppPatched 20231230
 
 Name: vttest
 Version: 2.7.%{AppPatched}
@@ -41,6 +41,9 @@ can run all menu-items (for a given level) by entering an asterisk, i.e,
 %license COPYING
 
 %changelog
+* Sun Dec 31 2023 Thomas E. Dickey <dickey@his.com> - 2.7.20230201-1
+- update to 2.7.20231230 (RHBZ #2240499)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.20230201-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

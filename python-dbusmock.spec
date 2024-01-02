@@ -1,7 +1,7 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.30.1
+Version:          0.30.2
 Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
@@ -52,29 +52,12 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Sun Dec 31 2023 Martin Pitt <mpitt@redhat.com> - 0.30.2-1
+- bluez5: Fix invalid arguments to PairDevice (thanks Simon McVittie)
+
 * Sat Dec 23 2023 Packit <hello@packit.dev> - 0.30.1-1
-Over the years, this template has accumulated some hacks and bad API
-which made PairDevice()'s handling of the Modalias/Class/Icon properties
-buggy and hard to understand:
- * These are *static* device properties, they are not supposed to change
-   during pairing.
- * Commit ee29a4403359b6a added these as some kind of "dynamic fallback
-   default" when they were not initialized by the caller after
-   AddDevice().
- * Commit 59d6af0dca3e silently broke that fallback default by changing
-   AddDevice() to set these device properties to empty strings.
- * Commit fae4be7f49c0861 added another really bad API for setting Class
-   in PairDevice()(). That API didn't fit into D-Bus (see commit
-   8968284e8b which had to make it a non-default parameter) and also
-   broke the API, and moreover it is totally unintuitive -- the device
-   class has nothing to do with pairing.
-Clean up all of these: Set the static property defaults in AddDevice()
-right away, so that the caller can adjust them afterwards. Re-drop the
-`class_` argument in PairDevice(). Adjust the documentation of
-AddDevice() to point out that properties should be changed after calling
-that.
-Consequently, PairDevice() will stop claiming that the static properties
-changed. This also gets rid of some redundant code.
+- bluez: Clean up static default properties, re-drop PairDevice() `class_` parameter
+- Add pre-commit rules (thanks Peter Hutterer)
 
 * Thu Nov 30 2023 Packit <hello@packit.dev> - 0.30.0-1
 - api: Add pytest support and helpers

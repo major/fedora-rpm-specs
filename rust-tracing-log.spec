@@ -5,7 +5,7 @@
 %global crate tracing-log
 
 Name:           rust-tracing-log
-Version:        0.1.4
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Compatibility between tracing and the log crate
 
@@ -14,7 +14,7 @@ URL:            https://crates.io/crates/tracing-log
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
-# * drop optional interest-cache feature (lru is not packaged yet)
+# * drop unused, optional interest-cache feature
 Patch:          tracing-log-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -51,18 +51,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+env_logger-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+env_logger-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "env_logger" feature of the "%{crate}" crate.
-
-%files       -n %{name}+env_logger-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+log-tracer-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -85,18 +73,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+trace-logger-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+trace-logger-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "trace-logger" feature of the "%{crate}" crate.
-
-%files       -n %{name}+trace-logger-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

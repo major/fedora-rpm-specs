@@ -41,6 +41,8 @@ Source2:        https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/key
 # Upstream patches
 ## From: https://evilpiepirate.org/git/bcachefs-tools.git/commit/?id=89abdd87271e237141a9d4f44d531f7c53353b83
 Patch0001:      0001-Makefile-fsck-Use-libexec-instead-of-lib.patch
+## From: https://evilpiepirate.org/git/bcachefs-tools.git/commit/?id=44bf7868e5c2c4a52aef67e55aab1e904147dad4
+Patch002:       0001-fix-missing-atomic64_read_acquire-on-32-bit.patch
 
 # Upstreamable patches
 
@@ -181,7 +183,8 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 %changelog
 * Sun Dec 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.0-1
 - Update to 1.4.0
-- Add patch to move systemd unit helpers to libexecdir
+- Backport patch to move systemd unit helpers to libexecdir
+- Backport patch to fix builds on 32-bit architectures
 
 * Tue Dec 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.3.5-1
 - Update to 1.3.5

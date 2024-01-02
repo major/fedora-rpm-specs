@@ -1,6 +1,6 @@
 Name:          atari800
-Version:       5.0.0
-Release:       4%{?dist}
+Version:       5.2.0
+Release:       1%{?dist}
 Summary:       An emulator of 8-bit Atari personal computers
 
 License:       GPLv2+
@@ -47,6 +47,9 @@ emulation, precise cycle-exact ANTIC/GTIA emulation and more.
 
 
 %changelog
+* Fri Dec 29 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 5.2.0-1
+- Update to upstream.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

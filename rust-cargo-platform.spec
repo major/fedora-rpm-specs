@@ -5,7 +5,7 @@
 %global crate cargo-platform
 
 Name:           rust-cargo-platform
-Version:        0.1.5
+Version:        0.1.6
 Release:        %autorelease
 Summary:        Cargo's representation of a target platform
 

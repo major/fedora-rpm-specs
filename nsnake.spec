@@ -1,13 +1,13 @@
 Name:           nsnake
 Version:        3.0.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        The classic snake game with textual interface
 # the old homepage is down
 #URL:            http://nsnake.alexdantas.net/
 URL:            https://github.com/alexdantas/nSnake
 Source0:        https://github.com/alexdantas/nSnake/archive/v%{version}.tar.gz#/nSnake-%{version}.tar.gz
-License:        GPLv3+
-BuildRequires: make
+License:        GPL-3.0-or-later
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
 BuildRequires:  graphviz
@@ -39,6 +39,9 @@ make doc
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Sun Dec 31 2023 Daniel Milnes <daniel@daniel-milnes.uk> - 3.0.1-18
+- Migrate license to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

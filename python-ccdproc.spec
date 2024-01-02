@@ -1,64 +1,59 @@
 %global srcname ccdproc
-%global sum Astropy affiliated package for reducing optical/IR CCD data
-
-#%%global reltag .post1
+%global summary Astropy affiliated package for reducing optical/IR CCD data
 
 Name:           python-%{srcname}
-Version:        2.3.0
-Release:        7%{?dist}
-Summary:        %{sum}
+Version:        2.4.1
+Release:        1%{?dist}
+Summary:        %{summary}
 
-License:        BSD
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        https://files.pythonhosted.org/packages/source/c/%{srcname}/%{srcname}-%{version}%{?reltag}.tar.gz
+License:        BSD-3-Clause
+URL:            http://ccdproc.readthedocs.io/
+Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-astropy python3-astropy-helpers
-BuildRequires:  python3-astroscrappy
-BuildRequires:  python3-reproject
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-scikit-image
 
-%description
+%global _description %{expand:
 The ccdproc package is a collection of code that will be helpful in basic CCD
 processing. These steps will allow reduction of basic CCD data as either a
-stand-alone processing or as part of a pipeline.
+stand-alone processing or as part of a pipeline.}
 
+%description %_description
 
 %package -n python3-%{srcname}
-Summary:        %{sum}
-%{?python_provide:%python_provide python3-%{srcname}}
-Requires:       python3-astropy
-Requires:       python3-astroscrappy
-Requires:       python3-reproject
-Requires:       python3-scikit-image
+Summary:        %{summary}
+BuildRequires:  python3-setuptools
 
-%description -n python3-%{srcname}
-The ccdproc package is a collection of code that will be helpful in basic CCD
-processing. These steps will allow reduction of basic CCD data as either a
-stand-alone processing or as part of a pipeline.
-
+%description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}%{?reltag}
+%autosetup -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires 
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-#%%check
-#%%{__python3} setup.py test
+%pyproject_save_files ccdproc
 
-%files -n python3-%{srcname}
+%check
+# Tests require memory-profiler, not in Fedora
+%pyproject_check_import -t
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.rst licenses/LICENSE_STSCI_TOOLS.txt
 %doc CHANGES.rst README.rst
-%{python3_sitelib}/*
 
 %changelog
+* Sun Dec 31 2023 Sergio Pascual <sergiopr@fedoraproject.com> - 2.4.1-1
+- New upstream source 2.4.1
+- New style python macros
+- Updated to SPDX license
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

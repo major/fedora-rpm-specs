@@ -5,14 +5,14 @@
 %global crate pyo3-build-config
 
 Name:           rust-pyo3-build-config
-Version:        0.20.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Build configuration for the PyO3 ecosystem
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/pyo3-build-config
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes#
+# Manually created patch for downstream crate metadata changes
 # * drop MSVC- and MinGW-only "python3-dll-a" dependency
 Patch:          pyo3-build-config-fix-metadata.diff
 
@@ -85,6 +85,18 @@ use the "abi3-py311" feature of the "%{crate}" crate.
 %files       -n %{name}+abi3-py311-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+abi3-py312-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+abi3-py312-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "abi3-py312" feature of the "%{crate}" crate.
+
+%files       -n %{name}+abi3-py312-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+abi3-py37-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -151,6 +163,9 @@ use the "resolve-config" feature of the "%{crate}" crate.
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+%if %{with check}
+echo 'python3'
+%endif
 
 %build
 %cargo_build

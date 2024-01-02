@@ -1,7 +1,5 @@
-%global pypi_name pluggy
-
 # Turn the tests off when bootstrapping Python, because pytest requires pluggy
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-pluggy
 Version:        1.3.0
@@ -11,15 +9,13 @@ Summary:        The plugin manager stripped of pytest specific details
 # SPDX
 License:        MIT
 URL:            https://github.com/pytest-dev/pluggy
-Source0:        %{pypi_source}
-
+Source:         %{pypi_source pluggy}
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
+
 %if %{with tests}
+# the [testing] extra includes benchmarking dependencies
 BuildRequires:  python3-pytest
 %endif
 
@@ -28,36 +24,38 @@ The plugin manager stripped of pytest specific details.
 
 %description %_description
 
-%package -n python3-%{pypi_name}
+
+%package -n python3-pluggy
 Summary:  %summary
 
-%description -n python3-%{pypi_name}
-The plugin manager stripped of pytest specific details.
+%description -n python3-pluggy %_description
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n pluggy-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pluggy
+
 
 %if %{with tests}
 %check
-# TODO investigate test_load_setuptools_instantiation failure
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest testing -k "not test_load_setuptools_instantiation"
+%pytest
 %endif
 
 
-%files -n python3-%{pypi_name}
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+%files -n python3-pluggy -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
 
 
 %changelog

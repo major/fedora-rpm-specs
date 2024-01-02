@@ -1,9 +1,9 @@
 Name:          perl-Apache2-SOAP
 Version:       0.73
-Release:       42%{?dist}
+Release:       43%{?dist}
 Summary:       A replacement for Apache::SOAP designed to work with mod_perl 2
 
-License:       GPL+ or Artistic
+License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://metacpan.org/release/Apache2-SOAP
 Source0:       https://cpan.metacpan.org/authors/id/R/RK/RKOBES/Apache2-SOAP-%{version}.tar.gz
 
@@ -18,9 +18,7 @@ BuildRequires: mod_perl-devel
 #BuildRequires: httpd, perl(SOAP::Lite), perl(LWP::UserAgent)
 #BuildRequires: perl(Test::More)
 
-
 %{?perl_default_filter}
-
 
 %description
 This Apache Perl module provides the ability to add support for SOAP
@@ -36,13 +34,13 @@ from SOAP::Transport::HTTP2::Apache component of SOAP::Lite module.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-chmod -R u+rwX,go+rX,go-w %{buildroot}/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 
 
@@ -59,6 +57,11 @@ chmod -R u+rwX,go+rX,go-w %{buildroot}/*
 
 
 %changelog
+* Sun Dec 31 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.73-43
+- Use /usr/bin/perl instead of %%{__perl}
+- Migrate to SPDX license
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

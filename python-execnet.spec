@@ -1,5 +1,10 @@
 %global srcname execnet
 
+# Some of the BuildRequires are used in tests only when installed.
+# To speedup bootstrap of the next Python version in Fedora
+# we allow disabling them.
+%bcond optional_test_deps 1
+
 Name:           python-%{srcname}
 Version:        1.9.0
 Release:        12%{?dist}
@@ -30,9 +35,11 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-py
 BuildRequires:  python3-pytest
-#BuildRequires:  python3-eventlet -- not yet ready for Python 3.12
-BuildRequires:  python3-gevent
 BuildRequires:  python3-pytest-timeout
+%if %{with optional_test_deps}
+BuildRequires:  python3-eventlet
+BuildRequires:  python3-gevent
+%endif
 BuildRequires:  %{_bindir}/sphinx-build-3
 %{?python_provide:%python_provide python3-%{srcname}}
 

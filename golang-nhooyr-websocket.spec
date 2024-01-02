@@ -5,7 +5,7 @@
 # https://github.com/nhooyr/websocket
 %global goipath         nhooyr.io/websocket
 %global forgeurl        https://github.com/nhooyr/websocket
-Version:                1.8.6
+Version:                1.8.10
 
 %gometa
 
@@ -16,7 +16,7 @@ Minimal and idiomatic WebSocket library for Go.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Minimal and idiomatic WebSocket library for Go
 
 License:        MIT
@@ -55,6 +55,9 @@ BuildRequires:  golang(github.com/gorilla/websocket)
 %gopkgfiles
 
 %changelog
+* Sun Dec 31 2023 W. Michael Petullo <mike@flyn.org> - 1.8.10-1
+- New upstream version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,15 +1,12 @@
 Name:           pocketsphinx
 Epoch:          2
-Version:        5.0.0
-Release:        6%{?dist}
+Version:        5.0.3
+Release:        1%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD
 URL:            https://cmusphinx.github.io/
 Source0:        https://github.com/cmusphinx/pocketsphinx/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# See https://github.com/cmusphinx/pocketsphinx/issues/343
-Patch0:         pocketsphinx-5.0.0-s390x.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -92,13 +89,9 @@ rm -rf redhat-linux-build
 mv redhat-linux-build-python redhat-linux-build
 %cmake_install
 
-# Fix misuse (?) of INCLUDE_INSTALL_DIR by pocketsphinx build.
-mv $RPM_BUILD_ROOT%{_includedir}/include/* $RPM_BUILD_ROOT%{_includedir}
-rmdir $RPM_BUILD_ROOT%{_includedir}/include/
-
 # See https://github.com/cmusphinx/pocketsphinx/issues/341
 mkdir -p $RPM_BUILD_ROOT%{python3_sitearch}
-mv $RPM_BUILD_ROOT/%{_prefix}/cython/* $RPM_BUILD_ROOT%{python3_sitearch}
+mv $RPM_BUILD_ROOT/%{_prefix}/%{name}/* $RPM_BUILD_ROOT%{python3_sitearch}
 
 %ldconfig_scriptlets libs
 
@@ -127,11 +120,9 @@ mv $RPM_BUILD_ROOT/%{_prefix}/cython/* $RPM_BUILD_ROOT%{python3_sitearch}
 %{python3_sitearch}/*
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:5.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2:5.0.0-5
-- Rebuilt for Python 3.12
+* Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.3-1
+- Update to 5.0.3
+- Drop upstreamed patch
 
 * Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.0-3
 - Backport upstream s390x patch

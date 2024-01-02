@@ -2,7 +2,7 @@
 %global alpha 0
 
 Name:           flrig
-Version:        2.0.03
+Version:        2.0.05
 Release:        1%{?dist}
 Summary:        Transceiver control program
 
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sun Dec 31 2023 Richard Shaw <hobbes1069@gmail.com> - 2.0.05-1
+- Update to 2.5.05.
+
 * Fri Aug 25 2023 Richard Shaw <hobbes1069@gmail.com> - 2.0.03-1
 - Update to 2.0.03.
 
