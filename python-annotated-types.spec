@@ -7,7 +7,7 @@
 
 Name:           python-annotated-types
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reusable constraint types to use with typing.Annotated
 
 License:        MIT
@@ -57,7 +57,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files annotated_types
+%pyproject_save_files -l annotated_types
 
 
 %check
@@ -67,11 +67,13 @@ Summary:        %{summary}
 
 
 %files -n python3-annotated-types -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 
 %changelog
+* Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6.0-2
+- Assert %%pyproject_files contains a license file; don’t package a duplicate
+
 * Fri Oct 06 2023 Maxwell G <maxwell@gtmx.me> - 0.6.0-1
 - Update to 0.6.0. Fixes rhbz#2242535.
 

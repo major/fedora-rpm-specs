@@ -13,7 +13,7 @@
 
 Name:           mlt
 Version:        7.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -30,9 +30,16 @@ BuildRequires:  cmake
 BuildRequires:  sed
 BuildRequires:  frei0r-devel
 BuildRequires:  opencv-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qt3d-devel
+BuildRequires:  cmake(Qt6CoreTools)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6GuiTools)
+BuildRequires:  cmake(Qt6DBusTools)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6WidgetsTools)
+BuildRequires:  cmake(Qt6SvgWidgets)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  SDL-devel
 BuildRequires:  SDL2-devel
 %if ! (0%{?rhel} >= 8)
@@ -160,7 +167,8 @@ rm -r src/win32/
        -DSWIG_PYTHON:BOOL=ON                \
        %{?with_ruby: -DSWIG_RUBY:BOOL=ON}   \
        %{?with_opencv: -DMOD_OPENCV:BOOL=ON}  \
-       -DMOD_GLAXNIMATE:BOOL=ON  \
+       -DMOD_GLAXNIMATE_QT6:BOOL=ON  \
+       -DMOD_QT6:BOOL=ON \
        %{?with_ndi: -DMOD_NDI:BOOL=ON -DNDI_SDK_INCLUDE_PATH=%{_includedir}/ndi-sdk -DNDI_SDK_LIBRARY_PATH=%{_libdir} -DNDI_INCLUDE_DIR=%{_includedir}/ndi-sdk -DNDI_LIBRARY_DIR=%{_libdir}}
 
 %cmake_build
@@ -237,6 +245,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Mon Jan 01 2024 Marie Loise Nolden <loise@kde.org> - 7.22.0-2
+- use Qt6 instead of Qt5, otherwise kdenlive won't work with Qt6/KF6
+
 * Thu Dec 07 2023 Sérgio Basto <sergio@serjux.com> - 7.22.0-1
 - Update mlt to 7.22.0 (#2252089)
 

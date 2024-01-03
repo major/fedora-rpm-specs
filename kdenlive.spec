@@ -2,80 +2,72 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 23.08.2
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
 URL:     http://www.kdenlive.org
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/kdenlive-%{version}.tar.xz
 
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires: gcc-c++
+BuildRequires: cmake
 BuildRequires: desktop-file-utils
-BuildRequires: extra-cmake-modules
-BuildRequires: gettext
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Bookmarks)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Declarative)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5GuiAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5ItemViews)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5JobWidgets)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(Qt5NetworkAuth)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5NotifyConfig)
-BuildRequires: cmake(KF5Plotting)
-BuildRequires: cmake(KF5Purpose)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5FileMetaData)
 BuildRequires: libappstream-glib
+BuildRequires: gettext
 
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Plotting)
+BuildRequires: cmake(KF6Purpose)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6FileMetaData)
+
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6OpenGL)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6UiPlugin)
+BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6NetworkAuth)
+
+BuildRequires: librttr-devel
 BuildRequires: pkgconfig(libv4l2)
 BuildRequires: pkgconfig(mlt++-7) >= 7.12.0
 
-BuildRequires: pkgconfig(Qt5Concurrent)
-BuildRequires: pkgconfig(Qt5DBus)
-BuildRequires: cmake(Qt5Multimedia)
-BuildRequires: pkgconfig(Qt5OpenGL)
-BuildRequires: pkgconfig(Qt5Qml)
-BuildRequires: pkgconfig(Qt5Quick)
-BuildRequires: pkgconfig(Qt5QuickControls2)
-BuildRequires: pkgconfig(Qt5Script)
-BuildRequires: pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5UiPlugin)
-BuildRequires: pkgconfig(Qt5WebKitWidgets)
-BuildRequires: pkgconfig(Qt5Widgets)
-BuildRequires: librttr-devel
 
-## workaround for missing dependency in kf5-kio, can remove
-## once kf5-kio-5.24.0-2 (or newer is available)
-BuildRequires: kf5-kinit-devel
-%{?kf5_kinit_requires}
 Requires: dvdauthor
 Requires: /usr/bin/ffmpeg
-# Require version of mlt with ffmpeg support enabled
-Requires: mlt%{?_isa} >= 7.12.0-4
+# Require version of mlt with qt6 support
+Requires: mlt%{?_isa} >= 7.22.0-2
 Suggests: dvgrab
 #qt5-qtquickcontrols is still required rfbz #5701 and #5702
-Requires: qt5-qtquickcontrols
-Requires: qt5-qtquickcontrols2
 Requires: frei0r-plugins
-Requires: qqc2-desktop-style
-Requires: kf5-kirigami2
+Requires: kf6-qqc2-desktop-style
+Requires: kf6-kirigami2
 
 %description
 Kdenlive is an intuitive and powerful multi-track video editor, including most
@@ -87,8 +79,9 @@ recent video technologies.
 
 
 %build
-%{cmake_kf5} \
-  -DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON -Wno-dev
+%{cmake_kf6} \
+  -DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON -Wno-dev \
+  -DQT_MAJOR_VERSION=6
 
 %cmake_build
 
@@ -103,32 +96,35 @@ rm -rfv  %{buildroot}%{_datadir}/doc/Kdenlive/
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc AUTHORS README.md
 %license COPYING LICENSES/*
-%{_kf5_bindir}/kdenlive_render
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/kdenlive/
-%{_kf5_datadir}/mime/packages/org.kde.kdenlive.xml
-%{_kf5_datadir}/mime/packages/westley.xml
-%{_kf5_datadir}/icons/*/*/*/*
-%{_kf5_datadir}/config.kcfg/kdenlivesettings.kcfg
-%{_kf5_datadir}/knotifications5/kdenlive.notifyrc
+%{_kf6_bindir}/kdenlive_render
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/kdenlive/
+%{_kf6_datadir}/mime/packages/org.kde.kdenlive.xml
+%{_kf6_datadir}/mime/packages/westley.xml
+%{_kf6_datadir}/icons/*/*/*/*
+%{_kf6_datadir}/config.kcfg/kdenlivesettings.kcfg
+%{_kf6_datadir}/knotifications6/kdenlive.notifyrc
 %{_datadir}/knsrcfiles/*.knsrc
-%{_kf5_datadir}/qlogging-categories5/kdenlive.categories
-%{_kf5_mandir}/man1/kdenlive.1*
-%{_kf5_mandir}/man1/kdenlive_render.1*
+%{_kf6_datadir}/qlogging-categories6/kdenlive.categories
+%{_kf6_mandir}/man1/kdenlive.1*
+%{_kf6_mandir}/man1/kdenlive_render.1*
 # consider subpkg for multilib
-%{_kf5_plugindir}/thumbcreator/mltpreview.so
+%{_kf6_plugindir}/thumbcreator/mltpreview.so
 
 
 %changelog
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85 using Qt6/KF6
+
 * Fri Oct 13 2023 Steve Cossette <farchord@gmail.com> - 23.08.2-2
 - Added qqc2-desktop-style and kf5-kirigami as runtime requirements
 

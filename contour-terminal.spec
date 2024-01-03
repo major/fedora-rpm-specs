@@ -1,5 +1,5 @@
 Name:           contour-terminal
-Version:        0.4.0.6245
+Version:        0.4.1.6292
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
 
@@ -7,7 +7,7 @@ License:        Apache-2.0
 URL:            https://github.com/contour-terminal/contour
 Source0:        %{url}/archive/v%{version}/contour-%{version}.tar.gz
 
-ExcludeArch:    s390x i686 ppc64le
+ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -22,10 +22,12 @@ BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
 BuildRequires:  harfbuzz-devel
 BuildRequires:  libxkbcommon-devel
-BuildRequires:  libunicode-devel >= 0.4.0
-BuildRequires:  boxed-cpp-devel >= 1.1.0
 BuildRequires:  libutempter-devel
 BuildRequires:  pkgconfig(libssh2)
+
+BuildRequires:  libunicode-devel >= 0.4.0
+BuildRequires:  boxed-cpp-devel >= 1.1.0
+
 # provides tic
 BuildRequires:  ncurses
 
@@ -70,8 +72,6 @@ for everyday use. It is aiming for power users with a modern feature mindset.
 %install
 %cmake_install
 
-rm %{buildroot}%{_datadir}/terminfo/c/contour-latest
-ln -s contour %{buildroot}%{_datadir}/terminfo/c/contour-latest
 rm %{buildroot}%{_datadir}/contour/LICENSE.txt
 rm %{buildroot}%{_datadir}/contour/README.md
 

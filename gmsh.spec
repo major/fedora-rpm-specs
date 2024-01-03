@@ -9,7 +9,7 @@
 %endif
 %bcond_without mpich
 
-%global sover 4.11
+%global sover 4.12
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %bcond_without flexiblas
@@ -17,8 +17,8 @@
 
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
-Version:    4.11.1
-Release:    7%{?dist}
+Version:    4.12.0
+Release:    1%{?dist}
 
 # gmsh is GPLv2+ with exceptions, see LICENSE.txt
 # contrib/{DiscreteIntegration, HighOrderMeshOptimizer, MeshOptimizer, onelab} are MIT, see respective README.txt
@@ -401,6 +401,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Mon Jan 01 2024 Sandro Mani <manisandro@gmail.com> - 4.12.0-1
+- Update to 4.12.0
+
 * Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 4.11.1-7
 - Rebuild for openmpi 5.0.0, drops i686 and C++ API
 

@@ -1,5 +1,5 @@
 Name:           python-qcengine
-Version:        0.28.1
+Version:        0.29.0
 Release:        %autorelease
 Summary:        A compute wrapper for Quantum Chemistry
 

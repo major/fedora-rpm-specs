@@ -1,22 +1,25 @@
 Name:           kio-admin
-Version:        23.08.2
+Version:        24.01.85
 Release:        1%{?dist}
 Summary:        Manage files as administrator using the admin:// KIO protocol
 License:        (GPL-2.0-only or GPL-3.0-only) and BSD-3-Clause and CC0-1.0 and FSFAP
 URL:            https://invent.kde.org/system/kio-admin
-Source:         https://download.kde.org/stable/kio-admin/%{name}-%{version}.tar.xz
 
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+	
 # RHEL 9 cmake is at 3.20, lower the minimum cmake required
 Patch1:         kio-admin-lower-cmake-minimum.patch
 
-BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  cmake
+
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  zstd
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(PolkitQt5-1)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(PolkitQt6-1)
 
 
 %description
@@ -32,7 +35,9 @@ operations in root-scope.
 %autosetup -p1
 
 %build
-%cmake_kf5
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
+
 %cmake_build
 
 %install
@@ -42,17 +47,20 @@ operations in root-scope.
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*
-%{_kf5_metainfodir}/org.kde.kio.admin.metainfo.xml
-%dir %{_kf5_plugindir}/kfileitemaction/
-%{_kf5_plugindir}/kfileitemaction/kio-admin.so
-%dir %{_kf5_plugindir}/kio/
-%{_kf5_plugindir}/kio/admin.so
-%{_kf5_libexecdir}/kio-admin-helper
-%{_kf5_datadir}/dbus-1/system.d/org.kde.kio.admin.conf
-%{_kf5_datadir}/dbus-1/system-services/org.kde.kio.admin.service
-%{_kf5_datadir}/polkit-1/actions/org.kde.kio.admin.policy
+%{_kf6_metainfodir}/org.kde.kio.admin.metainfo.xml
+%dir %{_kf6_plugindir}/kfileitemaction/
+%{_kf6_plugindir}/kfileitemaction/kio-admin.so
+%dir %{_kf6_plugindir}/kio/
+%{_kf6_plugindir}/kio/admin.so
+%{_kf6_libexecdir}/kio-admin-helper
+%{_kf6_datadir}/dbus-1/system.d/org.kde.kio.admin.conf
+%{_kf6_datadir}/dbus-1/system-services/org.kde.kio.admin.service
+%{_kf6_datadir}/polkit-1/actions/org.kde.kio.admin.policy
 
-%changelog	
+%changelog
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

@@ -1,5 +1,5 @@
 Name: ghostwriter
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND Apache-2.0 AND CC-BY-4.0 AND CC-BY-SA-4.0 AND MPL-1.1 AND BSD AND LGPL-3.0-only AND MIT AND ISC
@@ -7,32 +7,36 @@ Summary: Cross-platform, aesthetic, distraction-free Markdown editor
 URL: https://invent.kde.org/office/%{name}
 Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Sonnet)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5XmlGui)
-
-BuildRequires: cmake(Qt5Concurrent)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Help)
-BuildRequires: cmake(Qt5LinguistTools)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5WebEngine)
-BuildRequires: cmake(Qt5WebEngineWidgets)
-BuildRequires: cmake(Qt5X11Extras)
-BuildRequires: cmake(Qt5Xml)
-BuildRequires: cmake(Qt5XmlPatterns)
-
-BuildRequires: desktop-file-utils
-BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
-BuildRequires: hunspell-devel
+BuildRequires: cmake
+BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
-BuildRequires: ninja-build
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+
+BuildRequires: hunspell-devel
+
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Sonnet)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6DocTools)
+
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Help)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6WebEngineCoreTools)
+BuildRequires: cmake(Qt6WebEngineWidgets)
+BuildRequires: cmake(Qt6WebChannel)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6QmlTools)
+BuildRequires: cmake(Qt6Core5Compat)
 
 Provides: bundled(cmark-gfm) = 0.29.0.gfm.6
 Provides: bundled(fontawesome-fonts) = 5.10.2
@@ -47,7 +51,7 @@ Recommends: multimarkdown%{?_isa}
 Recommends: pandoc%{?_isa}
 
 # Required qt5-qtwebengine is not available on some arches.
-ExclusiveArch: %{qt5_qtwebengine_arches}
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 %description
 Ghostwriter is a text editor for Markdown, which is a plain text markup
@@ -62,13 +66,14 @@ or your novel.
 %autosetup -p1
 
 %build
-%cmake_kf5 -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release
+%cmake_kf6 \
+    -DQT_MAJOR_VERSION=6
+
 %cmake_build
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name}.metainfo.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 %install
 %cmake_install
@@ -77,12 +82,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %files -f %{name}.lang
 %doc CHANGELOG.md CONTRIBUTING.md README.md
 %license COPYING
-%{_bindir}/%{name}
-%{_datadir}/applications/org.kde.%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_mandir}/man1/ghostwriter.*
 
 %changelog
+* Sat Dec 30 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

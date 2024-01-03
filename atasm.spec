@@ -1,12 +1,11 @@
 Name:           atasm
-Version:        1.09
-%global verstr  %(echo %{version} | sed -e 's/\\.//')
-Release:        6%{?dist}
+Version:        1.23
+Release:        1%{?dist}
 Summary:        6502 cross-assembler
 
-License:        GPLv2+
-URL:            https://atari.miribilist.com/atasm/
-Source0:        https://atari.miribilist.com/atasm/%{name}%{verstr}.zip
+License:        GPL-2.0-or-later
+URL:            https://github.com/CycoPH/atasm
+Source0:        %{url}/archive/V%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -21,7 +20,7 @@ with lightning speed.
 
 
 %prep
-%setup -q -n %{name}%{verstr}
+%autosetup
 
 
 %build
@@ -55,6 +54,9 @@ popd
 
 
 %changelog
+* Mon Jan 01 2024 Dan Horák <dan[at]danny.cz> - 1.24-1
+- update to 1.23 from an active fork
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

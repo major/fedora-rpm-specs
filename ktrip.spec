@@ -1,40 +1,39 @@
-Name:           ktrip
-Version:        23.08.2
-Release:        1%{?dist}
-License:        GPLv2+
-Summary:        Public transport navigation, allows you to find journeys between specified locations, departures for a specific station and shows real-time delay and disruption information.
-Url:            https://apps.kde.org/ktrip/
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/ktrip-%{version}.tar.xz
+Name:          ktrip
+Version:       24.01.85
+Release:       1%{?dist}
+Summary:       Public transport navigation, allows you to find journeys between specified locations, departures for a specific station and shows real-time delay and disruption information.
 
-BuildRequires: desktop-file-utils
-BuildRequires: extra-cmake-modules
+License:       GPL-2.0-or-later
+Url:           https://invent.kde.org/utilities/ktrip
+
+Source0:       https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
 BuildRequires: gcc-c++
-BuildRequires: kf5-kirigami2-addons-dateandtime
-BuildRequires: kf5-rpm-macros
-BuildRequires: kpublictransport-devel
+BuildRequires: cmake 
+BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
-BuildRequires: qqc2-desktop-style
-BuildRequires: reuse
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Widgets)
 
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5Contacts)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5ItemModels)
+BuildRequires: cmake(KF6QQC2DesktopStyle)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KPublicTransport)
+BuildRequires: cmake(KF6KirigamiAddons)
 
 BuildRequires: pkgconfig(zlib)
 
 # QML module dependencies
-Requires:      kf5-ki18n%{?_isa}
-Requires:      kf5-kirigami2%{?_isa}
-Requires:      kf5-kirigami2-addons%{?_isa}
+Requires:      kf6-ki18n%{?_isa}
+Requires:      kf6-kirigami2%{?_isa}
+Requires:      kf6-kirigami2-addons%{?_isa}
 Requires:      kpublictransport%{?_isa}
-Requires:      qt5-qtquickcontrols2%{?_isa}
 
 %description
 %{summary}.
@@ -43,27 +42,29 @@ Requires:      qt5-qtquickcontrols2%{?_isa}
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6
+
 %cmake_build
 
 %install
 %cmake_install
 %find_lang %{name}
-desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot}/%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-install --dir=%{buildroot}%{_kf6_datadir}/applications/ %{buildroot}/%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
-%{_kf5_bindir}/%{name}
-
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/org.kde.%{name}.*
-
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/org.kde.%{name}.*
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

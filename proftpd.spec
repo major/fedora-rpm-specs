@@ -40,7 +40,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -78,6 +78,7 @@ BuildRequires:		libacl-devel
 BuildRequires:		libcap-devel
 BuildRequires:		libidn2-devel
 BuildRequires:		libmemcached-devel >= 0.41
+BuildRequires:		libsodium-devel >= 1.0
 BuildRequires:		logrotate
 BuildRequires:		make
 BuildRequires:		%{mysql_devel_pkg}
@@ -160,6 +161,7 @@ Requires:	GeoIP-devel
 Requires:	libacl-devel
 Requires:	libcap-devel
 Requires:	libmemcached-devel >= 0.41
+Requires:	libsodium-devel >= 1.0
 Requires:	%{mysql_devel_pkg}
 Requires:	ncurses-devel
 Requires:	openldap-devel
@@ -276,7 +278,11 @@ sed -i -e '/^[[:space:]]*TLSCipherSuite[[:space:]]*PROFILE=SYSTEM$/d' mod_tls.co
 %endif
 
 # Tweak logrotate script for systemd compatibility (#802178)
+%if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 23)
 sed -i -e '/killall/s/test.*/systemctl reload proftpd.service/' \
+%else
+sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
+%endif
 	contrib/dist/rpm/proftpd.logrotate
 
 # Avoid docfile dependencies
@@ -311,6 +317,7 @@ SMOD7=mod_unique_id
 			--enable-openssl \
 			--disable-pcre \
 %{?pcre2_support:	--enable-pcre2} \
+			--enable-sodium \
 			--disable-redis \
 			--enable-shadow \
 			--enable-tests=nonetwork \
@@ -506,6 +513,11 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Mon Jan  1 2024 Paul Howarth <paul@city-fan.org> - 1.3.8b-2
+- Use libsodium to provide ed25519 key support for mod_sftp (#2256340)
+- Update logrotate snippet to use try-reload-or-restart rather than reload
+  for distributions with systemd 229 or later (PR#3)
+
 * Wed Dec 20 2023 Paul Howarth <paul@city-fan.org> - 1.3.8b-1
 - Update to 1.3.8b
   - Compiling ProFTPD 1.3.8a mod_sftp, mod_tls using libressl 3.7.3 failed

@@ -1,4 +1,3 @@
-
 # workaround for bz#1546230
 # ocaml doesn't support relocation
 %undefine _hardened_build
@@ -11,24 +10,19 @@
 %endif
 
 # pending fix for https://bugzilla.redhat.com/1544510
+# disabled for Qt6, see CMakeLists.txt
 %global avogadro 1
 %endif
 
 Name:    kalzium
 Summary: Periodic Table of Elements
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
-License: GPLv2+
-URL:     https://edu.kde.org/kalzium/
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+License: GPL-2.0-or-later
+URL:     https://invent.kde.org/education/kalzium
+	
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -38,30 +32,30 @@ BuildRequires: chemical-mime-data
 BuildRequires: desktop-file-utils
 %endif
 
-# kf5
+BuildRequires: gcc-c++
+BuildRequires: cmake
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KDELibs4Support)
-BuildRequires: cmake(KF5KHtml)
-BuildRequires: cmake(KF5NewStuff)
-BuildRequires: cmake(KF5Parts)
-BuildRequires: cmake(KF5Plotting)
-BuildRequires: cmake(KF5Solid)
-BuildRequires: cmake(KF5UnitConversion)
-BuildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6Plotting)
+BuildRequires: cmake(KF6Solid)
+BuildRequires: cmake(KF6UnitConversion)
+BuildRequires: cmake(KF6WidgetsAddons)
 
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Script)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5OpenGL)
-BuildRequires: cmake(Qt5Svg)
-
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: cmake(Qt6StateMachine)
+ 
 BuildRequires: pkgconfig(openbabel-3)
 %if 0%{?avogadro}
 # Eigen is only used for the Avogadro-based compound viewer.
@@ -103,7 +97,8 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake_kf5
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
 
 %cmake_build
 
@@ -116,45 +111,45 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %check
 %if !0%{?bootstrap}
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kalzium.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalzium.desktop
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalzium_cml.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kalzium.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium_cml.desktop
 %endif
 
 
 %files -f %{name}.lang
-%dir %{_kf5_datadir}/libkdeedu/
+%dir %{_kf6_datadir}/libkdeedu/
 %license LICENSES/*
-%{_kf5_bindir}/kalzium
-%{_kf5_datadir}/applications/org.kde.kalzium.desktop
-%{_kf5_datadir}/applications/org.kde.kalzium_cml.desktop
-%{_kf5_datadir}/config.kcfg/kalzium.kcfg
-%{_kf5_datadir}/icons/hicolor/*/*/kalzium.*
-%{_kf5_datadir}/kalzium/
-%{_kf5_datadir}/knsrcfiles/%{name}.knsrc
-%{_kf5_datadir}/libkdeedu/data/
-%{_kf5_datadir}/qlogging-categories5/kalzium.categories
-%{_kf5_metainfodir}/org.kde.kalzium.appdata.xml
+%{_kf6_bindir}/kalzium
+%{_kf6_datadir}/applications/org.kde.kalzium.desktop
+%{_kf6_datadir}/applications/org.kde.kalzium_cml.desktop
+%{_kf6_datadir}/config.kcfg/kalzium.kcfg
+%{_kf6_datadir}/icons/hicolor/*/*/kalzium.*
+%{_kf6_datadir}/kalzium/
+%{_kf6_datadir}/libkdeedu/data/
+%{_kf6_datadir}/qlogging-categories6/kalzium.categories
+%{_kf6_metainfodir}/org.kde.kalzium.appdata.xml
 %{_mandir}/man1/kalzium.*
-
-%{?ldconfig_scriptlets:%ldconfig_scriptlets libs}
 
 %files libs
 %if 0%{?avogadro}
-%{_kf5_libdir}/libcompoundviewer.so.5*
+#{_kf6_libdir}/libcompoundviewer.so.5*
 %endif
-%{_kf5_libdir}/libscience.so.5*
+%{_kf6_libdir}/libscience.so.5*
 
 %files devel
 %dir %{_includedir}/libkdeedu/
 %{_includedir}/libkdeedu/*.h
 %if 0%{?avogadro}
-%{_kf5_libdir}/libcompoundviewer.so
+#{_kf6_libdir}/libcompoundviewer.so
 %endif
-%{_kf5_libdir}/libscience.so
+%{_kf6_libdir}/libscience.so
 
 
 %changelog
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1	
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

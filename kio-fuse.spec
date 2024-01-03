@@ -10,7 +10,7 @@
 
 Name:           kio-fuse
 Version:        5.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KIO FUSE
 
 License:        GPLv3+
@@ -25,16 +25,16 @@ BuildRequires:  cmake
 BuildRequires:  gnupg2
 BuildRequires:  gcc-c++
 BuildRequires:  systemd
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules  >= %{min_kf_version}
 
 BuildRequires:  pkgconfig(fuse3)
 
-BuildRequires:  cmake(Qt5Core)       >= %{min_qt_version}
-BuildRequires:  cmake(Qt5Test)       >= %{min_qt_version}
+BuildRequires:  cmake(Qt6Core)       >= %{min_qt_version}
+BuildRequires:  cmake(Qt6Test)       >= %{min_qt_version}
 
-BuildRequires:  cmake(KF5KIO)        >= %{min_kf_version}
-BuildRequires:  cmake(KF5CoreAddons) >= %{min_kf_version}
+BuildRequires:  cmake(KF6KIO)        >= %{min_kf_version}
+BuildRequires:  cmake(KF6CoreAddons) >= %{min_kf_version}
 
 %if 0%{?tests}
 BuildRequires:  dbus-x11
@@ -56,7 +56,9 @@ FUSE.
 
 
 %build
-%cmake_kf5 -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF}
+%cmake_kf6 -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} \
+	-DQT_MAJOR_VERSION=6
+
 %cmake_build
 
 
@@ -77,11 +79,14 @@ dbus-launch --exit-with-session \
 %doc README.md DESIGN.md
 %{_libexecdir}/kio-fuse
 %{_userunitdir}/kio-fuse.service
-%{_kf5_datadir}/dbus-1/services/org.kde.KIOFuse.service
+%{_kf6_datadir}/dbus-1/services/org.kde.KIOFuse.service
 %{_tmpfilesdir}/%{name}-tmpfiles.conf
 
 
 %changelog
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 5.1.0-2
+- use Qt6/KF6
+
 * Tue Dec 12 2023 Yaroslav Sidlovsky <zawertun@gmail.com> - 5.1.0-1
 - version 5.1.0
 

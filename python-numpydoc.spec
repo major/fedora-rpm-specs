@@ -1,14 +1,14 @@
 Name:           python-numpydoc
-Version:        1.4.0
-Release:        4%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Sphinx extension to support docstrings in NumPy format
 
 # Replace ast.NameConstant deprecated in Python 3.12 with ast.Constant
 Patch:          https://github.com/hrnciar/numpydoc/pull/1.patch
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://pypi.python.org/pypi/numpydoc
-Source0:        https://files.pythonhosted.org/packages/source/n/numpydoc/numpydoc-%{version}.tar.gz
+Source0:        %pypi_source numpydoc
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -30,11 +30,14 @@ following the NumPy/SciPy format to a form palatable to Sphinx.
 %prep
 %autosetup -p1 -n numpydoc-%{version}
 # let's not measure coverage:
-sed -i '/pytest-cov/d' requirements/test.txt
-sed -Ei 's/\s+--cov\S+//g' setup.cfg
+sed -i '/pytest-cov/d' requirements/test.txt pyproject.toml
+sed -Ei 's/\s+--cov\S+//g' pyproject.toml
+
+# Remove a useless shebang
+sed -i '\,#!/usr/bin/env python,d' numpydoc/validate.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel
@@ -51,8 +54,14 @@ sed -Ei 's/\s+--cov\S+//g' setup.cfg
 %files -n python3-numpydoc -f %pyproject_files
 %license LICENSE.txt
 %doc README.rst
+%{_bindir}/validate-docstrings
 
 %changelog
+* Thu Oct 19 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
+- Version 1.6.0
+- Convert License tag to SPDX
+- Use the pypi_source macro
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

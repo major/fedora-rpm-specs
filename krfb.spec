@@ -1,9 +1,7 @@
-%bcond qt6 0
-
 Name:    krfb
 Summary: Desktop sharing
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
 URL:     https://www.kde.org/applications/network/krfb/
@@ -29,9 +27,8 @@ BuildRequires: kf5-kwidgetsaddons
 BuildRequires: kf5-kxmlgui-devel
 BuildRequires: cmake(KF5Wayland)
 BuildRequires: cmake(KF5WindowSystem)
-%if %{with qt6}
-BuildRequires: cmake(KPipeWire)
-%endif
+# Compat version of kpipewire for KF5
+BuildRequires: kpipewire5-devel
 
 BuildRequires: cmake(PlasmaWaylandProtocols)
 
@@ -86,7 +83,7 @@ Provides:  kdenetwork-krfb-libs = 7:%{version}-%{release}
 
 
 %build
-%cmake_kf5 %{!?with_qt6:-DDISABLE_PIPEWIRE=ON}
+%cmake_kf5
 
 %cmake_build
 
@@ -122,6 +119,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Mon Jan 01 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
+- Build against the kpipewire5 compat package
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

@@ -123,10 +123,10 @@ Common files for %{name}.
 %define _vpath_builddir %{_target_platform}-qt
 %cmake_install
 
-%{_bindir}/desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-gtk.desktop
-%{_bindir}/desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt5.desktop
-%{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-gtk.appdata.xml
-%{_bindir}/appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-qt5.appdata.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-gtk.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt5.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-gtk.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-qt5.appdata.xml
 
 %find_lang %{name}
 

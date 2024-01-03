@@ -1,38 +1,29 @@
-%undefine __cmake_in_source_build
-
 Name:    kmag
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: A screen magnifier
 
-# kmagzoomview.h is only GPLv2 but I expect it's mistake as .cpp is GPLv2+, 
-# I'll check it with upstream, for now stick with GPLv2
-License: GPLv2
-URL:     http://accessibility.kde.org/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+License: GPL-2.0
+URL:     https://invent.kde.org/accessibility/kmag
+	
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
+BuildRequires: gcc-c++
+BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5XmlGui)
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6XmlGui)
 
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Widgets)
 
-%if 0%{?fedora}
-## needs Qt5 build
-#BuildRequires: qaccessibilityclient-devel
-%endif
+BuildRequires: cmake(QAccessibilityClient6)
 
 # when split occured
 Conflicts: kdeaccessibility < 1:4.7.80
@@ -46,7 +37,8 @@ Conflicts: kdeaccessibility < 1:4.7.80
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6
+
 %cmake_build
 
 
@@ -55,24 +47,26 @@ Conflicts: kdeaccessibility < 1:4.7.80
 
 %find_lang %{name} --all-name --with-html --with-man
 
-
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog README TODO
-%license COPYING*
-%{_kf5_bindir}/%{name}*
-%{_kf5_datadir}/%{name}
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/*/*
+%doc ChangeLog
+%license LICENSES/*
+%{_kf6_bindir}/%{name}*
+%{_kf6_datadir}/%{name}
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/*/*
 %{_mandir}/man1/*.1*
 
 
 %changelog
+* Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1	
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

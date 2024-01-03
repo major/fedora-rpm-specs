@@ -1,9 +1,9 @@
 Name:           alglib
-Version:        4.00.0
-Release:        2%{?dist}
+Version:        4.01.0
+Release:        1%{?dist}
 Summary:        A numerical analysis and data processing library
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.alglib.net/
 Source0:        http://www.alglib.net/translator/re/%{name}-%{version}.cpp.gpl.tgz
 Source1:        CMakeLists.txt
@@ -73,7 +73,7 @@ popd
 
 %files
 %license gpl2.txt
-%{_libdir}/libalglib-4.00.0.so
+%{_libdir}/libalglib-4.01.0.so
 
 %files devel
 %{_includedir}/%{name}/
@@ -85,6 +85,9 @@ popd
 
 
 %changelog
+* Mon Jan 01 2024 Sandro Mani <manisandro@gmail.com> - 4.01.0-1
+- Update to 4.01.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.00.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

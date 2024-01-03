@@ -163,13 +163,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.7.0
 %define specversion 6.7.0
 %define patchversion 6.7
-%define pkgrelease 0.rc7.20231230gitf016f7547aee.59
+%define pkgrelease 0.rc8.61
 %define kversion 6
-%define tarfile_release 6.7-rc7-41-gf016f7547aee
+%define tarfile_release 6.7-rc8
 # This is needed to do merge window version magic
 %define patchlevel 7
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.20231230gitf016f7547aee.59%{?buildid}%{?dist}
+%define specrelease 0.rc8.61%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.7.0
 
@@ -799,7 +799,7 @@ BuildRequires: tpm2-tools
 Source0: linux-%{tarfile_release}.tar.xz
 
 Source1: Makefile.rhelver
-Source2: kernel.changelog.xz
+Source2: kernel.changelog
 
 # Name of the packaged file containing signing key
 %ifarch ppc64le
@@ -2918,7 +2918,8 @@ docdir=$RPM_BUILD_ROOT%{_datadir}/doc/kernel-doc-%{specversion}-%{pkgrelease}
 # copy the source over
 mkdir -p $docdir
 tar -h -f - --exclude=man --exclude='.*' -c Documentation | tar xf - -C $docdir
-install -m644 %{SOURCE2} $docdir/
+cat %{SOURCE2} | xz > $docdir/kernel.changelog.xz
+chmod 0644 $docdir/kernel.changelog.xz
 
 # with_doc
 %endif
@@ -3756,6 +3757,15 @@ fi\
 #
 #
 %changelog
+* Mon Jan 01 2024 Justin M. Forbes <jforbes@fedoraproject.org> [6.7.0-0.rc8.61]
+- redhat: do not compress the full kernel changelog in the src.rpm (Herton R. Krzesinski)
+
+* Mon Jan 01 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.7.0-0.rc8.61]
+- Linux v6.7.0-0.rc8
+
+* Sun Dec 31 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.7.0-0.rc7.453f5db0619e.60]
+- Linux v6.7.0-0.rc7.453f5db0619e
+
 * Sat Dec 30 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.7.0-0.rc7.f016f7547aee.59]
 - Auto consolidate configs for the 6.7 cycle (Justin M. Forbes)
 - Linux v6.7.0-0.rc7.f016f7547aee

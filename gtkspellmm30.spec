@@ -1,3 +1,5 @@
+%bcond mingw 1
+
 Name:          gtkspellmm30
 Version:       3.0.5
 Release:       22%{?dist}
@@ -12,6 +14,7 @@ BuildRequires: gtkmm30-devel
 BuildRequires: gtkmm30-doc
 BuildRequires: make
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-glibmm24
@@ -23,6 +26,7 @@ BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-glibmm24
 BuildRequires: mingw64-gtkmm30
 BuildRequires: mingw64-gtkspell3
+%endif
 
 
 %description
@@ -46,6 +50,7 @@ Requires:      gtkmm30-doc
 %description   doc
 This package contains the full API documentation for %{name}.
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows GtkSpellmm library
 Obsoletes:     mingw32-%{name}-static
@@ -62,6 +67,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}
 MinGW Windows GtkSpellmm library.
+%endif
 
 
 %{?mingw_debug_package}
@@ -80,19 +86,23 @@ pushd build_native
 %make_build
 popd
 
+%if %{with mingw}
 # MinGW build
 %mingw_configure --disable-documentation
 %mingw_make_build
+%endif
 
 
 %install
 %make_install -C build_native
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 find %{buildroot} -name "*.la" -exec rm {} \;
 
 
-%mingw_debug_install_post
+%{?mingw_debug_install_post}
 
 
 %files
@@ -111,6 +121,7 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 %{_datadir}/devhelp/books/gtkspellmm-3.0
 %{_datadir}/doc/gtkspellmm-3.0
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
 %{mingw32_bindir}/libgtkspellmm-3.0-0.dll
@@ -126,6 +137,7 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 %{mingw64_libdir}/gtkspellmm-3.0/
 %{mingw64_libdir}/libgtkspellmm-3.0.dll.a
 %{mingw64_libdir}/pkgconfig/gtkspellmm-3.0.pc
+%endif
 
 
 %changelog

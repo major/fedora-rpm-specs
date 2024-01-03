@@ -4,22 +4,18 @@
 %bcond_with doc
 
 Name:           python-%{srcname}
-Version:        1.0.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        A build time package to simplify C/Cython extensions
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/extension-helpers
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-# Test requirements
 BuildRequires:  gcc
-BuildRequires:  python3dist(pytest)
-
 
 %global _description %{expand:
 The extension-helpers package includes convenience helpers to assist with
@@ -35,7 +31,7 @@ dependency in pyproject.toml files.}
 %description %_description
 
 %package -n python3-%{srcname}
-Summary:        %{summary}
+Summary: %{summary}
 
 %description -n python3-%{srcname} %_description
 
@@ -52,11 +48,9 @@ BuildRequires:  python3dist(sphinx)
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires
+%pyproject_buildrequires -x test 
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 
@@ -74,7 +68,6 @@ popd
 
 
 %check
-%pyproject_check_import
 %pytest -q %{modname}/tests
 
 

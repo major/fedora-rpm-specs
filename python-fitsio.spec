@@ -3,49 +3,60 @@
 
 
 Name:           python-%{srcname}
-Version:        1.1.8
+Version:        1.2.1
 Release:        %autorelease
 Summary:        %{sum}
 
-License:        GPLv2+
-URL:            https://pypi.python.org/pypi/%{srcname}
+License:        GPL-2.0-only
+URL:            https://github.com/esheldon/fitsio
 Source0:        %{pypi_source}
-
-# Patch to force usage of Fedora cfitsio instead of bundled copy
-Patch0:         %{name}-use-system-cfitsio.patch
 
 # General
 BuildRequires:  cfitsio-devel
+BuildRequires:  zlib-devel
 BuildRequires:  gcc
 # Python 3
 BuildRequires:  python3-devel
 
+%global _description %{expand:
+This is a python extension written in c and python. Data are read 
+into numerical python arrays.}
 
-%description
-%{sum}.
+
+%description %_description
 
 %package -n python3-%{srcname}
 Summary:        %{sum}
+BuildRequires: %{py3_dist pytest}
+Requires: %{py3_dist pytest}
 
-%description -n python3-%{srcname}
-%{sum}.
-
+%description -n python3-%{srcname} %_description
 
 %prep
+FITSIO_USE_SYSTEM_FITSIO=""
+export FITSIO_USE_SYSTEM_FITSIO
+FITSIO_SYSTEM_FITSIO_INCLUDEDIR="%{_includedir}/cfitsio"
+export FITSIO_SYSTEM_FITSIO_INCLUDEDIR
+FITSIO_SYSTEM_FITSIO_LIBDIR="%{_libdir}"
+export FITSIO_SYSTEM_FITSIO_LIBDIR
 %autosetup -p1 -n %{srcname}-%{version}
-
-sed -i "s,@INCLUDEDIR@,%{_includedir}/cfitsio,g" setup.py
-sed -i "s,@LIBDIR@,%{_libdir},g" setup.py
 
 # Remove egg files from source
 rm -r %{srcname}.egg-info
-
+# Remove bundled cfitsio, to be sure we are not using it
+rm -rf cfitsio-*
 
 %generate_buildrequires
 %pyproject_buildrequires
 
 
 %build
+FITSIO_USE_SYSTEM_FITSIO=""
+export FITSIO_USE_SYSTEM_FITSIO
+FITSIO_SYSTEM_FITSIO_INCLUDEDIR="%{_includedir}/cfitsio"
+export FITSIO_SYSTEM_FITSIO_INCLUDEDIR
+FITSIO_SYSTEM_FITSIO_LIBDIR="%{_libdir}"
+export FITSIO_SYSTEM_FITSIO_LIBDIR
 %pyproject_wheel
 
 
@@ -55,7 +66,10 @@ rm -r %{srcname}.egg-info
 
 
 %check
-%pyproject_check_import
+pushd %{buildroot}/%{python3_sitearch}
+  %pytest fitsio
+  rm -rf .pytest_cache
+popd
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

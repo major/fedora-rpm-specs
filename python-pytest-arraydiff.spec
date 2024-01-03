@@ -12,6 +12,8 @@ URL:            https://github.com/astropy/pytest-arraydiff
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
+# pytable is missing in the following arch
+ExcludeArch:    %{ix86} 
 BuildRequires:  python3-devel
 
 %global _description %{expand:
@@ -57,7 +59,6 @@ rm -r %{modname}.egg-info
 
 %check
 %pytest
-#_pyproject_check_import
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

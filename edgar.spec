@@ -1,6 +1,6 @@
 Name:           edgar
-Version:        1.36
-Release:        3%{?dist}
+Version:        1.37
+Release:        1%{?dist}
 Summary:        A platform game
 
 # edgar now contains sounds licensed under a "good" Fedora license:
@@ -35,6 +35,7 @@ easy...
 %setup -q
 
 # Fix Makefile
+sed -i 's/LDFLAGS += -s/:/' makefile
 sed -i 's:$(PREFIX)/games/:$(PREFIX)/bin/:' makefile
 sed -i 's:$(PREFIX)/share/games/edgar/:$(PREFIX)/share/edgar/:' \
   makefile
@@ -68,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Mon Jan 01 2024 Andrea Musuruane <musuruan@gmail.com> - 1.37-1
+- Updated to new upstream release
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

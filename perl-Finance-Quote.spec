@@ -1,5 +1,5 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 1.58
+%global module_version 1.59
 %global RPM_version %(printf "%.4f" %{module_version})
 
 Name:           perl-Finance-Quote
@@ -164,6 +164,31 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Jan  1 2024 Paul Howarth <paul@city-fan.org> - 1.5900-1
+- Update to 1.59
+  - Fixed XETRA, Tradegate and SInvestor after webpage was restructured (GH#350)
+  - Fidelity.pm temporarily disabled (GH#346)
+  - Finanzpartner.pm - Fix scraper, did not work if quote was higher than the
+    previous day's quote
+  - GoogleWeb.pm - Updated to retrieve mutual fund and BATS prices (GH#355)
+  - BSEIndia.pm:
+    - Updated to use standardized data file at URL
+      https://www.bseindia.com/download/BhavCopy/Equity/BSE_EQ_BHAVCOPY_{DDMMYYYY}.ZIP
+    - Eliminated need to use temp folders by storing standardized file data
+      from URL into a variable
+    - Updated names of source fields to conform to those in the standardized
+      data file
+    - Removed print when symbol not found (GH#335)
+  - IndiaMutual.pm - Eliminated need to use temp folders by storing NAV file
+    data from URL into a variable
+  - TMX.pm - Correct a self-reference in documentation (GH#345)
+  - Stooq.pm - Added new currencies and a fix for commodities' prices
+  - YahooWeb.pm - Skip rows in the price table where the prices are "-"; this
+    seems to happen sometimes with TIAA (and perhaps other) securities
+    including TILIX and QCILIX
+  - TSP.pm - Was not returning hash when the HTTP GET failed completely or the
+    content did not contain the expected CSV file (GH#338)
+
 * Sun Aug 13 2023 Paul Howarth <paul@city-fan.org> - 1.5800-1
 - Update to 1.58
   - New module Consorsbank.pm (GH#329)

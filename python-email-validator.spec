@@ -70,7 +70,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files email_validator
+%pyproject_save_files -l email_validator
 
 %check
 # Even though we have disabled the “network” mark, these still require DNS.

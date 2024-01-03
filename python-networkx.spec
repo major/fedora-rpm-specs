@@ -11,7 +11,7 @@
 
 Name:           python-networkx
 Version:        3.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -28,6 +28,10 @@ Patch0:         %{name}-doc.patch
 # Temporary workaround for a failing test.
 # See https://github.com/networkx/networkx/issues/5913
 Patch1:         %{name}-test.patch
+# Remove nbconvert upper pin (revert #6984) (#7083)
+# https://github.com/networkx/networkx/commit/7394b61059c0bb84f6386eb301f8ccad60e7045d
+# Patch re-created to work with -p0 like the existing patches.
+Patch2:         %{name}-unpin-nbconvert.patch
 
 BuildArch:      noarch
 
@@ -118,10 +122,8 @@ sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/ht
 %endif
 
 # Permit older versions of doc packages where Fedora is behind
-# Also permit a newer version of nbconvert
 sed -e 's/\(sphinx-gallery>=\)0\.14/\10.11.1/' \
     -e 's/\(numpydoc>=1.\)6/\14.0/' \
-    -e 's/\(nbconvert<\)7\.9/\17.13/' \
     -i pyproject.toml requirements/doc.txt
 
 # Fedora does not have osmnx or momepy
@@ -173,6 +175,9 @@ done
 %endif
 
 %changelog
+* Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.1-2
+- Remove the upper bound on the version of python-nbconvert (fix RHBZ#2256372)
+
 * Tue Dec  5 2023 Jerry James <loganjerry@gmail.com> - 3.2.1-1
 - Version 3.2.1
 - Bring back the test patch

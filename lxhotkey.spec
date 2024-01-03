@@ -1,9 +1,9 @@
 Name:			lxhotkey
 Version:		0.1.1
-Release:		6%{?dist}
+Release:		7%{?dist}
 Summary:		Hotkeys management utility
 
-License:		GPLv2+
+License:		GPL-2.0-or-later
 URL:			https://wiki.lxde.org/en/LXHotkey
 Source0:		http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
 
@@ -41,7 +41,7 @@ developing applications that use %{name}.
 %make_build
 
 %install
-%make_install INSTALL="install -p"
+%make_install
 # Rather than writing multiple "--not-show-in", currently
 # write --add-only-show-in with LXDE
 # Set Icon to the value below, About dialog uses this
@@ -76,6 +76,9 @@ desktop-file-install \
 %{_includedir}/%{name}/
 
 %changelog
+* Tue Jan  2 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.1-7
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
