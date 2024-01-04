@@ -3,7 +3,7 @@
 
 # https://github.com/Azure/azure-amqp-common-go
 %global goipath         github.com/Azure/azure-amqp-common-go
-Version:                3.1.0
+Version:                4.2.0
 
 %gometa
 
@@ -21,7 +21,7 @@ security, connection string parsing and RPC for AMQP.}
 %global godocs          README.md changelog.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        Common types and interfaces for Service Bus and Event Hubs
 
 License:        MIT
@@ -58,6 +58,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Sat Dec 30 2023 W. Michael Petullo <mike@flyn.org> - 4.2.0-1
+- Update to 4.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

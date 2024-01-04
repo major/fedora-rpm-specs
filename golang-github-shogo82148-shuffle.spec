@@ -3,7 +3,7 @@
 
 # https://github.com/shogo82148/go-shuffle
 %global goipath         github.com/shogo82148/go-shuffle
-%global commit          3c595800520260b29e61deacffa9739871043332
+Version:                1.0.1
 
 %gometa
 
@@ -15,8 +15,7 @@ collections.}
 %global godocs          README.md
 
 Name:           %{goname}
-Version:        0
-Release:        0.16%{?dist}
+Release:        1%{?dist}
 Summary:        Primitives for shuffling slices and user-defined collections
 
 License:        MIT
@@ -42,6 +41,8 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Dec 30 2023 W. Michael Petullo <mike@flyn.org> - 1.0.1-1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

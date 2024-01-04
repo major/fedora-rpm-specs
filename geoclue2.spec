@@ -3,7 +3,7 @@ Version:        2.7.0
 Release:        3%{?dist}
 Summary:        Geolocation service
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.freedesktop.org/wiki/Software/GeoClue/
 Source0:        https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/%{version}/geoclue-%{version}.tar.bz2
 Source1:        geoclue2.sysusers
@@ -39,7 +39,7 @@ can access location information without explicit permission from user.
 
 %package        libs
 Summary:        Geoclue client library
-License:        LGPLv2+
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later
 Recommends:     %{name} = %{version}-%{release}
 
 %description    libs
@@ -49,6 +49,8 @@ Geoclue service.
 
 %package        devel
 Summary:        Development files for %{name}
+# /docs/*xml is GFDL-1.1-or-later
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND GFDL-1.1-or-later
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel

@@ -54,7 +54,7 @@ sed -r -i -e 's@\.\./libdatrie/@@g' src/cdatrie.pxd
 
 %install
 %pyproject_install
-%pyproject_save_files datrie
+%pyproject_save_files -l datrie
 
 %check
 %if %{with tests}

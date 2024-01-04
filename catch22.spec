@@ -1,9 +1,3 @@
-# Conditionals for different bindings
-#
-# Drop python3-catch22 (https://pypi.org/project/catch22/) beginning with F40
-# since these bindings are obsolete; a new python-pycatch22 package for
-# https://pypi.org/project/pycatch22/ is needed.
-%bcond Py %{expr:%{defined fedora} && 0%{?fedora} < 40}
 # Only supports Matlab at the moment
 # https://github.com/chlubba/catch22/issues/12
 %bcond octave 0
@@ -36,22 +30,13 @@ Source2:        run_features.1
 # therefore use downstream .so versioning.
 Source3:        Makefile
 
-# Backport upstream commit 135fb01bbd71c98fea01a7a2612abdca531b44f6 “Python
-# version numbering fixed”
-#
-# Fixes:
-#
-# Python package version mismatch
-# https://github.com/DynamicsAndNeuralSystems/catch22/issues/27
-Patch:          %{url}/commit/135fb01bbd71c98fea01a7a2612abdca531b44f6.patch
-
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 
-%if %{without Py}
+# Drop python3-catch22 (https://pypi.org/project/catch22/) beginning with F40
+# since these bindings are obsolete; replaced by python-pycatch22.
 Obsoletes:      python3-catch22 < 0.4.0-9
-%endif
 
 %global _description %{expand:
 catch22 is a collection of 22 time-series features coded in C that can be run
@@ -97,14 +82,6 @@ This package contains headers and other files required for developing
 applications that link against the implementation as a shared library.
 
 
-%if %{with Py}
-%package -n python3-%{name}
-Summary:        %{summary}
-
-%description -n python3-%{name} %_description
-%endif
-
-
 %if %{with octave}
 %global octpkg %{name}
 %package -n octave-%{name}
@@ -125,37 +102,15 @@ Requires(postun): octave
 cp -p '%{SOURCE3}' C/
 find . -name ".gitignore" -print -delete
 
-%if %{with Py}
-pushd wrap_Python
-# Default setup.py should be the Python 2 version:
-mv setup.py setup_P2.py
-mv setup_P3.py setup.py
-popd
-%endif
-
 %if %{with octave}
 # Set up for Octave install
 echo "Does not yet support Octave."
 %endif
 
 
-%generate_buildrequires
-%if %{with Py}
-pushd wrap_Python >/dev/null
-%pyproject_buildrequires
-popd >/dev/null
-%endif
-
-
 %build
 %set_build_flags
 %make_build -C C DOWNSTREAM_SO_NUMBER='%{downstream_so_number}'
-
-%if %{with Py}
-pushd wrap_Python
-%pyproject_wheel
-popd
-%endif
 
 %if %{with octave}
 echo "Does not yet support Octave."
@@ -170,13 +125,6 @@ echo "Does not yet support Octave."
     LIBDIR='%{_libdir}' \
     BINDIR='%{_bindir}'
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE2}'
-
-%if %{with Py}
-pushd wrap_Python
-%pyproject_install
-%pyproject_save_files %{name} %{name}_C
-popd
-%endif
 
 %if %{with octave}
 echo "Does not yet support Octave."
@@ -197,12 +145,6 @@ do
       --ignore-extra='DN_Spread_Std' \
       "${x}" "$(echo "${x}" | sed -r 's/\.expected$//')"
 done
-
-%if %{with Py}
-pushd wrap_Python
-%{py3_test_envvars} %{python3} testing.py
-popd
-%endif
 
 
 %if %{with octave}
@@ -235,13 +177,6 @@ popd
 
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
-
-
-%if %{with Py}
-%files -n python3-%{name} -f %{pyproject_files}
-%license LICENSE
-%doc README.md featureList.txt
-%endif
 
 
 %if %{with octave}

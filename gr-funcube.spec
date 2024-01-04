@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       1.0.0
-Release:       25.%{git_suffix}%{?dist}
+Release:       26.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -103,6 +103,9 @@ exit 0
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jan 02 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.0-26.20220130gitbf71b979
+- Rebuilt for new gnuradio
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-25.20220130gitbf71b979
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

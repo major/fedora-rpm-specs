@@ -125,7 +125,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files cattrs cattr
+%pyproject_save_files -l cattrs cattr
 
 %check
 %if %{without cbor2}
@@ -134,7 +134,6 @@ ignore="${ignore-} --ignore=tests/test_preconf.py"
 %pytest --ignore-glob='bench/*' ${ignore-} -k "${k-}" -n auto
 
 %files -n python3-cattrs -f %{pyproject_files}
-%license LICENSE
 
 
 %files doc

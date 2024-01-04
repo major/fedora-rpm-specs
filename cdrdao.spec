@@ -16,6 +16,9 @@ Source0:   http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 # https://github.com/whipper-team/whipper/issues/591
 # https://bugzilla.redhat.com/show_bug.cgi?id=2238243
 Patch:     21.patch
+# https://github.com/cdrdao/cdrdao/pull/25
+# fixes the "cdrdao version" command broken in 1.2.5 that brasero relies on
+Patch1:    cdrdao-1.2.5-Fix-version-command.patch
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  gtkmm3.0-devel

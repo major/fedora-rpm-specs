@@ -1,38 +1,34 @@
-%global sum Image Viewer and Toolkit
-%global common_desc                                                           \
-Ginga is a toolkit designed for building viewers for scientific image data in \
-Python, visualizing 2D pixel data in numpy arrays. It can view astronomical   \
-data such as contained in files based on the FITS (Flexible Image Transport   \
-System) file format. It is written and is maintained by software engineers at \
-the Subaru Telescope, National Astronomical Observatory of Japan.             \
-                                                                              \
-The Ginga toolkit centers around an image display class which supports zooming\
-and panning, color and intensity mapping, a choice of several automatic cut   \
-levels algorithms and canvases for plotting scalable geometric forms. In      \
-addition to this widget, a general purpose “reference” FITS viewer is         \
-provided, based on a plugin framework. A fairly complete set of standard      \
-plugins are provided for features that we expect from a modern FITS viewer:   \
-panning and zooming windows, star catalog access, cuts, star pick/fwhm,       \
-thumbnails, etc.
+%global sum A scientific image viewer and toolkit
+%global _description %{expand:
+Ginga is a toolkit designed for building viewers for scientific image data in 
+Python, visualizing 2D pixel data in numpy arrays. It can view astronomical 
+data such as contained in files based on the FITS (Flexible Image Transport
+System) file format. It is written and is maintained by software engineers at 
+the Subaru Telescope, National Astronomical Observatory of Japan.             
+                                                                              
+The Ginga toolkit centers around an image display class which supports zooming
+and panning, color and intensity mapping, a choice of several automatic cut  
+levels algorithms and canvases for plotting scalable geometric forms. In 
+addition to this widget, a general purpose “reference” FITS viewer is 
+provided, based on a plugin framework. A fairly complete set of standard 
+plugins are provided for features that we expect from a modern FITS viewer:
+panning and zooming windows, star catalog access, cuts, star pick/fwhm,
+thumbnails, etc.}
 
 Name:           ginga
-Version:        4.0.1
-Release:        4%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        %{sum}
 # License breakdown
 #
 # In general (if not listed below): BSD
 #
 # Apache 2.0
-#   astropy_helpers/astropy_helpers/sphinx/themes/bootstrap-astropy/static/bootstrap-astropy.css
 #   ginga/util/heaptimer.py
 # 
-# MIT/X11
-#   ginga/util/six.py
-#
-License:        BSD and ASL 2.0 and MIT
+License:        BSD-3-Clause AND Apache-2.0
 URL:            https://ejeschke.github.io/ginga/
-Source0:        https://files.pythonhosted.org/packages/source/g/%{name}/%{name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 
 # General build reqs
 BuildRequires:  desktop-file-utils
@@ -41,16 +37,14 @@ Requires:       python3-%{name} = %{version}-%{release}
 
 BuildArch:      noarch
 
-%description
-%{common_desc}
+%description %_description
 
 %package -n python3-%{name}
 Summary:        %{sum}
 Requires:       google-roboto-fonts
 Requires:       google-roboto-condensed-fonts
 
-%description -n python3-%{name}
-%{common_desc}
+%description -n python3-%{name} %_description 
 
 %package -n python3-%{name}-examples
 Summary:        Examples for %{name}
@@ -118,6 +112,10 @@ chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/util/mosaic.py
 %doc ginga/examples
 
 %changelog
+* Tue Jan 02 2024 Sergio Pascual <sergiopr@nfedoraproject.org> - 4.1.1-1
+- Update to 4.1.1
+- Using SPDX license name
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

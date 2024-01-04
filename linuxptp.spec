@@ -1,11 +1,11 @@
 %global _hardened_build 1
-%global testsuite_ver 6f7b1b
-%global clknetsim_ver a60048
+%global testsuite_ver bf8ead
+%global clknetsim_ver 5d1dc0
 %global selinuxtype targeted
 %bcond_without selinux
 
 Name:		linuxptp
-Version:	4.1
+Version:	4.2
 Release:	1%{?dist}
 Summary:	PTP implementation for Linux
 
@@ -157,6 +157,10 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Tue Jan 02 2024 Miroslav Lichvar <mlichvar@redhat.com> 4.2-1
+- update to 4.2
+- update default ptp4l.conf
+
 * Wed Sep 06 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.1-1
 - update to 4.1
 

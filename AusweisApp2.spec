@@ -42,7 +42,7 @@ fi                                               \
 
 Name:             AusweisApp2
 Version:          2.0.1
-Release:          1%{?dist}
+Release:          %autorelease
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -125,6 +125,12 @@ Requires:         openssl-libs%{?_isa}  >= 3.0.8-2
 
 # Needed for running fipscheck on application startup.
 # Requires:         fipscheck
+
+%if 0%{?qt6_build}
+# Needed for GUI elements to be rendered
+Requires:         qt6-qtimageformats%{?_isa}
+Requires:         qt6-qtsvg%{?_isa}
+%endif
 
 %description
 The AusweisApp2 is a software to identify yourself online
@@ -315,178 +321,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Thu Dec 28 2023 Julian Sikorski <belegdol@fedoraproject.org> - 2.0.1-1
-- Update to 2.0.1
-- Fix up config.json.in section names
-
-* Wed Nov 29 2023 Jan Grulich <jgrulich@redhat.com> - 1.26.7-4
-- Rebuild (qt6)
-
-* Fri Oct 13 2023 Jan Grulich <jgrulich@redhat.com> - 1.26.7-3
-- Rebuild (qt6)
-
-* Thu Oct 05 2023 Jan Grulich <jgrulich@redhat.com> - 1.26.7-2
-- Rebuild (qt6)
-
-* Fri Jul 28 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.7-1
-- New upstream release
-  Fixes rhbz#2227358
-
-* Fri Jul 28 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.6-1
-- New upstream release
-  Fixes rhbz#2227095
-
-* Wed Jul 26 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.5-1
-- New upstream release
-  Fixes rhbz#2226708
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-4
-- Rebuild(Qt_6.5)
-  Fixes rhbz#2222625
-
-* Sun Jun 04 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-3
-- Rebuild(Qt_6.5)
-
-* Sun May 07 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-2
-- Rebuild(Qt_6.5)
-
-* Mon May 01 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-1
-- New upstream release
-
-* Thu Mar 23 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.3-1
-- New upstream release
-- Enable use of Brainpool ECC
-
-* Sat Jan 28 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.2-2
-- Drop Qt6 version lock, as this is already ensured by symbol versioning
-
-* Sun Jan 22 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.2-1
-- New upstream release
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Nov 27 2022 Björn Esser <besser82@fedoraproject.org> - 1.24.4-2
-- Rebuild(qt6)
-
-* Sun Nov 06 2022 Björn Esser <besser82@fedoraproject.org> - 1.24.4-1
-- New upstream release
-
-* Fri Sep 02 2022 Björn Esser <besser82@fedoraproject.org> - 1.24.1-1
-- New upstream release
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 26 2022 Björn Esser <besser82@fedoraproject.org> - 1.22.3-1
-- New upstream release
-- Explicitly BR '/usr/bin/fipshmac' instead of fipscheck package
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 1.22.2-4
-- Rebuilt with OpenSSL 3.0.0
-
-* Tue Aug 31 2021 Björn Esser <besser82@fedoraproject.org> - 1.22.2-3
-- Drop forge-macros and perform tarbal verification during %%prep
-
-* Tue Aug 31 2021 Björn Esser <besser82@fedoraproject.org> - 1.22.2-2
-- Add a patch to disable use of Brainpool Elliptic Curves
-
-* Sun Aug 22 2021 Björn Esser <besser82@fedoraproject.org> - 1.22.2-1
-- New upstream release
-- Disable enforcing of FIPS mode for OpenSSL
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.2-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Nov 15 08:50:35 CET 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-10
-- Add runtime dependency on qt5-qtquickcontrols2
-
-* Sat Oct  3 12:51:03 CEST 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-9
-- Disable fipscheck in shell wrapper as it does not work in Fedora 33+
-
-* Sat Sep 26 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-8
-- Make shell wrapper exit with the exit code of fipscheck on failure
-
-* Sat Sep 26 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-7
-- Calculate fipshmac for config files and shell wrapper
-- Run fipscheck in shell wrapper before application starts
-
-* Fri Sep 25 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-6
-- Use a python script to generate a tailored OpenSSL configuration
-
-* Thu Sep 24 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-5
-- Some small spec file optimizations
-
-* Thu Sep 24 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-4
-- Use a more elaborate application specific OpenSSL configuration
-  This also re-enables SHA384 hashes in ciphers
-
-* Wed Sep 23 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-3
-- Do not enable SHA384 ciphers in custom OpenSSL configuration
-
-* Wed Sep 23 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-2
-- Use application specific OpenSSL config through a shell wrapper
-
-* Mon Sep 07 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.2-1
-- New upstream release
-
-* Mon Aug 24 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-3
-- Add a patch to load translations from Qt5 TranslationsPath
-- Move translation files to proper location
-- Drop invokation of ctest, as we cannot run the testsuite
-  from a release build
-- Replace patch adding English license with the actual license file
-
-* Fri Aug 21 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-2
-- Add a patch to exclude the build directory in the Doxyfile
-- Merge doc-api package with the doc package, since the Doxygen
-  API documentation can be shipped noarch'ed as well now
-
-* Wed Aug 19 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-1
-- Initial import (#1851205)
-
-* Fri Jul 17 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.11
-- Use %%cmake_{build,install} macros on newer distributions
-
-* Sat Jul 04 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.10
-- Add license text in English language
-
-* Fri Jun 26 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.9
-- Also obsolete package with %%{name} previous to this package version
-
-* Fri Jun 26 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.8
-- Ensure archful packages always require equal architecture
-
-* Fri Jun 26 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.7
-- Make sure permissions of the documentation files are correct
-- Remove hidden files in documentation
-- Drop 'LICENSE.officially.txt', as it only applies to binary copies,
-  which are distributed on behalf of the federal government of Germany
-
-* Thu Jun 25 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.6
-- Use '--help-all' option when generating man-page
-- Split build of Doxygen API docs from building user docs
-
-* Thu Jun 25 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.5
-- Add generated man-page
-
-* Thu Jun 25 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.4
-- Use a macro for lowercase package name
-
-* Thu Jun 25 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.3
-- Use ninja-build instead of GNU Make to speed up the build a bit
-
-* Thu Jun 25 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.2
-- Adaptions for building on EPEL
-
-* Wed Jun 24 2020 Björn Esser <besser82@fedoraproject.org> - 1.20.1-0.1
-- Initial spec file for review
+%autochangelog

@@ -18,7 +18,7 @@ BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  drumstick-devel >= 2.0.0
 BuildRequires:  alsa-lib-devel >= 1.0
 BuildRequires:  desktop-file-utils
-BuildRequires:  %{_bindir}/pandoc
+BuildRequires:  pandoc
 
 %description
 KMetronome is a MIDI metronome with Qt interface, based on the Drumstick

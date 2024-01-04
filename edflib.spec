@@ -1,5 +1,5 @@
 Name:           edflib
-Version:        1.24
+Version:        1.25
 %global so_version 1
 Release:        %autorelease
 Summary:        C/C++ library to read/write EDF+ and BDF+ files
@@ -18,8 +18,9 @@ URL:            https://gitlab.com/Teuniz/EDFlib/
 Source:         https://www.teuniz.net/edflib/edflib_%{tar_version}.tar.gz
 
 # Library makefile: make more amenable to distribution packaging
-# https://gitlab.com/Teuniz/EDFlib/-/merge_requests/7.patch
-Patch:         %{url}/-/merge_requests/7.patch
+# https://gitlab.com/Teuniz/EDFlib/-/merge_requests/7
+# This PR seems to have languished upstream; rebased locally on 1.25:
+Patch:         edflib-1.25-makefile.patch
 
 # Big-endian support was proposed upstream, but a patch was declined, and
 # beginning with version 1.23, “non-support” of big-endian architectures is

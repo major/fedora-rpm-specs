@@ -61,7 +61,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
-%pyproject_save_files formulaic
+%pyproject_save_files -l formulaic
 
 %check
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

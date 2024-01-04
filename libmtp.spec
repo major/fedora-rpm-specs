@@ -8,7 +8,9 @@ Summary:        Software library for MTP media players
 URL:            http://libmtp.sourceforge.net/
 
 Source0:        https://download.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-License:        LGPLv2+
+# m4/stdint.m4 is LicenseRef-Fedora-UltraPermissive
+# m4/iconv.m4 is FSFULLR
+License:        LGPL-2.1-or-later AND LGPL-2.1-only AND FSFULLR AND LicenseRef-Fedora-UltraPermissive
 Recommends:     udev
 BuildRequires:  libtool
 BuildRequires:  gettext-devel

@@ -1,22 +1,16 @@
-%undefine __cmake_in_source_build
-
 Name:    kqtquickcharts
 Summary: A QtQuick plugin to render beautiful and interactive charts
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
-License: LGPLv2 or LGPLv3
-URL:     https://edu.kde.org/
+License: LGPL-2.1-only
+URL:     https://invent.kde.org/libraries/kqtquickcharts
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
+BuildRequires: gcc-c++
+BuildRequires: cmake
 BuildRequires: extra-cmake-modules
 BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(Qt5Gui)
@@ -36,7 +30,9 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 
 
 %build
-%{cmake_kf5}
+
+%cmake_kf5
+
 %cmake_build
 
 
@@ -56,6 +52,9 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 %{_kf5_libdir}/cmake/KQtQuickCharts/KQtQuickChartsConfig.cmake
 
 %changelog
+* Tue Jan 02 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

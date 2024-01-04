@@ -56,7 +56,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
-%pyproject_save_files annexremote
+%pyproject_save_files -l annexremote
 
 %check
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

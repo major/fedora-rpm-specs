@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  4.6
-%global github_commit   872b39721c693fc06ede88b366975bf4e2352c7d
+%global github_commit   b96c049bb1bb7f305bc170e4d181baa3bc691de3
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20231125
+%global github_date     20231222
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -42,14 +42,14 @@
 %define python_scripts_requires python3-requests openqa-client
 
 # The following line is generated from dependencies.yaml (upstream)
-%define assetpack_requires perl(CSS::Minifier::XS) >= 0.01 perl(JavaScript::Minifier::XS) >= 0.11 perl(Mojolicious::Plugin::AssetPack) >= 1.36
+%define assetpack_requires perl(CSS::Minifier::XS) >= 0.01 perl(JavaScript::Minifier::XS) >= 0.11 perl(Mojolicious::Plugin::AssetPack) >= 1.36 perl(YAML::PP) >= 0.026
 # Diff from SUSE: we use 'perl-interpreter' where they use 'perl',
 # our 'perl' is a metapackage and we don't want all of it
 # we use 'chrony' where they use 'ntp-daemon'
 # their versioning of mojolicious is different due to
 # https://github.com/openSUSE/cpanspec/issues/47
 # The following line is generated from dependencies.yaml (upstream)
-%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.34 perl(Regexp::Common) perl(Storable) perl(Time::Moment) perl(Try::Tiny)
+%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.34 perl(Regexp::Common) perl(Storable) perl(Text::Glob) perl(Time::Moment) perl(Try::Tiny)
 # Diff from SUSE: we package bsdcat and bsdtar separately
 # runtime requirements for the main package that are not required by other sub-packages
 # The following line is generated from dependencies.yaml (upstream)
@@ -290,7 +290,6 @@ helper for interacting with the openQA REST API.
 
 %package python-scripts
 Summary:        Additional scripts in python
-Group:          Development/Tools/Other
 Requires:       %python_scripts_requires
 
 %description python-scripts
@@ -321,7 +320,6 @@ Use this package to setup a local instance with all services provided together.
 
 %package single-instance-nginx
 Summary:        Convenience package for a single-instance setup using nginx proxy
-Group:          Development/Tools/Other
 Requires:       %{name}-local-db
 Requires:       %{name} = %{version}
 Requires:       %{name}-worker = %{version}
@@ -346,7 +344,6 @@ writing, etc., covering both openQA and the os-autoinst test engine.
 
 %package munin
 Summary:        Munin scripts
-Group:          Development/Tools/Other
 Requires:       munin
 Requires:       munin-node
 Requires:       curl
@@ -742,6 +739,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Tue Jan 02 2024 Adam Williamson <awilliam@redhat.com> - 4.6^20231222gitb96c049-1
+- Update to recent upstream git, resync spec
+
 * Mon Nov 27 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20231125git872b397-1
 - Update to recent upstream git, resync spec, drop merged patch
 

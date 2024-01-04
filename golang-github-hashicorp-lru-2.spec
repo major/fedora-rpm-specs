@@ -4,7 +4,7 @@
 
 # https://github.com/hashicorp/golang-lru
 %global goipath         github.com/hashicorp/golang-lru/v2
-Version:                2.0.2
+Version:                2.0.7
 
 %gometa -f
 

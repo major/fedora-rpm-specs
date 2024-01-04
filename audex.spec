@@ -1,20 +1,42 @@
 Name:           audex
-Version:        0.79
-Release:        19%{?dist}
+Version:        0.96.1
+Release:        1%{?dist}
 Summary:        Audio ripper
 License:        GPLv3+
 URL:            https://userbase.kde.org/Audex
-
-Source0:        http://downloads.sourceforge.net/project/%{name}/src/%{name}-%{version}.tar.xz
-Patch0:         audex-fixbuild.patch
+Source:         https://invent.kde.org/multimedia/audex/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 
 BuildRequires:  desktop-file-utils
+BuildRequires:  extra-cmake-modules
+BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  kdelibs4-devel
-BuildRequires:  libkcddb-devel
-BuildRequires:  libkcompactdisc-devel
+BuildRequires:  kf5-rpm-macros
+BuildRequires:  libappstream-glib
+
+BuildRequires:  cmake(Qt5Script)
+BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt5X11Extras)
+
+BuildRequires:  cmake(KF5Config)
+BuildRequires:  cmake(KF5Completion)
+BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(KF5Crash)
+BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5IconThemes)
+BuildRequires:  cmake(KF5KCMUtils)
+BuildRequires:  cmake(KF5KIO)
+BuildRequires:  cmake(KF5Solid)
+BuildRequires:  cmake(KF5TextWidgets)
+BuildRequires:  cmake(KF5WidgetsAddons)
+BuildRequires:  cmake(KF5XmlGui)
+BuildRequires:  cmake(KF5Cddb)
+
 BuildRequires:  cdparanoia-devel
-BuildRequires: make
+
+# encoder backends
+Recommends:     flac
+Recommends:     lame
+Recommends:     vorbis-tools
 
 %description
 audex is a new audio grabber tool for CD-ROM drives based on KDE 4. 
@@ -23,44 +45,36 @@ a beta version. It is being tested by some testers and this program
 may change on the way to its first stable 1.0-release.
 
 %prep
-%setup -qn %{name}-%{version}
-
-%patch0 -p1 -b .fixbuild
+%autosetup -n %{name}-v%{version} -p1
 
 %build
-# get lots of c++11 warnings, particularly literal/string warnings, so
-# don't use c++11 mode for now -- rex
-%if 0%{?fedora} > 24
-export CXXFLAGS="%{optflags} -std=gnu++98 -Wno-c++11-compat"
-%endif
-
-mkdir -p %{_target_platform}
-pushd %{_target_platform}
-%{cmake_kde4} ..
-popd
-
-make %{?_smp_mflags} -C %{_target_platform} V=1
+%cmake_kf5
+%cmake_build
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 %find_lang %{name}
 
-desktop-file-install \
-    --dir %{buildroot}%{_datadir}/applications/kde4 \
-    --add-category X-AudioVideoImport \
-    %{buildroot}%{_datadir}/applications/kde4/audex.desktop
+%check
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.audex.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.audex.appdata.xml
+
 
 %files -f %{name}.lang
 %doc README.md
-%license LICENCE
-%{_kde4_bindir}/audex
-%{_kde4_appsdir}/solid/actions/audex-rip-audiocd.desktop
-%{_kde4_datadir}/applications/kde4/audex.desktop
-%{_kde4_iconsdir}/hicolor/*/apps/audex.*
-%{_kde4_appsdir}/audex/
+%license LICENSES/*.txt
+%{_kf5_bindir}/audex
+%{_kf5_datadir}/solid/actions/audex-rip-audiocd.desktop
+%{_kf5_datadir}/applications/org.kde.audex.desktop
+%{_kf5_datadir}/icons/hicolor/*/apps/audex.*
+%{_kf5_datadir}/audex/
+%{_kf5_metainfodir}/org.kde.audex.appdata.xml
 
 %changelog
+* Tue Jan 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.96.1-1
+- 0.96.1
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

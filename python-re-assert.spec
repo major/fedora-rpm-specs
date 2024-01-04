@@ -37,7 +37,7 @@ Summary: %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files %{slugname}
+%pyproject_save_files -l %{slugname}
 
 %if %{with tests}
 %check

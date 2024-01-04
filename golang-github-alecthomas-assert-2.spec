@@ -4,7 +4,7 @@
 
 # https://github.com/alecthomas/assert
 %global goipath         github.com/alecthomas/assert/v2
-Version:                2.3.0
+Version:                2.4.1
 
 %gometa -f
 

@@ -1,6 +1,6 @@
 Name:              zathura
-Version:           0.5.2
-Release:           5%{?dist}
+Version:           0.5.4
+Release:           1%{?dist}
 Summary:           A lightweight document viewer
 License:           Zlib
 URL:               http://pwmt.org/projects/%{name}/
@@ -20,7 +20,7 @@ BuildRequires:     fish
 %endif
 BuildRequires:     gcc
 BuildRequires:     gettext
-BuildRequires:     girara-devel >= 0.3.7
+BuildRequires:     girara-devel >= 0.4.1
 BuildRequires:     glib2-devel >= 2.50
 BuildRequires:     gtk3-devel >= 3.22
 BuildRequires:     intltool
@@ -28,15 +28,15 @@ BuildRequires:     intltool
 BuildRequires:     libappstream-glib
 BuildRequires:     librsvg2-tools
 BuildRequires:     libseccomp-devel
-BuildRequires:     meson >= 0.56
+BuildRequires:     meson >= 0.61
 # Needed to build man pages (/doc subdir)
 BuildRequires:     python3-sphinx
 BuildRequires:     sqlite-devel >= 3.6.23
 BuildRequires:     texlive-lib-devel
 BuildRequires:     zsh
 # Tests
-#BuildRequires:     check
-BuildRequires:     check-devel
+BuildRequires:     pkgconfig(check) >= 0.11
+Buildrequires:     xorg-x11-server-Xvfb
 
 Suggests:          zathura-cb
 Suggests:          zathusa-djvu
@@ -123,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %find_lang zathura
 
+%check
+# Leave out flaky sandbox test which is either skipped or fails strangely:
+%meson_test validate-desktop validate-appdata document types utils session
 
 %files -f zathura.lang
 %license LICENSE
@@ -153,6 +156,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Dec 09 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.5.4-1
+- feat: update to 0.5.4 (rhbz#2253676)
+- enable test suite
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

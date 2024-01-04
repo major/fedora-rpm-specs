@@ -5,7 +5,7 @@
 %global crate portable-atomic-util
 
 Name:           rust-portable-atomic-util
-Version:        0.1.3
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Synchronization primitives built with portable-atomic
 

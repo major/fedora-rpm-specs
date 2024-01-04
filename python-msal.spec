@@ -67,7 +67,7 @@ sed -r \
 
 %install
 %pyproject_install
-%pyproject_save_files msal
+%pyproject_save_files -l msal
 
 
 %check

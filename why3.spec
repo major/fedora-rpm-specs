@@ -17,8 +17,8 @@ ExclusiveArch: %{ocaml_native_compiler}
 %endif
 
 Name:           why3
-Version:        1.6.0
-Release:        9%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -28,10 +28,6 @@ Source0:        https://why3.gitlabpages.inria.fr/releases/%{name}-%{version}.ta
 Source1:        fr.lri.%{name}.desktop
 # AppData file written by Jerry James
 Source2:        fr.lri.%{name}.metainfo.xml
-
-# Support coq 8.17.  See
-# https://gitlab.inria.fr/why3/why3/-/commit/64facc03bdc2bc4ce0586ff2f458bcd87f646ba8
-Patch0:         %{name}-coq-8.17.patch
 
 BuildRequires:  coq
 BuildRequires:  emacs-nox
@@ -258,7 +254,7 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %{_datadir}/icons/hicolor/scalable/%{name}.svg
 %{_datadir}/vim/vimfiles/ftdetect/%{name}.vim
 %{_datadir}/vim/vimfiles/syntax/%{name}.vim
-%{_datadir}/zsh/
+%{_datadir}/zsh/site-functions/_why3
 %{_texmf}/tex/latex/why3/
 %{_libdir}/%{name}/
 %{_metainfodir}/fr.lri.%{name}.metainfo.xml
@@ -296,6 +292,10 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.0-1
+- Version 1.7.0
+- Drop upstreamed coq patch
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-9
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

@@ -10,7 +10,7 @@ Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.k3b.org/
@@ -25,6 +25,8 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 ## upstream patches
 
 ## upstreamable patches
+# https://bugzilla.redhat.com/show_bug.cgi?id=2212471
+Patch10: prefer-wodim.patch
 
 ## downstream patches
 
@@ -175,6 +177,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Tue Jan 02 2024 Alessandro Astone <ales.astone@gmail.com> - 1:23.08.2-2
+- Prefer wodim to cdrecord
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.08.2-1
 - 23.08.2
 

@@ -1,21 +1,22 @@
-%global commit	edac95d7f6cb65ca676c59d3c5a5d69cbe27345f
 %global _docdir_fmt %{name}
 
 Name:		gappa
-Version:	1.4.1
-Release:	3%{?dist}
+Version:	1.4.2
+Release:	1%{?dist}
 Summary:	Prove programs with floating-point or fixed-point arithmetic
 
 License:	GPL-3.0-only OR CECILL-2.1
-URL:		https://gitlab.inria.fr/gappa/gappa
-Source0:	%{url}/-/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+URL:		https://gappa.gitlabpages.inria.fr/
+Source0:	%{url}/releases/%{name}-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:	bison
 BuildRequires:	boost-devel
 BuildRequires:	flex
 BuildRequires:	gcc-c++
 BuildRequires:	gmp-devel
-BuildRequires:	libtool
 BuildRequires:	mpfr-devel
 BuildRequires:	%{py3_dist sphinx}
 BuildRequires:	remake
@@ -56,13 +57,10 @@ License:	(GPL-3.0-only OR CECILL-2.1) AND MIT AND BSD-2-Clause AND BSD-3-Clause
 Documentation for gappa.
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}-%{commit}
+%autosetup
 
 # Increase the test timeout for ARM
 sed -i 's/timeout 5/&0/' Remakefile.in
-
-# Generate the configure script
-./autogen.sh
 
 %build
 %configure
@@ -88,6 +86,10 @@ remake check
 %doc AUTHORS doc/html
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1.4.2-1
+- Version 1.4.2
+- New URLs
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

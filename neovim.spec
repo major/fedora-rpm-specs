@@ -34,7 +34,7 @@
 %endif
 
 Name:           neovim
-Version:        0.9.4
+Version:        0.9.5
 Release:        1%{?dist}
 
 License:        Apache-2.0 AND Vim
@@ -1949,6 +1949,12 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Tue Jan 02 2024 Andreas Schneider <asn@redhat.com> - 0.9.5-1
+- Update to version 0.9.5
+  * https://github.com/neovim/neovim/releases/tag/v0.9.5
+  * For bigger version bump changelog see `:help news`
+  * resolves: rhbz#2256278
+
 * Fri Oct 20 2023 Andreas Schneider <asn@redhat.com> - 0.9.4-1
 - Update to version 0.9.4
   * https://github.com/neovim/neovim/releases/tag/v0.9.4

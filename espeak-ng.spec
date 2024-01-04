@@ -1,9 +1,9 @@
 Name:          espeak-ng
 Version:       1.51.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       eSpeak NG Text-to-Speech
 
-License:       GPLv3+
+License:       GPL-3.0-only AND GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND Unicode-DFS-2016 AND CC-BY-SA-3.0
 URL:           https://github.com/espeak-ng/espeak-ng
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -105,6 +105,9 @@ ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} src/espeak-ng ...
 %doc docs/*.html
 
 %changelog
+* Tue Jan 02 2024 Tomas Korbar <tkorbar@redhat.com> - 1.51.1-5
+- Change license tag so it fully conforms to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

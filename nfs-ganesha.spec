@@ -119,7 +119,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	5.7
-Release:	2%{?dev:%{dev}}%{?dist}
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -563,7 +563,6 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_MONITORING=%{use_monitoring_support}	\
 	-DSANITIZE_ADDRESS=%{use_sanitize_address}	\
 	-DUSE_LEGACY_PYTHON_INSTALL=%{use_legacy_python_install} \
-	-DUSE_MONITORING=ON				\
 %ifarch x86_64 aarch64
        -DCMAKE_LINKER=%{_bindir}/ld.mold                \
 %endif
@@ -916,6 +915,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Jan 2 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-3
+- rebuild with (lib)prometheus-cpp-1.2.0
+
 * Tue Nov 21 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-2
 - use python pep517 installer and build
 

@@ -12,7 +12,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        10.1.0
+Version:        10.2.0
 Release:        1%{?dist}
 Summary:        Python image processing library
 
@@ -250,7 +250,7 @@ popd
 %doc README.md CHANGES.rst
 %license docs/COPYING
 %{python3_sitearch}/PIL/
-%{python3_sitearch}/Pillow-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/pillow-%{version}-py%{python3_version}.egg-info/
 # These are in subpackages
 %exclude %{python3_sitearch}/PIL/_imagingtk*
 %exclude %{python3_sitearch}/PIL/ImageTk*
@@ -283,18 +283,21 @@ popd
 %files -n mingw32-python3-%{srcname}
 %license docs/COPYING
 %{mingw32_python3_sitearch}/PIL/
-%{mingw32_python3_sitearch}/Pillow-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/pillow-%{version}-py%{mingw32_python3_version}.egg-info/
 %{mingw32_py3_incdir}/Imaging/
 
 %files -n mingw64-python3-%{srcname}
 %license docs/COPYING
 %{mingw64_python3_sitearch}/PIL/
-%{mingw64_python3_sitearch}/Pillow-%{version}-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/pillow-%{version}-py%{mingw64_python3_version}.egg-info/
 %{mingw64_py3_incdir}/Imaging/
 %endif
 
 
 %changelog
+* Tue Jan 02 2024 Sandro Mani <manisandro@gmail.com> - 10.2.0-1
+- Update to 10.2.0
+
 * Sun Oct 15 2023 Sandro Mani <manisandro@gmail.com> - 10.1.0-1
 - Update to 10.1.0
 

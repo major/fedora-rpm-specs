@@ -11,13 +11,13 @@
 %undefine __brp_mangle_shebangs
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    cff8a7aa5a0fcccb0ef8bcb11dc55480b88538bd
+%global gh_commit    26b0219fde16933f67d991fdc3974d304eec3ead
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20151005
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  7.0.2
+%global upstream_version  7.1.0
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
@@ -36,8 +36,6 @@ Source9:        makesrc.sh
 
 # Relocate the database
 Patch0:         %{name}-6.0.0-rpm.patch
-# Allow PHP 8.3
-Patch1:         %{name}-7.0.0-php83.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
@@ -59,8 +57,8 @@ Requires:       php-xmlreader
 
 # Bundled libraries
 # License BSD-3-Clause
-Provides: bundled(php-bartlett-php-compatinfo-db) = 6.0.0
-Provides: bundled(php-nikic-php-parser) = v4.17.1
+Provides: bundled(php-bartlett-php-compatinfo-db) = 6.1.1
+Provides: bundled(php-nikic-php-parser) = v4.18.0
 # License MIT
 Provides: bundled(php-bartlett-sarif-php-sdk) = 1.0.1
 Provides: bundled(php-brick-math) = 0.11.0
@@ -74,7 +72,7 @@ Provides: bundled(php-doctrine-event-manager) = 2.0.0
 Provides: bundled(php-doctrine-inflector) = 2.0.8
 Provides: bundled(php-doctrine-instantiator) = 2.0.0
 Provides: bundled(php-doctrine-lexer) = 2.1.0
-Provides: bundled(php-doctrine-orm) = 2.17.1
+Provides: bundled(php-doctrine-orm) = 2.17.2
 Provides: bundled(php-doctrine-persistence) = 3.2.0
 Provides: bundled(php-psr-cache) = 3.0.0
 Provides: bundled(php-psr-clock) = 1.0.0
@@ -83,18 +81,18 @@ Provides: bundled(php-psr-event-dispatcher) = 1.0.0
 Provides: bundled(php-psr-log) = 3.0.0
 Provides: bundled(php-ramsey-collection) = 2.0.0
 Provides: bundled(php-ramsey-uuid) = 4.7.5
-Provides: bundled(php-symfony-cache) = v6.4.0
+Provides: bundled(php-symfony-cache) = v6.4.2
 Provides: bundled(php-symfony-cache-contracts) = v3.4.0
-Provides: bundled(php-symfony-clock) = v6.4.0
+Provides: bundled(php-symfony-clock) = v6.4.2
 Provides: bundled(php-symfony-config) = v6.4.0
-Provides: bundled(php-symfony-console) = v6.4.1
-Provides: bundled(php-symfony-dependency-injection) = v6.4.1
+Provides: bundled(php-symfony-console) = v6.4.2
+Provides: bundled(php-symfony-dependency-injection) = v6.4.2
 Provides: bundled(php-symfony-deprecation-contracts) = v3.4.0
-Provides: bundled(php-symfony-event-dispatcher) = v6.4.0
+Provides: bundled(php-symfony-event-dispatcher) = v6.4.2
 Provides: bundled(php-symfony-event-dispatcher-contracts) = v3.4.0
 Provides: bundled(php-symfony-filesystem) = v6.4.0
 Provides: bundled(php-symfony-finder) = v6.4.0
-Provides: bundled(php-symfony-http-client) = v6.4.0
+Provides: bundled(php-symfony-http-client) = v6.4.2
 Provides: bundled(php-symfony-http-client-contracts) = v3.4.0
 Provides: bundled(php-symfony-messenger) = v6.4.0
 Provides: bundled(php-symfony-polyfill-ctype) = v1.28.0
@@ -104,13 +102,13 @@ Provides: bundled(php-symfony-polyfill-mbstring) = v1.28.0
 Provides: bundled(php-symfony-polyfill-php72) = v1.28.0
 Provides: bundled(php-symfony-polyfill-php80) = v1.28.0
 Provides: bundled(php-symfony-polyfill-php83) = v1.28.0
-Provides: bundled(php-symfony-process) = v6.4.0
+Provides: bundled(php-symfony-process) = v6.4.2
 Provides: bundled(php-symfony-requirements-checker) = v2.0.1
-Provides: bundled(php-symfony-serializer) = v6.4.1
-Provides: bundled(php-symfony-service-contracts) = v3.4.0
+Provides: bundled(php-symfony-serializer) = v6.4.2
+Provides: bundled(php-symfony-service-contracts) = v3.4.1
 Provides: bundled(php-symfony-stopwatch) = v6.4.0
-Provides: bundled(php-symfony-string) = v6.4.0
-Provides: bundled(php-symfony-var-exporter) = v6.4.1
+Provides: bundled(php-symfony-string) = v6.4.2
+Provides: bundled(php-symfony-var-exporter) = v6.4.2
 
 Provides: phpcompatinfo = %{version}
 Provides: php-composer(bartlett/php-compatinfo) = %{version}
@@ -126,7 +124,6 @@ show content of dictionary references.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
-%patch -P1 -p1
 
 # https://github.com/llaville/php-compatinfo-db/issues/112
 sed -e 's/touch/@touch/' -i vendor/bartlett/php-compatinfo-db/config/set/default.php
@@ -201,6 +198,9 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %changelog
+* Tue Jan  2 2024 Remi Collet <remi@remirepo.net> - 7.1.0-1
+- update to 7.1.0
+
 * Wed Dec  6 2023 Remi Collet <remi@remirepo.net> - 7.0.2-1
 - update to 7.0.2
 - update bundled bartlett/php-compatinfo-db to 6.0.0

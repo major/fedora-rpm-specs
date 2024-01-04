@@ -1,6 +1,6 @@
 Name:           perl-bignum
-Version:        0.66
-Release:        501%{?dist}
+Version:        0.67
+Release:        1%{?dist}
 Summary:        Transparent big number support for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/bignum
@@ -108,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 02 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.67-1
+- 0.67 bump (rhbz#2256265)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

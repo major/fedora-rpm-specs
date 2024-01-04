@@ -55,7 +55,7 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 
 %install
 %pyproject_install
-%pyproject_save_files pydantic
+%pyproject_save_files -l pydantic
 
 
 %check
@@ -67,7 +67,6 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 
 
 %files -n python3-pydantic -f %{pyproject_files}
-%license LICENSE
 %doc README.md docs/
 
 %pyproject_extras_subpkg email -n python3-pydantic

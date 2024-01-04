@@ -1,4 +1,4 @@
-%global font_util 1.3.1
+%global font_util 1.4.1
 
 # Must be kept in sync with xorg-x11-fonts!
 %global _x11fontdir %{_datadir}/X11/fonts
@@ -7,11 +7,11 @@ Summary:    X.Org X11 font utilities
 Name:       xorg-x11-font-utils
 Epoch:      1
 Version:    7.5
-Release:    56%{?dist}
-License:    MIT
+Release:    58%{?dist}
+License:    MIT AND BSD-2-Clause AND MIT-open-group AND Unicode-3.0
 URL:        http://www.x.org
 
-Source0:    http://www.x.org/pub/individual/font/font-util-%{font_util}.tar.bz2
+Source0:    http://www.x.org/pub/individual/font/font-util-%{font_util}.tar.xz
 # helper script used in post for xorg-x11-fonts
 Source5:    xorg-x11-fonts-update-dirs
 Source6:    xorg-x11-fonts-update-dirs.1
@@ -51,7 +51,7 @@ install -m 744 -p -D %{SOURCE6} $RPM_BUILD_ROOT%{_mandir}/man1/xorg-x11-fonts-up
 find $RPM_BUILD_ROOT -name bdftruncate\* -print0 | xargs -0 rm -f
 
 %files
-%doc README
+%doc README.md
 %license COPYING
 %{_bindir}/ucs2any
 %{_bindir}/xorg-x11-fonts-update-dirs
@@ -64,6 +64,13 @@ find $RPM_BUILD_ROOT -name bdftruncate\* -print0 | xargs -0 rm -f
 %{_x11fontdir}/util/map-*
 
 %changelog
+* Wed Jan 03 2024 Peter Hutterer <peter.hutterer@redhat.com> - 7.5-58
+- font-utils 1.4.1 with sources this time
+
+* Wed Jan 03 2024 Peter Hutterer <peter.hutterer@redhat.com> - 7.5-57
+- font-utils 1.4.1
+- SPDX migration: update to SPDX-compatible license terms
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.5-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

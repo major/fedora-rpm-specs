@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for libmongocrypt
 #
-# Copyright (c) 2020-2023 Remi Collet
+# Copyright (c) 2020-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -14,7 +14,7 @@
 
 Name:      %{libname}
 Summary:   The companion C library for client side encryption in drivers
-Version:   1.8.2
+Version:   1.8.3
 Release:   1%{?dist}
 
 # see kms-message/THIRD_PARTY_NOTICES
@@ -114,6 +114,9 @@ fi
 
 
 %changelog
+* Tue Jan  2 2024 Remi Collet <remi@remirepo.net> - 1.8.3-1
+- update to 1.8.3
+
 * Tue Sep  5 2023 Remi Collet <remi@remirepo.net> - 1.8.2-1
 - update to 1.8.2
 

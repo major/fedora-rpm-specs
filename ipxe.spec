@@ -39,7 +39,7 @@
 
 Name:    ipxe
 Version: %{date}
-Release: 4.git%{hash}%{?dist}
+Release: 5.git%{hash}%{?dist}
 Summary: A network boot loader
 
 License: BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND (GPL-2.0-only OR MPL-1.1) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH UBDL-exception AND ISC AND MIT
@@ -51,6 +51,8 @@ Source0: %{name}-%{version}-git%{hash}.tar.xz
 # Sent upstream: http://lists.ipxe.org/pipermail/ipxe-devel/2015-November/004494.html
 Patch0001: 0001-build-customize-configuration.patch
 Patch0002: 0002-Use-spec-compliant-timeouts.patch
+# Fix build with binutils-2.41, https://github.com/ipxe/ipxe/pull/1011
+Patch0003: 0003-librm-Use-explicit-operand-size.patch
 
 %ifarch %{buildarches}
 BuildRequires: perl-interpreter
@@ -278,6 +280,9 @@ cp -a src/bin-arm64-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/arm64-efi/ipxe
 %endif
 
 %changelog
+* Tue Dec 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 20220210-5.git64113751
+- Fix build with binutils 2.41
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-4.git64113751
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

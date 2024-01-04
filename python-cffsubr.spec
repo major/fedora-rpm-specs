@@ -1,8 +1,6 @@
-%global srcname cffsubr
-
-Name:           python-%{srcname}
+Name:           python-cffsubr
 Version:        0.2.9.post1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Standalone CFF subroutinizer based on the AFDKO tx tool
 
 # The entire source is Apache-2.0, except:
@@ -12,10 +10,10 @@ Summary:        Standalone CFF subroutinizer based on the AFDKO tx tool
 #   • tests/data/SourceSansVariable-Regular.subset.ttx
 # See NOTICE.
 License:        Apache-2.0
-URL:            https://pypi.org/project/%{srcname}
-Source0:        %{pypi_source %{srcname}}
+URL:            https://pypi.org/project/cffsubr
+Source0:        %{pypi_source cffsubr}
 # Written for Fedora in groff_man(7) format based on the output of “cffsubr --help”
-Source1:        %{srcname}.1
+Source1:        cffsubr.1
 
 # Handle importlib.resources.path removal in Python 3.13
 # https://github.com/adobe-type-tools/cffsubr/pull/24
@@ -38,16 +36,16 @@ Standalone CFF subroutinizer based on the AFDKO tx tool.
 %generate_buildrequires
 %pyproject_buildrequires -x testing
 
-%package -n python3-%{srcname}
+%package -n python3-cffsubr
 Summary:        %{summary}
 
 Requires:       %{txbin}
 
-%description -n python3-%{srcname}
+%description -n python3-cffsubr
 Standalone CFF subroutinizer based on the AFDKO tx tool.
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n cffsubr-%{version} -p1
 
 # Patch out setuptools-git-ls-files dependency
 sed -r -i '/setuptools-git-ls-files/d' setup.py pyproject.toml
@@ -66,41 +64,41 @@ cp -p '%{SOURCE1}' .
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files -l cffsubr
 
 # Workaround to prevent a dangling symlink:
 install -d "%{buildroot}$(dirname '%{txbin}')"
 ln -s '%{txbin}' '%{buildroot}%{txbin}'
 
 # Build a relative symbolic link:
-ln -s '%{buildroot}%{txbin}' %{buildroot}/%{python3_sitelib}/%{srcname}/tx
-symlinks -c -o %{buildroot}/%{python3_sitelib}/%{srcname}/tx
+ln -s '%{buildroot}%{txbin}' %{buildroot}/%{python3_sitelib}/cffsubr/tx
+symlinks -c -o %{buildroot}/%{python3_sitelib}/cffsubr/tx
 
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{srcname}.1'
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 'cffsubr.1'
 
 %check
-%if 0%{?fedora} == 33
-# Fixing this would require an adobe-afdko update; see
-# https://github.com/adobe-type-tools/cffsubr/issues/13.
-k="${k-}${k+ and }not (TestSubroutinize and test_non_standard_upem_mute_font_matrix_warning)"
-%endif
-%pytest -k "${k-}"
+%pytest
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-cffsubr -f %{pyproject_files}
 # pyproject-rpm-macros handles the LICENSE file; verify with “rpm -qL -p …”
 %doc README.md
 
 # Symbolic link to the “tx” executable; we patched out building a separate copy
 # for the Python package, so the Python build does not know about this and we
 # must list it explicitly.
-%{python3_sitelib}/%{srcname}/tx
+%{python3_sitelib}/cffsubr/tx
 # This was just a workaround:
 %exclude %{txbin}
 
-%{_bindir}/%{srcname}
-%{_mandir}/man1/%{srcname}.1*
+%{_bindir}/cffsubr
+%{_mandir}/man1/cffsubr.1*
 
 %changelog
+* Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.9.post1-9
+- Assert %%pyproject_files contains a license file
+- Remove an obsolete conditional
+- Simplify the spec file by reducing macro indirection
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9.post1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

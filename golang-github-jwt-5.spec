@@ -3,7 +3,7 @@
 
 # https://github.com/golang-jwt/jwt
 %global goipath         github.com/golang-jwt/jwt/v5
-Version:                5.0.0
+Version:                5.2.0
 
 %gometa -f
 

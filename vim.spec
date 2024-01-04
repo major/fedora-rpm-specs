@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 2167
+%define patchlevel 2190
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -833,6 +833,7 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %lang(fi) %{_datadir}/%{name}/%{vimdir}/lang/fi
 %lang(fr) %{_datadir}/%{name}/%{vimdir}/lang/fr
 %lang(ga) %{_datadir}/%{name}/%{vimdir}/lang/ga
+%lang(hu) %{_datadir}/%{name}/%{vimdir}/lang/hu
 %lang(it) %{_datadir}/%{name}/%{vimdir}/lang/it
 %lang(ja) %{_datadir}/%{name}/%{vimdir}/lang/ja
 %lang(ja.euc-jp) %{_datadir}/%{name}/%{vimdir}/lang/ja.euc-jp
@@ -1034,6 +1035,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Tue Jan 02 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.2190-1
+- patchlevel 2190
+
 * Fri Dec 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.2167-1
 - patchlevel 2167
 

@@ -8,11 +8,11 @@ ExclusiveArch: %{ocaml_native_compiler}
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
-%global coqver 8.17.1
+%global coqver 8.18.0
 
 Name:		zenon
 Version:	0.8.5
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -99,6 +99,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 0.8.5-23
+- Rebuild for coq 8.18.0
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-22
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

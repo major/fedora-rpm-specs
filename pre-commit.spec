@@ -2,7 +2,7 @@
 
 Name:           pre-commit
 Version:        3.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -12,6 +12,7 @@ Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%
 
 BuildArch:      noarch
 
+BuildRequires:  git-core
 BuildRequires:  python3-devel
 
 %if %{with check}
@@ -34,7 +35,6 @@ BuildRequires:  python3-devel
 # BuildRequires:  swift-lang
 
 BuildRequires:  cargo
-BuildRequires:  git-core
 BuildRequires:  lua-devel
 BuildRequires:  luarocks
 BuildRequires:  nodejs
@@ -52,7 +52,7 @@ A framework for managing and maintaining multi-language pre-commit hooks.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S git
 # Do not generate BR’s for coverage, linters, etc.:
 sed -r '/^(covdefaults|coverage)\b/d' requirements-dev.txt |
   tee requirements-dev-filtered.txt
@@ -68,15 +68,11 @@ sed -r '/^(covdefaults|coverage)\b/d' requirements-dev.txt |
 
 %install
 %pyproject_install
-%pyproject_save_files pre_commit
+%pyproject_save_files -l pre_commit
 
 
 %if %{with check}
 %check
-git init
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-
 # For general discusson on test failures building distribution packages, see:
 # https://github.com/pre-commit/pre-commit/issues/1183,
 # https://github.com/pre-commit/pre-commit/issues/1202
@@ -196,6 +192,10 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.0-2
+- Assert that the .dist-info directory contains a license file
+- Simplify setting up the git repository required by the tests
+
 * Tue Dec 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.0-1
 - Update to 3.6.0 (close RHBZ#2253802)
 

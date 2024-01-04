@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 9
+%global project_version_patch 10
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
@@ -759,6 +759,26 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Tue Jan 02 2024 Packit <hello@packit.dev> - 5.1.10-1
+- Release 5.1.10
+- Document dnf5 plugins
+- Document How-to write libdnf5 plugin tutorial
+- Document How-to write dnf5 plugin tutorial
+- Document Templates for libdnf5 plugin
+- Document Templates for dnf5 plugin
+- Sort the module info table
+- `module info` print hint for active modules
+- `module info` print "[a]" for active modules
+- Ensure write permission before importing packages
+- Change module dependency string to be the same as in dnf4
+- `module info`: improve summary and description
+- Escape glob characters in pkg specs for `builddep`
+- Add `mc` alias for `makecache`
+- Implement `logdir`, `log_size` and `log_rotate` config options
+- remove redundant "all" in command `check`
+- Improve bash completion
+- Fix progress bars miss newlines on non-interactive output
+
 * Fri Dec 08 2023 Packit <hello@packit.dev> - 5.1.9-1
 - Release 5.1.9
 - Update translations from weblate

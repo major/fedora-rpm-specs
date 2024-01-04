@@ -1,5 +1,5 @@
 Name: datovka
-Version: 4.23.1
+Version: 4.23.2
 Release: 1%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
@@ -55,6 +55,10 @@ cd tests
 %{_datadir}/metainfo/datovka.metainfo.xml
 
 %changelog
+* Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.23.2-1
+- New version
+  Resolves: rhbz#2255984
+
 * Mon Dec 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.23.1-1
 - New version
   Resolves: rhbz#2253431

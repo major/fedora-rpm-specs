@@ -3,8 +3,8 @@
 
 Name:           perl-SQL-Translator
 Summary:        Manipulate structured data definitions (SQL and more)
-Version:        1.63
-Release:        2%{?dist}
+Version:        1.64
+Release:        1%{?dist}
 # script/sqlt*: GPL-2.0-only
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND GPL-2.0-only
@@ -87,6 +87,7 @@ BuildRequires:  perl(XML::Parser)
 #BuildRequires:  perl(Test::NoTabs) >= 1.1
 #BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(DBD::SQLite)
+BuildRequires:  perl(Test::PostgreSQL)
 Requires:       perl(CGI)
 Requires:       perl(CGI::Pretty)
 Requires:       perl(DBI) >= 1.54
@@ -156,6 +157,7 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(DBD::SQLite)
 Requires:       perl(XML::Parser)
+Requires:       perl(Test::PostgreSQL)
 
 %description tests
 Tests from %{name}. Execute them
@@ -238,6 +240,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 02 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.64-1
+- 1.64 bump (rhbz#2255608)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.63-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

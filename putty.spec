@@ -1,5 +1,5 @@
 Name:		putty
-Version:	0.79
+Version:	0.80
 Release:	1%{?dist}
 Summary:	SSH, Telnet and Rlogin client
 License:	MIT
@@ -65,6 +65,12 @@ install -m644 -D -p %{SOURCE3} %{buildroot}%{_metainfodir}/uk.org.greenend.chiar
 %{_metainfodir}/uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 
 %changelog
+* Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 0.80-1
+- New version
+  Resolves: rhbz#2255025
+- Fixed Terrapin vulnerability in some SSH protocol extensions
+  Resolves: CVE-2023-48795
+
 * Thu Aug 31 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.79-1
 - New version
   Resolves: rhbz#2235091

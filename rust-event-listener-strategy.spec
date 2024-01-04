@@ -5,7 +5,7 @@
 %global crate event-listener-strategy
 
 Name:           rust-event-listener-strategy
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Block or poll on event_listener easily
 

@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.104.%{git_suffix}%{?dist}
+Release:          0.105.%{git_suffix}%{?dist}
 License:          GPLv3+
 BuildRequires:    cmake
 BuildRequires:    gcc-c++
@@ -87,6 +87,9 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Tue Jan 02 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.105.20200807git9e2515a5
+- Rebuilt for new gnuradio
+
 * Tue Jul 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0-0.104.20200807git9e2515a5
 - Drop x86 support (leaf package)
 - Drop commented-out BuildRequires on mpir-devel, which is retired

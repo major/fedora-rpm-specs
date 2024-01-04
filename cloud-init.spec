@@ -5,7 +5,7 @@
 %endif
 
 Name:           cloud-init
-Version:        23.2.1
+Version:        23.4.1
 Release:        %autorelease
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 OR GPL-3.0-only
@@ -27,12 +27,14 @@ BuildRequires:  pkgconfig(systemd)
 %if %{with tests}
 BuildRequires:  iproute
 BuildRequires:  passwd
+BuildRequires:  procps-ng
 # dnf is needed to make cc_ntp unit tests work
 # https://bugs.launchpad.net/cloud-init/+bug/1721573
 BuildRequires:  /usr/bin/dnf
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(responses)
+BuildRequires:  python3dist(passlib)
 %endif
 
 Requires:       dhcp-client
@@ -87,7 +89,7 @@ find tests/ -type f | xargs sed -i s/assertItemsEqual/assertCountEqual/
 %py3_install -- --init-system=systemd
 
 # Generate cloud-config file
-python3 tools/render-cloudcfg --variant %{?rhel:rhel}%{!?rhel:fedora} > $RPM_BUILD_ROOT/%{_sysconfdir}/cloud/cloud.cfg
+python3 tools/render-template --variant %{?rhel:rhel}%{!?rhel:fedora} > $RPM_BUILD_ROOT/%{_sysconfdir}/cloud/cloud.cfg
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/cloud
 

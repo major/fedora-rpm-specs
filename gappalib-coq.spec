@@ -10,12 +10,12 @@ ExclusiveArch: %{ocaml_native_compiler}
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global coqver  8.17.1
-%global commit  c761927f88a3a0e99efdf54fd93c2d8276deab91
+%global coqver  8.18.0
+%global commit  c29f5613545460a2e9531577fe6ef844654c63e3
 
 Name:           gappalib-coq
-Version:        1.5.3
-Release:        8%{?dist}
+Version:        1.5.4
+Release:        1%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -97,6 +97,9 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1.5.4-1
+- Version 1.5.4
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.3-8
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.8.3
-Release: 2%{?dist}
+Version: 3.8.4
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -836,6 +836,12 @@ fi
 %endif
 
 %changelog
+* Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.4-1
+- New version
+  Resolves: rhbz#2255641
+- Fixed SMTP smuggling vulnerability
+  Resolves: CVE-2023-51764
+
 * Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.3-2
 - Converted license tag to SPDX
 

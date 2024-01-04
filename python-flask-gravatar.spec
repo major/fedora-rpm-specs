@@ -13,6 +13,9 @@ Source0:        %{pypi_source Flask-Gravatar}
 # Don't run linting tests
 # Don't add flask_gravatar src folder to test path, buildroot path is already added by %%pytest
 Patch0:         python-flask-gravatar_tests.patch
+# Compatibility with Flask 2.3
+# https://github.com/zzzsochi/Flask-Gravatar/pull/29
+Patch1:         flask-3-support.patch
 
 BuildRequires:  python3-devel
 
@@ -54,6 +57,9 @@ Small extension for Flask to make usage of Gravatar service easy.
 
 
 %changelog
+* Tue Jan 02 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.5.0-21
+- Backport Flask >= 2.3 fix
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

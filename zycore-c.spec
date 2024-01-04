@@ -8,14 +8,13 @@ Summary:        Zyan Core Library for C
 License:        MIT
 URL:            https://github.com/zyantific/zycore-c
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Set DOXYGEN_GENERATE_MAN config option to generate manpages
-Patch0:         https://github.com/zyantific/zycore-c/pull/65.patch
 
 # https://github.com/zyantific/zycore-c/issues/59
 ExcludeArch:    s390x
 
-BuildRequires:  gcc gcc-c++
+BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  ninja-build
 BuildRequires:  gtest-devel
 BuildRequires:  doxygen
 
@@ -43,6 +42,8 @@ The %{name}-doc package contains the documentation for %{name}.
 
 %build
 %cmake \
+    -GNinja \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DZYCORE_BUILD_SHARED_LIB=ON \
     -DZYCORE_BUILD_TESTS=ON \
     -DZYCORE_BUILD_EXAMPLES=ON \
@@ -60,32 +61,13 @@ The %{name}-doc package contains the documentation for %{name}.
 %{_libdir}/libZycore.so.%{sover}*
 
 %files devel
-%dir %{_includedir}/Zycore
-%dir %{_includedir}/Zycore/API
-%dir %{_includedir}/Zycore/Internal
-%{_includedir}/Zycore/*.h
-%{_includedir}/Zycore/API/*.h
-%{_includedir}/Zycore/Internal/*.h
-%dir %{_libdir}/cmake/zycore
-%{_libdir}/cmake/zycore/*.cmake
+%{_includedir}/Zycore/
+%{_libdir}/cmake/zycore/
 %{_libdir}/libZycore.so
-%{_mandir}/man3/*
 
 %files doc
 %license LICENSE
-%dir %{_datadir}/doc/Zycore
-%dir %{_datadir}/doc/Zycore/api
-%dir %{_datadir}/doc/Zycore/api/search
-%{_datadir}/doc/Zycore/api/*.css
-%{_datadir}/doc/Zycore/api/*.png
-%{_datadir}/doc/Zycore/api/*.html
-%{_datadir}/doc/Zycore/api/*.map
-%{_datadir}/doc/Zycore/api/*.md5
-%{_datadir}/doc/Zycore/api/*.js
-%{_datadir}/doc/Zycore/api/*.svg
-%{_datadir}/doc/Zycore/api/search/*.js
-%{_datadir}/doc/Zycore/api/search/*.svg
-%{_datadir}/doc/Zycore/api/search/*.css
+%{_docdir}/Zycore/
 
 %changelog
 %autochangelog

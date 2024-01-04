@@ -1,17 +1,40 @@
 Name:		meshlab
 Summary:	A system for processing and editing unstructured 3D triangular meshes
-Version:	2022.02
-Release:	5%{?dist}
+Version:	2023.12
+Release:	1%{?dist}
 URL:		https://github.com/cnr-isti-vclab/meshlab
 # Bundled e57 is Boost-licensed
-License:	GPLv2+ and BSD and Public Domain and ASL 2.0 and Boost
+License:	GPL-2.0-or-later AND BSD AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND BSL-1.0
 Source0:	https://github.com/cnr-isti-vclab/meshlab/archive/MeshLab-%{version}/%{name}-%{version}.tar.gz
-# Matches 2022.02:
-%global vcglibver e4950d1
+# Matches 2023.12:
+%global vcglibver 6ac9e0c
 # Probably belongs in its own package, but nothing else seems to depend on it.
 Source2:	https://github.com/cnr-isti-vclab/vcglib/archive/%{vcglibver}/vcglib-%{vcglibver}.tar.gz
 # Notes for Fedora users (around issues with Wayland)
 Source3:	README.Fedora
+# Upstream doesn't bundle some things anymore, it looks for a system copy and downloads it if not found
+# We should consider packaging libE57Format separately, but I don't think anything else needs it
+Source4:	https://github.com/asmaloney/libE57Format/archive/refs/tags/v2.3.0.zip
+# I know there is at least one other consumer of libigl, but as a header only library... bundle here too.
+Source5:	https://github.com/libigl/libigl/archive/refs/tags/v2.4.0.zip
+# This nexus is not the same as the nexus package in Fedora.
+# This nexus is a c++/javascript library for creation and visualization of a batched multiresolution
+# 3D model structure
+Source6:	https://www.meshlab.net/data/libs/nexus-master.zip
+# It also needs corto, a library for compression and decompression meshes and point clouds (C++/Javascript)
+Source7:	https://www.meshlab.net/data/libs/corto-master.zip
+# Long bundled, now pulled out of the source tarball, it's OpenCTM!
+# Could be made into it's own package, but A) it is very old and B) unlikely anything else needs it
+Source8:	https://www.meshlab.net/data/libs/OpenCTM-1.0.3-src.zip
+# Meshlab's fork of StructureSynth, the original is very old
+Source9:	https://github.com/alemuntoni/StructureSynth/archive/refs/tags/1.5.1.zip
+# Meshlab depends on tinygltf 2.6.3, which is not current.
+# tinygltf is a header-only library, so bundle party fun time
+Source10:	https://github.com/syoyo/tinygltf/archive/refs/tags/v2.6.3.zip
+# Meshlab depends on u3d 1.5.1, which is slightly better than when it depended on a fork of u3d.
+Source11:	https://www.meshlab.net/data/libs/u3d-1.5.1.zip
+
+
 Provides:	bundled(vcglib) = %{vcglibver}
 
 # Properly install u3d IDTFConverter library
@@ -19,19 +42,30 @@ Provides:	bundled(vcglib) = %{vcglibver}
 # Adjust MESHLAB_LIB_INSTALL_DIR to not have a meshlab/ subdir
 # and adjust MESHLAB_PLUGIN_INSTALL_DIR to have it
 Patch1:         meshlab-2021.07-MESHLAB_LIB_INSTALL_DIR-fix.patch
-# Enable use of system levmar
-Patch2:         meshlab-2021.07-system-levmar.patch
+# Allow system levmar
+Patch2:		meshlab-2023.12-system-levmar.patch
 # Fix FTBFS with GCC 13+ by adding include <cstdint>
 # Upstream already added that in https://github.com/asmaloney/libE57Format/pull/176
-Patch3:         meshlab-2022.02-e57-gcc13.patch
+Patch3:         meshlab-2023.12-e57-gcc13.patch
+# Include cstdint when corto uses uint32_t
+Patch4:		meshlab-2023.12-corto-cstdint.patch
 
 # Bundled things
-# This is a fork of a fork. Fun.
-Provides:	bundled(u3d) = 1.4.5-meshlab
+Provides:	bundled(u3d) = 1.5.1
 Provides:	bundled(e57) = 2.3.0
+Provides:	bundled(libigl) = 2.4.0
+Provides:	bundled(OpenCTM) = 1.0.3
+Provides:	bundled(StructureSynth) = 1.5.1-meshlab
+Provides:	bundled(tinygltf) = 2.6.3
+
+# Meshlab now depends on embree, which only builds on these arches
+# If you want to change this, go fix embree first.
+ExclusiveArch:  aarch64 x86_64
 
 BuildRequires:	bzip2-devel
+BuildRequires:	CGAL-devel
 BuildRequires:	eigen3-devel
+BuildRequires:	embree-devel
 BuildRequires:	glew-devel
 BuildRequires:  gmp-devel
 BuildRequires:	levmar-devel
@@ -62,11 +96,31 @@ these kinds of meshes.
 %prep
 %setup -q -n meshlab-MeshLab-%{version} -a 2
 # %%patch0 -p1 -b .installfix
-%patch1 -p1 -b .libdirfix
-%patch2 -p1 -b .system-levmar
-%patch3 -p1 -b .e57-gcc13
+%patch -P 1 -p1 -b .libdirfix
+%patch -P 2 -p1 -b .system-levmar
 cp %{SOURCE3} .
 rmdir src/vcglib && mv vcglib-%{vcglibver}* src/vcglib
+
+pushd src/external
+mkdir -p downloads
+cd downloads
+unzip %{SOURCE4}
+unzip %{SOURCE5}
+unzip %{SOURCE6}
+unzip %{SOURCE8}
+unzip %{SOURCE9}
+unzip %{SOURCE10}
+unzip %{SOURCE11}
+pushd nexus-master/src
+rm -rf corto
+unzip %{SOURCE7}
+mv corto-master corto
+popd
+popd
+
+# These patches need to apply after we build the bundled tree
+%patch -P 3 -p1 -b .e57-gcc13
+%patch -P 4 -p1 -b .cstdint
 
 # remove some bundles
 %if 0
@@ -89,6 +143,7 @@ export CXXFLAGS=`echo %{optflags} -std=c++14 -fopenmp -DSYSTEM_QHULL -I/usr/incl
 
 %global _vpath_srcdir src
 %cmake \
+	-DMESHLAB_USE_DEFAULT_BUILD_AND_INSTALL_DIRS=ON \
 	-DCMAKE_SKIP_RPATH=ON \
 	-DCMAKE_VERBOSE_MAKEFILE=OFF \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -144,7 +199,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/meshlab.desktop
 %doc docs/readme.txt
 %doc docs/privacy.txt
 %license LICENSE.txt
-%license src/external/u3d/COPYING
+%license src/external/downloads/u3d-*/COPYING
 %{_bindir}/meshlab
 # unsupported in 2021
 # %%{_bindir}/meshlabserver
@@ -154,12 +209,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/meshlab.desktop
 %{_datadir}/applications/meshlab.desktop
 %{_datadir}/icons/hicolor/512x512/apps/meshlab.png
 %{_datadir}/pixmaps/meshlab.png
-%license distrib/shaders/3Dlabs-license.txt
-%license distrib/shaders/LightworkDesign-license.txt
+%license resources/shaders/3Dlabs-license.txt
+%license resources/shaders/LightworkDesign-license.txt
 # %%license unsupported/plugins_experimental/filter_segmentation/license.txt
 # %%license unsupported/plugins_unsupported/filter_poisson/license.txt
 
 %changelog
+* Sun Dec 31 2023 Tom Callaway <spot@fedoraproject.org> - 2023.12-1
+- update to 2023.12
+
 * Mon Dec 18 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.02-5
 - Drop a redundant BuildRequires: qtsoap5-devel
 

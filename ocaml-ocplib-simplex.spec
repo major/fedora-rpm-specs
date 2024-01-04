@@ -1,3 +1,8 @@
+# NOTE: The version of this package is tied to the alt-ergo version.
+# Currently, alt-ergo-free is on version 2.3.x, which requires version 0.4.x
+# of this package.  DO NOT UPDATE to a newer version until a newer alt-ergo-free
+# is also available.
+
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
@@ -8,7 +13,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-ocplib-simplex
 Epoch:          1
 Version:        0.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simplex algorithm for solving systems of linear inequalities
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -25,7 +30,7 @@ BuildRequires:  autoconf
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.01.0
 BuildRequires:  ocaml-findlib
-#BuildRequires:  ocaml-num-devel
+BuildRequires:  ocaml-num-devel
 BuildRequires:  ocaml-rpm-macros
 
 %description
@@ -63,13 +68,11 @@ mkdir -p $OCAMLFIND_DESTDIR
 rm -fr %{buildroot}%{_prefix}%{_prefix}
 %ocaml_files
 
-# Tests disabled due to incompatibility with ocaml-num 1.5
-#
-#%%ifarch %{ocaml_native_compiler}
-## The tests assume the availability of ocamlopt
-#%%check
-#make local-tests
-#%%endif
+%ifarch %{ocaml_native_compiler}
+# The tests assume the availability of ocamlopt
+%check
+make local-tests
+%endif
 
 %files -f .ofiles
 %doc README.md
@@ -79,6 +82,9 @@ rm -fr %{buildroot}%{_prefix}%{_prefix}
 %doc extra/simplex_invariants.txt
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1:0.4.1-3
+- Reenable the tests
+
 * Mon Dec 18 2023 Jerry James <loganjerry@gmail.com> - 1:0.4.1-2
 - Fix devel package dependency on the main package
 

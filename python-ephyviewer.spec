@@ -59,7 +59,7 @@ sed -i -e '/spikeinterface/ d' -e '/av/ d' -e '/pytest-cov/ d' requirements-test
 
 %install
 %pyproject_install
-%pyproject_save_files ephyviewer
+%pyproject_save_files -l ephyviewer
 
 %check
 %if %{with tests}

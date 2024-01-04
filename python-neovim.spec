@@ -9,16 +9,13 @@ connecting to and scripting Nvim processes through its msgpack-rpc API.
 %bcond_without sphinx
 
 Name:           python-neovim
-Version:        0.4.3
+Version:        0.5.0
 Release:        11%{?dist}
 
 License:        ASL 2.0
 Summary:        Python client to Neovim
 URL:            https://github.com/neovim/pynvim
 Source0:        https://github.com/neovim/pynvim/archive/%{version}/pynvim-%{version}.tar.gz
-
-# git format-patch --stdout -l1 --no-renames 0.4.3..HEAD > pynvim-fixes.patch
-Patch0:         pynvim-fixes.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -99,6 +96,11 @@ popd
 %endif
 
 %changelog
+* Tue Jan 02 2024 Andreas Schneider <asn@redhat.com> - 0.5.0-1
+- Update to version 0.9.5
+  * https://github.com/neovim/pynvim/releases/tag/0.5.0
+  * resolves rhbz#2256278
+
 * Wed Sep 27 2023 Andreas Schneider <asn@redhat.com> - 0.4.3-12
 - Fix running tests with Python 3.12
 

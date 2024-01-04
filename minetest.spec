@@ -1,8 +1,8 @@
 %global irr_version 1.9.0mt13
-%global minetest_game_version 5.7.0
+%global minetest_game_version 5.8.0
 Name:     minetest
 Version:  5.8.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 License:  LGPLv2+ and CC-BY-SA
@@ -223,6 +223,9 @@ exit 0
 
 
 %changelog
+* Tue Jan 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.8.0-2
+- Updated minetest_game
+
 * Tue Dec 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.8.0-1
 - 5.8.0
 - Drop game package per upstream, install minetest_game in server package.

@@ -19,6 +19,9 @@ Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 Patch1:         0001-Adjust-to-deprecation-of-3-arg-signature-of-generato.patch
 # downstream-only fix tests, skip network tests that fail in buildsys
 Patch2:         0002-23.10.0-fix-and-skip-tests-fedora.patch
+# https://github.com/twisted/twisted/issues/12052
+# https://github.com/twisted/twisted/pull/12054
+Patch3:         0003-python3.12.1.patch
 
 BuildArch:      noarch
 
@@ -32,6 +35,7 @@ BuildRequires:  python3-pyasn1-modules, python3-cryptography, python3-pynacl
 BuildRequires:  python3-service-identity, python3-pyOpenSSL, python3-h2
 BuildRequires:  python3-bcrypt, python3-subunit
 BuildRequires:  python3-hamcrest, python3-hypothesis
+BuildRequires:  git-core
 
 Recommends:  python3-%{srcname}+tls
 

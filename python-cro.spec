@@ -8,7 +8,7 @@ other corals for space and find depredation.}
 
 Name:           python-%{pypi_name}
 Version:        0.0.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An implementation of CRO metaheuristic algorithm
 License:        MIT
 URL:            https://github.com/VictorPelaez/coral-reef-optimization-algorithm
@@ -71,7 +71,7 @@ cp %{SOURCE1} .
 %install
 %pyproject_install
 
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 
 %check
 # Upstream provides no tests
@@ -83,10 +83,12 @@ do
 done
     
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE.txt
 %doc README.txt examples/
 
 %changelog
+* Tue Jan 02 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.0.5.2-4
+- Assert a license file is automatically handled; don’t package a duplicate
+
 * Wed Oct 18 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.0.5.2-3
 - F38+: Use %%{py3_test_envvars} to run examples
 - Preserve timestamps when fixing line endings

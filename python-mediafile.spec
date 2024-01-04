@@ -1,7 +1,7 @@
 %global shortname mediafile
 Name:           python-mediafile
-Version:        0.11.0
-Release:        3%{?dist}
+Version:        0.12.0
+Release:        1%{dist}
 Summary:        Elegant audio file tagging in Python
 
 License:        MIT
@@ -51,6 +51,9 @@ Python 3 version.
 %doc README.rst
 
 %changelog
+* Tue Jan 2 2024 Michele Baldessari <michele@acksyn.org> - 0.12.0-1
+- New package
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

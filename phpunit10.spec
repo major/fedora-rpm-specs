@@ -17,7 +17,7 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    6fce887c71076a73f32fd3e0774a6833fc5c7f19
+%global gh_commit    ed21115d505b4b4f7dc7b5651464e19a2c7f7856
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -31,7 +31,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.3
+%global upstream_version 10.5.5
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -266,6 +266,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec 28 2023 Remi Collet <remi@remirepo.net> - 10.5.5-1
+- update to 10.5.5
+
 * Wed Dec 13 2023 Remi Collet <remi@remirepo.net> - 10.5.3-1
 - update to 10.5.3
 

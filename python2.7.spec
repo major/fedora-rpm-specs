@@ -78,7 +78,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 36%{?dist}
+Release: 37%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -933,6 +933,23 @@ Patch406: 00406-cve-2022-48565.patch
 #
 # Backported from Python 3.6.11.
 Patch408: 00408-cve-2022-48560.patch
+
+# 00415 # eb2d53e3e9bd2c708e9387044e8a84f0acda5830
+# [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
+#
+# Detect email address parsing errors and return empty tuple to
+# indicate the parsing error (old API). Add an optional 'strict'
+# parameter to getaddresses() and parseaddr() functions. Patch by
+# Thomas Dwyer.
+#
+#
+# Changes for Python 2:
+# - Define encoding for test_email
+# - Adjust import so we don't need change the tests
+# - Do not use f-strings
+# - Do not use SubTest
+# - KW only function arguments are not supported
+Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
 
 # (New patches go here ^^^)
 #
@@ -1809,6 +1826,10 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Fri Dec 22 2023 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-37
+- Security fix for CVE-2023-27043
+Resolves: rhbz#2196186
+
 * Mon Nov 27 2023 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-36
 - Security fix for CVE-2022-48560
 Resolves: rhbz#2250592

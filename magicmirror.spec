@@ -1,18 +1,19 @@
 %bcond_without tests
 %global srcname MagicMirror
-%global forgeurl https://github.com/MichMich/MagicMirror
+%global forgeurl https://github.com/MagicMirrorOrg/MagicMirror
 
 Name:           magicmirror
-Version:        2.24.0
+Version:        2.26.0
 Release:        %autorelease
 Summary:        Modular smart mirror platform
 
-License:        0BSD and ASL 2.0 and BSD and CC-BY and ISC and MIT and OFL and Python
+# MagicMirror itself is MIT, the rest comes from the dependencies
+License:        0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND (CC-BY-4.0 AND OFL-1.1 AND MIT) AND ISC AND MIT AND OFL-1.1 AND Python-2.0
 URL:            http://magicmirror.builders
 # Use the GitHub tarball due to https://github.com/MichMich/MagicMirror/issues/2876
 Source0:        %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Created with nodejs-packaging >= 2021.06-7 running:
-#   nodejs-packaging-bundler MagicMirror 2.24.0 MagicMirror-2.24.0.tar.gz
+#   nodejs-packaging-bundler MagicMirror 2.26.0 MagicMirror-2.26.0.tar.gz
 Source1:        %{srcname}-%{version}-nm-prod.tgz
 Source2:        %{srcname}-%{version}-nm-dev.tgz
 Source3:        %{srcname}-%{version}-bundled-licenses.txt

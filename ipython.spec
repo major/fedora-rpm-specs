@@ -13,7 +13,7 @@
 %endif
 
 Name:           ipython
-Version:        8.18.1
+Version:        8.19.0
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 
@@ -23,7 +23,6 @@ Summary:        An enhanced interactive Python shell
 License:        (BSD and MIT and Python) and GPLv2+
 URL:            http://ipython.org/
 Source0:        %pypi_source
-Patch1:         relax-pytest-version-requirement.patch
 
 BuildArch:      noarch
 BuildRequires:  make

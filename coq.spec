@@ -26,8 +26,8 @@ ExclusiveArch: %{ocaml_native_compiler}
 %bcond_with doc
 
 Name:           coq
-Version:        8.17.1
-Release:        8%{?dist}
+Version:        8.18.0
+Release:        1%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -41,12 +41,14 @@ Source2:        coq.xml
 Source3:        fr.inria.coqide.metainfo.xml
 
 BuildRequires:  ocaml >= 4.09.0
+BuildRequires:  ocaml-cairo-devel >= 0.6.4
 BuildRequires:  ocaml-dune >= 2.9
 BuildRequires:  ocaml-findlib-devel >= 1.8.1
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel >= 3.1.2
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-zarith-devel >= 1.11
+BuildRequires:  adwaita-icon-theme
 BuildRequires:  antlr4 >= 4.7.1
 BuildRequires:  libappstream-glib
 BuildRequires:  csdp-tools
@@ -143,6 +145,7 @@ Coq in a structured way.
 %package coqide
 Summary:        Coqide IDE for Coq proof management system
 Requires:       %{name}-coqide-server%{?_isa} = %{version}-%{release}
+Requires:       adwaita-icon-theme
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
 
@@ -242,18 +245,10 @@ cd -
 # Build the binary artifacts
 export SPHINXWARNOPT="-w$PWD/sphinx-warn.log"
 make dunestrap VERBOSE=1 DUNEOPT="--verbose --profile=release"
-%if %{with doc}
-%dune_build
-%else
-%dune_build -p coq-core,coq-stdlib,coq,coqide-server,coqide
-%endif
+%dune_build %{!?with_doc:-p coq-core,coq-stdlib,coq,coqide-server,coqide}
 
 %install
-%if %{with doc}
-%dune_install
-%else
-%dune_install coq-core coq-stdlib coq coqide-server coqide
-%endif
+%dune_install %{!?with_doc:coq-core coq-stdlib coq coqide-server coqide}
 
 # Install the LaTeX style file
 mkdir -p %{buildroot}%{_texmf_main}/tex/latex/misc
@@ -335,6 +330,7 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %{_bindir}/coqnative
 %{_bindir}/coqpp
 %{_bindir}/coq-tex
+%{_bindir}/coqtimelog2html
 %{_bindir}/coqtop*
 %{_bindir}/coqwc
 %{_bindir}/coqworker.%{camlsuffix}
@@ -395,6 +391,9 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 8.18.0-1
+- Version 8.18.0
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 8.17.1-8
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

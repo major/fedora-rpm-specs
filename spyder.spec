@@ -115,7 +115,7 @@ sed -r -i 's|(qdarkstyle.*),<3.2.0|\1|' setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files spyder
+%pyproject_save_files -l spyder
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications scripts/spyder.desktop
 

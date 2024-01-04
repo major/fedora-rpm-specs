@@ -1,14 +1,14 @@
 %global src_name buildsystem
 
 Name:           netsurf-buildsystem
-Version:        1.9
+Version:        1.10
 Release:        %autorelease
 Summary:        Makefiles shared by NetSurf projects
 License:        MIT
 URL:            http://www.netsurf-browser.org/
 Source0:        http://download.netsurf-browser.org/libs/releases/%{src_name}-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 
 %description

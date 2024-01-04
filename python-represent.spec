@@ -2,8 +2,8 @@
 %global sum Create __repr__ automatically or declaratively
 
 Name:           python-%{srcname}
-Version:        1.6.0
-Release:        16%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
@@ -12,10 +12,6 @@ Source0:        https://github.com/RazerM/%{srcname}/archive/%{version}.tar.gz#/
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-six
-BuildRequires:  python3-pytest
-BuildRequires:  python3-ipython
 
 
 %description
@@ -32,27 +28,31 @@ Python3 package which creates __repr__ automatically or declaratively.
 %prep
 %setup -q -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 
 %check
-%{__python3} setup.py test
+%pytest
 
 
-%files -n python3-%{srcname}
-%doc README
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.md
 %license LICENSE
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/Represent-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Jan 02 2024 Lumír Balhar <lbalhar@redhat.com> - 2.0.0-1
+- Update to 2.0.0 (rhbz#2256284)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

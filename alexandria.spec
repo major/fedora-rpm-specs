@@ -7,7 +7,7 @@ BuildRequires:  %{*} \
 %undefine		minorver	
 %undefine		ifpre	
 
-%define		baserelease	4
+%define		baserelease	5
 %define		rel		%{?ifpre:0.}%{baserelease}%{?minorver:.%minorver}
 
 
@@ -17,7 +17,10 @@ Version:	%{majorver}
 Release:	%{rel}%{?dist}
 Summary:	Book collection manager
 
-License:	GPLv2+
+# Overall	GPL-2.0-or-later
+# share/gnome/help/alexandria/C/alexandria.xml	GFDL-1.2-or-later
+# SPDX confirmed
+License:	GPL-2.0-or-later AND GPL-2.0-or-later
 URL:		https://github.com/mvz/alexandria-book-collection-manager/
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}%{?minorver:-%{minorver}}.tar.gz
 # Patches discussing with the upstream
@@ -103,9 +106,7 @@ BuildRequires:	intltool
 BuildRequires:	rubygem(rspec)
 # Needed since Ruby 3.0.
 # https://github.com/mvz/alexandria-book-collection-manager/issues/124
-%if 0%{?fedora} >= 34
 %BothRequires	rubygem(rexml)
-%endif
 # rspec test
 BuildRequires:	%{_bindir}/xvfb-run
 BuildRequires:	%{_bindir}/ping
@@ -332,7 +333,7 @@ done
 %gconf_schema_remove %{name}
 
 %files -f %{name}.lang
-%doc COPYING
+%license COPYING
 %doc ChangeLog*
 %doc INSTALL.md
 %doc README*
@@ -358,6 +359,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Tue Jan  2 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.9-5
+- SPDX migration
+
 * Fri Dec 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.9-4
 - Disable z3950x provider test
 

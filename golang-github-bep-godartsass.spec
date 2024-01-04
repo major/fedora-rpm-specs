@@ -4,7 +4,7 @@
 
 # https://github.com/bep/godartsass
 %global goipath         github.com/bep/godartsass
-Version:                0.16.0
+Version:                1.2.0
 
 %gometa
 
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/frankban/quicktest)
 %gopkgfiles
 
 %changelog
+* Sat Dec 30 2023 W. Michael Petullo - <mike@flyn.org> - 1.2.0-1
+- New upstream version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

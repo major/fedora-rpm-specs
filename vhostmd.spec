@@ -33,6 +33,8 @@ Patch0016:     0016-vhostmd-Check-return-value-of-file-functions.patch
 Patch0017:     0017-vhostmd-Check-for-valide-file-handle-before-calling-.patch
 Patch0018:     0018-vhostmd-Fix-memory-leak-in-vhostmd_run.patch
 Patch0019:     0019-virtio-Fix-strncpy-length-parameter.patch
+# https://github.com/vhostmd/vhostmd/pull/13
+Patch0020:     0020-implicit-function-declarations.patch
 
 BuildRequires: make
 BuildRequires: gcc

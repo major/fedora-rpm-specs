@@ -109,7 +109,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 %install
 %pyproject_install
-%pyproject_save_files configupdater
+%pyproject_save_files -l configupdater
 
 
 %check

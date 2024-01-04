@@ -4,7 +4,7 @@
 
 Name:		libffi
 Version:	3.4.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A portable foreign function interface library
 License:	MIT
 URL:		http://sourceware.org/libffi
@@ -12,6 +12,10 @@ URL:		http://sourceware.org/libffi
 Source0:	https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz
 Source1:	ffi-multilib.h
 Source2:	ffitarget-multilib.h
+
+# error: implicit declaration of function 'open_temp_exec_file'
+# https://github.com/libffi/libffi/pull/764
+Patch0:		0001-Forward-declare-open_temp_exec_file.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -113,6 +117,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Tue Jan 02 2024 Florian Weimer <fweimer@redhat.com> - 3.4.4-5
+- Add missing declaration of open_temp_exec_file
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

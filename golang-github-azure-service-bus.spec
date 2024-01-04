@@ -4,7 +4,7 @@
 
 # https://github.com/Azure/azure-service-bus-go
 %global goipath         github.com/Azure/azure-service-bus-go
-Version:                0.10.12
+Version:                0.11.5
 
 %gometa
 
@@ -21,7 +21,7 @@ Service Bus entities such as Queues, Topics and Subscriptions.}
 %global godocs          CONTRIBUTING.md README.md changelog.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        Golang library for Azure Service Bus
 
 License:        MIT
@@ -77,6 +77,9 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 %gopkgfiles
 
 %changelog
+* Sat Dec 30 2023 W. Michael Petullo <mike@flyn.org> - 0.11.5-1
+- Update to 0.11.5
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

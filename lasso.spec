@@ -78,6 +78,7 @@ URL: https://lasso.entrouvert.org/
 Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
 
 Patch01: fix-removed-xmlsec-deprecations.patch
+Patch02: fix-openssl-implicit-declarations.patch
 
 BuildRequires: autoconf
 BuildRequires: automake

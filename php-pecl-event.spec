@@ -15,17 +15,19 @@
 %global with_zts    0%{?__ztsphp:1}
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 3.0.8
+%global upstream_version 3.1.1
 #global upstream_prever  RC3
 #global upstream_postver r1
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 Summary:       Provides interface to libevent library
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       5%{?dist}
+Release:       1%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/event
-Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}%{?upstream_postver}.tgz
+Source0:       https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires: gcc
 BuildRequires: make
@@ -65,9 +67,7 @@ sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever}%{?upstream_postver} NTS
-
-cd NTS
+cd %{sources}
 # Sanity check, really often broken
 DIR=$(%{__php} -r 'echo "php" . PHP_MAJOR_VERSION;')
 extver=$(sed -n '/#define PHP_EVENT_VERSION/{s/.* "//;s/".*$//;p}' $DIR/php_event.h)
@@ -77,9 +77,9 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?upstream_post
 fi
 cd ..
 
-# duplicate for ZTS build
+mkdir NTS
 %if %{with_zts}
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Drop in the bit of configuration
@@ -90,8 +90,10 @@ EOF
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
     --with-event-libevent-dir=%{_prefix} \
     --with-openssl-dir=%{_prefix} \
@@ -99,12 +101,11 @@ cd NTS
     --with-event-core \
     --with-event-extra \
     --with-event-openssl \
-    --with-php-config=%{_bindir}/php-config
+    --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
     --with-event-libevent-dir=%{_prefix} \
     --with-openssl-dir=%{_prefix} \
@@ -113,7 +114,7 @@ cd ../ZTS
     --with-event-extra \
     --with-event-openssl \
     --with-event-pthreads \
-    --with-php-config=%{_bindir}/zts-php-config
+    --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -135,7 +136,7 @@ install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 : Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
@@ -146,37 +147,36 @@ fi
 
 : Minimal load test for NTS extension
 %{__php} --no-php-ini $OPTS  \
-    --define extension=NTS/modules/%{pecl_name}.so \
+    --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
 %if %{with_zts}
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini $OPTS  \
-    --define extension=ZTS/modules/%{pecl_name}.so \
+    --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 %endif
 
 %if %{with_tests}
-cd NTS
+cd %{sources}
 : Upstream test suite for NTS extension
 SKIP_ONLINE_TESTS=1 \
 TEST_PHP_EXECUTABLE=%{__php} \
-TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
+TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --show-diff
 
 %if %{with_zts}
-cd ../ZTS
 : Upstream test suite for ZTS extension
 SKIP_ONLINE_TESTS=1 \
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
-TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
+TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 %{__ztsphp} -n run-tests.php -q --show-diff
 %endif
 %endif
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -190,6 +190,10 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Jan  2 2024 Remi Collet <remi@remirepo.net> - 3.1.1-1
+- update to 3.1.1
+- build out of sources tree
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 3.0.8-5
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 

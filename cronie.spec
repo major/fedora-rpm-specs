@@ -11,6 +11,9 @@ License:   GPL-2.0-or-later AND BSD-3-Clause AND BSD-2-Clause AND ISC AND LGPL-2
 URL:       https://github.com/cronie-crond/cronie
 Source0:   https://github.com/cronie-crond/cronie/releases/download/cronie-%{version}/cronie-%{version}.tar.gz
 
+# https://github.com/cronie-crond/cronie/pull/163
+Patch:     n_option_wait_on_finnishing_grandchild_process.patch
+
 Requires:  dailyjobs
 
 %if %{with selinux}

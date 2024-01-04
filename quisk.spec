@@ -1,6 +1,6 @@
 Name:           quisk
-Version:        4.2.27
-Release:        2%{?dist}
+Version:        4.2.28
+Release:        1%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 License:        GPLv2 and BSD
@@ -84,6 +84,10 @@ install -Dpm 0644 %{SOURCE3} \
 
 
 %changelog
+* Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.28-1
+- New version
+  Resolves: rhbz#2254908
+
 * Thu Dec 14 2023 Daniel Rusek <mail@asciiwolf.com> - 4.2.27-2
 - Added desktop files and AppStream metadata
 

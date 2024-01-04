@@ -3,13 +3,13 @@
 %global sum The py.test astropy plugin
 
 Name:           python-%{srcname}
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        %{sum}
 
-License:        BSD
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/astropy/pytest-astropy
+Source0:        %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

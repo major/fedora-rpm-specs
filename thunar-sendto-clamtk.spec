@@ -1,6 +1,6 @@
 Name: thunar-sendto-clamtk
-Version: 0.07
-Release: 5%{dist}
+Version: 0.08
+Release: 1%{dist}
 Summary: Simple virus scanning extension for Thunar
 License: GPL+ or Artistic 2.0
 URL: https://github.com/dave-theunsub/thunar-sendto-clamtk
@@ -33,6 +33,9 @@ desktop-file-install --vendor "" \
 %{_datadir}/Thunar/sendto/%{name}.desktop
 
 %changelog
+* Tue Jan 2 2024 Dave M. <dave.nerd@gmail.com> - 0.08-1
+- Update to 0.08.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -48,6 +51,7 @@ desktop-file-install --vendor "" \
 * Sun Nov 7 2021 Dave M. <dave.nerd@gmail.com> - 0.07-1
 - Update to 0.07.
 - Update URLs.
+
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 

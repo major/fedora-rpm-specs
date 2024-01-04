@@ -4,7 +4,7 @@
 
 # https://github.com/marekm4/color-extractor
 %global goipath         github.com/marekm4/color-extractor
-Version:                1.2.0
+Version:                1.2.1
 
 %gometa -f
 

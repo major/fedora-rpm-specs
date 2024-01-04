@@ -1,6 +1,6 @@
 Name:               girara
-Version:            0.4.0
-Release:            2%{?dist}
+Version:            0.4.1
+Release:            1%{?dist}
 Summary:            Simple user interface library
 License:            Zlib
 URL:                https://pwmt.org/projects/%{name}/
@@ -17,6 +17,7 @@ BuildRequires:      pango-devel >= 1.14
 BuildRequires:      pkgconfig(json-glib-1.0)
 # Tests
 BuildRequires:      pkgconfig(check) >= 0.11
+Buildrequires:      xorg-x11-server-Xvfb
 
 # from Upstream: Mark girara_libnotify as deprecated
 #BuildRequires:      libnotify-devel >= 0.7.0
@@ -65,6 +66,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Dec 08 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.4.1-1
+- feat: update to 0.4.1 (rhbz#2253671)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -9,7 +9,7 @@ CITATION.cff files in Python.}
 
 Name:           %{pypi_name}
 Version:        2.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Command line program to validate and convert CITATION.cff files
 
 License:        ASL 2.0
@@ -45,7 +45,7 @@ sed -r -i 's/--[^[:blank:]]*\bcov\b[^[:blank:]]*//' setup.cfg
 
 %install
 %pyproject_install
-%pyproject_save_files cffconvert
+%pyproject_save_files -l cffconvert
 
 # man page
 install -d '%{buildroot}%{_mandir}/man1'
@@ -62,12 +62,14 @@ install -d '%{buildroot}%{_mandir}/man1'
 %endif
 
 %files -n cffconvert -f %{pyproject_files}
-%license LICENSE
 %doc docs/ README.md CHANGELOG.md CITATION.cff CONTRIBUTING.md
 %{_bindir}/%{pypi_name}
 %{_mandir}/man1/%{pypi_name}.1*
 
 %changelog
+* Tue Jan 02 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.0-8
+- Assert a license file is automatically handled; don’t package a duplicate
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

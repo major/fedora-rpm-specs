@@ -140,7 +140,7 @@ sed -i "s/x86_64/$MODSUBDIR/" bluepyopt/tests/test_stochkv.py
 
 %install
 %pyproject_install
-%pyproject_save_files bluepyopt
+%pyproject_save_files -l bluepyopt
 
 %check
 %pyproject_check_import -e *neuroml* -e bluepyopt.tests*

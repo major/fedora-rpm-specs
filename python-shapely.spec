@@ -97,7 +97,7 @@ sed -r -i \
 
 %install
 %pyproject_install
-%pyproject_save_files shapely
+%pyproject_save_files -l shapely
 
 
 %check
@@ -111,7 +111,6 @@ ln -s ../shapely/tests/
 
 
 %files -n python3-shapely -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc CHANGES.txt
 %doc CITATION.cff
 %doc CREDITS.txt

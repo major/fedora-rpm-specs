@@ -24,7 +24,7 @@
 Summary: SELinux policy configuration
 Name: selinux-policy
 Version: 40.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: modules-targeted-base.conf
@@ -486,7 +486,7 @@ mv %{buildroot}%{_datadir}/man/man8/style.css %{buildroot}%{_datadir}/selinux/de
 
 mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d
 install -m 644 %{SOURCE102} %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
-sed -i 's/SELINUXPOLICYVERSION/%{version}-%{release}/' %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
+sed -i 's/SELINUXPOLICYVERSION/%{version}/' %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
 sed -i 's@SELINUXSTOREPATH@%{_sharedstatedir}/selinux@' %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
 
 mkdir -p %{buildroot}%{_unitdir}
@@ -814,6 +814,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Jan 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 40.8-2
+- Limit %%selinux_requires to version, not release
+
 * Thu Dec 21 2023 Zdenek Pytela <zpytela@redhat.com> - 40.8-1
 - Allow hypervkvp_t write access to NetworkManager_etc_rw_t
 - Add interface for write-only access to NetworkManager rw conf

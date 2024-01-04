@@ -21,17 +21,20 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-num
 Version:        1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Legacy Num library for arbitrary-precision integer and rational arithmetic
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/ocaml/num
 Source0:        https://github.com/ocaml/num/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Downstream patch to add -g flag.
+Patch5:         0001-src-Add-g-flag-to-mklib.patch
+
+BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-rpm-macros
 
 # Do not require ocaml-compiler-libs at runtime
@@ -66,27 +69,33 @@ developing applications that use %{name}.
 
 
 %build
-%dune_build @install ;#@doc
+make opam-modern PROFILE=release ARCH=%{num_arch} FLAMBDA=true
 
 
 %check
-%dune_check
+make -j1 test PROFILE=release ARCH=%{num_arch} FLAMBDA=true
 
 
 %install
-%dune_install -s
+export OCAMLFIND_DESTDIR=%{buildroot}%{_libdir}/ocaml
+mkdir -p $OCAMLFIND_DESTDIR/stublibs
+%make_install ARCH=%{num_arch}
+%ocaml_files
 
 
-%files -f .ofiles-num
+%files -f .ofiles
 %doc Changelog README.md
 %license LICENSE
 
 
-%files devel -f .ofiles-num-devel
+%files devel -f .ofiles-devel
 %license LICENSE
 
 
 %changelog
+* Thu Dec 21 2023 Jerry James <loganjerry@gmail.com> - 1.5-4
+- Revert use of dune as build system due to why3 breakage
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-3
 - Bump release and rebuild
 

@@ -2,8 +2,8 @@
 %bcond_without perl_autodie_enables_optional_test
 
 Name:           perl-autodie
-Version:        2.36
-Release:        501%{?dist}
+Version:        2.37
+Release:        1%{?dist}
 Summary:        Replace functions with ones that succeed or die
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autodie
@@ -142,13 +142,18 @@ make test
 %files
 %license LICENSE
 %doc AUTHORS Changes README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/autodie*
+%{perl_vendorlib}/Fatal*
+%{_mandir}/man3/autodie*
+%{_mandir}/man3/Fatal*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 02 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.37-1
+- 2.37 bump (rhbz#2256130)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

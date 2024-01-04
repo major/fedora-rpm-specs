@@ -11,8 +11,8 @@
 
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
-Version: 5.15.11
-Release: 2%{?dist}
+Version: 5.15.12
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -27,7 +27,7 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.11-lts-lgpl
+## git format-patch v5.15.12-lts-lgpl
 Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
 Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
 Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
@@ -241,6 +241,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Tue Jan 02 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.12-1
+- 5.15.12
+
 * Mon Oct 30 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-2
 - Upstream backport: QML: Fortify qmlExecuteDeferred some more
 

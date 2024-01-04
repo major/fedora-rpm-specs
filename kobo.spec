@@ -5,7 +5,7 @@
 %define with_worker 1
 
 Name:           kobo
-Version:        0.35.0
+Version:        0.35.1
 Release:        1%{?dist}
 License:        LGPL-2.1-only
 Summary:        Python modules for tools development
@@ -194,6 +194,9 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/kobo/worker
 
 
 %changelog
+* Tue Jan 02 2024 Lukáš Zaoral <lzaoral@redhat.com> - 0.35.1-1
+- rebase to latest upstream release (rhbz#2255494)
+
 * Wed Dec 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.35.0-1
 - rebase to latest upstream release (rhbz#2254256)
 

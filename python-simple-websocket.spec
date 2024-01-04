@@ -6,7 +6,7 @@
 
 Name:           python-simple-websocket
 Version:        1.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple WebSocket server and client for Python
 
 BuildArch:      noarch
@@ -64,7 +64,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files simple_websocket
+%pyproject_save_files -l simple_websocket
 
 
 %check
@@ -84,6 +84,9 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 
 %changelog
+* Tue Jan 02 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-5
+- Assert that the .dist-info directory contains a license file
+
 * Fri Oct 27 2023 Sandro Mani <manisandro@gmail.com> - 1.0.0-4
 - Add LICENSE to %%doc
 

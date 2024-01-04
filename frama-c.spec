@@ -5,11 +5,11 @@ ExclusiveArch: %{ocaml_native_compiler}
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        27.1
-Release:        8%{?dist}
+Version:        28.0
+Release:        1%{?dist}
 Summary:        Framework for source code analysis of C software
 
-%global pkgversion %{version}-Cobalt
+%global pkgversion %{version}-Nickel
 
 # Licensing breakdown in source file frama-c.licensing
 License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception
@@ -34,11 +34,8 @@ Source15:       com.%{name}.%{name}-gui.metainfo.xml
 Source16:       acsl.el
 Source17:       frama-c.licensing
 
-# Recent versions of glibc have changed the fread prototype
-Patch0:         %{name}-glibc.patch
-
-# ocamlgraph 2.1.0 adds newlines at the ends of dot files, breaking tests
-Patch1:         %{name}-ocamlgraph-2.1.0.patch
+# Ignore whitespace differences in the tests
+Patch0:         %{name}-test.patch
 
 BuildRequires:  alt-ergo
 BuildRequires:  clang
@@ -65,6 +62,7 @@ BuildRequires:  ocaml-ppx-deriving-devel
 BuildRequires:  ocaml-ppx-deriving-yaml-devel >= 0.2.0
 BuildRequires:  ocaml-ppx-deriving-yojson-devel
 BuildRequires:  ocaml-ppx-import-devel
+BuildRequires:  ocaml-unionfind-devel
 BuildRequires:  ocaml-why3-devel >= 1.6.0
 BuildRequires:  ocaml-yaml-devel >= 3.0.0
 BuildRequires:  ocaml-yojson-devel >= 2.0.1
@@ -131,14 +129,10 @@ This package contains an Emacs support file for working with C source
 files marked up with ACSL.
 
 %prep
-%autosetup -N -n %{name}-%{pkgversion}
+%autosetup -p1 -n %{name}-%{pkgversion}
 %setup -q -T -D -a 1 -n %{name}-%{pkgversion}
 %setup -q -T -D -a 2 -n %{name}-%{pkgversion}
 %setup -q -T -D -a 13 -n %{name}-%{pkgversion}
-%ifarch x86_64
-%autopatch -M 0 -p1
-%endif
-%autopatch -m 1 -p1
 
 # Copy in the manuals
 mkdir doc/manuals
@@ -272,6 +266,11 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 28.0-1
+- Version 28.0
+- Drop upstreamed patches
+- Add patch for whitespace differences in the tests
+
 * Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 27.1-8
 - OCaml 5.1.1 rebuild for Fedora 40
 

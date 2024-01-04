@@ -86,7 +86,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
-%pyproject_save_files "brian2*"
+%pyproject_save_files -l "brian2*"
 
 %check
 %pyproject_check_import -e brian2.hears -t

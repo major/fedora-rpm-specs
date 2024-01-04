@@ -1,9 +1,9 @@
 Name:           perl-XML-Parser
-Version:        2.46
-Release:        16%{?dist}
+Version:        2.47
+Release:        1%{?dist}
 Summary:        Perl module for parsing XML documents
 
-License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        Artistic-2.0
 Url:            https://metacpan.org/release/XML-Parser
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-%{version}.tar.gz
 
@@ -18,7 +18,7 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Devel::CheckLib)
+BuildRequires:  perl(Devel::CheckLib) >= 1.16
 BuildRequires:  perl(English)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(lib)
@@ -123,14 +123,18 @@ make test
 
 %files
 %doc README Changes samples/
+%license LICENSE
 %{perl_vendorarch}/XML/
 %{perl_vendorarch}/auto/XML/
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/XML::Parser*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 02 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.47-1
+- 2.47 bump (rhbz#2256150)
+
 * Wed Sep 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.46-16
 - Package tests
 

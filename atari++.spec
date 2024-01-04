@@ -78,12 +78,12 @@ desktop-file-install \
 
 
 %files
-%license COPYRIGHT
-%doc CREDITS README.LEGAL README.History README.licence manual
+%license COPYRIGHT README.licence
+%doc CREDITS README.LEGAL README.History manual
 %doc os++doc.pdf basic++doc.pdf
 %{_bindir}/%{name}
 %{_mandir}/man6/%{name}.*
-%{_datadir}/%{name}
+%{_datadir}/%{name}/
 %{_datadir}/pixmaps/atari2.svg
 %{_datadir}/applications/%{name}.desktop
 

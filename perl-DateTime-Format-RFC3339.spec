@@ -1,11 +1,12 @@
 Name:           perl-DateTime-Format-RFC3339
-Version:        1.2.0
-Release:        24%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Parse and format RFC3339 datetime strings
-License:        CC0
+License:        CC0-1.0
 URL:            https://metacpan.org/release/DateTime-Format-RFC3339
 Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-RFC3339-v%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -13,10 +14,10 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(DateTime)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(FindBin)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
 
@@ -28,27 +29,31 @@ defined at http://tools.ietf.org/html/rfc3339.
 %setup -q -n DateTime-Format-RFC3339-v%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%make_build
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%make_install
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE.txt
 %doc Changes README.txt
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/DateTime
+%{_mandir}/man3/DateTime::Format::RFC3339.3pm*
 
 %changelog
+* Tue Jan 02 2024 Xavier Bachelot <xavbier@bachelot.org> - 1.6.0-1
+- Update to 1.6.0 (RHBZ#2256485)
+
+* Tue Jan 02 2024 Xavier Bachelot <xavbier@bachelot.org> - 1.4.0-1
+- Update to 1.4.0 (RHBZ#2256405)
+- Convert License to SPDX
+- Cleanup specfile
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

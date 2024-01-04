@@ -1,18 +1,17 @@
-%global pypi_name pgcli
-
-Name:           %{pypi_name}
+Name:           pgcli
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD-3-Clause
 URL:            https://www.pgcli.com/
-Source0:        %{pypi_source}
+Source:         %{pypi_source pgcli}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
+
+BuildRequires:  help2man
 
 # Additional BuildRequires for tests, not in the package metadata. Versions
 # come from tox.ini in unreleased upstream sources. Note that upstream wants
@@ -22,12 +21,12 @@ BuildRequires:  python3dist(behave) >= 1.2.4
 BuildRequires:  python3dist(pexpect) >= 3.3
 BuildRequires:  python3dist(sshtunnel) >= 0.4
 
-%py_provides python3-%{pypi_name}
+%py_provides python3-pgcli
 
 %description
 CLI for Postgres Database. With auto-completion and syntax highlighting
 
-%pyproject_extras_subpkg -n python3-%{pypi_name} keyring
+%pyproject_extras_subpkg -n python3-pgcli keyring
 
 %generate_buildrequires
 %pyproject_buildrequires -x keyring
@@ -40,16 +39,31 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l pgcli
+
+# We must do this in %%install rather than in %%build in order to use the
+# generated entry point:
+install -d '%{buildroot}%{_mandir}/man1'
+PYTHONPATH='%{buildroot}%{python3_sitelib}' \
+    PYTHONDONTWRITEBYTECODE=1 \
+    help2man --no-info --version-string='%{version}' \
+        --output='%{buildroot}%{_mandir}/man1/pgcli.1' \
+        %{buildroot}%{_bindir}/pgcli
 
 %check
 %pytest
 
 %files -f %{pyproject_files}
 %doc README.rst changelog.rst
-%{_bindir}/%{pypi_name}
+%{_bindir}/pgcli
+%{_mandir}/man1/pgcli.1*
 
 %changelog
+* Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.1-2
+- Small changes to simplify and modernize packaging
+- Assert that the .dist-info directory contains a license file
+- Generate a man page
+
 * Thu Nov 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.1-1
 - Update to 4.0.1 (close RHBZ#2246795)
 

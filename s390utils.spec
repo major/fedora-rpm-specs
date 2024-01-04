@@ -15,17 +15,17 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.29.0
-Release:        6%{?dist}
+Version:        2.30.0
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
 URL:            https://github.com/ibm-s390-linux/s390-tools
 Source0:        https://github.com/ibm-s390-linux/s390-tools/archive/v%{version}.tar.gz#/s390-tools-%{version}.tar.gz
 # To create the vendor tarball:
-#   tar xf s390-tools-%%{version}.tar.gz ; pushd s390-tools-%%{version}/rust/pvsecret ; \
+#   tar xf s390-tools-%%{version}.tar.gz ; pushd s390-tools-%%{version}/rust ; \
 #   rm -f Cargo.lock && cargo vendor && \
-#   tar Jvcf ../../../s390-tools-%%{version}-rust-vendor.tar.xz vendor/ ; popd
+#   tar Jvcf ../../s390-tools-%%{version}-rust-vendor.tar.xz vendor/ ; popd
 Source1:        s390-tools-%{version}-rust-vendor.tar.xz
 Source5:        https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/zfcpconf.sh
 Source7:        https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/zfcp.udev
@@ -47,14 +47,9 @@ Source25:       91-zipl.install
 # change the defaults to match Fedora environment
 Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
-# https://github.com/ibm-s390-linux/s390-tools/pull/155
-Patch2:         snmp-semicolon.patch
-# fix build with libxml2-2.12.0
-# https://github.com/ibm-s390-linux/s390-tools/pull/160
-Patch3:         libxml2-parser.patch
 
 # upstream fixes/updates
-#Patch100:       s390utils-%%{version}-fedora.patch
+Patch100:       s390utils-%{version}-fedora.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -92,17 +87,20 @@ BuildRequires:  crate(clap_derive)
 BuildRequires:  crate(colorchoice)
 BuildRequires:  crate(curl)
 BuildRequires:  crate(is-terminal)
+BuildRequires:  crate(lazy_static)
 BuildRequires:  crate(libc)
 BuildRequires:  crate(log)
+BuildRequires:  crate(mockito)
 BuildRequires:  crate(openssl)
 BuildRequires:  crate(openssl-probe)
 BuildRequires:  crate(serde)
 BuildRequires:  crate(serde_derive)
+BuildRequires:  crate(serde_test)
 BuildRequires:  crate(serde_yaml)
 BuildRequires:  crate(strsim)
 BuildRequires:  crate(terminal_size)
 BuildRequires:  crate(thiserror)
-BuildRequires:  crate(zerocopy) = 0.6.5
+BuildRequires:  crate(zerocopy) = 0.6.6
 BuildRequires:  rust-packaging
 %endif
 %endif
@@ -126,7 +124,7 @@ popd
 %else
 %cargo_prep
 %endif
-rm -rf ./rust/pvsecret/Cargo.lock
+rm ./rust/Cargo.lock
 %endif
 
 %build
@@ -547,8 +545,9 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_sbindir}/lscss
 %{_sbindir}/lsdasd
 %{_sbindir}/lshwc
-%{_sbindir}/lsqeth
 %{_sbindir}/lsluns
+%{_sbindir}/lsqeth
+%{_sbindir}/lspai
 %{_sbindir}/lsreipl
 %{_sbindir}/lsscm
 %{_sbindir}/lsshut
@@ -646,6 +645,7 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_mandir}/man8/lsdasd.8*
 %{_mandir}/man8/lshwc.8*
 %{_mandir}/man8/lsluns.8*
+%{_mandir}/man8/lspai.8*
 %{_mandir}/man8/lsqeth.8*
 %{_mandir}/man8/lsreipl.8*
 %{_mandir}/man8/lsscm.8*
@@ -1026,6 +1026,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Tue Jan 02 2024 Dan Horák <dan[at]danny.cz> - 2:2.30.0-1
+- rebased to 2.30.0 (rhbz#2252519)
+
 * Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 2:2.29.0-6
 - Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
 

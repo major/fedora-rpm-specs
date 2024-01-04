@@ -4,23 +4,15 @@
 %bcond_without tests
 
 Name:           python-pyerfa
-Version:        2.0.0.3
-Release:        4%{?dist}
+Version:        2.0.1.1
+Release:        1%{?dist}
 Summary:        Python wrapper for the ERFA library
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/liberfa/pyerfa
 Source0:        %{pypi_source}
 
 # Python BuildRequires
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist setuptools_scm}
-BuildRequires:  %{py3_dist numpy}
-%if %{with tests}
-BuildRequires:  %{py3_dist jinja2}
-BuildRequires:  %{py3_dist pytest_astropy}
-%endif
-# Non-Python BuildRequires
 BuildRequires:  erfa-devel
 BuildRequires:  gcc
 
@@ -47,36 +39,38 @@ they can be called with scalar or array inputs.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
 # Build using system liberfa, not bundled one
-PYERFA_USE_SYSTEM_LIBERFA=1 %py3_build
+export PYERFA_USE_SYSTEM_LIBERFA=1 
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{module_name}
 
 
 %check
 %if %{with tests}
-pushd %{buildroot}%{python3_sitearch}/%{module_name}
-%{__python3} -m pytest
-rm -rf .pytest_cache
-rm tests/__pycache__/test_erfa*pytest*.pyc
-popd
+%{tox}
 %else
 %py3_check_import %{module_name}
 %endif
 
-
-%files -n  python3-%{pypi_name}
+%files -n  python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.rst
 %doc AUTHORS.rst CHANGES.rst README.rst
-%{python3_sitearch}/%{module_name}
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Tue Jan 02 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 2.0.1.1-1
+- new version
+- using SPDX license name
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

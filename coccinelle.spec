@@ -24,7 +24,7 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -287,6 +287,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1.1.1-27
+- Rebuild for ocaml-num
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-26
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

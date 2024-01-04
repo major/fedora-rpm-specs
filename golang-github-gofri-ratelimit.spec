@@ -4,7 +4,7 @@
 
 # https://github.com/gofri/go-github-ratelimit
 %global goipath         github.com/gofri/go-github-ratelimit
-Version:                1.0.4
+Version:                1.0.7
 
 %gometa -f
 

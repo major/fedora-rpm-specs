@@ -83,6 +83,7 @@ k="${k-}${k+ and }not test_odeint"
 
 
 %files -n python3-autograd -f %{pyproject_files}
+%license license.txt
 %doc README.md
 
 

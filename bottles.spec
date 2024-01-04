@@ -2,25 +2,24 @@
 
 Name:       bottles
 Epoch:      1
-Version:    51.9
+Version:    51.10
 Release:    %autorelease
-BuildArch:  noarch
-
-# blueprint-compiler does not work on s390x:
-# https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
-ExcludeArch:    s390x
+Summary:    Run Windows in a Bottle
 
 %global tag %{version}
-
 %forgemeta
 
 # The following two files are licensed as MIT:
 # bottles/backend/models/vdict.py
 # bottles/backend/utils/vdf.py
 License:    GPL-3.0-or-later AND MIT
-Summary:    Easily manage Wine prefix in a new way
 URL:        %{forgeurl}
 Source0:    %{forgesource}
+
+BuildArch:  noarch
+# blueprint-compiler does not work on s390x:
+# https://gitlab.gnome.org/jwestman/blueprint-compiler/-/issues/96
+ExcludeArch:    s390x
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -57,39 +56,21 @@ Requires:   ImageMagick             %dnl # https://bugzilla.redhat.com/show_bug.
 Requires:   python3-chardet         %dnl # https://bugzilla.redhat.com/show_bug.cgi?id=2240292
 
 %description
-Easily manage Wine prefix in a new way! (Run Windows software and games on
-Linux).
+Bottles lets you run Windows software on Linux, such as applications
+and games. It introduces a workflow that helps you organize by
+categorizing each software to your liking. Bottles provides several
+tools and integrations to help you manage and optimize your
+applications.
 
 Features:
 
-  * Create bottles based on environments (a set of rule and dependencies for
-    better software compatibility)
-  * Access to a customizable environment for all your experiments
-  * Run every executable (.exe/.msi) in your bottles, using the context menu
-    in your file manager
-  * Integrated management and storage for executable file arguments
-  * Support for custom environment variables
-  * Simplified DLL overrides
-  * On-the-fly runner change for any Bottle
-  * Various optimizations for better gaming performance (esync, fsync, dxvk,
-    cache, shader compiler, offload .. and much more.)
-  * Tweak different wine prefix settings, without leaving Bottles
-  * Automated dxvk installation
-  * Automatic installation and management of Wine and Proton runners
-  * System for checking runner updates for the bottle and automatic repair in
-    case of breakage
-  * Integrated Dependencies installer with compatibility check based on a
-    community-driver repository
-  * Detection of installed programs
-  * Integrated Task manager for wine processes
-  * Easy access to ProtonDB and WineHQ for support
-  * Configurations update system across Bottles versions
-  * Backup bottles as configuration file or full archive
-  * Import backup archive
-  * Importer from Bottles v1 (and other wineprefix manager)
-  * Bottles versioning (experimental)
-  * .. and much more that you can find by installing Bottles!
-
+- Use pre-configured environments as a base
+- Change runners for any bottle
+- Various optimizations and options for gaming
+- Repair in case software or bottle is broken
+- Install various known dependencies
+- Integrated task manager to manage and monitor processes
+- Backup and restore
 
 %prep
 %forgeautosetup -p1

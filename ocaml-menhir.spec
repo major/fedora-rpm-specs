@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-menhir
-Version:        20230608
-Release:        7%{?dist}
+Version:        20231231
+Release:        1%{?dist}
 Summary:        LR(1) parser generator for OCaml
 
 # The generator is GPL-2.0-only
@@ -97,6 +97,7 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %{_bindir}/menhir
 %{_mandir}/man1/menhir.1*
 %{ocamldir}/menhir/
+%{ocamldir}/menhirCST/
 %{ocamldir}/menhirSdk/
 
 %files -n ocaml-menhirlib -f .ofiles-menhirLib
@@ -106,6 +107,10 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %{ocamldir}/menhirLib/menhirLib.ml
 
 %changelog
+* Tue Jan 02 2024 Richard W.M. Jones <rjones@redhat.com> - 20231231-1
+- New upstream version 20231231 (RHBZ#2256337)
+- Add new menhirCST library, used for --unparsing option.
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 20230608-7
 - Bump release and rebuild
 

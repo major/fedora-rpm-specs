@@ -1,6 +1,6 @@
 Name:             zathura-pdf-poppler
-Version:          0.3.1
-Release:          3%{?dist}
+Version:          0.3.2
+Release:          1%{?dist}
 Summary:          PDF support for zathura via poppler
 License:          Zlib
 URL:              http://pwmt.org/projects/%{name}
@@ -14,11 +14,11 @@ BuildRequires:    girara-devel
 BuildRequires:    glib2-devel
 # Needed to validate appdata
 BuildRequires:    libappstream-glib
-BuildRequires:    meson >= 0.56
-BuildRequires:    poppler-glib-devel >= 0.18
-BuildRequires:    zathura-devel >= 0.5.2
+BuildRequires:    meson >= 0.61
+BuildRequires:    poppler-glib-devel >= 21.12
+BuildRequires:    zathura-devel >= 0.5.3
 
-Requires:         zathura >= 0.5.2
+Requires:         zathura >= 0.5.3
 # Old plugins used alternatives
 Conflicts:        zathura-pdf-mupdf < 0.3.3
 
@@ -50,6 +50,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-poppler.metainfo.xml
 
 %changelog
+* Tue Jan 02 2024 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.3.2-1
+- Update dep versions
+
+* Sat Dec 09 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.3.2-1
+- Update to 0.3.2
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

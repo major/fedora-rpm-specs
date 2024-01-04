@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		9.0.0
-Release:		5%{?dist}
+Release:		6%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -204,8 +204,6 @@ BuildRequires:		doxygen
 BuildRequires:		golang
 %endif
 Requires:		urw-base35-fonts
-Requires(post):		/sbin/ldconfig
-Requires(postun):	/sbin/ldconfig
 # rhbz#1838679
 Patch0:			graphviz-4.0.0-gvpack-neato-static.patch
 # https://gitlab.com/graphviz/graphviz/-/issues/2448
@@ -257,8 +255,6 @@ Smyrna is a viewer for graphs in the DOT format.
 %package gd
 Summary:		Graphviz plugin for renderers based on gd
 Requires:		%{name} = %{version}-%{release}
-Requires(post):		%{_bindir}/dot /sbin/ldconfig
-Requires(postun):	%{_bindir}/dot /sbin/ldconfig
 
 %description gd
 Graphviz plugin for renderers based on gd.  (Unless you absolutely have to use
@@ -269,8 +265,6 @@ quality anti-aliased lines provided by the cairo+pango based renderer.)
 %package gtk2
 Summary:		Graphviz plugin for renderers based on gtk2
 Requires:		%{name} = %{version}-%{release}
-Requires(post):		%{_bindir}/dot /sbin/ldconfig
-Requires(postun):	%{_bindir}/dot /sbin/ldconfig
 
 %description gtk2
 Graphviz plugin for renderers based on gtk2.
@@ -571,52 +565,11 @@ php --no-php-ini \
 # cd rtest
 # make rtest
 
-%post
-%{?ldconfig}
+%transfiletriggerin -- %{_libdir}/graphviz
 %{_bindir}/dot -c 2>/dev/null || :
 
-%ldconfig_postun
-
-%if %{DEVIL}
-# run "dot -c" to generate plugin config in %%{_libdir}/graphviz/config*
-%post devil
+%transfiletriggerpostun -- %{_libdir}/graphviz
 %{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-
-%postun devil
-%{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-%endif
-
-# run "dot -c" to generate plugin config in %%{_libdir}/graphviz/config*
-%post gd
-%{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-
-%postun gd
-%{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-
-%if %{with gtk2}
-%post gtk2
-%{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-
-%postun gtk2
-%{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-%endif
-
-%if %{MING}
-# run "dot -c" to generate plugin config in %%{_libdir}/graphviz/config*
-%post ming
-%{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-
-%postun ming
-%{_bindir}/dot -c 2>/dev/null || :
-%{?ldconfig}
-%endif
 
 %files
 %doc %{_docdir}/%{name}
@@ -777,6 +730,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Wed Dec 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 9.0.0-6
+- Use transaction file triggers to configure plugins 
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 9.0.0-5
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

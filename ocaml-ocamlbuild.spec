@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:          ocaml-ocamlbuild
-Version:       0.14.2
-Release:       6%{?dist}
+Version:       0.14.3
+Release:       1%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
@@ -107,6 +107,9 @@ popd
 
 
 %changelog
+* Tue Jan 02 2024 Richard W.M. Jones <rjones@redhat.com> - 0.14.3-1
+- New upstream version 0.14.3 (RHBZ#1992935)
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.14.2-6
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

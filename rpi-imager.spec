@@ -1,5 +1,5 @@
 Name:           rpi-imager
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Summary:        Graphical user-interface to write disk images and format SD cards
 
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %doc README.md
 
 %changelog
+* Tue Jan 02 2024 K. de Jong <keesdejong@fedoraproject.org> - 1.8.4-1
+- New upstream release
+
 * Fri Oct 20 2023 K. de Jong <keesdejong@fedoraproject.org> - 1.8.1-1
 - New upstream release
 

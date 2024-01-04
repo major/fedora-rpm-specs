@@ -14,7 +14,7 @@
 # %%endif
 
 # Look, you probably don't want this. scim is so 2012. ibus is the new hotness.
-# Enabling this means you'll almost certainly need to pass ECORE_IMF_MODULE=xim 
+# Enabling this means you'll almost certainly need to pass ECORE_IMF_MODULE=xim
 # to get anything to work. (*cough*terminology*cough*)
 %global with_scim 0
 
@@ -30,8 +30,8 @@
 %bcond_without avif
 
 Name:		efl
-Version:	1.26.3
-Release:	8%{?dist}
+Version:	1.27.0
+Release:	1%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -48,7 +48,7 @@ Patch3:		efl-1.25.0-no-neon.patch
 Patch4:		efl-1.25.0-check-fix.patch
 
 # Fix headerless .po files that modern gettext doesn't like
-Patch5:		efl-1.26.3-gettextfix.patch
+Patch5:		efl-1.27.0-gettextfix.patch
 
 %ifnarch s390 s390x
 BuildRequires:	libunwind-devel
@@ -65,7 +65,7 @@ BuildRequires:	libXi-devel mesa-libGL-devel mesa-libEGL-devel
 BuildRequires:	libblkid-devel libmount-devel systemd-devel harfbuzz-devel
 BuildRequires:	libwebp-devel tslib-devel SDL2-devel SDL-devel c-ares-devel
 BuildRequires:	libxkbcommon-devel uuid-devel libxkbcommon-x11-devel avahi-devel
-BuildRequires:	rlottie-devel
+BuildRequires:	rlottie-devel libjxl-devel
 BuildRequires:	pkgconfig(poppler-cpp) >= 0.12
 BuildRequires:	pkgconfig(libspectre) pkgconfig(libraw)
 BuildRequires:	pkgconfig(librsvg-2.0) >= 2.14.0
@@ -212,7 +212,7 @@ Development files for EFL.
 #%patch2 -p1 -b .luajitfix
 %patch -P3 -p1 -b .noneon
 %patch -P4 -p1 -b .checkfix
-%patch -P5 -p1 -b .gettextfix
+%patch -P5 -b .gettextfix
 
 # This is why hardcoding paths is bad.
 # sed -i -e 's|/opt/efl-%{version}/share/|%{_datadir}/|' \
@@ -288,7 +288,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %files -f %{name}.lang
 %license COPYING licenses/COPYING.BSD licenses/COPYING.GPL licenses/COPYING.LGPL licenses/COPYING.SMALL
-%doc AUTHORS COMPLIANCE NEWS README
+%doc AUTHORS COMPLIANCE README.md
 %{_libdir}/libefl.so.1*
 %{_libdir}/libefl_canvas_wl.so.1*
 %{_bindir}/efl_debug
@@ -584,6 +584,13 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Tue Jan 02 2024 Ding-Yi Chen <dchen@redhat.com> - 1.27.0-1
+- Fixes Bug 2255716 - efl-1.27.0 is available
+- Add BuildRequires: libjxl-devel
+- Documents:
+  + Remove NEWS, because upstream no-longer have it
+  + Rename README to README.md
+
 * Tue Aug  1 2023 Tom Callaway <spot@fedoraproject.org> - 1.26.3-8
 - fix headerless .po files that modern gettext does not like (bz2225767)
 
@@ -677,7 +684,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 - update to 1.24.3
 - Remove meson flag -Dopengl=full
 - Remove Patch1 efl-1.17.1-old-nomodifier-in-drm_mode_fb_cmd2.patch
-- Remove Patch2 efl-1.23.1-luajitfix.patch 
+- Remove Patch2 efl-1.23.1-luajitfix.patch
   as luaL_reg is no longer required
 
 * Tue May 26 2020 Tom Callaway <spot@fedoraproject.org> - 1.24.2-1
@@ -844,7 +851,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 * Wed Aug 31 2016 Tom Callaway <spot@fedoraproject.org> - 1.18.0-4
 - explicitly disable cocoa. we are not osx. sloppy configure gets it wrong.
-- fix typo in elementary pc files 
+- fix typo in elementary pc files
 
 * Wed Aug 31 2016 Tom Callaway <spot@fedoraproject.org> - 1.18.0-3
 - properly provide/obsolete evas-generic-loaders

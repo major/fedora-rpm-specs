@@ -4,7 +4,7 @@
 
 # https://github.com/bep/simplecobra
 %global goipath         github.com/bep/simplecobra
-Version:                0.3.1
+Version:                0.4.0
 
 %gometa -f
 

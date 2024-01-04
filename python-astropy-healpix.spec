@@ -3,7 +3,7 @@
 %global sum HEALPix for Astropy
 
 Name:           python-%{srcname}
-Version:        1.0.0
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        %{sum}
 
@@ -17,21 +17,14 @@ Patch0:         astropy_healpix-0.7-disable-FP-limited-test.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-pip
-BuildRequires:  python3-wheel
-BuildRequires:  %{py3_dist astropy}
-BuildRequires:  %{py3_dist Cython}
-BuildRequires:  %{py3_dist extension-helpers}
+BuildRequires:  %{py3_dist setuptools}
+#
+BuildRequires:  %{py3_dist pytest-astropy}
 # BuildRequires for tests, healpy only available on 64 bit architectures,
 # thus these tests are skipped on 32 bit
 %ifnarch %{ix86} %{arm}
 BuildRequires:  %{py3_dist healpy}
 %endif
-BuildRequires:  %{py3_dist hypothesis}
-BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist pytest-astropy}
 
 %description
 This is a BSD-licensed Python package for HEALPix, which is based on the C
@@ -45,37 +38,38 @@ Summary:        %{sum}
 %description -n python3-%{srcname}
 %{description}
 
-
 %prep
 %autosetup -n %{modname}-%{version} -p1
 
 # Remove egg files from source
 rm -r %{modname}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires 
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 %check
-%ifnarch s390x
 pushd %{buildroot}/%{python3_sitearch}
-%pytest %{modname}
+  %pytest %{modname}
+  # Hypothesis tests creates some files in sitearch... we remove them now
+  rm -rf .hypothesis
+  rm -rf .pytest_cache
 popd
-# Hypothesis tests creates some files in sitearch... we remove them now
-rm -rf %{buildroot}%{python3_sitearch}/.hypothesis
-rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
-%endif
 
-# Note that there is no %%files section for the unversioned python module if we are building for several python runtimes
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.md
 %doc README.rst
-%{python3_sitearch}/%{modname}
-%{python3_sitearch}/%{modname}*egg-info
 
 %changelog
+* Tue Jan 02 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 1.0.2-1
+- Update to 1.0.2
+
 * Sun Sep 17 2023 Mattia Verga <mattia.verga@proton.me> - 1.0.0-1
 - Update to 1.0.0 (fedora#2233129)
 - Migrate license to SPDX

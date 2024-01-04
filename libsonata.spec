@@ -78,14 +78,14 @@ rm -rf extlib/{Catch2,Highfive,fmt,nlohmann}
 # python bits need to be run in the out of source build directory so we need to
 # move some files to allow that
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-cp -a README.rst %{__cmake_builddir}
-cp -a setup.py %{__cmake_builddir}
-cp -a pyproject.toml %{__cmake_builddir}
-cp -a COPYING.* %{__cmake_builddir}
-cp -a MANIFEST.* %{__cmake_builddir}
-mkdir -p %{__cmake_builddir}/python/libsonata/
-cp -a python/libsonata/__init__.py %{__cmake_builddir}/python/libsonata
-pushd %{__cmake_builddir}
+cp -a README.rst %{_vpath_builddir}
+cp -a setup.py %{_vpath_builddir}
+cp -a pyproject.toml %{_vpath_builddir}
+cp -a COPYING.* %{_vpath_builddir}
+cp -a MANIFEST.* %{_vpath_builddir}
+mkdir -p %{_vpath_builddir}/python/libsonata/
+cp -a python/libsonata/__init__.py %{_vpath_builddir}/python/libsonata
+pushd %{_vpath_builddir}
 %pyproject_wheel
 popd
 
@@ -93,20 +93,20 @@ popd
 pushd tests/data
 %{python3} generate.py
 popd
-mkdir -p %{__cmake_builddir}/tests
-cp -a tests/data %{__cmake_builddir}/tests
+mkdir -p %{_vpath_builddir}/tests
+cp -a tests/data %{_vpath_builddir}/tests
 
 %install
 %cmake_install
 # remove static lib
 rm -rf %{buildroot}/%{_libdir}/libsonata.a
 # neither cmake nor pyproject install python module(!?)
-install -p -m 0655 -D -t %{buildroot}/%{python3_sitearch}/libsonata/ %{__cmake_builddir}/python/_libsonata*so
+install -p -m 0655 -D -t %{buildroot}/%{python3_sitearch}/libsonata/ %{_vpath_builddir}/python/_libsonata*so
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-pushd %{__cmake_builddir}
+pushd %{_vpath_builddir}
 %pyproject_install
-%pyproject_save_files libsonata
+%pyproject_save_files -l libsonata
 popd
 
 

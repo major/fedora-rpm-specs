@@ -63,12 +63,6 @@ find . -name apparmor -type d -print0|xargs -0 rm -r --
 install -m 644 -D share/metainfo/*.appdata.xml \
     %{buildroot}%{_datadir}/appdata/torbrowser-launcher.appdata.xml
 
-if [ "%{_prefix}" != "/usr" ]; then
-  cp -ru %{buildroot}/usr/* %{buildroot}%{_prefix}/
-  rm -rf %{buildroot}/usr/*
-#  sed -i 's|\/usr|\${_prefix}|g' torbrowser-launcher.lang
-fi
-
 %find_lang %{name}
 
 

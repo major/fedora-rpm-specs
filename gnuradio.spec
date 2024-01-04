@@ -25,8 +25,8 @@
 #%%global alphatag rc1
 
 Name:		gnuradio
-Version:	3.10.6.0
-Release:	12%{?alphatag:.%{alphatag}}%{?dist}
+Version:	3.10.9.1
+Release:	1%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -38,9 +38,6 @@ Source0:	https://github.com/gnuradio/%{name}/archive/v%{version}/%{name}-%{versi
 # cd gnuradio
 # git archive --format=tar --prefix=%%{name}-%%{version}/ %%{git_commit} | \
 # gzip > ../%%{name}-%%{version}.tar.gz
-# https://github.com/gnuradio/gnuradio/issues/6735
-# Tentative patch for fmt10 being not accepting enum by default
-Patch0:	gnuradio-3.10.6.0-fmt10.patch
 
 Requires(pre):	shadow-utils
 BuildRequires:	cmake
@@ -213,6 +210,10 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.9.1-1
+- New version
+  Resolves: rhbz#2255186
+
 * Mon Dec 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.6.0-12
 - Rebuilt for new volk
 
