@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            https://keepassxc.org/
@@ -198,6 +198,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 03 2024 Jan Grulich <jgrulich@redhat.com> - 2.7.6-6
+- Rebuild (qt5)
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.7.6-5
 - Rebuilt for minizip-ng transition Fedora change
 - Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition

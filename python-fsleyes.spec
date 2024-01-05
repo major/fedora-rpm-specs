@@ -83,7 +83,7 @@ find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
 
 %install
 %pyproject_install
-%pyproject_save_files fsleyes
+%pyproject_save_files -l fsleyes
 
 # install desktop file in correct location
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications fsleyes/assets/linux/uk.ac.ox.fmrib.FSLeyes.desktop

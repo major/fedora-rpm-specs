@@ -3,7 +3,7 @@
 Summary: Ruby bindings to the Expat XML parsing library
 Name: rubygem-%{gem_name}
 Version: 0.7.2.1
-Release: 40%{?dist}
+Release: 42%{?dist}
 Group: Development/Languages
 # src/lib/xml/xpath.rb is GPLv2+
 # src/ext/encoding.h and the functions of encoding map are GPLv2+ or Artistic
@@ -18,6 +18,7 @@ Source0: http://gems.rubyforge.org/gems/%{gem_name}-%{version}.gem
 # https://www.mail-archive.com/debian-bugs-rc@lists.debian.org/msg297233.html
 Patch0: rubygem-xmlparser-ftbfs-fix.patch
 Patch1: rubygem-xmlparser-enc_to_encindex-fix.patch
+Patch2: rubygem-xmlparser-c99.patch
 BuildRequires: perl
 BuildRequires: ruby
 BuildRequires: ruby(rubygems)
@@ -39,6 +40,7 @@ gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 gem build %{gem_name}.gemspec
@@ -67,6 +69,12 @@ cp -a ./%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri
 %{gem_spec}
 
 %changelog
+* Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 0.7.2.1-42
+- Fix C compatibility issues (#2256626)
+
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.2.1-41
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Wed Aug 30 2023 Ulrich Schwickerath - 0.7.2.1-40
 - Add patch for undefined symbol as proposed by Antonio Terceiro for Debian
 

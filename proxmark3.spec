@@ -1,5 +1,5 @@
 Name:		proxmark3
-Version:	4.17511
+Version:	4.17768
 Release:	%autorelease
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 License:	GPLv3+

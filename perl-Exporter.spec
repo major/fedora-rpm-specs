@@ -1,16 +1,12 @@
-%global base_version 5.74
+%global base_version 5.78
 
 Name:           perl-Exporter
-Version:        5.77
-Release:        501%{?dist}
+Version:        5.78
+Release:        1%{?dist}
 Summary:        Implements default import method for modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exporter
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Exporter-%{base_version}.tar.gz
-# Unbundled from perl 5.34.0
-Patch0:         Exporter-5.74-Upgrade-to-5.76.patch
-# Unbundled from perl 5.35.11
-Patch1:         Exporter-5.74-Upgrade-to-5.77.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -45,8 +41,10 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Exporter-%{base_version}
-%patch -P0 -p1
-%patch -P1 -p1
+# Remove optional author test to prevent cycle Exporter <-> Test::More
+rm t/pod.t
+perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
+
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
@@ -82,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 03 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5.78-1
+- 5.78 bump (rhbz#2256294)
+
 * Fri Sep 22 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.77-501
 - Package tests
 

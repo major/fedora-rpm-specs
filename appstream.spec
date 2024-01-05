@@ -1,6 +1,6 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
@@ -10,8 +10,7 @@ URL:     https://github.com/ximion/appstream
 Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
 
 # upstream patches
-## From: https://github.com/ximion/appstream/commit/32182d7a7a67d0d204cd0a37bd211bfd0177bc27
-Patch0001: 0001-stemmer-Resolve-potential-issue-where-stemmer-may-ne.patch
+
 
 # upstreamable patches
 
@@ -197,6 +196,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Wed Jan 03 2024 Steve Cossette <farchord@gmail.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Fri Nov 17 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.0.0-1
 - Update to 1.0.0 final
 

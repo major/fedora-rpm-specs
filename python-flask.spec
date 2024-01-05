@@ -1,9 +1,9 @@
 %global modname flask
-%global srcname Flask
+%global srcname flask
 
 Name:           python-%{modname}
-Version:        2.2.5
-Release:        3%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
 
@@ -27,15 +27,8 @@ authentication technologies and more.
 
 %package -n python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
+BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(werkzeug) >= 0.15
-BuildRequires:  python3dist(jinja2) >= 2.10.1
-BuildRequires:  python3dist(itsdangerous) >= 0.24
-BuildRequires:  python3dist(click) >= 5.1
-BuildRequires:  python3dist(pytest)
-Obsoletes:      python2-%{modname} < 1:1.0.2-9
 
 %description -n python3-%{modname} %{_description}
 
@@ -43,10 +36,13 @@ Python 3 version.
 
 %package doc
 Summary:        Documentation for %{name}
-Obsoletes:      python3-%{modname}-doc < 1:0.11.1-3
 
 %description doc
 Documentation and examples for %{name}.
+
+%generate_buildrequires
+# -t picks test.txt by default which contains too tight pins
+%pyproject_buildrequires requirements/tests.in requirements/docs.in
 
 %prep
 %autosetup -n %{srcname}-%{version}
@@ -54,32 +50,40 @@ rm -rf examples/flaskr/
 rm -rf examples/minitwit/
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
+
 mv %{buildroot}%{_bindir}/%{modname}{,-%{python3_version}}
 ln -s %{modname}-%{python3_version} %{buildroot}%{_bindir}/%{modname}-3
 ln -sf %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 
-%check
-# test_max_cookie_size fails on Python 3.12: https://github.com/pallets/flask/issues/5146
-%pytest -Wdefault -k "not test_max_cookie_size"
+pushd docs
+# PYTHONPATH to prevent "'Flask' must be installed to build the documentation."
+make PYTHONPATH=%{buildroot}/%{python3_sitelib} SPHINXBUILD=sphinx-build-3 html
+rm -v _build/html/.buildinfo
+popd
 
-%files -n python3-%{modname}
+%check
+%pytest -Wdefault
+
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE.rst
 %doc CHANGES.rst README.rst
 %{_bindir}/%{modname}
 %{_bindir}/%{modname}-3
 %{_bindir}/%{modname}-%{python3_version}
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{modname}/
 
 %files doc
 %license LICENSE.rst
-%doc examples
+%doc docs/_build/html examples
 
 %changelog
+* Wed Dec 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.0-1
+- Update to 3.0.0 (fixes RHBZ#2189630)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

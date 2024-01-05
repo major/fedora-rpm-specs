@@ -11,6 +11,8 @@ Summary:        Python bindings for GObject Introspection
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
 Source0:        https://download.gnome.org/sources/pygobject/3.46/pygobject-%{version}.tar.xz
+# gtk4 no longer uses atk
+Patch0:         0001-Fix-tests-when-no-GTK3.patch
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -84,6 +86,7 @@ This package contains files required to embed PyGObject
 %meson_install
 
 %check
+export TEST_GTK_VERSION=4.0
 %{shrink:xvfb-run -s "-screen 0 1600x1200x24" %meson_test --timeout-multiplier=5}
 
 

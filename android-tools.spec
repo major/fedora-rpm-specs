@@ -43,7 +43,8 @@ Provides:      mke2fs.android = %{epoch}:%{version}-%{release}
 Provides: bundled(boringssl)
 
 # Bundled boringssl doesn't support the big endian architectures rhbz 1431379
-ExcludeArch: ppc ppc64 s390x
+# And dropped ppc64le support: https://github.com/google/boringssl/commit/7d2338d000eb1468a5bbf78e91854236e18fb9e4
+ExcludeArch: ppc ppc64 s390x ppc64le
 
 %description
 
@@ -103,7 +104,9 @@ install -d -m 0775 ${RPM_BUILD_ROOT}%{_sharedstatedir}/adb
 %{_bindir}/img2simg
 %{_bindir}/fastboot
 %{_bindir}/append2simg
+%ifnarch ppc64le
 %{_bindir}/e2fsdroid
+%endif
 %{_bindir}/ext2simg
 %{_bindir}/lpadd
 %{_bindir}/lpdump

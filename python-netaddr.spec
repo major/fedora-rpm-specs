@@ -1,14 +1,17 @@
 Name:           python-netaddr
-Version:        0.9.0
-Release:        2%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
 URL:            https://github.com/drkjam/netaddr
 Source0:        https://pypi.python.org/packages/source/n/netaddr/netaddr-%{version}.tar.gz
+# Remove once https://github.com/netaddr/netaddr/pull/345
+Source1:	THANKS
 
 BuildArch:      noarch
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-furo
 
 %global desc A network address manipulation library for Python\
 \
@@ -32,11 +35,6 @@ Layer 2 addresses\
  * looking up IEEE organisational information (OUI, IAB)\
  * generating derived IPv6 addresses
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2246093
-# Merged upstream via https://github.com/netaddr/netaddr/pull/272
-# To be removed when version > 0.9.0 released
-Patch0: 0001-Improve-Python-3.13-compatibility-272.patch
-
 %global _description\
 %{desc}
 
@@ -45,6 +43,7 @@ Patch0: 0001-Improve-Python-3.13-compatibility-272.patch
 %package -n python3-netaddr
 Summary: A pure Python network address representation and manipulation library
 BuildRequires:  python3-devel
+
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pytest
@@ -71,13 +70,15 @@ find netaddr -name "*.py" | \
 # Make rpmlint happy, fix permissions on documentation files
 chmod 0644 README.rst AUTHORS CHANGELOG COPYRIGHT LICENSE PKG-INFO
 
+# Include missing THANKS file
+# Remove once https://github.com/netaddr/netaddr/pull/345
+mv %{SOURCE1} .
+
 %build
 %py3_build
 
 #docs
 pushd docs
-PYTHONPATH='../' sphinx-build-%{python3_version} -b html -d build/doctrees source html
-rm -f html/.buildinfo
 PYTHONPATH='../' sphinx-build-%{python3_version} -b html -d build/doctrees source python3/html
 rm -f python3/html/.buildinfo
 popd
@@ -100,6 +101,12 @@ py.test-%{python3_version}
 %{_bindir}/netaddr
 
 %changelog
+* Wed Jan  3 2024 John Eckersberg <jeckersb@redhat.com> - 0.10.1-1
+- New upstream release 0.10.1 (rhbz#2256342)
+- Remove patch for Python 3.13 compatibility (merged upstream in 0.10.0)
+- Add new depencency on furo
+- Include missing THANKS file (https://github.com/netaddr/netaddr/pull/345)
+
 * Thu Dec 14 2023 John Eckersberg <jeckersb@redhat.com> - 0.9.0-2
 - Add patch for Python 3.13 compatibility (rhbz#2246093)
 

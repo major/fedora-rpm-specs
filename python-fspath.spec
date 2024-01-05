@@ -45,7 +45,7 @@ done
 
 %install
 %pyproject_install
-%pyproject_save_files fspath
+%pyproject_save_files -l fspath
 
 %check
 # tries to download the zip and then do stuff on the zip

@@ -92,7 +92,7 @@ pushd ~ && %{__tar} -xvf %{SOURCE1} && popd
 
 %install
 %pyproject_install
-%pyproject_save_files neo
+%pyproject_save_files -l neo
 
 %check
 # do not export EPHY_TESTING_DATA_FOLDER, use ~

@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: http://rubyonrails.org
@@ -27,9 +27,8 @@ Patch2: rubygem-activesupport-7.0.2.3-Remove-the-multi-call-form-of-assert_calle
 # https://github.com/rails/rails/pull/45370
 Patch3: rubygem-activesupport-7.0.2.3-Fix-tests-for-minitest-5.16.patch
 
-# ruby package has just soft dependency on rubygem({bigdecimal,json}), while
-# ActiveSupport always requires them.
-Requires: rubygem(bigdecimal)
+# Ruby package has just soft dependency on rubygem(json), while
+# ActiveSupport always requires it.
 Requires: rubygem(json)
 
 # Runtime dependency, lot of build failures in other packages.
@@ -79,6 +78,14 @@ Documentation for %{name}.
 pushd %{_builddir}
 %patch 2 -p2
 popd
+
+# Add several dependencies to avoid Ruby 3.3 warnings.
+# https://github.com/rails/rails/commit/81699b52d2acff1840e3ace5e59412f4fa3934ab
+%gemspec_add_dep -g base64
+%gemspec_add_dep -g drb
+%gemspec_add_dep -g mutex_m
+# https://github.com/rails/rails/commit/a77535c74c7047a517cc45ff8ecb416ea439c28d
+%gemspec_add_dep -g bigdecimal
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -137,6 +144,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Dec 15 2023 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-3
+- Add explicit dependencies to avoid Ruby 3.3 warnings.
+
 * Sun Sep 24 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.8-2
 - Add tzdata as a runtime dependency.
 

@@ -292,8 +292,13 @@ VLC media player skinnable graphical interface
 %package plugins-base
 Summary:	VLC media player core
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+%if 0%{?rhel} && 0%{?rhel} < 10
+Requires:	google-noto-sans-mono-fonts
+Requires:	google-noto-serif-fonts
+%else
 Requires:	google-noto-sans-mono-vf-fonts
 Requires:	google-noto-serif-vf-fonts
+%endif
 Recommends:	libv4l%{?_isa}
 Conflicts:	%{name}-core < %{epoch}:%{version}-%{release}
 %description plugins-base

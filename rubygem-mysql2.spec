@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -196,6 +196,9 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 0.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Wed Oct 25 2023 Jarek Prokop <jprokop@redhat.com> - 0.5.5-1
 - Upgrade to rubygem-mysql2 0.5.5.
   Resolves: rhbz#2163026

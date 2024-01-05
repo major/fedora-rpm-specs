@@ -66,7 +66,7 @@ rm -vrf doc/sphinxext/
 
 %install
 %pyproject_install
-%pyproject_save_files imblearn
+%pyproject_save_files -l imblearn
 
 
 %if %{with tests}
@@ -84,7 +84,6 @@ k="${k-}${k+ and }not test_function_sampler_validate"
 
 
 %files -n python3-imbalanced-learn -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.rst examples/
 
 

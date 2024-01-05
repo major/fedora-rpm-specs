@@ -36,8 +36,8 @@
 
 Name: 	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.3.6
-Release: 2%{?dist}
+Version: 2.4.0
+Release: 1%{?dist}
 
 # See COPYING for a license breakdown
 # FIXME: The files in src/pcl have a license similar, but not identical, to the
@@ -176,9 +176,9 @@ cd -
 cd sbcl-%{version}
 mkdir -p %{buildroot}{%{_bindir},%{_prefix}/lib,%{_mandir}}
 
-unset SBCL_HOME 
-export INSTALL_ROOT=%{buildroot}%{_prefix} 
-%{?sbcl_shell} ./install.sh 
+unset SBCL_HOME
+export INSTALL_ROOT=%{buildroot}%{_prefix}
+%{?sbcl_shell} ./install.sh
 
 %if 0%{?common_lisp_controller}
 install -m744 -p -D %{SOURCE200} %{buildroot}%{_prefix}/lib/common-lisp/bin/sbcl.sh
@@ -192,7 +192,7 @@ cd -
 ## Unpackaged files
 rm -rfv %{buildroot}%{_docdir}/sbcl
 rm -fv  %{buildroot}%{_infodir}/dir
-# CVS crud 
+# CVS crud
 find %{buildroot} -name .cvsignore -delete
 # 'test-passed' files from %%check
 find %{buildroot} -name 'test-passed' -delete
@@ -258,6 +258,9 @@ fi
 
 
 %changelog
+* Wed Jan 03 2024 Anthony Green <green@redhat.com> - 2.4.0-1
+- Update to 2.4.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -59,14 +59,13 @@ git tag v%{version}
 %install
 %pyproject_install
 
-%pyproject_save_files pylsp
+%pyproject_save_files -l pylsp
 
 %check
 %pytest --no-cov --ignore test/plugins/test_pyflakes_lint.py \
   -k "not (test_pylint or test_syntax_error_pylint)"
 
 %files -n python3-%{short_name} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 %{_bindir}/pylsp
 

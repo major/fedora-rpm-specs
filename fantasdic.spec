@@ -10,17 +10,18 @@ BuildRequires:	%1 \
 %define		rubyabi		1.9.1
 %endif
 
-%define		baserelease	22
+%define		baserelease	23
 
 
 %define		fullrel		%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
 
 Name:		fantasdic
 Version:	%{mainver}
-Release:	%{fullrel}%{?dist}.1
+Release:	%{fullrel}%{?dist}
 Summary:	Dictionary application using Ruby
 
-License:	GPLv2+
+# SPDX confirmed
+License:	GPL-2.0-or-later
 URL:		http://www.gnome.org/projects/fantasdic/
 Source0:	http://www.mblondel.org/files/fantasdic/%{name}-%{mainver}%{?betaver:-%betaver}.tar.gz
 # ruby-gnome2-Bugs-2865895
@@ -80,22 +81,20 @@ Fantasdic is Free Software.
 %prep
 %setup -q -n %{name}-%{mainver}%{?betaver:-%betaver}
 #%%patch0 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
+%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
+%patch -P14 -p1
 ln -sf lib vendor_ruby
-%patch15 -p4
+%patch -P15 -p4
 unlink vendor_ruby
-%if 0%{?fedora} >= 36
 # ruby 3.1 (psych 4.x)
-%patch16 -p1
-%endif
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
+%patch -P16 -p1
+%patch -P17 -p1
+%patch -P18 -p1
+%patch -P19 -p1
+%patch -P20 -p1
 
 %{__chmod} 0644 tools/*.rb
 %{__sed} -i.path -e 's|%{_bindir}/||' fantasdic.desktop
@@ -215,6 +214,9 @@ exit $STATUS
 %{ruby_vendorlibdir}/%{name}/
 
 %changelog
+* Wed Jan  3 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.23.beta7
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.22.beta7.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

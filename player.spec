@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -225,6 +225,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-53
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Mon Aug 07 2023 Sérgio Basto <sergio@serjux.com> - 3.1.0-52
 - Rebuild for opencv 4.8.0
 

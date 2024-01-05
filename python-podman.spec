@@ -21,7 +21,7 @@ Epoch: 3
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 4.8.1
+Version: 4.8.2
 License: Apache-2.0
 Release: %autorelease
 Summary: RESTful API for Podman
@@ -81,6 +81,11 @@ export PBR_VERSION="0.0.0"
 %pyproject_save_files %{pypi_name}
 %endif
 
+%if !%{defined rhel8_py}
+%check
+%pyproject_check_import -e podman.api.typing_extensions
+%endif
+
 %if %{defined rhel8_py}
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %dir %{python3_sitelib}/%{pypi_name}-*-py%{python3_version}.egg-info
@@ -88,6 +93,7 @@ export PBR_VERSION="0.0.0"
 %dir %{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}/*
 %else
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{pypi_name} progress_bar
 %files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %endif
 %license LICENSE

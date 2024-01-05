@@ -95,7 +95,7 @@ export LLVM_CONFIG="%{_libdir}/llvm14/bin/llvm-config"
 
 %install
 %pyproject_install
-%pyproject_save_files llvmlite
+%pyproject_save_files -l llvmlite
 
 %check
 %if %{with tests}

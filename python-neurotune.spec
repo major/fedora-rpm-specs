@@ -76,7 +76,7 @@ sed -i "s/.*pyelectro.*/pyelectro/" requirements-dev.txt
 
 %install
 %pyproject_install
-%pyproject_save_files neurotune
+%pyproject_save_files -l neurotune
 
 %check
 # remove src folder so that we use built version
@@ -84,7 +84,7 @@ rm -rf neurotune
 %{py3_test_envvars} ./test.sh
 
 %files -n python3-neurotune -f %{pyproject_files}
-%doc README.md AUTHORS
+%doc README.md
 
 %files doc
 %license LICENSE

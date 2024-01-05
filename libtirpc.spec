@@ -2,11 +2,13 @@
 
 Name:			libtirpc
 Version:		1.3.4
-Release:		1%{?dist}
+Release:		1.rc1%{?dist}
 Summary:		Transport Independent RPC Library
 License:		SISSL AND BSD-3-Clause
 URL:  			http://git.linux-nfs.org/?p=steved/libtirpc.git;a=summary
 Source0:		http://downloads.sourceforge.net/libtirpc/libtirpc-%{version}.tar.bz2
+
+Patch001: libtirpc.1.3.5-rc1.patch
 
 BuildRequires:		automake, autoconf, libtool, pkgconfig
 BuildRequires:		krb5-devel
@@ -112,6 +114,9 @@ mv %{buildroot}%{_mandir}/man3 %{buildroot}%{_mandir}/man3t
 %{_mandir}/*/*
 
 %changelog
+* Wed Jan  3 2024 Steve Dickson <steved@redhat.com> - 1.3.4-1.rc1
+- Updated to the latest upstream RC release: libtirpc-1-3-5-rc1
+
 * Mon Oct 16 2023 Pavel Reichl <preichl@redhat.com> - 1.3.4-1
 - Convert License tag to SPDX format
 

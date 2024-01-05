@@ -31,7 +31,7 @@
 
 Name:		efl
 Version:	1.27.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -49,6 +49,9 @@ Patch4:		efl-1.25.0-check-fix.patch
 
 # Fix headerless .po files that modern gettext doesn't like
 Patch5:		efl-1.27.0-gettextfix.patch
+
+# Build ecore_sdl versioned so. So efl no longer requires efl-devel
+Patch6:		efl-1.27.0-sdl-version-build.patch
 
 %ifnarch s390 s390x
 BuildRequires:	libunwind-devel
@@ -213,6 +216,7 @@ Development files for EFL.
 %patch -P3 -p1 -b .noneon
 %patch -P4 -p1 -b .checkfix
 %patch -P5 -b .gettextfix
+%patch -P6 -b .sdl-version-build
 
 # This is why hardcoding paths is bad.
 # sed -i -e 's|/opt/efl-%{version}/share/|%{_datadir}/|' \
@@ -584,6 +588,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Tue Jan 02 2024 Ding-Yi Chen <dchen@redhat.com> - 1.27.0-2
+-  Build ecore_sdl versioned so. So efl no longer requires efl-devel
+
 * Tue Jan 02 2024 Ding-Yi Chen <dchen@redhat.com> - 1.27.0-1
 - Fixes Bug 2255716 - efl-1.27.0 is available
 - Add BuildRequires: libjxl-devel

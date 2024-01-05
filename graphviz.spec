@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		9.0.0
-Release:		6%{?dist}
+Release:		7%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -730,6 +730,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 9.0.0-7
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Wed Dec 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 9.0.0-6
 - Use transaction file triggers to configure plugins 
 

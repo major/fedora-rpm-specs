@@ -63,7 +63,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -593,6 +593,9 @@ make check-javahl
 %endif
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.2-23
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Mon Nov 20 2023 Joe Orton <jorton@redhat.com> - 1.14.2-22
 - fix mod_authz_svn, mod_dontdothat (#2250182)
 

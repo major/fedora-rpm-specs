@@ -5,7 +5,7 @@
 %global crate serde_json
 
 Name:           rust-serde_json
-Version:        1.0.108
+Version:        1.0.110
 Release:        %autorelease
 Summary:        JSON serialization file format
 
@@ -147,6 +147,9 @@ use the "unbounded_depth" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# * drop tests that currently only compile with Rust Nightly:
+#   https://github.com/serde-rs/json/issues/1098
+rm -v tests/test.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

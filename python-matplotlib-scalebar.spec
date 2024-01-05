@@ -65,7 +65,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{releasever}
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{releasever}
 %pyproject_install
-%pyproject_save_files matplotlib_scalebar
+%pyproject_save_files -l matplotlib_scalebar
 
 
 %check
@@ -74,11 +74,11 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{releasever}
 
 
 %files -n python3-matplotlib-scalebar -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.md
 
 
 %files doc
+%license LICENSE
 # Note that the “documentation” currently consists entirely of examples
 %doc doc/*
 

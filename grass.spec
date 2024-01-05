@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.3.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -30,6 +30,7 @@ Source0:	https://grass.osgeo.org/%{name}%{shortver}/source/%{name}-%{version}.ta
 
 # fix pkgconfig file
 Patch 0:	grass-pkgconfig.patch
+Patch1:		grass-c99.patch
 
 BuildRequires:	bison
 %if %{with flexiblas}
@@ -156,6 +157,7 @@ GRASS GIS development headers
 %prep
 %setup -q
 %patch 0 -p1 -b.libdir
+%patch -P 1 -p1
 
 # Correct mysql_config query
 sed -i -e 's/--libmysqld-libs/--libs/g' configure
@@ -336,6 +338,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Wed Jan  3 2024 Florian Weimer <fweimer@redhat.com> - 8.3.1-4
+- Fix C compatibility issue in MySQL port handling
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 8.3.1-3
 - Rebuild (gdal)
 

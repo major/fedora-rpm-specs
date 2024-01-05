@@ -1,6 +1,6 @@
 Name: curlftpfs
 Version: 0.9.2
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: CurlFtpFS is a filesystem for accessing FTP hosts based on FUSE and libcurl
 URL: http://curlftpfs.sourceforge.net/
 # Code does not specify a version of the license.
@@ -20,6 +20,7 @@ Patch3: curlftpfs-0.9.2-aarch64.patch
 # Fix memleaks 2 patches (one upstream report: https://code.google.com/p/curlftpfs/issues/detail?id=10)
 Patch4: curlftpfs-0.9.2-memleak#591298.patch
 Patch5: curlftpfs-0.9.2-memleak-cached#591299.patch
+Patch6: curlftpfs-c99.patch
 
 %description
 CurlFtpFS is a filesystem for accessing FTP hosts based on FUSE and
@@ -33,6 +34,7 @@ proxies, and automatically reconnecting if the server times out.
 %patch3 -p1 -b .aarch64
 %patch4 -p1 -b .memleak
 %patch5 -p1 -b .memleak-cached
+%patch6 -p1
 
 %build
 %configure
@@ -48,6 +50,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %doc COPYING
 
 %changelog
+* Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 0.9.2-35
+- Fix C compatibility issue
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

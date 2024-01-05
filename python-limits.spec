@@ -204,7 +204,7 @@ reqs="${reqs-}${reqs+ }requirements/test.txt"
 
 %install
 %pyproject_install
-%pyproject_save_files limits
+%pyproject_save_files -l limits
 
 
 %check

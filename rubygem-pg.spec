@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.5.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Ruby interface to the PostgreSQL RDBMS
 License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
@@ -133,6 +133,9 @@ popd
 %exclude %{gem_instdir}/translation
 
 %changelog
+* Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 1.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Mon Oct 23 2023 Jarek Prokop <jprokop@redhat.com> - 1.5.4-1
 - Upgrade to pg 1.5.4.
   Resolves: rhbz#2173399

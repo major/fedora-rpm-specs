@@ -43,7 +43,7 @@ BuildRequires:  python3-pytest
 
 %install
 %pyproject_install
-%pyproject_save_files looseversion
+%pyproject_save_files -l looseversion
 
 %check
 %pytest -v tests.py

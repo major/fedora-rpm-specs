@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		relnumber	6
+%define		baserelease	7
 %define		srcname		mecab-ruby
 
 
@@ -16,7 +16,7 @@
 
 Name:		ruby-mecab
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.25
+Release:	%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}%{?dist}
 Summary:	Ruby binding for MeCab
 
 # License is the same as MeCab
@@ -78,6 +78,9 @@ ruby -I. test.rb
 %endif
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-7
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-6.25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

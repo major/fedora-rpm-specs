@@ -1,5 +1,5 @@
 Name:           papirus-icon-theme
-Version:        20230901
+Version:        20231201
 Release:        %autorelease
 Summary:        Free and open source SVG icon theme based on Paper Icon Set
 

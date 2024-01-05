@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.7.3
-Release:	200%{?dist}
+Release:	201%{?dist}
 
 Summary:	LALR(1) parser generator
 # SPDX confirmed
@@ -122,6 +122,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.7.3-201
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Sun Nov 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.7.3-200
 - 1.7.3
 

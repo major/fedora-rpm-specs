@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Bindings for your Ruby exceptions
 License: MIT
 URL: https://github.com/gsamokovarov/bindex
@@ -83,6 +83,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 0.8.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Thu Aug 17 2023 Vít Ondruch <vondruch@redhat.com> - 0.8.1-11
 - Fix FTBFS due to Minitest 5.19+ incompatibility.
 

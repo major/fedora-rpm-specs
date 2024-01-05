@@ -18,7 +18,7 @@
 
 Name: gammaray
 Version: %{gammaray_version}
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A tool for examining internals of Qt applications
 License: GPLv2+
 URL: https://github.com/KDAB/GammaRay
@@ -163,6 +163,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/GammaRay.desktop
 
 
 %changelog
+* Wed Jan 03 2024 Jan Grulich <jgrulich@redhat.com> - 2.11.3-14
+- Rebuild (qt5)
+
 * Mon Oct 09 2023 Jan Grulich <jgrulich@redhat.com> - 2.11.3-13
 - Drop BR: qtwebkit and add BR: qtwebengine instead
 

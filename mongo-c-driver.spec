@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for mongo-c-driver
 #
-# Copyright (c) 2015-2023 Remi Collet
+# Copyright (c) 2015-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,7 +10,7 @@
 %global gh_project   mongo-c-driver
 %global libname      libmongoc
 %global libver       1.0
-%global up_version   1.25.3
+%global up_version   1.25.4
 #global up_prever    rc0
 # disabled as require a MongoDB server
 %bcond_with          tests
@@ -242,6 +242,9 @@ exit $ret
 
 
 %changelog
+* Wed Jan  3 2024 Remi Collet <remi@remirepo.net> - 1.25.4-1
+- update to 1.25.4
+
 * Wed Dec 13 2023 Remi Collet <remi@remirepo.net> - 1.25.3-1
 - update to 1.25.3
 

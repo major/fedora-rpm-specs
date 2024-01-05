@@ -6,7 +6,7 @@
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	56%{?dist}
+Release:	57%{?dist}
 Summary:	A full-text search system
 
 # Overall	LGPL-2.1-or-later
@@ -273,6 +273,9 @@ popd
 
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-57
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Sat Dec 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-56
 - SPDX migration
 

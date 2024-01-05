@@ -3,7 +3,7 @@
 
 # https://github.com/pelletier/go-toml
 %global goipath         github.com/pelletier/go-toml/v2
-Version:                2.0.6
+Version:                2.1.1
 
 %gometa
 

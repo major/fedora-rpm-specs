@@ -3,8 +3,8 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 388
-Release: 3%{?dist}
+Version: 389
+Release: 1%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT AND X11 AND HPND AND CC-BY-4.0
 BuildRequires: make
@@ -22,7 +22,6 @@ Source3: https://invisible-island.net/archives/xterm/16colors.txt
 Patch1: xterm-defaults.patch
 Patch2: xterm-desktop.patch
 Patch3: xterm-man-paths.patch
-Patch4: xterm-configure-c99.patch
 
 %global x11_app_defaults_dir %(pkg-config --variable appdefaultdir xt)
 
@@ -45,7 +44,6 @@ indicate the current size of the window from which the command is run.
 %patch 1 -p1 -b .defaults
 %patch 2 -p1 -b .desk
 %patch 3 -p1 -b .man-paths
-%patch 4 -p1 -b .c99
 
 for f in THANKS; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -107,6 +105,10 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Wed Jan 03 2024 Tomas Korbar <tkorbar@redhat.com> - 389-1
+- Rebase to version 389
+- Resolves: rhbz#2256390
+
 * Tue Nov 28 2023 Florian Weimer <fweimer@redhat.com> - 388-3
 - Fix C compatibility issue in the configure script (#2251945)
 

@@ -202,7 +202,7 @@
 
 Name:           uwsgi
 Version:        2.0.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1843,6 +1843,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.23-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Thu Nov 02 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.23-1
 - Update to 2.0.23, drop merged patches
 

@@ -57,7 +57,7 @@ sed -i 's/^cython~=0.29.4/cython>=3.0.0/' requirements/requirements.txt
 
 %install
 %pyproject_install
-%pyproject_save_files neat
+%pyproject_save_files -l neat
 
 %check
 # a few tests fail on i686.

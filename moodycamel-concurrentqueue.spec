@@ -6,22 +6,21 @@
 %global project concurrentqueue
 
 Name:           moodycamel-%{project}
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        An industrial-strength lock-free queue for C++
 
-# main software is dual BSD or Boost
-# lightweightesmaphore.h is zlib
+# main software is dual BSD-2-Clause or BSL-1.0
+# lightweightesmaphore.h is Zlib
 # tests:
 # - we don't include CDSChecker
-# - Relacy is BSD (used only in tests)
+# - Relacy is BSD-3-Clause (used only in tests)
 # ^ not currently running those two but probably not worth stripping out
-# lightweightesmaphore.h is zlib
-License:        (BSD or Boost) and BSD and zlib
+License:        (BSD-2-Clause or BSL-1.0) and BSD-3-Clause and Zlib
 URL:            https://github.com/cameron314/%{project}
-Source0:        %{url}/archive//v%{version}/%{name}-%{version}.tar.gz
-# fix C API: MOODYCAMEL_EXPORT undefined on non-Windows platforms
-Patch0:         https://github.com/cameron314/concurrentqueue/commit/e6fec438e8639221d43dae4b2ddf133e20580fdd.patch#/%{name}-1.0.3-fix-moodycamel-export.patch
+Source:         %{url}/archive//v%{version}/%{name}-%{version}.tar.gz
+# install to %%{_datadir}/cmake not %%{_libdir}/cmake
+Patch:          %{project}-install-noarch-to-share.diff
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -51,15 +50,20 @@ Summary:        Development files for %{name}
 License:        (BSD or Boost) and zlib
 # this is noarch, but we want to force tests to run on all platforms
 BuildArch:      noarch
+Requires:       cmake-filesystem
 
 %description    devel %{_description}
 
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and header files
+for developing applications that use %{name}.
 
 
 %prep
 %autosetup -p1 -n %{project}-%{version}
+# fix wrong-file-end-of-line-encoding
+touch -r README.md README.md.tstamp
+sed -i 's/\r$//' README.md
+touch -r README.md.tstamp README.md
 
 
 %build
@@ -68,8 +72,6 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
-# duplicate
-rm %{buildroot}%{_includedir}/%{project}/LICENSE.md
 
 
 %if %{with check}
@@ -83,6 +85,7 @@ rm %{buildroot}%{_includedir}/%{project}/LICENSE.md
 %license LICENSE.md
 %doc README.md
 %{_includedir}/%{project}/
+%{_datadir}/cmake/concurrentqueue
 
 
 %changelog

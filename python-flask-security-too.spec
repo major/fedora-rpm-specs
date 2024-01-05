@@ -2,8 +2,8 @@
 
 
 Name:           python-%{pkg_name}
-Version:        5.1.2
-Release:        2%{?dist}
+Version:        5.3.3
+Release:        1%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -12,12 +12,16 @@ URL:            https://github.com/Flask-Middleware/flask-security
 Source0:        %{pypi_source Flask-Security-Too}
 # Drop missing test deps
 Patch0:         python-flask-security-too_testdeps.patch
-# Remove dependence on pkg_resources
-Patch1:         https://github.com/Flask-Middleware/flask-security/commit/4f5eefdcc583176dd1c8e98636f047062ba7ac08.patch
 # Use phonenumbers instead of phonenumberslite
-Patch2:         python-flask-security-too_phonenumbers.patch
+Patch1:         python-flask-security-too_phonenumbers.patch
 # Don't fail on warnings in tests
-Patch3:         python-flask-security-too_ignorewarnings.patch
+Patch2:         python-flask-security-too_ignorewarnings.patch
+# Pydantic isn't realy required, relax the version
+Patch3:         0001-Pydantic-Relax-required-version.patch
+# importlib is a backport from newer pythons
+Patch4:         0001-Use-importlib_resources-backport-only-on-old-Pythons.patch
+# sqla 1.x works just fine with the package
+Patch5:         0001-sqlalchemy-relax.patch
 
 BuildRequires:  python3-devel
 
@@ -58,7 +62,8 @@ rm -rf Flask_Security_Too.egg-info
 
 
 %check
-%pytest
+# Expected fail in DNS resolve (requires network)
+%pytest -k "not test_login_email_whatever"
 
 
 %files -n python3-%{pkg_name} -f %{pyproject_files}
@@ -67,6 +72,9 @@ rm -rf Flask_Security_Too.egg-info
 
 
 %changelog
+* Wed Jan 03 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.3.3-1
+- Update to 5.3.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

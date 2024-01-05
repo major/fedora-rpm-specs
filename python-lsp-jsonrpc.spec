@@ -38,9 +38,11 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -S git
-git tag v%{version}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^addopts = "[^"]*"/# &/' pyproject.toml
+git add pyproject.toml
+git commit -m '[Fedora] Remove pytest options pertaining to coverage analysis'
+git tag v%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -51,13 +53,12 @@ sed -r -i 's/^addopts = "[^"]*"/# &/' pyproject.toml
 %install
 %pyproject_install
 
-%pyproject_save_files pylsp_jsonrpc
+%pyproject_save_files -l pylsp_jsonrpc
 
 %check
 %pytest -v -k "not test_writer_bad_message"
 
 %files -n python3-%{short_name} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 %changelog

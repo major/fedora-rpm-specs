@@ -82,7 +82,7 @@ find indexed_gzip -type f -name '*.pyx' | sed -r 's/\.pyx$/.c/' | xargs -r rm -v
 
 %install
 %pyproject_install
-%pyproject_save_files indexed_gzip
+%pyproject_save_files -l indexed_gzip
 
 %check
 %if %{with tests}

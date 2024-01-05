@@ -6,7 +6,7 @@
 %bcond doc %[%{defined fedora} || %{defined epel}]
 
 %global srcname pip
-%global base_version 23.2.1
+%global base_version 23.3.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -42,6 +42,7 @@ Summary:        A tool for installing and managing Python packages
 # setuptools: MIT
 # six: MIT
 # tenacity: Apache-2.0
+# truststore: MIT
 # tomli: MIT
 # typing-extensions: Python-2.0.1
 # urllib3: MIT
@@ -95,8 +96,8 @@ Packages" or "Pip Installs Python".
 # You can generate it with:
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
-Provides: bundled(python%{1}dist(cachecontrol)) = 0.12.11
-Provides: bundled(python%{1}dist(certifi)) = 2023.5.7
+Provides: bundled(python%{1}dist(cachecontrol)) = 0.13.1
+Provides: bundled(python%{1}dist(certifi)) = 2023.7.22
 Provides: bundled(python%{1}dist(chardet)) = 5.1
 Provides: bundled(python%{1}dist(colorama)) = 0.4.6
 Provides: bundled(python%{1}dist(distlib)) = 0.3.6
@@ -114,9 +115,10 @@ Provides: bundled(python%{1}dist(rich)) = 13.4.2
 Provides: bundled(python%{1}dist(setuptools)) = 68
 Provides: bundled(python%{1}dist(six)) = 1.16
 Provides: bundled(python%{1}dist(tenacity)) = 8.2.2
+Provides: bundled(python%{1}dist(truststore)) = 0.8
 Provides: bundled(python%{1}dist(tomli)) = 2.0.1
 Provides: bundled(python%{1}dist(typing-extensions)) = 4.7.1
-Provides: bundled(python%{1}dist(urllib3)) = 1.26.16
+Provides: bundled(python%{1}dist(urllib3)) = 1.26.17
 Provides: bundled(python%{1}dist(webencodings)) = 0.5.1
 }
 
@@ -168,14 +170,6 @@ BuildRequires:  python%{python3_pkgversion}-installer
 BuildRequires:  python%{python3_pkgversion}-wheel
 BuildRequires:  ca-certificates
 Requires:       ca-certificates
-
-# This was previously required and we keep it recommended because a lot of
-# sdists installed via pip will try to import setuptools.
-# But pip doesn't actually require setuptools.
-# It can install wheels without them and it can build wheels in isolation mode
-# (using setuptools/flit/poetry/... installed from PyPI).
-# Side note: pip bundles pkg_resources from setuptools for internal usage.
-Recommends:     python%{python3_pkgversion}-setuptools
 
 # Virtual provides for the packages bundled by pip:
 %{bundled 3}
@@ -369,6 +363,13 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Wed Jan 03 2024 Maxwell G <maxwell@gtmx.me> - 23.3.1-2
+- Remove weak dependency on python3-setuptools
+
+* Thu Nov 16 2023 Petr Viktorin <pviktori@redhat.com> - 23.3.1-1
+- Update to 23.3.1
+Resolves: rhbz#2244306
+
 * Fri Aug 04 2023 Miro Hrončok <mhroncok@redhat.com> - 23.2.1-1
 - Update to 23.2.1
 Resolves: rhbz#2223082

@@ -1,11 +1,12 @@
 Name:		totem-pl-parser
 Version:	3.26.6
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Totem Playlist Parser library
 
 License:	LGPLv2+
 Url:		https://wiki.gnome.org/Apps/Videos
 Source0:	https://download.gnome.org/sources/%{name}/3.26/%{name}-%{version}.tar.xz
+Patch0: totem-pl-parser-c99.patch
 
 BuildRequires:	glib2-devel
 BuildRequires:	libxml2-devel
@@ -61,6 +62,9 @@ developing applications that use %{name}.
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 3.26.6-8
+- Fix C compatibility issue
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

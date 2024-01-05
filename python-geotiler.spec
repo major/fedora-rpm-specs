@@ -103,7 +103,7 @@ PYTHONPATH="${PWD}" sphinx-build -b latex doc _latex %{?_smp_mflags}
 
 %install
 %pyproject_install
-%pyproject_save_files geotiler
+%pyproject_save_files -l geotiler
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     geotiler-fetch.1 geotiler-lint.1 geotiler-route.1
 
@@ -113,8 +113,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license COPYING	
-%license LICENSE-modestmaps-py
 %doc README
 %{_bindir}/geotiler-fetch
 %{_bindir}/geotiler-lint

@@ -10,14 +10,19 @@ smart_open is a drop-in replacement for Pythons built-in open(): it can do
 anything open can (100% compatible, falls back to native open wherever
 possible), plus lots of nifty extra stuff on top.}
 
+%global forgeurl https://github.com/RaRe-Technologies/smart_open
+
+
 Name:           python-smart_open
-Version:        6.3.0
+Version:        6.4.0
 Release:        %autorelease
 Summary:        Utils for streaming large files (S3, HDFS, gzip, bz2, and more)
 
+%forgemeta
+
 License:        MIT
-URL:            https://github.com/RaRe-Technologies/smart_open
-Source0:        https://github.com/RaRe-Technologies/smart_open/archive/v%{version}/smart_open-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 
 BuildArch:      noarch
 
@@ -44,7 +49,7 @@ BuildRequires:  %{py3_dist numpy}
 %description -n python3-smart_open %_description
 
 %prep
-%autosetup -n smart_open-%{version}
+%forgesetup
 
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 

@@ -1,7 +1,7 @@
 Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
-Version:	5.510
-Release:	4%{?dist}
+Version:	5.511
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
 Source0:	https://cpan.metacpan.org/modules/by-module/MIME/MIME-tools-%{version}.tar.gz
@@ -33,6 +33,7 @@ BuildRequires:	perl(Mail::Header)	>= 1.06
 BuildRequires:	perl(Mail::Internet)	>= 1.28
 BuildRequires:	perl(MIME::Base64)	>= 3.03
 BuildRequires:	perl(MIME::QuotedPrint)
+BuildRequires:	perl(version)
 # ================ Test Suite ========================
 BuildRequires:	perl(Cwd)
 BuildRequires:	perl(Digest::MD5)
@@ -134,6 +135,11 @@ TEST_POD_COVERAGE=0 make test
 %{_mandir}/man3/MIME::Words.3*
 
 %changelog
+* Wed Jan  3 2024 Paul Howarth <paul@city-fan.org> - 5.511-1
+- Update to 5.511
+  - Silence a warning if used with a development version of MIME::QuotedPrint
+    (CPAN RT#149225, CPAN RT#150118)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.510-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

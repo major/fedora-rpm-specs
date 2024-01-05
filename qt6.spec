@@ -1,7 +1,7 @@
 
 Name: qt6
 Version: 6.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Qt6 meta package
 License: GPL-3.0-only
 URL: https://getfedora.org/
@@ -105,7 +105,7 @@ install -Dpm644 %{SOURCE0} %{buildroot}%{_rpmmacrodir}/macros.qt6
 install -Dpm644 %{SOURCE1} %{buildroot}%{_rpmmacrodir}/macros.qt6-srpm
 install -Dpm755 %{SOURCE2} %{buildroot}%{_bindir}/qmake-qt6.sh
 install -Dpm644 %{SOURCE3} %{buildroot}%{_fileattrsdir}/qt6qml.attr
-install -Dpm644 %{SOURCE4} %{buildroot}%{_rpmconfigdir}/qt6qml.prov
+install -Dpm755 %{SOURCE4} %{buildroot}%{_rpmconfigdir}/qt6qml.prov
 mkdir -p %{buildroot}%{_datadir}/qt6/wrappers
 ln -s %{_bindir}/qmake-qt6.sh %{buildroot}%{_datadir}/qt6/wrappers/qmake-qt6
 ln -s %{_bindir}/qmake-qt6.sh %{buildroot}%{_datadir}/qt6/wrappers/qmake
@@ -148,6 +148,9 @@ echo "- Qt6 devel meta package" > %{buildroot}%{_docdir}/qt6-devel/README
 
 
 %changelog
+* Wed Jan 03 2024 Alessandro Astone <ales.astone@gmail.com> - 6.6.1-3
+- Make qml dependency generator script executable
+
 * Tue Dec 05 2023 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 6.6.1-2
 - Auto-generate qt6qml() virtual provides
 

@@ -1,8 +1,8 @@
 %global srcname lz4
 
 Name:           python-%{srcname}
-Version:        4.3.2
-Release:        4%{?dist}
+Version:        4.3.3
+Release:        1%{?dist}
 URL:            https://github.com/%{name}/%{name}
 Summary:        LZ4 Bindings for Python
 License:        BSD
@@ -71,6 +71,9 @@ mv docs/_build/html ./html
 
 
 %changelog
+* Tue Jan 02 2024 Jonathan Wright <jonathan@almalinux.org> - 4.3.3-1
+- Update to 4.3.3 rhbz#2256387
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

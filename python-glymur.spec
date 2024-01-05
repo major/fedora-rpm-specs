@@ -74,7 +74,7 @@ Recommends:     python3dist(gdal)
 install -m 0644 -p -D -t %{buildroot}%{_mandir}/man1 %{SOURCE1} %{SOURCE2}
 
 %pyproject_install
-%pyproject_save_files glymur
+%pyproject_save_files -l glymur
 
 
 %check
@@ -83,7 +83,6 @@ install -m 0644 -p -D -t %{buildroot}%{_mandir}/man1 %{SOURCE1} %{SOURCE2}
 
 %files -n python3-glymur -f %{pyproject_files}
 %doc README.md CHANGES.txt
-%license LICENSE.txt
 %{_bindir}/jp2dump
 %{_bindir}/tiff2jp2
 

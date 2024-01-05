@@ -8,11 +8,13 @@ License:    BSD-2-Clause AND Apache-2.0
 URL:            https://github.com/ongres/%upstream_name
 Source0:        https://github.com/ongres/%upstream_name/archive/%{version}/%upstream_name-%{version}.tar.gz
 BuildRequires:  maven-local
-BuildRequires:  junit5
-BuildRequires:  velocity
-BuildRequires:  maven-plugin-build-helper
-BuildRequires:  exec-maven-plugin
-BuildRequires:  maven-enforcer-plugin
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.commons:commons-lang3)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires:  mvn(org.apache.velocity:velocity)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:exec-maven-plugin)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 BuildArch:  noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -30,6 +32,10 @@ This package contains javadoc for %{name}
 %prep
 %autosetup -p1 -n "%upstream_name-%{version}"
 find \( -name '*.jar' -o -name '*.class' \) -delete
+
+# velocity-2 dependencies
+%pom_add_dep org.apache.commons:commons-lang3 stringprep
+%pom_add_dep org.slf4j:slf4j-simple stringprep
 
 %pom_remove_dep :velocity-tools codegenerator
 

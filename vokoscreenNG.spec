@@ -1,20 +1,16 @@
 %global forgeurl https://github.com/vkohaupt/%{name}
 
 Name:           vokoscreenNG
-Version:        3.8.0
+Version:        4.0.0
+%forgemeta
 Release:        %autorelease
 Summary:        Powerful screencast creator to record the screen
-
-%forgemeta
 
 License:        GPL-2.0-only
 URL:            %{forgeurl}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # AppData manifest
 Source1:        https://raw.githubusercontent.com/flathub/com.github.vkohaupt.%{name}/master/%{name}.appdata.xml
-# Segfault on startup [GNOME/X11]
-# https://github.com/vkohaupt/vokoscreenNG/issues/288
-Patch:          segfault-on-startup-[gnome-x11]-rebased.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -23,10 +19,9 @@ BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
-BuildRequires:  cmake(Qt5) >= 5.15
-BuildRequires:  cmake(Qt5LinguistTools) >= 5.15
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  cmake(Qt6) >= 6.5
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Multimedia)
 
 BuildRequires:  pkgconfig(gstreamermm-1.0)
 BuildRequires:  pkgconfig(libpulse)
@@ -42,7 +37,7 @@ Requires:       gstreamer1-plugin-gif
 %endif
 
 %description
-vokoscreenNG for Windows and Linux is a powerful screencast creator in 41
+vokoscreenNG for Windows and Linux is a powerful screencast creator in many
 languages to record the screen, an area or a window (Linux only). Recording of
 audio from multiple sources is supported. With the built-in camera support,
 you can make your video more personal. Other tools such as systray, magnifying
@@ -57,7 +52,7 @@ mkdir -p src/%{_target_platform}
 
 %build
 pushd src/%{_target_platform}
-%qmake_qt5 ..
+%qmake_qt6 ..
 popd
 %make_build -C src/%{_target_platform}
 

@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 29
+%global baserelease 30
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -242,6 +242,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-rh2255506.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2212,6 +2213,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Jan  3 2024 Florian Weimer <fweimer@redhat.com> - 2.38.9000-30
+- Infinite loop in res_mkquery with malformed domain name (#2255506)
+
 * Fri Dec 22 2023 Florian Weimer <fweimer@redhat.com> - 2.38.9000-29
 - Auto-sync with upstream branch master,
   commit 61bac1a9d2ab80ebcbc51484722e6ea43414bec7:

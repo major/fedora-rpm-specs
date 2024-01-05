@@ -25,7 +25,7 @@
 Name:           gutenprint
 Summary:        Printer Drivers Package
 Version:        5.3.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 URL:            http://gimp-print.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -38,6 +38,7 @@ Patch3:         gutenprint-manpage.patch
 Patch4:         gutenprint-python36syntax.patch
 Patch5:         gutenprint-xmlfixes.patch
 Patch6:         gutenprint-libusb-crash.patch
+Patch7:         gutenprint-c99.patch
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
 
 
@@ -189,6 +190,8 @@ sed -i -e 's,^#!/usr/bin/python3,#!%{__python3},' src/cups/cups-genppdupdate.in
 # 2055504 - Set gutenprint53+usb backend to use the default USB context
 %patch -P 6 -p1 -b .crash
 
+%patch -P 7 -p1 -b .c99
+
 %build
 # Don't run the weave test as it takes a very long time.
 sed -i -e 's,^\(TESTS *=.*\) run-weavetest,\1,' test/Makefile.in
@@ -316,6 +319,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 5.3.4-14
+- Backport upstream patch to fix C compatibility issue
+
 * Thu Nov 16 2023 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.4-13
 - make gutenprint and gutenprint-libs-ui dependant on cups-client - both checks for existence of lp
 

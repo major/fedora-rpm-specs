@@ -1,10 +1,10 @@
 Summary: Locale and ISO 2022 support for Unicode terminals
 
-%global AppVersion 20230201
+%global AppVersion 20240102
 
 Name: luit
 Version: 2.0.%{AppVersion}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: MIT
 URL: https://invisible-island.net/%{name}/
 Source0: https://invisible-island.net/archives/%{name}/%{name}-%{AppVersion}.tgz
@@ -38,9 +38,12 @@ the fontenc package.
 %license COPYING
 %doc %{name}.log.html
 %{_bindir}/%{name}
-%{_mandir}/man1/%{name}.*
+%{_mandir}/man1/*
 
 %changelog
+* Wed Jan 03 2024 Thomas E. Dickey <dickey@his.com> - 2.0.20240102-1
+- update to 2.0.20240102 (RHBZ #2256554)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20230201-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

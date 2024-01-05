@@ -61,7 +61,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.37.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1326,6 +1326,9 @@ fi
 
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.37.4-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Tue Dec 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.37.4-1
 - New upstream development version 1.37.4
 

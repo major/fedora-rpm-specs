@@ -1,7 +1,7 @@
 %global srcname fedora-sig-onboard
 
 Name:           python-%{srcname}
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Onboard a package onto the appropriate Fedora SIG
 

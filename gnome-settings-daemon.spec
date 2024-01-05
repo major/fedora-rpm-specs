@@ -17,7 +17,7 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        45.0
+Version:        45.1
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
@@ -61,7 +61,6 @@ BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(wayland-client)
 %ifnarch s390 s390x
 BuildRequires:  pkgconfig(libwacom) >= 0.7
-BuildRequires:  pkgconfig(xorg-wacom)
 %endif
 
 Requires: colord >= %{colord_version}

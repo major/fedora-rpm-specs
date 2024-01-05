@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate cxx-build
+%global crate async-channel
 
-Name:           rust-cxx-build
-Version:        1.0.114
+Name:           rust-async-channel1
+Version:        1.9.0
 Release:        %autorelease
-Summary:        C++ code generator for integrating cxx crate into a Cargo build
+Summary:        Async multi-producer multi-consumer channel
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/cxx-build
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/async-channel
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-C++ code generator for integrating `cxx` crate into a Cargo build.}
+Async multi-producer multi-consumer channel.}
 
 %description %{_description}
 
@@ -32,6 +32,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -44,30 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+experimental-async-fn-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+experimental-async-fn-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "experimental-async-fn" feature of the "%{crate}" crate.
-
-%files       -n %{name}+experimental-async-fn-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+parallel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+parallel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "parallel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+parallel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

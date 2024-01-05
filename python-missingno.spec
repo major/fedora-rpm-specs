@@ -45,7 +45,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} ';'
 
 %install
 %pyproject_install
-%pyproject_save_files missingno
+%pyproject_save_files -l missingno
 
 %check
 mkdir -p ~/.config/matplotlib/

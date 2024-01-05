@@ -7,9 +7,7 @@ Release:    28%{?dist}
 Summary:    ARIN's Referral WHOIS server
 # common/strerror.c:                GPL-2.0-or-later (libiberty)
 # LICENSE:                          GPL-2.0 text
-# mkdb/metaphon.c:                  LicenseRef-Fedora-Public-Domain (Waiting
-#                                   for an approval
-#                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/416>)
+# mkdb/metaphon.c:                  LicenseRef-Fedora-Public-Domain
 # mkdb/y.tab.c:                     GPL-2.0-or-later WITH
 #                                   Bison-exception-1.24 (Waiting on an
 #                                   approval
@@ -18,8 +16,7 @@ Summary:    ARIN's Referral WHOIS server
 ## Not in any binary package
 # configure:                        FSFUL
 ## Unbundled
-# tools/tcpd_wrapper/DISCLAIMER:    TCP-wrappers (Waiting on an approval
-#                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/415>)
+# tools/tcpd_wrapper/DISCLAIMER:    TCP-wrappers
 # tools/tcpd_wrapper/strcasecmp.c:  BSD-4.3TAHOE
 License:    Public Domain and HSRL and GPLv2+
 URL:        http://projects.arin.net/rwhois/

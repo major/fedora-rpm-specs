@@ -1,6 +1,6 @@
 Name:           perl-Date-Manip
 Version:        6.93
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Manip
@@ -67,19 +67,29 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %check
 unset DATE_MANIP DATE_MANIP_DEBUG DATE_MANIP_DEBUG_ABBREVS \
-    DATE_MANIP_DEBUG_ZONES DATE_MANIP_TEST_DM5 OS MULTINET_TIMEZONE \
-    RELEASE_TESTING 'SYS$TIMEZONE_DIFFERENTIAL' 'SYS$TIMEZONE_NAME' \
+    DATE_MANIP_DEBUG_ZONES Date_Manip_RELEASE_TESTING DATE_MANIP_TEST_DM5 \
+    OS MULTINET_TIMEZONE 'SYS$TIMEZONE_DIFFERENTIAL' 'SYS$TIMEZONE_NAME' \
     'SYS$TIMEZONE_RULE' 'TCPIP$TZ' 'UCX$TZ'
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc README README.first
-%{perl_vendorlib}/Date/
-%{_mandir}/man[13]/*.[13]*
+%dir %{perl_vendorlib}/Date
+%{perl_vendorlib}/Date/Manip
+%{perl_vendorlib}/Date/Manip.{pm,pod}
+%{_mandir}/man1/dm_*.1*
+%{_mandir}/man3/Date::Manip.3*
+%{_mandir}/man3/Date::Manip::*.3*
 %{_bindir}/dm_*
 
 %changelog
+* Wed Jan 03 2024 Petr Pisar <ppisar@redhat.com> - 6.93-2
+- Adapt test envinronment guard to changes in 6.93
+- List files explicitly
+- Run tests in parallel
+
 * Sun Dec 03 2023 Packit <hello@packit.dev> - 6.93-1
 - Release: v6.93 (Sullivan Beck)
 - Checkpoint: v6.93 (Sullivan Beck)

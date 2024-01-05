@@ -1,6 +1,6 @@
 Name:           httpie
 Version:        3.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Curl-like tool for humans
 
 License:        BSD-3-Clause
@@ -62,7 +62,9 @@ cp -a extras/man/*.1 %{buildroot}%{_mandir}/man1/
 
 %check
 %if %{with tests}
-%pytest -v
+# Werkzeug >= 3 failures
+# https://github.com/httpie/cli/issues/1530
+%pytest -v -k "not test_compress_form and not test_binary"
 %else
 %pyproject_check_import
 %endif
@@ -83,6 +85,9 @@ cp -a extras/man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jan 03 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.2.2-3
+- Deselect tests failing with Werkzeug 3.x
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

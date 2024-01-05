@@ -6,7 +6,7 @@
 Summary: Kerberos binding for Ruby
 Name: rubygem-%{gem_name}
 Version: 0.8.3
-Release: 21.git%{shorthash}%{?dist}
+Release: 22.git%{shorthash}%{?dist}
 License: LGPLv2+
 URL: https://github.com/timfel/krb5-auth
 # Use tar.gz, convert to gem during build
@@ -62,6 +62,9 @@ rm -rf %{buildroot}%{gem_instdir}/ext
 
 
 %changelog
+* Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 0.8.3-22.gita86ddf2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-21.gita86ddf2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

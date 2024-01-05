@@ -5,15 +5,15 @@
 %global ftest_shortcommit %(c=%{ftest_commit}; echo ${c:0:7})
 
 Name:       utf8cpp
-Version:    3.2.5
+Version:    4.0.5
 Release:    1%{?dist}
 Summary:    A simple, portable and lightweight library for handling UTF-8 encoded strings
 License:    BSL-1.0
 URL:        https://github.com/nemtrif/utfcpp
 Source0:    https://github.com/nemtrif/utfcpp/archive/v%{version}/utfcpp-%{version}.tar.gz
 Source1:    https://github.com/nemtrif/ftest/archive/%{ftest_commit}/ftest-%{ftest_shortcommit}.tar.gz
-# put cmake import file in arch-agnostic directory
-Patch1:     %{name}-noarch.patch
+# put cmake import file in correct directory
+Patch0:     %{name}-cmake.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 
@@ -51,37 +51,47 @@ rmdir extern/ftest && mv ftest-%{ftest_commit} extern/ftest
 
 %build
 %cmake \
-   -DUTF8_TESTS=ON \
-   -DUTF8_SAMPLES=ON \
    %{nil}
 %cmake_build
+pushd tests
+%cmake
+%cmake_build
+popd
 
 %install
 %cmake_install
 pushd %{buildroot}%{_includedir}
 ln -s utf8cpp/utf8.h ./
 mkdir utf8
-for f in {{un,}checked,core,cpp11,cpp17}.h ; do
+for f in {{un,}checked,core,cpp{11,17,20}}.h ; do
     ln -s ../utf8cpp/utf8/${f} utf8/
 done
 popd
 
 %check
+pushd tests
 %ctest
+popd
 
 %files devel
-%doc README.md samples/docsample.cpp
+%doc README.md
+%license LICENSE
 %{_includedir}/utf8.h
 %dir %{_includedir}/utf8
 %{_includedir}/utf8/checked.h
 %{_includedir}/utf8/core.h
 %{_includedir}/utf8/cpp11.h
 %{_includedir}/utf8/cpp17.h
+%{_includedir}/utf8/cpp20.h
 %{_includedir}/utf8/unchecked.h
 %{_includedir}/utf8cpp
 %{_datadir}/cmake/utf8cpp
 
 %changelog
+* Wed Jan 03 2024 Dominik Mierzejewski <dominik@greysector.net> - 4.0.5-1
+- update to 4.0.5 (resolves rhbz#2245744)
+- include license text
+
 * Sun Oct 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 3.2.5-1
 - update to 3.2.5 (resolves rhbz#2240785)
 

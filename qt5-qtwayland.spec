@@ -2,7 +2,7 @@
 
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
-Version: 5.15.11
+Version: 5.15.12
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -73,6 +73,7 @@ Patch56:  0056-Client-Commit-the-initial-surface-state-explicitly.patch
 Patch57:  0057-tests-Fix-tst_xdgshell-minMaxSize.patch
 Patch58:  0058-Client-Remove-some-surface-commits.patch
 Patch59:  0059-Client-Avoid-locking-resizing-in-QWaylandShmBackingS.patch
+Patch60:  0060-Client-Always-populate-mimedata-in-drags.patch
 
 # Use QAdwaitaDecorations by default
 Patch100: qtwayland-use-adwaita-decorations-by-default.patch
@@ -186,6 +187,9 @@ popd
 
 
 %changelog
+* Tue Jan 02 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.12-1
+- 5.15.12
+
 * Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
 - 5.15.11
 

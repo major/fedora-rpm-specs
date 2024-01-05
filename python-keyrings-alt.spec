@@ -114,8 +114,7 @@ mv docs/_latex/python.pdf docs/_latex/keyringsalt.pdf
 
 %install
 %pyproject_install
-# also takes the dist-info folder
-%pyproject_save_files keyrings
+%pyproject_save_files -l keyrings
 
 %check
 %if %{with tests}

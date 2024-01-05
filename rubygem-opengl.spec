@@ -14,7 +14,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -132,7 +132,10 @@ for trial in 1 2 ; do
 			-e "Dir.glob('test/test_*.rb').each { |f| require f }" \
 			2>&1 | tee TEST.log
 	cat TEST.log | grep -q "184 runs, 1745 assertions, 6 failures, 1 errors, 14 skips" && break || $STATUS_ON_FAILURE
+%ifarch i686
+%else
 	STATUS_ON_FAILURE=false
+%endif
 done
 popd
 
@@ -154,6 +157,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-26
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Mon Oct  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-25
 - SPDX migration
 

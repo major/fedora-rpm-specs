@@ -5,7 +5,7 @@
 
 Name:           libopenshot
 Version:        0.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -109,6 +109,9 @@ rm -rf third_party/jsoncpp
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.2-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Fri Aug 11 2023 Sérgio Basto <sergio@serjux.com> - 0.3.2-1
 - Update libopenshot to 0.3.2
 

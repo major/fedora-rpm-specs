@@ -3,7 +3,7 @@
 
 Name:           assimp
 Version:        5.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -89,6 +89,8 @@ to these applications.
 %package devel
 Summary: Header files and libraries for assimp
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: poly2tri-devel
+Requires: pugixml-devel
 
 %description devel
 This package contains the header files and libraries
@@ -197,6 +199,9 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %endif
 
 %changelog
+* Wed Jan 03 2024 Scott K Logan <logans@cottsay.net> - 5.2.5-2
+- Add pugixml and poly2tri devel dependencies to assimp-devel
+
 * Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 5.2.5-1
 - Add check section and fix ctest configuration
 

@@ -1,6 +1,6 @@
 Name:		qdbm
 Version:	1.8.78
-Release:	59%{?dist}
+Release:	60%{?dist}
 # SPDX confirmed
 License:	LGPL-2.1-or-later
 
@@ -375,6 +375,9 @@ popd
 
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-60
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Fri Dec 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-59
 - SPDX migration
 

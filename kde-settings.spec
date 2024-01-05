@@ -1,12 +1,21 @@
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%bcond initialsetup_gui_backend 1
+%else
+%bcond initialsetup_gui_backend 0
+%endif
+
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 39.0
+Version: 39.1
 Release: 2%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
 Source0: https://pagure.io/fedora-kde/kde-settings/archive/%{version}/kde-settings-%{version}.tar.gz
 Source1: COPYING
+
+# Temporarily as a patch until f40 backgrounds exist to bump to 40
+Patch0:  0001-Add-initial-setup-configuration-with-kwin_wayland.patch
 
 BuildArch: noarch
 
@@ -92,6 +101,22 @@ Summary: Configuration files for Qt
 %description -n qt-settings
 %{summary}.
 
+%if %{with initialsetup_gui_backend}
+%package -n initial-setup-gui-wayland-plasma
+Summary: Run initial-setup GUI on Plasma Wayland
+Provides: firstboot(gui-backend)
+Conflicts: firstboot(gui-backend)
+Requires: kwin-wayland
+Requires: maliit-keyboard
+Requires: xorg-x11-server-Xwayland
+Requires: initial-setup-gui >= 3.99
+Supplements: ((initial-setup or initial-setup-gui) and kwin-wayland)
+Enhances: (initial-setup-gui and kwin-wayland)
+
+%description -n initial-setup-gui-wayland-plasma
+%{summary}.
+%endif
+
 
 %prep
 %autosetup -p1
@@ -143,6 +168,10 @@ sed -e "s/Noto Sans Mono/Noto Mono/g" \
 # for ssh-agent.serivce, set SSH_AUTH_SOCK
 install -p -m644 -D %{SOURCE10} %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/env/ssh-agent.sh
 
+%if ! %{with initialsetup_gui_backend}
+rm -rv %{buildroot}%{_libexecdir}/initial-setup
+%endif
+
 ## unpackaged files
 
 
@@ -155,6 +184,7 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 %files
 %license COPYING
 %config(noreplace) %{_sysconfdir}/profile.d/kde.*
+%{_sysconfdir}/fonts/conf.d/10-sub-pixel-rgb-for-kde.conf
 %{_sysconfdir}/kde/env/env.sh
 %{_sysconfdir}/kde/env/gpg-agent-startup.sh
 %{_sysconfdir}/kde/shutdown/gpg-agent-shutdown.sh
@@ -208,8 +238,21 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 %license COPYING
 %config(noreplace) %{_sysconfdir}/Trolltech.conf
 
+%if %{with initialsetup_gui_backend}
+%files -n initial-setup-gui-wayland-plasma
+%{_libexecdir}/initial-setup/run-gui-backend
+%endif
+
 
 %changelog
+* Wed Jan 03 2024 Neal Gompa <ngompa@fedoraproject.org> - 39.1-2
+- Add initial-setup-gui-wayland-plasma subpackage for f40+/epel10+
+
+* Wed Jan 03 2024 Neal Gompa <ngompa@fedoraproject.org> - 39.1-1
+- Add fontconfig snippet to enable RGBA subpixel rendering for KDE
+- Reland: feat: remove KDE Action Restrictions
+- Set the default theme for sddm
+
 * Fri Oct 13 2023 Timothée Ravier <tim@siosm.fr> - 39.0-2
 - Switch google-noto-serif-fonts to a Recommends
 

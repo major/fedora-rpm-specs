@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.91.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -22,6 +22,9 @@ Source10: discoverrc
 ## upstream patches
 # https://invent.kde.org/plasma/discover/-/commit/ea28797dc9ab941afbbfef07133b593a4a6af0d0
 Patch0:  fix-update-button.patch
+
+# https://invent.kde.org/plasma/discover/-/merge_requests/727
+Patch1:  fix-notifier.patch
 
 ## downstream patches
 # Adjust periodic refresh from 1/24hr to 1/12hr
@@ -316,6 +319,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Wed Jan 03 2024 Alessandro Astone <ales.astone@gmail.com> - 5.91.0-3
+- Fix notifier (RHBZ#2256650)
+
 * Sun Dec 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.91.0-2
 - Backport patch to fix update button
 

@@ -1,11 +1,12 @@
 Name: schedtool       
 Version:  1.3.0   
-Release:  28%{?dist}
+Release:  29%{?dist}
 Summary:  Tool to query or alter process scheduling policy      
 
 License:  GPLv2      
 URL: http://freequaos.host.sk/schedtool/           
 Source0: http://freequaos.host.sk/schedtool/%{name}-%{version}.tar.bz2   
+Patch0: schedtool-c99.patch
       
 
 BuildRequires: make
@@ -17,7 +18,7 @@ scheduling policies, like batch or real-time (RR/FIFO) classes and
 their priorities
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 make CFLAGS="%{optflags}" %{?_smp_mflags} 
@@ -41,6 +42,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 %doc %{_docdir}/%{name}/SCHED_DESIGN
 
 %changelog
+* Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 1.3.0-29
+- Fix C compatibility issue (#2256596)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

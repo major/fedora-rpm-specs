@@ -58,13 +58,13 @@ BuildRequires:  latexmk
 
 %if %{with doc_pdf}
 PYTHONPATH="${PWD}:${PWD}/MEAutility" \
-    %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+    %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 
 %install
 %pyproject_install
-%pyproject_save_files %{pretty_name}
+%pyproject_save_files -l %{pretty_name}
 
 %check
 %if %{with tests}

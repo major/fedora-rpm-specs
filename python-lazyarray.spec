@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           python-lazyarray
 Version:        0.5.2
@@ -87,14 +87,15 @@ echo "latex_engine = 'xelatex'" >> doc/conf.py
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C doc latex SPHINXBUILD='sphinx-build' SPHINXOPTS='%{?_smp_mflags}'
-%make_build -C doc/_build/latex
+%make_build -C doc latex SPHINXBUILD='sphinx-build' \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C doc/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
 
 %install
 %pyproject_install
-%pyproject_save_files lazyarray
+%pyproject_save_files -l lazyarray
 
 
 %check
@@ -102,7 +103,6 @@ echo "latex_engine = 'xelatex'" >> doc/conf.py
 
 
 %files -n python3-lazyarray -f %{pyproject_files}
-# pyproject-rpm-macros takes care of LICENSE; verify with “rpm -qL -p …”
 %doc changelog.txt README.rst
 
 

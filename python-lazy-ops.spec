@@ -39,17 +39,17 @@ BuildRequires:  %{py3_dist numpy}
 cp %{SOURCE1} .
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files lazy_ops
+%pyproject_save_files -l lazy_ops
 
 %check
-%py3_check_import lazy_ops
+%pyproject_check_import
 
 %files -n python3-lazy-ops -f %{pyproject_files}
 %doc README.md

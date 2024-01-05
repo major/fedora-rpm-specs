@@ -68,7 +68,7 @@ rm -fv nibabel/{tests/data/,}.gitignore
 
 %install
 %pyproject_install
-%pyproject_save_files nibabel nisext
+%pyproject_save_files -l nibabel nisext
 
 for binary in "parrec2nii" "nib-conform" "nib-convert" "nib-diff" "nib-dicomfs" "nib-ls" "nib-nifti-dx" "nib-roi" "nib-stats" "nib-tck2trk" "nib-trk2tck"
 do

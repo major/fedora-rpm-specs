@@ -1,52 +1,99 @@
-%global pypi_name boto3
+%bcond tests 1
+# We would like to have a BuildRequires and weak runtime dependency on
+# python3-awscrt, which enables additional functionality and tests, but it is
+# ExcludeArch: s390x (https://bugzilla.redhat.com/show_bug.cgi?id=2180988) and
+# we do not want to add architecture conditionals to this package, so we omit
+# the dependency for now.
+%bcond awscrt 0
 
-Name:           python-%{pypi_name}
-Version:        1.34.11
+Name:           python-boto3
+Version:        1.34.12
 Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
 License:        Apache-2.0
 URL:            https://github.com/boto/boto3
-Source0:        %{pypi_source}
+Source:         %{url}/archive/%{version}/boto3-%{version}.tar.gz
 BuildArch:      noarch
 
-%description
-Boto3 is the Amazon Web Services (AWS) Software Development
-Kit (SDK) for Python, which allows Python developers to
-write software that makes use of services like Amazon S3
-and Amazon EC2.
-
-%package -n     python3-%{pypi_name}
-Summary:        The AWS SDK for Python
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-Boto3 is the Amazon Web Services (AWS) Software Development
-Kit (SDK) for Python, which allows Python developers to
-write software that makes use of services like Amazon S3
-and Amazon EC2.
+# Save space by hardlinking duplicate JSON resource files
+BuildRequires:  hardlink
+
+%if %{with tests}
+# Test dependencies are in requirements-dev.txt; most are Window-specific or
+# are for coverage analysis and are undesired, so we list those we need
+# manually:
+BuildRequires:  %{py3_dist pytest}
+# Run tests in parallel. Tests are numerous and painfully slow, so this helps!
+BuildRequires:  %{py3_dist pytest-xdist}
+%endif
+
+%global _description %{expand:
+Boto3 is the Amazon Web Services (AWS) Software Development Kit (SDK) for
+Python, which allows Python developers to write software that makes use of
+services like Amazon S3 and Amazon EC2.}
+
+%description %{_description}
+
+%package -n     python3-boto3
+Summary:        %{summary}
+
+%if %{with awscrt}
+# Optional dependency that enables additional functionality and additional
+# tests, and is needed for the import-only “smoke test”:
+#   boto3-1.34.7/boto3/s3/transfer.py
+#   185:    # This feature requires awscrt>=0.19.18
+BuildRequires:  %{py3_dist awscrt} >= 0.19.18
+Recommends:     %{py3_dist awscrt} >= 0.19.18
+%endif
+
+%description -n python3-boto3 %{_description}
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
-# Remove online tests
-rm -rf tests/integration
+%setup -q -n boto3-%{version}
+# Remove a bundled and pre-compiled/pre-minified JavaScript library. It would
+# be used for the generated HTML documentation, which we do not package.
+rm -v docs/source/_static/shortbreadv1.js
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+# This saves, as of this writing, roughly 300kB in duplicate JSON resource
+# files. Note that rpmlint will complain about cross-directory hardlinks, but
+# that these are not a problem because the contents of a directory owned by
+# this package are guaranteed to be on a single filesystem.
+hardlink -c '%{buildroot}%{python3_sitelib}/boto3'
+%pyproject_save_files boto3
 
-%files -n python3-%{pypi_name}
+%check
+%if %{with tests}
+# Integration tests require network access and real AWS resources.
+%pytest --ignore=tests/integration -v -n auto
+%else
+%pyproject_check_import %{?!with_awscrt:-e boto3.crt}
+%endif
+
+%files -n python3-boto3 -f %{pyproject_files}
+%doc CHANGELOG.rst
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-*.egg-info/
 
 %changelog
+* Wed Jan 03 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.34.12-1
+- 1.34.12
+
+* Wed Jan 03 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.34.11-2
+- Port to pyproject-rpm-macros
+- Save space by hardlinking duplicate JSON resource files
+- Various small packaging improvements
+
 * Tue Jan 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.34.11-1
 - 1.34.11
 

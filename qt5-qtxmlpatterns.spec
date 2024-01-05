@@ -4,7 +4,7 @@
 
 Summary: Qt5 - QtXmlPatterns component
 Name:    qt5-%{qt_module}
-Version: 5.15.11
+Version: 5.15.12
 Release: 1%{?dist}
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -114,6 +114,9 @@ popd
 
 
 %changelog
+* Tue Jan 02 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.12-1
+- 5.15.12
+
 * Fri Oct 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.11-1
 - 5.15.11
 

@@ -13,7 +13,7 @@ Name:     opus
 Version:  1.4
 Release:  2%{?candidate:.%{candidate}}%{?dist}
 Summary:  An audio codec for use in low-delay speech and audio communication
-License:  BSD
+License:  BSD-3-Clause AND BSD-2-Clause
 URL:      https://www.opus-codec.org/
 
 Source0:  https://ftp.osuosl.org/pub/xiph/releases/%{name}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz

@@ -133,7 +133,7 @@ PYTHONPATH="${BLIB}" %make_build -C docs latex \
 
 %install
 %pyproject_install
-%pyproject_save_files fastavro
+%pyproject_save_files -l fastavro
 
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
     'docs/_build/man/fastavro.1'
@@ -156,12 +156,16 @@ ln -s '%{buildroot}%{python3_sitearch}/fastavro' .
 k="${k-}${k+ and }not test_regular_vs_ordered_dict_map_typeerror"
 k="${k-}${k+ and }not test_regular_vs_ordered_dict_record_typeerror"
 
+# Two tests fail when the zlib implementation is zlib-ng (F40+): the compressed
+# block sizes are slightly different.
+# https://github.com/fastavro/fastavro/issues/740
+k="${k-}${k+ and }not test_block_iteration_deflated_disk"
+k="${k-}${k+ and }not test_block_iteration_deflated_memory"
+
 %pytest -k "${k-}"
 
 
 %files -n python3-fastavro -f %{pyproject_files}
-# pyproject-rpm-macros takes care of the license files—both LICENSE and
-# NOTICE.txt—verify with “rpm -qL -p …”
 %{_bindir}/fastavro
 %{_mandir}/man1/fastavro.*
 

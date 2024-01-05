@@ -1,7 +1,7 @@
-%global	mainver		1.15.5
+%global	mainver		1.16.0
 #%%global	prever		.rc4
 
-%global	baserelease		1
+%global	baserelease		2
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -29,10 +29,6 @@ Source1:	rubygem-%{gem_name}-%{version}%{?prever}-full.tar.gz
 Source2:	nokogiri-create-full-tarball.sh
 # Shut down libxml2 version unmatching warning
 Patch0:	%{name}-1.11.0.rc4-shutdown-libxml2-warning.patch
-# https://github.com/sparklemotion/nokogiri/pull/2973
-Patch1:	nokogiri-pr2973-libxml2-2_12_0-error-msg-change.patch
-# https://github.com/sparklemotion/nokogiri/pull/3013
-Patch2:	nokogiri-pr3013-libxml2-2_12_0-recovery-char-change.patch
 BuildRequires:	ruby(release)
 BuildRequires:	ruby(rubygems)
 ##
@@ -85,8 +81,6 @@ mv ../%{gem_name}-%{version}.gemspec .
 
 # patches
 %patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
 
 # remove bundled external libraries
 sed -i \
@@ -211,7 +205,7 @@ pushd ./%{gem_instdir}
 
 # Remove unneeded simplecov coverage test
 sed -i test/helper.rb \
-	-e '\@require.*simplecov@,\@^end$@s|^|#|'
+	-e '\@^  require.*simplecov@,\@^  end$@s|^|#|'
 
 # Remove minitest-reporters. It does not provide any additional value while
 # it blows up the dependency chain.
@@ -272,6 +266,12 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.16.0-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
+* Fri Dec 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.16.0-1
+- 1.16.0
+
 * Sat Nov 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.5-1
 - 1.15.5
 - Backport upstream patch for libxml2 2.12.0 error handling change

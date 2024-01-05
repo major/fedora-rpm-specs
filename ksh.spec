@@ -3,7 +3,7 @@ Summary:      The Original ATT Korn Shell
 URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
-Version:      1.0.7
+Version:      1.0.8
 Release:      1%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
@@ -138,6 +138,9 @@ fi
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Tue Jan 02 2024 Vincent Mihalkovic <vmihalko@redhat.com> - 3:1.0.8-1
+- new upstream release (rhbz#2256388)
+
 * Fri Sep 22 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3:1.0.7-1
 - new upstream release (rhbz#2239214)
 

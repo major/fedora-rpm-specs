@@ -25,16 +25,16 @@
 %global vdr_user  vdr
 %global vdr_group video
 # From APIVERSION in config.h
-%global apiver    2.6.3
+%global apiver    2.6.5
 
 Name:           vdr
-Version:        2.6.4
-Release:        2%{?dist}
+Version:        2.6.5
+Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPLv2+
 URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.6.4;sf=tbz2
+# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.6.5;sf=tbz2
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
@@ -91,7 +91,7 @@ BuildRequires:  systemd-devel
 %if %{with docs}
 BuildRequires:  doxygen
 BuildRequires:  graphviz
-%endif # docs
+%endif
 # udev >= 136-1 for the audio, cdrom, dialout, and video groups
 Requires:       udev >= 136-1
 # sudo for the shutdown script, >= 1.7.2p2-3 for sudoers.d functionality
@@ -115,7 +115,7 @@ is required to run VDR.
 
 %package        devel
 Summary:        Development files for VDR
-Requires:       gettext
+Requires:       gettext-runtime
 Provides:       vdr-devel(api) = %{apiver}
 
 %description    devel
@@ -293,7 +293,7 @@ done
 
 %if %{with docs}
 %make_build srcdoc
-%endif # docs
+%endif
 
 
 %install
@@ -499,7 +499,7 @@ systemctl daemon-reload
 %license COPYING
 %if ! %{with docs}
 %{_pkgdocdir}/PLUGINS.html
-%endif # with docs
+%endif
 %{_bindir}/vdr-config
 %{_bindir}/vdr-newplugin
 %{_includedir}/libsi/
@@ -545,6 +545,11 @@ systemctl daemon-reload
 
 
 %changelog
+* Wed Jan 03 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.6.5-1
+- Update to 2.6.5
+- vdr-devel does not require any translation management tools (BZ#2119032)
+  use RR gettext-runtime
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,12 +1,14 @@
 %global rdnn        dev.geopjr.Tuba
 
 Name:           tuba
-Version:        0.5.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Browse the Fediverse
 License:        GPL-3.0-only
 URL:            https://tuba.geopjr.dev/
 Source:         https://github.com/GeopJr/Tuba/archive/v%{version}/Tuba-%{version}.tar.gz
+# https://github.com/GeopJr/Tuba/commit/4055a4129e095848aea523b1bc1851f646353136
+Patch:          0001-fix-DateTime-is_3_months_old-being-year-aware-732.patch
 
 BuildRequires:  meson
 BuildRequires:  vala

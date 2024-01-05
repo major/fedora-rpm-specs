@@ -261,7 +261,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 9.10.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -269,6 +269,10 @@ URL: https://libvirt.org/
     %define mainturl stable_updates/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
+
+# Fix regression in default input bus
+# https://gitlab.com/libvirt/libvirt/-/issues/577
+Patch1: libvirt-regression-input-default-bus.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -2554,6 +2558,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 03 2024 Jonathan Wright <jonathan@almalinux.org> - 9.10.0-4
+- conf: fix regression for default input bus
+
 * Fri Dec  8 2023 Richard W.M. Jones <rjones@redhat.com> - 9.10.0-3
 - Bump and rebuild for xen 4.18.0, third attempt
 

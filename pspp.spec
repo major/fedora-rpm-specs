@@ -1,5 +1,5 @@
 Name:           pspp
-Version:        1.6.2
+Version:        2.0.0
 Release:        %autorelease
 Summary:        A program for statistical analysis of sampled data
 License:        GPL-3.0-or-later
@@ -11,10 +11,8 @@ Source2:        pspp-Smake
 Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
 # FIXME don't know what's going on here. Hopefully nodody uses i686 apps these days.
 Patch1:         pspp-0001-Disable-perl-tests-on-i686.patch
-# CVE-2022-39831
-Patch2:         pspp-0002-pspp-dump-sav-Do-not-install-by-default.patch
-# Follow up to patch2
-patch3:		pspp-0003-Don-t-install-man-page-for-non-existent-app.patch
+# Follow up to CVE-2022-39831
+patch2:		pspp-0002-Don-t-install-man-page-for-non-existent-app.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel

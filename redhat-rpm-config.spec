@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 272
+%global baserelease 274
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -256,6 +256,12 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Wed Jan  3 2024 Florian Weimer <fweimer@redhat.com> - 275-1
+- Missing packed relative relocation support on aarch64, s390x (#2256645)
+
+* Tue Jan  2 2024 Florian Weimer <fweimer@redhat.com> - 273-1
+- Pack relative ELF relocations by default
+
 * Tue Dec 26 2023 Jan Drögehoff <sentrycraft123@gmail.com> - 272-1
 - Add zig-srpm-macros
 

@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.1
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -30,6 +30,7 @@ Patch0:         mapserver-implicit-declarations.patch
 # https://github.com/MapServer/MapServer/pull/6975
 # Fix build with libxml2 2.12.0
 Patch1:         mapserver-pr6975-libxml2-2_12_0.patch
+Patch2: mapserver-c99.patch
 Requires:       httpd
 Requires:       dejavu-sans-fonts
 
@@ -314,6 +315,12 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.1-11
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
+* Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 8.0.1-10
+- Fix C compatibility issue
+
 * Wed Nov 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.1-9
 - Backport upstream patch for compilation with libxml2 2.12.0
 

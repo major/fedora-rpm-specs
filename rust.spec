@@ -735,32 +735,32 @@ test -r "%{profiler}"
   --release-channel=%{channel} \
   --release-description="%{?fedora:Fedora }%{?rhel:Red Hat }%{version}-%{release}"
 
-%global x %{__python3} ./x.py
-%global xk %{x} --keep-stage=0 --keep-stage=1
+%global __x %{__python3} ./x.py
+%global __xk %{__x} --keep-stage=0 --keep-stage=1
 
 %if %with rustc_pgo
 # Build the compiler with profile instrumentation
 PROFRAW="$PWD/build/profiles"
 PROFDATA="$PWD/build/rustc.profdata"
 mkdir -p "$PROFRAW"
-%{x} build -j "$ncpus" sysroot --rust-profile-generate="$PROFRAW"
+%{__x} build -j "$ncpus" sysroot --rust-profile-generate="$PROFRAW"
 # Build cargo as a workload to generate compiler profiles
-env LLVM_PROFILE_FILE="$PROFRAW/default_%%m_%%p.profraw" %{xk} build cargo
+env LLVM_PROFILE_FILE="$PROFRAW/default_%%m_%%p.profraw" %{__xk} build cargo
 llvm-profdata merge -o "$PROFDATA" "$PROFRAW"
 rm -r "$PROFRAW" build/%{rust_triple}/stage2*/
 # Rebuild the compiler using the profile data
-%{x} build -j "$ncpus" sysroot --rust-profile-use="$PROFDATA"
+%{__x} build -j "$ncpus" sysroot --rust-profile-use="$PROFDATA"
 %else
 # Build the compiler without PGO
-%{x} build -j "$ncpus" sysroot
+%{__x} build -j "$ncpus" sysroot
 %endif
 
 # Build everything else normally
-%{xk} build
-%{xk} doc
+%{__xk} build
+%{__xk} doc
 
 for triple in %{?all_targets} ; do
-  %{xk} build --target=$triple std
+  %{__xk} build --target=$triple std
 done
 
 %install
@@ -769,10 +769,10 @@ done
 %endif
 %{export_rust_env}
 
-DESTDIR=%{buildroot} %{xk} install
+DESTDIR=%{buildroot} %{__xk} install
 
 for triple in %{?all_targets} ; do
-  DESTDIR=%{buildroot} %{xk} install --target=$triple std
+  DESTDIR=%{buildroot} %{__xk} install --target=$triple std
 done
 
 # The rls stub doesn't have an install target, but we can just copy it.
@@ -882,17 +882,17 @@ rm -rf "$TMP_HELLO"
 
 # Bootstrap is excluded because it's not something we ship, and a lot of its
 # tests are geared toward the upstream CI environment.
-%{xk} test --no-fail-fast --skip src/bootstrap || :
+%{__xk} test --no-fail-fast --skip src/bootstrap || :
 rm -rf "./build/%{rust_triple}/test/"
 
-%{xk} test --no-fail-fast cargo || :
+%{__xk} test --no-fail-fast cargo || :
 rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
-%{xk} test --no-fail-fast clippy || :
+%{__xk} test --no-fail-fast clippy || :
 
-%{xk} test --no-fail-fast rust-analyzer || :
+%{__xk} test --no-fail-fast rust-analyzer || :
 
-%{xk} test --no-fail-fast rustfmt || :
+%{__xk} test --no-fail-fast rustfmt || :
 
 
 %ldconfig_scriptlets

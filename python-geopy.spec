@@ -53,7 +53,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files geopy
+%pyproject_save_files -l geopy
 
 %check
 # Exclude tests which make API calls (require network access)
@@ -64,7 +64,7 @@ k="${k-}${k+ and }not test_ssl_context_without_proxy_is_respected"
 %pytest -v test --ignore test/geocoders/ -k "${k-}"
 
 %files -n python3-geopy -f %{pyproject_files}
-%doc AUTHORS CONTRIBUTING.md README.rst
+%doc CONTRIBUTING.md README.rst
 
 %changelog
 %autochangelog

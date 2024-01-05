@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: OpenBSD's bcrypt_pdkfd (a variant of PBKDF2 with bcrypt-based PRF)
 # BSD license in files:
 #   ext/mri/hash_sha512.c
@@ -81,6 +81,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 1.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Sun Sep 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-8
 - Make testsuite compat with minitest 5.19+
 

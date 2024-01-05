@@ -1,4 +1,4 @@
-%global srcname Werkzeug
+%global srcname werkzeug
 %global modname werkzeug
 
 # Tests require among others python-greenlet which is not available
@@ -8,8 +8,8 @@
 %bcond tests 1
 
 Name:           python-%{modname}
-Version:        2.2.3
-Release:        3%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        Comprehensive WSGI web application library
 
 License:        BSD
@@ -45,68 +45,62 @@ bulletin boards, etc.).}
 %package -n python3-%{modname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{modname}}
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-%if %{with tests}
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-timeout)
-BuildRequires:  python3dist(pytest-xprocess)
-BuildRequires:  python3dist(requests)
-BuildRequires:  python3dist(requests-unixsocket)
-BuildRequires:  python3dist(cryptography)
-BuildRequires:  python3dist(greenlet)
-BuildRequires:  python3dist(watchdog)
-BuildRequires:  python3dist(ephemeral-port-reserve)
-%endif
 
 %description -n python3-%{modname} %{_description}
 
 %package -n python3-werkzeug-doc
 Summary:        Documentation for python3-werkzeug
-%{?python_provide:%python_provide python3-werkzeug-doc}
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(pallets-sphinx-themes)
-BuildRequires:  python3dist(sphinx-issues)
-BuildRequires:  python3dist(sphinxcontrib-log-cabinet)
 Requires:       python3-werkzeug = %{version}-%{release}
 
 %description -n python3-werkzeug-doc
 Documentation and examples for python3-werkzeug.
 
+%generate_buildrequires
+%if %{with tests}
+# -t picks test.txt by default which contains too tight pins
+%pyproject_buildrequires requirements/tests.in requirements/docs.in
+%else
+%pyproject_buildrequires -r requirements/docs.in
+%endif
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 find examples/ -type f -name '*.png' -executable -print -exec chmod -x "{}" +
 
 %build
-%py3_build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files %{modname}
+
 pushd docs
-make PYTHONPATH=../src/ SPHINXBUILD=sphinx-build-3 html
+# PYTHONPATH to prevent "'Werkzeug' must be installed to build the documentation."
+make PYTHONPATH=%{buildroot}/%{python3_sitelib} SPHINXBUILD=sphinx-build-3 html
 rm -v _build/html/.buildinfo
 popd
 
-%install
-%py3_install
-
 %check
-%py3_check_import werkzeug
+%py3_check_import %{modname}
 %if %{with tests}
 # deselect the test_exclude_patterns test case as it's failing
 # when we set PYTHONPATH: https://github.com/pallets/werkzeug/issues/2404
 %pytest -Wdefault --deselect tests/test_serving.py::test_exclude_patterns
 %endif
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE.rst
 %doc CHANGES.rst README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{modname}/
 
 %files -n python3-werkzeug-doc
 %doc docs/_build/html examples
 
 %changelog
+* Wed Dec 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.1-1
+- Update to 3.0.1 (fixes RHBZ#2189658)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

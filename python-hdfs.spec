@@ -128,7 +128,7 @@ PYTHONPATH="${PWD}" sphinx-build -b latex doc _latex -j%{?_smp_build_ncpus}
 
 %install
 %pyproject_install
-%pyproject_save_files hdfs
+%pyproject_save_files -l hdfs
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 %{SOURCE1} %{SOURCE2}
 
 
@@ -139,7 +139,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 %{SOURCE1} %{SOURCE2}
 
 
 %files -n python3-hdfs -f %{pyproject_files}
-# pyproject-rpm-macros handles the license file; verify with rpm -qL -p …
 %{_bindir}/hdfscli
 %{_mandir}/man1/hdfscli.1*
 

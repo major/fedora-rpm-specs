@@ -9,7 +9,7 @@
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
 #Release:        0.6.%%{commitdate}.git%%{shortcommit}%%{?dist}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files
 
 License:        GPLv2+

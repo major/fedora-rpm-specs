@@ -1,6 +1,6 @@
 Name:           perl-Digest-MD5
-Version:        2.58
-Release:        501%{?dist}
+Version:        2.59
+Release:        1%{?dist}
 Summary:        Perl interface to the MD5 algorithm
 # MD5.pm:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
 # MD5.xs:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
@@ -28,7 +28,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Encode)
-BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 # Optional tests:
@@ -92,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 03 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.59-1
+- 2.59 bump (rhbz#2256301)
+
 * Thu Sep 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.58-501
 - Package tests
 

@@ -172,7 +172,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{python_version}'
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{python_version}'
 %pyproject_install
-%pyproject_save_files mne
+%pyproject_save_files -l mne
 
 %check
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{python_version}'

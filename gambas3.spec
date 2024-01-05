@@ -16,8 +16,8 @@
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.18.3
-Release:	2%{?dist}
+Version:	3.18.4
+Release:	1%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -43,7 +43,7 @@ BuildRequires:	cairo-devel, qt4-devel, dbus-devel, libXcursor-devel
 BuildRequires:	SDL_ttf-devel, sqlite2-devel, glew-devel
 BuildRequires:	imlib2-devel, qt-webkit-devel, gsl-devel
 BuildRequires:	libtool, ncurses-devel, libX11-devel
-BuildRequires:  gmime30-devel, libgnome-keyring-devel
+BuildRequires:	gmime30-devel, libgnome-keyring-devel
 BuildRequires:	qt5-qtsvg-devel, qt5-qtbase-devel, qt5-qtx11extras-devel, qt5-qtwebkit-devel
 %ifnarch ppc64le s390x
 BuildRequires:	qt5-qtwebengine-devel
@@ -212,24 +212,24 @@ Requires:	%{name}-runtime = %{version}-%{release}
 %{summary}
 
 %package gb-compress-bzlib2
-Summary:        Gambas3 component package for compress-bzlib2
-Requires:       %{name}-runtime = %{version}-%{release}
+Summary:	Gambas3 component package for compress-bzlib2
+Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-compress = %{version}-%{release}
 
 %description gb-compress-bzlib2
 %{summary}
 
 %package gb-compress-zlib
-Summary:        Gambas3 component package for compress-zlib
-Requires:       %{name}-runtime = %{version}-%{release}
+Summary:	Gambas3 component package for compress-zlib
+Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-compress = %{version}-%{release}
 
 %description gb-compress-zlib
 %{summary}
 
 %package gb-compress-zstd
-Summary:        Gambas3 component package for compress-zstd
-Requires:       %{name}-runtime = %{version}-%{release}
+Summary:	Gambas3 component package for compress-zstd
+Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-compress = %{version}-%{release}
 
 %description gb-compress-zstd
@@ -324,9 +324,9 @@ Obsoletes:	%{name}-gb-desktop-gnome <= 3.15.2
 %{summary}
 
 %package gb-desktop-x11
-Summary:        Gambas3 component package for X11 desktop
-Requires:       %{name}-runtime = %{version}-%{release}
-Requires:       %{name}-gb-image = %{version}-%{release}
+Summary:	Gambas3 component package for X11 desktop
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-image = %{version}-%{release}
 
 %description gb-desktop-x11
 %{summary}
@@ -362,19 +362,19 @@ Requires:	%{name}-gb-form = %{version}-%{release}
 %{summary}
 
 %package gb-form-editor
-Summary:        Gambas3 component package for form-editor
-Requires:       %{name}-runtime = %{version}-%{release}
+Summary:	Gambas3 component package for form-editor
+Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-eval-highlight = %{version}-%{release}
 Requires:	%{name}-gb-util = %{version}-%{release}
-Requires:       %{name}-gb-form = %{version}-%{release}
+Requires:	%{name}-gb-form = %{version}-%{release}
 
 %description gb-form-editor
 %{summary}
 
 %package gb-form-htmlview
-Summary:        Gambas3 component package for form-htmlview
-Requires:       %{name}-runtime = %{version}-%{release}
-Requires:       %{name}-gb-form = %{version}-%{release}
+Summary:	Gambas3 component package for form-htmlview
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-form = %{version}-%{release}
 
 %description gb-form-htmlview
 %{summary}
@@ -458,7 +458,7 @@ Requires:	%{name}-gb-gtk3-x11
 %{summary}.
 
 %package gb-gtk3-opengl
-Summary:        Gambas3 component package for gtk3-opengl
+Summary:	Gambas3 component package for gtk3-opengl
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-gtk3 = %{version}-%{release}
 
@@ -475,18 +475,18 @@ Requires:	%{name}-gb-qt5 = %{version}-%{release}
 %{summary}.
 
 %package gb-gtk3-webview
-Summary:        Gambas3 component package for gtk3-webview
+Summary:	Gambas3 component package for gtk3-webview
 Requires:	%{name}-runtime = %{version}-%{release}
-Requires:       %{name}-gb-gtk3 = %{version}-%{release}
+Requires:	%{name}-gb-gtk3 = %{version}-%{release}
 
 %description gb-gtk3-webview
 %{summary}.
 
 %package gb-gtk3-x11
-Summary: 	Gambas3 component package for gtk3-x11
+Summary:	Gambas3 component package for gtk3-x11
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-gtk3 = %{version}-%{release}
-Requires:       %{name}-gb-qt5 = %{version}-%{release}
+Requires:	%{name}-gb-qt5 = %{version}-%{release}
 
 %description gb-gtk3-x11
 %{summary}.
@@ -725,15 +725,13 @@ Requires:	%{name}-runtime = %{version}-%{release}
 %description gb-pcre
 %{summary}
 
-%if 0%{?fedora} <= 37
 %package gb-pdf
-Summary:  	Gambas3 component package for pdf
+Summary:	Gambas3 component package for pdf
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-image = %{version}-%{release}
 
 %description gb-pdf
 %{summary}
-%endif
 
 %package gb-poppler
 Summary:	Gambas3 component package for poppler
@@ -777,7 +775,7 @@ Requires:	%{name}-gb-qt4 = %{version}-%{release}
 %{summary}
 
 %package gb-qt4-webview
-Summary:        Gambas3 component package for qt4-webview
+Summary:	 Gambas3 component package for qt4-webview
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-qt4 = %{version}-%{release}
 
@@ -785,8 +783,8 @@ Requires:	%{name}-gb-qt4 = %{version}-%{release}
 %{summary}
 
 %package gb-qt5
-Summary:        Gambas3 component package for qt5
-Requires:       %{name}-runtime = %{version}-%{release}
+Summary:	 Gambas3 component package for qt5
+Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-image = %{version}-%{release}
 # Technically, you do not need both of these, only one, but since we have no way to know
 # which one you need, we just require both.
@@ -805,16 +803,16 @@ Requires:	%{name}-gb-qt5 = %{version}-%{release}
 %{summary}
 
 %package gb-qt5-opengl
-Summary:        Gambas3 component package for qt5-opengl
-Requires:       %{name}-runtime = %{version}-%{release}
-Requires:       %{name}-gb-qt5 = %{version}-%{release}
-Requires:       %{name}-gb-opengl = %{version}-%{release}
+Summary:	 Gambas3 component package for qt5-opengl
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-qt5 = %{version}-%{release}
+Requires:	%{name}-gb-opengl = %{version}-%{release}
 
 %description gb-qt5-opengl
 %{summary}
 
 %package gb-qt5-wayland
-Summary:        Gambas3 component package for qt5-wayland
+Summary:	 Gambas3 component package for qt5-wayland
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-qt5 = %{version}-%{release}
 
@@ -822,15 +820,15 @@ Requires:	%{name}-gb-qt5 = %{version}-%{release}
 %{summary}
 
 %package gb-qt5-webkit
-Summary:        Gambas3 component package for qt5-webkit
-Requires:       %{name}-runtime = %{version}-%{release}
-Requires:       %{name}-gb-qt5 = %{version}-%{release}
+Summary:	 Gambas3 component package for qt5-webkit
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-qt5 = %{version}-%{release}
 
 %description gb-qt5-webkit
 %{summary}
 
 %package gb-qt5-webview
-Summary:        Gambas3 component package for qt5-webview
+Summary:	 Gambas3 component package for qt5-webview
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-qt5 = %{version}-%{release}
 
@@ -838,7 +836,7 @@ Requires:	%{name}-gb-qt5 = %{version}-%{release}
 %{summary}
 
 %package gb-qt5-x11
-Summary:        Gambas3 component package for qt5-x11
+Summary:	 Gambas3 component package for qt5-x11
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-qt5 = %{version}-%{release}
 
@@ -922,7 +920,7 @@ Requires:	%{name}-runtime = %{version}-%{release}
 %{summary}
 
 %package gb-term-form
-Summary:        Gambas3 component package for term-form
+Summary:	 Gambas3 component package for term-form
 Requires:	%{name}-runtime = %{version}-%{release}
 
 %description gb-term-form
@@ -985,9 +983,9 @@ Requires:	%{name}-gb-util = %{version}-%{release}
 %{summary}
 
 %package gb-web-gui
-Summary: 	Gambas3 component package for web-gui
+Summary:	Gambas3 component package for web-gui
 Requires:	%{name}-runtime = %{version}-%{release}
-Requires:       %{name}-gb-web = %{version}-%{release}
+Requires:	%{name}-gb-web = %{version}-%{release}
 Requires:	%{name}-gb-util = %{version}-%{release}
 Requires:	%{name}-gb-util-web = %{version}-%{release}
 Requires:	%{name}-gb-signal = %{version}-%{release}
@@ -1028,9 +1026,9 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 
 %prep
 %setup -q -n gambas-%{version}
-%patch -P1 -p1 -b .nolintl
-%patch -P2 -p1 -b .noliconv
-%patch -P5 -p1 -b .gst1
+%patch -P 1 -p1 -b .nolintl
+%patch -P 2 -p1 -b .noliconv
+%patch -P 5 -p1 -b .gst1
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -1070,9 +1068,7 @@ MY_CFLAGS=`echo %{build_cflags} | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//g' | sed -e
 	--enable-sqlite3 \
 	--enable-sdl \
 	--enable-vb \
-%if 0%{?fedora} <= 37
 	--enable-pdf \
-%endif
 	--with-bzlib2-libraries=%{_libdir} \
 	--with-crypt-libraries=%{_libdir} \
 	--with-curl-libraries=%{_libdir} \
@@ -1585,14 +1581,12 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_libdir}/%{name}/gb.pcre.*
 %{_datadir}/%{name}/info/gb.pcre.*
 
-%if 0%{?fedora} <= 37
 %files gb-pdf
 %{_libdir}/%{name}/gb.pdf.component
 %{_libdir}/%{name}/gb.pdf.so*
 %{_libdir}/%{name}/gb.pdf.la
 %{_datadir}/%{name}/info/gb.pdf.info
 %{_datadir}/%{name}/info/gb.pdf.list
-%endif
 
 %files gb-poppler
 %{_libdir}/%{name}/gb.poppler.component
@@ -1795,6 +1789,10 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Mon Dec 04 2023 Ondrej Sloup <osloup@redhat.com> - 3.18.4-1
+- Rebase to the latest upstream version 
+- Remove upper bound on poppler version check for GB.PDF
+
 * Mon Aug 07 2023 Marek Kasik <mkasik@redhat.com> - 3.18.3-2
 - Rebuild for poppler 23.08.0
 

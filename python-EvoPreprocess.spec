@@ -10,11 +10,16 @@ implementation of nature-inspired algorithms.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python Toolkit for Data Preprocessing
-License:        GPLv3
+# We conservatively interpret “GPLv3” as GPL-3.0-only, but have requested
+# explicit clarification from upstream in:
+#
+# Please clarify GPL version
+# https://github.com/karakatic/EvoPreprocess/issues/16
+License:        GPL-3.0-only
 URL:            https://github.com/karakatic/%{pypi_name}
-Source0:        %{pypi_source evopreprocess}
+Source:         %{pypi_source evopreprocess}
             
 BuildArch:      noarch
 
@@ -31,7 +36,7 @@ Summary:        %{summary}
 %autosetup -n %{simple_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -39,17 +44,20 @@ Summary:        %{summary}
 %install
 %pyproject_install
 
-%pyproject_save_files %{simple_name}
+%pyproject_save_files -l %{simple_name}
 
 %check
 # use smoke tests
 %pyproject_check_import
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 %changelog
+* Tue Jan 02 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.0-4
+- Assert a license file is automatically handled; don’t package a duplicate
+- Update License to SPDX
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

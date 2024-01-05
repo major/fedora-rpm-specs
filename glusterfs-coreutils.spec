@@ -2,13 +2,14 @@
 Summary:          Core Utilities for the Gluster Distributed File System
 Name:             glusterfs-coreutils
 Version:          0.3.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPL-3.0-only
 URL:              https://github.com/gluster/glusterfs-coreutils
 # The source for this package was created from upstream source using the
 # following command:
 #       make dist
 Source0:          https://github.com/gluster/glusterfs-coreutils/archive/v%{version}/%{name}-v%{version}.tar.gz
+Patch0: glusterfs-coreutils-c99.patch
 
 Provides:         bundled(gnulib)
 
@@ -41,6 +42,9 @@ make
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 0.3.2-2
+- Fix another C compatibility issue
+
 * Wed Jul 26 2023 Anoop C S <anoopcs@cryptolab.net> - 0.3.2-1
 - glusterfs-coreutils 0.3.2 GA
 

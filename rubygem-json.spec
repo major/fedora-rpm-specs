@@ -1,8 +1,8 @@
 %global	gem_name	json
 
 Name:           rubygem-%{gem_name}
-Version:        2.6.3
-Release:        204%{?dist}
+Version:        2.7.1
+Release:        201%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
@@ -14,12 +14,14 @@ Source1:        rubygem-%{gem_name}-%{version}-missing-files.tar.gz
 # Source1 is created by $ %%SOURCE2 v%%version
 Source2:        json-create-tarball-missing-files.sh
 
+
 BuildRequires:  gcc
 BuildRequires:  ruby(release)
 BuildRequires:  ruby-devel
 BuildRequires:  rubygems-devel
 BuildRequires:  rubygem(rake)
 BuildRequires:  rubygem(bigdecimal)
+BuildRequires:  rubygem(test-unit-ruby-core)
 BuildRequires:  rubygem(test-unit)
 
 Obsoletes:	rubygem-%{gem_name}-gui < %{version}
@@ -43,6 +45,7 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -a 1
+mv ./%{gem_name}-%{version}/tests .
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Change cflags to honor Fedora compiler flags correctly
@@ -87,7 +90,7 @@ popd
 
 %check
 rm -rf .%{gem_instdir}/tests
-cp -a ./%{gem_name}-%{version}/tests .%{gem_instdir}/
+cp -a ./tests .%{gem_instdir}/
 
 pushd .%{gem_instdir}
 ruby -Ilib:tests:tests/lib:$RPM_BUILD_ROOT%{gem_extdir_mri}:. \
@@ -103,7 +106,6 @@ popd
 %doc %{gem_instdir}/CHANGES.md
 %license %{gem_instdir}/LICENSE
 %doc %{gem_instdir}/README.md
-%doc %{gem_instdir}/VERSION
 
 %{gem_libdir}/%{gem_name}.rb
 %{gem_libdir}/%{gem_name}/add
@@ -124,6 +126,18 @@ popd
 
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.1-201
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
+* Tue Dec  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.1-200
+- 2.7.1
+
+* Sun Dec  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.0-201
+- Backport upstream patch for JSON.dump regression for hash
+
+* Fri Dec  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.0-200
+- 2.7.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-204
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

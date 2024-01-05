@@ -49,7 +49,7 @@ sed -r -i 's/--cov[^[:blank:]=]*=[^[:blank:]]*//g' setup.cfg
 
 %install
 %pyproject_install
-%pyproject_save_files h5io
+%pyproject_save_files -l h5io
 
 
 %check

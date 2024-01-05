@@ -61,7 +61,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 23.3.1
+%global ver 23.3.2
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
@@ -74,8 +74,8 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
-Patch11:        0001-intel-compiler-move-gen5-final-pass-to-actually-be-f.patch
-Patch12:        0001-intel-compiler-don-t-invert-if-s-on-gen5-or-older.patch
+Patch11:        0001-intel-compiler-reemit-boolean-resolve-for-inverted-i.patch
+Patch12:        0001-intel-compiler-fix-release-build-unused-variable.patch
 
 BuildRequires:  meson >= 1.2.0
 BuildRequires:  gcc

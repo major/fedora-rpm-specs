@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 5.91.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -118,10 +118,6 @@ Conflicts:      kde-workspace%{?_isa} < 4.11.14-2
 Obsoletes:      kwin-gles < 5
 Obsoletes:      kwin-gles-libs < 5
 
-# http://bugzilla.redhat.com/605675
-# until initial-setup is fixed... (#1197135)
-Provides: firstboot(windowmanager) = kwin
-
 # Split of X11 variant into subpackage
 Obsoletes: kwin < 5.19.5-3
 
@@ -139,8 +135,6 @@ Requires:       kwayland-integration%{?_isa}
 BuildRequires:  xorg-x11-server-Xwayland
 %endif
 Requires:       xorg-x11-server-Xwayland
-# http://bugzilla.redhat.com/605675
-Provides:       firstboot(windowmanager) = kwin_wayland
 # KWinQpaPlugin (and others?)
 
 # Obsolete kwin-wayland-nvidia package as this is now done automatically
@@ -290,6 +284,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Wed Jan 03 2024 Alessandro Astone <ales.astone@gmail.com> - 5.91.0-2
+- Only provide firstboot(windowmanager) with kwin-x11
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

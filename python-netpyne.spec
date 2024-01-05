@@ -94,7 +94,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 
 %install
 %pyproject_install
-%pyproject_save_files netpyne
+%pyproject_save_files -l netpyne
 
 %check
 # Do not test optional modules that have requirements not yet packaged in Fedora

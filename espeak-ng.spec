@@ -1,6 +1,6 @@
 Name:          espeak-ng
 Version:       1.51.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       eSpeak NG Text-to-Speech
 
 License:       GPL-3.0-only AND GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND Unicode-DFS-2016 AND CC-BY-SA-3.0
@@ -16,6 +16,10 @@ BuildRequires: pkgconfig
 BuildRequires: rubygem-ronn
 BuildRequires: rubygem-kramdown
 BuildRequires: pcaudiolib-devel
+
+# Backported from:
+# https://github.com/espeak-ng/espeak-ng/commit/58f1e0b6a4e6aa55621c6f01118994d01fd6f68c
+Patch0:        espeak-ng-1.51-CVE-2023-49990-4.patch
 
 %description
 The eSpeak NG (Next Generation) Text-to-Speech program is an open source speech
@@ -105,6 +109,18 @@ ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} src/espeak-ng ...
 %doc docs/*.html
 
 %changelog
+* Wed Jan  3 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.51.1-6
+- Fixed buffer overflow in SetUpPhonemeTable function at synthdata.c
+  Resolves: CVE-2023-49990
+- Fixed buffer underflow in CountVowelPosition function at synthdata.c
+  Resolves: CVE-2023-49991
+- Fixed buffer overflow in RemoveEnding at dictionary.c
+  Resolves: CVE-2023-49992
+- Fixed buffer overflow in ReadClause function at readclause.c
+  Resolves: CVE-2023-49993
+- Fixed floating point exception in PeaksToHarmspect at wavegen.c
+  Resolves: CVE-2023-49994
+
 * Tue Jan 02 2024 Tomas Korbar <tkorbar@redhat.com> - 1.51.1-5
 - Change license tag so it fully conforms to SPDX
 

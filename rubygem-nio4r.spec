@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: New IO for Ruby
 # The entire source code is MIT, bundled libev is BSD-2-Clause OR GPL-2.0-or-later
 License: MIT AND (BSD-2-Clause OR GPL-2.0-or-later)
@@ -100,6 +100,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 2.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Fri Nov 24 2023 Vít Ondruch <vondruch@redhat.com> - 2.6.1-1
 - Update to nio4r 2.6.1.
   Resolves: rhbz#2183888

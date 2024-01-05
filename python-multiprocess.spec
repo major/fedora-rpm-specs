@@ -103,7 +103,7 @@ done
 
 %install
 %pyproject_install
-%pyproject_save_files multiprocess _multiprocess
+%pyproject_save_files -l multiprocess _multiprocess
 
 %check
 # See tox.ini (but don’t try to use %%tox unless we comment out the explicit

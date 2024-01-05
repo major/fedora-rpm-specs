@@ -1,6 +1,6 @@
 Name:           python-shellingham
 Version:        1.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to detect surrounding Shell
 License:        ISC
 URL:            https://github.com/sarugaku/shellingham
@@ -32,7 +32,7 @@ Shellingham detects what shell the current Python executable is running in.
 
 %install
 %pyproject_install
-%pyproject_save_files shellingham
+%pyproject_save_files -l shellingham
 
 %check
 %pytest -v
@@ -41,6 +41,9 @@ Shellingham detects what shell the current Python executable is running in.
 %doc README.rst CHANGELOG.rst
 
 %changelog
+* Tue Jan 02 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.4-2
+- Assert that the .dist-info directory contains a license file
+
 * Thu Nov 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.4-1
 - Update to 1.5.4 (close RHBZ#2158926)
 

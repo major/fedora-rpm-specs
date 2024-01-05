@@ -11,7 +11,7 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.97
+Version: 4.97.1
 Release: 1%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
@@ -492,6 +492,12 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Wed Jan  3 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.97.1-1
+- New version
+  Resolves: rhbz#2256145
+- Fixed SMTP smuggling vulnerability
+  Resolves: CVE-2023-51766
+
 * Mon Nov  6 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.97-1
 - New version
   Resolves: rhbz#2247920

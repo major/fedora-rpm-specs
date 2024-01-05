@@ -4,13 +4,17 @@
 
 Name:           tinyxml
 Version:        2.6.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A simple, small, C++ XML parser
 License:        zlib
 URL:            http://www.grinninglizard.com/tinyxml/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}_%{underscore_version}.tar.gz
 Source1:        tinyxml.pc.in
 Patch0:         tinyxml-2.5.3-stl.patch
+# https://sourceforge.net/p/tinyxml/patches/_discuss/thread/fa2235db/f16d/attachment/entity.patch
+Patch1:         tinyxml-issue51.patch
+Patch2:         https://sources.debian.org/data/main/t/tinyxml/2.6.2-6.1/debian/patches/CVE-2021-42260.patch
+Patch3:         https://sources.debian.org/data/main/t/tinyxml/2.6.2-6.1/debian/patches/CVE-2023-34194.patch
 
 BuildRequires:  gcc-c++
 
@@ -32,9 +36,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1 -b .stl
-touch -r tinyxml.h.stl tinyxml.h
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -69,6 +71,13 @@ sed -e 's![@]prefix[@]!%{_prefix}!g' \
  %{SOURCE1} > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 
 
+%check
+%{set_build_flags}
+${CXX} $RPM_OPT_FLAGS -DTIXML_USE_STL -fPIE -ltinyxml -L%{buildroot}%{_libdir} -o xmltest xmltest.cpp
+chmod +x xmltest
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./xmltest
+
+
 %files
 %doc changes.txt readme.txt
 %{_libdir}/*.so.*
@@ -81,6 +90,13 @@ sed -e 's![@]prefix[@]!%{_prefix}!g' \
 
 
 %changelog
+* Wed Jan 03 2024 Dominik Mierzejewski <dominik@greysector.net> - 2.6.2-28
+- apply Debian patch to fix CVE-2021-42260 (rhbz#2253716, rhbz#2253718)
+- apply Debian patch to fix CVE-2023-34194 and its duplicate, CVE-2023-40462
+  (rhbz#2254376, rhbz#2254381)
+- fix incorrect text element encoding (upstream isssue #51)
+- compile and run tests
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

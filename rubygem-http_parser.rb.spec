@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.8.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple callback-based HTTP request/response parser
 License:	MIT
 URL:		https://github.com/tmm1/http_parser.rb
@@ -79,6 +79,9 @@ popd
 %{gem_instdir}/tasks
 
 %changelog
+* Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Sun Jul 30 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.8.0-1
 - Update to 0.8.0
 

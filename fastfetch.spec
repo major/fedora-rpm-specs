@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.4.0
+Version:        2.5.0
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -120,6 +120,9 @@ BuildArch: noarch
 %{_datadir}/fish/vendor_completions.d/%{name}.fish
 
 %changelog
+* Thu Jan 04 2024 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 2.5.0-1
+- update to 2.5.0 rhbz#2256373
+
 * Mon Dec 18 2023 Jonathan Wright <jonathan@almalinux.org> - 2.4.0-1
 - update to 2.4.0 rhbz#2255169
 

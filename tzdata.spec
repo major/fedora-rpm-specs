@@ -1,9 +1,9 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2023c
-%define tzdata_version 2023c
-%define tzcode_version 2023c
-Release: 5%{?dist}
+Version: 2023d
+%define tzdata_version 2023d
+%define tzcode_version 2023d
+Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -112,6 +112,13 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Wed Jan 03 2024 Patsy Griffin <patsy@redhat.com> - 2023d-1
+- Rebase to tzdata-2023d
+  - Include time zone changes for Ittoqqortoormiit, Greenland
+    and Vostok, Antarctica.
+  - Update the expiration date for the leap-seconds.list file.
+    No new leap seconds were added.
+
 * Wed Dec 13 2023 Patsy Griffin <patsy@redhat.com> - 2023c-5
 - Remove Java 6/7 support for Fedora 40 and RHEL 10 forward.
 

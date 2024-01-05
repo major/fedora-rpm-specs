@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Ruby binding to ZOOM
 
 # README.md
@@ -108,6 +108,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-31
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Fri Dec  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-30
 - Update to the modern spec style
 - SPDX migration

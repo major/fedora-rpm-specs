@@ -19,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -466,6 +466,9 @@ rm -rf $RPM_BUILD_ROOT/bin
 
 
 %changelog
+* Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-16
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
+
 * Sun Oct 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-15
 - Remove patches applied for the components which are no longer built
 

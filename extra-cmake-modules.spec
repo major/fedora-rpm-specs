@@ -12,7 +12,7 @@
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
 Version: 5.247.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{version}/%{framework}-%{version}.tar.xz
@@ -21,6 +21,11 @@ BuildArch:      noarch
 ## upstreamable patches
 # do not unconditionally link in base/core libpoppler library
 Patch2: extra-cmake-modules-5.39.0-poppler_overlinking.patch
+
+## downstream patches
+# Workaround "-z pack-relative-relocs" breaking build of every ECM project for aarch64 and s390x
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/NBBYVDTZRKT35F2KMI2ADLRF5XMEOL3R/
+Patch10: no-ld-fatal-warnings.patch
 
 BuildRequires: kf6-rpm-macros
 BuildRequires: make
@@ -75,6 +80,10 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Wed Jan 03 2024 Alessandro Astone <ales.astone@gmail.com> - 5.247.0-2
+- Workaround "-z pack-relative-relocs" breaking build of every ECM project for
+  aarch64 and s390x
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

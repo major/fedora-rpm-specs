@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        102
+Version:        103
 
 %forgemeta
 
@@ -278,6 +278,29 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Jan 03 2024 Packit <hello@packit.dev> - 103-1
+Changes with 103
+----------------
+  * Update snapshots to 20240101 (#1520)
+    * Author: SchutzBot, Reviewers: Tomáš Hozza
+  * github: run tests on push again (#1517)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Simon de Vlieger, Tom Gundersen
+  * mounts: support mounting partitions (#1501)
+    * Author: Dusty Mabe, Reviewers: Michael Vogt
+  * osbuild: allow to export a tree without preserving the ownership (less tests) (#1512)
+    * Author: Michael Vogt, Reviewers: Tomáš Hozza
+  * test: add more output when ensure_mtime() assert fails (#1518)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * test: fix running on debian hosts (#1522)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * test: include tests in `make lint` and fix issues (#1521)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * test: rename TestFileSystemMountService->FakeFileSystemMountService (#1513)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2024-01-03
+
+
 * Wed Dec 20 2023 Packit <hello@packit.dev> - 102-1
 Changes with 102
 ----------------

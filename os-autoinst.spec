@@ -37,7 +37,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
@@ -103,7 +103,8 @@ Recommends:     e2fsprogs
 # Optional dependency for Python test API support
 Recommends:     perl(Inline::Python)
 # More efficient video encoding is done automatically if ffmpeg is present
-Recommends:     ffmpeg >= 4
+# diff from SUSE: this is just 'ffmpeg' there
+Recommends:     ffmpeg-free >= 4
 BuildRequires:  %test_requires %test_version_only_requires
 # For unbuffered output of Perl testsuite
 BuildRequires:  expect
@@ -253,6 +254,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Wed Jan 03 2024 Adam Williamson <awilliam@redhat.com> - 4.6^20231222gitd525e04-2
+- Recommend ffmpeg-free, not ffmpeg
+
 * Tue Jan 02 2024 Adam Williamson <awilliam@redhat.com> - 4.6^20231222gitd525e04-1
 - Update to latest git
 

@@ -6,7 +6,8 @@ Version:          0.4.11
 Release:          5%{?dist}
 
 # NOTE: The licensing details are explained in COPYING file in source archive.
-License:          BSD and GPLv2
+# Makefile is HPND-sell-variant but is not included in binary package
+License:          (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 
 URL:              https://poppler.freedesktop.org/
 Source:           https://poppler.freedesktop.org/poppler-data-%{version}.tar.gz

@@ -74,6 +74,8 @@ ignore="${ignore-} --ignore=tests/test_widget_point.py"
 
 
 %files -n python3-fsleyes-props -f %{pyproject_files}
+# The .dist-info directory contains LICENSE but not COPYRIGHT, so manual
+# handling is still required:
 %license LICENSE COPYRIGHT
 %doc CHANGELOG.rst
 %doc README.rst
