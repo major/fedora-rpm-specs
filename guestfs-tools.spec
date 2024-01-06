@@ -11,14 +11,14 @@
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.51-development
+%global source_directory 1.52-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.51.7
+Version:       1.52.0
 Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
@@ -398,6 +398,9 @@ end
 
 
 %changelog
+* Thu Jan  4 2024 Richard W.M. Jones <rjones@redhat.com> - 1.52.0-1
+- New stable version 1.52.0
+
 * Tue Dec 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.7-1
 - New development version 1.51.7
 

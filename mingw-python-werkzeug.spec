@@ -1,26 +1,28 @@
 %{?mingw_package_header}
 
 %global mod_name werkzeug
-%global pypi_name Werkzeug
+%global pypi_name werkzeug
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.2.3
-Release:       2%{?dist}
+Version:       3.0.1
+Release:       1%{?dist}
 BuildArch:     noarch
 
 # Code is BSD, bundled icons are CC-BY
 License:       BSD and CC-BY
 URL:           https://palletsprojects.com/p/werkzeug/
-Source0:       %{pypi_source Werkzeug}
+Source0:       %{pypi_source}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description
@@ -67,6 +69,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Thu Jan 04 2024 Sandro Mani <manisandro@gmail.com> - 3.0.1-1
+- Update to 3.0.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

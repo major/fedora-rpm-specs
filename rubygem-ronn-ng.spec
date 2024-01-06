@@ -12,6 +12,9 @@ Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/apjanke/ronn-ng/issues/80
 # https://github.com/apjanke/ronn-ng/pull/81
 Patch0:         rubygem-ronn-ng-0.9.1-Permit-Time-class-loading-from-YAML.patch
+# Workaround for libxml2 2.10.3+ test compatibility
+# https://github.com/apjanke/ronn-ng/issues/102
+Patch1:         rubygem-ronn-ng-0.9.1-libxml2-namespace.patch
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
 BuildRequires:  ruby
@@ -45,6 +48,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 
 %patch0 -p1
+%patch -P1 -p1
 
 # Upstream specifies mustache==0.7, but we have 1.1 and it seems to work fine...
 %gemspec_remove_dep -g mustache "~> 0.7"

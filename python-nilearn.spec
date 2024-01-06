@@ -75,7 +75,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_install
-%pyproject_save_files nilearn
+%pyproject_save_files -l nilearn
 
 %check
 
@@ -96,7 +96,7 @@ k="${k:-}${k:+ and} not test_fetch_atlas_talairach and not test_fetch_atlas_paul
 %{pytest} -k "${k:-}" nilearn
 
 %files -n python3-nilearn -f %{pyproject_files}
-%doc AUTHORS.rst README.rst
+%doc README.rst
 
 %changelog
 %autochangelog

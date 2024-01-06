@@ -28,7 +28,7 @@ sed -i 's/PyQt5==5.13/PyQt5>=5.13/' setup.py
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -37,7 +37,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 
 %install
 %pyproject_install
-%pyproject_save_files hybridizer
+%pyproject_save_files -l hybridizer
 desktop-file-install                                    \
 --dir=%{buildroot}%{_datadir}/applications              \
 %{SOURCE1}
@@ -47,7 +47,6 @@ desktop-file-install                                    \
 
 %files -f %{pyproject_files}
 %doc README.*
-%license LICENSE*
 %{_bindir}/shybrid
 %{_datadir}/applications/%{name}.desktop
 

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/RoaringBitmap/CRoaring
-Version:        2.1.0
+Version:        2.1.2
 %forgemeta
 
 Name:           croaring
@@ -8,8 +8,6 @@ Summary:        Roaring bitmaps in C (and C++), with SIMD (AVX2, AVX-512 and NEO
 License:        Apache-2.0 OR MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Add ROARING_USE_CPM option to use system dependencies
-Patch0:         https://github.com/RoaringBitmap/CRoaring/pull/532.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

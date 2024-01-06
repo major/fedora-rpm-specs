@@ -42,7 +42,7 @@ Summary:        %{summary}
 %autosetup -n pymatreader-v%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -50,7 +50,7 @@ Summary:        %{summary}
 %install
 %pyproject_install
 
-%pyproject_save_files pymatreader
+%pyproject_save_files -l pymatreader
 
 %check
 %if %{with tests}

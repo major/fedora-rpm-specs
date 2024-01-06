@@ -65,7 +65,7 @@ find . -type f -exec file '{}' '+' |
 
 %install
 %pyproject_install
-%pyproject_save_files SALib
+%pyproject_save_files -l SALib
 
 %check
 %if %{with tests}
@@ -73,7 +73,6 @@ find . -type f -exec file '{}' '+' |
 %endif
 
 %files -n python3-salib -f %{pyproject_files}
-%doc AUTHORS.rst
 %doc CHANGELOG.md
 %doc CITATION.cff
 %doc CITATIONS.rst

@@ -5,7 +5,7 @@
 %global crate test-case-core
 
 Name:           rust-test-case-core
-Version:        3.2.1
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Core procedural macro for generating parametrized test cases
 

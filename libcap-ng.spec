@@ -1,10 +1,11 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.8.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://people.redhat.com/sgrubb/libcap-ng/
 Source0: https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
+Patch1: libcap-ng-0.8.5-python-exception.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: kernel-headers >= 2.6.11 
@@ -47,6 +48,7 @@ lets you set the file system based capabilities.
 
 %prep
 %setup -q
+%patch -P1 -p1
 
 %build
 %configure --libdir=%{_libdir} --with-python=no --with-python3
@@ -92,6 +94,9 @@ make check
 %attr(0644,root,root) %{_mandir}/man8/*
 
 %changelog
+* Thu Jan 04 2024 Steve Grubb <sgrubb@redhat.com> 0.8.4-2
+- Remove python bindings global exception handler
+
 * Wed Dec 20 2023 Steve Grubb <sgrubb@redhat.com> 0.8.4-1
 - New upstream bugfix release
 - Drop libcap-ng-0.8.3-apply-disable.patch since things should be fixed

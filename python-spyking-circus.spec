@@ -88,7 +88,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 sed -i 's/nose,//' tests/__init__.py
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -100,7 +100,7 @@ mkdir -m 0755 -p $RPM_BUILD_ROOT/%{_datadir}/spyking-circus/
 mv $RPM_BUILD_ROOT/%{python3_sitelib}/usr/share/spyking-circus/* $RPM_BUILD_ROOT/%{_datadir}/spyking-circus/
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/usr/
 
-%pyproject_save_files circus
+%pyproject_save_files -l circus
 
 %check
 %if %{with tests}

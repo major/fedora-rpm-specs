@@ -5,7 +5,7 @@
 %global crate jql-runner
 
 Name:           rust-jql-runner
-Version:        7.0.6
+Version:        7.1.2
 Release:        %autorelease
 Summary:        Runner for jql - the JSON Query Language tool
 

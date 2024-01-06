@@ -91,8 +91,8 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        6.0.1
-Release:        2%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -113,32 +113,12 @@ Source93:       ffmpeg_find_free_source_headers.sh
 
 # Fixes for reduced codec selection on free build
 Patch1:         ffmpeg-codec-choice.patch
-# Better error messages for free build
-Patch2:         ffmpeg-new-coder-errors.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
-Patch3:         ffmpeg-allow-fdk-aac-free.patch
-# Backport upstream patches for libplacebo v5.264
-Patch4:         0001-avfilter-vf_libplacebo-wrap-deprecated-opts-in-FF_AP.patch
-Patch5:         0001-avfilter-vf_libplacebo-remove-deprecated-field.patch
-
-# Backport fix for segfault when passing non-existent filter option
-# See: https://bugzilla.rpmfusion.org/show_bug.cgi?id=6773
-Patch7:         0001-fftools-ffmpeg_filter-initialize-the-o-to-silence-th.patch
-
-# Backport patches for enhanced rtmp support
-# Cf. https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=8926
-## From: https://patchwork.ffmpeg.org/series/8926/mbox/
-Patch8:         FFmpeg-devel-v10-Support-enhanced-flv-in-FFmpeg.patch
-
-# Backport AV1 VA-API encode support
-# Courtesy of GloriousEggroll
-## Adapted from: https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=9594
-Patch9:         ffmpeg-ge-av1-vaapi-encode-support.patch
-
+Patch2:         ffmpeg-allow-fdk-aac-free.patch
 # Drop openh264 runtime version checks
 # https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=10211
-Patch10:        0001-lavc-libopenh264-Drop-openh264-runtime-version-check.patch
+Patch4:         0001-lavc-libopenh264-Drop-openh264-runtime-version-check.patch
 
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch
@@ -256,7 +236,7 @@ BuildRequires:  pkgconfig(vidstab)
 BuildRequires:  pkgconfig(vorbis)
 BuildRequires:  pkgconfig(vo-amrwbenc)
 BuildRequires:  pkgconfig(vpx)
-BuildRequires:  pkgconfig(vulkan)
+BuildRequires:  pkgconfig(vulkan) >= 1.3.255
 BuildRequires:  pkgconfig(wavpack)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-render)
@@ -880,6 +860,12 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Thu Jan 04 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.1.1-1
+- Update to 6.1.1
+
+* Thu Jan 04 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.1-1
+- Rebase to 6.1
+
 * Wed Dec 06 2023 Kalev Lember <klember@redhat.com> - 6.0.1-2
 - Prefer openh264 over noopenh264
 - Backport upstream patch to drop openh264 runtime version checks

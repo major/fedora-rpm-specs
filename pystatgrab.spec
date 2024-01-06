@@ -1,14 +1,13 @@
 %global srcname pystatgrab
 
 Name:           pystatgrab
-Version:        0.7.1
-Release:        11%{?dist}
+Version:        0.7.2
+Release:        1%{?dist}
 Summary:        Python bindings for libstatgrab
 
 License:        LGPL-2.0-or-later
-URL:            http://www.i-scream.org/pystatgrab/
-Source0:        https://ftp.i-scream.org/pub/i-scream/pystatgrab/%{name}-%{version}.tar.gz
-Patch0:         0001-setup.py-refactor-deprecated-distutils.patch
+URL:            https://libstatgrab.org/pystatgrab/
+Source0:        https://github.com/libstatgrab/pystatgrab/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libstatgrab-devel > 0.91
@@ -46,6 +45,11 @@ PYTHONPATH=%{buildroot}/%{python3_sitearch} %{__python3} test.py
 %{python3_sitearch}/*
 
 %changelog
+* Wed Jan 03 2024 Jonathan Wright <jonathan@almalinux.org> - 0.7.2-1
+- Update to 0.7.2 rhbz#2255754
+- Update URL
+- Update Source
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

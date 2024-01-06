@@ -5,7 +5,7 @@
 %global crate ahash
 
 Name:           rust-ahash
-Version:        0.8.6
+Version:        0.8.7
 Release:        %autorelease
 Summary:        Non-cryptographic hash function using AES-NI for high performance
 
@@ -97,6 +97,18 @@ This package contains library source intended for building other packages which
 use the "getrandom" feature of the "%{crate}" crate.
 
 %files       -n %{name}+getrandom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+nightly-arm-aes-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+nightly-arm-aes-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "nightly-arm-aes" feature of the "%{crate}" crate.
+
+%files       -n %{name}+nightly-arm-aes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+no-rng-devel

@@ -77,7 +77,7 @@ Documentation for %{name}.
 
 %install
 %pyproject_install
-%pyproject_save_files genetic_selection
+%pyproject_save_files -l genetic_selection
 
 %check
 %if %{with tests}

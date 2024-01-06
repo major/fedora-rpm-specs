@@ -3,7 +3,7 @@
 
 Name:		python-%{pypi_name}
 Version:	1.3.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	FontAwesome icons in PyQt and PySide applications
 # MIT: QtAwesome code and the bundled phosphor and remixicon fonts
@@ -86,7 +86,7 @@ sed -i '/^SYSTEM_FONTS = /s/False/True/' qtawesome/iconic_font.py
 
 %install
 %pyproject_install
-%pyproject_save_files qtawesome
+%pyproject_save_files -l qtawesome
 
 %if 0%{?fedora} > 38
 # Unbundle the fontawesome 4.x font
@@ -105,11 +105,13 @@ ln -s %{_datadir}/fontawesome/webfonts/fa-solid-900.ttf \
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE.txt
 %doc README.md
 %{_bindir}/qta-browser
 
 %changelog
+* Thu Jan 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.0-2
+- Assert a license file is automatically handled; don’t package a duplicate
+
 * Thu Dec 14 2023 Jonathan Wright <jonathan@almalinux.org> - 1.3.0-1
 - Update to 1.3.0 rhbz#2254511
 

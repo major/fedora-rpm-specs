@@ -36,7 +36,7 @@ BuildRequires:  python3-devel
 
 %install
 %pyproject_install
-%pyproject_save_files toposort
+%pyproject_save_files -l toposort
 
 %check
 %if %{with tests}
@@ -44,7 +44,6 @@ BuildRequires:  python3-devel
 %endif
 
 %files -n python3-toposort -f %{pyproject_files}
-# pyproject_files handles LICENSE.txt and NOTICE; verify with “rpm -qL -p …”
 %doc CHANGES.txt
 %doc README.md
 

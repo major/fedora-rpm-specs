@@ -11,7 +11,8 @@ Version:        2.46.3
 Release:        %autorelease
 Summary:        C++ interface for Pango
 
-License:        LGPLv2+
+# tools are GPL-2.0-only
+License:        LGPL-2.1-or-later AND GPL-2.0-only
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/pangomm/%{release_version}/%{name}-%{version}.tar.xz
 
@@ -47,6 +48,10 @@ developing pangomm applications.
 
 %package          doc
 Summary:          Developer's documentation for the pangomm library
+# untracked/docs/tagfile-to-devhelp2.xsl is AGPL-3.0-only
+# bundled *.js are MIT
+# untracked/docs/reference/html/jquery.js is GPL-2.0-only OR MIT
+License:          GPL-2.0-or-later AND AGPL-3.0-only AND MIT AND (GPL-2.0-only OR MIT)
 BuildArch:        noarch
 Requires:         %{name} = %{version}-%{release}
 Requires:         libsigc++20-doc

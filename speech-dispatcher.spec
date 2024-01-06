@@ -1,6 +1,6 @@
 Name:          speech-dispatcher
 Version:       0.11.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -80,6 +80,7 @@ Summary:        Various utilities for speech-dispatcher
 License:        GPL-2.0-or-later
 Requires:       %{name}%{_isa} = %{version}-%{release}
 Requires:       python3-speechd = %{version}-%{release}
+Requires:       pulseaudio-utils
 
 %description utils
 Various utilities for speechd
@@ -234,6 +235,9 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %{python3_sitearch}/speechd*
 
 %changelog
+* Thu Jan 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.11.5-2
+- Have utils require pulseaudio-utils as it's the default.
+
 * Mon Aug 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.5-1
 - 0.11.5
 

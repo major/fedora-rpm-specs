@@ -22,10 +22,6 @@
 
 # enable|disble bootstrap
 %global bootstrap 0
-# workaround for broken gn on epel 8/9
-%if 0%{?rhel} == 8 || 0%{?rhel} == 9
-%global bootstrap 1
-%endif
 
 # Fancy build status, so we at least know, where we are..
 # %1 where
@@ -289,7 +285,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 120.0.6099.129
+Version: 120.0.6099.199
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1770,6 +1766,14 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Jan 04 2024 Than Ngo <than@redhat.com> - 120.0.6099.199-1
+- new gn update, drop workaround for broken gn on epel 8/9
+- update to 120.0.6099.199
+   * CVE-2024-0222: Use after free in ANGLE
+   * CVE-2024-0223: Heap buffer overflow in ANGLE
+   * CVE-2024-0224: Use after free in WebAudio
+   * CVE-2024-0225: Use after free in WebGPU
+
 * Thu Dec 21 2023 Than Ngo <than@redhat.com> - 120.0.6099.129-1
 - update to 120.0.6099.129
   * High CVE-2023-7024: Heap buffer overflow in WebRTC

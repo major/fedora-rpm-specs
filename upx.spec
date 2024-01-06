@@ -1,5 +1,5 @@
 Name:           upx
-Version:        4.2.1
+Version:        4.2.2
 Release:        1%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
@@ -43,6 +43,9 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 
 %changelog
+* Thu Jan 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 4.2.2-1
+- 4.2.2
+
 * Thu Nov 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
 - 4.2.1
 

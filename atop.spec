@@ -1,8 +1,8 @@
 %define _hardened_build 1
 
 Name:           atop
-Version:        2.9.0
-Release:        2%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        An advanced interactive monitor to view the load on system and process level
 
 License:        GPL-2.0-or-later
@@ -11,13 +11,13 @@ Source0:        https://www.atoptool.nl/download/%{name}-%{version}.tar.gz
 Source1:        atop.d
 
 Patch0:         atop-sysconfig.patch
-Patch1:         format.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
-BuildRequires:  ncurses-devel 
+BuildRequires:  ncurses-devel
+BuildRequires:  glib2-devel
 BuildRequires:  systemd
-BuildRequires: make
+BuildRequires:  make
 #%%if 0%%{?rhel} >= 8 || 0%%{?fedora}
 #Requires:       python3-py3nvml
 #%%endif
@@ -44,13 +44,12 @@ performance-monitors:
 %prep
 %setup -q
 %patch -P 0 -p0 -b .sysconfig
-%patch -P 1 -p0 -b .format
 
 # Correct unit file path
 sed -i "s|/etc/default/atop|/etc/sysconfig/atop|g" atop.service
 
 %build
-make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
+make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags glib-2.0) -I."
 
 %install
 install -Dp -m 0755 atop $RPM_BUILD_ROOT%{_bindir}/atop
@@ -116,6 +115,9 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 #%%endif
 
 %changelog
+* Thu Jan 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.10.0-1
+- 2.10.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

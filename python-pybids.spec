@@ -132,7 +132,7 @@ find bids doc -type f -perm /0111 -execdir chmod -v a-x '{}' '+'
 
 %install
 %pyproject_install
-%pyproject_save_files bids
+%pyproject_save_files -l bids
 # Save space by hardlinking duplicate test data files (of nonzero size).
 hardlink -c -v '%{buildroot}%{python3_sitelib}/bids/tests/data/'
 

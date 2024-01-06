@@ -3,7 +3,7 @@
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
 Version: 5.15.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -78,6 +78,7 @@ Patch60:  0060-Client-Always-populate-mimedata-in-drags.patch
 # Use QAdwaitaDecorations by default
 Patch100: qtwayland-use-adwaita-decorations-by-default.patch
 Patch101: qtwayland-decoration-support-backports-from-qt6.patch
+Patch102: qtwayland-client-fix-window-margin-calculation.patch
 
 # Upstreamable patches
 
@@ -187,6 +188,9 @@ popd
 
 
 %changelog
+* Thu Jan 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.12-2
+- Client: fix window margin calculation
+
 * Tue Jan 02 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.12-1
 - 5.15.12
 

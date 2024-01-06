@@ -2,7 +2,7 @@
 
 Name:    lxqt-admin
 Summary: LXQt system administration tool
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
@@ -82,6 +82,9 @@ done
 %{_datadir}/lxqt/translations/lxqt-admin-time/lxqt-admin-time_ast.qm
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

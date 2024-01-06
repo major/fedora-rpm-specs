@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -47,12 +47,12 @@ BuildRequires:  libyaml-devel
 BuildRequires:  xmlsec1-devel
 BuildRequires:  xmlsec1-openssl-devel
 
-# apt-libs missing on Centos
 %if 0%{?fedora}
+# apt-libs missing on Centos
 BuildRequires:  apt-devel
-%endif
-
+# opendbx is not available in RHEL
 BuildRequires:  opendbx-devel
+%endif
 
 # GConf2 not used on purpose as obsolete and blocking anaconda addon
 # BuildRequires:  GConf2-devel
@@ -277,6 +277,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.3.9-5
+- Enable opendbx for SQL probes only in Fedora
+
 * Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 1:1.3.9-4
 - Fix C compatibility issues
 

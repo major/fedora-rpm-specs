@@ -8,7 +8,7 @@ FSLeyes.
 %global forgeurl https://github.com/pauldmccarthy/fslpy
 
 Name:           python-fslpy
-Version:        3.15.2
+Version:        3.16.0
 Release:        %autorelease
 Summary:        The FSL Python Library
 

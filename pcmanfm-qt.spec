@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 
 Name:           pcmanfm-qt
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        LxQt file manager PCManFM
 
@@ -29,6 +29,7 @@ BuildRequires:  pkgconfig(libmenu-cache)
 BuildRequires:  pkgconfig(lxqt) >= 1.0.0
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcb)
+BuildRequires:  lxqt-menu-data
 %if 0%{?el7}
 BuildRequires:  devtoolset-7-gcc-c++
 %endif
@@ -116,6 +117,7 @@ done
 %{_sysconfdir}/xdg/autostart/lxqt-desktop.desktop
 %{_datadir}/%{name}/lxqt/settings.conf
 %{_datadir}/%{name}
+%{_datadir}/icons/hicolor/scalable/apps/pcmanfm-qt.svg
 
 %files l10n -f %{name}.lang
 %doc AUTHORS CHANGELOG README.md

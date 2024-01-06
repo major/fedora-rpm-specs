@@ -1,6 +1,6 @@
 Name:           python-numpydoc
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension to support docstrings in NumPy format
 
 # Replace ast.NameConstant deprecated in Python 3.12 with ast.Constant
@@ -8,23 +8,23 @@ Patch:          https://github.com/hrnciar/numpydoc/pull/1.patch
 
 License:        BSD-2-Clause
 URL:            https://pypi.python.org/pypi/numpydoc
-Source0:        %pypi_source numpydoc
+Source:         %pypi_source numpydoc
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 
-%description
-Numpydoc inserts a hook into Sphinx's autodoc that converts docstrings
-following the NumPy/SciPy format to a form palatable to Sphinx.
+%global _description %{expand:
+This package provides the numpydoc Sphinx extension for handling docstrings
+formatted according to the NumPy documentation format. The extension also adds
+the code description directives np:function, np-c:function, etc.}
+
+%description %{_description}
 
 
 %package -n     python3-numpydoc
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-numpydoc}
-%description -n python3-numpydoc
-Numpydoc inserts a hook into Sphinx's autodoc that converts docstrings
-following the NumPy/SciPy format to a form palatable to Sphinx.
+
+%description -n python3-numpydoc %{_description}
 
 
 %prep
@@ -44,7 +44,7 @@ sed -i '\,#!/usr/bin/env python,d' numpydoc/validate.py
 
 %install
 %pyproject_install
-%pyproject_save_files numpydoc
+%pyproject_save_files -l numpydoc
 
 %check
 # Deselected tests need to download an inventory from docs.python.org
@@ -52,11 +52,13 @@ sed -i '\,#!/usr/bin/env python,d' numpydoc/validate.py
 
 
 %files -n python3-numpydoc -f %pyproject_files
-%license LICENSE.txt
 %doc README.rst
 %{_bindir}/validate-docstrings
 
 %changelog
+* Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.6.0-2
+- Minor packaging improvements
+
 * Thu Oct 19 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
 - Version 1.6.0
 - Convert License tag to SPDX

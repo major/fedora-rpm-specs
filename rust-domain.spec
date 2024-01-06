@@ -6,7 +6,7 @@
 %global forgeurl0 https://github.com/NLnetLabs/domain
 
 Name:           rust-domain
-Version:        0.9.2
+Version:        0.9.3
 Release:        %autorelease
 Summary:        DNS library for Rust
 
@@ -87,16 +87,16 @@ use the "ci-test" feature of the "%{crate}" crate.
 %files       -n %{name}+ci-test-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+futures-devel
+%package     -n %{name}+futures-util-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+futures-devel %{_description}
+%description -n %{name}+futures-util-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "futures" feature of the "%{crate}" crate.
+use the "futures-util" feature of the "%{crate}" crate.
 
-%files       -n %{name}+futures-devel
+%files       -n %{name}+futures-util-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+heapless-devel

@@ -38,16 +38,13 @@ Name: rpm
 Version: %{rpmver}
 Release: %{?snapver:0.%{snapver}.}%{baserelease}%{?dist}
 Url: http://www.rpm.org/
+License: GPL-2.0-or-later
 Source0: http://ftp.rpm.org/releases/%{srcdir}/rpm-%{srcver}.tar.bz2
 
 Source10: rpmdb-rebuild.service
 
 Source20: rpmdb-migrate.service
 Source21: rpmdb_migrate
-
-# Partially GPL/LGPL dual-licensed and some bits with BSD
-# SourceLicense: (GPLv2+ and LGPLv2+ with exceptions) and BSD
-License: GPLv2+
 
 Requires: coreutils
 Requires: popt%{_isa} >= 1.10.2.1
@@ -154,7 +151,7 @@ the package like its version, a description, etc.
 
 %package libs
 Summary:  Libraries for manipulating RPM packages
-License: GPLv2+ and LGPLv2+ with exceptions
+License:  GPL-2.0-or-later OR LGPL-2.1-or-later
 Requires(meta): %{name} = %{version}-%{release}
 %if %{with sequoia}
 # >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
@@ -168,7 +165,6 @@ This package contains the RPM shared libraries.
 
 %package build-libs
 Summary:  Libraries for building RPM packages
-License: GPLv2+ and LGPLv2+ with exceptions
 Requires: rpm-libs%{_isa} = %{version}-%{release}
 
 %description build-libs
@@ -176,7 +172,6 @@ This package contains the RPM shared libraries for building packages.
 
 %package sign-libs
 Summary:  Libraries for signing RPM packages
-License: GPLv2+ and LGPLv2+ with exceptions
 Requires: rpm-libs%{_isa} = %{version}-%{release}
 Requires: %{_bindir}/gpg2
 
@@ -185,7 +180,7 @@ This package contains the RPM shared libraries for signing packages.
 
 %package devel
 Summary:  Development files for manipulating RPM packages
-License: GPLv2+ and LGPLv2+ with exceptions
+License:  GPL-2.0-or-later OR LGPL-2.1-or-later
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libs%{_isa} = %{version}-%{release}
 Requires: %{name}-build-libs%{_isa} = %{version}-%{release}

@@ -112,7 +112,7 @@ PYTHONPATH="${PWD}" sphinx-build -b latex %{?_smp_mflags} \
 
 %install
 %pyproject_install
-%pyproject_save_files pox
+%pyproject_save_files -l pox
 
 %check
 # There is a check in test_shutils that the user’s home directory ends with the

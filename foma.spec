@@ -9,7 +9,7 @@
 
 Name:           foma
 Version:        0.10.0
-Release:        0.7.%{snapshotdate}git%{shortcommit0}%{?dist}
+Release:        0.8.%{snapshotdate}git%{shortcommit0}%{?dist}
 Summary:        Xerox-compatible finite-state compiler
 
 License:        Apache-2.0
@@ -26,6 +26,7 @@ Source0:        https://github.com/mhulden/%{name}/archive/%{commit0}.tar.gz#/%{
 # the linker when building the shared library. For discussion on a similar
 # issue, see https://lists.debian.org/debian-devel/2016/05/msg00302.html
 Patch0:         foma-harden-build-fedora.patch
+Patch1: foma-c99.patch
 
 BuildRequires:  gcc zlib-devel readline-devel flex bison
 BuildRequires: make
@@ -104,6 +105,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 04 2024 Florian Weimer <fweimer@redhat.com> - 0.10.0-0.8.20210601gitdfe1ccb
+- Fix C compatibility issue
+
 * Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 0.10.0-0.7.20210601gitdfe1ccb
 - Migrate to SPDX license expression
 

@@ -78,7 +78,7 @@ Obsoletes:      python3-pandas_flavor < 0.3.0^20220417gitf930814-7
 
 %install
 %pyproject_install
-%pyproject_save_files pandas_flavor
+%pyproject_save_files -l pandas_flavor
 
 
 %check
@@ -88,7 +88,6 @@ Obsoletes:      python3-pandas_flavor < 0.3.0^20220417gitf930814-7
 
 
 %files -n python3-pandas-flavor -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc CHANGELOG.md
 %doc README.md
 %doc docs/_images/example.png

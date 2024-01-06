@@ -1,6 +1,6 @@
 Name:           libx86
 Version:        1.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Library for making real-mode x86 calls
 
 License:        MIT
@@ -18,6 +18,8 @@ Patch2: libx86-libc-test.patch
 Patch3: libx86-fix_processor_flags.patch
 Patch4: libx86-ld_flags.patch
 Patch5: libx86-1.1-24-fix-invalid-hlt-opcode.patch
+Patch6: libx86-c99.patch
+Patch7: libx86-c99-2.patch
 
 BuildRequires:  gcc
 BuildRequires: make
@@ -58,6 +60,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/*.a
 %{_libdir}/pkgconfig/x86.pc
 
 %changelog
+* Thu Jan 04 2024 Florian Weimer <fweimer@redhat.com> - 1.1-41
+- C compatibility fixes (#2256772)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

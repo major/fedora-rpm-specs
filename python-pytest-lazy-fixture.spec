@@ -35,7 +35,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files pytest_lazyfixture
+%pyproject_save_files -l pytest_lazyfixture
 
 %check
 %if %{with tests}
@@ -43,7 +43,6 @@ Summary:        %{summary}
 %endif
 
 %files -n python3-pytest-lazy-fixture -f %{pyproject_files}
-# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.rst
 
 %changelog

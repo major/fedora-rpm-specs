@@ -1,11 +1,14 @@
 %global pypi_name pytzdata
 
 %global _description %{expand:
-The Olson timezone database for Python.}
+The Olson timezone database for Python.
+
+This package contains the python bindings to the database provided by
+the tzdata package as installed (version %{version} or later).}
 
 Name: python-%{pypi_name}
 Version: 2020.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: MIT
 Summary: Timezone database for Python
@@ -22,16 +25,20 @@ Patch1: %{pypi_name}-cleo-imports-fix.patch
 Patch2: %{pypi_name}-cleo-2.0.0-compatibility.patch
 
 BuildRequires: python3-devel
+BuildRequires: tzdata >= %{version}
 
 %description %_description
 
 %package -n python3-%{pypi_name}
 Summary: %{summary}
+Requires: tzdata >= %{version}
 
 %description -n python3-%{pypi_name} %_description
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
+rm -r pytzdata/zoneinfo
+sed -i "s|os.path.dirname(__file__)|'%{_datadir}'|" pytzdata/__init__.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -51,6 +58,9 @@ Summary: %{summary}
 %doc README.rst
 
 %changelog
+* Thu Jan 04 2024 Michael J Gruber <mjg@fedoraproject.org> - 2020.1-14
+- Unbundle tzdata
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

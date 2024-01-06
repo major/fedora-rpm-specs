@@ -2,11 +2,13 @@
 
 Name:           libqtxdg
 Summary:        QtXdg, a Qt5 implementation of XDG standards
-Version:        3.11.0
+Version:        3.12.0
+
 Release:        1%{?dist}
 License:        LGPLv2+
 URL:            https://lxqt-project.org
 Source0:        https://github.com/lxqt/libqtxdg/archive/%{version}/%{name}-%{version}.tar.gz
+
 
 BuildRequires:  gcc-c++
 BuildRequires:  %{?fedora:cmake}%{!?fedora:cmake3} >= 3.0
@@ -68,9 +70,9 @@ cd build
 %doc AUTHORS
 %license COPYING
 %{_libdir}/libQt5Xdg.so.3
-%{_libdir}/libQt5Xdg.so.3.11.0
+%{_libdir}/libQt5Xdg.so.3.12.0
 %{_libdir}/libQt5XdgIconLoader.so.3
-%{_libdir}/libQt5XdgIconLoader.so.3.11.0
+%{_libdir}/libQt5XdgIconLoader.so.3.12.0
 %{_sysconfdir}/xdg/lxqt-qtxdg.conf
 %{_sysconfdir}/xdg/qtxdg.conf
 
@@ -86,6 +88,9 @@ cd build
 %{_qt5_archdatadir}/plugins/iconengines/libQt5XdgIconPlugin.so
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 3.12.0-1
+- Update version to 3.12.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 3.11.0-1
 - Update version to 3.11.0
 
@@ -104,7 +109,7 @@ cd build
 * Sat Jul 16 2022 Zamir SUN <sztsian@gmail.com> - 3.9.0-2
 - Re-apply the change for the qt5 dependency
 
-* Thu Jul 07 2022 Zamir SUN <sztsian@gmail.com> - 3.9.0-1
+* Sat Jul 16 2022 Zamir SUN <sztsian@gmail.com> - 3.9.0-1
 - new version
 
 * Thu Jul 14 2022 Jan Grulich <jgrulich@redhat.com> - 3.8.0-5

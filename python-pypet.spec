@@ -143,7 +143,7 @@ PYTHONPATH="${PWD}" %make_build -C doc latex \
 
 %install
 %pyproject_install
-%pyproject_save_files pypet
+%pyproject_save_files -l pypet
 
 %check
 %pyproject_check_import -e '*tests*'

@@ -4,7 +4,7 @@
 %global crate jql
 
 Name:           rust-jql
-Version:        7.0.6
+Version:        7.1.2
 Release:        %autorelease
 Summary:        JQL is a fast and simple command-line tool to manipulate JSON data
 

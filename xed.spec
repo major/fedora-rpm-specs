@@ -3,14 +3,13 @@
 
 
 Name:		xed
-Version:	3.4.4
+Version:	3.4.5
 Release:	1%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 License:	GPLv2+
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:     fix_libxml_include.patch
 
 ExcludeArch:   %{ix86}
 
@@ -129,6 +128,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Thu Jan 04 2024 Leigh Scott <leigh123linux@gmail.com> - 3.4.5-1
+- Update to 3.4.5 release
+
 * Tue Dec 05 2023 Leigh Scott <leigh123linux@gmail.com> - 3.4.4-1
 - Update to 3.4.4 release
 

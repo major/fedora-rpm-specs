@@ -2,7 +2,7 @@
 
 Name:           libfreenect
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 #
@@ -23,6 +23,7 @@ Patch4:         secarch.patch
 Patch5:         %{name}-0.7.0-py3.patch
 # Fix for cython3
 Patch6:         %{name}-0.7.0-cython3.patch
+Patch7: libfreenect-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -105,6 +106,7 @@ rm -rf platform/windows
 %patch -P 4 -p1 -b .secarch
 %patch -P 5 -p1 -b .py3
 %patch -P 6 -p1 -b .cython3
+%patch -P 7 -p1
 
 %build
 %cmake3 \
@@ -183,6 +185,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Thu Jan 04 2024 Florian Weimer <fweimer@redhat.com> - 0.7.0-5
+- Fix C compatibility issue in Cython wrapper
+
 * Mon Aug 07 2023 Rich Mattes <richmattes@gmail.com> - 0.7.0-4
 - Fix build error with cython 3
 

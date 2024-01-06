@@ -70,12 +70,14 @@ Summary:        Documentation and examples for transforms3d
 # Note that doc/Makefile is customized rather than taken directly from
 # sphinx-quickstart output.
 PYTHONPATH="${PWD}/build/lib" %make_build -C doc pdf \
-    SPHINXOPTS='%{?_smp_mflags}' PYTHON='%{python3}' LATEXMKOPTS='-quiet'
+    SPHINXOPTS='-j%{?_smp_build_ncpus}' \
+    PYTHON='%{python3}' \
+    LATEXMKOPTS='-quiet'
 %endif
 
 %install
 %pyproject_install
-%pyproject_save_files transforms3d
+%pyproject_save_files -l transforms3d
 
 %check
 %pytest

@@ -3,7 +3,7 @@
 # https://github.com/G-Node/python-odml/issues/420
 %bcond_without tests
 
-%global pypi_name odML
+%global forgeurl  https://github.com/G-Node/python-odml
 
 %global _description %{expand:
 odML (open metadata Markup Language) is a file format for storing 
@@ -21,18 +21,18 @@ RRID:SCR_001376.}
 
 
 Name:           python-odml
-Version:        1.5.3
+Version:        1.5.4
 Release:        %autorelease
 Summary:        File-format to store metadata in an organized way
-License:        BSD
-URL:            https://github.com/G-Node/python-odml
-Source0:        %{pypi_source %{pypi_name}}
-# Fetch util.py from upstream
-# https://github.com/G-Node/python-odml/issues/420
-Source1:        https://raw.githubusercontent.com/G-Node/python-odml/v1.5.3/test/util.py
-# https://github.com/G-Node/python-odml/pull/421
-Patch0:         remove_shebang_from_modules.patch
+# spdx
+License:        BSD-4-Clause
+
+%forgemeta
+URL:            %forgeurl
+Source0:        %forgesource
+
 BuildArch:      noarch
+
 # Docs are no longer included
 # They are available online: http://g-node.github.io/python-odml/
 Obsoletes:      %{name}-doc < %{version}
@@ -44,7 +44,7 @@ Obsoletes:      %{name}-doc < %{version}
 %package -n python3-odml
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  git-core
+BuildRequires:  help2man
 
 
 %if %{with tests}
@@ -59,11 +59,8 @@ BuildRequires:  python3-docopt
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version} -S git
-# Remove pathlib from install_requires from setup.py
-sed -i -e 's/, "pathlib"//g' setup.py
-# Provide util.py and __init__.py for tests
-cp %{_sourcedir}/util.py test/
+%forgesetup
+
 touch test/__init__.py
 
 
@@ -77,8 +74,15 @@ touch test/__init__.py
 
 %install
 %pyproject_install
-%pyproject_save_files odml
+%pyproject_save_files -l odml
 
+for binary in "odmlconvert" "odmlconversion"  "odmltordf"  "odmlview"
+do
+    echo "Generating man page for ${binary// /-/}"
+    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
+    cat "${binary// /-}.1"
+    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
+done
 
 %check
 %if %{with tests}
@@ -91,11 +95,11 @@ touch test/__init__.py
 
 %files -n python3-odml -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 %{_bindir}/odmlconversion
 %{_bindir}/odmlconvert
 %{_bindir}/odmltordf
 %{_bindir}/odmlview
+%{_mandir}/man1/odml*
 
 
 %changelog

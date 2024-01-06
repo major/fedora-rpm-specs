@@ -1,5 +1,5 @@
 Name: xdg-desktop-portal-lxqt
-Version: 0.4.0
+Version: 0.5.0
 Release: 1%{?dist}
 Summary: A backend implementation for xdg-desktop-portal that is using Qt/KF5/libfm-qt
 License: LGPL-2.0-or-later
@@ -44,6 +44,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 %{_libexecdir}/xdg-desktop-portal-lxqt
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 0.5.0-1
+- Update version to 0.5.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 0.4.0-1
 - Update version to 0.4.0
 

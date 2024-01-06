@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	111%{?dist}
+Release:	112%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -555,6 +555,11 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Dec 19 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-112
+- normal: fix prefix when loading modules
+- Resolves: #2209435
+- Resolves: #2173015
+
 * Tue Dec 12 2023 leo sandoval <lsandova@redhat.com> - 2.06-111
 - chainloader: remove device path debug message
 

@@ -8,7 +8,7 @@
 
 Name:           fedrq
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to query the Fedora and EPEL repositories
 
 # - code is GPL-2.0-or-later
@@ -91,12 +91,7 @@ FEDRQ_BACKEND=dnf %pytest -v -m "not no_rpm_mock"
     and not test_baseurl_repog
 }
 %endif
-# Disable libdnf5 tests on Rawhide until the fix for
-# https://github.com/rpm-software-management/dnf5/issues/1080
-# is released.
-%if 0%{?fedora} < 40
 FEDRQ_BACKEND=libdnf5 %pytest -v -m "not no_rpm_mock" %{?skips:-k '%{skips}'}
-%endif
 %endif
 
 
@@ -112,6 +107,9 @@ FEDRQ_BACKEND=libdnf5 %pytest -v -m "not no_rpm_mock" %{?skips:-k '%{skips}'}
 
 
 %changelog
+* Thu Jan 04 2024 Maxwell G <maxwell@gtmx.me> - 0.13.0-2
+- Reenable libdnf5 tests
+
 * Mon Dec 18 2023 Maxwell G <maxwell@gtmx.me> - 0.13.0-1
 - Update to 0.13.0.
 

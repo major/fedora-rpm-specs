@@ -5,7 +5,7 @@
 %global crate test-case
 
 Name:           rust-test-case
-Version:        3.2.1
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Procedural macro attribute for generating parametrized test cases
 
@@ -78,9 +78,9 @@ use the "with-regex" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+%cargo_prep
 # integration tests rely on files that are not included in published crates
 rm tests/acceptance_tests.rs
-%cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires

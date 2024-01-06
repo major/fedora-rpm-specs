@@ -9,6 +9,7 @@ Summary:        Kernel coredump file access
 License:        LGPL-3.0-or-later OR GPL-2.0-or-later
 URL:            https://github.com/ptesarik/libkdumpfile
 Source:         %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Patch0: libkdumpfile-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen

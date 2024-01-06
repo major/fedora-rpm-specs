@@ -15,7 +15,7 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        6.0.3
+Version:        6.0.4
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
@@ -276,7 +276,7 @@ EOF
 # Provide symlink for the background-propeties.
 %{__ln_s} %{_datadir}/gnome-background-properties %{buildroot}%{_datadir}/%{name}-background-properties
 # Delete useless gir files
-%{__rm} -rf %{buildroot}%{_datadir}/gir-1.0/
+%{__rm} -rf %{buildroot}%{_datadir}/%{name}/*.gir
 
 %check
 %{_bindir}/desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
@@ -344,6 +344,9 @@ EOF
 %endif
 
 %changelog
+* Thu Jan 04 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.4-1
+- Update to 6.0.4 release
+
 * Fri Dec 29 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.3-1
 - Update to 6.0.3 release
 

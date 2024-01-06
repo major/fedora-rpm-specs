@@ -10,11 +10,11 @@
 %endif
 
 # The source directory.
-%global source_directory 2.3-development
+%global source_directory 2.4-stable
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.3.8
+Version:       2.4.0
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -290,6 +290,7 @@ done
 %{_mandir}/man1/virt-v2v-release-notes-1.42.1*
 %{_mandir}/man1/virt-v2v-release-notes-2.0.1*
 %{_mandir}/man1/virt-v2v-release-notes-2.2.1*
+%{_mandir}/man1/virt-v2v-release-notes-2.4.1*
 %{_mandir}/man1/virt-v2v-support.1*
 
 
@@ -309,6 +310,9 @@ done
 
 
 %changelog
+* Thu Jan  4 2024 Richard W.M. Jones <rjones@redhat.com> - 1:2.4.0-1
+- New stable branch version 2.4.0
+
 * Tue Dec 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.8-1
 - New development branch version 2.3.8
 

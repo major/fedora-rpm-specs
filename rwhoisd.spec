@@ -3,22 +3,20 @@
 
 Name:       rwhoisd 
 Version:    1.5.9.6
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    ARIN's Referral WHOIS server
 # common/strerror.c:                GPL-2.0-or-later (libiberty)
 # LICENSE:                          GPL-2.0 text
 # mkdb/metaphon.c:                  LicenseRef-Fedora-Public-Domain
-# mkdb/y.tab.c:                     GPL-2.0-or-later WITH
-#                                   Bison-exception-1.24 (Waiting on an
-#                                   approval
-#                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/417>)
+# mkdb/y.tab.c:                     GPL-2.0-or-later WITH Bison-exception-1.24
 # regexp/COPYRIGHT:                 Spencer-86
 ## Not in any binary package
 # configure:                        FSFUL
 ## Unbundled
 # tools/tcpd_wrapper/DISCLAIMER:    TCP-wrappers
 # tools/tcpd_wrapper/strcasecmp.c:  BSD-4.3TAHOE
-License:    Public Domain and HSRL and GPLv2+
+License:    GPL-2.0-or-later AND GPL-2.0-or-later WITH Bison-exception-1.24 AND Spencer-86 AND LicenseRef-Fedora-Public-Domain
+SourceLicense:  %{license} AND FSFUL AND TCP-wrappers AND BSD-4.3TAHOE
 URL:        http://projects.arin.net/rwhois/
 Source0:    %{url}ftp/%{name}-%{version}.tar.gz
 Source1:    %{name}.service
@@ -68,7 +66,7 @@ concepts and practices in accordance with version 1.5 of the protocol,
 described in RFC 2167.
 
 %package example
-License:    GPLv2+
+License:    GPL-2.0-or-later
 Summary:    Sample data for %{name} WHOIS server
 BuildArch:  noarch
 Requires:   %{name} = %{?epoch:%epoch:}%{version}-%{release}
@@ -159,8 +157,10 @@ exit 0
 %files example
 %{_localstatedir}/%{name}/samples
 
-
 %changelog
+* Thu Jan 04 2024 Petr Pisar <ppisar@redhat.com> - 1.5.9.6-29
+- Convert license tags to an SPDX format
+
 * Fri Dec 01 2023 Petr Pisar <ppisar@redhat.com> - 1.5.9.6-28
 - Fix a signal handler return value (GH#3)
 - Correct a license to "Public Domain and HSRL and GPLv2+"

@@ -75,7 +75,7 @@ sed -i 's/parametrize/parameterize/' setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files papermill
+%pyproject_save_files -l papermill
 
 
 install -d '%{buildroot}%{_mandir}/man1'

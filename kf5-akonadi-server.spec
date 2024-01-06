@@ -46,6 +46,7 @@ Source11:       akonadiserverrc.sqlite
 ## upstreamable patches
 
 ## upstream patches (lookaside cache)
+Patch0:   akonadi-adapt-to-kaccounts-api-change.patch
 
 ## downstream patches
 

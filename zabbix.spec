@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.22
-Release:        3%{?dist}
+Version:        6.0.25
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPLv2
@@ -795,6 +795,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Jan 04 2024 Orion Poplawski <orion@nwra.com> - 1:6.0.25-1
+- Update to 6.0.25
+
 * Fri Dec 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:6.0.22-3
 - Patch for libxml2 2.12.x
 

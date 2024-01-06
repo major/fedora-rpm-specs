@@ -84,7 +84,7 @@ git tag v%{version}
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
@@ -124,7 +124,6 @@ k="${k-}${k+ and }not stat_summary"
 
 %files -n python3-plotnine -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 
 
 %changelog

@@ -7,7 +7,7 @@
 
 Name:           libprelude
 Version:        5.2.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Secure Connections between all Sensors and the Prelude Manager
 License:        LGPL-2.1-or-later
 URL:            https://www.prelude-siem.org/
@@ -40,6 +40,7 @@ Patch12:        libprelude-5.2.0-clean_libprelude-config.patch
 # #1973946
 Patch13:        libprelude-5.2.0-fix-PyIOBase_Type.patch
 Patch14:        libprelude-configure-c99.patch
+Patch15: libprelude-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -241,6 +242,9 @@ patch -d %{buildroot}%{_includedir}/libprelude/ -p0 < %SOURCE1
 %doc AUTHORS ChangeLog README NEWS
 
 %changelog
+* Thu Jan 04 2024 Florian Weimer <fweimer@redhat.com> - 5.2.0-23
+- Fix another C compatibility issue (#2148366)
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.2.0-22
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

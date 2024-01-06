@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 
 Name: libfm-qt
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 Summary: Companion library for PCManFM
 License: GPLv2+
@@ -23,6 +23,7 @@ BuildRequires: pkgconfig(lxqt) >= 1.2.0
 BuildRequires: kf5-kwindowsystem-devel
 BuildRequires: pkgconfig(libmenu-cache) >= 0.3.0
 BuildRequires: libexif-devel
+BuildRequires: lxqt-menu-data
 %if 0%{?el7}
 BuildRequires:  devtoolset-7-gcc-c++
 %endif
@@ -88,8 +89,8 @@ sed -i "s/Requires:.*/Requires: Qt5Widgets Qt5X11Extras/" %{buildroot}/%{_libdir
 %files
 %doc AUTHORS CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libfm-qt.so.13
-%{_libdir}/libfm-qt.so.13.0.0
+%{_libdir}/libfm-qt.so.14
+%{_libdir}/libfm-qt.so.14.0.0
 %{_datadir}/libfm-qt
 
 %files devel
@@ -108,6 +109,9 @@ sed -i "s/Requires:.*/Requires: Qt5Widgets Qt5X11Extras/" %{buildroot}/%{_libdir
 %dir %{_datadir}/libfm-qt/translations
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

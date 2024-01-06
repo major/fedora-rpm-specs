@@ -2,12 +2,14 @@
 
 Name:           python3-postgresql
 Version:        1.2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Connect to PostgreSQL with Python 3
 
 License:        BSD
 URL:            http://python.projects.postgresql.org/
 Source0:        https://github.com/python-postgres/fe/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0: python3-postgresql-c99-1.patch
+Patch1: python3-postgresql-c99-2.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -19,7 +21,7 @@ PostgreSQL. This includes a high-level driver, and many other tools that
 support a developer working with PostgreSQL databases.
 
 %prep
-%setup -q -n fe-%{version}
+%autosetup -p1 -n fe-%{version}
 
 
 %build
@@ -36,6 +38,9 @@ support a developer working with PostgreSQL databases.
 
 
 %changelog
+* Thu Jan 04 2024 Florian Weimer <fweimer@redhat.com> - 1.2.2-11
+- Backport upstream patches to fix C compatibility issues
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

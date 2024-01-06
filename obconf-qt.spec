@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
 
 Name:           obconf-qt
-Version:        0.16.2
-Release:        4%{?dist}
+Version:        0.16.3
+Release:        1%{?dist}
 Summary:        A configuration editor for the OpenBox window manager
 
 License:        GPLv2+
@@ -100,6 +100,9 @@ fi
 %dir %{_datadir}/obconf-qt/translations
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 0.16.3-1
+- Update version to 0.16.3
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,9 +5,10 @@ Version:        1.0.2.post1
 Release:        %autorelease
 Summary:        Python tools for machine learning and data mining in Astronomy
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://www.astroml.org/
 Source0:        %{pypi_source}
+Patch0:         https://github.com/astroML/astroML/pull/277.patch
 
 BuildArch:      noarch
 

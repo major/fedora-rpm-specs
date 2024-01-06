@@ -5,7 +5,7 @@
 %define __cmake_in_source_build 1
 
 Name:		liblxqt
-Version:	1.3.0
+Version:	1.4.0
 Release:	1%{?dist}
 License:	LGPLv2
 Summary:	Core shared library for LXQt desktop suite
@@ -38,7 +38,7 @@ Core utility library for all LXQT components
 %package devel
 Summary:	Devel files for liblxqt
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:       lxqt-build-tools >= 0.12.0
+Requires:       lxqt-build-tools >= 0.13.0
 %if 0%{?fedora}
 Requires: cmake >= 3.3
 %else
@@ -92,7 +92,7 @@ touch -r %{SOURCE1} %{buildroot}%{rpm_macros_dir}/macros.lxqt
 %files
 %doc AUTHORS COPYING
 %{_libdir}/liblxqt.so.1
-%{_libdir}/liblxqt.so.1.3.0
+%{_libdir}/liblxqt.so.1.4.0
 %{_bindir}/lxqt-backlight_backend
 %{_datadir}/lxqt/power.conf
 %{_datadir}/polkit-1/actions/org.lxqt.backlight.pkexec.policy
@@ -110,6 +110,9 @@ touch -r %{SOURCE1} %{buildroot}%{rpm_macros_dir}/macros.lxqt
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

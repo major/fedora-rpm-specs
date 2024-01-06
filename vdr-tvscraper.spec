@@ -1,12 +1,12 @@
 %global pname   tvscraper
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-%{pname}
-Version:        1.2.5
+Version:        1.2.6
 Release:        1%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
@@ -70,6 +70,9 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Thu Jan 04 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.6-1
+- Update to 1.2.6
+
 * Mon Nov 27 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.5-1
 - Update to 1.2.5
 

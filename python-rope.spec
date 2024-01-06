@@ -54,7 +54,7 @@ Documentation for %{summary}.}
 
 %install
 %pyproject_install
-%pyproject_save_files rope
+%pyproject_save_files -l rope
 
 
 %check

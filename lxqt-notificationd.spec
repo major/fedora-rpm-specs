@@ -2,7 +2,7 @@
 
 Name:    lxqt-notificationd
 Summary: Notification daemon for LXQt desktop suite
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
@@ -74,6 +74,9 @@ install -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/lxqt/
 %{_datadir}/lxqt/translations/lxqt-config-notificationd/lxqt-config-notificationd_ast.qm
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

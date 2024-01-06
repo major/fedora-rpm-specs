@@ -122,6 +122,8 @@ Requires:       switcheroo-control
 # needed for clocks/weather integration
 Requires:       geoclue2-libs%{?_isa}
 Requires:       libgweather4%{?_isa}
+# for gnome-extensions CLI tool
+Requires:  gettext
 # needed for thunderbolt support
 Recommends:     bolt%{?_isa}
 # Needed for launching flatpak apps etc

@@ -1,12 +1,12 @@
 %{?mingw_package_header}
 
 %global mod_name flask
-%global pypi_name Flask
+%global pypi_name flask
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.2.5
-Release:       2%{?dist}
+Version:       3.0.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD
@@ -16,10 +16,12 @@ Source0:       %{pypi_source}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description
@@ -68,6 +70,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Thu Jan 04 2024 Sandro Mani <manisandro@gmail.com> - 3.0.0-1
+- Update to 3.0.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

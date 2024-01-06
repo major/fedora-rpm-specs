@@ -102,7 +102,7 @@ PYTHONPATH="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodot
 
 %install
 %pyproject_install
-%pyproject_save_files pyedflib
+%pyproject_save_files -l pyedflib
 
 %check
 %pytest
@@ -112,7 +112,6 @@ grep -E "^#define[[:blank:]]+EDFLIB_VERSION[[:blank:]]+\($(
 )\)[[:blank:]]*\$" 'pyedflib/_extensions/c/edflib.c'
 
 %files -n python3-pyedflib -f %{pyproject_files}
-%license LICENSE
 %doc README.rst
 
 %files doc

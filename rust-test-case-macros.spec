@@ -5,7 +5,7 @@
 %global crate test-case-macros
 
 Name:           rust-test-case-macros
-Version:        3.2.1
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Procedural macro attribute for generating parametrized test cases
 

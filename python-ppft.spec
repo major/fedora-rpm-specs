@@ -75,7 +75,7 @@ chmod -x ppft/tests/*.py
 %pyproject_install
 # generated during build so must be cleaned up here
 sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' %{buildroot}%{python3_sitelib}/ppft/__info__.py
-%pyproject_save_files ppft pp
+%pyproject_save_files -l ppft pp
 
 %check
 # run the tests

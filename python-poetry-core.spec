@@ -3,7 +3,7 @@
 
 Name:           python-poetry-core
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Poetry PEP 517 Build Backend
 # SPDX
 License:        MIT
@@ -14,6 +14,7 @@ Source0:        %{url}/archive/%{version}/poetry-core-%{version}.tar.gz
 # from vendors/pyproject.toml to pyproject.toml
 # Intentionally contains the removed hunk to prevent patch aging
 Patch1:         poetry-core-1.7.0-devendor.patch
+Patch2: python-poetry-core-c99.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -86,6 +87,9 @@ rm -r src/poetry/core/_vendor
 
 
 %changelog
+* Thu Jan 04 2024 Florian Weimer <fweimer@redhat.com> - 1.7.0-2
+- Backport upstream patch to fix C compatibility issue
+
 * Fri Sep 01 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.7.0-1
 - Update to 1.7.0
 - Fixes: rhbz#2232934

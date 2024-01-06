@@ -90,14 +90,13 @@ chmod -x examples2/*.py
 %pyproject_install
 # Remove generated shebang from __info__.py (Kill it with fire!)
 sed -i '/^#![  ]*\/usr\/bin\/env.*$/d' %{buildroot}%{python3_sitelib}/pathos/__info__.py
-%pyproject_save_files pathos
+%pyproject_save_files -l pathos
 
 %check
 # Imitate tox.ini:
 %{py3_test_envvars} %{python3} -m pathos.tests
 
 %files -n python3-pathos -f %{pyproject_files}
-%license LICENSE
 %{_bindir}/portpicker
 %{_bindir}/pathos_connect
 %doc README.md

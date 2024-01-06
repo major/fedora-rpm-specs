@@ -90,7 +90,7 @@ sed -i 's/oldest-supported-numpy/numpy/' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files gdist
+%pyproject_save_files -l gdist
 
 
 %check

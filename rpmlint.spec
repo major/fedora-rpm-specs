@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -13,6 +13,10 @@ Source1:        fedora.toml
 Source3:        scoring.toml
 Source4:        users-groups.toml
 Source5:        warn-on-functions.toml
+
+# Fix from @danigm to reset checks for each package
+# https://github.com/rpm-software-management/rpmlint/pull/1163
+Patch0:         https://patch-diff.githubusercontent.com/raw/rpm-software-management/rpmlint/pull/1163.patch
 
 BuildArch:      noarch
 
@@ -99,6 +103,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Thu Jan  4 2024 Tom Callaway <spot@fedoraproject.org> - 2.5.0-3
+- reset checks after each package, thanks to Daniel García Moreno
+
 * Sat Nov 25 2023 Zephyr Lykos <fedora@mochaa.ws> - 2.5.0-2
 - Migrate patches to pyproject.toml (rhbz#1899279)
 

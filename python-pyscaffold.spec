@@ -153,7 +153,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 install -p -m 0644 \
     -t '%{buildroot}/%{python3_sitelib}/pyscaffold/templates' \
     src/pyscaffold/templates/*.template
-%pyproject_save_files pyscaffold
+%pyproject_save_files -l pyscaffold
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
@@ -186,7 +186,6 @@ k="${k-}${k+ and }not test_pipenv_works_with_pyscaffold"
 
 
 %files -n python3-pyscaffold -f %{pyproject_files}
-%doc AUTHORS.rst
 %doc CHANGELOG.rst
 %doc CONTRIBUTING.rst
 %doc README.rst

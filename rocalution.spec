@@ -1,6 +1,6 @@
 %global upstreamname rocALUTION
-%global rocm_release 5.7
-%global rocm_patch 1
+%global rocm_release 6.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -15,7 +15,7 @@
 
 Name:           rocalution
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -25,7 +25,7 @@ ExclusiveArch:  x86_64
 
 Source0:        %{url}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # combine libs because of circular dependency reported in fedora-review
-Patch0:         0001-prepare-rocalution-cmake-for-fedora.patch
+# Patch0:         0001-prepare-rocalution-cmake-for-fedora.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -33,16 +33,15 @@ BuildRequires:  compiler-rt
 BuildRequires:  lld
 BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
-BuildRequires:  rocblas-devel
-BuildRequires:  rocm-cmake
+BuildRequires:  rocblas-devel = %{rocm_version}
+BuildRequires:  rocm-cmake = %{rocm_version}
 BuildRequires:  rocm-comgr-devel
-BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-hip-devel = %{rocm_version}
+BuildRequires:  rocm-runtime-devel = %{rocm_version}
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocprim-devel
-BuildRequires:  rocrand-devel
-BuildRequires:  rocsparse-devel
+BuildRequires:  rocprim-devel = %{rocm_version}
+BuildRequires:  rocrand-devel = %{rocm_version}
+BuildRequires:  rocsparse-devel = %{rocm_version}
 
 %if %{with test}
 BuildRequires:  gtest-devel
@@ -109,7 +108,9 @@ done
 %license LICENSE.md
 %exclude %{_docdir}/%{name}/LICENSE.md
 %{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}_hip.so.*
 %{_libdir}/rocm/gfx*/lib/lib%{name}.so.*
+%{_libdir}/rocm/gfx*/lib/lib%{name}_hip.so.*
 
 %files devel
 %dir %{_includedir}/%{name}
@@ -137,7 +138,9 @@ done
 %{_includedir}/%{name}/solvers/preconditioners/*.hpp
 %{_libdir}/cmake/%{name}/*.cmake
 %{_libdir}/lib%{name}.so
+%{_libdir}/lib%{name}_hip.so
 %{_libdir}/rocm/gfx*/lib/lib%{name}.so
+%{_libdir}/rocm/gfx*/lib/lib%{name}_hip.so
 %{_libdir}/rocm/gfx*/lib/cmake/%{name}/*.cmake
 
 %if %{with test}
@@ -147,6 +150,9 @@ done
 %endif
 
 %changelog
+* Wed Jan 3 2024 Tom Rix <trix@redhat.com> 6.0.0-1
+- Update to 6.0
+
 * Tue Nov 21 2023 Tom Rix <trix@redhat.com> 5.7.1-3
 - Add debug info
 

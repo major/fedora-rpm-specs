@@ -2,7 +2,7 @@
 
 Name:    lxqt-qtplugin
 Summary: Qt plugin framework for LXQt Desktop Suite
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
@@ -50,6 +50,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %{_libdir}/qt5/plugins/platformthemes/libqtlxqt.so
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

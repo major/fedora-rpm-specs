@@ -1,5 +1,5 @@
 Name:           python-textual
-Version:        0.45.1
+Version:        0.46.0
 Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
@@ -69,6 +69,9 @@ rm -rf tests/snapshot_tests
 
 
 %changelog
+* Wed Jan 03 2024 Jonathan Wright <jonathan@almalinux.org> - 0.46.0-1
+- Update to 0.46.0 rhbz#2254910
+
 * Tue Dec 12 2023 Jonathan Wright <jonathan@almalinux.org> - 0.45.1-1
 - Update to 0.45.1 rhbz#2254187
 

@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 
 Name:    lxqt-sudo
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 Summary: GUI frontend for sudo/su
 License: LGPLv2+
@@ -71,6 +71,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %{_datadir}/lxqt/translations/%{name}/%{name}_arn.qm
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

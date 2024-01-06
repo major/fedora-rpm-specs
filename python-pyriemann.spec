@@ -103,7 +103,7 @@ sed -r -i 's/("tests".*), "flake8"/\1/' setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files pyriemann
+%pyproject_save_files -l pyriemann
 
 
 %check

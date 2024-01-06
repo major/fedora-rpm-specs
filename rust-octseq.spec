@@ -6,7 +6,7 @@
 %global forgeurl0 https://github.com/NLnetLabs/octseq
 
 Name:           rust-octseq
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Abstractions for types representing octet sequences
 

@@ -88,7 +88,7 @@ sed -r -i 's/^([[:blank:]]*)(.*\b(isort)\b)/\1# \2/' setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files textdistance
+%pyproject_save_files -l textdistance
 
 
 %check

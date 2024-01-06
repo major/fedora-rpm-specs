@@ -1,6 +1,8 @@
+%bcond docs %{undefined rhel}
+
 Name:           python-netaddr
 Version:        0.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
@@ -10,8 +12,10 @@ Source0:        https://pypi.python.org/packages/source/n/netaddr/netaddr-%{vers
 Source1:	THANKS
 
 BuildArch:      noarch
+%if %{with docs}
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-furo
+%endif
 
 %global desc A network address manipulation library for Python\
 \
@@ -45,7 +49,6 @@ Summary: A pure Python network address representation and manipulation library
 BuildRequires:  python3-devel
 
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-sphinx
 BuildRequires:  python3-pytest
 
 %description -n python3-netaddr
@@ -78,10 +81,12 @@ mv %{SOURCE1} .
 %py3_build
 
 #docs
+%if %{with docs}
 pushd docs
 PYTHONPATH='../' sphinx-build-%{python3_version} -b html -d build/doctrees source python3/html
 rm -f python3/html/.buildinfo
 popd
+%endif
 
 
 %install
@@ -93,14 +98,19 @@ py.test-%{python3_version}
 
 %files -n python3-netaddr
 %license COPYRIGHT
-%doc AUTHORS CHANGELOG
-%doc README.rst docs/python3/html
+%doc AUTHORS CHANGELOG README.rst
+%if %{with docs}
+%doc docs/python3/html
+%endif
 %{python3_sitelib}/*
 
 %files -n python3-netaddr-shell
 %{_bindir}/netaddr
 
 %changelog
+* Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.10.1-2
+- Conditionalize docs
+
 * Wed Jan  3 2024 John Eckersberg <jeckersb@redhat.com> - 0.10.1-1
 - New upstream release 0.10.1 (rhbz#2256342)
 - Remove patch for Python 3.13 compatibility (merged upstream in 0.10.0)

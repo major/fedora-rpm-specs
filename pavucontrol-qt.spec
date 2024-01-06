@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 
 Name:       pavucontrol-qt
-Version:    1.3.0
+Version:    1.4.0
 Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://lxqt-project.org/
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%{name}/translations
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

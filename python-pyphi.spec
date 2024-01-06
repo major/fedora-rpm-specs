@@ -108,7 +108,7 @@ echo "latex_engine = 'xelatex'" >> docs/conf.py
 
 %install
 %pyproject_install
-%pyproject_save_files pyphi
+%pyproject_save_files -l pyphi
 
 %check
 %if %{with tests}

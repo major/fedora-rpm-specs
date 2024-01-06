@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 %endif
 
 # The source directory.
-%global source_directory 1.51-development
+%global source_directory 1.52-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -49,8 +49,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.51.10
-Release:       2%{?dist}
+Version:       1.52.0
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1094,6 +1094,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jan  4 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-1
+- New upstream stable branch version 1.52.0
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:1.51.10-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

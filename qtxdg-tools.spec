@@ -2,7 +2,7 @@
 
 Name:    qtxdg-tools
 Summary: User tools for libqtxdg
-Version: 3.11.0
+Version: 3.12.0
 Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL:     https://lxqt-project.org/
@@ -34,6 +34,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %{_datadir}/cmake/qtxdg-tools/
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 3.12.0-1
+- Update version to 3.12.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 3.11.0-1
 - Update version to 3.11.0
 

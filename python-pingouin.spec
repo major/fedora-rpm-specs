@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-pingouin
 Version:        0.5.3
@@ -85,14 +85,14 @@ BuildArch:      noarch
 sed -r -i 's/(numpy)<.*/\1/' requirements-test.txt
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:requirements-test.txt}
+%pyproject_buildrequires %{?with_tests:requirements-test.txt}
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files pingouin
+%pyproject_save_files -l pingouin
 
 %check
 %if %{with tests}

@@ -1,5 +1,5 @@
 Name:           imhex
-Version:        1.31.0
+Version:        1.32.1
 Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
@@ -24,10 +24,13 @@ BuildRequires:  libglvnd-devel
 BuildRequires:  glfw-devel
 BuildRequires:  json-devel
 BuildRequires:  libcurl-devel
-%if 0%{?fedora} < 39 || 0%{?rhel}
+BuildRequires:  libarchive-devel
+BuildRequires:  libzstd-devel
+BuildRequires:  zlib-devel
+BuildRequires:  bzip2-devel
+BuildRequires:  xz-devel
+%if 0%{?fedora} > 38
 BuildRequires:  llvm-devel
-%else
-BuildRequires:  llvm16-devel
 %endif
 BuildRequires:  mbedtls-devel
 BuildRequires:  yara-devel
@@ -43,18 +46,16 @@ Recommends:     imhex-patterns = %{version}-%{release}
 
 Provides:       bundled(gnulib)
 %if 0%{?fedora} < 40
-Provides:       bundled(capstone) = 5.0-rc2
+Provides:       bundled(capstone) = 5.0.1
 %endif
-Provides:       bundled(imgui)
+Provides:       bundled(imgui) = 1.90.0
 Provides:       bundled(libromfs)
 Provides:       bundled(microtar)
-Provides:       bundled(libpl)
+Provides:       bundled(libpl) = %{version}
 Provides:       bundled(xdgpp)
 # working on packaging this, bundling for now as to now delay updates
 Provides:       bundled(miniaudio) = 0.11.11
 
-# ftbfs on these arches.  armv7hl might compile when capstone 5.x
-# is released upstream and we can build against it
 # [7:02 PM] WerWolv: We're not supporting 32 bit anyways soooo
 # [11:38 AM] WerWolv: Officially supported are x86_64 and aarch64
 ExclusiveArch:  x86_64 %{arm64}
@@ -80,13 +81,25 @@ Hex patterns, include patterns and magic files for the use with
 the ImHex Hex Editor
 
 
+%package devel
+Summary:        Development files for %{name}
+License:        GPL-2.0-only
+%description devel
+%{summary}
+
+
 %prep
 %autosetup -n ImHex
 # remove bundled libs we aren't using
-rm -rf lib/external/{curl,fmt,llvm,nlohmann_json,yara}
-%if 0%{?fedora} >= 40
-rm -rf lib/external/capstone
+%if 0%{?fedora} > 38
+rm -rf lib/third_party/llvm
 %endif
+rm -rf lib/third_party/{curl,fmt,nlohmann_json,yara}
+%if 0%{?fedora} >= 40
+rm -rf lib/third_party/capstone
+%endif
+# the cmake scripts look for patterns to be in ImHex-Patterns
+mkdir -p ImHex-Patterns && tar -xf %{SOURCE1} -C ImHex-Patterns --strip-components=1
 
 %build
 %if 0%{?rhel}
@@ -101,9 +114,8 @@ CXXFLAGS+=" -std=gnu++2b"
  -D USE_SYSTEM_NLOHMANN_JSON=ON          \
  -D USE_SYSTEM_FMT=ON                    \
  -D USE_SYSTEM_CURL=ON                   \
+%if 0%{?fedora} > 38
  -D USE_SYSTEM_LLVM=ON                   \
-%if 0%{?fedora >= 39}
- -D LLVM_ROOT=%{_libdir}/llvm16/lib/cmake/llvm/ \
 %endif
  -D USE_SYSTEM_YARA=ON                   \
  -D USE_SYSTEM_NFD=ON                    \
@@ -133,19 +145,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/net.werwolv.%{
 
 # install licenses
 %if ! 0%{?fedora} >= 40
-cp -a lib/external/capstone/LICENSE.TXT                           %{buildroot}%{_datadir}/licenses/%{name}/capstone-LICENSE
-cp -a lib/external/capstone/suite/regress/LICENSE                 %{buildroot}%{_datadir}/licenses/%{name}/capstone-regress-LICENSE
+cp -a lib/third_party/capstone/LICENSE.TXT                           %{buildroot}%{_datadir}/licenses/%{name}/capstone-LICENSE
+cp -a lib/third_party/capstone/suite/regress/LICENSE                 %{buildroot}%{_datadir}/licenses/%{name}/capstone-regress-LICENSE
 %endif
-cp -a lib/external/microtar/LICENSE                               %{buildroot}%{_datadir}/licenses/%{name}/microtar-LICENSE
-cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{_datadir}/licenses/%{name}/xdgpp-LICENSE
+cp -a lib/third_party/microtar/LICENSE                               %{buildroot}%{_datadir}/licenses/%{name}/microtar-LICENSE
+cp -a lib/third_party/xdgpp/LICENSE                                  %{buildroot}%{_datadir}/licenses/%{name}/xdgpp-LICENSE
 
-# install patterns
-/usr/bin/tar -xf %{SOURCE1}
-mkdir %{buildroot}%{_datadir}/imhex
-for i in constants encodings includes magic nodes patterns plugins scripts tests themes tips yara;
+# remove when all paths are added to the cmake file
+# https://github.com/WerWolv/ImHex/blob/master/cmake/build_helpers.cmake#L477
+for i in nodes plugins scripts themes yara;
 do
-    cp -ra ImHex-Patterns-ImHex-v%{version}/$i %{buildroot}%{_datadir}/imhex/$i
+    cp -ra ImHex-Patterns/$i %{buildroot}%{_datadir}/imhex/$i
 done
+
 
 %files
 %license %{_datadir}/licenses/%{name}/
@@ -153,17 +165,25 @@ done
 %{_bindir}/imhex
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
-%{_libdir}/libimhex.so*
+%{_libdir}/libimhex.so.*
 %{_libdir}/%{name}/
 %{_metainfodir}/net.werwolv.%{name}.metainfo.xml
 
 
 %files patterns
-%license ImHex-Patterns-ImHex-v%{version}/LICENSE
-%{_datadir}/imhex/*
+%license ImHex-Patterns/LICENSE
+%{_datadir}/%{name}/{constants,encodings,includes,magic,nodes,patterns,plugins,scripts,themes,yara}/
+
+
+%files devel
+%{_libdir}/libimhex.so
+%{_datadir}/%{name}/sdk/
 
 
 %changelog
+* Wed Jan 03 2024 Jonathan Wright <jonathan@almalinux.org> - 1.32.1-1
+- Update to 1.32.1 rhbz#2256174
+
 * Thu Nov 30 2023 Jonathan Wright <jonathan@almalinux.org> - 1.31.0-1
 - Build fedora 40+ against system capstone
 - Build fedora 39+ with llvm16-devel (compat package) rhbz#2246094

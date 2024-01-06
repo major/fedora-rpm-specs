@@ -30,13 +30,13 @@
 
 # Latest upstream binary releases, used for bootstrapping
 %global bs_x86    1.4.3
-%global bs_x86_64 2.3.6
+%global bs_x86_64 2.3.11
 %global bs_arm64  1.4.2
 %global bs_ppc64  1.5.8
 
 Name: 	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.4.0
+Version: 2.3.11
 Release: 1%{?dist}
 
 # See COPYING for a license breakdown
@@ -258,8 +258,8 @@ fi
 
 
 %changelog
-* Wed Jan 03 2024 Anthony Green <green@redhat.com> - 2.4.0-1
-- Update to 2.4.0
+* Thu Jan 04 2024 Anthony Green <green@redhat.com> - 2.3.11-1
+- Update to 2.3.11
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
