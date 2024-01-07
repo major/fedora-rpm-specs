@@ -1,14 +1,14 @@
 %global pname   femon
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.4.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        DVB frontend status monitor plugin for VDR
 License:        GPLv2+
 URL:            https://github.com/rofafor/vdr-plugin-femon
@@ -17,6 +17,7 @@ Source1:        %{name}.conf
 Patch0:         %{name}-gcc11.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -28,8 +29,7 @@ always the right frontend.  The transponder and stream information are
 also available in advanced display modes.
 
 %prep
-%setup -q -n vdr-plugin-femon-%{version}
-%patch0 -p1
+%autosetup -p1 -n vdr-plugin-femon-%{version}
 
 %build
 %make_build
@@ -47,6 +47,10 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.4.0-24
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

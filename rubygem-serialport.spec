@@ -3,10 +3,11 @@
 Summary: Ruby library that provides a class for using RS-232 serial ports
 Name: rubygem-%{gem_name}
 Version: 1.3.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2
 URL: http://github.com/hparra/ruby-serialport/ 
 Source0: http://rubygems.org/downloads/%{gem_name}-%{version}.gem
+Patch1: rubygem-serialport-c99.patch
 BuildRequires: gcc
 BuildRequires: ruby-devel
 BuildRequires: rubygems-devel
@@ -28,6 +29,7 @@ This package contains documentation for %{name}.
 %prep
 gem unpack %{SOURCE0}
 %setup -q -D -T -n %{gem_name}-%{version}
+%patch -P 1 -p1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 %build
@@ -77,6 +79,9 @@ chmod a-x %{buildroot}%{gem_libdir}/serialport.rb
 %{gem_instdir}/CHANGELOG
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 1.3.2-9
+- Fix C compatibility issue
+
 * Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 1.3.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

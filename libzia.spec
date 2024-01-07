@@ -1,5 +1,5 @@
 Name:		libzia
-Version:	4.53
+Version:	4.54
 Release:	1%{?dist}
 Summary:	Platform abstraction layer for the tucnak package
 License:	GPL-2.0-only
@@ -71,6 +71,10 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %{_libdir}/pkgconfig/libzia.pc
 
 %changelog
+* Fri Jan  5 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.54-1
+- New version
+  Related: rhbz#2256914
+
 * Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.53-1
 - New version
   Related: rhbz#2254900

@@ -2,11 +2,12 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        23.08.4
+Version:        24.01.85
 Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
-Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdevelop-%{version}.tar.xz
+
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 %global rpm_macros_dir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 Source10:       macros.kdevelop
@@ -15,11 +16,10 @@ Patch0:         kdevelop-5.2.3-qmake.patch
 # upstreamable patches
 
 # upstream patches
-# https://invent.kde.org/kdevelop/kdevelop/-/merge_requests/488
-Patch1:         488.patch
 
 BuildRequires:  gcc-c++ gcc
 BuildRequires:  boost-devel
+BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  shared-mime-info
@@ -60,10 +60,15 @@ BuildRequires:  kf5-kxmlgui-devel
 BuildRequires:  kf5-plasma-devel
 BuildRequires:  kf5-krunner-devel
 BuildRequires:  kf5-kcrash-devel
+BuildRequires:  kf5-purpose-devel
 
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
+%ifarch %{qt5_qtwebengine_arches}
+BuildRequires:  qt5-qtwebengine-devel
+%else
 BuildRequires:  qt5-qtwebkit-devel
+%endif
 BuildRequires:  qt5-qtscript-devel
 BuildRequires:  qt5-qttools-devel
 
@@ -223,6 +228,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- update to 24.01.85 (still using qt5/kf5)
+- fix qtwebkit -> qtwebengine
+- add kf5-purpose
+- add meson for meson plugin
+
 * Tue Dec 19 2023 Than Ngo <than@redhat.com> - 23.08.4-1
 - update to 23.08.4
 

@@ -1,20 +1,15 @@
-
-%if 0%{?fedora} > 8
-# KDE4
-%define kdessconfigdir %{_datadir}/kde4/services/ScreenSavers
-%else
-# KDE3
-%define kdessconfigdir %{_datadir}/applnk/System/ScreenSavers
-%endif
-
 %define		pkgtimestamp	20081027
 
 Name:           tempest
 # There is no version, so we use pre-release style versioning with a date
 Version:        0
-Release:        0.36.%{pkgtimestamp}%{?dist}
+Release:        0.37.%{pkgtimestamp}%{?dist}
 Summary:        Tempest OpenGL screensaver
-License:        GPLv2+
+
+# tempest.c	GPL-2.0-or-later
+# vroot.h		HPND
+# SPDX confimed
+License:        GPL-2.0-or-later AND HPND
 URL:            http://www.personal.utulsa.edu/~dan-guernsey
 Source0:        http://www.personal.utulsa.edu/~dan-guernsey/dist/%{name}.tar.gz
 Source1:        %{name}.conf
@@ -23,13 +18,6 @@ Source3:        %{name}-gss.desktop
 Patch0:         %{name}-20070929-desktop.patch
 BuildRequires:  gcc
 BuildRequires:  libGL-devel
-%if 0%{?fedora} >= 22
-Obsoletes:		%{name}-kde < 0-0.17.99999999
-%endif
-
-%if 0%{?fedora} >= 33
-Obsoletes:		%{name}-gnome-screensaver < 0-0.29.20081027
-%endif
 
 %description
 Tempest is a screensaver based on a physical model whereby particles are
@@ -41,44 +29,16 @@ Summary:            XScreenSaver support for %{name}
 Requires:           %{name} = %{version}-%{release}
 Requires(post):     xscreensaver-base
 Requires(postun):   xscreensaver-base
-%if 0%{?fedora} >= 7
 Requires:           xscreensaver-gl-base
-%endif
 
 %description        xscreensaver
 Tempest is a screensaver based on a physical model whereby particles are
 attracted to their neighbors. This package contains the files needed to use the
 hack with xscreensaver.
 
-%package        gnome-screensaver
-Summary:        GNOME screensaver support for %{name}
-Requires:       %{name} = %{version}-%{release}
-Requires:       gnome-screensaver
-
-%description    gnome-screensaver
-Tempest is a screensaver based on a physical model whereby particles are
-attracted to their neighbors. This package contains the files needed to use the
-hack with gnome-screensaver.
-
-
-%package        kde
-Summary:        KDE screensaver support for %{name}
-Requires:       %{name} = %{version}-%{release}
-%if 0%{?fedora} <= 6
-Requires:       kdeartwork-extras
-%else
-Requires:       kdeartwork-kxs
-%endif
-
-%description    kde
-Tempest is a screensaver based on a physical model whereby particles are
-attracted to their neighbors. This package contains the files needed to use the
-hack with KDE.
-
-
 %prep
 %setup -q -n %{name}
-%patch0 -p0 -b .orig
+%patch -P0 -p0 -b .orig
 
 #Cleanups for the debuginfo package
 chmod -x %{name}.c
@@ -98,23 +58,6 @@ install -m0755 %{name} %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_datadir}/xscreensaver/{config,hacks.conf.d}
 install -p -m0644 %{SOURCE1} %{buildroot}%{_datadir}/xscreensaver/hacks.conf.d/
 install -p -m0644 %{SOURCE2} %{buildroot}%{_datadir}/xscreensaver/config/
-
-%if 0%{?fedora} < 33
-# For gnome-screensaver
-mkdir -p %{buildroot}%{_datadir}/applications/screensavers
-mkdir -p %{buildroot}%{_libexecdir}/gnome-screensaver
-pushd %{buildroot}%{_libexecdir}/gnome-screensaver
-ln -sv ../../bin/tempest tempest
-popd
-install -p -m0644 %{SOURCE3} %{buildroot}%{_datadir}/applications/screensavers/
-%endif
-
-%if 0%{?fedora} < 22
-# For KDE
-mkdir -p %{buildroot}%{kdessconfigdir}
-install -p -m0644 %{name}.desktop %{buildroot}%{kdessconfigdir}/
-%endif
-
 
 
 %post xscreensaver
@@ -136,19 +79,10 @@ fi
 %{_datadir}/xscreensaver/config/%{name}.xml
 %{_datadir}/xscreensaver/hacks.conf.d/%{name}.conf
 
-%if 0%{?fedora} < 33
-%files gnome-screensaver
-%{_datadir}/applications/screensavers/%{name}-gss.desktop
-%{_libexecdir}/gnome-screensaver/%{name}
-%endif
-
-%if 0%{?fedora} < 22
-%files kde
-%{kdessconfigdir}/%{name}.desktop
-%endif
-
-
 %changelog
+* Fri Jan  5 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0-0.37.20081027
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.36.20081027
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

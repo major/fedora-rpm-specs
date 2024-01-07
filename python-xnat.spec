@@ -66,7 +66,7 @@ sed -i '1d' xnat/scripts/import_experiment_dir.py
 
 %install
 %pyproject_install
-%pyproject_save_files xnat
+%pyproject_save_files -l xnat
 
 # generate man pages
 # skip xnat_cp_project and xnat_data_integrity, seems generally broken: https://gitlab.com/radiology/infrastructure/xnatpy/-/issues/46

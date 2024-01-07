@@ -45,7 +45,10 @@ Requires:       tzdata
 %autosetup -n pytz_deprecation_shim-%{version}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i -e '/\bpytest-cov\b/d' -e 's/--cov=[^[:blank:]}]+//g' tox.ini
+sed -r -i \
+    -e '/\b(pytest-cov|coverage)\b/d' \
+    -e 's/--cov=[^[:blank:]}]+//g' \
+    tox.ini
 
 # Depend on the system tzdata RPM, not the PyPI “tzdata” fallback package
 sed -r -i -e '/\btzdata\b/d' setup.cfg

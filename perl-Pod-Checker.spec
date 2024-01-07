@@ -1,8 +1,8 @@
 Name:           perl-Pod-Checker
 # Compete with perl.spec
 Epoch:          4
-Version:        1.75
-Release:        500%{?dist}
+Version:        1.76
+Release:        1%{?dist}
 Summary:        Check POD documents for syntax errors
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Checker
@@ -55,7 +55,7 @@ for F in CHANGES README; do
 done
 
 # Help generators to recognize Perl scripts
-for F in t/pod/*.t; do
+for F in `find t/pod -name *.t -o -name *.pl`; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -92,15 +92,18 @@ make test
 
 %files
 %doc CHANGES README
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/podchecker
+%{perl_vendorlib}/Pod*
+%{_mandir}/man1/podchecker*
+%{_mandir}/man3/Pod::Checker*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4:1.76-1
+- 1.76 bump (rhbz#2256687)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.75-500
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

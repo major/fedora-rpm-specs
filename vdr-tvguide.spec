@@ -1,14 +1,14 @@
 %global pname   tvguide
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 
 Name:           vdr-tvguide
 Version:        1.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TvGuide is a highly customizable 2D EPG viewer plugin
 License:        GPLv2+
 URL:            https://gitlab.com/kamel5/tvguide
@@ -19,6 +19,7 @@ Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  pkgconfig(GraphicsMagick++)
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
@@ -54,6 +55,10 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/tvguide/
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.3.8-2
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Wed Nov 22 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.8-1
 - Update to 1.3.8
 

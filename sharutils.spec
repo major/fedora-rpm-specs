@@ -1,22 +1,22 @@
 Summary:    The GNU shar utilities for packaging and unpackaging shell archives
 Name:       sharutils
 Version:    4.15.2
-Release:    24%{?dist}
-# The main code:                GPLv3+
-# intl/dngettext.c:             LGPLv2+
-# lib (gnulib):                 GPLv3+
-# lib/md5.c:                    GPLv3+ and Public Domain
-# libopts/file.c:               LGPLv3+ or BSD
-# libopts/genshell.h:           LGPLv2+
-# libopts/m4/libopts.m4:        GPLv3+
-# doc/sharutils.texi:           GFDL
-# src/uuencode.c:               GPLv3+ and BSD
+Release:    25%{?dist}
+# The main code:                GPL-3.0-or-later
+# intl/dngettext.c:             LGPL-2.0-or-later
+# lib (gnulib):                 GPL-3.0-or-later
+# lib/md5.c:                    GPL-3.0-or-later and PLicenseRef-Fedora-Public-Domain
+# libopts/file.c:               LGPL-3.0-or-later or BSD-3-Clause
+# libopts/genshell.h:           LGPL-2.0-or-later
+# libopts/m4/libopts.m4:        GPL-3.0-or-later
+# doc/sharutils.texi:           GFDL-1.3-or-later
+# src/uuencode.c:               GPL-3.0-or-later and BSD-4-Clause
 ## Not in the binary package
-# ar-lib:                       GPLv2+
+# ar-lib:                       GPL-2.0-or-later
 # config.rpath:                 FSFULLR
 # INSTALL:                      FSFAPP
 # install-sh:                   MIT
-License:    GPLv3+ and (GPLv3+ and BSD) and (LGPLv3+ or BSD) and LGPLv2+ and Public Domain and GFDL
+License:    GPL-3.0-or-later AND (GPL-3.0-or-later AND BSD-4-Clause) AND (LGPL-3.0-or-later OR BSD-3-Clause) AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later
 Source:     ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 # Pass compilation with -Werror=format-security, bug #1037323
 Patch0:     %{name}-4.14.2-Pass-compilation-with-Werror-format-security.patch
@@ -61,11 +61,11 @@ the shar files.
 
 %prep
 %setup -q
-%patch0 -p1 -b .format
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch 0 -p1 -b .format
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
 
 # convert TODO, THANKS to UTF-8
 for i in TODO THANKS; do
@@ -95,6 +95,9 @@ make check
 %{_mandir}/man5/*
 
 %changelog
+* Mon Nov 13 2023 Honza Horak <hhorak@redhat.com> - 4.15.2-25
+- SPDX migration
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

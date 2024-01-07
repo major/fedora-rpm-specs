@@ -1,5 +1,5 @@
 Name:           SDL2_image
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 Summary:        Image loading library for SDL
 
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Tue Jan 02 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.8.2-1
+- Update to 2.8.2 (#2256488)
+
 * Thu Dec 14 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.8.1-1
 - Update to 2.8.1 (#2253627)
 

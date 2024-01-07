@@ -28,8 +28,8 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.4+
-%if 0%{?fedora} < 39
-%global ghcboot_major 9.4
+%if 0%{?fedora} < 40
+%global ghcboot_major 9.6
 %endif
 %global ghcboot ghc%{?ghcboot_major}
 
@@ -46,7 +46,7 @@
 %if 0%{?rhel} == 9
 %global llvm_major 12
 %else
-%global llvm_major 14
+%global llvm_major 15
 %endif
 %global ghc_llvm_archs armv7hl s390x
 %global ghc_unregisterized_arches s390 %{mips} riscv64
@@ -57,7 +57,7 @@ Version: 9.8.1
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -86,7 +86,13 @@ Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 # reverts https://github.com/haskell/text/pull/405
 Patch13: text2-allow-ghc8-arm.patch
 
+# unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
+
+# s390x
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24163
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662
+Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
 
 # Debian patches:
 # bad according to upstream
@@ -388,9 +394,17 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P13 -p1 -b .orig
 %endif
 
-%ifarch s390x
+%ifarch %{ghc_unregisterized_arches}
 %patch -P16 -p1 -b .orig
 %endif
+# remove if epel9 ghc using llvm
+%ifarch s390x
+%if %{defined el9}
+%patch -P16 -p1 -b .orig
+%endif
+%endif
+
+%patch -P17 -p1 -b .orig
 
 #debian
 #%%patch -P24 -p1 -b .orig
@@ -452,6 +466,11 @@ cd hadrian
 %global hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
+# + hadrian/dist/build/hadrian/hadrian -j224 --flavour=perf --docs=no-sphinx-pdfs binary-dist-dir --hash-unit-ids
+# # cabal-read (for OracleQ (PackageDataKey (Package {pkgType = Library, pkgName = "rts", pkgPath = "rts"})))
+# rts/include/rts/Messages.h: withFile: resource exhausted (Too many open files)
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=111327221
+%global _smp_ncpus_max 64
 # quickest does not build shared libs
 # try release instead of perf
 %{hadrian} %{?_smp_mflags} --flavour=%[%{?with_perfbuild} ? "perf" : "quick"]%{!?with_ghc_prof:+no_profiled_libs}%{?hadrian_llvm} %{hadrian_docs} binary-dist-dir --hash-unit-ids
@@ -813,6 +832,10 @@ make test
 
 
 %changelog
+* Fri Jan  5 2024 Jens Petersen <petersen@redhat.com> - 9.8.1-3
+- fix llvm alignment in data sections (@stefansf (IBM))
+  which should fix certain runtime crashes (#2248097)
+
 * Sun Nov 12 2023 Jens Petersen <petersen@redhat.com> - 9.8.1-2
 - rebuild with ghc-rpm-macros-2.6.5 to fix prof deps (thanks mimi1vx)
 

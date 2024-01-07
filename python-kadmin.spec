@@ -5,7 +5,7 @@
 
 Name:               python-kadmin
 Version:            0.1.2
-Release:            20.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:            21.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:            Python module for kerberos admin (kadm5)
 
 License:            MIT
@@ -13,6 +13,7 @@ URL:                https://github.com/rjancewicz/python-%{modname}
 Source0:            %{url}/archive/%{commit}/python-%{modname}-%{shortcommit}.tar.gz
 Patch0:             https://patch-diff.githubusercontent.com/raw/rjancewicz/python-kadmin/pull/59.patch#/0001-build-one-package-with-two-extensions.patch
 Patch1:             12de82aa48a7faeb5bfc618a226f2cc388e2eb4d.patch
+Patch2: python-kadmin-c99.patch
 %description
 %{summary}.
 
@@ -47,6 +48,9 @@ export CFLAGS="$CFLAGS -fcommon"
 %{python3_sitearch}/python_%{modname}*.egg-info
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 0.1.2-21.20181207git94e50ed
+- Fix C compatibility issue
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-20.20181207git94e50ed
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

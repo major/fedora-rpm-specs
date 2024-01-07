@@ -1,9 +1,6 @@
 # Disable to avoid all the test suites
-%if 0%{?rhel} > 9 || 0%{?eln}
+
 %bcond_with tests
-%else
-%bcond_without tests
-%endif
 
 # Disable automatic .la file removal
 %global __brp_remove_la_files %nil
@@ -62,8 +59,8 @@
 
 Summary: A Modern Concurrent Version Control System
 Name: subversion
-Version: 1.14.2
-Release: 23%{?dist}
+Version: 1.14.3
+Release: 1%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -80,11 +77,8 @@ Patch3: subversion-1.14.2-soversion.patch
 Patch4: subversion-1.8.0-rubybind.patch
 Patch5: subversion-1.8.5-swigplWall.patch
 Patch6: subversion-1.14.1-testnomagic.patch
-Patch8: subversion-1.14.1-python-3.11-build.patch
-Patch9: subversion-1.14.2-swig-py-Fix-conditionals-by-SWIG-version-and-by-Pyth.patch
-Patch10: subversion-1.14.2-ruby32-remove-deprecated-api.patch
-Patch11: subversion-ruby-c99.patch
-Patch12: subversion-1.14.2-modsyms.patch
+Patch7: subversion-ruby-c99.patch
+Patch8: subversion-1.14.2-modsyms.patch
 BuildRequires: make
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++
 BuildRequires: swig >= 1.3.24, gettext
@@ -247,11 +241,8 @@ This package includes supplementary tools for use with Subversion.
 %patch -P4 -p1 -b .rubybind
 %patch -P5 -p1 -b .swigplWall
 %patch -P6 -p1 -b .testnomagic
-%patch -P8 -p1 -b .pythonbuild
-%patch -P9 -p1 -b .swigfix
-%patch -P10 -p0 -b .ruby32
-%patch -P11 -p1
-%patch -P12 -p1 -b .modsyms
+%patch -P7 -p1
+%patch -P8 -p1 -b .modsyms
 
 :
 : === Building:
@@ -593,6 +584,9 @@ make check-javahl
 %endif
 
 %changelog
+* Fri Jan 05 2024 Richard Lescak <rlescak@redhat.com> - 1.14.3-1
+- rebase to version 1.14.3 (#2256062)
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.2-23
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

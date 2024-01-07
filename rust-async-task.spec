@@ -6,7 +6,7 @@
 %global crate async-task
 
 Name:           rust-async-task
-Version:        4.5.0
+Version:        4.7.0
 Release:        %autorelease
 Summary:        Task abstraction for building executors
 

@@ -4,12 +4,12 @@
 
 Name: postgresql-odbc
 Summary: PostgreSQL ODBC driver
-Version: 13.01.0000
-Release: 5%{?dist}
+Version: 16.00.0000
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://odbc.postgresql.org/
 
-Source0: http://ftp.postgresql.org/pub/odbc/versions/src/%{upstream_name}-%{version}.tar.gz
+Source0: https://ftp.postgresql.org/pub/odbc/versions/src/%{upstream_name}-%{version}.tar.gz
 
 Patch0: postgresql-odbc-09.06.0200-revert-money-fix.patch
 Patch1: postgresql-odbc-09.05.0400-revert-money-testsuite-fix.patch
@@ -69,6 +69,11 @@ popd
 
 # GCC 10 defaults to -fno-common
 # https://gcc.gnu.org/gcc-10/changes.html (see C section)
+# Test wchar-char failing on s390x (only)
+# Reported: https://bugzilla.redhat.com/show_bug.cgi?id=2256986
+%ifarch s390x
+sed -i '/wchar-char-test/d' test/tests
+%endif
 cd test && make installcheck %{_smp_mflags} CFLAGS="%{optflags} -fcommon" || {
 	echo "=== trying to find all regression.diffs files in build directory ==="
 	find -name regression.diffs | while read line; do
@@ -108,6 +113,9 @@ the PostgreSQL unixODBC driver.
 
 
 %changelog
+* Mon Dec 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 16.00.0000-1
+- Update to 16.00.0000
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.01.0000-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

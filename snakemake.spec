@@ -122,7 +122,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latexpdf SPHINXOPTS='%{?_smp_mflags}'
 
 %install
 %pyproject_install
-%pyproject_save_files snakemake
+%pyproject_save_files -l snakemake
 
 # We wait until %%install to generate the man page so that we can use the
 # proper script entry point. The generated man page is not perfect, but it is

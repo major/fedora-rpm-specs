@@ -1,6 +1,6 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
-Version: 2.0.2
+Version: 2.1.0
 Release: 1%{?dist}
 URL:     http://www.firewalld.org
 License: GPL-2.0-or-later
@@ -220,6 +220,8 @@ fi
 %{_prefix}/lib/firewalld/services/*.xml
 %{_prefix}/lib/firewalld/zones/*.xml
 %{_prefix}/lib/firewalld/helpers/*.xml
+%{_prefix}/lib/firewalld/xmlschema/check.sh
+%{_prefix}/lib/firewalld/xmlschema/*.xsd
 %attr(0750,root,root) %dir %{_sysconfdir}/firewalld
 %ghost %config(noreplace) %{_sysconfdir}/firewalld/firewalld.conf
 %config(noreplace) %{_sysconfdir}/firewalld/firewalld-standard.conf
@@ -287,7 +289,7 @@ fi
 %{_datadir}/firewalld/testsuite/python/firewalld_config.py
 %{_datadir}/firewalld/testsuite/python/firewalld_direct.py
 %{_datadir}/firewalld/testsuite/python/firewalld_rich.py
-%{_datadir}/firewalld/testsuite/python/firewalld_test.py
+%{_datadir}/firewalld/testsuite/python/firewalld_misc.py
 
 %files -n firewall-applet
 %{_bindir}/firewall-applet
@@ -311,6 +313,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Fri Jan 05 2024 Eric Garver <eric@garver.life> - 2.1.0-1
+- rebase package to v2.1.0
+
 * Tue Nov 28 2023 Eric Garver <eric@garver.life> - 2.0.2-1
 - rebase package to v2.0.2
 

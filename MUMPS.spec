@@ -4,35 +4,34 @@
 %global _incmpichdir %{_includedir}/mpich-%{_arch}
 %global _libmpichdir %{_libdir}/mpich/lib
 
-%global soname_version 5.5
+%global soname_version 5.6
 
 # Prevent broken links 
 %undefine _ld_as_needed
 
-%global with_mpich 1
-%global with_openmpi 1
-
 # Due to OpenMPI-5.0 dropping in i686
-%if 0%{?fedora} && 0%{?fedora} > 37
-%global with_mpicheck 1
-%global with_mpich_check 1
+%if 0%{?eln} || 0%{?fedora}
 %ifarch %{ix86}
+%global with_openmpi 0
 %global with_openmpi_check 0
 %else
+%global with_openmpi 1
 %global with_openmpi_check 1
 %endif
-%endif
-
-%if 0%{?fedora} && 0%{?fedora} < 38
-%global with_mpicheck 1
+# rhbz#2225803
+%ifnarch s390x
 %global with_mpich_check 1
-%global with_openmpi_check 1
+%else
+%global with_mpich_check 0
+%endif
+%global with_mpich 1
 %endif
 
 ## Due to rhbz#1744780
 %if 0%{?rhel}
-%global with_mpicheck 1
+%global with_mpich 1
 %global with_mpich_check 1
+%global with_openmpi 1
 %global with_openmpi_check 1
 %endif
 
@@ -43,12 +42,12 @@
 %endif
 
 Name: MUMPS
-Version: %{soname_version}.1
-Release: 6%{?dist}
+Version: %{soname_version}.2
+Release: 1%{?dist}
 Summary: A MUltifrontal Massively Parallel sparse direct Solver
-License: CeCILL-C 
-URL: http://mumps.enseeiht.fr/
-Source0: http://mumps.enseeiht.fr/%{name}_%{version}.tar.gz
+License: CECILL-C
+URL: https://mumps-solver.org
+Source0: https://mumps-solver.org/%{name}_%{version}.tar.gz
 
 # Custom Makefile changed for Fedora and built from Make.inc/Makefile.gfortran.PAR in the source.
 Source1: %{name}-Makefile.par.inc
@@ -238,9 +237,6 @@ rm -f Makefile.inc
 %{_openmpi_load}
 cp -f %{SOURCE1} Makefile.inc
 
-# -DBLR_MT needs OpenMP
-sed -e 's| -DBLR_MT||g' -i Makefile.inc
-
 %if 0%{?fedora}
 %global mpif77_cflags %(env PKG_CONFIG_PATH=%{_libmpidir}/pkgconfig pkg-config --cflags ompi-f77)
 %global mpif77_libs %(env PKG_CONFIG_PATH=%{_libmpidir}/pkgconfig pkg-config --libs ompi-f77)
@@ -262,7 +258,7 @@ sed -e 's|@@CFLAGS@@|%{build_cflags} -fPIC -Dscotch -Dmetis -Dptscotch -DWITHOUT
 sed -e 's|@@LDFLAGS@@|%{__global_ldflags}|g' -i Makefile.inc
 sed -e 's|@@MPICLIB@@|-lmpi|g' -i Makefile.inc
 
-%if 0%{?rhel} && 0%{?rhel} >= 7
+%if 0%{?rhel}
 sed -e 's|@@MPIFORTRANLIB@@|-L%{_libmpidir} -Wl,-rpath -Wl,%{_libmpidir} %{mpif77_libs}|g' -i Makefile.inc
 %endif
 
@@ -490,32 +486,25 @@ make clean
 # Make sure documentation is using Unicode.
 iconv -f iso8859-1 -t utf-8 README > README-t && mv README-t README
 
-%if 0%{?el7}
-%ldconfig_scriptlets
-%endif
-
 %check
 # Running test programs
 pushd %{name}-%{version}/examples
-LD_LIBRARY_PATH=$PWD:../lib:$LD_LIBRARY_PATH \
+LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir} \
  ./ssimpletest < input_simpletest_real
-LD_LIBRARY_PATH=$PWD:../lib:$LD_LIBRARY_PATH \
+LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir} \
  ./dsimpletest < input_simpletest_real
-LD_LIBRARY_PATH=$PWD:../lib:$LD_LIBRARY_PATH \
+LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir} \
  ./csimpletest < input_simpletest_cmplx
-LD_LIBRARY_PATH=$PWD:../lib:$LD_LIBRARY_PATH \
+LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir} \
  ./zsimpletest < input_simpletest_cmplx
-LD_LIBRARY_PATH=$PWD:../lib:$LD_LIBRARY_PATH \
+LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir} \
  ./c_example
 popd
 
-%if 0%{?with_mpicheck}
 %if 0%{?with_openmpi_check}
 %{_openmpi_load}
 pushd %{name}-%{version}-openmpi/examples
-export LD_LIBRARY_PATH=$PWD:../lib:$LD_LIBRARY_PATH
-# Allow openmpi to run with more processes than cores
-export OMPI_MCA_rmaps_base_oversubscribe=1
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
 ./ssimpletest < input_simpletest_real
 ./dsimpletest < input_simpletest_real
 ./csimpletest < input_simpletest_cmplx
@@ -526,8 +515,16 @@ popd
 %endif
 
 %if 0%{?with_mpich_check}
-## Tests not perfomred due to 'gethostname' failure on koji
-%endif
+%{_mpich_load}
+pushd %{name}-%{version}-mpich/examples
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
+./ssimpletest < input_simpletest_real
+./dsimpletest < input_simpletest_real
+./csimpletest < input_simpletest_cmplx
+./zsimpletest < input_simpletest_cmplx
+mpirun -np 3 ./c_example
+popd
+%{_mpich_unload}
 %endif
 
 %install
@@ -551,12 +548,12 @@ install -cpm 755 %{name}-%{version}-openmpi/lib/libpord-%{soname_version}.so $RP
 install -cpm 755 %{name}-%{version}-openmpi/lib/libpord.so $RPM_BUILD_ROOT$MPI_LIB
 
 # Make symbolic links instead hard-link 
-ln -sf $MPI_LIB/libsmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libsmumps.so
-ln -sf $MPI_LIB/libcmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libcmumps.so
-ln -sf $MPI_LIB/libzmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libzmumps.so
-ln -sf $MPI_LIB/libdmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libdmumps.so
-ln -sf $MPI_LIB/libmumps_common-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libmumps_common.so
-ln -sf $MPI_LIB/libpord-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libpord.so
+ln -sf libsmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libsmumps.so
+ln -sf libcmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libcmumps.so
+ln -sf libzmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libzmumps.so
+ln -sf libdmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libdmumps.so
+ln -sf libmumps_common-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libmumps_common.so
+ln -sf libpord-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libpord.so
 
 install -cpm 755 %{name}-%{version}-openmpi/examples/?simpletest $RPM_BUILD_ROOT%{_libdir}/openmpi/%{name}-%{version}-examples
 install -cpm 755 %{name}-%{version}-openmpi/examples/input_* $RPM_BUILD_ROOT%{_libdir}/openmpi/%{name}-%{version}-examples
@@ -588,12 +585,12 @@ install -cpm 755 %{name}-%{version}-mpich/lib/libpord-%{soname_version}.so $RPM_
 install -cpm 755 %{name}-%{version}-mpich/lib/libpord.so $RPM_BUILD_ROOT$MPI_LIB
 
 # Make symbolic links instead hard-link 
-ln -sf $MPI_LIB/libsmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libsmumps.so
-ln -sf $MPI_LIB/libcmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libcmumps.so
-ln -sf $MPI_LIB/libzmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libzmumps.so
-ln -sf $MPI_LIB/libdmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libdmumps.so
-ln -sf $MPI_LIB/libmumps_common-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libmumps_common.so
-ln -sf $MPI_LIB/libpord-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libpord.so
+ln -sf libsmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libsmumps.so
+ln -sf libcmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libcmumps.so
+ln -sf libzmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libzmumps.so
+ln -sf libdmumps-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libdmumps.so
+ln -sf libmumps_common-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libmumps_common.so
+ln -sf libpord-%{soname_version}.so $RPM_BUILD_ROOT$MPI_LIB/libpord.so
 
 install -cpm 755 %{name}-%{version}-mpich/examples/?simpletest $RPM_BUILD_ROOT%{_libdir}/mpich/%{name}-%{version}-examples
 install -cpm 755 %{name}-%{version}-mpich/examples/input_* $RPM_BUILD_ROOT%{_libdir}/mpich/%{name}-%{version}-examples
@@ -651,7 +648,7 @@ EOF
 %{_libmpidir}/lib?mumps.so
 %{_libmpidir}/libmumps_common.so
 %{_libmpidir}/libpord.so
-%{_fmoddir}/openmpi%{?el7:-%_arch}/%{name}-%{version}/
+%{_fmoddir}/openmpi/%{name}-%{version}/
 
 %files openmpi-examples
 %{_libdir}/openmpi/%{name}-%{version}-examples/
@@ -670,7 +667,7 @@ EOF
 %{_libmpichdir}/lib?mumps.so
 %{_libmpichdir}/libmumps_common.so
 %{_libmpichdir}/libpord.so
-%{_fmoddir}/mpich%{?el7:-%_arch}/%{name}-%{version}/
+%{_fmoddir}/mpich/%{name}-%{version}/
 
 %files mpich-examples
 %{_libdir}/mpich/%{name}-%{version}-examples/
@@ -703,6 +700,10 @@ EOF
 %{_rpmmacrodir}/macros.MUMPS
 
 %changelog
+* Fri Jan 05 2024 Antonio Trande <sagitter@fedoraproject.org> - 5.6.2-1
+- Release 5.6.2
+- Disable MPICH tests
+
 * Thu Aug 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.5.1-6
 - Rebuild for Scotch-7.0.4
 

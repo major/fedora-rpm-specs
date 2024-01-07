@@ -3,13 +3,14 @@
 
 Name:           python-%{shortname}
 Version:        3.1.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD
 URL:            https://github.com/mcfletch/pyopengl
 Source0:        https://pypi.python.org/packages/source/P/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        https://pypi.python.org/packages/source/P/%{srcname}-accelerate/%{srcname}-accelerate-%{version}.tar.gz
 Patch0:         python-3.12.patch
+Patch1: python-pyopengl-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -66,6 +67,7 @@ Requires:       python3-tkinter
 %prep
 %setup -q -c -n %{srcname}-%{version} -T -a0 -a1
 %patch -P0 -p1
+%patch -P 1 -p1
 
 %build
 # Delete all Cython generated .c files to force a rebuild in py3_build
@@ -123,6 +125,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 3.1.7-4
+- Fix C compatibility issues
+
 * Mon Jul 24 2023 Scott Talbert <swt@techie.net> - 3.1.7-3
 - Add runtime depends on libglvnd-opengl also
 

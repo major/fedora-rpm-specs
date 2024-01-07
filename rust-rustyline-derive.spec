@@ -5,14 +5,14 @@
 %global crate rustyline-derive
 
 Name:           rust-rustyline-derive
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Rustyline derive macros (Completer, Helper, Hinter, Highlighter)
 
 License:        MIT
 URL:            https://crates.io/crates/rustyline-derive
 Source:         %{crates_source}
-Source:         https://github.com/kkawakam/rustyline/raw/v12.0.0/LICENSE
+Source:         https://github.com/kkawakam/rustyline/raw/v13.0.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -2,24 +2,21 @@
 %global gem_name httparty
 
 Name: rubygem-%{gem_name}
-Version: 0.18.1
-Release: 8%{?dist}
+Version: 0.21.0
+Release: 1%{?dist}
 Summary: Makes http fun! Also, makes consuming restful web services dead easy
 License: MIT
 URL: https://github.com/jnunemaker/httparty
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/jnunemaker/httparty.git && cd httparty
-# git archive -v -o httparty-0.18.1-spec.tar.gz v0.18.1 spec/
+# git archive -v -o httparty-0.21.0-spec.tar.gz v0.21.0 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
-# Fix test suite compatibility with Ruby 3.0.0.
-# https://github.com/jnunemaker/httparty/pull/721
-Patch0: rubygem-httparty-0.18.1-Fix-method-call-in-spec-for-Ruby-3.0.0.patch
 # lib/httparty.rb:require 'json'
 Requires: rubygem(json)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.0.0
-BuildRequires: rubygem(mime-types)
+BuildRequires: ruby >= 2.3.0
+BuildRequires: rubygem(mini_mime)
 BuildRequires: rubygem(multi_xml)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(webmock)
@@ -39,10 +36,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
-pushd %{_builddir}
-%patch0 -p1
-popd
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -72,12 +65,7 @@ ln -s %{_builddir}/spec spec
 # We are not interested in code coverage.
 sed -i '/[sS]imple[cC]ov/ s/^/#/' spec/spec_helper.rb
 
-# We don't need Pry to execute test suite.
-sed -i '/pry/ s/^/#/' spec/spec_helper.rb
-
-# UTF8 is required for ./spec/httparty/request/body_spec.rb:63
-# The encoding should be probably fixed upstream.
-LC_ALL=C.UTF-8 rspec spec
+rspec spec
 
 # This would require Mongrel we don't have and don't want.
 # cucumber
@@ -109,6 +97,12 @@ popd
 %{gem_instdir}/website
 
 %changelog
+* Fri Jan 05 2024 Vít Ondruch <vondruch@redhat.com> - 0.21.0-1
+- Update to HTTParty 0.20.0.
+  Resolves: rhbz#1701659
+  Related: rhbz#2256881
+  Resolves: rhbz#2256882
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

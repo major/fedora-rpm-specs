@@ -2,7 +2,7 @@
 
 Name:           kdevelop-php
 Summary:        Php language and documentation plugins for KDevelop
-Version:        23.08.4
+Version:        24.01.85
 Release:        1%{?dist}
 
 # Most files LGPLv2+/GPLv2+
@@ -63,6 +63,10 @@ BuildRequires:  qt5-qtwebkit-devel
 
 
 %changelog
+	
+* Fri Jan 05 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- update to 24.01.85 (still using qt5/kf5)
+
 * Wed Dec 20 2023 Than Ngo <than@redhat.com> - 23.08.4-1
 - update to 23.08.4
 

@@ -5,16 +5,13 @@
 %global crate is-macro
 
 Name:           rust-is-macro
-Version:        0.3.1
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Derive methods for using custom enums like Option / Result
 
-License:        MIT
+License:        Apache-2.0
 URL:            https://crates.io/crates/is-macro
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * improve crate description and fix typos
-Patch:          is-macro-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -34,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

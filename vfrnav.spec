@@ -3,7 +3,7 @@ Version:        20230429
 Release:        6%{?dist}
 Summary:        VFR/IFR Navigation
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.com/tsailer/vfrnav/
 Source0:        https://gitlab.com/tsailer/vfrnav/-/archive/%{version}/%{name}-%{version}.tar.bz2
 

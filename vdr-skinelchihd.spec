@@ -1,22 +1,30 @@
 %global sname   skinelchihd
+# https://github.com/FireFlyVDR/vdr-plugin-skinelchihd/commit/53f8c8756392d068715aaf7ccb2599e1f456b148
+%global commit0 53f8c8756392d068715aaf7ccb2599e1f456b148
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global gitdate 20231222
+
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-skinelchihd
-Version:        1.2.3
-Release:        1%{?dist}
+Version:        1.2.4
+Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
+# Release:        2%%{?dist}
 Summary:        A Elchi based skin with True Color support for the Video Disc Recorder
 
 License:        GPLv2+
 URL:            https://github.com/FireFlyVDR/vdr-plugin-skinelchihd
-Source0:        %url/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Source0:        %%url/archive/refs/tags/v%%{version}.tar.gz#/%%{name}-%%{version}.tar.gz
+Source0:        %url/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 # Configuration files for plugin parameters. These are Fedora specific and not in upstream.
 Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 %if 0%{?fedora} >= 38
 #BuildRequires:  pkgconfig(ImageMagick)
 BuildRequires:  ImageMagick-c++-devel
@@ -32,7 +40,8 @@ skin. It is based on the Elchi skin with major re-factoring to make use of newer
 VDR features like True Color support.
 
 %prep
-%autosetup -n vdr-plugin-%{sname}-%{version}
+#%%autosetup -n vdr-plugin-%%{sname}-%%{version}
+%autosetup -n vdr-plugin-%{sname}-%{commit0}
 
 %build
 %{set_build_flags}
@@ -63,6 +72,10 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_vardir}/themes/ElchiHD-*.theme
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.4-0.1.20231222git53f8c87
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Tue Sep 19 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.3-1
 - Update to 1.2.3
 

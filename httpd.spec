@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.58
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -97,6 +97,8 @@ Patch42: httpd-2.4.48-r1828172+.patch
 Patch45: httpd-2.4.43-logjournal.patch
 Patch46: httpd-2.4.53-separate-systemd-fns.patch
 Patch47: httpd-2.4.58-r1912477+.patch
+Patch48: httpd-2.4.58-r1913912+.patch
+Patch49: httpd-2.4.58-r1914365.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
@@ -274,6 +276,8 @@ written in the Lua programming language.
 %patch -P46 -p1 -b .separatesystemd
 %patch -P25 -p1 -b .selinux
 %patch -P47 -p1 -b .r1912477+
+%patch -P48 -p1 -b .r1913912
+%patch -P49 -p1 -b .r1914365
 
 %patch -P60 -p1 -b .enable-sslv3
 %patch -P61 -p1 -b .r1914013
@@ -863,6 +867,10 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri Jan  5 2024 Joe Orton <jorton@redhat.com> - 2.4.58-4
+- fix OpenSSL 3.0 deprecation warnings (r1913912, r1915067)
+- mod_ssl: move to provider API for pkcs11 support (#2253014)
+
 * Fri Dec  8 2023 Joe Orton <jorton@redhat.com> - 2.4.58-3
 - mod_dav_fs: add DAVLockDBType, use global lock around lockdb
 - fix build with libxml2 2.12

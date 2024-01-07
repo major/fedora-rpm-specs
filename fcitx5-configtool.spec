@@ -1,7 +1,25 @@
-%global translation_domain org.fcitx.fcitx5.kcm
+%global translation_domain kcm_fcitx5
+	
+# as of 2024-01, required dependencies 
+# for building QT6 are not available 
+# in Fedora 39 
+#  - cmake(Plasma)
+#  - cmake(KF6Svg)
+#  - cmake(KF6KCMUtils)
+%if 0%{?fedora} >= 40
+%global use_qt6 1
+%else
+%global use_qt6 0
+%endif
+
+%if %{use_qt6}
+%define qt_major_ver 6
+%else
+%define qt_major_ver 5
+%endif
 
 Name:           fcitx5-configtool
-Version:        5.1.2
+Version:        5.1.3
 Release:        %autorelease
 Summary:        Configuration tools used by fcitx5
 License:        GPLv2+
@@ -18,41 +36,48 @@ BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  fcitx5-qt-devel
 BuildRequires:  gettext-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kirigami2-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kpackage-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kitemviews-devel
+BuildRequires:  kf%{qt_major_ver}-kwidgetsaddons-devel
+BuildRequires:  kf%{qt_major_ver}-kirigami2-devel
+BuildRequires:  kf%{qt_major_ver}-kdeclarative-devel
+BuildRequires:  kf%{qt_major_ver}-kpackage-devel
+BuildRequires:  kf%{qt_major_ver}-ki18n-devel
+BuildRequires:  kf%{qt_major_ver}-kcoreaddons-devel
+BuildRequires:  kf%{qt_major_ver}-kitemviews-devel
 BuildRequires:  pkgconfig
 BuildRequires:  cmake(Fcitx5Core)
 BuildRequires:  cmake(Fcitx5Utils)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(KF%{qt_major_ver}IconThemes)
+BuildRequires:  cmake(Qt%{qt_major_ver}QuickControls2)
+BuildRequires:  cmake(Qt%{qt_major_ver}Svg)
 BuildRequires:  pkgconfig(iso-codes)
-BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xkeyboard-config)
 BuildRequires:  pkgconfig(xkbcommon-x11)
 BuildRequires:  pkgconfig(xkbfile)
 BuildRequires:  /usr/bin/appstream-util
+%if %{use_qt6}
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6KCMUtils)
+%else
+BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  cmake(KF5Plasma)
+%endif
 
 # to display scalable icons
-Requires:       qt5-qtsvg
-# explicit requires on fcitx5-qt
-Requires:       fcitx5-qt
+Requires:       qt%{qt_major_ver}-qtsvg
+# explicit requires on fcitx5-qt{5,6}-gui-wrapper
+Requires:       %{_libexecdir}/fcitx5-qt%{qt_major_ver}-gui-wrapper
 
 %description
 Configuration tools used by fcitx5.
 
 %package -n kcm-fcitx5
 Summary:        Config tools to be used on KDE based environment.
-Requires:       kf5-filesystem
-Requires:       kf5-kcmutils
+Requires:       kf%{qt_major_ver}-filesystem
+Requires:       kf%{qt_major_ver}-kcmutils
+Requires:       kf%{qt_major_ver}-plasma
 Suggests:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n kcm-fcitx5
@@ -81,7 +106,11 @@ sed -i 's/Catogories/Categories/g' src/configtool/org.fcitx.fcitx5-config-qt.des
 sed -i 's/Catogories/Categories/g' src/migrator/app/org.fcitx.fcitx5-migrator.desktop.in
 
 %build
-%cmake_kf5 -GNinja
+%if %{use_qt6}
+  %cmake_kf6 -GNinja -DUSE_QT6=On
+%else
+  %cmake_kf5 -GNinja -DUSE_QT6=Off
+%endif
 %cmake_build 
 
 %install
@@ -94,8 +123,6 @@ desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/${desktop_file_name}.desktop
 done
-sed "/icon/d" -i %{buildroot}%{_metainfodir}/%{translation_domain}.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %find_lang %{name}
 %find_lang %{translation_domain}
 
@@ -110,10 +137,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files -n kcm-fcitx5 -f %{translation_domain}.lang 
 %license LICENSES/GPL-2.0-or-later.txt
-%{_kf5_qtplugindir}/kcms/kcm_fcitx5.so
+%if %{use_qt6}
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_fcitx5.so
+%else
 %{_datadir}/kpackage/kcms/%{translation_domain}
-%{_datadir}/kservices5/kcm_fcitx5.desktop
-%{_metainfodir}/%{translation_domain}.appdata.xml
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_fcitx5.so
+%endif
+%{_datadir}/applications/kcm_fcitx5.desktop
 %{_bindir}/fcitx5-plasma-theme-generator
 
 %files -n fcitx5-migrator

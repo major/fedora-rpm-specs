@@ -6,8 +6,8 @@
 Summary: Multilib packaging helpers
 Name: multilib-rpm-config
 Version: 1
-Release: 23%{?dist}
-License: GPLv2+
+Release: 24%{?dist}
+License: GPL-2.0-or-later
 
 # TODO: resolve directly in rpm/redhat-rpm-config (instead of this hack).
 # Note that to avoid FTBFS against plain RHEL6, we can't put this hack before
@@ -119,6 +119,9 @@ test `$capable --arch ppc64p7` = true
 
 
 %changelog
+* Fri Jan 05 2024 Honza Horak <hhorak@redhat.com> - 1-24
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -32,7 +32,7 @@
 
 # bootstrap needs 8.10+
 %global ghcboot_major 9.2
-%global ghcboot ghc%{ghcboot_major}
+%global ghcboot ghc%{?ghcboot_major}
 
 # https://gitlab.haskell.org/ghc/ghc/-/issues/19754
 # https://github.com/haskell/haddock/issues/1384
@@ -69,7 +69,7 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -115,6 +115,11 @@ Patch12: ghc-armv7-VFPv3D16--NEON.patch
 Patch15: ghc-warnings.mk-CC-Wall.patch
 Patch16: ghc-9.2.1-hadrian-s390x-rts--qg.patch
 
+# s390x
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24163
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662
+Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
+
 # bigendian (s390x and ppc64)
 # https://gitlab.haskell.org/ghc/ghc/issues/15411
 # https://gitlab.haskell.org/ghc/ghc/issues/16505
@@ -129,6 +134,10 @@ Patch18: Disable-unboxed-arrays.patch
 Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
+
+Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
+
+# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 s390x ppc64le aarch64
@@ -176,20 +185,20 @@ BuildRequires: llvm%{llvm_major}
 %if %{with hadrian}
 BuildRequires:  happy
 %if %{with build_hadrian}
-BuildRequires:  ghc-Cabal-static
-BuildRequires:  ghc-QuickCheck-static
-BuildRequires:  ghc-base-static
-BuildRequires:  ghc-bytestring-static
-BuildRequires:  ghc-containers-static
-BuildRequires:  ghc-directory-static
-BuildRequires:  ghc-extra-static
-BuildRequires:  ghc-filepath-static
-BuildRequires:  ghc-mtl-static
-BuildRequires:  ghc-parsec-static
-BuildRequires:  ghc-shake-static
-BuildRequires:  ghc-stm-static
-BuildRequires:  ghc-transformers-static
-BuildRequires:  ghc-unordered-containers-static
+BuildRequires:  ghc-Cabal-devel
+BuildRequires:  ghc-QuickCheck-devel
+BuildRequires:  ghc-base-devel
+BuildRequires:  ghc-bytestring-devel
+BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-directory-devel
+BuildRequires:  ghc-extra-devel
+BuildRequires:  ghc-filepath-devel
+BuildRequires:  ghc-mtl-devel
+BuildRequires:  ghc-parsec-devel
+BuildRequires:  ghc-shake-devel
+BuildRequires:  ghc-stm-devel
+BuildRequires:  ghc-transformers-devel
+BuildRequires:  ghc-unordered-containers-devel
 BuildRequires:  alex
 %else
 BuildRequires:  %{name}-hadrian
@@ -424,14 +433,25 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P12 -p1 -b .orig
 %endif
 
-# remove s390x after complete switching to llvm
 %ifarch %{ghc_unregisterized_arches}
 %patch -P15 -p1 -b .orig
-%patch -P16 -p1 -b .orig
 %endif
 
-# bigendian
+%if %{with hadrian}
+%ifarch %{ghc_unregisterized_arches}
+%patch -P16 -p1 -b .orig
+%endif
+# remove if epel9 ghc using llvm
 %ifarch s390x
+%if %{defined el9}
+%patch -P16 -p1 -b .orig
+%endif
+%endif
+%endif
+
+%ifarch s390x
+%patch -P17 -p1 -b .orig
+# bigendian
 %patch -P18 -p1 -b .orig
 %endif
 
@@ -439,6 +459,11 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
+
+#sphinx 7
+%if 0%{?fedora} >= 40
+%patch -P30 -p1 -b .orig
+%endif
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
@@ -449,7 +474,6 @@ fi
 %endif
 
 %if %{without hadrian}
-# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 cat > mk/build.mk << EOF
 %if %{with perfbuild}
 %ifarch %{ghc_llvm_archs}
@@ -495,7 +519,7 @@ export CC=%{_bindir}/gcc
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22195
 export LD=%{_bindir}/ld.gold
 
-export GHC=%{_bindir}/ghc-%{ghcboot_major}
+export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
 # * %%configure induces cross-build due to different target/host/build platform names
 ./configure --prefix=%{_prefix} --exec-prefix=%{_exec_prefix} \
@@ -984,6 +1008,11 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan  5 2024 Jens Petersen <petersen@redhat.com> - 9.2.8-22
+- s390x: patch from @stefansf (IBM) to fix llvm alignment in data sections
+  which should fix certain runtime crashes (#2248097)
+- fixup sphinx links patch
+
 * Mon Aug  7 2023 Jens Petersen <petersen@redhat.com> - 9.2.8-21
 - fixup SPDX license tags to use "AND"
 - patch hadrian to build with Cabal-3.8

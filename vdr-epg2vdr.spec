@@ -1,12 +1,12 @@
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-epg2vdr
 Version:        1.2.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A plugin to retrieve EPG data from a mysql database into VDR
 
 License:        GPL+
@@ -15,6 +15,7 @@ Source0:        %url/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  sqlite-devel
 BuildRequires:  openssl-devel
 BuildRequires:  mariadb-connector-c-devel
@@ -61,6 +62,10 @@ chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.15-2
+- Rebuilt for new VDR API versionA
+- Add BR gettext for rawhide
+
 * Tue Oct 17 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.15-1
 - Update to 1.2.15
 

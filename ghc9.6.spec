@@ -28,9 +28,7 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.2+
-%if 0%{?fedora} < 39
-%global ghcboot_major 9.2
-%endif
+%global ghcboot_major 9.4
 %global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
@@ -57,7 +55,7 @@ Version: 9.6.3
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -91,7 +89,13 @@ Patch12: ghc-armv7-VFPv3D16--NEON.patch
 # reverts https://github.com/haskell/text/pull/405
 Patch13: text2-allow-ghc8-arm.patch
 
+# unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
+
+# s390x
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24163
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662
+Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
 
 # Debian patches:
 # bad according to upstream
@@ -105,7 +109,8 @@ Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
-# %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
+# %%{ix86} x86_64 s390x ppc64le aarch64
+# and retired arches: alpha sparcv9 armv5tel ppc ppc64 s390 armv7hl
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
@@ -151,20 +156,20 @@ BuildRequires: llvm%{llvm_major}
 # needed for binary-dist-dir
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
-BuildRequires:  ghc-Cabal-static
-BuildRequires:  ghc-QuickCheck-static
-BuildRequires:  ghc-base-static
-BuildRequires:  ghc-bytestring-static
-BuildRequires:  ghc-containers-static
-BuildRequires:  ghc-directory-static
-BuildRequires:  ghc-extra-static
-BuildRequires:  ghc-filepath-static
-BuildRequires:  ghc-mtl-static
-BuildRequires:  ghc-parsec-static
-BuildRequires:  ghc-shake-static
-BuildRequires:  ghc-stm-static
-BuildRequires:  ghc-transformers-static
-BuildRequires:  ghc-unordered-containers-static
+BuildRequires:  ghc-Cabal-devel
+BuildRequires:  ghc-QuickCheck-devel
+BuildRequires:  ghc-base-devel
+BuildRequires:  ghc-bytestring-devel
+BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-directory-devel
+BuildRequires:  ghc-extra-devel
+BuildRequires:  ghc-filepath-devel
+BuildRequires:  ghc-mtl-devel
+BuildRequires:  ghc-parsec-devel
+BuildRequires:  ghc-shake-devel
+BuildRequires:  ghc-stm-devel
+BuildRequires:  ghc-transformers-devel
+BuildRequires:  ghc-unordered-containers-devel
 %else
 BuildRequires: %{name}-hadrian
 %endif
@@ -399,8 +404,18 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P13 -p1 -b .orig
 %endif
 
-%ifarch s390x
+%ifarch %{ghc_unregisterized_arches}
 %patch -P16 -p1 -b .orig
+%endif
+# remove if epel9 ghc using llvm
+%ifarch s390x
+%if %{defined el9}
+%patch -P16 -p1 -b .orig
+%endif
+%endif
+
+%ifarch s390x
+%patch -P17 -p1 -b .orig
 %endif
 
 #debian
@@ -819,6 +834,10 @@ make test
 
 
 %changelog
+* Sat Nov 25 2023 Jens Petersen <petersen@redhat.com> - 9.6.3-12
+- s390x: fix llvm alignment in data sections (@stefansf (IBM))
+  which should fix certain runtime crashes (#2248097)
+
 * Mon Sep 25 2023 Jens Petersen <petersen@redhat.com> - 9.6.3-11
 - https://downloads.haskell.org/ghc/9.6.3/docs/users_guide/9.6.3-notes.html
 

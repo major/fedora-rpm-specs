@@ -1,5 +1,5 @@
 Name:           python-h5io
-Version:        0.1.9
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Read and write simple Python objects using HDF5
 
@@ -36,7 +36,7 @@ Recommends:     python%{python3_version}dist(scipy)
 %prep
 %autosetup -n h5io-h5io-%{version} -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/--cov[^[:blank:]=]*=[^[:blank:]]*//g' setup.cfg
+sed -r -i 's/--cov[^[:blank:]"=]*(=[^[:blank:]"]*)?//g' pyproject.toml
 
 
 %generate_buildrequires

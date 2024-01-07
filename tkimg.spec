@@ -2,24 +2,30 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:		tkimg
-Version:	1.4.14
-Release:	5%{?dist}
+Version:	1.4.16
+Release:	1%{?dist}
 Summary:	Image support library for Tk
-# This has some bundled "fun" in it.
-# The fork of libjpeg is licensed IJG
-# The fork of zlib and libpng are licensed zlib
-# The fork of libtiff is licensed libtiff
-License:	BSD AND IJG AND zlib AND libtiff
+# The core tkimg code is TCL
+# tiff/ is libtiff
+# gif/gif.c is NTP-0
+# compat/libjpeg is IJG AND NTP-0
+# compat/libpng is Libpng AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT
+# compat/libtiff is libtiff AND MIT
+#   ... (yes, the SPDX MIT)
+# compat/zlib is Zlib
+#   ... the dotzlib stuff is BSL-1.0, but I know it's not used here.
+License:	TCL AND libtiff AND NTP-0 AND IJG AND Libpng AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT AND Zlib
+# Try saying that three times fast.
 URL:		http://sourceforge.net/projects/tkimg
 Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/1.4/Img-%{version}-Source.tar.gz
-# Apply upstream libtiff fix for CVE-2022-4645
-# I do not think it impacts tkimg, but better safe than sorry.
-# https://gitlab.com/libtiff/libtiff/-/commit/e813112545942107551433d61afd16ac094ff246
-Patch0:		tkimg-libtiff-CVE-2022-4645.patch
-Patch1: tkimg-c99.patch
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	tcl-devel tk-devel tcllib
+
+# CVE-2023-6277
+# https://gitlab.com/libtiff/libtiff/-/issues/614
+# https://gitlab.com/libtiff/libtiff/-/merge_requests/545
+Patch0:	tkimg-libtiff-CVE-2023-6277.patch
 
 # tkimg builds its own bundled copies of the zlib, libjpeg, libpng,
 # and libtiff libraries. From the README:
@@ -34,8 +40,8 @@ BuildRequires:	tcl-devel tk-devel tcllib
 
 Provides: bundled(zlib) = 1.2.13
 Provides: bundled(libjpeg) = 9e
-Provides: bundled(libpng) = 1.6.38
-Provides: bundled(libtiff) = 4.4.0
+Provides: bundled(libpng) = 1.6.39
+Provides: bundled(libtiff) = 4.5.0
 Requires: tcl(abi) = 8.6
 Requires: tk >= 8.6
 
@@ -52,9 +58,8 @@ Requires:	tcl-devel tk-devel
 These are the header files needed to develop a %{name} application
 
 %prep
-%setup -q -n Img-%{version}-Source
-%patch0 -p1 -b .CVE-2022-4645
-%patch1 -p1
+%setup -q -n Img-%{version}
+%patch -P 0 -p1 -b .CVE-2023-6277
 
 %build
 %configure --with-tcl=%{tcl_sitearch} --with-tk=%{_libdir} --libdir=%{tcl_sitearch} --disable-threads --enable-64bit
@@ -77,6 +82,11 @@ make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Fri Jan  5 2024 Tom Callaway <spot@fedoraproject.org> - 1.4.16-1
+- update to 1.4.16
+- apply upstream (libtiff) fix for CVE-2023-6277
+- update license tag
+
 * Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 1.4.14-5
 - Backport part of an upstream patch to fix C compatibility issues
 

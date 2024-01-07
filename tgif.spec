@@ -1,9 +1,14 @@
 Name:		tgif
 Version:	4.2.5
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	2-D drawing tool
 
-License:	QPL
+# convkinput.c	HPND
+# convxim.c	HPND
+# rmcast/rmchat/rmchat.c	GPL-2.0-or-later	unused
+# Overall	QPL-1.0
+# SPDX confirmed
+License:	QPL-1.0 AND HPND
 URL:		http://bourbon.usc.edu/tgif/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-QPL-%{version}.tar.gz
 # http://tyche.pu-toyama.ac.jp/~a-urasim/tgif/
@@ -11,7 +16,7 @@ Patch10:	tgif-textcursor-a-urasim.patch
 # Check below later
 Patch101:	tgif-QPL-4.1.45-size-debug.patch
 Patch102:	tgif-QPL-4.2.5-format-security.patch
-Patch103: tgif-c99.patch
+Patch103:	tgif-c99.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -129,9 +134,6 @@ popd
 desktop-file-install \
 	--remove-category 'Application' \
 	--remove-category 'X-Fedora' \
-%if 0%{?fedora} < 19
-	--vendor 'fedora' \
-%endif
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications/ \
 	po/ja/tgif.desktop
 
@@ -141,9 +143,9 @@ desktop-file-install \
 %files -f %{name}.lang
 %doc AUTHORS
 %doc ChangeLog
-%doc Copyright
+%license Copyright
 %doc HISTORY
-%doc LICENSE.QPL
+%license LICENSE.QPL
 %doc README*
 %doc VMS_MAKE_TGIF.COM 
 %doc example.tex 
@@ -163,6 +165,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Fri Jan  5 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-29
+- SPDX migration
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 - Fix fr.po encoding

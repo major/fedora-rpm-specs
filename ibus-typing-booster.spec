@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.24.10
+Version:    2.24.11
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -251,6 +251,14 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Sat Jan 06 2024 Mike FABIAN <mfabian@redhat.com> - 2.24.11-1
+- Update to 2.24.11
+- Really clear the preedit when it is empty, don’t just hide it
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/476)
+  Just hiding a non-empty preedit is not enough because of
+  IBus.PreeditFocusMode.COMMIT a non-empty preedit is still
+  committed on focus out, even when it is hidden.
+
 * Fri Dec 29 2023 Mike FABIAN <mfabian@redhat.com> - 2.24.10-1
 - Update to 2.24.10
 - Update the preedit to empty right after deleting surrounding text when reopening a preedit

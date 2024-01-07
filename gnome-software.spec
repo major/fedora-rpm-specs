@@ -23,16 +23,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   45.2
+Version:   46~alpha
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://wiki.gnome.org/Apps/Software
-Source0:   https://download.gnome.org/sources/gnome-software/45/%{name}-%{tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/gnome-software/-/merge_requests/1810
-Patch:     0001-port-to-appstream1.patch
+Source0:   https://download.gnome.org/sources/gnome-software/46/%{name}-%{tarball_version}.tar.xz
 
 # ostree and flatpak not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -255,6 +252,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Fri Jan 05 2024 Milan Crha <mcrha@redhat.com> - 46~alpha-1
+- Update to 46.alpha
+
 * Fri Dec 01 2023 Milan Crha <mcrha@redhat.com> - 45.2-1
 - Update to 45.2
 

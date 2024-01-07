@@ -13,9 +13,10 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires: java-devel >= 1:1.6.0
 BuildRequires: jpackage-utils
 BuildRequires: maven-local
-BuildRequires: maven-parent
-BuildRequires: modello
-BuildRequires: plexus-utils
+BuildRequires: mvn(junit:junit)
+BuildRequires: mvn(org.apache.maven.plugins:maven-plugins:pom:)
+BuildRequires: mvn(org.codehaus.modello:modello-maven-plugin)
+BuildRequires: mvn(org.codehaus.plexus:plexus-utils)
 
 %description
 Assists in integration testing by means of evaluating 

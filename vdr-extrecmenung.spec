@@ -16,7 +16,8 @@ URL:            https://gitlab.com/kamel5/extrecmenung
 Source0:        https://gitlab.com/kamel5/extrecmenung/-/archive/v%{version}/extrecmenung-v%{version}.tar.gz
 Source1:        %{name}.conf
 
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:  gettext
 BuildRequires:  gcc-c++
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
@@ -49,8 +50,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
-* Thu Jan 04 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.0.11-12
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.0.11-12
 - Rebuilt for new VDR API version
+- Add BR gettext for rawhide
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

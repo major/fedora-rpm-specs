@@ -64,6 +64,7 @@ Source1000:       gen_openssl_cnf.py
 
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
+Patch01001:       %{name}-2.0.1-use-legacy-openssl-api.patch
 
 BuildRequires:    cmake
 BuildRequires:    crypto-policies

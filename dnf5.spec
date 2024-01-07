@@ -6,7 +6,7 @@
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -77,7 +77,11 @@ Provides:       dnf5-command(makecache)
 
 %bcond_without comps
 %bcond_without modulemd
+%if 0%{?rhel}
+%bcond_with    zchunk
+%else
 %bcond_without zchunk
+%endif
 
 %bcond_with    html
 %if 0%{?rhel} == 8
@@ -759,6 +763,9 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.10-3
+- Disable zchunk on RHEL
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.10-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

@@ -5,7 +5,7 @@
 %global crate rustyline
 
 Name:           rust-rustyline
-Version:        12.0.0
+Version:        13.0.0
 Release:        %autorelease
 Summary:        Readline implementation based on Antirez's Linenoise
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          rustyline-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax rusqlite dependency from ^0.29 to >=0.28,<0.30
+# * relax rusqlite dependency from ^0.30 to >=0.28,<0.31
 # * drop rusqlite/bundled feature for statically linking sqlite
 Patch:          rustyline-fix-metadata.diff
 
@@ -45,6 +45,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/Incremental.md
 %doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/TODO.md
+%doc %{crate_instdir}/linenoise.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -189,6 +190,18 @@ This package contains library source intended for building other packages which
 use the "skim" feature of the "%{crate}" crate.
 
 %files       -n %{name}+skim-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+termios-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+termios-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "termios" feature of the "%{crate}" crate.
+
+%files       -n %{name}+termios-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+with-dirs-devel

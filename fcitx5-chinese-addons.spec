@@ -1,7 +1,34 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
+%if 0%{?fedora} >= 40 
+  %ifarch %qt6_qtwebengine_arches
+    %global use_qt6 1
+    %define qtwebengine 1
+  %else
+    %global use_qt6 0
+    %ifarch %qt5_qtwebengine_arches
+      %define qtwebengine 1
+    %else
+      %define qtwebengine 0
+    %endif
+  %endif
+%else
+  %global use_qt6 0
+  %ifarch %qt5_qtwebengine_arches
+    %define qtwebengine 1
+  %else
+    %define qtwebengine 0
+  %endif
+%endif
+
+%if %{use_qt6}
+%define qt_major_ver 6
+%else
+%define qt_major_ver 5
+%endif
+
 Name:           fcitx5-chinese-addons
-Version:        5.1.2
+Version:        5.1.3
 Release:        %autorelease
 Summary:        Chinese related addon for fcitx5
 License:        LGPLv2+
@@ -22,8 +49,11 @@ BuildRequires:  ninja-build
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(fmt)
-BuildRequires:  pkgconfig(Qt5WebKit)
-BuildRequires:  pkgconfig(Qt5WebKitWidgets)
+%if %{qtwebengine}
+BuildRequires:  cmake(Qt%{qt_major_ver}WebEngineWidgets)
+%else
+BuildRequires:  cmake(Qt%{qt_major_ver}WebKitWidgets)
+%endif
 BuildRequires:  pkgconfig(opencc)
 BuildRequires:  pkgconfig(Fcitx5Core)
 BuildRequires:  pkgconfig(Fcitx5Module)
@@ -64,7 +94,17 @@ devel files for fcitx5-chinese-addons
 %autosetup -p1
 
 %build
-%cmake -GNinja
+%cmake -GNinja \
+%if %{use_qt6}
+    -DUSE_QT6=On \
+%else
+    -DUSE_QT6=Off \
+%endif
+%if %{qtwebengine}
+    -DUSE_WEBKIT=Off
+%else
+    -DUSE_WEBKIT=On
+%endif
 %cmake_build 
 
 %install
@@ -82,7 +122,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %find_lang %{name}
 
 %check
-# workaround for a testing failure due to not finding .dict files
 %ctest
 
 %files -f %{name}.lang
@@ -90,8 +129,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc README.md 
 %{_bindir}/scel2org5
 %{_libdir}/fcitx5/*.so
-%{_libdir}/fcitx5/qt5/libpinyindictmanager.so
-%{_libdir}/fcitx5/qt5/libcustomphraseeditor.so
+%{_libdir}/fcitx5/qt%{qt_major_ver}/libpinyindictmanager.so
+%{_libdir}/fcitx5/qt%{qt_major_ver}/libcustomphraseeditor.so
 
 %files data
 %dir %{_datadir}/fcitx5/pinyin

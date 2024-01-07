@@ -5,7 +5,7 @@
 %global crate async-process
 
 Name:           rust-async-process
-Version:        1.8.1
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Async interface for working with processes
 

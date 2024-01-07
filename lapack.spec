@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortver	3
-%global mediumver	%{shortver}.11
+%global mediumver	%{shortver}.12
 
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
 %global arch64 1
@@ -13,16 +13,17 @@
 Summary: Numerical linear algebra package libraries
 Name: lapack
 Version: %{mediumver}.0
-Release: 5%{?dist}
+Release: 1%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/lapack/
-Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.tar.gz
+Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.0.tar.gz
 Source1: http://www.netlib.org/lapack/manpages.tgz
 Source4: http://www.netlib.org/lapack/lapackqref.ps
 Source5: http://www.netlib.org/blas/blasqr.ps
-Patch0: https://patch-diff.githubusercontent.com/raw/Reference-LAPACK/lapack/pull/765.patch
 BuildRequires: gcc-gfortran, gawk
 BuildRequires: make, cmake
+# There isn't any c++ code here, but cmake checks for a working c++ compiler?
+BuildRequires: gcc-c++
 Requires: blas%{?_isa} = %{version}-%{release}
 
 %global _description_lapack %{expand:
@@ -110,14 +111,15 @@ This build has 64bit INTEGER support and a symbol name suffix.
 %endif
 
 %prep
-%setup -q -n %{name}-%{mediumver}
-
-%patch -P0 -p1 -b .NaNfix
-
-%setup -q -n %{name}-%{mediumver} -D -T -a1
+%setup -q -n %{name}-%{mediumver}.0
+%setup -q -n %{name}-%{mediumver}.0 -D -T -a1
 
 mkdir manpages
 mv man/ manpages/
+
+# clean up weird mac osx barf
+rm -rf manpages/man/man3/.*.3
+
 
 %build
 %global optflags %{optflags} -frecursive --no-optimize-sibling-calls
@@ -144,6 +146,7 @@ mv %_vpath_builddir %_vpath_builddir-SHARED64
 mv %_vpath_builddir %_vpath_builddir-STATIC64
 
 # This is not an Easter Egg. Just a scrambled egg.
+# The first person to see this scrambled egg and point it out to spot@fedoraproject.org explicitly will get $20 USD.
 
 # shared 64 SUFFIX
 sed -i 's|64"|64_"|g' CMakeLists.txt
@@ -285,10 +288,12 @@ rm -rf _Users_julie*
 popd
 
 # rename conflicting man pages
+%if 0
 pushd manpages/man/man3
 mv MAX.3 lapack-MAX.3
 mv MIN.3 lapack-MIN.3
 popd
+%endif
 
 find manpages/man/man3 -type f -printf "%{_mandir}/man3/%f*\n" > lapackmans
 
@@ -397,6 +402,9 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %endif
 
 %changelog
+* Thu Jan  4 2024 Tom Callaway <spot@fedoraproject.org> - 3.12.0-1
+- update to 3.12.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,14 +1,14 @@
 %global pname   SkinNopacity
 %global sname   skinnopacity
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-skinnopacity
 Version:        1.1.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A highly customizable native true color skin for the Video Disc Recorder
 
 License:        GPLv2+
@@ -21,6 +21,7 @@ Source1:        %{name}.conf
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  freetype-devel
 BuildRequires:  pkgconfig(GraphicsMagick++)
 BuildRequires:  vdr-devel >= %{vdr_version}
@@ -73,6 +74,10 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/skinnopacity/icons/
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.1.16-2
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Mon Oct 16 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.16-1
 - Update to 1.1.16
 

@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	3
+%global	baserelease	5
 
 %undefine        _changelog_trimtime
 
@@ -24,11 +24,16 @@ Summary:	Utility binary files in Simple Kanji Filter
 
 License:	BSD and MIT and UCD
 URL:		http://osdn.jp/projects/skf
-Source0:	https://ja.osdn.net/frs/redir.php?f=skf/%{repoid}/skf_%{mainver}%{?betaver}.tar.xz
+Source0:	https://ftp.iij.ad.jp/pub/osdn.jp/skf/%{repoid}/skf_%{mainver}%{?betaver}.tar.xz
 Source1:	skf-basic-test.sh
 Source2:	create-skf-tarball-from-scm.sh
 # https://osdn.net/projects/skf/ticket/39882
 Source11:	https://ymu.dl.osdn.jp/ticket/g/s/sk/skf/39882/5733/pythontest
+# rubyext: remove unneeded ptr -> VALUE conversion
+# ref: https://bugzilla.redhat.com/show_bug.cgi?id=2256789
+Patch0:	skf-2.10.16-rubyext-ptr-conversion.patch
+# rubyext: type check for argument (ref: bug 2256789)
+Patch1:	skf-2.10.16-rubyext-ptr-typecheck.patch
 
 # common BR
 BuildRequires:	gcc
@@ -112,6 +117,9 @@ ln -sf %{name}-* main
 cp -p %SOURCE1 .
 
 pushd main
+
+%patch -P0 -p1 -b .rubyptr
+%patch -P1 -p1 -b .rubycheck
 
 %if 0%{?usescm} >= 1
 autoconf
@@ -348,6 +356,12 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Fri Jan  5 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-5
+- rubyext: type check for argument (ref: bug 2256789)
+
+* Fri Jan  5 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-4
+- rubyext: remove unneeded ptr -> VALUE conversion (ref: bug 2256789)
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-3
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

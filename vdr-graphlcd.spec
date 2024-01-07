@@ -20,6 +20,7 @@ Source3:        %{name}-fonts.conf
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  graphlcd-devel
@@ -78,8 +79,9 @@ install -Dpm 644 %{SOURCE3} \
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf.sample
 
 %changelog
-* Thu Jan 04 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.0.6-12
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.0.6-12
 - Rebuilt for new VDR API version
+- Add BR gettext for rawhide
 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

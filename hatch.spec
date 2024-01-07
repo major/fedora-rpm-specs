@@ -96,7 +96,7 @@ Features:
 # Extract environment dependencies from hatch.toml
 '%{SOURCE1}' -v
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^pytest-cov/# &/' _req/env.test.txt
+sed -r -i 's/^(pytest-cov|cover)/# &/' _req/env.test.txt
 
 
 %generate_buildrequires

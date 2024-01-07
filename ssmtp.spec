@@ -1,6 +1,6 @@
 Name:		ssmtp
 Version:	2.64
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Extremely simple MTA to get mail off the system to a Mailhub
 License:	GPLv2+
 URL:		http://packages.debian.org/stable/mail/ssmtp
@@ -27,6 +27,7 @@ Patch12:	%{name}-validate-TLS-server-cert.patch
 Patch21:	%{name}-defaultvalues.patch
 
 Patch22:	ssmtp-configure-c99.patch
+Patch23: ssmtp-c99.patch
 
 #hack around wrong requires for mutt and mdadm
 %if 0%{?rhel}
@@ -67,6 +68,7 @@ or manage a queue. That belongs on a mail hub with a system administrator.
 %patch21 -p1 -b .saneconf
 
 %patch22 -p1 -b .configure-c99
+%patch -P 23 -p1
 
 %build
 %configure --enable-ssl --enable-md5auth --enable-inet6
@@ -138,6 +140,9 @@ fi
 
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 2.64-34
+- C compatibility fixes
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.64-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

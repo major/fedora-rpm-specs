@@ -14,6 +14,9 @@ License:   MIT
 URL:       http://www.scons.org
 Source0:   %{pypi_source}
 Source1:   https://scons.org/doc/production/scons-doc-%{version}.tar.gz
+# Avoid unnecessary dependency on python-build
+Patch0:    0001-Remove-unnecessary-build-deps.patch
+
 BuildArch: noarch
 BuildRequires: make
 
@@ -76,11 +79,10 @@ defined Builder and/or Scanner objects.
 %if 0%{with prebuilt_doc}
 %autosetup -n SCons-%{version} -N
 %setup -n SCons-%{version} -q -T -D -a 1
-cd ..
 %else
 %autosetup -N -T -b 0
-cd ..
 %endif
+%autopatch -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x tests

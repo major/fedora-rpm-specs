@@ -4,11 +4,12 @@
 
 Name:		gtk-v4l
 Version:	0.4
-Release:	27.%{commitdate}git%{shortcommit}%{?dist}
+Release:	28.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	Video4Linux Device Preferences
 License:	LGPLv2+
 URL:		https://github.com/jwrdegoede/gtk-v4l/
 Source0:	https://github.com/jwrdegoede/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Patch0: gtk-v4l-c99.patch
 BuildRequires:	meson gcc
 BuildRequires:	scrollkeeper
 BuildRequires:	libv4l-devel >= 0.6
@@ -24,7 +25,7 @@ gtk-v4l is a Video4Linux Web camera control app
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-%{commit}
 
 
 %build
@@ -44,6 +45,9 @@ gtk-v4l is a Video4Linux Web camera control app
 
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 0.4-28.20220522gitd3bcbc7
+- Fix C compatibility issues
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-27.20220522gitd3bcbc7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

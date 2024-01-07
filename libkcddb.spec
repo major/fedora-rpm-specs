@@ -1,33 +1,40 @@
-Name:    libkcddb
-Version: 16.08.3
-Release: 13%{?dist}
-Summary: KDE4 CDDB retrieval library
+Name:    libkcddb 
+Version: 24.01.85
+Release: 1%{?dist}
+Summary: CDDB retrieval library
 
-License: LGPLv2+ and GPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
+URL:     https://invent.kde.org/multimedia/libkcddb
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/applications/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-## upstream patches
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6WidgetsAddons)
 
-BuildRequires: kdelibs4-devel >= 4.14
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core5Compat)
+
 BuildRequires: pkgconfig(libmusicbrainz5)
-BuildRequires: make
 
 Requires:  %{name}-doc = %{version}-%{release}
 
-%{?kdelibs4_requires}
-# kcmshell4
-%{?kde_runtime_requires}
+# kcmshell5
+Recommends:   kde-cli-tools
 
-# when split occured
+# when split occured (kdemultimedia to libkcddb)
 Conflicts: kdemultimedia-libs < 6:4.8.80
+# translations moved here (kf5-libkcddb)
+Conflicts: kde-l10n < 17.03
+Obsoletes: kf5-libkcddb-kcm < 24.01.85
+
 
 %description
 %{summary}.
@@ -35,7 +42,6 @@ Conflicts: kdemultimedia-libs < 6:4.8.80
 %package devel
 Summary:  Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: kdelibs4-devel
 # when split occured
 Conflicts: kdemultimedia-devel < 6:4.8.80
 %description devel
@@ -44,55 +50,55 @@ Conflicts: kdemultimedia-devel < 6:4.8.80
 %package doc
 Summary: Documentation for %{name}
 License: GFDL
-## can skip Obsoletes due to circular Requires (hopefully) -- rex
 Requires:  %{name} = %{version}-%{release}
 BuildArch: noarch
+# now ahead of kf5-libkcddb
+Conflicts: kf5-libkcddb-doc < 24.01.85
+Obsoletes: kf5-libkcddb-doc < 24.01.85
 %description doc
 Documentation for %{name}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{cmake_kde4} ..
-popd
 
-%make_build -C %{_target_platform}
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
+
+%cmake_build
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
-# fix documentation multilib conflict in index.cache
-bunzip2 %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/cddbretrieval/index.cache.bz2
-sed -i -e 's!name="id[a-z]*[0-9]*"!!g' %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/cddbretrieval/index.cache
-sed -i -e 's!#id[a-z]*[0-9]*"!!g' %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/cddbretrieval/index.cache
-bzip2 -9 %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/cddbretrieval/index.cache
+%find_lang %{name} --all-name --with-man
+%find_lang %{name}-doc --all-name --with-html --without-mo
 
-
-%ldconfig_scriptlets
-
-%files
-%license COPYING COPYING.LIB
-%{_kde4_datadir}/config.kcfg/libkcddb.kcfg
-%{_kde4_datadir}/kde4/services/libkcddb.desktop
-%{_kde4_libdir}/libkcddb.so.4*
-%{_kde4_libdir}/kde4/kcm_cddb.so
+%files -f %{name}.lang
+%license LICENSES/*
+%{_kf6_libdir}/libKCddb6.so.5*
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_cddb.so
+%{_kf6_datadir}/applications/kcm_cddb.desktop
+%{_kf6_datadir}/config.kcfg/libkcddb5.kcfg
+%{_kf6_datadir}/qlogging-categories6/*
 
 %files devel
-%{_kde4_includedir}/libkcddb/
-%{_kde4_libdir}/libkcddb.so
-%{_kde4_libdir}/cmake/libkcddb/
+%{_kf6_libdir}/libKCddb6.so
+%{_includedir}/KCddb6/
+%{_kf6_libdir}/cmake/KCddb6/
+%{_qt6_archdatadir}/mkspecs/modules/qt_KCddb.pri
 
-%files doc
-%{_kde4_docdir}/HTML/en/kcontrol/cddbretrieval/
+%files doc -f %{name}-doc.lang
 
 
 %changelog
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85 for Qt6/KF6 by reusing kde4 rpms
+- add conflicts from kf5-libkcddb
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -369,3 +375,4 @@ bzip2 -9 %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/cddbretrieval/index.cache
 
 * Thu May 31 2012 Jaroslav Reznik <jreznik@redhat.com> 4.8.80-1
 - initial try
+

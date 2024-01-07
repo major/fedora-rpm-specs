@@ -2,7 +2,7 @@
 
 Name:		adobe-afdko
 Version:	3.6.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
 # ExternalAntlr4Cpp.cmake is BSD-3-clause
 # c/makeotf/makeotf_lib/build/hotpccts/pccts/* is ANTLR-PD
@@ -11,6 +11,8 @@ Summary:	Adobe Font Development Kit for OpenType
 License:	Apache-2.0 AND BSD-3-clause AND ANTLR-PD AND Python-2.0.1
 URL:		https://github.com/adobe-type-tools/afdko
 Source0:	https://github.com/adobe-type-tools/%{archivename}/releases/download/%{version}/%{archivename}-%{version}.tar.gz
+Patch0: adobe-afdko-c99-1.patch
+Patch1: adobe-afdko-c99-2.patch
 BuildRequires:	gcc
 BuildRequires:	make
 
@@ -20,7 +22,7 @@ The AFDKO is a set of tools for building OpenType font files
 from PostScript and TrueType font data.
 
 %prep
-%autosetup -n %{archivename}-%{version}
+%autosetup -p1 -n %{archivename}-%{version}
 
 %build
 %set_build_flags
@@ -40,6 +42,9 @@ find ./ -type f -executable -exec install -p -m 0755 "{}" \
 %{_bindir}/*
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 3.6.1-7
+- Fix C compatibility issues
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

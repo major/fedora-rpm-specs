@@ -11,17 +11,18 @@ URL:		https://github.com/gperftools/gperftools
 Source0:	https://github.com/gperftools/gperftools/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Conditionalize generic dynamic tls model
 Patch1:		gperftools-2.7.90-disable-generic-dynamic-tls.patch
-# i686 stopped building with 2.14:
+# i686 and ppc64le stopped building with 2.14:
 # bash-5.2# g++ -std=gnu++11 -Wall -Wwrite-strings -Woverloaded-virtual -Wno-sign-compare -Wno-unused-result -fsized-deallocation -faligned-new -fno-omit-frame-pointer -momit-leaf-frame-pointer -DSTACKTRACE_IS_TESTED -O2 -flto=auto -ffat-lto-objects -g -grecord-gcc-switches -pipe -Wall -Wno-complain-wrong-lang -Werror=format-security -Werror=implicit-function-declaration -Werror=implicit-int -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -m32 -march=i686 -mtune=generic -msse2 -mfpmath=sse -mstackrealign -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fno-strict-aliasing -Wno-unused-local-typedefs -DTCMALLOC_LARGE_PAGES -Wl,-z -Wl,relro -Wl,--as-needed -Wl,-z -Wl,pack-relative-relocs -Wl,-z -Wl,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -Wl,--build-id=sha1 -specs=/usr/lib/rpm/redhat/redhat-package-notes -o stacktrace_unittest src/tests/stacktrace_unittest-stacktrace_unittest.o src/stacktrace_unittest-stacktrace.o src/base/stacktrace_unittest-elf_mem_image.o src/base/stacktrace_unittest-vdso_support.o -Wl,--export-dynamic  -lunwind ./.libs/libspinlock.a ./.libs/libsysinfo.a ./.libs/liblogging.a ./.libs/libfake_stacktrace_scope.a
 # /usr/bin/ld: /tmp/cc8rjgfj.ltrans0.ltrans.o: in function `base::VDSOSupport::Init()':
 # /builddir/build/BUILD/gperftools-2.14/src/base/dynamic_annotations.cc:46:(.text+0x332b): undefined reference to `TCMallocGetenvSafe'
 # /usr/bin/ld: /tmp/cc8rjgfj.ltrans0.ltrans.o: in function `RunningOnValgrind':
 # /builddir/build/BUILD/gperftools-2.14/src/base/dynamic_annotations.cc:46:(.text+0x33eb): undefined reference to `TCMallocGetenvSafe'
 #
-# Notably, .libs/libsysinfo.a does contain a definition of TCMallocGetenvSafe, as it should, so I have no idea why this fails.
-# It's possible this is an i686 toolchain bug? Anyway, disabling i686.
+# Upstream fixed this by moving dynamic_allocations.cc under libsysinfo.la
+# See https://github.com/gperftools/gperftools/issues/1474
+Patch0:		https://github.com/gperftools/gperftools/commit/5abc5721300463b7f05a34b4c95cf45664103b50.patch
 
-ExcludeArch:	s390 i686
+ExcludeArch:	s390
 BuildRequires:  gcc-c++
 BuildRequires:	libunwind-devel
 BuildRequires:	perl-generators
@@ -130,7 +131,6 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %changelog
 * Wed Jan  3 2024 Tom Callaway <spot@fedoraproject.org> - 2.14-1
 - update to 2.14
-- disable i686, see comment above ExcludeArch
 
 * Thu Nov  2 2023 Ismail Doenmez <idoenmez@amazon.com> - 2.13-1
 - Update to 2.13

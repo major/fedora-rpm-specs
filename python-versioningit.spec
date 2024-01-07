@@ -92,7 +92,7 @@ sed -r -i 's/^(filterwarnings = )error/\1default/' tox.ini
 
 %install
 %pyproject_install
-%pyproject_save_files versioningit
+%pyproject_save_files -l versioningit
 
 install -p -m 0644 -Dt %{buildroot}%{_mandir}/man1/ %{SOURCE1}
 

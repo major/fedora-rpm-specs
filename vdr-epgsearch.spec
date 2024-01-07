@@ -7,15 +7,15 @@
 
 # version we want build against
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.4.2
 #Release:        5%%{?dist}
-Release:        0.7.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.8.%{gitdate}git%{shortcommit0}%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
 
 License:        GPLv2+
@@ -32,6 +32,7 @@ Patch0:         %{name}-2.4.0-fedora.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -89,6 +90,10 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.4.2-0.8.20220201git76d2b10
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-0.7.20220201git76d2b10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

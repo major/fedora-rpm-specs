@@ -6,7 +6,7 @@
 Summary:        Hardware Platform Interface library and tools
 Name:           openhpi
 Version:        3.8.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        BSD
 URL:            http://www.openhpi.org
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -22,6 +22,7 @@ Patch3:         %{name}-3.8.0-manpage-scan.patch
 Patch4:         %{name}-3.8.0-ipv6-ipmidirect.patch
 Patch5:         %{name}-3.8.0-link-libopenhpi.patch
 Patch6:         openhpi-snmp-disable-des.patch
+Patch7: openhpi-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 %if 0%{?fedora} || 0%{?rhel} < 9
@@ -213,6 +214,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 3.8.0-25
+- Fix C compatibility issue
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,22 +4,23 @@
 %global rname   vdr-plugin-osd2web
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        VDR skin interface for the browser
 License:        GPLv2+
 URL:            https://github.com/horchi/vdr-plugin-osd2web
 Source0:        https://github.com/horchi/vdr-plugin-osd2web/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.conf
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  libwebsockets-devel
 BuildRequires:  zlib-devel
@@ -76,6 +77,10 @@ install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startB
 %{vdr_plugindir}/bin/startBrowser.sh
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.3.2-2
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Mon Oct 23 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.3.2-1
 - Update to 0.3.2
 

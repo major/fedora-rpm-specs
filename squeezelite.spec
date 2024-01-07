@@ -1,21 +1,15 @@
 %global forgeurl https://github.com/ralph-irving/squeezelite/
-%global commit   74fe7934ec60cc31565f088796f56e911f51679c
+%global commit   6de9e229aa4cc7c3131ff855f3ead39581127090
 %forgemeta
 
-# Raspberry Pi-specific GPIO support.
-%ifarch          aarch64 armhfp armv7hl armv7l
-%bcond_without   raspberrypi
-%endif
-
-# Allow AAC and ALAC, WMA to be played directly in the client rather than
+# Allow AAC to be played directly in the client rather than
 # first being transcoded on the server.  Requires libraries not included
 # in Fedora for legal reasons.
 %bcond_with      faad
-%bcond_with      ffmpeg
 
 
 Name:            squeezelite
-Version:         1.9.9.1428
+Version:         2.0.0.1464
 Release:         %autorelease
 Summary:         Headless music player for streaming from Logitech Media Server
 
@@ -35,11 +29,10 @@ BuildRequires:   alsa-lib-devel
 %if %{with faad}
 BuildRequires:   faad2-devel
 %endif
-%if %{with ffmpeg}
-BuildRequires:   ffmpeg-devel
-%endif
+BuildRequires:   ffmpeg-free-devel
 BuildRequires:   flac-devel
 BuildRequires:   gcc
+BuildRequires:   libgpiod-devel >= 2
 BuildRequires:   libmad-devel
 BuildRequires:   libvorbis-devel
 BuildRequires:   lirc-devel
@@ -68,12 +61,12 @@ used in place of dedicated Squeezebox network music playing hardware.
 %build
 %set_build_flags
 
-export OPTS="-DDSD -DLINKALL -DRESAMPLE -DVISEXPORT -DIR -DGPIO %{?with_raspberrypi:-DRPI} %{?with_ffmpeg:-DFFMPEG} %{?!with_faad:-DNO_FAAD} -DUSE_SSL -DOPUS"
-%make_build %{?with_ffmpeg:CPPFLAGS+="-I%{_includedir}/ffmpeg"} CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-alsa
+export OPTS="-DDSD -DLINKALL -DRESAMPLE -DVISEXPORT -DIR -DGPIO -DRPI -DFFMPEG %{?!with_faad:-DNO_FAAD} -DUSE_SSL -DOPUS"
+%make_build CPPFLAGS+="-I%{_includedir}/ffmpeg" CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-alsa
 %make_build clean
 
 export OPTS="$OPTS -DPULSEAUDIO"
-%make_build %{?with_ffmpeg:CPPFLAGS+="-I%{_includedir}/ffmpeg"} CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-pulse
+%make_build CPPFLAGS+="-I%{_includedir}/ffmpeg" CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-pulse
 
 pandoc --to=man --standalone --output=%{name}.service.7 %{SOURCE3}
 

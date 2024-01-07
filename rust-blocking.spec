@@ -5,7 +5,7 @@
 %global crate blocking
 
 Name:           rust-blocking
-Version:        1.4.1
+Version:        1.5.1
 Release:        %autorelease
 Summary:        Thread pool for isolating blocking I/O in async programs
 

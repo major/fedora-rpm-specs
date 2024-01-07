@@ -1,6 +1,6 @@
 Name: fluent-bit
 Version: 1.9.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Fast data collector for Linux
 License: ASL 2.0
 URL: https://github.com/fluent/fluent-bit
@@ -18,6 +18,8 @@ Patch5: fluent-bit-cmake-c99-2.patch
 Patch6: fluent-bit-c99-3.patch
 Patch7: fluent-bit-c99-4.patch
 Patch8: fluent-bit-c99-5.patch
+Patch9: fluent-bit-c99-6.patch
+Patch10: fluent-bit-c99-7.patch
 
 BuildRequires: pkgconfig
 BuildRequires: make
@@ -91,6 +93,9 @@ rm -rvf %{buildroot}%{_includedir}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 1.9.9-6
+- Additional C compatibility fixes
+
 * Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 1.9.9-5
 - Partial fix for C compatibility issues
 

@@ -5,7 +5,7 @@
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
 %global released_kernel 0
-%global baserelease 1
+%global baserelease 2
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -304,8 +304,8 @@ pushd tools/tracing/rtla
 %{tools_make}
 popd
 
-if [ -f  /usr/src/%{KVERREL}/vmlinux.h ; then
-RPM_VMLINUX_H=/usr/src/%{KVERREL}/vmlinux.h
+if [ -f /usr/src/%{KVERREL}/vmlinux.h ]; then
+    RPM_VMLINUX_H=/usr/src/%{KVERREL}/vmlinux.h
 fi
 
 %global bpftool_make \
@@ -590,6 +590,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Thu Jan 04 2024 Michel Lind <salimma@fedoraproject.org> - 6.7.0-0.rc8.git0.2
+- Fix unmatched braces in vmlinux.h handling
+
 * Mon Jan 01 2024 Justin M. Forbes <jforbes@fedoraproject.org> - 6.7.0-0.rc8.git0.1
 - Linux v6.7-rc8
 

@@ -2,10 +2,11 @@
 
 Name:		mirage
 Version:	0.9.5.2
-Release:	41%{?dist}
+Release:	42%{?dist}
 Summary:	A fast and simple image viewer
 
-License:	GPLv3+
+# SPDX confirmed
+License:	GPL-3.0-or-later
 URL:		http://mirageiv.berlios.de/
 Source0:	http://download.berlios.de/mirageiv/%{name}-%{version}.tar.bz2
 # Fix bug 559853, backtrace when clicking middle button in some case
@@ -28,10 +29,6 @@ BuildRequires:	python3-setuptools
 Requires:	gtk3
 Requires:	python3-gobject
 Requires:	python3-cairo
-# Following is optional
-%if 0%{?fedora} < 31
-Requires:	gnome-python2-gconf
-%endif
 
 %description
 Mirage is a fast and simple GTK+ image viewer. Because it 
@@ -40,13 +37,13 @@ keep their computers lean while still having a clean image viewer.
 
 %prep
 %setup -q
-%patch0 -p1 -b .bt_prevmouse -Z
-%patch1 -p1 -b .glib241 -Z
+%patch -P0 -p1 -b .bt_prevmouse -Z
+%patch -P1 -p1 -b .glib241 -Z
 # Don't remove rebuilt files!
 %{__sed} -i.build -e '/Cleanup/,$d' setup.py
 
-%patch10 -p1 -b .py3 -Z
-%patch11 -p1 -b .pep632 -Z
+%patch -P10 -p1 -b .py3 -Z
+%patch -P11 -p1 -b .pep632 -Z
 
 %build
 %{__python3} setup.py build
@@ -77,7 +74,11 @@ desktop-file-install \
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc CHANGELOG COPYING README TODO TRANSLATORS
+%doc CHANGELOG
+%license COPYING
+%doc README
+%doc TODO
+%doc TRANSLATORS
 
 %{_bindir}/%{name}
 %{python3_sitearch}/%{name}.py*
@@ -85,12 +86,16 @@ desktop-file-install \
 %{python3_sitearch}/*.so
 %{python3_sitearch}/__pycache__/%{name}*
 
-%{_datadir}/%{name}/
+%dir %{_datadir}/%{name}/
+%{_datadir}/%{name}/*.png
 %{_datadir}/pixmaps/*.png
 
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Fri Jan  5 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.5.2-42
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

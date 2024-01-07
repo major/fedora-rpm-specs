@@ -1,14 +1,14 @@
 ## This macro activates/deactivates debug option
 %global without_debug 1
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-epg-daemon
 Version:        1.3.21
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 
 License:        GPL+ and GPLv2 and BSD
@@ -133,6 +133,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.3.21-6
+- Rebuilt for new VDR API version
+
 * Thu Sep 28 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.21-5
 - Build against the 'mariadb-connector-c-devel' package
 

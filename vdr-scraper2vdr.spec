@@ -6,15 +6,15 @@
 %global gitdate 20190128
 
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-scraper2vdr
 Version:        1.1.2
 #Release:        15.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A client plugin which provides scraped metadata from EPGD to other plugins
 License:        GPL+
 URL:            https://github.com/horchi/scraper2vdr
@@ -26,6 +26,7 @@ Patch0:         scraper2vdr_serienposter_statt_banner.diff
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  libuuid-devel
 BuildRequires:  pkgconfig(GraphicsMagick++)
 BuildRequires:  openssl-devel
@@ -73,6 +74,10 @@ install -Dpm 644 %{SOURCE1} \
 %config(noreplace) %{vdr_configdir}/plugins/%{pname}/epg.dat
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.1.2-3
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

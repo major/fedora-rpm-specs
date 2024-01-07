@@ -1,8 +1,8 @@
 %global base_name libkcddb
 
 Name:    kf5-%{base_name}
-Version: 23.08.2
-Release: 1%{?dist}
+Version: 23.08.4
+Release: 2%{?dist}
 Summary: CDDB retrieval library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -14,7 +14,7 @@ URL:     https://www.kde.org/applications/multimedia/
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf5-rpm-macros
@@ -31,23 +31,24 @@ BuildRequires: pkgconfig(Qt5Widgets)
 
 BuildRequires: pkgconfig(libmusicbrainz5)
 
-Requires:  %{name}-doc = %{version}-%{release}
-
-%if 0%{?fedora} || 0%{?rhel} > 7
-# kcmshell5
-Recommends:   kde-cli-tools
-%endif
-
 # translations moved here
 Conflicts: kde-l10n < 17.03
 
 %description
 %{summary}.
 
+
 %package devel
 Summary:  Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
+%{summary}.
+
+%package kcm
+Summary:  KDE control module for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires:  %{name}-doc = %{version}-%{release}
+%description kcm
 %{summary}.
 
 %package doc
@@ -64,36 +65,25 @@ Documentation for %{name}.
 
 
 %build
-%if 0%{?rhel} && 0%{?rhel} < 8
-CXXFLAGS="%{optflags} $(pkg-config --cflags libmusicbrainz5)"
-export CXXFLAGS
-%endif
-
 %cmake_kf5
 
 %cmake_build
 
-
 %install
 %cmake_install
 
-%find_lang %{name} --all-name --with-man
-
-%if 0%{?fedora} || 0%{?rhel} > 7
+%find_lang %{name}-kcm --all-name --with-man
 %find_lang %{name}-doc --all-name --with-html --without-mo
-%else
-echo '%{_kf5_docdir}/HTML/*/kcontrol' > %{name}-doc.lang
-%endif
 
-%ldconfig_scriptlets
-
-%files -f %{name}.lang
+%files
 %license LICENSES/*
 %{_kf5_libdir}/libKF5Cddb.so.5*
+%{_kf5_datadir}/qlogging-categories5/%{base_name}*
+
+%files kcm -f %{name}-kcm.lang
 %{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_cddb.so
 %{_kf5_datadir}/applications/kcm_cddb.desktop
 %{_kf5_datadir}/config.kcfg/libkcddb5.kcfg
-%{_kf5_datadir}/qlogging-categories5/%{base_name}*
 
 %files devel
 %{_kf5_libdir}/libKF5Cddb.so
@@ -106,6 +96,10 @@ echo '%{_kf5_docdir}/HTML/*/kcontrol' > %{name}-doc.lang
 
 
 %changelog
+* Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 23.08.4-2
+- update to 23.08.4-2
+- split out kcm module and translations for kf6 co-installability
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

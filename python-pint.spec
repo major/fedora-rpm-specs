@@ -28,6 +28,21 @@ Patch:          %{url}/commit/b3b18277ecc682bff7ca1fa9e48992f7ec68e47f.patch
 # Cherry-picked to 0.19.
 Patch:          0001-add-min-and-max-to-the-array-function-overrides.patch
 
+# Downstream-only: Backport fix for importlib.resources.path removal
+#
+# Imitate current versions of flexparser, which was split out as a
+# separate library in later releases of pint.
+#
+# This is resolved in current upstream releases of pint; see
+# https://src.fedoraproject.org/rpms/python-pint/pull-request/10.
+#
+# Fixes:
+#
+# python-pint fails to build with Python 3.13: AttributeError: module
+# 'importlib.resources' has no attribute 'path'
+# https://bugzilla.redhat.com/show_bug.cgi?id=2256746
+Patch:          0001-Downstream-only-Backport-fix-for-importlib.resources.patch
+
 BuildArch:      noarch
 
 %global _description %{expand:

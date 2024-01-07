@@ -3,13 +3,13 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20211228
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-live
-Version:        3.3.3
+Version:        3.3.4
 #Release:        0.4.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
@@ -23,6 +23,7 @@ Source1:        %{name}.conf
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  pcre2-devel
 BuildRequires:  tntnet-devel
@@ -82,6 +83,10 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 3.3.4-1
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Wed Dec 20 2023 Martin Gansser <martinkg@fedoraproject.org> - 3.3.3-1
 - Update to 3.3.3
 

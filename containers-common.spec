@@ -4,15 +4,15 @@
 # pick the oldest version on c/image, c/common, c/storage vendored in
 # Buildah/Podman/Skopeo.
 %global image_branch  main
-%global common_branch main
+%global common_branch v%{version}
 %global storage_branch main
 %global shortnames_branch main
 
 %global github_containers https://raw.githubusercontent.com/containers
 
-Epoch: 4
+Epoch: 5
 Name: containers-common
-Version: 1
+Version: 0.57.1
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch

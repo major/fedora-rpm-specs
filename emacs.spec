@@ -75,7 +75,7 @@ BuildRequires: jansson-devel
 BuildRequires: systemd-devel
 BuildRequires: libgccjit-devel
 BuildRequires: libtree-sitter-devel
-BuildRequires: libsqlite3x-devel
+BuildRequires: sqlite-devel
 BuildRequires: libwebp-devel
 
 BuildRequires: gtk3-devel

@@ -1,6 +1,6 @@
 Name: datovka
-Version: 4.23.2
-Release: 1%{?dist}
+Version: 4.23.3
+Release: 2%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
 License: GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
@@ -16,7 +16,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: libdatovka-devel
 BuildRequires: make
 # https://gitlab.nic.cz/datovka/datovka/-/issues/541
-Patch0:        datovka-4.19.0-s390x-disable-failing-test.patch
+Patch0:        datovka-4.23.0-s390x-disable-failing-test.patch
 
 %description
 GUI application allowing access to Czech Databox - an electronic communication
@@ -55,6 +55,13 @@ cd tests
 %{_datadir}/metainfo/datovka.metainfo.xml
 
 %changelog
+* Fri Jan  5 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.23.3-2
+- Also dropped test_crypto_pin_token (reported upstream)
+
+* Fri Jan  5 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.23.3-1
+- New version
+  Resolves: rhbz#2256828
+
 * Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.23.2-1
 - New version
   Resolves: rhbz#2255984

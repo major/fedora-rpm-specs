@@ -325,6 +325,9 @@ BuildRequires: %{python_wheel_pkg_prefix}-wheel-wheel
 # upgrading the main python3 to a new Python version, this would pull in the
 # old version instead.
 BuildRequires: python%{pybasever}
+%endif
+
+%if %{without bootstrap} || %{without main_python}
 # for proper automatic provides
 BuildRequires: python3-rpm-generators
 %endif
@@ -561,7 +564,8 @@ Recommends: %{pkgname}-pip
 # tox users are likely to need the devel subpackage
 Supplements: tox
 
-%if %{without bootstrap}
+%if %{without bootstrap} || %{without main_python}
+# Generators run on the main Python 3 so we cannot require them when bootstrapping it
 Requires: (python3-rpm-generators if rpm-build)
 %endif
 

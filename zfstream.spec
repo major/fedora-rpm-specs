@@ -7,7 +7,7 @@ Version:        %{vyear}%{vmonth}%{vday}
 Release:        39%{?dist}
 Summary:        Library for reading and writing compressed and non-compressed files
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.wanderinghorse.net/computing/%{name}/
 Source0:        http://www.wanderinghorse.net/computing/%{name}/libs11n_%{name}-%{vyear}.%{vmonth}.%{vday}.tar.gz
 # I tried half a day to get the rather peculiar original build system working,

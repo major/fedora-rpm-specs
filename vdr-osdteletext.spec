@@ -1,14 +1,14 @@
 %global pname   osdteletext
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.3.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OSD teletext plugin for VDR
 
 License:        GPLv2+
@@ -18,6 +18,7 @@ Source1:        %{name}.conf
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -61,6 +62,10 @@ install -Dpm 644 teletext2.ttf \
 %attr(-,%{vdr_user},root) %{vdr_rundir}/%{pname}/
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.3.1-10
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 39.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -109,7 +109,7 @@ Conflicts: firstboot(gui-backend)
 Requires: kwin-wayland
 Requires: maliit-keyboard
 Requires: xorg-x11-server-Xwayland
-Requires: initial-setup-gui >= 3.99
+Requires: initial-setup-gui >= 0.3.99
 Supplements: ((initial-setup or initial-setup-gui) and kwin-wayland)
 Enhances: (initial-setup-gui and kwin-wayland)
 
@@ -245,6 +245,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Jan 05 2024 Alessandro Astone <ales.astone@gmail.com> - 39.1-3
+- Fix initial-setup-gui version requirement
+
 * Wed Jan 03 2024 Neal Gompa <ngompa@fedoraproject.org> - 39.1-2
 - Add initial-setup-gui-wayland-plasma subpackage for f40+/epel10+
 

@@ -5,7 +5,7 @@ Version:        0.8.1
 Release:        %autorelease
 Summary:        Library to create components for Wayland using the Layer Shell
 
-License:        LGPLv3+ and MIT
+License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/wmww/gtk-layer-shell
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

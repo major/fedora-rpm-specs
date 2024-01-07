@@ -4,12 +4,13 @@
 
 Name:           python-%{srcname}
 Version:        0.10.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Python bindings for Subversion
 
 License:        LGPLv2+
 URL:            https://jelmer.uk/code/subvertpy/
 Source0:        %{pypi_source}
+Patch0: python-subvertpy-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  subversion-devel
@@ -31,7 +32,7 @@ Alternative Python bindings for Subversion, split out from bzr-svn.
 The goal is to have complete, portable and "Pythonic" Python bindings.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 chmod -x examples/ra_*.py
 
 %build
@@ -53,6 +54,9 @@ chmod -x examples/ra_*.py
 %exclude %{python3_sitearch}/%{srcname}/tests
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 0.10.1-23
+- Fix C compatibility issues
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

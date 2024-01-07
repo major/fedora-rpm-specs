@@ -14,7 +14,7 @@
 Summary: The Berkeley DB database library for C
 Name: libdb
 Version: 5.3.28
-Release: 58%{?dist}
+Release: 59%{?dist}
 Source0: http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 Source1: http://download.oracle.com/berkeley-db/db.1.85.tar.gz
 # For mt19937db.c
@@ -486,6 +486,9 @@ install -m 0755 db_converter-%{_converter_version}/db_converter %{buildroot}/%{_
 %endif
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 5.3.28-59
+- Additional C compatibility fixes (#2152303)
+
 * Fri Sep 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.3.28-58
 - Re-enable subpackages in RHEL builds
 

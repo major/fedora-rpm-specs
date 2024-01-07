@@ -6,9 +6,9 @@
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
 
 # version we want build against
-%global vdr_version 2.6.1
-%if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
+%if 0%{?fedora} >= 40
+%global vdr_version 2.6.5
 %endif
 
 %if 0%{?gitver:0}
@@ -29,7 +29,7 @@ Version:        0.6.3
 %if 0%{?gitver:0}
 Release:        0.38%{?gitver:.git%{gitshort}}%{?dist}
 %else
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        Streaming plug-in for VDR
 License:        GPL+ and GPLv2+
@@ -43,8 +43,9 @@ Source2:        %{name}-client.conf
 # listed here so that it's pulled into the SRPM
 Source3:        %{name}-snapshot.sh
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
 BuildRequires:  vdr-devel >= %{vdr_version}
 
 %description
@@ -110,6 +111,10 @@ install -Dpm 644 %{SOURCE2} \
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-client.conf
 
 %changelog
+* Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.6.3-7
+- Rebuilt for new VDR API version
+- Add BR gettext for rawhide
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

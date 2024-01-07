@@ -1,6 +1,6 @@
 Name:           gtk-sharp2
 Version:        2.12.45
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        GTK+ and GNOME bindings for Mono
 
 License:        LGPLv2+
@@ -8,6 +8,7 @@ URL:            http://www.mono-project.com/GtkSharp
 Source0:        http://download.mono-project.com/sources/gtk-sharp212/gtk-sharp-%{version}.tar.gz
 Patch0:         gtk-sharp2-2.12.12-glib-include.patch
 Patch1:         gtk-sharp2-2.12.12-gtkrange.patch
+Patch2: gtk-sharp2-c99.patch
 
 BuildRequires:  mono-devel gtk2-devel libglade2-devel monodoc
 BuildRequires:  autoconf, automake, libtool
@@ -55,6 +56,7 @@ This package provides the Gtk# documentation for monodoc.
 %setup -q -n gtk-sharp-%{version}
 %patch0 -p1 -b .glib
 %patch1 -p1
+%patch -P 2 -p1
 
 # Fix permissions of source files
 find -name '*.c' -exec chmod a-x {} \;
@@ -102,6 +104,9 @@ find %{buildroot} -type f -name "*.a" -delete
 %{_prefix}/lib/monodoc/sources/*
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 2.12.45-19
+- C compatibility fix
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.45-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

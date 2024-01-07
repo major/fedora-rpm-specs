@@ -19,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -32,6 +32,7 @@ Patch1:         ruby-gnome2-0.90.4-newpng.patch
 Patch4:         ruby-libart-arglength-fix.patch
 Patch6:         ruby-gnome2-rb_secure.patch
 Patch14:        ruby-gnome2-implicit-int-7.patch
+Patch15: ruby-gnome2-c99.patch
 
 
 BuildRequires:  make
@@ -325,6 +326,7 @@ sed -i extconf.rb \
 %patch -P4 -p1 -b .rb25
 %patch -P6 -p1
 %patch -P14 -p1
+%patch -P 15 -p1
 
 # Fix /usr/local
 grep -rl /usr/local/bin . | grep -v ChangeLog | \
@@ -466,6 +468,9 @@ rm -rf $RPM_BUILD_ROOT/bin
 
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 0.90.4-17
+- Fix C compatibility issues (#2256908)
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-16
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

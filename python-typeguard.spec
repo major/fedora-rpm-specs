@@ -82,6 +82,11 @@ sed -r -i 's/get_version\("typeguard"\)/"%{version}"/' docs/conf.py
 # documentation packages.
 echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^([[:blank:]]*)("coverage\b)/\1# \2/' pyproject.toml
+# Note that we *do* need mypy for some of the tests; it is not just a
+# “typechecking linter.”
+
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'

@@ -4,7 +4,9 @@ Version:	2023.12
 Release:	1%{?dist}
 URL:		https://github.com/cnr-isti-vclab/meshlab
 # Bundled e57 is Boost-licensed
-License:	GPL-2.0-or-later AND BSD AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND BSL-1.0
+# bundled glew is BSD-3-Clause
+# bundled picojson is BSD-2-Clause
+License:	GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND BSL-1.0
 Source0:	https://github.com/cnr-isti-vclab/meshlab/archive/MeshLab-%{version}/%{name}-%{version}.tar.gz
 # Matches 2023.12:
 %global vcglibver 6ac9e0c

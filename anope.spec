@@ -10,8 +10,8 @@
 
 Summary:        IRC services designed for flexibility and ease of use
 Name:           anope
-Version:        2.1.0
-Release:        2%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 # Anope itself is GPL-2.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: include/pstdint.h and modules/encryption/enc_sha256.cpp
 # MIT: src/siphash.cpp
@@ -35,13 +35,14 @@ Source18:       anope-memoserv.conf
 Source19:       anope-modules.conf
 Source20:       anope-nickserv.conf
 Source21:       anope-operserv.conf
-BuildRequires:  cmake >= 2.4
+BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
+# Compiler with C++17 language support
 BuildRequires:  devtoolset-8-toolchain
 %endif
-BuildRequires:  gcc >= 4.2
-BuildRequires:  gcc-c++ >= 4.2
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  systemd-rpm-macros
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -352,6 +353,9 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %endif
 
 %changelog
+* Sat Jan 06 2024 Robert Scheck <robert@fedoraproject.org> 2.1.1-1
+- Upgrade to 2.1.1 (#2256929)
+
 * Mon Nov 27 2023 Robert Scheck <robert@fedoraproject.org> 2.1.0-2
 - Reflect upstream configuration file changes and renamings
 

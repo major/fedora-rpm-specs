@@ -1,24 +1,32 @@
-Name:           libsmi
-Version:        0.4.8
-Release:        34%{?dist}
-Summary:        A library to access SMI MIB information
+# Upstream was putting changes silently into svn over a number of years
+# When they moved to gitlab, this became visible
+# It does not seem that they've ever done a proper release since 0.4.8
+# Leaving the version as is and using the gitlab source from the latest commit (2021)
+%global commit c5830721
 
-License:        GPLv2+ and BSD
-URL:            http://www.ibr.cs.tu-bs.de/projects/libsmi/index.html
-Source0:        ftp://ftp.ibr.cs.tu-bs.de/pub/local/libsmi/%{name}-%{version}.tar.gz
-Source1:        smi.conf
+Name:		libsmi
+Version:	0.4.8
+Release:	35%{?dist}
+Summary:	A library to access SMI MIB information
+License:	GPL-2.0-or-later AND BSD-3-Clause
+URL:		http://www.ibr.cs.tu-bs.de/projects/libsmi/index.html
+Source0:	https://gitlab.ibr.cs.tu-bs.de/nm/libsmi/-/archive/%{commit}/libsmi-%{commit}.tar.gz
+Source1:	smi.conf
 Source2:	IETF-MIB-LICENSE.txt
 Patch0:		libsmi-0.4.8-wget111.patch
-Patch1:		libsmi-0.4.8-CVE-2010-2891.patch
-Patch2:		libsmi-0.4.8-symbols-clash.patch
-Patch3:		libsmi-0.4.8-format-security-fix.patch
-Patch4: libsmi-configure-c99.patch
-Patch5: libsmi-c99.patch
-
-BuildRequires:  libtool
-BuildRequires:  flex, bison
-BuildRequires: make
-Requires:       gawk, wget
+Patch2:		libsmi-c5830721-symbols-clash.patch
+Patch4:		libsmi-c5830721-configure-c99.patch
+Patch5:		libsmi-c99.patch
+Patch6:		libsmi-c5830721-fix-missing-declaration.patch
+Patch7:		libsmi-c5830721-switch-fixes.patch
+Patch8:		libsmi-c5830721-include-fix.patch
+Patch9:		libsmi-c5830721-missing-semicolon.patch
+Patch10:	libsmi-c5830721-cleanups.patch
+Patch11:	libsmi-c5830721-test-fix-typo.patch
+BuildRequires:	libtool
+BuildRequires:	flex, bison
+BuildRequires:	make
+Requires:	gawk, wget
 
 %description
 Libsmi is a C library to access MIB module information through
@@ -31,9 +39,9 @@ of all IETF and IANA maintained standard MIB modules.
 
 
 %package devel
-Summary:        Development environment for libsmi library
-Requires:       %name = %version-%release
-Requires:       pkgconfig
+Summary:	Development environment for libsmi library
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	pkgconfig
 
 %description devel
 Libsmi is a C library to access MIB module information through
@@ -44,16 +52,23 @@ This package contains development files needed to develop
 libsmi-based applications.
 
 %prep
-%setup -q
-%patch0 -p1 -b .wget111
-%patch1 -p1 -b .CVE-2010-2891
-%patch2 -p1 -b .clash
-%patch3 -p1 -b .format-security
-%patch4 -p1
-%patch5 -p1
-# Avoid re-running bison.  The regeneration appears to break the generated
-# C code.
-touch -r lib/parser-sming.y lib/parser-sming.c
+%setup -q -n %{name}-%{commit}
+%patch -P 0 -p1 -b .wget111
+%patch -P 2 -p1 -b .clash
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1 -b .fix-missing-declaration
+%patch -P 7 -p1 -b .switch-fixes
+%patch -P 8 -p1 -b .include-fix
+%patch -P 9 -p1 -b .missing-semicolon
+%patch -P 10 -p1 -b .cleanups
+%patch -P 11 -p1 -b .fix-test-typo
+
+# We need to prime the pump here.
+pushd lib
+bison -v -t -d -psming parser-sming.y
+bison -v -t -d -pyang parser-yang.y
+popd
 cp %{SOURCE2} .
 
 %build
@@ -70,8 +85,7 @@ mv COPYING.utf8 COPYING
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-make install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}
 install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/smi.conf
@@ -80,7 +94,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %check
-# fails a couple of tests (2 in {0.4.4, 0.4.5})
+# fails a couple of tests (2 in {0.4.4, 0.4.5}, 3 as of 2024-01-03)
+# BUT... it shouldn't segfault or crash.
 make check ||:
 
 %ldconfig_scriptlets
@@ -95,6 +110,7 @@ make check ||:
 %{_libdir}/*.so.*
 %{_datadir}/mibs/
 %{_datadir}/pibs/
+%{_datadir}/yang/
 %{_mandir}/man1/*.1*
 
 %files devel
@@ -106,6 +122,9 @@ make check ||:
 
 
 %changelog
+* Fri Jan  5 2024 Tom Callaway <spot@fedoraproject.org> - 0.4.8-35
+- update to the latest available source tree, cleanup as much as we can
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

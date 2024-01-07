@@ -5,7 +5,7 @@
 %global crate pcre2-sys
 
 Name:           rust-pcre2-sys
-Version:        0.2.7
+Version:        0.2.8
 Release:        %autorelease
 Summary:        Low level bindings to PCRE2
 

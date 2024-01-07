@@ -4,13 +4,14 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 
 Summary:	Glu bindings for the opengl gem
 # SPDX confirmed
 License:	MIT
 URL:		https://github.com/larskanis/glu
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+Patch1:		rubygem-glu-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	rubygems-devel 
@@ -40,7 +41,7 @@ BuildArch:	noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%autosetup -p1 -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
 %build
@@ -103,6 +104,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 8.3.0-27
+- Fix C compatibility issues
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-26
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

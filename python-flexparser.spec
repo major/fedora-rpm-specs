@@ -29,7 +29,7 @@ Summary:        %{summary}
 %prep
 %autosetup -n flexparser-%{version}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^([[:blank:]]*)("pytest-cov")/\1# \2/' pyproject.toml
+sed -r -i 's/^([[:blank:]]*)\b(pytest-cov)\b/\1# \2/' requirements.test.txt
 
 
 %generate_buildrequires

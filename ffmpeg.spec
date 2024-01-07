@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -119,6 +119,7 @@ Patch2:         ffmpeg-allow-fdk-aac-free.patch
 # Drop openh264 runtime version checks
 # https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=10211
 Patch4:         0001-lavc-libopenh264-Drop-openh264-runtime-version-check.patch
+Patch5:         ffmpeg-c99.patch
 
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch
@@ -860,6 +861,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 6.1.1-2
+- Backport upstream patch to fix C compatibility issues
+
 * Thu Jan 04 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.1.1-1
 - Update to 6.1.1
 

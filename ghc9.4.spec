@@ -47,7 +47,7 @@
 %endif
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond_with abicheck
+%bcond_without abicheck
 
 # no longer build testsuite (takes time and not really being used)
 %bcond_with testsuite

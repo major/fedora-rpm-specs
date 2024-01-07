@@ -15,7 +15,7 @@
 
 Name:		linhpsdr
 Version:	0
-Release:	0.7.%{git_suffix}%{?dist}
+Release:	0.8.%{git_suffix}%{?dist}
 Summary:	An HPSDR application for Linux
 License:	GPLv2+
 URL:		https://github.com/g0orx/%{name}
@@ -33,6 +33,7 @@ BuildRequires:	desktop-file-utils
 Requires:	hicolor-icon-theme
 # https://github.com/g0orx/linhpsdr/pull/107
 Patch0:		linhpsdr-0-distro-makefile.patch
+Patch1: linhpsdr-c99.patch
 
 %description
 An HPSDR (High Performance Software Defined Radio) application for controlling
@@ -70,6 +71,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %doc documentation/*.pdf
 
 %changelog
+* Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 0-0.8.20210710git742658a9
+- Fix C compatibility issue
+
 * Mon Nov 20 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.7.20210710git742658a9
 - Rebuilt for libcw
 

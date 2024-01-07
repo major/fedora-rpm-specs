@@ -4,7 +4,7 @@
 %global crate btrd
 
 Name:           rust-btrd
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Btrfs debugger
 
@@ -12,10 +12,8 @@ License:        GPL-2.0
 URL:            https://crates.io/crates/btrd
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump rustyline dependency from 8 to 12
-# * replace rustyline-derive dependency with "rustyline/derive" feature
+# * bump rustyline dependency from 12 to 13
 Patch:          btrd-fix-metadata.diff
-Patch:          0001-port-to-rustyline-v12.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -26,13 +24,8 @@ The btrfs debugger.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# Apache-2.0 OR MIT
-# GPL-2.0
-# MIT
-# MIT OR Apache-2.0
-# Unlicense OR MIT
-License:        GPL-2.0 AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+# FIXME: paste output of %%cargo_license_summary here
+License:        # FIXME
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

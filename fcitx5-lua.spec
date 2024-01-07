@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-lua
-Version:        5.0.11
+Version:        5.0.12
 Release:        %autorelease
 Summary:        Lua support for fcitx
 License:        LGPLv2+
@@ -20,6 +20,8 @@ BuildRequires:  pkgconfig(lua)
 BuildRequires:  pkgconfig(Fcitx5Core)
 BuildRequires:  pkgconfig(Fcitx5Module)
 BuildRequires:  /usr/bin/appstream-util
+# to make testing happy
+BuildRequires:  fcitx5
 Requires:       fcitx5-data
 
 %description

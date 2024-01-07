@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           jq
-Version:        1.7
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Command-line JSON processor
 
@@ -49,7 +49,7 @@ Development files for %{name}
 
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -n %{name}-%{name}-%{version} -p1
 
 %build
 autoreconf -if
