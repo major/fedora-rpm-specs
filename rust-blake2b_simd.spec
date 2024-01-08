@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-json
+%global crate blake2b_simd
 
-Name:           rust-nu-json
-Version:        0.88.1
+Name:           rust-blake2b_simd
+Version:        1.0.2
 Release:        %autorelease
-Summary:        Fork of serde-hjson
+Summary:        Pure Rust BLAKE2b implementation with dynamic SIMD
 
 License:        MIT
-URL:            https://crates.io/crates/nu-json
+URL:            https://crates.io/crates/blake2b_simd
 Source:         %{crates_source}
+# PR to add license text
+# https://github.com/oconnor663/blake2_simd/pull/31
+Source:         https://raw.githubusercontent.com/oconnor663/blake2_simd/master/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Fork of serde-hjson.}
+A pure Rust BLAKE2b implementation with dynamic SIMD.}
 
 %description %{_description}
 
@@ -31,7 +34,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,32 +49,34 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+linked-hash-map-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+linked-hash-map-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "linked-hash-map" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+linked-hash-map-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+preserve_order-devel
+%package     -n %{name}+uninline_portable-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+preserve_order-devel %{_description}
+%description -n %{name}+uninline_portable-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "preserve_order" feature of the "%{crate}" crate.
+use the "uninline_portable" feature of the "%{crate}" crate.
 
-%files       -n %{name}+preserve_order-devel
+%files       -n %{name}+uninline_portable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# copy in license file
+cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

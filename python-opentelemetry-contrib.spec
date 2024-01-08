@@ -33,6 +33,10 @@
 # A subpackage needs falcon >= 1.4.1, < 3.1.2; F40 has 4.0.0
 %bcond falcon 0
 
+# A subpackage needs flask >= 1.0, < 3.0; F40 has 3.0.0
+# https://github.com/open-telemetry/opentelemetry-python-contrib/issues/1975
+%bcond flask 0
+
 # It seems like we need a newer version of grpc, which would require protobuf4.
 # There are several test failures similar to:
 #
@@ -141,7 +145,7 @@ BuildRequires:  python3-devel
     instrumentation/opentelemetry-instrumentation-elasticsearch
     %{?with_falcon:instrumentation/opentelemetry-instrumentation-falcon}
     instrumentation/opentelemetry-instrumentation-fastapi
-    instrumentation/opentelemetry-instrumentation-flask
+    %{?with_flask:instrumentation/opentelemetry-instrumentation-flask}
     %{?with_grpc:instrumentation/opentelemetry-instrumentation-grpc}
     instrumentation/opentelemetry-instrumentation-httpx
     instrumentation/opentelemetry-instrumentation-jinja2
@@ -865,6 +869,7 @@ python3-opentelemetry-instrumentation-fastapi. It makes sure the dependencies
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_fastapi-%{prerel_distinfo}
 
 
+%if %{with flask}
 %package -n python3-opentelemetry-instrumentation-flask
 Summary:        Flask instrumentation for OpenTelemetry
 Version:        %{prerel_version}
@@ -896,6 +901,7 @@ python3-opentelemetry-instrumentation-flask. It makes sure the dependencies
 
 %files -n python3-opentelemetry-instrumentation-flask+instruments
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_flask-%{prerel_distinfo}
+%endif
 
 
 %if %{with grpc}
@@ -1763,7 +1769,12 @@ Obsoletes:      python3-opentelemetry-instrumentation-falcon < 0.36~b0-1
 Obsoletes:      python3-opentelemetry-instrumentation-falcon+instruments < 0.36~b0-1
 %endif
 Requires:       python3-opentelemetry-instrumentation-fastapi = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+%if %{with flask}
 Requires:       python3-opentelemetry-instrumentation-flask = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+%else
+Obsoletes:      python3-opentelemetry-instrumentation-flask < 0.43~b0-37
+Obsoletes:      python3-opentelemetry-instrumentation-flask+instruments < 0.43~b0-37
+%endif
 %if %{with grpc}
 Requires:       python3-opentelemetry-instrumentation-grpc = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 %else
@@ -1879,6 +1890,7 @@ for omit in \
     %{?!with_cassandra:cassandra} \
     %{?!with_confluent_kafka:confluent-kafka} \
     %{?!with_falcon:falcon} \
+    %{?!with_flask:flask} \
     %{?!with_grpc:grpc} \
     %{?!with_remoulade:remoulade} \
     %{?!with_sklearn:sklearn} \
@@ -1974,6 +1986,7 @@ for dep in cfg.get("testenv", "deps").splitlines():
     excludes.update({"django1", "django2", "django3"})
     excludes.update({"elasticsearch2", "elasticsearch5", "elasticsearch6"})
     excludes.update({"falcon1", "falcon2", "falcon3"})
+    excludes.update({"flask213", "flask220"})
     excludes.update({"sqlalchemy11", "sqlalchemy12"})
     excludes.add("pika0")
     excludes.update({"pymemcache135", "pymemcache200", "pymemcache300"})
@@ -2513,6 +2526,7 @@ done
 %{python3_sitelib}/opentelemetry_instrumentation_fastapi-%{prerel_distinfo}/
 
 
+%if %{with flask}
 %files -n python3-opentelemetry-instrumentation-flask
 %license instrumentation/opentelemetry-instrumentation-flask/LICENSE
 %doc instrumentation/opentelemetry-instrumentation-flask/README.rst
@@ -2522,6 +2536,7 @@ done
 
 %{python3_sitelib}/opentelemetry/instrumentation/flask/
 %{python3_sitelib}/opentelemetry_instrumentation_flask-%{prerel_distinfo}/
+%endif
 
 
 %if %{with grpc}

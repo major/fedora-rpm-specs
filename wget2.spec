@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -21,7 +21,6 @@ Source2:        tim.ruehsen-keyring.asc
 
 # Buildsystem build requirements
 BuildRequires:  autoconf
-BuildRequires:  autogen
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  flex-devel >= 2.5.35
@@ -181,6 +180,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.0-5
+- Drop unused autogen build dependency
+
 * Thu Dec 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.0-4
 - Avoid pandoc dependency on RHEL
 - Fix tests on RHEL

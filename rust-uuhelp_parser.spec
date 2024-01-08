@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-color-config
+%global crate uuhelp_parser
 
-Name:           rust-nu-color-config
-Version:        0.88.1
+Name:           rust-uuhelp_parser
+Version:        0.0.23
 Release:        %autorelease
-Summary:        Color configuration code used by Nushell
+Summary:        Collection of functions to parse the markdown code of help files
 
 License:        MIT
-URL:            https://crates.io/crates/nu-color-config
+URL:            https://crates.io/crates/uuhelp_parser
 Source:         %{crates_source}
+# License added in https://github.com/uutils/coreutils/commit/7383820354d497b647bd721f3b147d9700676847
+Source:         https://raw.githubusercontent.com/uutils/coreutils/main/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Color configuration code used by Nushell.}
+A collection of functions to parse the markdown code of help files.}
 
 %description %{_description}
 
@@ -47,6 +49,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# copy in license file
+cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -60,8 +64,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * test fixtures are not shipped
-%cargo_test -- -- --exact --skip style_computer::test_computable_style_closure_basic --skip style_computer::test_computable_style_closure_errors
+%cargo_test
 %endif
 
 %changelog

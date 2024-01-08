@@ -1,6 +1,6 @@
 %global upstreamname hipBLAS
-%global rocm_release 5.7
-%global rocm_patch 1
+%global rocm_release 6.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -129,5 +129,8 @@ done
 %endif
 
 %changelog
+* Sat Jan 6 2024 Tom Rix <trix@redhat.com> - 6.0.0
+- Update to 6.0.0
+
 * Wed Nov 15 2023 Tom Rix <trix@redhat.com> - 5.7.1-1
 - Initial package

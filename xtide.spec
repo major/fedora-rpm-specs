@@ -1,8 +1,8 @@
 %define          mainver   2.15.5
 #%%define          betatag   dev-20160114
-%define          dwfdate   20220109
+%define          dwfdate   20240104
 
-%define          baserelease 3
+%define          baserelease 4
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -224,9 +224,6 @@ echo "%{_datadir}/wvs-data/" >> %{name}.conf
 # 1C Add desktop entry (xtide)
 %{__mkdir_p} $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install \
-%if 0%{?fedora} < 19
-   --vendor fedora \
-%endif
    --dir $RPM_BUILD_ROOT%{_datadir}/applications \
    %{SOURCE20}
 
@@ -340,6 +337,9 @@ exit 0
 %{_datadir}/man/man8/xttpd.8*
 
 %changelog
+* Sat Jan  6 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.5-4
+- harmonics data update (20240104)
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

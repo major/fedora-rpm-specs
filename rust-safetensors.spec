@@ -2,21 +2,34 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-color-config
+%global crate safetensors
 
-Name:           rust-nu-color-config
-Version:        0.88.1
+Name:           rust-safetensors
+Version:        0.4.1
 Release:        %autorelease
-Summary:        Color configuration code used by Nushell
+Summary:        Functions for safer PyTorch safetensors read/write operations
 
-License:        MIT
-URL:            https://crates.io/crates/nu-color-config
+License:        Apache-2.0
+URL:            https://crates.io/crates/safetensors
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# Removal of benchnmarking deps (criterion)
+Patch:          safetensors-fix-metadata.diff
+# LICENSE is not included in the source
+# PR for fix https://github.com/huggingface/safetensors/pull/416
+Source1: https://github.com/huggingface/%{crate}/raw/v%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
+# SafeTensors are not pass tests on i686
+ExcludeArch: i686
+
 %global _description %{expand:
-Color configuration code used by Nushell.}
+Provides functions to read and write safetensors which aim to be safer
+than their PyTorch counterpart. The format is 8 bytes which is an
+unsized int, being the size of a JSON header, the JSON header refers the
+`dtype` the `shape` and `data_offsets` which are the offsets for the
+values in the rest of the file.}
 
 %description %{_description}
 
@@ -31,6 +44,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,6 +61,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p '%{SOURCE1}' .
 %cargo_prep
 
 %generate_buildrequires
@@ -60,8 +75,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * test fixtures are not shipped
-%cargo_test -- -- --exact --skip style_computer::test_computable_style_closure_basic --skip style_computer::test_computable_style_closure_errors
+%cargo_test
 %endif
 
 %changelog

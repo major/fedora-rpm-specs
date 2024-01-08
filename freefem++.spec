@@ -33,7 +33,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -447,6 +447,9 @@ done
 %endif
 
 %changelog
+* Sat Jan 06 2024 Antonio Trande <sagitter@fedoraproject.org> - 4.14-3
+- Rebuild for MUMPS-5.6.2
+
 * Sun Dec 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.14-2
 - Rebuild for superlu_dist-8.2.0
 

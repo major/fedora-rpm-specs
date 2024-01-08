@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-color-config
+%global crate result-like-derive
 
-Name:           rust-nu-color-config
-Version:        0.88.1
+Name:           rust-result-like-derive
+Version:        0.5.0
 Release:        %autorelease
-Summary:        Color configuration code used by Nushell
+Summary:        Derive macros for result-like
 
-License:        MIT
-URL:            https://crates.io/crates/nu-color-config
+License:        BSD-2-Clause-Views
+URL:            https://crates.io/crates/result-like-derive
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Color configuration code used by Nushell.}
+Derive macros for result-like.}
 
 %description %{_description}
 
@@ -60,8 +60,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * test fixtures are not shipped
-%cargo_test -- -- --exact --skip style_computer::test_computable_style_closure_basic --skip style_computer::test_computable_style_closure_errors
+%cargo_test
 %endif
 
 %changelog

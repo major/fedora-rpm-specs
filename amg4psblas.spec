@@ -40,7 +40,7 @@ Summary: Algebraic Multigrid Package based on PSBLAS
 
 # Mixed Source Licensing
 Version: %{major_minor}.2
-Release: 1%{?dist}.1
+Release: 2%{?dist}
 License: MIT-CMU AND BSD-3-Clause
 URL: https://psctoolkit.github.io/products/amg4psblas/
 Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}%{?postrelease_version}.tgz
@@ -507,6 +507,9 @@ popd
 %license serial-build/LICENSE
 
 %changelog
+* Sat Jan 06 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-2
+- Rebuild for MUMPS-5.6.2
+
 * Sat Dec 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-1
 - Release 1.1.2
 - Exclude serial libraries (not fully supported)

@@ -2,21 +2,28 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-color-config
+%global crate dns-lookup
 
-Name:           rust-nu-color-config
-Version:        0.88.1
+Name:           rust-dns-lookup1
+Version:        1.0.8
 Release:        %autorelease
-Summary:        Color configuration code used by Nushell
+Summary:        Simple dns resolving api, much like rust's unstable api
 
-License:        MIT
-URL:            https://crates.io/crates/nu-color-config
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/dns-lookup
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          dns-lookup-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * drop optional clippy feature that depends on the obsolete clippy crate
+Patch:          dns-lookup-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Color configuration code used by Nushell.}
+A simple dns resolving api, much like rust's unstable api. Also includes
+getaddrinfo and getnameinfo wrappers for libc variants.}
 
 %description %{_description}
 
@@ -30,7 +37,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -60,8 +69,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * test fixtures are not shipped
-%cargo_test -- -- --exact --skip style_computer::test_computable_style_closure_basic --skip style_computer::test_computable_style_closure_errors
+%cargo_test
 %endif
 
 %changelog

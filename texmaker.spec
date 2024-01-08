@@ -6,24 +6,25 @@ Epoch:		1
 License:	GPLv2+
 URL:		http://www.xm1math.net/texmaker/
 Source:		http://www.xm1math.net/texmaker/texmaker-%{version}.tar.bz2
-
+	
+ExclusiveArch: %{qt6_qtwebengine_arches}
+	
+ 
 BuildRequires:  make
 BuildRequires:	desktop-file-utils
 BuildRequires:  freetype-devel
 BuildRequires:	gettext
 BuildRequires:	hunspell-devel
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-private-devel
-#libQt5Core.so.5(Qt_5_PRIVATE_API)(64bit)
-BuildRequires:	qt5-qtwebkit-devel
-BuildRequires:	qt5-qtscript-devel
-BuildRequires:	qt5-qtwebengine-devel
-BuildRequires:	qtsingleapplication-qt5-devel
+BuildRequires:	qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:	qt6-qtwebengine-devel
+BuildRequires:	qt6-qt5compat-devel
+BuildRequires:	qtsingleapplication-qt6-devel
 BuildRequires:	lcms2-devel
 BuildRequires:	libappstream-glib
 BuildRequires:	libjpeg-turbo-devel
 BuildRequires:	libpng-devel
-BuildRequires:	poppler-qt5-devel
+BuildRequires:	poppler-qt6-devel
 BuildRequires:	zlib-devel
 
 Requires:	tetex-latex
@@ -86,7 +87,7 @@ sed -i -e '1iPKGCONFIG += freetype2 lcms2 libjpeg libpng zlib' -e '/third_party\
 
 %build
 export CXXFLAGS="%{optflags} -DUSE_SYSTEM_LIBJPEG"
-%{qmake_qt5} texmaker.pro
+%{qmake_qt6} texmaker.pro
 %make_build
 
 %install

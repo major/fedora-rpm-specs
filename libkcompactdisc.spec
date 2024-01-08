@@ -1,31 +1,37 @@
-Name:    libkcompactdisc
-Version: 16.08.3
-Release: 16%{?dist}
+Name:    libkcompactdisc 
+Version: 24.01.85
+Release: 2%{?dist}
 Summary: A KDE compact disc library
 
-# source code contains bundled workman library but we consider it as a part of the
-# code as there's no standalone workman lib, it's not used by any other project and
-# maintainer develops it in kde git in sync with libkcompactdisc
-# wmlib is LGPLv2+, rest is LGPLv2+ and GPLv2+
-License: LGPLv2+ and GPLv2+
-URL:     https://quickgit.kde.org/?p=%{name}.git
+# License for this library is very nebulous.
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
+URL:     https://invent.kde.org/multimedia/libkcompactdisc
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/applications/%{version}/src/%{name}-%{version}.tar.xz  
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-BuildRequires: kdelibs4-devel >= 4.14
+## upstreamable patches
+
+BuildRequires: gcc-c++
+BuildRequires: cmake
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Solid)
+BuildRequires: cmake(KF6I18n)
+
+BuildRequires: cmake(Qt6DBus)
+
 BuildRequires: pkgconfig(alsa)
-BuildRequires: make
+BuildRequires: pkgconfig(phonon4qt6)
 
-%{?kdelibs4_requires}
-
-# when split occured
+# historical conflicts
+# when split occured (kdemultimedia to libkcompactdisc)
 Conflicts: kdemultimedia-libs < 6:4.8.80
+# translations moved here (during kf5-libkcompactdisc)
+Conflicts: kde-l10n < 17.03
+ # translations conflict with kf5-libkcompactdisc
+Conflicts: kf5-libkcompactdisc < 24.01.85
+Obsoletes: kf5-libkcompactdisc < 24.01.85
 
 %description
 %{summary}.
@@ -33,44 +39,46 @@ Conflicts: kdemultimedia-libs < 6:4.8.80
 %package devel
 Summary:  Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: kdelibs4-devel
-# when split occured
-Conflicts: kdemultimedia-devel < 6:4.8.80
+Obsoletes: kf5-libkcompactdisc-devel < 24.01.85
 %description devel
 %{summary}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{cmake_kde4} ..
-popd
+%cmake_kf6 \
+	-DQT_MAJOR_VERSION=6
 
-make %{?_smp_mflags} -C %{_target_platform}
+%cmake_build
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
+%find_lang %{name} --all-name --with-html --with-man
 
-%ldconfig_scriptlets
-
-%files
-%license COPYING COPYING.LIB
-%doc wmlib/README
-%{_kde4_libdir}/libkcompactdisc.so.4*
+%files -f %{name}.lang
+%license COPYING*
+%{_kf6_libdir}/libKCompactDisc6.so.5*
 
 %files devel
-%{_kde4_includedir}/libkcompactdisc/
-%{_kde4_libdir}/cmake/libkcompactdisc/
-%{_kde4_libdir}/libkcompactdisc.so
+%{_includedir}/KCompactDisc6/
+%{_kf6_libdir}/libKCompactDisc6.so
+%{_kf6_libdir}/cmake/KCompactDisc6/
+%{_qt6_archdatadir}/mkspecs/modules/qt_KCompactDisc.pri
 
 
 %changelog
+* Sat Jan 06 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
+- Also obsolete kf5 devel subpackage for upgrading
+
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85 using Qt6/KF6 and re-using kde4 rpms
+- Qt5/KF5 still uses kf5-libkcompactdisc
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -340,3 +348,4 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 * Wed Jun 06 2012 Jaroslav Reznik <jreznik@redhat.com> 4.8.80-1
 - initial try
+

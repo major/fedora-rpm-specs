@@ -14,25 +14,24 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	21
+%global	baserelease	22
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
-
-%global	build_gss	1
-%if 0%{?fedora} >= 33
-%global	build_gss	0
-%endif
 
 Name:		gphotoframe
 Version:	%{mainver}
 Release:	%{fedorarel}%{?dist}
 Summary:	Photo Frame Gadget for the GNOME Desktop
 
-# GPLv3 seems safer than GPLv3+
-# Some image files are under GPLv2+
-# Documents under help/ directory are under GFDL
-License:	GPLv3 and GPLv2+ and GFDL
+# Overall	GPL-3.0-or-later
+# help/C/gphotoframe.xml	GFDL-1.1-or-later
+# lib/utils/EXIF.py	BSD-3-Clause
+# lib/utils/urlget.py	MIT
+# share/history/jquery.lazyload.js	MIT
+# Some images (see COPYING)	GPL-2.0-or-later
+# SPDX confirmed
+License:	GPL-3.0-or-later AND GPL-2.0-or-later AND MIT AND BSD-3-Clause AND GFDL-1.1-or-later
 URL:		http://code.google.com/p/gphotoframe/
 #Source0:	http://gphotoframe.googlecode.com/files/%{name}-%{mainver}%{?minorver}.tar.gz
 Source:	%{name}-%{mainver}%{?minorver}%{?hghash:-hg%hghash}.tar.bz2
@@ -131,27 +130,12 @@ Requires:	python3-feedparser
 # girepository
 Requires:	libchamplain-gtk
 # Scriptlets
-%if !%{build_gss}
-Obsoletes:	%{name}-gss < 2.0.2-5.9999
-%endif
-
 Requires(pre):	GConf2
 
 BuildArch:	noarch
 
 %description
 Gnome Photo Frame is a photo frame gadget for the GNOME Desktop.
-
-%if %{build_gss}
-%package	gss
-Summary:	Compatibility package of %{name} for gnome-screensaver
-Requires:	%{name} = %{version}-%{release}
-Requires:	gnome-screensaver
-
-%description	gss
-This package contains scripts and desktop files of %{name}
-for gnome-screensaver compatibility.
-%endif
 
 %prep
 %setup -q -n %{name}-%{mainver}%{?minorver}%{?hghash:-hg%hghash}
@@ -208,9 +192,6 @@ grep -rlZ "/usr/bin/python$" . | xargs --null sed -i -e 's|/usr/bin/python$|/usr
 mkdir -p %{buildroot}
 
 %{__python3} setup.py install \
-%if 0
-	--skip-build \
-%endif
 	--root %{buildroot} \
 	--prefix %{_prefix} \
 	%{nil}
@@ -261,12 +242,10 @@ desktop-file-validate \
 mv %{buildroot}%{_prefix}/lib/gnome-screensaver/gnome-screensaver/gphotoframe-screensaver \
 	%{buildroot}%{_libexecdir}/gnome-screensaver/
 
-%if !%{build_gss}
 rm -rf \
 	%{buildroot}%{_libexecdir}/gnome-screensaver/ \
 	%{buildroot}%{_datadir}/applications/screensavers/ \
 	%{nil}
-%endif
 
 find %{buildroot}%{_prefix} -name \*.py3 -delete
 
@@ -289,8 +268,8 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 
 %files	-f %{name}.lang
 %defattr(-,root,root,-)
-%doc	COPYING
-%doc	GPL
+%license	COPYING
+%license	GPL
 %doc	README
 %doc	changelog
 
@@ -302,11 +281,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %{_datadir}/%{name}/*.ui
 %{_datadir}/%{name}/*.png
 %{_datadir}/%{name}/*.glade
-#%%{_datadir}/%{name}/*.svg
 %{_datadir}/%{name}/extra/
 %{_datadir}/%{name}/history/
 
-#%%{_datadir}/gnome/help/%%{name}/
 %{_datadir}/help/*/%{name}/
 %{_datadir}/omf/%{name}/
 
@@ -317,14 +294,10 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 
 %{_datadir}/appdata/%{name}.appdata.xml
 
-%if %{build_gss}
-%files	gss
-%defattr(-,root,root,-)
-%{_libexecdir}/gnome-screensaver/%{name}-screensaver
-%{_datadir}/applications/screensavers/%{name}-screensaver.desktop
-%endif
-
 %changelog
+* Sat Jan 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-22.hg2084299dffb6
+- SPDX migration
+
 * Mon Jul 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-21.hg2084299dffb6
 - Fix for python 3.12 rejecting non-integer arguments to randrange
 

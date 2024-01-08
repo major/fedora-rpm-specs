@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-color-config
+%global crate bitstream-io
 
-Name:           rust-nu-color-config
-Version:        0.88.1
+Name:           rust-bitstream-io1
+Version:        1.10.0
 Release:        %autorelease
-Summary:        Color configuration code used by Nushell
+Summary:        Library for reading/writing un-aligned values from/to streams
 
-License:        MIT
-URL:            https://crates.io/crates/nu-color-config
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/bitstream-io
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Color configuration code used by Nushell.}
+Library for reading/writing un-aligned values from/to streams in big-
+endian and little-endian formats.}
 
 %description %{_description}
 
@@ -30,7 +32,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -60,8 +64,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * test fixtures are not shipped
-%cargo_test -- -- --exact --skip style_computer::test_computable_style_closure_basic --skip style_computer::test_computable_style_closure_errors
+%cargo_test
 %endif
 
 %changelog

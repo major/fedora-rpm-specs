@@ -1,64 +1,78 @@
-Name:    audiocd-kio 
-Summary: Audiocd kio slave
-Version: 16.08.3
-Release: 21%{?dist}
+Name:    audiocd-kio
+Summary: KF6 Audiocd kio slave
+Version: 24.01.85
+Release: 2%{?dist}
 
-# code GPLv2+, handbook/docs GFDL
-License: GPL-2.0-or-later
-URL:     https://www.kde.org/applications/multimedia/
+License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
+URL:     https://invent.kde.org/multimedia/audiocd-kio
+	
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
+# cdparanoia-devel not on all arches for RHEL8.
+%if 0%{?rhel} == 8
+ExclusiveArch: x86_64 ppc64le aarch64 %{arm}
 %endif
-Source0: http://download.kde.org/%{stable}/applications/%{version}/src/%{name}-%{version}.tar.xz
 
-## upstream patches
-
+BuildRequires: gcc-c++
+BuildRequires: cmake
 BuildRequires: cdparanoia-devel cdparanoia
-BuildRequires: kdelibs4-devel >= 4.14
-BuildRequires: libkcddb-devel
-BuildRequires: libkcompactdisc-devel
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-rpm-macros
+
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6KIO)
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core5Compat)
+
+BuildRequires: cmake(KCddb6)
+BuildRequires: cmake(KCompactDisc6)
+
+BuildRequires: pkgconfig(alsa)
+BuildRequires: pkgconfig(phonon4qt6)
+
+# See: https://docs.kde.org/trunk5/en/audiocd-kio/kcontrol/kcmaudiocd/index.html
+# Those are explicitely required at build time
 BuildRequires: pkgconfig(flac)
-BuildRequires: pkgconfig(phonon)
 BuildRequires: pkgconfig(theora)
 BuildRequires: pkgconfig(vorbis)
-BuildRequires: make
+# The MP3 and Opus Encoder tabs are only available if the tools are installed
+Recommends: lame
+Recommends: opus-tools
 
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-%{?kde_runtime_requires}
+Requires:  %{name}-doc = %{version}-%{release}
 
+
+# when split occurred (kdemultimedia to audiocd-kio rpm)
 # when split occurred
+# for the former audiocd-kio-libs rpm
+Conflicts: kdemultimedia-libs < 6:4.8.80
+# for the former audiocd-kio rpm
 Obsoletes: kdemultimedia-kio_audiocd < 6:4.8.80
 Provides:  kdemultimedia-kio_audiocd = 6:%{version}-%{release}
 Provides:  kio_audiocd = %{version}-%{release}
-
-%if 0%{?fedora} > 26
-Recommends:  %{name}-doc = %{version}-%{release}
-%else
-Requires: %{name}-doc = %{version}-%{release}
-%endif
+# conflicts from later history of kf5-audiocd-kio
+# when conflicting /usr/share/config.kcfg/audiocd_vorbis_encoder.kcfg was dropped
+Conflicts: kf5-audiocd-kio < 24.01.85
+Obsoletes: kf5-audiocd-kio < 24.01.85
+# translations moved here
+Conflicts: kde-l10n < 17.03
 
 %description
 %{summary}.
 
-%package libs
-Summary: Runtime libraries for %{name}
-Requires: %{name} = %{version}-%{release}
-%{?kdelibs4_requires}
-# when split occurred
-Conflicts: kdemultimedia-libs < 6:4.8.80
-%description libs
-%{summary}.
-
 %package devel
 Summary:  Development files for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: kdelibs4-devel
-# when split occured
+# from the former kdemultimedia - audiocd-kio split
 Conflicts: kdemultimedia-devel < 6:4.8.80
+# libaudiocdplugins.so symlink conflict (now against kf5-audiocd-kio-devel)
+Conflicts: kf5-audiocd-kio-devel < 24.01.85
+Obsoletes: kf5-audiocd-kio-devel < 24.01.85
+Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
 
@@ -67,66 +81,66 @@ Summary: Documentation for %{name}
 License: GFDL
 Requires:  %{name} = %{version}-%{release}
 BuildArch: noarch
+# now ahead of kf5-libkcddb
+Conflicts: kf5-audiocd-kio-doc < 24.01.85
+Obsoletes: kf5-audiocd-kio-doc < 24.01.85
 %description doc
 Documentation for %{name}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{cmake_kde4} ..
-popd
+%cmake_kf6
 
-%make_build -C %{_target_platform}
+%cmake_build
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
-# fix documentation multilib conflict in index.cache
-bunzip2 %{buildroot}%{_kde4_docdir}/HTML/en/kioslave/audiocd/index.cache.bz2
-sed -i -e 's!name="id[a-z]*[0-9]*"!!g' %{buildroot}%{_kde4_docdir}/HTML/en/kioslave/audiocd/index.cache
-sed -i -e 's!#id[a-z]*[0-9]*"!!g' %{buildroot}%{_kde4_docdir}/HTML/en/kioslave/audiocd/index.cache
-bzip2 -9 %{buildroot}%{_kde4_docdir}/HTML/en/kioslave/audiocd/index.cache
+%find_lang %{name} --all-name --with-man
+%find_lang %{name}-doc --all-name --with-html --without-mo
 
 
-%files
-%license COPYING
-# own these to avoid dep on kdebase
-%dir %{_kde4_appsdir}/konqsidebartng/
-%dir %{_kde4_appsdir}/konqsidebartng/virtual_folders/
-%dir %{_kde4_appsdir}/konqsidebartng/virtual_folders/services/
-%{_kde4_appsdir}/konqsidebartng/virtual_folders/services/audiocd.desktop
-%{_kde4_appsdir}/solid/actions/solid_audiocd.desktop
-%{_kde4_datadir}/kde4/services/audiocd.desktop
-%{_kde4_datadir}/kde4/services/audiocd.protocol
-%exclude %{_kde4_datadir}/config.kcfg/audiocd*.kcfg
-%{_kde4_libdir}/kde4/kcm_audiocd.so
-%{_kde4_libdir}/kde4/kio_audiocd.so
-
-%ldconfig_scriptlets libs
-
-%files libs
-%{_kde4_libdir}/libaudiocdplugins.so.4*
-%{_kde4_libdir}/kde4/libaudiocd_encoder_flac.so
-%{_kde4_libdir}/kde4/libaudiocd_encoder_lame.so
-%{_kde4_libdir}/kde4/libaudiocd_encoder_vorbis.so
-%{_kde4_libdir}/kde4/libaudiocd_encoder_wav.so
+%files -f %{name}.lang
+%license COPYING*
+%{_kf6_datadir}/qlogging-categories6/*
+%{_kf6_metainfodir}/org.kde.kio_audiocd.*.xml
+%{_kf6_libdir}/libaudiocdplugins.so.5*
+%{_qt6_plugindir}/libaudiocd_encoder_flac.so
+%{_qt6_plugindir}/libaudiocd_encoder_lame.so
+%{_qt6_plugindir}/libaudiocd_encoder_opus.so
+%{_qt6_plugindir}/libaudiocd_encoder_vorbis.so
+%{_qt6_plugindir}/libaudiocd_encoder_wav.so
+%{_kf6_plugindir}/kio/audiocd.so
+%{_kf6_datadir}/config.kcfg/audiocd_*_encoder.kcfg
+%dir %{_kf6_datadir}/konqsidebartng/
+%dir %{_kf6_datadir}/konqsidebartng/virtual_folders
+%dir %{_kf6_datadir}/konqsidebartng/virtual_folders/services/
+%{_kf6_datadir}/konqsidebartng/virtual_folders/services/audiocd.desktop
+%{_kf6_datadir}/solid/actions/solid_audiocd.desktop
+%{_kf6_datadir}/applications/kcm_audiocd.desktop
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_audiocd.so
 
 %files devel
-%{_kde4_includedir}/audiocdencoder.h
-%{_kde4_libdir}/libaudiocdplugins.so
+%{_kf6_libdir}/libaudiocdplugins.so
+%{_includedir}/audiocdplugins/
 
-%files doc
+%files doc -f %{name}-doc.lang
 %license COPYING.DOC
-%lang(en) %{_kde4_docdir}/HTML/en/kioslave/audiocd/
 
 
 %changelog
+* Sat Jan 06 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
+- Also obsolete kf5 devel subpackage for upgrading
+
+* Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
+- 24.01.85 using Qt6/KF6
+- add conflicts reverse to kf5-audiocd-kio
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -415,4 +429,5 @@ bzip2 -9 %{buildroot}%{_kde4_docdir}/HTML/en/kioslave/audiocd/index.cache
 
 * Fri Jun 08 2012 Rex Dieter <rdieter@fedoraproject.org> 4.8.90-1
 - audiocd-kio-4.8.90
+
 

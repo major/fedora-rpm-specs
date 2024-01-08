@@ -1,6 +1,6 @@
 Summary: A set of commands for manipulating flat-text databases from the shell
 Name: perl-Fsdb
-Version: 3.3
+Version: 3.4
 Epoch: 2
 Release: 1%{?dist}
 License: GPLv2
@@ -105,5 +105,5 @@ make test
 
 
 %changelog
-* Fri Oct 13 2023 John Heidemann <johnh@isi.edu> 3.3-1
+* Fri Jan 05 2024 John Heidemann <johnh@isi.edu> 3.4-1
 - See http://www.isi.edu/~johnh/SOFTWARE/FSDB/

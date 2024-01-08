@@ -1,19 +1,19 @@
 # ***********************************************************************
 # *                                                                     *
 # *            Star Traders: A Game of Interstellar Trading             *
-# *               Copyright (C) 1990-2022, John Zaitseff                *
+# *               Copyright (C) 1990-2024, John Zaitseff                *
 # *                                                                     *
 # ***********************************************************************
 
 # Author: John Zaitseff <J.Zaitseff@zap.org.au>
-# $Id: 4f8a9b2f09a1e5cdac0fc1694a8692dffa46c9cf $
+# $Id: e76f1bf1b6a69e9276beaa9892a5055fc5044d73 $
 
 # This file is distributed under the same licence as Star Traders itself:
 # the GNU General Public License, version 3 or later.
 
 Name:           trader
-Version:        7.18
-Release:        3%{?dist}
+Version:        7.19
+Release:        1%{?dist}
 Summary:        Star Traders, a simple game of interstellar trading
 License:        GPLv3+
 Url:            https://www.zap.org.au/projects/trader/
@@ -42,24 +42,22 @@ order to become the wealthiest player (the winner).
 %install
 %make_install
 %find_lang %{name}
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f %{name}.lang
 %doc README NEWS
 %license COPYING
 %{_bindir}/%{name}
 %{_mandir}/man6/%{name}.6*
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/*.metainfo.xml
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.18-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.18-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Sun Jan 07 2024 John Zaitseff <J.Zaitseff@zap.org.au> - 7.19-1
+- Updated the RPM package for a new release of Star Traders: version 7.19.
+- Update rules for AppStream metainfo and desktop files.
 
 * Fri Aug 05 2022 John Zaitseff <J.Zaitseff@zap.org.au> - 7.18-1
 - Updated the RPM package for a new release of Star Traders: version 7.18.

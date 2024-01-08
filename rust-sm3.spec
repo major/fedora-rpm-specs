@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-color-config
+%global crate sm3
 
-Name:           rust-nu-color-config
-Version:        0.88.1
+Name:           rust-sm3
+Version:        0.4.2
 Release:        %autorelease
-Summary:        Color configuration code used by Nushell
+Summary:        (OSCCA GM/T 0004-2012) hash function
 
-License:        MIT
-URL:            https://crates.io/crates/nu-color-config
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/sm3
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Color configuration code used by Nushell.}
+SM3 (OSCCA GM/T 0004-2012) hash function.}
 
 %description %{_description}
 
@@ -30,7 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -43,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -60,8 +75,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * test fixtures are not shipped
-%cargo_test -- -- --exact --skip style_computer::test_computable_style_closure_basic --skip style_computer::test_computable_style_closure_errors
+%cargo_test
 %endif
 
 %changelog

@@ -1,6 +1,6 @@
 %global upstreamname hipSPARSE
-%global rocm_release 5.7
-%global rocm_patch 1
+%global rocm_release 6.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -20,7 +20,7 @@
 
 Name:           hipsparse
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        0%{?dist}
 Summary:        ROCm SPARSE marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -131,6 +131,9 @@ done
 %endif
 
 %changelog
+* Sat Jan 6 2024 Tom Rix <trix@redhat.com> - 6.0.0-1
+- Update to 6.0.0
+
 * Fri Dec 1 2023 Tom Rix <trix@redhat.com> - 5.7.1-4
 - Glob dirs
 

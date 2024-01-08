@@ -1,8 +1,11 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/
 
+
+# Fedora Release starts with 1; see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:           python-xrst
-Version:        2023.1.22
-Release:        3%{?dist}
+Version:        2024.0.0
+Release:        1%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -29,15 +32,12 @@ Summary:        %{summary}
 # What is the difference between the two %%description commands ?
 %description -n python3-xrst %_description
 
-
 %prep
 %autosetup -p1 -n xrst-%{version}
-
 #
 # not yet available on fedora
-sed -i tox.ini        -e '/^ *pyspellchecker$/d'
-sed -i pyproject.toml -e "s|'pyspellchecker',||" -e "s|'sphinx-book-theme',||"
-sed -i setup.py       -e "s|'pyspellchecker',||" -e "s|'sphinx-book-theme',||"
+sed -i pyproject.toml -e "s|'sphinx-book-theme',||"
+sed -i setup.py       -e "s|'sphinx-book-theme',||"
 #
 # Suppress spelling warnings during pytest because this system
 # uses a different dictionary.
@@ -47,10 +47,8 @@ sed -i pytest/test_rst.py \
 %generate_buildrequires
 %pyproject_buildrequires -t
 
-
 %build
 %pyproject_wheel
-
 
 %install
 %pyproject_install
@@ -86,6 +84,11 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Sat Jan 06 2024 Brad Bell <bradbell at seanet dot com> - 2024.0.1
+- New upstream source.
+- pyspellchecker is now available as a fedora package.
+- Remove some extra blank lines.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

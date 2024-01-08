@@ -3,7 +3,7 @@ Version:        5.0
 Release:        %autorelease
 Summary:        Volume control for PulseAudio
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://freedesktop.org/software/pulseaudio/%{name}
 Source0:        http://freedesktop.org/software/pulseaudio/%{name}/%{name}-%{version}.tar.xz
 Source1:        org.pulseaudio.pavucontrol.appdata.xml

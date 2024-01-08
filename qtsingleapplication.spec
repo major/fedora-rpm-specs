@@ -7,7 +7,7 @@
 Summary:    Qt library to start applications only once per user
 Name:       qtsingleapplication
 Version:    2.6.1
-Release:    46%{?dist}
+Release:    47%{?dist}
 
 License:    GPLv3 or LGPLv2 with exceptions
 URL:        http://doc.qt.digia.com/solutions/4/qtsingleapplication/qtsingleapplication.html
@@ -34,6 +34,7 @@ Patch2:     qtsingleapplication-qupzilla.patch
 %{?_with_qt4:BuildRequires: qt4-devel qtlockedfile-devel}
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel qtlockedfile-qt5-devel
+BuildRequires: qt6-qtbase-devel qtlockedfile-qt6-devel
 
 %description
 For some applications it is useful or even critical that they are started
@@ -122,6 +123,50 @@ Requires:   qt5-qtbase-devel
 This package contains libraries and header files for developing applications
 that use QtSingleCoreApplication.
 
+%package qt6
+Summary:    Qt6 library to start applications only once per user
+Requires:   qt6-qtbase
+
+%description qt6
+For some applications it is useful or even critical that they are started
+only once by any user. Future attempts to start the application should
+activate any already running instance, and possibly perform requested
+actions, e.g. loading a file, in that instance.
+
+This is a special build against Qt6.
+
+%package qt6-devel
+Summary:    Development files for %{name}-qt6
+Requires:   %{name}-qt6 = %{version}-%{release}
+Requires:   qt6-qtbase-devel
+
+%description qt6-devel
+This package contains libraries and header files for developing applications
+that use QtSingleApplication with Qt6.
+
+%package -n qtsinglecoreapplication-qt6
+Summary:    Qt library to start applications only once per user (Qt6)
+Requires:   qt6-qtbase
+
+%description -n qtsinglecoreapplication-qt6
+For some applications it is useful or even critical that they are started
+only once by any user. Future attempts to start the application should
+activate any already running instance, and possibly perform requested
+actions, e.g. loading a file, in that instance.
+
+For console (non-GUI) applications, the QtSingleCoreApplication variant
+is provided, which avoids dependency on QtGui.
+
+This is a special build against Qt6.
+
+%package -n qtsinglecoreapplication-qt6-devel
+Summary:    Development files for qtsinglecoreapplication-qt6
+Requires:   qtsinglecoreapplication-qt6 = %{version}-%{release}
+Requires:   qt6-qtbase-devel
+
+%description -n qtsinglecoreapplication-qt6-devel
+This package contains libraries and header files for developing applications
+that use QtSingleCoreApplication.
 
 %prep
 %setup -qnqt-solutions-%{commit0}/%{name}
@@ -146,9 +191,9 @@ mkdir qt5
 sed -e 's|@QT_INCLUDEDIR@|%{_qt5_headerdir}|' %{SOURCE1} > qt5/qtsingleapplication.prf
 sed -e 's|@QT_INCLUDEDIR@|%{_qt5_headerdir}|' %{SOURCE2} > qt5/qtsinglecoreapplication.prf
 
-# additional header needed for Qt5.5
-sed -i -r 's,.include,\0 <QtCore/QDataStream>\n\0,' src/qtlocalpeer.h
-
+mkdir qt6
+sed -e 's|@QT_INCLUDEDIR@|%{_qt6_headerdir}|' %{SOURCE1} > qt6/qtsingleapplication.prf
+sed -e 's|@QT_INCLUDEDIR@|%{_qt6_headerdir}|' %{SOURCE2} > qt6/qtsinglecoreapplication.prf
 
 %build
 # Does not use GNU configure
@@ -157,14 +202,28 @@ sed -i -r 's,.include,\0 <QtCore/QDataStream>\n\0,' src/qtlocalpeer.h
 %{qmake_qt4}
 %make_build
 %endif
+
+# Qt5
 pushd qt5
 %if 0%{?flatpak}
 # qmake does not search mkspecs in /app
 cat %{_qt5_archdatadir}/mkspecs/features/qtlockedfile.prf >> ../common.pri
 %endif
+# additional header needed for Qt5.5
+sed -i -r 's,.include,\0 <QDataStream>\n\0,' ../src/qtlocalpeer.cpp
 %{qmake_qt5} ..
 %make_build
 popd
+
+# Qt6
+pushd qt6
+# additional header needed for Qt6
+sed -i -r 's,.include,\0 <QRegularExpression>\n\0,' ../src/qtlocalpeer.cpp
+sed -i 's,QRegExp,QRegularExpression,g' ../src/qtlocalpeer.cpp
+%{qmake_qt6} ..
+%make_build
+popd
+
 
 
 %install
@@ -175,14 +234,13 @@ chmod 755 %{buildroot}%{_libdir}/*.so*
 
 # headers
 %if 0%{?_with_qt4}
-mkdir -p %{buildroot}%{_qt4_headerdir}/QtSolutions
+mkdir -p %{buildroot}%{_qt4_headerdir}/QtSolutions  %{buildroot}%{_qt4_datadir}/mkspecs/features
 cp -ap \
     src/qtsingleapplication.h \
     src/QtSingleApplication \
     src/qtsinglecoreapplication.h \
     src/QtSingleCoreApplication \
     %{buildroot}%{_qt4_headerdir}/QtSolutions
-mkdir -p %{buildroot}%{_qt4_datadir}/mkspecs/features
 install -p -m644 *.prf %{buildroot}%{_qt4_datadir}/mkspecs/features
 %endif
 mkdir -p %{buildroot}%{_qt5_headerdir}/QtSolutions %{buildroot}%{_qt5_archdatadir}/mkspecs/features
@@ -194,9 +252,17 @@ cp -ap \
     %{buildroot}%{_qt5_headerdir}/QtSolutions
 install -p -m644 qt5/*.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features
 
-%if 0%{?_with_qt4}
-%ldconfig_scriptlets
+mkdir -p %{buildroot}%{_qt6_headerdir}/QtSolutions %{buildroot}%{_qt6_archdatadir}/mkspecs/features
+cp -ap \
+    src/qtsingleapplication.h \
+    src/QtSingleApplication \
+    src/qtsinglecoreapplication.h \
+    src/QtSingleCoreApplication \
+    %{buildroot}%{_qt6_headerdir}/QtSolutions
+install -p -m644 qt6/*.prf %{buildroot}%{_qt6_archdatadir}/mkspecs/features
 
+
+%if 0%{?_with_qt4}
 %files
 %license licenses/*
 %doc README.TXT
@@ -211,8 +277,6 @@ install -p -m644 qt5/*.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features
 %{_qt4_headerdir}/QtSolutions/%{name}.h
 %{_qt4_datadir}/mkspecs/features/qtsingleapplication.prf
 
-%ldconfig_scriptlets -n qtsinglecoreapplication
-
 %files -n qtsinglecoreapplication
 %license licenses/*
 # Caution! Unversioned .so file goes into -devel
@@ -225,8 +289,6 @@ install -p -m644 qt5/*.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features
 %{_qt4_headerdir}/QtSolutions/qtsinglecoreapplication.h
 %{_qt4_datadir}/mkspecs/features/qtsinglecoreapplication.prf
 %endif
-
-%ldconfig_scriptlets qt5
 
 %files qt5
 %license licenses/*
@@ -242,8 +304,6 @@ install -p -m644 qt5/*.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features
 %{_qt5_headerdir}/QtSolutions/%{name}.h
 %{_qt5_archdatadir}/mkspecs/features/qtsingleapplication.prf
 
-%ldconfig_scriptlets -n qtsinglecoreapplication-qt5
-
 %files -n qtsinglecoreapplication-qt5
 %license licenses/*
 # Caution! Unversioned .so file goes into -devel
@@ -256,8 +316,37 @@ install -p -m644 qt5/*.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features
 %{_qt5_headerdir}/QtSolutions/qtsinglecoreapplication.h
 %{_qt5_archdatadir}/mkspecs/features/qtsinglecoreapplication.prf
 
+%files qt6
+%license licenses/*
+%doc README.TXT
+# Caution! Unversioned .so file goes into -devel
+%{_qt6_libdir}/libQt6*SingleApplication*.so.*
+
+%files qt6-devel
+%doc doc/html/ examples/
+%{_qt6_libdir}/libQt6*SingleApplication*.so
+%dir %{_qt6_headerdir}/QtSolutions/
+%{_qt6_headerdir}/QtSolutions/QtSingleApplication
+%{_qt6_headerdir}/QtSolutions/%{name}.h
+%{_qt6_archdatadir}/mkspecs/features/qtsingleapplication.prf
+
+%files -n qtsinglecoreapplication-qt6
+%license licenses/*
+# Caution! Unversioned .so file goes into -devel
+%{_qt6_libdir}/libQt6*SingleCoreApplication*.so.*
+
+%files -n qtsinglecoreapplication-qt6-devel
+%{_qt6_libdir}/libQt6*SingleCoreApplication*.so
+%dir %{_qt6_headerdir}/QtSolutions/
+%{_qt6_headerdir}/QtSolutions/QtSingleCoreApplication
+%{_qt6_headerdir}/QtSolutions/qtsinglecoreapplication.h
+%{_qt6_archdatadir}/mkspecs/features/qtsinglecoreapplication.prf
+
 
 %changelog
+* Sat Jan 06 2024 Marie Loise Nolden <loise@kde.org> - 2.6.1-47
+- add qt6 build
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

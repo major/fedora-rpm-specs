@@ -2,15 +2,16 @@
 
 Name:           mot-adms
 Version:        2.3.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An electrical compact device models converter
 
-License:        GPLv3+
+# SPDX confirmed
+License:        GPL-3.0-or-later
 URL:            https://github.com/Qucs/ADMS
 
 Source0:        https://github.com/Qucs/ADMS/archive/release-%{version}/adms-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  flex bison
 BuildRequires:  perl(XML::LibXML)
@@ -68,6 +69,9 @@ find %{buildroot} -type l -name '*.so' -delete
 %{_mandir}/man1/admsXml.1*
 
 %changelog
+* Sat Jan 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.7-8
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 Summary:	QFile extension with advisory locking functions
 Name:		qtlockedfile
 Version:	2.4
-Release:	39.%{commitdate}git%{shortcommit0}%{?dist}
+Release:	40.%{commitdate}git%{shortcommit0}%{?dist}
 
 License:	GPLv3 or LGPLv2 with exceptions
 URL:		http://doc.qt.digia.com/solutions/4/qtlockedfile/qtlockedfile.html
@@ -25,6 +25,7 @@ Source4:	LICENSE.GPL3
 %{?_with_qt4:BuildRequires:	qt4-devel}
 BuildRequires: make
 BuildRequires:	qt5-qtbase-devel
+BuildRequires:	qt6-qtbase-devel
 
 %description
 This class extends the QFile class with inter-process file locking capabilities.
@@ -65,6 +66,26 @@ Requires:	qt5-qtbase-devel
 This package contains libraries and header files for developing applications
 that use QtLockedFile with Qt5.
 
+%package qt6
+Summary:	QFile extension with advisory locking functions (Qt6)
+Requires:	qt6-qtbase
+
+%description qt6
+This class extends the QFile class with inter-process file locking capabilities.
+If an application requires that several processes should access the same file,
+QtLockedFile can be used to easily ensure that only one process at a time is
+writing to the file, and that no process is writing to it while others are
+reading it.
+This is a special build against Qt6.
+
+%package qt6-devel
+Summary:	Development files for %{name}-qt6
+Requires:	%{name}-qt6 = %{version}-%{release}
+Requires:	qt6-qtbase-devel
+
+%description qt6-devel
+This package contains libraries and header files for developing applications
+that use QtLockedFile with Qt6.
 
 %prep
 %setup -qn qt-solutions-%{commit0}/%{name}
@@ -90,6 +111,12 @@ pushd qt5
 %make_build
 sed -e 's|@QT_INCLUDEDIR@|%{_qt5_headerdir}|' %{SOURCE1} > qtlockedfile.prf
 popd
+mkdir qt6
+pushd qt6
+%{qmake_qt6} ..
+%make_build
+sed -e 's|@QT_INCLUDEDIR@|%{_qt6_headerdir}|' %{SOURCE1} > qtlockedfile.prf
+popd
 
 %install
 # libraries
@@ -105,10 +132,11 @@ install -p -D -m644 qtlockedfile.prf %{buildroot}%{_qt4_datadir}/mkspecs/feature
 mkdir -p %{buildroot}%{_qt5_headerdir}/QtSolutions
 cp -ap src/qtlockedfile.h src/QtLockedFile %{buildroot}%{_qt5_headerdir}/QtSolutions
 install -p -D -m644 qt5/qtlockedfile.prf %{buildroot}%{_qt5_archdatadir}/mkspecs/features/qtlockedfile.prf
+mkdir -p %{buildroot}%{_qt6_headerdir}/QtSolutions
+cp -ap src/qtlockedfile.h src/QtLockedFile %{buildroot}%{_qt6_headerdir}/QtSolutions
+install -p -D -m644 qt6/qtlockedfile.prf %{buildroot}%{_qt6_archdatadir}/mkspecs/features/qtlockedfile.prf
 
 %if 0%{?_with_qt4}
-%ldconfig_scriptlets
-
 %files
 %license licenses/*
 %doc README.TXT
@@ -122,8 +150,6 @@ install -p -D -m644 qt5/qtlockedfile.prf %{buildroot}%{_qt5_archdatadir}/mkspecs
 %{_qt4_datadir}/mkspecs/features/qtlockedfile.prf
 %endif
 
-%ldconfig_scriptlets qt5
-
 %files qt5
 %license licenses/*
 %doc README.TXT
@@ -136,8 +162,23 @@ install -p -D -m644 qt5/qtlockedfile.prf %{buildroot}%{_qt5_archdatadir}/mkspecs
 %{_qt5_libdir}/libQt5Solutions_LockedFile*.so
 %{_qt5_archdatadir}/mkspecs/features/qtlockedfile.prf
 
+%files qt6
+%license licenses/*
+%doc README.TXT
+# Caution! do not include any unversioned .so symlink (belongs to -devel)
+%{_qt6_libdir}/libQt6Solutions_LockedFile*.so.*
+
+%files qt6-devel
+%doc doc/html/ example/
+%{_qt6_headerdir}/QtSolutions/
+%{_qt6_libdir}/libQt6Solutions_LockedFile*.so
+%{_qt6_archdatadir}/mkspecs/features/qtlockedfile.prf
 
 %changelog
+	
+* Sat Jan 06 2024 Marie Loise Nolden <loise@kde.org> - 2.4-40.20150629git5a07df5
+- add qt6 build	
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-39.20150629git5a07df5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

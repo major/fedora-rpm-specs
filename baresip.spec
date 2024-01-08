@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.8.0
+Version:        3.8.1
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -11,7 +11,6 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
-Patch0:         https://github.com/baresip/baresip/pull/2850/commits/ad6a48ad4a10580841cb5b07b27a96a26b26ada1.patch#/baresip-3.8.0-rpath.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
@@ -593,6 +592,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sat Jan 06 2024 Robert Scheck <robert@fedoraproject.org> 3.8.1-1
+- Upgrade to 3.8.1 (#2256553)
+
 * Thu Dec 28 2023 Robert Scheck <robert@fedoraproject.org> 3.8.0-1
 - Upgrade to 3.8.0 (#2256050)
 

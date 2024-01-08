@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
 Version:	1.17.6
-Release:	13%{?dist}
+Release:	15%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -79,18 +79,18 @@ This package contains the documentation for %{name}.
 
 %prep
 %setup -q -n %{module}-releases-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 %if %{without bootstrap}
-%patch2 -p1
+%patch -P 2 -p1
 %endif
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
 
 %build
 %if %{without bootstrap}
@@ -159,6 +159,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Sat Jan 06 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.17.6-15
+- Rebuild for MUMPS-5.6.2 (disable bootstrap)
+
+* Sat Jan 06 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.17.6-14
+- Rebuild for MUMPS-5.6.2
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
