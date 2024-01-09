@@ -2,29 +2,25 @@
 
 Name:    kdnssd
 Summary: KDE Network Monitor for DNS-SD services (Zeroconf)
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
-# KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
-URL:     https://invent.kde.org/network/kio-zeroconf
+License: GPL-2.0-or-later AND LGPL-2.0-only
+URL:     https://invent.kde.org/network/%{base_name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/kio-zeroconf-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 # new upstream name in 4.12.95
-Provides: kio-zeroconf = %{version}-%{release}
+Provides: %{base_name} = %{version}-%{release}
 
+BuildRequires: gcc-c++
+BuildRequires: cmake
 BuildRequires: extra-cmake-modules
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5DNSSD)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DNSSD)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(Qt6Core)
 
 BuildRequires: pkgconfig(avahi-compat-libdns_sd)
 
@@ -41,12 +37,11 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 
 %prep
-%autosetup -n kio-zeroconf-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 
@@ -58,15 +53,18 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_plugindir}/kded/dnssdwatcher.so
-%{_kf5_plugindir}/kio/zeroconf.so
-%{_kf5_datadir}/dbus-1/interfaces/org.kde.kdnssd.xml
-%dir %{_kf5_datadir}/remoteview/
-%{_kf5_datadir}/remoteview/zeroconf.desktop
-%{_kf5_metainfodir}/org.kde.kio_zeroconf.metainfo.xml
+%{_kf6_plugindir}/kded/dnssdwatcher.so
+%{_kf6_plugindir}/kio/zeroconf.so
+%{_kf6_datadir}/dbus-1/interfaces/org.kde.kdnssd.xml
+%dir %{_kf6_datadir}/remoteview/
+%{_kf6_datadir}/remoteview/zeroconf.desktop
+%{_kf6_metainfodir}/org.kde.kio_zeroconf.metainfo.xml
 
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

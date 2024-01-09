@@ -2,7 +2,7 @@
 %global uuid        org.cvfosammmm.Setzer
 
 Name:           setzer
-Version:        59
+Version:        65
 Release:        %autorelease
 Summary:        LaTeX editor written in Python with Gtk
 
@@ -30,7 +30,9 @@ BuildRequires:  poppler-glib-devel
 BuildRequires:  python3-bibtexparser
 BuildRequires:  python3-cairo
 BuildRequires:  python3-gobject-devel
+BuildRequires:  python3-numpy
 BuildRequires:  python3-pexpect
+BuildRequires:  python3-willow
 BuildRequires:  webkitgtk6.0
 Requires:       gtk4
 Requires:       gtksourceview5
@@ -43,7 +45,9 @@ Requires:       poppler-glib
 Requires:       python3-bibtexparser
 Requires:       python3-cairo
 Requires:       python3-gobject
+Requires:       python3-numpy
 Requires:       python3-pexpect
+Requires:       python3-willow
 Requires:       webkitgtk6.0
 
 Requires:       texlive

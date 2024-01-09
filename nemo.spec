@@ -26,7 +26,7 @@ Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
 Requires:       adwaita-icon-theme
-Requires:       cinnamon-translations >= 6.0.0
+Recommends:     cinnamon-translations >= 6.0.0
 Recommends:     nemo-search-helpers
 Recommends:     folder-color-switcher-nemo
 

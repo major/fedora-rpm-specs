@@ -1,6 +1,6 @@
 Name:    juk
 Summary: Music player
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -8,13 +8,7 @@ Release: 1%{?dist}
 License: (GPLv2 or GPLv3) and GFDL
 URL:     https://cgit.kde.org/%{name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -81,7 +75,7 @@ Juk is a jukebox, tagger and music collection manager.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.juk.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.juk.appdata.xml
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.juk.desktop
 
 %files -f %{name}.lang
@@ -93,11 +87,13 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.juk.deskt
 %{_kf5_datadir}/juk/
 %{_kf5_datadir}/kio/servicemenus/jukservicemenu.desktop
 %{_kf5_datadir}/knotifications5/juk.*
-%{_kf5_datadir}/kxmlgui5/juk/
 %{_kf5_metainfodir}/org.kde.juk.appdata.xml
 
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

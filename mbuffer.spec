@@ -1,6 +1,6 @@
 Name:           mbuffer
-Version:        20230301
-Release:        2%{?dist}
+Version:        20231216
+Release:        1%{?dist}
 Summary:        Measuring Buffer is an enhanced version of buffer
 
 License:        GPLv3+

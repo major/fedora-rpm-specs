@@ -19,6 +19,9 @@ Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fix compatibility with libxml2 2.12
+Patch:  https://github.com/abrt/%{name}/pull/801.patch
+
 BuildRequires: %{dbus_devel}
 BuildRequires: gtk3-devel
 BuildRequires: curl-devel
@@ -286,7 +289,7 @@ data over ftp/scp...
 %endif
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 ./autogen.sh

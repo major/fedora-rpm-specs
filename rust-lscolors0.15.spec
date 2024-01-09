@@ -2,21 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate sm3
+%global crate lscolors
 
-Name:           rust-sm3
-Version:        0.4.2
+Name:           rust-lscolors0.15
+Version:        0.15.0
 Release:        %autorelease
-Summary:        SM3 (OSCCA GM/T 0004-2012) hash function
+Summary:        Colorize paths using the LS_COLORS environment variable
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/sm3
+URL:            https://crates.io/crates/lscolors
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop executable for compat package
+Patch:          lscolors-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-SM3 (OSCCA GM/T 0004-2012) hash function.}
+Colorize paths using the LS_COLORS environment variable.}
 
 %description %{_description}
 
@@ -32,7 +36,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,16 +51,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+ansi_term-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+ansi_term-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "ansi_term" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+ansi_term-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+crossterm-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crossterm-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crossterm" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crossterm-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+nu-ansi-term-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+nu-ansi-term-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "nu-ansi-term" feature of the "%{crate}" crate.
+
+%files       -n %{name}+nu-ansi-term-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

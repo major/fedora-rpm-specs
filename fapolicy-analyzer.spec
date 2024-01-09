@@ -2,7 +2,7 @@
 
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
-Version:       1.2.1
+Version:       1.2.2
 Release:       1%{?dist}
 
 SourceLicense: GPL-3.0-or-later
@@ -128,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %ghost %attr(640,root,root) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}/%{name}.log
 
 %changelog
+* Wed Dec 27 2023 John Wass <jwass3@gmail.com> 1.2.2-1
+- Update to 1.2.2
+
 * Fri Nov 17 2023 John Wass <jwass3@gmail.com> 1.2.1-1
 - Update to 1.2.1
 

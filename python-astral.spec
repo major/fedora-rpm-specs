@@ -1,8 +1,8 @@
 %global srcname astral
 
 Name:           python-%{srcname}
-Version:        2.2
-Release:        12%{?dist}
+Version:        3.2
+Release:        1%{?dist}
 Summary:        Calculations for the position of the sun and moon
 
 License:        ASL 2.0
@@ -10,22 +10,22 @@ URL:            http://astral.readthedocs.io
 Source0:        https://github.com/sffjunkie/astral/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 astral is a Python module which calculates including:
 
 - Times for various positions of the sun: dawn, sunrise, solar noon,
   sunset, dusk, solar elevation, solar azimuth and rahukaalam.
-- The phase of the moon.
+- The phase of the moon.}
+
+%description %_description
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytz
-BuildRequires:  python3-pytest
-BuildRequires:  python3-freezegun
-%{?python_provide:%python_provide python3-%{srcname}}
+BuildRequires:  python3dist(pytz)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(freezegun)
 
 %description -n python3-%{srcname}
 astral is a Python module which calculates including:
@@ -36,25 +36,29 @@ astral is a Python module which calculates including:
 
 %prep
 %autosetup -n %{srcname}-%{version}
-sed -i "s|\r||g" README.rst
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files %{srcname}
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v \
-  -k "not webtest and not py2only"
+%tox
 
-%files -n python3-%{srcname}
-%doc README.rst
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc ReadMe.md
 %license LICENSE
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}*.egg-info/
 
 %changelog
+* Sun Jan 07 2024 Fabian Affolter <mail@fabian-affolter.ch> - 3.2-1
+- Update to latest upstream release 3.2 (closes rhbz#2133094)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

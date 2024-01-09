@@ -1,37 +1,40 @@
-%global kf5_min_version 5.88.0
-
 Name:           calindori
-Version:        23.08.2
+Version:        24.01.85
 Release:        1%{?dist}
 Summary:        Calendar application for Plasma Mobile
-License:        GPLv3+ and LGPLv3+ and BSD and CC0
+License:        BSD-2-Clause AND CC-BY-4.0 AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://apps.kde.org/%{name}/
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
 
-BuildRequires: cmake(Qt53DRender)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5Svg)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6DBus)
 
-BuildRequires: cmake(KF5CalendarCore) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Config) >= %{kf5_min_version}
-BuildRequires: cmake(KF5DBusAddons) >= %{kf5_min_version}
-BuildRequires: cmake(KF5I18n) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Kirigami2) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Notifications) >= %{kf5_min_version}
-BuildRequires: cmake(KF5People) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Service) >= %{kf5_min_version}
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6CalendarCore)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6People)
+BuildRequires: cmake(KF6DBusAddons)
 
-Requires:       hicolor-icon-theme
-Requires:       kf5-kirigami2
-Requires:       qt5-qtwayland
+
+Requires:      hicolor-icon-theme
+Requires:      kf6-kirigami
+Requires:      qt6-qtwayland
 
 %description
 %{summary}.
@@ -40,7 +43,7 @@ Requires:       qt5-qtwayland
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 %install
@@ -50,23 +53,26 @@ Requires:       qt5-qtwayland
 cat %{name}.lang calindac.lang > %{name}-full.lang
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %files -f %{name}-full.lang
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
-%{_kf5_bindir}/calindac
-%{_kf5_datadir}/knotifications5/calindac.notifyrc
-%{_kf5_sysconfdir}/xdg/autostart/org.kde.calindac.desktop
-%{_kf5_datadir}/dbus-1/services/org.kde.calindac.service
+%{_kf6_bindir}/calindac
+%{_kf6_datadir}/knotifications6/calindac.notifyrc
+%{_kf6_sysconfdir}/xdg/autostart/org.kde.calindac.desktop
+%{_kf6_datadir}/dbus-1/services/org.kde.calindac.service
 
 %license LICENSES/*
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

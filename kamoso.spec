@@ -7,20 +7,13 @@
 
 Name:    kamoso
 Summary: Application for taking pictures and videos from a webcam
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
-License: GPLv2+
+License: GFDL-1.2-or-later AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later
 URL:     https://userbase.kde.org/Kamoso
 
-%global revision %(echo %{version} | cut -d. -f3)
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -95,10 +88,7 @@ Kamoso is an application to take pictures and videos out of your webcam.
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kamoso.appdata.xml
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kamoso.desktop
 %if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-time \
-make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
+xvfb-run -a bash -c "%ctest"
 %endif
 
 
@@ -112,10 +102,12 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_datadir}/icons/hicolor/*/actions/*
 %{_libdir}/gstreamer-1.0/gstkamosoqt5videosink.so
 %{_kf5_datadir}/knotifications5/%{name}*
-%{_kf5_datadir}/sounds/%{name}*
 
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

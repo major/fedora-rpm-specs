@@ -2,24 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate ignore
+%global crate dtparse
 
-Name:           rust-ignore
-Version:        0.4.22
+Name:           rust-dtparse
+Version:        2.0.0
 Release:        %autorelease
-Summary:        Fast library for efficiently matching ignore files
+Summary:        Dateutil-compatible timestamp parser for Rust
 
-License:        Unlicense OR MIT
-URL:            https://crates.io/crates/ignore
+License:        Apache-2.0
+URL:            https://crates.io/crates/dtparse
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          ignore-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A fast library for efficiently matching ignore files such as
-`.gitignore` against file paths.}
+A dateutil-compatible timestamp parser for Rust.}
 
 %description %{_description}
 
@@ -33,9 +30,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYING
-%license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/UNLICENSE
+%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
+%doc %{crate_instdir}/CONTRIBUTORS.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,18 +48,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+simd-accel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+simd-accel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "simd-accel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+simd-accel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

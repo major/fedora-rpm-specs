@@ -16,8 +16,8 @@
 # will not reload when user_guide.html changes.
 #
 # fedora uses its own soversion number for cppad_lib
-# 4.0 corresponds to version 20230000 
-%define soversion 4.0
+# 5.0 corresponds to version 20240000 
+%define soversion 5.0
 
 # This is really an out of soruce build because the source is in the
 # CppAD-%%{version} sub-directory. The fedora macros are confused and need 
@@ -28,8 +28,8 @@
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
-Version: 20230000.0
-Release: 3%{?dist}
+Version: 20240000.0
+Release: 1%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -40,7 +40,7 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake >= 3.0
 BuildRequires: make
-BuildRequires: python-xrst
+BuildRequires: python-xrst >= 2024.0
 # python-xrst should auotmatically require python-toml
 BuildRequires: python-toml  
 
@@ -92,9 +92,6 @@ The documentation, for the most recent version of %{name}, can be found at
 #
 # xrst.toml
 echo ''                   >> CppAD-%{version}/xrst.toml
-echo '[spell_package]'    >> CppAD-%{version}/xrst.toml
-echo 'data = "pyenchant"' >> CppAD-%{version}/xrst.toml
-echo ''                   >> CppAD-%{version}/xrst.toml
 echo '[input_files]'      >> CppAD-%{version}/xrst.toml
 echo 'data = [ ]'         >> CppAD-%{version}/xrst.toml
 #
@@ -127,18 +124,6 @@ sed -i.bak CppAD-%{version}/cppad_lib/CMakeLists.txt \
     -e "s|print_variable(soversion)|SET(soversion %{soversion} )\n&|" \
     -e "s|\${cppad_debug_which}|debug_none|"
 #
-# configure.hpp.in: Make sure CPPAD_DEBUG_AND_RELEASE is defined 
-# so we can use cppad_lib with both debug and release builds.
-sed -i.bak CppAD-%{version}/include/cppad/configure.hpp.in \
-    -e 's|# define CPPAD_CONFIGURE_HPP|&\n# define CPPAD_DEBUG_AND_RELEASE|'
-#
-# set_compile_flags.cmake: remove conditional def of CPPAD_DEBUG_AND_RELEASE 
-sed -i.bak CppAD-%{version}/cmake/set_compile_flags.cmake \
-    -e 's|-DCPPAD_DEBUG_AND_RELEASE||'
-#
-# test_more/debug_rel/CMakeLists.txt: remove def of CPPAD_DEBUG_AND_RELEASE
-sed -i.bak CppAD-%{version}/test_more/debug_rel/CMakeLists.txt \
-    -e 's|-DCPPAD_DEBUG_AND_RELEASE||'
 # ----------------------------------------------------------------------------
 # Print machine epsilon before any other testing
 cat << EOF > temp.cpp
@@ -232,7 +217,8 @@ cppad_cxx_flags=\
     -D cppad_max_num_threads=64 \
     -D cppad_tape_id_type=size_t \
     -D cppad_tape_addr_type=size_t \
-    -D cppad_debug_which='debug_all'
+    -D cppad_debug_which='debug_all' \
+    -D cppad_debug_and_release=true
 #
 # see https://docs.fedoraproject.org/en-US/packaging-guidelines/
 #   parallel_make
@@ -274,6 +260,12 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Sat Jan 06 2024 Brad Bell <bradbell at seanet dot com> - 20240000.0-1
+- New upstream source cppad-20240000.0.
+- require python-xrst >= 2024.0
+- xrst.toml: no need to change to pyenchant because pyspellchecker avaialble
+- upstream source changed CPPAD_DEBUG_AND_RELEASE to a cmake argument
+
 * Mon Dec 25 2023 Brad Bell <bradbell at seanet dot com> - 20230000.0-3
 - migrated to SPDX license
 - move %%doc directive before subpackages (becasue it is in main package)

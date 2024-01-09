@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-socketio
-Version:        5.10.0
+Version:        5.11.0
 Release:        %autorelease
 Summary:        Socket.IO server
 
@@ -17,10 +17,6 @@ Source:         %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
 # Downstream-only: patch out test coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-test-coverage-analysis.patch
-
-# Unit test fixes for the new simple clients (Fixes #1265)
-# https://github.com/miguelgrinberg/python-socketio/commit/66b9586a65564d82ae3589c65e541a0e593d90d3
-Patch:          %{url}/commit/66b9586a65564d82ae3589c65e541a0e593d90d3.patch
 
 BuildArch:      noarch
 

@@ -1,6 +1,6 @@
 Name: qtile
 Version: 0.23.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A pure-Python tiling window manager
 Source: https://github.com/qtile/qtile/archive/v%{version}/qtile-%{version}.tar.gz
 
@@ -11,6 +11,9 @@ Source: https://github.com/qtile/qtile/archive/v%{version}/qtile-%{version}.tar.
 License: MIT AND GPL-3.0-or-later
 Url: http://qtile.org
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
 
@@ -19,7 +22,7 @@ BuildRequires:  gcc
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-server-Xephyr
 BuildRequires:  rsvg-pixbuf-loader
-BuildRequires:  wlroots-devel
+BuildRequires:  wlroots0.16-devel
 
 # Some dependencies are loaded with ffi.dlopen, and to declare them properly
 # we'll need this suffix.
@@ -120,7 +123,9 @@ desktop-file-install \
 # The tests can sometimes randomly fail. Rebuilding the package again usually
 # solves the issue. Please see the upstream issue:
 # https://github.com/qtile/qtile/issues/4573
+%ifnarch s390x ppc64le
 %pytest -vv --backend x11 --backend wayland
+%endif
 
 
 %files
@@ -137,6 +142,11 @@ desktop-file-install \
 
 
 %changelog
+* Sun Jan 07 2024 Jakub Kadlcik <frostyx@email.cz> - 0.23.0-6
+- Exclude ix86
+- Specify required wlroots version
+- Skip tests on s390x and ppc64le
+
 * Mon Nov 13 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.23.0-5
 - Fix ffibuild to enable wayland subpackages
 

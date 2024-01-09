@@ -1,59 +1,34 @@
 Name:    kcm_wacomtablet
 Summary: KDE Control module for Wacom Graphictablets
-Version: 3.2.0
-Release: 10%{?dist}
+Version: 5.91.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/system/wacomtablet
-# mirror
-#URL:     https://github.com/KDE/wacomtablet
-Source0: https://download.kde.org/stable/wacomtablet/%{version}/wacomtablet-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/wacomtablet-%{version}.tar.xz
 
 ## upstream patches
-# some binary patches require git mode
-BuildRequires: git-core
-Patch1: 0001-SVN_SILENT-made-messages-.desktop-file-always-resolv.patch
-Patch6: 0006-add-category-and-icon-for-use-on-kde.org-application.patch
-Patch7: 0007-settings-category-not-used-on-kde.org-applications.patch
-Patch9: 0009-SVN_SILENT-made-messages-.desktop-file-always-resolv.patch
-Patch11: 0011-SVN_SILENT-made-messages-.desktop-file-always-resolv.patch
-Patch12: 0012-SVN_SILENT-made-messages-.desktop-file-always-resolv.patch
-Patch13: 0013-Fix-minor-EBN-issues.patch
-Patch14: 0014-SVN_SILENT-made-messages-.desktop-file-always-resolv.patch
-Patch17: 0017-Wacom-Intuos-Pro-M-bluetooth-definition.patch
-Patch19: 0019-SVN_SILENT-made-messages-.desktop-file-always-resolv.patch
-Patch20: 0020-Correct-icons.patch
-Patch22: 0022-Correct-more-icons.patch
-Patch24: 0024-Fix-build-with-Qt-5.15.patch
-Patch27: 0027-fix-appstream-tests.patch
-Patch32: 0032-Check-for-index-validity-when-switching-tablet-type.patch
-Patch33: 0033-update-dependencies-in-readme.patch
-Patch34: 0034-don-t-override-the-screenspace-in-profile-if-the-scr.patch
-## FYI, bumps min Qt version to 5.15 -- rdieter
-Patch35: 0035-Fix-Qt-5.15-obsoletions.patch
-#Patch36: 0036-Bump-version-to-3.3.0.patch
-Patch39: 0039-Fix-xsetwacom-adapter.patch
-Patch40: 0040-Fix-remaining-QProcess-invocation.patch
-Patch43: 0043-Update-user-docs-and-screenshots.patch
-Patch48: 0048-Remove-unused-include.patch
-Patch49: 0049-Drop-empty-X-KDE-PluginInfo-Depends.patch
-Patch54: 0054-Turn-off-gesture-support-by-default-and-warn-when-tu.patch
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kglobalaccel-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-plasma-devel
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Plasma5Support)
+BuildRequires: cmake(Plasma) 
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: qt5-qtbase-devel >= 5.15
-BuildRequires: qt5-qtdeclarative-devel
-BuildRequires: qt5-qtx11extras-devel
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtbase-private-devel
+BuildRequires: qt6-qtdeclarative-devel
 
 BuildRequires: pkgconfig(libwacom)
 BuildRequires: pkgconfig(xcb-xinput)
@@ -72,11 +47,11 @@ with profile support to handle different button/pen layouts per profile.
 
 
 %prep
-%autosetup -n wacomtablet-%{version} -Sgit
+%autosetup -n wacomtablet-%{version} 
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -91,24 +66,25 @@ with profile support to handle different button/pen layouts per profile.
 %doc AUTHORS
 %license COPYING*
 %{_datadir}/dbus-1/interfaces/org.kde.Wacom*.xml
-%{_kf5_sysconfdir}/xdg/wacomtablet.*
-%{_kf5_bindir}/kde_wacom_tabletfinder
-%{_kf5_datadir}/applications/kde_wacom_tabletfinder.desktop
-%{_kf5_datadir}/kservices5/kcm_wacomtablet.desktop
-%{_kf5_datadir}/kservices5/plasma-dataengine-wacomtablet.desktop
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.wacomtablet.desktop
-%{_kf5_datadir}/knotifications5/wacomtablet.notifyrc
-%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.wacomtablet/
-%{_kf5_datadir}/plasma/services/wacomtablet.operations
-%{_kf5_datadir}/wacomtablet/
-%{_kf5_metainfodir}/org.kde.plasma.wacomtablet.appdata.xml
-%{_kf5_metainfodir}/org.kde.wacomtablet.metainfo.xml
-%{_qt5_plugindir}/kcm_wacomtablet.so
-%{_kf5_plugindir}/kded/wacomtablet.so
-%{_qt5_plugindir}/plasma/dataengine/plasma_engine_wacomtablet.so
+%{_kf6_bindir}/kde_wacom_tabletfinder
+%{_kf6_datadir}/applications/kcm_wacomtablet.desktop
+%{_kf6_datadir}/applications/kde_wacom_tabletfinder.desktop
+%{_kf6_datadir}/knotifications6/wacomtablet.notifyrc
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.wacomtablet/
+%{_kf6_datadir}/plasma5support/services/wacomtablet.operations
+%{_kf6_datadir}/wacomtablet/
+%{_kf6_datadir}/qlogging-categories6/wacomtablet.categories
+%{_kf6_metainfodir}/org.kde.plasma.wacomtablet.appdata.xml
+%{_kf6_metainfodir}/org.kde.wacomtablet.metainfo.xml
+%{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_wacomtablet.so
+%{_kf6_plugindir}/kded/wacomtablet.so
+%{_qt6_plugindir}/plasma5support/dataengine/plasma_engine_wacomtablet.so
 
 
 %changelog
+* Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 5.91.0-1
+- update to Plasma 6
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

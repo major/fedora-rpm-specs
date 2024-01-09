@@ -11,9 +11,11 @@
 Summary:	Ruby binding of vte
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	11%{?dist}
-# from README
-License:	LGPLv2
+Release:	12%{?dist}
+
+# from README.md
+# SPDX confirmed
+License:	LGPL-2.1-only
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 
@@ -57,10 +59,8 @@ Header files and libraries for building a extension library for the
 rubygem-%{gem_name}
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
 sed -i -e 's|= 3\.4\.3|>= 3.4.3|' %{gem_name}.gemspec
@@ -77,7 +77,7 @@ find sample/ -name \*.rb | xargs chmod 0644
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags}'"
 export CONFIGURE_ARGS="$CONFIGURE_ARGS --with-pkg-config-dir=$(pwd)%{_libdir}/pkgconfig"
-gem build %{gem_name}.gemspec
+gem build ./%{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -102,13 +102,16 @@ mkdir %{buildroot}%{_libdir}/pkgconfig
 install -cpm 644 ./%{_libdir}/pkgconfig/*.pc \
 	%{buildroot}%{_libdir}/pkgconfig/
 
-
 # Cleanups
-pushd %{buildroot}
-rm -rf .%{gem_instdir}/ext/
-rm -f .%{gem_instdir}/extconf.rb
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	ext/ \
+	extconf.rb \
+	Rakefile \
+	*.gemspec \
+	%{nil}
 popd
-
+rm -f %{buildroot}%{gem_cache}
 
 %check
 # Currently no testsuite available
@@ -117,15 +120,13 @@ popd
 %dir	%{gem_instdir}
 %dir	%{gem_instdir}/lib/
 
-%doc	%{gem_instdir}/[A-Z]*
-%exclude	%{gem_instdir}/Rakefile
+%license	%{gem_instdir}/COPYING.LIB
+%doc	%{gem_instdir}/[D-Z]*
 
 %{gem_instdir}/lib/%{gem_name}.rb
 %{gem_instdir}/lib/%{gem_name}/
 %{gem_extdir_mri}/
 
-%exclude	%{gem_instdir}/*gemspec
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files	devel
@@ -133,11 +134,12 @@ popd
 
 %files	doc
 %{gem_docdir}/
-%exclude	%{gem_instdir}/Rakefile
-%exclude	%{gem_instdir}/test
 %{gem_instdir}/sample/
 
 %changelog
+* Sun Jan 07 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-12
+- SPDX migration
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-11
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

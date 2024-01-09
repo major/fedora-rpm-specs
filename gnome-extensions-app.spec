@@ -3,10 +3,10 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
-%global adwaita_version 1.2.0
+%global adwaita_version 1.4.0
 
 Name:          gnome-extensions-app
-Version:       45.0
+Version:       46~alpha
 Release:       %autorelease
 Summary:       Manage GNOME Shell extensions
 

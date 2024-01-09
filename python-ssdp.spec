@@ -1,8 +1,8 @@
 %global pypi_name ssdp
 
 Name:           python-%{pypi_name}
-Version:        1.0.1
-Release:        11%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Python library for Simple Service Discovery Protocol (SSDP)
 
 License:        MIT
@@ -10,43 +10,48 @@ URL:            https://github.com/codingjoe/ssdp
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 Python asyncio library for Simple Service Discovery Protocol (SSDP). SSDP is
-a UPnP sub standard.
+a UPnP sub standard.}
+
+%description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pbr)
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-Python asyncio library for Simple Service Discovery Protocol (SSDP). SSDP is
-a UPnP sub standard.
+%description -n python3-%{pypi_name} %_description
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files %{pypi_name}
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
+%tox
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%doc README.md
+%{_bindir}/ssdp
 
 %changelog
+* Sun Jan 07 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.3.0-1
+- Update to latest upstream release 1.3.0 (closes rhbz#2165539)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

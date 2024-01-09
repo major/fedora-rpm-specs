@@ -1,19 +1,11 @@
 Name:    kirigami-gallery
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 Summary: Gallery application built using Kirigami
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL:     https://apps.kde.org/en/kirigami2.gallery
 
-%global majmin %(echo %{version} | cut -d. -f1-2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-
-Source:  https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source:  https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: appstream
@@ -77,6 +69,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kirigami2.gal
 
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

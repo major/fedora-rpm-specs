@@ -3,7 +3,7 @@
 %global         uuid       %{extension}@shyzus.github.io
 
 Name:           gnome-shell-extension-%{srcname}
-Version:        14
+Version:        15
 Release:        %autorelease
 Summary:        Dynamic Screen rotation for GNOME Shell
 
@@ -38,4 +38,3 @@ cp -r %{uuid} %{buildroot}%{_datadir}/gnome-shell/extensions
 
 %changelog
 %autochangelog
-

@@ -1,22 +1,13 @@
 
 Name:    artikulate
 Summary: Improve your pronunciation by listening to native speakers
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
-# artwork: LGPL3
-# code: KDE e.V. may determine that future GPL versions are accepted
-# handbook doc: GFDL
-License: (GPLv2 or GPLv3) and LGPLv3 and GFDL
-URL:     https://invent.kde.org/edu/%{name}
+License: BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND MIT
+URL:     https://invent.kde.org/education/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: cmake(KF5Archive)
 BuildRequires: cmake(KF5Kirigami2)
@@ -70,14 +61,13 @@ Requires: %{name} = %{version}-%{release}
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc README*
 %license LICENSES/*
-#{_kf5_datadir}/artikulate/
 %{_kf5_bindir}/artikulate
 %{_kf5_bindir}/artikulate_editor
 %{_kf5_datadir}/icons/hicolor/*/*/*
@@ -86,8 +76,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/config.kcfg/artikulate.kcfg
 %{_kf5_datadir}/knsrcfiles//artikulate.knsrc
 
-%ldconfig_scriptlets libs
-
 %files libs
 %{_kf5_libdir}/libartikulatecore.so.0*
 %{_kf5_libdir}/libartikulatelearnerprofile.so.0*
@@ -95,6 +83,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

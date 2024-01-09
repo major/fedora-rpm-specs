@@ -5,7 +5,7 @@
 
 Name:          muffin
 Version:       6.0.1
-Release:       1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:       2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -16,6 +16,7 @@ Source0:       %url/archive/%{version}/%{name}-%{version}.tar.gz
 Source0:       %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %endif
 Patch0:        libinput.patch
+Patch1:        %url/pull/682.patch
 
 ExcludeArch:   %{ix86}
 
@@ -141,6 +142,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Jan 07 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-2
+- Fix f38 build issue
+
 * Thu Dec 28 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
 - Update to 6.0.1 release
 

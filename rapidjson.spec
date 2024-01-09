@@ -2,10 +2,11 @@
 
 Name:		rapidjson
 Version:	1.1.0
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Fast JSON parser and generator for C++
 
-License:	MIT
+# Most files are MIT, rapidjson/msinttypes/{stdint,inttypes}.h are BSD
+License:	MIT and BSD-3-Clause
 URL:		http://rapidjson.org/
 Source0:	https://github.com/Tencent/rapidjson/archive/v%{version}/%{name}-%{version}.tar.gz
 # Downstream-patch for gtest
@@ -119,6 +120,10 @@ find %{buildroot} -type f -name 'CMake*.txt' -delete
 
 
 %changelog
+* Fri Jan 05 2024 Honza Horak <hhorak@redhat.com> - 1.1.0-24
+- SPDX migration
+- Add BSD license that is used by stdint.h and inttypes.h
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

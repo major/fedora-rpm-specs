@@ -1,18 +1,12 @@
 Name:    cervisia
 Summary: CVS frontend
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.2-or-later
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/sdk/%{name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -59,7 +53,7 @@ Cervisia is a CVS frontend for KDE
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.cervisia.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.cervisia.appdata.xml
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.cervisia.desktop
 
 
@@ -87,6 +81,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.cervisia.
 
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

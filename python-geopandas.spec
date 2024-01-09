@@ -6,7 +6,7 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        0.14.1
+Version:        0.14.2
 Release:        %autorelease
 Summary:        Geographic Pandas extensions
 

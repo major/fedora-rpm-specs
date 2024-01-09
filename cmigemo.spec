@@ -3,7 +3,7 @@
 %define		minorver	date%{tarballver}
 %define		prerelease	1
 
-%define		baserelease	14
+%define		baserelease	15
 
 
 %define		uprel		%(echo %{?minorver} | %{__sed} -e 's|^--*||' | %{__sed} -e 's|-|_|g' )
@@ -15,10 +15,13 @@
 
 Name:		cmigemo
 Version:	%{mainver}
-Release:	%{rel}%{?dist}.9
+Release:	%{rel}%{?dist}
 Summary:	C interface of Ruby/Migemo Japanese incremental search tool
 
-License:	MIT
+# doc/LICENSE_MIT.txt	MIT
+# SKK-JISYO.L (from skkdic)	GPL-2.0-or-later
+# SPDX confirmed
+License:	MIT AND GPL-2.0-or-later
 URL:		http://www.kaoriya.net/software/cmigemo
 #Source0:	http://www.kaoriya.net/dist/var/%{name}-%{mainver}%{?minorver}.tar.bz2
 Source0:	http://cmigemo.googlecode.com/files/cmigemo-default-src-%{tarballver}.zip
@@ -29,8 +32,8 @@ Patch3:		cmigemo-20110227-keep-regex-with-brackets.patch
 
 BuildRequires:  gcc
 BuildRequires:  skkdic
-BuildRequires:	%{_bindir}/perl
-BuildRequires: make
+BuildRequires:  /usr/bin/perl
+BuildRequires:  make
 
 %description
 C/Migemo is a C interface of Ruby/Migemo, a Japanese incremental search tool
@@ -48,10 +51,10 @@ developing applications that use cmigemo.
 %prep
 %setup -q -c -T %{name}-%{version} -a 0
 cd cmigemo-default-src/
-%patch0 -p1 -b .random
-%patch1 -p1 -b .escape
-%patch2 -p1 -b .build
-%patch3 -p1 -b .regex
+%patch -P0 -p1 -b .random
+%patch -P1 -p1 -b .escape
+%patch -P2 -p1 -b .build
+%patch -P3 -p1 -b .regex
 
 # Change default command for configure
 %{__sed} -i.command \
@@ -101,6 +104,7 @@ cd cmigemo-default-src/
 # parallel make unsafe
 %{__make} gcc CC="gcc $RPM_OPT_FLAGS"
 
+# This is under GPL-2.0-or-later
 %{__cat} %{skkdicdir}/SKK-JISYO.L | gzip > dict/SKK-JISYO.L.gz
 %{__make} gcc-dict
 ( cd dict ; %{__make} utf-8 )
@@ -117,6 +121,7 @@ popd
 
 # make documentation directory
 %{__rm} -rf doc_install
+%{__rm} -rf licenses
 %{__rm} -rf tools
 
 pushd cmigemo-default-src/
@@ -124,26 +129,30 @@ cp -a tools ..
 
 %{__rm} -rf doc_install
 %{__mkdir} doc_install
+%{__mkdir} licenses
 cd doc
 for f in *txt ; do \
 	iconv -f SJIS -t UTF-8 $f > ../doc_install/$f && \
 		touch -r $f ../doc_install/$f || \
 		%{__cp} -p $f ../doc_install/$f
 done
+cp -p LICENSE_MIT.txt ../licenses/
 cd ..
 
 mv doc_install ..
+mv licenses ..
 popd
 
 %ldconfig_scriptlets
 
 %files
 %defattr(-,root,root,-)
+%license licenses/*
 %doc doc_install/*
 %doc tools/
 
 %{_bindir}/%{name}
-%{_libdir}/libmigemo.so.*
+%{_libdir}/libmigemo.so.1{,.*}
 
 %{_datadir}/cmigemo/
 
@@ -153,6 +162,9 @@ popd
 %{_libdir}/libmigemo.so
 
 %changelog
+* Sun Jan  7 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3-0.15.date20110227
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-0.14.date20110227.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

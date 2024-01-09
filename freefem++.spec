@@ -326,6 +326,8 @@ pushd serial
 %endif
 	CFLAGS="%{optflags} -fPIC" \
 	CXXFLAGS="%{optflags} -fPIC"
+
+%define _smp_mflags -j48
 make %{?_smp_mflags}
 popd
 %endif
@@ -362,7 +364,15 @@ for mpi in %{?with_mpich:mpich} %{?with_openmpi:openmpi} ; do
 	CPPFLAGS="-I$(pwd)" \
 %endif
 	CFLAGS="%{optflags} -fPIC" \
-	CXXFLAGS="%{optflags} -fPIC"
+	CXXFLAGS="%{optflags} -fPIC" \
+	MPICXX=$MPI_BIN/mpic++ \
+	MPIFC=$MPI_BIN/mpifort \
+	MPICC=$MPI_BIN/mpicc \
+	CXX=$MPI_BIN/mpic++ \
+	FC=$MPI_BIN/mpifort \
+	CC=$MPI_BIN/mpicc
+
+%define _smp_mflags -j48
   make %{?_smp_mflags}
   module unload mpi/${mpi}-%{_arch}
   popd
@@ -398,6 +408,7 @@ done
 %if %{with checks}
 %if %{with serial}
 pushd serial
+export OMP_NUM_THREADS=4
 make -j1 check
 popd
 %endif
@@ -447,8 +458,11 @@ done
 %endif
 
 %changelog
-* Sat Jan 06 2024 Antonio Trande <sagitter@fedoraproject.org> - 4.14-3
+* Sun Jan 07 2024 Antonio Trande <sagitter@fedoraproject.org> - 4.14-3
 - Rebuild for MUMPS-5.6.2
+- Set Make jobs to 48
+- Set MPI compilers
+- Set OMP_NUM_THREADS 4
 
 * Sun Dec 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.14-2
 - Rebuild for superlu_dist-8.2.0

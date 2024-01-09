@@ -1,8 +1,8 @@
 Name:           audex
-Version:        0.96.1
+Version:        0.98
 Release:        1%{?dist}
 Summary:        Audio ripper
-License:        GPLv3+
+License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later
 URL:            https://userbase.kde.org/Audex
 Source:         https://invent.kde.org/multimedia/audex/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 
@@ -10,26 +10,26 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
 
-BuildRequires:  cmake(Qt5Script)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Core5Compat)
 
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5Completion)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5KCMUtils)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Solid)
-BuildRequires:  cmake(KF5TextWidgets)
-BuildRequires:  cmake(KF5WidgetsAddons)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  cmake(KF5Cddb)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KCddb6)
 
 BuildRequires:  cdparanoia-devel
 
@@ -39,16 +39,13 @@ Recommends:     lame
 Recommends:     vorbis-tools
 
 %description
-audex is a new audio grabber tool for CD-ROM drives based on KDE 4. 
-Although it is still under development, it is published as
-a beta version. It is being tested by some testers and this program
-may change on the way to its first stable 1.0-release.
+Audex is an audio grabber tool for CD-ROM drives built with KDE Frameworks.
 
 %prep
 %autosetup -n %{name}-v%{version} -p1
 
 %build
-%cmake_kf5
+%cmake_kf6 -DQT_MAJOR_VERSION=6
 %cmake_build
 
 %install
@@ -57,21 +54,24 @@ may change on the way to its first stable 1.0-release.
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.audex.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.audex.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.audex.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.audex.appdata.xml
 
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf5_bindir}/audex
-%{_kf5_datadir}/solid/actions/audex-rip-audiocd.desktop
-%{_kf5_datadir}/applications/org.kde.audex.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/audex.*
-%{_kf5_datadir}/audex/
-%{_kf5_metainfodir}/org.kde.audex.appdata.xml
+%{_kf6_bindir}/audex
+%{_kf6_datadir}/solid/actions/audex-rip-audiocd.desktop
+%{_kf6_datadir}/applications/org.kde.audex.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/audex.*
+%{_kf6_datadir}/audex/
+%{_kf6_metainfodir}/org.kde.audex.appdata.xml
 
 %changelog
+* Sun Jan 07 2024 Steve Cossette <farchord@gmail.com> - 0.98-1
+- 0.98 (Qt6)
+
 * Tue Jan 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.96.1-1
 - 0.96.1
 

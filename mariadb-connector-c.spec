@@ -3,11 +3,15 @@
 # Enable building and packing of the testsuite
 %bcond_without  testsuite
 
+# TEMPORARY WORKAROUND:
+#   Build fails since 3.3.6 with LTO flags enabled
+#   Reported as rhbz#2257198
+%global _lto_cflags %{nil}
 
 
 Name:           mariadb-connector-c
-Version:        3.3.5
-Release:        2%{?with_debug:.debug}%{?dist}
+Version:        3.3.8
+Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -241,6 +245,9 @@ install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 #      Need to ensure, that the testsuite will also run properly on 'fedpkg local' buid, not damaging the host machine
 
 %changelog
+* Tue Nov 28 2023 Michal Schorm <mschorm@redhat.com> - 3.3.8-1
+- Rebase to 3.3.8
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

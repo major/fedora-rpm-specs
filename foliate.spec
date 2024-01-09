@@ -4,11 +4,11 @@
 
 # Git submodules
 #   * foliate-js
-%global commit1 2ea63929c73b6a3b98fc772abf6b9249b3bfadab
+%global commit1 35f749dd7cf8a2e9ee6d34b06d83c92ccd999ba9
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           foliate
-Version:        3.0.1
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Simple and modern GTK eBook reader
 
@@ -23,7 +23,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59
-BuildRequires:  pkgconfig(gjs-1.0) >= 1.52
+BuildRequires:  pkgconfig(gjs-1.0) >= 1.76
 BuildRequires:  pkgconfig(gtk4) >= 4.12
 BuildRequires:  pkgconfig(iso-codes) >= 3.67
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}

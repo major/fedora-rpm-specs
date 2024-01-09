@@ -16,7 +16,7 @@ Memtest86+.
 %endif
 
 Name:          memtest86+
-Version:       6.20
+Version:       7.00
 Release:       %autorelease
 Summary:       Stand-alone memory tester for x86-64 computers
 License:       GPL-2.0-only
@@ -61,16 +61,6 @@ popd
 %{_libdir}/%{name}/memtest86+%{mt_isa}.*
 %{_libdir}/%{name}/memtest86+.kernel-install-plugin
 %{_datarootdir}/%{name}/memtest86+%{mt_isa}.iso
-
-
-%post
-if [ $1 -gt 1 ]; then
-  # cleanup upgrade BLS location changes
-  if [ -d /boot/loader/entries ]; then
-    rm -f /boot/loader/entries/*-0-memtest86+-6*.conf
-  fi
-fi
-exit 0
 
 
 %posttrans

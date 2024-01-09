@@ -6,7 +6,7 @@
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 Name:           gnome-shell-extensions
-Version:        45.2
+Version:        46~alpha
 Release:        %autorelease
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
@@ -34,6 +34,7 @@ Enabled extensions:
   * native-window-placement
   * places-menu
   * screenshot-window-sizer
+  * system-monitor
   * user-theme
   * window-list
   * windowsNavigator
@@ -147,6 +148,15 @@ This GNOME Shell extension allows to easily resize windows for GNOME Software
 screenshots.
 
 
+%package -n %{pkg_prefix}-system-monitor
+Summary:        System monitor for GNOME Shell
+License:        GPLv2+
+Requires:       %{pkg_prefix}-common = %{version}-%{release}
+
+%description -n %{pkg_prefix}-system-monitor
+This GNOME Shell extension displays system usage information in the top bar.
+
+
 %package -n %{pkg_prefix}-user-theme
 Summary:        Support for custom themes in GNOME Shell
 License:        GPLv2+
@@ -247,6 +257,11 @@ workspaces.
 %files -n %{pkg_prefix}-screenshot-window-sizer
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.screenshot-window-sizer.gschema.xml
 %{_datadir}/gnome-shell/extensions/screenshot-window-sizer*/
+
+
+%files -n %{pkg_prefix}-system-monitor
+%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.system-monitor.gschema.xml
+%{_datadir}/gnome-shell/extensions/system-monitor*/
 
 
 %files -n %{pkg_prefix}-user-theme

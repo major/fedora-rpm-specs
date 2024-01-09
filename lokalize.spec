@@ -1,18 +1,12 @@
 Name:    lokalize
 Summary: Computer-aided translation system
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
-License: GPLv2+ and GFDL
+License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/sdk/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -99,13 +93,13 @@ desktop-file-install \
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %license LICENSES/*
-#doc README
+%doc README.md
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/qlogging-categories5/%{name}*
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
@@ -113,11 +107,13 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_datadir}/%{name}/
 %{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_datadir}/kxmlgui5/%{name}/
 %{_kf5_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
+- 24.01.85
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

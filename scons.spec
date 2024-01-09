@@ -54,7 +54,6 @@ Summary: An Open Source software construction tool
 
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
-BuildRequires:  python3-build
 %py_provides    scons-python3
 %py_provides    python3-%{name}
 %py_provides    SCons

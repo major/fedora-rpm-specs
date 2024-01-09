@@ -1,8 +1,8 @@
 %global pypi_name pyftdi
 
 Name:           python-%{pypi_name}
-Version:        0.54.0
-Release:        6%{?dist}
+Version:        0.55.0
+Release:        1%{?dist}
 Summary:        Python support for FTDI devices
 
 License:        BSD
@@ -23,31 +23,15 @@ BuildRequires:  python3-setuptools
 %description -n python3-%{pypi_name}
 PyFtdi aims at providing a user-space driver for modern FTDI devices.
 
-%package -n %{name}-doc
-Summary:        The %{name} documentation
-
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx-theme-alabaster
-BuildRequires:  python3-sphinx-autodoc-typehints
-
-%description -n %{name}-doc
-Documentation for %{name}.
-
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
 %build
 %py3_build
-#PYTHONPATH=${PWD} sphinx-build-3 pyftdi/doc html
-#rm -rf html/.{doctrees,buildinfo}
 
 %install
 %py3_install
 
-# Not running tests for now as it's not clear how they will play with then
-# build system
-#%check
-#PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} %{pypi_name}/tests/*.py
 
 %files -n python3-%{pypi_name}
 %doc README.md
@@ -55,11 +39,10 @@ Documentation for %{name}.
 %{python3_sitelib}/%{pypi_name}/
 %{python3_sitelib}/%{pypi_name}*.egg-info/
 
-#%files -n %{name}-doc
-#%doc html
-#%license LICENSE
-
 %changelog
+* Sun Jan 07 2024 Fabian Affolter <mail@fabian-affolter.ch> - 0.55.0-1
+- Update to latest upstream release 0.55.0 (closes rhbz#2231618)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

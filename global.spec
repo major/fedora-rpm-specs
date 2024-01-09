@@ -1,6 +1,6 @@
 Name:           global
 Version:        6.6.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPLv3+ except
 #   libglibc/ which is LGPLv2+
@@ -19,7 +19,6 @@ BuildRequires:  emacs
 BuildRequires:  xemacs
 %endif
 BuildRequires:  sqlite-devel
-BuildRequires:  /usr/bin/pathfix.py
 BuildRequires: make
 Requires:       emacs-filesystem >= %{_emacs_version}
 %if 0%{?fedora} < 36
@@ -48,7 +47,7 @@ through Pygments and Exuberant Ctags.
 
 %prep
 %autosetup -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" plugin-factory/pygments_parser.py.in
+%py3_shebang_fix plugin-factory/pygments_parser.py.in
 touch -r configure.ac configure aclocal.m4 Makefile.in
 
 %build
@@ -110,6 +109,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Sun Jan 07 2024 Pavel Zhukov <landgraf@fedoraproject.org> - 6.6.5-11
+- Fix pathfix usage
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

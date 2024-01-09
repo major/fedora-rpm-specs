@@ -1,12 +1,14 @@
 Name:		merkuro
 Version:	24.01.85
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
 License:	GPL-3.0-or-later
 URL:		https://invent.kde.org/pim/%{name}
 
 Source:		https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+# Fix sent upstream https://invent.kde.org/pim/merkuro/-/merge_requests/423
+Patch1:     0001-Fix-Calendar-Task-Add-button.patch
 
 BuildRequires:	kf6-rpm-macros
 BuildRequires:	extra-cmake-modules
@@ -120,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_datadir}/qlogging-categories6/merkuro.contact.categories
 
 %changelog
+* Sun Jan 07 2024 Justin Zobel <justin.zobel@gmail.com> - 24.01.85-2
+- Add patch to fix Adding a new task
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

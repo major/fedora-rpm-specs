@@ -1,8 +1,8 @@
 %global pypi_name filetype
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
-Release:        4%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Infer file type and MIME type of any file/buffer
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{buildroot}%{python3_sitelib}/examples
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Tue Dec 26 2023 Lyes Saadi <fedora@lyes.eu> - 1.2.0-1
+- Updating to 1.2.0 (fix #2139522)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

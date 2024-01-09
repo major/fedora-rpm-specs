@@ -8,9 +8,14 @@
 
 Name:		migemo
 Version:	%{migemover}
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	Japanese incremental search tool
-License:	GPLv2
+
+# migemo-dict	GPL-2.0-or-later
+# migemo.el.in	GPL-2.0-or-later
+# Otherwise	GPL-2.0-only
+# SPDX confirmed
+License:	GPL-2.0-only AND GPL-2.0-or-later
 URL:		http://0xcc.net/migemo/
 Source0:	http://0xcc.net/migemo/%{name}-%{version}.tar.gz
 # patch taken and modified from http://d.hatena.ne.jp/yshl/20090814/1250197679
@@ -20,17 +25,10 @@ Patch1:		migemo-0.40-bz830559.patch
 
 BuildArch:	noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  glibc-langpack-ja
-%if 0%{?fedora} >= 19
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby 
-BuildRequires:	ruby(abi) = %{rubyabi}
-BuildRequires:	ruby 
-%endif
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 
@@ -72,9 +70,9 @@ Requires:	apel
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 sed -i '18d' migemo-convert.rb # patching is failing probably because of the special chars, so do this by sed
-%patch1 -p1
+%patch -P1 -p1
 
 %build
 %configure \
@@ -105,7 +103,10 @@ done
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING README
+%doc AUTHORS
+%doc ChangeLog
+%license COPYING
+%doc README
 
 %{_bindir}/migemo*
 %{_datadir}/migemo/
@@ -122,6 +123,9 @@ done
 %endif
 
 %changelog
+* Sun Jan  7 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.40-41
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
