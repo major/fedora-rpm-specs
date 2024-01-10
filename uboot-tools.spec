@@ -1,4 +1,4 @@
-%global candidate rc4
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2024.01
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -26,9 +26,11 @@ Patch7:   Add-video-damage-tracking.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
-Patch10:  rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
+Patch10:  rpi-Switch-to-OF_HAS_PRIOR_STAGE-by-default.patch
 # Rockchips improvements
 Patch11:  rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
+# Lots more to do, mostly untested, definitely unsupported
+Patch12:  rpi5-initial-support.patch
 #Patch12: 0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
 
 BuildRequires:  bc
@@ -206,6 +208,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Mon Jan 08 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.01-1
+- Update to 2024.01
+
 * Thu Dec 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.01-0.2.rc4
 - Update to 2024.01 RC4
 - Rebase SMBIOS patch to latest rev

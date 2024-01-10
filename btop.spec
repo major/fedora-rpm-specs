@@ -1,6 +1,6 @@
 Name:           btop
-Version:        1.2.13
-Release:        4%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -17,6 +17,11 @@ BuildRequires:  make
 BuildRequires:  gcc-toolset-12-gcc-c++
 BuildRequires:  gcc-toolset-12-annobin-plugin-gcc
 BuildRequires:  gcc-toolset-12-binutils
+%endif
+
+# gpu support
+%if 0%{?fedora}
+BuildRequires:  rocm-smi-devel
 %endif
 
 Requires:       hicolor-icon-theme
@@ -62,6 +67,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_datadir}/icons/hicolor/*/apps/btop.*
 
 %changelog
+* Mon Jan 08 2024 Jonathan Wright <jonathan@almalinux.org> - 1.3.0
+- Update to 1.3.0 rhbz#2257235
+- Add AMD GPU support
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

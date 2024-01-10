@@ -2,7 +2,7 @@
 %global alpha 0
 
 Name:           flamp
-Version:        2.2.10
+Version:        2.2.11
 Release:        1%{?dist}
 Summary:        Amateur Multicast Protocol - file transfer program
 
@@ -44,7 +44,7 @@ of the NBEMS applications.
 
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
+export CXXFLAGS="-std=c++17 $RPM_OPT_FLAGS"
 %configure
 %make_build
 
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Jan 08 2024 Richard Shaw <hobbes1069@gmail.com> - 2.2.11-1
+- Update to 2.2.11.
+
 * Mon Nov 06 2023 Richard Shaw <hobbes1069@gmail.com> - 2.2.10-1
 - Update to 2.2.10.
 

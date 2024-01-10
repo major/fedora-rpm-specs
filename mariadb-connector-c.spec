@@ -15,7 +15,7 @@ Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
-Source2:        my.cnf
+Source2:        my.cnf.in
 Source3:        client.cnf
 Url:            http://mariadb.org/
 # More information: https://mariadb.com/kb/en/mariadb/building-connectorc-from-source/
@@ -143,6 +143,7 @@ cmake -B %__cmake_builddir -LAH
 
 %cmake_build
 
+sed -e 's|@SYSCONFDIR@|%{_sysconfdir}|' %{SOURCE2} > my.cnf
 
 
 %install
@@ -158,7 +159,7 @@ ln -s mariadb_config %{buildroot}%{_bindir}/mysql_config
 ln -s mariadb_version.h %{buildroot}%{_includedir}/mysql/mysql_version.h
 
 # Install config files
-install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/my.cnf
+install -D -p -m 0644 my.cnf %{buildroot}%{_sysconfdir}/my.cnf
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 
 

@@ -2,7 +2,7 @@
 
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
@@ -120,6 +120,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=Adwaita/g;/General/a window_manag
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

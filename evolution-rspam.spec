@@ -1,7 +1,7 @@
 Name: evolution-rspam
 Summary: Evolution Plugin for reporting spam
 Version: 0.6.0
-Release: 40%{?dist}
+Release: 41%{?dist}
 License: GPL-2.0-or-later
 Source: http://gnome.eu.org/%{name}-%{version}.tar.xz
 URL: http://gnome.eu.org/evo/index.php/Report_as_Spam
@@ -63,6 +63,9 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 %doc TODO
 
 %changelog
+* Mon Jan 08 2024 Milan Crha <mcrha@redhat.com> - 0.6.0-41
+- Rebuilt for evolution-data-server soname version bump
+
 * Thu Jul 20 2023 Milan Crha <mcrha@redhat.com> - 0.6.0-40
 - Add patch to correct character set name in en_AU.po
 

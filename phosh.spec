@@ -4,7 +4,7 @@
 
 Name:		phosh
 Version:	0.32.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phosh

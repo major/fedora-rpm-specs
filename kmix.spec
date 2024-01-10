@@ -1,20 +1,12 @@
 Name:    kmix
 Summary: KDE volume control
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
-# code is LGPLv2+ except for gui/osdwidget.* which is GPLv2+
-# docs GFDL
-License: GPLv2+ and GFDL
+License: CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/multimedia/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -105,6 +97,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kmix.desktop
 
 
 %changelog
+* Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
+- 24.01.85 (Qt5)
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

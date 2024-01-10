@@ -69,6 +69,9 @@ Recommends:     gnome-power-manager
 Suggests:       compiz%{?_isa}
 %endif
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 GNOME Flashback is a session for GNOME 3 which was initially called "GNOME
 Fallback", and shipped as a stand-alone session in Debian and Ubuntu. It

@@ -5,7 +5,7 @@ Summary:       SyncML client for evolution
 Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 License:       LGPL-2.0-or-later
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
@@ -220,6 +220,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_datadir}/syncevolution/xml/*.pl
 
 %changelog
+* Mon Jan 08 2024 Milan Crha <mcrha@redhat.com> - 1:2.0.0-11
+- Rebuilt for evolution-data-server soname version bump
+
 * Mon Dec 18 2023 Milan Crha <mcrha@redhat.com> - 1:2.0.0-10
 - Disable build of libs-akonadi subpackage
 

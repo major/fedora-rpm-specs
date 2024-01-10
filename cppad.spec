@@ -28,7 +28,7 @@
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
-Version: 20240000.0
+Version: 20240000.1
 Release: 1%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
@@ -260,6 +260,9 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Mon Jan 08 2024 Brad Bell <bradbell at seanet dot com> - 20240000.1-1
+- Upstream fix of bug found by build on buildvm-x86-16.iad2.fedoraproject.org
+
 * Sat Jan 06 2024 Brad Bell <bradbell at seanet dot com> - 20240000.0-1
 - New upstream source cppad-20240000.0.
 - require python-xrst >= 2024.0

@@ -52,6 +52,8 @@ Source: http://download.gnome.org/sources/%{name}/3.51/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in
 
+Patch01: 0001-build-Don-t-set-CFLAGS-returned-by-pkg-config-as-CMA.patch
+
 # Approximate version number
 Provides: bundled(libgnomecanvas) = 2.30.0
 

@@ -2,7 +2,7 @@ Name:    kf6
 # This version MUST remain in sync with KF6 versions!
 # XXX: Yes, it's 5.x still, this is synced with the version set in extra-cmake-modules
 Version: 5.247.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 6
 License: BSD-3-Clause
 URL:     http://www.kde.org
@@ -27,6 +27,9 @@ Requires: cmake >= 3
 Requires: qt6-rpm-macros >= 6
 # misc build environment dependencies
 Requires: gcc-c++
+# for docs generation
+Requires: doxygen
+Requires: qt6-doc-devel
 BuildArch: noarch
 %description rpm-macros
 RPM macros for building KDE Frameworks 6 packages.
@@ -89,6 +92,9 @@ sed -i \
 %{_rpmconfigdir}/macros.d/macros.kf6
 
 %changelog
+* Mon Jan 08 2024 Neal Gompa <ngompa@fedoraproject.org> - 5.247.0-2
+- Add -DBUILD_QCH:BOOL=ON for qch file generation by default
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

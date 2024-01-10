@@ -4,7 +4,7 @@ Summary: IPMI (Intelligent Platform Management Interface) library and tools
 Name: OpenIPMI
 
 Version:    2.0.32
-Release:    10%{?dist}
+Release:    11%{?dist}
 License:    LGPL-2.1-or-later and GPL-2.0-or-later or BSD-3-Clause
 URL:        http://sourceforge.net/projects/openipmi/
 Source:     http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
@@ -14,6 +14,7 @@ Source3:    ipmi.service
 Patch1:     0001-man.patch
 Patch2:     OpenIPMI-ax-python.patch
 Patch3:     OpenIPMI-sysconfig.patch
+Patch4: OpenIPMI-c99.patch
 
 BuildRequires: make
 BuildRequires:    gdbm-devel swig glib2-devel net-snmp-devel ncurses-devel
@@ -199,6 +200,9 @@ echo ".so man1/openipmish.1" > %{buildroot}%{_mandir}/man1/ipmish.1
 %{_mandir}/man5/ipmi_sim_cmd.5*
 
 %changelog
+* Mon Jan 08 2024 Florian Weimer <fweimer@redhat.com> - 2.0.32-11
+- Fix C compatibility issues
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.32-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

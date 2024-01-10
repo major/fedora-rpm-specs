@@ -11,7 +11,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -27,6 +27,9 @@ URL:            http://gstreamer.freedesktop.org/
 %endif
 Source0:        gst-plugins-bad-free-%{version}.tar.xz
 Source1:        gst-p-bad-cleanup.sh
+
+# Backport of "va: fixes for Mesa driver" into 1.22 (rhbz#2256693)
+Patch0:         https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5778.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
@@ -264,7 +267,7 @@ aren't tested well enough, or the code is not of good enough quality.
 
 
 %prep
-%setup -q -n gst-plugins-bad-%{version}
+%autosetup -n gst-plugins-bad-%{version} -p3
 
 %build
 %meson \
@@ -711,6 +714,10 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Mon Jan 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.8-3
+- Backport of "va: fixes for Mesa driver"
+- Resolves: rhbz#2256693
+
 * Wed Dec 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.8-2
 - Enable dvbsuboverlay and siren plugins
 - Enable avtp, dtsdec, and flite plugins in extras

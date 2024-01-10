@@ -1,19 +1,12 @@
-
 Name:    umbrello
 Summary: UML modeler and UML diagram tool
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
-License: GPL-2.0-or-later AND LGPL-2.0-or-later
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
 URL:     https://www.kde.org/applications/development/umbrello/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -80,13 +73,11 @@ GUI for diagramming Unified Modeling Language (UML)
 
 %build
 %cmake_kf5
-
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 
@@ -107,6 +98,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.umbrello.
 
 
 %changelog
+* Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
+- 24.01.85 (Qt5)
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

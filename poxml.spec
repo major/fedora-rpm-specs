@@ -1,18 +1,12 @@
 Name:    poxml
 Summary: Text utilities from kdesdk
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/sdk/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext-devel
@@ -42,7 +36,6 @@ xml2pot
 
 %build
 %cmake_kf5
-
 %cmake_build
 
 
@@ -65,6 +58,9 @@ xml2pot
 
 
 %changelog
+* Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
+- 24.01.85 (Qt5)
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

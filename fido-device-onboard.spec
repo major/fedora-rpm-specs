@@ -4,7 +4,7 @@
 
 Name:           fido-device-onboard
 Version:        0.4.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -16,6 +16,7 @@ Patch0:         0001-hack-drop-shadow.patch
 Patch1:         0001-fix-drop-unused-sha-crypt-dep.patch
 Patch2:         fix-devmapper-version.patch
 Patch3:         0001-fix-relabel-devcreds-before-onboarding.patch
+Patch4:         fdo-bump-devicemapper-libcryptosetup.patch
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -41,6 +42,7 @@ BuildRequires:  tpm2-tss-devel
 %patch0 -p1
 %patch1 -p1
 %patch3 -p1
+%patch4 -p1
 
 %if 0%{?rhel}
 %patch2 -p1
@@ -270,6 +272,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Mon Jan 08 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-6
+- Rebuild for fixed dependencies
+
 * Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 0.4.12-5
 - Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
 

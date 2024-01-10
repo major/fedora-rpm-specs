@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 
 Name:		qterminal
-Version:	1.3.0
+Version:	1.4.0
 Release:	1%{?dist}
 License:	GPLv2
 URL:		https://github.com/qterminal/qterminal
@@ -103,6 +103,9 @@ fi
 %dir %{_datadir}/qterminal/translations
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

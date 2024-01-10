@@ -1,6 +1,9 @@
 %global krita_python 1
 %global kf5_ver 5.44.0
 %global versiondir %(echo %{version} | cut -d. -f1-3)
+%global zug_version 0.1.1
+%global immer_version 0.8.1
+%global lager_version 0.1.1
 
 # Work around for eigen3 trying to enforce power10.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1996330
@@ -9,21 +12,30 @@
 %endif
 
 Name:           krita
-Version:        5.1.5
-Release:        5%{?dist}
+Version:        5.2.2
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
 URL:            https://krita.org
 Source0:        https://download.kde.org/%{?pre:un}stable/krita/%{versiondir}%{?pre:-%{pre}}/krita-%{version}%{?pre:-%{pre}}.tar.xz
+Source1:        https://github.com/arximboldi/zug/archive/v%{zug_version}/zug-%{zug_version}.tar.gz
+Source2:        https://github.com/arximboldi/immer/archive/v%{immer_version}/immer-%{immer_version}.tar.gz
+Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/lager-%{lager_version}.tar.gz
 
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
-Patch1: krita-5.1.5-appstream_validate.patch
+Patch1: krita-5.2.2-appstream_validate.patch
+Patch2: krita-5.2.2-ffwt.patch
+Patch3: krita-5.2.2-libunibreak.patch
 
 ## upstream patches
 
+%if 0%{?fedora} > 39
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
 
 BuildRequires:  extra-cmake-modules >= %{kf5_ver}
 BuildRequires:  kf5-rpm-macros
@@ -39,8 +51,10 @@ BuildRequires:  cmake(KF5ItemViews)
 BuildRequires:  cmake(KF5KIO)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  cmake(KF5KDcraw)
 
 BuildRequires:  qt5-qtbase-devel >= 5.12.0
+BuildRequires:  qt5-qtbase-private-devel >= 5.12.0
 BuildRequires:  cmake(Qt5Multimedia)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5Xml)
@@ -57,7 +71,6 @@ BuildRequires:  pkgconfig(gsl)
 BuildRequires:  pkgconfig(kseexpr)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(libheif)
 BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(libjpeg)
@@ -74,9 +87,19 @@ BuildRequires:  pkgconfig(xcb-util)
 BuildRequires:  pkgconfig(xi)
 BuildRequires:  quazip-qt5-devel
 BuildRequires:  zlib-devel
-
-BuildRequires: desktop-file-utils
-BuildRequires: libappstream-glib
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+BuildRequires:  cmake(Mlt7)
+BuildRequires:  pkgconfig(libmypaint)
+BuildRequires:  pkgconfig(fribidi) >= 1.0.6
+BuildRequires:  catch2-devel
+BuildRequires:  cmake(sdl2)
+BuildRequires:  pkgconfig(libunibreak)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(harfbuzz)
+BuildRequires:  pkgconfig(libmypaint)
+BuildRequires:  cmake(xsimd)
 
 %if 0%{?krita_python}
 BuildRequires:  python3-devel
@@ -118,11 +141,37 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{name}-%{version}%{?pre:-%{pre}} -p1
-
+%setup -q -n %{name}-%{version}%{?pre:-%{pre}} -a 1 -a 2 -a 3
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 %build
-%cmake_kf5 -G Ninja
+# build zug
+%cmake -Dzug_BUILD_EXAMPLES=FALSE \
+       -Dzug_BUILD_DOCS:BOOL=FALSE  \
+       -B zug -S zug-%{zug_version}/
+DESTDIR=$(pwd) cmake --install zug --prefix /
+
+# build immer
+%cmake  -Dimmer_BUILD_DOCS:BOOL=FALSE \
+        -Dimmer_BUILD_EXAMPLES:BOOL=FALSE \
+        -Dimmer_BUILD_EXTRAS:BOOL=FALSE \
+        -DDISABLE_WERROR:BOOL=TRUE \
+        -B immer -S immer-%{immer_version}/
+DESTDIR=$(pwd) cmake --install immer --prefix /
+
+# build lager
+%cmake  -Dlager_BUILD_EXAMPLES:BOOL=FALSE \
+        -Dlager_BUILD_DEBUGGER_EXAMPLES:BOOL=FALSE \
+        -Dlager_BUILD_DOCS:BOOL=FALSE -DCMAKE_PREFIX_PATH=$(pwd) \
+        -B lager -S lager-%{lager_version}/
+DESTDIR=$(pwd) cmake --install lager --prefix /
+
+# build krita
+%cmake_kf5 -G Ninja \
+   -DCMAKE_PREFIX_PATH=$(pwd) \
+   -DBUILD_TESTING:BOOL=OFF
 
 %cmake_build
 
@@ -173,6 +222,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Tue Jan 02 2024 Than Ngo <than@redhat.com> - 5.2.2-1
+- 5.2.2
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

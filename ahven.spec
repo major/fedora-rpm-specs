@@ -91,6 +91,11 @@ cp --preserve=timestamps README.md ROADMAP NEWS.txt %{buildroot}%{_pkgdocdir}
 # Disable the hardening hack only for the testsuite.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1197501
 %undefine _hardened_build
+
+# Append -shared to override ahven_tests.gpr's -static.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2225696
+export GNATBINDFLAGS=-shared
+
 %{Comfignat_make} check GNAT_BUILDER=gprbuild OS_VERSION=unix
 
 

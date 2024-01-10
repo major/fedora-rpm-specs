@@ -2,7 +2,7 @@
 Summary: RDF Parser Toolkit for Redland
 Name:    raptor2
 Version: 2.0.15
-Release: 39%{?dist}
+Release: 40%{?dist}
 
 License: GPLv2+ or LGPLv2+ or ASL 2.0
 Source:  http://download.librdf.org/source/raptor2-%{version}.tar.gz
@@ -16,6 +16,8 @@ Patch2: 0001-CVE-2020-25713-raptor2-malformed-input-file-can-lead.patch
 
 ## upstreamable patches
 Patch3: raptor2-configure-c99.patch
+Patch4: raptor2-c99.patch
+Patch5: raptor2-libxml2.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -102,6 +104,10 @@ make check
 
 
 %changelog
+* Mon Jan 08 2024 Florian Weimer <fweimer@redhat.com> - 2.0.15-40
+- Backport upstream patch to fix C compatibility issues
+- Backport another upstream patch to fix build issue with current libxml2
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.15-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

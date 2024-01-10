@@ -3,8 +3,8 @@
 
 # https://github.com/google/go-replayers
 %global goipath         github.com/google/go-replayers
-Version:                0.1.2
-%global tag             httpreplay/v0.1.2
+Version:                1.2.0
+%global tag             httpreplay/v1.2.0
 %global distprefix      %{nil}
 
 %gometa
@@ -67,12 +67,20 @@ sed -i 's|github.com/google/martian|github.com/google/martian/v3|' $(find -iname
 
 %if %{with check}
 %check
-%gocheck
+# httpreplay: fails due to martian incompatibility, even with 3.2.1 (latest)
+# version of github.com/google/martian.
+%gocheck \
+	-d httpreplay \
+	-d httpreplay/cmd/httpr \
+	-d httpreplay/internal/proxy
 %endif
 
 %gopkgfiles
 
 %changelog
+* Sat Dec 30 2023 W. Michael Petullo <mike@flyn.org> - 1.2.0-1
+- Update to 1.2.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

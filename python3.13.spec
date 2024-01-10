@@ -47,9 +47,9 @@ License: Python-2.0.1
 %bcond_without python_abi_provides_for_alt_pythons
 %endif
 
-# When bootstrapping python3, we need to build setuptools.
-# but setuptools BR python3-devel and that brings in python3-rpm-generators;
-# python3-rpm-generators needs python3-setuptools, so we cannot have it yet.
+# When bootstrapping python3, we need to build python3-packaging.
+# but packaging BR python3-devel and that brings in python3-rpm-generators;
+# python3-rpm-generators needs python3-packaging, so we cannot have it yet.
 #
 # We also use the previous build of Python in "make regen-all".
 #

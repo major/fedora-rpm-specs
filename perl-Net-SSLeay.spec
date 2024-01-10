@@ -5,14 +5,13 @@
 %endif
 
 Name:		perl-Net-SSLeay
-Version:	1.92
-Release:	10%{?dist}
+Version:	1.94
+Release:	1%{?dist}
 Summary:	Perl extension for using OpenSSL
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSLeay-%{version}.tar.gz
 Patch10:	Net-SSLeay-1.90-pkgconfig.patch
-Patch12:	Net-SSLeay-1.92-no-sha1.patch
 # =========== Module Build ===========================
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -60,9 +59,9 @@ BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(Test::More) >= 0.61
 BuildRequires:	perl(threads)
 BuildRequires:	perl(warnings)
-# =========== Optional Test Suite ====================
+# =========== Optional Tests =========================
 %if %{with perl_Net_SSLeay_enables_optional_test}
-BuildRequires:	perl(Test::Exception)
+BuildRequires:	perl(Crypt::OpenSSL::Bignum)
 # Test::Kwalitee 1.00 not used
 BuildRequires:	perl(Test::Pod) >= 1.41
 # Test::Pod::Coverage 1.00 not used
@@ -87,10 +86,6 @@ so you can write servers or clients for more complicated applications.
 # Get libraries to link against from pkg-config
 # https://github.com/radiator-software/p5-net-ssleay/pull/127
 %patch -P 10
-
-# Work around EL-9, ELN issues with SHA-1 usage
-# https://github.com/radiator-software/p5-net-ssleay/pull/433
-%patch -P 12
 
 # Fix permissions in examples to avoid bogus doc-file dependencies
 chmod -c 644 examples/*
@@ -128,6 +123,26 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Mon Jan  8 2024 Paul Howarth <paul@city-fan.org> - 1.94-1
+- Update to 1.94
+  - Net::SSLeay now officially supports all stable releases of OpenSSL 3.1 and
+    3.2, and LibreSSL 3.5-3.8
+  - Many noisy compiler warnings have been silenced - if SSLeay.xs fails to
+    compile, it should now be much easier to identify the cause
+  - libcrypto's OPENSSL_init_crypto() function and libssl's OPENSSL_init_ssl()
+    function are now exposed, enabling fine-grained control over the
+    initialisation and configuration of both libraries
+  - libssl functions implementing TLS 1.3 PSK authentication are now exposed,
+    in particular SSL_CTX_set_psk_find_session_callback() (on the server side)
+    and SSL_CTX_set_psk_use_session_callback() (on the client side)
+  - libssl functions implementing server-side TLS 1.2 PSK authentication are
+    now exposed, in particular SSL_CTX_set_psk_server_callback()
+  - libssl's SSL_CTX_set_client_hello_cb() function is now exposed, allowing a
+    TLS server to set a callback function that is executed when the server
+    processes a ClientHello message
+  - Many more libcrypto/libssl constants and functions are now exposed; see the
+    release notes for the 1.93 developer releases for a full list
+
 * Thu Aug  3 2023 Paul Howarth <paul@city-fan.org> - 1.92-10
 - Rebuild for OpenSSL 3.1.1 in Rawhide
 

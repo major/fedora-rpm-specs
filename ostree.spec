@@ -22,6 +22,10 @@ URL: https://ostree.readthedocs.io/en/latest/
 # To aid https://github.com/coreos/fedora-coreos-config/pull/2783
 Patch0: 0001-prepare-root-Fix-composefs-ostree-admin-unlock-hotfi.patch
 
+# Backport https://github.com/ostreedev/ostree/pull/3130
+Patch1: 0001-lib-deploy-Round-to-block-size-in-early-prune-space-.patch
+Patch2: 0002-lib-deploy-Add-safety-margin-in-early-prune-space-ch.patch
+
 # Conditional to ELN right now to reduce blast radius; xref
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
 %if 0%{?rhel} >= 10

@@ -1,21 +1,12 @@
-%undefine __cmake_in_source_build
-
 Name:    ktouch
-Summary: Touch Typing Tutor 
-Version: 23.08.2
+Summary: Touch Typing Tutor
+Version: 24.01.85
 Release: 1%{?dist}
 
-License: GPLv2+
+License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://www.kde.org/applications/education/ktouch/
 
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -52,7 +43,7 @@ BuildRequires: libappstream-glib
 BuildRequires: pkgconfig(xcb-xkb)
 BuildRequires: pkgconfig(xkbfile)
 
-Requires:      kqtquickcharts%{?_isa} >= %{majmin_ver}
+Requires:      kqtquickcharts%{?_isa}
 Requires:      qt5-qtquickcontrols qt5-qtgraphicaleffects
 
 # when split occurred
@@ -85,7 +76,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 %files -f %{name}.lang
 %doc AUTHORS
-%license LICENSES/* 
+%license LICENSES/*
 %{_kf5_bindir}/ktouch
 %{_kf5_datadir}/ktouch/
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
@@ -96,6 +87,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
+- 24.01.85 (Qt5)
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

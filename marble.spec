@@ -1,19 +1,12 @@
-
 Name:    marble
-Summary: Virtual globe and world atlas 
+Summary: Virtual globe and world atlas
 Epoch:   1
-Version: 23.08.2
-Release: 2%{?dist}
+Version: 24.01.85
+Release: 1%{?dist}
 
-License: LGPLv2+
+License: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1)
 URL:     http://edu.kde.org/marble/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:  http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:  http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -214,6 +207,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 %{_datadir}/kservices5/marble_thumbnail_kmz.desktop
 %{_datadir}/kservices5/marble_thumbnail_osm.desktop
 %{_datadir}/kservices5/marble_thumbnail_shp.desktop
+%{_datadir}/qlogging-categories5/marble.categories
 
 %files common -f %{name}.lang
 %license LICENSE.txt
@@ -226,8 +220,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 %{_bindir}/marble-qt
 %{_datadir}/applications/org.kde.marble-qt.desktop
 
-%ldconfig_scriptlets astro
-
 %files astro
 %{_libdir}/libastro.so.*
 
@@ -239,8 +231,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 %files widget-data
 %{_datadir}/marble/data/
-
-%ldconfig_scriptlets widget-qt5
 
 %files widget-qt5
 %{_libdir}/libmarblewidget-qt5.so.*
@@ -262,6 +252,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 1:24.01.85-1
+- 24.01.85 (Qt5)
+
 * Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 1:23.08.2-2
 - Rebuild (shapelib)
 

@@ -1,5 +1,5 @@
 Name: libhubbub
-Version: 0.3.7
+Version: 0.3.8
 Release: %autorelease
 Summary: An HTML5 compliant parsing library
 
@@ -9,13 +9,12 @@ Source: http://download.netsurf-browser.org/libs/releases/%{name}-%{version}-src
 
 BuildRequires: doxygen
 BuildRequires: gcc
+BuildRequires: gperf
 BuildRequires: netsurf-buildsystem
 BuildRequires: pkgconfig(check)
 BuildRequires: pkgconfig(json-c)
 BuildRequires: pkgconfig(libparserutils)
 BuildRequires: make
-
-Patch0: 0001-do-not-use-deprecated-is_error.patch
 
 %description
 Hubbub is an HTML5 compliant parsing library, written in C. It was

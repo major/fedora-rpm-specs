@@ -66,6 +66,8 @@ License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.51/%{name}-%{version}.tar.xz
 
+Patch01: 0001-build-Don-t-set-CFLAGS-returned-by-pkg-config-as-CMA.patch
+
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
 
@@ -312,8 +314,8 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_libdir}/libebook-1.2.so.21.1.3
 %{_libdir}/libebook-contacts-1.2.so.4
 %{_libdir}/libebook-contacts-1.2.so.4.0.0
-%{_libdir}/libecal-2.0.so.2
-%{_libdir}/libecal-2.0.so.2.0.0
+%{_libdir}/libecal-2.0.so.3
+%{_libdir}/libecal-2.0.so.3.0.0
 %{_libdir}/libedata-book-1.2.so.27
 %{_libdir}/libedata-book-1.2.so.27.0.0
 %{_libdir}/libedata-cal-2.0.so.2

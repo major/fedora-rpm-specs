@@ -66,7 +66,6 @@ Analytics and administration tool for UserFeedback servers.
 
 %build
 %cmake_kf6 \
-   -DBUILD_WITH_QT6=ON \
    -DENABLE_DOCS:BOOL=OFF
 
 %cmake_build

@@ -2,7 +2,7 @@
 
 Name:    lxqt-panel
 Summary: Main panel bar for LXQt desktop suite
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://lxqt-project.org/
@@ -37,6 +37,8 @@ BuildRequires: libXdamage-devel
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(xtst)
 BuildRequires: xcb-util-image-devel
+BuildRequires: lxqt-menu-data
+Requires: lxqt-menu-data
 %if 0%{?el7}
 BuildRequires:  devtoolset-7-gcc-c++
 %endif
@@ -117,9 +119,6 @@ done
 %{_datadir}/lxqt
 %{_mandir}/man1/lxqt-panel*
 %{_sysconfdir}/xdg/autostart/lxqt-panel.desktop
-%{_sysconfdir}/xdg/menus/lxqt-applications*.menu
-%{_datadir}/desktop-directories/lxqt-leave.directory
-%{_datadir}/desktop-directories/lxqt-settings.directory
 
 %files devel
 %dir %{_includedir}/lxqt
@@ -131,6 +130,9 @@ done
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

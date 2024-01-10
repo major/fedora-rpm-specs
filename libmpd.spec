@@ -1,11 +1,12 @@
 Summary: Music Player Daemon Library
 Name: libmpd
 Version: 11.8.17
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPLv2+
 Url: http://gmpc.wikia.com/wiki/Gnome_Music_Player_Client
 Source: http://download.sarine.nl/Programs/gmpc/11.8/libmpd-11.8.17.tar.gz
 Patch0: libmpd-11.8.17-strndup.patch
+Patch1: libmpd-c99.patch
 BuildRequires:  gcc
 BuildRequires: glib2-devel >= 2.16
 BuildRequires: make
@@ -26,6 +27,7 @@ for developing program with libmpd.
 %prep
 %setup -q
 %patch0 -p1 -b .strndup
+%patch -P 1 -p1
 
 %build
 %configure --disable-static
@@ -47,6 +49,9 @@ for developing program with libmpd.
 %{_includedir}/libmpd-1.0
 
 %changelog
+* Mon Jan 08 2024 Florian Weimer <fweimer@redhat.com> - 11.8.17-23
+- Fix C compatibility issue (#2257240)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.8.17-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

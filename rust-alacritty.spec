@@ -4,7 +4,7 @@
 %global crate alacritty
 
 Name:           rust-alacritty
-Version:        0.13.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Fast, cross-platform, OpenGL terminal emulator
 

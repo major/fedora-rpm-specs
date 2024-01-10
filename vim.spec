@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 2190
+%define patchlevel 016
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -42,8 +42,8 @@
 # https://github.com/vim/vim/pull/3507
 %define _fortify_level 1
 
-%define baseversion 9.0
-%define vimdir vim90
+%define baseversion 9.1
+%define vimdir vim91
 
 Summary: The VIM editor
 URL:     http://www.vim.org/
@@ -1035,6 +1035,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Mon Jan 08 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.016-1
+- patchlevel 016
+
 * Tue Jan 02 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.2190-1
 - patchlevel 2190
 

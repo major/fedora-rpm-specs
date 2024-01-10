@@ -1,30 +1,20 @@
 Name: iotop
-Version: 0.6
-Release: 38%{?dist}
+Version: 0.6^20240108git4b2e1aa2
+Release: 1%{?dist}
 Summary: Top like utility for I/O       
 License: GPL-2.0-or-later
 URL: http://guichaz.free.fr/iotop/            
-Source0: http://guichaz.free.fr/iotop/files/%{name}-%{version}.git4e4fbca5.tar.bz2
-
-# rhbz#1035503
-Patch0: iotop-0.6-noendcurses.patch
-Patch1: iotop-0.6-python3.patch
-
-# Fix build error with Python 3 caused by itervalues() in setup.py
-# http://repo.or.cz/iotop.git/commit/99c8d7cedce81f17b851954d94bfa73787300599
-Patch2:	iotop-python3build.patch
+Source0: http://guichaz.free.fr/iotop/files/iotop-%{version}.tar.bz2
 
 # sent upstream, iotop <= 0.6, rhbz#1285088
 Patch3: iotop-0.3.2-batchprintutf8.patch
 
-# from upstream, iotop <= 0.6
-Patch4: iotop-0.6-git9c49d59.patch
 # rhbz#1679201
 Patch5: iotop-0.6-delayacctmsg.patch
 Patch6: iotop-0.6-usesetuptools.patch
 
 #BuildArch: noarch
-BuildRequires:	python3-devel
+BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  gcc
 
@@ -35,9 +25,8 @@ iotop is a Python program with a top like UI used to
 show of behalf of which process is the I/O going on.
 
 %prep
-%setup -n %{name}-%{version}
+%setup -n %{name}-0.6
 %patch -P3 -p1 -b .batchprintutf8
-%patch -P4 -p1 -b .git9c49d59
 %patch -P5 -p1 -b .delayacctmsg
 %patch -P6 -p1 -b .usesetuptools
 
@@ -55,6 +44,9 @@ show of behalf of which process is the I/O going on.
 %{_mandir}/man8/iotop.*
 
 %changelog
+* Mon Jan 08 2024 Michal Hlavinka <mhlavink@redhat.com> - 0.6^20240108git4b2e1aa2-1
+- update to latest snapshot
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

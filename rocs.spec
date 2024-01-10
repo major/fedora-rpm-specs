@@ -1,18 +1,12 @@
-Name:    rocs 
-Summary: Graph Theory IDE 
-Version: 23.08.2
+Name:    rocs
+Summary: Graph Theory IDE
+Version: 24.01.85
 Release: 1%{?dist}
 
-License: GPLv2+
+License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/education/rocs
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: boost-devel >= 1.43
 BuildRequires: desktop-file-utils
@@ -80,13 +74,11 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %build
 %cmake_kf5
-
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html --with-man --with-qt
 
 
@@ -103,11 +95,8 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/icons/hicolor/*/actions/*
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}*
 %{_kf5_datadir}/%{name}/
-%{_kf5_datadir}/kxmlgui5/%{name}/
 %{_kf5_datadir}/config.kcfg/%{name}.kcfg
 %{_qt5_plugindir}/rocs/
-
-%ldconfig_scriptlets libs
 
 %files libs
 %{_kf5_libdir}/librocsgraphtheory.so.*
@@ -118,6 +107,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
+- 24.01.85 (Qt5)
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

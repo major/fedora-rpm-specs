@@ -4,7 +4,7 @@
 
 # https://github.com/getkin/kin-openapi
 %global goipath         github.com/getkin/kin-openapi
-Version:                0.118.0
+Version:                0.122.0
 
 %gometa
 
@@ -39,7 +39,9 @@ Source0:        %{gosource}
 
 %if %{with check}
 %check
-%gocheck
+# openapi3: uses network.
+%gocheck \
+	-d openapi3
 %endif
 
 %gopkgfiles

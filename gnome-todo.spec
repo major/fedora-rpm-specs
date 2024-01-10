@@ -2,7 +2,7 @@
 
 Name:           gnome-todo
 Version:        41.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Personal task manager for GNOME
 
 License:        GPL-3.0-or-later
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_datadir}/gir-1.0/Gtd-1.0.gir
 
 %changelog
+* Mon Jan 08 2024 Milan Crha <mcrha@redhat.com> - 41.0-8
+- Rebuilt for evolution-data-server soname version bump
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

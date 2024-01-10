@@ -2,23 +2,20 @@
 %global gem_name ronn-ng
 
 Name:           rubygem-%{gem_name}
-Version:        0.9.1
-Release:        8%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        Builds man pages from Markdown
 License:        MIT
 URL:            https://github.com/apjanke/ronn-ng
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Fix Ruby 3.1 / Psych 4.0 test compatibility.
-# https://github.com/apjanke/ronn-ng/issues/80
-# https://github.com/apjanke/ronn-ng/pull/81
-Patch0:         rubygem-ronn-ng-0.9.1-Permit-Time-class-loading-from-YAML.patch
-# Workaround for libxml2 2.10.3+ test compatibility
-# https://github.com/apjanke/ronn-ng/issues/102
-Patch1:         rubygem-ronn-ng-0.9.1-libxml2-namespace.patch
+# git clone https://github.com/apjanke/ronn-ng.git && cd ronn-ng
+# git archive -v -o ronn-ng-0.10.1-test.tar.gz v0.10.1 test/
+Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
 BuildRequires:  ruby
 BuildRequires:  rubygem(kramdown)
+BuildRequires:  rubygem(kramdown-parser-gfm)
 BuildRequires:  rubygem(mustache)
 BuildRequires:  rubygem(nokogiri)
 BuildRequires:  rubygem(test-unit)
@@ -29,7 +26,7 @@ Provides:       rubygem-ronn = %{version}-%{release}
 Obsoletes:      rubygem-ronn < 0.7.3-20
 
 %description
-Ronn builds manuals in HTML and Unix man page format from Markdown.
+Ronn-NG builds manuals in HTML and Unix man page format from Markdown.
 
 The source format includes all of Markdown but has a more rigid structure and
 syntax extensions for features commonly found in man pages (definition lists,
@@ -45,16 +42,7 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
-
-%patch0 -p1
-%patch -P1 -p1
-
-# Upstream specifies mustache==0.7, but we have 1.1 and it seems to work fine...
-%gemspec_remove_dep -g mustache "~> 0.7"
-
-# TODO: file upstream
-chmod -x lib/ronn.rb
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -86,19 +74,20 @@ install -Dt %{buildroot}/usr/share/zsh/site-functions/ -m 0644 %{buildroot}%{gem
 
 %check
 pushd .%{gem_instdir}
-ruby -Ilib:test -e 'Dir.glob "./test/test_*.rb", &method(:require)'
+cp -a %{_builddir}/test test
+
+ruby -Itest -e 'Dir.glob "./test/test_*.rb", &method(:require)'
 popd
 
 %files
 %dir %{gem_instdir}
 %{_bindir}/ronn
-%{gem_instdir}/CHANGES
 %{gem_instdir}/INSTALLING.md
 %license %{gem_instdir}/LICENSE.txt
 %{gem_instdir}/bin
+%exclude %{gem_instdir}/completion
 %{gem_instdir}/config.ru
 %{gem_libdir}
-%exclude %{gem_instdir}/completion
 %exclude %{gem_instdir}/man
 %exclude %{gem_cache}
 %{gem_spec}
@@ -111,13 +100,15 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/AUTHORS
-%{gem_instdir}/Gemfile
+%doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/ronn-ng.gemspec
-%{gem_instdir}/test
 
 %changelog
+* Mon Jan 08 2024 Vít Ondruch <vondruch@redhat.com> - 0.10.1-1
+- Update to Ronn-NG 0.10.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

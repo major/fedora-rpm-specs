@@ -1,10 +1,10 @@
 Name:           perl-YAML-LibYAML-API
-Version:        0.013
-Release:        6%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        Wrapper around the C libyaml library
 License:        MIT
 URL:            https://metacpan.org/release/YAML-LibYAML-API
-Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-LibYAML-API-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-LibYAML-API-v%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -48,7 +48,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n YAML-LibYAML-API-%{version}
+%setup -q -n YAML-LibYAML-API-v%{version}
 
 # Unbundled libyaml
 for F in api.c config.h dumper.c emitter.c loader.c parser.c reader.c \
@@ -98,14 +98,17 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/YAML*
 %{perl_vendorarch}/YAML*
-%{_mandir}/man3/*
+%{_mandir}/man3/YAML::LibYAML::API*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.14.0-1
+- 0.14.0 bump (rhbz#2256874)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

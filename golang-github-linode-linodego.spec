@@ -4,7 +4,7 @@
 
 # https://github.com/linode/linodego
 %global goipath         github.com/linode/linodego
-Version:                1.9.1
+Version:                1.26.0
 
 %gometa
 
@@ -38,7 +38,7 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-%gocheck
+%gocheck -d test/integration
 %endif
 
 %gopkgfiles

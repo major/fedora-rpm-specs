@@ -7,6 +7,9 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/rizsotto/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cmake
 BuildRequires:  cmake(fmt)
 BuildRequires:  cmake(gtest)

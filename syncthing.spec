@@ -1,6 +1,6 @@
 %bcond_with devel
 
-%global basever 1.27.1
+%global basever 1.27.2
 #%%global rcnum   0
 
 Name:           syncthing

@@ -42,6 +42,9 @@ BuildRequires:  kernel-tools-devel
 Requires:       gnome-panel >= 3.41.1
 Requires:       hicolor-icon-theme
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 Gnome Applets component is part of the GnomeFlashback project. It currently
 provides the following applets:

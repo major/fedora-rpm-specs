@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt-FastCalc
-%global cpan_version 0.5017
-Version:        0.501.700
+%global cpan_version 0.5018
+Version:        0.501.800
 Release:        1%{?dist}
 Summary:        Math::BigInt::Calc with some XS for more speed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.501.800-1
+- 0.5018 bump (rhbz#2257058)
+
 * Fri Jan 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.501.700-1
 - 0.5017 bump (rhbz#2256784)
 

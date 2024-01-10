@@ -2,7 +2,7 @@
 
 Name:    lxqt-config
 Summary: Config tools for LXQt desktop suite
-Version: 1.3.0
+Version: 1.4.0
 Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
@@ -25,6 +25,7 @@ BuildRequires: pkgconfig(kscreen2)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: desktop-file-utils
 BuildRequires: xorg-x11-drv-libinput-devel
+BuildRequires: lxqt-menu-data
 %if 0%{?el7}
 BuildRequires:  devtoolset-7-gcc-c++
 %endif
@@ -110,7 +111,6 @@ desktop-file-edit \
 %{_libdir}/lxqt-config/liblxqt-config-cursor.so
 %{_datadir}/icons/*/*
 %{_datadir}/lxqt/icons/*
-%config(noreplace) %{_sysconfdir}/xdg/menus/lxqt-config.menu
 %{_mandir}/man1/lxqt-config*
 
 %files l10n -f lxqt-config.lang -f lxqt-config-appearance.lang -f lxqt-config-brightness.lang -f lxqt-config-cursor.lang -f lxqt-config-file-associations.lang -f lxqt-config-input.lang -f lxqt-config-locale.lang -f lxqt-config-monitor.lang
@@ -123,7 +123,6 @@ desktop-file-edit \
 %dir %{_datadir}/lxqt/translations/lxqt-config-file-associations
 %dir %{_datadir}/lxqt/translations/lxqt-config-input
 %dir %{_datadir}/lxqt/translations/lxqt-config-locale
-%{_datadir}/desktop-directories/lxqt-settings-*.directory
 %{_datadir}/lxqt/translations/lxqt-config-brightness/lxqt-config-brightness_arn.qm
 %{_datadir}/lxqt/translations/lxqt-config-brightness/lxqt-config-brightness_ast.qm
 %{_datadir}/lxqt/translations/lxqt-config-cursor/lxqt-config-cursor_arn.qm
@@ -142,6 +141,9 @@ desktop-file-edit \
 %{_datadir}/lxqt/translations/lxqt-config/lxqt-config_ast.qm
 
 %changelog
+* Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
+- Update version to 1.4.0
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 1.3.0-1
 - Update version to 1.3.0
 

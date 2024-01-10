@@ -100,7 +100,7 @@ Requires:       cmake(Qt6WebEngineWidgets)
 
 
 %build
-%cmake_kf6 -DQT_MAJOR_VERSION=6
+%cmake_kf6
 %cmake_build
 
 

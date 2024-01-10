@@ -11,9 +11,11 @@
 Summary:	Ruby binding of gtksourceview-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	12%{?dist}
-# from README
-License:	LGPLv2
+Release:	13%{?dist}
+# gtksourceview2-3.4.3.gemspec	LGPL-2.1-or-later
+# Other source	LGPL-2.1-or-later
+# SPDX confirmed
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 
@@ -59,10 +61,8 @@ Header files and libraries for building a extension library for the
 rubygem-%{gem_name}
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
 sed -i -e 's|= 3\.4\.3|>= 3.4.3|' %{gem_name}.gemspec
@@ -85,7 +85,7 @@ sed -i \
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags}'"
 export CONFIGURE_ARGS="$CONFIGURE_ARGS --with-pkg-config-dir=$(pwd)%{_libdir}/pkgconfig"
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -109,11 +109,16 @@ install -cpm 644 ./%{_libdir}/pkgconfig/*.pc \
 
 
 # Cleanups
-pushd %{buildroot}
-rm -rf .%{gem_instdir}/ext/
-rm -f .%{gem_instdir}/extconf.rb
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	ext/ \
+	extconf.rb \
+	Rakefile \
+	test/ \
+	*.gemspec \
+	%{nil}
 popd
-
+rm -f %{buildroot}%{gem_cache}
 
 %check
 pushd .%{gem_instdir}
@@ -128,21 +133,21 @@ popd
 
 sed -i test/run-test.rb \
 	-e '\@exit Test::Unit::AutoRunner@s|,[ \t]*File\.join(.*"test")||'
+
+export RUBYLIB=$(pwd)/lib:$(pwd)/test:%{buildroot}%{gem_extdir_mri}
 xvfb-run \
-	ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} ./test/run-test.rb
+	ruby ./test/run-test.rb
 
 %files
 %dir	%{gem_instdir}
 %dir	%{gem_instdir}/lib/
 
-%doc	%{gem_instdir}/[A-Z]*
-%exclude	%{gem_instdir}/Rakefile
+%license	%{gem_instdir}/COPYING.LIB
+%doc	%{gem_instdir}/README.md
 
 %{gem_instdir}/lib/%{gem_name}.rb
 %{gem_extdir_mri}/
 
-%exclude	%{gem_instdir}/*gemspec
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files	devel
@@ -150,11 +155,12 @@ xvfb-run \
 
 %files	doc
 %{gem_docdir}/
-%exclude	%{gem_instdir}/Rakefile
 %{gem_instdir}/sample/
-%exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon Jan  8 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-13
+- SPDX migration
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-12
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

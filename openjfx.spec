@@ -4,7 +4,7 @@
 Name:           openjfx
 Epoch:          3
 Version:        17.0.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Rich client application platform for Java
 
 License:        GPL v2 with exceptions and BSD
@@ -40,6 +40,9 @@ Source26:       pom-swing.xml
 Source27:       pom-swt.xml
 Source28:       pom-web.xml
 Source29:       build.xml
+Patch0: openjfx-c99.patch
+Patch1: openjfx-c99-2.patch
+Patch2: openjfx-c99-3.patch
 
 ExclusiveArch:  %{java_arches}
 
@@ -86,7 +89,7 @@ The media module have been removed due to missing dependencies.
 %global debug_package %{nil}
 
 %prep
-%setup -q -n %{rtdir}
+%autosetup -p1 -n %{rtdir}
 
 #Drop *src/test folders
 rm -rf modules/javafx.{base,controls,fxml,graphics,media,swing,swt,web}/src/test/
@@ -162,6 +165,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Mon Jan 08 2024 Florian Weimer <fweimer@redhat.com> - 3:17.0.0.1-7
+- C compatibility fixes
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:17.0.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

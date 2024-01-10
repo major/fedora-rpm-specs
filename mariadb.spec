@@ -56,7 +56,9 @@
 %bcond_without oqgraph
 
 # PAM authentication plugin
+%if !0%{?flatpak}
 %bcond_without pam
+%endif
 
 # Other plugins
 # S3 storage engine
@@ -86,7 +88,9 @@
 %bcond_without client
 %bcond_without common
 %bcond_without errmsg
+%if !0%{?flatpak}
 %bcond_without test
+%endif
 %bcond_without galera
 %bcond_without backup
 
@@ -797,7 +801,7 @@ if [ %{pcre_bundled_version} != "$pcre_version" ] ; then
 fi
 %else
 # Check if the PCRE version that upstream use, is the same as the one present in system
-pcre_system_version=`pkgconf %{_libdir}/pkgconfig/libpcre2-*.pc --modversion 2>/dev/null | head -n 1`
+pcre_system_version=`pkgconf /usr/%{_lib}/pkgconfig/libpcre2-*.pc --modversion 2>/dev/null | head -n 1`
 
 if [ "$pcre_system_version" != "$pcre_version" ] ; then
   echo -e "\n Warning: Error: Bundled PCRE version is not correct. \n\tSystem version number: $pcre_system_version \n\tUpstream version number: $pcre_version\n"
@@ -860,8 +864,8 @@ fi
          -DCONC_WITH_SSL=%{?with_clibrary:ON}%{!?with_clibrary:NO} \
          -DWITH_SSL=system \
          -DWITH_ZLIB=system \
-         -DLZ4_LIBS=%{_libdir}/liblz4.so \
-         -DLZ4_LIBS=%{?with_lz4:%{_libdir}/liblz4.so}%{!?with_lz4:} \
+         -DLZ4_LIBS=/usr/%{_lib}/liblz4.so \
+         -DLZ4_LIBS=%{?with_lz4:/usr/%{_lib}/liblz4.so}%{!?with_lz4:} \
          -DWITH_INNODB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \
          -DWITH_ROCKSDB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \
          -DPLUGIN_MROONGA=%{?with_mroonga:DYNAMIC}%{!?with_mroonga:NO} \

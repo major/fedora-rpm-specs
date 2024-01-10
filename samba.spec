@@ -146,8 +146,8 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.19.3
-%global baserelease 2
+%global samba_version 4.19.4
+%global baserelease 1
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -740,9 +740,12 @@ Samba VFS module for GlusterFS integration.
 %package gpupdate
 Summary: Samba GPO support for clients
 Requires: cepces
+Requires: cepces-certmonger
 Requires: certmonger
 Requires: %{name}-ldb-ldap-modules = %{samba_depver}
 Requires: python3-%{name} = %{samba_depver}
+# samba-tool needs python3-samba-dc also on non-dc build
+Requires: python3-%{name}-dc = %{samba_depver}
 
 %description gpupdate
 This package provides the samba-gpupdate tool to apply Group Policy Objects
@@ -4475,6 +4478,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 08 2024 Guenther Deschner <gdeschner@redhat.com> - 4.19.4-1
+- resolves: #2257287 - Update to version 4.19.4
+
 * Tue Nov 28 2023 Guenther Deschner <gdeschner@redhat.com> - 4.19.3-2
 - Disable performance co-pilot support for i686
 

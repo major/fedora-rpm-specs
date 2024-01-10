@@ -1,17 +1,15 @@
-%undefine __cmake_in_source_build
-
 Name:           konversation
-Version: 23.08.2
+Version: 24.01.85
 Release: 1%{?dist}
 Summary:        A user friendly IRC client
 
-License:        GPL-2.0-or-later
+License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
 URL:            http://konversation.kde.org/
 %if 0%{?snap}
 # use releaseme script
 Source0:        %{name}-%{version}-%{snap}.tar.bz2
 %else
-Source0:        http://download.kde.org/%{?beta:un}stable/release-service/%{version}%{?beta:-%{beta}}/src/konversation-%{version}%{?beta:-%{beta}}.tar.xz
+Source0:        http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/konversation-%{version}.tar.xz
 %endif
 
 Source1:        konversationrc
@@ -144,7 +142,6 @@ fi
 %{_kf5_datadir}/applications/org.kde.konversation.desktop
 %{_kf5_datadir}/dbus-1/services/org.kde.konversation.service
 %{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kconf_update/konversation*
 %{_kf5_datadir}/knotifications5/konversation.notifyrc
 %{_kf5_datadir}/knsrcfiles/konversation_nicklist_theme.knsrc
 %{_kf5_datadir}/konversation/
@@ -153,6 +150,9 @@ fi
 
 
 %changelog
+* Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
+- 24.01.85 (Qt5)
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

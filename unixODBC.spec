@@ -1,10 +1,12 @@
 Summary: A complete ODBC driver manager for Linux
 Name: unixODBC
-Version: 2.3.11
-Release: 4%{?dist}
+Version: 2.3.12
+Release: 2%{?dist}
 URL: http://www.unixODBC.org/
-# Programs are GPL, libraries are LGPL, except News Server library is GPL.
-License: GPLv2+ and LGPLv2+
+# See README: Programs are GPL, libraries are LGPL
+# News Server library (Drivers/nn/yyparse.c) is GPLv3+
+# (but that one is not compiled nor shipped)
+License: GPL-2.0-or-later and LGPL-2.1-or-later
 
 Source: http://www.unixODBC.org/%{name}-%{version}.tar.gz
 Source1: odbcinst.ini
@@ -12,7 +14,6 @@ Source5: README.dist
 
 Patch8: so-version-bump.patch
 Patch9: keep-typedefs.patch
-Patch10: unixODBC-c99.patch
 
 Conflicts: iodbc
 
@@ -37,9 +38,8 @@ ODBC, you need to install this package.
 
 %prep
 %setup -q
-%patch8 -p1 -b .soname-bump
-%patch9 -p1
-%patch10 -p1
+%patch -P8 -p1 -b .soname-bump
+%patch -P9 -p1
 
 chmod 0644 Drivers/MiniSQL/*.c
 chmod 0644 Drivers/nn/*.c
@@ -101,8 +101,8 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so.*" | sed "s|^$RPM_BUILD_ROOT||" > bas
 find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > devel-so-list
 
 %files -f base-so-list
-%doc README COPYING AUTHORS ChangeLog NEWS doc
-%doc README.dist
+%license COPYING
+%doc README README.dist AUTHORS ChangeLog NEWS doc
 %config(noreplace) %{_sysconfdir}/odbc*
 %{_bindir}/odbcinst
 %{_bindir}/isql
@@ -117,6 +117,47 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 %_libdir/pkgconfig/*.pc
 
 %changelog
+* Fri Jan 05 2024 Honza Horak <hhorak@redhat.com> - 2.3.12-2
+- SPDX migration
+
+* Thu Sep 14 2023 Packit <hello@packit.dev> - 2.3.12-1
+- New Release 2.3.12 (lurcher)
+- Don't check state with shared env (lurcher)
+- Add --enable-singleenv option (lurcher)
+- Allow longer messages via SQLGetDiag (lurcher)
+- Add --enable-utf8ini flag and coding (lurcher)
+- Fix possible seg faults with SQLAPI and pooling (lurcher)
+- Fix possible seg faults with SQLAPI and pooling (lurcher)
+- Remove self-reference (Stefan)
+- Avoid implicit function declarations, for C99 compatibility (Florian Weimer)
+- Fix --enable-stats config error (lurcher)
+- Allow diagnostics to be retrieved on SQL_NO_DATA (Kevin Adler)
+- isql.1: Add information about passwords containing semicolons (Hugh McMaster)
+- isql.1: Various text updates (Hugh McMaster)
+- Export __clear_ini_cache from libodbcinst (lurcher)
+- Revert "Add call to atexit to clear the ini cache" (lurcher)
+- Add call to atexit to clear the ini cache (lurcher)
+- Add extra iusql connectionstring syntax (lurcher)
+- Allow longer connection strings (part 3) (lurcher)
+- Allow longer connection strings (part 2) (lurcher)
+- Allow longer connection strings (lurcher)
+- Fixed Connection String (Stefan)
+- Add extra connection syntax to isql help (lurcher)
+- Add extra logging for ODBCINST connect settings (lurcher)
+- Allow isql to handle SQLPrepare returning SQL_SUCCESS_WITH_INFO (and report warning) (lurcher)
+- Allow isql to handle SQLPrepare returning SQL_SUCCESS_WITH_INFO (lurcher)
+- Allow passing complete connection string into iusql (lurcher)
+- Remove __get_connection from cursor lib (lurcher)
+- Avoid failed build if clock_gettime() is not available (lurcher)
+- Update change log (lurcher)
+- DriverManager/_info.c: Get locale encoding on Windows. (Markus Mützel)
+- DriverManager/drivermanager.h: fix build without threads (Fabrice Fontaine)
+- Fix iconv handle leak with pooling (lurcher)
+- Fix buffer overrun (lurcher)
+- Create SECURITY.md (Nick Gorham)
+- Move to 2.3.12pre (lurcher)
+- Makefile.am: Do not install config.h (Hugh McMaster)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -37,7 +37,7 @@
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2310.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -70,17 +70,14 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: zlib-devel
 BuildRequires: libcap-ng-devel
 
-Recommends: %{name}-logrotate = %version-%release
+Recommends: logrotate
+Obsoletes: rsyslog-logrotate < 8.2310.0-2
+Provides: rsyslog-logrotate = %{version}-%{release}
 Requires: bash >= 2.0
 %{?systemd_ordering}
 
 Provides: syslog
 Obsoletes: sysklogd < 1.5-11
-
-%package logrotate
-Summary: Log rotation for rsyslog
-Requires: %name = %version-%release
-Requires: logrotate >= 3.5.2
 
 %package crypto
 Summary: Encryption support
@@ -245,9 +242,6 @@ and fine grain output format control. It is compatible with stock sysklogd
 and can be used as a drop-in replacement. Rsyslog is simple to set up, with
 advanced features suitable for enterprise-class, encryption-protected syslog
 relay chains.
-
-%description logrotate
-This subpackage contains the default logrotate configuration for rsyslog.
 
 %description crypto
 This package contains a module providing log file encryption and a
@@ -604,6 +598,7 @@ done
 %{_unitdir}/rsyslog.service
 %config(noreplace) %{_sysconfdir}/rsyslog.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/rsyslog
+%config(noreplace) %{_sysconfdir}/logrotate.d/rsyslog
 # plugins
 %{_libdir}/rsyslog/fmhash.so
 %{_libdir}/rsyslog/fmhttp.so
@@ -647,9 +642,6 @@ done
 %if %{with clickhouse}
 %{_libdir}/rsyslog/omclickhouse.so
 %endif
-
-%files logrotate
-%config(noreplace) %{_sysconfdir}/logrotate.d/rsyslog
 
 %files crypto
 %{_bindir}/rscryutil
@@ -766,6 +758,10 @@ done
 
 
 %changelog
+* Thu Jan 04 2024 Attila Lakatos <alakatos@redhat.com> - 8.2310.0-2
+- Move rsyslog related logrotate config to the base package
+  resolves: rhbz#2242243
+
 * Fri Aug 25 2023 Attila Lakatos <alakatos@redhat.com> - 8.2310.0-1
 - Rebase to 8.2310.0
   resolves: rhbz#2232275

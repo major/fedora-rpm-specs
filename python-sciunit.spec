@@ -1,21 +1,15 @@
-%bcond_without tests
+%bcond tests 1
 
 # For scidash
 %global scidash_commit 5d47042d3eb40abcb062ba15f90f64d4d208d433
 %global scidash_shortcommit     %(c=%{scidash_commit}; echo ${c:0:7})
-
-# For sciunit
-# 0.2.7 wasn't tagged correctly, so use commit information
-# https://github.com/scidash/sciunit/issues/208
-%global commit c70f3886f49ebd71bfc8d33c9821f2e40341f3ce
-%global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 %global _description %{expand:
 A framework for validating scientific models by creating
 experimental-data-driven unit tests.}
 
 Name:           python-sciunit
-Version:        0.2.7
+Version:        0.2.8
 Release:        %autorelease
 Summary:        Framework for test-driven validation of scientific models
 
@@ -23,16 +17,11 @@ License:        MIT
 URL:            http://sciunit.io/
 
 # For tagged releases on Github: pypi does not include docs etc.
-#Source0:        https://github.com/scidash/sciunit/archive/v%%{version}/sciunit-%%{version}.tar.gz
-Source0:        https://github.com/scidash/sciunit/archive/%{commit}/sciunit-%{shortcommit}.tar.gz
+Source0:        https://github.com/scidash/sciunit/archive/v%{version}/sciunit-%{version}.tar.gz
 
 # Required for tests
 # https://github.com/scidash/sciunit/blob/0.2.2/test.sh#L3
 Source1:        https://github.com/scidash/scidash/archive/%{scidash_commit}/scidash-%{scidash_shortcommit}.tar.gz
-# getargspec -> getfullargspec
-Patch0:         https://github.com/scidash/sciunit/commit/6116e3517b792889cfe5144379a38dbf4769dfae.patch
-# Replace imp with importlib
-Patch1:         https://github.com/scidash/sciunit/commit/c00b21768edbe1cd734dd1c85f967e2fde136ec3.patch
 
 BuildArch:      noarch
 
@@ -55,17 +44,13 @@ Provides:       bundled(python3dist(cypy)) = 0.2
 %description -n python3-sciunit %_description
 
 %prep
-%autosetup -n sciunit-%{commit} -S git
+%autosetup -n sciunit-%{version} -S git
 
 # Update requirements, our package does not provide bs4
 # Remove version pins
 # Remove backports.tempfile, we use what's in py3
 sed -i -e 's/bs4/beautifulsoup4/' -e '/backports/ d' -e 's/importlib-metadata.*/importlib-metadata/' setup.cfg
 sed -i -e 's/backports.tempfile/tempfile/' sciunit/utils.py
-
-# Fix for compatibility with nbconvert 7.13.0
-# https://github.com/scidash/sciunit/issues/220
-sed -i 's/from nbconvert.preprocessors.execute import CellExecutionError/from nbclient.exceptions import CellExecutionError/' sciunit/utils.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -75,7 +60,7 @@ sed -i 's/from nbconvert.preprocessors.execute import CellExecutionError/from nb
 
 %install
 %pyproject_install
-%pyproject_save_files sciunit
+%pyproject_save_files -l sciunit
 
 %check
 %if %{with tests}

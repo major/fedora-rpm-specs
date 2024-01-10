@@ -1,12 +1,12 @@
 %define binname aria2c
 
 Name:           aria2
-Version:        1.36.0
-Release:        6%{?dist}
+Version:        1.37.0
+Release:        1%{?dist}
 Summary:        High speed download utility with resuming and segmented downloading
 License:        GPLv2+ with exceptions
 URL:            http://aria2.github.io/
-Source0:        https://github.com/tatsuhiro-t/%{name}/releases/download/release-%{version}/%{name}-%{version}.tar.xz
+Source0:        https://github.com/aria2/%{name}/releases/download/release-%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  bison
 BuildRequires:  c-ares-devel
@@ -79,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 %{_mandir}/*/man1/aria2c.1.gz
 
 %changelog
+* Mon Jan 08 2024 Neil Hanlon <neil@shrug.pw> - 1.37.0-1
+- update to 1.37 (fedora#2249918)
+- change URL to aria2 organization as it was moved from the prior org
+
 * Sat Oct 28 2023 Neil Hanlon <neil@shrug.pw> - 1.36.0-6
 - resolves crash due to undefined behavior in GZipEncoder (rhbz #2119478)
 

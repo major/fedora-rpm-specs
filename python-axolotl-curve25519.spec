@@ -12,6 +12,7 @@ URL:            https://github.com/tgalal/python-axolotl-curve25519
 Source0:        %{url}/archive/%{git_tag}/%{git_tag}.tar.gz
 # License file for curve/curve25519-donna.[c|h]
 Source1:	LICENSE.curve25519-donna
+Patch0: python-axolotl-curve25519-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

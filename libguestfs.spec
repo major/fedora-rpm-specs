@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.52.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -724,8 +724,10 @@ if ping -c 3 -w 20 8.8.8.8 && wget http://libguestfs.org -O /dev/null; then
   extra=
 else
   mkdir cachedir repo
+  # For an explanation of what we are doing here, see:
+  # https://lists.fedorahosted.org/archives/list/koji-devel@lists.fedorahosted.org/thread/ZIBY53JAURLT3QRBBJIJJ7EZWLZDE3TI/
   # -n 1 because of RHBZ#980502.
-  find /var/cache/{dnf,yum} -type f -name '*.rpm' -print0 | \
+  find /var/cache/{dnf,libdnf5,yum} -type f -name '*.rpm' -print0 | \
     xargs -0 -n 1 cp -t repo
   createrepo_c repo
   sed -e "s|@PWD@|$(pwd)|" %{SOURCE6} > yum.conf
@@ -1094,6 +1096,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Jan  8 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-2
+- Look for RPMs in /var/cache/libdnf5
+  https://bugzilla.redhat.com/show_bug.cgi?id=2256945#c5
+
 * Thu Jan  4 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-1
 - New upstream stable branch version 1.52.0
 

@@ -81,31 +81,31 @@ Patch3: httpd-2.4.43-deplibs.patch
 # Needed for socket activation and mod_systemd patch
 Patch19: httpd-2.4.53-detect-systemd.patch
 # Features/functional changes
-Patch21: httpd-2.4.48-r1842929+.patch
-Patch22: httpd-2.4.43-mod_systemd.patch
-Patch23: httpd-2.4.53-export.patch
-Patch24: httpd-2.4.43-corelimit.patch
-Patch25: httpd-2.4.54-selinux.patch
-Patch26: httpd-2.4.54-gettid.patch
-Patch27: httpd-2.4.54-icons.patch
-Patch30: httpd-2.4.43-cachehardmax.patch
-Patch34: httpd-2.4.43-socket-activation.patch
-Patch38: httpd-2.4.43-sslciphdefault.patch
-Patch39: httpd-2.4.43-sslprotdefault.patch
-Patch41: httpd-2.4.43-r1861793+.patch
-Patch42: httpd-2.4.48-r1828172+.patch
-Patch45: httpd-2.4.43-logjournal.patch
-Patch46: httpd-2.4.53-separate-systemd-fns.patch
-Patch47: httpd-2.4.58-r1912477+.patch
-Patch48: httpd-2.4.58-r1913912+.patch
-Patch49: httpd-2.4.58-r1914365.patch
+Patch20: httpd-2.4.48-r1842929+.patch
+Patch21: httpd-2.4.43-mod_systemd.patch
+Patch22: httpd-2.4.53-export.patch
+Patch23: httpd-2.4.43-corelimit.patch
+Patch24: httpd-2.4.54-gettid.patch
+Patch25: httpd-2.4.54-icons.patch
+Patch26: httpd-2.4.43-cachehardmax.patch
+Patch27: httpd-2.4.43-socket-activation.patch
+Patch28: httpd-2.4.43-sslciphdefault.patch
+Patch29: httpd-2.4.43-sslprotdefault.patch
+Patch30: httpd-2.4.43-r1861793+.patch
+Patch31: httpd-2.4.48-r1828172+.patch
+Patch32: httpd-2.4.43-logjournal.patch
+Patch33: httpd-2.4.53-separate-systemd-fns.patch
+Patch34: httpd-2.4.58-r1912477+.patch
+Patch35: httpd-2.4.58-r1913912+.patch
+Patch36: httpd-2.4.58-r1914365.patch
+Patch37: httpd-2.4.54-selinux.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
 Patch60: httpd-2.4.43-enable-sslv3.patch
 Patch61: httpd-2.4.58-r1914013.patch
-Patch63: httpd-2.4.46-htcacheclean-dont-break.patch
-Patch65: httpd-2.4.51-r1894152.patch
+Patch62: httpd-2.4.46-htcacheclean-dont-break.patch
+Patch63: httpd-2.4.51-r1894152.patch
 
 # Security fixes
 # Patch200: ...
@@ -254,35 +254,7 @@ written in the Lua programming language.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
-%patch -P2 -p1 -b .apxs
-%patch -P3 -p1 -b .deplibs
-
-%patch -P19 -p1 -b .detectsystemd
-
-%patch -P21 -p1 -b .r1842929+
-%patch -P22 -p1 -b .mod_systemd
-%patch -P23 -p1 -b .export
-%patch -P24 -p1 -b .corelimit
-%patch -P26 -p1 -b .gettid
-%patch -P27 -p1 -b .icons
-%patch -P30 -p1 -b .cachehardmax
-%patch -P34 -p1 -b .socketactivation
-%patch -P38 -p1 -b .sslciphdefault
-%patch -P39 -p1 -b .sslprotdefault
-%patch -P41 -p1 -b .r1861793+
-%patch -P42 -p1 -b .r1828172+
-%patch -P45 -p1 -b .logjournal
-%patch -P46 -p1 -b .separatesystemd
-%patch -P25 -p1 -b .selinux
-%patch -P47 -p1 -b .r1912477+
-%patch -P48 -p1 -b .r1913912
-%patch -P49 -p1 -b .r1914365
-
-%patch -P60 -p1 -b .enable-sslv3
-%patch -P61 -p1 -b .r1914013
-%patch -P63 -p1 -b .htcacheclean-dont-break
-%patch -P65 -p1 -b .r1894152
+%autosetup -p1 -S gendiff
 
 # Patch in the vendor string
 sed -i '/^#define PLATFORM/s/Unix/%{vstring}/' os/unix/os.h
@@ -345,16 +317,6 @@ autoheader && autoconf || exit 1
         support/apxs.in
 
 %set_build_flags
-
-# Hard-code path to links to avoid unnecessary builddep
-export LYNX_PATH=/usr/bin/links
-
-%ifarch aarch64
-# The configure check for epoll_create() is failing. httpd/apr only
-# actually uses epoll_create1() so this test could be smarter. Work
-# around it for now.
-export ac_cv_func_epoll_create=yes
-%endif
 
 # Build the daemon
 ./configure \

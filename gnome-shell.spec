@@ -185,7 +185,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 
 %files -f %{name}.lang
 %license COPYING
-%doc README.md
+%doc NEWS README.md
 %{_bindir}/gnome-shell
 %{_bindir}/gnome-extensions
 %{_bindir}/gnome-shell-extension-prefs

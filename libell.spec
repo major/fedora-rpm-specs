@@ -1,8 +1,8 @@
 Name:           libell
 Version:        0.61
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Embedded Linux library
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://01.org/ell
 Source0:        https://www.kernel.org/pub/linux/libs/ell/ell-%{version}.tar.xz
 
@@ -56,6 +56,9 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %changelog
+* Mon Jan  8 2024 Davide Caratti <dcaratti@redhat.com> - 0.61-2
+- Change specfile to use SPDX identifier
+
 * Sat Dec 16 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.61-1
 - Update to 0.61
 

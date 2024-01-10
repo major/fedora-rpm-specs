@@ -57,6 +57,9 @@ Requires:       hicolor-icon-theme
 
 Suggests:       %{name}-doc
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 Gnome Panel is a component that is part of GnomeFlashback and provides panels
 and default applets for the desktop. A panel is a horizontal or vertical bar

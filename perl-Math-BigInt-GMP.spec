@@ -1,5 +1,5 @@
 Name:           perl-Math-BigInt-GMP
-Version:        1.7000
+Version:        1.7001
 Release:        1%{?dist}
 Summary:        Use the GMP library for Math::BigInt routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.7001-1
+- 1.7001 bump (rhbz#2257057)
+
 * Tue Jan 02 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.7000-1
 - 1.7000 bump (rhbz#2255972)
 

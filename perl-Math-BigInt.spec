@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt
 Epoch:          1
-%global cpan_version 2.003001
+%global cpan_version 2.003002
 # Keep 4-digit version to compete with perl.spec
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
 Release:        1%{?dist}
@@ -99,13 +99,16 @@ make test
 %license LICENSE
 # NEW file is useless
 %doc BUGS CHANGES CREDITS examples GOALS HISTORY README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Math*
+%{_mandir}/man3/Math::Big*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0030.02-1
+- 2.003002 bump (rhbz#2257059)
+
 * Tue Jan 02 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0030.01-1
 - 2.003001 bump (rhbz#2255925)
 

@@ -1,7 +1,7 @@
 Summary:       Libraries to move files to a trash-folder on delete
 Name:          libtrash
-Version:       3.7
-Release:       5%{?dist}
+Version:       3.8
+Release:       1%{?dist}
 License:       GPL-2.0-or-later
 
 URL:           https://pages.stern.nyu.edu/~marriaga/software/libtrash
@@ -9,7 +9,6 @@ Source:        https://pages.stern.nyu.edu/~marriaga/software/libtrash/%{name}-%
 
 Patch0:        libtrash-3.2-defaults.patch
 Patch1:        libtrash-3.3-license.patch
-Patch2: libtrash-c99.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -62,6 +61,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/{BUILD,INSTALL}
 %{_libdir}/libtrash.so
 
 %changelog
+* Mon Jan 08 2024 Lukáš Zaoral <lzaoral@redhat.com> - 3.8-1
+- rebase to latest version (rhbz#2257191)
+
 * Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 3.7-5
 - Fix C compatibility issue (#2256620)
 
