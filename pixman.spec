@@ -2,8 +2,8 @@
 %define gitrev 8ff7213f39edc1b2b8b60d6b0cc5d5f14ca1928d
 
 Name:           pixman
-Version:        0.42.2
-Release:        2%{?dist}
+Version:        0.43.0
+Release:        1%{?dist}
 Summary:        Pixel manipulation library
 
 # SPDX
@@ -65,6 +65,9 @@ sed -i 's/120/600/' test/meson.build
 %{_libdir}/pkgconfig/pixman-1.pc
 
 %changelog
+* Tue Jan 09 2024 José Expósito <jexposit@redhat.com> - 0.43.0-1
+- Update to 0.43.0
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com>
 - SPDX migration: license is already SPDX compatible
 

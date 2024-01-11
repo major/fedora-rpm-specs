@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.02.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -107,6 +107,8 @@ BuildRequires:    make
 #Patch000: example000.patch
 Patch: ghostscript-10.02.1-txtwrite-device-needs-to-countdown-the-device-on-tex.patch
 Patch: ghostscript-10.02.1-PostScript-Fix-selectdevice.patch
+# https://git.ghostscript.com/?p=ghostpdl.git;a=commitdiff;h=b7beb19ad06e
+Patch: 0001-Bug-707130-Cast-to-void-to-avoid-compiler-warning.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -420,6 +422,9 @@ done
 # =============================================================================
 
 %changelog
+* Tue Jan 09 2024 Zdenek Dohnal <zdohnal@redhat.com> - 10.02.1-5
+- fix FTBFS with GCC 14
+
 * Tue Nov 07 2023 Michael J Gruber <mjg@fedoraproject.org> - 10.02.1-4
 - fix txtwrite device and /selectdevice
 

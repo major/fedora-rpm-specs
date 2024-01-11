@@ -16,7 +16,7 @@
 %if 0%{?epel} || 0%{?fedora}
 %define webkit 1
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} < 40
 %define herqq 1
 %endif
 %if 0%{?fedora} < 24
@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 42%{?dist}
+Release: 43%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -909,6 +909,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Tue Jan 09 2024 Than Ngo <than@redhat.com> - 6:4.14.38-43
+- Fixed bz#2257100, dependency issue
+
 * Tue Nov 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6:4.14.38-42
 - Fix build with libxml2 2.12.0
 

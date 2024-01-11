@@ -9,7 +9,7 @@
 Name:           pidgin-chime
 Summary:        Pidgin/libpurple protocol plugin for Amazon Chime
 Version:        1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPLv2
 URL:            https://github.com/awslabs/%{name}
@@ -131,6 +131,9 @@ make %{?_smp_mflags} check
 %endif
 
 %changelog
+* Tue Jan 09 2024 František Zatloukal <fzatlouk@redhat.com> - 1.5-2
+- Rebuilt for evolution-data-server soname version bump
+
 * Thu Nov 16 2023 David Woodhouse <dwmw2@infradead.org> - 1.5-1
 - Update to 1.5 (fix login, meeting joins)
 

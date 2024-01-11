@@ -3,7 +3,7 @@
 
 Name:		aqsis
 Version:	1.8.2
-Release:	53%{?dist}
+Release:	54%{?dist}
 Summary:	Open source 3D rendering solution adhering to the RenderMan standard
 
 License:	GPLv2+ and LGPLv2+
@@ -146,7 +146,7 @@ integration with third-party applications.
   -DAQSIS_BOOST_THREAD_LIBRARY_NAME=boost_thread-mt \
   -DAQSIS_BOOST_WAVE_LIBRARY_NAME=boost_wave-mt \
   -DAQSIS_ENABLE_THREADING:BOOL=ON \
-  -DCMAKE_CXX_FLAGS="$CXXFLAGS -DBOOST_FILESYSTEM_VERSION=3 -pthread" \
+  -DCMAKE_CXX_FLAGS="$CXXFLAGS -DBOOST_FILESYSTEM_VERSION=3 -DBOOST_TIMER_ENABLE_DEPRECATED -pthread" \
   -DAQSIS_USE_EXTERNAL_TINYXML:BOOL=OFF
 
 %cmake_build
@@ -239,6 +239,9 @@ desktop-file-install --vendor "" --delete-original \
 
 
 %changelog
+* Wed Dec 06 2023 Patrick Palka <ppalka@redhat.com> - 1.8.2-54
+* Fix build with boost-1.83.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

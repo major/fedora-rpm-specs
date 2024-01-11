@@ -4,7 +4,7 @@
 %bcond_with docs
 
 Name:           python-pydata-sphinx-theme
-Version:        0.14.4
+Version:        0.15.1
 Release:        1%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
@@ -90,11 +90,7 @@ sed -i 's,https://pydata-sphinx-theme\.readthedocs\.io/en/latest/,,' docs/conf.p
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
 %generate_buildrequires
-%if %{with docs}
-%pyproject_buildrequires -x test,doc
-%else
-%pyproject_buildrequires -x test
-%endif
+%pyproject_buildrequires -x test%{?with_docs:,doc}
 
 %build
 export YARN_CACHE_FOLDER="$PWD/.package-cache"
@@ -131,6 +127,9 @@ cd -
 %endif
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 0.15.1-1
+- Version 0.15.1
+
 * Mon Nov 27 2023 Jerry James <loganjerry@gmail.com> - 0.14.4-1
 - Version 0.14.4
 

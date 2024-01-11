@@ -5,7 +5,7 @@
 %global gnome_desktop_version                   44.0
 %global glib2_version                           2.68.0
 %global gtk4_version                            3.24.27
-%global mutter_version                          45~beta
+%global mutter_version                          46~alpha
 %global gsettings_desktop_schemas_version       40~rc
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
@@ -18,6 +18,10 @@ Summary:        Window management and application launching for GNOME
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+
+# Build against mutter API version 14
+# https://gitlab.gnome.org/GNOME/gnome-kiosk/-/merge_requests/33
+Patch:          0001-Build-against-mutter-API-version-14.patch
 
 Provides:       firstboot(windowmanager) = %{name}
 
@@ -35,7 +39,7 @@ BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-desktop-4) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
-BuildRequires:  pkgconfig(libmutter-13) >= %{mutter_version}
+BuildRequires:  pkgconfig(libmutter-14) >= %{mutter_version}
 
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}

@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only and LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -51,7 +51,7 @@ Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}
 # Fix pkiparser.py to work with Python 3.12
 Patch0: 0001-Handle-removal-of-ConfigParser.readfp-in-Python-3.12.patch
 
-%if 0%{?fedora} && 0%{?fedora} > 35
+%if 0%{?fedora} > 35 || 0%{?rhel} > 9
 ExclusiveArch: %{java_arches}
 %else
 ExcludeArch: i686
@@ -98,6 +98,16 @@ ExcludeArch: i686
 %bcond_without ca
 %bcond_without est
 %bcond_without kra
+%if 0%{?rhel}
+%bcond_with ocsp
+%bcond_with tks
+%bcond_with tps
+%bcond_with javadoc
+%bcond_with theme
+%bcond_with meta
+%bcond_with tests
+%bcond_with debug
+%else
 %bcond_without ocsp
 %bcond_without tks
 %bcond_without tps
@@ -106,6 +116,7 @@ ExcludeArch: i686
 %bcond_without meta
 %bcond_without tests
 %bcond_without debug
+%endif
 
 # Don't build console unless --with console is specified.
 %bcond_with console
@@ -224,8 +235,8 @@ BuildRequires:    freeipa-healthcheck-core
 BuildRequires:    nss-tools
 BuildRequires:    openssl
 
-# description for top-level package (if there is a separate meta package)
-%if "%{name}" != "%{product_id}"
+# description for top-level package (if there is no separate meta package)
+%if %{without meta}
 %description
 
 %{product_name} is an enterprise software system designed
@@ -241,9 +252,8 @@ to manage enterprise Public Key Infrastructure deployments.
   * Automatic Certificate Management Environment (ACME) Responder
   * Enrollment over Secure Transport (EST) Responder
 
-%endif
+%else
 
-%if %{with meta}
 %if "%{name}" != "%{product_id}"
 ################################################################################
 %package -n       %{product_id}
@@ -748,7 +758,7 @@ Provides:         pki-server-theme = %{version}-%{release}
 Obsoletes:        %{product_id}-server-theme < %{version}-%{release}
 Provides:         %{product_id}-server-theme = %{version}-%{release}
 
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 38 || 0%{?rhel} > 9
 Requires:         fontawesome4-fonts-web
 %else
 Requires:         fontawesome-fonts-web
@@ -872,7 +882,7 @@ pkgs=base\
 
 # Unbundle the FontAwesome fonts
 rm %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 38 || 0%{?rhel} > 9
 ln -s ../../../fonts/fontawesome4/fontawesome-webfont.woff \
     %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
 %else
@@ -1132,6 +1142,10 @@ fi
 %{_mandir}/man8/pki-healthcheck.8.gz
 %{_datadir}/pki/setup/
 %{_datadir}/pki/server/
+%if %{without theme}
+%exclude %{_datadir}/pki/CS_SERVER_VERSION
+%exclude %{_datadir}/pki/common-ui/
+%endif
 
 # with server
 %endif
@@ -1287,6 +1301,10 @@ fi
 
 ################################################################################
 %changelog
+* Wed Nov 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 11.4.3-2.2
+- Disable unwanted components in RHEL builds
+- Update conditionals for RHEL 10
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.3-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

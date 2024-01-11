@@ -1,8 +1,8 @@
 %global pypi_name distro
 
 Name:           python-%{pypi_name}
-Version:        1.8.0
-Release:        6%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Linux Distribution - a Linux OS platform information API
 
 License:        Apache-2.0
@@ -60,6 +60,20 @@ Suggests:       /usr/bin/lsb_release
 %pytest
 
 %changelog
+* Sun Dec 24 2023 Packit <hello@packit.dev> - 1.9.0-1
+- Optimize some repo metastuff and prepare v1.9.0 (#364) (nir0s)
+- Actions(deps): Bump actions/setup-python from 4 to 5 (#363) (dependabot[bot])
+- Test on modern versions of CPython and PyPy and macOS (#362) (Christian Clauss)
+- Actions(deps): Bump actions/checkout from 3 to 4 (#361) (dependabot[bot])
+- Refactor `distro.info()` method to return an `InfoDict` (#360) (SCC/楊志璿)
+- Ignore the file '/etc/ec2_version' (Pritam Kulkarni)
+- Add Debian Testing to the tests (#356) (Harshula Jayasuriya)
+- Ignore the file '/etc/board-release' (#353) (Pedro Lamas)
+- Add support for ALT Linux Server 10.1 distribution (#354) (Alexander Stepchenko)
+- Run Python 3.6 on Ubuntu 20.04 for CI and bump isort (#355) (Samuel FORESTIER)
+- Update archlinux resource for tests (Saltaformajo)
+- Resolves rhbz#2255740
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

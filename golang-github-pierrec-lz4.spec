@@ -3,7 +3,7 @@
 
 # https://github.com/pierrec/lz4
 %global goipath         github.com/pierrec/lz4
-Version:                4.1.19
+Version:                4.1.21
 
 %gometa -L
 

@@ -1,10 +1,14 @@
 Name: libqmi
-Version: 1.32.4
+Version: 1.34.0
 Release: 3%{?dist}
 Summary: Support library to use the Qualcomm MSM Interface (QMI) protocol
 License: LGPL-2.1-or-later
 URL: http://freedesktop.org/software/libqmi
 Source: https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/%{version}/%{name}-%{version}.tar.bz2
+
+# upstream patch for big endian issue
+# https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/commit/6662764338d3127924cfefaa9cf1b0cc4f90a189
+Patch0: 6662764338d3127924cfefaa9cf1b0cc4f90a189.patch
 
 BuildRequires: meson >= 0.53
 BuildRequires: gcc
@@ -95,6 +99,9 @@ cp -a src/qmicli/qmicli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Tue Jan 09 2024 Dennis Gilmore <dennis@ausil.us> - 1.34.0-1
+- update to 1.34.0
+
 * Thu Nov  2 2023 Íñigo Huguet <ihuguet@redhat.com> - 1.32.4-3
 - migrated to SPDX license
 

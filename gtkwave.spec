@@ -1,6 +1,6 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.117
+Version:	3.3.118
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
@@ -74,15 +74,15 @@ install -D -m 644 -p share/icons/gtkwave_256x256x32.png \
 	%{buildroot}%{_datadir}/icons/hicolor/256x256/apps/gtkwave.png
 
 # Appdata
-install -D -m 644 -p share/appdata/gtkwave.appdata.xml \
-	%{buildroot}%{_datadir}/appdata/gtkwave.appdata.xml
+install -D -m 644 -p share/appdata/io.github.gtkwave.GTKWave.metainfo.xml \
+	%{buildroot}%{_datadir}/appdata/io.github.gtkwave.GTKWave.metainfo.xml
 
 # Include extra docs
 install -p -m 644 AUTHORS %{buildroot}%{_pkgdocdir}/
 install -p -m 644 ChangeLog %{buildroot}%{_pkgdocdir}/
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.gtkwave.GTKWave.metainfo.xml
 
 %files
 %license COPYING LICENSE.TXT
@@ -103,7 +103,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_bindir}/vzt2vcd
 %{_bindir}/vztminer
 %{_bindir}/xml2stems
-%{_datadir}/appdata/gtkwave.appdata.xml
+%{_datadir}/appdata/io.github.gtkwave.GTKWave.metainfo.xml
 %{_datadir}/applications/gtkwave.desktop
 %{_datadir}/glib-2.0/schemas/com.geda.gtkwave.gschema.xml
 %dir %{_datadir}/icons/gnome/
@@ -187,6 +187,59 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Tue Jan  9 2024 Paul Howarth <paul@city-fan.org> - 3.3.118-1
+- Update to 3.3.118
+  - Update xml2stems to handle newer "loc" vs. "fl" xml tags
+  - Change preg_regex_c_1 decl to use regex_t* as datatype
+  - Move gtkwave.appdata.xml to io.github.gtkwave.GTKWave.metainfo.xml
+  - Fixed popen security advisories:
+    - TALOS-2023-1786 (CVE-2023-35963, CVE-2023-35960, CVE-2023-35964,
+		       CVE-2023-35959, CVE-2023-35961, CVE-2023-35962)
+  - Fixed FST security advisories:
+    - TALOS-2023-1777 (CVE-2023-32650)
+    - TALOS-2023-1783 (CVE-2023-35704, CVE-2023-35703, CVE-2023-35702)
+    - TALOS-2023-1785 (CVE-2023-35956, CVE-2023-35957, CVE-2023-35958,
+		       CVE-2023-35955)
+    - TALOS-2023-1789 (CVE-2023-35969, CVE-2023-35970)
+    - TALOS-2023-1790 (CVE-2023-35992)
+    - TALOS-2023-1791 (CVE-2023-35994, CVE-2023-35996, CVE-2023-35997,
+		       CVE-2023-35995)
+    - TALOS-2023-1792 (CVE-2023-35128)
+    - TALOS-2023-1793 (CVE-2023-36747, CVE-2023-36746)
+    - TALOS-2023-1797 (CVE-2023-36864)
+    - TALOS-2023-1798 (CVE-2023-36915, CVE-2023-36916)
+  - Fixed evcd2vcd security advisories:
+    - TALOS-2023-1803 (CVE-2023-34087)
+  - Fixed VCD security advisories:
+    - TALOS-2023-1804 (CVE-2023-37416, CVE-2023-37419, CVE-2023-37420,
+		       CVE-2023-37418, CVE-2023-37417)
+    - TALOS-2023-1805 (CVE-2023-37447, CVE-2023-37446, CVE-2023-37445,
+		       CVE-2023-37444, CVE-2023-37442, CVE-2023-37443)
+    - TALOS-2023-1806 (CVE-2023-37576, CVE-2023-37577, CVE-2023-37573,
+		       CVE-2023-37578, CVE-2023-37575, CVE-2023-37574)
+    - TALOS-2023-1807 (CVE-2023-37921, CVE-2023-37923, CVE-2023-37922)
+  - Fixed VZT security advisories:
+    - TALOS-2023-1810 (CVE-2023-37282)
+    - TALOS-2023-1811 (CVE-2023-36861)
+    - TALOS-2023-1812 (CVE-2023-38618, CVE-2023-38621, CVE-2023-38620,
+		       CVE-2023-38619, CVE-2023-38623, CVE-2023-38622)
+    - TALOS-2023-1813 (CVE-2023-38649, CVE-2023-38648)
+    - TALOS-2023-1814 (CVE-2023-38651, CVE-2023-38650)
+    - TALOS-2023-1815 (CVE-2023-38653, CVE-2023-38652)
+    - TALOS-2023-1816 (CVE-2023-35004)
+    - TALOS-2023-1817 (CVE-2023-39235, CVE-2023-39234)
+  - Fixed LXT2 security advisories:
+    - TALOS-2023-1818 (CVE-2023-39273, CVE-2023-39271, CVE-2023-39274,
+		       CVE-2023-39275, CVE-2023-39272, CVE-2023-39270)
+    - TALOS-2023-1819 (CVE-2023-34436)
+    - TALOS-2023-1820 (CVE-2023-39316, CVE-2023-39317)
+    - TALOS-2023-1821 (CVE-2023-35057)
+    - TALOS-2023-1822 (CVE-2023-35989)
+    - TALOS-2023-1823 (CVE-2023-38657)
+    - TALOS-2023-1824 (CVE-2023-39413, CVE-2023-39414)
+    - TALOS-2023-1826 (CVE-2023-39443, CVE-2023-39444)
+    - TALOS-2023-1827 (CVE-2023-38583)
+
 * Mon Aug 14 2023 Paul Howarth <paul@city-fan.org> - 3.3.117-1
 - Update to 3.3.117
   - Fix stems reader processing code broken in 3.3.114

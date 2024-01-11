@@ -91,6 +91,8 @@ The documentation, for the most recent version of %{name}, can be found at
 %setup -q -c
 #
 # xrst.toml
+# This is not a git repository so suppress the warning that could not double
+# check that all the files with xrst commands were included.
 echo ''                   >> CppAD-%{version}/xrst.toml
 echo '[input_files]'      >> CppAD-%{version}/xrst.toml
 echo 'data = [ ]'         >> CppAD-%{version}/xrst.toml
@@ -99,6 +101,11 @@ echo 'data = [ ]'         >> CppAD-%{version}/xrst.toml
 # run xrst to create the documentation files in the directory above
 mkdir CppAD-%{version}/build
 xrst --version
+number_jobs=$(echo %{?_smp_mflags} | sed -e 's|[^0-9]*\([0-9]*\)[^0-9]*|\1|')
+if [ "$number_jobs" == '' ]
+then
+   number_jobs='1'
+fi
 xrst \
    --config_file CppAD-%{version}/xrst.toml \
    --local_toc \
@@ -106,6 +113,7 @@ xrst \
    --html_theme sphinx_rtd_theme \
    --index_page_name user_guide \
    --group_list default app \
+   --number_jobs $number_jobs \
    --suppress_spell_warnings
 #
 # CppAD-%%{version}/build/html
@@ -150,6 +158,22 @@ if [ "%{_arch}" == 'ppc64le' ]
 then
     sed -i.bak CppAD-%{version}/example/utility/to_string.cpp \
         -e 's|ok *&= *floating<long double>();|// &|'  
+fi
+# -----------------------------------------------------------------------------
+# Some patches for 32 bit systems that should not be necessary once
+# cppad-20240000.2 is available.
+echo "_arch = %{_arch}"
+if [ "%{_arch}" == 'i386' ] || [ "%{_arch}" == 'i686' ]
+then
+   # Add padding to block_t structure when compiling for these arch values 
+   sed -i.bak  \
+      CppAD-%{version}/include/cppad/utility/thread_alloc.hpp \
+      -e 's|^\( *\)void[*]\( *\)next_;|&\n\1void*\2not_used_;|'
+   #
+   # avoid redefinition of a template specialization
+   sed -i.bak  \
+      CppAD-%{version}/include/cppad/local/val_graph/op_hash_table.hpp \
+      -e 's|# if ! CPPAD_TAPE_ADDR_TYPE_IS_SIZE_T|# if 0|'
 fi
 # -----------------------------------------------------------------------------
 # build
@@ -260,6 +284,13 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Tue Jan 09 2024 Brad Bell <bradbell at seanet dot com> - 20240000.1-1
+- thread_alloc.hpp: i386 i686: fix allignment for doubles
+- op_hash_table: i386 i686: avoid second specialization of is_pod for same type.
+- xrst.toml: add comment about why we are adding to this file.
+- xrst command: speed up parallel build by settting number_jobs.
+
+
 * Mon Jan 08 2024 Brad Bell <bradbell at seanet dot com> - 20240000.1-1
 - Upstream fix of bug found by build on buildvm-x86-16.iad2.fedoraproject.org
 

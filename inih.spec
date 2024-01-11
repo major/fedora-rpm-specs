@@ -1,6 +1,6 @@
 Name:     inih
 Version:  57
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Simple INI file parser library
 
 License:  BSD-3-Clause
@@ -17,11 +17,18 @@ The inih package provides simple INI file parser which is only a couple of
 pages of code, and it was designed to be small and simple, so it's good for
 embedded systems.
 
+%package cpp
+Summary: INIReader C++ library
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description cpp
+This package contains the INIReader C++ library which provides a C++ interface
+for inih.
 
 %package devel
 Summary:  Development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-
+Requires: %{name}-cpp%{?_isa} = %{version}-%{release}
 
 %description devel
 This package contains development files for %{name}.
@@ -51,6 +58,8 @@ embedded systems.
 %license LICENSE.txt
 %doc README.md
 %{_libdir}/lib%{name}.so.0
+
+%files cpp
 %{_libdir}/libINIReader.so.0
 
 
@@ -64,6 +73,9 @@ embedded systems.
 
 
 %changelog
+* Sat Dec  2 2023 Daan De Meyer <daan.j.demeyer@gmail.com> - 57-3
+- Move INIReader C++ library to inih-cpp subpackage
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

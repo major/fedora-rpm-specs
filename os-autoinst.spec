@@ -37,11 +37,15 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
+
+# https://github.com/os-autoinst/os-autoinst/pull/2429
+# Fix a 90 second delay running very long commands at serial console
+Patch:          0001-script_run-use-bigger-buffer-for-very-long-serial-co.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -254,6 +258,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Tue Jan 09 2024 Adam Williamson <awilliam@redhat.com> - 4.6^20231222gitd525e04-3
+- Backport PR #2429 to fix issue running long commands at serial console
+
 * Wed Jan 03 2024 Adam Williamson <awilliam@redhat.com> - 4.6^20231222gitd525e04-2
 - Recommend ffmpeg-free, not ffmpeg
 

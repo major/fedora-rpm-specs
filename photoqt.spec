@@ -1,5 +1,5 @@
 Name:           photoqt
-Version:        3.4
+Version:        4.1
 Release:        %autorelease
 Summary:        A fast Qt image viewer
 
@@ -7,9 +7,7 @@ Summary:        A fast Qt image viewer
 # BSD-3-Clause: cplusplus/scripts/simplecrypt.*
 License:        GPL-2.0-or-later AND BSD-3-Clause
 URL:            http://photoqt.org/
-Source:         http://photoqt.org/pkgs/%{name}-%{version}.tar.gz
-# Fix build with exiv2-0.28.0
-Patch:          23e03360adefebadbccfb4ac4f1628caeea216f.patch
+Source:         https://photoqt.org/downloads/source/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -17,31 +15,29 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  freeimage-plus-devel
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
-BuildRequires:  pkgconfig(GraphicsMagick++)
+BuildRequires:  pkgconfig(Magick++)
 BuildRequires:  pkgconfig(IL)
-BuildRequires:  pkgconfig(Qt5)
-BuildRequires:  pkgconfig(Qt5Designer)
-BuildRequires:  pkgconfig(Qt5Multimedia)
-BuildRequires:  pkgconfig(Qt5Svg)
-BuildRequires:  pkgconfig(exiv2)
+BuildRequires:  cmake(Qt6)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(exiv2)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(libraw)
-BuildRequires:  pkgconfig(phonon4qt5)
-BuildRequires:  pkgconfig(poppler-qt5)
-BuildRequires:  pkgconfig(pugixml)
+BuildRequires:  cmake(phonon4qt6)
+BuildRequires:  pkgconfig(poppler-qt6)
+BuildRequires:  cmake(pugixml)
 BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(vips)
 BuildRequires:  python3-chromecast
 BuildRequires:  python3-devel
 
-Requires:       qt5-qtquickcontrols
-Requires:       qt5-qtquickcontrols2
-Requires:       qt5-qtgraphicaleffects
-Requires:       qt5-qtmultimedia
-Requires:       qt5-qtcharts
+Requires:       qt6-qtdeclarative
+Requires:       qt6-qtmultimedia
+Requires:       qt6-qtcharts
 Requires:       python3-chromecast
 
 Recommends:     xcftools
-Recommends:     kf5-kimageformats
+Recommends:     kf6-kimageformats
 
 %description
 PhotoQt is a fast and highly configurable image viewer with a simple and
@@ -52,8 +48,6 @@ nice interface.
 
 %build
 %cmake -DVIDEO_MPV=OFF\
-       -DGRAPHICSMAGICK=ON\
-       -DIMAGEMAGICK=OFF
 %cmake_build
 
 %install

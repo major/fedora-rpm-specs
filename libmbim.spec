@@ -1,16 +1,10 @@
 Name: libmbim
-Version: 1.28.4
-Release: 3%{?dist}
+Version: 1.30.0
+Release: 1%{?dist}
 Summary: Support library for the Mobile Broadband Interface Model protocol
 License: LGPL-2.1-or-later
 URL: https://gitlab.freedesktop.org/mobile-broadband/libmbim/
 Source: https://gitlab.freedesktop.org/mobile-broadband/libmbim/-/archive/%{version}/%{name}-%{version}.tar.bz2
-
-# rh #2110589 -- FCC unLock support for Dell DW5931e & DW5823e WWAN 5G
-Patch0: 0001-intel-mutual-authentication-new-service-fcc-lock.patch
-
-# rh #2142252 - Dell DW5931e enablement
-Patch1: 0002-intel-tools-new-service-trace-config.patch
 
 BuildRequires: meson >= 0.53
 BuildRequires: gcc
@@ -98,6 +92,9 @@ cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Tue Jan 09 2024 Dennis Gilmore <dennis@ausil.us> - 1.30.0-1
+- update to 1.30.0
+
 * Thu Nov  2 2023 Íñigo Huguet <ihuguet@redhat.com> - 1.28.4-3
 - migrate to SPDX license
 

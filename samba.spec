@@ -147,7 +147,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.4
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -239,11 +239,10 @@ Source14:       samba.pamd
 Source15:       usershares.conf.vendor
 Source16:       samba-systemd-sysusers.conf
 Source17:       samba-usershares-systemd-sysusers.conf
+Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-
-Requires(pre): /usr/sbin/groupadd
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
@@ -1419,6 +1418,7 @@ echo "d /run/ctdb 755 root root" > %{buildroot}%{_tmpfilesdir}/ctdb.conf
 install -d -m 0755 %{buildroot}%{_sysusersdir}
 install -m 0644 %{SOURCE16} %{buildroot}%{_sysusersdir}/samba.conf
 install -m 0644 %{SOURCE17} %{buildroot}%{_sysusersdir}/samba-usershares.conf
+install -m 0644 %{SOURCE18} %{buildroot}%{_sysusersdir}/samba-winbind.conf
 
 install -d -m 0755 %{buildroot}%{_sysconfdir}/sysconfig
 install -m 0644 packaging/systemd/samba.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/samba
@@ -1533,11 +1533,8 @@ export WINBINDD_DONT_LOG_STDOUT=1
 %systemd_postun_with_restart nmb.service
 
 %pre common
-%if 0%{?fedora} || 0%{?rhel} > 8
+# This creates the group 'printadmin'
 %sysusers_create_compat %{SOURCE16}
-%else
-getent group printadmin >/dev/null || groupadd -r printadmin || :
-%endif
 
 %post common
 %{?ldconfig}
@@ -1607,14 +1604,12 @@ fi
 %ldconfig_scriptlets test
 
 %pre usershares
-%if 0%{?fedora} || 0%{?rhel} > 8
+# This creates the group 'usershares'
 %sysusers_create_compat %{SOURCE17}
-%else
-getent group usershares >/dev/null || groupadd -r usershares || :
-%endif
 
 %pre winbind
-/usr/sbin/groupadd -g 88 wbpriv >/dev/null 2>&1 || :
+# This creates the group 'wbpriv'
+%sysusers_create_compat %{SOURCE18}
 
 %post winbind
 %systemd_post winbind.service
@@ -3490,6 +3485,7 @@ fi
 %{_libdir}/samba/libnss-info-samba4.so
 %{_libdir}/samba/libidmap-samba4.so
 %{_sbindir}/winbindd
+%{_sysusersdir}/samba-winbind.conf
 %attr(750,root,wbpriv) %dir /var/lib/samba/winbindd_privileged
 %{_unitdir}/winbind.service
 %{_prefix}/lib/NetworkManager
@@ -4478,6 +4474,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 09 2024 Andreas Schneider <asn@redhat.com> - 4.19.4-2
+- resolves: rhbz#2256326 - Create all groups using systemd
+
 * Mon Jan 08 2024 Guenther Deschner <gdeschner@redhat.com> - 4.19.4-1
 - resolves: #2257287 - Update to version 4.19.4
 

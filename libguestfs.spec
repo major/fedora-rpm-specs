@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.52.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -727,8 +727,12 @@ else
   # For an explanation of what we are doing here, see:
   # https://lists.fedorahosted.org/archives/list/koji-devel@lists.fedorahosted.org/thread/ZIBY53JAURLT3QRBBJIJJ7EZWLZDE3TI/
   # -n 1 because of RHBZ#980502.
-  find /var/cache/{dnf,libdnf5,yum} -type f -name '*.rpm' -print0 | \
-    xargs -0 -n 1 cp -t repo
+  dirs=
+  for d in /var/cache/{dnf,libdnf5,yum} ; do
+    if test -d $d ; then dirs="$dirs $d" ; fi
+  done
+  test -n "$dirs"
+  find $dirs -type f -name '*.rpm' -print0 | xargs -0 -n 1 cp -t repo
   createrepo_c repo
   sed -e "s|@PWD@|$(pwd)|" %{SOURCE6} > yum.conf
   extra=--with-supermin-packager-config=$(pwd)/yum.conf
@@ -1096,6 +1100,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Jan  9 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-3
+- Make cache directory find more robust
+  /var/cache/libdnf5 may be missing if dnf5 is not around
+
 * Mon Jan  8 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-2
 - Look for RPMs in /var/cache/libdnf5
   https://bugzilla.redhat.com/show_bug.cgi?id=2256945#c5

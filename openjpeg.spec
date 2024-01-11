@@ -9,7 +9,7 @@
 
 Name:    openjpeg
 Version: 1.5.1
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: JPEG 2000 command line tools
 
 License: BSD
@@ -55,6 +55,7 @@ Patch202: openjpeg-1.5.1-CVE-2013-6045.patch
 Patch203: openjpeg-1.5.1-CVE-2013-1447.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1037948
 Patch204: openjpeg-1.5.1-CVE-2013-6887.patch
+Patch205: openjpeg-c99.patch
 
 BuildRequires: make
 %if 0%{?use_cmake}
@@ -122,6 +123,7 @@ autoreconf -i -f
 %patch202 -p1 -b .CVE-2013-6045
 %patch203 -p1 -b .CVE-2013-1447
 %patch204 -p1 -b .CVE-2013-6887
+%patch -P 205 -p1
 
 
 %build
@@ -208,6 +210,9 @@ test -f %{buildroot}%{_includedir}/openjpeg.h
 
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 1.5.1-36
+- C compatibility fix (#2257404)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

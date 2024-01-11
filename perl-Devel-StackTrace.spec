@@ -1,8 +1,8 @@
 Name:           perl-Devel-StackTrace
 Summary:        Perl module implementing stack trace and stack trace frame objects
-Version:        2.04
+Version:        2.05
 Epoch:          1
-Release:        16%{?dist}
+Release:        1%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Devel-StackTrace
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Devel-StackTrace-%{version}.tar.gz
@@ -16,9 +16,8 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -54,6 +53,9 @@ data available from caller() as of Perl 5.6.0.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jan 09 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 1:2.05-1
+- Upstream update.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.04-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

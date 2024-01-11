@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:    newsboat
-Version: 2.33
+Version: 2.34
 Release: %{autorelease}
 Summary: RSS/Atom feed reader for the text console
 
@@ -13,6 +13,7 @@ Source1: https://newsboat.org/releases/%{version}/%{name}-%{version}.tar.xz.asc
 Source2: https://newsboat.org/newsboat.pgp
 
 Patch:  0001-make-do-not-require-Cargo.lock.patch
+Patch:  0002-libnewsboat-relax-requirements.patch
 ## # Following patches should be included in next release; prune when updating
 
 # Source file verification

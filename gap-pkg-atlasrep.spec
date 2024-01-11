@@ -10,7 +10,7 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.1.7
+Version:        2.1.8
 Release:        1%{?dist}
 Summary:        GAP interface to the Atlas of Group Representations
 
@@ -142,6 +142,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 2.1.8-1
+- Version 2.1.8
+
 * Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 2.1.7-1
 - Version 2.1.7
 

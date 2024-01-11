@@ -1,13 +1,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
+%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 Name:           gnome-shell
-Version:        45.2
+Version:        46~alpha
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeShell
-Source0:        https://download.gnome.org/sources/gnome-shell/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-shell/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch: gnome-shell-favourite-apps-firefox.patch
@@ -30,7 +31,7 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 45.0
+%define mutter_version 46~alpha
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2
@@ -134,6 +135,10 @@ Requires:       xdg-desktop-portal-gnome
 Recommends:     gnome-tour
 # needed for captive portal helper
 Recommends:     webkitgtk6.0%{?_isa}
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# xdg-desktop-portal and xdg-desktop-portal-gtk no longer have i686
+ExcludeArch:    %{ix86}
 
 Provides:       desktop-notification-daemon = %{version}-%{release}
 Provides:       PolicyKit-authentication-agent = %{version}-%{release}

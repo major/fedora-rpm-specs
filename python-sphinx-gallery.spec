@@ -1,11 +1,11 @@
 %global srcname sphinx-gallery
 
 Name:           python-%{srcname}
-Version:        0.11.1
-Release:        4%{?dist}
+Version:        0.15.0
+Release:        2%{?dist}
 Summary:        Sphinx extension to automatically generate an examples gallery
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://sphinx-gallery.github.io/stable/index.html
 Source0:        https://github.com/sphinx-gallery/sphinx-gallery/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -19,55 +19,65 @@ it into an examples gallery.
 %package -n     python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 # For tests
-BuildRequires:  python%{python3_pkgversion}-coverage
+BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-absl-py
 BuildRequires:  python%{python3_pkgversion}-matplotlib
-BuildRequires:  python%{python3_pkgversion}-pillow
-BuildRequires:  python%{python3_pkgversion}-pytest-cov
-BuildRequires:  python%{python3_pkgversion}-pytest-runner
-BuildRequires:  python%{python3_pkgversion}-scipy
-BuildRequires:  python%{python3_pkgversion}-sphinx
-Requires:       python%{python3_pkgversion}-matplotlib
-Requires:       python%{python3_pkgversion}-pillow
-Requires:       python%{python3_pkgversion}-sphinx
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
 A Sphinx extension that builds an HTML version of any Python script and puts
 it into an examples gallery.
 
 
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} recommender
+%pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} show_api_usage
+
+
 %prep
-%setup -qn %{srcname}-%{version}
-# Remove bundled eggs
-rm -rf %{srcname}.egg-info
-# Test uses network
-sed -i -e '/^addopt/s/$/ -k "not test_embed_code_links_get_data and not test_embed_links"/' setup.cfg
+%autosetup -n %{srcname}-%{version}
+
+# No coverage report
+sed -i -e 's/--cov[^ ]*//g' pyproject.toml
+
+%py3_shebang_fix bin/sphx_glr_python_to_jupyter.py
+
+%generate_buildrequires
+# extras with missing deps:
+#  "show_memory": ["memory_profiler"],
+#  "jupyterlite": ["jupyterlite_sphinx"],
+%pyproject_buildrequires -x recommender -x show_api_usage
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files sphinx_gallery
 # No need for copy_sphinxgallery.sh
-rm -r %{buildroot}%{_bindir}
+rm -r %{buildroot}%{_bindir}/copy_sphinxgallery.sh
 
 
 %check
-%__python3 setup.py test
+# test_dummy_image requires jupyterlite_sphinx optional dep
+# test_embed_code_links_get_data requires network
+%pytest -v -k 'not test_dummy_image and not test_embed_code_links_get_data'
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
-%doc README.rst
-%{python3_sitelib}/sphinx_gallery-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/sphinx_gallery/
+%files -n python%{python3_pkgversion}-%{srcname} -f %pyproject_files
+%doc README.rst CHANGES.rst
+%{_bindir}/sphx_glr_python_to_jupyter.py
 
 
 %changelog
+* Tue Jan 09 2024 Jerry James <loganjerry@gmail.com> - 0.15.0-2
+- Convert License tag to SPDX
+- Ship sphx_glr_python_to_jupyter.py
+
+* Tue Jan 09 2024 Orion Poplawski <orion@nwra.com> - 0.15.0-1
+- Update to 0.15.0
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,6 +10,10 @@ URL:        https://timewarrior.net/
 Source0:    https://github.com/GothenburgBitFactory/timewarrior/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:    README.Fedora
 
+# https://github.com/lauft/timew-bashcompletion/pull/10
+Patch:      0001-fix-revert-completion-using-dom.patch
+
+BuildRequires:  git-core
 BuildRequires:  cmake gcc-c++
 BuildRequires:  rubygem-asciidoctor
 
@@ -22,7 +26,7 @@ Please read the /usr/share/doc/timew/README.Fedora file on using the included
 extensions.
 
 %prep
-%autosetup -p1
+%autosetup -S git
 cp -v %{SOURCE1} .
 chmod -x doc/holidays/*
 for lib in doc/holidays/*; do

@@ -1,5 +1,5 @@
 Name:           mkosi
-Version:        19
+Version:        20
 Release:        %autorelease
 Summary:        Create bespoke OS images
 

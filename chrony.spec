@@ -20,7 +20,7 @@ Source2:        https://chrony-project.org/gpgkey-8F375C7E8D0EE125A3D3BD51537E2B
 Source3:        chrony.dhclient
 Source4:        chrony.sysusers
 # simulator for test suite
-Source10:       https://github.com/mlichvar/clknetsim/archive/%{clknetsim_ver}/clknetsim-%{clknetsim_ver}.tar.gz
+Source10:       https://gitlab.com/chrony/clknetsim/-/archive/master/clknetsim-%{clknetsim_ver}.tar.gz
 %{?gitpatch:Patch0: chrony-%{version}%{?prerelease}-%{gitpatch}.patch.gz}
 
 # add distribution-specific bits to DHCP dispatcher
@@ -94,7 +94,7 @@ sed -i '/^ExecStart/a SELinuxContext=system_u:system_r:chronyd_restricted_t:s0' 
 # regenerate the file from getdate.y
 rm -f getdate.c
 
-mv clknetsim-%{clknetsim_ver}* test/simulation/clknetsim
+mv clknetsim-*-%{clknetsim_ver}* test/simulation/clknetsim
 
 %build
 %configure \

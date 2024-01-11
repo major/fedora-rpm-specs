@@ -6,7 +6,7 @@
 
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
-Version: 3.23.8
+Version: 3.23.12
 Release: 1%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
@@ -199,9 +199,6 @@ Patch57: hplip-plugin-udevissues.patch
 #   removed
 # - /lib64/libm.so is not symlink but ld script, which cannot be used in dlopen()
 Patch58: hplip-no-libhpmud-libm-warnings.patch
-# hplip 3.22.6 doesn't use the correct arguments for snprintf
-# reported as https://bugs.launchpad.net/hplip/+bug/1982185
-Patch59: hplip-snprintf-format.patch
 Patch60: hplip-plugin-script.patch
 # C99 compatibility fixes by fweimer - use explicit int
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
@@ -238,6 +235,9 @@ Patch69: hplip-no-readfp.patch
 # fix SyntaxWarning from python3.12
 # https://bugs.launchpad.net/hplip/+bug/2029480
 Patch70: hplip-use-raw-strings.patch
+# FTBFS GCC 14
+# https://bugs.launchpad.net/hplip/+bug/2048780
+Patch71: hplip-hpaio-gcc14.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -563,8 +563,6 @@ done
 %patch -P 57 -p1 -b .hpplugin-udevperms
 # 2080235 - Misleading errors about missing shared libraries when scanning
 %patch -P 58 -p1 -b .no-libm-libhpmud-warn
-# hplip 3.22.6 doesn't use proper arguments for snprintf
-%patch -P 59 -p1 -b .snprintf-format
 %patch -P 60 -p1 -b .plugin-patch
 # C99 compatibility fixes by fweimer - use explicit int
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
@@ -594,6 +592,9 @@ done
 # fix warnings
 # upstream https://bugs.launchpad.net/hplip/+bug/2029480
 %patch -P 70 -p1 -b .raw-strings
+# FTBFS GCC 14
+# https://bugs.launchpad.net/hplip/+bug/2048780
+%patch -P 71 -p1 -b .hpaio-gcc14
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -965,6 +966,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon Jan 08 2024 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.12-1
+- 2252302 - hplip-3.23.12 is available
+
 * Tue Oct 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.8-1
 - 2239465 - hplip-3.23.8 is available
 

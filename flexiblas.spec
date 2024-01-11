@@ -14,20 +14,19 @@
 %global default_backend64 %{default_backend}64
 
 %global major_version 3
-%global minor_version 3
-%global patch_version 1
+%global minor_version 4
+%global patch_version 0
 %global laapi_version 3.11.0
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
-# GPLv3+ with an exception for the BLAS/LAPACK interface
-# https://www.gnu.org/licenses/gpl-faq.en.html#LinkingOverControlledInterface
+# LGPLv3+
 # libcscutils/ is LGPLv2+
 # contributed/ and test/ are BSD (Open MPI variant)
-License:        GPL-3.0-or-later WITH GPL-3.0-interface-exception AND LGPL-2.0-or-later AND BSD-3-Clause-Open-MPI
+License:        LGPL-3.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause-Open-MPI
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
 Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -304,6 +303,7 @@ find %{buildroot}%{_sysconfdir}/%{name}*.d/* -type f \
     -exec sed -i 's PThread -threads gI' {} \;
 
 %check
+export CTEST_OUTPUT_ON_FAILURE=1
 export FLEXIBLAS_TEST=%{buildroot}%{_libdir}/%{name}/lib%{name}_%{default_backend}.so
 make -C build test
 %if 0%{?__isa_bits} == 64
@@ -438,6 +438,10 @@ make -C build64 test
 %endif
 
 %changelog
+* Tue Jan 09 2024 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.0-1
+- Update to 3.4.0
+- License changes to LGPL-3.0-or-later
+
 * Tue Jul 25 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-5
 - Add Supplements to help pull wrappers if libraries are installed directly
 

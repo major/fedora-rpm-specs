@@ -31,7 +31,6 @@ BuildRequires:  cmake(KF6WindowSystem)
 
 Requires:       kf6-kirigami
 Requires:       kf6-kirigami-addons
-Requires:       qmltermwidget
 Recommends:     dejavu-fonts-all
 
 %description

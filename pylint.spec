@@ -1,3 +1,7 @@
+# Remove -s from Python shebang - ensure that extensions installed with pip
+# to user locations are seen and properly loaded
+%undefine _py3_shebang_s
+
 %global forgeurl https://github.com/PyCQA/pylint
 %global basever 3.0.3
 #%%global prever b0

@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        5.247.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -42,6 +42,11 @@ Provides:       kf6-kirigami2-devel%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
@@ -75,9 +80,15 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKirigami.so
 %{_kf6_libdir}/libKirigamiDelegates.so
 %{_kf6_libdir}/libKirigamiPlatform.so
-
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
+- add doc package for KF6 API
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

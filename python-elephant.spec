@@ -1,14 +1,14 @@
 # Try to download data, so a few are disabled.
 # We test these in mock using --with=net_tests --enable-network
-%bcond_with net_tests
-
-%global pypi_name elephant
+%bcond net_tests 0
 
 Name:       python-elephant
-Version:    0.12.0
+Version:    1.0.0
 Release:    %autorelease
-Summary:    Elephant is a package for analysis of electrophysiology data in Python
-License:    BSD
+Summary:    Analysis of electrophysiology data, using Neo data structures
+# SPDX
+# elephant/spade_src is MIT licensed
+License:    BSD-3-Clause AND MIT
 URL:        http://neuralensemble.org/elephant
 Source0:    %{pypi_source elephant}
 # All changes are here
@@ -19,6 +19,10 @@ Patch0:     0001-use-fedora-build-flags.patch
 # https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec
 ExcludeArch: s390x
 
+# Stop building for i686 (leaf package)
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 # Includes a modified copy of fim, so we cannot use the system copy of pyfim.
 # https://github.com/NeuralEnsemble/elephant/issues/471#issuecomment-1098908479
 
@@ -26,17 +30,32 @@ BuildRequires:  git-core
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
 
-%description
-Elephant - Electrophysiology Analysis Toolkit Elephant is a package for the
-analysis of neurophysiology data, based on Neo.
+%global _description %{expand:
+Elephant (Electrophysiology Analysis Toolkit) is an open-source,
+community centered library for the analysis of electrophysiological
+data in the Python programming language. The focus of Elephant is on
+generic analysis functions for spike train data and time series
+recordings from electrodes, such as the local field potentials (LFP) or
+intracellular voltages. In addition to providing a common platform for
+analysis code from different laboratories, the Elephant project aims to
+provide a consistent and homogeneous analysis framework that is built
+on a modular foundation. Elephant is the direct successor to Neurotools
+and maintains ties to complementary projects such as OpenElectrophy and
+spykeviewer.
+
+Elephant was developed in part in the Human Brain Project, funded from
+the European Union’s Horizon 2020 Framework Programme for Research and
+Innovation under Specific Grant Agreements No. 720270, No. 785907 and
+No. 945539 (Human Brain Project SGA1, SGA2, and SGA3).}
+
+%description %_description
+
 
 %package -n     python3-elephant
 Summary:        %{summary}
 
+%description -n python3-elephant %_description
 
-%description -n python3-elephant
-Elephant - Electrophysiology Analysis Toolkit Elephant is a package for the
-analysis of neurophysiology data, based on Neo.
 
 %prep
 %autosetup -n elephant-%{version} -S git
@@ -55,15 +74,19 @@ done
 echo >> requirements/requirements-tests.txt
 cat requirements/requirements-extras.txt >> requirements/requirements-tests.txt
 
+
 %generate_buildrequires
 %pyproject_buildrequires -r requirements/requirements-tests.txt
+
 
 %build
 %pyproject_wheel
 
+
 %install
 %pyproject_install
-%pyproject_save_files elephant
+%pyproject_save_files -l elephant
+
 
 %check
 # One test fails generally: reported upstream
@@ -75,25 +98,35 @@ cat requirements/requirements-extras.txt >> requirements/requirements-tests.txt
 # fails on aarch64
 # reported upstream: https://github.com/NeuralEnsemble/elephant/issues/479
 %ifarch %{arm64}
-k="${k:-}${k:+ and }not test_welch_psd_multidim_input and not test_welch_cohere_multidim_input and not test_multitaper_cohere_perfect_cohere"
+k="${k:-}${k:+ and }not test_welch_psd_multidim_input"
+k="${k:-}${k:+ and }not test_welch_cohere_multidim_input"
+k="${k:-}${k:+ and }not test_multitaper_cohere_perfect_cohere"
 %endif
 
 # fails on ppc64le
 %ifarch %{power64}
-k="${k:-}${k:+ and} not test_multitaper_cohere_perfect_cohere"
+k="${k:-}${k:+ and }not test_multitaper_cohere_perfect_cohere"
 %endif
 
 %if %{without net_tests}
 # Disable tests that download bits
-k="${k:-}${k:+ and }not test_repr and not test__UE_surrogate and not test_spike_contrast_with_Izhikevich_network_auto and not test_Riehle_et_al_97_UE and not test_multitaper_psd_against_nitime and not test_WPLI_ and not test_victor_purpura_matlab_comparison_"
+k="${k:-}${k:+ and }not test_repr"
+k="${k:-}${k:+ and }not test__UE_surrogate"
+k="${k:-}${k:+ and }not test_spike_contrast_with_Izhikevich_network_auto"
+k="${k:-}${k:+ and }not test_Riehle_et_al_97_UE"
+k="${k:-}${k:+ and }not test_multitaper_psd_against_nitime"
+k="${k:-}${k:+ and }not test_WPLI_"
+k="${k:-}${k:+ and }not test_victor_purpura_matlab_comparison_"
+k="${k:-}${k:+ and }not test_pairwise_spectral_granger"
+k="${k:-}${k:+ and }not test_sttc_validation_test"
 %endif
 
-# serial
-# MPI tests hang in mock and builders, not sure why, so we skip them for the moment
-%pytest -v -k "${k} and not test_parallel"
+%pytest -v ${k+-k }"${k-}"
+
 
 %files -n python3-elephant -f %{pyproject_files}
-%license LICENSE.txt elephant/spade_src/LICENSE
+%license elephant/spade_src/LICENSE
+
 
 %changelog
 %autochangelog

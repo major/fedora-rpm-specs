@@ -1,8 +1,8 @@
 %global pkgname qpa
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.34
-Release:        5%{?dist}
+Version:        1.35
+Release:        1%{?dist}
 Summary:        GAP package for quivers and path algebras
 
 License:        GPL-2.0-or-later
@@ -47,6 +47,9 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+# Fix a broken reference
+sed -i 's/Basic Construction/Constructing Quivers/' doc/chapter_path_algebras.xml
+
 %build
 export LC_ALL=C.UTF-8
 mkdir ../pkg
@@ -88,6 +91,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 1.35-1
+- Version 1.35
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

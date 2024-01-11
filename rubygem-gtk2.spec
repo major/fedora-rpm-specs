@@ -11,9 +11,10 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	16%{?dist}
-# from README
-License:	LGPLv2
+Release:	17%{?dist}
+# gemspec	LGPL-2.1-or-later
+# SPDX confirmed
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # Assign non-zero unique ID to each string (especially for id_relative_callbacks),
@@ -98,9 +99,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 sed -i -e 's|= 3\.4\.3|>= 3.4.3|' %{gem_name}-%{version}.gemspec
 
 # Patches and etc
-%if 0%{?fedora} >= 38
-%patch0 -p1 -b .nonzero_id
-%endif
+%patch -P0 -p1 -b .nonzero_id
 
 # Fix wrong dir
 grep -rl /usr/local/bin sample | \
@@ -144,9 +143,15 @@ install -cpm 644 ./%{_libdir}/pkgconfig/*.pc \
 
 
 # Cleanups
-pushd %{buildroot}
-rm -rf .%{gem_instdir}/ext/
-rm -f .%{gem_instdir}/extconf.rb
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Rakefile \
+	ext/ \
+	extconf.rb \
+	*.gemspec \
+	test/ \
+	%{nil}
 popd
 
 %check
@@ -178,15 +183,13 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 %dir	%{gem_instdir}/lib/
 %dir	%{gem_instdir}/lib/%{gem_name}/
 
-%doc	%{gem_instdir}/[A-Z]*
-%exclude	%{gem_instdir}/Rakefile
+%license	%{gem_instdir}/COPYING.LIB
+%doc	%{gem_instdir}/README.md
 
 %{gem_instdir}/lib/%{gem_name}.rb
 %{gem_instdir}/lib/%{gem_name}/base.rb
 %{gem_extdir_mri}/
 
-%exclude	%{gem_cache}
-%exclude	%{gem_instdir}/*gemspec
 %{gem_spec}
 
 %files	devel
@@ -199,11 +202,12 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 
 %files	doc
 %{gem_dir}/doc/%{gem_name}-%{version}
-%exclude	%{gem_instdir}/Rakefile
 %{gem_instdir}/sample/
-%{gem_instdir}/test/
 
 %changelog
+* Tue Jan 09 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-17
+- SPDX migration
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-16
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

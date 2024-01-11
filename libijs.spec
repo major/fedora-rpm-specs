@@ -13,7 +13,7 @@
 Name:             libijs
 Summary:          IJS Raster Image Transport Protocol Library
 Version:          0.35
-Release:          19%{?dist}
+Release:          20%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -36,6 +36,8 @@ BuildRequires:    libtool
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
+# https://git.ghostscript.com/?p=ghostpdl.git;a=commitdiff;h=eb770edd1c
+Patch: 0001-Squash-compiler-warning-in-ijs-code.patch
 
 
 # Downstream patches -- these should be always included when doing rebase:
@@ -133,6 +135,9 @@ install -m 0644 -p ijs_spec.pdf %{buildroot}%{_docdir}/%{name}
 # =============================================================================
 
 %changelog
+* Tue Jan 09 2024 Zdenek Dohnal <zdohnal@redhat.com> - 0.35-20
+- fix FTBFS with GCC 14
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

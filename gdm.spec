@@ -79,6 +79,10 @@ Requires: /usr/bin/dbus-run-session
 
 %{?sysusers_requires_compat}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# xdg-desktop-portal and xdg-desktop-portal-gtk no longer have i686
+ExcludeArch:    %{ix86}
+
 Provides: gdm-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description

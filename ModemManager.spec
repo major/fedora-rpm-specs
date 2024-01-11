@@ -4,8 +4,8 @@
 %global qrtr_version %(pkg-config --modversion qrtr-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.20.6
-Release: 3%{?dist}
+Version: 1.22.0
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -37,7 +37,7 @@ BuildRequires: glib2-devel >= 2.56
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: gtk-doc
 BuildRequires: libgudev1-devel >= 232
-BuildRequires: libmbim-devel >= 1.28.0
+BuildRequires: libmbim-devel >= 1.30.0
 BuildRequires: libqmi-devel >= 1.32.0
 BuildRequires: libqrtr-glib-devel >= 1.0.0
 BuildRequires: systemd
@@ -190,6 +190,9 @@ cp -a cli/mmcli-completion %{buildroot}%{_datadir}/bash-completion/completions/m
 
 
 %changelog
+* Tue Jan 09 2024 Dennis Gilmore <dennis@ausil.us> - 1.22.0-1
+- update to 1.22.0
+
 * Wed Jul 30 2023 Tao Jin <tao-j@outlook.com> - 1.20.6-3
 - Rebuilt for RHBZ#2226577
 

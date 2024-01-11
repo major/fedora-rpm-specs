@@ -8,8 +8,8 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.12.1
-Release:        3%{?dist}
+Version:        3.12.2
+Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -573,6 +573,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 3.12.2-1
+- Version 3.12.2
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 3.12.1-3
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

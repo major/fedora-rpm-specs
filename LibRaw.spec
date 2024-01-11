@@ -3,11 +3,12 @@
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
 Version: 0.21.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause and (CDDL-1.0 or LGPL-2.1-only)
 URL: https://www.libraw.org
 Source0: %{url}/data/%{name}-%{version}.tar.gz
 Patch0: LibRaw-pkgconfig.patch
+Patch1: e231b01a49ce37d2add75e2a8f7ece5602f00457.patch
 
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(lcms2)
@@ -108,7 +109,10 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
-* Thu Dec 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.2
+* Tue Jan 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.21.2-2
+- CR3-Qstep table: avoid wrong 64-bit code generation patch
+
+* Thu Dec 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.2-1
 - 0.21.2, enable zlib support.
 
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 0.21.1-7

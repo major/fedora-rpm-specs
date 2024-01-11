@@ -20,7 +20,7 @@
 # to handle RCs
 %global ghc_release %{version}
 
-%global base_ver 4.18.1.0
+%global base_ver 4.18.2.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.2.0
@@ -50,12 +50,12 @@
 %global ghc_unregisterized_arches s390 %{mips} riscv64
 
 Name: %{ghc_name}
-Version: 9.6.3
+Version: 9.6.4
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -91,11 +91,6 @@ Patch13: text2-allow-ghc8-arm.patch
 
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
-
-# s390x
-# https://gitlab.haskell.org/ghc/ghc/-/issues/24163
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662
-Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
 
 # Debian patches:
 # bad according to upstream
@@ -320,15 +315,15 @@ This provides the hadrian tool which can be used to build ghc.
 %if %{defined ghclibdir}
 %ghc_lib_subpackage -d -l BSD-3-Clause Cabal-3.10.1.0
 %ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-3.10.1.0
-%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.5.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.6.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.2
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.5.3
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.7
-%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.100.4
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.200.1
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
@@ -353,7 +348,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause text-2.0.2
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.12.2
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.0
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.1.0
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.4.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -412,10 +407,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %if %{defined el9}
 %patch -P16 -p1 -b .orig
 %endif
-%endif
-
-%ifarch s390x
-%patch -P17 -p1 -b .orig
 %endif
 
 #debian
@@ -834,6 +825,9 @@ make test
 
 
 %changelog
+* Tue Jan  9 2024 Jens Petersen <petersen@redhat.com> - 9.6.4-13
+- https://downloads.haskell.org/ghc/9.6.4/docs/users_guide/9.6.4-notes.html
+
 * Sat Nov 25 2023 Jens Petersen <petersen@redhat.com> - 9.6.3-12
 - s390x: fix llvm alignment in data sections (@stefansf (IBM))
   which should fix certain runtime crashes (#2248097)

@@ -9,7 +9,7 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.6
+Version:        1.3.7
 Release:        1%{?dist}
 Summary:        GAP Character Table Library
 
@@ -139,6 +139,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 1.3.7-1
+- Version 1.3.7
+
 * Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 1.3.6-1
 - Version 1.3.6
 

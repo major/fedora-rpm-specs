@@ -2,16 +2,16 @@
 %undefine _hardened_build
 
 Name:           polyml
-Version:        5.9
-Release:        6%{?dist}
+Version:        5.9.1
+Release:        1%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
 License:        LGPL-2.1-or-later
 URL:            https://www.polyml.org/
 Source0:        https://github.com/polyml/polyml/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix Overflow exception packet in Real.toInt in the interpreter
-# See https://github.com/polyml/polyml/issues/164
-Patch0: https://github.com/%{name}/%{name}/commit/020d4d7.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 # The standard solution to kill the libtool-induced RPATH is to edit the
 # libtool script to kill it.  However, that causes problems for us as we need
@@ -107,9 +107,14 @@ make check
 
 %files libs
 %license COPYING
-%{_libdir}/libpolyml.so.13*
+%{_libdir}/libpolyml.so.14*
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 5.9.1-1
+- Version 5.9.1
+- Drop upstreamed patch to fix segfault in the bytecode interpreter
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

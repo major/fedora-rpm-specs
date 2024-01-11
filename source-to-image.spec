@@ -3,7 +3,7 @@
 %global with_bundled 1
 
 %global goipath github.com/openshift/source-to-image
-Version:        1.3.6
+Version:        1.3.9
 
 %gometa
 
@@ -29,25 +29,6 @@ Source0:        %{gosource}
 BuildRequires:  btrfs-progs-devel
 %endif
 BuildRequires:  device-mapper-devel
-%if ! 0%{?with_bundled}
-#BuildRequires:  golang(github.com/containers/image/v5/transports/alltransports)
-#BuildRequires:  golang(github.com/containers/image/v5/types)
-BuildRequires:  golang(github.com/docker/distribution/reference)
-BuildRequires:  golang(github.com/docker/docker/api/types)
-BuildRequires:  golang(github.com/docker/docker/api/types/container)
-BuildRequires:  golang(github.com/docker/docker/api/types/network)
-BuildRequires:  golang(github.com/docker/docker/api/types/strslice)
-BuildRequires:  golang(github.com/docker/docker/cli/config)
-BuildRequires:  golang(github.com/docker/docker/client)
-BuildRequires:  golang(github.com/docker/docker/pkg/jsonmessage)
-BuildRequires:  golang(github.com/docker/docker/pkg/stdcopy)
-BuildRequires:  golang(github.com/docker/go-connections/tlsconfig)
-BuildRequires:  golang(github.com/moby/buildkit/frontend/dockerfile/parser)
-BuildRequires:  golang(github.com/spf13/cobra)
-BuildRequires:  golang(github.com/spf13/pflag)
-BuildRequires:  golang(golang.org/x/net/context)
-BuildRequires:  golang(k8s.io/klog/v2)
-%endif
 # for tests
 BuildRequires:  git-core
 %if ! 0%{?with_devel}
@@ -78,6 +59,9 @@ Obsoletes: %{name}-unit-test < %{version}-%{release}
 %goprep -k
 %else
 %goprep
+
+%generate_buildrequires
+%go_generate_buildrequires
 %endif
 
 %build
@@ -120,6 +104,9 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 %endif
 
 %changelog
+* Thu Nov 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.9-1
+- Update to v1.3.9 (#2177650)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

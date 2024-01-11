@@ -130,6 +130,10 @@ Patch3:         0003-t-lib-git-svn-try-harder-to-find-a-port.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2247532#c8
 Patch4:         0001-send-email-avoid-duplicate-specification-warnings.patch 
 
+# Configurates Apache test server to use `DavLockDBType sdbm`
+# Prevents t5540 failures on i686, s390x and ppc64le
+Patch5:         git-test-apache-davlockdbtype-config.patch
+
 %if %{with docs}
 # pod2man is needed to build Git.3pm
 BuildRequires:  /usr/bin/pod2man

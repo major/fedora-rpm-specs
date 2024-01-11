@@ -1,12 +1,10 @@
 Name:           perl-HTML-TreeBuilder-LibXML
-Version:        0.26
-Release:        29%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        HTML::TreeBuilder and XPath compatible interface with libxml
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-TreeBuilder-LibXML
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOKUHIROM/HTML-TreeBuilder-LibXML-%{version}.tar.gz
-Patch0:         HTML-TreeBuilder-LibXML-0.26-empty-string-test.patch
-
 BuildArch:      noarch
 BuildRequires:  perl-generators
 BuildRequires:  perl(base)
@@ -39,7 +37,6 @@ HTML::TreeBuilder::LibXML is drop-in-replacement for HTML::TreeBuilder::XPath.
 
 %prep
 %setup -q -n HTML-TreeBuilder-LibXML-%{version}
-%patch0
 
 %build
 /usr/bin/perl Build.PL --installdirs=vendor
@@ -60,6 +57,11 @@ HTML::TreeBuilder::LibXML is drop-in-replacement for HTML::TreeBuilder::XPath.
 %{_mandir}/man3/HTML*
 
 %changelog
+* Tue Jan 09 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.27-1
+- Update to 0.27
+- Drop upstreamed patch
+- Migrate to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

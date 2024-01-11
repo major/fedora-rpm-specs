@@ -2,7 +2,7 @@
 %global uuid com.github.phase1geo.%{name}
 
 Name:           minder
-Version:        1.15.6
+Version:        1.16.0
 Release:        %autorelease
 Summary:        Mind-mapping application
 

@@ -19,6 +19,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove criterion dependency, only for unused benchmarks
 # * exclude extra docs and maintainer-only files from the package
+# * accept vm-memory-0.14 for the vmm-sys-util security update
 Patch:          linux-loader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

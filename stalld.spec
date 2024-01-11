@@ -1,6 +1,6 @@
 Name:		stalld
-Version:	1.16
-Release:	7%{?dist}
+Version:	1.19
+Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -11,6 +11,9 @@ BuildRequires:	glibc-devel
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	systemd-rpm-macros
+BuildRequires:	bpftool
+BuildRequires:	clang
+BuildRequires:	libbpf-devel
 
 Requires:	systemd
 Requires:	libbpf
@@ -31,7 +34,7 @@ allow 10 microseconds of runtime for 1 second of clock time.
 
 %install
 %make_install DOCDIR=%{_docdir} MANDIR=%{_mandir} BINDIR=%{_bindir} DATADIR=%{_datadir} VERSION=%{version}
-%make_install -C redhat UNITDIR=%{_unitdir}
+%make_install -C systemd UNITDIR=%{_unitdir}
 
 %files
 %{_bindir}/%{name}
@@ -52,6 +55,43 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Jan 09 2024 Clark Williams <williams@redhat.com> - 1.19.1
+- clean up Makefile install logic and add .bz2 to .gitignore
+- modify Makefiles so install works with relative paths
+- rename 'redhat' to 'systemd' and remove redhat packaging logic
+- update SPDX tags to non-deprecated values
+- stalld: Add -a/--affinity option
+- Adding SPDX license info to each file
+- man/stalld.8:  change starving threshold to match code
+- utils: Fix freeing of invalid pointer
+- add bpftool as BuildRequires
+
+* Mon Dec 25 2023 Clark Williams <williams@redhat.com> - 1.18.1
+- queue_track: Use LIBBPF_MAJOR/MINOR_VERSION to detect deprecated functions
+- utils: Close file descriptor
+- stalld: Fix function name of daemonize()
+- docs: Fix typo in the manual
+- queue_track: Use bpf_map__resize on older libbpf versions
+- utils: Let tgid to arrive at the fill proccess comm
+- stalld: Fix log message on idle detection
+- stalld: Add -b/--backend option
+- stalld: Add queue track eBPF based backend
+- stalld: Add fill_process_comm helper
+- stalld: Include regex.h on stalld.h
+- stalld: Get nr of cpus only once
+- stalld: Add the backend abstraction
+- sched_debug: Move sched debug functions to an specific file
+
+* Thu Dec 21 2023 Clark Williams <williams@redhat.com> - 1.17.1
+- stalld: Fix memory leak in print_boosted_info()
+- utils: Check if the system is in lockdown mode
+- stalld: print process comm and cpu when boosting
+- stalld: Detect runnable dying tasks
+- stalld: Fix nr_periods calculation in do_fifo_boost()
+- stalld.conf: Lower threshold to 20
+- utils.c: Exit early if enabling HRTICK fails when using SCHED_DEADLINE
+- Add support for loongarch
+
 * Mon Dec 18 2023 Clark Williams <williams@redhat.com> - 1.16.7
 - fix to sync versions
 

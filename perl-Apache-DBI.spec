@@ -1,92 +1,142 @@
 Name:      perl-Apache-DBI
 Version:   1.12
-Release:   30%{?dist}
+Release:   31%{?dist}
 Summary:   Persistent database connections with Apache/mod_perl
 
-License:   GPL+ or Artistic
+License:   GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:       https://metacpan.org/release/Apache-DBI
 Source0:   https://cpan.metacpan.org/authors/id/P/PH/PHRED/Apache-DBI-%{version}.tar.gz
 
 BuildArch: noarch
 # build deps
+BuildRequires: coreutils
 BuildRequires: make
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter
-BuildRequires: perl(Test::More)
+BuildRequires: perl(Config)
 BuildRequires: perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires: perl(DBD::mysql)
 # runtime deps
-BuildRequires: perl(Apache)
-BuildRequires: perl(Apache2::Access)
-BuildRequires: perl(Apache2::Const)
-BuildRequires: perl(Apache2::Log)
-BuildRequires: perl(Apache2::Module)
-BuildRequires: perl(Apache2::RequestRec)
-BuildRequires: perl(Apache2::RequestUtil)
-BuildRequires: perl(Apache2::ServerUtil)
-BuildRequires: perl(Apache::Constants)
+# perl(Apache) never used because we deliver mod_perl >= 2
+# perl(Apache2::Access) not used at tests
+# perl(Apache2::Const) not used at tests
+# perl(Apache2::Log) not used at tests
+# perl(Apache2::Module) not used at tests
+# perl(Apache2::RequestRec) not used at tests
+# perl(Apache2::RequestUtil) not used at tests
+# perl(Apache2::ServerUtil) not used at tests
+# perl(Apache::Constants) never used because we deliver mod_perl >= 2
 BuildRequires: perl(Carp)
-BuildRequires: perl(DBI)
-BuildRequires: perl(Digest::MD5)
-BuildRequires: perl(Digest::SHA1)
-BuildRequires: perl(IPC::SysV)
-BuildRequires: perl(ModPerl::Util)
+BuildRequires: perl(DBI) >= 1.00
+# perl(Digest::MD5) >= 2.20 not used at tests
+# perl(Digest::SHA1) >= 2.01 not used at tests
+# perl(IPC::SysV) not used at tests
+# perl(ModPerl::Util) not used at tests
 BuildRequires: perl(constant)
-BuildRequires: perl(mod_perl2)
+# perl(mod_perl2) not used at tests
 BuildRequires: perl(strict)
-BuildRequires: perl(warnings)
+# perl(warnings) not used at tests
 # test deps
 BuildRequires: perl(DBD::mysql)
 BuildRequires: perl(Test::More)
-
+# Apache::DBI can be used as a compatibility layer in CGI scripts out of
+# mod_perl environment. Then Apache2 modules are not loaded. Keep them
+# optional.
+# perl(Apache) is never used. We deliver mod_perl >= 2.
+Recommends: perl(Apache2::Module)
+Recommends: perl(Apache2::RequestUtil)
+Recommends: perl(Apache2::ServerUtil)
+Requires:   perl(DBI) >= 1.00
+Recommends: perl(ModPerl::Util)
+Recommends: perl(mod_perl2)
 
 %{?perl_default_filter}
-
+# Remove under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((DBI|Digest::MD5|Digest::SHA1)\\)$
 
 %description
-This is version %{version} of Apache::AuthDBI and Apache::DBI.
+This is version %{version} of Apache::DBI.
 
-These modules are supposed to be used with the Apache server together with 
-an embedded perl interpreter like mod_perl. They provide support for basic 
-authentication and authorization as well as support for persistent database 
-connections via Perl's Database Independent Interface (DBI). 
+This module is supposed to be used with the Apache server together with
+an embedded perl interpreter like mod_perl. It provises support for
+persistent database connections via Perl's Database Independent Interface
+(DBI):
 
-o DBI.pm provides persistent database connections: 
   - connections can be established during server-startup 
   - configurable rollback to ensure data integrity 
   - configurable verification of the connections to avoid time-outs. 
-
-o AuthDBI.pm provides authentication and authorization: 
-  - optional shared cache for passwords to minimize database load 
-  - configurable cleanup-handler deletes outdated entries from the cache 
 
 Apache::DBI has been in widespread deployment on many platforms for
 years.  Apache::DBI is one of the most widely used mod_perl related
 modules.  It can be considered stable.
 
+
+%package -n perl-Apache-AuthDBI
+Summary:   Authentication and Authorization via Perl's DBI
+# Split from perl-Apache-DBI in Fedora 40
+Conflicts: perl-Apache-DBI < 1.12-31
+Requires:   perl(Apache2::Access)
+Requires:   perl(Apache2::Const)
+Requires:   perl(Apache2::Log)
+Requires:   perl(Apache2::RequestRec)
+# Apache::AuthDBI requires mod_perl. We deliver mod_perl >= 2. Therefore hard
+# require modules used with mod_perl >= 2 and do not requiree mod_perl 1
+# modules.
+Requires:   perl(Apache2::RequestUtil)
+Requires:   perl(Apache2::ServerUtil)
+Requires:   perl(DBI) >= 1.00
+Requires:   perl(Digest::MD5) >= 2.20
+Requires:   perl(Digest::SHA1) >= 2.01
+Requires:   perl(IPC::SysV)
+Requires:   perl(warnings)
+
+%description -n perl-Apache-AuthDBI
+This is version %{version} of Apache::AuthDBI.
+
+This module is supposed to be used with the Apache server together with
+an embedded perl interpreter like mod_perl. It provides support for basic
+authentication and authorization via Perl's Database Independent Interface
+(DBI):
+
+  - optional shared cache for passwords to minimize database load
+  - configurable cleanup-handler deletes outdated entries from the cache
+
+
 %prep
 %setup -q -n Apache-DBI-%{version}
-%{__perl} -pi -e 's|/usr/local/bin/perl|%{__perl}|' eg/startup.pl
+perl -pi -MConfig -e 's|^#!/usr/local/bin/perl\b|$Config{startperl}|' eg/startup.pl
 chmod 644 eg/startup.pl
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
+unset MOD_PERL_API_VERSION
 make test
 
 %files
 %doc Changes README TODO traces.txt eg/
-%{_mandir}/man3/Apache*
-%{perl_vendorlib}/Apache
+%{_mandir}/man3/Apache::DBI.*
+%dir %{perl_vendorlib}/Apache
+%{perl_vendorlib}/Apache/DBI.pm
+
+%files -n perl-Apache-AuthDBI
+%doc Changes README TODO traces.txt eg/
+%{_mandir}/man3/Apache::AuthDBI.*
+%dir %{perl_vendorlib}/Apache
+%{perl_vendorlib}/Apache/AuthDBI.pm
 
 %changelog
+* Tue Jan 09 2024 Petr Pisar <ppisar@redhat.com> - 1.12-31
+- Convert the license tag to an SPDX format
+- Correct listing the dependencies
+- Move Apache::AuthDBI to perl-Apache-AuthDBI RPM package
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -16,7 +16,7 @@ Version:        1.22.8
 Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
-License:        LGPLv2+ and LGPLv2
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0
 URL:            http://gstreamer.freedesktop.org/
 %if 0%{?gitrel}
 # git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-ugly

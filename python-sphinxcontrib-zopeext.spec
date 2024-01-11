@@ -1,17 +1,14 @@
 # We cannot build docs for this package due to lack of sphinx-book-theme
 
 Name:           python-sphinxcontrib-zopeext
-Version:        0.4.2
-Release:        4%{?dist}
+Version:        0.4.3
+Release:        1%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
 URL:            https://pypi.org/project/sphinxcontrib-zopeext/
 BuildArch:      noarch
 Source0:        %pypi_source sphinxcontrib_zopeext
-# Cope with removal of ObjectMembers in Sphinx 7.2.0
-# https://github.com/sphinx-contrib/zopeext/pull/15
-Patch0:         %{name}-objectmembers.patch
 
 BuildRequires:  python3-devel
 
@@ -44,6 +41,10 @@ interfaces.
 %license LICENSE
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 0.4.3-1
+- Version 0.4.3
+- Drop upstreamed Sphinx 7.2.x patch
+
 * Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 0.4.2-4
 - Add patch for Sphinx 7.2.x
 

@@ -64,6 +64,10 @@ Requires: gsettings-desktop-schemas >= 0.1.7
 
 Requires: dbus
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# xdg-desktop-portal and xdg-desktop-portal-gtk no longer have i686
+ExcludeArch:    %{ix86}
+
 
 %description
 gnome-session manages a GNOME desktop or GDM login session. It starts up

@@ -2,11 +2,11 @@
 %global srcname arviz
 
 Name:           python-%{srcname}
-Version:        0.12.0
-Release:        5%{?dist}
+Version:        0.17.0
+Release:        1%{?dist}
 Summary:        Exploratory analysis of Bayesian models
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://python.arviz.org/
 Source0:        %{pypi_source}
 
@@ -51,6 +51,10 @@ Recommends:  python3dist(ujson)
 %doc README.md
 
 %changelog
+* Tue Jan 09 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 0.17.0-1
+- New upstream release (0.17.0)
+- Using SPDX license name
+
 * Wed Jul 19 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.12.0-5
 - Rebuild for Python 3.12b4
 

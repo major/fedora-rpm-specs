@@ -1,5 +1,3 @@
-%global	rubyabi	1.9.1
-
 %global	gem_name	goocanvas
 
 %global	glibminver	4.1.2
@@ -9,9 +7,11 @@
 Summary:	Ruby binding of GooCanvas
 Name:		rubygem-%{gem_name}
 Version:	2.2.0
-Release:	30%{?dist}
-# from README
-License:	LGPLv2
+Release:	31%{?dist}
+# gemspec	LGPL-2.1-or-later
+# some files under sample/		GPL-2.0-or-later
+# SPDX confirmed
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Licenses
@@ -33,9 +33,6 @@ BuildRequires:	rubygem-gtk3-devel >= %{gtkminver}
 BuildRequires:	ruby-devel
 BuildRequires:	goocanvas2-devel
 Provides:	rubygem(%{gem_name}) = %{version}-%{release}
-# Kill non-gem support on F-16+
-# Obsoletes but not provides
-Obsoletes:	ruby-%{gem_name} < %{version}-%{release}
 
 
 %description
@@ -44,10 +41,6 @@ Ruby/GooCanvas is a Ruby binding of GooCanvas.
 %package	devel
 Summary:	Ruby/GooCanvas development environment
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-# Obsoletes / Provides
-# ruby(%%{gem_name}-devel) Provides is for compatibility
-# on F-15 and below
-Obsoletes:	ruby-%{gem_name}-devel < %{obsoleteevr}
 
 %description devel
 Header files and libraries for building a extension library for the
@@ -55,8 +48,8 @@ rubygem-%{gem_name}
 
 %package	doc
 Summary:	Documentation for %{name}
-# Samples are under GPLv2+
-License:	LGPLv2 and GPLv2+
+# Samples are under GPL-2.0-or-later
+License:	LGPL-2.1-or-later AND GPL-2.0-or-later
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
 
@@ -104,9 +97,14 @@ install -cpm 644 ./%{_libdir}/pkgconfig/*.pc \
 	%{buildroot}%{_libdir}/pkgconfig/
 
 # Cleanups
-pushd %{buildroot}
-rm -rf .%{gem_instdir}/ext/
-rm -f .%{gem_instdir}/extconf.rb
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Rakefile \
+	ext/ \
+	extconf.rb \
+	*.gemspec \
+	%{nil}
 popd
 
 # Licenses
@@ -122,15 +120,13 @@ done
 %dir	%{gem_instdir}
 %dir	%{gem_instdir}/lib/
 
-%doc	%{gem_instdir}/[A-Z]*
-%exclude	%{gem_instdir}/Rakefile
+%license	%{gem_instdir}/COPYING*
+%doc	%{gem_instdir}/[D-Z]*
 
 %{gem_instdir}/lib/%{gem_name}.rb
 %{gem_instdir}/lib/goo/
-
 %{gem_extdir_mri}/
 
-%{gem_cache}
 %{gem_spec}
 
 %files	devel
@@ -141,6 +137,9 @@ done
 %{gem_instdir}/sample/
 
 %changelog
+* Tue Jan 09 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-31
+- SPDX migration
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

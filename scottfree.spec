@@ -1,6 +1,6 @@
 Name:    scottfree
 Version: 1.14
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Interpreter for Scott Adams format text adventure games
 
 License: GPLv2+
@@ -20,6 +20,7 @@ Patch2: %{name}-1.14-format_strings.patch
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=968375
 # https://salsa.debian.org/games-team/scottfree/blob/master/debian/patches/04_968375.patch
 Patch3: %{name}-1.14-fscanf.patch
+Patch4: scottfree-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -61,6 +62,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man6/
 
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 1.14-28
+- Fix return-mismatch C compatibility issue (#2257413)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

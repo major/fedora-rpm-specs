@@ -1,6 +1,6 @@
 Name: dx
 Version: 4.4.4
-Release: 63%{?dist}
+Release: 64%{?dist}
 Summary: Open source version of IBM's Visualization Data Explorer
 License: IPL-1.0
 URL: http://www.opendx.org/
@@ -134,6 +134,9 @@ rm     $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/lib*.so
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 4.4.4-64
+- Fix more C compatibility issues (#2154342)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-63
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

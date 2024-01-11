@@ -4,7 +4,7 @@
 
 Name:           xpilot-ng
 Version:        4.7.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Space arcade game for multiple players
 
 License:        GPLv2+
@@ -26,6 +26,8 @@ Patch1:         xpilot-ng-4.7.2-rhbz830640.patch
 Patch2:         xpilot-ng-4.7.3-fix-alut-detect.patch
 Patch3:         xpilot-ng-c99.patch
 Patch4:         xpilot-ng-SDL_window.patch
+Patch5:         xpilot-ng-c99-return-mismatch.patch
+Patch6:         xpilot-ng-c99-incompatible-pointer-types.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -218,6 +220,9 @@ exit 0
 
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 4.7.3-30
+- Additional C compatibility fixes (#2155781)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

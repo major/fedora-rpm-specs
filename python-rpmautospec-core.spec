@@ -15,7 +15,7 @@
 %global canonicalname %{py_dist_name %{srcname}}
 
 Name: python-%{canonicalname}
-Version: 0.1.3
+Version: 0.1.4
 Release: %autorelease
 Summary: Minimum functionality for rpmautospec
 

@@ -2,12 +2,20 @@
 
 Name:           lterm
 Version:        1.5.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Terminal and multi protocol client
 License:        GPLv2
 URL:            http://%{name}.sourceforge.net/
 Source0:        https://sourceforge.net/projects/%{name}/files/1.5/%{name}-%{version}.tar.gz
 Patch0: lterm-c99.patch
+Patch1: lterm-c99-2.patch
+Patch2: lterm-c99-3.patch
+Patch3: lterm-c99-4.patch
+Patch4: lterm-c99-5.patch
+Patch5: lterm-c99-6.patch
+Patch6: lterm-c99-7.patch
+Patch7: lterm-c99-8.patch
+Patch8: lterm-c99-9.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -46,6 +54,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 1.5.1-15
+- Additional C compatibility fixes
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 Summary:        Specialist tools for ALSA
 Name:           alsa-tools
 Version:        1.2.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 # Checked at least one source file from all the sub-projects contained in
 # the source tarball and they are consistent GPLv2+ - TJ 2007-11-15
@@ -36,6 +36,7 @@ Source:         ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
 Source1:        90-alsa-tools-firmware.rules
 
 Patch1:         hwmixvolume-python.patch
+Patch2: alsa-tools-c99.patch
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  alsa-lib-devel >= %{version}
@@ -93,6 +94,7 @@ The following tools are available:
 %prep
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .hwmixvolume-python
+%patch -P 2 -p1
 
 %build
 mv seq/sbiload . ; rm -rf seq
@@ -201,6 +203,9 @@ install -m 644 %{SOURCE1} %{buildroot}/lib/udev/rules.d
 %endif
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 1.2.5-10
+- Fix C type errors using G_CALLBACK
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

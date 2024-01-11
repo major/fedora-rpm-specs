@@ -350,14 +350,14 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 # Release candidate version tracking
-%global rcver rc2
+#global rcver rc2
 %if 0%{?rcver:1}
 %global rcrel .%{rcver}
 %global rcstr -%{rcver}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 0.3
+%global baserelease 1
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -367,14 +367,19 @@ Epoch: 2
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-3.0
 URL: http://www.qemu.org/
 
-Source0: https://download.qemu.org/%{name}-%{version}%{?rcstr}.tar.xz
+%global dlurl https://download.qemu.org
+
+Source0: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz
+Source1: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz.sig
+Source2: gpgkey-CEACC9E15534EBABB82D3FA03353C9CEF108B584.gpg
 
 # https://patchwork.kernel.org/project/qemu-devel/patch/20231128143647.847668-1-crobinso@redhat.com/
 # Fix pvh.img ld build failure on fedora rawhide
 Patch: 0001-pc-bios-optionrom-Fix-pvh.img-ld-build-failure-on-fe.patch
 
-# See https://lists.gnu.org/archive/html/qemu-devel/2023-12/msg01165.html
-Patch: 0001-xen-fix-condition-for-enabling-the-Xen-accelerator.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2256884
+Patch: 0001-include-ui-rect.h-fix-qemu_rect_init-mis-assignment.patch
 
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
@@ -387,6 +392,7 @@ Source30: kvm-s390x.conf
 Source31: kvm-x86.conf
 Source36: README.tests
 
+BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}
 BuildRequires: bison
 BuildRequires: flex
@@ -1496,6 +1502,8 @@ This package provides the QEMU system emulator for Xtensa boards.
 
 
 %prep
+gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+
 %autosetup -n qemu-%{version}%{?rcstr} -S git_am
 
 %global qemu_kvm_build qemu_kvm_build
@@ -3125,6 +3133,10 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Tue Jan  9 2024 Daniel P. Berrangé <berrange@redhat.com> - 8.2.0-1
+- Update to 8.2.0 release
+- Add gpg verification of source tarball
+
 * Sat Dec  9 2023 Richard W.M. Jones <rjones@redhat.com> - 2:8.2.0-0.3.rc2
 - Further fix for Xen 4.18
 
@@ -3273,133 +3285,3 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 * Tue Jan 11 2022 Richard W.M. Jones <rjones@redhat.com> - 2:6.2.0-2
 - Bump release and rebuild for new xen
-
-* Wed Dec 15 2021 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 6.2.0-1
-- Rebase to qemu 6.2.0
-
-* Thu Dec 09 2021 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 6.2.0-0.1-rc4
-- Rebase to qemu 6.2.0-rc4
-
-* Fri Dec 03 2021 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 6.2.0-0.1-rc3
-- Rebase to qemu 6.2.0-rc3
-
-* Thu Nov 25 2021 Daniel P. Berrangé <berrange@redhat.com> - 6.1.0-13
-- Fix iovec limits with scsi-generic
-
-* Wed Nov 24 2021 Richard W.M. Jones <rjones@redhat.com> - 6.1.0-12
-- Add support for qemu-nbd --selinux-relabel option (RHBZ#1984938)
-- Define STAP_SDT_ARG_CONSTRAINT=g on %%{arm}, workaround for:
-  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103395
-
-* Mon Nov 08 2021 Adam Williamson <awilliam@redhat.com> - 6.1.0-10
-- Fix snapshot creation with qxl graphics
-
-* Fri Oct 08 2021 Cole Robinson <crobinso@redhat.com> - 6.1.0-9
-- Fix tcg PVH test with binutils 2.36+
-
-* Wed Oct 06 2021 Cole Robinson <crobinso@redhat.com> - 6.1.0-8
-- Fix qemu crash with vnc + libvirt virDomainOpenConsole
-
-* Sun Sep 12 2021 Richard W.M. Jones <rjones@redhat.com> - 6.1.0-7
-- Alternate fix for assertion on armv7hl (RHBZ#1999878)
-
-* Wed Sep 01 2021 Richard W.M. Jones <rjones@redhat.com> - 6.1.0-6
-- Fix assertion on armv7hl (RHBZ#1999878)
-
-* Tue Aug 31 2021 Richard W.M. Jones <rjones@redhat.com> - 6.1.0-5
-- Fix -cpu max (RHBZ#1999700)
-
-* Fri Aug 27 2021 Richard W.M. Jones <rjones@redhat.com> - 6.1.0-4
-- Disable gcrypt (for real this time).
-
-* Fri Aug 27 2021 Richard W.M. Jones <rjones@redhat.com> - 6.1.0-3
-- Revert "Disable gcrypt" which seems to disable gnutls (RHBZ#1998452)
-
-* Thu Aug 26 2021 Richard W.M. Jones <rjones@redhat.com> - 6.1.0-2
-- Fix dependency pci_gl -> pci-gl and vga_gl -> vga-gl (RHBZ#1997855)
-
-* Tue Aug 24 2021 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 6.1.0-1
-- Rebase to qemu 6.1.0
-
-* Tue Aug 10 2021 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 6.1.0-0.3-rc4
-- Rebase to qemu 6.1.0-rc4
-
-* Tue Aug 10 2021 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 6.1.0-0.2-rc3
-- Rebase to qemu 6.1.0-rc3
-
-* Mon Aug 9 2021 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 6.1.0-0.1-rc2
-- Rebase to qemu 6.1.0-rc2
-
-* Thu Jul 29 2021 Cole Robinson <crobinso@redhat.com> - 6.0.0-12
-- Drop python3 shebang fixup for tests rpm
-- Parallelize make check
-- Explicitly disable c++ build
-
-* Fri Jul 23 2021 Richard W.M. Jones <rjones@redhat.com> - 6.0.0-11
-- Fix dependencies of qemu metapackage.
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.0.0-10.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun Jul 18 2021 Cole Robinson <crobinso@redhat.com> - 6.0.0-10
-- Split out qemu-pr-helper and qemu-tools subpackages
-
-* Wed Jul 07 2021 Cole Robinson <crobinso@redhat.com> - 6.0.0-9
-- Use standard fedora build macros
-- Access roms directly in ipxe, seabios, seavgabios directories
-
-* Wed Jun 30 2021 Cole Robinson <crobinso@redhat.com> - 6.0.0-8
-- Relax meson version to fix building on older Fedora
-- More attempts to get CI working
-
-* Wed Jun 23 2021 Cole Robinson <crobinso@redhat.com> - 6.0.0-7
-- Add qemu-tests package
-- Move qemu-sanity-check test to fedora CI
-- Add s390x and generic kvm modprobe file from RHEL
-- Add vhost modprobe file from RHEL
-- Distribute tracetool, simpletrace, dump-guest-memory tools
-
-* Wed Jun 16 2021 Cole Robinson <crobinso@redhat.com> - 6.0.0-6
-- Build against fuse3 and SDL2_image
-- Move qemu-storage-daemon to qemu-img subpackage
-
-* Mon Jun 07 2021 Cole Robinson <crobinso@redhat.com> - 6.0.0-5
-- Rebuild for xen 4.15
-
-* Tue Jun 01 2021 Cole Robinson <crobinso@redhat.com> - 2:6.0.0-4
-- Split out qemu-device-display-vhost-user-gpu subpackage
-- Split out qemu-docs subpackage
-
-* Wed May 19 2021 Paolo Bonzini <pbonzini@redhat.com> - 2:6.0.0-3
-- add another patch to fix configuration files
-
-* Wed May 19 2021 Paolo Bonzini <pbonzini@redhat.com> - 2:6.0.0-2
-- fix spice option from configuration file
-- fix object option from configuration file
-- allow not specifying size in -m when using -M memory-backend
-
-* Wed May 12 2021 Cole Robinson <crobinso@redhat.com> - 2:6.0.0-1
-- Rebase to qemu 6.0.0 GA
-
-* Wed Apr 21 2021 Cole Robinson <crobinso@redhat.com> - 2:6.0.0-0.3.rc4
-- Rebase to qemu 6.0.0-rc4
-
-* Wed Apr 14 2021 Richard W.M. Jones <rjones@redhat.com> - 2:6.0.0-0.2.rc2
-- Rebuild for updated liburing.
-
-* Tue Apr 06 2021 Cole Robinson <aintdiscole@gmail.com> - 6.0.0-0.1.rc2
-- Rebase to qemu 6.0.0-rc2
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:5.2.0-6.1
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Mon Mar 01 2021 Cole Robinson <aintdiscole@gmail.com> - 5.2.0-6
-- Fix building on centos stream in copr
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2:5.2.0-5.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jan 11 2021 Paolo Bonzini <pbonzini@redhat.com> - 2:5.2.0-5
-- Use symlink for qemu-kvm.
-- Fix make check on bash 5.1.

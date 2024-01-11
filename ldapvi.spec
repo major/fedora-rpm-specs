@@ -1,6 +1,6 @@
 Name:           ldapvi
 Version:        1.7
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        An interactive LDAP client
 
 License:        GPLv2+
@@ -24,6 +24,7 @@ Patch6:         ldapvi-c99-1.patch
 Patch7:         ldapvi-c99-2.patch
 Patch8:         ldapvi-c99-3.patch
 Patch9:         ldapvi-c99-4.patch
+Patch10: ldapvi-c99-5.patch
 
 
 BuildRequires: make
@@ -53,6 +54,7 @@ it as vipw(1) for LDAP.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch -P 10 -p1
 
 %build
 %set_build_flags
@@ -78,6 +80,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 1.7-45
+- Additional C compatibility fix
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

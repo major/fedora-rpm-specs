@@ -1,4 +1,6 @@
-# The function of bootstrap is that it disables the wheel subpackage
+# The function of bootstrap is that it builds the package with flit_core.wheel
+# and installs it by unzipping it.
+# A real build uses %%pyproject_wheel and %%pyproject_install.
 %bcond bootstrap 0
 # Default: when bootstrapping -> disable tests
 %bcond tests %{without bootstrap}

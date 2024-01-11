@@ -1,30 +1,18 @@
 %global pypi_name zstd
-%global zstd_version 1.4.5
+%global zstd_version 1.5.5
 
 Name:           python-%{pypi_name}
-Version:        %{zstd_version}.1
-Release:        12%{?dist}
+Version:        1.5.5.1
+Release:        1%{?dist}
 Summary:        Zstd Bindings for Python
 
 # original zstd bits are GPL-2.0-or-later OR BSD-2-Clause
 License:        BSD-2-Clause AND (GPL-2.0-or-later OR BSD-2-Clause)
 URL:            https://github.com/sergey-dryabzhinsky/python-zstd
-Source0:        %{pypi_source}
+Source:         %{pypi_source}
 
 # Patches to fix test execution
-Patch0:         python-zstd-1.4.5.1-test-external.patch
-Patch1:         python-zstd-1.4.5.1-test-once.patch
-
-# Python 3.10 compatibility, merged upstream
-# From https://github.com/sergey-dryabzhinsky/python-zstd/commit/428a31edcd
-Patch2:         python-zstd-1.4.5.1-py_ssize_t_clean.patch
-
-# Python 3.11 compatibility, merged upstream 
-# From https://github.com/sergey-dryabzhinsky/python-zstd/commit/4e9b8b0cbf
-Patch3:         0003-Port-to-Python-3.11-use-Py_SET_SIZE.patch
-
-# Part of https://github.com/sergey-dryabzhinsky/python-zstd/commit/b823bc087b2
-Patch4:         python-zstd-1.4.5.1-c99.patch
+Patch:          python-zstd-1.5.5.1-test-external.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -47,16 +35,19 @@ Simple Python bindings for the Zstd compression library.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 # Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+rm -rf src/%{pypi_name}.egg-info
+# Remove precompiled files
+find . -name '*.pyc' -delete
 # Remove bundled zstd library
 rm -rf zstd/
 # do not test the version matching, we don't really need exact version of
 # zstd here
 rm tests/test_version.py
+sed -i -e '/tests\.test_version/d' setup.py
 sed -i -e '/test_version/d' tests/__init__.py
 
 %build
-%py3_build -- --legacy --pyzstd-legacy --external
+%py3_build -- --legacy --external
 
 %install
 %py3_install
@@ -71,6 +62,9 @@ sed -i -e '/test_version/d' tests/__init__.py
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Tue Jan 09 2024 Michel Lind <salimma@fedoraproject.org> - 1.5.5.1-1
+- Update to 1.5.5.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

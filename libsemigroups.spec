@@ -1,6 +1,6 @@
 Name:           libsemigroups
 Version:        2.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ library for semigroups and monoids
 
 # libsemigroups itself is GPL-3.0-or-later.
@@ -9,6 +9,9 @@ Summary:        C++ library for semigroups and monoids
 License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 URL:            https://libsemigroups.readthedocs.io/
 Source0:        https://github.com/libsemigroups/libsemigroups/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  catch2-devel
 BuildRequires:  doxygen
@@ -125,7 +128,10 @@ ln -s %{_includedir}/catch2/catch.hpp tests
 # Do not override Fedora build flags
 sed -i 's/ -O3//' Makefile.am
 
-# Regenerate configure due to patch0
+# Fix the version number
+sed -i 's,m4_esyscmd([^)]*),[%{version}],' configure.ac
+
+# Generate the configure script
 autoreconf -fi .
 
 # Relax python version dependencies
@@ -190,6 +196,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 2.7.2-2
+- Fix pkgconfig version number
+- Stop building for 32-bit x86
+
 * Fri Oct 20 2023 Jerry James <loganjerry@gmail.com> - 2.7.2-1
 - Version 2.7.2
 

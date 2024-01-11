@@ -33,6 +33,10 @@ to make cooperation possible.
 
 %install
 make install INSTALL_ROOT=%{buildroot}
+%if 0%{?flatpak}
+# qtbase is part of runtime in /usr, this is built in /app
+mv %{buildroot}/usr %{buildroot}%{_prefix}
+%endif
 
 
 %files

@@ -1,6 +1,6 @@
 Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
-Version:	5.511
+Version:	5.512
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
@@ -135,6 +135,11 @@ TEST_POD_COVERAGE=0 make test
 %{_mandir}/man3/MIME::Words.3*
 
 %changelog
+* Tue Jan  9 2024 Paul Howarth <paul@city-fan.org> - 5.512-1
+- Update to 5.512
+  - Use much larger chunk sizes for Base-64 encoding, which reduces both
+    encoding time and space overhead (CPAN RT#128400, CPAN RT#130110)
+
 * Wed Jan  3 2024 Paul Howarth <paul@city-fan.org> - 5.511-1
 - Update to 5.511
   - Silence a warning if used with a development version of MIME::QuotedPrint

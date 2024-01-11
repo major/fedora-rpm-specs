@@ -1,5 +1,5 @@
 Name:           bzip3
-Version:        1.3.2
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # bz3grep:                  BSD-2-Clause
@@ -11,14 +11,14 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # src/libbz3.c:             LGPL-3.0-or-later
 # src/main.c:               LGPL-3.0-or-later
 ## Unbundled and not in any binary package
-# aclocal.m4:               FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-2.0
+# aclocal.m4:               FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-generic
 # build-aux/ax_build_date_epoch.m4: GPL-3.0-or-later WITH Autoconf-exception-macro
 # build-aux/ax_pthread.m4:  GPL-3.0-or-later WITH Autoconf-exception-macro
 # build-aux/ax_check_compile_flag.m4:   FSFAP
-# build-aux/compile:        GPL-2.0-or-later WITH Autoconf-exception-2.0
-# build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-3.0
-# build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-3.0
-# build-aux/depcomp:        GPL-2.0-or-later WITH Autoconf-exception-2.0
+# build-aux/compile:        GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# build-aux/depcomp:        GPL-2.0-or-later WITH Autoconf-exception-generic
 # build-aux/git-version-gen:    GPL-3.0-or-later
 # build-aux/install-sh:     X11 AND "FSF changes to this file are in the public domain"
 # build-aux/libtool.m4:     FSFULLR AND GPL-2.0-or-later WITH Libtool-exception
@@ -28,12 +28,13 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # build-aux/lt~obsolete.m4  FSFULLR
 # build-aux/ltoptions.m4:   FSFULLR
 # build-aux/ltsugar.m4:     FSFULLR
-# build-aux/missing:        GPL-2.0-or-later WITH Autoconf-exception-2.0
+# build-aux/missing:        GPL-2.0-or-later WITH Autoconf-exception-generic
 # configure:                FSFUL AND GPL-2.0-or-later WITH Libtool-exception
 # Makefile.in:              FSFULLR
 ## Not used
 # include/getopt-shim.h:    MIT
 License:        LGPL-3.0-or-later AND BSD-2-Clause
+SourceLicense:  GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-macro AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND LGPL-3.0-or-later AND BSD-2-Clause AND Apache-2.0 AND MIT AND X11 AND FSFULLR AND FSFUL AND FSFAP
 URL:            https://github.com/kspalaiologos/%{name} 
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz 
 # Do not use /usr/bin/env in shell bangs, not suitable for upstream,
@@ -78,7 +79,7 @@ encoding with Lempel-Ziv prediction pass based on LZ77-style string matching
 and PPM-style context modeling.
 
 %package libs
-Summary:        Shared libraries for bzip3 compression and decompresion
+Summary:        Shared libraries for bzip3 compression and decompression
 License:        LGPL-3.0-or-later AND Apache-2.0 
 # Forked, fixed, and pruned libasais <https://github.com/IlyaGrebnov/libsais>
 # because of rejected fix <https://github.com/IlyaGrebnov/libsais/issues/10>.
@@ -160,6 +161,9 @@ fi
 %{_libdir}/pkgconfig/bzip3.pc
 
 %changelog
+* Tue Jan 09 2024 Petr Pisar <ppisar@redhat.com> - 1.4.0-1
+- 1.4.0 bump
+
 * Mon Aug 07 2023 Petr Pisar <ppisar@redhat.com> - 1.3.2-1
 - 1.3.2 bump
 

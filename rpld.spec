@@ -1,6 +1,6 @@
 Name:           rpld
 Version:        1.8
-Release:        0.39.beta1%{?dist}
+Release:        0.40.beta1%{?dist}
 Summary:        RPL/RIPL remote boot daemon
 # No version specified.
 License:        GPL+
@@ -70,6 +70,9 @@ install -m 0644 %SOURCE3 $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
 %{_unitdir}/%{name}.service
 
 %changelog
+* Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 1.8-0.40.beta1
+- Fix more C compatibility issues (#2186219)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-0.39.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

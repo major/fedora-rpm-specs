@@ -19,7 +19,7 @@
 
 Name:		zlib-ng
 Version:	2.1.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Zlib replacement with optimizations
 License:	zlib
 Url:		https://github.com/zlib-ng/zlib-ng
@@ -71,6 +71,18 @@ Obsoletes:	zlib-devel < %{zlib_obsoletes}
 The %{name}-compat-devel package contains libraries and header files for
 developing application that use zlib.
 
+%package	compat-static
+Summary:	Static libraries for %{name}-compat
+Requires:	%{name}-compat-devel%{?_isa} = %{version}-%{release}
+Provides:	zlib-static = %{zlib_ver}
+Provides:	zlib-static%{?_isa} = %{zlib_ver}
+Conflicts:	zlib-static%{?_isa}
+Obsoletes:	zlib-static < %{zlib_obsoletes}
+
+%description	compat-static
+The %{name}-compat-static package contains static libraries needed for
+developing applications that use zlib.
+
 %endif
 
 %prep
@@ -103,6 +115,8 @@ cat <<_EOF_
 _EOF_
 
 %global __cmake_builddir %{_vpath_builddir}-compat
+# defining BUILD_SHARED_LIBS disables the static library
+%undefine _cmake_shared_libs
 # Disable new strategies in order to keep compatibility with zlib.
 %cmake %{cmake_param} -DZLIB_COMPAT=ON -DWITH_NEW_STRATEGIES=OFF
 %cmake_build
@@ -189,11 +203,17 @@ CHOST=%{target_cpu}-%{vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 %{_libdir}/libz.so
 %{_libdir}/pkgconfig/zlib.pc
 
+%files compat-static
+%{_libdir}/libz.a
+
 
 %endif
 
 
 %changelog
+* Tue Jan 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.5-2
+- Add zlib-ng-compat-static to replace zlib-static
+
 * Wed Dec 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 2.1.5-1
 - Update to zlib-ng 2.1.5
 
