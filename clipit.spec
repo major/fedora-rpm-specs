@@ -1,5 +1,4 @@
 %global         main_ver      1.4.5
-%global         vendor_rel    4
 
 %global         reponame      ClipIt
 %global         gitdate       20210513
@@ -10,30 +9,38 @@
 %global         tarballtime   1754
 
 %global         use_release   0
-%global         use_gitbare  1
-%global         use_gitcommit_as_rel  1
+%global         use_gitbare   1
+%global         use_gitcommit_as_ver  1
 
 %if 0%{?use_gitbare} < 1
 %global         use_release   1
 %endif
 
-%if 0%{?use_gitcommit_as_rel} >= 1
-%global         rel           %{vendor_rel}.D%{gitdate}git%{shortcommit}%{?dist}
+%if 0%{?use_gitcommit_as_ver} >= 1
+%global         rpm_ver       %{main_ver}^%{gitdate}git%{shortcommit}
+%global         builddir_ver  %{main_ver}-%{gitdate}git%{shortcommit}
 %else
-%define         rel           %{vendor_rel}%{?dist}
+%define         rpmver        %{main_ver}
+%global         builddir_ver  %{main_ver}
 %endif
 
 
 Name:           clipit
-Version:        %{main_ver}
-Release:        %{rel}.5
+Version:        %{rpm_ver}
+Release:        1%{?dist}
 Summary:        A lightweight, fully featured GTK+ clipboard manager
 
-License:        GPLv3+
+# meson.build says:	 GPL-3.0-or-later
+# src/eggaccelerators.{c,h}	LGPL-2.1-or-later
+# src/keybinder.{c,h}	LGPL-2.1-or-later
+# Other source	GPL-3.0-or-later
+# SPDX confirmed
+License:        GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/CristianHenzel/ClipIt
 %if 0%{?use_release} >= 1
 Source0:        https://github.com/CristianHenzel/ClipIt/archive/v%{version}.tar.gz
-%else
+%endif
+%if 0%{?use_gitbare} >= 1
 Source0:        %{reponame}-%{tarballdate}T%{tarballtime}.tar.gz
 %endif
 Source1:        %{name}.appdata.xml
@@ -54,7 +61,7 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  gettext
-BuildRequires:  %{_bindir}/appstream-util
+BuildRequires:  /usr/bin/appstream-util
 Requires:       xdotool
 
 %description
@@ -70,24 +77,24 @@ ClipIts main features are:
 
 %prep
 %if 0%{?use_release} >= 1
-%setup -q -n %{reponame}-%{version}
+%setup -q -n %{reponame}-%{builddir_ver}
 %endif
 
 %if 0%{?use_gitbare} >= 1
-%setup -q -c -T -a 0
+%setup -q -c -n %{reponame}-%{builddir_ver} -T -a 0
 git clone ./%{reponame}.git
 
 cd %{reponame}
-git checkout -b fedora-%{version}-head %{gitcommit}
+git checkout -b fedora-%{builddir_ver}-head %{gitcommit}
 cp -a [A-Z]* ..
 
 git config user.name "%{name} Fedora maintainer"
-git config user.email "%{name}-maintainer@fedoraproject.org"
+git config user.email "%{name}-maintainers@fedoraproject.org"
 %endif
 
-%patch0 -p1 -b .mate
-%patch1 -p1 -b .nowayland
-%patch2 -p1
+%patch -P0 -p1 -b .mate
+%patch -P1 -p1 -b .nowayland
+%patch -P2 -p1 -b .c99
 
 sed -i data/clipit.desktop.in -e '\@_Comment.*hr@d'
 sed -i data/clipit-startup.desktop.in -e '\@_Comment.*hr@d'
@@ -151,6 +158,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
 
 %changelog
+* Wed Jan 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.5^20210513gite5fa64c-1
+- Use hat for release, change EVR scheme
+- SPDX migration
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4.D20210513gite5fa64c.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

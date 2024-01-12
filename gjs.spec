@@ -8,10 +8,12 @@ Release:        2%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
-# is triple licensed under MPL1.1/LGPLv2+/GPLv2+:
+# is triple licensed under MPL-1.1/GPL-2.0-or-later/LGPL-2.1-or-later:
 # The console module (modules/console.c)
 # Stack printer (gjs/stack.c)
-License:        MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
+# modules/esm/_encoding/util.js and few other things are MIT
+# modules/script/tweener/equations.js is BSD-3-Clause
+License:        MIT AND BSD-3-Clause AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/Gjs
 Source0:        https://download.gnome.org/sources/%{name}/1.78/%{name}-%{version}.tar.xz
 
@@ -52,6 +54,8 @@ Files for development with %{name}.
 
 %package tests
 Summary: Tests for the gjs package
+# installed-tests/js/modules/encodings.json is BSD-3-Clause
+License: MIT AND (MIT OR LGPL-2.0-or-later) AND BSD-3-Clause
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description tests

@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       23.2.1
+Version:       23.3.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -12,38 +12,34 @@ BuildArch:     noarch
 # We bundle a lot of libraries with pip, which itself is under MIT license.
 # Here is the list of the libraries with corresponding licenses:
 
-# MIT:
-# - LICENSE.txt: MIT
-# - pep517/LICENSE: MIT
-# - pkg_resources/LICENSE: MIT
-# - platformdirs/LICENSE.txt: MIT
-# - pyparsing/LICENSE: MIT
-# - rich/LICENSE: MIT
-# - tomli/LICENSE: MIT
-# - urllib3/LICENSE.txt: MIT
-# CNRI-Python-GPL-Compatible:
-# - distlib/LICENSE.txt: CNRI-Python-GPL-Compatible
-# Apache-2.0:
-# - cachecontrol/LICENSE.txt: Apache-2.0
-# - distro/LICENSE: Apache-2.0
-# - requests/LICENSE: Apache-2.0
-# - tenacity/LICENSE: Apache-2.0
-# BSD-2-Clause:
-# - pygments/LICENSE: BSD-2-Clause
-# BSD-3-Clause:
-# - colorama/LICENSE.txt: BSD-3-Clause
-# - idna/LICENSE.md: BSD-3-Clause
-# - webencodings/LICENSE: BSD-3-Clause
-# ISC:
-# - resolvelib/LICENSE: ISC
-# LGPL-2.1+:
-# - chardet/LICENSE: LGPL-2.1+
-# MPL-2.0:
-# - certifi/LICENSE: MPL-2.0
-# Apache-2.0 or BSD-2-Clause:
-# - packaging/LICENSE.APACHE: Apache-2.0
-# - packaging/LICENSE.BSD: BSD-2-Clause
-License:       MIT and CNRI-Python-GPL-Compatible and Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and LGPL-2.1+ and MPL-2.0 and (Apache-2.0 or BSD-2-Clause)
+# appdirs: MIT
+# certifi: MPL-2.0
+# chardet: LGPL-2.1-only
+# colorama: BSD-3-Clause
+# CacheControl: Apache-2.0
+# distlib: Python-2.0.1
+# distro: Apache-2.0
+# html5lib: MIT
+# idna: BSD-3-Clause
+# ipaddress: Python-2.0.1
+# msgpack: Apache-2.0
+# packaging: Apache-2.0 OR BSD-2-Clause
+# progress: ISC
+# pygments: BSD-2-Clause
+# pyparsing: MIT
+# pyproject-hooks: MIT
+# requests: Apache-2.0
+# resolvelib: ISC
+# rich: MIT
+# setuptools: MIT
+# six: MIT
+# tenacity: Apache-2.0
+# truststore: MIT
+# tomli: MIT
+# typing-extensions: Python-2.0.1
+# urllib3: MIT
+# webencodings: BSD-3-Clause
+License:       MIT AND Python-2.0.1 AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 URL:           https://pypi.python.org/pypi/%{pypi_name}
 Source0:       %{pypi_source}
 # Handle sysconfig.get_platform() = mingw
@@ -125,6 +121,9 @@ sed -i '1d' %{buildroot}%{mingw64_python3_sitearch}/pip/_vendor/requests/certs.p
 
 
 %changelog
+* Wed Jan 10 2024 Sandro Mani <manisandro@gmail.com> - 23.3.1-1
+- Update to 23.3.1
+
 * Tue Aug 08 2023 Sandro Mani <manisandro@gmail.com> - 23.2.1-1
 - Update to 23.2.1
 

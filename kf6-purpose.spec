@@ -2,13 +2,17 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 5.247.0
-Release: 2%{?dist}
+Version: 5.248.0
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+
+# upstream patches
+# https://invent.kde.org/frameworks/purpose/-/merge_requests/100
+Patch0: 100.diff
 
 BuildRequires: extra-cmake-modules >= %{version}
 BuildRequires: gcc-c++
@@ -68,10 +72,6 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/libKF6Purpose.so.6
 %{_kf6_libdir}/libKF6PurposeWidgets.so.5*
 %{_kf6_libdir}/libKF6PurposeWidgets.so.6
-%{_kf6_libdir}/libPhabricatorHelpers.so.5*
-%{_kf6_libdir}/libPhabricatorHelpers.so.6
-%{_kf6_libdir}/libReviewboardHelpers.so.5*
-%{_kf6_libdir}/libReviewboardHelpers.so.6
 %{_kf6_libexecdir}/purposeprocess
 %{_kf6_datadir}/kf6/purpose/
 %{_kf6_datadir}/accounts/services/kde/*.service
@@ -89,6 +89,9 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
 * Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 5.247.0-2
 - Enable KAccounts integration
 

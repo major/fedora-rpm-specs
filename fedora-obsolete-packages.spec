@@ -158,11 +158,6 @@ Source0:    README
 %obsolete jython 2.7.1-17
 
 # Remove in F41
-%obsolete_ticket https://src.fedoraproject.org/rpms/libgweather/c/6cd1eaa540e6acb1b1c26009dd5fac3d481de086?branch=rawhide
-%obsolete libgweather 40.0-7
-%obsolete libgweather-devel 40.0-7
-
-# Remove in F41
 %obsolete_ticket https://src.fedoraproject.org/rpms/sssd/c/cf3c8f20eeb0e7fe8cc2cfb0d02db9e5f9ddf04e?branch=rawhide
 %obsolete sssd-libwbclient 2.3.1-3
 %obsolete sssd-libwbclient-devel 2.3.1-3
@@ -449,7 +444,7 @@ Source0:    README
 %obsolete woffTools 0.1-0.38
 %obsolete yokadi 1.2.0-7
 
-# Remove in F43
+# Remove in F41
 %obsolete_ticket https://src.fedoraproject.org/rpms/R-rgdal/c/c68d42d4e56b976be3a50adcbb65efdfc36b8318?branch=f39
 %obsolete R-rgdal 1.6.7-3
 

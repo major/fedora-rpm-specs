@@ -1,8 +1,8 @@
 %global		framework ki18n
 
 Name:		kf6-%{framework}
-Version:	5.247.0
-Release:	2%{?dist}
+Version:	5.248.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND ODbL-1.0
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -87,6 +87,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
 * Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
 - add doc package for KF6 API
 

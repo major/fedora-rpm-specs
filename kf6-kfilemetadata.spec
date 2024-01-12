@@ -2,13 +2,13 @@
 
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
-Version: 5.247.0
-Release: 2%{?dist}
+Version:        5.248.0
+Release:        1%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:            https://invent.kde.org/frameworks/%{framework}
 
-Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  cmake
@@ -40,6 +40,11 @@ Requires:       qt6-qtbase-devel
 %description devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
@@ -65,12 +70,22 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %{_kf6_libdir}/libKF6FileMetaData.so
 %{_kf6_libdir}/cmake/KF6FileMetaData
 %{_kf6_includedir}/KFileMetaData/
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.247.0-3
+- add doc package for KF6 API
+
 * Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
 - add kdegraphics-mobipocket (QMobipocket6) as dependency (optional)
 
-* Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
+* Wed Dec 20 2023 Marc Deop i ArgemÃ­ <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 
 * Sat Dec 02 2023 Justin Zobel <justin.zobel@gmail.com> - 5.246.0-1

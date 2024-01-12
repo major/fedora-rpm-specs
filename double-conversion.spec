@@ -1,13 +1,11 @@
-%undefine __cmake_in_source_build
-%bcond_without static_libs # don't build static libraries
-
 Summary:        Library providing binary-decimal and decimal-binary routines for IEEE doubles
 Name:           double-conversion
-Version:        3.1.5
-Release:        9%{?dist}
-License:        BSD
-Source0:        https://github.com/google/double-conversion/archive/v%{version}/%{name}-%{version}.tar.gz
+Version:        3.3.0
+Release:        1%{?dist}
+
+License:        BSD-3-Clause
 URL:            https://github.com/google/double-conversion
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -19,8 +17,9 @@ extracted from the V8 JavaScript engine. The code has been re-factored
 and improved so that it can be used more easily in other projects.
 
 %package devel
-Summary:    Library providing binary-decimal and decimal-binary routines for IEEE doubles
-Requires:   %{name}%{?_isa} = %{version}-%{release}
+Summary:        %{summary}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      %{name}-static < 3.1.5-10
 
 %description devel
 Contains header files for developing applications that use the %{name}
@@ -29,56 +28,37 @@ library.
 There is extensive documentation in src/double-conversion.h. Other
 examples can be found in test/cctest/test-conversions.cc.
 
-%package static
-Summary:    Library providing binary-decimal and decimal-binary routines for IEEE doubles
-Requires:   %{name}-devel%{?_isa} = %{version}-%{release}
-
-%description static
-Static %{name} library.
-
 %prep
 %setup -q
 
 %build
-%global _vpath_builddir build-shared
 %cmake -DBUILD_TESTING=ON
 %cmake_build
 
-%if %{with static_libs}
-%global _vpath_builddir build-static
-CXXFLAGS="%{optflags} -fPIC" %cmake -DBUILD_SHARED_LIBS=NO
-%cmake_build
-%endif
-
 %install
-%if %{with static_libs}
-%global _vpath_builddir build-static
-%cmake_install
-%endif
-
-%global _vpath_builddir build-shared
 %cmake_install
 
 %check
 %ctest
 
-%ldconfig_scriptlets
-
 %files
-%doc LICENSE README.md AUTHORS Changelog
-%{_libdir}/libdouble-conversion.so.3*
+%license LICENSE
+%doc README.md AUTHORS Changelog
+%{_libdir}/libdouble-conversion.so.3{,.*}
 
 %files devel
 %{_libdir}/libdouble-conversion.so
-%{_libdir}/cmake/%{name}
-%{_includedir}/%{name}
-
-%if %{with static_libs}
-%files static
-%{_libdir}/libdouble-conversion.a
-%endif
+%{_libdir}/cmake/%{name}/
+%{_includedir}/%{name}/
 
 %changelog
+* Sun Jan 07 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.0-1
+- Update to 3.3.0 (close RHBZ#1684966)
+- Drop obsolete ldconfig_scriptlets macro
+- Drop and Obsolete the static library (-static subpackage)
+- Properly mark the LICENSE file
+- Update License to SPDX
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

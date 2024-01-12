@@ -22,6 +22,8 @@ Summary:        Welford implements a one-pass algorithm for computing mean and v
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+# https://github.com/eclesh/welford/pull/2
+Patch0:         welford-increase-allowed-tolerance.patch
 
 %description
 %{common_description}
@@ -30,6 +32,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

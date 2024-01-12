@@ -1,7 +1,7 @@
 Name:    plasma5support
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
 Version: 5.91.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -41,6 +41,11 @@ Provides:       kf6-plasma5support-devel = 1:%{version}-%{release}
 %description    devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %prep
 %autosetup -p1
 
@@ -67,8 +72,15 @@ Provides:       kf6-plasma5support-devel = 1:%{version}-%{release}
 %{_kf6_libdir}/libKF6Plasma5Support.so
 %{_kf6_includedir}/plasma5support/
 %{_kf6_includedir}/plasma5support_version.h
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.91.0-2
+- add doc package for KF6 API
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

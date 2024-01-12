@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.1.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -175,7 +175,11 @@ protocols.
 Summary: A general purpose cryptography library with TLS implementation
 Requires: ca-certificates >= 2008-5
 Requires: crypto-policies >= 20180730
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+Recommends: pkcs11-provider%{?_isa}
+%else
 Recommends: openssl-pkcs11%{?_isa}
+%endif
 
 %description libs
 OpenSSL is a toolkit for supporting cryptography. The openssl-libs
@@ -478,6 +482,9 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Jan 10 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.1.4-2
+- We don't want to ship openssl-pkcs11 in RHEL10/Centos 10
+
 * Thu Oct 26 2023 Sahana Prasad <sahana@redhat.com> - 1:3.1.4-1
 - Rebase to upstream version 3.1.4
 

@@ -1,15 +1,14 @@
-
 %undefine __cmake_in_source_build
 
 %global framework modemmanager-qt
 
 Name:    kf6-%{framework}
-Version: 5.247.0
+Version: 5.248.0
 Release: 1%{?dist}
 Summary: A Tier 1 KDE Frameworks module wrapping ModemManager DBus API
 License: GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
-Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -30,6 +29,11 @@ Requires:       qt6-qtbase-devel
 %description    devel
 Qt 6 libraries and header files for developing applications
 that use ModemManager.
+
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{framework}-%{version} -p1
@@ -52,8 +56,18 @@ that use ModemManager.
 %{_kf6_libdir}/libKF6ModemManagerQt.so
 %{_kf6_libdir}/cmake/KF6ModemManagerQt/
 %{_kf6_includedir}/ModemManagerQt/
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
+- add doc package for KF6 API
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

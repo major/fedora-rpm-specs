@@ -285,7 +285,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 120.0.6099.199
+Version: 120.0.6099.216
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1766,6 +1766,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jan 10 2024 Than Ngo <than@redhat.com> - 120.0.6099.216-1
+- update to 120.0.6099.216
+  * High CVE-2024-0333: Insufficient data validation in Extensions
+
 * Thu Jan 04 2024 Than Ngo <than@redhat.com> - 120.0.6099.199-1
 - new gn update, drop workaround for broken gn on epel 8/9
 - update to 120.0.6099.199

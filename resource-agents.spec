@@ -52,10 +52,11 @@
 Name:		resource-agents
 Summary:	Open Source HA Reusable Cluster Resource Scripts
 Version:	4.13.0
-Release:	1%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
+Release:	2%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://github.com/ClusterLabs/resource-agents
 Source0:	%{upstream_prefix}-%{upstream_version}.tar.gz
+Patch0: 	bz2256836-configure-fix-sanity-check-autoconf-2.72.patch
 Obsoletes:	heartbeat-resources <= %{version}
 Provides:	heartbeat-resources = %{version}
 
@@ -389,6 +390,12 @@ ccs_update_schema > /dev/null 2>&1 ||:
 %endif
 
 %changelog
+* Wed Jan 10 2024 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.13.0-2
+- configure: fix "C preprocessor "gcc -E" fails sanity check" error
+  with autoconf 2.72+
+
+  Resolves: rhbz#2256836
+
 * Wed Oct 11 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.13.0-1
 - Rebase to resource-agents 4.13.0 upstream release.
 

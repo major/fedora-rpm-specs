@@ -1,5 +1,5 @@
 Name:               python-slackclient
-Version:            3.26.1
+Version:            3.26.2
 Release:            1%{?dist}
 Summary:            Slack Developer Kit for Python
 
@@ -9,9 +9,11 @@ URL:                https://github.com/slackapi/python-slack-sdk
 Source0:            %{url}/archive/v%{version}/python-slack-sdk-%{version}.tar.gz
 BuildArch:          noarch
 
-Patch0:             unpin.patch
-
 BuildRequires:      python3-devel
+BuildRequires:      python3-aiohttp
+BuildRequires:      python3-websockets
+BuildRequires:      python3-websocket-client
+BuildRequires:      python3-sqlalchemy
 
 %description
 %{summary}.
@@ -22,10 +24,12 @@ Summary:            %{summary}
 %py_provides python3-slack
 %py_provides python3-slack-sdk
 
+# Drop after f41
+Provides: python3-slackclient+optional = %{version}-%{release}
+Obsoletes: python3-slackclient+optional < 3.26.2-1
+
 %description -n python3-slackclient
 %{summary}.
-
-%pyproject_extras_subpkg -n python3-slackclient optional
 
 %prep
 %autosetup -n python-slack-sdk-%{version} -p0
@@ -48,7 +52,7 @@ sed -r -i \
 sed -r -i 's/^([[:blank:]]*"(pytest).*),<.*"/\1"/' setup.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing,optional
+%pyproject_buildrequires -x testing
 
 %build
 %pyproject_wheel
@@ -73,6 +77,9 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %doc README.md
 
 %changelog
+* Wed Jan 10 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.26.2-1
+- 3.26.2
+
 * Fri Dec 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.26.1-1
 - 3.26.1
 

@@ -1,12 +1,12 @@
 Name:    kmailtransport
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KMailTransport Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{name}
 
-Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # https://invent.kde.org/pim/kmailtransport/-/merge_requests/31
 Patch0:         move-translations.patch
@@ -41,6 +41,10 @@ Requires:       cmake(KPim6AkonadiMime)
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -71,8 +75,15 @@ find ./po -type f -name libmailtransport5.po -execdir mv {} libmailtransport6.po
 %{_includedir}/KPim6/MailTransport/
 %{_kf6_libdir}/libKPim6MailTransport.so
 %{_kf6_libdir}/cmake/KPim6MailTransport/
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
+- add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

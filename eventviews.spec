@@ -1,12 +1,12 @@
 Name:    eventviews
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE PIM library for displaying events and calendars
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/pim/%{name}
 
-Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -52,6 +52,10 @@ Requires:       cmake(KPim6CalendarUtils)
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -77,9 +81,15 @@ developing applications that use %{name}.
 %{_includedir}/KPim6/EventViews/
 %{_kf6_libdir}/cmake/KPim6EventViews/
 %{_kf6_libdir}/libKPim6EventViews.so
-
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
+- add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

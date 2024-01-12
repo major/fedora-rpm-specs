@@ -12,7 +12,7 @@ Name:           pylint
 Release:        %autorelease
 Summary:        Analyzes Python code looking for bugs and signs of poor quality
 License:        GPL-2.0-or-later
-URL:            https://www.pylint.org/
+URL:            https://github.com/pylint-dev/pylint
 Source0:        %{forgeurl}/archive/v%{basever}/pylint-%{basever}.tar.gz
 #Patch0:         7829.patch apply when rebased then re-enable tests
 Patch1:         isort.patch

@@ -136,7 +136,7 @@ Patch5:         git-test-apache-davlockdbtype-config.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
-BuildRequires:  /usr/bin/pod2man
+BuildRequires:  perl-podlators
 %if %{with asciidoctor}
 BuildRequires:  docbook5-style-xsl
 BuildRequires:  rubygem-asciidoctor

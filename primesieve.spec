@@ -1,6 +1,6 @@
 Name:     primesieve
 Version:  11.2
-Release:  1%{?dist}
+Release:  3%{?dist}
 Summary:  Fast prime number generator
 License:  BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,12 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Wed Jan 10 2024 Kim Walisch <walki@fedoraproject.org> - 11.2-3
+- New build required after fixing date in 11.2-2 changelog
+
+* Wed Jan 10 2024 Kim Walisch <walki@fedoraproject.org> - 11.2-2
+- Update to latest primesieve release archive from GitHub
+
 * Tue Jan 09 2024 Kim Walisch <walki@fedoraproject.org> - 11.2-1
 - Fix CMake libatomic detection
 - Improved nth prime algorithm

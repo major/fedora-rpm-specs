@@ -1,98 +1,136 @@
+%global commit 387c30de482522774c28dc02c2636cd41c8334e9
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commitdate 20231231
 
-%define kdewebkit 1
+%global __provides_exclude_from ^%{_kf5_qmldir}/org/kde/amarok/.*\.so$
 
 Name:    amarok
 Summary: Media player
-Version: 2.9.0
-Release: 16%{?dist}
+Version: 2.9.71%{?commitdate:^git%{commitdate}.%{shortcommit}}
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
-Url:     http://amarok.kde.org/
-#global revision %(echo %{version} | cut -d. -f3)
-#if %{revision} >= 50
-#global stable unstable
-#else
-%global stable stable
-#endif
-Source0: http://download.kde.org/%{stable}/amarok/%{version}/src/amarok-%{version}.tar.xz
+License: GPL-2.0-only or GPL-3.0-only
+Url:     https://amarok.kde.org/
+%if 0%{?commitdate}
+Source0: https://invent.kde.org/multimedia/amarok/-/archive/%{commit}/amarok-%{commit}.tar.bz2
+%else
+Source0: https://download.kde.org/%{stable_kf5}/amarok/%{version}/src/amarok-%{version}.tar.xz
+%endif
 
-# Invoke a browser on the online UserBase documentation instead of KHelpCenter
-# for the help contents if the amarok-doc subpackage is not installed.
-Patch0:  amarok-2.8.0-onlinedoc.patch
+# partially revert https://invent.kde.org/multimedia/amarok/-/commit/c095ebf8780b693605ab23efa4eae6f4dd18fc5e
+# it causes amarok to crash on launch for some reason
+Patch1:  revert.patch
 
-# try to allow build without kdewebkit (like rhel), use QWeb* instead of KWeb*
-Patch1: amarok-2.8.0-no_kdewebkit.patch
+# https://invent.kde.org/multimedia/amarok/-/merge_requests/55
+Patch2:  port-away-from-deprecated-QDesktopWidget-functions-and-disable-missing-OSD-settings-functionalities-on-Wayland.patch
 
-## upstreamable patches
-# make mysql_found non-fatal
-Patch100: amarok-2.8.90-mysql_found.patch
+# https://invent.kde.org/multimedia/amarok/-/merge_requests/53
+Patch3:  refresh-deprecated-codepaths.patch
 
-BuildRequires: curl-devel
+# Needed because not every distro installs mygpo-qt5 under the same path.
+# For instance, Fedora namespaces qt5
+Patch10: fix-mygpo-qt5-compilation.patch
+
 BuildRequires: desktop-file-utils
+BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
-## non-modular MusicBrainz-based audio fingerprint tag lookup support :( 
-#BuildRequires: ffmpeg-devel libofa-devel
 BuildRequires: gettext
-BuildRequires: kdelibs4-devel >= 4.9
-%if 0%{?kdewebkit}
-BuildRequires: kdelibs4-webkit-devel
-%endif
-%if 0%{?fedora} > 21
+BuildRequires: kf5-rpm-macros
 BuildRequires: libappstream-glib
-%endif
-BuildRequires: mariadb-connector-c-devel
-BuildRequires: mariadb-embedded-devel
-BuildRequires: libgcrypt-devel
 BuildRequires: perl-generators
-BuildRequires: pkgconfig(gdk-pixbuf-2.0)
-BuildRequires: pkgconfig(glib-2.0) pkgconfig(gobject-2.0)
-BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(phonon) >= 4.5.0
-BuildRequires: pkgconfig(qca2)
-BuildRequires: pkgconfig(QJson)
-BuildRequires: pkgconfig(QtWebKit)
+
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5DBus)
+BuildRequires: cmake(Qt5Gui)
+BuildRequires: cmake(Qt5QuickWidgets)
+BuildRequires: cmake(Qt5Qml)
+BuildRequires: cmake(Qt5Sql)
+BuildRequires: cmake(Qt5Svg)
+BuildRequires: cmake(Qt5Test)
+BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt5Xml)
+BuildRequires: cmake(Qt5QuickControls2)
+%ifarch %{qt5_qtwebengine_arches}
+BuildRequires: cmake(Qt5WebEngine)
+%endif
+BuildRequires: cmake(Qt5UiTools)
+
+BuildRequires: cmake(KF5Archive)
+BuildRequires: cmake(KF5Attica)
+BuildRequires: cmake(KF5Codecs)
+BuildRequires: cmake(KF5Config)
+BuildRequires: cmake(KF5ConfigWidgets)
+BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF5Crash)
+BuildRequires: cmake(KF5DBusAddons)
+BuildRequires: cmake(KF5Declarative)
+BuildRequires: cmake(KF5DNSSD)
+BuildRequires: cmake(KF5DocTools)
+BuildRequires: cmake(KF5GlobalAccel)
+BuildRequires: cmake(KF5GuiAddons)
+BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5IconThemes)
+BuildRequires: cmake(KF5KCMUtils)
+BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF5NewStuff)
+BuildRequires: cmake(KF5Notifications)
+BuildRequires: cmake(KF5Package)
+BuildRequires: cmake(KF5Solid)
+BuildRequires: cmake(KF5TextEditor)
+BuildRequires: cmake(KF5ThreadWeaver)
+BuildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: cmake(KF5Kirigami2)
+# gpodder, lastfm
+BuildRequires: cmake(KF5Wallet)
+
 BuildRequires: pkgconfig(taglib) >= 1.6
 BuildRequires: pkgconfig(taglib-extras) >= 1.0.1
-
+BuildRequires: cmake(Phonon4Qt5)
+BuildRequires: pkgconfig(libmariadb)
+BuildRequires: pkgconfig(mariadb)
+BuildRequires: mariadb-embedded-devel
+BuildRequires: ffmpeg-free-devel
+BuildRequires: fftw-devel
 %if 0%{?fedora}
-BuildRequires: kf5-rpm-macros
-Requires:      kf5-filesystem
-BuildRequires: liblastfm-devel >= 1.0.3
-BuildRequires: pkgconfig(libmygpo-qt) >= 1.0.7
-# loudmouth orphaned/unsupported f33+
-%if 0%{?fedora} < 33
-%global loudmouth 1
-BuildRequires: pkgconfig(loudmouth-1.0)
-%endif
+# dependencies not available in RHEL or EPEL
+BuildRequires: liblastfm-qt5-devel
+BuildRequires: libofa-devel
+BuildRequires: cmake(Mygpo-qt5)
 BuildRequires: pkgconfig(libmtp) >= 0.3.0
 BuildRequires: pkgconfig(libgpod-1.0) >= 0.7.0
-Requires: ifuse
-# not strictly required at buildtime, but if it's not available here,
-# then you're hosed at runtime anyway
-BuildRequires: clamz
-Requires: clamz
-%if 0%{?fedora} > 23
-Recommends: audiocd-kio
-Recommends: kio_mtp
-Recommends: kio-upnp-ms
+# only used together with libgpod
+BuildRequires: pkgconfig(gdk-pixbuf-2.0)
+# MP3Tunes
+BuildRequires: pkgconfig(libcurl)
+BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: libgcrypt-devel
+BuildRequires: pkgconfig(loudmouth-1.0)
+BuildRequires: pkgconfig(glib-2.0) pkgconfig(gobject-2.0)
+%endif
+
+Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:      %{name}-utils = %{version}-%{release}
+Requires:      kf5-filesystem
+# QML module dependencies
+Requires:      kf5-kirigami2%{?_isa}
+Requires:      qt5-qtquickcontrols2%{?_isa}
+
+Recommends:    kf5-audiocd-kio
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+Recommends:    kio-extras-kf5
 %else
-Requires: audiocd-kio
-Requires: kio_mtp
-Requires: kio-upnp-ms
+Recommends:    kio-extras
 %endif
+%ifarch %{qt5_qtwebengine_arches}
+# Wikipedia QML plugin
+Recommends:    qt5-qtwebengine%{?_isa}
 %endif
-BuildRequires: qtscriptbindings
-BuildRequires: make
-Requires: qtscriptbindings%{?_isa}
-Requires: %{name}-utils = %{version}-%{release}
-Requires: kde-runtime
-Requires: media-player-info
-
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-
-BuildConflicts: nepomuk-core-devel
-Obsoletes: amarok-nepomukcollection < %{version}-%{release}
+%if 0%{?fedora}
+Recommends:    ifuse
+Recommends:    media-player-info
+%endif
 
 %description
 Amarok is a multimedia player with:
@@ -104,19 +142,17 @@ Amarok is a multimedia player with:
 
 %package libs
 Summary: Runtime libraries for %{name}
-Requires: %{name} = %{version}-%{release}
 %description libs
 %{summary}.
 
 %package utils
 Summary: Amarok standalone utilities
-%description utils 
+Requires: %{name}-libs = %{version}-%{release}
+%description utils
 %{summary}, including amarokcollectionscanner.
 
 %package doc
 Summary: Application handbook, documentation, translations
-# for upgrade path
-Obsoletes: amarok < 2.5.0-4
 Requires:  %{name} = %{version}-%{release}
 BuildArch: noarch
 %description doc
@@ -124,173 +160,104 @@ BuildArch: noarch
 
 
 %prep
-%setup -q 
+%autosetup %{?commitdate:-n %{name}-%{commit}} -p1
 
-%patch0 -p1 -b .onlinedoc
-%if ! 0%{?kdewebkit}
-%patch1 -p1 -b .no_kdewebkit
-%endif
-
-## upstream
-
-## upstreamable
+sed -i -e 's|/usr/bin/mysqld|%{_libexecdir}/mysqld|' src/importers/amarok/AmarokConfigWidget.cpp
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
+%if 0%{?flatpak}
+# find /app-built libmygpo-qt headers
+CXXFLAGS="$CXXFLAGS -I%{_includedir}/qt5"
+%endif
 # force non-use of MYSQLCONFIG, to avoid (potential bogus) stuff from: mysql_config --libmysqld-libs
-%{cmake_kde4} .. \
+%{cmake_kf5} \
   -DMYSQLCONFIG_EXECUTABLE:BOOL=OFF
-popd
-
-%make_build -C %{_target_platform}
+%{cmake_build}
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
-# appdata/metainfo
-%if "%{_kde4_datadir}/metainfo" != "%{_kf5_metainfodir}"
-mkdir -p %{buildroot}%{_kf5_metainfodir}
-mv %{buildroot}%{_kde4_datadir}/metainfo/*.xml \
-   %{buildroot}%{_kf5_metainfodir}
-%endif
-
-# NoDisplay Amazon Downloader in menus
-desktop-file-edit \
-  --set-key=NoDisplay --set-value=true \
-  %{buildroot}%{_kde4_datadir}/applications/kde4/amzdownloader.desktop
-
-%if 0%{?fedora}
-mkdir -p %{buildroot}%{_kf5_datadir}/solid/actions/
-cp -alf \
-  %{buildroot}%{_kde4_appsdir}/solid/actions/amarok-play-audiocd.desktop \
-  %{buildroot}%{_kf5_datadir}/solid/actions/
-mkdir -p %{buildroot}%{_kf5_datadir}/kservices5/ServiceMenus
-cp -alf \
-  %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/amarok_append.desktop \
-  %{buildroot}%{_kf5_datadir}/kservices5/ServiceMenus/
-%endif
-
-%find_lang amarok --with-kde --without-mo && mv amarok.lang amarok-doc.lang
-%find_lang amarok
-%find_lang amarokcollectionscanner_qt 
-%find_lang amarokpkg && cat amarokpkg.lang >> amarok.lang
-%find_lang amarok_scriptengine_qscript && cat amarok_scriptengine_qscript.lang >> amarok.lang
-
-# unpackaged files
-rm -fv %{buildroot}%{_kde4_libdir}/libamarok{-sqlcollection,_taglib,core,lib,plasma,pud,ocsclient,shared,-transcoding}.so
+%find_lang amarokcollectionscanner_qt --with-qt --without-mo --all-name
+%find_lang amarok --all-name
+%find_lang amarok-doc --with-html --without-mo --all-name
 
 
 %check
-%if 0%{?fedora} > 20
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%endif
-desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/*amarok.desktop
-desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/*amarok_containers.desktop
-grep '^NoDisplay' %{buildroot}%{_kde4_datadir}/applications/kde4/amzdownloader.desktop
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}*.desktop
 
 
 %files -f amarok.lang
 %doc AUTHORS ChangeLog README
 %license COPYING
-%{_kde4_bindir}/amarok
-%{_kde4_bindir}/amarokpkg
-%{_kde4_bindir}/amarok_afttagger
-%if 0%{?loudmouth}
-%{_kde4_bindir}/amarokmp3tunesharmonydaemon
-%endif
-%if 0%{?fedora}
-%{_kf5_datadir}/solid/actions/amarok-play-audiocd.desktop
+%{_qt5_settingsdir}/amarok_homerc
+%{_kf5_bindir}/amarok
+%{_kf5_bindir}/amarokpkg
+%{_kf5_bindir}/amarok_afttagger
+%{_kf5_datadir}/amarok/
+%{_kf5_datadir}/applications/org.kde.amarok.desktop
+%{_kf5_datadir}/applications/org.kde.amarok_containers.desktop
+%{_kf5_datadir}/config.kcfg/amarokconfig.kcfg
+%{_kf5_datadir}/dbus-1/interfaces/*.xml
+%{_kf5_datadir}/dbus-1/services/org.kde.amarok.service
+%{_kf5_datadir}/icons/hicolor/*/*/*
+%{_kf5_datadir}/kconf_update/amarok*
+%{_kf5_datadir}/knotifications5/amarok.notifyrc
+%{_kf5_datadir}/knsrcfiles/amarok.knsrc
+%{_kf5_datadir}/kpackage/amarok/org.kde.amarok.*
+%{_kf5_datadir}/kpackage/genericqml/org.kde.amarok.context
 %{_kf5_datadir}/kservices5/ServiceMenus/amarok_append.desktop
-%endif
-%{_kde4_bindir}/amzdownloader
-%{_kde4_appsdir}/amarok/
-%{_kde4_appsdir}/kconf_update/amarok*
-%{_kde4_appsdir}/desktoptheme/default/widgets/*
-%{_kde4_appsdir}/solid/actions/amarok-play-audiocd.desktop
-%{_kde4_configdir}/amarok.knsrc
-%{_kde4_configdir}/amarok_homerc
-%{_kde4_configdir}/amarokapplets.knsrc
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kde4_datadir}/applications/kde4/*amarok.desktop
-%{_kde4_datadir}/applications/kde4/*amarok_containers.desktop
-%{_kde4_datadir}/applications/kde4/amzdownloader.desktop
-%{_kde4_datadir}/config.kcfg/amarokconfig.kcfg
-%{_kde4_datadir}/kde4/services/amarok-containment-*.desktop
-%{_kde4_datadir}/kde4/services/amarok-context-applet-*.desktop
-%{_kde4_datadir}/kde4/services/amarok-data-engine-*.desktop
-%{_kde4_datadir}/kde4/services/amarok_collection-audiocdcollection.desktop
-%{_kde4_datadir}/kde4/services/amarok_collection-daapcollection.desktop
-%{_kde4_datadir}/kde4/services/amarok_collection-mysqlcollection.desktop
-%{_kde4_datadir}/kde4/services/amarok_collection-playdarcollection.desktop
-%{_kde4_datadir}/kde4/services/amarok_collection-umscollection.desktop
-%{_kde4_datadir}/kde4/services/amarok_collection-upnpcollection.desktop
-%{_kde4_datadir}/kde4/services/amarok_importer-amarok.desktop
-%{_kde4_datadir}/kde4/services/amarok_importer-banshee.desktop
-%{_kde4_datadir}/kde4/services/amarok_importer-clementine.desktop
-%{_kde4_datadir}/kde4/services/amarok_importer-fastforward.desktop
-%{_kde4_datadir}/kde4/services/amarok_importer-itunes.desktop
-%{_kde4_datadir}/kde4/services/amarok_importer-rhythmbox.desktop
-%{_kde4_datadir}/kde4/services/amarok_service_*.desktop
-%{_kde4_datadir}/kde4/services/amarok_storage-mysqlestorage.desktop
-%{_kde4_datadir}/kde4/services/amarok_storage-mysqlserverstorage.desktop
-%{_kde4_datadir}/kde4/services/*.protocol
-%{_kde4_datadir}/kde4/services/ServiceMenus/amarok_append.desktop
-%{_kde4_datadir}/kde4/servicetypes/*.desktop
-%{_kde4_iconsdir}/hicolor/*/*/*
-%{_kde4_libdir}/kde4/amarok_collection-audiocdcollection.so
-%{_kde4_libdir}/kde4/amarok_collection-daapcollection.so
-%if 0%{?fedora}
-%{_kde4_datadir}/kde4/services/amarok_collection-ipodcollection.desktop
-%{_kde4_datadir}/kde4/services/amarok_collection-mtpcollection.desktop
-%{_kde4_libdir}/kde4/amarok_collection-ipodcollection.so
-%{_kde4_libdir}/kde4/amarok_collection-mtpcollection.so
-%endif
-%{_kde4_libdir}/kde4/amarok_collection-mysqlcollection.so
-%{_kde4_libdir}/kde4/amarok_collection-playdarcollection.so
-%{_kde4_libdir}/kde4/amarok_collection-umscollection.so
-%{_kde4_libdir}/kde4/amarok_collection-upnpcollection.so
-%{_kde4_libdir}/kde4/amarok_containment_*.so
-%{_kde4_libdir}/kde4/amarok_context_applet_*.so
-%{_kde4_libdir}/kde4/amarok_data_engine_*.so
-%{_kde4_libdir}/kde4/amarok_importer-amarok.so
-%{_kde4_libdir}/kde4/amarok_importer-banshee.so
-%{_kde4_libdir}/kde4/amarok_importer-clementine.so
-%{_kde4_libdir}/kde4/amarok_importer-fastforward.so
-%{_kde4_libdir}/kde4/amarok_importer-itunes.so
-%{_kde4_libdir}/kde4/amarok_importer-rhythmbox.so
-%{_kde4_libdir}/kde4/amarok_service_*.so
-%{_kde4_libdir}/kde4/amarok_storage-mysqlestorage.so
-%{_kde4_libdir}/kde4/amarok_storage-mysqlserverstorage.so
-%{_kde4_libdir}/kde4/kcm_amarok_service*.so
-%{_datadir}/dbus-1/interfaces/*.xml
-%{_datadir}/mime/packages/amzdownloader.xml
-
-%ldconfig_scriptlets libs
+%{_kf5_datadir}/kservices5/amarok*
+%{_kf5_datadir}/kservicetypes5/amarok*
+%{_kf5_datadir}/solid/actions/amarok-play-audiocd.desktop
+%{_kf5_metainfodir}/org.kde.amarok.*.xml
+%{_kf5_qmldir}/org/kde/amarok
+%{_kf5_qtplugindir}/amarok_collection-audiocdcollection.so
+%{_kf5_qtplugindir}/amarok_collection-daapcollection.so
+%{_kf5_qtplugindir}/amarok_collection-ipodcollection.so
+%{_kf5_qtplugindir}/amarok_collection-mtpcollection.so
+%{_kf5_qtplugindir}/amarok_collection-mysqlcollection.so
+%{_kf5_qtplugindir}/amarok_collection-playdarcollection.so
+%{_kf5_qtplugindir}/amarok_collection-umscollection.so
+%{_kf5_qtplugindir}/amarok_importer-amarok.so
+%{_kf5_qtplugindir}/amarok_importer-banshee.so
+%{_kf5_qtplugindir}/amarok_importer-clementine.so
+%{_kf5_qtplugindir}/amarok_importer-fastforward.so
+%{_kf5_qtplugindir}/amarok_importer-itunes.so
+%{_kf5_qtplugindir}/amarok_importer-rhythmbox.so
+%{_kf5_qtplugindir}/amarok_service_*.so
+%{_kf5_qtplugindir}/amarok_storage-mysqlestorage.so
+%{_kf5_qtplugindir}/amarok_storage-mysqlserverstorage.so
+%{_kf5_qtplugindir}/kcm_amarok_service*.so
 
 %files libs
-%{_kde4_libdir}/libamarokcore.so.1*
-%{_kde4_libdir}/libamaroklib.so.1*
-%{_kde4_libdir}/libamarokocsclient.so.4*
-%{_kde4_libdir}/libamarokpud.so.1*
-%{_kde4_libdir}/libamarokshared.so.1*
-%{_kde4_libdir}/libamarok-sqlcollection.so.1*
-%{_kde4_libdir}/libamarok-transcoding.so.1*
-# private libs
-%if 0%{?fedora}
-%{_kde4_libdir}/libamarok_service_lastfm_shared.so
-%endif
-%{_kde4_libdir}/libampache_account_login.so
+%{_kf5_libdir}/libamarokcore.so.1*
+%{_kf5_libdir}/libamaroklib.so.1*
+%{_kf5_libdir}/libamarokshared.so.1*
+%{_kf5_libdir}/libamarok-sqlcollection.so.1*
+%{_kf5_libdir}/libamarok-transcoding.so.1*
+%{_kf5_libdir}/libampache_account_login.so
+%{_kf5_libdir}/libamarok-sqlcollection.so
+%{_kf5_libdir}/libamarok-transcoding.so
+%{_kf5_libdir}/libamarokcore.so
+%{_kf5_libdir}/libamaroklib.so
+%{_kf5_libdir}/libamarokpud.so
+%{_kf5_libdir}/libamarokshared.so
+%{_kf5_libdir}/libamarok_service_lastfm_config.so
+%{_kf5_libdir}/libgpodder_service_config.so
 
 %files utils -f amarokcollectionscanner_qt.lang
-%{_kde4_bindir}/amarokcollectionscanner
+%{_kf5_bindir}/amarokcollectionscanner
 
 %files doc -f amarok-doc.lang
 
 
 %changelog
+* Tue Jan 02 2024 Yaakov Selkowitz <yselkowitz@fedoraproject.org> - 2.9.71^20231231git387c30d-1
+- Update to KF5-based git snapshot
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

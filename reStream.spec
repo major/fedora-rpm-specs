@@ -1,15 +1,14 @@
 %global debug_package %{nil}
 
 Name:           reStream
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 URL:            https://github.com/rien/reStream
 Summary:        Stream your reMarkable screen over SSH
 License:        MIT
 BuildArch:      noarch
 
-Source:         %{url}/archive/%{version}/restream-%{version}.tar.gz
-Patch:          https://patch-diff.githubusercontent.com/raw/rien/reStream/pull/98.patch
+Source:         %{url}/archive/v%{version}/reStream-v%{version}.tar.gz
 
 BuildRequires:  help2man
 

@@ -1,12 +1,12 @@
 Name:    messagelib
 Version: 24.01.85
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Message libraries
 
 License: BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/pim/%{name}/
 
-Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # Updates kmail to change the "HTML message" bar to a simple button.
 # See: https://invent.kde.org/pim/messagelib/-/merge_requests/169
@@ -94,6 +94,10 @@ Requires:       cmake(Qt6WebEngineWidgets)
 %description    devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -159,8 +163,15 @@ Requires:       cmake(Qt6WebEngineWidgets)
 %{_kf6_libdir}/cmake/KPim6WebEngineViewer/
 %{_kf6_libdir}/libKPim6WebEngineViewer.so
 
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-3
+- add doc package for KF6 API
+
 * Fri Dec 29 2023 Steve Cossette <farchord@gmail.com> - 24.01.85-2
 - Added patch that changes the ugly HTML message bar into a button
 

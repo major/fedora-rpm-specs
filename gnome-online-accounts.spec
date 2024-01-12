@@ -5,24 +5,22 @@
 %global webkit2gtk_version 2.33.1
 
 Name:		gnome-online-accounts
-Version:	3.48.0
-Release:	4%{?dist}
+Version:	3.49.0
+Release:	1%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
-Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.48/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.49/%{name}-%{version}.tar.xz
 
 # RHEL >=9 specific
 # https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/issues/63
 # https://bugzilla.redhat.com/show_bug.cgi?id=1913641
 Patch0:		0001-google-Remove-Photos-support.patch
-# Fix build with libxml2 2.12
-# https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/merge_requests/145
-Patch1:         0001-goabackend-Fix-build-with-libxml2-2.12.patch
 
+Patch1:         gcr_error.patch
 
-BuildRequires:	pkgconfig(gcr-3)
+BuildRequires:	pkgconfig(gcr-4)
 BuildRequires:	pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(gobject-2.0) >= %{glib2_version}
@@ -68,10 +66,10 @@ developing applications that use %{name}.
 %setup -q
 
 %if 0%{?rhel} >= 9
-%patch0 -p1
+%patch -P 0 -p1
 %endif
 
-%patch 1 -p1
+%patch -P 1 -p0
 
 %build
 %meson \
@@ -83,8 +81,6 @@ developing applications that use %{name}.
   -Dgoogle=true \
   -Dimap_smtp=true \
   -Dkerberos=true \
-  -Dlastfm=false \
-  -Dmedia_server=false \
   -Downcloud=true \
   -Dwindows_live=true \
   -Dman=true \
@@ -101,7 +97,7 @@ developing applications that use %{name}.
 
 %files -f %{name}.lang
 %license COPYING
-%doc NEWS README
+%doc NEWS README.md
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Goa-1.0.typelib
 %{_libdir}/libgoa-1.0.so.0
@@ -110,16 +106,16 @@ developing applications that use %{name}.
 %{_libdir}/libgoa-backend-1.0.so.1
 %{_libdir}/libgoa-backend-1.0.so.1.0.0
 %dir %{_libdir}/goa-1.0
-%dir %{_libdir}/goa-1.0/web-extensions
-%{_libdir}/goa-1.0/web-extensions/libgoawebextension.so
 %{_prefix}/libexec/goa-daemon
 %{_prefix}/libexec/goa-identity-service
+%{_prefix}/libexec/goa-oauth2-handler
 %{_datadir}/dbus-1/services/org.gnome.OnlineAccounts.service
 %{_datadir}/dbus-1/services/org.gnome.Identity.service
 %{_datadir}/glib-2.0/schemas/org.gnome.online-accounts.gschema.xml
 %{_mandir}/man8/goa-daemon.8*
 %endif
 %{_datadir}/icons/hicolor/*/apps/goa-*.svg
+%{_datadir}/applications/org.gnome.OnlineAccounts.OAuth2.desktop
 
 %files devel
 %{_includedir}/goa-1.0/
@@ -138,6 +134,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Wed Jan 10 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.49.0-1
+- 3.49.0
+
 * Tue Dec 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.48.0-4
 - Fix build with libxml2 2.12
 

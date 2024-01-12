@@ -1,8 +1,8 @@
 %global framework kapidox
 
 Name:    kf6-%{framework}
-Version: 5.247.0
-Release: 2%{?dist}
+Version: 5.248.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 4 scripts and data for building API documentation
 
 License: BSD
@@ -66,6 +66,9 @@ style.
 
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
 * Thu Jan 04 2024 Steve Cossette <farchord@gmail.com> - 5.247.0-2
 - Added patch to fix broken installation
 

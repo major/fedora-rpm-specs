@@ -4,8 +4,8 @@ Name:       matrix-synapse
 Version:    1.98.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
-License:    Apache-2.0
-URL:        https://github.com/matrix-org/synapse
+License:    AGPL-3.0-or-later
+URL:        https://github.com/element-hq/synapse
 
 %global upstream_tag v%{lua:return(rpm.expand("%{version}"):gsub("~",""))}
 %global archive_tag %{lua:return(rpm.expand("%{version}"):gsub("~",""))}
@@ -45,9 +45,10 @@ the ecosystem.
 # We don't support the built-in client so remove all the bundled JS.
 rm -rf synapse/static
 
+%cargo_prep
+
 
 %generate_buildrequires
-%cargo_prep
 cd rust
 %cargo_generate_buildrequires
 cd ..

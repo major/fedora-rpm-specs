@@ -41,8 +41,8 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.17.2
-Release: 4%{?dist}
-License: Sendmail
+Release: 5%{?dist}
+License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
 Source0: ftp://ftp.sendmail.org/pub/sendmail/sendmail.%{version}.tar.gz
@@ -725,6 +725,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 10 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.2-5
+- Converted license tag to SPDX
+
 * Thu Nov  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.2-4
 - Drop libdb for RHEL>9
   Related: rhbz#1781181

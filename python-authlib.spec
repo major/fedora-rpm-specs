@@ -1,14 +1,13 @@
-%global srcname authlib
-%global pypi_name Authlib
+%bcond_without check
 
-Name:           python-%{srcname}
-Version:        1.2.1
+Name:           python-authlib
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Build OAuth and OpenID Connect servers in Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/lepture/authlib
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/authlib-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -19,14 +18,15 @@ JWT are included.}
 
 %description %_description
 
-%package -n     python3-%{srcname}
+%package -n     python3-authlib
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-authlib %_description
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n authlib-%{version}
+
 
 %generate_buildrequires
 %pyproject_buildrequires -e %{toxenv},%{toxenv}-clients,%{toxenv}-flask,%{toxenv}-django,%{toxenv}-jose
@@ -41,11 +41,13 @@ Summary:        %{summary}
 %pyproject_save_files authlib
 
 
+%if %{with check}
 %check
 %tox
+%endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-authlib -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 

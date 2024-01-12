@@ -1,12 +1,12 @@
 Name:    pimcommon
 Version: 24.01.85
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: PIM common libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
 URL:     https://api.kde.org/kdepim/pimcommon/html/
 
-Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -69,6 +69,10 @@ Requires:       cmake(KPim6IMAP)
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -100,8 +104,15 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KPim6PimCommonAkonadi/
 %{_includedir}/KPim6/PimCommon/
 %{_includedir}/KPim6/PimCommonAkonadi/
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-4
+- add doc package for KF6 API
+
 * Thu Dec 28 2023 Steve Cossette <farchord@gmail.com> - 24.01.85-3
 - Reverted last commit
 

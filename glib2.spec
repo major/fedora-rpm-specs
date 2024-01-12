@@ -1,11 +1,11 @@
 Name:           glib2
-Version:        2.78.3
+Version:        2.79.0
 Release:        %autorelease
 Summary:        A library of handy utility functions
 
 License:        LGPL-2.1-or-later
 URL:            https://www.gtk.org
-Source:         https://download.gnome.org/sources/glib/2.78/glib-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/glib/2.79/glib-%{version}.tar.xz
 
 # Required for RHEL core crypto components policy. Good for Fedora too.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
@@ -19,7 +19,6 @@ Patch:          gspawn-eperm.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  gtk-doc
 BuildRequires:  perl-interpreter
 # for sys/inotify.h
 BuildRequires:  glibc-devel
@@ -28,6 +27,7 @@ BuildRequires:  libselinux-devel
 BuildRequires:  meson
 # for sys/sdt.h
 BuildRequires:  systemtap-sdt-devel
+BuildRequires:  pkgconfig(gi-docgen)
 BuildRequires:  pkgconfig(libelf)
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(libpcre2-8)
@@ -35,7 +35,9 @@ BuildRequires:  pkgconfig(mount)
 BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3-devel
+BuildRequires:  /usr/bin/g-ir-scanner
 BuildRequires:  /usr/bin/marshalparser
+BuildRequires:  /usr/bin/rst2man
 
 # For gnutls-hmac.patch. We now dlopen libgnutls.so.30 so that we can build a
 # static glib2 without depending on a static build of GnuTLS as well. This will
@@ -53,6 +55,9 @@ Provides: bundled(gvdb)
 Provides: bundled(libcharset)
 Provides: bundled(xdgmime)
 
+# glib typelib files moved from gobject-introspection to glib2 in F40
+Conflicts: gobject-introspection < 1.79.1
+
 %description
 GLib is the low-level core library that forms the basis for projects
 such as GTK+ and GNOME. It provides data structure handling for C,
@@ -67,14 +72,15 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 # Python 3.12+ standard library.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2137442
 Requires: (python3-setuptools if python3 >= 3.12)
+# glib gir files moved from gobject-introspection-devel to glib2-devel in F40
+Conflicts: gobject-introspection-devel < 1.79.1
 
 %description devel
 The glib2-devel package includes the header files for the GLib library.
 
 %package doc
 Summary: A library of handy utility functions
-Requires: %{name} = %{version}-%{release}
-BuildArch: noarch
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description doc
 The glib2-doc package includes documentation for the GLib library.
@@ -162,6 +168,13 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_libdir}/libgmodule-2.0.so.0*
 %{_libdir}/libgobject-2.0.so.0*
 %{_libdir}/libgio-2.0.so.0*
+%{_libdir}/libgirepository-2.0.so.0*
+%dir %{_libdir}/girepository-1.0
+%{_libdir}/girepository-1.0/GIRepository-3.0.typelib
+%{_libdir}/girepository-1.0/GLib-2.0.typelib
+%{_libdir}/girepository-1.0/GModule-2.0.typelib
+%{_libdir}/girepository-1.0/GObject-2.0.typelib
+%{_libdir}/girepository-1.0/Gio-2.0.typelib
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/gapplication
@@ -219,11 +232,17 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_mandir}/man1/glib-compile-resources.1*
 %{_mandir}/man1/gresource.1*
 %{_datadir}/gdb/
+%dir %{_datadir}/gir-1.0
+%{_datadir}/gir-1.0/GIRepository-3.0.gir
+%{_datadir}/gir-1.0/GLib-2.0.gir
+%{_datadir}/gir-1.0/GModule-2.0.gir
+%{_datadir}/gir-1.0/GObject-2.0.gir
+%{_datadir}/gir-1.0/Gio-2.0.gir
 %{_datadir}/gettext/
 %{_datadir}/systemtap/
 
 %files doc
-%{_datadir}/gtk-doc/
+%{_datadir}/doc/glib-2.0/
 
 %files static
 %{_libdir}/libgio-2.0.a

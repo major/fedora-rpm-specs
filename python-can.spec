@@ -14,6 +14,7 @@ BuildArch: noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3dist(msgpack)
 %if 0%{?with_tests}
 BuildRequires:  python3-nose
 BuildRequires:  python3-mock
@@ -46,12 +47,15 @@ utilities for sending and receiving messages on a can bus.
 %prep
 %autosetup -p1 -n %{name}-%{version}%{?candidate:%{candidate}}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-rm -rf %{buildroot}/%{python3_sitelib}/test/
+%pyproject_install
+%pyproject_save_files can
 
 %check
 %if %{with_tests}
@@ -60,7 +64,7 @@ rm -rf %{buildroot}/%{python3_sitelib}/test/
 
 %files -n python3-can
 %license LICENSE.txt
-%{_bindir}/can_*.py
+%{_bindir}/can_*
 %{python3_sitelib}/*
 
 %changelog

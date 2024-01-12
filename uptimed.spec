@@ -34,7 +34,7 @@ Development header and library for uptimed.
 # remove bundled getopt
 rm -rf src/getopt.[ch]
 sed --in-place -e 's/AC_REPLACE_FUNCS(getopt)//' configure.ac
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 ./autogen.sh

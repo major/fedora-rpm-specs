@@ -5,7 +5,7 @@
 %global crate termcolor
 
 Name:           rust-termcolor
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Simple cross platform library for writing colored text to a terminal
 

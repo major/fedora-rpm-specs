@@ -1,5 +1,5 @@
 Name:           klog
-Version:        2.3.2
+Version:        2.3.3
 Release:        1%{?dist}
 Summary:        A Ham radio logging program for KDE
 
@@ -99,6 +99,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
 
 
 %changelog
+* Thu Jan 11 2024 Richard Shaw <hobbes1069@gmail.com> - 2.3.3-1
+- Update to 2.3.3.
+
 * Thu Aug 03 2023 Richard Shaw <hobbes1069@gmail.com> - 2.3.2-1
 - Update to 2.3.2.
 

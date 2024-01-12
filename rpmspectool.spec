@@ -1,7 +1,7 @@
 %bcond testcoverage 0
 
 Name:           rpmspectool
-Version:        1.99.9
+Version:        1.99.10
 Release:        %autorelease
 Summary:        Utility for dealing with RPM spec files
 

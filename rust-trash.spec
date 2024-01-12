@@ -6,7 +6,7 @@
 %global crate trash
 
 Name:           rust-trash
-Version:        3.1.2
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Library for moving files and folders to the Recycle Bin
 

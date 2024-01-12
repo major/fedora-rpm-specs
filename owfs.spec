@@ -169,8 +169,8 @@ and owpresent.
 %prep
 %setup -q
 # Perl dirs
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 sed -i -e 's/) Makefile.PL/& INSTALLDIRS=vendor/' \
 	module/swig/perl5/Makefile.am \

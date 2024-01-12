@@ -1,13 +1,13 @@
-%global glib2_version 2.78.0
+%global glib2_version 2.79.0
 
 Name:           gobject-introspection
-Version:        1.78.1
+Version:        1.79.1
 Release:        1%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
-Source0:        https://download.gnome.org/sources/%{name}/1.78/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.79/%{name}-%{version}.tar.xz
 # Workaround for Python 3.12 compatibility
 # https://bugzilla.redhat.com/show_bug.cgi?id=2208966
 Patch1:         workaround.patch
@@ -93,6 +93,9 @@ mv giscanner/ast.py giscanner/gio_ast.py
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Thu Jan 11 2024 Kalev Lember <klember@redhat.com> - 1.79.1-1
+- Update to 1.79.1
+
 * Mon Sep 18 2023 Kalev Lember <klember@redhat.com> - 1.78.1-1
 - Update to 1.78.1
 

@@ -1,8 +1,8 @@
 %global		framework ktexttemplate
 
 Name:		kf6-%{framework}
-Version:	5.247.0
-Release:	2%{?dist}
+Version:	5.248.0
+Release:	1%{?dist}
 Summary:	Separates the structure of documents from their data
 License:	CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -59,6 +59,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
 * Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
 - add doc package for KF6 API
 

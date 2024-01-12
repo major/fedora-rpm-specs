@@ -2,7 +2,7 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	6.0.0
+Version:	6.1.0
 
 %gometa
 
@@ -106,6 +106,15 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Wed Jan 10 2024 Paul Howarth <paul@city-fan.org> - 6.1.0-1
+- Update to 6.1.0
+  - 'geoipupdate' now sets the version in the 'User-Agent' header to the
+    version in the binary; while there were no issues with the version in the
+    header, this makes sure it will match the binary (the header also now
+    includes build information, such as OS and architecture)
+  - White spaces in secret files 'GEOIPUPDATE_ACCOUNT_ID_FILE',
+    'GEOIPUPDATE_LICENSE_KEY_FILE' are ignored (GH#262)
+
 * Thu Jul 20 2023 Paul Howarth <paul@city-fan.org> - 6.0.0-1
 - Update to 6.0.0
   - 'geoipupdate' now supports configuration via environment variables: any

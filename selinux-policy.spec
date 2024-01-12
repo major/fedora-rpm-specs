@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 48593ca48ec2df52a28d65cc3d87d95f393578fc
+%global commit 369ff9260dcf3c57165813d89b89f42462909123
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,8 +23,8 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.8
-Release: 2%{?dist}
+Version: 40.9
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: modules-targeted-base.conf
@@ -814,6 +814,13 @@ exit 0
 %endif
 
 %changelog
+* Tue Jan 09 2024 Zdenek Pytela <zpytela@redhat.com> - 40.9-1
+- Allow systemd-sleep set attributes of efivarfs files
+- Allow samba-dcerpcd read public files
+- Allow spamd_update_t the sys_ptrace capability in user namespace
+- Allow bluetooth devices work with alsa
+- Allow alsa get attributes filesystems with extended attributes
+
 * Tue Jan 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 40.8-2
 - Limit %%selinux_requires to version, not release
 

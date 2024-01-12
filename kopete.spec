@@ -1,24 +1,12 @@
-%undefine __cmake_in_source_build
-
-# linphone currently FTBFS rawhide/f29+
-%if 0%{?fedora} < 29
-#global jingle 1
-%endif
-
 Name:    kopete
 Summary: Instant messenger
-Version: 23.08.2
+Version: 23.08.4
 Release: 1%{?dist}
 
-License: GPLv2+ and GFDL
+License: GPLv2-or-later and LGPL-2.1-only
 URL:     https://www.kde.org/applications/internet/kopete/
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -72,15 +60,7 @@ BuildRequires: perl-generators
 BuildRequires: pkgconfig(alsa)
 BuildRequires: openslp-devel
 BuildRequires: pkgconfig(libgadu) >= 1.8.0
-# jingle dependencies
-%if 0%{?jingle:1}
-BuildRequires: expat-devel
-BuildRequires: linphone-devel
-BuildRequires: pkgconfig(mediastreamer)
-BuildRequires: openssl-devel
-BuildRequires: pkgconfig(jsoncpp)
-BuildRequires: pkgconfig(ortp)
-%endif
+
 BuildRequires: openssl-devel
 BuildRequires: pkgconfig(jasper)
 BuildRequires: pkgconfig(libidn)
@@ -126,14 +106,12 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 # disable oscar support due to FTBFS,
 # https://bugs.kde.org/show_bug.cgi?id=393372
 %{cmake_kf5} \
-  %{?!jingle:-DWITH_libjingle:BOOL=OFF} \
   -DWITH_wlm:BOOL=OFF
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
 
@@ -145,9 +123,6 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 %license COPYING*
 %{_kf5_sysconfdir}/xdg/kopete*
 %{_kf5_bindir}/kopete
-%if 0%{?jingle}
-%{_kf5_bindir}/libjingle-call
-%endif
 %{_kf5_bindir}/winpopup-*
 %{_kf5_datadir}/applications/org.kde.kopete.desktop
 %{_kf5_metainfodir}/org.kde.kopete.appdata.xml
@@ -166,8 +141,6 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 %{_kf5_datadir}/icons/oxygen/*/*/*
 %{_kf5_datadir}/qlogging-categories5/kopete.categories
 
-%ldconfig_scriptlets libs
-
 %files libs
 %{_kf5_libdir}/libkopete*.so.*
 %{_kf5_libdir}/liboscar.so.*
@@ -183,6 +156,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 
 
 %changelog
+* Wed Jan 10 2024 Steve Cossette <farchord@gmail.com> - 23.08.4-1
+- 23.08.4
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

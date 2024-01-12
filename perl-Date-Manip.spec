@@ -1,6 +1,6 @@
 Name:           perl-Date-Manip
-Version:        6.93
-Release:        2%{?dist}
+Version:        6.94
+Release:        1%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Manip
@@ -11,6 +11,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -46,6 +47,9 @@ Obsoletes: perl-DateManip < 5.48-1
 
 %{?perl_default_filter}
 
+# Filter modules bundled for tests
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(tests.pl\\)
+
 %description
 Date::Manip is a series of modules designed to make any common date/time
 operation easy to do. Operations such as comparing two times, determining
@@ -54,8 +58,23 @@ are all easily done. It deals with time as it is used in the Gregorian
 calendar (the one currently in use) with full support for time changes due
 to daylight saving time.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Date-Manip-%{version}
+
+# Help generators to recognize Perl scripts
+for F in t/*.t t/*.pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -64,6 +83,22 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove release tests
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/_pod*
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/_version.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset DATE_MANIP DATE_MANIP_DEBUG DATE_MANIP_DEBUG_ABBREVS \
+    DATE_MANIP_DEBUG_ZONES Date_Manip_RELEASE_TESTING DATE_MANIP_TEST_DM5 \
+    OS MULTINET_TIMEZONE 'SYS$TIMEZONE_DIFFERENTIAL' 'SYS$TIMEZONE_NAME' \
+    'SYS$TIMEZONE_RULE' 'TCPIP$TZ' 'UCX$TZ'
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset DATE_MANIP DATE_MANIP_DEBUG DATE_MANIP_DEBUG_ABBREVS \
@@ -84,7 +119,14 @@ make test
 %{_mandir}/man3/Date::Manip::*.3*
 %{_bindir}/dm_*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Jan 10 2024 Jitka Plesnikova <jplesnik@redhat.com> - 6.94-1
+- 6.94 bump (rhbz#2257491)
+- Package tests
+
 * Wed Jan 03 2024 Petr Pisar <ppisar@redhat.com> - 6.93-2
 - Adapt test envinronment guard to changes in 6.93
 - List files explicitly

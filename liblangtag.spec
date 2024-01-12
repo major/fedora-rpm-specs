@@ -9,7 +9,7 @@ Release: 1%{?dist}
 Summary: An interface library to access tags for identifying languages
 
 License: LGPL-3.0-or-later OR MPL-2.0
-URL: http://tagoh.bitbucket.org/liblangtag/
+URL: https://bitbucket.org/tagoh/liblangtag/
 Source0: https://bitbucket.org/tagoh/%{name}/downloads/%{name}-%{version}.tar.bz2
 Patch0: liblangtag-noparallel-gir.patch
 

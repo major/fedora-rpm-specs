@@ -197,12 +197,6 @@
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/blob/master/f/buildflags.md
 %undefine _strict_symbol_defs_build
 
-%global libwbc_alternatives_version 0.16
-%global libwbc_alternatives_suffix %nil
-%if 0%{?__isa_bits} == 64
-%global libwbc_alternatives_suffix -64
-%endif
-
 %global _systemd_extra "Environment=KRB5CCNAME=FILE:/run/samba/krb5cc_samba"
 
 # Make a copy of this variable to prevent repeated evaluation of the

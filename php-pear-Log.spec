@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-pear-Log
 #
-# Copyright (c) 2006-2023 Remi Collet
+# Copyright (c) 2006-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -12,17 +12,19 @@
 
 Summary:        Abstracted logging facility for PHP
 Name:           php-pear-Log
-Version:        1.13.3
-Release:        7%{?dist}
+Version:        1.14.0
+Release:        2%{?dist}
 License:        MIT
 URL:            http://pear.php.net/package/Log
 Source:         http://pear.php.net/get/Log-%{version}.tgz
 
-Patch0:         %{pear_name}-php82.patch
+Patch0:         %{pear_name}-32bit.patch
 
 BuildArch:      noarch
+BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-pear
 
+Requires:       php(language) >= 7.4
 Requires:       php-pear(PEAR) >= 1.4.9
 Requires:       php-pear(DB) >= 1.3
 Requires:       php-pear(MDB2) >= 2.0.0
@@ -47,9 +49,8 @@ and "php-pear-MDB2" (version >= 2.0.0RC1).
 %setup -c -q
 
 cd %{pear_name}-%{version}
-
-%patch0 -p0
-sed -e '/role="test"/s/md5sum="[^"]*"//' ../package.xml >%{name}.xml
+%patch -P0 -p1
+sed -e 's/md5sum="[^"]*"//' ../package.xml >%{name}.xml
 
 
 %build
@@ -100,6 +101,13 @@ fi
 
 
 %changelog
+* Wed Jan 10 2024 Remi Collet <remi@remirepo.net> - 1.14.0-2
+- add patch for 32-bit from https://github.com/pear/Log/pull/30
+
+* Wed Jan 10 2024 Remi Collet <remi@remirepo.net> - 1.14.0-1
+- version 1.14.0
+- raise dependency on PHP 7.4
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

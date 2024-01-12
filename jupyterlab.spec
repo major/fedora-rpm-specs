@@ -1,3 +1,7 @@
+# Unset -s on python shebang - ensure that extensions installed with pip
+# to user locations are seen and properly loaded
+%undefine _py3_shebang_s
+
 Name:           jupyterlab
 Version:        4.0.5
 Release:        %autorelease
@@ -33,6 +37,10 @@ BuildRequires:  libappstream-glib
 
 Requires: python-jupyter-filesystem
 Requires: hicolor-icon-theme
+
+# pip allows to install third-party
+# extensions into jupyterlab.
+Recommends: python3-pip
 
 %py_provides    python3-jupyterlab
 %py_provides    jupyter-lab

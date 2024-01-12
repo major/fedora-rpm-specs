@@ -1,6 +1,6 @@
 Name: kernelshark
-Version: 2.2.0
-Release: 4%{?dist}
+Version: 2.3.0
+Release: 1%{?dist}
 Epoch: 1
 
 # As of 1.1, only kernelshark.cpp, kshark-record.cpp and examples are GPL-2.0. The rest of kernel-shark is LGPL-2.1.
@@ -25,7 +25,10 @@ BuildRequires: pkgconf
 BuildRequires: pkgconfig(glut)
 BuildRequires: pkgconfig(json-c)
 BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6OpenGLWidgets)
+BuildRequires: cmake(Qt6StateMachine)
+BuildRequires: cmake(Qt6Widgets)
 BuildRequires: libtracecmd-devel
 BuildRequires: libtraceevent-devel
 BuildRequires: libtracefs-devel
@@ -83,15 +86,18 @@ chrpath --delete %{buildroot}/%{_bindir}/kshark-record
 %{_datadir}/icons/kernelshark/*
 %{_datadir}/polkit-1/actions/org.freedesktop.kshark-record.policy
 %{_metainfodir}/%{name}.appdata.xml
-%{_libdir}/libkshark-gui.so.2.2.0
-%{_libdir}/libkshark-plot.so.2.2.0
+%{_libdir}/libkshark-gui.so.%{version}
+%{_libdir}/libkshark-plot.so.%{version}
 %{_libdir}/libkshark.so
 %{_libdir}/libkshark.so.2
-%{_libdir}/libkshark.so.2.2.0
+%{_libdir}/libkshark.so.%{version}
 %{_libdir}/pkgconfig/libkshark.pc
 %{_includedir}/%{name}
 
 %changelog
+* Fri Jan 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.3.0-1
+- Update to 2.3.0
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

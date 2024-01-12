@@ -7,7 +7,7 @@
 %global pcommit 1582d36944310a96cc8e2dfc01e3682745866812
 
 Name:           cvc5
-Version:        1.0.8
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -149,6 +149,10 @@ sed -i 's,kissat/kissat\.h,kissat.h,' cmake/FindKissat.cmake
 sed -i 's/\${Java_JAVAC_EXECUTABLE}/& -source 1.8 -target 1.8/' \
   src/api/java/CMakeLists.txt
 
+# We cannot find symbols we need with hidden ELF symbols in release 1.1.0
+sed -i '/VISIBILITY/s/hidden/default/' CMakeLists.txt
+sed -i 's/\(VISIBILITY_INLINES_HIDDEN \)1/\10/' CMakeLists.txt
+
 %generate_buildrequires
 ln -s . src/api/python/cvc5
 ln -s . src/api/python/pythonic
@@ -160,8 +164,9 @@ sed -e 's/\${CVC5_VERSION}/%{version}/' \
 rm -fr cvc5 cvc5.egg-info pythonic setup.py
 
 %build
-export CFLAGS='%{build_cflags} -DABC_USE_STDINT_H -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux -I%{_includedir}/abc -I%{_includedir}/cryptominisat5'
-export CXXFLAGS="$CFLAGS"
+export BUILDFLAGS='-DABC_USE_STDINT_H -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux -I%{_includedir}/abc -I%{_includedir}/cryptominisat5'
+export CFLAGS="%{build_cflags} $BUILDFLAGS"
+export CXXFLAGS="%{build_cxxflags} $BUILDFLAGS"
 %cmake --debug-find \
   -DBUILD_BINDINGS_JAVA:BOOL=ON \
   -DBUILD_BINDINGS_PYTHON:BOOL=ON \
@@ -209,7 +214,9 @@ cd -
 
 # Increase the test timeout for slow builders
 export TEST_TIMEOUT=2000
-%ctest
+
+# Skip the regression tests until alfc can be packaged for Fedora
+%ctest --exclude-regex regress
 
 %files
 %doc AUTHORS NEWS.md README.md THANKS

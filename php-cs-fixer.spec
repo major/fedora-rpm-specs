@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    c0daa33cb2533cd73f48dde1c70c2afa3e7953b5
+%global gh_commit    be6831c9af1740470d2a773119b9273f8ac1c3d2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.45.0
+Version:        3.46.0
 Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -148,6 +148,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Jan  4 2024 Remi Collet <remi@remirepo.net> - 3.46.0-1
+- update to 3.46.0
+
 * Sat Dec 30 2023 Remi Collet <remi@remirepo.net> - 3.45.0-1
 - update to 3.45.0
 

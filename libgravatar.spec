@@ -1,6 +1,6 @@
 Name:    libgravatar
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Gravatar support library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -30,6 +30,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -53,8 +57,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/libKPim6Gravatar.so
 %{_kf6_libdir}/cmake/KPim6Gravatar/
 %{_includedir}/KPim6/Gravatar/
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
+- add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

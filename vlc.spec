@@ -21,7 +21,7 @@
 %endif
 
 %ifarch x86_64
-%bcond mfx 1
+%bcond vpl 1
 %endif
 
 Name:		vlc
@@ -39,6 +39,8 @@ Patch:		0001-Use-SYSTEM-wide-ciphers-for-gnutls.patch
 Patch:		fdk-aac2.patch
 # separate avcodec-vaapi conditional from other vaapi modules
 Patch:		vaapi-without-ffmepg4.patch
+# port from intel-mediasdk to oneVPL
+Patch:          oneVPL.patch
 
 %{load:%{S:1}}
 %global __provides_exclude_from ^%{vlc_plugindir}/.*$
@@ -122,9 +124,6 @@ BuildRequires:	pkgconfig(libgme)
 #BuildRequires:	pkgconfig(libgoom2)
 BuildRequires:	pkgconfig(libidn)
 BuildRequires:	pkgconfig(libmatroska)
-%if %{with mfx}
-BuildRequires:	pkgconfig(libmfx)
-%endif
 BuildRequires:	pkgconfig(libmodplug) >= 0.8.9.0
 BuildRequires:	pkgconfig(libmpeg2) >= 0.3.2
 BuildRequires:	pkgconfig(libmpg123)
@@ -192,6 +191,9 @@ BuildRequires:	pkgconfig(twolame)
 BuildRequires:	pkgconfig(vdpau) >= 0.6
 BuildRequires:	pkgconfig(vorbis) >= 1.1
 BuildRequires:	pkgconfig(vorbisenc) >= 1.1
+%if %{with vpl}
+BuildRequires:	pkgconfig(vpl)
+%endif
 BuildRequires:	pkgconfig(vpx) >= 1.5.0
 BuildRequires:	pkgconfig(wayland-client) >= 1.5.91
 BuildRequires:	pkgconfig(wayland-egl)
@@ -567,7 +569,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-x265%{!?with_x265:=no}				\
 	--enable-x264%{!?with_x264:=no}				\
 	--enable-x26410b%{!?with_x264:=no}			\
-	--enable-mfx%{!?with_mfx:=no}				\
+	--enable-vpl%{!?with_vpl:=no}				\
 	--enable-fluidsynth					\
 	--disable-fluidlite					\
 	--enable-zvbi						\

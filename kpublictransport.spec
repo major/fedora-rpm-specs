@@ -1,6 +1,6 @@
 Name:           kpublictransport
 Version:        24.01.85
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
 Summary:        Library to assist with accessing public transport timetables and other data
 Url:            https://invent.kde.org/libraries/kpublictransport
@@ -21,6 +21,19 @@ BuildRequires: qt6-qtbase-private-devel
 %description
 %{summary}.
 
+%package devel
+Summary: Development files for %{name}
+License: BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+%{summary}.
+
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %prep
 %autosetup
 
@@ -33,30 +46,27 @@ BuildRequires: qt6-qtbase-private-devel
 
 %files
 %{_kf6_datadir}/qlogging-categories6/org_kde_kpublictransport.categories
-
 %{_kf6_libdir}/libKPublicTransport.so.1
 %{_kf6_libdir}/libKPublicTransport.so.%{version}
 %{_kf6_libdir}/libKPublicTransportOnboard.so.1
 %{_kf6_libdir}/libKPublicTransportOnboard.so.%{version}
-
 %{_kf6_qmldir}/org/kde/kpublictransport/*
 %{_kf6_datadir}/qlogging-categories6/org_kde_kpublictransport_onboard.categories
 
-%package devel
-Summary: Development files for %{name}
-License: BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
-Requires: %{name}%{?_isa} = %{version}-%{release}
-
-%description devel
-%{summary}.
 
 %files devel
 %{_includedir}/*
-
 %{_kf6_libdir}/cmake/*
 %{_kf6_libdir}/*.so
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
+- add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

@@ -4,9 +4,9 @@
 Summary:        Tool to transform and deploy CPU microcode update for x86
 Name:           microcode_ctl
 Version:        2.1
-Release:        58%{?dist}
+Release:        59%{?dist}
 Epoch:          2
-License:        GPLv2+ and Redistributable, no modification permitted
+License:        GPL-2.0-or-later AND LicenseRef-Fedora-Firmware
 URL:            https://pagure.io/microcode_ctl
 Source0:        https://releases.pagure.org/microcode_ctl/%{name}-%{upstream_version}.tar.xz
 ExclusiveArch:  %{ix86} x86_64
@@ -35,6 +35,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} INSDIR=/usr/sbin install clean
 
 
 %changelog
+* Wed Jan 10 2024 Eugene Syromiatnikov <esyr@redhat.com> 2:2.1-59
+- migrated to SPDX license
+
 * Thu Nov 14 2023 Eugene Syromiatnikov <esyr@redhat.com> 2:2.1-58
 - Update to upstream 2.1-42. 20231114
   - Update of 06-6a-06/0x87 (ICX-SP D0) microcode from revision 0xd0003a5

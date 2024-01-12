@@ -1,12 +1,12 @@
 Name:    kontactinterface
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Kontact Interface Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # https://invent.kde.org/pim/kontactinterface/-/merge_requests/22
 Patch0:         move-translations.patch
@@ -40,6 +40,10 @@ Requires:       kf6-kparts-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -66,9 +70,15 @@ find ./po -type f -name kontactinterfaces5.po -execdir mv {} kontactinterfaces6.
 %{_kf6_libdir}/libKPim6KontactInterface.so
 %{_kf6_libdir}/cmake/KPim6KontactInterface/
 %{_includedir}/KPim6/KontactInterface/
-
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
+- add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

@@ -1,12 +1,12 @@
 %global		framework attica
 
 Name:		kf6-%{framework}
-Version:	5.247.0
+Version:	5.248.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks Tier 1 Addon with Open Collaboration Services API
 License:	CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL.txt
 URL:		https://invent.kde.org/frameworks/%{framework}
-Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source0:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
@@ -28,29 +28,16 @@ Requires:	qt6-qtbase-devel
 %description	devel
 %{summary}.
 
-%if 0%{?docs}
-%package doc
-Summary: API documentation for %{name}
-BuildRequires: doxygen
-BuildRequires: qt6-qdoc
-BuildRequires: qt6-qhelpgenerator
-BuildRequires: qt6-qtbase-doc
-Requires: kf6-filesystem
-BuildArch: noarch
-%description doc
-%{summary}.
-%endif
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
 %build
-%cmake_kf6 \
-  %if 0%{?flatpak}
-  %{?docs:-DBUILD_QCH:BOOL=OFF} \
-  %else
-  %{?docs:-DBUILD_QCH:BOOL=ON} \
-  %endif
+%cmake_kf6
 
 %cmake_build
 
@@ -68,9 +55,18 @@ BuildArch: noarch
 %{_kf6_includedir}/Attica/
 %{_kf6_libdir}/libKF6Attica.so
 %{_kf6_libdir}/pkgconfig/KF6Attica.pc
-
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
+- add doc package for KF6 API
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

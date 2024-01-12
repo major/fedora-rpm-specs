@@ -1,8 +1,8 @@
 %bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:    libcamera
-Version: 0.1.0
-Release: 3%{?dist}
+Version: 0.2.0
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -20,10 +20,6 @@ ExcludeArch: s390x ppc64le
 Source0: %{name}-%{version}.tar.xz
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
-
-# Fix build with Python 3.12
-Patch01: mojo-importlib.patch
-Patch02: libcamera-0.1.0-sphinx-7.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++
@@ -71,7 +67,6 @@ Files for development with %{name}.
 %package     doc
 Summary:     Documentation for %{name}
 License:     LGPL-2.1-or-later AND CC-BY-4.0
-BuildArch:   noarch
 
 %description doc
 HTML based documentation for %{name} including getting started and API.
@@ -167,8 +162,8 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
-%{_libdir}/libcamera*.so.0.1
-%{_libdir}/libcamera*.so.0.1.0
+%{_libdir}/libcamera*.so.0.2
+%{_libdir}/libcamera*.so.0.2.0
 
 %files devel
 %{_includedir}/%{name}/
@@ -204,6 +199,10 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_libexecdir}/libcamera/v4l2-compat.so
 
 %changelog
+* Wed Jan 10 2024 Javier Martinez Canillas <javierm@redhat.com> - 0.2.0-1
+- Update to version 0.2.0
+- Resolves: rhbz#2257601
+
 * Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.1.0-3
 - Rebuild for gtest 1.14.0
 

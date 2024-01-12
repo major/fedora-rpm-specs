@@ -1,6 +1,6 @@
 Name:           yices
 Version:        2.6.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        SMT solver
 
 # The yices code is GPL-3.0-or-later.  The cudd code is BSD-3-Clause.
@@ -15,6 +15,9 @@ Source1:        https://github.com/ivmai/cudd/archive/cudd-3.0.0.tar.gz
 Patch0:         %{name}-cryptominisat.patch
 # Get rid of an implicit-int function declaration in a configure check.
 Patch1:         implicit-int.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cadical-devel
 BuildRequires:  cryptominisat-devel
@@ -88,10 +91,10 @@ Command line tools that use the yices library.
 # Font licenses:
 # AMS: OFL-1.1-RFN
 # CM: Knuth-CTAN
-# DejaVu: LPPL-1.0
-# LaTeX: LPPL-1.0
+# DejaVu: LPPL-1.3a
+# LaTeX: LPPL-1.3a
 # Nimbus: AGPL-3.0-only
-License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT AND OFL-1.1-RFN AND Knuth-CTAN AND LPPL-1.0 AND AGPL-3.0-only
+License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT AND OFL-1.1-RFN AND Knuth-CTAN AND LPPL-1.3a AND AGPL-3.0-only
 Summary:        Documentation for yices
 BuildArch:      noarch
 
@@ -182,6 +185,11 @@ make check MODE=debug
 %license copyright.txt LICENSE.txt
 
 %changelog
+* Wed Jan 10 2024 Jerry James <loganjerry@gmail.com> - 2.6.4-8
+- Rebuild for cadical 1.9.4
+- Update font licenses from LPPL-1.0 to LPPL-1.3a
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

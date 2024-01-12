@@ -1,5 +1,5 @@
 Name:           python-sphinxcontrib-bibtex
-Version:        2.6.1
+Version:        2.6.2
 Release:        1%{?dist}
 Summary:        Sphinx extension for BibTeX style citations
 
@@ -115,6 +115,9 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc html/*
 
 %changelog
+* Wed Jan 10 2024 Jerry James <loganjerry@gmail.com> - 2.6.2-1
+- Version 2.6.2
+
 * Mon Aug 28 2023 Jerry James <loganjerry@gmail.com> - 2.6.1-1
 - Version 2.6.1
 - Drop upstreamed sup patch

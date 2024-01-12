@@ -3,10 +3,14 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global commit          599359b0d532321954b685ba6b3a91f25f604ab3
+%global date            20240110
+%global commit          164991709928e578a846fad8acc8079ed466c401
+%global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
-Version:        0
+Version:        0^%{date}git%{shortcommit}
 %gometa
+# un-fsck the release tag
+%undefine distprefix
 
 %global common_description %{expand:
 Meta's Time libraries.}
@@ -15,13 +19,14 @@ Meta's Time libraries.}
 %global godocs          CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        0.15%{?dist}
+Release:        %autorelease
 Summary:        Meta's Time libraries
 
-# Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+# ensure we are building with the fix for CVE-2023-39325 included
+BuildRequires:  golang-x-net-devel >= 0.17.0
 
 %description
 %{common_description}
@@ -174,40 +179,4 @@ rm timestamp/timestamp_linux_test.go
 %gopkgfiles
 
 %changelog
-* Fri Oct 6 2023 Oleg Obleukhov <leoleovich@gmail.com> - 0-0.15
-- Rebuild latest
-
-* Wed Oct 4 2023 Oleg Obleukhov <leoleovich@gmail.com> - 0-0.14
-- Add sptp package build and rebase on new commit
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0-0.11
-- Rebuild to fix FTBFS
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0-0.9
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Wed Jun 15 2022 Alexander Bulimov <abulimov@fedoraproject.org> - 0-0.8.20220615git8413c32
-- Update shanpshot to 8413c32
-- Added c4u binary to ptp4u package
-
-
-* Fri Mar 04 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 0-0.7.20220304git3c26ea4
-- Ensure version is set before gometa
-
-* Fri Mar 04 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 0-0.6.20220304git3c26ea4
-- Update snapshot to 3c26ea4
-- Re-run go2rpm
-- Disable broken tests
-
-* Fri Jan 14 2022 Alexander Bulimov <abulimov@fedoraproject.org> - 0-0.5.20220113git83c4193
-- Initial package
+%autochangelog

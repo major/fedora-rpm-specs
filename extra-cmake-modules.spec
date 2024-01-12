@@ -11,8 +11,8 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 5.247.0
-Release: 3%{?dist}
+Version: 5.248.0
+Release: 1%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{version}/%{framework}-%{version}.tar.xz
@@ -77,6 +77,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
 * Thu Jan 04 2024 Alessandro Astone <ales.astone@gmail.com> - 5.247.0-3
 - Undo pack-relative-relocs workaronud, addressed in
   redhat-rpm-config-274-1.fc40

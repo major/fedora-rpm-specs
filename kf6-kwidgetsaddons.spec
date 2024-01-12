@@ -1,7 +1,7 @@
 %global		framework kwidgetsaddons
 
 Name:		kf6-%{framework}
-Version:	5.247.0
+Version:	5.248.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtWidgets
 License:	BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later
@@ -31,6 +31,11 @@ Requires:	qt6-qtbase-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %prep
 %autosetup -n %{framework}-%{version} -p1
 
@@ -49,7 +54,6 @@ developing applications that use %{name}.
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/*categories
 %{_kf6_libdir}/libKF6WidgetsAddons.so.*
-%{_kf6_datadir}/kf6/kcharselect/
 %{_kf6_qtplugindir}/designer/*6widgets.so
 
 %files devel
@@ -57,8 +61,16 @@ developing applications that use %{name}.
 %{_kf6_includedir}/KWidgetsAddons/
 %{_kf6_libdir}/libKF6WidgetsAddons.so
 %{_kf6_libdir}/cmake/KF6WidgetsAddons/
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+- Add doc package for KF6 API
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

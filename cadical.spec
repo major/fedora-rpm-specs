@@ -1,6 +1,6 @@
 Name:           cadical
 Epoch:          1
-Version:        1.7.4
+Version:        1.9.4
 Release:        1%{?dist}
 Summary:        Simplified SAT solver
 
@@ -10,12 +10,16 @@ Source0:        https://github.com/arminbiere/%{name}/archive/rel-%{version}/%{n
 # Fedora-only patch: build a shared library instead of a static library
 Patch0:         %{name}-shared.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  drat-trim-tools
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en
 BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  zlib-devel
+
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description
@@ -94,7 +98,7 @@ make -C test
 
 %files libs
 %license LICENSE
-%doc CONTRIBUTING README.md
+%doc NEWS.md README.md
 %{_libdir}/lib%{name}.so.0*
 
 %files devel
@@ -103,6 +107,10 @@ make -C test
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jan 10 2024 Jerry James <loganjerry@gmail.com> - 1:1.9.4-1
+- Version 1.9.4
+- Stop building for 32-bit x86
+
 * Sat Sep 16 2023 Jerry James <loganjerry@gmail.com> - 1:1.7.4-1
 - Version 1.7.4
 

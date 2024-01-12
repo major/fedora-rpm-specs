@@ -8,7 +8,7 @@
 
 Name:           astrometry
 Version:        0.94
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
 # Software is BSD with some GPL code
@@ -333,6 +333,9 @@ make test ARCH_FLAGS="%{optflags}"
 %{_bindir}/votabletofits
 
 %changelog
+* Wed Jan 10 2024 Mattia Verga <mattia.verga@protonmail.com> - 0.94-2
+- Rebuilt for libwcs soname bump
+
 * Sun Sep 17 2023 Mattia Verga <mattia.verga@protonmail.com> - 0.94-1
 - Update to 0.94 (fedora#2148995)
 - Migrate license to SPDX

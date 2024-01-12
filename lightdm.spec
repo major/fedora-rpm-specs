@@ -7,7 +7,7 @@
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
 Version:	1.32.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
 License:	(LGPLv2 or LGPLv3) and GPLv3+
@@ -33,9 +33,10 @@ Source25:	50-disable-guest.conf
 Source26:	50-run-directory.conf
 
 Patch0:		gcc-10.patch
+Patch1:     remove_bin_path.patch
 
 # Upstreamed:
-Patch1:		%{giturl}/pull/5.patch#/lightdm-1.25.1-disable_dmrc.patch
+Patch2:		%{giturl}/pull/5.patch#/lightdm-1.25.1-disable_dmrc.patch
 
 # Upstream commits
 
@@ -71,6 +72,7 @@ Requires:	/sbin/nologin
 Requires:	systemd
 Requires:	xorg-x11-xinit
 Requires:   (lightdm-greeter = 1.2 if xorg-x11-server-Xorg)
+Suggests:   slick-greeter
 %{?systemd_requires}
 %{?sysusers_requires_compat}
 
@@ -278,6 +280,10 @@ fi
 
 
 %changelog
+* Wed Jan 10 2024 Leigh Scott <leigh123linux@gmail.com> - 1.32.0-6
+- Add suggests slick-greeter (rhbz#2208097)
+- Remove /bin path from env (rhbz#2257618)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

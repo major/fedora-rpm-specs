@@ -1,7 +1,7 @@
 Name:           perl-CGI
 Summary:        Handle Common Gateway Interface requests and responses
-Version:        4.60
-Release:        2%{?dist}
+Version:        4.61
+Release:        1%{?dist}
 License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-%{version}.tar.gz
 URL:            https://metacpan.org/release/CGI
@@ -113,13 +113,17 @@ make test
 %files
 %license LICENSE
 %doc Changes README.md examples/
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/CGI*
+%{perl_vendorlib}/Fh*
+%{_mandir}/man3/CGI*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 10 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4.61-1
+- 4.61 bump (rhbz#2257292)
+
 * Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.60-2
 - Remove unused dependency perl(Test::CPAN::Changes)
 

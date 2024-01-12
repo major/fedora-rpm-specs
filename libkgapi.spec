@@ -6,13 +6,13 @@
 
 Name:    libkgapi
 Version: 24.01.85
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to access to Google services
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/pim/%{name}
 
-Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
@@ -49,6 +49,10 @@ Provides:       libkgoogle-devel = %{version}-%{release}
 Libraries and header files for developing applications that use akonadi-google
 resources.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -76,9 +80,15 @@ resources.
 %{_kf6_libdir}/cmake/KPim6GAPI/
 %dir %{_includedir}/KPim6/
 %{_includedir}/KPim6/KGAPI/
-
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
+- add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

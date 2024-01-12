@@ -1,13 +1,13 @@
 %global framework kstatusnotifieritem
 
 Name:           kf6-%{framework}
-Version:        5.247.0
+Version:        5.248.0
 Release:        1%{?dist}
 Summary:        Implementation of Status Notifier Items
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
-Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules >= %{version}
@@ -30,6 +30,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %prep
 %autosetup -n %{framework}-%{version}
 
@@ -51,8 +56,18 @@ developing applications that use %{name}.
 %{_kf6_includedir}/KStatusNotifierItem
 %{_kf6_libdir}/cmake/KF6StatusNotifierItem
 %{_kf6_libdir}/libKF6StatusNotifierItem.so
+%{_qt6_docdir}/*.tags
+ 
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
+- 5.248.0
+
+* Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.247.0-2
+- add doc package for KF6 API
+
 * Wed Dec 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.247.0-1
 - 5.247.0
 

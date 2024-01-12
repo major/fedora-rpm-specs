@@ -188,7 +188,7 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.11.0
+%define IPA_VERSION 4.11.1
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version
 %define AT_SIGN @
@@ -201,7 +201,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        7%{?rc_version:.%rc_version}%{?dist}
+Release:        1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1744,6 +1744,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 10 2024 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.1-1
+- Security release: CVE-2023-5455
+- Resolves: rhbz#2257646
+
 * Wed Nov 08 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.0-7
 - ipalib: fix the IPACertificate validity dates (python 3.12 compatibility)
 - Handle PKI revocation response differences in JSON API

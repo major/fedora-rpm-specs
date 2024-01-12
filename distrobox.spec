@@ -38,7 +38,7 @@ allowing to share the HOME directory of the user, external storage,
 external usb devices and graphical apps (X11/Wayland) and audio.
 
 %prep
-%forgesetup
+%autosetup
 
 %build
 

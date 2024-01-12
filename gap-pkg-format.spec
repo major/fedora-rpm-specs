@@ -1,8 +1,8 @@
 %global pkgname format
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.4.3
-Release:        10%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        Formations of finite solvable groups
 
 License:        GPL-2.0-or-later
@@ -10,9 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/format/
 Source0:        https://github.com/gap-packages/format/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Add omitted bibliography file
-# See https://github.com/gap-packages/format/pull/8
-Patch0:         0001-Add-missing-bibliography.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -43,9 +40,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
 
-# There is no ext manual anymore
-sed -i '/UseReferences.*ext/d' doc/manual.tex
-
 %build
 export LC_ALL=C.UTF-8
 
@@ -67,7 +61,7 @@ export LC_ALL=C.UTF-8
 gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
-%doc README.md
+%doc CHANGES.md README.md
 %license LICENSE
 %{gap_libdir}/pkg/%{pkgname}/
 %exclude %{gap_libdir}/pkg/%{pkgname}/doc/
@@ -80,6 +74,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Wed Jan 10 2024 Jerry James <loganjerry@gmail.com> - 1.4.4-1
+- Version 1.4.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

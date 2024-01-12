@@ -1,5 +1,5 @@
 Name:           latexmk
-Version:        4.82
+Version:        4.82a
 Release:        1%{?dist}
 Summary:        A make-like utility for LaTeX files
 
@@ -59,6 +59,9 @@ rm -f extra-scripts/*.bat
 %license COPYING
 
 %changelog
+* Wed Jan 10 2024 Jerry James <loganjerry@gmail.com> - 4.82a-1
+- Version 4.82a
+
 * Tue Dec 26 2023 Jerry James <loganjerry@gmail.com> - 4.82-1
 - Version 4.82
 

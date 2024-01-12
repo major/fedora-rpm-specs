@@ -1,15 +1,19 @@
 Name:    libcamera-apps
-Version: 1.3.0
+Version: 1.4.1
 Release: 1%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/libcamera-apps
 Source0: https://github.com/raspberrypi/libcamera-apps/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+# Compressed pixel formats are not supported by mainline libcamera
+Patch01: Revert-Support-compressed-pixel-formats-when-saving-.patch
+
 ExcludeArch:   %{power64} s390x
 BuildRequires: cmake
 BuildRequires: boost-devel
 BuildRequires: gcc-c++
+BuildRequires: git-core
 BuildRequires: libcamera-devel
 BuildRequires: libdrm-devel
 BuildRequires: libexif-devel
@@ -17,6 +21,7 @@ BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
 BuildRequires: libtiff-devel
 BuildRequires: libX11-devel
+BuildRequires: meson
 BuildRequires: qt5-qtbase-devel
 # Omitting ffmpeg due to needed pieces not in Fedora
 # BuildRequires: ffmpeg-devel
@@ -35,15 +40,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Headers for developing against libcamera-apps.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n rpicam-apps-%{version}
 
 %build
 
-%cmake -DENABLE_LIBAV=OFF -DENABLE_OPENCV=OFF -DENABLE_TFLITE=OFF
-%cmake_build
+%meson
+%meson_build
 
 %install
-%cmake_install
+%meson_install
 # Still installs the unversioned sonames
 find %{buildroot} -name '*.so' -delete
 
@@ -53,17 +58,17 @@ find %{buildroot} -name '*.so' -delete
 %license license.txt
 %{_bindir}/camera-bug-report
 %{_bindir}/libcamera-*
-%{_libdir}/libcamera_app.so.*
-%{_libdir}/libencoders.so.*
-%{_libdir}/libimages.so.*
-%{_libdir}/liboutputs.so.*
-%{_libdir}/libpost_processing_stages.so.*
-%{_libdir}/libpreview.so.*
+%{_bindir}/rpicam-*
+%{_libdir}/rpicam_app.so.*
 
 %files devel
-%{_includedir}/libcamera-apps/
+%{_includedir}/libcamera-apps
+%{_includedir}/rpicam-apps/
 
 %changelog
+* Wed Jan 10 2024 Javier Martinez Canillas <javierm@redhat.com> - 1.4.1-1
+- Update to 1.4.1
+
 * Mon Oct 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.3.0-1
 - Update to 1.3.0
 
