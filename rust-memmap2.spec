@@ -5,7 +5,7 @@
 %global crate memmap2
 
 Name:           rust-memmap2
-Version:        0.9.0
+Version:        0.9.3
 Release:        %autorelease
 Summary:        Cross-platform Rust API for memory-mapped file IO
 
@@ -75,9 +75,7 @@ use the "stable_deref_trait" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip a test that fails on ppc64le:
-#   https://github.com/RazrFalcon/memmap2-rs/issues/105
-%cargo_test -- -- --exact --skip test::advise_writes_unsafely_to_part_of_map
+%cargo_test
 %endif
 
 %changelog

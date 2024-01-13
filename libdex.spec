@@ -1,5 +1,5 @@
 Name:    libdex
-Version: 0.4.1
+Version: 0.4.3
 Release: %autorelease
 Summary: a library supporting "Deferred Execution" for GNOME and GTK
 

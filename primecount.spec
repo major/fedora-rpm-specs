@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.9
-Release:        3%{?dist}
+Version:        7.10
+Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -105,6 +105,14 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Thu Jan 11 2024 Kim Walisch <walki@fedoraproject.org> - 7.10-2
+- Fix source archive name, must be primecount-X.Y.tar.gz
+
+* Thu Jan 11 2024 Kim Walisch <walki@fedoraproject.org> - 7.10-1
+- Improve CMake libatomic detection
+- Fix potential integer overflows in Li_inverse(x) and Ri_inverse(x)
+- Added new internal nth_prime_approx(n)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

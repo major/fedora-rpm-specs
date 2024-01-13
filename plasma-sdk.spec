@@ -1,5 +1,5 @@
 Name:    plasma-sdk
-Version: 5.91.0
+Version: 5.92.0
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -16,6 +16,7 @@ BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  pkgconfig(Qt6Core5Compat)
 
+BuildRequires:  cmake(Plasma5Support)
 BuildRequires:  cmake(KF6Archive)
 BuildRequires:  cmake(KF6Completion)
 BuildRequires:  cmake(KF6Config)
@@ -35,7 +36,6 @@ BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6Plasma5Support)
 
 BuildRequires:  cmake(Plasma)
 
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_mandir}/man1/kqml.1.gz
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

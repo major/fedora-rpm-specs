@@ -1,5 +1,5 @@
 Name:          flatpak-kcm
-Version:       5.91.0
+Version:       5.92.0
 Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later
 Summary:       Flatpak Permissions Management KCM
@@ -41,6 +41,9 @@ BuildRequires: pkgconfig(flatpak)
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_flatpak.so
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

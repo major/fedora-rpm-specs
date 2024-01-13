@@ -1,7 +1,7 @@
 %global use_x11_tests 1
 
 Name:           perl-Config-Model-TkUI
-Version:        1.377
+Version:        1.379
 Release:        1%{?dist}
 Summary:        TK GUI to edit config data through Config::Model
 License:        LGPL-2.1-only
@@ -20,6 +20,7 @@ BuildRequires:  perl(Config::Model::Tester::Setup)
 BuildRequires:  perl(Config::Model::Value)
 BuildRequires:  perl(ExtUtils::testlib)
 BuildRequires:  perl(File::HomeDir)
+BuildRequires:  perl(Hash::Merge)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(Log::Log4perl) >= 1.11
@@ -30,6 +31,7 @@ BuildRequires:  perl(Pod::POM::View::Text)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(subs)
+BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
@@ -95,6 +97,9 @@ This class provides a GUI for Config::Model.
 %{_mandir}/man3/Config::Model::TkUI*
 
 %changelog
+* Thu Jan 11 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.379-1
+- 1.379 bump
+
 * Thu Nov 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.377-1
 - 1.377 bump (rhbz#2251182)
 

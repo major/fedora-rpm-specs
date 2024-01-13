@@ -1,13 +1,35 @@
 Name:       qmltermwidget
 Summary:    A port of QTermWidget to QML
-License:    GPLv2+
+
+# Most of the project's code is under the GPL.
+#
+# The few files subject to the LGPL are:
+# - lib/TerminalCharacterDecoder.cpp
+# - lib/TerminalCharacterDecoder.h
+# - lib/kprocess.cpp
+# - lib/kprocess.h
+# - lib/kpty.cpp
+# - lib/kpty.h
+# - lib/kpty_p.h
+# - lib/kptydevice.cpp
+# - lib/kptydevice.h
+# - lib/kptyprocess.cpp
+# - lib/kptyprocess.h
+# - lib/qtermwidget.cpp
+# - lib/qtermwidget.h
+# - lib/qtermwidget_version.h.in
+#
+# There are also some build scripts under BSD-3-Clause,
+# but since these are not included in the resulting package,
+# said license is omitted from the License tag.
+License:    GPL-2.0-or-later AND LGPL-2.0-or-later
 
 %global git_date   20220109
 %global git_commit 63228027e1f97c24abb907550b22ee91836929c5
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:7}")
 
-Version:    0.2.0
-Release:    12.%{git_date}git%{git_commit_short}%{?dist}
+Version:    0.2.0^%{git_date}git%{git_commit_short}
+Release:    1%{?dist}
 
 URL:        https://github.com/Swordfish90/%{name}
 Source0:    %{URL}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -40,12 +62,16 @@ mv %{buildroot}/usr %{buildroot}%{_prefix}
 
 
 %files
-%license LICENSE
+%license LICENSE LICENSE.LGPL2+
 %doc README.md AUTHORS
 %{_qt5_qmldir}/QMLTermWidget/
 
 
 %changelog
+* Thu Jan 11 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.2.0^20220109git6322802-1
+- Update the license tag and migrate to SPDX
+- Move snapshot information from release to caret-version
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-12.20220109git6322802
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

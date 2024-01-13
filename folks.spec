@@ -2,8 +2,8 @@
 
 Name:           folks
 Epoch:          1
-Version:        0.15.6
-Release:        3%{?dist}
+Version:        0.15.7
+Release:        1%{?dist}
 Summary:        GObject contact aggregation library
 
 License:        LGPL-2.1-or-later
@@ -108,6 +108,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/vapi/%{name}*
 
 %changelog
+* Thu Jan 11 2024 Kalev Lember <klember@redhat.com> - 1:0.15.7-1
+- Update to 0.15.7
+
 * Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1:0.15.6-3
 - Drop C89 exception (#2159284)
 

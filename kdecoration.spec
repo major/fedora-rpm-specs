@@ -1,6 +1,6 @@
 Name:    kdecoration
 Summary: A plugin-based library to create window decorations
-Version: 5.91.0
+Version: 5.92.0
 Release: 1%{?dist}
 
 License: LGPLv2
@@ -56,6 +56,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/org.kde.kdecoration2/
 %{_includedir}/KDecoration2
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

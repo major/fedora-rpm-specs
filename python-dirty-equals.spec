@@ -41,8 +41,7 @@ Summary:        %{summary}
 # Patch out pytest-pretty, which is purely cosmetic
 #
 # Patch out pytest-examples, which would enable tests in tests/test_docs.py,
-# but which has a hard dependency on ruff, a Python linter written in Rust that
-# would be useful but nontrivial to package.
+# but is not yet packaged.
 sed -r 's/^(coverage|pytest-(pretty|examples))/# \1/' requirements/tests.in |
   tee requirements/tests-filtered.txt
 

@@ -3,8 +3,8 @@
 
 # https://github.com/OpenPrinting/ipp-usb
 %global goipath         github.com/OpenPrinting/ipp-usb
-Version:                0.9.23
-%global tag             0.9.23
+Version:                0.9.24
+%global tag             0.9.24
 
 %gometa
 
@@ -24,13 +24,18 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
 License:        BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
+
+# reverting the change which introduced support for Pantum printers, which
+# broke conformation to IPP standards and has security implications
+# https://lore.kernel.org/printing-architecture/b2c6c270-4933-4bde-a299-52802e6e8d88@shentel.net/T/#u
+Patch001: pantum-support-revert.patch
 
 # needed for registering device on localhost
 BuildRequires:  pkgconfig(avahi-client) >= 0.7
@@ -61,6 +66,7 @@ Requires: systemd-udev
 
 %prep
 %goprep
+%autopatch
 
 %build
 %gobuild -o %{gobuilddir}/bin/ipp-usb %{goipath}
@@ -104,7 +110,7 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %dir %{_datadir}/ipp-usb/quirks
 %{_datadir}/ipp-usb/quirks/*
 %{_mandir}/man8/ipp-usb.8.*
-%{_sbindir}/*
+%{_sbindir}/ipp-usb
 %dir %{_sysconfdir}/ipp-usb/
 %config(noreplace) %{_sysconfdir}/ipp-usb/ipp-usb.conf
 %dir %{_sysconfdir}/ipp-usb/quirks
@@ -114,6 +120,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Thu Jan 11 2024 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.24-1
+- 2253764 - golang-github-openprinting-ipp-usb-0.9.24 is available
+
 * Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.23-5
 - Rebuild for any CVE fixed in Golang
 

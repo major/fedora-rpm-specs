@@ -1,7 +1,7 @@
 %global apiversion 0.3
 
 Name:           libwpg
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        A library for import of WordPerfect Graphics images
 
@@ -9,6 +9,7 @@ License:        LGPL-2.1-or-later OR MPL-2.0
 URL:            http://libwpg.sourceforge.net/
 Source0:        http://download.sourceforge.net/libwpg/%{name}-%{version}.tar.xz
 
+BuildRequires:  boost-devel
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
@@ -18,7 +19,7 @@ BuildRequires:  pkgconfig(librevenge-0.0)
 BuildRequires:  pkgconfig(librevenge-generators-0.0)
 BuildRequires:  pkgconfig(librevenge-stream-0.0)
 BuildRequires:  pkgconfig(libwpd-0.10)
-BuildRequires: make
+BuildRequires:  make
 
 %description
 %{name} is a library for import of images in WPG

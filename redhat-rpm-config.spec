@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 275
+%global baserelease 276
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -103,7 +103,9 @@ Requires: openblas-srpm-macros
 Requires: perl-srpm-macros
 # ↓ Has Python BRPs originaly present in redhat-rpm-config
 Requires: python-srpm-macros >= 3.11-7
+%if ! 0%{?rhel}
 Requires: qt5-srpm-macros
+%endif
 Requires: qt6-srpm-macros
 # rust-srpm-macros v24 contains %%build_rustflags defintion
 Requires: rust-srpm-macros >= 24
@@ -256,6 +258,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Thu Jan 11 2024 Jan Grulich <jgrulich@redhat.com> - 276-1
+- Drop qt5-srpm-macros from RHEL 10
+
 * Fri Jan 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 275-1
 - Define RUSTFLAGS only when rust macros are installed
 

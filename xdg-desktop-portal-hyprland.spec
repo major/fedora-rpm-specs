@@ -1,7 +1,7 @@
 %global sdbus_version 1.3.0
 
 Name:           xdg-desktop-portal-hyprland
-Version:        1.2.6
+Version:        1.3.1
 Release:        %autorelease
 Summary:        xdg-desktop-portal backend for hyprland
 
@@ -38,6 +38,7 @@ BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:  pkgconfig(hyprlang)
 
 Requires:       dbus-common
 Requires:       dbus

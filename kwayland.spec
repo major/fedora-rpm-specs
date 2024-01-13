@@ -1,5 +1,5 @@
 Name:       kwayland
-Version:    5.91.0
+Version:    5.92.0
 Release:    1%{?dist}
 Summary:    Qt-style API to interact with the wayland-client API
 
@@ -44,6 +44,10 @@ Provides:   kf6-kwayland-devel = 1:%{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -p1
@@ -71,8 +75,16 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KWayland/
 %{_libdir}/libKWaylandClient.so
 %{_libdir}/pkgconfig/KWaylandClient.pc
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+- Add doc package for KF6 API
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

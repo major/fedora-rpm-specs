@@ -17,7 +17,7 @@ Version:       0.0.99.5
 %endif
 %endif
 
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       ASL 2.0
@@ -65,7 +65,6 @@ BuildRequires: pkgconfig(fish)
 %endif
 
 Recommends:    skopeo
-Recommends:    subscription-manager
 
 Requires:      containers-common
 Requires:      podman >= 1.6.4
@@ -184,6 +183,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Thu Jan 11 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-3
+- Drop 'Recommends: subscription-manager'
+
 * Tue Dec 19 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-2
 - Drop the experience and support subpackages
 

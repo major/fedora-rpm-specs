@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	24.01.85
+Version:	24.01.90
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -9,7 +9,8 @@ Summary:	A chess board for KDE
 License: GPL-2.0-only OR GPL-3.0-only
 URL:     https://invent.kde.org/games/knights
 
-%global stable %stable_kf6
+#%%global stable %stable_kf6 - currently unstable despite macro value -GC
+%global stable unstable
 Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  libkdegames-devel >= 22.03.80
@@ -69,6 +70,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Thu Jan 11 2024 Gwyn Ciesla <gwync@protonmail.com> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

@@ -2,21 +2,15 @@
 %global glib2_version 2.67.4
 %global gtk3_version 3.19.12
 %global libsoup_version 3.0
-%global webkit2gtk_version 2.33.1
 
 Name:		gnome-online-accounts
 Version:	3.49.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
 Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.49/%{name}-%{version}.tar.xz
-
-# RHEL >=9 specific
-# https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/issues/63
-# https://bugzilla.redhat.com/show_bug.cgi?id=1913641
-Patch0:		0001-google-Remove-Photos-support.patch
 
 Patch1:         gcr_error.patch
 
@@ -32,7 +26,6 @@ BuildRequires:	meson
 BuildRequires:	vala
 %if !0%{?flatpak}
 BuildRequires:	pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires:	pkgconfig(webkit2gtk-4.1) >= %{webkit2gtk_version}
 BuildRequires:	pkgconfig(json-glib-1.0)
 BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libsoup-3.0) >= %{libsoup_version}
@@ -44,7 +37,6 @@ Requires:	glib2%{?_isa} >= %{glib2_version}
 %if !0%{?flatpak}
 Requires:	gtk3%{?_isa} >= %{gtk3_version}
 Requires:	libsoup3%{?_isa} >= %{libsoup_version}
-Requires:	webkit2gtk4.1%{?_isa} >= %{webkit2gtk_version}
 Requires:	gvfs-goa
 %endif
 
@@ -64,10 +56,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-
-%if 0%{?rhel} >= 9
-%patch -P 0 -p1
-%endif
 
 %patch -P 1 -p0
 
@@ -134,6 +122,12 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Thu Jan 11 2024 Tomas Popela <tpopela@redhat.com> - 3.49.0-2
+- Don't require WebKitGTK anymore as GOA now spawns your default web browser
+  instead of using the web view
+- Remove the RHEL patch for dropping Google Photos support as it has
+  been dropped upstream.
+
 * Wed Jan 10 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.49.0-1
 - 3.49.0
 

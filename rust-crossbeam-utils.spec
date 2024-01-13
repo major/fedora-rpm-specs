@@ -5,7 +5,7 @@
 %global crate crossbeam-utils
 
 Name:           rust-crossbeam-utils
-Version:        0.8.18
+Version:        0.8.19
 Release:        %autorelease
 Summary:        Utilities for concurrent programming
 

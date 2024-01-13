@@ -1,6 +1,6 @@
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
-Version:    20
+Version:    21
 Release:    %autorelease
 
 License:    Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause
@@ -11,12 +11,9 @@ Source1:    smoke-test.c
 # Allow using artifacts from %%build in %%install instead of recompiling
 Patch:      0001-make-don-t-rebuild-files-on-make-install.patch
 
-# emmalloc uses a lot of pointer type-punning, which is UB under strict aliasing.
-# https://github.com/WebAssembly/wasi-libc/pull/424
-Patch:      0002-Use-fno-strict-aliasing-for-emmalloc-424.patch
-
-# New constants in clang 17 that should not be checked
-Patch:      0003-Adjust-Makefile-for-LLVM-trunk-17-as-of-2023-06-18-4.patch
+# emmalloc: use __heap_end instead of sbrk(0)
+# https://github.com/WebAssembly/wasi-libc/pull/462
+Patch:      0002-emmalloc-use-__heap_end-instead-of-sbrk-0-462.patch
 
 # This contains parts of the musl C library; specify as bundled so we get notified about potential vulnerabilities
 %global     musl_version 1.2.3

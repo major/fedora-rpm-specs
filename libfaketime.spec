@@ -1,18 +1,18 @@
 Summary: Manipulate system time per process for testing purposes
 Name: libfaketime
 Version: 0.9.10
-Release: 6%{?dist}
+Release: 7%{?dist}
 # most of the code is GPL-2.0-or-later AND GPL-3.0-only
 # part of src/libfaketime.c is GPLv3
 License: GPL-2.0-or-later AND GPL-3.0-only
 Url: https://github.com/wolfcw/libfaketime
-Source: libfaketime-0.9.10.tar.gz
+Source: https://github.com/wolfcw/libfaketime/archive/v%{version}/%{name}-%{version}.tar.gz
+
 Patch0: libfaketime-backports.patch
 Patch1: libfaketime-symver.patch
 Patch2: 0001-Disable-unused-result-warning-in-tests.patch
-Patch3: 0001-Fix-gettimeofday-aarch64_epel8.patch
 
-Provides: faketime
+Provides: faketime = %{version}
 
 BuildRequires:  gcc
 BuildRequires:  perl-interpreter
@@ -30,19 +30,7 @@ can modify the system time a program sees without having to change the
 time system- wide.
 
 %prep
-%setup -q
-%patch0 -p1
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
-%patch1 -p1
-%endif
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 10
-%patch2 -p1
-%endif
-%if 0%{?rhel} == 8
-%ifarch aarch64
-%patch3 -p1
-%endif
-%endif
+%autosetup -p1
 
 %build
 
@@ -82,7 +70,7 @@ FAKETIME_COMPILE_CFLAGS="BOGUS"
     echo "force_monotonic"
     export FAKETIME_COMPILE_CFLAGS="-DFORCE_MONOTONIC_FIX"
   %endif
-  %ifarch ppc64le
+  %ifarch ppc64le riscv64
     echo "force_monotonic and pthread_nonver"
     export FAKETIME_COMPILE_CFLAGS="-DFORCE_MONOTONIC_FIX -DFORCE_PTHREAD_NONVER"
   %endif
@@ -118,6 +106,9 @@ chmod a+rx %{buildroot}/%{_libdir}/faketime/*.so.*
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jan 10 2024 Paul Wouters <paul.wouters@aiven.io> - 0.9.10-7
+- Fix for building for riscv64
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

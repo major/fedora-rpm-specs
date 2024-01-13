@@ -1,7 +1,7 @@
 %global apiver 2.8
 
 Name:          rygel
-Version:       0.42.4
+Version:       0.42.5
 Release:       1%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
@@ -140,6 +140,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Thu Jan 11 2024 Kalev Lember <klember@redhat.com> - 0.42.5-1
+- Update to 0.42.5
+
 * Wed Aug 02 2023 Kalev Lember <klember@redhat.com> - 0.42.4-1
 - Update to 0.42.4
 

@@ -5,7 +5,7 @@
 %global crate crossbeam-deque
 
 Name:           rust-crossbeam-deque
-Version:        0.8.4
+Version:        0.8.5
 Release:        %autorelease
 Summary:        Concurrent work-stealing deque
 
@@ -46,30 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crossbeam-epoch-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crossbeam-epoch-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crossbeam-epoch" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crossbeam-epoch-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+crossbeam-utils-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+crossbeam-utils-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "crossbeam-utils" feature of the "%{crate}" crate.
-
-%files       -n %{name}+crossbeam-utils-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

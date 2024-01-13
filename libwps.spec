@@ -1,7 +1,7 @@
 %global apiversion 0.4
 
 Name:		libwps
-Version:	0.4.13
+Version:	0.4.14
 Release:	%autorelease
 Summary:	A library for import of Microsoft Works documents
 
@@ -15,7 +15,7 @@ BuildRequires:	help2man
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librevenge-generators-0.0)
 BuildRequires:	pkgconfig(librevenge-stream-0.0)
-BuildRequires: make
+BuildRequires:	make
 
 %description
 %{name} is a library for import of Microsoft Works text documents,

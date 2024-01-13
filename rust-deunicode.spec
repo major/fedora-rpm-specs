@@ -5,7 +5,7 @@
 %global crate deunicode
 
 Name:           rust-deunicode
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Convert Unicode strings to pure ASCII by intelligently transliterating them
 

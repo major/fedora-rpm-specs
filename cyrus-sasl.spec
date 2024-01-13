@@ -341,7 +341,7 @@ make check %{?_smp_mflags}
 %{_sbindir}/testsaslauthd
 %config(noreplace) /etc/sysconfig/saslauthd
 %{_unitdir}/saslauthd.service
-%ghost /run/saslauthd
+%ghost %attr(755,root,root) /run/saslauthd
 %{_sysusersdir}/cyrus-sasl.conf
 
 %files lib

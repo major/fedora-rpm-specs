@@ -9,11 +9,14 @@
 
 Summary: Printer Application Framework (PAPPL)
 Name: pappl
-Version: 1.4.3
+Version: 1.4.4
 Release: 1%{?dist}
 License: Apache-2.0 WITH LLVM-exception
 Source: https://github.com/michaelrsweet/pappl/releases/download/v%{version}/pappl-%{version}.tar.gz
 Url: https://www.msweet.org/pappl
+
+# https://github.com/michaelrsweet/pappl/pull/320
+Patch001: 0001-device-network.c-Fix-crash-in-pappl_dnssd_list-with-.patch
 
 BuildRequires: avahi-devel
 BuildRequires: cups-devel
@@ -56,20 +59,24 @@ This package provides the PAPPL headers and development environment.
 %autosetup -S git
 
 %build
-export DSOFLAGS="$DSOFLAGS -Wl,-z,now,--as-needed"
 #need this to enable build with '-D_TIME_BITS=64' flag
 export CPPFLAGS="$CPPFLAGS -D_FILE_OFFSET_BITS=64"
-%configure
+%configure --enable-libjpeg\
+  --enable-libpng\
+  --enable-libusb\
+  --disable-static\
+  --with-dnssd=avahi\
+  --with-tls=gnutls\
+  --with-dsoflags="$DSOFLAGS -Wl,-z,now,--as-needed"
+# add --enable-libpam once there is a new version - cosmetic issue, libpam is used when
+# found in buildroot, which is taken care of by BuilrRequires for pam-devel
 %make_build
 
 %install
 %make_install BUILDROOT=%{buildroot}
-# Removal of the static library.
-rm -f %{buildroot}/%{_libdir}/libpappl.a
 
 %check
-#new upstream tests from v1.3.0 are failing in mock
-#make test
+make test
 
 %files
 %{_libdir}/libpappl.so.*
@@ -77,17 +84,30 @@ rm -f %{buildroot}/%{_libdir}/libpappl.a
 %license LICENSE NOTICE
 
 %files devel
-%{_bindir}/*
 %doc %{_docdir}/pappl/*
-%{_mandir}/*/*
 %dir %{_datadir}/pappl
+%dir %{_docdir}/pappl
 %dir %{_includedir}/pappl
+%{_bindir}/pappl-makeresheader
 %{_datadir}/pappl/*
 %{_includedir}/pappl/*.h
 %{_libdir}/libpappl.so
 %{_libdir}/pkgconfig/pappl.pc
+%{_mandir}/man1/pappl.1.gz
+%{_mandir}/man1/pappl-makeresheader.1.gz
+%{_mandir}/man3/pappl-client.3.gz
+%{_mandir}/man3/pappl-device.3.gz
+%{_mandir}/man3/pappl-job.3.gz
+%{_mandir}/man3/pappl-log.3.gz
+%{_mandir}/man3/pappl-mainloop.3.gz
+%{_mandir}/man3/pappl-printer.3.gz
+%{_mandir}/man3/pappl-resource.3.gz
+%{_mandir}/man3/pappl-system.3.gz
 
 %changelog
+* Thu Jan 11 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.4-1
+- 2255704 - pappl-1.4.4 is available
+
 * Mon Dec 18 2023 Richard Lescak <rlescak@redhat.com> - 1.4.3-1
 - rebase to version 1.4.3 (#2250222)
 

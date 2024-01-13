@@ -1,6 +1,6 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 5.91.0
+Version: 5.92.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -31,7 +31,7 @@ BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Sonnet)
 BuildRequires:  cmake(KF6UnitConversion)
-BuildRequires:  cmake(KF6Plasma5Support)
+BuildRequires:  cmake(Plasma5Support)
 BuildRequires:  kf6-rpm-macros >= 5.25.0-2
 BuildRequires:  libicu-devel
 BuildRequires:  libxcb-devel
@@ -123,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

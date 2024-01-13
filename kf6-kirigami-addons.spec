@@ -1,8 +1,8 @@
 %global framework kirigami-addons
 
 Name:           kf6-%{framework}
-Version:        0.11.76
-Release:        3%{?dist}
+Version:        0.11.90
+Release:        1%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -57,11 +57,6 @@ or Plasma).
 %prep
 %autosetup -n %{framework}-%{version}
 
-# Manually rename translation files
-# This change missed the 0.11.76 release tarball
-# REMOVEME when you next update
-find ./po -type f -execdir mv {} kirigami-addons6.po \;
-
 %build
 %cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
@@ -78,6 +73,9 @@ find ./po -type f -execdir mv {} kirigami-addons6.po \;
 %{_kf6_libdir}/cmake/KF6KirigamiAddons
 
 %changelog
+* Wed Jan 10 2024 Alessandro Astone <ales.astone@gmail.com> - 0.11.90-1
+- 0.11.90
+
 * Wed Jan 10 2024 Alessandro Astone <ales.astone@gmail.com> - 0.11.76-3
 - Remove subpackages
 

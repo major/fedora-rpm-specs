@@ -1,8 +1,8 @@
 %global srcname Jinja2
 
 Name:           python-jinja2
-Version:        3.1.2
-Release:        6%{?dist}
+Version:        3.1.3
+Release:        1%{?dist}
 Summary:        General purpose template engine
 License:        BSD-3-Clause
 URL:            https://palletsprojects.com/p/jinja/
@@ -86,6 +86,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Thu Jan 11 2024 Michel Lind <salimma@fedoraproject.org> - 3.1.3-1
+- Update to 3.1.3 to fix CVE-2024-22195
+
 * Tue Aug 08 2023 Karolina Surma <ksurma@redhat.com> - 3.1.2-6
 - Declare the license as an SPDX expression
 

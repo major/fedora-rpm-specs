@@ -2,8 +2,8 @@
 %global gem_name addressable
 
 Name: rubygem-%{gem_name}
-Version: 2.8.1
-Release: 3%{?dist}
+Version: 2.8.6
+Release: 1%{?dist}
 Summary: URI Implementation
 License: Apache-2.0
 URL: https://github.com/sporkmonger/addressable
@@ -65,11 +65,16 @@ popd
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG.md
 %{gem_instdir}/Gemfile
+%{gem_instdir}/%{gem_name}.gemspec
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/spec
 
 %changelog
+* Thu Jan 11 2024 Pavel Valena <pvalena@redhat.com> - 2.8.6-1
+- Update to addressable 2.8.6.
+  Resolves: rhbz#2183715
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

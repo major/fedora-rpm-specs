@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -68,7 +68,7 @@ BuildRequires:  optipng
 
 # cd pgadmin4-<ver>
 # patch -p1 < pgadmin4_requirements.patch
-# python3 /usr/lib/rpm/redhat/pyproject_buildrequires.py -N requirements.txt 2>/dev/null --output requires && cat requires | awk '{print "Requires: "$0}'
+# python3 /usr/lib/rpm/redhat/pyproject_buildrequires.py -N requirements.txt --output requires 2>/dev/null && cat requires | awk '{print "Requires: "$0}'
 Requires: python3dist(flask) >= 2.2
 Requires: (python3dist(flask-gravatar) >= 0 with python3dist(flask-gravatar) < 1)
 Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
@@ -97,7 +97,7 @@ Requires: python3dist(gssapi) >= 1.7
 Requires: python3dist(eventlet) = 0.33.3
 Requires: (python3dist(httpagentparser) >= 1.9 with python3dist(httpagentparser) < 1.10)
 Requires: python3dist(user-agents) = 2.2
-Requires: (python3dist(authlib) >= 1.2 with python3dist(authlib) < 1.3)
+Requires: python3dist(authlib) >= 1.2
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 7 with python3dist(qrcode) < 8)
 Requires: python3dist(boto3) >= 1.33
@@ -261,6 +261,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 11 2024 Sandro Mani <manisandro@gmail.com> - 8.1-2
+- Relax authlib requires
+
 * Mon Dec 18 2023 Sandro Mani <manisandro@gmail.com> - 8.1-1
 - Update to 8.1
 

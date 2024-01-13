@@ -5,7 +5,7 @@
 %global crate crossbeam-queue
 
 Name:           rust-crossbeam-queue
-Version:        0.3.10
+Version:        0.3.11
 Release:        %autorelease
 Summary:        Concurrent queues
 

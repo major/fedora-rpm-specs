@@ -15,7 +15,7 @@
 
 %global major_version 3
 %global minor_version 4
-%global patch_version 0
+%global patch_version 1
 %global laapi_version 3.11.0
 
 Name:           flexiblas
@@ -23,9 +23,9 @@ Version:        %{major_version}.%{minor_version}.%{patch_version}
 Release:        1%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
-# LGPLv3+
-# libcscutils/ is LGPLv2+
-# contributed/ and test/ are BSD (Open MPI variant)
+# LGPL-3.0-or-later
+# libcscutils/ is LGPL-2.0-or-later
+# contributed/ and test/ are BSD-3-Clause-Open-MPI
 License:        LGPL-3.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause-Open-MPI
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
 Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -438,6 +438,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Thu Jan 11 2024 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.1-1
+- Update to 3.4.1
+
 * Tue Jan 09 2024 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.0-1
 - Update to 3.4.0
 - License changes to LGPL-3.0-or-later

@@ -19,7 +19,7 @@
 %global canonicalname %{py_dist_name %{srcname}}
 
 Name: python-%{canonicalname}
-Version: 0.4.1
+Version: 0.4.2
 Release: %autorelease
 Summary: Package and CLI tool to generate release fields and changelogs
 License: MIT
@@ -80,7 +80,7 @@ enabled packages locally.
 %endif
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -i -e '/pytest-cov/d' pyproject.toml
+sed -i -e '/pytest-cov/d; /addopts.*--cov/d' pyproject.toml
 
 %build
 %pyproject_wheel

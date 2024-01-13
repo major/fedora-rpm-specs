@@ -2,7 +2,7 @@
 
 Name:    plasma-drkonqi
 Summary: DrKonqi crash handler for KF6/Plasma6
-Version: 5.91.0
+Version: 5.92.0
 Release: 1%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -72,7 +72,7 @@ install -p -D -m755 src/doc/examples/installdbgsymbols_fedora.sh \
     %{buildroot}%{_libexecdir}/installdbgsymbols.sh
 
 %find_lang all --with-html --with-qt --all-name
-grep drkonqi5.mo all.lang > plasma-drkonqi.lang
+grep drkonqi.mo all.lang > plasma-drkonqi.lang
 
 %post
 # make DrKonqi work by default by taming SELinux enough (suggested by dwalsh)
@@ -120,6 +120,9 @@ fi
 %{_kf6_datadir}/polkit-1/actions/org.kde.drkonqi.policy
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

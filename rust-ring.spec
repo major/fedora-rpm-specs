@@ -6,7 +6,7 @@
 %global crate ring
 
 Name:           rust-ring
-Version:        0.17.6
+Version:        0.17.7
 Release:        %autorelease
 Summary:        Safe, fast, small crypto using Rust
 

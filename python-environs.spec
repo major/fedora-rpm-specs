@@ -6,8 +6,8 @@ It allows you to store configuration separate from your code, as per
 The Twelve-Factor App (https://12factor.net/config) methodology.}
 
 Name:       python-%{srcname}
-Version:    9.5.0
-Release:    6%{?dist}
+Version:    10.3.0
+Release:    %autorelease
 Summary:    Python library for parsing environment variables
 License:    MIT
 URL:        https://github.com/sloria/%{srcname}
@@ -60,47 +60,4 @@ BuildArch:  noarch
 
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 9.5.0-5
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 9.5.0-2
-- Rebuilt for Python 3.11
-
-* Sat Feb 05 2022 Antonio Trande <sagitter@fedoraproject.org> - 9.5.0-1
-- Release 9.5.0
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jan 08 2022 Antonio Trande <sagitter@fedoraproject.org> - 9.4.0-1
-- Release 9.4.0
-
-* Tue Nov 23 2021 Antonio Trande <sagitter@fedoraproject.org> - 9.3.5-1
-- Release 9.3.5
-
-* Wed Oct 06 2021 Antonio Trande <sagitter@fedoraproject.org> - 9.3.4-1
-- Release 9.3.4
-
-* Sat Aug 14 2021 Antonio Trande <sagitter@fedoraproject.org> - 9.3.3-1
-- Release 9.3.3
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 23 2021 Antonio Trande <sagitter@fedoraproject.org> - 9.3.2-3
-- Include the sub-package for example files
-
-* Tue Jun 22 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 9.3.2-2
-- Switch to pyproject-rpm-macros and add metapackage for django extra
-
-* Sun Jun 20 2021 Antonio Trande <sagitter@fedoraproject.org> - 9.3.2-1
-- Release 9.3.2
+%autochangelog

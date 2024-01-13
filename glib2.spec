@@ -16,6 +16,14 @@ Patch:          gnutls-hmac.patch
 # the baremetal Docker is updated there i.e. lets be a little bit pragmatic...
 Patch:          gspawn-eperm.patch
 
+# Backported from upstream
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3795
+Patch:          3795.patch
+
+# Backported from upstream
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3808
+Patch:          3808.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -47,9 +55,6 @@ Requires: libgnutls.so.30()(64bit)
 %else
 Requires: libgnutls.so.30
 %endif
-
-# Remove gamin dependency
-Obsoletes: glib2-fam < 2.67.1-3
 
 Provides: bundled(gvdb)
 Provides: bundled(libcharset)

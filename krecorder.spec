@@ -1,5 +1,5 @@
 Name:           krecorder
-Version:        24.01.85
+Version:        24.01.90
 Release:        1%{?dist}
 License:        BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND GPL-3.0-or-later
 Summary:        Convergent KDE audio recording application
@@ -10,30 +10,28 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  appstream
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Svg)
 
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6KirigamiAddons)
 
-Requires:       kf5-kirigami2
+Requires:       kf6-kirigami
 Requires:       gstreamer1-plugins-good
 Requires:       hicolor-icon-theme
-Requires:       kf5-kirigami2-addons
+Requires:       kf6-kirigami-addons
 
 %description
 Audio recorder for Plasma Mobile and other platforms
@@ -42,30 +40,30 @@ Audio recorder for Plasma Mobile and other platforms
 %autosetup -n %{name}-%{version}
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
 %cmake_install
-chmod -x %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
-sed -i 's/GPL-3+/GPL-3.0-or-later/g' %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
-sed -i 's/Multimedia/AudioVideo;Audio/g' %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 %find_lang %{name}
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Thu Jan 11 2024 Steve Cossette <farchord@gmail.com> - 24.01.90-1
+- 24.01.90 (Qt6)
+
 * Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
 - 24.01.85 (Qt5)
 

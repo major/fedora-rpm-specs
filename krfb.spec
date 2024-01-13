@@ -1,42 +1,42 @@
 Name:    krfb
 Summary: Desktop sharing
-Version: 24.01.85
-Release: 2%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
 URL:     https://www.kde.org/applications/network/krfb/
 
-Source0: https://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdnssd-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-kwallet-devel
-BuildRequires: kf5-kwidgetsaddons
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: cmake(KF5Wayland)
-BuildRequires: cmake(KF5WindowSystem)
-# Compat version of kpipewire for KF5
-BuildRequires: kpipewire5-devel
+BuildRequires: hicolor-icon-theme
 
 BuildRequires: cmake(PlasmaWaylandProtocols)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: qt6-qtwayland-devel
+BuildRequires: qt6-qtbase-private-devel
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5X11Extras)
-BuildRequires: cmake(Qt5WaylandClient)
-# /usr/lib64/libQt5XkbCommonSupport.a
-BuildRequires: qt5-qtbase-static
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DNSSD)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KPipeWire)
+BuildRequires: cmake(KWayland)
 
 BuildRequires: pipewire-devel
 BuildRequires: pkgconfig(zlib)
@@ -83,42 +83,40 @@ Provides:  kdenetwork-krfb-libs = 7:%{version}-%{release}
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html
 
-
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krfb.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krfb.desktop
 
 
 %files -f %{name}.lang
 %license COPYING*
 %doc README AUTHORS
-%{_kf5_bindir}/krfb
+%{_kf6_bindir}/krfb
 # package seperately? -- rdieter
-%{_kf5_bindir}/krfb-virtualmonitor
-%{_kf5_datadir}/krfb/
-%{_kf5_datadir}/applications/org.kde.krfb.desktop
-%{_kf5_datadir}/applications/org.kde.krfb.virtualmonitor.desktop
-%{_kf5_metainfodir}/org.kde.krfb.appdata.xml
-%{_kf5_datadir}/qlogging-categories5/*categories
+%{_kf6_bindir}/krfb-virtualmonitor
+%{_kf6_datadir}/krfb/
+%{_kf6_datadir}/applications/org.kde.krfb.desktop
+%{_kf6_datadir}/applications/org.kde.krfb.virtualmonitor.desktop
+%{_kf6_metainfodir}/org.kde.krfb.appdata.xml
+%{_kf6_datadir}/qlogging-categories6/*categories
 %{_datadir}/icons/hicolor/*/apps/krfb.*
 
-%ldconfig_scriptlets libs
-
 %files libs
-%{_kf5_libdir}/libkrfbprivate.so.5*
-%{_kf5_qtplugindir}/krfb/
+%{_kf6_libdir}/libkrfbprivate.so.5*
+%{_kf6_qtplugindir}/krfb/
 
 
 %changelog
+* Thu Jan 11 2024 Steve Cossette <farchord@gmail.com> - 24.01.90-1
+- 24.01.90
+
 * Mon Jan 01 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
 - Build against the kpipewire5 compat package
 

@@ -54,8 +54,8 @@ Summary: Legacy tools for managing Linux kernel packet filtering capabilities
 Requires: %{name}-legacy-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Conflicts: setup < 2.10.4-1
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
+Requires(post): /usr/sbin/update-alternatives
+Requires(postun): /usr/sbin/update-alternatives
 %if 0%{?rhel} < 9
 Provides:	iptables
 %endif
@@ -142,9 +142,9 @@ a safer way to update iptables remotely.
 %package nft
 Summary: nftables compatibility for iptables, arptables and ebtables
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires(post): %{_sbindir}/update-alternatives
-Requires(post): %{_bindir}/readlink
-Requires(postun): %{_sbindir}/update-alternatives
+Requires(post): /usr/sbin/update-alternatives
+Requires(post): /usr/bin/readlink
+Requires(postun): /usr/sbin/update-alternatives
 Obsoletes: iptables-compat < 1.6.2-4
 Provides: arptables-helper
 Provides: iptables
@@ -234,7 +234,7 @@ ln -s ../sbin/xtables-legacy-multi %{buildroot}%{_bindir}/iptables-xml
 %post legacy
 pfx=%{_sbindir}/iptables
 pfx6=%{_sbindir}/ip6tables
-%{_sbindir}/update-alternatives --install \
+/usr/sbin/update-alternatives --install \
 	$pfx iptables $pfx-legacy 10 \
 	--slave $pfx6 ip6tables $pfx6-legacy \
 	--slave $pfx-restore iptables-restore $pfx-legacy-restore \
@@ -244,7 +244,7 @@ pfx6=%{_sbindir}/ip6tables
 
 %postun legacy
 if [ $1 -eq 0 ]; then
-	%{_sbindir}/update-alternatives --remove \
+	/usr/sbin/update-alternatives --remove \
 		iptables %{_sbindir}/iptables-legacy
 fi
 
@@ -260,7 +260,7 @@ cp /var/lib/alternatives/iptables /var/tmp/alternatives.iptables.setup
 %triggerpostun legacy -- iptables > 1.8.0
 pfx=%{_sbindir}/iptables
 pfx6=%{_sbindir}/ip6tables
-%{_sbindir}/update-alternatives --install \
+/usr/sbin/update-alternatives --install \
 	$pfx iptables $pfx-legacy 10 \
 	--slave $pfx6 ip6tables $pfx6-legacy \
 	--slave $pfx-restore iptables-restore $pfx-legacy-restore \
@@ -286,7 +286,7 @@ mv /var/tmp/alternatives.iptables.setup /var/lib/alternatives/iptables
 
 pfx=%{_sbindir}/iptables
 pfx6=%{_sbindir}/ip6tables
-%{_sbindir}/update-alternatives --install \
+/usr/sbin/update-alternatives --install \
 	$pfx iptables $pfx-nft 10 \
 	--slave $pfx6 ip6tables $pfx6-nft \
 	--slave $pfx-restore iptables-restore $pfx-nft-restore \
@@ -304,7 +304,7 @@ done
 if [ "$(readlink -e $manpfx.8.gz)" == $manpfx.8.gz ]; then
 	rm -f $manpfx.8.gz
 fi
-%{_sbindir}/update-alternatives --install \
+/usr/sbin/update-alternatives --install \
 	$pfx ebtables $pfx-nft 10 \
 	--slave $pfx-save ebtables-save $pfx-nft-save \
 	--slave $pfx-restore ebtables-restore $pfx-nft-restore \
@@ -324,7 +324,7 @@ done
 if [ "$(readlink -e $lepfx-helper)" == $lepfx-helper ]; then
 	rm -f $lepfx-helper
 fi
-%{_sbindir}/update-alternatives --install \
+/usr/sbin/update-alternatives --install \
 	$pfx arptables $pfx-nft 10 \
 	--slave $pfx-save arptables-save $pfx-nft-save \
 	--slave $pfx-restore arptables-restore $pfx-nft-restore \
@@ -336,7 +336,7 @@ fi
 %postun nft
 if [ $1 -eq 0 ]; then
 	for cmd in iptables ebtables arptables; do
-		%{_sbindir}/update-alternatives --remove \
+		/usr/sbin/update-alternatives --remove \
 			$cmd %{_sbindir}/$cmd-nft
 	done
 fi

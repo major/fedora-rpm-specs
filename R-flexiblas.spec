@@ -2,11 +2,11 @@
 %global rlibdir %{_libdir}/R/library
 
 Name:           R-%{packname}
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        FlexiBLAS API Interface for R
 
-License:        GPL-3.0-or-later
+License:        LGPL-3.0-or-later
 URL:            https://cran.r-project.org/package=%{packname}
 Source0:        %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 

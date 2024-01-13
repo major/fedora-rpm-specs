@@ -5,7 +5,7 @@
 %global crate crossbeam-channel
 
 Name:           rust-crossbeam-channel
-Version:        0.5.10
+Version:        0.5.11
 Release:        %autorelease
 Summary:        Multi-producer multi-consumer channels for message passing
 
@@ -78,7 +78,7 @@ use the "std" feature of the "%{crate}" crate.
 %check
 # * skip unreliable tests:
 #   https://github.com/crossbeam-rs/crossbeam/pull/474#issuecomment-589250957
-%cargo_test -- -- --skip fairness2 --skip select2::main
+%cargo_test -- -- --exact --skip fairness2 --skip select2::main
 %endif
 
 %changelog

@@ -1,5 +1,5 @@
 Name:          ktextaddons
-Version:       1.5.2
+Version:       1.5.3
 Release:       1%{?dist}
 Summary:       Various text handling addons
 
@@ -32,7 +32,6 @@ BuildRequires: cmake(KF5I18n)
 BuildRequires: cmake(KF5KIO)
 BuildRequires: cmake(KF5Sonnet)
 BuildRequires: cmake(KF5SyntaxHighlighting)
-BuildRequires: cmake(KF5XmlGui)
 
 BuildRequires: cmake(KF6Archive)
 BuildRequires: cmake(KF6ConfigWidgets)
@@ -41,7 +40,6 @@ BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Sonnet)
 BuildRequires: cmake(KF6SyntaxHighlighting)
-BuildRequires: cmake(KF6XmlGui)
 
 
 %description
@@ -52,7 +50,7 @@ BuildRequires: cmake(KF6XmlGui)
 Obsoletes:      ktextaddons < 1.5.2
 Provides:       ktextaddons = %{version}-%{release}
 Summary:        Qt5 libraries for %{name}
-Requires:       %{name}-docs
+Requires:       %{name}-common = %{version}-%{release}
 %description    qt5
 %{summary}.
 
@@ -65,7 +63,7 @@ Provides:       ktextaddons-devel = %{version}-%{release}
 
 %package        qt6
 Summary:        Qt6 libraries for %{name}
-Requires:       %{name}-docs
+Requires:       %{name}-common = %{version}-%{release}
 %description    qt6
 %{summary}.
 
@@ -74,10 +72,16 @@ Summary:        Development files for %{name}
 %description    qt6-devel
 %{summary}.
 
-%package        docs
+%package        qt6-doc
+Summary:        Developer Documentation files for %{name}
+%description    qt6-doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
+%package        common
 Summary:        Translations and documents for %{name}
+Obsoletes:      ktextaddons-docs < 1.5.3-1
 BuildArch:      noarch
-%description    docs
+%description    common
 %{summary}.
 
 %prep
@@ -103,10 +107,11 @@ popd
 pushd %{name}_qt6
 %cmake_install
 popd
-%find_lang %{name} --all-name --with-html
 pushd %{name}_qt5
 %cmake_install
 popd
+
+%find_lang %{name} --all-name
 
 
 %files qt5
@@ -131,16 +136,6 @@ popd
 %{_kf5_libdir}/libKF5TextTranslator.so.%{version}
 %{_kf5_libdir}/libKF5TextUtils.so.1
 %{_kf5_libdir}/libKF5TextUtils.so.%{version}
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_textaddonswidgets.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_textcustomeditor.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_textemoticonscore.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_textemoticonswidgets.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_textutils.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_TextAutoCorrectionCore.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_TextAutoCorrectionWidgets.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_TextEditTextToSpeech.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_TextGrammarCheck.pri
-%{_kf5_libdir}/qt5/mkspecs/modules/qt_TextTranslator.pri
 %{_kf5_qtplugindir}/designer/textcustomeditor.so
 %{_kf5_qtplugindir}/designer/texttranslatorwidgets5.so
 %{_kf5_plugindir}/translator/translator_bing.so
@@ -216,16 +211,6 @@ popd
 %{_kf6_plugindir}/translator/translator_yandex.so
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.categories
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.renamecategories
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_textaddonswidgets.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_textcustomeditor.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_textemoticonscore.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_textemoticonswidgets.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_textutils.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextAutoCorrectionCore.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextAutoCorrectionWidgets.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextEditTextToSpeech.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextGrammarCheck.pri
-%{_kf6_libdir}/qt6/mkspecs/modules/qt_TextTranslator.pri
 
 
 %files qt6-devel
@@ -259,11 +244,20 @@ popd
 %{_kf6_libdir}/cmake/KF6TextGrammarCheck/
 %{_kf6_libdir}/cmake/KF6TextTranslator/
 %{_kf6_libdir}/cmake/KF6TextUtils/
+%{_qt6_docdir}/*.tags
 
-%files docs -f %{name}.lang
+%files qt6-doc
+%{_qt6_docdir}/*.qch
+
+%files common -f %{name}.lang
 %doc README.md
 
 %changelog
+* Thu Jan 11 2024 Alessandro Astone <ales.astone@gmail.com> - 1.5.3-1
+- 1.5.3
+- Rename "docs" subpackage to "common", as it doesn't make sense to have string translations in "docs"
+- Add qt6-doc subpackage for KF6 API
+
 * Tue Dec 5 2023 Steve Cossette <farchord@gmail.com> - 1.5.2-1
 - 1.5.2
 

@@ -1,6 +1,6 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.6.0
+Version: 4.6.1
 Release: 1%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-or-later
@@ -10,7 +10,11 @@ BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 Requires: python3-rpm
 Requires: python3-pexpect
+%if 0%{?rhel} && 0%{?rhel} < 10
 Requires: python3-setuptools
+%else
+Requires: python3-packaging
+%endif
 Recommends: python3-magic
 # Mandatory just for uploading to a SFTP server:
 Recommends: python3-requests
@@ -86,6 +90,11 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Thu Jan 11 2024 Sandro Bonazzola <sbonazzo@redhat.com> - 4.6.1-1
+- Update to 4.6.1
+- Resolves: fedora#2257777
+- Resolves: fedora#2244214
+
 * Mon Aug 21 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.6.0-1
 - Update to 4.6.0
 - Resolves: fedora#2232710

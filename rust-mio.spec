@@ -5,7 +5,7 @@
 %global crate mio
 
 Name:           rust-mio
-Version:        0.8.9
+Version:        0.8.10
 Release:        %autorelease
 Summary:        Lightweight non-blocking I/O
 
@@ -112,7 +112,6 @@ use the "os-poll" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-#export RUST_BACKTRACE=1
 %cargo_test -a
 %endif
 

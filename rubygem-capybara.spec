@@ -1,18 +1,15 @@
 %global gem_name capybara
 
 Name: rubygem-%{gem_name}
-Version: 3.37.1
-Release: 3%{?dist}
+Version: 3.39.2
+Release: 1%{?dist}
 Summary: Capybara aims to simplify the process of integration testing Rack applications
 License: MIT
 URL: https://github.com/teamcapybara/capybara
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/teamcapybara/capybara.git --no-checkout
-# cd capybara && git archive -v -o capybara-3.37.1-tests.txz 3.37.1 features/
+# cd capybara && git archive -v -o capybara-3.39.2-tests.txz 3.39.2 features/
 Source1: %{gem_name}-%{version}-tests.txz
-# Fix minitest 5.16+ compatibility.
-# https://github.com/teamcapybara/capybara/commit/b8705059b142930e97fcbd8f34b9409755570c44
-Patch1: rubygem-capybara-3.37.1-User-ordered-minitest-tests-to-work-around-seed-not-being-default-set-anymore.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -48,8 +45,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
-%patch1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -101,6 +96,10 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Sep 21 2023 Pavel Valena <pvalena@redhat.com> - 3.39.2-1
+- Update to capybara 3.39.2.
+  Resolves: rhbz#2140002
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.37.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

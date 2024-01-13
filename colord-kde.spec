@@ -1,42 +1,37 @@
-
 Name:           colord-kde
-Version:        23.08.2
-Release:        2%{?dist}
+Version:        24.01.90
+Release:        1%{?dist}
 Summary:        Colord support for KDE
 
-License:        GPL-2.0-or-later
+License:        CC0-1.0 AND LGPL-3.0-or-later
 URL:            https://invent.kde.org/graphics/%{name}
 
-%global stable %stable_kf5
-Source0:        https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kcoreaddons-devel
-BuildRequires:  kf5-kcmutils-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kdbusaddons-devel
-BuildRequires:  kf5-kiconthemes-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kio-devel
-BuildRequires:  kf5-kitemmodels-devel
-BuildRequires:  kf5-kitemviews-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-kwidgetsaddons-devel
-BuildRequires:  kf5-kwindowsystem-devel
+BuildRequires:  kf6-rpm-macros
 
-BuildRequires:  lcms2-devel
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Widgets)
+
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6ItemModels)
+
+BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  libXrandr-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  desktop-file-utils
 
 # colord is a dbus daemon
 Requires:       colord
 Requires:       plasma-systemsettings
-Requires:       kf5-kirigami2-addons
+Requires:       kf6-kirigami-addons
 
 %description
 KDE support for colord including KDE Daemon module and System Settings module.
@@ -47,28 +42,31 @@ KDE support for colord including KDE Daemon module and System Settings module.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang colord-kde
 
+%check
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/{colordkdeiccimporter,kcm_colord}.desktop
 
 %files -f colord-kde.lang
 %license COPYING
 %doc MAINTAINERS TODO
-%{_kf5_bindir}/colord-kde-icc-importer
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_colord.so
-%{_kf5_plugindir}/kded/colord.so
-%{_kf5_datadir}/applications/colordkdeiccimporter.desktop
-%{_kf5_datadir}/kpackage/kcms/kcm_colord/contents/ui/ProfileMetaDataView.qml
-%{_kf5_datadir}/kpackage/kcms/kcm_colord/contents/ui/main.qml
+%{_kf6_bindir}/colord-kde-icc-importer
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_colord.so
+%{_kf6_plugindir}/kded/colord.so
+%{_kf6_datadir}/applications/colordkdeiccimporter.desktop
+%{_kf6_datadir}/applications/kcm_colord.desktop
 
 
 %changelog
+* Thu Jan 11 2024 Steve Cossette <farchord@gmail.com> - 24.01.90-1
+- 24.01.90 (+ Qt6 Build)
+
 * Mon Nov 27 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.08.2-2
 - Add missing runtime dep on kf5-kirigami2-addons
 

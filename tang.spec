@@ -1,12 +1,13 @@
 Name:           tang
 Version:        14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Network Presence Binding Daemon
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        tang.sysusers
+Patch: 0001-Add-support-for-building-with-llhttp-instead-of-http.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -16,7 +17,7 @@ BuildRequires:  libjose-devel >= 8
 BuildRequires:  libjose-zlib-devel >= 8
 BuildRequires:  libjose-openssl-devel >= 8
 
-BuildRequires:  http-parser-devel >= 2.7.1-3
+BuildRequires:  llhttp-devel
 BuildRequires:  systemd-devel
 BuildRequires:  pkgconfig
 
@@ -34,6 +35,7 @@ BuildRequires:  iproute
 %{?systemd_requires}
 Requires:       coreutils
 Requires:       jose >= 8
+Requires:       llhttp
 Requires:       grep
 Requires:       sed
 
@@ -99,6 +101,9 @@ fi
 %{_sysusersdir}/tang.conf
 
 %changelog
+* Thu Jan 11 2024 Sergio Correia <scorreia@redhat.com> - 14.3
+- Use llhttp instead of http-parser
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global pypi_name responses
 
 Name:           python-%{pypi_name}
-Version:        0.23.1
-Release:        3%{?dist}
+Version:        0.24.1
+Release:        1%{?dist}
 Summary:        Python library to mock out calls with Python requests
 License:        ASL 2.0
 URL:            https://github.com/getsentry/responses
@@ -58,6 +58,9 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 %exclude %{python3_sitelib}/responses/tests
 
 %changelog
+* Thu Jan 11 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 0.24.1-1
+- update to 0.24.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

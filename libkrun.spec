@@ -4,7 +4,7 @@
 
 Name:           libkrun
 Version:        1.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -42,12 +42,12 @@ BuildRequires:  libfdt-devel
 %endif
 
 BuildRequires:  crate(libc/default) >= 0.2.39
-BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.13.0 with crate(vm-memory/backend-mmap) < 0.14.0~)
-BuildRequires:  (crate(vm-memory/default) >= 0.13.0 with crate(vm-memory/default) < 0.14.0~)
-BuildRequires:  crate(kvm-bindings/default) >= 0.6.0
-BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.6.0
-BuildRequires:  crate(kvm-ioctls/default) >= 0.15.0
-BuildRequires:  crate(vmm-sys-util/default) >= 0.11.0
+BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.14.0 with crate(vm-memory/backend-mmap) < 0.15.0~)
+BuildRequires:  (crate(vm-memory/default) >= 0.14.0 with crate(vm-memory/default) < 0.15.0~)
+BuildRequires:  crate(kvm-bindings/default) >= 0.7.0
+BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.7.0
+BuildRequires:  crate(kvm-ioctls/default) >= 0.16.0
+BuildRequires:  crate(vmm-sys-util/default) >= 0.12.0
 BuildRequires:  crate(vm-fdt/default) >= 0.2.0
 BuildRequires:  (crate(virtio-bindings/default) >= 0.2.0 with crate(virtio-bindings/default) < 0.3.0~)
 BuildRequires:  (crate(bitflags/default) >= 1.2.0 with crate(bitflags/default) < 2.0.0~)
@@ -163,6 +163,9 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Thu Jan 11 2024 Sergio Lopez <slp@redhat.com> - 1.7.2-2
+- Update versions of rust-vmm dependencies
+
 * Sun Dec 24 2023 Sergio Lopez <slp@redhat.com> - 1.7.2-1
 - Update to version 1.7.2
 

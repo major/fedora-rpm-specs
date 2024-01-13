@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 12.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -457,6 +457,11 @@ cp %{_sourcedir}/%{annobin_sources} %{buildroot}%{annobin_source_dir}/latest-ann
 
 rm -f %{buildroot}%{_infodir}/dir
 
+# When annocheck is disabled, annocheck.1.gz will still be generated, remove it.
+%if %{without annocheck}
+rm -f %{_mandir}/man1/annocheck.1.gz
+%endif
+
 #---------------------------------------------------------------------------------
 
 %if %{with tests}
@@ -524,6 +529,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 11 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-2
+- Spec File: Do not install annocheck.1.gz when annocheck is disabled
+
 * Thu Jan 04 2024 Nick Clifron  <nickc@redhat.com> - 12.35-1
 - Annocheck: Improve detection of FIPS compliant GO binaries.
 

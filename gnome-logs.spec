@@ -5,7 +5,9 @@ Version:        45~beta
 Release:        1%{?dist}
 Summary:        Log viewer for the systemd journal
 
-License:        GPLv3+
+# data/org.gnome.Logs.appdata.xml.in is CC0-1.0
+# data/icons/scalable/org.gnome.Logs.svg is CC-BY-3.0
+License:        GPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0
 URL:            https://wiki.gnome.org/Apps/Logs
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 

@@ -1,5 +1,5 @@
 Name:           python-hatch-fancy-pypi-readme
-Version:        23.1.0
+Version:        24.1.0
 Release:        1%{?dist}
 Summary:        Hatch plugin for writing fancy PyPI readmes
 
@@ -57,6 +57,9 @@ sed -i 's/ \"pytest-icdiff\", \"coverage\[toml\]\", //g' pyproject.toml
 %{_bindir}/hatch-fancy-pypi-readme
 
 %changelog
+* Thu Jan 11 2024 Parag Nemade <pnemade AT redhat DOT com> - 24.1.0-1
+- Update to 24.1.0 version (#2256321)
+
 * Fri Sep 08 2023 Maxwell G <maxwell@gtmx.me> - 23.1.0-1
 - Update to 23.1.0.
 

@@ -40,8 +40,8 @@ Source:         %{gosource}
 %goprep
 %autopatch -p1
 find . ! \( -name %{module} -o -name "*.md" -o -name LICENSE -o -name _build \) -maxdepth 1 -exec rm -rf {} \;
-mv %{module}/* .
 rm -rfv compute/metadata
+mv %{module}/* .
 
 %if %{without bootstrap}
 %generate_buildrequires

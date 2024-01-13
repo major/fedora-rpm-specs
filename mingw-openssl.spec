@@ -14,7 +14,7 @@
 %global run_tests 0
 
 Name:           mingw-openssl
-Version:        3.0.9
+Version:        3.1.4
 Release:        2%{?dist}
 Summary:        MinGW port of the OpenSSL toolkit
 
@@ -29,37 +29,124 @@ Source7: renew-dummy-cert
 Source12: ec_curve.c
 Source13: ectest.c
 
-# Patches exported from source git
-# Aarch64 and ppc64le use lib64
-Patch1: 0001-Aarch64-and-ppc64le-use-lib64.patch
-# Use more general default values in openssl.cnf
-Patch2: 0002-Use-more-general-default-values-in-openssl.cnf.patch
-# Do not install html docs
-Patch3: 0003-Do-not-install-html-docs.patch
-# Override default paths for the CA directory tree
-Patch4: 0004-Override-default-paths-for-the-CA-directory-tree.patch
-# apps/ca: fix md option help text
-Patch5: 0005-apps-ca-fix-md-option-help-text.patch
-# Disable signature verification with totally unsafe hash algorithms
-Patch6: 0006-Disable-signature-verification-with-totally-unsafe-h.patch
-# Add support for PROFILE=SYSTEM system default cipherlist
-Patch7: 0007-Add-support-for-PROFILE-SYSTEM-system-default-cipher.patch
-# Add FIPS_mode() compatibility macro
-Patch8: 0008-Add-FIPS_mode-compatibility-macro.patch
-# Add check to see if fips flag is enabled in kernel
-#Patch9: 0009-Add-Kernel-FIPS-mode-flag-support.patch
-# remove unsupported EC curves
-Patch11: 0011-Remove-EC-curves.patch
-# Disable explicit EC curves
-Patch12: 0012-Disable-explicit-ec.patch
-# Instructions to load legacy provider in openssl.cnf
-Patch24: 0024-load-legacy-prov.patch
-# Backport of patch for RHEL for Edge rhbz #2027261
-Patch51: 0051-Support-different-R_BITS-lengths-for-KBKDF.patch
+# # Patches exported from source git
+# # Aarch64 and ppc64le use lib64
+Patch1:   0001-Aarch64-and-ppc64le-use-lib64.patch
+# # Use more general default values in openssl.cnf
+Patch2:   0002-Use-more-general-default-values-in-openssl.cnf.patch
+# # Do not install html docs
+Patch3:   0003-Do-not-install-html-docs.patch
+# # Override default paths for the CA directory tree
+Patch4:   0004-Override-default-paths-for-the-CA-directory-tree.patch
+# # apps/ca: fix md option help text
+Patch5:   0005-apps-ca-fix-md-option-help-text.patch
+# # Disable signature verification with totally unsafe hash algorithms
+Patch6:   0006-Disable-signature-verification-with-totally-unsafe-h.patch
+# # Add support for PROFILE=SYSTEM system default cipherlist
+Patch7:   0007-Add-support-for-PROFILE-SYSTEM-system-default-cipher.patch
+# # Add FIPS_mode() compatibility macro
+Patch8:   0008-Add-FIPS_mode-compatibility-macro.patch
+# # Add check to see if fips flag is enabled in kernel
+Patch9:   0009-Add-Kernel-FIPS-mode-flag-support.patch
+# # Instead of replacing ectest.c and ec_curve.c, add the changes as a patch so
+# # that new modifications made to these files by upstream are not lost.
+Patch10:  0010-Add-changes-to-ectest-and-eccurve.patch
+# # remove unsupported EC curves
+Patch11:  0011-Remove-EC-curves.patch
+# # Disable explicit EC curves
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2066412
+Patch12:  0012-Disable-explicit-ec.patch
+# # Skipped tests from former 0011-Remove-EC-curves.patch
+Patch13:  0013-skipped-tests-EC-curves.patch
+# # Instructions to load legacy provider in openssl.cnf
+Patch24:  0024-load-legacy-prov.patch
+# # We load FIPS provider and set FIPS properties implicitly
+Patch32:  0032-Force-fips.patch
+# # Embed HMAC into the fips.so
+# RWMJ: Remove this patch for mingw as it causes
+# > link.h: No such file or directory
+#Patch33:  0033-FIPS-embed-hmac.patch
+# # Comment out fipsinstall command-line utility
+Patch34:  0034.fipsinstall_disable.patch
+# # Skip unavailable algorithms running `openssl speed`
+Patch35:  0035-speed-skip-unavailable-dgst.patch
+# # Extra public/private key checks required by FIPS-140-3
+Patch44:  0044-FIPS-140-3-keychecks.patch
+# # Minimize fips services
+# Remove this patch on mingw as it causes:
+# > error: 'REDHAT_FIPS_VERSION' undeclared
+#Patch45:  0045-FIPS-services-minimize.patch
+# # Execute KATS before HMAC verification
+# RWMJ: Broken by removal of 0033
+#Patch47:  0047-FIPS-early-KATS.patch
+# # Selectively disallow SHA1 signatures rhbz#2070977
+Patch49:  0049-Allow-disabling-of-SHA1-signatures.patch
+# # Support SHA1 in TLS in LEGACY crypto-policy (which is SECLEVEL=1)
+Patch52:  0052-Allow-SHA1-in-seclevel-1-if-rh-allow-sha1-signatures.patch
+# # https://github.com/openssl/openssl/pull/18103
+# # The patch is incorporated in 3.0.3 but we provide this function since 3.0.1
+# # so the patch should persist
+# RWMJ: Remove this patch for mingw as it include "attribute((symver))"
+# which does not work on non-ELF.
+#Patch56:  0056-strcasecmp.patch
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2053289
+Patch58:  0058-FIPS-limit-rsa-encrypt.patch
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2087147
+Patch61:  0061-Deny-SHA-1-signature-verification-in-FIPS-provider.patch
+# 0062-fips-Expose-a-FIPS-indicator.patch
+Patch62:  0062-fips-Expose-a-FIPS-indicator.patch
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2102535
+Patch73:  0073-FIPS-Use-OAEP-in-KATs-support-fixed-OAEP-seed.patch
+# [PATCH 29/46] 
+#  0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
+Patch74:  0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2102535
+Patch75:  0075-FIPS-Use-FFDHE2048-in-self-test.patch
+# # Downstream only. Reseed DRBG using getrandom(GRND_RANDOM)
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2102541
+Patch76:  0076-FIPS-140-3-DRBG.patch
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2102542
+Patch77:  0077-FIPS-140-3-zeroization.patch
+# # https://bugzilla.redhat.com/show_bug.cgi?id=2114772
+Patch78:  0078-Add-FIPS-indicator-parameter-to-HKDF.patch
+# # https://github.com/openssl/openssl/pull/13817
+Patch79:  0079-RSA-PKCS15-implicit-rejection.patch
+# # We believe that some changes present in CentOS are not necessary
+# # because ustream has a check for FIPS version
+Patch80:  0080-rand-Forbid-truncated-hashes-SHA-3-in-FIPS-prov.patch
+# [PATCH 36/46] 
+#  0081-signature-Remove-X9.31-padding-from-FIPS-prov.patch
+Patch81:  0081-signature-Remove-X9.31-padding-from-FIPS-prov.patch
+# [PATCH 37/46] 
+#  0083-hmac-Add-explicit-FIPS-indicator-for-key-length.patch
+Patch83:  0083-hmac-Add-explicit-FIPS-indicator-for-key-length.patch
+# [PATCH 38/46] 
+#  0084-pbkdf2-Set-minimum-password-length-of-8-bytes.patch
+Patch84:  0084-pbkdf2-Set-minimum-password-length-of-8-bytes.patch
+# 0085-FIPS-RSA-disable-shake.patch
+Patch85:  0085-FIPS-RSA-disable-shake.patch
+# 0088-signature-Add-indicator-for-PSS-salt-length.patch
+Patch88:  0088-signature-Add-indicator-for-PSS-salt-length.patch
+# 0091-FIPS-RSA-encapsulate.patch
+Patch91:  0091-FIPS-RSA-encapsulate.patch
+# [PATCH 42/46] 
+#  0093-DH-Disable-FIPS-186-4-type-parameters-in-FIPS-mode.patch
+Patch93:  0093-DH-Disable-FIPS-186-4-type-parameters-in-FIPS-mode.patch
+# [PATCH 43/46] 
+#  0110-GCM-Implement-explicit-FIPS-indicator-for-IV-gen.patch
+Patch110: 0110-GCM-Implement-explicit-FIPS-indicator-for-IV-gen.patch
+# [PATCH 44/46] 
+#  0112-pbdkf2-Set-indicator-if-pkcs5-param-disabled-checks.patch
+Patch112: 0112-pbdkf2-Set-indicator-if-pkcs5-param-disabled-checks.patch
+# 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
+Patch113: 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
+# # We believe that some changes present in CentOS are not necessary
+# # because ustream has a check for FIPS version
+Patch114: 0114-FIPS-enforce-EMS-support.patch
 
 # MinGW patches
 # Attempt to compute openssl modules dir dynamically from executable path if not set by OPENSSL_MODULES
-Patch100: openssl_compute_moddir.patch
+Patch1000: openssl_compute_moddir.patch
 
 BuildArch:      noarch
 
@@ -368,6 +455,9 @@ mkdir -m700 %{buildroot}%{mingw64_sysconfdir}/pki/CA/private
 
 
 %changelog
+* Thu Jan 11 2024 Richard W.M. Jones <rjones@redhat.com> - 3.1.4-2
+- Update to 3.1.4
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

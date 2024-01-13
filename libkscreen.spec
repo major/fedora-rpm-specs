@@ -1,7 +1,7 @@
 Name:    libkscreen
 Summary: KDE display configuration library
-Version: 5.91.0
-Release: 2%{?dist}
+Version: 5.92.0
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -87,6 +87,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 5.91.0-2
 - add doc package for KF6 API
 

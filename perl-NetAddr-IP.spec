@@ -1,6 +1,6 @@
 Name:           perl-NetAddr-IP
 Version:        4.079
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Manages IPv4 and IPv6 addresses and subnets
 # Lite/Util/Util.xs is GPL-2.0-or-later
 # Other files are (GPL-2.0-or-later OR Artistic-1.0-Perl)
@@ -29,7 +29,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Socket)
-BuildRequires:  perl(Socket6)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
@@ -39,7 +38,6 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
 # Runtime
 Requires:       perl(Math::BigInt)
-Requires:       perl(Socket6)
 
 # Don't "provide" private Perl libs or redundant unversioned provides
 %global __provides_exclude ^(perl\\(NetAddr::IP(::(InetBase|Util(PP)?))?\\)$|Util\\.so)
@@ -80,6 +78,10 @@ make test
 %{_mandir}/man3/NetAddr::IP::UtilPP.3*
 
 %changelog
+* Wed Jan 10 2024 Michal Josef Špaček <mspacek@redhat.com> - 4.079-26
+- Remove dependency to Socket6, which we are going to remove.
+  They are used own implementations of inet_pton and inet_ntop in this situation.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.079-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %global pypi_name bodhi-server
 %global src_name bodhi_server
-%global pypi_version 8.0.1
+%global pypi_version 8.0.2
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
@@ -162,6 +162,9 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Thu Jan 11 2024 Mattia Verga <mattia.verga@proton.me> - 8.0.2-1
+- Update to 8.0.2
+
 * Sun Dec 24 2023 Mattia Verga <mattia.verga@proton.me> - 8.0.1-1
 - Update to 8.0.1
 

@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 20%{?dist}
+Release: 24%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -102,8 +102,8 @@ URL: https://sourceware.org/binutils
 %bcond_without debuginfod
 # Default: build binutils-gprofng package.
 %bcond_without gprofng
-# Default: Do not use the system supplied version of the zlib compress library.
-%bcond_with systemzlib
+# Default: Use the system supplied version of the zlib compression library.
+%bcond_without systemzlib
 
 # Allow the user to override the compiler used to build the binutils.
 # The default build compiler is gcc if %%toolchain is not clang.
@@ -131,6 +131,7 @@ URL: https://sourceware.org/binutils
 
 %if %{with debug}
 %undefine with_testsuite
+%define enable_shared 0
 %endif
 
 # GprofNG currenly onlly supports the x86 and AArch64 architectures.
@@ -358,7 +359,7 @@ BuildRequires: findutils
 # sharutils is needed so that we can uuencode the testsuite results.
 BuildRequires: dejagnu, glibc-static, sharutils, bc, libstdc++
 %if %{with systemzlib}
-BuildRequires: zlib-static
+BuildRequires: zlib-devel
 %endif
 %endif
 
@@ -466,6 +467,7 @@ linker, and it may become deprecated in the future.
 Summary: Next Generating code profiling tool
 Provides: gprofng = %{version}-%{release}
 Requires: binutils = %{version}-%{release}
+BuildRequires: bison
 
 %description gprofng
 GprofNG is the GNU Next Generation Profiler for analyzing the performance 
@@ -611,7 +613,7 @@ compute_global_configuration()
 	--enable-ld \
 	--enable-plugins \
 	--enable-64-bit-bfd \
-	--with-bugurl=http://bugzilla.redhat.com/bugzilla/"
+	--with-bugurl=%{dist_bug_report_url}"
 
 %if %{without bootstrap}
     CARGS="$CARGS --enable-jansson=yes"
@@ -722,8 +724,8 @@ run_target_configuration()
 %endif
 
 %if %{with debug}
-    export CFLAGS="$CFLAGS -O0 -ggdb2 -Wno-error -D_FORTIFY_SOURCE=0"
-    shared=0
+    %undefine _fortify_level
+    export CFLAGS="$CFLAGS -O0 -ggdb2 -Wno-error"
 %endif
 
     export CXXFLAGS="$CXXFLAGS $CFLAGS"
@@ -769,7 +771,8 @@ run_target_configuration()
 	# Set up the sysroot and paths.
 	SARGS="--with-sysroot=/ \
                --prefix=%{_prefix} \
-               --libdir=%{_libdir}"
+               --libdir=%{_libdir} \
+               --sysconfdir=%{_sysconfdir}"
 %if %{with gold}
         SARGS="$SARGS --enable-gold=default"
 %else
@@ -789,6 +792,7 @@ run_target_configuration()
                --prefix=%{_prefix}/$target \
                --libdir=%{_libdir} \
                --exec-prefix=%{_usr} \
+               --sysconfdir=%{_sysconfdir} \
 	       --disable-gold"
     fi
 
@@ -1277,12 +1281,19 @@ exit 0
 %{_libdir}/bfd-plugins/libdep.so
 %endif
 
+%if %{with debug}
+%dir %{_libdir}/bfd-plugins
+%{_libdir}/bfd-plugins/libdep.a
+%endif
+
 %files devel
 %{_prefix}/include/*
 %{_libdir}/lib*.a
 %{_libdir}/libbfd.so
 %{_libdir}/libopcodes.so
+%if %{enable_shared}
 %exclude %{_libdir}/lib*.la
+%endif
 
 %if %{with gold}
 %files gold
@@ -1298,7 +1309,7 @@ exit 0
 %{_infodir}/gprofng.info.*
 %dir %{_libdir}/gprofng
 %{_libdir}/gprofng/*
-%{_prefix}%{_sysconfdir}/gprofng.rc
+%{_sysconfdir}/gprofng.rc
 %endif
 
 %if %{with crossbuilds}
@@ -1331,6 +1342,18 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Jan 11 2024 Siddhesh Poyarekar  <siddhesh@redhat.com> - 2.40-24
+- Use _fortify_level macro to control _FORTIFY_SOURCE.
+
+* Thu Jan 11 2024 Amit Shah  <amitshah@fedoraproject.org>- 2.41-23
+- Spec File: gprofng requires bison at build time
+
+* Thu Jan 11 2024 Tulio Machado  <tuliom@redhat.com> - 2.41-22
+- Remove dependency upon zlib-static.
+
+* Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.41-21
+- Fix location of gprofng.rc
+
 * Thu Jan 04 2024 Nick Clifton  <nickc@redhat.com> - 2.41-20
 - Fix SPDX annotation.
 

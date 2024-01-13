@@ -5,16 +5,13 @@
 %global crate cargo-credential-libsecret
 
 Name:           rust-cargo-credential-libsecret
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Cargo credential process that stores tokens with GNOME libsecret
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cargo-credential-libsecret
 Source:         %{crates_source}
-# https://github.com/rust-lang/cargo/pull/12953
-Source:         https://github.com/rust-lang/cargo/raw/0.74.0/LICENSE-APACHE
-Source:         https://github.com/rust-lang/cargo/raw/0.74.0/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -53,7 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE1} %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

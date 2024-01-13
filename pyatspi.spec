@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           pyatspi
-Version:        2.46.0
-Release:        6%{?dist}
+Version:        2.46.1
+Release:        1%{?dist}
 Summary:        Python bindings for at-spi
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -70,12 +70,15 @@ sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' examples/magFocusTracker.py
 
 %files -n python3-pyatspi
 %license COPYING COPYING.GPL
-%doc AUTHORS README
+%doc AUTHORS README.md
 %doc examples/magFocusTracker.py
 %{python3_sitelib}/pyatspi/
 
 
 %changelog
+* Thu Jan 11 2024 Kalev Lember <klember@redhat.com> - 2.46.1-1
+- Update to 2.46.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.46.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

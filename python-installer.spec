@@ -1,12 +1,16 @@
 Name:           python-installer
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library for installing Python wheels
 
 # SPDX
 License:        MIT
 URL:            https://github.com/pypa/installer
 Source:         %{pypi_source installer}
+
+# Fix the build with Python 3.13 - merged upstream
+# https://github.com/pypa/installer/commit/b23f89b10cf5
+Patch:          Fix-removed-importlib.resources.read_binary-in-Pytho.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -55,6 +59,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jan 11 2024 Karolina Surma <ksurma@redhat.com> - 0.7.0-4
+- Fix the build with Python 3.13
+Fixes: rhbz#2246052
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

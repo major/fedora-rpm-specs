@@ -2,7 +2,7 @@
 
 Name:    plasma-print-manager
 Summary: Printer management for KDE
-Version: 5.91.0
+Version: 5.92.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -11,10 +11,6 @@ URL:     https://invent.kde.org/plasma/%{base_name}
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 ## upstream patches
-
-## proposed patches
-# https://invent.kde.org/plasma/print-manager/-/merge_requests/102
-Patch10:       0001-Set-libkcups-VERSION-and-SOVERSION.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
@@ -116,6 +112,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

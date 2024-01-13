@@ -9,25 +9,26 @@
 
 Name:           firecracker
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
-License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND Unicode-DFS-2016
+License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND (MIT OR Unlicense) AND Unicode-DFS-2016
 URL:            https://firecracker-microvm.github.io/
 
 Source0:        https://github.com/firecracker-microvm/firecracker/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Bundle forked versions of existing crates to avoid conflicts with upstreams.
-Source1:        https://github.com/firecracker-microvm/kvm-bindings/archive/b1585959b4ac4075629765fb90ecf298a3203bfc/kvm-bindings-b158595.tar.gz
-Source2:        https://github.com/firecracker-microvm/micro-http/archive/a4d632f2c5ea45712c0d2002dc909a63879e85c3/micro_http-a4d632f.tar.gz
-Provides:       bundled(crate(kvm-bindings)) = 0.6.0^gitb158595
-Provides:       bundled(crate(micro_http)) = 0.1.0^gita4d632f
+Source1:        https://github.com/firecracker-microvm/kvm-bindings/archive/93af344a93b83b39cdfea0d0a860b3b57d29d28b/kvm-bindings-93af344.tar.gz
+Source2:        https://github.com/firecracker-microvm/micro-http/archive/e75dfa1eeea23b69caa7407bc2c3a76d7b7262fb/micro_http-e75dfa1.tar.gz
+Provides:       bundled(crate(kvm-bindings)) = 0.6.0^git93af344
+Provides:       bundled(crate(micro_http)) = 0.1.0^gite75dfa1
 
 # Edit crate dependencies to track what is packaged in Fedora.
 Patch:          %{name}-1.6.0-remove-aws-lc-rs.patch
 Patch:          %{name}-1.6.0-remove-cargo_toml.patch
 Patch:          %{name}-1.6.0-remove-criterion.patch
 Patch:          %{name}-1.6.0-remove-device_tree.patch
+Patch:          %{name}-1.6.0-update-vmm-sys-util.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{defined cargo_target}
@@ -100,6 +101,9 @@ done
 
 
 %changelog
+* Thu Jan 11 2024 David Michael <fedora.dm0@gmail.com> - 1.6.0-2
+- Backport changes to update vmm-sys-util for CVE-2023-50711.
+
 * Wed Dec 20 2023 David Michael <fedora.dm0@gmail.com> - 1.6.0-1
 - Update to the 1.6.0 release.
 

@@ -3,7 +3,7 @@
 
 Name: grubby
 Version: 8.40
-Release: 72%{?dist}
+Release: 73%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPL-2.0-or-later
 Source1: grubby-bls
@@ -74,6 +74,9 @@ fi
 %{_mandir}/man8/grubby.8*
 
 %changelog
+* Wed Jan 10 2024 Marta Lewandowska <mlewando@redhat.com> - 8.40-73
+- Do not overwrite all vars that start with GRUB_CMDLINE_LINUX
+
 * Mon Sep 11 2023 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 8.40-72
 - Drop installkernel so that it can be provided by systemd
 

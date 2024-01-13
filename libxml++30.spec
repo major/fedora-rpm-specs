@@ -1,23 +1,21 @@
 %global api_ver 3.0
 
 Name:           libxml++30
-Version:        3.2.4
-Release:        4%{?dist}
+Version:        3.2.5
+Release:        1%{?dist}
 Summary:        C++ wrapper for the libxml2 XML parser library
 
 License:        LGPL-2.1-or-later
 URL:            https://libxmlplusplus.github.io/libxmlplusplus/
-Source0:        https://download.gnome.org/sources/libxml++/3.2/libxml++-%{version}.tar.xz
-# https://github.com/libxmlplusplus/libxmlplusplus/commit/6e7e90984418a983101f51352f91231be56efb32
-Patch:          libxml++30-3.2.4-libxml2-2.12.0-includes.patch
+Source:         https://download.gnome.org/sources/libxml++/3.2/libxml++-%{version}.tar.xz
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  doxygen, graphviz
 BuildRequires:  gcc-c++
+BuildRequires:  meson
 BuildRequires:  pkgconfig(glibmm-2.4)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  /usr/bin/xsltproc
-BuildRequires:  meson
 
 %description
 libxml++ is a C++ wrapper for the libxml2 XML parser library. Its original
@@ -58,7 +56,7 @@ This package contains the full API documentation for %{name}.
 
 %files
 %license COPYING
-%doc AUTHORS NEWS README
+%doc NEWS README.md
 %{_libdir}/libxml++-%{api_ver}.so.1*
 
 %files devel
@@ -75,6 +73,9 @@ This package contains the full API documentation for %{name}.
 
 
 %changelog
+* Thu Jan 11 2024 Kalev Lember <klember@redhat.com> - 3.2.5-1
+- Update to 3.2.5
+
 * Wed Nov 29 2023 David King <amigadave@amigadave.com> - 3.2.4-4
 - Fix building against libxml2 2.12.0 and above
 

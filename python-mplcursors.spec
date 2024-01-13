@@ -2,17 +2,13 @@
 %bcond_without doc
 
 Name:           python-%{srcname}
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Interactive data selection cursors for Matplotlib
 
 License:        MIT
 URL:            https://github.com/anntzer/mplcursors
-Source0:        %pypi_source
-# Fix compatibility with Python 3.12.
-Patch:          https://github.com/anntzer/mplcursors/pull/63.patch
-# Fix tests with Matplotlib 3.8.0.
-Patch:          https://github.com/anntzer/mplcursors/commit/689b4adefaf0302a9338bb28bd3c3f0ef1c95ce7.patch
+Source0:        %pypi_source mplcursors
 
 BuildArch:      noarch
 
@@ -43,10 +39,7 @@ Documentation for mplcursors
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -r
-%if %{with doc}
-%pyproject_buildrequires -x docs
-%endif
+%pyproject_buildrequires %{?with_doc:-x docs}
 
 %build
 %pyproject_wheel

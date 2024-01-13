@@ -3,7 +3,7 @@
 
 # https://github.com/OpenPrinting/goipp
 %global goipath         github.com/OpenPrinting/goipp
-Version:                1.0.0
+Version:                1.1.0
 
 %gometa
 
@@ -14,13 +14,18 @@ Package goipp implements the IPP core protocol in pure Go (RFC 8010).}
 %global godocs          README.md index.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        IPP core protocol in pure Go (RFC 8010)
 
 # Upstream license specification: BSD-2-Clause
 License:        BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
+
+# reverting the change which introduced support for Pantum printers, which
+# broke conformation to IPP standards and has security implications
+# https://lore.kernel.org/printing-architecture/b2c6c270-4933-4bde-a299-52802e6e8d88@shentel.net/T/#u
+Patch001: pantum-workaround-revert.patch
 
 %description
 %{common_description}
@@ -29,6 +34,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch
 
 %install
 %gopkginstall
@@ -41,6 +47,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jan 11 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.0-1
+- 2253306 - golang-github-openprinting-goipp-1.1.0 is available
+
 * Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.0-9
 - Rebuild for any CVE fixes in golang
 

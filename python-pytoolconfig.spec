@@ -1,5 +1,5 @@
 Name:           python-pytoolconfig
-Version:        1.2.6
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Python tool configuration
 

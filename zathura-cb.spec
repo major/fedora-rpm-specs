@@ -1,6 +1,6 @@
 Name:             zathura-cb
 Version:          0.1.10
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Comic book support for zathura
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}
@@ -44,6 +44,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Sat Dec 09 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.1.10-6
+- Rebuild against zathura 0.5.4
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

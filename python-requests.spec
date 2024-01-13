@@ -5,8 +5,8 @@
 %bcond extras   %{undefined rhel}
 
 Name:           python-requests
-Version:        2.28.2
-Release:        7%{?dist}
+Version:        2.31.0
+Release:        1%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        Apache-2.0
@@ -16,9 +16,6 @@ Source:         https://github.com/requests/requests/archive/v%{version}/request
 # Explicitly use the system certificates in ca-certificates.
 # https://bugzilla.redhat.com/show_bug.cgi?id=904614
 Patch:          system-certs.patch
-
-# Security fix for CVE-2023-32681
-Patch:          https://github.com/psf/requests/commit/74ea7cf7a6.patch#/CVE-2023-32681.patch
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -80,7 +77,7 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 %pyproject_check_import
 %if %{with tests}
 # test_use_proxy_from_environment needs pysocks
-%pytest -v %{!?with_extras:-k "not test_use_proxy_from_environment"}
+%pytest -v tests %{!?with_extras:-k "not test_use_proxy_from_environment"}
 %endif
 
 
@@ -90,6 +87,10 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Mon Oct 16 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.31.0-1
+- Update to 2.31.0
+- Fixes: rhbz#2189970
+
 * Tue Oct 10 2023 Miro Hrončok <mhroncok@redhat.com> - 2.28.2-7
 - Do not package requests[security] and requests[socks] on RHEL
 - Make the package build even when urllib3 won't pull in pysocks

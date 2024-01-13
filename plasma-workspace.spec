@@ -3,7 +3,7 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.91.0
+Version: 5.92.0
 Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -38,9 +38,6 @@ Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
 # Hide virtual keyboard indicator on sddm.
 # Do not remove this as it breaks Fedora's QA policy
 Patch108:       hide-virtual-keyboard-indicator-on-sddm.patch
-
-# Fix for build failing with a crypt error
-Patch109:        plasma-workspace-5.27.80-crypt-fix.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -126,13 +123,13 @@ BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6QuickCharts)
 BuildRequires:  cmake(KF6StatusNotifierItem)
 BuildRequires:  cmake(KF6Svg)
-BuildRequires:  cmake(KF6Plasma5Support)
 BuildRequires:  cmake(KF6KDED)
 BuildRequires:  cmake(KF6NetworkManagerQt)
 BuildRequires:  cmake(KF6Screen)
 BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(KF6Prison)
 BuildRequires:  cmake(KF6UserFeedback)
+BuildRequires:  cmake(Plasma5Support)
 
 BuildRequires:  wayland-devel >= 1.3.0
 BuildRequires:  libksysguard-devel
@@ -202,7 +199,7 @@ Recommends:       plasma-milou
 Recommends: kde-inotify-survey
 
 # https://pagure.io/fedora-kde/SIG/issue/354
-# Recommends: kf6-audiocd-kio
+Recommends: audiocd-kio
 
 # For a11y
 Recommends: orca
@@ -717,6 +714,12 @@ fi
 
 
 %changelog
+* Thu Jan 11 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-2
+- Re-enable audiocd-kio recommends
+
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Sat Dec 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.91.0-2
 - Clean up uneeded conditionals in packaging
 

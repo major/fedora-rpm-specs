@@ -2,7 +2,7 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -418,6 +418,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib{uuid,blkid,mount,smartcols,fdisk}.a
 
 # temporary remove to avoid conflicts with bash-completion pkg
 rm -f $RPM_BUILD_ROOT%{compldir}/{mount,umount}
+
+# remove unvanted translations (conflicts with shadow-utils)
+rm -f $RPM_BUILD_ROOT%{_mandir}/*/man1/newgrp.*
+rm -f $RPM_BUILD_ROOT%{_mandir}/*/man8/vigr.*
+rm -f $RPM_BUILD_ROOT%{_mandir}/*/man8/vigw.*
+
 
 # find MO files
 %find_lang %{name} --all-name --with-man
@@ -923,8 +929,10 @@ fi
 
 %files -n util-linux-i18n -f %{name}.lang
 
-
 %changelog
+* Thu Jan 11 2024 Karel Zak <kzak@redhat.com> - 2.39.3-2
+- fix #2256391 util-linux-i18n conflicts with file from package shadow-utils
+
 * Sun Dec 31 2023 Karel Zak <kzak@redhat.com> - 2.39.3-1
 - upgrade to v2.39.3
   https://kernel.org/pub/linux/utils/util-linux/v2.39/v2.39.3-ReleaseNotes

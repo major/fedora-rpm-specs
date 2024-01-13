@@ -2,7 +2,7 @@ Summary: The basic required files for the root user's directory
 Name: rootfiles
 Version: 8.1
 Release: 34%{?dist}
-License: Public Domain
+License: LicenseRef-Not-Copyrightable
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from

@@ -9,6 +9,9 @@ Summary: Mail processing program
 Name: procmail
 Version: 3.24
 Release: 3%{?dist}
+# Dual licensed "gpl-2.0-or-later OR artistic-perl-1.0", but
+# artistic-perl-1.0 is not allowed, thus dropped from the license
+# tag as per: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/423
 License: gpl-2.0-or-later
 URL: https://github.com/BuGlessRB/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz

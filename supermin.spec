@@ -37,8 +37,8 @@ ExcludeArch: %{ix86}
 
 Summary:       Tool for creating supermin appliances
 Name:          supermin
-Version:       5.3.3
-Release:       19%{?dist}
+Version:       5.3.4
+Release:       1%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -52,29 +52,6 @@ Source0:       http://download.libguestfs.org/supermin/%{source_directory}/%{nam
 Source1:       http://download.libguestfs.org/supermin/%{source_directory}/%{name}-%{version}.tar.gz.sig
 # Keyring used to verify tarball signature.
 Source2:       libguestfs.keyring
-
-# https://fedoraproject.org/wiki/Changes/RelocateRPMToUsr
-Patch:         0001-rpm-New-RPM-database-location-in-usr-lib-sysimage-rp.patch
-# OCaml 5 compatibility:
-Patch:         0002-Add-support-for-OCaml-5.0.patch
-Patch:         0003-Restore-compatibility-with-OCaml-4.07.patch
-# dnf5 (https://bugzilla.redhat.com/show_bug.cgi?id=2209412):
-Patch:         0004-rpm-Detect-dnf5-and-omit-missing-options.patch
-# dnf5 (https://bugzilla.redhat.com/show_bug.cgi?id=2211386)
-Patch:         0005-rpm-Use-dnf-config-instead-of-c.patch
-# Fix --if-newer
-Patch:         0006-src-Improved-debugging-of-the-supermin-if-newer-calc.patch
-Patch:         0007-src-Fix-if-newer-copy-kernel.patch
-# Reenable disable_excludes for dnf5
-Patch:         0008-rpm-Reenable-disable_excludes-for-dnf5.patch
-# Fix kernel filtering on aarch64
-Patch:         0009-src-format_ext2_kernel.ml-Fix-kernel-filtering-for-a.patch
-# Fix bytecode builds so they resist stripping
-Patch:         0010-ocamlc-Use-output-complete-exe-instead-of-custom.patch
-Patch:         0011-ocamlc-Only-supply-output-complete-exe-to-final-link.patch
-# Fix RISC-V gzip compressed kernels
-Patch:         0012-src-format_ext2_kernel.ml-Rename-function-file-kerne.patch
-Patch:         0013-src-Uncompress-kernel-on-RISC-V.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -229,6 +206,10 @@ make check || {
 
 
 %changelog
+* Thu Jan 11 2024 Richard W.M. Jones <rjones@redhat.com> - 5.3.4-1
+- New upstream version 5.3.4
+- Remove patches which are now all upstream.
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-19
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

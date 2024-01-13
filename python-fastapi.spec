@@ -429,9 +429,9 @@ sed -r -i 's/("uvicorn\b.*",)/# \1/' pyproject.toml
 # Filter requirements-docs-tests.txt similarly, and reference the filtered
 # version from requirements-tests-filtered.txt.
 #
-# Assume that newer versions of httpx are OK for testing; trying to get
-# upstream to update this pin every time there is a new 0.x release is too
-# tedious.
+# Assume that newer versions of httpx are OK for docs; trying to get upstream
+# to update this pin every time there is a new 0.x release is too
+# tedious. Similarly, allow testing with Flask 3.x.
 sed -r \
     -e 's/^(mypy|ruff|coverage)\b/# &/' \
     -e 's/^(types-(u|or)json)\b/# &/' \
@@ -440,6 +440,7 @@ sed -r \
 %if %{without orjson}
     -e 's/^(orjson)\b/# &/' \
 %endif
+    -e 's/((flask) [^,]*),<.*/\1/' \
     -e 's/(requirements-docs-tests)(\.txt)/\1-filtered\2/' \
     requirements-tests.txt | tee requirements-tests-filtered.txt
 sed -r \

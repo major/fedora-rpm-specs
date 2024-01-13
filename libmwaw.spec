@@ -1,7 +1,7 @@
 %global apiversion 0.3
 
 Name: libmwaw
-Version: 0.3.21
+Version: 0.3.22
 Release: %autorelease
 Summary: A library for import of many old Mac document formats
 

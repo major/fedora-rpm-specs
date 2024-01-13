@@ -1,6 +1,6 @@
 Name:    layer-shell-qt
-Version: 5.91.0
-Release: 2%{?dist}
+Version: 5.92.0
+Release: 1%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later AND MIT
@@ -52,6 +52,10 @@ Requires: cmake(Qt6Gui)
 %license LICENSES/*
 %{_libdir}/libLayerShellQtInterface.so.*
 %{_qt6_plugindir}/wayland-shell-integration/
+%{_kf6_qmldir}/org/kde/layershell/LayerShellQtQml.qmltypes
+%{_kf6_qmldir}/org/kde/layershell/kde-qmlmodule.version
+%{_kf6_qmldir}/org/kde/layershell/libLayerShellQtQml.so
+%{_kf6_qmldir}/org/kde/layershell/qmldir
 
 %files devel
 %{_includedir}/LayerShellQt/
@@ -60,6 +64,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+
 * Wed Jan 03 2024 Jan Grulich <jgrulich@redhat.com> - 5.91.0-2
 - Rebuild (qt5)
 

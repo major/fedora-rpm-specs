@@ -1,15 +1,11 @@
-%global commit0 36f5625141cbb4e1707e0f4ed9ece0ce0c2c0cc9
-%global shortcommit %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20231120.081305
-
 Name:    pulseaudio-qt
 Summary: Qt bindings for PulseAudio
-Version: 1.3^%{gitdate}.%{shortcommit}
+Version: 1.4.0
 Release: 2%{?dist}
 
-License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
+License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/libraries/pulseaudio-qt
-Source:  https://invent.kde.org/libraries/pulseaudio-qt/-/archive/%{commit0}/pulseaudio-qt-%{commit0}.tar.gz
+Source:  https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -54,10 +50,14 @@ Summary: Qt6 bindings for PulseAudio
 %description qt6
 %{summary}.
 
+%package qt6-doc
+Summary: Developer Documentation files for %{name}
+%description qt6-doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup
 
 %build
 mkdir %{name}_qt5
@@ -85,7 +85,7 @@ rm %{buildroot}%{_kf5_includedir}/pulseaudioqt_version.h
 %license LICENSES/*.txt
 %doc README.md
 %{_kf5_libdir}/libKF5PulseAudioQt.so.4
-%{_kf5_libdir}/libKF5PulseAudioQt.so.1.3.0
+%{_kf5_libdir}/libKF5PulseAudioQt.so.%{version}
 
 %files qt5-devel
 %{_kf5_includedir}/KF5PulseAudioQt/
@@ -97,15 +97,24 @@ rm %{buildroot}%{_kf5_includedir}/pulseaudioqt_version.h
 %license LICENSES/*.txt
 %doc README.md
 %{_kf6_libdir}/libKF6PulseAudioQt.so.4
-%{_kf6_libdir}/libKF6PulseAudioQt.so.1.3.0
+%{_kf6_libdir}/libKF6PulseAudioQt.so.%{version}
 
 %files qt6-devel
 %{_kf6_includedir}/KF6PulseAudioQt/
 %{_kf6_libdir}/libKF6PulseAudioQt.so
 %{_kf6_libdir}/cmake/KF6PulseAudioQt/
 %{_kf6_libdir}/pkgconfig/KF6PulseAudioQt.pc
+%{_qt6_docdir}/*.tags
+
+%files qt6-doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 11 2024 Alessandro Astone <ales.astone@gmail.com> - 1.4.0-2
+- 1.4.0
+- Add qt6-doc package for Qt6 API
+- Release number 2 because we should always be ahead of f39 for the obsoletion path
+
 * Tue Nov 21 2023 Steve Cossette <farchord@gmail.com> - 1.3^20231120.081305.36f5625-2
 - Fixing bad requirements
 

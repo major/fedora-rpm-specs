@@ -1,6 +1,6 @@
 Name:             zathura-ps
 Version:          0.2.7
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          PS support for zathura via libspectre
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}
@@ -45,6 +45,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-ps.metainfo.xml
 
 %changelog
+* Sat Dec 09 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.2.7-5
+- Rebuild against zathura 0.5.4
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

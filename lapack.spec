@@ -13,7 +13,7 @@
 Summary: Numerical linear algebra package libraries
 Name: lapack
 Version: %{mediumver}.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/lapack/
 Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.0.tar.gz
@@ -288,12 +288,9 @@ rm -rf _Users_julie*
 popd
 
 # rename conflicting man pages
-%if 0
 pushd manpages/man/man3
-mv MAX.3 lapack-MAX.3
-mv MIN.3 lapack-MIN.3
+mv isnan.3 lapack-isnan.3
 popd
-%endif
 
 find manpages/man/man3 -type f -printf "%{_mandir}/man3/%f*\n" > lapackmans
 
@@ -402,6 +399,9 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %endif
 
 %changelog
+* Thu Jan 11 2024 Tom Callaway <spot@fedoraproject.org> - 3.12.0-2
+- rename isnan.3 to lapack-isnan.3 to avoid conflict with man-pages package
+
 * Thu Jan  4 2024 Tom Callaway <spot@fedoraproject.org> - 3.12.0-1
 - update to 3.12.0
 

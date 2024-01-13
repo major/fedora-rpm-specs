@@ -3,8 +3,8 @@
 %global crate mdevctl
 
 Name:           mdevctl
-Version:        1.2.0
-Release:        4%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPL-2.1-only
@@ -56,14 +56,20 @@ vfio-mdev for assignment to virtual machines.
 %{_sbindir}/lsmdev
 %{_udevrulesdir}/60-mdevctl.rules
 %dir %{_sysconfdir}/mdevctl.d
-%dir %{_sysconfdir}/mdevctl.d/scripts.d/callouts
-%dir %{_sysconfdir}/mdevctl.d/scripts.d/notifiers
+%dir %{_prefix}/lib/mdevctl/scripts.d/callouts
+%dir %{_prefix}/lib/mdevctl/scripts.d/notifiers
 %{_mandir}/man8/mdevctl.8*
 %{_mandir}/man8/lsmdev.8*
 %{_datadir}/bash-completion/completions/mdevctl
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Thu Jan 11 2024 Alex Williamson <alex.williamson@redhat.com> - 1.3.0-1
+- New upstream release: https://github.com/mdevctl/mdevctl/releases/tag/v1.3.0
+- Note upstream moved default script location from /etc/mdevctl.d/scripts.d
+  to /usr/lib/mdevctl/scripts.d.  Both locations are currently supported, the
+  new locations is recommended.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

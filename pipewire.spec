@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 0
-%global microversion 0
+%global microversion 1
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -77,7 +77,7 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 Source1:        pipewire.sysusers
 
 ## upstream patches
-Patch0001:	0001-gst-keep-track-of-node-ports.patch
+Patch0001:	0001-spa-libcamera-use-CameraConfiguration-orientation.patch
 
 ## upstreamable patches
 
@@ -812,6 +812,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Jan 11 2024 Wim Taymans <wtaymans@redhat.com> - 1.0.1-1
+- Update version to 1.0.1
+- Add patch to support libcamera 0.2
+
 * Thu Dec 14 2023 Wim Taymans <wtaymans@redhat.com> - 1.0.0-2
 - Add patch to avoid crash in deviceprovider.
 

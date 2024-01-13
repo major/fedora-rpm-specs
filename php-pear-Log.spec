@@ -12,13 +12,11 @@
 
 Summary:        Abstracted logging facility for PHP
 Name:           php-pear-Log
-Version:        1.14.0
-Release:        2%{?dist}
+Version:        1.14.1
+Release:        1%{?dist}
 License:        MIT
 URL:            http://pear.php.net/package/Log
 Source:         http://pear.php.net/get/Log-%{version}.tgz
-
-Patch0:         %{pear_name}-32bit.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.4
@@ -49,8 +47,7 @@ and "php-pear-MDB2" (version >= 2.0.0RC1).
 %setup -c -q
 
 cd %{pear_name}-%{version}
-%patch -P0 -p1
-sed -e 's/md5sum="[^"]*"//' ../package.xml >%{name}.xml
+mv ../package.xml %{name}.xml
 
 
 %build
@@ -101,6 +98,10 @@ fi
 
 
 %changelog
+* Thu Jan 11 2024 Remi Collet <remi@remirepo.net> - 1.14.1-1
+- version 1.14.1
+- drop patch merged upstream
+
 * Wed Jan 10 2024 Remi Collet <remi@remirepo.net> - 1.14.0-2
 - add patch for 32-bit from https://github.com/pear/Log/pull/30
 

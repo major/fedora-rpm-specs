@@ -5,7 +5,7 @@
 %global crate crossbeam-epoch
 
 Name:           rust-crossbeam-epoch
-Version:        0.9.17
+Version:        0.9.18
 Release:        %autorelease
 Summary:        Epoch-based garbage collection
 

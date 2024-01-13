@@ -127,9 +127,11 @@ convenient.
 %{_libdir}/libpmem.so
 %{_libdir}/pkgconfig/libpmem.pc
 %{_includedir}/libpmem.h
+%if %{with pandoc}
 %{_mandir}/man7/libpmem.7.gz
 %{_mandir}/man3/pmem_*.3.gz
 %{_mandir}/man5/pmem_ctl.5.gz
+%endif
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
 
@@ -187,8 +189,10 @@ convenient.
 %{_libdir}/pkgconfig/libpmem2.pc
 %{_includedir}/libpmem2.h
 %{_includedir}/libpmem2/*.h
+%if %{with pandoc}
 %{_mandir}/man7/libpmem2*7.gz
 %{_mandir}/man3/pmem2_*.3.gz
+%endif
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
 
@@ -243,6 +247,7 @@ probably want to start with this library.
 %{_includedir}/libpmemobj.h
 %dir %{_includedir}/libpmemobj
 %{_includedir}/libpmemobj/*.h
+%if %{with pandoc}
 %{_mandir}/man7/libpmemobj.7.gz
 %{_mandir}/man5/poolset.5.gz
 %{_mandir}/man3/pmemobj_*.3.gz
@@ -252,6 +257,7 @@ probably want to start with this library.
 %{_mandir}/man3/direct_*.3.gz
 %{_mandir}/man3/d_r*.3.gz
 %{_mandir}/man3/tx_*.3.gz
+%endif
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
 
@@ -305,9 +311,11 @@ pools created by libpmemobj libraries.
 %{_libdir}/libpmempool.so
 %{_libdir}/pkgconfig/libpmempool.pc
 %{_includedir}/libpmempool.h
+%if %{with pandoc}
 %{_mandir}/man7/libpmempool.7.gz
 %{_mandir}/man5/poolset.5.gz
 %{_mandir}/man3/pmempool_*.3.gz
+%endif
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
 
@@ -348,8 +356,10 @@ and users of the applications based on PMDK libraries.
 
 %files -n pmempool
 %{_bindir}/pmempool
+%if %{with pandoc}
 %{_mandir}/man1/pmempool.1.gz
 %{_mandir}/man1/pmempool-*.1.gz
+%endif
 %config(noreplace) %{_sysconfdir}/bash_completion.d/pmempool
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
@@ -370,7 +380,9 @@ a device.
 
 %files -n daxio
 %{_bindir}/daxio
+%if %{with pandoc}
 %{_mandir}/man1/daxio.1.gz
+%endif
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
 
@@ -391,7 +403,9 @@ provided in the command line options to check whether files are in a consistent 
 %files -n pmreorder
 %{_bindir}/pmreorder
 %{_datadir}/pmreorder/*.py
+%if %{with pandoc}
 %{_mandir}/man1/pmreorder.1.gz
+%endif
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
 
@@ -414,13 +428,14 @@ provided in the command line options to check whether files are in a consistent 
 CFLAGS="%{optflags}" \
 EXTRA_CFLAGS="-Wno-error" \
 LDFLAGS="%{?__global_ldflags}" \
-%make_build NORPATH=1
+%make_build NORPATH=1 %{!?with_pandoc:DOC=n}
 
 
 # Override LIB_AR with empty string to skip installation of static libraries
 %install
 %make_install \
 	LIB_AR= \
+	%{!?with_pandoc:DOC=n} \
 	prefix=%{_prefix} \
 	libdir=%{_libdir} \
 	includedir=%{_includedir} \

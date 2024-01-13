@@ -46,8 +46,8 @@
 
 Name:             gawk
 Summary:          The GNU version of the AWK text processing utility
-Version:          5.2.2
-Release:          2%{?dist}
+Version:          5.3.0
+Release:          1%{?dist}
 
 License:          GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
 
@@ -73,7 +73,6 @@ BuildRequires:    grep
 BuildRequires:    ghostscript
 
 # Extending GAWK possibilities:
-BuildRequires:    libsigsegv-devel
 BuildRequires:    mpfr-devel
 BuildRequires:    readline-devel
 
@@ -296,6 +295,11 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 # =============================================================================
 
 %changelog
+* Thu Jan 11 2024 Jakub Martisko <jamartis@redhat.com> - 5.3.0-1
+- New upstream release - 5.3.0
+- libsigsegv should no longer be needed for the build
+Resolves rhbz#2247650
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

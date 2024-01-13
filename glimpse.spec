@@ -27,7 +27,7 @@ BuildRequires:  gcc
 %if 0%{?rhel} && 0%{?rhel} < 9
 BuildRequires:  flex-devel
 %else
-BuildRequires:  libfl-devel
+BuildRequires:  libfl-static
 %endif
 BuildRequires:  make
 Requires:       agrep

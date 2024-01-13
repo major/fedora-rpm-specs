@@ -1,6 +1,6 @@
 Name:    plasma-activities
 Summary: Core components for the KDE Activity concept
-Version: 5.91.0
+Version: 5.92.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -43,6 +43,11 @@ Provides:       kf6-kactivities-devel = 1:%{version}-%{release}
 %description    devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %prep
 %autosetup -n %{name}-%{version} -p1
 
@@ -68,9 +73,17 @@ Provides:       kf6-kactivities-devel = 1:%{version}-%{release}
 %{_kf6_libdir}/cmake/PlasmaActivities/
 %{_kf6_libdir}/libPlasmaActivities.so
 %{_kf6_libdir}/pkgconfig/PlasmaActivities.pc
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 
 %changelog
+* Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
+- 5.92.0
+- Add doc package for KF6 API
+
 * Thu Dec 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.91.0-1
 - 5.91.0
 

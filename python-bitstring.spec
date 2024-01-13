@@ -1,22 +1,17 @@
-%{?!_without_python2:%global with_python2 0%{?_with_python2:1} || !(0%{?fedora} >= 30 || 0%{?rhel} >= 8)}
-%{?!_without_python3:%global with_python3 0%{?_with_python3:1} || !0%{?rhel} || 0%{?rhel} >= 7}
-
 %global srcname bitstring
 
 Name:           python-%{srcname}
-Version:        3.1.9
-Release:        8%{?dist}
+Version:        4.1.4
+Release:        1%{?dist}
 Summary:        Simple construction, analysis and modification of binary data
 
 License:        MIT
-URL:            https://github.com/scott-griffiths/%{srcname}
-Source0:        https://github.com/scott-griffiths/%{srcname}/archive/%{srcname}-%{version}/%{srcname}-%{srcname}-%{version}.tar.gz
+URL:            https://github.com/scott-griffiths/bitstring
+Source0:        https://github.com/scott-griffiths/bitstring/archive/%{srcname}-%{version}/%{srcname}-%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires:  dos2unix
-
-%description
+%global _description %{expand:
 bitstring is a pure Python module designed to help make the creation and
 analysis of binary data as simple and natural as possible.
 
@@ -24,108 +19,51 @@ Bitstrings can be constructed from integers (big and little endian), hex,
 octal, binary, strings or files. They can be sliced, joined, reversed,
 inserted into, overwritten, etc. with simple functions or slice notation.
 They can also be read from, searched and replaced, and navigated in, similar
-to a file or stream.
+to a file or stream.}
+
+%description %_description
 
 
-%if 0%{?with_python2}
-%package -n python2-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python2-devel
-BuildRequires:  python2-pytest
-BuildRequires:  python2-setuptools
-%{?python_provide:%python_provide python2-%{srcname}}
-
-%description -n python2-%{srcname}
-bitstring is a pure Python module designed to help make the creation and
-analysis of binary data as simple and natural as possible.
-
-Bitstrings can be constructed from integers (big and little endian), hex,
-octal, binary, strings or files. They can be sliced, joined, reversed,
-inserted into, overwritten, etc. with simple functions or slice notation.
-They can also be read from, searched and replaced, and navigated in, similar
-to a file or stream.
-%endif
-
-
-%if 0%{?with_python3}
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
-%description -n python%{python3_pkgversion}-%{srcname}
-bitstring is a pure Python module designed to help make the creation and
-analysis of binary data as simple and natural as possible.
+%generate_buildrequires
+%pyproject_buildrequires
 
-Bitstrings can be constructed from integers (big and little endian), hex,
-octal, binary, strings or files. They can be sliced, joined, reversed,
-inserted into, overwritten, etc. with simple functions or slice notation.
-They can also be read from, searched and replaced, and navigated in, similar
-to a file or stream.
-%endif
+%description -n python%{python3_pkgversion}-%{srcname} %_description
 
 
 %prep
-%autosetup -n %{srcname}-%{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{srcname}-%{version}
 
-dos2unix README.rst release_notes.txt
-sed -i '1{s|^#!/usr/bin/env python||}' %{srcname}.py
+sed -i '1{s|^#!\(/usr\)\?/bin/\(env \)\?python\d\?$||}' %{srcname}/__init__.py
 
 
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-
-%if 0%{?with_python3}
-%py3_build
-%endif
+%pyproject_wheel
 
 
 %install
-%if 0%{?with_python2}
-%py2_install
-%endif
-
-%if 0%{?with_python3}
-%py3_install
-%endif
+%pyproject_install
+%pyproject_save_files bitstring
 
 
 %check
-pushd test
-%if 0%{?with_python2}
-%{__python2} -m pytest
-%endif
-
-%if 0%{?with_python3}
-%{__python3} -m pytest
-%endif
-popd
+%{__python3} -m unittest
 
 
-%if 0%{?with_python2}
-%files -n python2-%{srcname}
-%license LICENSE
-%doc README.rst release_notes.txt
-%{python2_sitelib}/%{srcname}.py
-%{python2_sitelib}/%{srcname}.py[co]
-%{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
-%endif
-
-%if 0%{?with_python3}
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
-%doc README.rst release_notes.txt
-%{python3_sitelib}/%{srcname}.py
-%{python3_sitelib}/__pycache__/%{srcname}.cpython-%{python3_version_nodots}*.pyc
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
-%endif
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
+%doc README.md release_notes.txt
 
 
 %changelog
+* Thu Jan 11 2024 Scott K Logan <logans@cottsay.net> - 4.1.4-1
+- Update to 4.1.4 (rhbz#2143436)
+- Define _description variable to reduce duplication
+- Drop macro from URL to improve ergonomics
+- Use modern Python packaging macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

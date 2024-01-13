@@ -78,18 +78,23 @@ This package provides the firewalld testsuite.
 
 %package -n firewall-applet
 Summary: Firewall panel applet
+%if !0%{?flatpak}
 Requires: %{name} = %{version}-%{release}
+%endif
 Requires: firewall-config = %{version}-%{release}
+Requires: python3-firewall = %{version}-%{release}
 Requires: hicolor-icon-theme
 %if (0%{?fedora} >= 39 || 0%{?rhel} >= 10)
-Requires: python3-pyqt6                   
-%else                                     
+Requires: python3-pyqt6-base
+%else
 Requires: python3-qt5-base
 %endif
 Requires: python3-gobject
 Requires: libnotify
 Requires: NetworkManager-libnm
+%if !0%{?flatpak}
 Requires: dbus-x11
+%endif
 
 %description -n firewall-applet
 The firewall panel applet provides a status information of firewalld and also 
@@ -97,13 +102,18 @@ the firewall settings.
 
 %package -n firewall-config
 Summary: Firewall configuration application
+%if !0%{?flatpak}
 Requires: %{name} = %{version}-%{release}
+%endif
+Requires: python3-firewall = %{version}-%{release}
 Requires: hicolor-icon-theme
 Requires: gtk3
 Requires: python3-gobject
 Requires: NetworkManager-libnm
+%if !0%{?flatpak}
 Requires: dbus-x11
 Recommends: polkit
+%endif
 
 %description -n firewall-config
 The firewall configuration application provides an configuration interface for 
@@ -111,9 +121,14 @@ firewalld.
 
 %prep
 %autosetup -p1
+%if 0%{?flatpak}
+sed -i -e 's|/usr|%{_prefix}|' src/firewall-applet.in src/firewall/config/__init__.py.in
+%endif
 
 %build
-%configure --enable-sysconfig --enable-rpmmacros PYTHON="%{__python3} %{py3_shbang_opts}"
+%configure --enable-sysconfig --enable-rpmmacros \
+  --with-systemd-unitdir=%{_unitdir} \
+  PYTHON="%{__python3} %{py3_shbang_opts}"
 # Enable the make line if there are patches affecting man pages to
 # regenerate them
 make %{?_smp_mflags}
@@ -155,6 +170,13 @@ rm -f %{buildroot}%{_datadir}/man/man1/firewallctl.1
 
 # conflicts with kodi-firewalld package, bug #2129946
 rm -f %{buildroot}%{_prefix}/lib/firewalld/services/kodi-*.xml
+
+%py_byte_compile %{__python3} %{buildroot}%{_datadir}/firewalld/gtk3_*
+
+%if 0%{?flatpak}
+mkdir -p %{buildroot}%{_rpmmacrodir}
+mv %{buildroot}%{_prefix}/lib/rpm/macros.d/* %{buildroot}%{_rpmmacrodir}
+%endif
 
 %find_lang %{name} --all-name
 
@@ -277,7 +299,7 @@ fi
 %dir %{_prefix}/lib/firewalld/policies
 %dir %{_prefix}/lib/firewalld/services
 %dir %{_prefix}/lib/firewalld/zones
-%{_rpmconfigdir}/macros.d/macros.firewalld
+%{_rpmmacrodir}/macros.firewalld
 
 %files -n firewalld-test
 %dir %{_datadir}/firewalld/testsuite
@@ -304,8 +326,8 @@ fi
 %{_bindir}/firewall-config
 %defattr(0644,root,root)
 %{_datadir}/firewalld/firewall-config.glade
-%{_datadir}/firewalld/gtk3_chooserbutton.py*
-%{_datadir}/firewalld/gtk3_niceexpander.py*
+%pycached %{_datadir}/firewalld/gtk3_chooserbutton.py
+%pycached %{_datadir}/firewalld/gtk3_niceexpander.py
 %{_datadir}/applications/firewall-config.desktop
 %{_datadir}/metainfo/firewall-config.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/firewall-config*.*

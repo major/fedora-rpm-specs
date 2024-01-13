@@ -11,9 +11,12 @@
 Summary:	Ruby binding of GooCanvas
 Name:		rubygem-%{gem_name}1
 Version:	1.2.6
-Release:	35%{?dist}
-# from README
-License:	LGPLv2
+Release:	36%{?dist}
+# from README	LGPL-2.1-only
+# overall:	LGPL-2.1-or-later
+# some files under sample/		GPL-2.0-or-later
+# SPDX confirmed
+License:	LGPL-2.1-or-later AND LGPL-2.1-only
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Licenses
@@ -36,15 +39,15 @@ BuildRequires:	rubygem-gdk_pixbuf2 >= %{gtkminver}
 BuildRequires:	ruby-devel
 BuildRequires:	goocanvas-devel
 Requires:	ruby(rubygems)
-Provides:	rubygem(%{gem_name}) = %{version}
+Provides:	rubygem(%{gem_name}) = %{version}-%{release}
 
 %description
 Ruby/GooCanvas is a Ruby binding of GooCanvas.
 
 %package	doc
 Summary:	Documentation for %{name}
-# sample/demo.rb is under GPLv2+
-License:	LGPLv2 and GPLv2+
+# sample/demo.rb is under GPL-2.0-or-later
+License:	LGPL-2.1-or-later AND LGPL-2.1-only AND GPL-2.0-or-later
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	doc
@@ -59,10 +62,10 @@ Header files and libraries for building a extension library for the
 rubygem-%{gem_name}
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
-%patch0 -p1 -b .pixbuf
+%patch -P0 -p1 -b .pixbuf
 
 # For rubygem-glib 2.0.x
 sed -i \
@@ -81,13 +84,11 @@ grep -l "rbgdk-pixbuf\.h" *.c *.h | \
 	xargs sed -i '\@include.*rbgdk-pixbuf\.h@d'
 popd
 
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
-
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags}'"
 export CONFIGURE_ARGS="$CONFIGURE_ARGS --with-pkg-config-dir=$(pwd)%{_libdir}/pkgconfig"
 
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -112,9 +113,14 @@ install -cpm 644 ./%{_libdir}/pkgconfig/*.pc \
 	%{buildroot}%{_libdir}/pkgconfig/ruby-%{gem_name}1.pc
 
 # Cleanups
-pushd %{buildroot}
-rm -rf .%{gem_instdir}/ext/
-rm -f .%{gem_instdir}/extconf.rb
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Rakefile \
+	ext/ \
+	extconf.rb \
+	*.gemspec \
+	%{nil}
 popd
 
 # Licenses
@@ -130,13 +136,12 @@ done
 %dir	%{gem_instdir}
 %dir	%{gem_instdir}/lib/
 
-%doc	%{gem_instdir}/[A-Z]*
-%exclude	%{gem_instdir}/Rakefile
+%license	%{gem_instdir}/COPYING*
+%doc	%{gem_instdir}/[D-Z]*
 
 %{gem_instdir}/lib/%{gem_name}.rb
 %{gem_extdir_mri}/
 
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files	devel
@@ -144,10 +149,12 @@ done
 
 %files	doc
 %{gem_docdir}/
-%{gem_instdir}/Rakefile
 %{gem_instdir}/sample/
 
 %changelog
+* Thu Jan 11 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.6-36
+- SPDX migration
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.6-35
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

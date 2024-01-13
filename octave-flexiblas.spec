@@ -3,12 +3,14 @@
 %global __provides_exclude_from ^%{octpkglibdir}/.*\\.oct$
 
 Name:           octave-%{octpkg}
-Version:        3.3.0
+Version:        3.4.1
 Release:        %autorelease
 Summary:        FlexiBLAS API Interface for Octave
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{octpkg}
-Source0:        https://github.com/mpimd-csc/%{octpkg}/releases/download/v%{version}/%{octpkg}-octave-%{version}.tar.gz
+Source0:        %{octpkg}-octave-%{version}.tar.gz
+# Generated using create-oct-package.sh from:
+# Source1:        https://github.com/mpimd-csc/%{octpkg}/archive/v%{version}/%{octpkg}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  octave-devel >= 5.1.0
