@@ -95,7 +95,7 @@ BuildRequires:  golang(k8s.io/client-go/kubernetes/typed/core/v1/fake)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 for cmd in cmd/* ; do

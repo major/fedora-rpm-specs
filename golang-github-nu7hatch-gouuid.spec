@@ -31,7 +31,7 @@ Patch0:         0001-Fix-Errorf-has-wrong-type-of-string.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

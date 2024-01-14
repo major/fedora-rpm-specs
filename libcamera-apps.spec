@@ -1,6 +1,6 @@
 Name:    libcamera-apps
 Version: 1.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/libcamera-apps
@@ -49,8 +49,6 @@ Headers for developing against libcamera-apps.
 
 %install
 %meson_install
-# Still installs the unversioned sonames
-find %{buildroot} -name '*.so' -delete
 
 %ldconfig_scriptlets
 
@@ -62,10 +60,15 @@ find %{buildroot} -name '*.so' -delete
 %{_libdir}/rpicam_app.so.*
 
 %files devel
+%{_libdir}/rpicam_app.so
+%{_libdir}/libcamera_app.so
 %{_includedir}/libcamera-apps
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Fri Jan 12 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.1-2
+- Ship .so in -devel package
+
 * Wed Jan 10 2024 Javier Martinez Canillas <javierm@redhat.com> - 1.4.1-1
 - Update to 1.4.1
 

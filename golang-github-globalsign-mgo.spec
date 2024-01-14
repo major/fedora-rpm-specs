@@ -40,7 +40,7 @@ BuildRequires:  golang(gopkg.in/check.v1)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 mv bson/README.md README-bson.md
 mv bson/LICENSE LICENSE-bson
 

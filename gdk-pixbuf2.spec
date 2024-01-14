@@ -38,8 +38,11 @@ Summary: Additional image modules for gdk-pixbuf2
 Requires: %{name}%{?_isa} = %{version}-%{release}
 # Recommend external pixbuf loaders for popular image formats only.
 # Please do not recommend obscure image formats here.
+%if ! 0%{?rhel}
+# avif and jxl are not shipped in RHEL
 Recommends: avif-pixbuf-loader
 Recommends: jxl-pixbuf-loader
+%endif
 Recommends: rsvg-pixbuf-loader
 Recommends: webp-pixbuf-loader
 

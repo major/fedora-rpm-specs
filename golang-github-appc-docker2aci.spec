@@ -48,7 +48,7 @@ BuildRequires:  golang(github.com/opencontainers/image-spec/specs-go/v1)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %gobuild -o %{gobuilddir}/bin/docker2aci %{goipath}

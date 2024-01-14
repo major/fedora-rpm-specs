@@ -40,7 +40,7 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

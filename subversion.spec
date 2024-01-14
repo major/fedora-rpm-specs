@@ -60,7 +60,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -79,6 +79,8 @@ Patch5: subversion-1.8.5-swigplWall.patch
 Patch6: subversion-1.14.1-testnomagic.patch
 Patch7: subversion-ruby-c99.patch
 Patch8: subversion-1.14.2-modsyms.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2255746
+Patch9: subversion-1.14.3-zlib-ng.patch
 BuildRequires: make
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++
 BuildRequires: swig >= 1.3.24, gettext
@@ -243,6 +245,7 @@ This package includes supplementary tools for use with Subversion.
 %patch -P6 -p1 -b .testnomagic
 %patch -P7 -p1
 %patch -P8 -p1 -b .modsyms
+%patch -P9 -p1 -b .zlib
 
 :
 : === Building:
@@ -584,6 +587,10 @@ make check-javahl
 %endif
 
 %changelog
+* Fri Jan 12 2024 Tomas Korbar <tkorbar@redhat.com> - 1.14.3-2
+- Fix testing of binary patch
+- Resolves: rhbz#2255746
+
 * Fri Jan 05 2024 Richard Lescak <rlescak@redhat.com> - 1.14.3-1
 - rebase to version 1.14.3 (#2256062)
 

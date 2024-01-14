@@ -14,8 +14,15 @@ Source:         %{pypi_source %{modname}}
 
 # Bump starlette from 0.31.1 to 0.32.0.post1
 # https://github.com/python-openapi/openapi-core/commit/8f77adab98d94ca5778dbdd5a4886b5d784148be
-# Cherry-picked without noisy changes to poetry.lock, which we do not use.
-Patch:          0001-Bump-starlette-from-0.31.1-to-0.32.0.post1.patch
+#
+# Bump starlette from 0.32.0.post1 to 0.34.0
+# https://github.com/python-openapi/openapi-core/commit/339cb3dda00942eba417904f82cda6e9e431ced9
+#
+# Bump starlette from 0.34.0 to 0.35.1
+# https://github.com/python-openapi/openapi-core/pull/760
+#
+# All cherry-picked without noisy changes to poetry.lock, which we do not use.
+Patch:          openapi-core-0.18.2-starlette.patch
 
 BuildArch:      noarch
 

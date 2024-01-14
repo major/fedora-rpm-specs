@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
@@ -19,6 +19,17 @@ Source3: iptables.service
 Source4: sysconfig_iptables
 Source5: sysconfig_ip6tables
 Source6: arptables-nft-helper
+
+Patch001: 0001-libiptc-Fix-for-another-segfault-due-to-chain-index-.patch
+Patch002: 0002-arptables-nft-remove-ARPT_INV-flags-usage.patch
+Patch003: 0003-ebtables-Fix-corner-case-noflush-restore-bug.patch
+Patch004: 0004-xshared-struct-xt_cmd_parse-xlate-is-unused.patch
+Patch005: 0005-xshared-All-variants-support-v-update-OPTSTRING_COMM.patch
+Patch006: 0006-ebtables-Align-line-number-formatting-with-legacy.patch
+Patch007: 0007-man-Do-not-escape-exclamation-marks.patch
+Patch008: 0008-libxtables-xtoptions-Fix-for-non-CIDR-compatible-hos.patch
+Patch009: 0009-iptables-legacy-Fix-for-mandatory-lock-waiting.patch
+Patch010: 0010-libxtables-xtoptions-Prevent-XTOPT_PUT-with-XTTYPE_H.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -415,6 +426,10 @@ fi
 
 
 %changelog
+* Thu Jan 11 2024 Phil Sutter <psutter@redhat.com> - 1.8.10-5
+- Backport fixes from upstream
+- Fix flatpak build
+
 * Tue Nov 07 2023 Phil Sutter <psutter@redhat.com> - 1.8.10-4
 - The actual obsoletes fix
 

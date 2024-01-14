@@ -1,11 +1,11 @@
-%global gitdate         20230916
-%global gittag          de9cc70d7f6d72fe35fc832d7ab478f5debbc90f
+%global gitdate         20231121
+%global gittag          09ea46af614ff0827dd777747755a2edd8147243
 %global shorttag        %(c=%{gittag}; echo ${c:0:7})
 %global user            Macaulay2
 
 Name:           mathicgb
 Version:        1.0
-Release:        34.%{gitdate}.git%{shorttag}%{?dist}
+Release:        35.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Groebner basis computations
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Fri Jan 12 2024 Jerry James <loganjerry@gmail.com> - 1.0-35.20231121.git09ea46a
+- Update to latest upstream snapshot
+
 * Thu Oct 26 2023 Jerry James <loganjerry@gmail.com> - 1.0-34.20230916.gitde9cc70
 - Update to latest upstream snapshot
 

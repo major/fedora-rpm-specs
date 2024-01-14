@@ -36,7 +36,7 @@ BuildRequires:  help2man
 %prep
 %goprep
 # https://github.com/shuLhan/go-bindata/pull/47
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %gobuild -o %{gobuilddir}/bin/go-bindata.shulhan %{goipath}/cmd/go-bindata

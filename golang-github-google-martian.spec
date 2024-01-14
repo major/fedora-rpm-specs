@@ -47,7 +47,7 @@ BuildRequires:  golang(golang.org/x/net/websocket)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 for cmd in cmd/* ; do

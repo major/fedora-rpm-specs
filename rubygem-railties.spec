@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: http://rubyonrails.org
@@ -32,6 +32,10 @@ Patch3: rubygem-railties-7.1.0-Fix-unmarshalable-test-for-minitest-5.16.3.patch
 # Fix `FullStackConsoleTest` test cases for Ruby 3.3.
 # https://github.com/rails/rails/pull/48369/commits/cf45394d104b00679c900e9d2dd09154cadcbe11
 Patch4: rubygem-railties-7.1.0-Run-Rails-console-test-against-IRB-with-Reline-instead-of.patch
+# Relax dependency on Puma.
+# https://github.com/rails/rails/pull/46254
+Patch5: rubygem-railties-7.1.0-Bump-Puma-to-v6-0-0.patch
+Patch6: rubygem-railties-7.1.0-Bump-Puma-to-v6-0-0-test.patch
 
 # Needed by `rails console`.
 Recommends: rubygem(irb)
@@ -97,11 +101,14 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
 
+%patch 5 -p2
+
 pushd %{_builddir}
 %patch 1 -p2
 %patch 2 -p2
 %patch 3 -p2
 %patch 4 -p2
+%patch 6 -p2
 popd
 
 %build
@@ -217,9 +224,14 @@ git config --global init.defaultBranch master
 # Tests needs to be executed in isolation. Also, use `bundle exec`, there
 # is nothing to loose here and some tests depends on the Bundler (e.g.
 # test/generators/app_generator_test.rb).
+# The `$NOTIFY_SOCKET` is needed due to Puma 6+ bundling sd_notify, resulting
+# in `ApplicationTests::ServerTest#test_restart_rails_server_with_custom_pid_file_path`
+# test failures. Other option would be to skip this test. There is also chance
+# that something is off for other reasons:
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/RHCFUMSMYCQ435LRPTFYDKTECHZHD4R7/
 find test -type f -name '*_test.rb' -print0 | \
   sort -z | \
-  xargs -0 -n1 -i sh -c "echo '* Test file: {}'; bundle exec ruby -Itest -- '{}' || exit 255"
+  xargs -0 -n1 -i sh -c "echo '* Test file: {}'; env -u NOTIFY_SOCKET bundle exec ruby -Itest -- '{}' || exit 255"
 
 # Kill memcached daemon.
 kill -TERM $(< "${MC_PID}")
@@ -246,6 +258,10 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Jan 11 2024 Vít Ondruch <vondruch@redhat.com> - 7.0.8-3
+- Fix tests for Puma 6+ compatibility.
+- Relax Rails generators to support Puma 6+.
+
 * Fri Dec 15 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.8-2
 - Fix test compatibility with Ruby 3.3.
 

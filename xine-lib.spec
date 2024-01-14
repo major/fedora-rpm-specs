@@ -32,7 +32,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        8%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        9%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -345,6 +345,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 1.2.13-9
+- Rebuild for dav1d 1.3.0
+
 * Tue Sep 26 2023 Xavier Bachelot <xavier@bachelot.org> - 1.2.13-8
 - Enable nfs support for EL9
 

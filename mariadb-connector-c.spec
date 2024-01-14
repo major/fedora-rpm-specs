@@ -3,10 +3,6 @@
 # Enable building and packing of the testsuite
 %bcond_without  testsuite
 
-# TEMPORARY WORKAROUND:
-#   Build fails since 3.3.6 with LTO flags enabled
-#   Reported as rhbz#2257198
-%global _lto_cflags %{nil}
 
 
 Name:           mariadb-connector-c
@@ -23,6 +19,8 @@ Url:            http://mariadb.org/
 %if %{with testsuite}
 Patch1:         testsuite.patch
 %endif
+
+Patch2:         lto-type-mismatch.patch
 
 Requires:       %{_sysconfdir}/my.cnf
 BuildRequires:  gcc-c++ cmake openssl-devel zlib-devel libzstd-devel
@@ -92,6 +90,7 @@ and require this package, so the /etc/my.cnf file is present.
 %if %{with testsuite}
 %patch -P1 -p1
 %endif
+%patch -P2 -p1
 
 # Remove unsused parts
 rm -r win win-iconv external/zlib

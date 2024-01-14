@@ -34,7 +34,7 @@ Patch0:         0001-Convert-to-string-using-rune.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

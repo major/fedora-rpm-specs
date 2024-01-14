@@ -120,8 +120,8 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %prep
 %goprep
 # https://github.com/haproxytech/dataplaneapi/pull/127
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 mv e2e/libs/bats-assert/LICENSE LICENSE-e2e-libs-bats-assert
 mv e2e/libs/bats-support/LICENSE LICENSE-e2e-libs-bats-support
 mv configuration/examples examples

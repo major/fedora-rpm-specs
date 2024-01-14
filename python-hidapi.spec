@@ -39,6 +39,10 @@ Summary:  %{summary}
 # Remove pre-built and bundled hidapi.
 rm -rf hidapi hidapi.egg-info hid.c
 
+%if 0%{?flatpak}
+# hidapi is not part of the runtime and is also built into /app
+sed -i -e 's|/usr/include/hidapi|%{_includedir}/hidapi|' setup.py
+%endif
 
 %build
 %py3_build

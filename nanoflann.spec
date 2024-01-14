@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/jlblancoc/nanoflann
-Version:        1.5.3
+Version:        1.5.4
 %forgemeta
 
 Name:           nanoflann
@@ -11,9 +11,6 @@ Summary:        A C++11 header-only library for Nearest Neighbor (NN) search wit
 License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Fix the install directory of CMake files
-# Add NANOFLANN_USE_SYSTEM_GTEST option
-Patch0:         https://github.com/jlblancoc/nanoflann/pull/227.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	112%{?dist}
+Release:	113%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -135,7 +135,6 @@ This subpackage provides tools for support of EFI platforms.
 Summary:	Support tools for GRUB.
 Requires:	gettext-runtime
 Requires:	grub2-common = %{epoch}:%{version}-%{release}
-Obsoletes:	grub2-tools < %{evr}
 
 %description tools-minimal
 %{desc}
@@ -555,6 +554,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Thu Jan 11 2024 Daan De Meyer <daan.j.demeyer@gmail.com> - 2.06-113
+-  Don't obsolete the tools package with minimal
+
 * Tue Dec 19 2023 Nicolas Frayer <nfrayer@redhat.com> - 2.06-112
 - normal: fix prefix when loading modules
 - Resolves: #2209435

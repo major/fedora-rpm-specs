@@ -33,8 +33,8 @@ Patch1:         0001-Fix-Println-arg-list-ends-with-redundant-newline.patch
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %gobuild -o %{gobuilddir}/bin/statik %{goipath}

@@ -1,5 +1,5 @@
 Name:           python-esbonio
-Version:        0.16.3
+Version:        0.16.4
 Release:        %autorelease
 Summary:        A Language Server for Sphinx projects
 License:        MIT

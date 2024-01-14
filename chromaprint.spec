@@ -9,7 +9,7 @@
 
 Name:           chromaprint
 Version:        1.5.1
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 License:        GPLv2+
@@ -109,6 +109,12 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 1.5.1-15
+- Rebuild post bootstrap build for ffmpeg/dav1d.
+
+* Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 1.5.1-14
+- Rebuild without ffmpeg to break circular dependency with ffmpeg/dav1d.
+
 * Sun Aug 06 2023 Richard Shaw <hobbes1069@gmail.com> - 1.5.1-13
 - Rebuild post bootstrap build for ffmpeg/codec2.
 

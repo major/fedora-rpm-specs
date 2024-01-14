@@ -1,5 +1,5 @@
 Name:           python-lxml
-Version:        4.9.4
+Version:        5.1.0
 Release:        1%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
@@ -15,25 +15,6 @@ URL:            https://github.com/lxml/lxml
 # See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/154
 Source0:         lxml-%{version}-no-isoschematron-rng.tar.gz
 Source1:         get-lxml-source.sh
-
-# Make the validation of ISO-Schematron files optional in lxml,
-# depending on the availability of the RNG validation file
-# Rebased from https://github.com/lxml/lxml/commit/4bfab2c821961fb4c5ed8a04e329778c9b09a1df
-# Will be included in lxml 5.0
-Patch:          Make-the-validation-of-ISO-Schematron-files-optional.patch
-# Skip test_isoschematron.test_schematron_invalid_schema_empty without the RNG file
-Patch:          https://github.com/lxml/lxml/pull/380.patch
-
-# Upstream issue: https://bugs.launchpad.net/lxml/+bug/2016939
-Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
-
-# Cython 3 support backported from future lxml 5.0
-Patch:          https://github.com/lxml/lxml/commit/dcbc0cc1cb0cedf8019184aaca805d2a649cd8de.patch
-Patch:          https://github.com/lxml/lxml/commit/a03a4b3c6b906d33c5ef1a15f3d5ca5fff600c76.patch
-
-# Python 3.13 compatibility
-Patch:          https://github.com/lxml/lxml/commit/34187968a67151f02db491a56a0037b55319931d.patch
-Patch:          https://github.com/lxml/lxml/commit/98025653e182f9203189cbde0ab2d6ebec556db8.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
@@ -79,6 +60,7 @@ Python 3 version.
 
 # Remove limit for version of Cython
 sed -i "s/Cython.*/Cython/" requirements.txt
+sed -i 's/"Cython.*",/"Cython",/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x source%{?with_extras:,cssselect,html5,htmlsoup}
@@ -107,6 +89,9 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Mon Jan 08 2024 Lumír Balhar <lbalhar@redhat.com> - 5.1.0-1
+- Update to 5.1.0 (rhbz#2256232)
+
 * Wed Dec 20 2023 Lumír Balhar <lbalhar@redhat.com> - 4.9.4-1
 - Update to 4.9.4 (rhbz#2255267)
 

@@ -118,7 +118,7 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i "s|github.com/oracle/oci-go-sdk|github.com/oracle/oci-go-sdk-24|" $(find . -name "*.go" -type f)
 
 %build

@@ -34,7 +34,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -112,6 +112,13 @@ export ASMFLAGS=$CFLAGS
 # by clang.
 mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/ppc64le-redhat-linux-gnu
 %endif
+%ifarch %{ix86}
+# Fix install path on ix86 so that the directory name matches the triple used
+# by clang on both actual ix86 and on x86_64 with -m32:
+%if "%{_target_cpu}" != "i386"
+ln -s i386-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{_target_cpu}-redhat-linux-gnu
+%endif
+%endif
 
 %check
 #%%cmake_build --target check-compiler-rt
@@ -130,6 +137,9 @@ mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu 
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Wed Dec 13 2023 Miro Hrončok <mhroncok@redhat.com> - 17.0.6-2
+- Fix install path on i686
 
 * Wed Nov 29 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.6-1
 - Update to LLVM 17.0.6

@@ -68,7 +68,7 @@ Patch0001:  0001-typo-in-service.patch
 
 %prep
 %goprep
-%patch0001 -p1
+%patch -P0001 -p1
 
 %install
 %gopkginstall

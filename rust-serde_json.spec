@@ -5,13 +5,15 @@
 %global crate serde_json
 
 Name:           rust-serde_json
-Version:        1.0.110
+Version:        1.0.111
 Release:        %autorelease
 Summary:        JSON serialization file format
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/serde_json
 Source:         %{crates_source}
+# https://github.com/serde-rs/json/issues/1098
+Patch:          0001-Adapt-tests-so-they-can-be-compiled-with-stable-Rust.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -147,9 +149,6 @@ use the "unbounded_depth" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# * drop tests that currently only compile with Rust Nightly:
-#   https://github.com/serde-rs/json/issues/1098
-rm -v tests/test.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

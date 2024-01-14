@@ -35,7 +35,7 @@ Patch0:         0001-Update-chai2010-gettext-go-to-1.0.2.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i 's|github.com/russross/blackfriday|gopkg.in/russross/blackfriday.v1|' $(find . -iname "*.go" -type f)
 
 %generate_buildrequires

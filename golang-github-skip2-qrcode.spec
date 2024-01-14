@@ -30,7 +30,7 @@ Patch0001:      https://patch-diff.githubusercontent.com/raw/skip2/go-qrcode/pul
 
 %prep
 %goprep
-%patch0001 -p1
+%patch -P0001 -p1
 
 %build
 for cmd in qrcode; do

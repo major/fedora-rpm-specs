@@ -103,7 +103,7 @@ providing packages with %{import_path} prefix.
 %prep
 %setup -q -n %{repo}-%{commit}
 %if ! 0%{?with_bundled}
-%patch0 -p1
+%patch -P0 -p1
 %endif
 
 %build

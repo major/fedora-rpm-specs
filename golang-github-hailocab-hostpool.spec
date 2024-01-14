@@ -44,7 +44,7 @@ BuildRequires:  golang(github.com/bmizerany/assert)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

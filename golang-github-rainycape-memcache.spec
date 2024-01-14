@@ -32,7 +32,7 @@ Patch0:         Use-Skipf-to-permit-formatting-directive.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

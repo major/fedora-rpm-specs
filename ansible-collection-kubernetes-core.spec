@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/ansible-collections/%{collection_namespace}.%{collection_name}
 
 # Only run tests where %%generate_buildrequires and test deps are available.
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without     tests
 %else
 %bcond_with        tests
@@ -14,7 +14,7 @@ Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        2.3.2
 %global tag     %{version}
 %forgemeta
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Ansible content for working with Kubernetes and OpenShift clusters
 
 # All files are GPL-3.0-or-later (GPLv3+) except:
@@ -43,7 +43,7 @@ BuildRequires:  ansible-packaging
 # Therefore, we cannot rely on ansible-packaging which might pull in ansible 2.9.
 BuildRequires:  ansible-core
 %if %{with tests}
-BuildRequires:  /usr/bin/ansible-test
+BuildRequires:  ansible-packaging-tests
 %endif
 
 %global _description %{expand:
@@ -84,7 +84,7 @@ EOF
 
 %if %{with tests}
 %generate_buildrequires
-%pyproject_buildrequires -N tests/unit/requirements.txt %{python3_sitelib}/ansible_test/_data/requirements/units.txt
+%pyproject_buildrequires -N tests/unit/requirements.txt
 %endif
 
 
@@ -113,6 +113,9 @@ popd
 
 
 %changelog
+* Fri Jan 12 2024 Maxwell G <maxwell@gtmx.me> - 2.3.2-5
+- Depend on ansible-packaging-tests and remove python3-mock dep
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

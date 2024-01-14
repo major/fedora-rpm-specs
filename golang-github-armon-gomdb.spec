@@ -41,7 +41,7 @@ BuildRequires:  pkgconfig(lmdb)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 cp %{S:1} %{S:2} .
 
 %install

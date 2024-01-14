@@ -38,8 +38,8 @@ Patch1:         3144.patch
 %goprep
 # Remove in next release
 sed -i "s|github.com/containerd/stargz-snapshotter/snapshot/overlayutils|github.com/containerd/containerd/snapshots/overlay/overlayutils|" $(find . -iname "*.go" -type f)
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

@@ -32,7 +32,7 @@ Patch0:         golcs-test-32bit-alloc.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

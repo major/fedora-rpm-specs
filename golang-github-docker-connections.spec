@@ -31,7 +31,7 @@ Patch0:         0001-update-expired-Lets-Encrypt-CA-fixture.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

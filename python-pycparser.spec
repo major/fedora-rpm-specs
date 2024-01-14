@@ -10,7 +10,7 @@ Source0:        %{url}/archive/release_v%{version}.tar.gz
 Source1:        pycparser-0.91.1-remove-relative-sys-path.py
 
 # This is Fedora-specific; I don't think we should request upstream to
-# remove embedded libraries from their distribuution, when we can remove
+# remove embedded libraries from their distribution, when we can remove
 # them during packaging.
 # It also ensures that pycparser uses the same YACC __tabversion__ as ply
 # package to prevent "yacc table file version is out of date" problem.

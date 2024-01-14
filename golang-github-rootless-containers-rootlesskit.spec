@@ -29,7 +29,7 @@ Patch0:         Disable-vpnkit.patch
 %prep
 %goprep
 # vpnkit not packageable right now due to K8S incompatibility
-%patch0 -p1
+%patch -P0 -p1
 rm -rfv pkg/network/vpnkit
 
 %generate_buildrequires

@@ -7,8 +7,8 @@
 %global _docdir_fmt %{name}
 
 Name:		python-%{modname}
-Version:	1.11.2
-Release:	7%{?dist}
+Version:	1.11.4
+Release:	1%{?dist}
 Summary:	Interrupt and signal handling for Cython
 License:	LGPL-3.0-or-later
 URL:		https://github.com/sagemath/cysignals
@@ -22,14 +22,12 @@ BuildRequires:	pari-devel
 Patch0:		%{name}-gdb.patch
 # Linux already clears the FPU state
 Patch1:		%{name}-emms.patch
-# Counteract _FORTIFY_SOURCE
-Patch2:		%{name}-fortify.patch
 # Fix underlinked signals.so
-Patch3:		%{name}-underlink.patch
+Patch2:		%{name}-underlink.patch
 # Do not fail if cysignals_crash_logs cannot be created
-Patch4:		%{name}-crash-logs.patch
+Patch3:		%{name}-crash-logs.patch
 # Remove workaround for Cython bug that is already fixed in Fedora
-Patch5:		%{name}-sigismember.patch
+Patch4:		%{name}-sigismember.patch
 
 %global _description %{expand:
 When writing Cython code, special care must be taken to ensure that the
@@ -50,10 +48,6 @@ See http://cysignals.readthedocs.org/ for the full documentation.}
 %package	-n python3-%{modname}
 Summary:	%{summary}
 BuildRequires:	python3-devel
-BuildRequires:	%{py3_dist cython}
-BuildRequires:	%{py3_dist pip}
-BuildRequires:	%{py3_dist setuptools}
-BuildRequires:	%{py3_dist wheel}
 
 %description	-n python3-%{modname} %{_description}
 
@@ -88,12 +82,15 @@ sed -i 's/600/2400/' rundoctests.py
 # Upstream does not generate the configure script
 autoreconf -fi .
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %configure
 %pyproject_wheel
 
 # Build the documentation
-export PYTHONPATH=%{pyproject_build_lib}
+export PYTHONPATH=$PWD/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}
 make -C docs html
 rst2html --no-datestamp README.rst README.html
 
@@ -114,7 +111,6 @@ export PATH PYTHONPATH
 %{_datadir}/%{modname}/
 %exclude %{python3_sitearch}/%{modname}/*.h
 %exclude %{python3_sitearch}/%{modname}/*.pxd
-%exclude %{python3_sitearch}/%{modname}/*.pxi
 
 %files		-n python3-%{modname}-devel
 %{python3_sitearch}/%{modname}/*.h
@@ -124,6 +120,11 @@ export PATH PYTHONPATH
 %doc docs/build/html
 
 %changelog
+* Fri Jan 12 2024 Jerry James <loganjerry@gmail.com> - 1.11.4-1
+- Version 1.11.4
+- Drop upstreamed fortify patch
+- Automatically generate BuildRequires
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

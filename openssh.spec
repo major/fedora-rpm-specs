@@ -46,15 +46,15 @@
 %{?static_openssl:%global static_libcrypto 1}
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
-%global openssh_ver 9.3p1
-%global openssh_rel 13
+%global openssh_ver 9.6p1
+%global openssh_rel 1
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 URL: http://www.openssh.com/portable.html
 #URL1: https://github.com/jbeverly/pam_ssh_agent_auth/
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
@@ -228,9 +228,6 @@ Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
 Patch1012: openssh-9.0p1-evp-fips-dh.patch
 Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
 Patch1014: openssh-8.7p1-nohostsha1proof.patch
-Patch1015: openssh-9.3p1-upstream-cve-2023-38408.patch
-# upstream b7afd8a4ecaca8afd3179b55e9db79c0ff210237
-Patch1016: openssh-9.3p1-openssl-compat.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
@@ -306,7 +303,7 @@ Requires: openssh = %{version}-%{release}
 %package -n pam_ssh_agent_auth
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
-Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.1
+Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant AND OpenSSL
 
 %description
@@ -433,8 +430,6 @@ popd
 %patch -P 1012 -p1 -b .evp-fips-dh
 %patch -P 1013 -p1 -b .evp-fips-ecdh
 %patch -P 1014 -p1 -b .nosha1hostproof
-%patch -P 1015 -p1 -b .cve-2023-38408
-%patch -P 1016 -p1 -b .ossl-version
 
 %patch -P 100 -p1 -b .coverity
 
@@ -744,6 +739,11 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Tue Dec 26 2023 Daniel Milnes <daniel@daniel-milnes.uk> - 9.6p1-1
+- Update to OpenSSH 9.6
+  Original patches from https://src.fedoraproject.org/rpms/openssh/pull-request/63
+  Tuned by Dmitry Belyavskiy for GSS and PKCS#11 URI processing
+
 * Fri Dec 22 2023 Florian Weimer <fweimer@redhat.com> - 9.3p1-13.1
 - Fix type errors in downstream gssapi-keyex patch
 

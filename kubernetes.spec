@@ -142,7 +142,7 @@ Kubernetes client tools like kubectl
 %setup -q -n %{repo}-%{commit}
 
 %if 0%{?with_debug}
-%patch3 -p1
+%patch -P3 -p1
 %endif
 
 # src/k8s.io/kubernetes/pkg/util/certificates

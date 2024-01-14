@@ -47,7 +47,7 @@ Patch0:         mux_test-missing-format-string.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

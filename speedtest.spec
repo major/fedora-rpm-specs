@@ -35,6 +35,7 @@ BuildRequires:  pkgconfig(libadwaita-1)
 Requires:       hicolor-icon-theme
 Requires:       libadwaita
 Requires:       python3-gobject
+Requires:       python3dist(aiohttp)
 
 %description
 %{summary}

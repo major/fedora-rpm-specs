@@ -37,7 +37,7 @@ Requires:       git-core
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

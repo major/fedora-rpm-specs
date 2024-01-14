@@ -33,7 +33,7 @@ Patch0:         0001-Compat-with-latest-go-github.patch
 %prep
 %goprep
 sed -i "s|github.com/google/go-github/v32|github.com/google/go-github|" $(find . -iname '*.go' -type f)
-%patch0 -p1
+%patch -P0 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

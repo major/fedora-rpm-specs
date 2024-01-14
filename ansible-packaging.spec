@@ -2,7 +2,7 @@
 
 Name:           ansible-packaging
 Version:        1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        RPM packaging macros and generators for Ansible collections
 
 License:        GPL-3.0-or-later
@@ -117,17 +117,19 @@ echo
 echo
 echo "Ensure macro works when both arguments are passed and no control macros are set"
 [ "$(rpm_eval -E '%%ansible_collection_url community general')" = \
-    "https://galaxy.ansible.com/community/general" ]
+    "https://galaxy.ansible.com/ui/repo/published/community/general" ]
 
 echo
 echo "Ensure macro works with the control macros"
 [ "$(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
-    -E '%%ansible_collection_url')" = "https://galaxy.ansible.com/ansible/posix" ]
+    -E '%%ansible_collection_url')" = \
+    "https://galaxy.ansible.com/ui/repo/published/ansible/posix" ]
 
 echo
 echo "Ensure macro prefers the collection namespace and name passed as an argument over the control macros"
 [ "$(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
-    -E '%%ansible_collection_url community general')" = "https://galaxy.ansible.com/community/general" ]
+    -E '%%ansible_collection_url community general')" = \
+    "https://galaxy.ansible.com/ui/repo/published/community/general" ]
 
 
 
@@ -151,6 +153,9 @@ echo "Ensure macro prefers the collection namespace and name passed as an argume
 
 
 %changelog
+* Tue Dec 05 2023 Maxwell G <maxwell@gtmx.me> - 1-12
+- %%ansible_collection_url: handle new URL scheme
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

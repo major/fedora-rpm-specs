@@ -41,7 +41,7 @@ BuildRequires:  golang(gopkg.in/check.v1)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

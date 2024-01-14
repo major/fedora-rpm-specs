@@ -51,7 +51,7 @@ Patch0:         0001-Prevent-the-build-of-dup2.go-on-Linux-aarch64.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 cp %{S:1} %{S:2} .
 
 %install

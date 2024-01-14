@@ -97,8 +97,8 @@ BuildRequires:  golang(github.com/mattn/go-sqlite3)
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 sed -i 's|github.com/docker/distribution|github.com/distribution/distribution/v3|' $(find . -iname "*.go" -type f)
 mv tuf/LICENSE LICENSE-tuf
 mv tuf/README.md README-tuf.md

@@ -52,7 +52,7 @@ Patch0:         0001-Properly-compare-versions-equal-or-over-to-1.15-in-T.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 cp %{S:1} %{S:2} .
 
 %install

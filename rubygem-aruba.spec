@@ -9,8 +9,8 @@ Release:    5%{?dist}
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
 License:        MIT
-URL:            http://github.com/cucumber/aruba
-Source0:        http://rubygems.org/gems/%{gem_name}-%{version}.gem
+URL:            https://github.com/cucumber/aruba
+Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:        %{name}-%{version}-testsuite.tar.gz
 # Source1 is created by $ bash %%SOURCE2 %%VERSION
 Source2:        %{gem_name}-create-test-suite-tarball.sh

@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.0.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple document viewer
 
 License:	GPLv2+
@@ -39,6 +39,7 @@ BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(xapp) >= 1.4.0
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(webkit2gtk-4.1)
+BuildRequires:  python3-packaging
 BuildRequires:	texlive
 BuildRequires:	t1lib-devel
 BuildRequires:	yelp-tools
@@ -168,6 +169,9 @@ LDFLAGS+=' -lX11 -lICE -lSM'
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Jan 12 2024 Leigh Scott <leigh123linux@gmail.com> - 4.0.2-2
+- AAdd buildrequires python3-packaging
+
 * Thu Jan 04 2024 Leigh Scott <leigh123linux@gmail.com> - 4.0.2-1
 - Update to 4.0.2 release
 

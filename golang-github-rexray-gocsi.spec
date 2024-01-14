@@ -30,7 +30,7 @@ Patch0:         https://patch-diff.githubusercontent.com/raw/rexray/gocsi/pull/1
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i "s|github.com/coreos/etcd/clientv3|go.etcd.io/etcd/client/v3|" $(find . -iname "*.go" -type f)
 
 %generate_buildrequires

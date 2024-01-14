@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -182,17 +182,18 @@ BuildRequires:	libicu-devel
 Obsoletes: postgresql%{majorversion}%{?1:-%{1}}\
 }
 %else
-%define obsoletes_postgresqlXX_if_default() %{expand:\
-Provides: %{majorname}%{?1:-%{1}} = %precise_version\
-Provides: %{majorname}%{?1:-%{1}}%{?_isa} = %precise_version\
-}
+%define obsoletes_postgresqlXX_if_default() %{nil}
 %endif
 
+%define conflict_with_other_streams() %{expand:\
+Provides: %{majorname}%{?1:-%{1}}-any\
+Conflicts: %{majorname}%{?1:-%{1}}-any\
+}
 
 Provides: %{pkgname} = %precise_version
 Provides: %{pkgname}%{?_isa} = %precise_version
-Conflicts: %{majorname}
 
+%conflict_with_other_streams
 %obsoletes_postgresqlXX_if_default
 
 # https://bugzilla.redhat.com/1464368
@@ -227,9 +228,9 @@ Requires(post): glibc
 Requires(postun): glibc
 Provides: %{pkgname}-private-libs = %precise_version
 Provides: %{pkgname}-private-libs%{?_isa} = %precise_version
-Conflicts: %{majorname}-private-libs
 
 %obsoletes_postgresqlXX_if_default private-libs
+%conflict_with_other_streams private-libs
 
 %description -n %{pkgname}-private-libs
 The postgresql-private-libs package provides the shared libraries for this
@@ -246,9 +247,9 @@ Requires: %{pkgname}-private-libs%{?_isa} = %precise_version
 Conflicts: libpq-devel
 Provides: %{pkgname}-devel = %precise_version
 Provides: %{pkgname}-devel%{?_isa} = %precise_version
-Conflicts: %{majorname}-devel
 
 %obsoletes_postgresqlXX_if_default private-devel
+%conflict_with_other_streams private-devel
 
 %description -n %{pkgname}-private-devel
 The postgresql-private-devel package contains the header files and libraries
@@ -282,10 +283,9 @@ Provides: %{pkgname}-server = %precise_version
 Provides: %{pkgname}-server%{?_isa} = %precise_version
 # Provide symbol regardless version. This symbol is present in every single
 # postgresql stream
-Provides: %{majorname}-server-any
-Conflicts: %{majorname}-server
 
 %obsoletes_postgresqlXX_if_default server
+%conflict_with_other_streams server
 
 %description -n %{pkgname}-server
 PostgreSQL is an advanced Object-Relational database management system (DBMS).
@@ -299,9 +299,9 @@ Summary: Extra documentation for PostgreSQL
 Requires: %{pkgname}%{?_isa} = %precise_version
 Provides: %{pkgname}-doc = %precise_version
 Provides: %{pkgname}-docs = %precise_version
-Conflicts: %{majorname}-docs
 
 %obsoletes_postgresqlXX_if_default docs
+%conflict_with_other_streams docs
 
 %description -n %{pkgname}-docs
 The postgresql-docs package contains some additional documentation for
@@ -314,9 +314,9 @@ Summary: Extension modules distributed with PostgreSQL
 Requires: %{pkgname}%{?_isa} = %precise_version
 Provides: %{pkgname}-contrib = %precise_version
 Provides: %{pkgname}-contrib%{?_isa} = %precise_version
-Conflicts: %{majorname}-contrib
 
 %obsoletes_postgresqlXX_if_default contrib
+%conflict_with_other_streams contrib
 
 %description -n %{pkgname}-contrib
 The postgresql-contrib package contains various extension modules that are
@@ -344,9 +344,9 @@ Requires: %{pkgname}-private-devel
 %endif
 Provides: %{pkgname}-server-devel = %precise_version
 Provides: %{pkgname}-server-devel%{?_isa} = %precise_version
-Conflicts: %{majorname}-server-devel
 
 %obsoletes_postgresqlXX_if_default server-devel
+%conflict_with_other_streams server-devel
 
 %description -n %{pkgname}-server-devel
 The postgresql-server-devel package contains the header files and configuration
@@ -357,13 +357,11 @@ Summary: Convenience RPM macros for build-time testing against PostgreSQL server
 Requires: %{pkgname}-server = %precise_version
 BuildArch: noarch
 Provides: %{pkgname}-test-rpm-macros = %precise_version
-Conflicts: %{majorname}-test-rpm-macros
 
 %if %?postgresql_default
 Obsoletes: postgresql%{majorversion}-test-rpm-macros
-%else
-Provides: %{majorname}%-test-rpm-macros = %precise_version
 %endif
+%conflict_with_other_streams test-rpm-macros
 
 %description -n %{pkgname}-test-rpm-macros
 This package is meant to be added as BuildRequires: dependency of other packages
@@ -375,9 +373,9 @@ Summary: Statically linked PostgreSQL libraries
 Requires: %{pkgname}-server-devel%{?_isa} = %precise_version
 Provides: %{pkgname}-static = %precise_version
 Provides: %{pkgname}-static%{?_isa} = %precise_version
-Conflicts: %{majorname}-static
 
 %obsoletes_postgresqlXX_if_default static
+%conflict_with_other_streams static
 
 %description -n %{pkgname}-static
 Statically linked PostgreSQL libraries that do not have dynamically linked
@@ -391,9 +389,9 @@ Requires: %{pkgname}-server%{?_isa} = %precise_version
 Provides: bundled(postgresql-server) = %prevversion
 Provides: %{pkgname}-upgrade = %precise_version
 Provides: %{pkgname}-upgrade%{?_isa} = %precise_version
-Conflicts: %{majorname}-upgrade
 
 %obsoletes_postgresqlXX_if_default upgrade
+%conflict_with_other_streams upgrade
 
 %description -n %{pkgname}-upgrade
 The postgresql-upgrade package contains the pg_upgrade utility and supporting
@@ -406,9 +404,9 @@ Summary: Support for build of extensions required for upgrade process
 Requires: %{pkgname}-upgrade%{?_isa} = %precise_version
 Provides: %{pkgname}-upgrade-devel = %precise_version
 Provides: %{pkgname}-upgrade-devel%{?_isa} = %precise_version
-Conflicts: %{majorname}-upgrade-devel
 
 %obsoletes_postgresqlXX_if_default upgrade-devel
+%conflict_with_other_streams upgrade-devel
 
 %description -n %{pkgname}-upgrade-devel
 The postgresql-devel package contains the header files and libraries
@@ -428,9 +426,9 @@ BuildRequires: perl(Data::Dumper)
 %endif
 Provides: %{pkgname}-plperl = %precise_version
 Provides: %{pkgname}-plperl%{?_isa} = %precise_version
-Conflicts: %{majorname}-plperl
 
 %obsoletes_postgresqlXX_if_default plperl
+%conflict_with_other_streams plperl
 
 %description -n %{pkgname}-plperl
 The postgresql-plperl package contains the PL/Perl procedural language,
@@ -445,9 +443,9 @@ Summary: The Python3 procedural language for PostgreSQL
 Requires: %{pkgname}-server%{?_isa} = %precise_version
 Provides: %{pkgname}-plpython3 = %precise_version
 Provides: %{pkgname}-plpython3%{?_isa} = %precise_version
-Conflicts: %{majorname}-plpython3
 
 %obsoletes_postgresqlXX_if_default python3
+%conflict_with_other_streams python3
 
 %description -n %{pkgname}-plpython3
 The postgresql-plpython3 package contains the PL/Python3 procedural language,
@@ -462,9 +460,9 @@ Summary: The Tcl procedural language for PostgreSQL
 Requires: %{pkgname}-server%{?_isa} = %precise_version
 Provides: %{pkgname}-pltcl = %precise_version
 Provides: %{pkgname}-pltcl%{?_isa} = %precise_version
-Conflicts: %{majorname}-pltcl
 
 %obsoletes_postgresqlXX_if_default pltcl
+%conflict_with_other_streams plctl
 
 %description -n %{pkgname}-pltcl
 The postgresql-pltcl package contains the PL/Tcl procedural language,
@@ -481,9 +479,9 @@ Requires: %{pkgname}-server-devel%{?_isa} = %precise_version
 Requires: %{pkgname}-contrib%{?_isa} = %precise_version
 Provides: %{pkgname}-test = %precise_version
 Provides: %{pkgname}-test%{?_isa} = %precise_version
-Conflicts: %{majorname}-test
 
 %obsoletes_postgresqlXX_if_default test
+%conflict_with_other_streams test
 
 %description -n %{pkgname}-test
 The postgresql-test package contains files needed for various tests for the
@@ -503,11 +501,11 @@ Requires:	llvm => 5.0
 Provides:	postgresql-llvmjit >= %{version}-%{release}
 Provides: %{pkgname}-llvmjit = %precise_version
 Provides: %{pkgname}-llvmjit%{?_isa} = %precise_version
-Conflicts: %{majorname}-llvmjit
 
 BuildRequires:	llvm-devel >= 5.0 clang-devel >= 5.0
 
 %obsoletes_postgresqlXX_if_default llvmjit
+%conflict_with_other_streams llvmjit
 
 %description -n %{pkgname}-llvmjit
 The postgresql-llvmjit package contains support for
@@ -1349,6 +1347,13 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Fri Jan 5 2024 Filip Janus <fjanus@redhat.com> - 16.1-2
+- Add symbol any to ensure conflict with othere postgresql streams
+- sympol postgresql is now used only for setting the default version
+  of postgresql in the repository
+- It was done due to dnf feature. more about it:
+  https://github.com/rpm-software-management/dnf5/issues/620
+
 * Mon Nov 27 2023 Filip Janus <fjanus@redhat.com> - 16.1-1
 - Update to 16.1
 - Initial import of demodularized version

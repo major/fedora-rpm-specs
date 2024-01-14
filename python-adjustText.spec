@@ -18,11 +18,11 @@ smaller than default and maybe the figure a little larger).
 However the algorithm itself is highly configurable for complicated plots.}
 
 Name:           python-%{pypi_name}
-Version:        0.8.1
+Version:        1.0
 Release:        %{autorelease}
 Summary:        Automatic label placement for matplotlib
 BuildArch:      noarch
-%global tag %{version}
+%global tag v%{version}
 %forgemeta
 License:        MIT
 URL:            %forgeurl
@@ -42,10 +42,6 @@ BuildRequires:  python3-pytest
 
 %prep
 %forgeautosetup -p1
-
-# Upstream is messy wrt versions
-# https://github.com/Phlya/adjustText/issues/161
-echo '__version__ = "%{version}"' > adjustText/_version.py
 
 
 %generate_buildrequires

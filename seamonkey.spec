@@ -35,7 +35,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -511,6 +511,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 2.53.18-2
+- Rebuild for dav1d 1.3.0
+
 * Fri Dec  8 2023 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.18-1
 - update to 2.53.18
 - add patch for binutils >= 2.36

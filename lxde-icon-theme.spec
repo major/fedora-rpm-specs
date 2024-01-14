@@ -1,9 +1,10 @@
 Name:           lxde-icon-theme
 Version:        0.5.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Default icon theme for LXDE
 
-License:        LGPLv3
+# SPDX confirmed
+License:        LGPL-3.0-or-later
 URL:            http://lxde.org/
 Source0:        http://downloads.sourceforge.net/sourceforge/lxde/lxde-icon-theme-%{version}.tar.xz
 
@@ -23,10 +24,10 @@ also the default icon-theme of LXDE, the Lightweight X11 Desktop Environment.
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 touch $RPM_BUILD_ROOT%{_datadir}/icons/nuoveXT2/icon-theme.cache
 
 %post
@@ -51,6 +52,9 @@ gtk-update-icon-cache %{_datadir}/icons/nuoveXT2 &>/dev/null || :
 
 
 %changelog
+* Fri Jan 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.1-17
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

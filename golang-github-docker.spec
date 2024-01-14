@@ -71,10 +71,10 @@ BuildRequires:  golang(github.com/tonistiigi/units)
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 find . -iname "*_windows.go" -type f -exec rm -rfv '{}' \+;
 rm -rfv pkg/archive/changes_test.go libnetwork/drivers/windows/ daemon/graphdriver/windows/
 sed -i "s|github.com/docker/distribution|github.com/distribution/distribution/v3|" $(find . -iname "*.go" -type f)

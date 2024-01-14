@@ -33,7 +33,7 @@ Patch0:         0001-Explicitly-convert-digits-to-runes-before-strings.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

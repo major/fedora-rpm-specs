@@ -41,7 +41,7 @@ BuildRequires:  golang(gopkg.in/ini.v1)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i 's|parse %%%%%%%%:|parse "%%%%%%%%":|' pkg/credentials/iam_aws_test.go
 
 %install

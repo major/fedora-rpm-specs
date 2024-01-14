@@ -2,7 +2,7 @@
 # Deprecated RHEL/Fedora support dropped, no need to track package versioning there
 
 %if 0%{?fedora} >= 40
-%global sqlite_version 3.43.1
+%global sqlite_version 3.44.2
 %global uprel 0
 %global pkg_version %{sqlite_version}.%{uprel}
 %endif
@@ -79,6 +79,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} setup.py test
 
 
 %changelog
+* Fri Jan 12 2024 Denis Fateyev <denis@fateyev.com> - 3.44.2.0-1
+- Bump upstream version to 3.44.2.0
+
 * Fri Sep 15 2023 Denis Fateyev <denis@fateyev.com> - 3.43.1.0-1
 - Bump upstream version to 3.43.1.0
 

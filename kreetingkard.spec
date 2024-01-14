@@ -1,5 +1,5 @@
 %define		mainver		0.7.1
-%define		baserelease	11
+%define		baserelease	12
 %define		repoid		18105
 
 
@@ -9,7 +9,8 @@ Version:	%{mainver}
 Release:	%{baserelease}%{?dist}
 Summary:	Japanese greeting card writing software for KDE
 
-License:	GPLv2+
+# SPDX confirmed
+License:	GPL-2.0-or-later
 URL:		http://linux-life.net/program/cc/kde/app/kreetingkard/
 Source0:	http://downloads.sourceforge.jp/%{name}/%{repoid}/%{name}-%{mainver}.tar.gz
 # From Mandriva
@@ -65,13 +66,11 @@ for f in `find . -name Makefile` ; do
 	%{__sed} -i.rpath -e 's|^\([A-Z][A-Z]*_RPATH = \).*|\1|' $f
 done
 
-%{__make} %{?_smp_mflags}
+%make_build
 
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	INSTALL="%{__install} -c -p"
+%make_install
 
 # Fixing up
 # 1. Desktop file treatment
@@ -101,7 +100,7 @@ done
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc	AUTHORS
-%doc	COPYING
+%license	COPYING
 %doc	README
 
 %{_bindir}/%{name}
@@ -116,6 +115,9 @@ done
 %{_defaultdocdir}/HTML/en/%{name}/
 
 %changelog
+* Fri Jan 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.1-12
+- SPDX migration
+
 * Mon Oct  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.1-11
 - Fix X function dection in configure with -Werror=implicit-function-declaration
 

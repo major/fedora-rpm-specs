@@ -26,6 +26,7 @@ BuildRequires:  python3-numpy
 BuildRequires:  python3-pip
 BuildRequires:  python3-pytest
 BuildRequires:  python3-scipy
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
 BuildRequires:  sundials-devel
 BuildRequires:  yaml-cpp-devel

@@ -32,7 +32,7 @@ Patch0:         https://github.com/go-gcfg/gcfg/commit/f52d3f482a436943be3dabf71
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

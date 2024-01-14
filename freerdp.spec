@@ -26,14 +26,16 @@
 %endif
 
 Name:           freerdp
-Version:        2.11.2
-Release:        3%{?dist}
+Version:        2.11.4
+Release:        1%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
 URL:            http://www.freerdp.com/
 
 Source0:        https://github.com/FreeRDP/FreeRDP/archive/%{version}/FreeRDP-%{version}.tar.gz
+
+Patch:          channels-rdpsnd-fix-missing-include.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -292,6 +294,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Fri Jan 12 2024 Ondrej Holy <oholy@redhat.com> - 2:2.11.4-1
+- Update to 2.11.4.
+
 * Wed Oct 25 2023 Ondrej Holy <oholy@redhat.com> - 2:2.11.2-3
 - Disable FFmpeg support (#2242028).
 

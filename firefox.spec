@@ -173,13 +173,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        121.0
-Release:        4%{?pre_tag}%{?dist}
+Version:        121.0.1
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20231218.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20240112.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -902,7 +902,11 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE29}
 
 # set up the firefox start script
 rm -rf %{buildroot}%{_bindir}/firefox
-sed -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE21} > %{buildroot}%{_bindir}/firefox
+%if 0%{?fedora} < 40
+sed -e 's,/__PREFIX__,%{_prefix},g' -e 's,__APP_NAME__,firefox,g' %{SOURCE21} > %{buildroot}%{_bindir}/firefox
+%else
+sed -e 's,/__PREFIX__,%{_prefix},g' -e 's,__APP_NAME__,org.mozilla.firefox,g' %{SOURCE21} > %{buildroot}%{_bindir}/firefox
+%endif
 chmod 755 %{buildroot}%{_bindir}/firefox
 
 %if 0%{?flatpak}
@@ -1169,7 +1173,14 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
-* Tue Jan 24 2023 Martin Stransky <stransky@redhat.com>- 121.0-4
+* Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 121.0.1-2
+- Rebuild for dav1d 1.3.0
+
+* Fri Jan 12 2024 Martin Stransky <stransky@redhat.com>- 121.0.1-1
+- Update to 121.0.1
+- Fixed Firefox icon on Rawhide
+
+* Tue Jan 02 2024 Martin Stransky <stransky@redhat.com>- 121.0-4
 - Really enable proxy cache
 
 * Fri Dec 22 2023 Martin Stransky <stransky@redhat.com>- 121.0-3

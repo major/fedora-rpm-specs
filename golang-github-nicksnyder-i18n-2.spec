@@ -48,7 +48,7 @@ Obsoletes:      go-i18n < 1.10.0-7
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 mv v2/* ./
 
 

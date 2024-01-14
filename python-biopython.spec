@@ -3,12 +3,10 @@
 %global module %{pypi_name}
 
 Name:             python-%{pypi_name}
-Version:          1.81
-Release:          4%{?dist}
+Version:          1.82
+Release:          1%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
-Patch0:           %{name}-fix_for_python312.patch
-Patch1:           %{name}-fix_compatibility_with_reportlab4.patch
 
 # Starting from biopython-1.69, BioPython is released under the
 # "Biopython License Agreement"; it looks like a MIT variant
@@ -62,9 +60,6 @@ PDF/HTML documentation of %{module}.
 
 pushd %{module}-%{version}
 
-%patch -P 0 -p1 -b .backup
-%patch -P 1 -p1 -b .backup
-
 # remove all execute bits from documentation and fix line endings
 find Scripts -type f -exec chmod -x {} 2>/dev/null ';'
 find Doc -type f -exec chmod -x {} 2>/dev/null ';'
@@ -100,9 +95,9 @@ find ../ -name '__init__.py' | xargs rm -f
 # See https://github.com/biopython/biopython/issues/2128; https://github.com/biopython/biopython/issues/2120
 # and https://bugs.python.org/issue24214
 %if 0%{?python3_version_nodots} == 310
-for test in `ls test_*.py | grep -v Nexus | grep -v Phylo | grep -v Tutorial | grep -v bgzf | grep -v SearchIO_blast | grep -v pairwise_aligner | grep -v SubsMat | grep -v motifs`; do
+for test in `ls test_*.py | grep -v Nexus | grep -v Phylo | grep -v Tutorial | grep -v bgzf | grep -v SearchIO_blast | grep -v pairwise_aligner | grep -v SubsMat | grep -v Align_bigbed | grep -v motifs`; do
 %else
-for test in `ls test_*.py | grep -v Nexus | grep -v Phylo | grep -v Tutorial | grep -v bgzf | grep -v SearchIO_blast | grep -v pairwise_aligner | grep -v SubsMat`; do
+for test in `ls test_*.py | grep -v Nexus | grep -v Phylo | grep -v Tutorial | grep -v bgzf | grep -v SearchIO_blast | grep -v pairwise_aligner | grep -v SubsMat | grep -v Align_bigbed`; do
 %endif
 echo $LANG
 export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}
@@ -125,6 +120,9 @@ popd
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Mon Jan 08 2024 Sandro <devel@penguinpee.nl> - 1.82-1
+- Update to 1.82 (RHBZ#2255629)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
@@ -484,5 +482,3 @@ popd
 
 * Mon Apr 02 2007 Alex Lancaster <alexlan[AT]fedoraproject.org> 1.43-1
 - Initial Fedora package.
-
-

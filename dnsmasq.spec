@@ -13,7 +13,7 @@
 
 %define _hardened_build 1
 # path to upstream git repository
-%global git_upstream git://thekelleys.org.uk/dnsmasq.git
+%global forgeurl0 git://thekelleys.org.uk/dnsmasq.git
 # tag of selected version
 %global gittag v%{version}%{?extraversion}
 
@@ -23,12 +23,13 @@
 
 Name:           dnsmasq
 Version:        2.89
-Release:        6%{?extraversion:.%{extraversion}}%{?dist}
+Release:        7%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
 License:        GPL-2.0-only or GPL-3.0-only
 URL:            http://www.thekelleys.org.uk/dnsmasq/
+VCS:            git:%{forgeurl0}
 Source0:        %{url}%{?extrapath}%{name}-%{version}%{?extraversion}.tar.xz
 Source1:        %{name}.service
 Source2:        dnsmasq-systemd-sysusers.conf
@@ -49,6 +50,8 @@ Patch3:         dnsmasq-2.78-fips.patch
 Patch4:         dnsmasq-2.89-edns0-size.patch
 # http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=33635d8564f96cedcef9bf9826cbbca76f28aa81
 Patch5:         dnsmasq-2.90-dbus-watchers-bz2186468.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2258062
+Patch6:         dnsmasq-2.90-local-service-host.patch
 
 
 Requires:       nettle
@@ -115,7 +118,7 @@ Translations for few languages on dnsmasq.
 # But using %%setup changes used directories in %%build and %%install
 rm -rf %{_builddir}/%{name}-%{version}%{?extraversion}
 cd %{_builddir}
-git clone -b %{gittag} %{git_upstream} %{name}-%{version}%{?extraversion}
+git clone -b %{gittag} %{forgeurl0} %{name}-%{version}%{?extraversion}
 cd %{name}-%{version}%{?extraversion}
 git checkout -b rpmbuild
 %else
@@ -219,6 +222,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Fri Jan 12 2024 Petr Menšík <pemensik@redhat.com> - 2.89-7
+- Use local-service=host for initial configuration (#2258062)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.89-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

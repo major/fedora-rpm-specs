@@ -18,8 +18,8 @@
 %global supported_abi_test aarch64 ppc64le x86_64
 
 Name:		zlib-ng
-Version:	2.1.5
-Release:	2%{?dist}
+Version:	2.1.6
+Release:	1%{?dist}
 Summary:	Zlib replacement with optimizations
 License:	zlib
 Url:		https://github.com/zlib-ng/zlib-ng
@@ -98,7 +98,7 @@ cat <<_EOF_
 _EOF_
 
 # zlib-ng uses a different macro for library directory.
-%global cmake_param %{?with_sanitizers:-DWITH_SANITIZER=ON} -DINSTALL_LIB_DIR=%{_libdir}
+%global cmake_param %{?with_sanitizers:-DWITH_SANITIZER=ON}
 
 # Setting __cmake_builddir is not necessary in this step, but do it anyway for symmetry.
 %global __cmake_builddir %{_vpath_builddir}
@@ -189,6 +189,7 @@ CHOST=%{target_cpu}-%{vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 %{_includedir}/zlib_name_mangling-ng.h
 %{_libdir}/libz-ng.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/zlib-ng/*
 
 %if %{with compat}
 
@@ -202,6 +203,7 @@ CHOST=%{target_cpu}-%{vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 %{_includedir}/zlib_name_mangling.h
 %{_libdir}/libz.so
 %{_libdir}/pkgconfig/zlib.pc
+%{_libdir}/cmake/ZLIB/*
 
 %files compat-static
 %{_libdir}/libz.a
@@ -211,6 +213,9 @@ CHOST=%{target_cpu}-%{vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 
 
 %changelog
+* Thu Jan 11 2024 Lukas Javorsky <ljavorsk@redhat.com> - 2.1.6-1
+- Rebase to version 2.1.6
+
 * Tue Jan 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.5-2
 - Add zlib-ng-compat-static to replace zlib-static
 

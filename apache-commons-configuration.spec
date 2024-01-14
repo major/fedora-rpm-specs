@@ -1,6 +1,3 @@
-# Some of the test dependencies are not available in Fedora
-%bcond_with test
-
 Name:           apache-commons-configuration
 Version:        2.9.0
 Release:        %autorelease
@@ -17,6 +14,9 @@ Source2:        https://downloads.apache.org/commons/KEYS
 # Adapt to JEXL 3
 Patch0:         %{name}-jexl3.patch
 
+# Adapt to jakarta-servlet 5
+Patch1:         %{name}-servlet5.patch
+
 BuildRequires:  gnupg2
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-logging:commons-logging)
@@ -27,6 +27,7 @@ BuildRequires:  mvn(org.apache.commons:commons-text)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
+BuildRequires:  mvn(org.apiguardian:apiguardian-api)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
 
 # Optional dependencies
@@ -45,23 +46,23 @@ BuildRequires:  mvn(xml-resolver:xml-resolver)
 #BuildRequires:  mvn(org.springframework:spring-core)
 
 # Test dependencies
-%if %{with test}
 BuildRequires:  mvn(com.sun.mail:mailapi)
 BuildRequires:  mvn(commons-io:commons-io)
-BuildRequires:  mvn(org.apache.commons:commons-dbcp2)
-BuildRequires:  mvn(org.apache.commons:commons-pool2)
-BuildRequires:  mvn(org.dbunit:dbunit)
 BuildRequires:  mvn(org.hamcrest:hamcrest)
-BuildRequires:  mvn(org.hsqldb:hsqldb)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
-BuildRequires:  mvn(org.slf4j:slf4j-ext)
-BuildRequires:  mvn(org.slf4j:slf4j-log4j12)
 BuildRequires:  mvn(org.slf4j:slf4j-nop)
-BuildRequires:  mvn(org.springframework:spring-context)
-BuildRequires:  mvn(org.springframework:spring-test)
-%endif
+
+# Test dependencies not available in Fedora
+#BuildRequires:  mvn(org.apache.commons:commons-dbcp2)
+#BuildRequires:  mvn(org.apache.commons:commons-pool2)
+#BuildRequires:  mvn(org.dbunit:dbunit)
+#BuildRequires:  mvn(org.hsqldb:hsqldb)
+#BuildRequires:  mvn(org.slf4j:slf4j-ext)
+#BuildRequires:  mvn(org.slf4j:slf4j-log4j12)
+#BuildRequires:  mvn(org.springframework:spring-context)
+#BuildRequires:  mvn(org.springframework:spring-test)
 
 %description
 The Commons Configuration software library provides a generic
@@ -113,13 +114,32 @@ AbstractConfiguration or AbstractHierarchicalConfiguration.
 %pom_remove_dep org.springframework:spring-test
 rm -fr src/{main,test}/java/org/apache/commons/configuration2/spring
 
+# Needed for the tests
+%pom_add_dep org.apiguardian:apiguardian-api:1.1.2:provided
+
+# Some test dependencies are unavailable
+%pom_remove_dep org.apache.commons:commons-dbcp2
+%pom_remove_dep org.apache.commons:commons-pool2
+%pom_remove_dep org.dbunit:dbunit
+%pom_remove_dep org.hsqldb:hsqldb
+%pom_remove_dep org.slf4j:slf4j-ext
+%pom_remove_dep org.slf4j:slf4j-log4j12
+rm src/test/java/org/apache/commons/configuration2/DatabaseConfigurationTestHelper.java
+rm src/test/java/org/apache/commons/configuration2/TestDatabaseConfiguration.java
+rm src/test/java/org/apache/commons/configuration2/event/TestDatabaseConfigurationEvents.java
+
+# Update jakarta.mail to javax.mail
+for f in \
+ src/main/java/org/apache/commons/configuration2/DataConfiguration.java \
+ src/main/java/org/apache/commons/configuration2/convert/PropertyConverter.java \
+ src/test/java/org/apache/commons/configuration2/TestDataConfiguration.java; do
+  sed -i.orig 's/jakarta\.mail/javax.mail/g' $f
+  touch -f $f.orig $f
+  rm $f.orig
+done
+
 %build
-# We skip tests because we don't have test deps (dbunit in particular).
-%if %{with test}
 %mvn_build
-%else
-%mvn_build -f
-%endif
 
 %install
 %mvn_install

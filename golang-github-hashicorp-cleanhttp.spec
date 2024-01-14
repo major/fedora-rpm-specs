@@ -41,7 +41,7 @@ Patch0:         https://github.com/hashicorp/go-cleanhttp/commit/d3fcbee8e1810ec
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 cp %{S:1} %{S:2} .
 
 %install

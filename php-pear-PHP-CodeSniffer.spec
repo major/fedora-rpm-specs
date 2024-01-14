@@ -1,6 +1,6 @@
 # spec file for php-pear-PHP-CodeSniffer
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # Copyright (c) 2009-2013 Christof Damian
 # Copyright (c) 2006-2009 Konstantin Ryabitsev
 #
@@ -13,7 +13,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    5805f7a4e4958dbb5e944ef1e6edae0a303765e7
+%global gh_commit    14f5fff1e64118595db5408e946f3a22c75807f7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPCSStandards
 %global gh_project   PHP_CodeSniffer
@@ -22,7 +22,7 @@
 
 
 Name:           php-pear-PHP-CodeSniffer
-Version:        3.8.0
+Version:        3.8.1
 Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
@@ -34,6 +34,7 @@ Source1:        makesrc.sh
 
 # RPM installation path
 Patch0:         %{name}-rpm.patch
+Patch1:         0001-skip-tests-requiring-git-repository.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 5.4
@@ -45,9 +46,9 @@ BuildRequires:  php-iconv
 BuildRequires:  php-intl
 %if %{with tests}
 # to run test suite, from composer.json "require-dev"
-#        "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
+#        "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  %{phpunit}
+BuildRequires:  phpunit9 >= 9.3.4
 %endif
 
 # from composer.json "require": {
@@ -78,6 +79,7 @@ certain standards, such as PEAR, or user-defined.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
+%patch -P1 -p1 -b .nogit
 
 
 %build
@@ -140,6 +142,11 @@ fi
 
 
 %changelog
+* Fri Jan 12 2024 Remi Collet <remi@remirepo.net> - 3.8.1-1
+- update to 3.8.1
+- add patch for test suite from
+  https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/256
+
 * Mon Dec 11 2023 Remi Collet <remi@remirepo.net> - 3.8.0-1
 - update to 3.8.0
 - sources from github instead or pear channel

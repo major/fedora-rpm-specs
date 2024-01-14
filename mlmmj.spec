@@ -1,21 +1,21 @@
 %global __requires_exclude perl\\(.*[.]pl\\)|\/bin\/bash
-%define _legacy_common_support 1
 %global modulename mlmmj
 %global selinuxtype targeted
 
 Name:           mlmmj
-Version:        1.3.0
-Release:        17%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        A simple and slim mailing list manager inspired by ezmlm
 License:        MIT
-URL:            http://mlmmj.org/
-Source0:        http://mlmmj.org/releases/%{name}-%{version}.tar.bz2
+URL:            https://codeberg.org/mlmmj/mlmmj
+Source0:        https://codeberg.org/%{name}/%{name}/releases/download/%{name}-%{version}.tar.gz
 Source1:        %{modulename}.te
 Source2:        %{modulename}.fc
 Source3:        README.SELinux
 
 BuildRequires:  gcc
 BuildRequires:  findutils
+BuildRequires:  libatf-c-devel
 BuildRequires:  make
 
 %description
@@ -68,7 +68,7 @@ touch selinux/%{modulename}.if
 
 %build
 %configure --enable-receive-strip
-make %{?_smp_mflags}
+%make_build
 # SELinux
 make -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
 bzip2 -9 %{modulename}.pp
@@ -117,6 +117,10 @@ fi
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Fri Jan 12 2024 Denis Fateyev <denis@fateyev.com> - 1.4.4-1
+- Update to 1.4.4 release
+- Change upstream parameters
+
 * Mon Dec 04 2023 Denis Fateyev <denis@fateyev.com> - 1.3.0-17
 - Add system user and group assignment
 - Add initial SELinux support

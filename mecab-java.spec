@@ -1,13 +1,14 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		relnumber	4
+%define		baserelease	5
 
 Name:		mecab-java
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.3
+Release:	%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}%{?dist}
 Summary:	Java binding for MeCab
 
-License:	BSD or LGPLv2+ or GPL+
+# SPDX confirmed
+License:	BSD-3-Clause OR LGPL-2.1-or-later OR GPL-2.0-or-later
 URL:		http://mecab.sourceforge.net/
 Source0:	http://mecab.googlecode.com/files/%{name}-%{mainver}%{?betaver}.tar.gz
 
@@ -71,6 +72,9 @@ LANG=ja_JP.utf8
 %{_jnidir}/MeCab.jar
 
 %changelog
+* Fri Jan 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-5
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-4.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

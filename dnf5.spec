@@ -1,16 +1,17 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 10
+%global project_version_patch 11
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch1:         0001-Revert-Update-translations-from-weblate.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -287,6 +288,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man8/dnf5-search.8.*
 %{_mandir}/man8/dnf5-swap.8.*
 %{_mandir}/man8/dnf5-upgrade.8.*
+%{_mandir}/man7/dnf5-caching.7.*
 %{_mandir}/man7/dnf5-comps.7.*
 # TODO(jkolarik): filtering is not ready yet
 # %%{_mandir}/man7/dnf5-filtering.7.*
@@ -295,6 +297,9 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 # TODO(jkolarik): modularity is not ready yet
 # %%{_mandir}/man7/dnf5-modularity.7.*
 %{_mandir}/man7/dnf5-specs.7.*
+%{_mandir}/man5/dnf5.conf.5.*
+%{_mandir}/man5/dnf5.conf-todo.5.*
+%{_mandir}/man5/dnf5.conf-deprecated.5.*
 
 # ========== libdnf5 ==========
 %package -n libdnf5
@@ -651,6 +656,7 @@ Summary:        Plugins for dnf5
 License:        LGPL-2.1-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libcurl%{?_isa} >= 7.62.0
+Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
 Provides:       dnf5-command(builddep)
 Provides:       dnf5-command(changelog)
 Provides:       dnf5-command(config-manager)
@@ -763,6 +769,26 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 11 2024 Packit <hello@packit.dev> - 5.1.11-1
+- Release 5.1.11
+- Update translations from weblate
+- Fix `--skip-unavailable` documentation
+- Make `cachedir`, `system_cachedir` relative to `installroot`
+- Workaround for swig-4.2.0 missing fragment dependency
+- Add `repoquery --recursive` option
+- Add `repoquery --providers-of=PACKAGE_ATTRIBUTE` option
+- Update documentation of repoquery
+- Update documentation for remove command behavior
+- Limit search pattern for remove command to NEVRAs and files
+- Packaging: Require an exact release of libdnf5-cli by dnf5-plugins
+- Disable zchunk on RHEL
+- Add dnf5.conf man page
+- Add RPM package Group attribute to dnf5daemon-server
+- Document changes related to caching
+- Document caching man page
+- Document Global Option `--help-cmd` dropped
+- log_event: Correct message for HINT_ICASE
+
 * Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.10-3
 - Disable zchunk on RHEL
 

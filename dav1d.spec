@@ -1,5 +1,5 @@
 Name:           dav1d
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        AV1 cross-platform Decoder
 
@@ -52,7 +52,7 @@ Development files for dav1d, the AV1 cross-platform Decoder.
 
 %files -n libdav1d
 %license COPYING doc/PATENTS
-%{_libdir}/libdav1d.so.6*
+%{_libdir}/libdav1d.so.7{,.*}
 
 %files -n libdav1d-devel
 %{_includedir}/dav1d/

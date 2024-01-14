@@ -1,17 +1,18 @@
 %define		appname		kreetingkard
 
 %define		mainver		0.2.0
-%define		vendorrel	4
+%define		baserelease	5
 %define		repoid		18013
 
 
 
 Name:		kreetingkard_templates
 Version:	%{mainver}
-Release:	%{vendorrel}%{?dist}.22
+Release:	%{baserelease}%{?dist}
 Summary:	Template files for KreetingKard
 
-License:	GPL+
+# SPDX confirmed
+License:	GPL-1.0-or-later
 URL:		http://linux-life.net/program/cc/kde/app/kreetingkard/
 Source0:	http://downloads.sourceforge.jp/%{appname}/%{repoid}/%{name}-%{mainver}.tar.gz
 
@@ -48,12 +49,15 @@ echo "Nothing to do here"
 
 %files
 %doc	AUTHORS
-%doc	COPYING
+%license	COPYING
 %doc	README
 
 %{_datadir}/apps/%{appname}/templates/
 
 %changelog
+* Fri Jan 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.0-5
+- SPDX migration
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4.22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

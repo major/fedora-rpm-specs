@@ -43,7 +43,7 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %gobuild -o %{gobuilddir}/bin/glide %{goipath}

@@ -33,7 +33,7 @@ Patch0:         0001-Remove-redundant-newlines-in-Println-statement.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

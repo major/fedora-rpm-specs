@@ -116,7 +116,7 @@ BuildRequires:  golang(go.uber.org/goleak)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i \
     -e 's|"go.opentelemetry.io/contrib|"go.opentelemetry.io/contrib-0.20|' \
     $(find . -name '*.go')

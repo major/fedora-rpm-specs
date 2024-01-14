@@ -1,5 +1,5 @@
 Name:           python-starlette
-Version:        0.32.0
+Version:        0.35.1
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
@@ -62,11 +62,9 @@ $1 == "#" {
 }
 o {
   # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-  if ($1 ~ /^(black|coverage|mypy|ruff|types-)/) { next }
+  if ($1 ~ /^(coverage|mypy|ruff|types-)/) { next }
   # Drop version pins
   sub(/[>=]=.*$/, "", $0)
-  # Of course we cannot depend on a version pulled from git!
-  sub(/@git.*$/, "", $0)
   print $0
 }
 ' requirements.txt | tee requirements-filtered.txt

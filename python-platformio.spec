@@ -6,7 +6,7 @@
 %bcond_with tests
 
 Name:           python-%{pypi_name}
-Version:        6.1.11
+Version:        6.1.13
 Release:        %autorelease
 Summary:        Professional collaborative platform for embedded development
 
@@ -14,10 +14,6 @@ License:        Apache-2.0
 URL:            https://platformio.org
 # PyPI is missing tests, so use the GitHub tarball instead
 Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# Update pyelftools to 0.30
-Patch:          %{forgeurl}/commit/5548197a749fbba981fc09ca03e8ba8ccbb1981d.patch
-# Update starlette to 0.32
-Patch:          %{forgeurl}/commit/ac6d94860b1d742a721969625e0bd1b2ce483e92.patch
 # Fedora: disable telemetry by default
 Patch:          platformio-default-telemetry-off.patch
 # Fedora: neuter update logic for platformio itself

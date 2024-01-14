@@ -43,7 +43,7 @@ BuildRequires:  golang(github.com/smartystreets/goconvey/convey)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

@@ -8,7 +8,7 @@
 Summary: Cinnamon session manager
 Name:    cinnamon-session
 Version: 6.0.1
-Release: 2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release: 3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
 %if 0%{?tag:1}
@@ -54,6 +54,7 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: intltool
+BuildRequires: python3-packaging
 BuildRequires: xmlto
 
 %description
@@ -93,6 +94,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Fri Jan 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-3
+- AAdd buildrequires python3-packaging
+
 * Sat Jan 06 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-2
 - Make sure wayland sessions get a login shell
 

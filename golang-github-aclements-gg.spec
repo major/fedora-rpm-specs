@@ -38,8 +38,8 @@ BuildRequires:  golang(github.com/ajstarks/svgo)
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %install
 %gopkginstall

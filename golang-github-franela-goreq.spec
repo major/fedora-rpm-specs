@@ -37,7 +37,7 @@ BuildRequires:  golang(github.com/onsi/gomega)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

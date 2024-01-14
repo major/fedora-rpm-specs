@@ -84,7 +84,7 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i \
     -e 's|"go.opentelemetry.io/otel|"go.opentelemetry.io/otel-0.20|' \
     $(find . -name '*.go')

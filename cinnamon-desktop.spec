@@ -11,7 +11,7 @@
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
 Version: 6.0.0
-Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release: 2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 License: GPLv2+ and LGPLv2+ and MIT
 URL:     https://github.com/linuxmint/%{name}
 %if 0%{?tag:1}
@@ -55,6 +55,7 @@ BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: intltool
 BuildRequires: itstool
+BuildRequires: python3-packaging
 
 %description
 The cinnamon-desktop package contains an internal library
@@ -109,6 +110,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Fri Jan 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-2
+- AAdd buildrequires python3-packaging
+
 * Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
 - Update to 6.0.0 release
 

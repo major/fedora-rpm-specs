@@ -44,7 +44,7 @@ BuildRequires:  golang(github.com/onsi/gomega)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i "s|github.com/go-redis/redis|gopkg.in/redis.v6|" $(find . -iname "*.go" -type f)
 
 %install

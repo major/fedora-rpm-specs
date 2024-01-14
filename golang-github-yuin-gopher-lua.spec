@@ -36,7 +36,7 @@ BuildRequires:  golang(github.com/chzyer/readline)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 for cmd in cmd/* ; do

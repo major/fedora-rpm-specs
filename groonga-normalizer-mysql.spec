@@ -14,6 +14,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  groonga-devel
+BuildRequires:  msgpack-devel
 
 Requires:       groonga-libs
 
@@ -35,6 +36,7 @@ This package provides development files for groonga-normalizer-mysql.
 %cmake \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
+
 %cmake_build
 
 %install

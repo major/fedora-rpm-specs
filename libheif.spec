@@ -7,7 +7,7 @@
 
 Name:           libheif
 Version:        1.17.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
@@ -166,6 +166,9 @@ rm -rf third-party/
 
 
 %changelog
+* Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 1.17.5-2
+- Rebuild for dav1d 1.3.0
+
 * Fri Dec 15 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.17.5-2
 - Update to 1.17.5 (rhbz#2244583)
 - Backport fixes for: CVE-2023-49460 (rhbz#2253575, rhbz#2253576)

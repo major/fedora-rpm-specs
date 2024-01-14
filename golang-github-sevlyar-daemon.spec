@@ -38,7 +38,7 @@ BuildRequires:  golang(golang.org/x/sys/unix)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

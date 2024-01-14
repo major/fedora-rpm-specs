@@ -184,7 +184,7 @@ Requires(pre): shadow-utils
 %autosetup -N -T -D -a 20 -n prometheus-%{version}
 sed -i "s|klog \"k8s.io/klog\"|klog \"github.com/simonpasquier/klog-gokit\"|" $(find . -iname "*.go" -type f)
 sed -i "s|klogv2 \"k8s.io/klog/v2\"|klogv2 \"github.com/simonpasquier/klog-gokit/v2\"|" $(find . -iname "*.go" -type f)
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 export BUILDTAGS="netgo builtinassets"

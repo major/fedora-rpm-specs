@@ -109,21 +109,21 @@ The %{name}-tests package contains system tests for %{name}.
 
 %if 0%{?fedora}
 %ifnarch ppc64
-%patch100 -p1
+%patch -P100 -p1
 %else
-%patch101 -p1
+%patch -P101 -p1
 %endif
 %endif
 
 %if 0%{?rhel}
 %ifnarch ppc64
-%patch200 -p1
+%patch -P200 -p1
 %else
-%patch201 -p1
+%patch -P201 -p1
 %endif
 
 %if 0%{?rhel} <= 9
-%patch202 -p1
+%patch -P202 -p1
 %endif
 %endif
 

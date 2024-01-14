@@ -70,7 +70,7 @@ Version:        4.8.1
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -97,6 +97,10 @@ Source5:        xorg.conf
 Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_commit}/wechat-%{wechat_gitdate}.git%{wechat_shortcommit}.tar.gz
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
+# Backport support for protobuf v22 and later from opencv 4.9.0
+# https://github.com/opencv/opencv/commit/6e4280ea81b59c6dca45bb9801b758377beead55
+# Rebased on 4.8.1
+Patch1:         opencv-4.8.1-protobuf-v22.patch
 Patch3:         opencv.python.patch
 Patch4:         numpy.distutils_removal.patch
 
@@ -386,6 +390,7 @@ shopt -u extglob
 popd &>/dev/null
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
+%patch -P 1 -p1 -b .protobuf-v22
 %patch -P 3 -p1 -b .python_install_binary
 %patch -P 4 -p1 -b .numpy.distutils_removal
 
@@ -563,6 +568,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Thu Jan 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.1-4
+- Backport support for protobuf v22 and later from opencv 4.9.0
+
 * Thu Nov 16 2023 Sandro Mani <manisandro@gmail.com> - 4.8.1-3
 - Rebuild (gdal)
 

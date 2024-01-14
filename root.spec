@@ -47,7 +47,7 @@
 Name:		root
 Version:	6.30.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -206,7 +206,7 @@ BuildRequires:	cppzmq-devel
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} == 8
 BuildRequires:	python%{python3_pkgversion}-pandas
 %endif
-BuildRequires:	python3-rcssmin
+BuildRequires:	python%{python3_pkgversion}-rcssmin
 BuildRequires:	uglify-js3
 BuildRequires:	perl-generators
 BuildRequires:	gtest-devel
@@ -2074,6 +2074,7 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
        -DCMAKE_INSTALL_PYTHONDIR:PATH=%{python3_sitearch} \
        -DCMAKE_INSTALL_SYSCONFDIR:PATH=%{_datadir}/%{name} \
        -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir} \
+       -DPYTHON_EXECUTABLE=%{__python3} \
        -Dgnuinstall:BOOL=ON \
        -Dbuiltin_afterimage:BOOL=OFF \
        -Dbuiltin_cfitsio:BOOL=OFF \
@@ -3732,6 +3733,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 12 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-5
+- Define PYTHON_EXECUTABLE when calling cmake (Fixes EPEL 8 build)
+
 * Thu Dec 21 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-4
 - Adjust tests for zlib-ng
 

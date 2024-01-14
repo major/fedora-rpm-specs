@@ -79,7 +79,7 @@ BuildRequires:  golang(google.golang.org/protobuf/types/known/durationpb)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i \
     -e 's|"go.opentelemetry.io/otel|"go.opentelemetry.io/otel-0.20|' \
     $(find . -name '*.go')

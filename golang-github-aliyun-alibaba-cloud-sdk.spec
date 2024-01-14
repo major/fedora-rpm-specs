@@ -49,7 +49,7 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %prep
 %goprep
 # https://github.com/aliyun/alibaba-cloud-sdk-go/pull/553
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

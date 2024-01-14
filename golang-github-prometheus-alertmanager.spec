@@ -95,7 +95,7 @@ Requires(pre): shadow-utils
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 LDFLAGS="-X github.com/prometheus/common/version.Version=%{version}  \

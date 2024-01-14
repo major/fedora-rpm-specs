@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -861,6 +861,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 6.1.1-3
+- Rebuild for dav1d 1.3.0
+
 * Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 6.1.1-2
 - Backport upstream patch to fix C compatibility issues
 

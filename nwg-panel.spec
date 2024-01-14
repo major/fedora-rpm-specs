@@ -2,12 +2,11 @@
 %global sys_name nwg_panel
 
 Name:       nwg-panel
-Version:    0.9.20
-Release:    %autorelease
-Summary:    GTK3-based panel for sway window manager
-BuildArch:  noarch
-
+Version:    0.9.21
 %forgemeta
+Release:    %autorelease
+Summary:    GTK3-based panel for sway and Hyprland Wayland compositors
+BuildArch:  noarch
 
 License:    MIT
 URL:        %{forgeurl}
@@ -26,13 +25,17 @@ Requires:   python3-dasbus
 Requires:   wlr-randr
 
 Recommends: /usr/bin/pactl
-Recommends: light
+Recommends: brightnessctl
 Recommends: playerctl
 Recommends: python3-netifaces
 Recommends: python3-psutil
 Recommends: python3-pybluez
 
+Supplements: hyprland
+
 %description
+This application is a part of the nwg-shell project.
+
 I have been using sway since 2019 and find it the most comfortable working
 environment, but... Have you ever missed all the graphical bells and whistles
 in your panel, we used to have in tint2? It happens to me. That's why I
@@ -40,7 +43,7 @@ decided to try to code a GTK-based panel, including best features from my two
 favourites: Waybar and tint2. Many thanks to Developers and Contributors of
 the both projects!
 
-There are 8 modules available at the moment, and I don't plan on many more.
+There are 12 modules available at the moment, and I don't plan on many more.
 Basis system controls are available in the Controls module, and whatever else
 you may need, there's an executor for that.
 

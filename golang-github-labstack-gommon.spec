@@ -41,7 +41,7 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 # rename READMEs so they are not in conflict when using the godocs macro
 mv log/README.md README-log.md

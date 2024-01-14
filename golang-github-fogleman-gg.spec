@@ -43,7 +43,7 @@ BuildRequires:  golang(golang.org/x/image/math/fixed)
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 %install
 %gopkginstall

@@ -34,7 +34,7 @@ Patch0:         oras-fix-for-registry.patch
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 sed -i "s|github.com/docker/distribution|github.com/distribution/distribution/v3|" $(find . -iname "*.go" -type f)
 
 %generate_buildrequires

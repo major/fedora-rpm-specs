@@ -1,5 +1,5 @@
 Name:		libzpc
-Version:	1.1.1
+Version:	1.2.0
 Release:	2%{?dist}
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 
@@ -75,6 +75,12 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 12 2024 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.2.0
+- Support for get/set intermediate iv for CBC and XTS
+- Support for internal iv for GCM
+- Exploit KBLOB2PROTK3 ioctl for clear AES and EC keys
+- Fix AES EP11 version 6 key support for generate and import_clear
+
 * Wed Sep 20 2023 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.1.1
 - Exploit PKEY_KBLOB2PROTK2 for AES EP11 version 6 keys
   

@@ -2,7 +2,7 @@
 %global collection_name libvirt
 
 # Only run tests where test deps are available
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without     tests
 %else
 %bcond_with        tests
@@ -10,7 +10,7 @@
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -24,7 +24,7 @@ BuildRequires:  ansible-core
 %if %{with tests}
 BuildRequires:  glibc-langpack-en
 Buildrequires:  python3-devel
-BuildRequires:  /usr/bin/ansible-test
+BuildRequires:  ansible-packaging-tests
 %endif
 
 %description
@@ -46,11 +46,6 @@ EOF
 # Drop shellbangs from python files
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
 
-%generate_buildrequires
-%if %{with tests}
-%pyproject_buildrequires -N %{python3_sitelib}/ansible_test/_data/requirements/units.txt
-%endif
-
 %build
 %ansible_collection_build
 
@@ -59,11 +54,7 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 %check
 %if %{with tests}
-mkdir -p ../ansible_collections/%{collection_namespace}
-cp -a $(pwd) ../ansible_collections/%{collection_namespace}/%{collection_name}
-pushd ../ansible_collections/%{collection_namespace}/%{collection_name}
-ansible-test units --python-interpreter %{__python3} --local
-popd
+%ansible_test_unit
 %endif
 
 %files
@@ -72,6 +63,9 @@ popd
 %{ansible_collection_files}
 
 %changelog
+* Fri Jan  12 2024 Maxwell G <maxwell@gtmx.me> - 1.3.0-2
+- Depend on ansible-packaging-tests and remove python3-mock dep
+
 * Tue Sep 26 2023 Paul Howarth <paul@city-fan.org> - 1.3.0-1
 - Update to 1.3.0
   - virt: add 'mutate_flags' parameter to enable XML mutation (add UUID, MAC

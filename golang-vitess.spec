@@ -194,8 +194,8 @@ BuildRequires:  golang(k8s.io/apimachinery/pkg/util/yaml)
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 sed -i "s|gotest.tools|gotest.tools/v3|" $(find . -iname "*.go" -type f)
 sed -i "s|github.com/minio/minio-go|github.com/minio/minio-go/v6|" $(find . -iname "*.go" -type f)
 rm -rf go/trace/plugin_datadog.go

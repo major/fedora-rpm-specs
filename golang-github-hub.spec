@@ -63,8 +63,8 @@ Summary: A command-line tool that makes git easier to use with GitHub
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 rm -rf vendor/
 rm -rf bundle/
 
