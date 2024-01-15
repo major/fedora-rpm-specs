@@ -5,7 +5,7 @@
 %global crate configparser
 
 Name:           rust-configparser
-Version:        3.0.3
+Version:        3.0.4
 Release:        %autorelease
 Summary:        Simple configuration parsing utility with no dependencies
 
@@ -73,6 +73,18 @@ This package contains library source intended for building other packages which
 use the "indexmap" feature of the "%{crate}" crate.
 
 %files       -n %{name}+indexmap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -5,8 +5,8 @@
 %endif
 
 Name:           cabextract
-Version:        1.9.1
-Release:        5%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        Utility for extracting cabinet (.cab) archives
 
 License:        GPLv2+
@@ -53,6 +53,9 @@ archives.
 
 
 %changelog
+* Fri Jun 09 2023 Michal Srb <michal@redhat.com> - 1.11-1
+- Update to 1.11 (#2167193)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

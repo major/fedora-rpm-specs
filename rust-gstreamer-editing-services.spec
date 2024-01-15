@@ -5,7 +5,7 @@
 %global crate gstreamer-editing-services
 
 Name:           rust-gstreamer-editing-services
-Version:        0.21.0
+Version:        0.21.3
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Editing Services
 

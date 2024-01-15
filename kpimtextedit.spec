@@ -1,6 +1,6 @@
 Name:    kpimtextedit
-Version: 24.01.85
-Release: 2%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 Summary: The KPimTextEdit Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -40,6 +40,10 @@ Requires:       cmake(KF6TextWidgets)
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -p1
@@ -62,8 +66,16 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKPim6TextEdit.so
 %{_includedir}/KPim6/KPIMTextEdit/
 %{_kf6_libdir}/cmake/KPim6TextEdit
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jan 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+- Add doc package for KF6 API
+
 * Fri Jan 12 2024 Neal Gompa <ngompa@fedoraproject.org> - 24.01.85-2
 - Fix dependency on -devel package to use cmake(KF6TextWidgets)
 

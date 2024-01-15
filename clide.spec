@@ -30,7 +30,7 @@ include Perl Compatible Regular Expressions.
 
 %prep
 %setup -qn %{name}-%{commit}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 make manpages

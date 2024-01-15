@@ -9,7 +9,7 @@
 
 Name:    pim-sieve-editor
 Summary: Sieve Editor
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -82,9 +82,18 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.sieveedit
 %{_kf6_metainfodir}/org.kde.sieveeditor.appdata.xml
 %{_kf6_datadir}/config.kcfg/sieveeditorglobalconfig.kcfg
 %{_kf6_libdir}/libsieveeditor.so.*
+%{_kf6_datadir}/icons/hicolor/16x16/apps/sieveeditor.png
+%{_kf6_datadir}/icons/hicolor/22x22/apps/sieveeditor.png
+%{_kf6_datadir}/icons/hicolor/32x32/apps/sieveeditor.png
+%{_kf6_datadir}/icons/hicolor/48x48/apps/sieveeditor.png
+%{_kf6_datadir}/icons/hicolor/64x64/apps/sieveeditor.png
+%{_kf6_datadir}/icons/hicolor/scalable/apps/sieveeditor.svg
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

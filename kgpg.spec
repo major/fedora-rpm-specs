@@ -1,15 +1,12 @@
 Name:    kgpg
 Summary: Manage GPG encryption keys
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LicenseRef-KDE-Accepted-GPL
 URL:     https://www.kde.org/applications/utilities/kgpg/
 
 Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# 24.01.80: Beta qt6 patch
-Patch0:  24.01.80-kgpg-qt6.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -124,6 +121,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

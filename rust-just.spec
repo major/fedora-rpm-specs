@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.22.0
+Version:        1.23.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -14,7 +14,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # - Exclude unwanted files
 # - Drop cradle dependency, the crate cannot be packaged due to CC0 license
-# - Downgrade `which` dependency to v4
+# - Downgrade `which` dependency to 4
+# - Downgrade `snafu` dependency to 0.7.0
 Patch:          just-fix-metadata.diff
 # Remove all uses of cradle
 Patch:          just-1.5.0-no-cradle.patch
@@ -36,8 +37,9 @@ Summary:        %{summary}
 # CC0-1.0
 # MIT
 # MIT OR Apache-2.0
+# MPL-2.0
 # Unlicense OR MIT
-License:        CC0-1.0 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND Unicode-DFS-2016 AND (Unlicense OR MIT)
+License:        CC0-1.0 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

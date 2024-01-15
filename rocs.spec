@@ -1,6 +1,6 @@
 Name:    rocs
 Summary: Graph Theory IDE
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Mon Jan 08 2024 Steve Cossette <farchord@gmail.com> - 24.01.85-1
 - 24.01.85 (Qt5)
 

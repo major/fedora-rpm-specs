@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.0.8
+Version:        4.0.9
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -220,7 +220,9 @@ for pkg in \
     xatlas \
     %{nil}
 do
-  sed -r -i "s/^([[:blank:]])*(\"${pkg}\",?)/\\1# \\2/" pyproject.toml
+  sed -r -i \
+      "s/^([[:blank:]])*(\"${pkg}([><=][^\"]+)?\",?)/\\1# \\2/" \
+      pyproject.toml
 done
 
 

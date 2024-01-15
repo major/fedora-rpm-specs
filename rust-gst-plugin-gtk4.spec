@@ -4,7 +4,7 @@
 %global crate gst-plugin-gtk4
 
 Name:           rust-gst-plugin-gtk4
-Version:        0.11.1
+Version:        0.11.3
 Release:        %autorelease
 Summary:        GStreamer GTK 4 Sink element and Paintable widget
 
@@ -14,7 +14,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          gst-plugin-gtk4-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * downgrade cargo-c dep to the version available in Fedora
 # * drop Windows-specific "winegl" feature
 Patch:          gst-plugin-gtk4-fix-metadata.diff
 
@@ -27,13 +26,12 @@ GStreamer GTK 4 Sink element and Paintable widget.}
 
 %package     -n gstreamer1-plugin-gtk4
 Summary:        %{summary}
-
 # Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
-License:        (Apache-2.0 OR MIT) AND MIT AND (MIT OR Apache-2.0) AND MPL-2.0 AND (Unlicense OR MIT)
+License:        MPL-2.0 AND MIT AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 # additionally provide the upstream name
@@ -229,7 +227,7 @@ echo 'cargo-c'
 %cargo_build -f wayland,x11egl,x11glx
 %cargo_cbuild -f wayland,x11egl,x11glx
 # write license summary and breakdown
-%cargo_license_summary -f wayland,x11egl,x11glx
+%{cargo_license_summary -f wayland,x11egl,x11glx}
 %{cargo_license -f wayland,x11egl,x11glx} > LICENSE.dependencies
 
 %install

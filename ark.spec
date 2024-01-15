@@ -4,7 +4,7 @@
 
 Name:    ark
 Summary: Archive manager
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -32,6 +32,7 @@ BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6DBusAddons)
 BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6FileMetaData)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Service)
 BuildRequires: cmake(KF6Parts)
@@ -142,6 +143,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ark.deskt
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Mon Dec 25 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85
 

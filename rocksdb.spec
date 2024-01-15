@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 8.3.2
+Version: 8.10.0
 Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
@@ -17,8 +17,7 @@ Patch1: shared-liburing.patch
 # and will use system libraries.
 Patch2: https://sources.debian.org/data/main/r/rocksdb/7.6.0-2/debian/patches/no_rpath.patch
 
-# Do not build or install the static library
-Patch3: disable-static-lib.patch
+Patch3: disable-static.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -109,7 +108,7 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.8
-%{_libdir}/librocksdb.so.8.3.2
+%{_libdir}/librocksdb.so.8.10.0
 
 
 %files tools
@@ -136,6 +135,9 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 
 
 %changelog
+* Fri Jan 12 2024 Jonny Heggheim <hegjon@gmail.com> - 8.10.0-1
+- Updated to version 8.10.0
+
 * Fri Aug 11 2023 Jonny Heggheim <hegjon@gmail.com> - 8.3.2-1
 - Updated to version 8.3.2
 

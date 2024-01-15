@@ -1,6 +1,6 @@
 Name:    kde-dev-utils
 Summary: Utilities for developers using KDE
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: LGPL-2.0-only AND LGPL-3.0-only
@@ -9,6 +9,8 @@ URL:     https://invent.kde.org/sdk/%{name}.git
 Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# https://invent.kde.org/sdk/kde-dev-utils/-/commit/bed9ae301996a9211ff3730fb4c1a2c658d4cf1e
+Patch0: bed9ae301996a9211ff3730fb4c1a2c658d4cf1e.diff
 
 BuildRequires:  desktop-file-utils
 
@@ -111,6 +113,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.kuiviewe
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
 - 24.01.85
 

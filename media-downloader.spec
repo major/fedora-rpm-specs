@@ -1,6 +1,6 @@
 Name:           media-downloader
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI frontend to multiple CLI based downloading programs
 License:        GPL-2.0-or-later
 URL:            https://github.com/mhogomchungu/media-downloader
@@ -12,7 +12,6 @@ BuildRequires:  qt5-qtbase-devel
 BuildRequires:  desktop-file-utils
 Requires: yt-dlp
 Requires: aria2
-Requires: youtube-dl
 
 %description
 This project is a Qt/C++ based GUI frontend to CLI multiple CLI based tools that
@@ -66,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sat Jan 13 2024 Martin Gansser <martinkg@fedoraproject.org> - 4.2.0-2
+- Remove RR youtube-dl
+
 * Fri Jan 12 2024 Martin Gansser <martinkg@fedoraproject.org> - 4.2.0-1
 - Update to 4.2.0
 - Remove RR youtube-dl

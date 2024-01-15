@@ -1,5 +1,5 @@
 Name:    akonadi-search
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
@@ -53,6 +53,11 @@ Requires:       cmake(KF6CalendarCore)
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
+
 %generate_buildrequires
 cd agent/rs/htmlparser
 %cargo_generate_buildrequires
@@ -99,8 +104,16 @@ cd ../../..
 %{_kf6_libdir}/libKPim6AkonadiSearchDebug.so
 %{_kf6_libdir}/libKPim6AkonadiSearchPIM.so
 %{_kf6_libdir}/libKPim6AkonadiSearchXapian.so
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+- Add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

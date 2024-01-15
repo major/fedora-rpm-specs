@@ -22,7 +22,7 @@ retrieved from a handheld.
 
 %prep
 %setup -qn php-pdb
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 # nothing to do

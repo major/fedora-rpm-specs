@@ -19,6 +19,15 @@ License:        MIT
 BuildArch:      noarch
 patch:          0001-remove-unsuported-pytest-option.patch
 patch:          0002_remove_pytest_plus_dependency.patch
+# Backport of:
+# Remove mock from test dependencies (#46)
+# https://github.com/pycontribs/enrich/commit/6a21526fed438cdcd3ee0f9be27d8348293adcee
+Patch:          remove-python-mock.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2248708
+# Backport of:
+# Update build-system requirement for setuptools-scm to >=7.0.0 (#45)
+# https://github.com/pycontribs/enrich/commit/6a21526fed438cdcd3ee0f9be27d8348293adcee
+Patch:          remove-setuptools-scm-git-archive.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -54,30 +63,4 @@ PYTHONPATH=src %{python3} -m pytest src/enrich/test -v -k "not test_rich_console
 %{python3_sitelib}/enrich-%{version}.dist-info/
 
 %changelog
-* Fri Sep 16 2022 Chedi Toueiti <chedi.toueiti@gmail.com> - 1.2.7-5
-- Disabling faulty test and modernizing the spec file
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 1.2.7-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jan 13 2022 Chedi Toueiti <chedi.toueiti@gmail.com> - 1.2.7-1
-- Update to version 1.2.7 (#2038962)
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.2.6-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Dec 22 2020 Chedi Toueiti <chedi.toueiti@gmail.com> - 1.2.6-1
-- Initial commit
+%autochangelog

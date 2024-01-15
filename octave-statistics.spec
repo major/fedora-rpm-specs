@@ -1,8 +1,8 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.6.0
-Release:        2%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        Additional statistics functions for Octave
 License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/gnu-octave/%{octpkg}
@@ -51,11 +51,14 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 %{octpkgdir}/PKG_ADD
 %{octpkgdir}/PKG_DEL
 %{octpkgdir}/*.m
+%{octpkgdir}/@ClassificationKNN/
+%{octpkgdir}/@RegressionGAM/
+%{octpkgdir}/@cvpartition/
+%{octpkgdir}/clusters/
 %{octpkgdir}/datasets/
 %{octpkgdir}/dist_fit/
 %{octpkgdir}/dist_fun/
 %{octpkgdir}/dist_stat/
-%{octpkgdir}/@cvpartition/
 %{octpkgdir}/private/*.m
 %{octpkgdir}/packinfo/
 %{octpkgdir}/shadow9/
@@ -63,6 +66,9 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 
 
 %changelog
+* Sat Jan 13 2024 Orion Poplawski <orion@nwra.com> - 1.6.1-1
+- Update to 1.6.1
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

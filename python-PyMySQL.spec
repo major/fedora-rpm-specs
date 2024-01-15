@@ -28,7 +28,6 @@ BuildRequires:  python%{python3_pkgversion}-cryptography
 # ed25519 extra
 BuildRequires:  python%{python3_pkgversion}-pynacl
 %endif
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 This package contains a pure-Python MySQL client library. The goal of PyMySQL is
@@ -36,7 +35,7 @@ to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
 
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/*.egg-info rsa %{?!rhel:ed25519}}
+%{?python_extras_subpkg:%python_extras_subpkg -n python%{python3_pkgversion}-%{pypi_name} -i %{python3_sitelib}/*.egg-info rsa %{?!rhel:ed25519}}
 
 
 %prep

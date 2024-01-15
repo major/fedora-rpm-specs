@@ -1,6 +1,6 @@
 Name:    juk
 Summary: Music player
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.juk.deskt
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
 - 24.01.85
 

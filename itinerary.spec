@@ -1,5 +1,5 @@
 Name:           itinerary
-Version:        24.01.85
+Version:        24.01.90
 Release:        1%{?dist}
 Summary:        Itinerary and boarding pass management application
 
@@ -21,6 +21,7 @@ BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6Positioning)
 BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  qt6-qtbase-private-devel
 
 # KDE Frameworks
 BuildRequires:  extra-cmake-modules
@@ -32,6 +33,7 @@ BuildRequires:  cmake(KF6Contacts)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KirigamiAddons)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6UnitConversion)
 BuildRequires:  cmake(KF6DBusAddons)
@@ -94,6 +96,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/qlogging-categories6/org_kde_itinerary.categories
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

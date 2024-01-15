@@ -1,5 +1,5 @@
 Name:    kosmindoormap
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: OSM multi-floor indoor map renderer
 
@@ -70,6 +70,8 @@ developing applications that use %{name}.
 %{_qt6_qmldir}/org/kde/kosmindoormap/
 %{_qt6_qmldir}/org/kde/osm/editorcontroller/libkosmeditorcontrollerplugin.so
 %{_qt6_qmldir}/org/kde/osm/editorcontroller/qmldir
+%{_qt6_qmldir}/org/kde/osm/editorcontroller/kde-qmlmodule.version
+%{_qt6_qmldir}/org/kde/osm/editorcontroller/kosmeditorcontrollerplugin.qmltypes
 %{_datadir}/qlogging-categories6/org_kde_kosmindoormap.categories
 
 %files devel
@@ -84,6 +86,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKOSMIndoorMap.so
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

@@ -5,7 +5,7 @@
 %global crate gstreamer-gl-egl
 
 Name:           rust-gstreamer-gl-egl
-Version:        0.21.1
+Version:        0.21.2
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer GL library (EGL support)
 

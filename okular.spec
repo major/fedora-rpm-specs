@@ -14,7 +14,7 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: GPL-2.0-only
@@ -30,6 +30,8 @@ URL:     https://www.kde.org/applications/graphics/okular/
 Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches (master branch)
+# https://invent.kde.org/graphics/okular/-/merge_requests/906
+Patch0: 906.diff
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -216,13 +218,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 # %%{_kf6_plugindir}/kio/kio_msits.so
 %endif
 %{_kf6_datadir}/config.kcfg/*.kcfg
-%dir %{_qt6_plugindir}/okular/
-%dir %{_qt6_plugindir}/okular/generators/
-%{_qt6_plugindir}/okular/generators/okularGenerator_*.so
-%{_qt6_plugindir}/okularpart.so
+%dir %{_qt6_plugindir}/okular_generators/
+%{_qt6_plugindir}/okular_generators/okularGenerator_*.so
+%{_kf6_plugindir}/parts/okularpart.so
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Mon Dec 25 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85
 

@@ -1,13 +1,13 @@
 Name:           minuet
-Version:        24.01.85
+Version:        24.01.90
 Release:        1%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
 #and BSD license for cmake/FindFluidSynth.cmake
 License:        GPL-2.0-or-later AND OFL-1.1
 URL:            http://www.kde.org
-Source:         https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
-	
+Source:         https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules >= 5.15.0
@@ -77,14 +77,13 @@ chmod -x src/app/org.kde.%{name}.desktop
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %files -f %{name}.lang
 %doc README*
 %license COPYING*
 %{_datadir}/applications/org.kde.%name.desktop
-%{_kf6_metainfodir}/org.kde.%name.appdata.xml
+%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 %{_kf6_bindir}/%{name}
 %{_kf6_datadir}/icons/hicolor/*/*/*
 %{_kf6_libdir}/libminuetinterfaces.so.*
@@ -101,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85
 

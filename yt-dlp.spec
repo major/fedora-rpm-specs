@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2023.10.07
+Version:        2023.12.30
 Release:        1%{?dist}
 Summary:        A command-line program to download videos from online video platforms
 
@@ -73,7 +73,10 @@ Fish command line completion support for %{name}.
 %prep
 %autosetup
 
+# Remove unnecessary shebangs
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
+# Relax version constraints
+sed -i 's@^\(requests\|urllib3\)>=.*@\1@' requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -111,6 +114,9 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 %{fish_completions_dir}/%{name}.fish
 
 %changelog
+* Wed Jan 3 2024 Maxwell G <maxwell@gtmx.me> - 2023.12.30-1
+- Update to 2023.12.30. Fixes rhbz#2244200.
+
 * Wed Oct 11 2023 Marcus Müller <marcus_fedora@baseband.digital> - 2023.10.07-1
 - Update to 2023.10.07.
 - Fixes rhbz#2243274

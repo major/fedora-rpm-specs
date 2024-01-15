@@ -21,6 +21,11 @@ Source1:        sure.1
 # https://github.com/gabrielfalcao/sure/issues/169
 Patch:          python3.10-workaround.patch
 
+# Drop PyPI mock dependency; use unittest.mock instead
+# https://github.com/gabrielfalcao/sure/pull/188
+# https://discussion.fedoraproject.org/t/f40-change-proposal-remove-python-mock-useage-system-wide/100082
+Patch:          %{url}/pull/188.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

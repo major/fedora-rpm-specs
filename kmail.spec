@@ -1,6 +1,6 @@
 Name:    kmail
 Summary: Mail client
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
@@ -115,7 +115,7 @@ Requires: %{name} = %{version}-%{release}
 %find_lang %{name} --all-name --with-html
 
 %check
-for f in %{buildroot}%{_kf5_datadir}/applications/*.desktop ; do
+for f in %{buildroot}%{_kf6_datadir}/applications/*.desktop ; do
   desktop-file-validate $f
 done
 for f in %{buildroot}%{_kf6_metainfodir}/*.appdata.xml ; do
@@ -163,6 +163,9 @@ done
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

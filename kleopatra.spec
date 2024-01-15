@@ -1,5 +1,5 @@
 Name:    kleopatra
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
@@ -105,6 +105,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_qtplugindir}/pim6/kcms/kleopatra/kleopatra_config_gnupgsystem.so
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

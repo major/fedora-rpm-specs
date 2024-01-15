@@ -4,9 +4,14 @@
 
 # https://github.com/prometheus/node_exporter
 %global goipath         github.com/prometheus/node_exporter
-Version:                1.6.1
+Version:                1.7.0
 
-%gometa -f
+%gometa -L -f
+
+# Remove in F42:
+%global godevelheader %{expand:
+Obsoletes:      golang-github-prometheus-node-exporter-devel < 1.6.1-2
+}
 
 
 %global common_description %{expand:
@@ -17,7 +22,7 @@ in Go with pluggable metric collectors.}
 %global godocs          docs examples CHANGELOG.md CODE_OF_CONDUCT.md\\\
                         CONTRIBUTING.md MAINTAINERS.md SECURITY.md README.md
 
-Name:           %{goname}
+Name:           node-exporter
 Release:        %autorelease
 Summary:        Exporter for machine metrics
 
@@ -28,11 +33,15 @@ Source:         %{shortname}.sysusers
 Source:         %{shortname}.service
 Source:         %{shortname}.conf
 Source:         %{shortname}.logrotate
+Source:         %{shortname}-tmpfiles.conf
 # Replace defaults paths for config files
 Patch:         defaults-paths.patch
 
 BuildRequires:  systemd-rpm-macros
-Requires(pre): shadow-utils
+Requires(pre):  shadow-utils
+
+Obsoletes:      golang-github-prometheus-node-exporter < 1.6.1-2
+Provides:       node_exporter
 
 %description %{common_description}
 
@@ -74,6 +83,9 @@ install -Dpm0644 %{S:3} %{buildroot}%{_sysconfdir}/default/%{shortname}
 install -Dpm0644 example-rules.yml %{buildroot}%{_datadir}/prometheus/node-exporter/example-rules.yml
 install -Dpm0644 %{S:4} %{buildroot}%{_sysconfdir}/logrotate.d/%{shortname}
 mkdir -vp %{buildroot}%{_sharedstatedir}/prometheus/node-exporter
+# Install tmpfiles.d definition
+mkdir -p %{buildroot}%{_tmpfilesdir}
+install -m 0644 %{S:5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 # Build man pages.
 mkdir -vp %{buildroot}/%{_mandir}/man1/
@@ -113,6 +125,7 @@ sed -i '/^  /d; /^.SH "NAME"/,+1c.SH "NAME"\nprometheus-node-exporter \\- The Pr
 %{_datadir}/prometheus/node-exporter/example-rules.yml
 %dir %attr(0755,prometheus,prometheus) %{_sharedstatedir}/prometheus
 %dir %attr(0755,prometheus,prometheus) %{_sharedstatedir}/prometheus/node-exporter
+%{_tmpfilesdir}/%{name}.conf
 
 %gopkgfiles
 

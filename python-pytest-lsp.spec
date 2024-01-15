@@ -4,8 +4,8 @@ Release:        %autorelease
 Summary:        A pytest plugin for end-to-end testing of language servers
 
 License:        MIT
-URL:            https://pypi.org/project/pytest-lsp/
-Source:         %{pypi_source pytest_lsp}
+URL:            https://github.com/swyddfa/lsp-devtools
+Source:         %{url}/releases/download/pytest-lsp-v%{version}/pytest_lsp-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

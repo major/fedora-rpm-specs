@@ -1,5 +1,5 @@
 Name:    akonadi-notes
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: The Akonadi Notes Library
 
@@ -7,9 +7,6 @@ License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/frameworks/%{name}
 
 Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# https://invent.kde.org/pim/akonadi-notes/-/merge_requests/8.patch
-Patch0:         move-translations.patch
 
 BuildRequires:  cmake
 BuildRequires:  cyrus-sasl-devel
@@ -32,6 +29,11 @@ Requires:  cmake(KPim6Mime)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
+
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %prep
@@ -58,9 +60,17 @@ find ./po -type f -name akonadinotes5.po -execdir mv {} akonadinotes6.po \;
 %{_includedir}/KPim6/AkonadiNotes/
 %{_kf6_libdir}/cmake/KPim6AkonadiNotes/
 %{_kf6_libdir}/libKPim6AkonadiNotes.so
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+- Add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

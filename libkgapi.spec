@@ -5,8 +5,8 @@
 %global _lto_cflags %{nil}
 
 Name:    libkgapi
-Version: 24.01.85
-Release: 2%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 Summary: Library to access to Google services
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -65,7 +65,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %install
 %cmake_install
-%find_lang_kf6 libkgapi_qt
+%find_lang libkgapi_qt --all-name --with-html --with-man --with-qt
 
 %files -f libkgapi_qt.lang
 %doc README*
@@ -86,6 +86,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
 - add doc package for KF6 API
 

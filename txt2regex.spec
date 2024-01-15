@@ -26,7 +26,7 @@ own regex for a large variety of software and programming languages.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 # nothing to do

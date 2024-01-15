@@ -1,6 +1,6 @@
 Name:    libkdcraw
 Summary: A C++ interface around LibRaw library
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
@@ -61,6 +61,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1	
 - 24.01.85
 - use libkdcraw again for consistency with qt6/kf6 libraries from gears6

@@ -2,7 +2,7 @@
 %global base_name kdesdk-kio
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: GPLv2 and GPLv2+
@@ -59,6 +59,9 @@ KDE SDK kioslaves:
 
 
 %changelog	
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85
 

@@ -1,5 +1,5 @@
 Name:    kldap
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: The KLDAP Library
 
@@ -7,9 +7,6 @@ License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND MIT
 URL:     https://api.kde.org/kdepim/kldap/html
 
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# https://invent.kde.org/pim/kldap/-/merge_requests/17
-Patch0:         move-translations.patch
 
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openldap-devel
@@ -42,6 +39,10 @@ Requires:       openldap-devel%{?_isa}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -73,9 +74,17 @@ find ./po -type f -name libkldap5.po -execdir mv {} libkldap6.po \;
 %{_kf6_libdir}/libKPim6LdapWidgets.so
 %{_kf6_libdir}/cmake/KPim6LdapCore/
 %{_kf6_libdir}/cmake/KPim6LdapWidgets/
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+- Add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

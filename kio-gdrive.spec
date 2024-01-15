@@ -1,6 +1,6 @@
 Name:           kio-gdrive
-Version:        24.01.85
-Release:        2%{?dist}
+Version:        24.01.90
+Release:        1%{?dist}
 Summary:        An Google Drive KIO slave for KDE
 
 License:        GPL-2.0-or-later
@@ -8,7 +8,6 @@ URL:            https://community.kde.org/KIO_GDrive
 # use releaseme
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-Patch0:         0001-Use-the-new-QML-name-for-accounts-qml-module.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # arch's where libkgapi is available (due to inderect dependencies on qtwebengine)
@@ -66,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/purpose/purpose_gdrive_config.qml
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
 - Depend on accounts-qml-module
 

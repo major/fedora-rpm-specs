@@ -3,7 +3,7 @@
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
@@ -83,7 +83,6 @@ Conflicts: kdeedu-math < 4.7.0-10
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
 
 
@@ -92,16 +91,19 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_bindir}/%{name}*
 %{_kf5_bindir}/pykig.*
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_datadir}/icons/hicolor/*/mimetypes/application-x-%{name}.*
 %{_kf5_datadir}/%{name}/
 %{_kf5_plugindir}/parts/kigpart.so
 %{_kf5_datadir}/katepart5/syntax/python-kig.xml
+%{_kf5_datadir}/metainfo/org.kde.%{name}.metainfo.xml
 %{_mandir}/man1/kig.1*
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sun Jan 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
 - 24.01.85
 

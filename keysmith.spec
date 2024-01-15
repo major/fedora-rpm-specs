@@ -1,5 +1,5 @@
 Name:           keysmith
-Version:        24.01.85
+Version:        24.01.90
 Release:        1%{?dist}
 License:        GPLv3+
 Summary:        Convergent OTP client
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Thu Dec 28 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-1
 - 24.01.85
 

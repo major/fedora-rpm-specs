@@ -1,6 +1,6 @@
 Name:    libkcompactdisc 
-Version: 24.01.85
-Release: 2%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 Summary: A KDE compact disc library
 
 # License for this library is very nebulous.
@@ -72,6 +72,9 @@ Obsoletes: kf5-libkcompactdisc-devel < 24.01.85
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Jan 06 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
 - Also obsolete kf5 devel subpackage for upgrading
 

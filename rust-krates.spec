@@ -5,7 +5,7 @@
 %global crate krates
 
 Name:           rust-krates
-Version:        0.15.2
+Version:        0.15.3
 Release:        %autorelease
 Summary:        Create graphs of crates gathered from cargo metadata
 

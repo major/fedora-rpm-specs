@@ -1,5 +1,5 @@
 Name:    kpkpass
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
@@ -31,6 +31,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -57,9 +61,17 @@ developing applications that use %{name}.
 %{_includedir}/KPim6/KPkPass/
 %{_kf6_libdir}/libKPim6PkPass.so
 %{_kf6_libdir}/cmake/KPim6PkPass/
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+- Add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

@@ -1,20 +1,18 @@
-Name:		merkuro
-Version:	24.01.85
-Release:	2%{?dist}
-Summary:	A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
+Name: merkuro
+Version: 24.01.90
+Release: 1%{?dist}
+Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
-License:	GPL-3.0-or-later
-URL:		https://invent.kde.org/pim/%{name}
+License: GPL-3.0-or-later
+URL:     https://invent.kde.org/pim/%{name}
 
-Source:		https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-# Fix sent upstream https://invent.kde.org/pim/merkuro/-/merge_requests/423
-Patch1:     0001-Fix-Calendar-Task-Add-button.patch
+Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-BuildRequires:	kf6-rpm-macros
-BuildRequires:	extra-cmake-modules
-BuildRequires:	gcc-c++
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  extra-cmake-modules
+BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:	cmake
+BuildRequires:  cmake
 BuildRequires:  cmake(QGpgmeQt6)
 BuildRequires:  cmake(Plasma)
 
@@ -122,6 +120,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_datadir}/qlogging-categories6/merkuro.contact.categories
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sun Jan 07 2024 Justin Zobel <justin.zobel@gmail.com> - 24.01.85-2
 - Add patch to fix Adding a new task
 

@@ -2,13 +2,13 @@
 
 Name:           kdevelop-php
 Summary:        Php language and documentation plugins for KDevelop
-Version:        24.01.85
+Version:        24.01.90
 Release:        1%{?dist}
 
 # Most files LGPLv2+/GPLv2+
 License:        GPL-2.0-or-later
 URL:            http://www.kde.org/
-Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdev-php-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/kdev-php-%{version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  kdevelop-pg-qt-devel >= 1.90.91
@@ -63,6 +63,9 @@ BuildRequires:  qt5-qtwebkit-devel
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 	
 * Fri Jan 05 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - update to 24.01.85 (still using qt5/kf5)

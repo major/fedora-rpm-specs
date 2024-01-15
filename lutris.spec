@@ -1,6 +1,6 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.14
+Version:        0.5.15
 Release:        %autorelease
 Summary:        Install and play any video game easily
 
@@ -10,8 +10,7 @@ Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
-BuildRequires:  python3-gobject, python3-wheel, python3-setuptools, python3-gobject
-Requires:       python3-dbus, python3-evdev, python3-gobject, python3-PyYAML, cabextract
+Requires:       cabextract
 Requires:       gtk3, psmisc, xorg-x11-server-Xephyr, xrandr
 Requires:       hicolor-icon-theme
 Requires:       gnome-desktop3
@@ -32,12 +31,9 @@ Requires:       mesa-vulkan-drivers
 Requires:       mesa-dri-drivers
 Requires:       vulkan-loader
 Requires:       mesa-libGL
-Requires:       python3-requests
-Requires:       python3-pillow
 Requires:       glx-utils
 Requires:       gvfs
 Requires:       webkit2gtk4.1
-Requires:       python3-lxml
 Recommends: 	p7zip, curl
 Recommends:	fluid-soundfont-gs
 Recommends:     wine-core
@@ -59,19 +55,23 @@ on Linux.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 %meson
 %meson_build
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files lutris
 %meson_install
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/net.%{name}.Lutris.metainfo.xml
 %fdupes %{buildroot}%{python3_sitelib}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applications/net.%{name}.Lutris.desktop
 
-%files
+%files -f %{pyproject_files}
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/net.%{name}.Lutris.desktop
@@ -84,8 +84,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/man/man1/%{name}.1.gz
-%{python3_sitelib}/%{name}-*.egg-info
-%{python3_sitelib}/%{name}/
+# Some files being missed by the Python macros
+%{python3_sitelib}/%{name}/__pycache__/optional_settings.*.pyc
+%{python3_sitelib}/%{name}/optional_settings.py
+# ---
 %{_datadir}/metainfo/
 %{_datadir}/locale/
 

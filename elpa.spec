@@ -4,12 +4,23 @@
 
 %bcond_without check
 
-%global sover 17
+# No openmpi on i668 with openmpi 5 in Fedora 40+
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
+
+%global sover 19
 
 Summary: High-performance library for parallel solution of eigenvalue problems
 Name: elpa
-Version: 2022.05.001
-Release: 3%{?dist}
+Version: 2023.11.001
+Release: 1%{?dist}
 URL: https://elpa.mpcdf.mpg.de/software
 Source0: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz
 Source1: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz.asc
@@ -17,8 +28,6 @@ Source2: gpg-keyring-26BC8F899C6A2698BDD6EF6A69260748A5F870B5.gpg
 
 # drop _onenode suffix from non-MPI builds
 Patch1: elpa-onenode.patch
-
-Patch2: elpa-configure-c99.patch
 
 License: LGPLv3+
 BuildRequires: flexiblas-devel
@@ -109,6 +118,7 @@ eigenvalue problems.
 
 This package contains the development files for ELPA (MPICH version).
 
+%if %{with openmpi}
 %package openmpi
 Summary: Fast library for parallel solution of eigenvalue problems (OpenMPI version)
 # required for running the testsuite
@@ -141,20 +151,22 @@ ELPA is a Fortran-based high-performance computational library for the
 eigenvalue problems.
 
 This package contains the development files for ELPA (OpenMPI version).
+%endif
 
 %prep
 gpgv2 --keyring %{S:2} %{S:1} %{S:0}
 %setup -q -c -T -a 0
 mv elpa-%{version} mpich
 pushd mpich
-%patch1 -p1 -b .onenode
-%patch2 -p1 -b .c99
+%patch -P1 -p1 -b .onenode
 autoreconf -vifs
 popd
+%if %{with openmpi}
 cp -pr mpich openmpi
+%endif
 cp -pr mpich serial
 mkdir _openmp
-cp -pr mpich openmpi serial _openmp/
+cp -pr mpich %{?with_openmpi:openmpi} serial _openmp/
 
 %build
 %global defopts --disable-silent-rules --disable-static --docdir=%{_pkgdocdir}
@@ -166,10 +178,12 @@ cp -pr mpich openmpi serial _openmp/
 
 . /etc/profile.d/modules.sh
 
-for mpi in '' mpich openmpi ; do
+for mpi in '' mpich %{?with_openmpi:openmpi} ; do
   export CFLAGS="%{optflags}"
+  export CXXFLAGS="%{optflags}"
 %ifarch x86_64
   export CFLAGS="${CFLAGS} -mssse3 -mavx"
+  export CXXFLAGS="${CFLAGS} -mssse3 -mavx"
 %endif
   export LDFLAGS="%{ldflags}"
   export FCFLAGS="%{fcflags}"
@@ -177,6 +191,7 @@ for mpi in '' mpich openmpi ; do
     module load mpi/${mpi}-%{_arch}
     export LDFLAGS="${LDFLAGS} -L$MPI_LIB"
     export CFLAGS="${CFLAGS} -I$MPI_INCLUDE"
+    export CXXFLAGS="${CXXFLAGS} -I$MPI_INCLUDE"
     export FCFLAGS="${FCFLAGS} -I$MPI_FORTRAN_MOD_DIR"
   fi
   for s in '' _openmp ; do
@@ -214,7 +229,7 @@ for mpi in '' mpich openmpi ; do
 %endif
       $mpiflag || cat config.log
 
-    make %{?_smp_mflags} V=1
+    %make_build V=1
     popd
   done
   if [ -n "$mpi" ]; then
@@ -226,7 +241,7 @@ done
 . /etc/profile.d/modules.sh
 for s in '' _openmp ; do
 # install serial last to avoid overwriting non-MPI binaries in _bindir
-  for mpi in mpich openmpi '' ; do
+  for mpi in mpich %{?with_openmpi:openmpi} '' ; do
     pushd ${s:-.}/${mpi:-serial}
     make DESTDIR=%{buildroot} install
     if [ -n "$mpi" ]; then
@@ -257,11 +272,9 @@ echo ".so elpa2_print_kernels.1" > %{buildroot}%{_mandir}/man1/elpa2_print_kerne
 %check
 . /etc/profile.d/modules.sh
 for s in '' _openmp ; do
-%ifarch i686
-  for mpi in '' mpich ; do
-%else
-  for mpi in '' mpich openmpi ; do
-%endif
+  for mpi in '' mpich %{?with_openmpi:openmpi} ; do
+    # Tests (openmp only?) are hanging on s390x with mpich/openmpi
+    [ "%{_arch}" = s390x -a -n "$mpi" ] && continue
     pushd ${s:-.}/${mpi:-serial}
     if [ -n "$mpi" ]; then
       module load mpi/${mpi}-%{_arch}
@@ -291,7 +304,9 @@ done
 
 %ldconfig_scriptlets mpich
 
+%if %{with openmpi}
 %ldconfig_scriptlets openmpi
+%endif
 
 %files
 %{_bindir}/elpa2_print_kernels
@@ -340,6 +355,7 @@ done
 %{_libdir}/mpich/lib/pkgconfig/elpa_openmp.pc
 %{_fmoddir}/mpich*/*.mod
 
+%if %{with openmpi}
 %files openmpi
 %{_libdir}/openmpi/bin/elpa2_print_kernels
 %{_libdir}/openmpi/bin/elpa2_print_kernels_openmp
@@ -352,8 +368,17 @@ done
 %{_libdir}/openmpi/lib/pkgconfig/elpa.pc
 %{_libdir}/openmpi/lib/pkgconfig/elpa_openmp.pc
 %{_fmoddir}/openmpi*/*.mod
+%endif
 
 %changelog
+* Fri Jan 12 2024 Orion Poplawski <orion@nwra.com> - 2023.11.001-1
+- Update to 2023.11.001
+- No openmpi on i686 for Fedora 40+
+
+* Thu Aug 17 2023 Orion Poplawski <orion@nwra.com> - 2023.05.001-1
+- Update to 2023.05.001
+- Set CXXFLAGS
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.05.001-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

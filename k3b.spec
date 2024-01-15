@@ -4,7 +4,7 @@
 Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -167,6 +167,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:24.01.90-1
+- 24.01.90
+
 * Fri Jan 05 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85 using Qt6/KF6
 

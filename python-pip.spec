@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -156,7 +156,6 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  bash-completion
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-cryptography
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pretend
 BuildRequires:  python%{python3_pkgversion}-freezegun
@@ -363,6 +362,9 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Fri Jan 12 2024 Maxwell G <maxwell@gtmx.me> - 23.3.1-3
+- Remove unused python3-mock dependency
+
 * Wed Jan 03 2024 Maxwell G <maxwell@gtmx.me> - 23.3.1-2
 - Remove weak dependency on python3-setuptools
 

@@ -5,7 +5,7 @@
 %global crate gstreamer-base
 
 Name:           rust-gstreamer-base
-Version:        0.21.0
+Version:        0.21.2
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Base library
 

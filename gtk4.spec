@@ -16,7 +16,7 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.13.4
+Version:        4.13.5
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -31,6 +31,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
+BuildRequires:  glslc
 BuildRequires:  meson
 BuildRequires:  python3-gobject
 BuildRequires:  pkgconfig(avahi-gobject)

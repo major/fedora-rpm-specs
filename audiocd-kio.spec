@@ -1,7 +1,7 @@
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
-Version: 24.01.85
-Release: 2%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/multimedia/audiocd-kio
@@ -134,6 +134,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Jan 06 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
 - Also obsolete kf5 devel subpackage for upgrading
 

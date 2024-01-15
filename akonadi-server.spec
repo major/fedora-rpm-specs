@@ -4,7 +4,7 @@
 
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -16,7 +16,6 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/a
 Source10:       akonadiserverrc.mysql
 Source11:       akonadiserverrc.sqlite
 
-Patch0:  move-translations.patch
 
 ## upstreamable patches
 
@@ -114,6 +113,10 @@ Akonadi can spawn a per-user one automatically if the mysql-server
 package is installed on the machine.
 See also: %{_sysconfdir}/akonadi/mysql-global.conf
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n akonadi-%{version} -p1
@@ -135,9 +138,7 @@ find ./po -type f -name libakonadi5.po -execdir mv {} libakonadi6.po \;
 %install
 %cmake_install
 
-%find_lang libakonadi6
-%find_lang akonadi_knut_resource
-cat akonadi_knut_resource.lang >> libakonadi6.lang
+%find_lang libakonadi6 --all-name --with-html --with-qt
 
 install -p -m644 -D %{SOURCE10} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql
 install -p -m644 -D %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.sqlite
@@ -194,6 +195,7 @@ fi
 %{_kf6_bindir}/akonadi2xml
 %{_kf6_bindir}/akonadiselftest
 %{_kf6_bindir}/akonaditest
+%{_kf6_bindir}/akonadi-db-migrator
 %{_kf6_datadir}/dbus-1/services/org.freedesktop.Akonadi.*.service
 %{_kf6_datadir}/mime/packages/akonadi-mime.xml
 %{_kf6_datadir}/akonadi/
@@ -219,6 +221,10 @@ fi
 %{_kf6_qtplugindir}/pim6/akonadi/akonadi_test_searchplugin.so
 %{_kf6_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
 %{_kf6_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 %post mysql
 /usr/sbin/update-alternatives \
@@ -241,6 +247,10 @@ fi
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+- Add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

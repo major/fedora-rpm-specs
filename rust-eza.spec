@@ -42,6 +42,9 @@ Summary:        %{summary}
 License:        MIT AND Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND LGPL-3.0-or-later AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
+# exa is unmaintained upstream and was retired - development continued as eza
+Obsoletes:      exa < 0.10.1-13
+
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}

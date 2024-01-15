@@ -19,7 +19,7 @@ image. It knows about common file systems, partition tables, and boot codes.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 sed -i '/CFLAGS   =/d' Makefile

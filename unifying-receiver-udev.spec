@@ -15,7 +15,7 @@ Patch0:         unifying-receiver-udev-046d-c52f.patch
 %global udev_order 69
 
 %global udev_rules_dir /usr/lib/udev/rules.d
-# Do not use %{_libdir}, because udev rules always go into
+# Do not use %%{_libdir}, because udev rules always go into
 # /usr/lib/udev/rules.d, and not (on x86_64) /usr/lib64/udev/rules.d
 
 %description
@@ -24,7 +24,7 @@ use with ltunify, pairing_tool, or Solaar.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 

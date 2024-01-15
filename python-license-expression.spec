@@ -1,5 +1,5 @@
 Name:           python-license-expression
-Version:        30.1.1
+Version:        30.2.0
 Release:        %autorelease
 Summary:        Library to parse, compare, simplify and normalize license expressions
 
@@ -53,6 +53,12 @@ This package is providing the documentation for license-expression.
 %prep
 %autosetup -p1 -n license-expression-%{version}
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
+sed -i 's|setuptools_scm\[toml\]|setuptools_scm|' pyproject.toml
+sed -i 's|setuptools_scm\[toml\]|setuptools_scm|' setup.cfg
+sed -i '/sphinx_reredirects/d' setup.cfg
+sed -i '/sphinx_reredirects/d' docs/source/conf.py
+sed -i '/sphinx_rtd_dark_mode/d' docs/source/conf.py
+sed -i '/sphinx_copybutton/d' docs/source/conf.py
 
 %generate_buildrequires
 %pyproject_buildrequires

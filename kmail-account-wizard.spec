@@ -1,6 +1,6 @@
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -64,7 +64,7 @@ Conflicts: kdepim-common < 16.12
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.accountwizard.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.accountwizard.desktop
 
 %files -f %{name}.lang
 %license LICENSES/*
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.accountwi
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

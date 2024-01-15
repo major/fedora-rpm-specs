@@ -1,13 +1,13 @@
 Name:           xwayland-run
 Version:        0.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Set of utilities to run headless X/Wayland clients
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.freedesktop.org/ofourdan/xwayland-run
 Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
-# From: https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/merge_requests/4
+# Backport from upstream
 Patch0001:      0001-wlheadless-Add-support-for-kwin.patch
 
 BuildArch:      noarch
@@ -15,7 +15,7 @@ BuildArch:      noarch
 BuildRequires:  meson >= 0.60.0
 BuildRequires:  git-core
 BuildRequires:  python3-devel
-Requires:       (weston or kwin-wayland or mutter or cage or gnome-kiosk)
+Requires:       (weston or cage or kwin-wayland or mutter or gnome-kiosk)
 Requires:       xorg-x11-server-Xwayland
 
 # Provide names of the other utilities included
@@ -54,6 +54,9 @@ Xwayland and various Wayland compositor headless.
 
 
 %changelog
+* Sat Jan 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.0.2-3
+- Refresh kwin support patch with final version
+
 * Sun Dec 10 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.0.2-2
 - Refresh kwin support patch
 - Add provides for other included utilities

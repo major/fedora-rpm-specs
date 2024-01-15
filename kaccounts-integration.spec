@@ -1,6 +1,6 @@
 Name:    kaccounts-integration
-Version: 24.01.85
-Release: 2%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/network/%{name}
@@ -166,6 +166,9 @@ popd
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 24.01.85-2
 - Use the correct libsignon-qt subpacakges
 - Remove signon-oauth2-plugin and accounts-qml-module requirements

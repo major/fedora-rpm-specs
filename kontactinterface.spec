@@ -1,6 +1,6 @@
 Name:    kontactinterface
-Version: 24.01.85
-Release: 2%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 Summary: The Kontact Interface Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -8,10 +8,7 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# https://invent.kde.org/pim/kontactinterface/-/merge_requests/22
-Patch0:         move-translations.patch
-
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake(KF6CoreAddons)
@@ -76,6 +73,9 @@ find ./po -type f -name kontactinterfaces5.po -execdir mv {} kontactinterfaces6.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Tue Jan 09 2024 Marie Loise Nolden <loise@kde.org> - 24.01.85-2
 - add doc package for KF6 API
 

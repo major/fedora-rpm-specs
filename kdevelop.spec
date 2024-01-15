@@ -2,7 +2,7 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        24.01.85
+Version:        24.01.90
 Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
@@ -228,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:24.01.90-1
+- 24.01.90
+
 * Thu Dec 28 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - update to 24.01.85 (still using qt5/kf5)
 - fix qtwebkit -> qtwebengine

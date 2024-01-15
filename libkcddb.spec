@@ -1,5 +1,5 @@
 Name:    libkcddb 
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: CDDB retrieval library
 
@@ -95,6 +95,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85 for Qt6/KF6 by reusing kde4 rpms
 - add conflicts from kf5-libkcddb

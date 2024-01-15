@@ -1,5 +1,5 @@
 Name:    mailimporter
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 Summary: Mail importer library
 
@@ -43,6 +43,10 @@ Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 %description    devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -73,8 +77,16 @@ Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/KPim6MailImporter/
 %{_includedir}/KPim6/MailImporterAkonadi/
 %{_includedir}/KPim6/MailImporter/
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+- Add doc package for KF6 API
+
 * Sat Dec 23 2023 ales.astone@gmail.com - 24.01.85-1
 - 24.01.85
 

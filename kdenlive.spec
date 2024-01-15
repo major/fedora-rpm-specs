@@ -2,7 +2,7 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
@@ -73,15 +73,21 @@ Requires: kf6-kirigami2
 Kdenlive is an intuitive and powerful multi-track video editor, including most
 recent video technologies.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -p1
 
 
 %build
+# disabling QCH as some files don't seem to end up installed in the right place
 %{cmake_kf6} \
   -DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON -Wno-dev \
-  -DQT_MAJOR_VERSION=6
+  -DQT_MAJOR_VERSION=6 \
+  -DBUILD_QCH:BOOL=OFF
 
 %cmake_build
 
@@ -122,6 +128,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85 using Qt6/KF6
 

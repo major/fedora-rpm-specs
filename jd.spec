@@ -13,17 +13,17 @@
 #
 %define         main_ver      0.11.0
 #%%define         strtag        20200118
-%define         pre_ver       beta
+#%%define         pre_ver       beta
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20231224
-%global         gitcommit     793e19f94a4ddcc9397dc02dffa31780fa488dda
+%global         gitdate       20240113
+%global         gitcommit     9de81380b46582ba89834ddda686fa77c3e085d0
 #%%global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20231224
-%global         tarballtime   2220
+%global         tarballdate   20240113
+%global         tarballtime   1943
 
 ##########################################
 # Defined by vendor
@@ -215,6 +215,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sat Jan 13 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.11.0-1
+- 0.11.0
+
 * Sun Dec 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.11.0~beta-1
 - 0.11.0 beta
 

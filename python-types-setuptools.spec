@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        Typing stubs for setuptools
 
 License:        Apache-2.0
-URL:            https://pypi.org/project/types-setuptools/
+URL:            https://github.com/python/typeshed
 Source:         %{pypi_source types-setuptools}
 
 BuildArch:      noarch

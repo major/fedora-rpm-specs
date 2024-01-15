@@ -1,18 +1,29 @@
+%global candidate rc1
+
 Name:           kicad
-Version:        7.0.10
-Release:        1%{?dist}
+Version:        8.0.0
+Release:        0.1.%{candidate}%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
 License:        GPL-3.0-or-later
 URL:            https://www.kicad.org
 
-Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}/kicad-%{version}.tar.gz
-Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}/kicad-doc-%{version}.tar.gz
-Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}/kicad-templates-%{version}.tar.gz
-Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
-Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
-Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
+# Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%%{version}/kicad-%%{version}.tar.gz
+# Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%%{version}/kicad-doc-%%{version}.tar.gz
+# Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%%{version}/kicad-templates-%%{version}.tar.gz
+# Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%%{version}/kicad-symbols-%%{version}.tar.gz
+# Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%%{version}/kicad-footprints-%%{version}.tar.gz
+# Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%%{version}/kicad-packages3D-%%{version}.tar.gz
+
+Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}-%{candidate}/kicad-%{version}-%{candidate}.tar.gz
+Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}-%{candidate}/kicad-doc-%{version}-%{candidate}.tar.gz
+Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}-%{candidate}/kicad-templates-%{version}-%{candidate}.tar.gz
+Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}-%{candidate}/kicad-symbols-%{version}-%{candidate}.tar.gz
+Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}-%{candidate}/kicad-footprints-%{version}-%{candidate}.tar.gz
+Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}-%{candidate}/kicad-packages3D-%{version}-%{candidate}.tar.gz
+
+Patch1:         libgal_name.patch
 
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
@@ -28,7 +39,9 @@ BuildRequires:  glm-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libcurl-devel
+BuildRequires:  libgit2-devel
 BuildRequires:  libngspice-devel
+BuildRequires:  libsecret-devel
 BuildRequires:  make
 BuildRequires:  opencascade-devel
 BuildRequires:  python3-devel
@@ -49,13 +62,12 @@ Provides:       bundled(polyclipping) = 6.4.2
 Provides:       bundled(potrace) = 1.15
 
 Requires:       electronics-menu
+Requires:       libgit2
+Requires:       libngspice
+Requires:       libsecret
+Requires:       ngspice-codemodel
 Requires:       python3-wxpython4
 Requires:       unixODBC
-
-# libngspice is dlopen'ed so it is not strictly required, but recommended.
-# We also recommend the models.
-Recommends:     libngspice
-Recommends:     ngspice-codemodel
 
 Suggests:       kicad
 
@@ -68,7 +80,7 @@ diagrams and printed circuit board artwork of up to
 Summary:        3D Models for KiCad
 License:        CC-BY-SA
 BuildArch:      noarch
-Requires:       kicad >= 7.0.0
+Requires:       kicad >= 8.0.0
 
 %description    packages3d
 3D Models for KiCad.
@@ -83,7 +95,32 @@ Documentation for KiCad.
 
 
 %prep
-%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
+# The -rc1 source tar has a root directory that includes the -rc1
+# name component, so we have to account for that.
+%setup -n kicad-%{version}-%{candidate} -q
+%patch 1 -p1
+
+# The doc repo will create a tar with -rc1 in the root dir name.  We
+# rename the dir to remove the -rc1 portion.  The remaining tars need
+# similar adjustments.
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 1
+mv kicad-doc-%{version}-%{candidate} kicad-doc-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 2
+mv kicad-templates-%{version}-%{candidate} kicad-templates-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 3
+mv kicad-symbols-%{version}-%{candidate} kicad-symbols-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 4
+mv kicad-footprints-%{version}-%{candidate} kicad-footprints-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 5
+mv kicad-packages3D-%{version}-%{candidate} kicad-packages3D-%{version}
+
+# Once we get beyond the rc stage, we will be able to replace the above
+# with:
+#%%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
 
 
 %build
@@ -94,13 +131,12 @@ Documentation for KiCad.
     -DKICAD_USE_OCC=ON \
     -DKICAD_INSTALL_DEMOS=ON \
     -DKICAD_BUILD_QA_TESTS=OFF \
-    -DKICAD_SPICE=ON \
     -DKICAD_BUILD_I18N=ON \
     -DKICAD_I18N_UNIX_STRICT_PATH=ON \
     -DKICAD_USE_EGL=OFF \
-    -DKICAD_VERSION_EXTRA=%{release} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch}
+    -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch} \
+    -DKICAD_VERSION_EXTRA=%{release}
 %cmake_build
 
 # Templates
@@ -187,9 +223,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files -f %{name}.lang
 %doc AUTHORS.txt
 %attr(0755, root, root) %{_bindir}/*
-%{_libdir}/kicad/
+%{_libdir}/%{name}/
 %{_libdir}/libkicad_3dsg.so
 %{_libdir}/libkicad_3dsg.so.2.0.0
+%{_libdir}/libkigal.so
+%{_libdir}/libkigal.so.8.0.0
+%{_libdir}/libkicommon.so
+%{_libdir}/libkicommon.so.8.0.0
 %{python3_sitearch}/_pcbnew.so
 %pycached %{python3_sitearch}/pcbnew.py
 %{_datadir}/%{name}/
@@ -212,6 +252,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat Jan 13 2024 Steven A. Falco <stevenfalco@gmail.com> - 1:8.0.0-1
+- Update to 8.0.0-rc1
+
 * Thu Dec 28 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.10-1
 - Update to 7.0.10
 

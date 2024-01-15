@@ -6,7 +6,7 @@
 %global crate gstreamer-sys
 
 Name:           rust-gstreamer-sys
-Version:        0.21.1
+Version:        0.21.2
 Release:        %autorelease
 Summary:        FFI bindings to libgstreamer-1.0
 

@@ -1,6 +1,6 @@
 Name:    kget
 Summary: Download manager
-Version: 24.01.85
+Version: 24.01.90
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -13,9 +13,6 @@ URL:     https://invent.kde.org/network/%{name}
 %global stable stable
 %endif
 Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# https://invent.kde.org/network/kget/-/merge_requests/69
-Patch0:  mms-plugin-kcmutils-dependency.patch
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 
@@ -134,6 +131,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
+- 24.01.90
+
 * Tue Dec 26 2023 Marie Loise Nolden <loise@kde.org> - 24.01.85-1
 - 24.01.85
 
