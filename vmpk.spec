@@ -1,10 +1,10 @@
 Name:           vmpk
-Version:        0.8.10
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Virtual MIDI Piano Keyboard
 License:        GPLv3+
-URL:            http://vmpk.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+URL:            https://vmpk.sourceforge.io/
+Source0:        https://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-devel >= 6.2
@@ -18,6 +18,7 @@ BuildRequires:  cmake >= 3.9
 BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  docbook-style-xsl
 BuildRequires:  desktop-file-utils
+
 Requires:       fluid-soundfont-gm
 
 %description
@@ -29,7 +30,7 @@ display the played MIDI notes from another instrument or MIDI file player.
 
 
 %prep
-%setup -q
+%autosetup
 
 %build
 %cmake
@@ -49,7 +50,6 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/net.sourceforge.V
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/metainfo/net.sourceforge.VMPK.metainfo.xml
 %{_mandir}/man1/%{name}.1.*
-
 
 %changelog
 %autochangelog

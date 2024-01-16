@@ -1,7 +1,7 @@
 Name:    plasma5support
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
 Version: 5.92.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -60,23 +60,26 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files -f libplasma5support.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_libdir}/libPlasma5Support.so
 %{_qt6_qmldir}/org/kde/plasma/plasma5support/
 %{_datadir}/plasma5support/
 %{_datadir}/qlogging-categories6/plasma5support.categories
 %{_datadir}/qlogging-categories6/plasma5support.renamecategories
+%{_kf6_libdir}/libPlasma5Support.so.6
+%{_kf6_libdir}/libPlasma5Support.so.%{version}
 
 %files devel
 %{_includedir}/Plasma5Support/
 %{_kf6_libdir}/cmake/Plasma5Support/
 %{_qt6_docdir}/*.tags
-%{_kf6_libdir}/libPlasma5Support.so.%{version}
-%{_kf6_libdir}/libPlasma5Support.so.6
+%{_kf6_libdir}/libPlasma5Support.so
 
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Jan 14 2024 Steve Cossette <farchord@gmail.com> - 5.92.0-2
+- Fixed non-devel library in devel subpackage issue (rhbz# 2258332).
+
 * Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
 - 5.92.0
 

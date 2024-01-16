@@ -8,11 +8,10 @@
 Name:		perl-common-sense
 Summary:	"Common sense" Perl defaults 
 Version:	%{rpm_version}
-Release:	14%{?dist}
+Release:	15%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/common-sense
 Source0:	https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/common-sense-%{cpan_version}.tar.gz
-# Specify POD encoding
 Patch1:		common-sense-3.71-podenc.patch
 # Module Build
 BuildRequires:	coreutils
@@ -53,7 +52,10 @@ It's supposed to be mostly the same, with much lower memory usage, as:
 	no warnings qw(exec newline unopened);
 
 %prep
-%autosetup -p0 -n common-sense-%{cpan_version}
+%setup -q -n common-sense-%{cpan_version}
+
+# Specify POD encoding
+%patch -P 1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -71,11 +73,7 @@ pod2man sense.pod > %{buildroot}%{_mandir}/man3/common::sense.3pm
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README t/
 %dir %{perl_vendorarch}/common/
 %{perl_vendorarch}/common/sense.pm
@@ -83,6 +81,9 @@ make test
 %{_mandir}/man3/common::sense.3*
 
 %changelog
+* Sun Jan 14 2024 Paul Howarth <paul@city-fan.org> - 3.7.5-15
+- Use %%license unconditionally
+
 * Wed Aug 09 2023 Petr Pisar <ppisar@redhat.com> - 3.7.5-14
 - Adapt a spec file to rpm-4.18.92
 

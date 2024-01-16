@@ -1,17 +1,19 @@
 Name:           ladspa
-Version:        1.13
-Release:        31%{?dist}
+Version:        1.17
+Release:        2%{?dist}
 
 Summary:        Linux Audio Developer's Simple Plug-in API, examples and tools
 
 License:        LGPLv2+
 URL:            http://www.ladspa.org/
 Source:         http://www.ladspa.org/download/%{name}_sdk_%{version}.tgz
-Patch1:         ladspa-1.13-plugindir.patch
+Patch1:         ladspa-1.17.patch
+
 
 BuildRequires:  perl-interpreter
 BuildRequires:  gcc-c++
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:  pkgconfig(sndfile)
 
 %description
 There is a large number of synthesis packages in use or development on
@@ -35,12 +37,13 @@ header file.
 
 
 %prep
-%setup -q -n ladspa_sdk
-%patch1 -p0 -b .plugindir
+%setup -q -n ladspa_sdk_%{version}
+%patch -P1 -p1 -b .0001
 # respect RPM_OPT_FLAGS
-perl -pi -e 's/^(CFLAGS.*)-O3(.*)/$1\$\(RPM_OPT_FLAGS\)$2 -DPLUGINDIR=\$\(PLUGINDIR\)/' src/makefile
+perl -pi -e 's/^(CFLAGS.*)-O2(.*)/$1\$\(RPM_OPT_FLAGS\)$2 -DDEFAULT_LADSPA_PATH=\$\(PLUGINDIR\)/' src/Makefile
+
 # avoid X.org dependency
-perl -pi -e 's/-mkdirhier/-mkdir -p/' src/makefile
+perl -pi -e 's/-mkdirhier/-mkdir -p/' src/Makefile
 
 # Respect our CC and CPP choices
 perl -pi -e 's/CC(.*)=(.*)cc//' src/makefile
@@ -54,15 +57,13 @@ perl -pi -e "s!HREF=\"ladspa.h.txt\"!href=\"file:///usr/include/ladspa.h\"!" *.h
 %build
 %set_build_flags
 cd src
-PLUGINDIR=\\\"%{_libdir}/ladspa\\\" %{__make} targets %{?_smp_mflags} LD="ld --build-id"
+PLUGINDIR=%{_libdir}/ladspa make targets %{?_smp_mflags} LD="ld --build-id"
 
 #make test
 #make check
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 cd src
 %make_install \
   INSTALL_PLUGINS_DIR=$RPM_BUILD_ROOT%{_libdir}/ladspa \
@@ -89,6 +90,13 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/ladspa/rdf
 
 
 %changelog
+* Sun Jan 14 2024 Sérgio Basto <sergio@serjux.com> - 1.17-2
+- bump version to tag the build
+
+* Sun Jan 14 2024 Sérgio Basto <sergio@serjux.com> - 1.17-1
+- Update to 1.17
+- Update to 1.15 Wim Taymans <wtaymans@fedoraproject.org>
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

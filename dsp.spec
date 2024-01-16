@@ -1,15 +1,12 @@
 Name:           dsp
-Version:        1.6
-Release:        9%{?dist}
+Version:        1.9
+Release:        1%{?dist}
 Summary:        An audio processing program with an interactive mode
 
-# Everything is ISC, except for g2reverb, which is GPLv2+, and reverb, which is LGPLv2+
-License:        ISC and GPLv2+ and LGPLv2+
+# Everything is ISC
+License:        ISC
 URL:            https://github.com/bmc0/dsp
 Source0:        https://github.com/bmc0/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/bmc0/dsp/commit/8581fb454ba5ffd9386e07898c6f4cb77969b6ed
-Patch0:         dsp-1.6-zita-convolver-4.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -22,7 +19,7 @@ BuildRequires:  libsndfile-devel
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  zita-convolver-devel
-BuildRequires: make
+BuildRequires:  make
 
 
 %description
@@ -56,19 +53,23 @@ export CXXFLAGS="%{optflags}"
 
 
 %files
-%license LICENSE LICENSE.GPL2 LICENSE.LGPL2_1
+%license LICENSE
 %doc README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 
 %files -n ladspa-dsp-plugin
-%license LICENSE LICENSE.GPL2 LICENSE.LGPL2_1
+%license LICENSE
 %doc README.md
 %{_libdir}/ladspa/ladspa_dsp.so
 
 
 %changelog
+* Sun Jan 14 2024 Sérgio Basto <sergio@serjux.com> - 1.9-1
+- Update dsp to 1.9
+- Migrated to SPDX license (noop)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

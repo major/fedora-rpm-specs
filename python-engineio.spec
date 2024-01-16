@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-engineio
-Version:        4.8.1
+Version:        4.8.2
 Release:        %autorelease
 Summary:        Python Engine.IO server and client
 

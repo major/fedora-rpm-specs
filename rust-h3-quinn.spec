@@ -5,7 +5,7 @@
 %global crate h3-quinn
 
 Name:           rust-h3-quinn
-Version:        0.0.3
+Version:        0.0.4
 Release:        %autorelease
 Summary:        QUIC transport implementation based on Quinn
 

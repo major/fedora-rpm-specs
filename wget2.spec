@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -18,6 +18,10 @@ Source0:        https://ftp.gnu.org/gnu/wget/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/wget/%{name}-%{version}.tar.gz.sig
 # key 08302DB6A2670428
 Source2:        tim.ruehsen-keyring.asc
+
+# Backports from upstream
+## Fix behavior for downloading to stdin (rhbz#2257700, gl#gnuwget/wget2#651)
+Patch0001:      0001-src-log.c-log_init-Redirect-INFO-logs-to-stderr-with.patch
 
 # Buildsystem build requirements
 BuildRequires:  autoconf
@@ -180,6 +184,10 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Sun Jan 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-6
+- Backport fix for wget to stdin
+  Resolves: rhbz#2257700
+
 * Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.0-5
 - Drop unused autogen build dependency
 

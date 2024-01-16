@@ -1,7 +1,7 @@
 Name:             gawk-xml
 Summary:          XML support for gawk
 Version:          1.1.1
-Release:          14%{?dist}
+Release:          15%{?dist}
 License:          GPL+ and GPLv3+
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -17,7 +17,7 @@ BuildRequires:    expat-devel
 
 # Make sure the API version is compatible with our source code:
 BuildRequires:    gawk(abi) >= 1.1
-BuildRequires:    gawk(abi) < 4.0
+BuildRequires:    gawk(abi) < 5.0
 BuildRequires: make
 
 # At runtime, the ABI must be compatible with the compile-time version
@@ -67,6 +67,10 @@ rm -f %{buildroot}%{_infodir}/dir
 # =============================================================================
 
 %changelog
+* Sun Jan 14 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.1-15
+- Update BuildRequires gawk(abi) to indicate compatibility with gawk 5.3 major
+  api version 4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

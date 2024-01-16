@@ -1,5 +1,5 @@
 Name:           qdirstat
-Version:        1.8.1
+Version:        1.9
 Release:        %autorelease
 Summary:        Qt-based directory statistics
 

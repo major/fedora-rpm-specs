@@ -1,7 +1,7 @@
 Name:             gawk-json
 Summary:          JSON encoder/decoder for gawk
 Version:          1.0.2
-Release:          14%{?dist}
+Release:          15%{?dist}
 License:          GPL-3.0-or-later
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -14,7 +14,7 @@ BuildRequires:    rapidjson-devel
 
 # Make sure the API version is compatible with our source code:
 BuildRequires:    gawk(abi) >= 2.0
-BuildRequires:    gawk(abi) < 4.0
+BuildRequires:    gawk(abi) < 5.0
 BuildRequires: make
 
 # At runtime, the ABI must be compatible with the compile-time version
@@ -58,6 +58,10 @@ make check
 # =============================================================================
 
 %changelog
+* Sun Jan 14 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.0.2-15
+- Update BuildRequires gawk(abi) to indicate compatibility with gawk 5.3 major
+  api version 4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

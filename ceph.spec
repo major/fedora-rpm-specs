@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2636,6 +2636,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Sat Jan 13 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-4
+- rebuild with rocksdb-8.10.0
+
 * Tue Dec 19 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-3
 - ceph-18.2.1, incorporate changes from *final* 18.2.1 release from
   https://download.ceph.com/rpm-18.2.1/el9/SRPMS/ceph-18.2.1-0.el9.src.rpm

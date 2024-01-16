@@ -24,7 +24,6 @@ Summary:        A pep8 equivalent for bash scripts
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(fixtures)
-BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(pbr)
 # deps for check
 BuildRequires:  python3dist(autopage)

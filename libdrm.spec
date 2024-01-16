@@ -22,20 +22,18 @@ end}
 %bcond_without amdgpu
 %bcond_without nouveau
 %bcond_without vmwgfx
-%ifarch %{arm}
-%bcond_without omap
-%else
+# Not (currently) used on non arm32
 %bcond_with    omap
-%endif
-%ifarch %{arm} aarch64
-%bcond_without exynos
+%bcond_with    exynos
+%ifarch aarch64
 %bcond_without freedreno
+%bcond_without freedreno_kgsl
 %bcond_without tegra
 %bcond_without vc4
 %bcond_without etnaviv
 %else
-%bcond_with    exynos
 %bcond_with    freedreno
+%bcond_with    freedreno_kgsl
 %bcond_with    tegra
 %bcond_with    vc4
 %bcond_with    etnaviv
@@ -47,13 +45,12 @@ end}
 %else
 %bcond_with    valgrind
 %endif
-%bcond_with    freedreno_kgsl
 %bcond_without install_test_programs
 %bcond_without udev
 
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
-Version:        2.4.117
+Version:        2.4.120
 Release:        1%{?dist}
 License:        MIT
 
@@ -285,6 +282,10 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Sun Jan 14 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.4.120-1
+- Update to 2.4.120
+- Drop arm32 pieces
+
 * Tue Oct 24 2023 José Expósito <jexposit@redhat.com> - 2.4.117-1
 - Update to 2.4.117
 

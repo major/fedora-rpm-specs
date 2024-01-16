@@ -4,7 +4,9 @@ Name:		libva
 Version:	2.20.0
 Release:	1%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
-License:	MIT
+# va/wayland/wayland-drm.xml is HPND-sell-variant
+# va/x11/va_dri* are ICU
+License:	MIT AND HPND-sell-varian AND ICU
 URL:		https://github.com/intel/libva
 Source0:	%{url}/archive/%{version}%{?pre_release}/%{name}-%{version}%{?pre_release}.tar.gz
 

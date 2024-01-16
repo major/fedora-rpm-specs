@@ -17,7 +17,7 @@
 
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
-Version:    4.12.0
+Version:    4.12.1
 Release:    1%{?dist}
 
 # gmsh is GPLv2+ with exceptions, see LICENSE.txt
@@ -401,6 +401,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Sun Jan 14 2024 Sandro Mani <manisandro@gmail.com> - 4.12.1-1
+- Update to 4.12.1
+
 * Mon Jan 01 2024 Sandro Mani <manisandro@gmail.com> - 4.12.0-1
 - Update to 4.12.0
 

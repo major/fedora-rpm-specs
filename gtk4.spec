@@ -52,6 +52,7 @@ BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(pango) >= %{pango_version}
 BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(tracker-sparql-3.0)
+BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client) >= %{wayland_version}
 BuildRequires:  pkgconfig(wayland-cursor) >= %{wayland_version}
 BuildRequires:  pkgconfig(wayland-egl) >= %{wayland_version}

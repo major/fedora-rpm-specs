@@ -1,8 +1,7 @@
-%global upver   v3.4-1
-%global commit  02ee2d7def4012e9a629217383fc985f5d6ed5fb
+%global commit  459bfc8a55d87d2394cd7b1ed77d46089213950c
 
 Name:           g4music
-Version:        %(sed 's/v//;s/-/./' <<< %{upver})
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Fast fluent lightweight music player written in GTK4
 
@@ -11,7 +10,7 @@ Summary:        Fast fluent lightweight music player written in GTK4
 # CC0-1.0: The metainfo file
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/neithern/g4music
-Source0:        %{url}/-/archive/%{upver}/%{name}-%{version}.tar.gz
+Source0:        %{url}/-/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -50,7 +49,7 @@ Features:
 - Supports MPRIS control.
 
 %prep
-%autosetup -n %{name}-%{upver}-%{commit}
+%autosetup -n %{name}-v%{version}-%{commit}
 
 # Fedora only requires that appstream-util pass at the validate-relax level
 sed -i "s/'validate'/'validate-relax'/" data/meson.build

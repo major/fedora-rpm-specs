@@ -1,16 +1,16 @@
 %define __cmake_in_source_build 1
 
 Name:           obconf-qt
-Version:        0.16.3
+Version:        0.16.4
 Release:        1%{?dist}
 Summary:        A configuration editor for the OpenBox window manager
 
-License:        GPLv2+
+License:        GPL-2.0-only
 URL:            https://github.com/lxde/obconf-qt
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires: make
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
 BuildRequires:  kf5-kwindowsystem-devel
 BuildRequires:  qt5-linguist
@@ -22,10 +22,6 @@ BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5X11Extras)
 BuildRequires:  pkgconfig(sm)
-%if 0%{?el7}
-BuildRequires:  devtoolset-7-gcc-c++
-BuildRequires:  cmake3
-%endif
 
 Requires:       hicolor-icon-theme
 Requires:       openbox
@@ -42,49 +38,19 @@ Requires:       obconf-qt
 This package provides translations for the obconf-qt package.
 
 %prep
-%setup -q
+%autosetup
 
 %build
-%if 0%{?el7}
-scl enable devtoolset-7 - <<\EOF
-%endif
-%{cmake_lxqt} -DPULL_TRANSLATIONS=NO ..
-
-make %{?_smp_mflags} -C %{_vpath_builddir}
-
-%if 0%{?el7}
-EOF
-%endif
+%cmake_lxqt -DPULL_TRANSLATIONS=NO
+%cmake_build
 
 %install
-%make_install -C %{_vpath_builddir}
+%cmake_install
 
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
     %{buildroot}/%{_datadir}/applications/%{name}.desktop
-
 %find_lang obconf-qt --with-qt
-
-%post
-%if 0%{?el7}
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-/usr/bin/update-desktop-database &> /dev/null || :
-%endif
-
-%postun
-%if 0%{?el7}
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-/usr/bin/update-desktop-database &> /dev/null || :
-%endif
-
-%posttrans
-%if 0%{?el7}
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
-
 
 %files
 %license COPYING
@@ -100,6 +66,9 @@ fi
 %dir %{_datadir}/obconf-qt/translations
 
 %changelog
+* Sun Jan 14 2024 Steve Cossette <farchord@gmail.com> - 0.16.4-1
+- Update to 0.16.4
+
 * Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 0.16.3-1
 - Update version to 0.16.3
 

@@ -13,7 +13,7 @@
 
 Name:           pdc-client
 Version:        1.8.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Console client for interacting with Product Definition Center
 License:        MIT
 URL:            https://github.com/product-definition-center/pdc-client
@@ -27,7 +27,6 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-requests
 BuildRequires:  python3-requests-kerberos
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python3-beanbag
 BuildRequires:  python3-zombie-imp
 
@@ -142,6 +141,9 @@ EOF
 
 
 %changelog
+* Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 1.8.0-31
+- Remove unused python3-mock dependency
+
 * Thu Jul 27 2023 Kevin Fenzi <kevin@scrye.com> - 1.8.0-30
 - Add python3-zombie-imp to BuildRequires to bandaid ftbfs until it can be fixed.
 - Fixes rhbz#2220064

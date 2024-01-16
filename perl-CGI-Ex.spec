@@ -1,11 +1,11 @@
 Name:           perl-CGI-Ex
-Version:        2.54
-Release:        5%{?dist}
+Version:        2.55
+Release:        1%{?dist}
 Summary:        CGI utility suite - makes powerful application writing fun and easy
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/CGI-Ex
-Source0:        https://cpan.metacpan.org/authors/id/L/LJ/LJEPSON/CGI-Ex-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RH/RHANDOM/CGI-Ex-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  coreutils
@@ -83,6 +83,10 @@ rm -f samples/app/app1/INSTALL
 %{_mandir}/man3/CGI*
 
 %changelog
+* Sun Jan 14 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 2.55-1
+- Update to 2.55
+- Migrate to SPDX license
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.54-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

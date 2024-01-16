@@ -5,7 +5,7 @@
 %global crate assert_fs
 
 Name:           rust-assert_fs
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Filesystem fixtures and assertions for testing
 

@@ -43,10 +43,10 @@ BuildRequires: qt5-qtscript-devel >= 5.9.0
 BuildRequires: qt5-qtsvg-devel >= 5.9.0
 BuildRequires: qt5-qtxmlpatterns-devel >= 5.9.0
 BuildRequires: qt5-qtdeclarative-devel >= 5.9.0
-Requires: qt5-designer%{?_isa} >= 5.9.0
-Requires: qt5-qtsvg%{?_isa}
-Requires: qt5-qtscript%{?_isa}
-Provides: bundled(qtscriptgenerator) = 5.15.11
+Requires:      qt5-designer%{?_isa} >= 5.9.0
+Requires:      qt5-qtsvg%{?_isa}
+Requires:      qt5-qtscript%{?_isa}
+Provides:      bundled(qtscriptgenerator) = 5.15.11
 BuildRequires: gcc-c++, chrpath
 %if %{with cmake}
 BuildRequires: cmake
@@ -65,18 +65,23 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: fontpackages-devel
 
-Requires: hicolor-icon-theme
-Requires: wise2
-Requires: qgnomeplatform-qt5
-Requires: vlgothic-fonts
-Requires: dejavu-sans-fonts
+Requires:      hicolor-icon-theme
+Requires:      wise2
+Requires:      qgnomeplatform-qt5
 
-Provides: bundled(dxflib) = 1.0.0
-Provides: bundled(opennurbs) = 201004095
-Provides: bundled(stemmer) = 1.0.0
+BuildRequires: vlgothic-fonts
+BuildRequires: dejavu-sans-fonts
+BuildRequires: dejavu-sans-mono-fonts
+Requires:      vlgothic-fonts
+Requires:      dejavu-sans-fonts
+Requires:      dejavu-sans-mono-fonts
+
+Provides:      bundled(dxflib) = 1.0.0
+Provides:      bundled(opennurbs) = 201004095
+Provides:      bundled(stemmer) = 1.0.0
 # Unbundling this library may cause crashes of the software
-Provides: bundled(spatialindex) = 1.9.1
-Provides: bundled(spatialindexnavel) = 1.9.1
+Provides:      bundled(spatialindex) = 1.9.1
+Provides:      bundled(spatialindexnavel) = 1.9.1
 
 %description
 QCAD is an application for computer aided drafting (CAD) in two dimensions (2D).
@@ -94,9 +99,9 @@ You dont need any CAD experience to get started with QCAD immediately.
 rm -rf ../*-SPECPARTS
 
 # Use Fedora Qt5 scripts
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.11
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.11/qt-labs-qtscriptgenerator-5.15.3.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.11/qt-labs-qtscriptgenerator-5.15.11.pro
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.12
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.12/qt-labs-qtscriptgenerator-5.15.3.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.12/qt-labs-qtscriptgenerator-5.15.12.pro
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -146,11 +151,14 @@ mkdir -p %{buildroot}%{_QCAD_DIR}/plugins/printsupport
 cp -a fonts %{buildroot}%{_QCAD_DIR}
 
 # Unbundle vlgothic-fonts
-ln -sf %{_fontbasedir}/vlgothic/VL-Gothic-Regular.ttf %{buildroot}%{_QCAD_DIR}/fonts/VL-Gothic-Regular.ttf
+ln -sf %{_fontbasedir}/vl-gothic-fonts/VL-Gothic-Regular.ttf %{buildroot}%{_QCAD_DIR}/fonts/VL-Gothic-Regular.ttf
 
 # Unbundle dejavu-sans-fonts
 for i in `ls %{buildroot}%{_QCAD_DIR}/fonts/qt | grep DejaVuSans`; do
- ln -sf %{_fontbasedir}/dejavu/$i %{buildroot}%{_QCAD_DIR}/fonts/qt/$i
+ ln -sf %{_fontbasedir}/dejavu-sans-fonts/$i %{buildroot}%{_QCAD_DIR}/fonts/qt/$i
+done
+for i in `ls %{buildroot}%{_QCAD_DIR}/fonts/qt | grep DejaVuSansMono`; do
+ ln -sf %{_fontbasedir}/dejavu-sans-mono-fonts/$i %{buildroot}%{_QCAD_DIR}/fonts/qt/$i
 done
 ##
 
@@ -165,12 +173,6 @@ cp -a linetypes %{buildroot}%{_QCAD_DIR}
 cp -p readme.txt %{buildroot}%{_QCAD_DIR}
 
 install -pm 644 ts/qcad*.qm %{buildroot}%{_QCAD_DIR}/ts
-ln -sf %{_QT_PLUGINS}/codecs/libqcncodecs.so %{buildroot}%{_QCAD_DIR}/plugins/codecs/libqcncodecs.so
-ln -sf %{_QT_PLUGINS}/codecs/libqjpcodecs.so %{buildroot}%{_QCAD_DIR}/plugins/codecs/libqjpcodecs.so
-ln -sf %{_QT_PLUGINS}/codecs/libqkrcodecs.so %{buildroot}%{_QCAD_DIR}/plugins/codecs/libqkrcodecs.so
-ln -sf %{_QT_PLUGINS}/codecs/libqtwcodecs.so %{buildroot}%{_QCAD_DIR}/plugins/codecs/libqtwcodecs.so
-
-ln -sf %{_QT_PLUGINS}/designer/libqwebview.so %{buildroot}%{_QCAD_DIR}/plugins/designer/libqwebview.so
 
 ln -sf %{_QT_PLUGINS}/imageformats/libqgif.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqgif.so
 ln -sf %{_QT_PLUGINS}/imageformats/libqico.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqico.so

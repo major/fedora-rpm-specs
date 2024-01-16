@@ -3,7 +3,7 @@ Version:        0.20.6
 Release:        3%{?dist}
 Summary:        GObject collection library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Libgee
 Source0:        https://download.gnome.org/sources/libgee/0.20/libgee-%{version}.tar.xz
 

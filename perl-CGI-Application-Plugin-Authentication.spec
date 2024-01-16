@@ -1,8 +1,8 @@
 Name:           perl-CGI-Application-Plugin-Authentication
-Version:        0.23
-Release:        17%{?dist}
+Version:        0.24
+Release:        1%{?dist}
 Summary:        Authentication framework for CGI::Application
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/CGI-Application-Plugin-Authentication
 Source0:        https://cpan.metacpan.org/authors/id/W/WE/WESM/CGI-Application-Plugin-Authentication-%{version}.tar.gz
@@ -65,22 +65,30 @@ CGI::Application::Plugin::Authentication plugin.
 %setup -q -n CGI-Application-Plugin-Authentication-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README example
+%license LICENSE
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 14 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.24-1
+- Update to 0.24
+- Migrate to SPDX license
+- Replace %%{__perl} with /usr/bin/perl
+- Use %%{make_build} and %%{make_install} where appropriate
+- Pass NO_PERLLOCAL=1 to Makefile.PL
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

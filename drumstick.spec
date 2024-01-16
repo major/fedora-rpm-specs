@@ -2,12 +2,12 @@
 
 Summary: C++/Qt5 wrapper around multiple MIDI interfaces
 Name:    drumstick
-Version: 2.8.1
+Version: 2.9.0
 Release: %autorelease
 
 License: GPLv3+
-URL:     http://drumstick.sourceforge.net/
-Source0: http://downloads.sourceforge.net/project/drumstick/%{version}%{?svn}/drumstick-%{version}%{?svn}.tar.bz2
+URL:     https://drumstick.sourceforge.io/
+Source0: https://sourceforge.net/projects/drumstick/files/%{version}/drumstick-%{version}.tar.bz2
 
 BuildRequires: gcc-c++
 BuildRequires: cmake >= 3.9
@@ -75,7 +75,7 @@ Requires: %{name}-examples = %{version}-%{release}
 Standard RIFF MIDI File dump program.
 
 %prep
-%setup -q -n %{name}-%{version}%{?svn}
+%autosetup -n %{name}-%{version}
 
 %build
 %cmake
