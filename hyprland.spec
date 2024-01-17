@@ -1,5 +1,5 @@
 Name:           hyprland
-Version:        0.32.3
+Version:        0.34.0
 Release:        %autorelease
 Summary:        Dynamic tiling Wayland compositor that doesn't sacrifice on its looks
 
@@ -19,7 +19,6 @@ Source:         %{url}/releases/download/v%{version}/source-v%{version}.tar.gz
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
-BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  jq
 BuildRequires:  meson
@@ -39,11 +38,11 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(pangocairo)
 BuildRequires:  pkgconfig(pixman-1) >= 0.42.0
+BuildRequires:  pkgconfig(tomlplusplus)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(wayland-server) >= 1.22.0
-BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-composite)
 BuildRequires:  pkgconfig(xcb-dri3)
 BuildRequires:  pkgconfig(xcb-icccm)
@@ -54,13 +53,14 @@ BuildRequires:  pkgconfig(xcb-res)
 BuildRequires:  pkgconfig(xcb-shm)
 BuildRequires:  pkgconfig(xcb-xfixes)
 BuildRequires:  pkgconfig(xcb-xinput)
+BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xwayland)
 
 # Upstream insists on always building against very current snapshots of
 # wlroots, and doesn't provide a method for building against a system copy.
 # https://github.com/hyprwm/Hyprland/issues/302
-Provides:       bundled(wlroots) = 0.17.0~^1.git5de9e1a
+Provides:       bundled(wlroots) = 0.18.0~1.git5d63939
 
 # udis86 is packaged in Fedora, but the copy bundled here is actually a
 # modified fork.
@@ -95,7 +95,6 @@ Requires:       pkgconfig(egl)
 Requires:       pkgconfig(gbm)
 Requires:       pkgconfig(glesv2)
 Requires:       pkgconfig(hwdata)
-Requires:       pkgconfig(hyprland-protocols)
 Requires:       pkgconfig(libdisplay-info)
 Requires:       pkgconfig(libdrm)
 Requires:       pkgconfig(libinput) >= 1.23.0
@@ -122,6 +121,7 @@ Requires:       pkgconfig(xcb-xfixes)
 Requires:       pkgconfig(xcb-xinput)
 Requires:       pkgconfig(xkbcommon)
 Requires:       pkgconfig(xwayland)
+Recommends:     git-core
 
 %description    devel
 %{summary}.
@@ -150,14 +150,11 @@ mkdir -p %{buildroot}%{_includedir}/%{name}/wlroots/wlr
 mv %{buildroot}%{_includedir}/wlr %{buildroot}%{_includedir}/%{name}/wlroots
 
 
-%check
-desktop-file-validate %{buildroot}/%{_datadir}/wayland-sessions/%{name}.desktop
-
-
 %files
 %license LICENSE LICENSE-udis86 LICENSE-wlroots
 %{_bindir}/Hyprland
 %{_bindir}/hyprctl
+%{_bindir}/hyprpm
 %{_mandir}/man1/Hyprland.1*
 %{_mandir}/man1/hyprctl.1*
 %{_datadir}/%{name}/

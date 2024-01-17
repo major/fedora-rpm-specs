@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 276
+%global baserelease 278
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -22,6 +22,7 @@ Source1: rpmrc
 Source50: redhat-hardened-cc1
 Source51: redhat-hardened-ld
 Source52: redhat-hardened-clang.cfg
+Source53: redhat-hardened-ld-errors
 
 # gcc specs files for annobin builds
 Source60: redhat-annobin-cc1
@@ -258,6 +259,13 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Mon Jan 15 2024 Nick Clifton  <nickc@redhat.com> - 278-1
+- Add hardening feature to convert linker warning messages into errors.
+- https://fedoraproject.org/wiki/Changes/Linker_Error_On_Security_Issues
+
+* Mon Jan 15 2024 Florian Weimer <fweimer@redhat.com> - 277-1
+- Switch C type safety level to 3 (GCC 14 default), and adjust for GCC 14
+
 * Thu Jan 11 2024 Jan Grulich <jgrulich@redhat.com> - 276-1
 - Drop qt5-srpm-macros from RHEL 10
 

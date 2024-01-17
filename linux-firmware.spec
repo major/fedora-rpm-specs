@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20231211
+Version:	20240115
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -28,8 +28,16 @@ Recommends:	intel-gpu-firmware
 Recommends:	nvidia-gpu-firmware
 %if 0%{?fedora} && 0%{?fedora} < 40
 Requires:	amd-ucode-firmware
+Requires:	cirrus-audio-firmware
+Requires:	intel-audio-firmware
+Requires:	nxpwireless-firmware
+Requires:	tiwilink-firmware
 %else
 Recommends:	amd-ucode-firmware
+Recommends:	cirrus-audio-firmware
+Recommends:	intel-audio-firmware
+Recommends:	nxpwireless-firmware
+Recommends:	tiwilink-firmware
 %endif
 %if 0%{?fedora} && 0%{?fedora} < 39
 Requires:	atheros-firmware
@@ -187,12 +195,26 @@ Requires:	linux-firmware-whence
 %description -n mt7xxx-firmware
 Firmware for Mediatek 7600/7900 series WiFi/Bluetooth adapters
 
+%package -n nxpwireless-firmware
+Summary:	Firmware for NXP WiFi/Bluetooth/UWB adapters
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+%description -n nxpwireless-firmware
+Firmware for NXP WiFi/Bluetooth/UWB adapters.
+
 %package -n realtek-firmware
 Summary:	Firmware for Realtek WiFi/Bluetooth adapters
 License:	Redistributable, no modification permitted
 Requires:	linux-firmware-whence
 %description -n realtek-firmware
 Firmware for Realtek WiFi/Bluetooth adapters
+
+%package -n tiwilink-firmware
+Summary:	Firmware for Texas Instruments WiFi/Bluetooth adapters
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+%description -n tiwilink-firmware
+Firmware for Texas Instruments WiFi/Bluetooth adapters
 
 # SMART NIC and network switch firmwares
 %package -n liquidio-firmware
@@ -223,6 +245,7 @@ Requires:	linux-firmware-whence
 %description -n netronome-firmware
 Firmware for Netronome Smart NICs
 
+# Silicon Vendor specific
 %package -n qcom-firmware
 Summary:	Firmware for Qualcomm SoCs
 License:	Redistributable, no modification permitted
@@ -232,6 +255,30 @@ Requires:	atheros-firmware = %{version}-%{release}
 Firmware for various compoents in Qualcomm SoCs including Adreno
 GPUs, Venus video encode/decode, Audio DSP, Compute DSP, WWAN
 modem, Sensor DSPs.
+
+# Vision and ISP hardware
+%package -n intel-vsc-firmware
+Summary:	Firmware files for Intel Visual Sensing Controller (IVSC)
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+%description -n intel-vsc-firmware
+Firmware files for Intel Visual Sensing Controller (IVSC) for
+Tiger Lake, Alder Lake and Raptor Lake SoCs.
+
+# Sound codec hardware
+%package -n cirrus-audio-firmware
+Summary:	Firmware for Cirrus audio amplifiers and codecs
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+%description -n cirrus-audio-firmware
+Firmware for Cirrus audio amplifiers and codecs
+
+%package -n intel-audio-firmware
+Summary:	Firmware for Intel audio DSP amplifiers and codecs
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+%description -n intel-audio-firmware
+Firmware for Intel audio DSP amplifiers and codecs
 
 # Random other hardware
 %package -n dvb-firmware
@@ -265,6 +312,9 @@ pushd %{buildroot}/%{_firmwarepath}
 # Perhaps these should be built as subpackages of linux-firmware?
 rm -rf ess korg sb16 yamaha
 
+# Remove firmware for Creative CA0132 HD as it's in alsa-firmware
+rm -f ctefx.bin* ctspeq.bin*
+
 # Remove source files we don't need to install
 rm -rf carl9170fw
 rm -rf cis/{src,Makefile}
@@ -279,9 +329,6 @@ rm -f usbdux/*dux */*.asm
 # which are preferred and support the same (or more) hardware
 rm -f libertas/sd8686_v8*
 rm -f libertas/usb8388_v5.bin*
-
-# Remove firmware for Creative CA0132 HD as it's in alsa-firmware
-rm -f ctefx.bin* ctspeq.bin*
 
 # Remove superfluous infra files
 rm -f check_whence.py configure Makefile README
@@ -306,10 +353,16 @@ sed \
 	-i -e '/^ath11k/d' \
 	-i -e '/^av7110/d' \
 	-i -e '/^brcm/d' \
+	-i -e '/^cirrus/d' \
 	-i -e '/^cmmb/d' \
 	-i -e '/^cypress/d' \
 	-i -e '/^dvb/d' \
 	-i -e '/^i915/d' \
+	-i -e '/^intel\/avs/d' \
+	-i -e '/^intel\/catpt/d' \
+	-i -e '/^intel\/dsp_fw/d' \
+	-i -e '/^intel\/fw_sst/d' \
+	-i -e '/^intel\/irci_irci/d' \
 	-i -e '/^isdbt/d' \
 	-i -e '/^iwlwifi/d' \
 	-i -e '/^nvidia\/g/d' \
@@ -326,6 +379,7 @@ sed \
 	-i -e '/^mrvl\/prestera/d' \
 	-i -e '/^mrvl\/sd8787/d' \
 	-i -e '/^netronome/d' \
+	-i -e '/^nxp/d' \
 	-i -e '/^qca/d' \
 	-i -e '/^qcom/d' \
 	-i -e '/^radeon/d' \
@@ -335,6 +389,7 @@ sed \
 	-i -e '/^rtw89/d' \
 	-i -e '/^sms1xxx/d' \
 	-i -e '/^tdmb/d' \
+	-i -e '/^ti-connectivity/d' \
 	-i -e '/^v4l-cx2/d' \
 	linux-firmware.files
 sed -i -e 's!^!/usr/lib/firmware/!' linux-firmware.{files,dirs}
@@ -448,12 +503,22 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/mediatek/BT*
 %{_firmwarepath}/mediatek/WIFI*
 
+%files -n nxpwireless-firmware
+%license LICENSE.nxp
+%dir %{_firmwarepath}/nxp
+%{_firmwarepath}/nxp/*
+
 %files -n realtek-firmware
 %license LICENCE.rtlwifi_firmware.txt
 %{_firmwarepath}/rtl_bt/
 %{_firmwarepath}/rtlwifi/
 %{_firmwarepath}/rtw88/
 %{_firmwarepath}/rtw89/
+
+%files -n tiwilink-firmware
+%license LICENCE.ti-connectivity
+%dir %{_firmwarepath}/ti-connectivity/
+%{_firmwarepath}/ti-connectivity/*
 
 # SMART NIC and network switch firmwares
 %files -n liquidio-firmware
@@ -481,6 +546,29 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %dir %{_firmwarepath}/qcom
 %{_firmwarepath}/qcom/*
 
+# Vision and ISP hardware
+%files -n intel-vsc-firmware
+%license LICENSE.ivsc
+%dir %{_firmwarepath}/intel/vsc/
+%{_firmwarepath}/intel/irci_irci_ecr-master_20161208_0213_20170112_1500.bin*
+%{_firmwarepath}/intel/vsc/*
+
+# Sound codec hardware
+%files -n cirrus-audio-firmware
+%license LICENSE.cirrus
+%dir %{_firmwarepath}/cirrus
+%{_firmwarepath}/cirrus/*
+
+%files -n intel-audio-firmware
+%license LICENCE.adsp_sst LICENCE.IntcSST2
+%dir %{_firmwarepath}/intel/
+%dir %{_firmwarepath}/intel/avs/
+%dir %{_firmwarepath}/intel/catpt/
+%{_firmwarepath}/intel/avs/*
+%{_firmwarepath}/intel/catpt/*
+%{_firmwarepath}/intel/dsp_fw*
+%{_firmwarepath}/intel/fw_sst*
+
 # Random other hardware
 %files -n dvb-firmware
 %license LICENSE.dib0700 LICENCE.it913x LICENCE.siano
@@ -496,6 +584,31 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Mon Jan 15 2024 Peter Robinson <pbrobinson@fedoraproject.org>
+- Update to upstream 20240115
+- Split out Intel/Cirrus audio firmware, ISP firmware, NXP/TI WiFi Firmware
+- Intel Bluetooth: Update firmware file for AX101/AX203/AX210/AX211
+- Cirrus: Add CS35L41 firmware for Legion Slim 7 Gen 8 laptops
+- Cirrus: Add firmware for CS35L41 for various Dell laptops
+- update firmware for qat_4xxx devices
+- update firmware for w1u_uart
+- Cirrus: Add firmware file for cs42l43
+- amdgpu: DMCUB updates for DCN312/DCN314
+- amlogic/bluetooth: add firmware bin of W1 serial soc(w1u_uart)
+- Add firmware for Mediatek WiFi/bluetooth chip (MT7925)
+- ASoC: tas2781/tas2563: Add dsp firmware for laptops or other mobile devices
+- rtl_bt: Add firmware and config files for RTL8852BT/RTL8852BE-VT
+- ath11k: Updates for WCN6855/WCN6750/IPQ8074
+- ath10k: Updates to WCN3990/QCA9888/QCA4019/QCA6174
+- ath12k: add new driver and firmware for WCN7850
+- iwlwifi: update gl FW for core80-165 release
+- intel: vsc: Add firmware for Visual Sensing Controller
+- Cirrus: Add CS35L41 firmware and tunings for ASUS Zenbook 2022/2023 Models
+- QCA: Add bluetooth firmware nvm files for QCA2066
+- QCA: Update Bluetooth QCA2066 firmware to 2.1.0-00629
+- amdgpu: DMCUB updates for various AMDGPU ASICs
+- qcom: Add Audio firmware for SM8550/SM8650 QRD
+
 * Wed Dec 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20231211-1
 - Update to upstream 20231211 release
 - wfx: update to firmware 3.17

@@ -1,49 +1,49 @@
-# tests are enabled by default
-%bcond_without tests
+%bcond tests 1
 
-%global         srcname     google-resumable-media
-%global         forgeurl    https://github.com/googleapis/google-resumable-media-python
-Version:        2.6.0
-%global         tag         v%{version}
-%forgemeta
-
-Name:           python-%{srcname}
+Version:        2.7.0
+Name:           python-google-resumable-media
 Release:        %autorelease
 Summary:        Utilities for Google media downloads and resumable uploads
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/google-resumable-media-python
+Source:         %{url}/archive/v%{version}/google-resumable-media-python-%{version}.tar.gz
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
 %if %{with tests}
-BuildRequires:  python3dist(aiohttp)
-BuildRequires:  python3dist(google-auth)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(requests)
-BuildRequires:  python3dist(urllib3)
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist brotli}
 %endif
 
 %global _description %{expand:
-Utilities for Google media downloads and resumable uploads}
+%{summary}.}
 
 %description %{_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-google-resumable-media
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %{_description}
+%description -n python3-google-resumable-media %{_description}
+
+
+# We don’t build a metapackage for the aiohttp extra because it currently
+# requires google-auth 1.x, and Fedora has version 2.x.
+#
+# Please consider supporting google-auth 2.x
+# https://github.com/googleapis/google-resumable-media-python/issues/417
+%pyproject_extras_subpkg -n python3-google-resumable-media requests
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -n google-resumable-media-python-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x requests
 
 
 %build
@@ -52,22 +52,23 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files google
+%pyproject_save_files -l google
 
 
-%if %{with tests}
 %check
+%pyproject_check_import
+%if %{with tests}
 # Work around an usual pytest/PEP 420 issue where pytest can't import the
 # installed module. Thanks to mhroncok for the help!
 mv google{,_}
-%pytest --disable-warnings tests/unit
+%pytest tests/unit
 mv google{_,}
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
-%doc README.rst CHANGELOG.md
+%files -n python3-google-resumable-media -f %{pyproject_files}
+%doc CHANGELOG.md
+%doc README.rst
 
 
 %changelog

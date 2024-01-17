@@ -5,10 +5,10 @@ Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
 # handbook doc: GFDL
-License: (GPLv2 or GPLv3) and GFDL
-URL:     https://cgit.kde.org/%{name}.git
+License: (GPL-2.0-only or GPL-3.0-only) and GFDL
+URL:     https://invent.kde.org/multimedia/%{name}
 
-Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -18,32 +18,36 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5Crash)
-BuildRequires: cmake(KF5DBusAddons)
-BuildRequires: cmake(KF5GlobalAccel)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5JobWidgets)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5WidgetsAddons)
-BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6StatusNotifierItem)
 
-BuildRequires: cmake(Phonon4Qt5)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Widgets)
+
+BuildRequires: cmake(Phonon4Qt6)
 BuildRequires: pkgconfig(taglib)
 
 # when split occurred
@@ -63,7 +67,7 @@ Juk is a jukebox, tagger and music collection manager.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 
 %cmake_build
 
@@ -75,19 +79,19 @@ Juk is a jukebox, tagger and music collection manager.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.juk.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.juk.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.juk.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.juk.desktop
 
 %files -f %{name}.lang
 %license COPYING*
 %{_datadir}/dbus-1/interfaces/org.kde.juk.*.xml
-%{_kf5_bindir}/juk
-%{_kf5_datadir}/applications/org.kde.juk.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/juk.*
-%{_kf5_datadir}/juk/
-%{_kf5_datadir}/kio/servicemenus/jukservicemenu.desktop
-%{_kf5_datadir}/knotifications5/juk.*
-%{_kf5_metainfodir}/org.kde.juk.appdata.xml
+%{_kf6_bindir}/juk
+%{_kf6_datadir}/applications/org.kde.juk.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/juk.*
+%{_kf6_datadir}/juk/
+%{_kf6_datadir}/kio/servicemenus/jukservicemenu.desktop
+%{_kf6_datadir}/knotifications6/juk.*
+%{_kf6_metainfodir}/org.kde.juk.appdata.xml
 
 
 %changelog

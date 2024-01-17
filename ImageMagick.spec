@@ -19,8 +19,8 @@ Epoch:          1
 %else
 Epoch:          0
 %endif
-Version:        7.1.1.15
-Release:        1%{?dist}
+Version:        7.1.1.26
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -37,6 +37,7 @@ Source2:        ImageMagick.keyring
 # https://github.com/ImageMagick/ImageMagick/issues/6158
 # https://github.com/ImageMagick/ImageMagick/commit/06d3b282a43457da6b3a2d3f84c33e07064a1e98
 Patch0:         ImageMagick-terminate-loop-on-sentinel.patch
+Patch1:         570a9a048bb0e3a5c221ca87be9408ae35f711e2.patch
 
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(freetype2)
@@ -429,6 +430,12 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Mon Jan 15 2024 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.26-2
+- fix PKG_CONFIG_LIBDIR
+
+* Mon Jan 08 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:7.1.1.26-1
+- Update to 7.1.1.26 (#2239345)
+
 * Tue Aug 22 2023 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.15-1
 - Update ImageMagick to 7.1.1.15 (#2217558)
 

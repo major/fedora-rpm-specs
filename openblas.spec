@@ -14,7 +14,7 @@
 # "obsoleted" features are still kept in the spec.
 
 Name:           openblas
-Version:        0.3.25
+Version:        0.3.26
 Release:        1%{?dist}
 Summary:        An optimized BLAS library based on GotoBLAS2
 
@@ -648,7 +648,10 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 %endif
 
 %changelog
-* Thu Nov 30 2023 Ismail Doenmez <ismail@i10z.com> - 0.3.25-1
+* Sun Jan 07 2024 İsmail Dönmez <ismail@i10z.com> - 0.3.26-1
+- Update to 0.3.26
+
+* Thu Nov 30 2023 İsmail Dönmez <ismail@i10z.com> - 0.3.25-1
 - Update to 0.3.25
 
 * Fri Oct 27 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.3.24-1

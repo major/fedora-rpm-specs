@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
-%global sover 2.4
+%global sover 2.5
 
 Name:           OpenImageIO
-Version:        2.4.17.0
+Version:        2.5.7.0
 Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
@@ -38,7 +38,7 @@ BuildRequires:  hdf5-devel
 BuildRequires:  jasper-devel
 # Only available on RPM Fusion
 #BuildRequires:  libheif-devel
-BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  turbojpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  LibRaw-devel
 BuildRequires:  libsquish-devel
@@ -64,8 +64,8 @@ BuildRequires:  zlib-devel
 
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
-# rebuilt.
-BuildRequires:  OpenColorIO-devel
+# rebuilt. Soname bumps will require a bootstrap build of OIIO.
+#BuildRequires:  OpenColorIO-devel
 
 
 %description
@@ -206,6 +206,10 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Jan 15 2024 Richard Shaw <hobbes1069@gmail.com> - 2.5.7.0-1
+- Update to 2.5.7.0.
+- Bootstrap build without OCIO.
+
 * Thu Nov 09 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.17.0-1
 - Update to 2.4.17.0.
 

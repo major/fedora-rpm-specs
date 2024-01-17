@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 License:        ASL 2.0
@@ -21,7 +21,6 @@ BuildArch:      noarch
 
 BuildRequires: python3-devel
 BuildRequires: ansible-core
-BuildRequires: python3dist(mock)
 BuildRequires: python3dist(pbr)
 BuildRequires: python3dist(pip)
 BuildRequires: python3dist(psutil)
@@ -95,6 +94,9 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_datadir}/ansible-runner/utils
 
 %changelog
+* Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 2.3.4-2
+- Remove unused python3-mock dependency
+
 * Fri Sep 08 2023 Dan Radez <dradez@redhat.com> - 2.3.4-1
 - update to 2.3.4 rhbz#2236131
 

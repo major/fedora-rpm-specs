@@ -1,7 +1,7 @@
 %bcond_without test
 
 Name:           py3status
-Version:        3.53
+Version:        3.55
 Release:        %autorelease
 Summary:        An extensible i3status wrapper written in python
 
@@ -25,6 +25,7 @@ Using py3status, you can take control of your i3bar easily by:
 - seeing your clock tick every second whatever your i3status interval
 No extra configuration file needed, just install & enjoy !
 
+%pyproject_extras_subpkg -n %{name} dbus
 %pyproject_extras_subpkg -n %{name} udev
 
 %prep

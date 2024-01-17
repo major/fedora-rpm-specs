@@ -1,27 +1,18 @@
-%undefine __cmake_in_source_build
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
-Version: 23.08.2
+Version: 24.01.90
 Release: 1%{?dist}
 
-License: GPLv2+ and GPLv2+ and BSD
-URL:     https://cgit.kde.org/%{name}.git
+License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND BSD-2-Clause
+URL:     https://invent.kde.org/sdk/%{name}.git
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(KF5DocTools)
+BuildRequires:  cmake(KF6DocTools)
 
 BuildRequires:  perl-generators
-BuildRequires:  python3
-# for env replacement in %%install
-BuildRequires:  sed
+BuildRequires:  python3-devel
 
 Requires:       advancecomp
 Requires:       optipng
@@ -43,7 +34,7 @@ KDE SDK scripts
 
 
 %build
-%{cmake_kf5}
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 
@@ -52,91 +43,80 @@ KDE SDK scripts
 
 %find_lang %{name} --all-name --with-html --with-man
 
-# purge use of /usr/bin/env
-sed -i \
-  -e "s|^#!/usr/bin/env bash|#!/bin/bash|g" \
-  -e "s|^#! /usr/bin/env bash|#!/bin/bash|g" \
-  -e "s|^#!/usr/bin/env perl|#!/usr/bin/perl|g" \
-  -e "s|^#! /usr/bin/env perl|#!/usr/bin/perl|g" \
-  -e "s|^#!/usr/bin/env python$|#!%{__python3}|g" \
-  -e "s|^#! /usr/bin/env python$|#!%{__python3}|g" \
-  %{buildroot}%{_kf5_bindir}/*
+%py3_shebang_fix %{buildroot}%{_kf6_bindir}/*
 
 # unpackaged files
 # This one fits better into krazy2 (it requires krazy2), and the version in
 # kdesdk does not understand lib64.
-rm -fv %{buildroot}%{_kf5_bindir}/krazy-licensecheck
-
-
-%check
-test -n "$(grep "/usr/bin/env" %{buildroot}%{_kf5_bindir}/* 2> /dev/null )" ||:
+rm -fv %{buildroot}%{_kf6_bindir}/krazy-licensecheck
 
 
 %files -f %{name}.lang
 %doc README
 %license COPYING
-%{_kf5_bindir}/grantlee_strings_extractor.py
-%{_kf5_bindir}/c++-copy-class-and-file
-%{_kf5_bindir}/c++-rename-class-and-file
-%{_kf5_bindir}/svnrevertlast
-%{_kf5_bindir}/fixuifiles
-%{_kf5_bindir}/cvscheck
-%{_kf5_bindir}/extend_dmalloc
-%{_kf5_bindir}/extractattr
-%{_kf5_bindir}/noncvslist
-%{_kf5_bindir}/pruneemptydirs
-%{_kf5_bindir}/cvsrevertlast
-%{_kf5_bindir}/create_makefile
-%{_kf5_bindir}/colorsvn
-%{_kf5_bindir}/cvslastchange
-%{_kf5_bindir}/svngettags
-%{_kf5_bindir}/create_svnignore
-%{_kf5_bindir}/svnchangesince
-%{_kf5_bindir}/build-progress.sh
-%{_kf5_bindir}/package_crystalsvg
-%{_kf5_bindir}/svnbackport
-%{_kf5_bindir}/svnlastlog
-%{_kf5_bindir}/cxxmetric
-%{_kf5_bindir}/kdemangen.pl
-%{_kf5_bindir}/cvsforwardport
-%{_kf5_bindir}/includemocs
-%{_kf5_bindir}/svnlastchange
-%{_kf5_bindir}/wcgrep
-%{_kf5_bindir}/qtdoc
-%{_kf5_bindir}/nonsvnlist
-%{_kf5_bindir}/svnforwardport
-%{_kf5_bindir}/create_cvsignore
-%{_kf5_bindir}/svnintegrate
-%{_kf5_bindir}/kdekillall
-%{_kf5_bindir}/create_makefiles
-%{_kf5_bindir}/cvsbackport
-%{_kf5_bindir}/fixkdeincludes
-%{_kf5_bindir}/kde-systemsettings-tree.py
-%{_kf5_bindir}/zonetab2pot.py
-%{_kf5_bindir}/kde_generate_export_header
-%{_kf5_bindir}/cvs-clean
-%{_kf5_bindir}/kdelnk2desktop.py
-%{_kf5_bindir}/findmissingcrystal
-%{_kf5_bindir}/adddebug
-%{_kf5_bindir}/cvsversion
-%{_kf5_bindir}/cheatmake
-%{_kf5_bindir}/cvsblame
-%{_kf5_bindir}/optimizegraphics
-%{_kf5_bindir}/cvsaddcurrentdir
-%{_kf5_bindir}/fix-include.sh
-%{_kf5_bindir}/kdedoc
-%{_kf5_bindir}/svn-clean
-%{_kf5_bindir}/png2mng.pl
-%{_kf5_bindir}/extractrc
-%{_kf5_bindir}/makeobj
-%{_kf5_bindir}/cvslastlog
-%{_kf5_bindir}/svnversions
-%{_kf5_bindir}/draw_lib_dependencies
-%{_kf5_bindir}/reviewboard-am
-%{_kf5_bindir}/uncrustify-kf5
-%{_kf5_bindir}/clean-forward-declaration.sh
-%{_kf5_bindir}/clean-includes.sh
-%{_kf5_datadir}/uncrustify/
+%{_kf6_bindir}/grantlee_strings_extractor.py
+%{_kf6_bindir}/c++-copy-class-and-file
+%{_kf6_bindir}/c++-rename-class-and-file
+%{_kf6_bindir}/svnrevertlast
+%{_kf6_bindir}/fixuifiles
+%{_kf6_bindir}/cvscheck
+%{_kf6_bindir}/extend_dmalloc
+%{_kf6_bindir}/extractattr
+%{_kf6_bindir}/noncvslist
+%{_kf6_bindir}/pruneemptydirs
+%{_kf6_bindir}/cvsrevertlast
+%{_kf6_bindir}/create_makefile
+%{_kf6_bindir}/colorsvn
+%{_kf6_bindir}/cvslastchange
+%{_kf6_bindir}/svngettags
+%{_kf6_bindir}/create_svnignore
+%{_kf6_bindir}/svnchangesince
+%{_kf6_bindir}/build-progress.sh
+%{_kf6_bindir}/package_crystalsvg
+%{_kf6_bindir}/svnbackport
+%{_kf6_bindir}/svnlastlog
+%{_kf6_bindir}/cxxmetric
+%{_kf6_bindir}/kdemangen.pl
+%{_kf6_bindir}/cvsforwardport
+%{_kf6_bindir}/includemocs
+%{_kf6_bindir}/svnlastchange
+%{_kf6_bindir}/wcgrep
+%{_kf6_bindir}/nonsvnlist
+%{_kf6_bindir}/svnforwardport
+%{_kf6_bindir}/create_cvsignore
+%{_kf6_bindir}/svnintegrate
+%{_kf6_bindir}/kdekillall
+%{_kf6_bindir}/create_makefiles
+%{_kf6_bindir}/cvsbackport
+%{_kf6_bindir}/fixkdeincludes
+%{_kf6_bindir}/kde-systemsettings-tree.py
+%{_kf6_bindir}/zonetab2pot.py
+%{_kf6_bindir}/kde_generate_export_header
+%{_kf6_bindir}/cvs-clean
+%{_kf6_bindir}/kdelnk2desktop.py
+%{_kf6_bindir}/findmissingcrystal
+%{_kf6_bindir}/adddebug
+%{_kf6_bindir}/cvsversion
+%{_kf6_bindir}/cheatmake
+%{_kf6_bindir}/cvsblame
+%{_kf6_bindir}/optimizegraphics
+%{_kf6_bindir}/cvsaddcurrentdir
+%{_kf6_bindir}/fix-include.sh
+%{_kf6_bindir}/kdedoc
+%{_kf6_bindir}/svn-clean
+%{_kf6_bindir}/png2mng.pl
+%{_kf6_bindir}/extractrc
+%{_kf6_bindir}/makeobj
+%{_kf6_bindir}/cvslastlog
+%{_kf6_bindir}/svnversions
+%{_kf6_bindir}/draw_lib_dependencies
+%{_kf6_bindir}/reviewboard-am
+%{_kf6_bindir}/uncrustify-kf5
+%{_kf6_bindir}/clean-forward-declaration.sh
+%{_kf6_bindir}/clean-includes.sh
+%{_kf6_bindir}/addmocincludes
+%{_kf6_bindir}/port_new_gitlab_ci_template.sh
+%{_kf6_datadir}/uncrustify/
 %{_mandir}/man1/adddebug.1*
 %{_mandir}/man1/cheatmake.1*
 %{_mandir}/man1/create_cvsignore.1*
@@ -151,11 +131,15 @@ test -n "$(grep "/usr/bin/env" %{buildroot}%{_kf5_bindir}/* 2> /dev/null )" ||:
 %{_mandir}/man1/extractrc.1*
 %{_mandir}/man1/fixincludes.1*
 %{_mandir}/man1/pruneemptydirs.1*
-%{_mandir}/man1/qtdoc.1*
 %{_mandir}/man1/zonetab2pot.py.1*
 
 
 %changelog
+* Mon Jan 15 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-1
+- 24.01.90
+- Mangle python shebang with py3_shebang_fix macro
+- Mangle other shebangs automatically with brp-mangle-shebangs
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

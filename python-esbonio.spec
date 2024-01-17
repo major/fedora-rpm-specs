@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        A Language Server for Sphinx projects
 License:        MIT
 URL:            https://github.com/swyddfa/esbonio
-Source:         %{pypi_source esbonio}
+Source:         %{url}/releases/download/esbonio-language-server-v%{version}/esbonio-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

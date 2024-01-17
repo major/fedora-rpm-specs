@@ -133,8 +133,11 @@ Requires:       xdg-desktop-portal-gtk >= 1.8.0
 Requires:       xdg-desktop-portal-gnome
 # needed by the welcome dialog
 Recommends:     gnome-tour
+
+%if !0%{?rhel}
 # needed for captive portal helper
 Recommends:     webkitgtk6.0%{?_isa}
+%endif
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # xdg-desktop-portal and xdg-desktop-portal-gtk no longer have i686

@@ -52,7 +52,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
 #
-Version:  9.19.18
+Version:  9.19.19
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -88,9 +88,6 @@ Source49: named-chroot.files
 # Common patches
 # Red Hat specific documentation is not relevant to upstream
 Patch1: bind-9.16-redhat_doc.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/8285
-Patch2: bind-9.19-tests-dns-rbtdb-i386.patch
-Patch3: bind-9.19-rbtdb-i686.patch
 
 %{?systemd_ordering}
 Requires:       coreutils

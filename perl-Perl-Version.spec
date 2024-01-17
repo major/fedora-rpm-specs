@@ -1,28 +1,37 @@
 Name:           perl-Perl-Version
-Version:        1.013
-Release:        25%{?dist}
+Version:        1.016
+Release:        1%{?dist}
 Summary:        Parse and manipulate Perl version strings
-License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Version
 Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Perl-Version-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(utf8)
 # Tests
+BuildRequires:  perl(blib)
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Slurp::Tiny)
-BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FileHandle)
+BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(version) >= 0.77
 # Optional tests
 BuildRequires:  perl(ExtUtils::Manifest)
 BuildRequires:  perl(Test::Pod) >= 1.14
@@ -38,25 +47,29 @@ formatting Perl version strings.
 %setup -q -n Perl-Version-%{version}
 
 %build
-PERL_MM_USE_DEFAULT=true perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+PERL_MM_USE_DEFAULT=true perl Makefile.PL INSTALLDIRS=vendor \
+    NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
 %files
-%doc Changes Notes.txt README
-%{perl_vendorlib}/*
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%license LICENSE
+%doc Changes Notes.txt README.pod
+%{perl_vendorlib}/Perl*
+%{_bindir}/perl-reversion*
+%{_mandir}/man1/perl-reversion*
+%{_mandir}/man3/Perl::Version*
 
 %changelog
+* Mon Jan 15 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.016-1
+- 1.016 bump
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.013-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

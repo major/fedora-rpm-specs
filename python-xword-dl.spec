@@ -1,7 +1,7 @@
 %global pypi_name xword_dl
 
 Name:           python-xword-dl
-Version:        2023.7.2
+Version:        2023.12.2
 Release:        %autorelease
 Summary:        Download tool for online crossword puzzles
 

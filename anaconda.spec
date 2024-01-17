@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.15
+Version: 40.17
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -465,6 +465,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 12 2024 Packit <hello@packit.dev> - 40.17-1
+- tests: Add a test case for the NVMe module (vtrefny)
+- Add a simple NVMe module for NVMe Fabrics support (vtrefny)
+- Disable LVM devices file when running image installs (vtrefny)
+- Update translations from Weblate for master (github-actions)
+- Fixed file-write operation to a public directory (ataf)
+- gui: Improve the position of the Encrypt checkbox in the Container dialog
+  (vponcova)
+- storage: Set the default LUKS version for interactive partitioning (vponcova)
+- gui: Remove support for the LUKS version selection (vponcova)
+- Update translations from Weblate for master (github-actions)
+- docs: Fix commit-log.rst after JIRA switch (jkonecny)
+- Update documentation for RHEL contributions (jkonecny)
+
 * Tue Dec 19 2023 Packit <hello@packit.dev> - 40.15-1
 - fix missing emit of zfcp kickstart statements (maier)
 - DeviceTreeViewer: Add path-id attribute to zfcp-attached SCSI disks (maier)

@@ -3,8 +3,8 @@
 %global somajor 4
 
 Name:           plasma-%{component}
-Version:        4.4.0
-Release:        10%{?dist}
+Version:        4.4.1
+Release:        %autorelease
 Summary:        Dynamic wallpaper plugin for KDE Plasma
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND CC0-1.0 AND CC-BY-SA-4.0
@@ -124,67 +124,4 @@ desktop-file-validate %{buildroot}%{_datadir}/kservices5/plasma-wallpaper-com.gi
 %{_datadir}/zsh/site-functions/_kdynamicwallpaperbuilder
 
 %changelog
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Apr 11 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.0-9
-- Adapt license tag to SPDX
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Dec 01 2022 Kalev Lember <klember@redhat.com> - 4.4.0-7
-- Rebuild for new libavif
-
-* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.4.0-6
-- Rebuild for new libavif
-
-* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.4.0-5
-- Rebuild for new libavif
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jul 16 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.0-3
-- Rebuild for new version of private API
-
-* Thu Jun 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.4.0-2
-- Rebuilt for new libavif
-
-* Tue Jun 14 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.0-1
-- Bump to version 4.4.0
-
-* Tue May 24 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.1-2
-- Rebuild for new version of private API
-
-* Sat Apr 23 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.1-1
-- Bump to version 4.3.1
-
-* Tue Apr 12 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.0-1
-- Bump to version 4.3.0
-
-* Mon Apr 11 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.1.0-1
-- Bump to version 4.1.0
-
-* Sat Apr 09 2022 Neal Gompa <ngompa@fedoraproject.org> - 4.0.0-1
-- Bump to version 4.0.0 final
-
-* Mon Mar 28 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.0.0~git20220328.d37f412-1
-- Bump snapshot, fixes a crash when creating a preview
-
-* Sun Mar 27 2022 Neal Gompa <ngompa@fedoraproject.org> - 4.0.0~git20220327.ca7b129-1
-- Bump to snapshot version using AVIF instead HEIF
-- Modernize spec
-- Add checks for appstream metainfo and desktop files
-
-* Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 3.3.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 3.3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat Jun 05 2021 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.9-1
-- Update to v3.3.9
-
-* Sat Nov 14 2020 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.5-1
-- Initial packaging for Fedora
+%autochangelog

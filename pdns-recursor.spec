@@ -3,7 +3,7 @@
 %endif
 
 Name: pdns-recursor
-Version: 4.9.2
+Version: 5.0.1
 Release: %autorelease
 Summary: Modern, advanced and high performance recursing/non authoritative name server
 License: GPLv2
@@ -34,6 +34,8 @@ BuildRequires: libsodium-devel
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtool
+BuildRequires: cargo-rpm-macros
+BuildRequires: curl-devel
 
 Requires(pre): shadow-utils
 Requires(post): systemd
@@ -48,6 +50,12 @@ package if you need a dns cache for your network.
 
 %prep
 %autosetup -n %{name}-%{version}
+cd settings/rust
+%cargo_prep
+
+%generate_buildrequires
+cd settings/rust
+%cargo_generate_buildrequires
 
 %build
 %configure \
@@ -63,6 +71,10 @@ package if you need a dns cache for your network.
 %endif
     --with-socketdir=%{_rundir}
 
+cd settings/rust
+# needed because cargo_prep removes Cargo.lock but Makefile has no rule to make
+# target 'Cargo.lock'
+cargo generate-lockfile --offline
 make %{?_smp_mflags}
 
 
@@ -112,6 +124,9 @@ exit 0
 %{_unitdir}/pdns-recursor@.service
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/recursor.conf
+# provide example yml config file. Since recursor.yml takes precedence over
+# recursor.conf we don't put it directly there
+%config %{_sysconfdir}/%{name}/recursor.yml-dist
 %dir %attr(0755,pdns-recursor,pdns-recursor) %{_sharedstatedir}/%{name}
 %dir %attr(0755,pdns-recursor,pdns-recursor) %{_sharedstatedir}/%{name}/nod
 %dir %attr(0755,pdns-recursor,pdns-recursor) %{_sharedstatedir}/%{name}/udr

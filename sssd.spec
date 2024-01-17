@@ -42,12 +42,12 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.9.3
-Release: 1%{?dist}
+Version: 2.9.4
+Release: 2%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.9.3/sssd-2.9.3.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.9.4/sssd-2.9.4.tar.gz
 
 ### Patches ###
 
@@ -60,6 +60,7 @@ Requires: sssd-krb5 = %{version}-%{release}
 Requires: sssd-ldap = %{version}-%{release}
 Requires: sssd-proxy = %{version}-%{release}
 Suggests: logrotate
+Suggests: procps-ng
 Suggests: python3-sssdconfig = %{version}-%{release}
 Suggests: sssd-dbus = %{version}-%{release}
 
@@ -73,6 +74,12 @@ Suggests: sssd-dbus = %{version}-%{release}
 %global gpocachepath %{sssdstatedir}/gpo_cache
 %global secdbpath %{sssdstatedir}/secrets
 %global deskprofilepath %{sssdstatedir}/deskprofile
+
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/URKAWVPEINE4CREFO4L22MGKN6TNUGQK/
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
 
 ### Build Dependencies ###
 
@@ -535,7 +542,6 @@ autoreconf -ivf
     --with-sssd-user=%{sssd_user} \
     --with-syslog=journald \
     --with-test-dir=/dev/shm \
-    --with-files-provider \
 %if %{build_subid}
     --with-subid \
 %endif
@@ -718,7 +724,6 @@ done
 %{_libexecdir}/%{servicename}/sssd_check_socket_activated_responders
 
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/libsss_files.so
 %{_libdir}/%{name}/libsss_simple.so
 
 #Internal shared libraries
@@ -774,7 +779,6 @@ done
 %{_mandir}/man1/sss_ssh_authorizedkeys.1*
 %{_mandir}/man1/sss_ssh_knownhostsproxy.1*
 %{_mandir}/man5/sssd.conf.5*
-%{_mandir}/man5/sssd-files.5*
 %{_mandir}/man5/sssd-simple.5*
 %{_mandir}/man5/sssd-sudo.5*
 %{_mandir}/man5/sssd-session-recording.5*
@@ -1059,6 +1063,14 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Mon Jan 15 2024 Colin Walters <walters@verbum.org> - 2.9.4-2
+- Scope ExcludeArch: ix86 to RHEL10+
+
+* Fri Jan 12 2024 Pavel Březina <pbrezina@redhat.com> - 2.9.4-1
+- Rebase to SSSD 2.9.4
+- Files provider suport remove (rhbz#2253183)
+- i686 support removed (rhbz#2069738)
+
 * Wed Nov 15 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.3-1
 - Rebase to SSSD 2.9.3
 

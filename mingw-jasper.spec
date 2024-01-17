@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-jasper
-Version:        4.1.0
+Version:        4.1.2
 Release:        1%{?dist}
 Summary:        MinGW Windows Jasper library
 
@@ -72,7 +72,7 @@ Static version of the MinGW Windows Jasper library.
 
 
 %build
-jasper_cmake_args="-DJAS_ENABLE_DOC=OFF -DJAS_ENABLE_OPENGL=OFF -DJAS_ENABLE_AUTOMATIC_DEPENDENCIES=OFF -DJAS_STDC_VERSION=201112L"
+jasper_cmake_args="-DJAS_ENABLE_DOC=OFF -DJAS_ENABLE_OPENGL=OFF -DJAS_ENABLE_AUTOMATIC_DEPENDENCIES=OFF -DJAS_STDC_VERSION=201112L -DALLOW_IN_SOURCE_BUILD=ON"
 # Build static
 MINGW_BUILDDIR_SUFFIX=-static %mingw_cmake -DJAS_ENABLE_SHARED=OFF $jasper_cmake_args
 MINGW_BUILDDIR_SUFFIX=-static %mingw_make_build
@@ -122,6 +122,9 @@ rmdir %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Mon Jan 15 2024 Sandro Mani <manisandro@gmail.com> - 4.1.2-1
+- Update to 4.1.2
+
 * Tue Nov 28 2023 Sandro Mani <manisandro@gmail.com> - 4.1.0-1
 - Update to 4.1.0
 

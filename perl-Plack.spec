@@ -35,8 +35,8 @@
 %bcond_without perl_Plack_enables_ssl
 
 Name:           perl-Plack
-Version:        1.0050
-Release:        4%{?dist}
+Version:        1.0051
+Release:        1%{?dist}
 Summary:        Perl Superglue for Web frameworks and Web Servers (PSGI toolkit)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Plack
@@ -49,7 +49,7 @@ BuildRequires:  %{__make}
 BuildRequires:  %{__perl}
 
 BuildRequires:  perl-generators
-BuildRequires:  perl(:VERSION) >= 5.8.1
+BuildRequires:  perl(:VERSION) >= 5.12.0
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
 BuildRequires:  perl(File::ShareDir::Install) >= 0.06
 BuildRequires:  perl(strict)
@@ -277,7 +277,7 @@ Requires:   perl(Test::TCP) >= 2.15
 
 %prep
 %setup -q -n Plack-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -357,6 +357,9 @@ export TEST_APACHE2=0
 %{perl_vendorlib}/auto/*
 
 %changelog
+* Mon Jan 15 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.0051-1
+- Update to 1.0051.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0050-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

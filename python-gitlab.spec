@@ -2,7 +2,7 @@
 %global pypi_name gitlab
 
 Name:           python-%{pypi_name}
-Version:        4.2.0
+Version:        4.4.0
 Release:        %autorelease
 Summary:        Interact with GitLab API
 

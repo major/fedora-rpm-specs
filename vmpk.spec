@@ -11,7 +11,7 @@ BuildRequires:  qt6-qtbase-devel >= 6.2
 BuildRequires:  qt6-qtsvg-devel >= 6.2
 BuildRequires:  qt6-qttools-devel >= 6.2
 BuildRequires:  cmake(Qt6Core5Compat)
-BuildRequires:  drumstick-devel >= 2.6.0
+BuildRequires:  drumstick-devel >= 2.9
 BuildRequires:  libxcb-devel
 BuildRequires:  pkgconfig
 BuildRequires:  cmake >= 3.9

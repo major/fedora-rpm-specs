@@ -1,18 +1,22 @@
+%ifarch %{golang_arches}
+%bcond man 1
+%endif
+
 Name:           composefs
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to handle creating and mounting composefs images
 
 License:        GPL-3.0-or-later AND LGPL-2.0-or-later AND Apache-2.0
 URL:            https://github.com/containers/composefs
 Source0:        https://github.com/containers/composefs/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  gcc automake libtool openssl-devel go-md2man fuse3-devel
+BuildRequires:  gcc automake libtool openssl-devel fuse3-devel
+%if %{with man}
+BuildRequires:  go-md2man
+%endif
 
 Requires:       %{name}-libs = %{version}-%{release}
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 
 %description
 Tools to handle creating and mounting composefs images. The composefs
@@ -45,7 +49,9 @@ autoreconf -fiv
 %build
 %configure \
            --disable-static \
+%if %{with man}
            --enable-man \
+%endif
            --with-fuse
 %make_build
 
@@ -68,7 +74,9 @@ rm -rf %{buildroot}%{_libdir}/libcomposefs.la
 %{_bindir}/mkcomposefs
 %{_bindir}/composefs-info
 %{_sbindir}/mount.composefs
+%if %{with man}
 %{_mandir}/man*/*
+%endif
 
 %changelog
 

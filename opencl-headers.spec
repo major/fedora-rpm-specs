@@ -1,11 +1,11 @@
-%global commit0 9ce9a722ba06ea87487cd08bd2001276e2aef8cd
-%global date 20231003
+%global commit0 2368105c0531069fe927989505de7d125ec58c55
+%global date 20231212
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global cl_hpp_ver 2023.04.17
+%global cl_hpp_ver 2023.12.14
 
 Name:           opencl-headers
 Version:        3.0
-Release:        18%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        19%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        OpenCL (Open Computing Language) header files
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ sed -e 's|@CMAKE_INSTALL_PREFIX@|%{_prefix}|' -e 's|@OPENCLHPP_INCLUDEDIR_PC@|%{
 %{_datadir}/pkgconfig/OpenCL-CLHPP.pc
 
 %changelog
+* Mon Jan 15 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0-19.20231212git2368105
+- Resync to 20231212
+
 * Thu Oct 05 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0-18.20231003git9ce9a72
 - Resync to 20231003
 

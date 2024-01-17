@@ -8,10 +8,10 @@
 
 %global dotnetver 7.0
 
-%global host_version 7.0.14
-%global runtime_version 7.0.14
+%global host_version 7.0.15
+%global runtime_version 7.0.15
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 7.0.114
+%global sdk_version 7.0.115
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -22,7 +22,7 @@
 %global sdk_rpm_version %{sdk_version}
 
 # upstream can update releases without revving the SDK version so these don't always match
-%global upstream_tag v%{sdk_version}
+%global upstream_tag v%{sdk_version}-sb
 
 %if 0%{?fedora} || 0%{?rhel} < 8
 %global use_bundled_libunwind 0
@@ -625,6 +625,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Jan 09 2024 Omair Majid <omajid@redhat.com> - 7.0.115-1
+- Update to .NET SDK 7.0.115 and Runtime 7.0.15
+
 * Thu Nov 16 2023 Omair Majid <omajid@redhat.com> - 7.0.114-1
 - Update to .NET SDK 7.0.114 and Runtime 7.0.14
 

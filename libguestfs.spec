@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.52.0
-Release:       3%{?dist}
+Release:       5%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -140,7 +140,7 @@ BuildRequires: jansson-devel
 BuildRequires: systemd-devel
 BuildRequires: bash-completion
 BuildRequires: /usr/bin/ping
-BuildRequires: /usr/bin/wget
+BuildRequires: curl
 BuildRequires: xz
 BuildRequires: zstd
 BuildRequires: libzstd-devel
@@ -271,7 +271,6 @@ BuildRequires: util-linux
 BuildRequires: vim-minimal
 BuildRequires: xfsprogs
 BuildRequires: xz
-BuildRequires: yajl
 %if !0%{?rhel}
 BuildRequires: zerofree
 %endif
@@ -294,6 +293,7 @@ Requires:      (%{name}-appliance = %{epoch}:%{version}-%{release} or %{name}-no
 # The daemon dependencies are not included automatically, because it
 # is buried inside the appliance, so list them here.
 Requires:      augeas-libs%{?_isa} >= 1.7.0
+Requires:      jansson%{?_isa}
 Requires:      libacl%{?_isa}
 Requires:      libcap%{?_isa}
 Requires:      libselinux%{?_isa}
@@ -301,7 +301,6 @@ Requires:      hivex-libs%{?_isa} >= 1.3.10
 Requires:      pcre2%{?_isa}
 Requires:      rpm-libs%{?_isa} >= 4.16.1.3
 Requires:      systemd-libs%{?_isa}
-Requires:      yajl%{?_isa}
 
 # For core mount-local (FUSE) API.
 Requires:      fuse
@@ -720,7 +719,7 @@ sed 's/@VERSION@/%{version}/g' < %{SOURCE4} > README
 # Test if network is available.
 ip addr list ||:
 ip route list ||:
-if ping -c 3 -w 20 8.8.8.8 && wget http://libguestfs.org -O /dev/null; then
+if ping -c 3 -w 20 8.8.8.8 && curl http://libguestfs.org -o /dev/null; then
   extra=
 else
   mkdir cachedir repo
@@ -1100,6 +1099,11 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Jan 15 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-5
+- Use curl instead of wget, since wget2 is broken
+  (https://gitlab.com/gnuwget/wget2/-/issues/652)
+- Remove yajl daemon dep and replace with jansson.
+
 * Tue Jan  9 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-3
 - Make cache directory find more robust
   /var/cache/libdnf5 may be missing if dnf5 is not around

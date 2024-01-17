@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -861,6 +861,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Mon Jan 15 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.1.1-4
+- Add missing files for some of the libraries to fix riscv64 builds
+
 * Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 6.1.1-3
 - Rebuild for dav1d 1.3.0
 

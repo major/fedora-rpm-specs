@@ -73,10 +73,8 @@ as an event loop, threads, dynamic loading, and an object system.
 %package devel
 Summary: A library of handy utility functions
 Requires: %{name}%{?_isa} = %{version}-%{release}
-# The package uses distutils (for gdbus-codegen) which is no longer part of
-# Python 3.12+ standard library.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2137442
-Requires: (python3-setuptools if python3 >= 3.12)
+# Required by gdbus-codegen
+Requires: python3-packaging
 # glib gir files moved from gobject-introspection-devel to glib2-devel in F40
 Conflicts: gobject-introspection-devel < 1.79.1
 

@@ -1,12 +1,11 @@
 Name:		libmad
-Version:	0.16.3
-Release:	2%{?dist}
+Version:	0.16.4
+Release:	1%{?dist}
 Summary:	MPEG audio decoder library
 
 License:	GPL-2.0-or-later
 URL:        https://codeberg.org/tenacityteam/libmad
 Source0:    %url/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:     Add_unversioned_so.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -35,26 +34,27 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 %cmake_install
 rm -f %{buildroot}%{_libdir}/*.la
 
-cp -p %{buildroot}%{_libdir}/pkgconfig/libmad.pc \
- %{buildroot}%{_libdir}/pkgconfig/mad.pc
-
 %ldconfig_scriptlets
 
 
 %files
-%doc CHANGES CREDITS README TODO
+%doc CHANGES CREDITS README.md TODO
 %license COPYING COPYRIGHT
 %{_libdir}/libmad.so.*
 
 %files devel
 %{_libdir}/libmad.so
 %{_libdir}/cmake/mad/
-%{_libdir}/pkgconfig/libmad.pc
 %{_libdir}/pkgconfig/mad.pc
 %{_includedir}/mad.h
 
 
 %changelog
+* Mon Jan 15 2024 Sérgio Basto <sergio@serjux.com> - 0.16.4-1
+- Update libmad to 0.16.4
+- Drop Add_unversioned_so.patch, upstream fixed it
+- mad.pc is back
+
 * Fri Sep 01 2023 Leigh Scott <leigh123linux@gmail.com> - 0.16.3-2
 - copy libmad.pc to mad.pc for compatibility
 

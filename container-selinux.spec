@@ -33,7 +33,7 @@ Epoch: 2
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.227.0
+Version: 2.228.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
@@ -71,6 +71,7 @@ sed -i 's/^install: man/install:/' Makefile
 sed -i 's/watch watch_reads//' container.if
 sed -i 's/watch watch_reads//' container.te
 sed -i '/sysfs_t:dir watch/d' container.te
+sed -i '/fifo_file watch/d' container.te
 %endif
 
 %if %{defined no_systemd_chat_resolved}

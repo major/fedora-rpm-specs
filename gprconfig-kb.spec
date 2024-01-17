@@ -6,7 +6,7 @@
 
 Name:           gprconfig-kb
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        GNAT project configuration knowledge base
 BuildArch:      noarch
 
@@ -17,11 +17,24 @@ Source0:        %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_ve
 
 # [Fedora specific]
 Source1:        fedora_arches.xml
+Source2:        fedora_ar.xml
 
 # [Fedora specific]
 Patch0:         %{name}-fedora-compilers.patch
-# [Fedora specific] Detect major version using `gcc -dumpversion`.
-Patch1:         %{name}-use-dumpversion.patch
+
+# [specific to recent GCC] Make detection of GCC compilers independent of locale.
+Patch1:         %{name}-improve-detection-of-gcc.patch
+# Our guess at why Adacore don't do this is that they might want to support old
+# versions of GCC that lack -dumpfullversion.
+
+# [Unix-specific] Make detection of GNU ld independent of locale.
+Patch2:         %{name}-improve-detection-of-gnu-ld.patch
+# Use of env makes this patch specific to Unix-like systems.
+
+# [specific to recent Clang] Make detection of Clang compilers independent of locale.
+Patch3:         %{name}-improve-detection-of-clang.patch
+# Our guess at why Adacore don't do this is that they might want to support old
+# versions of Clang where -dumpversion returns a hardcoded fake version number.
 
 # The contents of this package are split off from the gprbuild package.
 Conflicts:      gprbuild <= 2020
@@ -59,7 +72,7 @@ mkdir --parents %{buildroot}%{_datadir}/gprconfig
 %{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig db/gprconfig.xsd
 %{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig db/*.xml
 %{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig db/*.ent
-%{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig %{SOURCE1}
+%{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig %{SOURCE1} %{SOURCE2}
 
 
 ###########
@@ -77,6 +90,15 @@ mkdir --parents %{buildroot}%{_datadir}/gprconfig
 ###############
 
 %changelog
+* Mon Jan 15 2024 Björn Persson <Bjorn@Rombobjörn.se> - 23.0.0-5
+- Split fedora_arches.xml to make it compliant with gprconfig.xsd.
+
+* Sun Jan 14 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 23.0.0-4
+- Removed unused patch-file gprconfig-kb-detect-by-major-version.patch.
+- Improve detection of GCC compilers; make it independent of locale.
+- Improve detection of GNU ld; make it independent of locale.
+- Improve detection of Clang compilers; make it independent of locale.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

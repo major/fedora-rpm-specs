@@ -1,7 +1,7 @@
 Summary: IrcII chat client
 Name: BitchX
 Version: 1.2.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: BSD and GPLv2+
 URL: http://www.bitchx.org
 Source0: http://www.bitchx.ca/%{name}-%{version}.tar.gz
@@ -17,6 +17,10 @@ Patch7: BitchX-possum-c99.patch
 BuildRequires:  gcc
 BuildRequires: ncurses-devel openssl-devel glib2-devel libxcrypt-devel
 BuildRequires: make
+
+# Some plugins rely on int-conversion and incompatible-pointer-types.
+# <https://bugzilla.redhat.com/show_bug.cgi?id=2148940>
+%global build_type_safety_c 1
 
 %description
 BitchX: The ultimate IRC client
@@ -48,6 +52,9 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jan 15 2024 Florian Weimer <fweimer@redhat.com> - 1.2.1-33
+- Downgrade C type safety level to 1 (#2148940)
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

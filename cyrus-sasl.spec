@@ -114,14 +114,6 @@ Summary: CRAM-MD5 and DIGEST-MD5 authentication support for Cyrus SASL
 The %{name}-md5 package contains the Cyrus SASL plugins which support
 CRAM-MD5 and DIGEST-MD5 authentication schemes.
 
-%package ntlm
-Requires: %{name}-lib%{?_isa} = %{version}-%{release}
-Summary: NTLM authentication support for Cyrus SASL
-
-%description ntlm
-The %{name}-ntlm package contains the Cyrus SASL plugin which supports
-the NTLM authentication scheme.
-
 # This would more appropriately be named cyrus-sasl-auxprop-sql.
 %package sql
 Requires: %{name}-lib%{?_isa} = %{version}-%{release}
@@ -249,7 +241,7 @@ echo "$LDFLAGS"
         --enable-anon \
         --enable-cram \
         --enable-digest \
-        --enable-ntlm \
+        --disable-ntlm \
         --enable-plain \
         --enable-login \
         --enable-alwaystrue \
@@ -368,9 +360,6 @@ make check %{?_smp_mflags}
 %files md5
 %{_plugindir2}/*crammd5*.so*
 %{_plugindir2}/*digestmd5*.so*
-
-%files ntlm
-%{_plugindir2}/*ntlm*.so*
 
 %files sql
 %{_plugindir2}/*sql*.so*

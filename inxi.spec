@@ -1,6 +1,6 @@
 Name:           inxi
 Version:        3.3.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A full featured system information script
 
 License:        GPL-3.0-or-later
@@ -8,6 +8,8 @@ URL:            https://smxi.org/docs/inxi.htm
 Source0:        https://codeberg.org/smxi/inxi/archive/%{version}-1.tar.gz
 
 BuildArch:      noarch
+
+BuildRequires:  perl-generators
 
 Requires:       iproute
 Requires:       pciutils
@@ -20,12 +22,35 @@ Requires:       bind-utils
 Requires:       ipmitool
 Requires:       freeipmi
 Requires:       wmctrl
+# inxi can use any one of Cpanel::JSON::XS, JSON::XS or JSON::PP, but
+# Cpanel::JSON::XS seems to be its preference, so let's go with that
 Requires:       perl(Cpanel::JSON::XS)
-Requires:       perl(Data::Dumper)
-Requires:       perl(JSON::XS)
-Requires:       perl(XML::Dumper)
-Requires:       perl(Net::FTP)
+# The debugger requires all of these, but the requirements are hedged
+# around upstream to try and gracefully handle them being missing,
+# so the dependency generator misses them. I tried
+# https://codeberg.org/smxi/pinxi/pulls/2 , but upstream was not
+# interested, so these need to be explicitly specified
+Requires:       perl(Time::HiRes)
+Requires:       perl(File::Copy)
 Requires:       perl(File::Find)
+Requires:       perl(Net::FTP)
+# inxi does not actually use Spec::Functions at all - only Spec -
+# but the debugger refuses to run if it cannot load it. specify
+# both the actual functional requirement, and the bogus checked
+# requirement
+Requires:       perl(File::Spec)
+Requires:       perl(File::Spec::Functions)
+# the debugger also requires tar to create the debug archive
+Requires:       tar
+# inxi documents that this isn't strictly required and works without
+# it, you just can't output to XML, so let's call it Recommends:
+Recommends:     perl(XML::Dumper)
+# inxi likes to use these for downloading, but will use curl or wget
+# if they are not present
+Recommends:     perl(HTTP::Tiny) perl(IO::Socket::SSL)
+# inxi defends against this not being present by falling back to
+# a subshell of 'hostname', so it will work without it
+Recommends:     perl(Sys::Hostname)
 
 %description
 Inxi offers a wide range of built-in options, as well as a good number of extra
@@ -61,6 +86,10 @@ install -p -D -m 644 %{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Fri Jan 12 2024 Adam Williamson <awilliam@redhat.com> - 3.3.31-2
+- BuildRequire perl-generators
+- Add several missing hard and soft dependencies
+
 * Thu Nov 02 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.31-1
 - Update to 3.3.31
 

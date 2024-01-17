@@ -1,15 +1,15 @@
 Name:           konversation
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        A user friendly IRC client
 
-License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
+License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:            http://konversation.kde.org/
 %if 0%{?snap}
 # use releaseme script
 Source0:        %{name}-%{version}-%{snap}.tar.bz2
 %else
-Source0:        http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/konversation-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/konversation-%{version}.tar.xz
 %endif
 
 Source1:        konversationrc
@@ -17,46 +17,50 @@ Source1:        konversationrc
 ## upstream patches
 
 BuildRequires: desktop-file-utils
-BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-karchive-devel
-BuildRequires: kf5-kbookmarks-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kemoticons-devel
-BuildRequires: kf5-kglobalaccel-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kidletime-devel
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-kparts-devel
-BuildRequires: kf5-solid-devel
-BuildRequires: kf5-sonnet-devel
-BuildRequires: kf5-kwallet-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kwindowsystem-devel
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
 
-BuildRequires: cmake(Qt5Multimedia)
+BuildRequires: gcc-c++
+BuildRequires: cmake
+BuildRequires: extra-cmake-modules
 
-BuildRequires: pkgconfig(phonon4qt5)
-BuildRequires: pkgconfig(qca2-qt5)
-BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IdleTime)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Parts)
+BuildRequires: cmake(KF6StatusNotifierItem)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6Wallet)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core5Compat)
+
+BuildRequires: pkgconfig(qca2-qt6)
+
 # python3
-BuildRequires: python3
-BuildRequires: python3-rpm-macros
-%global __python %{_python3}
-BuildRequires: sed
+BuildRequires: python3-devel
 
-Requires: qca-qt5-ossl%{?_isa}
+Requires: qca-qt6-ossl%{?_isa}
 
 %description
 A simple and easy to use IRC client with support for
@@ -67,89 +71,72 @@ to chat windows; configurable background colors and much more
 
 
 %prep
-%autosetup -n %{name}-%{version}%{?beta:-%{beta}} -p1
+%autosetup -p1
 
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
 # Add Comment key to .desktop file
 grep '^Comment=' %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop || \
 desktop-file-edit \
   --set-comment="A user friendly IRC client" \
   data/org.kde.%{name}.desktop
 
-# Add StartupWMClass to .desktop
-grep '^StartupWMClass=' %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop || \
-desktop-file-edit \
-  --set-key=StartupWMClass --set-value=konversation \
-  data/org.kde.%{name}.desktop
-%endif
-
-# purge use of /usr/bin/env
-sed -i \
-  -e "s|^#!/usr/bin/env bash|#!/bin/bash|g" \
-  -e "s|^#!/usr/bin/env perl|#!/usr/bin/perl|g" \
-  -e "s|^#!/usr/bin/env python$|#!%{__python3}|g" \
+%py3_shebang_fix \
   data/scripts/* \
   data/scripting_support/python/konversation/*.py
 
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 
 %install
 %cmake_install
 
-install -p -m644 -D %{SOURCE1} %{buildroot}%{_kf5_sysconfdir}/xdg/konversationrc
+install -p -m644 -D %{SOURCE1} %{buildroot}%{_kf6_sysconfdir}/xdg/konversationrc
 
 %find_lang konversation --with-html
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.konversation.appdata.xml ||:
-## currently fails on all RHEL releases
-# RHEL8: https://bugzilla.redhat.com/show_bug.cgi?id=2107277
-# RHEL9: https://bugzilla.redhat.com/show_bug.cgi?id=2107278
-%if !0%{?rhel}
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.konversation.desktop
-%endif
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.konversation.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.konversation.desktop
 
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 %post
-touch --no-create %{_kf5_datadir}/icons/hicolor &> /dev/null ||:
+touch --no-create %{_kf6_datadir}/icons/hicolor &> /dev/null ||:
 
 %posttrans
-gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &> /dev/null ||:
+gtk-update-icon-cache %{_kf6_datadir}/icons/hicolor &> /dev/null ||:
 update-desktop-database -q &> /dev/null ||:
 
 %postun
 if [ $1 -eq 0 ] ; then
-  touch --no-create %{_kf5_datadir}/icons/hicolor &> /dev/null ||:
-  gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &> /dev/null ||:
+  touch --no-create %{_kf6_datadir}/icons/hicolor &> /dev/null ||:
+  gtk-update-icon-cache %{_kf6_datadir}/icons/hicolor &> /dev/null ||:
   update-desktop-database -q &> /dev/null ||:
 fi
 %endif
 
 %files  -f konversation.lang
 %doc ChangeLog README
-%config(noreplace) %{_kf5_sysconfdir}/xdg/konversationrc
-%{_kf5_bindir}/konversation
-%{_kf5_datadir}/applications/org.kde.konversation.desktop
-%{_kf5_datadir}/dbus-1/services/org.kde.konversation.service
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/knotifications5/konversation.notifyrc
-%{_kf5_datadir}/knsrcfiles/konversation_nicklist_theme.knsrc
-%{_kf5_datadir}/konversation/
-%{_kf5_datadir}/qlogging-categories5/konversation.categories
-%{_kf5_metainfodir}/org.kde.konversation.appdata.xml
+%config(noreplace) %{_kf6_sysconfdir}/xdg/konversationrc
+%{_kf6_bindir}/konversation
+%{_kf6_datadir}/applications/org.kde.konversation.desktop
+%{_kf6_datadir}/dbus-1/services/org.kde.konversation.service
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/knotifications6/konversation.notifyrc
+%{_kf6_datadir}/knsrcfiles/konversation_nicklist_theme.knsrc
+%{_kf6_datadir}/konversation/
+%{_kf6_datadir}/qlogging-categories6/konversation.categories
+%{_kf6_metainfodir}/org.kde.konversation.appdata.xml
 
 
 %changelog
+* Mon Jan 15 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-2
+- Mangle python shebang with py3_shebang_fix macro
+- Mangle other shebangs automatically with brp-mangle-shebangs
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 

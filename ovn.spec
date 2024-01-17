@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 91%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 100%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -59,8 +59,8 @@ License: ASL 2.0 and LGPLv2+ and SISSL
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit 0dd10cd803a2e5b8fb34b268e72748202eb4002a
-%define ovsshortcommit 0dd10cd
+%define ovscommit ec1d730163d984934c467e050ebf6d39f8c09384
+%define ovsshortcommit ec1d730
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -433,6 +433,36 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Mon Jan 15 2024 Numan Siddique <numans@ovn.org> - 23.09.0-100
+- Sync to upstream OVN branch-23.09. Below are the commits
+since last update (23.09.0-91)
+- actions: Make sure affinity learnt flows are auto deleted.
+[Upstream: 6ce267af7124a93306d8b5bf4944379536ecd264]
+
+- pinctrl: Directly retrieve desired port_binding MAC.
+[Upstream: f85f5e3929c916985c7dfc0fe0f0433347d8bfae]
+
+- test: add dedicated test for garp-max-timeout
+[Upstream: 28fef02db946ba8113a2752e1abf61d8df5797e3]
+
+- treewide: Fix small memory leaks reported by static analysis
+[Upstream: 0d5e6d65db19845aede9198d8e164d934a5f189e]
+
+- Documentation: Add note about pinning the container after release
+[Upstream: 1a70f3f171c032c2329bb66f2e62d233ce19a494]
+
+- ci: Cover more container posibilities
+[Upstream: 639aff0896527f9c48c56d6dfb3fdce84403b6dd]
+
+- ci: Build container image before very job
+[Upstream: ca0f17758559ed836dfa0220e472ea99438cefb8]
+
+- ovs: Bump submodule to include IDL "spurious delete" fix.
+[Upstream: 9c97cdcd757ce356a85b3e6dde7eb19776fe4c38]
+
+- Correct ethtype referencing incorrect values
+[Upstream: e9863e57320d24f8fb0d02436834f795ba58ce48]
+
 * Mon Dec 18 2023 Numan Siddique <numans@ovn.org> - 23.09.0-91
 - Sync to upstream OVN branch-23.09. Below are the commits
 since last update (23.09.0-81)

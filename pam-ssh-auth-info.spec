@@ -1,6 +1,6 @@
 Name:		pam-ssh-auth-info
 Version:	1.8.20230906
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	PAM SSH Authentication Information Module
 # GPL-3.0-or-later: * line_tokens_match_test.h
 # LGPL-3.0-or-later: pam_*.c *.h
@@ -34,6 +34,7 @@ make check
 
 %install
 %make_install
+[ ${RPM_BUILD_ROOT} != "/" ] && find $RPM_BUILD_ROOT -name "*.la" -delete
 
 %files
 %doc README.md
@@ -43,5 +44,8 @@ make check
 %{_mandir}/man8/pam_ssh_auth_info.8.gz
 
 %changelog
+* Mon Jan 15 2024 Jonathan McDowell <noodles@earth.li> - 1.8.20230906-2
+- Cleanup .la file for EPEL 9 build
+
 * Tue Nov 14 2023 Jonathan McDowell <noodles@earth.li> - 1.8.20230906-1
 - Initial packaging

@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.4.7
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -204,6 +204,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Mon Jan 15 2024 Jakub Jelinek <jakub@redhat.com> - 2.4.7-9
+- bump: for gcc 14.* in rawhide
+
 * Tue Aug 08 2023 Frederic Berat <fberat@redhat.com> - 2.4.7-8
 - Migrate to SPDX licenses (#2222091).
 

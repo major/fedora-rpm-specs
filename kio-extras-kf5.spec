@@ -6,8 +6,8 @@
 %endif
 
 Name:    kio-extras-kf5
-Version: 24.01.85
-Release: 1%{?dist}
+Version: 24.01.90
+Release: 2%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
@@ -15,12 +15,6 @@ URL:     https://invent.kde.org/network/kio-extras
 
 %global srcname %{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{srcname}-%{version}.tar.xz
 
 ## upstramable patches
@@ -179,6 +173,12 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Mon Jan 15 2024 Steve Cossette <farchord@gmail.com> - 24.01.90-2
+- Rebuild for KDSoap 2.2.0 update
+
+* Mon Jan 15 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-1
+- 24.01.90
+
 * Sat Dec 23 2023 ales.astone@gmail.com
 - 24.01.85
 

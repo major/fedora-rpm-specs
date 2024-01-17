@@ -3,7 +3,7 @@ Version: 0.17
 Release: 16%{?dist}
 Summary: Basic requirement for icon themes
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://www.freedesktop.org/wiki/Software/icon-theme/
 Source0: https://icon-theme.freedesktop.org/releases/%{name}-%{version}.tar.xz
 

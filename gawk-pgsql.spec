@@ -1,7 +1,7 @@
 Name:             gawk-pgsql
 Summary:          PostgreSQL client library for gawk
-Version:          1.1.1
-Release:          16%{?dist}
+Version:          1.1.2
+Release:          1%{?dist}
 License:          GPLv3+
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -64,6 +64,9 @@ rm -f %{buildroot}%{_infodir}/dir
 # =============================================================================
 
 %changelog
+* Mon Jan 15 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.2-1
+- Upgrade to new upstream version
+
 * Sun Jan 14 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.1-16
 - Update BuildRequires gawk(abi) to indicate compatibility with gawk 5.3 major
   api version 4

@@ -167,7 +167,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -239,6 +239,10 @@ Patch10: ruby-3.3.0-Revert-Optimize-allocations-in-Hash-compare_by_identity.patc
 # https://github.com/ruby/ruby/commit/d3933fc753187a055a4904af82f5f3794c88c416
 # https://bugs.ruby-lang.org/issues/20106
 Patch11: ruby-3.4.0-ruby-net-http-Renew-test-certificates.patch
+# Armv8.3+ capable CPUs might segfault with incorrect compilation options.
+# See related upstream report: https://bugs.ruby-lang.org/issues/20085
+# https://bugs.ruby-lang.org/issues/20154
+Patch12: ruby-3.4.0-fix-branch-protection-compilation-for-arm.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -710,6 +714,7 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 9 -p1
 %patch 10 -p1
 %patch 11 -p1
+%patch 12 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1645,6 +1650,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Mon Jan 15 2024 Jarek Prokop <jprokop@redhat.com> - 3.3.0-2
+- Fix compiling coroutines with aarch64's branch protection.
+
 * Tue Jan 02 2024 Vít Ondruch <vondruch@redhat.com> - 3.3.0-1
 - Upgrade to Ruby 3.3.0.
   Resolves: rhbz#2255918

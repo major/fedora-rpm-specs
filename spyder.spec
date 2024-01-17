@@ -37,7 +37,9 @@ BuildArch:      noarch
 ExcludeArch:    %{ix86}
 # Taken from pyqtwebengine's spec file. Since we require this, we need
 # to follow suit.
-ExclusiveArch:  %{qt5_qtwebengine_arches}
+# Add 'noarch' as per packaging guidelines
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_noarch_with_unported_dependencies
+ExclusiveArch:  %{qt5_qtwebengine_arches} noarch
 
 BuildRequires:  python3-devel
 

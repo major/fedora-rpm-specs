@@ -2,7 +2,7 @@
 %global plasma_module 0
 
 Name:           calamares
-Version:        3.3.0
+Version:        3.3.1
 Release:        1%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
@@ -342,6 +342,9 @@ EOF
 
 
 %changelog
+* Mon Jan 15 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.3.1-1
+- Update to 3.3.1
+
 * Sat Dec 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.3.0-1
 - Update to 3.3.0 final
 

@@ -15,7 +15,7 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.4.0
+Version:        1.4.1
 Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
@@ -39,10 +39,6 @@ Source1:        https://evilpiepirate.org/%{name}/%{name}-vendored-%{version}.ta
 Source2:        https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13AB336D8DCA6E76.asc
 
 # Upstream patches
-## From: https://evilpiepirate.org/git/bcachefs-tools.git/commit/?id=89abdd87271e237141a9d4f44d531f7c53353b83
-Patch0001:      0001-Makefile-fsck-Use-libexec-instead-of-lib.patch
-## From: https://evilpiepirate.org/git/bcachefs-tools.git/commit/?id=44bf7868e5c2c4a52aef67e55aab1e904147dad4
-Patch002:       0001-fix-missing-atomic64_read_acquire-on-32-bit.patch
 
 # Upstreamable patches
 
@@ -181,6 +177,9 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 
 
 %changelog
+* Mon Jan 15 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.4.1-1
+- Update to 1.4.1
+
 * Sun Dec 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.0-1
 - Update to 1.4.0
 - Backport patch to move systemd unit helpers to libexecdir

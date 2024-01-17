@@ -8,10 +8,10 @@
 
 Summary: Internationalized Domain Name support library
 Name: libidn
-Version: 1.41
-Release: 5%{?dist}
+Version: 1.42
+Release: 1%{?dist}
 URL: http://www.gnu.org/software/libidn/
-License: (LGPL-2.1-or-later OR GPL-3.0-or-later) AND GPL-3.0-or-later AND GFDL-1.3-or-later
+License: (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later AND GFDL-1.3-or-later
 Source0: https://ftp.gnu.org/gnu/libidn/libidn-%{version}.tar.gz
 # Allow disabling Emacs support
 Patch0: libidn-emacsopt.patch
@@ -196,6 +196,10 @@ rm -rf $RPM_BUILD_ROOT%{_javadir}/libidn*.jar
 %endif
 
 %changelog
+* Mon Jan 15 2024 Miroslav Lichvar <mlichvar@redhat.com> - 1.42-1
+- update to 1.42
+- convert license tag to SPDX
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-372-g61bac1a9d2
+%global glibcsrcdir glibc-2.38.9000-489-g709fbd3ec3
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 30
+%global baserelease 32
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -242,7 +242,6 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-rh2255506.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -538,7 +537,7 @@ these sources as the basis for your new locale.
 
 # We define a global regular expression to capture all of the locale
 # sources. We use it later when constructing the various packages.
-%global locale_rx eo syr *_*
+%global locale_rx eo syr tok *_*
 
 %{lua:
 -- To make lua-mode happy: '
@@ -726,6 +725,7 @@ local locales =  {
   { code="kok", name="Konkani", regions={ "IN" } },
   { code="ks", name="Kashmiri", regions={ "IN" } },
   { code="ku", name="Kurdish", regions={ "TR" } },
+  { code="kv", name="Komi", regions={ "RU" } },
   { code="kw", name="Cornish", regions={ "GB" } },
   { code="ky", name="Kyrgyz", regions={ "KG" } },
   { code="lb", name="Luxembourgish", regions={ "LU" } },
@@ -798,6 +798,7 @@ local locales =  {
   { code="sr", name="Serbian", regions={ "ME", "RS" } },
   { code="ss", name="Swati", regions={ "ZA" } },
   { code="st", name="Southern Sotho", regions={ "ZA" } },
+  { code="su", name="Sudanese", regions={ "ID" } },
   { code="sv", name="Swedish", regions={ "FI", "SE" } },
   { code="sw", name="Swahili", regions={ "KE", "TZ" } },
   { code="syr", name="Syriac", regions={} },
@@ -814,6 +815,7 @@ local locales =  {
   { code="tl", name="Tagalog", regions={ "PH" } },
   { code="tn", name="Tswana", regions={ "ZA" } },
   { code="to", name="Tongan", regions={ "TO" } },
+  { code="tok", name="Toki Pona", regions={} },
   { code="tpi", name="Tok Pisin", regions={ "PG" } },
   { code="tr", name="Turkish", regions={ "CY", "TR" } },
   { code="ts", name="Tsonga", regions={ "ZA" } },
@@ -834,6 +836,7 @@ local locales =  {
   { code="yo", name="Yoruba", regions={ "NG" } },
   { code="yue", name="Cantonese", regions={ "HK" } },
   { code="yuw", name="Yau", regions={ "PG" } },
+  { code="zgh", name="Tamazight", regions={ "MA" } },
   { code="zh", name="Mandarin Chinese", regions={ "CN", "HK", "SG", "TW" } },
   { code="zu", name="Zulu", regions={ "ZA" } } 
 }
@@ -1188,7 +1191,7 @@ build()
 		--enable-stack-protector=strong \
 		--enable-systemtap \
 		${core_with_options} \
-%ifarch x86_64 %{ix86}
+%ifarch x86_64
 	       --enable-cet \
 %endif
 %ifarch %{ix86}
@@ -2213,6 +2216,134 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Jan 15 2024 DJ Delorie <dj@redhat.com> - 2.38.9000-32
+- Auto-sync with upstream branch master,
+  commit 709fbd3ec3595f2d1076b4fec09a739327459288.
+- stdlib: Reinstate stable mergesort implementation on qsort
+- x86-64: Check if mprotect works before rewriting PLT
+- aarch64: Add NEWS entry about libmvec for 2.39
+
+* Mon Jan 15 2024 Carlos O'Donell <carlos@redhat.com> - 2.38.9000-31
+- Add new locales for kv_RU, su_ID, tok, and zgh_MA.
+- Drop glibc-rh2255506.patch; fix applied upstream.
+- Enable Intel CET only on x86_64.
+- Auto-sync with upstream branch master,
+  commit 064c708c78cc2a6b5802dce73108fc0c1c6bfc80:
+- localedata/unicode-gen/utf8_gen.py: fix Hangul syllable name
+- x86_64: Optimize ffsll function code size.
+- localedata: Remove redundant comments
+- RISC-V: Enable static-pie.
+- linux: Fix fstat64 on alpha and sparc64
+- math: remove exp10 wrappers
+- Benchtests: Increase benchmark iterations
+- debug/getwd_chk.c: warning should be emitted for the __getwd_chk symbol.
+- Make __getrandom_nocancel set errno and add a _nostatus version
+- x86-64/cet: Make CET feature check specific to Linux/x86
+- Incorporate translations (zh_CN)
+- Define ISO 639-3 "glk" (Gilaki)
+- resolv: Fix endless loop in __res_context_query
+- localedata: revert all the remaining locale sources to UTF-8
+- localedata: am_ET ber_DZ en_GB en_PH en_US fil_PH kab_DZ om_ET om_KE ti_ET tl_PH: convert to UTF-8
+- localedata: resolve cyclic dependencies
+- localedata: kv_RU: convert to UTF-8
+- localedata: add new locale kv_RU
+- elf: Fix tst-nodeps2 test failure.
+- localedata: Sort Makefile variables.
+- locale: Sort Makefile variables.
+- i386: Remove CET support bits
+- x86-64/cet: Move check-cet.awk to x86_64
+- x86-64/cet: Move dl-cet.[ch] to x86_64 directories
+- x86: Move x86-64 shadow stack startup codes
+- Fix deprecated utcnow() usage in build-many-glibcs.py
+- Fix invalid escape sequence in build-many-glibcs.py
+- math: Fix test-fenv.c feupdateenv tests
+- Remove installed header rule on $(..)include/%.h
+- i386: Fail if configured with --enable-cet
+- i386: Remove CET support
+- x86: Move CET infrastructure to x86_64
+- localedata: su_ID: make lang_name agree with CLDR
+- localedata: add new locale su_ID
+- localedata: add new locale zgh_MA
+- INSTALL: regenerate
+- localedata: add tok/UTF-8 to SUPPORTED
+- localedata: tok: add yY and nN to yesexpr and noexpr
+- localedata: tok: convert to UTF-8
+- localedata: add data for tok (Toki Pona)
+- Remove ia64-linux-gnu
+- localedata: dz_BT, bo_CN: convert to UTF-8
+- localedata: dz_BT, bo_CN: Fix spelling of "phur bu" in both Tibetan and Dzongkha
+- localedata: bo_CN: Fix spelling errors in Tibetan data
+- localedata: bo_CN: Fix incomplete edit in Tibetan yesexpr
+- localedata: dz_BT: Fix spelling errors in Dzongha data
+- localedata: unicode-gen: Remove redundant \s* from regexp, fix comments
+- localedata: convert the remaining *_RU locales to UTF-8
+- Incorporate translations
+- x32: Handle displacement overflow in PLT rewrite [BZ #31218]
+- x86: Fixup some nits in longjmp asm implementation
+- stdlib: Fix stdbit.h with -Wconversion for clang
+- stdlib: Fix stdbit.h with -Wconversion for older gcc
+- elf: Add ELF_DYNAMIC_AFTER_RELOC to rewrite PLT
+- aarch64: Make cpu-features definitions not Linux-specific
+- hurd: Initializy _dl_pagesize early in static builds
+- hurd: Only init early static TLS if it's used to store stack or pointer guards
+- hurd: Make init-first.c no longer x86-specific
+- hurd: Drop x86-specific assembly from init-first.c
+- hurd: Pass the data pointer to _hurd_stack_setup explicitly
+- x86-64/cet: Check the restore token in longjmp
+- localedata: ru_RU, ru_UA: convert to UTF-8
+- localedata: es_??: convert to UTF-8
+- localedata: miq_NI: convert to UTF-8
+- i386: Ignore --enable-cet
+- mach: Drop SNARF_ARGS macro
+- mach: Drop some unnecessary vm_param.h includes
+- hurd: Declare _hurd_intr_rpc_msg* with protected visibility
+- hurd: Add some missing includes
+- localedata: fy_DE: make this "Western Frisian" to agree with the language code "fy"
+- localedata: fy_DE, fy_NL: convert to UTF-8
+- localedata: ast_ES: convert to UTF-8
+- localedata: ast_ES: Remove wrong copyright text
+- localedata: de_{AT,BE,CH,IT,LU}: convert to UTF-8
+- localedata: lv_LV, it_IT, it_CH: convert to UTF-8
+- localedata: it_IT, lv_LV: currency symbol should follow the amount
+- Implement C23 <stdbit.h>
+- localedata: ms_MY should not use 12-hour format
+- localedata: es_ES: convert to UTF-8
+- localedata: es_ES: Add am_pm strings
+- aarch64: Add longjmp test for SME
+- aarch64: Add setcontext support for SME
+- aarch64: Add longjmp support for SME
+- aarch64: Add SME runtime support
+- localedata: convert uz_UZ and uz_UZ@cyrillic to UTF-8
+- localedata: uz_UZ and uz_UZ@cyrillic: Fix decimal point and thousands separator
+- libio: Check remaining buffer size in _IO_wdo_write (bug 31183)
+- getaddrinfo: translate ENOMEM to EAI_MEMORY (bug 31163)
+- string: Add additional output in test-strchr failure
+- Add a setjmp/longjmp test between user contexts
+- x86/cet: Add -fcf-protection=none before -fcf-protection=branch
+- Regenerate libc.pot
+- Omit regex.c pragmas no longer needed
+- Update copyright dates not handled by scripts/update-copyrights
+- Update copyright in generated files by running "make"
+- Update copyright dates with scripts/update-copyrights
+- x86/cet: Run some CET tests with shadow stack
+- x86/cet: Don't set CET active by default
+- x86/cet: Check feature_1 in TCB for active IBT and SHSTK
+- x86/cet: Enable shadow stack during startup
+- elf: Always provide _dl_get_dl_main_map in libc.a
+- x86/cet: Sync with Linux kernel 6.6 shadow stack interface
+- RISC-V: Add support for dl_runtime_profile (BZ #31151)
+- debug: Add fortify wprintf tests
+- debug: Add fortify syslog tests
+- debug: Add fortify dprintf tests
+- debug: Increase tst-fortify checks for compiler without __va_arg_pack support
+- debug: Adapt fortify tests to libsupport
+- localedata: yo_NT: remove redundant comments
+- localedata: convert en_AU, en_NZ, mi_NZ, niu_NZ to UTF-8
+- localedata: First day of the week in AU is Monday, LC_TIME in en_NZ is identical to LC_TIME in en_AU then
+- localedata: convert yo_NG to UTF-8, check that language name in Yoruba agrees with CLDR
+- x86-64: Fix the tcb field load for x32 [BZ #31185]
+- x86-64: Fix the dtv field load for x32 [BZ #31184]
+
 * Wed Jan  3 2024 Florian Weimer <fweimer@redhat.com> - 2.38.9000-30
 - Infinite loop in res_mkquery with malformed domain name (#2255506)
 

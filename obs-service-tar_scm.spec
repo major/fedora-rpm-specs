@@ -10,7 +10,6 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  glibc-langpack-en
-BuildRequires:  python3-mock
 BuildRequires:  python3-six
 BuildRequires:  bzr
 BuildRequires:  git-core

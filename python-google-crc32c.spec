@@ -1,77 +1,74 @@
-# tests are enabled by default
-%bcond_without tests
+%bcond tests 1
 
-# The main source is the python wrapper.
-%global         srcname     google-crc32c
-%global         reponame    python-crc32c
-%global         forgeurl    https://github.com/googleapis/%{reponame}
+Name:           python-google-crc32c
 Version:        1.1.2
-%forgemeta -a
-
-Name:           python-%{srcname}
 Release:        %autorelease
-Summary:        Python wrapper for CRC32C hashing algorithm
+Summary:        A python wrapper of the C library ‘Google CRC32C’
 
 License:        Apache-2.0
-URL:            %forgeurl0
-Source0:        %forgesource
+URL:            https://github.com/googleapis/python-crc32c
+Source:         %{url}/archive/v%{version}/python-crc32c-%{version}.tar.gz
 
-BuildRequires:  gcc-c++
-BuildRequires:  google-crc32c
-BuildRequires:  google-crc32c-devel
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-
-
-%if %{with tests}
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-asyncio)
-%endif
-
+BuildRequires:  gcc-c++
+BuildRequires:  google-crc32c-devel
 
 %global _description %{expand:
 This package wraps the google/crc32c hardware-based implementation of the
-CRC32C hashing algorithm. Multiple wheels are distributed as well as source.
-If a wheel is not published for the python version and platform you are using,
-you will need to compile crc32c using a C toolchain.}
+CRC32C hashing algorithm.}
 
 %description %{_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-google-crc32c
 Summary:        %{summary}
-Obsoletes:      python3-azure-sdk < 5.0.1
-%description -n python3-%{srcname} %{_description}
 
-%pyproject_extras_subpkg -n python3-%{srcname} testing
+Obsoletes:      python3-azure-sdk < 5.0.1
+# Remove after F40 reaches end-of-life:
+%if !0%{?fc39} && !0%{?fc38}
+Obsoletes:      python3-google-crc32c+testing < 1.1.2-25
+%endif
+
+%description -n python3-google-crc32c %{_description}
 
 
 %prep
-%forgesetup
+%autosetup -n python-crc32c-%{version}
+# This is a git submodule, so the bundled library isn’t included in the GitHub
+# source archive, but it doesn’t hurt to be very certain.
+rm -rv google_crc32c/
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires %{?with_tests:-x testing}
 
 
 %build
-PIP_VERBOSE=1 %pyproject_wheel
+%pyproject_wheel
 
 
 %install
 %pyproject_install
-%pyproject_save_files google_crc32c
+%pyproject_save_files -l google_crc32c
 
+
+%check
+%pyproject_check_import
+
+# See BUILDING.md.
+pushd scripts >/dev/null
+# Check the package, try and load the native library
+%{py3_test_envvars} %{python3} -m check_cffi_crc32c
+popd >/dev/null
 
 %if %{with tests}
-%check
-%pytest tests/test___init__.py
+%pytest
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
-%doc README.md CHANGELOG.md
+%files -n python3-google-crc32c -f %{pyproject_files}
+%doc CHANGELOG.md
+%doc README.md
 
 
 %changelog

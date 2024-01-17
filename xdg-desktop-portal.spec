@@ -45,10 +45,10 @@ Requires:      fuse3
 # Required for the GMemoryMonitor GIO API
 Recommends:    low-memory-monitor >= %{low_memory_monitor_version}
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# also, ostree (and hence flatpak) not on i686 for F40/EL10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
+%endif
 
 %description
 xdg-desktop-portal works by exposing a series of D-Bus interfaces known as

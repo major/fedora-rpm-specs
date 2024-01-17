@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 12.35
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -36,9 +36,9 @@ URL: https://sourceware.org/annobin/
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
 # checking logic or when building on RHEL-7 or earlier.
-%global with_hard_gcc_version_requirement 1
+%global with_hard_gcc_version_requirement 0
 
-%bcond_without plugin_rebuild
+%bcond_with plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -50,12 +50,14 @@ URL: https://sourceware.org/annobin/
 #
 # The default is to use plugin during rebuilds (cf BZ 1630550) but this can
 # be changed because of the need to be able to rebuild annobin when a change
-# to gcc breaks the version installed into the buildroot.  Mote however that
+# to gcc breaks the version installed into the buildroot.  Note however that
 # uncommenting the lines below will result in annocheck not passing the rpminspect
 # tests....
-# %%if %%{without plugin_rebuild}
+
+%if %{without plugin_rebuild}
 %undefine _annotated_build
-# %%endif
+%endif
+
 
 #---------------------------------------------------------------------------------
 
@@ -529,8 +531,14 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 15 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-4
+- Spec File: NVR bump in order to allow building in side tag.
+
+* Mon Jan 15 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-3
+- Spec File: Disable hard gcc check in order to allow builds with new version of gcc.
+
 * Thu Jan 11 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-2
-- Spec File: Do not install annocheck.1.gz when annocheck is disabled
+- Spec File: Do not install annocheck.1.gz when annocheck is disabled.
 
 * Thu Jan 04 2024 Nick Clifron  <nickc@redhat.com> - 12.35-1
 - Annocheck: Improve detection of FIPS compliant GO binaries.

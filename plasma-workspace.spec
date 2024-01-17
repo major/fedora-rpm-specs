@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.92.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -714,6 +714,9 @@ fi
 
 
 %changelog
+* Mon Jan 15 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-3
+- Rebuild for plasma-breeze
+
 * Thu Jan 11 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-2
 - Re-enable audiocd-kio recommends
 

@@ -1,5 +1,5 @@
 Name:           kdsoap
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        A Qt-based client-side and server-side SOAP component
 
@@ -29,7 +29,7 @@ for any further component such as a dedicated web server.}
 
 %description %{_description}
 
-For more information, see 
+For more information, see
 https://www.kdab.com/development-resources/qt-tools/kd-soap/
 
 %package        devel
@@ -112,6 +112,8 @@ rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
 %{_bindir}/kdwsdl2cpp
 %{_libdir}/cmake/KDSoap/
 %{_libdir}/qt5/mkspecs/modules/*
+%{_includedir}/KDSoapClient/
+%{_includedir}/KDSoapServer/
 
 %files -n kdsoap6-devel
 %doc kdsoap.pri kdwsdl2cpp.pri
@@ -120,10 +122,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
 %{_bindir}/kdwsdl2cpp-qt6
 %{_libdir}/cmake/KDSoap-qt6/
 %{_libdir}/qt6/mkspecs/modules/*
+%{_includedir}/KDSoapClient-Qt6/
+%{_includedir}/KDSoapServer-Qt6/
 
 %files devel-common
-%{_includedir}/KDSoapClient/
-%{_includedir}/KDSoapServer/
 %dir %{_datadir}/mkspecs
 %dir %{_datadir}/mkspecs/features
 %{_datadir}/mkspecs/features/kdsoap.prf

@@ -1,7 +1,7 @@
 %global pypi_name pelican
 Name:           python-%{pypi_name}
 Version:        4.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool to generate a static blog from reStructuredText or Markdown input files
 
 License:        AGPLv3
@@ -37,7 +37,6 @@ BuildRequires:  python3-sphinx
 BuildRequires:  python3-unidecode
 BuildRequires:  python3-rich
 
-BuildRequires:  python3-mock
 BuildRequires:  python3-markdown
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-lxml
@@ -136,6 +135,9 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %changelog
+* Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 4.8.0-4
+- Remove unused python3-mock test dependency
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

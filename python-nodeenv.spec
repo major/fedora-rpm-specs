@@ -1,6 +1,6 @@
 Name:           python-nodeenv
 Version:        1.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Node.js virtual environment builder
 
 License:        BSD-3-Clause
@@ -76,7 +76,7 @@ sed -r -i '1{/^#!/d}' nodeenv.py
 
 %install
 %pyproject_install
-%pyproject_save_files nodeenv
+%pyproject_save_files -l nodeenv
 
 # Generate the man page here, rather than in %%build, so that the executable
 # script entry point is readily available.
@@ -94,7 +94,6 @@ k="${k-}${k+ and }not test_smoke"
 
 
 %files -n python3-nodeenv -f %{pyproject_files}
-# pyproject_files handles LICENSE and AUTHORS; verify with “rpm -qL -p …”
 %doc README.rst
 %doc README.ru.rst
 %doc CHANGES
@@ -104,6 +103,9 @@ k="${k-}${k+ and }not test_smoke"
 
 
 %changelog
+* Tue Jan 02 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.0-4
+- Assert that the .dist-info directory contains a license file
+
 * Mon Oct 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.0-3
 - Replace usage of deprecated/removed pipes module (fix RHBZ#2245654)
 

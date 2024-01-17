@@ -1,9 +1,9 @@
 %global _hardened_build 1
-%global minor_version 1.10
+%global minor_version 1.11
 %global xfceversion 4.16
 
 Name:           xfce4-notes-plugin
-Version:        1.10.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Notes plugin for the Xfce panel
 
@@ -57,7 +57,7 @@ desktop-file-validate \
 %{_datadir}/applications/xfce4-notes.desktop
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/xfce4/panel/plugins/*.desktop
-%{_datadir}/%{name}/
+%{_datadir}/xfce4/notes/gtk-3.0/gtk.css
 
 %changelog
 %autochangelog

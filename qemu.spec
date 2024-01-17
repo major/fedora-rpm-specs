@@ -357,7 +357,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 1
+%global baserelease 2
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -380,6 +380,10 @@ Patch: 0001-pc-bios-optionrom-Fix-pvh.img-ld-build-failure-on-fe.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2256884
 Patch: 0001-include-ui-rect.h-fix-qemu_rect_init-mis-assignment.patch
+
+# https://gitlab.com/qemu-project/qemu/-/issues/2070
+# https://patchew.org/QEMU/20240101230617.129349-1-richard.henderson@linaro.org
+Patch: 0001-target-i386-do-not-re-compute-new-pc-with-CF_PCREL.patch
 
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
@@ -3133,6 +3137,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Fri Jan 12 2024 Daan De Meyer <daan.j.demeyer@gmail.com> - 8.2.0-2
+- Backport TCG patch that fixes OVMF boot with 4M variables
+
 * Tue Jan  9 2024 Daniel P. Berrangé <berrange@redhat.com> - 8.2.0-1
 - Update to 8.2.0 release
 - Add gpg verification of source tarball

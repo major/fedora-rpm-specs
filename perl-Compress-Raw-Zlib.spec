@@ -8,7 +8,7 @@
 
 Name:           perl-Compress-Raw-Zlib
 Version:        2.206
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low-level interface to the zlib compression library
 # Zlib.xs:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
 # Others:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -161,6 +161,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 15 2024 Paul Howarth <paul@city-fan.org> - 2.206-2
+- Rebuild for zlib-ng in Rawhide
+
 * Wed Jul 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.206-1
 - 2.206 bump (rhbz#2225674)
 

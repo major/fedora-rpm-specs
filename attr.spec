@@ -1,18 +1,19 @@
 Summary: Utilities for managing filesystem extended attributes
 Name: attr
-Version: 2.5.1
-Release: 9%{?dist}
-Source0: https://download-mirror.savannah.gnu.org/releases/attr/attr-%{version}.tar.xz
-Source1: http://download.savannah.nongnu.org/releases/attr/attr-2.5.1.tar.xz.sig
+Version: 2.5.2
+Release: 1%{?dist}
+Source0: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz
+Source1: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
-Source2: agruen-key.gpg
+# Source2: agruen-key.gpg
+# Retrieved from https://savannah.nongnu.org/people/viewgpg.php?user_id=42032
+Source2: vapier-key.gpg
 
 # xattr.conf: remove entries for NFSv4 ACLs namespaces (#1031423)
 # https://lists.nongnu.org/archive/html/acl-devel/2019-03/msg00000.html
 # https://lists.nongnu.org/archive/html/acl-devel/2019-03/msg00001.html
 # https://lists.nongnu.org/archive/html/acl-devel/2019-05/msg00000.html
 Patch3:  0003-attr-2.4.48-xattr-conf-nfs4-acls.patch
-Patch4:  0004-backport-add-georgian.patch
 
 License: GPL-2.0-or-later
 URL: https://savannah.nongnu.org/projects/attr
@@ -124,6 +125,9 @@ ln -fs ../sys/xattr.h $RPM_BUILD_ROOT%{_includedir}/attr/xattr.h
 %config(noreplace) %{_sysconfdir}/xattr.conf
 
 %changelog
+* Mon Jan 15 2024 Lukáš Zaoral <lzaoral@redhat.com> - 2.5.2-1
+- rebase to latest version (rhbz#2258293)
+
 * Fri Sep 08 2023 Temuri Doghonadze <temuri.doghonadze@gmail.com> - 2.5.1-9
 - Backporting Georgian language for RHEL10 until next release of attr
 

@@ -20,8 +20,8 @@
 %global luajit_libdir %{_libdir}/luajit/%{luajit_version}
 %global luajit_builddir obj-luajit
 
-%global real_version 1.44.2
-%global extra_version 1
+%global real_version 1.47.0
+%global extra_version 0
 
 %if 0%{?rhel} && 0%{?rhel} < 9
 # EPEL8's cmake macros have _vpath_builddir defined
@@ -44,7 +44,7 @@ BuildRequires:  lua5.1-compat53
 
 Name:           lua-luv
 Version:        %{real_version}.%{extra_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 
 License:        Apache-2.0
 Summary:        Bare libuv bindings for lua
@@ -59,6 +59,10 @@ Source0:        https://github.com/luvit/luv/archive/%{real_version}-%{extra_ver
 Patch0:         luv-module-install.patch
 # Disable multicast tests as they don't work with firewalld
 Patch1:         lua-luv-disable-udp-test.patch
+# Disable tty normal test, see https://github.com/luvit/luv/issues/687
+Patch2:         luv-disable-tty-normal-test.patch
+Patch3:         luv-1.47.0-fix-linux-detection.patch
+
 
 %description
 %global _description %{expand:
@@ -180,6 +184,10 @@ mkdir %{luajit_builddir}
 
 %if %{with test}
 %check
+# `test normal` fails, because the handle is a file not a tty,
+# see https://github.com/luvit/luv/issues/687
+rm tests/test-tty.lua
+
 # lua-5.1
 ln -sf %{lua_51_builddir}/luv.so luv.so
 lua-5.1 tests/run.lua
@@ -237,6 +245,10 @@ rm luv.so
 %endif
 
 %changelog
+* Sat Jan 13 2024 Andreas Schneider <asn@redhat.com> - 1.47.0-1
+- Update to version 1.47.0-0
+  * https://github.com/luvit/luv/releases/tag/1.47.0-0
+ 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
