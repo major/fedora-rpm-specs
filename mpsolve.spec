@@ -51,6 +51,9 @@ Patch4:         %{name}-lto.patch
 # https://github.com/robol/MPSolve/pull/33
 Patch5:         %{name}-modern-c.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  bison
 BuildRequires:  doxygen-latex
 BuildRequires:  flex
@@ -284,6 +287,9 @@ make check
 %doc %{octpkgdir}/doc-cache
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.2.1-18
+- Stop building for 32-bit x86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

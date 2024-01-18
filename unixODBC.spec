@@ -6,7 +6,7 @@ URL: http://www.unixODBC.org/
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
 # (but that one is not compiled nor shipped)
-License: GPL-2.0-or-later and LGPL-2.1-or-later
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 
 Source: http://www.unixODBC.org/%{name}-%{version}.tar.gz
 Source1: odbcinst.ini

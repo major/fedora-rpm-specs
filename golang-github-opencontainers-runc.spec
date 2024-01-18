@@ -4,7 +4,7 @@
 
 # https://github.com/opencontainers/runc
 %global goipath         github.com/opencontainers/runc
-Version:                1.1.8
+Version:                1.1.11
 
 %gometa
 

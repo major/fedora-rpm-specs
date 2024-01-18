@@ -1,3 +1,7 @@
+# Break a dependency cycle: apache-commons-jexl -> jacoco -> maven-reporting-api
+#   -> maven-doxia -> apache-commons-configuration -> apache-commons-jexl
+%bcond_with bootstrap
+
 Name:           apache-commons-jexl
 Version:        3.3
 Release:        %autorelease
@@ -25,8 +29,11 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
-BuildRequires:  mvn(org.jacoco:jacoco-maven-plugin)
 BuildRequires:  mvn(org.junit.vintage:junit-vintage-engine)
+
+%if %{without bootstrap}
+BuildRequires:  mvn(org.jacoco:jacoco-maven-plugin)
+%endif
 
 %description
 JEXL is a library intended to facilitate the implementation of scripting
@@ -60,6 +67,11 @@ platforms.
 %pom_remove_plugin :maven-pmd-plugin
 %pom_remove_plugin :maven-scm-publish-plugin
 %pom_remove_plugin :spotbugs-maven-plugin
+
+# Break a dependency cycle in bootstrap mode
+%if %{with bootstrap}
+%pom_remove_plugin :jacoco-maven-plugin
+%endif
 
 %build
 %mvn_build

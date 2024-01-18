@@ -11,6 +11,8 @@ Source1:        https://pari.math.u-bordeaux.fr/pub/pari/packages/nftables.tgz.a
 # Public key 0xedef8d6a, Karim Belabas <Karim.Belabas@math.u-bordeaux.fr>
 Source2:        gpgkey-dd6754092ef692988cfcdcbad49a9c20edef8d6a.gpg
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 BuildRequires:  gnupg2
@@ -43,6 +45,9 @@ cp -a nftables %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 20080929-5
+- Stop building for 32-bit x86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080929-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

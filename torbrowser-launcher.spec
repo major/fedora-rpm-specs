@@ -1,12 +1,11 @@
 %global		oname torbrowser_launcher
 Name:		torbrowser-launcher
-Version:	0.3.6
-Release:	7%{?dist}
+Version:	0.3.7
+Release:	1%{?dist}
 Summary:	Tor Browser Bundle managing tool
 License:	MIT
 URL:		https://github.com/micahflee/torbrowser-launcher/
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:		%{name}-fix-tbb-archive-name.patch
 BuildArch:	noarch
 ExclusiveArch: %{ix86} x86_64
 BuildRequires:	desktop-file-utils
@@ -15,6 +14,8 @@ BuildRequires:	gettext
 BuildRequires:	libappstream-glib
 BuildRequires:  python3-distro
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pip
+BuildRequires:  python3-wheel
 Requires:	python3
 Requires:	gnupg2
 Requires:	tor
@@ -50,39 +51,39 @@ sed -i -r "s/^([ \t]+)self.label1 = gtk.Label\(_\('Not installed'\)\)/\
 \1self.label1 = gtk.Label\(_\('Not installed'\)\)\n\1self.tor_update_checkbox.\
 set_active\(False\)/g" torbrowser_launcher/settings.py
 
-%patch -P 0 -p1
 
 %build
-%py3_build
+%pyproject_wheel
 desktop-file-validate share/applications/torbrowser.desktop
 desktop-file-validate share/applications/torbrowser-settings.desktop
 
 %install
 find . -name apparmor -type d -print0|xargs -0 rm -r --
-%{__python3} setup.py install --skip-build --root %{buildroot} --prefix=%{_prefix} --install-data=%{_prefix}
-install -m 644 -D share/metainfo/*.appdata.xml \
-    %{buildroot}%{_datadir}/appdata/torbrowser-launcher.appdata.xml
+%pyproject_install
+install -m 644 -D share/metainfo/org.torproject.torbrowser-launcher.metainfo.xml \
+    %{buildroot}%{_datadir}/metainfo/org.torproject.torbrowser-launcher.metainfo.xml
 
 %find_lang %{name}
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.torproject.torbrowser-launcher.metainfo.xml
 
 %files -f %{name}.lang
 %{_bindir}/%{name}
 %doc README.md
 %license LICENSE
 %{_datadir}/applications/*
-%{_datadir}/appdata/*
 %{_datadir}/icons/hicolor/128x128/apps/torbrowser.png
 %{_datadir}/%{name}/*
-%{python3_sitelib}/%{oname}-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/%{oname}/*
-%{_metainfodir}/torbrowser.appdata.xml
-
+%{_metainfodir}/org.torproject.torbrowser-launcher.metainfo.xml
+%{python3_sitelib}/%{oname}-%{version}.dist-info/
 
 %changelog
+* Tue Jan 16 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.3.7-1
+- 0.3.7
+
 * Fri Oct 13 2023 Daniel Rusek <mail@asciiwolf.com> - 0.3.6-7
 - Fixed TBB archive name format
 

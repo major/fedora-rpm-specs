@@ -25,6 +25,9 @@ Patch0:         %{name}-data.patch
 # Build a shared library for use by sagemath
 Patch1:         %{name}-shared.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  tex(latex)
@@ -101,6 +104,9 @@ fi
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.1-10.20180226.7b5a1f0
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-10.20180226.7b5a1f0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

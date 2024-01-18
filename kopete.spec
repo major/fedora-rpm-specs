@@ -3,7 +3,7 @@ Summary: Instant messenger
 Version: 23.08.4
 Release: 1%{?dist}
 
-License: GPLv2-or-later and LGPL-2.1-only
+License: GPL-2.0-or-later AND LGPL-2.1-only
 URL:     https://www.kde.org/applications/internet/kopete/
 
 Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz

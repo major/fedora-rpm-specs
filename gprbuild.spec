@@ -63,7 +63,7 @@
 Name:           gprbuild
 Epoch:          2
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A multi-language extensible build tool
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -412,6 +412,9 @@ gprbuild -v --db /usr/share/gprconfig -P gprbuild-tests/tests_shared.gpr
 ###############
 
 %changelog
+* Tue Jan 16 2024 Björn Persson <Bjorn@Rombobjörn.se> - 2:23.0.0-4
+- Rebuilt with GCC 14 prerelease.
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:23.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

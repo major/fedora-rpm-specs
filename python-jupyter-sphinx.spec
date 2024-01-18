@@ -6,6 +6,8 @@ License:        BSD-3-Clause
 URL:            https://jupyter-sphinx.readthedocs.io/
 Source0:        https://github.com/jupyter/jupyter-sphinx/archive/v%{version}/jupyter-sphinx-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -78,6 +80,9 @@ export JUPYTER_PLATFORM_DIRS=1
 %doc doc/build/html
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.5.3-1
+- Stop building for 32-bit x86
+
 * Thu Dec 28 2023 Jerry James <loganjerry@gmail.com> - 0.5.3-1
 - Version 0.5.3
 - Drop upstreamed Sphinx 7.2 patch

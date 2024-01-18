@@ -1,7 +1,7 @@
 Name:             gawk-errno
 Summary:          Errno library for gawk
-Version:          1.1.0
-Release:          16%{?dist}
+Version:          1.1.1
+Release:          1%{?dist}
 License:          GPLv3+
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -57,6 +57,9 @@ make check
 # =============================================================================
 
 %changelog
+* Tue Jan 16 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.1-1
+- Upgrade to new upstream release
+
 * Sun Jan 14 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.0-16
 - Update BuildRequires gawk(abi) to indicate compatibility with gawk 5.3 major
   api version 4

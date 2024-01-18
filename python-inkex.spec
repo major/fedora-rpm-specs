@@ -5,7 +5,7 @@ Version:        1.3.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python extensions for Inkscape core
 
 License:        GPL-2.0-or-later
@@ -59,6 +59,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+# Remove version limit from lxml
+sed -i "s/lxml = .*/lxml = '\*'/" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -83,6 +85,9 @@ sed -i /env\ python/d %{buildroot}%{python3_sitelib}/inkex/tester/inx.py
 %license LICENSE.txt
  
 %changelog
+* Mon Jan 15 2024 Lumír Balhar <lbalhar@redhat.com> - 1.3.0-3
+- Remove version limit from lxml
+
 * Sun Dec 24 2023 Benson Muite <benson_muite@emailplus.org> - 1.3.0-2
 - Enable building with Python 3.13
 * Fri Sep 08 2023 Benson Muite <benson_muite@emailplus.org> - 1.3.0-1

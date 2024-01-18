@@ -66,6 +66,9 @@ Source1:        65-%{fontpkgname0}.conf
 Source2:        65-%{fontpkgname1}.conf
 Source3:        65-%{fontpkgname2}.conf
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %fontpkg -a
 
 # We cannot use %%fontmetapkg, because it doesn't know how to deal with a
@@ -115,6 +118,9 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma/Petaluma.json
 %files          all
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.065-9
+- Stop building for 32-bit x86
+
 * Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 1.065-9
 - Link metadata to metadata.json for MuseScore
 

@@ -41,8 +41,7 @@ This package contains extra modular polynomials of prime level between
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE4}
 %{gpgverify} --data=%{SOURCE2} --signature=%{SOURCE3} --keyring=%{SOURCE5}
 
-%setup -cq
-%setup -q -T -D -a 2
+%autosetup -c -a 2
 mv data/seadata/README* .
 
 %build

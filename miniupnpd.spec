@@ -1,5 +1,5 @@
 Name:       miniupnpd
-Version:    2.3.3
+Version:    2.3.4
 Release:    1%{?dist}
 Summary:    Daemon to offer UPnP-IGD and NAT-PMP support
 
@@ -52,7 +52,7 @@ sed -i 's/ OS_URL.*$/ OS_URL "https:\/\/getfedora.org"/' config.h
 sed -i 's/^CFLAGS.*$//g' Makefile
 sed -i 's/^LDFLAGS.*$//g' Makefile
 sed -i 's/        policy drop;/        policy accept;/' netfilter_nft/scripts/nft_init.sh
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -89,6 +89,9 @@ rm -f %{buildroot}/etc/init.d/%{name}
 
 
 %changelog
+* Tue Jan 16 2024 - Michael Cronenworth <mike@cchtml.com> - 2.3.4-1
+- Version update
+
 * Wed Jul 26 2023 - Michael Cronenworth <mike@cchtml.com> - 2.3.3-1
 - Version update
 - Fix reported fields (RHBZ#2161103)

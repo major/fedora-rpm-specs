@@ -1,13 +1,15 @@
-%global devrel dev.12
+#%%global devrel dev.12
+%global devrel %{nil}
 
 Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.0
-Release: %{devrel}.2%{?dist}
+#Release: %%{devrel}.1%%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-only
 
-Source0: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
-Source1: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2.asc
+Source0: https://invisible-island.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
+Source1: https://invisible-island.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2.asc
 Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072.asc
 
 URL: https://lynx.invisible-island.net/
@@ -23,9 +25,6 @@ Patch1: lynx-2.8.9-build.patch
 # TRUSTED_LYNXCGI:none in lynx.cfg to disable all lynxcgi URLs by default
 # [CVE-2008-4690]
 Patch2: lynx-CVE-2008-4690.patch
-
-# lynx: memcpy(): lynx killed by SIGABRT
-Patch3: lynx-2.9.0dev.10-sigabrt-after-start.patch
 
 Provides: webclient
 Provides: text-www-browser
@@ -64,9 +63,6 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
 %endif
 
 %build
-# Fix compilation on F40
-CFLAGS="-D_GNU_SOURCE $CFLAGS"
-
 %configure --libdir=/etc            \
     --disable-font-switch           \
     --disable-rpath-hack            \
@@ -136,6 +132,9 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Tue Jan 16 2024 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-1
+- rebase to latest upstream version
+
 * Fri Oct 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-dev.12.2
 - fix FTBFS in Fedora Rawhide (rhbz#2243829)
 

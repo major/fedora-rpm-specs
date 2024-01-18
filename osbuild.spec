@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        103
+Version:        104
 
 %forgemeta
 
@@ -278,6 +278,37 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Tue Jan 16 2024 Packit <hello@packit.dev> - 104-1
+Changes with 104
+----------------
+  * HMS-3235: Skopeo source storage location (#1504)
+    * Author: Gianluca Zuccarelli, Reviewers: Achilleas Koutsou
+  * add --break for requesting a debug shell (#1532)
+    * Author: Dusty Mabe, Reviewers: Brian C. Lane, Michael Vogt, Tomáš Hozza
+  * create org.osbuild.bootupd stage (#1519)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+  * minor updates for fedora-coreos-container manifest (#1533)
+    * Author: Dusty Mabe, Reviewers: Simon de Vlieger
+  * osbuild: test OSBUILD_EXPORT_FORCE_NO_PRESERVE_OWNER (#1511)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * stages(container-deploy): ensure `/var/tmp` is available (#1531)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai
+  * stages(grub2): allow pulling efi binaries from alternative efi roots (#1529)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * stages,util: add org.osbuild.selinux tests and small functional tweaks (#1526)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * stages/org.osbuild.ostree.config: support bls-append-except-default (#1534)
+    * Author: Luke Yang, Reviewers: Dusty Mabe
+  * stages: add new `org.osbuild.container-deploy` stage (#1509)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane
+  * test: fix new mount tests under rhel8 (#1537)
+    * Author: Michael Vogt, Reviewers: Paweł Poławski, Tomáš Hozza
+  * tools/osbuild-mpp: run _process_format() for mpp-embed dict (#1528)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2024-01-16
+
+
 * Wed Jan 03 2024 Packit <hello@packit.dev> - 103-1
 Changes with 103
 ----------------

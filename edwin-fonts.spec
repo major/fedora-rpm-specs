@@ -44,6 +44,9 @@ Provides:       mscore-edwin-fonts = 1:%{version}-%{release}
 Source0:        https://github.com/MuseScoreFonts/Edwin/archive/v%{version}/Edwin-%{version}.tar.gz
 Source1:        65-%{fontpkgname}.conf
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  fonts-rpm-macros
 
 %fontpkg

@@ -11,6 +11,10 @@ Source0:	https://github.com/BRiAl/BRiAl/releases/download/%{version}/%{name}-%{v
 Patch0:		%{name}-clock.patch
 # cudd/cudd.h:#define CUDD_VERSION "2.5.0"
 Provides:	bundled(cudd) = 2.5.0
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	boost-devel
@@ -97,6 +101,9 @@ make check
 %doc sage-brial/README.md
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.2.12-3
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

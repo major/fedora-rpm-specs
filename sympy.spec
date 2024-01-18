@@ -20,6 +20,7 @@ Patch0:         %{name}-circuitplot.patch
 # Adapt to python 3.12
 Patch1:         %{name}-python3.12.patch
 # Fix incompatible pointers, which are an error with GCC 14
+# https://github.com/sympy/sympy/pull/25968
 Patch2:         %{name}-incompatible-pointer.patch
 
 # This package used to be noarch, and should still be noarch.  However, because

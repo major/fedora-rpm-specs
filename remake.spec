@@ -9,6 +9,9 @@ Source0:        https://github.com/silene/%{name}/archive/%{name}-%{version}.tar
 # Find out which test is hanging
 Patch0:         %{name}-test.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript
@@ -87,6 +90,9 @@ cd testsuite
 %exclude %{_docdir}/%{name}/README.md
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.14-8
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

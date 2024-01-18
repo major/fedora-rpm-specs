@@ -1,7 +1,7 @@
 Summary:        A simple, lightweight interface to Amazon Web Services
 Name:           python-boto
 Version:        2.49.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        MIT
 URL:            https://github.com/boto/boto
 Source0:        https://pypi.io/packages/source/b/boto/boto-%{version}.tar.gz
@@ -46,6 +46,11 @@ Patch9:         boto-2.40.0-route53-no-resourcepath.patch
 # Add ModifySubnetAttribute support
 # https://github.com/boto/boto/pull/3111
 Patch10:        boto-2.45.0-modifysubnetattribute.patch
+
+# tests: remove direct usages of mock in favor compat module
+# https://fedoraproject.org/wiki/Changes/RemovePythonMockUsage
+# https://github.com/boto/boto/pull/3952
+Patch11:        remove-python-mock.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -116,6 +121,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/*
 
 
 %changelog
+* Fri Jan 12 2024 Maxwell G <maxwell@gtmx.me> - 2.49.0-19
+- Remove python3-mock dependency
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

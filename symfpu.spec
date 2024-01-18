@@ -21,6 +21,9 @@ Patch2:         %{url}/pull/9.patch
 # CVC5 patch for symfpu (apparently authored by the symfpu maintainer)
 Patch3:         %{name}-cvc5.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
@@ -93,6 +96,9 @@ export LD_LIBRARY_PATH=$PWD
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0-0.15.20190517gitc3acaf6
+- Stop building for 32-bit x86
+
 * Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0-0.15.20190517gitc3acaf6
 - Add patch needed by CVC5
 

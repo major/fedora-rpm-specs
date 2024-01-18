@@ -17,6 +17,9 @@ Patch1:         %{name}-memory.patch
 # Use std::unordered_multimap instead of the deprecated __gnu_cxx::hash_multimap
 Patch2:         %{name}-map.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  make
@@ -51,6 +54,9 @@ install -m 0644 -p %{SOURCE1} %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/%{name}2.1*
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.0-26
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

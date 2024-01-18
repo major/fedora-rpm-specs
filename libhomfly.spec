@@ -7,6 +7,9 @@ License:        Unlicense
 URL:            https://github.com/miguelmarco/%{name}
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gc-devel
 BuildRequires:  gcc
 BuildRequires:  make
@@ -53,6 +56,9 @@ make check
 %{_libdir}/%{name}.so
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.02r6-11
+- Stop building for 32-bit x86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02r6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

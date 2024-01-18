@@ -77,7 +77,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # ./lib/isc/tm.c BSD-2-clause and/or MPL-2.0
 # ./lib/isccfg/parser.c BSD-2-clause and/or MPL-2.0
 Version:  9.18.21
-Release:  1%{?dist}
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -962,6 +962,9 @@ fi;
 %endif
 
 %changelog
+* Tue Jan 16 2024 Petr Menšík <pemensik@redhat.com> - 32:9.18.21-2
+- Update changed b.root-servers.net address in hints (#2253460)
+
 * Mon Jan 15 2024 Petr Menšík <pemensik@redhat.com> - 32:9.18.21-1
 - Update to 9.18.21 (#2255407)
 

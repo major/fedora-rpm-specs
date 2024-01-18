@@ -24,6 +24,9 @@ Patch3:         %{name}-arg-order.patch
 # bool is no longer needed.
 Patch4:		%{name}-cli11-2-compat.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  catch2-devel
 BuildRequires:  cli11-static
 BuildRequires:  cmake
@@ -101,6 +104,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0-0.12.20190307.521caf1
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12.20190307.521caf1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

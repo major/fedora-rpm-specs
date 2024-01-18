@@ -1,7 +1,7 @@
 %global debug_package %{nil}
-%global srctag ippcp_2021.9.0
+%global srctag ippcp_2021.10.0
 %global mbx_int_major 11
-%global mbx_int_minor 9
+%global mbx_int_minor 11
 %global desc %{expand: \
 Intel IPP Cryptography library provides optimized versions of RSA, ECDSA, ECDH
 and x25519 multi-buffer algorithms based on Intel Advanced Vector Extensions 
@@ -10,7 +10,7 @@ Intel Advanced Vector Extensions 512 (Intel AVX-512) GFNI and SM3 based on
 Intel Advanced Vector Extensions 512 (Intel AVX-512) instructions.}
 
 Name:		intel-ipp-crypto-mb
-Version:	1.0.9
+Version:	1.0.10
 Release:	1%{?dist}
 Summary:	Intel IPP Cryptography multi-buffer library
 
@@ -81,6 +81,9 @@ popd
 %{_libdir}/libcrypto_mb.a
 
 %changelog
+* Tue Jan 16 2024 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.10-1
+- Update to 1.0.10
+
 * Wed Oct 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.9-1
 - Update to 1.0.9 (2021.9.0)
 

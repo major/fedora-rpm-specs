@@ -8,6 +8,9 @@ License:        GPL-2.0-or-later
 URL:            https://homepages.warwick.ac.uk/~masgaj/mwrank/
 Source0:        https://github.com/JohnCremona/eclib/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  boost-devel
 BuildRequires:  flint-devel
 BuildRequires:  gcc-c++
@@ -103,6 +106,9 @@ make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 20230424-1
+- Stop building for 32-bit x86
+
 * Wed Oct 18 2023 Jerry James <loganjerry@gmail.com> - 20230424-1
 - Version 20230424
 

@@ -11,6 +11,9 @@ License:        GPL-3.0-only AND GPL-2.0-or-later
 URL:            https://github.com/dimpase/primecountpy
 Source0:        %{url}/archive/v%{version}/primecountpy-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(primecount)
 BuildRequires:  python3-cysignals-devel
@@ -97,6 +100,9 @@ ln -s ../$(find build -name \*.so) primecountpy
 %license LICENSE
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.1.0-11
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

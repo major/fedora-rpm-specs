@@ -8,7 +8,7 @@ parsed and searched for CSS or JS. These styles and scripts are subsequently\
 processed with optional, configurable compilers and filters.
 
 Name:		python-django-compressor
-Version:	4.1
+Version:	4.4
 Release:	%autorelease
 Summary:	Compresses linked and inline JavaScript or CSS into single cached files
 

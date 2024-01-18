@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -384,6 +384,11 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Jan 16 2024 Jan Grulich <jgrulich@redhat.com> - 1.13.1-11
+- Rebuild (xorg-x11-server)
+  CVE fix for: CVE-2023-6816, CVE-2024-0229, CVE-2024-21885, CVE-2024-21886,
+  CVE-2024-0408 and CVE-2024-0409
+
 * Wed Dec 20 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.13.1-10
 - Fix cmake builddir creation
 

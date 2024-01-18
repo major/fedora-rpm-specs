@@ -118,7 +118,7 @@ This %{upstream}-tools package provides graphical tools for %{upstream}.
 %package sqlite
 Summary:        SQLite provider for %{upstream}
 Requires:       %{name}%{?isa} = %{epoch}:%{version}-%{release}
-Requires:       sqlite%{?isa} >= 3.10.2
+Requires:       sqlite-libs%{?isa} >= 3.10.2
 
 %description sqlite
 This %{upstream}-sqlite includes the %{upstream} SQLite provider.

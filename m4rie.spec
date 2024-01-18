@@ -11,6 +11,9 @@ Patch0:         %{name}-warning.patch
 # and also cflags used to compile m4rie, but not needed by consumers of m4rie.
 Patch1:         %{name}-pkgconfig.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  doxygen
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -105,6 +108,9 @@ make check
 %{_libdir}/lib%{name}.a
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 20200125-9
+- Stop building for 32-bit x86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200125-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

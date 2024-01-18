@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt3D QML bindings and C++ APIs
 Name:    qt6-%{qt_module}
 Version: 6.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global examples 1
 
@@ -38,9 +38,9 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: qt6-qtshadertools-devel
 BuildRequires: qt6-qtimageformats
 # FIXME: enable with newer assimp
-# if 0{?fedora}
-# BuildRequires: pkgconfig(assimp) >= 3.3.1
-# endif
+%if 0%{?fedora}
+BuildRequires: pkgconfig(assimp) >= 3.3.1
+%endif
 Requires: qt6-qtimageformats%{?_isa} >= %{version}
 
 %description
@@ -75,7 +75,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %cmake_qt6 \
   -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
-  -DQT_FEATURE_qt3d_system_assimp=OFF
+  -DQT_FEATURE_qt3d_system_assimp=ON
 
 %cmake_build
 
@@ -202,6 +202,9 @@ popd
 
 
 %changelog
+* Tue Jan 16 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.1-2
+- Use system assimp
+
 * Mon Nov 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.6.1-1
 - 6.6.1
 

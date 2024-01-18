@@ -21,6 +21,9 @@ Patch1:         %{name}-lrslib071.patch
 # Adapt to bliss 0.76
 Patch2:         %{name}-bliss.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  bliss-devel
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -102,6 +105,9 @@ done
 %{_includedir}/%{name}/
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.1.9-33
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,6 +7,9 @@ License:        GPL-3.0-or-later
 URL:            https://pypi.org/project/pplpy/
 Source0:        %pypi_source pplpy
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  libmpc-devel
 BuildRequires:  make
@@ -90,6 +93,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.8.9-1
+- Stop building for 32-bit x86
+
 * Sun Sep 10 2023 Jerry James <loganjerry@gmail.com> - 0.8.9-1
 - Version 0.8.9
 

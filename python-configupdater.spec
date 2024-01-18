@@ -1,14 +1,13 @@
-# Enabled by default
-%bcond_without tests
+%bcond tests 1
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           python-configupdater
-Version:        3.1.1
+Version:        3.2
 Release:        %autorelease
 Summary:        Parser like ConfigParser but for updating configuration files
 
@@ -24,6 +23,8 @@ URL:            https://github.com/pyscaffold/configupdater
 Source0:        %{pypi_source ConfigUpdater}
 
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
 
 %if %{with doc_pdf}
 BuildRequires:  make
@@ -62,10 +63,6 @@ The following features are deliberately not implemented:
 
 %package -n python3-ConfigUpdater
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  %{py3_dist pytest}
 
 %description -n python3-ConfigUpdater %_description
 
@@ -82,10 +79,6 @@ This package provides generated documentation for %{name}.
 
 # Remove coverage and linter bits
 sed -i -r '/(--cov|pytest-cov|flake8)/d' setup.cfg
-
-# pytest-virtualenv is not used anywhere
-# Upstream issue: https://github.com/pyscaffold/configupdater/issues/114
-sed -i '/pytest-virtualenv/d' setup.cfg
 
 # Drop intersphinx mappings, since we can’t download remote inventories and
 # can’t easily produce working hyperlinks from inventories in local
@@ -113,6 +106,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %check
+%pyproject_check_import
 %if %{with tests}
 %pytest
 %endif

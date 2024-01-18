@@ -1,16 +1,14 @@
 %global modname http-ece
 
 Name:               python-http-ece
-Version:            1.1.0
-Release:            15%{?dist}
+Version:            1.2.0
+Release:            1%{?dist}
 Summary:            A simple implementation of the encrypted content-encoding
 
 License:            MIT
 URL:                https://github.com/web-push-libs/encrypted-content-encoding
 Source0:            %{url}/archive/v%{version}/encrypted-content-encoding-%{version}.tar.gz
 BuildArch:          noarch
-
-Patch0:             66.patch
 
 %description
 %{summary}.
@@ -21,7 +19,6 @@ Summary:            %{summary}
 BuildRequires:      python%{python3_pkgversion}-devel
 BuildRequires:      python%{python3_pkgversion}-setuptools
 BuildRequires:      python%{python3_pkgversion}-nose
-BuildRequires:      python%{python3_pkgversion}-mock
 BuildRequires:      python%{python3_pkgversion}-coverage
 BuildRequires:      python%{python3_pkgversion}-cryptography
 %{?python_enable_dependency_generator}
@@ -53,6 +50,10 @@ nosetests-%{python3_version} -v
 %{python3_sitelib}/http_ece-*.egg-info/
 
 %changelog
+* Tue Jan 16 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.2.0-1
+- 1.2.0
+- Drop mock dependency.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

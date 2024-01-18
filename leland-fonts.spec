@@ -46,6 +46,9 @@ Source0:        https://github.com/MuseScoreFonts/Leland/archive/v%{version}/Lel
 Source1:        65-%{fontpkgname0}.conf
 Source2:        65-%{fontpkgname1}.conf
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  fonts-rpm-macros
 
 %fontpkg -a

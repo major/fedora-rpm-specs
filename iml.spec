@@ -32,6 +32,9 @@ URL:            https://cs.uwaterloo.ca/~astorjoh/iml.html
 Source0:        https://cs.uwaterloo.ca/~astorjoh/iml-%{version}.tar.bz2
 Source1:        iml-license-clarification.eml
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 
@@ -53,16 +56,13 @@ Requires:       iml%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 Requires:       flexiblas-devel%{?_isa}
 
-# Static library subpackage removed in Fedora 36:
-Obsoletes:      iml-static < 1.0.5-32
-
 %description    devel
 The iml-devel package contains libraries and header files for developing
 applications that use iml.
 
 
 %prep
-%setup -q
+%autosetup
 cp -p '%{SOURCE1}' .
 awk  '/Copyright notice/ {n=1}; n && /\*\// {n=0}; n' src/iml.h |
   sed -r 's/^ \* ?//' > LICENSE

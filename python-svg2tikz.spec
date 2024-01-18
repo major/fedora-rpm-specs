@@ -5,7 +5,7 @@ Version:        2.1.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert SVG to TikZ/PGF code
 
 License:        GPL-2.0-or-later
@@ -40,6 +40,9 @@ Requires:       inkscape
 
 %prep
 %forgeautosetup
+
+#Remove version limit from lxml
+sed -i "s/lxml =.*/lxml = '\*'/" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -89,5 +92,8 @@ cd %{_builddir}
 
 
 %changelog
+* Mon Jan 15 2024 Lumír Balhar <lbalhar@redhat.com> - 2.1.0-2
+- Remove version limit from lxml
+
 * Thu Sep 07 2023 Benson Muite <benson_muite@emailplus.org> - 2.1.0-1
 - Initial packaging

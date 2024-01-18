@@ -27,6 +27,9 @@ Patch0:         %{name}-map.patch
 # The cstdint header is no longer included transitively
 Patch1:         %{name}-stdint.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cmake
 BuildRequires:  flex
 BuildRequires:  gcc-c++
@@ -108,6 +111,9 @@ cd -
 %{_libdir}/liblfscc.so
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.20230523-1
+- Stop building for 32-bit x86
+
 * Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0.20230523-1
 - Update to 20230523 git snapshot
 

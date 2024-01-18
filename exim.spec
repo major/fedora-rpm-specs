@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.97.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -46,6 +46,7 @@ Patch0: exim-4.97-config.patch
 Patch1: exim-4.94-libdir.patch
 Patch2: exim-4.97-dlopen-localscan.patch
 Patch3: exim-4.96-pic.patch
+Patch4: exim-4.97-mailq-old-format-message-id.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -492,6 +493,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Jan 16 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.97.1-2
+- Support old-format message_id spoolfiles for mailq
+  Resolves: rhbz#2258027
+
 * Wed Jan  3 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.97.1-1
 - New version
   Resolves: rhbz#2256145

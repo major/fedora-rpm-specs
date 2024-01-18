@@ -20,12 +20,17 @@
 
 Name:           numpy
 Version:        1.26.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
-# Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
-License:        BSD-3-Clause AND Apache-2.0 
+# Everything is BSD-3-Clause except...
+# numpy/core/include/numpy/libdivide: Zlib
+# numpy/core/src/multiarray/dragon4.*: MIT
+# numpy/random/src/mt19937/randomkit.h: MIT
+# numpy/random/src/pcg64: MIT AND Apache-2.0
+# numpy/random/src/sfc64: MIT
+License:        BSD-3-Clause AND MIT AND Apache-2.0 AND Zlib
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
@@ -51,7 +56,6 @@ this package is a version of f2py that works properly with NumPy.
 %package -n python3-numpy
 Summary:        A fast multidimensional array facility for Python
 
-License:        BSD-3-Clause
 %{?python_provide:%python_provide python3-numpy}
 Provides:       libnpymath-static = %{epoch}:%{version}-%{release}
 Provides:       libnpymath-static%{?_isa} = %{epoch}:%{version}-%{release}
@@ -214,6 +218,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Mon Jan 15 2024 Miro Hrončok <mhroncok@redhat.com> - 1:1.26.2-2
+- Add missing licenses to the License tag
+
 * Tue Dec 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.26.2-1
 - 1.26.2
 

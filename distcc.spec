@@ -1,8 +1,6 @@
-%define _hardened_build 1
-
 Name:       distcc
-Version:    3.3.5
-Release:    15%{?dist}
+Version:    3.4
+Release:    1%{?dist}
 Summary:    Distributed C/C++ compilation
 License:    GPL-2.0-or-later
 URL:        https://github.com/distcc/distcc
@@ -10,13 +8,14 @@ Source0:    https://github.com/distcc/distcc/archive/v%{version}/%{name}-%{versi
 Source1:    hosts.sample
 Source2:    distccd.service
 Patch0:     distcc-localhost.patch
+Patch1:     crash.patch
 
 BuildRequires: automake
 BuildRequires: autoconf
 BuildRequires: which
 BuildRequires: libtool
 BuildRequires: popt-devel
-BuildRequires: gtk2-devel
+BuildRequires: gtk3-devel
 BuildRequires: pango-devel
 BuildRequires: python3-devel
 Buildrequires: python3-setuptools
@@ -55,7 +54,8 @@ This package contains the compilation server needed to use %{name}.
 
 %prep
 %setup -q
-%patch0 -p0
+%patch -P 0 -p0
+%patch -P 1 -p0
 
 %build
 export PYTHON='/usr/bin/python3'
@@ -139,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Fri Jan 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.4-1
+- 3.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

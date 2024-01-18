@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -306,6 +306,10 @@ Patch32: binutils-riscv-SUB_ULEB128.patch
 # Purpose:  Let the gold lihnker ignore --error-execstack and --error-rwx-segments.
 # Lifetime: Fixed in 2.42 (maybe)
 Patch33: binutils-gold-ignore-execstack-error.patch
+
+# Purpose:  Fix the allocation of space for DT_RELR relocations on PPC64.
+# Lifetime: Fixed in 2.42 (maybe)
+Patch34: binutils-ppc-dt_relr-relocs.patch
 
 #----------------------------------------------------------------------------
 
@@ -1342,7 +1346,10 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
-* Thu Jan 11 2024 Siddhesh Poyarekar  <siddhesh@redhat.com> - 2.40-24
+* Mon Jan 15 2024 Nick Clifton  <nickc@redhat.com> - 2.41-25
+- Fix creation of DT_RELR relocs for PPC64LE.  (#2258061)
+
+* Thu Jan 11 2024 Siddhesh Poyarekar  <siddhesh@redhat.com> - 2.41-24
 - Use _fortify_level macro to control _FORTIFY_SOURCE.
 
 * Thu Jan 11 2024 Amit Shah  <amitshah@fedoraproject.org>- 2.41-23

@@ -2,7 +2,7 @@ Name:           corrosion
 Version:        0.4.5
 Release:        %autorelease
 Summary:        Easy Rust and C/C++ Integration
-SourceLicense:  MIT
+#SourceLicense:  MIT
 
 # Apache-2.0 OR BSL-1.0
 # MIT
@@ -41,6 +41,7 @@ cd generator
 cd ..
 
 %build
+export RUSTFLAGS="%build_rustflags"
 %cmake -DCORROSION_NATIVE_TOOLING:BOOL=ON
 %cmake_build
 cd generator

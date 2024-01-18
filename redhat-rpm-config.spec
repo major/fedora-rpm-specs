@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 278
+%global baserelease 280
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -140,7 +140,10 @@ Requires: (gawk if clang)
 # -fstack-clash-protection and -fcf-protection require GCC 8.
 Conflicts: gcc < 8.0.1-0.22
 
-Obsoletes: rpmautospec-rpm-macros < 0.3.6
+# Obsoletes intentionally without version: rpmautospec in Fedora <= 39 ships
+# the macro package, and its version has long passed the one previously
+# recorded here.
+Obsoletes: rpmautospec-rpm-macros
 
 Provides: system-rpm-config = %{version}-%{release}
 
@@ -259,6 +262,12 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Tue Jan 16 2024 Florian Weimer <fweimer@redhat.com> - 280-1
+- Drop -fcf-protection for i686 because there won't be kernel support
+
+* Tue Jan 16 2024 Nils Philippsen <nils@redhat.com> - 279-1
+- Obsolete rpmautospec-rpm-macros without version
+
 * Mon Jan 15 2024 Nick Clifton  <nickc@redhat.com> - 278-1
 - Add hardening feature to convert linker warning messages into errors.
 - https://fedoraproject.org/wiki/Changes/Linker_Error_On_Security_Issues

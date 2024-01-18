@@ -7,6 +7,9 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/sebasguts/PySingular
 Source0:        %{url}/archive/v%{version}/PySingular-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(Singular)
 BuildRequires:  python3-devel
@@ -43,6 +46,9 @@ Summary:        Python 3 interface to Singular
 %license GPLv2
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.9.7-16
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

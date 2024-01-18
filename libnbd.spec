@@ -23,8 +23,8 @@
 %global source_directory 1.19-development
 
 Name:           libnbd
-Version:        1.19.3
-Release:        2%{?dist}
+Version:        1.19.4
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -39,9 +39,6 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
-
-# Fixes bug in generator/Makefile.am which causes builds to fail on i686.
-Patch:          0001-generator-Makefile.am-Fix-missing-continuation-backs.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -395,6 +392,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Jan 16 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.4-1
+- New upstream development version 1.19.4
+
 * Tue Dec 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.3-2
 - New upstream development version 1.19.3
 

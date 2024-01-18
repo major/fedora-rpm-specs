@@ -1,7 +1,7 @@
 Summary:       Qt based JACK control application
 Name:          qjackctl
 Version:       0.9.12
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           http://qjackctl.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qjackctl/files/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -37,6 +37,7 @@ patch bay and connection control features.
 
 %build
 %{cmake} \
+  %{?flatpak:-DCONFIG_WAYLAND=1} \
   -DCONFIG_JACK_VERSION=1
 %{cmake_build}
 
@@ -44,17 +45,12 @@ patch bay and connection control features.
 %install
 %{cmake_install}
 
-# desktop file
-desktop-file-install \
-  %{buildroot}%{_datadir}/applications/org.rncbc.qjackctl.desktop
-
 # Handle locales
 %find_lang %{name} --with-qt
 
 %check
-mv  %{buildroot}%{_datadir}/metainfo/org.rncbc.qjackctl.metainfo.xml \
-  %{buildroot}%{_datadir}/metainfo/org.rncbc.qjackctl.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc.qjackctl.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.rncbc.qjackctl.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc.qjackctl.metainfo.xml
 
 %files -f qjackctl.lang
 %doc ChangeLog README
@@ -66,10 +62,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 %{_datadir}/applications/org.rncbc.qjackctl.desktop
 %{_mandir}/man1/%{name}*
 %{_mandir}/*/man1/%{name}*
-%{_datadir}/metainfo/org.rncbc.qjackctl.appdata.xml
+%{_datadir}/metainfo/org.rncbc.qjackctl.metainfo.xml
 
 
 %changelog
+* Tue Jan 16 2024 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.12-2
+- Fix flatpak build
+- Wayland support is desired for modern desktops.
+- Avoid creating a second copy of the desktop file or
+  unnecessarily renaming the appstream metainfo file.
+
 * Fri Sep 08 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.12-1
 - Update to version 0.9.12
 

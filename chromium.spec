@@ -285,7 +285,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 120.0.6099.216
+Version: 120.0.6099.224
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1766,6 +1766,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Jan 16 2024 Than Ngo <than@redhat.com> - 120.0.6099.224-1
+- update to 120.0.6099.224
+  * High CVE-2024-0517: Out of bounds write in V8
+  * High CVE-2024-0518: Type Confusion in V8
+  * High CVE-2024-0519: Out of bounds memory access in V8
+
 * Wed Jan 10 2024 Than Ngo <than@redhat.com> - 120.0.6099.216-1
 - update to 120.0.6099.216
   * High CVE-2024-0333: Insufficient data validation in Extensions

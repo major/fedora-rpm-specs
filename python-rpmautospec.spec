@@ -19,7 +19,7 @@
 %global canonicalname %{py_dist_name %{srcname}}
 
 Name: python-%{canonicalname}
-Version: 0.5.0
+Version: 0.5.1
 Release: %autorelease
 Summary: Package and CLI tool to generate release fields and changelogs
 License: MIT

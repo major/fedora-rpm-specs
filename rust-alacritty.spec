@@ -13,6 +13,11 @@ URL:            https://crates.io/crates/alacritty
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          alacritty-fix-metadata-auto.diff
+# GNOME 45.2 or later tells alacritty window to stop rendering under certain
+# conditions.
+# https://github.com/alacritty/alacritty/issues/7465#issuecomment-1871014052
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/3229
+Patch:          alacritty-0.13-ignore-xdg-shell-suspended-state.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  desktop-file-utils

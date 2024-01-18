@@ -34,10 +34,10 @@ word problem for finitely presented (semi)groups.
 # AMS: OFL-1.1-RFN
 # CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-# LaTeX: LPPL-1.0
+# LaTeX: LPPL-1.3a
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        LGPL-2.1-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only
+License:        LGPL-2.1-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.3a AND AGPL-3.0-only
 Summary:        GBNP documentation and examples
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help

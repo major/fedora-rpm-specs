@@ -19,6 +19,9 @@ Patch2:         %{name}-seq-point.patch
 # Silence -Wreturn-type output from gcc
 Patch3:         %{name}-return-type.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
@@ -88,6 +91,9 @@ cd -
 
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.0.1-9
+- Stop building for 32-bit x86
+
 * Wed Nov 22 2023 Florian Weimer <fweimer@redhat.com> - 3.0.1-9
 - Fix C compatibility issue in symmetrica-attribute.patch
 

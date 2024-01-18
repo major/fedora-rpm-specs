@@ -2,7 +2,7 @@
 
 Name:		libva
 Version:	2.20.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 # va/wayland/wayland-drm.xml is HPND-sell-variant
 # va/x11/va_dri* are ICU
@@ -48,6 +48,7 @@ developing applications that use %{name}.
 
 %build
 %meson \
+ -Dwith_legacy=nvctrl \
 %{?_without_xorg: -Dwith_glx=no -Dwith_x11=no} \
 %{?_without_wayland: -Dwith_wayland=no}
 
@@ -78,6 +79,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
+* Tue Jan 16 2024 Nicolas Chauvet <kwizart@gmail.com> - 2.20.0-2
+- Restore support for nvctrl
+
 * Sun Sep 17 2023 Nicolas Chauvet <kwizart@gmail.com> - 2.20.0-1
 - Update to 2.20.0
 

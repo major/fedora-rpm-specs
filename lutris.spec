@@ -1,12 +1,15 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.15
+Version:        0.5.16
 Release:        %autorelease
 Summary:        Install and play any video game easily
 
 License:        GPLv3
 URL:            http://%{name}.net
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
+
+# 0.5.16: Fix metainfo file
+Patch0:         0.5.16-fix-metainfo.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel

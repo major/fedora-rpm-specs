@@ -16,6 +16,9 @@ Patch0:         %{name}-0.2.8-gcc6.patch
 # Adapt to changes in recent versions of boost
 Patch1:         %{name}-0.2.9-boost.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  dvipng
@@ -85,6 +88,9 @@ cp -a include/%{name} $RPM_BUILD_ROOT%{_includedir}
 %{_includedir}/permlib
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.2.9-19
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -11,6 +11,9 @@ Source0:	%{url}/-/archive/%{version}/lcalc-%{version}.tar.bz2
 # https://gitlab.com/sagemath/lcalc/-/merge_requests/5
 Patch0:		%{name}-mismatched-delete.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:	gcc-c++
 BuildRequires:	gengetopt
 BuildRequires:	libtool
@@ -68,6 +71,9 @@ make check
 %{_libdir}/pkgconfig/lcalc.pc
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.0.5-5
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

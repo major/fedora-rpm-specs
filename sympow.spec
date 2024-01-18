@@ -19,6 +19,9 @@ BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  pari-gp
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       grep
 Requires:       pari-gp
@@ -87,6 +90,9 @@ cp -a binfiles %{buildroot}%{_var}/cache/%{name}/datafiles
 
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.023.6-9
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.023.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

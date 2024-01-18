@@ -7,10 +7,10 @@
 
 
 # Build the compat package?
-%if !(0%{?fedora} >= 999 || 0%{?rhel} >= 99) && %{with new_api}
-%bcond_without compat_pkg
-%else
+%if 0%{?fedora} >= 999 || 0%{?rhel} >= 10 || %{without new_api}
 %bcond_with    compat_pkg
+%else
+%bcond_without compat_pkg
 %endif
 
 
@@ -168,7 +168,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.36
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -585,6 +585,9 @@ done
 
 
 %changelog
+* Tue Dec 19 2023 Stanislav Zidek <szidek@redhat.com> - 4.4.36-4
+- Remove -compat package from Fedora ELN / RHEL 10
+
 * Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 4.4.36-3
 - Fix C compatibility issue in the configure script
 

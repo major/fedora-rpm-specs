@@ -20,7 +20,7 @@ the Galois resolvents for the polgalois function, for degrees 8 through 11.
 # Verify the source file
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 
-%setup -cq
+%autosetup -c
 
 %build
 

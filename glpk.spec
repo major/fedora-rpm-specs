@@ -56,9 +56,9 @@ The GLPK package includes the following main components:
 # AMS: OFL-1.1-RFN
 # CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-# Latin Modern: LPPL-1.0
+# Latin Modern: LPPL-1.3a
 # XY: GPL-1.0-or-later
-License:        GFDL-1.3-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.0
+License:        GFDL-1.3-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.3a
 Summary:        Documentation for %{name}
 
 %description    doc

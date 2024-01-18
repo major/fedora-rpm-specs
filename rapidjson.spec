@@ -6,7 +6,7 @@ Release:	24%{?dist}
 Summary:	Fast JSON parser and generator for C++
 
 # Most files are MIT, rapidjson/msinttypes/{stdint,inttypes}.h are BSD
-License:	MIT and BSD-3-Clause
+License:	MIT AND BSD-3-Clause
 URL:		http://rapidjson.org/
 Source0:	https://github.com/Tencent/rapidjson/archive/v%{version}/%{name}-%{version}.tar.gz
 # Downstream-patch for gtest

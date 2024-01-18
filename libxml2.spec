@@ -1,5 +1,5 @@
 Name:           libxml2
-Version:        2.12.3
+Version:        2.12.4
 Release:        1%{?dist}
 Summary:        Library providing XML and HTML support
 
@@ -112,7 +112,7 @@ rm -rf xmlconf
 cp %{SOURCE2} %{SOURCE3} xstc/
 pushd xstc
 mkdir Tests
-make tests
+%make_build tests
 popd
 # As the directory is copied to the devel subpackage, remove any build
 # artifacts.
@@ -157,6 +157,9 @@ popd
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Tue Jan 16 2024 David King <amigadave@amigadave.com> - 2.12.4-1
+- Update to 2.12.4 (#2258493)
+
 * Tue Dec 12 2023 David King <amigadave@amigadave.com> - 2.12.3-1
 - Update to 2.12.3 (#2254194)
 

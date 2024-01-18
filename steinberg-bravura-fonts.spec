@@ -49,6 +49,9 @@ Source0:        %{forgesource}
 Source1:        65-%{fontpkgname0}.conf
 Source2:        65-%{fontpkgname1}.conf
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %fontpkg -a
 %fontmetapkg
 
@@ -80,6 +83,9 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura/Bravura.json
 %fontfiles -z 1
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.392-7
+- Stop building for 32-bit x86
+
 * Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 1.392-7
 - Link metadata to metadata.json for MuseScore
 

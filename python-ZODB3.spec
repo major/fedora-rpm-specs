@@ -5,6 +5,9 @@ Summary:        Zope Object Database: Object Database and Persistence
 License:        ZPL-2.1
 URL:            https://www.zodb.org/
 Source0:        %pypi_source ZODB3
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -47,6 +50,9 @@ done
 %{python3_sitelib}/ZODB3*
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.11.0-26
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

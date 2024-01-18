@@ -1,7 +1,7 @@
 Name:             gawk-select
 Summary:          Select I/O multiplexing library for gawk
-Version:          1.1.2
-Release:          7%{?dist}
+Version:          1.1.3
+Release:          1%{?dist}
 License:          GPLv3+
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -60,6 +60,9 @@ make check
 # =============================================================================
 
 %changelog
+* Tue Jan 16 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.3-1
+- New upstream release
+
 * Sun Jan 14 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.2-7
 - Update BuildRequires gawk(abi) to indicate compatibility with gawk 5.3 major
   api version 4

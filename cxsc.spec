@@ -25,6 +25,9 @@ Patch5:         %{name}-uninit.patch
 # Do not allocate arrays with negative size
 Patch6:         %{name}-neg-alloc.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript
@@ -139,15 +142,13 @@ yes\n\
 %{build_cxxflags} -DCXSC_USE_BLAS -DCXSC_USE_LAPACK -DCXSC_USE_OPENMP -DCXSC_USE_FMA -DIS_64_BIT -fopenmp %{build_ldflags}\n\
 64\n\
 asm\n\
-%else
-%ifarch %{ix86} %{power64}
-%{build_cxxflags} -DCXSC_USE_BLAS -DCXSC_USE_LAPACK -DCXSC_USE_OPENMP -DCXSC_USE_FMA $use64 -fopenmp %{build_ldflags}\n\
+%elifarch %{power64}
+%{build_cxxflags} -DCXSC_USE_BLAS -DCXSC_USE_LAPACK -DCXSC_USE_OPENMP -DCXSC_USE_FMA -DIS_64_BIT -fopenmp %{build_ldflags}\n\
 asm\n\
 %else
 %{build_cxxflags} -DCXSC_USE_BLAS -DCXSC_USE_LAPACK -DCXSC_USE_OPENMP -DCXSC_USE_FMA $use64 -fopenmp -frounding-math -fno-inline %{build_ldflags}\n\
 hard\n\
 safe\n\
-%endif
 %endif
 %{buildroot}%{_prefix}\n\
 dynamic\n\
@@ -204,6 +205,9 @@ make toolboxtest_dyn
 %doc docu/apidoc
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.5.4-23
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

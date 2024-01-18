@@ -101,7 +101,7 @@ plugin(native) = "pp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/pp/dune-package << EOF
-(lang dune 3.11)
+(lang dune 3.12)
 (name pp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/pp))

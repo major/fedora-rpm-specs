@@ -18,6 +18,9 @@ Patch0:         %{name}-python-includes.patch
 # Fix FTBFS on 32-bit systems
 Patch1:         %{name}-32bit.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  boost-devel
 BuildRequires:  freetdi-gala-devel
 BuildRequires:  gcc-c++
@@ -98,6 +101,9 @@ rm -f %{buildroot}%{python3_sitearch}/tdlib/*.la
 %{_includedir}/treedec/
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.9.2-9.20210929.e8ec911
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-9.20210929.e8ec911
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

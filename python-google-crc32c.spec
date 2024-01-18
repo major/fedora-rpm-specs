@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-google-crc32c
-Version:        1.1.2
+Version:        1.5.0
 Release:        %autorelease
 Summary:        A python wrapper of the C library ‘Google CRC32C’
 
@@ -11,7 +11,7 @@ Source:         %{url}/archive/v%{version}/python-crc32c-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
-BuildRequires:  google-crc32c-devel
+BuildRequires:  google-crc32c-devel >= 1.1.2
 
 %global _description %{expand:
 This package wraps the google/crc32c hardware-based implementation of the
@@ -58,7 +58,7 @@ rm -rv google_crc32c/
 # See BUILDING.md.
 pushd scripts >/dev/null
 # Check the package, try and load the native library
-%{py3_test_envvars} %{python3} -m check_cffi_crc32c
+%{py3_test_envvars} %{python3} -m check_crc32c_extension
 popd >/dev/null
 
 %if %{with tests}
@@ -69,6 +69,7 @@ popd >/dev/null
 %files -n python3-google-crc32c -f %{pyproject_files}
 %doc CHANGELOG.md
 %doc README.md
+%doc SECURITY.md
 
 
 %changelog

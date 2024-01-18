@@ -17,6 +17,8 @@ Summary:        Solve crossword puzzles
 License:        GPL-3.0-or-later and CC-BY-SA-4.0
 URL:            https://gitlab.gnome.org/jrb/crosswords
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+# Listen to PickerListRow::changed instead of ModelRow::changed
+Patch:          %{url}/-/commit/aec030cb9b0d98476e338c25b60662db008c038f.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake

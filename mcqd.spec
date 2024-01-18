@@ -16,6 +16,9 @@ Patch0:         %{name}-silent.patch
 # Split the main function out into its own file to facilitate building a library
 Patch1:         %{name}-library.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 
 %description
@@ -85,6 +88,9 @@ LD_LIBRARY_PATH=$PWD ./mcqd test.clq > test.log 2>&1
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.0.0-10.20160901.9ab9717
+- Stop building for 32-bit x86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10.20160901.9ab9717
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

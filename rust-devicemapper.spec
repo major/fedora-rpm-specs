@@ -5,7 +5,7 @@
 %global crate devicemapper
 
 Name:           rust-devicemapper
-Version:        0.34.0
+Version:        0.34.1
 Release:        1%{?dist}
 Summary:        Library for using Linux device mapper
 
@@ -67,6 +67,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Tue Jan 16 2024 Bryan Gurney <bgurney@redhat.com> - 0.34.1-1
+- Update to version 0.34.1
+
 * Tue Oct 24 2023 Bryan Gurney <bgurney@redhat.com> - 0.34.0-1
 - Update to version 0.34.0
 

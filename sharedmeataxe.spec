@@ -14,6 +14,9 @@ Patch0:         %{name}-overflow.patch
 # Fix the build on big endian machines.
 Patch1:         %{name}-big-endian.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  environment(modules)
 BuildRequires:  doxygen-latex
 BuildRequires:  gcc
@@ -231,6 +234,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 %doc html
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.0.1-4
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

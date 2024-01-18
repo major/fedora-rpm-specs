@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   28%{?gitdate:.%{gitdate}}%{?dist}
+Release:   29%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 # SPDX
 License:   Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
@@ -155,7 +155,21 @@ Patch3811: 0002-mi-reset-the-PointerWindows-reference-on-screen-swit.patch
 Patch3812: 0001-Xi-allocate-enough-XkbActions-for-our-buttons.patch
 # CVE-2023-6478
 Patch3813: 0001-randr-avoid-integer-truncation-in-length-check-of-Pr.patch
-
+# CVE-2023-6816
+Patch3814: 0001-dix-allocate-enough-space-for-logical-button-maps.patch
+# CVE-2024-0229
+Patch3815: 0002-dix-Allocate-sufficient-xEvents-for-our-DeviceStateN.patch
+Patch3816: 0003-dix-fix-DeviceStateNotify-event-calculation.patch
+Patch3817: 0004-Xi-when-creating-a-new-ButtonClass-set-the-number-of.patch
+# CVE-2024-21885
+Patch3818: 0005-Xi-flush-hierarchy-events-after-adding-removing-mast.patch
+# CVE-2024-21886
+Patch3819: 0006-Xi-do-not-keep-linked-list-pointer-during-recursion.patch
+Patch3820: 0007-dix-when-disabling-a-master-float-disabled-slaved-de.patch
+# CVE-2024-0408
+Patch3821: 0008-glx-Call-XACE-hooks-on-the-GLX-buffer.patch
+# CVE-2024-0409
+Patch3822: 0009-ephyr-xwayland-Use-the-proper-private-key-for-cursor.patch
 
 BuildRequires: make
 BuildRequires: systemtap-sdt-devel
@@ -571,6 +585,10 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Tue Jan 16 2024 José Expósito <jexposit@redhat.com> - 1.20.14-29
+- CVE fix for: CVE-2023-6816, CVE-2024-0229, CVE-2024-21885, CVE-2024-21886,
+  CVE-2024-0408 and CVE-2024-0409
+
 * Wed Dec 13 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-28
 - CVE fix for: CVE-2023-6377, CVE-2023-6478
 

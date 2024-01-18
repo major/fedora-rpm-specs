@@ -5,7 +5,7 @@
 Name:           kjots
 Summary:        KDE Notes application
 Version:        5.1.1^%{gitdate}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2
 URL:            https://userbase.kde.org/KJots
 
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/org.kde.k
 
 
 %changelog
+* Tue Jan 16 2024 Alessandro Astone <ales.astone@gmail.com> - 5.1.1^20231210.013931.1d19021-2
+- Rebuild (kf6-kconfig)
+
 * Fri Dec 15 2023 Steve Cossette <farchord@gmail.com> - 5.1.1^20231210.013931.1d19021-1
 - Updated against git (For Qt6)
 

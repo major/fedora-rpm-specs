@@ -9,8 +9,8 @@
 %endif
 
 Name:           python-attrs
-Version:        23.1.0
-Release:        4%{?dist}
+Version:        23.2.0
+Release:        2%{?dist}
 Summary:        Python attributes without boilerplate
 
 # SPDX
@@ -37,6 +37,11 @@ object protocols.
 
 %prep
 %setup -q -n %{modname}-%{version}
+# Remove undesired/optional test dependency on pympler
+sed -i '/"pympler",/d' pyproject.toml
+
+# Remove tests-mypy extra from tests-no-zope extra
+sed -i "/attrs\[tests-mypy\]/d" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x tests}
@@ -59,6 +64,12 @@ object protocols.
 %doc README.md
 
 %changelog
+* Mon Jan 15 2024 Miro Hrončok <mhroncok@redhat.com> - 23.2.0-2
+- Remove undesired/optional test dependency on pympler
+
+* Tue Jan 02 2024 Lumír Balhar <lbalhar@redhat.com> - 23.2.0-1
+- Update to 23.2.0 (rhbz#2256322)
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

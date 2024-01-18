@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 0.70
 Summary: Run COPR build tasks
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -320,6 +320,9 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 
 
 %changelog
+* Tue Jan 16 2024 Pavel Raiskup <praiskup@redhat.com> - 0.70-2
+- rebuild to test https://fedoraproject.org/wiki/Changes/BuildWithDNF5
+
 * Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 0.70-1
 - collect and compress fedora-review logs after run
 - use Copr custom macros when parsing the specfile

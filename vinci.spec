@@ -10,6 +10,9 @@ Source0:        https://www.multiprecision.org/downloads/%{name}-%{version}.tar.
 # the man page has the same copyright and license as the sources.
 Source1:        %{name}.1
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  tex(latex)
@@ -62,6 +65,9 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.0.5-25
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

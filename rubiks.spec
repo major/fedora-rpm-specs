@@ -27,12 +27,11 @@ Patch5:         %{name}-signed.patch
 # Add attributes for better compiled code quality
 Patch6:         %{name}-attributes.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
-
-# This can be removed when F36 reaches EOL
-Obsoletes:      sagemath-rubiks < 9.2
-Provides:       sagemath-rubiks = %{version}-%{release}
 
 %description
 This package contains several different Rubik's cube solvers.  They can
@@ -119,6 +118,9 @@ done
 %{_mandir}/man1/rubiks_optimal.1*
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 20070912-7
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20070912-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

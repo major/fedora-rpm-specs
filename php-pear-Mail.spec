@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-pear-Net-SMTP
 #
-# Copyright (c) 2006-2023 Remi Collet
+# Copyright (c) 2006-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,7 +10,7 @@
 %global pear_name Mail
 
 Name:           php-pear-Mail
-Version:        1.6.0
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        Class that provides multiple interfaces for sending emails
 
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Tue Jan 16 2024 Remi Collet <remi@remirepo.net> - 2.0.0-1
+- update to 2.0.0
+
 * Mon Nov  6 2023 Remi Collet <remi@remirepo.net> - 1.6.0-1
 - update to 1.6.0
 

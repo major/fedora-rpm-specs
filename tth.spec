@@ -16,6 +16,9 @@ Source2:        ianhhutchinson.asc
 # the same copyright and license as tth itself.
 Source3:        tth.h
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  ghostscript
@@ -252,6 +255,9 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 4.16-3
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

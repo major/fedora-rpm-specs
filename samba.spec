@@ -147,7 +147,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.19.4
-%global baserelease 2
+%global baserelease 3
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -237,6 +237,9 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
+
+Patch0:         samba-4.19-fix-gpupdate-rhel-fedora.patch
+Patch1:         samba-4.19-fix-gpupdate-site-aware.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
@@ -4468,6 +4471,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 16 2024 Andreas Schneider <asn@redhat.com> - 4.29.4-3
+- Fix samba-gpupdate on Fedora/RHEL
+
 * Tue Jan 09 2024 Andreas Schneider <asn@redhat.com> - 4.19.4-2
 - resolves: rhbz#2256326 - Create all groups using systemd
 

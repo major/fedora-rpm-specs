@@ -1,7 +1,7 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
 Version:       0.9.12
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -33,10 +33,12 @@ command line software synthesizer based on the Soundfont specification.
 
 %prep
 %autosetup -p1
+# fedora-defaults.patch
+sed -i -e 's|@DATADIR@|%{_datadir}|g' src/qsynthOptions.cpp
 
 
 %build
-%{cmake}
+%{cmake} %{?flatpak:-DCONFIG_WAYLAND=ON}
 %{cmake_build}
 
 
@@ -44,7 +46,7 @@ command line software synthesizer based on the Soundfont specification.
 %{cmake_install}
 
 # desktop file
-desktop-file-install \
+desktop-file-edit \
   --add-category="X-Synthesis" \
   %{buildroot}%{_datadir}/applications/org.rncbc.qsynth.desktop
 
@@ -52,9 +54,7 @@ desktop-file-install \
 %find_lang %{name} --with-qt
 
 %check
-mv %{buildroot}%{_datadir}/metainfo/org.rncbc.qsynth.metainfo.xml \
-  %{buildroot}%{_datadir}/metainfo/org.rncbc.qsynth.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc.qsynth.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.rncbc.qsynth.metainfo.xml
 
 %files -f qsynth.lang
 %doc ChangeLog README
@@ -67,10 +67,18 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 %{_datadir}/applications/org.rncbc.qsynth.desktop
 %{_mandir}/man1/%{name}*
 %{_mandir}/*/man1/%{name}*
-%{_datadir}/metainfo/org.rncbc.qsynth.appdata.xml
+%{_metainfodir}/org.rncbc.qsynth.metainfo.xml
 
 
 %changelog
+* Tue Jan 16 2024 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.12-2
+- Fix flatpak build
+- soundfonts are shipped with apps, not the runtime, and therefore are in 
+  /app rather than /usr.
+- Wayland support is desired for modern desktops.
+- Avoid creating a second copy of the desktop file or unnecessarily
+  renaming the appstream metainfo file.
+
 * Fri Sep 08 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.12-1
 - Update to version 0.9.12
 

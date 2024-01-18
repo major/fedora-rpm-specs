@@ -22,7 +22,7 @@ representing all abstract groups of order up to 143 for all signatures
 # Verify the source file
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 
-%setup -cq
+%autosetup -c
 mv data/galpol/README .
 
 %build

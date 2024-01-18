@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -74,6 +74,9 @@ done
 %{_datadir}/modulefiles/rocm/
 
 %changelog
+* Fri Jan 12 2024 Tom Rix <trix@redhat.com> 1.0-9
+- Use semicolon seperators
+
 * Tue Dec 12 2023 Tom Rix <trix@redhat.com> 1.0-8
 - Add gfx906, gfx908 and gfx90a modules
 

@@ -16,6 +16,9 @@ Patch1:         %{name}-signed.patch
 # https://github.com/cvxopt/cvxopt/pull/247
 Patch2:         %{name}-python3.13.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  DSDP-devel
 BuildRequires:  gcc
 BuildRequires:  glpk-devel
@@ -133,6 +136,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.3.2-2
+- Stop building for 32-bit x86
+
 * Wed Oct 25 2023 Jerry James <loganjerry@gmail.com> - 1.3.2-2
 - Adapt to python 3.13 (rhbz#2246130)
 

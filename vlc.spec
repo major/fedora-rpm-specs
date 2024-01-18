@@ -40,7 +40,9 @@ Patch:		fdk-aac2.patch
 # separate avcodec-vaapi conditional from other vaapi modules
 Patch:		vaapi-without-ffmepg4.patch
 # port from intel-mediasdk to oneVPL
-Patch:          oneVPL.patch
+Patch:		oneVPL.patch
+# fix appstreamcli validate to show in Software (rhbz#2258611)
+Patch:		appdata.patch
 
 %{load:%{S:1}}
 %global __provides_exclude_from ^%{vlc_plugindir}/.*$
@@ -474,7 +476,12 @@ rm -f aclocal.m4 m4/lib*.m4 m4/lt*.m4
 sed -i -e 's|\("qt-icon-change",\) true|\1 false|' modules/gui/qt/qt.cpp
 
 # sync appstream app-id with Flathub
-sed -i -e 's|org\.videolan\.vlc|org.videolan.VLC|' share/vlc.appdata.xml.in.in
+# fill in release date from appstream.patch
+# https: https://code.videolan.org/videolan/vlc/-/merge_requests/1555 (4.0)
+sed -e 's|org\.videolan\.vlc|org.videolan.VLC|' \
+    -e 's|@DATE@|%(date +%F -r %{S:0})|' \
+    -e 's|http:|https:|g' \
+    -i share/vlc.appdata.xml.in.in
 
 %if 0%{?flatpak}
 # icons are renamed in order to be exported

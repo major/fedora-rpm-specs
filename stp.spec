@@ -21,6 +21,9 @@ Patch2:         %{name}-distutils.patch
 # Add a missing include for cstdint
 Patch3:         %{name}-cstdint.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:	bison
 BuildRequires:	boost-devel
 BuildRequires:	cmake
@@ -127,6 +130,9 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.3.3-27
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

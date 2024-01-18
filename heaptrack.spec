@@ -1,12 +1,15 @@
 Name:    heaptrack
 Version: 1.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A heap memory profiler for Linux
 
-License: GPLv2+
-URL:     https://cgit.kde.org/heaptrack.git/
+License: Apache-2.0 AND BSD-3-Cloause AND BSL-1.0 AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
+URL:     https://invent.kde.org/sdk/heaptrack/
 
 Source0: https://download.kde.org/stable/heaptrack/%{version}/%{name}-%{version}.tar.xz
+
+Patch0:  Support-KChart6-for-KF6.patch
+Patch1:  Use-QString-for-KConfigGroup-names.patch
 
 BuildRequires:  desktop-file-utils
 
@@ -55,7 +58,7 @@ profile to:
 
 %build
 %cmake_kf6 \
-	-DHEAPTRACK_USE_QT6=1 \
+  -DHEAPTRACK_USE_QT6=1 \
 %if "%{?_lib}" == "lib64"
   %{?_cmake_lib_suffix64}
 %endif
@@ -90,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Tue Jan 16 2024 Alessandro Astone <ales.astone@gmail.com> - 1.5.0-2
+- Backport Qt6 fixes
+
 * Wed Dec 27 2023 Marie Loise Nolden <loise@kde.org> - 1.5.0-1
 - Update to 1.5.0 using Qt6
 

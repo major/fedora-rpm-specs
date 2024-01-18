@@ -7,6 +7,9 @@ License:        OFL-1.1
 Version:        0
 Release:        %autorelease
 URL:            https://makemusic.zendesk.com/hc/en-us/articles/1500013053461-MakeMusic-Fonts-and-Licensing-Information
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 %global fontorg         com.makemusic

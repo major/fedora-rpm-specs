@@ -8,6 +8,9 @@ URL:            https://us.metamath.org/
 Source0:        https://us.metamath.org/downloads/%{name}.tar.bz2
 Source1:        https://us.metamath.org/latex/%{name}.tex
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  make
@@ -121,6 +124,9 @@ done
 %{_docdir}/metamath/metamath.pdf
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.198-5
+- Stop building for 32-bit x86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.198-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

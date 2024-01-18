@@ -52,8 +52,8 @@ Michel Lavrauw and Max Neunhoeffer.  It provides functionality:
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-# Tipa: LPPL-1.0
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only AND LPPL-1.0
+# Tipa: LPPL-1.3a
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only AND LPPL-1.3a
 Summary:        FinInG documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help

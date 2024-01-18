@@ -3,8 +3,8 @@
 
 Summary: A free and portable font rendering engine
 Name: freetype
-Version: 2.13.1
-Release: 2%{?dist}
+Version: 2.13.2
+Release: 1%{?dist}
 License: (FTL or GPLv2+) and BSD and MIT and Public Domain and zlib with acknowledgement
 URL: http://www.freetype.org
 Source:  http://download.savannah.gnu.org/releases/freetype/freetype-%{version}.tar.xz
@@ -78,17 +78,17 @@ FreeType.
 %prep
 %setup -q -b 1 -a 2
 
-%patch0  -p1 -b .enable-spr
-%patch1  -p1 -b .enable-valid
+%patch 0  -p1 -b .enable-spr
+%patch 1  -p1 -b .enable-valid
 
 pushd ft2demos-%{version}
-%patch2  -p1 -b .more-demos
+%patch 2  -p1 -b .more-demos
 popd
 
-%patch3 -p1 -b .libtool
-%patch4 -p1 -b .multilib
-%patch5 -p1 -b .internal-outline
-%patch6 -p1 -b .debughook
+%patch 3 -p1 -b .libtool
+%patch 4 -p1 -b .multilib
+%patch 5 -p1 -b .internal-outline
+%patch 6 -p1 -b .debughook
 
 %build
 
@@ -230,6 +230,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jan 16 2024 Marek Kasik <mkasik@redhat.com> - 2.13.2-1
+- Update to 2.13.2
+- Resolves: #2217137
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

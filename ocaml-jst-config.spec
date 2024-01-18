@@ -16,7 +16,7 @@ Source0:        %{url}/archive/v%{version}/jst-config-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-base-devel >= 0.16
-BuildRequires:  ocaml-dune-devel >= 2.0.0
+BuildRequires:  ocaml-dune >= 2.0.0
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-ppx-assert-devel >= 0.16
 

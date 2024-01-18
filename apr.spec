@@ -12,15 +12,15 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.7.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Apache-2.0: everything
 # ISC: network_io/apr-1.4.6/network_io/unix/inet_?to?.c
 # BSD-4-Clause-UC:  strings/apr_snprintf.c, strings/apr_fnmatch.c,
 #                   include/apr_fnmatch.h, misc/unix/getopt.c,
 #                   file_io/unix/mktemp.c, strings/apr_strings.c
 # Zlib: strings/apr_strnatcmp.c, include/apr_strings.h
-# Caldera: strings/apr_snprintf.c
-License: Apache-2.0 AND (BSD-4-Clause-UC AND ISC AND Zlib AND Caldera)
+# Caldera-no-preamble: strings/apr_snprintf.c
+License: Apache-2.0 AND (BSD-4-Clause-UC AND ISC AND Zlib AND Caldera-no-preamble)
 
 
 URL: https://apr.apache.org/
@@ -30,6 +30,7 @@ Patch1: apr-1.7.2-libdir.patch
 Patch2: apr-1.2.7-pkgconf.patch
 Patch3: apr-1.7.0-deepbind.patch
 Patch4: apr-1.7.2-autoconf.patch
+Patch5: apr-1.7.3-lmdb-support.patch
 BuildRequires: gcc, autoconf, libtool, libuuid-devel, python3
 BuildRequires: make
 
@@ -56,6 +57,7 @@ C data structures and routines.
 %patch2 -p1 -b .pkgconf
 %patch3 -p1 -b .deepbind
 %patch4 -p1 -b .autoconf-2-71
+%patch5 -p1 -b .lmdb-support
 
 %build
 # regenerate configure script etc.
@@ -73,6 +75,7 @@ export apr_cv_sctp=no
         --with-installbuilddir=%{_libdir}/apr-%{aprver}/build \
         --with-devrandom=/dev/urandom \
         --disable-static
+        --enable-maintainer-mode --with-lmdb --with-dbm=lmdb
 %{make_build}
 
 %install
@@ -145,6 +148,9 @@ popd
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Tue Oct 24 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.7.3-4
+- rebuilt
+
 * Fri Sep 29 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.7.3-3
 - SPDX migration
 

@@ -9,6 +9,9 @@ License:        Apache-2.0
 URL:            https://users.cecs.anu.edu.au/~bdm/plantri/
 Source0:        %{url}plantri%{upstreamver}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 
@@ -38,6 +41,9 @@ cp -p plantri fullgen %{buildroot}%{_bindir}
 %{_bindir}/fullgen
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 5.3-2
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

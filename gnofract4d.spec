@@ -21,6 +21,9 @@ Patch1:         gnofract4d-c99.patch
 # remove entirely in python 3.13
 Patch2:         %{name}-pyeval-initthreads.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  adwaita-blue-gtk-theme
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -125,6 +128,9 @@ mv ../test_main_window.py fract4dgui/tests
 %{_metainfodir}/com.github.fract4d.%{name}.metainfo.xml
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 4.3-14
+- Stop building for 32-bit x86
+
 * Tue Oct 31 2023 Jerry James <loganjerry@gmail.com> - 4.3-14
 - Avoid PyEval_InitThreads for python 3.13 (rhbz#2247255)
 

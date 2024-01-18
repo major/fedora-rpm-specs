@@ -1027,107 +1027,107 @@ rm -r Modules/zlib || exit 1
 #
 # Apply patches:
 #
-%patch0 -p1 -b .rhconfig
-%patch1 -p1 -b .no_gui
-%patch4 -p1 -b .cflags
-%patch6 -p1 -b .plural
-%patch7 -p1
+%patch -P0 -p1 -b .rhconfig
+%patch -P1 -p1 -b .no_gui
+%patch -P4 -p1 -b .cflags
+%patch -P6 -p1 -b .plural
+%patch -P7 -p1
 
 %if "%{_lib}" == "lib64"
-%patch102 -p1 -b .lib64
-%patch103 -p1 -b .lib64-sysconfig
-%patch104 -p1
+%patch -P102 -p1 -b .lib64
+%patch -P103 -p1 -b .lib64-sysconfig
+%patch -P104 -p1
 %endif
 
-%patch10 -p1 -b .binutils-no-dep
-%patch13 -p1 -b .socketmodule
-%patch14 -p1 -b .socketmodule2
-%patch16 -p1 -b .rpath
-%patch17 -p1 -b .distutils-rpath
+%patch -P10 -p1 -b .binutils-no-dep
+%patch -P13 -p1 -b .socketmodule
+%patch -P14 -p1 -b .socketmodule2
+%patch -P16 -p1 -b .rpath
+%patch -P17 -p1 -b .distutils-rpath
 
 %if 0%{?with_systemtap}
-%patch55 -p1 -b .systemtap
+%patch -P55 -p1 -b .systemtap
 %endif
 
-%patch111 -p1 -b .no-static-lib
+%patch -P111 -p1 -b .no-static-lib
 
-%patch112 -p1 -b .debug-build
+%patch -P112 -p1 -b .debug-build
 
-%patch113 -p1 -b .more-configuration-flags
+%patch -P113 -p1 -b .more-configuration-flags
 
-%patch114 -p1 -b .statvfs-f-flag-constants
+%patch -P114 -p1 -b .statvfs-f-flag-constants
 
 
-%patch121 -p1
-%patch128 -p1
+%patch -P121 -p1
+%patch -P128 -p1
 
-%patch130 -p1
+%patch -P130 -p1
 
 %ifarch ppc %{power64}
-%patch131 -p1
+%patch -P131 -p1
 %endif
 
-%patch132 -p1
-%patch133 -p1
-%patch136 -p1 -b .stdin-test
-%patch137 -p1
-%patch138 -p1
+%patch -P132 -p1
+%patch -P133 -p1
+%patch -P136 -p1 -b .stdin-test
+%patch -P137 -p1
+%patch -P138 -p1
 %ifarch %{arm}
-%patch139 -p1
+%patch -P139 -p1
 %endif
 %ifarch %{sparc}
-%patch140 -p1
+%patch -P140 -p1
 %endif
-%patch142 -p1 -b .tty-fail
-%patch143 -p1 -b .tsc-on-ppc
+%patch -P142 -p1 -b .tty-fail
+%patch -P143 -p1 -b .tsc-on-ppc
 %if !%{with_gdbm}
-%patch144 -p1
+%patch -P144 -p1
 %endif
-%patch147 -p1
-%patch155 -p1
-%patch156 -p1
-%patch165 -p1
+%patch -P147 -p1
+%patch -P155 -p1
+%patch -P156 -p1
+%patch -P165 -p1
 mv Modules/cryptmodule.c Modules/_cryptmodule.c
-%patch167 -p1
-%patch169 -p1
-%patch170 -p1
-%patch174 -p1 -b .fix-for-usr-move
-%patch180 -p1
-%patch181 -p1
-%patch185 -p1
+%patch -P167 -p1
+%patch -P169 -p1
+%patch -P170 -p1
+%patch -P174 -p1 -b .fix-for-usr-move
+%patch -P180 -p1
+%patch -P181 -p1
+%patch -P185 -p1
 
 %if %{with rpmwheels}
-%patch189 -p1
+%patch -P189 -p1
 rm Lib/ensurepip/_bundled/*.whl
 %endif
 
-%patch191 -p1
-%patch193 -p1
-%patch289 -p1
+%patch -P191 -p1
+%patch -P193 -p1
+%patch -P289 -p1
 
 # Patch 351 adds binary file for testing. We need to apply it using Git.
 git apply %{PATCH351}
 
-%patch354 -p1
-%patch355 -p1
-%patch357 -p1
-%patch359 -p1
-%patch361 -p1
-%patch366 -p1
-%patch368 -p1
-%patch375 -p1
-%patch377 -p1
-%patch378 -p1
-%patch382 -p1
-%patch394 -p1
-%patch399 -p1
-%patch403 -p1
-%patch405 -p1
-%patch406 -p1
-%patch408 -p1
+%patch -P354 -p1
+%patch -P355 -p1
+%patch -P357 -p1
+%patch -P359 -p1
+%patch -P361 -p1
+%patch -P366 -p1
+%patch -P368 -p1
+%patch -P375 -p1
+%patch -P377 -p1
+%patch -P378 -p1
+%patch -P382 -p1
+%patch -P394 -p1
+%patch -P399 -p1
+%patch -P403 -p1
+%patch -P405 -p1
+%patch -P406 -p1
+%patch -P408 -p1
 
 %if %{without tkinter}
-%patch4000 -p1
+%patch -P4000 -p1
 %endif
 
 # This shouldn't be necesarry, but is right now (2.2a3)
@@ -1136,7 +1136,7 @@ find -name "*~" |xargs rm -f
 %if ! 0%{regenerate_autotooling_patch}
 # Normally we apply the patch to "configure"
 # We don't apply the patch if we're working towards regenerating it
-%patch5000 -p0 -b .autotool-intermediates
+%patch -P5000 -p0 -b .autotool-intermediates
 %endif
 
 

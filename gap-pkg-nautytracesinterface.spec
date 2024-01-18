@@ -104,10 +104,10 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-28.20221102gitd54d393
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.2-27.20221102git
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.2-27.20221102gitd54d393
 - Update for split GAP directories
 
-* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 0.2-26.20221102git
+* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 0.2-26.20221102gitd54d393
 - Rebuild for nauty 2.8.6
 
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.2-25.20221102gitd54d393

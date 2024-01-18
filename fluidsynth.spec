@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.3.4
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 License:      LGPL-2.1-or-later
@@ -22,9 +22,7 @@ BuildRequires: cmake
 %endif
 BuildRequires: dbus-devel
 BuildRequires: g++
-%if !0%{?flatpak}
 BuildRequires: jack-audio-connection-kit-devel
-%endif
 BuildRequires: ladspa-devel
 BuildRequires: libsndfile-devel
 BuildRequires: ncurses-devel
@@ -38,7 +36,7 @@ BuildRequires: pulseaudio-libs-devel
 BuildRequires: pipewire-devel
 BuildRequires: libinstpatch-devel
 BuildRequires: readline-devel
-BuildRequires: /usr/bin/dot
+BuildRequires: graphviz
 BuildRequires: systemd-devel
 
 # For documentation:
@@ -76,11 +74,7 @@ for building programs that link against fluidsynth.
 
 %build
 
-%if 0%{?flatpak}
-%define enable_jack off
-%else
 %define enable_jack on
-%endif
 
 %if 0%{?el7}
 %{cmake3}  -Denable-ladspa=on -Denable-jack=%{enable_jack}
@@ -132,6 +126,9 @@ install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluids
 
 
 %changelog
+* Tue Jan 16 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.4-2
+- Enable jack in flatpak builds
+
 * Wed Sep 27 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.4-1
 - Update to 2.3.4
 

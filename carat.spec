@@ -19,6 +19,9 @@ Source1:        %{name}.module.in
 # https://github.com/lbfm-rwth/carat/pull/107
 Patch0:         %{name}-use-after-free.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  environment(modules)
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -115,6 +118,9 @@ cd -
 %license LICENSE
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1:2.1-3
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

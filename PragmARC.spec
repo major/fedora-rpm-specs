@@ -1,6 +1,6 @@
 Name:           PragmARC
 Version:        20130728
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        PragmAda Reusable Components, a component library for Ada
 Summary(sv):    PragmAda Reusable Components, ett komponentbibliotek för ada
 
@@ -58,7 +58,7 @@ cp -p %{SOURCE2} .
 # Delete files that won't be used.
 rm compile_all.adb assertion_handler.adb
 # Compile the library.
-gprbuild -P build_pragmarc.gpr %{GPRbuild_optflags} -XDESTDIR=build_target -XLDFLAGS='%{__global_ldflags}'
+gprbuild -P build_pragmarc.gpr %{GPRbuild_optflags} -XDESTDIR=build_target
 # Convert line breaks.
 dos2unix --keepdate license.txt readme.txt arc_list.txt design.txt Test/*
 
@@ -83,6 +83,9 @@ cp -p %{SOURCE3} %{buildroot}%{_GNAT_project_dir}/
 
 
 %changelog
+* Tue Jan 16 2024 Björn Persson <Bjorn@Rombobjörn.se> - 20130728-31
+- Rebuilt with GCC 14 prerelease.
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20130728-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

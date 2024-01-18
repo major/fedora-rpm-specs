@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.35
-Release: 4%{?dist}
+Version: 12.36
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -36,9 +36,14 @@ URL: https://sourceware.org/annobin/
 # Set this to zero to disable the requirement for a specific version of gcc.
 # This should only be needed if there is some kind of problem with the version
 # checking logic or when building on RHEL-7 or earlier.
+#
+# Update: now that we have gcc version checking support in redhat-rpm-config
+# there is no longer a great need for a hard gcc version check here.  Not
+# enabling this check greatly simplifies the process of installing a new major
+# version of gcc into the buildroot.
 %global with_hard_gcc_version_requirement 0
 
-%bcond_with plugin_rebuild
+%bcond_without plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -53,11 +58,9 @@ URL: https://sourceware.org/annobin/
 # to gcc breaks the version installed into the buildroot.  Note however that
 # uncommenting the lines below will result in annocheck not passing the rpminspect
 # tests....
-
-%if %{without plugin_rebuild}
-%undefine _annotated_build
-%endif
-
+# %%if %%{without plugin_rebuild}
+# %%undefine _annotated_build
+# %%endif
 
 #---------------------------------------------------------------------------------
 
@@ -531,6 +534,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 16 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.36-2
+- Spec File: NVR bump in order to allow building in side tag.
+
+* Tue Jan 16 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.36-1
+- Annocheck: Disable cf-protection test for i686 architecture. (#2258571)
+
 * Mon Jan 15 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-4
 - Spec File: NVR bump in order to allow building in side tag.
 

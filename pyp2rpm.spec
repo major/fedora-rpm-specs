@@ -19,7 +19,6 @@ BuildRequires:  python3dist(pytest-runner)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(flexmock) >= 0.9.3
 BuildRequires:  python3dist(scripttest)
-BuildRequires:  vex
  
 Requires:       python3dist(jinja2)
 Requires:       python3dist(setuptools)

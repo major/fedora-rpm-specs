@@ -1,6 +1,6 @@
 Name:           zlib-ada
 Version:        1.4
-Release:        0.34.20120830CVS%{?dist}
+Release:        0.35.20120830CVS%{?dist}
 Summary:        Zlib for Ada
 Summary(sv):    Zlib för ada
 
@@ -82,6 +82,9 @@ cp --preserve=timestamps %{SOURCE3} %{buildroot}%{_GNAT_project_dir}/
 
 
 %changelog
+* Tue Jan 16 2024 Björn Persson <Bjorn@Rombobjörn.se> - 1.4-0.35.20120830CVS
+- Rebuilt with GCC 14 prerelease.
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-0.34.20120830CVS
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -13,7 +13,10 @@ License:        GPL-3.0-or-later
 URL:            https://company-mode.github.io/
 Source0:        https://github.com/company-mode/company-mode/archive/%{version}/%{srcname}-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
+
 BuildRequires:  emacs-nox
 
 Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
@@ -51,6 +54,9 @@ mv %{buildroot}/%{_emacs_sitelispdir}/%{srcname}/company-autoloads.el \
 %{_emacs_sitestartdir}/company-autoloads.el
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.10.1-1
+- Stop building for 32-bit x86
+
 * Thu Oct  5 2023 Jerry James <loganjerry@gmail.com> - 0.10.1-1
 - Version 0.10.1
 

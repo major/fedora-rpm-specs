@@ -22,7 +22,7 @@ Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #                                       SWI-Prolog extra clause or Artistic-2.0)
 #library/unicode/blocks.pl              BSD-2-Clause AND Unicode-DFS-2016
 #man/main.doc                           CC-BY-SA-3.0
-#man/swipl.cls                          LPPL-1.2
+#man/swipl.cls                          LPPL-1.3a
 #packages/bdb/bdb4pl.doc                Sleepycat (due to linking with libdb)
 #packages/clib/bsd-crypt.c              BSD-3-Clause
 #packages/clib/clib.doc                 (BSD-3-Clause OR GPL-1.0-or-later) AND
@@ -30,18 +30,18 @@ Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #packages/clib/md5.c                    Zlib
 #packages/clib/md5.h                    Zlib
 #packages/clib/md5passwd.c              Beerware
-#packages/clib/sha1/brg_endian.h        BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/brg_types.h         BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/hmac.c              BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/hmac.h              BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/pwd2key.c           BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/pwd2key.h           BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/sha1.c              BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/sha1.h              BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/sha1b.c             BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/sha2.c              BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/sha2.h              BSD-like (?) OR GPL-1.0-or-later
-#packages/clib/sha1/sha2b.c             BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/brg_endian.h        Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/brg_types.h         Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/hmac.c              Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/hmac.h              Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/pwd2key.c           Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/pwd2key.h           Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/sha1.c              Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/sha1.h              Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/sha1b.c             Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/sha2.c              Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/sha2.h              Brian-Gladman-3-Clause OR GPL-1.0+
+#packages/clib/sha1/sha2b.c             Brian-Gladman-3-Clause OR GPL-1.0+
 #packages/clpqr/clpq.pl                 GPL-2.0-or-later with SWI exception
 #packages/clpqr/clpq/bb_q.pl            GPL-2.0-or-later with SWI exception
 #packages/clpqr/clpq/bv_q.pl            GPL-2.0-or-later with SWI exception
@@ -88,12 +88,12 @@ Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #packages/xpce/src/gnu/getdate.c        LicenseRef-Fedora-Public-Domain AND
 #                                      GPL-2.0-or-later WITH Bison-exception-2.2
 #packages/xpce/src/gnu/y.tab            LicenseRef-Fedora-Public-Domain
-#packages/xpce/src/img/gifwrite.c       Part is free for any purpose (?)
+#packages/xpce/src/img/gifwrite.c       Part is FBM
 #packages/xpce/src/rgx/                 Spencer-99 AND TCL
 #packages/xpce/src/x11/xdnd.h           GPL-2.0-or-later
 #scripts/swipl-bt                       LicenseRef-Fedora-Public-Domain
 #src/minizip/                           Zlib
-#src/os/dtoa.c                          MIT-like (?)
+#src/os/dtoa.c                          dtoa
 #src/pl-hash.c                          LicenseRef-Fedora-Public-Domain
 #src/pl-hash.h                          LicenseRef-Fedora-Public-Domain
 #src/swipl-ld.1                         LGPL-2.0-or-later
@@ -141,7 +141,7 @@ Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 # <https://github.com/SWI-Prolog/issues/issues/16>:
 #bench/unify.pl                         Free for non-commercial
 #bench/simple_analyzer.pl               Free for non-commercial
-License:    BSD-2-Clause AND BSD-3-Clause AND (BSD-3-Clause OR GPL-1.0-or-later) AND Beerware AND CC-BY-SA-3.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH SWI-Exception AND (GPL-2.0-or-later WITH SWI-Exception OR Artistic-2.0) AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LPPL-1.2 AND MIT AND Sleepycat AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND Zlib
+License:    BSD-2-Clause AND BSD-3-Clause AND (Brian-Gladman-3-Clause OR GPL-1.0-or-later) AND Beerware AND CC-BY-SA-3.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH SWI-Exception AND (GPL-2.0-or-later WITH SWI-Exception OR Artistic-2.0) AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LPPL-1.3a AND MIT AND Sleepycat AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND Zlib AND dtoa
 URL:        https://www.swi-prolog.org/
 # Source0: %%{url}download/stable/src/swipl-%%{version}.tar.gz
 # To create the repackaged archive, use ./repackage.sh %%{version}
@@ -265,13 +265,13 @@ Development files for SWI Prolog.
 
 
 %package compat-yap-devel
-Summary:  Development files building YAP application against SWI Prolog
+Summary:  Development files for building YAP applications against SWI Prolog
 License:  BSD-2-Clause
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description compat-yap-devel
-This package allows to build Yet Annother Prolog applications against SWI
-Prolog implementation.
+This package enables building YAP (Yet Another Prolog) applications
+against the SWI Prolog implementation.
 
 
 %package doc
@@ -308,7 +308,7 @@ given the RDMS independency constraint.
 
 %if %{separate_xpce}
 %package xpce
-License:  BSD-2-Clause AND AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND Spencer-99 AND TCL
+License:  BSD-2-Clause AND AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND Spencer-99 AND TCL AND FBM
 Summary:  A toolkit for developing graphical applications in Prolog
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
@@ -602,6 +602,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 9.0.4-3
+- Update License tags
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

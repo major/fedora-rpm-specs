@@ -28,7 +28,10 @@ Patch1:         pg-4.2-desktop.patch
 # Silence a warning about an 81-character docstring.
 Patch2:         pg-4.5-emacs-warning.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  emacs-nox
 BuildRequires:  libappstream-glib
@@ -146,6 +149,9 @@ install -Dpm 644 %{SOURCE4} \
 %{_emacs_sitelispdir}/%{pkg}/
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 4.5-5
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

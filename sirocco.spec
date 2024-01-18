@@ -10,6 +10,9 @@ Source0:        %{url}/releases/download/%{version}/lib%{name}-%{version}.tar.gz
 # Fix some mixed signed/unsigned expressions
 Patch0:         %{name}-signed.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  mpfr-devel
@@ -71,6 +74,9 @@ make check
 %{_libdir}/libsirocco.so
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.1.0-6
+- Stop building for 32-bit x86
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

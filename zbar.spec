@@ -30,7 +30,7 @@ BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-qtx11extras-devel
 BuildRequires:	xmlto
 %if %{JAVA}
-BuildRequires:	java-11-openjdk-devel
+BuildRequires:	java-devel
 %endif
 BuildRequires:	python3-devel
 BuildRequires:  python3-setuptools

@@ -48,6 +48,7 @@ Patch3:         %{name}-pts-access.patch
 # Fix HAVE_DB_STAT_ACCEPT_TXN test in the Berkeley DB module
 Patch4:         %{name}-c99.patch
 # Fix mismatched pointer types in the Berkeley DB module
+# https://gitlab.com/gnu-clisp/clisp/-/merge_requests/9
 Patch5:         %{name}-bdb-mismatched-pointer.patch
 
 # Work around a problem inlining a function on ppc64le

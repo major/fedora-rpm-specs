@@ -23,6 +23,9 @@ Patch0:         %{name}-free-warning.patch
 # Silence a message that should only be printed with GMP usage statistics
 Patch1:         %{name}-silence-mempool-log.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc

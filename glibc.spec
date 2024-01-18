@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-489-g709fbd3ec3
+%global glibcsrcdir glibc-2.38.9000-493-ge2803cfd8b
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 32
+%global baserelease 33
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2216,6 +2216,14 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Jan 16 2024 DJ Delorie <dj@redhat.com> - 2.38.9000-33
+- Auto-sync with upstream branch master,
+  commit e2803cfd8bb00b54816d1a2c381d2cf82b136da6.
+- NEWS: Mention PLT rewrite on x86-64
+- stdlib: Verify heapsort for two-element cases
+- stdlib: Fix heapsort for cases with exactly two elements
+- localedata: anp_IN: Fix abbreviated month names
+
 * Mon Jan 15 2024 DJ Delorie <dj@redhat.com> - 2.38.9000-32
 - Auto-sync with upstream branch master,
   commit 709fbd3ec3595f2d1076b4fec09a739327459288.

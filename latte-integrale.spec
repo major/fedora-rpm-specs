@@ -28,6 +28,9 @@ Patch2:         lidia-warning.patch
 # Update obsolete C++ constructs: throw() specifiers, register keyword, auto_ptr
 Patch3:         lidia-c++.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  4ti2-devel
 BuildRequires:  cddlib-devel
 BuildRequires:  cddlib-tools
@@ -181,6 +184,9 @@ make check
 %{_libdir}/libnormalize.so.0.*
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.7.6-7
+- Stop building for 32-bit x86
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

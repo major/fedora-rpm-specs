@@ -7,7 +7,10 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/sebasguts/jupyter_kernel_singular
 Source0:        %{url}/archive/v%{version}/jupyter_kernel_singular-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
+
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipykernel}
 BuildRequires:  %{py3_dist ipython}
@@ -54,6 +57,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/singular-mode.json
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.9.9-14
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

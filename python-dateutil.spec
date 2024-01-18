@@ -68,9 +68,9 @@ This package contains %{summary}.
 # the tests were moved outside of %%{modname} directory upstream after 2.8.2
 # so we apply the patch with new paths from within it
 pushd %{modname}/test
-%patch1 -p2
+%patch -P1 -p2
 popd
-%patch2 -p2
+%patch -P2 -p2
 iconv --from=ISO-8859-1 --to=UTF-8 NEWS > NEWS.new
 mv NEWS.new NEWS
 

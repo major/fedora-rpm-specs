@@ -7,7 +7,10 @@ License:        GPL-3.0-or-later
 URL:            https://www.emacswiki.org/emacs/Iedit
 Source0:        https://github.com/victorhge/iedit/archive/v%{version}/iedit-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
+
 BuildRequires:  emacs-nox
 BuildRequires:  make
 
@@ -50,6 +53,9 @@ mv %{buildroot}/%{_emacs_sitelispdir}/iedit/iedit-autoloads.el \
 %{_emacs_sitestartdir}/iedit-autoloads.el
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.9.9.9.9-4
+- Stop building for 32-bit x86
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.9.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

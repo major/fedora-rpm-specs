@@ -63,6 +63,9 @@ sed -i 's/ tdiv_ext\$(EXEEXT)//;s/ trec_sqrt\$(EXEEXT)//' tests/Makefile.in
 # In the 1.5.4 release, the data file needed by this test is missing.
 sed -i 's/texp10\$(EXEEXT) //' tests/Makefile.in
 
+# Fix the pkgconfig file
+sed -i 's/ -lmpfr -lgmp/\nLibs.private:&/' mpfi.pc.in
+
 %build
 %configure
 %make_build
@@ -78,10 +81,6 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 # Remove license files from doc
 rm %{buildroot}%{_docdir}/mpfi/COPYING*
-
-# Fix the pkgconfig file
-sed -i 's/ -lmpfr -lgmp//;/Libs/aLibs.private: -lmpfr -lgmp' \
-    %{buildroot}%{_libdir}/pkgconfig/mpfi.pc
 
 %check
 make check

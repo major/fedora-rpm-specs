@@ -11,6 +11,9 @@ Patch0:         %{name}-pari.patch
 # Adapt to Cython 3
 Patch1:         %{name}-cython3.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  pari-devel
 BuildRequires:  pari-gp
@@ -71,6 +74,9 @@ rm -fr .ipython
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
+* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.4.2-3
+- Stop building for 32-bit x86
+
 * Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-3
 - Add patch to fix build with Cython 3
 
