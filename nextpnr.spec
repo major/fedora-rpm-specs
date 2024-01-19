@@ -1,11 +1,11 @@
-%global commit 535709a9a933c2343247c7f204d3ed707308bf47
+%global commit 2afb1f632e3069c140c1a7619031e9bda20d2002
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20231218
+%global snapdate 20240117
 
 Name:		nextpnr
 Version:	1
-Release:	31.%{snapdate}git%{shortcommit}%{?dist}
+Release:	32.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -86,6 +86,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Wed Jan 17 2024 Gabriel Somlo <gsomlo@gmail.com> - 1-32.20240117git2afb1f6
+- Update to newer snapshot
+
 * Mon Dec 18 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-31.20231218git535709a
 - Update to newer snapshot
 - fix Python 3.13 FTBFS (BZ #2250854)

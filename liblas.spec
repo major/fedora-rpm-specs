@@ -3,7 +3,7 @@
 
 Name:           liblas
 Version:        1.8.2
-Release:        0.8%{?shortcommit:.git%shortcommit}%{?dist}
+Release:        0.9%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
 License:        BSD and Boost
@@ -102,6 +102,9 @@ libLAS utility applications.
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.8.2-0.9.gitded4637
+- Rebuilt for Boost 1.83
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.8.gitded4637
 - Rebuild (gdal)
 

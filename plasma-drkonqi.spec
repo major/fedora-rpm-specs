@@ -3,7 +3,7 @@
 Name:    plasma-drkonqi
 Summary: DrKonqi crash handler for KF6/Plasma6
 Version: 5.92.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/plasma/%{base_name}
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
@@ -16,6 +16,7 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  desktop-file-utils
 
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Declarative)
@@ -35,7 +36,7 @@ BuildRequires:  cmake(PolkitQt6-1)
 BuildRequires:  systemd-devel
 BuildRequires:  git-core
 
-Requires:       kf6-kirigami2
+Requires:       kf6-kirigami
 Requires:       kf6-kitemmodels
 Requires:       kf6-kcmutils
 Requires:       python3-psutil
@@ -92,6 +93,9 @@ fi
 %postun
 %systemd_user_postun drkonqi-sentry-postman.service
 
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.{drkonqi.coredump.gui,drkonqi}.desktop
+
 %files -f plasma-drkonqi.lang
 %license LICENSES/*
 %{_bindir}/drkonqi-coredump-gui
@@ -101,7 +105,8 @@ fi
 %{_libexecdir}/drkonqi-coredump-launcher
 %{_libexecdir}/drkonqi-coredump-processor
 %{_kf6_datadir}/drkonqi/
-%{_kf6_datadir}/applications/org.kde.*.desktop
+%{_kf6_datadir}/applications/org.kde.drkonqi.coredump.gui.desktop
+%{_kf6_datadir}/applications/org.kde.drkonqi.desktop
 %{_kf6_datadir}/qlogging-categories6/drkonqi.categories
 %{_userunitdir}/drkonqi-coredump-*
 %{_unitdir}/drkonqi-coredump-processor@.service
@@ -120,6 +125,10 @@ fi
 %{_kf6_datadir}/polkit-1/actions/org.kde.drkonqi.policy
 
 %changelog
+* Tue Jan 16 2024 Steve Cossette <farchord@gmail.com> - 5.92.0-2
+- Fix kirigami requirement (kf6-kirigami2 -> kf6-kirigami)
+- Added Desktop File verification (Per fedora packaging guidelines)
+
 * Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.92.0-1
 - 5.92.0
 

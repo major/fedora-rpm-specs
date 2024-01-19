@@ -34,8 +34,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.18
-Release:        2%{?dist}
+Version:        2.53.18.1
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -85,6 +85,7 @@ Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch41:	seamonkey-2.53.15-revert-1737436.patch
 Patch42:	seamonkey-2.53.10-postmessage-event.patch
 Patch43:	seamonkey-2.53.18-mozilla-1502802.patch
+Patch44:	seamonkey-2.53.18-mozilla-1425866.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -219,6 +220,7 @@ cp %{SOURCE3} GNUmakefile
 %patch41 -p0 -b .revert-1737436
 %patch42 -p1 -b .postmessage-event
 %patch43 -p1 -b .1502802
+%patch44 -p1 -b .1425866
 
 %patch60 -p1 -b .ua-update
 %patch61 -p1 -b .ua-update-preload
@@ -511,6 +513,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Wed Jan 17 2024 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.18.1-1
+- update to 2.53.18.1
+
 * Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 2.53.18-2
 - Rebuild for dav1d 1.3.0
 

@@ -1,5 +1,5 @@
 Name:           mrack
-Version:        1.17.0
+Version:        1.18.0
 Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
@@ -77,6 +77,7 @@ Requires:       python3-%{name}lib = %{version}-%{release}
 Recommends:       python3-aiofiles
 Recommends:       python3-os-client-config
 Recommends:     python3-AsyncOpenStackClient
+Recommends:     python3-async-timeout
 
 %{?python_provide:%python_provide python3-%{name}-openstack}
 
@@ -184,6 +185,12 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Mon Nov 27 2023 David Pascual Hernandez <davherna@redhat.com> - 1.18.0-1
+- c158474 feat: Add async_timeout dependency (David Pascual)
+
+* Fri Nov 03 2023 David Pascual Hernandez <davherna@redhat.com> - 1.17.1-1
+- 583193a fix: curate_auth func changed to non-async (Kaleemullah Siddiqui)
+
 * Mon Oct 23 2023 David Pascual Hernandez <davherna@redhat.com> - 1.17.0-1
 - 5251d90 chore(ci): Temporarely remove packit tests (David Pascual)
 - 3a59761 feat(openstack): Append API version to auth_url in credentials (David Pascual)

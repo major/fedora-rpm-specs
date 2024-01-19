@@ -7,6 +7,10 @@ Summary:        Backend and API for Fedora QA Dashboard
 License:        GPLv2+
 URL:            https://pagure.io/fedora-qa/oraculum
 Source0:        https://releases.pagure.org/fedora-qa/%{name}/%{name}-%{version}.tar.gz
+# Backport of:
+# Remove unnecessary mock dependency.
+# https://pagure.io/fedora-qa/oraculum/c/03bf4dc6f3d77f8d240ffe2d6772885e642181ab?branch=master
+Patch:          remove-python-mock.patch
 
 BuildArch:      noarch
 
@@ -26,7 +30,7 @@ Backend and API for Fedora QA Dashboard
 %pyproject_buildrequires -r -t
 
 %prep
-%setup -q
+%autosetup -p1
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2019108
 sed -i 's/python-igraph/igraph/g' requirements.txt

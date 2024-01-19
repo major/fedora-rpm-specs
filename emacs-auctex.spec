@@ -11,8 +11,8 @@
 
 Summary:        Enhanced TeX modes for Emacs
 Name:           emacs-auctex
-Version:        13.2
-Release:        2%{?dist}
+Version:        13.3
+Release:        1%{?dist}
 
 # The project as a whole is GPL-3.0-or-later.  Exceptions:
 # - README and doc/intro.texi are FSFAP
@@ -171,6 +171,9 @@ touch %{buildroot}%{_emacs_sitelispdir}/auctex/style/.nosearch
 %doc doc/html
 
 %changelog
+* Wed Jan 17 2024 Jerry James <loganjerry@gmail.com> - 13.3-1
+- Version 13.3
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

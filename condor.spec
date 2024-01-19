@@ -7,7 +7,7 @@
 #######################
 Name:           condor
 Version:        23.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTCondor: High Throughput Computing
 License:        ASL 2.0
 URL:            http://htcondor.org
@@ -874,6 +874,9 @@ done
 /sbin/ldconfig
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 23.1.0-2
+- Rebuilt for Boost 1.83
+
 * Fri Nov 10 2023 Tim Theisen <ttheisen@fedoraproject.org> - 23.1.0-1
 - Update to latest upstream 23.1.0 - rhbz#2247369
 

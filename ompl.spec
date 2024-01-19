@@ -3,7 +3,7 @@
 
 Name:           ompl
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Open Motion Planning Library
 
 License:        BSD
@@ -96,6 +96,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/%{name}
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.6.0-2
+- Rebuilt for Boost 1.83
+
 * Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 1.6.0-1
 - Update to release 1.6.0
 

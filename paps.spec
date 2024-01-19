@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -66,28 +66,28 @@ This package contains a CUPS filter based on paps.
 
 %prep
 %setup -q -a 3
-%patch100 -p1 -b .src-to-paps
-%patch101 -p1 -b .build
+%patch 100 -p1 -b .src-to-paps
+%patch 101 -p1 -b .build
 pushd %{name}-0.6.8
-%patch0 -p1 -b .shared
-%patch1 -p1 -b .wordwrap
-%patch2 -p1 -b .langinfo
-%patch3 -p1 -b .lcnumeric
-%patch4 -p1 -b .exitcode
-%patch5 -p1 -b .manpage
-%patch50 -p1 -b .cups
-%patch51 -p1 -b .cpilpi
-%patch52 -p1 -b .dsc
-%patch53 -p1 -b .autoconf262
-%patch54 -p1 -b .fixcpi
-%patch55 -p1 -b .loop
-%patch56 -p1 -b .tab
-%patch57 -p1 -b .weak-symbol
-%patch58 -p1 -b .fsf
-%patch59 -p1 -b .ft-header
-%patch60 -p1 -b .a3
-%patch61 -p1 -b .paper-size
-%patch62 -p2 -b .configure-c99
+%patch 0 -p1 -b .shared
+%patch 1 -p1 -b .wordwrap
+%patch 2 -p1 -b .langinfo
+%patch 3 -p1 -b .lcnumeric
+%patch 4 -p1 -b .exitcode
+%patch 5 -p1 -b .manpage
+%patch 50 -p1 -b .cups
+%patch 51 -p1 -b .cpilpi
+%patch 52 -p1 -b .dsc
+%patch 53 -p1 -b .autoconf262
+%patch 54 -p1 -b .fixcpi
+%patch 55 -p1 -b .loop
+%patch 56 -p1 -b .tab
+%patch 57 -p1 -b .weak-symbol
+%patch 58 -p1 -b .fsf
+%patch 59 -p1 -b .ft-header
+%patch 60 -p1 -b .a3
+%patch 61 -p1 -b .paper-size
+%patch 62 -p2 -b .configure-c99
 libtoolize -f -c
 autoreconf -f -i
 popd
@@ -150,6 +150,10 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Wed Jan 17 2024 Akira TAGOH <tagoh@redhat.com> - 0.8.0-6
+- Fix C type error in paps 0.6.8.
+  Resolves: rhbz#2256906
+
 * Mon Aug 14 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.0-5
 - Use fmt in header-only mode in RHEL builds
 

@@ -1,46 +1,32 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
-Version: 2020.3
-Release: 21%{?dist}
+Version: 2021.11.0
+Release: 2%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     http://threadingbuildingblocks.org/
 
-Source0: https://github.com/intel/tbb/archive/v%{version}/%{name}-%{version}.tar.gz
-# These three are downstream sources.
-Source6: tbb.pc
+Source0: https://github.com/oneapi-src/oneTBB/archive/v%{version}/%{name}-%{version}.tar.gz
+# These two are downstream sources.
 Source7: tbbmalloc.pc
 Source8: tbbmalloc_proxy.pc
 
-# Don't snip -Wall from C++ flags.  Add -fno-strict-aliasing, as that
-# uncovers some static-aliasing warnings.
-# Related: https://bugzilla.redhat.com/show_bug.cgi?id=1037347
-Patch0: tbb-2019-dont-snip-Wall.patch
+# TBB tries to remove -Werror from the compiler flags, which turns
+# -Werror=format-security into =format-security
+Patch0: tbb-2021-Werror.patch
 
-# Make attributes of aliases match those on the aliased function.
-Patch1: tbb-2020-attributes.patch
-
-# Fix test-thread-monitor, which had multiple bugs that could (and did, on
-# ppc64le) result in a hang.
-Patch2: tbb-2019-test-thread-monitor.patch
-
-# Fix a test that builds a 4-thread barrier, but cannot guarantee that more
-# than 2 threads will be available to use it.
-Patch3: tbb-2019-test-task-scheduler-init.patch
-
-# Fix ABI break resulting from tbb::empty_task being removed from libtbb.so's
-# exported symbols
-Patch4: tbb-mark-empty_task-execute-with-gnu-used.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2161412
-# https://github.com/oneapi-src/oneTBB/pull/833
-Patch5: tbb-2020-task-namespace.patch
+# Fix code that violates the strict aliasing rules.
+Patch1: tbb-2021-strict-aliasing.patch
 
 BuildRequires: cmake
-BuildRequires: doxygen
 BuildRequires: gcc-c++
+BuildRequires: hwloc
+BuildRequires: hwloc-devel
 BuildRequires: make
 BuildRequires: python3-devel
-BuildRequires: python-setuptools
+BuildRequires: python3-docs
+BuildRequires: %{py3_dist setuptools}
+BuildRequires: %{py3_dist sphinx}
+BuildRequires: %{py3_dist sphinx-rtd-theme}
 BuildRequires: swig
 
 %description
@@ -55,9 +41,19 @@ platforms.  Since the library is also inherently scalable, no code
 maintenance is required as more processor cores become available.
 
 
+%package bind
+Summary: NUMA support library for TBB
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description bind
+NUMA support library for TBB, allowing the binding of tasks to selected
+CPU cores.
+
+
 %package devel
 Summary: The Threading Building Blocks C++ headers and shared development libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-bind%{?_isa} = %{version}-%{release}
 
 %description devel
 Header files and shared object symlinks for the Threading Building
@@ -87,133 +83,105 @@ Python 3 TBB module.
 %prep
 %autosetup -p1 -n oneTBB-%{version}
 
-# For repeatable builds, don't query the hostname or architecture
-sed -i 's/"`hostname -s`" ("`uname -m`"/fedorabuild (%{_arch}/' \
-    build/version_info_linux.sh
-
-# Insert --as-needed before the libraries to be linked.
-sed -i "s/-fPIC/& -Wl,--as-needed/" build/linux.gcc.inc
-
 # Invoke the right python binary directly
-sed -i 's,env python,python3,' python/TBB.py python/tbb/__*.py
+for fil in $(grep -Frl %{_bindir}/env python); do
+    sed -i.orig 's,env python3,python3,' $fil
+    touch -r $fil.orig $fil
+    rm $fil.orig
+done
 
-# Remove shebang from files that don't need it
-sed -i '/^#!/d' python/tbb/{pool,test}.py
+# Use local objects.inv for intersphinx
+sed -e "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
+    -i doc/GSG/conf.py doc/main/conf.py
+
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
 
 %build
-compiler=""
-if [[ %{__cc} == *"gcc"* ]]; then
-    compiler="gcc"
-elif [[ %{__cc} == *"clang"* ]]; then
-    compiler="clang"
-else
-    compiler="%{__cc}"
-fi
+export TBBROOT=$PWD
+export PYTHONPATH=$(sed "s,%{_prefix},$PWD/%{_vpath_builddir}/python/build," <<< %{python3_sitearch})
+%cmake \
+    -DCMAKE_CXX_STANDARD=17 \
+    -DTBB4PY_BUILD:BOOL=ON \
+    -DTBB_STRICT:BOOL=OFF \
+    -DCMAKE_HWLOC_2_4_LIBRARY_PATH=%{_libdir}/libhwloc.so \
+    -DCMAKE_HWLOC_2_4_INCLUDE_PATH=%{_includedir}/hwloc \
+%cmake_build
 
-%make_build tbb_build_prefix=obj stdver=c++14 \
-    compiler=${compiler} \
-    CXXFLAGS="%{optflags} -DUSE_PTHREAD" \
-    LDFLAGS="$RPM_LD_FLAGS -lpthread"
-for file in %{SOURCE6} %{SOURCE7} %{SOURCE8}; do
-    base=$(basename ${file})
-    sed 's/_FEDORA_VERSION/%{version}/' ${file} > ${base}
-    touch -r ${file} ${base}
-done
+# The python package is not built the Fedora way.  Do it over.
+unset PYTHONPATH
+export LD_LIBRARY_PATH=$(ls -1d $PWD/%{_vpath_builddir}/*relwithdebinfo)
+export LDFLAGS="-L $LD_LIBRARY_PATH %{build_ldflags}"
+cd python
+%pyproject_wheel
+cd -
 
-# Build for python 3
-. build/obj_release/tbbvars.sh
-pushd python
-%make_build -C rml stdver=c++14 \
-    compiler=${compiler} \
-    CPLUS_FLAGS="%{optflags} -DUSE_PTHREAD" \
-    LDFLAGS="$RPM_LD_FLAGS -lpthread"
-cp -p rml/libirml.so* .
-%py3_build
-popd
-
-# Build the documentation
-make doxygen
-
-%check
-# This test assumes it can create thread barriers for arbitrary numbers of
-# threads, but tbb limits the number of threads spawned to a function of the
-# number of CPUs available.  Some of the koji builders have a small number of
-# CPUs, so the test hangs waiting for threads that have not been created to
-# arrive at the barrier.  Skip this test until upstream fixes it.
-sed -i '/test_task_scheduler_observer/d' build/Makefile.test
-
-make test tbb_build_prefix=obj stdver=c++14 CXXFLAGS="%{optflags}"
+# Build documentation
+export BUILD_TYPE=oneapi
+sphinx-build doc/GSG getting-started
+sphinx-build doc/main html
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_libdir}
-mkdir -p $RPM_BUILD_ROOT/%{_includedir}
+%cmake_install
 
-pushd build/obj_release
-    for file in libtbb{,malloc{,_proxy}}; do
-        install -p -D -m 755 ${file}.so.2 $RPM_BUILD_ROOT/%{_libdir}
-        ln -s $file.so.2 $RPM_BUILD_ROOT/%{_libdir}/$file.so
-    done
-popd
+# The python package is not installed the Fedora way.  Do it over.
+rm -fr %{buildroot}%{python3_sitearch}
+cd python
+%pyproject_install
+cd -
 
-pushd include
-    find tbb -type f ! -name \*.htm\* -exec \
-        install -p -D -m 644 {} $RPM_BUILD_ROOT/%{_includedir}/{} \
-    \;
-popd
-
-for file in %{SOURCE6} %{SOURCE7} %{SOURCE8}; do
-    install -p -D -m 644 $(basename ${file}) \
-        $RPM_BUILD_ROOT/%{_libdir}/pkgconfig/$(basename ${file})
+mkdir -p %{buildroot}/%{_libdir}/pkgconfig
+for file in %{SOURCE7} %{SOURCE8}; do
+    target=%{buildroot}/%{_libdir}/pkgconfig/$(basename ${file})
+    sed 's/_FEDORA_VERSION/%{version}/' $file > $target
+    touch -r $file $target
 done
 
-# Install the rml headers
-mkdir -p $RPM_BUILD_ROOT%{_includedir}/rml
-cp -p src/rml/include/*.h $RPM_BUILD_ROOT%{_includedir}/rml
+rm -fr %{buildroot}%{_datadir}/doc
 
-# Python 3 install
-. build/obj_release/tbbvars.sh
-pushd python
-%py3_install
-chmod a+x $RPM_BUILD_ROOT%{python3_sitearch}/TBB.py
-chmod a+x $RPM_BUILD_ROOT%{python3_sitearch}/tbb/__*.py
-cp -p libirml.so.1 $RPM_BUILD_ROOT%{_libdir}
-ln -s libirml.so.1 $RPM_BUILD_ROOT%{_libdir}/libirml.so
-popd
-
-# Install the cmake files
-cmake \
-  -DINSTALL_DIR=$RPM_BUILD_ROOT%{_libdir}/cmake/TBB \
-  -DSYSTEM_NAME=Linux \
-  -DLIB_REL_PATH=../.. \
-  -P cmake/tbb_config_installer.cmake
+%check
+# Running the tests in parallel often leads to resource exhaustion.
+ctest --output-on-failure --force-new-ctest-process
 
 %files
-%doc doc/Release_Notes.txt README.md
-%license LICENSE
-%{_libdir}/libtbb.so.2
-%{_libdir}/libtbbmalloc.so.2
-%{_libdir}/libtbbmalloc_proxy.so.2
+%doc README.md
+%license LICENSE.txt
+%{_libdir}/libtbb.so.12*
+%{_libdir}/libtbbmalloc.so.2*
+%{_libdir}/libtbbmalloc_proxy.so.2*
 %{_libdir}/libirml.so.1
 
+%files bind
+%{_libdir}/libtbbbind_2_5.so.3*
+
 %files devel
-%doc CHANGES cmake/README.rst
-%{_includedir}/rml/
+%doc cmake/README.md
+%{_includedir}/oneapi/
 %{_includedir}/tbb/
 %{_libdir}/*.so
 %{_libdir}/cmake/TBB/
 %{_libdir}/pkgconfig/*.pc
 
 %files doc
-%doc doc/Release_Notes.txt
-%doc html
+%doc getting-started html
 
 %files -n python3-%{name}
-%doc python/index.html
+%doc python/README.md
 %{python3_sitearch}/TBB*
 %{python3_sitearch}/tbb/
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@fedoraproject.org> - 2021.11.0-2
+- Add patch for strict aliasing violation
+
+* Thu Dec 28 2023 Jerry James <loganjerry@gmail.com> - 2021.11.0-1
+- Rebase to version 2021.11.0
+- New -bind subpackage for the NUMA support library
+- Build with cmake
+- Minor spec file cleanups
+
 * Thu Aug 10 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 2020.3-21
 - SPDX migration
 

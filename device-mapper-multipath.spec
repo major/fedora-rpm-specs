@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
 Version: 0.9.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 License: GPLv2
 URL:     http://christophe.varoqui.free.fr/
@@ -23,6 +23,8 @@ Patch0010: 0010-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
 Patch0011: 0011-RH-add-scsi-device-handlers-to-modules-load.d.patch
 Patch0012: 0012-RH-compile-with-libreadline-support.patch
 Patch0013: 0013-RH-Add-mpathcleanup.patch
+Patch0014: 0014-multipathd-fix-null-pointer-dereference-in-uev_updat.patch
+Patch0015: 0015-multipathd-fix-auto-resize-configuration.patch
 
 # runtime
 Requires: %{name}-libs = %{version}-%{release}
@@ -231,6 +233,12 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Tue Jan 16 2024 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.7-5
+- Add 0014-multipathd-fix-null-pointer-dereference-in-uev_updat.patch
+  * Fix auto_resize code to avoid a segfault
+- Add 0015-multipathd-fix-auto-resize-configuration.patch
+  * Fix auto_resize default value
+
 * Thu Nov 30 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.7-4
 - Use modulesloaddir macro for installing scsi_dh.conf
 

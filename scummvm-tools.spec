@@ -4,7 +4,7 @@
 
 Name:		scummvm-tools
 Version:	2.7.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tools for scummVM / S.C.U.M.M scripting language
 # All previous Lua versions are relicensed to MIT (https://www.lua.org/license.html)
 License:	GPLv3+ and LGPLv2+ and MIT
@@ -66,6 +66,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2.7.0-3
+- Rebuilt for Boost 1.83
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

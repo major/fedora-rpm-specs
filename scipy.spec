@@ -287,7 +287,7 @@ rm -rf .pytest_cache
 popd
 
 %files -n python3-scipy -f %{pyproject_files}
-%license LICENSE.txt
+%license LICENSE.txt LICENSES_bundled.txt
 %exclude %{python3_sitearch}/scipy/*/tests/
 %exclude %{python3_sitearch}/scipy/*/*/tests/
 %exclude %{python3_sitearch}/scipy/*/*/*/tests/

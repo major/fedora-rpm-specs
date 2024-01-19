@@ -2,7 +2,7 @@
 %global alpha 0
 
 Name:           fldigi
-Version:        4.2.03
+Version:        4.2.04
 Release:        1%{?dist}
 Summary:        Digital modem program for Linux
 
@@ -114,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Wed Jan 17 2024 Richard Shaw <hobbes1069@gmail.com> - 4.2.04-1
+- Update to 4.2.04.
+
 * Mon Nov 06 2023 Richard Shaw <hobbes1069@gmail.com> - 4.2.03-1
 - Update to 4.2.03.
 

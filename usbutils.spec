@@ -1,5 +1,5 @@
 Name:    usbutils
-Version: 016
+Version: 017
 Release: %autorelease
 Summary: Linux USB utilities
 URL:     http://www.linux-usb.org/

@@ -1,6 +1,6 @@
 Name:           batctl
-Version:        2023.2
-Release:        2%{?dist}
+Version:        2023.3
+Release:        1%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
 License:        GPL-2.0-only AND MIT AND ISC
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Wed Jan 17 2024 John W. Linville <linville@tuxdriver.com> - 2023.3-1
+- update to 2023.3
+
 * Sat Sep 09 2023 Felix Kaechele <heffer@fedoraproject.org> - 2023.2-2
 - convert License tag to SPDX, add missing licenses
 

@@ -1,6 +1,6 @@
 Name:           leatherman
 Version:        1.12.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of C++ and CMake utility libraries
 
 # leatherman is ASL 2.0
@@ -74,6 +74,9 @@ sed -i -e "s/\s*-Werror\s*//g" cmake/cflags.cmake
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.12.11-2
+- Rebuilt for Boost 1.83
+
 * Tue Oct 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.11-1
 - 1.12.11
 

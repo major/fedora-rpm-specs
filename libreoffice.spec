@@ -1,5 +1,7 @@
+%global _lto_cflags %nil
+
 # download path contains version without the last (fourth) digit
-%global libo_version 7.6.4
+%global libo_version 24.2.0
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -57,7 +59,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.1
+Version:        %{libo_version}.2
 %if 0%{?libo_prerelease}
 Release:        %autorelease -e %{?libo_prerelease}
 %else
@@ -73,7 +75,7 @@ Release:        %autorelease
 # writerperfect/source/common/DirectoryStream.cxx: MPLv2 or LGPLv2+
 # extras/source/autocorr/lang/hr/license.md: GPL 2.0 or LGPL2 or MPLv1.1
 # odk/examples/java/...: 3 clause BSD
-License:        MPL-2.0 AND Apache-2.0 AND LGPL-3.0-only AND LGPL-3.0-or-later AND CC0-1.0 AND BSD-3-Clause AND (LGPL-2.1-only OR SISSL) AND (MPL-2.0 OR LGPL-3.0-or-later) AND (MPL-2.0 OR LGPL-2.1-or-later) AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-only)
+License:        MPL-2.0 AND Apache-2.0 AND LGPL-3.0-only AND LGPL-3.0-or-later AND CC0-1.0 AND BSD-3-Clause AND (LGPL-2.1-only OR SISSL) AND (MPL-2.0 OR LGPL-3.0-or-later) AND (MPL-2.0 OR LGPL-2.1-or-later) AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-only) AND MIT
 URL:            http://www.libreoffice.org/
 
 Source0:        %{source_url}/libreoffice-%{version}%{?libo_prerelease}%{?libo_buildfix}.tar.xz
@@ -95,6 +97,7 @@ Source11:       %{external_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zi
 # with system provided hsqldb without major hacking.
 Source12:       %{external_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 Source13:       %{external_url}/../extern/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
+Source14:       %{external_url}/Java-WebSocket-1.5.4.tar.gz
 %global bundling_options %{?bundling_options} --without-system-hsqldb
 
 Provides: bundled(hsqldb) = 1.8.0
@@ -172,6 +175,7 @@ BuildRequires: pkgconfig(ice)
 BuildRequires: pkgconfig(icu-i18n)
 BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libabw-0.1)
+BuildRequires: pkgconfig(libargon2)
 BuildRequires: pkgconfig(libcdr-0.1)
 BuildRequires: pkgconfig(libclucene-core)
 BuildRequires: pkgconfig(libcmis-0.6)
@@ -236,6 +240,7 @@ BuildRequires: pkgconfig(mdds-2.1)
 BuildRequires: pkgconfig(zxing)
 BuildRequires: libnumbertext-devel
 BuildRequires: frozen-static
+BuildRequires: zxcvbn-c-devel
 
 %ifarch %{java_arches}
 # java stuff
@@ -278,10 +283,7 @@ Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 # backported
 Patch3: 0001-default-to-sifr-for-gnome-light-mode.patch
 # backported
-Patch4: 0001-Only-pass-I.-arguments-to-g-ir-scanner-by-using-pkg-.patch
-Patch5: limit-tests-giving-dubious-results-to-x86_64.patch
-Patch6: pdfdoc.patch
-Patch7: 0001-tdf-158302-fix-build-against-system-libxml-2.12.patch
+Patch4: py313.patch
 # not upstreamed
 # fix FTB in ppc64le from sharkcz
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html
@@ -985,6 +987,7 @@ Rules for auto-correcting common %{langname} typing errors. \
 %autocorr -l sl -n Slovenian
 %autocorr -l sr -n Serbian
 %autocorr -l sv -n Swedish
+%autocorr -l th -n Thai
 %autocorr -l tr -n Turkish
 %autocorr -l vi -n Vietnamese
 %autocorr -l vro -n Võro
@@ -1023,11 +1026,11 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 # apply patches
 %autopatch -p1 -M 99
 %if 0%{?rhel}
-%patch500 -p1
+%patch -P 500 -p1
 %endif
 
 %ifarch aarch64 s390x ppc64le
-%patch501 -p1
+%patch -P 501 -p1
 %endif
 
 # Temporarily disable failing tests
@@ -1047,6 +1050,12 @@ sed -i -e s/CppunitTest_basic_macros// basic/Module_basic.mk
 # Other test exclusions pointed out by sharkcz
 sed -i -e /CppunitTest_vcl_svm_test/d vcl/Module_vcl.mk
 sed -i -e /CppunitTest_sw_core_layout/d sw/Module_sw.mk
+# https://bugs.documentfoundation.org/show_bug.cgi?id=158722
+sed -i -e /CppunitTest_desktop_lib/d desktop/Module_desktop.mk
+# https://bugs.documentfoundation.org/show_bug.cgi?id=159184
+sed -i -e /CppunitTest_vcl_png_test/d vcl/Module_vcl.mk
+# https://bugs.documentfoundation.org/show_bug.cgi?id=159211
+sed -i -e /CppunitTest_sd_png_export_tests/d sd/Module_sd.mk
 %endif
 
 #see rhbz#2072615
@@ -1068,8 +1077,8 @@ done
 ARCH_FLAGS="$ARCH_FLAGS -g1"
 %endif
 export ARCH_FLAGS
-export CFLAGS=$ARCH_FLAGS
-export CXXFLAGS=$ARCH_FLAGS
+export CFLAGS="$ARCH_FLAGS -I%{_includedir}/zxcvbn"
+export CXXFLAGS="$ARCH_FLAGS -I%{_includedir}/zxcvbn"
 
 %if 0%{?rhel}
 %define distrooptions --disable-eot --disable-firebird-sdbc
@@ -1135,7 +1144,8 @@ touch autogen.lastrun
  %{distrooptions} \
  %{?bundling_options} \
  %{?archoptions} \
- %{?flatpakoptions}
+ %{?flatpakoptions} \
+ --with-system-zxcvbn
 
 if ! %make_build; then
   echo "build attempt 1 failed"
@@ -1550,7 +1560,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/libdeployment.so
 %{baseinstdir}/program/libdeploymentgui.so
 %{baseinstdir}/program/libdlgprovlo.so
-#%%{baseinstdir}/program/libexpwraplo.so
 %{baseinstdir}/program/libfps_officelo.so
 %{baseinstdir}/program/gdbtrace
 %{baseinstdir}/program/gengal
@@ -1574,7 +1583,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/libdbahsqllo.so
 %{baseinstdir}/program/libdbaselo.so
 %{baseinstdir}/program/libdbaxmllo.so
-#{baseinstdir}/program/libdbmmlo.so
 %{baseinstdir}/program/libdbpool2.so
 %{baseinstdir}/program/libdbtoolslo.so
 %{baseinstdir}/program/libdbulo.so
@@ -1647,7 +1655,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/libucbhelper.so
 %{baseinstdir}/program/libucpchelp1.so
 %{baseinstdir}/program/libucpdav1.so
-%{baseinstdir}/program/libucpftp1.so
 %{baseinstdir}/program/libucphier1.so
 %{baseinstdir}/program/libucppkg1.so
 %{baseinstdir}/program/libunordflo.so
@@ -1741,7 +1748,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/share/config/soffice.cfg/modules
 %{baseinstdir}/share/config/soffice.cfg/*/ui
 %{baseinstdir}/share/palette
-%{baseinstdir}/share/config/webcast
 %{baseinstdir}/share/config/wizard
 %dir %{baseinstdir}/share/dtd
 %{baseinstdir}/share/dtd/officedocument
@@ -1770,7 +1776,7 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/share/template/common/presnt
 %{baseinstdir}/share/template/common/styles
 %{baseinstdir}/share/template/common/wizard
-%dir %{baseinstdir}/share/template/common/l10n
+%{baseinstdir}/share/template/common/l10n/
 %{baseinstdir}/share/template/wizard
 %dir %{baseinstdir}/share/wordbook
 %{baseinstdir}/share/wordbook/en-GB.dic
@@ -2024,7 +2030,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/impress.abignore
 %endif
 %{baseinstdir}/program/libPresentationMinimizerlo.so
-#%%{baseinstdir}/program/libPresenterScreenlo.so
 %{baseinstdir}/program/libwpftimpresslo.so
 %dir %{baseinstdir}/share/config/soffice.cfg/simpress
 %{baseinstdir}/share/config/soffice.cfg/simpress/effects.xml
@@ -2089,6 +2094,7 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/classes/libreoffice.jar
 %{baseinstdir}/program/classes/ridl.jar
 %{baseinstdir}/program/classes/unoloader.jar
+%{baseinstdir}/program/classes/java_websocket.jar
 %{baseinstdir}/program/javaldx
 %{baseinstdir}/program/javavendors.xml
 %{baseinstdir}/program/jvmfwk3rc
@@ -2184,7 +2190,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{libo_python_sitearch}/__pycache__/uno.cpython-*
 %{libo_python_sitearch}/__pycache__/unohelper.cpython-*
 %{libo_python_sitearch}/__pycache__/officehelper.cpython-*
-%{baseinstdir}/share/registry/pyuno.xcd
 
 %files librelogo
 %{baseinstdir}/share/registry/librelogo.xcd

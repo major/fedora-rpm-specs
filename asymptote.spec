@@ -1,6 +1,6 @@
 Name:           asymptote
 Version:        2.86
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -187,6 +187,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2.86-3
+- Rebuilt for Boost 1.83
+
 * Mon Aug 28 2023 Jerry James <loganjerry@gmail.com> - 2.86-2
 - BR eigen3-devel for Schur decomposition support
 - BR libcurl-devel for URL support in the parser

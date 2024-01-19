@@ -1,6 +1,6 @@
 Name:           galera
 Version:        26.4.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPL-2.0-only
@@ -152,6 +152,9 @@ sed -i 's/User=nobody/User=garb/g' %{buildroot}/usr/lib/systemd/system/garbd.ser
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 26.4.16-2
+- Rebuilt for Boost 1.83
+
 * Fri Nov 17 2023 Michal Schorm <mschorm@redhat.com> - 26.4.16-1
 - Rebase to 26.4.16
 

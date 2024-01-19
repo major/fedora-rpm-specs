@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -25,7 +25,10 @@ Patch4: 0004-zsh-enable-PCRE-locale-switching.patch
 Patch5: 0005-zsh-port-to-pcre2.patch
 # upstream commit ecd3f9c9506c7720dc6c0833dc5d5eb00e4459c4
 Patch6: 0006-zsh-support-texinfo-7.0.patch
-Patch7: zsh-configure-c99.patch
+# upstream commit 4c89849c98172c951a9def3690e8647dae76308f
+Patch7: 0007-zsh-configure-c99.patch
+# upstream commit d3edf318306e37d2d96c4e4ea442d10207722e94
+Patch8: 0008-zsh-deletefilelist-segfault.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -171,6 +174,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Wed Jan 17 2024 Lukáš Zaoral <lzaoral@redhat.com> - 5.9-12
+- fix segfault in delerefilelist (rhbz#2245462)
+
 * Fri Dec  8 2023 Florian Weimer <fweimer@redhat.com> - 5.9-11
 - Fix C compatibility issue in the configure script
 

@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           python-%{projname}
-Version:        3.41.5
+Version:        3.41.7
 Release:        %autorelease
 Summary:        Python Atlassian REST API Wrapper
 
@@ -41,9 +41,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{projname}-%{version}
-
-# https://github.com/atlassian-api/atlassian-python-api/pull/1296
-sed -i 's/bs4/beautifulsoup4/g' requirements.txt tox.ini
 
 %generate_buildrequires
 %if %{with tests}

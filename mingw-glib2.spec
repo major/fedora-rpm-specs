@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-glib2
-Version:        2.78.3
+Version:        2.79.0
 Release:        1%{?dist}
 Summary:        MinGW Windows GLib2 library
 
@@ -196,6 +196,7 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_bindir}/libglib-2.0-0.dll
 %{mingw32_bindir}/libgmodule-2.0-0.dll
 %{mingw32_bindir}/libgobject-2.0-0.dll
+%{mingw32_bindir}/libgirepository-2.0-0.dll
 %{mingw32_bindir}/libgthread-2.0-0.dll
 %{mingw32_includedir}/glib-2.0/
 %{mingw32_includedir}/gio-win32-2.0/
@@ -204,9 +205,11 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_libdir}/libglib-2.0.dll.a
 %{mingw32_libdir}/libgmodule-2.0.dll.a
 %{mingw32_libdir}/libgobject-2.0.dll.a
+%{mingw32_libdir}/libgirepository-2.0.dll.a
 %{mingw32_libdir}/libgthread-2.0.dll.a
 %{mingw32_libdir}/pkgconfig/gio-2.0.pc
 %{mingw32_libdir}/pkgconfig/gio-windows-2.0.pc
+%{mingw32_libdir}/pkgconfig/girepository-2.0.pc
 %{mingw32_libdir}/pkgconfig/glib-2.0.pc
 %{mingw32_libdir}/pkgconfig/gmodule-2.0.pc
 %{mingw32_libdir}/pkgconfig/gmodule-export-2.0.pc
@@ -247,6 +250,7 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_bindir}/libglib-2.0-0.dll
 %{mingw64_bindir}/libgmodule-2.0-0.dll
 %{mingw64_bindir}/libgobject-2.0-0.dll
+%{mingw64_bindir}/libgirepository-2.0-0.dll
 %{mingw64_bindir}/libgthread-2.0-0.dll
 %{mingw64_includedir}/glib-2.0/
 %{mingw64_includedir}/gio-win32-2.0/
@@ -255,9 +259,11 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_libdir}/libglib-2.0.dll.a
 %{mingw64_libdir}/libgmodule-2.0.dll.a
 %{mingw64_libdir}/libgobject-2.0.dll.a
+%{mingw64_libdir}/libgirepository-2.0.dll.a
 %{mingw64_libdir}/libgthread-2.0.dll.a
 %{mingw64_libdir}/pkgconfig/gio-2.0.pc
 %{mingw64_libdir}/pkgconfig/gio-windows-2.0.pc
+%{mingw64_libdir}/pkgconfig/girepository-2.0.pc
 %{mingw64_libdir}/pkgconfig/glib-2.0.pc
 %{mingw64_libdir}/pkgconfig/gmodule-2.0.pc
 %{mingw64_libdir}/pkgconfig/gmodule-export-2.0.pc
@@ -279,6 +285,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Wed Jan 17 2024 Sandro Mani <manisandro@gmail.com> - 2.79.0-1
+- Update to 2.79.0
+
 * Thu Dec 07 2023 Sandro Mani <manisandro@gmail.com> - 2.78.3-1
 - Update to 2.78.3
 

@@ -14,7 +14,7 @@
 
 Name:       csdiff
 Version:    3.1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPL-3.0-or-later
@@ -133,6 +133,9 @@ make version.cc
 %endif
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 3.1.0-2
+- Rebuilt for Boost 1.83
+
 * Tue Oct 10 2023 Kamil Dudka <kdudka@redhat.com> 3.1.0-1
 - update to latest upstream release
 

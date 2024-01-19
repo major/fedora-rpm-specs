@@ -3,7 +3,7 @@
 
 Name:		domoticz
 Version:	2023.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPLv3+ and ASL 2.0 and Boost and BSD and MIT
@@ -242,6 +242,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 2023.2-3
+- Rebuilt for Boost 1.83
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2023.2-2
 - Rebuilt for minizip-ng transition Fedora change
 - Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition

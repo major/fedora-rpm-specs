@@ -1,6 +1,6 @@
 Name:           conntrack-tools
 Version:        1.4.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Manipulate netfilter connection tracking table and run High Availability
 License:        GPL-2.0-only
 URL:            http://conntrack-tools.netfilter.org/
@@ -10,6 +10,7 @@ Source2:        NetfilterCoreTeam-OpenGPG-KEY.txt
 Source3:        conntrackd.service
 Source4:        conntrackd.conf
 Patch1:         conntrack-tools-c99.patch
+Patch2: conntrack-tools-c99-2.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -91,6 +92,9 @@ install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/conntrackd/
 %systemd_postun conntrackd.service
 
 %changelog
+* Wed Jan 17 2024 Florian Weimer <fweimer@redhat.com> - 1.4.7-5
+- Backport upstream patch to fix GCC 14 compatibility issues
+
 * Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 1.4.7-4
 - Convert license to SPDX format
 

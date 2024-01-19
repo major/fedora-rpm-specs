@@ -7,7 +7,6 @@ Summary:        Genealogical Research and Analysis Management Programming System
 License: GPL-2.0-or-later
 URL:            https://gramps-project.org/
 Source0:        https://github.com/gramps-project/gramps/archive/v%{version}/gramps-%{version}.tar.gz
-Source1:	resource-path
 BuildArch:	noarch
 
 BuildRequires:  desktop-file-utils
@@ -37,6 +36,7 @@ Requires:	gnu-free-serif-fonts
 Requires:	gnu-free-mono-fonts
 Requires:	gnu-free-fonts-common
 Requires:	gnu-free-sans-fonts
+Requires:	hicolor-icon-theme
 
 %description
 gramps (Genealogical Research and Analysis Management Programming
@@ -47,10 +47,14 @@ based plugin system.
 %setup -q
 
 %build
-%{__python3} setup.py build
+%py3_build
 
 %install
-%{__python3} setup.py install --skip-build --root ${RPM_BUILD_ROOT}
+%py3_install
+
+# the script starts with -O, the macros add -sP.  execve(2) treats everything
+# after the interpreter as a single argument, so the flags need to be combined
+sed -i -e '1s| \+-||2g' ${RPM_BUILD_ROOT}%{_bindir}/gramps
 
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/locale
 cp -pr build/mo/* ${RPM_BUILD_ROOT}%{_datadir}/locale/
@@ -61,18 +65,18 @@ mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/mime/packages
 cp -p build/data/gramps.xml ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/application-registry
 cp -p data/gramps.applications ${RPM_BUILD_ROOT}%{_datadir}/application-registry/
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/appdata/
-cp -p build/data/gramps.appdata.xml ${RPM_BUILD_ROOT}%{_datadir}/appdata/
+mkdir -p ${RPM_BUILD_ROOT}%{_metainfodir}/
+cp -p build/data/gramps.appdata.xml ${RPM_BUILD_ROOT}%{_metainfodir}/
 mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
 cp -p build/data/man/gramps.1.gz ${RPM_BUILD_ROOT}%{_mandir}/man1/gramps.1.gz
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
-cp -p images/gramps.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
 rm -rf ${RPM_BUILD_ROOT}%{_datadir}/doc/gramps/
-rm -rf ${RPM_BUILD_ROOT}%{_datadir}/icons/
 
-install -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{python3_sitelib}/gramps/gen/utils/resource-path
+echo -n %{_datadir} > $RPM_BUILD_ROOT%{python3_sitelib}/gramps/gen/utils/resource-path
 
-appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/gramps.appdata.xml \
+# fix the app id to match flathub
+appstream-util modify $RPM_BUILD_ROOT%{_metainfodir}/gramps.appdata.xml \
+  id org.gramps_project.Gramps
+appstream-util replace-screenshots $RPM_BUILD_ROOT%{_metainfodir}/gramps.appdata.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/a.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/b.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/c.png \
@@ -89,13 +93,14 @@ desktop-file-install --delete-original  \
 %doc AUTHORS FAQ NEWS TODO example/
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/appdata/gramps.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/application-registry/%{name}.applications
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/mime-info/*
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/icons/hicolor/*/mimetypes/*
 %{_mandir}/man1/%{name}.1.gz
+%{_metainfodir}/gramps.appdata.xml
 %{python3_sitelib}/gramps*egg-info
 %{python3_sitelib}/gramps/__init*
 %{python3_sitelib}/gramps/grampsapp*

@@ -3,7 +3,7 @@
 
 Name:		aqsis
 Version:	1.8.2
-Release:	54%{?dist}
+Release:	55%{?dist}
 Summary:	Open source 3D rendering solution adhering to the RenderMan standard
 
 License:	GPLv2+ and LGPLv2+
@@ -239,6 +239,9 @@ desktop-file-install --vendor "" --delete-original \
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.8.2-55
+- Rebuilt for Boost 1.83
+
 * Wed Dec 06 2023 Patrick Palka <ppalka@redhat.com> - 1.8.2-54
 * Fix build with boost-1.83.0
 

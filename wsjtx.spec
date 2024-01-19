@@ -2,7 +2,7 @@
 
 Name:		wsjtx
 Version:	2.7.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Weak Signal communication by K1JT
 License:	GPLv3+
 
@@ -160,6 +160,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2.7.0-2
+- Rebuilt for Boost 1.83
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.6.1-2
 - Rebuilt for Boost 1.81
 

@@ -2,7 +2,7 @@
 
 Name:           wesnoth
 Version:        1.17.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -181,6 +181,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.17.24-2
+- Rebuilt for Boost 1.83
+
 * Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.24-1
 - 1.17.24
 

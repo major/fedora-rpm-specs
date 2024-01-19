@@ -34,7 +34,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -64,6 +64,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	gnupg2
 
 Requires: clang-resource-filesystem%{?isa} = %{version}
+Provides: %{name}(major) = %{maj_ver}
 
 %description
 The compiler-rt project is a part of the LLVM project. It provides
@@ -137,6 +138,9 @@ ln -s i386-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{_t
 
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Mon Dec 18 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.0.6-3
+- Add compiler-rt(major) provides
 
 * Wed Dec 13 2023 Miro Hrončok <mhroncok@redhat.com> - 17.0.6-2
 - Fix install path on i686

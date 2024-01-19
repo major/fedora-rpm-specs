@@ -5,7 +5,7 @@
 
 Name:           python-tdlib
 Version:        0.9.2
-Release:        9.%{gitdate}.%{shorttag}%{?dist}
+Release:        10.%{gitdate}.%{shorttag}%{?dist}
 Summary:        Tree decomposition algorithms
 
 # Project files are a mix of GPL-3.0-or-later and GPL-2.0-or-later.
@@ -101,6 +101,9 @@ rm -f %{buildroot}%{python3_sitearch}/tdlib/*.la
 %{_includedir}/treedec/
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 0.9.2-10.20210929.e8ec911
+- Rebuilt for Boost 1.83
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.9.2-9.20210929.e8ec911
 - Stop building for 32-bit x86
 

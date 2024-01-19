@@ -1,5 +1,5 @@
 Name:           catch
-Version:        3.5.1
+Version:        3.5.2
 Release:        1%{?dist}
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
@@ -67,6 +67,9 @@ is packaged up as a single header for extra convenience.
 
 
 %changelog
+* Wed Jan 17 2024 Tom Hughes <tom@compton.nu> - 3.5.2-1
+- Update to 3.5.2 upstream release
+
 * Mon Jan  1 2024 Tom Hughes <tom@compton.nu> - 3.5.1-1
 - Update to 3.5.1 upstream release
 

@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -208,6 +208,8 @@ Patch0033:	0033-boost-asm.patch
 Patch0034:	0034-src-pybind-rbd-rbd.pyx.patch
 Patch0035:	0035-src-CMakeLists.txt.patch
 Patch0036:	0036-18.2.1.release.patch
+Patch37: ceph-c99-1.patch
+Patch38: ceph-c99-2.patch
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
 %if 0%{?suse_version}
@@ -2636,6 +2638,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Mon Jan 15 2024 Florian Weimer <fweimer@redhat.com> - 2:18.2.1-5
+- Backport upstream patches to fix C compatibility issues
+
 * Sat Jan 13 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-4
 - rebuild with rocksdb-8.10.0
 

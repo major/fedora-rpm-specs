@@ -10,7 +10,7 @@
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
 Version:	4.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -18,6 +18,10 @@ Release:	2%{?dist}
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/ruby-gnome/ruby-gnome/issues/1604
+# https://github.com/ruby-gnome/ruby-gnome/commit/b435e4963a578bd3fb3bb107632bb56338022151
+# Support GLib 2.79.0 gi change
+Patch0:   rubygem-gobject-introspection-b435e496-support-GLib-2_79_gir-change.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -59,6 +63,7 @@ Documentation for %{name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches
+%patch -P0 -p2 -b .newglib
 
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
@@ -142,6 +147,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-3
+- Patch to support GLib 2.79.0 gi change
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

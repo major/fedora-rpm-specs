@@ -1,11 +1,17 @@
 Summary: A system tool for maintaining the /etc/rc*.d hierarchy
 Name: chkconfig
-Version: 1.25
+Version: 1.26
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/fedora-sysv/chkconfig
 Source: https://github.com/fedora-sysv/chkconfig/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-BuildRequires: newt-devel gettext popt-devel libselinux-devel beakerlib gcc systemd-devel make
+
+BuildRequires: gcc gettext libselinux-devel make newt-devel popt-devel systemd-devel
+# beakerlib might not be available on CentOS Stream any more
+%if 0%{?fedora}
+BuildRequires: beakerlib
+%endif
+
 Conflicts: initscripts <= 5.30-1
 
 Provides: /sbin/chkconfig
@@ -42,8 +48,11 @@ system at the same time.
 %build
 %make_build RPM_OPT_FLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
+# tests are executed using tmt and tf on CentOS Stream and RHEL
+%if 0%{?fedora}
 %check
 make check
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -88,6 +97,23 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 %dir /var/lib/alternatives
 
 %changelog
+* Wed Jan 17 2024 Jan Macku <jamacku@redhat.com> - 1.26-1
+- fix(test): dot't call `basename` with empty string
+- spec: sort BuildRequires alphabetically
+- fix(test): remove dangling `rlPhase` fn call
+- ci: run tests using Packit and Testing Farm
+- build: update `.pot` file
+- ci: fix typo in test workflow
+- test: add support for running using tmt
+- Translated using Weblate (Czech)
+- Translated using Weblate (Punjabi)
+- build(deps): bump actions/upload-artifact from 3 to 4
+- build(deps): bump github/codeql-action from 2 to 3
+- leveldb: fix systemdActive()
+- build(deps): bump redhat-plumbers-in-action/differential-shellcheck
+- Translated using Weblate (Hungarian)
+- build(deps): bump actions/checkout from 3 to 4
+
 * Wed Aug 02 2023 Jan Macku <jamacku@redhat.com> - 1.25-1
 - alternatives: fix possible buffer overrun
 - Translated using Weblate (Korean)

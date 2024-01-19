@@ -28,7 +28,7 @@
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
-Version: 20240000.1
+Version: 20240000.2
 Release: 1%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
@@ -160,22 +160,6 @@ then
         -e 's|ok *&= *floating<long double>();|// &|'  
 fi
 # -----------------------------------------------------------------------------
-# Some patches for 32 bit systems that should not be necessary once
-# cppad-20240000.2 is available.
-echo "_arch = %{_arch}"
-if [ "%{_arch}" == 'i386' ] || [ "%{_arch}" == 'i686' ]
-then
-   # Add padding to block_t structure when compiling for these arch values 
-   sed -i.bak  \
-      CppAD-%{version}/include/cppad/utility/thread_alloc.hpp \
-      -e 's|^\( *\)void[*]\( *\)next_;|&\n\1void*\2not_used_;|'
-   #
-   # avoid redefinition of a template specialization
-   sed -i.bak  \
-      CppAD-%{version}/include/cppad/local/val_graph/op_hash_table.hpp \
-      -e 's|# if ! CPPAD_TAPE_ADDR_TYPE_IS_SIZE_T|# if 0|'
-fi
-# -----------------------------------------------------------------------------
 # build
 # -----------------------------------------------------------------------------
 %build
@@ -213,7 +197,7 @@ cppad_cxx_flags=\
 %cmake \
     -S CppAD-%{version} \
     -B . \
-   \
+    \
     -D CMAKE_VERBOSE_MAKEFILE=0 \
     -G 'Unix Makefiles' \
     \
@@ -284,6 +268,10 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Wed Jan 17 2024 Brad Bell <bradbell at seanet dot com> - 20240000.2-1
+- Upstream moved i386 special cases into cmake script.
+- Checking that othr upstream changes do not affect Fedora install.
+
 * Tue Jan 09 2024 Brad Bell <bradbell at seanet dot com> - 20240000.1-1
 - thread_alloc.hpp: i386 i686: fix allignment for doubles
 - op_hash_table: i386 i686: avoid second specialization of is_pod for same type.

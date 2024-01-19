@@ -1,6 +1,6 @@
 Name:           osm2pgsql
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPLv2+
@@ -71,6 +71,9 @@ LANG="C.UTF-8" %ctest -j1
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.10.0-2
+- Rebuilt for Boost 1.83
+
 * Wed Nov  8 2023 Tom Hughes <tom@compton.nu> - 1.10.0-1
 - Update to 1.10.0 upstream release
 

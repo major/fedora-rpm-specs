@@ -1,7 +1,7 @@
 %global srcname pudb
 
 Name:          python-pudb
-Version:       2023.1
+Version:       2024.1
 Release:       1%{?dist}
 Summary:       A full-screen, console-based Python debugger
 License:       MIT
@@ -47,8 +47,6 @@ sed -i '1{\@^#! /usr/bin/env python@d}' pudb/debugger.py
 
 %check
 %pytest
-# Remove installed tests
-rm -r %{buildroot}/%{python3_sitelib}/test
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
@@ -56,6 +54,9 @@ rm -r %{buildroot}/%{python3_sitelib}/test
 %{_bindir}/pudb
 
 %changelog
+* Wed Jan 17 2024 Lumír Balhar <lbalhar@redhat.com> - 2024.1-1
+- Update to 2024.1 (rhbz#2258664)
+
 * Fri Oct 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2023.1-1
 - Update to 2023.1 (rhbz#2242541)
 

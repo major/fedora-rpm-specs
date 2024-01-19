@@ -2,8 +2,8 @@
 %{?python_enable_dependency_generator}
 
 Name:           python-%{srcname}
-Version:        0.5.1
-Release:        4%{?dist}
+Version:        0.5.3
+Release:        1%{?dist}
 License:        BSD
 Summary:        Doxygen to document your QML classes
 Url:            https://invent.kde.org/sdk/%{srcname}
@@ -11,8 +11,6 @@ Source:         %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
 Doxyqml lets you use Doxygen to document your QML classes,
@@ -30,21 +28,26 @@ Recommends:     python3-%{srcname}
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
 %{_bindir}/%{srcname}
 
 %changelog
+* Wed Jan 17 2024 Steve Cossette <farchord@gmail.com> - 0.5.3-1
+- Update to 0.5.3
+- Updated spec with newer python macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

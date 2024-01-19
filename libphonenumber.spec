@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.13.27
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -78,6 +78,9 @@ popd
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 8.13.27-2
+- Rebuilt for Boost 1.83
+
 * Tue Dec 19 2023 Sérgio M. Basto <sergio@serjux.com> - 8.13.27-1
 - [maven-release-plugin] prepare release v8.13.27 (Mandali Reddy)
 - Metadata updates for release 8.13.27 (#3346) (rohininidhi)

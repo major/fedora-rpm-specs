@@ -2,7 +2,7 @@
 
 Name:           botan
 Version:        %{major_version}.17
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Crypto library written in C++
 
 License:        BSD
@@ -195,6 +195,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./check --validate
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.10.17-39
+- Rebuilt for Boost 1.83
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.17-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

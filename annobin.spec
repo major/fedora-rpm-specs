@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.36
-Release: 2%{?dist}
+Version: 12.37
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -534,6 +534,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 17 2024 Nick Clifron  <nickc@redhat.com> - 12.37-1
+- GCC Plugin: DO not use section groups with string format notes.
+
 * Tue Jan 16 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.36-2
 - Spec File: NVR bump in order to allow building in side tag.
 

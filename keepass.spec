@@ -56,6 +56,11 @@ to unlock the whole database.
 
 %autosetup -p1 -c
 
+# use /app prefix in flatpak builds
+%if 0%{?flatpak}
+sed -i -e 's|/usr|%{_prefix}|g' dist/%{name} KeePass/App/AppDefs.cs
+%endif
+
 # Make sure no prebuilt dlls are shipped
 find -name "*dll" -delete
 
@@ -66,11 +71,11 @@ find -name \*.png -print0 | xargs -0 mogrify -define png:format=png32
 %build
 ( cd Build && sh PrepMonoDev.sh )
 find . -name "*.sln" -print -exec sed -i 's/Format Version 10.00/Format Version 11.00/g' {} \;
-xbuild /target:KeePass /property:TargetFrameworkVersion=v$(ls -d /usr/lib/mono/*-api | cut -d/ -f5 | cut -d- -f1 | sort -Vr | head -1) /property:Configuration=Release
+xbuild /target:KeePass /property:TargetFrameworkVersion=v$(ls -d %{_monodir}/*-api | cut -d/ -f5 | cut -d- -f1 | sort -Vr | head -1) /property:Configuration=Release
 for subdir in Images_App_HighRes Images_Client_16 Images_Client_HighRes; do
     xvfb-run -a mono Build/KeePass/Release/KeePass.exe -d:`pwd`/Ext/$subdir --makexspfile `pwd`/KeePass/Resources/Data/$subdir.bin
 done
-xbuild /target:KeePass /property:TargetFrameworkVersion=v$(ls -d /usr/lib/mono/*-api | cut -d/ -f5 | cut -d- -f1 | sort -Vr | head -1) /property:Configuration=Release
+xbuild /target:KeePass /property:TargetFrameworkVersion=v$(ls -d %{_monodir}/*-api | cut -d/ -f5 | cut -d- -f1 | sort -Vr | head -1) /property:Configuration=Release
 
 %install
 install -d %{buildroot}/%{_prefix}/lib/%{name} %{buildroot}/%{_prefix}/lib/%{name}/Languages %{buildroot}/%{_datadir}/%{name} %{buildroot}/%{_datadir}/%{name}/XSL %{buildroot}/%{_datadir}/applications %{buildroot}/%{_bindir} %{buildroot}/%{_datadir}/mime/packages %{buildroot}/%{_datadir}/icons/hicolor/512x512/apps %{buildroot}/%{_datadir}/icons/hicolor/256x256/apps %{buildroot}/%{_datadir}/icons/hicolor/128x128/apps %{buildroot}/%{_datadir}/icons/hicolor/64x64/apps %{buildroot}/%{_datadir}/icons/hicolor/48x48/apps %{buildroot}/%{_datadir}/icons/hicolor/32x32/apps %{buildroot}/%{_datadir}/icons/hicolor/16x16/apps %{buildroot}/%{_mandir}/man1 %{buildroot}/%{_docdir}/%{name} %{buildroot}/%{_datadir}/appdata

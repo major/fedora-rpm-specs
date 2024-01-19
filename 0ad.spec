@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	14%{?dist}
+Release:	15%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -278,6 +278,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 0.0.26-15
+- Rebuilt for Boost 1.83
+
 * Wed Oct 18 2023 Kalev Lember <klember@redhat.com> - 0.0.26-14
 - Use python3.11 during build time to fix FTBFS (#2225686)
 

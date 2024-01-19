@@ -1,7 +1,7 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
 Version:       0.9.12
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -16,10 +16,12 @@ BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: fluidsynth-devel
 BuildRequires: gcc-c++
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtx11extras-devel
-BuildRequires: qt5-linguist
-BuildRequires: qt5-qtsvg-devel
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: libappstream-glib
 
 
@@ -71,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.rncbc.qsyn
 
 
 %changelog
+* Wed Jan 17 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.12-3
+- Use Qt6
+
 * Tue Jan 16 2024 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.12-2
 - Fix flatpak build
 - soundfonts are shipped with apps, not the runtime, and therefore are in 

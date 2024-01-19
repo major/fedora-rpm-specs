@@ -3,15 +3,12 @@
 %bcond tests 1
 
 Name:           python-beautifulsoup4
-Version:        4.12.2
-Release:        5%{?dist}
+Version:        4.12.3
+Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
-Patch0:         tox.patch
-# https://bugs.launchpad.net/beautifulsoup/+bug/2045481
-Patch1:         libxml2.patch
 BuildArch:      noarch
 # html5lib BR just for test coverage
 %if %{with tests}
@@ -81,6 +78,9 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %{python3_sitelib}/bs4
 
 %changelog
+* Wed Jan 17 2024 Terje Rosten <terje.rosten@ntnu.no> - 4.12.3-1
+- 4.12.3
+
 * Sat Dec 16 2023 Terje Rosten <terje.rosten@ntnu.no> - 4.12.2-5
 - Add patch from upstream to fix test issue with libxml2 2.12.1 (bz#2251911)
 

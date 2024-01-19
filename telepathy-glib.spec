@@ -6,7 +6,7 @@
 
 Name:           telepathy-glib
 Version:        0.24.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GLib bindings for Telepathy
 
 # LGPL-2.1-or-later: overall
@@ -16,10 +16,13 @@ Summary:        GLib bindings for Telepathy
 License:        LGPL-2.1-or-later
 URL:            http://telepathy.freedesktop.org/wiki/FrontPage
 Source0:        http://telepathy.freedesktop.org/releases/%{name}/%{name}-%{version}.tar.gz
+# Patch to make testsuite work with newer GLib
 # https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/issues/145
 # https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/merge_requests/3
 # https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/merge_requests/3.patch
 Patch0:         telepathy-glib-pr3-test-cm-with-newer-glib.patch
+# Patch for -Werror=incompatible-pointer-types
+Patch1:         telepathy-glib-prXXX-function-type-cast.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -123,6 +126,9 @@ make check
 
 
 %changelog
+* Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.24.2-10
+- Patch for -Werror=incompatible-pointer-types
+
 * Mon Sep  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.24.2-9
 - SPDX migration
 - Patch to make testsuite work with newer GLib

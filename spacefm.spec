@@ -1,6 +1,9 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global	build_type_safety_c  2
+
 Name:		spacefm
 Version:	1.0.6
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Multi-panel tabbed file and desktop manager
 
 License:	GPLv3+
@@ -13,8 +16,8 @@ Patch1:	spacefm-1.0.6-major-glibc228.patch
 # Patch to compile with gcc10 -fno-common
 Patch2:	spacefm-1.0.6-gcc10-fno-common.patch
 
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:	make
+BuildRequires:	gcc
 BuildRequires:	libX11-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -30,9 +33,6 @@ device manager, customizable menu system, and bash integration.
 %package	Faenza
 Summary:	Faenza theme files for spacefm
 Requires:	%{name} = %{version}-%{release}
-%if 0%{?fedora} < 20
-Requires:	faenza-icon-theme
-%endif
 BuildArch:	noarch
 
 %description	Faenza
@@ -40,9 +40,9 @@ This package contains Faenza theme files for spacefm.
 
 %prep
 %setup -q
-%patch0 -p1 -b .x11
-%patch1 -p1 -b .glibc228
-%patch2 -p1 -b .gcc10
+%patch -P0 -p1 -b .x11
+%patch -P1 -p1 -b .glibc228
+%patch -P2 -p1 -b .gcc10
 find . -name \*.c -print0 | xargs --null chmod 0644
 
 %build
@@ -50,16 +50,10 @@ find . -name \*.c -print0 | xargs --null chmod 0644
 	--with-gtk3 \
 	--disable-video-thumbnails \
 	%{nil}
-make %{?_smp_mflags}
+%make_build
 
 %install
-%make_install \
-	INSTALL="install -p"
-
-for f in %{buildroot}%{_datadir}/applications/*desktop
-do
-	desktop-file-validate $f
-done
+%make_install
 
 # Create skeleton configuration file and directory (ref: src/settings.c)
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
@@ -73,6 +67,13 @@ rm -rf tmpdocdir
 mv %{buildroot}%{_docdir}/%{name} tmpdocdir
 
 %find_lang %{name}
+
+%check
+for f in %{buildroot}%{_datadir}/applications/*desktop
+do
+	desktop-file-validate $f
+done
+
 
 %post	Faenza
 touch --no-create %{_datadir}/icons/Faenza &>/dev/null || :
@@ -89,7 +90,7 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 
 %files	-f %{name}.lang
 %doc	AUTHORS
-%doc	COPYING*
+%license	COPYING*
 %doc	ChangeLog
 %doc	README
 
@@ -109,6 +110,9 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 %{_datadir}/icons/Faenza/apps/*/%{name}*
 
 %changelog
+* Thu Jan 18 2024 Mamoru TASAKA <mtasaka@tbz.t-com.ne.jp> - 1.0.6-15
+- Change -Wincompatible-pointer-types from error to warning
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

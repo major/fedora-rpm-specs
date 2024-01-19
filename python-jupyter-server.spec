@@ -3,7 +3,7 @@
 %bcond_without tests
 
 Name:           python-jupyter-server
-Version:        2.12.4
+Version:        2.12.5
 Release:        %autorelease
 Summary:        The backend for Jupyter web applications
 License:        BSD-3-Clause
@@ -51,10 +51,9 @@ sed -i '/@overrides/d' jupyter_server/services/kernels/kernelmanager.py
 
 %check
 %if %{with tests}
-# Fix for the deprecation warning from pytest-console-scripts
-# proposed upstream:
-# https://github.com/jupyter-server/jupyter_server/pull/1281
-%pytest -W ignore::DeprecationWarning
+# ResourceWarning is flaky and causes some test to fail
+# reported: https://github.com/jupyter-server/jupyter_server/issues/1387
+%pytest -W "always:unclosed <socket.socket:ResourceWarning"
 %endif
 
 

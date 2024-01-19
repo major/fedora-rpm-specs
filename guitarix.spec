@@ -5,7 +5,7 @@
 
 Name:           guitarix
 Version:        0.44.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A virtual guitar amplifier
 License:        GPLv2+
 URL:            http://guitarix.sourceforge.net/
@@ -214,6 +214,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_libdir}/lv2/*
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 0.44.1-8
+- Rebuilt for Boost 1.83
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

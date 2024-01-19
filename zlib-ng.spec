@@ -21,7 +21,7 @@ Name:		zlib-ng
 Version:	2.1.6
 Release:	1%{?dist}
 Summary:	Zlib replacement with optimizations
-License:	zlib
+License:	Zlib
 Url:		https://github.com/zlib-ng/zlib-ng
 Source0:	https://github.com/zlib-ng/zlib-ng/archive/%{version}/%{name}-%{version}.tar.gz
 

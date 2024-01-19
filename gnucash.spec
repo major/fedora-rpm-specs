@@ -2,7 +2,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.5
 URL: https://gnucash.org/
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 5.5-2
+- Rebuilt for Boost 1.83
+
 * Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.5-1
 - 5.5
 

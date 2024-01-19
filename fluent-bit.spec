@@ -1,25 +1,13 @@
 Name: fluent-bit
-Version: 1.9.9
-Release: 6%{?dist}
-Summary: Fast data collector for Linux
+Version: 2.1.1
+Release: 1%{?dist}
+Summary: Fluent Bit is a super fast, lightweight, and highly scalable logging and metrics processor and forwarder.
 License: ASL 2.0
 URL: https://github.com/fluent/fluent-bit
 Source0: https://github.com/fluent/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Remove -Werror in mbedtls build. Not upstream
-Patch0: 0001-mbedtls-disable-Werror-in-prod-build.patch
-# Fix up some install paths in CMake. Not upstream
-Patch1: 0002-CMake-fix-up-install-paths.patch
-# Add -fPIC to onigomo build. Not upstream
-Patch2: 0003-onigmo-add-fPIC-to-CFLAGS.patch
-# Fix Tail input plugin tests. https://github.com/fluent/fluent-bit/issues/5723
-Patch3: 0004-tests-runtime-in_tail-allow-to-append-to-local-files.patch
-Patch4: fluent-bit-cmake-c99.patch
-Patch5: fluent-bit-cmake-c99-2.patch
-Patch6: fluent-bit-c99-3.patch
-Patch7: fluent-bit-c99-4.patch
-Patch8: fluent-bit-c99-5.patch
-Patch9: fluent-bit-c99-6.patch
-Patch10: fluent-bit-c99-7.patch
+
+Patch0: fluent-bit-cmake-c99.patch
+Patch1: fluent-bit-cmake-c99-2.patch
 
 BuildRequires: pkgconfig
 BuildRequires: make
@@ -38,6 +26,8 @@ BuildRequires: gnutls-devel
 BuildRequires: openssl-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libyaml-devel
+BuildRequires: netcat
+BuildRequires: openssl
 %{?systemd_requires}
 
 # Exclude armv7hl temporarily because of failing runtime tests
@@ -56,6 +46,7 @@ Fluent Bit is a high performance and multi-platform log forwarder.
     -DFLB_EXAMPLES=Off\
     -DFLB_OUT_SLACK=Off\
     -DFLB_IN_SYSTEMD=On\
+    -DFLB_IN_PODMAN_METRICS=Off\
     -DFLB_OUT_TD=Off\
     -DFLB_OUT_ES=On\
     -DFLB_SHARED_LIB=Off\
@@ -63,7 +54,10 @@ Fluent Bit is a high performance and multi-platform log forwarder.
     -DFLB_TESTS_INTERNAL=Off\
     -DFLB_RELEASE=On\
     -DFLB_DEBUG=Off\
-    -DFLB_TLS=On
+    -DFLB_TLS=On\
+    -DFLB_HTTP_SERVER=On\
+    -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}\
+    -DSYSTEMD_UNITDIR=%{_unitdir}
 
 %cmake_build
 
@@ -92,7 +86,13 @@ rm -rvf %{buildroot}%{_includedir}
 %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 
+%exclude /usr/bin/luajit
+%exclude /usr/lib64/libluajit.a
+
 %changelog
+* Tue Jan 16 2024 Leoswaldo Macias Mancilla <lmaciasm10@gmail.com> - 2.1.1-1
+- Update to 2.1.1
+
 * Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 1.9.9-6
 - Additional C compatibility fixes
 

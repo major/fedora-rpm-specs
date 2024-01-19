@@ -1,8 +1,13 @@
-%global revision 20231001
+%if 0%{?rhel} >= 10
+%bcond_with compat_libs
+%else
+%bcond_without compat_libs
+%endif
+%global revision 20240113
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 8.%{revision}%{?dist}
+Release: 9.%{revision}%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -12,7 +17,6 @@ Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072
 Patch8: ncurses-config.patch
 Patch9: ncurses-libs.patch
 Patch11: ncurses-urxvt.patch
-Patch12: ncurses-kbs.patch
 BuildRequires: gcc gcc-c++ gpm-devel gnupg2 make pkgconfig
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -39,6 +43,7 @@ discontinued 4.4 BSD classic curses library.
 
 This package contains the ncurses libraries.
 
+%if %{with compat_libs}
 %package compat-libs
 Summary: Ncurses compatibility libraries
 Requires: %{name}-base = %{version}-%{release}
@@ -51,6 +56,7 @@ discontinued 4.4 BSD classic curses library.
 
 This package contains the ABI version 5 of the ncurses libraries for
 compatibility.
+%endif
 
 %package c++-libs
 Summary: Ncurses C++ bindings
@@ -113,7 +119,6 @@ The ncurses-static package includes static libraries of the ncurses library.
 %patch -P8 -p1 -b .config
 %patch -P9 -p1 -b .libs
 %patch -P11 -p1 -b .urxvt
-%patch -P12 -p1 -b .kbs
 
 for f in ANNOUNCE; do
     iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -142,7 +147,7 @@ common_options="\
     --without-ada"
 abi5_options="--with-chtype=long"
 
-for abi in 5 6; do
+for abi in %{?with_compat_libs:5} 6; do
     for char in narrowc widec; do
         mkdir $char$abi
         pushd $char$abi
@@ -153,7 +158,7 @@ for abi in 5 6; do
         %configure $(
             echo $common_options --with-abi-version=$abi
             [ $abi = 5 ] && echo $abi5_options
-            [ $char = widec ] && echo --enable-widec
+            [ $char = widec ] && echo --enable-widec || echo --disable-widec
             [ $progs = yes ] || echo --without-progs
         )
 
@@ -165,9 +170,11 @@ for abi in 5 6; do
 done
 
 %install
+%if %{with compat_libs}
 make -C narrowc5 DESTDIR=$RPM_BUILD_ROOT install.libs
 rm ${RPM_BUILD_ROOT}%{_libdir}/lib{tic,tinfo}.so.5*
 make -C widec5 DESTDIR=$RPM_BUILD_ROOT install.libs
+%endif
 make -C narrowc6 DESTDIR=$RPM_BUILD_ROOT install.libs
 rm ${RPM_BUILD_ROOT}%{_libdir}/lib{tic,tinfo}.so.6*
 make -C widec6 DESTDIR=$RPM_BUILD_ROOT install.{libs,progs,data,includes,man}
@@ -228,6 +235,7 @@ echo "INPUT(-ltinfo)" > $RPM_BUILD_ROOT%{_libdir}/libtermcap.so
 rm -f $RPM_BUILD_ROOT%{_bindir}/ncurses*5-config
 rm -f $RPM_BUILD_ROOT%{_libdir}/terminfo
 rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/*_g.pc
+rm -f $RPM_BUILD_ROOT%{_mandir}/man1/init.1*
 
 xz NEWS
 
@@ -235,7 +243,9 @@ xz NEWS
 
 %ldconfig_scriptlets c++-libs
 
+%if %{with compat_libs}
 %ldconfig_scriptlets compat-libs
+%endif
 
 %files
 %doc ANNOUNCE AUTHORS NEWS.xz README TO-DO
@@ -248,8 +258,10 @@ xz NEWS
 %exclude %{_libdir}/libncurses++*.so.6*
 %{_libdir}/lib*.so.6*
 
+%if %{with compat_libs}
 %files compat-libs
 %{_libdir}/lib*.so.5*
+%endif
 
 %files c++-libs
 %{_libdir}/libncurses++*.so.6*
@@ -283,6 +295,11 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Wed Jan 17 2024 Miroslav Lichvar <mlichvar@redhat.com> 6.4-9.20240113
+- update to 6.4-20240113
+- disable compat libs on RHEL >= 10
+- drop kbs patch
+
 * Wed Oct 04 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-8.20231001
 - update to 6.4-20231001
 - convert license tag to SPDX

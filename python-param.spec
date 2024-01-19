@@ -1,5 +1,5 @@
 Name:           python-param
-Version:        2.0.1
+Version:        2.0.2
 Release:        %autorelease
 Summary:        Make your Python code clearer and more reliable by declaring Parameters
 

@@ -2,7 +2,7 @@
 
 Name:               python-gattlib
 Version:            0.20210616
-Release:            8%{?dist}
+Release:            9%{?dist}
 Summary:            Library to access Bluetooth LE devices
 
 License:            Apache-2.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -53,6 +53,9 @@ find . -type f | xargs chmod -x
 %{python3_sitearch}/%{modname}*.egg-info/
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 0.20210616-9
+- Rebuilt for Boost 1.83
+
 * Tue Nov 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.20210616-8
 - Patch for Python 3.13
 

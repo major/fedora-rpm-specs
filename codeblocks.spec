@@ -7,7 +7,7 @@
 
 Name:		codeblocks
 Version:	20.03
-Release:	18%{?svnrelease}%{?dist}
+Release:	19%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 License:	GPLv3+
 URL:		http://www.codeblocks.org/
@@ -338,6 +338,9 @@ rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 20.03-19.20230124svn13161
+- Rebuilt for Boost 1.83
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.03-18.20230124svn13161
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

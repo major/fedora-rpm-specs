@@ -5,7 +5,7 @@
 
 Name:           mathicgb
 Version:        1.0
-Release:        35.%{gitdate}.git%{shorttag}%{?dist}
+Release:        36.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Groebner basis computations
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.0-36.20231121.git09ea46a
+- Rebuilt for TBB 2021.11
+
 * Fri Jan 12 2024 Jerry James <loganjerry@gmail.com> - 1.0-35.20231121.git09ea46a
 - Update to latest upstream snapshot
 

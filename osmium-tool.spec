@@ -5,7 +5,7 @@
 
 Name:           osmium-tool
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line tool for working with OpenStreetMap data
 
 License:        GPL-3.0-only
@@ -64,6 +64,9 @@ install -p -m644 zsh_completion/* %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.16.0-2
+- Rebuilt for Boost 1.83
+
 * Fri Sep 22 2023 Tom Hughes <tom@compton.nu> - 1.16.0-1
 - Update to 1.16.0 upstream release
 

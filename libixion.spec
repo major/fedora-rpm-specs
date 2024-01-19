@@ -1,7 +1,7 @@
 %global apiversion 0.18
 
 Name: libixion
-Version: 0.18.1
+Version: 0.19.0
 Release: %autorelease
 Summary: A general purpose formula parser & interpreter library
 

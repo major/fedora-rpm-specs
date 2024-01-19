@@ -3,7 +3,7 @@
 Summary: A document formatting system
 Name: groff
 Version: 1.23.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -65,9 +65,9 @@ Requires: coreutils, groff-base = %{version}-%{release}
 
 Recommends: psutils
 
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
-Requires(preun): %{_sbindir}/update-alternatives
+Requires(post): /usr/sbin/update-alternatives
+Requires(postun): /usr/sbin/update-alternatives
+Requires(preun): /usr/sbin/update-alternatives
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: bison, texinfo
@@ -92,6 +92,9 @@ groff-x11 package.
 
 %package base
 Summary: Parts of the groff formatting system required to display manual pages
+Requires(post): /usr/sbin/update-alternatives
+Requires(postun): /usr/sbin/update-alternatives
+Requires(preun): /usr/sbin/update-alternatives
 
 %description base
 The groff-base package contains only necessary parts of groff formatting
@@ -205,18 +208,18 @@ sed --in-place 's|#! /bin/sed -f|#! /usr/bin/sed -f|' %{buildroot}%{_datadir}/gr
 
 %post
 # set up the alternatives files
-%{_sbindir}/update-alternatives --install %{_mandir}/man7/roff.7.gz roff.7.gz %{_mandir}/man7/roff.%{name}.7.gz 300 \
+/usr/sbin/update-alternatives --install %{_mandir}/man7/roff.7.gz roff.7.gz %{_mandir}/man7/roff.%{name}.7.gz 300 \
     >/dev/null 2>&1 || :
 
 %preun
 if [ $1 -eq 0 ]; then
-    %{_sbindir}/update-alternatives --remove roff.7.gz %{_mandir}/man7/roff.%{name}.7.gz >/dev/null 2>&1 || :
+    /usr/sbin/update-alternatives --remove roff.7.gz %{_mandir}/man7/roff.%{name}.7.gz >/dev/null 2>&1 || :
 fi
 
 %postun
 if [ $1 -ge 1 ]; then
-    if [ "$(readlink %{_sysconfdir}/alternatives/roff.7.gz)" == "%{_mandir}/man7/roff.%{name}.7.gz" ]; then
-        %{_sbindir}/update-alternatives --set roff.7.gz %{_mandir}/man7/roff.%{name}.7.gz >/dev/null 2>&1 || :
+    if [ "$(readlink /etc/alternatives/roff.7.gz)" == "%{_mandir}/man7/roff.%{name}.7.gz" ]; then
+        /usr/sbin/update-alternatives --set roff.7.gz %{_mandir}/man7/roff.%{name}.7.gz >/dev/null 2>&1 || :
     fi
 fi
 
@@ -227,19 +230,19 @@ fi
 
 %post base
 # set up the alternatives files
-%{_sbindir}/update-alternatives --install %{_bindir}/soelim soelim %{_bindir}/soelim.%{name} 300 \
+/usr/sbin/update-alternatives --install %{_bindir}/soelim soelim %{_bindir}/soelim.%{name} 300 \
     --slave %{_mandir}/man1/soelim.1.gz soelim.1.gz %{_mandir}/man1/soelim.%{name}.1.gz \
     >/dev/null 2>&1 || :
 
 %preun base
 if [ $1 -eq 0 ]; then
-    %{_sbindir}/update-alternatives --remove soelim %{_bindir}/soelim.%{name} >/dev/null 2>&1 || :
+    /usr/sbin/update-alternatives --remove soelim %{_bindir}/soelim.%{name} >/dev/null 2>&1 || :
 fi
 
 %postun base
 if [ $1 -ge 1 ]; then
-    if [ "$(readlink %{_sysconfdir}/alternatives/soelim)" == "%{_bindir}/soelim.%{name}" ]; then
-        %{_sbindir}/update-alternatives --set soelim %{_bindir}/soelim.%{name} >/dev/null 2>&1 || :
+    if [ "$(readlink /etc/alternatives/soelim)" == "%{_bindir}/soelim.%{name}" ]; then
+        /usr/sbin/update-alternatives --set soelim %{_bindir}/soelim.%{name} >/dev/null 2>&1 || :
     fi
 fi
 
@@ -497,6 +500,9 @@ fi
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Tue Jan 16 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.23.0-4
+- Fix alternatives usage
+
 * Thu Nov 02 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-3
 - Revert upstream change of mapping special characters for UTF-8 devices
 - Resolves: BZ#2224123

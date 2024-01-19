@@ -12,7 +12,7 @@
 
 Name:           mir
 Version:        2.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -263,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 2.15.0-3
+- Rebuilt for Boost 1.83
+
 * Tue Oct 31 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.15.0-2
 - Rebuild for gtest 1.14.0
 

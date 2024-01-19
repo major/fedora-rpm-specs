@@ -40,14 +40,14 @@
 %endif
 
 Name:           wine
-Version:        8.19
+Version:        9.0
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
 URL:            https://www.winehq.org/
-Source0:        https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz
-Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz.sign
+Source0:        https://dl.winehq.org/wine/source/9.0/wine-%{version}.tar.xz
+Source10:       https://dl.winehq.org/wine/source/9.0/wine-%{version}.tar.xz.sign
 
 Source1:        wine.systemd
 Source2:        wine-README-Fedora
@@ -87,6 +87,8 @@ Source502:      wine-README-tahoma
 Patch100:       wine-7.22-autoconf-2.72.patch
 
 Patch511:       wine-cjk.patch
+
+Patch900:       wine-staging-9.0.patch
 
 %if 0%{?wine_staging}
 # wine-staging patches
@@ -688,6 +690,8 @@ gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
 # https://bugs.winehq.org/show_bug.cgi?id=54868
 sed -i 's/DWORD pitch_in, DWORD pitch_out/unsigned int pitch_in, unsigned int pitch_out/' patches/wined3d-WINED3DFMT_B8G8R8X8_UNORM/0001-wined3d-Implement-WINED3DFMT_B8G8R8X8_UNORM-to-WINED.patch
+# Fix pointer types for i686 build
+%patch -P 900 -p0 -b.staging
 staging/patchinstall.py DESTDIR="`pwd`" --all
 
 %endif
@@ -1064,13 +1068,13 @@ fi
 # meta package
 
 %files core
-%doc ANNOUNCE
+%doc ANNOUNCE.md
 %doc COPYING.LIB
 %doc LICENSE
 %doc LICENSE.OLD
 %doc AUTHORS
 %doc README-FEDORA
-%doc README
+%doc README.md
 %doc VERSION
 # do not include huge changelogs .OLD .ALPHA .BETA (#204302)
 %doc documentation/README.*
@@ -1126,7 +1130,9 @@ fi
 %{_libdir}/wine/%{winepedir}/dism.exe
 %{_libdir}/wine/%{winepedir}/dllhost.exe
 %{_libdir}/wine/%{winepedir}/dplaysvr.exe
+%ifarch %{ix86} x86_64
 %{_libdir}/wine/%{winepedir}/dpnsvr.exe
+%endif
 %{_libdir}/wine/%{winepedir}/dpvsetup.exe
 %{_libdir}/wine/%{winepedir}/eject.exe
 %{_libdir}/wine/%{winepedir}/expand.exe
@@ -1225,6 +1231,7 @@ fi
 %{_libdir}/wine/%{winepedir}/comcat.dll
 %{_libdir}/wine/%{winepedir}/comctl32.dll
 %{_libdir}/wine/%{winepedir}/comdlg32.dll
+%{_libdir}/wine/%{winepedir}/coml2.dll
 %{_libdir}/wine/%{winepedir}/compstui.dll
 %{_libdir}/wine/%{winepedir}/comsvcs.dll
 %{_libdir}/wine/%{winepedir}/concrt140.dll
@@ -1461,6 +1468,7 @@ fi
 %{_libdir}/wine/%{winepedir}/mssip32.dll
 %{_libdir}/wine/%{winepedir}/msrle32.dll
 %{_libdir}/wine/%{winepedir}/mstask.dll
+%{_libdir}/wine/%{winepedir}/msttsengine.dll
 %{_libdir}/wine/%{winepedir}/msv1_0.dll
 %{_libdir}/wine/%{winesodir}/msv1_0.so
 %{_libdir}/wine/%{winepedir}/msvcirt.dll
@@ -2040,6 +2048,7 @@ fi
 %{_libdir}/wine/%{winesodir}/comcat.dll.so
 %{_libdir}/wine/%{winesodir}/comctl32.dll.so
 %{_libdir}/wine/%{winesodir}/comdlg32.dll.so
+%{_libdir}/wine/%{winesodir}/coml2.dll.so
 %{_libdir}/wine/%{winesodir}/compstui.dll.so
 %{_libdir}/wine/%{winesodir}/comsvcs.dll.so
 %{_libdir}/wine/%{winesodir}/concrt140.dll.so
@@ -2257,6 +2266,7 @@ fi
 %{_libdir}/wine/%{winesodir}/mssip32.dll.so
 %{_libdir}/wine/%{winesodir}/msrle32.dll.so
 %{_libdir}/wine/%{winesodir}/mstask.dll.so
+%{_libdir}/wine/%{winesodir}/msttsengine.dll.so
 %{_libdir}/wine/%{winesodir}/msv1_0.dll.so
 %{_libdir}/wine/%{winesodir}/msvcirt.dll.so
 %{_libdir}/wine/%{winesodir}/msvcm80.dll.so
@@ -2809,6 +2819,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 16 2024 Michael Cronenworth <mike@cchtml.com> - 9.0-1
+- version update
+
 * Mon Oct 30 2023 Michael Cronenworth <mike@cchtml.com> - 8.19-1
 - version update
 

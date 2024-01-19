@@ -3,7 +3,7 @@
 
 Name:           sympol
 Version:        0.1.9
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Symmetric polyhedra tool
 
 # GPL-2.0-or-later: the code
@@ -105,6 +105,9 @@ done
 %{_includedir}/%{name}/
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 0.1.9-34
+- Rebuilt for Boost 1.83
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.1.9-33
 - Stop building for 32-bit x86
 

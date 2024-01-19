@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           fcitx5
-Version:        5.1.6
+Version:        5.1.7
 Release:        %autorelease
 Summary:        Next generation of fcitx
 License:        LGPLv2+
@@ -115,6 +115,10 @@ desktop-file-install --delete-original \
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/org.fcitx.Fcitx5.desktop
+
+desktop-file-install --delete-original \
+  --dir %{buildroot}%{_datadir}/applications \
+  %{buildroot}%{_datadir}/applications/%{name}-wayland-launcher.desktop
   
 # convert symlinked icons to copied icons, this will help co-existing with
 # fcitx4
@@ -150,6 +154,7 @@ fi
 %{_bindir}/%{name}-diagnose
 %{_libdir}/%{name}/
 %{_libexecdir}/fcitx5-wayland-launcher
+%{_sysconfdir}/xdg/Xwayland-session.d/20-fcitx-x11
 
 %files libs
 %license LICENSES/LGPL-2.1-or-later.txt
@@ -171,6 +176,7 @@ fi
 %{_datadir}/applications/org.fcitx.Fcitx5.desktop
 %{_metainfodir}/org.fcitx.Fcitx5.metainfo.xml
 %{_datadir}/applications/%{name}-configtool.desktop
+%{_datadir}/applications/%{name}-wayland-launcher.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 
 %files autostart

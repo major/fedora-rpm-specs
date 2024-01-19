@@ -11,7 +11,7 @@ Patch0:         0001-Use-XTEST-instead-of-XWarpPointer-with-a-single-scre.patch
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: libXtst-devel, libX11-devel, libXinerama-devel, libXi-devel, /usr/bin/pod2man, libxkbcommon-devel
+BuildRequires: libXtst-devel, libX11-devel, libXinerama-devel, libXi-devel, perl-podlators, libxkbcommon-devel
 
 %description
 This tool lets you programmatically (or manually) simulate keyboard input

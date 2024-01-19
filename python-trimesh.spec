@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.0.9
+Version:        4.0.10
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 

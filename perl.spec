@@ -110,7 +110,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        503%{?dist}
+Release:        504%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -191,6 +191,10 @@ Patch202:       perl-5.36.0-Add-definition-of-OPTIMIZE-to-.ph-files.patch
 
 # Update some of the bundled modules
 # see http://fedoraproject.org/wiki/Perl/perl.spec for instructions
+
+# Update Compress::Raw::Zlib for improved compatibility with zlib-ng.
+# See <https://github.com/pmqs/Compress-Raw-Zlib/issues/24>.
+Patch300:       perl-zlib-ng.patch
 
 BuildRequires:  bash
 BuildRequires:  bzip2-devel
@@ -4224,6 +4228,7 @@ you're not running VMS, this module does nothing.
 %patch -P200 -p1
 %patch -P201 -p1
 %patch -P202 -p1
+%patch -P300 -p1
 
 %if !%{defined perl_bootstrap}
 # Local patch tracking
@@ -7061,6 +7066,9 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Wed Jan  3 2024 Florian Weimer <fweimer@redhat.com> - 4:5.38.2-504
+- Update Compress::Raw::Zlib for improved compatibility with zlib-ng
+
 * Thu Nov 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.38.2-503
 - 5.38.2 bump (see <https://metacpan.org/release/PEVANS/perl-5.38.2/view/pod/perldelta.pod>
   or release notes

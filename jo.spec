@@ -91,11 +91,6 @@ bash -e ./tests/jo.test
 %{_bindir}/jo
 %{_mandir}/man1/jo.1*
 
-# It is historically standard for packages providing shell completions to
-# co-own the completions directory in lieu of having a runtime dependency on
-# the relevant shell completions package. However, for bash (but not for other
-# shells), this directory and its parent are now owned by the “filesystem”
-# package in all current Fedora releases plus EPEL8 and newer.
 %{bash_completions_dir}/jo.bash
 %{zsh_completions_dir}/_jo
 

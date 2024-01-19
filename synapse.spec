@@ -1,6 +1,9 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global	build_type_safety_c  2
+
 Name:		synapse
 Version:	0.2.99.4
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	A semantic launcher written in Vala
 
 # SPDX confirmed
@@ -62,6 +65,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/synapse.desktop
 %{_datadir}/icons/hicolor/scalable/apps/synapse.svg
 
 %changelog
+* Thu Jan 18 2024 Mamoru TASAKA <mtasaka@tbz.t-com.ne.jp> - 0.2.99.4-14
+- Change -Wincompatible-pointer-types from error to warning
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.99.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

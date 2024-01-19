@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:           scantailor
 Version:        0.9.11.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        An interactive post-processing tool for scanned pages
 
 License:        GPLv3+ or LGPLv2.1
@@ -13,6 +13,7 @@ Patch0:         0001-respect-CFLAGS-and-CXXFLAGS.patch
 Patch1:         boost1.6.patch
 Patch2:         gcc6-build-patch.patch
 Patch3:         f30-buildfailures.patch
+Patch4:         boost-1.83.0-compat.patch
 
 BuildRequires: make
 BuildRequires:  cmake
@@ -43,6 +44,7 @@ project.
 %patch1 -p1 -z .boost
 %patch2 -p1 -b .gcc6-build
 %patch3 -p1 -b .f30-buildfaulures
+%patch4 -p1
 
 %build
 %cmake . -DEXTRA_LIBS=Xrender -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="/usr" 
@@ -69,6 +71,9 @@ make tests
 %{_datadir}/icons/hicolor/scalable/apps/scantailor.svg
 
 %changelog
+* Wed Dec 06 2023 Patrick Palka <ppalka@redhat.com> - 0.9.11.1-36
+- Fix build with boost-1.83.0
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

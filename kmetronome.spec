@@ -1,24 +1,29 @@
-%undefine __cmake_in_source_build
 %global _appid net.sourceforge.kmetronome
 
 Name:           kmetronome
-Version:        1.3.1
+Version:        1.4.0
 Release:        %autorelease
 License:        GPLv2+
 Summary:        A MIDI metronome using the Drumstick library
-URL:            http://kmetronome.sourceforge.net
-Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-BuildRequires:  gcc-c++
-BuildRequires:  cmake >= 3.9
-BuildRequires:  gettext
-BuildRequires:  qt6-qtbase-devel >= 6.2
-BuildRequires:  qt6-qtsvg-devel >= 6.2
-BuildRequires:  qt6-qttools-devel >= 6.2
-BuildRequires:  cmake(Qt6Core5Compat)
-BuildRequires:  drumstick-devel >= 2.0.0
-BuildRequires:  alsa-lib-devel >= 1.0
+URL:            https://kmetronome.sourceforge.net
+Source:         https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+
+BuildRequires:  cmake >= 3.16
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
+BuildRequires:  gettext
+BuildRequires:  libappstream-glib
 BuildRequires:  pandoc
+
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6SvgWidgets)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(drumstick-alsa) >= 2.9
+# transitive dependency of drumstick-alsa
+BuildRequires:  alsa-lib-devel >= 1.0
 
 %description
 KMetronome is a MIDI metronome with Qt interface, based on the Drumstick
@@ -38,17 +43,18 @@ allowing low CPU usage, and very accurate timing thanks to the ALSA sequencer.
 %cmake_install
 
 %check
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{_appid}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{_appid}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{_appid}.metainfo.xml
 
 %files
 %doc readme.md ChangeLog AUTHORS TODO COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/applications/%{_appid}.desktop
-%{_datadir}/dbus-1/*/*
+%{_datadir}/dbus-1/*/%{_appid}.*
 %{_datadir}/%{name}/
-%{_mandir}/man1/%{name}.1.*
-%{_datadir}/metainfo/%{_appid}.metainfo.xml
+%{_mandir}/man1/%{name}.1*
+%{_metainfodir}/%{_appid}.metainfo.xml
 
 %changelog
 %autochangelog

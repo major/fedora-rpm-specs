@@ -7,7 +7,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.47.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -70,6 +70,10 @@ rm -rf *.egg-info
 
 sed -i '1d' Lib/fontTools/mtiLib/__init__.py
 
+# Remove version limit from lxml
+sed -i 's/"lxml >=.*",/"lxml",/' setup.py
+sed -i 's/lxml==.*/lxml/' requirements.txt
+
 %build
 export FONTTOOLS_WITH_CYTHON=1
 %py3_build
@@ -96,6 +100,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/o
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 15 2024 Lumír Balhar <lbalhar@redhat.com> - 4.47.2-2
+- Remove version limit from lxml
+
 * Fri Jan 12 2024 Parag Nemade <pnemade AT redhat DOT com> - 4.47.2-1
 - Update to 4.47.2 version (#2257911)
 

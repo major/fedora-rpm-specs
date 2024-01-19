@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2023.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -171,6 +171,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2023.0.0-3
+- Rebuilt for Boost 1.83
+
 * Tue Dec 05 2023 Bruno Postle <bruno@postle.net> - 2023.0.0-2
 - build without lz4 workarounds see bug #2240334
 

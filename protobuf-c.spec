@@ -1,10 +1,12 @@
+%global sover 1
+
 Name:           protobuf-c
-Version:        1.4.1
+Version:        1.5.0
 Release:        %autorelease
 Summary:        C bindings for Google's Protocol Buffers
 
 License:        BSD-2-Clause
-URL:            https://github.com/%{name}/%{name}
+URL:            https://github.com/protobuf-c/protobuf-c
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  autoconf
@@ -52,8 +54,8 @@ find %{buildroot} -type f -name '*.la' -delete
 
 %files
 %license LICENSE
-%doc ChangeLog README.md TODO
-%{_libdir}/lib%{name}.so.*
+%doc README.md TODO
+%{_libdir}/lib%{name}.so.%{sover}*
 
 %files compiler
 %{_bindir}/protoc-c

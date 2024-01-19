@@ -8,11 +8,11 @@
 %bcond_without openssl
 
 Name:           omniORB
-Version:        4.3.1
+Version:        4.3.2
 Release:        1%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://omniorb.sourceforge.net
 Source0:        http://downloads.sourceforge.net/project/omniorb/%{name}/%{name}-%{version}/%{name}-%{version}.tar.bz2
 Source1:        omniORB-nameserver.init
@@ -239,6 +239,9 @@ fi
 
 
 %changelog
+* Wed Jan 17 2024 Sandro Mani <manisandro@gmail.com> - 4.3.2-1
+- Update to 4.3.2
+
 * Thu Aug 31 2023 Sandro Mani <manisandro@gmail.com> - 4.3.1-1
 - Update to 4.3.1
 

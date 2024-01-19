@@ -55,7 +55,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -216,6 +216,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 # The clang CMake files reference tools from clang-tools-extra.
 Requires: %{name}-tools-extra%{?_isa} = %{version}-%{release}
 %endif
+Provides: %{name}-devel(major) = %{maj_ver}
 
 %description devel
 Development header files for clang.
@@ -622,6 +623,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} %{__ninja} check-all -C %{__cmake_buildd
 %endif
 %changelog
 %{?llvm_snapshot_changelog_entry}
+
+* Mon Dec 18 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.0.6-2
+- Add clang-devel(major) provides
 
 * Tue Nov 28 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.6-1
 - Update to LLVM 17.0.6

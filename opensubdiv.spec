@@ -33,7 +33,7 @@ BuildRequires:  pkgconfig(glfw3)
 BuildRequires:	pkgconfig(OpenCL)
 BuildRequires:	pkgconfig(Ptex)
 BuildRequires:  pkgconfig(python3)
-BuildRequires:  pkgconfig(tbb)
+BuildRequires:  tbb2020.3-devel
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:	python3dist(pygments)
 # Drop libs subpackage

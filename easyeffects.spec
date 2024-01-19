@@ -1,6 +1,6 @@
 Name:           easyeffects
 Version:        7.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Audio effects for PipeWire applications
 
 License:        GPL-3.0-or-later
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 7.1.3-2
+- Rebuilt for TBB 2021.11
+
 * Thu Nov 09 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.3-1
 - Update to 7.1.3
 

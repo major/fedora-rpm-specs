@@ -37,6 +37,8 @@ interfaces are also supported by this library.
 %package devel
 Summary: Developer files for %{name}
 Requires: %{name} = %{version}-%{release}
+# cmake(drumstick-alsa) requires FindALSA
+Requires: alsa-lib-devel
 Obsoletes: aseqmm-devel < %{version}-%{release}
 Provides: aseqmm-devel = %{version}-%{release}
 %description devel

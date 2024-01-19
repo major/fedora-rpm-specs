@@ -1,9 +1,9 @@
 Name:           omniORBpy
-Version:        4.3.1
+Version:        4.3.2
 Release:        1%{?dist}
 Summary:        CORBA ORB for Python
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://omniorb.sourceforge.net/
 Source0:        http://sourceforge.net/projects/omniorb/files/%{name}/%{name}-%{version}/%{name}-%{version}.tar.bz2
 
@@ -93,6 +93,9 @@ find %{buildroot}%{python3_sitelib} -type d -exec chmod 755 {} \;
 
 
 %changelog
+* Wed Jan 17 2024 Sandro Mani <manisandro@gmail.com> - 4.3.2-1
+- Update to 4.3.2
+
 * Mon Sep 04 2023 Sandro Mani <manisandro@gmail.com> - 4.3.1-1
 - Update to 4.3.1
 

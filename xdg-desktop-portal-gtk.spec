@@ -21,10 +21,10 @@ Requires:       dbus
 Requires:       gsettings-desktop-schemas
 Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# also, ostree (and hence flatpak) not on i686 for F40/EL10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
+%endif
 
 # This portal is recommended if you have installed any app that uses GTK. (It's
 # also recommended if you have any such app installed via flatpak or snap, but

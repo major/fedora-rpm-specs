@@ -2,7 +2,7 @@
 
 Name:           eclib
 Version:        20230424
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for Computations on Elliptic Curves
 License:        GPL-2.0-or-later
 URL:            https://homepages.warwick.ac.uk/~masgaj/mwrank/
@@ -106,6 +106,9 @@ make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 20230424-2
+- Rebuilt for Boost 1.83
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 20230424-1
 - Stop building for 32-bit x86
 

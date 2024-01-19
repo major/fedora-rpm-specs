@@ -45,8 +45,8 @@
 Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
-Version: 1.81.0
-Release: 10%{?dist}
+Version: 1.83.0
+Release: 0%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -58,7 +58,7 @@ License: BSL-1.0 AND MIT AND Python-2.0.1
 %global toplev_dirname %{real_name}_%{version_enc}
 URL: http://www.boost.org
 
-# https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2
+# https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_83_0.tar.bz2
 Source0: https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{version_enc}.tar.bz2
 Source1: libboost_thread.so
 # Add a manual page for b2, based on the online documentation:
@@ -156,12 +156,11 @@ Patch5: boost-1.76.0-fix-narrowing-conversions-for-ppc.patch
 # https://github.com/boostorg/phoenix/issues/115
 Patch6: boost-1.81-phoenix-multiple-defn.patch
 
-# PR https://github.com/boostorg/accumulators/pull/54
-Patch7: boost-1.81.0-always-initialize-member-variable.patch
-
 # https://github.com/boostorg/random/commit/7561690135c67ecf88c2133bad7680ebd2665c36
 # https://github.com/boostorg/random/commit/4239d93dad32a11e4c3829050f8070d456266133
-Patch8: boost-1.81.0-random-test-fixes.patch
+Patch7: boost-1.81.0-random-test-fixes.patch
+
+Patch8: boost-1.83-regex-test-fixes.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -1292,6 +1291,12 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Wed Dec 06 2023 Patrick Palka <ppalka@redhat.com> - 1.83.0-0
+- Rebase to 1.83.0
+- See https://fedoraproject.org/wiki/Changes/F40Boost183
+- Drop patch for accumulators library that has since been applied upstream.
+- Fix spurious Boost.Regex test failures.
+
 * Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 1.81.0-10
 - Rebuild for openmpi 5.0.0, drops support for i686
 

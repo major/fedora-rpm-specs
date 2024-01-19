@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 6%{?dist}
+Release: 7%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -677,6 +677,8 @@ rm -f %{cups_serverbin}/backend/smb
 %dir %{_datadir}/%{name}/www/pt_BR
 %dir %{_datadir}/%{name}/www/ru
 %{_datadir}/pixmaps/cupsprinter.png
+%ghost %dir %attr(0770,root,lp) %{_localstatedir}/cache/cups
+%ghost %dir %attr(0775,root,lp) %{_localstatedir}/cache/cups/rss
 %dir %attr(1770,root,lp) %{_localstatedir}/spool/cups/tmp
 %dir %attr(0710,root,lp) %{_localstatedir}/spool/cups
 %dir %attr(0755,root,lp) %{_localstatedir}/log/cups
@@ -806,6 +808,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Wed Jan 17 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-7
+- 2257981 - /var/cache/cups is not owned by any package
+
 * Tue Dec 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-6
 - add weak dependency on cups-filters-driverless for F40+
 

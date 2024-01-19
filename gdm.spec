@@ -6,13 +6,13 @@
 
 Name:           gdm
 Epoch:          1
-Version:        45.0.1
+Version:        46.alpha
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GDM
-Source0:        https://download.gnome.org/sources/gdm/45/gdm-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gdm/46/gdm-%{tarball_version}.tar.xz
 Source1:        org.gnome.login-screen.gschema.override
 
 # moved here from pulseaudio-gdm-hooks-11.1-16
@@ -24,6 +24,7 @@ Source6:        gdm.sysusers
 Patch:          0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
 Patch:          0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch:          0001-data-add-system-dconf-databases-to-gdm-profile.patch
+Patch:          0001-xorg-detect.patch
 
 BuildRequires:  dconf
 BuildRequires:  desktop-file-utils
@@ -38,6 +39,7 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(iso-codes)
+BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libcanberra-gtk3)
 BuildRequires:  pkgconfig(libkeyutils)
 BuildRequires:  pkgconfig(libselinux)
@@ -46,10 +48,8 @@ BuildRequires:  pkgconfig(ply-boot-client)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xau)
-BuildRequires:  pkgconfig(xorg-server)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  which
-BuildRequires:  xorg-x11-server-Xorg
 BuildRequires:  yelp-tools
 
 Provides: service(graphical-login) = %{name}
@@ -123,6 +123,8 @@ GDM specific authentication features.
        -Drun-dir=/run/gdm \
        -Dudev-dir=%{_udevrulesdir} \
        -Ddefault-path=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin \
+       -Ddefault-pam-config=redhat \
+       -Ddistro=redhat \
        -Dprofiling=true \
        -Dplymouth=enabled \
        -Dselinux=enabled
@@ -138,8 +140,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/gdm/PostSession
 
 install -p -m644 -D %{SOURCE5} %{buildroot}%{_localstatedir}/lib/gdm/.config/pulse/default.pa
 install -p -m644 -D %{SOURCE6} %{buildroot}%{_sysusersdir}/%{name}.conf
-
-rm -f %{buildroot}%{_sysconfdir}/pam.d/gdm
 
 # add logo to shell greeter
 cp -a %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
@@ -250,6 +250,7 @@ fi
 %{_libexecdir}/gdm-x-session
 %{_sbindir}/gdm
 %{_bindir}/gdmflexiserver
+%{_bindir}/gdm-config
 %{_bindir}/gdm-screenshot
 %dir %{_datadir}/dconf
 %dir %{_datadir}/dconf/profile
@@ -266,6 +267,7 @@ fi
 %{_libdir}/girepository-1.0/Gdm-1.0.typelib
 %{_libdir}/security/pam_gdm.so
 %{_libdir}/libgdm*.so*
+%{_libexecdir}/gdm-auth-config-redhat
 %attr(0711, root, gdm) %dir %{_localstatedir}/log/gdm
 %attr(1770, gdm, gdm) %dir %{_localstatedir}/lib/gdm
 %attr(0700, gdm, gdm) %dir %{_localstatedir}/lib/gdm/.config

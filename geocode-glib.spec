@@ -5,7 +5,8 @@ Version:        3.26.4
 Release:        %autorelease
 Summary:        Geocoding helper library
 
-License:        LGPLv2+
+# icons/maki/* are BSD-3-Clause
+License:        LGPL-2.0-or-later AND BSD-3-Clause
 URL:            http://www.gnome.org/
 Source0:        http://download.gnome.org/sources/%{name}/3.26/%{name}-%{version}.tar.xz
 

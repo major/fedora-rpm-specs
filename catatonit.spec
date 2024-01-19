@@ -1,22 +1,26 @@
-%global built_tag v0.1.7
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
-
 Name: catatonit
-Version: %{gen_version}
+Version: 0.1.7
 Summary: A signal-forwarding process manager for containers
 License: GPL-3.0-or-later
 Release: %autorelease
-# For centos on rhcontainerbot/qm copr
-%if 0%{?centos}
-Epoch: 4
-ExclusiveArch: aarch64 ppc64le s390x x86_64
+%if %{defined copr_username}
+# Set copr rpm build epoch to a very high value
+Epoch: 101
 %else
+%if %{defined rhel}
+# Bump epoch to 5 for RHEL
+# Ref: https://bugzilla.redhat.com/show_bug.cgi?id=2257446
+Epoch: 5
+%endif
+%endif
+%if %{defined golang_arches_future}
 ExclusiveArch: %{golang_arches_future}
+%else
+ExclusiveArch: aarch64 ppc64le s390x x86_64
 %endif
 URL: https://github.com/openSUSE/%{name}
 # Tarball fetched from upstream
-Source0: %{url}/archive/%{built_tag}.tar.gz
+Source0: %{url}/archive/v%{version}.tar.gz
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: file
@@ -38,7 +42,7 @@ This is a reimplementation of other container init programs (such as
 signalfd(2)) and has no additional features.
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
+%autosetup -Sgit %{name}-%{version}
 sed -i '$d' configure.ac
 
 %build

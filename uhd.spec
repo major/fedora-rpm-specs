@@ -31,7 +31,7 @@ Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
 Version:        4.6.0.0
 %global images_ver %{version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3+
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -279,6 +279,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 4.6.0.0-2
+- Rebuilt for Boost 1.83
+
 * Tue Nov 21 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.6.0.0-1
 - New version
   Resolves: rhbz#2247579

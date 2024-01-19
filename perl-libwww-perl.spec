@@ -4,7 +4,7 @@
 %bcond_with perl_libwww_perl_enables_internet_test
 
 Name:           perl-libwww-perl
-Version:        6.72
+Version:        6.73
 Release:        1%{?dist}
 Summary:        A Perl interface to the World-Wide Web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -211,6 +211,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 17 2024 Michal Josef Špaček <mspacek@redhat.com> - 6.73-1
+- 6.73 bump
+
 * Tue Jul 25 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.72-1
 - 6.72 bump
 

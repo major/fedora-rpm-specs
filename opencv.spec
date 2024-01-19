@@ -70,7 +70,7 @@ Version:        4.8.1
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -568,6 +568,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 4.8.1-5
+- Rebuilt for TBB 2021.11
+
 * Thu Jan 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.1-4
 - Backport support for protobuf v22 and later from opencv 4.9.0
 

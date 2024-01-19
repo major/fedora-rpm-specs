@@ -1,7 +1,7 @@
 Summary:       Qt based JACK control application
 Name:          qjackctl
 Version:       0.9.12
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           http://qjackctl.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qjackctl/files/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -16,9 +16,14 @@ BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: jack-audio-connection-kit-devel
 BuildRequires: portaudio-devel
-BuildRequires: qt5-qttools-devel
-BuildRequires: qt5-qtx11extras-devel
-BuildRequires: qt5-qtsvg-devel
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: libappstream-glib
 
 
@@ -66,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 
 
 %changelog
+* Wed Jan 17 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.12-3
+- Use Qt6
+
 * Tue Jan 16 2024 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.12-2
 - Fix flatpak build
 - Wayland support is desired for modern desktops.

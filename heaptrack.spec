@@ -1,6 +1,6 @@
 Name:    heaptrack
 Version: 1.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A heap memory profiler for Linux
 
 License: Apache-2.0 AND BSD-3-Cloause AND BSL-1.0 AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.5.0-3
+- Rebuilt for Boost 1.83
+
 * Tue Jan 16 2024 Alessandro Astone <ales.astone@gmail.com> - 1.5.0-2
 - Backport Qt6 fixes
 

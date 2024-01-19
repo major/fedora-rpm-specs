@@ -14,11 +14,15 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.6.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
+#		https://github.com/xrootd/xrootd/pull/2149
+Patch0:		0001-Add-include-byteswap.h-for-BSD-and-GNU-Hurd.patch
+#		https://github.com/xrootd/xrootd/pull/2165
+Patch1:		0001-Fix-compilation-error-reported-with-gcc-14.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3
@@ -296,6 +300,8 @@ This package contains the API documentation of the xrootd libraries.
 
 %prep
 %setup -q
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -708,6 +714,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Jan 17 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.4-2
+- Fix printf null pointer error
+
 * Mon Dec 11 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.4-1
 - Update to version 5.6.4
 - Drop patches accepted upstream or previously backported

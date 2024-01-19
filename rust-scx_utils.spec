@@ -5,16 +5,13 @@
 %global crate scx_utils
 
 Name:           rust-scx_utils
-Version:        0.4.1
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Utilities for sched_ext schedulers
 
 License:        GPL-2.0-only
 URL:            https://crates.io/crates/scx_utils
 Source:         %{crates_source}
-# The original patch required editing due to the different paths
-# in the rust crate: https://patch-diff.githubusercontent.com/raw/sched-ext/scx/pull/65.patch#/sched-ext-fix-mappings.patch
-Patch:         	sched-ext-fix-mappings.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

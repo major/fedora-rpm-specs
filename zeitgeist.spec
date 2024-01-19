@@ -1,6 +1,9 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global         build_type_safety_c  2
+
 Name:           zeitgeist
 Version:        1.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Framework providing Desktop activity awareness
 
 # data/ontology/*.trig	BSD-3-Clause OR CC-BY-SA-3.0 -> main
@@ -22,7 +25,7 @@ Summary:        Framework providing Desktop activity awareness
 # tools/zeitgeist-explorer/	GPL-2.0-or-later
 
 # SPDX confirmed
-License:		LGPL-2.0-or-later AND LGPL-3.0-or-later AND GPL-2.0-or-later AND (BSD-3-Clause OR CC-BY-SA-3.0)
+License:        LGPL-2.0-or-later AND LGPL-3.0-or-later AND GPL-2.0-or-later AND (BSD-3-Clause OR CC-BY-SA-3.0)
 
 URL:            https://launchpad.net/zeitgeist
 Source0:        %{url}/1.0/%{version}/+download/%{name}-%{version}.tar.xz
@@ -181,6 +184,9 @@ make check
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-12
+- Change -Wincompatible-pointer-types from error to warning
+
 * Sun Dec 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-11
 - SPDX migration
 

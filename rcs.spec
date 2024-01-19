@@ -13,7 +13,7 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: autoconf
 BuildRequires: automake
-BuildRequires: groff
+BuildRequires: groff-base
 BuildRequires: ghostscript
 BuildRequires: ed
 BuildRequires: texinfo

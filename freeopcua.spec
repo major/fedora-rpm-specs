@@ -21,6 +21,8 @@ Patch2:         freeopcua.set-soversion.patch
 Patch3:         freeopcua-fmt9-formatter.patch
 # FMT-10 fmt::format change
 Patch4:         freeopcua-fmt10-fmt-format.patch
+# https://github.com/FreeOpcUa/freeopcua/pull/398
+Patch5:         freeopcua-gcc14-headers.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

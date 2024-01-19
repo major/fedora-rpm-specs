@@ -1,5 +1,5 @@
 Name:           fmt
-Version:        10.1.1
+Version:        10.2.1
 Release:        1%{?dist}
 
 License:        MIT
@@ -51,8 +51,8 @@ This package contains the header file for using %{name}.
 %ctest
 
 %files
-%license LICENSE.rst
-%doc ChangeLog.rst README.rst
+%license LICENSE
+%doc ChangeLog.md README.md
 %{_libdir}/lib%{name}.so.10*
 
 %files devel
@@ -62,6 +62,9 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jan 17 2024 Kefu Chai <tchaikov@gmail.com> - 10.2.1-1
+- Updated to version 10.2.1.
+
 * Wed Nov 15 2023 Kefu Chai <tchaikov@gmail.com> - 10.1.1-1
 - Updated to version 10.1.1.
 

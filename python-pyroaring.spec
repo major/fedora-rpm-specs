@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/Ezibenroc/PyRoaringBitMap
 
 Name:           python-%{pypi_name}
-Version:        0.4.4
+Version:        0.4.5
 Release:        %{autorelease}
 Summary:        Fast and lightweight set for unsigned 32 bits integers
 %global tag %{version}
@@ -15,6 +15,10 @@ Source:         %{forgesource}
 BuildRequires:  gcc, gcc-c++
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
+
+# Leaf package. Stop building for i686.
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %global _description %{expand:
 An efficient and light-weight ordered set of 32 bits integers. This is

@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 2
+%global baserelease 3
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -489,37 +489,37 @@ rm -- "$RPM_BUILD_ROOT/%{_docdir}/krb5-libs/examples/services.append"
 rm -- "$RPM_BUILD_ROOT/%{_libdir}/krb5/plugins/preauth/test.so"
 
 # Generate tests launching script
-sed -e 's/{{ name }}/%{name}/' \
-    -e 's/{{ version }}/%{krb5_version}/' \
-    -e 's/{{ release }}/%{krb5_release}/' \
-    -e 's/{{ arch }}/%{_arch}/' \
+sed -e 's/{{ name }}/%{name}/g' \
+    -e 's/{{ version }}/%{krb5_version}/g' \
+    -e 's/{{ release }}/%{krb5_release}/g' \
+    -e 's/{{ arch }}/%{_arch}/g' \
     -i %{SOURCE15}
 mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
-install -pm 755 %{SOURCE15} $RPM_BUILD_ROOT%{_libexecdir}/
+install -pm 755 %{SOURCE15} $RPM_BUILD_ROOT%{_libexecdir}/%{name}-tests-%{_arch}
 
 # Copy source files from build folder to system data folder
-install -pdm 755 $RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests
+install -pdm 755 $RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}
 pushd src
-cp -p --parents -t "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/" \
+cp -p --parents -t "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/" \
     $(find . -type f -exec file -i "{}" + \
           | sed -ne 's|^\./\([^:]\+\): \+text/.\+$|\1|p')
 popd
 
 # Copy binary test files
 install -pm 644 src/tests/pkinit-certs/*.p12 \
-    "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/tests/pkinit-certs/"
+    "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/tests/pkinit-certs/"
 install -pm 644 src/tests/au_dict.json \
-    "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/tests/"
+    "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/tests/"
 
 # Unset executable bit if no shebang in script
-for f in $(find "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/" -type f -executable)
+for f in $(find "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/" -type f -executable)
 do
     head -n1 "$f" | grep -Eq '^#!' || chmod a-x "$f"
 done
 
 # Remove broken shebang Perl scripts
-rm -- "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/config/wconfig.pl"
-rm -- "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/kadmin/kdbkeys/do-test.pl"
+rm -- "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/config/wconfig.pl"
+rm -- "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/%{_arch}/kadmin/kdbkeys/do-test.pl"
 
 %find_lang %{gettext_domain}
 
@@ -707,10 +707,16 @@ exit 0
 %{_libdir}/libkadm5srv_mit.so.*
 
 %files tests
-%{_libexecdir}/%{name}-tests
-%{_datarootdir}/%{name}-tests/
+%{_libexecdir}/%{name}-tests-%{_arch}
+%{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Wed Jan 17 2024 Julien Rische <jrische@redhat.com> - 1.21.2-3
+- Fix double free in klist's show_ccache()
+  Resolves: rhbz#2257301
+- Store krb5-tests files in architecture-specific directories
+  Resolves: rhbz#2244601
+
 * Tue Oct 10 2023 Julien Rische <jrische@redhat.com> - 1.21.2-2
 - Use SPDX expression for license tag
 - Fix unimportant memory leaks
