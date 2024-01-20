@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	114%{?dist}
+Release:	117%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -368,7 +368,7 @@ BOOT_UUID=$(grub2-probe --target=fs_uuid ${GRUB_HOME})
 GRUB_DIR=$(grub2-mkrelpath ${GRUB_HOME})
 
 cat << EOF > ${EFI_HOME}/grub.cfg.stb
-search --no-floppy --fs-uuid --set=dev ${BOOT_UUID}
+search --no-floppy --root-dev-only --fs-uuid --set=dev ${BOOT_UUID}
 set prefix=(\$dev)${GRUB_DIR}
 export \$prefix
 configfile \$prefix/grub.cfg
@@ -554,6 +554,21 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Jan 17 2024 Nicolas Frayer <nfrayer@redhat.com> - 2.06-117
+- Compiler flags: ignore incompatible types for now as it prevents
+CI builds
+
+* Wed Jan 17 2024 Nicolas Frayer <nfrayer@redhat.com> - 2.06-116
+- grub-core/commands: add flag to only search root dev
+- Resolves: #2223437
+- Resolves: #2224951
+- Resolves: #2258096
+- Resolves: CVE-2023-4001
+
+* Wed Jan 17 2024 Nicolas Frayer <nfrayer@redhat.com> - 2.06-115
+- xfs: some bios systems can't boot with one of the xfs upstream patches
+- Resolves: #2254370
+
 * Sat Jan 13 2024 Hector Martin <marcan@fedoraproject.org> - 2.06-114
 - Switch memdisk compression to lzop
 

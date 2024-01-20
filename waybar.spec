@@ -59,6 +59,8 @@ Recommends:     (font(fontawesome6free) or font(fontawesome5free))
 
 %prep
 %autosetup -p1 -n Waybar-%{version}
+# Disable chrono Time Zone extensions (P0355R7) support
+sed -i 's/^\(have_chrono_timezones =\).*/\1 false/' meson.build
 
 %build
 %meson \

@@ -3,7 +3,8 @@ Version:        5.19
 Release:        2%{?dist}
 Summary:        A nl80211 based wireless configuration tool
 
-License:        ISC
+# part of sha256.c is public domain
+License:        ISC AND LicenseRef-Fedora-Public-Domain
 URL:            http://wireless.kernel.org/en/users/Documentation/iw
 Source0:        http://www.kernel.org/pub/software/network/iw/iw-%{version}.tar.xz
 

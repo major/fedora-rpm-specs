@@ -1,6 +1,6 @@
 Name:           Field3D
 Version:        1.7.3
-Release:        22%{?dist}
+Release:        25%{?dist}
 Summary:        Library for storing voxel data
 
 License:        BSD
@@ -45,7 +45,7 @@ Development headers and documentation for %{name}.
 
 
 %build
-export CXXFLAGS="%{optflags} -DH5_USE_110_API"
+export CXXFLAGS="%{optflags} -DH5_USE_110_API -DBOOST_TIMER_ENABLE_DEPRECATED"
 %cmake -DINSTALL_DOCS=OFF
 
 %cmake_build
@@ -76,6 +76,15 @@ pushd %{_vpath_builddir}
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.7.3-25
+- Rebuilt for Boost 1.83
+
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Wed Dec 06 2023 Patrick Palka <ppalka@redhat.com> - 1.7.3-23
+- Fix build with boost-1.83.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

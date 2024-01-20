@@ -4,7 +4,7 @@
 
 Name:           CVector
 Version:        %{version_number}.1
-Release:        %release_func 27
+Release:        %release_func 28
 Summary:        ANSI C API for Dynamic Arrays
 
 License:        LGPLv2+
@@ -67,6 +67,9 @@ make tests
 %{_libdir}/libCVector.so
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

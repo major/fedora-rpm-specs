@@ -115,8 +115,8 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.0
-Release: 3%{?release_override}%{?dist}
+Version: 5.1~pre17056139g6c0b92b3
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -151,9 +151,7 @@ Release: 3%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: http://sourceware.org/systemtap/
-Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
-
-Patch1: RHEL-16549.patch
+Source: %{name}-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -565,7 +563,6 @@ This package installs the services necessary on a virtual machine for a
 systemtap-runtime-virthost machine to execute systemtap scripts.
 %endif
 
-%if %{with_python3} && %{with_monitor}
 %package jupyter
 Summary: ISystemtap jupyter kernel and examples
 License: GPL-2.0-or-later
@@ -576,12 +573,11 @@ Requires: systemtap = %{version}-%{release}
 This package includes files needed to build and run
 the interactive systemtap Jupyter kernel, either locally
 or within a container.
-%endif
+
 # ------------------------------------------------------------------------
 
 %prep
 %setup -q
-%patch -P1 -p1
 
 %build
 
@@ -1283,14 +1279,12 @@ exit 0
 %{_sbindir}/stap-exporter
 %endif
 
-%if %{with_python3} && %{with_monitor}
 %files jupyter
 %{_bindir}/stap-jupyter-container
 %{_bindir}/stap-jupyter-install
 %{_mandir}/man1/stap-jupyter.1*
 %dir %{_datadir}/systemtap
 %{_datadir}/systemtap/interactive-notebook
-%endif
 
 # ------------------------------------------------------------------------
 
@@ -1301,6 +1295,17 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Thu Jan 18 2024 Frank Ch. Eigler <fche@redhat.com> - 5.1-17056139g6c0b92b3
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Thu Jan 18 2024 Frank Ch. Eigler <fche@redhat.com> - 5.1-17056120g2ccc0c4c
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 5.0-4
+- Rebuilt for Boost 1.83
+
 * Tue Nov 14 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-3
 - RHEL-16549
 

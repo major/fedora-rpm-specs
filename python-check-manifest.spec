@@ -2,12 +2,13 @@
 
 Name:           python-%{pypi_name}
 Version:        0.48
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Check MANIFEST.in in a Python source package
 
 License:        MIT
 URL:            https://github.com/mgedmin/check-manifest
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Patch:          Replace-deprecated-mock-with-unittest.mock.patch
 BuildArch:      noarch
 
 BuildRequires:  git-core
@@ -43,7 +44,7 @@ Requires:       python3-%{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Command-line tool to check MANIFEST.in files.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 rm -rf %{pypi_name}.egg-info
 sed -i -e '/^#!\//, 1d' check_manifest.py
 
@@ -67,6 +68,9 @@ sed -i -e '/^#!\//, 1d' check_manifest.py
 %{_bindir}/check-manifest
 
 %changelog
+* Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 0.48-9
+- Remove python3-mock test dependency
+
 * Mon Oct 30 2023 Miro Hrončok <mhroncok@redhat.com> - 0.48-8
 - Remove unused build dependency on python3-pep517
 - The python3-build package replaced it in 0.45

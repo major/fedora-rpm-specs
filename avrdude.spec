@@ -93,8 +93,8 @@ install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_pkgdocdir}/README.fedora
 %config(noreplace) %{_sysconfdir}/%{name}
 %{_udevrulesdir}/%{udev_rules}
 %{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1.gz
-%{_infodir}/%{name}.info.*
+%{_mandir}/man1/%{name}.1*
+%{_infodir}/%{name}.info*
 
 
 %changelog
@@ -111,7 +111,7 @@ install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_pkgdocdir}/README.fedora
 - Add README.fedora explaining USB device permission setup
 
 * Wed Apr 20 2022 Hans Ulrich Niedermann <hun@n-dimensional.de> - 6.4-2
-- Install built documentation directly to %{_pkgdocdir}
+- Install built documentation directly to %%{_pkgdocdir}
 - Fix file locations in man page, texinfo docs
 - Upstream already has fixed these files' x bits
 - Disable silent rules to help with build problems

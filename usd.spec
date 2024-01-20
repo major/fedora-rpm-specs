@@ -129,6 +129,8 @@ Patch:          0001-Downstream-only-add-an-SONAME-version.patch
 # https://github.com/PixarAnimationStudios/USD/pull/2266
 Patch:          %{forgeurl}/pull/2266.patch
 
+Patch:          USD-23.05-tbb2020.3.patch
+
 # Base
 BuildRequires:  gcc-c++
 
@@ -145,7 +147,7 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(dri)
 BuildRequires:  hdf5-devel
 BuildRequires:  opensubdiv-devel
-BuildRequires:  pkgconfig(tbb)
+BuildRequires:  pkgconfig(tbb) = 2020.3
 
 BuildRequires:  cmake(Imath) >= 3.0
 

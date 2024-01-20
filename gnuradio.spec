@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.9.1
-Release:	1%{?alphatag:.%{alphatag}}%{?dist}
+Release:	2%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -210,6 +210,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 3.10.9.1-2
+- Rebuilt for Boost 1.83
+
 * Tue Jan  2 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.9.1-1
 - New version
   Resolves: rhbz#2255186

@@ -1,20 +1,13 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        0.10.0
+Version:        1.0.3
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
 License:        MIT
 URL:            https://github.com/pypa/build
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-# Upstream patch for fixing tests with pip 23
-Patch:          https://github.com/pypa/build/pull/589.patch
-# Filter out malicious files when extracting tar archives
-# to avoid DeprecationWarnings on Python 3.12+
-# The patch was inspired by this PR:
-# https://github.com/pypa/build/pull/609
-Patch:          filter-out-malicious-files-when-extracting-tar-archi.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

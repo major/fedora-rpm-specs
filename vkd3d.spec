@@ -1,13 +1,12 @@
 Name:		vkd3d
-Version:	1.9
-Release:	2%{?dist}
+Version:	1.10
+Release:	1%{?dist}
 Summary:	D3D12 to Vulkan translation library
 
 License:	LGPLv2+
 URL:		https://source.winehq.org/git/vkd3d.git
 Source0:	https://dl.winehq.org/vkd3d/source/%{name}-%{version}.tar.xz
 Source1:	https://dl.winehq.org/vkd3d/source/%{name}-%{version}.tar.xz.sign
-Patch0: vkd3d-configure-c99.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -142,7 +141,6 @@ cp -rp . ../mingw-build
 
 
 %build
-autoreconf -iv
 %configure
 %make_build
 
@@ -179,6 +177,7 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 %{_includedir}/vkd3d/vkd3d_d3d9types.h
 %{_includedir}/vkd3d/vkd3d_d3dcommon.h
 %{_includedir}/vkd3d/vkd3d_d3dcompiler.h
+%{_includedir}/vkd3d/vkd3d_d3dcompiler_types.h
 %{_includedir}/vkd3d/vkd3d_d3dx9shader.h
 %{_includedir}/vkd3d/vkd3d_dxgibase.h
 %{_includedir}/vkd3d/vkd3d_dxgiformat.h
@@ -249,6 +248,9 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 
 
 %changelog
+* Thu Jan 18 2024 - Michael Cronenworth <mike@cchtml.com> - 1.10-1
+- version update
+
 * Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 1.9-2
 - Fix C compatibility issue in configure script, run autoconf
 

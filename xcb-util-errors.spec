@@ -59,6 +59,8 @@ autoreconf -fiv
 
 %install
 %make_install
+# Remove libtool archives on RHEL 9
+find %{buildroot}%{_libdir} -name '*.la' -delete
 
 %if %{with check}
 %check

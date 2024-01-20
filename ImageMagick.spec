@@ -20,7 +20,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.26
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -430,6 +430,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.1.1.26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.26-2
 - fix PKG_CONFIG_LIBDIR
 

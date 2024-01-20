@@ -11,7 +11,7 @@ Summary:        A deep learning framework
 Name:           caffe
 License:        BSD-2-Clause
 Version:        1.0^git%{date0}.%{shortcommit0}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 URL:            http://caffe.berkeleyvision.org/
@@ -143,6 +143,9 @@ rm -r %{buildroot}/usr/python
 %{_libdir}/cmake/Caffe/
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.0^git20200212.9b89154-7
+- Rebuilt for Boost 1.83
+
 * Thu Sep 07 2023 Tom Rix <trix@redhat.com> - 1.0^git20200212.9b89154-6
 - Disable broken arches
 

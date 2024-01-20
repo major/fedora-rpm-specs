@@ -1,6 +1,6 @@
 Name: cockpit-ostree
 Epoch: 1
-Version: 198.1
+Version: 199
 Release: 1%{?dist}
 BuildArch: noarch
 Summary: Cockpit user interface for rpm-ostree
@@ -29,6 +29,9 @@ Cockpit component for managing software updates for ostree based systems.
 %{_datadir}/cockpit/*
 
 %changelog
+* Thu Jan 18 2024 Packit <hello@packit.dev> - 1:199-1
+- library and translation updates
+
 * Wed Nov 29 2023 Packit <hello@packit.dev> - 1:198.1-1
 - Fix card and dialog titles
 

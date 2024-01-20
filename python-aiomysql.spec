@@ -1,6 +1,6 @@
 Name:           python-aiomysql
-Version:        0.1.1
-Release:        6%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        MySQL driver for asyncio
 
 License:        MIT
@@ -30,7 +30,7 @@ BuildRequires:  python3-devel
 # Upstream has pinned setuptools_scm due to the generated wheel version being wrong:
 # https://github.com/aio-libs/aiomysql/commit/fb85893635d7f9c0da3b1ff8c6d0fc436357633a
 # We must work with what we have.
-sed -r -i 's/("setuptools_scm.*), <.*"/\1/' pyproject.toml
+sed -r -i 's/"(setuptools_scm.*), <.*"/"\1"/' pyproject.toml
 # Furthermore, we don’t need setuptools_scm_git_archive.
 sed -r -i '/"setuptools_scm_git_archive/d' pyproject.toml
 

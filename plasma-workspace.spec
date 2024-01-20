@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.92.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -38,6 +38,11 @@ Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
 # Hide virtual keyboard indicator on sddm.
 # Do not remove this as it breaks Fedora's QA policy
 Patch108:       hide-virtual-keyboard-indicator-on-sddm.patch
+
+# Upstream:: Will be fixed in RC2.
+# Patch to fix clicking in the taskbar, doesn't always minimize the app
+# https://invent.kde.org/plasma/plasma-workspace/-/commit/ef9b3c4a9995ee480e271eb8df4030b78b3cbc06
+Patch200:       5.92.0-fix-clicking-app-in-taskbar.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -714,6 +719,9 @@ fi
 
 
 %changelog
+* Wed Jan 17 2024 Steve Cossette <farchord@gmail.com> - 5.92.0-4
+- Added patch for bug: app activation/minimize problems in taskbar
+
 * Mon Jan 15 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-3
 - Rebuild for plasma-breeze
 

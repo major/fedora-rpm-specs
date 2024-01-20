@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -80,6 +80,9 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.9.0-2
+- Rebuilt for Boost 1.83
+
 * Fri Sep 22 2023 Peng Wu <pwu@redhat.com> - 1.9.0-1
 - Update to 1.9.0
 - Resolves: RHBZ#2239362

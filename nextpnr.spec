@@ -1,11 +1,11 @@
-%global commit 2afb1f632e3069c140c1a7619031e9bda20d2002
+%global commit 4220ce100776381fcaed4ceb2efed722e7ddf474
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20240117
+%global snapdate 20240118
 
 Name:		nextpnr
 Version:	1
-Release:	32.%{snapdate}git%{shortcommit}%{?dist}
+Release:	34.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -51,7 +51,7 @@ route tool.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-%{commit}
 cp 3rdparty/imgui/LICENSE.txt LICENSE-imgui.txt
 cp 3rdparty/qtimgui/LICENSE LICENSE-qtimgui.txt
 cp 3rdparty/python-console/LICENSE LICENSE-python-console.txt
@@ -86,6 +86,12 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Thu Jan 18 2024 Gabriel Somlo <gsomlo@gmail.com> - 1-34.20240118git4220ce1
+- Update to newer snapshot
+
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1-33.20240117git2afb1f6
+- Rebuilt for Boost 1.83
+
 * Wed Jan 17 2024 Gabriel Somlo <gsomlo@gmail.com> - 1-32.20240117git2afb1f6
 - Update to newer snapshot
 

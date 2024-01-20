@@ -113,7 +113,10 @@ Provides: bundled(lua)
 # filled https://bugzilla.redhat.com/show_bug.cgi?id=2038684
 # to be compliant to "Architecture Build Failures" paragraph of Fedora Packaging Guidelines 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures
-ExcludeArch: armv7hl i686 s390x
+# =============
+# 2024-01-19: aarch64 added to exclusion list because of
+# https://bugzilla.redhat.com/show_bug.cgi?id=2259059
+ExcludeArch: armv7hl i686 s390x aarch64
 
 
 %description
@@ -254,6 +257,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 * Sat Dec 23 2023 Germano Massullo <germano.massullo@gmail.com> - 4.6.0-1
 - 4.6.0 release
 - adds Provides: bundled(libraw)
+- excludes aarch64
 
 * Sun Jul 23 2023 Germano Massullo <germano.massullo@gmail.com> - 4.4.2-1
 - 4.4.2 release

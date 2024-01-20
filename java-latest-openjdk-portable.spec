@@ -1,8 +1,3 @@
-%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-# portable jdk 17 specific bug, _jvmdir being missing
-%define _jvmdir /usr/lib/jvm
-%endif
-
 # debug_package %%{nil} is portable-jdks specific
 %define  debug_package %{nil}
 
@@ -328,7 +323,7 @@
 # New Version-String scheme-style defines
 %global featurever 21
 %global interimver 0
-%global updatever 1
+%global updatever 2
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -392,8 +387,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        12
-%global rpmrelease      4
+%global buildver        13
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -470,7 +465,6 @@
 %define jdkportablearchiveForFiles()  %(echo %{jdkportablearchive -- ""})
 %define jdkportablesourcesarchiveForFiles()  %(echo %{jdkportablesourcesarchive -- ""})
 %define staticlibsportablearchiveForFiles()  %(echo %{staticlibsportablearchive -- ""})
-%define jdkportablesourcesnameForFiles()  %(echo %{jdkportablesourcesname -- ""})
 
 #################################################################
 # fix for https://bugzilla.redhat.com/show_bug.cgi?id=1111349
@@ -554,9 +548,9 @@ ExcludeArch: %{ix86}
 
 # portables have grown out of its component, moving back to java-x-vendor
 # this expression, when declared as global, filled component with java-x-vendor portable
-%define component %(echo %{name} | sed "s;-portable;;g")
+%define component %(echo %{name} | sed "s;-portable%{?pkgos:-%{pkgos}};;g")
 
-Name:    java-latest-%{origin}-portable
+Name:    java-%{javaver}-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
 # This package needs `.rolling` as part of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
@@ -695,9 +689,6 @@ Patch6: jdk8009550-rh910107-fail_to_load_pcsc_library.patch
 #
 #############################################
 
-# JDK-8311630: [s390] Implementation of Foreign Function & Memory API (Preview)
-Patch100: jdk8311630-s390_ffmapi.patch
-
 #############################################
 #
 # Portable build specific patches
@@ -750,9 +741,10 @@ BuildRequires: zip
 BuildRequires: tar
 BuildRequires: unzip
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-# No javapackages-filesystem on el7,nor is needed for portables
+BuildRequires: javapackages-tools
+BuildRequires: java-%{buildjdkver}-%{origin}%{?pkgos:-%{pkgos}}-devel
 %else
-# BuildRequires: javapackages-filesystem
+BuildRequires: javapackages-filesystem
 BuildRequires: java-latest-openjdk-devel
 %endif
 # Zero-assembler build requirement
@@ -787,13 +779,13 @@ Provides: bundled(freetype) = 2.13.0
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
 Provides: bundled(giflib) = 5.2.1
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
-Provides: bundled(harfbuzz) = 7.2.0
+Provides: bundled(harfbuzz) = 8.2.2
 # Version in src/java.desktop/share/native/liblcms/lcms2.h
 Provides: bundled(lcms2) = 2.15.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.39
+Provides: bundled(libpng) = 1.6.40
 # We link statically against libstdc++ to increase portability
 BuildRequires: libstdc++-static
 %endif
@@ -1003,8 +995,6 @@ pushd %{top_level_dir_name}
 %patch1001 -p1
 # Patches in need of upstreaming
 %patch6 -p1
-# Patches in next release
-%patch100 -p1
 popd # openjdk
 
 
@@ -1154,7 +1144,7 @@ function buildjdk() {
 
     cat spec.gmk
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-    scl enable devtoolset-%{dtsversion}  -- make \
+    scl enable devtoolset-%{dtsversion} -- make \
 %else
     make \
 %endif
@@ -1783,6 +1773,12 @@ done
 %endif
 
 %changelog
+* Tue Jan 09 2024 Andrew Hughes <gnu.andrew@redhat.com> - 1:21.0.2.0.13-1
+- Update to jdk-21.0.2+13 (GA)
+- Update release notes to 21.0.2+13
+- Drop no longer needed local patch to fix versioning
+- ** This tarball is embargoed until 2024-01-16 @ 1pm PT. **
+
 * Wed Dec 13 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.1.0.12-3.rolling
 - packing generated sources
 

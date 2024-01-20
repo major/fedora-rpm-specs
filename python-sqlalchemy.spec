@@ -25,7 +25,6 @@ Summary:        Modular and flexible ORM library for Python
 License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{srcname} %{srcversion}}
-Patch:          python-sqlalchemy-1.4.50-aiomysql.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel >= 3.6

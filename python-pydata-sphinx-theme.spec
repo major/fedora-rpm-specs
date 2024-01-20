@@ -4,7 +4,7 @@
 %bcond_with docs
 
 Name:           python-pydata-sphinx-theme
-Version:        0.15.1
+Version:        0.15.2
 Release:        1%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
@@ -127,6 +127,9 @@ cd -
 %endif
 
 %changelog
+* Thu Jan 18 2024 Jerry James <loganjerry@gmail.com> - 0.15.2-1
+- Version 0.15.2
+
 * Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 0.15.1-1
 - Version 0.15.1
 

@@ -1,6 +1,6 @@
 Name:           python-debian
 Version:        0.1.49
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Modules for Debian-related data formats
 # debfile.py, arfile.py, debtags.py are release under GPL v3 or above
 # everything else is GPLv2+
@@ -86,8 +86,8 @@ touch lib/debian/tests/test_debfile.py
 %files -n python3-debian
 %dir %{python3_sitelib}/debian
 %dir %{python3_sitelib}/debian_bundle
-%{python3_sitelib}/*.py*
-%{python3_sitelib}/__pycache__
+%{python3_sitelib}/deb822.py*
+%{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/debian/py.typed
 %{python3_sitelib}/debian/*.py*
 %{python3_sitelib}/debian/__pycache__
@@ -99,6 +99,9 @@ touch lib/debian/tests/test_debfile.py
 %doc README.rst HISTORY.deb822
 
 %changelog
+* Tue Nov 21 2023 Miro Hrončok <mhroncok@redhat.com> - 0.1.49-6
+- Don't own /usr/lib/python3.X/site-packages/__pycache__
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.49-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

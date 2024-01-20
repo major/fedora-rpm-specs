@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        304
+Version:        305
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -65,7 +65,6 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.23.6
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
 Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
 Provides: bundled(npm(@patternfly/react-console)) = 5.0.0
@@ -79,7 +78,7 @@ Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.5
-Provides: bundled(npm(date-fns)) = 2.30.0
+Provides: bundled(npm(date-fns)) = 3.2.0
 Provides: bundled(npm(deep-equal)) = 2.2.3
 Provides: bundled(npm(define-data-property)) = 1.1.1
 Provides: bundled(npm(define-properties)) = 1.2.1
@@ -130,8 +129,7 @@ Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(redux-thunk)) = 3.1.0
-Provides: bundled(npm(redux)) = 5.0.0
-Provides: bundled(npm(regenerator-runtime)) = 0.14.0
+Provides: bundled(npm(redux)) = 5.0.1
 Provides: bundled(npm(regexp.prototype.flags)) = 1.5.1
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(set-function-length)) = 1.1.1
@@ -172,6 +170,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jan 18 2024 Packit <hello@packit.dev> - 305-1
+- many small bug fixes
+
 * Fri Dec 15 2023 Martin Pitt <mpitt@redhat.com> - 304-1
 - Performance and stability improvements
 

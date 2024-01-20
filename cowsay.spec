@@ -6,7 +6,7 @@
 
 Name:           cowsay
 Version:        3.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Configurable speaking/thinking cow
 License: GPL-2.0-or-later
 URL:            https://github.com/cowsay-org/cowsay
@@ -32,7 +32,7 @@ pictures of other animals.
 %prep
 %setup -q
 
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 echo No need to build anything
@@ -77,10 +77,16 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{compdir}/%{name}
 %exclude %{cowsdir}/bong.cow
 %exclude %{cowsdir}/sodomized.cow
 %exclude %{cowsdir}/satanic.cow
+%exclude %{cowsdir}/telebears.cow
+%exclude %{cowsdir}/head-in.cow
+%exclude %{cowsdir}/mutilated.cow
 %dir %{sitecowsdir}
 %{compdir}/%{name}
 
 %changelog
+* Thu Jan 18 2024 Perry Myers <pmyers@redhat.com> - 3.7.0-10
+- Remove some additional tasteless content missed before
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           AMF
 Version:        1.4.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Advanced Media Framework (AMF) SDK
 License:        MIT
 URL:            https://gpuopen.com/advanced-media-framework/
@@ -54,6 +54,9 @@ ln -sf ../../include/AMF %{buildroot}%{_usrsrc}/%{name}/include
 %{_usrsrc}/%{name}
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Simone Caronni <negativo17@gmail.com> - 1.4.32-1
 - Update to 1.4.32.
 

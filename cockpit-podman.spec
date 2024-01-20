@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        82
+Version:        83
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -34,19 +34,18 @@ BuildRequires: libappstream-glib-devel
 Requires:       cockpit-bridge
 Requires:       podman >= 2.0.4
 # HACK https://github.com/containers/crun/issues/1091
-%if 0%{?fedora} == 36 || 0%{?fedora} == 37 || 0%{?centos} == 9
+%if 0%{?centos} == 9
 Requires:       criu-libs
 %endif
 
-Provides: bundled(npm(@babel/runtime)) = 7.23.4
 Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-icons)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-styles)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.1
+Provides: bundled(npm(@patternfly/react-core)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-icons)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-table)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
 Provides: bundled(npm(attr-accept)) = 2.2.2
-Provides: bundled(npm(date-fns)) = 2.30.0
+Provides: bundled(npm(date-fns)) = 3.2.0
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(file-selector)) = 0.6.0
 Provides: bundled(npm(focus-trap)) = 7.5.2
@@ -60,7 +59,6 @@ Provides: bundled(npm(react-dom)) = 18.2.0
 Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
-Provides: bundled(npm(regenerator-runtime)) = 0.14.0
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.0
@@ -88,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jan 18 2024 Packit <hello@packit.dev> - 83-1
+- bug fixes and library updates
+
 * Wed Nov 29 2023 Packit <hello@packit.dev> - 82-1
 - Delete intermediate images
 

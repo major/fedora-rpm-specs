@@ -139,9 +139,10 @@ Recommends:     gnome-tour
 Recommends:     webkitgtk6.0%{?_isa}
 %endif
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# xdg-desktop-portal and xdg-desktop-portal-gtk no longer have i686
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
+%endif
 
 Provides:       desktop-notification-daemon = %{version}-%{release}
 Provides:       PolicyKit-authentication-agent = %{version}-%{release}

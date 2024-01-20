@@ -15,7 +15,7 @@ FSLeyes, the FSL image viewer
 %global forgeurl https://github.com/pauldmccarthy/fsleyes
 
 Name:           python-fsleyes
-Version:        1.9.0
+Version:        1.10.2
 Release:        %autorelease
 Summary:        FSLeyes, the FSL image viewer
 

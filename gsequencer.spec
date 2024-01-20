@@ -1,10 +1,10 @@
 Name:     gsequencer
-Version:  6.1.3
+Version:  6.3.2
 Release:  0%{?dist}
 Summary:  Audio processing engine
 License:  GPLv3+ and AGPLv3+ and GFDL
 URL:      http://nongnu.org/gsequencer
-Source:   http://download.savannah.gnu.org/releases/gsequencer/6.1.x/%{name}-%{version}.tar.gz
+Source:   http://download.savannah.gnu.org/releases/gsequencer/6.3.x/%{name}-%{version}.tar.gz
 ExcludeArch:        i686
 BuildRequires:      make
 BuildRequires:      libtool
@@ -63,6 +63,7 @@ automate ports.
 %undefine _strict_symbol_defs_build
 autoreconf -fi
 export CPPFLAGS='-DAGS_CSS_FILENAME=\"/usr/share/gsequencer/styles/ags.css\" -DAGS_ANIMATION_FILENAME=\"/usr/share/gsequencer/images/gsequencer-800x450.png\" -DAGS_LOGO_FILENAME=\"/usr/share/gsequencer/images/ags.png\" -DAGS_LICENSE_FILENAME=\"/usr/share/licenses/gsequencer/COPYING\" -DAGS_ONLINE_HELP_A4_PDF_FILENAME=\"/usr/share/doc/gsequencer/pdf/user-manual-a4.pdf\" -DAGS_ONLINE_HELP_LETTER_PDF_FILENAME=\"/usr/share/doc/gsequencer/pdf/user-manual-letter.pdf\"'
+export CFLAGS="%{build_cflags} -Wno-error=incompatible-pointer-types"
 export GSEQUENCER_LDFLAGS="%{build_ldflags} -L%{_libdir}"
 export MIDI2XML_LDFLAGS="%{build_ldflags} -L%{_libdir}"
 %configure FO_XSL="/usr/share/sgml/docbook/xsl-stylesheets/fo/docbook.xsl" HTMLHELP_XSL="/usr/share/sgml/docbook/xsl-stylesheets/htmlhelp/htmlhelp.xsl" --disable-upstream-gtk-doc --enable-introspection --disable-oss --enable-gtk-doc --enable-gtk-doc-html
@@ -151,6 +152,9 @@ Advanced Gtk+ Sequencer library development documentation.
 %{_datadir}/doc/libags-audio-doc/
 
 %changelog
+* Thu Jan 18 2024 Joël Krähemann <jkraehemann@gmail.com> 6.3.2-0
+- updated Source to point to new minor version directory
+
 * Tue Aug 22 2023 Joël Krähemann <jkraehemann@gmail.com> 6.0.1-0
 - updated Source to point to new minor version directory
 

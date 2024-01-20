@@ -34,6 +34,7 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
+Patch:          %{url}/-/commit/f3e1f7b.patch#/wlroots-0.17-backend-fix-build-against-upcoming-gcc-14.patch
 
 # Fedora patches
 # Following patch is required for phoc.

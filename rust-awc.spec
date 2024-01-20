@@ -6,7 +6,7 @@
 %global crate awc
 
 Name:           rust-awc
-Version:        3.2.0
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Async HTTP and WebSocket client library
 
@@ -15,9 +15,7 @@ URL:            https://crates.io/crates/awc
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused support for rustls
-# * bump trust-dns-resolver dependency from 0.22 to 0.23
 Patch:          awc-fix-metadata.diff
-Patch:          0001-Port-to-trust-dns-resolver-0.23.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

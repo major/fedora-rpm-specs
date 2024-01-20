@@ -1,12 +1,12 @@
-%global DATE 20240113
-%global gitrev 754d5d7d790d2ddd25c7507849c0c811a6a649da
+%global DATE 20240118
+%global gitrev f284ad3cd92c6b23c50d039ad3b6ed1bf4d97c4d
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
 %global gcc_release 0
 %global nvptx_tools_gitrev c5ad8ada3e86d96b10a9d352b7a764f801478ba6
-%global newlib_cygwin_gitrev 5f15d7c5817b07a6b18cbab17342c95cb7b42be4
+%global newlib_cygwin_gitrev d45261f62a15f8abd94a1031020b9a9f455e4eed
 %global _unpackaged_files_terminate_build 0
 %global _performance_build 1
 # Hardening slows the compiler way too much.
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.1%{?dist}
+Release: %{gcc_release}.2%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -208,9 +208,11 @@ BuildRequires: libzstd-devel
 # Make sure glibc supports TFmode long double
 BuildRequires: glibc >= 2.3.90-35
 %endif
-%ifarch %{multilib_64_archs} sparcv9 ppc
-# Ensure glibc{,-devel} is installed for both multilib arches
-BuildRequires: /lib/libc.so.6 /usr/lib/libc.so /lib64/libc.so.6 /usr/lib64/libc.so
+%ifarch %{multilib_64_archs}
+BuildRequires: (glibc32 or glibc-devel(%{__isa_name}-32))
+%endif
+%ifarch sparcv9 ppc
+BuildRequires: (glibc64 or glibc-devel(%{__isa_name}-64))
 %endif
 %if %{build_ada}
 # Ada requires Ada to build
@@ -3456,5 +3458,36 @@ end
 %endif
 
 %changelog
+* Thu Jan 18 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.2
+- update from trunk
+  - PRs ada/113397, analyzer/106229, analyzer/113150, analyzer/113333,
+	bootstrap/113445, c++/99493, c++/104634, c++/109899, c++/110065,
+	c++/112588, c++/113242, c++/113292, c++/113307, c++/113340,
+	c++/113389, c/111693, fortran/67277, fortran/113305, libstdc++/108822,
+	libstdc++/108827, libstdc++/109536, libstdc++/111327,
+	libstdc++/113318, libstdc++/113450, middle-end/90348,
+	middle-end/110115, middle-end/110847, middle-end/111422,
+	middle-end/111659, middle-end/113354, middle-end/113406,
+	middle-end/113409, middle-end/113410, modula2/111956, other/113399,
+	rtl-optimization/96388, rtl-optimization/111554,
+	rtl-optimization/113048, rust/108111, target/105522, target/107201,
+	target/112573, target/112944, target/112973, target/113122,
+	target/113156, target/113221, target/113247, target/113281,
+	target/113393, target/113404, target/113429, testsuite/109705,
+	testsuite/111850, testsuite/113366, testsuite/113369,
+	testsuite/113446, testsuite/113452, translation/108890,
+	tree-optimization/91624, tree-optimization/107823,
+	tree-optimization/110251, tree-optimization/110422,
+	tree-optimization/110450, tree-optimization/110768,
+	tree-optimization/110794, tree-optimization/110841,
+	tree-optimization/110852, tree-optimization/110941,
+	tree-optimization/112774, tree-optimization/113091,
+	tree-optimization/113287, tree-optimization/113361,
+	tree-optimization/113370, tree-optimization/113371,
+	tree-optimization/113372, tree-optimization/113374,
+	tree-optimization/113385, tree-optimization/113408,
+	tree-optimization/113421, tree-optimization/113431,
+	tree-optimization/113475
+
 * Sat Jan 13 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.1
 - new package

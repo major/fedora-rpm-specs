@@ -5,7 +5,7 @@
 
 Name:		linux-firmware
 Version:	20240115
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
@@ -351,6 +351,8 @@ sed \
 	-i -e '/^ath9k_htc/d' \
 	-i -e '/^ath10k/d' \
 	-i -e '/^ath11k/d' \
+	-i -e '/^ath12k/d' \
+	-i -e '/^as102_data/d' \
 	-i -e '/^av7110/d' \
 	-i -e '/^brcm/d' \
 	-i -e '/^cirrus/d' \
@@ -363,13 +365,14 @@ sed \
 	-i -e '/^intel\/dsp_fw/d' \
 	-i -e '/^intel\/fw_sst/d' \
 	-i -e '/^intel\/irci_irci/d' \
+	-i -e '/^intel\/vsc/d' \
 	-i -e '/^isdbt/d' \
 	-i -e '/^iwlwifi/d' \
+	-i -e '/^nvidia\/a/d' \
 	-i -e '/^nvidia\/g/d' \
 	-i -e '/^nvidia\/tu/d' \
 	-i -e '/^lgs8g75/d' \
-	-i -e '/^libertas\/sd8686/d' \
-	-i -e '/^libertas\/usb8388/d' \
+	-i -e '/^libertas/d' \
 	-i -e '/^liquidio/d' \
 	-i -e '/^mellanox/d' \
 	-i -e '/^mediatek\/mt76/d' \
@@ -417,6 +420,7 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %files -n nvidia-gpu-firmware
 %license LICENCE.nvidia
 %dir %{_firmwarepath}/nvidia
+%{_firmwarepath}/nvidia/a*/
 %{_firmwarepath}/nvidia/g*/
 %{_firmwarepath}/nvidia/tu*/
 
@@ -439,6 +443,7 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/ath9k_htc/
 %{_firmwarepath}/ath10k/
 %{_firmwarepath}/ath11k/
+%{_firmwarepath}/ath12k/
 %{_firmwarepath}/qca/
 
 %files -n brcmfmac-firmware
@@ -486,12 +491,10 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/iwlwifi-so-a0*
 
 %files -n libertas-firmware
-%license LICENCE.Marvell
+%license LICENCE.Marvell LICENCE.OLPC
 %dir %{_firmwarepath}/libertas
 %dir %{_firmwarepath}/mrvl
-%{_firmwarepath}/libertas/sd8686*
-%{_firmwarepath}/libertas/usb8388_olpc.bin*
-%{_firmwarepath}/libertas/usb8388_v9.bin*
+%{_firmwarepath}/libertas/*
 %{_firmwarepath}/mrvl/sd8787*
 
 %files -n mt7xxx-firmware
@@ -575,6 +578,7 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %license LICENCE.xc4000 LICENCE.xc5000 LICENCE.xc5000c
 %dir %{_firmwarepath}/av7110/
 %{_firmwarepath}/av7110/*
+%{_firmwarepath}/as102_data*
 %{_firmwarepath}/cmmb*
 %{_firmwarepath}/dvb*
 %{_firmwarepath}/isdbt*
@@ -584,6 +588,9 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Thu Jan 18 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240115-2
+- Update some firmware filters
+
 * Mon Jan 15 2024 Peter Robinson <pbrobinson@fedoraproject.org>
 - Update to upstream 20240115
 - Split out Intel/Cirrus audio firmware, ISP firmware, NXP/TI WiFi Firmware

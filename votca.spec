@@ -2,7 +2,7 @@ Name:           votca
 Version:        2023
 %global         uversion %{version}
 %global         sover 2023
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
@@ -257,6 +257,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2023-2
+- Rebuilt for Boost 1.83
+
 * Thu Nov 16 2023 Christoph Junghans <junghans@votca.org> - 2023-1
 - Version bump to v2023
 

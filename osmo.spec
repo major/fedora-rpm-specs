@@ -1,6 +1,6 @@
 # 'rel' is always the release number.
 # If you're building from SVN, set 'svn' to the SVN revision. If not, set it to 0
-%global rel 2
+%global rel 3
 %global svn 0 
 %if %{svn}
 # svn co https://osmo-pim.svn.sourceforge.net/svnroot/osmo-pim/trunk osmo-pim
@@ -35,9 +35,7 @@ BuildRequires:  libical-devel
 BuildRequires:  libnotify-devel
 BuildRequires:  libxml2-devel
 # for contacts 
-BuildRequires:  webkitgtk4-devel
-# webkitgtk4-devel contains webkit2gtk
-# for backup
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  libgringotts-devel
 BuildRequires:  libgcc
 BuildRequires:	gcc
@@ -53,7 +51,7 @@ Requires:       xdg-utils
 Requires:       alsa-utils
 Requires:       gtk3
 Requires:       gtkspell3
-Requires:       webkitgtk4
+Requires:       webkit2gtk4.1
 Requires:       libgringotts
 Requires:       libtar
 Requires:       libxml2
@@ -89,6 +87,9 @@ viele Parameter einstellen, um die Vorlieben des Benutzers zu treffen.
 %setup -q -n %{_dirname}
 #%patch0 -p1 -b .configure
 #%patch10 -p1 -b .aplay
+# Use webkit2gtk-4.1
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+sed -i configure.ac -e 's|webkit2gtk-4.0|webkit2gtk-4.1|'
 autoreconf -vif
 
 
@@ -153,6 +154,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/sounds/osmo/alarm.wav
 
 %changelog
+* Mon Jan 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.4-3
+- Use webkit2gtk-4.1
+  https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

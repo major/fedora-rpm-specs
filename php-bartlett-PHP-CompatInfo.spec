@@ -11,13 +11,13 @@
 %undefine __brp_mangle_shebangs
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    26b0219fde16933f67d991fdc3974d304eec3ead
+%global gh_commit    d9504f525abfbdb8fc7d7850cbd58229471526ba
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20151005
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  7.1.0
+%global upstream_version  7.1.1
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
@@ -58,9 +58,9 @@ Requires:       php-xmlreader
 # Bundled libraries
 # License BSD-3-Clause
 Provides: bundled(php-bartlett-php-compatinfo-db) = 6.1.1
-Provides: bundled(php-nikic-php-parser) = v4.18.0
+Provides: bundled(php-nikic-php-parser) = v5.0.0
 # License MIT
-Provides: bundled(php-bartlett-sarif-php-sdk) = 1.0.1
+Provides: bundled(php-bartlett-sarif-php-sdk) = 1.1.0
 Provides: bundled(php-brick-math) = 0.11.0
 Provides: bundled(php-composer-semver) = 3.4.0
 Provides: bundled(php-doctrine-cache) = 2.2.0
@@ -69,10 +69,10 @@ Provides: bundled(php-doctrine-common) = 3.4.3
 Provides: bundled(php-doctrine-dbal) = 3.7.2
 Provides: bundled(php-doctrine-deprecations) = 1.1.2
 Provides: bundled(php-doctrine-event-manager) = 2.0.0
-Provides: bundled(php-doctrine-inflector) = 2.0.8
+Provides: bundled(php-doctrine-inflector) = 2.0.9
 Provides: bundled(php-doctrine-instantiator) = 2.0.0
 Provides: bundled(php-doctrine-lexer) = 2.1.0
-Provides: bundled(php-doctrine-orm) = 2.17.2
+Provides: bundled(php-doctrine-orm) = 2.17.3
 Provides: bundled(php-doctrine-persistence) = 3.2.0
 Provides: bundled(php-psr-cache) = 3.0.0
 Provides: bundled(php-psr-clock) = 1.0.0
@@ -124,6 +124,7 @@ show content of dictionary references.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
+rm bin/*rpm
 
 # https://github.com/llaville/php-compatinfo-db/issues/112
 sed -e 's/touch/@touch/' -i vendor/bartlett/php-compatinfo-db/config/set/default.php
@@ -138,9 +139,6 @@ do
     [ -f vendor/$vendor/$proj/LICENSE ] && mv vendor/$vendor/$proj/LICENSE ${vendor}_${proj}_LICENSE
   done
 done
-rm -r tests
-rm -r .github
-rm -r .changes
 rm -r vendor/bartlett/*/.github
 rm -r vendor/bartlett/*/.changes
 
@@ -169,18 +167,20 @@ php -r '
 
 
 %install
-mkdir -p %{buildroot}%{_datadir}
-cp -pr . %{buildroot}%{_datadir}/%{name}
-rm %{buildroot}%{_datadir}/%{name}/*LICENSE
+mkdir -p %{buildroot}%{_datadir}/%{name}
+for i in bin config data resources src vendor composer.*
+do cp -pr $i %{buildroot}%{_datadir}/%{name}/$i
+done
 
 mkdir -p %{buildroot}%{_bindir}
 ln -s ../share/%{name}/bin/phpcompatinfo %{buildroot}%{_bindir}/phpcompatinfo
 
 mkdir -p %{buildroot}%{_mandir}/man1
 mv %{buildroot}%{_datadir}/%{name}/bin/phpcompatinfo.1 \
-                                         %{buildroot}%{_mandir}/man1/phpcompatinfo.1
+   %{buildroot}%{_mandir}/man1/phpcompatinfo.1
 
-install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-review-check
+install -D -p -m 755 %{SOURCE1} \
+   %{buildroot}%{_datadir}/%{name}/fedora-review-check
 
 
 %check
@@ -189,7 +189,9 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 %files
 %license *LICENSE
-%doc README.*
+%doc *md
+%doc docs
+%doc examples
 %doc composer.json
 %doc vendor/composer/installed.json
 %{_bindir}/phpcompatinfo
@@ -198,6 +200,11 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %changelog
+* Thu Jan 18 2024 Remi Collet <remi@remirepo.net> - 7.1.1-1
+- update to 7.1.1
+- cleanup installation tree
+- move docs and examples in package documentation
+
 * Tue Jan  2 2024 Remi Collet <remi@remirepo.net> - 7.1.0-1
 - update to 7.1.0
 

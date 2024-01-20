@@ -30,7 +30,7 @@ Patch1: oddjob-override-mask-fix.patch
 # https://pagure.io/oddjob/pull-request/24
 Patch2: oddjob-libxml2.patch
 Summary: A D-Bus service which runs odd jobs on behalf of client applications
-License: BSD
+License: BSD-3-Clause
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: dbus-devel >= 0.22, dbus-x11, libselinux-devel, libxml2-devel

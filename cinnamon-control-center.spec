@@ -13,7 +13,7 @@
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
 Version: 6.0.0
-Release: 1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release: 2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -29,6 +29,7 @@ Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
 Source0: %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %endif
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
+Patch1:  %url/pull/324.patch
 
 ExcludeArch: %{ix86}
 
@@ -156,6 +157,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Thu Jan 18 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-2
+- Fix compile error
+
 * Sun Nov 19 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-1
 - Update to 6.0.0 release
 

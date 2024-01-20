@@ -16,7 +16,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.16.2
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -24,6 +24,8 @@ License: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
 
 Source0: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Source1: https://github.com/ansible/ansible-documentation/archive/v%{uversion}/ansible-documentation-%{uversion}.tar.gz
+# Ensure ANSIBLE_NO_LOG is respected (CVE-2024-0690) (#82565) (#82566)
+Patch: https://github.com/ansible/ansible/commit/b9a03bbf5a63459468baf8895ff74a62e9be4532.patch#/CVE-2024-0690.patch
 
 Url: https://ansible.com
 BuildArch: noarch
@@ -267,6 +269,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Thu Jan 18 2024 Maxwell G <maxwell@gtmx.me> - 2.16.2-2
+- Mitigate CVE-2024-0690.
+
 * Mon Dec 11 2023 Maxwell G <maxwell@gtmx.me> - 2.16.2-1
 - Update to 2.16.2. Fixes rhbz#2254093.
 

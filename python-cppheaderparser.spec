@@ -2,12 +2,14 @@
 
 Name:           python-%{pypi_name}
 Version:        2.7.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Parse C++ header files and generate a data structure
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://senexcanis.com/open-source/cppheaderparser/
 Source0:        %{pypi_source CppHeaderParser}
+Patch0:         0001-cppheaderparser-silence-invalid-escape-sequence.patch
+
 BuildArch:      noarch
 
 %description
@@ -26,7 +28,7 @@ Parse C++ header files and generate a data structure representing the
 class.
 
 %prep
-%autosetup -n CppHeaderParser-%{version}
+%autosetup -p1 -n CppHeaderParser-%{version}
 rm -rf %{pypi_name}.egg-info
 # Remove outdated parts (Python 2.x)
 rm -rf CppHeaderParser/{examples,docs}
@@ -44,6 +46,10 @@ sed -i -e '/^#!\//, 1d' CppHeaderParser/CppHeaderParser.py
 %{python3_sitelib}/CppHeaderParser-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jan 11 2024 Tom Rix <trix@redhat.com> - 2.7.4-11
+- Silence invalid escape sequence warnings
+- Use spdx license
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

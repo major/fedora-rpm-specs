@@ -47,7 +47,7 @@
 Name:		root
 Version:	6.30.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3733,6 +3733,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 6.30.02-6
+- Rebuilt for TBB 2021.11
+
 * Fri Jan 12 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-5
 - Define PYTHON_EXECUTABLE when calling cmake (Fixes EPEL 8 build)
 

@@ -14,7 +14,7 @@
 %endif
 
 %global forgeurl https://github.com/maxbachmann/rapidfuzz-cpp
-Version: 1.10.4
+Version: 2.2.3
 %forgemeta
 
 Name: rapidfuzz-cpp
@@ -23,8 +23,6 @@ License: MIT
 Summary: A fast string matching header-only library for C++
 URL: %{forgeurl}
 Source: %{forgesource}
-# Upstream PR: https://github.com/maxbachmann/rapidfuzz-cpp/pull/99
-Patch0: rapidfuzz-cpp-1.10.4-overflow.patch
 
 BuildRequires: cmake
 BuildRequires: doxygen

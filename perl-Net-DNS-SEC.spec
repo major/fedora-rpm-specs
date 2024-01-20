@@ -2,7 +2,7 @@ Name:           perl-Net-DNS-SEC
 Version:        1.22
 Release:        1%{?dist}
 Summary:        DNSSEC modules for Perl
-License:        MIT
+License:        HPND-MIT-disclaimer
 URL:            https://metacpan.org/release/Net-DNS-SEC
 Source0:        https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-SEC-%{version}.tar.gz
 # Build

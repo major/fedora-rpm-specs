@@ -25,7 +25,7 @@
 
 Name:		2048-cli
 Version:	0.9.1
-Release:	16%{?gitrel}%{?dist}
+Release:	17%{?gitrel}%{?dist}
 Summary:	The game 2048 for your Linux terminal
 
 License:	MIT
@@ -124,6 +124,9 @@ export TTF_FONT_PATH="%{_datadir}/fonts/liberation/LiberationMono-Regular.ttf"
 
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

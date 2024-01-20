@@ -3,7 +3,7 @@
 
 Name:           gazebo
 Version:        10.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        3D multi-robot simulator with dynamics
 
 # gazebo/gui/qgv is LGPLv3+
@@ -82,7 +82,7 @@ BuildRequires:  qwt-qt5-devel
 BuildRequires:  rubygem-ronn
 BuildRequires:  sdformat-devel >= 6
 BuildRequires:  SkyX-devel
-BuildRequires:  tbb-devel
+BuildRequires:  tbb2020.3-devel
 BuildRequires:  tinyxml-devel
 BuildRequires:  tinyxml2-devel
 BuildRequires:  urdfdom-headers-devel
@@ -330,6 +330,10 @@ export GAZEBO_IP=127.0.0.1
 %{_libdir}/cmake/*
 
 %changelog
+* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 10.2.0-2
+- Rebuilt for Boost 1.83
+- Build against tbb2020.3 instead of tbb (#2036372)
+
 * Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 10.2.0-1
 - Update to release 10.2.0
 - Add upstream patch to support Graphviz 9

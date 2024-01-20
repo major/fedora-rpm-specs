@@ -1,6 +1,6 @@
 Name:      mapnik
 Version:   3.1.0
-Release:   29%{?dist}
+Release:   31%{?dist}
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
 URL:       http://mapnik.org/
@@ -25,6 +25,12 @@ Patch5:    mapnik-scons4.patch
 Patch6:    mapnik-stdint.patch
 # https://github.com/boostorg/phoenix/issues/115
 Patch7:    mapnik-boost181.patch
+# boost 1.83 compatibility
+Patch8:    mapnik-boost183.patch
+# gcc 14 compatibility
+Patch9:    mapnik-gcc14.patch
+# libxml2 2.12.0 compatibility
+Patch10:   mapnik-libxml2.patch
 
 # Exclude big endian architectures as mapnik does not support them
 # https://github.com/mapnik/mapnik/issues/2313
@@ -261,6 +267,12 @@ LANG="C.UTF-8" make test
 
 
 %changelog
+* Thu Jan 18 2024 Tom Hughes <tom@compton.nu> - 3.1.0-31
+- Add patches for gcc 14 and libxml2 2.12.0
+
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 3.1.0-30
+- Rebuilt for Boost 1.83
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 3.1.0-29
 - Rebuild (gdal)
 

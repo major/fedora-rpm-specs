@@ -33,6 +33,8 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 
 # Upstream patches
 Patch0:         %{url}/-/commit/f3ba14e491333d6bbba8c60328c4dbfd20571182.patch#/wlroots-0.16.2-render-vulkan-remove-hardcoded-validation-layers.patch
+# https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/f3e1f7b2a70a500b740bfc406e893eba0852699a
+Patch1:         wlroots-0.16.2-backend-fix-build-against-upcoming-gcc-14.patch
 
 # Fedora patches
 # Following patch is required for phoc.

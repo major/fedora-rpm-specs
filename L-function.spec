@@ -2,7 +2,7 @@
 
 Name:		L-function
 Version:	2.0.5
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	C++ L-function class library and command line interface
 License:	GPL-2.0-or-later
 URL:		https://gitlab.com/sagemath/lcalc
@@ -71,6 +71,9 @@ make check
 %{_libdir}/pkgconfig/lcalc.pc
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.0.5-5
 - Stop building for 32-bit x86
 

@@ -19,7 +19,7 @@ Version:        0
 Release:        %autorelease -p
 Summary:        RGB colors for your terminal
 
-License:        BSD-2-Clause and MIT
+License:        BSD-2-Clause AND MIT
 URL:            %{gourl}
 Source:         %{gosource}
 

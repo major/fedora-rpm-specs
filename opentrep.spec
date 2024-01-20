@@ -4,7 +4,7 @@
 #
 Name:           opentrep
 Version:        0.07.13
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
 
@@ -201,6 +201,9 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 0.07.13-6
+- Rebuilt for Boost 1.83
+
 * Tue Nov 21 2023 Karolina Surma <ksurma@redhat.com> - 0.07.13-5
 - Add Python 3.13 to cmake config
 

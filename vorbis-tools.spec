@@ -1,7 +1,7 @@
 Summary:	The Vorbis General Audio Compression Codec tools
 Name:		vorbis-tools
 Version:	1.4.2
-Release:	9%{?dist}
+Release:	10%{?dist}
 Epoch:		1
 License:	GPLv2
 URL:		https://www.xiph.org/
@@ -11,6 +11,8 @@ Source:		https://ftp.osuosl.org/pub/xiph/releases/vorbis/%{name}-%{version}.tar.
 # http://lists.xiph.org/pipermail/vorbis-dev/2013-May/020336.html
 Patch1:		vorbis-tools-1.4.2-man-page.patch
 Patch2:		vorbis-tools-c99.patch
+# fix out-of-bounds read in oggenc (CVE-2023-43361)
+Patch3:		vorbis-tools-1.4.2-CVE-2023-43361.patch
 
 BuildRequires:	flac-devel
 BuildRequires:	gettext
@@ -63,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 
 
 %changelog
+* Thu Jan 18 2024 Lukáš Zaoral <lzaoral@redhat.com> - 1:1.4.2-10
+- fix out-of-bounds read in oggenc (CVE-2023-43361)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

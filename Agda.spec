@@ -18,7 +18,7 @@
 Name:           %{pkg_name}
 Version:        2.6.4.1
 # can only be reset when all subpkgs bumped
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        A dependently typed functional programming language and proof assistant
 
 License:        MIT AND BSD-3-Clause
@@ -325,6 +325,9 @@ rm -r %{buildroot}%{_datadir}/%{pkgver}/emacs-mode
 
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4.1-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec  7 2023 Jens Petersen <petersen@redhat.com> - 2.6.4.1-43
 - https://hackage.haskell.org/package/Agda-2.6.4.1/changelog
 - update peano to 0.1.0.2

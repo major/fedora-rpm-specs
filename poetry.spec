@@ -8,7 +8,7 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.6.1
+Version:        1.7.1
 Release:        1%{?dist}
 
 # SPDX
@@ -25,6 +25,9 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # get_system_wheels_paths() from virtualenv.
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
 Patch:         Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
+
+# tests: reduce internet access in tests
+Patch:          https://github.com/python-poetry/poetry/pull/8744.patch
 
 BuildArch:      noarch
 
@@ -58,7 +61,7 @@ Conflicts:      python3-virtualenv < 20.19.0-2
 %autosetup -p1
 # Relax version constraint to allow older virtualenv we have in Fedora
 # Downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=2188155#c8 
-sed -i 's/virtualenv = "^20.22.0"/virtualenv = ">=20.21.1"/' pyproject.toml
+sed -i 's/virtualenv = "^20.23.0"/virtualenv = ">=20.21.1"/' pyproject.toml
 sed -i 's/jsonschema = ">=4.10.0,<4.18.0"/jsonschema = ">=4.10.0,<4.20.0"/' pyproject.toml
 
 
@@ -84,22 +87,7 @@ done
 
 %if %{without bootstrap}
 %check
-# Virtualenv changed its behaviour and since Python 3.12 it doesn't install
-# setuptools and wheel packages by default which are needed to run the tests.
-# In order to restore the previous behaviour the following environment variables
-# need to be exported.
-export VIRTUALENV_WHEEL=bundle
-export VIRTUALENV_SETUPTOOLS=bundle
-# don't use %%tox here because tox.ini runs "poetry install"
-# the following tests attempts a network connection to pypi:
-# test_executor, test_chef, test_info_setup_complex, test_info_setup_complex_pep517_legacy,
-# test_info_setup_missing_mandatory_should_trigger_pep517, test_builder_setup_generation_runs_with_pip_editable
-%pytest -k "not executor and \
-not test_chef and \
-not test_installer_with_pypi_repository and \
-not test_info_setup_complex and not test_info_setup_complex_pep517_legacy and \
-not test_info_setup_missing_mandatory_should_trigger_pep517 and \
-not test_builder_setup_generation_runs_with_pip_editable"
+%pytest -m "not network"
 %endif
 
 
@@ -123,6 +111,10 @@ not test_builder_setup_generation_runs_with_pip_editable"
 
 
 %changelog
+* Mon Nov 27 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.7.1-1
+- Update to 1.7.1
+- Fixes: rhbz#2247814
+
 * Mon Sep 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.6.1-1
 - Update to 1.6.1
 - Fixes: rhbz#2233038

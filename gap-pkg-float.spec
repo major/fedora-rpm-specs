@@ -1,8 +1,8 @@
 %global pkgname float
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.0.3
-Release:        7%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 Summary:        GAP access to mpfr, mpfi, mpc, fplll and cxsc
 
 License:        GPL-2.0-or-later
@@ -11,11 +11,8 @@ URL:            https://gap-packages.github.io/float/
 Source0:        https://github.com/gap-packages/float/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Remove atexit hack, not needed for non-coverage builds
 Patch0:         %{name}-atexit.patch
-# Fix infinitely recursive definitions to work as intended
-# https://github.com/gap-packages/float/pull/81
-Patch1:         %{name}-recursive.patch
-# Fix fplll detection
-Patch2:         %{name}-fplll.patch
+# Remove use of deprecated set_unexpected
+Patch1:         %{name}-unexpected.patch
 
 BuildRequires:  cxsc-devel
 BuildRequires:  gap-devel
@@ -95,6 +92,11 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jan 17 2024 Jerry James <loganjerry@gmail.com> - 1.0.4-1
+- Version 1.0.4
+- Drop upstreamed recursive and fplll patches
+- Add patch to remove call to set_unexpected
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

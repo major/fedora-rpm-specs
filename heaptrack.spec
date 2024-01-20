@@ -1,15 +1,19 @@
 Name:    heaptrack
 Version: 1.5.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A heap memory profiler for Linux
 
-License: Apache-2.0 AND BSD-3-Cloause AND BSL-1.0 AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
+License: Apache-2.0 AND BSD-3-Clause AND BSL-1.0 AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/sdk/heaptrack/
 
 Source0: https://download.kde.org/stable/heaptrack/%{version}/%{name}-%{version}.tar.xz
 
 Patch0:  Support-KChart6-for-KF6.patch
 Patch1:  Use-QString-for-KConfigGroup-names.patch
+
+# Upstream Patch: https://invent.kde.org/sdk/heaptrack/-/commit/c6c45f3455a652c38aefa402aece5dafa492e8ab
+# Will prolly be unneeded next release.
+Patch2:  fix-gcc14-cmake-compat.patch
 
 BuildRequires:  desktop-file-utils
 
@@ -93,6 +97,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Thu Jan 18 2024 Steve Cossette <farchord@gmail.com> - 1.5.0-4
+- Fix for building on GCC 14
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.5.0-3
 - Rebuilt for Boost 1.83
 

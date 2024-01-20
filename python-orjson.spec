@@ -8,13 +8,14 @@
 %bcond tests 1
 
 Name:           python-orjson
-Version:        3.9.10
+Version:        3.9.12
 Release:        1%{?dist}
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
+Patch:          Remove-strict-ahash-version-pin.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -94,6 +95,9 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Thu Jan 18 2024 Maxwell G <maxwell@gtmx.me> - 3.9.12-1
+- Update to 3.9.12. Fixes rhbz#2259025.
+
 * Wed Nov 22 2023 Maxwell G <maxwell@gtmx.me> - 3.9.10-1
 - Update to 3.9.10. Fixes rhbz#2243767.
 

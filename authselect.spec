@@ -2,7 +2,7 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.4.3
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
@@ -27,8 +27,8 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 %endif
 
 # Set the default profile
-%{?fedora:%global default_profile sssd with-silent-lastlog}
-%{?rhel:%global default_profile sssd}
+%{?fedora:%global default_profile local with-silent-lastlog}
+%{?rhel:%global default_profile local}
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -185,20 +185,20 @@ find $RPM_BUILD_ROOT -name "*.a" -exec %__rm -f {} \;
 %dir %{_datadir}/authselect
 %dir %{_datadir}/authselect/vendor
 %dir %{_datadir}/authselect/default
-%dir %{_datadir}/authselect/default/minimal/
+%dir %{_datadir}/authselect/default/local/
 %dir %{_datadir}/authselect/default/nis/
 %dir %{_datadir}/authselect/default/sssd/
 %dir %{_datadir}/authselect/default/winbind/
-%{_datadir}/authselect/default/minimal/dconf-db
-%{_datadir}/authselect/default/minimal/dconf-locks
-%{_datadir}/authselect/default/minimal/fingerprint-auth
-%{_datadir}/authselect/default/minimal/nsswitch.conf
-%{_datadir}/authselect/default/minimal/password-auth
-%{_datadir}/authselect/default/minimal/postlogin
-%{_datadir}/authselect/default/minimal/README
-%{_datadir}/authselect/default/minimal/REQUIREMENTS
-%{_datadir}/authselect/default/minimal/smartcard-auth
-%{_datadir}/authselect/default/minimal/system-auth
+%{_datadir}/authselect/default/local/dconf-db
+%{_datadir}/authselect/default/local/dconf-locks
+%{_datadir}/authselect/default/local/fingerprint-auth
+%{_datadir}/authselect/default/local/nsswitch.conf
+%{_datadir}/authselect/default/local/password-auth
+%{_datadir}/authselect/default/local/postlogin
+%{_datadir}/authselect/default/local/README
+%{_datadir}/authselect/default/local/REQUIREMENTS
+%{_datadir}/authselect/default/local/smartcard-auth
+%{_datadir}/authselect/default/local/system-auth
 %{_datadir}/authselect/default/nis/dconf-db
 %{_datadir}/authselect/default/nis/dconf-locks
 %{_datadir}/authselect/default/nis/fingerprint-auth
@@ -335,12 +335,27 @@ if [ -f %{forcefile} ]; then
     %__rm -f %{forcefile}
 fi
 
+# Minimal profile was removed. Switch to local.
+%__sed -i '1 s/^minimal$/local/'  %{_sysconfdir}/authselect/authselect.conf
+for file in  %{_sysconfdir}/authselect/custom/*/*; do
+    link=`%{_bindir}/readlink "$file"`
+    if [[ "$link" == %{_datadir}/authselect/default/minimal/* ]]; then
+        target=`%{_bindir}/basename "$link"`
+        %{_bindir}/ln -sfn "%{_datadir}/authselect/default/local/$target" "$file"
+    fi
+done
+
 # Apply any changes to profiles (validates configuration first internally)
 %{_bindir}/authselect apply-changes &> /dev/null
 
 exit 0
 
 %changelog
+* Thu Jan 18 2024 Pavel Březina <pbrezina@redhat.com> - 1.5.0-1
+- Rebase to 1.5.0
+- "minimal" profile was removed and replaced with "local". (rhbz#2253180)
+- "local" profile is now default (rhbz#2253180)
+
 * Wed Sep 27 2023 Pavel Březina <pbrezina@redhat.com> - 1.4.3-1
 - Rebase to 1.4.3
 

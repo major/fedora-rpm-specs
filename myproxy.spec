@@ -10,14 +10,17 @@
 
 Name:           myproxy
 Version:        6.2.14
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
 URL:            http://grid.ncsa.illinois.edu/myproxy/
 Source:         https://repo.gridcf.org/gct6/sources/%{name}-%{version}.tar.gz
 Source8:        README
-Patch0: myproxy-configure-c99.patch
+#               https://github.com/gridcf/gct/pull/211
+Patch0:         %{name}-configure-c99.patch
+#               https://github.com/gridcf/gct/pull/222
+Patch1:         %{name}-type-errors.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -363,6 +366,9 @@ fi
 %license LICENSE*
 
 %changelog
+* Thu Jan 18 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.14-6
+- Fix pointer type error
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,12 @@
 Name: libphonenumber
-Version: 8.13.27
-Release: 2%{?dist}
+Version: 8.13.28
+Release: 3%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
 URL: https://github.com/google/libphonenumber/
 Source0: https://github.com/google/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch1:  libphonenumber-8.13.27-new-protobuf-cmake-logic.patch
 
 BuildRequires: abseil-cpp-devel
 BuildRequires: boost-devel
@@ -78,6 +79,18 @@ popd
 
 
 %changelog
+* Thu Jan 18 2024 Sérgio Basto <sergio@serjux.com> - 8.13.28-3
+- add support to protobuf 3.25.1
+
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 8.13.28-2
+- Rebuild for Boost 1.83.0 again
+
+* Thu Jan 18 2024 Packit <hello@packit.dev> - 8.13.28-1
+- [maven-release-plugin] prepare release v8.13.28 (Mandali Reddy)
+- Metadata updates for release 8.13.28 (#3383) (mandlil)
+- Update README.md (#3356) (mandlil)
+- Mandlil maven update (#3348) (mandlil)
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 8.13.27-2
 - Rebuilt for Boost 1.83
 

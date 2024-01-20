@@ -8,7 +8,7 @@
 
 Name:           prusa-slicer
 Version:        2.4.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -410,6 +410,9 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2.4.2-12
+- Rebuilt for Boost 1.83
+
 * Mon Nov 06 2023 Jan Staněk <jstanek@redhat.com> - 2.4.2-11
 - Fix compilation errors on gcc-17
   Resolves: rhbz#2217962

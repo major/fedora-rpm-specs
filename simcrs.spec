@@ -1,7 +1,7 @@
 #
 Name:           simcrs
 Version:        1.01.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        C++ Simulated Travel-Oriented Distribution System library
 
@@ -109,6 +109,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.01.8-3
+- Rebuilt for Boost 1.83
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

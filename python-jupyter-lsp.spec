@@ -1,5 +1,5 @@
 Name:           python-jupyter-lsp
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab server
 # SPDX
@@ -64,6 +64,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 
 
 %changelog
+* Thu Jan 18 2024 Lumír Balhar <lbalhar@redhat.com> - 2.2.2-1
+- Update to 2.2.2 (rhbz#2258899)
+
 * Tue Nov 28 2023 Lumír Balhar <lbalhar@redhat.com> - 2.2.1-1
 - Update to 2.2.1 (rhbz#2251608)
 

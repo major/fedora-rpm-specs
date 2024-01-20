@@ -45,9 +45,9 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
-Version:          2.4.3
-Release:          1%{?dist}
-License:          GPLv3+ and (ASL 2.0 or MIT) and MIT and (0BSD or MIT or ASL 2.0) and (Unlicense or MIT) and MPLv2.0 and BSD and (ASL 2.0 with exceptions or ASL 2.0 or MIT) and (MIT or zlib or ASL 2.0) and ASL 2.0 and (ASL 2.0 or Boost) and ((MIT or ASL 2.0) and Unicode-DFS-2016)
+Version:          2.4.5
+Release:          2%{?dist}
+License:          GPLv3+ and (ASL 2.0 or MIT) and (ASL 2.0 with exceptions or ASL 2.0 or MIT) and MIT and (Unlicense or MIT) and (0BSD or MIT or ASL 2.0) and MPLv2.0 and ASL 2.0 and (MIT or zlib or ASL 2.0) and ((MIT or ASL 2.0) and Unicode-DFS-2016) and (ASL 2.0 or Boost) and BSD
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
 Conflicts:        freeipa-server < 4.0.3
@@ -57,21 +57,21 @@ Obsoletes:        %{name}-legacy-tools-debuginfo < 1.4.4.6
 Provides:         ldif2ldbm >= 0
 
 ##### Bundled cargo crates list - START #####
-Provides:  bundled(crate(addr2line)) = 0.20.0
+Provides:  bundled(crate(addr2line)) = 0.21.0
 Provides:  bundled(crate(adler)) = 1.0.2
-Provides:  bundled(crate(ahash)) = 0.7.6
-Provides:  bundled(crate(ansi_term)) = 0.12.1
+Provides:  bundled(crate(ahash)) = 0.7.7
 Provides:  bundled(crate(atty)) = 0.2.14
 Provides:  bundled(crate(autocfg)) = 1.1.0
-Provides:  bundled(crate(backtrace)) = 0.3.68
+Provides:  bundled(crate(backtrace)) = 0.3.69
 Provides:  bundled(crate(base64)) = 0.13.1
 Provides:  bundled(crate(bitflags)) = 1.3.2
-Provides:  bundled(crate(bitflags)) = 2.3.3
-Provides:  bundled(crate(byteorder)) = 1.4.3
-Provides:  bundled(crate(cbindgen)) = 0.9.1
-Provides:  bundled(crate(cc)) = 1.0.81
+Provides:  bundled(crate(bitflags)) = 2.4.1
+Provides:  bundled(crate(byteorder)) = 1.5.0
+Provides:  bundled(crate(cbindgen)) = 0.26.0
+Provides:  bundled(crate(cc)) = 1.0.83
 Provides:  bundled(crate(cfg-if)) = 1.0.0
-Provides:  bundled(crate(clap)) = 2.34.0
+Provides:  bundled(crate(clap)) = 3.2.25
+Provides:  bundled(crate(clap_lex)) = 0.2.4
 Provides:  bundled(crate(concread)) = 0.2.21
 Provides:  bundled(crate(crossbeam)) = 0.8.2
 Provides:  bundled(crate(crossbeam-channel)) = 0.5.8
@@ -81,90 +81,102 @@ Provides:  bundled(crate(crossbeam-queue)) = 0.3.8
 Provides:  bundled(crate(crossbeam-utils)) = 0.8.16
 Provides:  bundled(crate(entryuuid)) = 0.1.0
 Provides:  bundled(crate(entryuuid_syntax)) = 0.1.0
-Provides:  bundled(crate(errno)) = 0.3.2
-Provides:  bundled(crate(errno-dragonfly)) = 0.1.2
-Provides:  bundled(crate(fastrand)) = 2.0.0
+Provides:  bundled(crate(errno)) = 0.3.8
+Provides:  bundled(crate(fastrand)) = 2.0.1
 Provides:  bundled(crate(fernet)) = 0.1.4
 Provides:  bundled(crate(foreign-types)) = 0.3.2
 Provides:  bundled(crate(foreign-types-shared)) = 0.1.1
-Provides:  bundled(crate(getrandom)) = 0.2.10
-Provides:  bundled(crate(gimli)) = 0.27.3
+Provides:  bundled(crate(getrandom)) = 0.2.11
+Provides:  bundled(crate(gimli)) = 0.28.1
 Provides:  bundled(crate(hashbrown)) = 0.12.3
+Provides:  bundled(crate(heck)) = 0.4.1
 Provides:  bundled(crate(hermit-abi)) = 0.1.19
+Provides:  bundled(crate(indexmap)) = 1.9.3
 Provides:  bundled(crate(instant)) = 0.1.12
-Provides:  bundled(crate(itoa)) = 1.0.9
-Provides:  bundled(crate(jobserver)) = 0.1.26
-Provides:  bundled(crate(libc)) = 0.2.147
+Provides:  bundled(crate(itoa)) = 1.0.10
+Provides:  bundled(crate(jobserver)) = 0.1.27
+Provides:  bundled(crate(libc)) = 0.2.151
 Provides:  bundled(crate(librnsslapd)) = 0.1.0
 Provides:  bundled(crate(librslapd)) = 0.1.0
-Provides:  bundled(crate(linux-raw-sys)) = 0.4.5
-Provides:  bundled(crate(lock_api)) = 0.4.10
-Provides:  bundled(crate(log)) = 0.4.19
+Provides:  bundled(crate(linux-raw-sys)) = 0.4.12
+Provides:  bundled(crate(lock_api)) = 0.4.11
+Provides:  bundled(crate(log)) = 0.4.20
 Provides:  bundled(crate(lru)) = 0.7.8
-Provides:  bundled(crate(memchr)) = 2.5.0
+Provides:  bundled(crate(memchr)) = 2.6.4
 Provides:  bundled(crate(memoffset)) = 0.9.0
 Provides:  bundled(crate(miniz_oxide)) = 0.7.1
-Provides:  bundled(crate(object)) = 0.31.1
-Provides:  bundled(crate(once_cell)) = 1.18.0
-Provides:  bundled(crate(openssl)) = 0.10.55
+Provides:  bundled(crate(object)) = 0.32.1
+Provides:  bundled(crate(once_cell)) = 1.19.0
+Provides:  bundled(crate(openssl)) = 0.10.61
 Provides:  bundled(crate(openssl-macros)) = 0.1.1
-Provides:  bundled(crate(openssl-sys)) = 0.9.90
+Provides:  bundled(crate(openssl-sys)) = 0.9.97
+Provides:  bundled(crate(os_str_bytes)) = 6.6.1
 Provides:  bundled(crate(parking_lot)) = 0.11.2
 Provides:  bundled(crate(parking_lot_core)) = 0.8.6
 Provides:  bundled(crate(paste)) = 0.1.18
 Provides:  bundled(crate(paste-impl)) = 0.1.18
-Provides:  bundled(crate(pin-project-lite)) = 0.2.10
+Provides:  bundled(crate(pin-project-lite)) = 0.2.13
 Provides:  bundled(crate(pkg-config)) = 0.3.27
 Provides:  bundled(crate(ppv-lite86)) = 0.2.17
 Provides:  bundled(crate(proc-macro-hack)) = 0.5.20+deprecated
-Provides:  bundled(crate(proc-macro2)) = 1.0.66
+Provides:  bundled(crate(proc-macro2)) = 1.0.70
 Provides:  bundled(crate(pwdchan)) = 0.1.0
-Provides:  bundled(crate(quote)) = 1.0.32
+Provides:  bundled(crate(quote)) = 1.0.33
 Provides:  bundled(crate(rand)) = 0.8.5
 Provides:  bundled(crate(rand_chacha)) = 0.3.1
 Provides:  bundled(crate(rand_core)) = 0.6.4
 Provides:  bundled(crate(redox_syscall)) = 0.2.16
-Provides:  bundled(crate(redox_syscall)) = 0.3.5
+Provides:  bundled(crate(redox_syscall)) = 0.4.1
 Provides:  bundled(crate(rustc-demangle)) = 0.1.23
-Provides:  bundled(crate(rustix)) = 0.38.6
-Provides:  bundled(crate(ryu)) = 1.0.15
+Provides:  bundled(crate(rustix)) = 0.38.28
+Provides:  bundled(crate(ryu)) = 1.0.16
 Provides:  bundled(crate(scopeguard)) = 1.2.0
-Provides:  bundled(crate(serde)) = 1.0.180
-Provides:  bundled(crate(serde_derive)) = 1.0.180
-Provides:  bundled(crate(serde_json)) = 1.0.104
+Provides:  bundled(crate(serde)) = 1.0.193
+Provides:  bundled(crate(serde_derive)) = 1.0.193
+Provides:  bundled(crate(serde_json)) = 1.0.108
 Provides:  bundled(crate(slapd)) = 0.1.0
 Provides:  bundled(crate(slapi_r_plugin)) = 0.1.0
-Provides:  bundled(crate(smallvec)) = 1.11.0
-Provides:  bundled(crate(strsim)) = 0.8.0
+Provides:  bundled(crate(smallvec)) = 1.11.2
+Provides:  bundled(crate(strsim)) = 0.10.0
 Provides:  bundled(crate(syn)) = 1.0.109
-Provides:  bundled(crate(syn)) = 2.0.28
-Provides:  bundled(crate(tempfile)) = 3.7.0
-Provides:  bundled(crate(textwrap)) = 0.11.0
-Provides:  bundled(crate(tokio)) = 1.29.1
-Provides:  bundled(crate(tokio-macros)) = 2.1.0
+Provides:  bundled(crate(syn)) = 2.0.40
+Provides:  bundled(crate(tempfile)) = 3.8.1
+Provides:  bundled(crate(termcolor)) = 1.4.0
+Provides:  bundled(crate(textwrap)) = 0.16.0
+Provides:  bundled(crate(tokio)) = 1.35.0
+Provides:  bundled(crate(tokio-macros)) = 2.2.0
 Provides:  bundled(crate(toml)) = 0.5.11
-Provides:  bundled(crate(unicode-ident)) = 1.0.11
-Provides:  bundled(crate(unicode-width)) = 0.1.10
+Provides:  bundled(crate(unicode-ident)) = 1.0.12
 Provides:  bundled(crate(uuid)) = 0.8.2
 Provides:  bundled(crate(vcpkg)) = 0.2.15
-Provides:  bundled(crate(vec_map)) = 0.8.2
 Provides:  bundled(crate(version_check)) = 0.9.4
 Provides:  bundled(crate(wasi)) = 0.11.0+wasi_snapshot_preview1
 Provides:  bundled(crate(winapi)) = 0.3.9
 Provides:  bundled(crate(winapi-i686-pc-windows-gnu)) = 0.4.0
+Provides:  bundled(crate(winapi-util)) = 0.1.6
 Provides:  bundled(crate(winapi-x86_64-pc-windows-gnu)) = 0.4.0
 Provides:  bundled(crate(windows-sys)) = 0.48.0
-Provides:  bundled(crate(windows-targets)) = 0.48.1
-Provides:  bundled(crate(windows_aarch64_gnullvm)) = 0.48.0
-Provides:  bundled(crate(windows_aarch64_msvc)) = 0.48.0
-Provides:  bundled(crate(windows_i686_gnu)) = 0.48.0
-Provides:  bundled(crate(windows_i686_msvc)) = 0.48.0
-Provides:  bundled(crate(windows_x86_64_gnu)) = 0.48.0
-Provides:  bundled(crate(windows_x86_64_gnullvm)) = 0.48.0
-Provides:  bundled(crate(windows_x86_64_msvc)) = 0.48.0
-Provides:  bundled(crate(zeroize)) = 1.6.0
+Provides:  bundled(crate(windows-sys)) = 0.52.0
+Provides:  bundled(crate(windows-targets)) = 0.48.5
+Provides:  bundled(crate(windows-targets)) = 0.52.0
+Provides:  bundled(crate(windows_aarch64_gnullvm)) = 0.48.5
+Provides:  bundled(crate(windows_aarch64_gnullvm)) = 0.52.0
+Provides:  bundled(crate(windows_aarch64_msvc)) = 0.48.5
+Provides:  bundled(crate(windows_aarch64_msvc)) = 0.52.0
+Provides:  bundled(crate(windows_i686_gnu)) = 0.48.5
+Provides:  bundled(crate(windows_i686_gnu)) = 0.52.0
+Provides:  bundled(crate(windows_i686_msvc)) = 0.48.5
+Provides:  bundled(crate(windows_i686_msvc)) = 0.52.0
+Provides:  bundled(crate(windows_x86_64_gnu)) = 0.48.5
+Provides:  bundled(crate(windows_x86_64_gnu)) = 0.52.0
+Provides:  bundled(crate(windows_x86_64_gnullvm)) = 0.48.5
+Provides:  bundled(crate(windows_x86_64_gnullvm)) = 0.52.0
+Provides:  bundled(crate(windows_x86_64_msvc)) = 0.48.5
+Provides:  bundled(crate(windows_x86_64_msvc)) = 0.52.0
+Provides:  bundled(crate(zeroize)) = 1.7.0
 Provides:  bundled(crate(zeroize_derive)) = 1.4.2
 ##### Bundled cargo crates list - END #####
+
 
 BuildRequires:    nspr-devel >= 4.32
 BuildRequires:    nss-devel >= 3.67.0-7
@@ -464,6 +476,7 @@ autoreconf -fiv
            --with-libldap-r=no
 
 # lib389
+make src/lib389/setup.py
 pushd ./src/lib389
 %py3_build
 popd
@@ -734,6 +747,66 @@ exit 0
 %endif
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Thu Jan 18 2024 Viktor Ashirov <vashirov@redhat.com> - 2.4.5-1
+- Bump version to 2.4.5
+- Issue 5989 - RFE support of inChain Matching Rule (#5990)
+- Issue 5939 - During an update, if the target entry is reverted in the entry cache, the server should not retry to lock it (#6007)
+- Issue 5944 - Reversion of the entry cache should be limited to BETXN plugin failures (#5994)
+- Issue 5954 - Disable Transparent Huge Pages
+- Issue 5984 - Crash when paged result search are abandoned - fix2 (#5987)
+- Issue 5984 - Crash when paged result search are abandoned (#5985)
+
+* Wed Nov 15 2023 James Chapman <jachapma@redhat.com> - 2.4.4
+- Bump version to 2.4.4
+- Issue 5971 - CLI - Fix password prompt for repl status (#5972)
+- Issue 5973 - Fix fedora cop RawHide builds (#5974)
+- Revert "Issue 5761 - Worker thread dynamic management (#5796)" (#5970)
+- Issue 5966 - CLI - Custom schema object is removed on a failed edit (#5967)
+- Issue 5786 - Update permissions for Release workflow
+- Issue 5960 - Subpackages should have more strict interdependencies
+- Issue 3555 - UI - Fix audit issue with npm - babel/traverse (#5959)
+- Issue 4843 - Fix dscreate create-template issue (#5950)
+- bugfix for --passwd-file not working on latest version (#5934)
+- Issue 5843 - dsconf / dscreate should be able to handle lmdb parameters (#5943)
+- Bump postcss from 8.4.24 to 8.4.31 in /src/cockpit/389-console (#5945)
+- Issue 5938 - Attribute Names changed to lowercase after adding the Attributes (#5940)
+- issue 5924 - ASAN server build crash when looping opening/closing connections (#5926)
+- Issue 1925 - Add a CI test (#5936)
+- Issue 5732 - Localizing Cockpit's 389ds Plugin using CockpitPoPlugin (#5764)
+- Issue 1870 - Add a CI test (#5929)
+- Issue 843 - Add a warning to slapi_valueset_add_value_ext (#5925)
+- Issue 5761 - Worker thread dynamic management (#5796)
+- Issue 1802 - Improve ldclt man page (#5928)
+- Issue 1456 - Add a CI test that verifies there is no issue (#5927)
+- Issue 1317 - Add a CI test (#5923)
+- Issue 1081 - CI - Add more tests for overwriting x-origin issue (#5815)
+- Issue 1115 - Add a CI test (#5913)
+- Issue 5848 - Fix condition and add a CI test (#5916)
+- Issue 5848 - Fix condition and add a CI test (#5916)
+- Issue 5914 - UI - server settings page validation improvements and db index fixes
+- Issue 5909 - Multi listener hang with 20k connections (#5917)
+- Issue 5902 - Fix previous commit regression (#5919)
+- pass instance correctly to ds_is_older (#5903)
+- Issue 5909 - Multi listener hang with 20k connections (#5910)
+- Issue 5722 - improve testcase (#5904)
+- Issue 5203 - outdated version in provided metadata for lib389
+- Bug Description:
+- issue 5890 part 2 - Need a tester for testing multiple listening thread feature (#5897)
+- Issue i5846 - Crash when lmdb import is aborted (#5881)
+- Issue 5894 - lmdb import error fails with Could not store the entry (#5895)
+- Issue 5890 - Need a tester for testing multiple listening thread feature (#5891)
+- Issue 5082 - slugify: ModuleNotFoundError when running test cases
+- Issue 4551 - Part 2 - Fix build warning of previous PR (#5888)
+- Issue 5834 - AccountPolicyPlugin erroring for some users (#5866)
+- Issue 5872 - part 2 - fix is_dbi regression (#5887)
+- Issue 4758 - Add tests for WebUI
+- Issue 5848 - dsconf should prevent setting the replicaID for hub and consumer roles (#5849)
+- Issue 5883 - Remove connection mutex contention risk on autobind (#5886)
+- Issue 5872 - `dbscan()` in lib389 can return bytes
+
 * Thu Aug 3 2023 Mark Reynolds<mreynolds@redhat.com> - 2.4.3-1
 - Bump version to 2.4.3-1
 - Issue 5729 - Memory leak in factory_create_extension (#5814)

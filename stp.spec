@@ -1,6 +1,6 @@
 Name:		stp
 Version:	2.3.3
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Constraint solver/decision procedure
 
 # MIT: the project as a whole
@@ -130,6 +130,9 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2.3.3-28
+- Rebuilt for Boost 1.83
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.3.3-27
 - Stop building for 32-bit x86
 

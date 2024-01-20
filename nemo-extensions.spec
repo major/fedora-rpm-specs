@@ -4,12 +4,13 @@
 
 Name:           nemo-extensions
 Version:        6.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         %url/pull/512.patch
 
 ExcludeArch:    %{ix86}
 
@@ -325,6 +326,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Thu Jan 18 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-2
+- Fix compile error
+
 * Wed Dec 20 2023 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-1
 - Update to 6.0.1 release
 

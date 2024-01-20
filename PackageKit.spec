@@ -3,7 +3,7 @@
 
 Summary:   Package management service
 Name:      PackageKit
-Version:   1.2.6
+Version:   1.2.8
 Release:   %autorelease
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:       http://www.freedesktop.org/software/PackageKit/
@@ -19,16 +19,6 @@ Patch0:    PackageKit-0.3.8-RHEL-Vendor.conf.patch
 # https://github.com/PackageKit/PackageKit/pull/404
 Patch1:    package-remove-password-prompt.patch
 
-# https://github.com/PackageKit/PackageKit/pull/578
-# https://github.com/PackageKit/PackageKit/pull/599
-# https://github.com/PackageKit/PackageKit/pull/600
-Patch2:    shutdown-on-idle.patch
-
-# https://github.com/PackageKit/PackageKit/pull/643
-# Fixes errors like
-# packagekitd[1113]: Failed to load the backend: opening module dnf failed : /usr/lib64/packagekit-backend/libpk_backend_dnf.so: undefined symbol: pk_backend_job_update_details
-Patch3:    0001-packagekitd-Use-export_dynamic-explicitly.patch
-
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: xmlto
 BuildRequires: gtk-doc
@@ -43,13 +33,16 @@ BuildRequires: gstreamer1-devel
 BuildRequires: gstreamer1-plugins-base-devel
 BuildRequires: pango-devel
 BuildRequires: fontconfig-devel
-BuildRequires: libappstream-glib-devel
+BuildRequires: pkgconfig(appstream)
 BuildRequires: libdnf-devel >= %{libdnf_version}
 BuildRequires: systemd
 BuildRequires: systemd-devel
 BuildRequires: gobject-introspection-devel
 BuildRequires: bash-completion
 BuildRequires: python3-devel
+
+# Validate metainfo
+BuildRequires: libappstream-glib
 
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Requires: glib2%{?_isa} >= %{glib2_version}
@@ -168,14 +161,11 @@ pushd %{buildroot}%{_libexecdir} > /dev/null
 ln -s pk-gstreamer-install gst-install-plugins-helper
 popd > /dev/null
 
-# enable packagekit-offline-updates.service here for now, till we
-# decide how to do it upstream after the meson conversion:
-# https://github.com/hughsie/PackageKit/issues/401
-# https://bugzilla.redhat.com/show_bug.cgi?id=1833176
-mkdir -p %{buildroot}%{_unitdir}/system-update.target.wants/
-ln -sf ../packagekit-offline-update.service %{buildroot}%{_unitdir}/system-update.target.wants/packagekit-offline-update.service
-
 %find_lang %name
+
+%check
+# FIXME: Validation fails in appstream-util because it does not recognize component type "service"
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml || :
 
 %post
 # Remove leftover symlinks from /etc/systemd; the offline update service is
@@ -196,13 +186,13 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %dir %{_libdir}/packagekit-backend
 %config(noreplace) %{_sysconfdir}/PackageKit/PackageKit.conf
 %config(noreplace) %{_sysconfdir}/PackageKit/Vendor.conf
-%config %{_sysconfdir}/dbus-1/system.d/*
 %{_datadir}/man/man1/pkcon.1*
 %{_datadir}/man/man1/pkmon.1*
 %{_datadir}/polkit-1/actions/*.policy
 %{_datadir}/polkit-1/rules.d/*
 %{_datadir}/PackageKit/pk-upgrade-distro.sh
 %{_datadir}/PackageKit/helpers/test_spawn/search-name.sh
+%{_metainfodir}/org.freedesktop.packagekit.metainfo.xml
 %{_libexecdir}/packagekitd
 %{_libexecdir}/packagekit-direct
 %{_bindir}/pkmon
@@ -211,12 +201,14 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %{_libdir}/packagekit-backend/libpk_backend_dummy.so
 %{_libdir}/packagekit-backend/libpk_backend_test_*.so
 %ghost %verify(not md5 size mtime) %attr(0644,-,-) %{_localstatedir}/lib/PackageKit/transactions.db
+%{_datadir}/dbus-1/system.d/*
 %{_datadir}/dbus-1/system-services/*.service
 %{_datadir}/dbus-1/interfaces/*.xml
 %{_unitdir}/packagekit-offline-update.service
 %{_unitdir}/packagekit.service
 %{_unitdir}/system-update.target.wants/
 %{_libexecdir}/pk-*offline-update
+%{_libexecdir}/packagekit-dnf-refresh-repo
 %{_libdir}/packagekit-backend/libpk_backend_dnf.so
 %pycached %{python3_sitelib}/dnf-plugins/notify_packagekit.py
 

@@ -93,13 +93,13 @@ echo %{version}-%{release} > VERSION
 
 %if %{with check}
 %check
-# FIXME: Reenable testing!
 %cargo_test
 #cargo test --test thin_shrink -- --nocapture --test-threads=1
 %endif
 
 %install
-make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
+# TODO: Check that MANDIR is unused and remove
+%make_install MANDIR=%{_mandir}
 
 %files
 %doc COPYING README.md

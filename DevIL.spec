@@ -1,6 +1,6 @@
 Name:           DevIL
 Version:        1.7.8
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        A cross-platform image library
 License:        LGPLv2
 URL:            http://openil.sourceforge.net/
@@ -127,6 +127,9 @@ rm %{buildroot}%{_infodir}/dir
 
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 1.7.8-43
 - Rebuild for jasper 4.1
 

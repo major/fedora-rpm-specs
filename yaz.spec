@@ -1,6 +1,6 @@
 Name:           yaz
 Version:        5.34.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
@@ -98,9 +98,9 @@ find %{buildroot} -name '*.*a' -delete -print
 %check
 make check
 
-%post -n lib%{name} -p /sbin/ldconfig
+%ldconfig_scriptlets -n lib%{name}
 
-%postun -n lib%{name} -p /sbin/ldconfig
+%ldconfig_scriptlets -n lib%{name}
 
 %files
 %doc NEWS
@@ -152,6 +152,10 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.0-6
+- Use %%ldconfig_scriptlets instead of /usr/sbin/ldconfig
+  (ref: DNF5 file deps change: bug 2180842)
+
 * Mon Nov 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.0-5
 - Fix header file inclusion for libxml2 2.12.0
 - Fix header file inclusion for glibc 2.39

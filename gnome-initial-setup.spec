@@ -58,7 +58,8 @@ BuildRequires:  pkgconfig(rest-1.0)
 %if %{with webkitgtk}
 BuildRequires:  pkgconfig(webkitgtk-6.0)
 %endif
-BuildRequires:  gnome-desktop4 >= %{gnome_desktop_version}
+BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 # gnome-initial-setup is being run by gdm
 Requires: gdm
@@ -68,10 +69,6 @@ Requires: gnome-desktop4%{?_isa} >= %{gnome_desktop_version}
 # we install a rules file
 Requires: polkit-js-engine
 Requires: /usr/bin/tecla
-
-Requires(pre): shadow-utils
-
-Provides: user(%name)
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -99,13 +96,12 @@ you through configuring it. It is integrated with gdm.
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/gnome-initial-setup-copy-worker.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/gnome-initial-setup.desktop
 
-mkdir -p %{buildroot}%{_datadir}/gnome-initial-setup
-cp %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
+install -pDm 0644 %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
 
 %find_lang %{name}
 
 %pre
-useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null || :
+%sysusers_create_compat %{buildroot}/%{_sysusersdir}/%{name}.conf
 
 %files -f %{name}.lang
 %license COPYING

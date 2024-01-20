@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        308
+Version:        309
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -453,7 +453,7 @@ Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.5
-Provides: bundled(npm(date-fns)) = 3.0.6
+Provides: bundled(npm(date-fns)) = 3.2.0
 Provides: bundled(npm(deep-equal)) = 2.2.3
 Provides: bundled(npm(define-data-property)) = 1.1.1
 Provides: bundled(npm(define-properties)) = 1.2.1
@@ -539,7 +539,7 @@ Requires(post): (policycoreutils if selinux-policy-%{selinuxtype})
 Conflicts: firewalld < 0.6.0-1
 Recommends: sscg >= 2.3
 Recommends: system-logos
-Suggests: sssd-dbus
+Suggests: sssd-dbus >= 2.6.2
 # for cockpit-desktop
 Suggests: python3
 
@@ -737,6 +737,9 @@ Requires: cockpit-shell >= %{required_base}
 Requires: udisks2 >= 2.9
 Recommends: udisks2-lvm2 >= 2.9
 Recommends: udisks2-iscsi >= 2.9
+%if ! 0%{?rhel}
+Recommends: udisks2-btrfs >= 2.9
+%endif
 Recommends: device-mapper-multipath
 Recommends: clevis-luks
 Requires: %{__python3}
@@ -808,6 +811,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jan 18 2024 Packit <hello@packit.dev> - 309-1
+- Storage: Introduce btrfs support
+
 * Wed Jan 03 2024 Packit <hello@packit.dev> - 308-1
 - Fix connecting to remote hosts with OpenSSH 0.9.6
 

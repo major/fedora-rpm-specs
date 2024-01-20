@@ -2,8 +2,8 @@
 %global sover 2.5
 
 Name:           OpenImageIO
-Version:        2.5.7.0
-Release:        1%{?dist}
+Version:        2.5.6.0
+Release:        2%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -45,7 +45,7 @@ BuildRequires:  libsquish-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libwebp-devel
 BuildRequires:  opencv-devel
-%if 0%{?fedora} > 34
+%if 0%{?fedora}
 BuildRequires:  cmake(OpenEXR)
 %else
 BuildRequires:  OpenEXR-devel ilmbase-devel
@@ -64,8 +64,8 @@ BuildRequires:  zlib-devel
 
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
-# rebuilt. Soname bumps will require a bootstrap build of OIIO.
-#BuildRequires:  OpenColorIO-devel
+# rebuilt.
+BuildRequires:  OpenColorIO-devel
 
 
 %description
@@ -206,9 +206,11 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
-* Mon Jan 15 2024 Richard Shaw <hobbes1069@gmail.com> - 2.5.7.0-1
-- Update to 2.5.7.0.
-- Bootstrap build without OCIO.
+* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2.5.6.0-2
+- Rebuilt for Boost 1.83
+
+* Thu Jan 18 2024 Richard Shaw <hobbes1069@gmail.com> - 2.5.6.0-1
+- Update to 2.5.6.0.
 
 * Thu Nov 09 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.17.0-1
 - Update to 2.4.17.0.

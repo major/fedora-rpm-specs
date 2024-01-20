@@ -1,5 +1,5 @@
 Name:           python-rapidfuzz
-Version:        2.13.7
+Version:        3.5.2
 Release:        %autorelease
 Summary:        Rapid fuzzy string matching in Python and C++ using the Levenshtein Distance
 
@@ -18,10 +18,6 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-cython >= 3
 BuildRequires:  rapidfuzz-cpp-static
 BuildRequires:  taskflow-static
-
-# Backport a Cython 3.0.0 fix from the latest python-rapidfuzz sources.
-# https://github.com/maxbachmann/RapidFuzz/commit/2db511010d03c6453c239066cba85ee1b84dcc1e
-Patch0: fix-cython3.0.0-build.patch
 
 %global _description %{expand:
 RapidFuzz is a fast string matching library for Python and C++, which is using

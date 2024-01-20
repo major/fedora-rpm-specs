@@ -75,10 +75,10 @@ done
 
 sed -i 's/>@.*</>%{version}</' src/build/misc/pom.xml
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
 
 %build
 

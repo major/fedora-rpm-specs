@@ -1,16 +1,18 @@
+%global forgeurl https://github.com/openjdk/jfx17u
 %global openjfxdir %{_jvmdir}/%{name}
-%global rtdir jfx-17.0.0.1-1
+%global rtdir jfx17u-17.0.10-2
 
 Name:           openjfx
 Epoch:          3
-Version:        17.0.0.1
-Release:        7%{?dist}
+Version:        17.0.10.2
+Release:        1%{?dist}
 Summary:        Rich client application platform for Java
+%forgemeta
 
 License:        GPL v2 with exceptions and BSD
-URL:            http://openjdk.java.net/projects/openjfx/
+URL:            %{forgeurl}
 
-Source0:        hg.openjdk.java.net/openjfx/11-dev/rt/archive/jfx-17.0.0.1-1.zip
+Source0:        %{forgesource}
 Source1:        pom-base.xml
 Source2:        pom-controls.xml
 Source3:        pom-fxml.xml
@@ -76,8 +78,6 @@ BuildRequires:  cmake
 BuildRequires:  gperf
 BuildRequires:  perl
 BuildRequires:  python3
-BuildRequires:  ruby-devel
-BuildRequires:  rubygem-json
 
 %description
 JavaFX/OpenJFX is a set of graphics and media APIs that enables Java
@@ -90,6 +90,7 @@ The media module have been removed due to missing dependencies.
 
 %prep
 %autosetup -p1 -n %{rtdir}
+#%forgesetup
 
 #Drop *src/test folders
 rm -rf modules/javafx.{base,controls,fxml,graphics,media,swing,swt,web}/src/test/
@@ -165,6 +166,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Thu Jan 18 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.10.2-1
+- Bump to 17.0.10 and suppress ruby dependency
+
 * Mon Jan 08 2024 Florian Weimer <fweimer@redhat.com> - 3:17.0.0.1-7
 - C compatibility fixes
 

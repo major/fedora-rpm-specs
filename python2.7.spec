@@ -78,7 +78,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 37%{?dist}
+Release: 38%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -926,6 +926,10 @@ Patch405: 00405-fix-c99-build-error.patch
 # Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2022-48565
 Patch406: 00406-cve-2022-48565.patch
 
+# 00407 # f562db9763f424318fd311e3267d2aed0afadbbe
+# gh-99086: Fix implicit int compiler warning in configure check for PTHREAD_SCOPE_SYSTEM
+Patch407: 00407-gh-99086-fix-implicit-int-compiler-warning-in-configure-check-for-pthread_scope_system.patch
+
 # 00408 # 7cfb7e151bb64b384c47bfe0dddf5c2d6837772f
 # Security fix for CVE-2022-48560: python3: use after free in heappushpop()
 # of heapq module
@@ -933,6 +937,14 @@ Patch406: 00406-cve-2022-48565.patch
 #
 # Backported from Python 3.6.11.
 Patch408: 00408-cve-2022-48560.patch
+
+# 00410 # ea9f02d63dc0f772362f520967bce90e4f4d3abd
+# bpo-42598: Fix implicit function declarations in configure
+#
+# This is invalid in C99 and later and is an error with some compilers
+# (e.g. clang in Xcode 12), and can thus cause configure checks to
+# produce incorrect results.
+Patch410: 00410-bpo-42598-fix-implicit-function-declarations-in-configure.patch
 
 # 00415 # eb2d53e3e9bd2c708e9387044e8a84f0acda5830
 # [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
@@ -950,6 +962,13 @@ Patch408: 00408-cve-2022-48560.patch
 # - Do not use SubTest
 # - KW only function arguments are not supported
 Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
+
+# 00417 # 48af248abeac52b6f26f056405170d366ea132ef
+# Avoid passing incompatible pointer type in _tkinter
+#
+# Modules/_tkinter.c:1178:38: error: passing argument 1 of ‘Tcl_NewUnicodeObj’
+# from incompatible pointer type [-Wincompatible-pointer-types]
+Patch417: 00417-avoid-passing-incompatible-pointer-type-in-_tkinter.patch
 
 # (New patches go here ^^^)
 #
@@ -1124,7 +1143,10 @@ git apply %{PATCH351}
 %patch -P403 -p1
 %patch -P405 -p1
 %patch -P406 -p1
+%patch -P407 -p1
 %patch -P408 -p1
+%patch -P410 -p1
+%patch -P417 -p1
 
 %if %{without tkinter}
 %patch -P4000 -p1
@@ -1826,6 +1848,11 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Wed Jan 17 2024 Miro Hrončok <mhroncok@redhat.com> - 2.7.18-38
+- Fix a build failure with GCC 14
+- Fix errors in configure script with GCC 14
+Resolves: rhbz#2147519
+
 * Fri Dec 22 2023 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-37
 - Security fix for CVE-2023-27043
 Resolves: rhbz#2196186

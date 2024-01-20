@@ -390,6 +390,17 @@ Patch:          grpc-1.48.4-wrap_socket.patch
 #
 # Backported to 1.48.4.
 Patch:          grpc-1.48.4-find_module.patch
+# Backport several #include directives
+# These were included in https://github.com/grpc/grpc/pull/30952
+#
+# [Fix] Added missing #include (#34359)
+# See: https://github.com/grpc/grpc/pull/34359
+#
+# Add abseil includes in test/cpp/end2end/xds/xds_server.h
+# Downstream-only because the current release, 1.60.0, builds without changes.
+#
+# Together, these fix compatibility with abseil-cpp-20240116.rc1.
+Patch:          grpc-1.48.4-abseil-cpp-includes.patch
 
 # [http2] Dont drop connections on metadata limit exceeded (#32309)
 #

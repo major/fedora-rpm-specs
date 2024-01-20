@@ -5,7 +5,7 @@
 
 Name:           OpenColorIO
 Version:        2.2.1
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 License:        BSD
@@ -179,6 +179,12 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Thu Jan 18 2024 Richard Shaw <hobbes1069@gmail.com> - 2.2.1-8
+- Rebuild for OIIO 2.5.6.
+
+* Mon Jan 01 2024 Richard Shaw <hobbes1069@gmail.com> - 2.2.1-7
+- Rebuild for OpenImageIO 2.5.x.
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.2.1-6
 - Rebuilt for minizip-ng transition Fedora change
 - Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition

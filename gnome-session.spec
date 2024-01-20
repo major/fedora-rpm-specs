@@ -64,9 +64,10 @@ Requires: gsettings-desktop-schemas >= 0.1.7
 
 Requires: dbus
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# xdg-desktop-portal and xdg-desktop-portal-gtk no longer have i686
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
+%endif
 
 
 %description

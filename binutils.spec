@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -314,6 +314,10 @@ Patch34: binutils-ppc-dt_relr-relocs.patch
 # Purpose:  Add support for mangling used by gcc v14.
 # Lifetime: Fixed in 2.42
 Patch35: binutils-demangler-updates.patch
+
+# Purpose:  Add support for Intel's APX extensions (part 1)
+# Lifetime: Fixed in 2.42
+Patch36: binutils-Intel-APX-part-1.patch
 
 #----------------------------------------------------------------------------
 
@@ -1350,6 +1354,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Jan 17 2024 Nick Clifton  <nickc@redhat.com> - 2.41-27
+- Add support for Intel's APX (part 1) architecture extensions.
+
 * Wed Jan 17 2024 Nick Clifton  <nickc@redhat.com> - 2.41-26
 - Import libiberty demangling improvements in order to support gcc v14 mangling.
 

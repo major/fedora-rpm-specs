@@ -1,3 +1,6 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global		build_type_safety_c  2
+
 %global		use_release	0
 %global		use_gitbare	1
 
@@ -39,7 +42,7 @@
 
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extremly fast and lightweight file manager
 
 # SPDX confirmed
@@ -208,6 +211,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20230917gite6b422b2-2
+- Change -Wincompatible-pointer-types from error to warning
+
 * Thu Sep 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20230917gite6b422b2-1
 - Update to the latest git
 

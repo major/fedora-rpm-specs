@@ -2,17 +2,27 @@
 
 Name:		rapidjson
 Version:	1.1.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Fast JSON parser and generator for C++
 
 # Most files are MIT, rapidjson/msinttypes/{stdint,inttypes}.h are BSD
 License:	MIT AND BSD-3-Clause
 URL:		http://rapidjson.org/
 Source0:	https://github.com/Tencent/rapidjson/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/Tencent/rapidjson/pull/719
+Patch:          0001-Removed-non-compiling-assignment-operator.-Fixed-718.patch
+# https://github.com/Tencent/rapidjson/pull/719
+Patch:          0002-Explicitly-disable-copy-assignment-operator.patch
+# https://github.com/Tencent/rapidjson/pull/1137
+Patch:          0003-Three-way-comparison-for-CLang-10-fix-1679.patch
+# https://github.com/Tencent/rapidjson/pull/1679
+Patch:          0004-Fix-recursive-operator-call-in-C-20-1846.patch
+# https://github.com/Tencent/rapidjson/pull/1847
+Patch:          0005-gate-definition-of-symmetric-equality-operators-on-i.patch
+# https://github.com/Tencent/rapidjson/pull/2091
+Patch:          0006-do-not-define-operator-in-C-20.patch
 # Downstream-patch for gtest
-Patch0:		rapidjson-1.1.0-do_not_include_gtest_src_dir.patch
-# Upstream derived patch for C++20 support
-Patch1:         rapidjson-1.1.0-c++20.patch
+Patch:          0007-do-not-include-gtest_src_dir.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -120,6 +130,9 @@ find %{buildroot} -type f -name 'CMake*.txt' -delete
 
 
 %changelog
+* Thu Jan 18 2024 Tom Hughes <tom@compton.nu> - 1.1.0-25
+- Add upstream patches for improved gcc 14 and C++20 support
+
 * Fri Jan 05 2024 Honza Horak <hhorak@redhat.com> - 1.1.0-24
 - SPDX migration
 - Add BSD license that is used by stdint.h and inttypes.h

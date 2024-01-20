@@ -1,8 +1,8 @@
 %global pkgname quagroup
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.8.3
-Release:        6%{?dist}
+Version:        1.8.4
+Release:        1%{?dist}
 Summary:        Computations with quantum groups
 
 License:        GPL-2.0-or-later
@@ -64,6 +64,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jan 17 2024 Jerry James <loganjerry@gmail.com> - 1.8.4-1
+- Version 1.8.4
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

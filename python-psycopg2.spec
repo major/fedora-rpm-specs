@@ -50,12 +50,12 @@ features offered by PostgreSQL.
 Summary:	%{sum}
 Name:		python-%{srcname}
 Version:	2.9.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
 License:	LGPL-3.0-or-later WITH openvpn-openssl-exception
-Url:		http://initd.org/psycopg/
+Url:		https://www.psycopg.org/
 
-Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-8/psycopg2-%{version}.tar.gz
+Source0:	https://github.com/psycopg/psycopg2/archive/%{version}/psycopg2-%{version}.tar.gz
 
 %{?with_python2:BuildRequires:	python2-devel python2-setuptools}
 %{?with_python3:BuildRequires:	python3-devel python3-setuptools}
@@ -123,7 +123,7 @@ Summary: %{sum} 3
 
 
 %package -n python3-%{srcname}-tests
-Summary: A testsuite for %sum 2
+Summary: A testsuite for %sum 3
 Requires: python3-%srcname = %version-%release
 
 %description -n python3-%{srcname}-tests
@@ -311,6 +311,9 @@ done
 
 
 %changelog
+* Tue Jan 16 2024 Miro Hrončok <mhroncok@redhat.com> - 2.9.9-2
+- Fix URL and Source URL
+
 * Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> -  2.9.9-1
 - Rebase to the latest upstream version
 

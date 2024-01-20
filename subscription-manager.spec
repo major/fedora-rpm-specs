@@ -95,7 +95,7 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.29.39
+Version: 1.29.40
 Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
@@ -186,6 +186,7 @@ BuildRequires: openssl-devel
 BuildRequires: gcc
 BuildRequires: %{py_package_prefix}-setuptools
 BuildRequires: gettext
+BuildRequires: glib2-devel
 
 %if 0%{?suse_version}
 BuildRequires: distribution-release
@@ -734,6 +735,20 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Thu Jan 18 2024 Packit <hello@packit.dev> - 1.29.40-1
+- Automatic commit of package [subscription-manager] release [1.29.40-1]. (Pino Toscano)
+- Translated using Weblate (Korean) (김인수)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (Jingge Chen)
+- spec: Add missing GLib dependency when building without DNF (Debarshi Ray)
+- Remove deprecated `locale.*()` functions (mhorky)
+- Remove version constraint of pytest (mhorky)
+- RHEL-15110: RegisterServer is stopped, when not needed (Jiri Hnidek)
+- RHEL-15110: Fix issue with registration using gsd-subman (Jiri Hnidek)
+- Fix an error in debug logging of cloud-what (mhorky)
+- ci: bump actions/upload-artifact from 3 to 4 (dependabot[bot])
+- Improve debug logging to make it faster to understand (mhorky)
+- Resolves rhbz#2258965
+
 * Thu Nov 23 2023 Pino Toscano <ptoscano@redhat.com> 1.29.39-1
 - tito: drop bz requirement (ptoscano@redhat.com)
 - Translated using Weblate (Chinese (Simplified) (zh_CN)) (jsefler@redhat.com)

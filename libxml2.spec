@@ -3,9 +3,10 @@ Version:        2.12.4
 Release:        1%{?dist}
 Summary:        Library providing XML and HTML support
 
-# Libxml2 is covered under MIT, and the conformance and test suite data in
-# Source1, Source2 and Source3 is covered by W3C.
-License:        MIT AND W3C
+# list.c, dict.c and few others use ISC-Veillard
+# the conformance and test suite data in
+# Source1, Source2 and Source3 is covered by W3C
+License:        MIT AND ISC-Veillard AND W3C
 URL:            https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
 Source0:        https://download.gnome.org/sources/%{name}/2.12/%{name}-%{version}.tar.xz
 # https://www.w3.org/XML/Test/xmlconf-20080827.html

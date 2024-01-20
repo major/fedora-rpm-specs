@@ -1,38 +1,49 @@
 Name:           gnome-network-displays
-Version:        0.90.5
-Release:        6%{?dist}
+Version:        0.91.0
+Release:        1%{?dist}
 Summary:        Stream the desktop to Wi-Fi Display capable devices
 
 # The icon is licensed CC-BY-SA
 License:        GPLv3+ and CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/gnome-network-displays
-Source0:        https://download.gnome.org/sources/%{name}/0.90/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/0.91/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  libappstream-glib
-BuildRequires:  gettext
-BuildRequires:  meson
+BuildRequires:  firewalld-filesystem
 BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  libappstream-glib
+BuildRequires:  meson
+BuildRequires:  pkgconfig(avahi-client)
+BuildRequires:  pkgconfig(avahi-gobject)
 BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(libnm) >= 1.15.1
-BuildRequires:  pkgconfig(libpulse-mainloop-glib)
+BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.14
+BuildRequires:  pkgconfig(gstreamer-pbutils-1.0) >= 1.14
+BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
+BuildRequires:  pkgconfig(gstreamer-rtsp-1.0) >= 1.14
 BuildRequires:  pkgconfig(gstreamer-rtsp-server-1.0)
-BuildRequires: firewalld-filesystem
+BuildRequires:  pkgconfig(gstreamer-video-1.0) >= 1.14
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libnm) >= 1.15.1
+BuildRequires:  pkgconfig(libprotobuf-c)
+BuildRequires:  pkgconfig(libpulse-mainloop-glib)
+BuildRequires:  pkgconfig(libsoup-3.0)
 
 # Versioned library deps
-Requires: NetworkManager-libnm > 1.16.0
-Requires: gstreamer1-rtsp-server
 Requires: gnome-desktop3
+Requires: gstreamer1-rtsp-server
 Requires: gtk3
 Requires: hicolor-icon-theme
+Requires: NetworkManager-libnm > 1.16.0
+%if !0%{?flatpak}
 Requires: NetworkManager-wifi
 Requires: pipewire-gstreamer
+%endif
 
 %description
 GNOME Network Displays allows you to cast your desktop to a remote display.
-Currently implemented is support for casting to Wi-Fi Display capable devices
-(a.k.a. Miracast).
+Supports the Miracast and Chromecast protocols.
 
 %prep
 %autosetup -p1
@@ -65,6 +76,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_prefix}/lib/firewalld/zones/P2P-WiFi-Display.xml
 
 %changelog
+* Thu Jan 18 2024 Christian Glombek <lorbus@fedoraproject.org> - 0.91.0-1
+- Sort dependencies alphabetically
+- Update to v0.91.0
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

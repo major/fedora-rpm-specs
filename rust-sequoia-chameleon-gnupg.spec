@@ -12,7 +12,10 @@ Summary:        Sequoia's reimplementation of the GnuPG interface
 # * bundled source file from libgpg-error: LGPL-2.1-or-later
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://crates.io/crates/sequoia-chameleon-gnupg
-Source:         %{crates_source}
+Source0:        %{crates_source}
+# wrapper script to enable working in environment where gpg == gpg-sq
+Source1:        gpgconf-sq.sh
+Source2:        activate.sh
 # Manually created patch for downstream crate metadata changes
 # * port from obsolete "home-dir" crate to "shellexpand"
 # * drop unavailable "interprocess" dev-dependency
@@ -22,6 +25,8 @@ Patch:          sequoia-chameleon-gnupg-fix-metadata.diff
 # * backport upstream patch to port from "home-dir" to "shellexpand":
 #   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/commit/03f23a7
 Patch:          0001-port-from-home-dir-to-shellexpand.patch
+# * fix running integration tests in release mode with prebuilt executable
+Patch:          0002-fix-running-integration-tests-in-release-mode-with-p.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -56,6 +61,10 @@ License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-3-Clause AND BSL-1.0 AND
 # includes a copy of src/err-codes.h.in from libgpg-error (unknown version)
 Provides:       bundled(libgpg-error)
 
+# the chameleon still relies on gpg-agent and gpgconf (for now)
+Requires:       /usr/bin/gpg-agent
+Requires:       /usr/bin/gpgconf
+
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
@@ -65,11 +74,12 @@ Provides:       bundled(libgpg-error)
 %doc README.md
 %{_bindir}/gpg-sq
 %{_bindir}/gpgv-sq
+%{_datadir}/%{crate}/
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# * drop tests that would require extensive patching to work in mock
+# * drop tests that depend on the missing "interprocess" crate
 rm -vr tests/
 
 %generate_buildrequires
@@ -82,6 +92,12 @@ rm -vr tests/
 
 %install
 %cargo_install
+# install wrapper script to enable working in environment where gpg == gpg-sq
+install -Dpm0644 %{SOURCE2} -T %{buildroot}/%{_datadir}/%{crate}/activate
+install -Dpm0755 %{SOURCE1} -T %{buildroot}/%{_datadir}/%{crate}/shims/gpgconf
+ln -s /usr/bin/gpg-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpg
+ln -s /usr/bin/gpg-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpg2
+ln -s /usr/bin/gpgv-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpgv
 
 %if %{with check}
 %check

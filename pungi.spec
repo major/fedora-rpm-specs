@@ -2,12 +2,13 @@
 
 Name:           pungi
 Version:        4.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+Patch1:         https://pagure.io/pungi/pull-request/1711.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -141,6 +142,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Thu Jan 18 2024 Lubomír Sedlář <lsedlar@redhat.com> - 4.6.0-2
+- ostree_container: Use unique temporary directory
+
 * Wed Dec 13 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.6.0-1
 - Add ostree container to image metadata (lsedlar)
 - Updates for ostree-container phase (lsedlar)

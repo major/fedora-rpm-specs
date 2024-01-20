@@ -3,13 +3,20 @@
 Summary: An X Window System tool for drawing basic vector graphics
 Name: xfig
 Version: 3.2.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL:     https://en.wikipedia.org/wiki/Xfig
 Source0: http://downloads.sourceforge.net/mcj/xfig-%{version}.tar.xz
 Source1: xfig-icons.tar.gz
 Source2: xfig.desktop
 Source3: xfig.appdata.xml
+# https://sourceforge.net/p/mcj/tickets/165/
+# https://bugzilla.redhat.com/show_bug.cgi?id=2252679
+# https://sourceforge.net/p/mcj/xfig/ci/68403622a6f6c7d74f73e38989cfc0ed86fb83fc/
+Patch0:  Sanitize-a-call-to-realloc-ticket-165.patch
+# https://sourceforge.net/p/mcj/tickets/163/
+# https://sourceforge.net/p/mcj/xfig/ci/a4a2f3f3aa29ec7fc84f9d782306b37bbe75025c/
+Patch1:  Fix-exporting-only-active-layers-ticket-163.patch
 
 #Patch0: xfig-3.2.5a-default-apps.patch
 #Patch1: xfig-3.2.5-urwfonts.patch
@@ -108,7 +115,12 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
-* Sat Aug 26 2023 Ranjan Maitra <aarem@fedoraproject.org> - 3.2.9
+* Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.2.9-2
+- Backport upstream patches for upstream 2 issues
+  - Fix exporting only active layers
+  - Sanitize a call to realloc (redhat #2252679)
+
+* Sat Aug 26 2023 Ranjan Maitra <aarem@fedoraproject.org> - 3.2.9-1
 - New upstream release 3.2.9
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8b-4

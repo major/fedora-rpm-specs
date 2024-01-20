@@ -28,7 +28,7 @@
 Name:  COPASI
 Summary: Biochemical network simulator
 Version: 4.42.%{buildid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 ## Artistic 2.0 is main license
 ## GPLv2+ is related to a Mixed Source Licensing Scenario
@@ -496,6 +496,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.42.284-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 02 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.42.284-1
 - Release 4.42 build-284
 
