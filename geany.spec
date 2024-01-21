@@ -5,7 +5,7 @@
 
 Name:      geany
 Version:   2.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A fast and lightweight IDE using GTK3
 
 License:   GPLv2+ and MIT
@@ -155,6 +155,9 @@ EOF
 %{_libdir}/pkgconfig/geany.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 23 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 2.0-1
 - New upstream release: Geany 2.0
 

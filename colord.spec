@@ -10,7 +10,7 @@
 Summary:   Color daemon
 Name:      colord
 Version:   1.4.6
-Release:   7%{?dist}
+Release:   8%{?dist}
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:       https://www.freedesktop.org/software/colord/
 Source0:   https://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
@@ -256,6 +256,9 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/storage.db
 %{_datadir}/installed-tests/colord/*
 
 %changelog	
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 01 2023 Daan De Meyer <daan.j.demeyer@gmail.com> - 1.4.6-7
 - Provide a sysusers.d file to get user() and group() provides
   (see https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format).

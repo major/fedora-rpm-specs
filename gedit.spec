@@ -17,7 +17,7 @@
 Name:		gedit
 Epoch:		2
 Version:	45.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Text editor for the GNOME desktop
 
 License:	GPLv2+ and GFDL
@@ -165,6 +165,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_datadir}/gtk-doc/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:45.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:45.0-1
 - Update to 45.0
 

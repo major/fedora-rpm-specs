@@ -1,6 +1,6 @@
 Name:           global
 Version:        6.6.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPLv3+ except
 #   libglibc/ which is LGPLv2+
@@ -109,6 +109,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 07 2024 Pavel Zhukov <landgraf@fedoraproject.org> - 6.6.5-11
 - Fix pathfix usage
 

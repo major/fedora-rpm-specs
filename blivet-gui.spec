@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.4.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 Patch0: 0001-Fix-segfault-when-trying-to-reuse-an-invalid-GtkTreeIter.patch
@@ -78,6 +78,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 06 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-4
 - Fix logic when checking for dialog response (#2241761)
 

@@ -2,7 +2,7 @@
 
 Name:           OpenNL
 Version:        3.2.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A library for solving sparse linear systems
 
 License:        BSD
@@ -87,6 +87,9 @@ find src/NL/ -name "*.h" ! -name "nl.h" -execdir cp -av '{}' $RPM_BUILD_ROOT/%{_
 %{_includedir}/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

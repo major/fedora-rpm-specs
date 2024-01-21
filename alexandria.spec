@@ -7,7 +7,7 @@ BuildRequires:  %{*} \
 %undefine		minorver	
 %undefine		ifpre	
 
-%define		baserelease	5
+%define		baserelease	6
 %define		rel		%{?ifpre:0.}%{baserelease}%{?minorver:.%minorver}
 
 
@@ -359,6 +359,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  2 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.9-5
 - SPDX migration
 

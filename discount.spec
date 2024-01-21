@@ -1,6 +1,6 @@
 Name:           discount
 Version:        2.2.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A command-line utility for converting Markdown files into HTML
 License:        BSD
 URL:            http://www.pell.portland.or.us/~orc/Code/%{name}
@@ -107,6 +107,9 @@ done
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Greg Hellings <greg.hellings@gmail.com> - 2.2.7-6
 - Use upstream manpage install command
 - Rename man pages whose names are bad

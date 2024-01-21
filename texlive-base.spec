@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 77%{?dist}
+Release: 78%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -524,6 +524,9 @@ Patch45: texlive-fedora-texmfcnf.lua.patch
 
 # Fix interpreter on perl scripts (thanks again to Debian)
 Patch46: texlive-base-20230311-fix-scripts.patch
+
+# fix build error with gcc-14
+Patch47: texlive-base-20230311-typecasts.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -8296,6 +8299,7 @@ ln -s %{_texdir}/licenses/$l $l
 done
 
 %patch -P44 -p1 -b .pdf-header-order-fix
+%patch -P47 -p1 -b .gcc-14-typecast
 
 # Disable broken tests
 # updmap-cmdline-test.pl is not useful and it will fail because it finds the system perl bits instead of the local copy
@@ -11109,6 +11113,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Fri Jan 19 2024 Than Ngo <than@redhat.com> - 11:20230311-78
+- fixed bz#2259157 - texlive-base FTBFS
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11:20230311-77
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

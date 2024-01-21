@@ -3,14 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.6.0
-Release:        2%{?dist}
+Version:        3.7~alpha
+Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
-Source0:        https://download.gnome.org/sources/tracker/3.6/tracker-%{tarball_version}.tar.xz
-Patch0: tracker-meson-c99.patch
+Source0:        https://download.gnome.org/sources/tracker/3.7/tracker-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:  gettext
@@ -147,7 +146,6 @@ The %{name}-devel package contains the documentation for %{name}.
 %{_libdir}/girepository-1.0/Tracker-3.0.typelib
 %{_libdir}/libtracker-sparql-3.0.so.0*
 %{_libdir}/tracker-3.0/
-%{_datadir}/tracker3/
 
 %files devel
 %{_includedir}/tracker-3.0/
@@ -168,6 +166,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Fri Jan 19 2024 David King <amigadave@amigadave.com> - 3.7~alpha-1
+- Update to 3.7.alpha
+
 * Mon Jan 08 2024 Florian Weimer <fweimer@redhat.com> - 3.6.0-2
 - Backport upstream patch to fix C compatibility issue in Meson probe
 

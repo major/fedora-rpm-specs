@@ -10,9 +10,12 @@ Version:        1.5.0
 Release:        %autorelease
 Summary:        BLAKE3 hash function
 
-License:        CC0-1.0 OR Apache-2.0
+License:        Apache-2.0
 URL:            https://crates.io/crates/blake3
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * remove CC0-1.0 from license metadata (not acceptable for code in Fedora)
+Patch:          blake3-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -4,7 +4,7 @@
 
 Name:		%{fontname}-fonts
 Version:	20030323
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Letters Laughing is a decorative/LED sans-serif font
 
 License:	OFL	
@@ -46,6 +46,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20030323-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20030323-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

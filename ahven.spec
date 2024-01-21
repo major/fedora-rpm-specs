@@ -1,6 +1,6 @@
 Name:           ahven
 Version:        2.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A unit testing framework for Ada 95
 Summary(sv):    Ett enhetstestramverk för ada 95
 
@@ -112,6 +112,9 @@ export GNATBINDFLAGS=-shared
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Björn Persson <Bjorn@Rombobjörn.se> - 2.8-8
 - Rebuilt with GCC 14 prerelease.
 

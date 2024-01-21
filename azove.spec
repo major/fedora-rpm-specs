@@ -1,6 +1,6 @@
 Name:           azove
 Version:        2.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Another Zero-One Vertex Enumeration tool
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ install -m 0644 -p %{SOURCE1} %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/%{name}2.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.0-26
 - Stop building for 32-bit x86
 

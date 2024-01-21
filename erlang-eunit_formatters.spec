@@ -4,7 +4,7 @@
 
 Name:     erlang-%{realname}
 Version:  0.5.0
-Release:  12%{?dist}
+Release:  13%{?dist}
 BuildArch:noarch
 Summary:  Better output format for eunit test suites
 License:  ASL 2.0
@@ -33,6 +33,9 @@ BuildRequires:  erlang-rebar3
 %{erlang_appdir}/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

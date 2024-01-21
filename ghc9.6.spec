@@ -55,7 +55,7 @@ Version: 9.6.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -825,6 +825,9 @@ make test
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  9 2024 Jens Petersen <petersen@redhat.com> - 9.6.4-13
 - https://downloads.haskell.org/ghc/9.6.4/docs/users_guide/9.6.4-notes.html
 

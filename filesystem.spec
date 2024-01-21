@@ -1,7 +1,7 @@
 Summary: The basic directory layout for a Linux system
 Name: filesystem
 Version: 3.18
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://pagure.io/filesystem
 Source1: https://pagure.io/filesystem/raw/master/f/lang-exceptions
@@ -311,6 +311,9 @@ end
 /var/yp
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.18-6
 - Add /etc/keys for initrd/kernel related keys
 

@@ -1,6 +1,6 @@
 Name:           fakechroot
 Version:        2.20.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Gives a fake chroot environment
 License:        LGPLv2+
 URL:            https://github.com/dex4er/fakechroot
@@ -82,6 +82,9 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 %{_libdir}/%{name}/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 28 2023 Sérgio Basto <sergio@serjux.com> - 2.20.1-16
 - Update patch 104
 - Use fix_test_on_32bits.patch and also remove -d option on cp test to fix the build

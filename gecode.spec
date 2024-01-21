@@ -2,7 +2,7 @@
 
 Name:           gecode
 Version:        6.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Generic constraint development environment
 
 License:        MIT
@@ -157,6 +157,9 @@ make check
 %license LICENSE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Julian C. Dunn <jdunn@aquezada.com> - 6.2.0-13
 - Removed deprecated %patchN syntax
 - Significantly cut down compiler deprecation warnings (gecode-6.2.0-fix_warnings.patch)

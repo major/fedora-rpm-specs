@@ -6,7 +6,7 @@
 
 Name:			emacs-common-%{pkg}
 Version:		%{ver}~0.%{snap}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		W3m interface for Emacsen
 
 # GPLv3+ bookmark-w3m.el
@@ -145,6 +145,9 @@ rm -rf $RPM_BUILD_ROOT%{_xemacs_sitelispdir}/%{pkg}/{ChangeLog,ChangeLog.1,sChan
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.632~0.e3b87d61-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Akira TAGOH <tagoh@redhat.com> - 1.4.632~0.e3b87d61-1
 - Rebase to 1.4.632 in git.
   Resolves: rhbz#2249352

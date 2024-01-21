@@ -1,6 +1,6 @@
 Name:           dsp
 Version:        1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An audio processing program with an interactive mode
 
 # Everything is ISC
@@ -66,6 +66,9 @@ export CXXFLAGS="%{optflags}"
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 14 2024 Sérgio Basto <sergio@serjux.com> - 1.9-1
 - Update dsp to 1.9
 - Migrated to SPDX license (noop)

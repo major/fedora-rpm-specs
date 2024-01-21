@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        3.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -410,6 +410,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.10.1-1
 - 3.10.1
 

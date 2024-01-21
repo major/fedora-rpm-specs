@@ -13,7 +13,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.9.0.1
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Efficient algorithms for vector arrays
 
 License:        BSD-3-Clause
@@ -152,6 +152,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Jens Petersen <petersen@redhat.com> - 0.9.0.1-1
 - https://hackage.haskell.org/package/vector-algorithms-0.9.0.1/changelog
 - subpackage bitvec

@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.88.0
+Version:        0.89.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Jan 19 2024 Packit <hello@packit.dev> - 0.89.0-1
+- We have fixed a bug in handling chroot-specific configuration once the chroots themselves are updated. (#2194)
+
 * Sun Jan 07 2024 Packit <hello@packit.dev> - 0.88.0-1
 - We have fixed a bug preventing the release from being synced downstream if the changelog to be set is empty. (#2183)
 - Resolves rhbz#2257183

@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.14.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        Apache-2.0
 URL:            http://bytebuddy.net/
@@ -149,6 +149,9 @@ profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompil
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.14.2-4
 - Convert License tag to SPDX format
 

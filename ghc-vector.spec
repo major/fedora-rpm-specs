@@ -11,7 +11,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.13.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Efficient Arrays
 
 License:        BSD-3-Clause
@@ -135,6 +135,9 @@ cabal-tweak-dep-ver ghc-prim '< 0.9' '< 0.10'
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Jens Petersen <petersen@redhat.com> - 0.13.0.0-1
 - https://hackage.haskell.org/package/vector-0.13.0.0/changelog
 - add vector-stream

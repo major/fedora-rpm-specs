@@ -3,12 +3,13 @@
 Name:           cheese
 Epoch:          2
 Version:        44.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Application for taking pictures and movies from a webcam
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Cheese
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Patch0: cheese-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -67,7 +68,8 @@ for writing applications that require a webcam display widget.
 
 %prep
 %autosetup -p1 -n %{name}-%{tarball_version}
-
+# Trigger recompilation of all Vala sources.
+find -name '*.vala' -exec touch {} \;
 
 %build
 %meson -Dtests=false
@@ -113,6 +115,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Cheese.desk
 
 
 %changelog
+* Fri Jan 19 2024 Florian Weimer <fweimer@redhat.com> - 2:44.1-3
+- GCC 14 compatiblity fixes & Vala rebuild
+
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:44.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Kalev Lember <klember@redhat.com> - 2:44.1-1
 - Update to 44.1
 

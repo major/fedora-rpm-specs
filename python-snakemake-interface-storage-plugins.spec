@@ -1,6 +1,6 @@
 # Work around a circular dependency on snakemake and on
 # python-snakemake-storage-plugin-http.
-%bcond bootstrap 1
+%bcond bootstrap 0
 # We can’t run tests that access the network in koji, but this build
 # conditional allows us to try them in local mock builds for added confidence:
 #   fedpkg mockbuild --enable-network --with network_tests

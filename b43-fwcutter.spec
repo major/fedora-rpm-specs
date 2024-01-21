@@ -1,6 +1,6 @@
 Name:           b43-fwcutter
 Version:        019
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Firmware extraction tool for Broadcom wireless driver
 
 License:        BSD
@@ -39,6 +39,9 @@ install -m0644 b43-fwcutter.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %doc README README.too
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 019-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 019-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

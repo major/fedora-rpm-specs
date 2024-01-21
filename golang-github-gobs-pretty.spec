@@ -23,7 +23,7 @@ Pretty-Print Go data structures.}
 
 Name:           %{goname}
 Version:        0
-Release:        %autorelease -p
+Release:        %autorelease -p.1
 Summary:        Pretty-Print Go data structures
 
 License:        MIT
@@ -49,5 +49,8 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 31 2021 Robert-André Mauchin <zebob.m@gmail.com> 0-0.1
 - Initial release

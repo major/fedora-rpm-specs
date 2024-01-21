@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        6.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Command line tool to send GitHub pull-request
 
 License:        ASL 2.0
@@ -43,6 +43,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

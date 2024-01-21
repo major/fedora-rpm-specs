@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager-condor
 %global _name %(tr - _ <<< %{name})
 Version:	3.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Grid Community Toolkit - Condor Job Manager Support
 
 License:	Apache-2.0
@@ -77,6 +77,9 @@ fi
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

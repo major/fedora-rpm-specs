@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.8.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP interface to polymake
 
 License:        GPL-2.0-or-later
@@ -70,6 +70,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov  7 2023 Jerry James <loganjerry@gmail.com> - 0.8.7-1
 - Version 0.8.7
 - Drop upstreamed doc patch

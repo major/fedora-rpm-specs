@@ -4,7 +4,7 @@
 
 Name:       cscppc
 Version:    2.2.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A compiler wrapper that runs Cppcheck in background
 
 License:    GPL-3.0-or-later
@@ -135,6 +135,9 @@ done
 %{_mandir}/man1/csmatch.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Kamil Dudka <kdudka@redhat.com> 2.2.4-1
 - update to latest upstream release
 

@@ -25,7 +25,7 @@ HCL is heavily inspired by libucl, nginx configuration, and others similar.}
 %global gosupfiles glide.lock glide.yaml ${testfiles[@]}
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Hashicorp configuration language
 
 # Upstream license specification: MPL-2.0
@@ -73,6 +73,9 @@ end
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

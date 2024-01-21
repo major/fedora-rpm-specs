@@ -107,10 +107,9 @@ Patch:          0001-Downstream-only-patch-out-opentelemetry-instrumentat.patch
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2013
 # Backported to v0.43b0
 Patch:          0001-Feature-support-for-flask-3.0.0-2013.patch
-# Comment regarding allowing Werkzeug 3
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2013#issuecomment-1894621289
-# PR to be sent upstream if feedback on the comment is positive; until then,
-# this downstream-only patch:
+# Allow Werkzeug 3. This is done upstream via a larger change,
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2127, so
+# we carry a small downstream-only patch until the next release.
 Patch:          0001-Allow-Werkzeug-3.patch
 
 BuildArch:      noarch

@@ -2,7 +2,7 @@
 
 Name:           blobwars
 Version:        2.00
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Mission and Objective based 2D Platform Game
 # Code and gfx is all GPLv2+. Music is all CC-BY-SA. SFX are a mix, see readme
 License:        GPLv2+ and CC-BY-SA and CC-BY and BSD and Public Domain
@@ -102,6 +102,9 @@ EOF
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 28 2023 Hans de Goede <hdegoede@redhat.com> - 2.00-12
 - Fix FTBFS (rhbz#2225725)
 - Restore honering RPM_OPT_FLAGS, restore debuginfo pkgs

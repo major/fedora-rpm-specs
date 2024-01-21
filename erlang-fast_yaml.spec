@@ -4,7 +4,7 @@
 
 Name: erlang-%{srcname}
 Version: 1.0.33
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: ASL 2.0
 Summary: An Erlang wrapper for libyaml "C" library
@@ -59,6 +59,9 @@ install -pm755 priv/lib/* $RPM_BUILD_ROOT%{_libdir}/erlang/lib/%{srcname}-%{vers
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.33-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.33-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:       daala
 Version:    0
-Release:    25%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:    26%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:    Daala video compression
 License:    BSD
 URL:        http://xiph.org/daala/
@@ -146,6 +146,9 @@ rm -f %{buildroot}/%{_mandir}/man3/_*_include_daala_.3
 %{_bindir}/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-26.20200724git694d4ce
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-25.20200724git694d4ce
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

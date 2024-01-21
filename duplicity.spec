@@ -1,7 +1,12 @@
+# https://bugzilla.redhat.com/show_bug.cgi?id=2259243
+%ifarch s390x
+%global _lto_cflags %nil
+%endif
+
 %bcond_without check
 
 Name:           duplicity
-Version:        2.1.4
+Version:        2.1.5
 Release:        %autorelease
 Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 
@@ -24,7 +29,7 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 # chg:test: Add test case for issue #683.
 # https://gitlab.com/duplicity/duplicity/-/commit/e6671cdf4ed8b21b4a8bd1973bd458f62792cd29
 Patch0:         e6671cdf4ed8b21b4a8bd1973bd458f62792cd29.patch
-Patch1:         nosetuptoolsscm.patch
+Patch1:         ver312.patch
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6

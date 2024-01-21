@@ -39,7 +39,7 @@
 
 Name:               gfal2-python
 Version:            1.12.2
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Python bindings for gfal 2
 License:            ASL 2.0
 URL:                http://dmc.web.cern.ch/
@@ -177,6 +177,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.12.2-2
 - Rebuilt for Boost 1.83
 

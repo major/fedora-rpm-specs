@@ -1,6 +1,6 @@
 Name:           exfatprogs
 Version:        1.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Userspace utilities for exFAT filesystems
 License:        GPL-2.0-only
 URL:            https://github.com/%{name}/%{name}
@@ -46,6 +46,9 @@ autoreconf -vif
 %{_mandir}/man8/tune.exfat.*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 30 2023 Pavel Reichl <preichl@redhat.com> - 1.2.2-2
 - Convert License tag to SPDX format
 

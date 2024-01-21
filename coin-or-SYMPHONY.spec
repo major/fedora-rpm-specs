@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Solver for mixed-integer linear programs
 Version:	5.6.17
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}/wiki
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -116,6 +116,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_libdir}/pkgconfig/symphony.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.17-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.17-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

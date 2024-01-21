@@ -2,7 +2,7 @@
 
 Name:           c++-gtk-utils
 Version:        2.2.20
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library for GTK+ programming with C++
 
 License:        LGPLv2
@@ -195,6 +195,9 @@ popd
 %{_defaultdocdir}/%{name}/%{baseversion}/html
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.20-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.20-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -185,6 +185,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 12 2023 Jens Petersen <petersen@redhat.com> - 2.6.5-1
 - ghc-deps.sh: ghc-9.8 prof fixes adapted from mimi1vx (opensuse)
 - improve ghc-info.sh with a show mode

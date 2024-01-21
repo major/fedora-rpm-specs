@@ -4,7 +4,7 @@
 %global alt_name XaoS
 
 Name:           xaos
-Version:        4.3.1
+Version:        4.3.2
 Release:        %autorelease
 Summary:        A fast, portable real-time interactive fractal zoomer
 %global tag release-%{version}

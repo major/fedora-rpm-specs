@@ -1,7 +1,11 @@
+# If docs should point to local python3-docs rather than website.
+# python3-docs is not shipped in RHEL 9+
+%bcond py3docs %{undefined rhel}
+
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2021.11.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     http://threadingbuildingblocks.org/
 
@@ -23,7 +27,9 @@ BuildRequires: hwloc
 BuildRequires: hwloc-devel
 BuildRequires: make
 BuildRequires: python3-devel
+%if %{with py3docs}
 BuildRequires: python3-docs
+%endif
 BuildRequires: %{py3_dist setuptools}
 BuildRequires: %{py3_dist sphinx}
 BuildRequires: %{py3_dist sphinx-rtd-theme}
@@ -62,6 +68,9 @@ Blocks (TBB) C++ libraries.
 
 %package doc
 Summary: The Threading Building Blocks documentation
+%if %{with py3docs}
+Requires: python3-docs
+%endif
 %ifarch %{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2174300
 Conflicts: %{name}-doc.x86_64
@@ -90,9 +99,11 @@ for fil in $(grep -Frl %{_bindir}/env python); do
     rm $fil.orig
 done
 
+%if %{with py3docs}
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
     -i doc/GSG/conf.py doc/main/conf.py
+%endif
 
 %generate_buildrequires
 cd python
@@ -173,6 +184,9 @@ ctest --output-on-failure --force-new-ctest-process
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Fri Jan 19 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2021.11.0-3
+- Avoid python3-docs dependency on RHEL
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@fedoraproject.org> - 2021.11.0-2
 - Add patch for strict aliasing violation
 

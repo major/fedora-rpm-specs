@@ -1,6 +1,6 @@
 Name:          glogg
 Version:       1.1.4
-Release:       29%{?dist}
+Release:       30%{?dist}
 Summary:       Smart interactive log explorer
 License:       GPLv3+
 URL:           http://glogg.bonnefon.org
@@ -51,6 +51,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.1.4-29
 - Rebuilt for Boost 1.83
 

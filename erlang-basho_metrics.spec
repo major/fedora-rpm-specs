@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.0.0
-Release:	50%{?dist}
+Release:	51%{?dist}
 Summary:	Fast performance metrics for Erlang
 License:	ASL 2.0
 URL:		https://github.com/%{upstream}/%{realname}
@@ -45,6 +45,9 @@ rm -rf c_src/boost
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

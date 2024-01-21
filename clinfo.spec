@@ -1,7 +1,7 @@
 Name:           clinfo
 Summary:        Enumerate OpenCL platforms and devices
 Version:        3.0.23.01.25
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        CC0
 URL:            https://github.com/Oblomov/clinfo
@@ -37,6 +37,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.23.01.25-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.23.01.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

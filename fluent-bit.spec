@@ -1,6 +1,6 @@
 Name: fluent-bit
 Version: 2.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Fluent Bit is a super fast, lightweight, and highly scalable logging and metrics processor and forwarder.
 License: ASL 2.0
 URL: https://github.com/fluent/fluent-bit
@@ -90,6 +90,9 @@ rm -rvf %{buildroot}%{_includedir}
 %exclude /usr/lib64/libluajit.a
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Leoswaldo Macias Mancilla <lmaciasm10@gmail.com> - 2.1.1-1
 - Update to 2.1.1
 

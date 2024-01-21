@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Plugins for Geany
 
 License:        GPLv3+
@@ -871,6 +871,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0-3
 - Drop explicit requires on enchant-1
 

@@ -4,7 +4,7 @@
 
 Name:		glmark2
 Version:	2023.01
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Benchmark for OpenGL 2.0
 
 
@@ -220,6 +220,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Erico Nunes <ernunes@redhat.com> - 2023.01-3
 - Enable gbm offscreen backend
 

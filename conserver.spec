@@ -7,7 +7,7 @@
 
 Name:           conserver
 Version:        8.2.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Serial console server daemon/client
 
 License:        BSD-3-Clause AND Zlib
@@ -115,6 +115,9 @@ install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/conserver.service
 %{_mandir}/man1/console.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Lukáš Zaoral <lzaoral@redhat.com> - 8.2.7-6
 - fix buffer-overflow caused by SIGHUP during SSH connections (rhbz#2256665)
 

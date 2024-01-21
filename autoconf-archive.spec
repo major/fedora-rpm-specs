@@ -1,6 +1,6 @@
 Name:           autoconf-archive
 Version:        2023.02.20
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The Autoconf Macro Archive
 
 # The following licenses were seen in the binary rpm.
@@ -44,6 +44,9 @@ rm -frv %{buildroot}%{_datadir}/doc/%{name}
 %{_infodir}/autoconf-archive.info*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.02.20-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 27 2023 Frederic Berat <fberat@redhat.com> - 2023.02.20-3
 - Migrate to SPDX licenses (#2222089)
 

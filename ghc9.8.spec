@@ -57,7 +57,7 @@ Version: 9.8.1
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -832,6 +832,9 @@ make test
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan  5 2024 Jens Petersen <petersen@redhat.com> - 9.8.1-3
 - fix llvm alignment in data sections (@stefansf (IBM))
   which should fix certain runtime crashes (#2248097)

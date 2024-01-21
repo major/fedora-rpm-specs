@@ -21,7 +21,7 @@ Service Bus entities such as Queues, Topics and Subscriptions.}
 %global godocs          CONTRIBUTING.md README.md changelog.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Golang library for Azure Service Bus
 
 License:        MIT
@@ -77,6 +77,9 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 %gopkgfiles
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 30 2023 W. Michael Petullo <mike@flyn.org> - 0.11.5-1
 - Update to 0.11.5
 

@@ -1,8 +1,8 @@
 Name: libteam
 Version: 1.32
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for controlling team network device
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: http://www.libteam.org
 Source: http://www.libteam.org/files/libteam-%{version}.tar.gz
 
@@ -131,6 +131,9 @@ install -p -m 755 utils/bond2team $RPM_BUILD_ROOT%{_bindir}/bond2team
 %{_sysconfdir}/sysconfig/network-scripts/ifdown-TeamPort
 
 %changelog
+* Wed Jan 03 2024 Xin Long <lxin@redhat.com> - 1.32-2
+Use SDPX license IDs
+
 * Wed Sep 06 2023 Jiri Pirko <jiri@resnulli.us> - 1.32-1
 teamd: Add option to change evaluation logic of multiple link-watchers
 Revert: teamd: lacp: make sure that lacp_port_agg_update() works with correct unselectable state

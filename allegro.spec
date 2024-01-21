@@ -3,7 +3,7 @@
 
 Name:           allegro
 Version:        4.4.3.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        A game programming library
 Summary(es):    Una libreria de programacion de juegos
@@ -388,6 +388,9 @@ install -pm 644 addons/jpgalleg/readme.txt \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Hans de Goede <hdegoede@redhat.com> - 4.4.3.1-11
 - Fix dat2c bug causing FTBFS of allegro using packages (rhbz#2225996)
 - Trim changelog

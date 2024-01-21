@@ -27,7 +27,7 @@
 
 Name:           freerdp
 Version:        2.11.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
@@ -294,6 +294,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.11.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Ondrej Holy <oholy@redhat.com> - 2:2.11.4-1
 - Update to 2.11.4.
 

@@ -1,6 +1,6 @@
 Name: pcs
-Version: 0.11.6
-Release: 3%{?dist}
+Version: 0.11.7
+Release: 1%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -17,11 +17,9 @@ BuildArch: noarch
 %global pcs_source_name %{name}-%{version_or_commit}
 
 # ui_commit can be determined by hash, tag or branch
-%global ui_commit 0.1.17
-%global ui_modules_version 0.1.17
+%global ui_commit 0.1.18
+%global ui_modules_version 0.1.18
 %global ui_src_name pcs-web-ui-%{ui_commit}
-
-%global pcs_snmp_pkg_name  pcs-snmp
 
 %global pyagentx_version  0.4.pcs.2
 %global dacite_version 1.8.1
@@ -30,6 +28,13 @@ BuildArch: noarch
 
 %global pcs_bundled_dir pcs_bundled
 %global pcsd_public_dir pcsd/public
+%global ui_build_dir_standalone build_standalone
+%global ui_build_dir_cockpit build_cockpit
+%global ui_cockpit_dest ha-cluster
+%global ui_appstream_metainfo org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml
+
+%global pkg_pcs_snmp  pcs-snmp
+%global pkg_cockpit_ha_cluster cockpit-ha-cluster
 
 # prepend v for folder in GitHub link when using tagged tarball
 %if "%{version}" == "%{version_or_commit}"
@@ -48,11 +53,9 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_comm
 # pcs patches: <= 200
 # Patch0: name.patch
 
-# https://github.com/ClusterLabs/pcs/pull/713
-Patch0: 0001-Fix-DatatransferObjectTest-for-Python-3.12.patch
-
 # ui patches: >200
 # Patch201: name-web-ui.patch
+Patch201: make-AppStream-metainfo-more-descriptive.patch
 
 # git for patches
 BuildRequires: git-core
@@ -73,8 +76,8 @@ BuildRequires: python3-lxml
 # for building bundled python packages
 BuildRequires: python3-wheel
 # for bundled python dateutil
+# dateutil was unbundled in Fedora but our autotools still check for it
 BuildRequires: python3-setuptools_scm
-BuildRequires: python3-distro
 # ruby and gems for pcsd
 BuildRequires: ruby >= 2.5.0
 BuildRequires: ruby-devel
@@ -106,11 +109,7 @@ BuildRequires: pam
 BuildRequires: nss-tools
 
 # for building web ui
-%if 0%{?fedora} < 37
-BuildRequires: npm
-%else
 BuildRequires: nodejs-npm
-%endif
 
 # cluster stack packages for pkg-config
 BuildRequires: booth
@@ -120,6 +119,10 @@ BuildRequires: fence-agents-common
 BuildRequires: pacemaker-libs-devel >= %{required_pacemaker_version}
 BuildRequires: resource-agents
 BuildRequires: sbd
+
+# for validating cockpit-ha-cluster metainfo
+BuildRequires: libappstream-glib
+
 
 # python and libraries for pcs, setuptools for pcs entrypoint
 Requires: python3 >= 3.9
@@ -171,12 +174,9 @@ Requires: nss-tools
 
 Provides: bundled(dacite) = %{dacite_version}
 
-%description
-pcs is a corosync and pacemaker configuration tool.  It permits users to
-easily view, modify and create pacemaker based clusters.
 
-# pcs-snmp package definition
-%package -n %{pcs_snmp_pkg_name}
+# pcs-snmp subpackage definition
+%package -n %{pkg_pcs_snmp}
 Group: System Environment/Base
 Summary: Pacemaker cluster SNMP agent
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
@@ -195,8 +195,31 @@ Requires: net-snmp
 
 Provides: bundled(pyagentx) = %{pyagentx_version}
 
-%description -n %{pcs_snmp_pkg_name}
-SNMP agent that provides information about pacemaker cluster to the master agent (snmpd)
+# cockpit-ha-cluster subpackage definition
+%package -n %{pkg_cockpit_ha_cluster}
+Group: System Environment/Base
+Summary: Cockpit application for managing Pacemaker based clusters
+License: GPL-2.0-only AND CC0-1.0
+URL: https://github.com/ClusterLabs/pcs-web-ui
+
+BuildRequires: make
+BuildRequires: npm
+
+Requires: pcs = %{version}-%{release}
+Requires: cockpit-bridge
+
+
+%description
+pcs is a corosync and pacemaker configuration tool.  It permits users to
+easily view, modify and create pacemaker based clusters.
+
+%description -n %{pkg_pcs_snmp}
+SNMP agent that provides information about pacemaker cluster to the master agent
+(snmpd).
+
+%description -n %{pkg_cockpit_ha_cluster}
+Cockpit application for managing Pacemaker based clusters. Uses
+Pacemaker/Corosync Configuration System (pcs) in the background.
 
 %prep
 
@@ -263,34 +286,55 @@ mkdir -p %{pcs_bundled_dir}/src
 cp -f %SOURCE41 rpm/
 cp -f %SOURCE42 rpm/
 
+
 %build
 %define debug_package %{nil}
 
 # Booth authfile fix support
-# Fedora 35, 36: set and unset
 # Fedora 37, 38, ELN = RHEL10: unset only
 # Fedora 39+: no booth build options
-%if 0%{?fedora} <= 36
-  %define booth_build_options --enable-booth-enable-authfile-set --enable-booth-enable-authfile-unset
-%elif 0%{?fedora} <= 38 || 0%{?eln}
+%if 0%{?fedora} <= 38 || 0%{?eln}
   %define booth_build_options --enable-booth-enable-authfile-unset
 %endif
 
 ./autogen.sh
-%{configure} --enable-local-build --enable-use-local-cache-only --enable-individual-bundling %{?booth_build_options} --with-pcs-lib-dir="%{_prefix}/lib" PYTHON=%{__python3}
+%{configure} --enable-local-build --enable-use-local-cache-only \
+  --enable-individual-bundling %{?booth_build_options} \
+  --with-pcsd-default-cipherlist='PROFILE=SYSTEM' \
+  --with-pcs-lib-dir="%{_prefix}/lib" PYTHON=%{__python3}
 make all
 
 # build pcs-web-ui
-BUILD_USE_CURRENT_NODE_MODULES=true make -C %{_builddir}/%{ui_src_name} build
+export BUILD_USE_CURRENT_NODE_MODULES=true
+
+## standalone
+export BUILD_DIR=%{_builddir}/%{ui_src_name}/%{ui_build_dir_standalone}
+make -C %{_builddir}/%{ui_src_name} build
+
+## cockpit
+export BUILD_DIR=%{_builddir}/%{ui_src_name}/%{ui_build_dir_cockpit}
+export BUILD_FOR_COCKPIT=true
+make -C %{_builddir}/%{ui_src_name} build
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
 pwd
 
-%make_install
 
-# install pcs-web-ui
-make -C %{_builddir}/%{ui_src_name} _install PCSD_DIR=${RPM_BUILD_ROOT}%{_prefix}/lib/pcsd
+%make_install
+# install standalone pcs-web-ui
+cp -r %{_builddir}/%{ui_src_name}/%{ui_build_dir_standalone} \
+     ${RPM_BUILD_ROOT}%{_prefix}/lib/%{pcsd_public_dir}/ui
+
+# install cockpit pcs-web-ui
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/cockpit/%{ui_cockpit_dest}
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/metainfo
+cp -r %{_builddir}/%{ui_src_name}/%{ui_build_dir_cockpit}/* \
+     ${RPM_BUILD_ROOT}%{_datadir}/cockpit/%{ui_cockpit_dest}
+
+cp -r %{_builddir}/%{ui_src_name}/packages/app/%{ui_appstream_metainfo} \
+     ${RPM_BUILD_ROOT}%{_datadir}/metainfo/
 
 # prepare license files
 cp %{pcs_bundled_dir}/src/pyagentx-*/LICENSE.txt pyagentx_LICENSE.txt
@@ -300,7 +344,11 @@ cp %{pcs_bundled_dir}/src/pyagentx-*/README.md pyagentx_README.md
 cp %{pcs_bundled_dir}/src/dacite-*/LICENSE dacite_LICENSE
 cp %{pcs_bundled_dir}/src/dacite-*/README.md dacite_README.md
 
+
 %check
+# Run validation of cockpit metainfo
+appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{ui_appstream_metainfo}
+
 # In the building environment LC_CTYPE is set to C which causes tests to fail
 # due to python prints a warning about it to stderr. The following environment
 # variable disables the warning.
@@ -349,21 +397,21 @@ run_all_tests
 %systemd_post pcsd.service
 %systemd_post pcsd-ruby.service
 
-%post -n %{pcs_snmp_pkg_name}
+%post -n %{pkg_pcs_snmp}
 %systemd_post pcs_snmp_agent.service
 
 %preun
 %systemd_preun pcsd.service
 %systemd_preun pcsd-ruby.service
 
-%preun -n %{pcs_snmp_pkg_name}
+%preun -n %{pkg_pcs_snmp}
 %systemd_preun pcs_snmp_agent.service
 
 %postun
 %systemd_postun_with_restart pcsd.service
 %systemd_postun_with_restart pcsd-ruby.service
 
-%postun -n %{pcs_snmp_pkg_name}
+%postun -n %{pkg_pcs_snmp}
 %systemd_postun_with_restart pcs_snmp_agent.service
 
 %files
@@ -396,9 +444,10 @@ run_all_tests
 %{_mandir}/man8/pcsd.*
 %exclude %{_prefix}/lib/pcs/pcs_snmp_agent
 %exclude %{_prefix}/lib/pcs/%{pcs_bundled_dir}/packages/pyagentx*
+%exclude %{_datadir}/cockpit
+%exclude %{_datadir}/metainfo/%{ui_appstream_metainfo}
 
-
-%files -n %{pcs_snmp_pkg_name}
+%files -n %{pkg_pcs_snmp}
 %{_prefix}/lib/pcs/pcs_snmp_agent
 %{_prefix}/lib/pcs/%{pcs_bundled_dir}/packages/pyagentx*
 %{_unitdir}/pcs_snmp_agent.service
@@ -411,7 +460,18 @@ run_all_tests
 %license COPYING
 %license pyagentx_LICENSE.txt
 
+%files -n %{pkg_cockpit_ha_cluster}
+%{_datadir}/cockpit/%{ui_cockpit_dest}
+%{_datadir}/metainfo/%{ui_appstream_metainfo}
+
+
 %changelog
+* Mon Jan 8 2024 Michal Pospisil <mpospisi@redhat.com> - 0.11.7-1
+- Rebased to the latest upstream sources (see CHANGELOG.md)
+- Updated pcs-web-ui to 0.1.18
+- TLS cipher setting in pcsd now follows system-wide crypto policies by default
+- Added cockpit-ha-cluster subpackage that adds pcs-web-ui as a Cockpit application
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

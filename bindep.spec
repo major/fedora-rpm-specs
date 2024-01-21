@@ -7,7 +7,7 @@
 
 Name:           bindep
 Version:        2.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Binary dependency utility
 
 License:        Apache-2.0
@@ -65,5 +65,8 @@ find -type f -name '*.py' | xargs -d'\n' sed -i \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Maxwell G <maxwell@gtmx.me> - 2.11.0-1
 - Initial package. Closes rhbz#2232708.

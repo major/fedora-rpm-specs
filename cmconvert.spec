@@ -1,7 +1,7 @@
 Name: cmconvert
 Summary: CacheMate import file converter 
 Version: 1.9.6
-Release: 27%{dist}
+Release: 28%{dist}
 License: GPLv2+
 URL: http://www.smittyware.com/palm/cachemate/tools.php
 Source0: http://www.smittyware.com/download/%{name}-%{version}.tar.gz
@@ -36,6 +36,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_mandir}/man1/cmconvert.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           emacs-%{pkg}
 Version:        3.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Use Emacsclient as the editor of child processes
 License:        GPLv3+
 URL:            https://github.com/magit/with-editor
@@ -38,6 +38,9 @@ install -D -p -m 644 -t %{buildroot}/%{_emacs_sitelispdir}/%{pkg} \
 %{_infodir}/%{pkg}.info.*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

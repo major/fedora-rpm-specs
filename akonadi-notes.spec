@@ -1,6 +1,6 @@
 Name:    akonadi-notes
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Akonadi Notes Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -67,6 +67,9 @@ find ./po -type f -name akonadinotes5.po -execdir mv {} akonadinotes6.po \;
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 - Add doc package for KF6 API

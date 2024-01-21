@@ -1,6 +1,6 @@
 Name: bcftools
 Version: 1.15.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Tools for genomic variant calling and manipulating VCF/BCF files
 
 # This software is available under a choice of one of two licenses,
@@ -99,6 +99,9 @@ make test
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 28 2023 Benson Muite <benson_muite@emailplus.org> - 1.15.1-6
 - Use SPDX license identifier
 

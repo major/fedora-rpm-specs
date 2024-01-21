@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A free multi-lingual font designed for screens
 
 License:        OFL
@@ -48,6 +48,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

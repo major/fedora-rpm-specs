@@ -2,7 +2,7 @@
 
 Name:           btrfsd
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tiny Btrfs maintenance daemon
 
 License:        LGPL-2.1-or-later
@@ -83,6 +83,9 @@ the daemon will be completely inert.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-1
 - Update to 0.2.0
 

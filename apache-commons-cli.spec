@@ -2,7 +2,7 @@
 
 Name:           apache-commons-cli
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command Line Interface Library for Java
 License:        Apache-2.0
 URL:            http://commons.apache.org/cli/
@@ -45,6 +45,9 @@ command line arguments and options.
 %doc README.md RELEASE-NOTES.txt
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.6.0-1
 - Update to upstream version 1.6.0
 

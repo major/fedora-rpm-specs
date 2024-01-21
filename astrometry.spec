@@ -8,7 +8,7 @@
 
 Name:           astrometry
 Version:        0.94
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
 # Software is BSD with some GPL code
@@ -333,6 +333,9 @@ make test ARCH_FLAGS="%{optflags}"
 %{_bindir}/votabletofits
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.94-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Mattia Verga <mattia.verga@protonmail.com> - 0.94-2
 - Rebuilt for libwcs soname bump
 

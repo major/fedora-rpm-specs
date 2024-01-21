@@ -4,7 +4,7 @@
 
 Name:           flann
 Version:        1.9.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast Library for Approximate Nearest Neighbors
 
 License:        BSD
@@ -127,6 +127,9 @@ rm -rf %{buildroot}%{_datadir}/doc/flann
 %{python3_sitearch}/flann-%{version}*.egg-info
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 24 2023 Rich Mattes <richmattes@gmail.com> - 1.9.2-4
 - Fix pkgconfig file and add lz4-devel requirement to -devel package
 - Resolves: rhbz#2240334

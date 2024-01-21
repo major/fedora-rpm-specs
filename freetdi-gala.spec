@@ -6,7 +6,7 @@
 
 Name:           %{owner}-%{project}
 Version:        1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        C++ graph abstraction with low-level access
 
 # The project as a whole is GPL-3.0-or-later.
@@ -74,6 +74,9 @@ make check LOCAL_CXXFLAGS="%{build_cxxflags} -DHAVE_TLX_CONTAINER_BTREE_SET_HPP 
 %{_includedir}/%{project}/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Jerry James <loganjerry@gmail.com> - 1-6
 - Remove incorrect %%{?_isa} modifiers in Requires
 

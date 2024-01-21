@@ -3,7 +3,7 @@
 
 # https://github.com/tklauser/numcpus
 %global goipath         github.com/tklauser/numcpus
-Version:                0.6.1
+Version:                0.7.0
 
 %gometa
 
@@ -54,7 +54,7 @@ done
 %files
 %license LICENSE
 %doc README.md
-%{_bindir}/*
+%{_bindir}/numcpus
 
 %gopkgfiles
 

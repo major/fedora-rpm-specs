@@ -1,6 +1,6 @@
 Name:           freeciv
 Version:        3.0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPL-2.0-or-later
@@ -108,6 +108,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.9-1
 - 3.0.9
 

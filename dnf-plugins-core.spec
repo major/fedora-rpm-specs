@@ -34,7 +34,7 @@
 
 Name:           dnf-plugins-core
 Version:        4.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf-plugins-core
@@ -812,6 +812,9 @@ ln -sf %{_mandir}/man1/%{yum_utils_subpackage_name}.1.gz %{buildroot}%{_mandir}/
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Jan Kolarik <jkolarik@redhat.com> - 4.4.4-1
 - Update to 4.4.4
 - needs-restarting: Add microcode_ctl to a reboot list

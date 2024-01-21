@@ -48,7 +48,7 @@ It can be used to improve portability and other functionality in your programs.
 
 Name:     gnulib
 Version:  0
-Release:  47.%{gitdate}git%{?dist}
+Release:  48.%{gitdate}git%{?dist}
 Summary:  GNU Portability Library
 License:  Public Domain and BSD and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ and LGPLv3+
 URL:      https://www.gnu.org/software/gnulib
@@ -249,6 +249,9 @@ It can be enabled for specific files by setting appropriate git attributes.
 
 #-------------------------------------------------------------------------
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-48.20230709git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 09 2023 Mosaab Alzoubi <moceap[AT]fedoraproject[DOT]com> - 0-47.20230709git
 - Update on 2023-07-09
 - Fix can't build on aarch64  (https://bugzilla.redhat.com/show_bug.cgi?id=2220874)

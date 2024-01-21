@@ -15,7 +15,7 @@ This package allows reading and writing bettercap's session recordings.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.9%{?dist}
+Release:        0.10%{?dist}
 Summary:        Allows reading and writing bettercap's session recordings
 
 License:        GPLv3
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/kr/binarydist)
 %gopkgfiles
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

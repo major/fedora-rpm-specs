@@ -1,36 +1,73 @@
 %global udev_rules 70-avrdude_usbprog.rules
 
+# Allow skipping doc builds for faster mockbuilds without the
+# literally hundreds of extra packages required for building docs.
+%bcond_without docs
+
 Name:           avrdude
-Version:        6.4
-Release:        6%{?dist}
+Version:        7.2
+Release:        1%{?dist}
 Summary:        Software for programming Atmel AVR Microcontroller
 
-License:        GPLv2+
-URL:            https://www.nongnu.org/avrdude
-Source0:        https://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.gz
-Source1:        https://salsa.debian.org/debian/avrdude/-/raw/master/debian/avrdude.udev
+License:        GPL-2.0-or-later AND GPL-3.0-only AND (WTFPL OR MIT)
+URL:            https://github.com/avrdudes/avrdude
+
+# Upstream release tarballs are just git repo dumps, which includes
+# pdf doc files which we cannot redistribute.
+# Source0:        https://github.com/avrdudes/%%{name}/archive/refs/tags/v%%{version}.tar.gz#/%%{name}-%%{version}.tar.gz
+
+# So we need to filter out the files we *can* distribute, before we
+# can "fedpkg new-sources" the tarball:
+#     curl -o %%{name}-%%{version}.tar.gz https://github.com/avrdudes/%%{name}/archive/refs/tags/v%%{version}.tar.gz
+#     python3 filter-tarball %%{name}-%%{version}.tar.gz
+# That results in rpmlint "avrdude.spec: W: invalid-url Source0: …"
+Source0:        %{name}-%{version}-filtered.tar.xz
+Source10:       filter-tarball
+Source11:       file-licensing
+
+# Debian have a more comprehensive list of programmer devices in their
+# avrdude.dev file. We do cannot use this unchanged, though, as we do
+# not want to grant blanket access to all ttyUSB and ttyACM devices.
+# Source1:        https://salsa.debian.org/debian/avrdude/-/raw/master/debian/avrdude.udev
+# FIXME: Create udev rules from the device list in avrdude.conf
+Source1:        avrdude.udev
+
+# Remarks on the Fedora package for the users
 Source2:        README.fedora
-# From: https://savannah.nongnu.org/bugs/?42517
-Patch0:         avrdude-6.1_includes.patch
+
 # Stop granting blanket access to all /dev/tty{ACM,USB}* devices
 Patch1:         avrdude-udev-no-blanket-access.patch
-# Mention proper doc and config file locations in texinfo documentation
-Patch2:         avrdude-6.4-fix-file-locations-in-docs.patch
 
+# Help cmake detect libreadline
+# Upstream issue: https://github.com/avrdudes/avrdude/issues/1624
+Patch2:         avrdude-7.2-detect-readline.patch
+
+# Move avrdude.conf from upstream location /usr/etc/ to /etc/avrdude/
+# FIXME: Eventually move avrdude.conf to /usr/share/avrdude/
+Patch:          avrdude-7.2-fedora-relocate-avrdude-conf.patch
+
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  elfutils-libelf-devel
 BuildRequires:  hidapi-devel
+# As of avrdude-7.2, the gpiod related source files do not build.
+# BuildRequires:  libgpiod-devel
+# EL does not have libhid-devel
+%if 0%{?fedora} >= 28
 BuildRequires:  libhid-devel
+%endif
 BuildRequires:  readline-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  libftdi-devel
 BuildRequires:  pkgconfig(libusb)
 BuildRequires:  pkgconfig(libusb-1.0)
+%if %{with docs}
 BuildRequires:  texi2html
+BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
-BuildRequires:  tetex-dvips
+%endif
 BuildRequires:  make
 
 # https://fedoraproject.org/wiki/Changes/RemoveObsoleteScriptlets
@@ -49,55 +86,90 @@ particular chip.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}
 cp -p %{SOURCE1} avrdude.udev
-%patch0 -p0 -b .patch0
-%patch1 -p1 -b .patch1
-%patch2 -p1 -b .patch2
-
-sed -i 's|${PREFIX}/etc/avrdude\.conf|/etc/avrdude/avrdude.conf|g' avrdude.1
-sed -i 's|${PREFIX}/share/doc/avrdude/avrdude\.pdf|%{_pkgdocdir}/avrdude.pdf|g' avrdude.1
-
-iconv -f ISO88591 -t UTF8 < ChangeLog-2003 > ChangeLog-2003~
-mv ChangeLog-2003~ ChangeLog-2003
-iconv -f ISO88591 -t UTF8 < NEWS > NEWS~
-mv NEWS~ NEWS
+%autopatch -v -p1
+if test -d atmel-docs; then
+  echo "Directory 'atmel-docs' still exists, aborting."
+  exit 2
+fi
 
 
 %build
-%configure --disable-silent-rules --enable-doc --enable-linuxgpio --enable-linuxspi --enable-parport --sysconfdir=%{_sysconfdir}/%{name}
-%make_build
+# As of avrdude-7.2, the gpiod related source files do not build.
+#       -D HAVE_LINUXGPIO=ON
+%cmake \
+       -D CMAKE_INSTALL_SYSCONFDIR:PATH=%{_sysconfdir} \
+       -D CMAKE_BUILD_TYPE=build_type=RelWithDebInfo \
+%if %{with docs}
+       -D BUILD_DOC:BOOL=ON \
+%else
+       -D BUILD_DOC:BOOL=OFF \
+%endif
+       -D HAVE_LINUXSPI:BOOL=ON \
+       -D HAVE_PARPORT:BOOL=ON \
+       -D FETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON \
+       -D FETCHCONTENT_QUIET:BOOL=OFF \
+       -D BUILD_SHARED_LIBS:BOOL=NO \
+       -D USE_STATIC_LIBS:BOOL=YES
+%cmake_build
 
 
 %install
-%make_install DOC_INST_DIR="$RPM_BUILD_ROOT%{_pkgdocdir}"
+%cmake_install
 rm -f $RPM_BUILD_ROOT%{_includedir}/libavrdude.h
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT%{_libdir}/libavrdude.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/libavrdude.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/libavrdude.so
 rm -f $RPM_BUILD_ROOT%{_libdir}/libavrdude.so.1
 rm -f $RPM_BUILD_ROOT%{_libdir}/libavrdude.so.1.0.0
+rm -f $RPM_BUILD_ROOT%{_pkgdocdir}/avrdude.dvi
+rm -f $RPM_BUILD_ROOT%{_pkgdocdir}/avrdude.ps
 install -d -m 755 $RPM_BUILD_ROOT%{_udevrulesdir}
 install -p -m 644 avrdude.udev $RPM_BUILD_ROOT%{_udevrulesdir}/%{udev_rules}
 install -d -m 755 $RPM_BUILD_ROOT%{_pkgdocdir}
 install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_pkgdocdir}/README.fedora
+install -p -m 644 -t $RPM_BUILD_ROOT%{_pkgdocdir} AUTHORS NEWS README.md
+
+
+%check
+%ctest
 
 
 %files
-%doc README AUTHORS ChangeLog* COPYING NEWS doc/TODO
+%license COPYING
+%doc %{_pkgdocdir}/AUTHORS
+%doc %{_pkgdocdir}/NEWS
+%doc %{_pkgdocdir}/README.md
 %doc %{_pkgdocdir}/README.fedora
+%if %{with docs}
 %doc %{_pkgdocdir}/avrdude-html/
 %doc %{_pkgdocdir}/avrdude.pdf
-%doc %{_pkgdocdir}/avrdude.ps
-%config(noreplace) %{_sysconfdir}/%{name}
+%endif
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/avrdude.conf
 %{_udevrulesdir}/%{udev_rules}
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
+%if %{with docs}
 %{_infodir}/%{name}.info*
+%endif
 
 
 %changelog
+* Fri Jan 19 2024 Hans Ulrich Niedermann <hun@n-dimensional.de> - 7.2-1
+- Updated to upstream avrdude-7.2 release from github.com (rhbz#2251649)
+- Filter upstream release tarball to remove pdf docs due to licensing
+- Migrated to SPDX license
+- Switched to cmake build system
+- Fixed upstream cmake detection of libreadline.so
+- Switched to upstream's new URL (github instead of nongnu.org)
+- Stop shipping PS doc format in favour of just avrdude.pdf
+- Keep avrdude.conf at the old Fedora location /etc/avrdude/ for now
+
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

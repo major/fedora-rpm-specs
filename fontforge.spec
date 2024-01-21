@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -125,6 +125,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230101-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 20230101-8
 - Drop unused libuninameslist dependency
 

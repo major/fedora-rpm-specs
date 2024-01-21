@@ -1,6 +1,6 @@
 Name:    dleyna
 Version: 0.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Services and D-Bus APIs for UPnP access
 
 License: LGPL-2.1-or-later
@@ -115,6 +115,9 @@ rm -rf %{buildroot}/%{_libdir}/dleyna/libdleyna-renderer-1.0.so \
 %{_libdir}/pkgconfig/dleyna-core-1.0.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 David King <amigadave@amigadave.com> - 0.8.3-1
 - Update to 0.8.3
 

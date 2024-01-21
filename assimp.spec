@@ -3,7 +3,7 @@
 
 Name:           assimp
 Version:        5.2.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -199,6 +199,9 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Scott K Logan <logans@cottsay.net> - 5.2.5-2
 - Add pugixml and poly2tri devel dependencies to assimp-devel
 

@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.89
-Release:        7%{?extraversion:.%{extraversion}}%{?dist}
+Release:        8%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -222,6 +222,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.89-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Petr Menšík <pemensik@redhat.com> - 2.89-7
 - Use local-service=host for initial configuration (#2258062)
 

@@ -17,7 +17,7 @@ Package Gopacket provides packet decoding for the Go language.}
 %global godocs          examples AUTHORS CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Provides packet processing capabilities for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -48,6 +48,9 @@ BuildRequires:  libpcap-devel
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

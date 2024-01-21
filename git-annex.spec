@@ -5,7 +5,7 @@
 
 Name:           git-annex
 Version:        10.20230626
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Manage files with git, without checking their contents into git
 
 License:        AGPL-3.0-or-later
@@ -232,6 +232,9 @@ popd
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.20230626-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Jens Petersen <petersen@redhat.com> - 10.20230626-2
 - patch for ghc-9.4 unix System.Posix.User
 

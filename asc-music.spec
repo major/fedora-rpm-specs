@@ -1,6 +1,6 @@
 Name:           asc-music
 Version:        1.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Background music for the game asc
 License:        GPLv2+
 URL:            http://www.asc-hq.org/
@@ -38,6 +38,9 @@ install -p -m 644 *.ogg $RPM_BUILD_ROOT%{_datadir}/asc/music
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

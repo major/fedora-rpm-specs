@@ -1,7 +1,9 @@
+%global build_type_safety_c 0
+
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	2.0.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -134,6 +136,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Fri Jan 19 2024 Leigh Scott <leigh123linux@gmail.com> - 2.0.3-2
+- Disable modern c build flags due to vala issue
+
 * Thu Jan 04 2024 Leigh Scott <leigh123linux@gmail.com> - 2.0.3-1
 - Update to 2.0.3 release
 

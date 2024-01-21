@@ -22,7 +22,7 @@ Infoblox NIOS WAPI Go Client library.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        %autorelease
+Release:        %autorelease.1
 Summary:        Infoblox NIOS WAPI Go Client library
 
 # Upstream license specification: Apache-2.0
@@ -58,5 +58,8 @@ BuildRequires:  golang(github.com/onsi/gomega)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 31 2021 Robert-André Mauchin <zebob.m@gmail.com> 2.0.0-1
 - Initial release

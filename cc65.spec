@@ -43,7 +43,7 @@ infodir="%{_infodir}"
 
 Name:           cc65
 Version:        2.19
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A free C compiler for 6502 based systems
 
 # For license clarification see:
@@ -268,6 +268,9 @@ they have been split into this package.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 Florian Weimer <fweimer@redhat.com> - 2.19-8
 - Build testsuite reference in C89 mode
 

@@ -1,6 +1,6 @@
 Name: did
 Version: 0.21
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: What did you do last week, month, year?
 License: GPLv2+
@@ -55,6 +55,9 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 10 2023 Petr Šplíchal <psplicha@redhat.com> - 0.21-1
 - Pass plugin configuration to koji `ClientSession`
 - Add `markdown` format output to `bodhi` plugin

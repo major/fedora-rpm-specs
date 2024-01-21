@@ -16,7 +16,7 @@ OpenCensus Go exporters for AWS (XRay only for now).}
 
 Name:           %{goname}
 Version:        0
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 Summary:        OpenCensus Go exporters for AWS
 
 # Upstream license specification: Apache-2.0
@@ -51,6 +51,9 @@ BuildRequires:  golang(go.opencensus.io/trace/propagation)
 %gopkgfiles
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

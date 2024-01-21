@@ -6,7 +6,7 @@
 Name:		gabedit
 Summary:	GUI for computational chemistry
 Version:	%{mainver}
-Release:	0.5%{?snap_digit:_snap%{snap_digit}}%{?dist}
+Release:	0.6%{?snap_digit:_snap%{snap_digit}}%{?dist}
 URL:		http://gabedit.sourceforge.net/home.html
 License:	MIT
 
@@ -119,6 +119,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/*.png
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-0.6_snap20220518
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-0.5_snap20220518
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

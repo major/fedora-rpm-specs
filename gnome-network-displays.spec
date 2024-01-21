@@ -1,6 +1,6 @@
 Name:           gnome-network-displays
 Version:        0.91.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Stream the desktop to Wi-Fi Display capable devices
 
 # The icon is licensed CC-BY-SA
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_prefix}/lib/firewalld/zones/P2P-WiFi-Display.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.91.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Christian Glombek <lorbus@fedoraproject.org> - 0.91.0-1
 - Sort dependencies alphabetically
 - Update to v0.91.0

@@ -5,7 +5,7 @@
 %global watchdog_service_name amazon-efs-mount-watchdog
 
 Name:           efs-utils
-Version:        1.35.0
+Version:        1.35.1
 Release:        %autorelease
 Summary:        Utilities for Amazon Elastic File System (EFS)
 
@@ -72,6 +72,10 @@ sed -i 's/from mock/from unittest.mock/' test/common.py
 %build
 echo "Nothing to build"
 
+# Disable the automatic version checking.
+sed -i 's/enable_version_check = true/enable_version_check = false/' dist/efs-utils.conf
+grep version_check dist/efs-utils.conf
+
 %if 0%{?with_selinux}
 mkdir selinux
 cp -p %{SOURCE1} selinux/
@@ -122,11 +126,13 @@ install -D -p -m 0644 selinux/%{modulename}.if %{buildroot}%{_datadir}/selinux/d
 touch pytest.ini
 
 # Ignore some tests that require networking and get stuck forever.
+# Also skip a broken version check test: https://github.com/aws/efs-utils/issues/194
 PYTHONPATH=$(pwd)/src %pytest \
     --ignore test/mount_efs_test/test_main.py \
     --ignore test/mount_efs_test/test_bootstrap_tls.py \
     --ignore test/mount_efs_test/test_create_self_signed_cert.py \
-    --ignore test/watchdog_test/test_refresh_self_signed_certificate.py
+    --ignore test/watchdog_test/test_refresh_self_signed_certificate.py \
+    -k "not test_version_check_ready"
 %endif
 
 

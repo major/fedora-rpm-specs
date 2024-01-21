@@ -1,10 +1,9 @@
 %global optflags %{optflags} -Wno-array-bounds
 
-%bcond_without test
-%bcond_without doc
-%bcond_with bundled
+%bcond test 1
+%bcond bundled 0
 %if 0%{?epel}
-%bcond_without bundled
+%bcond bundled 1
 %endif
 %if %{with bundled}
 %global gomodulesmode GO111MODULE=on
@@ -13,7 +12,7 @@
 %global goipath kitty
 
 Name:           kitty
-Version:        0.31.0
+Version:        0.32.0
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -60,10 +59,6 @@ Source5:        https://calibre-ebook.com/signatures/kovid.gpg
 # * https://github.com/kovidgoyal/kitty/pull/2088
 Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444e4f4994008f0d2dcb41e49389f4/kitty/data/%{name}.appdata.xml
 
-# Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
-Patch0:         kitty-do-not-build-kitten.patch
-## upstream patches
-
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -97,10 +92,11 @@ BuildRequires:  pkgconfig(libcrypto)
 
 %if %{with test}
 # For tests:
-BuildRequires:  /usr/bin/ssh
-BuildRequires:  /usr/bin/getent
-BuildRequires:  /usr/bin/zsh
-BuildRequires:  /usr/bin/rg
+BuildRequires:  fish
+BuildRequires:  glibc-common
+BuildRequires:  openssh-clients
+BuildRequires:  ripgrep
+BuildRequires:  zsh
 BuildRequires:  python3dist(pillow)
 %endif
 
@@ -120,11 +116,11 @@ Requires:       %{name}-terminfo = %{version}-%{release}
 Requires:       %{name}-shell-integration = %{version}-%{release}
 Requires:       %{name}-kitten%{?_isa} = %{version}-%{release}
 
-# Very weak dependencies, these are required to enable all features of kitty's
-# "kittens" functions install separately
 # For the "Hyperlinked grep" feature
 Recommends:     ripgrep
 
+# Very weak dependencies, these are required to enable all features of kitty's
+# "kittens" functions install separately
 Suggests:       ImageMagick%{?_isa}
 
 %description
@@ -190,8 +186,6 @@ License:        GPL-3.0-only AND MIT AND BSD-3-Clause AND BSD-2-Clause AND Apach
 %description    kitten
 %{summary}.
 
-# doc package
-%if %{with doc}
 %package        doc
 Summary:        Documentation for %{name}
 License:        GPL-3.0-only AND MIT
@@ -206,7 +200,6 @@ BuildRequires:  python3dist(sphinxext-opengraph)
 
 %description    doc
 This package contains the documentation for %{name}.
-%endif
 
 
 %prep
@@ -220,8 +213,8 @@ This package contains the documentation for %{name}.
 sed "s/html_theme = 'furo'/html_theme = 'classic'/" -i docs/conf.py
 
 # Replace python shebangs to make them compatible with fedora
-find -type f -name "*.py" -exec sed -e 's|/usr/bin/env python3|%{__python3}|g'    \
-                                    -e 's|/usr/bin/env python|%{__python3}|g'     \
+find -type f -name "*.py" -exec sed -e 's|/usr/bin/env python3|%{python3}|g'    \
+                                    -e 's|/usr/bin/env python|%{python3}|g'     \
                                     -e 's|/usr/bin/env -S kitty|/usr/bin/kitty|g' \
                                     -i "{}" \;
 
@@ -236,10 +229,12 @@ export GOPATH=$(pwd):%{gopath}
 
 %build
 %set_build_flags
-%{__python3} setup.py linux-package \
+export OVERRIDE_CFLAGS="-std=c11 -fwrapv -fvisibility=hidden"
+%{python3} setup.py linux-package   \
     --libdir-name=%{_lib}           \
     --update-check-interval=0       \
     --verbose                       \
+    --skip-building-kitten          \
     %{nil}
 
 %if %{without bundled}
@@ -250,7 +245,7 @@ unset LDFLAGS
 
 %install
 # rpmlint fixes
-find linux-package -type f ! -executable -name "*.py" -exec sed -i '1{\@^#!%{__python3}@d}' "{}" \;
+find linux-package -type f ! -executable -name "*.py" -exec sed -i '1{\@^#!%{python3}@d}' "{}" \;
 find linux-package/%{_lib}/%{name}/shell-integration -type f ! -executable -exec sed -r -i '1{\@^#!/bin/(fish|zsh|sh|bash)@d}' "{}" \;
 
 cp -r linux-package %{buildroot}%{_prefix}
@@ -258,11 +253,9 @@ install -m0755 -Dp _build/bin/kitten %{buildroot}%{_bindir}/kitten
 
 install -m0644 -Dp %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
-%if %{with doc}
 # rpmlint fixes
 rm %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo \
    %{buildroot}%{_datadir}/doc/%{name}/html/.nojekyll
-%endif
 
 
 %check
@@ -288,7 +281,7 @@ mkdir -p kitty/launcher
 ln -s %{buildroot}%{_bindir}/%{name} kitty/launcher/
 export PATH=%{buildroot}%{_bindir}:$PATH
 export PYTHONPATH=$(pwd)
-%{__python3} setup.py test          \
+%{python3} setup.py test          \
     --prefix=%{buildroot}%{_prefix}
 %endif
 
@@ -303,9 +296,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.{png,svg}
 %{_libdir}/%{name}/
 %exclude %{_libdir}/%{name}/shell-integration
-%if %{with doc}
 %{_mandir}/man{1,5}/*.{1,5}*
-%endif
 %{_metainfodir}/*.xml
 
 %files kitten
@@ -324,13 +315,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %license LICENSE
 %{_libdir}/%{name}/shell-integration/
 
-%if %{with doc}
 %files doc
 %license LICENSE
 %doc CONTRIBUTING.md CHANGELOG.rst INSTALL.md
-%{_docdir}/%{name}/html
+%{_docdir}/%{name}/html/
 %dir %{_docdir}/%{name}
-%endif
 
 
 %changelog

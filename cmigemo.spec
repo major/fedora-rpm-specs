@@ -3,7 +3,7 @@
 %define		minorver	date%{tarballver}
 %define		prerelease	1
 
-%define		baserelease	15
+%define		baserelease	16
 
 
 %define		uprel		%(echo %{?minorver} | %{__sed} -e 's|^--*||' | %{__sed} -e 's|-|_|g' )
@@ -162,6 +162,9 @@ popd
 %{_libdir}/libmigemo.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-0.16.date20110227
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan  7 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3-0.15.date20110227
 - SPDX migration
 

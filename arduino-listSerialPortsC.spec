@@ -2,7 +2,7 @@
 
 Name:		arduino-%{shortname}
 Version:	1.4.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Simple multiplatform program to list serial ports with vid/pid/iserial fields
 License:	LGPLv3+
 URL:		http://www.arduino.cc
@@ -43,6 +43,9 @@ install -m755 liblistSerialsj.so %{buildroot}%{_datadir}/arduino/lib/
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

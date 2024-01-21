@@ -9,7 +9,7 @@
 
 Name:    GConf2
 Version: 3.2.6
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: A process-transparent configuration system
 
 License: LGPLv2+ and GPLv2+
@@ -154,6 +154,9 @@ fi
 %{_datadir}/gir-1.0
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

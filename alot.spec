@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 License:        GPLv3+
@@ -47,6 +47,9 @@ install -Dpm0644 docs/build/man/alot.1* -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/alot.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Packit <hello@packit.dev> - 0.10-1
 - New upstream release 0.10
 

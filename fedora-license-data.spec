@@ -7,7 +7,7 @@
 
 Name:           fedora-license-data
 Version:        1.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -97,6 +97,9 @@ make check-grammar
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.39-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Miroslav Suchý <msuchy@redhat.com> 1.39-1
 - add LicenseRef-docbook-dtds
 - public domain dedication for iw

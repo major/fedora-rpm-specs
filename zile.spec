@@ -1,7 +1,7 @@
 Summary: Zile Is Lossy Emacs
 Name: zile
 Version: 2.6.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 URL: http://www.gnu.org/software/%{name}/
 Source0: http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
@@ -9,6 +9,7 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: ncurses-devel gc-devel help2man autoconf automake
 BuildRequires: libgee-devel
+BuildRequires: vala
 
 # FTBFS on ppc64le, will investigate further with upstream
 ExcludeArch: ppc64le
@@ -20,6 +21,7 @@ similar as possible to Emacs; every Emacs user should feel at home.
 
 %prep
 %autosetup
+find -name '*.vala' -exec touch {} \;
 
 # convert THANKS file to utf-8 to silent rpmlint
 iconv -f iso-8859-1 -t utf-8 -o THANKS{.utf8,}
@@ -40,6 +42,9 @@ mv THANKS{.utf8,}
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 19 2024 Florian Weimer <fweimer@redhat.com> - 2.6.2-4
+- Add vala build dependency and trigger rebuild for GCC 14 compatibility
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

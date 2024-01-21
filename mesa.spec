@@ -34,7 +34,7 @@
 %global with_tegra     1
 %global with_v3d       1
 %global with_xa        1
-%global extra_platform_vulkan ,broadcom,freedreno,panfrost
+%global extra_platform_vulkan ,broadcom,freedreno,panfrost,imagination-experimental
 %endif
 
 %ifnarch s390x
@@ -61,7 +61,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 23.3.3
+%global ver 24.0.0-rc2
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
@@ -74,8 +74,8 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
-Patch11:        zink-fix-resizable-bar-detection-logic.patch
-Patch12:        mesa-meson-c99.patch
+# Workaround for llvm/clang bug: https://github.com/llvm/llvm-project/issues/78691
+Patch11:        gallium-Undef-__arm_streaming-macro-to-workaround-cl.patch
 
 BuildRequires:  meson >= 1.2.0
 BuildRequires:  gcc
@@ -596,20 +596,26 @@ popd
 %if 0%{?with_kmsro}
 %{_libdir}/dri/armada-drm_dri.so
 %{_libdir}/dri/exynos_dri.so
+%{_libdir}/dri/gm12u320_dri.so
 %{_libdir}/dri/hdlcd_dri.so
 %{_libdir}/dri/hx8357d_dri.so
+%{_libdir}/dri/ili9163_dri.so
 %{_libdir}/dri/ili9225_dri.so
 %{_libdir}/dri/ili9341_dri.so
+%{_libdir}/dri/ili9486_dri.so
 %{_libdir}/dri/imx-dcss_dri.so
 %{_libdir}/dri/mediatek_dri.so
 %{_libdir}/dri/meson_dri.so
 %{_libdir}/dri/mi0283qt_dri.so
+%{_libdir}/dri/panel-mipi-dbi_dri.so
 %{_libdir}/dri/pl111_dri.so
 %{_libdir}/dri/repaper_dri.so
 %{_libdir}/dri/rockchip_dri.so
 %{_libdir}/dri/st7586_dri.so
 %{_libdir}/dri/st7735r_dri.so
+%{_libdir}/dri/sti_dri.so
 %{_libdir}/dri/sun4i-drm_dri.so
+%{_libdir}/dri/udl_dri.so
 %endif
 %if 0%{?with_vulkan_hw}
 %{_libdir}/dri/zink_dri.so
@@ -666,6 +672,9 @@ popd
 %{_datadir}/vulkan/icd.d/freedreno_icd.*.json
 %{_libdir}/libvulkan_panfrost.so
 %{_datadir}/vulkan/icd.d/panfrost_icd.*.json
+%{_libdir}/libpowervr_rogue.so
+%{_libdir}/libvulkan_powervr_mesa.so
+%{_datadir}/vulkan/icd.d/powervr_mesa_icd.*.json
 %endif
 %endif
 

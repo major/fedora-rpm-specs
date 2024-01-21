@@ -1,6 +1,6 @@
 Name:		garmintools
 Version:	0.10
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Tools for Garmin GPS-devices
 
 License:	GPL-2.0-or-later
@@ -126,6 +126,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 23 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10-27
 - Fix use of invalid key in 51-garmin.rules
 - Convert License tag to SPDX

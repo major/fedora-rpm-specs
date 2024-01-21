@@ -14,7 +14,7 @@
 Name:       distgen
 Summary:    Templating system/generator for distributions
 Version:    1.17
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPL-2.0-or-later AND Apache-2.0
 URL:        https://github.com/devexp-db/distgen
 BuildArch:  noarch
@@ -74,6 +74,9 @@ make PYTHON=%{pybin} check
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Zuzana Miklankova <zmiklank@redhat.com> - 1.17-1
 - new upstream release, https://github.com/devexp-db/distgen/releases/tag/v1.17
 

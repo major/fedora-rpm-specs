@@ -68,7 +68,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.18.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -383,6 +383,9 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Jan Kolarik <jkolarik@redhat.com> - 4.18.2-1
 - Update to 4.18.2
 - automatic: Add feature to allow emitters to invoke on dnf error

@@ -1,6 +1,6 @@
 Name:           glpk
 Version:        5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GNU Linear Programming Kit
 
 # GPL-3.0-or-later: the project as a whole
@@ -139,6 +139,9 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep  7 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0-8
 - Fix flatpak build
 

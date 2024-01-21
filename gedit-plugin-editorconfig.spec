@@ -5,7 +5,7 @@
 
 Name:           gedit-plugin-editorconfig
 Version:        0.5.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        EditorConfig plugin for Gedit
 
 License:        BSD
@@ -64,6 +64,9 @@ cp editorconfig_gedit3.py %{buildroot}%{_libdir}/gedit/plugins/
 %{_libdir}/gedit/plugins/editorconfig_plugin/__pycache__/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

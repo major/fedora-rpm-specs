@@ -14,8 +14,8 @@ Release:        8.%{stable_ver}%{?dist}
 #Release:        3%%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{stable_ver}/sayonara-player-%{version}-%{stable_ver}.tar.bz2
 %else
-Version:        1.8.0
-Release:        0.3.%{prerel}%{?dist}
+Version:        1.9.0
+Release:        0.1.%{prerel}%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{prerel}/sayonara-player-%{version}-%{prerel}.tar.bz2
 %endif
 
@@ -33,6 +33,7 @@ BuildRequires:  libmtp-devel
 Requires:       qt5-qtsvg
 Requires:       hicolor-icon-theme
 Requires:       gstreamer1-plugins-bad-free
+ExcludeArch:    %{ix86}
 
 %description
 %{name} is a small, clear, not yet platform-independent music player. Low 
@@ -92,7 +93,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_bindir}/%{name}-query
 %{_datadir}/applications/com.%{name}-player.Sayonara.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/metainfo/com.%{name}-player.Sayonara.appdata.xml
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/translations
 %dir %{_datadir}/%{name}/translations/icons
@@ -106,6 +107,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/doc/%{name}/doxygen/html
 
 %changelog
+* Fri Jan 19 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.9.0-0.1.beta1
+- Update to 1.9.0 beta1
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-0.3.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

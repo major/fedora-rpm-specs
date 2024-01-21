@@ -87,7 +87,7 @@ Version: 9.4.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 137%{?dist}
+Release: 138%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -459,9 +459,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P16 -p1 -b .orig
 %endif
 
-%ifarch s390x
 %patch -P17 -p1 -b .orig
-%endif
 
 #debian
 #%%patch -P24 -p1 -b .orig
@@ -1014,6 +1012,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.5-138
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Nov 25 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-137
 - s390x: patch from @stefansf (IBM) to fix llvm alignment in data sections
   which should fix certain runtime crashes (#2248097)

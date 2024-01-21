@@ -19,7 +19,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.67.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -221,6 +221,10 @@ Source1004: vendoring-build.inc
 Source995: CHANGELOG.md
 
 BuildArch: noarch
+# there is no ansible on i686, so when we get a builder that uses
+# this arch, the build fails with
+# No matching package to install: 'ansible-core >= 2.11.0'
+ExcludeArch: i686
 
 # Requirements for galaxy_transform.py
 BuildRequires: python3
@@ -664,6 +668,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Thu Jan  18 2024 Rich Megginson <rmeggins@redhat.com> - 1.67.0-2
+- Add ExcludeArch i686 to fix build issues with ansible-core
+
 * Thu Jan  18 2024 Packit <hello@packit.dev> - 1.67.0-1
 - Update to upstream version 1.67.0
 

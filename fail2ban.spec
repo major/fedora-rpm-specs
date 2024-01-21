@@ -6,7 +6,7 @@
 
 Name: fail2ban
 Version: 1.0.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -456,6 +456,9 @@ fi
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 27 2023 Adam Williamson <awilliam@redhat.com> - 1.0.2-9
 - Require pyasynchat and pyasyncore with Python 3.12+
 - Disable smtp tests on F39+ due to removal of smtpd from Python 3.12

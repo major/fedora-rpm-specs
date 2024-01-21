@@ -3,7 +3,7 @@
 
 Name:		dnfdragora
 Version:	2.1.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
 License:	GPLv3+
@@ -130,6 +130,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 06 2023 Jonathan Wright <jonathan@almalinux.org> - 2.1.5-1
 - Update to 2.1.5 rhbz#2251548
 

@@ -1,6 +1,6 @@
 Name:           atasm
 Version:        1.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        6502 cross-assembler
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ popd
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 01 2024 Dan Horák <dan[at]danny.cz> - 1.24-1
 - update to 1.23 from an active fork
 

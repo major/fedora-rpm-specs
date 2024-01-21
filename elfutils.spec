@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.190
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -79,6 +79,8 @@ Patch1: elfutils-0.186-fdo-swap.patch
 Patch2: elfutils-0.190-fix-core-noncontig.patch
 # Remove obscure tests that can fail on i386.
 Patch3: elfutils-0.190-remove-ET_REL-unstrip-test.patch
+# tests: fix build against gcc-14 (-Werror=calloc-transposed-args)
+Patch4: elfutils-0.190-gcc-14.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -449,6 +451,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.190-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 
 * Tue Nov 28 2023 Aaron Merey <amerey@fedoraproject.org> - 0.190-4
 - Add elfutils-0.190-remove-ET_REL-unstrip-test.patch

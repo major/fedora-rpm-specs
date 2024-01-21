@@ -1,6 +1,6 @@
 Name:		fes
 Version:	0.2
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPL-2.0-or-later
 Summary:	Fast Exhaustive Search
 URL:		https://www-almasty.lip6.fr/~bouillaguet/implementation.html
@@ -95,6 +95,9 @@ make -C src check
 %{_libdir}/libfes.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

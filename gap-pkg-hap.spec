@@ -12,7 +12,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.61
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Homological Algebra Programming for GAP
 
 License:        GPL-2.0-or-later
@@ -170,6 +170,9 @@ gap -l "%{buildroot}%{gap_libdir};" -o 3G tst/testquick.g
 %{gap_libdir}/pkg/%{pkgname}/tutorial/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 1.61-1
 - Version 1.61
 

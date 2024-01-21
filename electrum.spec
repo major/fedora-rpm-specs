@@ -1,6 +1,6 @@
 Name:           electrum
 Version:        4.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A lightweight Bitcoin Client
 
 License:        MIT
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.4-3
 - Drop x86 support (leaf package)
 

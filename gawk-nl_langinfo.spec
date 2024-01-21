@@ -1,7 +1,7 @@
 Name:             gawk-nl_langinfo
 Summary:          Gawk library providing nl_langinfo access
 Version:          1.1.0
-Release:          16%{?dist}
+Release:          17%{?dist}
 License:          GPLv3+
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -56,6 +56,9 @@ make check
 # =============================================================================
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 14 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.1.0-16
 - Update BuildRequires gawk(abi) to indicate compatibility with gawk 5.3 major
   api version 4

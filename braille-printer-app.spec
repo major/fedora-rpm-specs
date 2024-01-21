@@ -20,7 +20,7 @@ Epoch:          1
 # for beta number
 # Upstream issue https://github.com/OpenPrinting/braille-printer-app/issues/2
 Version:        2.0~b0^386eea385f
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Braille printer application
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -193,6 +193,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{INSTALL,CHANGES-1.x.md,DEVELOPING.md,ABOUT-NLS}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0~b0^386eea385f-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0~b0^386eea385f-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

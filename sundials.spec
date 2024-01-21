@@ -97,9 +97,7 @@ Summary:    Suite of nonlinear solvers
 Name:       sundials
 Version:    6.6.2
 Release:    %autorelease
-# SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
-# Check the file 'LICENSE' for details.
-License:    BSD
+License:    BSD-3-Clause
 URL:        https://computation.llnl.gov/projects/%{name}/
 Source0:    https://github.com/LLNL/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -243,6 +241,7 @@ header files.
 %package doc
 Summary:    Suite of nonlinear solvers (documentation)
 BuildArch: noarch
+Obsoletes: sundials-doc < 0:6.6.2-5
 %description doc
 SUNDIALS is a SUite of Non-linear DIfferential/ALgebraic equation Solvers
 for use in writing mathematical software.
@@ -1008,7 +1007,11 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %license sundials-%{version}/LICENSE
 %doc sundials-%{version}/README.md
 %doc sundials-%{version}/NOTICE
-%doc sundials-%{version}/doc/arkode/*
+%doc sundials-%{version}/doc/arkode/*.pdf
+%doc sundials-%{version}/doc/ida*/*.pdf
+%doc sundials-%{version}/doc/cvode*/*.pdf
+%doc sundials-%{version}/doc/kinsol/*.pdf
+
 
 %changelog
 %autochangelog

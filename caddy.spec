@@ -2,7 +2,7 @@
 
 Name:           caddy
 Version:        2.7.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Web server with automatic HTTPS
 # main source code is Apache-2.0
 # see comments above provides tags for bundled license breakdown
@@ -475,6 +475,9 @@ fi
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 30 2023 Carl George <carlwgeorge@fedoraproject.org> - 2.7.5-1
 - Update to version 2.7.5
 - Update poweredby logos

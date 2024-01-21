@@ -7,7 +7,7 @@
 
 Name:           glimpse
 Version:        4.12.6^git%{commitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful file indexing and query system
 
 License:        ISC
@@ -70,5 +70,8 @@ rm -v %{buildroot}%{_bindir}/agrep %{buildroot}%{_mandir}/man1/agrep.1*
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.6^git20161025.4945711-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 4.12.6^git20161025.4945711-1
 - Initial package

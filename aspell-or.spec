@@ -4,7 +4,7 @@
 
 Name:           aspell-or
 Version:        0.03
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        GNU Aspell Odia Dictionary Package
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

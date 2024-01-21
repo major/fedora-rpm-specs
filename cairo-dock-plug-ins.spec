@@ -1,3 +1,6 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global	build_type_safety_c  2
+
 %global	urlver		3.4
 %global	mainver		3.4.1
 
@@ -9,7 +12,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	46
+%global	baserelease	48
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -414,6 +417,12 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-48.20210730gitf24f769
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-47.20210730gitf24f769
+- Change -Wincompatible-pointer-types from error to warning
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-46.20210730gitf24f769
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

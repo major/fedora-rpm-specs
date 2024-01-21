@@ -1,6 +1,6 @@
 Name:           asio-grpc
 Version:        2.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Asynchronous gRPC with Asio/unified executors
 License:        Apache-2.0
 URL:            https://github.com/Tradias/asio-grpc
@@ -63,6 +63,9 @@ mv %{buildroot}/usr/lib*/cmake/asio-grpc %{buildroot}%{_datadir}/cmake/
 %{_includedir}/agrpc/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Tom Callaway <spot@fedoraproject.org> - 2.8.0-1
 - update to 2.8.0
 

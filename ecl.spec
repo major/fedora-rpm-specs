@@ -5,7 +5,7 @@
 
 Name:           ecl
 Version:        23.9.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Embeddable Common-Lisp
 
 # The project as a whole is LGPL-2.0-or-later.  Other licenses in play:
@@ -158,6 +158,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.9.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 22 2023 Jerry James <loganjerry@gmail.com> - 23.9.9-1
 - Version 23.9.9
 

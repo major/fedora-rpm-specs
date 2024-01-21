@@ -1,6 +1,6 @@
 Name:           cdsclient
 Version:        3.84
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Tools to query databases at CDS
 
 License:        GPLv3
@@ -75,6 +75,9 @@ mv %{buildroot}%{_bindir}/abibcode.awk %{buildroot}%{_datadir}/%{name}/abibcode.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.84-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.84-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

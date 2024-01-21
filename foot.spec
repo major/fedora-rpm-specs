@@ -8,7 +8,7 @@
 
 Name:           foot
 Version:        1.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 License:        MIT
@@ -149,6 +149,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.16.1-1
 - Update to 1.16.1 (#2243307)
 

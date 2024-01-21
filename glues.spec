@@ -3,7 +3,7 @@
 
 Name:           glues
 Version:        1.5
-Release:        9.20200105git44cb7c6%{?dist}
+Release:        10.20200105git44cb7c6%{?dist}
 Summary:        GLU port for OpenGL ES
 
 # SGI FREE SOFTWARE LICENSE B (Version 2.0, Sept. 18, 2008)
@@ -63,6 +63,9 @@ cp -pr source/*.h %{buildroot}%{_includedir}/%{name}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-10.20200105git44cb7c6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9.20200105git44cb7c6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

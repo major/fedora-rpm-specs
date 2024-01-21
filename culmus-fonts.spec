@@ -3,7 +3,7 @@ BuildRequires: /usr/bin/makeotfexe
 BuildRequires: fontforge
 
 Version:   0.133
-Release:   8%{?dist}
+Release:   9%{?dist}
 License:   GPL-2.0-only
 URL:       http://culmus.sourceforge.net
 
@@ -307,6 +307,9 @@ fontforge ./modify-font-metadata.pe
 %fontfiles -a
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

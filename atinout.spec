@@ -1,7 +1,7 @@
 Name:           atinout
 Summary:        AT commands as input are sent to modem and responses given as output
 Version:        0.9.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        GPLv3+
 
 URL:            https://atinout.sourceforge.net/
@@ -37,6 +37,9 @@ for the command will be output to file (or stdout).
 %license gplv3.txt
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

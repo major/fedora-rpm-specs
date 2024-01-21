@@ -17,7 +17,7 @@ compatibility.}
 %global godocs          CONTRIBUTING.md readme.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Memory Efficient Serialization Library
 
 License:        Apache-2.0
@@ -47,6 +47,9 @@ find ./* -maxdepth 0 -type d -not -name "go" -and -not -name "_build" -exec rm -
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 W. Michael Petullo <mike@flyn.org> - 1.12.0-9
 - Use SPDX license nomenclature
 

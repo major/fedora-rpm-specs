@@ -1,7 +1,7 @@
 Name:		egd
 Summary: 	Entropy Gathering Daemon
 Version:	0.9
-Release:	28%{?dist}
+Release:	29%{?dist}
 License:	GPL+ or MIT
 Source0:	http://download.sourceforge.net/egd/%{name}-%{version}.tar.gz
 URL:		http://egd.sourceforge.net/
@@ -48,6 +48,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_bindir}/egd.pl
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -15,7 +15,7 @@
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  11%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  12%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
 
 # We want to get rid of DHCP in favour of Kea package, because ISC has announced
 # the end of maintenance for ISC DHCP as of the end of 2022. No package depends
@@ -543,6 +543,9 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12:4.4.3-12.P1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 15 2023 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-11.P1
 - Mark dhcp (sub)packages as deprecated
 

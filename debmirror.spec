@@ -1,6 +1,6 @@
 Name:       debmirror
 Version:    2.38
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Debian partial mirror script, with ftp and package pool support
 
 License:    GPL-2.0-or-later
@@ -51,6 +51,9 @@ pod2man %{name} %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.38-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 06 2023 Sérgio Basto <sergio@serjux.com> - 2.38-1
 - Update debmirror to 2.38 (#2222948)
 

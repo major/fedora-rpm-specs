@@ -9,10 +9,11 @@ Version:        0.3.0
 Release:        %autorelease
 Summary:        Compares two equal-sized byte strings in constant time
 
-License:        CC0-1.0 OR MIT-0 OR Apache-2.0
+License:        MIT-0 OR Apache-2.0
 URL:            https://crates.io/crates/constant_time_eq
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * remove CC0-1.0 from license metadata (not acceptable for code in Fedora)
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * drop unused count_instructions dev-dependency and associated feature
 Patch:          constant_time_eq-fix-metadata.diff

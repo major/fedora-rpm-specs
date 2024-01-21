@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    1.173
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -238,6 +238,9 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.173-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 1.173-1
 - enforce createrepo_c gzip compression (f39+ switched to zstd)
 - self-identify the resalloc resource in logs

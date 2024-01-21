@@ -16,9 +16,9 @@ Name:           caja-extensions
 Summary:        Set of extensions for caja file manager
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %else
-Release:        0.21%{?git_rel}%{?dist}
+Release:        0.22%{?git_rel}%{?dist}
 %endif
 License:        GPLv2+
 URL:            http://mate-desktop.org
@@ -234,6 +234,9 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 14 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-5
 - fix rhbz (#2249632) and (#2145142)
 - enable gupnp for sendto-plugin again

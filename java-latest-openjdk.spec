@@ -281,7 +281,7 @@
 # New Version-String scheme-style defines
 %global featurever 21
 %global interimver 0
-%global updatever 1
+%global updatever 2
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -330,8 +330,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        12
-%global rpmrelease      4
+%global buildver        13
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -2419,6 +2419,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Sat Jan 20 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.2.0.13-1
+- Update to jdk-21.0.2+13 (GA)
+
 * Sat Dec 16 2023 Jiri Vanek <jvanek@redhat.com> - 1:21.0.1.0.12-4.rolling
 * using generated sources from portables for final debuginfo
 

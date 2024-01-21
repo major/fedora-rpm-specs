@@ -5,7 +5,7 @@
 
 Name:           aqualung
 Version:        1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPL-2.0-or-later
 URL:            https://aqualung.jeremyevans.net
@@ -196,6 +196,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 05 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1.2-4
 - Unconditionally enable Monkey's Audio support
 - Add upstream backports:

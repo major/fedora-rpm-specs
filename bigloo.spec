@@ -23,7 +23,7 @@
 
 Name:           bigloo
 Version:        4.5b%{?patch_ver:.%{patch_ver}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compiler for the Scheme programming language
 
 # The compiler and tools are GPL-2.0-or-later.
@@ -354,6 +354,9 @@ fi
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5b-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 26 2023 Jerry James <loganjerry@gmail.com> - 4.5b-1
 - Version 4.5b
 - Drop upstreamed configure-c99 and emacs29 patches

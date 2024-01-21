@@ -9,7 +9,7 @@
 
 Name:           espeak
 Version:        1.48.04
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Software speech synthesizer (text-to-speech)
 
 License:        GPLv3+
@@ -122,6 +122,9 @@ cp -pf %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.48.04-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 14 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 1.48.04-27
 - Fully drop f21 upgrade compatibility hack
   Resolves: fedora#2239803

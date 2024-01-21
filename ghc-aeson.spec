@@ -16,7 +16,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.1.2.1
 # can only be reset when all subpkgs bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast JSON parsing and encoding
 
 License:        BSD-3-Clause
@@ -219,6 +219,9 @@ cabal-tweak-dep-ver vector '<0.13' '<0.14'
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 2.1.2.1-3
 - https://hackage.haskell.org/package/aeson-2.1.2.1/changelog
 

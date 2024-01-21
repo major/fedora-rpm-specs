@@ -2,7 +2,7 @@
 
 Name:			cage
 Version:		0.1.5
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		A Wayland kiosk
 
 License:		MIT
@@ -51,6 +51,9 @@ project page and the Wiki.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Aug 26 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.1.5-1
 - Update to 0.1.5 (#2227408)
 - Convert License tag to SPDX

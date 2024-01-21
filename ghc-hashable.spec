@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.4.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A class for types that can be converted to a hash value
 
 License:        BSD-3-Clause
@@ -122,6 +122,9 @@ cp -bp %{SOURCE1} %{pkg_name}.cabal
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jul 25 2023 Jens Petersen <petersen@redhat.com> - 1.4.2.0-3
 - drop data-array-byte
 

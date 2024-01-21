@@ -15,7 +15,7 @@ Go API backed by the native Dart Sass Embedded executable.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Go API backed by the native Dart Sass Embedded executable
 
 License:        MIT
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/frankban/quicktest)
 %gopkgfiles
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 30 2023 W. Michael Petullo - <mike@flyn.org> - 1.2.0-1
 - New upstream version
 

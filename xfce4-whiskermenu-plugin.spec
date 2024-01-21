@@ -2,7 +2,7 @@
 %global minorversion	2.8
 
 Name:		xfce4-whiskermenu-plugin
-Version:	2.8.2
+Version:	2.8.3
 Release:	1%{?dist}
 Summary:	An alternate application launcher for Xfce
 
@@ -59,6 +59,9 @@ that you’ve launched from it
 %{_mandir}/man1/xfce4-popup-whiskermenu.1*
 
 %changelog
+* Thu Jan 18 2024 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 2.8.3-1
+- Update to v2.8.3
+
 * Wed Aug 30 2023 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 2.8.0-1
 - Update to v2.8.0
 

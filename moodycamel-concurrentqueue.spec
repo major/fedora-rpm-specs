@@ -16,7 +16,7 @@ Summary:        An industrial-strength lock-free queue for C++
 # - we don't include CDSChecker
 # - Relacy is BSD-3-Clause (used only in tests)
 # ^ not currently running those two but probably not worth stripping out
-License:        (BSD-2-Clause or BSL-1.0) and BSD-3-Clause and Zlib
+License:        (BSD-2-Clause OR BSL-1.0) AND BSD-3-Clause AND Zlib
 URL:            https://github.com/cameron314/%{project}
 Source:         %{url}/archive//v%{version}/%{name}-%{version}.tar.gz
 # install to %%{_datadir}/cmake not %%{_libdir}/cmake
@@ -47,7 +47,7 @@ Features:
 
 %package        devel
 Summary:        Development files for %{name}
-License:        (BSD or Boost) and zlib
+License:        (BSD-2-Clause OR BSL-1.0) AND Zlib
 # this is noarch, but we want to force tests to run on all platforms
 BuildArch:      noarch
 Requires:       cmake-filesystem

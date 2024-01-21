@@ -2,7 +2,7 @@
 
 Name:           gkrellm-sun
 Version:        1.0.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Sun clock plugin for GKrellM
 License:        GPLv2
 URL:            http://gkrellsun.sourceforge.net/
@@ -49,6 +49,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 13 2023 Hans de Goede <hdegoede@redhat.com> - 1.0.0-37
 - Fix FTBFS (rhbz#2225831)
 

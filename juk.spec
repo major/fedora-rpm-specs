@@ -4,8 +4,8 @@ Version: 24.01.90
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
-# handbook doc: GFDL
-License: (GPL-2.0-only or GPL-3.0-only) and GFDL
+# handbook doc: GFDL-1.2-no-invariants-or-later
+License: (GPL-2.0-only OR GPL-3.0-only) AND GFDL-1.2-no-invariants-or-later
 URL:     https://invent.kde.org/multimedia/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz

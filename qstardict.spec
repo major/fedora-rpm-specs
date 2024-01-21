@@ -1,32 +1,22 @@
-# disable kdeplasma component since plasma5 porting is not finished
-# https://github.com/a-rodin/qstardict/issues/14
-%global with_kdeplasma 0
-
 Name:       qstardict
-Version:    1.3
-Release:    29%{?dist}
+Version:    1.4.1
+Release:    1%{?dist}
 Summary:    StarDict clone written using Qt
-License:    GPLv2+
-URL:        http://qstardict.ylsoftware.com/
-Source0:    https://github.com/a-rodin/qstardict/archive/qstardict-%{version}.tar.gz
+License:    GPL-3.0-or-later
+URL:        https://qstardict.ylsoftware.com/
+Source0:    https://qstardict.ylsoftware.com/files/qstardict-%{version}.tar.gz
 
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  glib2-devel
 BuildRequires:  zlib-devel
+BuildRequires:  libzim-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-linguist
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  kf5-kglobalaccel-devel
 BuildRequires:  kf5-kwindowsystem-devel
 BuildRequires:  kf5-knotifications-devel
-%if %with_kdeplasma
-BuildRequires:  kf5-plasma-devel
-BuildRequires:  kf5-kdelibs4support-devel
-BuildRequires:  extra-cmake-modules
-BuildRequires:  cmake(KF5Completion)
-BuildRequires:  cmake(KF5ConfigWidgets)
-%endif
 
 # This project is using private headers
 BuildRequires:  qt5-qtbase-private-devel
@@ -47,42 +37,15 @@ selected words
 * Pronouncing of the translated words
 * Plugins support
 
-%if %with_kdeplasma
-%package -n kde-plasma-%{name}
-Summary:    Plasma applet of qstardict
-Requires:   %{name} = %{version}-%{release}
-%{?_kde4_macros_api:Requires: kde4-macros(api) = %{_kde4_macros_api} }
-
-%description -n kde-plasma-%{name}
-This package contains KDE plasma applet of qstardict.
-
-%endif
-
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q -n %{name}-%{version}
 
 %build
 %qmake_qt5 PLUGINS_DIR=%{_libdir}/%{name}/plugins QMAKE_LRELEASE=lrelease-qt5
 make %{?_smp_mflags}
 
-%if %with_kdeplasma
-# Build plasma applet
-cd kdeplasma
-mkdir -p %{_target_platform}
-pushd %{_target_platform}
-%cmake_kf5 .. -DCMAKE_INCLUDE_CURRENT_DIR=ON
-popd
-make %{?_smp_mflags} -C %{_target_platform}
-%endif
-
 %install
 make install INSTALL_ROOT=%{buildroot}
-
-%if %with_kdeplasma
-pushd kdeplasma
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
-popd
-%endif
 
 desktop-file-install --vendor="" \
     --dir=%{buildroot}%{_datadir}/applications              \
@@ -99,14 +62,10 @@ rm -fr %{buildroot}%{_docdir}
 %{_datadir}/applications/*
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
-%if %with_kdeplasma
-%files -n kde-plasma-%{name}
-%{_kde4_libdir}/kde4/*.so
-%{_kde4_datadir}/kde4/services/*.desktop
-%endif
-
-
 %changelog
+* Fri Jan 19 2024 Vojtech Trefny <vtrefny@redhat.com> - 1.4.1-1
+- Update to the latest upstream release 1.4.1
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

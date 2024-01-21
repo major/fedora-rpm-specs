@@ -3,7 +3,7 @@
 
 Name:       copr-keygen
 Version:    1.91
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -176,6 +176,9 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.91-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 1.91-1
 - bump jinja2 dep from 3.0.0 to 3.1.2
 

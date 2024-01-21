@@ -10,7 +10,7 @@
 
 Name:       copr-cli
 Version:    1.110
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -128,6 +128,9 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.110-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 1.110-1
 - priority=X support for copr DNF repositories added
 - new 'copr-cli download-build --logs' option added

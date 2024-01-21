@@ -5,7 +5,7 @@
 
 Name:               bacula
 Version:            13.0.3
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 License:            AGPLv3 with exceptions
@@ -658,6 +658,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 13.0.3-3
 - Disable Qt components in RHEL builds
 

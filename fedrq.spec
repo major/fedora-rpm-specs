@@ -8,7 +8,7 @@
 
 Name:           fedrq
 Version:        0.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool to query the Fedora and EPEL repositories
 
 # - code is GPL-2.0-or-later
@@ -107,6 +107,9 @@ FEDRQ_BACKEND=libdnf5 %pytest -v -m "not no_rpm_mock" %{?skips:-k '%{skips}'}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Maxwell G <maxwell@gtmx.me> - 0.13.0-2
 - Reenable libdnf5 tests
 

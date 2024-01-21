@@ -3,7 +3,7 @@
 Summary: The finger client
 Name: finger
 Version: 0.17
-Release: 76%{?dist}
+Release: 77%{?dist}
 License: BSD-4-Clause-UC
 
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/bsd-finger-%{version}.tar.gz
@@ -127,6 +127,9 @@ install -m 644 %{SOURCE2} %{buildroot}%{_unitdir}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-77
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.17-76
 - SPDX migration, update spec file
 

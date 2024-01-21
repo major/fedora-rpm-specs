@@ -1,6 +1,6 @@
 Name:           SFML
 Version:        2.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple and Fast Multimedia Library
 
 # Assets used by SFML's example projects.
@@ -113,6 +113,9 @@ popd
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 06 2023 Sérgio Basto <sergio@serjux.com> - 2.6.1-2
 - Fix License tag
 

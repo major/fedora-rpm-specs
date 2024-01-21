@@ -2,7 +2,7 @@
 
 Name:           apache-parent
 Version:        31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parent POM file for Apache projects
 License:        Apache-2.0
 URL:            https://apache.org/
@@ -42,6 +42,9 @@ This package contains the parent pom file for apache projects.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 31-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Marian Koncek <mkoncek@redhat.com> - 31-1
 - Update to upstream version 31
 

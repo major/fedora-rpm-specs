@@ -2,7 +2,7 @@
 
 Name:           PySolFC
 Version:        2.21.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -91,6 +91,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 01 2023 Sérgio Basto <sergio@serjux.com> - 2.21.0-3
 - Do not require pycotap to run PySol, pycotap is only needed for the single
   unittest ( https://github.com/shlomif/PySolFC/pull/353 )

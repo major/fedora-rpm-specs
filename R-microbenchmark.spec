@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packvers}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Accurate Timing Functions
 
 License:          BSD
@@ -73,6 +73,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

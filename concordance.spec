@@ -2,7 +2,7 @@
 
 Name: concordance
 Version: 1.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Software to program the Logitech Harmony remote control
 
 License: GPLv3+
@@ -120,6 +120,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        AES-based encryption tool for tar/cpio and loop-aes imagemore
 Name:           aespipe
 Version:        2.4g
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://loop-aes.sourceforge.net/
 Source:         %{url}/aespipe/aespipe-v%{version}.tar.bz2
@@ -56,6 +56,9 @@ install -Dp -m0755 aespipe %{buildroot}%{_bindir}/aespipe
 %{_bindir}/aespipe
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4g-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Jirka Hladky <hladky.jiri@gmail.com> - 2.4g-1
 - Updated to version 2.4g. It sets -fno-strict-aliasing to WA RHEL-14046
 

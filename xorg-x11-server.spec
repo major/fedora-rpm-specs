@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   29%{?gitdate:.%{gitdate}}%{?dist}
+Release:   30%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 # SPDX
 License:   Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
@@ -170,6 +170,8 @@ Patch3820: 0007-dix-when-disabling-a-master-float-disabled-slaved-de.patch
 Patch3821: 0008-glx-Call-XACE-hooks-on-the-GLX-buffer.patch
 # CVE-2024-0409
 Patch3822: 0009-ephyr-xwayland-Use-the-proper-private-key-for-cursor.patch
+# Related to CVE-2024-21886
+Patch3823: 0001-dix-Fix-use-after-free-in-input-device-shutdown.patch
 
 BuildRequires: make
 BuildRequires: systemtap-sdt-devel
@@ -585,6 +587,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Fri Jan 19 2024 José Expósito <jexposit@redhat.com> - 1.20.14-30
+- Fix use after free related to CVE-2024-21886
+
 * Tue Jan 16 2024 José Expósito <jexposit@redhat.com> - 1.20.14-29
 - CVE fix for: CVE-2023-6816, CVE-2024-0229, CVE-2024-21885, CVE-2024-21886,
   CVE-2024-0408 and CVE-2024-0409

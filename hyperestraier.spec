@@ -6,7 +6,7 @@
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	57%{?dist}
+Release:	58%{?dist}
 Summary:	A full-text search system
 
 # Overall	LGPL-2.1-or-later
@@ -23,6 +23,8 @@ Patch0:		huperestraier-1.4.13-ruby-19-compat.patch
 # Make javanative/configure c99 compat manually
 # instead of rerunning autoupdate -> autoconf
 Patch1:		hyperestraier-1.4.13-javanative-configure-c99-compat.patch
+# rubynative: fix function prototype passed to rb_rescue
+Patch2:		hyperestraier-1.4.13-rubyext-functype.patch
 
 BuildRequires:	gcc
 BuildRequires:	bzip2-devel zlib-devel
@@ -88,6 +90,7 @@ This package contains a Ruby interface for Hyper Estraier.
 
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 ## 0. First:
@@ -273,6 +276,9 @@ popd
 
 
 %changelog
+* Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-58
+- rubynative: fix function prototype passed to rb_rescue
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-57
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

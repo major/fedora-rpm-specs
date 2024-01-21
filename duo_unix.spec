@@ -7,7 +7,7 @@
 
 Name:           duo_unix
 Version:        1.12.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Duo two-factor authentication for UNIX systems
 
 License:        GPLv2
@@ -168,6 +168,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

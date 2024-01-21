@@ -8,7 +8,7 @@
 
 Name:		chirp
 Version:	0.4.0^%{git_suffix}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A tool for programming two-way radio equipment
 
 License:	GPL-3.0-or-later
@@ -103,6 +103,9 @@ ln -frs %{buildroot}%{_mandir}/man1/chirp.1.gz \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0^20231101git35c8a1c0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Daniel Rusek <mail@asciiwolf.com> - 0.4.0^20231101git35c8a1c0-4
 - Added AppStream metadata
 

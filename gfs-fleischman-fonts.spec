@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20080303
-Release: 36%{?dist}
+Release: 37%{?dist}
 URL:     http://www.greekfontsociety-gfs.gr/typefaces/majuscule
 
 %global foundry           GFS
@@ -58,6 +58,9 @@ unzip -j -q  %{SOURCE0}
 %fontfiles
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20080303-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080303-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

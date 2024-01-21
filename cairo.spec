@@ -4,7 +4,7 @@
 
 Name:           cairo
 Version:        1.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A 2D graphics library
 
 License:        LGPL-2.1-only OR MPL-1.1
@@ -155,6 +155,9 @@ This package contains tools for working with the cairo graphics library.
 %{_libdir}/cairo/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 27 2023 Kalev Lember <klember@redhat.com> - 1.18.0-1
 - Update to 1.18.0
 - Drop the xml surface and cairo-sphinx tool as they've been removed upstream

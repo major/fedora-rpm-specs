@@ -2,7 +2,7 @@
 
 Name:           cxsc
 Version:        %(tr - . <<< %{upstreamver})
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        C++ library for Extended Scientific Computing
 
 %global majver  %(cut -d. -f1 <<< %{version})
@@ -205,6 +205,9 @@ make toolboxtest_dyn
 %doc docu/apidoc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.5.4-23
 - Stop building for 32-bit x86
 

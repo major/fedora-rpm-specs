@@ -7,7 +7,7 @@
 Summary:  Timezone information for the Cyrus IMAP Server
 Name: cyrus-timezones
 Version:  %{git_date}
-Release: 7.%{git_suffix}%{dist}
+Release: 8.%{git_suffix}%{dist}
 License: GPLv2+
 Group: Applications/Internet
 URL: https://github.com/cyrusimap/cyrus-timezones
@@ -52,6 +52,9 @@ chrpath -d %{buildroot}/%{_bindir}/cyr_vzic
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200903-8.20200903git4f795aeb
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200903-7.20200903git4f795aeb
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

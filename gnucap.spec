@@ -1,6 +1,6 @@
 Name:           gnucap
 Version:        0.35
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        The Gnu Circuit Analysis Package
 License:        GPLv2+
 URL:            http://www.gnu.org/software/gnucap/
@@ -54,6 +54,9 @@ rm examples/Makefile*
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

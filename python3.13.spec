@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a2
+%global prerel a3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -71,15 +71,17 @@ License: Python-2.0.1
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 23.2.1
+# Explore the sources tarball (you need the version before %%prep is executed):
+#  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
+%global pip_version 23.3.2
 %global setuptools_version 67.6.1
 %global wheel_version 0.40.0
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.12.11
-Provides: bundled(python3dist(certifi)) = 2023.5.7
+Provides: bundled(python3dist(cachecontrol)) = 0.13.1
+Provides: bundled(python3dist(certifi)) = 2023.7.22
 Provides: bundled(python3dist(chardet)) = 5.1
 Provides: bundled(python3dist(colorama)) = 0.4.6
 Provides: bundled(python3dist(distlib)) = 0.3.6
@@ -98,8 +100,9 @@ Provides: bundled(python3dist(setuptools)) = 68
 Provides: bundled(python3dist(six)) = 1.16
 Provides: bundled(python3dist(tenacity)) = 8.2.2
 Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(truststore)) = 0.8
 Provides: bundled(python3dist(typing-extensions)) = 4.7.1
-Provides: bundled(python3dist(urllib3)) = 1.26.16
+Provides: bundled(python3dist(urllib3)) = 1.26.17
 Provides: bundled(python3dist(webencodings)) = 0.5.1
 }
 # setuptools
@@ -354,7 +357,7 @@ Source11: idle3.appdata.xml
 
 # (Patches taken from github.com/fedora-python/cpython)
 
-# 00251 # 758eb29fbfe9253ab343e8a09a480a6b64e57df8
+# 00251 # 60dd97be7bf3662ff65edd8471e948924b4175b2
 # Change user install location
 #
 # Set values of base and platbase in sysconfig from /usr
@@ -381,6 +384,16 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00418 # 7044fbb05d0825f5fd9733a6491bb5bea904fab1
+# Don't generate sbom in make regen-all
+#
+# The script and make target, added in Python 3.13.0a3, assumes a fixed
+# location of pip wheel and other bundled libraries, resulting in an
+# error and failed build when not found.
+# Reported upstream: https://github.com/python/cpython/issues/114240
+# and https://github.com/python/cpython/issues/114244
+Patch418: 00418-don-t-generate-sbom-in-make-regen-all.patch
 
 # (New patches go here ^^^)
 #
@@ -1329,6 +1342,7 @@ CheckPython freethreading
 %{pylibdir}/json/
 %{pylibdir}/logging/
 %{pylibdir}/multiprocessing/
+%{pylibdir}/pathlib/
 %{pylibdir}/pydoc_data/
 %{pylibdir}/re/
 %{pylibdir}/sqlite3/
@@ -1421,6 +1435,7 @@ CheckPython freethreading
 %{dynload_dir}/_statistics.%{1}.so\
 %{dynload_dir}/_struct.%{1}.so\
 %{dynload_dir}/_uuid.%{1}.so\
+%{dynload_dir}/_xxinterpqueues.%{1}.so\
 %{dynload_dir}/_xxsubinterpreters.%{1}.so\
 %{dynload_dir}/_zoneinfo.%{1}.so\
 %{dynload_dir}/array.%{1}.so\
@@ -1663,6 +1678,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Jan 18 2024 Karolina Surma <ksurma@redhat.com> - 3.13.0~a3-1
+- Update to Python 3.13.0a3
+
 * Tue Dec 05 2023 Miro Hrončok <mhroncok@redhat.com> - 3.13.0~a2-2
 - Add the python3.13-freethreading and python3.13-freethreading-debug packages
 - See https://peps.python.org/pep-0703/

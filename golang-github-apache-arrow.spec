@@ -32,7 +32,7 @@ in-memory processing.}
                         go/parquet/cmd/parquet_reader/README.md
 
 Name:           %{goname}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross-language development platform for in-memory data
 
 License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause BSD-3-Clause-Clear and BSL-1.0
@@ -74,6 +74,9 @@ done
 %gopkgfiles
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 08 2023 W. Michael Petullo <mike@flyn.org> - 12.0.1-4
 - Follow lead of golang-github-aead-chacha20 to handle arch-specific deps
 

@@ -1,6 +1,6 @@
 Name: fonts-tweak-tool
 Version: 0.4.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tool for customizing fonts per language
 
 License: LGPL-3.0-or-later
@@ -55,6 +55,9 @@ rm -f %{buildroot}%{_datadir}/gir-*/FontsTweak-*.gir
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov  6 2023 Akira TAGOH <tagoh@redhat.com> - 0.4.8-1
 - New upstream release.
 - Fix a crash when loading manual-updated config.

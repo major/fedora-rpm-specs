@@ -75,7 +75,7 @@ Version: 9.4.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -1009,6 +1009,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.8-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Nov 25 2023 Jens Petersen <petersen@redhat.com> - 9.4.8-25
 - s390x: patch from @stefansf (IBM) to fix llvm alignment in data sections
   which should fix certain runtime crashes (#2248097)

@@ -4,7 +4,7 @@
 %forgemeta
 Name:           dump1090
 Version:        0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple Mode S decoder specifically designed for RTLSDR devices
 
 License:        BSD
@@ -83,6 +83,9 @@ diff testout testoutput || diff testout testoutput2
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

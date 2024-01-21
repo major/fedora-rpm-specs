@@ -1,6 +1,6 @@
 Name:       awstats
 Version:    7.9
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Advanced Web Statistics
 License:    GPLv3+
 URL:        https://www.awstats.org/
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

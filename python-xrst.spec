@@ -84,7 +84,7 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
-* Sat Jan 06 2024 Brad Bell <bradbell at seanet dot com> - 2024.0.1
+* Sat Jan 06 2024 Brad Bell <bradbell at seanet dot com> - 2024.0.0-1
 - New upstream source.
 - pyspellchecker is now available as a fedora package.
 - Remove some extra blank lines.

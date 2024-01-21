@@ -1,7 +1,7 @@
 Summary:       An old-school drum-kit sampler
 Name:          drumkv1
 Version:       0.9.23
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       GPLv2+
 URL:           https://%{name}.sourceforge.io
 Source0:       https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_libdir}/lv2/%{name}.lv2/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

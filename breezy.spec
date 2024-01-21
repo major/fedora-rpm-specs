@@ -7,7 +7,7 @@
 %global brzmajor 3.3
 %global brzminor .3
 #global brzrc b6
-%global baserelease 1
+%global baserelease 2
 
 Name:           breezy
 Version:        %{brzmajor}%{?brzminor}
@@ -157,6 +157,9 @@ echo ".so man1/git-remote-brz.1" > %{buildroot}%{_mandir}/man1/git-remote-bzr.1
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Ondrej Pohorelsky <opohorel@redhat.com> - 3.3.3-1
 - Update to 3.3.3
 - Modernizes specfile, now using automatic buildrequires

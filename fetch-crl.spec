@@ -1,6 +1,6 @@
 Name: fetch-crl
 Version: 3.0.22
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Downloads Certificate Revocation Lists
 
 License: ASL 2.0
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-%{version}
 %license LICENSE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.22-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.22-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

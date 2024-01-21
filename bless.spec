@@ -3,7 +3,7 @@
 
 Name: bless
 Version: 0.6.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: High quality, full featured hex editor    
 
 License: GPLv2+        
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_metainfodir}/bless.met
 %{_metainfodir}/bless.metainfo.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6.3-11
 - Simplify packaging
 - Add appstream data

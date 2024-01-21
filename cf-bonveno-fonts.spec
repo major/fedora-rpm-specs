@@ -4,7 +4,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.1
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	A fun font by Barry Schwartz
 
 License:	GPLv2+
@@ -72,6 +72,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %dir %{_fontdir}/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

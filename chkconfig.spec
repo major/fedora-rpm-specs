@@ -1,12 +1,12 @@
 Summary: A system tool for maintaining the /etc/rc*.d hierarchy
 Name: chkconfig
 Version: 1.26
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/fedora-sysv/chkconfig
 Source: https://github.com/fedora-sysv/chkconfig/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires: gcc gettext libselinux-devel make newt-devel popt-devel systemd-devel
+BuildRequires: gcc gettext libselinux-devel make newt-devel popt-devel pkgconfig(systemd)
 # beakerlib might not be available on CentOS Stream any more
 %if 0%{?fedora}
 BuildRequires: beakerlib
@@ -97,6 +97,9 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 %dir /var/lib/alternatives
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Jan Macku <jamacku@redhat.com> - 1.26-1
 - fix(test): dot't call `basename` with empty string
 - spec: sort BuildRequires alphabetically

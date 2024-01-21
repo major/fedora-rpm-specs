@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.0.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 BuildArch:	noarch
 Summary:	An Erlang library that implements a parallel, capacity-limited request pool
 License:	ASL 2.0
@@ -45,6 +45,9 @@ or sidejob:cast respectively.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

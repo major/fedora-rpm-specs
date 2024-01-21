@@ -28,7 +28,7 @@
 
 Name:		certmonger
 Version:	0.79.19
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
@@ -266,6 +266,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Florian Weimer <fweimer@redhat.com> - 0.79.19-2
 - Fix C compatibility issues
 

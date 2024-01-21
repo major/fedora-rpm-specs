@@ -7,7 +7,7 @@
 
 Name:           debootstrap
 Version:        1.0.132
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Debian GNU/Linux bootstrapper
 
 License:        MIT
@@ -64,6 +64,9 @@ install -p -m 0644 debootstrap.8 %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/debootstrap.8*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.132-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.0.132-1
 - Update to 1.0.132 (#2129922)
 

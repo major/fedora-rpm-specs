@@ -1,6 +1,6 @@
 Name:           calceph
 Version:        3.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
@@ -121,6 +121,9 @@ make check
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 03 2023 Mattia Verga <mattia.verga@proton.me> - 3.5.4-1
 - Update to 3.5.4 (fedora#2252402)
 

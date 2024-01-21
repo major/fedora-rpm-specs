@@ -18,7 +18,7 @@ Version: 3.6.7
 # https://github.com/DCMTK/dcmtk/blob/master/CMake/dcmtkPrepare.cmake#L78
 %global soname_version %{abi_version}.%{version}
 
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Source: https://dicom.offis.de/download/dcmtk/dcmtk367/dcmtk-3.6.7.tar.gz
 URL: http://dicom.offis.de/dcmtk.php.en
@@ -249,6 +249,9 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libofstd.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

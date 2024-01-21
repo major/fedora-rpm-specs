@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
@@ -82,6 +82,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 15 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.8.1-3
 - Add patch for Python 3.12 compatibility, resolves rhbz#2238954
 

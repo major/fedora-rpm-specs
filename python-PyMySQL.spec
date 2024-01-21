@@ -1,14 +1,11 @@
-%global pypi_name PyMySQL
-
-Name:           python-%{pypi_name}
+Name:           python-PyMySQL
 Version:        1.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
-URL:            https://pypi.python.org/pypi/%{pypi_name}/
-Source0:        %pypi_source
-Source1:        setup.py
+URL:            https://pypi.org/project/pymysql/
+Source:         %{pypi_source PyMySQL}
 
 BuildArch:      noarch
 
@@ -18,54 +15,50 @@ to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
 
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python3-PyMySQL
 Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-# rsa extra
-BuildRequires:  python%{python3_pkgversion}-cryptography
-%if ! 0%{?rhel}
-# ed25519 extra
-BuildRequires:  python%{python3_pkgversion}-pynacl
-%endif
+BuildRequires:  python3-devel
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+
+%description -n python3-PyMySQL
 This package contains a pure-Python MySQL client library. The goal of PyMySQL is
 to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
 
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python%{python3_pkgversion}-%{pypi_name} -i %{python3_sitelib}/*.egg-info rsa %{?!rhel:ed25519}}
+%pyproject_extras_subpkg -n python3-PyMySQL rsa %{!?rhel:ed25519}
 
 
 %prep
-%setup -qn %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
-# Remove tests files so they are not installed globally.
-rm -rf tests
-cp %{SOURCE1} .
+%autosetup -n PyMySQL-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x rsa %{!?rhel:-x ed25519}
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pymysql
 
 
 %check
 # Tests cannot be launch on koji, they require a mysqldb running.
-%py3_check_import pymysql
+%pyproject_check_import
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
-%license LICENSE
+%files -n python3-PyMySQL -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/pymysql/
+
 
 %changelog
+* Tue Jan 16 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.1.0-4
+- Convert to pyproject macros
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

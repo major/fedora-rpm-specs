@@ -14,7 +14,7 @@ size 2048x922)
 
 Name:           %{fontname}-fonts
 Version:        1.100
-Release:        0.18.20130409hg%{hgrev}%{?dist}
+Release:        0.19.20130409hg%{hgrev}%{?dist}
 Summary:        A mono spaced, courier-width font
 
 License:        OFL
@@ -157,6 +157,9 @@ done
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-0.19.20130409hg4348cf4ec395
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-0.18.20130409hg4348cf4ec395
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

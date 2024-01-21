@@ -7,7 +7,7 @@
 
 Name:           gio-sharp
 Version:        %{tagname}
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        C# bindings for gio
 
 License:        MIT
@@ -63,6 +63,9 @@ chmod 644 `find $RPM_BUILD_ROOT%{_prefix}/lib -name '*.dll.config'`
 %{_datadir}/gapi-2.0/gio-api.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

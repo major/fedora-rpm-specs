@@ -24,7 +24,7 @@ AutoReqProv: no
 
 Name:          drupal7
 Version:       7.98
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       An open-source content-management platform
 
 License:       GPLv2+ and BSD and MIT
@@ -261,6 +261,9 @@ install -pm0755 %{SOURCE11} %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.98-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 26 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 7.98-1
 - Update to 7.98 (RHBZ #2217253)
 - SA-CORE-2023-004

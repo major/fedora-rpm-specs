@@ -11,7 +11,7 @@
 
 Name:           SLOF
 Version:        %{gittagdate}
-Release:        2.git%{gittagcommit}%{?dist}
+Release:        3.git%{gittagcommit}%{?dist}
 Summary:        Slimline Open Firmware
 
 License:        BSD-3-Clause
@@ -73,6 +73,9 @@ install -c -m 0644 boot_rom.bin %{buildroot}%{_datadir}/%{targetdir}/slof.bin
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20220719-3.git6b6c16b4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 21 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 20220719-2.git6b6c16b4
 - Adjust conditionals for EPEL build
 

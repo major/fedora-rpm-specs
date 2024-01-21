@@ -9,8 +9,8 @@
 #
 
 
-%global gh_commit    05017b80304e0eb3f31d90194a563fd53a6021f1
-#global gh_date      20150927
+%global gh_commit    3767b2c56ce02d01e3491046f33466a1ae60a37f
+%global gh_date      2024-01-19
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -23,7 +23,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.15
+%global upstream_version 9.6.16
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -190,7 +190,6 @@ if (PHP_VERSION_ID > 80100) {
     '%{php_home}/SebastianBergmann/Template2/autoload.php',
     '%{php_home}/SebastianBergmann/Timer5/autoload.php',
     $inst,
-    '%{php_home}/Prophecy/autoload.php',
     '%{php_home}/SebastianBergmann/CliParser/autoload.php',
     '%{php_home}/SebastianBergmann/CodeUnit/autoload.php',
     '%{php_home}/SebastianBergmann/Invoker3/autoload.php',
@@ -207,6 +206,8 @@ if (PHP_VERSION_ID > 80100) {
     '%{php_home}/PharIo/Manifest2/autoload.php',
     '%{php_home}/PharIo/Version3/autoload.php',
     __DIR__ . '/Framework/Assert/Functions.php',
+    // May load Comparator/RecursionContext bad version
+    '%{php_home}/Prophecy/autoload.php',
 ]);
 // Extensions
 \Fedora\Autoloader\Dependencies::optional(
@@ -257,6 +258,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 19 2024 Remi Collet <remi@remirepo.net> - 9.6.16-1
+- update to 9.6.16
+
 * Sat Dec  2 2023 Remi Collet <remi@remirepo.net> - 9.6.15-1
 - update to 9.6.15
 

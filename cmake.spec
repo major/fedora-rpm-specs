@@ -72,7 +72,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 # Set to RC version if building RC, else comment out.
 %global rcsuf rc3
@@ -550,6 +550,9 @@ popd
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0~rc3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Florian Weimer <fweimer@redhat.com> - 3.28.0~rc3-2
 - Improve C compatibility of LoadCommand tests
 

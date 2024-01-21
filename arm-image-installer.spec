@@ -4,7 +4,7 @@
 
 Name:		arm-image-installer
 Version:	3.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Writes binary image files to any specified block device
 License:	GPLv2+
 Url:		https://pagure.io/arm-image-installer
@@ -60,6 +60,9 @@ ln -s /usr/bin/arm-image-installer %{buildroot}%{_bindir}/fedora-arm-image-insta
 %{_datadir}/arm-image-installer/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 26 2023 Paul Whalen <pwhalen@fedoraproject.org> - 3.9-1-2
 - fix lvm rename when not resizing
 

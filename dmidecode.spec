@@ -1,7 +1,7 @@
 Summary:        Tool to analyse BIOS DMI data
 Name:           dmidecode
 Version:        3.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 License:        GPL-2.0-or-later
 Source0:        https://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.xz
@@ -41,6 +41,9 @@ I/O ports (e.g. serial, parallel, USB).
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 10 2023 Coiby Xu <coxu@redhat.com> - 1:3.5-1
 - Update to 3.5
 

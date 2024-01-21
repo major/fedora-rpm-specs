@@ -7,7 +7,7 @@
 Name:           florist
 Epoch:          2
 Version:        %{upstream_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Source implementation of the POSIX Ada Bindings
 
 License:        GPL-2.0-or-later WITH GNAT-exception
@@ -135,6 +135,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:22.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Björn Persson <Bjorn@Rombobjörn.se> - 2:22.0.0-6
 - Rebuilt with GCC 14 prerelease.
 

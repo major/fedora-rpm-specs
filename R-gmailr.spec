@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.1
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Access the Gmail RESTful API
 
 License:          MIT
@@ -79,6 +79,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/secret/rpkgtester@gmail.com
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

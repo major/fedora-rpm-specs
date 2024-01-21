@@ -1,6 +1,6 @@
 Name:           clamz
 Version:        0.5
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Amazon Downloader
 License:        GPL-3.0-or-later
 URL:            https://code.google.com/archive/p/clamz/
@@ -38,6 +38,9 @@ make install DESTDIR=%{buildroot} UPDATE_MIME_DATABASE=: UPDATE_DESKTOP_DATABASE
 %{_datadir}/mime/packages/%{name}.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.3.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %global tar_ver %{version}
 
@@ -358,6 +358,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.3.1-3
 - Enable mms transport plugin.
 

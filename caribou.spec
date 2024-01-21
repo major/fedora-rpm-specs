@@ -1,6 +1,8 @@
+%global build_type_safety_c 0
+
 Name:           caribou
 Version:        0.4.21
-Release:        35%{?dist}
+Release:        37%{?dist}
 Summary:        A simplified in-place on-screen keyboard
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/Caribou
@@ -154,6 +156,12 @@ desktop-file-validate %{buildroot}%{_libdir}/gnome-settings-daemon-3.0/gtk-modul
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Fri Jan 19 2024 Leigh Scott <leigh123linux@gmail.com> - 0.4.21-36
+- Disable modern c build flags due to vala issue
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

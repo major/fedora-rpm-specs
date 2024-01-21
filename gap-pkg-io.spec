@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        4.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unix I/O functionality for GAP
 
 License:        GPL-3.0-or-later
@@ -113,6 +113,9 @@ popd
 %{gap_archdir}/pkg/%{pkgname}/example/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 17 2023 Jerry James <loganjerry@gmail.com> - 4.8.2-1
 - Version 4.8.2
 

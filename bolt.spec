@@ -1,6 +1,6 @@
 Name:          bolt
 Version:       0.9.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Thunderbolt device manager
 License:       LGPLv2+
 URL:           https://gitlab.freedesktop.org/bolt/bolt
@@ -77,6 +77,9 @@ mentioned tasks.
 %ghost %dir %{_localstatedir}/lib/boltd
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 13 2023 Kate Hsuan <hpa@redhat.com> - 0.9.6-1
 - Update 0.9.6 release
 - Fixing for compiler warning and log message issues

@@ -2,7 +2,7 @@
 
 Name:           gnome-backgrounds
 Version:        45.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
 License:        CC-BY-SA-3.0
@@ -88,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Kalev Lember <klember@redhat.com> - 45.0-1
 - Update to 45.0
 

@@ -1,6 +1,6 @@
 Name:           glsl-language-server
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Language server implementation for OpenGL Shading Language
 License:        MIT
 URL:            https://github.com/svenstaro/glsl-language-server
@@ -35,6 +35,9 @@ Language server implementation for OpenGL Shading Language.
 %{_bindir}/glslls
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 11 2023 Marian Koncek <mkoncek@redhat.com> - 0.5.0-1
 - Update to upstream version 0.5.0
 

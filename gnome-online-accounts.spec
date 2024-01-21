@@ -5,7 +5,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.49.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
@@ -122,6 +122,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.49.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Tomas Popela <tpopela@redhat.com> - 3.49.0-2
 - Don't require WebKitGTK anymore as GOA now spawns your default web browser
   instead of using the web view

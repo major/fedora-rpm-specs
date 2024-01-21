@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Tools for HTML
 
 License:          GPLv2+
@@ -79,6 +79,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov  5 2023 Tom Callaway <spot@fedoraproject.org> - 0.5.7-1
 - update to 0.5.7
 

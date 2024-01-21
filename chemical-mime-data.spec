@@ -1,6 +1,6 @@
 Name:           chemical-mime-data
 Version:        0.1.94
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Support for chemical/* MIME types
 
 License:        LGPL-2.1-or-later
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.94-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 29 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.1.94-35
 - Switch to SPDX license identifier
 - Remove defunct URLs 

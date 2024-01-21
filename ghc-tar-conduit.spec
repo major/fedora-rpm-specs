@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.3.2.1
 # can only be reset when all subpkgs bumped
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Extract and create tar files using conduit for streaming
 
 License:        MIT
@@ -146,6 +146,9 @@ cabal-tweak-drop-dep conduit-combinators
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 0.3.2.1-20
 - https://hackage.haskell.org/package/tar-conduit-0.3.2.1/changelog
 

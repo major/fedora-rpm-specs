@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.1.3
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Machine Learning Benchmark Problems
 
 License:          GPLv2
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

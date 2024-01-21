@@ -3,7 +3,7 @@
 Summary: A GNU set of database routines which use extensible hashing
 Name: gdbm
 Version: 1.23
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 1
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/gdbm/
@@ -112,6 +112,9 @@ make check
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

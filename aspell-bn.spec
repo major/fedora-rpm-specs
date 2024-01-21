@@ -4,7 +4,7 @@
 
 Name:           aspell-bn
 Version:        0.01.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        GNU Aspell Bengali Dictionary Package
 
 License:        GPL-2.0-or-later
@@ -52,6 +52,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

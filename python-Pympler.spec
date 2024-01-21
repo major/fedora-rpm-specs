@@ -16,9 +16,9 @@ the lifetime of selected Python objects.
 
 Name: python-%{pname}
 Version: 1.0.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Measure, monitor and analyze the memory behavior of Python objects
-License: ASL 2.0 and BSD and MIT
+License: Apache-2.0 and BSD-3-Clause and MIT
 # bundled stuff
 # pympler/asizeof.py: BSD
 # pympler/static/jquery.sparkline.min.js: BSD
@@ -42,6 +42,8 @@ BuildRequires: python3-bottle
 BuildRequires: python3-devel
 BuildRequires: python3-matplotlib
 BuildRequires: python3-setuptools
+BuildRequires: python3-pip
+BuildRequires: python3-wheel
 Requires: python3-bottle
 # http://www.flotcharts.org
 Provides: bundled(js-jquery-flot) = 0.8.3
@@ -63,15 +65,15 @@ Enhances: python3-django-debug-toolbar
 %setup -q -n %{pname}-%{version}
 rm pympler/util/bottle.py
 chmod -x pympler/asizeof.py
-%patch0 -p1
-%patch1 -p1 -b .py311
-%patch2 -p1 -b .no-shebang
+%patch -P 0 -p1
+%patch -P 1 -p1 -b .py311
+%patch -P 2 -p1 -b .no-shebang
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
@@ -79,10 +81,13 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %files -n python3-%{pname}
 %license LICENSE
 %doc NOTICE README.md
-%{python3_sitelib}/%{pname}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{pname}-%{version}.dist-info/
 %{python3_sitelib}/pympler
 
 %changelog
+* Fri Jan 19 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.0.1-9
+- Fix patch macros, update python macros, SPDX license tags.
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

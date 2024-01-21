@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -157,6 +157,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 14 2023 Rob Crittenden <rcritten@redhat.com> - 0.16-2
 - Don't fail if a service name cannot be looked up in LDAP
 - Disable the ipa-ods-exporter service check

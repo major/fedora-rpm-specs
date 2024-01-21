@@ -2,7 +2,7 @@
 
 Name:           darkhttpd
 Version:        1.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Secure, lightweight, fast, single-threaded HTTP/1.1 server
 
 License:        BSD
@@ -72,6 +72,9 @@ install -pDm644 %{S:2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 %config %{_unitdir}/%{name}.service
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

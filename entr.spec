@@ -1,6 +1,6 @@
 Name:           entr
 Version:        5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run arbitrary commands when files change
 
 # The entire source code is ISC except missing/sys/event.h which is BSD-2-Clause
@@ -37,6 +37,9 @@ export PREFIX=%{_prefix}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 03 2023 Lubomír Sedlář <lsedlar@redhat.com> - 5.4-1
 - New upstream release 5.4
 

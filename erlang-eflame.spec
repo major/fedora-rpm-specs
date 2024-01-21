@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0
-Release:	0.30.gita085181%{?dist}
+Release:	0.31.gita085181%{?dist}
 BuildArch:	noarch
 Summary:	Flame Graph profiler for Erlang
 License:	MIT
@@ -46,6 +46,9 @@ install -D -p -m 0755 flamegraph.riak-color.pl %{buildroot}%{erlang_appdir}/bin/
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.31.gita085181
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.30.gita085181
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

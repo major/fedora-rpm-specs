@@ -5,7 +5,7 @@
 %global crate prost-derive
 
 Name:           rust-prost-derive
-Version:        0.10.1
+Version:        0.12.3
 Release:        %autorelease
 Summary:        Protocol Buffers implementation for the Rust Language
 

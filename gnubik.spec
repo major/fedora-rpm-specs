@@ -1,6 +1,6 @@
 Name:           gnubik
 Version:        2.4.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        3D interactive graphics puzzle
 
 License:        GPLv3+
@@ -74,6 +74,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/applications/gen-dot-desktop.scm
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:           gnome-tour
 Version:        45.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPLv3+
@@ -200,6 +200,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 19 2023 Kalev Lember <klember@redhat.com> - 45.0-1
 - Update to 45.0
 - Downgrade pretty_env_logger dep to 0.4

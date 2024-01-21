@@ -6,7 +6,7 @@
 Summary: Database of printers and printer drivers
 Name: foomatic-db
 Version: %{dbver_rel}
-Release: 77.%{dbver_snap}%{?dist}
+Release: 78.%{dbver_snap}%{?dist}
 # GPL-2.0-or-later non-PPD files and some PPDs
 # MIT for ppds
 License: GPL-2.0-or-later AND MIT
@@ -182,6 +182,9 @@ ln -sf ../../foomatic/db/source/PPD %{buildroot}%{_datadir}/cups/model/foomatic-
 %{_datadir}/cups/model/foomatic-db-ppds
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-78.20230810
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 4.0-77.20230810
 - update to foomatic-db-4.0-20230810
 - fix xargs in %%prep to work with files with spaces

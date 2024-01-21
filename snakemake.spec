@@ -1,4 +1,25 @@
-%bcond tests 1
+# Work around a series of circular test dependencies:
+#
+#         ⬐───╮
+# snakemake → python-snakemake-interface-executor-plugins⬎
+#    ￪￪ │ ⬑────────────────────python-snakemake-executor-plugin-cluster-generic
+#    ││ ↳python-snakemake-interface-storage-plugins────────────────╮
+#    ││                                           ￬                │
+#    │╰────────────────────────python-snakemake-storage-plugin-http│
+#    ╰─────────────────────────python-snakemake-storage-plugin-s3🠔─╯
+#
+# A good build order is:
+#
+#   1. BOOTSTRAP: python-snakemake-interface-executor-plugins,
+#      python-snakemake-interface-storage-plugins
+#   2. BOOTSTRAP: snakemake
+#   3. python-snakemake-executor-plugin-cluster-generic,
+#      python-snakemake-storage-plugin-http,
+#      python-snakemake-storage-plugin-s3
+#   4. snakemake, python-snakemake-interface-executor-plugins,
+#      python-snakemake-interface-storage-plugins
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 %bcond doc_pdf 1
@@ -12,7 +33,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.32.4
+Version:        8.2.1
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -25,7 +46,7 @@ Summary:        Workflow management system to create reproducible and scalable d
 #   files as well.
 License:        MIT AND Unlicense
 URL:            https://snakemake.readthedocs.io/en/stable/index.html
-Source0:        https://github.com/snakemake/snakemake/archive/v%{version}/snakemake-%{version}.tar.gz
+Source:         https://github.com/snakemake/snakemake/archive/v%{version}/snakemake-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -41,19 +62,24 @@ BuildRequires:  vim-filesystem
 Requires:       vim-filesystem
 
 Provides:       vim-snakemake = %{version}-%{release}
+# These extras were removed upstream in Snakemake 8.0.0. Retain the Obsoletes
+# until F40 reaches EOL so we have a clean upgrade path.
+Obsoletes:      snakemake+azure < 8.1.0-1
+Obsoletes:      snakemake+google-cloud < 8.1.0-1
 
 %if %{with tests}
 # See test-environment.yml for a listing of test dependencies, along with a lot
 # of other cruft.
 BuildRequires:  %{py3_dist boto3}
-BuildRequires:  %{py3_dist configargparse}
-# For tests/test_google_lifesciences.py; but it would need a network connection
-#BuildRequires:  %%{py3_dist google-api-python-client}
-#BuildRequires:  %%{py3_dist google-cloud-storage}
 BuildRequires:  %{py3_dist pandas}
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist requests-mock}
+BuildRequires:  %{py3_dist snakemake-executor-plugin-cluster-generic}
+BuildRequires:  %{py3_dist snakemake-storage-plugin-s3}
 %endif
+# For import-testing snakemake.gui
+BuildRequires:  %{py3_dist flask}
+# For import-testing snakemake.executors.google_lifesciences_helper:
+BuildRequires:  %{py3_dist google-cloud-storage}
 
 %description %_description
 
@@ -77,7 +103,7 @@ BuildRequires:  /usr/bin/rsvg-convert
 # No metapackage for “pep” extra because the following are not packaged:
 #   - python3-eido
 #   - python3-peppy
-%pyproject_extras_subpkg -n snakemake reports messaging google-cloud azure
+%pyproject_extras_subpkg -n snakemake reports messaging
 
 %prep
 %autosetup -n snakemake-%{version} -p1
@@ -89,8 +115,10 @@ sed -r -i '1{/^#!/d}' \
     snakemake/executors/google_lifesciences_helper.py
 # Fix calls to unversioned Python interpreter
 sed -r -i 's@"python"@"%{python3}"@g' tests/test_linting.py
-# Now part of Sphinx:
-sed -r -i '/sphinxcontrib-napoleon/d' docs/requirements.txt
+sed -r -i 's@python -m@"%{python3} -m@g' tests/tests.py
+# The sphinxcontrib-napoleon extension is now part of Sphinx.
+# The lutra HTML theme is not needed since we do not generate HTML docs.
+sed -r -i 's/^(sphinxcontrib-napoleon|lutra)/# &/' docs/requirements.txt
 # Since pdflatex cannot handle Unicode inputs in general:
 echo "latex_engine = 'xelatex'" >> docs/conf.py
 # Copy and rename nano and vim extensions readmes for use in the main
@@ -132,18 +160,6 @@ PATH="${PATH-}:%{buildroot}%{_bindir}" \
     PYTHONPATH='%{buildroot}%{python3_sitelib}' \
     help2man --no-info --name='%{summary}' snakemake \
     > %{buildroot}%{_mandir}/man1/snakemake.1
-# No man page for snakemake-bash-completion since it is not intended for manual
-# invocation.
-
-# Generate and install shell completions.
-install -d %{buildroot}%{bash_completions_dir}
-# Since 7.29.0, snakemake --bash-completion no longer works without a Snakefile
-# https://github.com/snakemake/snakemake/issues/2336
-touch Snakefile
-PATH="${PATH-}:%{buildroot}%{_bindir}" \
-    PYTHONPATH='%{buildroot}%{python3_sitelib}' \
-    snakemake --bash-completion \
-    > %{buildroot}%{bash_completions_dir}/snakemake.bash
 
 # Install nano syntax highlighting
 install -t '%{buildroot}%{_datadir}/nano' -D -m 0644 -p \
@@ -156,20 +172,26 @@ find '%{buildroot}%{_datadir}/vim/vimfiles' \
     -type f -name 'README.*' -print -delete
 
 %check
-%if %{with tests}
-# Lint output “Migrate long run directives into scripts or notebooks …” is
-# apparently not expected by upstream
-k="${k-}${k+ and }not test_lint[long_run-positive]"
-# Needs a network connection
-k="${k-}${k+ and }not test_tibanna"
-# Requires py-tes. Currently not packaged for Fedora.
-k="${k-}${k+ and }not test_tes"
-# Require a running slurm instance; maybe this is possible to set up
-# temporarily in the offline build environment, but we don’t know how.
-k="${k-}${k+ and }not test_slurm_"
+# Even if we are running the tests, this is useful; it could turn up import
+# errors that would only be revealed by tests we had to disable (e.g. due to
+# network access).
+#
+# ImportError from snakemake.executors.flux (no 'sleep' in
+# snakemake_interface_executor_plugins.utils)
+# https://github.com/snakemake/snakemake/issues/2598
+# “The flux module is actually supposed to be moved into a plugin and has no
+# connection to the rest of the code anymore.”
+%pyproject_check_import -e '*.tests*' -e 'snakemake.executors.flux'
 
-# Needs a network connection (and GCP credentials):
-ignore="${ignore-} --ignore=tests/test_google_lifesciences.py"
+%if %{with tests}
+# Needs a network connection:
+ignore="${ignore-} --ignore-glob=tests/test_google_lifesciences/*"
+
+# Needs a network connection (plus, there are some unresolved
+# unversioned-python-command issues which we hope are confined to the test
+# code):
+k="${k-}${k+ and }not test_deploy_sources"
+
 # ______ ERROR collecting tests/test_conda_python_script/test_script.py ______
 # import file mismatch:
 # imported module 'test_script' has this __file__ attribute:
@@ -187,9 +209,6 @@ ignore="${ignore-} --ignore-glob=tests/test_conda_python_3_7_script/*"
 %files -f %{pyproject_files}
 %{_bindir}/snakemake
 %{_mandir}/man1/snakemake.1*
-
-%{_bindir}/snakemake-bash-completion
-%{bash_completions_dir}/snakemake.bash
 
 # This is not owned by the filesystem package, and there is no nano-filesystem
 # subpackage, so we co-own the directory to avoid depending on nano.

@@ -2,7 +2,7 @@
 
 Name:           extra-enforcer-rules
 Version:        1.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extra rules for maven-enforcer-plugin
 License:        Apache-2.0
 URL:            https://github.com/mojohaus/extra-enforcer-rules
@@ -57,6 +57,9 @@ Javadoc for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.0-2
 - Convert License tag to SPDX format
 

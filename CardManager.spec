@@ -1,6 +1,6 @@
 Name:           CardManager
 Version:        3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Java application to allows you to play any, especially collectible, card game
 
 License:        BSD
@@ -94,6 +94,9 @@ cp -r dist/javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

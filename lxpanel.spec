@@ -1,3 +1,6 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global	build_type_safety_c  2
+
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=219930
 
 %global	use_release	0
@@ -30,7 +33,7 @@
 #%%global		use_gcc_strict_sanitize	1
 
 %global		main_version	0.10.1
-%global		baserelease	1
+%global		baserelease	2
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
@@ -237,6 +240,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230918git633a2d46-2
+- Change -Wincompatible-pointer-types from error to warning
+
 * Tue Sep 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230918git633a2d46-1
 - Update to the latest git
 

@@ -5,7 +5,7 @@
 
 Name:           bash-completion
 Version:        2.11
-Release:        12%{?dist}
+Release:        13%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -81,6 +81,9 @@ make -C completions check
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

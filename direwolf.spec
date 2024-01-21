@@ -1,6 +1,6 @@
 Name:           direwolf
 Version:        1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 License:        GPLv2+
@@ -138,6 +138,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 31 2023 Richard Shaw <hobbes1069@gmail.com> - 1.7-1
 - Update to 1.7, for details see:
   https://github.com/wb2osz/direwolf/releases/tag/1.7

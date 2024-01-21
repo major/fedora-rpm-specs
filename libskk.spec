@@ -42,7 +42,7 @@ that use %{name}.
 
 %prep
 %setup -q
-
+find -name '*.vala' -exec touch {} \;
 
 %build
 %configure --disable-static --enable-fep

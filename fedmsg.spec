@@ -2,7 +2,7 @@
 
 Name:           fedmsg
 Version:        1.1.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tools for Fedora Infrastructure real-time messaging
 License:        LGPL-2.1-or-later
 URL:            https://github.com/fedora-infra/fedmsg
@@ -275,6 +275,9 @@ chmod 0644 %{buildroot}/%{_sysconfdir}/logrotate.d/%{modname}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Maxwell G <maxwell@gtmx.me> - 1.1.7-4
 - Remove unused python3-mock dependency
 

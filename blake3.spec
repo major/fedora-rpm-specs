@@ -3,7 +3,7 @@
 
 Name:           blake3
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Official C implementation of the BLAKE3 cryptographic hash function
 
 License:        Apache-2.0
@@ -88,4 +88,7 @@ cd c
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 %autochangelog

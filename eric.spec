@@ -8,7 +8,7 @@
 Name:    eric
 Summary: Python IDE
 Version: 23.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 URL:     https://eric-ide.python-projects.org
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/eric7_ide.desktop
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 04 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.9-1
 - Update to 23.9 using Qt6
 

@@ -1,7 +1,7 @@
 Summary: Compact Disc Digital Audio (CDDA) extraction tool (or ripper)
 Name: cdparanoia
 Version: 10.2
-Release: 42%{?dist}
+Release: 43%{?dist}
 # the app is GPLv2 and GPLv2+, everything else is LGPLv2
 License: GPLv2 and GPLv2+ and LGPLv2
 URL: http://www.xiph.org/paranoia/index.html
@@ -106,6 +106,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.2-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

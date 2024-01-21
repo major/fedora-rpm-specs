@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.6.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -267,6 +267,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Robert Scheck <robert@fedoraproject.org> - 4.6.2-4
 - Build on Fedora and modern EPEL against mariadb-connector-c-devel
   and libpq-devel packages (#2241091, thanks to Michal Schorm)

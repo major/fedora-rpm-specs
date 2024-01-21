@@ -1,6 +1,6 @@
 Name:           freetennis
 Version:        0.4.8
-Release:        56%{?dist}
+Release:        57%{?dist}
 Summary:        Tennis simulation game
 License:        GPL-2.0-or-later
 URL:            http://freetennis.sourceforge.net/
@@ -64,6 +64,9 @@ install -p %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug  6 2023 Jerry James <loganjerry@gmail.com> - 0.4.8-56
 - Fix FTBFS on bytecode-only architectures (rhbz#2225813)
 - Convert License field to SPDX

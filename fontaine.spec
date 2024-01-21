@@ -2,7 +2,7 @@
 
 Name:             fontaine
 Version:          0
-Release:          33.svn%{revision}%{?dist}
+Release:          34.svn%{revision}%{?dist}
 Summary:          Font file meta information utility
 License:          GPL-2.0-or-later
 URL:              http://unifont.org/fontaine/
@@ -39,6 +39,9 @@ find -type d -name .svn | xargs -r rm -rf
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-34.svn70
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-33.svn70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

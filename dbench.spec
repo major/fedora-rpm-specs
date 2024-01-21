@@ -1,6 +1,6 @@
 Name:           dbench
 Version:        4.0 
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Filesystem load benchmarking tool
 
 License:        GPLv2+
@@ -41,6 +41,9 @@ make install DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir}/man1 INSTALLCMD='install 
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

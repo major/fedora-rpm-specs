@@ -1,6 +1,6 @@
 Name:           cockpit-composer
 Version:        47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
 License:        MIT
@@ -42,6 +42,9 @@ cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/met
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 47-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Packit <hello@packit.dev> - 47-1
 - Fix OCI sizing bug
 

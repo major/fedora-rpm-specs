@@ -1,6 +1,6 @@
 Name:           glob2
 Version:        0.9.4.4
-Release:        64%{?dist}
+Release:        65%{?dist}
 Summary:        An innovative RTS game
 
 License:        GPLv3+
@@ -153,6 +153,9 @@ EOF
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4.4-65
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 0.9.4.4-64
 - Rebuilt for Boost 1.83
 

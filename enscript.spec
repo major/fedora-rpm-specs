@@ -1,7 +1,7 @@
 Summary: A plain ASCII to PostScript converter
 Name: enscript
 Version: 1.6.6
-Release: 32%{?dist}
+Release: 33%{?dist}
 # compat/regex.h,strerror.c,xalloc.{c,h} - GPL-2.0-or-later
 # states/gram.{c,h}, intl/plural.c - GPL-3.0-or-later WITH Bison-exception-2.2
 # intl/hash-string.c - LGPL-2.1-or-later
@@ -120,6 +120,9 @@ done
 %config(noreplace) %{_sysconfdir}/enscript.cfg
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.6-32
 - SPDX license scan and migration
 - %%patch macro migration

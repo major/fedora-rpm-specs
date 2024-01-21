@@ -5,7 +5,7 @@
 
 Name:           bluechi
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A systemd service controller for multi-nodes environments
 License:        LGPL-2.1-or-later AND CC0-1.0
 URL:            https://github.com/containers/bluechi
@@ -248,6 +248,9 @@ popd
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 Michael Engel <mengel@redhat.com> - 0.6.0-1
 - Update to 0.6.0
 - Rename bluechi package to controller

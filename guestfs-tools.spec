@@ -19,7 +19,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.52.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -40,6 +40,10 @@ Source1:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/
 %if 0%{verify_tarball_signature}
 Source2:       libguestfs.keyring
 %endif
+
+# Upstream patches since 1.52.0 was released:
+Patch:         0001-Move-the-repository-to-https-github.com-libguestfs-g.patch
+Patch:         0002-builder-Add-a-test-of-the-chown-parameter.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
@@ -398,6 +402,10 @@ end
 
 
 %changelog
+* Fri Jan 19 2024 Richard W.M. Jones <rjones@redhat.com> - 1.52.0-2
+- Fix virt-customize --chown invalid format error
+- New upstream github repository.
+
 * Thu Jan  4 2024 Richard W.M. Jones <rjones@redhat.com> - 1.52.0-1
 - New stable version 1.52.0
 

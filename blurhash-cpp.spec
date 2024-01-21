@@ -2,7 +2,7 @@
 
 Name: %{appname}-cpp
 Version: 0.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSL-1.0
 Summary: C++ blurhash encoder/decoder
@@ -51,6 +51,9 @@ rm -f stb_*.h
 %{_libdir}/pkgconfig/%{appname}.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

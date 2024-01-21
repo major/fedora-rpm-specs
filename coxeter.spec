@@ -5,7 +5,7 @@
 
 Name:           coxeter
 Version:        3.1
-Release:        10.%{gitdate}.%{shorttag}%{?dist}
+Release:        11.%{gitdate}.%{shorttag}%{?dist}
 Summary:        Combinatorial aspects of Coxeter group theory
 
 # The content is GPL-1.0-or-later.  The remaining licenses cover the various
@@ -104,6 +104,9 @@ fi
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-11.20180226.7b5a1f0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.1-10.20180226.7b5a1f0
 - Stop building for 32-bit x86
 

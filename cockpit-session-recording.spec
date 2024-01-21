@@ -1,6 +1,6 @@
 Name: cockpit-session-recording
 Version: 14
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Cockpit Session Recording
 License: LGPL-2.0-or-later
 URL:     https://github.com/Scribery/%{name}
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

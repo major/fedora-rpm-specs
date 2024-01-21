@@ -1,7 +1,7 @@
 Name:		globus-xio-pipe-driver
 %global _name %(tr - _ <<< %{name})
 Version:	4.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Grid Community Toolkit - Globus Pipe Driver
 
 License:	Apache-2.0
@@ -81,6 +81,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

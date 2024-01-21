@@ -1,6 +1,6 @@
 Name:           bino
 Version:        2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        3D video player
 
 License:        GPL-3.0-or-later
@@ -59,6 +59,9 @@ appstream-util validate-relax --nonet \
 %{_metainfodir}/org.bino3d.bino.metainfo.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 29 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 2.1-1
 - Update to 2.1
 - Drop info logic as it's no longer needed

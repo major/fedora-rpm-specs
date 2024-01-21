@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Transitive groups library
 
 # Artistic-2.0: presentation of the data in the data files
@@ -122,6 +122,9 @@ gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testa
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 Jerry James <loganjerry@gmail.com> - 3.6.5-1
 - Version 3.6.5
 

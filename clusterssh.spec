@@ -1,6 +1,6 @@
 Name:          clusterssh
 Version:       4.16
-Release:       9%{?dist}
+Release:       10%{?dist}
 %define modname App-ClusterSSH
 %define modver v4.16
 Summary:       Secure concurrent multiple server terminal control
@@ -111,6 +111,9 @@ mv  %{buildroot}/%{_bindir}/clusterssh_bash_completion.dist \
 %{perl_privlib}/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.16-9
 - Don't try to open a directory as the config file (BZ#2223529)
 - Update license to SPDX format

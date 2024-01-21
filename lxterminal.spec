@@ -1,3 +1,6 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global		build_type_safety_c  2
+
 %global		use_release	0
 %global		use_git		0
 %global		use_gitbare	1
@@ -35,7 +38,7 @@
 
 %undefine		_changelog_trimtime
 
-%global		baserelease	1
+%global		baserelease	2
 
 Name:			lxterminal
 Version:		%{main_version}%{git_ver_rpm}
@@ -181,6 +184,9 @@ cd ..
 
 
 %changelog
+* Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20230917git9b4299c2-2
+- Change -Wincompatible-pointer-types from error to warning
+
 * Sun Dec 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20230917git9b4299c2-1
 - Update to the latest git
 

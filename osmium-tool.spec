@@ -5,7 +5,7 @@
 
 Name:           osmium-tool
 Version:        1.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command line tool for working with OpenStreetMap data
 
 License:        GPL-3.0-only
@@ -14,8 +14,11 @@ Source0:        https://github.com/osmcode/%{name}/archive/v%{version}/%{name}-%
 # Disable tests which break on big endian architectures
 # https://github.com/osmcode/osmium-tool/issues/176
 Patch0:         osmium-tool-bigendian.patch
+# Patch test results for zlib-ng
+# https://github.com/osmcode/osmium-tool/issues/274
+Patch1:         osmium-tool-zlibng.patch
 
-BuildRequires:  cmake make gcc-c++ pandoc man-db
+BuildRequires:  cmake make gcc-c++ pandoc man-db git-core
 
 BuildRequires:  catch2-devel >= %{catch_version}
 BuildRequires:  libosmium-devel >= %{libosmium_version}
@@ -31,7 +34,7 @@ based on the Osmium library
 
 
 %prep
-%autosetup -p 1
+%autosetup -S git
 sed -i -e "s/-O3 -g//" CMakeLists.txt
 rm -rf include/rapidjson test/include/catch.hpp
 ln -sf /usr/include/catch2/catch.hpp test/include
@@ -64,6 +67,9 @@ install -p -m644 zsh_completion/* %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Fri Jan 19 2024 Tom Hughes <tom@compton.nu> - 1.16.0-3
+- Patch test results for zlib-ng
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.16.0-2
 - Rebuilt for Boost 1.83
 

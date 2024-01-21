@@ -14,7 +14,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    68%{?dist}
+Release:    69%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
 # contrib/check_cvs.in:     check-cvs
@@ -611,6 +611,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-69
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Petr Pisar <ppisar@redhat.com> - 1.11.23-68
 - Convert License tags to an SPDX format
 

@@ -3,7 +3,7 @@
 
 Name:           elementary-notifications
 Version:        7.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK Notifications Server
 License:        GPL-3.0-or-later
 
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 12 2023 Fabio Valentini <decathorpe@gmail.com> - 7.0.1-1
 - Initial packaging
 

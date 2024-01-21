@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/compress-tools
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          compress-tools-fix-metadata-auto.diff
+# * backported upstream patch to port from encoding to encoding_rs:
+#   https://github.com/OSSystems/compress-tools-rs/commit/5e7bbdd
+Patch:          0001-backport-tests-port-from-unmaintained-crate-encoding.patch
 
 ExclusiveArch:  %{rust_arches}
 

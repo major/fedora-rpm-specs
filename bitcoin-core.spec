@@ -6,7 +6,7 @@
 
 Name:       bitcoin-core
 Version:    26.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -340,6 +340,9 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 26.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Simone Caronni <negativo17@gmail.com> - 26.0-1
 - Update to 26.0.
 

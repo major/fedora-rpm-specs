@@ -2,7 +2,7 @@
 
 Name:           PySolFC-music
 Version:        4.50
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Music for PySolFC
 
 License:        GPL-2.0-or-later
@@ -31,6 +31,9 @@ cp -a data/music/* $RPM_BUILD_ROOT%{_datadir}/PySolFC/music
 %{_datadir}/PySolFC/music/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.50-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.50-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

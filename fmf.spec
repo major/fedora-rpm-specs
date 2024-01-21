@@ -1,6 +1,6 @@
 Name: fmf
 Version: 1.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Flexible Metadata Format
 License: GPLv2+
@@ -77,6 +77,9 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 29 2023 Petr Šplíchal <psplicha@redhat.com> - 1.3.0-1
 - Allow case-insensitive context matching
 - Move the copr repository to the `teemtee` group

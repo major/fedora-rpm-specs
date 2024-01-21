@@ -1,6 +1,6 @@
 Name:           frotz
 Version:        2.54
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Interactive fiction interpreter for Z-Machine (Infocom) games
 
 License:        GPL-2.0-or-later
@@ -91,6 +91,9 @@ install -m0644 -D frotz.conf -t %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.54-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.54-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

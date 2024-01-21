@@ -16,7 +16,7 @@
     aiosqlite
 
 Name:           python-sqlalchemy
-Version:        1.4.50
+Version:        1.4.51
 # cope with pre-release versions containing tildes
 %global srcversion %{lua: srcversion, num = rpm.expand("%{version}"):gsub("~", ""); print(srcversion);}
 Release:        %autorelease
@@ -26,6 +26,8 @@ License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{srcname} %{srcversion}}
 
+BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  python3-devel >= 3.6
 BuildRequires:  python3-greenlet >= 1.0
@@ -76,8 +78,23 @@ Documentation for SQLAlchemy.
 %install
 %py3_install
 
+install -d %{buildroot}%{_pkgdocdir}
+cp -a doc %{buildroot}%{_pkgdocdir}/
 # remove unnecessary scripts for building documentation
-rm -rf doc/build
+rm -rf %{buildroot}%{_pkgdocdir}/doc/build
+find %{buildroot}%{_pkgdocdir}/doc | while read long; do
+    short="${long#%{buildroot}}"
+    if [ -d "$long" ]; then
+        echo "%%doc %%dir $short"
+    else
+        if [ "$short" != "${short/copyright/}" ]; then
+            echo "%%license $short"
+        else
+            echo "%%doc $short"
+        fi
+    fi
+done > doc-files.txt
+
 
 %check
 %pytest test \
@@ -86,8 +103,8 @@ rm -rf doc/build
 %endif
 
 
-%files doc
-%doc doc examples
+%files doc -f doc-files.txt
+%doc examples
 
 %files -n python3-sqlalchemy
 %license LICENSE

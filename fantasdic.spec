@@ -10,7 +10,7 @@ BuildRequires:	%1 \
 %define		rubyabi		1.9.1
 %endif
 
-%define		baserelease	23
+%define		baserelease	24
 
 
 %define		fullrel		%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
@@ -214,6 +214,9 @@ exit $STATUS
 %{ruby_vendorlibdir}/%{name}/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.24.beta7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan  3 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.23.beta7
 - SPDX migration
 

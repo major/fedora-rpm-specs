@@ -6,7 +6,7 @@
 
 Name:           cowsay
 Version:        3.7.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Configurable speaking/thinking cow
 License: GPL-2.0-or-later
 URL:            https://github.com/cowsay-org/cowsay
@@ -84,6 +84,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{compdir}/%{name}
 %{compdir}/%{name}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Perry Myers <pmyers@redhat.com> - 3.7.0-10
 - Remove some additional tasteless content missed before
 

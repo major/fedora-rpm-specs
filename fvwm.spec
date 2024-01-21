@@ -1,6 +1,6 @@
 Name:		fvwm
 Version:	2.7.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Highly configurable multiple virtual desktop window manager
 License:	GPLv2+
 URL:		https://www.fvwm.org/
@@ -82,6 +82,9 @@ install -D -m0644 -p %{SOURCE1} \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 2.7.0-5
 - Further C compatibility fixes for the configure script
 

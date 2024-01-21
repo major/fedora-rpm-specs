@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.02.1
-Release:          5%{?dist}
+Release:          6%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -422,6 +422,9 @@ done
 # =============================================================================
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.02.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Zdenek Dohnal <zdohnal@redhat.com> - 10.02.1-5
 - fix FTBFS with GCC 14
 

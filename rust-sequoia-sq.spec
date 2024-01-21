@@ -4,7 +4,7 @@
 %global crate sequoia-sq
 
 Name:           rust-sequoia-sq
-Version:        0.32.0
+Version:        0.33.0
 Release:        %autorelease
 Summary:        Command-line frontends for Sequoia
 
@@ -13,12 +13,9 @@ URL:            https://crates.io/crates/sequoia-sq
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * exclude files that are only useful for upstream development
-# * prevent manpages from getting installed twice
 # * drop automated generation of upstream integration tests
 # * drop features for unsupported crypto backends
 Patch:          sequoia-sq-fix-metadata.diff
-# https://gitlab.com/sequoia-pgp/sequoia-sq/-/issues/163
-Patch:          0001-fix-building-shell-completions-and-man-pages.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -57,6 +54,7 @@ License:        LGPL-2.0-or-later AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause AN
 %license LICENSE.txt
 %license LICENSE.dependencies
 %doc README.md
+%doc NEWS
 %{_bindir}/sq
 %{_mandir}/man1/sq*
 %{bash_completions_dir}/sq.bash
@@ -82,13 +80,13 @@ rm -vr tests/
 %cargo_install
 # install manual pages
 mkdir -p %{buildroot}/%{_mandir}/man1
-cp -pav target/release/build/%{crate}-*/out/sq*.1 %{buildroot}/%{_mandir}/man1/
+cp -pav target/release/build/%{crate}-*/out/man-pages/sq*.1 %{buildroot}/%{_mandir}/man1/
 # install shell completions
-install -Dpm 0644 target/release/build/%{crate}-*/out/sq.bash \
+install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/sq.bash \
     %{buildroot}/%{bash_completions_dir}/sq.bash
-install -Dpm 0644 target/release/build/%{crate}-*/out/sq.fish \
+install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/sq.fish \
     %{buildroot}/%{fish_completions_dir}/sq.fish
-install -Dpm 0644 target/release/build/%{crate}-*/out/_sq \
+install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/_sq \
     %{buildroot}/%{zsh_completions_dir}/_sq
 
 %if %{with check}

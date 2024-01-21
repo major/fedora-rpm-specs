@@ -2,7 +2,7 @@
 
 Name:           gnome-mines
 Version:        40.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNOME Mines Sweeper game
 
 License:        GPLv2+ and CC-BY-SA
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.de
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Yanko Kaneti <yaneti@declera.com> - 40.1-5
 - Require rsvg-pixbuf-loader for svg theme images support #2211205
 

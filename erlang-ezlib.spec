@@ -3,7 +3,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.0.8
-Release:    7%{?dist}
+Release:    8%{?dist}
 
 License:    ASL 2.0
 Summary:    Native zlib driver for Erlang
@@ -52,6 +52,9 @@ install -pm755 priv/lib/ezlib_drv.so \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

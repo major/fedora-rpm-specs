@@ -3,7 +3,7 @@
 %define catalogue        %{_sysconfdir}/X11/fontpath.d
 
 Version: 0.2.20080216.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     http://www.freedesktop.org/wiki/Software/CJKUnifonts
 
 %global foundry           CJKUni
@@ -53,6 +53,9 @@ ln -s %{fontdir}/ %{buildroot}%{catalogue}/%{name}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20080216.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct  7 2023 Peng Wu <pwu@redhat.com> - 0.2.20080216.2-3
 - Fix the spec file
 - Resolves: RHBZ#2241232

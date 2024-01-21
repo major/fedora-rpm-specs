@@ -8,7 +8,7 @@
 
 Name:          dtc
 Version:       1.7.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
@@ -183,6 +183,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/ftdump
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 27 2023 Miro Hrončok <mhroncok@redhat.com> - 1.7.0-5
 - Don't install a Python .egg
 

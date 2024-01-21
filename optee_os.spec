@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:      optee_os
-Version:   4.0.0
-Release:   2%{?dist}
+Version:   4.1.0
+Release:   1%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -93,6 +93,9 @@ install -p -m 0644 out/sunxi-sun50i_a64/core/tee-pager_v2.bin /%{buildroot}%{_da
 %endif
 
 %changelog
+* Fri Jan 19 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 4.1.0-1
+- Update up 4.1.0
+
 * Wed Jan 10 2024 Enric Balletbo i Serra <eballetbo@redhat.com> - 4.0.0-2
 - Build k3-j721e OP-TEE
 

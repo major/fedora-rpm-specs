@@ -550,7 +550,7 @@ ExcludeArch: %{ix86}
 # this expression, when declared as global, filled component with java-x-vendor portable
 %define component %(echo %{name} | sed "s;-portable%{?pkgos:-%{pkgos}};;g")
 
-Name:    java-%{javaver}-%{origin}-portable%{?pkgos:-%{pkgos}}
+Name:    java-latest-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
 # This package needs `.rolling` as part of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as

@@ -14,7 +14,7 @@
 
 Name:       fedora-review
 Version:    0.10.0
-Release:    3%{?build_nr}%{?git_tag}%{?dist}
+Release:    4%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
@@ -155,6 +155,9 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 03 2023 Benson Muite <benson_muite@emailplus.org> - 0.10.0-3
 - Add bc as a required dependency
 

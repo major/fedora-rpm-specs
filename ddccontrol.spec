@@ -13,7 +13,7 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
 Version:          0.6.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 License:          GPLv2+
 BuildRequires:    gtk2-devel
 BuildRequires:    pkgconfig
@@ -157,6 +157,9 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

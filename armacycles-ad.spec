@@ -5,7 +5,7 @@
 
 Name: armacycles-ad
 Version: 0.2.9.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A lightcycle game in 3D
 
 License: GPL-2.0-or-later
@@ -161,6 +161,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/armacyclesad-dedicated/language/update.py
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9.1.1-1
 - 0.2.9.1.1
 

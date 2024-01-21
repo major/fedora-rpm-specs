@@ -10,7 +10,7 @@
 
 Name:           BackupPC
 Version:        4.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        High-performance backup system
 
 License:        GPLv2+
@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

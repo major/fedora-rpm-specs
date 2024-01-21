@@ -3,7 +3,7 @@
 
 Name:            cifs-utils
 Version:         7.0
-Release:         2%{pre_release}%{?dist}
+Release:         3%{pre_release}%{?dist}
 Summary:         Utilities for mounting and managing CIFS mounts
 
 License:         GPL-3.0-only
@@ -124,6 +124,9 @@ about CIFS mount.
 %{_mandir}/man1/smbinfo.*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

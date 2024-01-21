@@ -1,7 +1,7 @@
 Summary: GTK frontend for anyRemote
 Name: ganyremote
 Version: 8.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv3+
 Source0: http://downloads.sourceforge.net/anyremote/%{name}-%{version}.tar.gz
 URL: http://anyremote.sourceforge.net/
@@ -37,6 +37,9 @@ desktop-file-install --vendor=""          \
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

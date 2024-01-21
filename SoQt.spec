@@ -10,7 +10,7 @@
 
 Name:           SoQt
 Version:        1.6.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        High-level 3D visualization library
 # Old version had been licensed GPLv2
 License:        BSD-3-Clause
@@ -116,6 +116,9 @@ rm -rf %{buildroot}/usr/share/info/SoQt1
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Richard Shaw <hobbes1069@gmail.com> - 1.6.0-13
 - Rebuild for Coin4.
 

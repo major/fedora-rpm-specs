@@ -1,6 +1,6 @@
 Name: docbook-style-dsssl
 Version: 1.79
-Release: 37%{?dist}
+Release: 38%{?dist}
 
 Summary: Norman Walsh's modular stylesheets for DocBook
 
@@ -65,6 +65,9 @@ fi
 exit 0
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.79-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 1.79-37
 - Update license tag to the SPDX format
 

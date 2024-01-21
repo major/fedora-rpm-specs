@@ -1,6 +1,6 @@
 Name: fitsverify
 Version: 4.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A FITS File Format-Verification Tool
 
 License: CFITSIO
@@ -36,5 +36,8 @@ install -m 755 -p fitsverify %{buildroot}%{_bindir}
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 4.22-1
 - Initial version

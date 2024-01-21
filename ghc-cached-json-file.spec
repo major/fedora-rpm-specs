@@ -6,7 +6,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.1.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Locally cache a json file obtained by http
 
 License:        BSD-3-Clause
@@ -121,6 +121,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug  4 2023 Jens Petersen <petersen@redhat.com> - 0.1.1-14
 - bump over fbrnch
 

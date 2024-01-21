@@ -3,7 +3,7 @@
 
 Name:		%{srcname}
 Version:	1.0~a9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
 License:	MIT
@@ -113,6 +113,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0~a9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Owen Taylor <otaylor@redhat.com> - 1.0~a9-2
 - Add a dependency on zstd tool (used to compress intermediate tarball)
 

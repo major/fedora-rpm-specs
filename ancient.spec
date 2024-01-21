@@ -2,7 +2,7 @@
 
 Name:		ancient
 Version:	2.1.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Modern decompressor for old data compression formats
 
 # All files are BSD-2-Clause except src/BZIP2Table.hpp which is bzip2-1.0.6
@@ -81,6 +81,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/ancient verify %{S
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 06 2023 Charles R. Anderson <cra@alum.wpi.edu> - 2.1.1-1
 - Update to 2.1.1
 

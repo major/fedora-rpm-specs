@@ -4,7 +4,7 @@
 
 # https://github.com/digitalocean/godo
 %global goipath         github.com/digitalocean/godo
-Version:                1.107.0
+Version:                1.108.0
 
 %gometa -L -f
 

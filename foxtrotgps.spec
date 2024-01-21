@@ -1,6 +1,6 @@
 Name:          foxtrotgps
 Version:       1.2.2
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       GTK+ mapping and GPS application
 License:       GPLv2
 URL:           http://www.foxtrotgps.org
@@ -87,6 +87,9 @@ rm -rf %{buildroot}/usr/share/info/dir
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

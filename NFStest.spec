@@ -1,6 +1,6 @@
 Name: NFStest		
 Version: 3.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: NFS Testing Tool
 
 License: GPLv2+ 
@@ -51,6 +51,9 @@ most of the functionality is focused mainly on testing the client.
 %doc COPYING README
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Steve Dickson <steved@redhat.com> 3.2-4
 - F39FailsToInstall: NFStest (bz 2219922)
 

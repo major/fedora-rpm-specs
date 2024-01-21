@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.2.1
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          A Modern and Easy-to-Use Crypto Library
 
 License:          MIT
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 1.2.1-5
 - rebuild for new libsodium
 

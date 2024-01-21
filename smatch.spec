@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.73
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -21,6 +21,7 @@ Patch2:     use-distribution-ldflags.patch
 Patch3:     preserve-install-timestamps.patch
 # TODO: File an issue upstream about the missing license.
 Patch4:     add-BSD-3-license.patch
+Patch5:     fix-gcc14-compilation-errors.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -71,6 +72,9 @@ grep "test.c:1 main() error: uninitialized symbol 'a'." out
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jan 19 2024 Lukáš Zaoral <lzaoral@redhat.com> - 1.73-3
+- fix compilation with GCC 14 (rhbz#2259190)
+
 * Tue Aug 15 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.73-2
 - drop %%{?isa} for a noarch package
 

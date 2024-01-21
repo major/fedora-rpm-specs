@@ -1,6 +1,6 @@
 Name:           budgie-backgrounds
 Version:        1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Default set of background images for the Budgie Desktop
 
 License:        CC0-1.0
@@ -39,6 +39,9 @@ Default set of background images for the Budgie Desktop.
 %{_datadir}/gnome-background-properties/%{name}.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

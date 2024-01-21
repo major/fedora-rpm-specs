@@ -1,6 +1,6 @@
 Name:		CGSI-gSOAP
 Version:	1.3.11
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	GSI plugin for gSOAP
 
 License:	ASL 2.0
@@ -93,6 +93,9 @@ rm %{buildroot}%{_libdir}/*.a
 %doc %{_mandir}/man*/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

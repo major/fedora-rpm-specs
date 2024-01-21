@@ -1,6 +1,6 @@
 Name:           dvdauthor
 Version:        0.7.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Command line DVD authoring tool
 
 License:        GPLv2+
@@ -62,6 +62,9 @@ export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed" # *Magick-config linkage bloat
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

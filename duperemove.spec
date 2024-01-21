@@ -2,7 +2,7 @@
 
 Name:           duperemove
 Version:        0.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for deduping file systems
 License:        GPL-2.0-only
 URL:            https://github.com/markfasheh/%{name}
@@ -62,6 +62,9 @@ export IS_RELEASE=1
 %{_bindir}/show-shared-extents
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct  5 2023 Jonathan Dieter <jdieter@gmail.com> - 0.13-1
 - Update to 0.13 with more bugfixes improving deduplication
   Note that the hash file format has changed and will need to be regenerated

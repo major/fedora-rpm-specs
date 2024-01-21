@@ -10,7 +10,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.4.3
 # can only be reset when all subpkgs bumped
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Modern and extensible testing framework
 
 License:        MIT
@@ -138,6 +138,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 29 2023 Jens Petersen <petersen@redhat.com> - 1.4.3-18
 - rebuild
 

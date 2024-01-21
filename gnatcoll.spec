@@ -1,7 +1,7 @@
 Epoch:          2
 Name:           gnatcoll
 Version:        21.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        The GNAT Components Collection
 Summary(sv):    GNAT Components Collection
 
@@ -225,6 +225,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libgnatcoll.so.%{version}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:21.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Björn Persson <Bjorn@Rombobjörn.se> - 2:21.0.0-13
 - Rebuilt with GCC 14 prerelease.
 

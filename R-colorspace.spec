@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          2.0.3
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          A Toolbox for Manipulating and Assessing Colors and Palettes
 
 License:          BSD
@@ -117,6 +117,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

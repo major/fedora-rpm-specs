@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: 6.6
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -689,6 +689,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 6.6-10
 - Added SPDX licenses found by ScanCode
 - Dropped redundant license tags from subpackages

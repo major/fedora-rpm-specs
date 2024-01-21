@@ -1,8 +1,8 @@
 Name:       ilbc
 Summary:    Internet Low Bitrate Codec
 Version:    3.0.4
-Release:    7%{?dist}
-License:    BSD
+Release:    8%{?dist}
+License:    BSD-3-Clause
 URL:        https://github.com/TimothyGu/libilbc
 
 Source0:    %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -59,6 +59,9 @@ rm -fr %{buildroot}%{_docdir}/libilbc
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Fri Jan 19 2024 Peter Lemenkov <lemenkov@gmail.com> - 3.0.4-8
+- Switch to SPDX tag
+
 * Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.4-7
 - Rebuilt for abseil-cpp 20230802.0
 

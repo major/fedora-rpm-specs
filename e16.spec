@@ -1,7 +1,7 @@
 Summary:       The Enlightenment window manager, DR16
 Name:          e16
 Version:       1.0.29
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT with advertising and GPLv2+
 URL:           http://www.enlightenment.org/
 Source0:       http://downloads.sourceforge.net/enlightenment/e16-%{version}.tar.xz
@@ -94,6 +94,9 @@ ln -s ../share/e16/misc/starte16 %{buildroot}/%{_bindir}/starte16
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.29-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 29 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.29-1
 - 1.0.29
 

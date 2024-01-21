@@ -1,6 +1,6 @@
 Name:           getdp
 Version:        3.5.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        General Environment for the Treatment of Discrete Problems
 
 License:        GPL-2.0-or-later
@@ -89,6 +89,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/libgetdp.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-10
 - Rebuild for PETSc-3.20.0 (close RHBZ#2245240)
 

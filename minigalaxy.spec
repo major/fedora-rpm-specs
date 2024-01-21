@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:           minigalaxy
-Version:        1.2.5
+Version:        1.2.6
 Release:        %autorelease
 Summary:        GOG client for Linux that lets you download and play your GOG Linux games
 

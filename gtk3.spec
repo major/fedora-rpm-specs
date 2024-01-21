@@ -19,13 +19,15 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-3.0
 
 Name:    gtk3
-Version: 3.24.39
+Version: 3.24.40
 Release: 1%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
 URL:     https://gtk.org
 Source0: https://download.gnome.org/sources/gtk+/3.24/gtk+-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6782
+Patch:   gtk-3.24.40-cast-fixes.patch
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)
@@ -263,10 +265,13 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_libdir}/gtk-3.0/%{bin_version}/immodules/im-xim.so
 
 %files devel -f gtk30-properties.lang
-%{_libdir}/lib*.so
-%{_includedir}/*
-%{_datadir}/aclocal/*
-%{_libdir}/pkgconfig/*
+%{_libdir}/libgdk-3.so
+%{_libdir}/libgtk-3.so
+%{_libdir}/libgailutil-3.so
+%{_includedir}/gail-3.0/
+%{_includedir}/gtk-3.0/
+%{_datadir}/aclocal/gtk-3.0.m4
+%{_libdir}/pkgconfig/g*-3.0.pc
 %{_bindir}/gtk3-demo
 %{_bindir}/gtk3-icon-browser
 %{_bindir}/gtk-builder-tool
@@ -302,6 +307,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Fri Jan 19 2024 David King <amigadave@amigadave.com> - 3.24.40-1
+- Update to 3.24.40
+
 * Tue Dec 19 2023 Kalev Lember <klember@redhat.com> - 3.24.39-1
 - Update to 3.24.39
 

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          2.1.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          High Performance Colour Space Manipulation
 
 License:          MIT
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:    geomview
 Summary: Interactive 3D viewing program
 Version: 1.9.5
-Release: 24%{?dist}
+Release: 25%{?dist}
 
 License: LGPLv2+
 Url:     http://www.geomview.org/
@@ -154,6 +154,9 @@ fi
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

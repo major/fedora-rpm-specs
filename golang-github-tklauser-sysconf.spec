@@ -4,7 +4,7 @@
 
 # https://github.com/tklauser/go-sysconf
 %global goipath         github.com/tklauser/go-sysconf
-Version:                0.3.11
+Version:                0.3.13
 
 %gometa
 
@@ -21,7 +21,6 @@ Summary:        Sysconf for Go, without using cgo
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
-Patch:          https://github.com/tklauser/go-sysconf/commit/2dcb4415199b2d86ce49754a3e0d1ebe09304a77.patch
 
 %description %{common_description}
 

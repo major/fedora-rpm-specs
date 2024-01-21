@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.84
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility functions for GAP
 
 License:        GPL-2.0-or-later
@@ -71,6 +71,9 @@ cp -p tst/download.tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.84-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Jerry James <loganjerry@gmail.com> - 0.84-1
 - Version 0.84
 

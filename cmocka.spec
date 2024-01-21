@@ -1,6 +1,6 @@
 Name:           cmocka
 Version:        1.1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        Apache-2.0
 Summary:        An elegant unit testing framework for C with support for mock objects
@@ -129,6 +129,9 @@ ln -s libcmocka.so %{buildroot}%{_libdir}/libcmockery.so
 %doc %{__cmake_builddir}/doc/html
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

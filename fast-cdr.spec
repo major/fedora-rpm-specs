@@ -3,7 +3,7 @@
 
 Name:       fast-cdr
 Version:    2.1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Fast Common Data Representation (CDR) Serialization Library
 
 License:    Apache-2.0
@@ -59,6 +59,9 @@ Development files and libraries for %{name}
 %{_libdir}/cmake/fastcdr
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 21 2023 Rich Mattes <richmattes@gmail.com> - 2.1.0-1
 - Update to release 2.1.0
 - Enable unit tests

@@ -4,7 +4,7 @@
 
 Name:           gnome-chess
 Version:        43.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GNOME Chess game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

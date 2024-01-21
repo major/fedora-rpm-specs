@@ -8,7 +8,7 @@ Name:    copy-jdk-configs
 # hash relevant to version tag
 %global  htag 88d3ed89f30d8b0eb4877d860fa8d951f224f156
 Version: 4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: JDKs configuration files copier
 
 License:  BSD
@@ -75,6 +75,9 @@ rm "%{rpm_state_dir}/%{file}" 2> /dev/null || :
 %license LICENSE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -28,7 +28,7 @@
 Name:  COPASI
 Summary: Biochemical network simulator
 Version: 4.42.%{buildid}
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 ## Artistic 2.0 is main license
 ## GPLv2+ is related to a Mixed Source Licensing Scenario
@@ -141,6 +141,9 @@ Patch14: %{name}-4.41.283-fix_missing_header.patch
 
 # This patch sets path to find qcustomplot-qt5 libraries on Fedora
 Patch15: %{name}-find_qcp_libs.patch
+
+# This patch fixes compatibility with swig-4.2.0
+Patch16: %{name}-fix_swig_4.2.0_compatibility.patch
 
 %description
 COPASI is a software application for simulation and analysis of biochemical
@@ -281,6 +284,7 @@ done
 %patch -P 13 -p1 -b .qwt
 %patch -P 14 -p1 -b .backup
 %patch -P 15 -p1 -b .backup
+%patch -P 16 -p1 -b .backup
 
 %if 0%{?with_python}
 %if 0%{?python3_version_nodots} > 39
@@ -496,6 +500,12 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Fri Jan 19 2024 Antonio Trande <sagitter@fedoraproject.org> - 4.42.284-4
+- Patched for swig-4.2.0 (rhbz#2259156)
+
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.42.284-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.42.284-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

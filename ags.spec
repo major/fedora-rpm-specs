@@ -11,10 +11,12 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.0.51
+Version: 3.6.0.56
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
 Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
+# fix build with GCC14
+Patch0:  %{name}-gcc14.patch
 # unbundle freetype
 Patch2:  %{name}-use-system-freetype.patch
 # use openal-soft
@@ -67,6 +69,7 @@ since continued to be developed by contributors.
 
 %prep
 %setup -q
+%patch0 -p1 -b .gcc14
 %if %{with freetype}
 %patch2 -p1 -b .noft
 %endif
@@ -115,6 +118,13 @@ make V=1 -C Engine PREFIX=%{buildroot}%{_prefix} install
 %{_bindir}/ags
 
 %changelog
+* Fri Jan 19 2024 Dominik Mierzejewski <dominik@greysector.net> - 3.6.0.56-1
+- update to 3.6.0.56
+- fix build with GCC14
+
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0.51-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Dominik Mierzejewski <dominik@greysector.net> - 3.6.0.51-1
 - update to 3.6.0.51
 

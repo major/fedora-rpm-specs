@@ -4,7 +4,7 @@
 
 Name:           cm_rgb
 Version:        0.3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utility to control RGB on AMD Wraith Prism
 License:        MIT
 URL:            https://github.com/gfduszynski/cm-rgb
@@ -45,6 +45,9 @@ chmod -x %{buildroot}%{python3_sitelib}/%{srcname}-%{version}-py%{python3_versio
 %{_bindir}/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

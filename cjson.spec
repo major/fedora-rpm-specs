@@ -1,6 +1,6 @@
 Name:           cjson
 Version:        1.7.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ultralightweight JSON parser in ANSI C
  
 License:        MIT and ASL 2.0
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,a}
 %{_includedir}/cjson/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

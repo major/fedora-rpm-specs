@@ -1,6 +1,11 @@
+#
+# Relax build_type_safety_c for gcc14 pointer type validation
+#
+%global         build_type_safety_c 2
+
 Name:           tpm2-tss-engine
 Version:        1.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenSSL Engine for TPM2 devices using the tpm2-tss software stack
 
 License:        BSD-3-Clause
@@ -81,6 +86,9 @@ uses the tpm2-tss software stack
 
 
 %changelog
+* Sat Jan 20 2024 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.2.0-3
+- Relax build_type_safety_c for gcc14 pointer type validation
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

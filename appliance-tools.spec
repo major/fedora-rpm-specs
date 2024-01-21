@@ -21,7 +21,7 @@
 Name: appliance-tools
 Summary: Tools for building Appliances
 Version: 011.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2
 URL: https://pagure.io/appliance-tools
 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{python_sitelib}/ec2convert/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 011.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 011.2-5
 - Add runtime dep for setuptools (#2135410)
 

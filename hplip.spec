@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -966,6 +966,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Fri Jan 19 2024 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.12-2
+- add fallback url to hp-plugin-download
+
 * Mon Jan 08 2024 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.12-1
 - 2252302 - hplip-3.23.12 is available
 

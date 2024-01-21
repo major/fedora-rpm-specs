@@ -1,6 +1,6 @@
 %global pkgver 2.2.14
 #global prerel rc1
-%global baserelease 5
+%global baserelease 6
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -196,6 +196,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Paul Howarth <paul@city-fan.org> - 2.2.14-5
 - Fix use of incompatible pointer types (upstream rev 8991)
 - Fix improper use of pointer: https://sourceforge.net/p/bluefish/tickets/80/

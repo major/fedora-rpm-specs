@@ -20,7 +20,7 @@ A command-line tool that makes git easier to use with GitHub}
                         script/changelog features/README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A command-line tool that makes git easier to use with GitHub
 
 License:        MIT
@@ -137,6 +137,9 @@ cp -p etc/hub.fish_completion %{buildroot}%{_datadir}/fish/completions/hub.fish
 %{_datadir}/vim/vimfiles/syntax/pullrequest.vim
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

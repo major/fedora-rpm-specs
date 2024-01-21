@@ -1,6 +1,6 @@
 Name:           Ri-li
 Version:        2.0.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Arcade game where you drive a toy wood engine
 License:        GPLv2 or GPLv3
 URL:            http://ri-li.sourceforge.net/index.html
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/*.xml
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP interface to the Atlas of Group Representations
 
 License:        GPL-3.0-or-later
@@ -142,6 +142,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 2.1.8-1
 - Version 2.1.8
 

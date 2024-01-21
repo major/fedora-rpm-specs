@@ -2,7 +2,7 @@
 
 Name: beakerlib-libraries
 Version: 0.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Beakerlib libraries
 
 License: GPL-2.0-only
@@ -34,6 +34,9 @@ install -m755 "bin/get-test-deps" "$RPM_BUILD_ROOT/%_bindir"
 %_bindir/get-test-deps
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 10 2023 Andrei Stepanov <astepano@redhat.com> - 0.7-7
 - Tune License entry.
 

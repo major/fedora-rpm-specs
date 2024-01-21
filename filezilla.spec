@@ -6,7 +6,7 @@
 
 Name: filezilla
 Version: 3.66.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
@@ -151,6 +151,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.66.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.66.4-1
 - 3.66.4
 

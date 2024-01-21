@@ -14,7 +14,7 @@
 
 Name:		dl_poly
 Version:	1.10
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	General purpose classical molecular dynamics (MD) simulation
 License:	BSD-3-Clause
 URL:		https://gitlab.com/DL_POLY_Classic
@@ -200,6 +200,9 @@ chmod 644 LICENCE.pdf manual/JavaGUI.pdf
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

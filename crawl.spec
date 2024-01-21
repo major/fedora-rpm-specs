@@ -5,7 +5,7 @@
 
 Name:          crawl
 Summary:       Roguelike dungeon exploration game
-Version:       0.30.1
+Version:       0.30.2
 Release:       %autorelease
 # Main license : GPLv2+
 # 2-clause BSD: all contributions by Steve Noonan and Jesse Luehrs
@@ -15,7 +15,7 @@ Release:       %autorelease
 # ASL 2.0: pcg.cc 
 ## According to the 'license.txt' file,
 ## This program can be redistribute under GPLv2+ license; MIT and BSD are GPL compatible.
-License:       GPLv2+ and ASL 2.0
+License:       GPL-2.0-or-later AND Apache-2.0 AND BSD-2-Clause AND CC0-1.0
 URL:           https://crawl.develz.org/
 Source0:       https://github.com/%{name}/%{name}/archive/%{name}/%{name}-%{version}.tar.gz
 

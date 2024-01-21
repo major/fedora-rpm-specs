@@ -4,7 +4,7 @@
 %global crate procs
 
 Name:           rust-procs
-Version:        0.14.1
+Version:        0.14.4
 Release:        %autorelease
 Summary:        Modern replacement for ps
 
@@ -17,7 +17,7 @@ Patch:          procs-fix-metadata-auto.diff
 # * remove docker feature / dockworker dependency
 Patch:          procs-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 23
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 A modern replacement for ps.}
@@ -48,6 +48,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND MPL-2.0 AND Unicode-DFS-
 %doc CHANGELOG.md
 %doc README.md
 %{_bindir}/procs
+%{bash_completions_dir}/procs.bash
+%{fish_completions_dir}/procs.fish
+%{zsh_completions_dir}/_procs
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
@@ -63,6 +66,15 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND MPL-2.0 AND Unicode-DFS-
 
 %install
 %cargo_install
+
+# generate and install shell completions
+target/rpm/procs --gen-completion-out bash > procs.bash
+target/rpm/procs --gen-completion-out fish > procs.fish
+target/rpm/procs --gen-completion-out zsh > _procs
+
+install -Dpm 0644 procs.bash -t %{buildroot}/%{bash_completions_dir}
+install -Dpm 0644 procs.fish -t %{buildroot}/%{fish_completions_dir}
+install -Dpm 0644 _procs -t %{buildroot}/%{zsh_completions_dir}
 
 %if %{with check}
 %check

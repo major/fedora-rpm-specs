@@ -1,6 +1,6 @@
 Name:           fedora-distro-aliases
 Version:        1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Aliases for active Fedora releases
 
 License:        GPL-2.0-or-later
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Jakub Kadlcik <frostyx@email.cz> 1.1-1
 - Fix Source URL (frostyx@email.cz)
 - Unify descriptions and mention querying bodhi (frostyx@email.cz)

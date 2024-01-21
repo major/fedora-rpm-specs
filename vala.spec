@@ -3,13 +3,14 @@
 
 Name:           vala
 Version:        0.56.14
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A modern programming language for GNOME
 
 # Most files are LGPLv2.1+, curses.vapi is 2-clause BSD
 License:        LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/Vala
 Source0:        https://download.gnome.org/sources/%{name}/0.56/%{name}-%{version}.tar.xz
+Patch0: vala-c99.patch
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -116,6 +117,9 @@ developing applications that use valadoc.
 
 
 %build
+# The pre-generated compiler sources do not have the warning downgrades
+# in vala-c99.patch.
+%global build_type_safety_c 0
 %configure
 # Don't use rpath!
 sed -i 's|/lib /usr/lib|/lib /usr/lib /lib64 /usr/lib64|' libtool
@@ -192,6 +196,12 @@ export -n VALAFLAGS
 
 
 %changelog
+* Fri Jan 19 2024 Florian Weimer <fweimer@redhat.com> - 0.56.14-3
+- Downgrade GCC 14 -Wint-conversion errors to warnings
+
+* Fri Jan 19 2024 Florian Weimer <fweimer@redhat.com> - 0.56.14-2
+- Downgrade GCC 14 C type errors to warnings
+
 * Wed Nov 15 2023 Kalev Lember <klember@redhat.com> - 0.56.14-1
 - Update to 0.56.14
 

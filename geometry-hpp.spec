@@ -6,7 +6,7 @@
 
 Name:           geometry-hpp
 Version:        2.0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generic C++ interfaces for geometry types, collections, and features
 
 License:        ISC
@@ -69,6 +69,9 @@ cp -pr include/mapbox %{buildroot}%{_includedir}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

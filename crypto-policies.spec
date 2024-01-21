@@ -6,7 +6,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -212,6 +212,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231204-2.git1e3a2e4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20231204-1.git1e3a2e4
 - TEST-PQ: add a subpolicy to test post-quantum algorithms. Do not rely on.
 

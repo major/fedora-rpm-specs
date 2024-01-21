@@ -2,7 +2,7 @@
 
 Name:		addrwatch
 Version:	1.0.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Monitoring IPv4/IPv6 and Ethernet address pairings
 
 License:	GPL-3.0-only
@@ -77,6 +77,9 @@ exit 0
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 06 2023 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 1.0.2-8
 - switch to correct mariadb buildReq as requested by Michal Schorm
 

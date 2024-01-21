@@ -11,7 +11,7 @@ Name:          american-fuzzy-lop
 Summary:       Practical, instrumentation-driven fuzzer for binary formats
 License:       ASL 2.0
 
-Release:       3%{?dist}
+Release:       4%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -263,6 +263,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.09c-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 16 2023 Richard W.M. Jones <rjones@redhat.com> - 4.09c-1
 - New upstream release 4.09c (RHBZ#2254824)
 

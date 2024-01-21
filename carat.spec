@@ -10,7 +10,7 @@ Summary:        Crystallographic AlgoRithms And Tables
 
 %forgemeta
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://lbfm-rwth.github.io/carat/
 Source0:        %{forgesource}
@@ -118,6 +118,9 @@ cd -
 %license LICENSE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1:2.1-3
 - Stop building for 32-bit x86
 

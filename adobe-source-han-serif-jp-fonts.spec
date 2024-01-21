@@ -31,7 +31,7 @@
 # simplify cut and pasting.
 #
 Version: 1.001
-Release: 16%{?dist}
+Release: 17%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-serif/
 
 # The identifier of the entity, that released the font family.
@@ -91,6 +91,9 @@ Source10: 68-adobe-source-han-serif-jp-fonts.conf
 %fontfiles
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

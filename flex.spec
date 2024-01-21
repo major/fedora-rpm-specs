@@ -3,7 +3,7 @@
 Summary: A tool for generating scanners (text pattern recognizers)
 Name: flex
 Version: 2.6.4
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # An SPDX license string check done against flex-2.6.4 using fossology
 # found strings corresponding to the licenses noted below across the flex
@@ -134,6 +134,9 @@ echo ============END TESTING===========
 %{_libdir}/*.a
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 30 2023 Arjun Shankar <arjun@redhat.com> - 2.6.4-14
 - Analyse flex sources for license information
 - Migrate License field to SPDX identifiers for

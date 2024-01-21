@@ -1,9 +1,9 @@
 # Work around a circular dependency on snakemake and on
 # python-snakemake-executor-plugin-cluster-generic.
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 Name:           python-snakemake-interface-executor-plugins
-Version:        8.1.3
+Version:        8.2.0
 Release:        %autorelease
 Summary:        Stable interface for interactions between Snakemake and its executor plugins
 

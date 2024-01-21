@@ -3,7 +3,7 @@
 Summary:        A datafile for Berusky
 Name:           berusky-data
 Version:        1.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        GPLv2+
 Source:         http://www.anakreon.cz/download/berusky/tar.gz/%{name}-%{version}.tar.gz
 URL:            http://www.anakreon.cz/
@@ -45,6 +45,9 @@ install -m 644 berusky.ini %{buildroot}/var/games/%{game_name}
 /var/games/%{game_name}/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

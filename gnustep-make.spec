@@ -10,7 +10,7 @@ d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           gnustep-make
 Version:        2.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNUstep makefile package
 License:        GPLv3+
 URL:            http://www.gnustep.org/
@@ -124,6 +124,9 @@ install -p -m 644 macros.gnustep %{buildroot}%{macrosdir}
 %doc %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.9.1-1
 - Update to 2.9.1
 

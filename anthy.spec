@@ -10,7 +10,7 @@
 
 Name:  anthy
 Version: 9100h
-Release: 52%{?dist}
+Release: 53%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.1-or-later AND GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:  http://sourceforge.jp/projects/anthy/
@@ -178,6 +178,9 @@ popd
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9100h-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Akira TAGOH <tagoh@redhat.com> - 9100h-52
 - Fix symbol error on Emacs 29.
   Resolves: rhbz#2251128

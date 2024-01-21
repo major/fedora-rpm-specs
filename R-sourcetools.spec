@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.7
-Release:          19%{?dist}
+Release:          20%{?dist}
 Summary:          Tools for Reading, Tokenizing and Parsing R Code
 
 License:          MIT
@@ -72,6 +72,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

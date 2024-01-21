@@ -1,6 +1,6 @@
 Name: byebyebios
 Version: 1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Injects a x86 boot sector to inform of UEFI boot requirement
 License: MIT-0
 Url: https://gitlab.com/berrange/byebyebios
@@ -46,5 +46,8 @@ the requirement to boot using UEFI firmware.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 17 2023 Daniel P. Berrangé <berrange@redhat.com> - 1.0-1
 - Initial package

@@ -11,7 +11,7 @@
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       1%{?dist}
+Release:       2%{?dist}
 # GPL-3.0-or-later: the project as a whole
 # GPL-3.0-only: src/TmpFGLM.*, src/TmpLESystemSolver.*
 # GPL-2.0-or-later: pariinl.h
@@ -467,6 +467,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0.73-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 17 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.73-1
 - Update to 1.9.0 sub-73 (rhbz#2253863)
 

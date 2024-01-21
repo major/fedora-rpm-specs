@@ -1,7 +1,7 @@
 Name:           cddlib
 Epoch:          1
 Version:        0.94m
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A library for generating all vertices in convex polyhedrons
 License:        GPL-2.0-or-later
 URL:            https://people.inf.ethz.ch/fukudak/cdd_home/
@@ -155,6 +155,9 @@ rm -fr %{buildroot}%{_pkgdocdir}
 %{_bindir}/testshoot_gmp
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.94m-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.94m-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

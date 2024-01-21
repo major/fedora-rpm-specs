@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Utilities from 'Seminar fuer Statistik' ETH Zurich
 
 License:          GPL-2.0-or-later
@@ -94,6 +94,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --no-examples --no-vignettes %
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

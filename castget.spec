@@ -1,6 +1,6 @@
 Name:           castget
 Version:        2.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A command-line podcast downloader
 
 License:        LGPLv2+
@@ -40,6 +40,9 @@ primarily intended for automatic, unattended downloading of podcasts.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

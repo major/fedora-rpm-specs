@@ -3,8 +3,8 @@ Name: tzdata
 Version: 2023d
 %define tzdata_version 2023d
 %define tzcode_version 2023d
-Release: 1%{?dist}
-License: Public Domain
+Release: 2%{?dist}
+License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
 Source1: ftp://ftp.iana.org/tz/releases/tzcode%{tzcode_version}.tar.gz
@@ -112,6 +112,10 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Thu Jan 18 2024 Patsy Griffin <patsy@redhat.com> - 2023d-2
+- Migrate License field to SPDX identifiers for
+  https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
 * Wed Jan 03 2024 Patsy Griffin <patsy@redhat.com> - 2023d-1
 - Rebase to tzdata-2023d
   - Include time zone changes for Ittoqqortoormiit, Greenland

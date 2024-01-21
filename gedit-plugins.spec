@@ -5,7 +5,7 @@
 
 Name:           gedit-plugins
 Version:        45.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plugins for gedit
 
 License:        GPLv2+
@@ -266,6 +266,9 @@ The gedit wordcompletion plugin.
 %{_metainfodir}/gedit-wordcompletion.metainfo.xml
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 45.0-1
 - Update to 45.0
 

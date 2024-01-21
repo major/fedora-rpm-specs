@@ -1,6 +1,6 @@
 Name:               girara
 Version:            0.4.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Simple user interface library
 License:            Zlib
 URL:                https://pwmt.org/projects/%{name}/
@@ -66,6 +66,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.4.1-1
 - feat: update to 0.4.1 (rhbz#2253671)
 

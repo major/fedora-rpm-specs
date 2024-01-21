@@ -1,6 +1,6 @@
 %if 0%{?fedora}
 %global xapian_core_support ON
-%global clang_support ON
+%global clang_support OFF
 %global build_wizard ON
 %else
 %global xapian_core_support OFF
@@ -12,7 +12,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # No version is specified.
 License: GPL-1.0-or-later
 Url: https://github.com/doxygen
@@ -297,6 +297,9 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %endif
 
 %changelog
+* Fri Jan 19 2024 Than Ngo <than@redhat.com> - 2:1.10.0-2
+- don't use clang to build doxygen as workaround for a bug in gcc-14
+
 * Tue Dec 26 2023 Than Ngo <than@redhat.com> - 1.10.0-1
 - bz#2255826, update to 1.10
 

@@ -4,7 +4,7 @@
 
 Name:           drat2er
 Version:        0
-Release:        0.12.%{gitdate}.%{shortcommit}%{?dist}
+Release:        0.13.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Proof transformer for propositional logic
 
 License:        MIT
@@ -104,6 +104,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20190307.521caf1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0-0.12.20190307.521caf1
 - Stop building for 32-bit x86
 

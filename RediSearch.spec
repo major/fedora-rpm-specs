@@ -1,7 +1,7 @@
 %global module	redisearch
 Name:		RediSearch
 Version:	1.2.2
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Full-text search over Redis
 
 %global disable_tests 0
@@ -57,6 +57,9 @@ install -pDm755 src/%{module}.so %{buildroot}%{redis_modules_dir}/%{module}.so
 %{redis_modules_dir}/%{module}.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Nathan Scott <nathans@redhat.com> - 1.2.2-11
 - Fix build with latest Redis python modules (BZ #2114518)
 

@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.7.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     23
+%global         baserelease     24
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -502,6 +502,9 @@ getent passwd dionaea >/dev/null || \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Michal Ambroz <rebus at, seznam.cz> 0.7.0-22
 - add version metadata to the python module to fix FTBFS
 

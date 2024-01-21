@@ -1,13 +1,13 @@
 Summary:        A Tool for manipulating BibTeX data bases
 Name:           BibTool
 Version:        2.68
-Release:        12%{?dist}
+Release:        14%{?dist}
 Source0:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz
 Source1:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz.asc
 # Imported from public key servers; author provides no fingerprint!
 Source2:        gpgkey-E2A609830CE1675666671B86EA2168BE699213A2.gpg
 URL:            http://www.gerd-neugebauer.de/software/TeX/BibTool/
-Patch0:         BibTool-2.51-regex.patch
+Patch0:         0001-build-BibTool-against-system-regex.patch
 Patch1:         0001-old-font-commands-added.patch
 Patch2:         0001-make-doc-work-with-LuaTeX-0.85.patch
 Patch3:         0001-fix-duplicate-case-fix.patch
@@ -58,6 +58,12 @@ make install-man INSTALLPREFIX=$RPM_BUILD_ROOT INSTALL='install -p -m 644'
 %{_mandir}/man1/bibtool.1*
 
 %changelog
+* Fri Jan 19 2024 Michael J Gruber <mjg@fedoraproject.org> - 2.68-14
+- fix build with gcc 14
+
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.68-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.68-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

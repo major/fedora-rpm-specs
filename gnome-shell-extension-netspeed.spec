@@ -12,7 +12,7 @@
 
 Name:           gnome-shell-extension-netspeed
 Version:        44
-Release:        %autorelease
+Release:        %autorelease.1
 Summary:        A gnome-shell extension to show speed of the internet
 BuildArch:      noarch
 License:        GPLv3+
@@ -60,6 +60,9 @@ rm %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 44-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jun 30 2023 Martin Gansser <martinkg@fedoraproject.org> - 44-1
 - Port to meson build system
 - Add gnome 44 Support

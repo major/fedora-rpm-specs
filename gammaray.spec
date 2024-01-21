@@ -18,7 +18,7 @@
 
 Name: gammaray
 Version: %{gammaray_version}
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A tool for examining internals of Qt applications
 License: GPLv2+
 URL: https://github.com/KDAB/GammaRay
@@ -163,6 +163,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/GammaRay.desktop
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Jan Grulich <jgrulich@redhat.com> - 2.11.3-14
 - Rebuild (qt5)
 

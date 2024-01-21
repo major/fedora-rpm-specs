@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -658,6 +658,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 05 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-3
 - Update Maven coordinates for commons-logging API
 

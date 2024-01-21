@@ -5,7 +5,7 @@
 %global crate drm
 
 Name:           rust-drm
-Version:        0.9.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Safe, low-level bindings to the Direct Rendering Manager API
 
@@ -14,10 +14,8 @@ URL:            https://crates.io/crates/drm
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop example-only rustyline dev-dependency
+# * regenerate bindings by default
 Patch:          drm-fix-metadata.diff
-
-# No prebuilt bindings for target architecture
-ExcludeArch:    ppc64le s390x
 
 BuildRequires:  cargo-rpm-macros >= 24
 

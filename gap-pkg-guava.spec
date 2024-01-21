@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Computing with error-correcting codes
 
 License:        GPL-2.0-or-later
@@ -130,6 +130,9 @@ EOF
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Jerry James <loganjerry@gmail.com> - 3.18-4
 - Use a more reliable way of detecting CPU features
 

@@ -1,7 +1,7 @@
 %global snapshot 20060225
 Name:           duel3
 Version:        0.1
-Release:        0.38.%{snapshot}%{?dist}
+Release:        0.39.%{snapshot}%{?dist}
 Summary:        One on one spaceship duel in a 2D arena
 License:        BSD
 # Upstream has vanished
@@ -87,6 +87,9 @@ install -p -m 644 %{SOURCE3} \
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.39.20060225
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.38.20060225
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

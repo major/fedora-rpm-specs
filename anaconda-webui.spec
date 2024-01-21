@@ -1,6 +1,6 @@
 Name:           anaconda-webui
 Version:        2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -101,6 +101,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 5 2023 Packit <hello@packit.dev> - 2-1
 - Improved field validation and other improvements in the user creation step
 

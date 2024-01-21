@@ -1,7 +1,7 @@
 Name:       gnome-shell-extension-freon
 Summary:    GNOME Shell extension to display system temperature, voltage, and fan speed
 Version:    55
-%global     baserelease 1
+%global     baserelease 2
 URL:        https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki
 VCS:        https://github.com/UshakovVasilii/gnome-shell-extension-freon
 # Releases  https://github.com/UshakovVasilii/gnome-shell-extension-freon/tags
@@ -138,6 +138,9 @@ mv  %{final_install_dir}/locale  %{buildroot}/%{_datadir}/
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:55-2.20231215git8fee2fb
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Michel Lind <salimma@fedoraproject.org> - 2:55-1.20231215git8fee2fb
 - bump to version 55 with PR 274 to fix pkexec issues
 

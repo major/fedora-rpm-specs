@@ -2,7 +2,7 @@
 
 Name:		SuperLU
 Version:	6.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Subroutines to solve sparse linear systems
 License:	BSD and GPLv2+
 URL:		https://portal.nersc.gov/project/sparse/superlu/
@@ -126,6 +126,9 @@ sed -e 's|-O0|-O2|g' -i SRC/CMakeLists.txt
 %doc DOC
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 09 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.0.1-1
 - Release 6.0.1
 

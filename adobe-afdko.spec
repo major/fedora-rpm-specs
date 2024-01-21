@@ -2,7 +2,7 @@
 
 Name:		adobe-afdko
 Version:	3.6.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
 # ExternalAntlr4Cpp.cmake is BSD-3-clause
 # c/makeotf/makeotf_lib/build/hotpccts/pccts/* is ANTLR-PD
@@ -42,6 +42,9 @@ find ./ -type f -executable -exec install -p -m 0755 "{}" \
 %{_bindir}/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 3.6.1-7
 - Fix C compatibility issues
 

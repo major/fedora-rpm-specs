@@ -9,7 +9,7 @@
 
 Name:		ergo
 Version:	3.8.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A program for large-scale self-consistent field calculations
 License:	GPLv3+
 URL:		http://www.ergoscf.org
@@ -116,6 +116,9 @@ make check VERBOSE=1
 %doc COPYING documentation/html/*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 3.8.2-1
 - Update to 3.8.2.
 

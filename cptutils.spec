@@ -2,7 +2,7 @@
 
 Name:      cptutils
 Version:   1.77
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Utilities to manipulate and translate color gradients
 License:   GPLv2+
 URL:       http://soliton.vm.bytemark.co.uk/pub/jjg/en/code/cptutils.html
@@ -48,6 +48,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.77-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 13 2023 Sandipan Roy <bytehackr@fedoraproject.org> - 1.77-1
 - rhbz#2169209 
 - New upstream release

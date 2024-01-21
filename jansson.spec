@@ -3,7 +3,8 @@ Version:	2.13.1
 Release:	7%{?dist}
 Summary:	C library for encoding, decoding and manipulating JSON data
 
-License:	MIT
+# src/lookup3.h is LicenseRef-Fedora-Public-Domain
+License:	MIT AND LicenseRef-Fedora-Public-Domain
 URL:		http://www.digip.org/jansson/
 Source0:	http://www.digip.org/jansson/releases/jansson-%{version}.tar.bz2
 

@@ -1,6 +1,6 @@
 Name:		gnusim8085
 Version:	1.4.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Graphical simulator for 8085 assembly language
 
 License:	GPLv2+
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/icons/hicolor/scalable/apps/gnusim8085.svg
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

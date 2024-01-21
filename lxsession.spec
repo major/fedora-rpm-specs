@@ -1,3 +1,6 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global		build_type_safety_c  2
+
 # review https://bugzilla.redhat.com/show_bug.cgi?id=502404
 # renamed from lxsession-lite. Original review at
 # https://bugzilla.redhat.com/show_bug.cgi?id=442268
@@ -32,7 +35,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -295,6 +298,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20230917gite0fffa66-2
+- Change -Wincompatible-pointer-types from error to warning
+
 * Sun Dec 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20230917gite0fffa66-1
 - Update to the latest git
 

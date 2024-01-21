@@ -1,7 +1,7 @@
 Name:		asunder
 Summary:	A graphical Audio CD ripper and encoder
 Version:	3.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPLv2
 URL:		http://littlesvr.ca/asunder
 Source0:	http://littlesvr.ca/asunder/releases/asunder-%{version}.tar.bz2
@@ -61,6 +61,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications \
 %{_datadir}/pixmaps/asunder.svg
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 03 2023 Marcin Zajaczkowski <mszpak ATT wp DOTT pl> - 3.0.1-1
 - Update to 3.0.1 (#2224687)
 

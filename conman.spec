@@ -1,6 +1,6 @@
 Name:               conman
 Version:            0.3.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            ConMan - The Console Manager
 
 # GPLv3+, but strlc*.c is under ISC
@@ -80,6 +80,9 @@ mkdir -p %{buildroot}%{_localstatedir}/log/%{name}.old
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Dan Horák <dan[at]danny.cz> - 0.3.1-1
 - updated to 0.3.1
 - modernize spec file

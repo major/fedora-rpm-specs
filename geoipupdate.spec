@@ -7,7 +7,7 @@ Version:	6.1.0
 %gometa
 
 Name:		geoipupdate
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
 License:	Apache-2.0 OR MIT
@@ -106,6 +106,9 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Paul Howarth <paul@city-fan.org> - 6.1.0-1
 - Update to 6.1.0
   - 'geoipupdate' now sets the version in the 'User-Agent' header to the

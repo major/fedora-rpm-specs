@@ -4,7 +4,7 @@
 %global catalogue    %{_sysconfdir}/X11/fontpath.d
 
 Version: 2.2
-Release: 36%{?dist}
+Release: 37%{?dist}
 URL:     http://kldp.net/projects/baekmuk/
 
 %global foundry           Baekmuk
@@ -59,6 +59,9 @@ install -m 0444 bdf/fonts.alias $RPM_BUILD_ROOT%{fontdir}/
 %{catalogue}/%{name}
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

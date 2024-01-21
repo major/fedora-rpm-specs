@@ -1,6 +1,6 @@
 Name:           glibd
 Version:        2.3.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        D bindings for the GLib C Utility Library
 
 License:        LGPLv3+ with exceptions
@@ -73,6 +73,9 @@ export DFLAGS="%{_d_optflags}"
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

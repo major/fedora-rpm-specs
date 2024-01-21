@@ -6,7 +6,7 @@
 
 Name:           airspyone_host
 Version:        1.0.10
-Release:        4%{?git_suffix}%{?dist}
+Release:        5%{?git_suffix}%{?dist}
 Summary:        AirSpy host tools and library
 
 License:        GPLv2+
@@ -77,6 +77,9 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/52-airspy.rules %{buildroot}%{_udevru
 %{_libdir}/libairspy.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

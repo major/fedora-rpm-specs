@@ -2,7 +2,7 @@
 
 Name:           apache-commons-parent
 Version:        65
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
 URL:            https://commons.apache.org/commons-parent-pom.html
@@ -65,6 +65,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 65-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 65-2
 - Enable moditect-maven-plugin
 

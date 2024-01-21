@@ -1,6 +1,6 @@
 Name:           catch
 Version:        3.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
 License:        BSL-1.0
@@ -67,6 +67,9 @@ is packaged up as a single header for extra convenience.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Tom Hughes <tom@compton.nu> - 3.5.2-1
 - Update to 3.5.2 upstream release
 

@@ -1,6 +1,6 @@
 Name:    angband
 Version: 4.2.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Popular roguelike role playing game
 
 License: GPLv2
@@ -134,6 +134,9 @@ install -p -m 644 src/angband.man $RPM_BUILD_ROOT%{_mandir}/man6/angband.6
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 7 2023 Diego Herrera <dherrera@redhat.com> 4.2.5-1
 - Updated version to 4.2.5
 - Upstreamed assets

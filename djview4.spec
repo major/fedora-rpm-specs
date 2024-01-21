@@ -1,7 +1,7 @@
 Summary:       DjVu viewer
 Name:          djview4
 Version:       4.12
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       GPLv2+
 URL:           http://djvu.sourceforge.net/djview4.html
 Source0:       http://downloads.sourceforge.net/djvu/djview-%{version}.tar.gz
@@ -92,6 +92,9 @@ mv %{buildroot}%{_mandir}/man1/djview.1* %{buildroot}%{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/nsdejavu.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.12-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

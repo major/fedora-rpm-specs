@@ -1,6 +1,6 @@
 Name:           python-sphinx-theme-alabaster
-Version:        0.7.13
-Release:        2%{?dist}
+Version:        0.7.16
+Release:        1%{?dist}
 Summary:        Configurable sidebar-enabled Sphinx theme
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 19 2024 Julien Enselme <jujens@jujens.eu> - 0.7.16-1
+- Update to 0.7.16
+
 * Mon Nov 20 2023 Miro Hrončok <mhroncok@redhat.com> - 0.7.13-2
 - Provide python3-alabaster
 - Run a basic import check when this package is built

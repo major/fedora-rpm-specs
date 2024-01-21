@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        2.7.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -310,6 +310,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.7.6-1
 - Update to 2.7.6 (#2239816)
 

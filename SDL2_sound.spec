@@ -1,6 +1,6 @@
 Name:           SDL2_sound
 Version:        2.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An abstract soundfile decoder library
 License:        zlib and LGPLv2+
 URL:            http://www.icculus.org/SDL_sound
@@ -100,6 +100,9 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 2.0.2-1
 - update to 2.0.2 (#2218920)
 - update bundled dependencies versions

@@ -6,7 +6,7 @@
 
 Name:           gnome-hexgl
 Version:        0.2.0
-Release:        12.%{date}git%{shortcommit}%{?dist}
+Release:        13.%{date}git%{shortcommit}%{?dist}
 Summary:        Gthree port of HexGL
 
 # The entire source code is GPLv3+ except sounds which is CC-BY
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-13.20200724gitf47a351
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-12.20200724gitf47a351
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

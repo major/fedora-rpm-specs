@@ -1,7 +1,7 @@
 Summary:        Tool to compress an unsorted list of IPv4 and IPv6 prefixes
 Name:           aggregate6
 Version:        1.0.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/job/aggregate6
 Source0:        https://github.com/job/aggregate6/archive/%{version}/%{name}-%{version}.tar.gz
@@ -90,6 +90,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitelib} pytest-3
 %license LICENSE
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 08 2023 Robert Scheck <robert@fedoraproject.org> 1.0.12-2
 - Changes to match the Fedora Packaging Guidelines
 

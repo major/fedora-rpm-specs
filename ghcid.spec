@@ -8,7 +8,7 @@
 
 Name:           %{pkg_name}
 Version:        0.8.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GHCi based bare bones IDE
 
 License:        BSD-3-Clause
@@ -158,6 +158,9 @@ This package provides the Haskell %{name} profiling library.
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 0.8.9-1
 - https://hackage.haskell.org/package/ghcid-0.8.9/changelog
 

@@ -17,7 +17,7 @@ thumbnails, etc.}
 
 Name:           ginga
 Version:        4.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 # License breakdown
 #
@@ -112,6 +112,9 @@ chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/util/mosaic.py
 %doc ginga/examples
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Sergio Pascual <sergiopr@nfedoraproject.org> - 4.1.1-1
 - Update to 4.1.1
 - Using SPDX license name

@@ -7,8 +7,8 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.25.0
-#global prerelease   rc2
+%global base_version 0.27.0
+#global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
 %global pypi_version    %{base_version}%{?prerelease}
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri Jan 19 2024 Packit <hello@packit.dev> - 0.27.0-1
+- Improved handling of commented-out macro definitions and fixed related logic in `Specfile.update_value()`. (#338)
+
 * Mon Nov 20 2023 Packit <hello@packit.dev> - 0.25.0-1
 - There is a new method, `Specfile.update_version()`, that allows updating spec file version even if it is a pre-release. (#317)
 

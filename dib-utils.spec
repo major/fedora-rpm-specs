@@ -1,7 +1,7 @@
 Name:       dib-utils
 Summary:    Pieces of diskimage-builder that are useful standalone
 Version:    0.0.11
-Release:    15%{?dist}
+Release:    16%{?dist}
 License:    ASL 2.0
 URL:        https://git.openstack.org/cgit/openstack/dib-utils
 Source0:    http://tarballs.openstack.org/dib-utils/dib-utils-%{version}.tar.gz
@@ -37,6 +37,9 @@ diskimage-builder and its dependencies.
 %{python3_sitelib}/dib_utils*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

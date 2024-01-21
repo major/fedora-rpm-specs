@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	0.3.19
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Functions to Inline C, C++, Fortran Function Calls from R
 
 License:	LGPL-2.0-or-later
@@ -55,6 +55,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_datadir}/R/library/%{packname}/tinytest
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.19-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.3.19-9
 - Fix build requires
 

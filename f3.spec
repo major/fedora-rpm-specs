@@ -1,6 +1,6 @@
 Name:		f3
 Version:	8.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Utility to test for fake flash drives and cards
 License:	GPLv3
 URL:		http://oss.digirati.com.br/%{name}/
@@ -43,6 +43,9 @@ install -p -m0644 f3read.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/f3read.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

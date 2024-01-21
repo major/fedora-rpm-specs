@@ -5,7 +5,7 @@
 Summary: Fast anti-spam filtering by Bayesian statistical analysis
 Name: bogofilter
 Version: 1.2.5
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPL-2.0-only
 URL: http://bogofilter.sourceforge.net/
 Source0: http://downloads.sourceforge.net/bogofilter/bogofilter-%{version}.tar.xz
@@ -159,6 +159,9 @@ popd
 %exclude %{_mandir}/man1/bogoupgrade*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 22 2023 Milan Crha <mcrha@redhat.com> - 1.2.5-13
 - Resolves: #1788486 (Switch to SQLite database engine)
 

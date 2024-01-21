@@ -1,7 +1,7 @@
 Summary: Financial, statistics, scientific and programmers calculator for GTK+
 Name: gdcalc
 Version: 3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: https://gitlab.com/wef/%{name}
 Source: %{url}/-/archive/%version/%{name}-%{version}.tar.gz
@@ -60,6 +60,9 @@ desktop-file-install --dir %{buildroot}/%{_datadir}/applications %{name}.desktop
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Bob Hepple - 3.4-1
 - new version
 

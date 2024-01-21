@@ -1,7 +1,7 @@
 Name: gnome-translate
 Summary: GNOME interface to libtranslate -- Natural language translator
 Version: 0.99
-Release: 43%{?dist}
+Release: 44%{?dist}
 License: GPLv2+
 URL: http://www.nongnu.org/libtranslate/gnome-translate
 Source: http://savannah.nongnu.org/download/libtranslate/gnome-translate-%{version}.tar.gz
@@ -110,6 +110,9 @@ scrollkeeper-update -q || :
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

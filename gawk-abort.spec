@@ -1,7 +1,7 @@
 Name:             gawk-abort
 Summary:          Abort library for gawk
 Version:          1.0.1
-Release:          15%{?dist}
+Release:          16%{?dist}
 License:          GPLv3+
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -56,6 +56,9 @@ make check
 # =============================================================================
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 14 2024 Andrew Schorr <ajschorr@fedoraproject.org> - 1.0.1-15
 - Update BuildRequires gawk(abi) to indicate compatibility with gawk 5.3 major
   api version 4

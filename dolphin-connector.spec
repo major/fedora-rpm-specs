@@ -1,6 +1,6 @@
 Name:           dolphin-connector
 Version:        1.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Simple MySQL C API wrapper for C++
 
 License:        BSD
@@ -61,6 +61,9 @@ rm -f sample/Makefile*
 %{_libdir}/libdolphinconn.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

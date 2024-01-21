@@ -3,8 +3,8 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global date            20240110
-%global commit          164991709928e578a846fad8acc8079ed466c401
+%global date            20240118
+%global commit          2f194baa2cea289a217991e715144dcb26554258
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Version:        0^%{date}git%{shortcommit}
@@ -127,6 +127,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %if %{with check}
 %check
 # Disable test that requires network access
+rm calnex/verify/checks/checks_test.go
 rm ntp/responder/server/server_test.go
 # https://github.com/facebook/time/issues/100
 %ifarch s390x

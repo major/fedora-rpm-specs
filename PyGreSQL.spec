@@ -5,7 +5,7 @@
 Name:		%{srcname}
 Version:	6.0~b1
 %global uversion 6.0b1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		http://www.pygresql.org/
@@ -94,6 +94,9 @@ EOF
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0~b1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Ondrej Sloup <osloup@redhat.com> - 6.0~b1-1
 - Rebase to the pre-release upstream version (rhbz#2237758)
 

@@ -13,7 +13,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -209,6 +209,9 @@ make check
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-4
 - make driverless subpackage require avahi and ipptool - they don't 
   work without them

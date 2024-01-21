@@ -14,7 +14,7 @@
 #
 Name:           dar
 Version:        2.7.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software for making/restoring incremental CD/DVD backups
 
 License:        GPLv2+
@@ -189,6 +189,9 @@ cp -a %{SOURCE1} .
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 05 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.7.12-1
 - Update to 2.7.12 fixes rhbz#2237082
 

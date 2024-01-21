@@ -1,6 +1,6 @@
 Name:    cdrkit
 Version: 1.1.11
-Release: 52%{?dist}
+Release: 53%{?dist}
 Summary: A collection of CD/DVD utilities
 License: GPLv2
 URL:     http://cdrkit.org/
@@ -287,6 +287,9 @@ fi
 %{_includedir}/usal
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

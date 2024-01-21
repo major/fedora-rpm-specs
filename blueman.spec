@@ -4,7 +4,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	2.3.5
-Release:	8%{?dist}
+Release:	9%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -253,6 +253,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.5-8
 - Backport upstream fix for sending out too many notifications (rhbz#2193294)
 - Fix broken patch for possible crash at startup (rhbz#2246819)

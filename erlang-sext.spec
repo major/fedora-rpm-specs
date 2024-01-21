@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.8.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 BuildArch:	noarch
 Summary:	Sortable Erlang Term Serialization
 License:	ASL 2.0
@@ -43,6 +43,9 @@ A sortable serialization library This library offers a serialization format
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

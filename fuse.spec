@@ -1,6 +1,6 @@
 Name:		fuse
 Version:	2.9.9
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	File System in Userspace (FUSE) v2 utilities
 License:	GPL-1.0-or-later
 URL:		http://fuse.sf.net
@@ -127,6 +127,9 @@ rm -f %{buildroot}/%{_libdir}/*.a
 %{_includedir}/fuse
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.9-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 03 2023 Pavel Reichl <preichl@redhat.com> - 2.9.9-18
 - Convert License tag to SPDX format
 

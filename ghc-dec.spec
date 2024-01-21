@@ -10,7 +10,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.0.5
 # can only be reset when all subpkgs bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Decidable propositions
 
 License:        BSD-3-Clause
@@ -134,6 +134,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Jens Petersen <petersen@redhat.com> - 0.0.5-3
 - revision and boring-0.2.1
 

@@ -6,7 +6,7 @@
 
 Name:           gnome-keyring
 Version:        42.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Framework for managing passwords and other secrets
 
 License:        GPLv2+ and LGPLv2+
@@ -131,6 +131,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 21 2023 Daiki Ueno <dueno@redhat.com> - 42.1-7
 - Re-enable ssh-agent support (#2250704)
 

@@ -1,7 +1,7 @@
 Summary:        Library providing binary-decimal and decimal-binary routines for IEEE doubles
 Name:           double-conversion
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        BSD-3-Clause
 URL:            https://github.com/google/double-conversion
@@ -52,6 +52,9 @@ examples can be found in test/cctest/test-conversions.cc.
 %{_includedir}/%{name}/
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 07 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.0-1
 - Update to 3.3.0 (close RHBZ#1684966)
 - Drop obsolete ldconfig_scriptlets macro

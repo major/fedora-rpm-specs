@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.5
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Parse Data of 'R' Code as an 'XML' Tree
 
 License:          MIT
@@ -63,6 +63,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

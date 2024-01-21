@@ -2,7 +2,7 @@
 
 Name:           ansible-builder
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for building Ansible Execution Environments
 
 License:        Apache-2.0
@@ -65,5 +65,8 @@ tomcli-set pyproject.toml list build-system.requires setuptools setuptools_scm
 
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Maxwell G <maxwell@gtmx.me> - 3.0.0-1
 - Initial package. Closes rhbz#2247156.

@@ -3,7 +3,7 @@
 
 Name:           fcl
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flexible Collision Library
 
 
@@ -81,6 +81,9 @@ sed -i 's/-std=c++11 //g' CMakeModules/CompilerSettings.cmake
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

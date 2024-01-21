@@ -1,6 +1,6 @@
 Name:           SimGear
 Version:        2020.3.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 Summary:        Simulation library components
 URL:            http://simgear.sourceforge.net
@@ -78,6 +78,9 @@ patch -p2 < %{PATCH1}
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 21 2023 Fabrice Bellet <fabrice@bellet.info> - 2020.3.19-1
 - new upstream release
 

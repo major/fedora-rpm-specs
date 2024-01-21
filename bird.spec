@@ -2,7 +2,7 @@
 
 Name:             bird
 Version:          2.14
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
 License:          GPL-2.0-or-later
@@ -108,6 +108,9 @@ make test
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 08 2023 Robert Scheck <robert@fedoraproject.org> - 2.14-1
 - Upgrade to 2.14 (#2242616)
 

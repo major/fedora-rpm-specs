@@ -5,7 +5,7 @@
 
 Name:           cryptominisat
 Version:        5.8.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        SAT solver
 
 # The project as a whole is MIT.
@@ -124,6 +124,9 @@ chrpath -d %{buildroot}%{python3_sitearch}/pycryptosat*.so
 %{python3_sitearch}/pycryptosat*
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 5.8.0-16
 - Rebuilt for Boost 1.83
 

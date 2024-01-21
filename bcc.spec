@@ -25,7 +25,7 @@
 
 Name:           bcc
 Version:        0.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
@@ -242,6 +242,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 10 2023 Jerome Marchand <jmarchan@redhat.com> - 0.28.0-1
 - Rebase to the latest release version (#2218440)
 - Fix bio tools (#2184370)

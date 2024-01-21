@@ -5,7 +5,7 @@ Version:        1.22.8
 Release:        1%{?dist}
 Summary:        GStreamer RTSP server library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later AND LGPL-2.1-only
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-rtsp/gst-rtsp-server-%{version}.tar.xz
 
