@@ -18,7 +18,7 @@ Package Goconfig is a fully functional and comments-support configuration file
 
 Name:           %{goname}
 Version:        0
-Release:        0.19%{?dist}
+Release:        0.20%{?dist}
 Summary:        Fully functional and comments-support configuration file (.ini) parser
 
 # Upstream license specification: Apache-2.0
@@ -50,6 +50,9 @@ BuildRequires:  golang(github.com/smartystreets/goconvey/convey)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

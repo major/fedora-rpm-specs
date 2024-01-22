@@ -2,7 +2,7 @@
 
 Name:               greenboot
 Version:            0.15.4
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPL-2.1-or-later
 
@@ -166,6 +166,9 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.15.4-3
 - migrated to SPDX license
 

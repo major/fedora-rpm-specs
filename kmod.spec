@@ -16,7 +16,7 @@
 
 Name:		kmod
 Version:	31
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Linux kernel module management utilities
 
 # https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
@@ -193,6 +193,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 31-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 01 2023 Eugene Syromiatnikov <esyr@redhat.com> - 31-3
 - migrated to SPDX license
 

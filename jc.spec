@@ -3,7 +3,7 @@ Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
 Version: 1.24.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -71,6 +71,9 @@ install -m 644 -p completions/jc_bash_completion.sh "${COMPDIR}/%{name}"
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 17 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.24.0-1
 - Update to v1.24.0
 

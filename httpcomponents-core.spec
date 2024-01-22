@@ -3,7 +3,7 @@
 Name:           httpcomponents-core
 Summary:        Set of low level Java HTTP transport components for HTTP services
 Version:        4.4.16
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        Apache-2.0
 URL:            http://hc.apache.org/
 Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/%{version}/httpcomponents-core-%{version}-source-release.zip
@@ -97,6 +97,9 @@ done
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.16-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Marian Koncek <mkoncek@redhat.com> - 4.4.16-4
 - Port to Mockito 5
 

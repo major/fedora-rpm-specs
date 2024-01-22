@@ -24,7 +24,7 @@ precision, inf.Dec can only represent finite decimals.).}
 %global golicenses      LICENSE
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        "Infinite-precision" decimal arithmetic
 
 # Upstream license specification: BSD-3-Clause
@@ -51,6 +51,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

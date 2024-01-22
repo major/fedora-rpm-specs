@@ -13,7 +13,7 @@ Version:                0.1.0
 %global golicenses      LICENSE
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        16 bit "floats" that can store numbers like 1.02e12 for exponents in [-15, 15]
 
 # Upstream license specification: Apache-2.0
@@ -40,6 +40,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

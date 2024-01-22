@@ -3,7 +3,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 #see LICENSE file for details
 License: GPLv2+ and BSD and MIT and Public Domain
 URL: https://www.eyrie.org/~eagle/software/inn/
@@ -564,6 +564,9 @@ fi
 %{_mandir}/man1/inews*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

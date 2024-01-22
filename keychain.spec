@@ -1,7 +1,7 @@
 Name:		keychain
 Summary:	Agent manager for OpenSSH, ssh.com, Sun SSH, and GnuPG
 Version:	2.8.5
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	GPLv2
 URL:		https://www.funtoo.org/Keychain
 Source0:	https://github.com/funtoo/keychain/archive/%{version}/keychain-%{version}.tar.gz
@@ -47,6 +47,9 @@ install -pm 644 %{SOURCE3} README.Fedora
 %{_mandir}/man1/keychain.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

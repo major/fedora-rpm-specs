@@ -15,7 +15,7 @@ collections.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Primitives for shuffling slices and user-defined collections
 
 License:        MIT
@@ -41,6 +41,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 30 2023 W. Michael Petullo <mike@flyn.org> - 1.0.1-1
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16

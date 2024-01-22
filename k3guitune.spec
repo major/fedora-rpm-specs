@@ -1,6 +1,6 @@
 Name:           k3guitune
 Version:        1.01
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Musical instrument tuner
 
 License:        GPLv2 and GPLv2+
@@ -93,6 +93,9 @@ done
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

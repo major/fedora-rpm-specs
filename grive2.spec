@@ -4,7 +4,7 @@
 
 Name:           grive2
 Version:        0.5.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 #Release:        22.%%{commit_date}git%%{shortcommit}%%{?dist}
 Summary:        Google Drive client
 
@@ -60,6 +60,9 @@ REST API to talk to Google Drive service.
 %{_libexecdir}/grive
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 0.5.3-5
 - Rebuilt for Boost 1.83
 

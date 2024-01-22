@@ -17,7 +17,7 @@ with user-defined values.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple and fast template engine for Go
 
 License:        MIT
@@ -45,6 +45,9 @@ BuildRequires:  golang(github.com/valyala/bytebufferpool)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -15,7 +15,7 @@ pairs grouped into sections (gcfg files).}
 %global godocs          README
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Read "INI-style" text-based configuration files
 
 # Upstream license specification: BSD-3-Clause
@@ -50,6 +50,9 @@ BuildRequires:  golang(github.com/pkg/errors)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

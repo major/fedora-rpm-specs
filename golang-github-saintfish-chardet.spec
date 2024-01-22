@@ -15,7 +15,7 @@ Charset detector library for Golang derived from ICU.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.8%{?dist}
+Release:        0.9%{?dist}
 Summary:        Charset detector library
 
 License:        MIT
@@ -41,6 +41,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

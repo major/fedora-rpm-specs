@@ -13,7 +13,7 @@
 Name:    kexi
 Summary: An integrated environment for managing data
 Version: 3.2.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: LGPL-2.0-or-later AND GFDL-1.2-or-later
 Url:     http://community.kde.org/Kexi
 
@@ -192,6 +192,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

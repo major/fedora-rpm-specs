@@ -1,6 +1,6 @@
 Name:               json-parser
 Version:            1.1.0
-Release:            19%{?dist}
+Release:            20%{?dist}
 Summary:            Very low footprint JSON parser written in portable ANSI C
 
 License:            BSD
@@ -47,6 +47,9 @@ make install-shared DESTDIR=%{buildroot}
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

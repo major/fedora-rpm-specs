@@ -16,7 +16,7 @@ Native Go Zookeeper Client Library.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.25%{?dist}
+Release:        0.26%{?dist}
 Summary:        Native ZooKeeper client for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -43,6 +43,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

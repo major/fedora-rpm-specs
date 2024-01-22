@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        1.30.1
 # can only be reset when all subpkgs bumped
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Command-line interface for the hledger accounting system
 
 License:        GPL-3.0-or-later
@@ -249,6 +249,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 1.30.1-9
 - https://hackage.haskell.org/package/hledger-1.30.1/changelog
 

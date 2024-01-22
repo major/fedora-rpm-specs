@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:			gpaw
 Version:		23.9.1
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -281,6 +281,9 @@ popd
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 03 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 23.9.1-1
 - New upstream release
 

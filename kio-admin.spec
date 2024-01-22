@@ -1,6 +1,6 @@
 Name:           kio-admin
 Version:        24.01.90
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manage files as administrator using the admin:// KIO protocol
 License:        (GPL-2.0-only or GPL-3.0-only) and BSD-3-Clause and CC0-1.0 and FSFAP
 URL:            https://invent.kde.org/system/kio-admin
@@ -58,6 +58,9 @@ operations in root-scope.
 %{_kf6_datadir}/polkit-1/actions/org.kde.kio.admin.policy
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 

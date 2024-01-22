@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.10
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
@@ -426,6 +426,9 @@ fi
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Phil Sutter <psutter@redhat.com> - 1.8.10-5
 - Backport fixes from upstream
 - Fix flatpak build

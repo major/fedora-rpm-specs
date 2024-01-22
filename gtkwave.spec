@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
 Version:	3.3.118
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -187,6 +187,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.118-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  9 2024 Paul Howarth <paul@city-fan.org> - 3.3.118-1
 - Update to 3.3.118
   - Update xml2stems to handle newer "loc" vs. "fl" xml tags

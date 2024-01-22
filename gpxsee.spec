@@ -2,7 +2,7 @@
 
 Name:           gpxsee
 Version:        13.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Packit <hello@packit.dev> - 13.13-1
 - Increase the default pixmap cache size on Android to 384MB (Martin Tůma)
 - Fixed broken map scale (ruler) on HiDPI maps (Martin Tůma)

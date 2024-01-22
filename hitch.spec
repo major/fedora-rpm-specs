@@ -18,7 +18,7 @@
 
 Name:		hitch
 Version:	1.8.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Network proxy that terminates TLS/SSL connections
 
 License:	BSD
@@ -127,6 +127,9 @@ useradd -r -g %{hitch_group} -s /sbin/nologin -d %{hitch_homedir} %{hitch_user} 
 %ghost %verify(not md5 size mtime)  /run/%{name}/%{name}.pid
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 09 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.8.0-1
 * New upstream release
 * Number of workers are now default set to 'auto', ie. one per cpu

@@ -1,6 +1,6 @@
 Name:		jbig2dec
 Version:	0.20
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A decoder implementation of the JBIG2 image compression format 
 License:	AGPL-3.0-or-later
 URL:		https://jbig2dec.com
@@ -80,6 +80,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 13 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.20-1
 - rebase to 0.20 (rhbz#2238815)
 

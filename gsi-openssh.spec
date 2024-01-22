@@ -24,7 +24,7 @@
 %global libedit 1
 
 %global openssh_ver 9.3p1
-%global openssh_rel 6
+%global openssh_rel 7
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
@@ -538,6 +538,12 @@ fi
 %attr(0744,root,root) %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 %changelog
+* Sat Jan 20 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-7
+- Based on openssh-9.3p1-13.fc40.1
+
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.3p1-6.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.3p1-6
 - Based on openssh-9.3p1-13.fc40
 - Drop patch openssh-8.0p1-sshbuf-readonly.patch (now included in

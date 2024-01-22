@@ -1,6 +1,6 @@
 Name:		kcc
 Version:	2.3
-Release:	58%{?dist}
+Release:	59%{?dist}
 License:	GPL-2.0-or-later
 
 BuildRequires:	gcc
@@ -52,6 +52,9 @@ gzip -9 $RPM_BUILD_ROOT%{_mandir}/man1/kcc.1
 %{_mandir}/man1/kcc.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

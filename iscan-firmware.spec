@@ -1,7 +1,7 @@
 Summary:	Firmware for Epson flatbed scanners
 Name:		iscan-firmware
 Version:	20190508
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	Redistributable, no modification permitted
 URL:		http://download.ebz.epson.net/dsc/search/01/search/
 BuildArch:	noarch
@@ -100,6 +100,9 @@ install -pm644 .%{_datadir}/{iscan,esci,utsushi}/*.bin %{buildroot}/lib/firmware
 /lib/firmware/epson
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190508-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

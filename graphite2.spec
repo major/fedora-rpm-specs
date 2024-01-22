@@ -1,6 +1,6 @@
 Name:           graphite2
 Version:        1.3.14
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Font rendering capabilities for complex non-Roman writing systems
 
 # As per COPYING file this library is tri-licensed
@@ -77,6 +77,9 @@ find %{buildroot} -type f -name "*.la" -print -delete
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 06 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.3.14-13
 - Migrate to SPDX license expression
 - Drop Netscape license reference as no test file using it in 1.3.x releases

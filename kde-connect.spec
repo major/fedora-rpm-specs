@@ -2,7 +2,7 @@
 
 Name:    kde-connect
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
 
@@ -189,6 +189,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 

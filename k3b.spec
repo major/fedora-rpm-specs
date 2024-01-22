@@ -5,7 +5,7 @@ Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/multimedia/k3b
@@ -167,6 +167,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:24.01.90-1
 - 24.01.90
 

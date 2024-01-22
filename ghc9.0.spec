@@ -105,9 +105,13 @@ Patch25: buildpath-abi-stability-2.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
+Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
+
+# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
+
 # fedora ghc has been bootstrapped on
-# %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
-# and retired arches: alpha sparcv9 armv5tel
+# %%{ix86} x86_64 s390x ppc64le aarch64 armv7hl
+# and retired arches: alpha sparcv9 armv5tel ppc ppc64 s390
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
@@ -350,9 +354,9 @@ rm -r libraries/containers/containers/dist-install
 %patch -P2 -p1 -b .orig
 %patch -P6 -p1 -b .orig
 %patch -P7 -p1 -b .orig
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
+%patch -P8 -p1 -b .orig
+%patch -P9 -p1 -b .orig
+%patch -P10 -p1 -b .orig
 
 rm -r libffi-tarballs
 
@@ -375,6 +379,11 @@ rm -r libffi-tarballs
 %patch -P26 -p1 -b .orig
 %patch -P27 -p1 -b .orig
 
+#sphinx 7
+%if 0%{?fedora} >= 40
+%patch -P30 -p1 -b .orig
+%endif
+
 %if %{with haddock}
 %global gen_contents_index gen_contents_index.orig
 if [ ! -f "libraries/%{gen_contents_index}" ]; then
@@ -383,7 +392,6 @@ if [ ! -f "libraries/%{gen_contents_index}" ]; then
 fi
 %endif
 
-# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 cat > mk/build.mk << EOF
 %if %{with perfbuild}
 %ifarch %{ghc_llvm_archs}

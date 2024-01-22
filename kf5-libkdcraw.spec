@@ -3,7 +3,7 @@
 Name:    kf5-libkdcraw
 Summary: A C++ interface around LibRaw library
 Version: 23.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{base_name}
@@ -74,6 +74,9 @@ Requires: cmake(Qt5Gui)
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.08.2-1
 - 23.08.2
 

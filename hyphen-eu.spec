@@ -4,7 +4,7 @@ Summary: Basque hyphenation rules
 # let's choose older timestamp here
 %global upstreamid 20190406
 Version: 0.%{upstreamid}
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source: http://mirrors.ctan.org/language/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-eu.tex
 URL: http://tp.lc.ehu.es/jma/basque.html
 License: MIT
@@ -39,6 +39,9 @@ cp -p hyph_eu_ES.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20190406-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20190406-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

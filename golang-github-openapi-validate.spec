@@ -17,7 +17,7 @@ This package follows Swagger 2.0. specification (aka OpenAPI 2.0). }
 %global godocs          CODE_OF_CONDUCT.md README.md example
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Openapi toolkit validation helpers
 
 # Upstream license specification: Apache-2.0
@@ -61,6 +61,9 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

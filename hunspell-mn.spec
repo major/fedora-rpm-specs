@@ -8,7 +8,7 @@ Name: hunspell-mn
 Summary: Mongolian hunspell dictionaries
 %global upstreamid 20080709
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Another Upstream https://extensions.openoffice.org/en/project/mongolian-spell-checking-dictionary
 # gives below Source URL
 Source: https://downloads.sourceforge.net/project/aoo-extensions/1408/0/dict-mn_0.06-5.oxt 
@@ -37,6 +37,9 @@ cp -p mn_MN.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080709-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080709-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

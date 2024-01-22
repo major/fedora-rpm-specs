@@ -32,7 +32,7 @@
 
 Name:           jakarta-oro
 Version:        2.0.8
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Full regular expressions API
 License:        Apache-1.1
 Source0:        http://archive.apache.org/dist/jakarta/oro/%{name}-%{version}.tar.gz
@@ -92,6 +92,9 @@ ant -Dfinal.name=%{base_name} jar javadocs -Dant.build.javac.source=1.8 -Dant.bu
 %license LICENSE
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.8-40
 - Convert License tag to SPDX format
 

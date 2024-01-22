@@ -2,7 +2,7 @@ Name:    kgamma
 Summary: A monitor calibration tool
 Epoch:   1
 Version: 5.92.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/%{name}
@@ -61,6 +61,9 @@ Conflicts: kdegraphics < 7:4.6.95-10
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.92.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.92.0-1
 - 5.92.0
 

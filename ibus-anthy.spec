@@ -18,7 +18,7 @@
 
 Name:           ibus-anthy
 Version:        1.5.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
@@ -155,6 +155,9 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 07 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.15-2
 - Resolves #2237374 Fix to commit selected candidate with OSK
 

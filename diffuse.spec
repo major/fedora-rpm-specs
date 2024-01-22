@@ -1,25 +1,23 @@
 Name:			diffuse
-Version:		0.8.2
-Release:		4%{?dist}
+Version:		0.9.0
+Release:		1%{?dist}
 Summary:		Graphical tool for merging and comparing text files
-License:		GPL-2.0-or-later
+License:		GPLv2+
 URL:			https://mightycreak.github.io/diffuse/
-Source0:		https://github.com/MightyCreak/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
+Source0:		https://codeload.github.com/MightyCreak/diffuse/tar.gz/v%{version}
 BuildArch:		noarch
-
 BuildRequires:		desktop-file-utils
 BuildRequires:		gettext
-BuildRequires:		glib2-devel
+BuildRequires:		autoconf
 BuildRequires:		meson
-BuildRequires:		libappstream-glib
-
-
+BuildRequires:		python3-devel
+BuildRequires:		python3-gobject
+BuildRequires:		python3-cairo
+BuildRequires:		gtk-update-icon-cache
+BuildRequires:		glib2-devel
 Requires:		hicolor-icon-theme
 Requires:		gnome-icon-theme
-Requires:		python3-gobject            
-Requires:		python3-cairo
-
+Requires:		gnome-icon-theme-legacy
 Provides:		mergetool
 Provides:		difftool
 
@@ -45,7 +43,7 @@ This is the Python 3 fork of Diffuse.
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mightycreak.Diffuse.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.mightycreak.Diffuse.appdata.xml
+%meson_test
 
 %files -f %{name}.lang
 %license COPYING
@@ -53,30 +51,20 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %config(noreplace) %{_sysconfdir}/diffuserc
 %{_bindir}/%{name}
 %{_datadir}/%{name}
-%{_datadir}/applications/io.github.mightycreak.Diffuse.desktop
-%{_datadir}/gnome/help/%{name}/
-%{_datadir}/icons/hicolor/*/apps/io.github.mightycreak*
-%{_datadir}/appdata/io.github.mightycreak.Diffuse.appdata.xml
-%{_datadir}/omf/%{name}/
+%{_datadir}/applications/io.github.mightycreak*
+%{_datadir}/gnome/help/%{name}/*/%{name}.xml
+%{_datadir}/icons/hicolor/symbolic/apps/io.github.mightycreak*
+%{_datadir}/icons/hicolor/scalable/apps/io.github.mightycreak*
+%{_datadir}/appdata/io.github.mightycreak*
+%{_datadir}/omf/%{name}/%{name}-*.omf
 %{_mandir}/man*/*
 %{_mandir}/*/man*/*
+%{_datadir}/omf/%{name}
+%{_datadir}/gnome/help/%{name}
 
 %changelog
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jun 04 2023 Leigh Scott <leigh123linux@gmail.com> - 0.8.2-2
-- Drop invalid tests on desktop and appdata files
-- Validate the appdata file
-- Drop unused build requires
-- Add requires python3-gobject and python3-cairo
-- Fix source url
-- Use SPDX licence
-- Fix files listed twice
-- Drop requires gnome-icon-theme-legacy
+* Sat Jan 20 2024 niohiani <notinsideofhereiamnotinside@gmail.com> 0.9.0-1
+- Release 0.9.0
 
 * Sun Apr 16 2023 niohiani <notinsideofhereiamnotinside@gmail.com> 0.8.2-1
 - Release 0.8.2

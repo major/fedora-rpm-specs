@@ -6,7 +6,7 @@
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	58%{?dist}
+Release:	59%{?dist}
 Summary:	A full-text search system
 
 # Overall	LGPL-2.1-or-later
@@ -276,6 +276,9 @@ popd
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.13-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-58
 - rubynative: fix function prototype passed to rb_rescue
 

@@ -22,7 +22,7 @@ namely support for record length-delimited message streaming.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Support for streaming protocol buffer messages for the Go language
 
 # Upstream license specification: Apache-2.0
@@ -54,6 +54,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

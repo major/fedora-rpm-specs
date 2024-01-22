@@ -1,7 +1,7 @@
 Summary: pilot desktop software
 Name: jpilot
 Version: 1.8.2
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: GPL-2.0-only
 URL: https://www.jpilot.org/
 Source0: https://www.jpilot.org/tarballs/jpilot-%{version}.tar.gz
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 22 2023 Nikola Forró <nforro@redhat.com> - 1.8.2-27
 - Added appstream file (thanks yselkowitz)
 

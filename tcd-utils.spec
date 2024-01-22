@@ -1,13 +1,16 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global	build_type_safety_c  2
+
 Name:		tcd-utils
 Version:	20120115
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	TCD (Tide Constituent Database) Utils
 
 License:	Public Domain
 URL:		http://www.flaterco.com/xtide/
 Source0:	ftp://ftp.flaterco.com/xtide/tcd-utils-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:	libtcd-devel
 
@@ -23,17 +26,22 @@ TCD Utils includes:
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
  
 
 %files
-%doc COPYING ChangeLog README
+%doc COPYING
+%doc ChangeLog
+%doc README
 %{_bindir}/*
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 20120115-24
+- Change -Wincompatible-pointer-types from error to warning
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20120115-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

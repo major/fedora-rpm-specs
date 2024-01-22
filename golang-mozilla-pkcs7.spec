@@ -20,7 +20,7 @@ Implements a subset of PKCS#7/Cryptographic Message Syntax (rfc2315, rfc5652).}
 
 Name:           %{goname}
 Version:        0
-Release:        0.8%{?dist}
+Release:        0.9%{?dist}
 Summary:        Implements a subset of PKCS#7/Cryptographic Message Syntax (rfc2315, rfc5652)
 
 License:        MIT
@@ -59,6 +59,9 @@ sed -e '/\t\tx509.ECDSAWithSHA1,/d' -i verify_test.go
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

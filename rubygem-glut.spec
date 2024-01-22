@@ -2,12 +2,16 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 
 Summary:	Glut bindings for the OpenGL gem
+# SPDX confirmed
 License:	MIT
 URL:		https://github.com/larskanis/glut
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix module method function definition argument
+# detected by c99 -Werror=incompatible-pointer-types
+Patch0:	glut-8.3.0-module-func-argument-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	rubygems-devel 
@@ -28,12 +32,13 @@ BuildArch:	noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec ./
+
+%patch -P0 -p1
 
 %build
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -49,11 +54,14 @@ rm -f .%{gem_extdir_mri}/{gem_make.out,mkmf.log}
 popd
 
 
+rm -f %{buildroot}%{gem_cache}
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
 	.autotest .gemtest .gitignore .travis.yml \
 	Rakefile \
 	ext/ \
+	*.gemspec \
+	%{nil}
 popd
 
 # No test suite available
@@ -68,13 +76,18 @@ popd
 %{gem_libdir}/
 %{gem_extdir_mri}/
 
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Jan 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-25
+- Fix module method function definition argument
+  detected by c99 -Werror=incompatible-pointer-types
+- Use modern gem2rpm style
+- SPDX confirmation
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-24
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

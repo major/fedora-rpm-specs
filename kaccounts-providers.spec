@@ -1,6 +1,6 @@
 Name:    kaccounts-providers
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional service providers for KAccounts framework
 License: GPLv2
 URL:     https://invent.kde.org/network/%{name}
@@ -65,6 +65,9 @@ Obsoletes: kaccounts-providers < 15.12.0
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 

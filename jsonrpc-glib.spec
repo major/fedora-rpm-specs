@@ -1,6 +1,6 @@
 Name:           jsonrpc-glib
 Version:        3.44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A JSON-RPC library for GLib
 
 License:        LGPL-2.1-or-later
@@ -72,6 +72,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

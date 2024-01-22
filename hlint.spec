@@ -11,7 +11,7 @@
 Name:           %{pkg_name}
 Version:        3.5
 # can only be reset when all subpkgs bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Haskell source code suggestions
 
 License:        BSD-3-Clause
@@ -204,6 +204,9 @@ mv %{buildroot}%{_datadir}/%{name}-%{version}/hlint.1 %{buildroot}%{_mandir}/man
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Jens Petersen <petersen@redhat.com> - 3.5-3
 - https://hackage.haskell.org/package/hlint-3.5/changelog
 

@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -123,6 +123,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.3.3-3
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

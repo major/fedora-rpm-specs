@@ -2,7 +2,7 @@ Name: hyphen-pl
 Summary: Polish hyphenation rules
 %global upstreamid 20060726
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_pl_PL.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 License: LGPL-2.1-or-later
@@ -38,6 +38,9 @@ cp -p hyph_pl_PL.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20060726-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20060726-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

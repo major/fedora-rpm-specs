@@ -17,7 +17,7 @@ the configuration, management, collection, and preprocessing of data collected
 via POST requests. }
 
 Name:           python-%{pypi_name}
-Version:        0.3.0
+Version:        0.3.2
 Release:        1%{?dist}
 Summary:        Collect POST requests
 
@@ -85,7 +85,7 @@ toml-adapt -path pyproject.toml -a change -dep pandas -ver X
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.md CHANGELOG.md CODE_OF_CONDUCT.md
+%doc README.md CHANGELOG.md CODE_OF_CONDUCT.md CITATION.cff
 
 %files doc
 %license LICENSE
@@ -94,6 +94,9 @@ toml-adapt -path pyproject.toml -a change -dep pandas -ver X
 %endif
 
 %changelog
+* Sat Jan 20 2024 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.3.2-1
+- Update to 0.3.2
+
 * Sun Dec 17 2023 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.3.0-1
 - Update to 0.3.0
 

@@ -2,7 +2,7 @@ Name: hyphen-te
 Summary: Telugu hyphenation rules
 Epoch: 1
 Version: 0.7.0
-Release: 23%{?dist}
+Release: 24%{?dist}
 Source: http://download.savannah.gnu.org/releases/smc/hyphenation/patterns/%{name}-%{version}.tar.bz2
 URL: http://wiki.smc.org.in
 License: LGPL-3.0-or-later
@@ -27,6 +27,9 @@ install -m644 -p *.dic %{buildroot}/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

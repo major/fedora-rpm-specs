@@ -4,7 +4,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.113.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
@@ -297,6 +297,9 @@ rm %{buildroot}%{_datadir}/applications/kcm_trash.desktop
 %{_kf5_libdir}/cmake/KF5KIO/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 14 2024 Alessandro Astone <ales.astone@gmail.com> - 5.113.0-2
 - Backport patch to fix expanding network directories in file picker
 

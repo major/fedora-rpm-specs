@@ -6,7 +6,7 @@ Summary: Initial system configuration utility
 URL: https://fedoraproject.org/wiki/InitialSetup
 License: GPL-2.0-or-later
 Version: 0.3.100
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.
@@ -156,6 +156,9 @@ rm -v %{buildroot}%{_libexecdir}/%{name}/firstboot-windowmanager
 %find_lang %{name}
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.100-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Martin Kolman <mkolman@redhat.com> - 0.3.100-1
 - spec: Disable shipping the X11 backend for all but RHEL < 10 (neal)
 - spec: Restructure and modernize (neal)

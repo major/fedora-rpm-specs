@@ -5,7 +5,7 @@
 
 Name:           gtkd
 Version:        3.10.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        D binding and OO wrapper of GTK+
 
 License:        LGPLv3+ with exceptions
@@ -129,6 +129,9 @@ make %{?_smp_mflags} DC=ldc2 libdir=%{?_lib} DCFLAGS="%{_d_optflags}" LDFLAGS=""
 %{_datadir}/geany/tags/gtkd.d.tags
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Kalev Lember <klember@redhat.com> - 3.10.0-8
 - Require libpeas1 compat package rather than libpeas in F39+
 

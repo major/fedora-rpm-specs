@@ -1,7 +1,7 @@
 Summary:    A GNU program for formatting C code
 Name:       indent
 Version:    2.2.13
-Release:    5%{?dist}
+Release:    6%{?dist}
 # COPYING:                      GPL-3.0 text
 # doc/indent.texi:              Latex2e-translated-notice
 #                               (AND a subset of Latex2e WITH a texinfo-commented GPL clause;
@@ -179,6 +179,9 @@ make check %{?_smp_mflags}
 %{_infodir}/indent.info*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Petr Pisar <ppisar@redhat.com> - 2.2.13-5
 - Fix a heap overread in search_brace/lexi
 - Fix CVE-2023-40305 (a heap buffer overwrite in search_brace) (bug #2231919)

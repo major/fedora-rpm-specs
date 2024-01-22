@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.113.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon for plotting
 
 License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
 - 5.113.0
 

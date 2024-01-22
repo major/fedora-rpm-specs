@@ -14,6 +14,9 @@ Buildrequires:	gcc-c++
 BuildRequires:	make
 Requires:	polkit
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description
 luckyBackup is an application that backs-up and/or synchronizes any 
 directories with the power of rsync.

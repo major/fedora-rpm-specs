@@ -3,7 +3,7 @@
 Summary:        Fast Scanner Generator
 Name:           jflex
 Version:        1.7.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        BSD-3-Clause
 URL:            http://jflex.de/
 BuildArch:      noarch
@@ -102,6 +102,9 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.0-14
 - Convert License tag to SPDX format
 

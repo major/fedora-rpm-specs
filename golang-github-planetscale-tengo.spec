@@ -26,7 +26,7 @@ Go La Tengo: a MySQL automation library.}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        %autorelease
+Release:        %autorelease.1
 Summary:        Go La Tengo: a MySQL automation library
 
 # Upstream license specification: Apache-2.0
@@ -61,6 +61,9 @@ BuildRequires:  golang(golang.org/x/sync/errgroup)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1~ps.v6~vitess-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 05 2021 Robert-André Mauchin <zebob.m@gmail.com> 0.10.1~ps.v6~vitess-2
 - Uncommitted changes
 

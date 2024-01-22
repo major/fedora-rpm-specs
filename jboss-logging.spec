@@ -3,7 +3,7 @@
 
 Name:             jboss-logging
 Version:          3.5.3
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          The JBoss Logging Framework
 License:          Apache-2.0
 
@@ -45,6 +45,9 @@ This package contains the JBoss Logging Framework.
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Name: hunspell-pl
 Summary: Polish hunspell dictionaries
 %global upstreamid 20230601
 Version: 0.%{upstreamid}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://sjp.pl/slownik/ort/sjp-myspell-pl-%{upstreamid}.zip
 URL: https://sjp.pl/slownik/ort/
 License: LGPL-2.1-or-later OR GPL-1.0-or-later OR MPL-1.1 OR Apache-2.0 OR CC-BY-SA-4.0
@@ -35,6 +35,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20230601-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20230601-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

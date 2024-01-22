@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -326,6 +326,9 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 #-------------------------------------------------------------------------------
 
 * Tue Oct 24 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-12

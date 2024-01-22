@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 78%{?dist}
+Release: 79%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -527,6 +527,7 @@ Patch46: texlive-base-20230311-fix-scripts.patch
 
 # fix build error with gcc-14
 Patch47: texlive-base-20230311-typecasts.patch
+Patch48: texlive-base-20230311-typefixes.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -8300,6 +8301,7 @@ done
 
 %patch -P44 -p1 -b .pdf-header-order-fix
 %patch -P47 -p1 -b .gcc-14-typecast
+%patch -P48 -p1 -b .gcc-14-typefixes
 
 # Disable broken tests
 # updmap-cmdline-test.pl is not useful and it will fail because it finds the system perl bits instead of the local copy
@@ -11113,6 +11115,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Sat Jan 20 2024 Michael J Gruber <mjg@fedoraproject.org> - 11:20230311-79
+- fix FTBFS with GCC 14 on i686
+- add missed ignore entries from "Update to TL2022"
+
 * Fri Jan 19 2024 Than Ngo <than@redhat.com> - 11:20230311-78
 - fixed bz#2259157 - texlive-base FTBFS
 

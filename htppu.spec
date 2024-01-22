@@ -1,7 +1,7 @@
 Summary: Hessu's Tampa Ping-Pong conversd URO modified version
 Name: htppu
 Version: 1.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+
 URL: https://sourceforge.net/projects/htppu/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -44,6 +44,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/INSTALL
 %{_var}/lib/htppu
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

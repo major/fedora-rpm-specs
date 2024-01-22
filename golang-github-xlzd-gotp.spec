@@ -15,7 +15,7 @@ Golang OTP(One-Time Password) Library.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.7%{?dist}
+Release:        0.8%{?dist}
 Summary:        Golang OTP(One-Time Password) Library
 
 License:        MIT
@@ -41,6 +41,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

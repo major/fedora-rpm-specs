@@ -1,6 +1,6 @@
 Name:           jsch
 Version:        0.1.55
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pure Java implementation of SSH2
 License:        BSD-3-Clause
 URL:            http://www.jcraft.com/jsch/
@@ -65,6 +65,9 @@ zip target/%{name}-%{version}.jar plugin.properties
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.55-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 0.1.55-11
 - Convert License tag to SPDX format
 

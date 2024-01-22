@@ -8,7 +8,7 @@ Name: hunspell-et
 Summary: Estonian hunspell dictionaries
 %global upstreamid 20030606
 Version: 0.%{upstreamid}
-Release: 32%{?dist}
+Release: 33%{?dist}
 Source: http://www.meso.ee/~jjpp/speller/ispell-et_%{upstreamid}.tar.gz
 URL: http://www.meso.ee/~jjpp/speller/
 License: LGPL-2.1-or-later AND LPPL-1.3a
@@ -51,6 +51,9 @@ cp -p hyph_et.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_et_EE.dic
 %{_datadir}/hyphen/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20030606-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20030606-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -28,7 +28,7 @@ you exit the loop.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        %autorelease
+Release:        %autorelease.1
 Summary:        Throttler - intelligent WaitGroups
 
 # Upstream license specification: Apache-2.0
@@ -55,5 +55,8 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 05 2021 Robert-André Mauchin <zebob.m@gmail.com> 1.1-1
 - Initial release

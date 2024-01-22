@@ -1,6 +1,6 @@
 Name:       golly
 Version:    4.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Cellular automata simulator (includes Conway's Game of Life)
 # The license for the code is GPLv2+ and for the included python parts Python-2.0.1
 #    see  /usr/share/licenses/golly/License.html
@@ -124,6 +124,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/Rules/TreeGenerators/
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Christian Krause <chkr@fedoraproject.org> - 4.2-3
 - Let main package own /usr/share/golly/Rules to avoid an unowned
   directory if only the -devel subpackage would be installed

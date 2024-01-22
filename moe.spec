@@ -1,6 +1,6 @@
 Name:		moe
-Version:	1.13
-Release:	3%{?dist}
+Version:	1.14
+Release:	1%{?dist}
 Summary:	A powerful clean text editor
 
 License:	GPL-3.0-or-later
@@ -21,7 +21,7 @@ browser, duplicate removal from prompt histories, delimiter matching, etc.
 
 %prep
 %setup -q
-%patch0 -p0 -b .configure
+%patch -P 0 -p0 -b .configure
 
 %build
 %configure
@@ -42,6 +42,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sat Jan 20 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.14-1
+- 1.14
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -31,7 +31,7 @@ up your project.}
 %global godocs          CHANGELOG.md CREATING_TOXICS.md README.md README-client.md
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        TCP proxy to simulate network and system conditions for resiliency testing
 
 License:        MIT
@@ -130,6 +130,9 @@ exit 0
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.50.%{my_subversion}%{?dist}
+Release:        0.51.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -164,6 +164,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.51.b7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 31 2023 Petr Pisar <ppisar@redhat.com> - 1.0-0.50.b7
 - Disable rendering MathML with TeX (bug #1695946)
 

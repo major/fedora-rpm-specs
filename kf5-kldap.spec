@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The KLDAP Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND MIT
@@ -109,6 +109,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Rename translation files to avoid conflict with KF6
 

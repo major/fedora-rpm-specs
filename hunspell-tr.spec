@@ -8,7 +8,7 @@ Name:       hunspell-tr
 Summary:    Turkish hunspell dictionaries
 Version:    1.1.0
 License:    MIT
-Release:    5%{?dist}
+Release:    6%{?dist}
 
 URL:        https://github.com/tdd-ai/hunspell-tr
 Source:     https://github.com/tdd-ai/hunspell-tr/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -40,6 +40,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

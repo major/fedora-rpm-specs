@@ -4,18 +4,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 Name:           picom
-Version:        10.2
+Version:        11
 Release:        %autorelease
 Summary:        Lightweight compositor for X11
 
-License:        MPLv2.0 and MIT
+License:        MPL-2.0 AND MIT
 URL:            https://github.com/yshui/picom
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# FR: Please port pcre dependency to pcre2. Pcre has been deprecated.
-# https://fedoraproject.org/wiki/PcreDeprecation
-# https://github.com/yshui/picom/issues/895
-Patch0:         https://github.com/yshui/picom/pull/937.patch#/c2:-replace-pcre-with-pcre2.patch
 # Hide picom desktop file by default
 Patch1:         https://github.com/yshui/picom/pull/1155.patch#/picom.desktop-Hide-from-menus-by-default.patch
 
@@ -25,7 +21,6 @@ BuildRequires:  gcc
 BuildRequires:  libev-devel
 BuildRequires:  meson
 BuildRequires:  uthash-devel
-
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gl)
@@ -42,6 +37,7 @@ BuildRequires:  pkgconfig(xcb-randr)
 BuildRequires:  pkgconfig(xcb-render)
 BuildRequires:  pkgconfig(xcb-renderutil)
 BuildRequires:  pkgconfig(xcb-shape)
+BuildRequires:  pkgconfig(xcb-util)
 BuildRequires:  pkgconfig(xcb-xfixes)
 BuildRequires:  pkgconfig(xcb-xinerama)
 BuildRequires:  pkgconfig(xcb)

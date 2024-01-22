@@ -4,7 +4,7 @@
 
 Name:           json
 Version:        3.11.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 # The entire source is MIT except
 # include/nlohmann/thirdparty/hedley/hedley.hpp, which is CC0-1.0
@@ -82,6 +82,9 @@ ln -svf %{_includedir}/doctest/doctest.h ./tests/thirdparty/doctest/doctest.h
 %{_datadir}/pkgconfig/nlohmann_json.pc
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 23 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 3.11.2-5
 - Add provides for nlohmann-json and nlohmann_json as alternate names
 

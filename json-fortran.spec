@@ -1,6 +1,6 @@
 Name:           json-fortran
 Version:        8.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Modern Fortran JSON API
 License:        MIT and BSD
 URL:            https://github.com/jacobwilliams/json-fortran
@@ -50,6 +50,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 %{_fmoddir}/json_*.mod
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:           kcm_systemd
 Version:        1.2.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Systemd control module for KDE
 
 License:        GPLv2+
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{_kf5_datadir}/kservices5/settings-system-administration.desk
 %{_kf5_datadir}/polkit-1/actions/org.kde.kcontrol.kcmsystemd.policy
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

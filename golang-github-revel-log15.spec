@@ -17,7 +17,7 @@ standard library's log package.}
 %global godocs          CONTRIBUTORS README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Structured, composable logging for Go
 
 # Upstream license specification: MIT and Apache-2.0
@@ -49,6 +49,9 @@ BuildRequires:  golang(gopkg.in/stack.v0)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.20-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.20-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

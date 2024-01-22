@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE PIM library for Grantlee template system
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -86,6 +86,9 @@ sed -i "s/libgrantleetheme/libgrantleetheme5/" src/Messages.sh
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Rename translation files to avoid conflict with KF6
 

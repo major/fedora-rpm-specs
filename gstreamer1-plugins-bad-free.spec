@@ -11,7 +11,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -714,6 +714,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.8-3
 - Backport of "va: fixes for Mesa driver"
 - Resolves: rhbz#2256693

@@ -27,7 +27,7 @@ Summary:        Java Security Services (JSS)
 URL:            https://github.com/dogtagpki/jss
 License:        MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later
 Version:        5.4.2
-Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
+Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/jss.git
@@ -215,6 +215,9 @@ modutil -dbdir /etc/pki/nssdb -chkfips true | grep -q enabled && export FIPS_ENA
 
 ################################################################################
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.2-1.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.2-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

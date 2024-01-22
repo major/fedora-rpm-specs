@@ -4,7 +4,7 @@
 
 Name:           gucharmap
 Version:        15.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode character picker and font browser
 
 # semver X, Y and Y+1
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_datadir}/vala/vapi/gucharmap-2.90.vapi
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 19 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.1.2-1
  - Update to 15.1.2 (#2245093)
 

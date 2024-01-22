@@ -4,7 +4,7 @@
 
 Name: kdump-anaconda-addon
 Version: 006
-Release: 9.%{snapshotdate}git%{gitshortcommit}%{?dist}
+Release: 10.%{snapshotdate}git%{gitshortcommit}%{?dist}
 Url: https://github.com/rhinstaller/kdump-anaconda-addon
 License: GPL-2.0-only
 Summary: Kdump configuration anaconda addon
@@ -41,6 +41,9 @@ Kdump anaconda addon
 %{_datadir}/icons/hicolor/scalable/apps/kdump.svg
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 006-10.20220714git7ca2d3e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 006-9.20220714git7ca2d3e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

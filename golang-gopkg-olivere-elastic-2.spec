@@ -24,7 +24,7 @@ Package Elastic provides an interface to the Elasticsearch server.}
 %global gosupfiles      glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Elasticsearch client for Go
 
 License:        MIT
@@ -58,6 +58,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.61-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.61-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

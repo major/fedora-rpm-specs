@@ -1,6 +1,6 @@
 Name:           keysmith
 Version:        24.01.90
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3+
 Summary:        Convergent OTP client
 Url:            https://invent.kde.org/utilities/keysmith
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 

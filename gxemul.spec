@@ -1,6 +1,6 @@
 Name:		gxemul
 Version:	0.7.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	BSD
 Summary:	Instruction-level machine emulator
 URL:		http://gavare.se/gxemul/
@@ -43,6 +43,9 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man1/gxemul.*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

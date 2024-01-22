@@ -1,6 +1,6 @@
 Name:          jackson-parent
 Version:       2.16
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Parent pom for all Jackson components
 License:       Apache-2.0
 
@@ -38,6 +38,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Chris Kelley <ckelley@redhat.com> - 2.16-1
 - [maven-release-plugin] prepare release jackson-parent-2.16 (Tatu Saloranta)
 - Prepare for 2.16 release (Tatu Saloranta)

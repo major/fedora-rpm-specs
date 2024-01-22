@@ -6,7 +6,7 @@
 Summary: A library for viewing source files
 Name: gtksourceview2
 Version: 2.11.2
-Release: 39%{?dist}
+Release: 40%{?dist}
 License: LGPLv2+ and GPLv2+
 # the library itself is LGPL, some .lang files are GPL
 URL: http://gtksourceview.sourceforge.net/
@@ -19,6 +19,8 @@ Patch1: gtksourceview-2.11-fix-GCONST-def.patch
 Patch2: gtksourceview-2.11-add-libs.patch
 Patch3: gtksourceview-2.11-glib-unicode-constant.patch
 Patch4: gtksourceview-2.11-c99.patch
+# https://gitlab.gnome.org/GNOME/gtksourceview/-/commit/b25e71c57fc934a7ce36e51826af9fa7c2cf9a80
+Patch5: gtksourceview-b25e71c-c99-type-cast.patch
 BuildRequires: libxml2-devel
 BuildRequires: GConf2-devel
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -48,11 +50,12 @@ applications which use GtkSourceView 2.x.
 
 %prep
 %setup -q -n gtksourceview-%{version}
-%patch0 -p1 -b .cflags
-%patch1 -p1 -b .gconst
+%patch -P0 -p1 -b .cflags
+%patch -P1 -p1 -b .gconst
 #%%patch2 -p1 -b .addlibs
-%patch3 -p1 -b .glib-deprecated
-%patch4 -p1
+%patch -P3 -p1 -b .glib-deprecated
+%patch -P4 -p1
+%patch -P5 -p1
 
 # Explictly use gtk+-2.0
 sed -i.gtk configure -e '\@gtk+-3.0@s|2.90|9999|'
@@ -62,10 +65,10 @@ sed -i.gtk configure -e '\@gtk+-3.0@s|2.90|9999|'
 export PKG_CONFIG_PATH=%{_datadir}/pkgconfig:%{_libdir}/pkgconfig:$(pwd)
 %configure --disable-gtk-doc --disable-static --disable-deprecations --disable-silent-rules
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 # remove unwanted files
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
@@ -90,6 +93,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/gtksourceview-2.0/language-specs/convert.py
 %{_datadir}/gir-1.0/GtkSource-2.0.gir
 
 %changelog
+* Sat Jan 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11.2-40
+- Backport upstream patch for type casting (for -Werror=incompatible-pointer-types)
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

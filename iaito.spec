@@ -1,7 +1,7 @@
 Name:           iaito
 Summary:        GUI for radare2 reverse engineering framework
 Version:        5.8.8
-%global         baserelease     4
+%global         baserelease     5
 %global         upversion       %{version}-beta
 URL:            https://radare.org/n/iaito.html
 VCS:            https://github.com/radareorg/iaito/
@@ -192,6 +192,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 13 2023 Michal Ambroz <rebus _AT seznam.cz> - 5.8.8-4
 - rebuild with capstone 5.0.1
 

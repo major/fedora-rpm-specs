@@ -7,7 +7,7 @@
 Name: hunspell-ak
 Summary: Akan hunspell dictionaries
 Version: 0.9.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/376172/akan_spelling_dictionary-0.9.1-typefix-fx.xpi
 URL: http://kasahorow.org/content/akan-nsɛmfuaasekyerɛ
 #https://addons.mozilla.org/en-US/firefox/versions/license/73122
@@ -36,6 +36,9 @@ cp -p dictionaries/ak-GH.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/ak_GH.d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.9.1-16
 - Drop dependency on redland by dropping CREDITS file
 

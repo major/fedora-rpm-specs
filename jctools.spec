@@ -4,7 +4,7 @@
 
 Name:           jctools
 Version:        4.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java Concurrency Tools for the JVM
 License:        Apache-2.0
 
@@ -101,6 +101,9 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.1-4
 - Convert License tag to SPDX format
 

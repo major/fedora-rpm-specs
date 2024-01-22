@@ -1,7 +1,7 @@
 BuildArch: noarch
 
 Version:        1.31.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        ASL 2.0
 #URL:            
 
@@ -108,6 +108,9 @@ echo %{fontpkgname}
 %fontfiles -a
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

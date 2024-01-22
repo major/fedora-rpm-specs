@@ -1,3 +1,6 @@
+# Skip -Werror=incompatilbe-pointer-types
+%global	build_type_safety_c  2
+
 %global	gem_name	opengl
 
 %bcond_with bootstrap
@@ -14,7 +17,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -157,6 +160,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Sat Jan 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-27
+- Change -Wincompatible-pointer-types from error to warning
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-26
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

@@ -2,7 +2,7 @@
 
 Name: gtkspell
 Version: 2.0.16
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPL-2.0-or-later
 Summary: On-the-fly spell checking for GtkTextView widgets
 URL: http://gtkspell.sourceforge.net/
@@ -59,6 +59,9 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 %{_libdir}/pkgconfig/gtkspell-2.0.pc
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.16-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.16-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

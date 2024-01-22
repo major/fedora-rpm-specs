@@ -21,7 +21,7 @@ structs and import BigQuery QueryResponse into arrays of Go structs.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Create Google Big Query schema directly from Go structs
 
 # Upstream license specification: Apache-2.0
@@ -56,6 +56,9 @@ BuildRequires:  golang(github.com/onsi/gomega)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

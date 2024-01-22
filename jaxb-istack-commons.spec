@@ -1,6 +1,6 @@
 Name:           jaxb-istack-commons
 Version:        4.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        iStack Common Utility Code
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-istack-commons
@@ -91,6 +91,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 27 2023 Marian Koncek <mkoncek@redhat.com> - 4.2.0-4
 - Add jaxb-istack-commons-maven-plugin subpackage
 

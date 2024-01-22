@@ -1,7 +1,7 @@
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND BSD-2-Clause
 URL:     https://invent.kde.org/sdk/%{name}.git
@@ -135,6 +135,9 @@ rm -fv %{buildroot}%{_kf6_bindir}/krazy-licensecheck
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-1
 - 24.01.90
 - Mangle python shebang with py3_shebang_fix macro

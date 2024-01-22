@@ -1,6 +1,6 @@
 Name:          initoverlayfs
 Version:       0.99
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       An initial scalable filesystem for Linux operating systems
 
 License:       GPL-2.0-only
@@ -39,6 +39,9 @@ install -D -m755 lib/dracut/modules.d/81initoverlayfs/module-setup.sh $RPM_BUILD
 %{_prefix}/lib/dracut/modules.d/81initoverlayfs/
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Stephen Smoogen <ssmoogen@redhat.com> - 0.99-1
 - Update to 0.99 release.
 - shellcheck corrections (Yariv)

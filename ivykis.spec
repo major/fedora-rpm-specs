@@ -7,7 +7,7 @@
 Summary:        Library for asynchronous I/O readiness notification
 Name:           ivykis
 Version:        0.42.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 License:        LGPLv2+
 URL:            http://libivykis.sourceforge.net/
@@ -74,6 +74,9 @@ make check
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

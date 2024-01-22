@@ -4,7 +4,7 @@
 
 Name: heimdal
 Version: 7.8.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A Kerberos 5 implementation without export restrictions
 License: BSD and MIT
 URL: http://www.heimdal.software/heimdal
@@ -428,6 +428,9 @@ fi
 %{_sysconfdir}/profile.d/%{name}.csh
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

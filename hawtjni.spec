@@ -1,6 +1,6 @@
 Name:             hawtjni
 Version:          1.18
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Code generator that produces the JNI code
 # Maven plugin is under ASL 2.0.
 # stdint.h, shipped in JAR as resource, used only with M$ VC++, is under BSD.
@@ -93,6 +93,9 @@ This package allows to use HawtJNI from a maven plugin.
 %doc license.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.18-9
 - Disable hawtjni-maven-plugin
 

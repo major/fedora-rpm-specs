@@ -17,7 +17,7 @@
 %global with_rss 1
 %endif
 
-%global tracker_version 3.6
+%global tracker_version 3.7~alpha
 
 %if 0%{?with_rss}
 %global systemd_units tracker-extract-3.service tracker-miner-fs-3.service tracker-miner-fs-control-3.service tracker-miner-rss-3.service tracker-writeback-3.service
@@ -32,14 +32,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.6.2
+Version:        3.7~alpha
 Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
-Source0:        https://download.gnome.org/sources/%{name}/3.6/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.7/%{name}-%{tarball_version}.tar.xz
 Source1:        flatpak-fixup.sh
 
 BuildRequires:  asciidoc
@@ -175,6 +175,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Fri Jan 19 2024 David King <amigadave@amigadave.com> - 3.7~alpha-1
+- Update to 3.7.alpha
+
 * Tue Oct 31 2023 Kalev Lember <klember@redhat.com> - 3.6.2-1
 - Update to 3.6.2
 

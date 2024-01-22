@@ -1,6 +1,6 @@
 Name:           jzlib
 Version:        1.1.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Re-implementation of zlib in pure Java
 License:        BSD-3-Clause
 URL:            http://www.jcraft.com/jzlib/
@@ -67,6 +67,9 @@ cp -pr example/* %{buildroot}%{_datadir}/%{name}
 %doc %{_datadir}/%{name}
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1.3-25
 - Convert License tag to SPDX format
 

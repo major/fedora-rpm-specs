@@ -4,7 +4,7 @@
 
 Name:    kf6-%{framework}
 Version: 5.248.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Tier 1 KDE Frameworks module wrapping ModemManager DBus API
 License: GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -62,6 +62,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.248.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
 - 5.248.0
 

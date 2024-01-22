@@ -16,7 +16,7 @@ UUIDs are based on RFC 4122 and DCE 1.1: Authentication and Security Services.}
 %global godocs          CONTRIBUTING.md CONTRIBUTORS README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generate and inspect UUIDs
 
 # Upstream license specification: BSD-3-Clause
@@ -45,6 +45,9 @@ BuildRequires:  golang(github.com/google/uuid)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

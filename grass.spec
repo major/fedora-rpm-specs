@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.3.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -338,6 +338,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan  3 2024 Florian Weimer <fweimer@redhat.com> - 8.3.1-4
 - Fix C compatibility issue in MySQL port handling
 

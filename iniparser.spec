@@ -3,7 +3,7 @@
 
 Name:          iniparser
 Version:       4.1
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       C library for parsing "INI-style" files
 
 License:       MIT
@@ -73,6 +73,9 @@ make check
 %{_includedir}/*.h
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 4.1-14
 - Minor spec file updates
 - Verify the License tag carries an SPDX expression

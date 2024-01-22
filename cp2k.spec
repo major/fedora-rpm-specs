@@ -1,38 +1,45 @@
-%global git 0
-%global snapshot 20210528
-%global commit f848ba0b7a55a5943658d43e9dc204f6f1beee25
+# If defined, create a snapshot build
+#global git_date 20231026
+%global commit 61cc8baa641ad31d15ee8cc5fe3072ba50e35778
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global dbcsr_commit 46cd0928465ee6bf21d82e5aac0a1970dcb54501
-%global dbcsr_shortcommit %(c=%{dbcsr_commit}; echo ${c:0:7})
-%global dbcsr_version 2.2.0
+%global sover 23.1
+%global dbcsr_version 2.6.0
 
 # TODO OpenCL support: -D__ACC -D__DBCSR_ACC -D__OPENCL
 
-%global __provides_exclude_from ^%{_libdir}/(cp2k/lib|(mpich|openmpi)/lib/cp2k).*\\.so$
-%global __requires_exclude ^lib(cp2k|clsmm|dbcsr|micsmm).*\\.so.*$
+# No openmpi on i668 with openmpi 5 in Fedora 40+
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 
-%bcond_with check
+# Disable LTO due to https://bugzilla.redhat.com/show_bug.cgi?id=2243158
+%global _lto_cflags %nil
+
+# Compile regtests and do a brief smoketest
+%bcond_without check
+# Run full regtest suite - takes a very long time
+%bcond_with check_full
 
 Name: cp2k
-Version: 2023.1
+Version: 2024.1%{?git_date:^%{git_date}git%{shortcommit}}
 Release: %autorelease
 Summary: Ab Initio Molecular Dynamics
 License: GPLv2+
-URL: http://cp2k.org/
-%if %{git}
+URL: httsp://www.cp2k.org/
+%if 0%{?git_date}
 Source0: https://github.com/cp2k/cp2k/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-Source1: https://github.com/cp2k/dbcsr/archive/%{dbcsr_commit}/dbcsr-%{dbcsr_shortcommit}.tar.gz
 %else
 Source0: https://github.com/cp2k/cp2k/releases/download/v%{version}/cp2k-%{version}.tar.bz2
 %endif
-Source4: cp2k-snapshot.sh
-# Fedora patches
-# patch to:
-# use rpm optflags
-# link with flexiblas instead of vanilla blas/lapack
-# build with libint and libxc
-# build shared libraries
-Patch10: %{name}-rpm.patch
+# Allow specifying the data install directory
+# https://github.com/cp2k/cp2k/pull/3088
+Patch: cp2k-data.patch
 BuildRequires: flexiblas-devel
 # for regtests
 BuildRequires: bc
@@ -40,6 +47,7 @@ BuildRequires: fftw-devel
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
 BuildRequires: glibc-langpack-en
+BuildRequires: dbcsr-devel >= %{dbcsr_version}
 BuildRequires: libint2-devel
 BuildRequires: libxc-devel >= 5.1.0
 %ifarch x86_64
@@ -50,7 +58,6 @@ BuildRequires: python3-fypp
 BuildRequires: spglib-devel
 BuildRequires: /usr/bin/hostname
 BuildRequires: python3-devel
-Provides: bundled(dbcsr) = %{dbcsr_version}
 
 # Libint can break the API between releases
 Requires: libint2(api)%{?_isa} = %{_libint2_apiversion}
@@ -72,13 +79,37 @@ CP2K does not implement Car-Parinello Molecular Dynamics (CPMD).
 
 This package contains the non-MPI single process and multi-threaded versions.
 
+%package common
+Summary: Molecular simulations software - common files
+
+%description common
+%{cp2k_desc_base}
+
+This package contains the documentation and the manual.
+
+%package devel
+Summary: Development files for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+%package testing
+Summary: Tests for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description testing
+The %{name}-testing package contains executables for testing %{name}.
+
+%if %{with openmpi}
 %package openmpi
 Summary: Molecular simulations software - openmpi version
 BuildRequires:  openmpi-devel
 BuildRequires:  blacs-openmpi-devel
+BuildRequires:  dbcsr-openmpi-devel >= %{dbcsr_version}
 BuildRequires:  elpa-openmpi-devel >= 2018.05.001
 BuildRequires:  scalapack-openmpi-devel
-Provides: bundled(dbcsr) = %{dbcsr_version}
 Requires: %{name}-common = %{version}-%{release}
 # Libint may have API breakage
 Requires: libint2(api)%{?_isa} = %{_libint2_apiversion}
@@ -89,14 +120,31 @@ Requires: libint2(api)%{?_isa} = %{_libint2_apiversion}
 This package contains the parallel single- and multi-threaded versions
 using OpenMPI.
 
+%package openmpi-devel
+Summary: Development files for %{name}
+Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
+
+%description openmpi-devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+%package openmpi-testing
+Summary: Tests for %{name}
+Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
+
+%description openmpi-testing
+The %{name}-openmpi-testing package contains executables for testing
+%{name} with OpenMPI.
+%endif
+
 %package mpich
 Summary: Molecular simulations software - mpich version
 BuildRequires:  mpich-devel
 BuildRequires:  blacs-mpich-devel
+BuildRequires:  dbcsr-mpich-devel >= %{dbcsr_version}
 BuildRequires:  elpa-mpich-devel >= 2018.05.001
 BuildRequires:  scalapack-mpich-devel
 BuildRequires: make
-Provides: bundled(dbcsr) = %{dbcsr_version}
 Requires: %{name}-common = %{version}-%{release}
 # Libint may have API breakage
 Requires: libint2(api)%{?_isa} = %{_libint2_apiversion}
@@ -107,125 +155,120 @@ Requires: libint2(api)%{?_isa} = %{_libint2_apiversion}
 This package contains the parallel single- and multi-threaded versions
 using mpich.
 
-%package common
-Summary: Molecular simulations software - common files
+%package mpich-devel
+Summary: Development files for %{name}
+Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
 
-%description common
-%{cp2k_desc_base}
+%description mpich-devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
-This package contains the documentation and the manual.
+%package mpich-testing
+Summary: Tests for %{name}
+Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
+
+%description mpich-testing
+The %{name}-mpich-testing package contains executables for testing
+%{name} with mpich.
 
 %prep
-%if %{git}
-%setup -q -n %{name}-%{commit}
-tar xzf %{S:1} -C exts/dbcsr --strip-components=1
+%if 0%{?git_date}
+%autosetup -p1 -n %{name}-%{commit}
 echo git:%{shortcommit} > REVISION
 %else
-%setup -q
+%autosetup -p1
 %endif
-%patch10 -p1 -b .r
-sed -i 's|@libdir@|%{_libdir}|' Makefile
 rm tools/build_utils/fypp
-rm -rv exts/dbcsr/tools/build_utils/fypp
-
-# Generate necessary symlinks
-TARGET=Linux-%{_target_cpu}-gfortran
-ln -s Linux-x86-64-gfortran.ssmp arch/${TARGET}.ssmp
-for m in mpich openmpi ; do
-    ln -s Linux-x86-64-gfortran.psmp arch/${TARGET}-${m}.psmp
-done
-
-# fix crashes in fftw on i686. Need to run on original file, otherwise symlinks will be replaced with copies.
-%ifarch i686
-sed -i 's/-D__FFTW3/-D__FFTW3 -D__FFTW3_UNALIGNED/g' arch/Linux-x86-64-gfortran*
-%endif
-
-for f in arch/Linux-x86-64-gfortran.{psmp,ssmp}; do
-%ifarch x86_64
- sed -i 's|@LIBSMM_DEFS@|-D__LIBXSMM|;s|@LIBSMM_LIBS@|-lxsmmf -lxsmm|' $f
-%else
- sed -i 's|@LIBSMM_DEFS@||;s|@LIBSMM_LIBS@||' $f
-%endif
-done
+rm -r exts/dbcsr
 
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i "%{__python3} -Es" -p $(find . -type f -name *.py)
 
+# $MPI_SUFFIX will be evaluated in the loops below, set by mpi modules
+%global _vpath_builddir %{_vendor}-%{_target_os}-build${MPI_SUFFIX:-_serial}
+
 %build
-TARGET=Linux-%{_target_cpu}-gfortran
-OPTFLAGS_COMMON="%(echo %{optflags} | sed -e 's/ -Werror=format-security//g') -fPIC -I%{_fmoddir} -fallow-argument-mismatch"
-make OPTFLAGS="${OPTFLAGS_COMMON}" DISTLDFLAGS="%{__global_ldflags} -Wl,-rpath,%{_libdir}/cp2k" %{?_smp_mflags} ARCH="${TARGET}" VERSION="ssmp"
+CMAKE_COMMON="-DCP2K_BLAS_VENDOR=FlexiBLAS %{?with_check:-DCP2K_ENABLE_REGTESTS=ON}"
+%cmake $CMAKE_COMMON \
+   -DCP2K_USE_MPI=OFF \
+   -DCMAKE_INSTALL_Fortran_MODULES:PATH=%{_fmoddir}/cp2k
+%cmake_build
+
+
+%if %{with openmpi}
 %{_openmpi_load}
-make OPTFLAGS="${OPTFLAGS_COMMON} -I%{_fmoddir}/openmpi" DISTLDFLAGS="%{__global_ldflags} -Wl,-rpath,${MPI_LIB}/cp2k" %{?_smp_mflags} ARCH="${TARGET}-openmpi" VERSION="psmp"
+%cmake $CMAKE_COMMON \
+   -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
+   -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
+   -DCMAKE_INSTALL_Fortran_MODULES:PATH=${MPI_FORTRAN_MOD_DIR}/cp2k \
+   -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+   -DCP2K_CMAKE_SUFFIX=$MPI_SUFFIX \
+   -DCP2K_DATA_DIR:PATH=%{_datadir}/cp2k/data \
+   -DCP2K_USE_MPI_F08:BOOL=ON
+%cmake_build
 %{_openmpi_unload}
+%endif
+
 %{_mpich_load}
-make OPTFLAGS="${OPTFLAGS_COMMON} -I%{_fmoddir}/mpich" DISTLDFLAGS="%{__global_ldflags} -Wl,-rpath,${MPI_LIB}/cp2k" %{?_smp_mflags} ARCH="${TARGET}-mpich" VERSION="psmp"
+%cmake $CMAKE_COMMON \
+   -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
+   -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
+   -DCMAKE_INSTALL_Fortran_MODULES:PATH=${MPI_FORTRAN_MOD_DIR}/cp2k \
+   -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+   -DCP2K_CMAKE_SUFFIX=$MPI_SUFFIX \
+   -DCP2K_DATA_DIR:PATH=%{_datadir}/cp2k/data \
+   -DCP2K_USE_MPI_F08:BOOL=ON
+%cmake_build
 %{_mpich_unload}
 
 %install
-TARGET=Linux-%{_target_cpu}-gfortran
-mkdir -p %{buildroot}{%{_bindir},%{_libdir}/cp2k,%{_datadir}/cp2k}
-install -pm755 exe/${TARGET}/cp2k.ssmp %{buildroot}%{_bindir}
-ln -s cp2k.ssmp %{buildroot}%{_bindir}/cp2k.sopt
-ln -s cp2k.ssmp %{buildroot}%{_bindir}/cp2k_shell.ssmp
-install -pm755 lib/${TARGET}/ssmp/lib*.so %{buildroot}%{_libdir}/cp2k/
-install -pm755 lib/${TARGET}/ssmp/exts/dbcsr/libdbcsr.so %{buildroot}%{_libdir}/cp2k/
+%cmake_install
+
+%if %{with openmpi}
 %{_openmpi_load}
-mkdir -p %{buildroot}{${MPI_BIN},${MPI_LIB}/cp2k}
-install -pm755 exe/${TARGET}-openmpi/cp2k.psmp %{buildroot}${MPI_BIN}/cp2k.psmp_openmpi
-ln -s cp2k.psmp_openmpi %{buildroot}${MPI_BIN}/cp2k.popt_openmpi
-ln -s cp2k.psmp_openmpi %{buildroot}${MPI_BIN}/cp2k_shell.psmp_openmpi
-install -pm755 lib/${TARGET}-openmpi/psmp/lib*.so %{buildroot}${MPI_LIB}/cp2k/
-install -pm755 lib/${TARGET}-openmpi/psmp/exts/dbcsr/libdbcsr.so %{buildroot}${MPI_LIB}/cp2k/
+%cmake_install
 %{_openmpi_unload}
+%endif
+
 %{_mpich_load}
-mkdir -p %{buildroot}{${MPI_BIN},${MPI_LIB}/cp2k}
-install -pm755 exe/${TARGET}-mpich/cp2k.psmp %{buildroot}${MPI_BIN}/cp2k.psmp_mpich
-ln -s cp2k.psmp_mpich %{buildroot}${MPI_BIN}/cp2k.popt_mpich
-ln -s cp2k.psmp_mpich %{buildroot}${MPI_BIN}/cp2k_shell.psmp_mpich
-install -pm755 lib/${TARGET}-mpich/psmp/lib*.so %{buildroot}${MPI_LIB}/cp2k/
-install -pm755 lib/${TARGET}-mpich/psmp/exts/dbcsr/libdbcsr.so %{buildroot}${MPI_LIB}/cp2k/
+%cmake_install
 %{_mpich_unload}
-cp -pr data/* %{buildroot}%{_datadir}/cp2k/
 
 %if %{with check}
 # regtests take ~12 hours on aarch64 and ~48h on s390x
 %check
-cat > fedora.config << __EOF__
-export LC_ALL=C
-dir_base=%{_builddir}
-__EOF__
 . /etc/profile.d/modules.sh
-export CP2K_DATA_DIR=%{buildroot}%{_datadir}/cp2k/
-for mpi in '' mpich openmpi ; do
+export CP2K_DATA_DIR=%{buildroot}%{_datadir}/cp2k/data
+status=0
+for mpi in '' mpich %{?with_openmpi:openmpi} ; do
+# A couple tests fail on ppc64le - https://github.com/cp2k/cp2k/issues/3077
+%ifarch ppc64le
+  fail=0
+%else
+  # Do not fail for now
+  fail=0
+%endif
+  # TODO - set maxtasks based on # cores?
   if [ -n "$mpi" ]; then
     module load mpi/${mpi}-%{_arch}
     libdir=${MPI_LIB}/cp2k
-    mpiopts="-maxtasks 4 -mpiranks 2"
+    mpiopts="--maxtasks 4 --mpiranks 2 --ompthreads 2"
     par=p
     suf="-${mpi}"
   else
     libdir=%{_libdir}/cp2k
-    mpiopts=""
+    mpiopts="--maxtasks 4 --ompthreads 2"
     par=s
     suf=""
   fi
-  export LD_LIBRARY_PATH=%{buildroot}${libdir}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-  tools/regtesting/do_regtest \
-    -arch Linux-%{_target_cpu}-gfortran${suf} \
-    -config fedora.config \
-%if %{git}
-    -cp2kdir cp2k-%{commit} \
-%else
-    -cp2kdir cp2k-%{version} \
-%endif
-    ${mpiopts} \
-    -nobuild \
-    -version ${par}smp \
+  export LD_LIBRARY_PATH=%{buildroot}${libdir}
+  tests/do_regtest.py %{!?with_check_full:--smoketest} --workbasedir %{_builddir} ${mpiopts} \
+    local${MPI_SUFFIX} ${par}smp || status=$(( $status + $fail ))
 
   if [ -n "$mpi" ]; then
     module unload mpi/${mpi}-%{_arch}
   fi
 done
+exit $status
 %endif
 
 %files common
@@ -234,25 +277,81 @@ done
 %{_datadir}/cp2k
 
 %files
-%{_bindir}/cp2k.sopt
 %{_bindir}/cp2k.ssmp
-%{_bindir}/cp2k_shell.ssmp
-%dir %{_libdir}/cp2k
-%{_libdir}/cp2k/lib*.so
+%{_bindir}/dbm_miniapp.ssmp
+%{_bindir}/dumpdcd.ssmp
+%{_bindir}/graph.ssmp
+%{_bindir}/grid_miniapp.ssmp
+%{_bindir}/xyz2dcd.ssmp
+%{_libdir}/libcp2k.so.%{sover}*
 
+%files devel
+%{_fmoddir}/cp2k/
+%{_includedir}/cp2k/
+%{_libdir}/cmake/cp2k/
+%{_libdir}/libcp2k.so
+%{_libdir}/pkgconfig/libcp2k.pc
+
+%files testing
+%{_bindir}/dbt_tas_unittest.ssmp
+%{_bindir}/dbt_unittest.ssmp
+%{_bindir}/grid_unittest.ssmp
+%{_bindir}/libcp2k_unittest.ssmp
+%{_bindir}/memory_utilities_unittest.ssmp
+%{_bindir}/nequip_unittest.ssmp
+%{_bindir}/parallel_rng_types_unittest.ssmp
+
+%if %{with openmpi}
 %files openmpi
-%{_libdir}/openmpi/bin/cp2k.popt_openmpi
-%{_libdir}/openmpi/bin/cp2k.psmp_openmpi
-%{_libdir}/openmpi/bin/cp2k_shell.psmp_openmpi
-%dir %{_libdir}/openmpi/lib/cp2k
-%{_libdir}/openmpi/lib/cp2k/lib*.so
+%{_libdir}/openmpi/bin/cp2k.psmp
+%{_libdir}/openmpi/bin/dumpdcd.psmp
+%{_libdir}/openmpi/bin/dbm_miniapp.psmp
+%{_libdir}/openmpi/bin/graph.psmp
+%{_libdir}/openmpi/bin/grid_miniapp.psmp
+%{_libdir}/openmpi/bin/xyz2dcd.psmp
+%{_libdir}/openmpi/lib/libcp2k.so.%{sover}*
+
+%files openmpi-devel
+%{_fmoddir}/openmpi/cp2k/
+%{_libdir}/openmpi/include/cp2k/
+%{_libdir}/openmpi/lib/cmake/cp2k/
+%{_libdir}/openmpi/lib/libcp2k.so
+%{_libdir}/openmpi/lib/pkgconfig/libcp2k.pc
+
+%files openmpi-testing
+%{_libdir}/openmpi/bin/dbt_tas_unittest.psmp
+%{_libdir}/openmpi/bin/dbt_unittest.psmp
+%{_libdir}/openmpi/bin/grid_unittest.psmp
+%{_libdir}/openmpi/bin/libcp2k_unittest.psmp
+%{_libdir}/openmpi/bin/memory_utilities_unittest.psmp
+%{_libdir}/openmpi/bin/nequip_unittest.psmp
+%{_libdir}/openmpi/bin/parallel_rng_types_unittest.psmp
+%endif
 
 %files mpich
-%{_libdir}/mpich/bin/cp2k.popt_mpich
-%{_libdir}/mpich/bin/cp2k.psmp_mpich
-%{_libdir}/mpich/bin/cp2k_shell.psmp_mpich
-%dir %{_libdir}/mpich/lib/cp2k
-%{_libdir}/mpich/lib/cp2k/lib*.so
+%{_libdir}/mpich/bin/cp2k.psmp
+%{_libdir}/mpich/bin/dbm_miniapp.psmp
+%{_libdir}/mpich/bin/dumpdcd.psmp
+%{_libdir}/mpich/bin/graph.psmp
+%{_libdir}/mpich/bin/grid_miniapp.psmp
+%{_libdir}/mpich/bin/xyz2dcd.psmp
+%{_libdir}/mpich/lib/libcp2k.so.%{sover}*
+
+%files mpich-devel
+%{_fmoddir}/mpich/cp2k/
+%{_libdir}/mpich/include/cp2k/
+%{_libdir}/mpich/lib/cmake/cp2k/
+%{_libdir}/mpich/lib/libcp2k.so
+%{_libdir}/mpich/lib/pkgconfig/libcp2k.pc
+
+%files mpich-testing
+%{_libdir}/mpich/bin/dbt_tas_unittest.psmp
+%{_libdir}/mpich/bin/dbt_unittest.psmp
+%{_libdir}/mpich/bin/grid_unittest.psmp
+%{_libdir}/mpich/bin/libcp2k_unittest.psmp
+%{_libdir}/mpich/bin/memory_utilities_unittest.psmp
+%{_libdir}/mpich/bin/nequip_unittest.psmp
+%{_libdir}/mpich/bin/parallel_rng_types_unittest.psmp
 
 %changelog
 %autochangelog

@@ -3,7 +3,7 @@
 %global ibus_icons_dir %{_datadir}/ibus-table/icons
 Name:           ibus-table-chinese
 Version:        1.8.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Chinese input tables for IBus
 Summary(zh_CN): 中文码表输入法
 Summary(zh_TW): 中文碼表輸入法
@@ -401,6 +401,9 @@ rm -fr %{buildroot}%{_docdir}/*
 %{ibus_tables_dir}/cantonyale.db
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

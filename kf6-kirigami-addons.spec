@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        0.11.90
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -73,6 +73,9 @@ or Plasma).
 %{_kf6_libdir}/cmake/KF6KirigamiAddons
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Alessandro Astone <ales.astone@gmail.com> - 0.11.90-1
 - 0.11.90
 

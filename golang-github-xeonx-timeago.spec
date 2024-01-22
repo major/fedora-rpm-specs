@@ -16,7 +16,7 @@ Timeago allows the formatting of time in terms of fuzzy timestamps}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        1.rc4%{?dist}.9
+Release:        1.rc4%{?dist}.10
 Summary:        Go package for time formating based on current time
 
 License:        MIT
@@ -42,6 +42,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-1.rc4.10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-1.rc4.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

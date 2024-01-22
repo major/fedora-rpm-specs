@@ -1,7 +1,7 @@
 Summary: Utility to set/show the host name or domain name
 Name: hostname
 Version: 3.23
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-2.0-or-later
 URL: http://packages.qa.debian.org/h/hostname.html
 Source0: http://ftp.de.debian.org/debian/pool/main/h/hostname/hostname_%{version}.tar.gz
@@ -61,6 +61,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.23-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 02 2023 Martin Osvald <mosvald@redhat.com> - 3.23-10
 - SPDX migration
 

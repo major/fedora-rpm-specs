@@ -2,7 +2,7 @@
 
 Name:           jakarta-interceptors
 Version:        2.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Jakarta Interceptors
 License:        EPL-2.0 or GPLv2 with exceptions
 
@@ -90,6 +90,9 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

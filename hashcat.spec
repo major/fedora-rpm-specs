@@ -17,7 +17,7 @@
 
 Name: hashcat
 Version: 6.2.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: MIT AND LicenseRef-Fedora-Public-Domain
 URL: https://github.com/%{name}/%{name}
@@ -112,6 +112,9 @@ install -m 0744 -p extra/tab_completion/hashcat.sh %{buildroot}%{_datadir}/bash-
 %doc example.dict example*.sh
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 6.2.6-4
 - Rebuilt for minizip-ng transition Fedora change
 - Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition

@@ -2,7 +2,7 @@
 
 Name:           jsr-305
 Version:        3.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Correctness annotations for Java code
 
 # The majority of code is BSD-licensed, but some Java sources
@@ -67,6 +67,9 @@ sed -i 's|<artifactId>jsr305</artifactId>|<artifactId>ri</artifactId>|' ri/pom.x
 %doc sampleUses
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.2-11
 - Rebuild to regenerate auto-Requires on java
 

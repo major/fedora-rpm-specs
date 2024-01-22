@@ -7,7 +7,7 @@
 Name: hunspell-km
 Summary: Khmer hunspell dictionaries
 Version: 1.82
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/2250/6/sbbic-khmer-spelling-checker-1.82.oxt
 URL: http://www.sbbic.org/
 License: GPL-3.0-only
@@ -45,6 +45,9 @@ cp -p km_KH.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

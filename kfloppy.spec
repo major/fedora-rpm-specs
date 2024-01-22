@@ -2,7 +2,7 @@
 Name:    kfloppy
 Summary: Floppy formatting tool 
 Version: 23.04.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 URL:     http://utils.kde.org/projects/%{name}
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kfloppy.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

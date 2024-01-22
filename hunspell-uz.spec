@@ -7,7 +7,7 @@
 Name: hunspell-uz
 Summary: Uzbek hunspell dictionaries
 Version: 0.6
-Release: 29%{?dist}
+Release: 30%{?dist}
 ## Note that upstream is dead and there is no download link available
 ## so please don't report FTBFS bugs for this package.
 Source0: http://www-user.uni-bremen.de/~kmashrab/uzbek-word-list/uzbek-wordlist-%{version}.tar.bz2
@@ -42,6 +42,9 @@ cp -p hunspell/uz_UZ* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

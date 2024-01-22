@@ -7,7 +7,7 @@
 
 Name:    kio-extras-kf5
 Version: 24.01.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
@@ -173,6 +173,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Steve Cossette <farchord@gmail.com> - 24.01.90-2
 - Rebuild for KDSoap 2.2.0 update
 

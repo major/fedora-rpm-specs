@@ -1,6 +1,6 @@
 Name:           jansi1
 Version:        1.18
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Generate and interpret ANSI escape sequences in Java
 License:        Apache-2.0
 URL:            https://fusesource.github.io/jansi/
@@ -68,6 +68,9 @@ cd -
 %doc readme.md changelog.md
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 01 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.18-18
 - rebuilt w/ no changes
 

@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.105.%{git_suffix}%{?dist}
+Release:          0.106.%{git_suffix}%{?dist}
 License:          GPLv3+
 BuildRequires:    cmake
 BuildRequires:    gcc-c++
@@ -87,6 +87,9 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.106.20200807git9e2515a5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.105.20200807git9e2515a5
 - Rebuilt for new gnuradio
 

@@ -6,7 +6,7 @@
 
 Name:           gprconfig-kb
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNAT project configuration knowledge base
 BuildArch:      noarch
 
@@ -90,6 +90,9 @@ mkdir --parents %{buildroot}%{_datadir}/gprconfig
 ###############
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Björn Persson <Bjorn@Rombobjörn.se> - 23.0.0-5
 - Split fedora_arches.xml to make it compliant with gprconfig.xsd.
 

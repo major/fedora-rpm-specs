@@ -1,7 +1,7 @@
 
 Name:		jpegoptim
 Version:	1.5.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Utility to optimize JPEG files
 
 License:	GPLv2+
@@ -42,6 +42,9 @@ install -Dpm 0644 jpegoptim.1 %{buildroot}/%{_mandir}/man1/jpegoptim.1
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Denis Fateyev <denis@fateyev.com> - 1.5.5-1
 - Update to version 1.5.5
 

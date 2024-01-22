@@ -2,7 +2,7 @@
 
 Name:           grfcodec
 Version:        6.0.6
-Release:        21%{?prever}%{?dist}
+Release:        22%{?prever}%{?dist}
 Summary:        A suite of programs to modify Transport Tycoon Deluxe's GRF files
 License:        GPLv2+
 URL:            http://dev.openttdcoop.org/projects/grfcodec
@@ -53,6 +53,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

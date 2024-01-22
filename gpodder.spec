@@ -1,6 +1,6 @@
 Name:           gpodder
 Version:        3.11.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Podcast receiver/catcher written in Python
 # Mostly GPL-3.0-or-later, but some files use something different
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND ISC
@@ -90,6 +90,9 @@ desktop-file-install --delete-original          \
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 22 2023 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 3.11.4-2
 - Add missing dependencies (rhbz#2248679)
 

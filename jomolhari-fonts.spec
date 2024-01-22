@@ -1,5 +1,5 @@
 Version:        0.003
-Release:        39%{?dist}
+Release:        40%{?dist}
 
 URL: https://fonts.google.com/specimen/Jomolhari
 
@@ -40,6 +40,9 @@ Source1:        65-0-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

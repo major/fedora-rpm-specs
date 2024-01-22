@@ -1,6 +1,6 @@
 Name:           jbigkit
 Version:        2.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        JBIG1 lossless image compression tools
 
 License:        GPL-2.0-or-later
@@ -107,6 +107,9 @@ make test
 %{_includedir}/jbig*.h
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.1-27
 - SPDX migration, spec update
 

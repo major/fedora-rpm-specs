@@ -22,7 +22,7 @@ Find the current Executable and ExecutableFolder.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.36%{?dist}
+Release:        0.37%{?dist}
 Summary:        Extensions to the standard "os" package
 
 # Upstream license specification: BSD-3-Clause
@@ -52,6 +52,9 @@ Patch0:         0001-disable-broken-test.patch
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

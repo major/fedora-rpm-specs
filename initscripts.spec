@@ -19,7 +19,7 @@ Requires:         gawk                       \
 Name:             initscripts
 Summary:          Basic support for legacy System V init scripts
 Version:          10.19
-Release:          2%{?dist}
+Release:          3%{?dist}
 
 License:          GPL-2.0-only
 
@@ -398,6 +398,9 @@ fi
 # =============================================================================
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

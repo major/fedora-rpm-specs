@@ -9,7 +9,7 @@
 
 Name:    kf5-%{base_name}
 Version: 23.08.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -136,6 +136,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-4
 - Split translation files into their subpackages
 

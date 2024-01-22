@@ -1,10 +1,10 @@
-%global vips_version_base 8.14
-%global vips_version %{vips_version_base}.2
+%global vips_version_base 8.15
+%global vips_version %{vips_version_base}.1
 %global vips_soname_major 42
 
 Name:		vips
 Version:	%{vips_version}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -16,7 +16,7 @@ BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(fftw3)
-BuildRequires:	pkgconfig(orc-0.4)
+BuildRequires:	pkgconfig(libhwy)
 BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(imagequant)
 BuildRequires:	pkgconfig(OpenEXR)
@@ -33,7 +33,7 @@ BuildRequires:	pkgconfig(libheif)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libwebp)
 BuildRequires:	pkgconfig(libexif)
-BuildRequires:	pkgconfig(libgsf-1)
+BuildRequires:	pkgconfig(libarchive)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libopenjp2)
 BuildRequires:	pkgconfig(openslide)
@@ -226,6 +226,13 @@ export CXXFLAGS="%{optflags} -ftree-vectorize"
 
 
 %changelog
+* Sat Jan 20 2024 Kleis Auke Wolthuizen <fedora@kleisauke.nl> - 8.15.1-1
+- Update to 8.15.1
+  Resolves: rhbz#2098477
+  Resolves: rhbz#2238469 (CVE-2023-40032)
+- Use libhwy in favor of liborc
+- Use libarchive in favor of libgsf
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:            html401-dtds
 Version:         4.01
-Release:         %{date}.12%{?dist}.22
+Release:         %{date}.12%{?dist}.23
 Summary:         HTML 4.01 document type definitions
 
 # W3C Software License for DTDs etc:
@@ -68,6 +68,9 @@ ln -s %{name}-%{version}-%{release}.soc %{buildroot}%{_sysconfdir}/sgml/%{name}.
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.01-19991224.12.23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 David Cantrell <dcantrell@redhat.com> - 4.01-19991224.12.22
 - Minor spec file cleanups
 - Verified the License tag carries an SPDX expression

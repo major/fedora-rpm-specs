@@ -6,7 +6,7 @@
 
 Name:           koji-osbuild
 Version:        11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Koji integration for osbuild composer
 
 %forgemeta
@@ -161,6 +161,9 @@ Integration tests for koji-osbuild. To be run on a dedicated system.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

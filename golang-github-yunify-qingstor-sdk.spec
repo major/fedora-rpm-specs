@@ -16,7 +16,7 @@ The official QingStor SDK for the Go programming language.}
 %global godocs          docs AUTHORS CHANGELOG.md README.Fedora_29_Mass_Rebuild
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Official QingStor SDK for the Go programming language
 
 # Upstream license specification: Apache-2.0
@@ -52,6 +52,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           hidapi
 Version:        0.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for communicating with USB and Bluetooth HID devices
 
 License:        GPLv3 or BSD
@@ -100,6 +100,9 @@ Obsoletes:      mingw64-hidapi-static < 0.11.2-6
 %{mingw64_includedir}/hidapi
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

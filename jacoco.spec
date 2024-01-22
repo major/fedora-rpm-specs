@@ -1,6 +1,6 @@
 Name:           jacoco
 Version:        0.8.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java Code Coverage for Eclipse
 License:        EPL-2.0
 URL:            http://www.eclemma.org/jacoco/
@@ -120,6 +120,9 @@ echo %{name} %{name}/org.jacoco.ant objectweb-asm/asm > %{buildroot}%{_sysconfdi
 %files maven-plugin -f .mfiles-maven-plugin
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

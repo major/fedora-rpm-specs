@@ -16,7 +16,7 @@ with increased threads.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fast and multi-purpose HTTP toolkit
 
 License:        MIT
@@ -73,6 +73,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 
 Name:           kcov
 Version:        42
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Code coverage tool without special compilation options
 
 # Licenses of kcov itself and its bundled js libraries (see below)
@@ -113,6 +113,9 @@ tests/tools/run-tests build/src/kcov /tmp/ build-tests/ $(pwd) -v
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 42-1
 - Bump to version 42
 

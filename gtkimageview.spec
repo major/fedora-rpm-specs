@@ -1,6 +1,6 @@
 Name:           gtkimageview
 Version:        1.6.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simple image viewer widget
 
 License:        LGPLv2+
@@ -64,6 +64,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/gtkimageview.pc
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

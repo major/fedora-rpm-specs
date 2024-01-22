@@ -16,7 +16,7 @@ Prometheus monitoring and x/net/trace tracing wrappers net.Conn, both inbound
 
 Name:           %{goname}
 Version:        0
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        Go middleware for net.conn tracking (prometheus/trace)
 
 # Upstream license specification: Apache-2.0
@@ -50,6 +50,9 @@ BuildRequires:  golang(golang.org/x/net/trace)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Michel Lind <salimma@fedoraproject.org> - 0-0.13
 - Explicitly BR on golang(github.com/stretchr/testify/require) instead of transitively inheriting it
 

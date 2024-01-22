@@ -7,7 +7,7 @@
 
 Name: hdf
 Version: 4.2.15
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/
@@ -272,6 +272,9 @@ make -j1 -C build-static check
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.15-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 4.2.15-14
 - Set build_type_safety_c to 0 (#2167466)
 

@@ -15,7 +15,7 @@ A Golang library to verify Minisign signatures.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Minisign verification library for Golang
 
 License:        MIT
@@ -43,6 +43,9 @@ BuildRequires:  golang(golang.org/x/crypto/ed25519)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

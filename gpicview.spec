@@ -30,7 +30,7 @@
 
 Name:			gpicview
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Simple and fast Image Viewer for X
 
 # SPDX confirmed
@@ -136,6 +136,9 @@ cd ..
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5^20231013git95eef260-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.5^20231013git95eef260-1
 - Update to the latest git
 

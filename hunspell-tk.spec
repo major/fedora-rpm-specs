@@ -8,7 +8,7 @@ Name: hunspell-tk
 Summary: Turkmen hunspell dictionaries
 Version: 0.02
 Epoch: 1
-Release: 25%{?dist}
+Release: 26%{?dist}
 # Following link is dead now
 # Do not report bugs to fix it
 Source: http://releases.mozilla.org/pub/mozilla.org/addons/204314/turkmen_spell_checker-%{version}-tb+fx+sm.xpi
@@ -38,6 +38,9 @@ cp -p dictionaries/tk-TM.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/tk.dic
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.02-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.02-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

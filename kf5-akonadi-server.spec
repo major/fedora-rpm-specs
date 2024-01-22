@@ -26,7 +26,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -316,6 +316,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Jan Grulich <jgrulich@redhat.com> - 23.08.2-6
 - Rebuild (qt5)
 

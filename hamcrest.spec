@@ -4,7 +4,7 @@
 
 Name:           hamcrest
 Version:        2.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Library of matchers for building test expressions
 License:        BSD-3-Clause
 URL:            https://github.com/hamcrest/JavaHamcrest
@@ -93,6 +93,9 @@ popd
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.2-12
 - Convert License tag to SPDX format
 

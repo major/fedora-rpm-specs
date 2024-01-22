@@ -17,7 +17,7 @@ in hot paths. Up to 10x faster than net/http.}
 %global godocs          examples README.md TODO SECURITY.md README-prefork.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fast HTTP package
 
 # reuseport is also MIT
@@ -60,4 +60,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.48.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 %autochangelog

@@ -1,6 +1,6 @@
 Name:           kommit
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Graphical Git Client
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 Vasiliy Glazov <vascom2@gmail.com> 1.3.0-2
 - Rebuild for new dolphin libs
 

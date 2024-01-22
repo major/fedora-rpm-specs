@@ -1,6 +1,6 @@
 Name:           itstool
 Version:        2.0.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ITS-based XML translation tool
 
 License:        GPL-3.0-or-later
@@ -44,6 +44,9 @@ export PYTHON=%{__python3}
 %{_mandir}/man1/itstool.1*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 09 2023 Nils Philippsen <nils@tiptoe.de> - 2.0.7-6
 - Fix insufficiently quoted regular expressions which caused excessive warnings
   with Python 3.12

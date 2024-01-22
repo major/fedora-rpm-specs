@@ -8,7 +8,7 @@
 
 Name:		im-chooser
 Version:	1.7.4
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:		http://pagure.io/im-chooser/
 %{?_with_gtk2:BuildRequires:	gtk2-devel}
@@ -113,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/im-chooser-panel.desktop
 %endif
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep  6 2023 Akira TAGOH <tagoh@redhat.com> - 1.7.4-8
 - Rebuilt against the latest imsettings.
   Resolves: rhbz#2237495

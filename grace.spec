@@ -8,7 +8,7 @@
 
 Name:           grace
 Version:        5.1.25
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Numerical Data Processing and Visualization Tool
 License:        GPLv2+
 # cephes is LGPL, see also Source3 and Source4
@@ -195,6 +195,9 @@ rm __dist_doc/doc/Makefile __dist_doc/doc/*.sgml
 %{_datadir}/%{name}/lib
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.25-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 21 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.1.25-36
 - Restore dep on fonts (rhbz#2244630).
 

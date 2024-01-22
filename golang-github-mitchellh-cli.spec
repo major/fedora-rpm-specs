@@ -16,7 +16,7 @@ Cli is a library for implementing powerful command-line interfaces in Go.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Go library for implementing command-line interfaces
 
 # Upstream license specification: MPL-2.0
@@ -54,6 +54,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

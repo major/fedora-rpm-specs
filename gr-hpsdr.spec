@@ -1,7 +1,7 @@
 Name:          gr-hpsdr
 URL:           https://github.com/Tom-McDermott/gr-hpsdr
 Version:       3.0
-Release:       23%{?dist}
+Release:       24%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -73,6 +73,9 @@ Documentation files for gr-hpsdr.
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0-23
 - Rebuilt for new gnuradio
 

@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -134,6 +134,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKPim5AkonadiSearchXapian.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-4
 - Rename translation files to avoid conflict with KF6
 

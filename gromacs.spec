@@ -31,7 +31,7 @@ ExcludeArch:    i686 armv7hl s390x
 
 Name:		gromacs
 Version:	2023.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 License:	GPLv2+
 URL:		http://www.gromacs.org
@@ -379,6 +379,9 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 10 2023 Christoph Junghans <junghans@votca.org> - 2023.3-1
 - Version bump v2023.3 (bug #2143353)
 

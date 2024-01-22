@@ -6,7 +6,7 @@
 Name: hunspell-si
 Summary: Sinhala hunspell dictionaries
 Version: 0.2.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://www.sandaru1.com/si-LK.tar.gz
 #Following URL is down since few months informed to upstream
 URL: http://www.sandaru1.com/2009/08/29/sinhala-spell-checker-for-firefox/
@@ -34,6 +34,9 @@ cp -p dictionaries/si-LK.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/si_LK.d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 39.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -245,6 +245,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Alessandro Astone <ales.astone@gmail.com> - 39.1-3
 - Fix initial-setup-gui version requirement
 

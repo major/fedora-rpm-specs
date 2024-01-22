@@ -17,7 +17,7 @@ engines and therefore hitting the server's direct resource pool.}
 
 Name:           hulk
 Version:        0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        DoS tool using unique and obfuscated traffic
 
 License:        GPLv3
@@ -53,6 +53,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

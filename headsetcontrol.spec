@@ -1,6 +1,6 @@
 Name:           headsetcontrol
 Version:        2.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to control certain aspects of USB-connected headsets on Linux
 # The entire source code is GPLv3+ except cmake_modules/Findhidapi.cmake which is Boost
 License:        GPLv3+ and Boost 
@@ -37,6 +37,9 @@ A tool to control certain aspects of USB-connected headsets on Linux
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 18 2023 Mohan Boddu <mboddu@bhujji.com> - 2.7.0-1
 - Update to 2.7.0
 

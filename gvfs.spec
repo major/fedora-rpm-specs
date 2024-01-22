@@ -20,20 +20,20 @@
 %global talloc_version 1.3.0
 %global udisks2_version 1.97
 
-Name: gvfs
-Version: 1.52.2
+Name:    gvfs
+Version: 1.53.1
 Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
 URL: https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/gvfs/1.52/gvfs-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/gvfs/1.53/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(dbus-1)
-BuildRequires: pkgconfig(gcr-3)
+BuildRequires: pkgconfig(gcr-4)
 BuildRequires: pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schemas_version}
 BuildRequires: /usr/bin/ssh
 BuildRequires: pkgconfig(libcdio_paranoia) >= %{libcdio_paranoia_version}
@@ -52,6 +52,8 @@ BuildRequires: pkgconfig(libxslt)
 BuildRequires: docbook-style-xsl
 BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(libcap)
+
+Recommends: /usr/bin/wsdd
 
 Requires: %{name}-client%{?_isa} = %{version}-%{release}
 Requires: glib2%{?_isa} >= %{glib2_version}
@@ -302,6 +304,7 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/gvfs/mounts/ftpis.mount
 %{_datadir}/gvfs/mounts/ftps.mount
 %{_datadir}/gvfs/mounts/recent.mount
+%{_datadir}/gvfs/mounts/wsdd.mount
 %{_datadir}/dbus-1/services/org.gtk.vfs.Daemon.service
 %{_datadir}/dbus-1/services/org.gtk.vfs.Metadata.service
 %{_datadir}/dbus-1/services/org.gtk.vfs.UDisks2VolumeMonitor.service
@@ -328,6 +331,7 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_libexecdir}/gvfsd-metadata
 %{_libexecdir}/gvfs-udisks2-volume-monitor
 %{_libexecdir}/gvfsd-recent
+%{_libexecdir}/gvfsd-wsdd
 %{_mandir}/man1/gvfsd.1*
 %{_mandir}/man1/gvfsd-metadata.1*
 %{_userunitdir}/gvfs-daemon.service
@@ -428,6 +432,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Jan 19 2024 David King <amigadave@amigadave.com> - 1.53.1-1
+- Update to 1.53.1
+
 * Thu Jan 11 2024 Kalev Lember <klember@redhat.com> - 1.52.2-1
 - Update to 1.52.2
 

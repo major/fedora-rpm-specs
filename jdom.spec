@@ -32,7 +32,7 @@
 
 Name:           jdom
 Version:        1.1.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Java alternative to DOM and SAX
 License:        Saxpath
 URL:            http://www.jdom.org/
@@ -113,6 +113,9 @@ cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

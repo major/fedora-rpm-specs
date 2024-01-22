@@ -3,7 +3,7 @@ Summary: Show documentation for KDE applications
 # Override khelpcenter subpackage from kde-runtime-15.04 (no longer built)
 Epoch:   1
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2 or GPLv3
 URL:     https://invent.kde.org/system/%{name}
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:24.01.90-1
 - 24.01.90
 

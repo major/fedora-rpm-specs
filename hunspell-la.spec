@@ -8,7 +8,7 @@ Name: hunspell-la
 Summary: Latin hunspell dictionaries
 %global upstreamid 20130331
 Version: 0.%{upstreamid}
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/1141/3/dict-la_2013-03-31.oxt
 URL: http://extensions.services.openoffice.org/project/dict-la
 License: GPL-2.0-or-later
@@ -47,6 +47,9 @@ cp -p la/la.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/la.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130331-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130331-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

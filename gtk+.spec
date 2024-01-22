@@ -2,7 +2,7 @@ Summary:	The GIMP ToolKit
 Name:		gtk+
 Epoch:		1
 Version:	1.2.10
-Release:	105%{?dist}
+Release:	106%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/gtk+/1.2/gtk+-%{version}.tar.gz
@@ -248,6 +248,9 @@ make check LIBTOOL=/usr/bin/libtool
 %{_mandir}/man1/gtk-config.1*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-106
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-105
 - Fix incompatible pointer type in call to XmbTextListToTextProperty
 

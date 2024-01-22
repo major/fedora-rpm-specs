@@ -10,7 +10,7 @@
 
 Name:           kio-fuse
 Version:        5.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KIO FUSE
 
 License:        GPLv3+
@@ -84,6 +84,9 @@ dbus-launch --exit-with-session \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Marie Loise Nolden <loise@kde.org> - 5.1.0-2
 - use Qt6/KF6
 

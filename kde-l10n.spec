@@ -9,7 +9,7 @@
 Name:    kde-l10n
 Summary: Internationalization support for KDE Applications
 Version: 17.08.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 Url:     http://www.kde.org
 License: LGPLv2
@@ -1636,6 +1636,9 @@ rm -rfv %{buildroot}%{_kde4_docdir}/HTML/*/khelpcenter/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

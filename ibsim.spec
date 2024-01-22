@@ -1,7 +1,7 @@
 Summary: InfiniBand fabric simulator for management
 Name: ibsim
 Version: 0.11
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2 or BSD
 Source: https://github.com/linux-rdma/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0027: 0027-run_opensm.sh-remove-opensm-c-option.patch
@@ -35,6 +35,9 @@ OFA OpenSM, diagnostic and management tools.
 %license COPYING
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

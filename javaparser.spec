@@ -8,7 +8,7 @@
 
 Name:          javaparser
 Version:       3.25.6
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Java 1 to 13 Parser and Abstract Syntax Tree for Java
 License:       LGPL-2.0-or-later OR Apache-2.0
 URL:           https://javaparser.org
@@ -108,6 +108,9 @@ sed -i \
 %license LICENSE LICENSE.APACHE LICENSE.GPL LICENSE.LGPL
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.25.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.25.6-2
 - Implement bootstrap mode
 

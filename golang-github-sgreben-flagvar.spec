@@ -14,7 +14,7 @@ A collection of CLI argument types for the Go `flag` package.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A collection of CLI argument types for the Go `flag` package
 
 License:        Unlicense
@@ -42,6 +42,9 @@ BuildRequires:  golang(github.com/gobwas/glob)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

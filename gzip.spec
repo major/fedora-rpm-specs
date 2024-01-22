@@ -1,7 +1,7 @@
 Summary: GNU data compression program
 Name: gzip
 Version: 1.12
-Release: 6%{?dist}
+Release: 7%{?dist}
 # info pages are under GFDL license
 License: GPL-3.0-or-later AND GFDL-1.3-only
 Source0: https://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
@@ -85,6 +85,9 @@ install -p -m 644 %{SOURCE101} %{buildroot}%{profiledir}
 %{profiledir}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 02 2023 Jakub Martisko <jamartis@redhat.com> - 1.12-6
 - Enbale the s390x optimizations
 Resolves: rhbz#2175699

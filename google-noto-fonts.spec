@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20230801
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -1232,6 +1232,9 @@ done
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov  2 2023 Akira TAGOH <tagoh@redhat.com> - 20230801-4
 - Add binding="same" for Noto Sans Symbols to prevent lower priority than
   urw-base35-standard-symbols-ps-fonts even though priority number in fontconfig is higher than it.

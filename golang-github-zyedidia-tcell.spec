@@ -18,7 +18,7 @@ adds substantial functionality beyond termbox.}
 %global godocs          AUTHORS README.md TERMINALS.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Alternate terminal package
 
 # Upstream license specification: Apache-2.0
@@ -62,6 +62,9 @@ BuildRequires:  golang(github.com/xo/terminfo)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

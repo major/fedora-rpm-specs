@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.58
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -829,6 +829,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.58-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan  5 2024 Joe Orton <jorton@redhat.com> - 2.4.58-4
 - fix OpenSSL 3.0 deprecation warnings (r1913912, r1915067)
 - mod_ssl: move to provider API for pkcs11 support (#2253014)

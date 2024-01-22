@@ -8,7 +8,7 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.12.2
+Version:        3.13.0
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -51,7 +51,7 @@ BuildRequires:  make
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-csexp-devel >= 1.5.0
-BuildRequires:  ocaml-pp-devel >= 1.1.0
+BuildRequires:  ocaml-pp-devel >= 1.2.0
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-copybutton}
@@ -573,6 +573,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Sat Jan 20 2024 Jerry James <loganjerry@gmail.com> - 3.13.0-1
+- Version 3.13.0
+
 * Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 3.12.2-1
 - Version 3.12.2
 

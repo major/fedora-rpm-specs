@@ -17,7 +17,7 @@ simple way. Supporting multiple flags for mutating the output.}
 %global godocs          example CHANGELOG.md readme.adoc
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Golang Cobra & Goreleaser Versioning library
 
 # Upstream license specification: Apache-2.0
@@ -49,6 +49,9 @@ BuildRequires:  golang(sigs.k8s.io/yaml)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

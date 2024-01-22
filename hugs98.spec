@@ -2,7 +2,7 @@
 
 Name:		hugs98
 Version:	2006.09
-Release:	47%{?dist}
+Release:	48%{?dist}
 Summary:	Haskell Interpreter
 
 License:	BSD
@@ -194,6 +194,9 @@ sed -i "s|^bindir.*|bindir=\"%{_bindir}\"|
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2006.09-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 29 2023 Florian Weimer <fweimer@redhat.com> - 2006.09-47
 - Set build_type_safety_c to 0 (#2160645)
 

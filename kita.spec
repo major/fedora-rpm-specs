@@ -4,7 +4,7 @@
 Summary:    2ch client for KDE
 Name:       kita
 Version:    %{version}
-Release:    36%{?dist}
+Release:    37%{?dist}
 Source:     http://downloads.sourceforge.jp/kita/%{repoid}/kita-%{version}.tar.gz
 #Patch0:     kita-0.177.3-nonweak-symbol.patch
 Patch10:    kita-0.177.5-g++44.patch
@@ -140,6 +140,9 @@ done
 %{_datadir}/doc/HTML/en/kita/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.177.5-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.177.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

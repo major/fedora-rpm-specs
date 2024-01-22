@@ -13,7 +13,7 @@
 
 Name:           gstreamer1-plugins-ugly-free
 Version:        1.22.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0
@@ -164,6 +164,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.8-2
 - Enable asfdemux, dvdlpcmdec, dvdsub, and realmedia plugins
 - Disable AMR plugins in RHEL builds

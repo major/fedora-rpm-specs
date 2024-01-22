@@ -5,7 +5,7 @@
 
 Name:           gtksourceview4
 Version:        4.8.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Source code editing widget
 
 License:        LGPLv2+
@@ -105,6 +105,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests/gtksourceview-4/
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.8.4-4
 - Disable glade catalog in RHEL builds
 

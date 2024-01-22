@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.004
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 %global foundry           Google
@@ -105,6 +105,9 @@ python3 genfontconf.py "ja" "monospace" "Noto Sans Mono CJK JP" \
 %fontfiles -a
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.004-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct  6 2023 Akira TAGOH <tagoh@redhat.com> - 1:2.004-5
 - Drop Conflict: google-noto-sans-cjk-fonts to get them installed together.
   fontconfig basically estimate same score for both but static font still has

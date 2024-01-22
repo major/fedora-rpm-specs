@@ -3,7 +3,7 @@
 
 Name:             klatexformula
 Version:          4.1.0
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Application for easy image creating from a LaTeX equation
 License:          GPLv2+
 URL:              http://klatexformula.sourceforge.net/
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

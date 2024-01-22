@@ -1,6 +1,6 @@
 Name:       ibus-typing-booster
 Version:    2.24.11
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
 URL:        https://mike-fabian.github.io/ibus-typing-booster/
@@ -251,6 +251,9 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 06 2024 Mike FABIAN <mfabian@redhat.com> - 2.24.11-1
 - Update to 2.24.11
 - Really clear the preedit when it is empty, don’t just hide it

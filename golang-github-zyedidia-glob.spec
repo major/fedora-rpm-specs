@@ -17,7 +17,7 @@ It simply converts glob expressions to regexps.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.16%{?dist}
+Release:        0.17%{?dist}
 Summary:        Go package for glob matching
 
 License:        MIT
@@ -43,6 +43,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

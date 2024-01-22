@@ -7,7 +7,7 @@
 Name: hunspell-mr
 Summary: Marathi hunspell dictionaries
 Version: 8.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source: https://extensions.libreoffice.org/assets/downloads/73/1662621066/mr_IN-v8.oxt
 URL: https://extensions.libreoffice.org/en/extensions/show/marathi-spellchecker
@@ -38,6 +38,9 @@ cp -p dicts/mr_IN.dic dicts/mr_IN.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

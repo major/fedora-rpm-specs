@@ -2,7 +2,7 @@
 
 Name:           jsoup
 Version:        1.16.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java library for working with real-world HTML
 License:        MIT
 URL:            https://jsoup.org/
@@ -64,6 +64,9 @@ tree.
 %license LICENSE
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.16.1-2
 - Build with default JDK 17
 

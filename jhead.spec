@@ -1,6 +1,6 @@
 Name: jhead
 Version: 3.08
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tool for displaying EXIF data embedded in JPEG images
 License: Public Domain
 URL: http://www.sentex.net/~mwandel/jhead/
@@ -31,6 +31,9 @@ cp -p jhead.1 ${RPM_BUILD_ROOT}/%{_mandir}/man1/
 %{_mandir}/man?/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Adrian Reber <adrian@lisas.de> - 3.08-1
 - updated to 3.08
 

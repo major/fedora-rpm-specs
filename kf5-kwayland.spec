@@ -14,7 +14,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.113.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 library that wraps Client and Server Wayland libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND MIT AND MIT-CMU
@@ -109,6 +109,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Jan Grulich <jgrulich@redhat.com> - 5.113.0-2
 - Rebuild (qt5)
 

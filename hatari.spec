@@ -1,7 +1,7 @@
 Summary: An Atari ST/STE/TT/Falcon emulator suitable for playing games
 Name: hatari
 Version: 2.4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: http://hatari.tuxfamily.org/
 Source0: http://download.tuxfamily.org/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -128,6 +128,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

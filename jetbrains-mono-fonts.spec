@@ -3,7 +3,7 @@
 Version:            2.304
 %forgemeta
 
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL:     https://jetbrains.com/mono/
 
 %global foundry           JetBrains
@@ -76,6 +76,9 @@ Source11: 58-%{fontpkgname1}.xml
 %fontfiles -a
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.304-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Matej Focko <mfocko@redhat.com> - 2.304-4
 - migrated to SPDX license
 

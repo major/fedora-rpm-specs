@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: The Akonadi Contacts Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -139,6 +139,9 @@ xvfb-run -a \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-3
 - Include translations in libs subpackage
 

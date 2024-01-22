@@ -3,7 +3,7 @@
 
 Name:    kio-upnp-ms
 Version: 1.0.0
-Release: 24.%{snap}%{?dist}
+Release: 25.%{snap}%{?dist}
 Summary: UPnP mediaserver kio slave
 
 License: GPLv2+
@@ -72,6 +72,9 @@ rm -fv %{buildroot}%{_kde4_includedir}/kio/upnp-ms-types.h
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-25.20111102git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-24.20111102git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

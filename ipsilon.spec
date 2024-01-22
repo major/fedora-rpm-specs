@@ -8,7 +8,7 @@
 #%%global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 11
+%global baserelease 12
 
 Name:       ipsilon
 Version:    3.0.4
@@ -22,10 +22,15 @@ Source0:    %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %else
 Source0:    https://pagure.io/%{name}/archive/v%{version}/ipsilon-%{version}.tar.gz
 %endif
-Patch0:     https://pagure.io/ipsilon/c/f45e9df2b79780a493bfd19f9f7522f51ca622f9.patch
-Patch1:     https://pagure.io/ipsilon/c/5d0b7d883dfd240248e86d4c06ba63186ecceb0c.patch
-Patch2:     0001-Fix-SAML2-metadata-regeneration.patch
-Patch3:     0002-remove-deprecated-autoescape-extension.patch
+Patch:      https://pagure.io/ipsilon/c/f45e9df2b79780a493bfd19f9f7522f51ca622f9.patch
+Patch:      https://pagure.io/ipsilon/c/5d0b7d883dfd240248e86d4c06ba63186ecceb0c.patch
+Patch:      0001-Fix-SAML2-metadata-regeneration.patch
+Patch:      0002-remove-deprecated-autoescape-extension.patch
+Patch:      0001-openidc-provider-respect-secure-no.patch
+Patch:      0002-httpd-config-Listen-on-port-specified-in-hostname.patch
+Patch:      0003-httpd-config-include-ServerName-directive.patch
+Patch:      0004-openidcp-allow-setting-default-attribute-mapping-at-.patch
+Patch:      0005-testauth-add-a-mechanism-to-specify-groups-via-usern.patch
 
 BuildArch:  noarch
 
@@ -462,6 +467,9 @@ exit 0
 
 
 %changelog
+* Thu Dec 21 2023 Adam Williamson <awilliam@redhat.com> - 3.0.4-12
+- Backport PR #400 to add needed features for Bodhi dev environment
+
 * Fri Dec 8 2023 Francois Andrieu <darknao@drkn.ninja> - 3.0.4-11
 - backport upstream patch 23b706f: Remove deprecated autoescape extension
 

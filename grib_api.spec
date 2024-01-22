@@ -1,6 +1,6 @@
 Name:           grib_api
 Version:        1.27.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        WMO FM-92 GRIB (v1,v2) interface accessible from C and FORTRAN programs
 
 License:        Apache-2.0
@@ -131,6 +131,9 @@ make check
 %{_libdir}/*.a
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 26 2023 Jos de Kloe <josdekloe@gmail.com> 1.27.0-20
 - rebuild after so name jump of libjasper
 

@@ -24,7 +24,7 @@
 
 Name:           haskell-platform
 Version:        2023.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD-3-Clause
@@ -481,6 +481,9 @@ rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 Jens Petersen <petersen@redhat.com> - 2023.1-27
 - patch Stack.Setup to accept PPC64 and S390X Linux platforms
 

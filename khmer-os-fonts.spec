@@ -3,7 +3,7 @@ BuildArch: noarch
 %global archivename All_KhmerOS_%{version}
 
 Version:        5.0
-Release:        40%{?dist}
+Release:        41%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.khmeros.info/en/fonts
 
@@ -211,6 +211,9 @@ install -p %{SOURCE11} .
 %fontfiles -a
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,7 +14,7 @@ Package goipp implements the IPP core protocol in pure Go (RFC 8010).}
 %global godocs          README.md index.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        IPP core protocol in pure Go (RFC 8010)
 
 # Upstream license specification: BSD-2-Clause
@@ -47,6 +47,9 @@ Patch001: pantum-workaround-revert.patch
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.0-1
 - 2253306 - golang-github-openprinting-goipp-1.1.0 is available
 

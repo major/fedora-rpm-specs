@@ -1,6 +1,6 @@
 Name:           imagej
 Version:        1.54h
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Image Processing and Analysis in Java
 
 # From https://imagej.nih.gov/ij/disclaimer.html:
@@ -128,6 +128,9 @@ desktop-file-install --vendor=''                     \
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.54h-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.54h-1
 - Update to 1.54h (close RHBZ#2254747)
 

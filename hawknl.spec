@@ -1,6 +1,6 @@
 Name:           hawknl
 Version:        1.68
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Game oriented network library
 License:        LGPLv2+ 
 URL:            http://www.hawksoft.com/hawknl/
@@ -65,6 +65,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libNL.a $RPM_BUILD_ROOT%{_libdir}/NL.so \
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

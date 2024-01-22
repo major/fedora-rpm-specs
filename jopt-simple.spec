@@ -1,6 +1,6 @@
 Name:           jopt-simple
 Version:        5.0.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A Java command line parser
 License:        MIT
 URL:            http://jopt-simple.github.io/jopt-simple
@@ -50,6 +50,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

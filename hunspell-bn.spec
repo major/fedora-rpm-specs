@@ -7,7 +7,7 @@
 Name: hunspell-bn
 Summary: Bengali hunspell dictionaries
 Version: 1.0.0
-Release: 23%{?dist}
+Release: 24%{?dist}
 Epoch: 1
 Source: http://anishpatil.fedorapeople.org/bn_in.%{version}.tar.gz
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
@@ -45,6 +45,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

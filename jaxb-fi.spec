@@ -1,6 +1,6 @@
 Name:           jaxb-fi
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of the Fast Infoset Standard for Binary XML
 # jaxb-fi is licensed Apache-2.0 and EDL-1.0 (BSD-3-Clause)
 # bundled org.apache.xerces.util.XMLChar.java is licensed ASL 1.1
@@ -64,6 +64,9 @@ Summary:        FastInfoset Roundtrip Tests
 %license LICENSE NOTICE.md
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 11 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.1-1
 - Update to upstream version 2.1.1
 

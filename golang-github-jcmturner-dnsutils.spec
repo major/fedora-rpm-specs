@@ -13,7 +13,7 @@ DNS utils for Go.}
 %global golicenses      LICENSE
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        DNS utils for Go
 
 # Upstream license specification: Apache-2.0
@@ -46,6 +46,9 @@ sed -i 's|github.com/jcmturner/dnsutils|github.com/jcmturner/dnsutils/v2|' $(fin
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

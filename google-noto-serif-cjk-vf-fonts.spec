@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.002
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 BuildRequires:            python3
@@ -80,6 +80,9 @@ python3 genfontconf.py "ja" "serif" "Noto Serif CJK JP" \
 %fontfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.002-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 10 2023 Peng Wu <pwu@redhat.com> - 1:2.002-2
 - Drop some Conflicts from the Noto Serif CJK fonts
 

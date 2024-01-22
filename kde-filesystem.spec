@@ -19,7 +19,7 @@
 Summary: KDE filesystem layout
 Name: kde-filesystem
 Version: 5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: Public Domain
 
@@ -195,6 +195,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/solid/{actions,devices}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5-1
 - Consolidate all common KDE directories
 - Split out KDE 3 and 4 directories into subpackages

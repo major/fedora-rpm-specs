@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Sieve support library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -120,6 +120,9 @@ sed -i "s/libksieve/libksieve5/" src/Messages.sh
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-2
 - Split libs subpackage, to co-install with KF6 libksieve
 - Rename translation files to avoid conflict with KF6 libksieve

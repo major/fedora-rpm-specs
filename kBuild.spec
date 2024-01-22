@@ -3,7 +3,7 @@
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        3%{?svn_date:.%{svn_date}}%{?dist}
+Release:        4%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 License:        BSD and GPLv2+
@@ -114,6 +114,9 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3589-4.20230220
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Florian Weimer <fweimer@redhat.com> - 0.1.9998.r3589-3.20230220
 - Fix another C compatibility issue (#2154544)
 

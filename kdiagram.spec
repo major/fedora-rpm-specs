@@ -1,7 +1,7 @@
 Name:    kdiagram
 Summary: Powerful libraries (KChart, KGantt) for creating business diagrams
 Version: 3.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Url:     https://invent.kde.org/graphics/kdiagram
@@ -62,6 +62,9 @@ cat kchart6_qt.lang kgantt6_qt.lang > %{name}.lang
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 08 2024 Alessandro Astone <ales.astone@gmail.com> - 3.0.1-1
 - 3.0.1
 

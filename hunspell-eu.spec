@@ -7,7 +7,7 @@
 Name: hunspell-eu
 Summary: Basque hunspell dictionaries
 Version: 5.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Source0: http://xuxen.eus/static/hunspell/xuxen_%{version}_hunspell.zip
 URL: http://xuxen.eus
 License: LGPL-3.0-or-later
@@ -35,6 +35,9 @@ cp -p eu_ES.aff %{buildroot}%{_datadir}/%{dict_dirname}/eu_ES.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

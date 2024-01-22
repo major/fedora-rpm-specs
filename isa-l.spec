@@ -1,5 +1,5 @@
 Name:		isa-l
-Version:	2.30.0
+Version:	2.31.0
 Release:	1%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
@@ -7,11 +7,8 @@ License:	BSD-3-Clause
 URL:		https://github.com/intel/isa-l
 Source0:	%{url}/archive/v%{version}/isa-l-%{version}.tar.gz
 
-# Patches from upstream:
-# https://github.com/intel/isa-l/commit/d3cfb2fb772e375cf2007e484e0a6ec0c6a7c993
-Patch0:		s390x-compat.patch
-# https://github.com/intel/isa-l/commit/bee5180a1517f8b5e70b02fcd66790c623536c5d
-Patch1:		aarch64-relocation.patch
+#		https://github.com/intel/isa-l/pull/271
+Patch0:		0001-Fix-wrong-return-type.patch
 
 ExcludeArch:	%{ix86}
 
@@ -20,11 +17,7 @@ BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	gcc
-%if %{?rhel}%{!?rhel:0} == 7
-BuildRequires:	yasm
-%else
 BuildRequires:	nasm
-%endif
 
 %description
 Collection of low-level functions used in storage applications.
@@ -65,7 +58,6 @@ This package contains CLI tools.
 %prep
 %setup -q
 %patch -P 0 -p1
-%patch -P 1 -p1
 
 %build
 autoreconf -v -f -i
@@ -78,8 +70,8 @@ rm %{buildroot}%{_libdir}/*.la
 
 %check
 %make_build check
-
-%ldconfig_scriptlets
+%make_build test
+%make_build perf
 
 %files
 %{_libdir}/libisal.so.2*
@@ -97,5 +89,10 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Sat Jan 20 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.0-1
+- Update to version 2.31.0
+- Drop EPEL 7 support
+- Run more tests
+
 * Sat Nov 11 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.30.0-1
 - Initial package for Fedora

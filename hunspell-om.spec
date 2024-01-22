@@ -7,7 +7,7 @@ Name: hunspell-om
 Summary: Oromo hunspell dictionaries
 Epoch: 1
 Version: 0.04
-Release: 28%{?dist}
+Release: 29%{?dist}
 # Following links are dead now
 # Please don't report any bugs for it
 Source: http://borel.slu.edu/obair/%{name}-%{version}.oxt
@@ -43,6 +43,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.04-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.04-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

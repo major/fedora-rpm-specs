@@ -20,7 +20,7 @@ documentation, unit tests and acceptance tests.}
                         UPGRADING.md
 
 Name:           %{goname}
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A Go SDK for OpenStack
 
 # Upstream license specification: Apache-2.0
@@ -70,6 +70,9 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

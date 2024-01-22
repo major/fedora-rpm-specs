@@ -4,7 +4,7 @@
 Name:           kf5-%{framework}
 Summary:        A Qt wrapper for Bluez
 Version: 5.113.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License:        CC0-1.0, LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -82,6 +82,9 @@ Development files for %{name}.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
 - 5.113.0
 

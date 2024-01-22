@@ -3,7 +3,7 @@
 
 Name:           koji-flatpak
 Version:        %{project_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Koji plugins for building Flatpaks
 
 License:        LGPL-2.1-only
@@ -97,6 +97,9 @@ install -p -m 0644 koji_flatpak/plugins/flatpak_cli_plugin.py %{buildroot}%{pyth
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 3 2023 Owen Taylor <otaylor@redhat.com> - 0.6-1
 - Version 0.6
   Fix regression with docker:// disappearing from skopeo commands

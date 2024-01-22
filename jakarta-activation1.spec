@@ -2,7 +2,7 @@
 
 Name:           jakarta-activation1
 Version:        1.2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Jakarta Activation Specification and Implementation
 License:        BSD-3-Clause
 URL:            https://jakartaee.github.io/jaf-api/
@@ -65,6 +65,9 @@ sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.2-10
 - Convert License tag to SPDX format
 

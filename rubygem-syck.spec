@@ -3,14 +3,17 @@
 Summary:	Gemified version of Syck from Ruby's stdlib
 Name:		rubygem-%{gem_name}
 Version:	1.4.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 
 # README.rdoc
+# SPDX confirmed
 License:	MIT
 URL:		http://github.com/tenderlove/syck/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/ruby/syck/pull/44
 Patch0:    %{gem_name}-pr44-remove-3rd-arg-regexp_new.patch
+# C99 -Werror=incompatible-pointer-types fix
+Patch1:	%{gem_name}-1.4.1-pointer-type-c99.patch
 
 # MRI only
 Requires:	ruby
@@ -41,6 +44,7 @@ Documentation for %{name}
 %prep
 %setup -q -n %{gem_name}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Permission
@@ -111,6 +115,10 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-10
+- Fix for C99 -Werror=incompatible-pointer-types
+- SPDX confirmation
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-9
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

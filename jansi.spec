@@ -2,7 +2,7 @@
 
 Name:             jansi
 Version:          2.4.0
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Generate and interpret ANSI escape sequences in Java
 License:          Apache-2.0
 URL:              http://fusesource.github.io/jansi/
@@ -104,6 +104,9 @@ cp -p src/main/native/libjansi.so %{buildroot}%{_prefix}/lib/%{name}
 %license license.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.0-10
 - Rebuild to regenerate auto-Requires on java
 

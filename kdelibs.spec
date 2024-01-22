@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 43%{?dist}
+Release: 44%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -909,6 +909,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Than Ngo <than@redhat.com> - 6:4.14.38-43
 - Fixed bz#2257100, dependency issue
 

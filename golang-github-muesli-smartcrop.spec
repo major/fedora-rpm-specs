@@ -15,7 +15,7 @@ implementation, based on Jonas Wagner's smartcrop.js}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Find good image crops for arbitrary crop sizes
 
 # While the package is licensed under MIT, images under the examples directory
@@ -46,6 +46,9 @@ BuildRequires:  golang(golang.org/x/image/draw)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

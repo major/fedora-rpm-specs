@@ -16,7 +16,7 @@ A client library in go for mega.co.nz storage service.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        Client library in go for mega.co.nz storage service
 
 License:        MIT
@@ -45,6 +45,9 @@ Source:         %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 31 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0-0.18
 - Update to latest commit
 

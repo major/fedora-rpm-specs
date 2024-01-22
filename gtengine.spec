@@ -3,7 +3,7 @@
 Name: gtengine
 Summary: Library for computations in mathematics, graphics, image analysis, and physics
 Version: 6.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 License: Boost
 URL: http://www.geometrictools.com
@@ -159,6 +159,9 @@ EOF
 %{_libexecdir}/%{name}/
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

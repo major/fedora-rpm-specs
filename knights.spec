@@ -2,7 +2,7 @@
 
 Name:		knights
 Version:	24.01.90
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A chess board for KDE
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Gwyn Ciesla <gwync@protonmail.com> - 24.01.90-1
 - 24.01.90
 

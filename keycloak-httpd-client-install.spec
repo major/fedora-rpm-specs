@@ -13,7 +13,7 @@
 
 Name:           %{srcname}
 Version:        1.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        %{summary}
 
 %global git_tag RELEASE_%(r=%{version}; echo $r | tr '.' '_')
@@ -146,6 +146,9 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 4 2023 Tomas Halman <thalman@redhat.com> - 1.1-19
 - Resolves: rhbz#2115262 keycloak-httpd-client-install missing dependency to python-lxml
 

@@ -8,7 +8,7 @@
 Summary:	High-performance authoritative DNS server
 Name:		knot
 Version:	3.3.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -320,6 +320,9 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.3.3-1
 - Update to 3.3.3
 

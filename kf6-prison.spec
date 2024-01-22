@@ -3,7 +3,7 @@
 Name:		kf6-%{framework}
 Summary:	KDE Frameworks 6 Tier 1 barcode library
 Version:	5.248.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD-3-Clause AND CC0-1.0 AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
 Source0:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
@@ -69,6 +69,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.248.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.248.0-1
 - 5.248.0
 

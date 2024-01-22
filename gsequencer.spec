@@ -1,6 +1,6 @@
 Name:     gsequencer
 Version:  6.3.2
-Release:  0%{?dist}
+Release:  1%{?dist}
 Summary:  Audio processing engine
 License:  GPLv3+ and AGPLv3+ and GFDL
 URL:      http://nongnu.org/gsequencer
@@ -152,6 +152,9 @@ Advanced Gtk+ Sequencer library development documentation.
 %{_datadir}/doc/libags-audio-doc/
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Joël Krähemann <jkraehemann@gmail.com> 6.3.2-0
 - updated Source to point to new minor version directory
 

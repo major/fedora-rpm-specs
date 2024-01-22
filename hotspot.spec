@@ -2,7 +2,7 @@
 
 Name:    hotspot
 Version: 1.4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: The Linux perf GUI for performance analysis
 
 License: GPL-2.0-or-later
@@ -72,6 +72,9 @@ KCachegrind around Linux perf.
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 17 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.4.1-3
 - Rebuilt for new kddockwidgets
 

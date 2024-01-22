@@ -3,7 +3,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.113.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Tier 1 KDE Frameworks 5 module that wraps NetworkManager DBus API
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -71,6 +71,9 @@ that use NetworkManager.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.113.0-1
 - 5.113.0
 

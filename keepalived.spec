@@ -11,7 +11,7 @@
 Name: keepalived
 Summary: High Availability monitor built upon LVS, VRRP and service pollers
 Version: 2.2.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.keepalived.org/
 
@@ -113,6 +113,9 @@ mkdir -p %{buildroot}%{_libexecdir}/keepalived
 %{_mandir}/man8/keepalived.8*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 04 2023 Ryan O'Hara <rohara@redhat.com> - 2.2.8-3
 - Migrate to SPDX license
 

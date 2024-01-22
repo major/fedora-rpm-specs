@@ -8,7 +8,7 @@
 
 Name:           gstreamer1-plugins-base
 Version:        1.22.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPL-2.1-or-later
@@ -491,6 +491,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
 - 1.22.8
 

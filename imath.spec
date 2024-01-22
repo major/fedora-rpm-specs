@@ -4,7 +4,7 @@
 
 Name:           imath
 Version:        3.1.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
 License:        BSD-3-Clause
@@ -97,6 +97,9 @@ Requires:       python3-devel
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 3.1.9-4
 - Rebuilt for Boost 1.83
 

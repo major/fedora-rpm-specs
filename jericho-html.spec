@@ -1,7 +1,7 @@
 Summary:       Java library allowing analysis and manipulation of parts of an HTML document
 Name:          jericho-html
 Version:       3.3
-Release:       27%{?dist}
+Release:       28%{?dist}
 License:       EPL-1.0 or LGPLv2+
 URL:           http://jericho.htmlparser.net/
 Source0:       http://downloads.sf.net/jerichohtml/%{name}-%{version}.zip
@@ -88,6 +88,9 @@ export CLASSPATH=classes:samples/console/classes:$(build-classpath junit hamcres
 %license licence-epl-1.0.html licence-lgpl-2.1.txt licence.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           jansi-native
 Version:        1.8
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Jansi Native implements the JNI Libraries used by the Jansi project
 License:        ASL 2.0
 URL:            http://jansi.fusesource.org/
@@ -80,6 +80,9 @@ cp -a %{_prefix}/lib/jansi/libjansi.so $so_dir
 %license license.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 01 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.8-15
 - rebuilt w/ no changes
 

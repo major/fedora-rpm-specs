@@ -1,6 +1,6 @@
 Name:           quesoglc
 Version:        0.7.2
-Release:        36%{?dist}
+Release:        38%{?dist}
 Summary:        The OpenGL Character Renderer
 
 License:        LGPLv2+
@@ -9,8 +9,10 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-free
 Patch0:         quesoglc-0.7.2-drop-glewContext.patch
 Patch1:         quesoglc-0.7.2-doxyfile.patch
 Patch2:         fribidi.build.patch
+Patch3:         quesoglc-0.7.2-wayland.patch
+Patch4:         quesoglc-0.7.2-buildfix.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  fontconfig-devel
@@ -77,6 +79,14 @@ rm %{buildroot}%{_libdir}/libGLC.la
 
 
 %changelog
+* Sat Jan 20 2024 Hans de Goede <hdegoede@redhat.com> - 0.7.2-38
+- Fix FTBFS due to https://fedoraproject.org/wiki/Changes/PortingToModernC
+
+* Sat Jan 20 2024 Hans de Goede <hdegoede@redhat.com> - 0.7.2-37
+- Fix quesoglc not working under Wayland
+- Resolves: rhbz#2169654
+- Resolves: rhbz#2258142
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -32,7 +32,7 @@ The properties library supports both ISO-8859-1 and UTF-8 encoded data.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Java properties scanner for Go
 
 # Upstream license specification: BSD-2-Clause
@@ -66,6 +66,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

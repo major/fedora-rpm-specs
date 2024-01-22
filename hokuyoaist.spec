@@ -5,7 +5,7 @@
 
 Name:           hokuyoaist
 Version:        3.0.2
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Hokuyo Laser SCIP driver
 
 License:        LGPLv3
@@ -99,6 +99,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}-3
 %{python3_sitearch}/*.so
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 3.0.2-49
 - Rebuilt for Boost 1.83
 

@@ -25,7 +25,7 @@
 Name:           gutenprint
 Summary:        Printer Drivers Package
 Version:        5.3.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 URL:            http://gimp-print.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -319,6 +319,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 5.3.4-14
 - Backport upstream patch to fix C compatibility issue
 

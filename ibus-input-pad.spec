@@ -1,6 +1,6 @@
 Name:       ibus-input-pad
 Version:    1.4.99.20140916
-Release:    23%{?dist}
+Release:    24%{?dist}
 Summary:    Input Pad for IBus
 License:    GPL-2.0-or-later
 URL:        https://github.com/fujiwarat/input-pad/wiki
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/ibus/component/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.99.20140916-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.99.20140916-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

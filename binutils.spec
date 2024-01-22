@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -1354,6 +1354,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Sat Jan 20 2024 Jakub Jelinek  <jakub@redhat.com> - 2.41-29
+- Import commit eed38d8a02b2 to update APX support.  (#2259333)
+
 * Fri Jan 19 2024 Nick Clifton  <nickc@redhat.com> - 2.41-28
 - Import commits 5190fa38286a , 2519809009ed and eea4357967b6 to update APX support.
 

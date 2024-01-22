@@ -1,7 +1,7 @@
 Summary: Software version control visualization
 Name: gource
 Version: 0.54
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: http://gource.io/
 Source: https://github.com/acaudwell/Gource/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 ExcludeArch: ppc64le
@@ -58,6 +58,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/fonts
 %{_datadir}/gource/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 0.54-5
 - Rebuilt for Boost 1.83
 

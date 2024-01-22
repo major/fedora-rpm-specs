@@ -22,7 +22,7 @@ Version:                2.17.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -361,6 +361,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_libdir}/bootupd/grub2-static/configs.d/ignition.cfg
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 Steven Prestil <spresti@redhat.com> - 2.17.0-2
 - Add ignition-grub subpackage
 

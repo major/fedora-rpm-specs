@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:		hevea
 Version:	2.36
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	LaTeX to HTML translator
 
 # QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception: the project as a whole
@@ -97,6 +97,9 @@ ln -s %{_texmf}/tex/latex/hevea/hevea.sty examples
 
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 2.36-10
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

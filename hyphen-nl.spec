@@ -2,7 +2,7 @@ Name: hyphen-nl
 Summary: Dutch hyphenation rules
 %global upstreamid 20050617
 Version: 0.%{upstreamid}
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_nl_NL.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 License: GPL-2.0-only
@@ -39,6 +39,9 @@ done
 %{_datadir}/hyphen/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050617-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050617-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

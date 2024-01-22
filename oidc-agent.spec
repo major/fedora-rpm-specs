@@ -5,15 +5,13 @@
 %endif
 
 Name:		oidc-agent
-Version:	5.0.1
-Release:	2%{?dist}
+Version:	5.1.0
+Release:	1%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:		https://github.com/indigo-dc/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/indigo-dc/oidc-agent/pull/545
-Patch0:		0001-Use-the-right-cJSON.h-header-when-compiling-mustache.patch
 #		clibs-list-devel not available for ix86....
 ExcludeArch:	%{ix86}
 
@@ -120,7 +118,6 @@ This package provides headers for the oidc-agent library.
 
 %prep
 %setup -q
-%patch -P 0 -p1
 
 %if %{?rhel}%{!?rhel:0} != 7
 # Remove bundled cJSON and clib-list (use system versions) except on EPEL 7
@@ -197,6 +194,9 @@ update-desktop-database >/dev/null 2>&1 || :
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Sat Jan 20 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.1.0-1
+- Update to version 5.1.0
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 5.0.1-2
 - rebuild for new libsodium
 

@@ -22,6 +22,7 @@ Summary:        Utilities to configure the GNOME desktop
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Patch0: gnome-control-center-c99.patch
 
 Patch:          0001-keyboard-Use-new-gnome-desktop-api-for-getting-defau.patch
 

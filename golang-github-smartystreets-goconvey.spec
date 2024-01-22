@@ -26,7 +26,7 @@ Features:
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Go testing in the browser
 
 # Upstream license specification: MIT and Apache-2.0
@@ -61,6 +61,9 @@ BuildRequires:  golang(golang.org/x/tools/go/packages)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

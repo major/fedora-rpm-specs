@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Message libraries
 
 License: BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
@@ -205,6 +205,9 @@ sed -i "s/libwebengineviewer/libwebengineviewer5/" webengineviewer/src/Messages.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.2-3
 - Fix translations and package them in the libs subpackage
 

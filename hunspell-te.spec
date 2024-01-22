@@ -7,7 +7,7 @@
 Name: hunspell-te
 Summary: Telugu hunspell dictionaries
 Version: 1.0.0
-Release: 22%{?dist}
+Release: 23%{?dist}
 Epoch:   1
 ##Upstream is unresponsive so unable to verify license version
 License:        GPL-1.0-or-later
@@ -37,6 +37,9 @@ cp -p te_IN/*.dic te_IN/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

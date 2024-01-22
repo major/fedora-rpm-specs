@@ -1,6 +1,6 @@
 Name:           gstreamer1-vaapi
 Version:        1.22.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer plugins to use VA API video acceleration
 
 License:        LGPLv2+
@@ -101,6 +101,9 @@ for the GStreamer VA API video acceleration plugins
 %endif
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.8-1
 - 1.22.8
 

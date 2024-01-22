@@ -1423,7 +1423,7 @@ Requires: %{name}-headless%{?1}%{?_isa} = %{epoch}:%{version}-%{release}
 
 Name:    java-%{javaver}-%{origin}-aarch32
 Version: %{javaver}.%{updatever}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.3
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.4
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2933,6 +2933,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.0.345.b01-1.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.0.345.b01-1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

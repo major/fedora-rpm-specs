@@ -1,6 +1,6 @@
 Name:           jsch-agent-proxy
 Version:        0.0.8
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Proxy to ssh-agent and Pageant in Java
 License:        BSD
 URL:            http://www.jcraft.com/jsch-agent-proxy/
@@ -123,6 +123,9 @@ This package provides %{summary}.
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

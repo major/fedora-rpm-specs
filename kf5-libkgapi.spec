@@ -8,7 +8,7 @@
 
 Name:    kf5-libkgapi
 Version: 23.08.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library to access to Google services
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -108,6 +108,9 @@ rm %{buildroot}%{_libdir}/sasl2/libkdexoauth2.so*
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Alessandro Astone <ales.astone@gmail.com> - 23.08.4-2
 - Rename to kf5-libkgapi as a compat package for libkgapi
 - Rename translation files to avoid conflict

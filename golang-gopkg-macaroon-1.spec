@@ -17,7 +17,7 @@ Cookies with Contextual Caveats for Decentralized Authorization in the Cloud"
 %global godocs          README.md TODO
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Native Go implementation of macaroons
 
 # Upstream license specification: BSD-3-Clause
@@ -54,6 +54,9 @@ BuildRequires:  golang(gopkg.in/check.v1)
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

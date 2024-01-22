@@ -25,7 +25,7 @@ compressing dynamic trie (radix tree) structure is used for efficient matching.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        High performance http request router that scales well
 
 # Upstream license specification: BSD-3-Clause
@@ -55,6 +55,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

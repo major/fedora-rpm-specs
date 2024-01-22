@@ -14,6 +14,8 @@
 # export QA_RPATHS=0xff
 %bcond_with test
 
+%bcond_without tensile
+
 Name:           rocblas
 Version:        %{rocm_version}
 Release:        %autorelease
@@ -23,6 +25,8 @@ License:        MIT AND BSD-3-Clause
 
 Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch0:         0001-prepare-rocblas-cmake-for-fedora.patch
+Patch1:         0001-Hardcode-cblas-as-the-blas-library.patch
+Patch2:         0001-fixup-install-of-tensile-output.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -36,6 +40,11 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-rpm-macros-modules
+
+%if %{with tensile}
+BuildRequires:  msgpack-devel
+BuildRequires:  python-tensile
+%endif
 
 %if %{with test}
 BuildRequires:  gtest-devel
@@ -79,11 +88,22 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 for gpu in %{rocm_gpu_list}
 do
     module load rocm/$gpu
-    %cmake %rocm_cmake_options \
+    %cmake -G Ninja \
+	   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+	   -DROCM_SYMLINK_LIBS=OFF \
+	   -DHIP_PLATFORM=amd \
+	   -DAMDGPU_TARGETS=${ROCM_GPUS} \
+	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
+	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
 %if %{with test}
            %rocm_cmake_test_options \
 %endif
-           -DBUILD_WITH_TENSILE=OFF
+%if %{with tensile}
+	   -DBUILD_WITH_TENSILE=ON \
+	   -DBUILD_WITH_PIP=OFF
+%else
+          -DBUILD_WITH_TENSILE=OFF
+%endif
 
     %cmake_build
     module purge
@@ -103,6 +123,10 @@ done
 %{_libdir}/lib%{name}.so.*
 %{_libdir}/rocm/gfx*/lib/lib%{name}.so.*
 
+%if %{with tensile}
+%{_libdir}/rocblas/library/*
+%{_libdir}/rocm/gfx*/lib/rocblas/library/*
+%endif
 
 %files devel
 %doc README.md

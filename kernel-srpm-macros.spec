@@ -1,7 +1,7 @@
 Name:           kernel-srpm-macros
 Version:        1.0
 # when bumping version and resetting release, don't forget to bump version of kernel-rpm-macros as well
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        RPM macros that list arches the full kernel is built on
 # This package only exist in Fedora repositories
 # The license is the standard (MIT) specified in
@@ -134,6 +134,9 @@ install -p -m 644 -t "%{buildroot}%{_fileattrsdir}" modalias.attr
 %{rrcdir}/rpmsort
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
